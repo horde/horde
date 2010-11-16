@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Cache_Sql:: class provides a SQL implementation of the Horde
- * Caching system.
+ * This class provides cache storage in a SQL databsae.
  *
  * The table structure for the cache is as follows:
  * <pre>
@@ -23,12 +22,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Ben Klang <ben@alkaloid.net>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Sql extends Horde_Cache
+class Horde_Cache_Storage_Sql extends Horde_Cache_Storage
 {
     /**
      * Handle for the current database connection.
@@ -85,7 +85,7 @@ class Horde_Cache_Sql extends Horde_Cache
 
     /**
      */
-    protected function _get($key, $lifetime)
+    public function get($key, $lifetime)
     {
         $okey = $key;
         $key = hash('md5', $key);
@@ -127,7 +127,7 @@ class Horde_Cache_Sql extends Horde_Cache
 
     /**
      */
-    protected function _set($key, $data, $lifetime)
+    public function _set($key, $data, $lifetime)
     {
         $okey = $key;
         $key = hash('md5', $key);
@@ -137,7 +137,7 @@ class Horde_Cache_Sql extends Horde_Cache
         // 0 lifetime indicates the object should not be GC'd.
         $expiration = ($lifetime === 0)
             ? 0
-            : $this->_getLifetime($lifetime) + $timestamp;
+            : ($lifetime + $timestamp);
 
         if ($this->_logger) {
             $this->_logger->log(sprintf('Cache set: %s (Id %s set at %d expires at %d)', $okey, $key, $timestamp, $expiration), 'DEBUG');
@@ -164,16 +164,8 @@ class Horde_Cache_Sql extends Horde_Cache
     }
 
     /**
-     * Checks if a given key exists in the cache, valid for the given
-     * lifetime.
-     *
-     * @param string $key        Cache key to check.
-     * @param integer $lifetime  Maximum age of the key in seconds or 0 for
-     *                           any object.
-     *
-     * @return boolean  Existence.
      */
-    public function exists($key, $lifetime = 1)
+    public function exists($key, $lifetime)
     {
         $okey = $key;
         $key = hash('md5', $key);
@@ -211,11 +203,6 @@ class Horde_Cache_Sql extends Horde_Cache
     }
 
     /**
-     * Expire any existing data for the given key.
-     *
-     * @param string $key  Cache key to expire.
-     *
-     * @return boolean  Success or failure.
      */
     public function expire($key)
     {

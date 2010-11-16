@@ -1,7 +1,6 @@
 <?php
 /**
- * This class provides a session storage implementation of the Horde caching
- * system.
+ * This class provides cache storage in a PHP session.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Session extends Horde_Cache
+class Horde_Cache_Storage_Session extends Horde_Cache_Storage
 {
     /**
      * Pointer to the session entry.
@@ -47,7 +46,7 @@ class Horde_Cache_Session extends Horde_Cache
 
     /**
      */
-    protected function _get($key, $lifetime)
+    public function get($key, $lifetime)
     {
         return $this->exists($key, $lifetime)
             ? $this->_sess[$key]['d']
@@ -56,24 +55,17 @@ class Horde_Cache_Session extends Horde_Cache
 
     /**
      */
-    protected function _set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime)
     {
         $this->_sess[$key] = array(
             'd' => $data,
-            'l' => $this->_getLifetime($lifetime)
+            'l' => $lifetime
         );
     }
 
     /**
-     * Checks if a given key exists in the cache, valid for the given
-     * lifetime.
-     *
-     * @param string $key        Cache key to check.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return boolean  Existence.
      */
-    public function exists($key, $lifetime = 1)
+    public function exists($key, $lifetime)
     {
         if (isset($this->_sess[$key])) {
             /* 0 means no expire. */
@@ -89,11 +81,6 @@ class Horde_Cache_Session extends Horde_Cache
     }
 
     /**
-     * Expire any existing data for the given key.
-     *
-     * @param string $key  Cache key to expire.
-     *
-     * @return boolean  Success or failure.
      */
     public function expire($key)
     {

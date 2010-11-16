@@ -1,7 +1,6 @@
 <?php
 /**
- * This class provides a filesystem implementation of the Horde caching
- * system.
+ * This class provides cache storage in the filesystem.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,11 +9,12 @@
  *
  * @author   Anil Madhavapeddy <anil@recoil.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_File extends Horde_Cache
+class Horde_Cache_Storage_File extends Horde_Cache_Storage
 {
     /* Location of the garbage collection data file. */
     const GC_FILE = 'horde_cache_gc';
@@ -118,7 +118,7 @@ class Horde_Cache_File extends Horde_Cache
 
     /**
      */
-    protected function _get($key, $lifetime)
+    public function get($key, $lifetime)
     {
         if (!$this->exists($key, $lifetime)) {
             /* Nothing cached, return failure. */
@@ -135,7 +135,7 @@ class Horde_Cache_File extends Horde_Cache
 
     /**
      */
-    protected function _set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime)
     {
         $filename = $this->_keyToFile($key, true);
         $tmp_file = Horde_Util::getTempFile('HordeCache', true, $this->_dir);
@@ -149,7 +149,6 @@ class Horde_Cache_File extends Horde_Cache
 
         @rename($tmp_file, $filename);
 
-        $lifetime = $this->_getLifetime($lifetime);
         if (($lifetime != $this->_params['lifetime']) &&
             ($fp = @fopen($this->_dir . '/horde_cache_gc', 'a'))) {
             // This may result in duplicate entries in horde_cache_gc, but we
@@ -162,7 +161,7 @@ class Horde_Cache_File extends Horde_Cache
 
     /**
      */
-    public function exists($key, $lifetime = 1)
+    public function exists($key, $lifetime)
     {
         $filename = $this->_keyToFile($key);
 
@@ -188,18 +187,6 @@ class Horde_Cache_File extends Horde_Cache
     {
         $filename = $this->_keyToFile($key);
         return @unlink($filename);
-    }
-
-    /**
-     */
-    public function output($key, $lifetime = 1)
-    {
-        if (!$this->exists($key, $lifetime)) {
-            return false;
-        }
-
-        $filename = $this->_keyToFile($key);
-        return @readfile($filename);
     }
 
     /**
@@ -235,15 +222,6 @@ class Horde_Cache_File extends Horde_Cache
         }
 
         return $this->_file[$key];
-    }
-
-    /**
-     * TODO
-     *
-     * @throws Horde_Cache_Exception
-     */
-    protected function _gcDir($dir, &$excepts)
-    {
     }
 
 }

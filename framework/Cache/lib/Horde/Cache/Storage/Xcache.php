@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Cache_Xcache:: class provides an XCache implementation of
- * the Horde caching system.
+ * This class provides cache storage in Xcache.
  *
  * Copyright 2006-2007 Duck <duck@obala.net>
  *
@@ -10,13 +9,14 @@
  *
  * @author   Duck <duck@obala.net>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Xcache extends Horde_Cache
+class Horde_Cache_Storage_Xcache extends Horde_Cache_Storage
 {
     /**
      */
-    protected function _get($key, $lifetime)
+    public function get($key, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
@@ -29,25 +29,17 @@ class Horde_Cache_Xcache extends Horde_Cache
 
     /**
      */
-    protected function _set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
-        $lifetime = $this->_getLifetime($lifetime);
         if (xcache_set($key . '_expire', time(), $lifetime)) {
             xcache_set($key, $data, $lifetime);
         }
     }
 
     /**
-     * Checks if a given key exists in the cache, valid for the given
-     * lifetime.
-     *
-     * @param string $key        Cache key to check.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return boolean  Existence.
      */
-    public function exists($key, $lifetime = 1)
+    public function exists($key, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
@@ -55,11 +47,6 @@ class Horde_Cache_Xcache extends Horde_Cache
     }
 
     /**
-     * Expire any existing data for the given key.
-     *
-     * @param string $key  Cache key to expire.
-     *
-     * @return boolean  Success or failure.
      */
     public function expire($key)
     {

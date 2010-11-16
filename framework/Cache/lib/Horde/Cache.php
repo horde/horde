@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Cache:: class provides the abstract class definition for
- * Horde_Cache drivers.
+ * This class provides the API interface to the cache storage drivers.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,9 +11,10 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-abstract class Horde_Cache
+class Horde_Cache
 {
     /**
      * Cache parameters.
@@ -23,8 +23,7 @@ abstract class Horde_Cache
      */
     protected $_params = array(
         'compress' => false,
-        'lifetime' => 86400,
-        'prefix' => '',
+        'lifetime' => 86400
     );
 
     /**
@@ -35,9 +34,17 @@ abstract class Horde_Cache
     protected $_logger;
 
     /**
-     * Construct a new Horde_Cache object.
+     * Storage object.
      *
-     * @param array $params  Parameter array:
+     * @var Horde_Cache_Storage
+     */
+    protected $_storage;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Cache_Storage $storage  The storage object.
+     * @param array $params                 Parameter array:
      * <pre>
      * 'compress' - (boolean) Compress data? Requires the 'lzf' PECL
      *              extension.
@@ -47,11 +54,14 @@ abstract class Horde_Cache
      * 'logger' - (Horde_Log_Logger) Log object to use for log/debug messages.
      * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(Horde_Cache_Storage $storage,
+                                array $params = array())
     {
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
             unset($params['logger']);
+
+            $storage->setLogger($this->_logger);
         }
 
         if (!empty($params['compress']) && !extension_loaded('lzf')) {
@@ -59,6 +69,7 @@ abstract class Horde_Cache
         }
 
         $this->_params = array_merge($this->_params, $params);
+        $this->_storage = $storage;
     }
 
     /**
@@ -90,7 +101,7 @@ abstract class Horde_Cache
      */
     public function get($key, $lifetime = 1)
     {
-        $res = $this->_get($key, $lifetime);
+        $res = $this->_storage->get($key, $lifetime);
 
         return ($this->_params['compress'] && ($res !== false))
             // lzf_decompress() returns false on error
@@ -99,39 +110,26 @@ abstract class Horde_Cache
     }
 
     /**
-     * @see get()
-     */
-    abstract protected function _get($key, $lifetime);
-
-    /**
      * Store an object in the cache.
      *
      * @param string $key        Object ID used as the caching key.
-     * @param mixed $data        Data to store in the cache.
+     * @param string $data       Data to store in the cache.
      * @param integer $lifetime  Object lifetime - i.e. the time before the
      *                           data becomes available for garbage
      *                           collection.  If null use the default Horde GC
      *                           time.  If 0 will not be GC'd.
-     *
-     * @throws Horde_Cache_Exception
      */
     public function set($key, $data, $lifetime = null)
     {
-        if (!is_string($data)) {
-            throw new Horde_Cache_Exception('Cache data must be a string.');
-        }
-
         if ($this->_params['compress']) {
             $data = lzf_compress($data);
         }
+        $lifetime = is_null($lifetime)
+            ? $this->_params['lifetime']
+            : $lifetime;
 
-        $res = $this->_set($key, $data, $lifetime);
+        $this->_storage->set($key, $data, $lifetime);
     }
-
-    /**
-     * @see set()
-     */
-    abstract protected function _set($key, $data, $lifetime);
 
     /**
      * Checks if a given key exists in the cache, valid for the given
@@ -142,7 +140,10 @@ abstract class Horde_Cache
      *
      * @return boolean  Existence.
      */
-    abstract public function exists($key, $lifetime = 1);
+    public function exists($key, $lifetime = 1)
+    {
+        return $this->_storage->exists($key, $lifetime);
+    }
 
     /**
      * Expire any existing data for the given key.
@@ -151,18 +152,9 @@ abstract class Horde_Cache
      *
      * @return boolean  Success or failure.
      */
-    abstract public function expire($key);
-
-    /**
-     * Determine the default lifetime for data.
-     *
-     * @param mixed $lifetime  The lifetime to use or null for default.
-     *
-     * @return integer  The lifetime, in seconds.
-     */
-    protected function _getLifetime($lifetime)
+    public function expire($key)
     {
-        return is_null($lifetime) ? $this->_params['lifetime'] : $lifetime;
+        return $this->_storage->expire($key);
     }
 
 }

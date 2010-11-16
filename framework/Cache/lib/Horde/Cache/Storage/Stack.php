@@ -1,8 +1,8 @@
 <?php
 /**
- * Horde_Cache_Stack:: is a Cache implementation that will loop through a
- * given list of Cache drivers to search for a cached value.  This driver
- * allows for use of caching backends on top of persistent backends.
+ * This class loops through a given list of storage drivers to search for a
+ * cached value.  This driver allows for use of caching backends on top of
+ * persistent backends.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -11,9 +11,10 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Stack extends Horde_Cache
+class Horde_Cache_Storage_Stack extends Horde_Cache_Storage
 {
     /**
      * Stack of cache drivers.
@@ -27,7 +28,7 @@ class Horde_Cache_Stack extends Horde_Cache
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'stack' - (array) [REQUIRED] An array of Cache instances to loop
+     * 'stack' - (array) [REQUIRED] An array of storage instances to loop
      *           through, in order of priority. The last entry is considered
      *           the 'master' driver, for purposes of writes.
      * </pre>
@@ -40,14 +41,14 @@ class Horde_Cache_Stack extends Horde_Cache
             throw new InvalidArgumentException('Missing stack parameter.');
         }
         $this->_stack[] = $params['stack'];
-
         unset($params['stack']);
+
         parent::__construct($params);
     }
 
     /**
      */
-    protected function _get($key, $lifetime)
+    public function get($key, $lifetime)
     {
         foreach ($this->_stack as $val) {
             $result = $val->get($key, $lifetime);
@@ -61,7 +62,7 @@ class Horde_Cache_Stack extends Horde_Cache
 
     /**
      */
-    protected function _set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime)
     {
         /* Do writes in *reverse* order - it is OK if a write to one of the
          * non-master backends fails. */
@@ -82,15 +83,8 @@ class Horde_Cache_Stack extends Horde_Cache
     }
 
     /**
-     * Checks if a given key exists in the cache, valid for the given
-     * lifetime.
-     *
-     * @param string $key        Cache key to check.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return boolean  Existence.
      */
-    public function exists($key, $lifetime = 1)
+    public function exists($key, $lifetime)
     {
         foreach ($this->_stack as $val) {
             $result = $val->exists($key, $lifetime);
@@ -103,11 +97,6 @@ class Horde_Cache_Stack extends Horde_Cache
     }
 
     /**
-     * Expire any existing data for the given key.
-     *
-     * @param string $key  Cache key to expire.
-     *
-     * @return boolean  Success or failure.
      */
     public function expire($key)
     {

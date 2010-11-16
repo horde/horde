@@ -46,51 +46,51 @@ class Horde_Core_Factory_Cache
         if (isset($GLOBALS['conf']['cache']['default_lifetime'])) {
             $params['lifetime'] = $GLOBALS['conf']['cache']['default_lifetime'];
         }
+        $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        $logger = $injector->getInstance('Horde_Log_Logger');
-        $params['logger'] = $logger;
-
-        $base_params = $params;
-
-        if (strcasecmp($driver, 'Memcache') === 0) {
+        $lc_driver = Horde_String::lower($driver);
+        switch ($lc_driver) {
+        case 'Memcache':
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
-        } elseif (strcasecmp($driver, 'Sql') === 0) {
+            break;
+
+        case 'Sql':
             $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+            break;
         }
+
+        $storage = $this->_getStorage($driver, $params);
 
         if (!empty($GLOBALS['conf']['cache']['use_memorycache']) &&
-            ((strcasecmp($driver, 'Sql') === 0) ||
-             (strcasecmp($driver, 'File') === 0))) {
+            in_array($lc_driver, array('File', 'Sql'))) {
             if (strcasecmp($GLOBALS['conf']['cache']['use_memorycache'], 'Memcache') === 0) {
-                $base_params['memcache'] = $injector->getInstance('Horde_Memcache');
+                $params['memcache'] = $injector->getInstance('Horde_Memcache');
             }
 
-            $class1 = $this->_driverToClassname($GLOBALS['conf']['cache']['use_memorycache']);
-            $class2 = $this->_driverToClassname($driver);
-            $params = array(
+            $cname = $this->_driverToClassname($GLOBALS['conf']['cache']['use_memorycache']);
+            $storage = new Horde_Cache_Storage_Stack(array(
                 'stack' => array(
-                    new $class1($base_params),
-                    new $class2($params),
+                    $this->_getStorage($GLOBALS['conf']['cache']['use_memorycache'], $params),
+                    $storage
                 )
-            );
-            $driver = 'Stack';
+            ));
         }
 
-        $classname = $this->_driverToClassname($driver);
-        return new $classname($params);
+        return new Horde_Cache($storage, $params);
     }
 
     /**
      */
-    protected function _driverToClassname($driver)
+    protected function _getStorage($driver, $params)
     {
         $driver = ucfirst(basename($driver));
-        $classname = 'Horde_Cache_' . $driver;
+        $classname = 'Horde_Cache_Storage_' . $driver;
+
         if (!class_exists($classname)) {
-            $classname = 'Horde_Cache_Null';
+            $classname = 'Horde_Cache_Storage_Null';
         }
 
-        return $classname;
+        return new $classname($params);
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Cache_Memcache:: class provides a memcached implementation of the
+ * This class provides cache storage in a memcache installation.
  * Horde caching system.
  *
  * Copyright 2006-2007 Duck <duck@obala.net>
@@ -12,22 +12,25 @@
  * @author   Duck <duck@obala.net>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Memcache extends Horde_Cache
+class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage implements Serializable
 {
+    /**
+     * Cache results of expire() calls (since we will get the entire object
+     * on an expire() call anyway).
+     *
+     * @var array
+     */
+    protected $_expirecache = array();
+
     /**
      * Memcache object.
      *
      * @var Horde_Memcache
      */
     protected $_memcache;
-
-    /**
-     * Cache results of expire() calls (since we will get the entire object
-     * on an expire() call anyway).
-     */
-    protected $_expirecache = array();
 
     /**
      * Construct a new Horde_Cache_Memcache object.
@@ -46,22 +49,14 @@ class Horde_Cache_Memcache extends Horde_Cache
         }
 
         $this->_memcache = $params['memcache'];
+        unset($params['memcache']);
 
         parent::__construct($params);
     }
 
     /**
-     * Do cleanup prior to serialization and provide a list of variables
-     * to serialize.
      */
-    public function __sleep()
-    {
-        return array('_memcache');
-    }
-
-    /**
-     */
-    protected function _get($key, $lifetime)
+    public function get($key, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
         if (isset($this->_expirecache[$key])) {
@@ -93,10 +88,9 @@ class Horde_Cache_Memcache extends Horde_Cache
 
     /**
      */
-    protected function _set($key, $data, $lifetime)
+    public function _set($key, $data, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
-        $lifetime = $this->_getLifetime($lifetime);
 
         if ($this->_memcache->set($key . '_e', time(), $lifetime) !== false) {
             $this->_memcache->set($key, $data, $lifetime);
@@ -104,14 +98,8 @@ class Horde_Cache_Memcache extends Horde_Cache
     }
 
     /**
-     * Checks if a given key exists in the cache.
-     *
-     * @param string $key        Cache key to check.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return boolean  Existence.
      */
-    public function exists($key, $lifetime = 1)
+    public function exists($key, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
 
@@ -119,11 +107,6 @@ class Horde_Cache_Memcache extends Horde_Cache
     }
 
     /**
-     * Expire any existing data for the given key.
-     *
-     * @param string $key  Cache key to expire.
-     *
-     * @return boolean  Success or failure.
      */
     public function expire($key)
     {
@@ -132,6 +115,22 @@ class Horde_Cache_Memcache extends Horde_Cache
         $this->_memcache->delete($key . '_e');
 
         return $this->_memcache->delete($key);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return serialize($this->_memcache);
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $this->_memcache = unserialize($data);
     }
 
 }
