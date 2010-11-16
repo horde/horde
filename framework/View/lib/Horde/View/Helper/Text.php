@@ -138,7 +138,7 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
      * Highlights the phrase where it is found in the text by surrounding it like
      * <strong class="highlight">I'm highlighted</strong>. The Highlighter can
      * be customized by passing highlighter as a single-quoted string with $1
-     * where the prhase is supposed to be inserted.
+     * where the phrase is supposed to be inserted.
      *
      * @param   string  $text
      * @param   string  $phrase
