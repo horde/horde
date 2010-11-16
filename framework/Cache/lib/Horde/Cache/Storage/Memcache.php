@@ -88,7 +88,7 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
 
     /**
      */
-    public function _set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
 

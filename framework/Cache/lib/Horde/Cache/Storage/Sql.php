@@ -127,7 +127,7 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function _set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime)
     {
         $okey = $key;
         $key = hash('md5', $key);
