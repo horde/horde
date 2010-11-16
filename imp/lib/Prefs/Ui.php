@@ -1319,6 +1319,10 @@ class IMP_Prefs_Ui
         $filter_locked = $prefs->isLocked('filter');
 
         foreach ($imp_search as $key => $val) {
+            if (!$val->prefDisplay) {
+                continue;
+            }
+
             $editable = !$filter_locked && $imp_search->isFilter($val, true);
 
             if ($view_mode == 'dimp') {

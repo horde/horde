@@ -15,6 +15,13 @@
 class IMP_Search_Filter extends IMP_Search_Query
 {
     /**
+     * Display this filter in the preferences screen?
+     *
+     * @var boolean
+     */
+    public $prefDisplay = true;
+
+    /**
      */
     public function __get($name)
     {
