@@ -55,18 +55,32 @@ class Horde_Core_Factory_Prefs
      * Return the Horde_Prefs:: instance.
      *
      * @param string $scope  The scope for this set of preferences.
-     * @param array $opts    See Horde_Prefs::__construct().
+     * @param array $opts    See Horde_Prefs::__construct().  Additional
+     *                       parameters:
+     * <pre>
+     * driver - (boolean) Use this driver instead of the value in the Horde
+     *          config.
+     * driver_params - (array) Use these driver parameters instead of the
+     *                 values in the Horde config.
+     * </pre>
      *
      * @return Horde_Prefs  The singleton instance.
      */
     public function create($scope = 'horde', array $opts = array())
     {
-        if (empty($GLOBALS['conf']['prefs']['driver'])) {
+        if (array_key_exists('driver', $opts)) {
+            $driver = $opts['driver'];
+            $params = array();
+        } elseif (empty($GLOBALS['conf']['prefs']['driver'])) {
             $driver = null;
             $params = array();
         } else {
             $driver = 'Horde_Prefs_Storage_' . ucfirst($GLOBALS['conf']['prefs']['driver']);
             $params = Horde::getDriverConfig('prefs', $driver);
+        }
+
+        if (array_key_exists('driver_params', $opts)) {
+            $params = $opts['driver_params'];
         }
 
         $opts = array_merge(array(
@@ -118,7 +132,7 @@ class Horde_Core_Factory_Prefs
                       $hooks_driver
                   );
 
-            if ($opts['cache']) {
+            if ($driver && $opts['cache']) {
                 $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
             } else {
                 unset($opts['cache']);
