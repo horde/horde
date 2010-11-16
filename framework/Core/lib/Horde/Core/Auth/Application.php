@@ -553,14 +553,16 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     protected function _setAuth()
     {
-        if ($GLOBALS['registry']->isAuthenticated(array('app' => $this->_app, 'notransparent' => true))) {
+        global $registry;
+
+        if ($registry->isAuthenticated(array('app' => $this->_app, 'notransparent' => true))) {
             return true;
         }
 
         /* Destroy any existing session on login and make sure to use a
          * new session ID, to avoid session fixation issues. */
-        if (!$GLOBALS['registry']->getAuth()) {
-            $GLOBALS['registry']->getCleanSession();
+        if (!$registry->getAuth()) {
+            $registry->getCleanSession();
         }
 
         $userId = $this->getCredential('userId');
@@ -572,7 +574,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             return false;
         }
 
-        $GLOBALS['registry']->setAuth($userId, $credentials, array(
+        $registry->setAuth($userId, $credentials, array(
             'app' => $this->_app,
             'change' => $this->getCredential('change')
         ));
@@ -585,7 +587,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('authenticatecallback')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['authenticatecallback'], array('noperms' => true));
+            $registry->callAppMethod($this->_app, $this->_apiMethods['authenticatecallback'], array('noperms' => true));
         }
 
         return true;
