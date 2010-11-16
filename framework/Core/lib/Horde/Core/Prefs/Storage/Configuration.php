@@ -30,25 +30,24 @@ class Horde_Core_Prefs_Storage_Configuration extends Horde_Prefs_Storage
          * Values are in the $_prefs array. */
         try {
             $result = Horde::loadConfiguration('prefs.php', array('_prefs'), $scope_ob->scope);
-            if (empty($result) || !isset($result['_prefs'])) {
-                return false;
-            }
         } catch (Horde_Exception $e) {
-            return false;
+            return $scope_ob;
         }
 
-        foreach ($result['_prefs'] as $name => $pref) {
-            if (!isset($pref['value'])) {
-                continue;
-            }
+        if (!empty($result) && isset($result['_prefs'])) {
+            foreach ($result['_prefs'] as $name => $pref) {
+                if (!isset($pref['value'])) {
+                    continue;
+                }
 
-            $scope_ob->set($name, $pref['value']);
-            if (!empty($pref['locked'])) {
-                $scope_ob->setLocked($name, true);
-            }
+                $scope_ob->set($name, $pref['value']);
+                if (!empty($pref['locked'])) {
+                    $scope_ob->setLocked($name, true);
+                }
 
-            if (!empty($pref['hook'])) {
-                $this->hooks[$scope_ob->scope][] = $name;
+                if (!empty($pref['hook'])) {
+                    $this->hooks[$scope_ob->scope][] = $name;
+                }
             }
         }
 
