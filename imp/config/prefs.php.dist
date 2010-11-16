@@ -384,39 +384,15 @@ $_prefs['searchesmanagement'] = array(
 );
 
 $_prefs['vfolder'] = array(
-    // 'value' => serialize(array(
-    //     // Virtual Inbox, enabled by default.
-    //     new IMP_Search_Vfolder_Vinbox(array(
-    //         'disable' => false
-    //     )),
-    //     // Virtual Trash, disabled by default.
-    //     new IMP_Search_Vfolder_Vtrash(array(
-    //         'disable' => true
-    //     ))
-    // ))
-    'value' => 'a:1:{i:0;C:25:"IMP_Search_Vfolder_Vinbox":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}}'
+    // By default, Virtual Inbox is enabled and Virtual Trash is disabled.
+    // 'value' => serialize(array())
+    'value' => 'a:0:{}'
 );
 
 $_prefs['filter'] = array(
-    // 'value' => serialize(array(
-    //     // Attachments filter, enabled by default
-    //     new IMP_Search_Filter_Attachment(array(
-    //         'disable' => false
-    //     )),
-    //     // Bulk filter, enabled by default
-    //     new IMP_Search_Filter_Bulk(array(
-    //         'disable' => false
-    //     )),
-    //     // Mailing list filter, enabled by default
-    //     new IMP_Search_Filter_Mailinglist(array(
-    //         'disable' => false
-    //     )),
-    //     // Personal filter, enabled by default
-    //     new IMP_Search_Filter_Personal(array(
-    //         'disable' => false
-    //     ))
-    // ))
-    'value' => 'a:4:{i:0;C:28:"IMP_Search_Filter_Attachment":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}i:1;C:22:"IMP_Search_Filter_Bulk":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}i:2;C:29:"IMP_Search_Filter_Mailinglist":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}i:3;C:26:"IMP_Search_Filter_Personal":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}}'
+    // By default, all filters are enabled.
+    // 'value' => serialize(array())
+    'value' => 'a:0:{}'
 );
 
 

@@ -266,16 +266,28 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function getFilters()
     {
-        if ($f_list = $GLOBALS['prefs']->getValue('filter')) {
-            $f_list = @unserialize($f_list);
-        }
-
         $filters = array();
 
-        if (is_array($f_list)) {
-            foreach ($f_list as $val) {
-                if ($val instanceof IMP_Search_Filter) {
-                    $filters[$val->id] = $val;
+        /* Build list of default filters. */
+        $di = new DirectoryIterator(IMP_BASE . '/lib/Search/Filter');
+        foreach ($di as $val) {
+            if ($val->isFile()) {
+                $cname = 'IMP_Search_Filter_' . $val->getBasename('.php');
+                if (($cname != 'IMP_Search_Filter_Builtin') &&
+                    class_exists($cname)) {
+                    $filter = new $cname();
+                    $filters[$filter->id] = $filter;
+                }
+            }
+        }
+
+        if ($f_list = $GLOBALS['prefs']->getValue('filter')) {
+            $f_list = @unserialize($f_list);
+            if (is_array($f_list)) {
+                foreach ($f_list as $val) {
+                    if ($val instanceof IMP_Search_Filter) {
+                        $filters[$val->id] = $val;
+                    }
                 }
             }
         }
@@ -348,41 +360,34 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function getVFolders()
     {
-        if ($pref_vf = $GLOBALS['prefs']->getValue('vfolder')) {
-            $pref_vf = @unserialize($pref_vf);
-        }
-
-        $has_vinbox = $has_vtrash = false;
         $vf = array();
 
-        if (is_array($pref_vf)) {
-            foreach ($pref_vf as $val) {
-                if ($val instanceof IMP_Search_Vfolder) {
-                    $vf[$val->id] = $val;
+        /* Build list of default virtual folders. */
+        $di = new DirectoryIterator(IMP_BASE . '/lib/Search/Vfolder');
+        $disabled = array('IMP_Search_Vfolder_Vtrash');
 
-                    if (!$has_vinbox &&
-                        ($val instanceof IMP_Search_Vfolder_Vinbox)) {
-                        $has_vinbox = true;
-                    } elseif (!$has_vtrash &&
-                        ($val instanceof IMP_Search_Vfolder_Vtrash)) {
-                        $has_vtrash = true;
-                    }
+        foreach ($di as $val) {
+            if ($val->isFile()) {
+                $cname = 'IMP_Search_VFolder_' . $val->getBasename('.php');
+                if (($cname != 'IMP_Search_VFolder_Builtin') &&
+                    class_exists($cname)) {
+                    $filter = new $cname(array(
+                        'disabled' => in_array($cname, $disabled)
+                    ));
+                    $filters[$filter->id] = $filter;
                 }
             }
         }
 
-        if (!$has_vtrash) {
-            $ob = new IMP_Search_Vfolder_Vtrash(array(
-                'disable' => true
-            ));
-            $vf = array($ob->id => $ob) + $vf;
-        }
-
-        if (!$has_vinbox) {
-            $ob = new IMP_Search_Vfolder_Vinbox(array(
-                'disable' => true
-            ));
-            $vf = array($ob->id => $ob) + $vf;
+        if ($pref_vf = $GLOBALS['prefs']->getValue('vfolder')) {
+            $pref_vf = @unserialize($pref_vf);
+            if (is_array($pref_vf)) {
+                foreach ($pref_vf as $val) {
+                    if ($val instanceof IMP_Search_Vfolder) {
+                        $vf[$val->id] = $val;
+                    }
+                }
+            }
         }
 
         return $vf;
