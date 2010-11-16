@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Horde_Date
+ * @package  Date
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package  Horde_Date
+ * @package  Date
  */
 class Horde_Date_Recurrence
 {

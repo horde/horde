@@ -1,12 +1,20 @@
 <?php
 /**
- * A Span represents a range of time.
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
- * @package Horde_Date
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Horde
+ * @package  Date
  */
 
 /**
- * @package Horde_Date
+ * A Span represents a range of time.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Date
  */
 class Horde_Date_Span
 {

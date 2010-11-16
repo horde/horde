@@ -1,15 +1,15 @@
 <?php
 /**
+ * @category Horde
+ * @package  Date
+ */
+
+/**
  * Horde Date wrapper/logic class, including some calculation
  * functions.
  *
  * @category Horde
- * @package  Horde_Date
- */
-
-/**
- * @category Horde
- * @package  Horde_Date
+ * @package  Date
  */
 class Horde_Date_Utils
 {

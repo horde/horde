@@ -4,7 +4,7 @@
  * functions.
  *
  * @category Horde
- * @package  Horde_Date
+ * @package  Date
  *
  * @TODO in format():
  *   http://php.net/intldateformatter
