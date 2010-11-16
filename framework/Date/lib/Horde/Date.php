@@ -49,7 +49,7 @@
 
 /**
  * @category Horde
- * @package  Horde_Date
+ * @package  Date
  */
 class Horde_Date
 {
