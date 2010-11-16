@@ -7,6 +7,10 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package Kronolith
  */
  KronolithMobile = {
 
