@@ -17,6 +17,7 @@
     calendars:  [],
     loadedCalendars: [],
     events: [],
+    eventCache: [],
 
     /**
      * Perform an Ajax action
@@ -132,6 +133,7 @@
 
         // Add the link to view the event detail.
         a = $('<a>').attr({'href': '#eventview'}).click(function(e) {
+            $('#eventview [data-role=content] ul').detach();
             KronolithMobile.loadEvent(cal, id, Date.parse(event.e));
         }).append(d);
 
@@ -161,8 +163,6 @@
     loadEventCallback: function(data)
     {
          var event, list, text;
-
-         $('#eventview [data-role=content] ul').detach();
          if (!data.response.event) {
              // @TODO: Error handling.
              return;
@@ -181,7 +181,6 @@
      */
     buildEventView: function(e)
     {
-      console.log(Kronolith);
          var list = $('<ul>').addClass('kronolithEventDetail').attr({ 'data-role': 'listview', 'data-inset': true });
          var loc = false, t;
 
@@ -222,7 +221,8 @@
              case 5:
              case 6:
              case 7:
-                 // Yearly
+             default:
+                 t.text('TODO');
              }
              //t.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
          } else if (e.al) {
@@ -265,17 +265,20 @@
     showNextDay: function()
     {
         $("#dayview [data-role=content] ul").detach();
-        KronolithMobile.currentDate.addDays(1);
-        $(".kronolithDayDate").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
-        KronolithMobile.loadEvents(KronolithMobile.currentDate, KronolithMobile.currentDate);
+        var d = $('.kronolithDayDate').data('date');
+        d.addDays(1);
+        $(".kronolithDayDate").text(d.toString('ddd') + ' ' + d.toString('d'));
+        $('.kronolithDayDate').data('date', d);
+        KronolithMobile.loadEvents(d, d);
     },
 
     showPrevDay: function()
     {
         $("#dayview [data-role=content] ul").detach();
-        KronolithMobile.currentDate.addDays(-1);
-        $(".kronolithDayDate").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
-        KronolithMobile.loadEvents(KronolithMobile.currentDate, KronolithMobile.currentDate);
+        var d = $('.kronolithDayDate').data('date');
+        d.addDays(-1);
+        $(".kronolithDayDate").text(d.toString('ddd') + ' ' + d.toString('d'));
+        KronolithMobile.loadEvents(d, d);
     },
 
     showPrevMonth: function()
@@ -416,7 +419,7 @@
         });
 
         // For now, start at today's day view
-        KronolithMobile.currentDate = new Date();
+        var currentDate = new Date();
         $('body').bind('swipeleft', KronolithMobile.showNextDay);
         $('body').bind('swiperight', KronolithMobile.showPrevDay);
         $('#dayview').bind('pageshow', function(event, ui) {
@@ -433,15 +436,15 @@
         $('.kronolithDayHeader .kronolithNextDay').bind('click', KronolithMobile.showNextDay);
 
         // Load today's events
-        $(".kronolithDayDate").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
-        KronolithMobile.loadEvents(KronolithMobile.currentDate, KronolithMobile.currentDate);
+        $(".kronolithDayDate").html(currentDate.toString('ddd') + ' ' + currentDate.toString('d'));
+        $('.kronolithDayDate').data('date', currentDate);
+        KronolithMobile.loadEvents(currentDate, currentDate);
 
         // Set up the month view
         // Build the first month, should due this on first page show, but the
         // pagecreate event doesn't seem to fire for the internal page? Not sure how
         // else to do it, so just build the first month outright.
-        var date = KronolithMobile.currentDate;
-        KronolithMobile.buildCal(date);
+        KronolithMobile.buildCal(currentDate);
         $('#kronolithMinicalPrev').bind('click', KronolithMobile.showPrevMonth);
         $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
 
