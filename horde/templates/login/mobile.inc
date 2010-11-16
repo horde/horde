@@ -10,7 +10,7 @@ $(function() {
 </head>
 <body>
 
-<div data-role="page">
+<div data-role="page" data-theme="a">
 
 <div data-role="header" data-nobackbtn="true"><h1><?php echo $title ?></h1></div>
 
