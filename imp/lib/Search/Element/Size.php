@@ -54,7 +54,7 @@ class IMP_Search_Element_Size extends IMP_Search_Element
             ? _("Size (KB) >")
             : _("Size (KB) <");
 
-        return $label . ' ' . ($rule->v / 1024);
+        return $label . ' ' . ($this->_data->s / 1024);
     }
 
 }
