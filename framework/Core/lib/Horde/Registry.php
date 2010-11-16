@@ -1500,13 +1500,6 @@ class Horde_Registry
      */
     protected function _saveCacheVar($name, $expire = false)
     {
-        /* Using cache while not authenticated isn't possible because,
-         * although storage is possible, retrieval isn't since there is no
-         * MD5 sum in the session to use to build the cache IDs. */
-        if (!$this->getAuth()) {
-            return;
-        }
-
         $ob = $GLOBALS['injector']->getInstance('Horde_Cache');
 
         if ($expire) {
@@ -1537,11 +1530,7 @@ class Horde_Registry
             return true;
         }
 
-        /* Using cache while not authenticated isn't possible because,
-         * although storage is possible, retrieval isn't since there is no
-         * MD5 sum in the session to use to build the cache IDs. */
-        if ($this->getAuth() &&
-            ($id = $this->_getCacheId($name))) {
+        if ($id = $this->_getCacheId($name)) {
             $result = $GLOBALS['injector']->getInstance('Horde_Cache')->get($id, 86400);
             if ($result !== false) {
                 $this->_cache[$name] = unserialize($result);
