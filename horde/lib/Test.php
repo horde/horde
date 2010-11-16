@@ -158,7 +158,7 @@ class Horde_Test
         ),
         'SimpleXML' => array(
             'descrip' => 'SimpleXML support',
-            'error' => 'Horde will not run without the SimpleXML extension. Don\'t compile PHP with <code>--disable-all/--disbale-simplexml</code>, or enable the SimpleXML extension individually before continuing.',
+            'error' => 'Horde will not run without the SimpleXML extension. Don\'t compile PHP with <code>--disable-all/--disable-simplexml</code>, or enable the SimpleXML extension individually before continuing.',
             'fatal' => true
         ),
         'tidy' => array(
