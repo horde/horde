@@ -254,13 +254,16 @@ KronolithCore = {
         this.redirect(url || (Kronolith.conf.URI_AJAX + 'logOut'));
     },
 
-    redirect: function(url, force)
+    // url = (string) URL to redirect to
+    // hash = (boolean) If true, url is treated as hash information to alter
+    //        on the current page
+    redirect: function(url, hash)
     {
-        window.location.assign(this.addURLParam(url));
-
-        // Catch browsers that don't redirect on assign().
-        if (force && !Prototype.Browser.WebKit) {
-            (function() { window.location.reload(); }).delay(0.5);
+        if (hash) {
+            window.location.hash = escape(url);
+            window.location.reload();
+        } else {
+            window.location.assign(this.addURLParam(url));
         }
     },
 
@@ -292,7 +295,7 @@ KronolithCore = {
         var loc = locParts.shift();
 
         if (this.inPrefs && loc != 'prefs') {
-            this.redirect(window.location.href.sub(window.location.hash, '#' + fullloc), true);
+            this.redirect(fullloc, true);
             return;
         }
 
