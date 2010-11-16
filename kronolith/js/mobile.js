@@ -102,7 +102,7 @@
     },
 
     /**
-     * Build the dom element for an event to insert into the event view.
+     * Build the dom element for an event to insert into the day view.
      *
      * @param string cal    The calendar name returned from the ajax request.
      * @param object event  The event object returned from the ajax request.
@@ -169,31 +169,93 @@
          }
 
          event = data.response.event;
-         list = $('<ul>').attr({'data-role': 'listview', 'data-inset': true});
 
-         // @TODO: Use css classes
+         var ul = KronolithMobile.buildEventView(event);
+         $('#eventview [data-role=content]').append(ul);
+    },
+
+    /**
+     * Build event view DOM structure and return the top event element.
+     *
+     * @param object e  The event structure returned from the ajax call.
+     */
+    buildEventView: function(e)
+    {
+      console.log(Kronolith);
+         var list = $('<ul>').addClass('kronolithEventDetail').attr({ 'data-role': 'listview', 'data-inset': true });
+         var loc = false, t;
 
          // Title and location
-         text = '<strong>' + event.t + '</strong>'
-          + '<div style="color:grey">' + event.l + '</div>';
+         var title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t));
+         var calendar = $('<p>').addClass('kronolithEventDetailCalendar').text(Kronolith.conf.calendars[e.ty][e.c]['name']);
 
          // Time
-         if (event.r) {
+         t = $('<li>');
+         if (e.r) {
              // Recurrence still TODO
-             text = text + '<div>Recurrence</div>';
-         } else if (event.al) {
-             text = text + '<div>' + Kronolith.text.allday + '</div>';
+             switch (e.r.t) {
+             case 1:
+                 // Daily
+                 t.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
+                 break;
+             case 2:
+                 // Weekly
+                 recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
+                 recur = recur.replace('#{weekday}', Kronolith.text.weekday[e.r.d - 1]);
+                 recur = recur.replace('#{interval}', e.r.i);
+                 t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
+                 break;
+             case 3:
+                 // Monthly_Date
+                 recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
+                 s = Date.parse(e.s);
+                 recur = recur.replace('#{date}', s.toString('dS'));
+                 recur = recur.replace('#{interval}', e.r.i);
+                 t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
+                 break;
+             case 4:
+                 // Monthly
+             case 5:
+             case 6:
+             case 7:
+                 // Yearly
+             }
+             //t.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
+         } else if (e.al) {
+             t.append($('<div>').addClass('kronolithEventDetailAllDay').text(Kronolith.text.allday));
          } else {
-             text = text + '<div>' + Date.parse(event.s).toString('D') + '</div>'
-                 + '<div>' + Date.parse(event.s).toString(Kronolith.conf.time_format) + ' - ' + Date.parse(event.e).toString(Kronolith.conf.time_format);
+             t.append($('<div>')
+                .append($('<div>').addClass('kronolithEventDetailDate').text(Date.parse(e.s).toString('D'))
+                .append($('<div>').addClass('kronolithEventDetailTime').text(Date.parse(e.s).toString(Kronolith.conf.time_format) + ' - ' + Date.parse(e.e).toString(Kronolith.conf.time_format))))
+             );
          }
-         var item = $('<li>').append(text);
-         list.append(item);
+         list.append($('<li>').append(title).append(calendar).append(t));
 
-         text = event.d;
-         list.append($('<li>').append(text));
+         // Location
+         if (e.gl) {
+             loc = $('<div>').addClass('kronolithEventDetailLocation')
+                .append($('<a>').attr({ 'data-style': 'b', 'href': 'http://maps.google.com?q=' + encodeURIComponent(e.gl.lat + ',' + e.gl.lon) }).text(e.l));
+         } else if (e.l) {
+             loc = $('<div>').addClass('kronolithEventDetailLocation')
+                .append($('<a>').attr({ 'href': 'http://maps.google.com?q=' + encodeURIComponent(e.l) }).text(e.l));
+         }
+         if (loc) {
+             list.append($('<li>').append(loc));
+         }
+
+         // Description
+         if (e.d) {
+           list.append($('<li>').append($('<div>').addClass('kronolithEventDetailDesc').text(e.d)));
+         }
+
+         // url
+         if (e.u) {
+           list.append($('<li>').append($('<a>').attr({ 'rel': 'external', 'href': e.u }).text(e.u)));
+         }
+
          list.listview();
-         $('#eventview [data-role=content]').append(list);
+
+         return list;
     },
 
     showNextDay: function()

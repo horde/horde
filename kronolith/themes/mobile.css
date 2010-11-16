@@ -15,6 +15,20 @@
     padding: .5em;
 }
 
+/* Event view styles */
+.kronolithEventDetail p {
+  margin-left: 5px;
+}
+.kronolithEventDetailTitle {
+}
+.kronolithEventDetailCalendar {
+  color: #ccc;
+  font-style: italic;
+}
+.kronolithEventDetailLocation a {
+  font-size: 85%;
+}
+
 /* Day view styles */
 .kronolithDayHeader {
     width: 100%;

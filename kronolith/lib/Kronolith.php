@@ -331,6 +331,13 @@ class Kronolith
                        Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) as $recurType) {
             $code['text']['recur'][$recurType] = self::recurToString($recurType);
         }
+
+        $code['text']['recur']['desc'] = array(
+            Horde_Date_Recurrence::RECUR_WEEKLY => array(sprintf(_("Recurs weekly on every %s"), "#{weekday}"),
+                                                         sprintf(_("Recurs every %s weeks on %s"), "#{interval}", "#{weekday}")),
+            Horde_Date_Recurrence::RECUR_MONTHLY_DATE => array(sprintf(_("Recurs on the %s of every month"), "#{date}"),
+                                                               sprintf(_("Recurs on the %s of every %s months"), "#{date}", "#{interval}"))
+        );
         $code['text']['recur']['exception'] = _("Exception");
 
         // Maps
