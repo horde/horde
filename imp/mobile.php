@@ -39,6 +39,7 @@ $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 $title = _("Mobile Mail");
 
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+include IMP_TEMPLATES . '/mobile/javascript_defs.php';
 echo $view->render('head.html.php');
 if (!empty($conf['user']['allow_folders'])) {
     echo $view->render('folders.html.php');
