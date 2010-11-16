@@ -2046,6 +2046,9 @@ abstract class Kronolith_Event
             $url = @parse_url($url);
             if ($url) {
                 if (function_exists('http_build_url')) {
+                    if (empty($url['path'])) {
+                        $url['path'] = '/';
+                    }
                     $url = http_build_url($url);
                 } else {
                     $new_url = '';
