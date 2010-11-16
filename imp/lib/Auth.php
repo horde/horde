@@ -162,7 +162,7 @@ class IMP_Auth
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
             $imap_ob ? $imap_ob->getParam('hostspec') : '',
             $imap_ob ? $imap_ob->getParam('port') : '',
-            isset($GLOBALS['session:imp']['protocol']) ? ' [' . $GLOBALS['session']->get('imp', 'protocol') . ']' : ''
+            $GLOBALS['session']->exists('imp', 'protocol') ? ' [' . $GLOBALS['session']->get('imp', 'protocol') . ']' : ''
         );
 
         Horde::logMessage($msg, $level);
