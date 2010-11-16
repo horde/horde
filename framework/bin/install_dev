@@ -53,31 +53,41 @@ if (!empty($git)) {
 
 print "\nLINKING horde\n";
 file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php if (!defined('HORDE_BASE')) define('HORDE_BASE', '$web_dir'); ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
-$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($horde_git . '/horde'), RecursiveIteratorIterator::SELF_FIRST);
-while ($it->valid()) {
-    if (!$it->isDot()) {
-        if ($it->isDir()) {
-            // Need to link this directory, since the files in it are created at
-            // runtime.
-            if (strpos($it->getPathName(), $horde_git . '/horde/static') !== false) {
-                if ($debug) {
-                    print "LINKING DIRECTORY: " . $web_dir . "/" . $it->getSubPathName() . "\n";
+foreach (new DirectoryIterator($horde_git . '/horde') as $it) {
+    if ($it->isDot()) {
+        continue;
+    }
+    if ($it->isDir()) {
+        if (strpos($it->getPathname(), $horde_git . '/horde/js') !== false) {
+            if ($debug) {
+                print 'CREATING DIRECTORY: ' . $web_dir . '/' . $it->getFilename() . "\n";
+            }
+            mkdir($web_dir . '/' . $it->getFilename());
+            foreach (new DirectoryIterator($horde_git . '/horde/' . $it->getFilename()) as $sub) {
+                if ($sub->isDot()) {
+                    continue;
                 }
-                symlink($it->key(), $web_dir . '/' . $it->getSubPathName());
-            } else {
                 if ($debug) {
-                    print "CREATING DIR: " . $web_dir . '/' . $it->getSubPathName() . "\n";
+                    if ($sub->isDir()) {
+                        print 'LINKING DIRECTORY: ' . $web_dir . '/' . $it->getFilename() . '/' . $sub->getFilename() . "\n";
+                    } else {
+                        print 'LINKING FILE: ' . $web_dir . '/' . $it->getFilename() . '/' . $sub->getFilename() . "\n";
+                    }
+                    symlink($it->getPathname(), $web_dir . '/' . $it->getFilename() . '/' . $sub->getFilename());
                 }
-                mkdir($web_dir . '/' . $it->getSubPathName());
             }
         } else {
             if ($debug) {
-                print "LINKING FILE: " . $web_dir . "/" . $it->getSubPathName() . "\n";
+                print 'LINKING DIRECTORY: ' . $web_dir . '/' . $it->getFilename() . "\n";
             }
-            @symlink($it->key(), $web_dir . '/' . $it->getSubPathName());
+            symlink($it->getPathname(), $web_dir . '/' . $it->getFilename());
         }
+    } else {
+        if ($debug) {
+            print 'LINKING FILE: ' . $web_dir . '/' . $it->getFilename() . "\n";
+        }
+        symlink($it->getPathname(), $web_dir . '/' . $it->getFilename());
     }
-    $it->next();
 }
 
 chmod($web_dir . '/static', $static_mode);
