@@ -13,7 +13,7 @@ class ConferenceDetailsForm extends Horde_Form {
 
     function __construct(&$vars)
     {
-        $accountname = $_SESSION['shout']['curaccount']['name'];
+        $accountname = $GLOBALS['session']->get('shout', 'curaccount_name');
         if ($vars->exists('roomno')) {
             $title = sprintf(_("Edit Conference Room - Account: %s"), $accountname);
             $roomno = $vars->get('roomno');
@@ -75,7 +75,8 @@ class ConferenceDeleteForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("FIXME Delete Device %s - Account: %s");
-        $title = sprintf($title, $devid, $_SESSION['shout']['accounts'][$account]['name']);
+        $account_config = $GLOBALS['session']->get('shout', 'accounts/' . $account);
+        $title = sprintf($title, $devid, $account_config['name']);
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'account', 'text', true);

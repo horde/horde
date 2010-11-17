@@ -33,9 +33,11 @@ function accountSubmit(clear)
    <?php Horde_Util::pformInput() ?>
     <select id="account" name="account" onchange="accountSubmit()">
      <?php
+        $cur_code = $GLOBALS['session']->get('shout', 'curaccount_code');
+
         foreach ($accounts as $account => $info) {
             print "<option value=\"$account\"";
-            if ($account == $curaccount['code']) {
+            if ($account == $cur_code) {
                 print " selected";
             }
             print ">${info['name']}</option>\n";

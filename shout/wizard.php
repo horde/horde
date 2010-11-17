@@ -14,10 +14,10 @@ $shout = Horde_Registry::appInit('shout');
 require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
 
 try {
-    $curaccount = $_SESSION['shout']['curaccount'];
+    $curaccount = $GLOBALS['session']->get('shout', 'curaccount_code');
 
     // Only continue if there is an assigned phone number
-    $numbers = $shout->storage->getNumbers($curaccount['code']);
+    $numbers = $shout->storage->getNumbers($curaccount);
     if (empty($numbers)) {
         throw new Shout_Exception("No valid numbers on this account.");
     }
@@ -26,7 +26,7 @@ try {
     $number = $number['number'];
 
     // Only continue if there is no existing "Main Menu"
-    $menus = $shout->storage->getMenus($curaccount['code']);
+    $menus = $shout->storage->getMenus($curaccount);
 
     if (!empty($menus) && !empty($menus[Shout::MAIN_MENU])) {
         Horde::url('dialplan.php', true)->redirect();
@@ -34,11 +34,11 @@ try {
 
     // Create the default recording for the main menu
     try {
-        $recording = $shout->storage->getRecordingByName($curaccount['code'],
+        $recording = $shout->storage->getRecordingByName($curaccount,
                                                          Shout::MAIN_RECORDING);
     } catch (Shout_Exception $e) {
-        $shout->storage->addRecording($curaccount['code'], Shout::MAIN_RECORDING);
-        $recording = $shout->storage->getRecordingByName($curaccount['code'],
+        $shout->storage->addRecording($curaccount, Shout::MAIN_RECORDING);
+        $recording = $shout->storage->getRecordingByName($curaccount,
                                                          Shout::MAIN_RECORDING);
     }
 
@@ -48,17 +48,17 @@ try {
         'description' => _("Main menu: what your callers will hear."),
         'recording_id' => $recording['id']
     );
-    $shout->dialplan->saveMenuInfo($curaccount['code'], $details);
+    $shout->dialplan->saveMenuInfo($curaccount, $details);
 
     // Associate this menu with the first number.
     // FIXME: This could be disruptive.
-    $shout->storage->saveNumber($number, $curaccount['code'], Shout::MAIN_MENU);
+    $shout->storage->saveNumber($number, $curaccount, Shout::MAIN_MENU);
 
     // Populate the default option, granting the ability to log into the admin
     // section.
-    $shout->dialplan->saveMenuAction($curaccount['code'], Shout::MAIN_MENU,
+    $shout->dialplan->saveMenuAction($curaccount, Shout::MAIN_MENU,
                                      'star', 'admin_login', array());
-    $extensions = $shout->extensions->getExtensions($curaccount['code']);
+    $extensions = $shout->extensions->getExtensions($curaccount);
 } catch (Exception $e) {
     print_r($e);
     $notification->push($e);

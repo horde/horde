@@ -14,9 +14,6 @@ $shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/AccountForm.php';
 
-
-$curaccount = $_SESSION['shout']['curaccount'];
-
 $RENDERER = new Horde_Form_Renderer();
 
 $title = _("Accounts: ");

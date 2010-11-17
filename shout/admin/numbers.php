@@ -15,7 +15,7 @@ $shout = Horde_Registry::appInit('shout');
 require_once SHOUT_BASE . '/lib/Forms/NumberForm.php';
 
 $action = Horde_Util::getFormData('action');
-$curaccount = $_SESSION['shout']['curaccount'];
+$curaccount = $GLOBALS['session']->get('shout', 'curaccount_code');
 
 $RENDERER = new Horde_Form_Renderer();
 
@@ -59,7 +59,7 @@ case 'delete':
     $extension = Horde_Util::getFormData('extension');
 
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('account', $curaccount['code']);
+    $vars->set('account', $curaccount);
     $Form = new ExtensionDeleteForm($vars);
 
     $FormValid = $Form->validate($vars, true);
@@ -78,7 +78,7 @@ case 'delete':
     }
 
     $vars = Horde_Variables::getDefaultVariables(array());
-    $vars->set('account', $curaccount['code']);
+    $vars->set('account', $curaccount);
     $Form = new ExtensionDeleteForm($vars);
 
     break;

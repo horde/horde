@@ -16,9 +16,9 @@ require_once SHOUT_BASE . '/lib/Forms/MenuForm.php';
 
 $action = Horde_Util::getFormData('action');
 $menu = Horde_Util::getFormData('menu');
-$curaccount = $_SESSION['shout']['curaccount'];
+$curaccount = $GLOBALS['session']->get('shout', 'curaccount_code');
 
-$menus = $shout->storage->getMenus($curaccount['code']);
+$menus = $shout->storage->getMenus($curaccount);
 if (empty($menus)) {
     Horde::url('wizard.php', true)->redirect();
 }
@@ -26,7 +26,7 @@ if (empty($menus)) {
 switch($action) {
 case 'add':
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('account', $curaccount['code']);
+    $vars->set('account', $curaccount);
     $Form = new MenuForm($vars);
 
     if ($Form->isSubmitted() && $Form->validate($vars, true)) {
@@ -35,7 +35,7 @@ case 'add':
             $Form->execute();
             $notification->push(_("Menu added."),
                                   'horde.success');
-            $menus = $shout->storage->getMenus($curaccount['code']);
+            $menus = $shout->storage->getMenus($curaccount);
             $action = 'edit';
 
         } catch (Exception $e) {
@@ -62,9 +62,9 @@ default:
 // after a successful add.
 if ($action == 'edit') {
     try {
-        $destinations = $shout->extensions->getExtensions($curaccount['code']);
-        $conferences = $shout->storage->getConferences($curaccount['code']);
-        $recordings = $shout->storage->getRecordings($curaccount['code']);
+        $destinations = $shout->extensions->getExtensions($curaccount);
+        $conferences = $shout->storage->getConferences($curaccount);
+        $recordings = $shout->storage->getRecordings($curaccount);
         // If any of these are empty, we need to coerce them to null.
         // Otherwise we end up with a Prototype.js $H([]) (Hash of an empty
         // Array) which causes confusion inside the library.

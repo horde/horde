@@ -48,7 +48,8 @@ class ConferenceDeleteForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("FIXME Delete Recording %s - Account: %s");
-        $title = sprintf($title, $devid, $_SESSION['shout']['curaccount']['name']);
+        $title = sprintf($title, $devid, $GLOBALS['session']->get('shout', 'curaccount_name'));
+
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'account', 'text', true);

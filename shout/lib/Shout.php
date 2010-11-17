@@ -156,7 +156,7 @@ class Shout
     static public function getMenuActions()
     {
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-        $account = $_SESSION['shout']['curaccount']['code'];
+        $account = $GLOBALS['session']->get('shout', 'curaccount_code');
 
         return array(
             'jump' => array(

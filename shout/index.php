@@ -11,12 +11,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 $shout = Horde_Registry::appInit('shout');
 
-if (empty($_SESSION['shout']['curaccount'])) {
+if (!($curaccount = $GLOBALS['session']->get('shout', 'curaccount_code'))) {
     die("Permission denied.");
 }
 
-$curaccount = $_SESSION['shout']['curaccount'];
-$menus = $shout->storage->getMenus($curaccount['code']);
+$menus = $shout->storage->getMenus($curaccount);
 
 if (empty($menus)) {
     Horde::url('wizard.php', true)->redirect();

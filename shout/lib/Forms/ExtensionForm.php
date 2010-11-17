@@ -28,7 +28,7 @@ class ExtensionDetailsForm extends Horde_Form {
             $formtitle = "Add User";
         }
 
-        $accountname = $_SESSION['shout']['curaccount']['name'];
+        $accountname = $GLOBALS['session']->get('shout', 'curaccount_name');
         $title = sprintf(_("$formtitle - Account: %s"), $accountname);
         parent::__construct($vars, $title);
 
@@ -81,7 +81,7 @@ class ExtensionDeleteForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("Delete Extension %s - Account: %s");
-        $title = sprintf($title, $extension, $_SESSION['shout']['curaccount']['name']);
+        $title = sprintf($title, $extension, $GLOBALS['session']->get('shout', 'curaccount_name'));
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'account', 'text', true);
