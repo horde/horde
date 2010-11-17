@@ -16,6 +16,8 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
+Horde::includeFavicon();
+Horde::includeStylesheetFiles();
 
 if ($channel_id = Horde_Util::getFormData('channel_id')) {
     $rss_url_params = array('channel_id' => $channel_id);
@@ -26,8 +28,6 @@ if ($channel_id = Horde_Util::getFormData('channel_id')) {
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

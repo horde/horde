@@ -86,11 +86,11 @@ class Kronolith
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n" .
              (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
              "<head>\n" .
-             '<title>' . htmlspecialchars($GLOBALS['registry']->get('name')) . "</title>\n" .
-             Horde::getFavicon() .
-             Horde::wrapInlineScript(self::includeJSVars());
+             '<title>' . htmlspecialchars($GLOBALS['registry']->get('name')) . "</title>\n";
 
-        Horde_Themes::includeStylesheetFiles();
+        Horde::includeFavicon();
+        echo Horde::wrapInlineScript(self::includeJSVars());
+        Horde::includeStylesheetFiles();
 
         echo "</head>\n";
 

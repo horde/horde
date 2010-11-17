@@ -772,7 +772,8 @@ class Ansel
             foreach ($css as $f => $u) {
                 Horde_Themes::addStylesheet($f, $u);
             }
-            Horde_Themes::includeStylesheetFiles();
+
+            Horde::includeStylesheetFiles();
         } else {
             foreach ($css as $u) {
                 echo '<link href="' . $u . '" rel="stylesheet" type="text/css" />' . "\n";

@@ -13,12 +13,12 @@ if (!empty($title)) {
 <head>
 <?php
     Horde::outputMetaTags();
-    Horde_Themes::includeStylesheetFiles();
+    Horde::includeStylesheetFiles();
     Horde::includeScriptFiles();
+    Horde::includeFavicon();
+    Horde::outputInlineScript();
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php Horde::outputInlineScript(); ?>
 </head>
 
 <body>

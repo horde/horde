@@ -20,17 +20,16 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 
+if (!$GLOBALS['browser']->isMobile()) {
+    Horde::includeFavicon();
+    Horde::includeStylesheetFiles();
+    Horde::includeScriptFiles();
+    echo implode("\n", Horde_Util::nonInputVar('linkTags', array()));
+    Horde::outputInlineScript();
+}
+
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php if (!$GLOBALS['browser']->isMobile()): ?>
-<?php echo Horde::getFavicon(); ?>
-<?php
-echo Horde_Themes::includeStylesheetFiles();
-echo Horde::includeScriptFiles();
-echo implode("\n", Horde_Util::nonInputVar('linkTags', array()));
-Horde::outputInlineScript();
-?>
-<?php endif ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

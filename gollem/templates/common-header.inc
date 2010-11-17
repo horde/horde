@@ -20,14 +20,14 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
+Horde::includeFavicon();
+Horde::includeStylesheetFiles();
+Horde::outputInlineScript();
 
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php Horde_Themes::includeStylesheetFiles() ?>
-<?php Horde::outputInlineScript(); ?>
 </head>
 
 <body>

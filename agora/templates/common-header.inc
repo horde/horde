@@ -19,11 +19,11 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
+Horde::includeFavicon();
+Horde::includeStylesheetFiles();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php Horde_Themes::includeStylesheetFiles() ?>
 <link rel="alternate" title="<?php echo _("Forums") ?>" href="<?php echo Horde_Util::addParameter(Horde::url('rss/index.php', true, -1), 'scope', $scope) ?>" type="application/rss+xml" />
 </head>
 

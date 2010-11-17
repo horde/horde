@@ -21,8 +21,10 @@ Horde::addInlineJsVars(array(
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
+Horde::includeFavicon();
 
 Horde_Themes::addStylesheet($registry->get('themesfs') . '/categoryCSS.php', $registry->get('themesuri') . '/categoryCSS.php');
+Horde::includeStylesheetFiles();
 
 $bc = $prefs->getValue('show_panel')
     ? 'rightPanel'
@@ -30,8 +32,6 @@ $bc = $prefs->getValue('show_panel')
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body<?php if ($bc) echo ' class="' . $bc . '"' ?>>

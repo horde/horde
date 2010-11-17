@@ -19,13 +19,13 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
+Horde::includeFavicon();
+echo Ansel::stylesheetLinks();
+echo Horde::wrapInlineScript(Ansel::initJSVars());
+Horde::outputInlineScript();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php echo Ansel::stylesheetLinks() ?>
-<?php echo Horde::wrapInlineScript(Ansel::initJSVars());?>
-<?php Horde::outputInlineScript(); ?>
 </head>
 
 <body>

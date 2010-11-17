@@ -22,9 +22,16 @@ if (!empty($title)) {
     $page_title .= ' :: ' . $title;
 }
 
+foreach ($GLOBALS['display_calendars'] as $calendar) {
+    echo '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+}
+
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
+Horde::includeFavicon();
+Horde::includeStylesheetFiles();
+Horde::outputInlineScript();
 
 $bc = (isset($view) && is_object($view) && $prefs->getValue('show_panel'))
     ? 'rightPanel'
@@ -32,12 +39,6 @@ $bc = (isset($view) && is_object($view) && $prefs->getValue('show_panel'))
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php Horde_Themes::includeStylesheetFiles() ?>
-<?php foreach ($GLOBALS['display_calendars'] as $calendar): ?>
-<link href="<?php echo Kronolith::feedUrl($calendar) ?>" rel="alternate" type="application/atom+xml" />
-<?php endforeach; ?>
-<?php Horde::outputInlineScript(); ?>
 </head>
 
 <body<?php if ($bc) echo ' class="' . $bc . '"' ?>>

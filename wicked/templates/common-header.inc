@@ -19,12 +19,12 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
+Horde::includeFavicon();
+Horde::includeStylesheetFiles();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
 <link href="<?php echo Horde::url('opensearch.php', true, -1) ?>" rel="search" type="application/opensearchdescription+xml" title="<?php echo $registry->get('name') . ' (' . Horde::url('', true) . ')' ?>" />
-<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body>

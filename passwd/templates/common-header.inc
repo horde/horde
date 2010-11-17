@@ -20,11 +20,11 @@ if (!empty($title)) {
 }
 
 Horde::outputMetaTags();
+Horde::includeFavicon();
+Horde::includeStylesheetFiles();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php echo Horde::stylesheetLink('passwd') ?>
 </head>
 
 <body<?php if ($bc = Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

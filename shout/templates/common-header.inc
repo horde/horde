@@ -20,10 +20,10 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
+Horde::includeStylesheetFiles();
 
 ?>
  <title><?php echo $page_title ?></title>
- <?php echo Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body>

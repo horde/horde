@@ -24,11 +24,12 @@ global $registry;
 $page_title = $registry->get('name');
 $page_title .= !empty($this->title) ? ' :: ' . $this->title : '';
 
+Horde::includeFavicon();
+Horde::includeStylesheetFiles();
 Horde::includeScriptFiles();
+
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body>

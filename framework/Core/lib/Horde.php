@@ -1409,8 +1409,6 @@ HTML;
 
     /**
      * Generate the favicon tag for the current application.
-     *
-     * @return string  The favicon LINK tag.
      */
     static public function includeFavicon()
     {
@@ -1423,7 +1421,20 @@ HTML;
             )));
         }
 
-        return '<link href="' . $img . '" rel="SHORTCUT ICON" />';
+        echo '<link href="' . $img . '" rel="SHORTCUT ICON" />';
+    }
+
+    /**
+     * Generate the stylesheet tags for the current application.
+     *
+     * @param array $opts  Options to pass to
+     *                     Horde_Themes::getStylesheetUrls().
+     */
+    static public function includeStylesheetFiles(array $opts = array())
+    {
+        foreach (Horde_Themes::getStylesheetUrls($opts) as $val) {
+            echo '<link href="' . $val . '" rel="stylesheet" type="text/css" />';
+        }
     }
 
     /**

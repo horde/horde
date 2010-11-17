@@ -36,17 +36,18 @@ Horde::outputMetaTags();
 
 switch ($imp_view) {
 case 'dimp':
-    Horde_Themes::includeStylesheetFiles(array(
+    Horde::includeStylesheetFiles(array(
         'sub' => 'dimp'
     ));
     if (!in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'index-dimp.php', 'message-dimp.php'))) {
         Horde::includeScriptFiles();
         Horde::outputInlineScript();
     }
+    Horde::includeFavicon();
     break;
 
 case 'mimp':
-    Horde_Themes::includeStylesheetFiles(array(
+    Horde::includeStylesheetFiles(array(
         'nohorde' => true,
         'sub' => 'mimp',
         'subonly' => true
@@ -54,8 +55,9 @@ case 'mimp':
     break;
 
 default:
-    Horde_Themes::includeStylesheetFiles();
+    Horde::includeStylesheetFiles();
     Horde::includeScriptFiles();
+    Horde::includeFavicon();
     Horde::outputInlineScript();
     break;
 }
@@ -65,10 +67,8 @@ default:
 </head>
 <body>
 <?php elseif ($imp_view == 'dimp'): ?>
-<?php echo Horde::getFavicon(); ?>
 </head>
 <?php else: ?>
-<?php echo Horde::getFavicon(); ?>
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>

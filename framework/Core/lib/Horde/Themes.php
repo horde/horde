@@ -31,8 +31,8 @@ class Horde_Themes
     }
 
     /**
-     * Outputs the necessary style tags, honoring configuration choices as
-     * to stylesheet caching.
+     * Generate the stylesheet URLs needed to display the current page.
+     * Honors configuration choices as to stylesheet caching.
      *
      * @param array $options  Additional options:
      * <pre>
@@ -44,8 +44,10 @@ class Horde_Themes
      * 'theme' - (string) Use this theme instead of the default.
      * 'themeonly' - (boolean) If true, only load the theme files.
      * </pre>
+     *
+     * @return array  The list of URLs to display.
      */
-    static public function includeStylesheetFiles($options = array())
+    static public function getStylesheetUrls($options = array())
     {
         global $conf, $prefs, $registry;
 
@@ -60,68 +62,68 @@ class Horde_Themes
             : $conf['cachecssparams']['driver'];
 
         if ($cache_type == 'none') {
-            $css_out = $css;
-        } else {
-            $mtime = array(0);
-            $out = '';
-
+            $css_out = array();
             foreach ($css as $file) {
-                $mtime[] = filemtime($file['f']);
+                $css_out[] = $file['u'];
             }
+            return $css_out;
+        }
 
-            $sig = hash('md5', serialize($css) . max($mtime));
+        $mtime = array(0);
+        $out = '';
+
+        foreach ($css as $file) {
+            $mtime[] = filemtime($file['f']);
+        }
+
+        $sig = hash('md5', serialize($css) . max($mtime));
+
+        switch ($cache_type) {
+        case 'filesystem':
+            $css_filename = '/static/' . $sig . '.css';
+            $css_path = $registry->get('fileroot', 'horde') . $css_filename;
+            $css_url = $registry->get('webroot', 'horde') . $css_filename;
+            $exists = file_exists($css_path);
+            break;
+
+        case 'horde_cache':
+            $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+
+            // Do lifetime checking here, not on cache display page.
+            $exists = $cache->exists($sig, empty($GLOBALS['conf']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['cachecssparams']['lifetime']);
+            $css_url = Horde::getCacheUrl('css', array('cid' => $sig));
+            break;
+        }
+
+        if (!$exists) {
+            $out = $this->loadCssFiles($css);
+
+            /* Use CSS tidy to clean up file. */
+            if ($conf['cachecssparams']['compress'] == 'php') {
+                try {
+                    $out = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($out, 'csstidy');
+                } catch (Horde_Exception $e) {}
+            }
 
             switch ($cache_type) {
             case 'filesystem':
-                $css_filename = '/static/' . $sig . '.css';
-                $css_path = $registry->get('fileroot', 'horde') . $css_filename;
-                $css_url = $registry->get('webroot', 'horde') . $css_filename;
-                $exists = file_exists($css_path);
+                if (!file_put_contents($css_path, $out)) {
+                    throw new Horde_Exception('Could not write cached CSS file to disk.');
+                }
                 break;
 
             case 'horde_cache':
-                $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-
-                // Do lifetime checking here, not on cache display page.
-                $exists = $cache->exists($sig, empty($GLOBALS['conf']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['cachecssparams']['lifetime']);
-                $css_url = Horde::getCacheUrl('css', array('cid' => $sig));
+                $cache->set($sig, $out);
                 break;
             }
-
-            if (!$exists) {
-                $out = self::loadCssFiles($css);
-
-                /* Use CSS tidy to clean up file. */
-                if ($conf['cachecssparams']['compress'] == 'php') {
-                    try {
-                        $out = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($out, 'csstidy');
-                    } catch (Horde_Exception $e) {}
-                }
-
-                switch ($cache_type) {
-                case 'filesystem':
-                    if (!file_put_contents($css_path, $out)) {
-                        throw new Horde_Exception('Could not write cached CSS file to disk.');
-                    }
-                    break;
-
-                case 'horde_cache':
-                    $cache->set($sig, $out);
-                    break;
-                }
-            }
-
-            $css_out = array(array('u' => $css_url));
         }
 
-        foreach ($css_out as $file) {
-            echo '<link href="' . $file['u'] . "\" rel=\"stylesheet\" type=\"text/css\" />\n";
-        }
+        return $css_url;
     }
 
     /**
-     * Callback for includeStylesheetFiles() to convert images to base64
-     * data strings.
+     * Callback for getStylesheetUrls() to convert images to base64 data
+     * strings.
      *
      * @param array $matches  The list of matches from preg_replace_callback.
      *

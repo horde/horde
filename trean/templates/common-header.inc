@@ -19,8 +19,10 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
+Horde::includeFavicon();
 
 Horde_Themes::addStylesheet($registry->get('themesfs') . '/grids-min.css', $registry->get('themesuri')  . '/grids-min.css');
+Horde::includeStylesheetFiles();
 
 $rss = Horde::url('rss.php', true, -1);
 if (Horde_Util::getFormData('f')) {
@@ -38,8 +40,6 @@ if ($prefs->getValue('show_folder_actions')) {
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php echo Horde::getFavicon(); ?>
-<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body<?php if ($bc) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
