@@ -1277,14 +1277,14 @@ HTML;
     }
 
     /**
-     * Constructs a correctly-pathed link to an image.
+     * Constructs a correctly-pathed tag to an image.
      *
-     * @param mixed $src    The image file (either a string or a
-     *                      Horde_Themes_Image object).
-     * @param string $alt   Text describing the image.
-     * @param mixed  $attr  Any additional attributes for the image tag. Can be
-     *                      a pre-built string or an array of key/value pairs
-     *                      that will be assembled and html-encoded.
+     * @param mixed $src   The image file (either a string or a
+     *                     Horde_Themes_Image object).
+     * @param string $alt  Text describing the image.
+     * @param mixed $attr  Any additional attributes for the image tag. Can
+     *                     be a pre-built string or an array of key/value
+     *                     pairs that will be assembled and html-encoded.
      *
      * @return string  The full image tag.
      */
@@ -1307,11 +1307,9 @@ HTML;
         }
 
         $img = '<img';
-        $old_error = error_reporting(0);
         foreach ($attributes as $attribute => $value) {
-            $img .= ' ' . $attribute . '="' . htmlspecialchars($value) . '"';
+            $img .= ' ' . $attribute . '="' . @htmlspecialchars($value) . '"';
         }
-        error_reporting($old_error);
 
         /* If the user supplied a pre-built string of attributes, add that. */
         if (is_string($attr) && !empty($attr)) {
@@ -1323,11 +1321,11 @@ HTML;
     }
 
     /**
-     * Same as self::img(), but returns a full source url for the image.
+     * Same as img(), but returns a full source url for the image.
      * Useful for when the image may be part of embedded Horde content on an
-     * external site. Basically a stop-gap measure until Horde_View etc...
+     * external site.
      *
-     * @see self::img()
+     * @see img()
      */
     static public function fullSrcImg($src, $options = array())
     {
@@ -1355,6 +1353,7 @@ HTML;
                     $img .= ' ' . $attribute . '="' . htmlspecialchars($value) . '"';
                 }
             }
+
             /* If the user supplied a pre-built string of attributes, add
              * that. */
             if (is_string($options['attr'])) {
