@@ -53,6 +53,12 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'the default nonce generator':
             $world['nonce_generator'] = new Horde_Nonce_Generator();
             break;
+        case 'the default filter setup':
+            $world['nonce_filter'] = new Horde_Nonce_Filter();
+            break;
+        case 'the following counter and hash values are marked':
+            $world['nonce_filter']->isUsed(array_shift($arguments), $arguments);
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -84,6 +90,9 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'hashing nonce':
             list($timestamp, $random) = $world['nonce_generator']->split($arguments[0]);
             $world['hashes'] = $world['nonce_hash']->hash($random);
+            break;
+        case 'testing whether a nonce is unused if it has the following counter and hash values':
+            $world['used'] = $world['nonce_filter']->isUsed(array_shift($arguments), $arguments);
             break;
         default:
             return $this->notImplemented($action);
@@ -128,6 +137,12 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['hashes'],
                 $arguments
             );
+            break;
+        case 'the nonce is unused':
+            $this->assertFalse($world['used']);
+            break;
+        case 'the nonce is used':
+            $this->assertTrue($world['used']);
             break;
         default:
             return $this->notImplemented($action);
