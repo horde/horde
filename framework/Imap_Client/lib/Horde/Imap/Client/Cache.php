@@ -271,7 +271,9 @@ class Horde_Imap_Client_Cache
                 }
             }
 
-            $this->_save[$mailbox] = isset($this->_save[$mailbox]) ? array_merge($this->_save[$mailbox], $save) : $save;
+            $this->_save[$mailbox] = isset($this->_save[$mailbox])
+                ? array_merge($this->_save[$mailbox], $save)
+                : $save;
 
             /* Need to select slices now because we may need list of cached
              * UIDs before we save. */
