@@ -78,4 +78,45 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext . "\x00")));
     }
 
+    /**
+     * @expectedException Horde_Secret_Exception
+     */
+    public function testWriteException()
+    {
+        $secret = new Horde_Secret();
+        $secret->write("\x88", array());
+    }
+
+    /**
+     * @expectedException Horde_Secret_Exception
+     */
+    public function testReadException()
+    {
+        $secret = new Horde_Secret();
+        $secret->read("\x88", array());
+    }
+
+    /**
+     * @expectedException Horde_Secret_Exception
+     */
+    public function testKeyException()
+    {
+        $secret = new Horde_Secret();
+        $secret->read(new Horde_Secret_Stub_Message(), "\x01");
+    }
+
+    /**
+     * @expectedException Horde_Secret_Exception
+     */
+    public function testLongKeyException()
+    {
+        $secret = new Horde_Secret();
+        $secret->read('012345678901234567890123456789012345678901234567890123456789', "\x01");
+    }
+
+    public function testShortKey()
+    {
+        $secret = new Horde_Secret();
+        $this->assertEquals('', $secret->read('', "\x01"));
+    }
 }

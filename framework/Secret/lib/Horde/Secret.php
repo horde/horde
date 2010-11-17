@@ -70,13 +70,13 @@ class Horde_Secret
      */
     public function write($key, $message)
     {
+        if (!is_string($message)) {
+            throw new Horde_Secret_Exception('Plain text must be a string', 0);
+        }
+
         $val = strlen($key) && strlen($message)
             ? $this->_getCipherOb($key)->encrypt($message)
             : '';
-
-        if ($val instanceof PEAR_Error) {
-            throw new Horde_Secret_Exception($val);
-        }
 
         return $val;
     }
@@ -92,13 +92,13 @@ class Horde_Secret
      */
     public function read($key, $ciphertext)
     {
+        if (!is_string($ciphertext)) {
+            throw new Horde_Secret_Exception('Chiper text must be a string', 1);
+        }
+
         $val = strlen($key) && strlen($ciphertext)
             ? $this->_getCipherOb($key)->decrypt($ciphertext)
             : '';
-
-        if ($val instanceof PEAR_Error) {
-            throw new Horde_Secret_Exception($val);
-        }
 
         /* Bug #9121: Data may be null padded - need to remove this
          * padding. */
@@ -115,6 +115,13 @@ class Horde_Secret
      */
     protected function _getCipherOb($key)
     {
+        if (!is_string($key)) {
+            throw new Horde_Secret_Exception('Key must be a string', 2);
+        }
+        if (strlen($key) > 56) {
+            throw new Horde_Secret_Exception('Key must be less than 56 characters and non-zero. Supplied key length: ' . strlen($key), 3);
+        }
+
         $idx = hash('md5', $key);
 
         if (!isset($this->_cipherCache[$idx])) {

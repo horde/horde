@@ -19,3 +19,4 @@ error_reporting(E_ALL | E_STRICT);
 
 /** Needed for PEAR_Error. */
 require_once 'PEAR.php';
+require_once dirname(__FILE__) . '/Stub/Message.php';
