@@ -2,11 +2,14 @@
 /**
  * Test the secret class.
  *
- * @category Horde
- * @package  Secret
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Secret
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Secret
+ * @subpackage UnitTests
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Secret
  */
 
 /**
@@ -22,14 +25,15 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Horde
- * @package  Secret
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Secret
+ * @category   Horde
+ * @package    Secret
+ * @subpackage UnitTests
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Secret
  */
 
-class Horde_Secret_Class_SecretTest extends PHPUnit_Framework_TestCase
+class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
 {
     public function test8BitKey()
     {

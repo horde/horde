@@ -2,11 +2,14 @@
 /**
  * All tests for the Horde_Secret package.
  *
- * @category Horde
- * @package  Secret
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Secret
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Secret
+ * @subpackage UnitTests
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Secret
  */
 
 /**
