@@ -22,6 +22,13 @@ class Horde_Themes_Element
     public $app;
 
     /**
+     * URI/filesystem path values.
+     *
+     * @var array
+     */
+    protected $_data = array();
+
+    /**
      * The default directory name for this element type.
      *
      * @var string
@@ -43,13 +50,6 @@ class Horde_Themes_Element
     protected $_opts;
 
     /**
-     * Cached URI/filesystem path values.
-     *
-     * @var array
-     */
-    protected $_cache = array();
-
-    /**
      * Constructor.
      *
      * @param string $name    The element name. If null, will return the
@@ -61,14 +61,12 @@ class Horde_Themes_Element
                         'uri' - the element URI. If set, use as the data
                         values instead of auto determining.
      * 'nohorde' - (boolean) If true, do not fallback to horde for element.
-     * 'notheme' - (boolean) If true, do not use themed data.
      * 'theme' - (string) Use this theme instead of the Horde default.
      * 'uri' - (string) Use this as the URI value.
      * </pre>
      */
     public function __construct($name = '', array $options = array())
     {
-
         $this->app = empty($options['app'])
             ? $GLOBALS['registry']->getApp()
             : $options['app'];
@@ -80,7 +78,7 @@ class Horde_Themes_Element
         }
 
         if (isset($this->_opts['data'])) {
-            $this->_cache = $this->_opts['data'];
+            $this->_data = $this->_opts['data'];
             unset($this->_opts['data']);
         }
     }
@@ -104,59 +102,66 @@ class Horde_Themes_Element
      */
     public function __get($name)
     {
-        global $registry;
+        global $prefs, $registry;
 
-        if (empty($this->_cache)) {
-            $app_list = array($this->app);
-            if (($this->app != 'horde') && empty($this->_opts['nohorde'])) {
-                $app_list[] = 'horde';
-            }
-            $path = '/' . $this->_dirname . (is_null($this->_name) ? '' : '/' . $this->_name);
+        if (!empty($this->_data)) {
+            return isset($this->_data[$name])
+                ? $this->_data[$name]
+                : null;
+        }
 
-            /* Check themes first. */
-            if (empty($this->_opts['notheme']) &&
-                isset($GLOBALS['prefs']) &&
-                (($theme = $GLOBALS['prefs']->getValue('theme')) ||
-                 (!empty($this->_opts['theme']) &&
-                  ($theme = $this->_opts['theme'])))) {
-                $tpath = '/' . $theme . $path;
+        $this->_data = null;
+
+        $app_list = array($this->app);
+        if (($this->app != 'horde') && empty($this->_opts['nohorde'])) {
+            $app_list[] = 'horde';
+        }
+        $path = '/' . $this->_dirname . (is_null($this->_name) ? '' : '/' . $this->_name);
+
+        /* Check themes first. */
+        $theme = array_key_exists('theme', $this->_opts)
+            ? $this->_opts['theme']
+            : $prefs->getValue('theme');
+
+        if ($theme) {
+            $tpath = '/' . $theme . $path;
+
+            if (is_null($this->_name)) {
+                $this->_data = array(
+                    'fs' => $registry->get('themesfs', $this->app) . $tpath,
+                    'uri' => $registry->get('themesuri', $this->app) . $tpath
+                );
+            } else {
                 foreach ($app_list as $app) {
                     $filepath = $registry->get('themesfs', $app) . $tpath;
-                    if (is_null($this->_name) || file_exists($filepath)) {
-                        $this->_cache = array(
+                    if (file_exists($filepath)) {
+                        $this->_data = array(
                             'fs' => $filepath,
                             'uri' => $registry->get('themesuri', $app) . $tpath
                         );
                         break;
                     }
                 }
-            }
+             }
+        }
 
-            /* Fall back to app/horde defaults. */
-            if (empty($this->_cache)) {
-                foreach ($app_list as $app) {
-                    $filepath = $registry->get('themesfs', $app) . $path;
-                    if (file_exists($filepath)) {
-                        $this->_cache = array(
-                            'fs' => $filepath,
-                            'uri' => $registry->get('themesuri', $app) . $path
-                        );
-                        break;
-                    }
+        /* Fall back to app/horde defaults. */
+        if (empty($this->_data)) {
+            foreach ($app_list as $app) {
+                $filepath = $registry->get('themesfs', $app) . $path;
+                if (file_exists($filepath)) {
+                    $this->_data = array(
+                        'fs' => $filepath,
+                        'uri' => $registry->get('themesuri', $app) . $path
+                    );
+                    break;
                 }
             }
         }
 
-        switch ($name) {
-        case 'fs':
-        case 'uri':
-            return isset($this->_cache[$name])
-                ? $this->_cache[$name]
-                : '';
-
-        default:
-            return null;
-        }
+        return isset($this->_data[$name])
+            ? $this->_data[$name]
+            : null;
     }
 
     /**
