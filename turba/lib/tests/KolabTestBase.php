@@ -155,7 +155,7 @@ class Turba_KolabTestBase extends Horde_Kolab_Test_Storage
         $this->prepareNewFolder($world['storage'], 'Contacts', 'contact', true);
         $this->prepareNewFolder($world['storage'], 'test2', 'contact');
 
-        $_SESSION['turba']['has_share'] =  true;
+        $GLOBALS['session']->set('turba', 'has_share', true);
         $GLOBALS['turba_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         $GLOBALS['cfgSources'] = Turba::getConfigFromShares($cfgSources);
