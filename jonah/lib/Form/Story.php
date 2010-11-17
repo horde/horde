@@ -30,7 +30,7 @@ class Jonah_Form_Story extends Horde_Form
     {
         parent::Horde_Form($vars, $vars->get('id') ? _("Edit Story") : _("Add New Story"));
 
-        $this->setButtons(_("Save"), true);
+        $this->setButtons(_("Save"));
         $channel_id = $this->addHidden('', 'channel_id', 'int', false);
         $channel = $vars->get('channel_id');
         if ($channel) {

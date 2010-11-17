@@ -50,6 +50,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
      * <pre>
      * 'channel_id'       If empty a new channel is being added, otherwise one
      *                    is being edited.
+     * 'channel_slug'     The channel slug.
      * 'channel_name'     The headline.
      * 'channel_desc'     A description of this channel.
      * 'channel_type'     Whether internal or external.
@@ -71,18 +72,19 @@ class Jonah_Driver_Sql extends Jonah_Driver
                 throw new Jonah_Exception($info['channel_id']);
             }
             $sql = 'INSERT INTO jonah_channels' .
-                   ' (channel_id, channel_name, channel_type, channel_desc, channel_interval, channel_url, channel_link, channel_page_link, channel_story_url, channel_img)' .
-                   ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                   ' (channel_id, channel_slug, channel_name, channel_type, channel_desc, channel_interval, channel_url, channel_link, channel_page_link, channel_story_url, channel_img)' .
+                   ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $values = array();
         } else {
             $sql = 'UPDATE jonah_channels' .
-                   ' SET channel_id = ?, channel_name = ?, channel_type = ?, channel_desc = ?, channel_interval = ?, channel_url = ?, channel_link = ?, channel_page_link = ?, channel_story_url = ?, channel_img = ?' .
+                   ' SET channel_id = ?, channel_slug = ?, channel_name = ?, channel_type = ?, channel_desc = ?, channel_interval = ?, channel_url = ?, channel_link = ?, channel_page_link = ?, channel_story_url = ?, channel_img = ?' .
                    ' WHERE channel_id = ?';
             $values = array((int)$info['channel_id']);
         }
 
         array_unshift($values,
                       (int)$info['channel_id'],
+                      Horde_String::convertCharset($info['channel_slug'], 'UTF-8', $this->_params['charset']),
                       Horde_String::convertCharset($info['channel_name'], 'UTF-8', $this->_params['charset']),
                       (int)$info['channel_type'],
                       isset($info['channel_desc']) ? $info['channel_desc'] : null,
@@ -231,10 +233,10 @@ class Jonah_Driver_Sql extends Jonah_Driver
             }
             $channel = $this->getChannel($info['channel_id']);
             $permalink = $this->getStoryLink($channel, $info);
-            $sql = 'INSERT INTO jonah_stories (story_id, channel_id, story_title, story_desc, story_body_type, story_body, story_url, story_published, story_updated, story_read, story_permalink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            $sql = 'INSERT INTO jonah_stories (story_id, channel_id, story_author, story_title, story_desc, story_body_type, story_body, story_url, story_published, story_updated, story_read, story_permalink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $values = array($permalink);
         } else {
-            $sql = 'UPDATE jonah_stories SET story_id = ?, channel_id = ?, story_title = ?, story_desc = ?, story_body_type = ?, story_body = ?, story_url = ?, story_published = ?, story_updated = ?, story_read = ? WHERE story_id = ?';
+            $sql = 'UPDATE jonah_stories SET story_id = ?, channel_id = ?, story_author = ?, story_title = ?, story_desc = ?, story_body_type = ?, story_body = ?, story_url = ?, story_published = ?, story_updated = ?, story_read = ? WHERE story_id = ?';
             $values = array((int)$info['id']);
         }
 
@@ -253,6 +255,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
         array_unshift($values,
                       (int)$info['id'],
                       (int)$info['channel_id'],
+                      Horde_String::convertCharset($info['author'], 'UTF-8', $this->_params['charset']),
                       Horde_String::convertCharset($info['title'], 'UTF-8', $this->_params['charset']),
                       Horde_String::convertCharset($info['description'], 'UTF-8', $this->_params['charset']),
                       $info['body_type'],

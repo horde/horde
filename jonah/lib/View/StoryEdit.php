@@ -59,6 +59,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         $form = new Jonah_Form_Story($vars);
         if ($form->validate($vars)) {
             $form->getInfo($vars, $info);
+            $info['author'] = $registry->getAuth();
             try {
                 $result = $driver->saveStory($info);
                 $notification->push(sprintf(_("The story \"%s\" has been saved."), $info['title']), 'horde.success');
