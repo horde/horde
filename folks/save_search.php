@@ -41,7 +41,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Close")) {
 
 // Render
 $vars = Horde_Variables::getDefaultVariables();
-$vars->set('search_criteria', $_SESSION['folks']['last_search']);
+$vars->set('search_criteria', $session->get('folks', 'last_search'));
 $form = new Horde_Form($vars, '', 'savesearch');
 $form->addVariable(_("Name"), 'search_name', 'text', true);
 $form->addHidden('', 'search_criteria', 'text', true);

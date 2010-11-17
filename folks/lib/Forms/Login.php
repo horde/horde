@@ -48,12 +48,17 @@ class Folks_Login_Form extends Horde_Form {
      */
     private function _getCAPTCHA($new = false)
     {
-        if ($new || empty($_SESSION['folks']['login_CAPTCHA'])) {
-            $_SESSION['folks']['login_CAPTCHA'] = '';
-            for ($i = 0; $i < 5; $i++) {
-                $_SESSION['folks']['login_CAPTCHA'] .= chr(rand(65, 90));
+        global $session;
+
+        if ($new || !$session->get('agora', 'login_captcha')) {
+            $captcha = '';
+            for ($i = 0; $i < 5; ++$i) {
+                $captcha .= chr(rand(65, 90));
             }
+            $session->set('agora', 'login_captcha', $captcha);
         }
-        return $_SESSION['folks']['login_CAPTCHA'];
+
+        return $session->get('agora', 'login_captcha');
     }
+
 }

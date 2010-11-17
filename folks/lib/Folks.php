@@ -196,14 +196,17 @@ class Folks {
      */
     static public function getCAPTCHA($new = false)
     {
-        if ($new || empty($_SESSION['folks']['CAPTCHA'])) {
-            $_SESSION['folks']['CAPTCHA'] = '';
-            for ($i = 0; $i < 5; $i++) {
-                $_SESSION['folks']['CAPTCHA'] .= chr(rand(65, 90));
+        global $session;
+
+        if ($new || !$session->get('folks', 'captcha')) {
+            $captcha = '';
+            for ($i = 0; $i < 5; ++$i) {
+                $captcha .= chr(rand(65, 90));
             }
+            $session->set('folks', 'captcha', $captcha);
         }
 
-        return $_SESSION['folks']['CAPTCHA'];
+        return $session->get('folks', 'captcha');
     }
 
     /**
