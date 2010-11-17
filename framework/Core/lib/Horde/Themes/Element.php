@@ -54,9 +54,7 @@ class Horde_Themes_Element
      *
      * @param string $name    The element name. If null, will return the
      *                        element directory.
-     * @param mixed $options  Additional options. If a string, is taken to be
-     *                        the 'app' parameter. If an array, the following
-     *                        options are available:
+     * @param array $options  Additional options:
      * <pre>
      * 'app' - (string) Use this application instead of the current app.
      * 'data' - (array) Contains 2 elements: 'fs' - filesystem path,
@@ -68,19 +66,15 @@ class Horde_Themes_Element
      * 'uri' - (string) Use this as the URI value.
      * </pre>
      */
-    public function __construct($name = '', $options = array())
+    public function __construct($name = '', array $options = array())
     {
-        $this->_name = $name;
 
-        if (is_string($options)) {
-            $this->app = $options;
-            $this->_opts = array();
-        } else {
-            $this->app = empty($options['app'])
-                ? $GLOBALS['registry']->getApp()
-                : $options['app'];
-            $this->_opts = $options;
-        }
+        $this->app = empty($options['app'])
+            ? $GLOBALS['registry']->getApp()
+            : $options['app'];
+        $this->_name = $name;
+        $this->_opts = $options;
+
         if ($GLOBALS['registry']->get('status', $this->app) == 'heading') {
             $this->app = 'horde';
         }

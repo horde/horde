@@ -34,6 +34,10 @@ class Horde_Themes
      */
     static public function img($name = null, $options = array())
     {
+        if (is_string($options)) {
+            $options = array('app' => $options);
+        }
+
         return new Horde_Themes_Image($name, $options);
     }
 
@@ -58,6 +62,10 @@ class Horde_Themes
      */
     static public function sound($name = null, $options = array())
     {
+        if (is_string($options)) {
+            $options = array('app' => $options);
+        }
+
         return new Horde_Themes_Sound($name, $options);
     }
 
@@ -74,6 +82,7 @@ class Horde_Themes
         if (is_null($app)) {
             $app = $GLOBALS['registry']->getApp();
         }
+
         /* Do search in reverse order - app + theme sounds have the highest
          * priority and will overwrite previous sound definitions. */
         $locations = array(
