@@ -29,7 +29,7 @@ class SyncML_Device_Nokia extends SyncML_Device {
 
         /* At least the Nokia E series seems to prefix category values with
          * X-, see bugs #6849 and #7824. */
-        $di = $_SESSION['SyncML.state']->deviceInfo;
+        $di = $GLOBALS['backend']->state->deviceInfo;
         if ($di->Mod[0] == 'E') {
             $content = preg_replace('/(\r\n|\r|\n)CATEGORIES:X-/',
                                     '\1CATEGORIES:', $content, 1);

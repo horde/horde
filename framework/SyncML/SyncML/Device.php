@@ -115,7 +115,7 @@ class SyncML_Device {
      */
     function getPreferredContentTypeClient($serverSyncURI, $sourceSyncURI)
     {
-        $di = $_SESSION['SyncML.state']->deviceInfo;
+        $di = $GLOBALS['backend']->state->deviceInfo;
         $ds = $di->getDataStore($sourceSyncURI);
         if (!empty($ds)) {
             $r = $ds->getPreferredRXContentType();

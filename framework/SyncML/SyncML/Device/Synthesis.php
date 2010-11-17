@@ -34,7 +34,7 @@ class SyncML_Device_Synthesis extends SyncML_Device {
         list($content, $contentType, $encodingType) =
             parent::convertServer2Client($content, $contentType, $database);
 
-        $di = $_SESSION['SyncML.state']->deviceInfo;
+        $di = $GLOBALS['backend']->state->deviceInfo;
         if (stristr($di->Mod,'palm') === false) {
             // Some special priority handling is required. Synthesis uses
             // 1 (high), 2 (medium), 3(low), at least for my windows mobile device.
@@ -71,7 +71,7 @@ class SyncML_Device_Synthesis extends SyncML_Device {
         list($content, $contentType) =
             parent::convertClient2Server($content, $contentType);
 
-        $di = $_SESSION['SyncML.state']->deviceInfo;
+        $di = $GLOBALS['backend']->state->deviceInfo;
         if (stristr($di->Mod, 'palm') === false) {
             // Some special priority handling is required. Synthesis uses 1
             // (high), 2 (medium), 3(low), at least for my windows mobile

@@ -232,7 +232,7 @@ class SyncML_Sync {
             }
         }
 
-        $device = $_SESSION['SyncML.state']->getDevice();
+        $device = $GLOBALS['backend']->state->getDevice();
         $hordedatabase = $database = $this->_targetLocURI;
         $content = $item->content;
         if ($item->contentFormat == 'b64') {
@@ -241,7 +241,7 @@ class SyncML_Sync {
 
         if (($item->contentType == 'text/calendar' ||
              $item->contentType == 'text/x-vcalendar') &&
-            $backend->_normalize($database) == 'calendar' && 
+            $backend->_normalize($database) == 'calendar' &&
             $device->handleTasksInCalendar()) {
             $tasksincalendar = true;
             /* Check if the client sends us a vtodo in a calendar sync. */
@@ -369,7 +369,7 @@ class SyncML_Sync {
          * pending Sync data, the final command will sent the pending data. */
         $messageFull = false;
 
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
         $device = $state->getDevice();
         $contentType = $device->getPreferredContentTypeClient(
             $this->_targetLocURI, $this->_sourceLocURI);
@@ -741,7 +741,7 @@ class SyncML_Sync {
 
     function createUidMap($databaseURI, $cuid, $suid)
     {
-        $device = $_SESSION['SyncML.state']->getDevice();
+        $device = $GLOBALS['backend']->state->getDevice();
 
         if ($GLOBALS['backend']->_normalize($databaseURI) == 'calendar' &&
             $device->handleTasksInCalendar() &&
@@ -755,7 +755,6 @@ class SyncML_Sync {
         $GLOBALS['backend']->logMessage(
             'Created map for client id ' . $cuid . ' and server id ' . $suid
             . ' in database ' . $db, 'DEBUG');
-
     }
 
     /**

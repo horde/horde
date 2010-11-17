@@ -63,7 +63,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
 
         case 'text/calendar':
         case 'text/x-vcalendar':
-            $si = $_SESSION['SyncML.state']->sourceURI;
+            $si = $GLOBALS['backend']->state->sourceURI;
             if (stristr($si, 'fol-') !== false) {
                 // The Funambol Outlook connector uses invalid STATUS
                 // values. Actually it maps MeetingStatus values of the
@@ -107,7 +107,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
         if ($this->requestedContentType == $contentType) {
             if ($contentType == 'text/calendar' ||
                 $contentType == 'text/x-vcalendar') {
-                $si = $_SESSION['SyncML.state']->sourceURI;
+                $si = $GLOBALS['backend']->state->sourceURI;
                 if (stristr($si, 'fol-') !== false) {
                     // The Funambol Outlook connector uses invalid STATUS
                     // values. Actually it maps MeetingStatus values of the

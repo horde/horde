@@ -124,7 +124,7 @@ class SyncML_Command_Sync extends SyncML_Command {
     function startElement($uri, $element, $attrs)
     {
         parent::startElement($uri, $element, $attrs);
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
 
         switch (count($this->_stack)) {
         case 2:
@@ -183,7 +183,7 @@ class SyncML_Command_Sync extends SyncML_Command {
             case 'Item':
                 if ($this->_itemMoreData) {
                     // Store to continue in next session.
-                    $_SESSION['SyncML.state']->curSyncItem = $this->_curItem;
+                    $GLOBALS['backend']->state->curSyncItem = $this->_curItem;
                 } else {
                     // Finished. Store to syncElements[].
                     if (empty($this->_curItem->contentType)) {
@@ -268,7 +268,7 @@ class SyncML_Command_Sync extends SyncML_Command {
      */
     function handleCommand($debug = false)
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
 
         // Handle unauthenticated first.
         if (!$state->authenticated) {

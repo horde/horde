@@ -247,7 +247,7 @@ class SyncML_Command_Put extends SyncML_Command {
      */
     function handleCommand($debug = false)
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
 
         // Store received data.
         $state->deviceInfo = $this->_devinf;

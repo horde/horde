@@ -34,7 +34,7 @@ class SyncML_Command_Get extends SyncML_Command {
      */
     function handleCommand($debug = false)
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
 
         // Create status response.
         $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,

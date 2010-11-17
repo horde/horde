@@ -97,7 +97,7 @@ class SyncML_Command_Map extends SyncML_Command {
     function handleCommand($debug = false)
     {
         if (!$debug && $this->_mapSources) {
-            $state = &$_SESSION['SyncML.state'];
+            $state = $GLOBALS['backend']->state;
             $sync = &$state->getSync($this->_targetLocURI);
             if (!$state->authenticated) {
                 $GLOBALS['backend']->logMessage(
