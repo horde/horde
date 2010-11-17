@@ -226,12 +226,11 @@ class Hermes {
         $tabs->addTab(_("By Job Type"), $sUrl, 'jobtype');
         $tabs->addTab(_("By Cost Object"), $sUrl, 'costobject');
         if ($mode = Horde_Util::getFormData('search_mode')) {
-            $_SESSION['hermes_search_mode'] = $mode;
+            $GLOBALS['session']->set('hermes', 'search_mode', $mode);
+        } elseif (!$GLOBALS['session']->exists('hermes', 'search_mode')) {
+            $GLOBALS['session']->set('hermes', 'search_mode', 'summary');
         }
-        if (!isset($_SESSION['hermes_search_mode'])) {
-            $_SESSION['hermes_search_mode'] = 'summary';
-        }
-        return $tabs->render($_SESSION['hermes_search_mode']);
+        return $tabs->render($GLOBALS['session']->get('hermes', 'search_mode'));
     }
 
 }
