@@ -793,6 +793,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
      */
     public function isOldEnough()
     {
+        global $session;
+
         if (($GLOBALS['registry']->getAuth() &&
              $this->data['share_owner'] == $GLOBALS['registry']->getAuth()) ||
             empty($GLOBALS['conf']['ages']['limits']) ||
@@ -802,10 +804,14 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         }
 
         // Do we have the user age already cheked?
-        if (!isset($_SESSION['ansel']['user_age'])) {
-            $_SESSION['ansel']['user_age'] = 0;
-        } elseif ($_SESSION['ansel']['user_age'] >= $this->data['attribute_age']) {
-            return true;
+        if (!$session->exists('ansel', 'user_age')) {
+            $session->set('ansel', 'user_age', 0);
+            $user_age = 0;
+        } else {
+            $user_age = $session->get('ansel', 'user_age');
+            if ($user_age >= $this->data['attribute_age']) {
+                return true;
+            }
         }
 
         // Can we hook user's age?
@@ -813,11 +819,12 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
             $GLOBALS['registry']->isAuthenticated()) {
             $result = Horde::callHook('_ansel_hook_user_age');
             if (is_int($result)) {
-                $_SESSION['ansel']['user_age'] = $result;
+                $session->set('ansel', 'user_age', $result);
+                $user_age = $result;
             }
         }
 
-        return ($_SESSION['ansel']['user_age'] >= $this->data['attribute_age']);
+        return ($user_age >= $this->data['attribute_age']);
     }
 
     /**
@@ -834,9 +841,10 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         }
 
         $passwd = $this->get('passwd');
-        if (empty($passwd) ||
-            (!empty($_SESSION['ansel']['passwd'][$this->id])
-                && $_SESSION['ansel']['passwd'][$this->id] = md5($this->get('passwd')))) {
+        if (empty($passwd)) {
+            return false;
+        } elseif ($GLOBALS['session']->get('ansel', 'passwd/' . $this->id)) {
+            $GLOBALS['session']->set('ansel', 'passwd/' . $this->id, hash('md5', $this->get('passwd')));
             return false;
         }
 

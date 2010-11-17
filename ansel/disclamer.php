@@ -35,7 +35,7 @@ if ($form->isSubmitted()) {
         Horde::url('view.php?view=List', true)->redirect();
         exit;
     } else {
-        $_SESSION['ansel']['user_age'] = (int)$gallery->get('age');
+        $session->set('ansel', 'user_age', (int)$gallery->get('age'));
         $url->redirect();
         exit;
     }
