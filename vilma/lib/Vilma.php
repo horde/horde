@@ -106,9 +106,7 @@ class Vilma {
                 $domain = false;
             }
             Vilma::setCurDomain($domain);
-        } elseif (isset($_SESSION['vilma']['domain'])) {
-            $domain = $_SESSION['vilma']['domain'];
-        } else {
+        } elseif (!($domain = $GLOBALS['session']->get('vilma', 'domain'))) {
             $domain = false;
         }
 
@@ -120,7 +118,7 @@ class Vilma {
      */
     function setCurDomain($domain)
     {
-        $_SESSION['vilma']['domain'] = $domain;
+        $GLOBALS['session']->set('vilma', 'domain', $domain);
     }
 
     /**
@@ -173,7 +171,7 @@ class Vilma {
         $menu->add(Horde::url('domains/index.php'), _("_Domains"), 'domain.png');
 
         if (Vilma::getCurDomain()) {
-            $domain = $_SESSION['vilma']['domain'];
+            $domain = $GLOBALS['session']->get('vilma', 'domain');
             $url = Horde::url('users/index.php');
             $tmp = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
             $menu->add(Horde::url($tmp), _($domain['domain_name']), 'domain.png');

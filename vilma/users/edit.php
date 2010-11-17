@@ -48,7 +48,7 @@ if (!$vars->exists('mode')) {
         $vars->set('mode', 'edit');
     } else {
         $vars->set('mode', 'new');
-        $domain_info = $_SESSION['vilma']['domain'];
+        $domain_info = $session->get('vilma', 'domain');
         $domain = $domain_info['domain_name'];
         $domain_id = $domain_info['domain_id'];
         $vars->set('domain', $domain);
