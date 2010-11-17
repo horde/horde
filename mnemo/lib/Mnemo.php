@@ -379,8 +379,8 @@ class Mnemo {
      */
     function getPassphrase($id)
     {
-        if (isset($_SESSION['mnemo'][$id]['passphrase'])) {
-            return Horde_Secret::read(Horde_Secret::getKey('mnemo'), $_SESSION['mnemo'][$id]['passphrase']);
+        if ($passphrase = $GLOBALS['session']->get('mnemo', 'passphrase/' . $id)) {
+            return Horde_Secret::read(Horde_Secret::getKey('mnemo'), $passphrase);
         }
     }
 
@@ -395,7 +395,7 @@ class Mnemo {
      */
     function storePassphrase($id, $passphrase)
     {
-        $_SESSION['mnemo'][$id]['passphrase'] = Horde_Secret::write(Horde_Secret::getKey('mnemo'), $passphrase);
+        $GLOBALS['session']->set('mnemo', 'passphrase/' . $id, Horde_Secret::write(Horde_Secret::getKey('mnemo'), $passphrase));
     }
 
     /**
