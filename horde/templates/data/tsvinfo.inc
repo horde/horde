@@ -8,7 +8,7 @@
 </h1>
 <div class="headerbox">
  <?php echo _("Here is the beginning of the file:") ?><br />
- <pre><?php echo htmlspecialchars($_SESSION['import_data']['first_lines']) ?></pre><br />
+ <pre><?php echo htmlspecialchars($GLOBALS['session']->get('horde', 'import_data/first_lines')) ?></pre><br />
  <?php echo Horde::label('header', _("Does the first row contain the field names? If yes, check this box:")) ?>
  <input id="header" type="checkbox" name="header" value="1" /><br />
 </div>

@@ -217,6 +217,8 @@ class Horde_Data_Csv extends Horde_Data_Base
      */
     public function nextStep($action, $param = array())
     {
+        $session = $GLOBALS['injector']->getInstance('Horde_Session');
+
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
             parent::nextStep($action, $param);
@@ -227,45 +229,42 @@ class Horde_Data_Csv extends Horde_Data_Base
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
                 throw new Horde_Data_Exception('The uploaded file could not be saved.');
             }
-            $_SESSION['import_data']['file_name'] = $file_name;
+            $session->set('horde', 'import_data/file_name', $file_name);
 
             /* Check if charset was specified. */
-            $_SESSION['import_data']['charset'] = $this->_vars->charset;
+            $session->set('horde', 'import_data/charset', $this->_vars->charset);
 
             /* Read the file's first two lines to show them to the user. */
-            $_SESSION['import_data']['first_lines'] = '';
-            $fp = @fopen($file_name, 'r');
-            if ($fp) {
+            $first_lines = '';
+            if ($fp = @fopen($file_name, 'r')) {
                 $line_no = 1;
                 while ($line_no < 3 && $line = fgets($fp)) {
-                    if (!empty($_SESSION['import_data']['charset'])) {
-                        $line = Horde_String::convertCharset($line, $_SESSION['import_data']['charset'], $this->_charset);
-                    }
+                    $line = Horde_String::convertCharset($line, $this->_vars->charset, $this->_charset);
                     $newline = Horde_String::length($line) > 100 ? "\n" : '';
-                    $_SESSION['import_data']['first_lines'] .= substr($line, 0, 100) . $newline;
-                    $line_no++;
+                    $first_lines .= substr($line, 0, 100) . $newline;
+                    ++$line_no;
                 }
             }
+            $session->set('horde', 'import_data/first_lines', $first_lines);
             return Horde_Data::IMPORT_CSV;
 
         case Horde_Data::IMPORT_CSV:
-            $_SESSION['import_data']['header'] = $this->_vars->header;
+            $session->set('horde', 'import_data/header', $this->_vars->header);
             $import_mapping = array();
             if (isset($param['import_mapping'])) {
                 $import_mapping = $param['import_mapping'];
             }
-            $import_data = $this->importFile(
-                $_SESSION['import_data']['file_name'],
-                $_SESSION['import_data']['header'],
+            $session->set('horde', 'import_data/data', $this->importFile(
+                $session->get('horde', 'import_data/file_name'),
+                $this->_vars->header,
                 $this->_vars->sep,
                 $this->_vars->quote,
                 $this->_vars->fields,
                 $import_mapping,
-                $_SESSION['import_data']['charset'],
-                $_SESSION['import_data']['crlf']
-            );
-            $_SESSION['import_data']['data'] = $import_data;
-            unset($_SESSION['import_data']['map']);
+                $session->get('horde', 'import_data/charset'),
+                $session->get('horde', 'import_data/crlf')
+            ));
+            $session->remove('horde', 'import_data/map');
             return Horde_Data::IMPORT_MAPPED;
 
         default:

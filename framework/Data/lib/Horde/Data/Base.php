@@ -260,9 +260,11 @@ abstract class Horde_Data_Base
     {
         /* First step. */
         if (is_null($action)) {
-            $_SESSION['import_data'] = array();
             return Horde_Data::IMPORT_FILE;
         }
+
+        // TODO - Must be injected
+        $session = $GLOBALS['injector']->getInstance('Horde_Session');
 
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
@@ -278,7 +280,7 @@ abstract class Horde_Data_Base
             if ($_FILES['import_file']['size'] <= 0) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The file contained no data."));
             }
-            $_SESSION['import_data']['format'] = $this->_vars->import_format;
+            $session->set('horde', 'import_data/format', $this->_vars->import_format);
             break;
 
         case Horde_Data::IMPORT_MAPPED:
@@ -289,6 +291,9 @@ abstract class Horde_Data_Base
             $appKeys = explode("\t", $this->_vars->appKeys);
             $map = array();
             $dates = array();
+
+            $import_data = $session->get('horde', 'import_data/data', Horde_Session::TYPE_ARRAY);
+
             foreach ($appKeys as $key => $app) {
                 $map[$dataKeys[$key]] = $app;
                 if (isset($param['time_fields']) &&
@@ -297,19 +302,21 @@ abstract class Horde_Data_Base
                     $dates[$dataKeys[$key]]['values'] = array();
                     $i = 0;
                     /* Build an example array of up to 10 date/time fields. */
-                    while ($i < count($_SESSION['import_data']['data']) && count($dates[$dataKeys[$key]]['values']) < 10) {
-                        if (!empty($_SESSION['import_data']['data'][$i][$dataKeys[$key]])) {
-                            $dates[$dataKeys[$key]]['values'][] = $_SESSION['import_data']['data'][$i][$dataKeys[$key]];
+                    while ($i < count($import_data) &&
+                           count($dates[$dataKeys[$key]]['values']) < 10) {
+                        if (!empty($import_data[$i][$dataKeys[$key]])) {
+                            $dates[$dataKeys[$key]]['values'][] = $import_data[$i][$dataKeys[$key]];
                         }
-                        $i++;
+                        ++$i;
                     }
                 }
             }
-            $_SESSION['import_data']['map'] = $map;
+
+            $session->set('horde', 'import_data/map', $map);
             if (count($dates) > 0) {
                 foreach ($dates as $key => $data) {
                     if (count($data['values'])) {
-                        $_SESSION['import_data']['dates'] = $dates;
+                        $session->set('horde', 'import_data/dates', $dates);
                         return Horde_Data::IMPORT_DATETIME;
                     }
                 }
@@ -330,28 +337,31 @@ abstract class Horde_Data_Base
                 );
             }
 
-            if (!isset($_SESSION['import_data']['data'])) {
+            if (!$session->exists('horde', 'import_data/data')) {
                 throw new Horde_Data_Exception('The uploaded data was lost since the previous step.');
             }
 
             /* Build the result data set as an associative array. */
             $data = array();
-            foreach ($_SESSION['import_data']['data'] as $row) {
+            $data_map = $session->get('horde', 'import_data/map', Horde_Session::TYPE_ARRAY);
+
+            foreach ($session->get('horde', 'import_data/data') as $row) {
                 $data_row = array();
                 foreach ($row as $key => $val) {
-                    if (isset($_SESSION['import_data']['map'][$key])) {
-                        $mapped_key = $_SESSION['import_data']['map'][$key];
+                    if (isset($data_map[$key])) {
+                        $mapped_key = $data_map[$key];
                         if ($action == Horde_Data::IMPORT_DATETIME &&
                             !empty($val) &&
                             isset($param['time_fields']) &&
                             isset($param['time_fields'][$mapped_key])) {
                             $val = $this->_mapDate($val, $param['time_fields'][$mapped_key], $params, $key);
                         }
-                        $data_row[$_SESSION['import_data']['map'][$key]] = $val;
+                        $data_row[$mapped_key] = $val;
                     }
                 }
                 $data[] = $data_row;
             }
+
             return $data;
         }
     }
@@ -365,10 +375,13 @@ abstract class Horde_Data_Base
      */
     public function cleanup()
     {
-        if (isset($_SESSION['import_data']['file_name'])) {
-            @unlink($_SESSION['import_data']['file_name']);
+        // TODO - Must be injected
+        $session = $GLOBALS['injector']->getInstance('Horde_Session');
+
+        if ($filename = $session->get('horde', 'import_data/file_name')) {
+            @unlink($filename);
         }
-        $_SESSION['import_data'] = array();
+        $session->remove('horde', 'import_data');
 
         if ($this->_cleanupCallback) {
             return call_user_func($this->_cleanupCallback);

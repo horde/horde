@@ -7,12 +7,14 @@
  <?php printf(_("Import, Step %d"), (int)$import_step) ?>
 </h1>
 <table cellspacing="0" width="100%">
-<?php foreach ($_SESSION['import_data']['dates'] as $key => $date): ?>
+<?php
+$map = $GLOBALS['session']->get('horde', 'import_data/map');
+foreach ($GLOBALS['session']->get('horde', 'import_data/dates') as $key => $date): ?>
 <tr>
     <td>
         <table cellspacing="0" width="100%">
         <tr><td class="item">&nbsp;</td></tr>
-        <tr><td class="smallheader"><?php printf(_("Imported field: %s"), htmlspecialchars($app_fields[$_SESSION['import_data']['map'][$key]])) ?></td></tr>
+        <tr><td class="smallheader"><?php printf(_("Imported field: %s"), htmlspecialchars($app_fields[$map[$key]])) ?></td></tr>
         </table>
     </td>
 </tr>

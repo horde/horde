@@ -89,7 +89,7 @@ case 'export':
     break;
 
 case Horde_Data::IMPORT_FILE:
-    $_SESSION['import_data']['target'] = Horde_Util::getFormData('notepad_target');
+    $session->set('horde', 'import_data/target', Horde_Util::getFormData('notepad_target'));
     break;
 }
 
@@ -116,7 +116,7 @@ if (is_array($next_step)) {
     $categories = $cManager->get();
 
     /* Create a Mnemo storage instance. */
-    $storage = &Mnemo_Driver::singleton($_SESSION['import_data']['target']);
+    $storage = &Mnemo_Driver::singleton($session->get('horde', 'import_data/target'));
     $max_memos = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes');
     $num_memos = Mnemo::countMemos();
     foreach ($next_step as $row) {
@@ -164,7 +164,7 @@ if (is_array($next_step)) {
             if (is_array($row['created'])) {
                 $row['created'] = $row['created']['ts'];
             }
-            $history->log('mnemo:' . $_SESSION['import_data']['target'] . ':' . $note['uid'],
+            $history->log('mnemo:' . $session->get('horde', 'import_data/target') . ':' . $note['uid'],
                           array('action' => 'add', 'ts' => $row['created']), true);
         }
         if (!empty($row['modified'])) {
@@ -172,7 +172,7 @@ if (is_array($next_step)) {
             if (is_array($row['modified'])) {
                 $row['modified'] = $row['modified']['ts'];
             }
-            $history->log('mnemo:' . $_SESSION['import_data']['target'] . ':' . $note['uid'],
+            $history->log('mnemo:' . $session->get('horde', 'import_data/target') . ':' . $note['uid'],
                           array('action' => 'modify', 'ts' => $row['modified']), true);
         }
 
@@ -187,13 +187,13 @@ if (is_array($next_step)) {
 
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any notes."),
-                                    $file_types[$_SESSION['import_data']['format']]), 'horde.error');
+                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
     } elseif (is_a($result, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error importing the data: %s"),
                                     $result->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("%s file successfully imported"),
-                                    $file_types[$_SESSION['import_data']['format']]), 'horde.success');
+                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');
     }
     $next_step = $data->cleanup();
 }

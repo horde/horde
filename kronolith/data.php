@@ -189,8 +189,8 @@ case 'export':
     break;
 
 case Horde_Data::IMPORT_FILE:
-    $_SESSION['import_data']['import_cal'] = Horde_Util::getFormData('importCal');
-    $_SESSION['import_data']['purge'] = Horde_Util::getFormData('purge');
+    $session->set('horde', 'import_data/import_cal', Horde_Util::getFormData('importCal'));
+    $session->set('horde', 'import_data/purge', Horde_Util::getFormData('purge'));
     break;
 }
 
@@ -202,7 +202,7 @@ if (!$error && $import_format) {
         if ($actionID == Horde_Data::IMPORT_FILE) {
             $cleanup = true;
             try {
-                if (!in_array($_SESSION['import_data']['import_cal'], array_keys(Kronolith::listCalendars(Horde_Perms::EDIT)))) {
+                if (!in_array($session->get('horde', 'import_data/import_cal'), array_keys(Kronolith::listCalendars(Horde_Perms::EDIT)))) {
                     $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
                 } else {
                     $next_step = $data->nextStep($actionID, $param);
@@ -237,16 +237,16 @@ if (is_array($next_step)) {
     if ($max_events !== true) {
         $num_events = Kronolith::countEvents();
     }
-    list($type, $calendar) = explode('_', $_SESSION['import_data']['import_cal'], 2);
+    list($type, $calendar) = explode('_', $session->get('horde', 'import_data/import_cal'), 2);
     $kronolith_driver = Kronolith::getDriver($type, $calendar);
 
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any events."),
-                                    $file_types[$_SESSION['import_data']['format']]), 'horde.error');
+                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
         $error = true;
     } else {
         /* Purge old calendar if requested. */
-        if ($_SESSION['import_data']['purge']) {
+        if ($session->get('horde', 'import_data/purge')) {
             try {
                 $kronolith_driver->delete($calendar);
                 $notification->push(_("Calendar successfully purged."), 'horde.success');
@@ -326,7 +326,7 @@ if (is_array($next_step)) {
 
     if (!$error) {
         $notification->push(sprintf(_("%s file successfully imported"),
-                                    $file_types[$_SESSION['import_data']['format']]), 'horde.success');
+                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');
         if (Horde_Util::getFormData('import_ajax')) {
             Horde::addInlineScript('window.parent.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');');
         }

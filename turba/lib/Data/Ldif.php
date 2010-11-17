@@ -225,9 +225,10 @@ class Turba_Data_Ldif extends Horde_Data
         case Horde_Data::IMPORT_FILE:
             parent::nextStep($action, $param);
 
-            $_SESSION['import_data']['data'] = $this->importFile($_FILES['import_file']['tmp_name']);
+            $f_data = $this->importFile($_FILES['import_file']['tmp_name']);
+
             $data = array();
-            foreach ($_SESSION['import_data']['data'] as $record) {
+            foreach ($f_data as $record) {
                 $turbaHash = array();
                 foreach ($this->_turbaAttr as $value) {
                     switch ($value) {
@@ -284,7 +285,7 @@ class Turba_Data_Ldif extends Horde_Data
                 $data[] = $turbaHash;
             }
 
-            unset($_SESSION['import_data']['data']);
+            $GLOBALS['session']->remove('horde', 'import_data/data');
             return $data;
 
         default:
