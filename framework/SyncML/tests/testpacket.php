@@ -40,10 +40,10 @@ class Backend extends SyncML_Backend {
         return strlen($username) ? $username : true;
     }
 
-    function setupState(&$state)
+    function setupState()
     {
-        $state->user = 'dummyUser';
-        $state->authenticated = true;
+        $this->state->user = 'dummyUser';
+        $this->state->authenticated = true;
     }
 
     function addEntry($databaseURI, $content, $contentType, $cuid)

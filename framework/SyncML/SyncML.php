@@ -1,11 +1,7 @@
 <?php
 /**
- * There are two global objects that are used by SyncML:
- * 1) $_SESSION['SyncML.state']:
- *    session object used to maintain the state between the individual
- *    SyncML messages.
- *
- * 2) $GLOBALS['backend']
+ * There is one global object used by SyncML:
+ * 1) $GLOBALS['backend']
  *    Backend to handle the communication with the datastore.
  *
  * @todo: Main Todos:
@@ -378,7 +374,7 @@ class SyncML_ContentHandler {
 
         /* Start the session. */
         $hdr->setupState();
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
         $state->wbxml = $this->_xmlWriter->isWBXML();
 
         /* Check auth. */
@@ -459,7 +455,7 @@ class SyncML_ContentHandler {
     {
         global $messageFull;
 
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
 
         /* If there's pending sync data and space left in the message, send
          * data now. */

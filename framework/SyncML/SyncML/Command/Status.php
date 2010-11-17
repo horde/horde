@@ -108,7 +108,7 @@ class SyncML_Command_Status extends SyncML_Command {
             break;
 
         case 1:
-            $state = &$_SESSION['SyncML.state'];
+            $state = $GLOBALS['backend']->state;
             switch ($this->_Cmd) {
             case 'Replace':
             case 'Add':

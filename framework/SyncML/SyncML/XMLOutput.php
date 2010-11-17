@@ -85,7 +85,8 @@ class SyncML_XMLOutput {
      */
     function outputHeader($respURI)
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
+
         $this->_uriMeta = $state->uriMeta;
 
         $this->_output->startElement($this->_uri, 'SyncHdr');
@@ -157,7 +158,7 @@ class SyncML_XMLOutput {
 
     function outputInit()
     {
-        $this->_uri = $_SESSION['SyncML.state']->getURI();
+        $this->_uri = $GLOBALS['backend']->state->getURI();
 
         $this->_output->startElement($this->_uri, 'SyncML', array());
     }
@@ -185,7 +186,7 @@ class SyncML_XMLOutput {
                          $syncAnchorNext = '',
                          $syncAnchorLast = '')
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
         $uriMeta = $state->uriMeta;
 
         $this->_output->startElement($this->_uri, 'Status');
@@ -277,7 +278,7 @@ class SyncML_XMLOutput {
 
     function outputDevInf($cmdRef)
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
         $uriMeta = $state->uriMeta;
         $uriDevInf = $state->uriDevInf;
 
@@ -373,7 +374,7 @@ class SyncML_XMLOutput {
     function _writeDataStore($sourceref, $mimetype, $version, &$output,
                              $additionaltypes = array())
     {
-        $uriDevInf = $_SESSION['SyncML.state']->uriDevInf;
+        $uriDevInf = $GLOBALS['backend']->state->uriDevInf;
 
         $output->startElement($uriDevInf , 'DataStore');
         $output->startElement($uriDevInf , 'SourceRef');
@@ -434,7 +435,7 @@ class SyncML_XMLOutput {
 
     function outputAlert($alertCode, $clientDB = '', $serverDB = '', $lastAnchor = '', $nextAnchor = '')
     {
-        $uriMeta = $_SESSION['SyncML.state']->uriMeta;
+        $uriMeta = $GLOBALS['backend']->state->uriMeta;
 
         $this->_output->startElement($this->_uri, 'Alert');
         $this->_outputCmdID();
@@ -478,7 +479,7 @@ class SyncML_XMLOutput {
 
 
         // MaxObjSize, required by protocol for SyncML1.1 and higher.
-        if ($_SESSION['SyncML.state']->version > 0) {
+        if ($GLOBALS['backend']->state->version > 0) {
             $this->_output->startElement($uriMeta, 'MaxObjSize');
             $this->_output->characters(SERVER_MAXOBJSIZE);
             $this->_output->endElement($uriMeta, 'MaxObjSize');
@@ -493,7 +494,7 @@ class SyncML_XMLOutput {
 
     function outputGetDevInf()
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
         $uriMeta = $state->uriMeta;
 
         $this->_output->startElement($this->_uri, 'Get');
@@ -536,7 +537,7 @@ class SyncML_XMLOutput {
     function outputSyncCommand($command, $content = null, $contentType = null,
                                $encodingType = null, $cuid = null, $suid = null)
     {
-        $uriMeta = $_SESSION['SyncML.state']->uriMeta;
+        $uriMeta = $GLOBALS['backend']->state->uriMeta;
 
         $this->_output->startElement($this->_uri, $command);
         $this->_outputCmdID();
@@ -579,7 +580,7 @@ class SyncML_XMLOutput {
                 if($this->isWBXML()) {
                     $this->_output->characters($content);
                 } else {
-                    $device = $_SESSION['SyncML.state']->getDevice();
+                    $device = $GLOBALS['backend']->state->getDevice();
                     if ($device->useCdataTag()) {
                         /* Enclose data in CDATA if possible to avoid */
                         /* problems with &,< and >. */

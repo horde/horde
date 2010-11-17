@@ -128,7 +128,7 @@ class SyncML_Device_P800 extends SyncML_Device {
      */
     function handleTasksInCalendar()
     {
-        $di = $_SESSION['SyncML.state']->deviceInfo;
+        $di = $GLOBALS['backend']->state->deviceInfo;
 
         if (isset($di->CTCaps['text/x-vcalendar']) &&
             !empty($di->CTCaps['text/x-vcalendar']['BEGIN']->ValEnum['VEVENT']) &&

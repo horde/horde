@@ -33,7 +33,7 @@ class SyncML_Command_Final extends SyncML_Command {
      */
     function handleCommand($debug = false)
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
 
         // If the client hasn't sent us device info, request it now.
         // @todo: only do this once, not in every msg if the client does not

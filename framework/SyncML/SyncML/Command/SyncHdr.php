@@ -185,31 +185,30 @@ class SyncML_Command_SyncHdr extends SyncML_Command {
      */
     function setupState()
     {
-        $GLOBALS['backend']->sessionStart($this->_sourceURI,
-                                          $this->_sessionID);
+        global $backend;
 
-        if (!isset($_SESSION['SyncML.state'])) {
-            $GLOBALS['backend']->logMessage(
+        $backend->sessionStart($this->_sourceURI, $this->_sessionID);
+
+        if (!$backend->state) {
+            $backend->logMessage(
                 'New session created: ' . session_id(), 'DEBUG');
-            $_SESSION['SyncML.state'] = new SyncML_State($this->_sourceURI,
-                                                         $this->user,
-                                                         $this->_sessionID);
+            $backend->state = new SyncML_State($this->_sourceURI,
+                                               $this->user,
+                                               $this->_sessionID);
         } else {
-            $GLOBALS['backend']->logMessage(
-                'Existing session continued: ' . session_id(), 'DEBUG');
+            $backend->logMessage('Existing session continued: ' . session_id(), 'DEBUG');
         }
 
-        $state = &$_SESSION['SyncML.state'];
-        $state->setVersion($this->_version);
-        $state->messageID = $this->_message;
-        $state->targetURI = $this->_targetURI;
-        $state->sourceURI = $this->_sourceURI;
-        $state->sessionID = $this->_sessionID;
+        $backend->state->setVersion($this->_version);
+        $backend->state->messageID = $this->_message;
+        $backend->state->targetURI = $this->_targetURI;
+        $backend->state->sourceURI = $this->_sourceURI;
+        $backend->state->sessionID = $this->_sessionID;
         if (!empty($this->_maxMsgSize)) {
-            $state->maxMsgSize = $this->_maxMsgSize;
+            $backend->state->maxMsgSize = $this->_maxMsgSize;
         }
 
-        $GLOBALS['backend']->setupState($state);
+        $backend->setupState();
     }
 
 }

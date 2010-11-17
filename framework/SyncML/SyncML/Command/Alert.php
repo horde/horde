@@ -117,7 +117,8 @@ class SyncML_Command_Alert extends SyncML_Command {
      */
     function handleCommand($debug = false)
     {
-        $state = &$_SESSION['SyncML.state'];
+        $state = $GLOBALS['backend']->state;
+
         // Handle unauthenticated first.
         if (!$state->authenticated) {
             $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,

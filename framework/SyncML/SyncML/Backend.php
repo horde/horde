@@ -188,6 +188,13 @@ define ('SYNCML_BACKENDMODE_TEST',   3);
 class SyncML_Backend {
 
     /**
+     * The State object.
+     *
+     * @var SyncML_State
+     */
+    var $state;
+
+    /**
      * The concatenated log messages.
      *
      * @var string
@@ -387,10 +394,8 @@ class SyncML_Backend {
     /**
      * Is called after the SyncML_State object has been set up, either
      * restored from the session, or freshly created.
-     *
-     * @param SyncML_State  The current state object.
      */
-    function setupState(&$state)
+    function setupState()
     {
     }
 
