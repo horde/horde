@@ -55,7 +55,7 @@ if (is_a($tickets, 'PEAR_Error')) {
                                                     'results' => $tickets,
                                                     'values' => $values,
                                                     'url' => $self));
-    $_SESSION['whups']['last_search'] = $self;
+    $session->set('whups', 'last_search', $self);
     $results->html();
 
 }

@@ -12,7 +12,7 @@ function table_sortCallback(tableId, column, sortDown)
 
 function doResort(column, sortDown)
 {
-    baseurl = '<?php echo addslashes(html_entity_decode($_SESSION['whups']['last_search'])) ?>';
+    baseurl = '<?php echo addslashes(html_entity_decode($GLOBALS['session']->get('whups', 'last_search'))) ?>';
     try {
         new Ajax.Request(baseurl, { parameters: { 'sortby': encodeURIComponent(column), sortdir: encodeURIComponent(sortDown) } });
     } catch (e) {}

@@ -24,8 +24,7 @@ $showEditQuery = true;
 $showExtraForm = null;
 
 // Find our current query.
-if (isset($_SESSION['whups']['query'])) {
-    $whups_query = unserialize($_SESSION['whups']['query']);
+if ($whups_query = $session->get('whups', 'query')) {
     if (!$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
         $notification->push(_("Permission denied."), 'horde.error');
         Horde::url($prefs->getValue('whups_default_view') . '.php', true)
@@ -37,10 +36,10 @@ if (isset($_SESSION['whups']['query'])) {
 
 // Find the current criteria form, and default to the user form if not
 // present.
-if (!isset($_SESSION['whups']['query_form'])) {
-    $_SESSION['whups']['query_form'] = 'props';
+if (!$session->exists('whups', 'query_form')) {
+    $session->set('whups', 'query_form', 'props');
 }
-$vars->set('whups_query_form', $_SESSION['whups']['query_form']);
+$vars->set('whups_query_form', $session->get('whups', 'query_form'));
 
 // What now? First check the result of the query edit action dropdown, as this
 // action overrides the form it sits within.
@@ -78,11 +77,12 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
         break;
 
     case 'edit':
-        $_SESSION['whups']['query_form'] = $whups_query->pathToForm($vars);
-        if (is_a($_SESSION['whups']['query_form'], 'PEAR_Error')) {
-            $notification->push($_SESSION['whups']['query_form']);
-            $_SESSION['whups']['query_form'] = 'props';
+        $qf = $whups_query->pathToForm($vars);
+        if (is_a($qf, 'PEAR_Error')) {
+            $notification->push($qf);
+            $qf = 'props';
         }
+        $session->set('whups', 'query_form', 'props');
         $vars->set('edit', true);
         break;
     }
@@ -116,7 +116,7 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
     case 'date':
     case 'text':
     case 'attribs':
-        $_SESSION['whups']['query_form'] = $action;
+        $session->set('whups', 'query_form', $action);
         break;
 
     // Global query options
@@ -147,7 +147,7 @@ $queryTabs = $whups_query->getTabs($vars);
 
 // Criterion form types.
 $queryurl = Horde::url('query/index.php');
-$vars->set('action', $_SESSION['whups']['query_form']);
+$vars->set('action', $session->get('whups', 'query_form'));
 $criteriaTabs = new Horde_Core_Ui_Tabs('action', $vars);
 $criteriaTabs->preserve('path', $vars->get('path'));
 $criteriaTabs->addTab(_("_Property Criteria"), $queryurl, 'props');
@@ -185,10 +185,10 @@ $queryRenderer = new Horde_Form_Renderer_Query();
 
 if ($showEditQuery) {
     // Get our current form.
-    switch ($_SESSION['whups']['query_form']) {
+    switch ($session->get('whups', 'query_form')) {
     default:
         printf(_("Error: Unknown query form \"%s\", defaulting to properties"),
-               $_SESSION['whups']['query_form']);
+               $session->get('whups', 'query_form'));
         // Fall through.
 
     case 'props':
@@ -243,4 +243,4 @@ if ($showEditQuery) {
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
 
-$_SESSION['whups']['query'] = serialize($whups_query);
+$session->set('whups', 'query', $whups_query);

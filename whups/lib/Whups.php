@@ -221,13 +221,17 @@ class Whups {
      */
     function getCAPTCHA($new = false)
     {
-        if ($new || empty($_SESSION['whups']['CAPTCHA'])) {
-            $_SESSION['whups']['CAPTCHA'] = '';
-            for ($i = 0; $i < 5; $i++) {
-                $_SESSION['whups']['CAPTCHA'] .= chr(rand(65, 90));
+        global $session;
+
+        if ($new || !$session->get('whups', 'captcha')) {
+            $captcha = '';
+            for ($i = 0; $i < 5; ++$i) {
+                $captcha .= chr(rand(65, 90));
             }
+            $session->set('whups', 'captcha', $captcha);
         }
-        return $_SESSION['whups']['CAPTCHA'];
+
+        return $session->get('whups', 'captcha');
     }
 
     /**

@@ -122,13 +122,13 @@ class Whups_Ticket {
 
         // Check for a deferred attachment upload.
         if (!empty($info['deferred_attachment']) &&
-            !empty($_SESSION['whups']['deferred_attachment'][$info['deferred_attachment']])) {
+            ($a_name = $GLOBALS['session']->get('whups', 'deferred_attachment/' . $info['deferred_attachment']))) {
             $ticket->change(
                 'attachment',
                 array('name' => $info['deferred_attachment'],
-                      'tmp_name' => $_SESSION['whups']['deferred_attachment'][$info['deferred_attachment']]));
+                      'tmp_name' => $a_name));
 
-            unlink($_SESSION['whups']['deferred_attachment'][$info['deferred_attachment']]);
+            unlink($a_name);
         }
 
         // Send email notifications.
