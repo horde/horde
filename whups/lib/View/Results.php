@@ -23,7 +23,7 @@ class Whups_View_Results extends Whups_View {
     {
         Horde::addScriptFile('tables.js', 'horde', true);
 
-        global $prefs, $registry;
+        global $prefs, $registry, $session;
 
         $sortby = $prefs->getValue('sortby');
         $sortdir = $prefs->getValue('sortdir');
@@ -33,7 +33,7 @@ class Whups_View_Results extends Whups_View {
         foreach ($this->_params['results'] as $info) {
             $ids[] = $info['id'];
         }
-        $_SESSION['whups']['tickets'] = $ids;
+        $session->set('whups', 'tickets', $ids);
 
         include WHUPS_TEMPLATES . '/view/results.inc';
     }

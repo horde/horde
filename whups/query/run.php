@@ -28,8 +28,8 @@ if ($vars->exists('slug')) {
     $whups_query = $qManager->getQueryBySlug($vars->get('slug'));
 } elseif ($vars->exists('query')) {
     $whups_query = $qManager->getQuery($vars->get('query'));
-} elseif (isset($_SESSION['whups']['query'])) {
-    $whups_query = unserialize($_SESSION['whups']['query']);
+} else {
+    $whups_query = $session->get('whups', 'query');
 }
 
 // If we have an error, or if we still don't have a query, or if we don't have
@@ -72,7 +72,7 @@ if (!$whups_query->parameters) {
 
 if ($isvalid) {
     $tickets = $whups_driver->executeQuery($whups_query, $vars);
-    $_SESSION['whups']['last_search'] = Horde::url('query/run.php');
+    $session->set('whups', 'last_search', Horde::url('query/run.php'));
 }
 
 $title = $whups_query->name ? $whups_query->name : _("Query Results");
@@ -113,4 +113,4 @@ if (!is_null($tickets)) {
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
 
-$_SESSION['whups']['query'] = serialize($whups_query);
+$session->set('whups', 'query', $whups_query);

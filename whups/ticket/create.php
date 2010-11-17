@@ -102,8 +102,7 @@ if ($valid3 && $valid2 && $valid1) {
         $tmp_file_path = tempnam(Horde::getTempDir(), 'att');
         if (move_uploaded_file($info['newattachment']['tmp_name'],
                                $tmp_file_path)) {
-            $_SESSION['whups']['deferred_attachment'][$file_name] =
-                $tmp_file_path;
+            $session->set('whups', 'deferred_attachment/' . $file_name, $tmp_file_path);
             $vars->set('deferred_attachment', $file_name);
             $form3->preserveVarByPost($vars, 'deferred_attachment');
         }
