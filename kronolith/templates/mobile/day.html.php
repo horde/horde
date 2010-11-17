@@ -18,6 +18,4 @@
       <a href="#" data-icon="arrow-r" data-iconpos="notext" class="kronolithNextDay"><?php echo _("Next")?></a></div>
   </div>
   <div data-role="content"></div>
-  <div data-role="footer" data-position="fixed">
-  </div>
 </div>
