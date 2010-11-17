@@ -528,14 +528,11 @@ class Horde_Imap_Client_Cache
             return;
         }
 
-        $ptr = &$this->_data[$mailbox]['data'];
+        $ptr = &$this->_data[$mailbox];
         $todelete = array();
 
         foreach ($uids as $val) {
-            if (isset($ptr[$val]) &&
-                ($res = @unserialize($ptr[$val]))) {
-                $ptr[$val] = $res;
-            } else {
+            if (!isset($ptr[$val])) {
                 $todelete[] = $val;
             }
         }
