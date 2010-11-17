@@ -1090,6 +1090,8 @@ class Horde_Form_Type_image extends Horde_Form_Type {
      */
     function _getUpload(&$vars, &$var)
     {
+        global $session;
+
         /* Don't bother with this function if already called and set
          * up vars. */
         if (!empty($this->_img)) {
@@ -1126,8 +1128,8 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             /* Get any existing values for the image upload field. */
             $upload = $vars->get($var->getVarName());
             if (!empty($upload['hash'])) {
-                $upload['img'] = $_SESSION['horde_form'][$upload['hash']];
-                unset($_SESSION['horde_form'][$upload['hash']]);
+                $upload['img'] = $session->get('horde', 'form/' . $upload['hash']);
+                $session->remove('horde', 'form/' . $upload['hash']);
             }
 
             /* Get the temp file if already one uploaded, otherwise create a
@@ -1148,16 +1150,16 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             $upload = $vars->get($var->getVarName());
             if ($this->_uploaded->getCode() == 4 &&
                 !empty($upload['hash']) &&
-                isset($_SESSION['horde_form'][$upload['hash']])) {
-                $this->_img['img'] = $_SESSION['horde_form'][$upload['hash']];
-                unset($_SESSION['horde_form'][$upload['hash']]);
+                $session->exists('horde', 'form/' . $upload['hash'])) {
+                $this->_img['img'] = $session->get('horde', 'form/' . $upload['hash']);
+                $session->remove('horde', 'form/' . $upload['hash']);
                 if (isset($this->_img['error'])) {
                     $this->_uploaded = PEAR::raiseError($this->_img['error']);
                 }
             }
         }
         if (isset($this->_img['img'])) {
-            $_SESSION['horde_form'][$this->getRandomId()] = $this->_img['img'];
+            $session->set('horde', 'form/' . $this->getRandomId(), $this->_img['img']);
         }
     }
 
@@ -1219,7 +1221,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
                 $this->loadImageData($image);
                 if (isset($image['img'])) {
                     $this->_img = $image;
-                    $_SESSION['horde_form'][$this->getRandomId()] = $this->_img['img'];
+                    $GLOBALS['session']->set('horde', 'form/' . $this->getRandomId(), $this->_img['img']);
                 }
             }
         }
