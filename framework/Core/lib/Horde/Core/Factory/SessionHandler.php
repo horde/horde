@@ -79,9 +79,7 @@ class Horde_Core_Factory_SessionHandler
             $storage,
             array(
                 'logger' => $injector->getInstance('Horde_Log_Logger'),
-                // TODO: Uncomment once all session data is saved through
-                //  Horde_Session.
-                //'no_md5' => true,
+                'no_md5' => true,
                 'noset' => $noset,
                 'parse' => array($this, 'readSessionData')
             )
