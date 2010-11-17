@@ -65,4 +65,17 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext)));
     }
 
+    /**
+     * Bug #9121: Remove null padding on stored data
+     */
+    public function testNullPadding()
+    {
+        $secret = new Horde_Secret();
+
+        $key = "\x88";
+        $plaintext = "\x01\x01\x01\x01\x01\x01\x01\x01";
+
+        $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext . "\x00")));
+    }
+
 }
