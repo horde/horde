@@ -31,7 +31,7 @@ $template->set('dir', $dir);
 $template->set('manager_url', Horde::url('manager.php'));
 
 $entry = array();
-foreach ($_SESSION['gollem']['clipboard'] as $key => $val) {
+foreach ($session->get('gollem', 'clipboard') as $key => $val) {
     $entry[] = array(
         'copy' => ($val['action'] == 'copy'),
         'cut' => ($val['action'] == 'cut'),

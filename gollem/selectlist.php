@@ -30,8 +30,8 @@ $currdir = Gollem::getDir();
 $cacheid = Horde_Util::getFormData('cacheid');
 if (empty($cacheid)) {
     $cacheid = strval(new Horde_Support_Randomid());
-    $_SESSION['gollem']['selectlist'][$cacheid] = array();
 }
+$selectlist = $session->get('gollem', 'selectlist/' . $cacheid, Horde_Session::TYPE_ARRAY);
 
 /* Get the formid for the return. */
 $formid = Horde_Util::getFormData('formid');
@@ -43,19 +43,22 @@ case 'select':
     if (is_array($items) && count($items)) {
         foreach ($items as $item) {
             $item_value = $currdir . '|' . $item;
-            if (empty($_SESSION['gollem']['selectlist'][$cacheid]['files'])) {
-                $_SESSION['gollem']['selectlist'][$cacheid]['files'] = array($item_value);
+            if (empty($selectlist['files'])) {
+                $selectlist['files'] = array($item_value);
             } else {
-                $item_key = array_search($item_value, $_SESSION['gollem']['selectlist'][$cacheid]['files']);
+                $item_key = array_search($item_value, $selectlist['files']);
                 if ($item_key !== false) {
-                    unset($_SESSION['gollem']['selectlist'][$cacheid]['files'][$item_key]);
-                    sort($_SESSION['gollem']['selectlist'][$cacheid]['files']);
+                    unset($selectlist['files'][$item_key]);
+                    sort($selectlist['files']);
                 } else {
-                    $_SESSION['gollem']['selectlist'][$cacheid]['files'][] = $item_value;
+                    $selectlist['files'][] = $item_value;
                 }
             }
         }
-        $filelist = array_keys(array_flip($_SESSION['gollem']['selectlist'][$cacheid]['files']));
+
+        $session->set('gollem', 'selectlist/' . $cacheid, $selectlist);
+
+        $filelist = array_keys(array_flip($selectlist['files']));
     }
     break;
 }
@@ -171,8 +174,8 @@ if (is_array($info['list']) &&
             break;
         }
 
-        if (!empty($_SESSION['gollem']['selectlist'][$cacheid]['files']) &&
-            in_array($currdir . '|' . $val['name'], $_SESSION['gollem']['selectlist'][$cacheid]['files'])) {
+        if (!empty($selectlist['files']) &&
+            in_array($currdir . '|' . $val['name'], $selectlist['files'])) {
             $item['selected'] = true;
         }
 

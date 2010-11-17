@@ -255,10 +255,12 @@ class Gollem_Api extends Horde_Registry_Api
             $backend = Gollem::getPreferredBackend();
         }
 
+        $backend_config = $GLOBALS['session']->get('gollem', 'backends/' . $backend);
+
         return Horde::url('view.php')->add(array(
             'actionID' => 'view_file',
             'dir' => $dir,
-            'driver' => $_SESSION['gollem']['backends'][$backend]['driver'],
+            'driver' => $backend_config['driver'],
             'file' => $file,
             'type' => substr($file, strrpos($file, '.') + 1)
         ));
@@ -312,12 +314,14 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function selectlistResults($selectid)
     {
-        if (!isset($_SESSION['gollem']['selectlist'][$selectid]['files'])) {
+        $selectlist = $GLOBALS['session']->get('gollem', 'selectlist/' . $selectid);
+
+        if (!isset($selectlist['files'])) {
             return null;
         }
 
         $list = array();
-        foreach ($_SESSION['gollem']['selectlist'][$selectid]['files'] as $val) {
+        foreach ($selectlist['files'] as $val) {
             list($dir, $filename) = explode('|', $val);
             $list[] = array($dir => $filename);
         }
@@ -335,11 +339,13 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function returnFromSelectlist($selectid, $index)
     {
-        if (!isset($_SESSION['gollem']['selectlist'][$selectid]['files'][$index])) {
+        $selectlist = $GLOBALS['session']->get('gollem', 'selectlist/' . $selectid);
+
+        if (!isset($selectlist['files'][$index])) {
             return null;
         }
 
-        list($dir, $filename) = explode('|', $_SESSION['gollem']['selectlist'][$selectid]['files'][$index]);
+        list($dir, $filename) = explode('|', $selectlist['files'][$index]);
         return $GLOBALS['gollem_vfs']->read($dir, $filename);
     }
 
@@ -364,7 +370,9 @@ class Gollem_Api extends Horde_Registry_Api
             foreach ($files as $file) {
                 $list[] = key($file) . '|' . current($file);
             }
-            $_SESSION['gollem']['selectlist'][$selectid]['files'] = $list;
+            $selectlist = $GLOBALS['session']->get('gollem', 'selectlist/' . $selectid, Horde_Session::TYPE_ARRAY);
+            $selectlist['files'] = $list;
+            $GLOBALS['session']->set('gollem', 'selectlist/' . $selectid, $selectlist);
         }
 
         return $selectid;
@@ -382,7 +390,7 @@ class Gollem_Api extends Horde_Registry_Api
             : $path;
 
         // Validate and perform permissions checks on the requested backend
-        if (!isset($_SESSION['gollem']['backends'][$backend_key])) {
+        if (!$GLOBALS['session']->exists('gollem', 'backends/' . $backend_key)) {
             throw new Gollem_Exception(sprintf(_("Invalid backend requested: %s"), $backend_key));
         }
 

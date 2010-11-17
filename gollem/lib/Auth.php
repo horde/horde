@@ -32,7 +32,7 @@ class Gollem_Auth
                                  $login = false)
     {
         // Check for for hordeauth.
-        if (empty($_SESSION['gollem']['backend_key'])) {
+        if (!$GLOBALS['session']->exists('gollem', 'backend_key')) {
             if (Gollem::canAutoLogin()) {
                 $backend_key = Gollem::getPreferredBackend();
 
@@ -78,7 +78,7 @@ class Gollem_Auth
      */
     protected function _authenticate($userID, $credentials)
     {
-        if (!(isset($_SESSION['gollem']) && is_array($_SESSION['gollem']))) {
+        if (!($backend_key = $GLOBALS['session']->exists('gollem', 'backend_key'))) {
             if (isset($GLOBALS['prefs'])) {
                 $GLOBALS['prefs']->cleanup(true);
             }
@@ -86,7 +86,7 @@ class Gollem_Auth
         }
 
         // Allocate a global VFS object
-        $GLOBALS['gollem_vfs'] = Gollem::getVFSOb($_SESSION['gollem']['backend_key']);
+        $GLOBALS['gollem_vfs'] = Gollem::getVFSOb($backend_key);
         if (is_a($GLOBALS['gollem_vfs'], 'PEAR_Error')) {
             throw new Horde_Exception($GLOBALS['gollem_vfs']);
         }
@@ -194,7 +194,7 @@ class Gollem_Auth
      */
     function createSession($key, $user = null, $pass = null, $args = array())
     {
-        global $conf;
+        global $conf, $session;
 
         /* Make sure we have a key and that it is valid. */
         if (empty($key) || (substr($key, 0, 1) == '_')) {
@@ -211,19 +211,11 @@ class Gollem_Auth
             return false;
         }
 
-        /* Create gollem session object if it doesn't already exist. */
-        if (!isset($_SESSION['gollem'])) {
-            $_SESSION['gollem'] = array();
-            $_SESSION['gollem']['backends'] = array();
-            $_SESSION['gollem']['selectlist'] = array();
-        }
-        $_SESSION['gollem']['backends'][$key] = $backends[$key];
-        $GLOBALS['gollem_be'] = &$_SESSION['gollem']['backends'][$key];
-        $ptr = &$_SESSION['gollem']['backends'][$key];
+        $ptr = $backends[$key];
         $ptr['params'] = array_merge($ptr['params'], $args);
 
         /* Set the current backend as active. */
-        $_SESSION['gollem']['backend_key'] = $key;
+        $session->set('gollem', 'backend_key', $key);
 
         /* Set username now. Don't set the current username if the backend
          * already has a username defined. */
@@ -246,8 +238,8 @@ class Gollem_Auth
         /* Try to authenticate with the given information. */
         $auth_gollem = new Gollem_Auth();
         if ($auth_gollem->authenticate(null, null, true) !== true) {
-            unset($_SESSION['gollem']['backends'][$key]);
-            $_SESSION['gollem']['backend_key'] = null;
+            $session->remove('gollem', 'backends/' . $key);
+            $session->remove('gollem', 'backend_key');
             return false;
         }
 
@@ -278,8 +270,8 @@ class Gollem_Auth
             $error_msg = 'Backend Configuration Error: Home directory not below root.';
             $auth_gollem->gollemSetAuthErrorMsg($error_msg);
             Horde::logMessage($error_msg, 'ERR');
-            unset($_SESSION['gollem']['backends'][$key]);
-            $_SESSION['gollem']['backend_key'] = null;
+            $session->remove('gollem', 'backends/' . $key);
+            $session->remove('gollem', 'backend_key');
             return false;
         }
 
@@ -294,8 +286,8 @@ class Gollem_Auth
                     $error_msg = 'Backend Configuration Error: Could not create home directory ' . $ptr['home'] . '.';
                     $auth_gollem->gollemSetAuthErrorMsg($error_msg);
                     Horde::logMessage($error_msg, 'ERR');
-                    unset($_SESSION['gollem']['backends'][$key]);
-                    $_SESSION['gollem']['backend_key'] = null;
+                    $session->remove('gollem', 'backends/' . $key);
+                    $session->remove('gollem', 'backend_key');
                     return false;
                 }
             }
@@ -305,15 +297,11 @@ class Gollem_Auth
         $ptr['autologin'] = Gollem::canAutoLogin(true);
 
         /* Cache the backend_list in the session. */
-        if (empty($_SESSION['gollem']['be_list'])) {
-            Gollem::loadBackendList();
-            $_SESSION['gollem']['be_list'] = $GLOBALS['gollem_backends'];
-        }
+        Gollem::loadBackendList();
+        $session->set('gollem', 'be_list', $GLOBALS['gollem_backends']);
 
-        /* Initialize clipboard. */
-        if (!isset($_SESSION['gollem']['clipboard'])) {
-            $_SESSION['gollem']['clipboard'] = array();
-        }
+        $GLOBALS['gollem_be'] = $ptr;
+        $session->set('gollem', 'backends/' . $key, $ptr);
 
         /* Call Gollem::changeDir() to make sure the label is set. */
         Gollem::changeDir();
@@ -328,8 +316,8 @@ class Gollem_Auth
      */
     function changeBackend($key)
     {
-        $_SESSION['gollem']['backend_key'] = $key;
-        $GLOBALS['gollem_be'] = &$_SESSION['gollem']['backends'][$key];
+        $GLOBALS['session']->set('gollem', 'backend_key', $key);
+        $GLOBALS['gollem_be'] = $GLOBALS['session']->get('gollem', 'backends/' . $key);
     }
 
 }
