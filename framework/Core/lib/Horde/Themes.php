@@ -25,7 +25,6 @@ class Horde_Themes
      * <pre>
      * 'app' - (string) Use this application instead of the current app.
      * 'nohorde' - (boolean) If true, do not fallback to horde for image.
-     * 'notheme' - (boolean) If true, do not use themed data.
      * 'theme' - (string) Use this theme instead of the Horde default.
      * </pre>
      *
@@ -53,7 +52,6 @@ class Horde_Themes
      * <pre>
      * 'app' - (string) Use this application instead of the current app.
      * 'nohorde' - (boolean) If true, do not fallback to horde for sound.
-     * 'notheme' - (boolean) If true, do not use themed data.
      * 'theme' - (string) Use this theme instead of the Horde default.
      * </pre>
      *
@@ -86,14 +84,14 @@ class Horde_Themes
         /* Do search in reverse order - app + theme sounds have the highest
          * priority and will overwrite previous sound definitions. */
         $locations = array(
-            self::sound(null, array('app' => 'horde', 'notheme' => true)),
+            self::sound(null, array('app' => 'horde', 'theme' => null)),
             // Placeholder for app
             null,
             self::sound(null, 'horde')
         );
 
         if ($app != 'horde') {
-            $locations[1] = self::sound(null, array('app' => $app, 'notheme' => true));
+            $locations[1] = self::sound(null, array('app' => $app, 'theme' => null));
             $locations[3] = self::sound(null, $app);
         }
 

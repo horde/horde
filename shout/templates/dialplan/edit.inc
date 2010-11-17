@@ -114,7 +114,7 @@ function editAction(digit)
         $('editActionFormDigit').value = digit;
 
         if ($('selectAction').firstChild == null) {
-            $('digitGraphic').src = '<?php echo Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true)); ?>/digit-'+digit+'.png';
+            $('digitGraphic').src = '<?php echo Horde_Themes::img(null, array('theme' => null, 'nohorde' => true)); ?>/digit-'+digit+'.png';
 
             // Draw the selectActionForm
             $('editActionOverlay').show();
