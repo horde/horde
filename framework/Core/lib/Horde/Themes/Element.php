@@ -123,7 +123,8 @@ class Horde_Themes_Element
             if (empty($this->_opts['notheme']) &&
                 isset($GLOBALS['prefs']) &&
                 (($theme = $GLOBALS['prefs']->getValue('theme')) ||
-                 (!empty($this->_opts['theme']) && ($theme = $this->_opts['theme'])))) {
+                 (!empty($this->_opts['theme']) &&
+                  ($theme = $this->_opts['theme'])))) {
                 $tpath = '/' . $theme . $path;
                 foreach ($app_list as $app) {
                     $filepath = $registry->get('themesfs', $app) . $tpath;

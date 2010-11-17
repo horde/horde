@@ -23,7 +23,7 @@ Horde::outputMetaTags();
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <?php if (!$GLOBALS['browser']->isMobile()): ?>
-<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 <?php
 echo Horde_Themes::includeStylesheetFiles();
 echo Horde::includeScriptFiles();

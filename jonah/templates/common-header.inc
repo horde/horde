@@ -26,7 +26,7 @@ if ($channel_id = Horde_Util::getFormData('channel_id')) {
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true));?>/favicon.ico" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 <?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 

@@ -1408,6 +1408,25 @@ HTML;
     }
 
     /**
+     * Generate the favicon tag for the current application.
+     *
+     * @return string  The favicon LINK tag.
+     */
+    static public function includeFavicon()
+    {
+        $img = strval(Horde_Themes::img('favicon.ico', array(
+            'nohorde' => true
+        )));
+        if (!$img) {
+            $img = strval(Horde_Themes::img('favicon.ico', array(
+                'app' => 'horde'
+            )));
+        }
+
+        return '<link href="' . $img . '" rel="SHORTCUT ICON" />';
+    }
+
+    /**
      * Determines the location of the system temporary directory. If a specific
      * configuration cannot be found, it defaults to /tmp.
      *

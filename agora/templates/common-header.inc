@@ -22,7 +22,7 @@ Horde::includeScriptFiles();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 <?php Horde_Themes::includeStylesheetFiles() ?>
 <link rel="alternate" title="<?php echo _("Forums") ?>" href="<?php echo Horde_Util::addParameter(Horde::url('rss/index.php', true, -1), 'scope', $scope) ?>" type="application/rss+xml" />
 </head>

@@ -65,10 +65,10 @@ default:
 </head>
 <body>
 <?php elseif ($imp_view == 'dimp'): ?>
-<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 </head>
 <?php else: ?>
-<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>

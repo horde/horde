@@ -17,7 +17,7 @@ if (!empty($title)) {
     Horde::includeScriptFiles();
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 <?php Horde::outputInlineScript(); ?>
 </head>
 

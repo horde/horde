@@ -87,7 +87,7 @@ class Kronolith
              (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
              "<head>\n" .
              '<title>' . htmlspecialchars($GLOBALS['registry']->get('name')) . "</title>\n" .
-             '<link href="' . Horde_Themes::img('favicon.ico', array('nohorde' => true)) . "\" rel=\"SHORTCUT ICON\" />\n".
+             Horde::getFavicon() .
              Horde::wrapInlineScript(self::includeJSVars());
 
         Horde_Themes::includeStylesheetFiles();

@@ -23,7 +23,7 @@ Horde::outputMetaTags();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 <?php echo Horde::stylesheetLink('passwd') ?>
 </head>
 

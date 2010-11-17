@@ -32,7 +32,7 @@ $bc = (isset($view) && is_object($view) && $prefs->getValue('show_panel'))
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 <?php Horde_Themes::includeStylesheetFiles() ?>
 <?php foreach ($GLOBALS['display_calendars'] as $calendar): ?>
 <link href="<?php echo Kronolith::feedUrl($calendar) ?>" rel="alternate" type="application/atom+xml" />

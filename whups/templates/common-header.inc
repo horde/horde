@@ -29,7 +29,7 @@ if (isset($whups_query) && isset($whups_query->id)) {
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php echo Horde::getFavicon(); ?>
 <link href="<?php echo Horde::url('opensearch.php', true, -1) ?>" rel="search" type="application/opensearchdescription+xml" title="<?php echo $registry->get('name') . ' (' . Horde::url('', true) . ')' ?>" />
 <?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
