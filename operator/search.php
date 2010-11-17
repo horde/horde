@@ -16,7 +16,6 @@ require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 $cache = $GLOBALS['cache'];
 $renderer = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
-$data = array();
 
 if (!$vars->exists('rowstart')) {
     $rowstart = 0;
@@ -25,9 +24,7 @@ if (!$vars->exists('rowstart')) {
     $rowstart = 0;
 }
 
-if (isset($_SESSION['operator']['lastdata'])) {
-    $data = $_SESSION['operator']['lastdata'];
-}
+$data = $session->get('operator', 'lastdata', Horde_Session::TYPE_ARRAY);
 
 $form = new SearchCDRForm(_("Search Call Detail Records"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
@@ -45,12 +42,13 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
                                                             $dcontext, $rowstart,
                                                             $GLOBALS['conf']['storage']['searchlimit']);
 
-        $_SESSION['operator']['lastsearch']['params'] = array(
+        $session->set('operator', 'lastsearch/params', array(
             'accountcode' => $vars->get('accountcode'),
             'dcontext' => $vars->get('dcontext'),
             'startdate' => $vars->get('startdate'),
-            'enddate' => $vars->get('enddate'));
-        $_SESSION['operator']['lastdata'] = $data;
+            'enddate' => $vars->get('enddate')
+        ));
+        $session->set('operator', 'lastdata', $data);
 
     } catch (Exception $e) {
         //$notification->push(_("Invalid date requested."));
@@ -58,10 +56,8 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
         $data = array();
     }
 } else {
-    if (isset($_SESSION['operator']['lastsearch']['params'])) {
-        foreach($_SESSION['operator']['lastsearch']['params'] as $var => $val) {
-            $vars->set($var, $val);
-        }
+    foreach($session->get('operator', 'lastsearch/params', Horde_Session::TYPE_ARRAY) as $var => $val) {
+        $vars->set($var, $val);
     }
 }
 

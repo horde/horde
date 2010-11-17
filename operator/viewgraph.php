@@ -58,11 +58,12 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
                 // Cached data is stored serialized
                 $stats = unserialize($stats);
             }
-            $_SESSION['operator']['lastsearch']['params'] = array(
+            $session->set('operator', 'lastsearch/params', array(
                 'accountcode' => $vars->get('accountcode'),
                 'dcontext' => $vars->get('dcontext'),
                 'startdate' => $vars->get('startdate'),
-                'enddate' => $vars->get('enddate'));
+                'enddate' => $vars->get('enddate')
+            ));
         }
     } catch (Horde_Exception $e) {
         //$notification->push(_("Invalid dates requested."));
@@ -70,14 +71,10 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
         $stats = array();
     }
 } else {
-    if (isset($_SESSION['operator']['lastsearch']['params'])) {
-        foreach($_SESSION['operator']['lastsearch']['params'] as $var => $val) {
-            $vars->set($var, $val);
-        }
+    foreach ($session->get('operator', 'lastsearch/params', Horde_Session::TYPE_ARRAY) as $var => $val) {
+        $vars->set($var, $val);
     }
-    if (isset($_SESSION['operator']['lastsearch']['data'])) {
-        $data = $_SESSION['operator']['lastsearch']['data'];
-    }
+    $data = $session->get('operator', 'lastsearch/data', Horde_Session::TYPE_ARRAY);
 }
 
 $graphs = array();
@@ -107,4 +104,4 @@ if (!empty($stats) && !empty($graphs[$curgraph])) {
 require $registry->get('templates', 'horde') . '/common-footer.inc';
 
 // Don't leave stale stats lying about
-unset($_SESSION['operator']['stats']);
+$session->remove('operator', 'stats');
