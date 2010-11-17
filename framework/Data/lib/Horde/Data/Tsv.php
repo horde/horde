@@ -39,7 +39,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
      */
     public function importData($contents, $header = false, $delimiter = "\t")
     {
-        if ($_SESSION['import_data']['format'] == 'pine') {
+        if ($GLOBALS['injector']->getInstance('Horde_Session')->get('horde', 'import_data/format') == 'pine') {
             $contents = preg_replace('/\n +/', '', $contents);
         }
 
@@ -138,28 +138,38 @@ class Horde_Data_Tsv extends Horde_Data_Base
      */
     public function nextStep($action, $param = array())
     {
+        $session = $GLOBALS['injector']->getInstance('Horde_Session');
+
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
             parent::nextStep($action, $param);
 
-            if ($_SESSION['import_data']['format'] == 'mulberry' ||
-                $_SESSION['import_data']['format'] == 'pine') {
-                $_SESSION['import_data']['data'] = $this->importFile($_FILES['import_file']['tmp_name']);
-                $format = $_SESSION['import_data']['format'];
-                if ($format == 'mulberry') {
+            $format = $session->get('horde', 'import_data/format');
+            if (in_array($format, array('mulberry', 'pine'))) {
+                $filedata = $this->importFile($_FILES['import_file']['tmp_name']);
+
+                switch ($format) {
+                case 'mulberry':
                     $appKeys  = array('alias', 'name', 'email', 'company', 'workAddress', 'workPhone', 'homePhone', 'fax', 'notes');
                     $dataKeys = array(0, 1, 2, 3, 4, 5, 6, 7, 9);
-                } elseif ($format == 'pine') {
+                    break;
+
+                case 'pine':
                     $appKeys = array('alias', 'name', 'email', 'notes');
                     $dataKeys = array(0, 1, 2, 4);
+                    break;
                 }
+
                 foreach ($appKeys as $key => $app) {
                     $map[$dataKeys[$key]] = $app;
                 }
+
                 $data = array();
-                foreach ($_SESSION['import_data']['data'] as $row) {
+                foreach ($filedata as $row) {
                     $hash = array();
-                    if ($format == 'mulberry') {
+
+                    switch ($format) {
+                    case 'mulberry':
                         if (preg_match("/^Grp:/", $row[0]) || empty($row[1])) {
                             continue;
                         }
@@ -169,7 +179,9 @@ class Horde_Data_Tsv extends Horde_Data_Base
                                 $hash[$key] = stripslashes(preg_replace('/\\\\r/', "\n", $row[$key]));
                             }
                         }
-                    } elseif ($format == 'pine') {
+                        break;
+
+                    case 'pine':
                         if (count($row) < 3 || preg_match("/^#DELETED/", $row[0]) || preg_match("/[()]/", $row[2])) {
                             continue;
                         }
@@ -192,13 +204,16 @@ class Horde_Data_Tsv extends Horde_Data_Base
                                 $hash[$key] = $row[$key];
                             }
                         }
+                        break;
                     }
+
                     $data[] = $hash;
                 }
-                $_SESSION['import_data']['data'] = $data;
-                $_SESSION['import_data']['map'] = $map;
-                $ret = $this->nextStep(Horde_Data::IMPORT_DATA, $param);
-                return $ret;
+
+                $session->set('horde', 'import_data/data', $data);
+                $session->set('horde', 'import_data/map', $map);
+
+                return $this->nextStep(Horde_Data::IMPORT_DATA, $param);
             }
 
             /* Move uploaded file so that we can read it again in the next step
@@ -212,27 +227,25 @@ class Horde_Data_Tsv extends Horde_Data_Base
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
                 throw new Horde_Data_Exception('The uploaded file could not be saved.');
             }
-            $_SESSION['import_data']['file_name'] = $file_name;
+            $session->set('horde', 'import_data/file_name', $file_name);
 
             /* Read the file's first two lines to show them to the user. */
-            $_SESSION['import_data']['first_lines'] = '';
-            $fp = @fopen($file_name, 'r');
-            if ($fp) {
+            $first_lines = '';
+            if ($fp = @fopen($file_name, 'r')) {
                 $line_no = 1;
-                while ($line_no < 3 && $line = fgets($fp)) {
+                while (($line_no < 3) && ($line = fgets($fp))) {
                     $newline = Horde_String::length($line) > 100 ? "\n" : '';
-                    $_SESSION['import_data']['first_lines'] .= substr($line, 0, 100) . $newline;
-                    $line_no++;
+                    $first_lines .= substr($line, 0, 100) . $newline;
+                    ++$line_no;
                 }
             }
+            $session->set('horde', 'import_data/first_lines', $first_lines);
             return Horde_Data::IMPORT_TSV;
 
         case Horde_Data::IMPORT_TSV:
-            $_SESSION['import_data']['header'] = $this->_vars->header;
-            $import_data = $this->importFile($_SESSION['import_data']['file_name'],
-                                             $_SESSION['import_data']['header']);
-            $_SESSION['import_data']['data'] = $import_data;
-            unset($_SESSION['import_data']['map']);
+            $session->set('horde', 'import_data/header', $this->_vars->header);
+            $session->set('horde', 'import_data/data', $this->importFile($session->get('horde', 'import_data/file_name'), $session->get('horde', 'import_data/header')));
+            $session->remove('horde', 'import_data/map');
             return Horde_Data::IMPORT_MAPPED;
         }
 

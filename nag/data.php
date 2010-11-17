@@ -132,7 +132,7 @@ case 'export':
     break;
 
 case Horde_Data::IMPORT_FILE:
-    $_SESSION['import_data']['target'] = Horde_Util::getFormData('tasklist_target');
+    $session->set('horde', 'import_data/target', Horde_Util::getFormData('tasklist_target'));
     break;
 }
 
@@ -159,7 +159,7 @@ if (is_array($next_step)) {
     $categories = $cManager->get();
 
     /* Create a Nag storage instance. */
-    $storage = Nag_Driver::singleton($_SESSION['import_data']['target']);
+    $storage = Nag_Driver::singleton($session->get('horde', 'import_data/target'));
     $max_tasks = $perms->hasAppPermission('max_tasks');
     $num_tasks = Nag::countTasks();
     $result = null;
@@ -210,13 +210,13 @@ if (is_array($next_step)) {
 
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any tasks."),
-                                    $file_types[$_SESSION['import_data']['format']]), 'horde.error');
+                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
     } elseif (is_a($result, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error importing the data: %s"),
                                     $result->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("%s successfully imported"),
-                                    $file_types[$_SESSION['import_data']['format']]), 'horde.success');
+                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');
     }
     $next_step = $data->cleanup();
 }

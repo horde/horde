@@ -355,13 +355,13 @@ case Horde_Data::IMPORT_FILE:
         break;
     }
 
-    $_SESSION['import_data']['target'] = $dest;
-    $_SESSION['import_data']['purge'] = Horde_Util::getFormData('purge');
+    $session->set('horde', 'import_data/target', $dest);
+    $session->set('horde', 'import_data/purge', Horde_Util::getFormData('purge'));
     break;
 
 case Horde_Data::IMPORT_MAPPED:
 case Horde_Data::IMPORT_DATETIME:
-    foreach ($cfgSources[$_SESSION['import_data']['target']]['map'] as $field => $null) {
+    foreach ($cfgSources[$session->get('horde', 'import_data/target')]['map'] as $field => $null) {
         if (substr($field, 0, 2) != '__' && !is_array($null)) {
             if ($attributes[$field]['type'] == 'monthyear' ||
                 $attributes[$field]['type'] == 'monthdayyear') {
@@ -421,7 +421,7 @@ if (is_array($next_step)) {
     $categories = $cManager->get();
 
     /* Create a Turba storage instance. */
-    $dest = $_SESSION['import_data']['target'];
+    $dest = $session->get('horde', 'import_data/target');
     try {
         $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
     } catch (Turba_Exception $e) {
@@ -431,10 +431,10 @@ if (is_array($next_step)) {
 
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any contacts."),
-                                    $file_types[$_SESSION['import_data']['format']]), 'horde.error');
+                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
     } elseif ($driver) {
         /* Purge old address book if requested. */
-        if ($_SESSION['import_data']['purge']) {
+        if ($session->get('horde', 'import_data/purge')) {
             try {
                 $driver->deleteAll();
                 $notification->push(_("Address book successfully purged."), 'horde.success');
@@ -491,7 +491,7 @@ if (is_array($next_step)) {
         }
         if (!$error) {
             $notification->push(sprintf(_("%s file successfully imported."),
-                                        $file_types[$_SESSION['import_data']['format']]), 'horde.success');
+                                        $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');
         }
     }
     $next_step = $data->cleanup();
@@ -500,7 +500,7 @@ if (is_array($next_step)) {
 switch ($next_step) {
 case Horde_Data::IMPORT_MAPPED:
 case Horde_Data::IMPORT_DATETIME:
-    foreach ($cfgSources[$_SESSION['import_data']['target']]['map'] as $field => $null) {
+    foreach ($cfgSources[$session->get('horde', 'import_data/target')]['map'] as $field => $null) {
         if (substr($field, 0, 2) != '__' && !is_array($null)) {
             $app_fields[$field] = $attributes[$field]['label'];
         }
