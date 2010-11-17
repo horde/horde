@@ -74,11 +74,11 @@ class Horde_Secret
             throw new Horde_Secret_Exception('Plain text must be a string', 0);
         }
 
-        $val = strlen($key) && strlen($message)
-            ? $this->_getCipherOb($key)->encrypt($message)
-            : '';
-
-        return $val;
+        if (strlen($key) && strlen($message)) {
+            return $this->_getCipherOb($key)->encrypt($message);
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -96,13 +96,11 @@ class Horde_Secret
             throw new Horde_Secret_Exception('Chiper text must be a string', 1);
         }
 
-        $val = strlen($key) && strlen($ciphertext)
-            ? $this->_getCipherOb($key)->decrypt($ciphertext)
-            : '';
-
-        /* Bug #9121: Data may be null padded - need to remove this
-         * padding. */
-        return rtrim($val, "\0");
+        if (strlen($key) && strlen($ciphertext)) {
+            return rtrim($this->_getCipherOb($key)->decrypt($ciphertext), "\0");
+        } else {
+            return '';
+        }
     }
 
     /**

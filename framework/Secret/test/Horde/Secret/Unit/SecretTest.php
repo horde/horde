@@ -114,9 +114,15 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $secret->read('012345678901234567890123456789012345678901234567890123456789', "\x01");
     }
 
-    public function testShortKey()
+    public function testShortKeyRead()
     {
         $secret = new Horde_Secret();
         $this->assertEquals('', $secret->read('', "\x01"));
+    }
+
+    public function testShortKeyWrite()
+    {
+        $secret = new Horde_Secret();
+        $this->assertEquals('', $secret->write('', "\x01"));
     }
 }
