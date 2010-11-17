@@ -58,9 +58,10 @@ class Gollem_Application extends Horde_Registry_Application
     {
         // Set the global $gollem_be variable to the current backend's
         // parameters.
-        $GLOBALS['gollem_be'] = empty($_SESSION['gollem']['backend_key'])
-            ? null
-            : $_SESSION['gollem']['backends'][$_SESSION['gollem']['backend_key']];
+        $backend_key = $GLOBALS['session']->get('gollem', 'backend_key');
+        $GLOBALS['gollem_be'] = $backend_key
+            ? $GLOBALS['session']->get('gollem', 'backends/' . $backend_key)
+            : null;
 
         // Load the backend list.
         Gollem::loadBackendList();
@@ -163,20 +164,17 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $menu->add(Horde::url('manager.php')->add('dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
 
-        if (!empty($_SESSION['gollem'])) {
-            $backend_key = $_SESSION['gollem']['backend_key'];
-            if ($GLOBALS['registry']->isAdmin()) {
-                $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
-            }
+        if ($GLOBALS['registry']->isAdmin()) {
+            $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
+        }
 
-            if ($_SESSION['gollem']['backends'][$backend_key]['quota_val'] != -1) {
-                if ($GLOBALS['browser']->hasFeature('javascript')) {
-                    $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
-                } else {
-                    $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
-                }
-                $menu->add($quota_url, _("Check Quota"), 'info_icon.png');
+        if ($GLOBALS['gollem_be']['quota_val'] != -1) {
+            if ($GLOBALS['browser']->hasFeature('javascript')) {
+                $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
+            } else {
+                $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
             }
+            $menu->add($quota_url, _("Check Quota"), 'info_icon.png');
         }
     }
 

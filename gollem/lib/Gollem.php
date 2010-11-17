@@ -250,8 +250,9 @@ class Gollem
      */
     static protected function _getCacheID($dir)
     {
-        global $prefs;
-        return implode('|', array($GLOBALS['registry']->getAuth(), $_SESSION['gollem']['backend_key'], $prefs->getValue('show_dotfiles'), $prefs->getValue('sortdirsfirst'), $prefs->getValue('sortby'), $prefs->getValue('sortdir'), $dir));
+        global $prefs, $session;
+
+        return implode('|', array($GLOBALS['registry']->getAuth(), $session->get('gollem', 'backend_key'), $prefs->getValue('show_dotfiles'), $prefs->getValue('sortdirsfirst'), $prefs->getValue('sortby'), $prefs->getValue('sortdir'), $dir));
     }
 
     /**
@@ -475,10 +476,12 @@ class Gollem
     static protected function _copyFile($mode, $backend_f, $dir, $name,
                                         $backend_t, $newdir)
     {
+        $backend_key = $GLOBALS['session']->get('gollem', 'backend_key');
+
         /* If the from/to backends are the same, we can just use the built-in
            VFS functions. */
         if ($backend_f == $backend_t) {
-            if ($backend_f == $_SESSION['gollem']['backend_key']) {
+            if ($backend_f == $backend_key) {
                 $ob = &$GLOBALS['gollem_vfs'];
             } else {
                 $ob = Gollem::getVFSOb($backend_f);
@@ -488,14 +491,14 @@ class Gollem
         }
 
         /* Else, get the two VFS objects and copy/move the files. */
-        if ($backend_f == $_SESSION['gollem']['backend_key']) {
+        if ($backend_f == $backend_key) {
             $from_be = &$GLOBALS['gollem_vfs'];
         } else {
             $from_be = Gollem::getVFSOb($backend_f);
             $from_be->checkCredentials();
         }
 
-        if ($backend_t == $_SESSION['gollem']['backend_key']) {
+        if ($backend_t == $backend_key) {
             $to_be = &$GLOBALS['gollem_vfs'];
         } else {
             $from_be = Gollem::getVFSOb($backend_t);
@@ -521,11 +524,7 @@ class Gollem
      */
     static public function getPreferredBackend()
     {
-        $backend_key = null;
-
-        if (!empty($_SESSION['gollem']['backend_key'])) {
-            $backend_key = $_SESSION['gollem']['backend_key'];
-        } else {
+        if (!($backend_key = $GLOBALS['session']->get('gollem', 'backend_key')) ){
             /* Determine the preferred backend. */
             foreach ($GLOBALS['gollem_backends'] as $key => $val) {
                 if (empty($backend_key) && (substr($key, 0, 1) != '_')) {
@@ -585,7 +584,7 @@ class Gollem
     {
         $userID = $GLOBALS['registry']->getAuth();
         if (is_null($backend)) {
-            $backend = $_SESSION['gollem']['backend_key'];
+            $backend = $GLOBALS['session']->get('gollem', 'backend_key');
         }
 
         switch ($filter) {
@@ -610,7 +609,8 @@ class Gollem
     {
         $label = array();
         $root_dir = Gollem::getRoot();
-        $root_dir_name = $_SESSION['gollem']['backends'][$_SESSION['gollem']['backend_key']]['name'];
+        $backend_config = $GLOBALS['session']->get('gollem', 'backends/' . $GLOBALS['session']->get('gollem', 'backend_key'));
+        $root_dir_name = $backend_config['name'];
 
         if ($currdir == $root_dir) {
             $label[] = '[' . $root_dir_name . ']';
@@ -686,7 +686,7 @@ class Gollem
         if (($GLOBALS['conf']['backend']['backend_list'] == 'shown') &&
             (count($GLOBALS['gollem_backends']) > 1)) {
             foreach ($GLOBALS['gollem_backends'] as $key => $val) {
-                $sel = ($_SESSION['gollem']['backend_key'] == $key) ? ' selected="selected"' : '';
+                $sel = ($GLOBALS['session']->get('gollem', 'backend_key') == $key) ? ' selected="selected"' : '';
                 $text .= sprintf('<option value="%s"%s>%s</option>%s', (empty($sel)) ? $key : '', $sel, $val['name'], "\n");
             }
         }
@@ -699,8 +699,8 @@ class Gollem
      */
     static public function loadBackendList()
     {
-        if (!empty($_SESSION['gollem']['be_list'])) {
-            $GLOBALS['gollem_backends'] = $_SESSION['gollem']['be_list'];
+        if ($be_list = $GLOBALS['session']->get('gollem', 'be_list')) {
+            $GLOBALS['gollem_backends'] = $be_list;
         } else {
             require GOLLEM_BASE . '/config/backends.php';
             $GLOBALS['gollem_backends'] = array();
@@ -737,10 +737,12 @@ class Gollem
      */
     function getVFSOb($backend_key, $params = array())
     {
-        if (isset($_SESSION['gollem']['backends'][$backend_key])) {
-            $be_config = &$_SESSION['gollem']['backends'][$backend_key];
+        if ($config = $GLOBALS['session']->get('gollem', 'backends/' . $backend_key)) {
+            $be_config = $config;
+            $sess_setup = true;
         } else {
             $be_config = $GLOBALS['gollem_backends'][$backend_key];
+            $sess_setup = false;
         }
         if (!count($params)) {
             $params = $be_config['params'];
@@ -775,6 +777,7 @@ class Gollem
                 if ($sess_setup) {
                     $be_config['quota_val'] = $quota_str[0];
                     $be_config['quota_metric'] = $quota_metric[$metric];
+                    $GLOBALS['session']->set('gollem', 'backends/' . $backend_key, $be_config);
                 }
             }
         } elseif ($be_config['quota_val'] > -1) {
@@ -816,7 +819,7 @@ class Gollem
      */
     static public function getBackends($perms = 'all')
     {
-        $backends = $_SESSION['gollem']['backends'];
+        $backends = $GLOBALS['session']->get('gollem', 'backends');
         $perms = strtolower($perms);
 
         if ($perms != 'all') {

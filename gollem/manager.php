@@ -18,7 +18,10 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
-$backkey = $_SESSION['gollem']['backend_key'];
+$backkey = $session->get('gollem', 'backend_key');
+if (!empty($gollem_be['clipboard'])) {
+    $clipboard = $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY);
+}
 $old_dir = Gollem::getDir();
 $vars = Horde_Variables::getDefaultVariables();
 
@@ -144,7 +147,8 @@ case 'cut_items':
                     'name' => $item,
                     'path' => $old_dir
                 );
-                $_SESSION['gollem']['clipboard'][] = $file;
+                $clipboard[] = $file;
+                $GLOBALS['session']->set('gollem', 'clipboard', $clipboard);
                 if ($action == 'copy') {
                     $notification->push(sprintf(_("Item copied to clipboard: %s"), $item),'horde.success');
                 } else {
@@ -167,8 +171,8 @@ case 'paste_items':
         $items = Horde_Util::getPost('items');
         if (is_array($items) && count($items)) {
             foreach ($items as $val) {
-                if (isset($_SESSION['gollem']['clipboard'][$val])) {
-                    $file = $_SESSION['gollem']['clipboard'][$val];
+                if (isset($clipboard[$val])) {
+                    $file = $clipboard[$val];
                     if ($vars->actionID == 'paste_items') {
                         try {
                             if ($file['action'] == 'cut') {
@@ -186,10 +190,10 @@ case 'paste_items':
                             $notification->push(sprintf(_("Cannot paste \"%s\" (file cleared from clipboard): %s"), $file['name'], $e->getMessage()), 'horde.error');
                         }
                     }
-                    unset($_SESSION['gollem']['clipboard'][$val]);
+                    unset($clipboard[$val]);
                 }
             }
-            $_SESSION['gollem']['clipboard'] = array_values($_SESSION['gollem']['clipboard']);
+            $session->set('gollem', 'clipboard', array_values($clipboard));
         }
     }
     break;
@@ -249,11 +253,10 @@ $symlink_img = Horde::img('folder_symlink.png', _("symlink"));
 $page = isset($vars->page)
     ? $vars->page
     : 0;
-if (isset($_SESSION['gollem']['filter']) &&
-    ($_SESSION['gollem']['filter'] != $vars->filter)) {
+if ($session->get('gollem', 'filter') != $vars->filter) {
     $page = 0;
 }
-$_SESSION['gollem']['filter'] = strval($vars->filter);
+$session->set('gollem', 'filter', strval($vars->filter));
 
 /* Commonly used URLs. */
 $view_url = Horde::url('view.php');
@@ -268,7 +271,7 @@ if ($vars->filter) {
 /* Get the list of copy/cut files in this directory. */
 $clipboard_files = array();
 if (!empty($gollem_be['clipboard'])) {
-    foreach ($_SESSION['gollem']['clipboard'] as $val) {
+    foreach ($clipboard as $val) {
         if (($backkey == $val['backend']) && ($val['path'] == $currdir)) {
             $clipboard_files[$val['name']] = 1;
         }
@@ -307,8 +310,7 @@ $template->set('navlink', Gollem::directoryNavLink($currdir, $manager_url));
 $template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), $gollem_be['label']), '', '', '', '', '', array('id' => 'refreshimg')) . Horde::img('reload.png', sprintf("%s %s", _("Refresh"), htmlspecialchars($gollem_be['label']))) . '</a>');
 
 $template->set('hasclipboard', !$edit_perms || !empty($gollem_be['clipboard']), true);
-if (!$template->get('hasclipboard') ||
-    empty($_SESSION['gollem']['clipboard'])) {
+if (!$template->get('hasclipboard') || empty($clipboard)) {
     $template->set('clipboard', null);
 } else {
     $template->set('clipboard', Horde::link(Horde::url('clipboard.php')->add('dir', $currdir), _("View Clipboard")) . Horde::img('clipboard.png', _("View Clipboard")) . '</a>');
