@@ -38,17 +38,16 @@ case 'searchform':
     $form->validate($vars);
     $criteria = $form->getSearchCriteria($vars);
     if (is_null($criteria)) {
-        unset($_SESSION['hermes_search_criteria']);
+        $session->remove('hermes', 'search_criteria');
     } else {
-        $_SESSION['hermes_search_criteria'] = serialize($vars);
+        $session->set('hermes', 'search_criteria', $vars);
     }
     break;
 
 case 'exportform':
-    if (!isset($_SESSION['hermes_search_criteria'])) {
+    if (!($searchVars = $session->get('hermes', 'search_criteria'))) {
         $notification->push(_("No search to export!"), 'horde.error');
     } else {
-        $searchVars = unserialize($_SESSION['hermes_search_criteria']);
         $searchForm = new SearchForm($searchVars);
         $criteria = $searchForm->getSearchCriteria($searchVars);
         if (is_null($criteria)) {
@@ -91,9 +90,7 @@ if (!$print_view) {
 }
 require HERMES_TEMPLATES . '/common-header.inc';
 
-if (isset($_SESSION['hermes_search_criteria'])) {
-    $searchVars = unserialize($_SESSION['hermes_search_criteria']);
-} else {
+if (!($searchVars = $session->get('hermes', 'search_criteria'))) {
     $searchVars = $vars;
 }
 $form = new SearchForm($searchVars);
@@ -103,7 +100,7 @@ require HERMES_TEMPLATES . '/menu.inc';
 $form->renderActive(new Horde_Form_Renderer(), $searchVars, 'search.php', 'post');
 echo '<br />';
 
-if (isset($_SESSION['hermes_search_criteria'])) {
+if ($session->exists('hermes', 'search_criteria')) {
     echo Hermes::tabs();
 
     if (is_null($criteria)) {

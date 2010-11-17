@@ -112,8 +112,8 @@ class Hermes_Api extends Horde_Registry_Api
             }
 
             $subtotal_column = null;
-            if (isset($_SESSION['hermes_search_mode'])) {
-                switch ($_SESSION['hermes_search_mode']) {
+            if ($search_mode = $GLOBALS['session']->get('hermes', 'search_mode')) {
+                switch ($search_mode) {
                 case 'date':
                     $subtotal_column = 'date';
                     break;
