@@ -770,7 +770,7 @@ class Ansel
         /* Use Horde's stylesheet code if we aren't ouputting css directly */
         if (!$custom_only) {
             foreach ($css as $f => $u) {
-                Horde_Themes::addStylesheet($f, $u);
+                $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addStylesheet($f, $u);
             }
 
             Horde::includeStylesheetFiles();

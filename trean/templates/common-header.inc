@@ -21,7 +21,7 @@ Horde::outputMetaTags();
 Horde::includeScriptFiles();
 Horde::includeFavicon();
 
-Horde_Themes::addStylesheet($registry->get('themesfs') . '/grids-min.css', $registry->get('themesuri')  . '/grids-min.css');
+$injector->getInstance('Horde_Themes_Css')->addStylesheet($registry->get('themesfs') . '/grids-min.css', $registry->get('themesuri')  . '/grids-min.css');
 Horde::includeStylesheetFiles();
 
 $rss = Horde::url('rss.php', true, -1);

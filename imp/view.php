@@ -274,7 +274,8 @@ case 'print_attach':
                     }
                 }
 
-                if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter(Horde_Themes::loadCssFiles(Horde_Themes::getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
+                $css = $injector->getInstance('Horde_Themes_Css');
+                if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($css->loadCssFiles($css->getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
                     $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
                 }
             }

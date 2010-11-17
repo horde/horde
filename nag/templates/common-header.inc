@@ -23,7 +23,7 @@ Horde::includeScriptFiles();
 Horde::outputInlineScript();
 Horde::includeFavicon();
 
-Horde_Themes::addStylesheet($registry->get('themesfs') . '/categoryCSS.php', $registry->get('themesuri') . '/categoryCSS.php');
+$injector->getInstance('Horde_Themes_Css')->addStylesheet($registry->get('themesfs') . '/categoryCSS.php', $registry->get('themesuri') . '/categoryCSS.php');
 Horde::includeStylesheetFiles();
 
 $bc = $prefs->getValue('show_panel')

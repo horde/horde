@@ -258,6 +258,7 @@ Application Framework.</description>
       <file name="Files.php" role="php" />
      </dir> <!-- /lib/Horde/Script -->
      <dir name="Themes">
+      <file name="Css.php" role="php" />
       <file name="Element.php" role="php" />
       <file name="Image.php" role="php" />
       <file name="Sound.php" role="php" />
@@ -827,6 +828,7 @@ Application Framework.</description>
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />
    <install as="Horde/Registry/Caller.php" name="lib/Horde/Registry/Caller.php" />
    <install as="Horde/Script/Files.php" name="lib/Horde/Script/Files.php" />
+   <install as="Horde/Themes/Css.php" name="lib/Horde/Themes/Css.php" />
    <install as="Horde/Themes/Element.php" name="lib/Horde/Themes/Element.php" />
    <install as="Horde/Themes/Image.php" name="lib/Horde/Themes/Image.php" />
    <install as="Horde/Themes/Sound.php" name="lib/Horde/Themes/Sound.php" />

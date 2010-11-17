@@ -41,8 +41,9 @@ class Horde_Core_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Syntaxh
             $sh_js_fs = $this->getConfigParam('registry')->get('jsfs', 'horde') . '/syntaxhighlighter/styles/';
             $sh_js_uri = Horde::url($this->getConfigParam('registry')->get('jsuri', 'horde'), false, -1) . '/syntaxhighlighter/styles/';
 
-            Horde_Themes::addStylesheet($sh_js_fs . 'shCoreEclipse.css', $sh_js_uri . 'shCoreEclipse.css');
-            Horde_Themes::addStylesheet($sh_js_fs . 'shThemeEclipse.css', $sh_js_uri . 'shThemeEclipse.css');
+            $css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
+            $css->addStylesheet($sh_js_fs . 'shCoreEclipse.css', $sh_js_uri . 'shCoreEclipse.css');
+            $css->addStylesheet($sh_js_fs . 'shThemeEclipse.css', $sh_js_uri . 'shThemeEclipse.css');
         }
 
         if (empty(self::$_shBrushes[$brush])) {

@@ -1428,11 +1428,11 @@ HTML;
      * Generate the stylesheet tags for the current application.
      *
      * @param array $opts  Options to pass to
-     *                     Horde_Themes::getStylesheetUrls().
+     *                     Horde_Themes_Css::getStylesheetUrls().
      */
     static public function includeStylesheetFiles(array $opts = array())
     {
-        foreach (Horde_Themes::getStylesheetUrls($opts) as $val) {
+        foreach ($GLOBALS['injector']->getInstance('Horde_Themes_Css')->getStylesheetUrls($opts) as $val) {
             echo '<link href="' . $val . '" rel="stylesheet" type="text/css" />';
         }
     }
