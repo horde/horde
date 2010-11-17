@@ -257,8 +257,8 @@ class Folks_Driver {
         // is not added site wide to a general template file
         // scripts/online.sql
         if ($GLOBALS['conf']['online']['autoupdate'] &&
-            (!isset($_SESSION['folks']['last_update']) ||
-                $_SESSION['folks']['last_update'] + $GLOBALS['conf']['online']['ttl'] < $_SERVER['REQUEST_TIME'])) {
+            (!$GLOBALS['session']->exists('folks', 'last_update') ||
+             $GLOBALS['session']->get('folks', 'last_update') + $GLOBALS['conf']['online']['ttl'] < $_SERVER['REQUEST_TIME'])) {
 
             // Update online status
             $this->_updateOnlineStatus();

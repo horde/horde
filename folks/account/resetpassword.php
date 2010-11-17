@@ -12,22 +12,6 @@
 
 require_once dirname(__FILE__) . '/tabs.php';
 
-/**
- * Returns a new or the current CAPTCHA string.
- *
- * @param boolean $new string
- */
-function _getCAPTCHA($new = false)
-{
-    if ($new || empty($_SESSION['folks']['CAPTCHA'])) {
-        $_SESSION['folks']['CAPTCHA'] = '';
-        for ($i = 0; $i < 5; $i++) {
-            $_SESSION['folks']['CAPTCHA'] .= chr(rand(65, 90));
-        }
-    }
-    return $_SESSION['folks']['CAPTCHA'];
-}
-
 // We are already logged
 if ($registry->isAuthenticated()) {
     Folks::getUrlFor('user', $GLOBALS['registry']->getAuth())->redirect();
@@ -71,7 +55,7 @@ if (!empty($answer)) {
 } else {
     $desc = _("The picture above is for antispam checking. Please retype the characters from the picture. They are case sensitive.");
     $form->addVariable(_("Human check"), 'captcha', 'captcha', true, false, $desc,
-                        array(_getCAPTCHA(!$form->isSubmitted()), HORDE_BASE . '/config/couri.ttf'));
+                        array(Folks::getCAPTCHA(!$form->isSubmitted()), HORDE_BASE . '/config/couri.ttf'));
 }
 
 /* Validate the form. */

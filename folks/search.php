@@ -18,8 +18,9 @@ $title = _("Search");
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Folks_Search_Form($vars, $title, 'search');
 
-if (isset($_SESSION['folks']['last_search']) && !$form->isSubmitted()) {
-    $criteria = unserialize($_SESSION['folks']['last_search']);
+if (($last_search = $session->get('folks', 'last_search')) &&
+    !$form->isSubmitted()) {
+    $criteria = unserialize($last_search);
 }
 if (Horde_Util::getGet('query') && !$form->isSubmitted()) {
     $criteria = $folks_driver->getSearchCriteria(Horde_Util::getGet('query'));
@@ -29,7 +30,7 @@ if (Horde_Util::getGet('query') && !$form->isSubmitted()) {
     }
 } else {
     $form->getInfo(null, $criteria);
-    $_SESSION['folks']['last_search'] = serialize($criteria);
+    $session->set('folks', 'last_search', serialize($criteria));
 }
 
 if (!empty($criteria)) {
