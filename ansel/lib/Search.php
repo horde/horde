@@ -61,7 +61,7 @@ class Ansel_Search {
      */
     function save()
     {
-        $_SESSION['ansel_search'][$this->_type] = $this->_filter;
+        $GLOBALS['session']->set('ansel', 'search/' . $this->_type, $this->_filter);
     }
 
     /**
@@ -70,9 +70,7 @@ class Ansel_Search {
      */
     function load()
     {
-        $this->_filter = (!empty($_SESSION['ansel_search'][$this->_type]) ?
-            $_SESSION['ansel_search'][$this->_type] :
-            array());
+        $this->_filter = $GLOBALS['session']->get('ansel', 'search/' . $this->_type, Horde_Session::TYPE_ARRAY);
     }
     /**
      * retrieve a slice of the current search

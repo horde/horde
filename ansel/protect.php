@@ -29,7 +29,7 @@ if ($form->validate()) {
     if ($gallery->get('passwd') != $vars->get('passwd')) {
         $notification->push(_("Incorrect password"), 'horde.warning');
     } else {
-        $_SESSION['ansel']['passwd'][$gallery->id] = md5($vars->get('passwd'));
+        $session->set('ansel', 'passwd/' . $gallery->id, hash('md5', $vars->get('passwd')));
         $url = $vars->get('url');
         if (empty($url)) {
             $url = Horde::url('view.php')->add('gallery', $gallery->id);

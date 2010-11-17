@@ -26,16 +26,16 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
         );
 
         /* Use ajax? */
-        if (!isset($_SESSION['ansel']['ajax_locationac'])) {
+        if (!$GLOBALS['session']->exists('ansel', 'ajax_locationac')) {
             $results = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->searchLocations();
             if ($results instanceof PEAR_Error) {
                 Horde::logMessage($results, 'ERR');
             } else {
-                $_SESSION['ansel']['ajax_locationac'] = (count($results) > 50);
+                $GLOBALS['session']->set('ansel', 'ajax_locationac', (count($results) > 50));
             }
         }
 
-        if (!empty($_SESSION['ansel']['ajax_locationac'])) {
+        if ($GLOBALS['session']->get('ansel', 'ajax_locationac')) {
             $ret['ajax'] = 'LocationAutoCompleter';
         } else {
             if (empty($results)) {

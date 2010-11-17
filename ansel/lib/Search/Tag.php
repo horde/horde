@@ -73,7 +73,7 @@ class Ansel_Search_Tag
         if (!empty($tags)) {
             $this->_tags = $this->_tagger->getTagIds($tags);
         } else {
-            $this->_tags = (!empty($_SESSION['ansel_tags_search']) ? $_SESSION['ansel_tags_search'] : array());
+            $this->_tags = $GLOBALS['session']->get('ansel', 'tags_search', Horde_Session::TYPE_ARRAY);
         }
 
         $this->_owner = $owner;
@@ -86,7 +86,7 @@ class Ansel_Search_Tag
      */
     public function save()
     {
-        $_SESSION['ansel_tags_search'] = $this->_tags;
+        $GLOBALS['session']->set('ansel', 'tags_search', $this->_tags);
         $this->_dirty = false;
     }
 
@@ -285,7 +285,7 @@ class Ansel_Search_Tag
      */
     static public function clearSearch()
     {
-        unset($_SESSION['ansel_tags_search']);
+        $GLOBALS['session']->remove('ansel', 'tags_search');
     }
 
     /**
