@@ -15,13 +15,13 @@ $shout = Horde_Registry::appInit('shout');
 require_once SHOUT_BASE . '/lib/Forms/RecordingForm.php';
 
 $action = Horde_Util::getFormData('action');
-$curaccount = $_SESSION['shout']['curaccount'];
-$recordings = $shout->storage->getRecordings($curaccount['code']);
+$curaccount = $GLOBALS['session']->get('shout', 'curaccount_code');
+$recordings = $shout->storage->getRecordings($curaccount);
 
 switch($action) {
 case 'add':
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('account', $curaccount['code']);
+    $vars->set('account', $curaccount);
     $Form = new RecordingDetailsForm($vars);
 
     if ($Form->isSubmitted() && $Form->validate($vars, true)) {
@@ -30,7 +30,7 @@ case 'add':
             $Form->execute();
             $notification->push(_("Recording added."),
                                   'horde.success');
-            $recordings = $shout->storage->getRecordings($curaccount['code']);
+            $recordings = $shout->storage->getRecordings($curaccount);
             $action = 'list';
         } catch (Exception $e) {
             $notification->push($e);

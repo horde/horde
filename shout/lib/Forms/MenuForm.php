@@ -22,12 +22,12 @@ class MenuForm extends Horde_Form {
             $edit = false;
         }
 
-        $accountname = $_SESSION['shout']['curaccount']['name'];
+        $accountname = $GLOBALS['session']->get('shout', 'curaccount_name');
         $title = sprintf(_("%s - Account: %s"), $formtitle, $accountname);
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'action', 'text', true);
-        
+
         if ($edit) {
             $this->addHidden('', 'oldname', 'text', true);
             $vars->set('oldname', $menu);
@@ -36,7 +36,7 @@ class MenuForm extends Horde_Form {
         $this->addVariable(_("Description"), 'description', 'text', false);
 
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-        $recordings = $shout->storage->getRecordings($_SESSION['shout']['curaccount']['code']);
+        $recordings = $shout->storage->getRecordings($GLOBALS['session']->get('shout', 'curaccount_code'));
         $list = array();
         foreach ($recordings as $id => $info) {
             $list[$id] = $info['filename'];
@@ -51,7 +51,7 @@ class MenuForm extends Horde_Form {
     {
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
 
-        $account = $_SESSION['shout']['curaccount']['code'];
+        $account = $GLOBALS['session']->get('shout', 'curaccount_code');
 
         $details = array(
             'name' => $this->_vars->get('name'),
@@ -76,7 +76,7 @@ class DeviceMenuForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("Delete Menu %s - Account: %s");
-        $title = sprintf($title, $menu, $_SESSION['shout']['curaccount']['name']);
+        $title = sprintf($title, $menu, $GLOBALS['session']->get('shout', 'curaccount_name'));
         parent::__construct($vars, $title);
 
         $this->setButtons(array(_("Delete"), _("Cancel")));

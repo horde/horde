@@ -1,5 +1,5 @@
 <div class="header">
-    Account: <?php echo $_SESSION['shout']['curaccount']['name']; ?>
+    Account: <?php echo $GLOBALS['session']->get('shout', 'curaccount_name'); ?>
 </div>
 
 <div id="extensionList">

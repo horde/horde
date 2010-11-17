@@ -84,7 +84,8 @@ class NumberDeleteForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("Delete Extension %s - Account: %s");
-        $title = sprintf($title, $extension, $_SESSION['shout']['accounts'][$account]['name']);
+        $account_config = $GLOBALS['session']->get('shout', 'accounts/' . $account);
+        $title = sprintf($title, $extension, $account_config['name']);
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'account', 'text', true);

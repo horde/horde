@@ -90,8 +90,8 @@ class Shout_Application extends Horde_Registry_Application
         }
 
         $account = Horde_Util::getFormData('account');
-        if (empty($account) && !empty($_SESSION['shout']['curaccount'])) {
-            $account = $_SESSION['shout']['curaccount']['code'];
+        if (empty($account)) {
+            $account = $GLOBALS['session']->get('shout', 'curaccount_code');
         }
 
         if (!empty($account) && !in_array($account, array_keys($accounts))) {
@@ -111,7 +111,8 @@ class Shout_Application extends Horde_Registry_Application
             }
         }
 
-        $_SESSION['shout']['curaccount'] = $accounts[$account];
+        $session->set('shout', 'curaccount_code', $accounts[$account]['code']);
+        $session->set('shout', 'curaccount_name', $accounts[$account]['name']);
     }
 
     /**
@@ -155,7 +156,7 @@ class Shout_Application extends Horde_Registry_Application
 
     public function getRecordings()
     {
-        $account = $_SESSION['shout']['curaccount']['code'];
+        $account = $GLOBALS['session']->get('shout', 'curaccount_code');
         $rlist = $this->vfs->listFolder($account);
 
         // In Asterisk, filenames the same basename and different extension are

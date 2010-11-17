@@ -17,9 +17,9 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $curaccount = $_SESSION['shout']['curaccount'];
+            $curaccount = $GLOBALS['session']->get('shout', 'curaccount_code');
             require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
-            $this->_vars->set('account', $curaccount['code']);
+            $this->_vars->set('account', $curaccount);
             $Form = new ExtensionDetailsForm($this->_vars);
             $Form->setSubmitted();
             if ($Form->isValid()) {
@@ -40,7 +40,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $vars = $this->_vars;
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-        $account = $_SESSION['shout']['curaccount']['code'];
+        $account = $GLOBALS['session']->get('shout', 'curaccount_code');
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $shout->extensions->addDestination($account, $vars->extension, $vars->type, $vars->destination);
@@ -60,7 +60,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $vars = $this->_vars;
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-        $account = $_SESSION['shout']['curaccount']['code'];
+        $account = $GLOBALS['session']->get('shout', 'curaccount_code');
         try {
             // FIXME: Use Form?
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
@@ -82,7 +82,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $vars = $this->_vars;
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount']['code'];
+            $account = $GLOBALS['session']->get('shout', 'curaccount_code');
             return $shout->extensions->getExtensions($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
@@ -96,7 +96,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $vars = $this->_vars;
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount']['code'];
+            $account = $GLOBALS['session']->get('shout', 'curaccount_code');
             $devices = $shout->devices->getDevices($account);
             if (empty($devices)) {
                 return false;
@@ -117,7 +117,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount']['code'];
+            $account = $GLOBALS['session']->get('shout', 'curaccount_code');
             $menus = $shout->storage->getMenus($account);
             if (empty($menus)) {
                 return false;
@@ -138,7 +138,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount']['code'];
+            $account = $GLOBALS['session']->get('shout', 'curaccount_code');
             $menu = $this->_vars->get('menu');
             if (empty($menu)) {
                 throw new Shout_Exception('Must specify a menu to delete.');
@@ -156,7 +156,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount']['code'];
+            $account = $GLOBALS['session']->get('shout', 'curaccount_code');
             return $shout->storage->getConferences($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
@@ -169,7 +169,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount']['code'];
+            $account = $GLOBALS['session']->get('shout', 'curaccount_code');
             $vars = &$this->_vars;
             $info = array(
                 'name' => $vars->get('name'),
@@ -193,7 +193,7 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
             if (!($action = $vars->get('action'))) {
                 throw new Shout_Exception("Invalid action requested.");
             }
-            $account = $_SESSION['shout']['curaccount']['code'];
+            $account = $GLOBALS['session']->get('shout', 'curaccount_code');
             $digit = $vars->get('digit');
             $menu = $vars->get('menu');
             $action = $vars->get('action');
