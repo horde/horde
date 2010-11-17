@@ -1573,7 +1573,7 @@ abstract class Kronolith_Event
             }
         }
         if (isset($methods['mail'])) {
-            $background = new Horde_Themes_Image('big_alarm.png');
+            $background = Horde_Themes::img('big_alarm.png');
             $image = new Horde_Mime_Part();
             $image->setType('image/png');
             $image->setContents(file_get_contents($background->fs));

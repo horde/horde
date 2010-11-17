@@ -133,11 +133,11 @@ class Kronolith_Application extends Horde_Registry_Application
             ));
             $menu->add(new Horde_Url(''), _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
         }
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
         }
     }
 
@@ -518,6 +518,7 @@ class Kronolith_Application extends Horde_Registry_Application
             }
 
             $alarmCount = 0;
+            $alarmImg = Horde_Themes::img('alarm.png');
             $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
 
             foreach ($alarms as $calId => $calAlarms) {
@@ -533,7 +534,7 @@ class Kronolith_Application extends Horde_Registry_Application
                         1,
                         false,
                         array(
-                            'icon' => Horde_Themes::img('alarm.png'),
+                            'icon' => $alarmImg,
                             'url' => $event->getViewUrl()
                         )
                     );

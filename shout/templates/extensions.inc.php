@@ -546,7 +546,7 @@ function saveExtension(event)
             });
         }
     });
-   
+
 }
 
 function addExtension(params)

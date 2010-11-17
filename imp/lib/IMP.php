@@ -941,7 +941,7 @@ class IMP
         }
 
         if ($sound = $GLOBALS['prefs']->getValue('nav_audio')) {
-            $GLOBALS['notification']->push(Horde_Themes::img('audio/' . $sound), 'audio');
+            $GLOBALS['notification']->push(Horde_Themes::sounde($sound), 'audio');
         }
     }
 

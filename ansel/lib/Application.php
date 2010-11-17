@@ -149,14 +149,14 @@ class Ansel_Application extends Horde_Registry_Application
         }
 
         if ($conf['faces']['driver'] && $registry->isAuthenticated()) {
-            $menu->add(Horde::url('faces/search/all.php'), _("_Faces"), 'user.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('faces/search/all.php'), _("_Faces"), 'user.png');
         }
 
         /* Print. */
         if ($conf['menu']['print'] &&
             ($pl = Horde_Util::nonInputVar('print_link'))) {
             $menu->add($pl, _("_Print"), 'print.png',
-                       Horde_Themes::img(null, 'horde'), '_blank',
+                       null, '_blank',
                        Horde::popupJs($pl, array('urlencode' => true)) . 'return false;');
         }
     }

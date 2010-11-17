@@ -60,7 +60,7 @@ class Hermes {
         $menu = new Horde_Menu();
         $menu->add(Horde::url('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         $menu->add(Horde::url('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
-        $menu->add(Horde::url('search.php'), _("_Search"), Horde_Themes::img('search.png'));
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
         if ($conf['time']['deliverables'] && $registry->isAdmin('hermes:deliverables')) {
             $menu->add(Horde::url('deliverables.php'), _("_Deliverables"), 'hermes.png');
@@ -72,7 +72,7 @@ class Hermes {
 
         /* Print. */
         if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add($print_link, _("_Print"), Horde_Themes::img('print.png'), '_blank', 'popup(this.href); return false;', '__noselection');
+            $menu->add($print_link, _("_Print"), 'print.png', '', '_blank', 'popup(this.href); return false;', '__noselection');
         }
 
         /* Administration. */

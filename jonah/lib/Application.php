@@ -138,6 +138,8 @@ class Jonah_Application extends Horde_Registry_Application
         }
 
         $channels = Jonah::checkPermissions('channels', Horde_Perms::SHOW, $channels);
+        $story_img = Horde_Themes::img('editstory.png');
+
         foreach ($channels as $channel) {
             $tree->addNode(
                 $parent . $channel['channel_id'],
@@ -146,7 +148,7 @@ class Jonah_Application extends Horde_Registry_Application
                 1,
                 false,
                 array(
-                    'icon' => Horde_Themes::img('editstory.png'),
+                    'icon' => $story_img,
                     'url' => $url->add('channel_id', $channel['channel_id'])
                 )
             );

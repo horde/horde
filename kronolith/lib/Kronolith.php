@@ -1230,8 +1230,8 @@ class Kronolith
                 $language = 'en-US';
             }
             $params['conf'] = array(
-                'markerImage' => (string)Horde_Themes::img('map/marker.png', 'horde'),
-                'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png', 'horde'),
+                'markerImage' => (string)Horde_Themes::img('map/marker.png'),
+                'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png'),
                 'useMarkerLayer' => true,
                 'language' => $language,
             );
@@ -2266,7 +2266,7 @@ class Kronolith
 
         // Generate image mime part first and only once, because we
         // need the Content-ID.
-        $background = new Horde_Themes_Image('big_invitation.png');
+        $background = Horde_Themes::img('big_invitation.png');
         $image = new Horde_Mime_Part();
         $image->setType('image/png');
         $image->setContents(file_get_contents($background->fs));

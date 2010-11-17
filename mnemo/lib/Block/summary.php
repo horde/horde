@@ -15,8 +15,8 @@ class Horde_Block_Mnemo_summary extends Horde_Block
     protected function _title()
     {
         global $registry;
-	
-	$label = !empty($this->_params['block_title'])
+
+	    $label = !empty($this->_params['block_title'])
             ? $this->_params['block_title']
             : $registry->get('name');
 
@@ -71,7 +71,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block
             $html .= '<tr>';
 
             if (!empty($this->_params['show_actions'])) {
-                $editImg = Horde_Themes::img('edit.png', 'horde');
+                $editImg = Horde_Themes::img('edit.png');
                 $editurl = Horde_Util::addParameter(
                     'memo.php',
                     array('memo' => $memo['memo_id'],
@@ -109,7 +109,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block
         if (!$memos) {
             return '<p><em>' . _("No notes to display") . '</em></p>';
         }
-        
+
         return '<link href="'
             . htmlspecialchars(Horde::url('themes/categoryCSS.php',
                                                      true))

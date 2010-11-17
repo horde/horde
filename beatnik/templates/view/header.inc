@@ -18,11 +18,11 @@ $params = array('id' => $_SESSION['beatnik']['curdomain']['id'],
                 'rectype' => 'soa');
 echo $_SESSION['beatnik']['curdomain']['zonename'] . '&nbsp;'
      . Horde::link(Horde_Util::addParameter($edit, $params))
-     . Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a> '
+     . Horde::img('edit.png', _("Edit")) . '</a> '
      . Horde::link(Horde_Util::addParameter($autogen, $params))
-     . Horde::img('devel.png', _("Autogenerate"), '', $img_dir) . '</a> '
+     . Horde::img('devel.png', _("Autogenerate")) . '</a> '
      . Horde::link(Horde_Util::addParameter($delete, $params))
-     . Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a></td>';
+     . Horde::img('delete.png', _("Delete")) . '</a></td>';
 ?>
 </div>
 

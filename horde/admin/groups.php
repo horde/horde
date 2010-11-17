@@ -231,13 +231,16 @@ if ($cid > 0) {
     $cid_parents = $groups->getGroupParentList($cid);
 }
 
+$base_node_params = array(
+    'icon' => strval(Horde_Themes::img('administration.png'))
+);
+
 foreach ($nodes as $id => $node) {
     $node_params = ($cid == $id) ? array('class' => 'selected') : array();
 
     if ($id == Horde_Group::ROOT) {
         $add_link = Horde::link($add->copy()->add('cid', $id), _("Add a new group")) . $add_img . '</a>';
 
-        $base_node_params = array('icon' => strval(Horde_Themes::img('administration.png')));
         $tree->addNode(
             $id,
             null,

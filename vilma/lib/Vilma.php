@@ -177,7 +177,7 @@ class Vilma {
             $url = Horde::url('users/index.php');
             $tmp = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
             $menu->add(Horde::url($tmp), _($domain['domain_name']), 'domain.png');
-            $menu->add(Horde::url('users/edit.php'), _("New _Address"), 'user.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('users/edit.php'), _("New _Address"), 'user.png');
         } else {
             $menu->add(Horde::url('domains/edit.php'), _("_New Domain"), 'domain.png');
         }

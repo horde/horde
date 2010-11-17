@@ -58,7 +58,9 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
         $this->_jsNotify = isset($params['js_notify'])
             ? $params['js_notify']
             : array('Horde', 'addInlineScript');
-        $this->_icon = isset($params['icon']) ? $params['icon'] : (string)Horde_Themes::img('alerts/alarm.png');
+        $this->_icon = isset($params['icon'])
+            ? $params['icon']
+            : (string)Horde_Themes::img('alerts/alarm.png');
     }
 
     /**

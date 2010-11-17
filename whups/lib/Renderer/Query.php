@@ -210,7 +210,6 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
         // little nicer.
         $fimgattrs = 'height="20" width="0" style="vertical-align: middle;"';
         $imgattrs = 'height="20" width="20" style="vertical-align: middle;"';
-        $imgdir = Horde_Themes::img(null, 'horde');
 
         $space = '';
         $count = count($more);
@@ -218,22 +217,22 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
         if ($count == 0) {
             // Always have at least one image to make sure all rows are the
             // same height.
-            $space = Horde::img('tree/blank.png', '', $fimgattrs, $imgdir) . "\n";
+            $space = Horde::img('tree/blank.png', '', $fimgattrs) . "\n";
         } else {
             for ($i = 0; $i < $count - 1; $i++) {
                 if ($more[$i] == 1) {
-                    $space .= Horde::img('tree/line.png', '|', $imgattrs, $imgdir) . "\n";
+                    $space .= Horde::img('tree/line.png', '|', $imgattrs) . "\n";
                 } else {
-                    $space .= Horde::img('tree/blank.png', '', $imgattrs, $imgdir) . "\n";
+                    $space .= Horde::img('tree/blank.png', '', $imgattrs) . "\n";
                 }
             }
         }
 
         if ($count > 0) {
             if ($more[$count - 1] == 1) {
-                $space .= Horde::img('tree/join.png', '+', $imgattrs, $imgdir) . "\n";
+                $space .= Horde::img('tree/join.png', '+', $imgattrs) . "\n";
             } else {
-                $space .= Horde::img('tree/joinbottom.png', '-', $imgattrs, $imgdir) . "\n";
+                $space .= Horde::img('tree/joinbottom.png', '-', $imgattrs) . "\n";
             }
         }
 

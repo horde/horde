@@ -11,11 +11,11 @@
 <td>
     <?php
         echo Horde::link($autourl) .
-             Horde::img('devel.png', _("Autogenerate"), '', $img_dir) . '</a> ' .
+             Horde::img('devel.png', _("Autogenerate")) . '</a> ' .
              Horde::link($deleteurl) .
-             Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a> ' .
+             Horde::img('delete.png', _("Delete")) . '</a> ' .
              Horde::link($editurl) .
-             Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a>';
+             Horde::img('edit.png', _("Edit")) . '</a>';
     ?>
 </td>
 <?php

@@ -100,11 +100,11 @@ class Nag_Application extends Horde_Registry_Application
         }
 
         /* Search. */
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
         }
     }
 

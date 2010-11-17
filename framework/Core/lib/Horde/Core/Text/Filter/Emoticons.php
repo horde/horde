@@ -24,7 +24,7 @@ class Horde_Core_Text_Filter_Emoticons extends Horde_Text_Filter_Emoticons
      */
     public function getIcon($icon)
     {
-        return Horde::img(Horde_Themes::img('emoticons/' . $this->getIcons($icon) . '.png'), $icon, array('align' => 'middle', 'title' => $icon));
+        return Horde::img('emoticons/' . $this->getIcons($icon) . '.png', $icon, array('align' => 'middle', 'title' => $icon));
     }
 
 }

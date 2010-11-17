@@ -85,16 +85,16 @@ class Mnemo_Application extends Horde_Registry_Application
         }
 
         /* Search. */
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
         /* Import/Export */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
         }
 
         /* Print */
         if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add(Horde::url($print_link), _("_Print"), 'print.png', Horde_Themes::img(null, 'horde'), '_blank', 'popup(this.href); return false;');
+            $menu->add(Horde::url($print_link), _("_Print"), 'print.png', null, '_blank', 'popup(this.href); return false;');
         }
     }
 

@@ -58,29 +58,29 @@ class Koward_Controller_Application extends Horde_Controller_Base
 
         if ($this->koward->hasAccess('object/listall')) {
             $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'listall')),
-                       _("_Objects"), 'user.png', Horde_Themes::img(null, 'horde'));
+                       _("_Objects"), 'user.png');
         }
 
         if ($this->koward->hasAccess('object/add', Koward::PERM_EDIT)) {
             $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'add')),
-                       _("_Add"), 'plus.png', Horde_Themes::img(null, 'horde'));
+                       _("_Add"), 'plus.png');
         }
 
         if ($this->koward->hasAccess('object/search')) {
             $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'search')),
-                       _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+                       _("_Search"), 'search.png');
         }
 
         if (!empty($this->koward->conf['koward']['menu']['queries'])) {
-            $menu->add(Horde::url('Queries'), _("_Queries"), 'query.png', Horde_Themes::img());
+            $menu->add(Horde::url('Queries'), _("_Queries"), 'query.png');
         }
         if (!empty($this->koward->conf['koward']['menu']['test'])) {
             $menu->add($this->urlFor(array('controller' => 'check', 'action' => 'show')),
-                   _("_Test"), 'problem.png', Horde_Themes::img(null, 'horde'));
+                   _("_Test"), 'problem.png');
         }
         if ($GLOBALS['registry']->getAuth()) {
             $menu->add($this->urlFor(array('controller' => 'index', 'action' => 'logout')),
-                       _("_Logout"), 'logout.png', Horde_Themes::img(null, 'horde'));
+                       _("_Logout"), 'logout.png');
         }
         return $menu;
     }

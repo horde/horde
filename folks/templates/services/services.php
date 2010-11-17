@@ -7,7 +7,7 @@ foreach ($apps as $app => $name) {
         $page = $registry->getInitialPage($app);
         echo '<div class="appService">' .
                 '<a href="' . $page . '">' .
-                '<img src="' . Horde_Themes::img($app . '.png', $app). '" /> ' .
+                Horde::img(Horde_Themes::img($app . '.png', $app)) . ' ' .
                     $name .
                     '</a></div>';
     } catch (Horde_Exception $e) {}

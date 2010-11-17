@@ -35,7 +35,6 @@ if (($reload || empty($result))) {
 }
 
 if (!empty($result)) {
-    $imgdir = Horde_Themes::img(null, 'horde');
     $customurl = Horde::url('faces/custom.php');
     require_once ANSEL_TEMPLATES . '/faces/image.inc';
 } else {

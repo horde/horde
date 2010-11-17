@@ -16,18 +16,15 @@ if ($user == $GLOBALS['registry']->getAuth()) {
 <?php
 
 if ($profile['user_video']) {
-
     echo $registry->call('video/getEmbedCode', array($profile['user_video']));
-
 } elseif ($profile['user_picture']) {
-
     echo '<img src="' . Folks::getImageUrl($user, 'big') . '" alt="' . $user . '" />';
 
 } else {
-
-    echo '<img src="' . Horde_Themes::img('guest.png') . '" alt="'
-                . $user . '" title="' . _("Has no picture"). '" style="border: 2px solid #eeeeee; padding: 100px"/>';
-
+    echo Horde::img('guest.png', $user, array(
+        'title' => _("Has no picture"),
+        'style' => 'border: 2px solid #eeeeee; padding: 100px'
+    ));
 }
 
 echo '<br />';
@@ -119,8 +116,8 @@ if (!empty($friends)):
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo Horde::url('edit/friends/index.php') ?>" title="<?php echo _("Edit my firends") ?>"><img src="<?php Horde_Themes::img('plus.png') ?>" /></a>
-<a href="<?php echo Horde_Util::addParameter(Horde::url('edit/friends/index.php'), 'user', $user) ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="<?php echo Horde::url('edit/friends/index.php') ?>" title="<?php echo _("Edit my firends") ?>"><?php Horde::img('plus.png') ?></a>
+<a href="<?php echo Horde_Util::addParameter(Horde::url('edit/friends/index.php'), 'user', $user) ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <?php echo _("Friends") ?> (<?php echo count($friends) ?>)
 </td>
@@ -145,8 +142,8 @@ $path = $registry->get('webroot', 'classifieds');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/ads/index.php" title="<?php echo _("Add your content") ?>"><img src="<?php echo Horde_Themes::img('plus.png') ?>" /></a>
-<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="<?php echo $path ?>/ads/index.php" title="<?php echo _("Add your content") ?>"><?php echo Horde::img('plus.png') ?></a>
+<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <a href="<?php echo $path ?>/list.php?user_uid=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'classified') ?> (<?php echo $profile['count_classifieds'] ?>)</a>
 </td>
@@ -170,8 +167,8 @@ $path = $registry->get('webroot', 'news');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/add.php" title="<?php echo _("Add your content") ?>"><img src="<?php echo Horde_Themes::img('plus.png') ?>" /></a>
-<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="<?php echo $path ?>/add.php" title="<?php echo _("Add your content") ?>"><?php echo Horde::img('plus.png') ?></a>
+<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <a href="<?php echo $path ?>/search.php?user=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'news') ?> (<?php echo $profile['count_news'] ?>)</a>
 </td>
@@ -195,8 +192,8 @@ $path = $registry->get('webroot', 'oscar');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/videos/index.php" title="<?php echo _("Add your content") ?>"><img src="<?php echo Horde_Themes::img('plus.png') ?>" /></a>
-<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="<?php echo $path ?>/videos/index.php" title="<?php echo _("Add your content") ?>"><?php echo Horde::img('plus.png') ?></a>
+<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <a href="<?php echo $path ?>/search.php?author=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'oscar') ?> (<?php echo $profile['count_videos'] ?>)</a>
 </a>
@@ -222,8 +219,8 @@ $path = $registry->get('webroot', 'genie');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/wishlist.php?wishlist=<?php echo $GLOBALS['registry']->getAuth() ?>" title="<?php echo _("Add your content") ?>"><img src="<?php echo Horde_Themes::img('plus.png') ?>" /></a>
-<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="<?php echo $path ?>/wishlist.php?wishlist=<?php echo $GLOBALS['registry']->getAuth() ?>" title="<?php echo _("Add your content") ?>"><?php echo Horde::img('plus.png') ?></a>
+<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <a href="<?php echo $path ?>/wishlist.php?wishlist=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'genie') ?> (<?php echo $profile['count_wishes'] ?>)</a>
 </td>
@@ -248,8 +245,8 @@ $path = $registry->get('webroot', 'ansel');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/view.php?groupby=owner&view=List&owner=<?php echo $GLOBALS['registry']->getAuth() ?>" title="<?php echo _("Add your content") ?>"><img src="<?php echo Horde_Themes::img('plus.png') ?>" /></a>
-<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="<?php echo $path ?>/view.php?groupby=owner&view=List&owner=<?php echo $GLOBALS['registry']->getAuth() ?>" title="<?php echo _("Add your content") ?>"><?php echo Horde::img('plus.png') ?></a>
+<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <a href="<?php echo $path ?>/view.php?groupby=owner&view=List&owner=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'ansel') ?> (<?php echo $profile['count_galleries'] ?>)</a> |
 <a href="<?php echo $path ?>/faces/search/owner.php?owner=<?php echo $user ?>" title="<?php echo _("Faces in user galleries") ?>"><?php echo _("Faces") ?></a>
@@ -276,8 +273,8 @@ $path = $registry->get('webroot', 'thomas');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/edit.php" title="<?php echo _("Add your content") ?>"><img src="<?php echo Horde_Themes::img('plus.png') ?>" /></a>
-<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="<?php echo $path ?>/edit.php" title="<?php echo _("Add your content") ?>"><?php echo Horde::img('plus.png') ?></a>
+<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <a href="<?php echo $path ?>/user.php?user=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'thomas') ?> (<?php echo $profile['count_blogs'] ?>)</a>
 </td>
@@ -302,8 +299,8 @@ $path = $registry->get('webroot', 'schedul');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/add.php" title="<?php echo _("Add your content") ?>"><img src="<?php echo Horde_Themes::img('plus.png') ?>" /></a>
-<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="<?php echo $path ?>/add.php" title="<?php echo _("Add your content") ?>"><?php echo Horde::img('plus.png') ?></a>
+<a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <a href="<?php echo $path ?>/user.php?user=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'schedul') ?> (<?php echo $profile['count_attendances'] ?>)</a>
 </td>
@@ -335,8 +332,8 @@ $path = $registry->get('webroot', 'schedul');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="/uporabniki/edit/activity.php" title="<?php echo _("Add your content") ?>"><img src="<?php echo Horde_Themes::img('plus.png') ?>" /></a>
-<a href="/uporabniki/friends/index.php" title="<?php echo _("Preview") ?>"><img src="<?php echo Horde_Themes::img('nav/right.png') ?>" /></a>
+<a href="/uporabniki/edit/activity.php" title="<?php echo _("Add your content") ?>"><?php echo Horde::img('plus.png') ?></a>
+<a href="/uporabniki/friends/index.php" title="<?php echo _("Preview") ?>"><?php echo Horde::img('nav/right.png') ?></a>
 </span>
 <?php echo _("Activity") ?>
 </td>

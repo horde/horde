@@ -539,23 +539,22 @@ class Nag_Task {
      */
     function treeIcons()
     {
-        $treedir = Horde_Themes::img(null, 'horde');
         $html = '';
 
         $parent = $this->parent;
         for ($i = 1; $i < $this->indent; ++$i) {
             if ($parent && $parent->lastChild) {
-                $html = Horde::img('tree/blank.png', '', '', $treedir) . $html;
+                $html = Horde::img('tree/blank.png') . $html;
             } else {
-                $html = Horde::img('tree/line.png', '|', '', $treedir) . $html;
+                $html = Horde::img('tree/line.png', '|') . $html;
             }
             $parent = $parent->parent;
         }
         if ($this->indent) {
             if ($this->lastChild) {
-                $html .= Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\', '', $treedir);
+                $html .= Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\');
             } else {
-                $html .= Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/join.png' : 'tree/rev-join.png', '+', '', $treedir);
+                $html .= Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/join.png' : 'tree/rev-join.png', '+');
             }
         }
 

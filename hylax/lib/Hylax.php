@@ -131,18 +131,15 @@ class Hylax {
 
         $menu->addArray(array('url' => Horde::url('summary.php'),
                               'text' => _("Summary"),
-                              'icon' => 'fax.png',
-                              'icon_path' => Horde_Themes::img()));
+                              'icon' => 'fax.png'));
 
         $menu->addArray(array('url' => Horde::url('folder.php'),
                               'text' => _("Folders"),
-                              'icon' => 'folder.png',
-                              'icon_path' => Horde_Themes::img()));
+                              'icon' => 'folder.png'));
 
         $menu->addArray(array('url' => Horde::url('compose.php'),
                               'text' => _("Compose"),
-                              'icon' => 'compose.png',
-                              'icon_path' => Horde_Themes::img()));
+                              'icon' => 'compose.png'));
 
         if ($returnType == 'object') {
             return $menu;

@@ -290,14 +290,13 @@ class Folks {
      */
     static function getMenu()
     {
-        $img = Horde_Themes::img(null, 'horde');
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(self::getUrlFor('user', $GLOBALS['registry']->getAuth()), _("My profile"), 'myaccount.png', $img);
-        $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png', $img);
-        $menu->add(Horde::url('edit/edit.php'), _("Edit profile"), 'edit.png', $img);
-        $menu->add(Horde::url('services.php'), _("Services"), 'horde.png', $img);
-        $menu->add(Horde::url('search.php'), _("Search"), 'search.png', $img);
-        $menu->add(self::getUrlFor('list', 'online'), _("List"), 'group.png', $img);
+        $menu->add(self::getUrlFor('user', $GLOBALS['registry']->getAuth()), _("My profile"), 'myaccount.png');
+        $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png');
+        $menu->add(Horde::url('edit/edit.php'), _("Edit profile"), 'edit.png');
+        $menu->add(Horde::url('services.php'), _("Services"), 'horde.png');
+        $menu->add(Horde::url('search.php'), _("Search"), 'search.png');
+        $menu->add(self::getUrlFor('list', 'online'), _("List"), 'group.png');
 
         return $menu;
     }

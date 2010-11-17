@@ -130,7 +130,8 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
 EOT;
             /* Special requirements for lightbox */
             if (!empty($lbjsurl)) {
-                $graphic_dir = Horde::url(Horde_Themes::img(), true, -1);
+                $loading_img = Horde_Themes::img('lightbox/loading.gif');
+                $close_img = Horde_Themes::img('lightbox/closelabel.gif');
                 $imageText = _("Photo");
                 $labelOf = _("of");
                 $html .= <<<EOT
@@ -145,8 +146,8 @@ EOT;
                     document.write('<link type="text/css" rel="stylesheet" href="$lbcssurl" />');
 
                     lbOptions = {
-                        fileLoadingImage: '$graphic_dir/lightbox/loading.gif',
-                        fileBottomNavCloseImage: '$graphic_dir/lightbox/closelabel.gif',
+                        fileLoadingImage: '$loading_img',
+                        fileBottomNavCloseImage: '$close_img',
                         overlayOpacity: 0.8,
                         animate: true,
                         resizeSpeed: 7,

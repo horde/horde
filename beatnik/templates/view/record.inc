@@ -11,9 +11,9 @@ foreach ($zonedata[$type] as $record) {
     $params = array('id' => $record['id'], 'rectype' => $type);
     echo '<tr>' . "\n";
     echo '<td>' . Horde::link(Horde_Util::addParameter($edit, $params))
-                . Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a> '
+                . Horde::img('edit.png', _("Edit")) . '</a> '
                 . Horde::link(Horde_Util::addParameter($delete, $params))
-                . Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a></td>';
+                . Horde::img('delete.png', _("Delete")) . '</a></td>';
     echo '<td>' . $rectypes[$type] . '</td>';
 
     foreach ($fields as $field => $fdata) {

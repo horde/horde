@@ -41,7 +41,7 @@
         $addurl = Horde::url('dialplan.php');
         $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
         ?>
-        
+
         <li>
             <a class="button" style="display: block;" href="<?php echo $addurl; ?>">
             <?php echo Horde::img('menu-add.png'); ?>&nbsp;New Menu

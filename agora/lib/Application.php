@@ -84,38 +84,37 @@ class Agora_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $img_dir = Horde_Themes::img();
         $scope = Horde_Util::getGet('scope', 'agora');
 
         /* Agora Home. */
         $url = Horde::url('forums.php')->add('scope', $scope);
-        $menu->add($url, _("_Forums"), 'forums.png', $img_dir, null, null,
+        $menu->add($url, _("_Forums"), 'forums.png', null, null, null,
                    dirname($_SERVER['PHP_SELF']) == $GLOBALS['registry']->get('webroot') && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         /* Thread list, if applicable. */
         if (isset($GLOBALS['forum_id'])) {
-            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('threads.php')), _("_Threads"), 'threads.png', Horde_Themes::img());
+            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('threads.php')), _("_Threads"), 'threads.png');
             if ($scope == 'agora' && $GLOBALS['registry']->getAuth()) {
-                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('messages/edit.php')), _("New Thread"), 'newmessage.png', Horde_Themes::img());
+                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('messages/edit.php')), _("New Thread"), 'newmessage.png');
             }
         }
 
         if ($scope == 'agora' &&
             Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
-            $menu->add(Horde::url('editforum.php'), _("_New Forum"), 'newforum.png', $img_dir, null, null, Horde_Util::getFormData('agora') ? '__noselection' : null);
+            $menu->add(Horde::url('editforum.php'), _("_New Forum"), 'newforum.png', null, null, null, Horde_Util::getFormData('agora') ? '__noselection' : null);
         }
 
         if (Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
             $url = Horde::url('moderate.php')->add('scope', $scope);
-            $menu->add($url, _("_Moderate"), 'moderate.png', $img_dir);
+            $menu->add($url, _("_Moderate"), 'moderate.png');
         }
 
         if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('moderators.php'), _("_Moderators"), 'hot.png', $img_dir);
+            $menu->add(Horde::url('moderators.php'), _("_Moderators"), 'hot.png');
         }
 
         $url = Horde::url('search.php')->add('scope', $scope);
-        $menu->add($url, _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+        $menu->add($url, _("_Search"), 'search.png');
     }
 
     /**
