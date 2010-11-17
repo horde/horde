@@ -40,7 +40,7 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $secret = new Horde_Secret();
 
         $key = "\x88";
-        $plaintext = "\x00\x00\x00\x00\x00\x00\x00\x00";
+        $plaintext = "\x01\x01\x01\x01\x01\x01\x01\x01";
 
         $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext)));
     }
@@ -50,7 +50,7 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $secret = new Horde_Secret();
 
         $key = "\x00\x00\x00\x00\x00\x00\x00\x00";
-        $plaintext = "\x00\x00\x00\x00\x00\x00\x00\x00";
+        $plaintext = "\x01\x01\x01\x01\x01\x01\x01\x01";
 
         $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext)));
     }
@@ -60,7 +60,7 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $secret = new Horde_Secret();
 
         $key = "\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F";
-        $plaintext = "\x00\x00\x00\x00\x00\x00\x00\x00";
+        $plaintext = "\x01\x01\x01\x01\x01\x01\x01\x01";
 
         $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext)));
     }
