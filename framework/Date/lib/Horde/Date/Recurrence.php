@@ -1550,7 +1550,7 @@ class Horde_Date_Recurrence
         $json = new stdClass;
         $json->t = $this->recurType;
         $json->i = $this->recurInterval;
-        if ($this->recurEnd) {
+        if ($this->hasRecurEnd()) {
             $json->e = $this->recurEnd->toJson();
         }
         if ($this->recurCount) {
