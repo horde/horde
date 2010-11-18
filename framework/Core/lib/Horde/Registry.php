@@ -250,7 +250,7 @@ class Horde_Registry
      *
      * @throws Horde_Exception
      */
-    protected function __construct($session_flags, $cache_limiter)
+    public function __construct($session_flags = 0, $cache_limiter = null)
     {
         /* Define autoloader callbacks. */
         $callbacks = array(
