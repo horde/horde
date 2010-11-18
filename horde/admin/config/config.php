@@ -34,9 +34,13 @@ if (file_exists($registry->get('fileroot', $app) . '/config/conf.bak.php')) {
 }
 
 $php = '';
+$path = $registry->get('fileroot', $app) . '/config';
+$configFile = $path . '/conf.php';
+if (is_link($configFile)) {
+    $configFile = readlink($configFile);
+}
 if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
-    $path = $registry->get('fileroot', $app) . '/config';
-    if (@copy($path . '/conf.bak.php', $path . '/conf.php')) {
+    if (@copy($path . '/conf.bak.php', $configFile)) {
         $notification->push(_("Successfully reverted configuration. Reload to see changes."), 'horde.success');
         @unlink($path . '/conf.bak.php');
     } else {
@@ -45,24 +49,23 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
 } elseif ($form->validate($vars)) {
     $config = new Horde_Config($app);
     $php = $config->generatePHPConfig($vars);
-    $path = $registry->get('fileroot', $app) . '/config';
-    if (file_exists($path . '/conf.php')) {
-        if (@copy($path . '/conf.php', $path . '/conf.bak.php')) {
+    if (file_exists($configFile)) {
+        if (@copy($configFile, $path . '/conf.bak.php')) {
             $notification->push(sprintf(_("Successfully saved the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.success');
         } else {
             $notification->push(sprintf(_("Could not save the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.warning');
         }
     }
-    if ($fp = @fopen($path . '/conf.php', 'w')) {
+    if ($fp = @fopen($configFile, 'w')) {
         /* Can write, so output to file. */
         fwrite($fp, $php);
         fclose($fp);
-        $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($path . '/conf.php')), 'horde.success');
+        $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
         $registry->clearCache();
         Horde::url('admin/config/index.php', true)->redirect();
     } else {
         /* Cannot write. */
-        $notification->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($path . '/conf.php'), Horde::link(Horde::url('admin/config/index.php') . '#update', _("Configuration")) . _("Configuration") . '</a>', Horde_Util::realPath($path . '/conf.php')), 'horde.warning', array('content.raw'));
+        $notification->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($configFile), Horde::link(Horde::url('admin/config/index.php') . '#update', _("Configuration")) . _("Configuration") . '</a>', Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw'));
 
         /* Save to session. */
         $session->set('horde', 'config/' . $app, $php);
