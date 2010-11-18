@@ -120,7 +120,7 @@ class Horde_Array
      *
      * @return boolean  True on sucess, false on error.
      */
-    static public function getArrayParts($field, &$base, array &$keys)
+    static public function getArrayParts($field, &$base, &$keys)
     {
         if (!preg_match('|([^\[]*)((\[[^\[\]]*\])+)|', $field, $matches)) {
             return false;
