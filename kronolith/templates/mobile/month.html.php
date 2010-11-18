@@ -32,20 +32,8 @@
         <tbody><tr><td></td></tr></tbody>
       </table>
     </div>
-      <div class="spacer">&nbsp;</div>
+      <div class="kronolithMonthSpacer">&nbsp;</div>
     <div class="kronolithDayDetail ui-body">
-        <ul data-role="listview" data-theme="d">
-            <li>
-                <a href="#">
-                <div class="kronolithTimeWrapper">
-                    <div class="kronolithStartTime">10:00 AM</div>
-                    <div class="kronolithEndTime">11:00 AM</div>
-                </div>
-                <h2>Event Title</h2>
-                <p class="kronolithDayLocation">Clayton, NJ</p>
-                </a>
-           </li>
-        </ul>
     </div>
   </div>
 </div>

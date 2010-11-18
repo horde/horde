@@ -59,6 +59,9 @@
   color: gray;
 }
 
+.kronolithMonthSpacer {
+  border-top: 1px solid #999;
+}
 /* Mini calendar */
 .kronolithMinical {
     position: relative;
