@@ -13,15 +13,15 @@
         <li><a href="#overview"><?php echo _("Summary")?></a></li>
       </ul>
     </div>
+    <div class="kronolithMonthHeader ui-bar-b">
+     <a href="#" data-role="button" data-icon="arrow-l" data-iconpos="notext" id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a>
+     <span id="kronolithMinicalDate"><?php echo $this->today->format('F Y') ?></span>
+     <a href="#" data-role="button" id="kronolithMinicalNext" data-icon="arrow-r" data-iconpos="notext" title="<?php echo _("Next month") ?>">&gt;</a>
+    </div>
   </div>
-  <div data-role="content" class="ui-body" id="monthcontent">
+  <div data-role="content" class="bld" id="monthcontent">
     <div id="kronolithMinical" class="kronolithMinical">
       <table>
-        <caption>
-          <a href="#" id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a>
-          <a href="#" id="kronolithMinicalNext" title="<?php echo _("Next month") ?>">&gt;</a>
-          <span id="kronolithMinicalDate"><?php echo $this->today->format('F Y') ?></span>
-        </caption>
         <thead>
           <tr>
             <?php for ($i = $GLOBALS['prefs']->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>

@@ -663,7 +663,7 @@
             break;
 
         case 'month':
-            if (map == 'swipeleft') {
+            if (map.type == 'swipeleft') {
                 KronolithMobile.showNextMonth();
             } else {
                 KronolithMobile.showPrevMonth();
