@@ -76,6 +76,7 @@ class IMP_Imap_Tree_Element
      *   'user_icon' - (boolean) Use a user defined icon?
      * 'invisible' - (boolean) Is element invisible?
      * 'label' - (string) The mailbox name run through IMP::getLabel().
+     *           Does NOT include full mailbox path.
      * 'level' - (integer) The deepness level of this element.
      * 'mbox_val' - (string) A html-ized version of 'value'.
      * 'name' - (string) A html-ized version of 'label'.
