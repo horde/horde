@@ -56,6 +56,7 @@ v4.0-cvs
 v3.3.11-cvs
 -----------
 
+[mms] SECURITY: Fix XSS when viewing details of a vCard.
 [jan] Fix exporting recurrence exceptions to vCalendar 1.0.
 [jan] Skip event status synchronization with Outlook, which is broken.
 [jan] Don't send SIF data to recent Funambol clients, unless requested.
