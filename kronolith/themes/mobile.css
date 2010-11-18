@@ -64,7 +64,7 @@
 }
 /* Mini calendar */
 .kronolithMinical {
-    position: relative;
+
 }
 #kronolithMinical {
 }
@@ -72,8 +72,7 @@
     width: 100%;
     border-spacing: 0;
 }
-.kronolithMinical caption, #kronolithBody .kronolithMinical caption {
-    position: relative;
+#kronolithBody .kronolithMinical caption {
     margin: 0 1px 1px 1px;
     height: 20px;
     line-height: 20px;
@@ -82,25 +81,13 @@
     border-bottom: 1px #999 dotted;
     text-align: left;
 }
-.kronolithMinical caption span {
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-}
-#kronolithMinicalPrev, #kronolithMinicalNext {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 16px;
-    text-indent: -10000px;
-    cursor: pointer;
-    background: transparent url("graphics/right.png") no-repeat right center;
-}
-#kronolithMinicalPrev {
-    background-image: url("graphics/left.png");
-    right: 15px;
-}
 
+.kronolithMonthHeader {
+  text-align: center;
+}
+.kronolithMonthHeader a {
+    vertical-align: middle;
+}
 .kronolithMinical th, .kronolithMinical td {
     font-size: 90%;
 }
