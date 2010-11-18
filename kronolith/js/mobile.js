@@ -210,6 +210,7 @@
         if ($.isEmptyObject(event)) {
           return;
         }
+
         var cal = event.calendar, type = cal.split('|')[0], c = cal.split('|')[1],
         d = $('<div>').attr({'style': 'color:' + Kronolith.conf.calendars[type][c].bg}),
         item = $('<li>'), a;
@@ -677,6 +678,24 @@
             $('body').unbind('swipeleft', KronolithMobile.showNextMonth);
             $('body').unbind('swiperight', KronolithMobile.showPrevMonth);
         });
+
+        // Click handler for selected month-days
+        // Attaching a live handler when matching a class that is added at
+        // runtime seems to fail
+        $('td').live('click', function(e) {
+            var ul = $('<ul>').attr({ 'data-role': 'listview '});
+            $('.kronolithDayDetail ul').detach();
+            if ($(this).hasClass('kronolithSelected')) {
+                var li, events = KronolithMobile.getCacheForDate($(this).data('date'));
+                events = KronolithMobile.sortEvents(events);
+                $.each(events, function(k, e) {
+                  ul.append(KronolithMobile.buildDayEvent(e));
+                });
+            }
+            ul.listview();
+            $('.kronolithDayDetail').append(ul);
+        });
+
     }
 };
 
