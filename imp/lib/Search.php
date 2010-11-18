@@ -376,13 +376,13 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         foreach ($di as $val) {
             if ($val->isFile()) {
-                $cname = 'IMP_Search_VFolder_' . $val->getBasename('.php');
-                if (($cname != 'IMP_Search_VFolder_Builtin') &&
+                $cname = 'IMP_Search_Vfolder_' . $val->getBasename('.php');
+                if (($cname != 'IMP_Search_Vfolder_Builtin') &&
                     class_exists($cname)) {
-                    $filter = new $cname(array(
+                    $vfolder = new $cname(array(
                         'disabled' => in_array($cname, $disabled)
                     ));
-                    $filters[$filter->id] = $filter;
+                    $vf[$vfolder->id] = $vfolder;
                 }
             }
         }
