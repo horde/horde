@@ -91,10 +91,6 @@ if (!$search_mbox) {
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly(IMP::$mailbox);
-if ($readonly &&
-    in_array($actionID, array('delete_messages', 'undelete_messages', 'move_messages', 'flag_messages', 'filter_messages', 'empty_mailbox', 'filter'))) {
-    $actionID = null;
-}
 
 switch ($actionID) {
 case 'change_sort':
@@ -139,16 +135,22 @@ case 'fwd_digest':
     break;
 
 case 'delete_messages':
-    $injector->getInstance('IMP_Message')->delete($indices);
+    if (!$readonly) {
+        $injector->getInstance('IMP_Message')->delete($indices);
+    }
     break;
 
 case 'undelete_messages':
-    $injector->getInstance('IMP_Message')->undelete($indices);
+    if (!$readonly) {
+        $injector->getInstance('IMP_Message')->undelete($indices);
+    }
     break;
 
 case 'move_messages':
 case 'copy_messages':
-    if (isset($vars->targetMbox) && count($indices)) {
+    if (isset($vars->targetMbox) &&
+        count($indices) &&
+        (!$readonly || $actionID == 'copy_messages')) {
         $targetMbox = IMP::formMbox($vars->targetMbox, false);
         if (!empty($vars->newMbox) && ($vars->newMbox == 1)) {
             $targetMbox = IMP::folderPref($targetMbox, true);
@@ -162,19 +164,21 @@ case 'copy_messages':
     break;
 
 case 'flag_messages':
-    if ($vars->flag && count($indices)) {
+    if (!$readonly && $vars->flag && count($indices)) {
         $flag = $imp_flags->parseFormId($vars->flag);
         $injector->getInstance('IMP_Message')->flag(array($flag['flag']), $indices, $flag['set']);
     }
     break;
 
 case 'filter_messages':
-    $filter = IMP::formMbox($vars->filter, false);
-    try {
-        $q_ob = $imp_search->applyFilter($filter, array(IMP::$mailbox));
-        Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
-        exit;
-    } catch (InvalidArgumentException $e) {}
+    if (!$readonly) {
+        $filter = IMP::formMbox($vars->filter, false);
+        try {
+            $q_ob = $imp_search->applyFilter($filter, array(IMP::$mailbox));
+            Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+            exit;
+        } catch (InvalidArgumentException $e) {}
+    }
     break;
 
 case 'hide_deleted':
@@ -183,7 +187,9 @@ case 'hide_deleted':
     break;
 
 case 'expunge_mailbox':
-    $injector->getInstance('IMP_Message')->expungeMailbox(array(IMP::$mailbox => 1));
+    if (!$readonly) {
+        $injector->getInstance('IMP_Message')->expungeMailbox(array(IMP::$mailbox => 1));
+    }
     break;
 
 case 'filter':
@@ -191,7 +197,9 @@ case 'filter':
     break;
 
 case 'empty_mailbox':
-    $injector->getInstance('IMP_Message')->emptyMailbox(array(IMP::$mailbox));
+    if (!$readonly) {
+        $injector->getInstance('IMP_Message')->emptyMailbox(array(IMP::$mailbox));
+    }
     break;
 
 case 'view_messages':
