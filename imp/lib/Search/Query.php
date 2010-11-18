@@ -91,7 +91,8 @@ class IMP_Search_Query implements Serializable
      *         DEFAULT: Search Results
      * mboxes - (array) The list of mailboxes to search.
      *          DEFAULT: None
-     * subfolders - (array) The list of mailboxes to do subfolder searces for.
+     * subfolders - (array) The list of mailboxes to do subfolder searches
+     *              for.
      *              DEFAULT: None
      * </pre>
      */
@@ -121,6 +122,8 @@ class IMP_Search_Query implements Serializable
                 $this->_mboxes[] = self::SUBFOLDER . $val;
             }
         }
+
+        natsort($this->_mboxes);
     }
 
     /**
@@ -133,11 +136,15 @@ class IMP_Search_Query implements Serializable
      * 'label' - (string) The query label.
      * 'mboxes' - (array) The list of mailboxes to query. This list
      *            automatically expands subfolder searches.
+     * 'mbox_list' - (array) The list of individual mailboxes to query (no
+     *               subfolder mailboxes).
      * 'mid' - (string) The query ID with the search mailbox prefix.
      * 'query' - (array) The list of IMAP queries that comprise this search.
      *           Keys are mailbox names, values are
      *           Horde_Imap_Client_Search_Query objects.
      * 'querytext' - (string) The textual representation of the query.
+     * 'subfolder_list' - (array) The list of mailboxes to do subfolder
+     *                    queries for. The subfolders are not expanded.
      * </pre>
      *
      * @return mixed  Property value.

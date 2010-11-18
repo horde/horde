@@ -5,8 +5,8 @@
 /* Fixes broken inline-block. */
 .mimePartInfo div,
 .mimeStatusMessage,
-.searchCriteriaElement,
-#search_criteria em.joinOr {
+.searchElement,
+#search_form em.joinOr {
     zoom: 1;
     *display: inline;
 }

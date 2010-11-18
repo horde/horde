@@ -1,5 +1,6 @@
 <form id="search_form" action="<tag:action />" method="post">
  <input class="hidden" name="criteria_form" id="criteria_form" value="" />
+ <input class="hidden" name="folders_form" id="folders_form" value="" />
 
  <h1 class="header">
   <strong>
@@ -16,8 +17,6 @@
  </h1>
 
  <div id="recent_searches_div" class="smallheader leftAlign" style="display:none">
-  <span class="iconImg searchuiImg arrowExpanded" style="display:none"></span>
-  <span class="iconImg searchuiImg arrowCollapsed"></span>
   <gettext>Recent Searches</gettext>
  </div>
 
@@ -29,15 +28,14 @@
  </div>
 
  <div class="smallheader leftAlign">
-  <span class="iconImg searchuiImg arrowExpanded"></span>
-  <span class="iconImg searchuiImg arrowCollapsed" style="display:none"></span>
- <gettext>Search Criteria</gettext>
+  <gettext>Search Criteria</gettext>
  </div>
 
- <div>
-  <div id="search_criteria"></div>
+ <div class="item">
+  <div id="no_search_criteria"><gettext>No Search Criteria</gettext></div>
+  <div id="search_criteria" style="display:none"></div>
 
-  <div class="searchCriteriaElement">
+  <div class="searchAdd">
    <select id="search_criteria_add">
     <option value=""><gettext>Add search criteria:</gettext></option>
     <option value="" disabled="disabled">- - - - - - - - -</option>
@@ -59,29 +57,28 @@
  </div>
 
 <if:edit_query_filter><else:edit_query_filter>
- <div class="smallheader leftAlign" id="search_folders_hdr">
-  <span class="iconImg searchuiImg arrowExpanded" style="display:none"></span>
-  <span class="iconImg searchuiImg arrowCollapsed"></span>
+ <div class="smallheader leftAlign">
   <gettext>Search Folders</gettext>
-  <span class="searchuiFoldersActions" style="display:none">
-   [ <a id="link_sel_all" href="#"><gettext>Select all</gettext></a> |
-   <a id="link_sel_none" href="#"><gettext>Select none</gettext></a> ]
-  </span>
  </div>
 
- <div class="item" id="search_folders_tree" style="display:none">
-  <tag:tree />
+ <div class="item">
+  <div id="no_search_folders"><gettext>No Search Folders</gettext></div>
+  <div id="search_folders" style="display:none"></div>
+
+  <div class="searchAdd">
+   <select id="search_folders_add">
+    <tag:tree />
+   </select>
+  </div>
  </div>
 </else:edit_query_filter></if:edit_query_filter>
 
 <if:virtualfolder>
  <div class="smallheader leftAlign">
-  <span class="iconImg searchuiImg arrowExpanded" style="display:none"></span>
-  <span class="iconImg searchuiImg arrowCollapsed"></span>
   <gettext>Saved Searches</gettext>
  </div>
 
- <div style="display:none">
+ <div>
 <if:edit_query_vfolder>
   <input type="hidden" id="search_type" name="search_type" value="vfolder" />
   <input type="hidden" name="edit_query_vfolder" value="<tag:edit_query_vfolder />" />
@@ -119,10 +116,6 @@
 </if:return_mailbox_val>
  </div>
 </form>
-
-<div id="folder_row" style="display:none">
- <input type="checkbox" class="checkbox" name="search_folders_form[]" />
-</div>
 
 <select id="within_criteria" style="display:none">
  <option value="d"><gettext>Days</gettext></option>

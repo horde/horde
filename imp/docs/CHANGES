@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add subfolder searching.
 [mms] Refactor inline message image blocking to operate on all messages, not
       just HTML messages.
 [mms] Add attachment message filter.

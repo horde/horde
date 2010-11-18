@@ -11,7 +11,8 @@
  * 'edit_query_filter' - (string) The name of the filter being edited.
  * 'edit_query_vfolder' - (string) The name of the virtual folder being
  *                        edited.
- * 'folder_list' - (array) The list of folders to add to the query.
+ * 'folders_form' - (string) JSON representation of the list of mailboxes for
+ *                  the query. Hash containing 2 keys: mbox & subfolder.
  * 'search_label' - (string) The label to use when saving the search.
  * 'search_mailbox' - (string) Use this mailbox as the default value.
  *                    DEFAULT: INBOX
@@ -286,10 +287,12 @@ if ($vars->criteria_form) {
         break;
 
     case 'vfolder':
+        $folders_form = Horde_Serialize::unserialize($vars->folders_form, Horde_Serialize::JSON);
         $q_ob = $imp_search->createQuery($c_list, array(
             'id' => IMP::formMbox($vars->edit_query_vfolder, false),
             'label' => $vars->search_label,
-            'mboxes' => Horde_Serialize::unserialize($vars->folders_form, Horde_Serialize::JSON),
+            'mboxes' => $folders_form->mbox,
+            'subfolders' => $folders_form->subfolder,
             'type' => IMP_Search::CREATE_VFOLDER
         ));
 
@@ -303,8 +306,10 @@ if ($vars->criteria_form) {
         break;
 
     default:
+        $folders_form = Horde_Serialize::unserialize($vars->folders_form, Horde_Serialize::JSON);
         $q_ob = $imp_search->createQuery($c_list, array(
-            'mboxes' => Horde_Serialize::unserialize($vars->folders_form, Horde_Serialize::JSON)
+            'mboxes' => $folders_form->mbox,
+            'subfolders' => $folders_form->subfolder
         ));
         $redirect_target = 'mailbox';
         break;
@@ -330,9 +335,6 @@ if ($vars->criteria_form) {
         exit;
     }
 }
-
-/* Preselect mailboxes. */
-$js_vars['ImpSearch.selected'] = array($search_mailbox);
 
 /* Prepare the search template. */
 $t = $injector->createInstance('Horde_Template');
@@ -365,6 +367,10 @@ if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {
     }
 
     $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
+    $js_vars['ImpSearch.i_folders'] = array(
+        'm' => $q_ob->mbox_list,
+        's' => $q_ob->subfolder_list
+    );
 } else {
     /* Process list of recent searches. */
     $rs = array();
@@ -372,14 +378,22 @@ if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {
     foreach ($imp_search as $val) {
         $rs[$val->id] = array(
             'c' => $val->criteria,
-            'l' => Horde_String::truncate($val->querytext),
-            'v' => $val->id
+            'f' => array(
+                'm' => $val->mbox_list,
+                's' => $val->subfolder_list
+            ),
+            'l' => Horde_String::truncate($val->querytext)
         );
     }
 
     if (!empty($rs)) {
-        $js_vars['ImpSearch.recent'] = $rs;
+        $js_vars['ImpSearch.i_recent'] = $rs;
     }
+
+    $js_vars['ImpSearch.i_folders'] = array(
+        'm' => array($search_mailbox),
+        's' => array()
+    );
 }
 
 /* Create the criteria list. */
@@ -416,16 +430,27 @@ foreach ($flist['set'] as $val) {
 $t->set('flist', $flag_set);
 
 /* Generate master folder list. */
+$folder_list = array();
 if (!$t->get('edit_query_filter')) {
-    $tree = $injector->getInstance('IMP_Imap_Tree')->createTree('imp_search', array(
-        'checkbox' => true,
+    $imap_tree = $injector->getInstance('IMP_Imap_Tree');
+    $imap_tree->setIteratorFilter();
+
+    $tree = $imap_tree->createTree('imp_search', array(
+        'render_params' => array(
+            'abbrev' => 0,
+            'heading' => _("Add search folder:")
+        ),
+        'render_type' => 'IMP_Tree_Flist'
     ));
     $t->set('tree', $tree->getTree());
+
+    foreach ($imap_tree as $val) {
+        $folder_list[$val->value] = $val->display;
+    }
 }
 
 Horde_Core_Ui_JsCalendar::init();
 Horde::addScriptFile('horde.js', 'horde');
-Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('search.js', 'imp');
 
 Horde::addInlineJsVars(array_merge($js_vars, array(
@@ -433,6 +458,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
     'ImpSearch.data' => array(
         'constants' => $constants,
         'dimp' => $dimp_view,
+        'folder_list' => $folder_list,
         'months' => Horde_Core_Ui_JsCalendar::months(),
         'searchmbox' => $search_mailbox,
         'types' => $types
@@ -449,7 +475,8 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'need_label' => _("Saved searches require a label."),
         'not_match' => _("Do NOT Match"),
         'or' => _("OR"),
-        'search_term' => _("Search Term:")
+        'search_term' => _("Search Term:"),
+        'subfolder_search' => _("Search all subfolders?")
     )
 )), array('onload' => 'dom'));
 
