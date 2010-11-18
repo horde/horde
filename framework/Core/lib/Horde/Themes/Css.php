@@ -57,7 +57,6 @@ class Horde_Themes_Css
         $themesuri = $registry->get('themesuri');
 
         $css = $this->getStylesheets(isset($options['theme']) ? $options['theme'] : $prefs->getValue('theme'), $options);
-        $css_out = array();
 
         $cache_type = empty($conf['cachecss'])
             ? 'none'
@@ -120,7 +119,7 @@ class Horde_Themes_Css
             }
         }
 
-        return $css_url;
+        return array($css_url);
     }
 
     /**
