@@ -2093,9 +2093,14 @@ abstract class Kronolith_Event
         $this->status = Horde_Util::getFormData('status', $this->status);
 
         // Attendees.
-        $this->attendees = ($attendees = Horde_Util::getFormData('attendees'))
-            ? $attendees
-            : $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
+        if ($attendees = Horde_Util::getFormData('attendees')) {
+            $attendees = Kronolith::parseAttendees(trim($attendees));
+        } else {
+            $attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
+        }
+        if ($attendees) {
+            $this->attendees = $attendees;
+        }
 
         // Resources
         $this->_resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
