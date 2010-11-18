@@ -310,7 +310,7 @@ class IMP_Message
      */
     public function undelete($indices)
     {
-        return $this->flag(array('deleted'), $indices, false);
+        return $this->flag(array('\\deleted'), $indices, false);
     }
 
     /**
