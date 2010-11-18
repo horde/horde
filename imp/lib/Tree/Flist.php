@@ -66,13 +66,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
     }
 
     /**
-     * Returns the tree.
-     *
-     * @param boolean $static  If true the tree nodes can't be expanded and
-     *                         collapsed and the tree gets rendered expanded.
-     *                         This option has no effect in this driver.
-     *
-     * @return string  The HTML code of the rendered tree.
+     * @param boolean $static  Ignored in this driver.
      */
     public function getTree($static = false)
     {
@@ -169,11 +163,6 @@ class IMP_Tree_Flist extends Horde_Tree_Select
     }
 
     /**
-     * Recursive function to walk through the tree array and build the output.
-     *
-     * @param string $node_id  The Node ID.
-     *
-     * @return string  The tree rendering.
      */
     protected function _buildTree($node_id)
     {
