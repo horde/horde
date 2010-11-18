@@ -22,16 +22,20 @@ class Horde_Exception_Prior extends Horde_Exception
      */
     public function __construct($message = null, $code = 0)
     {
+        $previous = null;
         if (is_object($message) &&
             method_exists($message, 'getMessage')) {
             if (empty($code) &&
                 method_exists($message, 'getCode')) {
                 $code = $message->getCode();
             }
+            if ($message instanceof Exception) {
+                $previous = $message;
+            }
             $message = $message->getMessage();
         }
 
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $previous);
     }
 
 }
