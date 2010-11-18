@@ -545,7 +545,7 @@ if ($pageOb['msgcount']) {
                 'v' => Horde::widget($mailbox_link->copy()->add(array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget hideAction', '', '', $deleted_prompt)
             );
         }
-        $mboxacrtions[] = array(
+        $mboxactions[] = array(
             'v' => Horde::widget($mailbox_link->copy()->add(array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget purgeAction', '', '', _("Pur_ge Deleted"))
         );
     }
