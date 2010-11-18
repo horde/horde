@@ -59,7 +59,7 @@
   color: gray;
 }
 
-.kronolithMonthSpacer {
+.kronolithDayDetail {
   border-top: 1px solid #999;
 }
 /* Mini calendar */
@@ -121,13 +121,23 @@
     color: #808080;
     empty-cells: show;
     cursor: pointer;
+    border: 1px transparent;
 }
 .kronolithMinical .kronolithMinicalEmpty {
     background: none;
     border-color: #e2e2e2;
     color: silver;
 }
-.kronolithMinical .kronolithSelected {
+.kronolithMinical .kronolithContainsEvents {
     background-color: #ffc;
     font-weight: bold;
+}
+
+.kronolithMinical .kronolithSelected {
+    border: 1px #999 solid !important;
+}
+
+.kronolithToday, .kronolithMinical .kronolithToday {
+    background-color: #ebf3fc;
+    border: 1px solid #808080;
 }

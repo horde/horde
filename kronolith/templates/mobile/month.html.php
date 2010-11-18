@@ -32,8 +32,6 @@
         <tbody><tr><td></td></tr></tbody>
       </table>
     </div>
-      <div class="kronolithMonthSpacer">&nbsp;</div>
-    <div class="kronolithDayDetail ui-body">
-    </div>
+    <div class="kronolithDayDetail ui-body"></div>
   </div>
 </div>

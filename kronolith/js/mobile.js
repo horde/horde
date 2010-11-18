@@ -38,7 +38,7 @@
 
     /**
      * The currently displayed view
-     **/
+     */
     view: 'day',
 
     /**
@@ -149,7 +149,11 @@
         KronolithMobile.insertEvents(dates, view, data.cal);
     },
 
-    //@TODO rename to renderView?
+    /**
+     * Inserts events into current view.
+     * For Day view, builds a new listview and attaches to the DOM.
+     * For Month view, hightlights dates with events.
+     */
     insertEvents: function(dates, view, cal)
     {
         var date, events, list;
@@ -189,10 +193,13 @@
                     date = day.dateString();
                     events = KronolithMobile.getCacheForDate(date, cal);
                     $.each(events, function(key, event) {
-                        $('#kronolithMonth' + date).addClass('kronolithSelected');
+                        $('#kronolithMonth' + date).addClass('kronolithContainsEvents');
                     });
                     day.next().day();
                 }
+                // Select current date.
+                $('#kronolithMonth'+ $('kronolithMinicalDate').data('date')).addClass('kronolithSelected');
+
                 break;
         }
     },
@@ -280,7 +287,7 @@
     buildEventView: function(e)
     {
          var list = $('<ul>').addClass('kronolithEventDetail').attr({'data-role': 'listview', 'data-inset': true});
-         var loc = false, t;
+         var loc = false, t, recur;
 
          // Title and location
          var title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t));
@@ -289,7 +296,6 @@
          // Time
          t = $('<li>');
          if (e.r) {
-             // Recurrence still TODO
              switch (e.r.t) {
              case 1:
                  // Daily
@@ -305,7 +311,7 @@
              case 3:
                  // Monthly_Date
                  recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
-                 s = Date.parse(e.s);
+                 var s = Date.parse(e.s);
                  recur = recur.replace('#{date}', s.toString('dS'));
                  recur = recur.replace('#{interval}', e.r.i);
                  t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
@@ -314,7 +320,6 @@
                  // Monthly_Day
                  recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
                  recur = recur.replace('#{interval}', e.r.i);
-                 t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
                  break;
              case 5:
              case 6:
@@ -322,7 +327,7 @@
              default:
                  t.text('TODO');
              }
-             //t.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
+             t.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
          } else if (e.al) {
              t.append($('<div>').addClass('kronolithEventDetailAllDay').text(Kronolith.text.allday));
          } else {
@@ -360,12 +365,23 @@
          return list;
     },
 
+    clearView: function(view)
+    {
+        switch (view) {
+        case 'month':
+            $('.kronolithDayDetail ul').detach();
+            break;
+        case 'day':
+            $('#dayview [data-role=content] ul').detach();
+        }
+    },
+
     /**
      * Advance the day view by one day
      */
     showNextDay: function()
     {
-        $('#dayview [data-role=content] ul').detach();
+        KronolithMobile.clearView('day');
         var d = $('.kronolithDayDate').data('date');
         d.addDays(1);
         $('.kronolithDayDate').text(d.toString('ddd') + ' ' + d.toString('d'));
@@ -378,7 +394,7 @@
      */
     showPrevDay: function()
     {
-        $('#dayview [data-role=content] ul').detach();
+        KronolithMobile.clearView('day');
         var d = $('.kronolithDayDate').data('date');
         d.addDays(-1);
         $('.kronolithDayDate').text(d.toString('ddd') + ' ' + d.toString('d'));
@@ -391,6 +407,7 @@
      */
     showPrevMonth: function()
     {
+        KronolithMobile.clearView('month');
         var d = KronolithMobile.parseDate($('#kronolithMinicalDate').data('date'));
         d.addMonths(-1);
         var dates = KronolithMobile.viewDates(d, 'month');
@@ -401,12 +418,36 @@
 
     showNextMonth: function()
     {
+        KronolithMobile.clearView('month');
         var d = KronolithMobile.parseDate($('#kronolithMinicalDate').data('date'));
         d.addMonths(1);
         var dates = KronolithMobile.viewDates(d, 'month');
         KronolithMobile.loadEvents(dates[0], dates[1], 'month');
         KronolithMobile.buildCal(d);
         KronolithMobile.insertEvents(dates, 'month');
+    },
+
+    /**
+     * Selects a day in the month view, and displays any events it may contain.
+     *
+     * @param string date  A date string in the form of yyyyMMdd.
+     */
+    selectMonthDay: function(date)
+    {
+        var ul = $('<ul>').attr({ 'data-role': 'listview '});
+        var d = Date.parse(date);
+        $('.kronolithDayDetail ul').detach();
+        $('.kronolithSelected').removeClass('kronolithSelected');
+        $('#kronolithMonth' + date).addClass('kronolithSelected');
+        if ($('#kronolithMonth' + date).hasClass('kronolithContainsEvents')) {
+            var events = KronolithMobile.getCacheForDate(date);
+            events = KronolithMobile.sortEvents(events);
+            $.each(events, function(k, e) {
+                ul.append(KronolithMobile.buildDayEvent(e));
+            });
+        }
+        ul.listview();
+        $('.kronolithDayDetail').append(ul);
     },
 
     /**
@@ -422,23 +463,13 @@
         var start = date.clone(), end = date.clone();
 
         switch (view) {
-        case 'week':
-            start.moveToBeginOfWeek(Kronolith.conf.week_start);
-            end.moveToEndOfWeek(Kronolith.conf.week_start);
-            break;
         case 'month':
             start.setDate(1);
             start.moveToBeginOfWeek(Kronolith.conf.week_start);
             end.moveToLastDayOfMonth();
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             break;
-        case 'year':
-            start.setDate(1);
-            start.setMonth(0);
-            end.setMonth(11);
-            end.moveToLastDayOfMonth();
-            break;
-        case 'agenda':
+        case 'summary':
             end.add(6).days();
             break;
         }
@@ -447,15 +478,9 @@
     },
 
     /**
-     * Creates a mini calendar suitable for the navigation calendar and the
-     * year view.
+     * Creates the month view calendar.
      *
-     * @param Element tbody    The table body to add the days to.
      * @param Date date        The date to show in the calendar.
-     * @param string view      The view that's displayed, determines which days
-     *                         in the mini calendar are highlighted.
-     * @param string idPrefix  If present, each day will get a DOM ID with KronolithMobile
-     *                         prefix
      */
     buildCal: function(date)
     {
@@ -472,7 +497,8 @@
             .html(date.toString('MMMM yyyy'));
         for (i = 0; i < 42; i++) {
             dateString = day.toString('yyyyMMdd');
-            // Create calendar row and insert week number.
+
+            // Create calendar row .
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = $('<tr>');
                 tbody.append(tr);
@@ -483,8 +509,9 @@
             if (day.getMonth() != date.getMonth()) {
                 td.addClass('kronolithMinicalEmpty');
             }
+
             // Highlight today.
-            if (day.equals(today)) {
+            if (day.dateString() == today.dateString()) {
                 td.addClass('kronolithToday');
             }
             td.html(day.getDate());
@@ -515,8 +542,9 @@
     storeCache: function(events, calendar, dates, createCache)
     {
         events = events || {};
-        calendar = calendar.split('|');
+
         //calendar[0] == type, calendar[1] == calendar name
+        calendar = calendar.split('|');
         if (!KronolithMobile.ecache[calendar[0]]) {
             if (!createCache) {
                 return;
@@ -552,9 +580,6 @@
             }
         }
 
-        // Below, events is a hash of date -> hash of event_id -> events
-        // date is a hash of event_id -> event hash
-        // event is event hash
         var cal = calendar.join('|');
         $.each(events, function(key, date) {
             // We might not have a cache for this date if the event lasts
@@ -563,8 +588,7 @@
                 return;
             }
 
-            // Store calendar string and other useful information in event
-            // objects.
+            // Store useful information in event objects.
             $.each(date, function(k, event) {
                 event.calendar = cal;
                 event.start = Date.parse(event.s);
@@ -573,6 +597,7 @@
                     + (240000 - parseInt(event.end.toString('HHmmss'), 10)).toPaddedString(6);
                 event.id = k;
             });
+
             // Store events in cache.
             $.extend(calHash[key], date);
         });
@@ -609,11 +634,46 @@
         return events;
     },
 
+    /**
+     * Returns the currently displayed view, based on the visible page.
+     *
+     */
+    currentPageView: function()
+    {
+        switch($.mobile.activePage) {
+        case 'dayview':
+            return 'day';
+        case 'monthview':
+            return 'month';
+        }
+    },
+
+    /**
+     * Handle swipe events for the current view.
+     */
+    handleSwipe: function(map)
+    {
+        switch (KronolithMobile.view) {
+        case 'day':
+            if (map.type == 'swipeleft') {
+                KronolithMobile.showNextDay();
+            } else {
+                KronolithMobile.showPrevDay();
+            }
+            break;
+
+        case 'month':
+            if (map == 'swipeleft') {
+                KronolithMobile.showNextMonth();
+            } else {
+                KronolithMobile.showPrevMonth();
+            }
+        }
+    },
+
     onDocumentReady: function()
     {
         // Build list of calendars we want.
-        KronolithMobile.calendars = [];
-
         $.each(Kronolith.conf.calendars, function(key, value) {
             $.each(value, function(cal, info) {
                 if (info.show) {
@@ -632,20 +692,11 @@
             }
         });
 
-        // For now, start at today's day view
-        var currentDate = new Date();
-        $('body').bind('swipeleft', KronolithMobile.showNextDay);
-        $('body').bind('swiperight', KronolithMobile.showPrevDay);
+        // Day View
         $('.kronolithDayHeader .kronolithPrevDay').bind('click', KronolithMobile.showPrevDay);
         $('.kronolithDayHeader .kronolithNextDay').bind('click', KronolithMobile.showNextDay);
         $('#dayview').bind('pageshow', function(event, ui) {
             KronolithMobile.view = 'day';
-            $('body').bind('swipeleft', KronolithMobile.showNextDay);
-            $('body').bind('swiperight', KronolithMobile.showPrevDay);
-        });
-        $('#dayview').bind('pagebeforehide', function(event, ui) {
-            $('body').unbind('swipeleft', KronolithMobile.showNextDay);
-            $('body').unbind('swiperight', KronolithMobile.showPrevDay);
         });
 
         // Event view
@@ -653,51 +704,35 @@
             KronolithMobile.view = 'event';
         });
 
-        // Load today's events
+        // Set up the month view
+        $('#kronolithMinicalPrev').bind('click', KronolithMobile.showPrevMonth);
+        $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
+        $('#monthview').bind('pageshow', function(event, ui) {
+            KronolithMobile.view = 'month';
+            if (!KronolithMobile.monthIsLoaded) {
+                var d = KronolithMobile.viewDates($('.kronolithDayDate').data('date'), 'month');
+                KronolithMobile.loadEvents(d[0], d[1], 'month');
+                KronolithMobile.buildCal($('.kronolithDayDate').data('date'));
+                KronolithMobile.insertEvents(d, 'month');
+                KronolithMobile.selectMonthDay($('.kronolithDayDate').data('date').dateString());
+            }
+        });
+
+        $('td').live('click', function(e) {
+            KronolithMobile.selectMonthDay($(this).data('date'));
+        });
+
+        // Load today's events.
+        // @TODO once https://github.com/jquery/jquery-mobile/issues/issue/508
+        // is fixed, move this to #dayview's pageshow event, as well as
+        // fix monthview initialization.
+        var currentDate = new Date();
         $(".kronolithDayDate").html(currentDate.toString('ddd') + ' ' + currentDate.toString('d'));
         $('.kronolithDayDate').data('date', currentDate);
         KronolithMobile.loadEvents(currentDate, currentDate, 'day');
 
-        // Set up the month view
-        //KronolithMobile.buildCal(currentDate);
-        $('#kronolithMinicalPrev').bind('click', KronolithMobile.showPrevMonth);
-        $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
-
-        $('#monthview').bind('pageshow', function(event, ui) {
-            KronolithMobile.view = 'month';
-            if (!KronolithMobile.monthIsLoaded) {
-                d = KronolithMobile.viewDates($('.kronolithDayDate').data('date'), 'month');
-                KronolithMobile.loadEvents(d[0], d[1], 'month');
-                KronolithMobile.buildCal($('.kronolithDayDate').data('date'));
-                KronolithMobile.insertEvents(d, 'month');
-            }
-            $('body').bind('swipeleft', KronolithMobile.showNextMonth);
-            $('body').bind('swiperight', KronolithMobile.showPrevMonth);
-        });
-        $('#monthview').bind('pagebeforehide', function(event, ui) {
-            $('body').unbind('swipeleft', KronolithMobile.showNextMonth);
-            $('body').unbind('swiperight', KronolithMobile.showPrevMonth);
-        });
-
-        // Click handler for selected month-days
-        // Attaching a live handler when matching a class that is added at
-        // runtime seems to fail
-        $('td').live('click', function(e) {
-            var ul = $('<ul>').attr({ 'data-role': 'listview '});
-            $('.kronolithDayDetail ul').detach();
-            if ($(this).hasClass('kronolithSelected')) {
-                var li, events = KronolithMobile.getCacheForDate($(this).data('date'));
-                events = KronolithMobile.sortEvents(events);
-                $.each(events, function(k, e) {
-                  ul.append(KronolithMobile.buildDayEvent(e));
-                });
-            }
-            ul.listview();
-            $('.kronolithDayDetail').append(ul);
-        });
-
+        $('body').bind('swipeleft', KronolithMobile.handleSwipe);
+        $('body').bind('swiperight', KronolithMobile.handleSwipe);
     }
 };
-
-// JQuery Mobile setup
 $(KronolithMobile.onDocumentReady);
