@@ -112,10 +112,9 @@ case 's':
 case 'rs':
     if (!empty($vars->search) && ($session->get('imp', 'protocol') == 'imap')) {
         /* Create the search query and reset the global mailbox variable. */
-        $q_ob = $imp_search->createQuery(
-            array(new IMP_Search_Element_Text($vars->search, false)),
-            array(IMP::$mailbox)
-        );
+        $q_ob = $imp_search->createQuery(array(new IMP_Search_Element_Text($vars->search, false)), array(
+            'mboxes' => array(IMP::$mailbox)
+        ));
         IMP::setCurrentMailboxInfo(strval($q_ob));
 
         /* Need to re-calculate these values. */

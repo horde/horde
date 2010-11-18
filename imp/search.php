@@ -270,13 +270,11 @@ if ($vars->criteria_form) {
 
     switch ($vars->search_type) {
     case 'filter':
-        $q_ob = $imp_search->createQuery(
-            $c_list,
-            array(),
-            $vars->search_label,
-            IMP_Search::CREATE_FILTER,
-            IMP::formMbox($vars->edit_query_filter, false)
-        );
+        $q_ob = $imp_search->createQuery($c_list, array(
+            'id' => IMP::formMbox($vars->edit_query_filter, false),
+            'label' => $vars->search_label,
+            'type' => IMP_Search::CREATE_FILTER
+        ));
 
         if ($vars->edit_query_filter) {
             $notification->push(sprintf(_("Filter \"%s\" edited successfully."), $vars->search_label), 'horde.success');
@@ -288,13 +286,12 @@ if ($vars->criteria_form) {
         break;
 
     case 'vfolder':
-        $q_ob = $imp_search->createQuery(
-            $c_list,
-            $vars->folder_list,
-            $vars->search_label,
-            IMP_Search::CREATE_VFOLDER,
-            IMP::formMbox($vars->edit_query_vfolder, false)
-        );
+        $q_ob = $imp_search->createQuery($c_list, array(
+            'id' => IMP::formMbox($vars->edit_query_vfolder, false),
+            'label' => $vars->search_label,
+            'mboxes' => Horde_Serialize::unserialize($vars->folders_form, Horde_Serialize::JSON),
+            'type' => IMP_Search::CREATE_VFOLDER
+        ));
 
         if ($vars->edit_query_vfolder) {
             $notification->push(sprintf(_("Virtual Folder \"%s\" edited successfully."), $vars->search_label), 'horde.success');
@@ -306,10 +303,9 @@ if ($vars->criteria_form) {
         break;
 
     default:
-        $q_ob = $imp_search->createQuery(
-            $c_list,
-            $vars->folder_list
-        );
+        $q_ob = $imp_search->createQuery($c_list, array(
+            'mboxes' => Horde_Serialize::unserialize($vars->folders_form, Horde_Serialize::JSON)
+        ));
         $redirect_target = 'mailbox';
         break;
     }

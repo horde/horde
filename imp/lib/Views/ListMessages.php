@@ -81,13 +81,11 @@ class IMP_Views_ListMessages
                 /* Store the search in the session. */
                 if ($is_search) {
                     $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-                    $imp_search->createQuery(
-                        $c_list,
-                        array($args['qsearchmbox']),
-                        null,
-                        IMP_Search::CREATE_QUERY,
-                        $mbox
-                    );
+                    $imp_search->createQuery($c_list, array(
+                        'id' => $mbox,
+                        'mboxes' => array($args['qsearchmbox']),
+                        'type' => IMP_Search::CREATE_QUERY
+                    ));
                 }
             }
         } else {

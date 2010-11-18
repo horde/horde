@@ -76,13 +76,11 @@ if ($vars->search_basic_mbox) {
     }
 
     /* Store the search in the session. */
-    $q_ob = $imp_search->createQuery(
-        $c_list,
-        array($vars->search_basic_mbox),
-        null,
-        IMP_Search::CREATE_QUERY,
-        IMP_Search::BASIC_SEARCH
-    );
+    $q_ob = $imp_search->createQuery($c_list, array(
+        'id' => IMP_Search::BASIC_SEARCH,
+        'mboxes' => array($vars->search_basic_mbox),
+        'type' => IMP_Search::CREATE_QUERY
+    ));
 
     /* Redirect to the mailbox screen. */
     Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();

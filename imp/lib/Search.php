@@ -193,36 +193,43 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * Creates the IMAP search query in the IMP session.
      *
      * @param array $criteria  The search criteria array.
-     * @param array $mboxes    The list of mailboxes to search.
-     * @param string $label    The label to use for the search results.
-     * @param integer $type    Query type.
-     * @param string $id       Use as the mailbox ID.
+     * @param array $opts      Additional options:
+     * <pre>
+     * id - (string) Use as the mailbox ID.
+     * label - (string) The label to use for the search results.
+     * mboxes - (array) The list of mailboxes to directly search.
+     * subfolders - (array) The list of mailboxes to do subfolder searches on.
+     * type - (integer) Query type.
+     * </pre>
      *
      * @return IMP_Search_Query  Returns the query object.
      * @throws InvalidArgumentException
      */
-    public function createQuery($criteria, $mboxes = array(), $label = null,
-                                $type = self::CREATE_QUERY, $id = null)
+    public function createQuery($criteria, array $opts = array())
     {
-        if (!is_null($id)) {
-            $id = $this->_strip($id);
-        }
+        $opts = array_merge(array(
+            'id' => null,
+            'label' => null,
+            'mboxes' => array(),
+            'subfolders' => array(),
+            'type' => self::CREATE_QUERY
+        ), $opts);
 
-        switch ($type) {
+        switch ($opts['type']) {
         case self::CREATE_FILTER:
             $cname = 'IMP_Search_Filter';
             break;
 
         case self::CREATE_QUERY:
             $cname = 'IMP_Search_Query';
-            if (empty($mboxes)) {
+            if (empty($opts['mboxes']) && empty($opts['subfolders'])) {
                 throw new InvalidArgumentException('Search query requires at least one mailbox.');
             }
             break;
 
         case self::CREATE_VFOLDER:
             $cname = 'IMP_Search_Vfolder';
-            if (empty($mboxes)) {
+            if (empty($opts['mboxes']) && empty($opts['subfolders'])) {
                 throw new InvalidArgumentException('Search query requires at least one mailbox.');
             }
             break;
@@ -230,12 +237,13 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         $ob = new $cname(array_filter(array(
             'add' => $criteria,
-            'id' => $id,
-            'label' => $label,
-            'mboxes' => $mboxes
+            'id' => $this->_strip($opts['id']),
+            'label' => $opts['label'],
+            'mboxes' => $opts['mboxes'],
+            'subfolders' => $opts['subfolders']
         )));
 
-        switch ($type) {
+        switch ($opts['type']) {
         case self::CREATE_FILTER:
             /* This will overwrite previous value, if it exists. */
             $this->_search['filters'][$ob->id] = $ob;
