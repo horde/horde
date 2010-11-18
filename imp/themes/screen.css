@@ -199,51 +199,65 @@ div.msgActions, #fmanager div.folderActions {
 #search_form div.item {
     padding: 1px 0 1px 0;
 }
+#search_form em.join {
+    font-weight: bold;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#search_form em.joinOr {
+    display: inline-block;
+    padding: 5px;
+}
 
-.searchCriteriaElement {
+.searchAdd, .searchElement {
     display: -moz-inline-stack;
     display: inline-block;
     padding: 3px;
 }
-#search_criteria .searchCriteriaElement {
+
+#no_search_criteria, #no_search_folders {
+    font-weight: bold;
+    padding: 3px;
+}
+
+.searchElement {
     background-color: lightblue;
     border: 1px solid gray;
     margin: 2px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
-#search_criteria em.join {
+.searchElement em {
     font-style: normal;
-    font-weight: bold;
-    padding-left: 2px;
-    padding-right: 2px;
 }
-#search_criteria em.joinOr {
-    display: inline-block;
-    padding: 5px;
-}
-#search_criteria span.notMatch {
+.searchElement span.notMatch {
     padding-left: 3px;
     padding-right: 3px;
 }
-#search_criteria input.checkbox {
-    margin-right: 2px;
+.searchElement span.subfolders {
+    padding-left: 10px;
 }
-#search_criteria .searchuiDelete {
+.searchElement input.checkbox {
+    margin-right: 3px;
+    vertical-align: text-top;
+}
+.searchElement .calendarPopup {
+    margin-left: 3px;
+}
+.searchElement .searchuiDelete {
     padding-left: 6px;
-    vertical-align: middle;
-}
-
-#search_folders_tree input.checkbox {
-    vertical-align: middle;
+    vertical-align: text-top;
 }
 
 .searchuiCalendar {
     background-image: url("graphics/calendar.png");
 }
 .searchuiFoldersActions {
-    margin-left: 20px;
     font-size: 90%;
+    margin-left: 10px;
+}
+.searchuiFoldersActions a {
+    color: #366;
 }
 .searchuiButtons {
     padding-top: 5px;
