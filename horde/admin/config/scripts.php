@@ -40,22 +40,26 @@ if ($clean == 'tmp') {
 
 $data = '';
 if ($setup == 'conf' && $type == 'php') {
-    /* A bit ugly here, save PHP code into a string for creating the script
-     * to be run at the command prompt. */
+    /* Save PHP code into a string for creating the script to be run at the
+     * command prompt. */
     $data = '#!/usr/bin/env php' . "\n";
     $data .= '<?php' . "\n";
     foreach ($session->get('horde', 'config/') as $app => $php) {
         $path = $registry->get('fileroot', $app) . '/config';
+        $data .= '$conf = \'' . $path . '/conf.php\';' . "\n";
         /* Add code to save backup. */
-        $data .= 'if (file_exists(\'' . $path . '/conf.php\')) {' . "\n";
-        $data .= '    if (@copy(\'' . $path . '/conf.php\', \'' . $path . '/conf.bak.php\')) {' . "\n";
+        $data .= 'if (file_exists(\'$conf\')) {' . "\n";
+        $data .= '    if (is_link(\'$conf\')) {' . "\n";
+        $data .= '        $conf = readlink($conf);' . "\n";
+        $data .= '    }' . "\n";
+        $data .= '    if (@copy(\'$conf\', \'' . $path . '/conf.bak.php\')) {' . "\n";
         $data .= '        echo \'Successfully saved backup configuration.\' . "\n";' . "\n";
         $data .= '    } else {' . "\n";
         $data .= '        echo \'Could NOT save a backup configuation.\' . "\n";' . "\n";
         $data .= '    }' . "\n";
         $data .= '}' . "\n";
 
-        $data .= 'if ($fp = @fopen(\'' . $path . '/conf.php\', \'w\')) {' . "\n";
+        $data .= 'if ($fp = @fopen(\'$conf\', \'w\')) {' . "\n";
         $data .= '    fwrite($fp, \'';
         $data .= str_replace(array('\\', '\''), array('\\\\', '\\\''), $php);
         $data .= '\');' . "\n";
@@ -78,7 +82,7 @@ if ($save != 'tmp') {
 $tmp_dir = Horde::getTempDir();
 /* Add self-destruct code. */
 $data .= 'echo \'Self-destructing...\' . "\n";' . "\n";
-$data .= 'if (unlink(__FILE__)) {' . "\n";
+$data .= 'if (@unlink(__FILE__)) {' . "\n";
 $data .= '    echo \'Upgrade script deleted.\' . "\n";' . "\n";
 $data .= '} else {' . "\n";
 $data .= '    echo \'WARNING!!! REMOVE SCRIPT MANUALLY FROM ' . $tmp_dir . '\' . "\n";' . "\n";
