@@ -62,10 +62,6 @@ if ($vars->actionID) {
 
 /* Determine if mailbox is readonly. */
 $peek = $readonly = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->isReadOnly(IMP::$mailbox);
-if ($readonly &&
-    in_array($vars->actionID, array('delete_message', 'undelete_message', 'move_message', 'flag_message', 'strip_attachment', 'strip_all'))) {
-    $vars->actionID = null;
-}
 
 /* Get mailbox/UID of message. */
 $index_array = $imp_mailbox->getIMAPIndex();
@@ -88,10 +84,7 @@ case 'whitelist':
     break;
 
 case 'delete_message':
-case 'undelete_message':
-    if ($vars->actionID == 'undelete_message') {
-        $imp_message->undelete($indices);
-    } else {
+    if (!$readonly) {
         $imp_message->delete(
             $indices,
             array(
@@ -109,9 +102,16 @@ case 'undelete_message':
     }
     break;
 
+case 'undelete_message':
+    if (!$readonly) {
+        $imp_message->undelete($indices);
+    }
+    break;
+
 case 'move_message':
 case 'copy_message':
-    if (isset($vars->targetMbox)) {
+    if (isset($vars->targetMbox) &&
+        (!$readonly || ($vars->actionID == 'copy_message'))) {
         $targetMbox = IMP::formMbox($vars->targetMbox, false);
         if ($vars->newMbox) {
             $vars->targetMbox = IMP::folderPref($targetMbox, true);
@@ -154,7 +154,7 @@ case 'notspam_report':
     break;
 
 case 'flag_message':
-    if (isset($vars->flag) && count($indices)) {
+    if (!$readonly && isset($vars->flag) && count($indices)) {
         $peek = true;
         $flag = $imp_flags->parseFormId($vars->flag);
         $imp_message->flag(array($flag['flag']), $indices, $flag['set']);
@@ -177,17 +177,19 @@ case 'add_address':
 
 case 'strip_all':
 case 'strip_attachment':
-    try {
-        $imp_message->stripPart(
-            $indices,
-            ($vars->actionID == 'strip_all') ? null : $vars->imapid,
-            array(
-                'mailboxob' => $imp_mailbox
-            )
-        );
-        $notification->push(_("Attachment successfully stripped."), 'horde.success');
-    } catch (Horde_Exception $e) {
-        $notification->push($e);
+    if (!$readonly) {
+        try {
+            $imp_message->stripPart(
+                $indices,
+                ($vars->actionID == 'strip_all') ? null : $vars->imapid,
+                array(
+                    'mailboxob' => $imp_mailbox
+                )
+            );
+            $notification->push(_("Attachment successfully stripped."), 'horde.success');
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
+        }
     }
     break;
 }
