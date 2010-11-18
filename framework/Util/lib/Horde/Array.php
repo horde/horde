@@ -24,7 +24,7 @@ class Horde_Array
      *
      * @return array  The list of addresses, prepared for storage.
      */
-    static public function prepareAddressList($addr)
+    static public function prepareAddressList(array $addr)
     {
         /* Remove any extra space in the address and make it lowercase. */
         $addr = array_map(array('Horde_String', 'lower'), array_map('trim', $addr));
@@ -84,7 +84,7 @@ class Horde_Array
      *                          1 = descending
      * @param boolean $assoc  Keep key value association?
      */
-    static public function arraySort(&$array, $key = null, $dir = 0,
+    static public function arraySort(array &$array, $key = null, $dir = 0,
                                      $assoc = true)
     {
         /* Return if the array is empty. */
@@ -120,7 +120,7 @@ class Horde_Array
      *
      * @return boolean  True on sucess, false on error.
      */
-    static public function getArrayParts($field, &$base, &$keys)
+    static public function getArrayParts($field, &$base, array &$keys)
     {
         if (!preg_match('|([^\[]*)((\[[^\[\]]*\])+)|', $field, $matches)) {
             return false;
@@ -145,7 +145,7 @@ class Horde_Array
      *
      * @return mixed  The final value of the key path.
      */
-    static public function getElement(&$array, &$keys, $value = null)
+    static public function getElement(array &$array, array &$keys, $value = null)
     {
         if (count($keys)) {
             $key = array_shift($keys);
@@ -172,7 +172,7 @@ class Horde_Array
      *
      * @return array  The extracted rectangle.
      */
-    static public function getRectangle($array, $row, $col, $height, $width)
+    static public function getRectangle(array $array, $row, $col, $height, $width)
     {
         $rec = array();
         for ($y = $row; $y < $row + $height; $y++) {
@@ -193,7 +193,7 @@ class Horde_Array
      *
      * @return array  An array with keys the same as values.
      */
-    static public function valuesToKeys($array)
+    static public function valuesToKeys(array $array)
     {
         if (!$array) {
             return array();
@@ -211,7 +211,7 @@ class Horde_Array
      *
      * @return array  The merged array.
      */
-    static public function array_merge_recursive_overwrite($a1, $a2)
+    static public function array_merge_recursive_overwrite(array $a1, array $a2)
     {
         foreach ($a2 as $key => $val) {
             if (!isset($a1[$key])) {
