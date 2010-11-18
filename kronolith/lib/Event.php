@@ -2098,9 +2098,7 @@ abstract class Kronolith_Event
         } else {
             $attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
         }
-        if ($attendees) {
-            $this->attendees = $attendees;
-        }
+        $this->attendees = $attendees;
 
         // Resources
         $this->_resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
