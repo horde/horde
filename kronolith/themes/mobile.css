@@ -64,11 +64,10 @@
     position: relative;
 }
 #kronolithMinical {
-/*    top: 15px;*/
 }
 .kronolithMinical table {
     width: 100%;
-    border-spacing: 1px;
+    border-spacing: 0;
 }
 .kronolithMinical caption, #kronolithBody .kronolithMinical caption {
     position: relative;
@@ -112,10 +111,9 @@
     border: 1px #999 solid !important;
 }
 .kronolithMinical tbody td {
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    border: 1px #999 solid;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
     text-align: center;
     color: #808080;
     empty-cells: show;
@@ -128,4 +126,5 @@
 }
 .kronolithMinical .kronolithSelected {
     background-color: #ffc;
+    font-weight: bold;
 }
