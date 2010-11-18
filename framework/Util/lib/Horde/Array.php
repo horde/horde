@@ -115,8 +115,8 @@ class Horde_Array
      * the keys so that they could be used to reference a regular PHP array.
      *
      * @param string $field  The field name to be examined.
-     * @param string &$base  Set to the base element.
-     * @param array &$keys   Set to the list of keys.
+     * @param string &$base  Will be set to the base element.
+     * @param array &$keys   Will be set to the list of keys.
      *
      * @return boolean  True on sucess, false on error.
      */
