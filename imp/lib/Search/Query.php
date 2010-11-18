@@ -17,12 +17,22 @@ class IMP_Search_Query implements Serializable
     /* Serialized version. */
     const VERSION = 1;
 
+    /* Prefix indicating subfolder search. */
+    const SUBFOLDER = "sub\0";
+
     /**
      * Is this query enabled?
      *
      * @var boolean
      */
     public $enabled = true;
+
+    /**
+     * Cache results.
+     *
+     * @var array
+     */
+    protected $_cache = array();
 
     /**
      * Can this query be edited?
@@ -71,17 +81,18 @@ class IMP_Search_Query implements Serializable
      *
      * @var array $opts  Options:
      * <pre>
-     * 'add' - (array) A list of criteria to add (Horde_Search_Element
-     *         objects).
-     *         DEFAULT: No criteria explicitly added.
-     * 'disable' - (boolean) Disable this query?
-     *             DEFAULT: false
-     * 'id' - (string) Use this ID.
-     *        DEFAULT: ID automatically generated.
-     * 'label' - (string) The label for this query.
-     *           DEFAULT: Search Results
-     * 'mboxes' - (array) The list of mailboxes to search.
-     *            DEFAULT: None
+     * add - (array) A list of criteria to add (Horde_Search_Element objects).
+     *       DEFAULT: No criteria explicitly added.
+     * disable - (boolean) Disable this query?
+     *           DEFAULT: false
+     * id - (string) Use this ID.
+     *      DEFAULT: ID automatically generated.
+     * label - (string) The label for this query.
+     *         DEFAULT: Search Results
+     * mboxes - (array) The list of mailboxes to search.
+     *          DEFAULT: None
+     * subfolders - (array) The list of mailboxes to do subfolder searces for.
+     *              DEFAULT: None
      * </pre>
      */
     public function __construct(array $opts = array())
@@ -104,6 +115,12 @@ class IMP_Search_Query implements Serializable
         if (isset($opts['mboxes'])) {
             $this->_mboxes = $opts['mboxes'];
         }
+
+        if (isset($opts['subfolders'])) {
+            foreach ($opts['subfolders'] as $val) {
+                $this->_mboxes[] = self::SUBFOLDER . $val;
+            }
+        }
     }
 
     /**
@@ -114,7 +131,8 @@ class IMP_Search_Query implements Serializable
      * 'canEdit' - (boolean) Can this query be edited?
      * 'id' - (string) The query ID.
      * 'label' - (string) The query label.
-     * 'mboxes' - (array) The list of mailboxes to query.
+     * 'mboxes' - (array) The list of mailboxes to query. This list
+     *            automatically expands subfolder searches.
      * 'mid' - (string) The query ID with the search mailbox prefix.
      * 'query' - (array) The list of IMAP queries that comprise this search.
      *           Keys are mailbox names, values are
@@ -147,7 +165,39 @@ class IMP_Search_Query implements Serializable
             return $this->_label;
 
         case 'mboxes':
-            return $this->_mboxes;
+            if (!isset($this->_cache['mboxes'])) {
+                $out = $this->mbox_list;
+
+                if ($s_list = $this->subfolder_list) {
+                    $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+                    foreach ($s_list as $val) {
+                        $out = array_merge($out, $imp_folder->getAllSubfolders($val));
+                    }
+                }
+
+                $this->_cache['mboxes'] = array_keys(array_flip($out));
+            }
+
+            return $this->_cache['mboxes'];
+
+        case 'mbox_list':
+        case 'subfolder_list':
+            if (!isset($this->_cache['mbox_list'])) {
+                $mbox = $subfolder = array();
+
+                foreach ($this->_mboxes as $val) {
+                    if (strpos($val, self::SUBFOLDER) === 0) {
+                        $subfolder[] = substr($val, strlen(self::SUBFOLDER));
+                    } else {
+                        $mbox[] = $val;
+                    }
+                }
+
+                $this->_cache['mbox_list'] = $mbox;
+                $this->_cache['subfolder_list'] = $subfolder;
+            }
+
+            return $this->_cache[$name];
 
         case 'mid':
             return IMP_Search::MBOX_PREFIX . $this->_id;
@@ -155,7 +205,7 @@ class IMP_Search_Query implements Serializable
         case 'query':
             $qout = array();
 
-            foreach ($this->_mboxes as $mbox) {
+            foreach ($this->mboxes as $mbox) {
                 $query = new Horde_Imap_Client_Search_Query();
                 foreach ($this->_criteria as $elt) {
                     $query = $elt->createQuery($mbox, $query);
