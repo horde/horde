@@ -32,6 +32,11 @@
     cacheEnd: null,
 
     /**
+     * Temporary hack for displaying the first month view
+     */
+    monthIsLoaded: null,
+
+    /**
      * The currently displayed view
      **/
     view: 'day',
@@ -400,7 +405,7 @@
         var dates = KronolithMobile.viewDates(d, 'month');
         KronolithMobile.loadEvents(dates[0], dates[1], 'month');
         KronolithMobile.buildCal(d);
-                KronolithMobile.insertEvents(dates, 'month');
+        KronolithMobile.insertEvents(dates, 'month');
     },
 
     /**
@@ -630,6 +635,8 @@
         var currentDate = new Date();
         $('body').bind('swipeleft', KronolithMobile.showNextDay);
         $('body').bind('swiperight', KronolithMobile.showPrevDay);
+        $('.kronolithDayHeader .kronolithPrevDay').bind('click', KronolithMobile.showPrevDay);
+        $('.kronolithDayHeader .kronolithNextDay').bind('click', KronolithMobile.showNextDay);
         $('#dayview').bind('pageshow', function(event, ui) {
             KronolithMobile.view = 'day';
             $('body').bind('swipeleft', KronolithMobile.showNextDay);
@@ -640,13 +647,10 @@
             $('body').unbind('swiperight', KronolithMobile.showPrevDay);
         });
 
+        // Event view
         $('#eventview').bind('pageshow', function(event, ui) {
             KronolithMobile.view = 'event';
         });
-
-        // Next and Prev day links for the day view.
-        $('.kronolithDayHeader .kronolithPrevDay').bind('click', KronolithMobile.showPrevDay);
-        $('.kronolithDayHeader .kronolithNextDay').bind('click', KronolithMobile.showNextDay);
 
         // Load today's events
         $(".kronolithDayDate").html(currentDate.toString('ddd') + ' ' + currentDate.toString('d'));
@@ -654,15 +658,18 @@
         KronolithMobile.loadEvents(currentDate, currentDate, 'day');
 
         // Set up the month view
-        // Build the first month, should due this on first page show, but the
-        // pagecreate event doesn't seem to fire for the internal page? Not sure how
-        // else to do it, so just build the first month outright.
-        KronolithMobile.buildCal(currentDate);
+        //KronolithMobile.buildCal(currentDate);
         $('#kronolithMinicalPrev').bind('click', KronolithMobile.showPrevMonth);
         $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
 
         $('#monthview').bind('pageshow', function(event, ui) {
             KronolithMobile.view = 'month';
+            if (!KronolithMobile.monthIsLoaded) {
+                d = KronolithMobile.viewDates($('.kronolithDayDate').data('date'), 'month');
+                KronolithMobile.loadEvents(d[0], d[1], 'month');
+                KronolithMobile.buildCal($('.kronolithDayDate').data('date'));
+                KronolithMobile.insertEvents(d, 'month');
+            }
             $('body').bind('swipeleft', KronolithMobile.showNextMonth);
             $('body').bind('swiperight', KronolithMobile.showPrevMonth);
         });
