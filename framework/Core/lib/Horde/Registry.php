@@ -2182,6 +2182,9 @@ class Horde_Registry
                 return;
             }
             $this->clearCache();
+            $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
+            $GLOBALS['conf'] = &$this->_cache['conf-horde'];
+            $this->importConfig($this->getApp());
         }
         $GLOBALS['language'] = $lang;
 
