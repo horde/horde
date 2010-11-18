@@ -17,5 +17,5 @@
       <span class="kronolithDayDate"></span>
       <a href="#" data-icon="arrow-r" data-iconpos="notext" class="kronolithNextDay"><?php echo _("Next")?></a></div>
   </div>
-  <div data-role="content"></div>
+  <div data-role="content" class="ui-body"></div>
 </div>
