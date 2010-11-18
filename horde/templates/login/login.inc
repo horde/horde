@@ -31,7 +31,7 @@
 <?php endforeach; ?>
 
 <?php if (!$is_auth && !$prefs->isLocked('language')): ?>
-<div><label><?php echo Horde::label('new_lang', _("Language")) ?></label></div>
+<div><?php echo Horde::label('new_lang', _("Language")) ?></div>
 <div><select id="new_lang" name="new_lang">
 <?php foreach ($langs as $val): ?>
         <option value="<?php echo $val['val'] ?>"<?php echo ($val['sel'] ? ' selected="selected"' : '') ?>><?php echo $val['name'] ?></option>
