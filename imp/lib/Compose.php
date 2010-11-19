@@ -1529,7 +1529,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             ($prefs->getValue('compose_html') ||
              ($msg_text['mode'] == 'html'))) {
             $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
-                   '<blockquote type="cite" style="background-color:#f0f0f0;border-left:1px solid blue;padding-left:1em;">' .
+                   '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">' .
                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
                    '</blockquote><br />' .
                    ($msg_post ? $this->text2html($msg_post) : '') . '<br />';
