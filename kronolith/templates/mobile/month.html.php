@@ -1,5 +1,5 @@
 <!-- Month View -->
-<div data-role="page" id="monthview" class="monthview">
+<div data-role="page" data-theme="b" id="monthview" class="monthview">
   <div data-role="header">
     <h1><?php echo _("Month")?></h1>
     <a rel="external" href="<?php echo $this->portal ?>"><?php echo _("Portal")?></a>
@@ -19,7 +19,7 @@
      <a href="#" data-role="button" id="kronolithMinicalNext" data-icon="arrow-r" data-iconpos="notext" title="<?php echo _("Next month") ?>">&gt;</a>
     </div>
   </div>
-  <div data-role="content" class="bld" id="monthcontent">
+  <div id="monthcontent">
     <div id="kronolithMinical" class="kronolithMinical">
       <table>
         <thead>
@@ -32,6 +32,8 @@
         <tbody><tr><td></td></tr></tbody>
       </table>
     </div>
-    <div class="kronolithDayDetail ui-body"></div>
+    <div class="kronolithDayDetail">
+        <h4 class="ui-bar-b"></h4>
+    </div>
   </div>
 </div>
