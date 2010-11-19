@@ -24,6 +24,7 @@ $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
 echo $view->render('head');
 echo $view->render('day');
 echo $view->render('event');

@@ -58,13 +58,17 @@
   font-style: italic;
   color: gray;
 }
-
 .kronolithDayDetail {
-  border-top: 1px solid #999;
 }
+.kronolithDayDetail h4 {
+  text-align: center;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
 /* Mini calendar */
 .kronolithMinical {
-
+    background-color: #fff;
 }
 #kronolithMinical {
 }

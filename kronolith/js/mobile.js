@@ -199,7 +199,7 @@
                 }
                 // Select current date.
                 $('#kronolithMonth'+ $('kronolithMinicalDate').data('date')).addClass('kronolithSelected');
-
+                KronolithMobile.selectMonthDay($('#kronolithMinicalDate').data('date'));
                 break;
         }
     },
@@ -434,9 +434,20 @@
      */
     selectMonthDay: function(date)
     {
-        var ul = $('<ul>').attr({ 'data-role': 'listview '});
-        var d = Date.parse(date);
+        var ul = $('<ul>').attr({ 'data-role': 'listview '}),
+        d = KronolithMobile.parseDate(date), today = new Date(),
+        text;
         $('.kronolithDayDetail ul').detach();
+        if (today.dateString() == d.dateString()) {
+          text = Kronolith.text.today;
+        } else if (today.clone().addDays(-1).dateString() == d.dateString()) {
+          text = Kronolith.text.yesterday;
+        } else if (today.clone().addDays(1).dateString() == d.dateString()) {
+          text = Kronolith.text.tomorrow;
+        } else {
+          text = d.toString('ddd') + ' ' + d.toString('d')
+        }
+        $('.kronolithDayDetail h4').text(text);
         $('.kronolithSelected').removeClass('kronolithSelected');
         $('#kronolithMonth' + date).addClass('kronolithSelected');
         if ($('#kronolithMonth' + date).hasClass('kronolithContainsEvents')) {
@@ -495,6 +506,7 @@
         $('#kronolithMinicalDate')
             .data('date', date.toString('yyyyMMdd'))
             .html(date.toString('MMMM yyyy'));
+
         for (i = 0; i < 42; i++) {
             dateString = day.toString('yyyyMMdd');
 
@@ -715,6 +727,7 @@
                 KronolithMobile.buildCal($('.kronolithDayDate').data('date'));
                 KronolithMobile.insertEvents(d, 'month');
                 KronolithMobile.selectMonthDay($('.kronolithDayDate').data('date').dateString());
+                KronolithMobile.monthIsLoaded = true;
             }
         });
 
