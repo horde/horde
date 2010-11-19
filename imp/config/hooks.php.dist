@@ -164,8 +164,13 @@ class IMP_Hooks
     /**
      * Perform an action before a message has been sent.
      *
+     * If an exception is thrown, sending is cancelled and the exception text
+     * will be shown to the user in an error message.
+     *
      * @param Horde_Mime_Part $message     The message content object.
      * @param Horde_Mime_Headers $headers  The message headers object.
+     *
+     * @throws IMP_Compose_Exception
      */
 //    public function pre_sent($message, $headers)
 //    {
