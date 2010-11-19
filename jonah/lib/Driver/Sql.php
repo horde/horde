@@ -271,9 +271,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
         if (isset($story['body'])) {
             $story['body'] = Horde_String::convertCharset($story['body'], $this->_params['charset'], 'UTF-8');
         }
-        if (isset($story['tags'])) {
-            $story['tags'] = Horde_String::convertCharset($story['tags'], $this->_params['charset'], 'UTF-8');
-        }
 
         return $story;
     }
@@ -343,7 +340,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
            'stories.story_updated AS updated, ' .
            'stories.story_read AS readcount ' .
            'FROM jonah_stories AS stories ' .
-           'LEFT JOIN jonah_stories_tags tags ON (stories.story_id = tags.story_id) ' .
            'WHERE stories.channel_id=?';
 
         $values = array($criteria['channel_id']);
@@ -367,35 +363,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
         }
         if (isset($criteria['published'])) {
             $sql .= ' AND story_published IS NOT NULL';
-        }
-
-        // Apply tag filtering
-        if (isset($criteria['tags'])) {
-            $sql .= ' AND (';
-            $multiple = false;
-            foreach ($criteria['tags'] as $tag) {
-                if ($multiple) {
-                    $sql .= ' OR ';
-                }
-                $sql .= 'tags.tag_id = ?';
-                $values[] = $criteria['tagIDs'][$tag];
-                $multiple = true;
-            }
-            $sql .= ')';
-        }
-
-        if (isset($criteria['alltags'])) {
-            $sql .= ' AND (';
-            $multiple = false;
-            foreach ($criteria['alltags'] as $tag) {
-                if ($multiple) {
-                    $sql .= ' AND ';
-                }
-                $sql .= 'tags.tag_id = ?';
-                $values[] = $criteria['tagIDs'][$tag];
-                $multiple = true;
-            }
-            $sql .= ')';
         }
 
         // Filter by story author
@@ -503,7 +470,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
         if (empty($result)) {
             throw new Horde_Exception_NotFound(sprintf(_("Story id \"%s\" not found."), $story_id));
         }
-        $result['tags'] = $this->readTags($story_id);
         $result = $this->_convertFromBackend($result);
         if ($read) {
             $this->_readStory($story_id);
@@ -574,14 +540,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
         try {
             $result = $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {}
-
-        $sql = 'DELETE FROM jonah_stories_tags ' .
-               'WHERE channel_id = ? AND story_id = ?';
-        try {
-            $result = $this->_db->delete($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Jonah_Exception($e);
-        }
 
         return true;
     }

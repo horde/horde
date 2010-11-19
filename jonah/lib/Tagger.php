@@ -22,7 +22,7 @@ class Jonah_Tagger
     /**
      * Constructor.
      *
-     * @return Kronolith_Tagger
+     * @return Jonah_Tagger
      */
     public function __construct()
     {
@@ -33,9 +33,9 @@ class Jonah_Tagger
             $this->_type_ids = unserialize($ids);
         } else {
             $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
-            $types = $type_mgr->ensureTypes(array('calendar', 'event'));
-            $this->_type_ids = array('calendar' => (int)$types[0],
-                                     'event' => (int)$types[1]);
+            $types = $type_mgr->ensureTypes(array('feed', 'story'));
+            $this->_type_ids = array('feed' => (int)$types[0],
+                                     'story' => (int)$types[1]);
             $GLOBALS['injector']->getInstance('Horde_Cache')->set($key, serialize($this->_type_ids));
         }
     }
@@ -49,11 +49,11 @@ class Jonah_Tagger
      * @param string $owner         The tag owner (should normally be the owner
      *                              of the resource).
      * @param string $content_type  The type of object we are tagging
-     *                              (event/calendar).
+     *                              (story/feed).
      *
      * @return void
      */
-    public function tag($localId, $tags, $owner, $content_type = 'event')
+    public function tag($localId, $tags, $owner, $content_type = 'story')
     {
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
@@ -76,7 +76,7 @@ class Jonah_Tagger
      *
      * @return array A tag_id => tag_name hash, possibly wrapped in a localid hash.
      */
-    public function getTags($localId, $type = 'event')
+    public function getTags($localId, $type = 'story')
     {
         if (is_array($localId)) {
             return $GLOBALS['injector']->getInstance('Content_Tagger')->getTagsByObjects($localId, $type);
@@ -95,7 +95,7 @@ class Jonah_Tagger
      *                              ids or names to remove.
      * @param string $content_type  The type of object that $localId represents.
      */
-    public function untag($localId, $tags, $content_type = 'event')
+    public function untag($localId, $tags, $content_type = 'story')
     {
         $GLOBALS['injector']->getInstance('Content_Tagger')->removeTagFromObject(
             array('object' => $localId, 'type' => $this->_type_ids[$content_type]), $tags);
@@ -111,7 +111,7 @@ class Jonah_Tagger
      *                         owner.
      * @param $content_type    The type of object that $localId represents.
      */
-    public function replaceTags($localId, $tags, $owner, $content_type = 'event')
+    public function replaceTags($localId, $tags, $owner, $content_type = 'story')
     {
         // First get a list of existing tags.
         $existing_tags = $this->getTags($localId, $content_type);
@@ -158,15 +158,15 @@ class Jonah_Tagger
      *
      * @param array $tags    Either a tag_id, tag_name or an array.
      * @param array $filter  Array of filter parameters.
-     *                       - type (string) - only return either events or
+     *                       - type (string) - only return either storys or
      *                         calendars, not both.
      *                       - user (array) - only include objects owned by
      *                         these users.
-     *                       - calendar (array) - restrict to events contained
+     *                       - calendar (array) - restrict to storys contained
      *                         in these calendars.
      *
-     * @return  A hash of 'calendars' and 'events' that each contain an array
-     *          of calendar_ids and event_uids respectively.
+     * @return  A hash of 'feeds' and 'stories' that each contain an array
+     *          of share_ids and story_ids respectively.
      */
     public function search($tags, $filter = array())
     {
@@ -184,15 +184,15 @@ class Jonah_Tagger
                 $args['feedId'] = array();
                 foreach ($calendars as $name => $share) {
                     if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-                        $args['calendarId'][] = $name;
+                        $args['feedId'][] = $name;
                     }
                 }
             } else {
                 // Items owned by specific user(s)
                 $args['userId'] = $filter['user'];
             }
-        } elseif (!empty($filter['calendar'])) {
-            // Only events located in specific calendar(s)
+        } elseif (!empty($filter['feed'])) {
+            // Only storys located in specific calendar(s)
             if (!is_array($filter['calendar'])) {
                 $filter['calendar'] = array($filter['calendar']);
             }
@@ -202,22 +202,22 @@ class Jonah_Tagger
         /* Add the tags to the search */
         $args['tagId'] = $GLOBALS['injector']->getInstance('Content_Tagger')->getTagIds($tags);
 
-        /* Restrict to events or calendars? */
-        $cal_results = $event_results = array();
+        /* Restrict to storys or calendars? */
+        $cal_results = $story_results = array();
         if (empty($filter['type']) || $filter['type'] == 'calendar') {
             $args['typeId'] = $this->_type_ids['calendar'];
             $cal_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
         }
 
-        if (empty($filter['type']) || $filter['type'] == 'event') {
-            $args['typeId'] = $this->_type_ids['event'];
-            $event_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
+        if (empty($filter['type']) || $filter['type'] == 'story') {
+            $args['typeId'] = $this->_type_ids['story'];
+            $story_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
         }
 
         $results = array('calendars' => array_values($cal_results),
-                         'events' => (!empty($args['calendarId']) && count($event_results))
-                                     ? Kronolith::getDriver()->filterEventsByCalendar(array_values($event_results), $args['calendarId'])
-                                     : array_values($event_results));
+                         'storys' => (!empty($args['calendarId']) && count($event_results))
+                                     ? Jonah::getDriver()->filterEventsByCalendar(array_values($story_results), $args['calendarId'])
+                                     : array_values($story_results));
 
         return $results;
     }

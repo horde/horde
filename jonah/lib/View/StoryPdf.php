@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @package Jonah
  */
-class Jonah_View_StoryPdf extends Jonah_View
+class Jonah_View_StoryPdf extends Jonah_View_Base
 {
     public function run()
     {

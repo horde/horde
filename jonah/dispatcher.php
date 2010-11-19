@@ -23,7 +23,7 @@ require JONAH_BASE . '/config/templates.php';
 $request = new Horde_Controller_Request_Http();
 $url = $request->getPath();
 
-$args = $request->getGetParams();
+$args = $request->getGetVars();
 $result = $m->match('/' . $url);
 
 $criteria = array();
@@ -33,7 +33,7 @@ switch ($result['controller']) {
 case 'admin':
     // TODO:
     exit;
-case 'feed':
+default:
     // Default settings
     $defaults = array(
         'format' => 'html',
