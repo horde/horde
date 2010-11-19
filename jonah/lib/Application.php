@@ -34,6 +34,11 @@ class Jonah_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception('The Content_tagger class could not be found.');
+        }
+        
         $GLOBALS['injector']->bindFactory('Jonah_Driver', 'Jonah_Injector_Factory_Driver', 'create');
     }
 
