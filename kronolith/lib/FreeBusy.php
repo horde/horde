@@ -31,23 +31,22 @@ class Kronolith_FreeBusy
             $calendars = array($calendars);
         }
 
-        if ($user) {
+        if (!$user) {
             /* Find a share and retrieve owner. */
             foreach ($calendars as $calendar) {
-                if (strpos($calendar, 'remote_') === 0) {
+                if (strpos($calendar, 'internal_') !== 0) {
                     continue;
                 }
+                $calendar = substr($calendar, 9);
                 try {
                     $share = $kronolith_shares->getShare($calendar);
                     $user = $share->get('owner');
                     break;
-                } catch (Horde_Share_Exception $e) {
+                } catch (Horde_Exception $e) {
                     /* Might be a Kronolith_Resource. */
                     if (Kronolith_Resource::isResourceCalendar($calendar)) {
                         $user = $calendar;
                         break;
-                    } else {
-                        throw ($e);
                     }
                 }
             }
@@ -78,11 +77,8 @@ class Kronolith_FreeBusy
         /* Fetch events. */
         $busy = array();
         foreach ($calendars as $calendar) {
-            if (strpos($calendar, 'remote_') === 0) {
-                $driver = Kronolith::getDriver('Ical', substr($calendar, 7));
-            } else {
-                $driver = Kronolith::getDriver(null, $calendar);
-            }
+            @list($type, $calendar) = explode('_', $calendar, 2);
+            $driver = Kronolith::getDriver($type, $calendar);
             $events = $driver->listEvents(new Horde_Date($startstamp),
                                           $enddate, true);
             Kronolith::mergeEvents($busy, $events);
