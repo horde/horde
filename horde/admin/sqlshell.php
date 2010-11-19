@@ -25,8 +25,7 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 <?php
 
 $db = $injector->getInstance('Horde_Db_Adapter');
-$q_cache_id = Horde_Session::DATA . ':sql_query_cache';
-$q_cache = $session->get('horde', $q_cache_id, Horde_Session::TYPE_ARRAY);
+$q_cache = $session->retrieve('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);
 
 if (Horde_Util::getFormData('list-tables')) {
     $description = 'LIST TABLES';
@@ -39,7 +38,7 @@ if (Horde_Util::getFormData('list-tables')) {
     }
     $q_cache[] = $command;
     $q_cache = array_slice($q_cache, -20);
-    $session->set('horde', $q_cache_id, $q_cache);
+    $session->set('horde', 'sql_query_cache', $q_cache);
 
     // Parse out the query results.
     $result = $db->execute(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
