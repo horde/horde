@@ -169,12 +169,13 @@ class IMP_Hooks
      *
      * @param Horde_Mime_Part $message     The message content object.
      * @param Horde_Mime_Headers $headers  The message headers object.
+     * @param IMP_Compose $compose         The compose object.
      *
      * @throws IMP_Compose_Exception
      */
-//    public function pre_sent($message, $headers)
+//    public function pre_sent($message, $headers, $compose)
 //    {
-//        // Example: Add custom headers to outgoing message.
+//        // Example #1: Add custom headers to outgoing message.
 //        $custom_hdrs = array();
 //        $hdr_charset = $message->getHeaderCharset();
 //
@@ -191,6 +192,23 @@ class IMP_Hooks
 //
 //        foreach ($custom_hdrs as $key => $val) {
 //            $headers->addHeader($key, Horde_String::convertCharset($val, 'UTF-8', $hdr_charset));
+//        }
+//
+//
+//        // Example #2: Check for forgotten attachments when sending.
+//        if (!count($compose) &&
+//            !$GLOBALS['session']->get('imp', 'attach_check/' . strval($compose))) {
+//            /* List of words to search for. */
+//            $word_list = array(
+//                'attachment', 'attached'
+//            )
+//
+//            if (preg_match('/\b(' . implode('|', array_map('preg_quote', $word_list)) . ')\b/i', $message->getContents(), $matches)) {
+//                // Set flag in the session to indicate we should not check
+//                // this message for attachments again.
+//                $GLOBALS['session']->set('imp', 'attach_check/' . strval($compose), 1);
+//                throw new IMP_Compose_Exception('Found the word "' . $matches[1] . '" in the message text although there are no files attached to the message. Did you forget to attach a file?');
+//            }
 //        }
 //    }
 
