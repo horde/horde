@@ -1448,6 +1448,12 @@ KronolithCore = {
         }
         delete this.eventsLoading[r.response.cal];
 
+        // Check if the calendar is still visible.
+        var calendar = r.response.cal.split('|');            
+        if (!Kronolith.conf.calendars[calendar[0]][calendar[1]].show) {
+            return;
+        }
+
         // Check if the result is still for the current view.
         currentDates = this.viewDates(this.date, this.view);
         if (r.response.view != this.view ||
@@ -3746,6 +3752,10 @@ KronolithCore = {
     {
         if (calendar) {
             var cals = calendar.split('|');
+            if (!this.ecache.get(cals[0]) ||
+                !this.ecache.get(cals[0]).get(cals[1])) {
+                return $H();
+            }
             return this.ecache.get(cals[0]).get(cals[1]).get(date);
         }
 
