@@ -2874,7 +2874,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $this->changed = 'changed';
     }
 
-    /* Countable methods. */
+    /* Magic methods. */
+
+    /**
+     * String representation: the cache ID.
+     */
+    public function __toString()
+    {
+        return $this->getCacheId();
+    }
+
+    /* Countable method. */
 
     /**
      * Returns the number of attachments currently in this message.
