@@ -449,10 +449,26 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         if (ftell($fp)) {
             switch ($encoding) {
             case 'base64':
-                return $this->_writeStream($fp, array('filter' => 'convert.base64-decode'));
+                return $this->_writeStream($fp, array(
+                    'filter' => array(
+                        'convert.base64-decode' => array()
+                    )
+                ));
 
             case 'quoted-printable':
-                return $this->_writeStream($fp, array('filter' => 'convert.quoted-printable-decode'));
+                try {
+                    $stream = $this->_writeStream($fp, array(
+                        'error' => true,
+                        'filter' => array(
+                            'convert.quoted-printable-decode' => array()
+                        )
+                    ));
+                } catch (ErrorException $e) {
+                    // Workaround for Horde Bug #8747
+                    rewind($fp);
+                    $stream = $this->_writeStream(quoted_printable_decode(stream_get_contents($fp)));
+                }
+                return $stream;
 
             case 'uuencode':
             case 'x-uuencode':
@@ -481,11 +497,25 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         switch ($encoding) {
         case 'base64':
             /* Base64 Encoding: See RFC 2045, section 6.8 */
-            return $this->_writeStream($fp, array('filter' => 'convert.base64-encode', 'params' => array('line-length' => 76, 'line-break-chars' => $this->getEOL())));
+            return $this->_writeStream($fp, array(
+                'filter' => array(
+                    'convert.base64-encode' => array(
+                        'line-break-chars' => $this->getEOL(),
+                        'line-length' => 76
+                    )
+                )
+            ));
 
         case 'quoted-printable':
             /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
-            return $this->_writeStream($fp, array('filter' => 'convert.quoted-printable-encode', 'params' => array('line-length' => 76, 'line-break-chars' => $this->getEOL())));
+            return $this->_writeStream($fp, array(
+                'filter' => array(
+                    'convert.quoted-printable-encode' => array(
+                        'line-break-chars' => $this->getEOL(),
+                        'line-length' => 76
+                    )
+                )
+            ));
 
         default:
             $this->_temp['transferEncodeClose'] = false;
@@ -1590,12 +1620,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      *                        a string.
      * @param array $options  Additional options:
      * <pre>
-     * 'filter - (string) A filter to apply to the string.
-     * 'fp' - (resource) Use this stream instead of creating a new one.
-     * 'params' - (array)  Any params needed by the filter.
+     * error - (boolean) Catch errors when writing to the stream. Throw an
+     *         ErrorException if an error is found.
+     *         DEFAULT: false
+     * filter - (array) Filter(s) to apply to the string. Keys are the
+     *          filter names, values are filter params.
+     * fp - (resource) Use this stream instead of creating a new one.
      * </pre>
      *
      * @return resource  The stream resource.
+     * @throws ErrorException
      */
     protected function _writeStream($data, $options = array())
     {
@@ -1611,29 +1645,63 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         if (!empty($options['filter'])) {
-            $append_filter = stream_filter_append($fp, $options['filter'], STREAM_FILTER_WRITE, empty($options['params']) ? array() : $options['params']);
-        }
-
-        reset($data);
-        while (list(,$d) = each($data)) {
-            if (is_resource($d)) {
-                rewind($d);
-                stream_copy_to_stream($d, $fp);
-            } else {
-                $len = strlen($d);
-                $i = 0;
-                while ($i < $len) {
-                    fwrite($fp, substr($d, $i, 8192));
-                    $i += 8192;
-                }
+            $append_filter = array();
+            foreach ($options['filter'] as $key => $val) {
+                $append_filter[] = stream_filter_append($fp, $key, STREAM_FILTER_WRITE, $val);
             }
         }
 
+        if (!empty($options['error'])) {
+            set_error_handler(array($this, '_writeStreamErrorHandler'));
+            $error = null;
+        }
+
+        try {
+            reset($data);
+            while (list(,$d) = each($data)) {
+                if (is_resource($d)) {
+                    rewind($d);
+                    @stream_copy_to_stream($d, $fp);
+                } else {
+                    $len = strlen($d);
+                    $i = 0;
+                    while ($i < $len) {
+                        fwrite($fp, substr($d, $i, 8192));
+                        $i += 8192;
+                    }
+                }
+            }
+        } catch (ErrorException $e) {
+            $error = $e;
+        }
+
         if (!empty($options['filter'])) {
-            stream_filter_remove($append_filter);
+            foreach ($append_filter as $val) {
+                stream_filter_remove($val);
+            }
+        }
+
+        if (!empty($options['error'])) {
+            restore_error_handler();
+            if ($error) {
+                throw $error;
+            }
         }
 
         return $fp;
+    }
+
+    /**
+     * Error handler for _writeStream().
+     *
+     * @param integer $errno  Error code.
+     * @param string $errstr  Error text.
+     *
+     * @throws ErrorException
+     */
+    protected function _writeStreamErrorHandler($errno, $errstr)
+    {
+        throw new ErrorException($errstr, $errno);
     }
 
     /**
