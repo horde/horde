@@ -234,8 +234,11 @@ var DimpBase = {
 
         switch (loc) {
         case 'search':
-            // data: 'edit_query' = folder to edit; otherwise, loads search
-            //       screen with current mailbox as default search mailbox
+            // data: 'edit_query' = folder to edit
+            //       'search_mailbox' = folders to search
+            //       'subfolder' = do subfolder search
+            //       If not set, loads search screen with current mailbox as
+            //       default search mailbox
             if (!data) {
                 data = { search_mailbox: f };
             }
@@ -812,6 +815,16 @@ var DimpBase = {
         case 'ctx_folder_expand':
         case 'ctx_folder_collapse':
             this._toggleSubFolder(e.findElement('LI').next(), (id == 'ctx_container_expand' || id == 'ctx_folder_expand') ? 'expall' : 'colall', true);
+            break;
+
+        case 'ctx_container_search':
+        case 'ctx_container_searchsub':
+        case 'ctx_folder_search':
+        case 'ctx_folder_searchsub':
+            this.go('search', {
+                search_mailbox: e.findElement('LI').retrieve('mbox'),
+                subfolder: Number(id.endsWith('searchsub'))
+            });
             break;
 
         case 'ctx_message_spam':

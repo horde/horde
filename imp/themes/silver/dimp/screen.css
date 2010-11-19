@@ -124,6 +124,9 @@ span.dimpactionEditsearch {
 #ctx_folder_rename span.iconImg, #ctx_container_rename span.iconImg, #ctx_vcontainer_edit span.iconImg, #ctx_vfolder_edit span.iconImg {
     background-image: url("../graphics/folders/edit.png");
 }
+#ctx_folder_search span.iconImg, #ctx_folder_searchsub span.iconImg, #ctx_container_search span.iconImg, #ctx_container_searchsub span.iconImg {
+    background-image: url("../graphics/search.png");
+}
 #ctx_folder_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
     background-image: url("../graphics/folders/delete.png");
 }

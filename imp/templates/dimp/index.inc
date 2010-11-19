@@ -307,6 +307,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_folder_sub"><span class="iconImg"></span><?php echo _("Subscribe") ?></a>
  <a id="ctx_folder_unsub"><span class="iconImg"></span><?php echo _("Unsubscribe") ?></a>
 <?php endif; ?>
+ <div class="sep"></div>
+ <a id="ctx_folder_search"><span class="iconImg"></span><?php echo _("Search") ?></a>
+ <a id="ctx_folder_searchsub"><span class="iconImg"></span><?php echo _("Search All Subfolders") ?></a>
  <div style="display:none">
   <div class="sep"></div>
   <a id="ctx_folder_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
@@ -322,6 +325,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div class="context" id="ctx_container" style="display:none">
  <a id="ctx_container_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
  <a id="ctx_container_rename"><span class="iconImg"></span><?php echo _("Rename Folder") ?></a>
+ <div class="sep"></div>
+ <a id="ctx_container_search"><span class="iconImg"></span><?php echo _("Search") ?></a>
+ <a id="ctx_container_searchsub"><span class="iconImg"></span><?php echo _("Search All Subfolders") ?></a>
  <div class="sep"></div>
  <a id="ctx_container_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
  <a id="ctx_container_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
