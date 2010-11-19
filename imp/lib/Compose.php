@@ -801,7 +801,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         /* Pass to hook to allow alteration of message details. */
         if (!is_null($message)) {
             try {
-                Horde::callHook('pre_sent', array($message, $headers), 'imp');
+                Horde::callHook('pre_sent', array($message, $headers, $this), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
