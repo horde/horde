@@ -580,7 +580,12 @@ var DimpBase = {
                 }
 
                 if (tmp) {
-                    $('search_label').update(tmp.stripTags().escapeHTML());
+                    tmp = tmp.stripTags();
+                    $('search_label').writeAttribute({ title: tmp.escapeHTML() });
+                    if (tmp.length > 250) {
+                        tmp = tmp.truncate(250);
+                    }
+                    $('search_label').update(tmp.escapeHTML());
                 }
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
                 $('searchbar').show();
