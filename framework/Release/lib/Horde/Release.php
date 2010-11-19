@@ -463,8 +463,13 @@ class Horde_Release
             if ($status) {
                 die("\nThere was an error running the command\n$cmd\n");
             }
+
+            $bin_path = isset($this->_options['framework_bin'])
+                ? rtrim($this->_options['framework_bin'], '/') . '/'
+                : '';
+
             print "Installing framework packages\n";
-            passthru("install_framework --copy --src ./$directory/framework --horde /tmp --dest ./$directory/lib", $result);
+            passthru($bin_path . "install_framework --copy --src ./$directory/framework --horde /tmp --dest ./$directory/lib", $result);
             if ($result) {
                 exit;
             }
