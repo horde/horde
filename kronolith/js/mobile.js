@@ -144,8 +144,8 @@
             dates = [start, end], view = data.response.view, list, events;
 
         data = data.response;
-        KronolithMobile.loadedCalendars.push(data.cal);
         KronolithMobile.storeCache(data.events, data.cal, dates, true);
+        KronolithMobile.loadedCalendars.push(data.cal);
         KronolithMobile.insertEvents(dates, view, data.cal);
     },
 
@@ -164,6 +164,9 @@
                 if (KronolithMobile.loadedCalendars.length != KronolithMobile.calendars.length
                     || KronolithMobile.view != view) {
 
+                    if (KronolithMobile.timeoutId) {
+                        window.clearTimeout(KronolithMobile.timeoutId);
+                    }
                     KronolithMobile.timeoutId = window.setTimeout(function() {KronolithMobile.insertEvents(dates, view);}, 0);
                     return;
                 }
@@ -174,7 +177,6 @@
                 }
                 date = dates[0].clone();
                 events = KronolithMobile.getCacheForDate(date.dateString());
-
                 events = KronolithMobile.sortEvents(events);
                 list = $('<ul>').attr({'data-role': 'listview'});
                 $.each(events, function(index, event) {
