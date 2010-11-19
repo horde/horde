@@ -338,6 +338,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $ret = array(
             $base_id => array(
                 'data' => '',
+                'nosummary' => true,
                 'status' => array(
                     array(
                         'icon' => Horde::img('mime/encryption.png', 'PGP'),
@@ -382,6 +383,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
             $ret[$base_id]['status'][] = array(
                 'icon' => $icon,
+                'nosummary' => true,
                 'success' => $success,
                 'text' => array(
                     $this->_textFilter($sig_text, 'text2html', array(

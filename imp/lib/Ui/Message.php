@@ -533,7 +533,7 @@ class IMP_Ui_Message
                         $atc_parts[$mime_id] = 1;
                     }
 
-                    if ($contents_mask) {
+                    if ($contents_mask && empty($info['nosummary'])) {
                         $msgtext[$mime_id] = array(
                             'text' => $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true)
                         );
@@ -551,7 +551,9 @@ class IMP_Ui_Message
             }
 
             if (empty($render_part)) {
-                if ($contents_mask && $imp_contents->isAttachment($mime_type)) {
+                if ($contents_mask &&
+                    empty($info['nosummary']) &&
+                    $imp_contents->isAttachment($mime_type)) {
                     $msgtext[$mime_id] = array(
                         'text' => $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true)
                     );
@@ -576,8 +578,11 @@ class IMP_Ui_Message
 
                 if (empty($info['attach'])) {
                     if ($contents_mask) {
-                        $part_text .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
-                            $this->formatStatusMsg($info['status']) .
+                        if (empty($info['nosummary'])) {
+                            $part_text .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display);
+                        }
+
+                        $part_text .= $this->formatStatusMsg($info['status']) .
                             '<div class="mimePartData">' . $info['data'] . '</div>';
                     } else {
                         if ($part_text && !empty($options['sep'])) {
@@ -590,7 +595,7 @@ class IMP_Ui_Message
                         $atc_parts[$id] = 1;
                     }
 
-                    if ($contents_mask) {
+                    if ($contents_mask && empty($info['nosummary'])) {
                         $part_text .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
                     }
                 }
