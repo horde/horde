@@ -323,6 +323,15 @@ case 'mbox_size':
         exit;
     }
     break;
+
+case 'search':
+    if (!empty($folder_list)) {
+        $url = new Horde_Url(Horde::url('search.php'));
+        $url->add('subfolder', 1)
+            ->add('search_mailbox', $folder_list)
+            ->redirect();
+    }
+    break;
 }
 
 /* Token to use in requests */

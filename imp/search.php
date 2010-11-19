@@ -5,19 +5,22 @@
  * script only.
  *
  * URL Parameters:
+ * <pre>
  * ---------------
- * 'criteria_form' - (string) JSON representation of the search query.
- * 'edit_query' - (string) The search query to edit.
- * 'edit_query_filter' - (string) The name of the filter being edited.
- * 'edit_query_vfolder' - (string) The name of the virtual folder being
- *                        edited.
- * 'folders_form' - (string) JSON representation of the list of mailboxes for
- *                  the query. Hash containing 2 keys: mbox & subfolder.
- * 'search_label' - (string) The label to use when saving the search.
- * 'search_mailbox' - (string) Use this mailbox as the default value.
- *                    DEFAULT: INBOX
- * 'search_type' - (string) The type of saved search ('filter', 'vfolder').
- *                 If empty, the search should not be saved.
+ * criteria_form - (string) JSON representation of the search query.
+ * edit_query - (string) The search query to edit.
+ * edit_query_filter - (string) The name of the filter being edited.
+ * edit_query_vfolder - (string) The name of the virtual folder being edited.
+ * folders_form - (string) JSON representation of the list of mailboxes for
+ *                the query. Hash containing 2 keys: mbox & subfolder.
+ * search_label - (string) The label to use when saving the search.
+ * search_mailbox - (mixed) Use this mailbox(es) as the default value.
+ *                  DEFAULT: INBOX
+ * search_type - (string) The type of saved search ('filter', 'vfolder').
+ *               If empty, the search should not be saved.
+ * subfolder - (boolean) If set, search_mailbox will default to subfolder
+ *             search.
+ * </pre>
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -151,11 +154,21 @@ $vars = Horde_Variables::getDefaultVariables();
 
 $dimp_view = ($session->get('imp', 'view') == 'dimp');
 $js_vars = array();
-$search_mailbox = isset($vars->search_mailbox)
-    ? $vars->search_mailbox
-    : 'INBOX';
 
-$flist = $imp_flags->getFlagList($search_mailbox);
+if (isset($vars->search_mailbox)) {
+    if (is_array($vars->search_mailbox)) {
+        $default_mailbox = 'INBOX';
+        $search_mailbox = $vars->search_mailbox;
+    } else {
+        $default_mailbox = $vars->search_mailbox;
+        $search_mailbox = array($vars->search_mailbox);
+    }
+} else {
+    $default_mailbox = 'INBOX';
+    $search_mailbox = array('INBOX');
+}
+
+$flist = $imp_flags->getFlagList($default_mailbox);
 
 /* Generate the search query if 'criteria_form' is present in the form
  * data. */
@@ -391,8 +404,8 @@ if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {
     }
 
     $js_vars['ImpSearch.i_folders'] = array(
-        'm' => array($search_mailbox),
-        's' => array()
+        'm' => $vars->subfolder ? array() : $search_mailbox,
+        's' => $vars->subfolder ? $search_mailbox : array()
     );
 }
 
@@ -460,7 +473,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'dimp' => $dimp_view,
         'folder_list' => $folder_list,
         'months' => Horde_Core_Ui_JsCalendar::months(),
-        'searchmbox' => $search_mailbox,
+        'searchmbox' => $default_mailbox,
         'types' => $types
     ),
     /* Gettext strings for this page. */
@@ -482,7 +495,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
 
 if ($dimp_view) {
     if (!$vars->edit_query) {
-        $t->set('return_mailbox_val', sprintf(_("Return to %s"), htmlspecialchars(IMP::displayFolder($search_mailbox))));
+        $t->set('return_mailbox_val', sprintf(_("Return to %s"), htmlspecialchars(IMP::displayFolder($default_mailbox))));
     }
 } else {
     $menu = IMP::menu();

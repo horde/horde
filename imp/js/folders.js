@@ -65,19 +65,6 @@ var ImpFolders = {
                 this.renameMailbox();
                 break;
 
-            case 'subscribe_folder':
-            case 'unsubscribe_folder':
-            case 'poll_folder':
-            case 'expunge_folder':
-            case 'nopoll_folder':
-            case 'mark_folder_seen':
-            case 'mark_folder_unseen':
-            case 'delete_folder_confirm':
-            case 'folders_empty_mailbox_confirm':
-            case 'mbox_size':
-                this.submitAction(action);
-                break;
-
             case 'download_folder':
             case 'download_folder_zip':
                 this.downloadMailbox(action);
@@ -90,8 +77,11 @@ var ImpFolders = {
                     this.submitAction(action);
                 }
                 break;
-            }
 
+            default:
+                this.submitAction(action);
+                break;
+            }
             break;
         }
     },
