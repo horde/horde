@@ -90,7 +90,7 @@ class Horde_Themes_Element
      */
     public function __toString()
     {
-        return $this->uri;
+        return (string)$this->uri;
     }
 
     /**
