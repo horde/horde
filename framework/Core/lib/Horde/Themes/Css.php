@@ -194,22 +194,14 @@ class Horde_Themes_Css
             $themes_fs = $GLOBALS['registry']->get('themesfs', $app) . '/';
             $themes_uri = Horde::url($GLOBALS['registry']->get('themesuri', $app), false, -1) . '/';
 
-            foreach ($css_list as $css_name) {
-                if (empty($options['subonly'])) {
-                    $css[$themes_fs . $css_name . '.css'] = $themes_uri . $css_name . '.css';
-                }
-
-                if ($sub && ($app == $curr_app)) {
-                    $css[$themes_fs . $sub . '/' . $css_name . '.css'] = $themes_uri . $sub . '/' . $css_name . '.css';
-                }
-
-                if (!empty($theme)) {
+            foreach (array_filter(array_unique(array('default', $theme))) as $theme_name) {
+                foreach ($css_list as $css_name) {
                     if (empty($options['subonly'])) {
-                        $css[$themes_fs . $theme . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $css_name . '.css';
+                        $css[$themes_fs . $theme_name . '/' . $css_name . '.css'] = $themes_uri . $theme_name . '/' . $css_name . '.css';
                     }
 
                     if ($sub && ($app == $curr_app)) {
-                        $css[$themes_fs . $theme . '/' . $sub . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $sub . '/' . $css_name . '.css';
+                        $css[$themes_fs . $theme_name . '/' . $sub . '/' . $css_name . '.css'] = $themes_uri . $theme_name . '/' . $sub . '/' . $css_name . '.css';
                     }
                 }
             }

@@ -123,7 +123,7 @@ class Horde_Themes_Element
             ? $this->_opts['theme']
             : $prefs->getValue('theme');
 
-        if ($theme) {
+        foreach (array_unique(array($theme, 'default')) as $theme) {
             $tpath = '/' . $theme . $path;
 
             if (is_null($this->_name)) {
@@ -139,24 +139,10 @@ class Horde_Themes_Element
                             'fs' => $filepath,
                             'uri' => $registry->get('themesuri', $app) . $tpath
                         );
-                        break;
+                        break 2;
                     }
                 }
              }
-        }
-
-        /* Fall back to app/horde defaults. */
-        if (empty($this->_data)) {
-            foreach ($app_list as $app) {
-                $filepath = $registry->get('themesfs', $app) . $path;
-                if (file_exists($filepath)) {
-                    $this->_data = array(
-                        'fs' => $filepath,
-                        'uri' => $registry->get('themesuri', $app) . $path
-                    );
-                    break;
-                }
-            }
         }
 
         return isset($this->_data[$name])
