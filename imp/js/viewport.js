@@ -226,9 +226,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-/**
- * ViewPort
- */
 var ViewPort = Class.create({
 
     initialize: function(opts)
@@ -1268,7 +1265,8 @@ var ViewPort = Class.create({
             : new ViewPort_Selection(this._getBuffer(this.view));
     },
 
-    // Creates a selection object comprising all entries contained in the buffer.
+    // Creates a selection object comprising all entries contained in the
+    // buffer.
     createSelectionBuffer: function(view)
     {
         return this.createSelection('rownum', this.getAllRows(view), view);
@@ -1341,9 +1339,6 @@ var ViewPort = Class.create({
 
 }),
 
-/**
- * ViewPort_Scroller
- */
 ViewPort_Scroller = Class.create({
     // Variables initialized to undefined:
     //   noupdate, scrollDiv, scrollbar, vertscroll, vp
@@ -1455,13 +1450,9 @@ ViewPort_Scroller = Class.create({
 
 }),
 
-/**
- * ViewPort_Buffer
- *
- * Note: recognize the difference between offset (current location in the
+/* Note: recognize the difference between offset (current location in the
  * viewport - starts at 0) with start parameters (the row numbers - starts
- * at 1).
- */
+ * at 1). */
 ViewPort_Buffer = Class.create({
 
     initialize: function(vp, view)
@@ -1700,9 +1691,6 @@ ViewPort_Buffer = Class.create({
 
 }),
 
-/**
- * ViewPort_Selection
- */
 ViewPort_Selection = Class.create({
 
     // Define property to aid in object detection
