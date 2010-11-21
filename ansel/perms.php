@@ -65,7 +65,8 @@ case 'editforminherit':
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
-        $new_owner = Horde_Util::getFormData('owner', $old_owner);
+        $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
+        $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
             if ($old_owner != $GLOBALS['registry']->getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
