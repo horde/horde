@@ -22,21 +22,25 @@
  * inside the horde directory.
  *
  * fileroot: (string) The base filesystem path for the module's files.
+
  * name: (string) The human-readable name used in menus and descriptions for
  *       a module.
- * initial_page: (string) The initial (default) page (filename) for the
- *               module.
+
+ * initial_page: (string) The initial page for the module.
+
  * menu_parent: (string) The name of the 'heading' group that this app should
  *              show up under. This can be left out or set to null for
  *              top-level items.
+
  * status: (string) One of the following:
- *         'active'
- *         'admin'
- *         'heading'
- *         'hidden'
- *         'inactive'
- *         'notoolbar'
- *         'sidebar'
+ *         active: Activate application.
+ *         admin: Activate application, but only for admins.
+ *         heading: Header label for application groups.
+ *         hidden: Enable application, but hide.
+ *         inactive: Disable application
+ *         notoolbar: TODO
+ *         sidebar: Show in sidebar only.
+
  * webroot: (string) The base URI path for the module.
  *          Usually the default should be fine (applications will occur one
  *          level below the horde directory). However, this setting is useful
