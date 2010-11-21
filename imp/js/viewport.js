@@ -1601,6 +1601,11 @@ ViewPort_Buffer = Class.create({
         return rows.collect(this.rowlist.get.bind(this.rowlist)).compact();
     },
 
+    UIDsToRows: function(uids)
+    {
+        return rows.collect(this.rowlist.index.bind(this.rowlist)).compact();
+    },
+
     // vs = (ViewPort_Selection) TODO
     select: function(vs)
     {
