@@ -6,11 +6,11 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
- * @package Kronolith
+ * @package  Kronolith
  */
  var KronolithMobile = {
 
@@ -56,9 +56,9 @@
     /**
      * Load all events between start and end time.
      *
-     * @param Date start
-     * @param Date end
-     * @param string view  The view we are loading for (month, day)
+     * @param Date firstDay
+     * @param Date lastDay
+     * @param string view    The view we are loading for (month, day)
      */
     loadEvents: function(firstDay, lastDay, view)
     {
@@ -306,7 +306,7 @@
              case 2:
                  // Weekly
                  recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
-                 recur = recur.replace('#{weekday}', Kronolith.text.weekday[e.r.d - 1]);
+                 recur = recur.replace('#{weekday}', Kronolith.text.weekday[e.r.d]);
                  recur = recur.replace('#{interval}', e.r.i);
                  t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
                  break;
