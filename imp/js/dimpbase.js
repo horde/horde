@@ -56,7 +56,7 @@ var DimpBase = {
             if (selcount) {
                 if (!sel || selcount != 1) {
                     bounds = [ rownum, this.pivotrow ];
-                    this.viewport.select($A($R(bounds.min(), bounds.max())), { range: true });
+                    this.viewport.select($A($R(bounds.min(), bounds.max())));
                 }
                 return;
             }
@@ -76,7 +76,7 @@ var DimpBase = {
 
     selectAll: function()
     {
-        this.viewport.select(this.viewport.getAllRows(), { range: true });
+        this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
     },
 
     isSelected: function(format, data)
