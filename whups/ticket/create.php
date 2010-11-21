@@ -8,12 +8,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-if (Horde_Util::getPost('formname') == 'createstep3form') {
-    $params = array('notransparent' => true);
-} else {
-    $params = array();
-}
-Horde_Registry::appInit('whups', $params);
+Horde_Registry::appInit('whups');
 
 require_once WHUPS_BASE . '/lib/Forms/CreateTicket.php';
 require_once WHUPS_BASE . '/lib/Forms/VarRenderer.php';
