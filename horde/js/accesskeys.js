@@ -15,7 +15,7 @@ var AccessKeys = {
         if ((this.macos && e.ctrlKey) ||
             (!this.macos && e.altKey && !e.ctrlKey)) {
             // Need to search for both upper and lowercase value
-            key = String.fromCharCode(e.keyCode || e.charCode);
+            key = String.fromCharCode(e.keyCode || e.charCode).sub('"', '\\"');;
             elts = $$('[accesskey="' + key.toUpperCase() + '"]');
             if (key.toUpperCase() != key.toLowerCase()) {
                 elts = elts.concat($$('[accesskey="' + key.toLowerCase() + '"]'));
