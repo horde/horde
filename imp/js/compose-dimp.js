@@ -367,7 +367,7 @@ var DimpCompose = {
         if (redirect.visible()) {
             DimpCore.loadingImg('sendingImg', 'redirect', disable);
             DimpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
-            redirect.setStyle({ cursor: disable ? null : 'wait' });
+            redirect.setStyle({ cursor: disable ? 'wait': null });
         } else {
             DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
             DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
@@ -379,7 +379,7 @@ var DimpCompose = {
                 this.RTELoading(disable ? 'show' : 'hide', true);
             }
 
-            $('compose').setStyle({ cursor: disable ? null : 'wait' });
+            $('compose').setStyle({ cursor: disable ? 'wait' : null });
         }
     },
 
