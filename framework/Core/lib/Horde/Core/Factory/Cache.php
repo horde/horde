@@ -46,6 +46,7 @@ class Horde_Core_Factory_Cache
         if (isset($GLOBALS['conf']['cache']['default_lifetime'])) {
             $params['lifetime'] = $GLOBALS['conf']['cache']['default_lifetime'];
         }
+        $params['compress'] = !empty($GLOBALS['conf']['cache']['compress']);
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         $lc_driver = Horde_String::lower($driver);
