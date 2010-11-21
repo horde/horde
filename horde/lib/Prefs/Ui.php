@@ -19,7 +19,7 @@ class Horde_Prefs_Ui
      */
     public function prefsEnum($ui)
     {
-        global $prefs, $registry;
+        global $injector, $notification, $prefs, $registry;
 
         switch ($ui->group) {
         case 'display':
@@ -27,9 +27,9 @@ class Horde_Prefs_Ui
                 $out = array();
                 $apps = $registry->listApps(array('active'));
                 foreach ($apps as $a) {
-                    $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+                    $perms = $injector->getInstance('Horde_Perms');
                     if (file_exists($registry->get('fileroot', $a)) &&
-                        (($perms->exists($a) && ($perms->hasPermission($a, $GLOBALS['registry']->getAuth(), Horde_Perms::READ) || $registry->isAdmin())) ||
+                        (($perms->exists($a) && ($perms->hasPermission($a, $registry->getAuth(), Horde_Perms::READ) || $registry->isAdmin())) ||
                          !$perms->exists($a))) {
                         $out[$a] = $registry->get('name', $a);
                     }
@@ -39,27 +39,11 @@ class Horde_Prefs_Ui
             }
 
             if (!$prefs->isLocked('theme')) {
-                $out = array();
-                $theme_base = $registry->get('themesfs', 'horde');
-                $dh = @opendir($theme_base);
-                if (!$dh) {
-                    $GLOBALS['notification']->push(_("Theme directory can't be opened"), 'horde.error');
-                } else {
-                    while (($dir = readdir($dh)) !== false) {
-                        if ($dir == '.' || $dir == '..') {
-                            continue;
-                        }
-
-                        $theme_name = null;
-                        @include $theme_base . '/' . $dir . '/info.php';
-                        if (!empty($theme_name)) {
-                            $out[$dir] = $theme_name;
-                        }
-                    }
+                try {
+                    $ui->override['theme'] = Horde_Themes::themeList();
+                } catch (UnexpectedValueException $e) {
+                    $notification->push(_("Theme directory can't be opened"), 'horde.error');
                 }
-
-                asort($out);
-                $ui->override['theme'] = $out;
             }
             break;
 

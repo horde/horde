@@ -68,6 +68,34 @@ class Horde_Themes
     }
 
     /**
+     * Returns a list of available themes.
+     *
+     * @return array  Keys are theme names, values are theme descriptions.
+     * @throws UnexpectedValueException
+     */
+    static public function themeList()
+    {
+        $out = array();
+
+        // Throws UnexpectedValueException
+        $di = new DirectoryIterator($GLOBALS['registry']->get('themesfs', 'horde'));
+
+        foreach ($di as $val) {
+            $theme_name = null;
+
+            if ($val->isDir() &&
+                !$di->isDot() &&
+                (@include $val->getPathname() . '/info.php')) {
+                $out[strval($val)] = $theme_name;
+            }
+        }
+
+        asort($out);
+
+        return $out;
+    }
+
+    /**
      * Returns a list of available sounds for a theme.
      *
      * @param string $app  The app to search in.
