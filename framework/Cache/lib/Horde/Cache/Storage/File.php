@@ -94,17 +94,18 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
         $c_time = time();
 
-        foreach ($it as $key => $val) {
+        foreach ($it as $val) {
             if (!$val->isDir() &&
-                (strpos($val->getFilename(), $this->_params['prefix']) === 0)) {
-                $d_time = isset($excepts[$key])
-                    ? $excepts[$key]
+                ($fname = $val->getFilename()) &&
+                (strpos($fname, $this->_params['prefix']) === 0)) {
+                $d_time = isset($excepts[$fname])
+                    ? $excepts[$fname]
                     : $this->_params['lifetime'];
 
                 if (!empty($d_time) &&
-                    (($c_time - $d_time) > filemtime($key))) {
-                    @unlink($key);
-                    unset($excepts[$key]);
+                    (($c_time - $d_time) > filemtime($val->getPathname()))) {
+                    @unlink($val->getPathname());
+                    unset($excepts[$fname]);
                 }
             }
         }
