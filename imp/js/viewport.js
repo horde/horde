@@ -1281,7 +1281,7 @@ var ViewPort = Class.create({
 
     // vs = (ViewPort_Selection | array) A ViewPort_Selection object -or- if
     //       opts.range is set, an array of row numbers.
-    // opts = (object) TODO [add, range, search]
+    // opts = (object) [add, search]
     select: function(vs, opts)
     {
         opts = opts || {};
@@ -1289,24 +1289,24 @@ var ViewPort = Class.create({
         var b = this._getBuffer(),
             sel, slice;
 
-        if (opts.search) {
-            return this._fetchBuffer({
-                callback: function(r) {
-                    if (r.rownum) {
-                        this.select(this.createSelection('rownum', [ r.rownum ]), { add: opts.add, range: opts.range });
-                    }
-                }.bind(this),
-                search: opts.search
-            });
-        }
-
-        if (opts.range) {
+        if (Object.isArray(vs)) {
             slice = this.createSelection('rownum', vs);
             if (vs.size() != slice.size()) {
                 this.opts.container.fire('ViewPort:fetch', this.view);
                 return this._ajaxRequest({ rangeslice: 1, slice: vs.min() + ':' + vs.size() });
             }
             vs = slice;
+        }
+
+        if (opts.search) {
+            return this._fetchBuffer({
+                callback: function(r) {
+                    if (r.rownum) {
+                        this.select(this.createSelection('rownum', [ r.rownum ]), { add: opts.add });
+                    }
+                }.bind(this),
+                search: opts.search
+            });
         }
 
         if (!opts.add) {
