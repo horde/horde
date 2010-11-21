@@ -105,7 +105,7 @@ class Horde_Cache
 
         return ($this->_params['compress'] && ($res !== false))
             // lzf_decompress() returns false on error
-            ? lzf_decompress($res)
+            ? @lzf_decompress($res)
             : $res;
     }
 
