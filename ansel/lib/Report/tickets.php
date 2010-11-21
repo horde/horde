@@ -17,7 +17,7 @@ class Ansel_Report_tickets extends Ansel_Report {
                                     'comment' => $message,
                                     'user_email' => $this->getUserEmail()));
 
-        return $registry->call('tickets/addTicket', array($info));
+        return $GLOBALS['registry']->call('tickets/addTicket', array($info));
     }
 
 }
