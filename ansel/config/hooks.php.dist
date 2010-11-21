@@ -17,12 +17,11 @@ class Ansel_Hooks
 //    public function user_age()
 //     {
 //         $query  = 'SELECT age FROM user WHERE user_uid = ' . $GLOBALS['ansel_db']->quote($GLOBALS['registry']->getAuth());
-//         $result = $GLOBALS['ansel_db']->queryOne($query);
-//         if (is_a($result, 'PEAR_Error')) {
-//               throw new Horde_Exception_Prior($result);
+//         try {
+//             return (int)$GLOBALS['ansel_db']->queryOne($query);
+//         } catch (Ansel_Exception $e) {
+//             return 0;
 //         }
-//
-//         return (int)$result;
 //     }
 
 
