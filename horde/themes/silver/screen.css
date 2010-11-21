@@ -78,6 +78,10 @@ table.horde-table, table.horde-table td, table.horde-table th {
     background: #fff;
 }
 
+span.hordeIcon {
+    background-image: url("graphics/horde.png");
+}
+
 /* Form styles. */
 input, select, textarea {
     color: #000;

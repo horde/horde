@@ -31,9 +31,6 @@ span.infoIcon {
 span.filtersIcon {
     background-image: url("../graphics/filters.png");
 }
-span.hordeIcon {
-    background-image: url("../graphics/horde.png");
-}
 span.prefsIcon {
     background-image: url("../graphics/prefs.png");
 }

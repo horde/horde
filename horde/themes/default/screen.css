@@ -49,6 +49,10 @@ input[type=image] {
     width: 16px;
 }
 
+span.hordeIcon {
+    background-image: url("graphics/horde.png");
+}
+
 ins {
     background: #cfc;
 }
