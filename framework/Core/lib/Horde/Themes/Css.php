@@ -23,13 +23,31 @@ class Horde_Themes_Css
     protected $_cssFiles = array();
 
     /**
+     * A list of additional themed stylesheet files to add to the output.
+     *
+     * @var array
+     */
+    protected $_cssThemeFiles = array();
+
+    /**
      * Adds an external stylesheet to the output.
      *
-     * @param string $file
+     * @param string $file  The CSS filepath.
+     * @param string $url   The CSS URL.
      */
     public function addStylesheet($file, $url)
     {
         $this->_cssFiles[$file] = $url;
+    }
+
+    /**
+     * Adds a themed stylesheet to the output.
+     *
+     * @param string $file  The stylesheet name.
+     */
+    public function addThemeStylesheet($file)
+    {
+        $this->_cssThemeFiles[$file] = true;
     }
 
     /**
@@ -125,12 +143,13 @@ class Horde_Themes_Css
     /**
      * Return the list of base stylesheets to display.
      *
-     * @param mixed $theme    The theme to use; specify an empty value to
-     *                        retrieve the theme from user preferences, and
-     *                        false for no theme.
-     * @param array $options  Additional options:
+     * @param mixed $theme  The theme to use; specify an empty value to
+     *                      retrieve the theme from user preferences, and
+     *                      false for no theme.
+     * @param array $opts   Additional options:
      * <pre>
      * 'app' - (string) The current application.
+     * 'nobase' - (boolean) If true, don't load base stylesheets.
      * 'nohorde' - (boolean) If true, don't load files from Horde.
      * 'sub' - (string) A subdirectory containing additional CSS files to
      *         load as an overlay to the base CSS files.
@@ -141,54 +160,30 @@ class Horde_Themes_Css
      *
      * @return array  TODO
      */
-    public function getStylesheets($theme = '', $options = array())
+    public function getStylesheets($theme = '', array $opts = array())
     {
         if (($theme === '') && isset($GLOBALS['prefs'])) {
             $theme = $GLOBALS['prefs']->getValue('theme');
         }
 
         $css = array();
+        $css_list = empty($opts['nobase'])
+            ? $this->getBaseStylesheetList()
+            : array();
 
-        $css_list = array('screen');
-        if (isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']])) {
-            $css_list[] = 'rtl';
-        }
+        $css_list = array_unique(array_merge($css_list, $this->_cssThemeFiles));
 
-        /* Collect browser specific stylesheets if needed. */
-        switch ($GLOBALS['browser']->getBrowser()) {
-        case 'msie':
-            $ie_major = $GLOBALS['browser']->getMajor();
-            if ($ie_major == 8) {
-                $css_list[] = 'ie8';
-            } elseif ($ie_major == 7) {
-                $css_list[] = 'ie7';
-            } elseif ($ie_major < 7) {
-                $css_list[] = 'ie6_or_less';
-            }
-            break;
-
-
-        case 'opera':
-            $css_list[] = 'opera';
-            break;
-
-        case 'mozilla':
-            $css_list[] = 'mozilla';
-            break;
-
-        case 'webkit':
-            $css_list[] = 'webkit';
-        }
-
-        $curr_app = empty($options['app'])
+        $curr_app = empty($opts['app'])
             ? $GLOBALS['registry']->getApp()
-            : $options['app'];
-        if (empty($options['nohorde'])) {
+            : $opts['app'];
+        if (empty($opts['nohorde'])) {
             $apps = array_unique(array('horde', $curr_app));
         } else {
             $apps = ($curr_app == 'horde') ? array() : array($curr_app);
         }
-        $sub = empty($options['sub']) ? null : $options['sub'];
+        $sub = empty($opts['sub'])
+            ? null
+            : $opts['sub'];
 
         foreach ($apps as $app) {
             $themes_fs = $GLOBALS['registry']->get('themesfs', $app) . '/';
@@ -196,12 +191,12 @@ class Horde_Themes_Css
 
             foreach (array_filter(array_unique(array('default', $theme))) as $theme_name) {
                 foreach ($css_list as $css_name) {
-                    if (empty($options['subonly'])) {
-                        $css[$themes_fs . $theme_name . '/' . $css_name . '.css'] = $themes_uri . $theme_name . '/' . $css_name . '.css';
+                    if (empty($opts['subonly'])) {
+                        $css[$themes_fs . $theme_name . '/' . $css_name] = $themes_uri . $theme_name . '/' . $css_name;
                     }
 
                     if ($sub && ($app == $curr_app)) {
-                        $css[$themes_fs . $theme_name . '/' . $sub . '/' . $css_name . '.css'] = $themes_uri . $theme_name . '/' . $sub . '/' . $css_name . '.css';
+                        $css[$themes_fs . $theme_name . '/' . $sub . '/' . $css_name] = $themes_uri . $theme_name . '/' . $sub . '/' . $css_name;
                     }
                 }
             }
@@ -228,6 +223,49 @@ class Horde_Themes_Css
         }
 
         return $css_out;
+    }
+
+    /**
+     * Returns the list of base stylesheets, based on the current language
+     * and browser settings.
+     *
+     * @return array  A list of base CSS files to load.
+     */
+    public function getBaseStylesheetList()
+    {
+        $css_list = array('screen.css');
+
+        if (isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']])) {
+            $css_list[] = 'rtl.css';
+        }
+
+        /* Collect browser specific stylesheets if needed. */
+        switch ($GLOBALS['browser']->getBrowser()) {
+        case 'msie':
+            $ie_major = $GLOBALS['browser']->getMajor();
+            if ($ie_major == 8) {
+                $css_list[] = 'ie8.css';
+            } elseif ($ie_major == 7) {
+                $css_list[] = 'ie7.css';
+            } elseif ($ie_major < 7) {
+                $css_list[] = 'ie6_or_less.css';
+            }
+            break;
+
+
+        case 'opera':
+            $css_list[] = 'opera.css';
+            break;
+
+        case 'mozilla':
+            $css_list[] = 'mozilla.css';
+            break;
+
+        case 'webkit':
+            $css_list[] = 'webkit.css';
+        }
+
+        return $css_list;
     }
 
     /**
