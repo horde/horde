@@ -111,7 +111,6 @@ if (!($logout_reason = $auth->getError())) {;
 }
 
 switch ($logout_reason) {
-case Horde_Auth::REASON_SESSION:
 case Horde_Core_Auth_Application::REASON_SESSIONIP:
 case Horde_Core_Auth_Application::REASON_BROWSER:
 case Horde_Auth::REASON_LOGOUT:
