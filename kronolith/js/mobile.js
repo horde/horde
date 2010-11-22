@@ -32,14 +32,14 @@
     cacheEnd: null,
 
     /**
-     * Temporary hack for displaying the first month view
-     */
-    monthIsLoaded: null,
-
-    /**
      * The currently displayed view
      */
     view: 'day',
+
+    /**
+     * The currently selected date
+     */
+    date: null,
 
     /**
      * Perform an Ajax action
@@ -75,7 +75,7 @@
                 c = cals[startDay.dateString()];
                 while (typeof c != 'undefined' && startDay.isBefore(endDay)) {
                     KronolithMobile.loadedCalendars.push(cal.join('|'));
-                    if (KronolithMobile.view != 'month') {
+                    if (view != 'month') {
                         KronolithMobile.insertEvents([startDay, startDay], view, cal.join('|'));
                     }
                     startDay.add(1).day();
@@ -85,7 +85,7 @@
                 c = cals[endDay.dateString()];
                 while (typeof c != 'undefined' && !startDay.isAfter(endDay)) {
                     KronolithMobile.loadedCalendars.push(cal);
-                    if (KronolithMobile.view != 'month') {
+                    if (view != 'month') {
                         KronolithMobile.insertEvents([endDay, endDay], view, cal.join('|'));
                     }
                     endDay.add(-1).day();
@@ -161,20 +161,18 @@
             case 'day':
                 // Make sure all calendars are loaded before rendering the view.
                 // @TODO: Implement LIFO queue as in kronolith.js
-                if (KronolithMobile.loadedCalendars.length != KronolithMobile.calendars.length
-                    || KronolithMobile.view != view) {
-
+                if (KronolithMobile.loadedCalendars.length != KronolithMobile.calendars.length) {
                     if (KronolithMobile.timeoutId) {
                         window.clearTimeout(KronolithMobile.timeoutId);
                     }
                     KronolithMobile.timeoutId = window.setTimeout(function() {KronolithMobile.insertEvents(dates, view);}, 0);
                     return;
                 }
-
                 if (KronolithMobile.timeoutId) {
                     window.clearTimeout(KronolithMobile.timeoutId);
                     KronolithMobile.timoutId = false;
                 }
+
                 date = dates[0].clone();
                 events = KronolithMobile.getCacheForDate(date.dateString());
                 events = KronolithMobile.sortEvents(events);
@@ -200,8 +198,8 @@
                     day.next().day();
                 }
                 // Select current date.
-                $('#kronolithMonth'+ $('.kronolithMinicalDate').data('date').dateString()).addClass('kronolithSelected');
-                KronolithMobile.selectMonthDay($('.kronolithMinicalDate').data('date').dateString());
+                $('#kronolithMonth'+ KronolithMobile.date.dateString()).addClass('kronolithSelected');
+                KronolithMobile.selectMonthDay(KronolithMobile.date.dateString());
                 break;
         }
     },
@@ -250,7 +248,7 @@
     },
 
     /**
-     * Retrieve a single event from the server.
+     * Retrieve a single event from the server and show it.
      *
      * @param string cal  The calendar identifier.
      * @param string id   The event identifier.
@@ -383,12 +381,7 @@
      */
     showNextDay: function()
     {
-        KronolithMobile.clearView('day');
-        var d = $('.kronolithDayDate').data('date');
-        d.addDays(1);
-        $('.kronolithDayDate').text(d.toString('ddd') + ' ' + d.toString('d'));
-        $('.kronolithDayDate').data('date', d);
-        KronolithMobile.loadEvents(d, d, 'day');
+        KronolithMobile.moveToDay(KronolithMobile.date.clone().addDays(1));
     },
 
     /**
@@ -396,42 +389,57 @@
      */
     showPrevDay: function()
     {
+        KronolithMobile.moveToDay(KronolithMobile.date.clone().addDays(-1));
+    },
+
+    /**
+     * Move the day view to a specific day
+     *
+     * @param Date date  The date to set the day view to.
+     */
+    moveToDay: function(date)
+    {
         KronolithMobile.clearView('day');
-        var d = $('.kronolithDayDate').data('date');
-        d.addDays(-1);
-        $('.kronolithDayDate').text(d.toString('ddd') + ' ' + d.toString('d'));
-        $('.kronolithDayDate').data('date', d);
-        KronolithMobile.loadEvents(d, d, 'day');
+        $('.kronolithDayDate').text(date.toString('ddd') + ' ' + date.toString('d'));
+        KronolithMobile.date = date;
+        KronolithMobile.loadEvents(date, date, 'day');
     },
 
     /**
      * Advance the month view ahead one month.
-     * Note that we manually call insertEvents here
      */
     showPrevMonth: function()
     {
-        KronolithMobile.clearView('month');
-        var d = $('.kronolithMinicalDate').data('date');
-        d.addMonths(-1);
-        var dates = KronolithMobile.viewDates(d, 'month');
-        KronolithMobile.loadEvents(dates[0], dates[1], 'month');
-        KronolithMobile.buildCal(d);
-        KronolithMobile.insertEvents(dates, 'month');
+        KronolithMobile.moveToMonth(KronolithMobile.date.clone().addMonths(-1));
     },
 
+    /**
+     * Move the month view back one month
+     */
     showNextMonth: function()
     {
+        KronolithMobile.moveToMonth(KronolithMobile.date.clone().addMonths(1));
+    },
+
+    /**
+     * Move the month view to the month containing the specified date.
+     *
+     * @params Date date  The date to move to.
+     */
+    moveToMonth: function(date)
+    {
         KronolithMobile.clearView('month');
-        var d = $('.kronolithMinicalDate').data('date');
-        d.addMonths(1);
-        var dates = KronolithMobile.viewDates(d, 'month');
+        var dates = KronolithMobile.viewDates(date, 'month');
+        KronolithMobile.date = date;
         KronolithMobile.loadEvents(dates[0], dates[1], 'month');
-        KronolithMobile.buildCal(d);
+        KronolithMobile.buildCal(date);
         KronolithMobile.insertEvents(dates, 'month');
     },
 
     /**
      * Selects a day in the month view, and displays any events it may contain.
+     * Also sets the dayview to the same date, so navigating back to it is
+     * smooth.
      *
      * @param string date  A date string in the form of yyyyMMdd.
      */
@@ -462,6 +470,7 @@
         }
         ul.listview();
         $('.kronolithDayDetail').append(ul);
+        KronolithMobile.moveToDay(d);
     },
 
     /**
@@ -506,9 +515,7 @@
         tbody.children().remove();
 
         // Update title
-        $('.kronolithMinicalDate')
-            .data('date', date)
-            .html(date.toString('MMMM yyyy'));
+        $('.kronolithMinicalDate').html(date.toString('MMMM yyyy'));
 
         for (i = 0; i < 42; i++) {
             dateString = day.dateString();
@@ -724,13 +731,10 @@
         $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
         $('#monthview').bind('pageshow', function(event, ui) {
             KronolithMobile.view = 'month';
-            if (!KronolithMobile.monthIsLoaded) {
-                var d = KronolithMobile.viewDates($('.kronolithDayDate').data('date'), 'month');
-                KronolithMobile.loadEvents(d[0], d[1], 'month');
-                KronolithMobile.buildCal($('.kronolithDayDate').data('date'));
-                KronolithMobile.insertEvents(d, 'month');
-                KronolithMobile.selectMonthDay($('.kronolithDayDate').data('date').dateString());
-                KronolithMobile.monthIsLoaded = true;
+            // (re)build the minical only if we need to
+            if (!$('.kronolithMinicalDate').data('date') ||
+                ($('.kronolithMinicalDate').data('date').toString('M') != KronolithMobile.date.toString('M'))) {
+                KronolithMobile.moveToMonth(KronolithMobile.date);
             }
         });
 
@@ -742,10 +746,9 @@
         // @TODO once https://github.com/jquery/jquery-mobile/issues/issue/508
         // is fixed, move this to #dayview's pageshow event, as well as
         // fix monthview initialization.
-        var currentDate = new Date();
-        $('.kronolithDayDate').html(currentDate.toString('ddd') + ' ' + currentDate.toString('d'));
-        $('.kronolithDayDate').data('date', currentDate);
-        KronolithMobile.loadEvents(currentDate, currentDate, 'day');
+        KronolithMobile.date = new Date();
+        $('.kronolithDayDate').html(KronolithMobile.date.toString('ddd') + ' ' + KronolithMobile.date.toString('d'));
+        KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date, 'day');
 
         $('body').bind('swipeleft', KronolithMobile.handleSwipe);
         $('body').bind('swiperight', KronolithMobile.handleSwipe);
