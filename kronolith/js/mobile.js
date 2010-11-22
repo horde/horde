@@ -294,6 +294,8 @@
          loc = false,
          title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t)),
          calendar = $('<p>').addClass('kronolithEventDetailCalendar').text(Kronolith.conf.calendars[e.ty][e.c]['name']);
+
+         // Time
          var item = $('<div>');
          if (e.r) {
              var recurText = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
@@ -356,6 +358,10 @@
            list.append($('<li>').append($('<a>').attr({'rel': 'external', 'href': e.u}).text(e.u)));
          }
 
+         // Ensure we have a bottom li element, to close out the rounded look.
+         if (list.children('li').length == 1) {
+           list.append($('<li>'));
+         }
          list.listview();
 
          return list;
