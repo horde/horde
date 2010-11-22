@@ -200,8 +200,8 @@
                     day.next().day();
                 }
                 // Select current date.
-                $('#kronolithMonth'+ $('kronolithMinicalDate').data('date')).addClass('kronolithSelected');
-                KronolithMobile.selectMonthDay($('#kronolithMinicalDate').data('date'));
+                $('#kronolithMonth'+ $('.kronolithMinicalDate').data('date').dateString()).addClass('kronolithSelected');
+                KronolithMobile.selectMonthDay($('.kronolithMinicalDate').data('date').dateString());
                 break;
         }
     },
@@ -400,6 +400,7 @@
         var d = $('.kronolithDayDate').data('date');
         d.addDays(-1);
         $('.kronolithDayDate').text(d.toString('ddd') + ' ' + d.toString('d'));
+        $('.kronolithDayDate').data('date', d);
         KronolithMobile.loadEvents(d, d, 'day');
     },
 
@@ -410,7 +411,7 @@
     showPrevMonth: function()
     {
         KronolithMobile.clearView('month');
-        var d = KronolithMobile.parseDate($('#kronolithMinicalDate').data('date'));
+        var d = $('.kronolithMinicalDate').data('date');
         d.addMonths(-1);
         var dates = KronolithMobile.viewDates(d, 'month');
         KronolithMobile.loadEvents(dates[0], dates[1], 'month');
@@ -421,7 +422,7 @@
     showNextMonth: function()
     {
         KronolithMobile.clearView('month');
-        var d = KronolithMobile.parseDate($('#kronolithMinicalDate').data('date'));
+        var d = $('.kronolithMinicalDate').data('date');
         d.addMonths(1);
         var dates = KronolithMobile.viewDates(d, 'month');
         KronolithMobile.loadEvents(dates[0], dates[1], 'month');
@@ -497,7 +498,7 @@
      */
     buildCal: function(date)
     {
-        var tbody = $('#kronolithMinical table tbody');
+        var tbody = $('.kronolithMinical table tbody');
         var dates = KronolithMobile.viewDates(date, 'month'), day = dates[0].clone(),
         today = Date.today(), dateString, td, tr, i;
 
@@ -505,12 +506,12 @@
         tbody.children().remove();
 
         // Update title
-        $('#kronolithMinicalDate')
-            .data('date', date.toString('yyyyMMdd'))
+        $('.kronolithMinicalDate')
+            .data('date', date)
             .html(date.toString('MMMM yyyy'));
 
         for (i = 0; i < 42; i++) {
-            dateString = day.toString('yyyyMMdd');
+            dateString = day.dateString();
 
             // Create calendar row .
             if (day.getDay() == Kronolith.conf.week_start) {
@@ -742,7 +743,7 @@
         // is fixed, move this to #dayview's pageshow event, as well as
         // fix monthview initialization.
         var currentDate = new Date();
-        $(".kronolithDayDate").html(currentDate.toString('ddd') + ' ' + currentDate.toString('d'));
+        $('.kronolithDayDate').html(currentDate.toString('ddd') + ' ' + currentDate.toString('d'));
         $('.kronolithDayDate').data('date', currentDate);
         KronolithMobile.loadEvents(currentDate, currentDate, 'day');
 
