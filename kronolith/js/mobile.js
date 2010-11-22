@@ -290,10 +290,14 @@
     {
          var list = $('<ul>')
             .addClass('kronolithEventDetail')
-            .attr({'data-role': 'listview', 'data-inset': true}),
-         loc = false,
-         title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t)),
-         calendar = $('<p>').addClass('kronolithEventDetailCalendar').text(Kronolith.conf.calendars[e.ty][e.c]['name']);
+            .attr({'data-role': 'listview', 'data-inset': true});
+
+         var loc = false;
+
+         // Title and calendar
+         var title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t));
+         var calendar = $('<p>').addClass('kronolithEventDetailCalendar').text(Kronolith.conf.calendars[e.ty][e.c]['name']);
+         list.append($('<li>').append(title).append(calendar));
 
          // Time
          var item = $('<div>');
@@ -334,7 +338,7 @@
                 .append($('<div>').addClass('kronolithEventDetailTime').text(Date.parse(e.s).toString(Kronolith.conf.time_format) + ' - ' + Date.parse(e.e).toString(Kronolith.conf.time_format))))
              );
          }
-         list.append($('<li>').append(title).append(calendar).append(item));
+         list.append($('<li>').append(item));
 
          // Location
          if (e.gl) {
@@ -358,10 +362,6 @@
            list.append($('<li>').append($('<a>').attr({'rel': 'external', 'href': e.u}).text(e.u)));
          }
 
-         // Ensure we have a bottom li element, to close out the rounded look.
-         if (list.children('li').length == 1) {
-           list.append($('<li>'));
-         }
          list.listview();
 
          return list;
