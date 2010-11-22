@@ -38,6 +38,8 @@ $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 $title = _("Mobile Mail");
 
+Horde::addScriptFile('mobile.js', 'imp');
+
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 include IMP_TEMPLATES . '/mobile/javascript_defs.php';
 echo $view->render('head.html.php');
