@@ -1,5 +1,4 @@
 <h1 class="header"><?php echo $title ?></h1>
-<?php Ansel::attachStylesheet('cropper.css', true);?>
 
 <script type="text/javascript">
 

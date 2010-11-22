@@ -247,11 +247,9 @@ class Horde_Block_nag_summary extends Horde_Block
             return '<em>' . _("No tasks to display") . '</em>';
         }
 
-        return '<link href="'
-            . htmlspecialchars(Horde::url('themes/categoryCSS.php',
-                                                     true))
-            . '" rel="stylesheet" type="text/css" />'
-            . '<table cellspacing="0" width="100%" class="linedRow">'
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
+
+        return '<table cellspacing="0" width="100%" class="linedRow">'
             . $html . '</table>';
     }
 

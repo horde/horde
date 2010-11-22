@@ -113,9 +113,10 @@ class Horde_Block_Horde_fb_stream extends Horde_Block
     protected function _content()
     {
         $instance = md5(mt_rand());
-        $csslink = $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css';
         $endpoint = Horde::url('services/facebook.php', true);
         $html = '';
+
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
 
         /* Init facebook driver, exit early if no prefs exist */
         $facebook = $this->_facebook;
@@ -141,8 +142,8 @@ class Horde_Block_Horde_fb_stream extends Horde_Block
             });
 EOT;
         Horde::addInlineScript($script, 'dom');
+
         /* Build the UI */
-        $html .= '<link href="' . $csslink . '" rel="stylesheet" type="text/css" />';
         $html .= '<div style="padding-left: 8px;padding-right:8px;">';
 
         /* Build the Notification Section */

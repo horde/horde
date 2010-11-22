@@ -87,10 +87,16 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
 
         /* CSS */
         if (empty($nocss)) {
-            $cssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'kronolith') . '/embed.css', true);
-            $hcssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'horde') . '/embed.css', true);
+            $horde_css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
+            $horde_css->addThemeStylesheet('embed.css');
+
+            Horde::startBuffer();
+            Horde::includeStylesheetFiles(array(
+                'nobase' => true
+            ));
+            $css = Horde::endBuffer();
         } else {
-            $cssurl= '';
+            $css = '';
         }
 
         /* Escape the text and put together the javascript to send back */
@@ -104,12 +110,11 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
             if (typeof Horde_ToolTips == 'undefined') {
                 Horde_ToolTips_Autoload = false;
                 document.write('<script type="text/javascript" src="$hjsurl"></script>');
-                document.write('<link type="text/css" rel="stylesheet" href="$hcssurl" />');
             }
             kronolith = new Object();
             kronolithNodes = new Array();
             document.write('<script type="text/javascript" src="$jsurl"></script>');
-            document.write('<link type="text/css" rel="stylesheet" href="$cssurl" />');
+            document.write('$css');
         }
         kronolithNodes[kronolithNodes.length] = '$container';
         kronolith['$container'] = "$results";

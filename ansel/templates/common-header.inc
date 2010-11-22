@@ -20,7 +20,7 @@ if (!empty($title)) {
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
 Horde::includeFavicon();
-echo Ansel::stylesheetLinks();
+Horde::includeStylesheetFiles();
 echo Horde::wrapInlineScript(Ansel::initJSVars());
 Horde::outputInlineScript();
 

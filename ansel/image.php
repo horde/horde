@@ -324,7 +324,8 @@ case 'resizeedit':
         Horde::addScriptFile('controls.js', 'horde');
         Horde::addScriptFile('dragdrop.js', 'horde');
         Horde::addScriptFile('cropper.js');
-        Ansel::attachStylesheet('cropper.css');
+
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('cropper.css');
     } elseif ($actionID == 'resizeedit') {
         /* js and css files */
         // TODO: Combine these cases

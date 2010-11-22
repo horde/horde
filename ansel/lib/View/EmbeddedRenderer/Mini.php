@@ -80,9 +80,10 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
             $json_full = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageJson($images, null, true, 'screen', true);
         }
 
+        $horde_css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
+        $horde_css->addThemeStylesheet('embed.css');
+
         /* Some paths */
-        $cssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'ansel') . '/embed.css', true);
-        $hcssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'horde') . '/embed.css', true);
         $js_path = $GLOBALS['registry']->get('jsuri', 'horde');
         $pturl = Horde::url($js_path . '/prototype.js', true);
         $hjsurl = Horde::url($js_path . '/tooltips.js', true);
@@ -94,8 +95,14 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
         if (!empty($this->_params['lightbox'])) {
             $effectsurl = Horde::url($js_path . '/effects.js', true);
             $lbjsurl = Horde::url($ansel_js_path . '/lightbox.js', true);
-            $lbcssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'ansel') . '/lightbox.css', true);
+            $horde_css->addThemeStylesheet('lightbox.css');
         }
+
+        Horde::startBuffer();
+        Horde::includeStylesheetFiles(array(
+            'nobase' => true
+        ));
+        $css = Horde::endBuffer();
 
         /* Start building the javascript */
         $html = <<<EOT
@@ -111,12 +118,11 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
                 }
                 if (typeof Horde_ToolTips == 'undefined') {
                     document.write('<script type="text/javascript" src="$hjsurl"></script>');
-                    document.write('<link type="text/css" rel="stylesheet" href="$hcssurl" />');
                 }
 
                 anselnodes = new Array();
                 anseljson = new Object();
-                document.write('<link type="text/css" rel="stylesheet" href="$cssurl" />');
+                document.write('$cssurl');
                 document.write('<script type="text/javascript" src="$jsurl"></script>');
             }
             anselnodes[anselnodes.length] = '$node';
@@ -143,7 +149,6 @@ EOT;
                 if (typeof lbOptions == 'undefined') {
 
                     document.write('<script type="text/javascript" src="$lbjsurl"></script>');
-                    document.write('<link type="text/css" rel="stylesheet" href="$lbcssurl" />');
 
                     lbOptions = {
                         fileLoadingImage: '$loading_img',

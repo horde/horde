@@ -444,10 +444,11 @@ class Horde_Prefs_Ui
             return _($e->getMessage());
         }
 
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
+
         /* Horde_Template */
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
-        $t->set('css_link', $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css');
         $t->set('app_name', $GLOBALS['registry']->get('name', 'horde'));
 
         /* Check for facebook session */
@@ -554,7 +555,6 @@ class Horde_Prefs_Ui
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
-        $t->set('css_link', $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css');
 
         /* Could not find a valid auth token, and we are not in the process of getting one */
         if (empty($profile)) {

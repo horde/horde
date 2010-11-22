@@ -733,55 +733,6 @@ class Ansel
     }
 
     /**
-     * Add a custom stylesheet to the current page. Need our own implementation
-     * since we want to be able to ouput specific CSS files at specific times
-     * (like when rendering embedded content, or calling via the api etc...).
-     *
-     * @param string $stylesheet  The stylesheet to add. A path relative
-     *                            to $themesfs
-     * @param boolean $link       Immediately output the CSS link
-     */
-    static public function attachStylesheet($stylesheet, $link = false)
-    {
-       $GLOBALS['ansel_stylesheets'][] = $stylesheet;
-       if ($link) {
-           Ansel::stylesheetLinks(true);
-       }
-    }
-
-    /**
-     * Output the stylesheet links
-     *
-     * @param boolean $custom_only  Don't include ansel's base CSS file
-     */
-    static public function stylesheetLinks($custom_only = false)
-    {
-        /* Custom CSS */
-        $themesuri = $GLOBALS['registry']->get('themesuri', 'ansel');
-        $themesfs = $GLOBALS['registry']->get('themesfs', 'ansel');
-        $css = array();
-
-        if (!empty($GLOBALS['ansel_stylesheets'])) {
-            foreach ($GLOBALS['ansel_stylesheets'] as $css_file) {
-                $css[$themesfs . '/' . $css_file] = Horde::url($themesuri . '/' . $css_file, true);
-            }
-        }
-
-        /* Use Horde's stylesheet code if we aren't ouputting css directly */
-        if (!$custom_only) {
-            foreach ($css as $f => $u) {
-                $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addStylesheet($f, $u);
-            }
-
-            Horde::includeStylesheetFiles();
-        } else {
-            foreach ($css as $u) {
-                echo '<link href="' . $u . '" rel="stylesheet" type="text/css" />' . "\n";
-            }
-        }
-    }
-
-    /**
      * Get a date parts array containing only enough date parts for the depth
      * we are at. If an empty array is passed, attempt to get the parts from
      * url parametrs. Any missing date parts must be set to 0.

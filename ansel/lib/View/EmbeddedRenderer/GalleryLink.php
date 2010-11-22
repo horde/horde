@@ -83,8 +83,15 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
         }
         $json = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageJson($images, null, true, $thumbsize, true);
 
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('jsembed.css');
+        Horde::startBuffer();
+        Horde::includeStylesheetFiles(array(
+            'nobase' => true,
+            'nohorde' => true
+        ));
+        $css = Horde::endBuffer();
+
         /* Some paths */
-        $cssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'ansel') . '/jsembed.css', true);
         $js_path = $GLOBALS['registry']->get('jsuri', 'horde');
         $pturl = Horde::url($js_path . '/prototype.js', true);
         $ansel_js_path = $GLOBALS['registry']->get('jsuri', 'ansel');
@@ -106,7 +113,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
                 }
                 anselnodes = new Array();
                 anseljson = new Object();
-                document.write('<link type="text/css" rel="stylesheet" href="$cssurl" />');
+                document.write('$css');
                 document.write('<script type="text/javascript" src="$jsurl"></script>');
             }
             anselnodes[anselnodes.length] = '$node';

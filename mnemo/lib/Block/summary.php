@@ -110,11 +110,9 @@ class Horde_Block_Mnemo_summary extends Horde_Block
             return '<p><em>' . _("No notes to display") . '</em></p>';
         }
 
-        return '<link href="'
-            . htmlspecialchars(Horde::url('themes/categoryCSS.php',
-                                                     true))
-            . '" rel="stylesheet" type="text/css" />'
-            . '<table cellspacing="0" width="100%" class="linedRow">' . $html
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
+
+        return '<table cellspacing="0" width="100%" class="linedRow">' . $html
             . '</table>';
     }
 
