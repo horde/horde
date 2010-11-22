@@ -6,7 +6,7 @@ $imp_view = IMP::getViewMode();
  * other scripts already added. */
 switch ($imp_view) {
 case 'dimp':
-    include IMP_TEMPLATES . '/dimp/javascript_defs_dimp.php';
+    include IMP_TEMPLATES . '/dimp/javascript_defs.php';
     break;
 
 case 'mimp':
