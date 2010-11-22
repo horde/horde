@@ -44,6 +44,36 @@ $code['conf'] = array_filter(array(
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
+    'sort' => array(
+        'sequence' => array(
+            't' => '',
+            'v' => Horde_Imap_Client::SORT_SEQUENCE
+        ),
+        'from' => array(
+            't' => _("From"),
+            'v' => Horde_Imap_Client::SORT_FROM
+        ),
+        'to' => array(
+            't' => _("To"),
+            'v' => Horde_Imap_Client::SORT_TO
+        ),
+        'subject' => array(
+            't' => _("Subject"),
+            'v' => Horde_Imap_Client::SORT_SUBJECT
+        ),
+        'thread' => array(
+            't' => _("Thread"),
+            'v' => Horde_Imap_Client::SORT_THREAD
+        ),
+        'date' => array(
+            't' => _("Date"),
+            'v' => IMP::IMAP_SORT_DATE
+        ),
+        'size' => array(
+            't' => _("Size"),
+            'v' => Horde_Imap_Client::SORT_SIZE
+        )
+    ),
 ));
 
 /* Gettext strings used in core javascript files. */

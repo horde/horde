@@ -36,7 +36,12 @@ var ImpMobile = {
         $.mobile.pageLoading();
         ImpMobile.doAction(
             'viewPort',
-            { view: mailbox, initial: 1, slice: '1', requestid: 1, after: 25 },
+            {
+                view: mailbox,
+                slice: '1:25',
+                requestid: 1,
+                sortby: IMP.conf.sort.date.v,
+            },
             ImpMobile.messagesLoaded);
     },
 
