@@ -68,7 +68,7 @@ try {
 // Build the template (@TODO: Use Horde_View)
 $template = new Horde_Template();
 $template->set('jonah', 'Jonah ' . $registry->getVersion() . ' (http://www.horde.org/jonah/)');
-$template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
+$template->set('xsl', Horde_Themes::getFeedXsl());
 if (!empty($criteria['tag_id'])) {
     $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), $tag_name, htmlspecialchars($channel['channel_name'])));
 } else {

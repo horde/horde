@@ -86,7 +86,7 @@ foreach (array_keys($tickets) as $i) {
 }
 
 $template = $injector->createInstance('Horde_Template');
-$template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
+$template->set('xsl', Horde_Themes::getFeedXsl());
 $template->set('pubDate', htmlspecialchars(date('r')));
 if (isset($type) && isset($queue['name'])) {
     $rss_title = sprintf(_("%s %s tickets in %s"),

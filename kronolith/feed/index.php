@@ -96,7 +96,7 @@ $template->set('kronolith_name', 'Kronolith');
 $template->set('kronolith_version', $registry->getVersion());
 $template->set('kronolith_uri', 'http://www.horde.org/kronolith/');
 $template->set('kronolith_icon', Horde::url(Horde_Themes::img('kronolith.png'), true, -1));
-$template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
+$template->set('xsl', Horde_Themes::getFeedXsl());
 $template->set('calendar_name', htmlspecialchars($share->get('name')));
 $template->set('calendar_desc', htmlspecialchars($share->get('desc')), true);
 $template->set('calendar_owner', htmlspecialchars($identity->getValue('fullname')));

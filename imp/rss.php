@@ -85,7 +85,7 @@ $description = ($total_num == 0)
 
 $t = $injector->createInstance('Horde_Template');
 $t->set('charset', 'UTF-8');
-$t->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
+$t->set('xsl', Horde_Themes::getFeedXsl());
 $t->set('pubDate', htmlspecialchars(date('r')));
 $t->set('desc', htmlspecialchars($description));
 $t->set('title', htmlspecialchars($registry->get('name') . ' - ' . IMP::getLabel($mailbox)));

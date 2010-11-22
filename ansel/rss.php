@@ -263,7 +263,7 @@ if (empty($rss)) {
         }
     }
 
-    $xsl = $registry->get('themesuri') . '/feed-rss.xsl';
+    $xsl = Horde_Themes::getFeedXsl();
     $stream_name = htmlspecialchars($params['name']);
     $stream_desc = htmlspecialchars($params['desc']);
     $stream_updated = htmlspecialchars(date('r', $params['last_modified']));

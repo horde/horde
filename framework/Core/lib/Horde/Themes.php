@@ -139,4 +139,16 @@ class Horde_Themes
         return $sounds;
     }
 
+    /**
+     * Return the location of the feed XSL file.
+     *
+     * As of now, this file MUST live in horde/themes/default/feed-rss.xsl.
+     *
+     * @return string  Path to the feed file.
+     */
+    static public function getFeedXsl()
+    {
+         return $GLOBALS['registry']->get('themesuri', 'horde') . '/default/feed-rss.xsl';
+    }
+
 }
