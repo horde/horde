@@ -19,8 +19,8 @@ applications.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-11-16</date>
- <time>18:53:26</time>
+ <date>2010-11-22</date>
+ <time>04:57:28</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -100,7 +100,6 @@ applications.</description>
    <dir name="docs">
     <file name="CHANGES" role="doc" />
     <file name="CODING_STANDARDS" role="doc" />
-    <file name="CODING_STANDARDS.H3" role="doc" />
     <file name="CONTRIBUTING" role="doc" />
     <file name="CREDITS" role="doc" />
     <file name="INSTALL" role="doc" />
@@ -316,6 +315,7 @@ applications.</description>
     <file name="form_helpers.js" role="horde" />
     <file name="form_sections.js" role="horde" />
     <file name="growler.js" role="horde" />
+    <file name="horde-jquery.js" role="horde" />
     <file name="horde.js" role="horde" />
     <file name="ieescguard.js" role="horde" />
     <file name="image.js" role="horde" />
@@ -749,6 +749,9 @@ applications.</description>
      <file name="2.2_to_3.0.mysql.sql" role="data" />
      <file name="2.2_to_3.0.oci8.sql" role="data" />
      <file name="2.2_to_3.0.pgsql.sql" role="data" />
+     <file name="3.0_to_3.1.mysql.sql" role="data" />
+     <file name="3.0_to_3.1.oci8.sql" role="data" />
+     <file name="3.0_to_3.1.sql" role="data" />
      <file name="3.1_to_3.2.mssql.sql" role="data" />
      <file name="3.1_to_3.2.mysql.sql" role="data" />
      <file name="3.1_to_3.2.oci8.sql" role="data" />
@@ -756,9 +759,6 @@ applications.</description>
      <file name="3.1_to_3.2.sql" role="data" />
      <file name="3.1_to_3.2.sybase.sql" role="data" />
      <file name="3.3_to_3.3.5.sql" role="data" />
-     <file name="3.0_to_3.1.mysql.sql" role="data" />
-     <file name="3.0_to_3.1.oci8.sql" role="data" />
-     <file name="3.0_to_3.1.sql" role="data" />
      <file name="2005-09-22_horde_prefs_varchar2.oci8.sql" role="data" />
      <file name="2006-06-29_horde_prefs_indexes.sql" role="data" />
      <file name="2007-02-21_horde_alarms_primary.sql" role="data" />
@@ -2180,7 +2180,6 @@ applications.</description>
    <install as="config/registry.d/README" name="config/registry.d/README" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CODING_STANDARDS" name="docs/CODING_STANDARDS" />
-   <install as="CODING_STANDARDS.H3" name="docs/CODING_STANDARDS.H3" />
    <install as="CONTRIBUTING" name="docs/CONTRIBUTING" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -2208,6 +2207,7 @@ applications.</description>
    <install as="js/form_helpers.js" name="js/form_helpers.js" />
    <install as="js/form_sections.js" name="js/form_sections.js" />
    <install as="js/growler.js" name="js/growler.js" />
+   <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
    <install as="js/horde.js" name="js/horde.js" />
    <install as="js/ieescguard.js" name="js/ieescguard.js" />
    <install as="js/image.js" name="js/image.js" />
@@ -2618,6 +2618,9 @@ applications.</description>
    <install as="scripts/upgrades/2.2_to_3.0.mysql.sql" name="scripts/upgrades/2.2_to_3.0.mysql.sql" />
    <install as="scripts/upgrades/2.2_to_3.0.oci8.sql" name="scripts/upgrades/2.2_to_3.0.oci8.sql" />
    <install as="scripts/upgrades/2.2_to_3.0.pgsql.sql" name="scripts/upgrades/2.2_to_3.0.pgsql.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.mysql.sql" name="scripts/upgrades/3.0_to_3.1.mysql.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.oci8.sql" name="scripts/upgrades/3.0_to_3.1.oci8.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.sql" name="scripts/upgrades/3.0_to_3.1.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.mssql.sql" name="scripts/upgrades/3.1_to_3.2.mssql.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.mysql.sql" name="scripts/upgrades/3.1_to_3.2.mysql.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.oci8.sql" name="scripts/upgrades/3.1_to_3.2.oci8.sql" />
@@ -2625,9 +2628,6 @@ applications.</description>
    <install as="scripts/upgrades/3.1_to_3.2.sql" name="scripts/upgrades/3.1_to_3.2.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.sybase.sql" name="scripts/upgrades/3.1_to_3.2.sybase.sql" />
    <install as="scripts/upgrades/3.3_to_3.3.5.sql" name="scripts/upgrades/3.3_to_3.3.5.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.mysql.sql" name="scripts/upgrades/3.0_to_3.1.mysql.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.oci8.sql" name="scripts/upgrades/3.0_to_3.1.oci8.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.sql" name="scripts/upgrades/3.0_to_3.1.sql" />
    <install as="scripts/upgrades/2005-09-22_horde_prefs_varchar2.oci8.sql" name="scripts/upgrades/2005-09-22_horde_prefs_varchar2.oci8.sql" />
    <install as="scripts/upgrades/2006-06-29_horde_prefs_indexes.sql" name="scripts/upgrades/2006-06-29_horde_prefs_indexes.sql" />
    <install as="scripts/upgrades/2007-02-21_horde_alarms_primary.sql" name="scripts/upgrades/2007-02-21_horde_alarms_primary.sql" />
@@ -3780,7 +3780,7 @@ applications.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-11-16</date>
+   <date>2010-11-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial package.xml.
