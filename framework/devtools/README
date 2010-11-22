@@ -10,17 +10,6 @@ distribution.
 
 Script Index
 ~~~~~~~~~~~~
-horde-check-themes.php
-    Makes sure that themes that provide their own images aren't missing any.
-
-horde-fw-symlinks.php
-    Creates symbolic links necessary for developers to work directly on the
-    files in the framework module without needing to install the changed
-    packages.
-
-horde-highlight.php
-    Highlights source files on the console.
-
 horde-merge.php
     Merges commits from a commit message into the CVS tree of the current
     directory.
