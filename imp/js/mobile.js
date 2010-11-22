@@ -22,6 +22,37 @@ var ImpMobile = {
         $.post(IMP.conf.URI_AJAX + action, params, callback, 'json');
     },
 
+    // Convert object to an IMP UID Range string. See IMP::toRangeString()
+    // ob = (object) mailbox name as keys, values are array of uids.
+    toRangeString: function(ob)
+    {
+        var str = '';
+
+        $.each(ob, function(key, value) {
+            if (!value.length) {
+                return;
+            }
+
+            var u = (IMP.conf.pop3 ? value : value.numericSort()),
+                first = u.shift(),
+                last = first,
+                out = [];
+
+            $.each(u, function(n, k) {
+                if (!IMP.conf.pop3 && (last + 1 == k)) {
+                    last = k;
+                } else {
+                    out.push(first + (last == first ? '' : (':' + last)));
+                    first = last = k;
+                }
+            });
+            out.push(first + (last == first ? '' : (':' + last)));
+            str += '{' + key.length + '}' + key + out.join(',');
+        });
+
+        return str;
+    },
+
     /**
      * Switches to the mailbox view and loads a mailbox.
      *
@@ -41,8 +72,9 @@ var ImpMobile = {
                 slice: '1:25',
                 requestid: 1,
                 sortby: IMP.conf.sort.date.v,
+                sortdir: 1,
             },
-            ImpMobile.messagesLoaded);
+            ImpMobile.mailboxLoaded);
     },
 
     /**
@@ -50,20 +82,66 @@ var ImpMobile = {
      *
      * @param object r  The Ajax response object.
      */
-    messagesLoaded: function(r)
+    mailboxLoaded: function(r)
     {
         var list = $('#imp-mailbox-list');
         $.mobile.pageLoading(true);
         if (r.response && r.response.ViewPort) {
             $.each(r.response.ViewPort.data, function(key, data) {
                 list.append(
-                    $('<li>').append(
+                    $('<li class="imp-message" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
                         $('<h3>').append(
                             $('<a href="#">').text(data.subject))).append(
                         $('<p class="ui-li-aside">').text(data.date)).append(
                         $('<p>').text(data.from)));
             });
             list.listview('refresh');
+        }
+    },
+
+    /**
+     * Switches to the message view and loads a message.
+     *
+     * @param string mailbox  A mailbox name.
+     * @param string uid      A message UID.
+     */
+    toMessage: function(mailbox, uid)
+    {
+        var o = {};
+        o[mailbox] = [ uid ];
+        $.mobile.changePage('#message', 'slide', false, true);
+        $.mobile.pageLoading();
+        ImpMobile.doAction(
+            'showMessage',
+            {
+                uid: ImpMobile.toRangeString(o),
+                view: mailbox,
+            },
+            ImpMobile.messageLoaded);
+    },
+
+    /**
+     * Callback method after the message has been loaded.
+     *
+     * @param object r  The Ajax response object.
+     */
+    messageLoaded: function(r)
+    {
+        $.mobile.pageLoading(true);
+        if (r.response && r.response.message && !r.response.message.error) {
+            var data = r.response.message;
+            $('#imp-message-title').text(data.title);
+            $('#imp-message-subject').text(data.subject);
+            $('#imp-message-from').text(data.from[0].personal);
+            $('#imp-message-body').html(data.msgtext);
+            $.each(data.headers, function(k, header) {
+                if (header.id == 'Date') {
+                    $('#imp-message-date').text(header.value);
+                }
+            });
+            $.each(data.js, function(k, js) {
+                $.globalEval(js);
+            });
         }
     },
 
@@ -88,6 +166,10 @@ var ImpMobile = {
                 var link = elt.find('a[mailbox]');
                 ImpMobile.toMailbox(link.attr('mailbox'), link.text());
                 break;
+
+            } else if (elt.hasClass('imp-message')) {
+                ImpMobile.toMessage(elt.attr('data-imp-mailbox'), elt.attr('data-imp-uid'));
+                break;
             }
 
             elt = elt.parent();
@@ -109,6 +191,38 @@ var ImpMobile = {
                 return data.replace(filter, "$1");
             }
         });
+
+        IMP.iframeInject = function(id, data)
+        {
+            id = $('#' + id);
+            var d = id.get(0).contentWindow.document;
+
+            d.open();
+            d.write(data);
+            d.close();
+
+            id.show().prev().remove();
+            IMP.iframeResize(id);
+        };
+
+        IMP.iframeResize = function(id)
+        {
+            return;
+            var lc = id.get(0).contentWindow.document.lastChild;
+            id.css('height', lc.scrollHeight + 'px' );
+
+            // For whatever reason, browsers will report different heights
+            // after the initial height setting.
+            // Try expanding IFRAME if we detect a scroll.
+            if (lc.clientHeight != lc.scrollHeight ||
+                id.get(0).clientHeight != lc.clientHeight) {
+                id.css('height', lc.scrollHeight + 'px' );
+                if (lc.clientHeight != lc.scrollHeight) {
+                    // Finally, brute force if it still isn't working.
+                    id.css('height', (lc.scrollHeight + 25) + 'px');
+                }
+            }
+        };
 
         $(document).click(ImpMobile.clickHandler);
     }

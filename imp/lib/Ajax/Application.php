@@ -898,6 +898,58 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Generate data necessary to display a complete message.
+     *
+     * See the list of variables needed for _changed() and
+     * _checkUidvalidity().  Additional variables used:
+     * <pre>
+     * 'uid' - (string) Index of the messages to preview (IMAP sequence
+     *         string) - must be single index.
+     * </pre>
+     *
+     * @return mixed  False on failure, or an object with the following
+     *                entries:
+     * <pre>
+     * 'message' - (object) Return from IMP_View_ShowMessage::showMessage().
+     * </pre>
+     */
+    public function showMessage()
+    {
+        $indices = new IMP_Indices($this->_vars->uid);
+        list($mbox, $idx) = $indices->getSingle();
+        if (!$idx) {
+            return false;
+        }
+
+        $change = $this->_changed(false);
+        if (is_null($change)) {
+            return false;
+        }
+
+        $args = array(
+            'mailbox' => $mbox,
+            'uid' => $idx
+        );
+        $result = new stdClass;
+        $result->message = new stdClass;
+
+        try {
+            $show_msg = new IMP_Views_ShowMessage();
+            $result->message = (object)$show_msg->showMessage($args);
+            if (isset($result->message->error)) {
+                $result = $this->_checkUidvalidity($result);
+            }
+        } catch (Horde_Imap_Client_Exception $e) {
+            $result->message->error = $e->getMessage();
+            $result->message->errortype = 'horde.error';
+            $result->message->mailbox = $args['mailbox'];
+            $result->message->uid = $args['uid'];
+        }
+
+        return $result;
+    }
+
+    /**
      * AJAX action: Generate data necessary to display preview message.
      *
      * See the list of variables needed for _changed() and

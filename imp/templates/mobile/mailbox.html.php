@@ -10,14 +10,6 @@
   </div>
   <div data-role="content">
     <ul id="imp-mailbox-list" data-role="listview">
-      <li>
-         <h3><a href="#message">Subject 1</a></h3>
-         <p class="ui-li-aside">99</p>
-         <p>Sender</p>
-      </li>
-      <li><a href="#message">Another Folder</a></li>
-      <li><a href="#message">Sub folder</a></li>
-      <li><a href="#message">Trash</a></li>
     </ul>
   </div>
 </div>
