@@ -23,6 +23,12 @@ $view->registry = $registry;
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
+Horde::addScriptFile(array(
+    array('date/en-US.js', 'horde'),
+    array('date/date.js', 'horde'),
+    array('mobile.js', 'kronolith')
+));
+
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
 echo $view->render('head');

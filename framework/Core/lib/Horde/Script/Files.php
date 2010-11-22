@@ -16,11 +16,20 @@
 class Horde_Script_Files
 {
     /**
+     * Automatically include prototypejs?
+     *
+     * @var boolean
+     */
+    public $prototypejs = true;
+
+    /**
      * The list of script files to add.
      *
      * @var array
      */
-    protected $_files = array();
+    protected $_files = array(
+        'horde' => array()
+    );
 
     /**
      * The list of files we have already included.
@@ -69,11 +78,6 @@ class Horde_Script_Files
 
         $this->_included[$app][$url] = true;
 
-        // Always add prototype.js.
-        if (!isset($this->_included[$app]['prototype.js'])) {
-            $this->add('prototype.js', 'horde');
-        }
-
         $this->_files[$app][] = array(
             'f' => basename($url),
             'u' => $url,
@@ -100,12 +104,6 @@ class Horde_Script_Files
             return false;
         }
         $this->_included[$app][$file] = true;
-
-        // Always add prototype.js.
-        if (!isset($this->_included[$app]['prototype.js']) &&
-            ($file != 'prototype.js')) {
-            $this->add('prototype.js', 'horde', $full);
-        }
 
         // Add localized string for popup.js
         if (($file == 'popup.js') && ($app == 'horde')) {
@@ -167,9 +165,23 @@ class Horde_Script_Files
             return array();
         }
 
-        /* Add accesskeys.js if access keys are enabled. */
-        if ($GLOBALS['prefs']->getValue('widget_accesskey')) {
-            $this->_add('accesskeys.js', 'horde', false);
+        /* Add prototype.js? */
+        if ($this->prototypejs) {
+            if (!isset($this->_included['horde']['prototype.js'])) {
+                $old = $this->_files['horde'];
+                $this->_files['horde'] = array();
+                $this->_add('prototype.js', 'horde', false);
+                $this->_files['horde'] = array_merge($this->_files['horde'], $old);
+            }
+
+            /* Add accesskeys.js if access keys are enabled. */
+            if ($GLOBALS['prefs']->getValue('widget_accesskey')) {
+                $this->_add('accesskeys.js', 'horde', false);
+            }
+        } elseif (empty($this->_files['horde'])) {
+            /* Remove horde entry if nothing in it (was added on creation to
+             * ensure that it gets loaded first. */
+            unset($this->_files['horde']);
         }
 
         return $this->_files;

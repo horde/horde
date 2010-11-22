@@ -175,7 +175,8 @@ HTML;
      * or to the list of script files to include via includeScriptFiles().
      *
      * As long as one script file is added, 'prototype.js' will be
-     * automatically added.
+     * automatically added, if the prototypejs property of Horde_Script_Files
+     * is true (it is true by default).
      *
      * @param string $file    The full javascript file name.
      * @param string $app     The application name. Defaults to the current
