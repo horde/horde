@@ -288,57 +288,51 @@
      */
     buildEventView: function(e)
     {
-         var list = $('<ul>').addClass('kronolithEventDetail').attr({'data-role': 'listview', 'data-inset': true});
-         var loc = false, t, recur;
-
-         // Title and location
-         var title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t));
-         var calendar = $('<p>').addClass('kronolithEventDetailCalendar').text(Kronolith.conf.calendars[e.ty][e.c]['name']);
-
-         // Time
-         t = $('<li>');
+         var list = $('<ul>')
+            .addClass('kronolithEventDetail')
+            .attr({'data-role': 'listview', 'data-inset': true}),
+         loc = false,
+         title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t)),
+         calendar = $('<p>').addClass('kronolithEventDetailCalendar').text(Kronolith.conf.calendars[e.ty][e.c]['name']);
+         var item = $('<div>');
          if (e.r) {
+             var recurText = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
+             var date = Date.parse(e.s);
              switch (e.r.t) {
              case 1:
                  // Daily
-                 t.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
+                 recurText = Kronolith.text.recur[e.r.t];
                  break;
              case 2:
                  // Weekly
-                 recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
-                 recur = recur.replace('#{weekday}', Kronolith.text.weekday[e.r.d]);
-                 recur = recur.replace('#{interval}', e.r.i);
-                 t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
+                 recurText = recurText.replace('#{weekday}', Kronolith.text.weekday[e.r.d]);
+                 recurText = recurText.replace('#{interval}', e.r.i);
                  break;
              case 3:
                  // Monthly_Date
-                 recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
-                 var s = Date.parse(e.s);
-                 recur = recur.replace('#{date}', s.toString('dS'));
-                 recur = recur.replace('#{interval}', e.r.i);
-                 t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
-                 break;
+                 recuText = recurText.replace('#{date}', date.toString('dS'));
+                 // Fall-thru
              case 4:
-                 // Monthly_Day
-                 recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
-                 recur = recur.replace('#{interval}', e.r.i);
-                 break;
              case 5:
+                 // Monthly_Day
+                 recurText = recurText.replace('#{interval}', e.r.i);
+                 break;
              case 6:
              case 7:
              default:
-                 t.text('TODO');
+                 recurText = 'todo';
              }
-             t.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
+             item.append($('<div>').addClass('kronolithEventDetailRecurring').append(recurText));
+             item.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
          } else if (e.al) {
-             t.append($('<div>').addClass('kronolithEventDetailAllDay').text(Kronolith.text.allday));
+             item.append($('<div>').addClass('kronolithEventDetailAllDay').text(Kronolith.text.allday));
          } else {
-             t.append($('<div>')
+             item.append($('<div>')
                 .append($('<div>').addClass('kronolithEventDetailDate').text(Date.parse(e.s).toString('D'))
                 .append($('<div>').addClass('kronolithEventDetailTime').text(Date.parse(e.s).toString(Kronolith.conf.time_format) + ' - ' + Date.parse(e.e).toString(Kronolith.conf.time_format))))
              );
          }
-         list.append($('<li>').append(title).append(calendar).append(t));
+         list.append($('<li>').append(title).append(calendar).append(item));
 
          // Location
          if (e.gl) {
