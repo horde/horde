@@ -77,3 +77,12 @@ Number.prototype.toPaddedString = function(len,pad)
 };
 
 String.prototype.toPaddedString = Number.prototype.toPaddedString;
+
+Array.prototype.numericSort = function()
+{
+    return $.map(this, function(n) {
+        return new Number(n);
+    }).sort(function(a, b) {
+        return (a > b) ? 1 : ((a < b) ? -1 : 0);
+    });
+}
