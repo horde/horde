@@ -17,7 +17,7 @@ $code['conf'] = array(
         'exception' => (string)Horde_Themes::img('exception-fff.png'),
     ),
     'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
-    //'prefs_url' => (string)Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)->add('ajaxui', 1),
+    'prefs_url' => (string)Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)->add('ajaxui', 1),
     'name' => $registry->get('name'),
     'has_tasks' => $has_tasks,
     'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT),
@@ -153,41 +153,37 @@ foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
 /* Gettext strings used in core javascript files. */
 $code['text'] = array(
     'ajax_error' => _("Error when communicating with the server."),
-    //'alarm' => _("Alarm:"),
-    //'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
-    //'agenda' => _("Agenda"),
     'allday' => _("All day"),
-    //'more' => _("more..."),
-    //'prefs' => _("Preferences"),
-    //'shared' => _("Shared"),
-    //'fix_form_values' => _("Please enter correct values in the form first."),
     'noevents' => _("No events to display"),
     'yesterday' => _("Yesterday"),
     'today' => _("Today"),
     'tomorrow' => _("Tomorrow")
 );
-for ($i = 1; $i <= 12; ++$i) {
-    $code['text']['month'][$i - 1] = Horde_Nls::getLangInfo(constant('MON_' . $i));
+
+/* Map day masks to localized day names for recursion */
+$masks = array(
+    Horde_Date::MASK_SUNDAY => Horde_Nls::getLangInfo(DAY_1),
+    Horde_Date::MASK_MONDAY => Horde_Nls::getLangInfo(DAY_2),
+    Horde_Date::MASK_TUESDAY => Horde_Nls::getLangInfo(DAY_3),
+    Horde_Date::MASK_WEDNESDAY => Horde_Nls::getLangInfo(DAY_4),
+    Horde_Date::MASK_THURSDAY => Horde_Nls::getLangInfo(DAY_5),
+    Horde_Date::MASK_FRIDAY => Horde_Nls::getLangInfo(DAY_6),
+    Horde_Date::MASK_SATURDAY => Horde_Nls::getLangInfo(DAY_7));
+foreach ($masks as $i => $text) {
+    $code['text']['weekday'][$i] = $text;
 }
-for ($i = 1; $i <= 7; ++$i) {
-    $code['text']['weekday'][$i] = Horde_Nls::getLangInfo(constant('DAY_' . $i));
-}
-//foreach (array(Horde_Date_Recurrence::RECUR_DAILY,
-//               Horde_Date_Recurrence::RECUR_WEEKLY,
-//               Horde_Date_Recurrence::RECUR_MONTHLY_DATE,
-//               Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY,
-//               Horde_Date_Recurrence::RECUR_YEARLY_DATE,
-//               Horde_Date_Recurrence::RECUR_YEARLY_DAY,
-//               Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) as $recurType) {
-//    $code['text']['recur'][$recurType] = Kronolith::recurToString($recurType);
-//}
+
 $code['text']['recur']['desc'] = array(
     Horde_Date_Recurrence::RECUR_WEEKLY => array(sprintf(_("Recurs weekly on every %s"), "#{weekday}"),
                                                  sprintf(_("Recurs every %s weeks on %s"), "#{interval}", "#{weekday}")),
     Horde_Date_Recurrence::RECUR_MONTHLY_DATE => array(sprintf(_("Recurs on the %s of every month"), "#{date}"),
                                                        sprintf(_("Recurs every %s months on the %s"), "#{interval}", "#{date}")),
     Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => array(_("Recurs every month on the same weekday"),
-                                                       sprintf(_("Recurs every %s months on the same weekday"), "#{interval}"))
+                                                       sprintf(_("Recurs every %s months on the same weekday"), "#{interval}")),
+    Horde_Date_Recurrence::RECUR_YEARLY_DATE => array(sprintf(_("Recurs once a year, on %s"), '#{date}'),
+                                                      sprintf(_("Recurs every %s years on %s"), '#{interval}', '#{date}')),
+    Horde_Date_Recurrence::RECUR_YEARLY_DAY => array(_("Recurs once a year, on the same day"),
+                                                      sprintf(_("Recurs every %s years on the same day"), '#{interval}'))
 );
 $code['text']['recur']['exception'] = _("Exception");
 
