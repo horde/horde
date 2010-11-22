@@ -2,7 +2,8 @@
 #
 # Script to compare revisions and ignore files that should be different, and
 # differences in revision numbers.
-# Syntax: ./compare_revisions.sh FIRST_FOLDER SECOND_FOLDER ['ADDITIONAL PARAMETERS']
+#
+# Syntax: ./horde-rev-cmp.sh FIRST_FOLDER SECOND_FOLDER ['ADDITIONAL PARAMETERS']
 
 FIRST=$1
 SECOND=$2
