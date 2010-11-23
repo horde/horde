@@ -16,6 +16,13 @@
 class Horde_Themes_Css
 {
     /**
+     * The theme cache ID.
+     *
+     * @var string
+     */
+    protected $_cacheid;
+
+    /**
      * A list of additional stylesheet files to add to the output.
      *
      * @var array
@@ -54,7 +61,7 @@ class Horde_Themes_Css
      * Generate the stylesheet URLs needed to display the current page.
      * Honors configuration choices as to stylesheet caching.
      *
-     * @param array $options  Additional options:
+     * @param array $opts  Additional options:
      * <pre>
      * 'nohorde' - (boolean) If true, don't load files from Horde.
      * 'sub' - (string) A subdirectory containing additional CSS files to
@@ -67,14 +74,17 @@ class Horde_Themes_Css
      *
      * @return array  The list of URLs to display.
      */
-    public function getStylesheetUrls($options = array())
+    public function getStylesheetUrls(array $opts = array())
     {
         global $conf, $injector, $prefs, $registry;
 
         $themesfs = $registry->get('themesfs');
         $themesuri = $registry->get('themesuri');
 
-        $css = $this->getStylesheets(isset($options['theme']) ? $options['theme'] : $prefs->getValue('theme'), $options);
+        $theme = isset($opts['theme'])
+            ? $opts['theme']
+            : $prefs->getValue('theme');
+        $css = $this->getStylesheets($theme, $opts);
 
         $cache_type = empty($conf['cachecss'])
             ? 'none'
@@ -88,14 +98,8 @@ class Horde_Themes_Css
             return $css_out;
         }
 
-        $mtime = array(0);
         $out = '';
-
-        foreach ($css as $file) {
-            $mtime[] = filemtime($file['fs']);
-        }
-
-        $sig = hash('md5', serialize($css) . max($mtime));
+        $sig = hash('md5', serialize($css) . $this->_cacheid);
 
         switch ($cache_type) {
         case 'filesystem':
@@ -188,6 +192,7 @@ class Horde_Themes_Css
             : $opts['sub'];
 
         $build = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($curr_app, $theme);
+        $this->_cacheid = $build->getCacheId();
 
         foreach ($css_list as $css_name) {
             if (empty($opts['subonly'])) {

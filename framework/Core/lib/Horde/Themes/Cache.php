@@ -36,6 +36,13 @@ class Horde_Themes_Cache implements Serializable
     protected $_app;
 
     /**
+     * The cache ID.
+     *
+     * @var string
+     */
+    protected $_cacheid;
+
+    /**
      * Theme data.
      *
      * @var array
@@ -209,20 +216,26 @@ class Horde_Themes_Cache implements Serializable
 
     /**
      */
-    protected function _getExpireId()
+    public function getCacheId()
     {
-        switch ($GLOBALS['config']['themescacheparams']['check']) {
-        case 'appversion':
-        default:
-            $id = array($GLOBALS['registry']->getVersion($this->_app));
-            if ($this->_app != 'horde') {
-                $id[] = $GLOBALS['registry']->getVersion('horde');
-            }
-            return 'v:' . implode('|', $id);
+        if (!isset($this->_cacheid)) {
+            switch ($GLOBALS['config']['themescacheparams']['check']) {
+            case 'appversion':
+            default:
+                $id = array($GLOBALS['registry']->getVersion($this->_app));
+                if ($this->_app != 'horde') {
+                    $id[] = $GLOBALS['registry']->getVersion('horde');
+                }
+                $this->_cacheid = 'v:' . implode('|', $id);
+                break;
 
-        case 'none':
-            return '';
+            case 'none':
+                $this->_cacheid = '';
+                break;
+            }
         }
+
+        return $this->_cacheid;
     }
 
     /* Serializable methods. */
@@ -232,7 +245,7 @@ class Horde_Themes_Cache implements Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->_getExpireId(),
+            $this->getCacheId(),
             $this->_app,
             $this->_data,
             $this->_theme
@@ -250,7 +263,7 @@ class Horde_Themes_Cache implements Serializable
             $this->_theme
         ) = unserialize($data);
 
-        if ($expire_id && ($expire_id != $this->_getExpireId())) {
+        if ($expire_id && ($expire_id != $this->getCacheId())) {
             throw new Exception('Cache invalidated');
         }
     }
