@@ -1,6 +1,7 @@
 <?php
 /**
- * This class is responsible for parsing/building a theme.
+ * This class is responsible for parsing/building theme elements and then
+ * caching these results.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
-class Horde_Themes_Build implements Serializable
+class Horde_Themes_Cache implements Serializable
 {
     /* Constants */
     const HORDE_DEFAULT = 1;

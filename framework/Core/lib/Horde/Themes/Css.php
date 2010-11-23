@@ -182,12 +182,12 @@ class Horde_Themes_Css
             : $opts['app'];
         $mask = empty($opts['nohorde'])
             ? 0
-            : Horde_Themes_Build::APP_DEFAULT | Horde_Themes_Build::APP_THEME;
+            : Horde_Themes_Cache::APP_DEFAULT | Horde_Themes_Cache::APP_THEME;
         $sub = empty($opts['sub'])
             ? null
             : $opts['sub'];
 
-        $build = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesBuild')->create($curr_app, $theme);
+        $build = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($curr_app, $theme);
 
         foreach ($css_list as $css_name) {
             if (empty($opts['subonly'])) {

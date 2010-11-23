@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Themes_Build:: factory.
+ * A Horde_Injector:: based Horde_Themes_Cache:: factory.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * A Horde_Injector:: based Horde_Themes_Build:: factory.
+ * A Horde_Injector:: based Horde_Themes_Cache:: factory.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_ThemesBuild
+class Horde_Core_Factory_ThemesCache
 {
     /**
      * The list of cache IDs mapped to instance IDs.
@@ -59,12 +59,12 @@ class Horde_Core_Factory_ThemesBuild
     }
 
     /**
-     * Return the Horde_Themes_Build:: instance.
+     * Return the Horde_Themes_Cache:: instance.
      *
      * @param string $app    The application name.
      * @param string $theme  The theme name.
      *
-     * @return Horde_Themes_Build  The singleton instance.
+     * @return Horde_Themes_Cache  The singleton instance.
      */
     public function create($app, $theme)
     {
@@ -79,7 +79,7 @@ class Horde_Core_Factory_ThemesBuild
         }
 
         if (!$cache || ($cache instanceof Horde_Cache_Null)) {
-            $instance = new Horde_Themes_Build($app, $theme);
+            $instance = new Horde_Themes_Cache($app, $theme);
         } else {
             $id = $sig . '|' . $GLOBALS['registry']->getVersion($app);
             if ($app != 'horde') {
@@ -94,8 +94,8 @@ class Horde_Core_Factory_ThemesBuild
                 $instance = null;
             }
 
-            if (!($instance instanceof Horde_Themes_Build)) {
-                $instance = new Horde_Themes_Build($app, $theme);
+            if (!($instance instanceof Horde_Themes_Cache)) {
+                $instance = new Horde_Themes_Cache($app, $theme);
                 $instance->build();
 
                 if (empty($this->_cacheids)) {
