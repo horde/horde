@@ -72,7 +72,7 @@ class Horde_Core_Factory_ThemesCache
                 $instance = new Horde_Themes_Cache($app, $theme);
             } else {
                 try {
-                    $instance = @unserialize($cache->get($sig, 86400));
+                    $instance = @unserialize($cache->get($sig, $GLOBALS['conf']['cachethemesparams']['lifetime']));
                 } catch (Exception $e) {
                     $instance = null;
                 }
@@ -102,7 +102,7 @@ class Horde_Core_Factory_ThemesCache
 
         foreach ($this->_instances as $key => $val) {
             if ($val->changed) {
-                $cache->set($key, serialize($val), 86400);
+                $cache->set($key, serialize($val), $GLOBALS['conf']['cachethemesparams']['lifetime']);
             }
         }
     }

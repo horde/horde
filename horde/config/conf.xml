@@ -1084,7 +1084,7 @@
        directory on the web frontend.
        </configdescription>
       </case>
-      <case name="horde_cache" desc="Horde_Cache">
+      <case name="horde_cache" desc="Horde Cache">
        <configdescription>
         &lt;strong&gt;Requires a configured Horde caching
         backend.&lt;/strong&gt;
@@ -1126,7 +1126,7 @@
        directory on the web frontend.
        </configdescription>
       </case>
-      <case name="horde_cache" desc="Horde_Cache">
+      <case name="horde_cache" desc="Horde Cache">
        <configdescription>
         &lt;strong&gt;Requires a configured Horde caching
         backend.&lt;/strong&gt;
@@ -1166,12 +1166,15 @@
    is HIGHLY RECOMMENDED. &lt;strong&gt;Requires a configured Horde caching
    backend.&lt;/strong&gt;
   </configdescription>
-  <configenum name="cachethemes" desc="Cache themes?">false
-   <values>
-    <value desc="No">false</value>
-    <value desc="Yes">true</value>
-   </values>
-  </configenum>
+  <configswitch name="cachethemes" desc="Cache themes?">false
+   <case name="false" desc="No" />
+   <case name="true" desc="Yes">
+    <configsection name="cachethemesparams">
+     <configinteger name="lifetime" desc="Lifetime of the cached files, in
+     seconds.">604800</configinteger>
+    </configsection>
+   </case>
+  </configswitch>
  </configtab>
 
  <configtab name="lock" desc="Lock System">
