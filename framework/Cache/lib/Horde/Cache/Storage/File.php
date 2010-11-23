@@ -74,7 +74,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         $filename = $this->_dir . '/' . self::GC_FILE;
         $excepts = array();
 
-        if (file_exists($filename)) {
+        if (is_readable($filename)) {
             $gc_file = file($filename, FILE_IGNORE_NEW_LINES);
             reset($gc_file);
             next($gc_file);
@@ -110,11 +110,12 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
             }
         }
 
-        $fp = fopen($filename, 'w');
-        foreach ($excepts as $key => $val) {
-            fwrite($fp, $key . "\t" . $val . "\n");
+        if ($fp = @fopen($filename, 'w')) {
+            foreach ($excepts as $key => $val) {
+                fwrite($fp, $key . "\t" . $val . "\n");
+            }
+            fclose($fp);
         }
-        fclose($fp);
     }
 
     /**
