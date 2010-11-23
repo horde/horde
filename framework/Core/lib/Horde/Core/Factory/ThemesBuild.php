@@ -74,8 +74,11 @@ class Horde_Core_Factory_ThemesBuild
             return $this->_instances[$sig];
         }
 
-        $cache = $this->_injector->getInstance('Horde_Cache');
-        if ($cache instanceof Horde_Cache_Null) {
+        if (!empty($GLOBALS['conf']['cachethemes'])) {
+            $cache = $this->_injector->getInstance('Horde_Cache');
+        }
+
+        if (!$cache || ($cache instanceof Horde_Cache_Null)) {
             $instance = new Horde_Themes_Build($app, $theme);
         } else {
             $id = $sig . '|' . $GLOBALS['registry']->getVersion($app);

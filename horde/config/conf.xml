@@ -1158,6 +1158,20 @@
     </configsection>
    </case>
   </configswitch>
+
+  <configheader>Theme Caching</configheader>
+  <configdescription>
+   Theme caching optimizes display of themed elements. Caching reduces
+   server load (specifically by dramatically reducing filesystem access), and
+   is HIGHLY RECOMMENDED. &lt;strong&gt;Requires a configured Horde caching
+   backend.&lt;/strong&gt;
+  </configdescription>
+  <configenum name="cachethemes" desc="Cache themes?">false
+   <values>
+    <value desc="No">false</value>
+    <value desc="Yes">true</value>
+   </values>
+  </configenum>
  </configtab>
 
  <configtab name="lock" desc="Lock System">
