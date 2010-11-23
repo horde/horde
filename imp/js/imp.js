@@ -90,24 +90,28 @@ document.observe('dom:loaded', function() {
 
     IMP.iframeResize = function(id)
     {
-        var lc;
-
         if (id = $(id)) {
-            lc = id.contentWindow.document.lastChild;
-            id.setStyle({ height: lc.scrollHeight + 'px' });
+            id.setStyle({ height: id.contentWindow.document.lastChild.scrollHeight + 'px' });
 
             // For whatever reason, browsers will report different heights
             // after the initial height setting.
-            // Try expanding IFRAME if we detect a scroll.
-            if (lc.clientHeight != lc.scrollHeight ||
-                id.clientHeight != lc.clientHeight) {
-                id.setStyle({ height: lc.scrollHeight + 'px' });
-                if (lc.clientHeight != lc.scrollHeight) {
-                    // Finally, brute force if it still isn't working.
-                    id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
-                }
+            this.iframeResize2.bind(this, id).defer(0.3);
+        }
+    };
+
+    IMP.iframeResize2 = function(id)
+    {
+        var lc = id.contentWindow.document.lastChild;
+
+        // Try expanding IFRAME if we detect a scroll.
+        if (lc.clientHeight != lc.scrollHeight ||
+            id.clientHeight != lc.clientHeight) {
+            id.setStyle({ height: lc.scrollHeight + 'px' });
+            if (lc.clientHeight != lc.scrollHeight) {
+                // Finally, brute force if it still isn't working.
+                id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
             }
-         }
+        }
     };
 
     IMP.printWindow = function(win)
