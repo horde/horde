@@ -66,7 +66,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
      */
     public function description()
     {
-        return $this->_share->get('description');
+        return $this->_share->get('desc');
     }
 
     /**
