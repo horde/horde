@@ -4880,6 +4880,7 @@ KronolithCore = {
         this.knl.kronolithEventStartTime.markSelected();
         this.knl.kronolithEventEndTime.markSelected();
         $('kronolithEventForm').reset();
+        this.resetMap();
         this.attendeesAc.reset();
         this.eventTagAc.reset();
         $('kronolithEventAttendeesList').select('tr').invoke('remove');
