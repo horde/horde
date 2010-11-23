@@ -988,11 +988,11 @@
   <configsection name="cache">
    <configheader>Cache System Settings</configheader>
    <configinteger name="default_lifetime" desc="How long, in seconds, should
-   objects be cached by default?">86400</configinteger>
+   data be cached by default?">86400</configinteger>
    <configswitch name="driver" desc="If you want to enable the Horde Cache,
    select a driver here. This is used to speed up portions of Horde by storing
    commonly processed objects.">file
-    <case name="Null" desc="Don't cache any objects"/>
+    <case name="Null" desc="Don't cache any data"/>
     <case name="Apc" desc="Use the APC cache">
      <configsection name="params">
       <configstring name="prefix" required="false" desc="The prefix to use for
@@ -1013,7 +1013,7 @@
       cache entries."/>
      </configsection>
     </case>
-    <case name="File" desc="Store objects in filesystem">
+    <case name="File" desc="Store data in filesystem">
      <configsection name="params">
       <configstring name="dir" required="false" desc="The location to store the
       cached files"/>
@@ -1062,9 +1062,56 @@
    </configswitch>
   </configsection>
 
+  <configheader>CSS Caching</configheader>
+  <configdescription>
+   CSS caching packages all stylesheets used in a page into a single file
+   sent to the browser. It also allows compression and optimization of this
+   file to reduce the data size. Caching reduces server load, speeds up the
+   user's browsing experience, and is HIGHLY RECOMMENDED.
+  </configdescription>
+  <configswitch name="cachecss" desc="Cache CSS?">false
+   <case name="false" desc="No" />
+   <case name="true" desc="Yes">
+    <configsection name="cachecssparams">
+     <configswitch name="driver" desc="How should we store the cached data?">
+      <case name="filesystem" desc="Filesystem (recommended)">
+       <configdescription>
+       For filesystem caching to work, the "static" directory in the horde
+       base must be writable by the user the web server is running as. If
+       running Horde in a cluster (or behind a single web frontend), to use
+       filesystem caching it is best to have every PHP backend server have
+       access to a shared drive that is visible and mounted to the "static"
+       directory on the web frontend.
+       </configdescription>
+      </case>
+      <case name="horde_cache" desc="Horde_Cache">
+       <configdescription>
+        &lt;strong&gt;Requires a configured Horde caching
+        backend.&lt;/strong&gt;
+       </configdescription>
+      </case>
+     </configswitch>
+     <configinteger name="lifetime" desc="Lifetime of the cached files, in
+     seconds.">86400</configinteger>
+     <configswitch name="compress" desc="How should we compress the static
+     cached files?">php
+      <case name="none" desc="No compression" />
+      <case name="php" desc="Built-in compressor (Good compression, good
+      speed)" />
+     </configswitch>
+    </configsection>
+   </case>
+  </configswitch>
+
   <configheader>Javascript Caching</configheader>
-  <configswitch name="cachejs" desc="Cache static javascript and combine into
-  a single page for delivery to the browser?">false
+  <configdescription>
+   Javascript caching packages all static javascript files used in a page into
+   more efficient chunks to send to the browser. It also allows compression
+   and optimizations of this file to reduce the data size. Caching reduces
+   server load, speeds up the user's browsing experience, and is HIGHLY
+   RECOMMENDED.
+  </configdescription>
+  <configswitch name="cachejs" desc="Cache javascript?">false
    <case name="false" desc="No" />
    <case name="true" desc="Yes">
     <configsection name="cachejsparams">
@@ -1081,15 +1128,13 @@
       </case>
       <case name="horde_cache" desc="Horde_Cache">
        <configdescription>
-        &lt;strong&gt;Requires a configured Horde_Cache backend.&lt;/strong&gt;
+        &lt;strong&gt;Requires a configured Horde caching
+        backend.&lt;/strong&gt;
        </configdescription>
       </case>
      </configswitch>
-     <configinteger name="lifetime" desc="Lifetime, in seconds, after which
-     the garbage collector will remove static javascript
-     files.">86400</configinteger>
-     <configswitch name="compress" desc="How should we compress the static
-     cached files?">php
+     <configswitch name="compress" desc="How should we compress the cached
+     files?">php
       <case name="none" desc="No compression" />
       <case name="php" desc="Built-in compressor (Medium compression, good
       speed)" />
@@ -1108,41 +1153,8 @@
        .jar file"></configstring>
       </case>
      </configswitch>
-    </configsection>
-   </case>
-  </configswitch>
-
-  <configheader>CSS Caching</configheader>
-  <configswitch name="cachecss" desc="Cache static CSS and combine into
-  a single page for delivery to the remote browser?">false
-   <case name="false" desc="No" />
-   <case name="true" desc="Yes">
-    <configsection name="cachecssparams">
-     <configswitch name="driver" desc="How should we store the cached data?">
-      <case name="filesystem" desc="Filesystem (recommended)">
-       <configdescription>
-       For filesystem caching to work, the "static" directory in the horde
-       base must be writable by the user the web server is running as. If
-       running Horde in a cluster (or behind a single web frontend), to use
-       filesystem caching it is best to have every PHP backend server have
-       access to a shared drive that is visible and mounted to the "static"
-       directory on the web frontend.
-       </configdescription>
-      </case>
-      <case name="horde_cache" desc="Horde_Cache">
-       <configdescription>
-        &lt;strong&gt;Requires a configured Horde_Cache backend.&lt;/strong&gt;
-       </configdescription>
-      </case>
-     </configswitch>
-     <configinteger name="lifetime" desc="Lifetime, in seconds, after which
-     the garbage collector will remove static CSS files.">86400</configinteger>
-     <configswitch name="compress" desc="How should we compress the static
-     cached files?">php
-      <case name="none" desc="No compression" />
-      <case name="php" desc="Built-in compressor (Good compression, good
-      speed)" />
-     </configswitch>
+     <configinteger name="lifetime" desc="Lifetime of the cached files, in
+     seconds.">86400</configinteger>
     </configsection>
    </case>
   </configswitch>
