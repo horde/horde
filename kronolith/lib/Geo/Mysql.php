@@ -50,11 +50,12 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 
         /* INSERT or UPDATE */
         if ($count) {
-            $sql = sprintf('UPDATE kronolith_events_geo SET event_coordinates = GeomFromText(\'POINT(%F %F)\'), event_zoom = ? WHERE event_id = ?', $point['lat'], $point['lon']);
+            $sql = 'UPDATE kronolith_events_geo SET event_coordinates = GeomFromText(\'POINT(%F %F)\'), event_zoom = ? WHERE event_id = ?';
         } else {
-            $sql = sprintf('INSERT into kronolith_events_geo (event_id, event_coordinates, event_zoom) VALUES(?, GeomFromText(\'POINT(%F %F)\'), ?)', $point['lat'], $point['lon']);
+            $sql = 'INSERT into kronolith_events_geo (event_coordinates, event_zoom, event_id) VALUES(GeomFromText(\'POINT(%F %F)\'), ?, ?)';
         }
-        $values = array($event_id, $point['zoom']);
+        $sql = sprintf($sql, $point['lat'], $point['lon']);
+        $values = array($point['zoom'], $event_id);
         Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
                                   $GLOBALS['registry']->getAuth(), $sql, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($sql, $values);
