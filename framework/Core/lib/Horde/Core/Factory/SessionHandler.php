@@ -98,32 +98,58 @@ class Horde_Core_Factory_SessionHandler
      */
     public function readSessionData($session_data)
     {
-        if (empty($session_data) ||
-            (($pos = strpos($session_data, 'horde_auth|')) === false)) {
+        if (empty($session_data)) {
             return false;
         }
 
-        $pos += 11;
-        $endpos = $pos + 1;
+        /* Need to do some session magic.  Store old session, clear it out,
+         * and use PHP's session_decode() to decode the incoming data.  Then
+         * search for the needed auth entries and swap the old session data
+         * back. */
+        $old_sess = $_SESSION;
+        $_SESSION = array();
 
-        while ($endpos !== false) {
-            $endpos = strpos($session_data, '|', $endpos);
-            $data = @unserialize(substr($session_data, $pos, $endpos));
-            if (is_array($data)) {
-                return empty($data)
-                    ? false
-                    : array(
-                        'apps' => empty($data['app']) ? array('horde') : array_keys($data['app']),
-                        'browser' => $data['browser'],
-                        'remoteAddr' => $data['remoteAddr'],
-                        'timestamp' => $data['timestamp'],
-                        'userid' => $data['userId']
-                    );
-            }
-            ++$endpos;
+        if (session_id()) {
+            $new_sess = false;
+        } else {
+            $stub = new Horde_Support_Stub();
+
+            session_set_save_handler(
+                array($stub, 'open'),
+                array($stub, 'close'),
+                array($stub, 'read'),
+                array($stub, 'write'),
+                array($stub, 'destroy'),
+                array($stub, 'gc')
+            );
+
+            ob_start();
+            session_start();
+            ob_end_clean();
+
+            $new_sess = true;
         }
 
-        return false;
+        session_decode($session_data);
+
+        $data = $GLOBALS['session']->get('horde', 'auth/');
+        $apps = $GLOBALS['session']->get('horde', 'auth_app/');
+
+        if ($new_sess) {
+            session_destroy();
+        }
+
+        $_SESSION = $old_sess;
+
+        return isset($data['userId'])
+            ? array(
+                'apps' => array_keys($apps),
+                'browser' => $data['browser'],
+                'remoteAddr' => $data['remoteAddr'],
+                'timestamp' => $data['timestamp'],
+                'userid' => $data['userId']
+            )
+            : false;
     }
 
 }
