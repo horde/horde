@@ -1,0 +1,63 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script manages themes.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ */
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
+
+$c = new Console_Getopt();
+$argv = $c->readPHPArgv();
+array_shift($argv);
+$options = $c->getopt2($argv, '', array('expirecache'));
+if (PEAR::isError($options)) {
+    $cli->writeln($cli->red("ERROR: Invalid arguments."));
+    $cli->writeln();
+    _usage();
+}
+
+foreach ($options[0] as $val) {
+    switch ($val[0]) {
+    case '--expirecache':
+        if ($cli->prompt($cli->red('Are you sure you want to expire all cached themes?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+            $tcache = $injector->getInstance('Horde_Core_Factory_ThemesCache');
+            $tlist = array_keys(Horde_Themes::themeList());
+
+            foreach ($registry->listAllApps() as $app) {
+                foreach ($tlist as $theme) {
+                    if ($tcache->expireCache($app, $theme)) {
+                        $cli->message('Cache entry expired [APP: ' . $app . '; THEME: ' . $theme . ']');
+                    }
+                }
+            }
+        }
+        exit;
+    }
+}
+
+_usage();
+
+
+function _usage()
+{
+    global $cli;
+
+    $cli->writeln($cli->bold('Usage: themes.php [--expirecache]'));
+    $cli->writeln();
+    $cli->writeln($cli->indent('--expirecache   Expire all cache entries'));
+
+    exit;
+}
