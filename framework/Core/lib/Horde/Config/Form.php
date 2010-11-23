@@ -112,11 +112,7 @@ class Horde_Config_Form extends Horde_Form
                 $required = (isset($configitem['required'])) ? $configitem['required'] : true;
                 $type = $configitem['_type'];
 
-                // FIXME: multienum fields can well be required, meaning that
-                // you need to select at least one entry. Changing this before
-                // Horde 4.0 would break a lot of configuration files though.
-                if ($type == 'multienum' || $type == 'header' ||
-                    $type == 'description') {
+                if (($type == 'header') || ($type == 'description')) {
                     $required = false;
                 }
 
