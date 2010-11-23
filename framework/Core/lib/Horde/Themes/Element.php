@@ -121,12 +121,12 @@ class Horde_Themes_Element
                 'uri' => $registry->get('themesuri', $this->app) . '/' . $theme . '/' . $this->_dirname
             );
         } else {
-            $build = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($this->app, $theme);
+            $cache = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($this->app, $theme);
             $mask = empty($this->_opts['nohorde'])
                 ? 0
                 : Horde_Themes_Cache::APP_DEFAULT | Horde_Themes_Cache::APP_THEME;
 
-            $this->_data = $build->get($this->_dirname . '/' . $this->_name, $mask);
+            $this->_data = $cache->get($this->_dirname . '/' . $this->_name, $mask);
         }
 
         return $this->_data[$name];

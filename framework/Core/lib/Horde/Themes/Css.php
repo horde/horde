@@ -191,16 +191,16 @@ class Horde_Themes_Css
             ? null
             : $opts['sub'];
 
-        $build = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($curr_app, $theme);
-        $this->_cacheid = $build->getCacheId();
+        $cache = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($curr_app, $theme);
+        $this->_cacheid = $cache->getCacheId();
 
         foreach ($css_list as $css_name) {
             if (empty($opts['subonly'])) {
-                $css_out = array_merge($css_out, array_reverse($build->getAll($css_name, $mask)));
+                $css_out = array_merge($css_out, array_reverse($cache->getAll($css_name, $mask)));
             }
 
             if ($sub) {
-                $css_out = array_merge($css_out, array_reverse($build->getAll($sub . '/' . $css_name, $mask)));
+                $css_out = array_merge($css_out, array_reverse($cache->getAll($sub . '/' . $css_name, $mask)));
             }
         }
 
