@@ -110,52 +110,34 @@ class Horde_Themes_Element
                 : null;
         }
 
-        $this->_data = null;
-
-        $app_list = array($this->app);
-        if (($this->app != 'horde') && empty($this->_opts['nohorde'])) {
-            $app_list[] = 'horde';
-        }
-        $path = '/' . $this->_dirname . (is_null($this->_name) ? '' : '/' . $this->_name);
-
-        /* Check themes first. */
         $theme = array_key_exists('theme', $this->_opts)
             ? $this->_opts['theme']
             : $prefs->getValue('theme');
 
-        foreach (array_unique(array($theme, 'default')) as $theme) {
-            $tpath = '/' . $theme . $path;
+        if (is_null($this->_name)) {
+            /* Return directory only. */
+            $this->_data = array(
+                'fs' => $registry->get('themesfs', $this->app) . '/' . $theme . '/' . $this->_dirname,
+                'uri' => $registry->get('themesuri', $this->app) . '/' . $theme . '/' . $this->_dirname
+            );
+        } else {
+            $build = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesBuild')->create($this->app, $theme);
+            $mask = empty($this->_opts['nohorde'])
+                ? 0
+                : Horde_Themes_Build::APP_DEFAULT | Horde_Themes_Build::APP_THEME;
 
-            if (is_null($this->_name)) {
-                $this->_data = array(
-                    'fs' => $registry->get('themesfs', $this->app) . $tpath,
-                    'uri' => $registry->get('themesuri', $this->app) . $tpath
-                );
-            } else {
-                foreach ($app_list as $app) {
-                    $filepath = $registry->get('themesfs', $app) . $tpath;
-                    if (file_exists($filepath)) {
-                        $this->_data = array(
-                            'fs' => $filepath,
-                            'uri' => $registry->get('themesuri', $app) . $tpath
-                        );
-                        break 2;
-                    }
-                }
-             }
+            $this->_data = $build->get($this->_dirname . '/' . $this->_name, $mask);
         }
 
-        return isset($this->_data[$name])
-            ? $this->_data[$name]
-            : null;
+        return $this->_data[$name];
     }
 
     /**
-     * Convert a URI into a Horde_Themes_Image object.
+     * Convert a URI into a Horde_Themes_Element object.
      *
      * @param string $uri  The URI to convert.
      *
-     * @return Horde_Themes_Image  An image object.
+     * @return Horde_Themes_Element  A theme element object.
      */
     static public function fromUri($uri)
     {

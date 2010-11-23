@@ -83,7 +83,7 @@ class Horde_Themes_Css
         if ($cache_type == 'none') {
             $css_out = array();
             foreach ($css as $file) {
-                $css_out[] = $file['u'];
+                $css_out[] = $file['uri'];
             }
             return $css_out;
         }
@@ -92,7 +92,7 @@ class Horde_Themes_Css
         $out = '';
 
         foreach ($css as $file) {
-            $mtime[] = filemtime($file['f']);
+            $mtime[] = filemtime($file['fs']);
         }
 
         $sig = hash('md5', serialize($css) . max($mtime));
@@ -158,7 +158,11 @@ class Horde_Themes_Css
      * 'themeonly' - (boolean) If true, only load the theme files.
      * </pre>
      *
-     * @return array  TODO
+     * @return array  An array of 2-element array arrays containing 2 keys:
+     * <pre>
+     * fs - (string) Filesystem location of stylesheet.
+     * uri - (string) URI of stylesheet.
+     * </pre>
      */
     public function getStylesheets($theme = '', array $opts = array())
     {
@@ -166,7 +170,7 @@ class Horde_Themes_Css
             $theme = $GLOBALS['prefs']->getValue('theme');
         }
 
-        $css = array();
+        $add_css = $css_out = array();
         $css_list = empty($opts['nobase'])
             ? $this->getBaseStylesheetList()
             : array();
@@ -176,50 +180,48 @@ class Horde_Themes_Css
         $curr_app = empty($opts['app'])
             ? $GLOBALS['registry']->getApp()
             : $opts['app'];
-        if (empty($opts['nohorde'])) {
-            $apps = array_unique(array('horde', $curr_app));
-        } else {
-            $apps = ($curr_app == 'horde') ? array() : array($curr_app);
-        }
+        $mask = empty($opts['nohorde'])
+            ? 0
+            : Horde_Themes_Build::APP_DEFAULT | Horde_Themes_Build::APP_THEME;
         $sub = empty($opts['sub'])
             ? null
             : $opts['sub'];
 
-        foreach ($apps as $app) {
-            $themes_fs = $GLOBALS['registry']->get('themesfs', $app) . '/';
-            $themes_uri = Horde::url($GLOBALS['registry']->get('themesuri', $app), false, -1) . '/';
+        $build = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesBuild')->create($curr_app, $theme);
 
-            foreach (array_filter(array_unique(array('default', $theme))) as $theme_name) {
-                foreach ($css_list as $css_name) {
-                    if (empty($opts['subonly'])) {
-                        $css[$themes_fs . $theme_name . '/' . $css_name] = $themes_uri . $theme_name . '/' . $css_name;
-                    }
+        foreach ($css_list as $css_name) {
+            if (empty($opts['subonly'])) {
+                $css_out = array_merge($css_out, array_reverse($build->getAll($css_name, $mask)));
+            }
 
-                    if ($sub && ($app == $curr_app)) {
-                        $css[$themes_fs . $theme_name . '/' . $sub . '/' . $css_name] = $themes_uri . $theme_name . '/' . $sub . '/' . $css_name;
-                    }
-                }
+            if ($sub) {
+                $css_out = array_merge($css_out, array_reverse($build->getAll($sub . '/' . $css_name, $mask)));
             }
         }
 
         /* Add additional stylesheets added by code. */
-        $css = array_merge($css, $this->_cssFiles);
+        foreach ($this->_cssFiles as $f => $u) {
+            if (file_exists($f)) {
+                $add_css[$f] = $u;
+            }
+        }
 
         /* Add user-defined additional stylesheets. */
         try {
-            $css = array_merge($css, Horde::callHook('cssfiles', array($theme), 'horde'));
+            $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), 'horde'));
         } catch (Horde_Exception_HookNotSet $e) {}
+
         if ($curr_app != 'horde') {
             try {
-                $css = array_merge($css, Horde::callHook('cssfiles', array($theme), $curr_app));
+                $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), $curr_app));
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
-        $css_out = array();
-        foreach ($css as $f => $u) {
-            if (file_exists($f)) {
-                $css_out[] = array('f' => $f, 'u' => $u);
-            }
+        foreach ($add_css as $f => $u) {
+            $css_out[] = array(
+                'fs' => $f,
+                'uri' => $u
+            );
         }
 
         return $css_out;
@@ -282,12 +284,12 @@ class Horde_Themes_Css
         $out = '';
 
         foreach ($files as $file) {
-            $path = substr($file['u'], 0, strrpos($file['u'], '/') + 1);
+            $path = substr($file['uri'], 0, strrpos($file['uri'], '/') + 1);
 
             // Fix relative URLs, convert graphics URLs to data URLs
             // (if possible), remove multiple whitespaces, and strip
             // comments.
-            $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)));
+            $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['fs'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)));
             if ($dataurl) {
                 $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_stylesheetCallback'), $tmp);
             }

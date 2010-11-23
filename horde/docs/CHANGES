@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[mms] Add theme caching.
 [mms] Add hook to allow browser capabilities to be modified.
 [jan] Add a configuration switch for automatic creation of default shares.
 [cjh] Move from Net_DNS to Net_DNS2.
