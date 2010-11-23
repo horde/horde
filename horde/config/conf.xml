@@ -1170,6 +1170,21 @@
    <case name="false" desc="No" />
    <case name="true" desc="Yes">
     <configsection name="cachethemesparams">
+     <configswitch name="check" desc="The method to use to check for updated
+     theme information.">appversion
+      <case name="appversion" desc="Application versions">
+       <configdescription>
+        The theme cache will be updated only when a new Horde version is
+        installed. This is the RECOMMENDED setting for most installations.
+       </configdescription>
+      </case>
+      <case name="none" desc="None">
+       <configdescription>
+        The theme cache is never checked for consistency. Once created, it
+        will be used until the cache entry expires.
+       </configdescription>
+      </case>
+     </configswitch>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
      seconds.">604800</configinteger>
     </configsection>
