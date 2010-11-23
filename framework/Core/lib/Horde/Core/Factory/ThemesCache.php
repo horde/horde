@@ -28,13 +28,6 @@
 class Horde_Core_Factory_ThemesCache
 {
     /**
-     * The list of cache IDs mapped to instance IDs.
-     *
-     * @var array
-     */
-    private $_cacheids = array();
-
-    /**
      * The injector.
      *
      * @var Horde_Injector
@@ -70,43 +63,32 @@ class Horde_Core_Factory_ThemesCache
     {
         $sig = implode('|', array($app, $theme));
 
-        if (isset($this->_instances[$sig])) {
-            return $this->_instances[$sig];
-        }
-
-        if (!empty($GLOBALS['conf']['cachethemes'])) {
-            $cache = $this->_injector->getInstance('Horde_Cache');
-        }
-
-        if (!$cache || ($cache instanceof Horde_Cache_Null)) {
-            $instance = new Horde_Themes_Cache($app, $theme);
-        } else {
-            $id = $sig . '|' . $GLOBALS['registry']->getVersion($app);
-            if ($app != 'horde') {
-                $id .= '|' . $GLOBALS['registry']->getVersion('horde');
+        if (!isset($this->_instances[$sig])) {
+            if (!empty($GLOBALS['conf']['cachethemes'])) {
+                $cache = $this->_injector->getInstance('Horde_Cache');
             }
 
-            $cache_sig = hash('md5', $id);
-
-            try {
-                $instance = @unserialize($cache->get($cache_sig, 86400));
-            } catch (Exception $e) {
-                $instance = null;
-            }
-
-            if (!($instance instanceof Horde_Themes_Cache)) {
+            if (!$cache || ($cache instanceof Horde_Cache_Null)) {
                 $instance = new Horde_Themes_Cache($app, $theme);
-                $instance->build();
+            } else {
+                try {
+                    $instance = @unserialize($cache->get($sig, 86400));
+                } catch (Exception $e) {
+                    $instance = null;
+                }
 
-                if (empty($this->_cacheids)) {
+                if (!($instance instanceof Horde_Themes_Cache)) {
+                    $instance = new Horde_Themes_Cache($app, $theme);
+                    $instance->build();
+                }
+
+                if (empty($this->_instances)) {
                     register_shutdown_function(array($this, 'shutdown'));
                 }
             }
 
-            $this->_cacheids[$sig] = $cache_sig;
+            $this->_instances[$sig] = $instance;
         }
-
-        $this->_instances[$sig] = $instance;
 
         return $this->_instances[$sig];
     }
@@ -120,7 +102,7 @@ class Horde_Core_Factory_ThemesCache
 
         foreach ($this->_instances as $key => $val) {
             if ($val->changed) {
-                $cache->set($this->_cacheids[$key], serialize($val), 86400);
+                $cache->set($key, serialize($val), 86400);
             }
         }
     }

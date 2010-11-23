@@ -207,6 +207,18 @@ class Horde_Themes_Cache implements Serializable
         return $out;
     }
 
+    /**
+     */
+    protected function _getExpireId()
+    {
+        $id = array($GLOBALS['registry']->getVersion($this->_app));
+        if ($this->_app != 'horde') {
+            $id[] = $GLOBALS['registry']->getVersion('horde');
+        }
+
+        return 'v:' . implode('|', $id);
+    }
+
     /* Serializable methods. */
 
     /**
@@ -214,6 +226,7 @@ class Horde_Themes_Cache implements Serializable
     public function serialize()
     {
         return serialize(array(
+            $this->_getExpireId(),
             $this->_app,
             $this->_data,
             $this->_theme
@@ -225,10 +238,15 @@ class Horde_Themes_Cache implements Serializable
     public function unserialize($data)
     {
         list(
+            $expire_id,
             $this->_app,
             $this->_data,
             $this->_theme
         ) = unserialize($data);
+
+        if ($expire_id != $this->_getExpireId()) {
+            throw new Exception('Cache invalidated');
+        }
     }
 
 }
