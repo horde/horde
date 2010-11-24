@@ -47,10 +47,11 @@ class IMP_Injector_Factory_MailboxList
     /**
      * Return the mailbox list instance.
      * For IMP/MIMP, returns an IMP_Mailbox_List_Track object.
-     * For DIMP, returns an IMP_Mailbox_List object.
+     * For DIMP/Mobile, returns an IMP_Mailbox_List object.
      *
      * @param string $mailbox       The mailbox name.
-     * @param IMP_Indices $indices  An indices object.
+     * @param IMP_Indices $indices  An indices object. Only used for 'imp' and
+     *                              'mimp' views.
      *
      * @return IMP_Mailbox_List  The singleton instance.
      * @throws IMP_Exception

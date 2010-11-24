@@ -79,8 +79,6 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
     /**
      * Using the preferences and the current mailbox, determines the messages
      * to view on the current page.
-     *
-     * @see buildMailboxPage()
      */
     public function buildMailboxPage($page = 0, $start = 0, $opts = array())
     {
@@ -127,10 +125,6 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
     }
 
     /**
-     * Determines if a rebuild is needed, and, if necessary, performs
-     * the rebuild.
-     *
-     * @param boolean $force  Force a rebuild?
      */
     protected function _rebuild($force = false)
     {
@@ -142,10 +136,6 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
     }
 
     /**
-     * Returns the current sorted array without the given messages.
-     *
-     * @param mixed $indices  An IMP_Indices object or true to remove all
-     *                        messages in the mailbox.
      */
     public function removeMsgs($indices)
     {
@@ -153,7 +143,11 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
             /* Update the current array index to its new position in the
              * message array. */
             $this->setIndex(0);
+
+            return true;
         }
+
+        return false;
     }
 
 }
