@@ -172,9 +172,7 @@ class IMP_Views_ShowMessage
 
         /* Build the rest of the headers. */
         foreach ($headers_list as $head => $str) {
-            if (!$preview && isset($result[$head])) {
-                $headers[$head] = array('id' => Horde_String::ucfirst($head), 'name' => $str, 'value' => '');
-            } elseif ($val = $mime_headers->getValue($head)) {
+            if ($val = $mime_headers->getValue($head)) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
                     $val = htmlspecialchars($imp_ui->getLocalTime($envelope['date']));
