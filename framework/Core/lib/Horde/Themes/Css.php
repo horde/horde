@@ -54,7 +54,7 @@ class Horde_Themes_Css
      */
     public function addThemeStylesheet($file)
     {
-        $this->_cssThemeFiles[$file] = true;
+        $this->_cssThemeFiles[] = $file;
     }
 
     /**
@@ -63,6 +63,8 @@ class Horde_Themes_Css
      *
      * @param array $opts  Additional options:
      * <pre>
+     * 'app' - (string) The current application.
+     * 'nobase' - (boolean) If true, don't load base stylesheets.
      * 'nohorde' - (boolean) If true, don't load files from Horde.
      * 'sub' - (string) A subdirectory containing additional CSS files to
      *         load as an overlay to the base CSS files.
