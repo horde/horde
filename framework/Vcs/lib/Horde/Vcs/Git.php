@@ -312,5 +312,4 @@ class Horde_Vcs_Git extends Horde_Vcs
     {
         return 'master';
     }
-
 }
