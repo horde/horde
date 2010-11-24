@@ -15,10 +15,17 @@
 class Horde_Themes_Sound extends Horde_Themes_Element
 {
     /**
-     * The default directory name for this element type.
-     *
-     * @var string
      */
     protected $_dirname = 'sounds';
+
+    /**
+     */
+    public function __get($name)
+    {
+        /* Sounds must be in .wav format. */
+        return (substr(strrchr($name, '.'), 1) == 'wav')
+            ? parent::__get($name)
+            : null;
+    }
 
 }
