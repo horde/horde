@@ -96,5 +96,4 @@ class Horde_View_Helper_Date extends Horde_View_Helper_Base
         $tag = new $this->_instanceTag($objectName, $method, $this->_view, $object);
         return $tag->toDateSelectTag($options);
     }
-
 }
