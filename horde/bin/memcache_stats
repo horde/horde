@@ -3,7 +3,8 @@
 /**
  * This script outputs statistics on the current memcache pool.
  *
- * Usage: stats.php [--all] [--flush] [--lookup=key] [--raw] [--summary]
+ * Usage: memcache_stats.php [--all] [--flush] [--lookup=key] [--raw]
+ *                           [--summary]
  *
  * By default, shows statistics for all servers.
  *
@@ -12,14 +13,16 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
-
-/* Make sure there's no compression. */
-@ob_end_clean();
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
 
 $c = new Console_Getopt();
 $argv = $c->readPHPArgv();
