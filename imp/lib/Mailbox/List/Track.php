@@ -17,6 +17,20 @@
 class IMP_Mailbox_List_Track extends IMP_Mailbox_List
 {
     /**
+     * Check the IMAP cache ID?
+     *
+     * @var boolean
+     */
+    public $checkcache = true;
+
+    /**
+     * The IMAP cache ID of the mailbox.
+     *
+     * @var string
+     */
+    protected $_cacheid = null;
+
+    /**
      * The location in the sorted array we are at.
      *
      * @var integer
@@ -28,7 +42,7 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
      *
      * @var array
      */
-    protected $_slist = array('_index');
+    protected $_slist = array('_cacheid', '_index');
 
     /**
      * Returns the current message array index. If the array index has
@@ -121,6 +135,22 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
                     ? $index
                     : null;
             }
+        }
+    }
+
+    /**
+     */
+    protected function _buildMailbox()
+    {
+        $cacheid = $this->getCacheID();
+
+        /* Check cache ID: will catch changes to the mailbox after coming out
+         * of message view mode. */
+        if (!$this->isBuilt() ||
+            ($this->checkcache && ($this->_cacheid != $cacheid))) {
+            $this->_sorted = null;
+            $this->_cacheid = $cacheid;
+            parent::_buildMailbox();
         }
     }
 
