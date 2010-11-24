@@ -246,8 +246,9 @@ class IMP_Imap_Flags
         if (isset($this->_flags[$label]) &&
             $this->_flags[$label]['l'] &&
             !empty($this->_flags[$label]['d'])) {
+            $user_flag = isset($this->_userflags[$label]);
             unset($this->_flags[$label], $this->_userflags[$label]);
-            $this->_save();
+            $this->_save($user_flag);
             return true;
         }
 
