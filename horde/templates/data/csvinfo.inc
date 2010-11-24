@@ -17,10 +17,8 @@
     <?php echo Horde::label('quote', _("What is the quote character?")) ?>
     <input type="text" id="quote" name="quote" size="1" value="<?php echo htmlspecialchars($quote) ?>" /><br />
     <?php endif; ?>
-    <?php if ($fields = $GLOBALS['session']->get('horde', 'import_data/fields')): ?>
     <?php echo Horde::label('fields', _("How many fields (columns) are there?")) ?>
-    <input type="text" id="fields" name="fields" size="2" value="<?php echo (int)$fields ?>" /><br />
-    <?php endif; ?>
+    <input type="text" id="fields" name="fields" size="2" /><br />
 </div>
 <input type="submit" value="<?php echo _("Next") ?>" class="button" />
 </form>
