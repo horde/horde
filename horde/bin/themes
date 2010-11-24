@@ -36,10 +36,16 @@ foreach ($options[0] as $val) {
             $tcache = $injector->getInstance('Horde_Core_Factory_ThemesCache');
             $tlist = array_keys(Horde_Themes::themeList());
 
+            $cli->writeln();
+
             foreach ($registry->listAllApps() as $app) {
                 foreach ($tlist as $theme) {
-                    if ($tcache->expireCache($app, $theme)) {
-                        $cli->message('Cache entry expired [APP: ' . $app . '; THEME: ' . $theme . ']');
+                    try {
+                        if ($tcache->expireCache($app, $theme)) {
+                            $cli->message('Cache entry expired [APP: ' . $app . '; THEME: ' . $theme . ']');
+                        }
+                    } catch (Horde_Exception $e) {
+                        $cli->message('Could not expire cache entry [APP: ' . $app . '; THEME: ' . $theme . ']', 'cli.warning');
                     }
                 }
             }

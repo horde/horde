@@ -101,7 +101,8 @@ class Horde_Core_Factory_ThemesCache
      * @param string $app    The application name.
      * @param string $theme  The theme name.
      *
-     * @return boolean  True if cache entry existed.
+     * @return boolean  True if cache entry existed and was deleted.
+     * @throws Horde_Exception
      */
     public function expireCache($app, $theme)
     {
@@ -110,9 +111,11 @@ class Horde_Core_Factory_ThemesCache
         $cache = $this->_injector->getInstance('Horde_Cache');
 
         if ($cache->exists($sig, $GLOBALS['conf']['cachethemesparams']['lifetime'])) {
-            $cache->expire($sig);
-            unset($this->_instances[$sig]);
+            if (!$cache->expire($sig)) {
+                throw new Horde_Exception('Could not delete cache entry.');
+            }
 
+            unset($this->_instances[$sig]);
             return true;
         }
 
