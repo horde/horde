@@ -219,7 +219,8 @@ class Horde_Themes_Cache implements Serializable
     public function getCacheId()
     {
         if (!isset($this->_cacheid)) {
-            switch ($GLOBALS['config']['themescacheparams']['check']) {
+            $check = isset($GLOBALS['conf']['cachethemesparams']['check']) ? $GLOBALS['conf']['cachethemesparams']['check'] : null;
+            switch ($check) {
             case 'appversion':
             default:
                 $id = array($GLOBALS['registry']->getVersion($this->_app));

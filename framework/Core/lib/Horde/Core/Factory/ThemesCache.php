@@ -66,6 +66,8 @@ class Horde_Core_Factory_ThemesCache
         if (!isset($this->_instances[$sig])) {
             if (!empty($GLOBALS['conf']['cachethemes'])) {
                 $cache = $this->_injector->getInstance('Horde_Cache');
+            } else {
+                $cache = null;
             }
 
             if (!$cache || ($cache instanceof Horde_Cache_Null)) {
