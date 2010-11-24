@@ -88,6 +88,7 @@ class IMP_Injector_Factory_MailboxList
         case 'imp':
         case 'mimp':
             $this->_instances[$mailbox]->setIndex($indices);
+            $this->_instance[$mailbox]->checkcache = is_null($indices);
             break;
         }
 
