@@ -993,6 +993,14 @@ var DimpBase = {
 
             tmp = $(this.getSubFolderId(baseelt.readAttribute('id')));
             [ $('ctx_folder_expand').up() ].invoke(tmp ? 'show' : 'hide');
+
+            // Fall-through
+
+        case 'ctx_container':
+        case 'ctx_noactions':
+        case 'ctx_vfolder':
+            baseelt = e.findElement('LI');
+            $(ctx_id).down('DIV.folderName').update(baseelt.readAttribute('title'));
             break;
 
         case 'ctx_reply':

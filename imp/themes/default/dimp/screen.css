@@ -746,7 +746,7 @@ span.attachmentImg {
 }
 
 /* Context Menus */
-.context div.contactAddr {
+.context div.contactAddr, .context div.folderName {
     font-style: italic;
     text-align: center;
 }

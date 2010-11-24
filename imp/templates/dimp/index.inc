@@ -294,6 +294,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_folder" style="display:none">
+ <div class="folderName"></div>
+ <div class="sep"></div>
  <a id="ctx_folder_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
  <a id="ctx_folder_rename"><span class="iconImg"></span><?php echo _("Rename Folder") ?></a>
  <a id="ctx_folder_empty"><span class="iconImg"></span><?php echo _("Empty Folder") ?></a>
@@ -323,6 +325,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
+ <div class="folderName"></div>
+ <div class="sep"></div>
  <a id="ctx_container_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
  <a id="ctx_container_rename"><span class="iconImg"></span><?php echo _("Rename Folder") ?></a>
  <div class="sep"></div>
@@ -348,14 +352,20 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
 
 <div class="context" id="ctx_noactions" style="display:none">
+ <div class="folderName"></div>
+ <div class="sep"></div>
  <div><?php echo _("No actions available") ?></div>
 </div>
 
 <div class="context" id="ctx_vcontainer" style="display:none">
+ <div class="folderName"><?php echo _("Virtual Folders") ?></div>
+ <div class="sep"></div>
  <a id="ctx_vcontainer_edit"><span class="iconImg"></span><?php echo _("Edit Virtual Folders") ?></a>
 </div>
 
 <div class="context" id="ctx_vfolder" style="display:none">
+ <div class="folderName"></div>
+ <div class="sep"></div>
  <a id="ctx_vfolder_edit"><span class="iconImg"></span><?php echo _("Edit Virtual Folder") ?></a>
  <a id="ctx_vfolder_delete"><span class="iconImg"></span><?php echo _("Delete Virtual Folder") ?></a>
 </div>
