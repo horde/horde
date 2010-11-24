@@ -1,3 +1,9 @@
 #message .ui-body-c {
     border-top-width: 0;
 }
+
+/* Style for HTML data iframe. */
+.htmlMsgData {
+    margin: 2px 0;
+    width: 100%;
+}
