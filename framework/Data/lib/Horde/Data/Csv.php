@@ -95,7 +95,7 @@ class Horde_Data_Csv extends Horde_Data_Base
 
         $fp = @fopen($filename, 'r');
         if (!$fp) {
-            throw new Hode_Data_Exception('Cannot open file');
+            throw new Horde_Data_Exception('Cannot open file');
         }
 
         /* Strip and keep the first line if it contains the field names. */
