@@ -145,7 +145,7 @@ class Horde_Array
      *
      * @return mixed  The final value of the key path.
      */
-    static public function getElement(array &$array, array &$keys, $value = null)
+    static public function getElement(&$array, array &$keys, $value = null)
     {
         if (count($keys)) {
             $key = array_shift($keys);
