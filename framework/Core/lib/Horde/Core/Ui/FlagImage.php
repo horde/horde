@@ -16,12 +16,11 @@
 class Horde_Core_Ui_FlagImage
 {
     /**
-     * Render the language selection.
+     * Generate a flag image tag.
      *
-     * @param boolean $form  Return the selection box as a complete standalone
-     *                       form.
+     * @param string $host  The hostname.
      *
-     * @return string  The HTML selection box.
+     * @return string  An HTML IMG tag (or empty if host is not found).
      */
     static public function generateFlagImageByHost($host)
     {
@@ -30,9 +29,10 @@ class Horde_Core_Ui_FlagImage
             return '';
         }
 
-        $img = $data['code'] . '.png';
-        return file_exists($GLOBALS['registry']->get('themesfs', 'horde') . '/graphics/flags/' . $img)
-            ? Horde::img('flags/' . $img, $data['name'], array('title' => $data['name']))
+        $img = strval(Horde::img('flags/' . $data['code'] . '.png', $data['name'], array('title' => $data['name'])));
+
+        return $img
+            ? $img
             : '[' . $data['name'] . ']';
     }
 
