@@ -1,9 +1,20 @@
+#mailbox .ui-btn-innner {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+}
+#mailbox .ui-grid-a .ui-li-desc {
+    margin: 0;
+}
+
 #message .ui-body-c {
     border-top-width: 0;
 }
 
 /* Style for HTML data iframe. */
 .htmlMsgData {
-    margin: 2px 0;
     width: 100%;
+}
+
+.mimePartInfo {
+    display: none;
 }

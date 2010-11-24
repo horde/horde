@@ -92,8 +92,11 @@ var ImpMobile = {
                     $('<li class="imp-message" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
                         $('<h3>').append(
                             $('<a href="#">').html(data.subject))).append(
-                        $('<p class="ui-li-aside">').text(data.date)).append(
-                        $('<p>').text(data.from)));
+                        $('<div class="ui-grid-a">').append(
+                            $('<div class="ui-block-a">').append(
+                                $('<p>').text(data.from))).append(
+                            $('<div class="ui-block-b">').append(
+                                $('<p align="right">').text(data.date)))));
             });
             list.listview('refresh');
         }
