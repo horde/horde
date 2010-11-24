@@ -994,8 +994,8 @@ class IMP_Prefs_Ui
 
             switch ($ui->vars->flag_action) {
             case 'delete':
-                if ($ui->vars->flag_data == ('bg_' . $md5)) {
-                    $imp_flags->deleteFlag($key);
+                if (($ui->vars->flag_data == ('bg_' . $md5)) &&
+                    $imp_flags->deleteFlag($key)) {
                     $GLOBALS['notification']->push(sprintf(_("Deleted flag \"%s\"."), $val['l']), 'horde.success');
                 }
                 break;
