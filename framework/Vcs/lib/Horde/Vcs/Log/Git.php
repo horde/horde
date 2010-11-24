@@ -53,8 +53,12 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
         }
 
+        $lines = stream_get_contents($pipe);
+        fclose($pipe);
+        $lines = explode("\n", $lines);
+
         while (true) {
-            $line = trim(fgets($pipe));
+            $line = trim(next($lines));
             if (!strlen($line)) { break; }
             if (strpos($line, ':') === false) {
                 throw new Horde_Vcs_Exception('Malformed log line: ' . $line);
@@ -66,7 +70,6 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
             switch (trim($key)) {
             case 'Rev':
                 if ($this->_rev != $value) {
-                    fclose($pipe);
                     throw new Horde_Vcs_Exception('Expected ' . $this->_rev . ', got ' . $value);
                 }
                 break;
@@ -102,10 +105,10 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
         }
 
         $log = '';
-        $line = fgets($pipe);
+        $line = next($lines);
         while ($line !== false && substr($line, 0, 1) != ':') {
             $log .= $line;
-            $line = fgets($pipe);
+            $line = next($lines);
         }
         $this->_log = trim($log);
 
@@ -129,10 +132,8 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
                 'dstPath' => isset($matches[7]) ? $matches[7] : ''
             ), $statinfo);
 
-            $line = fgets($pipe);
+            $line = next($lines);
         }
-
-        fclose($pipe);
     }
 
     /**
