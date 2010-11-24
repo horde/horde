@@ -26,12 +26,12 @@ table.headerbar td.text {
     border-bottom: 5px solid #cfc;
 }
 
-div.revision_log, h3.revision_log, h3.checkout, #revlog tr.hover, #revlog tr:hover, div.checkout, table.hrdiff, table.history, p.history {
+h3.checkout, #revlog tr.hover, #revlog tr:hover, div.checkout, table.hrdiff, table.history, p.history {
     margin-left: 0;
     margin-right: 0;
     border-color: #cfc;
 }
-h3.revision_log, h3.checkout {
+h3.checkout {
     background: #cfc;
     color: #063;
     font-size: 100%;

@@ -62,19 +62,7 @@ $log_messages = array();
 foreach ($VC->getRevisionRange($fl, $r1, $r2) as $val) {
     $clog = $fl->queryLogs($val);
     if (!is_null($clog)) {
-        $fileinfo = $clog->queryFiles($where);
-        $stats = ($fileinfo && isset($fileinfo['added']))
-            ? array('added' => $fileinfo['added'], 'deleted' => $fileinfo['deleted'])
-            : array();
-
-        $log_messages[] = array_merge(array(
-            'rev' => $val,
-            'msg' => Chora::formatLogMessage($clog->queryLog()),
-            'author' => Chora::showAuthorName($clog->queryAuthor(), true),
-            'branchinfo' => $clog->queryBranch(),
-            'date' => Chora::formatDate($clog->queryDate()),
-            'tags' => Chora::getTags($clog, $where),
-        ), $stats);
+        $log_messages[] = $clog;
     }
 }
 
@@ -93,7 +81,7 @@ if (substr($mime_type, 0, 6) == 'image/') {
     echo "<tr><td><img src=\"$url1\" alt=\"" . htmlspecialchars($r1) . '" /></td>' .
         "<td><img src=\"$url2\" alt=\"" . htmlspecialchars($r2) . '" /></td></tr>';
 } else {
-    $view = $injector->createInstance('Horde_View_Base');
+    $view = $injector->createInstance('Horde_View');
     $view->addHelper('Chora_Diff_Helper');
     echo $view->diff($VC->diff($fl, $r1, $r2, array('human' => true, 'num' => $num, 'ws' => $ws)));
     echo $view->diffCaption();

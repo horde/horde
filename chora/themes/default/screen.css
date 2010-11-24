@@ -75,11 +75,6 @@ table.history a {
 }
 
 /* Individual revision information. */
-div.revision_log {
-    margin: 2px 5px 8px 0;
-    border: 1px solid #ddd;
-    padding: 3px;
-}
 ul.revision {
     padding: 2px;
     float: right;
@@ -91,7 +86,7 @@ ul.revision li.tags {
 }
 
 /* Labels. */
-h3.revision_log, h3.checkout, h3.file-view-header {
+h3.checkout, h3.file-view-header {
     background: #e9e9e9;
     display: inline;
     font-weight: bold;
@@ -174,9 +169,41 @@ ul.singlepsfiles li {
     padding-bottom: 4px;
 }
 
+.commit-list h3 {
+    font-size: 130%;
+    font-weight: bold;
+    margin-top: 1em;
+}
+.commit-summary {
+    border: 1px solid #ccc;
+    background: #eee;
+    padding: .5em;
+    font-size: 100%;
+    margin: .2em 0;
+}
+.commit-message {
+    font-size: 110%;
+    margin-bottom: .5em;
+}
+.commit-info {
+    width: 33%;
+    float: right;
+    border-left: 1px solid #ccc;
+    padding: 0 1em 1em 1em;
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+    font-size: 90%;
+}
+.commit-info ul {
+    list-style: none;
+    margin-bottom: .5em;
+}
+.commit-author {
+    font-size: 90%;
+}
+
 /* Diff stat information. */
 .diffadd {
-    color: blue;
+    color: green;
 }
 .diffdel {
     color: red;
@@ -290,15 +317,6 @@ div.diff-right {
     width: 10px;
     margin-left: 0.5em;
     vertical-align: baseline;
-}
-
-div.difflog {
-    padding: 2px;
-    margin: 0;
-    border: 1px solid #ddd;
-}
-div.diffclear {
-    clear: both;
 }
 
 /* Browsefile definitions. */
