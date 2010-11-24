@@ -23,11 +23,9 @@ Horde::includeStylesheetFiles(array(
 
 /* JS Files. */
 $GLOBALS['injector']->getInstance('Horde_Script_Files')->prototypejs = false;
-Horde::addScriptFile(array(
-    array('jquery.mobile/jquery.min.js', 'horde'),
-    array('jquery.mobile/jquery.mobile.min.js', 'horde'),
-    array('horde-jquery.js', 'horde')
-));
+Horde::addScriptFile('jquery.mobile/jquery.min.js', 'horde');
+Horde::addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+Horde::addScriptFile('jquery.mobile/jquery.min.js', 'horde');
 Horde::includeScriptFiles();
 
 /* Inline script. */
