@@ -152,4 +152,28 @@ abstract class Horde_Vcs_Log
             ? $this->_files
             : (isset($this->_files[$file]) ? $this->_files[$file] : array());
     }
+
+    public function getAddedLines()
+    {
+        $this->_ensureInitialized();
+        $lines = 0;
+        foreach ($this->_files as $file) {
+            if (isset($file['added'])) {
+                $lines += $file['added'];
+            }
+        }
+        return $lines;
+    }
+
+    public function getDeletedLines()
+    {
+        $this->_ensureInitialized();
+        $lines = 0;
+        foreach ($this->_files as $file) {
+            if (isset($file['deleted'])) {
+                $lines += $file['deleted'];
+            }
+        }
+        return $lines;
+    }
 }
