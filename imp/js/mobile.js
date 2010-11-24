@@ -139,12 +139,17 @@ var ImpMobile = {
     {
         $.mobile.pageLoading(true);
         if (r.response && r.response.message && !r.response.message.error) {
-            var data = r.response.message;
+            var data = r.response.message,
+                headers = $('#imp-message-headers tbody');
             $('#imp-message-title').html(data.title);
             $('#imp-message-subject').html(data.subject);
             $('#imp-message-from').text(data.from[0].personal);
             $('#imp-message-body').html(data.msgtext);
+            headers.text('');
             $.each(data.headers, function(k, header) {
+                if (header.value) {
+                    headers.append($('<tr>').append($('<td class="imp-header-label">').html(header.name + ':')).append($('<td>').html(header.value)));
+                }
                 if (header.id == 'Date') {
                     $('#imp-message-date').text(header.value);
                 }
@@ -166,20 +171,29 @@ var ImpMobile = {
             orig = $(e.target),
             id;
 
-        while (elt) {
+        while (elt && elt != window.document) {
             id = elt.attr('id');
 
             switch (id) {
+            case 'imp-message-more':
+                elt.parent().hide();
+                elt.parent().next().show();
+                return;
+
+            case 'imp-message-less':
+                elt.parent().hide();
+                elt.parent().prev().show();
+                return;
             }
 
             if (elt.hasClass('imp-folder')) {
                 var link = elt.find('a[mailbox]');
                 ImpMobile.toMailbox(link.attr('mailbox'), link.text());
-                break;
+                return;
 
             } else if (elt.hasClass('imp-message')) {
                 ImpMobile.toMessage(elt.attr('data-imp-mailbox'), elt.attr('data-imp-uid'));
-                break;
+                return;
             }
 
             elt = elt.parent();

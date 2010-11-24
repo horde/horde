@@ -1,3 +1,4 @@
+/* Mailbox */
 #mailbox .ui-btn-innner {
     padding-top: 0.4em;
     padding-bottom: 0.4em;
@@ -6,8 +7,16 @@
     margin: 0;
 }
 
+/* Message */
 #message .ui-body-c {
     border-top-width: 0;
+}
+.imp-header-label {
+    font-weight: bold;
+}
+#imp-message-more, #imp-message-less {
+    float: right;
+    margin: 0;
 }
 
 /* Style for HTML data iframe. */
@@ -15,6 +24,6 @@
     width: 100%;
 }
 
-.mimePartInfo {
+.mimePartInfo, .mimeStatusMessage {
     display: none;
 }
