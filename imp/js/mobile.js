@@ -91,7 +91,7 @@ var ImpMobile = {
                 list.append(
                     $('<li class="imp-message" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
                         $('<h3>').append(
-                            $('<a href="#">').text(data.subject))).append(
+                            $('<a href="#">').html(data.subject))).append(
                         $('<p class="ui-li-aside">').text(data.date)).append(
                         $('<p>').text(data.from)));
             });
@@ -130,8 +130,8 @@ var ImpMobile = {
         $.mobile.pageLoading(true);
         if (r.response && r.response.message && !r.response.message.error) {
             var data = r.response.message;
-            $('#imp-message-title').text(data.title);
-            $('#imp-message-subject').text(data.subject);
+            $('#imp-message-title').html(data.title);
+            $('#imp-message-subject').html(data.subject);
             $('#imp-message-from').text(data.from[0].personal);
             $('#imp-message-body').html(data.msgtext);
             $.each(data.headers, function(k, header) {
