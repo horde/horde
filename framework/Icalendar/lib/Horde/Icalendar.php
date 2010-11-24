@@ -1090,8 +1090,7 @@ class Horde_Icalendar
             } else {
                 $attr_string = $name . $params_str . ':' . $value;
                 if (!$this->oldFormat) {
-                    $attr_string = Horde_String::wordwrap($attr_string, 75, $this->_newline . ' ',
-                                                          true, 'utf-8', true);
+                    $attr_string = Horde_String::wordwrap($attr_string, 75, $this->_newline . ' ', true, true);
                 }
                 $result .= $attr_string . $this->_newline;
             }
