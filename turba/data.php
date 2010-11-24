@@ -335,7 +335,7 @@ case 'export':
 case Horde_Data::IMPORT_FILE:
     $dest = Horde_Util::getFormData('dest');
     try {
-        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($dest);
     } catch (Turba_Exception $e) {
         $notification->push($e, 'horde.error');
         $error = true;
