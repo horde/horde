@@ -90,7 +90,12 @@ class Horde_Themes_Element
      */
     public function __toString()
     {
-        return (string)$this->uri;
+        try {
+            return (string)$this->uri;
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            return '';
+        }
     }
 
     /**
