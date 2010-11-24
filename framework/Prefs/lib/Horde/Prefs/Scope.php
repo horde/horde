@@ -255,7 +255,7 @@ class Horde_Prefs_Scope implements Serializable
      */
     public function serialize()
     {
-        return serialize(array(
+        return json_encode(array(
             $this->scope,
             $this->_prefs
         ));
@@ -265,7 +265,7 @@ class Horde_Prefs_Scope implements Serializable
      */
     public function unserialize($data)
     {
-        list($this->scope, $this->_prefs) = unserialize($data);
+        list($this->scope, $this->_prefs) = json_decode($data, true);
     }
 
 }
