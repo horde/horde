@@ -185,6 +185,8 @@ div.msgSize {
 
 /* Message ViewPort */
 span.vpEmpty, span.vpError {
+    display: block;
+    padding: 2px 0 0 2px;
     font-weight: bold;
 }
 
