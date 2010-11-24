@@ -587,6 +587,7 @@ class Horde_Vcs
     {
         $class = 'Horde_Vcs_Patchset_' . $this->_driver;
 
+        if (!is_array($opts)) { $opts = array(); }
         ksort($opts);
         $cacheId = implode('|', array($class, $this->sourceroot(), serialize($opts), $this->_cacheVersion));
 
@@ -638,5 +639,4 @@ class Horde_Vcs
     {
         return 'HEAD';
     }
-
 }
