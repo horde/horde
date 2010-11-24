@@ -2,10 +2,16 @@ Allow from all
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule   ^([a-z]+).php/(.*)$ $1.php?f=$2 [QSA,L]
+
     RewriteCond   %{REQUEST_FILENAME} !-d
     RewriteCond   %{REQUEST_FILENAME} !-f
     RewriteRule   ^browse/(.*)$ browsedir.php?f=$1 [QSA]
+
+    RewriteCond   %{REQUEST_FILENAME} !-d
+    RewriteCond   %{REQUEST_FILENAME} !-f
     RewriteRule   ^([a-z-\/]+)/-/browse/(.*)$ browsedir.php?f=$2&rt=$1 [QSA]
-    RewriteRule   ^commits/(.*)$ patchsets.php?ps=$1 [QSA]
-    RewriteRule   ^([a-z-\/]+)/-/commits/(.*)$ patchsets.php?ps=$2&rt=$1 [QSA]
+
+    RewriteCond   %{REQUEST_FILENAME} !-d
+    RewriteCond   %{REQUEST_FILENAME} !-f
+    RewriteRule   ^([a-z-\/]+)/-/commit/(.*)$ commit.php?commit=$2&rt=$1 [QSA]
 </IfModule>
