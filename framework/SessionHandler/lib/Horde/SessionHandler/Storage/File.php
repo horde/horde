@@ -54,7 +54,7 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
     {
         $filename = $this->_params['path'] . '/' . self::PREFIX . $id;
 
-        return file_exists($filename)
+        return is_readable($filename)
             ? file_get_contents($filename)
             : '';
     }
