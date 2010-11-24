@@ -484,23 +484,23 @@ class Horde_Share
     }
 
     /**
-     * Returns an opaque value representing this share's listcache.
+     * Returns the share's list cache.
      *
-     * @return string
+     * @return array
      */
     public function getListCache()
     {
-        return serialize($this->_listcache);
+        return $this->_listcache;
     }
 
     /**
-     * Set the list cache by passing in a previously retrieved listcache.
+     * Set the list cache.
      *
-     * @param string $cache
+     * @param array $cache
      */
     public function setListCache($cache)
     {
-        $this->_listcache = unserialize($cache);
+        $this->_listcache = $cache;
     }
 
     /**
