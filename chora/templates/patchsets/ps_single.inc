@@ -14,13 +14,13 @@
 <?php endif; ?>
 
 <div class="singleps">
- <span class="headerLabel"><?php echo _("Log") ?>:</span>
+ <span class="headerLabel"><?php echo _("Description") ?>:</span>
 </div>
 
 <div class="fixed singlepslog"><?php echo $logMessage ?></div>
 
 <div class="singleps">
- <span class="headerLabel"><?php echo _("Files") ?>:</span>
+ <span class="headerLabel"><?php echo _("Changes") ?>:</span>
 </div>
 
 <ul class="singlepsfiles">
