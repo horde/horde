@@ -112,6 +112,13 @@ var ImpMobile = {
     {
         var o = {};
         o[mailbox] = [ uid ];
+        $('#imp-message-title').html('&nbsp;');
+        $('#imp-message-subject').text('');
+        $('#imp-message-from').text('');
+        $('#imp-message-body').text('');
+        $('#imp-message-date').text('');
+        $('#imp-message-more').parent().show();
+        $('#imp-message-less').parent().hide();
         $.mobile.changePage('#message', 'slide', false, true);
         $.mobile.pageLoading();
         ImpMobile.doAction(
