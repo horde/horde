@@ -43,6 +43,13 @@ class Horde_Themes_Cache implements Serializable
     protected $_cacheid;
 
     /**
+     * Is this a complete representation of the theme?
+     *
+     * @var boolean
+     */
+    protected $_complete = false;
+
+    /**
      * Theme data.
      *
      * @var array
@@ -71,20 +78,25 @@ class Horde_Themes_Cache implements Serializable
     /**
      * Build the entire theme data structure.
      *
+     * @return array  The list of theme files.
      * @throws UnexpectedValueException
      */
     public function build()
     {
-        $this->_data = array();
+        if (!$this->_complete) {
+            $this->_data = array();
 
-        $this->_build('horde', 'default', self::HORDE_DEFAULT);
-        $this->_build('horde', $this->_theme, self::HORDE_THEME);
-        if ($this->_app != 'horde') {
-            $this->_build($this->_app, 'default', self::APP_DEFAULT);
-            $this->_build($this->_app, $this->_theme, self::APP_THEME);
+            $this->_build('horde', 'default', self::HORDE_DEFAULT);
+            $this->_build('horde', $this->_theme, self::HORDE_THEME);
+            if ($this->_app != 'horde') {
+                $this->_build($this->_app, 'default', self::APP_DEFAULT);
+                $this->_build($this->_app, $this->_theme, self::APP_THEME);
+            }
+
+            $this->changed = $this->_complete = true;
         }
 
-        $this->changed = true;
+        return array_keys($this->_data);
     }
 
     /**
@@ -246,10 +258,11 @@ class Horde_Themes_Cache implements Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->getCacheId(),
-            $this->_app,
-            $this->_data,
-            $this->_theme
+            'a' => $this->_app,
+            'c' => $this->_complete,
+            'd' => $this->_data,
+            'id' => $this->getCacheId(),
+            't' => $this->_theme
         ));
     }
 
@@ -257,16 +270,16 @@ class Horde_Themes_Cache implements Serializable
      */
     public function unserialize($data)
     {
-        list(
-            $expire_id,
-            $this->_app,
-            $this->_data,
-            $this->_theme
-        ) = unserialize($data);
+        $out = @unserialize($data);
 
-        if ($expire_id && ($expire_id != $this->getCacheId())) {
+        if (isset($out['id']) && ($out['id'] != $this->getCacheId())) {
             throw new Exception('Cache invalidated');
         }
+
+        $this->_app = $out['a'];
+        $this->_complete = $out['c'];
+        $this->_data = $out['d'];
+        $this->_theme = $out['t'];
     }
 
 }

@@ -97,42 +97,31 @@ class Horde_Themes
     }
 
     /**
-     * Returns a list of available sounds for a theme.
+     * Returns a list of available sounds.
      *
      * @param string $app  The app to search in.
+     * @param string $theme  The app to search in.
      *
      * @return array  An array of Horde_Themes_Sound objects. Keys are the
      *                base filenames.
      */
-    static public function soundList($app = null)
+    static public function soundList($app = null, $theme = null)
     {
         if (is_null($app)) {
             $app = $GLOBALS['registry']->getApp();
         }
 
-        /* Do search in reverse order - app + theme sounds have the highest
-         * priority and will overwrite previous sound definitions. */
-        $locations = array(
-            self::sound(null, array('app' => 'horde', 'theme' => null)),
-            // Placeholder for app
-            null,
-            self::sound(null, 'horde')
-        );
-
-        if ($app != 'horde') {
-            $locations[1] = self::sound(null, array('app' => $app, 'theme' => null));
-            $locations[3] = self::sound(null, $app);
+        if (is_null($theme)) {
+            $theme = $GLOBALS['prefs']->getValue('theme');
         }
 
+        $cache = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($app, $theme);
+
         $sounds = array();
-        foreach ($locations as $val) {
-            if ($val) {
-                foreach (glob($val->fs . '/*.wav') as $file) {
-                    $file = basename($file);
-                    if (!isset($sounds[$file])) {
-                        $sounds[$file] = self::sound($file);
-                    }
-                }
+        foreach ($cache->build() as $val) {
+            if ((strpos($val, 'sounds/') === 0) &&
+                (substr(strrchr($val, '.'), 1) == 'wav')) {
+                $sounds[basename($val)] = self::sound(substr($val, 7));
             }
         }
 
