@@ -54,7 +54,7 @@ class Horde_Themes_Css
      */
     public function addThemeStylesheet($file)
     {
-        $this->_cssThemeFiles[] = $file;
+        $this->_cssThemeFiles[$file] = true;
     }
 
     /**
@@ -181,7 +181,7 @@ class Horde_Themes_Css
             ? $this->getBaseStylesheetList()
             : array();
 
-        $css_list = array_unique(array_merge($css_list, $this->_cssThemeFiles));
+        $css_list = array_unique(array_merge($css_list, array_keys($this->_cssThemeFiles)));
 
         $curr_app = empty($opts['app'])
             ? $GLOBALS['registry']->getApp()
