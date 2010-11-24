@@ -59,13 +59,15 @@ class Horde_Block_Collection
     /**
      * Constructor.
      *
-     * @param array $apps              The applications whose blocks to list.
+     * @param array $apps  The applications whose blocks to list.
      */
     public function __construct($apps = array())
     {
         global $session;
 
-        $signature = serialize($apps);
+        sort($apps);
+        $signature = hash('md5', serialize($apps));
+
         if ($this->_blocks = $session->get('horde', 'blocks/' . $signature)) {
             return;
         }
