@@ -207,12 +207,17 @@ var ImpMobile = {
 
         IMP.iframeResize = function(id)
         {
-            return;
-            var lc = id.get(0).contentWindow.document.lastChild;
-            id.css('height', lc.scrollHeight + 'px' );
+            id.css('height', id.get(0).contentWindow.document.lastChild.scrollHeight + 'px' );
 
             // For whatever reason, browsers will report different heights
             // after the initial height setting.
+            window.setTimeout(function() { IMP.iframeResize2(id); }, 300);
+        };
+
+        IMP.iframeResize2 = function(id)
+        {
+            var lc = id.get(0).contentWindow.document.lastChild;
+
             // Try expanding IFRAME if we detect a scroll.
             if (lc.clientHeight != lc.scrollHeight ||
                 id.get(0).clientHeight != lc.clientHeight) {
