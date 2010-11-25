@@ -5956,6 +5956,9 @@ KronolithCore = {
             Horde_ToolTips.detach(button);
             Horde_ToolTips.attach(button);
         }.bindAsEventListener(this));
+
+        /* Start polling. */
+        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 5);
     }
 
 };

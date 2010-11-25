@@ -34,6 +34,14 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * Just polls for alarm messages and keeps session fresh for now.
+     */
+    public function poll()
+    {
+        return false;
+    }
+
+    /**
      * TODO
      */
     public function listEvents()
