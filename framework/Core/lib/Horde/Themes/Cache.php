@@ -79,7 +79,6 @@ class Horde_Themes_Cache implements Serializable
      * Build the entire theme data structure.
      *
      * @return array  The list of theme files.
-     * @throws UnexpectedValueException
      */
     public function build()
     {
@@ -105,15 +104,17 @@ class Horde_Themes_Cache implements Serializable
      * @param string $app    The application name.
      * @param string $theme  The theme name.
      * @param integer $mask  Mask for the app/theme combo.
-     *
-     * @throws UnexpectedValueException
      */
     protected function _build($app, $theme, $mask)
     {
         $path = $GLOBALS['registry']->get('themesfs', $app) . '/'. $theme;
-        if (!is_readable($path)) { return; }
 
-        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
+        try {
+            $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
+        } catch (UnexpectedValueException $e) {
+            return;
+        }
+
         foreach ($it as $val) {
             if (!$val->isDir()) {
                 $sub = $it->getSubPathname();
