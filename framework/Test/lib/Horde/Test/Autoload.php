@@ -22,7 +22,7 @@ if (empty($autoloaders)) {
         create_function(
             '$class',
             '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
-            . '$err_mask = E_ALL ^ E_WARNING;'
+            . '$err_mask = error_reporting() & ~E_WARNING;'
             . '$oldErrorReporting = error_reporting($err_mask);'
             . 'include "$filename.php";'
             . 'error_reporting($oldErrorReporting);'
