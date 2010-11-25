@@ -111,8 +111,9 @@ class Horde_Themes_Cache implements Serializable
     protected function _build($app, $theme, $mask)
     {
         $path = $GLOBALS['registry']->get('themesfs', $app) . '/'. $theme;
-        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
+        if (!is_readable($path)) { return; }
 
+        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
         foreach ($it as $val) {
             if (!$val->isDir()) {
                 $sub = $it->getSubPathname();
