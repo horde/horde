@@ -2144,10 +2144,6 @@ HTML;
 
         $menu = new Horde_Menu(isset($opts['mask']) ? $opts['mask'] : Horde_Menu::MASK_ALL);
 
-        if (!in_array($registry->get('status', 'horde'), array('notoolbar', 'hidden', 'inactive'))) {
-            $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), Horde_Core_Translation::t("_Home"), 'horde.png');
-        }
-
         $registry->callAppMethod($opts['app'], 'menu', array(
             'args' => array($menu)
         ));

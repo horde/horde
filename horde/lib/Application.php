@@ -62,6 +62,16 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), Horde_Core_Translation::t("_Home"), 'horde.png');
+    }
+
+    /**
      * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
