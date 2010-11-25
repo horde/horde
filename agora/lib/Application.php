@@ -131,8 +131,6 @@ class Agora_Application extends Horde_Registry_Application
                 $GLOBALS['conf']['avatar']['enable_gallery'] &&
                 $vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
                 Horde::addScriptFile('popup.js', 'horde', true);
-            } else {
-                $suppress[] = 'avatar_link';
             }
             break;
         }
@@ -140,6 +138,25 @@ class Agora_Application extends Horde_Registry_Application
         /* Hide appropriate prefGroups. */
         if (!$GLOBALS['conf']['avatar']['allow_avatars']) {
             $ui->suppressGroups[] = 'display_avatar';
+        }
+    }
+
+    /**
+     * Determine active prefs when displaying a group.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsGroup($ui)
+    {
+        switch ($ui->group) {
+        case 'display_avatar':
+            $vfs = Agora::getVFS();
+            if (($vfs instanceof PEAR_Error) ||
+                !$GLOBALS['conf']['avatar']['enable_gallery'] ||
+                !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
+                $suppress[] = 'avatar_link';
+            }
+            break;
         }
     }
 

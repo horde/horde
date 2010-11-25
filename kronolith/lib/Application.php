@@ -162,63 +162,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Populate dynamically-generated preference values.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsEnum($ui)
-    {
-        global $conf, $prefs, $registry;
-
-        switch ($ui->group) {
-        case 'freebusy':
-            if (!$prefs->isLocked('fb_cals')) {
-                $fb_list = array();
-                foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
-                    $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->name());
-                }
-                $ui->override['fb_cals'] = $fb_list;
-            }
-            break;
-
-       case 'share':
-            if (!$prefs->isLocked('default_share')) {
-                $all_shares = Kronolith::listInternalCalendars();
-                $sharelist = array();
-
-                foreach ($all_shares as $id => $share) {
-                    if (!empty($conf['share']['hidden']) &&
-                        ($share->get('owner') != $GLOBALS['registry']->getAuth()) &&
-                        !in_array($share->getName(), $GLOBALS['display_calendars'])) {
-                        continue;
-                    }
-                    $sharelist[$id] = $share;
-                }
-
-                $vals = array();
-                foreach ($sharelist as $id => $share) {
-                    $vals[htmlspecialchars($id)] = htmlspecialchars($share->get('name'));
-                }
-                $ui->override['default_share'] = $vals;
-            }
-            break;
-
-        case 'view':
-            if (!$prefs->isLocked('day_hour_start') ||
-                !$prefs->isLocked('day_hour_end')) {
-                $out = array();
-                $tf = $GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:ia';
-                for ($i = 0; $i <= 48; ++$i) {
-                    $out[$i] = date($tf, mktime(0, $i * 30, 0));
-                }
-                $ui->override['day_hour_end'] = $out;
-                $ui->override['day_hour_start'] = $out;
-            }
-            break;
-        }
-    }
-
-    /**
      * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
@@ -234,12 +177,20 @@ class Kronolith_Application extends Horde_Registry_Application
             }
             break;
 
+        case 'freebusy':
+            if (!$prefs->isLocked('fb_cals')) {
+                $fb_list = array();
+                foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
+                    $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->name());
+                }
+                $ui->override['fb_cals'] = $fb_list;
+            }
+            break;
+
         case 'notification':
-            if (empty($conf['alarms']['driver']) ||
-                $prefs->isLocked('event_alarms') ||
-                $prefs->isLocked('event_alarms_select')) {
-                $ui->suppress[]= 'event_alarms';
-            } else {
+            if (!empty($conf['alarms']['driver']) &&
+                !$prefs->isLocked('event_alarms') &&
+                !$prefs->isLocked('event_alarms_select')) {
                 Horde_Core_Prefs_Ui_Widgets::alarminit();
             }
             break;
@@ -255,7 +206,27 @@ class Kronolith_Application extends Horde_Registry_Application
         }
     }
 
-   /**
+    /**
+     * Determine active prefs when displaying a group.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsGroup($ui)
+    {
+        global $conf, $prefs;
+
+        switch ($ui->group) {
+        case 'notification':
+            if (empty($conf['alarms']['driver']) ||
+                $prefs->isLocked('event_alarms') ||
+                $prefs->isLocked('event_alarms_select')) {
+                $ui->suppress[] = 'event_alarms';
+            }
+            break;
+        }
+    }
+
+    /**
      * Generate code used to display a special preference.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.

@@ -197,11 +197,11 @@ class Turba_Application extends Horde_Registry_Application
     }
 
     /**
-     * Populate dynamically-generated preference values.
+     * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsEnum($ui)
+    public function prefsInit($ui)
     {
         global $prefs;
 
@@ -229,21 +229,7 @@ class Turba_Application extends Horde_Registry_Application
                 }
             }
             $ui->override['sync_books'] = $out;
-            break;
-        }
-    }
 
-    /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsInit($ui)
-    {
-        global $prefs;
-
-        switch ($ui->group) {
-        case 'addressbooks':
             Horde_Core_Prefs_Ui_Widgets::sourceInit();
             break;
 

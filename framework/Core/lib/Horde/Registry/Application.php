@@ -217,18 +217,22 @@ class Horde_Registry_Application
     // public function changeLanguage() {}
 
     /**
-     * Populate dynamically-generated preference values.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    // public function prefsEnum($ui) {}
-
-    /**
-     * Code to run on init when viewing prefs for this application.
+     * Run on init when viewing prefs for an application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     // public function prefsInit($ui) {}
+
+    /**
+     * Determine active prefs when displaying a group. This is where all
+     * suppress/overrides should be defined.
+     *
+     * This function may be run multiple times in a single page - once on init
+     * and once after prefs are updated.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    // public function prefsGroup($ui) {}
 
     /**
      * Called when preferences are changed.

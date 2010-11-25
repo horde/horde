@@ -119,11 +119,11 @@ class Mnemo_Application extends Horde_Registry_Application
     }
 
     /**
-     * Populate dynamically-generated preference values.
+     * Run once on init when viewing prefs for an application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsEnum($ui)
+    public function prefsInit($ui)
     {
         switch ($ui->group) {
         case 'share':

@@ -27,55 +27,17 @@ class IMP_Prefs_Ui
     protected $_cache = null;
 
     /**
-     * Populate dynamically-generated preference values.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsEnum($ui)
-    {
-        global $prefs, $registry;
-
-        switch ($ui->group) {
-        case 'addressbooks':
-            if (!$prefs->isLocked('add_source')) {
-                try {
-                    $sources = array();
-                    foreach ($registry->call('contacts/sources', array(true)) as $source => $name) {
-                        $sources[$source] = $name;
-                    }
-                    $ui->override['add_source'] = $sources;
-                } catch (Horde_Exception $e) {
-                    $ui->suppress[] = 'add_source';
-                }
-            }
-            break;
-
-        case 'delmove':
-            if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
-                $tmp = $ui->prefs['delete_spam_after_report']['enum'];
-                unset($tmp[2]);
-                $ui->override['delete_spam_after_report'] = $tmp;
-            }
-            break;
-        }
-    }
-
-    /**
-     * Code to run on init when viewing prefs for this application.
+     * Run once on init when viewing prefs for an application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsInit($ui)
     {
-        global $conf, $prefs, $registry, $session;
-
-        $pop3 = ($session->get('imp', 'protocol') == 'pop');
+        global $conf, $injector, $prefs, $registry, $session;
 
         switch ($ui->group) {
         case 'accounts':
-            if (empty($conf['user']['allow_accounts'])) {
-                $ui->suppress[] = 'accountsmanagement';
-            } else {
+            if (!empty($conf['user']['allow_accounts'])) {
                 Horde::addScriptFile('accountsprefs.js', 'imp');
             }
             break;
@@ -87,6 +49,157 @@ class IMP_Prefs_Ui
         case 'addressbooks':
             if (!$prefs->isLocked('sourceselect')) {
                 Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+            }
+            break;
+
+        case 'delmove':
+            if ($session->get('imp', 'protocol') == 'pop') {
+                $tmp = $ui->prefs['delete_spam_after_report']['enum'];
+                unset($tmp[2]);
+                $ui->override['delete_spam_after_report'] = $tmp;
+            }
+            break;
+
+        case 'display':
+            /* Set the timezone on this page so the 'time_format' output uses
+             * the configured time zone's time, not the system's time zone. */
+            $registry->setTimeZone();
+            break;
+
+        case 'flags':
+            if ($prefs->isLocked('msgflags') &&
+                $prefs->isLocked('msgflags_user')) {
+                $ui->nobuttons = true;
+            } else {
+                Horde::addScriptFile('colorpicker.js', 'horde');
+                Horde::addScriptFile('flagprefs.js', 'imp');
+            }
+            break;
+
+        case 'identities':
+            if (!$prefs->isLocked('sent_mail_folder')) {
+                Horde::addScriptFile('folderprefs.js', 'imp');
+            }
+
+            if (!$prefs->isLocked('signature_html') &&
+                $session->get('imp', 'rteavail')) {
+                Horde::addScriptFile('signaturehtml.js', 'imp');
+                IMP_Ui_Editor::init(false, 'signature_html');
+            }
+            break;
+
+        case 'pgp':
+            Horde::addScriptFile('imp.js', 'imp');
+            break;
+
+        case 'searches':
+            Horde::addScriptFile('searchesprefs.js', 'imp');
+            break;
+
+        case 'server':
+            $code = array();
+
+            if (!$prefs->isLocked('drafts_folder')) {
+                $code['drafts'] = _("Enter the name for your new drafts folder.");
+            }
+
+            if (!$prefs->isLocked('spam_folder')) {
+                $code['spam'] = _("Enter the name for your new spam folder.");
+            }
+
+            if (!$prefs->isLocked('trash_folder')) {
+                $code['trash'] = _("Enter the name for your new trash folder.");
+            }
+
+            if (!empty($code)) {
+                Horde::addScriptFile('folderprefs.js', 'imp');
+                Horde::addInlineJsVars(array(
+                    'ImpFolderPrefs.folders' => $code
+                ));
+            }
+            break;
+
+        case 'smime':
+            Horde::addScriptFile('imp.js', 'imp');
+            break;
+
+        case 'stationery':
+            if (!$prefs->isLocked('stationery')) {
+                $ui->nobuttons = true;
+            }
+            break;
+
+        case 'viewing':
+            /* Sort encodings. */
+            if (!$prefs->isLocked('default_msg_charset')) {
+                asort($registry->nlsconfig['encodings']);
+            }
+            break;
+        }
+
+        /* Hide appropriate prefGroups. */
+        if ($session->get('imp', 'protocol') == 'pop') {
+            $ui->suppressGroups[] = 'flags';
+            $ui->suppressGroups[] = 'searches';
+            $ui->suppressGroups[] = 'server';
+        }
+
+        try {
+            $injector->getInstance('IMP_Imap_Acl');
+        } catch (IMP_Exception $e) {
+            $ui->suppressGroups[] = 'acl';
+        }
+
+        if (empty($conf['user']['allow_accounts'])) {
+            $ui->suppressGroups[] = 'accounts';
+        }
+
+        $contacts_app = $registry->hasInterface('contacts');
+        if (!$contacts_app || !$registry->hasPermission($contacts_app)) {
+            $ui->suppressGroups[] = 'addressbooks';
+        }
+
+        if (!isset($conf['gnupg']['path'])) {
+            $ui->suppressGroups[] = 'pgp';
+        }
+
+        if (!Horde_Util::extensionExists('openssl') ||
+            !isset($conf['openssl']['path'])) {
+            $ui->suppressGroups[] = 'smime';
+        }
+
+        if (empty($conf['user']['allow_folders'])) {
+            $ui->suppressGroups[] = 'searches';
+        }
+
+        // TODO: For now, disable this group since accounts code has not
+        // yet been fully written.
+        $ui->suppressGroups[] = 'accounts';
+    }
+
+    /**
+     * Determine active prefs when displaying a group.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsGroup($ui)
+    {
+        global $conf, $injector, $prefs, $registry, $session;
+
+        switch ($ui->group) {
+        case 'accounts':
+            if (empty($conf['user']['allow_accounts'])) {
+                $ui->suppress[] = 'accountsmanagement';
+            }
+            break;
+
+        case 'addressbooks':
+            if (!$prefs->isLocked('add_source')) {
+                try {
+                    $ui->override['add_source'] = $registry->call('contacts/sources', array(true));
+                } catch (Horde_Exception $e) {
+                    $ui->suppress[] = 'add_source';
+                }
             }
             break;
 
@@ -105,7 +218,7 @@ class IMP_Prefs_Ui
             break;
 
         case 'delmove':
-            if ($pop3) {
+            if ($session->get('imp', 'protocol') == 'pop') {
                 $ui->suppress[] = 'move_ham_after_report';
                 $ui->suppress[] = 'empty_spam_menu';
                 $ui->suppress[] = 'use_trash';
@@ -125,10 +238,7 @@ class IMP_Prefs_Ui
             break;
 
         case 'display':
-            /* Set the timezone on this page so the 'time_format' output uses
-             * the configured time zone's time, not the system's time zone. */
-            $registry->setTimeZone();
-            if ($pop3) {
+            if ($session->get('imp', 'protocol') == 'pop') {
                 $ui->suppress[] = 'nav_expanded';
                 $ui->suppress[] = 'tree_view';
             }
@@ -151,29 +261,14 @@ class IMP_Prefs_Ui
             }
             break;
 
-        case 'flags':
-            if ($prefs->isLocked('msgflags') &&
-                $prefs->isLocked('msgflags_user')) {
-                $ui->nobuttons = true;
-            } else {
-                Horde::addScriptFile('colorpicker.js', 'horde');
-                Horde::addScriptFile('flagprefs.js', 'imp');
-            }
-            break;
-
         case 'identities':
             if ($prefs->isLocked('sent_mail_folder')) {
                 $ui->suppress[] = 'sentmailselect';
-            } else {
-                Horde::addScriptFile('folderprefs.js', 'imp');
             }
 
             if ($prefs->isLocked('signature_html') ||
                 !$session->get('imp', 'rteavail')) {
                 $ui->suppress[] = 'signature_html_select';
-            } else {
-                Horde::addScriptFile('signaturehtml.js', 'imp');
-                IMP_Ui_Editor::init(false, 'signature_html');
             }
             break;
 
@@ -181,7 +276,7 @@ class IMP_Prefs_Ui
             if ($prefs->isLocked('initial_page')) {
                 $ui->suppress[] = 'initialpageselect';
             }
-            if ($pop3) {
+            if ($session->get('imp', 'protocol') == 'pop') {
                 $ui->suppress[] = 'initialpageselect';
                 $ui->suppress[] = 'rename_sentmail_monthly';
                 $ui->suppress[] = 'delete_sentmail_monthly';
@@ -202,15 +297,13 @@ class IMP_Prefs_Ui
             if ($prefs->isLocked('nav_audio')) {
                 $ui->suppress[] = 'soundselect';
             }
-            if ($pop3) {
+            if ($session->get('imp', 'protocol') == 'pop') {
                 $ui->suppress[] = 'nav_poll_all';
             }
             break;
 
         case 'pgp':
-            if ($prefs->getValue('use_pgp')) {
-                Horde::addScriptFile('imp.js', 'imp');
-            } else {
+            if (!$prefs->getValue('use_pgp')) {
                 $ui->suppress[] = 'use_pgp_text';
                 $ui->suppress[] = 'pgp_attach_pubkey';
                 $ui->suppress[] = 'pgp_scan_body';
@@ -221,51 +314,21 @@ class IMP_Prefs_Ui
             }
             break;
 
-        case 'searches':
-            Horde::addScriptFile('searchesprefs.js', 'imp');
-            break;
-
         case 'server':
-            $code = array();
-
             if ($prefs->isLocked('drafts_folder')) {
                 $ui->suppress[] = 'draftsselect';
-            } else {
-                $code['drafts'] = _("Enter the name for your new drafts folder.");
             }
-
             if ($prefs->isLocked('spam_folder')) {
                 $ui->suppress[] = 'spamselect';
-            } else {
-                $code['spam'] = _("Enter the name for your new spam folder.");
             }
 
-            if (!$prefs->isLocked('trash_folder')) {
-                $code['trash'] = _("Enter the name for your new trash folder.");
-            } else {
+            if ($prefs->isLocked('trash_folder')) {
                 $ui->suppress[] = 'trashselect';
-            }
-
-            if (!empty($code)) {
-                Horde::addScriptFile('folderprefs.js', 'imp');
-                Horde::addInlineJsVars(array(
-                    'ImpFolderPrefs.folders' => $code
-                ));
             }
             break;
 
         case 'smime':
-            $use_smime = false;
-            if ($prefs->getValue('use_smime')) {
-                try {
-                    $GLOBALS['injector']->getInstance('IMP_Crypt_Smime')->checkForOpenSSL();
-                    $use_smime = true;
-                } catch (Horde_Exception $e) {}
-            }
-
-            if ($use_smime) {
-                Horde::addScriptFile('imp.js', 'imp');
-            } else {
+            if (!$prefs->getValue('use_smime')) {
                 $ui->suppress[] = 'use_smime_text';
                 $ui->suppress[] = 'smime_verify';
                 $ui->suppress[] = 'smimepublickey';
@@ -276,8 +339,6 @@ class IMP_Prefs_Ui
         case 'stationery':
             if ($prefs->isLocked('stationery')) {
                 $ui->suppress[]  = 'stationerymanagement';
-            } else {
-                $ui->nobuttons = true;
             }
             break;
 
@@ -297,57 +358,13 @@ class IMP_Prefs_Ui
 
             $mock_part = new Horde_Mime_Part();
             $mock_part->setType('text/html');
-            $v = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mock_part);
+            $v = $injector->getInstance('IMP_Injector_Factory_MimeViewer')->create($mock_part);
 
             if (!$v->canRender('inline')) {
                 $ui->suppress[] = 'alternative_display';
             }
-
-            /* Sort encodings. */
-            if (!$prefs->isLocked('default_msg_charset')) {
-                asort($registry->nlsconfig['encodings']);
-            }
             break;
         }
-
-        /* Hide appropriate prefGroups. */
-        if ($pop3) {
-            $ui->suppressGroups[] = 'flags';
-            $ui->suppressGroups[] = 'searches';
-            $ui->suppressGroups[] = 'server';
-        }
-
-        try {
-            $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
-        } catch (IMP_Exception $e) {
-            $ui->suppressGroups[] = 'acl';
-        }
-
-        if (empty($conf['user']['allow_accounts'])) {
-            $ui->suppressGroups[] = 'accounts';
-        }
-
-        $contacts_app = $registry->hasInterface('contacts');
-        if (!$contacts_app || !$registry->hasPermission($contacts_app)) {
-            $ui->suppressGroups[] = 'addressbooks';
-        }
-
-        if (!isset($GLOBALS['conf']['gnupg']['path'])) {
-            $ui->suppressGroups[] = 'pgp';
-        }
-
-        if (!Horde_Util::extensionExists('openssl') ||
-            !isset($conf['openssl']['path'])) {
-            $ui->suppressGroups[] = 'smime';
-        }
-
-        if (empty($conf['user']['allow_folders'])) {
-            $ui->suppressGroups[] = 'searches';
-        }
-
-        // TODO: For now, disable this group since accounts code has not
-        // yet been fully written.
-        $ui->suppressGroups[] = 'accounts';
     }
 
     /**
@@ -530,12 +547,6 @@ class IMP_Prefs_Ui
                 if (!empty($maildomain)) {
                     $session->set('imp', 'maildomain', $maildomain);
                 }
-            }
-            break;
-
-        case 'delmove':
-            if ($prefs->isDirty('use_trash')) {
-                $ui->suppress = array_diff($ui->suppress, array('trashselect', 'empty_trash_menu'));
             }
             break;
 

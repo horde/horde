@@ -16,6 +16,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
 class Horde_Core_Prefs_Ui
@@ -54,13 +55,6 @@ class Horde_Core_Prefs_Ui
      * @var array
      */
     public $suppressGroups = array();
-
-    /**
-     * Suppressed preference entries to automatically update.
-     *
-     * @var array
-     */
-    public $suppressUpdate = array();
 
     /**
      * Current application.
@@ -125,16 +119,14 @@ class Horde_Core_Prefs_Ui
         /* Load preferences. */
         $this->_loadPrefs($this->app);
 
-        /* Populate enums. */
-        if ($this->group &&
-            $registry->hasAppMethod($this->app, 'prefsEnum') &&
-            $this->groupIsEditable($this->group)) {
-            $registry->callAppMethod($this->app, 'prefsEnum', array('args' => array($this)));
-        }
-
         /* Run app-specific init code. */
         if ($registry->hasAppMethod($this->app, 'prefsInit')) {
             $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
+        }
+
+        if ($this->group &&
+            $registry->hasAppMethod($this->app, 'prefsGroup')) {
+            $registry->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
         }
     }
 
@@ -218,7 +210,7 @@ class Horde_Core_Prefs_Ui
                 ($this->prefGroups[$this->group]['type'] == 'identities')) {
                 $this->_identitiesUpdate();
             } else {
-                $this->_handleForm(array_diff($this->getChangeablePrefs($this->group), $this->suppressUpdate), $GLOBALS['prefs']);
+                $this->_handleForm($this->getChangeablePrefs($this->group), $GLOBALS['prefs']);
             }
             break;
 
@@ -231,6 +223,11 @@ class Horde_Core_Prefs_Ui
             }
             $this->_handleForm($special, $GLOBALS['prefs']);
             break;
+        }
+
+        if ($GLOBALS['registry']->hasAppMethod($this->app, 'prefsGroup')) {
+            $this->suppress = array();
+            $GLOBALS['registry']->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
         }
     }
 
@@ -869,7 +866,7 @@ class Horde_Core_Prefs_Ui
         $identity->setDefault($id);
 
         try {
-            $this->_handleForm(array_diff($this->_addHordeIdentitiesPrefs($this->getChangeablePrefs($this->group)), $this->suppressUpdate), $identity);
+            $this->_handleForm($this->_addHordeIdentitiesPrefs($this->getChangeablePrefs($this->group)), $identity);
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
             return;

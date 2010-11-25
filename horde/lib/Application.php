@@ -62,16 +62,6 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
-     * Populate dynamically-generated preference values.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsEnum($ui)
-    {
-        $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsEnum($ui);
-    }
-
-    /**
      * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.

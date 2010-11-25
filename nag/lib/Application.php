@@ -129,13 +129,13 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Populate dynamically-generated preference values.
+     * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsEnum($ui)
+    public function prefsInit($ui)
     {
-        global $prefs, $registry;
+        global $conf, $prefs, $registry;
 
         switch ($ui->group) {
         case 'share':
@@ -145,7 +145,7 @@ class Nag_Application extends Horde_Registry_Application
 
                 foreach ($all_tasklists as $id => $tasklist) {
                     if (!empty($conf['share']['hidden']) &&
-                        ($tasklist->get('owner') != $GLOBALS['registry']->getAuth()) &&
+                        ($tasklist->get('owner') != $registry->getAuth()) &&
                         !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
                         continue;
                     }
@@ -176,26 +176,21 @@ class Nag_Application extends Horde_Registry_Application
             break;
         }
 
-        $show_external = array();
         if ($registry->hasMethod('getListTypes', 'whups')) {
-            $show_external['whups'] = $registry->get('name', 'whups');
-        }
-        if (count($show_external)) {
-            $ui->override['show_external'] = $show_external;
-        } else {
-            $ui->suppress[] = 'show_external';
-            $ui->suppressGroups[] = 'external';
+            $ui->override['show_external'] = array(
+                'whups' => $registry->get('name', 'whups')
+            );
         }
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Determine active prefs when displaying a group.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsGroup($ui)
     {
-        global $conf, $prefs;
+        global $conf, $prefs, $registry;
 
         switch ($ui->group) {
         case 'notification':
@@ -205,6 +200,10 @@ class Nag_Application extends Horde_Registry_Application
                 $ui->suppress[] = 'task_alarms';
             }
             break;
+        }
+
+        if (!$registry->hasMethod('getListTypes', 'whups')) {
+            $ui->suppress[] = 'show_external';
         }
     }
 

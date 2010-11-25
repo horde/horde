@@ -162,11 +162,11 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
-     * Populate dynamically-generated preference values.
+     * Determine active prefs when displaying a group.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsEnum($ui)
+    public function prefsGroup($ui)
     {
         global $conf, $prefs;
 

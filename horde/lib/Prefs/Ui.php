@@ -13,13 +13,13 @@
 class Horde_Prefs_Ui
 {
     /**
-     * Populate dynamically-generated preference values.
+     * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsEnum($ui)
+    public function prefsInit($ui)
     {
-        global $injector, $notification, $prefs, $registry;
+        global $conf, $injector, $prefs, $registry;
 
         switch ($ui->group) {
         case 'display':
@@ -39,11 +39,7 @@ class Horde_Prefs_Ui
             }
 
             if (!$prefs->isLocked('theme')) {
-                try {
-                    $ui->override['theme'] = Horde_Themes::themeList();
-                } catch (UnexpectedValueException $e) {
-                    $notification->push(_("Theme directory can't be opened"), 'horde.error');
-                }
+                $ui->override['theme'] = Horde_Themes::themeList();
             }
             break;
 
@@ -57,21 +53,7 @@ class Horde_Prefs_Ui
                 $ui->override['timezone'] = Horde_Nls::getTimezones();
                 array_unshift($ui->override['timezone'], _("Default"));
             }
-            break;
-        }
-    }
 
-    /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsInit($ui)
-    {
-        global $conf, $injector, $prefs, $registry;
-
-        switch ($ui->group) {
-        case 'language':
             if (!$prefs->isLocked('sending_charset')) {
                 asort($registry->nlsconfig['encodings']);
             }
