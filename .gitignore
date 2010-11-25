@@ -53,6 +53,7 @@ framework/Ldap/test/Horde/Ldap/conf.php
 */config/*.txt
 framework/bin/*.conf
 !horde/config/nls.php
+!horde/admin/config/
 horde/config/registry.d/*.php
 
 # Application specific excludes
