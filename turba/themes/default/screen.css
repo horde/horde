@@ -69,6 +69,10 @@ table#addressbook-list th.sortdown {
     width: 1%;
 }
 
+.turba-browse-icon {
+    align: center;
+}
+
 /* Duplicates */
 .turba-duplicate {
     overflow: auto;

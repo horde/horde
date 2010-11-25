@@ -47,16 +47,16 @@ if ($ob->hasValue('__key')) {
 ?>
 <tr>
 <?php if ($this->showMark): ?>
-  <td><label for="<?php echo htmlspecialchars($ob->getSource() . ':' . $ob->getValue('__key')) ?>" class="hidden"><?php echo _("Select contact") ?></label><input type="checkbox" class="checkbox" name="objectkeys[]" id="<?php echo htmlspecialchars($ob->getSource() . ':' . $ob->getValue('__key')) ?>" value="<?php echo htmlspecialchars($ob->getSource() . ':' . $ob->getValue('__key')) ?>" /></td>
+  <td class="turba-browse-icon"><label for="<?php echo htmlspecialchars($ob->getSource() . ':' . $ob->getValue('__key')) ?>" class="hidden"><?php echo _("Select contact") ?></label><input type="checkbox" class="checkbox" name="objectkeys[]" id="<?php echo htmlspecialchars($ob->getSource() . ':' . $ob->getValue('__key')) ?>" value="<?php echo htmlspecialchars($ob->getSource() . ':' . $ob->getValue('__key')) ?>" /></td>
 <?php endif; ?>
 <?php if ($this->showEdit): ?>
-  <td><?php echo $edit_url ?></td>
+  <td class="turba-browse-icon"><?php echo $edit_url ?></td>
 <?php endif; ?>
 <?php if ($this->showVcard): ?>
-  <td><?php echo $vcard_url ?></td>
+  <td class="turba-browse-icon"><?php echo $vcard_url ?></td>
 <?php endif; ?>
 <?php if ($this->showGroup): ?>
-  <td><?php echo $ob->isGroup() ? Horde::img('group.png', _("Group")) : $own_icon ?></td>
+  <td class="turba-browse-icon"><?php echo $ob->isGroup() ? Horde::img('group.png', _("Group")) : $own_icon ?></td>
 <?php endif; ?>
   <td<?php if ($this->showSort && $this->isSortColumn(0)) echo ' class="linedRowSelectedCol"' ?>><?php
 echo $cell;
