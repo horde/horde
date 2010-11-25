@@ -357,16 +357,31 @@ class Components_Pear_Package
         $pkg->_packageInfo['version']['release'] = $version;
         $pkg->setDate(date('Y-m-d'));
         $pkg->setTime(date('H:i:s'));
+        $errors = array();
         ob_start();
         $old_dir = getcwd();
         chdir($archive_dir);
-        $result = Components_Exception_Pear::catchError(
-            $pkg->getDefaultGenerator()
-            ->toTgz(new PEAR_Common())
-        );
+        try {
+            $result = Components_Exception_Pear::catchError(
+                $pkg->getDefaultGenerator()->toTgz(new PEAR_Common())
+            );
+        } catch (Components_Exception_Pear $e) {
+            $errors[] = $e->getMessage();
+            $errors[] = '';
+            $result = false;
+            foreach ($pkg->getValidationWarnings() as $error) {
+                $errors[] = isset($error['message']) ? $error['message'] : 'Unknown Error';
+            }
+        }
         chdir($old_dir);
         $this->_output->pear(ob_get_clean());
-        $this->_output->ok('Generated snapshot ' . $result);
+        if ($result) {
+            $this->_output->ok('Generated snapshot ' . $result);
+        } else {
+            $this->_output->fail(
+                'Generating snapshot failed with:'. "\n\n" . join("\n", $errors)
+            );
+        }
         return $result;
     }
 

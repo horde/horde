@@ -621,6 +621,12 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['output']
             );
             break;
+        case 'indicate the specific problem of the package.xml':
+            $this->assertContains(
+                'Old.php" in package.xml does not exist',
+                $world['output']
+            );
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -679,7 +685,8 @@ extends PHPUnit_Extensions_Story_TestCase
 
     private function _callUnstrict(array $parameters)
     {
-        $old_errorreporting = error_reporting(E_ALL & ~E_STRICT);
+        $old_errorreporting = error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
+        error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
         $this->_callStrict($parameters);
         error_reporting($old_errorreporting);
     }
@@ -695,5 +702,6 @@ extends PHPUnit_Extensions_Story_TestCase
             '*' => false,
         );
         $GLOBALS['_PEAR_ERRORSTACK_DEFAULT_LOGGER'] = false;
+        $GLOBALS['_PEAR_ERRORSTACK_OVERRIDE_CALLBACK'] = array();
     }
 }

@@ -62,6 +62,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the devpackage option, the archive directory option and a path to an invalid Horde framework component')
-            ->then('the output should indicate an invalid package.xml');
+            ->then('the output should indicate an invalid package.xml')
+            ->and('indicate the specific problem of the package.xml');
     }
 }
