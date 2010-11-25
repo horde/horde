@@ -17,18 +17,7 @@
  * @link       http://pear.horde.org/index.php?package=Components
  */
 
-if (!spl_autoload_functions()) {
-    spl_autoload_register(
-        create_function(
-            '$class', 
-            '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
-            . '$err_mask = E_ALL ^ E_WARNING;'
-            . '$oldErrorReporting = error_reporting($err_mask);'
-            . 'include "$filename.php";'
-            . 'error_reporting($oldErrorReporting);'
-        )
-    );
-}
+require_once 'Horde/Test/Autoload.php';
 
 if (!class_exists('Components')) {
     set_include_path(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
@@ -36,7 +25,6 @@ if (!class_exists('Components')) {
 
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
-
 
 /** Load the basic test definition */
 require_once dirname(__FILE__) . '/StoryTestCase.php';
