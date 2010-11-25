@@ -54,8 +54,15 @@ v4.0-cvs
 
 
 -----------
-v3.3.11-cvs
+v3.3.12-cvs
 -----------
+
+[jan] Fix invalidating permission cache in SQL driver (Bug #9392).
+
+
+-------
+v3.3.11
+-------
 
 [mms] SECURITY: Fix XSS when viewing details of a vCard.
 [jan] Fix exporting recurrence exceptions to vCalendar 1.0.
