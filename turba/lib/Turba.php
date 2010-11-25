@@ -146,6 +146,16 @@ class Turba {
             }
         }
 
+        /* In case of shares select first user owned address book as default */
+        if (!empty($_SESSION['turba']['has_share'])) {
+            try {
+                $owned_shares = Turba::listShares(true);
+                if (count($owned_shares) > 0) {
+                    return key($owned_shares);
+                }
+            } catch (Exception $e) {}
+        }
+
         reset($GLOBALS['cfgSources']);
         return key($GLOBALS['cfgSources']);
     }
