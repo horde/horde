@@ -23,11 +23,14 @@ $view->registry = $registry;
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
-Horde::addScriptFile(array(
-    array('date/en-US.js', 'horde'),
-    array('date/date.js', 'horde'),
-    array('mobile.js', 'kronolith')
-));
+$datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
+if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
+    $datejs = 'en-US.js';
+}
+Horde::addScriptFile('horde-jquery.js', 'horde');
+Horde::addScriptFile('date/' . $datejs, 'horde');
+Horde::addScriptFile('date/date.js', 'horde');
+Horde::addScriptFile('mobile.js', 'kronolith');
 
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
