@@ -18,19 +18,6 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
      */
     protected $_parent = null;
 
-    /**
-     * @var boolean
-     */
-    private $_initialized;
-
-    protected function _ensureInitialized()
-    {
-        if (!$this->_initialized) {
-            $this->_init();
-            $this->_initialized = true;
-        }
-    }
-
     protected function _init()
     {
         /* Get diff statistics. */
@@ -134,6 +121,9 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
 
             $line = next($lines);
         }
+
+        $this->_setSymbolicBranches();
+        $this->_branch = $this->_file->queryBranch($this->_rev);
     }
 
     /**
@@ -148,17 +138,8 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
     /**
      * TODO
      */
-    public function queryBranch()
-    {
-        return $this->_file->queryBranch($this->_rev);
-    }
-
-    /**
-     * TODO
-     */
     public function queryParent()
     {
         return $this->_parent;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs log class.
+ * Horde_Vcs_Log class.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
@@ -21,7 +21,14 @@ abstract class Horde_Vcs_Log
     protected $_log;
     protected $_state;
     protected $_lines = '';
+    protected $_branch;
     protected $_branches = array();
+    protected $_symbolicBranches = array();
+
+    /**
+     * @var boolean
+     */
+    protected $_initialized;
 
     /**
      * Constructor.
@@ -33,6 +40,10 @@ abstract class Horde_Vcs_Log
 
     protected function _ensureInitialized()
     {
+        if (!$this->_initialized) {
+            $this->_init();
+            $this->_initialized = true;
+        }
     }
 
     /**
@@ -98,7 +109,7 @@ abstract class Horde_Vcs_Log
     public function queryBranch()
     {
         $this->_ensureInitialized();
-        return array();
+        return $this->_branch;
     }
 
     /**
@@ -129,17 +140,19 @@ abstract class Horde_Vcs_Log
     public function querySymbolicBranches()
     {
         $this->_ensureInitialized();
+        return $this->_symbolicBranches;
+    }
 
-        $symBranches = array();
+    protected function _setSymbolicBranches()
+    {
+        $this->_symbolicBranches = array();
         $branches = $this->_file->queryBranches();
 
         foreach ($this->_branches as $branch) {
             if (($key = array_search($branch, $branches)) !== false) {
-                $symBranches[$key] = $branch;
+                $this->_symbolicBranches[$key] = $branch;
             }
         }
-
-        return $symBranches;
     }
 
     /**

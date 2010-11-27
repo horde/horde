@@ -20,11 +20,9 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
      */
     protected $_branch;
 
-    private $_initialized;
-
     protected function _init()
     {
-       $raw = $this->_file->getAccum();
+        $raw = $this->_file->getAccum();
 
         /* Initialise a simple state machine to parse the output of rlog */
         $state = 'init';
@@ -77,14 +75,14 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
         /* Assume the rest of the lines are the log message */
         $this->_log = implode("\n", $raw);
         $this->_tags = $this->_file->queryRevsym($this->_rev);
-    }
 
-    protected function _ensureInitialized()
-    {
-        if (!$this->_initialized) {
-            $this->_init();
-            $this->_initialized = true;
-        }
+        $this->_setSymbolicBranches();
+
+        $branches = $this->_file->queryBranches();
+        $key = array_keys($branches, $this->_rev);
+        $this->_branch = empty($key)
+            ? array_keys($branches, $this->_rep->strip($this->_rev, 1))
+            : $key;
     }
 
     /**
@@ -94,21 +92,4 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
     {
         $this->_branch = array($branch);
     }
-
-    /**
-     * TODO
-     */
-    public function queryBranch()
-    {
-        if (!empty($this->_branch)) {
-            return $this->_branch;
-        }
-
-        $branches = $this->_file->queryBranches();
-        $key = array_keys($branches, $this->_rev);
-        return empty($key)
-            ? array_keys($branches, $this->_rep->strip($this->_rev, 1))
-            : $key;
-    }
-
 }
