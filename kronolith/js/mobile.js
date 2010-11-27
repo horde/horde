@@ -52,6 +52,7 @@
      */
     doAction: function(action, params, callback)
     {
+        $.mobile.pageLoading();
         var options = {
             'url': Kronolith.conf.URI_AJAX + action,
             'data': params,
@@ -72,6 +73,7 @@
         KronolithMobile.server_error = 0;
         KronolithMobile.showNotifications(d.msgs || []);
         KronolithMobile.inAjaxCallback = false;
+        $.mobile.pageLoading(true);
     },
 
     showNotifications: function(m)
