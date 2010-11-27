@@ -41,6 +41,8 @@
      */
     date: null,
 
+    serverError: 0,
+
     /**
      * Perform an Ajax action
      *
@@ -50,7 +52,46 @@
      */
     doAction: function(action, params, callback)
     {
-        $.post(Kronolith.conf.URI_AJAX + action, params, callback, 'json');
+        var options = {
+            'url': Kronolith.conf.URI_AJAX + action,
+            'data': params,
+            'error': KronolithMobile.errorCallback,
+            'success': function(d, t, x) { KronolithMobile.doActionComplete(d, callback); },
+            'type': 'post'
+        };
+        $.ajax(options);
+    },
+
+    doActionComplete: function(d, callback)
+    {
+        var r = d.response;
+        if (r && $.isFunction(callback)) {
+          callback(r);
+        }
+
+        KronolithMobile.server_error = 0;
+        KronolithMobile.showNotifications(d.msgs || []);
+        KronolithMobile.inAjaxCallback = false;
+    },
+
+    showNotifications: function(m)
+    {
+        $.each(m, function(key, msg) {
+            if (msg.type == 'horde.ajaxtimeout') {
+                KronolithMobile.logout(msg.message);
+            }
+        });
+    },
+
+    logout: function(url)
+    {
+        KronolithMobile.is_logout = true;
+        window.location = (url || (Kronolith.conf.URI_AJAX + 'logOut'));
+    },
+
+    errorCallback: function(x, t, e)
+    {
+
     },
 
     /**
@@ -139,11 +180,10 @@
      */
     loadEventsCallback: function(data)
     {
-        var start = KronolithMobile.parseDate(data.response.sig.substr(0, 8)),
-            end = KronolithMobile.parseDate(data.response.sig.substr(8, 8)),
-            dates = [start, end], view = data.response.view, list, events;
+        var start = KronolithMobile.parseDate(data.sig.substr(0, 8)),
+            end = KronolithMobile.parseDate(data.sig.substr(8, 8)),
+            dates = [start, end], view = data.view, list, events;
 
-        data = data.response;
         KronolithMobile.storeCache(data.events, data.cal, dates, true);
         KronolithMobile.loadedCalendars.push(data.cal);
         KronolithMobile.insertEvents(dates, view, data.cal);
@@ -269,12 +309,12 @@
      */
     loadEventCallback: function(data)
     {
-         if (!data.response.event) {
+         if (!data.event) {
              // @TODO: Error handling.
              return;
          }
 
-         var event = data.response.event;
+         var event = data.event;
          var ul = KronolithMobile.buildEventView(event);
          $('#eventview [data-role=content]').append(ul);
     },
