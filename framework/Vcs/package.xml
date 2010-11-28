@@ -45,18 +45,22 @@
       <dir name="Directory">
        <file name="Cvs.php" role="php" />
        <file name="Git.php" role="php" />
+       <file name="Svn.php" role="php" />
       </dir> <!-- //lib/Horde/Vcs/Directory -->
       <dir name="File">
        <file name="Cvs.php" role="php" />
        <file name="Git.php" role="php" />
+       <file name="Svn.php" role="php" />
       </dir> <!-- //lib/Horde/Vcs/File -->
       <dir name="Log">
        <file name="Cvs.php" role="php" />
        <file name="Git.php" role="php" />
+       <file name="Svn.php" role="php" />
       </dir> <!-- //lib/Horde/Vcs/Log -->
       <dir name="Patchset">
        <file name="Cvs.php" role="php" />
        <file name="Git.php" role="php" />
+       <file name="Svn.php" role="php" />
       </dir> <!-- //lib/Horde/Vcs/Patchset -->
       <file name="Cvs.php" role="php" />
       <file name="Directory.php" role="php" />
@@ -110,12 +114,16 @@
    <install as="Horde/Vcs/Svn.php" name="lib/Horde/Vcs/Svn.php" />
    <install as="Horde/Vcs/Directory/Cvs.php" name="lib/Horde/Vcs/Directory/Cvs.php" />
    <install as="Horde/Vcs/Directory/Git.php" name="lib/Horde/Vcs/Directory/Git.php" />
+   <install as="Horde/Vcs/Directory/Svn.php" name="lib/Horde/Vcs/Directory/Svn.php" />
    <install as="Horde/Vcs/File/Cvs.php" name="lib/Horde/Vcs/File/Cvs.php" />
    <install as="Horde/Vcs/File/Git.php" name="lib/Horde/Vcs/File/Git.php" />
+   <install as="Horde/Vcs/File/Svn.php" name="lib/Horde/Vcs/File/Svn.php" />
    <install as="Horde/Vcs/Log/Cvs.php" name="lib/Horde/Vcs/Log/Cvs.php" />
    <install as="Horde/Vcs/Log/Git.php" name="lib/Horde/Vcs/Log/Git.php" />
+   <install as="Horde/Vcs/Log/Svn.php" name="lib/Horde/Vcs/Log/Svn.php" />
    <install as="Horde/Vcs/Patchset/Cvs.php" name="lib/Horde/Vcs/Patchset/Cvs.php" />
    <install as="Horde/Vcs/Patchset/Git.php" name="lib/Horde/Vcs/Patchset/Git.php" />
+   <install as="Horde/Vcs/Patchset/Svn.php" name="lib/Horde/Vcs/Patchset/Svn.php" />
   </filelist>
  </phprelease>
  <changelog>
