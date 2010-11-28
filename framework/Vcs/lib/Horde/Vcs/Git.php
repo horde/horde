@@ -260,18 +260,21 @@ class Horde_Vcs_Git extends Horde_Vcs
             $flags .= ' -b -w ';
         }
 
-        switch ($opts['type']) {
-        case 'unified':
-            $flags .= '--unified=' . escapeshellarg((int)$opts['num']);
-            break;
+        if (!$rev1) {
+            $command = $this->getCommand() . ' show --oneline ' . escapeshellarg($rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
+        } else {
+            switch ($opts['type']) {
+            case 'unified':
+                $flags .= '--unified=' . escapeshellarg((int)$opts['num']);
+                break;
+            }
+
+            // @TODO: add options for $hr options - however these may not
+            // be compatible with some diffs.
+            $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
         }
 
-        // @TODO: add options for $hr options - however these may not
-        // be compatible with some diffs.
-        $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
-
         exec($command, $diff, $retval);
-
         return $diff;
     }
 
