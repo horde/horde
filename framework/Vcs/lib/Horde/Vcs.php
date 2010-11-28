@@ -194,7 +194,7 @@ class Horde_Vcs
     public function assertValidRevision($rev)
     {
         if (!$this->isValidRevision($rev)) {
-            throw new Horde_Vcs_Exception('Invalid revision number');
+            throw new Horde_Vcs_Exception('Invalid revision number "' . $rev . '"');
         }
     }
 
