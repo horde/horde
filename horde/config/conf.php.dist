@@ -64,6 +64,7 @@ $conf['testdisable'] = true;
 $conf['debug_level'] = E_ALL & ~E_NOTICE;
 $conf['umask'] = 077;
 $conf['compress_pages'] = true;
+$conf['max_exec_time'] = 0;
 $conf['session']['name'] = 'Horde';
 $conf['session']['cache_limiter'] = 'nocache';
 $conf['session']['timeout'] = 0;
