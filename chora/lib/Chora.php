@@ -128,7 +128,7 @@ class Chora
 
             case 'patchsets.php':
                 if (!empty($args['ps'])) {
-                    $script = urlencode(isset($args['rt']) ? $args['rt'] : $GLOBALS['acts']['rt']) . '/-/commits/' . $args['ps'];
+                    $script = urlencode(isset($args['rt']) ? $args['rt'] : $GLOBALS['acts']['rt']) . '/-/commit/' . $args['ps'];
                     unset($arglist['ps']);
                 }
                 break;

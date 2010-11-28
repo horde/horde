@@ -15,13 +15,15 @@ class Chora_Diff_Helper extends Horde_View_Helper_Base
      */
     protected $_context = '';
 
-    public function diff($diff)
+    public function diff(Horde_Vcs_File $file, $r1, $r2, $id = null)
     {
-        if (!$diff) {
-            return '<p>' . _("No Visible Changes") . '</p>';
+        try {
+            $diff = $GLOBALS['VC']->diff($file, $r1, $r2, array('human' => true));
+        } catch (Horde_Vcs_Exception $e) {
+            return '<div class="diff"><p>' . sprintf(_("There was an error generating the diff: %s"), $e->getMessage()) . '</p></div>';
         }
 
-        return $this->render('app/views/diff/diff.html.php', array('diff' => $diff));
+        return $this->render('app/views/diff/diff.html.php', array('diff' => $diff, 'file' => $file, 'r1' => $r1, 'r2' => $r2, 'id' => $id));
     }
 
     public function diffAdd($change)

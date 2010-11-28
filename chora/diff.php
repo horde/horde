@@ -34,11 +34,6 @@ if (Horde_Util::getFormData('ty') == 'u') {
     $type = 'unified';
 }
 
-/* Unless otherwise specified, show whitespace differences and 3 lines
- * of context. */
-$ws = Horde_Util::getFormData('ws', 1);
-$num = (int)Horde_Util::getFormData('num', 3);
-
 /* Cache the output of the diff for a week - it can be longer, since
  * it should never change. */
 header('Cache-Control: max-age=604800');
@@ -47,7 +42,7 @@ header('Cache-Control: max-age=604800');
  * the end of the file - patch requires it. */
 if ($type != 'colored') {
     header('Content-Type: text/plain');
-    echo implode("\n", $VC->diff($fl, $r1, $r2, array('num' => $num, 'type' => $type, 'ws' => $ws))) . "\n";
+    echo implode("\n", $VC->diff($fl, $r1, $r2, array('num' => $num, 'type' => $type))) . "\n";
     exit;
 }
 
@@ -83,7 +78,7 @@ if (substr($mime_type, 0, 6) == 'image/') {
 } else {
     $view = $injector->createInstance('Horde_View');
     $view->addHelper('Chora_Diff_Helper');
-    echo $view->diff($VC->diff($fl, $r1, $r2, array('human' => true, 'num' => $num, 'ws' => $ws)));
+    echo $view->diff($fl, $r1, $r2);
     echo $view->diffCaption();
 }
 

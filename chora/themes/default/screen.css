@@ -150,25 +150,6 @@ h3.checkout, h3.file-view-header {
     width: 35%;
 }
 
-.singleps span.headerLabel {
-    font-size: 110%;
-    font-weight: bold;
-    padding-right: 5px;
-}
-.singleps span.ago a:hover {
-    text-decoration: none;
-}
-.singlepslog {
-    padding: 10px 0 20px 20px;
-}
-ul.singlepsfiles {
-    list-style: none;
-    padding: 10px 0 0 20px;
-}
-ul.singlepsfiles li {
-    padding-bottom: 4px;
-}
-
 .commit-list h3 {
     font-size: 130%;
     font-weight: bold;
@@ -183,6 +164,7 @@ ul.singlepsfiles li {
 }
 .commit-message {
     font-size: 110%;
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
     margin-bottom: .5em;
 }
 .commit-info {
@@ -198,7 +180,42 @@ ul.singlepsfiles li {
     margin-bottom: .5em;
 }
 .commit-author {
-    font-size: 90%;
+}
+
+ul.commit-filelist {
+    margin: 1em 0;
+    border-top: thin solid #ccc;
+    list-style: none;
+}
+ul.commit-filelist li {
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+    padding: .2em;
+    border-bottom: thin solid #ccc;
+}
+ul.commit-filelist li:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+span.commit-file-added, span.commit-file-deleted, span.commit-file-modified {
+    display: block;
+    float: left;
+    height: 1em;
+    width: 1em;
+    margin-right: .5em;
+    text-indent: -9999px;
+}
+span.commit-file-added {
+    background: #cfc;
+}
+span.commit-file-deleted {
+    background: #fcc;
+}
+span.commit-file-modified {
+    background: #def;
 }
 
 /* Diff stat information. */
@@ -208,6 +225,7 @@ ul.singlepsfiles li {
 .diffdel {
     color: red;
 }
+
 
 /* Checkout, File view */
 div.checkout, div.file-view-contents {
@@ -254,6 +272,20 @@ table.annotate .logentry {
 div.diff {
     font-size: 100%;
     color: #111;
+    border: 1px solid #ccc;
+    margin: 1.5em 0;
+}
+div.diff-header {
+    border-bottom: 1px solid #ccc;
+    background: #eee;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee), color-stop(0.5, #eee));
+    background: -moz-linear-gradient(top, #fff, #eee 50%);
+    padding: .5em;
+}
+div.diff-header h4 {
+    font-weight: normal;
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+    font-size: 110%;
 }
 div.diff-section {
     margin-top: 1em;
@@ -289,8 +321,8 @@ div.diff-right {
 }
 .diff-added-empty {
     background: #efe;
-    background: -webkit-gradient(linear, left top, right top, from(#efe), to(#cfc), color-stop(0.5, #cfc));
-    background: -moz-linear-gradient(left top, #efe, #cfc 50%);
+    background: -webkit-gradient(linear, left top, right top, from(#fff), to(#cfc), color-stop(0.5, #cfc));
+    background: -moz-linear-gradient(left top, #fff, #cfc 50%);
 }
 .diff-modified {
     background: #def;
@@ -300,8 +332,8 @@ div.diff-right {
 }
 .diff-removed-empty {
     background: #fee;
-    background: -webkit-gradient(linear, right top, left top, from(#fee), to(#fcc), color-stop(0.5, #fcc));
-    background: -moz-linear-gradient(right top, #fee, #fcc 50%);
+    background: -webkit-gradient(linear, right top, left top, from(#fff), to(#fcc), color-stop(0.5, #fcc));
+    background: -moz-linear-gradient(right top, #fff, #fcc 50%);
 }
 
 .diff-caption {

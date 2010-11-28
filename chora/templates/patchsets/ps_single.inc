@@ -1,30 +1,49 @@
-<div class="singleps">
- <span class="headerLabel"><?php echo _("Date") ?>:</span>
- <span class="ago"><a title="<?php echo $readableDate ?>"><?php echo $commitDate ?></a></span>
-</div>
+<?php
 
-<div class="singleps">
- <span class="headerLabel"><?php echo _("Author") ?>:</span> <?php echo $author ?>
-</div>
+$view = $injector->createInstance('Horde_View');
+$view->addHelper('Chora_Diff_Helper');
 
-<?php if (!empty($tags)): ?>
-<div class="singleps">
- <span class="headerLabel"><?php echo _("Tags") ?>:</span> <?php echo implode(', ', array_map('htmlspecialchars', $tags)) ?>
-</div>
-<?php endif; ?>
+echo $view->renderPartial('app/views/logMessage', array('collection' => array($patchset['log'])));
 
-<div class="singleps">
- <span class="headerLabel"><?php echo _("Description") ?>:</span>
-</div>
+echo '<ul class="commit-filelist">';
+$i = 0;
+foreach ($patchset['members'] as $member) {
+    $i++;
 
-<div class="fixed singlepslog"><?php echo $logMessage ?></div>
+    switch ($member['status']) {
+    case Horde_Vcs_Patchset::ADDED:
+        $class = 'commit-file-added';
+        $alt = '+';
+        break;
 
-<div class="singleps">
- <span class="headerLabel"><?php echo _("Changes") ?>:</span>
-</div>
+    case Horde_Vcs_Patchset::DELETED:
+        $class = 'commit-file-deleted';
+        $alt = '-';
+        break;
 
-<ul class="singlepsfiles">
-<?php foreach ($files as $file): ?>
- <li><?php echo $file['file'] . (isset($file['added']) ? (' (<span class="diffadd">+' . $file['added'] . '</span>, <span class="diffdel">-' . $file['deleted'] . '</span>) ') : '') . ': ' . $file['from'] . ' -> ' . $file['to'] . ' ' . $file['diff'] ?></li>
-<?php endforeach; ?>
-</ul>
+    default:
+        $class = 'commit-file-modified';
+        $alt = '*';
+    }
+
+    echo '<li><span class="' . $class . '">' . $alt . '</span><a href="#diff-' . $i . '">'
+        . htmlspecialchars($member['file']) . '</a>' . (isset($member['added']) ? (' (<span class="diffadd">+' . $member['added'] . '</span>, <span class="diffdel">-' . $member['deleted'] . '</span>) ') : '') . '</li>';
+}
+echo '</ul>';
+
+$segmentStart = microtime(true);
+$i = 0;
+foreach ($patchset['members'] as $member) {
+    $i++;
+    echo $view->diff($VC->getFileObject($member['file']), $member['from'], $member['to'], "diff-$i");
+
+    // Flush every .1 seconds to keep the page rendering.
+    $now = microtime(true);
+    if ($now - $segmentStart > .1) {
+        ob_flush();
+        flush();
+        $segmentStart = $now;
+    }
+}
+
+echo $view->diffCaption();

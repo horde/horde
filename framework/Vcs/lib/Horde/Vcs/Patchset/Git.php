@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_Git Patchset class.
+ * Horde_Vcs_Patchset_Git class.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
@@ -50,32 +50,25 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
             }
 
             $this->_patchsets[$rev] = array(
-                'date' => $log->queryDate(),
-                'author' => $log->queryAuthor(),
-                'branches' => $log->queryBranch(),
-                'tags' => $log->queryTags(),
-                'log' => $log->queryLog(),
+                'log' => $log,
                 'members' => array(),
             );
 
             foreach ($log->queryFiles() as $file) {
+                $from = $log->queryParent();
                 $to = $rev;
-                $status = self::MODIFIED;
 
                 switch ($file['status']) {
                 case 'A':
-                    $from = null;
                     $status = self::ADDED;
                     break;
 
                 case 'D':
-                    $from = $to;
-                    $to = null;
                     $status = self::DELETED;
                     break;
 
                 default:
-                    $from = $log->queryParent();
+                    $status = self::MODIFIED;
                 }
 
                 $statinfo = isset($file['added'])
@@ -91,5 +84,4 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
             }
         }
     }
-
 }

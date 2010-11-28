@@ -1,4 +1,5 @@
-<div class="diff">
+<div class="diff"<?php if ($id) echo ' id="' . $id . '"' ?>>
+<div class="diff-header"><h4><?php echo $file->queryModulePath() ?></h4></div>
 <?php foreach ($diff as $section): ?>
 <div class="diff-container diff-section">
  <div class="diff-left"><h3><?php printf(_("Line %s"), $section['oldline']) ?></h3></div>

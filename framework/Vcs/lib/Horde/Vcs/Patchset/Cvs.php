@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_Cvs Patchset class.
+ * Horde_Vcs_Patchset_Cvs class.
  *
  * Copyright 2000-2010 The Horde Project (http://www.horde.org/)
  *
@@ -139,5 +139,4 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
             }
         }
     }
-
 }
