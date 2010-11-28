@@ -362,19 +362,6 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log
     protected $_files = array();
 
     /**
-     * @var boolean
-     */
-    private $_initialized;
-
-    protected function _ensureInitialized()
-    {
-        if (!$this->_initialized) {
-            $this->_init();
-            $this->_initialized = true;
-        }
-    }
-
-    /**
      * Constructor.
      */
     protected function _init()
