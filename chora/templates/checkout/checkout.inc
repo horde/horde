@@ -1,5 +1,4 @@
-<h3 class="revision_log"><?php echo _("Log Message") ?></h3>
-<div class="revision_log">
+<div class="commit-summary">
  <ul class="revision striped">
   <?php if ($author): ?><li><?php echo _("Author:") ?> <?php echo $author ?></li><?php endif; ?>
 <?php if (!empty($branch_info)): ?>
