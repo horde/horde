@@ -94,7 +94,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
         $log = '';
         $line = next($lines);
         while ($line !== false && substr($line, 0, 1) != ':') {
-            $log .= $line;
+            $log .= $line . "\n";
             $line = next($lines);
         }
         $this->_log = trim($log);
