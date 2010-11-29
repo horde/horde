@@ -643,7 +643,7 @@ Application Framework.</description>
    </package>
    <package>
     <name>Db</name>
-    <channel>pear.horde.net</channel>
+    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>DB</name>
