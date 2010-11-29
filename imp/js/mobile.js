@@ -6,21 +6,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
-
-/* ImpMobile object. */
 var ImpMobile = {
-
-    /**
-     * Perform an Ajax action
-     *
-     * @param string action      The AJAX request
-     * @param object params      The parameter hash
-     * @param function callback  The callback function
-     */
-    doAction: function(action, params, callback)
-    {
-        $.post(IMP.conf.URI_AJAX + action, params, callback, 'json');
-    },
 
     // Convert object to an IMP UID Range string. See IMP::toRangeString()
     // ob = (object) mailbox name as keys, values are array of uids.
@@ -64,8 +50,7 @@ var ImpMobile = {
         $('#imp-mailbox-header').text(label);
         $('#imp-mailbox-list').empty();
         $.mobile.changePage('#mailbox', 'slide', false, true);
-        $.mobile.pageLoading();
-        ImpMobile.doAction(
+        HordeMobile.doAction(
             'viewPort',
             {
                 view: mailbox,
@@ -85,9 +70,8 @@ var ImpMobile = {
     mailboxLoaded: function(r)
     {
         var list = $('#imp-mailbox-list');
-        $.mobile.pageLoading(true);
-        if (r.response && r.response.ViewPort) {
-            $.each(r.response.ViewPort.data, function(key, data) {
+        if (r && r.ViewPort) {
+            $.each(r.ViewPort.data, function(key, data) {
                 list.append(
                     $('<li class="imp-message" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
                         $('<h3>').append(
@@ -120,8 +104,7 @@ var ImpMobile = {
         $('#imp-message-more').parent().show();
         $('#imp-message-less').parent().hide();
         $.mobile.changePage('#message', 'slide', false, true);
-        $.mobile.pageLoading();
-        ImpMobile.doAction(
+        HordeMobile.doAction(
             'showMessage',
             {
                 uid: ImpMobile.toRangeString(o),
@@ -137,9 +120,8 @@ var ImpMobile = {
      */
     messageLoaded: function(r)
     {
-        $.mobile.pageLoading(true);
-        if (r.response && r.response.message && !r.response.message.error) {
-            var data = r.response.message,
+        if (r && r.message && !r.message.error) {
+            var data = r.message,
                 headers = $('#imp-message-headers tbody');
             $('#imp-message-title').html(data.title);
             $('#imp-message-subject').html(data.subject);
@@ -206,15 +188,8 @@ var ImpMobile = {
      */
     onDocumentReady: function()
     {
-        // Global ajax options.
-        $.ajaxSetup({
-            dataFilter: function(data, type)
-            {
-                // Remove json security token
-                filter = /^\/\*-secure-([\s\S]*)\*\/s*$/;
-                return data.replace(filter, "$1");
-            }
-        });
+        // Set up HordeMobile.
+        HordeMobile.urls.ajax = IMP.conf.URI_AJAX;
 
         IMP.iframeInject = function(id, data)
         {

@@ -41,61 +41,6 @@
      */
     date: null,
 
-    serverError: 0,
-
-    /**
-     * Perform an Ajax action
-     *
-     * @param string action      The AJAX request
-     * @param object params      The parameter hash
-     * @param function callback  The callback function
-     */
-    doAction: function(action, params, callback)
-    {
-        $.mobile.pageLoading();
-        var options = {
-            'url': Kronolith.conf.URI_AJAX + action,
-            'data': params,
-            'error': KronolithMobile.errorCallback,
-            'success': function(d, t, x) { KronolithMobile.doActionComplete(d, callback); },
-            'type': 'post'
-        };
-        $.ajax(options);
-    },
-
-    doActionComplete: function(d, callback)
-    {
-        var r = d.response;
-        if (r && $.isFunction(callback)) {
-          callback(r);
-        }
-
-        KronolithMobile.server_error = 0;
-        KronolithMobile.showNotifications(d.msgs || []);
-        KronolithMobile.inAjaxCallback = false;
-        $.mobile.pageLoading(true);
-    },
-
-    showNotifications: function(m)
-    {
-        $.each(m, function(key, msg) {
-            if (msg.type == 'horde.ajaxtimeout') {
-                KronolithMobile.logout(msg.message);
-            }
-        });
-    },
-
-    logout: function(url)
-    {
-        KronolithMobile.is_logout = true;
-        window.location = (url || (Kronolith.conf.URI_AJAX + 'logOut'));
-    },
-
-    errorCallback: function(x, t, e)
-    {
-
-    },
-
     /**
      * Load all events between start and end time.
      *
@@ -140,15 +85,15 @@
             }
 
             var start = startDay.dateString(), end = endDay.dateString();
-            KronolithMobile.doAction('listEvents',
-                                     {
-                                       'start': start,
-                                       'end': end,
-                                       'cal': cal.join('|'),
-                                       'view': view,
-                                       'sig': start + end + (Math.random() + '').slice(2)
-                                     },
-                                     KronolithMobile.loadEventsCallback
+            HordeMobile.doAction('listEvents',
+                                 {
+                                   'start': start,
+                                   'end': end,
+                                   'cal': cal.join('|'),
+                                   'view': view,
+                                   'sig': start + end + (Math.random() + '').slice(2)
+                                 },
+                                 KronolithMobile.loadEventsCallback
             );
         });
     },
@@ -298,9 +243,9 @@
      */
     loadEvent: function(cal, id, d)
     {
-        KronolithMobile.doAction('getEvent',
-                                 {'cal': cal, 'id': id, 'date': d.toString('yyyyMMdd')},
-                                 KronolithMobile.loadEventCallback);
+        HordeMobile.doAction('getEvent',
+                             {'cal': cal, 'id': id, 'date': d.toString('yyyyMMdd')},
+                             KronolithMobile.loadEventCallback);
     },
 
     /**
@@ -737,6 +682,9 @@
 
     onDocumentReady: function()
     {
+        // Set up HordeMobile.
+        HordeMobile.urls.ajax = Kronolith.conf.URI_AJAX;
+
         // Build list of calendars we want.
         $.each(Kronolith.conf.calendars, function(key, value) {
             $.each(value, function(cal, info) {
@@ -744,16 +692,6 @@
                     KronolithMobile.calendars.push([key, cal]);
                 }
             });
-        });
-
-        // Global ajax options.
-        $.ajaxSetup({
-            dataFilter: function(data, type)
-            {
-                // Remove json security token
-                filter = /^\/\*-secure-([\s\S]*)\*\/s*$/;
-                return data.replace(filter, "$1");
-            }
         });
 
         // Day View

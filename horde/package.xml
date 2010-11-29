@@ -19,8 +19,8 @@ applications.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-11-25</date>
- <time>15:30:20</time>
+ <date>2010-11-29</date>
+ <time>15:17:50</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -331,6 +331,7 @@ applications.</description>
     <file name="login.js" role="horde" />
     <file name="logintasks.js" role="horde" />
     <file name="md5.js" role="horde" />
+    <file name="mobile.js" role="horde" />
     <file name="popup.js" role="horde" />
     <file name="prototype.js" role="horde" />
     <file name="quickfinder.js" role="horde" />
@@ -2242,6 +2243,7 @@ applications.</description>
    <install as="js/login.js" name="js/login.js" />
    <install as="js/logintasks.js" name="js/logintasks.js" />
    <install as="js/md5.js" name="js/md5.js" />
+   <install as="js/mobile.js" name="js/mobile.js" />
    <install as="js/popup.js" name="js/popup.js" />
    <install as="js/prototype.js" name="js/prototype.js" />
    <install as="js/quickfinder.js" name="js/quickfinder.js" />
@@ -3806,7 +3808,7 @@ applications.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-11-25</date>
+   <date>2010-11-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial package.xml.
