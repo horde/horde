@@ -69,11 +69,17 @@ var ImpMobile = {
      */
     mailboxLoaded: function(r)
     {
-        var list = $('#imp-mailbox-list');
+        var list = $('#imp-mailbox-list'), c, l;
         if (r && r.ViewPort) {
             $.each(r.ViewPort.data, function(key, data) {
+                c = 'imp-message';
+                if (data.flag) {
+                    $.each(data.flag, function(k, flag) {
+                        c += ' imp-message-' + flag.substr(1);
+                    });
+                }
                 list.append(
-                    $('<li class="imp-message" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
+                    $('<li class="' + c + '" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
                         $('<h3>').append(
                             $('<a href="#">').html(data.subject))).append(
                         $('<div class="ui-grid-a">').append(

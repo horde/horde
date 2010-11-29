@@ -10,6 +10,12 @@
     font-weight: normal;
     text-align: center;
 }
+.imp-message h3 {
+    font-weight: normal;
+}
+.imp-message-seen h3 {
+    font-weight: bold;
+}
 
 /* Message */
 #message .ui-body-c {
