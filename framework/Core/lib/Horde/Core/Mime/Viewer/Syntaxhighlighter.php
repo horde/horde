@@ -34,7 +34,7 @@ class Horde_Core_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Syntaxh
             Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde', true);
             Horde::addInlineScript(array(
                 'SyntaxHighlighter.defaults[\'toolbar\'] = false',
-                'SyntaxHighlighter.all()',
+                'SyntaxHighlighter.highlight()',
             ), 'dom');
             self::$_shLoaded = true;
 
