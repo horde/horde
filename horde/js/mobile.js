@@ -24,6 +24,13 @@
      */
     urls: {},
 
+    debug: function(label, e)
+    {
+        if (!HordeMobile.is_logout && window.console && window.console.error) {
+            window.console.error(label, jQuery.browser.mozilla ? e : jQuery.makeArray(e));
+        }
+    },
+
     /**
      * Perform an Ajax action
      *
@@ -48,7 +55,11 @@
     {
         var r = d.response;
         if (r && $.isFunction(callback)) {
-            callback(r);
+            try {
+                callback(r);
+            } catch (e) {
+                HordeMobile.debug('doActionComplete', e);
+            }
         }
 
         HordeMobile.server_error = 0;
