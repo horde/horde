@@ -2144,6 +2144,10 @@ applications.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Tree</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>View</name>
     <channel>pear.horde.org</channel>
    </package>
