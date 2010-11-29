@@ -34,20 +34,20 @@ class Horde_Kolab_Session_Class_Storage_SessionTest extends Horde_Kolab_Session_
 {
     public function testMethodLoadHasResultQueriedObject()
     {
-        $session = $this->getMock('ArrayAccess', array(), array(), '', false, false);
+        $session = $this->getMock('Horde_Session', array(), array(), '', false, false);
         $session->expects($this->once())
-            ->method('offsetGet')
-            ->with('kolab_session');
+            ->method('get')
+            ->with('horde', 'kolab_session');
         $storage = new Horde_Kolab_Session_Storage_Session($session);
         $storage->load();
     }
 
     public function testMethodSaveHasPostconditionThatTheSessionDataWasSaved()
     {
-        $session = $this->getMock('ArrayAccess', array(), array(), '', false, false);
+        $session = $this->getMock('Horde_Session', array(), array(), '', false, false);
         $session->expects($this->once())
-            ->method('offsetSet')
-            ->with('kolab_session', $this->isInstanceOf('Horde_Kolab_Session'));
+            ->method('set')
+            ->with('horde', 'kolab_session', $this->isInstanceOf('Horde_Kolab_Session'));
         $kolab_session = $this->getMock('Horde_Kolab_Session');
         $storage = new Horde_Kolab_Session_Storage_Session($session);
         $storage->save($kolab_session);

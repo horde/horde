@@ -53,7 +53,7 @@ implements Horde_Kolab_Session_Storage_Interface
      */
     public function load()
     {
-        return $this->_session['kolab_session'];
+        return $this->_session->get('horde', 'kolab_session');
     }
 
     /**
@@ -65,6 +65,6 @@ implements Horde_Kolab_Session_Storage_Interface
      */
     public function save(Horde_Kolab_Session $session)
     {
-        $this->_session['kolab_session'] = $session;
+        $this->_session->set('horde', 'kolab_session', $session);
     }
 }
