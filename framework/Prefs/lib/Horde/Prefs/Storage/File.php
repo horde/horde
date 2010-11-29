@@ -54,7 +54,7 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
 
         parent::__construct($user, $params);
 
-        $this->_fullpath = $this->params['directory'] . '/' . basename($this->_params['user']) . '.prefs';
+        $this->_fullpath = $this->_params['directory'] . '/' . basename($this->_params['user']) . '.prefs';
     }
 
     /**
