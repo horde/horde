@@ -434,7 +434,7 @@ class Horde_Registry
                     if ($ob->set($id, $data, 86400)) {
                         Horde::logMessage('Horde_Registry: stored ' . $key . ' with cache ID ' . $id, 'DEBUG');
                     }
-                } elseif ($id = $this->_getCacheId($name)) {
+                } elseif ($id = $this->_getCacheId($key)) {
                     // Entry has been deleted.
                     $ob->expire($id);
                 }
