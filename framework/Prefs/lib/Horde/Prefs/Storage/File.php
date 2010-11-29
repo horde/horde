@@ -137,7 +137,7 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
 
         if ((file_put_contents($tmp_file, serialize($this->_fileCache)) === false) ||
             (@rename($tmp_file, $this->_fullpath) === false)) {
-            throw new Horde_Prefs_Exception(sprintf('Write of preferences to %s failed', $this->_filename));
+            throw new Horde_Prefs_Exception(sprintf('Write of preferences to %s failed', $this->_fullpath));
         }
     }
 
