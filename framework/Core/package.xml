@@ -642,6 +642,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Db</name>
+    <channel>pear.horde.net</channel>
+   </package>
+   <package>
     <name>DB</name>
     <channel>pear.php.net</channel>
    </package>
