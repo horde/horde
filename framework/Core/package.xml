@@ -670,6 +670,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Kolab_Session</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Kolab_Storage</name>
     <channel>pear.horde.org</channel>
    </package>
