@@ -321,7 +321,7 @@ div.diff-right {
 .diff-added-empty {
     background: #efe;
     background: -webkit-gradient(linear, left top, right top, from(#fff), to(#cfc), color-stop(0.5, #cfc));
-    background: -moz-linear-gradient(left top, #fff, #cfc 50%);
+    background: -moz-linear-gradient(left, #fff, #cfc 50%);
 }
 .diff-modified {
     background: #def;
@@ -332,7 +332,7 @@ div.diff-right {
 .diff-removed-empty {
     background: #fee;
     background: -webkit-gradient(linear, right top, left top, from(#fff), to(#fcc), color-stop(0.5, #fcc));
-    background: -moz-linear-gradient(right top, #fff, #fcc 50%);
+    background: -moz-linear-gradient(right, #fff, #fcc 50%);
 }
 
 .diff-caption {
