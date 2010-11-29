@@ -21,7 +21,7 @@ $url = Horde::url('', true);
 $name = $registry->get('name', 'wicked') . ' (' . $url . ')';
 
 // Icon.
-$icon = base64_encode(file_get_contents($registry->get('themesfs', 'wicked') . '/graphics/wicked.png'));
+$icon = base64_encode(file_get_contents($registry->get('themesfs', 'wicked') . '/default/graphics/wicked.png'));
 
 // Charset.
 header('Content-Type: text/xml; charset=UTF-8');
