@@ -13,6 +13,7 @@
 }
 .imp-header-label {
     font-weight: bold;
+    vertical-align: top;
 }
 #imp-message-more, #imp-message-less {
     float: right;
