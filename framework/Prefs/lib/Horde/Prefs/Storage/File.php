@@ -58,6 +58,12 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
     }
 
     /**
+     * Retrieves the requested preferences scope from the storage backend.
+     *
+     * @param Horde_Prefs_Scope $scope_ob  The scope object.
+     *
+     * @return Horde_Prefs_Scope  The modified scope object.
+     * @throws Horde_Prefs_Exception
      */
     public function get($scope_ob)
     {
@@ -107,6 +113,11 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
     }
 
     /**
+     * Stores changed preferences in the storage backend.
+     *
+     * @param Horde_Prefs_Scope $scope_ob  The scope object.
+     *
+     * @throws Horde_Prefs_Exception
      */
     public function store($scope_ob)
     {
@@ -131,6 +142,14 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
     }
 
     /**
+     * Removes preferences from the backend.
+     *
+     * @param string $scope  The scope of the prefs to clear. If null, clears
+     *                       all scopes.
+     * @param string $pref   The pref to clear. If null, clears the entire
+     *                       scope.
+     *
+     * @throws Horde_Db_Exception
      */
     public function remove($scope = null, $pref = null)
     {
