@@ -62,6 +62,20 @@ if (!$plain) {
     /* Pretty-print the checked out copy */
     $pretty = Chora::pretty($mime_type, $checkOut);
 
+    if (strpos($mime_type, 'text/plain') !== false) {
+        $data = $pretty->render('inline');
+        $data = reset($data);
+        $rendered = '<div class="fixed">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data['data'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) . '</div>';
+    } elseif (strpos($mime_type, 'image/') !== false) {
+        $rendered = Horde::img(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1), '', '', '');
+    } elseif ($pretty->canRender('inline')) {
+        $data = $pretty->render('inline');
+        $data = reset($data);
+        $rendered = $data['data'];
+    } else {
+        $rendered = Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png') . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
+    }
+
     /* Get this revision's attributes in printable form. */
     $log = $file->queryLogs($r);
 
