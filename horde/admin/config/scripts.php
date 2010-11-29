@@ -48,22 +48,20 @@ if ($setup == 'conf' && $type == 'php') {
         $path = $registry->get('fileroot', $app) . '/config';
         $data .= '$conf = \'' . $path . '/conf.php\';' . "\n";
         /* Add code to save backup. */
-        $data .= 'if (file_exists(\'$conf\')) {' . "\n";
-        $data .= '    if (is_link(\'$conf\')) {' . "\n";
+        $data .= 'if (file_exists($conf)) {' . "\n";
+        $data .= '    if (is_link($conf)) {' . "\n";
         $data .= '        $conf = readlink($conf);' . "\n";
         $data .= '    }' . "\n";
-        $data .= '    if (@copy(\'$conf\', \'' . $path . '/conf.bak.php\')) {' . "\n";
+        $data .= '    if (@copy($conf, \'' . $path . '/conf.bak.php\')) {' . "\n";
         $data .= '        echo \'Successfully saved backup configuration.\' . "\n";' . "\n";
         $data .= '    } else {' . "\n";
         $data .= '        echo \'Could NOT save a backup configuation.\' . "\n";' . "\n";
         $data .= '    }' . "\n";
         $data .= '}' . "\n";
 
-        $data .= 'if ($fp = @fopen(\'$conf\', \'w\')) {' . "\n";
-        $data .= '    fwrite($fp, \'';
+        $data .= 'if (file_put_contents($conf, \'';
         $data .= str_replace(array('\\', '\''), array('\\\\', '\\\''), $php);
-        $data .= '\');' . "\n";
-        $data .= '    fclose($fp);' . "\n";
+        $data .= '\')) {' . "\n";
         $data .= '    echo \'' . sprintf('Saved %s configuration.', $app) . '\' . "\n";' . "\n";
         $data .= '} else {' . "\n";
         $data .= '    echo \'' . sprintf('Could NOT save %s configuration.', $app) . '\' . "\n";' . "\n";
