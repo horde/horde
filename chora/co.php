@@ -94,12 +94,6 @@ if (!$plain) {
     }
     $extraLink = _("View:") . ' ' . implode(' | ', $views);
 
-    $tags = Chora::getTags($log, $where);
-    $branch_info = $log->queryBranch();
-
-    $log_print = Chora::formatLogMessage($log->queryLog());
-    $author = Chora::showAuthorName($log->queryAuthor(), true);
-
     Horde::addScriptFile('stripe.js', 'horde');
     require CHORA_TEMPLATES . '/common-header.inc';
     require CHORA_TEMPLATES . '/menu.inc';
