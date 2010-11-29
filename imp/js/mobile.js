@@ -136,9 +136,11 @@ var ImpMobile = {
                     $('#imp-message-date').text(header.value);
                 }
             });
-            $.each(data.js, function(k, js) {
-                $.globalEval(js);
-            });
+            if (data.js) {
+                $.each(data.js, function(k, js) {
+                    $.globalEval(js);
+                });
+            }
         }
     },
 
