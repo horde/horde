@@ -68,13 +68,40 @@
         $.mobile.pageLoading(true);
     },
 
-    showNotifications: function(m)
+    showNotifications: function(msgs)
     {
-        $.each(m, function(key, msg) {
-            if (msg.type == 'horde.ajaxtimeout') {
-                HordeMobile.logout(msg.message);
+        if (!msgs.length || HordeMobile.is_logout) {
+            return;
+        }
+
+        var list = $('#horde-notification'), li;
+        list.html('');
+
+        $.each(msgs, function(key, m) {
+            switch (m.type) {
+            case 'horde.ajaxtimeout':
+                HordeMobile.logout(m.message);
+                return false;
+
+            case 'horde.error':
+            case 'horde.warning':
+            case 'horde.message':
+            case 'horde.success':
+                li = $('<li class="' + m.type.replace('.', '-') + '">');
+                if (m.flags && $.inArray('content.raw', m.flags) != -1) {
+                    // TODO: This needs some fixing:
+                    li.html(m.message.replace('<a href=', '<a rel="external" href='));
+                } else {
+                    li.text(m.message);
+                }
+                list.append(li);
+                break;
             }
         });
+        if (list.html()) {
+            $.mobile.changePage('notification');
+            list.listview('refresh');
+        }
     },
 
     logout: function(url)

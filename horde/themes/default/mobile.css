@@ -1,0 +1,29 @@
+.horde-message, .horde-success, .horde-warning, .horde-error {
+    padding-left: 40px !important;
+    background-position: 14px center !important;
+    background-repeat: no-repeat !important;
+    color: #fff !important;
+    text-shadow: 0 1px 1px #000 !important;
+}
+.horde-error {
+    background-color: #e81222 !important;
+    background-image: url("graphics/alerts/error.png") !important;
+}
+.horde-message {
+    background-color: #369 !important;
+    background-image: url("graphics/alerts/message.png") !important;
+}
+.horde-success  {
+    background-color: #5db110 !important;
+    background-image: url("graphics/alerts/success.png") !important;
+}
+.horde-warning {
+    background-color: #ebe20c !important;
+    background-image: url("graphics/alerts/warning.png") !important;
+    color: #444 !important;
+    text-shadow: 0 1px 1px #f6f6f6 !important;
+}
+.horde-alarm {
+    background-color: orange !important;
+    background-image: url("graphics/alerts/alarm.png") !important;
+}
