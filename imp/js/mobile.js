@@ -82,6 +82,10 @@ var ImpMobile = {
                             $('<div class="ui-block-b">').append(
                                 $('<p align="right">').text(data.date)))));
             });
+            l = list.children().length;
+            if (r.ViewPort.totalrows > l) {
+                list.append('<li id="imp-mailbox-more">' + IMP.text.more_messages.replace('%d', r.ViewPort.totalrows - l) + '</li>');
+            }
             list.listview('refresh');
         }
     },

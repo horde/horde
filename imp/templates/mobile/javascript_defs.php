@@ -78,6 +78,7 @@ $code['conf'] = array_filter(array(
 
 /* Gettext strings used in core javascript files. */
 $code['text'] = array(
+    'more_messages' => _("%d more messages..."),
 );
 
 Horde::addInlineJsVars(array(

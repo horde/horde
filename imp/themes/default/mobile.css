@@ -6,6 +6,10 @@
 #mailbox .ui-grid-a .ui-li-desc {
     margin: 0;
 }
+#imp-mailbox-more {
+    font-weight: normal;
+    text-align: center;
+}
 
 /* Message */
 #message .ui-body-c {
