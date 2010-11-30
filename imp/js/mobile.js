@@ -8,8 +8,30 @@
  */
 var ImpMobile = {
 
-    // Convert object to an IMP UID Range string. See IMP::toRangeString()
-    // ob = (object) mailbox name as keys, values are array of uids.
+    // Vars used and defaulting to null/false:
+    // /**
+    //  * UID of the currently displayed message.
+    //  */
+    // uid,
+
+    /**
+     * The currently loaded list of message data, keys are UIDs, values are
+     * the message information.
+     */
+    data: {},
+
+    /**
+     * The currently loaded list of messages, keys are UIDs, values are
+     * position.
+     */
+    messages: {},
+
+    /**
+     * Converts an object to an IMP UID Range string.
+     * See IMP::toRangeString().
+     *
+     * @param object ob  Mailbox name as keys, values are array of uids.
+     */
     toRangeString: function(ob)
     {
         var str = '';
@@ -71,6 +93,8 @@ var ImpMobile = {
     {
         var list = $('#imp-mailbox-list'), c, l;
         if (r && r.ViewPort) {
+            ImpMobile.data = r.ViewPort.data;
+            ImpMobile.messages = r.ViewPort.rowlist;
             $.each(r.ViewPort.data, function(key, data) {
                 c = 'imp-message';
                 if (data.flag) {
@@ -113,7 +137,9 @@ var ImpMobile = {
         $('#imp-message-date').text('');
         $('#imp-message-more').parent().show();
         $('#imp-message-less').parent().hide();
-        $.mobile.changePage('#message', 'slide', false, true);
+        if ($.mobile.activePage.attr('id') != 'message') {
+            $.mobile.changePage('#message', 'slide', false, true);
+        }
         HordeMobile.doAction(
             'showMessage',
             {
@@ -121,6 +147,29 @@ var ImpMobile = {
                 view: mailbox,
             },
             ImpMobile.messageLoaded);
+    },
+
+    /**
+     * Navigates to the next or previous message.
+     *
+     * @param integer|object dir  A swipe event or a jump length.
+     */
+    navigateMessage: function(dir)
+    {
+        if (typeof dir == 'object') {
+            dir = dir.type == 'swipeleft' ? 1 : -1;
+        }
+        var pos = ImpMobile.messages[ImpMobile.uid] + dir, newuid;
+        $.each(ImpMobile.messages, function(uid, messagepos) {
+            if (messagepos == pos) {
+                newuid = uid;
+                return false;
+            }
+        });
+        if (!newuid || !ImpMobile.data[newuid]) {
+            return;
+        }
+        ImpMobile.toMessage(ImpMobile.data[newuid].view, newuid);
     },
 
     /**
@@ -133,6 +182,7 @@ var ImpMobile = {
         if (r && r.message && !r.message.error) {
             var data = r.message,
                 headers = $('#imp-message-headers tbody');
+            ImpMobile.uid = r.message.uid;
             $('#imp-message-title').html(data.title);
             $('#imp-message-subject').html(data.subject);
             $('#imp-message-from').text(data.from[0].personal);
@@ -177,6 +227,11 @@ var ImpMobile = {
             case 'imp-message-less':
                 elt.parent().hide();
                 elt.parent().prev().show();
+                return;
+
+            case 'imp-message-prev':
+            case 'imp-message-next':
+                ImpMobile.navigateMessage(id == 'imp-message-prev' ? -1 : 1);
                 return;
             }
 
@@ -241,6 +296,8 @@ var ImpMobile = {
         };
 
         $(document).click(ImpMobile.clickHandler);
+        $(document).bind('swipeleft', ImpMobile.navigateMessage);
+        $(document).bind('swiperight', ImpMobile.navigateMessage);
     }
 
 };
