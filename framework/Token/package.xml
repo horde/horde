@@ -24,7 +24,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Add Horde_Token_Exception::.
+ * Add support for timestamped tokens.
+ * Add Horde_Token_Exception::.
  * Move driver code into sub-classes.
  * Use exceptions, not PEAR_Errors.
  * Initial Horde 4 package.
