@@ -75,6 +75,32 @@ class Horde_Token_Unit_Storage_FileTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($t->validate($t->get('a'), 'b'));
     }
 
+    public function testImmediateTimeout()
+    {
+        $t = new Horde_Token_File(array('secret' => 'abc'));
+        $this->assertFalse($t->validate($t->get('a'), 'a', 1));
+    }
+
+    public function testTimeoutAfterOneSecond()
+    {
+        $t = new Horde_Token_File(array('secret' => 'abc'));
+        sleep(1);
+        $this->assertFalse($t->validate($t->get('a'), 'a', 1));
+    }
+
+    public function testUniqueToken()
+    {
+        $t = new Horde_Token_File(
+            array(
+                'secret' => 'abc',
+                'token_dir' => $this->_getTemporaryDirectory()
+            )
+        );
+        $token = $t->get('a');
+        $t->validate($token, 'a', -1, true);
+        $this->assertFalse($t->validate($token, 'a', -1, true));
+    }
+
     public function testNonces()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));

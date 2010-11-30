@@ -124,17 +124,26 @@ abstract class Horde_Token_Base
      * @param string  $token    The signed token.
      * @param string  $seed     The unique ID of the token.
      * @param int     $timeout  Timout of the token in seconds.
-     * @param boolean $unique   Can the token be used more than once?
+     *                          Values below zero represent no timeout.
+     * @param boolean $unique   Should validation of the token succeed only once?
      *
      * @return boolean True if the token was valid.
      */
-    public function validate($token, $seed = '', $timeout = 0, $unique = false)
+    public function validate($token, $seed = '', $timeout = -1, $unique = false)
     {
         $b = Horde_Url::uriB64Decode($token);
         $nonce = substr($b, 0, 6);
         $hash = substr($b, 6);
         if ($hash != $this->_hash($nonce . $seed)) {
             return false;
+        }
+        $timestamp = unpack('N', substr($nonce, 0, 4));
+        $timestamp = array_pop($timestamp);
+        if ($timeout >= 0 && $timestamp + $timeout >= time()) {
+            return false;
+        }
+        if ($unique) {
+            return $this->verify($nonce);
         }
         return true;
     }
