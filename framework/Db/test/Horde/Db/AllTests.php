@@ -12,17 +12,17 @@
  * @subpackage UnitTests
  */
 
-/**
- * Define the main method
- */
+/* Define the main method. */
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Db_AllTests::main');
 }
 
-/**
- * Prepare the test setup.
- */
+/* Prepare the test setup. */
 require_once 'Horde/Test/AllTests.php';
+
+/* Set up autoload. */
+set_include_path(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
+require_once 'Horde/Test/Autoload.php';
 require_once dirname(__FILE__) . '/Adapter/MissingTest.php';
 
 /* Ensure a default timezone is set. */
@@ -58,10 +58,6 @@ class Horde_Db_AllTests extends Horde_Test_AllTests
 
         // Ensure a default timezone is set.
         date_default_timezone_set('America/New_York');
-
-        // Set up autoload
-        set_include_path(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
-        require_once 'Horde/Test/Autoload.php';
 
         // Build the suite
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Db');
