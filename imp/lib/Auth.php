@@ -80,8 +80,7 @@ class IMP_Auth
             $credentials['server'] = self::getAutoLoginServer();
         }
 
-        $factory_imap = $injector->getInstance('IMP_Injector_Factory_Imap');
-        $imp_imap = $factory_imap->create($credentials['server']);
+        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create($credentials['server']);
 
         // Check for valid IMAP Client object.
         if (!$imp_imap->ob) {
@@ -351,7 +350,7 @@ class IMP_Auth
     {
         global $browser, $conf, $injector, $prefs, $registry, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create(null, true);
         $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));
         if ($ptr === false) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);

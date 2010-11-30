@@ -35,25 +35,56 @@ class IMP_Injector_Factory_Imap
     private $_instances = array();
 
     /**
+     * The list of instances to save.
+     *
+     * @var array
+     */
+    private $_save = array();
+
+    /**
      * Return the IMP_Imap:: instance.
      *
-     * @param string $id  The server ID.
+     * @param string $id     The server ID.
+     * @param boolean $save  Save the instance in the session?
      *
      * @return IMP_Imap  The singleton instance.
      * @throws IMP_Exception
      */
-    public function create($id = null)
+    public function create($id = null, $save = false)
     {
+        global $session;
+
         if (is_null($id) &&
-            !($id = $GLOBALS['session']->get('imp', 'server_key'))) {
+            !($id = $session->get('imp', 'server_key'))) {
             $id = 'default';
         }
 
         if (!isset($this->_instances[$id])) {
-            $this->_instances[$id] = new IMP_Imap($id);
+            if (!($ob = $session->get('imp', 'imap_ob/' . $id))) {
+                $ob = new IMP_Imap();
+            }
+
+            $this->_instances[$id] = $ob;
+        }
+
+        if ($save && !$session->exists('imp', 'imap_ob/' . $id)) {
+            if (empty($this->_save)) {
+                register_shutdown_function(array($this, 'shutdown'));
+            }
+            $this->_save[] = $id;
         }
 
         return $this->_instances[$id];
+    }
+
+    /**
+     * Saves IMP_Imap instances to the session.
+     */
+    public function shutdown()
+    {
+        foreach (array_unique($this->_save) as $id) {
+            $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+        }
     }
 
 }

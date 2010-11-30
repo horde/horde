@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Imap
+class IMP_Imap implements Serializable
 {
     /**
      * The Horde_Imap_Client object.
@@ -21,13 +21,6 @@ class IMP_Imap
      * @var Horde_Imap_Client
      */
     public $ob = null;
-
-    /**
-     * Server key for this instance.
-     *
-     * @var string
-     */
-    protected $_serverkey = '';
 
     /**
      * Is connection read-only?
@@ -49,63 +42,6 @@ class IMP_Imap
      * @var array
      */
     protected $_uidvalid = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $serverkey  Server key for this instance.
-     *
-     * @throws IMP_Exception
-     */
-    public function __construct($serverkey)
-    {
-        $this->_serverkey = $serverkey;
-
-        /* Rebuild the Horde_Imap_Client object. */
-        if (!$this->_loadImapObject()) {
-            register_shutdown_function(array($this, 'shutdown'));
-        }
-    }
-
-    /**
-     * Save the Horde_Imap_Client object on session shutdown.
-     */
-    public function shutdown()
-    {
-        /* Only need to serialize object once a session. */
-        if ($this->ob) {
-            $GLOBALS['session']->set('imp', 'imap_ob/' . $this->_serverkey, $this->ob);
-        }
-    }
-
-    /**
-     * Loads the Horde_Imap_Client object from serialized session data.
-     *
-     * @return boolean  True on success, false on error.
-     * @throws IMP_Exception
-     */
-    protected function _loadImapObject()
-    {
-        global $session;
-
-        if (!is_null($this->ob)) {
-            return true;
-        }
-
-        try {
-            if (!($this->ob = $session->get('imp', 'imap_ob/' . $this->_serverkey))) {
-                return false;
-            }
-        } catch (Exception $e) {
-            /* Throw fatal error here - should never reach here and if we
-             * do, we are out of luck. */
-            throw new IMP_Exception(_("Could not acquire mail server credentials from the session."));
-        }
-
-        $this->_postcreate($session->get('imp', 'protocol'));
-
-        return true;
-    }
 
     /**
      * Create a new Horde_Imap_Client object.
@@ -159,7 +95,7 @@ class IMP_Imap
         }
 
         $this->ob = $ob;
-        $this->_postcreate($protocol);
+        $this->_postcreate();
 
         return $ob;
     }
@@ -195,16 +131,13 @@ class IMP_Imap
     }
 
     /**
-     * Alter some IMP settings once we load/create the object.
-     *
-     * @param string $protocol  The protocol used to connect.
+     * Alter some IMP/Horde settings once we load/create the object.
      */
-    protected function _postcreate($protocol)
+    protected function _postcreate()
     {
         global $conf, $prefs;
 
-        switch ($protocol) {
-        case 'pop':
+        if ($this->ob instanceof Horde_Imap_Client_Socket_Pop3) {
             /* Turn some options off if we are working with POP3. */
             $conf['user']['allow_folders'] = false;
             $prefs->setValue('save_sent_mail', false);
@@ -212,7 +145,6 @@ class IMP_Imap
             $prefs->setLocked('sent_mail_folder', true);
             $prefs->setLocked('drafts_folder', true);
             $prefs->setLocked('trash_folder', true);
-            break;
         }
     }
 
@@ -458,6 +390,30 @@ class IMP_Imap
     static public function logError($e)
     {
         Horde::logMessage($e, 'ERR');
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->ob,
+            $this->_nsdefault
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        list(
+            $this->ob,
+            $this->_nsdefault
+        ) = unserialize($data);
+
+        $this->_postcreate();
     }
 
 }
