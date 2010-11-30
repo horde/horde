@@ -135,7 +135,7 @@ abstract class Horde_Token_Base
      *
      * @return boolean True if the token was valid.
      */
-    public function validate($token, $seed = '', $timeout = null, $unique = false)
+    public function isValid($token, $seed = '', $timeout = null, $unique = false)
     {
         list($nonce, $hash) = $this->_decode($token);
         if ($hash != $this->_hash($nonce . $seed)) {
@@ -164,7 +164,7 @@ nce?
      *
      * @throws Horde_Token_Exception If the token was invalid.
      */
-    public function isValid($token, $seed = '')
+    public function validate($token, $seed = '')
     {
         list($nonce, $hash) = $this->_decode($token);
         if ($hash != $this->_hash($nonce . $seed)) {
@@ -188,7 +188,7 @@ nce?
      *
      * @throws Horde_Token_Exception If the token was invalid or has been used before.
      */
-    public function isValidAndUnused($token, $seed = '')
+    public function validateUnique($token, $seed = '')
     {
         list($nonce, $hash) = $this->isValid($token, $seed);
         if (!$this->verify($nonce)) {

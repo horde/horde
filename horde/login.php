@@ -124,7 +124,7 @@ case Horde_Auth::REASON_LOGOUT:
 if ($logout_reason) {
     if ($is_auth) {
         try {
-            $injector->getInstance('Horde_Token')->isValid($vars->horde_logout_token, 'horde.logout');
+            $injector->getInstance('Horde_Token')->validate($vars->horde_logout_token, 'horde.logout');
         } catch (Horde_Exception $e) {
             $notification->push($e, 'horde.error');
             require HORDE_BASE . '/index.php';

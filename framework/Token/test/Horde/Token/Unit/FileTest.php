@@ -48,43 +48,43 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
     public function testValidation()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $this->assertTrue($t->validate($t->get()));
+        $this->assertTrue($t->isValid($t->get()));
     }
 
     public function testValidationWithSeed()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $this->assertTrue($t->validate($t->get('a'), 'a'));
+        $this->assertTrue($t->isValid($t->get('a'), 'a'));
     }
 
     public function testInvalidToken()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $this->assertFalse($t->validate('something'));
+        $this->assertFalse($t->isValid('something'));
     }
 
     public function testInvalidEmptyToken()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $this->assertFalse($t->validate(''));
+        $this->assertFalse($t->isValid(''));
     }
 
     public function testInvalidSeed()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $this->assertFalse($t->validate($t->get('a'), 'b'));
+        $this->assertFalse($t->isValid($t->get('a'), 'b'));
     }
 
     public function testActiveToken()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $this->assertTrue($t->validate($t->get('a'), 'a', 10));
+        $this->assertTrue($t->isValid($t->get('a'), 'a', 10));
     }
 
     public function testImmediateTimeout()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $this->assertFalse($t->validate($t->get('a'), 'a', 0));
+        $this->assertFalse($t->isValid($t->get('a'), 'a', 0));
     }
 
     public function testTimeoutAfterOneSecond()
@@ -97,9 +97,9 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
         );
         $token = $t->get('a');
         sleep(1);
-        $this->assertFalse($t->validate($token, 'a', 1));
+        $this->assertFalse($t->isValid($token, 'a', 1));
         // Pack two assertions in this test to avoid sleeping twice
-        $this->assertFalse($t->validate($token, 'a'));
+        $this->assertFalse($t->isValid($token, 'a'));
     }
 
     public function testTokenLifetimeParameter()
@@ -110,7 +110,7 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
                 'token_lifetime' => -1
             )
         );
-        $this->assertTrue($t->validate($t->get()));
+        $this->assertTrue($t->isValid($t->get()));
     }
 
     public function testUniqueToken()
@@ -122,8 +122,8 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
             )
         );
         $token = $t->get('a');
-        $t->validate($token, 'a', -1, true);
-        $this->assertFalse($t->validate($token, 'a', -1, true));
+        $t->isValid($token, 'a', -1, true);
+        $this->assertFalse($t->isValid($token, 'a', -1, true));
     }
 
     public function testNonces()
@@ -138,7 +138,7 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
     public function testInvalidTokenException()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $t->isValid('something');
+        $t->validate('something');
     }
 
     /**
@@ -147,7 +147,7 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
     public function testInvalidSeedException()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $t->isValid($t->get('a'), 'b');
+        $t->validate($t->get('a'), 'b');
     }
 
     /**
@@ -163,7 +163,7 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
         );
         $token = $t->get('a');
         sleep(1);
-        $t->isValid($token, 'a');
+        $t->validate($token, 'a');
     }
 
     /**
@@ -178,8 +178,8 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
             )
         );
         $token = $t->get('a');
-        $t->isValidAndUnused($token, 'a');
-        $t->isValidAndUnused($token, 'a');
+        $t->validateUnique($token, 'a');
+        $t->validateUnique($token, 'a');
     }
 
     /**
