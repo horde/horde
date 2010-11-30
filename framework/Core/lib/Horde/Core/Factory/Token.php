@@ -20,6 +20,7 @@ class Horde_Core_Factory_Token
             $driver = 'Null';
         }
 
+        $params['secret'] = $injector->getInstance('Horde_Secret')->setKey('token');
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         $class = 'Horde_Token_' . ucfirst($driver);

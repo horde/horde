@@ -41,8 +41,16 @@ class Horde_Token_Unit_Storage_FileTest extends PHPUnit_Framework_TestCase
 
     public function testNonces()
     {
-        $t = new Horde_Token_File();
+        $t = new Horde_Token_File(array('secret' => 'abc'));
         $this->assertEquals(6, strlen($t->getNonce()));
+    }
+
+    /**
+     * @expectedException Horde_Token_Exception
+     */
+    public function testInvalidConstruction()
+    {
+        $t = new Horde_Token_File();
     }
 
     private function _getTemporaryDirectory()

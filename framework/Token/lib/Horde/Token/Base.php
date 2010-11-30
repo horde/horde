@@ -32,13 +32,20 @@ abstract class Horde_Token_Base
     /**
      * Constructor.
      *
-     * @param array $params  Optional parameters:
+     * @param array $params  Required parameters:
+     * <pre>
+     * 'secret' - (string) The secret string used for signing tokens.
+     * </pre>
+     * Optional parameters:
      * <pre>
      * 'logger' - (Horde_Log_Logger) A logger object.
      * </pre>
      */
     public function __construct($params)
     {
+        if (!isset($params['secret'])) {
+            throw new Horde_Token_Exception('Missing secret parameter.');
+        }
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
             unset($params['logger']);
