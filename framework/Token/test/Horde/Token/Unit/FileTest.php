@@ -39,6 +39,12 @@ class Horde_Token_Unit_Storage_FileTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testToken()
+    {
+        $t = new Horde_Token_File(array('secret' => 'abc'));
+        $this->assertEquals(51, strlen($t->get()));
+    }
+
     public function testNonces()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));

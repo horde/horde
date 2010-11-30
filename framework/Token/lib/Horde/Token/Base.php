@@ -104,6 +104,21 @@ abstract class Horde_Token_Base
     abstract public function purge();
 
     /**
+     * Return a new signed token.
+     *
+     * @param string $seed  A unique ID to be included in the token.
+     *
+     * @return string A string of 6 bytes.
+     */
+    public function get($seed = '')
+    {
+        $nonce = $this->getNonce();
+        return Horde_Url::uriB64Encode(
+            $nonce . hash('sha256', $nonce . $this->_params['secret'] . $seed, true)
+        );
+    }
+
+    /**
      * Return a "number used once" (a concatenation of a timestamp and a random
      * numer).
      *
