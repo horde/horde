@@ -77,7 +77,7 @@ class Horde_Db_Adapter_MysqliSuite extends PHPUnit_Framework_TestSuite
 
         $conn = new Horde_Db_Adapter_Mysqli($config);
 
-        $cache = new Horde_Cache_Mock();
+        $cache = new Horde_Cache_Storage_Mock();
         $conn->setCache($cache);
 
         return array($conn, $cache);

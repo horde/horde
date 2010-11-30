@@ -63,7 +63,7 @@ class Horde_Db_Adapter_Pdo_SqliteSuite extends PHPUnit_Framework_TestSuite
             'dbname' => ':memory:',
         ));
 
-        $cache = new Horde_Cache_Mock();
+        $cache = new Horde_Cache_Storage_Mock();
         $conn->setCache($cache);
 
         return array($conn, $cache);
