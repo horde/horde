@@ -192,8 +192,8 @@ class IMP_Auth
             !strlen($auth_id) ? '' : 'for ' . $auth_id,
             $_SERVER['REMOTE_ADDR'],
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
-            $imap_ob ? $imap_ob->getParam('hostspec') : '',
-            $imap_ob ? $imap_ob->getParam('port') : '',
+            $imap_ob->ob ? $imap_ob->getParam('hostspec') : '',
+            $imap_ob->ob ? $imap_ob->getParam('port') : '',
             $GLOBALS['session']->exists('imp', 'protocol') ? ' [' . $GLOBALS['session']->get('imp', 'protocol') . ']' : ''
         );
 
