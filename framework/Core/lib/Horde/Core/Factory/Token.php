@@ -20,6 +20,10 @@ class Horde_Core_Factory_Token
             $driver = 'Null';
         }
 
+        if (isset($GLOBALS['conf']['urls']['token_lifetime'])) {
+            $params['token_lifetime'] = $GLOBALS['conf']['urls']['token_lifetime'] * 60;
+        }
+
         $params['secret'] = $injector->getInstance('Horde_Secret')->setKey('token');
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
