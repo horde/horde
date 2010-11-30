@@ -128,11 +128,6 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->_conn->supportsCountDistinct());
     }
 
-    public function testGetCharset()
-    {
-        $this->assertEquals('utf8', strtolower($this->_conn->getCharset()));
-    }
-
 
     /*##########################################################################
     # Database Statements

@@ -101,11 +101,6 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
 
         $this->_connection = $mysql;
         $this->_active     = true;
-
-        // Set the default charset. http://dev.mysql.com/doc/refman/5.1/en/charset-connection.html
-        if (!empty($config['charset'])) {
-            $this->setCharset($config['charset']);
-        }
     }
 
     /**

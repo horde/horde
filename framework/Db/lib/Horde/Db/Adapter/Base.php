@@ -108,10 +108,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /**
      * Constructor.
      *
-     * @param array $config  Configuration options and optional objects:
-     * <pre>
-     * 'charset' - (string) TODO
-     * </pre>
+     * @param array $config  Configuration options and optional objects.
      */
     public function __construct($config)
     {
@@ -120,11 +117,6 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
          * later with setCache() and setLogger(). */
         $this->_cache = new Horde_Support_Stub();
         $this->_logger = new Horde_Support_Stub();
-
-        // Default to UTF-8
-        if (!isset($config['charset'])) {
-            $config['charset'] = 'UTF-8';
-        }
 
         $this->_config  = $config;
         $this->_runtime = 0;
