@@ -97,6 +97,17 @@ abstract class Horde_Token_Base
     abstract public function purge();
 
     /**
+     * Return a "number used once" (a concatenation of a timestamp and a random
+     * numer).
+     *
+     * @return string A string of 6 bytes.
+     */
+    public function getNonce()
+    {
+        return pack('N', time()) . pack('n', mt_rand());
+    }
+
+    /**
      * Encodes the remote address.
      *
      * @return string  Encoded address.
