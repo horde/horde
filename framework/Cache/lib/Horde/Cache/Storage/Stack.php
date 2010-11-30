@@ -48,7 +48,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function get($key, $lifetime)
+    public function get($key, $lifetime = 0)
     {
         foreach ($this->_stack as $val) {
             $result = $val->get($key, $lifetime);
@@ -62,7 +62,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime = 0)
     {
         /* Do writes in *reverse* order - it is OK if a write to one of the
          * non-master backends fails. */
@@ -84,7 +84,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function exists($key, $lifetime)
+    public function exists($key, $lifetime = 0)
     {
         foreach ($this->_stack as $val) {
             $result = $val->exists($key, $lifetime);

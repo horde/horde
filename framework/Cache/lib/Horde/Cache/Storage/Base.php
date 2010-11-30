@@ -57,7 +57,7 @@ abstract class Horde_Cache_Storage_Base
      *
      * @return mixed  Cached data, or false if none was found.
      */
-    abstract public function get($key, $lifetime);
+    abstract public function get($key, $lifetime = 0);
 
     /**
      * Store an object in the cache.
@@ -68,7 +68,7 @@ abstract class Horde_Cache_Storage_Base
      *                           data becomes available for garbage
      *                           collection. If 0 will not be GC'd.
      */
-    abstract public function set($key, $data, $lifetime);
+    abstract public function set($key, $data, $lifetime = 0);
 
     /**
      * Checks if a given key exists in the cache, valid for the given
@@ -79,7 +79,7 @@ abstract class Horde_Cache_Storage_Base
      *
      * @return boolean  Existence.
      */
-    abstract public function exists($key, $lifetime);
+    abstract public function exists($key, $lifetime = 0);
 
     /**
      * Expire any existing data for the given key.

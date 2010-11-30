@@ -32,7 +32,7 @@ class Horde_Cache_Storage_Apc extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function get($key, $lifetime)
+    public function get($key, $lifetime = 0)
     {
         $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
@@ -41,7 +41,7 @@ class Horde_Cache_Storage_Apc extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime = 0)
     {
         $key = $this->_params['prefix'] . $key;
         if (apc_store($key . '_expire', time(), $lifetime)) {
@@ -51,7 +51,7 @@ class Horde_Cache_Storage_Apc extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function exists($key, $lifetime)
+    public function exists($key, $lifetime = 0)
     {
         $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);

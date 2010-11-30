@@ -120,7 +120,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function get($key, $lifetime)
+    public function get($key, $lifetime = 0)
     {
         if (!$this->exists($key, $lifetime)) {
             /* Nothing cached, return failure. */
@@ -137,7 +137,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime = 0)
     {
         $filename = $this->_keyToFile($key, true);
         $tmp_file = Horde_Util::getTempFile('HordeCache', true, $this->_dir);
@@ -163,7 +163,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
     /**
      */
-    public function exists($key, $lifetime)
+    public function exists($key, $lifetime = 0)
     {
         $filename = $this->_keyToFile($key);
 

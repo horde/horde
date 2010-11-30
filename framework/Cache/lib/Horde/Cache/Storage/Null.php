@@ -16,20 +16,20 @@ class Horde_Cache_Storage_Null extends Horde_Cache_Storage_Base
 {
     /**
      */
-    public function get($key, $lifetime)
+    public function get($key, $lifetime = 0)
     {
         return false;
     }
 
     /**
      */
-    public function set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime = 0)
     {
     }
 
     /**
      */
-    public function exists($key, $lifetime)
+    public function exists($key, $lifetime = 0)
     {
         return false;
     }

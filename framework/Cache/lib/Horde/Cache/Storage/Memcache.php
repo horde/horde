@@ -59,7 +59,7 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
 
     /**
      */
-    public function get($key, $lifetime)
+    public function get($key, $lifetime = 0)
     {
         $key = $this->_params['prefix'] . $key;
         if (isset($this->_expirecache[$key])) {
@@ -91,7 +91,7 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
 
     /**
      */
-    public function set($key, $data, $lifetime)
+    public function set($key, $data, $lifetime = 0)
     {
         $key = $this->_params['prefix'] . $key;
 
@@ -102,7 +102,7 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
 
     /**
      */
-    public function exists($key, $lifetime)
+    public function exists($key, $lifetime = 0)
     {
         $key = $this->_params['prefix'] . $key;
 
