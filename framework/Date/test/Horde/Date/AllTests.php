@@ -20,7 +20,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Date
+ * @package    Date
  * @subpackage UnitTests
  */
 class Horde_Date_AllTests extends Horde_Test_AllTests
