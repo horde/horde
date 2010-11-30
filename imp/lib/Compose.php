@@ -996,9 +996,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         // Convert IDN hosts to ASCII.
         if (function_exists('idn_to_ascii')) {
-            $old_error = error_reporting(0);
-            $host = idn_to_ascii($host);
-            error_reporting($old_error);
+            $host = @idn_to_ascii($host);
         } elseif (Horde_Mime::is8bit($ob['mailbox'], 'UTF-8')) {
             throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
         }

@@ -152,7 +152,7 @@ HTML;
     }
 
     /**
-     * Log deprecated errors.
+     * PHP legacy error handling (non-Exceptions).
      *
      * @param integer $errno     See set_error_handler().
      * @param string $errstr     See set_error_handler().
@@ -160,8 +160,8 @@ HTML;
      * @param integer $errline   See set_error_handler().
      * @param array $errcontext  See set_error_handler().
      */
-    static public function logDeprecated($errno, $errstr, $errfile, $errline,
-                                         $errcontext)
+    static public function errorHandler($errno, $errstr, $errfile, $errline,
+                                        $errcontext)
     {
         if (class_exists('Horde_Log')) {
             try {

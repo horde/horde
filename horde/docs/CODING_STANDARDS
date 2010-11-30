@@ -95,17 +95,10 @@ readability::
   $short         = foo($bar);
   $long_variable = foo($baz);
 
-The "@" operator can be used to silence any errors that a function
-call may generate. This should be used with caution, as it is both
-slow and prone to pitfalls. For example, if you use it to silence
-including a file that may not exist, the main goal - not throwing
-warnings if the file isn't there - will be accomplished. But if the
-file does exist but has a parse error, the entire script or page will
-die with no warning. Because of problems like this, using "@" to
-silence function calls should be avoided whenever possible.
-
-In place of "@", using error_reporting() appropriately around
-code blocks that should not emit warnings is actually faster.
+The "@" operator can be used to silence any errors that a function call may
+generate. This should be used with caution, as any fatal errors will be
+completely transparent to the user. Only use "@" to silence functions that,
+e.g., emit warnings when the data input is incorrect (such as unserialize()).
 
 
 Function Definitions

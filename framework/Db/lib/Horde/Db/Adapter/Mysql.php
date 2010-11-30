@@ -85,11 +85,8 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
 
         $config = $this->_parseConfig();
 
-        $oldErrorReporting = error_reporting(0);
         $oldTrackErrors = ini_set('track_errors', 1);
-        $mysql = mysql_connect(
-            $config['host'], $config['username'], $config['password']);
-        error_reporting($oldErrorReporting);
+        $mysql = @mysql_connect($config['host'], $config['username'], $config['password']);
         ini_set('track_errors', $oldTrackErrors);
 
         if (!$mysql) {

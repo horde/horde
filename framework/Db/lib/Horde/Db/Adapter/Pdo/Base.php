@@ -38,12 +38,9 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
 
         list($dsn, $user, $pass) = $this->_parseConfig();
 
-        $oldErrorReporting = error_reporting(0);
         try {
-            $pdo = new PDO($dsn, $user, $pass);
-            error_reporting($oldErrorReporting);
+            $pdo = @new PDO($dsn, $user, $pass);
         } catch (PDOException $e) {
-            error_reporting($oldErrorReporting);
             $msg = "Could not instantiate PDO with DSN \"$dsn\".  PDOException: "
                 . $e->getMessage();
             throw new Horde_Db_Exception($msg);

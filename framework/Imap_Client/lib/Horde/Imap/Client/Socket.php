@@ -275,9 +275,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // STARTTLS returns no untagged response.
             $this->_sendLine('STARTTLS');
 
-            $old_error = error_reporting(0);
-            $res = stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
-            error_reporting($old_error);
+            $res = @stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
 
             if (!$res) {
                 $this->logout();
@@ -426,9 +424,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
         }
 
-        $old_error = error_reporting(0);
-        $this->_stream = stream_socket_client($conn . $this->_params['hostspec'] . ':' . $this->_params['port'], $error_number, $error_string, $this->_params['timeout']);
-        error_reporting($old_error);
+        $this->_stream = @stream_socket_client($conn . $this->_params['hostspec'] . ':' . $this->_params['port'], $error_number, $error_string, $this->_params['timeout']);
 
         if ($this->_stream === false) {
             $this->_stream = null;

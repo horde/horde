@@ -126,13 +126,11 @@ class IMP_Ui_Mailbox
         }
 
         if (!empty($ret['from']) && !empty($options['specialchars'])) {
-            $old_error = error_reporting(0);
-            $res = htmlspecialchars($ret['from'], ENT_QUOTES, $options['specialchars']);
+            $res = @htmlspecialchars($ret['from'], ENT_QUOTES, $options['specialchars']);
             if (empty($res)) {
-                $res = htmlspecialchars($ret['from']);
+                $res = @htmlspecialchars($ret['from']);
             }
             $ret['from'] = $res;
-            error_reporting($old_error);
         }
 
         return $ret;

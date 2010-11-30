@@ -121,9 +121,7 @@ class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base
         // Update internal properties using the response body.
         $body = $response->getBody();
         $newEntry = new DOMDocument;
-        $e = error_reporting(0);
-        $parsed = $newEntry->loadXML($body);
-        error_reporting($e);
+        $parsed = @$newEntry->loadXML($body);
         if (!$parsed) {
             throw new Horde_Feed_Exception('DOMDocument cannot parse XML: ', error_get_last());
         }

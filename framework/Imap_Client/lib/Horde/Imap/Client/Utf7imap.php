@@ -76,10 +76,7 @@ class Horde_Imap_Client_Utf7imap
             self::$_mbstring = extension_loaded('mbstring');
         }
         if (self::$_mbstring) {
-            $old_error = error_reporting(0);
-            $output = mb_convert_encoding($str, 'UTF-8', 'UTF7-IMAP');
-            error_reporting($old_error);
-            return $output;
+            return @mb_convert_encoding($str, 'UTF-8', 'UTF7-IMAP');
         }
 
         $str = strval($str);
@@ -177,10 +174,7 @@ class Horde_Imap_Client_Utf7imap
             self::$_mbstring = extension_loaded('mbstring');
         }
         if (self::$_mbstring) {
-            $old_error = error_reporting(0);
-            $output = mb_convert_encoding($str, 'UTF7-IMAP', 'UTF-8');
-            error_reporting($old_error);
-            return $output;
+            return @mb_convert_encoding($str, 'UTF7-IMAP', 'UTF-8');
         }
 
         $u8len = strlen($str);

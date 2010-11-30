@@ -60,9 +60,7 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
                 $text = $event->getMessage();
                 if (!empty($userinfo)) {
                     if (is_array($userinfo)) {
-                        $old_error = error_reporting(0);
-                        $userinfo = implode(', ', $userinfo);
-                        error_reporting($old_error);
+                        $userinfo = @implode(', ', $userinfo);
                     }
                     $text .= ': ' . $userinfo;
                 }

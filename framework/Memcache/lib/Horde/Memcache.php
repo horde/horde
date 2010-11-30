@@ -276,8 +276,6 @@ class Horde_Memcache implements Serializable
             }
         }
 
-        $old_error = error_reporting(0);
-
         foreach ($keys as $k) {
             $out_array[$k] = false;
             if (isset($res[$key_map[$k]])) {
@@ -292,13 +290,11 @@ class Horde_Memcache implements Serializable
                         }
                     }
                 }
-                $out_array[$k] = unserialize($data);
+                $out_array[$k] = @unserialize($data);
             } elseif (isset($os[$k]) && !isset($res[$key_map[$k]])) {
                 $this->delete($k);
             }
         }
-
-        error_reporting($old_error);
 
         return ($ret_array) ? $out_array : reset($out_array);
     }
@@ -316,11 +312,7 @@ class Horde_Memcache implements Serializable
      */
     public function set($key, $var, $expire = 0)
     {
-        $old_error = error_reporting(0);
-        $var = serialize($var);
-        error_reporting($old_error);
-
-        return $this->_set($key, $var, $expire);
+        return $this->_set($key, @serialize($var), $expire);
     }
 
     /**
@@ -379,9 +371,7 @@ class Horde_Memcache implements Serializable
      */
     public function replace($key, $var, $expire = 0)
     {
-        $old_error = error_reporting(0);
-        $var = serialize($var);
-        error_reporting($old_error);
+        $var = @serialize($var);
         $len = strlen($var);
 
         if ($len > self::MAX_SIZE) {

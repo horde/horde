@@ -131,11 +131,9 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
                 $config['host'], $config['username'], $config['password'],
                 $config['dbname'], $config['port'], $config['socket']);
         } else {
-            $oldErrorReporting = error_reporting(0);
-            $mysqli = new mysqli(
+            $mysqli = @new mysqli(
                 $config['host'], $config['username'], $config['password'],
                 $config['dbname'], $config['port'], $config['socket']);
-            error_reporting($oldErrorReporting);
         }
         if (mysqli_connect_errno()) {
             throw new Horde_Db_Exception('Connect failed: (' . mysqli_connect_errno() . ') ' . mysqli_connect_error(), mysqli_connect_errno());

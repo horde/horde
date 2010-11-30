@@ -2065,9 +2065,7 @@ abstract class Kronolith_Event
                     if (isset($url['host'])) {
                         // Convert IDN hosts to ASCII.
                         if (function_exists('idn_to_ascii')) {
-                            $old_error = error_reporting(0);
-                            $url['host'] = idn_to_ascii($url['host']);
-                            error_reporting($old_error);
+                            $url['host'] = @idn_to_ascii($url['host']);
                         } elseif (Horde_Mime::is8bit($url['host'])) {
                             //throw new Kronolith_Exception(_("Invalid character in URL."));
                             $url['host'] = '';

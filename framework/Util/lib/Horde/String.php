@@ -158,9 +158,7 @@ class Horde_String
 
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
-            $old_error = error_reporting(0);
-            $out = mb_convert_encoding($input, $to, self::_mbstringCharset($from));
-            error_reporting($old_error);
+            $out = @mb_convert_encoding($input, $to, self::_mbstringCharset($from));
             if (!empty($out)) {
                 return $out;
             }
@@ -188,9 +186,7 @@ class Horde_String
                 if (is_null($charset)) {
                     throw new InvalidArgumentException('$charset argument must not be null');
                 }
-                $old_error = error_reporting(0);
-                $ret = mb_strtolower($string, self::_mbstringCharset($charset));
-                error_reporting($old_error);
+                $ret = @mb_strtolower($string, self::_mbstringCharset($charset));
                 if (!empty($ret)) {
                     return $ret;
                 }
@@ -226,9 +222,7 @@ class Horde_String
                 if (is_null($charset)) {
                     throw new InvalidArgumentException('$charset argument must not be null');
                 }
-                $old_error = error_reporting(0);
-                $ret = mb_strtoupper($string, self::_mbstringCharset($charset));
-                error_reporting($old_error);
+                $ret = @mb_strtoupper($string, self::_mbstringCharset($charset));
                 if (!empty($ret)) {
                     return $ret;
                 }
@@ -299,9 +293,7 @@ class Horde_String
 
         /* Try iconv. */
         if (Horde_Util::extensionExists('iconv')) {
-            $old_error = error_reporting(0);
-            $ret = iconv_substr($string, $start, $length, $charset);
-            error_reporting($old_error);
+            $ret = @iconv_substr($string, $start, $length, $charset);
 
             /* iconv_substr() returns false on failure. */
             if ($ret !== false) {
@@ -311,9 +303,7 @@ class Horde_String
 
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
-            $old_error = error_reporting(0);
-            $ret = mb_substr($string, $start, $length, self::_mbstringCharset($charset));
-            error_reporting($old_error);
+            $ret = @mb_substr($string, $start, $length, self::_mbstringCharset($charset));
 
             /* mb_substr() returns empty string on failure. */
             if (strlen($ret)) {
@@ -342,9 +332,7 @@ class Horde_String
         }
 
         if (Horde_Util::extensionExists('mbstring')) {
-            $old_error = error_reporting(0);
-            $ret = mb_strlen($string, self::_mbstringCharset($charset));
-            error_reporting($old_error);
+            $ret = @mb_strlen($string, self::_mbstringCharset($charset));
             if (!empty($ret)) {
                 return $ret;
             }
@@ -370,9 +358,7 @@ class Horde_String
     {
         if (Horde_Util::extensionExists('mbstring')) {
             $track_errors = ini_set('track_errors', 1);
-            $old_error = error_reporting(0);
-            $ret = mb_strpos($haystack, $needle, $offset, self::_mbstringCharset($charset));
-            error_reporting($old_error);
+            $ret = @mb_strpos($haystack, $needle, $offset, self::_mbstringCharset($charset));
             ini_set('track_errors', $track_errors);
             if (!isset($php_errormsg)) {
                 return $ret;
@@ -592,17 +578,14 @@ class Horde_String
 
         $charset = self::_mbstringCharset($charset);
         $old_charset = mb_regex_encoding();
-        $old_error = error_reporting(0);
 
         if ($charset != $old_charset) {
-            mb_regex_encoding($charset);
+            @mb_regex_encoding($charset);
         }
-        $alpha = !mb_ereg_match('[^[:alpha:]]', $string);
+        $alpha = !@mb_ereg_match('[^[:alpha:]]', $string);
         if ($charset != $old_charset) {
-            mb_regex_encoding($old_charset);
+            @mb_regex_encoding($old_charset);
         }
-
-        error_reporting($old_error);
 
         return $alpha;
     }

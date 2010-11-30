@@ -250,13 +250,11 @@ class IMP_Hooks
 //        $ldapPort = '389';
 //        $searchBase = 'ispmanDomain=' . $vdomain  . ",o=ispman";
 //
-//        $old_error = error_reporting(0);
-//        $ds = ldap_connect($ldapServer, $ldapPort);
-//        $searchResult = ldap_search($ds, $searchBase, 'uid=' . $vdomain);
-//        $information = ldap_get_entries($ds, $searchResult);
+//        $ds = @ldap_connect($ldapServer, $ldapPort);
+//        $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $vdomain);
+//        $information = @ldap_get_entries($ds, $searchResult);
 //        $trailer = $information[0]['ispmandomainsignature'][0];
-//        ldap_close($ds);
-//        error_reporting($old_error);
+//        @ldap_close($ds);
 //
 //        return $trailer;
 //    }

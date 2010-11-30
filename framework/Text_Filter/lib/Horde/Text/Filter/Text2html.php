@@ -123,16 +123,14 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
         }
 
         /* For level MICRO or NOHTML, start with htmlspecialchars(). */
-        $old_error = error_reporting(0);
-        $text2 = htmlspecialchars($text, ENT_COMPAT, $this->_params['charset']);
+        $text2 = @htmlspecialchars($text, ENT_COMPAT, $this->_params['charset']);
 
         /* Bad charset input in may result in an empty string. If so, try
          * using the default charset encoding instead. */
         if (!$text2) {
-            $text2 = htmlspecialchars($text, ENT_COMPAT);
+            $text2 = @htmlspecialchars($text, ENT_COMPAT);
         }
         $text = $text2;
-        error_reporting($old_error);
 
         /* Do in-lining of http://xxx.xxx to link, xxx@xxx.xxx to email. */
         if ($this->_params['parselevel'] < self::NOHTML) {

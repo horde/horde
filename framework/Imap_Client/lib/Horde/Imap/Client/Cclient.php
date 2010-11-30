@@ -146,11 +146,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     {
         // Already guaranteed to be logged in here.
 
-        $old_error = error_reporting(0);
-        $res = imap_ping($this->_stream);
-        error_reporting($old_error);
-
-        if ($res === false) {
+        if (@imap_ping($this->_stream) === false) {
             $this->_exception('Received error from IMAP server when sending a NOOP command: ' . imap_last_error());
         }
     }
@@ -194,9 +190,8 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $mask = ($this->_service == 'pop3') ? 0 : OP_HALFOPEN;
 
-        $old_error = error_reporting(0);
         if (version_compare(PHP_VERSION, '5.2.1') != -1) {
-            $res = imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask, $this->_params['retries']);
+            $res = @imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask, $this->_params['retries']);
         } else {
             while (($res === false) &&
                    !strstr(strtolower(imap_last_error()), 'login failure') &&
@@ -204,10 +199,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 if ($i != 0) {
                     sleep(1);
                 }
-                $res = imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask);
+                $res = @imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask);
             }
         }
-        error_reporting($old_error);
 
         if ($res === false) {
             $this->_exception('Could not authenticate to IMAP server: ' . imap_last_error());
@@ -316,13 +310,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         $this->login();
         $flag = ($mode == Horde_Imap_Client::OPEN_READONLY) ? OP_READONLY : 0;
 
-        $old_error = error_reporting(0);
-        if (version_compare(PHP_VERSION, '5.2.1') != -1) {
-            $res = imap_reopen($this->_stream, $this->_connString($mailbox), $flag, $this->_params['retries']);
-        } else {
-            $res = imap_reopen($this->_stream, $this->_connString($mailbox), $flag);
-        }
-        error_reporting($old_error);
+        $res = (version_compare(PHP_VERSION, '5.2.1') != -1)
+            ? @imap_reopen($this->_stream, $this->_connString($mailbox), $flag, $this->_params['retries'])
+            : @imap_reopen($this->_stream, $this->_connString($mailbox), $flag);
 
         if ($res === false) {
             $this->_exception('Could not open mailbox "' . $mailbox . '": ' . imap_last_error());
@@ -346,11 +336,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $this->login();
 
-        $old_error = error_reporting(0);
-        $res = imap_createmailbox($this->_stream, $this->_connString($mailbox));
-        error_reporting($old_error);
-
-        if ($res === false) {
+        if (@imap_createmailbox($this->_stream, $this->_connString($mailbox)) === false) {
             $this->_exception('Could not create mailbox "' . $mailbox . '": ' . imap_last_error());
         }
     }
@@ -366,11 +352,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        $old_error = error_reporting(0);
-        $res = imap_deletemailbox($this->_stream, $this->_connString($mailbox));
-        error_reporting($old_error);
-
-        if ($res === false) {
+        if (@imap_deletemailbox($this->_stream, $this->_connString($mailbox) === false)) {
             $this->_exception('Could not delete mailbox "' . $mailbox . '": ' . imap_last_error());
         }
     }
@@ -387,11 +369,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        $old_error = error_reporting(0);
-        $res = imap_renamemailbox($this->_stream, $this->_connString($old), $this->_connString($new));
-        error_reporting($old_error);
-
-        if ($res === false) {
+        if (@imap_renamemailbox($this->_stream, $this->_connString($old), $this->_connString($new)) === false) {
             $this->_exception('Could not rename mailbox "' . $old . '": ' . imap_last_error());
         }
     }
@@ -408,13 +386,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        $old_error = error_reporting(0);
-        if ($subscribe) {
-            $res = imap_subscribe($this->_stream, $this->_connString($mailbox));
-        } else {
-            $res = imap_unsubscribe($this->_stream, $this->_connString($mailbox));
-        }
-        error_reporting($old_error);
+        $res = $subscribe
+            ? @imap_subscribe($this->_stream, $this->_connString($mailbox))
+            : @imap_unsubscribe($this->_stream, $this->_connString($mailbox));
 
         if ($res === false) {
             $this->_exception('Could not ' . ($subscribe ? 'subscribe' : 'unsubscribe') . ' to mailbox "' . $mailbox . '": ' . imap_last_error());
@@ -491,9 +465,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             LATT_HASNOCHILDREN => '\\hasnochildren'
         );
 
-        $old_error = error_reporting(0);
-        $res = imap_getmailboxes($this->_stream, $this->_connString(), $pattern);
-        error_reporting($old_error);
+        $res = @imap_getmailboxes($this->_stream, $this->_connString(), $pattern);
 
         $mboxes = array();
         while (list(,$val) = each($res)) {
@@ -553,13 +525,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $mboxes = array();
 
-        $old_error = error_reporting(0);
-        if ($mode != Horde_Imap_Client::MBOX_ALL) {
-            $res = imap_list($this->_stream, $this->_connString(), $pattern);
-        } else {
-            $res = imap_lsub($this->_stream, $this->_connString(), $pattern);
-        }
-        error_reporting($old_error);
+        $res = ($mode != Horde_Imap_Client::MBOX_ALL)
+            ? @imap_list($this->_stream, $this->_connString(), $pattern)
+            : @imap_lsub($this->_stream, $this->_connString(), $pattern);
 
         if (is_array($res)) {
             while (list(,$val) = each($res)) {
@@ -663,10 +631,11 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         }
 
         while (list(,$val) = each($data)) {
-            $old_error = error_reporting(0);
-            $text = is_resource($val['data']) ? stream_get_contents($val['data']) : $val['data'];
-            $res = imap_append($this->_stream, $this->_connString($mailbox), $this->utils->removeBareNewlines($text), empty($val['flags']) ? null : implode(' ', $val['flags']));
-            error_reporting($old_error);
+            $text = is_resource($val['data'])
+                ? stream_get_contents($val['data'])
+                : $val['data'];
+
+            $res = @imap_append($this->_stream, $this->_connString($mailbox), $this->utils->removeBareNewlines($text), empty($val['flags']) ? null : implode(' ', $val['flags']));
 
             if ($res === false) {
                 if (!empty($options['create'])) {
@@ -690,11 +659,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     {
         // Already guaranteed to be logged in here.
 
-        $old_error = error_reporting(0);
-        $res = imap_check($this->_stream);
-        error_reporting($old_error);
-
-        if ($res === false) {
+        if (@imap_check($this->_stream) === false) {
             $this->_exception('Received error from IMAP server when sending a CHECK command: ' . imap_last_error());
         }
     }
@@ -737,9 +702,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         }
 
         if (empty($options['ids'])) {
-            $old_error = error_reporting(0);
-            imap_expunge($this->_stream);
-            error_reporting($old_error);
+            @imap_expunge($this->_stream);
             return $msg_list ? $ids['match'] : null;
         }
 
@@ -769,9 +732,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             }
         }
 
-        $old_error = error_reporting(0);
-        imap_expunge($this->_stream);
-        error_reporting($old_error);
+        @imap_expunge($this->_stream);
 
         if (!empty($unflag)) {
             $this->store($this->_selected, array('add' => array('\\deleted'), 'ids' => $unflag, 'sequence' => $use_seq));
@@ -904,9 +865,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $use_seq = !empty($options['sequence']);
 
-        $old_error = error_reporting(0);
-        $ob = imap_thread($this->_stream, $use_seq ? 0 : SE_UID);
-        error_reporting($old_error);
+        $ob = @imap_thread($this->_stream, $use_seq ? 0 : SE_UID);
 
         if (empty($ob)) {
             return array();
@@ -995,8 +954,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         $err = false;
         $hdrinfo = $overview = null;
 
-        $old_error = error_reporting(0);
-
         // These options are not supported by this driver.
         if (!empty($options['changedsince']) ||
             (reset($options['ids']) == Horde_Imap_Client::USE_SEARCHRES)) {
@@ -1005,7 +962,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         if (empty($options['ids'])) {
             $seq = '1:*';
-            $options['ids'] = range(1, imap_num_msg($this->_stream));
+            $options['ids'] = range(1, @imap_num_msg($this->_stream));
         } else {
             $seq = $this->utils->toSequenceString($options['ids']);
         }
@@ -1021,7 +978,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_STRUCTURE:
                 // 'noext' has no effect in this driver
                 foreach ($options['ids'] as $id) {
-                    $structure = imap_fetchstructure($this->_stream, $id, empty($options['sequence']) ? FT_UID : 0);
+                    $structure = @imap_fetchstructure($this->_stream, $id, empty($options['sequence']) ? FT_UID : 0);
                     if (!$structure) {
                         $err = true;
                         break 2;
@@ -1033,8 +990,8 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
             case Horde_Imap_Client::FETCH_FULLMSG:
                 foreach ($options['ids'] as $id) {
-                    $tmp = imap_fetchheader($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | FT_PREFETCHTEXT) .
-                           imap_body($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | (empty($c_val['peek']) ? 0 : FT_PEEK));
+                    $tmp = @imap_fetchheader($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | FT_PREFETCHTEXT) .
+                           @imap_body($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | (empty($c_val['peek']) ? 0 : FT_PEEK));
                     if (isset($c_val['start']) && !empty($c_val['length'])) {
                         $ret[$id]['fullmsg'] = substr($tmp, $c_val['start'], $c_val['length']);
                     } else {
@@ -1075,7 +1032,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                         if (!isset($ret[$id][$label])) {
                             $ret[$id][$label] = array();
                         }
-                        $tmp = imap_fetchbody($this->_stream, $id, $header_key, empty($options['sequence']) ? FT_UID : 0);
+                        $tmp = @imap_fetchbody($this->_stream, $id, $header_key, empty($options['sequence']) ? FT_UID : 0);
 
                         if (isset($val['start']) && !empty($val['length'])) {
                             $tmp = substr($tmp, $val['start'], $val['length']);
@@ -1107,7 +1064,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                             $ret[$id]['bodytext'] = array();
                         }
                         if ($use_imapbody) {
-                            $tmp = imap_body($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | (empty($val['peek']) ? 0 : FT_PEEK));
+                            $tmp = @imap_body($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | (empty($val['peek']) ? 0 : FT_PEEK));
                             if (isset($val['start']) && !empty($val['length'])) {
                                 $ret[$id]['bodytext'][0] = substr($tmp, $val['start'], $val['length']);
                             } else {
@@ -1119,8 +1076,8 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                              * is download the header of the part, determine
                              * the length, and then remove that info from the
                              * beginning of the imap_fetchbody() data. */
-                            $hdr_len = strlen(imap_fetchbody($this->_stream, $id, $val['id'] . '.0', (empty($options['sequence']) ? FT_UID : 0)));
-                            $tmp = substr(imap_fetchbody($this->_stream, $id, $val['id'], (empty($options['sequence']) ? FT_UID : 0)), $hdr_len);
+                            $hdr_len = strlen(@imap_fetchbody($this->_stream, $id, $val['id'] . '.0', (empty($options['sequence']) ? FT_UID : 0)));
+                            $tmp = substr(@imap_fetchbody($this->_stream, $id, $val['id'], (empty($options['sequence']) ? FT_UID : 0)), $hdr_len);
                             if (isset($val['start']) && !empty($val['length'])) {
                                 $ret[$id]['bodytext'][$val['id']] = substr($tmp, $val['start'], $val['length']);
                             } else {
@@ -1172,7 +1129,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 if (is_null($hdrinfo)) {
                     $hdrinfo = array();
                     foreach ($options['ids'] as $id) {
-                        $hdrinfo[$id] = imap_headerinfo($this->_stream, empty($options['sequence']) ? imap_msgno($this->_stream, $id) : $id);
+                        $hdrinfo[$id] = @imap_headerinfo($this->_stream, empty($options['sequence']) ? @imap_msgno($this->_stream, $id) : $id);
                         if (!$hdrinfo[$id]) {
                             $err = true;
                             break 2;
@@ -1211,7 +1168,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
             case Horde_Imap_Client::FETCH_FLAGS:
                 if (is_null($overview)) {
-                    $overview = imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
+                    $overview = @imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
                     if (!$overview) {
                         $err = true;
                         break 2;
@@ -1233,7 +1190,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 if (is_null($hdrinfo)) {
                     $hdrinfo = array();
                     foreach ($options['ids'] as $id) {
-                        $hdrinfo[$id] = imap_headerinfo($this->_stream, empty($options['sequence']) ? imap_msgno($this->_stream, $id) : $id);
+                        $hdrinfo[$id] = @imap_headerinfo($this->_stream, empty($options['sequence']) ? @imap_msgno($this->_stream, $id) : $id);
                         if (!$hdrinfo[$id]) {
                             $err = true;
                             break 2;
@@ -1253,7 +1210,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                     }
                 } else {
                     if (is_null($overview)) {
-                        $overview = imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
+                        $overview = @imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
                         if (!$overview) {
                             $err = true;
                             break;
@@ -1272,7 +1229,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                     }
                 } else {
                     if (is_null($overview)) {
-                        $overview = imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
+                        $overview = @imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
                         if (!$overview) {
                             $err = true;
                             break;
@@ -1291,7 +1248,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                     }
                 } else {
                     if (is_null($overview)) {
-                        $overview = imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
+                        $overview = @imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
                         if (!$overview) {
                             $err = true;
                             break;
@@ -1303,7 +1260,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
             }
         }
-        error_reporting($old_error);
 
         if ($err) {
             $this->_exception('Error when fetching messages: ' . imap_last_error());
@@ -1411,17 +1367,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             ? '1:*'
             : $this->utils->toSequenceString($options['ids']);
 
-        $old_error = error_reporting(0);
-
         if (!empty($options['add'])) {
-            $res = imap_setflag_full($this->_stream, $seq, implode(' ', $options['add']), empty($options['sequence']) ? ST_UID : 0);
+            $res = @imap_setflag_full($this->_stream, $seq, implode(' ', $options['add']), empty($options['sequence']) ? ST_UID : 0);
         }
 
         if (($res === true) && !empty($options['remove'])) {
-            $res = imap_clearflag_full($this->_stream, $seq, implode(' ', $options['remove']), empty($options['sequence']) ? ST_UID : 0);
+            $res = @imap_clearflag_full($this->_stream, $seq, implode(' ', $options['remove']), empty($options['sequence']) ? ST_UID : 0);
         }
-
-        error_reporting($old_error);
 
         if ($res === false) {
             $this->_exception('Error when flagging messages: ' . imap_last_error());
@@ -1461,9 +1413,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             ? '1:*'
             : $this->utils->toSequenceString($options['ids']);
 
-        $old_error = error_reporting(0);
-        $res = imap_mail_copy($this->_stream, $seq, $this->_connString($dest), $opts);
-        error_reporting($old_error);
+        $res = @imap_mail_copy($this->_stream, $seq, $this->_connString($dest), $opts);
 
         if ($res === false) {
             if (!empty($options['create'])) {
@@ -1495,9 +1445,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $this->login();
 
-        $old_error = error_reporting(0);
-        $res = imap_set_quota($this->_stream, $root, $options['storage']);
-        error_reporting($old_error);
+        $res = @imap_set_quota($this->_stream, $root, $options['storage']);
 
         if ($res === false) {
             $this->_exception('Error when setting quota: ' . imap_last_error());
@@ -1518,11 +1466,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        $old_error = error_reporting(0);
-        $res = imap_get_quota($this->_stream, $root);
-        error_reporting($old_error);
-
-        if ($res === false) {
+        if (@imap_get_quota($this->_stream, $root) === false) {
             $this->_exception('Error when retrieving quota: ' . imap_last_error());
         }
     }
@@ -1542,15 +1486,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        $old_error = error_reporting(0);
         $res = imap_get_quotaroot($this->_stream, $mailbox);
-        error_reporting($old_error);
 
         if ($res === false) {
             $this->_exception('Error when retrieving quotaroot: ' . imap_last_error());
         }
 
-        return array($mailbox => $ret);
+        return array($mailbox => $res);
     }
 
     /**
@@ -1579,9 +1521,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             return;
         }
 
-        $old_error = error_reporting(0);
-        $res = imap_setacl($this->_stream, $mailbox, $identifier, (empty($options['remove']) ? '+' : '-') . $implode('', $options['rights']));
-        error_reporting($old_error);
+        $res = @imap_setacl($this->_stream, $mailbox, $identifier, (empty($options['remove']) ? '+' : '-') . $implode('', $options['rights']));
 
         if ($res === false) {
             $this->_exception('Error when setting ACL: ' . imap_last_error());
@@ -1602,10 +1542,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         $this->login();
 
         $acl = array();
-
-        $old_error = error_reporting(0);
-        $res = imap_getacl($this->_stream, $mailbox);
-        error_reporting($old_error);
+        $res = @imap_getacl($this->_stream, $mailbox);
 
         if ($res === false) {
             $this->_exception('Error when retrieving ACLs: ' . imap_last_error());

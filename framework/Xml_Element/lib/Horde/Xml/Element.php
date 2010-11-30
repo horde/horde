@@ -269,9 +269,7 @@ class Horde_Xml_Element implements ArrayAccess
         if (is_string($this->_element)) {
             $doc = new DOMDocument;
             $doc->preserveWhiteSpace = false;
-            $e = error_reporting(0);
-            $loaded = $doc->loadXML($this->_element);
-            error_reporting($e);
+            $loaded = @$doc->loadXML($this->_element);
             if (!$loaded) {
                 throw new Horde_Xml_Element_Exception('DOMDocument cannot parse XML: ', error_get_last());
             }
