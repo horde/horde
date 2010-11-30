@@ -1,4 +1,8 @@
 <?php
+$conf['db']['adapter']['mysql']['test']['host'] = 'localhost';
+$conf['db']['adapter']['mysql']['test']['username'] = '';
+$conf['db']['adapter']['mysql']['test']['password'] = '';
+$conf['db']['adapter']['mysql']['test']['dbname'] = 'test';
 $conf['db']['adapter']['mysqli']['test']['host'] = 'localhost';
 $conf['db']['adapter']['mysqli']['test']['username'] = '';
 $conf['db']['adapter']['mysqli']['test']['password'] = '';
