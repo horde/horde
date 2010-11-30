@@ -1,15 +1,10 @@
 <?php
 /**
- * All tests for the Horde_Share:: package.
- *
- * PHP version 5
- *
  * @category   Horde
  * @package    Share
  * @subpackage UnitTests
- * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @copyright  2010 The Horde Project (http://www.horde.org/)
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Share
  */
 
 /**
@@ -25,7 +20,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Feed
+ * @package    Share
  * @subpackage UnitTests
  */
 class Horde_Share_AllTests extends Horde_Test_AllTests
