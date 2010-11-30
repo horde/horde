@@ -5,7 +5,7 @@
     <?php if ($this->logout): ?>
     <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
     <?php endif ?>
-    <div data-role="navbar" class="ui-bar-b">
+    <div data-role="navbar" class="ui-bar-a">
       <ul>
         <li><a href="#dayview"><?php echo _("Day")?></a></li>
         <li><a href="#monthview"><?php echo _("Month")?></a></li>
