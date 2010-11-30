@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Exception extends Exception
+class Horde_Imap_Client_Exception extends Horde_Exception_Prior
 {
     /* Error message codes. */
 

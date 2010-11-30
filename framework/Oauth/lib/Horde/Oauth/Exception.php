@@ -16,6 +16,6 @@
  * @category Horde
  * @package  Horde_Oauth
  */
-class Horde_Oauth_Exception extends Exception
+class Horde_Oauth_Exception extends Horde_Exception_Prior
 {
 }

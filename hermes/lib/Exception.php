@@ -1,1 +1,4 @@
-<?php class Hermes_Exception extends Horde_Exception {}
+<?php
+class Hermes_Exception extends Horde_Exception_Prior
+{
+}

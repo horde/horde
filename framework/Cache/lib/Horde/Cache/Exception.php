@@ -11,4 +11,6 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_Exception extends Horde_Exception_Prior {}
+class Horde_Cache_Exception extends Horde_Exception_Prior
+{
+}

@@ -1,1 +1,4 @@
-<?php class Pastie_Exception extends Horde_Exception {}
+<?php
+class Pastie_Exception extends Horde_Exception_Prior
+{
+}

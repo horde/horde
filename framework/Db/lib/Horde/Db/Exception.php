@@ -21,6 +21,6 @@
  * @category   Horde
  * @package    Horde_Db
  */
-class Horde_Db_Exception extends Exception
+class Horde_Db_Exception extends Horde_Exception_Prior
 {
 }

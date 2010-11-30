@@ -1,3 +1,4 @@
 <?php
-class Horde_ActiveSync_Exception extends Exception {
+class Horde_ActiveSync_Exception extends Horde_Exception_Prior
+{
 }

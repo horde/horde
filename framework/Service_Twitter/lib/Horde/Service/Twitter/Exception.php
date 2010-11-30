@@ -8,5 +8,6 @@
  * @category Horde
  * @package Horde_Service_Twitter
  */
-class Horde_Service_Twitter_Exception extends Horde_Exception_Prior {
+class Horde_Service_Twitter_Exception extends Horde_Exception_Prior
+{
 }

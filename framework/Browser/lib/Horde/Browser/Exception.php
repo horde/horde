@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Browser
  */
-class Horde_Browser_Exception extends Horde_Exception
+class Horde_Browser_Exception extends Horde_Exception_Prior
 {
 }

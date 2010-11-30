@@ -26,6 +26,6 @@
  * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
-class Horde_Itip_Exception extends Exception
+class Horde_Itip_Exception extends Horde_Exception_Prior
 {
 }

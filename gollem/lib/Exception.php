@@ -12,4 +12,6 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Gollem
  */
-class Gollem_Exception extends Horde_Exception_Prior {}
+class Gollem_Exception extends Horde_Exception_Prior
+{
+}

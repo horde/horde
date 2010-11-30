@@ -11,5 +11,6 @@
  * @category Horde
  * @package  Horde_Block
  */
-class Horde_Block_Exception extends Horde_Exception
-{}
+class Horde_Block_Exception extends Horde_Exception_Prior
+{
+}

@@ -2,6 +2,6 @@
 /**
  *
  */
-class TimeObjects_Exception extends Exception
+class TimeObjects_Exception extends Horde_Exception_Prior
 {
 }

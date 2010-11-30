@@ -18,5 +18,6 @@
  * 
  * @package Horde_Routes
  */
-class Horde_Routes_Exception extends Exception 
-{}
+class Horde_Routes_Exception extends Horde_Exception_Prior
+{
+}

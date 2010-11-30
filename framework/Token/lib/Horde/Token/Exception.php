@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Token
  */
-class Horde_Token_Exception extends Horde_Exception
+class Horde_Token_Exception extends Horde_Exception_Prior
 {
 }

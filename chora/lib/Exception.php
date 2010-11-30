@@ -8,6 +8,6 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Chora
  */
-class Chora_Exception extends Horde_Exception
+class Chora_Exception extends Horde_Exception_Prior
 {
 }

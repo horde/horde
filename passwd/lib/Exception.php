@@ -1,1 +1,4 @@
-<?php class Passwd_Exception extends Horde_Exception {}
+<?php
+class Passwd_Exception extends Horde_Exception_Prior
+{
+}

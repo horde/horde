@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Exception extends Horde_Exception
+class Horde_Kolab_Storage_Exception extends Horde_Exception_Prior
 {
     /**
      * Constants to define the error type.
@@ -34,11 +34,11 @@ class Horde_Kolab_Storage_Exception extends Horde_Exception
     /**
      * The specified folder already exists.
      */
-    const FOLDER_EXISTS             = 10;
+    const FOLDER_EXISTS = 10;
 
     /**
      * The name of the folder has not been specified.
      */
-    const FOLDER_NAME_UNSET         = 50;
+    const FOLDER_NAME_UNSET = 50;
 
 }
