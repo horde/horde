@@ -23,7 +23,7 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
+ <notes>* Add translation support.
  * Add support for timestamped tokens.
  * Add Horde_Token_Exception::.
  * Move driver code into sub-classes.
@@ -45,6 +45,9 @@
       <file name="File.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Token -->
      <file name="Token.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -76,6 +79,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Url</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -103,6 +110,7 @@
    <install as="Horde/Token/File.php" name="lib/Horde/Token/File.php" />
    <install as="Horde/Token/Null.php" name="lib/Horde/Token/Null.php" />
    <install as="Horde/Token/Sql.php" name="lib/Horde/Token/Sql.php" />
+   <install as="Horde/Token/Translation.php" name="lib/Horde/Token/Translation.php" />
    <install as="Horde/Token/Exception/Expired.php" name="lib/Horde/Token/Exception/Expired.php" />
    <install as="Horde/Token/Exception/Invalid.php" name="lib/Horde/Token/Exception/Invalid.php" />
    <install as="Horde/Token/Exception/Used.php" name="lib/Horde/Token/Exception/Used.php" />

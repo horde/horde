@@ -49,6 +49,7 @@ abstract class Horde_Token_Base
         if (!isset($params['secret'])) {
             throw new Horde_Token_Exception('Missing secret parameter.');
         }
+
         if (!isset($params['token_lifetime'])) {
             $params['token_lifetime'] = -1;
         }
@@ -168,10 +169,10 @@ nce?
     {
         list($nonce, $hash) = $this->_decode($token);
         if ($hash != $this->_hash($nonce . $seed)) {
-            throw new Horde_Token_Exception_Invalid('We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now.');
+            throw new Horde_Token_Exception_Invalid(Horde_Token_Translation::t('We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now.'));
         }
         if ($this->_isExpired($nonce, $this->_params['token_lifetime'])) {
-            throw new Horde_Token_Exception_Expired(sprintf("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now.", floor($this->_params['token_lifetime'] / 60)));
+            throw new Horde_Token_Exception_Expired(Horde_Token_Translation::t(sprintf("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now.", floor($this->_params['token_lifetime'] / 60))));
         }
         return array($nonce, $hash);
     }
@@ -192,7 +193,7 @@ nce?
     {
         list($nonce, $hash) = $this->isValid($token, $seed);
         if (!$this->verify($nonce)) {
-            throw new Horde_Token_Exception_Used('This token has been used before!');
+            throw new Horde_Token_Exception_Used(Horde_Token_Translation::t('This token has been used before!'));
         }
     }
 
