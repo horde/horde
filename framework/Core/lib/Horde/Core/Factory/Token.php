@@ -24,7 +24,7 @@ class Horde_Core_Factory_Token
             $params['token_lifetime'] = $GLOBALS['conf']['urls']['token_lifetime'] * 60;
         }
 
-        $params['secret'] = $injector->getInstance('Horde_Secret')->setKey('token');
+        $params['secret'] = $injector->getInstance('Horde_Secret')->getKey('auth');
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         $class = 'Horde_Token_' . ucfirst($driver);
