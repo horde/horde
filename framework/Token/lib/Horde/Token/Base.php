@@ -35,6 +35,9 @@ abstract class Horde_Token_Base
      * @param array $params  Required parameters:
      * <pre>
      * 'secret' - (string) The secret string used for signing tokens.
+     * 'token_lifetime' - (int) The number of seconds after which tokens time out.
+     *                          Negative numbers represent "no timeout".
+     *                          The default is "-1".
      * </pre>
      * Optional parameters:
      * <pre>
@@ -45,6 +48,9 @@ abstract class Horde_Token_Base
     {
         if (!isset($params['secret'])) {
             throw new Horde_Token_Exception('Missing secret parameter.');
+        }
+        if (!isset($params['token_lifetime'])) {
+            $params['token_lifetime'] = -1;
         }
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
@@ -129,7 +135,7 @@ abstract class Horde_Token_Base
      *
      * @return boolean True if the token was valid.
      */
-    public function validate($token, $seed = '', $timeout = -1, $unique = false)
+    public function validate($token, $seed = '', $timeout = null, $unique = false)
     {
         $b = Horde_Url::uriB64Decode($token);
         $nonce = substr($b, 0, 6);
@@ -139,7 +145,10 @@ abstract class Horde_Token_Base
         }
         $timestamp = unpack('N', substr($nonce, 0, 4));
         $timestamp = array_pop($timestamp);
-        if ($timeout >= 0 && $timestamp + $timeout >= time()) {
+        if ($timeout === null) {
+            $timeout = $this->_params['token_lifetime'];
+        }
+        if ($timeout >= 0 && ($timestamp + $timeout - time()) <= 0) {
             return false;
         }
         if ($unique) {

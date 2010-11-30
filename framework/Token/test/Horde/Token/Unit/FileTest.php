@@ -75,17 +75,42 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($t->validate($t->get('a'), 'b'));
     }
 
+    public function testActiveToken()
+    {
+        $t = new Horde_Token_File(array('secret' => 'abc'));
+        $this->assertTrue($t->validate($t->get('a'), 'a', 10));
+    }
+
     public function testImmediateTimeout()
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
-        $this->assertFalse($t->validate($t->get('a'), 'a', 1));
+        $this->assertFalse($t->validate($t->get('a'), 'a', 0));
     }
 
     public function testTimeoutAfterOneSecond()
     {
-        $t = new Horde_Token_File(array('secret' => 'abc'));
+        $t = new Horde_Token_File(
+            array(
+                'secret' => 'abc',
+                'token_lifetime' => 1
+            )
+        );
+        $token = $t->get('a');
         sleep(1);
-        $this->assertFalse($t->validate($t->get('a'), 'a', 1));
+        $this->assertFalse($t->validate($token, 'a', 1));
+        // Pack two assertions in this test to avoid sleeping twice
+        $this->assertFalse($t->validate($token, 'a'));
+    }
+
+    public function testTokenLifetimeParameter()
+    {
+        $t = new Horde_Token_File(
+            array(
+                'secret' => 'abc',
+                'token_lifetime' => -1
+            )
+        );
+        $this->assertTrue($t->validate($t->get()));
     }
 
     public function testUniqueToken()
