@@ -1752,7 +1752,7 @@ class Horde_Registry
             ($options['app'] == 'horde') ||
             ($options['reason'] == Horde_Auth::REASON_LOGOUT)) {
             $params = array(
-                'horde_logout_token' => Horde::getRequestToken('horde.logout'),
+                'horde_logout_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('horde.logout'),
             );
         } else {
             $params = array(
