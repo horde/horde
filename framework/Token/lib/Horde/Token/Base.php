@@ -104,7 +104,7 @@ abstract class Horde_Token_Base
      */
     public function getNonce()
     {
-        return pack('N', time()) . pack('n', mt_rand());
+        return pack('Nn', time(), mt_rand());
     }
 
     /**
