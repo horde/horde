@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Token
  */
-class Horde_Token_Unit_Storage_FileTest extends PHPUnit_Framework_TestCase
+class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
