@@ -148,7 +148,7 @@ abstract class Horde_Token_Base
         if ($timeout === null) {
             $timeout = $this->_params['token_lifetime'];
         }
-        if ($timeout >= 0 && ($timestamp + $timeout - time()) <= 0) {
+        if ($timeout >= 0 && (time() - $timestamp - $timeout) >= 0) {
             return false;
         }
         if ($unique) {
