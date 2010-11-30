@@ -64,7 +64,7 @@ class Horde_Db_Adapter_MysqliSuite extends PHPUnit_Framework_TestSuite
             $config = array_merge(array('host' => 'localhost', 'username' => '', 'password' => '', 'dbname' => 'test'), json_decode($config, true));
         } else {
             if (!$config) {
-                $config = dirname(__FILE__) . '/../conf.php';
+                $config = dirname(__FILE__) . '/conf.php';
             }
             if (file_exists($config)) {
                 require $config;
