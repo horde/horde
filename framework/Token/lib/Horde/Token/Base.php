@@ -108,14 +108,40 @@ abstract class Horde_Token_Base
      *
      * @param string $seed  A unique ID to be included in the token.
      *
-     * @return string A string of 6 bytes.
+     * @return string The new token.
      */
     public function get($seed = '')
     {
         $nonce = $this->getNonce();
         return Horde_Url::uriB64Encode(
-            $nonce . hash('sha256', $nonce . $this->_params['secret'] . $seed, true)
+            $nonce . $this->_hash($nonce . $seed)
         );
+    }
+
+    /**
+     * Validate a signed token.
+     *
+     * @param string  $token    The signed token.
+     * @param string  $seed     The unique ID of the token.
+     * @param int     $timeout  Timout of the token in seconds.
+     * @param boolean $unique   Can the token be used more than once?
+     *
+     * @return boolean True if the token was valid.
+     */
+    public function validate($token, $seed = '', $timeout = 0, $unique = false)
+    {
+        $b = Horde_Url::uriB64Decode($token);
+        $nonce = substr($b, 0, 6);
+        $hash = substr($b, 6);
+        if ($hash != $this->_hash($nonce . $seed)) {
+            return false;
+        }
+        return true;
+    }
+
+    private function _hash($text)
+    {
+        return hash('sha256', $text . $this->_params['secret'], true);
     }
 
     /**
