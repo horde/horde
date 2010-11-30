@@ -77,7 +77,7 @@ class Horde_Db_Adapter_Pdo_MysqlSuite extends PHPUnit_Framework_TestSuite
 
         $conn = new Horde_Db_Adapter_Pdo_Mysql($config);
 
-        $cache = new Horde_Cache_Storage_Mock();
+        $cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
         $conn->setCache($cache);
 
         return array($conn, $cache);
