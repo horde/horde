@@ -423,7 +423,7 @@ if (is_array($next_step)) {
     /* Create a Turba storage instance. */
     $dest = $session->get('horde', 'import_data/target');
     try {
-        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($dest);
     } catch (Turba_Exception $e) {
         $notification->push($e, 'horde.error');
         $driver = null;
