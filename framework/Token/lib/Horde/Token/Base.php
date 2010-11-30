@@ -137,18 +137,14 @@ abstract class Horde_Token_Base
      */
     public function validate($token, $seed = '', $timeout = null, $unique = false)
     {
-        $b = Horde_Url::uriB64Decode($token);
-        $nonce = substr($b, 0, 6);
-        $hash = substr($b, 6);
+        list($nonce, $hash) = $this->_decode($token);
         if ($hash != $this->_hash($nonce . $seed)) {
             return false;
         }
-        $timestamp = unpack('N', substr($nonce, 0, 4));
-        $timestamp = array_pop($timestamp);
         if ($timeout === null) {
             $timeout = $this->_params['token_lifetime'];
         }
-        if ($timeout >= 0 && (time() - $timestamp - $timeout) >= 0) {
+        if ($this->_isExpired($nonce, $timeout)) {
             return false;
         }
         if ($unique) {
@@ -157,6 +153,84 @@ abstract class Horde_Token_Base
         return true;
     }
 
+    /**
+     * Is the given token still valid? Throws an exception in case it is not.
+     *
+     * @param string  $token  The signed token.
+     * @param string  $seed   The unique ID of the token.
+nce?
+     *
+     * @return array An array of two elements: The nonce and the hash.
+     *
+     * @throws Horde_Token_Exception If the token was invalid.
+     */
+    public function isValid($token, $seed = '')
+    {
+        list($nonce, $hash) = $this->_decode($token);
+        if ($hash != $this->_hash($nonce . $seed)) {
+            throw new Horde_Token_Exception_Invalid('We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now.');
+        }
+        if ($this->_isExpired($nonce, $this->_params['token_lifetime'])) {
+            throw new Horde_Token_Exception_Expired(sprintf("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now.", floor($this->_params['token_lifetime'] / 60)));
+        }
+        return array($nonce, $hash);
+    }
+
+    /**
+     * Is the given token valid and has never been used before? Throws an
+     * exception otherwise.
+     *
+     * @param string  $token  The signed token.
+     * @param string  $seed   The unique ID of the token.
+nce?
+     *
+     * @return NULL
+     *
+     * @throws Horde_Token_Exception If the token was invalid or has been used before.
+     */
+    public function isValidAndUnused($token, $seed = '')
+    {
+        list($nonce, $hash) = $this->isValid($token, $seed);
+        if (!$this->verify($nonce)) {
+            throw new Horde_Token_Exception_Used('This token has been used before!');
+        }
+    }
+
+    /**
+     * Decode a token into the prefixed nonce and the hash.
+     *
+     * @param string $token The token to be decomposed.
+     *
+     * @return array An array of two elements: The nonce and the hash.
+     */
+    private function _decode($token)
+    {
+        $b = Horde_Url::uriB64Decode($token);
+        return array(substr($b, 0, 6), substr($b, 6));
+    }
+
+    /**
+     * Has the nonce expired?
+     *
+     * @param string $nonce   The to be checked for expiration.
+     * @param int    $timeout The timeout that should be applied.
+     *
+     * @return boolean True if the nonce expired.
+     */
+    private function _isExpired($nonce, $timeout)
+    {
+        $timestamp = unpack('N', substr($nonce, 0, 4));
+        $timestamp = array_pop($timestamp);
+        return $timeout >= 0 && (time() - $timestamp - $timeout) >= 0;
+    }
+
+    /**
+     * Sign the given text with the secret.
+     *
+     * @param string $text The text to be signed.
+     *
+     * @return string The hashed text.
+     */
     private function _hash($text)
     {
         return hash('sha256', $text . $this->_params['secret'], true);

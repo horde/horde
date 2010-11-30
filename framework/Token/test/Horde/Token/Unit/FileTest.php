@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Base for session testing.
+ * Test the file based token backend.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -130,6 +130,56 @@ class Horde_Token_Unit_FileTest extends PHPUnit_Framework_TestCase
     {
         $t = new Horde_Token_File(array('secret' => 'abc'));
         $this->assertEquals(6, strlen($t->getNonce()));
+    }
+
+    /**
+     * @expectedException Horde_Token_Exception_Invalid
+     */
+    public function testInvalidTokenException()
+    {
+        $t = new Horde_Token_File(array('secret' => 'abc'));
+        $t->isValid('something');
+    }
+
+    /**
+     * @expectedException Horde_Token_Exception_Invalid
+     */
+    public function testInvalidSeedException()
+    {
+        $t = new Horde_Token_File(array('secret' => 'abc'));
+        $t->isValid($t->get('a'), 'b');
+    }
+
+    /**
+     * @expectedException Horde_Token_Exception_Expired
+     */
+    public function testTimeoutException()
+    {
+        $t = new Horde_Token_File(
+            array(
+                'secret' => 'abc',
+                'token_lifetime' => 1
+            )
+        );
+        $token = $t->get('a');
+        sleep(1);
+        $t->isValid($token, 'a');
+    }
+
+    /**
+     * @expectedException Horde_Token_Exception_Used
+     */
+    public function testIsValidAndUnusedException()
+    {
+        $t = new Horde_Token_File(
+            array(
+                'secret' => 'abc',
+                'token_dir' => $this->_getTemporaryDirectory()
+            )
+        );
+        $token = $t->get('a');
+        $t->isValidAndUnused($token, 'a');
+        $t->isValidAndUnused($token, 'a');
     }
 
     /**

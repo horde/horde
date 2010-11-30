@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Token</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Token API</summary>
  <description>The Horde_Token:: class provides a common abstracted interface
  into the various token generation mediums. It also includes all of the
- functions for retrieving, storing, and checking tokens.
- </description>
+ functions for retrieving, storing, and checking tokens.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-02-21</date>
+ <date>2010-11-30</date>
+ <time>13:33:08</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -26,16 +23,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde_Token_Exception::.
+ <notes>
+* Add Horde_Token_Exception::.
  * Move driver code into sub-classes.
  * Use exceptions, not PEAR_Errors.
  * Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Token">
+      <dir name="Exception">
+       <file name="Expired.php" role="php" />
+       <file name="Invalid.php" role="php" />
+       <file name="Used.php" role="php" />
+      </dir> <!-- /lib/Horde/Token/Exception -->
       <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
@@ -45,6 +48,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Token.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Token">
+      <dir name="Unit">
+       <file name="FileTest.php" role="test" />
+      </dir> <!-- /test/Horde/Token/Unit -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Token -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -81,42 +96,35 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Token/Base.php" as="Horde/Token/Base.php" />
-   <install name="lib/Horde/Token/Exception.php" as="Horde/Token/Exception.php" />
-   <install name="lib/Horde/Token/File.php" as="Horde/Token/File.php" />
-   <install name="lib/Horde/Token/Null.php" as="Horde/Token/Null.php" />
-   <install name="lib/Horde/Token/Sql.php" as="Horde/Token/Sql.php" />
-   <install name="lib/Horde/Token.php" as="Horde/Token.php" />
+   <install as="Horde/Token.php" name="lib/Horde/Token.php" />
+   <install as="Horde/Token/Base.php" name="lib/Horde/Token/Base.php" />
+   <install as="Horde/Token/Exception.php" name="lib/Horde/Token/Exception.php" />
+   <install as="Horde/Token/File.php" name="lib/Horde/Token/File.php" />
+   <install as="Horde/Token/Null.php" name="lib/Horde/Token/Null.php" />
+   <install as="Horde/Token/Sql.php" name="lib/Horde/Token/Sql.php" />
+   <install as="Horde/Token/Exception/Expired.php" name="lib/Horde/Token/Exception/Expired.php" />
+   <install as="Horde/Token/Exception/Invalid.php" name="lib/Horde/Token/Exception/Invalid.php" />
+   <install as="Horde/Token/Exception/Used.php" name="lib/Horde/Token/Exception/Used.php" />
+   <install as="Horde/Token/AllTests.php" name="test/Horde/Token/AllTests.php" />
+   <install as="Horde/Token/Autoload.php" name="test/Horde/Token/Autoload.php" />
+   <install as="Horde/Token/phpunit.xml" name="test/Horde/Token/phpunit.xml" />
+   <install as="Horde/Token/Unit/FileTest.php" name="test/Horde/Token/Unit/FileTest.php" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
    <version>
-    <release>0.0.4</release>
-    <api>0.0.4</api>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2006-05-08</date>
-   <time>23:48:27</time>
+   <date>2003-07-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.3</release>
-    <api>0.0.3</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2005-01-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Add support for separate read and write DB servers for the sql driver.
+   <notes>
+Initial release as a PEAR package
    </notes>
   </release>
   <release>
@@ -130,21 +138,57 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2004-11-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Remove assumption of IPv4 IP address format
+   <notes>
+Remove assumption of IPv4 IP address format
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2003-07-03</date>
+   <date>2005-01-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Add support for separate read and write DB servers for the sql driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-05-08</date>
+   <time>23:48:27</time>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-11-30</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Add Horde_Token_Exception::.
+ * Move driver code into sub-classes.
+ * Use exceptions, not PEAR_Errors.
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>
