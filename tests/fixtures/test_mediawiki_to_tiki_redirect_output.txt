@@ -1,0 +1,3 @@
+{redirect page="Some page name"}
+{redirect page="Other page name"}
+
