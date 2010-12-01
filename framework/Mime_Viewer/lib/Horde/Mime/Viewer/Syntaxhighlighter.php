@@ -76,6 +76,7 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         $type = str_replace('x-unknown', 'x-extension', $type);
 
         switch ($type) {
+        case 'application/javascript':
         case 'application/x-javascript':
         case 'x-extension/javascript':
         case 'x-extension/js':

@@ -121,6 +121,7 @@ $mime_drivers = array(
     'syntaxhighlighter' => array(
         'inline' => true,
         'handles' => array(
+            'application/javascript',
             'application/x-httpd-php',
             'application/x-httpd-php3',
             'application/x-httpd-phps',
@@ -170,6 +171,7 @@ $mime_drivers = array(
         ),
         'icons' => array(
             'default'                   => 'text.png',
+            'application/javascript'    => 'script-js.png',
             'application/x-httpd-php'   => 'php.png',
             'application/x-httpd-php3'  => 'php.png',
             'application/x-httpd-phps'  => 'php.png',
