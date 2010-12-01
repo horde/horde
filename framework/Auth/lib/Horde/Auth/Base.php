@@ -106,8 +106,9 @@ abstract class Horde_Auth_Base
         $userId = trim($userId);
 
         try {
+            $this->_credentials['userId'] = $userId;
             $this->_authenticate($userId, $credentials);
-            $this->setCredential('userId', $userId);
+            $this->setCredential('userId', $this->_credentials['userId']);
             $this->setCredential('credentials', $credentials);
             return true;
         } catch (Horde_Auth_Exception $e) {

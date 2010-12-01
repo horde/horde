@@ -77,4 +77,19 @@ class Horde_Auth_Unit_KolabTest extends Horde_Auth_TestCase
             $this->assertEquals(Horde_Auth::REASON_FAILED, $e->getCode());
         }
     }
+
+    public function testUidRewrite()
+    {
+        $this->kolab->expects($this->once())
+            ->method('connect')
+            ->with('user', array('password' => 'password'))
+            ->will($this->returnValue(null));
+        $this->kolab->expects($this->once())
+            ->method('getMail')
+            ->will($this->returnValue('user@example.com'));
+        $this->driver->authenticate('user', array('password' => 'password'));
+        $this->assertEquals(
+            'user@example.com', $this->driver->getCredential('userId')
+        );
+    }
 }
