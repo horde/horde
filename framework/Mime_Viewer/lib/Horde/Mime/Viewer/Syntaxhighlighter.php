@@ -170,6 +170,7 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
             return 'Xml';
 
         case 'bash':
+        case 'sh':
         case 'shell':
             return 'Bash';
 
