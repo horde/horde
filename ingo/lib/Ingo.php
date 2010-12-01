@@ -33,6 +33,7 @@ class Ingo
      * Create an ingo session.
      *
      * Creates the $ingo session variable with the following entries:
+     * <pre>
      * 'backend' (array) - The backend configuration to use.
      * 'change' (integer) - The timestamp of the last time the rules were
      *                      altered.
@@ -41,6 +42,7 @@ class Ingo
      *                               Ingo_Script driver in use.
      * 'script_generate' (boolean) - Is the Ingo_Script::generate() call
      *                               available?
+     * </pre>
      *
      * @throws Ingo_Exception
      */
@@ -49,20 +51,20 @@ class Ingo
         global $prefs, $session;
 
         $session->remove('ingo');
-        if ($session->exists('ingo', 'change')) {
+        if ($session->exists('ingo', 'script_generate')) {
             return;
         }
 
         /* getBackend() and loadIngoScript() will both throw Exceptions, so
          * do these first as errors are fatal. */
         foreach (self::getBackend() as $key => $val) {
-            $session->set('ingo', 'backend/' . $key, $val);
+            if ($val) {
+                $session->set('ingo', 'backend/' . $key, $val);
+            }
         }
 
         $ingo_script = self::loadIngoScript();
         $session->set('ingo', 'script_generate', $ingo_script->generateAvailable());
-
-        $session->set('ingo', 'change', 0);
 
         /* Disable categories as specified in preferences */
         $categories = array_merge($ingo_script->availableActions(), $ingo_script->availableCategories());
