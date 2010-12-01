@@ -4,7 +4,7 @@
  * Translation helper application for the Horde framework.
  *
  * For usage information call:
- * ./translation.php help
+ * ./translation help
  */
 
 function footer()
@@ -30,7 +30,7 @@ function usage()
         } else {
             $cmd = $options[1][0];
         }
-        $c->writeln('Usage:' . ' translation.php [options] ' . $cmd . ' [command-options]');
+        $c->writeln('Usage:' . ' translation [options] ' . $cmd . ' [command-options]');
         if (!empty($cmd)) {
             $c->writeln();
             $c->writeln('Command options:');
@@ -96,8 +96,8 @@ function usage()
             break;
         }
     } else {
-        $c->writeln('Usage:' . ' translation.php [options] command [command-options]');
-        $c->writeln(str_repeat(' ', Horde_String::length('Usage:')) . ' translation.php [help|-h|--help] [command]');
+        $c->writeln('Usage:' . ' translation [options] command [command-options]');
+        $c->writeln(str_repeat(' ', Horde_String::length('Usage:')) . ' translation [help|-h|--help] [command]');
         $c->writeln();
         $c->writeln('Helper application to create and maintain translations for the Horde');
         $c->writeln('framework and its applications.');
@@ -1185,7 +1185,7 @@ function update_help()
             $c->writeln(sprintf('Updating %s help file for %s.', $c->bold($locale), $c->bold($apps[$i])));
 
             if (!($doc_en = DOMDocument::load($file_en))) {
-                $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
+                $c->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
                 $c->writeln();
                 continue 2;
             }
@@ -1193,7 +1193,7 @@ function update_help()
             $doc_en->formatOutput = true;
 
             if (!($doc_loc = DOMDocument::load($file_loc))) {
-                $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
+                $c->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
                 $c->writeln();
                 continue;
             }
@@ -1286,7 +1286,7 @@ function make_help()
         }
 
         if (!($doc_en = DOMDocument::load($file_en))) {
-            $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
+            $c->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
             $c->writeln();
             continue;
         }
@@ -1304,7 +1304,7 @@ function make_help()
             $c->writeln(sprintf('Updating %s help file for %s.', $c->bold($locale), $c->bold($apps[$i])));
 
             if (!($doc_loc = DOMDocument::load($file_loc))) {
-                $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
+                $c->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
                 $c->writeln();
                 continue;
             }
