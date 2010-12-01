@@ -612,8 +612,6 @@ function init()
         $lang = getenv('LANG');
     }
 
-    $registry = new Horde_Registry(Horde_Registry::SESSION_NONE);
-
     for ($i = 0; $i < count($dirs); $i++) {
         if (!empty($module) && $module != $apps[$i]) {
             continue;
@@ -621,7 +619,7 @@ function init()
         $package = ucfirst($apps[$i]);
         $version = substr($apps[$i], 0, 6) == 'Horde_'
             ? ''
-            : ' ' . $registry->getVersion($apps[$i]);
+            : ' ' . $GLOBALS['registry']->getVersion($apps[$i]);
         printf('Initializing module %s... ', $apps[$i]);
         $dir = $dirs[$i] . DS . 'locale' . DS;
         $pot = $dir . $apps[$i] . '.pot';
@@ -1350,12 +1348,12 @@ if (empty($language)) {
 }
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
 
-$c = new Horde_Cli();
-if (!$c->runningFromCLI()) {
-    $c->fatal('This script must be run from the command line.');
-}
-$c->init();
+$c = $cli;
 
 $c->writeln($c->bold('---------------------------'));
 $c->writeln($c->bold('Horde translation generator'));
