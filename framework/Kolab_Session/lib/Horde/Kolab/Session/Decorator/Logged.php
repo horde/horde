@@ -94,8 +94,8 @@ extends Horde_Kolab_Session_Decorator_Base
         $session_data = $this->_session->export();
         $this->_logger->info(
             sprintf(
-                "Exported session data for \"%s\" (%s). [%s]",
-                $this->_session->getMail(), serialize($session_data), new Horde_Support_Backtrace()
+                "Exported session data for \"%s\" (%s).",
+                $this->_session->getMail(), serialize($session_data)
             )
         );
         return $session_data;
@@ -113,8 +113,8 @@ extends Horde_Kolab_Session_Decorator_Base
         $this->_session->import($session_data);
         $this->_logger->info(
             sprintf(
-                "Imported session data for \"%s\" (%s). [%s]",
-                $this->_session->getMail(), serialize($session_data), new Horde_Support_Backtrace()
+                "Imported session data for \"%s\" (%s).",
+                $this->_session->getMail(), serialize($session_data)
             )
         );
     }
@@ -128,8 +128,8 @@ extends Horde_Kolab_Session_Decorator_Base
     {
         $this->_logger->warn(
             sprintf(
-                "Purged session data for \"%s\". [%s]",
-                $this->_session->getMail(), new Horde_Support_Backtrace()
+                "Purging session data for \"%s\".",
+                $this->_session->getMail()
             )
         );
         $this->_session->purge();

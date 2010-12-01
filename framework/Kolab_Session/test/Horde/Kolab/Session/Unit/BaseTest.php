@@ -424,4 +424,70 @@ class Horde_Kolab_Session_Unit_BaseTest extends Horde_Kolab_Session_TestCase
         $session->connect('userid', array('password' => ''));
         $this->assertEquals('localhost', $session->getImapServer());
     }
+
+    public function testEmptyGetId()
+    {
+        $composite = $this->_getMockedComposite();
+        $session = new Horde_Kolab_Session_Base(
+            $composite, array()
+        );
+        $this->assertNull($session->getId());
+    }
+
+    public function testEmptyGetMail()
+    {
+        $composite = $this->_getMockedComposite();
+        $session = new Horde_Kolab_Session_Base(
+            $composite, array()
+        );
+        $this->assertNull($session->getMail());
+    }
+
+    public function testEmptyGetName()
+    {
+        $composite = $this->_getMockedComposite();
+        $session = new Horde_Kolab_Session_Base(
+            $composite, array()
+        );
+        $this->assertNull($session->getName());
+    }
+
+    public function testEmptyGetUid()
+    {
+        $composite = $this->_getMockedComposite();
+        $session = new Horde_Kolab_Session_Base(
+            $composite, array()
+        );
+        $this->assertNull($session->getUid());
+    }
+
+    public function testEmptyGetFreebusyServer()
+    {
+        $composite = $this->_getMockedComposite();
+        $session = new Horde_Kolab_Session_Base(
+            $composite, array()
+        );
+        $this->assertNull($session->getFreebusyServer());
+    }
+
+    public function testEmptyGetImapServer()
+    {
+        $composite = $this->_getMockedComposite();
+        $session = new Horde_Kolab_Session_Base(
+            $composite, array()
+        );
+        $this->assertNull($session->getImapServer());
+    }
+
+    public function testImportExport()
+    {
+        $data = array('test');
+        $composite = $this->_getMockedComposite();
+        $session = new Horde_Kolab_Session_Base(
+            $composite, array()
+        );
+        $session->import($data);
+        $this->assertEquals($data, $session->export());
+    }
+
 }

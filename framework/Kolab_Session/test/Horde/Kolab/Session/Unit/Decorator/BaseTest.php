@@ -116,4 +116,39 @@ extends Horde_Kolab_Session_TestCase
         );
         $anonymous->getFreebusyServer();
     }
+
+    public function testImport()
+    {
+        $session = $this->getMock('Horde_Kolab_Session');
+        $session->expects($this->once())
+            ->method('import')
+            ->with(array('test'));
+        $anonymous = new Horde_Kolab_Session_Decorator_Base(
+            $session
+        );
+        $anonymous->import(array('test'));
+    }
+
+    public function testExport()
+    {
+        $session = $this->getMock('Horde_Kolab_Session');
+        $session->expects($this->once())
+            ->method('export')
+            ->will($this->returnValue(array('export')));
+        $anonymous = new Horde_Kolab_Session_Decorator_Base(
+            $session
+        );
+        $this->assertEquals(array('export'), $anonymous->export());
+    }
+
+    public function testPurge()
+    {
+        $session = $this->getMock('Horde_Kolab_Session');
+        $session->expects($this->once())
+            ->method('purge');
+        $anonymous = new Horde_Kolab_Session_Decorator_Base(
+            $session
+        );
+        $anonymous->purge();
+    }
 }

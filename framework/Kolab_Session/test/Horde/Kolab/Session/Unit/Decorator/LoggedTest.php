@@ -89,4 +89,72 @@ extends Horde_Kolab_Session_TestCase
         } catch (Horde_Kolab_Session_Exception $e) {
         }
     }
+
+    public function testExport()
+    {
+        $session = $this->getMock('Horde_Kolab_Session');
+        $session->expects($this->once())
+            ->method('export')
+            ->will($this->returnValue('test'));
+        $session->expects($this->once())
+            ->method('getMail')
+            ->will($this->returnValue('somebody@example.org'));
+        $this->logger->expects($this->once())
+            ->method('__call')
+            ->with(
+                'info',
+                array(
+                    'Exported session data for "somebody@example.org" (s:4:"test";).'
+                )
+            );
+        $logged = new Horde_Kolab_Session_Decorator_Logged(
+            $session, $this->logger
+        );
+        $logged->export();
+    }
+
+    public function testImport()
+    {
+        $session = $this->getMock('Horde_Kolab_Session');
+        $session->expects($this->once())
+            ->method('import')
+            ->with(array('test'));
+        $session->expects($this->once())
+            ->method('getMail')
+            ->will($this->returnValue('somebody@example.org'));
+        $this->logger->expects($this->once())
+            ->method('__call')
+            ->with(
+                'info',
+                array(
+                    'Imported session data for "somebody@example.org" (a:1:{i:0;s:4:"test";}).'
+                )
+            );
+        $logged = new Horde_Kolab_Session_Decorator_Logged(
+            $session, $this->logger
+        );
+        $logged->import(array('test'));
+    }
+
+    public function testPurge()
+    {
+        $session = $this->getMock('Horde_Kolab_Session');
+        $session->expects($this->once())
+            ->method('purge');
+        $session->expects($this->once())
+            ->method('getMail')
+            ->will($this->returnValue('somebody@example.org'));
+        $this->logger->expects($this->once())
+            ->method('__call')
+            ->with(
+                'warn',
+                array(
+                    'Purging session data for "somebody@example.org".'
+                )
+            );
+        $logged = new Horde_Kolab_Session_Decorator_Logged(
+            $session, $this->logger
+        );
+        $logged->purge();
+    }
 }
