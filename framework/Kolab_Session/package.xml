@@ -24,7 +24,7 @@
   <active>yes</active>
  </lead>
  <date>2010-12-01</date>
- <time>14:54:05</time>
+ <time>15:24:35</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -77,7 +77,6 @@
       <dir name="Session">
        <dir name="Integration">
         <file name="AnonymousTest.php" role="test" />
-        <file name="SessionTest.php" role="test" />
         <file name="ValidTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Session/Integration -->
        <dir name="Unit">
@@ -150,7 +149,6 @@
    <install as="Horde/Kolab/Session/phpunit.xml" name="test/Horde/Kolab/Session/phpunit.xml" />
    <install as="Horde/Kolab/Session/TestCase.php" name="test/Horde/Kolab/Session/TestCase.php" />
    <install as="Horde/Kolab/Session/Integration/AnonymousTest.php" name="test/Horde/Kolab/Session/Integration/AnonymousTest.php" />
-   <install as="Horde/Kolab/Session/Integration/SessionTest.php" name="test/Horde/Kolab/Session/Integration/SessionTest.php" />
    <install as="Horde/Kolab/Session/Integration/ValidTest.php" name="test/Horde/Kolab/Session/Integration/ValidTest.php" />
    <install as="Horde/Kolab/Session/Unit/BaseTest.php" name="test/Horde/Kolab/Session/Unit/BaseTest.php" />
    <install as="Horde/Kolab/Session/Unit/Decorator/AnonymousTest.php" name="test/Horde/Kolab/Session/Unit/Decorator/AnonymousTest.php" />
