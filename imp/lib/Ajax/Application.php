@@ -1901,7 +1901,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         try {
-            $res = $imp_compose->saveDraft($headers, $this->_vars->message, 'UTF-8', $this->_vars->html);
+            $res = $imp_compose->saveDraft($headers, $this->_vars->message, $this->_vars->html);
             if ($this->_action == 'autoSaveDraft') {
                 $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
             } else {

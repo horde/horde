@@ -33,6 +33,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     public $changed = '';
 
     /**
+     * The charset to use for sending.
+     *
+     * @var string
+     */
+    public $charset;
+
+    /**
      * The cached attachment data.
      *
      * @var array
@@ -90,6 +97,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     public function __construct($cacheid)
     {
         $this->_cacheid = $cacheid;
+        $this->charset = $GLOBALS['registry']->getEmailCharset();
     }
 
     /**
@@ -143,19 +151,18 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Saves a message to the draft folder.
      *
-     * @param array $header    List of message headers.
+     * @param array $header    List of message headers (UTF-8).
      * @param mixed $message   Either the message text (string) or a
      *                         Horde_Mime_Part object that contains the
      *                         text to send.
-     * @param string $charset  The charset that was used for the headers.
      * @param boolean $html    Whether this is an HTML message.
      *
      * @return string  Notification text on success.
      * @throws IMP_Compose_Exception
      */
-    public function saveDraft($headers, $message, $charset, $html)
+    public function saveDraft($headers, $message, $html)
     {
-        $body = $this->_saveDraftMsg($headers, $message, $charset, $html, true);
+        $body = $this->_saveDraftMsg($headers, $message, $html, true);
         return $this->_saveDraftServer($body);
     }
 
@@ -166,19 +173,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @param mixed $message    Either the message text (string) or a
      *                          Horde_Mime_Part object that contains the
      *                          text to send.
-     * @param string $charset   The charset that was used for the headers.
      * @param boolean $html     Whether this is an HTML message.
      * @param boolean $session  Do we have an active session?
      *
      * @return string  The body text.
      * @throws IMP_Compose_Exception
      */
-    protected function _saveDraftMsg($headers, $message, $charset, $html,
-                                     $session)
+    protected function _saveDraftMsg($headers, $message, $html, $session)
     {
         /* Set up the base message now. */
         $mime = $this->_createMimeMessage(array(null), $message, array(
-            'charset' => $charset,
             'html' => $html,
             'noattach' => !$session,
             'nofinal' => true
@@ -198,7 +202,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $addr = $headers[$k];
                 if ($session) {
                     try {
-                        Horde_Mime::encodeAddress(self::formatAddr($addr), $charset, $GLOBALS['session']->get('imp', 'maildomain'));
+                        Horde_Mime::encodeAddress(self::formatAddr($addr), $this->charset, $GLOBALS['session']->get('imp', 'maildomain'));
                     } catch (Horde_Mime_Exception $e) {
                         throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $k, $e->getMessage()), $e->getCode());
                     }
@@ -387,11 +391,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
-        $charset = 'UTF-8';
         $header = array(
-            'to' => Horde_Mime_Address::addrArray2String($headers->getOb('to'), array('charset' => $charset)),
-            'cc' => Horde_Mime_Address::addrArray2String($headers->getOb('cc'), array('charset' => $charset)),
-            'bcc' => Horde_Mime_Address::addrArray2String($headers->getOb('bcc'), array('charset' => $charset)),
+            'to' => Horde_Mime_Address::addrArray2String($headers->getOb('to')),
+            'cc' => Horde_Mime_Address::addrArray2String($headers->getOb('cc')),
+            'bcc' => Horde_Mime_Address::addrArray2String($headers->getOb('bcc')),
             'subject' => $headers->getValue('subject')
         );
 
@@ -451,8 +454,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @param array $header    List of message headers.
      * @param array $opts      An array of options w/the following keys:
      * <pre>
-     * charset - (string) The charset to use for sending the message.
-     *           DEFAULT: Horde default email charset.
      * encrypt - (integer) A flag whether to encrypt or sign the message.
      *           One of IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC,
      *           IMP::SMIME_ENCRYPT, or IMP::SMIME_SIGNENC.
@@ -506,7 +507,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
          * are storing an encrypted message locally. */
         $send_msgs = array();
         $msg_options = array(
-            'charset' => empty($opts['charset']) ? null : $opts['charset'],
             'encrypt' => $encrypt,
             'html' => !empty($opts['html'])
         );
@@ -563,25 +563,21 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $mdn->addMdnRequestHeaders($barefrom);
         }
 
-        $charset = empty($opts['charset'])
-            ? $GLOBALS['registry']->getEmailCharset()
-            : $opts['charset'];
-
-        $headers->addHeader('From', Horde_String::convertCharset($header['from'], 'UTF-8', $charset));
+        $headers->addHeader('From', Horde_String::convertCharset($header['from'], 'UTF-8', $this->charset));
 
         if (!empty($header['replyto']) &&
             ($header['replyto'] != $barefrom)) {
-            $headers->addHeader('Reply-to', Horde_String::convertCharset($header['replyto'], 'UTF-8', $charset));
+            $headers->addHeader('Reply-to', Horde_String::convertCharset($header['replyto'], 'UTF-8', $this->charset));
         }
         if (!empty($header['to'])) {
-            $headers->addHeader('To', Horde_String::convertCharset($header['to'], 'UTF-8', $charset));
+            $headers->addHeader('To', Horde_String::convertCharset($header['to'], 'UTF-8', $this->charset));
         } elseif (empty($header['to']) && empty($header['cc'])) {
             $headers->addHeader('To', 'undisclosed-recipients:;');
         }
         if (!empty($header['cc'])) {
-            $headers->addHeader('Cc', Horde_String::convertCharset($header['cc'], 'UTF-8', $charset));
+            $headers->addHeader('Cc', Horde_String::convertCharset($header['cc'], 'UTF-8', $this->charset));
         }
-        $headers->addHeader('Subject', Horde_String::convertCharset($header['subject'], 'UTF-8', $charset));
+        $headers->addHeader('Subject', Horde_String::convertCharset($header['subject'], 'UTF-8', $this->charset));
 
         /* Add necessary headers for replies. */
         $this->_addReferences($headers);
@@ -657,7 +653,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             /* Keep Bcc: headers on saved messages. */
             if (!empty($header['bcc'])) {
-                $headers->addHeader('Bcc', Horde_String::convertCharset($header['bcc'], 'UTF-8', $charset));
+                $headers->addHeader('Bcc', Horde_String::convertCharset($header['bcc'], 'UTF-8', $this->charset));
             }
 
             /* Strip attachments if requested. */
@@ -673,7 +669,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
                     $replace_part = new Horde_Mime_Part();
                     $replace_part->setType('text/plain');
-                    $replace_part->setCharset($charset);
+                    $replace_part->setCharset($this->charset);
                     $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
                     $mime_message->alterPart($i, $replace_part);
                 }
@@ -1011,8 +1007,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @param string $body     Message body.
      * @param array $options   Additional options:
      * <pre>
-     * 'charset' - (string) The charset of the message body.
-     *             DEFAULT: Horde default email charset.
      * 'encrypt' - (integer) The encryption flag.
      * 'from' - (string) The outgoing from address - only needed for multiple
      *          PGP encryption.
@@ -1032,15 +1026,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     protected function _createMimeMessage($to, $body, array $options = array())
     {
-        $charset = empty($opts['charset'])
-            ? $GLOBALS['registry']->getEmailCharset()
-            : $opts['charset'];
-
-        $body = Horde_String::convertCharset($body, 'UTF-8', $charset);
+        $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
 
         if (!empty($options['html'])) {
             $body_html = $body;
-            $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $charset));
+            $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $this->charset));
         }
 
         /* Get trailer text (if any). */
@@ -1058,11 +1048,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         /* Set up the body part now. */
         $textBody = new Horde_Mime_Part();
         $textBody->setType('text/plain');
-        $textBody->setCharset($charset);
+        $textBody->setCharset($this->charset);
         $textBody->setDisposition('inline');
 
         /* Send in flowed format. */
-        $flowed = new Horde_Text_Flowed($body, $charset);
+        $flowed = new Horde_Text_Flowed($body, $this->charset);
         $flowed->setDelSp(true);
         $textBody->setContentTypeParameter('format', 'flowed');
         $textBody->setContentTypeParameter('DelSp', 'Yes');
@@ -1073,9 +1063,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if (!empty($options['html'])) {
             $htmlBody = new Horde_Mime_Part();
             $htmlBody->setType('text/html');
-            $htmlBody->setCharset($charset);
+            $htmlBody->setCharset($this->charset);
             $htmlBody->setDisposition('inline');
-            $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Message"), 'UTF-8', $charset));
+            $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Message"), 'UTF-8', $this->charset));
 
             /* Add default font CSS information here. The data comes to us
              * with no HTML body tag - so simply wrap the data in a body
@@ -1094,14 +1084,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     '</body>';
             }
 
-            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body_html, 'cleanhtml', array('charset' => $charset)));
+            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body_html, 'cleanhtml', array('charset' => $this->charset)));
 
-            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), 'UTF-8', $charset));
+            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), 'UTF-8', $this->charset));
 
             $textpart = new Horde_Mime_Part();
             $textpart->setType('multipart/alternative');
             $textpart->addPart($textBody);
-            $textpart->setHeaderCharset($charset);
+            $textpart->setHeaderCharset($this->charset);
 
             if (empty($options['nofinal'])) {
                 try {
@@ -1295,7 +1285,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             'subject' => ''
         );
 
-        $charset = 'UTF-8';
         $h = $contents->getHeaderOb();
         $match_identity = $this->_getMatchingIdentity($h);
         $reply_type = 'reply';
@@ -1326,10 +1315,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $force = false;
         if (in_array($type, array('reply', 'reply_auto', '*'))) {
             if (($header['to'] = $to) ||
-                ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to'), array('charset' => $charset)))) {
+                ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
                 $force = true;
             } else {
-                $header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $charset));
+                $header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from'));
             }
 
             if ($type == '*') {
@@ -1380,7 +1369,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
                 $ob = $h->getOb($val);
                 if (!empty($ob)) {
-                    $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, array('charset' => $charset, 'filter' => $all_addrs));
+                    $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, array('filter' => $all_addrs));
                     if (!empty($addr_obs)) {
                         if (isset($addr_obs[0]['groupname'])) {
                             $cc_addrs = array_merge($cc_addrs, $addr_obs);
@@ -1400,7 +1389,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                                 if (!$addr_obs[0]['personal'] &&
                                     ($to_ob = $h->getOb('from')) &&
                                     $to_ob[0]['personal'] &&
-                                    ($to_addr = Horde_Mime_Address::addrArray2String($to_ob, array('charset' => $charset))) &&
+                                    ($to_addr = Horde_Mime_Address::addrArray2String($to_ob)) &&
                                     Horde_Mime_Address::bareAddress($to_addr) == $addr_obs[0]['address']) {
                                     $header['to'] = $to_addr;
                                 } else {
@@ -1437,7 +1426,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
             /* Build the Bcc: header. */
-            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('charset' => $charset, 'filter' => $all_addrs));
+            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('filter' => $all_addrs));
             if ($type == '*') {
                 $all_headers['reply_all'] = $header;
             }
@@ -1489,10 +1478,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             );
         }
 
-        $charset = 'UTF-8';
         $h = $contents->getHeaderOb();
 
-        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $charset));
+        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
 
         if ($prefs->getValue('reply_headers') && !empty($h)) {
             $msg_pre = '----- ' .
@@ -1656,9 +1644,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $h = $contents->getHeaderOb();
 
-        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array(
-            'charset' => 'UTF-8'
-        ));
+        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
 
         $msg_pre = "\n----- " .
             ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message")) .
@@ -1832,18 +1818,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     protected function _getMsgHeaders($h)
     {
-        $charset = 'UTF-8';
         $tmp = array();
 
         if (($ob = $h->getValue('date'))) {
             $tmp[_("Date")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $charset)))) {
+        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('from')))) {
             $tmp[_("From")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('reply-to'), array('charset' => $charset)))) {
+        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
             $tmp[_("Reply-To")] = $ob;
         }
 
@@ -1851,11 +1836,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $tmp[_("Subject")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('to'), array('charset' => $charset)))) {
+        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('to')))) {
             $tmp[_("To")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('cc'), array('charset' => $charset)))) {
+        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('cc')))) {
             $tmp[_("Cc")] = $ob;
         }
 
@@ -2514,7 +2499,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* Determine default encoding. */
-        $encoding = $GLOBALS['registry']->getEmailCharset();
+        $encoding = $this->charset;
         if ((strcasecmp($part_charset, 'US-ASCII') !== 0) &&
             (strcasecmp($part_charset, $encoding) !== 0)) {
             $encoding = 'UTF-8';
@@ -2665,8 +2650,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $headers[$val] = $imp_ui->getAddressList($vars->$val);
         }
 
+        if ($vars->charset) {
+            $this->charset = $vars->charset;
+        }
+
         try {
-            $body = $this->_saveDraftMsg($headers, $vars->message, $vars->charset, $vars->rtemode, false);
+            $body = $this->_saveDraftMsg($headers, $vars->message, $vars->rtemode, false);
         } catch (IMP_Compose_Exception $e) {
             return;
         }

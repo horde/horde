@@ -132,6 +132,7 @@ $stationery = $injector->getInstance('IMP_Compose_Stationery');
 $charset = $prefs->isLocked('sending_charset')
     ? $prefs->getValue('sending_charset')
     : $vars->charset;
+$imp_compose->charset = $charset;
 
 /* Is this a popup window? */
 $isPopup = ($prefs->getValue('compose_popup') || $vars->popup);
@@ -199,8 +200,8 @@ case 'mailto':
         $header['to'] = $imp_headers->getValue('to');
     }
     if (empty($header['to'])) {
-        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('from'), array('charset' => 'UTF-8'))) ||
-        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('reply-to'), array('charset' => 'UTF-8')));
+        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('from'))) ||
+        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('reply-to')));
     }
     break;
 
@@ -364,7 +365,7 @@ case 'send_message':
     if (in_array($vars->actionID, array('auto_save_draft', 'save_draft'))) {
         if (!$readonly_drafts) {
             try {
-                $result = $imp_compose->saveDraft($header, $message, 'UTF-8', $rtemode);
+                $result = $imp_compose->saveDraft($header, $message, $rtemode);
 
                 /* Closing draft if requested by preferences. */
                 if ($vars->actionID == 'save_draft') {
@@ -410,7 +411,6 @@ case 'send_message':
     }
 
     $options = array(
-        'charset' => $charset,
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
         'html' => $rtemode,
         'identity' => $identity,
@@ -617,7 +617,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
 /* If this is the first page load for this compose item, add auto BCC
  * addresses. */
 if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
-    $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses(), array('charset' => 'UTF-8'));
+    $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses());
 }
 
 foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
