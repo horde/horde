@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the Horde_Auth:: class.
+ * Test the Horde_Auth_Passwd:: class.
  *
  * PHP version 5
  *
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Test the Horde_Auth:: class.
+ * Test the Horde_Auth_Passwd:: class.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
