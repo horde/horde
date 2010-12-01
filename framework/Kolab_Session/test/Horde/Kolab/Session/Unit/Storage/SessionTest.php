@@ -32,6 +32,16 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  */
 class Horde_Kolab_Session_Unit_Storage_SessionTest extends Horde_Kolab_Session_TestCase
 {
+    public function setUp()
+    {
+        $_SESSION = array();
+    }
+
+    public function tearDown()
+    {
+        unset($_SESSION['kolab_session']);
+    }
+
     public function testLoad()
     {
         $_SESSION['kolab_session'] = array('data');
