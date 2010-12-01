@@ -397,7 +397,7 @@ var DimpBase = {
                 r.subjecttitle = r.subject;
 
                 // Add thread graphics
-                if (tsort) {
+                if (tsort && mode != 'vert') {
                     u = thread.get(r.imapuid);
                     if (u) {
                         $R(0, u.length, true).each(function(i) {
