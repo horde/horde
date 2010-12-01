@@ -150,7 +150,8 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      *
      * @throws Horde_Auth_Exception
      */
-    public function updateUser($oldId, $newId, $credentials)
+    public function updateUser($oldId, $newId, $credentials, $olddn = null,
+                               $newdn = null)
     {
         /* Connect to the MSAD server. */
         $this->_connect();
