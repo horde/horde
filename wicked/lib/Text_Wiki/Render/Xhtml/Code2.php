@@ -14,7 +14,10 @@ class Text_Wiki_Render_Xhtml_Code2 extends Text_Wiki_Render_Xhtml_Code
      */
     public function token($options)
     {
-        $type = $options['attr']['type'];
+        if (!($type = $options['attr']['type'])) {
+            // Default to shell script
+            $type = 'sh';
+        }
 
         $part = new Horde_Mime_Part();
         $part->setContents($options['text']);
