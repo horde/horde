@@ -486,7 +486,9 @@ class Horde_Cli
      */
     public function shutdown()
     {
-        @session_destroy();
+        if (session_id()) {
+            session_destroy();
+        }
     }
 
 }
