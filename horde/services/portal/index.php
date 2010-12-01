@@ -60,7 +60,6 @@ foreach ($view->getApplications() as $app) {
 
 $linkTags = $view->getLinkTags();
 
-Horde::addScriptFile('prototype.js', 'horde');
 $title = _("My Portal");
 require HORDE_TEMPLATES . '/common-header.inc';
 echo Horde::menu();
