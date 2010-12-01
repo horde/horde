@@ -162,7 +162,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function saveDraft($headers, $message, $html)
     {
-        $body = $this->_saveDraftMsg($headers, $message, $html, true);
+        $body = $this->_saveDraftMsg($headers, $message, $html);
         return $this->_saveDraftServer($body);
     }
 
@@ -174,52 +174,37 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *                          Horde_Mime_Part object that contains the
      *                          text to send.
      * @param boolean $html     Whether this is an HTML message.
-     * @param boolean $session  Do we have an active session?
      *
      * @return string  The body text.
      * @throws IMP_Compose_Exception
      */
-    protected function _saveDraftMsg($headers, $message, $html, $session)
+    protected function _saveDraftMsg($headers, $message, $html)
     {
+        $has_session = (bool)$GLOBALS['registry']->getAuth();
+
         /* Set up the base message now. */
         $mime = $this->_createMimeMessage(array(null), $message, array(
             'html' => $html,
-            'noattach' => !$session,
+            'noattach' => !$has_session,
             'nofinal' => true
         ));
         $base = $mime['msg'];
         $base->isBasePart(true);
 
-        /* Initalize a header object for the draft. */
-        $draft_headers = new Horde_Mime_Headers();
-
-        $draft_headers->addHeader('Date', date('r'));
-        if (!empty($headers['from'])) {
-            $draft_headers->addHeader('From', $headers['from']);
-        }
-        foreach (array('to' => 'To', 'cc' => 'Cc', 'bcc' => 'Bcc') as $k => $v) {
-            if (!empty($headers[$k])) {
-                $addr = $headers[$k];
-                if ($session) {
+        if ($has_session) {
+            foreach (array('to', 'cc', 'bcc') as $v) {
+                if (isset($headers[$v])) {
                     try {
-                        Horde_Mime::encodeAddress(self::formatAddr($addr), $this->charset, $GLOBALS['session']->get('imp', 'maildomain'));
+                        Horde_Mime::encodeAddress(self::formatAddr($headers[$v]), $this->charset, $GLOBALS['session']->get('imp', 'maildomain'));
                     } catch (Horde_Mime_Exception $e) {
-                        throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $k, $e->getMessage()), $e->getCode());
+                        throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $v, $e->getMessage()), $e->getCode());
                     }
                 }
-                $draft_headers->addHeader($v, $addr);
             }
         }
 
-        if (!empty($headers['subject'])) {
-            $draft_headers->addHeader('Subject', $headers['subject']);
-        }
-
-        /* Need to add Message-ID so we can use it in the index search. */
-        $draft_headers->addMessageIdHeader();
-
-        /* Add necessary headers for replies. */
-        $this->_addReferences($draft_headers);
+        /* Initalize a header object for the draft. */
+        $draft_headers = $this->_prepareHeaders($headers);
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
@@ -250,7 +235,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         return $base->toString(array(
-            'defserver' => $session ? $GLOBALS['session']->get('imp', 'maildomain') : null,
+            'defserver' => $has_session ? $GLOBALS['session']->get('imp', 'maildomain') : null,
             'headers' => $draft_headers
         ));
     }
@@ -313,6 +298,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @return mixed  An array with the following keys:
      * <pre>
+     * 'charset' - (string) The preferred sending charset.
      * 'header' - (array) A list of headers to add to the outgoing message.
      * 'identity' - (integer) The identity used to create the message.
      * 'mode' - (string) 'html' or 'text'.
@@ -367,10 +353,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         ));
 
         if (empty($msg_text)) {
+            $charset = $this->charset;
             $message = '';
             $mode = 'text';
             $text_id = 0;
         } else {
+            $charset = $msg_text['charset'];
             $message = $msg_text['text'];
             $mode = $msg_text['mode'];
             $text_id = $msg_text['id'];
@@ -429,6 +417,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $this->changed = 'changed';
 
         return array(
+            'charset' => $charset,
             'header' => $header,
             'identity' => $identity_id,
             'mode' => $mode,
@@ -529,14 +518,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* Initalize a header object for the outgoing message. */
-        $headers = new Horde_Mime_Headers();
+        $headers = $this->_prepareHeaders($header);
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addReceivedHeader(array(
             'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
             'server' => $GLOBALS['conf']['server']['name']
         ));
-        $headers->addMessageIdHeader();
+
+        /* Add Reply-To header. */
+        if (!empty($header['replyto']) &&
+            ($header['replyto'] != $barefrom)) {
+            $headers->addHeader('Reply-to', Horde_String::convertCharset($header['replyto'], 'UTF-8', $this->charset));
+        }
 
         /* Add priority header, if requested. */
         if (!empty($opts['priority'])) {
@@ -553,8 +547,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        $headers->addHeader('Date', date('r'));
-
         /* Add Return Receipt Headers. */
         $mdn = null;
         if (!empty($opts['readreceipt']) &&
@@ -562,25 +554,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $mdn = new Horde_Mime_Mdn($headers);
             $mdn->addMdnRequestHeaders($barefrom);
         }
-
-        $headers->addHeader('From', Horde_String::convertCharset($header['from'], 'UTF-8', $this->charset));
-
-        if (!empty($header['replyto']) &&
-            ($header['replyto'] != $barefrom)) {
-            $headers->addHeader('Reply-to', Horde_String::convertCharset($header['replyto'], 'UTF-8', $this->charset));
-        }
-        if (!empty($header['to'])) {
-            $headers->addHeader('To', Horde_String::convertCharset($header['to'], 'UTF-8', $this->charset));
-        } elseif (empty($header['to']) && empty($header['cc'])) {
-            $headers->addHeader('To', 'undisclosed-recipients:;');
-        }
-        if (!empty($header['cc'])) {
-            $headers->addHeader('Cc', Horde_String::convertCharset($header['cc'], 'UTF-8', $this->charset));
-        }
-        $headers->addHeader('Subject', Horde_String::convertCharset($header['subject'], 'UTF-8', $this->charset));
-
-        /* Add necessary headers for replies. */
-        $this->_addReferences($headers);
 
         /* Add the 'User-Agent' header. */
         if (empty($opts['useragent'])) {
@@ -714,21 +687,51 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     }
 
     /**
-     * Add necessary headers for replies.
+     * Prepare header object with basic header fields and converts headers
+     * to the current compose charset.
      *
-     * @param Horde_Mime_Headers $headers  The object holding this message's
-     *                                     headers.
+     * @param array $headers  Array with 'from', 'to', 'cc', 'bcc', and
+     *                        'subject' values.
+     *
+     * @return Horde_Mime_Headers  Headers object with the Date, From, To, Cc,
+     *                             Bcc, Subject, Message-ID, References, and
+     *                             In-Reply-To headers set.
      */
-    protected function _addReferences($headers)
+    protected function _prepareHeaders($headers)
     {
+        $ob = new Horde_Mime_Headers();
+
+        $ob->addHeader('Date', date('r'));
+        $ob->addMessageIdHeader();
+
+        if (isset($headers['from']) && strlen($headers['from'])) {
+            $ob->addHeader('From', Horde_String::convertCharset($headers['from'], 'UTF-8', $this->charset));
+        }
+
+        if (isset($headers['to']) && strlen($headers['to'])) {
+            $ob->addHeader('To', Horde_String::convertCharset($headers['to'], 'UTF-8', $this->charset));
+        } elseif (!isset($headers['cc'])) {
+            $ob->addHeader('To', 'undisclosed-recipients:;');
+        }
+
+        if (isset($headers['cc']) && strlen($headers['cc'])) {
+            $ob->addHeader('Cc', Horde_String::convertCharset($headers['cc'], 'UTF-8', $this->charset));
+        }
+
+        if (isset($headers['subject']) && strlen($headers['subject'])) {
+            $ob->addHeader('Subject', Horde_String::convertCharset($headers['subject'], 'UTF-8', $this->charset));
+        }
+
         if (strpos($this->getMetadata('reply_type'), 'reply') === 0) {
             if ($this->getMetadata('references')) {
-                $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->getMetadata('references')))));
+                $ob->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->getMetadata('references')))));
             }
             if ($this->getMetadata('in_reply_to')) {
-                $headers->addHeader('In-Reply-To', $this->getMetadata('in_reply_to'));
+                $ob->addHeader('In-Reply-To', $this->getMetadata('in_reply_to'));
             }
         }
+
+        return $ob;
     }
 
     /**
@@ -1264,7 +1267,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @return array  An array with the following keys:
      * <pre>
      * 'body'     - The text of the body part
-     * 'encoding' - The guessed charset to use for the reply
+     * 'charset'  - The guessed charset to use for the reply
      * 'format'   - The format of the body message
      * 'headers'  - The headers of the message to use for the reply
      * 'identity' - The identity to use for the reply based on the original
@@ -1461,9 +1464,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'body'     - The text of the body part
-     * 'encoding' - The guessed charset to use for the reply
-     * 'format'   - The format of the body message
+     * 'body'    - The text of the body part
+     * 'charset' - The guessed charset to use for the reply
+     * 'format'  - The format of the body message
      * </pre>
      */
     public function replyMessageText($contents, array $opts = array())
@@ -1473,7 +1476,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if (!$prefs->getValue('reply_quote')) {
             return array(
                 'body' => '',
-                'encoding' => '',
+                'charset' => '',
                 'format' => 'text'
             );
         }
@@ -1529,7 +1532,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         return array(
             'body' => $msg . "\n",
-            'encoding' => $msg_text['encoding'],
+            'charset' => $msg_text['charset'],
             'format' => $msg_text['mode']
         );
     }
@@ -1546,7 +1549,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @return array  An array with the following keys:
      * <pre>
      * 'body'     - The text of the body part
-     * 'encoding' - The guessed charset to use for the reply
+     * 'charset'  - The guessed charset to use for the reply
      * 'format'   - The format of the body message
      * 'headers'  - The headers of the message to use for the reply
      * 'identity' - The identity to use for the reply based on the original
@@ -1609,7 +1612,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         } else {
             $ret = array(
                 'body' => '',
-                'encoding' => '',
+                'charset' => '',
                 'format' => $GLOBALS['prefs']->getValue('compose_html') ? 'html' : 'text'
             );
         }
@@ -1633,9 +1636,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'body'     - The text of the body part
-     * 'encoding' - The guessed charset to use for the reply
-     * 'format'   - The format of the body message
+     * 'body'    - The text of the body part
+     * 'charset' - The guessed charset to use for the reply
+     * 'format'  - The format of the body message
      * </pre>
      */
     public function forwardMessageText($contents, array $opts = array())
@@ -1677,7 +1680,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         return array(
             'body' => $msg,
-            'encoding' => $msg_text['encoding'],
+            'charset' => $msg_text['charset'],
             'format' => $format
         );
     }
@@ -2423,7 +2426,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @return mixed  Null if bodypart not found, or array with the following
      *                keys:
      * <pre>
-     * 'encoding' - (string) The guessed encoding to use.
+     * 'charset' - (string) The guessed charset to use.
      * 'id' - (string) The MIME ID of the bodypart.
      * 'mode' - (string) Either 'text' or 'html'.
      * 'text' - (string) The body text.
@@ -2498,15 +2501,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        /* Determine default encoding. */
-        $encoding = $this->charset;
-        if ((strcasecmp($part_charset, 'US-ASCII') !== 0) &&
-            (strcasecmp($part_charset, $encoding) !== 0)) {
-            $encoding = 'UTF-8';
+        if (strcasecmp($part->getCharset(), 'windows-1252') === 0) {
+            $part_charset = 'ISO-8859-1';
         }
 
         return array(
-            'encoding' => $encoding,
+            'charset' => $part_charset,
             'id' => $body_id,
             'mode' => $mode,
             'text' => $msg
@@ -2655,7 +2655,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         try {
-            $body = $this->_saveDraftMsg($headers, $vars->message, $vars->rtemode, false);
+            $body = $this->_saveDraftMsg($headers, $vars->message, $vars->rtemode);
         } catch (IMP_Compose_Exception $e) {
             return;
         }

@@ -224,6 +224,7 @@ case 'draft':
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
         }
+        $charset = $result['charset'];
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
         if (!is_null($result['identity']) &&
@@ -274,7 +275,7 @@ case 'reply_list':
     }
     $title .= ' ' . $header['subject'];
 
-    $charset = $reply_msg['encoding'];
+    $charset = $reply_msg['charset'];
     break;
 
 case 'forward_attach':
@@ -294,7 +295,7 @@ case 'forward_both':
     $format = $fwd_msg['format'];
     $rtemode = ($rtemode || (!is_null($rtemode) && ($format == 'html')));
     $title = $header['title'];
-    $charset = $fwd_msg['encoding'];
+    $charset = $fwd_msg['charset'];
     break;
 
 case 'redirect_compose':
