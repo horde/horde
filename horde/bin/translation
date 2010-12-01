@@ -101,7 +101,7 @@ function usage()
         $c->writeln();
         $c->writeln('Helper application to create and maintain translations for the Horde');
         $c->writeln('framework and its applications.');
-        $c->writeln('For an introduction read the file README in this directory.');
+        $c->writeln('For further information, see horde/docs/TRANSLATIONS.');
         $c->writeln();
         $c->writeln('Commands:');
         $c->writeln('  help        Show this help message.');
