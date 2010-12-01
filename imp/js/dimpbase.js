@@ -2024,18 +2024,20 @@ var DimpBase = {
         }
 
         var elt = e.element(),
-            tmp;
+            tmp, tmp2;
 
         if (!elt.hasClassName('vpRow')) {
             elt = elt.up('.vpRow');
         }
 
         if (elt) {
-            tmp = this.viewport.createSelection('domid', elt.identify()).get('dataob');
-            if (tmp.first().draft && this.viewport.getMetaData('drafts')) {
+            tmp = this.viewport.createSelection('domid', elt.identify());
+            tmp2 = tmp.get('dataob').first();
+
+            if (tmp2.draft && this.viewport.getMetaData('drafts')) {
                 DimpCore.compose('resume', { uids: tmp });
             } else {
-                this.msgWindow(tmp.first());
+                this.msgWindow(tmp2);
             }
             e.stop();
         }
