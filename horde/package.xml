@@ -19,8 +19,8 @@ applications.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-11-29</date>
- <time>15:17:50</time>
+ <date>2010-12-01</date>
+ <time>16:30:53</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -680,7 +680,6 @@ applications.</description>
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/zh_TW -->
-    <file name="compendium.po.tmp" role="horde" />
     <file name="horde.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="rpc">
@@ -1727,6 +1726,7 @@ applications.</description>
      <file name="feed-rss.xsl" role="horde" />
      <file name="ie6_or_less.css" role="horde" />
      <file name="ie7.css" role="horde" />
+     <file name="mobile.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -2455,7 +2455,6 @@ applications.</description>
    <install as="lib/LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />
    <install as="lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
    <install as="lib/tests/webroot.phpt" name="lib/tests/webroot.phpt" />
-   <install as="locale/compendium.po.tmp" name="locale/compendium.po.tmp" />
    <install as="locale/horde.pot" name="locale/horde.pot" />
    <install as="locale/ar/LC_MESSAGES/horde.mo" name="locale/ar/LC_MESSAGES/horde.mo" />
    <install as="locale/ar/LC_MESSAGES/horde.po" name="locale/ar/LC_MESSAGES/horde.po" />
@@ -2821,6 +2820,7 @@ applications.</description>
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
    <install as="themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="themes/default/mobile.css" name="themes/default/mobile.css" />
    <install as="themes/default/opera.css" name="themes/default/opera.css" />
    <install as="themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="themes/default/screen.css" name="themes/default/screen.css" />
@@ -3812,7 +3812,7 @@ applications.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-11-29</date>
+   <date>2010-12-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial package.xml.
