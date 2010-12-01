@@ -24,6 +24,15 @@ class Text_Wiki_Generic_Transform_Tests extends PHPUnit_Framework_TestCase
         $expectedResult = file_get_contents(dirname(__FILE__) . '/fixtures/test_mediawiki_to_tiki_lists_output.txt');
         $this->assertEquals($expectedResult, $obj->transform($source, 'Tiki'));
     }
+    
+    public function testTransformFromMediawikiToTikiRedirectSyntax()
+    {
+        $obj = Text_Wiki::factory('Mediawiki');
+        $obj->parseConf['Wikilink']['spaceUnderscore'] = false;
+        $source = file_get_contents(dirname(__FILE__) . '/fixtures/test_mediawiki_to_tiki_redirect_source.txt');
+        $expectedResult = file_get_contents(dirname(__FILE__) . '/fixtures/test_mediawiki_to_tiki_redirect_output.txt');
+        $this->assertEquals($expectedResult, $obj->transform($source, 'Tiki'));
+    }
 
 }
 

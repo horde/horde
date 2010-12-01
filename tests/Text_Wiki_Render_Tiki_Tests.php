@@ -537,10 +537,10 @@ class Text_Wiki_Render_Tiki_Redirect_Test extends Text_Wiki_Render_Tiki_SetUp_Te
     public function testTikiRenderRedirect()
     {
         $options = array('type' => 'start', 'text' => 'Some wiki link');
-        $this->assertEquals('{REDIRECT(pageName="', $this->t->token($options));
+        $this->assertEquals('{redirect page="', $this->t->token($options));
 
         $options = array('type' => 'end');
-        $this->assertEquals('")/}', $this->t->token($options));
+        $this->assertEquals('"}', $this->t->token($options));
     }
     
 }
