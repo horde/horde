@@ -383,7 +383,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     if (!empty($replyto) && ($replyto != $email)) {
                         $msg_headers->addHeader('Reply-to', $replyto);
                     }
-                    $msg_headers->addHeader('Subject', Horde_Mime::encode(_("Free/Busy Request Response"), $charset));
+                    $msg_headers->addHeader('Subject', _("Free/Busy Request Response"));
 
                     // Send the reply.
                     try {

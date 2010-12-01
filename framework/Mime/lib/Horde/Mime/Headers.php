@@ -39,7 +39,7 @@ class Horde_Mime_Headers implements Serializable
      * <pre>
      * 'h' - The case-sensitive header name.
      * 'p' - Parameters for this header.
-     * 'v' - The value of the header.
+     * 'v' - The value of the header. Values are stored in UTF-8.
      * </pre>
      *
      * @var array
@@ -81,7 +81,9 @@ class Horde_Mime_Headers implements Serializable
      */
     public function toArray($options = array())
     {
-        $charset = empty($options['charset']) ? null : $options['charset'];
+        $charset = empty($options['charset'])
+            ? null
+            : $options['charset'];
         $address_keys = $this->addressFields();
         $mime = $this->mimeParamFields();
         $ret = array();
@@ -93,7 +95,7 @@ class Horde_Mime_Headers implements Serializable
                 if (in_array($header, $address_keys) ) {
                     /* Address encoded headers. */
                     try {
-                        $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
+                        $text = Horde_Mime::encodeAddress(Horde_String::convertCharset($val[$key], 'UTF-8', $charset), $charset, empty($options['defserver']) ? null : $options['defserver']);
                     } catch (Horde_Mime_Exception $e) {
                         $text = $val[$key];
                     }
@@ -101,13 +103,13 @@ class Horde_Mime_Headers implements Serializable
                     /* MIME encoded headers (RFC 2231). */
                     $text = $val[$key];
                     foreach ($ob['p'] as $name => $param) {
-                        foreach (Horde_Mime::encodeParam($name, $param, $charset, array('escape' => true)) as $name2 => $param2) {
+                        foreach (Horde_Mime::encodeParam($name, Horde_String::convertCharset($param, 'UTF-8', $charset), $charset, array('escape' => true)) as $name2 => $param2) {
                             $text .= '; ' . $name2 . '=' . $param2;
                         }
                     }
                 } else {
                     $text = $charset
-                        ? Horde_Mime::encode($val[$key], $charset)
+                        ? Horde_Mime::encode(Horde_String::convertCharset($val[$key], 'UTF-8', $charset), $charset)
                         : $val[$key];
                 }
 
@@ -288,12 +290,16 @@ class Horde_Mime_Headers implements Serializable
      * @param string $value   The header value.
      * @param array $options  Additional options:
      * <pre>
+     * 'charset' - (string) Charset of the header value.
+     *             DEFAULT: UTF-8
      * 'decode' - (boolean) MIME decode the value?
+     *            DEFAULT: false
      * 'params' - (array) MIME parameters for Content-Type or
      *            Content-Disposition.
+     *            DEFAULT: None
      * </pre>
      */
-    public function addHeader($header, $value, $options = array())
+    public function addHeader($header, $value, array $options = array())
     {
         $header = trim($header);
         $lcHeader = Horde_String::lower($header);
@@ -305,7 +311,11 @@ class Horde_Mime_Headers implements Serializable
         }
         $ptr = &$this->_headers[$lcHeader];
 
-        if (!empty($options['decode'])) {
+        if (empty($options['decode'])) {
+            if (!empty($options['charset'])) {
+                $value = Horde_String::convertCharset($value, $options['charset'], 'UTF-8');
+            }
+        } else {
             // Fields defined in RFC 2822 that contain address information
             if (in_array($lcHeader, $this->addressFields())) {
                 try {
@@ -349,9 +359,13 @@ class Horde_Mime_Headers implements Serializable
      * @param string $value   The header value.
      * @param array $options  Additional options:
      * <pre>
+     * 'charset' - (string) Charset of the header value.
+     *             DEFAULT: UTF-8
      * 'decode' - (boolean) MIME decode the value?
+     *            DEFAULT: false
      * 'params' - (array) MIME parameters for Content-Type or
-     *            Content-Disposition
+     *            Content-Disposition.
+     *            DEFAULT: None
      * </pre>
      */
     public function replaceHeader($header, $value, $options = array())
@@ -367,6 +381,8 @@ class Horde_Mime_Headers implements Serializable
      * @param string $value   The header value.
      * @param array $options  Additional options:
      * <pre>
+     * 'charset' - (string) Charset of the header value.
+     *             DEFAULT: UTF-8
      * 'decode' - (boolean) MIME decode the value?
      * 'params' - (array) MIME parameters for Content-Type or
      *            Content-Disposition.

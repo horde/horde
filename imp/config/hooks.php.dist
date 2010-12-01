@@ -177,7 +177,6 @@ class IMP_Hooks
 //    {
 //        // Example #1: Add custom headers to outgoing message.
 //        $custom_hdrs = array();
-//        $hdr_charset = $message->getHeaderCharset();
 //
 //        /* Add information on organization to which the sender belongs.
 //         * Not standardized for use in e-mail, but generally recognized.
@@ -191,7 +190,7 @@ class IMP_Hooks
 //        $custom_hdrs['X-Remote-Browser'] = $_SERVER['HTTP_USER_AGENT'];
 //
 //        foreach ($custom_hdrs as $key => $val) {
-//            $headers->addHeader($key, Horde_String::convertCharset($val, 'UTF-8', $hdr_charset));
+//            $headers->addHeader($key, $val);
 //        }
 //
 //

@@ -458,7 +458,7 @@ class Whups_Driver {
                         continue;
                     }
                     $seen_email_addresses[$bare_address] = true;
-                    
+
                     if (empty($full_name) && isset($addr_arr[0]['personal'])) {
                         $full_name = $addr_arr[0]['personal'];
                     }
