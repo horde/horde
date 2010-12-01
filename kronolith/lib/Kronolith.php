@@ -2316,6 +2316,7 @@ class Kronolith
                 foreach ($event->attendees as $mail => $attendee) {
                     $attendees[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
                 }
+                $view->organizer = $GLOBALS['registry']->convertUserName($event->creator, false);
                 $view->attendees = $attendees;
             }
 
