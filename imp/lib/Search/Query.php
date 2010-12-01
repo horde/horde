@@ -308,7 +308,9 @@ class IMP_Search_Query implements Serializable
         if (isset($data['l'])) {
             $this->_label = $data['l'];
         }
-        $this->_mboxes = $data['m'];
+        if (isset($data['m'])) {
+            $this->_mboxes = $data['m'];
+        }
     }
 
 }
