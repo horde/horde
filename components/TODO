@@ -4,6 +4,8 @@
 
  - Document usage
 
+ - Add option to add local configurations into the CI test setup
+
  - Allow channel dependency detection with external/local package
    dependencies.
 
