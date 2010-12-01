@@ -1,6 +1,6 @@
 <?php
 /**
- * All tests for the Horde_Auth package.
+ * Test the Horde_Auth:: class.
  *
  * PHP version 5
  *
@@ -13,21 +13,14 @@
  */
 
 /**
- * Define the main method
- */
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Auth_AllTests::main');
-}
-
-/**
  * Prepare the test setup.
  */
-require_once 'Horde/Test/AllTests.php';
+require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Combine the tests for this package.
+ * Test the Horde_Auth:: class.
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -39,12 +32,13 @@ require_once 'Horde/Test/AllTests.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Auth
  */
-class Horde_Auth_AllTests extends Horde_Test_AllTests
+class Horde_Auth_Unit_AuthTest extends Horde_Auth_TestCase
 {
-}
-
-Horde_Auth_AllTests::init('Horde_Auth', __FILE__);
-
-if (PHPUnit_MAIN_METHOD == 'Horde_Auth_AllTests::main') {
-    Horde_Auth_AllTests::main();
+    /**
+     * @dataProvider getCredentials
+     */
+    public function testGetSalt($encryption, $password, $result)
+    {
+        $this->assertEquals($result, Horde_Auth::getSalt($encryption, $password, 'foobar'));
+    }
 }
