@@ -89,4 +89,27 @@ interface Horde_Kolab_Session
      * @return string The freebusy host for the current user.
      */
     public function getFreebusyServer();
+
+    /**
+     * Import the session data from an array.
+     *
+     * @param array The session data.
+     *
+     * @return NULL
+     */
+    public function import(array $session_data);
+
+    /**
+     * Export the session data as array.
+     *
+     * @return array The session data.
+     */
+    public function export();
+
+    /**
+     * Clear the session data.
+     *
+     * @return NULL
+     */
+    public function purge();
 }

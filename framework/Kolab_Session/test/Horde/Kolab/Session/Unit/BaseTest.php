@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Unit_BaseTest extends Horde_Kolab_Session_TestCase
 {
     public function setUp()
     {
@@ -194,25 +194,6 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
         } catch (Horde_Kolab_Session_Exception_Badlogin $e) {
             $this->assertEquals('Invalid credentials!', $e->getMessage());
         }
-    }
-
-    public function testMethodSleepHasResultArrayThePropertiesToSerialize()
-    {
-        $session = new Horde_Kolab_Session_Base(
-            $this->_getComposite(), array()
-        );
-        $this->assertEquals(
-            array(
-                '_params',
-                '_user_id',
-                '_user_uid',
-                '_user_mail',
-                '_user_name',
-                '_imap_server',
-                '_freebusy_server',
-                '_connected'
-            ), $session->__sleep()
-        );
     }
 
     public function testMethodGetidHasResultStringTheIdOfTheUserUserUsedForConnecting()

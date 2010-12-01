@@ -30,26 +30,27 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_Storage_SessionTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Unit_Storage_SessionTest extends Horde_Kolab_Session_TestCase
 {
-    public function testMethodLoadHasResultQueriedObject()
+    public function testLoad()
     {
-        $session = $this->getMock('Horde_Session', array(), array(), '', false, false);
-        $session->expects($this->once())
-            ->method('get')
-            ->with('horde', 'kolab_session');
+        $_SESSION['kolab_session'] = array('data');
         $storage = new Horde_Kolab_Session_Storage_Session($session);
-        $storage->load();
+        $this->assertEquals($storage->load(), array('data'));
+        
     }
 
-    public function testMethodSaveHasPostconditionThatTheSessionDataWasSaved()
+    public function testEmpty()
     {
-        $session = $this->getMock('Horde_Session', array(), array(), '', false, false);
-        $session->expects($this->once())
-            ->method('set')
-            ->with('horde', 'kolab_session', $this->isInstanceOf('Horde_Kolab_Session'));
-        $kolab_session = $this->getMock('Horde_Kolab_Session');
         $storage = new Horde_Kolab_Session_Storage_Session($session);
-        $storage->save($kolab_session);
+        $this->assertEquals($storage->load(), array());
+        
+    }
+
+    public function testSave()
+    {
+        $storage = new Horde_Kolab_Session_Storage_Session($session);
+        $storage->save(array('data'));
+        $this->assertEquals($_SESSION['kolab_session'], array('data'));
     }
 }

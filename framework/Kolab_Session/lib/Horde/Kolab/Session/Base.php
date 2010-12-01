@@ -35,6 +35,13 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     private $_params;
 
     /**
+     * The session data.
+     *
+     * @var array
+     */
+    private $_data;
+
+    /**
      * User ID.
      *
      * @var string
@@ -84,13 +91,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     private $_server;
 
     /**
-     * Mark the session as connected.
-     *
-     * @var true
-     */
-    private $_connected = false;
-
-    /**
      * Constructor.
      *
      * @param Horde_Kolab_Server $server  The connection to the Kolab user
@@ -118,7 +118,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function connect($user_id = null, array $credentials = null)
     {
-        $this->_user_id = $user_id;
+        $this->_data['user']['id'] = $user_id;
         if (isset($credentials['password'])) {
             $password = $credentials['password'];
         } else {
@@ -126,7 +126,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         }
 
         try {
-            $this->_server->connect($this->_user_id, $password);
+            $this->_server->connect($this->_data['user']['id'], $password);
             $user_object = $this->_server->objects->fetch();
         } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
             throw new Horde_Kolab_Session_Exception_Badlogin('Invalid credentials!', 0, $e);
@@ -139,8 +139,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         $this->_initName($user_object);
         $this->_initImapServer($user_object);
         $this->_initFreebusyServer($user_object);
-
-        $this->_connected = true;
     }
 
     /**
@@ -154,9 +152,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_mail = $user->getSingle('mail');;
+            $this->_data['user']['mail'] = $user->getSingle('mail');;
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
-            $this->_user_mail = $this->_user_id;
+            $this->_data['user']['mail'] = $this->_data['user']['id'];
         }
     }
 
@@ -171,9 +169,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_uid = $user->getSingle('uid');
+            $this->_data['user']['uid'] = $user->getSingle('uid');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
-            $this->_user_uid = $this->_user_id;
+            $this->_data['user']['uid'] = $this->_data['user']['id'];
         }
     }
 
@@ -188,9 +186,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_name = $user->getSingle('Firstnamelastname');
+            $this->_data['user']['name'] = $user->getSingle('Firstnamelastname');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
-            $this->_user_name = $this->_user_id;
+            $this->_data['user']['name'] = $this->_data['user']['id'];
         }
     }
 
@@ -205,12 +203,12 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_imap_server = $user->getSingle('kolabHomeServer');
+            $this->_data['imap']['server'] = $user->getSingle('kolabHomeServer');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             if (isset($this->_params['imap']['server'])) {
-                $this->_imap_server = $this->_params['imap']['server'];
+                $this->_data['imap']['server'] = $this->_params['imap']['server'];
             } else {
-                $this->_imap_server = 'localhost';
+                $this->_data['imap']['server'] = 'localhost';
             }
         }
     }
@@ -229,10 +227,10 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
             $fb_server = $user->getSingle('kolabFreebusyHost');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             if (isset($this->_params['freebusy']['url'])) {
-                $this->_freebusy_server = $this->_params['freebusy']['url'];
+                $this->_data['fb']['server'] = $this->_params['freebusy']['url'];
                 return;
             } else {
-                $fb_server = $this->_imap_server;
+                $fb_server = $this->_data['imap']['server'];
             }
         }
 
@@ -242,20 +240,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
             $fb_format = 'http://%s/freebusy';
         }
 
-        $this->_freebusy_server = sprintf($fb_format, $fb_server);
-    }
-
-    /**
-     * Returns the properties that need to be serialized.
-     *
-     * @return array  List of serializable properties.
-     */
-    public function __sleep()
-    {
-        $properties = get_object_vars($this);
-        unset($properties['_server']);
-        $properties = array_keys($properties);
-        return $properties;
+        $this->_data['fb']['server'] = sprintf($fb_format, $fb_server);
     }
 
     /**
@@ -265,7 +250,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function getId()
     {
-        return $this->_user_id;
+        if (isset($this->_data['user']['id'])) {
+            return $this->_data['user']['id'];
+        }
     }
 
     /**
@@ -275,7 +262,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function getMail()
     {
-        return $this->_user_mail;
+        if (isset($this->_data['user']['mail'])) {
+            return $this->_data['user']['mail'];
+        }
     }
 
     /**
@@ -285,7 +274,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function getUid()
     {
-        return $this->_user_uid;
+        if (isset($this->_data['user']['uid'])) {
+            return $this->_data['user']['uid'];
+        }
     }
 
     /**
@@ -295,7 +286,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function getName()
     {
-        return $this->_user_name;
+        if (isset($this->_data['user']['name'])) {
+            return $this->_data['user']['name'];
+        }
     }
 
     /**
@@ -305,7 +298,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function getImapServer()
     {
-        return $this->_imap_server;
+        if (isset($this->_data['imap']['server'])) {
+            return $this->_data['imap']['server'];
+        }
     }
 
     /**
@@ -315,6 +310,40 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function getFreebusyServer()
     {
-        return $this->_freebusy_server;
+        if (isset($this->_data['fb']['server'])) {
+            return $this->_data['fb']['server'];
+        }
+    }
+
+    /**
+     * Import the session data from an array.
+     *
+     * @param array The session data.
+     *
+     * @return NULL
+     */
+    public function import(array $session_data)
+    {
+        $this->_data = $session_data;
+    }
+
+    /**
+     * Export the session data as array.
+     *
+     * @return array The session data.
+     */
+    public function export()
+    {
+        return $this->_data;
+    }
+
+    /**
+     * Clear the session data.
+     *
+     * @return NULL
+     */
+    public function purge()
+    {
+        $this->_data = array();
     }
 }

@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_TestCase
 {
     public function setUp()
     {
@@ -47,7 +47,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
             $composite, array()
         );
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
-        $this->assertTrue($valid->isValid());
+        $this->assertTrue($valid->validate());
     }
 
     public function testMethodIsvalidHasResultBooleanFalseIfTheSessionIsNotConnected()
@@ -58,7 +58,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
             $composite, array()
         );
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
-        $this->assertFalse($valid->isValid());
+        $this->assertFalse($valid->validate());
     }
 
     public function testMethodIsvalidHasResultBooleanFalseIfTheMailOfTheCurrentUserDoesNotMatchTheCurrentUserOfTheSession()
@@ -76,7 +76,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         );
         $session->connect('', array('password' => ''));
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
-        $this->assertFalse($valid->isValid());
+        $this->assertFalse($valid->validate());
     }
 
     public function testMethodIsvalidHasResultBooleanTrueIfTheMailOfTheCurrentUserMatchesTheCurrentUserOfTheSessionAndNoNewUserWasSet()
@@ -94,7 +94,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         );
         $session->connect('', array('password' => ''));
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
-        $this->assertTrue($valid->isValid());
+        $this->assertTrue($valid->validate());
     }
 
     public function testMethodIsvalidHasResultBooleanFalseIfTheMailOfTheCurrentUserMatchesTheCurrentUserOfTheSessionAndTheNewUserMatchesNeitherTheCurrentUserMailAndUid()
@@ -112,7 +112,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         );
         $session->connect('', array('password' => ''));
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
-        $this->assertFalse($valid->isValid('somebody@example.org'));
+        $this->assertFalse($valid->validate('somebody@example.org'));
     }
 
     public function testMethodIsvalidHasResultBooleanTrueIfTheMailOfTheCurrentUserMatchesTheCurrentUserOfTheSessionAndTheNewUserMatchesEitherTheCurrentUserMailAndUid()
@@ -130,6 +130,6 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         );
         $session->connect('', array('password' => ''));
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
-        $this->assertTrue($valid->isValid('mail@example.org'));
+        $this->assertTrue($valid->validate('mail@example.org'));
     }
 }

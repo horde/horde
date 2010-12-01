@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Storage_Mock
-implements Horde_Kolab_Session_Storage_Interface
+implements Horde_Kolab_Session_Storage
 {
     /**
      * The session information.
@@ -36,8 +36,8 @@ implements Horde_Kolab_Session_Storage_Interface
     /**
      * Load the session information.
      *
-     * @return Horde_Kolab_Session|boolean The session information or false if
-     * it could not be loaded.
+     * @return array The session data or an empty array if no information was
+     *               found.
      */
     public function load()
     {
@@ -47,12 +47,12 @@ implements Horde_Kolab_Session_Storage_Interface
     /**
      * Save the session information.
      *
-     * @param Horde_Kolab_Session $session The session information.
+     * @param array $session_data The session data that should be stored.
      *
      * @return NULL
      */
-    public function save(Horde_Kolab_Session $session)
+    public function save(array $session_data)
     {
-        $this->session = $session;
+        $this->session = $session_data;
     }
 }

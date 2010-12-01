@@ -25,8 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Storage_Session
-implements Horde_Kolab_Session_Storage
+interface Horde_Kolab_Session_Storage
 {
     /**
      * Load the session information.
@@ -34,14 +33,7 @@ implements Horde_Kolab_Session_Storage
      * @return array The session data or an empty array if no information was
      *               found.
      */
-    public function load()
-    {
-        if (isset($_SESSION['kolab_session'])) {
-            return $_SESSION['kolab_session'];
-        } else {
-            return array();
-        }
-    }
+    public function load();
 
     /**
      * Save the session information.
@@ -50,8 +42,5 @@ implements Horde_Kolab_Session_Storage
      *
      * @return NULL
      */
-    public function save(array $session_data)
-    {
-        $_SESSION['kolab_session'] = $session_data;
-    }
+    public function save(array $session_data);
 }

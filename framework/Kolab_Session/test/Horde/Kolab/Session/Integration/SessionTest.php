@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines storage containers for the Kolab session information.
+ * Test the valid check with the Kolab session handler implementation.
  *
  * PHP version 5
  *
@@ -12,7 +12,12 @@
  */
 
 /**
- * Defines storage containers for the Kolab session information.
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../Autoload.php';
+
+/**
+ * Test the valid check with the Kolab session handler implementation.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -25,22 +30,9 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-interface Horde_Kolab_Session_Storage_Interface
+class Horde_Kolab_Session_Integration_SessionTest extends Horde_Kolab_Session_TestCase
 {
-    /**
-     * Load the session information.
-     *
-     * @return Horde_Kolab_Session|boolean The session information or false if
-     * it could not be loaded.
-     */
-    public function load();
-
-    /**
-     * Lave the session information.
-     *
-     * @param Horde_Kolab_Session $session The session information.
-     *
-     * @return NULL
-     */
-    public function save(Horde_Kolab_Session $session);
+    public function test()
+    {
+    }
 }

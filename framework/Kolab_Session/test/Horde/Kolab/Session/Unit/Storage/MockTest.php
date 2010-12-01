@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_Storage_MockTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Unit_Storage_MockTest extends Horde_Kolab_Session_TestCase
 {
     public function testMethodLoadHasResultBooleanFalse()
     {
@@ -40,9 +40,9 @@ class Horde_Kolab_Session_Class_Storage_MockTest extends Horde_Kolab_Session_Ses
 
     public function testMethodSaveHasPostconditionThatTheSessionDataWasSaved()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $array = array(1);
         $storage = new Horde_Kolab_Session_Storage_Mock('test');
-        $storage->save($session);
-        $this->assertSame($session, $storage->session);
+        $storage->save($array);
+        $this->assertSame($array, $storage->session);
     }
 }

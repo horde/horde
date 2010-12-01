@@ -42,74 +42,10 @@ class Horde_Core_Factory_KolabSession
     public function __construct(
         Horde_Injector $injector
     ) {
-        $this->_injector      = $injector;
-        $this->_setup();
-    }
-
-    /**
-     * Setup the machinery to create Horde_Kolab_Session objects.
-     *
-     * @return NULL
-     */
-    private function _setup()
-    {
-        $this->_setupConfiguration();
-        $this->_setupAuth();
-        $this->_setupStorage();
-    }
-
-    /**
-     * Provide configuration settings for Horde_Kolab_Session.
-     *
-     * @return NULL
-     */
-    private function _setupConfiguration()
-    {
-        $configuration = array();
-        if (!empty($GLOBALS['conf']['kolab']['session'])) {
-            $configuration = $GLOBALS['conf']['kolab']['session'];
-        }
-        $this->_injector->setInstance(
-            'Horde_Kolab_Session_Configuration', $configuration
-        );
-    }
-
-    /**
-     * Setup the machinery to create a Horde_Kolab_Session_Auth handler.
-     *
-     * @return NULL
-     */
-    private function _setupAuth()
-    {
+        $this->_injector = $injector;
         $this->_injector->bindImplementation(
-            'Horde_Kolab_Session_Auth_Interface',
-            'Horde_Kolab_Session_Auth_Horde'
-        );
-    }
-
-    /**
-     * Setup the machinery to create a Horde_Kolab_Session_Storage handlers.
-     *
-     * @return NULL
-     */
-    private function _setupStorage()
-    {
-        $this->_injector->bindFactory(
-            'Horde_Kolab_Session_Storage_Interface',
-            'Horde_Core_Factory_KolabSession',
-            'getStorage'
-        );
-    }
-
-    /**
-     * Return the session storage driver.
-     *
-     * @return Horde_Kolab_Session_Storage The driver for storing sessions.
-     */
-    public function getStorage()
-    {
-        return new Horde_Kolab_Session_Storage_Session(
-            $GLOBALS['session']
+            'Horde_Kolab_Session_Storage',
+            'Horde_Kolab_Session_Storage_Session'
         );
     }
 
@@ -123,39 +59,21 @@ class Horde_Core_Factory_KolabSession
      * @return Horde_Kolab_Session_Valid_Interface The driver for validating
      *                                             sessions.
      */
-    public function getSessionValidator(
+    public function createSessionValidator(
         Horde_Kolab_Session $session,
         $auth
     ) {
-        $configuration = $this->_injector->getInstance('Horde_Kolab_Session_Configuration');
-
         $validator = new Horde_Kolab_Session_Valid_Base(
             $session, $auth
         );
 
-        if (isset($configuration['debug']) || isset($configuration['log'])) {
+        if (isset($GLOBALS['conf']['kolab']['session']['debug'])) {
             $validator = new Horde_Kolab_Session_Valid_Decorator_Logged(
                 $validator, $this->_injector->getInstance('Horde_Log_Logger')
             );
         }
 
         return $validator;
-    }
-
-    /**
-     * Validate the given session.
-     *
-     * @param Horde_Kolab_Session $session The session to validate.
-     *
-     * @return boolean True if the given session is valid.
-     */
-    public function validate(
-        Horde_Kolab_Session $session
-    ) {
-        return $this->getSessionValidator(
-            $session,
-            $this->_injector->getInstance('Horde_Registry')->getAuth()
-        )->isValid();
     }
 
     /**
@@ -167,15 +85,20 @@ class Horde_Core_Factory_KolabSession
     {
         $session = new Horde_Kolab_Session_Base(
             $this->_injector->getInstance('Horde_Kolab_Server_Composite'),
-            $this->_injector->getInstance('Horde_Kolab_Session_Configuration')
+            $GLOBALS['conf']['kolab']['session']
         );
 
-        //@todo: Fix validation
-        /** If we created a new session handler it needs to be stored once */
+        if (isset($GLOBALS['conf']['kolab']['session']['debug'])) {
+            $session = new Horde_Kolab_Session_Decorator_Logged(
+                $session, $this->_injector->getInstance('Horde_Log_Logger')
+            );
+        }
+
         $session = new Horde_Kolab_Session_Decorator_Stored(
             $session,
-            $this->_injector->getInstance('Horde_Kolab_Session_Storage_Interface')
+            $this->_injector->getInstance('Horde_Kolab_Session_Storage')
         );
+
         return $session;
     }
 
@@ -186,29 +109,20 @@ class Horde_Core_Factory_KolabSession
      */
     public function create()
     {
-        $storage = $this->_injector->getInstance('Horde_Kolab_Session_Storage_Interface');
-        $session = $storage->load();
+        $session = $this->createSession();
 
-        if (empty($session) || !$this->validate($session)) {
-            $session = $this->createSession();
-        }
+        $this->createSessionValidator(
+            $session,
+            $this->_injector->getInstance('Horde_Registry')->getAuth()
+        )->validate();
 
-        $configuration = $this->_injector->getInstance('Horde_Kolab_Session_Configuration');
-
-
-        if (isset($configuration['debug']) || isset($configuration['log'])) {
-            $session = new Horde_Kolab_Session_Decorator_Logged(
-                $session, $this->_injector->getInstance('Horde_Log_Logger')
-            );
-        }
-
-        if (isset($configuration['anonymous']['user'])
-            && isset($configuration['anonymous']['pass'])
+        if (isset($GLOBALS['conf']['kolab']['session']['anonymous']['user'])
+            && isset($GLOBALS['conf']['kolab']['session']['anonymous']['pass'])
         ) {
             $session = new Horde_Kolab_Session_Decorator_Anonymous(
                 $session,
-                $configuration['anonymous']['user'],
-                $configuration['anonymous']['pass']
+                $GLOBALS['conf']['kolab']['session']['anonymous']['user'],
+                $GLOBALS['conf']['kolab']['session']['anonymous']['pass']
             );
         }
 

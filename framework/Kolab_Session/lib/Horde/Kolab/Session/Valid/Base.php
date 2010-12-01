@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Valid_Base
-implements Horde_Kolab_Session_Valid_Interface
+implements Horde_Kolab_Session_Valid
 {
     /**
      * The session handler this instance provides with anonymous access.
@@ -58,7 +58,8 @@ implements Horde_Kolab_Session_Valid_Interface
     }
 
     /**
-     * Does the current session still match the authentication information?
+     * Reset the current session information in case it does not match the
+     * authentication information anymore.
      *
      * @param string $user The user the session information is being requested
      *                     for. This is usually empty, indicating the current
@@ -66,16 +67,18 @@ implements Horde_Kolab_Session_Valid_Interface
      *
      * @return boolean True if the session is still valid.
      */
-    public function isValid($user = null)
+    public function validate($user = null)
     {
         $mail = $this->_session->getMail();
         if ($this->_auth != $mail) {
+            $this->_session->purge();
             return false;
         }
         if (empty($user)) {
             return true;
         }
         if ($user != $mail && $user != $this->_session->getUid()) {
+            $this->_session->purge();
             return false;
         }
         return true;

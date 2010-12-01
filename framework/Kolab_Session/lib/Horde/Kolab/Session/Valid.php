@@ -25,10 +25,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-interface Horde_Kolab_Session_Valid_Interface
+interface Horde_Kolab_Session_Valid
 {
     /**
-     * Does the current session still match the authentication information?
+     * Reset the current session information in case it does not match the
+     * authentication information anymore.
      *
      * @param string $user The user the session information is being requested
      *                     for. This is usually empty, indicating the current
@@ -36,7 +37,7 @@ interface Horde_Kolab_Session_Valid_Interface
      *
      * @return boolean True if the session is still valid.
      */
-    public function isValid($user = null);
+    public function validate($user = null);
 
     /**
      * Return the session this validator checks.

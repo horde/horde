@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Valid_Decorator_Logged
-implements Horde_Kolab_Session_Valid_Interface
+implements Horde_Kolab_Session_Valid
 {
     /**
      * The valid handler.
@@ -52,7 +52,7 @@ implements Horde_Kolab_Session_Valid_Interface
      * @param mixed                               $logger The logger instance.
      */
     public function __construct(
-        Horde_Kolab_Session_Valid_Interface $valid,
+        Horde_Kolab_Session_Valid $valid,
         $logger
     ) {
         $this->_valid  = $valid;
@@ -60,7 +60,8 @@ implements Horde_Kolab_Session_Valid_Interface
     }
 
     /**
-     * Does the current session still match the authentication information?
+     * Reset the current session information in case it does not match the
+     * authentication information anymore.
      *
      * @param string $user The user the session information is being requested
      *                     for. This is usually empty, indicating the current
@@ -68,17 +69,25 @@ implements Horde_Kolab_Session_Valid_Interface
      *
      * @return boolean True if the session is still valid.
      */
-    public function isValid($user = null)
+    public function validate($user = null)
     {
-        $result = $this->_valid->isValid($user);
+        $this->_logger->info(
+            sprintf(
+                "Validating Kolab session for current user \"%s\", requested"
+                . " user \"%s\", and stored user \"%s\".",
+                $this->_valid->getAuth(),
+                $user,
+                $this->_valid->getSession()->getMail()
+            )
+        );
+        $result = $this->_valid->validate($user);
         if ($result === false) {
             $this->_logger->info(
                 sprintf(
-                    "Invalid Kolab session for current user \"%s\", requested"
-                    . " user \"%s\" and stored user \"%s\".",
+                    "Invalid Kolab session for current user \"%s\" and requested"
+                    . " user \"%s\".",
                     $this->_valid->getAuth(),
-                    $user,
-                    $this->_valid->getSession()->getMail()
+                    $user
                 )
             );
         }

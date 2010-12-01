@@ -30,8 +30,8 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_Decorator_BaseTest
-extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Unit_Decorator_BaseTest
+extends Horde_Kolab_Session_TestCase
 {
     public function testMethodConnectGetsDelegated()
     {

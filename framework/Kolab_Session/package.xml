@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Kolab_Session</name>
  <channel>pear.horde.org</channel>
  <summary>A package managing an active Kolab session.</summary>
@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-26</date>
- <time>05:16:11</time>
+ <date>2010-12-01</date>
+ <time>14:54:05</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -53,7 +53,6 @@
         <file name="Badlogin.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Session/Exception -->
        <dir name="Storage">
-        <file name="Interface.php" role="php" />
         <file name="Mock.php" role="php" />
         <file name="Session.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Session/Storage -->
@@ -62,10 +61,11 @@
          <file name="Logged.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Session/Valid/Decorator -->
         <file name="Base.php" role="php" />
-        <file name="Interface.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Session/Valid -->
        <file name="Base.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Storage.php" role="php" />
+       <file name="Valid.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Session -->
       <file name="Session.php" role="php" />
      </dir> <!-- /lib/Horde/Kolab -->
@@ -75,33 +75,34 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Session">
-       <dir name="Class">
+       <dir name="Integration">
+        <file name="AnonymousTest.php" role="test" />
+        <file name="SessionTest.php" role="test" />
+        <file name="ValidTest.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Session/Integration -->
+       <dir name="Unit">
         <dir name="Decorator">
          <file name="AnonymousTest.php" role="test" />
          <file name="BaseTest.php" role="test" />
          <file name="LoggedTest.php" role="test" />
          <file name="StoredTest.php" role="test" />
-        </dir> <!-- /test/Horde/Kolab/Session/Class/Decorator -->
+        </dir> <!-- /test/Horde/Kolab/Session/Unit/Decorator -->
         <dir name="Storage">
          <file name="MockTest.php" role="test" />
          <file name="SessionTest.php" role="test" />
-        </dir> <!-- /test/Horde/Kolab/Session/Class/Storage -->
+        </dir> <!-- /test/Horde/Kolab/Session/Unit/Storage -->
         <dir name="Valid">
          <dir name="Decorator">
           <file name="LoggedTest.php" role="test" />
-         </dir> <!-- /test/Horde/Kolab/Session/Class/Valid/Decorator -->
+         </dir> <!-- /test/Horde/Kolab/Session/Unit/Valid/Decorator -->
          <file name="BaseTest.php" role="test" />
-        </dir> <!-- /test/Horde/Kolab/Session/Class/Valid -->
+        </dir> <!-- /test/Horde/Kolab/Session/Unit/Valid -->
         <file name="BaseTest.php" role="test" />
-       </dir> <!-- /test/Horde/Kolab/Session/Class -->
-       <dir name="Integration">
-        <file name="AnonymousTest.php" role="test" />
-        <file name="ValidTest.php" role="test" />
-       </dir> <!-- /test/Horde/Kolab/Session/Integration -->
+       </dir> <!-- /test/Horde/Kolab/Session/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="phpunit.xml" role="test" />
-       <file name="SessionTestCase.php" role="test" />
+       <file name="TestCase.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Session -->
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
@@ -120,10 +121,6 @@
     <name>Kolab_Server</name>
     <channel>pear.horde.org</channel>
    </package>
-   <package>
-    <name>Kolab_Storage</name>
-    <channel>pear.horde.org</channel>
-   </package>
   </required>
   <optional>
    <package>
@@ -137,32 +134,33 @@
    <install as="Horde/Kolab/Session.php" name="lib/Horde/Kolab/Session.php" />
    <install as="Horde/Kolab/Session/Base.php" name="lib/Horde/Kolab/Session/Base.php" />
    <install as="Horde/Kolab/Session/Exception.php" name="lib/Horde/Kolab/Session/Exception.php" />
+   <install as="Horde/Kolab/Session/Storage.php" name="lib/Horde/Kolab/Session/Storage.php" />
+   <install as="Horde/Kolab/Session/Valid.php" name="lib/Horde/Kolab/Session/Valid.php" />
    <install as="Horde/Kolab/Session/Decorator/Anonymous.php" name="lib/Horde/Kolab/Session/Decorator/Anonymous.php" />
    <install as="Horde/Kolab/Session/Decorator/Base.php" name="lib/Horde/Kolab/Session/Decorator/Base.php" />
    <install as="Horde/Kolab/Session/Decorator/Logged.php" name="lib/Horde/Kolab/Session/Decorator/Logged.php" />
    <install as="Horde/Kolab/Session/Decorator/Stored.php" name="lib/Horde/Kolab/Session/Decorator/Stored.php" />
    <install as="Horde/Kolab/Session/Exception/Badlogin.php" name="lib/Horde/Kolab/Session/Exception/Badlogin.php" />
-   <install as="Horde/Kolab/Session/Storage/Interface.php" name="lib/Horde/Kolab/Session/Storage/Interface.php" />
    <install as="Horde/Kolab/Session/Storage/Mock.php" name="lib/Horde/Kolab/Session/Storage/Mock.php" />
    <install as="Horde/Kolab/Session/Storage/Session.php" name="lib/Horde/Kolab/Session/Storage/Session.php" />
    <install as="Horde/Kolab/Session/Valid/Base.php" name="lib/Horde/Kolab/Session/Valid/Base.php" />
-   <install as="Horde/Kolab/Session/Valid/Interface.php" name="lib/Horde/Kolab/Session/Valid/Interface.php" />
    <install as="Horde/Kolab/Session/Valid/Decorator/Logged.php" name="lib/Horde/Kolab/Session/Valid/Decorator/Logged.php" />
    <install as="Horde/Kolab/Session/AllTests.php" name="test/Horde/Kolab/Session/AllTests.php" />
    <install as="Horde/Kolab/Session/Autoload.php" name="test/Horde/Kolab/Session/Autoload.php" />
    <install as="Horde/Kolab/Session/phpunit.xml" name="test/Horde/Kolab/Session/phpunit.xml" />
-   <install as="Horde/Kolab/Session/SessionTestCase.php" name="test/Horde/Kolab/Session/SessionTestCase.php" />
-   <install as="Horde/Kolab/Session/Class/BaseTest.php" name="test/Horde/Kolab/Session/Class/BaseTest.php" />
-   <install as="Horde/Kolab/Session/Class/Decorator/AnonymousTest.php" name="test/Horde/Kolab/Session/Class/Decorator/AnonymousTest.php" />
-   <install as="Horde/Kolab/Session/Class/Decorator/BaseTest.php" name="test/Horde/Kolab/Session/Class/Decorator/BaseTest.php" />
-   <install as="Horde/Kolab/Session/Class/Decorator/LoggedTest.php" name="test/Horde/Kolab/Session/Class/Decorator/LoggedTest.php" />
-   <install as="Horde/Kolab/Session/Class/Decorator/StoredTest.php" name="test/Horde/Kolab/Session/Class/Decorator/StoredTest.php" />
-   <install as="Horde/Kolab/Session/Class/Storage/MockTest.php" name="test/Horde/Kolab/Session/Class/Storage/MockTest.php" />
-   <install as="Horde/Kolab/Session/Class/Storage/SessionTest.php" name="test/Horde/Kolab/Session/Class/Storage/SessionTest.php" />
-   <install as="Horde/Kolab/Session/Class/Valid/BaseTest.php" name="test/Horde/Kolab/Session/Class/Valid/BaseTest.php" />
-   <install as="Horde/Kolab/Session/Class/Valid/Decorator/LoggedTest.php" name="test/Horde/Kolab/Session/Class/Valid/Decorator/LoggedTest.php" />
+   <install as="Horde/Kolab/Session/TestCase.php" name="test/Horde/Kolab/Session/TestCase.php" />
    <install as="Horde/Kolab/Session/Integration/AnonymousTest.php" name="test/Horde/Kolab/Session/Integration/AnonymousTest.php" />
+   <install as="Horde/Kolab/Session/Integration/SessionTest.php" name="test/Horde/Kolab/Session/Integration/SessionTest.php" />
    <install as="Horde/Kolab/Session/Integration/ValidTest.php" name="test/Horde/Kolab/Session/Integration/ValidTest.php" />
+   <install as="Horde/Kolab/Session/Unit/BaseTest.php" name="test/Horde/Kolab/Session/Unit/BaseTest.php" />
+   <install as="Horde/Kolab/Session/Unit/Decorator/AnonymousTest.php" name="test/Horde/Kolab/Session/Unit/Decorator/AnonymousTest.php" />
+   <install as="Horde/Kolab/Session/Unit/Decorator/BaseTest.php" name="test/Horde/Kolab/Session/Unit/Decorator/BaseTest.php" />
+   <install as="Horde/Kolab/Session/Unit/Decorator/LoggedTest.php" name="test/Horde/Kolab/Session/Unit/Decorator/LoggedTest.php" />
+   <install as="Horde/Kolab/Session/Unit/Decorator/StoredTest.php" name="test/Horde/Kolab/Session/Unit/Decorator/StoredTest.php" />
+   <install as="Horde/Kolab/Session/Unit/Storage/MockTest.php" name="test/Horde/Kolab/Session/Unit/Storage/MockTest.php" />
+   <install as="Horde/Kolab/Session/Unit/Storage/SessionTest.php" name="test/Horde/Kolab/Session/Unit/Storage/SessionTest.php" />
+   <install as="Horde/Kolab/Session/Unit/Valid/BaseTest.php" name="test/Horde/Kolab/Session/Unit/Valid/BaseTest.php" />
+   <install as="Horde/Kolab/Session/Unit/Valid/Decorator/LoggedTest.php" name="test/Horde/Kolab/Session/Unit/Valid/Decorator/LoggedTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -175,7 +173,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-26</date>
+   <date>2010-12-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Split package from Kolab_Server

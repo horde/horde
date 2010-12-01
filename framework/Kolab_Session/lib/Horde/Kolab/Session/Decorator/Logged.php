@@ -77,10 +77,61 @@ extends Horde_Kolab_Session_Decorator_Base
             $this->_logger->err(
                 sprintf(
                     "Failed to connect Kolab session for \"%s\". Error was: %s",
-                    $this->_session->getId(), $e->getMessage()
+                    $this->_session->getMail(), $e->getMessage()
                 )
             );
             throw $e;
         }
+    }
+
+    /**
+     * Export the session data as array.
+     *
+     * @return array The session data.
+     */
+    public function export()
+    {
+        $session_data = $this->_session->export();
+        $this->_logger->info(
+            sprintf(
+                "Exported session data for \"%s\" (%s). [%s]",
+                $this->_session->getMail(), serialize($session_data), new Horde_Support_Backtrace()
+            )
+        );
+        return $session_data;
+    }
+
+    /**
+     * Import the session data from an array.
+     *
+     * @param array The session data.
+     *
+     * @return NULL
+     */
+    public function import(array $session_data)
+    {
+        $this->_session->import($session_data);
+        $this->_logger->info(
+            sprintf(
+                "Imported session data for \"%s\" (%s). [%s]",
+                $this->_session->getMail(), serialize($session_data), new Horde_Support_Backtrace()
+            )
+        );
+    }
+
+    /**
+     * Clear the session data.
+     *
+     * @return NULL
+     */
+    public function purge()
+    {
+        $this->_logger->warn(
+            sprintf(
+                "Purged session data for \"%s\". [%s]",
+                $this->_session->getMail(), new Horde_Support_Backtrace()
+            )
+        );
+        $this->_session->purge();
     }
 }

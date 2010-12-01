@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_SessionTestCase extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Session_TestCase extends PHPUnit_Framework_TestCase
 {
     protected function _getComposite()
     {
@@ -50,13 +50,12 @@ class Horde_Kolab_Session_SessionTestCase extends PHPUnit_Framework_TestCase
 
     protected function setupStorage()
     {
-        $this->storage = $this->getMock('Horde_Kolab_Session_Storage_Interface');
+        $this->storage = $this->getMock('Horde_Kolab_Session_Storage');
     }
 
     protected function setupFactoryMocks()
     {
         $this->server          = $this->_getMockedComposite();
-        $this->session_auth    = $this->getMock('Horde_Kolab_Session_Auth_Interface');
-        $this->session_storage = $this->getMock('Horde_Kolab_Session_Storage_Interface');
+        $this->session_storage = $this->getMock('Horde_Kolab_Session_Storage');
     }
 }

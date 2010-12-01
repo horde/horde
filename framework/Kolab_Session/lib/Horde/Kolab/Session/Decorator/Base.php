@@ -46,7 +46,7 @@ implements Horde_Kolab_Session
     public function __construct(
         Horde_Kolab_Session $session
     ) {
-        $this->_session        = $session;
+        $this->_session = $session;
     }
 
     /**
@@ -123,5 +123,37 @@ implements Horde_Kolab_Session
     public function getFreebusyServer()
     {
         return $this->_session->getFreebusyServer();
+    }
+
+    /**
+     * Import the session data from an array.
+     *
+     * @param array The session data.
+     *
+     * @return NULL
+     */
+    public function import(array $session_data)
+    {
+        $this->_session->import($session_data);
+    }
+
+    /**
+     * Export the session data as array.
+     *
+     * @return array The session data.
+     */
+    public function export()
+    {
+        return $this->_session->export();
+    }
+
+    /**
+     * Clear the session data.
+     *
+     * @return NULL
+     */
+    public function purge()
+    {
+        $this->_session->purge();
     }
 }
