@@ -165,7 +165,7 @@ HTML;
     {
         if (class_exists('Horde_Log')) {
             try {
-                self::logMessage(new ErrorException($errstr, 0, $errno, $errfile, $errline), 'DEBUG');
+                self::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), 'DEBUG');
             } catch (Exception $e) {}
         }
     }
