@@ -1,0 +1,32 @@
+# Croatian translations for Horde_Token module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Token module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Token\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-12-01 10:19+0100\n"
+"PO-Revision-Date: 2010-12-01 10:19+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/Horde/Token/Base.php:196
+msgid "This token has been used before!"
+msgstr ""
+
+#: lib/Horde/Token/Base.php:172
+msgid ""
+"We cannot verify that this request was really sent by you. It could be a "
+"malicious request. If you intended to perform this action, you can retry it "
+"now."
+msgstr ""
+"Ne možemo potvrditi da ovaj zahtjev dolazi od Vaše strane. Možda se radi o "
+"zloćudnom zahtjevu. Ako ste zaista željeli izvršiti ovu akciju, sada ju "
+"možete ponoviti."
