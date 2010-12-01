@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('nag');
 
 header('Content-Type: text/css');
