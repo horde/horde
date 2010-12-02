@@ -2157,6 +2157,14 @@ applications.</description>
     <name>Feed</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Service_Facebook</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Service_Twitter</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <usesrole>
