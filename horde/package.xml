@@ -2154,6 +2154,10 @@ applications.</description>
   </required>
   <optional>
    <package>
+    <name>Feed</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Kolab_Session</name>
     <channel>pear.horde.org</channel>
    </package>
