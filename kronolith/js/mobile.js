@@ -62,7 +62,6 @@
                 cals = cals[cal[1]];
                 c = cals[startDay.dateString()];
                 while (typeof c != 'undefined' && startDay.isBefore(endDay)) {
-                    KronolithMobile.loadedCalendars.push(cal.join('|'));
                     if (view != 'month') {
                         KronolithMobile.insertEvents([startDay, startDay], view, cal.join('|'));
                     }
@@ -72,7 +71,6 @@
 
                 c = cals[endDay.dateString()];
                 while (typeof c != 'undefined' && !startDay.isAfter(endDay)) {
-                    KronolithMobile.loadedCalendars.push(cal);
                     if (view != 'month') {
                         KronolithMobile.insertEvents([endDay, endDay], view, cal.join('|'));
                     }
@@ -80,6 +78,7 @@
                     c = cals[endDay.dateString()];
                 }
                 if (startDay.compareTo(endDay) > 0) {
+                    KronolithMobile.loadedCalendars.push(cal.join('|'));
                     return;
                 }
             }
