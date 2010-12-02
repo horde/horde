@@ -301,7 +301,7 @@
                  break;
              case 3:
                  // Monthly_Date
-                 recuText = recurText.replace('#{date}', date.toString('dS'));
+                 recurText = recurText.replace('#{date}', date.toString('dS'));
                  // Fall-thru
              case 4:
              case 5:
