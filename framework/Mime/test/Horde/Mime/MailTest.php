@@ -118,7 +118,7 @@ MIME-Version: 1.0',
 'Subject: =?iso-8859-1?b?U2No9m5lcg==?= Betreff
 To: =?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>
 From: sender@example.com
-Cc: Der =?iso-8859-15?b?c2No9m5l?= Peter <peter@example.com>
+Cc: Der =?iso-8859-1?b?c2No9m5l?= Peter <peter@example.com>
 Message-ID: <%d.%s@mail.example.com>
 User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
