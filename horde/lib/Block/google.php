@@ -1,6 +1,8 @@
 <?php
 
-$block_name = _("Google Search");
+if (isset($GLOBALS['conf']['api']['googlesearch'])) {
+    $block_name = _("Google Search");
+}
 
 /**
  * @package Horde_Block

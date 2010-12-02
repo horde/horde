@@ -1,6 +1,8 @@
 <?php
 
-$block_name = _("EU VAT identification");
+if (class_exists('SOAP_Client')) {
+    $block_name = _("EU VAT identification");
+}
 
 /**
  * @package Horde_Block

@@ -1,6 +1,8 @@
 <?php
 
-$block_name = _("Syndicated Feed");
+if (class_exists('Horde_Feed')) {
+    $block_name = _("Syndicated Feed");
+}
 
 /**
  * @package Horde_Block
