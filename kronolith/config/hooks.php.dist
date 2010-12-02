@@ -31,40 +31,4 @@ class Kronolith_Hooks
 //
 //        throw new Horde_Exception('Unknown action');
 //     }
-
-    /**
-     * Generates the e-mail notification message when the share owner changes.
-     *
-     * @param string $user        The new owner.
-     * @param Horde_Share $share  A calendar or tasklist.
-     */
-//     public function shareOwnerNotification($user, Horde_Share $share)
-//     {
-//         return 'Some fancy text including the ' . $user . ' and the ' . $share->get('name');
-//     }
-
-    /**
-     * Generates the e-mail notification message when the share permissions
-     * change.
-     *
-     * @param string $user        A user who has been added to the permissions.
-     * @param Horde_Share $share  A calendar or tasklist.
-     */
-//     public function shareUserNotification($user, Horde_Share $share)
-//     {
-//         return 'Some fancy text including the ' . $user . ' and the ' . $share->get('name');
-//     }
-
-    /**
-     * Generates the e-mail notification message when the share permissions
-     * change.
-     *
-     * @param mixed $group        The id of a group that has been added to the
-     *                            permissions.
-     * @param Horde_Share $share  A calendar or tasklist.
-     */
-//     public function shareGroupNotification($group, Horde_Share $share)
-//     {
-//         return 'Some fancy text including the ' . $group . ' and the ' . $share->get('name');
-//     }
 }

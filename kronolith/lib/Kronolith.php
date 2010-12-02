@@ -1735,12 +1735,21 @@ class Kronolith
             $identity = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Identity')
                 ->create();
-            $userName = $identity->getName();
             $mail = new Horde_Mime_Mail(
                 array('from' => $identity->getDefaultFromAddress(true),
                       'charset' => 'UTF-8')
                 );
             $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
+            $image = self::getImagePart('big_share.png');
+            $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/share'));
+            new Horde_View_Helper_Text($view);
+            $view->user = $identity->getName();
+            $view->calendar = $share->get('name');
+            $view->imageId = $image->getContentId();
+            if ($GLOBALS['conf']['share']['hidden']) {
+                $view->subscribe = Horde::url('calendars/subscribe.php', true)->add('calendar', $share->getName());
+            }
+            $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
         }
 
         // Process owner and owner permissions.
@@ -1764,7 +1773,7 @@ class Kronolith
                         $message = Horde::callHook('shareOwnerNotification', array($new_owner, $share));
                     } catch (Horde_Exception_HookNotSet $e) {
                         $message = sprintf(_("%s has assigned the ownership of \"%s\" to you"),
-                                           $userName,
+                                           $view->user,
                                            $share->get('name'));
                     }
                     $mail->addHeader('Subject', _("Ownership assignment"));
@@ -1859,15 +1868,6 @@ class Kronolith
             $perm->removeCreatorPermission(Kronolith::PERMS_DELEGATE, false);
         }
 
-        // Build subscription link if necessary.
-        $subscription = $sublink = '';
-        if ($GLOBALS['conf']['share']['hidden']) {
-            $sublink = Horde::url('calendars/subscribe.php', true)->add('calendar', $share->getName());
-            $subscription = "\n"
-                . _("To subscribe to this calendar, you need to click the following link:")
-                . ' ' . $sublink;
-        }
-
         // Process user permissions.
         $u_names = Horde_Util::getFormData('u_names');
         $u_show = Horde_Util::getFormData('u_show');
@@ -1924,16 +1924,8 @@ class Kronolith
                     ->getInstance('Horde_Core_Factory_Identity')
                     ->create($user)
                     ->getDefaultFromAddress(true);
-                try {
-                    $message = Horde::callHook('shareUserNotification', array($user, $share, $sublink));
-                } catch (Horde_Exception_HookNotSet $e) {
-                    $message = sprintf(_("%s has given you access to \"%s\"."),
-                                       $userName,
-                                       $share->get('name'))
-                        . $subscription;
-                }
                 $mail->addHeader('To', $to, 'UTF-8', false);
-                $mail->setBody($message, 'UTF-8');
+                $mail->setBasePart($multipart);
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             }
         }
@@ -1980,17 +1972,8 @@ class Kronolith
                 !isset($current[$group]) && $has_perms) {
                 $groupOb = $GLOBALS['injector']->getInstance('Horde_Group')->getGroupById($group);
                 if (!empty($groupOb->data['email'])) {
-                    try {
-                        $message = Horde::callHook('shareGroupNotification', array($group, $share, $sublink));
-                    } catch (Horde_Exception_HookNotSet $e) {
-                        $message = sprintf(_("%s has given your group \"%s\" access to \"%s\"."),
-                                           $userName,
-                                           $groupOb->getName(),
-                                           $share->get('name'))
-                            . $subscription;
-                    }
                     $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>', 'UTF-8', false);
-                    $mail->setBody($message, 'UTF-8');
+                    $mail->setBasePart($multipart);
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
             }
