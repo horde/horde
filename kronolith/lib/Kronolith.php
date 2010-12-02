@@ -2257,12 +2257,7 @@ class Kronolith
 
         // Generate image mime part first and only once, because we
         // need the Content-ID.
-        $background = Horde_Themes::img('big_invitation.png');
-        $image = new Horde_Mime_Part();
-        $image->setType('image/png');
-        $image->setContents(file_get_contents($background->fs));
-        $image->setContentId();
-        $image->setDisposition('attachment');
+        $image = self::getImagePart('big_invitation.png');
 
         $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
         $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/itip'));
@@ -2352,25 +2347,7 @@ class Kronolith
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset('UTF-8');
 
-            $multipart = new Horde_Mime_Part();
-            $multipart->setType('multipart/alternative');
-            $bodyText = new Horde_Mime_Part();
-            $bodyText->setType('text/plain');
-            $bodyText->setCharset('UTF-8');
-            $bodyText->setContents($view->render('notification.plain.php'));
-            $bodyText->setDisposition('inline');
-            $multipart->addPart($bodyText);
-            $bodyHtml = new Horde_Mime_Part();
-            $bodyHtml->setType('text/html');
-            $bodyHtml->setCharset('UTF-8');
-            $bodyHtml->setContents($view->render('notification.html.php'));
-            $bodyHtml->setDisposition('inline');
-            $related = new Horde_Mime_Part();
-            $related->setType('multipart/related');
-            $related->setContentTypeParameter('start', $bodyHtml->setContentId());
-            $related->addPart($bodyHtml);
-            $related->addPart($image);
-            $multipart->addPart($related);
+            $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
             $multipart->addPart($ics);
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
             $mail = new Horde_Mime_Mail(array('subject' => $view->subject,
@@ -2605,6 +2582,59 @@ class Kronolith
         }
 
         return false;
+    }
+
+    /**
+     * Builds the body MIME part of a multipart message.
+     *
+     * @param Horde_View $view        A view to render the HTML and plain text
+     *                                templates for the messate.
+     * @param string $template        The template base name for the view.
+     * @param Horde_Mime_Part $image  The MIME part of a related image.
+     *
+     * @return Horde_Mime_Part  A multipart/alternative MIME part.
+     */
+    public static function buildMimeMessage(Horde_View $view, $template,
+                                            Horde_Mime_Part $image)
+    {
+        $multipart = new Horde_Mime_Part();
+        $multipart->setType('multipart/alternative');
+        $bodyText = new Horde_Mime_Part();
+        $bodyText->setType('text/plain');
+        $bodyText->setCharset('UTF-8');
+        $bodyText->setContents($view->render($template . '.plain.php'));
+        $bodyText->setDisposition('inline');
+        $multipart->addPart($bodyText);
+        $bodyHtml = new Horde_Mime_Part();
+        $bodyHtml->setType('text/html');
+        $bodyHtml->setCharset('UTF-8');
+        $bodyHtml->setContents($view->render($template . '.html.php'));
+        $bodyHtml->setDisposition('inline');
+        $related = new Horde_Mime_Part();
+        $related->setType('multipart/related');
+        $related->setContentTypeParameter('start', $bodyHtml->setContentId());
+        $related->addPart($bodyHtml);
+        $related->addPart($image);
+        $multipart->addPart($related);
+        return $multipart;
+    }
+
+    /**
+     * Returns a MIME part for an image to be embedded into a HTML document.
+     *
+     * @param string $file  An image file name.
+     *
+     * @return Horde_Mime_Part  A MIME part representing the image.
+     */
+    public static function getImagePart($file)
+    {
+        $background = Horde_Themes::img($file);
+        $image = new Horde_Mime_Part();
+        $image->setType('image/png');
+        $image->setContents(file_get_contents($background->fs));
+        $image->setContentId();
+        $image->setDisposition('attachment');
+        return $image;
     }
 
     /**

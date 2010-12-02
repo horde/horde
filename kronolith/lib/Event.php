@@ -1573,12 +1573,7 @@ abstract class Kronolith_Event
             }
         }
         if (isset($methods['mail'])) {
-            $background = Horde_Themes::img('big_alarm.png');
-            $image = new Horde_Mime_Part();
-            $image->setType('image/png');
-            $image->setContents(file_get_contents($background->fs));
-            $image->setContentId();
-            $image->setDisposition('attachment');
+            $image = Kronolith::getImagePart('big_alarm.png');
 
             $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/alarm', 'encoding' => 'UTF-8'));
             new Horde_View_Helper_Text($view);
@@ -1598,26 +1593,7 @@ abstract class Kronolith_Event
                 $view->attendees = $attendees;
             }
 
-            $multipart = new Horde_Mime_Part();
-            $multipart->setType('multipart/alternative');
-            $bodyText = new Horde_Mime_Part();
-            $bodyText->setType('text/plain');
-            $bodyText->setCharset('UTF-8');
-            $bodyText->setContents($view->render('mail.plain.php'));
-            $bodyText->setDisposition('inline');
-            $multipart->addPart($bodyText);
-            $bodyHtml = new Horde_Mime_Part();
-            $bodyHtml->setType('text/html');
-            $bodyHtml->setCharset('UTF-8');
-            $bodyHtml->setContents($view->render('mail.html.php'));
-            $bodyHtml->setDisposition('inline');
-            $related = new Horde_Mime_Part();
-            $related->setType('multipart/related');
-            $related->setContentTypeParameter('start', $bodyHtml->setContentId());
-            $related->addPart($bodyHtml);
-            $related->addPart($image);
-            $multipart->addPart($related);
-            $methods['mail']['mimepart'] = $multipart;
+            $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
         }
 
         return array(
