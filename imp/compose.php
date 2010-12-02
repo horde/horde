@@ -132,7 +132,9 @@ $stationery = $injector->getInstance('IMP_Compose_Stationery');
 $charset = $prefs->isLocked('sending_charset')
     ? $prefs->getValue('sending_charset')
     : $vars->charset;
-$imp_compose->charset = $charset;
+if ($charset) {
+    $imp_compose->charset = $charset;
+}
 
 /* Is this a popup window? */
 $isPopup = ($prefs->getValue('compose_popup') || $vars->popup);
