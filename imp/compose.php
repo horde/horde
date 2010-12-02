@@ -68,8 +68,8 @@ if ($vars->actionID) {
 
     default:
         try {
-            Horde::checkRequestToken('imp.compose', $vars->compose_requestToken);
-        } catch (Horde_Exception $e) {
+            $injector->getInstance('Horde_Token')->validate($vars->compose_requestToken, 'imp.compose');
+        } catch (Horde_Token_Exception $e) {
             $notification->push($e);
             $vars->actionID = null;
         }
@@ -397,7 +397,7 @@ case 'send_message':
 
         if ($vars->actionID == 'auto_save_draft') {
             $request = new stdClass;
-            $request->requestToken = Horde::getRequestToken('imp.compose');
+            $request->requestToken = $injector->getInstance('Horde_Token')->get('imp.compose');
             $request->formToken = Horde_Token::generateId('compose');
             Horde::sendHTTPResponse(Horde::prepareResponse($request), 'json');
             exit;
@@ -687,7 +687,7 @@ if ($redirect) {
     /* Prepare the redirect template. */
     $t->set('cacheid', $composeCacheID);
     $t->set('title', htmlspecialchars($title));
-    $t->set('token', Horde::getRequestToken('imp.compose'));
+    $t->set('token', $injector->getInstance('Horde_Token')->get('imp.compose'));
 
     Horde::startBuffer();
     IMP::status();
@@ -717,7 +717,7 @@ if ($redirect) {
         'actionID' => '',
         'attachmentAction' => '',
         'compose_formToken' => Horde_Token::generateId('compose'),
-        'compose_requestToken' => Horde::getRequestToken('imp.compose'),
+        'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
         'composeCache' => $composeCacheID,
         'mailbox' => htmlspecialchars(IMP::$mailbox),
         'oldrtemode' => $rtemode,

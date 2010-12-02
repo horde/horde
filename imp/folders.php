@@ -56,14 +56,17 @@ if (isset($vars->folder_list)) {
     }
 }
 
+/* Token to use in requests */
+$folders_token = $injector->getInstance('Horde_Token')->get('imp.folders');
+
 /* META refresh time (might be altered by actionID). */
 $refresh_time = $prefs->getValue('refresh_time');
 
 /* Run through the action handlers. */
 if ($vars->actionID) {
     try {
-        Horde::checkRequestToken('imp.folders', $vars->folders_token);
-    } catch (Horde_Exception $e) {
+        $injector->getInstance('Horde_Token')->validate($vars->folders_token, 'imp.folders');
+    } catch (Horde_Token_Exception $e) {
         $notification->push($e);
         $vars->actionID = null;
     }
@@ -276,7 +279,7 @@ case 'folders_empty_mailbox_confirm':
         $template->set('empty', ($vars->actionID == 'folders_empty_mailbox_confirm'));
         $template->set('folders', $loop);
         $template->set('folders_url', $folders_url);
-        $template->set('folders_token', Horde::getRequestToken('imp.folders'));
+        $template->set('folders_token', $folders_token);
         echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_confirm.html');
 
         require $registry->get('templates', 'horde') . '/common-footer.inc';
@@ -333,9 +336,6 @@ case 'search':
     }
     break;
 }
-
-/* Token to use in requests */
-$folders_token = Horde::getRequestToken('imp.folders');
 
 $folders_url_ob = new Horde_Url($folders_url);
 $folders_url_ob->add('folders_token', $folders_token);

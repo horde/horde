@@ -71,8 +71,8 @@ $indices = new IMP_Indices($vars->indices);
 /* Run through the action handlers */
 if ($actionID && ($actionID != 'message_missing')) {
     try {
-        Horde::checkRequestToken('imp.mailbox', $vars->mailbox_token);
-    } catch (Horde_Exception $e) {
+        $injector->getInstance('Horde_Token')->validate($vars->mailbox_token, 'imp.mailbox');
+    } catch (Horde_Token_Exception $e) {
         $notification->push($e);
         $actionID = null;
     }
@@ -207,7 +207,7 @@ case 'view_messages':
 }
 
 /* Token to use in requests */
-$mailbox_token = Horde::getRequestToken('imp.mailbox');
+$mailbox_token = $injector->getInstance('Horde_Token')->get('imp.mailbox');
 
 /* Deal with filter options. */
 if (!$readonly && $session->get('imp', 'filteravail')) {

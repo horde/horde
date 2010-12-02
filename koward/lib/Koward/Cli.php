@@ -135,7 +135,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
                  * to use the standard form mechanisms via CLI. Think of some
                  * alternatives here.
                  */
-                $token = Horde::getRequestToken('cli');
+                $token = $GLOBALS['injector']->getInstance('Horde_Token')->get('cli');
                 $this->_cmd_argv['koward_form_object_formToken'] = $token;
 
                 /**
@@ -195,7 +195,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
             /**
              * Provide a token for immediate deletion.
              */
-            $this->_cmd_argv['token'] = Horde::getRequestToken('object.delete');
+            $this->_cmd_argv['token'] = $GLOBALS['injector']->getInstance('Horde_Token')->get('object.delete');
 
             break;
         }
