@@ -161,6 +161,7 @@ $code['text'] = array(
     'prefs' => _("User Options"),
     'rename_prompt' => _("Rename folder to:"),
     'search' => _("Search"),
+    'selected' => _("selected"),
     'verify' => _("Verifying..."),
     'vfolder' => _("Virtual Folder: %s"),
     'vp_empty' => _("There are no messages in this mailbox."),

@@ -976,6 +976,9 @@ span.dimpactionResume {
 #oa_layout_vert span.iconImg {
     background-image: url("../graphics/application_tile_horizontal.png");
 }
+#oa_help span.iconImg {
+    background-image: url("../graphics/help.png");
+}
 #ctx_folder_create span.iconImg, #ctx_container_create span.iconImg, #ctx_folderopts_new span.iconImg {
     background-image: url("../graphics/folders/create.png");
 }
@@ -1072,4 +1075,24 @@ span.readonlyImg {
 }
 #Growler div.imp-forward, div.imp-redirect, span.imp-forward, span.imp-redirect {
     background-image: url("../graphics/mail_forwarded.png");
+}
+
+/* Help screen */
+#helptext {
+    bottom: 0;
+    left: 0;
+    line-height: 18px;
+    position: fixed;
+    width: 100%;
+    z-index: 10001;
+}
+#helptext div {
+    background: lightgrey;
+    border: 1px solid grey;
+    line-height: 18px;
+    padding: 10px 30px 15px;
+}
+#helptext_close {
+    cursor: pointer;
+    float: right;
 }

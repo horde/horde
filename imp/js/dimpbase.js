@@ -902,6 +902,10 @@ var DimpBase = {
             this.purgeDeleted();
             break;
 
+        case 'oa_help':
+            this.toggleHelp();
+            break;
+
         case 'ctx_vfolder_edit':
             tmp = { edit_query: e.findElement('LI').retrieve('mbox') };
             // Fall through
@@ -1398,10 +1402,28 @@ var DimpBase = {
 
     clearPreviewPane: function()
     {
+        var sel, txt;
+
         this.loadingImg('msg', false);
         $('previewMsg').hide();
         $('previewPane').scrollTop = 0;
-        $('previewInfo').show();
+
+        sel = this.selectedCount();
+        switch (sel) {
+        case 0:
+            txt = DIMP.text.nomessages;
+            break;
+
+        case 1:
+            txt = 1 + ' ' + DIMP.text.message;
+            break;
+
+        default:
+            txt = sel + ' ' + DIMP.text.messages;
+            break;
+        }
+        $('previewInfo').update(txt + ' ' + DIMP.text.selected + '.').show();
+
         this.pp = null;
     },
 
@@ -2206,6 +2228,11 @@ var DimpBase = {
                 e.stop();
                 return;
 
+            case 'helptext_close':
+                this.toggleHelp();
+                e.stop();
+                return;
+
             default:
                 if (elt.hasClassName('printAtc')) {
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.imapuid + '|' + this.pp.view + '|print', IMP.printWindow);
@@ -2259,6 +2286,18 @@ var DimpBase = {
             [ elt.next() ].invoke($F(elt) ? 'show' : 'hide');
             RedBox.setWindowPosition();
         }
+    },
+
+    toggleHelp: function()
+    {
+        Effect.toggle($('helptext').down('DIV'), 'blind', {
+            duration: 0.75,
+            queue: {
+                position: 'end',
+                scope: 'DimpHelp',
+                limit: 2
+            }
+        });
     },
 
     /* Handle rename folder actions. */
