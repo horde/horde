@@ -50,6 +50,8 @@
      */
     loadEvents: function(firstDay, lastDay, view)
     {
+        var loading = false;
+
         // Clear out the loaded cal cache
         KronolithMobile.loadedCalendars = [];
 
@@ -62,7 +64,7 @@
                 cals = cals[cal[1]];
                 c = cals[startDay.dateString()];
                 while (typeof c != 'undefined' && startDay.isBefore(endDay)) {
-                    if (view != 'month') {
+                    if (view == 'day') {
                         KronolithMobile.insertEvents([startDay, startDay], view, cal.join('|'));
                     }
                     startDay.add(1).day();
@@ -71,7 +73,7 @@
 
                 c = cals[endDay.dateString()];
                 while (typeof c != 'undefined' && !startDay.isAfter(endDay)) {
-                    if (view != 'month') {
+                    if (view == 'day') {
                         KronolithMobile.insertEvents([endDay, endDay], view, cal.join('|'));
                     }
                     endDay.add(-1).day();
@@ -84,6 +86,7 @@
             }
 
             var start = startDay.dateString(), end = endDay.dateString();
+            loading = true;
             HordeMobile.doAction('listEvents',
                                  {
                                    'start': start,
@@ -95,6 +98,10 @@
                                  KronolithMobile.loadEventsCallback
             );
         });
+
+        if (!loading && view == 'overview') {
+            KronolithMobile.insertEvents([firstDay, lastDay], view);
+        }
     },
 
     /**
@@ -143,22 +150,27 @@
     insertEvents: function(dates, view, cal)
     {
         var date, events, list;
+
         switch (view) {
-            case 'day':
-                // Make sure all calendars are loaded before rendering the view.
-                // @TODO: Implement LIFO queue as in kronolith.js
-                if (KronolithMobile.loadedCalendars.length != KronolithMobile.calendars.length) {
-                    if (KronolithMobile.timeoutId) {
-                        window.clearTimeout(KronolithMobile.timeoutId);
-                    }
-                    KronolithMobile.timeoutId = window.setTimeout(function() {KronolithMobile.insertEvents(dates, view);}, 0);
-                    return;
-                }
+        case 'day':
+        case 'overview':
+            // Make sure all calendars are loaded before rendering the view.
+            // @TODO: Implement LIFO queue as in kronolith.js
+            if (KronolithMobile.loadedCalendars.length != KronolithMobile.calendars.length) {
                 if (KronolithMobile.timeoutId) {
                     window.clearTimeout(KronolithMobile.timeoutId);
-                    KronolithMobile.timoutId = false;
                 }
+                KronolithMobile.timeoutId = window.setTimeout(function() {KronolithMobile.insertEvents(dates, view);}, 0);
+                return;
+            }
+            if (KronolithMobile.timeoutId) {
+                window.clearTimeout(KronolithMobile.timeoutId);
+                KronolithMobile.timoutId = false;
+            }
+        }
 
+        switch (view) {
+            case 'day':
                 date = dates[0].clone();
                 events = KronolithMobile.getCacheForDate(date.dateString());
                 events = KronolithMobile.sortEvents(events);
@@ -170,7 +182,7 @@
                     list.append($('<li>').text(Kronolith.text.noevents));
                 }
                 list.listview();
-                $("#dayview [data-role=content]").append(list);
+                $('#dayview [data-role=content]').append(list);
                 break;
 
             case 'month':
@@ -186,6 +198,26 @@
                 // Select current date.
                 $('#kronolithMonth'+ KronolithMobile.date.dateString()).addClass('kronolithSelected');
                 KronolithMobile.selectMonthDay(KronolithMobile.date.dateString());
+                break;
+
+            case 'overview':
+                var day = dates[0].clone(), haveEvent = false;
+                list = $('<ul>').attr({'data-role': 'listview'});
+                while (!day.isAfter(dates[1])) {
+                    list.append($('<li>').attr({ 'data-role': 'list-divider' }).text(day.toString('ddd') + ' ' + day.toString('d')));
+                    events = KronolithMobile.sortEvents(KronolithMobile.getCacheForDate(day.dateString())) ;
+                    $.each(events, function(index, event) {
+                        list.append(KronolithMobile.buildDayEvent(event));
+                        haveEvent = true;
+                    });
+                    if (!haveEvent) {
+                        list.append($('<li>').text(Kronolith.text.noevents));
+                    }
+                    haveEvent = false;
+                    day.next().day();
+                }
+                list.listview();
+                $('#overview [data-role=content]').append(list);
                 break;
         }
     },
@@ -359,6 +391,9 @@
             break;
         case 'day':
             $('#dayview [data-role=content] ul').detach();
+            break;
+        case 'overview':
+            $('#overview [data-role=content] ul').detach();
         }
     },
 
@@ -715,6 +750,13 @@
                 ($('.kronolithMinicalDate').data('date').toString('M') != KronolithMobile.date.toString('M'))) {
                 KronolithMobile.moveToMonth(KronolithMobile.date);
             }
+        });
+
+        // Set up overview
+        $('#overview').bind('pageshow', function(event, ui) {
+            KronolithMobile.view = 'overview';
+            KronolithMobile.clearView('overview');
+            KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date.clone().addDays(7), 'overview');
         });
 
         $('td').live('click', function(e) {
