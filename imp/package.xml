@@ -1090,6 +1090,10 @@ multiple folders, and multiple-language support.</description>
     <name>Image</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Mime_Viewer</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <usesrole>
