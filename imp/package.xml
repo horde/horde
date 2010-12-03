@@ -1,0 +1,1753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>imp</name>
+ <channel>pear.horde.org</channel>
+ <summary>IMP is the Internet Messaging Program, a PHP-based webmail system</summary>
+ <description>IMP, once installed, accesses mail over IMAP
+thus requiring little to no special preparations on the server on which mail
+is stored.
+
+IMP offers most of the features users have come to expect from their
+conventional mail programs, including attachments, spell-check, address books,
+multiple folders, and multiple-language support.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-12-03</date>
+ <time>09:15:43</time>
+ <version>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name="backends.php.dist" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="filter.txt.dist" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="menu.php.dist" role="horde" />
+    <file name="mime_drivers.php.dist" role="horde" />
+    <file name="portal.php.dist" role="horde" />
+    <file name="prefs.php.dist" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="horde" />
+    <file name="CREDITS" role="horde" />
+    <file name="INSTALL" role="horde" />
+    <file name="RELEASE_NOTES" role="horde" />
+    <file name="RFCS" role="horde" />
+    <file name="UPGRADING" role="horde" />
+   </dir> <!-- /docs -->
+   <dir name="js">
+    <file name="accountsprefs.js" role="horde" />
+    <file name="acl.js" role="horde" />
+    <file name="compose-base.js" role="horde" />
+    <file name="compose-dimp.js" role="horde" />
+    <file name="compose.js" role="horde" />
+    <file name="contacts.js" role="horde" />
+    <file name="dialog.js" role="horde" />
+    <file name="dimpbase.js" role="horde" />
+    <file name="dimpcore.js" role="horde" />
+    <file name="flagprefs.js" role="horde" />
+    <file name="folderprefs.js" role="horde" />
+    <file name="folders.js" role="horde" />
+    <file name="fullmessage-dimp.js" role="horde" />
+    <file name="imp.js" role="horde" />
+    <file name="login.js" role="horde" />
+    <file name="mailbox-dimp.js" role="horde" />
+    <file name="mailbox.js" role="horde" />
+    <file name="message.js" role="horde" />
+    <file name="mobile.js" role="horde" />
+    <file name="search.js" role="horde" />
+    <file name="searchesprefs.js" role="horde" />
+    <file name="signaturehtml.js" role="horde" />
+    <file name="viewport.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Imple">
+      <file name="ContactAutoCompleter.php" role="horde" />
+      <file name="PassphraseDialog.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Imple -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
+    <dir name="Block">
+     <file name="Foldersummary.php" role="horde" />
+     <file name="Newmail.php" role="horde" />
+     <file name="summary.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Compose">
+     <file name="Exception.php" role="horde" />
+     <file name="Stationery.php" role="horde" />
+    </dir> <!-- /lib/Compose -->
+    <dir name="Crypt">
+     <file name="Pgp.php" role="horde" />
+     <file name="Smime.php" role="horde" />
+    </dir> <!-- /lib/Crypt -->
+    <dir name="Imap">
+     <dir name="Tree">
+      <file name="Element.php" role="horde" />
+     </dir> <!-- /lib/Imap/Tree -->
+     <file name="Acl.php" role="horde" />
+     <file name="Flags.php" role="horde" />
+     <file name="Thread.php" role="horde" />
+     <file name="Tree.php" role="horde" />
+    </dir> <!-- /lib/Imap -->
+    <dir name="Injector">
+     <dir name="Factory">
+      <file name="AuthImap.php" role="horde" />
+      <file name="Compose.php" role="horde" />
+      <file name="Contents.php" role="horde" />
+      <file name="Identity.php" role="horde" />
+      <file name="Imap.php" role="horde" />
+      <file name="Imaptree.php" role="horde" />
+      <file name="Mail.php" role="horde" />
+      <file name="MailboxList.php" role="horde" />
+      <file name="MimeViewer.php" role="horde" />
+      <file name="Pgp.php" role="horde" />
+      <file name="Quota.php" role="horde" />
+      <file name="Search.php" role="horde" />
+      <file name="Sentmail.php" role="horde" />
+      <file name="Smime.php" role="horde" />
+     </dir> <!-- /lib/Injector/Factory -->
+    </dir> <!-- /lib/Injector -->
+    <dir name="LoginTasks">
+     <dir name="SystemTask">
+      <file name="GarbageCollection.php" role="horde" />
+      <file name="UpgradeFromImp4.php" role="horde" />
+      <file name="UpgradeFromImp4Auth.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/SystemTask -->
+     <dir name="Task">
+      <file name="DeleteAttachmentsMonthly.php" role="horde" />
+      <file name="DeleteSentmailMonthly.php" role="horde" />
+      <file name="PurgeSentmail.php" role="horde" />
+      <file name="PurgeSpam.php" role="horde" />
+      <file name="PurgeTrash.php" role="horde" />
+      <file name="RenameSentmailMonthly.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/Task -->
+    </dir> <!-- /lib/LoginTasks -->
+    <dir name="Mailbox">
+     <dir name="List">
+      <file name="Track.php" role="horde" />
+     </dir> <!-- /lib/Mailbox/List -->
+     <file name="List.php" role="horde" />
+    </dir> <!-- /lib/Mailbox -->
+    <dir name="Menu">
+     <file name="Dimp.php" role="horde" />
+    </dir> <!-- /lib/Menu -->
+    <dir name="Mime">
+     <dir name="Viewer">
+      <file name="Alternative.php" role="horde" />
+      <file name="Appledouble.php" role="horde" />
+      <file name="Enriched.php" role="horde" />
+      <file name="Html.php" role="horde" />
+      <file name="Images.php" role="horde" />
+      <file name="Itip.php" role="horde" />
+      <file name="Mdn.php" role="horde" />
+      <file name="Partial.php" role="horde" />
+      <file name="Pdf.php" role="horde" />
+      <file name="Pgp.php" role="horde" />
+      <file name="Plain.php" role="horde" />
+      <file name="Related.php" role="horde" />
+      <file name="Rfc822.php" role="horde" />
+      <file name="Smil.php" role="horde" />
+      <file name="Smime.php" role="horde" />
+      <file name="Status.php" role="horde" />
+      <file name="Vcard.php" role="horde" />
+      <file name="Zip.php" role="horde" />
+     </dir> <!-- /lib/Mime/Viewer -->
+    </dir> <!-- /lib/Mime -->
+    <dir name="Notification">
+     <dir name="Event">
+      <file name="Status.php" role="horde" />
+     </dir> <!-- /lib/Notification/Event -->
+     <dir name="Handler">
+      <dir name="Decorator">
+       <file name="Imap.php" role="horde" />
+      </dir> <!-- /lib/Notification/Handler/Decorator -->
+     </dir> <!-- /lib/Notification/Handler -->
+     <dir name="Listener">
+      <file name="AjaxStatus.php" role="horde" />
+     </dir> <!-- /lib/Notification/Listener -->
+    </dir> <!-- /lib/Notification -->
+    <dir name="Prefs">
+     <file name="Identity.php" role="horde" />
+     <file name="Ui.php" role="horde" />
+    </dir> <!-- /lib/Prefs -->
+    <dir name="Quota">
+     <file name="Base.php" role="horde" />
+     <file name="Command.php" role="horde" />
+     <file name="Hook.php" role="horde" />
+     <file name="Imap.php" role="horde" />
+     <file name="Maildir.php" role="horde" />
+     <file name="Mdaemon.php" role="horde" />
+     <file name="Mercury32.php" role="horde" />
+     <file name="Null.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Quota -->
+    <dir name="Search">
+     <dir name="Element">
+      <file name="Attachment.php" role="horde" />
+      <file name="Bulk.php" role="horde" />
+      <file name="Date.php" role="horde" />
+      <file name="Flag.php" role="horde" />
+      <file name="Header.php" role="horde" />
+      <file name="Mailinglist.php" role="horde" />
+      <file name="Or.php" role="horde" />
+      <file name="Personal.php" role="horde" />
+      <file name="Recipient.php" role="horde" />
+      <file name="Size.php" role="horde" />
+      <file name="Text.php" role="horde" />
+      <file name="Within.php" role="horde" />
+     </dir> <!-- /lib/Search/Element -->
+     <dir name="Filter">
+      <file name="Attachment.php" role="horde" />
+      <file name="Builtin.php" role="horde" />
+      <file name="Bulk.php" role="horde" />
+      <file name="Mailinglist.php" role="horde" />
+      <file name="Personal.php" role="horde" />
+     </dir> <!-- /lib/Search/Filter -->
+     <dir name="Vfolder">
+      <file name="Builtin.php" role="horde" />
+      <file name="Vinbox.php" role="horde" />
+      <file name="Vtrash.php" role="horde" />
+     </dir> <!-- /lib/Search/Vfolder -->
+     <file name="Element.php" role="horde" />
+     <file name="Filter.php" role="horde" />
+     <file name="Query.php" role="horde" />
+     <file name="Vfolder.php" role="horde" />
+    </dir> <!-- /lib/Search -->
+    <dir name="Sentmail">
+     <file name="Base.php" role="horde" />
+     <file name="Null.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Sentmail -->
+    <dir name="tests">
+     <dir name="Imp">
+      <dir name="fixtures">
+       <file name="maildirsize" role="horde" />
+      </dir> <!-- /lib/tests/Imp/fixtures -->
+      <dir name="Stub">
+       <file name="HtmlViewer.php" role="horde" />
+      </dir> <!-- /lib/tests/Imp/Stub -->
+      <dir name="Unit">
+       <dir name="Mime">
+        <dir name="Viewer">
+         <file name="HtmlTest.php" role="horde" />
+         <file name="ItipTest.php" role="horde" />
+        </dir> <!-- /lib/tests/Imp/Unit/Mime/Viewer -->
+       </dir> <!-- /lib/tests/Imp/Unit/Mime -->
+       <file name="QuotaTest.php" role="horde" />
+      </dir> <!-- /lib/tests/Imp/Unit -->
+      <file name="AllTests.php" role="horde" />
+      <file name="Autoload.php" role="horde" />
+      <file name="phpunit.xml" role="horde" />
+     </dir> <!-- /lib/tests/Imp -->
+    </dir> <!-- /lib/tests -->
+    <dir name="Tree">
+     <file name="Flist.php" role="horde" />
+    </dir> <!-- /lib/Tree -->
+    <dir name="Ui">
+     <file name="Block.php" role="horde" />
+     <file name="Compose.php" role="horde" />
+     <file name="Editor.php" role="horde" />
+     <file name="Headers.php" role="horde" />
+     <file name="Imageview.php" role="horde" />
+     <file name="Mailbox.php" role="horde" />
+     <file name="Message.php" role="horde" />
+     <file name="Mimp.php" role="horde" />
+    </dir> <!-- /lib/Ui -->
+    <dir name="Views">
+     <file name="Compose.php" role="horde" />
+     <file name="ListMessages.php" role="horde" />
+     <file name="ShowMessage.php" role="horde" />
+    </dir> <!-- /lib/Views -->
+    <file name="Accounts.php" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Auth.php" role="horde" />
+    <file name="Compose.php" role="horde" />
+    <file name="Contents.php" role="horde" />
+    <file name="Dimp.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Filter.php" role="horde" />
+    <file name="Folder.php" role="horde" />
+    <file name="Imap.php" role="horde" />
+    <file name="IMP.php" role="horde" />
+    <file name="Indices.php" role="horde" />
+    <file name="Maillog.php" role="horde" />
+    <file name="Message.php" role="horde" />
+    <file name="Quota.php" role="horde" />
+    <file name="Search.php" role="horde" />
+    <file name="Sentmail.php" role="horde" />
+    <file name="Spam.php" role="horde" />
+    <file name="Test.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="ar_OM">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/ar_OM/LC_MESSAGES -->
+    </dir> <!-- /locale/ar_OM -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/sv -->
+    <dir name="th">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/th/LC_MESSAGES -->
+    </dir> <!-- /locale/th -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="imp.mo" role="horde" />
+      <file name="imp.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/zh_TW -->
+    <file name="imp.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_imp_base_tables.php" role="horde" />
+    <file name="2_imp_autoincrement_sentmail.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="scripts">
+    <file name="bounce_spam.php" role="horde" />
+    <file name="query-imap-cache.php" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="dimp">
+     <dir name="compose">
+      <file name="compose-base.html" role="horde" />
+      <file name="compose.html" role="horde" />
+     </dir> <!-- /templates/dimp/compose -->
+     <dir name="message">
+      <file name="message.html" role="horde" />
+     </dir> <!-- /templates/dimp/message -->
+     <dir name="portal">
+      <file name="portal.html" role="horde" />
+     </dir> <!-- /templates/dimp/portal -->
+     <file name="index.inc" role="horde" />
+     <file name="javascript_defs.php" role="horde" />
+    </dir> <!-- /templates/dimp -->
+    <dir name="imp">
+     <dir name="compose">
+      <file name="compose.html" role="horde" />
+      <file name="redirect.html" role="horde" />
+      <file name="success.html" role="horde" />
+     </dir> <!-- /templates/imp/compose -->
+     <dir name="contacts">
+      <file name="contacts.html" role="horde" />
+     </dir> <!-- /templates/imp/contacts -->
+     <dir name="flist">
+      <file name="flist.html" role="horde" />
+     </dir> <!-- /templates/imp/flist -->
+     <dir name="folders">
+      <file name="actions.html" role="horde" />
+      <file name="folders_confirm.html" role="horde" />
+      <file name="folders_size.html" role="horde" />
+      <file name="head.html" role="horde" />
+      <file name="import.html" role="horde" />
+     </dir> <!-- /templates/imp/folders -->
+     <dir name="mailbox">
+      <file name="actions.html" role="horde" />
+      <file name="actions_deleted.html" role="horde" />
+      <file name="empty_mailbox.html" role="horde" />
+      <file name="form_start.html" role="horde" />
+      <file name="header.html" role="horde" />
+      <file name="mailbox.html" role="horde" />
+      <file name="message_headers.html" role="horde" />
+      <file name="navbar.html" role="horde" />
+      <file name="searchfolder.html" role="horde" />
+     </dir> <!-- /templates/imp/mailbox -->
+     <dir name="menu">
+      <file name="menu.html" role="horde" />
+     </dir> <!-- /templates/imp/menu -->
+     <dir name="message">
+      <file name="message.html" role="horde" />
+      <file name="navbar_actions.html" role="horde" />
+      <file name="navbar_navigate.html" role="horde" />
+      <file name="navbar_top.html" role="horde" />
+     </dir> <!-- /templates/imp/message -->
+     <dir name="search">
+      <file name="search-basic.html" role="horde" />
+      <file name="search.html" role="horde" />
+     </dir> <!-- /templates/imp/search -->
+     <dir name="thread">
+      <file name="thread.html" role="horde" />
+     </dir> <!-- /templates/imp/thread -->
+     <file name="javascript_defs.php" role="horde" />
+    </dir> <!-- /templates/imp -->
+    <dir name="mimp">
+     <dir name="compose">
+      <file name="compose.html" role="horde" />
+     </dir> <!-- /templates/mimp/compose -->
+     <dir name="folders">
+      <file name="folders.html" role="horde" />
+     </dir> <!-- /templates/mimp/folders -->
+     <dir name="mailbox">
+      <file name="mailbox.html" role="horde" />
+      <file name="search.html" role="horde" />
+     </dir> <!-- /templates/mimp/mailbox -->
+     <dir name="message">
+      <file name="message.html" role="horde" />
+      <file name="part.html" role="horde" />
+     </dir> <!-- /templates/mimp/message -->
+    </dir> <!-- /templates/mimp -->
+    <dir name="mobile">
+     <file name="folders.html.php" role="horde" />
+     <file name="head.html.php" role="horde" />
+     <file name="javascript_defs.php" role="horde" />
+     <file name="mailbox.html.php" role="horde" />
+     <file name="message.html.php" role="horde" />
+     <file name="notice.html.php" role="horde" />
+    </dir> <!-- /templates/mobile -->
+    <dir name="newmsg">
+     <file name="alert.html" role="horde" />
+    </dir> <!-- /templates/newmsg -->
+    <dir name="pgp">
+     <file name="import_key.html" role="horde" />
+    </dir> <!-- /templates/pgp -->
+    <dir name="prefs">
+     <file name="accounts.html" role="horde" />
+     <file name="acl.html" role="horde" />
+     <file name="drafts.html" role="horde" />
+     <file name="encrypt.html" role="horde" />
+     <file name="flags.html" role="horde" />
+     <file name="initialpage.html" role="horde" />
+     <file name="mailto.html" role="horde" />
+     <file name="pgpprivatekey.html" role="horde" />
+     <file name="pgppublickey.html" role="horde" />
+     <file name="searches.html" role="horde" />
+     <file name="sentmail.html" role="horde" />
+     <file name="signaturehtml.html" role="horde" />
+     <file name="smimeprivatekey.html" role="horde" />
+     <file name="smimepublickey.html" role="horde" />
+     <file name="sound.html" role="horde" />
+     <file name="spam.html" role="horde" />
+     <file name="specialuse.html" role="horde" />
+     <file name="stationery.html" role="horde" />
+     <file name="trash.html" role="horde" />
+    </dir> <!-- /templates/prefs -->
+    <dir name="print">
+     <file name="headers.html" role="horde" />
+     <file name="print.html" role="horde" />
+    </dir> <!-- /templates/print -->
+    <dir name="quota">
+     <file name="quota.html" role="horde" />
+    </dir> <!-- /templates/quota -->
+    <dir name="rss">
+     <file name="mailbox.rss" role="horde" />
+    </dir> <!-- /templates/rss -->
+    <dir name="saveimage">
+     <file name="saveimage.html" role="horde" />
+    </dir> <!-- /templates/saveimage -->
+    <dir name="smime">
+     <file name="import_key.html" role="horde" />
+    </dir> <!-- /templates/smime -->
+    <dir name="test">
+     <file name="mailserver.inc" role="horde" />
+    </dir> <!-- /templates/test -->
+    <file name="common-header.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="azur">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/azur -->
+    <dir name="bluemoon">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/bluemoon -->
+    <dir name="bluewhite">
+     <dir name="dimp">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/bluewhite/dimp -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/bluewhite -->
+    <dir name="brown">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/brown -->
+    <dir name="burntorange">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/burntorange -->
+    <dir name="cornflower">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/cornflower -->
+    <dir name="default">
+     <dir name="dimp">
+      <file name="ie7.css" role="horde" />
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/dimp -->
+     <dir name="graphics">
+      <dir name="folders">
+       <file name="create.png" role="horde" />
+       <file name="delete.png" role="horde" />
+       <file name="drafts.png" role="horde" />
+       <file name="edit.png" role="horde" />
+       <file name="folder.png" role="horde" />
+       <file name="inbox.png" role="horde" />
+       <file name="minus.png" role="horde" />
+       <file name="open.png" role="horde" />
+       <file name="plus.png" role="horde" />
+       <file name="sent.png" role="horde" />
+       <file name="spam.png" role="horde" />
+       <file name="trash.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/folders -->
+      <dir name="mime">
+       <file name="apple.png" role="horde" />
+       <file name="compressed.png" role="horde" />
+       <file name="itip.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/mime -->
+      <file name="addressbook_add.png" role="horde" />
+      <file name="addressbook_browse.png" role="horde" />
+      <file name="add_contact.png" role="horde" />
+      <file name="application_tile_horizontal.png" role="horde" />
+      <file name="application_tile_vertical.png" role="horde" />
+      <file name="arrow_collapsed.png" role="horde" />
+      <file name="arrow_expanded.png" role="horde" />
+      <file name="attachment.png" role="horde" />
+      <file name="backhead_orderby.png" role="horde" />
+      <file name="backhead_r.png" role="horde" />
+      <file name="backhead_s2.png" role="horde" />
+      <file name="backhead_shadow.png" role="horde" />
+      <file name="blacklist.png" role="horde" />
+      <file name="calendar.png" role="horde" />
+      <file name="checkbox_off.png" role="horde" />
+      <file name="checkbox_on.png" role="horde" />
+      <file name="checkbox_over.png" role="horde" />
+      <file name="checkmail.png" role="horde" />
+      <file name="close.png" role="horde" />
+      <file name="compose.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="drafts.png" role="horde" />
+      <file name="dragHandle.png" role="horde" />
+      <file name="dragHandleVert.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="empty_spam.png" role="horde" />
+      <file name="empty_trash.png" role="horde" />
+      <file name="encrypted.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="fetchmail.png" role="horde" />
+      <file name="filters.png" role="horde" />
+      <file name="forward.png" role="horde" />
+      <file name="gallery.png" role="horde" />
+      <file name="ham.png" role="horde" />
+      <file name="ico_message_off.png" role="horde" />
+      <file name="imp.png" role="horde" />
+      <file name="info_icon.png" role="horde" />
+      <file name="key_down.png" role="horde" />
+      <file name="key_up.png" role="horde" />
+      <file name="loading.gif" role="horde" />
+      <file name="logo.png" role="horde" />
+      <file name="logout.png" role="horde" />
+      <file name="mail_answered.png" role="horde" />
+      <file name="mail_clearflag.png" role="horde" />
+      <file name="mail_deleted.png" role="horde" />
+      <file name="mail_draft.png" role="horde" />
+      <file name="mail_flagged.png" role="horde" />
+      <file name="mail_forwarded.png" role="horde" />
+      <file name="mail_personal.png" role="horde" />
+      <file name="mail_priority_high.png" role="horde" />
+      <file name="mail_priority_low.png" role="horde" />
+      <file name="mail_seen.png" role="horde" />
+      <file name="mail_unseen.png" role="horde" />
+      <file name="manage_attachments.png" role="horde" />
+      <file name="message_source.png" role="horde" />
+      <file name="mini-error.png" role="horde" />
+      <file name="newmail.png" role="horde" />
+      <file name="newwin.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="popdown.png" role="horde" />
+      <file name="prefs.png" role="horde" />
+      <file name="preview.png" role="horde" />
+      <file name="print.png" role="horde" />
+      <file name="quotaback.jpg" role="horde" />
+      <file name="quotauncover.gif" role="horde" />
+      <file name="reload.png" role="horde" />
+      <file name="reply.png" role="horde" />
+      <file name="replyall.png" role="horde" />
+      <file name="sbcursor_bottom.png" role="horde" />
+      <file name="sbcursor_top.png" role="horde" />
+      <file name="scroller.png" role="horde" />
+      <file name="scroller_back.png" role="horde" />
+      <file name="select.png" role="horde" />
+      <file name="shared.png" role="horde" />
+      <file name="signed.png" role="horde" />
+      <file name="sortdown.png" role="horde" />
+      <file name="sortup.png" role="horde" />
+      <file name="spacer_red.png" role="horde" />
+      <file name="spam.png" role="horde" />
+      <file name="spellcheck.png" role="horde" />
+      <file name="undelete.png" role="horde" />
+      <file name="warning.png" role="horde" />
+      <file name="whitelist.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <dir name="mimp">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/mimp -->
+     <file name="ie6_or_less.css" role="horde" />
+     <file name="ie7.css" role="horde" />
+     <file name="mobile.css" role="horde" />
+     <file name="rtl.css" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+    <dir name="fadetogreen">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/fadetogreen -->
+    <dir name="gennevilliers">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/gennevilliers -->
+    <dir name="green">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/green -->
+    <dir name="grey">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/grey -->
+    <dir name="ideas">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/ideas -->
+    <dir name="lavander">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/lavander -->
+    <dir name="luc">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/luc -->
+    <dir name="lucblue">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/lucblue -->
+    <dir name="mozilla">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/mozilla -->
+    <dir name="postnuke">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/postnuke -->
+    <dir name="silver">
+     <dir name="dimp">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/silver/dimp -->
+     <dir name="graphics">
+      <dir name="folders">
+       <file name="create.png" role="horde" />
+       <file name="delete.png" role="horde" />
+       <file name="drafts.png" role="horde" />
+       <file name="edit.png" role="horde" />
+       <file name="explore.png" role="horde" />
+       <file name="folder.png" role="horde" />
+       <file name="inbox.png" role="horde" />
+       <file name="minus.png" role="horde" />
+       <file name="open.png" role="horde" />
+       <file name="plus.png" role="horde" />
+       <file name="sent.png" role="horde" />
+       <file name="spam.png" role="horde" />
+       <file name="trash.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/folders -->
+      <file name="addressbook_add.png" role="horde" />
+      <file name="addressbook_browse.png" role="horde" />
+      <file name="add_contact.png" role="horde" />
+      <file name="application_tile_horizontal.png" role="horde" />
+      <file name="application_tile_vertical.png" role="horde" />
+      <file name="arrow_collapsed.png" role="horde" />
+      <file name="arrow_expanded.png" role="horde" />
+      <file name="attachment.png" role="horde" />
+      <file name="blacklist.png" role="horde" />
+      <file name="calendar.png" role="horde" />
+      <file name="checkmail.png" role="horde" />
+      <file name="close.png" role="horde" />
+      <file name="compose.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="drafts.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="empty_spam.png" role="horde" />
+      <file name="empty_trash.png" role="horde" />
+      <file name="encrypted.png" role="horde" />
+      <file name="fetchmail.png" role="horde" />
+      <file name="filters.png" role="horde" />
+      <file name="forward.png" role="horde" />
+      <file name="ham.png" role="horde" />
+      <file name="imp.png" role="horde" />
+      <file name="info_icon.png" role="horde" />
+      <file name="locked.png" role="horde" />
+      <file name="logout.png" role="horde" />
+      <file name="mail_answered.png" role="horde" />
+      <file name="mail_clearflag.png" role="horde" />
+      <file name="mail_deleted.png" role="horde" />
+      <file name="mail_draft.png" role="horde" />
+      <file name="mail_flagged.png" role="horde" />
+      <file name="mail_forwarded.png" role="horde" />
+      <file name="mail_personal.png" role="horde" />
+      <file name="mail_priority_high.png" role="horde" />
+      <file name="mail_priority_low.png" role="horde" />
+      <file name="mail_seen.png" role="horde" />
+      <file name="mail_unseen.png" role="horde" />
+      <file name="manage_attachments.png" role="horde" />
+      <file name="message_source.png" role="horde" />
+      <file name="newmail.png" role="horde" />
+      <file name="newwin.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="popdown.png" role="horde" />
+      <file name="prefs.png" role="horde" />
+      <file name="preview.png" role="horde" />
+      <file name="print.png" role="horde" />
+      <file name="reload.png" role="horde" />
+      <file name="reply.png" role="horde" />
+      <file name="replyall.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="shared.png" role="horde" />
+      <file name="signed.png" role="horde" />
+      <file name="sortdown.png" role="horde" />
+      <file name="sortup.png" role="horde" />
+      <file name="spam.png" role="horde" />
+      <file name="spellcheck.png" role="horde" />
+      <file name="undelete.png" role="horde" />
+      <file name="warning.png" role="horde" />
+      <file name="whitelist.png" role="horde" />
+     </dir> <!-- /themes/silver/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/silver -->
+    <dir name="simplex">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/simplex -->
+    <dir name="tango-blue">
+     <dir name="dimp">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/tango-blue/dimp -->
+     <dir name="graphics">
+      <dir name="folders">
+       <file name="drafts.png" role="horde" />
+       <file name="folder.png" role="horde" />
+       <file name="inbox.png" role="horde" />
+       <file name="open.png" role="horde" />
+       <file name="sent.png" role="horde" />
+       <file name="spam.png" role="horde" />
+       <file name="trash.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/folders -->
+      <file name="addressbook_browse.png" role="horde" />
+      <file name="attachment.png" role="horde" />
+      <file name="calendar.png" role="horde" />
+      <file name="close.png" role="horde" />
+      <file name="compose.png" role="horde" />
+      <file name="empty_trash.png" role="horde" />
+      <file name="encrypted.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="fetchmail.png" role="horde" />
+      <file name="filters.png" role="horde" />
+      <file name="imp.png" role="horde" />
+      <file name="mail_answered.png" role="horde" />
+      <file name="mail_deleted.png" role="horde" />
+      <file name="mail_draft.png" role="horde" />
+      <file name="mail_flagged.png" role="horde" />
+      <file name="mail_personal.png" role="horde" />
+      <file name="mail_priority_high.png" role="horde" />
+      <file name="mail_priority_low.png" role="horde" />
+      <file name="mail_unseen.png" role="horde" />
+      <file name="manage_attachments.png" role="horde" />
+      <file name="newmail.png" role="horde" />
+      <file name="reload.png" role="horde" />
+      <file name="shared.png" role="horde" />
+      <file name="signed.png" role="horde" />
+      <file name="spellcheck.png" role="horde" />
+     </dir> <!-- /themes/tango-blue/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/tango-blue -->
+   </dir> <!-- /themes -->
+   <file name="attachment.php" role="horde" />
+   <file name="compose-dimp.php" role="horde" />
+   <file name="compose-mimp.php" role="horde" />
+   <file name="compose.php" role="horde" />
+   <file name="contacts.php" role="horde" />
+   <file name="COPYING" role="horde" />
+   <file name="folders-mimp.php" role="horde" />
+   <file name="folders.php" role="horde" />
+   <file name="index-dimp.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="mailbox-mimp.php" role="horde" />
+   <file name="mailbox.php" role="horde" />
+   <file name="message-dimp.php" role="horde" />
+   <file name="message-mimp.php" role="horde" />
+   <file name="message.php" role="horde" />
+   <file name="mobile.php" role="horde" />
+   <file name="pgp.php" role="horde" />
+   <file name="README" role="horde" />
+   <file name="rss.php" role="horde" />
+   <file name="saveimage.php" role="horde" />
+   <file name="search-basic.php" role="horde" />
+   <file name="search.php" role="horde" />
+   <file name="smime.php" role="horde" />
+   <file name="thread.php" role="horde" />
+   <file name="view.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Image</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="imp/config/backends.php.dist" name="config/backends.php.dist" />
+   <install as="imp/config/conf.xml" name="config/conf.xml" />
+   <install as="imp/config/filter.txt.dist" name="config/filter.txt.dist" />
+   <install as="imp/config/hooks.php.dist" name="config/hooks.php.dist" />
+   <install as="imp/config/menu.php.dist" name="config/menu.php.dist" />
+   <install as="imp/config/mime_drivers.php.dist" name="config/mime_drivers.php.dist" />
+   <install as="imp/config/portal.php.dist" name="config/portal.php.dist" />
+   <install as="imp/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="imp/docs/CHANGES" name="docs/CHANGES" />
+   <install as="imp/docs/CREDITS" name="docs/CREDITS" />
+   <install as="imp/docs/INSTALL" name="docs/INSTALL" />
+   <install as="imp/docs/RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="imp/docs/RFCS" name="docs/RFCS" />
+   <install as="imp/docs/UPGRADING" name="docs/UPGRADING" />
+   <install as="imp/js/accountsprefs.js" name="js/accountsprefs.js" />
+   <install as="imp/js/acl.js" name="js/acl.js" />
+   <install as="imp/js/compose-base.js" name="js/compose-base.js" />
+   <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
+   <install as="imp/js/compose.js" name="js/compose.js" />
+   <install as="imp/js/contacts.js" name="js/contacts.js" />
+   <install as="imp/js/dialog.js" name="js/dialog.js" />
+   <install as="imp/js/dimpbase.js" name="js/dimpbase.js" />
+   <install as="imp/js/dimpcore.js" name="js/dimpcore.js" />
+   <install as="imp/js/flagprefs.js" name="js/flagprefs.js" />
+   <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
+   <install as="imp/js/folders.js" name="js/folders.js" />
+   <install as="imp/js/fullmessage-dimp.js" name="js/fullmessage-dimp.js" />
+   <install as="imp/js/imp.js" name="js/imp.js" />
+   <install as="imp/js/login.js" name="js/login.js" />
+   <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />
+   <install as="imp/js/mailbox.js" name="js/mailbox.js" />
+   <install as="imp/js/message.js" name="js/message.js" />
+   <install as="imp/js/mobile.js" name="js/mobile.js" />
+   <install as="imp/js/search.js" name="js/search.js" />
+   <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
+   <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
+   <install as="imp/js/viewport.js" name="js/viewport.js" />
+   <install as="imp/lib/Accounts.php" name="lib/Accounts.php" />
+   <install as="imp/lib/Api.php" name="lib/Api.php" />
+   <install as="imp/lib/Application.php" name="lib/Application.php" />
+   <install as="imp/lib/Auth.php" name="lib/Auth.php" />
+   <install as="imp/lib/Compose.php" name="lib/Compose.php" />
+   <install as="imp/lib/Contents.php" name="lib/Contents.php" />
+   <install as="imp/lib/Dimp.php" name="lib/Dimp.php" />
+   <install as="imp/lib/Exception.php" name="lib/Exception.php" />
+   <install as="imp/lib/Filter.php" name="lib/Filter.php" />
+   <install as="imp/lib/Folder.php" name="lib/Folder.php" />
+   <install as="imp/lib/Imap.php" name="lib/Imap.php" />
+   <install as="imp/lib/IMP.php" name="lib/IMP.php" />
+   <install as="imp/lib/Indices.php" name="lib/Indices.php" />
+   <install as="imp/lib/Maillog.php" name="lib/Maillog.php" />
+   <install as="imp/lib/Message.php" name="lib/Message.php" />
+   <install as="imp/lib/Quota.php" name="lib/Quota.php" />
+   <install as="imp/lib/Search.php" name="lib/Search.php" />
+   <install as="imp/lib/Sentmail.php" name="lib/Sentmail.php" />
+   <install as="imp/lib/Spam.php" name="lib/Spam.php" />
+   <install as="imp/lib/Test.php" name="lib/Test.php" />
+   <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
+   <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
+   <install as="imp/lib/Block/Foldersummary.php" name="lib/Block/Foldersummary.php" />
+   <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
+   <install as="imp/lib/Block/summary.php" name="lib/Block/summary.php" />
+   <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
+   <install as="imp/lib/Compose/Stationery.php" name="lib/Compose/Stationery.php" />
+   <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
+   <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
+   <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
+   <install as="imp/lib/Imap/Flags.php" name="lib/Imap/Flags.php" />
+   <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
+   <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
+   <install as="imp/lib/Imap/Tree/Element.php" name="lib/Imap/Tree/Element.php" />
+   <install as="imp/lib/Injector/Factory/AuthImap.php" name="lib/Injector/Factory/AuthImap.php" />
+   <install as="imp/lib/Injector/Factory/Compose.php" name="lib/Injector/Factory/Compose.php" />
+   <install as="imp/lib/Injector/Factory/Contents.php" name="lib/Injector/Factory/Contents.php" />
+   <install as="imp/lib/Injector/Factory/Identity.php" name="lib/Injector/Factory/Identity.php" />
+   <install as="imp/lib/Injector/Factory/Imap.php" name="lib/Injector/Factory/Imap.php" />
+   <install as="imp/lib/Injector/Factory/Imaptree.php" name="lib/Injector/Factory/Imaptree.php" />
+   <install as="imp/lib/Injector/Factory/Mail.php" name="lib/Injector/Factory/Mail.php" />
+   <install as="imp/lib/Injector/Factory/MailboxList.php" name="lib/Injector/Factory/MailboxList.php" />
+   <install as="imp/lib/Injector/Factory/MimeViewer.php" name="lib/Injector/Factory/MimeViewer.php" />
+   <install as="imp/lib/Injector/Factory/Pgp.php" name="lib/Injector/Factory/Pgp.php" />
+   <install as="imp/lib/Injector/Factory/Quota.php" name="lib/Injector/Factory/Quota.php" />
+   <install as="imp/lib/Injector/Factory/Search.php" name="lib/Injector/Factory/Search.php" />
+   <install as="imp/lib/Injector/Factory/Sentmail.php" name="lib/Injector/Factory/Sentmail.php" />
+   <install as="imp/lib/Injector/Factory/Smime.php" name="lib/Injector/Factory/Smime.php" />
+   <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
+   <install as="imp/lib/LoginTasks/SystemTask/UpgradeFromImp4.php" name="lib/LoginTasks/SystemTask/UpgradeFromImp4.php" />
+   <install as="imp/lib/LoginTasks/SystemTask/UpgradeFromImp4Auth.php" name="lib/LoginTasks/SystemTask/UpgradeFromImp4Auth.php" />
+   <install as="imp/lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" name="lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" />
+   <install as="imp/lib/LoginTasks/Task/DeleteSentmailMonthly.php" name="lib/LoginTasks/Task/DeleteSentmailMonthly.php" />
+   <install as="imp/lib/LoginTasks/Task/PurgeSentmail.php" name="lib/LoginTasks/Task/PurgeSentmail.php" />
+   <install as="imp/lib/LoginTasks/Task/PurgeSpam.php" name="lib/LoginTasks/Task/PurgeSpam.php" />
+   <install as="imp/lib/LoginTasks/Task/PurgeTrash.php" name="lib/LoginTasks/Task/PurgeTrash.php" />
+   <install as="imp/lib/LoginTasks/Task/RenameSentmailMonthly.php" name="lib/LoginTasks/Task/RenameSentmailMonthly.php" />
+   <install as="imp/lib/Mailbox/List.php" name="lib/Mailbox/List.php" />
+   <install as="imp/lib/Mailbox/List/Track.php" name="lib/Mailbox/List/Track.php" />
+   <install as="imp/lib/Menu/Dimp.php" name="lib/Menu/Dimp.php" />
+   <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
+   <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
+   <install as="imp/lib/Mime/Viewer/Enriched.php" name="lib/Mime/Viewer/Enriched.php" />
+   <install as="imp/lib/Mime/Viewer/Html.php" name="lib/Mime/Viewer/Html.php" />
+   <install as="imp/lib/Mime/Viewer/Images.php" name="lib/Mime/Viewer/Images.php" />
+   <install as="imp/lib/Mime/Viewer/Itip.php" name="lib/Mime/Viewer/Itip.php" />
+   <install as="imp/lib/Mime/Viewer/Mdn.php" name="lib/Mime/Viewer/Mdn.php" />
+   <install as="imp/lib/Mime/Viewer/Partial.php" name="lib/Mime/Viewer/Partial.php" />
+   <install as="imp/lib/Mime/Viewer/Pdf.php" name="lib/Mime/Viewer/Pdf.php" />
+   <install as="imp/lib/Mime/Viewer/Pgp.php" name="lib/Mime/Viewer/Pgp.php" />
+   <install as="imp/lib/Mime/Viewer/Plain.php" name="lib/Mime/Viewer/Plain.php" />
+   <install as="imp/lib/Mime/Viewer/Related.php" name="lib/Mime/Viewer/Related.php" />
+   <install as="imp/lib/Mime/Viewer/Rfc822.php" name="lib/Mime/Viewer/Rfc822.php" />
+   <install as="imp/lib/Mime/Viewer/Smil.php" name="lib/Mime/Viewer/Smil.php" />
+   <install as="imp/lib/Mime/Viewer/Smime.php" name="lib/Mime/Viewer/Smime.php" />
+   <install as="imp/lib/Mime/Viewer/Status.php" name="lib/Mime/Viewer/Status.php" />
+   <install as="imp/lib/Mime/Viewer/Vcard.php" name="lib/Mime/Viewer/Vcard.php" />
+   <install as="imp/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
+   <install as="imp/lib/Notification/Event/Status.php" name="lib/Notification/Event/Status.php" />
+   <install as="imp/lib/Notification/Handler/Decorator/Imap.php" name="lib/Notification/Handler/Decorator/Imap.php" />
+   <install as="imp/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
+   <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
+   <install as="imp/lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
+   <install as="imp/lib/Quota/Base.php" name="lib/Quota/Base.php" />
+   <install as="imp/lib/Quota/Command.php" name="lib/Quota/Command.php" />
+   <install as="imp/lib/Quota/Hook.php" name="lib/Quota/Hook.php" />
+   <install as="imp/lib/Quota/Imap.php" name="lib/Quota/Imap.php" />
+   <install as="imp/lib/Quota/Maildir.php" name="lib/Quota/Maildir.php" />
+   <install as="imp/lib/Quota/Mdaemon.php" name="lib/Quota/Mdaemon.php" />
+   <install as="imp/lib/Quota/Mercury32.php" name="lib/Quota/Mercury32.php" />
+   <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
+   <install as="imp/lib/Quota/Sql.php" name="lib/Quota/Sql.php" />
+   <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
+   <install as="imp/lib/Search/Filter.php" name="lib/Search/Filter.php" />
+   <install as="imp/lib/Search/Query.php" name="lib/Search/Query.php" />
+   <install as="imp/lib/Search/Vfolder.php" name="lib/Search/Vfolder.php" />
+   <install as="imp/lib/Search/Element/Attachment.php" name="lib/Search/Element/Attachment.php" />
+   <install as="imp/lib/Search/Element/Bulk.php" name="lib/Search/Element/Bulk.php" />
+   <install as="imp/lib/Search/Element/Date.php" name="lib/Search/Element/Date.php" />
+   <install as="imp/lib/Search/Element/Flag.php" name="lib/Search/Element/Flag.php" />
+   <install as="imp/lib/Search/Element/Header.php" name="lib/Search/Element/Header.php" />
+   <install as="imp/lib/Search/Element/Mailinglist.php" name="lib/Search/Element/Mailinglist.php" />
+   <install as="imp/lib/Search/Element/Or.php" name="lib/Search/Element/Or.php" />
+   <install as="imp/lib/Search/Element/Personal.php" name="lib/Search/Element/Personal.php" />
+   <install as="imp/lib/Search/Element/Recipient.php" name="lib/Search/Element/Recipient.php" />
+   <install as="imp/lib/Search/Element/Size.php" name="lib/Search/Element/Size.php" />
+   <install as="imp/lib/Search/Element/Text.php" name="lib/Search/Element/Text.php" />
+   <install as="imp/lib/Search/Element/Within.php" name="lib/Search/Element/Within.php" />
+   <install as="imp/lib/Search/Filter/Attachment.php" name="lib/Search/Filter/Attachment.php" />
+   <install as="imp/lib/Search/Filter/Builtin.php" name="lib/Search/Filter/Builtin.php" />
+   <install as="imp/lib/Search/Filter/Bulk.php" name="lib/Search/Filter/Bulk.php" />
+   <install as="imp/lib/Search/Filter/Mailinglist.php" name="lib/Search/Filter/Mailinglist.php" />
+   <install as="imp/lib/Search/Filter/Personal.php" name="lib/Search/Filter/Personal.php" />
+   <install as="imp/lib/Search/Vfolder/Builtin.php" name="lib/Search/Vfolder/Builtin.php" />
+   <install as="imp/lib/Search/Vfolder/Vinbox.php" name="lib/Search/Vfolder/Vinbox.php" />
+   <install as="imp/lib/Search/Vfolder/Vtrash.php" name="lib/Search/Vfolder/Vtrash.php" />
+   <install as="imp/lib/Sentmail/Base.php" name="lib/Sentmail/Base.php" />
+   <install as="imp/lib/Sentmail/Null.php" name="lib/Sentmail/Null.php" />
+   <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
+   <install as="imp/lib/tests/Imp/AllTests.php" name="lib/tests/Imp/AllTests.php" />
+   <install as="imp/lib/tests/Imp/Autoload.php" name="lib/tests/Imp/Autoload.php" />
+   <install as="imp/lib/tests/Imp/phpunit.xml" name="lib/tests/Imp/phpunit.xml" />
+   <install as="imp/lib/tests/Imp/fixtures/maildirsize" name="lib/tests/Imp/fixtures/maildirsize" />
+   <install as="imp/lib/tests/Imp/Stub/HtmlViewer.php" name="lib/tests/Imp/Stub/HtmlViewer.php" />
+   <install as="imp/lib/tests/Imp/Unit/QuotaTest.php" name="lib/tests/Imp/Unit/QuotaTest.php" />
+   <install as="imp/lib/tests/Imp/Unit/Mime/Viewer/HtmlTest.php" name="lib/tests/Imp/Unit/Mime/Viewer/HtmlTest.php" />
+   <install as="imp/lib/tests/Imp/Unit/Mime/Viewer/ItipTest.php" name="lib/tests/Imp/Unit/Mime/Viewer/ItipTest.php" />
+   <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
+   <install as="imp/lib/Ui/Block.php" name="lib/Ui/Block.php" />
+   <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
+   <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
+   <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
+   <install as="imp/lib/Ui/Imageview.php" name="lib/Ui/Imageview.php" />
+   <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
+   <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
+   <install as="imp/lib/Ui/Mimp.php" name="lib/Ui/Mimp.php" />
+   <install as="imp/lib/Views/Compose.php" name="lib/Views/Compose.php" />
+   <install as="imp/lib/Views/ListMessages.php" name="lib/Views/ListMessages.php" />
+   <install as="imp/lib/Views/ShowMessage.php" name="lib/Views/ShowMessage.php" />
+   <install as="imp/locale/imp.pot" name="locale/imp.pot" />
+   <install as="imp/locale/ar/LC_MESSAGES/imp.mo" name="locale/ar/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/ar/LC_MESSAGES/imp.po" name="locale/ar/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/ar_OM/LC_MESSAGES/imp.mo" name="locale/ar_OM/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/ar_OM/LC_MESSAGES/imp.po" name="locale/ar_OM/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/bg/LC_MESSAGES/imp.mo" name="locale/bg/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/bg/LC_MESSAGES/imp.po" name="locale/bg/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/bs/LC_MESSAGES/imp.mo" name="locale/bs/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/bs/LC_MESSAGES/imp.po" name="locale/bs/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/ca/help.xml" name="locale/ca/help.xml" />
+   <install as="imp/locale/ca/LC_MESSAGES/imp.mo" name="locale/ca/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/ca/LC_MESSAGES/imp.po" name="locale/ca/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/cs/help.xml" name="locale/cs/help.xml" />
+   <install as="imp/locale/cs/LC_MESSAGES/imp.mo" name="locale/cs/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/cs/LC_MESSAGES/imp.po" name="locale/cs/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/da/help.xml" name="locale/da/help.xml" />
+   <install as="imp/locale/da/LC_MESSAGES/imp.mo" name="locale/da/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/da/LC_MESSAGES/imp.po" name="locale/da/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="imp/locale/de/LC_MESSAGES/imp.mo" name="locale/de/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/de/LC_MESSAGES/imp.po" name="locale/de/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/el/help.xml" name="locale/el/help.xml" />
+   <install as="imp/locale/el/LC_MESSAGES/imp.mo" name="locale/el/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/el/LC_MESSAGES/imp.po" name="locale/el/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="imp/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="imp/locale/es/LC_MESSAGES/imp.mo" name="locale/es/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/es/LC_MESSAGES/imp.po" name="locale/es/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/et/help.xml" name="locale/et/help.xml" />
+   <install as="imp/locale/et/LC_MESSAGES/imp.mo" name="locale/et/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/et/LC_MESSAGES/imp.po" name="locale/et/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/eu/help.xml" name="locale/eu/help.xml" />
+   <install as="imp/locale/eu/LC_MESSAGES/imp.mo" name="locale/eu/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/eu/LC_MESSAGES/imp.po" name="locale/eu/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/fa/help.xml" name="locale/fa/help.xml" />
+   <install as="imp/locale/fa/LC_MESSAGES/imp.mo" name="locale/fa/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/fa/LC_MESSAGES/imp.po" name="locale/fa/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="imp/locale/fi/LC_MESSAGES/imp.mo" name="locale/fi/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/fi/LC_MESSAGES/imp.po" name="locale/fi/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/fr/help.xml" name="locale/fr/help.xml" />
+   <install as="imp/locale/fr/LC_MESSAGES/imp.mo" name="locale/fr/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/fr/LC_MESSAGES/imp.po" name="locale/fr/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/gl/LC_MESSAGES/imp.mo" name="locale/gl/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/gl/LC_MESSAGES/imp.po" name="locale/gl/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/he/LC_MESSAGES/imp.mo" name="locale/he/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/he/LC_MESSAGES/imp.po" name="locale/he/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/hr/help.xml" name="locale/hr/help.xml" />
+   <install as="imp/locale/hr/LC_MESSAGES/imp.mo" name="locale/hr/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/hr/LC_MESSAGES/imp.po" name="locale/hr/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/hu/help.xml" name="locale/hu/help.xml" />
+   <install as="imp/locale/hu/LC_MESSAGES/imp.mo" name="locale/hu/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/hu/LC_MESSAGES/imp.po" name="locale/hu/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/id/LC_MESSAGES/imp.mo" name="locale/id/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/id/LC_MESSAGES/imp.po" name="locale/id/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/is/LC_MESSAGES/imp.mo" name="locale/is/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/is/LC_MESSAGES/imp.po" name="locale/is/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/it/help.xml" name="locale/it/help.xml" />
+   <install as="imp/locale/it/LC_MESSAGES/imp.mo" name="locale/it/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/it/LC_MESSAGES/imp.po" name="locale/it/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/ja/LC_MESSAGES/imp.mo" name="locale/ja/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/ja/LC_MESSAGES/imp.po" name="locale/ja/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/km/LC_MESSAGES/imp.mo" name="locale/km/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/km/LC_MESSAGES/imp.po" name="locale/km/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/ko/help.xml" name="locale/ko/help.xml" />
+   <install as="imp/locale/ko/LC_MESSAGES/imp.mo" name="locale/ko/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/ko/LC_MESSAGES/imp.po" name="locale/ko/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/lt/LC_MESSAGES/imp.mo" name="locale/lt/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/lt/LC_MESSAGES/imp.po" name="locale/lt/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/lv/LC_MESSAGES/imp.mo" name="locale/lv/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/lv/LC_MESSAGES/imp.po" name="locale/lv/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/mk/LC_MESSAGES/imp.mo" name="locale/mk/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/mk/LC_MESSAGES/imp.po" name="locale/mk/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/nb/help.xml" name="locale/nb/help.xml" />
+   <install as="imp/locale/nb/LC_MESSAGES/imp.mo" name="locale/nb/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/nb/LC_MESSAGES/imp.po" name="locale/nb/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/nl/help.xml" name="locale/nl/help.xml" />
+   <install as="imp/locale/nl/LC_MESSAGES/imp.mo" name="locale/nl/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/nl/LC_MESSAGES/imp.po" name="locale/nl/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/nn/LC_MESSAGES/imp.mo" name="locale/nn/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/nn/LC_MESSAGES/imp.po" name="locale/nn/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/pl/help.xml" name="locale/pl/help.xml" />
+   <install as="imp/locale/pl/LC_MESSAGES/imp.mo" name="locale/pl/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/pl/LC_MESSAGES/imp.po" name="locale/pl/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/pt/help.xml" name="locale/pt/help.xml" />
+   <install as="imp/locale/pt/LC_MESSAGES/imp.mo" name="locale/pt/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/pt/LC_MESSAGES/imp.po" name="locale/pt/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/pt_BR/help.xml" name="locale/pt_BR/help.xml" />
+   <install as="imp/locale/pt_BR/LC_MESSAGES/imp.mo" name="locale/pt_BR/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/pt_BR/LC_MESSAGES/imp.po" name="locale/pt_BR/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/ro/LC_MESSAGES/imp.mo" name="locale/ro/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/ro/LC_MESSAGES/imp.po" name="locale/ro/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/ru/help.xml" name="locale/ru/help.xml" />
+   <install as="imp/locale/ru/LC_MESSAGES/imp.mo" name="locale/ru/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/ru/LC_MESSAGES/imp.po" name="locale/ru/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/sk/help.xml" name="locale/sk/help.xml" />
+   <install as="imp/locale/sk/LC_MESSAGES/imp.mo" name="locale/sk/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/sk/LC_MESSAGES/imp.po" name="locale/sk/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/sl/LC_MESSAGES/imp.mo" name="locale/sl/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/sl/LC_MESSAGES/imp.po" name="locale/sl/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/sv/help.xml" name="locale/sv/help.xml" />
+   <install as="imp/locale/sv/LC_MESSAGES/imp.mo" name="locale/sv/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/sv/LC_MESSAGES/imp.po" name="locale/sv/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/th/LC_MESSAGES/imp.mo" name="locale/th/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/th/LC_MESSAGES/imp.po" name="locale/th/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/tr/help.xml" name="locale/tr/help.xml" />
+   <install as="imp/locale/tr/LC_MESSAGES/imp.mo" name="locale/tr/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/tr/LC_MESSAGES/imp.po" name="locale/tr/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/uk/help.xml" name="locale/uk/help.xml" />
+   <install as="imp/locale/uk/LC_MESSAGES/imp.mo" name="locale/uk/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/uk/LC_MESSAGES/imp.po" name="locale/uk/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/zh_CN/help.xml" name="locale/zh_CN/help.xml" />
+   <install as="imp/locale/zh_CN/LC_MESSAGES/imp.mo" name="locale/zh_CN/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/zh_CN/LC_MESSAGES/imp.po" name="locale/zh_CN/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/zh_TW/help.xml" name="locale/zh_TW/help.xml" />
+   <install as="imp/locale/zh_TW/LC_MESSAGES/imp.mo" name="locale/zh_TW/LC_MESSAGES/imp.mo" />
+   <install as="imp/locale/zh_TW/LC_MESSAGES/imp.po" name="locale/zh_TW/LC_MESSAGES/imp.po" />
+   <install as="imp/migration/1_imp_base_tables.php" name="migration/1_imp_base_tables.php" />
+   <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
+   <install as="imp/scripts/bounce_spam.php" name="scripts/bounce_spam.php" />
+   <install as="imp/scripts/query-imap-cache.php" name="scripts/query-imap-cache.php" />
+   <install as="imp/templates/common-header.inc" name="templates/common-header.inc" />
+   <install as="imp/templates/dimp/index.inc" name="templates/dimp/index.inc" />
+   <install as="imp/templates/dimp/javascript_defs.php" name="templates/dimp/javascript_defs.php" />
+   <install as="imp/templates/dimp/compose/compose-base.html" name="templates/dimp/compose/compose-base.html" />
+   <install as="imp/templates/dimp/compose/compose.html" name="templates/dimp/compose/compose.html" />
+   <install as="imp/templates/dimp/message/message.html" name="templates/dimp/message/message.html" />
+   <install as="imp/templates/dimp/portal/portal.html" name="templates/dimp/portal/portal.html" />
+   <install as="imp/templates/imp/javascript_defs.php" name="templates/imp/javascript_defs.php" />
+   <install as="imp/templates/imp/compose/compose.html" name="templates/imp/compose/compose.html" />
+   <install as="imp/templates/imp/compose/redirect.html" name="templates/imp/compose/redirect.html" />
+   <install as="imp/templates/imp/compose/success.html" name="templates/imp/compose/success.html" />
+   <install as="imp/templates/imp/contacts/contacts.html" name="templates/imp/contacts/contacts.html" />
+   <install as="imp/templates/imp/flist/flist.html" name="templates/imp/flist/flist.html" />
+   <install as="imp/templates/imp/folders/actions.html" name="templates/imp/folders/actions.html" />
+   <install as="imp/templates/imp/folders/folders_confirm.html" name="templates/imp/folders/folders_confirm.html" />
+   <install as="imp/templates/imp/folders/folders_size.html" name="templates/imp/folders/folders_size.html" />
+   <install as="imp/templates/imp/folders/head.html" name="templates/imp/folders/head.html" />
+   <install as="imp/templates/imp/folders/import.html" name="templates/imp/folders/import.html" />
+   <install as="imp/templates/imp/mailbox/actions.html" name="templates/imp/mailbox/actions.html" />
+   <install as="imp/templates/imp/mailbox/actions_deleted.html" name="templates/imp/mailbox/actions_deleted.html" />
+   <install as="imp/templates/imp/mailbox/empty_mailbox.html" name="templates/imp/mailbox/empty_mailbox.html" />
+   <install as="imp/templates/imp/mailbox/form_start.html" name="templates/imp/mailbox/form_start.html" />
+   <install as="imp/templates/imp/mailbox/header.html" name="templates/imp/mailbox/header.html" />
+   <install as="imp/templates/imp/mailbox/mailbox.html" name="templates/imp/mailbox/mailbox.html" />
+   <install as="imp/templates/imp/mailbox/message_headers.html" name="templates/imp/mailbox/message_headers.html" />
+   <install as="imp/templates/imp/mailbox/navbar.html" name="templates/imp/mailbox/navbar.html" />
+   <install as="imp/templates/imp/mailbox/searchfolder.html" name="templates/imp/mailbox/searchfolder.html" />
+   <install as="imp/templates/imp/menu/menu.html" name="templates/imp/menu/menu.html" />
+   <install as="imp/templates/imp/message/message.html" name="templates/imp/message/message.html" />
+   <install as="imp/templates/imp/message/navbar_actions.html" name="templates/imp/message/navbar_actions.html" />
+   <install as="imp/templates/imp/message/navbar_navigate.html" name="templates/imp/message/navbar_navigate.html" />
+   <install as="imp/templates/imp/message/navbar_top.html" name="templates/imp/message/navbar_top.html" />
+   <install as="imp/templates/imp/search/search-basic.html" name="templates/imp/search/search-basic.html" />
+   <install as="imp/templates/imp/search/search.html" name="templates/imp/search/search.html" />
+   <install as="imp/templates/imp/thread/thread.html" name="templates/imp/thread/thread.html" />
+   <install as="imp/templates/mimp/compose/compose.html" name="templates/mimp/compose/compose.html" />
+   <install as="imp/templates/mimp/folders/folders.html" name="templates/mimp/folders/folders.html" />
+   <install as="imp/templates/mimp/mailbox/mailbox.html" name="templates/mimp/mailbox/mailbox.html" />
+   <install as="imp/templates/mimp/mailbox/search.html" name="templates/mimp/mailbox/search.html" />
+   <install as="imp/templates/mimp/message/message.html" name="templates/mimp/message/message.html" />
+   <install as="imp/templates/mimp/message/part.html" name="templates/mimp/message/part.html" />
+   <install as="imp/templates/mobile/folders.html.php" name="templates/mobile/folders.html.php" />
+   <install as="imp/templates/mobile/head.html.php" name="templates/mobile/head.html.php" />
+   <install as="imp/templates/mobile/javascript_defs.php" name="templates/mobile/javascript_defs.php" />
+   <install as="imp/templates/mobile/mailbox.html.php" name="templates/mobile/mailbox.html.php" />
+   <install as="imp/templates/mobile/message.html.php" name="templates/mobile/message.html.php" />
+   <install as="imp/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
+   <install as="imp/templates/newmsg/alert.html" name="templates/newmsg/alert.html" />
+   <install as="imp/templates/pgp/import_key.html" name="templates/pgp/import_key.html" />
+   <install as="imp/templates/prefs/accounts.html" name="templates/prefs/accounts.html" />
+   <install as="imp/templates/prefs/acl.html" name="templates/prefs/acl.html" />
+   <install as="imp/templates/prefs/drafts.html" name="templates/prefs/drafts.html" />
+   <install as="imp/templates/prefs/encrypt.html" name="templates/prefs/encrypt.html" />
+   <install as="imp/templates/prefs/flags.html" name="templates/prefs/flags.html" />
+   <install as="imp/templates/prefs/initialpage.html" name="templates/prefs/initialpage.html" />
+   <install as="imp/templates/prefs/mailto.html" name="templates/prefs/mailto.html" />
+   <install as="imp/templates/prefs/pgpprivatekey.html" name="templates/prefs/pgpprivatekey.html" />
+   <install as="imp/templates/prefs/pgppublickey.html" name="templates/prefs/pgppublickey.html" />
+   <install as="imp/templates/prefs/searches.html" name="templates/prefs/searches.html" />
+   <install as="imp/templates/prefs/sentmail.html" name="templates/prefs/sentmail.html" />
+   <install as="imp/templates/prefs/signaturehtml.html" name="templates/prefs/signaturehtml.html" />
+   <install as="imp/templates/prefs/smimeprivatekey.html" name="templates/prefs/smimeprivatekey.html" />
+   <install as="imp/templates/prefs/smimepublickey.html" name="templates/prefs/smimepublickey.html" />
+   <install as="imp/templates/prefs/sound.html" name="templates/prefs/sound.html" />
+   <install as="imp/templates/prefs/spam.html" name="templates/prefs/spam.html" />
+   <install as="imp/templates/prefs/specialuse.html" name="templates/prefs/specialuse.html" />
+   <install as="imp/templates/prefs/stationery.html" name="templates/prefs/stationery.html" />
+   <install as="imp/templates/prefs/trash.html" name="templates/prefs/trash.html" />
+   <install as="imp/templates/print/headers.html" name="templates/print/headers.html" />
+   <install as="imp/templates/print/print.html" name="templates/print/print.html" />
+   <install as="imp/templates/quota/quota.html" name="templates/quota/quota.html" />
+   <install as="imp/templates/rss/mailbox.rss" name="templates/rss/mailbox.rss" />
+   <install as="imp/templates/saveimage/saveimage.html" name="templates/saveimage/saveimage.html" />
+   <install as="imp/templates/smime/import_key.html" name="templates/smime/import_key.html" />
+   <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
+   <install as="imp/themes/azur/screen.css" name="themes/azur/screen.css" />
+   <install as="imp/themes/bluemoon/screen.css" name="themes/bluemoon/screen.css" />
+   <install as="imp/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
+   <install as="imp/themes/bluewhite/dimp/screen.css" name="themes/bluewhite/dimp/screen.css" />
+   <install as="imp/themes/brown/screen.css" name="themes/brown/screen.css" />
+   <install as="imp/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
+   <install as="imp/themes/cornflower/screen.css" name="themes/cornflower/screen.css" />
+   <install as="imp/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
+   <install as="imp/themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="imp/themes/default/mobile.css" name="themes/default/mobile.css" />
+   <install as="imp/themes/default/rtl.css" name="themes/default/rtl.css" />
+   <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="imp/themes/default/dimp/ie7.css" name="themes/default/dimp/ie7.css" />
+   <install as="imp/themes/default/dimp/screen.css" name="themes/default/dimp/screen.css" />
+   <install as="imp/themes/default/graphics/addressbook_add.png" name="themes/default/graphics/addressbook_add.png" />
+   <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
+   <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
+   <install as="imp/themes/default/graphics/application_tile_horizontal.png" name="themes/default/graphics/application_tile_horizontal.png" />
+   <install as="imp/themes/default/graphics/application_tile_vertical.png" name="themes/default/graphics/application_tile_vertical.png" />
+   <install as="imp/themes/default/graphics/arrow_collapsed.png" name="themes/default/graphics/arrow_collapsed.png" />
+   <install as="imp/themes/default/graphics/arrow_expanded.png" name="themes/default/graphics/arrow_expanded.png" />
+   <install as="imp/themes/default/graphics/attachment.png" name="themes/default/graphics/attachment.png" />
+   <install as="imp/themes/default/graphics/backhead_orderby.png" name="themes/default/graphics/backhead_orderby.png" />
+   <install as="imp/themes/default/graphics/backhead_r.png" name="themes/default/graphics/backhead_r.png" />
+   <install as="imp/themes/default/graphics/backhead_s2.png" name="themes/default/graphics/backhead_s2.png" />
+   <install as="imp/themes/default/graphics/backhead_shadow.png" name="themes/default/graphics/backhead_shadow.png" />
+   <install as="imp/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
+   <install as="imp/themes/default/graphics/calendar.png" name="themes/default/graphics/calendar.png" />
+   <install as="imp/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
+   <install as="imp/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
+   <install as="imp/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
+   <install as="imp/themes/default/graphics/checkmail.png" name="themes/default/graphics/checkmail.png" />
+   <install as="imp/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
+   <install as="imp/themes/default/graphics/compose.png" name="themes/default/graphics/compose.png" />
+   <install as="imp/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
+   <install as="imp/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
+   <install as="imp/themes/default/graphics/drafts.png" name="themes/default/graphics/drafts.png" />
+   <install as="imp/themes/default/graphics/dragHandle.png" name="themes/default/graphics/dragHandle.png" />
+   <install as="imp/themes/default/graphics/dragHandleVert.png" name="themes/default/graphics/dragHandleVert.png" />
+   <install as="imp/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="imp/themes/default/graphics/empty_spam.png" name="themes/default/graphics/empty_spam.png" />
+   <install as="imp/themes/default/graphics/empty_trash.png" name="themes/default/graphics/empty_trash.png" />
+   <install as="imp/themes/default/graphics/encrypted.png" name="themes/default/graphics/encrypted.png" />
+   <install as="imp/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="imp/themes/default/graphics/fetchmail.png" name="themes/default/graphics/fetchmail.png" />
+   <install as="imp/themes/default/graphics/filters.png" name="themes/default/graphics/filters.png" />
+   <install as="imp/themes/default/graphics/forward.png" name="themes/default/graphics/forward.png" />
+   <install as="imp/themes/default/graphics/gallery.png" name="themes/default/graphics/gallery.png" />
+   <install as="imp/themes/default/graphics/ham.png" name="themes/default/graphics/ham.png" />
+   <install as="imp/themes/default/graphics/ico_message_off.png" name="themes/default/graphics/ico_message_off.png" />
+   <install as="imp/themes/default/graphics/imp.png" name="themes/default/graphics/imp.png" />
+   <install as="imp/themes/default/graphics/info_icon.png" name="themes/default/graphics/info_icon.png" />
+   <install as="imp/themes/default/graphics/key_down.png" name="themes/default/graphics/key_down.png" />
+   <install as="imp/themes/default/graphics/key_up.png" name="themes/default/graphics/key_up.png" />
+   <install as="imp/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
+   <install as="imp/themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
+   <install as="imp/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
+   <install as="imp/themes/default/graphics/mail_answered.png" name="themes/default/graphics/mail_answered.png" />
+   <install as="imp/themes/default/graphics/mail_clearflag.png" name="themes/default/graphics/mail_clearflag.png" />
+   <install as="imp/themes/default/graphics/mail_deleted.png" name="themes/default/graphics/mail_deleted.png" />
+   <install as="imp/themes/default/graphics/mail_draft.png" name="themes/default/graphics/mail_draft.png" />
+   <install as="imp/themes/default/graphics/mail_flagged.png" name="themes/default/graphics/mail_flagged.png" />
+   <install as="imp/themes/default/graphics/mail_forwarded.png" name="themes/default/graphics/mail_forwarded.png" />
+   <install as="imp/themes/default/graphics/mail_personal.png" name="themes/default/graphics/mail_personal.png" />
+   <install as="imp/themes/default/graphics/mail_priority_high.png" name="themes/default/graphics/mail_priority_high.png" />
+   <install as="imp/themes/default/graphics/mail_priority_low.png" name="themes/default/graphics/mail_priority_low.png" />
+   <install as="imp/themes/default/graphics/mail_seen.png" name="themes/default/graphics/mail_seen.png" />
+   <install as="imp/themes/default/graphics/mail_unseen.png" name="themes/default/graphics/mail_unseen.png" />
+   <install as="imp/themes/default/graphics/manage_attachments.png" name="themes/default/graphics/manage_attachments.png" />
+   <install as="imp/themes/default/graphics/message_source.png" name="themes/default/graphics/message_source.png" />
+   <install as="imp/themes/default/graphics/mini-error.png" name="themes/default/graphics/mini-error.png" />
+   <install as="imp/themes/default/graphics/newmail.png" name="themes/default/graphics/newmail.png" />
+   <install as="imp/themes/default/graphics/newwin.png" name="themes/default/graphics/newwin.png" />
+   <install as="imp/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
+   <install as="imp/themes/default/graphics/popdown.png" name="themes/default/graphics/popdown.png" />
+   <install as="imp/themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
+   <install as="imp/themes/default/graphics/preview.png" name="themes/default/graphics/preview.png" />
+   <install as="imp/themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
+   <install as="imp/themes/default/graphics/quotaback.jpg" name="themes/default/graphics/quotaback.jpg" />
+   <install as="imp/themes/default/graphics/quotauncover.gif" name="themes/default/graphics/quotauncover.gif" />
+   <install as="imp/themes/default/graphics/reload.png" name="themes/default/graphics/reload.png" />
+   <install as="imp/themes/default/graphics/reply.png" name="themes/default/graphics/reply.png" />
+   <install as="imp/themes/default/graphics/replyall.png" name="themes/default/graphics/replyall.png" />
+   <install as="imp/themes/default/graphics/sbcursor_bottom.png" name="themes/default/graphics/sbcursor_bottom.png" />
+   <install as="imp/themes/default/graphics/sbcursor_top.png" name="themes/default/graphics/sbcursor_top.png" />
+   <install as="imp/themes/default/graphics/scroller.png" name="themes/default/graphics/scroller.png" />
+   <install as="imp/themes/default/graphics/scroller_back.png" name="themes/default/graphics/scroller_back.png" />
+   <install as="imp/themes/default/graphics/select.png" name="themes/default/graphics/select.png" />
+   <install as="imp/themes/default/graphics/shared.png" name="themes/default/graphics/shared.png" />
+   <install as="imp/themes/default/graphics/signed.png" name="themes/default/graphics/signed.png" />
+   <install as="imp/themes/default/graphics/sortdown.png" name="themes/default/graphics/sortdown.png" />
+   <install as="imp/themes/default/graphics/sortup.png" name="themes/default/graphics/sortup.png" />
+   <install as="imp/themes/default/graphics/spacer_red.png" name="themes/default/graphics/spacer_red.png" />
+   <install as="imp/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
+   <install as="imp/themes/default/graphics/spellcheck.png" name="themes/default/graphics/spellcheck.png" />
+   <install as="imp/themes/default/graphics/undelete.png" name="themes/default/graphics/undelete.png" />
+   <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
+   <install as="imp/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
+   <install as="imp/themes/default/graphics/folders/create.png" name="themes/default/graphics/folders/create.png" />
+   <install as="imp/themes/default/graphics/folders/delete.png" name="themes/default/graphics/folders/delete.png" />
+   <install as="imp/themes/default/graphics/folders/drafts.png" name="themes/default/graphics/folders/drafts.png" />
+   <install as="imp/themes/default/graphics/folders/edit.png" name="themes/default/graphics/folders/edit.png" />
+   <install as="imp/themes/default/graphics/folders/folder.png" name="themes/default/graphics/folders/folder.png" />
+   <install as="imp/themes/default/graphics/folders/inbox.png" name="themes/default/graphics/folders/inbox.png" />
+   <install as="imp/themes/default/graphics/folders/minus.png" name="themes/default/graphics/folders/minus.png" />
+   <install as="imp/themes/default/graphics/folders/open.png" name="themes/default/graphics/folders/open.png" />
+   <install as="imp/themes/default/graphics/folders/plus.png" name="themes/default/graphics/folders/plus.png" />
+   <install as="imp/themes/default/graphics/folders/sent.png" name="themes/default/graphics/folders/sent.png" />
+   <install as="imp/themes/default/graphics/folders/spam.png" name="themes/default/graphics/folders/spam.png" />
+   <install as="imp/themes/default/graphics/folders/trash.png" name="themes/default/graphics/folders/trash.png" />
+   <install as="imp/themes/default/graphics/mime/apple.png" name="themes/default/graphics/mime/apple.png" />
+   <install as="imp/themes/default/graphics/mime/compressed.png" name="themes/default/graphics/mime/compressed.png" />
+   <install as="imp/themes/default/graphics/mime/itip.png" name="themes/default/graphics/mime/itip.png" />
+   <install as="imp/themes/default/mimp/screen.css" name="themes/default/mimp/screen.css" />
+   <install as="imp/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
+   <install as="imp/themes/gennevilliers/screen.css" name="themes/gennevilliers/screen.css" />
+   <install as="imp/themes/green/screen.css" name="themes/green/screen.css" />
+   <install as="imp/themes/grey/screen.css" name="themes/grey/screen.css" />
+   <install as="imp/themes/ideas/screen.css" name="themes/ideas/screen.css" />
+   <install as="imp/themes/lavander/screen.css" name="themes/lavander/screen.css" />
+   <install as="imp/themes/luc/screen.css" name="themes/luc/screen.css" />
+   <install as="imp/themes/lucblue/screen.css" name="themes/lucblue/screen.css" />
+   <install as="imp/themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
+   <install as="imp/themes/postnuke/screen.css" name="themes/postnuke/screen.css" />
+   <install as="imp/themes/silver/screen.css" name="themes/silver/screen.css" />
+   <install as="imp/themes/silver/dimp/screen.css" name="themes/silver/dimp/screen.css" />
+   <install as="imp/themes/silver/graphics/addressbook_add.png" name="themes/silver/graphics/addressbook_add.png" />
+   <install as="imp/themes/silver/graphics/addressbook_browse.png" name="themes/silver/graphics/addressbook_browse.png" />
+   <install as="imp/themes/silver/graphics/add_contact.png" name="themes/silver/graphics/add_contact.png" />
+   <install as="imp/themes/silver/graphics/application_tile_horizontal.png" name="themes/silver/graphics/application_tile_horizontal.png" />
+   <install as="imp/themes/silver/graphics/application_tile_vertical.png" name="themes/silver/graphics/application_tile_vertical.png" />
+   <install as="imp/themes/silver/graphics/arrow_collapsed.png" name="themes/silver/graphics/arrow_collapsed.png" />
+   <install as="imp/themes/silver/graphics/arrow_expanded.png" name="themes/silver/graphics/arrow_expanded.png" />
+   <install as="imp/themes/silver/graphics/attachment.png" name="themes/silver/graphics/attachment.png" />
+   <install as="imp/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
+   <install as="imp/themes/silver/graphics/calendar.png" name="themes/silver/graphics/calendar.png" />
+   <install as="imp/themes/silver/graphics/checkmail.png" name="themes/silver/graphics/checkmail.png" />
+   <install as="imp/themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
+   <install as="imp/themes/silver/graphics/compose.png" name="themes/silver/graphics/compose.png" />
+   <install as="imp/themes/silver/graphics/delete.png" name="themes/silver/graphics/delete.png" />
+   <install as="imp/themes/silver/graphics/drafts.png" name="themes/silver/graphics/drafts.png" />
+   <install as="imp/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
+   <install as="imp/themes/silver/graphics/empty_spam.png" name="themes/silver/graphics/empty_spam.png" />
+   <install as="imp/themes/silver/graphics/empty_trash.png" name="themes/silver/graphics/empty_trash.png" />
+   <install as="imp/themes/silver/graphics/encrypted.png" name="themes/silver/graphics/encrypted.png" />
+   <install as="imp/themes/silver/graphics/fetchmail.png" name="themes/silver/graphics/fetchmail.png" />
+   <install as="imp/themes/silver/graphics/filters.png" name="themes/silver/graphics/filters.png" />
+   <install as="imp/themes/silver/graphics/forward.png" name="themes/silver/graphics/forward.png" />
+   <install as="imp/themes/silver/graphics/ham.png" name="themes/silver/graphics/ham.png" />
+   <install as="imp/themes/silver/graphics/imp.png" name="themes/silver/graphics/imp.png" />
+   <install as="imp/themes/silver/graphics/info_icon.png" name="themes/silver/graphics/info_icon.png" />
+   <install as="imp/themes/silver/graphics/locked.png" name="themes/silver/graphics/locked.png" />
+   <install as="imp/themes/silver/graphics/logout.png" name="themes/silver/graphics/logout.png" />
+   <install as="imp/themes/silver/graphics/mail_answered.png" name="themes/silver/graphics/mail_answered.png" />
+   <install as="imp/themes/silver/graphics/mail_clearflag.png" name="themes/silver/graphics/mail_clearflag.png" />
+   <install as="imp/themes/silver/graphics/mail_deleted.png" name="themes/silver/graphics/mail_deleted.png" />
+   <install as="imp/themes/silver/graphics/mail_draft.png" name="themes/silver/graphics/mail_draft.png" />
+   <install as="imp/themes/silver/graphics/mail_flagged.png" name="themes/silver/graphics/mail_flagged.png" />
+   <install as="imp/themes/silver/graphics/mail_forwarded.png" name="themes/silver/graphics/mail_forwarded.png" />
+   <install as="imp/themes/silver/graphics/mail_personal.png" name="themes/silver/graphics/mail_personal.png" />
+   <install as="imp/themes/silver/graphics/mail_priority_high.png" name="themes/silver/graphics/mail_priority_high.png" />
+   <install as="imp/themes/silver/graphics/mail_priority_low.png" name="themes/silver/graphics/mail_priority_low.png" />
+   <install as="imp/themes/silver/graphics/mail_seen.png" name="themes/silver/graphics/mail_seen.png" />
+   <install as="imp/themes/silver/graphics/mail_unseen.png" name="themes/silver/graphics/mail_unseen.png" />
+   <install as="imp/themes/silver/graphics/manage_attachments.png" name="themes/silver/graphics/manage_attachments.png" />
+   <install as="imp/themes/silver/graphics/message_source.png" name="themes/silver/graphics/message_source.png" />
+   <install as="imp/themes/silver/graphics/newmail.png" name="themes/silver/graphics/newmail.png" />
+   <install as="imp/themes/silver/graphics/newwin.png" name="themes/silver/graphics/newwin.png" />
+   <install as="imp/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
+   <install as="imp/themes/silver/graphics/popdown.png" name="themes/silver/graphics/popdown.png" />
+   <install as="imp/themes/silver/graphics/prefs.png" name="themes/silver/graphics/prefs.png" />
+   <install as="imp/themes/silver/graphics/preview.png" name="themes/silver/graphics/preview.png" />
+   <install as="imp/themes/silver/graphics/print.png" name="themes/silver/graphics/print.png" />
+   <install as="imp/themes/silver/graphics/reload.png" name="themes/silver/graphics/reload.png" />
+   <install as="imp/themes/silver/graphics/reply.png" name="themes/silver/graphics/reply.png" />
+   <install as="imp/themes/silver/graphics/replyall.png" name="themes/silver/graphics/replyall.png" />
+   <install as="imp/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
+   <install as="imp/themes/silver/graphics/shared.png" name="themes/silver/graphics/shared.png" />
+   <install as="imp/themes/silver/graphics/signed.png" name="themes/silver/graphics/signed.png" />
+   <install as="imp/themes/silver/graphics/sortdown.png" name="themes/silver/graphics/sortdown.png" />
+   <install as="imp/themes/silver/graphics/sortup.png" name="themes/silver/graphics/sortup.png" />
+   <install as="imp/themes/silver/graphics/spam.png" name="themes/silver/graphics/spam.png" />
+   <install as="imp/themes/silver/graphics/spellcheck.png" name="themes/silver/graphics/spellcheck.png" />
+   <install as="imp/themes/silver/graphics/undelete.png" name="themes/silver/graphics/undelete.png" />
+   <install as="imp/themes/silver/graphics/warning.png" name="themes/silver/graphics/warning.png" />
+   <install as="imp/themes/silver/graphics/whitelist.png" name="themes/silver/graphics/whitelist.png" />
+   <install as="imp/themes/silver/graphics/folders/create.png" name="themes/silver/graphics/folders/create.png" />
+   <install as="imp/themes/silver/graphics/folders/delete.png" name="themes/silver/graphics/folders/delete.png" />
+   <install as="imp/themes/silver/graphics/folders/drafts.png" name="themes/silver/graphics/folders/drafts.png" />
+   <install as="imp/themes/silver/graphics/folders/edit.png" name="themes/silver/graphics/folders/edit.png" />
+   <install as="imp/themes/silver/graphics/folders/explore.png" name="themes/silver/graphics/folders/explore.png" />
+   <install as="imp/themes/silver/graphics/folders/folder.png" name="themes/silver/graphics/folders/folder.png" />
+   <install as="imp/themes/silver/graphics/folders/inbox.png" name="themes/silver/graphics/folders/inbox.png" />
+   <install as="imp/themes/silver/graphics/folders/minus.png" name="themes/silver/graphics/folders/minus.png" />
+   <install as="imp/themes/silver/graphics/folders/open.png" name="themes/silver/graphics/folders/open.png" />
+   <install as="imp/themes/silver/graphics/folders/plus.png" name="themes/silver/graphics/folders/plus.png" />
+   <install as="imp/themes/silver/graphics/folders/sent.png" name="themes/silver/graphics/folders/sent.png" />
+   <install as="imp/themes/silver/graphics/folders/spam.png" name="themes/silver/graphics/folders/spam.png" />
+   <install as="imp/themes/silver/graphics/folders/trash.png" name="themes/silver/graphics/folders/trash.png" />
+   <install as="imp/themes/simplex/screen.css" name="themes/simplex/screen.css" />
+   <install as="imp/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
+   <install as="imp/themes/tango-blue/dimp/screen.css" name="themes/tango-blue/dimp/screen.css" />
+   <install as="imp/themes/tango-blue/graphics/addressbook_browse.png" name="themes/tango-blue/graphics/addressbook_browse.png" />
+   <install as="imp/themes/tango-blue/graphics/attachment.png" name="themes/tango-blue/graphics/attachment.png" />
+   <install as="imp/themes/tango-blue/graphics/calendar.png" name="themes/tango-blue/graphics/calendar.png" />
+   <install as="imp/themes/tango-blue/graphics/close.png" name="themes/tango-blue/graphics/close.png" />
+   <install as="imp/themes/tango-blue/graphics/compose.png" name="themes/tango-blue/graphics/compose.png" />
+   <install as="imp/themes/tango-blue/graphics/empty_trash.png" name="themes/tango-blue/graphics/empty_trash.png" />
+   <install as="imp/themes/tango-blue/graphics/encrypted.png" name="themes/tango-blue/graphics/encrypted.png" />
+   <install as="imp/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
+   <install as="imp/themes/tango-blue/graphics/fetchmail.png" name="themes/tango-blue/graphics/fetchmail.png" />
+   <install as="imp/themes/tango-blue/graphics/filters.png" name="themes/tango-blue/graphics/filters.png" />
+   <install as="imp/themes/tango-blue/graphics/imp.png" name="themes/tango-blue/graphics/imp.png" />
+   <install as="imp/themes/tango-blue/graphics/mail_answered.png" name="themes/tango-blue/graphics/mail_answered.png" />
+   <install as="imp/themes/tango-blue/graphics/mail_deleted.png" name="themes/tango-blue/graphics/mail_deleted.png" />
+   <install as="imp/themes/tango-blue/graphics/mail_draft.png" name="themes/tango-blue/graphics/mail_draft.png" />
+   <install as="imp/themes/tango-blue/graphics/mail_flagged.png" name="themes/tango-blue/graphics/mail_flagged.png" />
+   <install as="imp/themes/tango-blue/graphics/mail_personal.png" name="themes/tango-blue/graphics/mail_personal.png" />
+   <install as="imp/themes/tango-blue/graphics/mail_priority_high.png" name="themes/tango-blue/graphics/mail_priority_high.png" />
+   <install as="imp/themes/tango-blue/graphics/mail_priority_low.png" name="themes/tango-blue/graphics/mail_priority_low.png" />
+   <install as="imp/themes/tango-blue/graphics/mail_unseen.png" name="themes/tango-blue/graphics/mail_unseen.png" />
+   <install as="imp/themes/tango-blue/graphics/manage_attachments.png" name="themes/tango-blue/graphics/manage_attachments.png" />
+   <install as="imp/themes/tango-blue/graphics/newmail.png" name="themes/tango-blue/graphics/newmail.png" />
+   <install as="imp/themes/tango-blue/graphics/reload.png" name="themes/tango-blue/graphics/reload.png" />
+   <install as="imp/themes/tango-blue/graphics/shared.png" name="themes/tango-blue/graphics/shared.png" />
+   <install as="imp/themes/tango-blue/graphics/signed.png" name="themes/tango-blue/graphics/signed.png" />
+   <install as="imp/themes/tango-blue/graphics/spellcheck.png" name="themes/tango-blue/graphics/spellcheck.png" />
+   <install as="imp/themes/tango-blue/graphics/folders/drafts.png" name="themes/tango-blue/graphics/folders/drafts.png" />
+   <install as="imp/themes/tango-blue/graphics/folders/folder.png" name="themes/tango-blue/graphics/folders/folder.png" />
+   <install as="imp/themes/tango-blue/graphics/folders/inbox.png" name="themes/tango-blue/graphics/folders/inbox.png" />
+   <install as="imp/themes/tango-blue/graphics/folders/open.png" name="themes/tango-blue/graphics/folders/open.png" />
+   <install as="imp/themes/tango-blue/graphics/folders/sent.png" name="themes/tango-blue/graphics/folders/sent.png" />
+   <install as="imp/themes/tango-blue/graphics/folders/spam.png" name="themes/tango-blue/graphics/folders/spam.png" />
+   <install as="imp/themes/tango-blue/graphics/folders/trash.png" name="themes/tango-blue/graphics/folders/trash.png" />
+   <install as="imp/attachment.php" name="attachment.php" />
+   <install as="imp/compose-dimp.php" name="compose-dimp.php" />
+   <install as="imp/compose-mimp.php" name="compose-mimp.php" />
+   <install as="imp/compose.php" name="compose.php" />
+   <install as="imp/contacts.php" name="contacts.php" />
+   <install as="imp/COPYING" name="COPYING" />
+   <install as="imp/folders-mimp.php" name="folders-mimp.php" />
+   <install as="imp/folders.php" name="folders.php" />
+   <install as="imp/index-dimp.php" name="index-dimp.php" />
+   <install as="imp/index.php" name="index.php" />
+   <install as="imp/mailbox-mimp.php" name="mailbox-mimp.php" />
+   <install as="imp/mailbox.php" name="mailbox.php" />
+   <install as="imp/message-dimp.php" name="message-dimp.php" />
+   <install as="imp/message-mimp.php" name="message-mimp.php" />
+   <install as="imp/message.php" name="message.php" />
+   <install as="imp/mobile.php" name="mobile.php" />
+   <install as="imp/pgp.php" name="pgp.php" />
+   <install as="imp/README" name="README" />
+   <install as="imp/rss.php" name="rss.php" />
+   <install as="imp/saveimage.php" name="saveimage.php" />
+   <install as="imp/search-basic.php" name="search-basic.php" />
+   <install as="imp/search.php" name="search.php" />
+   <install as="imp/smime.php" name="smime.php" />
+   <install as="imp/thread.php" name="thread.php" />
+   <install as="imp/view.php" name="view.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>5.0.0</release>
+    <api>5.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-12-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
