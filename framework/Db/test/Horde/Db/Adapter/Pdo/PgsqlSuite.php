@@ -35,7 +35,9 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
             try {
                 self::$conn = $suite->getConnection();
                 $skip = false;
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                echo $e->getMessage() . "\n";
+            }
         }
 
         if ($skip) {
