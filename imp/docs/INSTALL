@@ -109,17 +109,15 @@ To function properly, IMP **requires** the following:
       POP3 support is limited essentially to only viewing messages.
       An IMAP server is REQUIRED for all other advanced features.
 
-The following items are not required, but are strongly **RECOMMENDED**:
+5. Sendmail or SMTP server.
 
-1. Sendmail or equivalent.
-
-   While Horde can send mail via either a local sendmail or a remote SMTP
-   server, sendmail is recommended for use with IMP for improved performance
-   and error handling/reporting, as well as a more accurate mail envelope.
+   Horde sends mail via either a local sendmail or a remote SMTP server.
 
    See `horde/docs/INSTALL`_ for further information.
 
-2. Turba, the Horde contacts manager.
+The following items are not required, but are strongly **RECOMMENDED**:
+
+1. Turba, the Horde contacts manager.
 
    Turba is the Horde contact management application, designed to be
    integrated with other Horde applications to provide a unified interface to
@@ -136,7 +134,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    You must use the 3.x branch of Turba with IMP 5.x.
 
-3. Ingo, the Horde mail filters manager.
+2. Ingo, the Horde mail filters manager.
 
    Ingo is the Horde mail filters management application, designed to be
    integrated with other Horde applications to provide a unified interface to
@@ -152,7 +150,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    You must use the 2.x branch of Ingo with IMP 5.x.
 
-4. Nag, the Horde tasks manager.
+3. Nag, the Horde tasks manager.
 
    Nag is the Horde tasks management application, designed to be integrated
    with other Horde applications to provide a unified interface to task
@@ -169,7 +167,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    You must use the 3.x branch of Nag with IMP 5.x.
 
-5. Gollem, the Horde file manager.
+4. Gollem, the Horde file manager.
 
    Gollem is the Horde file management application, designed to be
    integrated with other Horde applications to provide a unified interface to
@@ -186,7 +184,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    You must use the 2.x branch of Gollem with IMP 5.x.
 
-6. A web server with PATH_INFO support.
+5. A web server with PATH_INFO support.
 
    IMP requires the PATH_INFO environment variable for several features. Every
    modern web server supports this, but you might have to enable this feature
@@ -198,7 +196,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
    create the information using other server variables, but this process is
    slower and less reliable.
 
-7. A configured VFS backend.
+6. A configured VFS backend.
 
    During composition of messages, it is possible that the PHP session may
    timeout. If VFS is enabled in Horde, IMP can store the draft message and
@@ -320,9 +318,7 @@ Configuring IMP
    * By default, IMP is configured to NOT display text/html message parts
      inline.  This is done for various security reasons.  If you would like
      to see text/html parts inline, you must make this change in
-     ``imp/config/mime_drivers.php``::
-
-     $mime_drivers['imp']['html']['inline'] = true;
+     ``imp/config/mime_drivers.php``.
 
 4. Securing IMP
 
