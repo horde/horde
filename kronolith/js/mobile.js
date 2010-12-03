@@ -42,6 +42,11 @@
     date: null,
 
     /**
+     * Temporary fix for pages not firing pagebeforecreate events properly
+     */
+    haveOverview: false,
+
+    /**
      * Load all events between start and end time.
      *
      * @param Date firstDay
@@ -755,8 +760,10 @@
         // Set up overview
         $('#overview').bind('pageshow', function(event, ui) {
             KronolithMobile.view = 'overview';
-            KronolithMobile.clearView('overview');
-            KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date.clone().addDays(7), 'overview');
+            if (!haveOverView) {
+                KronolithMobile.clearView('overview');
+                KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date.clone().addDays(7), 'overview');
+            }
         });
 
         $('td').live('click', function(e) {
