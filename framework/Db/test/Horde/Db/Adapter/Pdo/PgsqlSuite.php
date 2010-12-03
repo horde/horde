@@ -68,7 +68,7 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
         }
 
         $config = getenv('DB_ADAPTER_PDO_PGSQL_TEST_CONFIG');
-        if ($config && !is_dir(basename($config))) {
+        if ($config && !is_dir(dirname($config))) {
             $config = array_merge(array('username' => '', 'password' => '', 'dbname' => 'test'), json_decode($config, true));
         } else {
             if (!$config) {

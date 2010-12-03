@@ -62,7 +62,7 @@ class Horde_Db_Adapter_MysqlSuite extends PHPUnit_Framework_TestSuite
     public function getConnection()
     {
         $config = getenv('DB_ADAPTER_MYSQL_TEST_CONFIG');
-        if ($config && !is_dir(basename($config))) {
+        if ($config && !is_dir(dirname($config))) {
             $config = array_merge(array('host' => 'localhost', 'username' => '', 'password' => '', 'dbname' => 'test'), json_decode($config, true));
         } else {
             if (!$config) {
