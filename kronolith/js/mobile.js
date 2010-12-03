@@ -59,7 +59,7 @@
 
         // Clear out the loaded cal cache
         KronolithMobile.loadedCalendars = [];
-
+        KronolithMobile.clearView(view);
         $.each(KronolithMobile.calendars, function(key, cal) {
             var startDay = firstDay.clone() , endDay = lastDay.clone(),
             cals = KronolithMobile.ecache[cal[0]];
@@ -425,7 +425,6 @@
      */
     moveToDay: function(date)
     {
-        KronolithMobile.clearView('day');
         $('.kronolithDayDate').text(date.toString('ddd') + ' ' + date.toString('d'));
         KronolithMobile.date = date;
         KronolithMobile.loadEvents(date, date, 'day');
@@ -454,7 +453,6 @@
      */
     moveToMonth: function(date)
     {
-        KronolithMobile.clearView('month');
         var dates = KronolithMobile.viewDates(date, 'month');
         KronolithMobile.date = date;
         KronolithMobile.loadEvents(dates[0], dates[1], 'month');
@@ -760,9 +758,9 @@
         // Set up overview
         $('#overview').bind('pageshow', function(event, ui) {
             KronolithMobile.view = 'overview';
-            if (!haveOverView) {
-                KronolithMobile.clearView('overview');
+            if (!KronolithMobile.haveOverview) {
                 KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date.clone().addDays(7), 'overview');
+                KronolithMobile.haveOverview = true;
             }
         });
 
