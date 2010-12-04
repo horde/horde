@@ -36,7 +36,12 @@ class JonahShareTables extends Horde_Db_Migration_Base
             $t->column('attribute_type', 'integer', array('default' => 0));
             $t->column('attribute_full_feed', 'integer', array('default' => 0, 'null' =>false));
             $t->column('attribute_interval', 'integer');
-            $t->column('attribute_
+            $t->column('attribute_url', 'string', array('limit' => 255));
+            $t->column('attribute_link', 'string', array('limit' => 255));
+            $t->column('attribute_page_link', 'string', array('limit' => 255));
+            $t->column('attribute_story_url', 'string', array('limit' => 255));
+            $t->column('attribute_img', 'string', array('limit' => 255));
+            $t->column('attribute_updated', 'integer');
             $t->primaryKey(array('share_id'));
             $t->end();
 
@@ -73,7 +78,7 @@ class JonahShareTables extends Horde_Db_Migration_Base
         }
 
         //convert from channel table
-        if (in_array('jonah_channels')) {
+        if (in_array('jonah_channels', $tableList)) {
             $this->dropTable('jonah_channels');
         }
     }
