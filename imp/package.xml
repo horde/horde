@@ -1091,6 +1091,10 @@ multiple folders, and multiple-language support.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Imap_Client</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Mime_Viewer</name>
     <channel>pear.horde.org</channel>
    </package>
