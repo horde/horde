@@ -116,7 +116,7 @@ class IMP_Auth
 
             case Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE:
                 $code = Horde_Auth::REASON_MESSAGE;
-                $e = _("Remove server is down. Please try again later.");
+                $e = _("Remote server is down. Please try again later.");
                 break;
 
             case Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD:
