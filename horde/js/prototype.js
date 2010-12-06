@@ -1,4 +1,4 @@
-/*  Prototype JavaScript framework, version 1.7_rc3
+/*  Prototype JavaScript framework, version 1.7
  *  (c) 2005-2010 Sam Stephenson
  *
  *  Prototype is freely distributable under the terms of an MIT-style license.
@@ -8,7 +8,7 @@
 
 var Prototype = {
 
-  Version: '1.7_rc3',
+  Version: '1.7',
 
   Browser: (function(){
     var ua = navigator.userAgent;
@@ -1295,8 +1295,14 @@ var Hash = Class.create(Enumerable, (function() {
       var key = encodeURIComponent(pair.key), values = pair.value;
 
       if (values && typeof values == 'object') {
-        if (Object.isArray(values))
-          return results.concat(values.map(toQueryPair.curry(key)));
+        if (Object.isArray(values)) {
+          var queryValues = [];
+          for (var i = 0, len = values.length, value; i < len; i++) {
+            value = values[i];
+            queryValues.push(toQueryPair(key, value));
+          }
+          return results.concat(queryValues);
+        }
       } else results.push(toQueryPair(key, values));
       return results;
     }).join('&');
@@ -3322,6 +3328,11 @@ Element.addMethods({
 
       var position = element.getStyle('position'),
        width = element.getStyle('width');
+
+      if (width === "0px" || width === null) {
+        element.style.display = 'block';
+        width = element.getStyle('width');
+      }
 
       var context = (position === 'fixed') ? document.viewport :
        element.parentNode;
@@ -5523,6 +5534,8 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
       Object.extend(event, methods);
       Object.extend(event, additionalMethods);
+
+      return event;
     };
   } else {
     Event.extend = Prototype.K;
@@ -5667,7 +5680,13 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       return element;
     }
 
-    var responder = responders.find( function(r) { return r.handler === handler; });
+    var i = responders.length, responder;
+    while (i--) {
+      if (responders[i].handler === handler) {
+        responder = responders[i];
+        break;
+      }
+    }
     if (!responder) return element;
 
     if (eventName.include(':')) {
