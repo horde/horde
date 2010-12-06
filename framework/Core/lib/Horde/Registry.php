@@ -1918,7 +1918,7 @@ class Horde_Registry
 
         if (($base_app = $session->get('horde', 'auth/credentials')) &&
             ($session->get('horde', 'auth_app/' . $base_app) == $entry)) {
-            $entry = null;
+            $entry = true;
         }
 
         $session->set('horde', 'auth_app/' . $app, $entry);
