@@ -179,7 +179,12 @@ h3.file-view-header {
     list-style: none;
     margin-bottom: .5em;
 }
-.commit-author {
+.commit-author-avatar {
+    float: left;
+    margin-right: .5em;
+    padding: 2px;
+    background: #fff;
+    border: 1px solid #ddd;
 }
 
 ul.commit-filelist {

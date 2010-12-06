@@ -33,6 +33,9 @@
  <div class="commit-message"><?php echo Chora::formatLogMessage($logMessage->queryLog()) ?></div>
 
  <div class="commit-author">
+  <div class="commit-author-avatar">
+   <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim(Chora::getAuthorEmail($logMessage->queryAuthor())))) ?>?d=mm&s=40">
+  </div>
   <?php echo Chora::showAuthorName($logMessage->queryAuthor(), true) ?><br>
   <?php echo Chora::formatDate($logMessage->queryDate()) ?>
  </div>
