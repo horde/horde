@@ -110,6 +110,7 @@ class Horde_Core_Factory_Prefs
                 break;
 
             case 'Horde_Prefs_Storage_Session':
+                $driver = 'Horde_Prefs_Storage_Null';
                 $opts['cache'] = false;
                 break;
 
