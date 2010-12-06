@@ -1087,6 +1087,14 @@ multiple folders, and multiple-language support.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Editor</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Form</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Image</name>
     <channel>pear.horde.org</channel>
    </package>
