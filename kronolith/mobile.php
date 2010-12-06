@@ -23,12 +23,7 @@ $view->registry = $registry;
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
-$datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
-if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
-    $datejs = 'en-US.js';
-}
-
-require $registry->get('templates', 'kronolith') . '/common-header-mobile.inc';
+require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 
 echo $view->render('head');
 echo $view->render('day');

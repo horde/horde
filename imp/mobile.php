@@ -16,6 +16,9 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 
+$title = _("Mobile Mail");
+require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
 new Horde_View_Helper_Text($view);
 
@@ -36,14 +39,6 @@ if (empty($conf['user']['allow_folders'])) {
 
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
-$title = _("Mobile Mail");
-
-require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-
-Horde::addScriptFile('horde-jquery.js', 'horde');
-Horde::addScriptFile('mobile.js', 'horde');
-Horde::addScriptFile('mobile.js', 'imp');
-include IMP_TEMPLATES . '/mobile/javascript_defs.php';
 
 echo $view->render('head.html.php');
 if (!empty($conf['user']['allow_folders'])) {
