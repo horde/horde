@@ -4,8 +4,8 @@
 $debug = false;
 
 // Do git update before building web directory? If this is non-false, runs
-// this command in each repository
-// $git = 'git fetch && ( git rebase -v origin || ( git stash && ( git rebase -v origin || echo "WARNING: Run \'git stash pop\' manually!" ) && git stash pop ) )';
+// this command in each repository. If non-false and true, runs this command:
+// 'git fetch && ( git rebase -v origin || ( git stash && ( git rebase -v origin || echo "WARNING: Run \'git stash pop\' manually!" ) && git stash pop ) )';
 $git = false;
 
 // The list of apps to create symlinks for

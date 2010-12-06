@@ -5,16 +5,75 @@
  * while allowing changes made to the repository source to also be reflected
  * in the local installation.
  *
- * Requires the file 'install_dev.conf' to live in the same directory as
- * this script.
+ * If run with no arguments, reads in config values from the file
+ * ./install_dev.conf.
  *
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
  */
 
-require_once dirname(__FILE__) . '/install_dev.conf';
+require_once 'Console/Getopt.php';
+$c = new Console_Getopt();
+$argv = $c->readPHPArgv();
+array_shift($argv);
+
+/* Defaults */
+$apps = array();
+$debug = $git = false;
+$horde_git = $static_group = $web_dir = '';
+$static_mode = 0775;
+
+if (count($argv)) {
+    $options = $c->getopt2($argv, '', array('apps=', 'config=', 'debug', 'git', 'group=', 'hordegit=', 'mode=', 'webdir='));
+    if ($options instanceof PEAR_Error) {
+        exit("Invalid arguments.\n");
+    }
+
+    foreach ($options[0] as $val) {
+        switch ($val[0]) {
+        case '--apps':
+            $apps = explode(',', $val[1]);
+            break;
+
+        case '--config':
+            require_once $val[1];
+            break;
+
+        case '--debug':
+            $debug = (bool)$val[1];
+            break;
+
+        case '--git':
+            $git = (bool)$val[1];
+            break;
+
+        case '--group':
+            $static_group = $val[1];
+            break;
+
+        case '--hordegit':
+            $horde_git = $val[1];
+            break;
+
+        case '--mode':
+            $mode = $val[1];
+            break;
+
+        case '--webdir':
+            $web_dir = $val[1];
+            break;
+        }
+    }
+} else {
+    require_once dirname(__FILE__) . '/install_dev.conf';
+}
 
 $horde_git = rtrim(ltrim($horde_git), '/ ');
 $web_dir = rtrim(ltrim($web_dir), '/ ');
+
+if ($git && ($git === true)) {
+    $git = 'git fetch && ( git rebase -v origin || ( git stash && ( git rebase -v origin || echo "WARNING: Run \'git stash pop\' manually!" ) && git stash pop ) )';
+}
 
 print "EMPTYING old web directory " . $web_dir . "\n";
 try {
