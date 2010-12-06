@@ -31,6 +31,8 @@
     cacheStart: null,
     cacheEnd: null,
 
+    deferHash: {},
+
     /**
      * The currently displayed view
      */
@@ -55,14 +57,14 @@
      */
     loadEvents: function(firstDay, lastDay, view)
     {
-        var loading = false;
+        var dates = [firstDay, lastDay], loading = false;
 
         // Clear out the loaded cal cache
         KronolithMobile.loadedCalendars = [];
         KronolithMobile.clearView(view);
         $.each(KronolithMobile.calendars, function(key, cal) {
-            var startDay = firstDay.clone() , endDay = lastDay.clone(),
-            cals = KronolithMobile.ecache[cal[0]];
+            var startDay = dates[0].clone(), endDay = dates[1].clone(),
+            cals = KronolithMobile.ecache[cal[0]], c;
             if (typeof cals != 'undefined' &&
                 typeof cals[cal[1]] != 'undefined') {
 
@@ -72,7 +74,7 @@
                     if (view == 'day') {
                         KronolithMobile.insertEvents([startDay, startDay], view, cal.join('|'));
                     }
-                    startDay.add(1).day();
+                    startDay.addDays(1);
                     c = cals[startDay.dateString()];
                 }
 
@@ -81,7 +83,7 @@
                     if (view == 'day') {
                         KronolithMobile.insertEvents([endDay, endDay], view, cal.join('|'));
                     }
-                    endDay.add(-1).day();
+                    endDay.addDays(-1);
                     c = cals[endDay.dateString()];
                 }
                 if (startDay.compareTo(endDay) > 0) {
@@ -132,15 +134,13 @@
      * day view, wait for all calendar responses to be received and then build
      * the event elements in the listview.
      *
-     * @TODO: Event caching/view signature checking
-     *
      * @param object data  The ajax response.
      */
     loadEventsCallback: function(data)
     {
         var start = KronolithMobile.parseDate(data.sig.substr(0, 8)),
             end = KronolithMobile.parseDate(data.sig.substr(8, 8)),
-            dates = [start, end], view = data.view, list, events;
+            dates = [start, end], view = data.view;
 
         KronolithMobile.storeCache(data.events, data.cal, dates, true);
         KronolithMobile.loadedCalendars.push(data.cal);
@@ -154,7 +154,8 @@
      */
     insertEvents: function(dates, view, cal)
     {
-        var date, events, list;
+        var key = dates[0].dateString() + dates[1].dateString() + view + cal,
+        d = [dates[0].clone(), dates[1].clone()], date, events, list, key, day;
 
         switch (view) {
         case 'day':
@@ -162,22 +163,23 @@
             // Make sure all calendars are loaded before rendering the view.
             // @TODO: Implement LIFO queue as in kronolith.js
             if (KronolithMobile.loadedCalendars.length != KronolithMobile.calendars.length) {
-                if (KronolithMobile.timeoutId) {
-                    window.clearTimeout(KronolithMobile.timeoutId);
+                if (KronolithMobile.deferHash[key]) {
+                    return;
+                } else {
+                    KronolithMobile.deferHash[key] = window.setTimeout(function() { KronolithMobile.insertEvents(d, view, cal); }, 0);
+                    return;
                 }
-                KronolithMobile.timeoutId = window.setTimeout(function() {KronolithMobile.insertEvents(dates, view);}, 0);
-                return;
             }
-            if (KronolithMobile.timeoutId) {
-                window.clearTimeout(KronolithMobile.timeoutId);
-                KronolithMobile.timoutId = false;
+            if (KronolithMobile.deferHash[key]) {
+                window.clearTimeout(KronolithMobile.deferHash[key]);
+                KronolithMobile.deferHash[key] = false;
             }
         }
 
         switch (view) {
             case 'day':
-                date = dates[0].clone();
-                events = KronolithMobile.getCacheForDate(date.dateString());
+                date = d[0].dateString();
+                events = KronolithMobile.getCacheForDate(date);
                 events = KronolithMobile.sortEvents(events);
                 list = $('<ul>').attr({'data-role': 'listview'});
                 $.each(events, function(index, event) {
@@ -191,8 +193,8 @@
                 break;
 
             case 'month':
-                var day = dates[0].clone();
-                while (!day.isAfter(dates[1])) {
+                day = d[0].clone();
+                while (!day.isAfter(d[1])) {
                     date = day.dateString();
                     events = KronolithMobile.getCacheForDate(date, cal);
                     $.each(events, function(key, event) {
@@ -206,9 +208,9 @@
                 break;
 
             case 'overview':
-                var day = dates[0].clone(), haveEvent = false;
+                day = d[0].clone(), haveEvent = false;
                 list = $('<ul>').attr({'data-role': 'listview'});
-                while (!day.isAfter(dates[1])) {
+                while (!day.isAfter(d[1])) {
                     list.append($('<li>').attr({ 'data-role': 'list-divider' }).text(day.toString('ddd') + ' ' + day.toString('d')));
                     events = KronolithMobile.sortEvents(KronolithMobile.getCacheForDate(day.dateString())) ;
                     $.each(events, function(index, event) {
@@ -426,7 +428,7 @@
     moveToDay: function(date)
     {
         $('.kronolithDayDate').text(date.toString('ddd') + ' ' + date.toString('d'));
-        KronolithMobile.date = date;
+        KronolithMobile.date = date.clone();
         KronolithMobile.loadEvents(date, date, 'day');
     },
 
