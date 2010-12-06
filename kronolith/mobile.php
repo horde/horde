@@ -28,14 +28,7 @@ if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs
     $datejs = 'en-US.js';
 }
 
-require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-
-Horde::addScriptFile('horde-jquery.js', 'horde');
-Horde::addScriptFile('mobile.js', 'horde');
-Horde::addScriptFile('date/' . $datejs, 'horde');
-Horde::addScriptFile('date/date.js', 'horde');
-Horde::addScriptFile('mobile.js', 'kronolith');
-require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
+require $registry->get('templates', 'kronolith') . '/common-header-mobile.inc';
 
 echo $view->render('head');
 echo $view->render('day');

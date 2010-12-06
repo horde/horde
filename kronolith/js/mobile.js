@@ -733,53 +733,18 @@
             });
         });
 
-        // Day View
+        // Bind click events
         $('.kronolithDayHeader .kronolithPrevDay').bind('click', KronolithMobile.showPrevDay);
         $('.kronolithDayHeader .kronolithNextDay').bind('click', KronolithMobile.showNextDay);
-        $('#dayview').bind('pageshow', function(event, ui) {
-            KronolithMobile.view = 'day';
-        });
 
-        // Event view
-        $('#eventview').bind('pageshow', function(event, ui) {
-            KronolithMobile.view = 'event';
-        });
-
-        // Set up the month view
         $('#kronolithMinicalPrev').bind('click', KronolithMobile.showPrevMonth);
         $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
-        $('#monthview').bind('pageshow', function(event, ui) {
-            KronolithMobile.view = 'month';
-            // (re)build the minical only if we need to
-            if (!$('.kronolithMinicalDate').data('date') ||
-                ($('.kronolithMinicalDate').data('date').toString('M') != KronolithMobile.date.toString('M'))) {
-                KronolithMobile.moveToMonth(KronolithMobile.date);
-            }
-        });
-
-        // Set up overview
-        $('#overview').bind('pageshow', function(event, ui) {
-            KronolithMobile.view = 'overview';
-            if (!KronolithMobile.haveOverview) {
-                KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date.clone().addDays(7), 'overview');
-                KronolithMobile.haveOverview = true;
-            }
-        });
+        $('body').bind('swipeleft', KronolithMobile.handleSwipe);
+        $('body').bind('swiperight', KronolithMobile.handleSwipe);
 
         $('td').live('click', function(e) {
             KronolithMobile.selectMonthDay($(this).data('date'));
         });
-
-        // Load today's events.
-        // @TODO once https://github.com/jquery/jquery-mobile/issues/issue/508
-        // is fixed, move this to #dayview's pageshow event, as well as
-        // fix monthview initialization.
-        KronolithMobile.date = new Date();
-        $('.kronolithDayDate').html(KronolithMobile.date.toString('ddd') + ' ' + KronolithMobile.date.toString('d'));
-        KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date, 'day');
-
-        $('body').bind('swipeleft', KronolithMobile.handleSwipe);
-        $('body').bind('swiperight', KronolithMobile.handleSwipe);
     }
 };
 $(KronolithMobile.onDocumentReady);
