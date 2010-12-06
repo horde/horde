@@ -211,11 +211,9 @@ var ImpMobile = {
      */
     clickHandler: function(e)
     {
-        var elt = $(e.target),
-            orig = $(e.target),
-            id;
+        var elt = $(e.target), id;
 
-        while (elt && elt != window.document) {
+        while (elt && elt != window.document && elt.parent().length) {
             id = elt.attr('id');
 
             switch (id) {
