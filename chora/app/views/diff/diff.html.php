@@ -1,11 +1,9 @@
 <div class="diff"<?php if ($id) echo ' id="' . $id . '"' ?>>
  <div class="diff-header"><h4><a href="<?php echo Chora::url('co', $file->queryModulePath(), array('onb' => $r1)) ?>"><?php echo $file->queryModulePath() ?></a></h4></div>
- <!--
- <div class="diff-container">
+ <div class="diff-container diff-subheader">
   <div class="diff-left"><?php echo $this->escape($r1) ?></div>
   <div class="diff-right"><?php echo $this->escape($r2) ?></div>
  </div>
- -->
 
  <div class="diff-container">
   <div class="diff-left">

@@ -286,6 +286,14 @@ div.diff-header h4 {
     font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
     font-size: 110%;
 }
+div.diff-subheader {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background: #eee;
+    padding: .5em;
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+    text-align: center;
+}
 div.diff-container:after {
     content: ".";
     display: block;
