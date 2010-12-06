@@ -149,7 +149,17 @@ foreach (new DirectoryIterator($horde_git . '/horde') as $it) {
     }
 }
 
-chmod($web_dir . '/static', $static_mode);
+if (file_exists($web_dir . '/static')) {
+    echo 'Setting static directory permissions...';
+    chmod($web_dir . '/static', $static_mode);
+} else {
+    echo 'Creating static directory...';
+    mkdir($web_dir . '/static', $static_mode);
+}
+
+if ($static_group) {
+    chgrp($web_dir . '/static', $static_group);
+}
 
 print "\nLINKING framework\n";
 mkdir($web_dir . '/libs');
