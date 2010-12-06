@@ -553,7 +553,7 @@
             }
 
             // Insert day cell.
-            td = $('<td>').attr({'id': 'kronolithMonth' + dateString}).data('date', dateString);
+            td = $('<td>').attr({ 'id': 'kronolithMonth' + dateString, 'class': 'kronolithMonthDay' }).data('date', dateString);
             if (day.getMonth() != date.getMonth()) {
                 td.addClass('kronolithMinicalEmpty');
             }
@@ -719,6 +719,39 @@
         }
     },
 
+    /**
+     * Catch-all event handler for the click event.
+     *
+     * @param object e  An event object.
+     */
+    clickHandler: function(e)
+    {
+        var elt = $(e.target);
+        while (elt && elt != window.document && elt.parent().length) {
+            if (elt.hasClass('kronolithPrevDay')) {
+                KronolithMobile.showPrevDay();
+                return;
+            }
+            if (elt.hasClass('kronolithNextDay')) {
+                KronolithMobile.showNextDay();
+                return;
+            }
+            if (elt.hasClass('kronolithMinicalNext')) {
+                KronolithMobile.showNextMonth();
+                return;
+            }
+            if (elt.hasClass('kronolithMinicalPrev')) {
+                KronolithMobile.showPrevMonth();
+                return;
+            }
+            if (elt.hasClass('kronolithMonthDay')) {
+                KronolithMobile.selectMonthDay(elt.data('date'));
+                return;
+            }
+            elt = elt.parent();
+        }
+    },
+
     onDocumentReady: function()
     {
         // Set up HordeMobile.
@@ -733,18 +766,10 @@
             });
         });
 
-        // Bind click events
-        $('.kronolithDayHeader .kronolithPrevDay').bind('click', KronolithMobile.showPrevDay);
-        $('.kronolithDayHeader .kronolithNextDay').bind('click', KronolithMobile.showNextDay);
-
-        $('#kronolithMinicalPrev').bind('click', KronolithMobile.showPrevMonth);
-        $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
+        // Bind click and swipe events
+        $(document).click(KronolithMobile.clickHandler);
         $('body').bind('swipeleft', KronolithMobile.handleSwipe);
         $('body').bind('swiperight', KronolithMobile.handleSwipe);
-
-        $('td').live('click', function(e) {
-            KronolithMobile.selectMonthDay($(this).data('date'));
-        });
     }
 };
 $(KronolithMobile.onDocumentReady);
