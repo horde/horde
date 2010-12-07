@@ -1707,10 +1707,6 @@ class Kronolith
             $view->user = $identity->getName();
             $view->calendar = $share->get('name');
             $view->imageId = $image->getContentId();
-            if ($GLOBALS['conf']['share']['hidden']) {
-                $view->subscribe = Horde::url('calendars/subscribe.php', true)->add('calendar', $share->getName());
-            }
-            $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
         }
 
         // Process owner and owner permissions.
@@ -1726,23 +1722,26 @@ class Kronolith
                 $share->set('owner', $new_owner);
                 $share->save();
                 if ($GLOBALS['conf']['share']['notify']) {
+                    $view->ownerChange = true;
+                    $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
                     $to = $GLOBALS['injector']
                         ->getInstance('Horde_Core_Factory_Identity')
                         ->create($new_owner)
                         ->getDefaultFromAddress(true);
-                    try {
-                        $message = Horde::callHook('shareOwnerNotification', array($new_owner, $share));
-                    } catch (Horde_Exception_HookNotSet $e) {
-                        $message = sprintf(_("%s has assigned the ownership of \"%s\" to you"),
-                                           $view->user,
-                                           $share->get('name'));
-                    }
-                    $mail->addHeader('Subject', _("Ownership assignment"));
-                    $mail->addHeader('To', $to, 'UTF-8', false);
-                    $mail->setBody($message, 'UTF-8');
+                    $mail->addHeader('Subject', _("Ownership assignment"), 'UTF-8');
+                    $mail->addHeader('To', $to, 'UTF-8');
+                    $mail->setBasePart($multipart);
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                    $view->ownerChange = false;
                 }
             }
+        }
+
+        if ($GLOBALS['conf']['share']['notify']) {
+            if ($GLOBALS['conf']['share']['hidden']) {
+                $view->subscribe = Horde::url('calendars/subscribe.php', true)->add('calendar', $share->getName());
+            }
+            $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
         }
 
         if ($GLOBALS['registry']->isAdmin() ||
