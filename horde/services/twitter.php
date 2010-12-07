@@ -71,15 +71,15 @@ case 'getPage':
         $newest = $params['since_id'];
         $oldest = 0;
     }
+
+    $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
+    $view->addHelper('Tag');
     foreach ($stream as $tweet) {
 
         /* Don't return the max_id tweet, since we already have it */
         if (!empty($params['max_id']) && $params['max_id'] == $tweet->id) {
             continue;
         }
-
-        $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
-        $view->addHelper('Tag');
 
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
