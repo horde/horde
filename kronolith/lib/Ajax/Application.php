@@ -752,8 +752,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 $GLOBALS['notification']->push(sprintf(_("You have been subscribed to \"%s\" (%s)."), $calendar['name'], $calendar['url']), 'horde.success');
                 $result->id = $calendar['url'];
             }
+            $wrapper = new Kronolith_Calendar_Remote($calendar);
             $result->saved = true;
-            $result->color = Kronolith::foregroundColor($calendar);
+            $result->calendar = $wrapper->toHash();
             break;
         }
 

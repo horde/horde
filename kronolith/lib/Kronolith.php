@@ -1957,7 +1957,7 @@ class Kronolith
      *
      * @throws Kronolith_Exception
      */
-    public static function subscribeRemoteCalendar($info, $update = false)
+    public static function subscribeRemoteCalendar(&$info, $update = false)
     {
         if (!(strlen($info['name']) && strlen($info['url']))) {
             throw new Kronolith_Exception(_("You must specify a name and a URL."));
