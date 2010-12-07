@@ -235,12 +235,33 @@ abstract class Horde_Share_Object implements Serializable
     }
 
     /**
+     * Checks to see if a user has a given permission.
+     *
+     * @param string $userid       The userid of the user.
+     * @param integer $permission  A Horde_Perms::* constant to test for.
+     * @param string $creator      The creator of the event.
+     *
+     * @return boolean  Whether or not $userid has $permission.
+     */
+    abstract public function hasPermission($userid, $permission, $creator = null);
+
+    /**
+     * Sets the permission of this share.
+     *
+     * @param Horde_Perms_Permission $perm  Permission object.
+     * @param boolean $update               Should the share be saved
+     *                                      after this operation?
+     *
+     * @return boolean
+     */
+    abstract public function setPermission($perm, $update = true);
+
+    /**
      * Returns the permission of this share.
      *
      * @return Horde_Perms_Permission  Permission object that represents the
      *                                 permissions on this share.
      */
-    public function getPermission()
-    {
-    }
+    abstract public function getPermission();
+
 }
