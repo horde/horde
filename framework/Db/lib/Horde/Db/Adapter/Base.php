@@ -759,7 +759,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         /*@TODO */
         $name = (empty($name) ? '' : $name)
               . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
-        $this->_logger->err($this->_formatLogEntry($name, $sql));
+        $this->_logger->err($this->_formatLogEntry($name, $error));
     }
 
     /**
