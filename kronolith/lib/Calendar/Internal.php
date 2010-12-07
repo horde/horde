@@ -120,4 +120,34 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
     {
         return $this->_share;
     }
+
+    /**
+     * Returns a hash representing this calendar.
+     *
+     * @return array  A simple hash.
+     */
+    public function toHash()
+    {
+        $id = $this->_share->getName();
+        $owner = $GLOBALS['registry']->getAuth() &&
+            $this->owner() == $GLOBALS['registry']->getAuth();
+
+        $hash = parent::toHash();
+        $hash['name']  = ($owner || !$this->owner() ? '' : '[' . $GLOBALS['registry']->convertUsername($this->owner(), false) . '] ')
+            . $this->name();
+        $hash['owner'] = $owner;
+        $hash['show']  = in_array($id, $GLOBALS['display_calendars']);
+        $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
+        $hash['sub']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1)
+            . ($this->owner() ? $this->owner() : '-system-') . '/'
+            . $id . '.ics';
+        $hash['feed']  = (string)Kronolith::feedUrl($id);
+        $hash['embed'] = Kronolith::embedCode($id);
+        $hash['tg']    = array_values(Kronolith::getTagger()->getTags($id, 'calendar'));
+        if ($owner) {
+            $hash['perms'] = Kronolith::permissionToJson($this->_share->getPermission());
+        }
+
+        return $hash;
+    }
 }

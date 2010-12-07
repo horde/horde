@@ -137,7 +137,7 @@ class Kronolith_Calendar_Remote extends Kronolith_Calendar
      */
     public function display()
     {
-        return true;
+        return in_array($this->_url, $GLOBALS['display_remote_calendars']);
     }
 
     /**
@@ -161,5 +161,19 @@ class Kronolith_Calendar_Remote extends Kronolith_Calendar
             return array('user' => $this->_user, 'password' => $this->_password);
         }
         return array();
+    }
+
+    /**
+     * Returns a hash representing this calendar.
+     *
+     * @return array  A simple hash.
+     */
+    public function toHash()
+    {
+        return array_merge(
+            parent::toHash(),
+            array('show' => in_array($this->_url, $GLOBALS['display_remote_calendars'])),
+            $this->credentials()
+        );
     }
 }

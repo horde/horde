@@ -800,15 +800,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
         $calendar = $GLOBALS['all_calendars'][$this->_vars->cal];
         $tagger = Kronolith::getTagger();
-        $result->calendar = array(
-            'name' => (!$calendar->owner() ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->owner(), false) . '] ') . $calendar->name(),
-            'desc' => $calendar->description(),
-            'owner' => false,
-            'fg' => $calendar->foreground(),
-            'bg' => $calendar->background(),
-            'show' => false,
-            'edit' => $calendar->hasPermission(Horde_Perms::EDIT),
-            'tg' => array_values($tagger->getTags($this->_vars->cal, 'calendar')));
+        $result->calendar = $calendar->toHash();
         return $result;
     }
 

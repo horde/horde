@@ -124,8 +124,6 @@ class Kronolith
             }
         }
 
-        $tagger = self::getTagger();
-
         /* Variables used in core javascript files. */
         $code['conf'] = array(
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
@@ -186,36 +184,19 @@ class Kronolith
             $code['conf']['tasks'] = $registry->tasks->ajaxDefaults();
         }
 
-        $subscriptionCals = Horde::url($registry->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1);
-        $subscriptionTasks = Horde::url($registry->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/nag/' : '/rpc.php/nag/'), true, -1);
-
-        // Calendars
+        // Calendars. Do some twisting to sort own calendar before shared
+        // calendars.
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-                if ($calendar->owner() != $GLOBALS['registry']->getAuth() &&
-                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                    $calendar->owner() != $GLOBALS['registry']->getAuth() &&
                     !in_array($id, $GLOBALS['display_calendars'])) {
                     continue;
                 }
                 $owner = $GLOBALS['registry']->getAuth() &&
                     $calendar->owner() == $GLOBALS['registry']->getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
-                    $code['conf']['calendars']['internal'][$id] = array(
-                        'name' => ($owner || !$calendar->owner() ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->owner(), false) . '] ')
-                            . $calendar->name(),
-                        'desc' => $calendar->description(),
-                        'owner' => $owner,
-                        'fg' => $calendar->foreground(),
-                        'bg' => $calendar->background(),
-                        'show' => in_array($id, $GLOBALS['display_calendars']),
-                        'edit' => $calendar->hasPermission(Horde_Perms::EDIT),
-                        'sub' => $subscriptionCals . ($calendar->owner() ? $calendar->owner() : '-system-') . '/' . $id . '.ics',
-                        'feed' => (string)Kronolith::feedUrl($id),
-                        'embed' => self::embedCode($id),
-                        'tg' => array_values($tagger->getTags($id, 'calendar')));
-                    if ($owner) {
-                        $code['conf']['calendars']['internal'][$id]['perms'] = self::permissionToJson($calendar->share()->getPermission());
-                    }
+                    $code['conf']['calendars']['internal'][$id] = $calendar->toHash();
                 }
             }
 
@@ -224,27 +205,15 @@ class Kronolith
                 continue;
             }
             foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-                if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                    $tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
                     !in_array('tasks/' . $id, $GLOBALS['display_external_calendars'])) {
                     continue;
                 }
                 $owner = $GLOBALS['registry']->getAuth() &&
                     $tasklist->get('owner') == $GLOBALS['registry']->getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
-                    $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
-                        'name' => ($owner || !$tasklist->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . '] ')
-                            . $tasklist->get('name'),
-                        'desc' => $tasklist->get('desc'),
-                        'owner' => $owner,
-                        'fg' => self::foregroundColor($tasklist),
-                        'bg' => self::backgroundColor($tasklist),
-                        'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
-                        'edit' => $tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
-                        'sub' => $subscriptionTasks . ($tasklist->get('owner') ? $tasklist->get('owner') : '-system-') . '/' . $tasklist->getName() . '.ics');
-                    if ($owner) {
-                        $code['conf']['calendars']['tasklists']['tasks/' . $id]['perms'] = self::permissionToJson($tasklist->getPermission());
-                    }
+                    $code['conf']['calendars']['tasklists']['tasks/' . $id] = $GLOBALS['all_external_calendars']['tasks/' . $id]->toHash();
                 }
             }
         }
@@ -258,33 +227,17 @@ class Kronolith
                 !in_array($id, $GLOBALS['display_external_calendars'])) {
                 continue;
             }
-            $code['conf']['calendars']['external'][$id] = array(
-                'name' => $calendar->name(),
-                'fg' => $calendar->foreground(),
-                'bg' => $calendar->background(),
-                'api' => $registry->get('name', $registry->hasInterface($calendar->api())),
-                'show' => in_array($id, $GLOBALS['display_external_calendars']));
+            $code['conf']['calendars']['external'][$id] = $calendar->toHash();
         }
 
         // Remote calendars
         foreach ($GLOBALS['all_remote_calendars'] as $url => $calendar) {
-            $code['conf']['calendars']['remote'][$url] = array_merge(
-                array('name' => $calendar->name(),
-                      'desc' => $calendar->description(),
-                      'owner' => true,
-                      'fg' => $calendar->foreground(),
-                      'bg' => $calendar->background(),
-                      'show' => in_array($url, $GLOBALS['display_remote_calendars'])),
-                $calendar->credentials());
+            $code['conf']['calendars']['remote'][$url] = $calendar->toHash();
         }
 
         // Holidays
         foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
-            $code['conf']['calendars']['holiday'][$id] = array(
-                'name' => $calendar->name(),
-                'fg' => $calendar->foreground(),
-                'bg' => $calendar->background(),
-                'show' => in_array($id, $GLOBALS['display_holidays']));
+            $code['conf']['calendars']['holiday'][$id] = $calendar->toHash();
         }
 
         /* Gettext strings used in core javascript files. */
@@ -1102,10 +1055,16 @@ class Kronolith
         $GLOBALS['prefs']->setValue('holiday_drivers', serialize($GLOBALS['display_holidays']));
 
         /* Get a list of external calendars. */
+        $has_tasks = $GLOBALS['registry']->hasInterface('tasks');
+        $tasklists = $has_tasks
+            ? $GLOBALS['registry']->tasks->listTasklists()
+            : array();
         $GLOBALS['all_external_calendars'] = array();
         if ($GLOBALS['session']->exists('kronolith', 'all_external_calendars')) {
             foreach ($GLOBALS['session']->get('kronolith', 'all_external_calendars') as $calendar) {
-                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d']));
+                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = $calendar['a'] == 'tasks'
+                    ? new Kronolith_Calendar_External_Tasks(array('api' => $calendar['a'], 'name' => $calendar['d'], 'share' => $tasklists[$calendar['n']]))
+                    : new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d']));
             }
         } else {
             $apis = array_unique($GLOBALS['registry']->listAPIs());
@@ -1123,7 +1082,9 @@ class Kronolith
                 }
 
                 foreach ($categories as $name => $description) {
-                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description));
+                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = $api == 'tasks'
+                        ? new Kronolith_Calendar_External_Tasks(array('api' => $api, 'name' => $description, 'share' => $tasklists[$name]))
+                        : new Kronolith_Calendar_External(array('api' => $api, 'name' => $description));
                     $ext_cals[] = array(
                         'a' => $api,
                         'n' => $name,
