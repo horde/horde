@@ -18,6 +18,13 @@
    <?php echo $this->loadingImg ?>
    <div id="currentStatus" class="" style="margin:10px;"><strong>'<?php echo _("Latest") ?></strong><?php echo $this->latestStatus ?> - <span class="fbstreaminfo"><?php echo $this->latestDate ?></span></div>
  </div>
- <div style="height:<?php echo $this->bodyHeight ?>px; overflow-y:auto;" id="<?php echo $this->instance ?>_twitter_body"></div>
+ <div>
+   <a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showStream();"><?php echo _("Stream")?></a>
+   <a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showMentions();"><?php echo _("Mentions") ?></a>
+ </div>
+ <div style="height:<?php echo $this->bodyHeight ?>px; overflow-y:auto;" id="<?php echo $this->instance ?>_twitter_body">
+   <div id="<?php echo $this->instance ?>_stream"></div>
+   <div id="<?php echo $this->instance ?>_mentions"></div>
+ </div>
  <div class="hordeSmGetmore"><input type="button" class="button" id="<?php echo $this->instance ?>_getmore" value="<?php echo _("Get More") ?>"></div>
 </div>

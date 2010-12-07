@@ -59,7 +59,11 @@ case 'getPage':
             $params['since_id'] = $since;
         }
         $instance = Horde_Util::getPost('i');
-        $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
+        if (Horde_Util::getPost('mentions', null)) {
+            $stream = Horde_Serialize::unserialize($twitter->statuses->mentions($params), Horde_Serialize::JSON);
+        } else {
+            $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
+        }
     } catch (Horde_Service_Twitter_Exception $e) {
         echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
         exit;

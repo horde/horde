@@ -20,6 +20,7 @@ var Horde_Twitter = Class.create({
     * opts.counter The domid of the node to display chars remaining.
     * opts.spinner The domid of the spinner element.
     * opts.content The main content area, where the tweets are placed.
+    * opts.mentions  The domid of where the mentions stream should be placed.
     * opts.endpoint  The url endpoint for horde/servcies/twitter.php
     * opts.inreplyto
     * opts.refreshrate How often to refresh the stream
@@ -51,6 +52,7 @@ var Horde_Twitter = Class.create({
         }.bind(this));
 
         this.instanceid = opts.instanceid;
+
         /* Get the first page */
         this.getNewEntries();
    },
@@ -132,21 +134,27 @@ var Horde_Twitter = Class.create({
      * Get newer entries, or the first page of entries if this is the first
      * request.
      */
-    getNewEntries: function() {
-        var params = {
+    getNewEntries: function(type) {
+        var callback, params = {
             actionID: 'getPage',
             i: this.instanceid
         };
-
-        if (this.newestId) {
+        if (type == 'mentions') {
+          params.mentions = 1;
+          callback = this._getNewMentionsCallback.bind(this);
+        } else {
+          callback = this._getNewEntriesCallback.bind(this);
+        }
+        if (this.newestId && type !== 'mentions') {
             params.since_id = this.newestId;
         } else {
             params.page = 1;
         }
+
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
-            onSuccess: this._getNewEntriesCallback.bind(this),
+            onSuccess: callback,
             onFailure: function() {
                 $(this.opts.spinner).toggle();
             }
@@ -173,6 +181,7 @@ var Horde_Twitter = Class.create({
      */
     _getNewEntriesCallback: function(response) {
         var content = response.responseJSON.c;
+
         if (response.responseJSON.n != this.newestId) {
             var h = $(this.opts.content).scrollHeight
             $(this.opts.content).insert({ 'top': content });
@@ -190,6 +199,32 @@ var Horde_Twitter = Class.create({
             }
         }
         new PeriodicalExecuter(function(pe) { this.getNewEntries(); pe.stop(); }.bind(this), this.opts.refreshrate );
+    },
+
+    /**
+     * Callback for retrieving new mentions.
+     *
+     * @TODO: Implement paging, separate oldestId etc...
+     */
+    _getNewMentionsCallback: function(response) {
+        var content = response.responseJSON.c;
+        //if (response.responseJSON.n != this.newestId) {
+            var h = $(this.opts.mentions).scrollHeight
+            $(this.opts.mentions).insert({ 'top': content });
+            // Don't scroll if it's the first request.
+            if (this.newestId) {
+                $(this.opts.mentions).scrollTop = h;
+            } else {
+                $(this.opts.mentions).scrollTop = 0;
+            }
+            //this.newestId = response.responseJSON.n;
+
+            // First time we've been called, record the oldest one as well.'
+            //if (!this.oldestId) {
+            //    this.oldestId = response.responseJSON.o;
+            //}
+        //}
+        //new PeriodicalExecuter(function(pe) { this.getNewMentions(); pe.stop(); }.bind(this), this.opts.refreshrate );
     },
 
     /**
@@ -228,6 +263,19 @@ var Horde_Twitter = Class.create({
         tweet.appendChild(tPic);
         tweet.appendChild(tBody);
         $(this.opts.content).insert({top:tweet});
+    },
+
+    showMentions: function()
+    {
+        $(this.opts.content).hide();
+        this.getNewEntries('mentions');
+        $(this.opts.mentions).show();
+    },
+
+    showStream: function()
+    {
+        $(this.opts.mentions).hide();
+        $(this.opts.content).show();
     },
 
     /**
