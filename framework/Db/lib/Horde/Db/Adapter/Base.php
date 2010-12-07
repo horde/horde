@@ -523,7 +523,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         try {
             $stmt = $this->_connection->query($sql);
         } catch (Exception $e) {
-            $this->_logInfo($sql, 'QUERY FAILED: ' . $e->getMessage());
+            $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
             $this->_logInfo($sql, $name);
             throw new Horde_Db_Exception((string)$e->getMessage(), (int)$e->getCode());
         }
@@ -752,6 +752,14 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         $name = (empty($name) ? '' : $name)
               . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
         $this->_logger->debug($this->_formatLogEntry($name, $sql));
+    }
+
+    protected function _logError($error, $name, $runtime = null)
+    {
+        /*@TODO */
+        $name = (empty($name) ? '' : $name)
+              . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
+        $this->_logger->err($this->_formatLogEntry($name, $sql));
     }
 
     /**
