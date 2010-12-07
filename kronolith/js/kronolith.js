@@ -756,6 +756,7 @@ KronolithCore = {
             }
         });
         if (this.view && this.view != loc) {
+            $('kronolithSearchTerm').setValue($('kronolithSearchTerm').readAttribute('default'));
             $('kronolithView' + this.view.capitalize()).fade({
                 duration: this.effectDur,
                 queue: 'end'
