@@ -61,7 +61,7 @@ do {
             }
 
             $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
-            if (!$kronolith_calendar->hasPermission($registry->getAuth(), Horde_Perms::EDIT, $event->creator)) {
+            if (!$kronolith_calendar->hasPermission(Horde_Perms::EDIT, $registry->getAuth(), $event->creator)) {
                 $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
                 break;
             }
