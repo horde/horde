@@ -286,9 +286,9 @@ class Horde_Ldap_Entry
 
             /* Fetch attributes. */
             $attributes = array();
-            for ($attr = @ldap_first_attribute($this->_link, $this->_entry, $ber);
+            for ($attr = @ldap_first_attribute($this->_link, $this->_entry);
                  $attr;
-                 $attr = @ldap_next_attribute($this->_link, $this->_entry, $ber)) {
+                 $attr = @ldap_next_attribute($this->_link, $this->_entry)) {
                 /* Standard function to fetch value. */
                 $func = 'ldap_get_values';
 
