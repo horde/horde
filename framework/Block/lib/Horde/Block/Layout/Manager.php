@@ -215,7 +215,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         case 'shrinkDown':
         case 'removeBlock':
             try {
-                $result = call_user_func(array($this, $action), $row, $col);
+                call_user_func(array($this, $action), $row, $col);
                 $this->_updated = true;
             } catch (Horde_Exception $e) {
                 $GLOBALS['notification']->push($e);
