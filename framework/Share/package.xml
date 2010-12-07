@@ -11,8 +11,8 @@ resources a user owns or has access to.</description>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-11-12</date>
- <time>13:50:22</time>
+ <date>2010-12-07</date>
+ <time>17:46:01</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -317,17 +317,13 @@ resources a user owns or has access to.</description>
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Share.pot" role="data" />
    </dir> <!-- /locale -->
-   <dir name="tests">
+   <dir name="test">
     <dir name="Horde">
      <dir name="Share">
       <file name="AllTests.php" role="test" />
-      <file name="KolabScenarioTest.php" role="test" />
-     </dir> <!-- /tests/Horde/Share -->
-    </dir> <!-- /tests/Horde -->
-    <file name="kolab_createdefault.phpt" role="data" />
-    <file name="kolab_list.phpt" role="data" />
-    <file name="kolab_simple.phpt" role="data" />
-   </dir> <!-- /tests -->
+     </dir> <!-- /test/Horde/Share -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -450,11 +446,7 @@ resources a user owns or has access to.</description>
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Share.po" name="locale/zh_CN/LC_MESSAGES/Horde_Share.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Share.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Share.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Share.po" name="locale/zh_TW/LC_MESSAGES/Horde_Share.po" />
-   <install as="tests/kolab_createdefault.phpt" name="tests/kolab_createdefault.phpt" />
-   <install as="tests/kolab_list.phpt" name="tests/kolab_list.phpt" />
-   <install as="tests/kolab_simple.phpt" name="tests/kolab_simple.phpt" />
-   <install as="Horde/Share/AllTests.php" name="tests/Horde/Share/AllTests.php" />
-   <install as="Horde/Share/KolabScenarioTest.php" name="tests/Horde/Share/KolabScenarioTest.php" />
+   <install as="Horde/Share/AllTests.php" name="test/Horde/Share/AllTests.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -523,7 +515,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-11-12</date>
+   <date>2010-12-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Converted to Horde 4 coding standards
