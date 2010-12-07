@@ -3438,6 +3438,12 @@ KronolithCore = {
     {
         var type = form.id.replace(/kronolithCalendarForm/, '');
 
+        // If saving the calendar changed the owner, we need to delete
+        // and re-insert the calendar.
+        if (r.response.deleted) {
+            this.deleteCalendar(type, data.calendar);
+            delete data.calendar;
+        }
         if (r.response.saved) {
             if ($F('kronolithCalendarinternalImport')) {
                 var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
@@ -3447,21 +3453,11 @@ KronolithCore = {
                 form.submit();
             }
             if (data.calendar) {
-                var cal = Kronolith.conf.calendars[type][data.calendar],
+                var cal = r.response.calendar,
                     color = {
-                        backgroundColor: data.color,
-                        color: r.response.color
+                        backgroundColor: cal.bg,
+                        color: cal.fg
                     };
-                cal.bg = data.color;
-                cal.fg = r.response.color;
-                cal.name = data.name;
-                cal.desc = data.description;
-                if (r.response.perms) {
-                    cal.perms = r.response.perms;
-                }
-                if (data.tags) {
-                    cal.tg = data.tags.split(',');
-                }
                 this.getCalendarList(type, cal.owner).select('div').each(function(element) {
                     if (element.retrieve('calendar') == data.calendar) {
                         element
@@ -3476,33 +3472,50 @@ KronolithCore = {
                         el.setStyle(color);
                     }
                 });
+                Kronolith.conf.calendars[type][data.calendar] = cal;
             } else {
-                var cal = {
-                    bg: data.color,
-                    fg: r.response.color,
-                    name: data.name,
-                    desc: data.description,
-                    edit: true,
-                    owner: true,
-                    show: true
-                };
-                if (r.response.perms) {
-                    cal.perms = r.response.perms;
-                }
-                if (data.tags) {
-                    cal.tg = data.tags.split(',');
-                }
                 if (!Kronolith.conf.calendars[type]) {
                     Kronolith.conf.calendars[type] = [];
                 }
-                Kronolith.conf.calendars[type][r.response.calendar] = cal;
-                this.insertCalendarInList(type, r.response.calendar, cal);
-                this.storeCache($H(), [type, r.response.calendar], this.viewDates(this.date, this.view), true);
+                Kronolith.conf.calendars[type][r.response.id] = r.response.calendar;
+                this.insertCalendarInList(type, r.response.id, r.response.calendar);
+                this.storeCache($H(), [type, r.response.id], this.viewDates(this.date, this.view), true);
             }
         }
         form.down('.kronolithCalendarSave').enable();
         this.closeRedBox();
         this.go(this.lastLocation);
+    },
+
+    /**
+     * Deletes a calendar and all its events from the interface and cache.
+     *
+     * @param string type      The calendar type.
+     * @param string calendar  The calendar id.
+     */
+    deleteCalendar: function(type, calendar)
+    {
+        var container = this.getCalendarList(type, Kronolith.conf.calendars[type][calendar].owner),
+            noItems = container.previous(),
+            div = container.select('div').find(function(element) {
+                return element.retrieve('calendar') == calendar;
+            }),
+            arrow = div.previous('span');
+        arrow.purge();
+        arrow.remove();
+        div.purge();
+        div.remove();
+        if (noItems &&
+            noItems.tagName == 'DIV' &&
+            noItems.className == 'kronolithDialogInfo' &&
+            !container.childElements().size()) {
+            noItems.show();
+        }
+        this.deleteCache(null, [type, calendar]);
+        this.kronolithBody.select('div.kronolithEvent').findAll(function(el) {
+            return el.retrieve('calendar') == type + '|' + calendar;
+        }).invoke('remove');
+        delete Kronolith.conf.calendars[type][calendar];
     },
 
     /**
@@ -4562,27 +4575,7 @@ KronolithCore = {
                               { type: type, calendar: calendar },
                               function(r) {
                                   if (r.response.deleted) {
-                                      var container = this.getCalendarList(type, Kronolith.conf.calendars[type][calendar].owner),
-                                          noItems = container.previous(),
-                                          div = container.select('div').find(function(element) {
-                                              return element.retrieve('calendar') == calendar;
-                                          }),
-                                          arrow = div.previous('span');
-                                      arrow.purge();
-                                      arrow.remove();
-                                      div.purge();
-                                      div.remove();
-                                      if (noItems &&
-                                          noItems.tagName == 'DIV' &&
-                                          noItems.className == 'kronolithDialogInfo' &&
-                                          !container.childElements().size()) {
-                                          noItems.show();
-                                      }
-                                      this.deleteCache(null, [type, calendar]);
-                                      this.kronolithBody.select('div.kronolithEvent').findAll(function(el) {
-                                          return el.retrieve('calendar') == type + '|' + calendar;
-                                      }).invoke('remove');
-                                      delete Kronolith.conf.calendars[type][calendar];
+                                      this.deleteCalendar(type, calendar);
                                   }
                                   this.closeRedBox();
                                   this.go(this.lastLocation);
