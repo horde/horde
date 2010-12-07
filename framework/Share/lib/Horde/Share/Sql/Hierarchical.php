@@ -47,8 +47,9 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      *</pre>
      *
      * @return array  The shares the user has access to.
+     * @throws Horde_Share_Exception
      */
-    public function listShares($userid, $params = array())
+    public function listShares($userid, array $params = array())
     {
         $params = array_merge(array('perm' => Horde_Perms::SHOW,
                                     'attributes' => null,
@@ -79,11 +80,9 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             . (($params['direction'] == 0) ? ' ASC' : ' DESC');
 
         $query = $this->_db->addLimitOffset($query, array('limit' => $params['count'], 'offset' => $params['from']));
-        Horde::logMessage('Query By Horde_Share_sql_hierarchical: ' . $query, 'DEBUG');
         try {
             $rows = $this->_db->selectAll($query);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Horde_Share_Exception($e->getMessage());
         }
 
@@ -107,7 +106,6 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             try {
                 $rows = $this->_db->selectAll($query, $users);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e, 'ERR');
                 throw new Horde_Share_Exception($e->getMessage());
             }
             foreach ($rows as $share) {
@@ -122,7 +120,6 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             try {
                 $rows = $this->_db->selectAll($query, $groups);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e, 'ERR');
                 throw new Horde_Share_Exception($e->getMessage());
             }
             foreach ($rows as $share) {
@@ -152,7 +149,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      *
      * @TODO: check method visisbility,
      *        remove ignorePerms param, simply set perm to null for this
-     * 
+     *
      * @param string $userid      The userid of the user to check access for.
      * @param integer $perm       The level of permissions required.
      * @param mixed $attributes   Restrict the shares returned to those who
@@ -217,7 +214,9 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                         $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
                             . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                     }
-                } catch (Horde_Group_Exception $e) {}
+                } catch (Horde_Group_Exception $e) {
+                    $this->_logError($e, 'Horde_Share_Sql_Hierarchical::getShareCriteria()');
+                }
             }
         }
 
@@ -291,6 +290,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      * @param integer $count      The number of users to return.
      *
      * @return array  List of users.
+     * @throws Horde_Share_Exception
      */
     public function listOwners($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true,
                                $from = 0, $count = 0)
@@ -305,7 +305,6 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         try {
             $allowners = $this->_db->selectValues($sql);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Horde_Share_Exception($e);
         }
 
@@ -330,23 +329,30 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      *                            children of $parent?
      *
      * @return integer  Number of users.
+     * @throws Horde_Share_Exception
      */
     public function countOwners($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
     {
         $sql = 'SELECT COUNT(DISTINCT(s.share_owner)) '
             . $this->getShareCriteria($this->_user, $perm, null, $parent, $allLevels);
 
-        return $this->_db->selectValue($sql);
+        try {
+            $results = $this->_db->selectValue($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
+
+        return $results;
     }
 
     /**
      * Returns a share's direct parent object.
      *
-     * @param Horde_Share_Object $share  The share to get parent for.
+     * @param Horde_Share_Object $child  The share to get parent for.
      *
      * @return Horde_Share_Object The parent share, if it exists.
      */
-    public function getParent($child)
+    public function getParent(Horde_Share_Object $child)
     {
         $parents = $child->get('parents');
 
@@ -355,6 +361,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             return null;
         }
         $parents = explode(':', $parents);
+
         return $this->getShareById(array_pop($parents));
     }
 
@@ -383,9 +390,8 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      * @param array $cids  The array of ids to retrieve.
      *
      * @return array  The requested shares keyed by share_id.
-     * @throws Horde_Share_Exception
      */
-    public function getShares($cids)
+    public function getShares(array $cids)
     {
         $all_shares = array();
         $missing_ids = array();
@@ -413,7 +419,8 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      * delete all child shares as well.
      *
      * @param Horde_Share_Object $share  The share to remove.
-     * @throws Horde_Exception
+     *
+     * @return boolean
      */
     public function removeShare(Horde_Share_Object $share)
     {
@@ -432,22 +439,22 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
     }
 
     /**
-     * Returns an array of Horde_Share_Object_sql objects corresponding
+     * Returns an array of Horde_Share_Object objects corresponding
      * to the given set of unique IDs, with the details retrieved
      * appropriately.
      *
      * @param array $cids  The array of ids to retrieve.
      *
      * @return array  The requested shares keyed by share_id.
+     * @throws Horde_Share_Exception
      */
-    protected function _getShares($ids)
+    protected function _getShares(array $ids)
     {
         $shares = array();
         $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
         try {
             $rows = $this->_db->selectAll($query, $ids);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Horde_Share_Exception($e->getMessage());
         }
 
@@ -469,7 +476,6 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             try {
                 $rows = $this->_db->selectAll($query, $users);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e, 'ERR');
                 throw new Horde_Share_Exception($e->getMessage());
             }
             foreach ($rows as $share) {
@@ -484,12 +490,11 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             try {
                 $rows = $this->_db->selectAll($query, $groups);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e, 'ERR');
                 throw new Horde_Share_Exception($e->getMessage());
             }
             foreach ($rows as $share) {
                 $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
-            }   
+            }
         }
 
         $sharelist = array();
@@ -525,13 +530,20 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      *                            children of $parent?
      *
      * @return integer  Number of shares the user has access to.
+     * @throws Horde_Share_Exception
      */
     public function countShares($userid, $perm = Horde_Perms::SHOW, $attributes = null,
                          $parent = null, $allLevels = true)
     {
         $query = 'SELECT COUNT(DISTINCT s.share_id) '
-            . $this->getShareCriteria($userid, $perm, $attributes,
-                                      $parent, $allLevels);
+            . $this->getShareCriteria($userid, $perm, $attributes, $parent, $allLevels);
+
+        try {
+            $result = $this->_db->selectValue($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
+
         return $this->_db->selectValue($query);
     }
 
