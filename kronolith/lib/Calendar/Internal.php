@@ -133,8 +133,8 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
             $this->owner() == $GLOBALS['registry']->getAuth();
 
         $hash = parent::toHash();
-        $hash['name']  = ($owner || !$this->owner() ? '' : '[' . $GLOBALS['registry']->convertUsername($this->owner(), false) . '] ')
-            . $this->name();
+        $hash['name']  = $this->name()
+          . ($owner || !$this->owner() ? '' : ' [' . $GLOBALS['registry']->convertUsername($this->owner(), false) . ']');
         $hash['owner'] = $owner;
         $hash['show']  = in_array($id, $GLOBALS['display_calendars']);
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
