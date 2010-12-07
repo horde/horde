@@ -1839,7 +1839,7 @@ class Kronolith
 
         $current = $perm->getUserPermissions();
         if ($GLOBALS['conf']['share']['notify']) {
-            $mail->addHeader('Subject', _("Access permissions"));
+            $mail->addHeader('Subject', _("Access permissions"), 'UTF-8');
         }
 
         $perm->removeUserPermission(null, null, false);
@@ -1885,7 +1885,7 @@ class Kronolith
                     ->getInstance('Horde_Core_Factory_Identity')
                     ->create($user)
                     ->getDefaultFromAddress(true);
-                $mail->addHeader('To', $to, 'UTF-8', false);
+                $mail->addHeader('To', $to, 'UTF-8');
                 $mail->setBasePart($multipart);
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             }
@@ -1933,7 +1933,7 @@ class Kronolith
                 !isset($current[$group]) && $has_perms) {
                 $groupOb = $GLOBALS['injector']->getInstance('Horde_Group')->getGroupById($group);
                 if (!empty($groupOb->data['email'])) {
-                    $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>', 'UTF-8', false);
+                    $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>', 'UTF-8');
                     $mail->setBasePart($multipart);
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
