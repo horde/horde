@@ -41,8 +41,31 @@ KronolithCore = {
     search: 'future',
     effectDur: 0.4,
     macos: navigator.appVersion.indexOf('Mac') != -1,
+
+    /**
+     * The location that was open before the current location.
+     *
+     * @var string
+     */
     lastLocation: '',
+
+    /**
+     * The currently open location.
+     *
+     * @var string
+     */
+    openLocation: '',
+
+    /**
+     * The current (main) location.
+     *
+     * This is different from openLocation as it isn't updated for any
+     * locations that are opened in a popup view, e.g. events.
+     *
+     * @var string
+     */
     currentLocation: '',
+
     kronolithBody: $('kronolithBody'),
 
     doActionOpts: {
@@ -299,6 +322,10 @@ KronolithCore = {
             return;
         }
 
+        if (this.openLocation == fullloc) {
+            return;
+        }
+
         this.viewLoading.push([ fullloc, data ]);
 
         switch (loc) {
@@ -485,6 +512,11 @@ KronolithCore = {
                 this.viewLoading.pop();
                 this.go(Kronolith.conf.login_view);
                 this.go.bind(this, fullloc, data).defer();
+                return;
+            }
+
+            if (this.currentLocation == fullloc) {
+                this.loadNextView();
                 return;
             }
 
@@ -3800,6 +3832,17 @@ KronolithCore = {
         return event.value.sort;
     },
 
+    /**
+     * Adds a new location to the history and displays it in the URL hash.
+     *
+     * This is not really a history, because only the current and the last
+     * location are stored.
+     *
+     * @param string loc    The location to save.
+     * @param boolean save  Whether to actually save the location. This should
+     *                      be false for any location that are displayed on top
+     *                      of another location, i.e. in a popup view.
+     */
     addHistory: function(loc, save)
     {
         location.hash = encodeURIComponent(loc);
@@ -3807,6 +3850,7 @@ KronolithCore = {
         if (Object.isUndefined(save) || save) {
             this.currentLocation = loc;
         }
+        this.openLocation = loc;
     },
 
     /**
