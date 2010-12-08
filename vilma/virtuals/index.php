@@ -37,6 +37,7 @@ foreach ($virtuals as $id => $virtual) {
     $virtuals[$id]['del_url'] = Horde_Util::addParameter($url, 'virtual_id', $virtual['virtual_id']);
 }
 
+$template = $injector->createInstance('Horde_Template');
 $template->set('virtuals', $virtuals, true);
 
 /* Set up the template action links. */

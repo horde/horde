@@ -103,6 +103,7 @@ Horde::startBuffer();
 $form->renderActive($renderer, $vars, 'edit.php', 'post');
 $main = Horde::endBuffer();
 
+$template = $injector->createInstance('Horde_Template');
 $template->set('main', $main);
 $template->set('menu', Vilma::getMenu('string'));
 
