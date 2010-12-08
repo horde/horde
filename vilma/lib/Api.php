@@ -16,26 +16,14 @@
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Vilma
  */
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-
-$_services['perms'] = array(
-    'args' => array(),
-    'type' => '{urn:horde}stringArray');
-
-
-$_services['listDomains'] = array(
-    'args' => array(),
-    'type' => '{urn:horde}stringArray');
-
-function _vilma_listDomains()
+class Vilma_Api extends Horde_Registry_Api
 {
-    require_once VILMA_BASE . '/lib/base.php';
-    global $vilma_driver;
-
-    return $vilma_driver->getDomains();
-    $domains = array();
-    foreach ($vilma_driver->getDomains() as $domain) {
-        $domains[] = $domain['domain_name'];
+    public function listDomains()
+    {
+        $domains = array();
+        foreach ($GLOBALS['vilma']->driver->getDomains() as $domain) {
+            $domains[] = $domain['domain_name'];
+        }
+        return $domains;
     }
-    return $domains;
 }
