@@ -682,6 +682,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Service_Twitter</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Text_Filter</name>
     <channel>pear.horde.org</channel>
    </package>
