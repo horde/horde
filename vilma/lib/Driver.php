@@ -174,8 +174,9 @@ abstract class Vilma_Driver
             $err_msg = $mailboxes->getMessage();
             $status[] = Horde::img('alerts/warning.png', $err_msg) . '&nbsp;' . $err_msg;
         }
-        $result = $mailboxes->checkMailbox($user_name, $domain_name);
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            $mailboxes->checkMailbox($user_name, $domain_name);
+        } catch (Exception $result) {
             $no_error = false;
             $err_msg = $result->getMessage();
             $status[] = Horde::img('alerts/warning.png', $err_msg) . '&nbsp;' . $err_msg;
