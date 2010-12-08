@@ -45,8 +45,21 @@ class Vilma_Application extends Horde_Registry_Application
         $this->driver = Vilma_Driver::singleton();
 
         // Get the currently active domain, possibly storing a change into the
-        // session
-        $this->curdomain = Vilma::getCurDomain();
+        // session.
+        // Domain is passed in by ID, which may or may not be the
+        // the same as the actual DNS domain name.
+        $domain_id = Horde_Util::getFormData('domain_id');
+
+        if (!empty($domain_id)) {
+            $domain = $this->driver->getDomain($domain_id);
+            if (!is_a($domain, 'PEAR_Error') &&
+                !empty($domain['domain_name'])) {
+                $this->curdomain = $domain;
+                Vilma::setCurDomain($domain);
+            }
+        } elseif ($domain = $GLOBALS['session']->get('vilma', 'domain')) {
+            $this->curdomain = $domain;
+        }
     }
 
     public function perms()

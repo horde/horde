@@ -84,35 +84,6 @@ class Vilma
     }
 
     /**
-     * Attempt to determine the current domain name based on current user or
-     * a domain_id passed in by form.
-     *
-     * @return mixed string domain on success, false on failure, PEAR::Error on error
-     */
-    function getCurDomain()
-    {
-        // Domain is passed in by ID, which may or may not be the
-        // the same as the actual DNS domain name
-        $domain_id = Horde_Util::getFormData('domain_id');
-
-        if (!empty($domain_id)) {
-            // FIXME: Make sure this only runs once per page-load
-            $domain = $GLOBALS['vilma_driver']->getDomain($domain_id);
-            if (is_a($domain, 'PEAR_Error')) {
-                return $domain;
-            }
-            if (empty($domain['domain_name'])) {
-                $domain = false;
-            }
-            Vilma::setCurDomain($domain);
-        } elseif (!($domain = $GLOBALS['session']->get('vilma', 'domain'))) {
-            $domain = false;
-        }
-
-        return $domain;
-    }
-
-    /**
      * Set the current domain
      */
     function setCurDomain($domain)
@@ -169,7 +140,7 @@ class Vilma
 
         $menu->add(Horde::url('domains/index.php'), _("_Domains"), 'domain.png');
 
-        if (Vilma::getCurDomain()) {
+        if ($GLOBALS['vilma']->curdomain) {
             $domain = $GLOBALS['session']->get('vilma', 'domain');
             $url = Horde::url('users/index.php');
             $tmp = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
