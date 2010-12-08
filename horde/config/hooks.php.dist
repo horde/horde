@@ -24,9 +24,9 @@
  * ----------------------
  * If the 'hook' parameter is non-empty for a preference (config/prefs.php),
  * the prefs_init hook will be run on login to allow alteration of the value.
- * This hook receives the preference name and the username as parameters and
- * uses the return value from the hook as the new preference value. If null
- * is returned, the original preference value is used.
+ * This hook receives the preference name, preference value, and the username
+ * as parameters and uses the return value from the hook as the new preference
+ * value.
  *
  * This hook is ONLY executed on login and preferences are cached during a
  * users' session.
@@ -149,7 +149,7 @@
 class Horde_Hooks
 {
 //    // PREFERENCES INIT: See above for documentation.
-//    public function prefs_init($pref, $username = null)
+//    public function prefs_init($pref, $value, $username = null)
 //    {
 //        switch ($pref) {
 //        case 'from_addr':
