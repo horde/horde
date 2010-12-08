@@ -9,41 +9,40 @@
  * @author  David Cummings <davidcummings@acm.org>
  * @package Vilma
  */
-class Vilma {
-
+class Vilma
+{
     /**
-     * Check whether the current user has administrative permissions over
-     * the requested domain at the given permissions level.
-     * Also checks to see if the user is a Vilma superadmin.
-     * If the user is a Horde admin they automatically have permission.
+     * Check whether the current user has administrative permissions over the
+     * requested domain at the given permissions level.
      *
-     * @param string $domain Domain for which to check permissions
-     * @param int $permmask  Permissions that must be set for the user
+     * Also checks to see if the user is a Vilma superadmin.  If the user is a
+     * Horde admin they automatically have permission.
      *
-     * @return boolean       True if the user has the requested permission
+     * @param string $domain     Domain for which to check permissions.
+     * @param integer $permmask  Permissions that must be set for the user.
+     *
+     * @return boolean  True if the user has the requested permission.
      */
-    function hasPermission($domain, $permmask = null)
+    public function hasPermission($domain = null, $permmask = null)
     {
-        // FIXME Should this really be the case?  Superadmin is more granular
         if ($GLOBALS['registry']->isAdmin()) {
             return true;
         }
 
-        if ($permmask === null) {
-            $permmask = Horde_Perms::SHOW|Horde_Perms::READ;
+        if (is_null($permmask)) {
+            $permmask = Horde_Perms::SHOW | Horde_Perms::READ;
+        }
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+
+        if ($perms->hasPermission('vilma:domains', $GLOBALS['registry']->getAuth(), $permmask)) {
+            return true;
+        }
+        if ($domain &&
+            $perms->hasPermission('vilma:domains:' . $domain, $GLOBALS['registry']->getAuth(), $permmask)) {
+            return true;
         }
 
-        # Default deny all permissions
-        $user = 0;
-        $superadmin = 0;
-
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-        $superadmin = $perms->hasPermission('vilma:domains',
-                                            $GLOBALS['registry']->getAuth(), $permmask);
-
-        $user = $perms->hasPermission($permname, $GLOBALS['registry']->getAuth(), $permmask);
-
-        return ($superadmin | $user);
+        return false;
     }
 
     function getUserMgrTypes()

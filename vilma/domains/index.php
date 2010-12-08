@@ -12,8 +12,8 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
-if (!Vilma::hasPermission($domain)) {
-    $registry->authenticateFailure('vilma', $e);
+if (!Vilma::hasPermission()) {
+    $registry->authenticateFailure('vilma');
 }
 
 // Having a current domain doesn't make sense on this page
