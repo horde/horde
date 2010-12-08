@@ -321,12 +321,15 @@ KronolithCore = {
             this.redirect(fullloc, true);
             return;
         }
-
         if (this.openLocation == fullloc) {
             return;
         }
 
         this.viewLoading.push([ fullloc, data ]);
+
+        if (loc != 'search') {
+            $('kronolithSearchTerm').setValue($('kronolithSearchTerm').readAttribute('default'));
+        }
 
         switch (loc) {
         case 'day':
@@ -790,7 +793,6 @@ KronolithCore = {
             }
         });
         if (this.view && this.view != loc) {
-            $('kronolithSearchTerm').setValue($('kronolithSearchTerm').readAttribute('default'));
             $('kronolithView' + this.view.capitalize()).fade({
                 duration: this.effectDur,
                 queue: 'end'
