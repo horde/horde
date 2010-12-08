@@ -122,7 +122,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             $addresses += $this->_getGroupsAndForwards('forward', $domain);
         }
         if ($type == 'all' || $type == 'group') {
-            $addresses += $this->_getGroupsAndForwards('group', $domain));
+            $addresses += $this->_getGroupsAndForwards('group', $domain);
         }
         return $addresses;
     }

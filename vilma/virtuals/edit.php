@@ -84,7 +84,7 @@ $renderer = new Horde_Form_Renderer();
 
 Horde::startBuffer();
 $form->renderActive($renderer, $vars, 'edit.php', 'post');
-$main = Horde:endBuffer();
+$main = Horde::endBuffer();
 
 $template = $injector->createInstance('Horde_Template');
 $template->set('main', $main);
