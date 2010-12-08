@@ -37,6 +37,13 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Vilma_Application extends Horde_Registry_Application
 {
+    /**
+     * The application's version.
+     *
+     * @var string
+     */
+    public $version = 'H4 (1.0-git)';
+
     public $driver = null;
     public $curdomain = null;
 
