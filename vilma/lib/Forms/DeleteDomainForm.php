@@ -14,7 +14,7 @@ class DeleteDomainForm extends Horde_Form {
     {
         parent::Horde_Form($vars, _("Delete Domain"));
 
-        $domain_record = $GLOBALS['vilma_driver']->getDomain($vars->get('domain_id'));
+        $domain_record = $GLOBALS['vilma']->driver->getDomain($vars->get('domain_id'));
         if (is_a($domain_record, 'PEAR_Error')) {
             return $domain_record;
         }

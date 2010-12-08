@@ -13,8 +13,6 @@ class EditUserForm extends Horde_Form {
 
     function EditUserForm(&$vars)
     {
-        global $vilma_driver;
-
         $type = $vars->get('type');
         $editing = ($vars->get('mode') == 'edit');
         if ($editing) {
@@ -53,7 +51,7 @@ class EditUserForm extends Horde_Form {
             $this->addVariable(_("Password"), 'password', 'passwordconfirm', true);
         }
         $this->addVariable(_("Full Name"), 'user_full_name', 'text', true);
-        $attrs = $vilma_driver->getUserFormAttributes();
+        $attrs = $GLOBALS['vilma']->driver->getUserFormAttributes();
         foreach ($attrs as $attr) {
             $v = &$this->addVariable($attr['label'], $attr['name'],
                                 $attr['type'], $attr['required'],

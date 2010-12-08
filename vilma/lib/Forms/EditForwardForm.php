@@ -13,8 +13,6 @@ class EditForwardForm extends Horde_Form {
 
     function EditForwardForm(&$vars)
     {
-        global $vilma_driver;
-
         $type = $vars->get('type');
         $editing = ($vars->get('mode') == 'edit');
         if ($editing) {

@@ -18,7 +18,7 @@ class EditDomainForm extends Horde_Form {
         $domain = $GLOBALS['session']->get('vilma', 'domain');
         parent::Horde_Form($vars, $editing ? _("Edit Domain") : _("New Domain"));
         if ($editing && !$this->isSubmitted()) {
-            $domain = $GLOBALS['vilma_driver']->getDomain($vars->get('domain_id'));
+            $domain = $GLOBALS['vilma']->driver->getDomain($vars->get('domain_id'));
             if (is_a($domain, 'PEAR_Error')) {
                 return $domain;
             }

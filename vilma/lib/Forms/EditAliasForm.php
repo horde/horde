@@ -13,8 +13,6 @@ class EditAliasForm extends Horde_Form {
 
     function EditAliasForm(&$vars)
     {
-        global $vilma_driver;
-
         $type = $vars->get('type');
         $editing = ($vars->get('mode') == 'edit');
         if ($editing) {
