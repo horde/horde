@@ -197,6 +197,30 @@ class Vilma_Driver_sql extends Vilma_Driver {
     }
 
     /**
+     * Returns a list of all users, aliases, or groups and forwards for a
+     * domain.
+     *
+     * @param string $domain      Domain on which to search.
+     * @param string $type        Only return a specific type. One of 'all',
+     *                            'user', 'alias','forward', or 'group'.
+     * @param string $key         Sort list by this key.
+     * @param integer $direction  Sort direction.
+     *
+     * @return array Account information for this domain
+     */
+    protected function _getAddresses($domain, $type = 'all')
+    {
+        $addresses = array();
+        if ($type == 'all' || $type == 'user') {
+            $addresses += $this->getUsers($domain);
+        }
+        if ($type == 'all' || $type == 'alias') {
+            $addresses += $this->getVirtuals($domain);
+        }
+        return $addresses;
+    }
+
+    /**
      * Returns all available users, if a domain name is passed then limit the
      * list of users only to those users.
      *

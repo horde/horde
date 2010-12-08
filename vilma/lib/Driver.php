@@ -9,8 +9,8 @@
  * @author Daniel Collins <horde_dev@argentproductions.com>
  * @package Vilma
  */
-class Vilma_Driver {
-
+abstract class Vilma_Driver
+{
     /**
      * A hash containing any parameters for the current driver.
      *
@@ -27,6 +27,40 @@ class Vilma_Driver {
     {
         $this->_params = $params;
     }
+
+    /**
+     * Returns a list of all users, aliases, or groups and forwards for a
+     * domain.
+     *
+     * @param string $domain      Domain on which to search.
+     * @param string $type        Only return a specific type. One of 'all',
+     *                            'user', 'alias','forward', or 'group'.
+     * @param string $key         Sort list by this key.
+     * @param integer $direction  Sort direction.
+     *
+     * @return array Account information for this domain
+     */
+    public function getAddresses($domain, $type = 'all', $key = 'user_name',
+                                 $direction = 0)
+    {
+        $addresses = $this->_getAddresses($domain, $type);
+        Horde_Array::arraySort($addresses, $key, $direction, true);
+        return $addresses;
+    }
+
+    /**
+     * Returns a list of all users, aliases, or groups and forwards for a
+     * domain.
+     *
+     * @param string $domain      Domain on which to search.
+     * @param string $type        Only return a specific type. One of 'all',
+     *                            'user', 'alias','forward', or 'group'.
+     * @param string $key         Sort list by this key.
+     * @param integer $direction  Sort direction.
+     *
+     * @return array Account information for this domain
+     */
+    abstract protected function _getAddresses($domain, $type = 'all');
 
     /**
      * Returns all the users sorted by domain and as arrays of each domain.
@@ -418,6 +452,10 @@ class Vilma_Driver {
             return $domain;
         }
         return $domain['max_users'];
+    }
+
+    public function getUserFormAttributes()
+    {
     }
 
     /**

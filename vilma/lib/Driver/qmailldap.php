@@ -108,30 +108,22 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
      *
      * @return array Account information for this domain
      */
-    function getAddresses($domain, $type = 'all', $key = 'user_name',
-                          $direction = 0)
+    protected function _getAddresses($domain, $type = 'all')
     {
         Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", 'DEBUG');
         $addresses = array();
         if ($type == 'all' || $type == 'user') {
-            $users = $this->_getUsers($domain);
-            $addresses = array_merge($addresses, $users);
+            $addresses += $this->_getUsers($domain);
         }
         if ($type == 'all' || $type == 'alias') {
-            $aliases = $this->_getAliases($domain);
-            $addresses = array_merge($addresses, $aliases);
+            $addresses += $this->_getAliases($domain);
         }
-        if (($type == 'all') || ($type == 'forward')) {
-            $forwards = $this->_getGroupsAndForwards('forward',$domain);
-            $addresses = array_merge($addresses, $forwards);
+        if ($type == 'all' || $type == 'forward') {
+            $addresses += $this->_getGroupsAndForwards('forward', $domain);
         }
-        if (($type == 'all') || ($type == 'group')) {
-            $groups = $this->_getGroupsAndForwards('group',$domain);
-            $addresses = array_merge($addresses, $groups);
+        if ($type == 'all' || $type == 'group') {
+            $addresses += $this->_getGroupsAndForwards('group', $domain));
         }
-        // Sort the results
-        require_once 'Horde/Array.php';
-        Horde_Array::arraySort($addresses, $key, $direction, true);
         return $addresses;
     }
 
@@ -1197,10 +1189,9 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         die("deleteVirtual()");
     }
 
-    function getUserFormAttributes()
+    public function getUserFormAttributes()
     {
-        $attrs = array();
-        $attrs[] = array(
+        return array(array(
             'label' => _("Account Status"),
             'name' => 'user_enabled',
             'type' => 'enum',
@@ -1216,9 +1207,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 ),
              ),
              'default' => 'active',
-        );
-
-        return $attrs;
+        ));
     }
 
     function _connect()
