@@ -54,30 +54,30 @@ foreach ($addresses as $i => $address) {
 
     if($type === 'alias') {
         $url = Horde::url('users/editAlias.php');
-        $url = Util::addParameter($url, 'alias', $id);
-        $url = Util::addParameter($url, 'section', $section);
+        $url = Horde_Util::addParameter($url, 'alias', $id);
+        $url = Horde_Util::addParameter($url, 'section', $section);
         $addresses[$i]['edit_url'] = $url;
         $addresses[$i]['add_alias_url'] = false;
         $addresses[$i]['add_forward_url'] = false;
     } elseif($type === 'forward') {
         $url = Horde::url('users/editForward.php');
-        $url = Util::addParameter($url, 'forward', $id);
-        $url = Util::addParameter($url, 'section', $section);
+        $url = Horde_Util::addParameter($url, 'forward', $id);
+        $url = Horde_Util::addParameter($url, 'section', $section);
         $addresses[$i]['edit_url'] = $url;
         $addresses[$i]['add_alias_url'] = false;
         $addresses[$i]['add_forward_url'] = false;
     } else {
         $url = Horde::url('users/edit.php');
-        $url = Util::addParameter($url, 'address', $id);
-        $url = Util::addParameter($url, 'section', $section);
+        $url = Horde_Util::addParameter($url, 'address', $id);
+        $url = Horde_Util::addParameter($url, 'section', $section);
         $addresses[$i]['edit_url'] = $url;
         $url = Horde::url('users/editAlias.php');
-        $url = Util::addParameter($url, 'address', $id);
-        $url = Util::addParameter($url, 'section', $section);
+        $url = Horde_Util::addParameter($url, 'address', $id);
+        $url = Horde_Util::addParameter($url, 'section', $section);
         $addresses[$i]['add_alias_url'] = $url;
         $url = Horde::url('users/editForward.php');
-        $url = Util::addParameter($url, 'address', $id);
-        $url = Util::addParameter($url, 'section', $section);
+        $url = Horde_Util::addParameter($url, 'address', $id);
+        $url = Horde_Util::addParameter($url, 'section', $section);
         $addresses[$i]['add_forward_url'] = $url;
     }
     $url = Horde::url('users/delete.php');
@@ -93,18 +93,18 @@ foreach ($addresses as $i => $address) {
 
     if($type === 'alias') {
         $url = Horde::url('users/editAlias.php');
-        $url = Util::addParameter($url, 'alias', $id);
-        $url = Util::addParameter($url, 'section', $section);
+        $url = Horde_Util::addParameter($url, 'alias', $id);
+        $url = Horde_Util::addParameter($url, 'section', $section);
         $addresses[$i]['view_url'] = $url;
     } elseif ($type === 'forward') {
         $url = Horde::url('users/editForward.php');
-        $url = Util::addParameter($url, 'forward', $id);
-        $url = Util::addParameter($url, 'section', $section);
+        $url = Horde_Util::addParameter($url, 'forward', $id);
+        $url = Horde_Util::addParameter($url, 'section', $section);
         $addresses[$i]['view_url'] = $url;
     } else {
         $url = Horde::url('users/edit.php');
-        $url = Util::addParameter($url, 'address', $id);
-        $url = Util::addParameter($url, 'section', $section);
+        $url = Horde_Util::addParameter($url, 'address', $id);
+        $url = Horde_Util::addParameter($url, 'section', $section);
         $addresses[$i]['view_url'] = $url;
     }
     $addresses[$i]['type'] = $types[$address['type']]['singular'];
