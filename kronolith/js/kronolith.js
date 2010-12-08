@@ -580,11 +580,13 @@ KronolithCore = {
      */
     loadNextView: function()
     {
-        this.viewLoading.shift();
+        var current = this.viewLoading.shift();
         if (this.viewLoading.size()) {
             var next = this.viewLoading.pop();
             this.viewLoading = [];
-            this.go(next[0], next[1]);
+            if (current[0] != next[0] || current[1] || next[1]) {
+                this.go(next[0], next[1]);
+            }
         }
     },
 
