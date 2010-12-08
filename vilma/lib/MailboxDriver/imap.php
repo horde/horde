@@ -6,74 +6,43 @@
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Vilma
  */
-class Vilma_MailboxDriver_imap extends Vilma_MailboxDriver {
+class Vilma_MailboxDriver_imap extends Vilma_MailboxDriver
+{
+    protected $_imap = null;
 
-    var $_imapAdmin = null;
-
-    function _connect()
+    protected function _connect()
     {
-        if (!is_null($this->_imapAdmin)) {
-            return false;
+        if ($this->_imap) {
+            return;
         }
-
-        // Catch c-client errors.
-        register_shutdown_function('imap_errors');
-        register_shutdown_function('imap_alerts');
-
-        require_once 'Horde/IMAP/Admin.php';
-        $admin = &new IMAP_Admin($this->_params);
-        if (is_a($admin, 'PEAR_Error')) {
-            return $admin;
-        }
-
-        $this->_imapAdmin = $admin;
-        return true;
+        $params = array('username' => $this->_params['admin_user'],
+                        'password' => $this->_params['admin_password'],
+                        'hostspec' => $this->_params['hostspec'],
+                        'port'     => $this->_params['port']);
+        $this->_imap = Horde_Imap_Client::factory('Socket', $params);
     }
 
-    function checkMailbox($user, $domain)
+    public function checkMailbox($user, $domain)
     {
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        if (!$this->_imapAdmin->mailboxExists($user . '@' . $domain)) {
-            throw new Vilma_Exception(sprintf(_("Mailbox '%s@%s' does not exist."), $user, $domain));
+        $this->_connect();
+        if (!$this->_imap->listMailboxes($this->_params['userhierarchy'] . $user . '@' . $domain)) {
+            throw new Vilma_Exception(sprintf(_("Mailbox \"%s\" does not exist."), $user . '@' . $domain));
         }
     }
 
-    function createMailbox($user, $domain)
+    public function createMailbox($user, $domain)
     {
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        $mbox = $user . '@' . $domain;
-
-        $res = $this->_imapAdmin->addMailbox($mbox);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        return true;
+        $this->_connect();
+        $this->_imap->createMailbox($this->_params['userhierarchy'] . $user . '@' . $domain);
     }
 
-    function deleteMailbox($user, $domain)
+    public function deleteMailbox($user, $domain)
     {
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        $res = $this->_imapAdmin->removeMailbox($user . '@' . $domain);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        return true;
+        $this->_connect();
+        $this->_imap->deleteMailbox($this->_params['userhierarchy'] . $user . '@' . $domain);
     }
 
 }
