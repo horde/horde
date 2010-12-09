@@ -21,6 +21,7 @@ Horde::outputMetaTags();
 Horde::includeScriptFiles();
 Horde::includeFavicon();
 Horde::includeStylesheetFiles();
+Horde::outputInlineScript();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>

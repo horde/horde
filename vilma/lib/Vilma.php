@@ -130,31 +130,4 @@ class Vilma
                                                   $conf['mailboxes']['params']);
         return $driver;
     }
-
-    /**
-     * Build Vilma's list of menu items.
-     */
-    function getMenu($returnType = 'object')
-    {
-        $menu = new Horde_Menu();
-
-        $menu->add(Horde::url('domains/index.php'), _("_Domains"), 'domain.png');
-
-        if ($GLOBALS['vilma']->curdomain) {
-            $domain = $GLOBALS['session']->get('vilma', 'domain');
-            $url = Horde::url('users/index.php');
-            $tmp = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-            $menu->add(Horde::url($tmp), _($domain['domain_name']), 'domain.png');
-            $menu->add(Horde::url('users/edit.php'), _("New _Address"), 'user.png');
-        } else {
-            $menu->add(Horde::url('domains/edit.php'), _("_New Domain"), 'domain.png');
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
-
 }

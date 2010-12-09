@@ -88,4 +88,21 @@ class Vilma_Application extends Horde_Registry_Application
 
         return $perms;
     }
+
+    /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        $menu->add(Horde::url('domains/index.php'), _("_Domains"), 'domain.png');
+        if ($GLOBALS['vilma']->curdomain) {
+            $domain = $GLOBALS['session']->get('vilma', 'domain');
+            $menu->add(Horde::url('users/index.php')->add('domain_id', $domain['domain_id']), $domain['domain_name'], 'domain.png');
+            $menu->add(Horde::url('users/edit.php'), _("New _Address"), 'user.png');
+        } else {
+            $menu->add(Horde::url('domains/edit.php'), _("_New Domain"), 'domain.png');
+        }
+    }
 }

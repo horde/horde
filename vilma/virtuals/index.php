@@ -56,7 +56,7 @@ $images = array('delete' => Horde::img('delete.png', _("Delete User")),
                 'edit' => Horde::img('edit.png', _("Edit User")));
 $template->set('images', $images);
 
-$template->set('menu', Vilma::getMenu('string'));
+$template->set('menu', Horde::menu());
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

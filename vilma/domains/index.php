@@ -37,7 +37,7 @@ foreach ($domains as $id => $domain) {
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('domains', $domains, true);
-$template->set('menu', Vilma::getMenu('string'));
+$template->set('menu', Horde::menu());
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

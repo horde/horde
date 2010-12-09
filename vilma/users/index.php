@@ -126,7 +126,7 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('addresses', $addresses, true);
 $template->set('maxusers', $maxusers, true);
-$template->set('menu', Vilma::getMenu('string'));
+$template->set('menu', Horde::menu());
 $template->set('tabs', $tabs->render());
 
 Horde::startBuffer();
