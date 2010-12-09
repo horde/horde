@@ -8,7 +8,7 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 
 /**
@@ -25,11 +25,10 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 abstract class Horde_Kolab_Format
 {
-
     /**
      * Attempts to return a concrete Horde_Kolab_Format instance based on
      * $format_type.
@@ -46,16 +45,19 @@ abstract class Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception If the specified driver could not be loaded.
      */
-    static public function &factory($format_type = '', $object_type = '',
-                                    $params = null)
+    static public function factory($format_type = '', $object_type = '',
+                                   $params = null)
     {
         $class = 'Horde_Kolab_Format_' . ucfirst(strtolower($format_type));
         if (class_exists($class)) {
-            $driver = call_user_func(array($class, 'factory'), $object_type,
-                                     $params);
+            $driver = call_user_func(
+                array($class, 'factory'), $object_type, $params
+            );
         } else {
-            throw new Horde_Kolab_Format_Exception(sprintf('Failed to load Kolab Format driver %s',
-                                              $format_type));
+            throw new Horde_Kolab_Format_Exception(
+                sprintf('Failed to load Kolab Format driver %s',
+                        $format_type)
+            );
         }
 
         return $driver;
@@ -103,5 +105,4 @@ abstract class Horde_Kolab_Format
      * @throws Horde_Kolab_Format_Exception
      */
     abstract public function save($object);
-
 }

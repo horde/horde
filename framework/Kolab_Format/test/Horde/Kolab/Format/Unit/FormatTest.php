@@ -1,6 +1,6 @@
 <?php
 /**
- * All tests for the Kolab_Format:: package.
+ * Test the format entry point.
  *
  * PHP version 5
  *
@@ -13,21 +13,14 @@
  */
 
 /**
- * Define the main method
- */
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Kolab_Format_AllTests::main');
-}
-
-/**
  * Prepare the test setup.
  */
-require_once 'Horde/Test/AllTests.php';
+require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Combine the tests for this package.
+ * Test the format entry point.
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -39,12 +32,24 @@ require_once 'Horde/Test/AllTests.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_AllTests extends Horde_Test_AllTests
+class Horde_Kolab_Format_Unit_FormatTest
+extends PHPUnit_Framework_TestCase
 {
-}
+    public function testFactory()
+    {
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Xml_Contact',
+            Horde_Kolab_Format::factory('XML', 'contact')
+        );
+    }
 
-Horde_Kolab_Format_AllTests::init('Horde_Kolab_Format', __FILE__);
+    /**
+     * @expectedException Horde_Kolab_Format_Exception
+     */
+    public function testFactoryException()
+    {
+        Horde_Kolab_Format::factory('UNKNOWN', 'contact');
+    }
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Kolab_Format_AllTests::main') {
-    Horde_Kolab_Format_AllTests::main();
+
 }
