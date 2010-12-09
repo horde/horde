@@ -35,6 +35,7 @@ foreach ($domains as $id => $domain) {
 
 /* Set up the template fields. */
 $template = $injector->createInstance('Horde_Template');
+$template->setOption('gettext', true);
 $template->set('domains', $domains, true);
 $template->set('menu', Vilma::getMenu('string'));
 

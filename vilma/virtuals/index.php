@@ -38,6 +38,7 @@ foreach ($virtuals as $id => $virtual) {
 }
 
 $template = $injector->createInstance('Horde_Template');
+$template->setOption('gettext', true);
 $template->set('virtuals', $virtuals, true);
 
 /* Set up the template action links. */

@@ -123,6 +123,7 @@ $url = Horde::url('virtuals/edit.php');
 
 /* Set up the template fields. */
 $template = $injector->createInstance('Horde_Template');
+$template->setOption('gettext', true);
 $template->set('addresses', $addresses, true);
 $template->set('maxusers', $maxusers, true);
 $template->set('menu', Vilma::getMenu('string'));
