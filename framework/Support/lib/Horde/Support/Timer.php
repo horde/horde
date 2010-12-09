@@ -23,11 +23,15 @@
 class Horde_Support_Timer
 {
     /**
+     * Holds the starting timestamp.
+     *
      * @var array
      */
     protected $_start = array();
 
     /**
+     * Current index for stacked timers.
+     *
      * @var integer
      */
     protected $_idx = 0;
@@ -44,6 +48,8 @@ class Horde_Support_Timer
     /**
      * Pop the latest timer start and return the difference with the current
      * time.
+     *
+     * @return float The amount of time passed.
      */
     public function pop()
     {
