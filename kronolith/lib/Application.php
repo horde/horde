@@ -200,6 +200,19 @@ class Kronolith_Application extends Horde_Registry_Application
                 Horde_Core_Prefs_Ui_Widgets::alarminit();
             }
             break;
+
+        case 'view':
+            $hour = array();
+            for ($i = 0; $i <= 48; ++$i) {
+                $hour[$i] = date(($prefs->getValue('twentyFour')) ? 'G:i' : 'g:ia', mktime(0, $i * 30, 0));
+            }
+            if (!$prefs->isLocked('day_hour_start')) {
+                $ui->override['day_hour_start'] = $hour;
+            }
+            if (!$prefs->isLocked('day_hour_end')) {
+                $ui->override['day_hour_end'] = $hour;
+            }
+            break;
         }
 
         /* Suppress prefGroups display. */
