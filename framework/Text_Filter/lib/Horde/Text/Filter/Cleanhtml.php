@@ -55,7 +55,6 @@ class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter_Base
             'hide-comments' => true,
             'indent' => false,
             'numeric-entities' => true,
-            'output-xhtml' => true,
             'preserve-entities' => true,
             'show-body-only' => !empty($this->_params['body_only']),
             'tab-size' => 0,
