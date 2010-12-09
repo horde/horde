@@ -50,19 +50,17 @@ class IMP_Hooks
      *
      * See horde/config/hooks.php.dist for more information.
      */
-//    public function prefs_init($pref, $value, $username = null)
+//    public function prefs_init($pref, $value, $username)
 //    {
-//        if (!$username) {
-//            return;
-//        }
-//
 //        switch ($pref) {
 //        case 'add_source':
 //            // Dynamically set the add_source preference.
 //
-//            // Example #1: Useful hook when using a Turba source with shares
+//            // Example: Useful hook when using a Turba source with shares
 //            // enabled (i.e. the example localsql configuration).
-//            return $GLOBALS['registry']->call('contacts/getDefaultShare');
+//            return is_null($username)
+//                ? $value
+//                : $GLOBALS['registry']->call('contacts/getDefaultShare');
 //
 //
 //        case 'search_sources':
@@ -71,7 +69,8 @@ class IMP_Hooks
 //            // Example #1: Use the list of sources defined in the contacts
 //            // application (e.g. Turba) to populate the search_sources
 //            // value.
-//            if ($GLOBALS['registry']->hasMethod('contacts/sources')) {
+//            if (!is_null($username) &&
+//                $GLOBALS['registry']->hasMethod('contacts/sources')) {
 //                $sources = $GLOBALS['registry']->call('contacts/sources');
 //                return json_encode(array_keys($sources));
 //            }
