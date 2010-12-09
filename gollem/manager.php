@@ -587,7 +587,8 @@ Horde::addInlineJsVars(array(
 ));
 
 $menu = Gollem::menu();
-require GOLLEM_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require GOLLEM_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 Gollem::status();
 echo $template->fetch(GOLLEM_TEMPLATES . '/manager/manager.html');

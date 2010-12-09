@@ -22,7 +22,7 @@ foreach ($registry->listApps() as $app) {
 }
 asort($apps);
 
-require FOLKS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 require FOLKS_TEMPLATES . '/services/services.php';
 

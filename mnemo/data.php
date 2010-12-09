@@ -199,7 +199,7 @@ if (is_array($next_step)) {
 }
 
 $title = _("Import/Export Notes");
-require MNEMO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify();
 

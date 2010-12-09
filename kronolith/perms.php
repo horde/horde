@@ -112,7 +112,8 @@ try {
     Horde::logMessage($e, 'NOTICE');
 }
 
-require KRONOLITH_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/perms/perms.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

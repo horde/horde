@@ -52,7 +52,7 @@ $layout_html = $layout->toHtml();
 
 $title = sprintf(_("My %s"), $registry->get('name'));
 $menuBottom = '<div id="menuBottom"><a href="' . Horde::url('mybugs_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 echo $layout_html;
 require $registry->get('templates', 'horde') . '/common-footer.inc';

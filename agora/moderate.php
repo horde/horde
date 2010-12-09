@@ -80,7 +80,7 @@ if (isset($api_call)) {
     $title = _("Messages Awaiting Moderation");
     $view->menu = Horde::menu();
     Horde::addScriptFile('stripe.js', 'horde', true);
-    require AGORA_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     echo $view->render('moderate.html.php');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

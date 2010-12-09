@@ -141,7 +141,7 @@ $form->setTitle($form_title);
 
 $title = _("Vacation Edit");
 $menu = Ingo::menu();
-require INGO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
 $form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, 'vacation.php', 'post');

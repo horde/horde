@@ -48,9 +48,13 @@ case 'EditEvent':
 }
 
 $title = $view->getTitle();
-$menu = Horde::menu();
-require KRONOLITH_TEMPLATES . '/common-header.inc';
-echo $menu;
+if ($prefs->getValue('show_panel')) {
+    $bodyClass = 'rightPanel';
+}
+
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require KRONOLITH_TEMPLATES . '/javascript_defs.php';
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';

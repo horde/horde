@@ -453,6 +453,17 @@ class Beatnik {
         }
     }
 
+    function notifyCommits()
+    {
+        // This check has to come after the page has finished all work in case
+        // the status has changed due to a now-completed edit.
+        if (count(Beatnik::needCommit())) {
+            foreach (Beatnik::needCommit() as $domain) {
+                $GLOBLAS['notification']->push(sprintf(_("You have uncommitted changes in %s."), $domain));
+            }
+        }
+    }
+
     /**
      * Checks for the given permissions for the current user on the given
      * permissions node.  Optionally check for the requested permssion for a

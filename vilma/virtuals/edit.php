@@ -94,6 +94,6 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require VILMA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

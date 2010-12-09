@@ -153,7 +153,7 @@ case 'modify':
     $vars->set('image_originalDate', $image->originalDate);
     $vars->set('image_uploaded', $image->uploaded);
 
-    require ANSEL_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     $form->renderActive($renderer, $vars, 'image.php', 'post', 'multipart/form-data');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
@@ -336,7 +336,7 @@ case 'resizeedit':
         Horde::addScriptFile('dragdrop.js', 'horde');
    }
 
-    require ANSEL_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 
@@ -469,7 +469,7 @@ case 'setwatermark':
     $form = new Ansel_Form_Watermark($vars, _("Watermark"));
     $renderer = new Horde_Form_Renderer();
 
-    require ANSEL_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     $form->renderActive($renderer, $vars, 'image.php', 'post');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
@@ -509,7 +509,7 @@ case 'previewrotate270':
                      $gallery->get('name'),
                      $image->filename);
 
-    require ANSEL_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     echo Horde::menu();
     require ANSEL_TEMPLATES . '/image/preview_image.inc';
     require $registry->get('templates', 'horde') . '/common-footer.inc';
@@ -736,7 +736,7 @@ case 'previewcrop':
 
         $params = $x1 . '.' . $y1 . '.' . $x2 . '.' . $y2;
 
-        require ANSEL_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         echo Horde::menu();
         require ANSEL_TEMPLATES . '/image/preview_cropimage.inc';
         require $registry->get('templates', 'horde') . '/common-footer.inc';
@@ -759,7 +759,7 @@ default:
     exit;
 }
 
-require ANSEL_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $form->renderActive($renderer, $vars, 'image.php', 'post',
                     'multipart/form-data');

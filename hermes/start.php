@@ -40,7 +40,7 @@ if ($form->validate($vars)) {
 }
 
 $title = _("Stop Watch");
-require HERMES_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 
 $renderer = new Horde_Form_Renderer();
 $form->renderActive($renderer, $vars, 'start.php', 'post');

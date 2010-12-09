@@ -24,7 +24,7 @@ if (!$page->allows(Wicked::MODE_HISTORY)) {
 }
 
 $title = sprintf(_("History: %s"), $page->pageName());
-require WICKED_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WICKED_TEMPLATES . '/menu.inc';
 $page->render(Wicked::MODE_HISTORY);
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -37,7 +37,7 @@ $delete_img = Horde::img('delete.png', _("Delete"), null);
 Horde::addScriptFile('popup.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 $title = _("Manage Notepads");
-require MNEMO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/notepad_list.php';

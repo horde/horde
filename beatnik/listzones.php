@@ -50,7 +50,8 @@ Horde::addScriptFile('beatnik.js');
 Horde::addScriptFile('stripe.js', 'horde');
 
 // Initialization complete.  Render the page.
-require BEATNIK_TEMPLATES . '/common-header.inc';
+Beatnik::notifyCommits();
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require BEATNIK_TEMPLATES . '/menu.inc';
 
 require BEATNIK_TEMPLATES . '/listzones/header.inc';

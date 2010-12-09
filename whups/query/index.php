@@ -168,8 +168,11 @@ $qops = array(
 );
 
 // Start the page.
+if ($whups_query->id) {
+    $linkTags[] = $whups_query->feedLink();
+}
 $title = _("Query Builder");
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 
 echo $queryTabs->render(Horde_Util::getFormData('action', 'edit'));

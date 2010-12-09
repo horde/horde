@@ -43,7 +43,7 @@ try {
 
 $title = $form->getTitle();
 
-require PASTIE_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require PASTIE_TEMPLATES . '/menu.inc';
 
 require PASTIE_TEMPLATES . '/paste.inc';

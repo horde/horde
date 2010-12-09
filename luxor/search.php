@@ -26,7 +26,7 @@ if (count($ids) == 1) {
 // If there are multiple search results, display some info for all of them.
 
 $title = sprintf(_("Symbol Search for \"%s\""), $symbol);
-require LUXOR_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require LUXOR_TEMPLATES . '/menu.inc';
 
 echo '<h1 class="header">' . htmlspecialchars($title) . '</h1>';

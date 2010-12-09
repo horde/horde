@@ -18,11 +18,15 @@ if (Kronolith::showAjaxView()) {
 
 $view = Kronolith::getView('Week');
 $title = sprintf(_("Week %d"), $view->week);
-$menu = Horde::menu();
+if ($prefs->getValue('show_panel')) {
+    $bodyClass = 'rightPanel';
+}
 
-Horde::addScriptFile('tooltips.js', 'horde');
-require KRONOLITH_TEMPLATES . '/common-header.inc';
-echo $menu;
+Horde::addScriptFile('views.js', 'kronolith');
+
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require KRONOLITH_TEMPLATES . '/javascript_defs.php';
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';

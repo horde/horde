@@ -117,7 +117,7 @@ $print_view = (bool)Horde_Util::getFormData('print');
 if (!$print_view) {
     Horde::addScriptFile('popup.js', 'horde', true);
 }
-require MNEMO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 
 if ($print_view) {
     require $registry->get('templates', 'horde') . '/javascript/print.js';

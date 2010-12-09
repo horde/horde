@@ -63,7 +63,7 @@ case 'add_bookmark':
             echo Horde::wrapInlineScript(array('window.close();'));
         } elseif (Horde_Util::getFormData('iframe')) {
             $notification->push(_("Bookmark Added"), 'horde.success');
-            require TREAN_TEMPLATES . '/common-header.inc';
+            require $registry->get('templates', 'horde') . '/common-header.inc';
             $notification->notify();
         } else {
             Horde::url('browse.php', true)
@@ -116,7 +116,7 @@ if (Horde_Util::getFormData('popup')) {
 }
 
 $title = _("New Bookmark");
-require TREAN_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 if (!Horde_Util::getFormData('popup') && !Horde_Util::getFormData('iframe')) {
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));

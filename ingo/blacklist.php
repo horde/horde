@@ -100,7 +100,7 @@ $bl_rule = $filters->findRule(Ingo_Storage::ACTION_BLACKLIST);
 $menu = Ingo::menu();
 Ingo::addNewFolderJs();
 $title = _("Blacklist Edit");
-require INGO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/blacklist/blacklist.inc';

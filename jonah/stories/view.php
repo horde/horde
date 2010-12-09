@@ -19,7 +19,7 @@ if (!$story_id) {
         $story_id = $injector->getInstance('Jonah_Driver')->getLatestStoryId($channel_id);
     } catch (Exception $e) {
         $notification->push(sprintf(_("Error fetching story: %s"), $e->getMessage()), 'horde.warning');
-        require JONAH_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require JONAH_TEMPLATES . '/menu.inc';
         require $registry->get('templates', 'horde') . '/common-footer.inc';
         exit;

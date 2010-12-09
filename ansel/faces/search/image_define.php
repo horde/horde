@@ -52,7 +52,7 @@ Horde::addScriptFile('builder.js', 'horde');
 Horde::addScriptFile('cropper.js', 'ansel');
 Horde::addScriptFile('stripe.js', 'horde');
 
-require ANSEL_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/define.inc';

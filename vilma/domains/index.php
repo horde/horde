@@ -49,6 +49,6 @@ $images = array('delete' => Horde::img('delete.png', _("Delete Domain")),
 $template->set('images', $images);
 
 /* Render the page. */
-require VILMA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/domains/index.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

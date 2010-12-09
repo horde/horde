@@ -51,7 +51,7 @@ if (!$page->allows(Wicked::MODE_DIFF)) {
 }
 
 $title = sprintf(_("Diff for %s between %s and %s"), $page->pageName(), $v1, $page->version());
-require WICKED_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WICKED_TEMPLATES . '/menu.inc';
 $page->render(Wicked::MODE_DIFF, $v1);
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -29,7 +29,7 @@ $PUBLISH_ONNEXT = '';
 $PUBLISH_CMD = '';
 
 $title = sprintf(_("Publish to %s"), $registry->get('name'));
-require ANSEL_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 
 // Check for a login.
 if ($cmd == 'login') {

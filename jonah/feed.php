@@ -61,6 +61,6 @@ Horde::startBuffer();
 $GLOBALS['notification']->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require JONAH_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $template->fetch(JONAH_TEMPLATES . '/delivery/html.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

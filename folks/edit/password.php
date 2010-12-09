@@ -187,7 +187,7 @@ if (!$prefs->isLocked('security_question')) {
 $v = &$form_security->addVariable(_("Security answer"), 'security_answer', 'text', true);
 $v->setDefault($prefs->getValue('security_answer'));
 
-require FOLKS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('password');

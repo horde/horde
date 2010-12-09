@@ -33,7 +33,7 @@ abstract class Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
         $notification->push(sprintf(_("Error fetching story: %s"), $message), 'horde.error');
-        require JONAH_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         $notification->notify(array('listeners' => 'status'));
         require $registry->get('templates', 'horde') . '/common-footer.inc';
         exit;

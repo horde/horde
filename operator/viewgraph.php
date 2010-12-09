@@ -91,7 +91,7 @@ $curgraph = $vars->get('graph');
 
 $title = _("Call Detail Records Graph");
 
-require OPERATOR_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 
 $form->renderActive($renderer, $vars, Horde::url('viewgraph.php'), 'post');

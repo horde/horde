@@ -59,7 +59,7 @@ $pager->preserve('gallery',  $gallery_id);
 $title = sprintf(_("Searching for faces in %s"),Ansel::getUrlFor('view', array('gallery' => $gallery_id, 'view' => 'Gallery'))->link() . $gallery->get('name') . '</a>');
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('popup.js', 'horde');
-require ANSEL_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/gallery.inc';

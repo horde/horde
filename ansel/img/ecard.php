@@ -99,7 +99,7 @@ if ($editor->supportedByBrowser()) {
     $form->addHidden('', 'rtemode', 'text', false);
 }
 
-require ANSEL_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, 'ecard.php', 'post', 'multipart/form-data');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -45,11 +45,13 @@ class Wicked_Application extends Horde_Registry_Application
      * Wicked initialization.
      *
      * Global variables defined:
-     *   $wicked - The Wicked_Driver object.
+     * - $wicked:   The Wicked_Driver object.
+     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
         $GLOBALS['wicked'] = Wicked_Driver::factory();
+        $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
     }
 
     /**

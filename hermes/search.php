@@ -88,7 +88,7 @@ $print_view = (bool)$vars->get('print');
 if (!$print_view) {
     Horde::addScriptFile('popup.js', 'horde', true);
 }
-require HERMES_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 
 if (!($searchVars = $session->get('hermes', 'search_criteria'))) {
     $searchVars = $vars;

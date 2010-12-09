@@ -72,6 +72,7 @@ $display = Horde_Util::getFormData('display', 'name');
 
 /* Display the form. */
 $title = _("Address Book");
-require KRONOLITH_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 require KRONOLITH_TEMPLATES . '/contacts/contacts.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

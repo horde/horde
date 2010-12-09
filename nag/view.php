@@ -113,8 +113,8 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
     $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'delete_task')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
 }
 
-require NAG_TEMPLATES . '/common-header.inc';
-echo Horde::menu();
+require $registry->get('templates', 'horde') . '/common-header.inc';
+echo Nag::menu();
 Nag::status();
 
 /* Set up alarm units and value. */

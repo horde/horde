@@ -76,6 +76,6 @@ $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
 $view->pager_link = $pager_ob->render();
 
 $title = sprintf(_("Threads in %s"), $forum_array['forum_name']);
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('threads.html.php');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

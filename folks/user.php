@@ -62,7 +62,7 @@ if ($user == $GLOBALS['registry']->getAuth()) {
 Horde::addScriptFile('stripe.js', 'horde');
 
 $title = sprintf(_("%s's profile"), $user);
-require FOLKS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
 switch ($profile['user_status']) {

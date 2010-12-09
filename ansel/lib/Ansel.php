@@ -18,17 +18,6 @@ class Ansel
     const SORT_DESCENDING = 1;
 
     /**
-     * Build initial Ansel javascript object.
-     *
-     * @return string
-     */
-    static public function initJSVars()
-    {
-        $code = array('Ansel = {ajax: {}, widgets: {}}');
-        return $code;
-    }
-
-    /**
      * Create and initialize the database object.
      *
      * @return mixed MDB2 object

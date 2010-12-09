@@ -54,7 +54,8 @@ if ($gollem_be['quota_val'] > -1) {
 }
 
 $title = _("Quota Display");
-require GOLLEM_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require GOLLEM_TEMPLATES . '/javascript_defs.php';
 if (!$isPopup) {
     Gollem::menu();
     Gollem::status();

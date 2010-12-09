@@ -87,6 +87,6 @@ $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_body = Agora_Messages::formatBody($message['body']);
 
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('main.html.php');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -130,7 +130,7 @@ if ($page->isLocked()) {
 $history = $session->get('wicked', 'history', Horde_Session::TYPE_ARRAY);
 
 $title = $page->pageTitle();
-require WICKED_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WICKED_TEMPLATES . '/menu.inc';
 $page->render(Wicked::MODE_DISPLAY, $params);
 require $registry->get('templates', 'horde') . '/common-footer.inc';

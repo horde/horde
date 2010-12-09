@@ -73,7 +73,7 @@ if ($r) {
 }
 
 $title = sprintf(_("%s :: Symbol \"%s\""), $source['name'], $index->symname($ident));
-require LUXOR_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require LUXOR_TEMPLATES . '/menu.inc';
 
 $view = new Horde_View(array('templatePath' => LUXOR_TEMPLATES));

@@ -88,7 +88,7 @@ default:
 $form->setCostObjects($vars);
 
 $title = $vars->exists('id') ? _("Edit Time") : _("New Time");
-require HERMES_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require HERMES_TEMPLATES . '/menu.inc';
 $form->renderActive(new Horde_Form_Renderer(), $vars, 'entry.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

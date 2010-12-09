@@ -69,7 +69,7 @@ if ($form->validate()) {
 }
 
 $title = _("New Contact");
-require TURBA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

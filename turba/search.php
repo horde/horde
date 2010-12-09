@@ -72,7 +72,7 @@ if (!isset($addressBooks[$source])) {
     /* If there are absolutely no valid sources, abort. */
     if (!isset($addressBooks[$source])) {
         $notification->push(_("No Address Books are currently available. Searching is disabled."), 'horde.error');
-        require TURBA_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require TURBA_TEMPLATES . '/menu.inc';
         require $registry->get('templates', 'horde') . '/common-footer.inc';
         exit;
@@ -263,7 +263,7 @@ if (isset($view) && is_object($view)) {
     Turba::addBrowseJs();
 }
 
-require TURBA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 echo $tabs->render($search_mode);
 echo $headerView->render('header');

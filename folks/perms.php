@@ -243,7 +243,7 @@ try {
     Horde::logMessage($e, 'NOTICE');
 }
 
-require FOLKS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/shares/edit.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

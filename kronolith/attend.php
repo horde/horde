@@ -70,7 +70,8 @@ if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
     }
 }
 
-require KRONOLITH_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 
 ?>
 <div id="menu"><h1>&nbsp;<?php echo htmlspecialchars($title) ?></h1></div>

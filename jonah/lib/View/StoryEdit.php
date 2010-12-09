@@ -73,7 +73,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         /* Needed javascript. */
         Horde::addScriptFile('open_calendar.js', 'horde');
         $title = $form->getTitle();
-        require JONAH_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require JONAH_TEMPLATES . '/menu.inc';
         $form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
         require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -59,7 +59,8 @@ class Kronolith_Application extends Horde_Registry_Application
      * Initialization function.
      *
      * Global variables defined:
-     *   $kronolith_shares - TODO
+     * - $kronolith_shares: TODO
+     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -78,6 +79,11 @@ class Kronolith_Application extends Horde_Registry_Application
         $GLOBALS['kronolith_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         Kronolith::initialize();
+
+        $GLOBALS['linkTags'] = array();
+        foreach ($GLOBALS['display_calendars'] as $calendar) {
+            $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+        }
     }
 
     /**

@@ -82,6 +82,9 @@ class Ansel_Application extends Horde_Registry_Application
 
         /* Set a logger for the Vfs */
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+
+        /* Build initial Ansel javascript object. */
+        Horde::addInlineJsVars(array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass)));
     }
 
     /**

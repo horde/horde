@@ -21,7 +21,7 @@ $owner = $registry->isAdmin() ? Horde_Util::getGet('owner', $registry->getAuth()
 $sort_by = Agora::getSortBy('threads');
 $sort_dir = Agora::getSortDir('threads');
 
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));

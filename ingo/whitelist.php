@@ -53,7 +53,7 @@ $wl_rule = $filters->findRule(Ingo_Storage::ACTION_WHITELIST);
 
 $title = _("Whitelist Edit");
 $menu = Ingo::menu();
-require INGO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/whitelist/whitelist.inc';

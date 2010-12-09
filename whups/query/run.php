@@ -75,8 +75,11 @@ if ($isvalid) {
     $session->set('whups', 'last_search', Horde::url('query/run.php'));
 }
 
+if ($whups_query->id) {
+    $linkTags[] = $whups_query->feedLink();
+}
 $title = $whups_query->name ? $whups_query->name : _("Query Results");
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render($vars->get('action') ? $vars->get('action') : 'run');

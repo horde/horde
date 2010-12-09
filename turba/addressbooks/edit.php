@@ -54,7 +54,7 @@ if ($form->validate($vars)) {
 $vars->set('name', $addressbook->get('name'));
 $vars->set('description', $addressbook->get('desc'));
 $title = $form->getTitle();
-require TURBA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('edit.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -13,6 +13,7 @@ Horde_Registry::appInit('whups');
 require_once WHUPS_BASE . '/lib/Forms/EditTicket.php';
 
 $ticket = Whups::getCurrentTicket();
+$linkTags[] = $ticket->feedLink();
 
 if (!Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
     $notification->push(_("Permission Denied"), 'horde.error');
@@ -97,7 +98,7 @@ if ($vars->get('formname') == 'editticketform') {
 }
 
 $title = '[#' . $id . '] ' . $ticket->get('summary');
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 

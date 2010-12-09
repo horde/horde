@@ -45,8 +45,8 @@ if ($form->validate(new Horde_Variables($_POST))) {
 }
 
 $title = $form->getTitle();
-require NAG_TEMPLATES . '/common-header.inc';
-echo Horde::menu();
+require $registry->get('templates', 'horde') . '/common-header.inc';
+echo Nag::menu();
 Nag::status();
 echo $form->renderActive($form->getRenderer(), $vars, 'delete.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

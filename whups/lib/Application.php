@@ -45,7 +45,8 @@ class Whups_Application extends Horde_Registry_Application
      * Whups initialization.
      *
      * Global variables defined:
-     *   $whups_driver - The global Whups driver object.
+     * - $whups_driver: The global Whups driver object.
+     * - $linkTags:     <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -55,6 +56,8 @@ class Whups_Application extends Horde_Registry_Application
 
         $GLOBALS['whups_driver'] = Whups_Driver::factory();
         $GLOBALS['whups_driver']->initialise();
+
+        $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
     }
 
     /**

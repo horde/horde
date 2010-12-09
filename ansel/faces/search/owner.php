@@ -42,7 +42,7 @@ $pager = new Horde_Core_Ui_Pager(
     )
 );
 $pager->preserve('owner', $owner);
-require ANSEL_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 include ANSEL_TEMPLATES . '/faces/faces.inc';

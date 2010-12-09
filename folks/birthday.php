@@ -53,7 +53,7 @@ $list_url = Folks::getUrlFor('list', 'birthday');
 
 Horde::addScriptFile('stripe.js', 'horde');
 
-require FOLKS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
 require FOLKS_TEMPLATES . '/list/list.php';

@@ -739,6 +739,13 @@ class Nag
         $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));
     }
 
+    public static function menu()
+    {
+        Horde::startBuffer();
+        include NAG_TEMPLATES . '/quick.inc';
+        return Horde::menu() . Horde::endBuffer();
+    }
+
     /**
      * Trigger notifications.
      */

@@ -71,6 +71,6 @@ $form->renderActive(null, $vars, 'search.php', 'get');
 $view->searchForm = Horde::endBuffer();
 
 $title = _("Search Forums");
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('search.html.php');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

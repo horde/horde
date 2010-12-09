@@ -35,7 +35,7 @@ if ($form->validate($vars)) {
 }
 
 $title = $form->getTitle();
-require TURBA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/create.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

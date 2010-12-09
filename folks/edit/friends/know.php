@@ -44,7 +44,7 @@ if ($registry->hasInterface('letter')) {
                         'name' => _("Send message"));
 }
 
-require FOLKS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('friends');

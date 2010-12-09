@@ -50,7 +50,7 @@ if ($VC->hasFeature('branches')) {
 Horde::addScriptFile('tables.js', 'horde');
 Horde::addScriptFile('quickfinder.js', 'horde');
 Horde::addScriptFile('revlog.js', 'chora');
-require CHORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/log/header.inc';

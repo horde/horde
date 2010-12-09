@@ -41,7 +41,8 @@ if ($form->validate($vars)) {
 
 $title = $form->getTitle();
 $menu = Horde::menu();
-require KRONOLITH_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, 'remote_subscribe.php', 'post');

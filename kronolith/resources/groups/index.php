@@ -15,7 +15,8 @@ if (!$GLOBALS['registry']->getAuth()) {
 $menu = Horde::menu();
 $title = _("Resource Groups");
 
-require KRONOLITH_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 
