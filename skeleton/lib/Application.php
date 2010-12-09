@@ -42,6 +42,16 @@ class Skeleton_Application extends Horde_Registry_Application
     public $version = 'H4 (0.1-git)';
 
     /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     * - $variable: List all global variables here.
+     */
+    protected function _init()
+    {
+    }
+
+    /**
      * Add additional items to the menu.
      *
      * @param Horde_Menu $menu  The menu object.
