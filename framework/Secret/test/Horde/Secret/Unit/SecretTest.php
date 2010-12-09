@@ -81,24 +81,6 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException Horde_Secret_Exception
      */
-    public function testWriteException()
-    {
-        $secret = new Horde_Secret();
-        $secret->write("\x88", array());
-    }
-
-    /**
-     * @expectedException Horde_Secret_Exception
-     */
-    public function testReadException()
-    {
-        $secret = new Horde_Secret();
-        $secret->read("\x88", array());
-    }
-
-    /**
-     * @expectedException Horde_Secret_Exception
-     */
     public function testKeyException()
     {
         $secret = new Horde_Secret();

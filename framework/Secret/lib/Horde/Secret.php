@@ -70,10 +70,7 @@ class Horde_Secret
      */
     public function write($key, $message)
     {
-        if (!is_string($message)) {
-            throw new Horde_Secret_Exception('Plain text must be a string', 0);
-        }
-
+        $message = (string) $message;
         if (strlen($key) && strlen($message)) {
             return $this->_getCipherOb($key)->encrypt($message);
         } else {
@@ -92,10 +89,7 @@ class Horde_Secret
      */
     public function read($key, $ciphertext)
     {
-        if (!is_string($ciphertext)) {
-            throw new Horde_Secret_Exception('Chiper text must be a string', 1);
-        }
-
+        $ciphertext = (string) $ciphertext;
         if (strlen($key) && strlen($ciphertext)) {
             return rtrim($this->_getCipherOb($key)->decrypt($ciphertext), "\0");
         } else {
