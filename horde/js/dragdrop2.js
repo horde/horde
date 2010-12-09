@@ -336,7 +336,7 @@ Drag = Class.create({
                 this.ghost.style.top  = (p[1] - delta[1]) + 'px';
 
                 // eo is the offset of the original element to the body.
-                eo = this.element.cumulativeOffset();
+                eo = this.element.cumulativeScrollOffset();
 
                 // Save external dimensions, i.e. height and width including
                 // padding and margins, for later usage.
@@ -367,7 +367,7 @@ Drag = Class.create({
                 // different from the original element's offset because we
                 // used that element's position when cloning the ghost, but
                 // they might have different parents now.
-                go = this.ghost.cumulativeOffset();
+                go = this.ghost.cumulativeScrollOffset();
 
                 // Calculate the difference between the ghost's offset and the
                 // orginal element's offset.
