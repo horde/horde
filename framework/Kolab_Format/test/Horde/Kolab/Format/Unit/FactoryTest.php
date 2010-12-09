@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the format entry point.
+ * Test the factory.
  *
  * PHP version 5
  *
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Test the format entry point.
+ * Test the factory.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -32,14 +32,15 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_Unit_FormatTest
+class Horde_Kolab_Format_Unit_FactoryTest
 extends PHPUnit_Framework_TestCase
 {
     public function testFactory()
     {
+        $factory = new Horde_Kolab_Format_Factory();
         $this->assertInstanceOf(
             'Horde_Kolab_Format_Xml_Contact',
-            Horde_Kolab_Format::factory('XML', 'contact')
+            $factory->create('XML', 'contact')
         );
     }
 
@@ -48,8 +49,16 @@ extends PHPUnit_Framework_TestCase
      */
     public function testFactoryException()
     {
-        Horde_Kolab_Format::factory('UNKNOWN', 'contact');
+        $factory = new Horde_Kolab_Format_Factory();
+        $factory->create('UNKNOWN', 'contact');
     }
 
-
+    public function testCaching()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertSame(
+            $factory->create('XML', 'contact'),
+            $factory->create('XML', 'contact')
+        );
+    }
 }

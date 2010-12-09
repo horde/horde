@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Integration_MimeAttrTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
     /**
      * Test retrieving the document name.
@@ -42,7 +42,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $format = Horde_Kolab_Format::factory('XML', 'contact');
+        $format = $this->factory('XML', 'contact');
         $this->assertEquals('kolab.xml', $format->getName());
     }
 
@@ -53,7 +53,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testMimeType()
     {
-        $format = Horde_Kolab_Format::factory('XML', 'contact');
+        $format = $this->factory('XML', 'contact');
         $this->assertEquals('application/x-vnd.kolab.contact',
                             $format->getMimeType());
     }
@@ -65,7 +65,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testGetDisposition()
     {
-        $format = Horde_Kolab_Format::factory('XML', 'contact');
+        $format = $this->factory('XML', 'contact');
         $this->assertEquals('attachment', $format->getDisposition());
     }
 }

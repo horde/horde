@@ -1,6 +1,6 @@
 <?php
 /**
- * Test task handling within the Kolab format implementation.
+ * Basic test case.
  *
  * PHP version 5
  *
@@ -13,12 +13,7 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
- * Test task handling.
+ * Basic test case.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -32,21 +27,13 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_Integration_TaskTest
-extends Horde_Kolab_Format_TestCase
+class Horde_Kolab_Format_TestCase
+extends PHPUnit_Framework_TestCase
 {
-
-    /**
-     * Test basic task handling
-     */
-    public function testBasicTask()
-    {
-        $xml = $this->factory('XML', 'task');
-
-        // Load XML
-        $task = file_get_contents(dirname(__FILE__) . '/../fixtures/task.xml');
-        $result = $xml->load($task);
-        // Check that the xml loads fine
-        $this->assertEquals($result['body'], 'TEST');
+    public function factory(
+        $format_type = '', $object_type = '', $params = null
+    ) {
+        $factory = new Horde_Kolab_Format_Factory();
+        return $factory->create($format_type, $object_type, $params);
     }
 }

@@ -12,10 +12,11 @@
  */
 
 /**
- * The Horde_Kolab_Format:: class provides the means to read/write the
- * Kolab format.
+ * The Horde_Kolab_Format:: interface defines the basic properties of a Kolab
+ * format handler.
  *
  * Copyright 2007-2010 Klarälvdalens Datakonsult AB
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -27,62 +28,28 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
-abstract class Horde_Kolab_Format
+interface Horde_Kolab_Format
 {
-    /**
-     * Attempts to return a concrete Horde_Kolab_Format instance based on
-     * $format_type.
-     *
-     * @param string $format_type The format type that should be handled.
-     * @param string $object_type The object type that should be handled.
-     * @param array  $params      An array of  additional parameters.
-     *
-     *                                  Supported parameters:
-     *
-     *                                    'version' - The format version.
-     *
-     * @return mixed    The newly created concrete Horde_Kolab_Format_XML instance
-     *
-     * @throws Horde_Kolab_Format_Exception If the specified driver could not be loaded.
-     */
-    static public function factory($format_type = '', $object_type = '',
-                                   $params = null)
-    {
-        $class = 'Horde_Kolab_Format_' . ucfirst(strtolower($format_type));
-        if (class_exists($class)) {
-            $driver = call_user_func(
-                array($class, 'factory'), $object_type, $params
-            );
-        } else {
-            throw new Horde_Kolab_Format_Exception(
-                sprintf('Failed to load Kolab Format driver %s',
-                        $format_type)
-            );
-        }
-
-        return $driver;
-    }
-
     /**
      * Return the name of the resulting document.
      *
      * @return string The name that may be used as filename.
      */
-    abstract public function getName();
+    public function getName();
 
     /**
      * Return the mime type of the resulting document.
      *
      * @return string The mime type of the result.
      */
-    abstract public function getMimeType();
+    public function getMimeType();
 
     /**
      * Return the disposition of the resulting document.
      *
      * @return string The disportion of this document.
      */
-    abstract public function getDisposition();
+    public function getDisposition();
 
     /**
      * Load an object based on the given XML string.
@@ -93,7 +60,7 @@ abstract class Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    abstract public function load(&$xmltext);
+    public function load(&$xmltext);
 
     /**
      * Convert the data to a XML string.
@@ -104,5 +71,5 @@ abstract class Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    abstract public function save($object);
+    public function save($object);
 }

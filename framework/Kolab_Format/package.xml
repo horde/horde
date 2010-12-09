@@ -29,8 +29,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:03:01</time>
+ <date>2010-12-09</date>
+ <time>08:47:27</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -81,6 +81,7 @@
        </dir> <!-- /lib/Horde/Kolab/Format/Xml -->
        <file name="Date.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Factory.php" role="php" />
        <file name="Translation.php" role="php">
         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
        </file>
@@ -378,9 +379,16 @@
         <file name="TaskTest.php" role="test" />
         <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/Integration -->
+       <dir name="Unit">
+        <dir name="Decorator">
+         <file name="TimedTest.php" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Format/Unit/Decorator -->
+        <file name="FactoryTest.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Format/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="phpunit.xml" role="test" />
+       <file name="TestCase.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Format -->
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
@@ -432,9 +440,12 @@
  <phprelease>
   <filelist>
    <install as="Horde/Kolab/Format/usage.txt" name="doc/Horde/Kolab/Format/usage.txt" />
+   <install as="Horde/Kolab/Format/event.php" name="examples/Horde/Kolab/Format/event.php" />
+   <install as="Horde/Kolab/Format/new_type.php" name="examples/Horde/Kolab/Format/new_type.php" />
    <install as="Horde/Kolab/Format.php" name="lib/Horde/Kolab/Format.php" />
    <install as="Horde/Kolab/Format/Date.php" name="lib/Horde/Kolab/Format/Date.php" />
    <install as="Horde/Kolab/Format/Exception.php" name="lib/Horde/Kolab/Format/Exception.php" />
+   <install as="Horde/Kolab/Format/Factory.php" name="lib/Horde/Kolab/Format/Factory.php" />
    <install as="Horde/Kolab/Format/Translation.php" name="lib/Horde/Kolab/Format/Translation.php" />
    <install as="Horde/Kolab/Format/Xml.php" name="lib/Horde/Kolab/Format/Xml.php" />
    <install as="Horde/Kolab/Format/Xml/Annotation.php" name="lib/Horde/Kolab/Format/Xml/Annotation.php" />
@@ -534,6 +545,7 @@
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
+   <install as="Horde/Kolab/Format/TestCase.php" name="test/Horde/Kolab/Format/TestCase.php" />
    <install as="Horde/Kolab/Format/fixtures/task.xml" name="test/Horde/Kolab/Format/fixtures/task.xml" />
    <install as="Horde/Kolab/Format/Integration/ContactTest.php" name="test/Horde/Kolab/Format/Integration/ContactTest.php" />
    <install as="Horde/Kolab/Format/Integration/EventTest.php" name="test/Horde/Kolab/Format/Integration/EventTest.php" />
@@ -551,6 +563,10 @@
    <install as="Horde/Kolab/Format/Integration/fixtures/preferences_write_old.xml" name="test/Horde/Kolab/Format/Integration/fixtures/preferences_write_old.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/recur.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" />
+   <install as="Horde/Kolab/Format/Unit/FactoryTest.php" name="test/Horde/Kolab/Format/Unit/FactoryTest.php" />
+   <install as="Horde/Kolab/Format/Unit/Decorator/TimedTest.php" name="test/Horde/Kolab/Format/Unit/Decorator/TimedTest.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="TODO" name="TODO" />
   </filelist>
  </phprelease>
  <changelog>
@@ -686,7 +702,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2010-12-09</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Removed dependency on the Kolab package within the task handler.

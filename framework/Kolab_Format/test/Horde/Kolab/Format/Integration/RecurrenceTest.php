@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Integration_RecurrenceTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
 
     /**
@@ -43,8 +43,6 @@ extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        @include_once 'Horde/Date/Recurrence.php';
-
         if (!class_exists('Horde_Date_Recurrence')) {
             $this->markTestSkipped('The Horde_Date_Recurrence class is missing.');
         }
@@ -65,13 +63,13 @@ extends PHPUnit_Framework_TestCase
      */
     public function testBug6388()
     {
-        $xml = Horde_Kolab_Format::factory('XML', 'event');
+        $xml = $this->factory('XML', 'event');
 
         // Load XML
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
 
         // Load XML
-        $xml   = &Horde_Kolab_Format::factory('XML', 'event');
+        $xml   = $this->factory('XML', 'event');
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur_fail.xml');
 
         // Check that the xml fails because of a missing interval value
@@ -91,7 +89,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testExceptions()
     {
-        $xml = Horde_Kolab_Format::factory('XML', 'event');
+        $xml = $this->factory('XML', 'event');
 
         // Load XML
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
@@ -124,7 +122,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testCompletions()
     {
-        $xml = Horde_Kolab_Format::factory('XML', 'event');
+        $xml = $this->factory('XML', 'event');
 
         $r = new Horde_Date_Recurrence(0);
         $r->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);

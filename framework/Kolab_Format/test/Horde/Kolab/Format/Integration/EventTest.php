@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Integration_EventTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
     /**
      * Test for https://www.intevation.de/roundup/kolab/issue3525
@@ -42,7 +42,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testIssue3525()
     {
-        $xml = Horde_Kolab_Format::factory('XML', 'event');
+        $xml = $this->factory('XML', 'event');
 
         // Load XML
         $event  = file_get_contents(dirname(__FILE__)
