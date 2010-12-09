@@ -191,6 +191,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                entries:
      * <pre>
      * 'mbox' - (string) The mailbox that was emptied.
+     * 'poll' - (array) Mailbox names as the keys, number of unseen messages
+     *          as the values.
      * </pre>
      */
     public function emptyMailbox()
@@ -203,6 +205,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $result = new stdClass;
         $result->mbox = $this->_vars->mbox;
+        $result->poll = array($this->_vars->mbox => 0);
 
         return $result;
     }
