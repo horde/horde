@@ -28,3 +28,7 @@
    class.
 
  - Think about storing the data in iCal format.
+
+ - Check how we deal with malformed XML data
+
+ - KEP2
