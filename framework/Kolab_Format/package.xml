@@ -30,7 +30,7 @@
   <active>yes</active>
  </lead>
  <date>2010-12-09</date>
- <time>08:47:27</time>
+ <time>10:18:38</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -70,6 +70,10 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Format">
+       <dir name="Decorator">
+        <file name="Base.php" role="php" />
+        <file name="Timed.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Format/Decorator -->
        <dir name="Xml">
         <file name="Annotation.php" role="php" />
         <file name="Contact.php" role="php" />
@@ -435,6 +439,10 @@
     <name>Date</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -448,6 +456,8 @@
    <install as="Horde/Kolab/Format/Factory.php" name="lib/Horde/Kolab/Format/Factory.php" />
    <install as="Horde/Kolab/Format/Translation.php" name="lib/Horde/Kolab/Format/Translation.php" />
    <install as="Horde/Kolab/Format/Xml.php" name="lib/Horde/Kolab/Format/Xml.php" />
+   <install as="Horde/Kolab/Format/Decorator/Base.php" name="lib/Horde/Kolab/Format/Decorator/Base.php" />
+   <install as="Horde/Kolab/Format/Decorator/Timed.php" name="lib/Horde/Kolab/Format/Decorator/Timed.php" />
    <install as="Horde/Kolab/Format/Xml/Annotation.php" name="lib/Horde/Kolab/Format/Xml/Annotation.php" />
    <install as="Horde/Kolab/Format/Xml/Contact.php" name="lib/Horde/Kolab/Format/Xml/Contact.php" />
    <install as="Horde/Kolab/Format/Xml/Distributionlist.php" name="lib/Horde/Kolab/Format/Xml/Distributionlist.php" />

@@ -69,4 +69,33 @@ class Horde_Kolab_Format_Factory
         }
         return $this->_instances[$class];
     }
+
+    /**
+     * Generates a Kolab object handler with a timer wrapped around it..
+     *
+     * @param string $format The format that the handler should work with.
+     * @param string $object The object type that should be handled.
+     * @param array  $params Additional parameters.
+     * <pre>
+     * 'version' - The format version.
+     * </pre>
+     *
+     * @return Horde_Kolab_Format The wrapped handler.
+     *
+     * @throws Horde_Kolab_Format_Exception If the specified handler does not
+     *                                      exist.
+     */
+    public function createTimed($format_type = '', $object_type = '', $params = null)
+    {
+        if (isset($params['handler'])) {
+            $handler = $params['handler'];
+        } else {
+            $handler = $this->create($format_type, $object_type, $params);
+        }
+        return new Horde_Kolab_Format_Decorator_Timed(
+            $handler,
+            new Horde_Support_Timer(),
+            isset($params['logger']) ? $params['logger'] : null
+        );
+    }
 }
