@@ -30,7 +30,7 @@
   <active>yes</active>
  </lead>
  <date>2010-12-09</date>
- <time>10:18:38</time>
+ <time>11:19:50</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -47,6 +47,11 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="kolab-format" role="script">
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
+   </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Kolab">
@@ -91,7 +96,9 @@
        </file>
        <file name="Xml.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Format -->
-      <file name="Format.php" role="php" />
+      <file name="Format.php" role="php">
+       <tasks:replace from="@version@" to="version" type="package-info" />
+      </file>
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -447,6 +454,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="kolab-format" name="bin/kolab-format" />
    <install as="Horde/Kolab/Format/usage.txt" name="doc/Horde/Kolab/Format/usage.txt" />
    <install as="Horde/Kolab/Format/event.php" name="examples/Horde/Kolab/Format/event.php" />
    <install as="Horde/Kolab/Format/new_type.php" name="examples/Horde/Kolab/Format/new_type.php" />

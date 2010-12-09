@@ -30,6 +30,9 @@
  */
 interface Horde_Kolab_Format
 {
+    /** The package version */
+    const VERSION = '@version@';
+
     /**
      * Return the name of the resulting document.
      *
