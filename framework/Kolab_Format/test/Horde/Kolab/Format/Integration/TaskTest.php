@@ -41,7 +41,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testBasicTask()
     {
-        $xml = $this->factory('XML', 'task');
+        $xml = $this->getFactory()->create('XML', 'task');
 
         // Load XML
         $task = file_get_contents(dirname(__FILE__) . '/../fixtures/task.xml');

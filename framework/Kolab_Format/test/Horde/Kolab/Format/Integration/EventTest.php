@@ -42,7 +42,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testIssue3525()
     {
-        $xml = $this->factory('XML', 'event');
+        $xml = $this->getFactory()->create('XML', 'event');
 
         // Load XML
         $event  = file_get_contents(dirname(__FILE__)

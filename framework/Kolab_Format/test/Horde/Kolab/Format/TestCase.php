@@ -30,10 +30,13 @@
 class Horde_Kolab_Format_TestCase
 extends PHPUnit_Framework_TestCase
 {
-    public function factory(
-        $format_type = '', $object_type = '', $params = null
-    ) {
-        $factory = new Horde_Kolab_Format_Factory();
-        return $factory->create($format_type, $object_type, $params);
+    private $_factory;
+
+    protected function getFactory()
+    {
+        if ($this->_factory === null) {
+            $this->_factory = new Horde_Kolab_Format_Factory();
+        }
+        return $this->_factory;
     }
 }

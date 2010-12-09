@@ -63,13 +63,13 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testBug6388()
     {
-        $xml = $this->factory('XML', 'event');
+        $xml = $this->getFactory()->create('XML', 'event');
 
         // Load XML
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
 
         // Load XML
-        $xml   = $this->factory('XML', 'event');
+        $xml   = $this->getFactory()->create('XML', 'event');
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur_fail.xml');
 
         // Check that the xml fails because of a missing interval value
@@ -89,7 +89,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testExceptions()
     {
-        $xml = $this->factory('XML', 'event');
+        $xml = $this->getFactory()->create('XML', 'event');
 
         // Load XML
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
@@ -122,7 +122,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testCompletions()
     {
-        $xml = $this->factory('XML', 'event');
+        $xml = $this->getFactory()->create('XML', 'event');
 
         $r = new Horde_Date_Recurrence(0);
         $r->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);

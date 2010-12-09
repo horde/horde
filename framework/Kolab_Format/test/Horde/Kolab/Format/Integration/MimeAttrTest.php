@@ -42,7 +42,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testGetName()
     {
-        $format = $this->factory('XML', 'contact');
+        $format = $this->getFactory()->create('XML', 'contact');
         $this->assertEquals('kolab.xml', $format->getName());
     }
 
@@ -53,7 +53,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testMimeType()
     {
-        $format = $this->factory('XML', 'contact');
+        $format = $this->getFactory()->create('XML', 'contact');
         $this->assertEquals('application/x-vnd.kolab.contact',
                             $format->getMimeType());
     }
@@ -65,7 +65,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testGetDisposition()
     {
-        $format = $this->factory('XML', 'contact');
+        $format = $this->getFactory()->create('XML', 'contact');
         $this->assertEquals('attachment', $format->getDisposition());
     }
 }
