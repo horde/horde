@@ -2,7 +2,7 @@
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Kolab_Format</name>
  <channel>pear.horde.org</channel>
- <summary>A package for reading/writing Kolab data formats</summary>
+ <summary>A package for reading/writing Kolab data formats.</summary>
  <description>This package allows to convert Kolab data objects from
  XML to hashes.</description>
  <lead>
@@ -32,8 +32,8 @@
  <date>2010-10-22</date>
  <time>19:03:01</time>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -41,7 +41,6 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* Removed dependency on Horde_Exception.
 * Removed dependency on the Kolab package within the task handler.
 * Converted to Horde4/PHP5
 * Removed Horde_DOM dependency.
@@ -399,6 +398,10 @@
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Nls</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -412,6 +415,10 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Test</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <package>
     <name>Prefs</name>
     <channel>pear.horde.org</channel>
@@ -672,8 +679,8 @@
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
-    <api>1.0.0</api>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
    </version>
    <stability>
     <release>stable</release>
@@ -682,7 +689,6 @@
    <date>2010-10-22</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
-* Removed dependency on Horde_Exception.
 * Removed dependency on the Kolab package within the task handler.
 * Converted to Horde4/PHP5
 * Removed Horde_DOM dependency.
