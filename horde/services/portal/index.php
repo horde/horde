@@ -53,7 +53,7 @@ $layout_html = $view->toHtml();
 
 $css = $injector->getInstance('Horde_Themes_Css');
 foreach ($view->getApplications() as $app) {
-    foreach ($css->getStylesheets('', array('app' => $app)) as $val) {
+    foreach ($css->getStylesheets('', array('app' => $app, 'nohorde' => true)) as $val) {
         $css->addStylesheet($val['fs'], $val['uri']);
     }
 }
