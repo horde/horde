@@ -11,48 +11,49 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
-require_once VILMA_BASE . '/lib/Forms/DeleteDomainForm.php';
-
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    $registry->authenticateFailure('vilma', $e);
+    $registry->authenticateFailure('vilma');
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$form = new DeleteDomainForm($vars);
+try {
+    $form = new Vilma_Form_DeleteDomain($vars);
+} catch (Exception $e) {
+    $notification->push($e);
+    Horde::url('domains/index.php', true)->redirect();
+}
 
-if ($vars->get('submitbutton') == _("Delete")) {
-    if ($form->validate($vars)) {
-        $form->getInfo($vars, $info);
-        $delete = $vilma->driver->deleteDomain($info['domain_id']);
-        if (is_a($delete, 'PEAR_Error')) {
-            Horde::logMessage($delete, 'ERR');
-            $notification->push(sprintf(_("Error deleting domain. %s."), $delete->getMessage()), 'horde.error');
-        } else {
-            $notification->push(_("Domain deleted."), 'horde.success');
-            Horde::url('domains/index.php', true)->redirect();
-        }
-    }
-} elseif ($vars->get('submitbutton') == _("Do not delete")) {
+if ($vars->get('submitbutton') == _("Do not delete")) {
     $notification->push(_("Domain not deleted."), 'horde.message');
     Horde::url('domains/index.php', true)->redirect();
 }
 
+if ($vars->get('submitbutton') == _("Delete")) {
+    if ($form->validate($vars)) {
+        $form->getInfo($vars, $info);
+        try {
+            $delete = $vilma->driver->deleteDomain($info['domain_id']);
+            $notification->push(_("Domain deleted."), 'horde.success');
+            Horde::url('domains/index.php', true)->redirect();
+        } catch (Exception $e) {
+            $notification->push(sprintf(_("Error deleting domain. %s."), $e->getMessage()), 'horde.error');
+        }
+    }
+}
+
 /* Render the form. */
-require_once 'Horde/Form/Renderer.php';
 $renderer = new Horde_Form_Renderer();
 
+$template = $injector->createInstance('Horde_Template');
 Horde::startBuffer();
 $form->renderActive($renderer, $vars, 'delete.php', 'post');
-$main = Horde::endBuffer();
-
-$template->set('main', $main);
-$template->set('menu', Vilma::getMenu('string'));
-
+$template->set('main', Horde::endBuffer());
+$template->set('menu', Horde::menu());
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require VILMA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

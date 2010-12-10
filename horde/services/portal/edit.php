@@ -22,15 +22,20 @@ if (!is_array($layout_pref)) {
 if (!count($layout_pref)) {
     $layout_pref = Horde_Block_Collection::getFixedBlocks();
 }
+
 $layout = Horde_Block_Layout_Manager::singleton('portal', $blocks, $layout_pref);
 
 // Handle requested actions.
 $layout->handle(Horde_Util::getFormData('action'),
                 (int)Horde_Util::getFormData('row'),
-                (int)Horde_Util::getFormData('col'),
-                Horde_Util::getFormData('url'));
+                (int)Horde_Util::getFormData('col'));
+
 if ($layout->updated()) {
     $prefs->setValue('portal_layout', $layout->serialize());
+    if (Horde_Util::getFormData('url')) {
+        $url = new Horde_Url(Horde_Util::getFormData('url'));
+        $url->unique()->redirect();
+    }
 }
 
 $title = _("My Portal Layout");

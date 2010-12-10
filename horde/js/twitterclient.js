@@ -11,7 +11,10 @@ var Horde_Twitter = Class.create({
    inReplyTo: '',
    oldestId: null,
    newestId: null,
+   oldestMention: null,
+   newestMention: null,
    instanceid: null,
+   activeTab: 'stream',
 
    /**
     * Const'r
@@ -20,6 +23,7 @@ var Horde_Twitter = Class.create({
     * opts.counter The domid of the node to display chars remaining.
     * opts.spinner The domid of the spinner element.
     * opts.content The main content area, where the tweets are placed.
+    * opts.mentions  The domid of where the mentions stream should be placed.
     * opts.endpoint  The url endpoint for horde/servcies/twitter.php
     * opts.inreplyto
     * opts.refreshrate How often to refresh the stream
@@ -51,6 +55,7 @@ var Horde_Twitter = Class.create({
         }.bind(this));
 
         this.instanceid = opts.instanceid;
+
         /* Get the first page */
         this.getNewEntries();
    },
@@ -110,18 +115,30 @@ var Horde_Twitter = Class.create({
      * @param integer page  The page number to retrieve.
      */
     getOlderEntries: function() {
-        var params = {
+        var callback, params = {
             actionID: 'getPage',
             i: this.instanceid
         };
 
-        if (this.oldestId) {
-            params.max_id = this.oldestId;
+        switch (this.activeTab) {
+        case 'stream':
+            if (this.oldestId) {
+                params.max_id = this.oldestId;
+            }
+            callback = this._getOlderEntriesCallback.bind(this);
+            break;
+        case 'mentions':
+            if (this.oldestMention) {
+                params.max_id = this.oldestMention;
+            }
+            callback = this._getOlderMentionsCallback.bind(this);
+            params.mentions = 1;
+            break;
         }
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
-            onSuccess: this._getOlderEntriesCallback.bind(this),
+            onSuccess: callback,
             onFailure: function() {
                 $(this.opts.spinner).toggle();
             }
@@ -132,21 +149,27 @@ var Horde_Twitter = Class.create({
      * Get newer entries, or the first page of entries if this is the first
      * request.
      */
-    getNewEntries: function() {
-        var params = {
+    getNewEntries: function(type) {
+        var callback, params = {
             actionID: 'getPage',
             i: this.instanceid
         };
-
-        if (this.newestId) {
+        if (type == 'mentions') {
+          params.mentions = 1;
+          callback = this._getNewMentionsCallback.bind(this);
+        } else {
+          callback = this._getNewEntriesCallback.bind(this);
+        }
+        if (this.newestId && type !== 'mentions') {
             params.since_id = this.newestId;
         } else {
             params.page = 1;
         }
+
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
-            onSuccess: this._getNewEntriesCallback.bind(this),
+            onSuccess: callback,
             onFailure: function() {
                 $(this.opts.spinner).toggle();
             }
@@ -154,16 +177,36 @@ var Horde_Twitter = Class.create({
     },
 
     /**
-     * Callback for updateStream request. Updates display, remembers the oldest
-     * id we know about.
+     * Callback for updateStream request for older stream entries. Updates
+     * display, remembers the oldest id we know about.
      *
+     * @param object response  The response object from the Ajax request.
      */
     _getOlderEntriesCallback: function(response) {
         var content = response.responseJSON.c;
-        this.oldestId = response.responseJSON.o;
-        var h = $(this.opts.content).scrollHeight
-        $(this.opts.content).insert(content);
-        $(this.opts.content).scrollTop = h;
+        if (response.responseJSON.o) {
+            this.oldestId = response.responseJSON.o;
+            var h = $(this.opts.content).scrollHeight
+            $(this.opts.content).insert(content);
+            $(this.opts.content).scrollTop = h;
+        }
+    },
+
+    /**
+     * Callback for updateStream request for older mentions. Updates display,
+     * remembers the oldest id we know about.
+     *
+     * @param object response  The response object from the Ajax request.
+     */
+    _getOlderMentionsCallback: function(response) {
+        var content = response.responseJSON.c;
+        // If no more available, the oldest id will be null
+        if (response.responseJSON.o) {
+            this.oldestMention = response.responseJSON.o;
+            var h = $(this.opts.mentions).scrollHeight
+            $(this.opts.mentions).insert(content);
+            $(this.opts.mentions).scrollTop = h;
+        }
     },
 
     /**
@@ -173,6 +216,7 @@ var Horde_Twitter = Class.create({
      */
     _getNewEntriesCallback: function(response) {
         var content = response.responseJSON.c;
+
         if (response.responseJSON.n != this.newestId) {
             var h = $(this.opts.content).scrollHeight
             $(this.opts.content).insert({ 'top': content });
@@ -190,6 +234,32 @@ var Horde_Twitter = Class.create({
             }
         }
         new PeriodicalExecuter(function(pe) { this.getNewEntries(); pe.stop(); }.bind(this), this.opts.refreshrate );
+    },
+
+    /**
+     * Callback for retrieving new mentions.
+     *
+     * @TODO: Implement paging, separate oldestId etc...
+     */
+    _getNewMentionsCallback: function(response) {
+        var content = response.responseJSON.c;
+        if (response.responseJSON.n != this.newestMention) {
+            var h = $(this.opts.mentions).scrollHeight
+            $(this.opts.mentions).insert({ 'top': content });
+            // Don't scroll if it's the first request.
+            if (this.newestMention) {
+                $(this.opts.mentions).scrollTop = h;
+            } else {
+                $(this.opts.mentions).scrollTop = 0;
+            }
+            this.newestMention = response.responseJSON.n;
+
+            // First time we've been called, record the oldest one as well.
+            if (!this.oldestMention) {
+                this.oldestMention = response.responseJSON.o;
+            }
+        }
+        new PeriodicalExecuter(function(pe) { this.getNewEntries('mentions'); pe.stop(); }.bind(this), this.opts.refreshrate );
     },
 
     /**
@@ -214,20 +284,53 @@ var Horde_Twitter = Class.create({
     },
 
     /**
-     * Build adnd display the node for a new tweet.
+     * Build and display the node for a new tweet.
      */
     buildNewTweet: function(response) {
         var tweet = new Element('div', {'class':'hordeSmStreamstory'});
-        var tPic = new Element('div', {'class':'hordeSmAvatar'}).update(
+        var tPic = new Element('div', {'class':'solidbox hordeSmAvatar'}).update(
             new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
                 new Element('img', {'src':response.user.profile_image_url})
             )
         );
+        tPic.appendChild(
+            new Element('div', { 'style': {'overflow': 'hidden' }}).update(
+                new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(response.user.screen_name)
+            )
+        );
         var tBody = new Element('div', {'class':'hordeSmStreambody'}).update(response.text);
-        tBody.appendChild(new Element('div', {'class':'hordeSmStreaminfo'}).update(this.opts.strings.justnow));
+        tBody.appendChild(new Element('div', {'class':'hordeSmStreaminfo'}).update(this.opts.strings.justnow + '<br><br>'));
         tweet.appendChild(tPic);
         tweet.appendChild(tBody);
         $(this.opts.content).insert({top:tweet});
+    },
+
+    showMentions: function()
+    {
+        if (this.activeTab != 'mentions') {
+            this.toggleTabs();
+            $(this.opts.content).hide();
+            this.getNewEntries('mentions');
+            $(this.opts.mentions).show();
+            this.activeTab = 'mentions';
+        }
+    },
+
+    showStream: function()
+    {
+        if (this.activeTab != 'stream') {
+            this.toggleTabs();
+            $(this.opts.mentions).hide();
+            $(this.opts.content).show();
+            this.activeTab = 'stream';
+        }
+
+    },
+
+    toggleTabs: function()
+    {
+        $(this.opts.contenttab).toggleClassName('activeTab');
+        $(this.opts.mentiontab).toggleClassName('activeTab');
     },
 
     /**

@@ -129,7 +129,7 @@ foreach ($grid as $cols) {
 $title = sprintf(_("Source Branching View for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
 $extraLink = Chora::getFileViews($where, 'history');
 
-require CHORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/history/header.inc';

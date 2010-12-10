@@ -122,6 +122,6 @@ Horde::startBuffer();
 $form->renderActive(null, $vars, 'edit.php', 'post');
 $view->formbox = Horde::endBuffer();
 
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('messages/edit.html.php');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

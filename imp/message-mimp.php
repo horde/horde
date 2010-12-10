@@ -56,9 +56,9 @@ case 'u':
 
     if ($vars->a == 'd') {
         try {
-            Horde::checkRequestToken('imp.message-mimp', $vars->mt);
+            $injector->getInstance('Horde_Token')->validate($vars->mt, 'imp.message-mimp');
             $msg_delete = (bool)$imp_message->delete($imp_indices);
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Token_Exception $e) {
             $notification->push($e);
         }
     } else {
@@ -263,7 +263,7 @@ $menu = array();
 if (!$readonly) {
     $menu[] = in_array('\\deleted', $flags)
         ? array(_("Undelete"), $self_link->copy()->add('a', 'u'))
-        : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => Horde::getRequestToken('imp.message-mimp'))));
+        : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 
 /* Add compose actions (Reply, Reply List, Reply All, Forward, Redirect). */
@@ -295,13 +295,13 @@ $menu[] = array(sprintf(_("To %s"), IMP::getLabel(IMP::$mailbox)), $mailbox_link
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] ||
      ($mailbox_name != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
-    $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => Horde::getRequestToken('imp.message-mimp'))));
+    $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 
 if ($conf['notspam']['reporting'] &&
     (!$conf['notspam']['spamfolder'] ||
      ($mailbox_name == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
-    $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => Horde::getRequestToken('imp.message-mimp'))));
+    $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 
 $t->set('menu', $imp_ui_mimp->getMenu('message', $menu));

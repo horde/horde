@@ -61,6 +61,8 @@ class Nag_Application extends Horde_Registry_Application
         $GLOBALS['nag_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         Nag::initialize();
+
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
     }
 
     /**

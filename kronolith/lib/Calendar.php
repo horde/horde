@@ -118,4 +118,20 @@ abstract class Kronolith_Calendar
      * @return boolean  True if this calendar should be displayed.
      */
     abstract public function display();
+
+    /**
+     * Returns a hash representing this calendar.
+     *
+     * @return array  A simple hash.
+     */
+    public function toHash()
+    {
+        return array(
+            'name'  => $this->name(),
+            'desc'  => $this->description(),
+            'owner' => true,
+            'fg'    => $this->foreground(),
+            'bg'    => $this->background(),
+        );
+    }
 }

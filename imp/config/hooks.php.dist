@@ -49,24 +49,18 @@ class IMP_Hooks
      * PREFERENCE INIT: Set preference values on login.
      *
      * See horde/config/hooks.php.dist for more information.
-     *
-     * @param string $username  The username.
-     *
-     * @return string  The prefrence value.
      */
-//    public function prefs_init($pref, $username = null)
+//    public function prefs_init($pref, $value, $username)
 //    {
-//        if (!$username) {
-//            return;
-//        }
-//
 //        switch ($pref) {
 //        case 'add_source':
 //            // Dynamically set the add_source preference.
 //
-//            // Example #1: Useful hook when using a Turba source with shares
+//            // Example: Useful hook when using a Turba source with shares
 //            // enabled (i.e. the example localsql configuration).
-//            return $GLOBALS['registry']->call('contacts/getDefaultShare');
+//            return is_null($username)
+//                ? $value
+//                : $GLOBALS['registry']->call('contacts/getDefaultShare');
 //
 //
 //        case 'search_sources':
@@ -75,12 +69,13 @@ class IMP_Hooks
 //            // Example #1: Use the list of sources defined in the contacts
 //            // application (e.g. Turba) to populate the search_sources
 //            // value.
-//            if ($GLOBALS['registry']->hasMethod('contacts/sources')) {
+//            if (!is_null($username) &&
+//                $GLOBALS['registry']->hasMethod('contacts/sources')) {
 //                $sources = $GLOBALS['registry']->call('contacts/sources');
 //                return json_encode(array_keys($sources));
 //            }
 //
-//            return $GLOBALS['prefs']->getValue($pref);
+//            return $value;
 //        }
 //    }
 
@@ -177,7 +172,6 @@ class IMP_Hooks
 //    {
 //        // Example #1: Add custom headers to outgoing message.
 //        $custom_hdrs = array();
-//        $hdr_charset = $message->getHeaderCharset();
 //
 //        /* Add information on organization to which the sender belongs.
 //         * Not standardized for use in e-mail, but generally recognized.
@@ -191,7 +185,7 @@ class IMP_Hooks
 //        $custom_hdrs['X-Remote-Browser'] = $_SERVER['HTTP_USER_AGENT'];
 //
 //        foreach ($custom_hdrs as $key => $val) {
-//            $headers->addHeader($key, Horde_String::convertCharset($val, 'UTF-8', $hdr_charset));
+//            $headers->addHeader($key, $val);
 //        }
 //
 //

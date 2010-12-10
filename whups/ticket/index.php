@@ -17,9 +17,10 @@ require_once WHUPS_BASE . '/lib/Renderer/Comment.php';
 $ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
 $ticket->setDetails($vars);
+$linkTags[] = $ticket->feedLink();
 
 $title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 

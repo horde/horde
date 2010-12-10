@@ -367,10 +367,9 @@ $servers['secure-imap'] = array(
 );
 
 if ($GLOBALS['conf']['kolab']['enabled']) {
-    require_once 'Horde/Kolab.php';
     $servers['kolab'] = array(
         'name' => 'Kolab Cyrus IMAP Server',
-        'hostspec' => Kolab::getServer('imap'),
+        'hostspec' => 'localhost',
         'hordeauth' => 'full',
         'protocol' => 'imap',
         'port' => $GLOBALS['conf']['kolab']['imap']['port'],

@@ -31,11 +31,14 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
         $suite = new self('Horde Framework - Horde_Db - PDO-PostgreSQL Adapter');
 
         $skip = true;
-        if (extension_loaded('pdo') && in_array('pgsql', PDO::getAvailableDrivers())) {
+        if (extension_loaded('pdo') &&
+            in_array('pgsql', PDO::getAvailableDrivers())) {
             try {
                 self::$conn = $suite->getConnection();
                 $skip = false;
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                echo $e->getMessage() . "\n";
+            }
         }
 
         if ($skip) {
@@ -60,10 +63,12 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
 
     public function getConnection()
     {
-        if (!is_null(self::$conn)) { return self::$conn; }
+        if (!is_null(self::$conn)) {
+            return self::$conn;
+        }
 
         $config = getenv('DB_ADAPTER_PDO_PGSQL_TEST_CONFIG');
-        if ($config && !is_file($config)) {
+        if ($config && !is_dir(dirname($config))) {
             $config = array_merge(array('username' => '', 'password' => '', 'dbname' => 'test'), json_decode($config, true));
         } else {
             if (!$config) {

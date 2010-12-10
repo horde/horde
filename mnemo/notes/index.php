@@ -38,10 +38,14 @@ if (count($search_results) == 1) {
 $title = _("Search Results");
 $memos = $search_results;
 
+if ($prefs->getValue('show_panel')) {
+    $bodyClass = 'rightPanel';
+}
+
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('quickfinder.js', 'horde', true);
 
-require MNEMO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 require MNEMO_TEMPLATES . '/list/header.inc';
 

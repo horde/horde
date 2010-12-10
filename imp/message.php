@@ -53,8 +53,8 @@ $user_identity = $injector->getInstance('IMP_Identity');
 $vars = Horde_Variables::getDefaultVariables();
 if ($vars->actionID) {
     try {
-        Horde::checkRequestToken('imp.message', $vars->message_token);
-    } catch (Horde_Exception $e) {
+        $injector->getInstance('Horde_Token')->validate($vars->message_token, 'imp.message');
+    } catch (Horde_Token_Exception $e) {
         $notification->push($e);
         $vars->actionID = null;
     }
@@ -251,7 +251,7 @@ $page_label = IMP::getLabel(IMP::$mailbox);
 /* Generate the link to ourselves. */
 $msgindex = $imp_mailbox->getMessageIndex();
 $message_url = Horde::url('message.php');
-$message_token = Horde::getRequestToken('imp.message');
+$message_token = $injector->getInstance('Horde_Token')->get('imp.message');
 $self_link = IMP::generateIMPUrl('message.php', IMP::$mailbox, $uid, $mailbox_name)->add(array('start' => $msgindex, 'message_token' => $message_token));
 
 /* Develop the list of headers to display. */

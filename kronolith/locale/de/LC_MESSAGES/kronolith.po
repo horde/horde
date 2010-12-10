@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-08-18 15:57+0200\n"
-"PO-Revision-Date: 2010-11-09 22:14+0100\n"
+"PO-Revision-Date: 2010-12-07 14:24+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1689,7 +1689,7 @@ msgstr "Keine Einträge"
 #: templates/index/index.inc:122 templates/index/index.inc:132
 #: templates/index/index.inc:144
 msgid "No items to display"
-msgstr "Keine Artikel"
+msgstr "Keine vorhanden"
 
 #: templates/edit/edit.inc:297 lib/Event.php:1808
 msgid "No recurrence"

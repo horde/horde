@@ -60,7 +60,7 @@ class Jonah_View_ChannelEdit extends Jonah_View_Base
 
         $renderer = new Horde_Form_Renderer();
         $title = $form->getTitle();
-        require JONAH_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require JONAH_TEMPLATES . '/menu.inc';
         $form->renderActive($renderer, $vars, 'edit.php', 'post');
         require $registry->get('templates', 'horde') . '/common-footer.inc';

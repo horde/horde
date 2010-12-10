@@ -190,7 +190,7 @@ $title = $rule['name'];
 Horde::addScriptFile('rule.js', 'ingo');
 $menu = Ingo::menu();
 Ingo::addNewFolderJs();
-require INGO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/rule/header.inc';

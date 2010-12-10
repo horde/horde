@@ -35,6 +35,7 @@ class DeleteListenerForm extends Horde_Form {
 }
 
 $ticket = Whups::getCurrentTicket();
+$linkTags[] = $ticket->feedLink();
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 foreach ($ticket->getDetails() as $varname => $value) {
@@ -72,7 +73,7 @@ if ($vars->get('formname') == 'addlistenerform') {
 }
 
 $title = sprintf(_("Watchers for %s"), '[#' . $id . '] ' . $ticket->get('summary'));
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 

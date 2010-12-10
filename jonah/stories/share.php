@@ -95,13 +95,8 @@ if ($form->validate($vars)) {
 
     $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
     if (empty($channel['channel_story_url'])) {
-<<<<<<< HEAD
         $story_url = Horde::url('stories/view.php', true);
         $story_url = Horde_Util::addParameter($story_url, array('channel_id' => '%c', 'id' => '%s'));
-=======
-        $story_url = Horde::url('stories/view.php', true);
-        $story_url = Horde_Util::addParameter($story_url, array('channel_id' => '%c', 'story_id' => '%s'));
->>>>>>> master
     } else {
         $story_url = $channel['channel_story_url'];
     }
@@ -143,6 +138,6 @@ Horde::startBuffer();
 $GLOBALS['notification']->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require JONAH_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $share_template->fetch(JONAH_TEMPLATES . '/stories/share.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

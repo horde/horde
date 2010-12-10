@@ -14,68 +14,61 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
-require_once VILMA_BASE . '/lib/Forms/EditUserForm.php';
-
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    $registry->authenticateFailure('vilma', $e);
+    $registry->authenticateFailure('vilma');
 }
-$vars = Horde_Variables::getDefaultVariables();
-$address = $vars->get('address');
-$section = Horde_Util::getFormData('section','all');
 
-//$addrInfo = $vilma->driver->getAddressInfo($address, 'all');
+$vars = Horde_Variables::getDefaultVariables();
+$address = $vars->address;
+$section = $vars->get('section', 'all');
 $domain = Vilma::stripDomain($address);
 
 /* Check if a form is being edited. */
-if (!$vars->exists('mode')) {
+if (!isset($vars->mode)) {
     if ($address) {
-        $address = $vilma->driver->getAddressInfo($address,$section);
-        if (is_a($address, 'PEAR_Error')) {
-            $notification->push(sprintf(_("Error reading address information from backend: %s"), $address->getMessage()), 'horde.error');
-            $url = '/users/index.php';
-            require VILMA_BASE . $url;
-            exit;
+        try {
+            $address = $vilma->driver->getAddressInfo($address, $section);
+        } catch (Exception $e) {
+            $notification->push(sprintf(_("Error reading address information from backend: %s"), $e->getMessage()), 'horde.error');
+            Horde::url('users/index.php', true)->redirect();
         }
         $vars = new Horde_Variables($address);
-        $user_name = //$vars->get('address');
-                     $vars->get('user_name');
-        $vars->set('user_name', Vilma::stripUser($user_name));
+        $user_name = $vars->get('user_name');
+        $vars->user_name = Vilma::stripUser($user_name);
         $domain = Vilma::stripDomain($user_name);
-        $vars->set('domain', $domain);
-        $vars->set('type', $address['type']);
-        $vars->set('target', 'test'); //$address['target']);
-        $vars->set('mode', 'edit');
+        $vars->domain = $domain;
+        $vars->type = $address['type'];
+        $vars->target = 'test'; //$address['target']);
+        $vars->mode = 'edit';
     } else {
-        $vars->set('mode', 'new');
+        $vars->mode = 'new';
         $domain_info = $session->get('vilma', 'domain');
         $domain = $domain_info['domain_name'];
         $domain_id = $domain_info['domain_id'];
-        $vars->set('domain', $domain);
-        $vars->set('id', $domain_id);
-        $vars->add('user_name', Horde_Util::getFormData('user_name',''));
+        $vars->domain = $domain;
+        $vars->id = $domain_id;
+        $vars->add('user_name', Horde_Util::getFormData('user_name', ''));
     }
 }
 
 $domain = Vilma::stripDomain($address['address']);
-$tmp = $vars->get('domain');
-if(!isset($tmp)) {
-    $vars->set('domain', $domain);
+$tmp = $vars->domain;
+if (!$tmp) {
+    $vars->domain = $domain;
 }
-$form = &new EditUserForm($vars);
-if (!$vars->exists('id') && !$vilma->driver->isBelowMaxUsers($domain)) {
+
+if (!isset($vars->id) && !$vilma->driver->isBelowMaxUsers($domain)) {
     $notification->push(sprintf(_("\"%s\" already has the maximum number of users allowed."), $domain), 'horde.error');
-    require VILMA_BASE . '/users/index.php';
-    exit;
+            Horde::url('users/index.php', true)->redirect();
 }
+
+$form = new Vilma_Form_EditUser($vars);
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
     $info['user_name'] = Horde_String::lower($info['user_name']) . '@' . $domain;
-    $user_id = $vilma->driver->saveUser($info);
-    if (is_a($user_id, 'PEAR_Error')) {
-        Horde::logMessage($user_id, 'ERR');
-        $notification->push(sprintf(_("Error saving user. %s"), $user_id->getMessage()), 'horde.error');
-    } else {
+    try {
+        $vilma->driver->saveUser($info);
         $notification->push(_("User details saved."), 'horde.success');
         /*
         $virtuals = $vilma->driver->getVirtuals($info['name']);
@@ -92,24 +85,26 @@ if ($form->validate($vars)) {
         }
         */
         //exit;
+    } catch (Exception $e) {
+        $notification->push(sprintf(_("Error saving user. %s"), $e->getMessage()), 'horde.error');
     }
 }
 
 /* Render the form. */
-require_once 'Horde/Form/Renderer.php';
-$renderer = &new Horde_Form_Renderer();
+$renderer = new Horde_Form_Renderer();
+
+$template = $injector->createInstance('Horde_Template');
 
 Horde::startBuffer();
 $form->renderActive($renderer, $vars, 'edit.php', 'post');
-$main = Horde::endBuffer();
+$template->set('main', Horde::endBuffer());
 
-$template->set('main', $main);
-$template->set('menu', Vilma::getMenu('string'));
+$template->set('menu', Horde::menu());
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require VILMA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

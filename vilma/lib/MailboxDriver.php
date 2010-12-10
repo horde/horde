@@ -8,19 +8,57 @@
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Vilma
  */
-class Vilma_MailboxDriver {
-
-    var $_params;
+abstract class Vilma_MailboxDriver
+{
+    /**
+     * A hash containing any parameters for the current driver.
+     *
+     * @var array
+     */
+    protected $_params = array();
 
     /**
      * Constructor.
      *
-     * @access private
+     * @param array $params  Any parameters needed for this driver.
      */
-    function Vilma_MailboxDriver($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
     }
+
+    /**
+     * Creates a new mailbox.
+     *
+     * @param string $user    The name of the mailbox to create.
+     * @param string $domain  The name of the domain in which to create the
+     *                        mailbox.
+     *
+     * @throws Vilma_Exception
+     */
+    abstract public function createMailbox($user, $domain);
+
+    /**
+     * Deletes an existing mailbox.
+     *
+     * @param string $user    The name of the mailbox to delete.
+     * @param string $domain  The name of the domain in which to delete the
+     *                        mailbox.
+     *
+     * @throws Vilma_Exception
+     */
+    abstract public function deleteMailbox($user, $domain);
+
+    /**
+     * Checks whether a mailbox exists and is set up properly.
+     *
+     * @param string $user    The name of the mailbox to check.
+     * @param string $domain  The mailbox' domain.
+     *
+     * @return boolean  True if the mailbox exists.
+     * @throws Vilma_Exception if the mailbox doesn't exist.
+     */
+    abstract public function checkMailbox($user, $domain);
 
     /**
      * Creates a new mailbox driver instance.
@@ -28,81 +66,25 @@ class Vilma_MailboxDriver {
      * @param string $driver  The name of the driver to create an instance of.
      * @param array $params   Driver-specific parameters.
      *
-     * @return Vilma_MailboxDriver  The new driver instance or a PEAR_Error.
+     * @return Vilma_MailboxDriver  The new driver instance.
+     * @throws Vilma_Exception
      */
-    function &factory($driver, $params = array())
+    static public function factory($driver = null, $params = null)
     {
-        require_once VILMA_BASE . '/lib/MailboxDriver/' . $driver . '.php';
-        $class = 'Vilma_MailboxDriver_' . $driver;
-        $mailbox = &new $class($params);
-        return $mailbox;
-    }
-
-    /**
-     * Returns a mailbox driver instance with the specified params, creating
-     * it if necessary.
-     *
-     * @param string $driver  The name of the driver to create an instance of.
-     * @param array $params   Driver-specific parameters.
-     *
-     * @return Vilma_MailboxDriver  The new driver instance or a PEAR_Error.
-     */
-    function &singleton($driver, $params = array())
-    {
-        static $cache;
-        $key = serialize(array($driver, $params));
-        if (!isset($cache[$key])) {
-            $ret = &Vilma_MailboxDriver::factory($driver, $params);
-            if (is_a($ret, 'PEAR_Error')) {
-                return $ret;
-            }
-            $cache[$key] = &$ret;
+        if (is_null($driver)) {
+            $driver = $GLOBALS['conf']['mailboxes']['driver'];
         }
-        return $cache[$key];
-    }
+        $driver = Horde_String::ucfirst(basename($driver));
 
-    /**
-     * Creates a new mailbox.
-     *
-     * This default implementation only returns an error.
-     *
-     * @param string $user    The name of the mailbox to create
-     * @param string $domain  The name of the domain in which to create the
-     *                        mailbox
-     * @return mixed  True or PEAR_Error:: instance.
-     */
-    function createMailbox($user, $domain)
-    {
-        return PEAR::raiseError(_("This driver cannot create mailboxes."));
-    }
+        if (is_null($params)) {
+            $params = $GLOBALS['conf']['mailboxes']['params'];
+        }
 
-    /**
-     * Deletes an existing mailbox.
-     *
-     * This default implementation only returns an error.
-     *
-     * @param string $user    The name of the mailbox to delete
-     * @param string $domain  The name of the domain in which to delete the
-     *                        mailbox
-     *
-     * @return mixed  True or PEAR_Error:: instance.
-     */
-    function deleteMailbox($user, $domain)
-    {
-        return PEAR::raiseError(_("This driver cannot delete mailboxes."));
-    }
+        $class = 'Vilma_MailboxDriver_' . $driver;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
 
-    /**
-     * Checks whether a mailbox exists and is set up properly.
-     *
-     * @param string $user    The name of the mailbox to check
-     * @param string $domain  The mailbox's domain
-     *
-     * @return mixed  True or PEAR_Error:: instance.
-     */
-    function checkMailbox($user, $domain)
-    {
-        return true;
+        throw new Vilma_Exception(sprintf(_("No such mailbox driver \"%s\" found"), $driver));
     }
-
 }

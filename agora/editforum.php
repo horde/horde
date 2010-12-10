@@ -67,6 +67,6 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('main.html.php');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -73,7 +73,7 @@ $print_view = (Horde_Util::getFormData('print') == 'true');
 if (!$print_view) {
     Horde::addScriptFile('popup.js', 'horde', true);
 }
-require HERMES_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 
 if ($print_view) {
     require $registry->get('templates', 'horde') . '/javascript/print.js';

@@ -27,7 +27,7 @@ class Horde_Core_Prefs_Storage_Hooks extends Horde_Prefs_Storage_Base
 
         foreach ($conf_ob->hooks[$scope_ob->scope] as $name) {
             try {
-                $scope_ob->set($name, Horde::callHook('prefs_init', array($name, $this->_params['user']), $scope_ob->scope));
+                $scope_ob->set($name, Horde::callHook('prefs_init', array($name, $scope_ob->get($name), strlen($this->_params['user']) ? $this->_params['user'] : null), $scope_ob->scope));
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 

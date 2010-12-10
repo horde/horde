@@ -59,7 +59,8 @@ class Kronolith_Application extends Horde_Registry_Application
      * Initialization function.
      *
      * Global variables defined:
-     *   $kronolith_shares - TODO
+     * - $kronolith_shares: TODO
+     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -78,6 +79,11 @@ class Kronolith_Application extends Horde_Registry_Application
         $GLOBALS['kronolith_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         Kronolith::initialize();
+
+        $GLOBALS['linkTags'] = array();
+        foreach ($GLOBALS['display_calendars'] as $calendar) {
+            $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+        }
     }
 
     /**
@@ -192,6 +198,19 @@ class Kronolith_Application extends Horde_Registry_Application
                 !$prefs->isLocked('event_alarms') &&
                 !$prefs->isLocked('event_alarms_select')) {
                 Horde_Core_Prefs_Ui_Widgets::alarminit();
+            }
+            break;
+
+        case 'view':
+            $hour = array();
+            for ($i = 0; $i <= 48; ++$i) {
+                $hour[$i] = date(($prefs->getValue('twentyFour')) ? 'G:i' : 'g:ia', mktime(0, $i * 30, 0));
+            }
+            if (!$prefs->isLocked('day_hour_start')) {
+                $ui->override['day_hour_start'] = $hour;
+            }
+            if (!$prefs->isLocked('day_hour_end')) {
+                $ui->override['day_hour_end'] = $hour;
             }
             break;
         }
@@ -565,6 +584,62 @@ class Kronolith_Application extends Horde_Registry_Application
             }
             break;
         }
+    }
+
+    /**
+     * Callback, called from common-template-mobile.inc that sets up the jquery
+     * mobile init hanler.
+     */
+    public function mobileInitCallback()
+    {
+        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
+        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
+            $datejs = 'en-US.js';
+        }
+
+        Horde::addScriptFile('date/' . $datejs, 'horde');
+        Horde::addScriptFile('date/date.js', 'horde');
+        Horde::addScriptFile('mobile.js');
+        require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
+
+        /* Inline script. */
+        Horde::addInlineScript(
+          '$(window.document).bind("mobileinit", function() {
+              $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
+              $.mobile.loadingMessage = "' . _("loading") . '";
+
+              // Setup event bindings to populate views on pagebeforeshow
+              KronolithMobile.date = new Date();
+              $("#dayview").live("pagebeforeshow", function() {
+                  KronolithMobile.view = "day";
+                  $(".kronolithDayDate").html(KronolithMobile.date.toString("ddd") + " " + KronolithMobile.date.toString("d"));
+                  KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date, "day");
+              });
+
+              $("#monthview").live("pagebeforeshow", function(event, ui) {
+                KronolithMobile.view = "month";
+                // (re)build the minical only if we need to
+                if (!$(".kronolithMinicalDate").data("date") ||
+                    ($(".kronolithMinicalDate").data("date").toString("M") != KronolithMobile.date.toString("M"))) {
+                    KronolithMobile.moveToMonth(KronolithMobile.date);
+                }
+              });
+
+              $("#eventview").live("pageshow", function(event, ui) {
+                    KronolithMobile.view = "event";
+              });
+
+              // Set up overview
+              $("#overview").live("pageshow", function(event, ui) {
+                  KronolithMobile.view = "overview";
+                  if (!KronolithMobile.haveOverview) {
+                      KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date.clone().addDays(7), "overview");
+                      KronolithMobile.haveOverview = true;
+                  }
+              });
+
+           });'
+        );
     }
 
 }

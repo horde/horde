@@ -18,7 +18,8 @@ try {
 
 $title = $_SESSION['beatnik']['curdomain']['zonename'];
 Horde::addScriptFile('stripe.js', 'horde');
-require BEATNIK_TEMPLATES . '/common-header.inc';
+Beatnik::notifyCommits();
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require BEATNIK_TEMPLATES . '/menu.inc';
 
 // Get a list of all the fields for all record typess we'll be processing

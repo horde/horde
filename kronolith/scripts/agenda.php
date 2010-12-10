@@ -53,12 +53,7 @@ function send_agendas()
 
     // Generate image mime part first and only once, because we need
     // the Content-ID.
-    $background = new Horde_Themes_Image('big_agenda.png');
-    $image = new Horde_Mime_Part();
-    $image->setType('image/png');
-    $image->setContents(file_get_contents($background->fs));
-    $image->setContentId();
-    $image->setDisposition('attachment');
+    $image = Kronolith::getImagePart('big_agenda.png');
 
     $runtime = new Horde_Date($runtime);
     $default_timezone = date_default_timezone_get();
@@ -162,26 +157,7 @@ function send_agendas()
             $mime_mail->addRecipients($email);
         } catch (Horde_Mime_Exception $e) {}
 
-        $multipart = new Horde_Mime_Part();
-        $multipart->setType('multipart/alternative');
-        $bodyText = new Horde_Mime_Part();
-        $bodyText->setType('text/plain');
-        $bodyText->setCharset('UTF-8');
-        $bodyText->setContents($view->render('notification.plain.php'));
-        $bodyText->setDisposition('inline');
-        $multipart->addPart($bodyText);
-        $bodyHtml = new Horde_Mime_Part();
-        $bodyHtml->setType('text/html');
-        $bodyHtml->setCharset('UTF-8');
-        $bodyHtml->setContents($view->render('notification.html.php'));
-        $bodyHtml->setDisposition('inline');
-        $related = new Horde_Mime_Part();
-        $related->setType('multipart/related');
-        $related->setContentTypeParameter('start', $bodyHtml->setContentId());
-        $related->addPart($bodyHtml);
-        $related->addPart($image);
-        $multipart->addPart($related);
-        $mime_mail->setBasePart($multipart);
+        $mime_mail->setBasePart(Kronolith::buildMimeMessage($view, 'notification', $image));
 
         Horde::logMessage(sprintf('Sending daily agenda to %s', $email), 'DEBUG');
         try {

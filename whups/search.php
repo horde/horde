@@ -152,7 +152,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
 }
 
 $title = _("Search");
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 
 if ($results) {

@@ -39,7 +39,7 @@ $params['image_id'] = Horde_Util::getFormData('image');
 try {
     $view = new $view($params);
 } catch (Horde_Exception $e) {
-    require ANSEL_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
     echo '<br /><em>' . htmlspecialchars($e->getMessage()) . '</em>';
@@ -48,7 +48,7 @@ try {
 }
 
 $title = $view->getTitle();
-require ANSEL_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $view_html = $view->html();

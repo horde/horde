@@ -34,7 +34,9 @@ class Horde_Db_Adapter_Pdo_MysqlSuite extends PHPUnit_Framework_TestSuite
                 list($conn,) = $suite->getConnection();
                 $skip = false;
                 $conn->disconnect();
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                echo $e->getMessage() . "\n";
+            }
         }
 
         if ($skip) {
@@ -60,7 +62,7 @@ class Horde_Db_Adapter_Pdo_MysqlSuite extends PHPUnit_Framework_TestSuite
     public function getConnection()
     {
         $config = getenv('DB_ADAPTER_PDO_MYSQL_TEST_CONFIG');
-        if ($config && !is_file($config)) {
+        if ($config && !is_dir(dirname($config))) {
             $config = array_merge(array('host' => 'localhost', 'username' => '', 'password' => '', 'dbname' => 'test'), json_decode($config, true));
         } else {
             if (!$config) {

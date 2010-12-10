@@ -392,6 +392,7 @@ body.kronolithAjax {
     position: relative;
     top: -3px;
     vertical-align: middle;
+    left: 2px;
 }
 #kronolithLoading, #kronolithFBLoading {
     background: transparent url("graphics/loading.gif") no-repeat center;
@@ -1078,7 +1079,7 @@ table.kronolithView td.kronolithFirstCol {
 }
 #kronolithBody caption .kronolithNavigation {
     position: absolute;
-    right: 2px;
+    right: 4px;
     cursor: pointer;
 }
 #kronolithBody caption .kronolithNavigation ul {
@@ -1113,7 +1114,7 @@ table.kronolithView td.kronolithFirstCol {
     width: 16px;
     height: 16px;
     background-image: url('graphics/print.png');
-    text-indent: -10000;
+    text-indent: -10000px;
     overflow: hidden;
 }
 
@@ -1242,13 +1243,10 @@ table.kronolithView td.kronolithFirstCol {
 
 /* Main view agenda. */
 #kronolithViewAgenda td.kronolithFirstCol {
-    width: 70px;
+    width: 80px;
     padding: 4px;
     text-align: left;
     cursor: pointer;
-}
-#kronolithViewAgenda caption {
-    margin-left: 2px;
 }
 #kronolithViewAgenda div.kronolithEvent {
     position: static;
@@ -1270,23 +1268,10 @@ table.kronolithView td.kronolithFirstCol {
 }
 
 /* Main view tasks. */
-#kronolithViewTasks caption {
-    margin-left: 2px;
-}
-#kronolithViewTasks caption.tabset {
-    float: none;
-    width: auto;
-    background: none;
-}
 #kronolithViewTasks ul.kronolithNavigation {
     display: inline;
     margin: 2px 0 0 0;
     padding: 0;
-}
-#kronolithViewTasks caption.tabset li a {
-    padding-top: 0;
-    padding-bottom: 0;
-    border-bottom-style: dotted;
 }
 #kronolithViewTasksBody td {
     padding: 4px 4px 4px 4px;
@@ -1329,6 +1314,24 @@ table.kronolithView td.kronolithFirstCol {
     width: 16px;
     height: 16px;
     background-image: url('graphics/new_task.png');
+}
+
+/* Tab sets */
+#kronolithViewTasks caption, #kronolithViewAgenda caption {
+    margin-left: 0;
+}
+#kronolithViewTasks caption.tabset, #kronolithViewAgenda caption.tabset {
+    float: none;
+    width: auto;
+    background: none;
+}
+#kronolithViewTasks caption.tabset ul, #kronolithViewAgenda caption.tabset ul {
+    margin-top: 2px;
+}
+#kronolithViewTasks caption.tabset li a, #kronolithViewAgenda caption.tabset li a {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom-style: dotted;
 }
 
 /* More main view */

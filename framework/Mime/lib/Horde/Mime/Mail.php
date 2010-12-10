@@ -147,20 +147,9 @@ class Horde_Mime_Mail
     {
         $lc_header = Horde_String::lower($header);
 
-        /* Only encode value if charset is explicitly specified, otherwise
-         * the message's charset will be used when building the message. */
-        if (!empty($charset)) {
-            if (in_array($lc_header, $this->_headers->addressFields())) {
-                $value = Horde_Mime::encodeAddress($value, $charset);
-            } else {
-                $value = Horde_Mime::encode($value, $charset);
-            }
-        }
-
-        if (is_null($overwrite)) {
-            if (in_array($lc_header, $this->_headers->singleFields(true))) {
-                $overwrite = true;
-            }
+        if (is_null($overwrite) &&
+            in_array($lc_header, $this->_headers->singleFields(true))) {
+            $overwrite = true;
         }
 
         if ($overwrite) {
@@ -168,10 +157,15 @@ class Horde_Mime_Mail
         }
 
         if ($lc_header !== 'bcc') {
-            $this->_headers->addHeader($header, $value);
+            $this->_headers->addHeader($header, $value, array('charset' => $charset));
         }
 
         if (in_array($lc_header, array('to', 'cc', 'bcc'))) {
+            if ($charset) {
+                $value = in_array($lc_header, $this->_headers->addressFields())
+                    ? Horde_Mime::encodeAddress($value, $charset)
+                    : Horde_Mime::encode($value, $charset);
+            }
             return $this->addRecipients($value);
         }
     }

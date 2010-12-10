@@ -86,6 +86,9 @@ class Horde
     static public function logMessage($event, $priority = null,
                                       array $options = array())
     {
+        if (!isset($GLOBALS['injector'])) {
+            throw new Horde_Exception('The default environment is missing. Unable to write log entries!');
+        }
         $options['trace'] = 2;
         $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
     }
@@ -345,31 +348,6 @@ HTML;
         foreach ($js_external as $val) {
             $hsf->outputTag($val);
         }
-    }
-
-    /**
-     * Get a token for protecting a form.
-     *
-     * @param string $slug  Slug name.
-     *
-     * @return string  Token string.
-     */
-    static public function getRequestToken($slug)
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Token')->get($slug);
-    }
-
-    /**
-     * Check if a token for a form is valid.
-     *
-     * @param string $slug   Slug name.
-     * @param string $token  Token to check.
-     *
-     * @throws Horde_Exception
-     */
-    static public function checkRequestToken($slug, $token)
-    {
-        $GLOBALS['injector']->getInstance('Horde_Token')->isValid($token, $slug);
     }
 
     /**

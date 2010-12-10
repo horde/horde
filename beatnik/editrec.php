@@ -46,7 +46,8 @@ if ($form->validate($vars)) {
 }
 
 $title = $form->getTitle();
-require BEATNIK_TEMPLATES . '/common-header.inc';
+Beatnik::notifyCommits();
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require BEATNIK_TEMPLATES . '/menu.inc';
 
 $form->renderActive(null, null, $url, 'post');

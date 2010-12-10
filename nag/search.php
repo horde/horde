@@ -13,9 +13,12 @@ Horde::addInlineScript(array(
     '$("search_pattern")'
 ), 'dom');
 
+if ($prefs->getValue('show_panel')) {
+    $bodyClass = 'rightPanel';
+}
 $title = _("Search");
-require NAG_TEMPLATES . '/common-header.inc';
-echo Horde::menu();
+NAG_TEMPLATES . '/common-header.inc';
+echo Nag::menu();
 Nag::status();
 require NAG_TEMPLATES . '/search/search.inc';
 require NAG_TEMPLATES . '/panel.inc';

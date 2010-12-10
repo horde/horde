@@ -621,14 +621,18 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 try {
                     $calendar = Kronolith::addShare($info);
                     Kronolith::readPermsForm($calendar);
-                    $result->perms = Kronolith::permissionToJson($calendar->getPermission());
+                    $tagger->tag($result->calendar, $this->_vars->tags, $calendar->get('owner'), 'calendar');
+                    if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+                        $wrapper = new Kronolith_Calendar_Internal(array('share' => $calendar));
+                        $result->saved = true;
+                        $result->id = $calendar->getName();
+                        $result->calendar = $wrapper->toHash();
+                    }
                 } catch (Exception $e) {
                     $GLOBALS['notification']->push($e, 'horde.error');
                     return $result;
                 }
                 $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been created."), $info['name']), 'horde.success');
-                $result->calendar = $calendar->getName();
-                $tagger->tag($result->calendar, $this->_vars->tags, $calendar->get('owner'), 'calendar');
                 break;
             }
 
@@ -636,16 +640,23 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             try {
                 $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
                 $original_name = $calendar->get('name');
+                $original_owner = $calendar->get('owner');
                 Kronolith::updateShare($calendar, $info);
                 Kronolith::readPermsForm($calendar);
-                $result->perms = Kronolith::permissionToJson($calendar->getPermission());
+                if ($calendar->get('owner') != $original_owner) {
+                    $result->deleted = true;
+                }
+                if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+                    $wrapper = new Kronolith_Calendar_Internal(array('share' => $calendar));
+                    $result->saved = true;
+                    $result->calendar = $wrapper->toHash();
+                }
+                $tagger->replaceTags($calendar->getName(), $this->_vars->tags, $calendar->get('owner'), 'calendar');
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;
 
             }
-            $tagger->replaceTags($calendar->getName(), $this->_vars->tags, $calendar->get('owner'), 'calendar');
-
             if ($calendar->get('name') != $original_name) {
                 $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been renamed to \"%s\"."), $original_name, $calendar->get('name')), 'horde.success');
             } else {
@@ -673,17 +684,27 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                         return $result;
                     }
                     $tasklist = $tasklists[$tasklistId];
-                    //$GLOBALS['session']['kronolith:all_external_calendars']['tasks/' . $tasklistId] = new Kronolith_Calendar_External(array('api' => 'tasks', 'name' => $tasklist->get('name')));
-                    $GLOBALS['display_external_calendars'][] = 'tasks/' . $tasklistId;
-                    $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
                     Kronolith::readPermsForm($tasklist);
-                    $result->perms = Kronolith::permissionToJson($tasklist->getPermission());
+                    if ($tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+                        $wrapper = new Kronolith_Calendar_External_Tasks(array('api' => 'tasks', 'name' => $tasklistId, 'share' => $tasklist));
+
+                        // Update external calendars caches.
+                        $all_external = $GLOBALS['session']->get('kronolith', 'all_external_calendars');
+                        $all_external[] = array('a' => 'tasks', 'n' => $tasklistId, 'd' => $tasklist->get('name'));
+                        $GLOBALS['session']->set('kronolith', 'all_external_calendars', $all_external);
+                        $GLOBALS['display_external_calendars'][] = 'tasks/' . $tasklistId;
+                        $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
+                        $GLOBALS['all_external_calendars']['tasks/' . $tasklistId] = $wrapper;
+
+                        $result->saved = true;
+                        $result->id = 'tasks/' . $tasklistId;
+                        $result->calendar = $wrapper->toHash();
+                    }
                 } catch (Exception $e) {
                     $GLOBALS['notification']->push($e, 'horde.error');
                     return $result;
                 }
                 $GLOBALS['notification']->push(sprintf(_("The task list \"%s\" has been created."), $calendar['name']), 'horde.success');
-                $result->calendar = $tasklist;
                 break;
             }
 
@@ -692,16 +713,25 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             try {
                 $GLOBALS['registry']->tasks->updateTasklist($calendar_id, $calendar);
                 $tasklists = $GLOBALS['registry']->tasks->listTasklists(true, Horde_Perms::EDIT);
-                Kronolith::readPermsForm($tasklists[$calendar_id]);
-                $result->perms = Kronolith::permissionToJson($tasklists[$calendar_id]->getPermission());
+                $tasklist = $tasklists[$calendar_id];
+                $original_owner = $tasklist->get('owner');
+                Kronolith::readPermsForm($tasklist);
+                if ($tasklist->get('owner') != $original_owner) {
+                    $result->deleted = true;
+                }
+                if ($tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+                    $wrapper = new Kronolith_Calendar_External_Tasks(array('api' => 'tasks', 'name' => $calendar_id, 'share' => $tasklist));
+                    $result->saved = true;
+                    $result->calendar = $wrapper->toHash();
+                }
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;
             }
-            if ($tasklists[$calendar_id]->get('name') != $calendar['name']) {
-                $GLOBALS['notification']->push(sprintf(_("The task list \"%s\" has been renamed to \"%s\"."), $tasklists[$calendar_id]->get('name'), $calendar['name']), 'horde.success');
+            if ($tasklist->get('name') != $calendar['name']) {
+                $GLOBALS['notification']->push(sprintf(_("The task list \"%s\" has been renamed to \"%s\"."), $tasklist->get('name'), $calendar['name']), 'horde.success');
             } else {
-                $GLOBALS['notification']->push(sprintf(_("The task list \"%s\" has been saved."), $tasklists[$calendar_id]->get('name')), 'horde.success');
+                $GLOBALS['notification']->push(sprintf(_("The task list \"%s\" has been saved."), $tasklist->get('name')), 'horde.success');
             }
             break;
 
@@ -720,13 +750,13 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been saved."), $calendar['name']), 'horde.success');
             } else {
                 $GLOBALS['notification']->push(sprintf(_("You have been subscribed to \"%s\" (%s)."), $calendar['name'], $calendar['url']), 'horde.success');
-                $result->calendar = $calendar['url'];
+                $result->id = $calendar['url'];
             }
+            $wrapper = new Kronolith_Calendar_Remote($calendar);
+            $result->saved = true;
+            $result->calendar = $wrapper->toHash();
             break;
         }
-
-        $result->saved = true;
-        $result->color = Kronolith::foregroundColor($calendar);
 
         return $result;
     }
@@ -800,15 +830,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
         $calendar = $GLOBALS['all_calendars'][$this->_vars->cal];
         $tagger = Kronolith::getTagger();
-        $result->calendar = array(
-            'name' => (!$calendar->owner() ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->owner(), false) . '] ') . $calendar->name(),
-            'desc' => $calendar->description(),
-            'owner' => false,
-            'fg' => $calendar->foreground(),
-            'bg' => $calendar->background(),
-            'show' => false,
-            'edit' => $calendar->hasPermission(Horde_Perms::EDIT),
-            'tg' => array_values($tagger->getTags($this->_vars->cal, 'calendar')));
+        $result->calendar = $calendar->toHash();
         return $result;
     }
 

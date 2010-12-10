@@ -48,7 +48,7 @@ class Horde_Core_Factory_ShareBase
             $listCache = $GLOBALS['session']->retrieve($cache_sig);
             $ob->setListCache($listCache);
         }
-
+        $ob->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
         if (!empty($GLOBALS['conf']['share']['cache'])) {
             register_shutdown_function(array($this, 'shutdown'), $cache_sig, $ob);
         }

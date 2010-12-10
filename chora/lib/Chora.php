@@ -89,7 +89,7 @@ class Chora
         }
 
         $GLOBALS['notification']->push($message, 'horde.error');
-        require CHORA_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require CHORA_TEMPLATES . '/menu.inc';
         require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
         exit;
@@ -440,6 +440,26 @@ class Chora
         } catch (Horde_Vcs_Exception $e) {}
 
         return htmlspecialchars($name);
+    }
+
+    public function getAuthorEmail($name)
+    {
+        try {
+            $users = $GLOBALS['VC']->getUsers($GLOBALS['conf']['paths']['cvsusers']);
+            if (isset($users[$name])) {
+                return $users[$name]['mail'];
+            }
+        } catch (Horde_Vcs_Exception $e) {}
+
+        try {
+            $parser = new Horde_Mail_Rfc822();
+            $results = $parser->parseAddressList($name);
+            if (count($results)) {
+                return $results[0]->mailbox . '@' . $results[0]->host;
+            }
+        } catch (Horde_Mail_Exception $e) {}
+
+        return $name;
     }
 
     /**

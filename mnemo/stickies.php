@@ -54,7 +54,11 @@ case 'search_memos':
     break;
 }
 
-require MNEMO_TEMPLATES . '/common-header.inc';
+if ($prefs->getValue('show_panel')) {
+    $bodyClass = 'rightPanel';
+}
+
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/list/header.inc';

@@ -72,7 +72,7 @@ class Jonah_View_ChannelDelete extends Jonah_View_Base
             exit;
         }
 
-        require JONAH_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require JONAH_TEMPLATES . '/menu.inc';
         $form->renderActive(null, $vars, Horde::selfUrl(), 'post');
         require $registry->get('templates', 'horde') . '/common-footer.inc';

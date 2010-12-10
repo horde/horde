@@ -72,6 +72,7 @@ $pager_ob->preserve('scope', $scope);
 $view->pager_link = $pager_ob->render();
 
 $title = _("All Forums");
-require AGORA_TEMPLATES . '/common-header.inc';
+$linkTags = array('<link rel="alternate" title="' . _("Forums") . '" href="' . Horde::url('rss/index.php', true, -1)->add('scope', $scope) . '" type="application/rss+xml" />');
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('forums.html.php');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

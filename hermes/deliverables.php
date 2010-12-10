@@ -55,7 +55,7 @@ case 'deletedeliverable':
 }
 
 $title = _("Deliverables");
-require HERMES_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require HERMES_TEMPLATES . '/menu.inc';
 
 $renderer = new Horde_Form_Renderer();

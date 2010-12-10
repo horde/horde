@@ -62,8 +62,8 @@ $delete_img = Horde::img('delete.png', _("Delete"));
 
 Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Task Lists");
-require NAG_TEMPLATES . '/common-header.inc';
-echo Horde::menu();
+require $registry->get('templates', 'horde') . '/common-header.inc';
+echo Nag::menu();
 Nag::status();
 require NAG_TEMPLATES . '/tasklist_list.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

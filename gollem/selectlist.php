@@ -196,7 +196,8 @@ Horde::addInlineJsVars(array(
     'cacheid' => $cacheid,
     'formid' => $formid
 ));
-require GOLLEM_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require GOLLEM_TEMPLATES . '/javascript_defs.php';
 Gollem::status();
 echo $t->fetch(GOLLEM_TEMPLATES . '/selectlist/selectlist.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

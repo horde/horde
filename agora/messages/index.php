@@ -211,6 +211,6 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
 
 Horde::addScriptFile('hideable.js', 'horde', true);
 Horde::addScriptFile('stripe.js', 'horde', true);
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render($template_file);
 require $registry->get('templates', 'horde') . '/common-footer.inc';

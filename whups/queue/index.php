@@ -38,7 +38,7 @@ if (Horde_Util::getFormData('sortdir') !== null) {
 }
 
 $title = sprintf(_("Open tickets in %s"), $queue['name']);
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 
 $criteria = array('queue' => $id,

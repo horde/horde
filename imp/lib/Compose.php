@@ -529,7 +529,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         /* Add Reply-To header. */
         if (!empty($header['replyto']) &&
             ($header['replyto'] != $barefrom)) {
-            $headers->addHeader('Reply-to', Horde_String::convertCharset($header['replyto'], 'UTF-8', $this->charset));
+            $headers->addHeader('Reply-to', $header['replyto']);
         }
 
         /* Add priority header, if requested. */
@@ -626,7 +626,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             /* Keep Bcc: headers on saved messages. */
             if (!empty($header['bcc'])) {
-                $headers->addHeader('Bcc', Horde_String::convertCharset($header['bcc'], 'UTF-8', $this->charset));
+                $headers->addHeader('Bcc', $header['bcc']);
             }
 
             /* Strip attachments if requested. */
@@ -705,21 +705,21 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $ob->addMessageIdHeader();
 
         if (isset($headers['from']) && strlen($headers['from'])) {
-            $ob->addHeader('From', Horde_String::convertCharset($headers['from'], 'UTF-8', $this->charset));
+            $ob->addHeader('From', $headers['from']);
         }
 
         if (isset($headers['to']) && strlen($headers['to'])) {
-            $ob->addHeader('To', Horde_String::convertCharset($headers['to'], 'UTF-8', $this->charset));
+            $ob->addHeader('To', $headers['to']);
         } elseif (!isset($headers['cc'])) {
             $ob->addHeader('To', 'undisclosed-recipients:;');
         }
 
         if (isset($headers['cc']) && strlen($headers['cc'])) {
-            $ob->addHeader('Cc', Horde_String::convertCharset($headers['cc'], 'UTF-8', $this->charset));
+            $ob->addHeader('Cc', $headers['cc']);
         }
 
         if (isset($headers['subject']) && strlen($headers['subject'])) {
-            $ob->addHeader('Subject', Horde_String::convertCharset($headers['subject'], 'UTF-8', $this->charset));
+            $ob->addHeader('Subject', $headers['subject']);
         }
 
         if (strpos($this->getMetadata('reply_type'), 'reply') === 0) {

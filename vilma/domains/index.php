@@ -12,31 +12,34 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
-if (!Vilma::hasPermission($domain)) {
-    $registry->authenticateFailure('vilma', $e);
+if (!Vilma::hasPermission()) {
+    $registry->authenticateFailure('vilma');
 }
 
 // Having a current domain doesn't make sense on this page
-Vilma::setCurDomain(false);
+Vilma::setCurDomain();
 
-$domains = $vilma->driver->getDomains();
-if (is_a($domains, 'PEAR_Error')) {
-    $notification->push($domains, 'horde.error');
+try {
+    $domains = $vilma->driver->getDomains();
+} catch (Exception $e) {
+    $notification->push($e, 'horde.error');
     $domains = array();
 }
-foreach ($domains as $id => $domain) {
-    $url = Horde::url('domains/edit.php');
-    $domains[$id]['edit_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-    $url = Horde::url('domains/delete.php');
-    $domains[$id]['del_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-    $url = Horde::url('users/index.php');
-    $domains[$id]['view_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
+
+$editurl   = Horde::url('domains/edit.php');
+$deleteurl = Horde::url('domains/delete.php');
+$userurl   = Horde::url('users/index.php');
+foreach ($domains as &$domain) {
+    $domain['edit_url'] = $editurl->copy()->add('domain_id', $domain['domain_id']);
+    $domain['del_url']  = $deleteurl->copy()->add('domain_id', $domain['domain_id']);
+    $domain['view_url'] = $userurl->copy()->add('domain_id', $domain['domain_id']);
 }
 
 /* Set up the template fields. */
-$template->set('domains', $domains, true);
-$template->set('menu', Vilma::getMenu('string'));
-
+$template = $injector->createInstance('Horde_Template');
+$template->setOption('gettext', true);
+$template->set('domains', $domains);
+$template->set('menu', Horde::menu());
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
@@ -47,6 +50,6 @@ $images = array('delete' => Horde::img('delete.png', _("Delete Domain")),
 $template->set('images', $images);
 
 /* Render the page. */
-require VILMA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/domains/index.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

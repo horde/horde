@@ -179,7 +179,12 @@ h3.file-view-header {
     list-style: none;
     margin-bottom: .5em;
 }
-.commit-author {
+.commit-author-avatar {
+    float: left;
+    margin-right: .5em;
+    padding: 2px;
+    background: #fff;
+    border: 1px solid #ddd;
 }
 
 ul.commit-filelist {
@@ -286,8 +291,13 @@ div.diff-header h4 {
     font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
     font-size: 110%;
 }
-div.diff-section {
-    margin-top: 1em;
+div.diff-subheader {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background: #eee;
+    padding: .5em;
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+    text-align: center;
 }
 div.diff-container:after {
     content: ".";
@@ -296,19 +306,14 @@ div.diff-container:after {
     clear: both;
     visibility: hidden;
 }
-div.diff-container h3 {
-    font-weight: bold;
-}
 
 div.diff-left {
     float: left;
     width: 50%;
-    overflow-y: auto;
 }
 div.diff-right {
     float: right;
     width: 50%;
-    overflow-y: auto;
 }
 
 .diff-unmodified {
@@ -333,6 +338,34 @@ div.diff-right {
     background: #fee;
     background: -webkit-gradient(linear, right top, left top, from(#fff), to(#fcc), color-stop(0.5, #fcc));
     background: -moz-linear-gradient(right, #fff, #fcc 50%);
+}
+.diff-separator {
+    background: #eee;
+}
+
+div.diff-linenumbers {
+    float: left;
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+    text-align: right;
+    padding: 0 .5em 0 .1em;
+     width: 4em;
+    color: #333;
+    background: #eee;
+    border-right: thin solid #ddd;
+}
+div.diff-linenumbers ol {
+    list-style: none;
+}
+div.diff-right div.diff-linenumbers {
+    border-left: thin solid #ddd;
+}
+
+div.diff-listing {
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+    overflow-y: auto;
+}
+div.diff-listing pre {
+    padding-left: .3em;
 }
 
 .diff-caption {

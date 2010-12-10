@@ -85,7 +85,7 @@ if (!$conf['menu']['import_export']) {
 /* If there are absolutely no valid sources, abort. */
 if (!$cfgSources) {
     $notification->push(_("No Address Books are currently available. Import and Export is disabled."), 'horde.error');
-    require TURBA_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     require TURBA_TEMPLATES . '/menu.inc';
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
@@ -509,7 +509,7 @@ case Horde_Data::IMPORT_DATETIME:
 }
 
 $title = _("Import/Export Address Books");
-require TURBA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 
 $default_source = $prefs->getValue('default_dir');

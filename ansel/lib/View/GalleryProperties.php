@@ -117,7 +117,7 @@ class Ansel_View_GalleryProperties
             'slug' => $this->_properties['slug']
         ));
 
-        require ANSEL_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         echo Horde::menu();
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
         echo $view->render('properties');

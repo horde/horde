@@ -182,7 +182,7 @@ EOH;
 }
 
 $title = _("Import Bookmarks");
-require TREAN_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 if (!$folders_exceeded || !$bookmarks_exceeded) {

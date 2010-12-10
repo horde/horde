@@ -30,7 +30,7 @@ function _open()
         $opened = true;
         $beendone = true;
         $title = _("Administration");
-        require HERMES_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require HERMES_TEMPLATES . '/menu.inc';
     }
 }

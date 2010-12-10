@@ -60,7 +60,15 @@
     <min>1.5.0</min>
    </pearinstaller>
    <package>
+    <name>Controller</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Http</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Oauth</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

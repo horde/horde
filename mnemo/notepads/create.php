@@ -36,7 +36,7 @@ if ($form->validate($vars)) {
 }
 
 $title = $form->getTitle();
-require MNEMO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify();
 echo $form->renderActive($form->getRenderer(), $vars, 'create.php', 'post');

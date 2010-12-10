@@ -52,6 +52,18 @@ class Kronolith_Calendar_Holiday extends Kronolith_Calendar
      */
     public function display()
     {
-        return true;
+        return in_array($this->_driver['id'], $GLOBALS['display_holidays']);
+    }
+
+    /**
+     * Returns a hash representing this calendar.
+     *
+     * @return array  A simple hash.
+     */
+    public function toHash()
+    {
+        $hash = parent::toHash();
+        $hash['show'] = in_array($this->_driver['id'], $GLOBALS['display_holidays']);
+        return $hash;
     }
 }

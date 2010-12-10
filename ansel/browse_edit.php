@@ -23,7 +23,7 @@ if ($layout->updated()) {
 }
 
 $title = _("My Photos :: Add Content");
-require ANSEL_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/portal/edit.inc';

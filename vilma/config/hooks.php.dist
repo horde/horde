@@ -19,7 +19,7 @@
 // "control/locals" file on an interval from cron(8) using some kind of script
 // to pull a list of domains from Horde using (for example) XML-RPC.
 
-// if (!function_exists('_vilma_hook_savedomain')) {
+// if (!function_exists('_vilma_hook_saveDomain')) {
 //     function _vilma_hook_savedomain($info = null)
 //     {
 //         if ($info === null || !isset($info['domain_name'])) {
@@ -55,7 +55,7 @@
 // This hook does the opposite of the above:  Remove a domain from the
 // "control/locals" file.
 
-// if (!function_exists('_vilma_hook_deletedomain')) {
+// if (!function_exists('_vilma_hook_deleteDomain')) {
 //     function _vilma_hook_deletedomain($domain = null)
 //     {
 //         if ($domain === null) {
@@ -89,7 +89,7 @@
 
 // This function will turn an array of additional LDAP attributes that will be
 // added to the attributes created by the LDAP driver.
-//if (!function_exists('_vilma_hook_getldapattrs')) {
+//if (!function_exists('_vilma_hook_getLDAPAttrs')) {
 //    function _vilma_hook_getldapattrs($attrs)
 //    {
 //        $attrs['deliverymode'] = 'nolocal';

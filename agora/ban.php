@@ -71,6 +71,6 @@ $view->notify = Horde::endBuffer();
 $view->banned = $banned;
 $view->forum = $forums->getForum();
 
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('ban.html.php');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

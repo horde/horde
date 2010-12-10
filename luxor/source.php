@@ -148,7 +148,7 @@ if (is_a($content, 'PEAR_Error')) {
     $notification->push($content->getMessage(), 'horde.error');
 }
 
-require LUXOR_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require LUXOR_TEMPLATES . '/menu.inc';
 require LUXOR_TEMPLATES . '/headerbar.inc';
 if (!is_a($content, 'PEAR_Error')) {

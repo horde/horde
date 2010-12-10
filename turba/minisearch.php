@@ -49,7 +49,7 @@ if (!is_null($search)) {
 
 Horde::addScriptFile('prototype.js', 'horde');
 $bodyClass = 'summary';
-require TURBA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 
 ?>
 <?php

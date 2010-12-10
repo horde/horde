@@ -75,4 +75,17 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     {
         return $this->_api;
     }
+
+    /**
+     * Returns a hash representing this calendar.
+     *
+     * @return array  A simple hash.
+     */
+    public function toHash()
+    {
+        $hash = parent::toHash();
+        $hash['api']  = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($this->api()));
+        $hash['show'] = in_array($this->_api . '/' . $this->_name, $GLOBALS['display_external_calendars']);
+        return $hash;
+    }
 }

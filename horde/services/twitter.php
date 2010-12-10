@@ -59,27 +59,31 @@ case 'getPage':
             $params['since_id'] = $since;
         }
         $instance = Horde_Util::getPost('i');
-        $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
+        if (Horde_Util::getPost('mentions', null)) {
+            $stream = Horde_Serialize::unserialize($twitter->statuses->mentions($params), Horde_Serialize::JSON);
+        } else {
+            $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
+        }
     } catch (Horde_Service_Twitter_Exception $e) {
         echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
         exit;
     }
     $html = '';
     if (count($stream)) {
-        $newest = $stream[0]->id;
+        $newest = $stream[0]->id_str;
     } else {
         $newest = $params['since_id'];
         $oldest = 0;
     }
+
+    $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
+    $view->addHelper('Tag');
     foreach ($stream as $tweet) {
 
         /* Don't return the max_id tweet, since we already have it */
-        if (!empty($params['max_id']) && $params['max_id'] == $tweet->id) {
+        if (!empty($params['max_id']) && $params['max_id'] == $tweet->id_str) {
             continue;
         }
-
-        $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
-        $view->addHelper('Tag');
 
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
@@ -103,7 +107,7 @@ case 'getPage':
         $view->clientText = $filter->filter($tweet->source, 'xss');
         $view->tweet = $tweet;
         $view->instanceid = $instance;
-        $oldest = $tweet->id;
+        $oldest = $tweet->id_str;
         $html .= $view->render('twitter_tweet');
     }
 

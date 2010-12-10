@@ -65,6 +65,7 @@ class SetTypeStep2Form extends Horde_Form {
 }
 
 $ticket = Whups::getCurrentTicket();
+$linkTags[] = $ticket->feedLink();
 $details = $ticket->getDetails();
 if (!Whups::hasPermission($details['queue'], 'queue', 'update')) {
     $notification->push(_("Permission Denied"), 'horde.error');
@@ -121,7 +122,7 @@ if ($form == 'settypestep2form') {
 }
 
 $title = sprintf(_("Set Type for %s"), '[#' . $id . '] ' . $ticket->get('summary'));
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 

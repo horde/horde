@@ -41,6 +41,6 @@ try {
 }
 
 $title = _("Deletion failed");
-require TURBA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

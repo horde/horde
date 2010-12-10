@@ -20,7 +20,7 @@ $wiki = &$page->getProcessor();
 $text = $wiki->transform($text);
 
 $title = sprintf(_("Edit %s"), Horde_Util::getFormData('age'));
-require WICKED_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WICKED_TEMPLATES . '/menu.inc';
 require WICKED_TEMPLATES . '/edit/preview.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

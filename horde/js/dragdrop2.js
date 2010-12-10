@@ -223,7 +223,6 @@ Drag = Class.create({
     {
         this.dragevent = null;
         this.element = $(el);
-        this.ghostOffset = [ 0, 0 ];
         this.options = Object.extend({
             caption: '',
             classname: 'drag',
@@ -303,7 +302,7 @@ Drag = Class.create({
 
     _mouseMove: function(e)
     {
-        var go, eo, po, xy, p, delta, int;
+        var layout, xy, z;
 
         if (++this.move <= this.options.threshold) {
             return;
@@ -322,21 +321,11 @@ Drag = Class.create({
 
                 // Create the "ghost", i.e. the moving element, a clone of the
                 // original element, if it doesn't exist yet.
-                var layout = this.element.getLayout();
+                layout = this.element.getLayout();
                 this.ghost = $(this.element.clone(true))
                     .writeAttribute('id', null)
                     .addClassName(this.options.classname)
                     .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
-
-                var p = this.element.viewportOffset();
-                var delta = document.body.viewportOffset();
-                delta[0] -= document.body.offsetLeft;
-                delta[1] -= document.body.offsetTop;
-                this.ghost.style.left = (p[0] - delta[0]) + 'px';
-                this.ghost.style.top  = (p[1] - delta[1]) + 'px';
-
-                // eo is the offset of the original element to the body.
-                eo = this.element.cumulativeOffset();
 
                 // Save external dimensions, i.e. height and width including
                 // padding and margins, for later usage.
@@ -346,7 +335,7 @@ Drag = Class.create({
                 }
 
                 if (this.options.ghosting) {
-                    var z = parseInt(this.element.getStyle('zIndex'), 10);
+                    z = parseInt(this.element.getStyle('zIndex'), 10);
                     if (isNaN(z)) {
                         z = 1;
                     }
@@ -363,50 +352,8 @@ Drag = Class.create({
                     this.element.insert({ before: this.ghost });
                 }
 
-                // go is the offset of the ghost to the body. This might be
-                // different from the original element's offset because we
-                // used that element's position when cloning the ghost, but
-                // they might have different parents now.
-                go = this.ghost.cumulativeOffset();
-
-                // Calculate the difference between the ghost's offset and the
-                // orginal element's offset.
-                this.ghostOffset = [ go[0] - eo[0], go[1] - eo[1] ];
-
-                // Add the event coordinates to the offset, because we use the
-                // coordinates during later mousemove events as a basis for
-                // the new ghost position. But we don't want to position the
-                // ghost relative to the mouse pointer, but relative to where
-                // the mouse pointer clicked when the ghost was created.
-                // @todo: why do we subtract eo?
-                if (this.options.offset) {
-                    this.mouseOffset = this.ghostOffset;
-                } else {
-                    this.mouseOffset = [ this.ghostOffset[0] + xy[0] - eo[0],
-                                         this.ghostOffset[1] + xy[1] - eo[1] ];
-                }
-
-                if (!this.options.caption && this.options.constraint) {
-                    // Because we later only set the left or top coordinates
-                    // when using constraints, we have to set the correct
-                    // "opposite" coordinates here.
-                    po = this.ghost.getOffsetParent().cumulativeOffset();
-                    switch (this.options.constraint) {
-                    case 'horizontal':
-                        this.ghost.setStyle({ top: (eo[1] - po[1]) + 'px' });
-                        break;
-
-                    case 'vertical':
-                        this.ghost.setStyle({ left: (eo[0] - po[0]) + 'px' });
-                        break;
-                    }
-                }
+                this.ghost.clonePosition(this.element);
             }
-
-            // Subtract the ghost's offset to the original mouse position and
-            // add any scrolling.
-            xy[0] -= this.mouseOffset[0];
-            xy[1] -= this.mouseOffset[1];
 
             this._setContents(this.ghost, xy[0], xy[1]);
         }
@@ -692,36 +639,26 @@ Drag = Class.create({
             e_pos = elt.getDimensions();
             vp = document.viewport.getDimensions();
             so = document.viewport.getScrollOffsets();
-            vp.width += so[0];
-            vp.height += so[1];
-            if (x + this.ghostOffset[0] < 0) {
-                x = -this.ghostOffset[0];
-            } else if (x + e_pos.width + this.ghostOffset[0] > vp.width) {
-                x = vp.width - e_pos.width - this.ghostOffset[0];
+            if (x + e_pos.width > vp.width + so[0]) {
+                x = vp.width + so[0] - e_pos.width;
             }
-            if (y + this.ghostOffset[1] < 0) {
-                y = -this.ghostOffset[1];
-            } else if (y + e_pos.height + this.ghostOffset[1] > vp.height) {
-                y = vp.height - e_pos.height - this.ghostOffset[1];
+            if (y + e_pos.height > vp.height + so[1]) {
+                y = vp.height + so[1] - e_pos.height;
             }
         }
+
+        style = { left: x + 'px', top: y + 'px' };
 
         if (!this.options.caption) {
             switch (this.options.constraint) {
             case 'horizontal':
-                style = { left: x + 'px' };
+                delete style.top;
                 break;
 
             case 'vertical':
-                style = { top: y + 'px' };
-                break;
-
-            default:
-                style = { left: x + 'px', top: y + 'px' };
+                delete style.left;
                 break;
             }
-        } else {
-            style = { left: x + 'px', top: y + 'px' };
         }
 
         elt.setStyle(style).show();

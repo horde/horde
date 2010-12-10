@@ -86,7 +86,7 @@ if ($action == 'edit') {
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('scriptaculous.js', 'horde');
 
-require SHOUT_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();

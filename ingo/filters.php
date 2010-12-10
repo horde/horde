@@ -135,7 +135,7 @@ Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('filters.js', 'ingo');
 $menu = Ingo::menu();
 $title = _("Filter Rules");
-require INGO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/filters/header.inc';

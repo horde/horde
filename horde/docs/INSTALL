@@ -172,6 +172,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       make sure that you do **not** use ``--disable-dom``,
       ``--disable-simplexml``, or ``--disable-xml``.
 
+      Make sure you are using a newer version of libxml.  Older version of
+      libxml (e.g. 2.6.26) have been reported to be partially broken when
+      handling certain charsets.
+
    The following PHP options are **RECOMMENDED** to enable advanced features in
    Horde:
 

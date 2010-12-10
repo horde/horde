@@ -124,8 +124,6 @@ class Kronolith
             }
         }
 
-        $tagger = self::getTagger();
-
         /* Variables used in core javascript files. */
         $code['conf'] = array(
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
@@ -186,36 +184,19 @@ class Kronolith
             $code['conf']['tasks'] = $registry->tasks->ajaxDefaults();
         }
 
-        $subscriptionCals = Horde::url($registry->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1);
-        $subscriptionTasks = Horde::url($registry->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/nag/' : '/rpc.php/nag/'), true, -1);
-
-        // Calendars
+        // Calendars. Do some twisting to sort own calendar before shared
+        // calendars.
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-                if ($calendar->owner() != $GLOBALS['registry']->getAuth() &&
-                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                    $calendar->owner() != $GLOBALS['registry']->getAuth() &&
                     !in_array($id, $GLOBALS['display_calendars'])) {
                     continue;
                 }
                 $owner = $GLOBALS['registry']->getAuth() &&
                     $calendar->owner() == $GLOBALS['registry']->getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
-                    $code['conf']['calendars']['internal'][$id] = array(
-                        'name' => ($owner || !$calendar->owner() ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->owner(), false) . '] ')
-                            . $calendar->name(),
-                        'desc' => $calendar->description(),
-                        'owner' => $owner,
-                        'fg' => $calendar->foreground(),
-                        'bg' => $calendar->background(),
-                        'show' => in_array($id, $GLOBALS['display_calendars']),
-                        'edit' => $calendar->hasPermission(Horde_Perms::EDIT),
-                        'sub' => $subscriptionCals . ($calendar->owner() ? $calendar->owner() : '-system-') . '/' . $id . '.ics',
-                        'feed' => (string)Kronolith::feedUrl($id),
-                        'embed' => self::embedCode($id),
-                        'tg' => array_values($tagger->getTags($id, 'calendar')));
-                    if ($owner) {
-                        $code['conf']['calendars']['internal'][$id]['perms'] = self::permissionToJson($calendar->share()->getPermission());
-                    }
+                    $code['conf']['calendars']['internal'][$id] = $calendar->toHash();
                 }
             }
 
@@ -224,27 +205,15 @@ class Kronolith
                 continue;
             }
             foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-                if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                    $tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
                     !in_array('tasks/' . $id, $GLOBALS['display_external_calendars'])) {
                     continue;
                 }
                 $owner = $GLOBALS['registry']->getAuth() &&
                     $tasklist->get('owner') == $GLOBALS['registry']->getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
-                    $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
-                        'name' => ($owner || !$tasklist->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . '] ')
-                            . $tasklist->get('name'),
-                        'desc' => $tasklist->get('desc'),
-                        'owner' => $owner,
-                        'fg' => self::foregroundColor($tasklist),
-                        'bg' => self::backgroundColor($tasklist),
-                        'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
-                        'edit' => $tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
-                        'sub' => $subscriptionTasks . ($tasklist->get('owner') ? $tasklist->get('owner') : '-system-') . '/' . $tasklist->getName() . '.ics');
-                    if ($owner) {
-                        $code['conf']['calendars']['tasklists']['tasks/' . $id]['perms'] = self::permissionToJson($tasklist->getPermission());
-                    }
+                    $code['conf']['calendars']['tasklists']['tasks/' . $id] = $GLOBALS['all_external_calendars']['tasks/' . $id]->toHash();
                 }
             }
         }
@@ -258,33 +227,17 @@ class Kronolith
                 !in_array($id, $GLOBALS['display_external_calendars'])) {
                 continue;
             }
-            $code['conf']['calendars']['external'][$id] = array(
-                'name' => $calendar->name(),
-                'fg' => $calendar->foreground(),
-                'bg' => $calendar->background(),
-                'api' => $registry->get('name', $registry->hasInterface($calendar->api())),
-                'show' => in_array($id, $GLOBALS['display_external_calendars']));
+            $code['conf']['calendars']['external'][$id] = $calendar->toHash();
         }
 
         // Remote calendars
         foreach ($GLOBALS['all_remote_calendars'] as $url => $calendar) {
-            $code['conf']['calendars']['remote'][$url] = array_merge(
-                array('name' => $calendar->name(),
-                      'desc' => $calendar->description(),
-                      'owner' => true,
-                      'fg' => $calendar->foreground(),
-                      'bg' => $calendar->background(),
-                      'show' => in_array($url, $GLOBALS['display_remote_calendars'])),
-                $calendar->credentials());
+            $code['conf']['calendars']['remote'][$url] = $calendar->toHash();
         }
 
         // Holidays
         foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
-            $code['conf']['calendars']['holiday'][$id] = array(
-                'name' => $calendar->name(),
-                'fg' => $calendar->foreground(),
-                'bg' => $calendar->background(),
-                'show' => in_array($id, $GLOBALS['display_holidays']));
+            $code['conf']['calendars']['holiday'][$id] = $calendar->toHash();
         }
 
         /* Gettext strings used in core javascript files. */
@@ -1102,10 +1055,16 @@ class Kronolith
         $GLOBALS['prefs']->setValue('holiday_drivers', serialize($GLOBALS['display_holidays']));
 
         /* Get a list of external calendars. */
+        $has_tasks = $GLOBALS['registry']->hasInterface('tasks');
+        $tasklists = $has_tasks
+            ? $GLOBALS['registry']->tasks->listTasklists()
+            : array();
         $GLOBALS['all_external_calendars'] = array();
         if ($GLOBALS['session']->exists('kronolith', 'all_external_calendars')) {
             foreach ($GLOBALS['session']->get('kronolith', 'all_external_calendars') as $calendar) {
-                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d']));
+                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = $calendar['a'] == 'tasks'
+                    ? new Kronolith_Calendar_External_Tasks(array('api' => $calendar['a'], 'name' => $calendar['d'], 'share' => $tasklists[$calendar['n']]))
+                    : new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d']));
             }
         } else {
             $apis = array_unique($GLOBALS['registry']->listAPIs());
@@ -1123,7 +1082,9 @@ class Kronolith
                 }
 
                 foreach ($categories as $name => $description) {
-                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description));
+                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = $api == 'tasks'
+                        ? new Kronolith_Calendar_External_Tasks(array('api' => $api, 'name' => $description, 'share' => $tasklists[$name]))
+                        : new Kronolith_Calendar_External(array('api' => $api, 'name' => $description));
                     $ext_cals[] = array(
                         'a' => $api,
                         'n' => $name,
@@ -1735,12 +1696,17 @@ class Kronolith
             $identity = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Identity')
                 ->create();
-            $userName = $identity->getName();
             $mail = new Horde_Mime_Mail(
                 array('from' => $identity->getDefaultFromAddress(true),
                       'charset' => 'UTF-8')
                 );
             $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
+            $image = self::getImagePart('big_share.png');
+            $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/share'));
+            new Horde_View_Helper_Text($view);
+            $view->user = $identity->getName();
+            $view->calendar = $share->get('name');
+            $view->imageId = $image->getContentId();
         }
 
         // Process owner and owner permissions.
@@ -1756,23 +1722,26 @@ class Kronolith
                 $share->set('owner', $new_owner);
                 $share->save();
                 if ($GLOBALS['conf']['share']['notify']) {
+                    $view->ownerChange = true;
+                    $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
                     $to = $GLOBALS['injector']
                         ->getInstance('Horde_Core_Factory_Identity')
                         ->create($new_owner)
                         ->getDefaultFromAddress(true);
-                    try {
-                        $message = Horde::callHook('shareOwnerNotification', array($new_owner, $share));
-                    } catch (Horde_Exception_HookNotSet $e) {
-                        $message = sprintf(_("%s has assigned the ownership of \"%s\" to you"),
-                                           $userName,
-                                           $share->get('name'));
-                    }
-                    $mail->addHeader('Subject', _("Ownership assignment"));
-                    $mail->addHeader('To', $to, 'UTF-8', false);
-                    $mail->setBody($message, 'UTF-8');
+                    $mail->addHeader('Subject', _("Ownership assignment"), 'UTF-8');
+                    $mail->addHeader('To', $to, 'UTF-8');
+                    $mail->setBasePart($multipart);
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                    $view->ownerChange = false;
                 }
             }
+        }
+
+        if ($GLOBALS['conf']['share']['notify']) {
+            if ($GLOBALS['conf']['share']['hidden']) {
+                $view->subscribe = Horde::url('calendars/subscribe.php', true)->add('calendar', $share->getName());
+            }
+            $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
         }
 
         if ($GLOBALS['registry']->isAdmin() ||
@@ -1859,15 +1828,6 @@ class Kronolith
             $perm->removeCreatorPermission(Kronolith::PERMS_DELEGATE, false);
         }
 
-        // Build subscription link if necessary.
-        $subscription = $sublink = '';
-        if ($GLOBALS['conf']['share']['hidden']) {
-            $sublink = Horde::url('calendars/subscribe.php', true)->add('calendar', $share->getName());
-            $subscription = "\n"
-                . _("To subscribe to this calendar, you need to click the following link:")
-                . ' ' . $sublink;
-        }
-
         // Process user permissions.
         $u_names = Horde_Util::getFormData('u_names');
         $u_show = Horde_Util::getFormData('u_show');
@@ -1878,7 +1838,7 @@ class Kronolith
 
         $current = $perm->getUserPermissions();
         if ($GLOBALS['conf']['share']['notify']) {
-            $mail->addHeader('Subject', _("Access permissions"));
+            $mail->addHeader('Subject', _("Access permissions"), 'UTF-8');
         }
 
         $perm->removeUserPermission(null, null, false);
@@ -1924,16 +1884,8 @@ class Kronolith
                     ->getInstance('Horde_Core_Factory_Identity')
                     ->create($user)
                     ->getDefaultFromAddress(true);
-                try {
-                    $message = Horde::callHook('shareUserNotification', array($user, $share, $sublink));
-                } catch (Horde_Exception_HookNotSet $e) {
-                    $message = sprintf(_("%s has given you access to \"%s\"."),
-                                       $userName,
-                                       $share->get('name'))
-                        . $subscription;
-                }
-                $mail->addHeader('To', $to, 'UTF-8', false);
-                $mail->setBody($message, 'UTF-8');
+                $mail->addHeader('To', $to, 'UTF-8');
+                $mail->setBasePart($multipart);
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             }
         }
@@ -1980,17 +1932,8 @@ class Kronolith
                 !isset($current[$group]) && $has_perms) {
                 $groupOb = $GLOBALS['injector']->getInstance('Horde_Group')->getGroupById($group);
                 if (!empty($groupOb->data['email'])) {
-                    try {
-                        $message = Horde::callHook('shareGroupNotification', array($group, $share, $sublink));
-                    } catch (Horde_Exception_HookNotSet $e) {
-                        $message = sprintf(_("%s has given your group \"%s\" access to \"%s\"."),
-                                           $userName,
-                                           $groupOb->getName(),
-                                           $share->get('name'))
-                            . $subscription;
-                    }
-                    $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>', 'UTF-8', false);
-                    $mail->setBody($message, 'UTF-8');
+                    $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>', 'UTF-8');
+                    $mail->setBasePart($multipart);
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
             }
@@ -2014,7 +1957,7 @@ class Kronolith
      *
      * @throws Kronolith_Exception
      */
-    public static function subscribeRemoteCalendar($info, $update = false)
+    public static function subscribeRemoteCalendar(&$info, $update = false)
     {
         if (!(strlen($info['name']) && strlen($info['url']))) {
             throw new Kronolith_Exception(_("You must specify a name and a URL."));
@@ -2257,12 +2200,7 @@ class Kronolith
 
         // Generate image mime part first and only once, because we
         // need the Content-ID.
-        $background = Horde_Themes::img('big_invitation.png');
-        $image = new Horde_Mime_Part();
-        $image->setType('image/png');
-        $image->setContents(file_get_contents($background->fs));
-        $image->setContentId();
-        $image->setDisposition('attachment');
+        $image = self::getImagePart('big_invitation.png');
 
         $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
         $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/itip'));
@@ -2352,25 +2290,7 @@ class Kronolith
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset('UTF-8');
 
-            $multipart = new Horde_Mime_Part();
-            $multipart->setType('multipart/alternative');
-            $bodyText = new Horde_Mime_Part();
-            $bodyText->setType('text/plain');
-            $bodyText->setCharset('UTF-8');
-            $bodyText->setContents($view->render('notification.plain.php'));
-            $bodyText->setDisposition('inline');
-            $multipart->addPart($bodyText);
-            $bodyHtml = new Horde_Mime_Part();
-            $bodyHtml->setType('text/html');
-            $bodyHtml->setCharset('UTF-8');
-            $bodyHtml->setContents($view->render('notification.html.php'));
-            $bodyHtml->setDisposition('inline');
-            $related = new Horde_Mime_Part();
-            $related->setType('multipart/related');
-            $related->setContentTypeParameter('start', $bodyHtml->setContentId());
-            $related->addPart($bodyHtml);
-            $related->addPart($image);
-            $multipart->addPart($related);
+            $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
             $multipart->addPart($ics);
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
             $mail = new Horde_Mime_Mail(array('subject' => $view->subject,
@@ -2605,6 +2525,59 @@ class Kronolith
         }
 
         return false;
+    }
+
+    /**
+     * Builds the body MIME part of a multipart message.
+     *
+     * @param Horde_View $view        A view to render the HTML and plain text
+     *                                templates for the messate.
+     * @param string $template        The template base name for the view.
+     * @param Horde_Mime_Part $image  The MIME part of a related image.
+     *
+     * @return Horde_Mime_Part  A multipart/alternative MIME part.
+     */
+    public static function buildMimeMessage(Horde_View $view, $template,
+                                            Horde_Mime_Part $image)
+    {
+        $multipart = new Horde_Mime_Part();
+        $multipart->setType('multipart/alternative');
+        $bodyText = new Horde_Mime_Part();
+        $bodyText->setType('text/plain');
+        $bodyText->setCharset('UTF-8');
+        $bodyText->setContents($view->render($template . '.plain.php'));
+        $bodyText->setDisposition('inline');
+        $multipart->addPart($bodyText);
+        $bodyHtml = new Horde_Mime_Part();
+        $bodyHtml->setType('text/html');
+        $bodyHtml->setCharset('UTF-8');
+        $bodyHtml->setContents($view->render($template . '.html.php'));
+        $bodyHtml->setDisposition('inline');
+        $related = new Horde_Mime_Part();
+        $related->setType('multipart/related');
+        $related->setContentTypeParameter('start', $bodyHtml->setContentId());
+        $related->addPart($bodyHtml);
+        $related->addPart($image);
+        $multipart->addPart($related);
+        return $multipart;
+    }
+
+    /**
+     * Returns a MIME part for an image to be embedded into a HTML document.
+     *
+     * @param string $file  An image file name.
+     *
+     * @return Horde_Mime_Part  A MIME part representing the image.
+     */
+    public static function getImagePart($file)
+    {
+        $background = Horde_Themes::img($file);
+        $image = new Horde_Mime_Part();
+        $image->setType('image/png');
+        $image->setContents(file_get_contents($background->fs));
+        $image->setContentId();
+        $image->setDisposition('attachment');
+        return $image;
     }
 
     /**

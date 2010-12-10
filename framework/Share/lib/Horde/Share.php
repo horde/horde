@@ -101,6 +101,13 @@ class Horde_Share
     protected $_shareCallback;
 
     /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Configured callbacks. We currently support:
      *<pre>
      * add      - Called immediately before a new share is added. Receives the
@@ -135,6 +142,19 @@ class Horde_Share
         $this->_user = $user;
         $this->_permsObject = $perms;
         $this->_groups = $groups;
+        $this->_logger = new Horde_Support_Stub();
+    }
+
+    /**
+     * Set a logger object.
+     *
+     * @inject
+     *
+     * @var Horde_Log_Logger $logger  The logger object.
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**
@@ -552,6 +572,49 @@ class Horde_Share
         }
 
         return count($aParts) > count($bParts);
+    }
+
+    /**
+     * Logs a debug entry
+     *
+     * @param string $sql     The log statement.
+     * @param string $name    TODO
+     * @param float $runtime  Runtime interval.
+     */
+    protected function _logDebug($entry, $name, $runtime = null)
+    {
+        /*@TODO */
+        $name = (empty($name) ? '' : $name)
+              . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
+        $this->_logger->debug($this->_formatLogEntry($name, $entry));
+    }
+
+    /**
+     * Logs an error entry.
+     *
+     * @param string $error   The error statement.
+     * @param string $name    TODO
+     * @param float $runtime  Runtime interval.
+     */
+    protected function _logError($error, $name, $runtime = null)
+    {
+        /*@TODO */
+        $name = (empty($name) ? '' : $name)
+              . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
+        $this->_logger->err($this->_formatLogEntry($name, $error));
+    }
+
+    /**
+     * Formats the log entry.
+     *
+     * @param string $message  Message.
+     * @param string $sql      SQL statment.
+     *
+     * @return string  Formatted log entry.
+     */
+    protected function _formatLogEntry($message, $sql)
+    {
+        return "SQL $message  \n\t" . wordwrap(preg_replace("/\s+/", ' ', $sql), 70, "\n\t  ", 1);
     }
 
 }

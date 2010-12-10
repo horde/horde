@@ -49,7 +49,7 @@ function _open($isopened = false)
 
         $opened = true;
         $title = _("Administration");
-        require WHUPS_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require WHUPS_TEMPLATES . '/menu.inc';
         echo $tabs->render($vars->get('action'));
     }

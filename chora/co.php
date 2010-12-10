@@ -95,7 +95,7 @@ if (!$plain) {
     $extraLink = _("View:") . ' ' . implode(' | ', $views);
 
     Horde::addScriptFile('stripe.js', 'horde');
-    require CHORA_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     require CHORA_TEMPLATES . '/menu.inc';
     require CHORA_TEMPLATES . '/headerbar.inc';
     require CHORA_TEMPLATES . '/checkout/checkout.inc';

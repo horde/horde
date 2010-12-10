@@ -52,7 +52,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
 
 $title = _("Export Call Detail Records");
 
-require OPERATOR_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
 $form->renderActive($renderer, $vars, Horde::url('export.php'), 'post');;

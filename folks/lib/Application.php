@@ -12,6 +12,27 @@ class Folks_Application extends Horde_Registry_Application
     public $version = 'H4 (0.1-git)';
 
     /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     * - $linkTags: <link> tags for common-header.inc.
+     */
+    protected function _init()
+    {
+        $links = array(Folks::getUrlFor('feed', 'online') => _("Online users"));
+        if ($GLOBALS['registry']->isAuthenticated()) {
+            $links[Folks::getUrlFor('feed', 'friends')] = _("Online friends");
+            $links[Folks::getUrlFor('feed', 'activity')] = _("Friends activity");
+            $links[Folks::getUrlFor('feed', 'know')] = _("People you might know");
+        }
+
+        $GLOBALS['linkTags'] = array();
+        foreach ($links as $url => $label) {
+            $GLOBALS['linkTags'][] = '<link rel="alternate" type="application/rss+xml" href="' . $url . '" title="' . $label . '" />';
+        }
+    }
+
+    /**
      * Add additional items to the menu.
      *
      * @param Horde_Menu $menu  The menu object.

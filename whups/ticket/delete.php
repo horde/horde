@@ -42,6 +42,7 @@ class DeleteTicketForm extends Horde_Form {
 }
 
 $ticket = Whups::getCurrentTicket();
+$linkTags[] = $ticket->feedLink();
 $details = $ticket->getDetails();
 if (!Whups::hasPermission($details['queue'], 'queue', Horde_Perms::DELETE)) {
     $notification->push(_("Permission Denied"), 'horde.error');
@@ -75,7 +76,7 @@ if ($vars->get('formname') == 'deleteticketform') {
     }
 }
 
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 

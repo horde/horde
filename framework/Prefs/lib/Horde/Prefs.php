@@ -350,13 +350,16 @@ class Horde_Prefs implements ArrayAccess
         $scope_ob = new Horde_Prefs_Scope($scope);
         $scope_ob->init = true;
 
+        // Need to set object in scopes array now, since the storage object
+        // might recursively call the prefs object.
+        $this->_scopes[$scope] = $scope_ob;
+
         foreach ($this->_storage as $storage) {
             $scope_ob = $storage->get($scope_ob);
         }
 
         $scope_ob->init = false;
 
-        $this->_scopes[$scope] = $scope_ob;
         $this->_cache->store($scope_ob);
     }
 

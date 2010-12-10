@@ -533,6 +533,16 @@ class Whups_Ticket {
     }
 
     /**
+     * Returns a <link> tag for this ticket's feed.
+     *
+     * @return string  A full <link> tag.
+     */
+    function feedLink()
+    {
+        return '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars('[#' . $this->getId() . '] ' . $this->get('summary')) . '" href="' . Whups::urlFor('ticket_rss', $this->getId(), true, -1) . '" />';
+    }
+
+    /**
      * Sets exclusive read permissions on a comment to a certain group.
      *
      * @param integer $commentId  The id of the comment to restrict.

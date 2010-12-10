@@ -65,7 +65,7 @@ class Jonah_View_ChannelList extends Jonah_View_Base
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('tables.js', 'horde', true);
         Horde::addScriptFile('quickfinder.js', 'horde', true);
-        require JONAH_TEMPLATES . '/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require JONAH_TEMPLATES . '/menu.inc';
         echo $view->render('channellist');
         require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -86,7 +86,7 @@ if (!($edited instanceof PEAR_Error)) {
 }
 
 $title = sprintf(_("Edit \"%s\""), $contact->getValue('name'));
-require TURBA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 $form->setTitle($title);
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');

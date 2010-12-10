@@ -18,8 +18,12 @@ Horde::addInlineScript(array(
     '$("search_pattern").focus()'
 ), 'dom');
 
+if ($prefs->getValue('show_panel')) {
+    $bodyClass = 'rightPanel';
+}
+
 $title = _("Search");
-require MNEMO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/search/search.inc';

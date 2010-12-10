@@ -197,8 +197,8 @@ class Horde_Core_Prefs_Ui
 
         if ($this->vars->actionID) {
             try {
-                Horde::checkRequestToken('horde.prefs', $this->vars->horde_prefs_token);
-            } catch (Horde_Exception $e) {
+                $GLOBALS['injector']->getInstance('Horde_Token')->validate($this->vars->horde_prefs_token, 'horde.prefs');
+            } catch (Horde_Token_Exception $e) {
                 $GLOBALS['notification']->push($e);
                 return;
             }
@@ -621,7 +621,7 @@ class Horde_Core_Prefs_Ui
             $t->set('app', htmlspecialchars($this->app));
             $t->set('group', htmlspecialchars($this->group));
             $t->set('label', htmlspecialchars($this->prefGroups[$this->group]['label']));
-            $t->set('token', Horde::getRequestToken('horde_prefs'));
+            $t->set('token', $GLOBALS['injector']->getInstance('Horde_Token')->get('horde.prefs'));
 
             // Search for previous and next groups.
             if (count($prefgroups) > 1) {

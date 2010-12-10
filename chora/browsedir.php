@@ -67,7 +67,7 @@ $printAllCols = count($fileList);
 $sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup';
 
 Horde::addScriptFile('tables.js', 'horde');
-require CHORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/directory/header.inc';

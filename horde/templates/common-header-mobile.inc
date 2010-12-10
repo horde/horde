@@ -24,14 +24,10 @@ Horde::includeStylesheetFiles(array(
 /* JS Files. */
 $GLOBALS['injector']->getInstance('Horde_Script_Files')->prototypejs = false;
 Horde::addScriptFile('jquery.mobile/jquery.min.js', 'horde');
+Horde::addScriptFile('horde-jquery.js', 'horde');
+Horde::addScriptFile('mobile.js', 'horde');
+
+$GLOBALS['registry']->callAppMethod($GLOBALS['registry']->getApp(), 'mobileInitCallback');
+
 Horde::addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
 Horde::includeScriptFiles();
-
-/* Inline script. */
-Horde::addInlineScript(
-  '$(window.document).bind("mobileinit", function() {
-      $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-      $.mobile.loadingMessage = "' . _("loading") . '";
-  });'
-);
-Horde::outputInlineScript();

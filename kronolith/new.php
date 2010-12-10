@@ -77,7 +77,8 @@ $menu = Horde::menu();
 Horde::addScriptFile('edit.js', 'kronolith');
 Horde::addScriptFile('popup.js', 'horde');
 
-require KRONOLITH_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/edit/edit.inc';

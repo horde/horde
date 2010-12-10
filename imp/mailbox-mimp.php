@@ -57,9 +57,9 @@ case 'u':
 
     if ($vars->checkbox == 'd') {
         try {
-            Horde::checkRequestToken('imp.message-mimp', $vars->mt);
+            $injector->getInstance('Horde_Token')->validate($vars->mt, 'imp.message-mimp');
             $imp_message->delete(new IMP_Indices($vars->indices));
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Token_Exception $e) {
             $notification->push($e);
         }
     } else {
@@ -269,7 +269,7 @@ try {
     if (Horde::callHook('mimp_advanced', array('checkbox'), 'imp')) {
         $t->set('checkbox', $mailbox_url->copy()->add('p', $pageOb['page']));
         $t->set('forminput', Horde_Util::formInput());
-        $t->set('mt', Horde::getRequestToken('imp.message-mimp'));
+        $t->set('mt', $injector->getInstance('Horde_Token')->get('imp.message-mimp'));
     }
 } catch (Horde_Exception_HookNotSet $e) {}
 

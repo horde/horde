@@ -42,8 +42,10 @@ class Trean_Application extends Horde_Registry_Application
      * Initialization function.
      *
      * Global variables defined:
-     *   $trean_db     - TODO
-     *   $trean_shares - TODO
+     * - $trean_db:     TODO
+     * - $trean_shares: TODO
+     * - $linkTags:     <link> tags for common-header.inc.
+     * - $bodyClass:    <body> CSS class for common-header.inc.
      */
     protected function _init()
     {
@@ -58,6 +60,16 @@ class Trean_Application extends Horde_Registry_Application
         $GLOBALS['trean_shares'] = new Trean_Bookmarks();
 
         Trean::initialize();
+
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('grids-min.css');
+        $rss = Horde::url('rss.php', true, -1);
+        if (Horde_Util::getFormData('f')) {
+            $rss->add('f', Horde_Util::getFormData('f'));
+        }
+        $GLOBALS['linkTags'] = array('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(_("Bookmarks Feed")) . '" href="' . $rss . '" />');
+        if ($GLOBALS['prefs']->getValue('show_folder_actions')) {
+            $GLOBALS['bodyClass'] = 'folderActions';
+        }
     }
 
     /**

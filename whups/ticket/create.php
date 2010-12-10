@@ -61,7 +61,7 @@ if ($valid1 && $valid2 && $valid3 &&
 
 // Start the page.
 $title = _("New Ticket");
-require WHUPS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 
 if ($valid3 && $valid2 && $valid1) {

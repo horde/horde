@@ -84,7 +84,7 @@ if ($stats['numcalls'] > $GLOBALS['conf']['storage']['searchlimit']) {
 $title = _("Search Call Detail Records");
 Horde::addScriptFile('stripe.js', 'horde', true);
 
-require OPERATOR_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
 $form->renderActive($renderer, $vars, Horde::url('search.php'), 'post');

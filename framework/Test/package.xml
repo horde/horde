@@ -49,6 +49,7 @@
    <package>
     <name>PHPUnit</name>
     <channel>pear.phpunit.de</channel>
+    <min>3.5.0</min>
    </package>
   </required>
  </dependencies>

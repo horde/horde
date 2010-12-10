@@ -198,6 +198,16 @@ class Whups_Query {
     }
 
     /**
+     * Returns a <link> tag for this query's feed.
+     *
+     * @return string  A full <link> tag.
+     */
+    function feedLink()
+    {
+        return '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($this->name) . '" href="' . Whups::urlFor('query_rss', empty($this->slug) ? array('id' => $this->id) : array('slug' => $this->slug), true, -1) . '" />';
+    }
+
+    /**
      * Tab operations for this query.
      */
     function getTabs($vars)

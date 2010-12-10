@@ -17,7 +17,7 @@ require_once TREAN_BASE . '/lib/Forms/Search.php';
 require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
 $title = _("Search");
-require TREAN_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 

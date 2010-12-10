@@ -263,6 +263,6 @@ Horde::addInlineScript(array(
 ), 'dom');
 
 $title = _("Change Password");
-require PASSWD_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require PASSWD_TEMPLATES . '/main/main.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -230,7 +230,7 @@ class IMP_Folder
         }
 
         if (!empty($deleted)) {
-            $imaptree->rename($deleted, $inserted);
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->rename($deleted, $inserted);
             $this->_onDelete($deleted);
         }
 

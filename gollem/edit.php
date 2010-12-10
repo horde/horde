@@ -55,7 +55,8 @@ case 'edit_file':
     if ($mime_type == 'text/html') {
         $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
-    require GOLLEM_TEMPLATES . '/common-header.inc';
+    require $registry->get('templates', 'horde') . '/common-header.inc';
+require GOLLEM_TEMPLATES . '/javascript_defs.php';
     Gollem::status();
     require GOLLEM_TEMPLATES . '/edit/edit.inc';
     require $registry->get('templates', 'horde') . '/common-footer.inc';

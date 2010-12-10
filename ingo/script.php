@@ -50,7 +50,7 @@ case 'show_active':
 
 $title = _("Filter Script Display");
 $menu = Ingo::menu();
-require INGO_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/script/header.inc';

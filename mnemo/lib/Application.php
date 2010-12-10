@@ -50,6 +50,7 @@ class Mnemo_Application extends Horde_Registry_Application
     protected function _init()
     {
         Mnemo::initialize();
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
     }
 
     /**

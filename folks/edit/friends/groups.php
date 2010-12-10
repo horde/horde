@@ -114,7 +114,7 @@ $perms_img = Horde::img('perms.png');
 $members_url = Horde::url('edit/friends/friends.php');
 $members_img = Horde::img('group.png');
 
-require FOLKS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('groups');

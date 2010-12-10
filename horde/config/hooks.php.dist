@@ -20,21 +20,24 @@
  * =================
  * Two types of preferences hooks are available.
  *
+ * Setting value at login
+ * ----------------------
+ * If the 'hook' parameter is non-empty for a preference (config/prefs.php),
+ * the prefs_init hook will be run on login to allow alteration of the value.
+ * This hook receives the preference name, preference value, and the username
+ * as parameters and uses the return value from the hook as the new preference
+ * value.
+ *
+ * Username will be null if the user is not authenticated.
+ *
+ * This hook is ONLY executed on login and preferences are cached during a
+ * users' session.
+ *
  * On change
  * ---------
  * A hook named prefs_change will be called after a preference is altered.
  * It is passed the preference name that has changed and does not expect a
  * return value.
- *
- * Setting value
- * -------------
- * If the 'hook' parameter is non-empty for a preference (config/prefs.php),
- * the prefs_init hook will be run on login to allow alteration of the value.
- * This hook receives the preference name and the username as parameters and
- * uses the return value from the hook as the new preference value.
- *
- * This hook is ONLY executed on login and preferences are cached during a
- * users' session.
  *
  * Authentication/Login Hooks
  * ==========================
@@ -148,7 +151,7 @@
 class Horde_Hooks
 {
 //    // PREFERENCES INIT: See above for documentation.
-//    public function prefs_init($pref, $username = null)
+//    public function prefs_init($pref, $value, $username)
 //    {
 //        switch ($pref) {
 //        case 'from_addr':
@@ -164,50 +167,45 @@ class Horde_Hooks
 //            // address.
 //
 //            // Example #1
-//            if (is_null($name)) {
-//                $name = $GLOBALS['registry']->getAuth();
+//            if (is_null($username)) {
+//                return $value;
 //            }
 //
-//            if (!empty($name)) {
-//                $base_context = 'o=myorg';
-//                $scope = 'sub';
+//            $base_context = 'o=myorg';
+//            $scope = 'sub';
 //
-//                // You will probably need to replace cd= with uid=; this
-//                // syntax is for Netware 5.1 nldap.
-//                $cmd = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
-//                       escapeShellCmd($GLOBALS['registry']->getAuth()) .
-//                       ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
-//                $mails = `$cmd`;
-//                $mail_array = explode("\n", $mails);
+//            // You will probably need to replace cd= with uid=; this
+//            // syntax is for Netware 5.1 nldap.
+//            $cmd = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
+//                escapeshellcmd($username) .
+//                ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
+//            $mails = `$cmd`;
+//            $mail_array = explode("\n", $mails);
 //
-//                // Send back the first email found, not the whole list.
-//                $mail = $mail_array['0'];
+//            // Send back the first email found, not the whole list.
+//            $mail = $mail_array['0'];
 //
-//                // If no email address is found, then the login name will
-//                // be used.
-//                return (empty($mail) ? '' : $mail);
-//            }
-//
-//            return '';
+//            // If no email address is found, then the login name will
+//            // be used.
+//            return empty($mail)
+//                ? ''
+//                : $mail;
 //
 //
 //            // Example #2
+//            if (is_null($username)) {
+//                return $value;
+//            }
+//
 //            $ldapServer = '172.31.0.236';
 //            $ldapPort = '389';
 //            $searchBase = 'o=myorg';
 //
 //            $ds = @ldap_connect($ldapServer, $ldapPort);
 //
-//            if (is_null($name)) {
-//                $name = $GLOBALS['registry']->getAuth();
-//                if ($name === false) {
-//                    return '';
-//                }
-//            }
-//
 //            // You will probably need to replace cn= with uid=; this syntax
 //            // is for Netware 5.1 nldap.
-//            $searchResult = @ldap_search($ds, $searchBase, 'cn=' . $name);
+//            $searchResult = @ldap_search($ds, $searchBase, 'cn=' . $username);
 //            $information = @ldap_get_entries($ds, $searchResult);
 //            if (($information === false) || ($information['count'] == 0)) {
 //               $user = '';
@@ -219,7 +217,9 @@ class Horde_Hooks
 //
 //            ldap_close($ds);
 //
-//            return empty($user) ? $name : $user;
+//            return empty($user)
+//                ? $username
+//                : $user;
 //
 //
 //        case 'fullname':
@@ -227,35 +227,33 @@ class Horde_Hooks
 //
 //            // Example #1: Set the fullname from the GECOS information in
 //            // the passwd file.
-//            if (is_null($user)) {
-//                $user = $GLOBALS['registry']->getAuth('bare');
-//                if ($user === false) {
-//                    return '';
-//                }
+//            if (is_null($username)) {
+//                return $value;
 //            }
+//
+//            $user = $GLOBALS['registry']->getAuth('bare');
 //
 //            $array = posix_getpwnam($user);
 //            $gecos_array = explode(',', $array['gecos']);
-//            return empty($gecos_array) ? $user : $gecos_array[0];
+//            return empty($gecos_array)
+//                ? $user
+//                : $gecos_array[0];
 //
 //
 //            // Example #2: Set the fullname from LDAP information. In this
 //            // example we look if a Spanish name exists and return this or
 //            // the standard 'cn' entry if not.
+//            if (is_null($username)) {
+//                return $value;
+//            }
+//
 //            $ldapServer = 'ldap.example.com';
 //            $ldapPort = '389';
 //            $searchBase = 'ou=people,o=example.com';
 //
 //            $ds = @ldap_connect($ldapServer, $ldapPort);
 //
-//            if (is_null($user)) {
-//                $user = $GLOBALS['registry']->getAuth();
-//                if ($user === false) {
-//                    return '';
-//                }
-//            }
-//
-//            $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $user);
+//            $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $username);
 //            $information = @ldap_get_entries($ds, $searchResult);
 //            if (($information === false) || ($information['count'] == 0)) {
 //                $name = '';
@@ -267,16 +265,14 @@ class Horde_Hooks
 //
 //            ldap_close($ds);
 //
-//            return empty($name) ? $user : $name;
+//            return empty($user)
+//                ? $username
+//                : $user;
 //
 //
 //        case 'theme':
-//            // Example theme init. This shows how you can access things
-//            // like the currently logged in user, global variables, server
-//            // config, etc. It isn't, however, something you probably want
-//            // to actually use in production, by virtue of demonstrating all
-//            // those. :)
-//            if ($GLOBALS['registry']->getAuth() != 'foo') {
+//            // Example theme init.
+//            if ($username != 'foo') {
 //                return 'mozilla';
 //            }
 //
@@ -289,11 +285,9 @@ class Horde_Hooks
 //
 //            case 'turba':
 //                return 'orange';
-//
-//            default:
-//                return '';
 //            }
-//            break;
+//
+//            return '';
 //        }
 //    }
 

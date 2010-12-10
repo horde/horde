@@ -5,11 +5,8 @@
  * system for any new users. A cron job can be set up to run this periodically.
  */
 
-// No auth.
-@define('AUTH_HANDLER', true);
-
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma', array('authentication' => 'none'));
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -20,12 +17,7 @@ if (!Horde_Cli::runningFromCLI()) {
 // some variables, etc.
 Horde_Cli::init();
 
-/* Make sure there's no compression. */
-@ob_end_clean();
-
-$users_by_domain = $vilma_driver->getAllUsers();
-
-foreach ($users_by_domain as $domain => $users) {
+foreach ($vilma->driver->getAllUsers() as $domain => $users) {
     foreach ($users as $user) {
         /* Check for user's home dir. */
         if (!file_exists($user['user_home_dir'])) {

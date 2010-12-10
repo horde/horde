@@ -88,6 +88,6 @@ $view->notify = Horde::endBuffer();
 $view->forums = $forums_list;
 
 Horde::addScriptFile('stripe.js', 'horde', true);
-require AGORA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('moderators.html.php');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

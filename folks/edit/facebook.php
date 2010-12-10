@@ -31,7 +31,7 @@ try {
     Horde::url('user.php')->redirect();
 }
 
-require FOLKS_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 echo $tabs->render('facebook');
 echo $block;
