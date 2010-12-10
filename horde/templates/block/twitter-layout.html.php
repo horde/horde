@@ -18,10 +18,14 @@
    <?php echo $this->loadingImg ?>
    <div id="currentStatus" style="margin:10px;"><strong><?php echo _("Latest")?></strong> <?php echo $this->latestStatus ?> - <span class="fbstreaminfo"><?php echo $this->latestDate ?></span></div>
  </div>
- <div>
-   <a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showStream();"><?php echo _("Stream")?></a>
-   <a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showMentions();"><?php echo _("Mentions") ?></a>
+ <div class="tabset">
+  <ul>
+   <li id="<?php echo $this->instance ?>_contenttab" class="activeTab"><a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showStream();"><?php echo _("Stream")?></a></li>
+   <li id="<?php echo $this->instance ?>_mentiontab"><a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showMentions();"><?php echo _("Mentions") ?></a></li>
+  </ul>
  </div>
+
+    <div class="clear">&nbsp;</div>
  <div style="height:<?php echo $this->bodyHeight ?>px; overflow-y:auto;" id="<?php echo $this->instance ?>_twitter_body">
    <div id="<?php echo $this->instance ?>_stream"></div>
    <div id="<?php echo $this->instance ?>_mentions"></div>

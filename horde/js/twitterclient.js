@@ -11,7 +11,10 @@ var Horde_Twitter = Class.create({
    inReplyTo: '',
    oldestId: null,
    newestId: null,
+   oldestMention: null,
+   newestMention: null,
    instanceid: null,
+   activeTab: 'stream',
 
    /**
     * Const'r
@@ -112,18 +115,30 @@ var Horde_Twitter = Class.create({
      * @param integer page  The page number to retrieve.
      */
     getOlderEntries: function() {
-        var params = {
+        var callback, params = {
             actionID: 'getPage',
             i: this.instanceid
         };
 
-        if (this.oldestId) {
-            params.max_id = this.oldestId;
+        switch (this.activeTab) {
+        case 'stream':
+            if (this.oldestId) {
+                params.max_id = this.oldestId;
+            }
+            callback = this._getOlderEntriesCallback.bind(this);
+            break;
+        case 'mentions':
+            if (this.oldestMention) {
+                params.max_id = this.oldestMention;
+            }
+            callback = this._getOlderMentionsCallback.bind(this);
+            params.mentions = 1;
+            break;
         }
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
-            onSuccess: this._getOlderEntriesCallback.bind(this),
+            onSuccess: callback,
             onFailure: function() {
                 $(this.opts.spinner).toggle();
             }
@@ -162,16 +177,36 @@ var Horde_Twitter = Class.create({
     },
 
     /**
-     * Callback for updateStream request. Updates display, remembers the oldest
-     * id we know about.
+     * Callback for updateStream request for older stream entries. Updates
+     * display, remembers the oldest id we know about.
      *
+     * @param object response  The response object from the Ajax request.
      */
     _getOlderEntriesCallback: function(response) {
         var content = response.responseJSON.c;
-        this.oldestId = response.responseJSON.o;
-        var h = $(this.opts.content).scrollHeight
-        $(this.opts.content).insert(content);
-        $(this.opts.content).scrollTop = h;
+        if (response.responseJSON.o) {
+            this.oldestId = response.responseJSON.o;
+            var h = $(this.opts.content).scrollHeight
+            $(this.opts.content).insert(content);
+            $(this.opts.content).scrollTop = h;
+        }
+    },
+
+    /**
+     * Callback for updateStream request for older mentions. Updates display,
+     * remembers the oldest id we know about.
+     *
+     * @param object response  The response object from the Ajax request.
+     */
+    _getOlderMentionsCallback: function(response) {
+        var content = response.responseJSON.c;
+        // If no more available, the oldest id will be null
+        if (response.responseJSON.o) {
+            this.oldestMention = response.responseJSON.o;
+            var h = $(this.opts.mentions).scrollHeight
+            $(this.opts.mentions).insert(content);
+            $(this.opts.mentions).scrollTop = h;
+        }
     },
 
     /**
@@ -208,22 +243,22 @@ var Horde_Twitter = Class.create({
      */
     _getNewMentionsCallback: function(response) {
         var content = response.responseJSON.c;
-        //if (response.responseJSON.n != this.newestId) {
+        if (response.responseJSON.n != this.newestMention) {
             var h = $(this.opts.mentions).scrollHeight
             $(this.opts.mentions).insert({ 'top': content });
             // Don't scroll if it's the first request.
-            if (this.newestId) {
+            if (this.newestMention) {
                 $(this.opts.mentions).scrollTop = h;
             } else {
                 $(this.opts.mentions).scrollTop = 0;
             }
-            //this.newestId = response.responseJSON.n;
+            this.newestMention = response.responseJSON.n;
 
-            // First time we've been called, record the oldest one as well.'
-            //if (!this.oldestId) {
-            //    this.oldestId = response.responseJSON.o;
-            //}
-        //}
+            // First time we've been called, record the oldest one as well.
+            if (!this.oldestMention) {
+                this.oldestMention = response.responseJSON.o;
+            }
+        }
         //new PeriodicalExecuter(function(pe) { this.getNewMentions(); pe.stop(); }.bind(this), this.opts.refreshrate );
     },
 
@@ -267,15 +302,30 @@ var Horde_Twitter = Class.create({
 
     showMentions: function()
     {
-        $(this.opts.content).hide();
-        this.getNewEntries('mentions');
-        $(this.opts.mentions).show();
+        if (this.activeTab != 'mentions') {
+            this.toggleTabs();
+            $(this.opts.content).hide();
+            this.getNewEntries('mentions');
+            $(this.opts.mentions).show();
+            this.activeTab = 'mentions';
+        }
     },
 
     showStream: function()
     {
-        $(this.opts.mentions).hide();
-        $(this.opts.content).show();
+        if (this.activeTab != 'stream') {
+            this.toggleTabs();
+            $(this.opts.mentions).hide();
+            $(this.opts.content).show();
+            this.activeTab = 'stream';
+        }
+
+    },
+
+    toggleTabs: function()
+    {
+        $(this.opts.contenttab).toggleClassName('activeTab');
+        $(this.opts.mentiontab).toggleClassName('activeTab');
     },
 
     /**

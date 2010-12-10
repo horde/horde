@@ -148,6 +148,8 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
                input: '{$instance}_newStatus',
                spinner: '{$instance}_loading',
                content: '{$instance}_stream',
+               contenttab: '{$instance}_contenttab',
+               mentiontab: '{$instance}_mentiontab',
                mentions: '{$instance}_mentions',
                endpoint: '{$endpoint}',
                inreplyto: '{$inReplyToNode}',
