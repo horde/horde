@@ -8,17 +8,18 @@
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Vilma
  */
-
-class EditAliasForm extends Horde_Form {
-
-    function EditAliasForm(&$vars)
+class Vilma_Form_EditAlias extends Horde_Form
+{
+    public function __construct($vars)
     {
-        $type = $vars->get('type');
-        $editing = ($vars->get('mode') == 'edit');
+        $editing = $vars->get('mode') == 'edit';
         if ($editing) {
-            $title = sprintf(_("Edit Alias \"%s\" for \"%s\""), $vars->get('alias_address'), $vars->get('address'));
+            $title = sprintf(_("Edit Alias \"%s\" for \"%s\""),
+                             $vars->get('alias_address'),
+                             $vars->get('address'));
         } else {
-            $title = sprintf(_("New Alias for %s"), $vars->get('address'));
+            $title = sprintf(_("New Alias for %s"),
+                             $vars->get('address'));
         }
         parent::Horde_Form($vars, $title);
 
@@ -30,9 +31,6 @@ class EditAliasForm extends Horde_Form {
         if ($editing) {
             $this->addHidden('', 'alias', 'text', false);
         }
-        $name = "Alias Address";
-        $type = $vars->get('type');
-        $this->addVariable(_($name), 'alias_address', 'email', true, false, _("The email address to add as an alias for this user.  Note that the server must be configured to receive mail for the domain contained in this address."));
+        $this->addVariable(_("Alias Address"), 'alias_address', 'email', true, false, _("The email address to add as an alias for this user.  Note that the server must be configured to receive mail for the domain contained in this address."));
     }
-
 }

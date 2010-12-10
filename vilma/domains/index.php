@@ -17,28 +17,29 @@ if (!Vilma::hasPermission()) {
 }
 
 // Having a current domain doesn't make sense on this page
-Vilma::setCurDomain(false);
+Vilma::setCurDomain();
 
-$domains = $vilma->driver->getDomains();
-if (is_a($domains, 'PEAR_Error')) {
-    $notification->push($domains, 'horde.error');
+try {
+    $domains = $vilma->driver->getDomains();
+} catch (Exception $e) {
+    $notification->push($e, 'horde.error');
     $domains = array();
 }
-foreach ($domains as $id => $domain) {
-    $url = Horde::url('domains/edit.php');
-    $domains[$id]['edit_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-    $url = Horde::url('domains/delete.php');
-    $domains[$id]['del_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-    $url = Horde::url('users/index.php');
-    $domains[$id]['view_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
+
+$editurl   = Horde::url('domains/edit.php');
+$deleteurl = Horde::url('domains/delete.php');
+$userurl   = Horde::url('users/index.php');
+foreach ($domains as &$domain) {
+    $domain['edit_url'] = $editurl->copy()->add('domain_id', $domain['domain_id']);
+    $domain['del_url']  = $deleteurl->copy()->add('domain_id', $domain['domain_id']);
+    $domain['view_url'] = $userurl->copy()->add('domain_id', $domain['domain_id']);
 }
 
 /* Set up the template fields. */
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
-$template->set('domains', $domains, true);
+$template->set('domains', $domains);
 $template->set('menu', Horde::menu());
-
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());

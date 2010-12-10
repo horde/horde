@@ -12,7 +12,7 @@
 class Vilma
 {
     /**
-     * Check whether the current user has administrative permissions over the
+     * Checks whether the current user has administrative permissions over the
      * requested domain at the given permissions level.
      *
      * Also checks to see if the user is a Vilma superadmin.  If the user is a
@@ -23,7 +23,7 @@ class Vilma
      *
      * @return boolean  True if the user has the requested permission.
      */
-    public function hasPermission($domain = null, $permmask = null)
+    static public function hasPermission($domain = null, $permmask = null)
     {
         if ($GLOBALS['registry']->isAdmin()) {
             return true;
@@ -45,35 +45,32 @@ class Vilma
         return false;
     }
 
-    function getUserMgrTypes()
+    static public function getUserMgrTypes()
     {
         return array(
             'all' => array(
                 'singular' => _("All"),
-                'plural'   => _("All") ),
+                'plural'   => _("All")),
             'user' => array(
                 'singular' => _("User"),
-                'plural' => _("Users"), ),
+                'plural' => _("Users")),
             'alias' => array(
                 'singular' => _("Alias"),
-                'plural' => _("Aliases"), ),
-            //'grpfwd' => array(
-            //    'singular' => _("Group/Forward"),
-            //    'plural' => _("Groups and Forwards"), ), );
+                'plural' => _("Aliases")),
             'group' => array(
                 'singular' => _("Group"),
-                'plural' => _("Groups"), ),
+                'plural' => _("Groups")),
             'forward' => array(
                 'singular' => _("Forward"),
-                'plural' => _("Forwards"),), );
+                'plural' => _("Forwards")));
     }
 
     /**
-     * Create tabs to navigate the user manager area
+     * Creates tabs to navigate the user manager area.
      *
-     * return object Horde_Core_Ui_Tabs object
+     * @return Horde_Core_Ui_Tabs
      */
-    function getUserMgrTabs(&$vars)
+    static public function getUserMgrTabs(Variables $vars)
     {
         $url = Horde::url('users/index.php');
         $tabs = new Horde_Core_Ui_Tabs('section', $vars);
@@ -84,34 +81,38 @@ class Vilma
     }
 
     /**
-     * Set the current domain
+     * Set the current domain.
      */
-    function setCurDomain($domain)
+    static public function setCurDomain($domain = null)
     {
-        $GLOBALS['session']->set('vilma', 'domain', $domain);
+        if ($domain) {
+            $GLOBALS['session']->set('vilma', 'domain', $domain);
+        } else {
+            $GLOBALS['session']->unset('vilma', 'domain');
+        }
     }
 
     /**
-     * Strip the domain from an email address (leaving the Username)
+     * Strips the domain from an email address (leaving the user name).
      *
-     * @param string $email  Email address to strip (leaving the Username)
+     * @param string $email  Email address to strip.
      *
-     * @return string Username portion of supplied email address
+     * @return string  User name portion of the email address.
      */
-    function stripUser($email)
+    static public function stripUser($email)
     {
         list($user, $domain) = explode('@', $email);
         return $user;
     }
 
     /**
-     * Strip the username from an email address (leaving the domain)
+     * Strip the user name from an email address (leaving the domain).
      *
-     * @param string $email  Email address to strip (leaving the domain)
+     * @param string $email  Email address to strip.
      *
-     * @return string Domain portion of supplied email address
+     * @return string  Domain portion of the email address.
      */
-    function stripDomain($email)
+    static public function stripDomain($email)
     {
         $parts = explode('@', $email);
         if (count($parts) == 2) {
@@ -119,15 +120,5 @@ class Vilma
             return $parts[0];
         }
         return null;
-    }
-
-    function &getMailboxDriver()
-    {
-        global $conf;
-
-        require_once VILMA_BASE . '/lib/MailboxDriver.php';
-        $driver = &Vilma_MailboxDriver::singleton($conf['mailboxes']['driver'],
-                                                  $conf['mailboxes']['params']);
-        return $driver;
     }
 }

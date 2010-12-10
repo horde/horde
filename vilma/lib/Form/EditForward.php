@@ -8,17 +8,18 @@
  * @author  Daniel Collins <horde_dev@argentproductions.com>
  * @package Vilma
  */
-
-class EditForwardForm extends Horde_Form {
-
-    function EditForwardForm(&$vars)
+class Vilma_Form_EditForward extends Horde_Form
+{
+    public function __construct($vars)
     {
-        $type = $vars->get('type');
-        $editing = ($vars->get('mode') == 'edit');
+        $editing = $vars->get('mode') == 'edit';
         if ($editing) {
-            $title = sprintf(_("Edit Forward \"%s\" for \"%s\""), $vars->get('forward_address'), $vars->get('address'));
+            $title = sprintf(_("Edit Forward \"%s\" for \"%s\""),
+                             $vars->get('forward_address'),
+                             $vars->get('address'));
         } else {
-            $title = sprintf(_("New Forward for %s"), $vars->get('address'));
+            $title = sprintf(_("New Forward for %s"),
+                             $vars->get('address'));
         }
         parent::Horde_Form($vars, $title);
 
@@ -30,9 +31,6 @@ class EditForwardForm extends Horde_Form {
         if ($editing) {
             $this->addHidden('', 'forward', 'text', false);
         }
-        $name = "Forward Address";
-        $type = $vars->get('type');
-        $this->addVariable(_($name), 'forward_address', 'email', true, false, _("The email address to add as an forward for this user.  Note that the server must be configured to receive mail for the domain contained in this address."));
+        $this->addVariable(_("Forward Address"), 'forward_address', 'email', true, false, _("The email address to add as an forward for this user.  Note that the server must be configured to receive mail for the domain contained in this address."));
     }
-
 }

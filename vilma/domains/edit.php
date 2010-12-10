@@ -11,42 +11,39 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
-require_once VILMA_BASE . '/lib/Forms/EditDomainForm.php';
-
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    $registry->authenticateFailure('vilma', $e);
+    $registry->authenticateFailure('vilma');
 }
 
-//$domain_id = Horde_Util::getFormData('domain_id');
 $vars = Horde_Variables::getDefaultVariables();
-$form = new EditDomainForm($vars);
+try {
+    $form = new Vilma_Form_EditDomain($vars);
+} catch (Exception $e) {
+    $notification->push($e);
+    Horde::url('domains/index.php', true)->redirect();
+}
 
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
     $info['name'] = Horde_String::lower($info['name']);
-    $domain_id = $vilma->driver->saveDomain($info);
-    if (is_a($domain_id, 'PEAR_Error')) {
-        Horde::logMessage($domain_id, 'ERR');
-        $notification->push(sprintf(_("Error saving domain: %s."), $domain_id->getMessage()), 'horde.error');
-    } else {
+    try {
+        $domain_id = $vilma->driver->saveDomain($info);
         $notification->push(_("Domain saved."), 'horde.success');
         Horde::url('domains/index.php', true)->redirect();
+    } catch (Exception $e) {
+        $notification->push(sprintf(_("Error saving domain: %s."), $e->getMessage()), 'horde.error');
     }
 }
 
 /* Render the form. */
-require_once 'Horde/Form/Renderer.php';
 $renderer = new Horde_Form_Renderer();
 
+$template = $injector->createInstance('Horde_Template');
 Horde::startBuffer();
 $form->renderActive($renderer, $vars, 'edit.php', 'post');
-$main = Horde::endBuffer();
-
-$template = $injector->createInstance('Horde_Template');
-$template->set('main', $main);
-$template->set('menu', Vilma::getMenu('string'));
-
+$template->set('main', Horde::endBuffer());
+$template->set('menu', Horde::menu());
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());

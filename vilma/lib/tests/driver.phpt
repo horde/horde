@@ -32,7 +32,7 @@ function checkConstruction()
         unset($unfiltered_params['tables']['domainkey']);
     }
 
-    $GLOBALS['unfiltered'] = &Vilma_Driver::singleton('sql', $unfiltered_params);
+    $GLOBALS['unfiltered'] = Vilma_Driver::factory('sql', $unfiltered_params);
     if (is_a($GLOBALS['unfiltered'], 'PEAR_Error')) {
         printf(_("ERROR(1): %s\n"), $GLOBALS['unfiltered']->getMessage());
         return;
@@ -41,7 +41,7 @@ function checkConstruction()
     $filtered_params = $conf['storage']['params'];
     $filtered_params['tables']['domainkey'] = '__FOO';
 
-    $GLOBALS['filtered'] = &Vilma_Driver::singleton('sql', $filtered_params);
+    $GLOBALS['filtered'] = Vilma_Driver::factory('sql', $filtered_params);
     if (is_a($GLOBALS['filtered'], 'PEAR_Error')) {
         printf(_("ERROR(2): %s\n"), $GLOBALS['filtered']->getMessage());
         return;

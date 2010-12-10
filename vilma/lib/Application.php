@@ -49,7 +49,7 @@ class Vilma_Application extends Horde_Registry_Application
 
     protected function _init()
     {
-        $this->driver = Vilma_Driver::singleton();
+        $this->driver = Vilma_Driver::factory();
 
         // Get the currently active domain, possibly storing a change into the
         // session.
