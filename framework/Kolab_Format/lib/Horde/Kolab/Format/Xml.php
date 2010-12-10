@@ -105,6 +105,13 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     const TYPE_MULTIPLE = 8;
 
     /**
+     * The parser dealing with the input.
+     *
+     * @var int
+     */
+    protected $_parser;
+
+    /**
      * Requested version of the data array to return
      *
      * @var int
@@ -285,8 +292,12 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      *
      * @param array $params Any additional options
      */
-    public function __construct($params = null)
-    {
+    public function __construct(
+        Horde_Kolab_Format_Xml_Parser $parser,
+        $params = null
+    ) {
+        $this->_parser = $parser;
+
         if (is_array($params) && isset($params['version'])) {
             $this->_version = $params['version'];
         } else {
@@ -395,25 +406,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      */
     public function load(&$xmltext)
     {
-        try {
-            $this->_parseXml($xmltext);
-        } catch (Horde_Kolab_Format_Exception $e) {
-            /**
-             * If the first call does not return successfully this might mean we
-             * got an attachment with broken encoding. There are some Kolab
-             * client versions in the wild that might have done that. So the
-             * next section starts a second attempt by guessing the encoding and
-             * trying again.
-             */
-            if (strcasecmp(mb_detect_encoding($xmltext,
-                                              'UTF-8, ISO-8859-1'), 'UTF-8') !== 0) {
-                $xmltext = mb_convert_encoding($xmltext, 'UTF-8', 'ISO-8859-1');
-            }
-            $this->_parseXml($xmltext);
-        }
-        if (!$this->_xmldoc->documentElement->hasChildNodes()) {
-            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("No or unreadable content in Kolab XML object"));
-        }
+        $this->_xmldoc = $this->_parser->parse($xmltext);
 
         // fresh object data
         $object = array();
@@ -545,31 +538,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 
         // Nothing specified. Return the value as it is.
         return $value;
-    }
-
-    /**
-     * Parse the XML string. The root node is returned on success.
-     *
-     * @param string &$xmltext The XML of the message as string.
-     *
-     * @return NULL
-     *
-     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
-     *
-     * @todo Make protected (fix the XmlTest for that)
-     */
-    public function _parseXml(&$xmltext)
-    {
-        $this->_xmldoc = new DOMDocument('1.0', 'UTF-8');
-
-        $this->_xmldoc->preserveWhiteSpace = false;
-        $this->_xmldoc->formatOutput       = true;
-
-        @$this->_xmldoc->loadXML($xmltext);
-        if (empty($this->_xmldoc->documentElement)) {
-            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("No or unreadable content in Kolab XML object"));
-        }
-
     }
 
     /**

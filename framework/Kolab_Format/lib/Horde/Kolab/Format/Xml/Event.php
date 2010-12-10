@@ -40,7 +40,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($parser, $params = array())
     {
         $this->_root_name = 'event';
 
@@ -85,7 +85,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
             ),
         );
 
-        parent::__construct();
+        parent::__construct($parser, $params);
     }
 
     /**

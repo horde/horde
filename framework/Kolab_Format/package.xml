@@ -30,7 +30,7 @@
   <active>yes</active>
  </lead>
  <date>2010-12-10</date>
- <time>06:10:51</time>
+ <time>12:02:39</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -79,6 +79,9 @@
         <file name="Base.php" role="php" />
         <file name="Timed.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Decorator -->
+       <dir name="Exception">
+        <file name="ParseError.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Format/Exception -->
        <dir name="Xml">
         <file name="Annotation.php" role="php" />
         <file name="Contact.php" role="php" />
@@ -86,6 +89,7 @@
         <file name="Event.php" role="php" />
         <file name="Hprefs.php" role="php" />
         <file name="Note.php" role="php" />
+        <file name="Parser.php" role="php" />
         <file name="Task.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Xml -->
        <file name="Cli.php" role="php" />
@@ -473,12 +477,14 @@
    <install as="Horde/Kolab/Format/Xml.php" name="lib/Horde/Kolab/Format/Xml.php" />
    <install as="Horde/Kolab/Format/Decorator/Base.php" name="lib/Horde/Kolab/Format/Decorator/Base.php" />
    <install as="Horde/Kolab/Format/Decorator/Timed.php" name="lib/Horde/Kolab/Format/Decorator/Timed.php" />
+   <install as="Horde/Kolab/Format/Exception/ParseError.php" name="lib/Horde/Kolab/Format/Exception/ParseError.php" />
    <install as="Horde/Kolab/Format/Xml/Annotation.php" name="lib/Horde/Kolab/Format/Xml/Annotation.php" />
    <install as="Horde/Kolab/Format/Xml/Contact.php" name="lib/Horde/Kolab/Format/Xml/Contact.php" />
    <install as="Horde/Kolab/Format/Xml/Distributionlist.php" name="lib/Horde/Kolab/Format/Xml/Distributionlist.php" />
    <install as="Horde/Kolab/Format/Xml/Event.php" name="lib/Horde/Kolab/Format/Xml/Event.php" />
    <install as="Horde/Kolab/Format/Xml/Hprefs.php" name="lib/Horde/Kolab/Format/Xml/Hprefs.php" />
    <install as="Horde/Kolab/Format/Xml/Note.php" name="lib/Horde/Kolab/Format/Xml/Note.php" />
+   <install as="Horde/Kolab/Format/Xml/Parser.php" name="lib/Horde/Kolab/Format/Xml/Parser.php" />
    <install as="Horde/Kolab/Format/Xml/Task.php" name="lib/Horde/Kolab/Format/Xml/Task.php" />
    <install as="locale/Horde_Kolab_Format.pot" name="locale/Horde_Kolab_Format.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab_Format.mo" />

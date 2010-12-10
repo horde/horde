@@ -42,7 +42,11 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSingleEmail()
     {
-        $contact = new Horde_Kolab_Format_Xml_contact_Dummy();
+        $contact = new Horde_Kolab_Format_Xml_Contact_Dummy(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $object  = array('uid' => '1',
                          'full-name' => 'User Name',
                          'email' => 'user@example.org');
@@ -59,7 +63,11 @@ extends PHPUnit_Framework_TestCase
      */
     public function testPGP()
     {
-        $contact = new Horde_Kolab_Format_Xml_contact_Dummy();
+        $contact = new Horde_Kolab_Format_Xml_Contact_Dummy(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $object  = array('uid' => '1',
                          'full-name' => 'User Name',
                          'pgp-publickey' => 'PGP Test Key',
@@ -79,7 +87,11 @@ extends PHPUnit_Framework_TestCase
     {
         global $prefs;
 
-        $contact = new Horde_Kolab_Format_Xml_contact();
+        $contact = new Horde_Kolab_Format_Xml_Contact(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $xml     = file_get_contents(dirname(__FILE__)
                                      . '/fixtures/contact_category.xml');
         $object  = $contact->load($xml);
@@ -101,7 +113,11 @@ extends PHPUnit_Framework_TestCase
             /* Monkey patch to allw the value to be set. */
             $prefs->_prefs['categories'] = array('v' => '');
 
-            $contact = new Horde_Kolab_Format_Xml_contact();
+            $contact = new Horde_Kolab_Format_Xml_Contact(
+                new Horde_Kolab_Format_Xml_Parser(
+                    new DOMDocument('1.0', 'UTF-8')
+                )
+            );
             $xml     = file_get_contents(dirname(__FILE__)
                                          . '/fixtures/contact_category.xml');
             $object  = $contact->load($xml);

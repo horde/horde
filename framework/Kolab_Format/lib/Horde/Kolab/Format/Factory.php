@@ -50,14 +50,33 @@ class Horde_Kolab_Format_Factory
      * @throws Horde_Kolab_Format_Exception If the specified handler does not
      *                                      exist.
      */
-    public function create($format_type = '', $object_type = '', $params = null)
+    public function create($format = 'Xml', $object = '', $params = null)
     {
-        $class = 'Horde_Kolab_Format_' . ucfirst(strtolower($format_type)) . '_'
-            . ucfirst(strtolower(str_replace('-', '', $object_type)));
+        $parser = ucfirst(strtolower($format));
+        $class = basename(
+            'Horde_Kolab_Format_' . $parser . '_'
+            . ucfirst(strtolower(str_replace('-', '', $object)))
+        );
 
         if (!isset($this->_instances[$class])) {
             if (class_exists($class)) {
-                $this->_instances[$class] = new $class($params);
+                switch ($parser) {
+                case 'Xml':
+                    $this->_instances[$class] = new $class(
+                        new Horde_Kolab_Format_Xml_Parser(
+                            new DOMDocument('1.0', 'UTF-8')
+                        ),
+                        $params
+                    );
+                    break;
+                default:
+                    throw new Horde_Kolab_Format_Exception(
+                        sprintf(
+                            'Failed to initialize the specified parser (Parser type %s does not exist)!',
+                            $parser
+                        )
+                    );
+                }
             } else {
                 throw new Horde_Kolab_Format_Exception(
                     sprintf(
@@ -85,12 +104,12 @@ class Horde_Kolab_Format_Factory
      * @throws Horde_Kolab_Format_Exception If the specified handler does not
      *                                      exist.
      */
-    public function createTimed($format_type = '', $object_type = '', $params = null)
+    public function createTimed($format = 'Xml', $object = '', $params = null)
     {
         if (isset($params['handler'])) {
             $handler = $params['handler'];
         } else {
-            $handler = $this->create($format_type, $object_type, $params);
+            $handler = $this->create($format, $object, $params);
         }
         if (!class_exists('Horde_Support_Timer')) {
             throw new Horde_Kolab_Format_Exception('The Horde_Support package seems to be missing (Class Horde_Support_Timer is missing)!');

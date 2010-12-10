@@ -50,19 +50,13 @@ extends Horde_Kolab_Format_TestCase
         $result = $xml->load($event);
 
         // Check that the xml loads fine
-        $this->assertEquals(mb_convert_encoding($result['body'], 'UTF-8',
-                                                'ISO-8859-1'), '...übbe...');
+        $this->assertEquals('...übbe...', $result['body']);
 
         // Load XML
         $event  = file_get_contents(dirname(__FILE__)
                                     . '/fixtures/event_umlaut_broken.xml');
         $result = $xml->load($event);
 
-        /**
-         * FIXME: Why does Kolab Format return ISO-8859-1? UTF-8 would seem more
-         * appropriate
-         */
-        $this->assertEquals(mb_convert_encoding($result['body'], 'UTF-8',
-                                                'ISO-8859-1'), '...übbe...');
+        $this->assertEquals('...übbe...', $result['body']);
     }
 }

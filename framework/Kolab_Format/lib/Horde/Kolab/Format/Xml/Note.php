@@ -40,7 +40,7 @@ class Horde_Kolab_Format_Xml_Note extends Horde_Kolab_Format_Xml
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($parser, $params = array())
     {
         $this->_root_name = 'note';
 
@@ -64,7 +64,7 @@ class Horde_Kolab_Format_Xml_Note extends Horde_Kolab_Format_Xml
             ),
         );
 
-        parent::__construct();
+        parent::__construct($parser, $params);
     }
 
     /**

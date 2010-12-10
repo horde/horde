@@ -43,7 +43,11 @@ extends PHPUnit_Framework_TestCase
      */
     public function testConversionFromOld()
     {
-        $preferences = new Horde_Kolab_Format_Xml_hprefs_Dummy();
+        $preferences = new Horde_Kolab_Format_Xml_hprefs_Dummy(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
 
         $xml    = file_get_contents(dirname(__FILE__)
                                     . '/fixtures/preferences_read_old.xml');

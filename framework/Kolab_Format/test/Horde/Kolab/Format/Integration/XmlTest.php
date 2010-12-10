@@ -42,7 +42,11 @@ extends PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $xml = new Horde_Kolab_Format_XML();
+        $xml = new Horde_Kolab_Format_XML(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $xml->_prepareSave();
         $base = $xml->_xmldoc->saveXML();
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\"/>\n",
@@ -56,10 +60,15 @@ extends PHPUnit_Framework_TestCase
      */
     public function testReadable()
     {
-        $xml = new Horde_Kolab_Format_XML();
+        $this->markTestIncomplete('Roundtrip makes sense, but how to handle empty document?');
+        $xml = new Horde_Kolab_Format_XML(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $xml->_prepareSave();
         $base = $xml->_xmldoc->saveXML();
-        $xml->_parseXml($base);
+        $xml->load($base);
         $this->assertEquals($base, $xml->_xmldoc->saveXML());
 
     }
@@ -71,7 +80,11 @@ extends PHPUnit_Framework_TestCase
      */
     public function testAdd()
     {
-        $xml  = new Horde_Kolab_Format_XML();
+        $xml  = new Horde_Kolab_Format_XML(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $root = $xml->_prepareSave();
         $base = $xml->_xmldoc->saveXML();
 
@@ -123,7 +136,11 @@ extends PHPUnit_Framework_TestCase
      */
     public function testNodeOps()
     {
-        $dxml  = new Horde_Kolab_Format_Xml_Dummy();
+        $dxml  = new Horde_Kolab_Format_Xml_Dummy(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $droot = $dxml->_prepareSave();
 
         // Test calculated nodes
@@ -140,7 +157,11 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty2>empty2: , missing</empty2>\n  <present1>present1: present1</present1>\n</kolab>\n",
                             $dxml->_xmldoc->saveXML());
 
-        $xml  = new Horde_Kolab_Format_Xml();
+        $xml  = new Horde_Kolab_Format_Xml(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $root = $xml->_prepareSave();
         $xml->_updateNode($root,
                           array(),
@@ -236,7 +257,11 @@ extends PHPUnit_Framework_TestCase
     public function testReleod()
     {
         // Save an object and reload it
-        $xml    = new Horde_Kolab_Format_Xml();
+        $xml    = new Horde_Kolab_Format_Xml(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $result = $xml->save(array('uid'=>'test',
                                    'body' => 'body',
                                    'dummy' => 'hello',
@@ -260,7 +285,11 @@ extends PHPUnit_Framework_TestCase
     public function testComplex()
     {
         // Continue with complex values
-        $xml  = new Horde_Kolab_Format_Xml();
+        $xml  = new Horde_Kolab_Format_Xml(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
         $root = $xml->_prepareSave();
 
         // Test saving a composite value
