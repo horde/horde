@@ -70,7 +70,7 @@ case 'getPage':
     }
     $html = '';
     if (count($stream)) {
-        $newest = $stream[0]->id;
+        $newest = $stream[0]->id_str;
     } else {
         $newest = $params['since_id'];
         $oldest = 0;
@@ -81,7 +81,7 @@ case 'getPage':
     foreach ($stream as $tweet) {
 
         /* Don't return the max_id tweet, since we already have it */
-        if (!empty($params['max_id']) && $params['max_id'] == $tweet->id) {
+        if (!empty($params['max_id']) && $params['max_id'] == $tweet->id_str) {
             continue;
         }
 
@@ -107,7 +107,7 @@ case 'getPage':
         $view->clientText = $filter->filter($tweet->source, 'xss');
         $view->tweet = $tweet;
         $view->instanceid = $instance;
-        $oldest = $tweet->id;
+        $oldest = $tweet->id_str;
         $html .= $view->render('twitter_tweet');
     }
 
