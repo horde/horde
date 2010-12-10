@@ -671,11 +671,11 @@ extends PHPUnit_Extensions_Story_TestCase
     private function _callComponents(array $parameters, $callback)
     {
         ob_start();
-        $parameters['cli']['parser']['class'] = 'Components_Stub_Parser';
+        $parameters['cli']['parser']['class'] = 'Horde_Test_Stub_Parser';
         $parameters['dependencies'] = new Components_Dependencies_Injector();
         $parameters['dependencies']->setInstance(
             'Horde_Cli',
-            new Components_Stub_Cli()
+            new Horde_Test_Stub_Cli()
         );
         call_user_func_array($callback, array($parameters));
         $output = ob_get_contents();

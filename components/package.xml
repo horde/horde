@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Components</name>
  <channel>pear.horde.org</channel>
  <summary>A package for handling Horde components.</summary>
@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-11-15</date>
- <time>18:30:05</time>
+ <date>2010-12-10</date>
+ <time>05:54:35</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -124,6 +124,11 @@
    <dir name="test">
     <dir name="Components">
      <dir name="fixture">
+      <dir name="changelog">
+       <dir name="lib">
+        <file name="Some.php" role="test" />
+       </dir> <!-- /test/Components/fixture/changelog/lib -->
+      </dir> <!-- /test/Components/fixture/changelog -->
       <dir name="channels">
        <file name="pear.horde.org.channel.xml" role="test" />
        <file name="pear.php.net.channel.xml" role="test" />
@@ -209,10 +214,6 @@
       </dir> <!-- /test/Components/Integration/Components -->
       <file name="ComponentsTest.php" role="test" />
      </dir> <!-- /test/Components/Integration -->
-     <dir name="Stub">
-      <file name="Cli.php" role="test" />
-      <file name="Parser.php" role="test" />
-     </dir> <!-- /test/Components/Stub -->
      <dir name="Unit">
       <dir name="Components">
        <dir name="Pear">
@@ -333,6 +334,7 @@
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
    <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
    <install as="Components/StoryTestCase.php" name="test/Components/StoryTestCase.php" />
+   <install as="Components/fixture/changelog/lib/Some.php" name="test/Components/fixture/changelog/lib/Some.php" />
    <install as="Components/fixture/channels/pear.horde.org.channel.xml" name="test/Components/fixture/channels/pear.horde.org.channel.xml" />
    <install as="Components/fixture/channels/pear.php.net.channel.xml" name="test/Components/fixture/channels/pear.php.net.channel.xml" />
    <install as="Components/fixture/channels/pear.phpunit.de.channel.xml" name="test/Components/fixture/channels/pear.phpunit.de.channel.xml" />
@@ -365,8 +367,6 @@
    <install as="Components/Integration/Components/Module/DistributeTest.php" name="test/Components/Integration/Components/Module/DistributeTest.php" />
    <install as="Components/Integration/Components/Module/InstallerTest.php" name="test/Components/Integration/Components/Module/InstallerTest.php" />
    <install as="Components/Integration/Components/Module/PearPackageXmlTest.php" name="test/Components/Integration/Components/Module/PearPackageXmlTest.php" />
-   <install as="Components/Stub/Cli.php" name="test/Components/Stub/Cli.php" />
-   <install as="Components/Stub/Parser.php" name="test/Components/Stub/Parser.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
    <install as="COPYING" name="COPYING" />
    <install as="TODO" name="TODO" />
@@ -382,7 +382,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-11-15</date>
+   <date>2010-12-10</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

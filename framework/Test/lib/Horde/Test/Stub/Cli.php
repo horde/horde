@@ -1,5 +1,5 @@
 <?php
-class Components_Stub_Cli
+class Horde_Test_Stub_Cli
 extends Horde_Cli
 {
     /**
