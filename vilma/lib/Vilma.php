@@ -85,11 +85,7 @@ class Vilma
      */
     static public function setCurDomain($domain = null)
     {
-        if ($domain) {
-            $GLOBALS['session']->set('vilma', 'domain', $domain);
-        } else {
-            $GLOBALS['session']->unset('vilma', 'domain');
-        }
+        $GLOBALS['session']->set('vilma', 'domain', $domain);
     }
 
     /**
