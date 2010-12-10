@@ -9,7 +9,7 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 
 /**
@@ -29,7 +29,7 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 {
@@ -352,34 +352,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     }
 
     /**
-     * Attempts to return a concrete Horde_Kolab_Format_Xml instance.
-     * based on $object_type.
-     *
-     * @param string $object_type The object type that should be handled.
-     * @param array  $params      Any additional parameters.
-     *
-     * @return Horde_Kolab_Format_Xml The newly created concrete
-     *                                Horde_Kolab_Format_Xml instance.
-     *
-     * @throws Horde_Kolab_Format_Exception If the class for the object type could
-     *                         not be loaded.
-     */
-    static public function factory($object_type = '', $params = null)
-    {
-        $object_type = ucfirst(str_replace('-', '', $object_type));
-        $class       = 'Horde_Kolab_Format_Xml_' . $object_type;
-
-        if (class_exists($class)) {
-            $driver = new $class($params);
-        } else {
-            throw new Horde_Kolab_Format_Exception(sprintf('Failed to load Kolab XML driver %s',
-                                              $object_type));
-        }
-
-        return $driver;
-    }
-
-    /**
      * Return the name of the resulting document.
      *
      * @return string The name that may be used as filename.
@@ -588,7 +560,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      */
     public function _parseXml(&$xmltext)
     {
-        $this->_xmldoc = new DOMDocument();
+        $this->_xmldoc = new DOMDocument('1.0', 'UTF-8');
 
         $this->_xmldoc->preserveWhiteSpace = false;
         $this->_xmldoc->formatOutput       = true;
