@@ -80,11 +80,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
-      <span class="iconImg iconImgSidebar folderImg"></span>
+      <span class="iconImgSidebar folderImg"></span>
       <a id="folderopts_link" title="<?php echo _("Folder Options") ?>"><?php echo _("Folder Options") ?></a>
      </li>
      <li class="folder" id="dropbase" style="display:none">
-      <span class="iconImg iconImgSidebar folderImg"></span>
+      <span class="iconImgSidebar folderImg"></span>
       <a title="<?php echo _("Move to Base Level") ?>"><?php echo _("Move to Base Level") ?></a>
      </li>
     </ul>

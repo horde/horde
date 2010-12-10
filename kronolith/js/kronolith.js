@@ -1814,9 +1814,6 @@ KronolithCore = {
                                 maxTop = weekHead.down('thead').getHeight() + weekHead.down('.kronolithAllDay').getHeight(),
                                 opts = {
                                     threshold: 5,
-                                    parentElement: function() {
-                                        return $('kronolithViewWeek').down('.kronolithViewHead');
-                                    },
                                     snap: function(x, y) {
                                         return [Math.min(Math.max(x, minLeft), maxLeft),
                                                 Math.min(Math.max(y, minTop), maxTop - div.getHeight())];
@@ -1920,10 +1917,7 @@ KronolithCore = {
                         threshold: 5,
                         constraint: 'vertical',
                         scroll: this.kronolithBody,
-                        nodrop: true,
-                        parentElement: function() {
-                            return parentElement;
-                        }
+                        nodrop: true
                     };
 
                 if (draggerTop) {
@@ -1963,7 +1957,6 @@ KronolithCore = {
                 var d = new Drag(div, {
                     threshold: 5,
                     nodrop: true,
-                    parentElement: function() { return parentElement; },
                     snap: function(x, y) {
                         x = (view == 'week')
                             ? Math.max(minLeft, stepX * ((Math.min(maxLeft, x - (x < 0 ? stepX : 0)) + stepX / 2) / stepX | 0))
@@ -2076,7 +2069,7 @@ KronolithCore = {
             monthDay.insert(div);
             if (event.value.pe) {
                 div.setStyle({ cursor: 'move' });
-                new Drag(event.value.nodeId, { threshold: 5, parentElement: function() { return $('kronolithViewMonthContainer'); }, snapToParent: true });
+                new Drag(event.value.nodeId, { classname: 'kronolithEventDrag', threshold: 5, snapToParent: function() { return $('kronolithViewMonthContainer'); } });
             }
             if (Kronolith.conf.max_events) {
                 var more = monthDay.down('.kronolithMore');

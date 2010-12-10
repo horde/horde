@@ -16,25 +16,41 @@
  * Usage:
  * ------
  * new Drag(element, {
- *     caption: '',               // Either string or function to set caption
- *                                // on mouse move.
- *     classname: '',             // Class name of the drag element.
- *                                // DEFAULT: 'drag'
- *     constraint: '',            // Constrain movement to 'horizontal' or
- *                                // 'vertical'.
- *     ghosting: false,           // Show ghost outline when dragging.
- *     nodrop: false,             // Don't do drop checking. Optimizes
- *                                // movement speed.
- *     offset: { x:0, y:0 },      // An offset to apply to ghosted elements.
- *     parentElement: function(), // Function returns the parent element.
- *     scroll: element,           // Scroll this element when above/below (
- *                                // only for vertical elements).
- *     snap: null,                // If ghosting, snap allows to specify
- *                                // coords at which the ghosted image will
- *                                // "snap" into place.
- *     snapToParent: false        // Keep image snapped inside the parent
- *                                // element.
- *     threshold: 0               // Move threshold.
+ *     // Either string or function to set caption on mouse move.
+ *     caption: '',
+ *
+ *     // Class name of the drag element.
+ *     classname: 'drag',
+ *
+ *     // Constrain movement to 'horizontal' or 'vertical'.
+ *     constraint: '',
+ *
+ *     // Show ghost outline when dragging.
+ *     ghosting: false,
+ *
+ *     // Don't do drop checking. Optimizes movement speed.
+ *     nodrop: false,
+ *
+ *     // An offset to apply to ghosted elements. Coordinates are the position
+ *     // to display the element as measured from the upper-left corner of
+ *     // the ghosted element. By default, the ghosted element is cloned under
+ *     // the cursor.
+ *     offset: { x:0, y:0 },
+ *
+ *     // Scroll this element when above/below (only for vertical elements).
+ *     scroll: element,
+ *
+ *     // If ghosting, specifies the coords at which the ghosted image will
+ *     // "snap" into place.
+ *     snap: null,
+ *
+ *     // Keep image snapped inside the parent element. If true, uses
+ *     // the parent element. If a function, uses return from function as the
+ *     // parent element.
+ *     snapToParent: false
+ *
+ *     // Move threshold.
+ *     threshold: 0
  * });
  *
  * Events fired for Drags:
@@ -59,16 +75,18 @@
  *
  *
  * new Drop(element, {
- *     accept: [],      // Accept filter by tag name(s) or leave empty to
- *                      // accept all tags.
- *     caption: '',     // Either string or function to set caption on
- *                      // mouseover.
- *     hoverclass: '',  // Change the drag element to this class when hovering
- *                      // over an element.
- *                      // DEFAULT: 'dragdrop'
- *     keypress: false  // If true, will re-render caption if a keypress is
- *                      // detected while a drop is active (useful for
- *                      // CTRL/SHIFT actions).
+ *     // Accept filter by tag name(s) or leave empty to accept all tags.
+ *     accept: [],
+ *
+ *     // Either string or function to set caption on mouseover.
+ *     caption: '',
+ *
+ *     // Change the drag element to this class when hovering over an element.
+ *     hoverclass: 'dragdrop',
+ *
+ *     // If true, will re-render caption if a keypress is detected while a
+ *     // drop is active (useful forCTRL/SHIFT combo actions).
+ *     keypress: false
  * });
  *
  * Events fired for Drops:
@@ -229,7 +247,6 @@ Drag = Class.create({
             constraint: null,
             ghosting: false,
             nodrop: false,
-            parentElement: null,
             scroll: null,
             snap: null,
             snapToParent: false,
@@ -263,7 +280,7 @@ Drag = Class.create({
         this.move = 0;
         this.wasDragged = false;
         this.wasMoved = false;
-        this.lastcaption = null;
+        this.lastcaption = this.lastelt = null;
         this.clickEvent = e;
 
         this.element.fire('DragDrop2:mousedown', Object.clone(e));
@@ -287,12 +304,6 @@ Drag = Class.create({
             }, this);
         }
 
-        if (this.options.snapToParent) {
-            this.snap = this.options.parentElement
-                ? this.options.parentElement().getDimensions()
-                : this.element.parentNode.getDimensions();
-        }
-
         // Stop event to prevent text selection. IE and Gecko are handled in
         // initialize().
         if (!Prototype.Browser.IE && !Prototype.Browser.Gecko) {
@@ -302,7 +313,7 @@ Drag = Class.create({
 
     _mouseMove: function(e)
     {
-        var layout, xy, z;
+        var elt, layout, xy, z;
 
         if (++this.move <= this.options.threshold) {
             return;
@@ -322,40 +333,29 @@ Drag = Class.create({
                 // Create the "ghost", i.e. the moving element, a clone of the
                 // original element, if it doesn't exist yet.
                 layout = this.element.getLayout();
-                this.ghost = $(this.element.clone(true))
+                elt = $(this.element.clone(true))
                     .writeAttribute('id', null)
                     .addClassName(this.options.classname)
                     .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
-
-                // Save external dimensions, i.e. height and width including
-                // padding and margins, for later usage.
-                this.dim = {
-                    width: layout.get('margin-box-width'),
-                    height: layout.get('margin-box-height')
-                }
 
                 if (this.options.ghosting) {
                     z = parseInt(this.element.getStyle('zIndex'), 10);
                     if (isNaN(z)) {
                         z = 1;
                     }
-                    this.ghost.setOpacity(0.7).setStyle({ zIndex: z + 1 });
+                    elt.setOpacity(0.7).setStyle({ zIndex: z + 1 });
                 } else {
                     this.element.setStyle({ visibility: 'hidden' });
                 }
 
-                // Insert ghost into the parent, either specified by a
-                // function result, or using the original element's parent.
-                if (this.options.parentElement) {
-                    this.options.parentElement().insert(this.ghost);
-                } else {
-                    this.element.insert({ before: this.ghost });
-                }
+                $(document.body).insert(elt);
 
-                this.ghost.clonePosition(this.element);
+                elt.clonePosition(this.element);
+
+                this.ghost = this._prepareHover(elt, xy[0], xy[1], 'ghost');
             }
 
-            this._setContents(this.ghost, xy[0], xy[1]);
+            this._position(this.ghost, xy[0], xy[1]);
         }
 
         if (!this.options.nodrop) {
@@ -371,6 +371,69 @@ Drag = Class.create({
         }
     },
 
+    _prepareHover: function(elt, x, y, type)
+    {
+        var boundary, dim, noupdate, vo;
+
+        if (this.options.snapToParent) {
+            boundary = Object.isFunction(this.options.snapToParent)
+                ? this.options.snapToParent()
+                : this.element.parentNode;
+            vo = boundary.viewportOffset();
+        } else {
+            boundary = document.viewport;
+            vo = [ 0, 0 ];
+        }
+
+        if (this.options.offset) {
+            pos = [
+                x + this.options.offset.x,
+                y + this.options.offset.y
+            ];
+        } else {
+            switch (type) {
+            case 'caption':
+                pos = [ x + 15, y ];
+                break;
+
+            case 'ghost':
+                pos = elt.viewportOffset();
+                noupdate = true;
+                break;
+            }
+        }
+
+        if (this.ghost && type == 'caption') {
+            pos[1] += this.ghost.height + 5;
+        }
+
+        if (!noupdate) {
+            elt.setStyle({
+                left: pos[0] + 'px',
+                top: pos[1] + 'px',
+            });
+        }
+
+        dim = boundary.getDimensions();
+        layout = elt.getLayout();
+
+        return {
+            elt: elt,
+
+            x_left: vo[0],
+            x_right: vo[0] + dim.width,
+
+            y_top: vo[1],
+            y_bottom: vo[1] + dim.height,
+
+            xy_left: x - pos[0],
+            xy_top: y - pos[1],
+
+            width: layout.get('margin-box-width'),
+            height: layout.get('margin-box-height')
+        };
+    },
+
     _mouseUp: function(e)
     {
         var d = DragDrop.Drops.drop, tmp;
@@ -382,7 +445,7 @@ Drag = Class.create({
                 this.element.setStyle({ visibility: 'visible' });
             }
             try {
-                this.ghost.remove();
+                this.ghost.elt.remove();
             } catch (e) {}
             this.ghost = null;
         }
@@ -422,56 +485,56 @@ Drag = Class.create({
             return;
         }
 
-        if (this.lastelt == elt) {
-            this._setCaption(div, xy);
-            return;
-        }
+        if (this.lastelt != elt) {
+            this.lastelt = elt;
 
-        this.lastelt = elt;
-
-        /* Do mouseover/mouseout-like detection here. Saves on observe calls
-         * and handles case where mouse moves over scrollbars. */
-        if (DragDrop.Drops.drops.size()) {
-            if (!elt.hasClassName('DropElt')) {
-                elt = elt.up('.DropElt');
-            }
-
-            if (elt) {
-                /* Ignore if mouse is over an offset ghosted element. */
-                if (elt == this.ghost) {
-                    return;
+            /* Do mouseover/mouseout-like detection here. Saves on observe
+             * calls and handles case where mouse moves over scrollbars. */
+            if (DragDrop.Drops.drops.size()) {
+                if (!elt.hasClassName('DropElt')) {
+                    elt = elt.up('.DropElt');
                 }
 
-                elt = DragDrop.Drops.getDrop(elt);
-                if (elt == d) {
-                    d_update = false;
-                } else {
-                    elt.mouseOver(e);
-                    d = elt;
+                if (elt) {
+                    if (elt == this.ghost.elt) {
+                        return;
+                    }
+
+                    elt = DragDrop.Drops.getDrop(elt);
+                    if (elt == d) {
+                        d_update = false;
+                    } else {
+                        elt.mouseOver(e);
+                        d = elt;
+                    }
+                } else if (d) {
+                    d.mouseOut(e);
+                    d = null;
                 }
-            } else if (d) {
-                d.mouseOut(e);
-                d = null;
+            }
+
+            if (d_update) {
+                this._updateCaption(d, div, e);
             }
         }
 
-        if (d_update) {
-            this._updateCaption(d, div, e);
+        if (this.lastcaption) {
+            this._position(this.caption, xy[0], xy[1]);
         }
-
-        this._setCaption(div, xy);
     },
 
     _updateCaption: function(d, div, e)
     {
-        var caption, cname, c_opt;
+        var caption, cname, c_opt, vo;
 
         if (d && DragDrop.validDrop(this.element)) {
             d_cap = d.options.caption;
             if (!d_cap) {
                 return;
             }
-            caption = Object.isFunction(d_cap) ? d_cap(d.element, this.element, e) : d_cap;
+            caption = Object.isFunction(d_cap)
+                ? d_cap(d.element, this.element, e)
+                : d_cap;
             if (caption && d.options.hoverclass) {
                 cname = d.options.hoverclass;
             }
@@ -479,14 +542,21 @@ Drag = Class.create({
 
         if (!caption) {
             c_opt = this.options.caption;
-            caption = Object.isFunction(c_opt) ? c_opt(this.element) : c_opt;
+            caption = Object.isFunction(c_opt)
+                ? c_opt(this.element)
+                : c_opt;
         }
 
         if (caption != this.lastcaption) {
             this.lastcaption = caption;
-            div.update(caption).writeAttribute({ className: cname || this.options.classname });
             if (caption.empty()) {
                 div.hide();
+            } else {
+                div.update(caption).writeAttribute({
+                    className: cname || this.options.classname
+                });
+
+                this.caption = this._prepareHover(div, e.pointerX(), e.pointerY(), 'caption');
             }
         }
     },
@@ -497,7 +567,8 @@ Drag = Class.create({
 
         if (this.options.caption ||
             (this.options.offset &&
-             (this.options.offset.x > 0 || this.options.offset.y > 0))) {
+             (this.options.offset.x > 0 ||
+              this.options.offset.y > 0))) {
             return e.element();
         }
 
@@ -524,13 +595,6 @@ Drag = Class.create({
         if (DragDrop.Drops.drop &&
             DragDrop.Drops.drop.options.keypress) {
             this._updateCaption(DragDrop.Drops.drop, DragDrop.Drags.div, e);
-        }
-    },
-
-    _setCaption: function(div, xy)
-    {
-        if (this.lastcaption) {
-            this._setContents(div, xy[0] + 15, xy[1] + (this.ghost ? (this.ghost.getHeight() + 5) : 5));
         }
     },
 
@@ -609,41 +673,30 @@ Drag = Class.create({
         s.scrollTop += y * delta / 1000;
     },
 
-    _setContents: function(elt, x, y)
+    _position: function(ob, x, y)
     {
-        var e_pos, vp, so, xy, style;
+        var xy, style;
 
-        if (this.options.offset) {
-            x += this.options.offset.x;
-            y += this.options.offset.y;
-        }
-
-        if (this.options.snapToParent) {
-            if (x < 0) {
-                x = 0;
-            }
-            if (y < 0) {
-                y = 0;
-            }
-            if (x + this.dim.width > this.snap.width) {
-                x = this.snap.width - this.dim.width;
-            }
-            if (y + this.dim.height > this.snap.height) {
-                y = this.snap.height - this.dim.height;
-            }
-        } else if (this.options.snap) {
+        if (this.options.snap) {
             xy = this.options.snap(x, y, this.element);
             x = xy[0];
             y = xy[1];
         } else {
-            e_pos = elt.getDimensions();
-            vp = document.viewport.getDimensions();
-            so = document.viewport.getScrollOffsets();
-            if (x + e_pos.width > vp.width + so[0]) {
-                x = vp.width + so[0] - e_pos.width;
+            x -= ob.xy_left;
+            y -= ob.xy_top;
+
+            if (x < ob.x_left) {
+                x = ob.x_left;
             }
-            if (y + e_pos.height > vp.height + so[1]) {
-                y = vp.height + so[1] - e_pos.height;
+            if (y < ob.y_top) {
+                y = ob.y_top;
+            }
+
+            if (x + ob.width > ob.x_right) {
+                x = ob.x_right - ob.width;
+            }
+            if (y + ob.height > ob.y_bottom) {
+                y = ob.y_bottom - ob.height;
             }
         }
 
@@ -661,7 +714,7 @@ Drag = Class.create({
             }
         }
 
-        elt.setStyle(style).show();
+        ob.elt.setStyle(style).show();
     }
 
 }),
