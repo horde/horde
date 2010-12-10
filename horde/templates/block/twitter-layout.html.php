@@ -16,7 +16,7 @@
    <span id="<?php echo $this->instance ?>_counter" style="color:rgb(204, 204, 204); margin-left:6px;">140</span>
    <span id="<?php echo $this->instance ?>_inReplyTo"></span>
    <?php echo $this->loadingImg ?>
-   <div id="currentStatus" class="" style="margin:10px;"><strong>'<?php echo _("Latest") ?></strong><?php echo $this->latestStatus ?> - <span class="fbstreaminfo"><?php echo $this->latestDate ?></span></div>
+   <div id="currentStatus" style="margin:10px;"><strong><?php echo _("Latest")?></strong> <?php echo $this->latestStatus ?> - <span class="fbstreaminfo"><?php echo $this->latestDate ?></span></div>
  </div>
  <div>
    <a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showStream();"><?php echo _("Stream")?></a>
