@@ -284,17 +284,22 @@ var Horde_Twitter = Class.create({
     },
 
     /**
-     * Build adnd display the node for a new tweet.
+     * Build and display the node for a new tweet.
      */
     buildNewTweet: function(response) {
         var tweet = new Element('div', {'class':'hordeSmStreamstory'});
-        var tPic = new Element('div', {'class':'hordeSmAvatar'}).update(
+        var tPic = new Element('div', {'class':'solidbox hordeSmAvatar'}).update(
             new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
                 new Element('img', {'src':response.user.profile_image_url})
             )
         );
+        tPic.appendChild(
+            new Element('div', { 'style': {'overflow': 'hidden' }}).update(
+                new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(response.user.screen_name)
+            )
+        );
         var tBody = new Element('div', {'class':'hordeSmStreambody'}).update(response.text);
-        tBody.appendChild(new Element('div', {'class':'hordeSmStreaminfo'}).update(this.opts.strings.justnow));
+        tBody.appendChild(new Element('div', {'class':'hordeSmStreaminfo'}).update(this.opts.strings.justnow + '<br><br>'));
         tweet.appendChild(tPic);
         tweet.appendChild(tBody);
         $(this.opts.content).insert({top:tweet});
