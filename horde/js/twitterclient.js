@@ -259,7 +259,7 @@ var Horde_Twitter = Class.create({
                 this.oldestMention = response.responseJSON.o;
             }
         }
-        //new PeriodicalExecuter(function(pe) { this.getNewMentions(); pe.stop(); }.bind(this), this.opts.refreshrate );
+        new PeriodicalExecuter(function(pe) { this.getNewEntries('mentions'); pe.stop(); }.bind(this), this.opts.refreshrate );
     },
 
     /**
