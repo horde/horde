@@ -42,6 +42,9 @@ class Horde_Kolab_Format_Cli
     {
         $parser = self::_prepareParser($parameters);
         if (empty($parameters['output'])) {
+            if (!class_exists('Horde_Cli')) {
+                throw new Horde_Kolab_Format_Exception('The Horde_Cli package seems to be missing (Class Horde_Cli is missing)!');
+            }
             $cli = Horde_Cli::init();
         } else {
             $cli = $parameters['output'];

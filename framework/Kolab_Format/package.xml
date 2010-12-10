@@ -435,7 +435,11 @@
   </required>
   <optional>
    <package>
-    <name>Test</name>
+    <name>Cli</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Date</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -443,7 +447,7 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Date</name>
+    <name>Test</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
