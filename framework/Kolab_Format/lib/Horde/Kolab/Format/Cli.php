@@ -52,12 +52,9 @@ class Horde_Kolab_Format_Cli
         list($options, $arguments) = $parser->parseArgs();
         $factory = new Horde_Kolab_Format_Factory();
         $timed = $factory->createTimed('xml', 'task');
-        for ($i = 0; $i < 1000; $i++) {
-            $timed->load(
-                file_get_contents($arguments[0])
-            );
-        }
-        $cli->message($timed->timeSpent());
+        $content = file_get_contents($arguments[0]);
+        $timed->load($content);
+        $cli->message(floor($timed->timeSpent() * 1000) . ' ms');
     }
 
     static private function _prepareParser(array $parameters = array())
