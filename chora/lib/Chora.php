@@ -442,7 +442,7 @@ class Chora
         return htmlspecialchars($name);
     }
 
-    public function getAuthorEmail($name)
+    static public function getAuthorEmail($name)
     {
         try {
             $users = $GLOBALS['VC']->getUsers($GLOBALS['conf']['paths']['cvsusers']);
@@ -457,10 +457,17 @@ class Chora
             if (count($results)) {
                 return $results[0]->mailbox . '@' . $results[0]->host;
             }
-        } catch (Horde_Mail_Exception $e) {}
+        } catch (Horde_Mail_Exception $e) {
+            try {
+                if (preg_match('|<(\S+)>|', $name, $matches)) {
+                    return self::getAuthorEmail($matches[1]);
+                }
+            } catch (Horde_Mail_Exception $e){}
+        }
 
         return $name;
     }
+
 
     /**
      * Return formatted date information.
@@ -496,4 +503,5 @@ class Chora
             ? $log
             : preg_replace($GLOBALS['conf']['tickets']['regexp'], $GLOBALS['conf']['tickets']['replacement'], $log);
     }
+
 }
