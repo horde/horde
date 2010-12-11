@@ -155,15 +155,20 @@ var Horde_Twitter = Class.create({
             i: this.instanceid
         };
         if (type == 'mentions') {
+          if (this.newestMention) {
+              params.since_id = this.newestMention;
+          } else {
+              params.page = 1;
+          }
           params.mentions = 1;
           callback = this._getNewMentionsCallback.bind(this);
         } else {
+          if (this.newestId) {
+              params.since_id = this.newestId;
+          } else {
+              params.page = 1;
+          }
           callback = this._getNewEntriesCallback.bind(this);
-        }
-        if (this.newestId && type !== 'mentions') {
-            params.since_id = this.newestId;
-        } else {
-            params.page = 1;
         }
 
         new Ajax.Request(this.opts.endpoint, {
@@ -215,17 +220,22 @@ var Horde_Twitter = Class.create({
      *
      */
     _getNewEntriesCallback: function(response) {
-        var content = response.responseJSON.c;
+        var h, content = response.responseJSON.c;
 
         if (response.responseJSON.n != this.newestId) {
             var h = $(this.opts.content).scrollHeight
             $(this.opts.content).insert({ 'top': content });
-            // Don't scroll if it's the first request.
-            if (this.newestId) {
-                $(this.opts.content).scrollTop = h;
+            if (this.activeTab != 'stream') {
+                $(this.opts.contenttab).addClassName('hordeSmNew');
             } else {
-                $(this.opts.content).scrollTop = 0;
+                // Don't scroll if it's the first request.
+                if (this.newestId) {
+                    $(this.opts.content).scrollTop = h;
+                } else {
+                    $(this.opts.content).scrollTop = 0;
+                }
             }
+
             this.newestId = response.responseJSON.n;
 
             // First time we've been called, record the oldest one as well.'
@@ -239,19 +249,24 @@ var Horde_Twitter = Class.create({
     /**
      * Callback for retrieving new mentions.
      *
-     * @TODO: Implement paging, separate oldestId etc...
      */
     _getNewMentionsCallback: function(response) {
-        var content = response.responseJSON.c;
+        var h, content = response.responseJSON.c;
+
         if (response.responseJSON.n != this.newestMention) {
-            var h = $(this.opts.mentions).scrollHeight
+            h = $(this.opts.mentions).scrollHeight
             $(this.opts.mentions).insert({ 'top': content });
-            // Don't scroll if it's the first request.
-            if (this.newestMention) {
-                $(this.opts.mentions).scrollTop = h;
+            if (this.activeTab != 'mentions') {
+                $(this.opts.mentiontab).addClassName('hordeSmNew');
             } else {
-                $(this.opts.mentions).scrollTop = 0;
+                // Don't scroll if it's the first request.
+                if (this.newestMention) {
+                    $(this.opts.mentions).scrollTop = h;
+                } else {
+                    $(this.opts.mentions).scrollTop = 0;
+                }
             }
+
             this.newestMention = response.responseJSON.n;
 
             // First time we've been called, record the oldest one as well.
@@ -308,9 +323,13 @@ var Horde_Twitter = Class.create({
     showMentions: function()
     {
         if (this.activeTab != 'mentions') {
+            $(this.opts.mentiontab).removeClassName('hordeSmNew');
             this.toggleTabs();
             $(this.opts.content).hide();
-            this.getNewEntries('mentions');
+            // Only poll once on click, after that we rely on PeriodcalExecuter
+            if (!this.oldestMention) {
+                this.getNewEntries('mentions');
+            }
             $(this.opts.mentions).show();
             this.activeTab = 'mentions';
         }
@@ -319,12 +338,12 @@ var Horde_Twitter = Class.create({
     showStream: function()
     {
         if (this.activeTab != 'stream') {
+            $(this.opts.contenttab).removeClassName('hordeSmNew');
             this.toggleTabs();
             $(this.opts.mentions).hide();
             $(this.opts.content).show();
             this.activeTab = 'stream';
         }
-
     },
 
     toggleTabs: function()
