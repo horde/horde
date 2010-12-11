@@ -22,8 +22,7 @@ class JonahShareTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('jonah_shares', $tableList)) {
-            $t = $this->createTable('jonah_shares', array('primaryKey' => false));
-            $t->column('share_id', 'integer', array('null' => false));
+            $t = $this->createTable('jonah_shares', array('primaryKey' => 'share_id'));
             $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_flags', 'integer', array('default' => 0, 'null' => false));
@@ -42,7 +41,6 @@ class JonahShareTables extends Horde_Db_Migration_Base
             $t->column('attribute_story_url', 'string', array('limit' => 255));
             $t->column('attribute_img', 'string', array('limit' => 255));
             $t->column('attribute_updated', 'integer');
-            $t->primaryKey(array('share_id'));
             $t->end();
 
             $this->addIndex('jonah_shares', array('share_name'));

@@ -226,4 +226,99 @@ class Jonah
         return $types;
     }
 
+    public static function listFeeds($owneronly = false, $permission = Horde_Perms::SHOW)
+    {
+        if ($owneronly && !$GLOBALS['registry']->getAuth() {
+            return array();
+        }
+        try {
+            $feeds = $GLOBALS['jonah_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm'=>$permission, 'attributes'=> $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                'sort_by' => 'name'));
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            return array();
+        }
+
+        return $feeds;
+    }
+
+    public static function addFeed($info)
+    {
+        try {
+            $feed = $GLOBALS['jonah_shares']->newShare($GLOBALS['registry']->getAuth(), $info['slug']));
+            $feed->set('name', $info['name']);
+            $feed->set('desc', $info['description']);
+            $feed->set('type', $info['type']);
+            $feed->set('full_feed', $info['full_feed']);
+            $feed->set('interval', $info['interval']);
+            $feed->set('url', $info['url']);
+            $feed->set('link', $info['link']);
+            $feed->set('page_link', $info['page_link']);
+            $feed->set('story_url', $info['story_url']);
+            $feed->set('img', $info['img']);
+            $feed->set('updated', $info['updated']);
+
+            $GLOBALS['jonah_shares']->addShare($feed);
+        } catch (Horde_Share_Exception $e) {
+            throw new Jonah_Exception($e);
+        }
+        return $feed;
+    }
+
+    public static function updateFeed($feed, $info) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($feed->get('owner') != $GLOBALS['registry'] &&
+            (!is_null($feed->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
+            throw new Horde_Exception_PermissionDenied(_("You are not allowed to modify the feed."));
+        }
+
+        $feed->set('name', $info['name']);
+        $feed->set('desc', $info['description']);
+        $feed->set('type', $info['type']);
+        $feed->set('full_feed', $info['full_feed']);
+        $feed->set('interval', $info['interval']);
+        $feed->set('url', $info['url']);
+        $feed->set('link', $info['link']);
+        $feed->set('page_link', $info['page_link']);
+        $feed->set('story_url', $info['story_url']);
+        $feed->set('img', $info['img']);
+        $feed->set('updated', $info['updated']);
+
+        try {
+            $feed->save();
+        } catch (Horde_Share_Exception $e) {
+            throw new Jonah_Exception(_("Unable to save feed \"%s\": %s"), $info['name'], $e->getMessage()));
+        }
+    }
+
+    /**
+     * Deletes a feed.
+     *
+     * @param Horde_Share $feed  The feed to delete.
+     */
+    public static function deleteFeed($feed)
+    {
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($feed->get('owner') != $GLOBALS['registry']->getAuth() &&
+             (!is_null($feed->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
+            throw new Horde_Exception_PermissionDenied(_("You are not allowed to delete this feed."));
+        }
+
+        // Delete the feed.
+        $storage = &Jonah_Driver::singleton($feed->getName());
+        $result = $storage->deleteAll();
+        if ($result instanceof PEAR_Error) {
+            throw new Jonah_Exception(sprintf(_("Unable to delete \"%s\": %s"), $feed->get('name'), $result->getMessage()));
+        }
+
+        // Remove share and all groups/permissions.
+        try {
+            return $GLOBALS['jonah_shares']->removeShare($feed);
+        } catch (Horde_Share_Exception $e) {
+            throw new Jonah_Exception($e);
+        }
+    }
+
 }
