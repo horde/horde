@@ -96,7 +96,7 @@ class Horde_Block_ansel_gallery extends Horde_Block
         try {
            $gallery = $this->_getGallery();
         } catch (Horde_Exception $e) {
-            return $gallery->getMessage();
+            return $e->getMessage();
         }
 
         $params = array('gallery_id' => $gallery->id,
