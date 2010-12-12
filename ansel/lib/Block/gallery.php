@@ -3,8 +3,7 @@
 $block_name = _("Gallery");
 
 /**
- * This file provides a selected Ansel gallery through the Horde_Blocks, by
- * extending the Horde_Blocks class.
+ * Displays mini thumbnails of images in the selected (or random) gallery.
  *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
