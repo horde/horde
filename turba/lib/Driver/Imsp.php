@@ -118,7 +118,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    protected function _search($criteria, $fields)
+    protected function _search($criteria, $fields, $blobFields = array())
     {
         $query = $results = array();
 

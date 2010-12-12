@@ -528,7 +528,7 @@ class Turba_Driver implements Countable
         }
 
         /* Retrieve the search results from the driver. */
-        $objects = $this->_search($fields, $return_fields);
+        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()));
 
         return $this->_toTurbaObjects($objects, $sort_order);
     }
@@ -2686,7 +2686,7 @@ class Turba_Driver implements Countable
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields)
+    protected function _search($criteria, $fields, $blobFields = array())
     {
         throw new Turba_Exception(_("Searching is not available."));
     }
@@ -2702,7 +2702,7 @@ class Turba_Driver implements Countable
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, $fields)
+    protected function _read($key, $ids, $owner, $fields, $blobFields = array())
     {
         throw new Turba_Exception(_("Reading contacts is not available."));
     }

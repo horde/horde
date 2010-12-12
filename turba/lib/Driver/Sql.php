@@ -91,6 +91,7 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @param array $criteria      Array containing the search criteria.
      * @param array $fields        List of fields to return.
+     * @param array $blobFields    
      * @param array $appendWhere   An additional where clause to append.
      *                             Array should contain 'sql' and 'params'
      *                             params are used as bind parameters.
@@ -98,7 +99,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $appendWhere = array())
+    protected function _search($criteria, $fields, $blobFields = array(), $appendWhere = array())
     {
         /* Build the WHERE clause. */
         $where = '';
@@ -151,12 +152,23 @@ class Turba_Driver_Sql extends Turba_Driver
                 throw new Turba_Exception($row);
             }
 
-            $row = $this->_convertFromDriver($row);
-
             $entry = array();
             for ($i = 0; $i < $iMax; $i++) {
                 $field = $fields[$i];
-                $entry[$field] = $row[$i];
+                if (isset($blobFields[$field])) {
+                    switch ($this->_db->dbsyntax) {
+                    case 'pgsql':
+                    case 'mssql':
+                        $entry[$field] = pack('H' . strlen($row[$i]), $row[$i]);
+                        break;
+
+                    default:
+                        $entry[$field] = $row[$i];
+                        break;
+                    }
+                } else {
+                    $entry[$field] = $this->_convertFromDriver($row[$i]);
+                }
             }
             $results[] = $entry;
         }
@@ -750,7 +762,7 @@ class Turba_Driver_Sql extends Turba_Driver
             }
         }
 
-        return $this->_toTurbaObjects($this->_search($criteria, $fields, $where));
+        return $this->_toTurbaObjects($this->_search($criteria, $fields, array(), $where));
     }
 
 }

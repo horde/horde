@@ -68,14 +68,14 @@ class Turba_Driver_Vbook extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields)
+    protected function _search($criteria, $fields, $blobFields = array())
     {
         /* Add the passed in search criteria to the vbook criteria
          * (which need to be mapped from turba fields to
          * driver-specific fields). */
         $criteria['AND'][] = $this->makeSearch($this->searchCriteria, 'AND', array());
 
-        return $this->_driver->_search($criteria, $fields);
+        return $this->_driver->_search($criteria, $fields, $blobFields);
     }
 
     /**

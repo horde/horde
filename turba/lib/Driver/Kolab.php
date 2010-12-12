@@ -61,7 +61,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return               Hash containing the search results.
      */
-    protected function _search($criteria, $fields)
+    protected function _search($criteria, $fields, $blobFields = array())
     {
         return $this->_wrapper->_search($criteria, $fields);
     }

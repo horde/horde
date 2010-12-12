@@ -57,7 +57,7 @@ class Turba_Driver_Facebook extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields)
+    protected function _search($criteria, $fields, $blobFields = array())
     {
         $results = $this->_getAddressBook($fields);
 
