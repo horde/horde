@@ -110,6 +110,7 @@ abstract class Horde_Share_Object implements Serializable
     public function save()
     {
         $this->getShareOb()->runCallback('modify', array($this));
+        $this->getShareOb()->expireListCache();
         return $this->_save();
     }
 

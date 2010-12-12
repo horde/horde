@@ -540,6 +540,16 @@ class Horde_Share
     }
 
     /**
+     * Expire the current list cache. This would be needed anytime a share is
+     * either added, deleted, had a change in owner, parent, or perms.
+     *
+     */
+    public function expireListCache()
+    {
+        $this->_listcache = array();
+    }
+
+    /**
      * Utility function to be used with uasort() for sorting arrays of
      * Horde_Share objects.
      *

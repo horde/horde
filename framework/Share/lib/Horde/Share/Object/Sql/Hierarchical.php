@@ -131,6 +131,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
             $child->setParent($this);
         }
 
+        $this->_shareOb->expireListCache();
         return true;
     }
 
