@@ -43,7 +43,6 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      *  'parent'        Start at this share in the hierarchy. Either share_id or
      *                  Horde_Share_Object
      *  'all_levels'    List all levels or just the direct children of parent?
-     *  'ignore_perms'  Don't check perms.
      *</pre>
      *
      * @return array  The shares the user has access to.
@@ -58,8 +57,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                                     'sort_by' => null,
                                     'direction' => 0,
                                     'parent' => null,
-                                    'all_levels' => true,
-                                    'ignore_perms' => false),
+                                    'all_levels' => true),
                               $params);
         $key = md5(serialize(array($userid, $params)));
         if (!empty($this->_listcache[$key])) {
@@ -75,7 +73,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         }
 
         $query = 'SELECT DISTINCT s.* '
-            . $this->getShareCriteria($userid, $params['perm'], $params['attributes'], $params['parent'], $params['all_levels'], $params['ignore_perms'])
+            . $this->getShareCriteria($userid, $params['perm'], $params['attributes'], $params['parent'], $params['all_levels'])
             . ' ORDER BY ' . $sortfield
             . (($params['direction'] == 0) ? ' ASC' : ' DESC');
 
@@ -147,11 +145,12 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
     /**
      * Returns an array of criteria for querying shares.
      *
-     * @TODO: check method visisbility,
+     * @TODO:
      *        remove ignorePerms param, simply set perm to null for this
      *
      * @param string $userid      The userid of the user to check access for.
-     * @param integer $perm       The level of permissions required.
+     * @param integer $perm       The level of permissions required. Set to null
+     *                            to skip permission filtering.
      * @param mixed $attributes   Restrict the shares returned to those who
      *                            have these attribute values.
      * @param mixed $parent       The share to start searching in.
@@ -163,8 +162,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      * @throws Horde_Share_Exception
      */
     public function getShareCriteria($userid, $perm = Horde_Perms::SHOW, $attributes = null,
-                                     $parent = null, $allLevels = true,
-                                     $ignorePerms = false)
+                                     $parent = null, $allLevels = true)
     {
         static $criteria = array();
 
@@ -181,7 +179,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         $query = ' FROM ' . $this->_table . ' s ';
         $where = '';
 
-        if (!$ignorePerms) {
+        if (!is_null($perm)) {
             if (empty($userid)) {
                 $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';
             } else {

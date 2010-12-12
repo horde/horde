@@ -55,8 +55,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
             $user, array('perm' => $perm,
                          'direction' => 1,
                          'parent' => $this,
-                         'all_levels' => $allLevels,
-                         'ignore_perms' => is_null($perm)));
+                         'all_levels' => $allLevels));
     }
 
     /**
@@ -102,10 +101,9 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
         /* If we are an existing share, check for any children */
         if ($this->getId()) {
             $children = $this->getShareOb()->listShares(null,
-                array('perm' => Horde_Perms::EDIT,
+                array('perm' => null,
                       'parent' => $this,
-                      'all_levels' => true,
-                      'ignore_perms' => true));
+                      'all_levels' => true));
         } else {
             $children = array();
         }
