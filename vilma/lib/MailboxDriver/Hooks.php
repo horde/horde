@@ -9,7 +9,7 @@
  * @package Vilma
  */
 
-class Vilma_MailboxDriver_hooks extends Vilma_MailboxDriver
+class Vilma_MailboxDriver_Hooks extends Vilma_MailboxDriver
 {
     /**
      * Creates a new mailbox.

@@ -8,7 +8,7 @@
  * @author  David Cummings <davidcummings@acm.org>
  * @package Vilma
  */
-class Vilma_MailboxDriver_null extends Vilma_MailboxDriver
+class Vilma_MailboxDriver_Null extends Vilma_MailboxDriver
 {
     /**
      * Creates a new mailbox.

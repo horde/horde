@@ -8,7 +8,7 @@
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Vilma
  */
-class Vilma_MailboxDriver_maildrop extends Vilma_MailboxDriver
+class Vilma_MailboxDriver_Maildrop extends Vilma_MailboxDriver
 {
     /**
      * Creates a new mailbox.

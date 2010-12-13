@@ -8,7 +8,7 @@
  * @author Marko Djukic <marko@oblo.com>
  * @package Vilma
  */
-class Vilma_Driver_sql extends Vilma_Driver
+class Vilma_Driver_Sql extends Vilma_Driver
 {
     /**
      * @var DB
