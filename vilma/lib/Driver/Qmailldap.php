@@ -316,7 +316,10 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         }
 
         // Stir in any site-local custom LDAP attributes.
-        $entry = Horde::callHook('getLDAPAttrs', array($entry), 'vilma');
+        try {
+            $entry = Horde::callHook('getLDAPAttrs', array($entry), 'vilma');
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
         $rdn = 'mail=' . $entry['mail'];
         $dn = $rdn . ',' . $this->_params['ldap']['basedn'];
         $res = @ldap_modify($this->_ldap, $dn, $entry);
@@ -366,7 +369,10 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         $entry['userPassword'] = Horde_Auth::getCryptedPassword($info['password'], '', 'ssha', true);
 
         // Stir in any site-local custom LDAP attributes.
-        $entry = Horde::callHook('getLDAPAttrs', array($entry), 'vilma');
+        try {
+            $entry = Horde::callHook('getLDAPAttrs', array($entry), 'vilma');
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
         $rdn = 'mail=' . $entry['mail'];
         $dn = $rdn . ',' . $this->_params['ldap']['basedn'];
         $res = @ldap_add($this->_ldap, $dn, $entry);

@@ -63,7 +63,10 @@ abstract class Vilma_Driver
     public function saveDomain($info)
     {
         $this->_saveDomain($info);
-        Horde::callHook('saveDomain', array($info), 'vilma');
+        try {
+            Horde::callHook('saveDomain', array($info), 'vilma');
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
     }
 
     /**
@@ -88,7 +91,10 @@ abstract class Vilma_Driver
             $this->_deleteUser($user['user_id']);
         }
         $this->_deleteDomain($domain_id);
-        Horde::callHook('deleteDomain', array($domain_record['domain_name']), 'vilma');
+        try {
+            Horde::callHook('deleteDomain', array($domain_record['domain_name']), 'vilma');
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
     }
 
     /**
