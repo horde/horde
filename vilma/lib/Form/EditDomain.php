@@ -18,7 +18,6 @@ class Vilma_Form_EditDomain extends Horde_Form
         parent::Horde_Form($vars, $editing ? _("Edit Domain") : _("New Domain"));
         if ($editing && !$this->isSubmitted()) {
             $domain = $GLOBALS['vilma']->driver->getDomain($vars->get('domain_id'));
-            $vars = new Horde_Variables($domain);
         }
         $vars->add('name', $domain['domain_name']);
         $vars->add('transport', $domain['domain_transport']);
