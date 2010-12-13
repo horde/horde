@@ -29,13 +29,6 @@
 class Horde_Kolab_Format_Factory
 {
     /**
-     * Instances.
-     *
-     * @var array
-     */
-    private $_instances = array();
-
-    /**
      * Generates a handler for a specific Kolab object type.
      *
      * @param string $format The format that the handler should work with.
@@ -58,35 +51,32 @@ class Horde_Kolab_Format_Factory
             . ucfirst(strtolower(str_replace('-', '', $object)))
         );
 
-        if (!isset($this->_instances[$class])) {
-            if (class_exists($class)) {
-                switch ($parser) {
-                case 'Xml':
-                    $this->_instances[$class] = new $class(
-                        new Horde_Kolab_Format_Xml_Parser(
-                            new DOMDocument('1.0', 'UTF-8')
-                        ),
-                        $params
-                    );
-                    break;
-                default:
-                    throw new Horde_Kolab_Format_Exception(
-                        sprintf(
-                            'Failed to initialize the specified parser (Parser type %s does not exist)!',
-                            $parser
-                        )
-                    );
-                }
-            } else {
+        if (class_exists($class)) {
+            switch ($parser) {
+            case 'Xml':
+                return new $class(
+                    new Horde_Kolab_Format_Xml_Parser(
+                        new DOMDocument('1.0', 'UTF-8')
+                    ),
+                    $params
+                );
+                break;
+            default:
                 throw new Horde_Kolab_Format_Exception(
                     sprintf(
-                        'Failed to load the specified Kolab Format handler (Class %s does not exist)!',
-                        $class
+                        'Failed to initialize the specified parser (Parser type %s does not exist)!',
+                        $parser
                     )
                 );
             }
+        } else {
+            throw new Horde_Kolab_Format_Exception(
+                sprintf(
+                    'Failed to load the specified Kolab Format handler (Class %s does not exist)!',
+                    $class
+                )
+            );
         }
-        return $this->_instances[$class];
     }
 
     /**

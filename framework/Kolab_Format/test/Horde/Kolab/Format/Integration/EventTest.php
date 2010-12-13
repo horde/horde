@@ -52,6 +52,8 @@ extends Horde_Kolab_Format_TestCase
         // Check that the xml loads fine
         $this->assertEquals('...übbe...', $result['body']);
 
+        $xml = $this->getFactory()->create('XML', 'event');
+
         // Load XML
         $event  = file_get_contents(dirname(__FILE__)
                                     . '/fixtures/event_umlaut_broken.xml');

@@ -52,13 +52,4 @@ extends PHPUnit_Framework_TestCase
         $factory = new Horde_Kolab_Format_Factory();
         $factory->create('UNKNOWN', 'contact');
     }
-
-    public function testCaching()
-    {
-        $factory = new Horde_Kolab_Format_Factory();
-        $this->assertSame(
-            $factory->create('XML', 'contact'),
-            $factory->create('XML', 'contact')
-        );
-    }
 }
