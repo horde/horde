@@ -37,6 +37,9 @@ class Horde_Exception_Pear extends Horde_Exception
             $error->getMessage() . $this->_getPearTrace($error),
             $error->getCode()
         );
+        if ($details = $error->getUserInfo()) {
+            $this->details = $details;
+        }
     }
 
     /**

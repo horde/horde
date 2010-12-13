@@ -32,6 +32,10 @@ class Horde_Exception_Prior extends Horde_Exception
             if ($message instanceof Exception) {
                 $previous = $message;
             }
+            if (method_exists($message, 'getUserinfo') &&
+                $details = $message->getUserinfo()) {
+                $this->details = $details;
+            }
             $message = $message->getMessage();
         }
 
