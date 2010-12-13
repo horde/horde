@@ -427,15 +427,7 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Nls</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Translation</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
@@ -446,10 +438,6 @@
    </package>
    <package>
     <name>Date</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Prefs</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
