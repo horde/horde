@@ -88,7 +88,7 @@ abstract class Vilma_Driver
         $domain_record = $this->getDomain($domain_id);
         $users = $this->getUsers($domain_record['domain_name']);
         foreach ($users as $user) {
-            $this->_deleteUser($user['user_id']);
+            $this->deleteUser($user['user_id']);
         }
         $this->_deleteDomain($domain_id);
         try {
