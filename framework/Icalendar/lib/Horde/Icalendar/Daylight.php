@@ -26,9 +26,9 @@ class Horde_Icalendar_Daylight extends Horde_Icalendar
      *
      * @param $data TODO
      */
-    public function parsevCalendar($data)
+    public function parsevCalendar($text, $base = 'VCALENDAR', $clear = true)
     {
-        parent::parsevCalendar($data, 'DAYLIGHT');
+        parent::parsevCalendar($text, 'DAYLIGHT');
     }
 
     /**

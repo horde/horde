@@ -26,9 +26,9 @@ class Horde_Icalendar_Standard extends Horde_Icalendar
      *
      * @param $data TODO
      */
-    public function parsevCalendar($data)
+    public function parsevCalendar($text, $base = 'VCALENDAR', $clear = true)
     {
-        parent::parsevCalendar($data, 'STANDARD');
+        parent::parsevCalendar($text, 'STANDARD');
     }
 
     /**
