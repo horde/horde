@@ -3,7 +3,7 @@
 /**
  * Database migration script.
  *
- * Usage: ./db_migrate application [up | down | version]
+ * Usage: ./db_migrate application [up | down | version [debug]]
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -51,6 +51,9 @@ $dir = $registry->get('fileroot', $app) . '/migration/';
 
 $db = $injector->getInstance('Horde_Db_Adapter');
 $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
+if (!empty($args[2]) && strpos($args[2], 'debug') !== false) {
+    $db->setLogger($logger);
+}
 $migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $app . '_schema_info'));
 
 $cli->message('Current schema version: ' . $migrator->getCurrentVersion());
