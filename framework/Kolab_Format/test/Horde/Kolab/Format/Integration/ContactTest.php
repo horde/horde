@@ -85,8 +85,6 @@ extends PHPUnit_Framework_TestCase
      */
     public function testCategories()
     {
-        global $prefs;
-
         $contact = new Horde_Kolab_Format_Xml_Contact(
             new Horde_Kolab_Format_Xml_Parser(
                 new DOMDocument('1.0', 'UTF-8')
@@ -97,62 +95,34 @@ extends PHPUnit_Framework_TestCase
         $object  = $contact->load($xml);
         $this->assertContains('Test', $object['categories']);
 
-        $prefs  = 'some string';
         $object = $contact->load($xml);
         $this->assertContains('Test', $object['categories']);
     }
 
-    /**
-     * Test loading a contact with a category with preferences.
-     *
-     * @return NULL
-     */
-    public function testCategoriesWithPrefs()
-    {
-        if (class_exists('Horde_Prefs')) {
-            /* Monkey patch to allw the value to be set. */
-            $prefs->_prefs['categories'] = array('v' => '');
+    /* /\** */
+    /*  * Test loading a contact with a category with preferences. */
+    /*  * */
+    /*  * @return NULL */
+    /*  *\/ */
+    /* public function testCategoriesWithPrefs() */
+    /* { */
+    /*     if (class_exists('Horde_Prefs')) { */
+    /*         /\* Monkey patch to allw the value to be set. *\/ */
+    /*         $prefs->_prefs['categories'] = array('v' => ''); */
 
-            $contact = new Horde_Kolab_Format_Xml_Contact(
-                new Horde_Kolab_Format_Xml_Parser(
-                    new DOMDocument('1.0', 'UTF-8')
-                )
-            );
-            $xml     = file_get_contents(dirname(__FILE__)
-                                         . '/fixtures/contact_category.xml');
-            $object  = $contact->load($xml);
-            $this->assertContains('Test', $object['categories']);
-        }
-    }
+    /*         $contact = new Horde_Kolab_Format_Xml_Contact( */
+    /*             new Horde_Kolab_Format_Xml_Parser( */
+    /*                 new DOMDocument('1.0', 'UTF-8') */
+    /*             ) */
+    /*         ); */
+    /*         $xml     = file_get_contents(dirname(__FILE__) */
+    /*                                      . '/fixtures/contact_category.xml'); */
+    /*         $object  = $contact->load($xml); */
+    /*         $this->assertContains('Test', $object['categories']); */
+    /*     } */
+    /* } */
 
 
-}
-
-/**
- * A dummy registry.
- *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- *
- * @category Kolab
- * @package  Kolab_Format
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
- */
-class DummyRegistry
-{
-    /**
-     * Returns the application context.
-     *
-     * @return string Always "horde".
-     */
-    function get()
-    {
-        return 'horde';
-    }
 }
 
 /**
