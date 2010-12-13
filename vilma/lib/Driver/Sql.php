@@ -127,19 +127,13 @@ class Vilma_Driver_sql extends Vilma_Driver
         $sql = 'DELETE FROM ' . $this->_params['tables']['virtuals'] .
                ' WHERE ' . $this->_getTableField('virtuals', 'virtual_email') . ' LIKE ?';
         $values = array('%@' . $domain_name);
-        $delete = $this->_db->query($sql, $values);
-        if (is_a($delete, 'PEAR_Error')) {
-            throw new Vilma_Exception($delete);
-        }
+        Horde_Exception_Pear::catchError($this->_db->query($sql, $values));
 
         /* Delete all users for this domain. */
         $sql = 'DELETE FROM ' . $this->_params['tables']['users'] .
                ' WHERE ' . $this->_getTableField('users', 'user_name') . ' LIKE ?';
         $values = array('%@' . $domain_name);
-        $delete = $this->_db->query($sql, $values);
-        if (is_a($delete, 'PEAR_Error')) {
-            throw new Vilma_Exception($delete);
-        }
+        Horde_Exception_Pear::catchError($this->_db->query($sql, $values));
 
         /* Finally delete the domain. */
         $sql = 'DELETE FROM ' . $this->_params['tables']['domains'] .
@@ -288,11 +282,7 @@ class Vilma_Driver_sql extends Vilma_Driver
         }
 
         Horde::logMessage($sql, 'DEBUG');
-        $result = $this->_db->query($sql);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            throw new Vilma_Exception($result);
-        }
+        Horde_Exception_Pear::catchError($this->_db->query($sql));
 
         return $info['user_id'];
     }
@@ -306,7 +296,7 @@ class Vilma_Driver_sql extends Vilma_Driver
      */
     public function deleteUser($user_id)
     {
-        $user = $this->getUser($user_id);
+        Horde_Exception_Pear::catchError($user = $this->getUser($user_id));
 
         /* Delete all virtual emails for this user. */
         $sql = 'DELETE FROM ' . $this->_params['tables']['virtuals'] .
@@ -314,10 +304,7 @@ class Vilma_Driver_sql extends Vilma_Driver
         $values = array($user['user_name']);
 
         Horde::logMessage($sql, 'DEBUG');
-        $delete = $this->_db->query($sql, $values);
-        if (is_a($delete, 'PEAR_Error')) {
-            throw new Vilma_Exception($delete);
-        }
+        Horde_Exception_Pear::catchError($this->_db->query($sql, $values));
 
         /* Delete the actual user. */
         $sql = 'DELETE FROM ' . $this->_params['tables']['users'] .
@@ -325,10 +312,7 @@ class Vilma_Driver_sql extends Vilma_Driver
         $values = array((int)$user_id);
 
         Horde::logMessage($sql, 'DEBUG');
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Vilma_Exception($result);
-        }
+        Horde_Exception_Pear::catchError($this->_db->query($sql, $values));
 
         Vilma_MailboxDriver::factory()
             ->deleteMailbox(Vilma::stripUser($user['user_name']),
