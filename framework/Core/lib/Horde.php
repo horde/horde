@@ -117,7 +117,7 @@ class Horde
             $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
         }
 
-        if ($admin) {
+        if ($admin || $cli) {
             if ($error instanceof Exception) {
                 $trace = $error;
             } else {
