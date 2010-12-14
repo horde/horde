@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Class_Driver_PearTest
+class Horde_Kolab_Storage_Unit_Driver_PearTest
 extends PHPUnit_Framework_TestCase
 {
     public function setUp()
