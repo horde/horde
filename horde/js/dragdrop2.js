@@ -496,7 +496,7 @@ Drag = Class.create({
                 }
 
                 if (elt) {
-                    if (elt == this.ghost.elt) {
+                    if (this.ghost && (elt == this.ghost.elt)) {
                         return;
                     }
 
