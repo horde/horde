@@ -75,7 +75,7 @@ class Horde_Group_Mock extends Horde_Group {
      *
      * @throws Horde_Group_Exception
      */
-    public function addGroup($group)
+    public function addGroup(Horde_Group_DataTreeObject $group)
     {
         throw new Horde_Group_Exception('Unsupported.');
     }
@@ -87,7 +87,7 @@ class Horde_Group_Mock extends Horde_Group {
      *
      * @throws Horde_Group_Exception
      */
-    public function updateGroup($group)
+    public function updateGroup(Horde_Group_DataTreeObject $group)
     {
         throw new Horde_Group_Exception('Unsupported.');
     }
@@ -100,7 +100,8 @@ class Horde_Group_Mock extends Horde_Group {
      *
      * @throws Horde_Group_Exception
      */
-    public function removeGroup($group, $force = false)
+    public function removeGroup(Horde_Group_DataTreeObject $group,
+                                $force = false)
     {
         throw new Horde_Group_Exception('Unsupported.');
     }
