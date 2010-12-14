@@ -233,7 +233,7 @@ class IMP_Search_Query implements Serializable
             }
             array_pop($text);
 
-            return implode(' ', $text) . ' ' . _("in") . ' [' . implode(', ', $this->mboxes) . ']';
+            return implode(' ', $text) . ' ' . _("in") . ' [' . implode(', ', array_map(array('IMP', 'displayFolder'), $this->mboxes)) . ']';
         }
     }
 
