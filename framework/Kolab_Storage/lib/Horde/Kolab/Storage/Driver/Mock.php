@@ -29,6 +29,13 @@ class Horde_Kolab_Storage_Driver_Mock
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
+     * The data of the mailboxes.
+     *
+     * @var array
+     */
+    private $_data;
+
+    /**
      * The data of the mailbox currently opened
      *
      * @var array
@@ -43,6 +50,22 @@ extends Horde_Kolab_Storage_Driver_Base
     private $_mboxname = null;
 
     /**
+     * Constructor.
+     *
+     * @param array $params        Connection parameters.
+     */
+    public function __construct($params = array())
+    {
+        if (isset($params['data'])) {
+            $this->_data = $params['data'];
+            unset($params['data']);
+        } else {
+            $this->_data = array();
+        }
+        parent::__construct($params);
+    }
+
+    /**
      * Parse the folder name into an id for this mock driver.
      *
      * @return string The folder id.
@@ -50,7 +73,7 @@ extends Horde_Kolab_Storage_Driver_Base
     private function _parseFolder($folder)
     {
         if (substr($folder, 0, 5) == 'INBOX') {
-            $user = split('@', $this->_user);
+            $user = explode('@', $this->_user);
             return 'user/' . $user[0] . substr($folder, 5);
         }
         return $folder;
@@ -63,7 +86,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAuth()
     {
-        return $this->_imap->getParam('username');
+        return $this->getParam('user');
     }
 
     /**
@@ -73,7 +96,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
-        return $this->_imap->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
+        $user = explode('@', $this->getAuth());
+        $pattern = '#^user/' . $user[0] . '#';
+        $result = array();
+        foreach (array_keys($this->_data) as $mbox) {
+            $result[] = preg_replace($pattern, 'INBOX', $mbox);
+        }
+        return $result;
     }
 
     /**

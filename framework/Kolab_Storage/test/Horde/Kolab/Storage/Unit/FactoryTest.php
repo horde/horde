@@ -35,12 +35,50 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_Storage_Unit_FactoryTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function testConstruction()
+    public function testCreation()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $this->assertType(
             'Horde_Kolab_Storage_Base',
             $factory->create(new Horde_Kolab_Storage_Driver_Mock())
+        );
+    }
+
+    public function testCreationFromParams()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertType(
+            'Horde_Kolab_Storage_Base',
+            $factory->createFromParams(array('driver' => 'mock'))
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingDriver()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $factory->createDriverFromParams(array());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testInvalidDriver()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $factory->createDriverFromParams(array('driver' => 'something'));
+    }
+
+    public function testMockDriver()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertType(
+            'Horde_Kolab_Storage_Driver_Mock',
+            $factory->createDriverFromParams(
+                array('driver' => 'mock')
+            )
         );
     }
 }

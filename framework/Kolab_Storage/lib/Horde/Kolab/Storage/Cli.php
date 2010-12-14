@@ -55,6 +55,15 @@ class Horde_Kolab_Storage_Cli
         } else {
             switch ($arguments[0]) {
             case 'folder':
+                $factory = new Horde_Kolab_Storage_Factory();
+                var_dump(
+                    $factory->createFromParams(
+                        array(
+                            'driver' => $options['driver'],
+                            'params' => $options
+                        )
+                    )->listFolders()
+                );
                 break;
             default:
                 $parser->printHelp();
@@ -76,7 +85,24 @@ class Horde_Kolab_Storage_Cli
                 array(
                     'action' => 'store',
                     'choices' => array('horde', 'php', 'pear', 'roundcube', 'mock'),
-                    'help'   => Horde_Kolab_Storage_Translation::t('The IMAP driver that should be used')
+                    'help'   => Horde_Kolab_Storage_Translation::t(
+"The Kolab backend driver that should be used.
+Choices are:
+
+ - horde     [IMAP]: The Horde_Imap_Client driver
+ - php       [IMAP]: The PHP imap_* functions which are based on c-client
+ - pear      [IMAP]: The PEAR-Net_IMAP driver
+ - roundcube [IMAP]: The roundcube IMAP driver
+ - mock    [Memory]: A dummy driver."
+                    )
+                )
+            ),
+            new Horde_Argv_Option(
+                '-u',
+                '--user',
+                array(
+                    'action' => 'store',
+                    'help'   => Horde_Kolab_Storage_Translation::t('The user accessing the backend.')
                 )
             ),
         );

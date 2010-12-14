@@ -43,11 +43,24 @@ extends Horde_Kolab_Storage_TestCase
         $this->runCli();
     }
 
+    public function testUsage()
+    {
+        $_SERVER['argv'] = array(
+            'kolab-storage',
+            '--driver=mock',
+            '--user=test',
+            'DOESNOTEXISTS'
+        );
+        $this->assertContains('Usage:', $this->runCli());
+    }
+
     public function testFolderList()
     {
         $_SERVER['argv'] = array(
             'kolab-storage',
-            'list'
+            '--driver=mock',
+            '--user=test',
+            'folder'
         );
         $this->assertContains('INBOX', $this->runCli());
     }
