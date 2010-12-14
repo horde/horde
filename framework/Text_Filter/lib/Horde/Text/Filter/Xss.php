@@ -109,7 +109,14 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
             $meta->setAttribute('http-equiv', 'x-dns-prefetch-control');
             $meta->setAttribute('value-equiv', 'off');
 
-            $dom->dom->getElementsByTagName('head')->item(0)->appendChild($meta);
+            $head = $dom->dom->getElementsByTagName('head');
+            if ($head->length) {
+                $head->item(0)->appendChild($meta);
+            } else {
+                $headelt = $dom->dom->createElement('head');
+                $headelt->appendChild($meta);
+                $dom->dom->appendChild($headelt);
+            }
         }
 
         if ($this->_params['return_dom']) {
