@@ -228,13 +228,14 @@ class Jonah
 
     public static function listFeeds($owneronly = false, $permission = Horde_Perms::SHOW)
     {
-        if ($owneronly && !$GLOBALS['registry']->getAuth() {
+        if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
         try {
             $feeds = $GLOBALS['jonah_shares']->listShares(
                 $GLOBALS['registry']->getAuth(),
-                array('perm'=>$permission, 'attributes'=> $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                array('perm'=>$permission, 
+                'attributes'=> $owneronly ? $GLOBALS['registry']->getAuth() : null,
                 'sort_by' => 'name'));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
@@ -244,21 +245,32 @@ class Jonah
         return $feeds;
     }
 
+    public static function getFeed($feedId)
+    {
+        try {
+            $feed = $GLOBALS['jonah_shares']->getShareById($feedId);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            return array();
+        }
+        return $feed;
+    }
+
     public static function addFeed($info)
     {
         try {
-            $feed = $GLOBALS['jonah_shares']->newShare($GLOBALS['registry']->getAuth(), $info['slug']));
+            $feed = $GLOBALS['jonah_shares']->newShare($GLOBALS['registry']->getAuth(), $info['slug']);
             $feed->set('name', $info['name']);
             $feed->set('desc', $info['description']);
-            $feed->set('type', $info['type']);
-            $feed->set('full_feed', $info['full_feed']);
-            $feed->set('interval', $info['interval']);
+            $feed->set('type', (int)$info['type']);
+            $feed->set('full_feed', (int)$info['full_feed']);
+            $feed->set('interval', (int)$info['interval']);
             $feed->set('url', $info['url']);
             $feed->set('link', $info['link']);
             $feed->set('page_link', $info['page_link']);
             $feed->set('story_url', $info['story_url']);
             $feed->set('img', $info['img']);
-            $feed->set('updated', $info['updated']);
+            $feed->set('updated', (int)$info['updated']);
 
             $GLOBALS['jonah_shares']->addShare($feed);
         } catch (Horde_Share_Exception $e) {
@@ -289,7 +301,7 @@ class Jonah
         try {
             $feed->save();
         } catch (Horde_Share_Exception $e) {
-            throw new Jonah_Exception(_("Unable to save feed \"%s\": %s"), $info['name'], $e->getMessage()));
+            throw new Jonah_Exception(_("Unable to save feed \"%s\": %s"), $info['name'], $e->getMessage());
         }
     }
 

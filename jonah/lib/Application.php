@@ -35,7 +35,7 @@ class Jonah_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $GLOBALS['injector']->bindFactory('Jonah_Driver', 'Jonah_Injector_Factory_Driver', 'create');
+        $GLOBALS['jonah_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
             $url = Horde::url('delivery/rss.php', true, -1)
@@ -60,21 +60,8 @@ class Jonah_Application extends Horde_Registry_Application
             ),
             'news' => array(
                 'title' => _("News")
-            ),
-            'news:channels' => array(
-                'title' => _("Channels")
             )
         );
-
-        /* Loop through internal channels and add them to the perms
-         * titles. */
-        $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
-
-        foreach ($channels as $channel) {
-            $perms['news:channels:' . $channel['channel_id']] = array(
-                'title' => $channel['channel_name']
-            );
-        }
 
         return $perms;
     }
@@ -105,8 +92,7 @@ class Jonah_Application extends Horde_Registry_Application
             }
         }
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
-            $news = $GLOBALS['injector']->getInstance('Jonah_Driver');
-            $channel = $news->getChannel($channel_id);
+            $channel = Jonah::getShare($channel_id);
             if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL &&
                 Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
                 $menu->addArray(array(
@@ -138,28 +124,26 @@ class Jonah_Application extends Horde_Registry_Application
         }
 
         $url = Horde::url('stories/');
-        $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
 
         try {
-            $channels = $driver->getChannels('internal');
+            $channels = Jonah::listFeeds();
         } catch (Jonah_Exception $e) {
             var_dump($e);
             return;
         }
 
-        $channels = Jonah::checkPermissions('channels', Horde_Perms::SHOW, $channels);
         $story_img = Horde_Themes::img('editstory.png');
 
         foreach ($channels as $channel) {
             $tree->addNode(
-                $parent . $channel['channel_id'],
+                $parent . $channel->getId(),
                 $parent,
-                $channel['channel_name'],
+                $channel->getName(),
                 1,
                 false,
                 array(
                     'icon' => $story_img,
-                    'url' => $url->add('channel_id', $channel['channel_id'])
+                    'url' => $url->add('channel_id', $channel->getId())
                 )
             );
         }
