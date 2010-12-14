@@ -13,3 +13,5 @@
  - Check how we deal with malformed XML data
 
  - KEP2
+
+ - Remove translations or should we keep them for Cli?

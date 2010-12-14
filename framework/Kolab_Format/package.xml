@@ -430,6 +430,9 @@
     <name>Translation</name>
     <channel>pear.horde.org</channel>
    </package>
+   <extension>
+    <name>libxml</name>
+   </extension>
   </required>
   <optional>
    <package>
