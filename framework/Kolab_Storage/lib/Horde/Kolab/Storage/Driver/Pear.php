@@ -44,11 +44,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function __construct(
         Net_IMAP $imap,
-        Horde_Group $groups,
         $params = array()
     ) {
         $this->_imap = $imap;
-        parent::__construct($groups, $params);
+        parent::__construct($params);
     }
 
     /**

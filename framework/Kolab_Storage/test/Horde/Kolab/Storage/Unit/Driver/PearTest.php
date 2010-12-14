@@ -35,16 +35,10 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Kolab_Storage_Unit_Driver_PearTest
 extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        $this->group = new Horde_Group_Mock();
-    }
-
     public function testGetNamespaceReturnsNamespaceHandler()
     {
         $driver = new Horde_Kolab_Storage_Driver_Pear(
             $this->_getNamespaceMock(),
-            $this->group,
             array()
         );
         $this->assertType(
@@ -57,7 +51,6 @@ extends PHPUnit_Framework_TestCase
     {
         $driver = new Horde_Kolab_Storage_Driver_Pear(
             $this->_getNamespaceMock(),
-            $this->group,
             array()
         );
         $namespaces = array();

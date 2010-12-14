@@ -36,8 +36,7 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
     {
         $this->_storage = $this->getMock('Horde_Kolab_Storage', array(), array(), '', false, false);
         $this->_imap = $this->getMock('Horde_Imap_Client_Socket', array(), array(), '', false, false);
-        $this->groups = $this->getMock('Horde_Group', array(), array(), '', false, false);
-        $this->_connection = new Horde_Kolab_Storage_Driver_Imap($this->_imap, $this->groups);
+        $this->_connection = new Horde_Kolab_Storage_Driver_Imap($this->_imap);
         $this->_imap->expects($this->any())
             ->method('getNamespaces')
             ->will(

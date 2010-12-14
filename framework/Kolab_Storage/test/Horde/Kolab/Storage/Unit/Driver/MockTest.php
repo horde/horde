@@ -35,11 +35,6 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Kolab_Storage_Unit_Driver_MockTest
 extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        $this->group = new Horde_Group_Mock();
-    }
-
     public function testGetAnnotationReturnsAnnotationValue()
     {
         $this->markTestIncomplete();
@@ -47,7 +42,6 @@ extends PHPUnit_Framework_TestCase
         $data = array();
         $data['INBOX/Contacts']['annotations']['/vendor/kolab/folder-type']['value.shared'] = 'contact.default';
         $driver = new Horde_Kolab_Storage_Driver_Mock(
-            $this->group,
             $data
         );
         $this->assertEquals(
@@ -59,7 +53,6 @@ extends PHPUnit_Framework_TestCase
     public function testGetNamespaceReturnsNamespaceHandler()
     {
         $driver = new Horde_Kolab_Storage_Driver_Mock(
-            $this->group,
             array()
         );
         $this->assertType(
@@ -71,7 +64,6 @@ extends PHPUnit_Framework_TestCase
     public function testGetNamespaceReturnsExpectedNamespaces()
     {
         $driver = new Horde_Kolab_Storage_Driver_Mock(
-            $this->group,
             array()
         );
         $namespaces = array();

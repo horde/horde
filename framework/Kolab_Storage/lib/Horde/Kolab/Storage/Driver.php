@@ -222,11 +222,4 @@ interface Horde_Kolab_Storage_Driver
      * @return Horde_Kolab_Storage_Driver_Namespace The initialized namespace handler.
      */
     public function getNamespace();
-
-    /**
-     * Get the group handler for this connection.
-     *
-     * @return Horde_Group The group handler.
-     */
-    public function getGroupHandler();
 }

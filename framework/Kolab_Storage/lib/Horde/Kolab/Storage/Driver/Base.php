@@ -29,13 +29,6 @@ abstract class Horde_Kolab_Storage_Driver_Base
 implements Horde_Kolab_Storage_Driver
 {
     /**
-     * The group handler for this connection.
-     *
-     * @var Horde_Group
-     */
-    private $_groups;
-
-    /**
      * Additional connection parameters.
      *
      * @var array
@@ -45,12 +38,10 @@ implements Horde_Kolab_Storage_Driver
     /**
      * Constructor.
      *
-     * @param Horde_Group $groups  The groups handler.
      * @param array $params        Connection parameters.
      */
-    public function __construct(Horde_Group $groups, $params = array())
+    public function __construct($params = array())
     {
-        $this->_groups = $groups;
         $this->_params = $params;
     }
 
@@ -81,15 +72,4 @@ implements Horde_Kolab_Storage_Driver
         }
         return new Horde_Kolab_Storage_Driver_Namespace_Fixed();
     }
-
-    /**
-     * Get the group handler for this connection.
-     *
-     * @return Horde_Group The group handler.
-     */
-    public function getGroupHandler()
-    {
-        return $this->_groups;
-    }
-
 }

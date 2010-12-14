@@ -29,23 +29,6 @@ class Horde_Kolab_Storage_Driver_Cclient
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
-     * The group handler for this connection.
-     *
-     * @var Horde_Group
-     */
-    private $_groups;
-
-    /**
-     * Constructor.
-     *
-     * @param array  $params Connection parameters.
-     */
-    public function __construct(Horde_Group $groups)
-    {
-        $this->_groups = $groups;
-    }
-
-    /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the IMAP connection.
