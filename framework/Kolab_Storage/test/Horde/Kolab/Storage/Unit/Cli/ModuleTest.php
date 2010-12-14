@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the CLI interface.
+ * Test the modules of the CLI interface.
  *
  * PHP version 5
  *
@@ -15,10 +15,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
- * Test the CLI interface.
+ * Test the modules of the CLI interface.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -32,23 +32,17 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_CliTest
+class Horde_Kolab_Storage_Unit_Cli_ModuleTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function testCli()
+    public function testFolderModule()
     {
         $_SERVER['argv'] = array(
             'kolab-storage'
         );
-        $this->runCli();
-    }
-
-    public function testFolderList()
-    {
-        $_SERVER['argv'] = array(
-            'kolab-storage',
-            'list'
+        $this->assertRegExp(
+            '/folder - Handle folders/',
+            $this->runCli()
         );
-        $this->assertContains('INBOX', $this->runCli());
     }
 }

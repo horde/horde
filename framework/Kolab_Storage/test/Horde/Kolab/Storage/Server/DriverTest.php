@@ -42,7 +42,7 @@ class Horde_Kolab_Storage_Server_DriverTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if ($this->sharedFixture === null) {
+        if (!isset($this->sharedFixture)) {
             $this->markTestSkipped('Testing of a running server skipped. No configuration fixture available.');
             return;
         }

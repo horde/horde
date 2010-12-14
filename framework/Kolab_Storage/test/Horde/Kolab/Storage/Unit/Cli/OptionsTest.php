@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the CLI interface.
+ * Test the options of the CLI interface.
  *
  * PHP version 5
  *
@@ -15,10 +15,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
- * Test the CLI interface.
+ * Test the options of the CLI interface.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -32,23 +32,28 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_CliTest
+class Horde_Kolab_Storage_Unit_Cli_OptionsTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function testCli()
+    public function testOptionHelp()
     {
         $_SERVER['argv'] = array(
             'kolab-storage'
         );
-        $this->runCli();
+        $this->assertRegExp(
+            '/-h,[ ]*--help[ ]*show this help message and exit/',
+            $this->runCli()
+        );
     }
 
-    public function testFolderList()
+    public function testOptionDriver()
     {
         $_SERVER['argv'] = array(
-            'kolab-storage',
-            'list'
+            'kolab-storage'
         );
-        $this->assertContains('INBOX', $this->runCli());
+        $this->assertRegExp(
+            '/-d[ ]*DRIVER,[ ]*--driver=DRIVER/',
+            $this->runCli()
+        );
     }
 }

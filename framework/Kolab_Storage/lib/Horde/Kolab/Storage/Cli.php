@@ -50,7 +50,16 @@ class Horde_Kolab_Storage_Cli
             $cli = $parameters['output'];
         }
         list($options, $arguments) = $parser->parseArgs();
-        $cli->message('OK');
+        if (count($arguments) == 0) {
+            $parser->printHelp();
+        } else {
+            switch ($arguments[0]) {
+            case 'folder':
+                break;
+            default:
+                $parser->printHelp();
+            }
+        }
     }
 
     static private function _prepareParser(array $parameters = array())
@@ -60,9 +69,28 @@ class Horde_Kolab_Storage_Cli
         } else {
             $parser_class = $parameters['parser']['class'];
         }
+        $options = array(
+            new Horde_Argv_Option(
+                '-d',
+                '--driver',
+                array(
+                    'action' => 'store',
+                    'choices' => array('horde', 'php', 'pear', 'roundcube', 'mock'),
+                    'help'   => Horde_Kolab_Storage_Translation::t('The IMAP driver that should be used')
+                )
+            ),
+        );
+        $usage = Horde_Kolab_Storage_Translation::t(
+            "[options] MODULE ACTION\nPossible MODULEs and ACTIONs:
+
+  folder - Handle folders.
+    list [default] - List the folders
+"
+        );
         return new $parser_class(
             array(
-                'usage' => '%prog ' . _("[options]")
+                'usage' => '%prog ' . $usage,
+                'optionList' => $options
             )
         );
     }
