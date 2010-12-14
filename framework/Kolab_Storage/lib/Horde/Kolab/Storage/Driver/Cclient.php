@@ -29,23 +29,134 @@ class Horde_Kolab_Storage_Driver_Cclient
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
+     * IMAP resource.
+     *
+     * @var resource
+     */
+    private $_imap;
+
+    /**
+     * Server name.
+     *
+     * @var string
+     */
+    private $_host;
+
+    /**
+     * Basic IMAP connection string.
+     *
+     * @var string
+     */
+    private $_base_mbox;
+
+    /**
+     * Lazy connect to the IMAP server.
+     *
+     * @return resource The IMAP connection.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the connection failed.
+     */
+    private function _getImap()
+    {
+        if (!isset($this->_imap)) {
+            $result = @imap_open(
+                $this->_getBaseMbox(),
+                $this->getParam('username'),
+                $this->getParam('password'),
+                OP_HALFOPEN
+            );
+            if (!$result) {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        Horde_Kolab_Storage_Translation::t(
+                            "Connecting to server %s failed. Error: %s"
+                        ),
+                        $this->_getHost(),
+                        @imap_last_error()
+                    )
+                );
+            }
+            $this->_imap = $result;
+        }
+        return $this->_imap;
+    }
+
+    /**
+     * Return the root mailbox of the current user.
+     *
+     * @return string The id of the user that opened the IMAP connection.
+     */
+    private function _getBaseMbox()
+    {
+        if (!isset($this->_base_mbox)) {
+            $this->_base_mbox = '{' . $this->_getHost() . ':143/notls}';
+        }
+        return $this->_base_mbox;
+    }
+
+    /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the IMAP connection.
      */
     public function getAuth()
     {
-        return $this->_imap->getParam('username');
+        return $this->getParam('username');
+    }
+
+    /**
+     * Return the root mailbox of the current user.
+     *
+     * @return string The id of the user that opened the IMAP connection.
+     */
+    private function _getHost()
+    {
+        if (!isset($this->_host)) {
+            $this->_host = $this->getParam('host');
+            if (empty($this->_host)) {
+                throw new Horde_Kolab_Storage_Exception(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Missing \"host\" parameter!"
+                    )
+                );
+            }
+        }
+        return $this->_host;
     }
 
     /**
      * Retrieves a list of mailboxes on the server.
      *
      * @return array The list of mailboxes.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case listing the folders failed.
      */
     public function getMailboxes()
     {
-        return $this->_imap->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
+        $folders = array();
+
+        $result = @imap_list($this->_getImap(), $this->_getBaseMbox(), '*');
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Listing folders for %s failed. Error: %s"
+                    ),
+                    $this->_getBaseMbox(),
+                    @imap_last_error()
+                )
+            );
+        }
+
+        $root = $this->_getBaseMbox();
+        $server_len = strlen($root);
+        foreach ($result as $folder) {
+            if (substr($folder, 0, $server_len) == $root) {
+                $folders[] = substr($folder, $server_len);
+            }
+        }
+
+        return $folders;
     }
 
     /**

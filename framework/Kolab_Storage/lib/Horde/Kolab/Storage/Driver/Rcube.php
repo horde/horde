@@ -1,6 +1,6 @@
 <?php
 /**
- * An PEAR-Net_Imap based Kolab storage driver.
+ * A Roundcube Imap based Kolab storage driver.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * An PEAR-Net_Imap based Kolab storage driver.
+ * A Roundcube Imap based Kolab storage driver.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -25,24 +25,24 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Driver_Pear
+class Horde_Kolab_Storage_Driver_Rcube
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
      * The IMAP client.
      *
-     * @var Net_IMAP
+     * @var rcube_imap_generic
      */
     private $_imap;
 
     /**
      * Constructor.
      *
-     * @param Net_IMAP $imap      The IMAP connection handler.
-     * @param array $params        Connection parameters.
+     * @param rcube_imap_generic $imap   The IMAP connection handler.
+     * @param array              $params Connection parameters.
      */
     public function __construct(
-        Net_IMAP $imap,
+        rcube_imap_generic $imap,
         $params = array()
     ) {
         $this->_imap = $imap;
@@ -66,7 +66,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
-        return $this->_imap->getMailboxes();
+        return $this->_imap->listMailboxes('', '*');
     }
 
     /**

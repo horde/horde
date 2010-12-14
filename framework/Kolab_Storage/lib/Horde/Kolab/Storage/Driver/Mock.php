@@ -52,7 +52,7 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Constructor.
      *
-     * @param array $params        Connection parameters.
+     * @param array $params Connection parameters.
      */
     public function __construct($params = array())
     {
@@ -86,7 +86,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAuth()
     {
-        return $this->getParam('user');
+        return $this->getParam('username');
     }
 
     /**

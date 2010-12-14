@@ -85,7 +85,7 @@ class Horde_Kolab_Storage_Factory
             );
         }
         if (isset($params['params'])) {
-            $config = $params['params'];
+            $config = (array) $params['params'];
         } else {
             $config = array();
         }
@@ -93,11 +93,52 @@ class Horde_Kolab_Storage_Factory
         case 'mock':
             $config['data'] = array('user/test' => array());
             return new Horde_Kolab_Storage_Driver_Mock($config);
+        case 'horde':
+            $config['hostspec'] = $config['host'];
+            unset($config['host']);
+            return new Horde_Kolab_Storage_Driver_Imap(
+                new Horde_Imap_Client_Socket(
+                    $config
+                )
+            );
+        case 'horde-php':
+            $config['hostspec'] = $config['host'];
+            unset($config['host']);
+            return new Horde_Kolab_Storage_Driver_Imap(
+                new Horde_Imap_Client_Cclient(
+                    $config
+                )
+            );
+        case 'php':
+            return new Horde_Kolab_Storage_Driver_Cclient($config);
+        case 'pear':
+            $client = new Net_IMAP($config['host']);
+            Horde_Kolab_Storage_Exception_Pear::catchError(
+                $client->login($config['username'], $config['password'])
+            );
+            return new Horde_Kolab_Storage_Driver_Pear(
+                $client, $config
+            );
+        case 'roundcube':
+            $client = new rcube_imap_generic();
+            $client->connect(
+                $config['host'], $config['username'], $config['password'],
+                array(
+                    'debug_mode' => false,
+                    'ssl_mode' => false,
+                    'port' => 143,
+                    'timeout' => 0,
+                    'force_caps' => false,
+                )
+            );
+            return new Horde_Kolab_Storage_Driver_Rcube(
+                $client, $config
+            );
         default:
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        'Invalid "driver" parameter "%s". Please use one of "mock", "php", "pear", "horde", "horde-socket", and "roundcube"!'
+                        'Invalid "driver" parameter "%s". Please use one of "mock", "php", "pear", "horde", "horde-php", and "roundcube"!'
                     ),
                     $params['driver']
                 )

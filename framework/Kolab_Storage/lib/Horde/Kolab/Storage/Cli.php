@@ -84,12 +84,13 @@ class Horde_Kolab_Storage_Cli
                 '--driver',
                 array(
                     'action' => 'store',
-                    'choices' => array('horde', 'php', 'pear', 'roundcube', 'mock'),
+                    'choices' => array('horde', 'horde-php', 'php', 'pear', 'roundcube', 'mock'),
                     'help'   => Horde_Kolab_Storage_Translation::t(
 "The Kolab backend driver that should be used.
 Choices are:
 
- - horde     [IMAP]: The Horde_Imap_Client driver
+ - horde     [IMAP]: The Horde_Imap_Client driver as pure PHP implementation.
+ - horde-php [IMAP]: The Horde_Imap_Client driver based on c-client in PHP
  - php       [IMAP]: The PHP imap_* functions which are based on c-client
  - pear      [IMAP]: The PEAR-Net_IMAP driver
  - roundcube [IMAP]: The roundcube IMAP driver
@@ -99,7 +100,7 @@ Choices are:
             ),
             new Horde_Argv_Option(
                 '-u',
-                '--user',
+                '--username',
                 array(
                     'action' => 'store',
                     'help'   => Horde_Kolab_Storage_Translation::t('The user accessing the backend.')
@@ -107,7 +108,7 @@ Choices are:
             ),
             new Horde_Argv_Option(
                 '-p',
-                '--pass',
+                '--password',
                 array(
                     'action' => 'store',
                     'help'   => Horde_Kolab_Storage_Translation::t('The password of the user accessing the backend.')

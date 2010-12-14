@@ -63,7 +63,7 @@ extends Horde_Kolab_Storage_TestCase
             'kolab-storage'
         );
         $this->assertRegExp(
-            '/-u[ ]*USER,[ ]*--user=USER/',
+            '/-u[ ]*USERNAME,[ ]*--username=USERNAME/',
             $this->runCli()
         );
     }
@@ -74,7 +74,7 @@ extends Horde_Kolab_Storage_TestCase
             'kolab-storage'
         );
         $this->assertRegExp(
-            '/-p[ ]*PASS,[ ]*--pass=PASS/',
+            '/-p[ ]*PASSWORD,[ ]*--password=PASSWORD/',
             $this->runCli()
         );
     }

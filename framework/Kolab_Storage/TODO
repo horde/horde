@@ -13,3 +13,15 @@
    - getNamespace() [DONE]
 
  - replace imap_rfc822 use by Horde_Mail_Rfc822
+
+ - allow cli config file overriden by cli params
+
+ - performance tuning for the whole caching
+
+ - support cache searches in a better way
+
+ - Allow just any cache backend
+
+ - Evaluate redis as caching backend
+
+ - Allow storage of client information in the cache
