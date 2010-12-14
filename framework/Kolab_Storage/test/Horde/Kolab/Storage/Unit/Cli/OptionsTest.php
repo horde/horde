@@ -56,4 +56,37 @@ extends Horde_Kolab_Storage_TestCase
             $this->runCli()
         );
     }
+
+    public function testOptionUser()
+    {
+        $_SERVER['argv'] = array(
+            'kolab-storage'
+        );
+        $this->assertRegExp(
+            '/-u[ ]*USER,[ ]*--user=USER/',
+            $this->runCli()
+        );
+    }
+
+    public function testOptionPass()
+    {
+        $_SERVER['argv'] = array(
+            'kolab-storage'
+        );
+        $this->assertRegExp(
+            '/-p[ ]*PASS,[ ]*--pass=PASS/',
+            $this->runCli()
+        );
+    }
+
+    public function testOptionHost()
+    {
+        $_SERVER['argv'] = array(
+            'kolab-storage'
+        );
+        $this->assertRegExp(
+            '/-H[ ]*HOST,[ ]*--host=HOST/',
+            $this->runCli()
+        );
+    }
 }

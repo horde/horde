@@ -105,6 +105,22 @@ Choices are:
                     'help'   => Horde_Kolab_Storage_Translation::t('The user accessing the backend.')
                 )
             ),
+            new Horde_Argv_Option(
+                '-p',
+                '--pass',
+                array(
+                    'action' => 'store',
+                    'help'   => Horde_Kolab_Storage_Translation::t('The password of the user accessing the backend.')
+                )
+            ),
+            new Horde_Argv_Option(
+                '-H',
+                '--host',
+                array(
+                    'action' => 'store',
+                    'help'   => Horde_Kolab_Storage_Translation::t('The host that holds the data.')
+                )
+            ),
         );
         $usage = Horde_Kolab_Storage_Translation::t(
             "[options] MODULE ACTION\nPossible MODULEs and ACTIONs:
