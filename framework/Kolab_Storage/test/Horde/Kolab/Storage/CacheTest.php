@@ -34,7 +34,7 @@ class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->cache = new Horde_Cache_Mock();
+        $this->cache = new Horde_Cache_Storage_Mock();
     }
 
     /**
