@@ -86,7 +86,7 @@ if (!class_exists($classname)) {
 $test_ob = new $classname();
 
 /* Register a session. */
-if (!$session->exists('horde', 'test_count')) {
+if ($session && !$session->exists('horde', 'test_count')) {
     $session->set('horde', 'test_count', 0);
 }
 
@@ -94,7 +94,7 @@ if (!$session->exists('horde', 'test_count')) {
 $test_templates = HORDE_TEMPLATES . '/test';
 
 /* Self URL. */
-$url = Horde::selfUrl();
+$url = Horde::url('test.php');
 $self_url = $url->copy()->add('app', $app);
 
 /* Handle special modes. */
