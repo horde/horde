@@ -148,7 +148,15 @@ class IMP_Views_ListMessages
             }
 
             /* Generate flag array. */
-            $md->flags = array_keys($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('imap' => true, 'mailbox' => $is_search ? null : $mbox)));
+            $flaglist = $GLOBALS['injector']->getInstance('IMP_Flags')->getList(array(
+                'imap' => true,
+                'mailbox' => $is_search ? null : $mbox
+            ));
+
+            $md->flags = array();
+            foreach ($flaglist as $val) {
+                $md->flags[] = $val->imapflag;
+            }
         }
 
         /* The search query may have changed. */
@@ -423,7 +431,7 @@ class IMP_Views_ListMessages
                 }
             }
 
-            $flag_parse = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->parse(array(
+            $flag_parse = $GLOBALS['injector']->getInstance('IMP_Flags')->parse(array(
                 'flags' => $ob['flags'],
                 'headers' => $ob['headers'],
                 'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $charset))
@@ -432,7 +440,7 @@ class IMP_Views_ListMessages
             if (!empty($flag_parse)) {
                 $msg['flag'] = array();
                 foreach ($flag_parse as $val) {
-                    $msg['flag'][] = $val['flag'];
+                    $msg['flag'][] = $val->id;
                 }
             }
 

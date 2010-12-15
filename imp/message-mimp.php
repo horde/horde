@@ -217,20 +217,16 @@ if (!empty($msgAddresses)) {
     }
 }
 
-$flag_parse = $injector->getInstance('IMP_Imap_Flags')->parse(array(
+$flag_parse = $injector->getInstance('IMP_Flags')->parse(array(
     'flags' => $flags,
     'personal' => $match_identity
 ));
 
 foreach ($flag_parse as $val) {
-    if (isset($val['abbrev'])) {
-        $status .= $val['abbrev'];
-    } elseif ($val['type'] == 'imapp') {
-        if (Horde_String::length($val['label']) > 8) {
-            $status .= ' *' . Horde_String::substr($val['label'], 0, 5) . '...*';
-        } else {
-            $status .= ' *' . $val['label'] . '*';
-        }
+    if ($abbrev = $val->abbreviation) {
+        $status .= $abbrev;
+    } elseif ($val instanceof IMP_Flag_User) {
+        $status .= ' *' . Horde_String::truncate($val->label, 8) . '*';
     }
 }
 

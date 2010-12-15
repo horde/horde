@@ -132,13 +132,32 @@ class IMP_Indices implements Countable, Iterator
     /**
      * Returns mailbox/UID information for the first index.
      *
-     * @return array  A 2-element array with the mailbox and the UID.
+     * @return boolean $all  If true, returns all UIDs for the first index
+     *                       in an array. If false, returns the first UID for
+     *                       the first index as a string.
+     *
+     * @return array  A 2-element array with the mailbox and the UID(s).
      */
-    public function getSingle()
+    public function getSingle($all = false)
     {
         $val = reset($this->_indices);
-        return array(key($this->_indices), reset($val));
+        return array(key($this->_indices), $all ? $val : reset($val));
     }
+
+    /**
+     * Return a copy of the indices array.
+     *
+     * @return array  The indices array (keys are mailbox names, values are
+     *                arrays of UIDS).
+     */
+    public function indices()
+    {
+        /* This creates a copy of the indices array. Needed because the
+         * Iterator functions rely on pointers. */
+        return $this->_indices;
+    }
+
+    /* Countable methods. */
 
     /**
      * Index count.
@@ -154,19 +173,6 @@ class IMP_Indices implements Countable, Iterator
         }
 
         return $count;
-    }
-
-    /**
-     * Return a copy of the indices array.
-     *
-     * @return array  The indices array (keys are mailbox names, values are
-     *                arrays of UIDS).
-     */
-    public function indices()
-    {
-        /* This creates a copy of the indices array. Needed because the
-         * Iterator functions rely on pointers. */
-        return $this->_indices;
     }
 
     /* Magic methods. */

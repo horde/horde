@@ -41,6 +41,9 @@ div.msgflags.flagEncryptmsg {
 div.msgflags.flagAttachmsg {
     background-image: url("graphics/attachment.png");
 }
+span.iconImg.flagSeen {
+    background-image: url("graphics/mail_seen.png");
+}
 div.msgflags.flagUnseen, span.iconImg.flagUnseen {
     background-image: url("graphics/mail_unseen.png");
 }

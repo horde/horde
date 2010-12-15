@@ -35,17 +35,19 @@ foreach (iterator_to_array($imp_search) as $key => $val) {
 }
 
 /* Generate flag array. */
-foreach ($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('fgcolor' => true)) as $val) {
-    $flags[$val['flag']] = array_filter(array(
-        'b' => isset($val['b']) ? $val['b'] : null,
-        'c' => $val['c'],
-        'f' => $val['f'],
-        'l' => $val['l'],
-        'n' => isset($val['n']) ? $val['n'] : null,
-        // Indicate if this is a user *P*ref flag
-        'p' => intval($val['t'] == 'imapp'),
-        // Indicate if this is a flag that can be *S*earched for
-        's' => intval(in_array($val['t'], array('imapp', 'imapu')))
+foreach ($GLOBALS['injector']->getInstance('IMP_Flags')->getList() as $val) {
+    $flags[$val->id] = array_filter(array(
+        // Indicate a flag that can be *a*ltered
+        'a' => $val->canset,
+        'b' => $val->bgdefault ? null : $val->bgcolor,
+        'c' => $val->css,
+        'f' => $val->fgcolor,
+        'i' => $val->css ? null : $val->cssicon,
+        'l' => $val->label,
+        // Indicate a flag that can be *s*earched for
+        's' => intval($val instanceof IMP_Flag_Imap),
+        // Indicate a *u*ser flag
+        'u' => intval($val instanceof IMP_Flag_User)
     ));
 }
 

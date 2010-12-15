@@ -471,7 +471,7 @@ var DimpCore = {
 
     reloadMessage: function(params)
     {
-        if (typeof DimpFullmessage != 'undefined') {
+        if (typeof DimpMessage != 'undefined') {
             window.location = this.addURLParam(document.location.href, params);
         } else {
             DimpBase.loadPreview(null, params);

@@ -316,7 +316,6 @@ var DimpBase = {
     // r = ViewPort row data
     msgWindow: function(r)
     {
-        this.updateSeenUID(r, 1);
         var url = DIMP.conf.URI_MESSAGE;
         url += (url.include('?') ? '&' : '?') +
                $H({ folder: r.view,
@@ -414,7 +413,7 @@ var DimpBase = {
                 if (r.flag) {
                     r.flag.each(function(a) {
                         var ptr = DIMP.conf.flags[a];
-                        if (ptr.p) {
+                        if (ptr.u) {
                             if (!ptr.elt) {
                                 /* Until text-overflow is supported on all
                                  * browsers, need to truncate label text
@@ -423,12 +422,14 @@ var DimpBase = {
                             }
                             r.subjectdata += ptr.elt;
                         } else {
-                            if (!ptr.elt) {
-                                ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
-                            }
-                            r.status += ptr.elt;
+                            if (ptr.c) {
+                                if (!ptr.elt) {
+                                    ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
+                                }
+                                r.status += ptr.elt;
 
-                            r.VP_bg.push(ptr.c);
+                                r.VP_bg.push(ptr.c);
+                            }
 
                             if (ptr.b) {
                                 bg = ptr.b;
@@ -505,7 +506,7 @@ var DimpBase = {
                     } else if (this.search.flag) {
                         p.update({
                             qsearchflag: this.search.flag,
-                            qsearchflagnot: Number(this.convertFlag(this.search.flag, this.search.not))
+                            qsearchflagnot: Number(this.search.not)
                         });
                     } else {
                         p.set('qsearch', $F('qsearch_input'));
@@ -675,6 +676,8 @@ var DimpBase = {
                 $('ctx_flag').childElements().each(function(c) {
                     [ c ].invoke(flags.include(c.retrieve('flag')) ? 'show' : 'hide');
                 });
+            } else {
+                $('ctx_flag').childElements().invoke('show');
             }
         }.bindAsEventListener(this));
 
@@ -780,7 +783,11 @@ var DimpBase = {
 
         case 'ctx_folder_seen':
         case 'ctx_folder_unseen':
-            this.flagAll('\\seen', id == 'ctx_folder_seen', e.findElement('LI').retrieve('mbox'));
+            DimpCore.doAction('flagAll', {
+                add: Number(id == 'ctx_folder_seen'),
+                flags: Object.toJSON([ '\\seen' ]),
+                mbox: e.findElement('LI').retrieve('mbox')
+            });
             break;
 
         case 'ctx_folder_poll':
@@ -944,7 +951,7 @@ var DimpBase = {
                 this.go('folder:' + DIMP.conf.fsearchid);
             } else if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
                 flag = elt.retrieve('flag');
-                this.flag(flag, this.convertFlag(flag, menu.endsWith('_setflag')));
+                this.flag(flag, menu.endsWith('_setflag'));
             } else if (menu.endsWith('_flag') || menu.endsWith('_flagnot')) {
                 this.search = {
                     flag: elt.retrieve('flag'),
@@ -1072,18 +1079,18 @@ var DimpBase = {
         a.store('filter', filter);
     },
 
-    contextAddFlag: function(flag, f)
+    contextAddFlag: function(flag, f, id)
     {
         var a = new Element('A'),
             style = {};
 
-        if (f.p) {
+        if (f.u) {
             style.backgroundColor = f.b.escapeHTML();
         }
 
-        $('ctx_flag').insert(
+        $(id).insert(
             a.insert(
-                new Element('SPAN', { className: 'iconImg' }).addClassName(f.c.escapeHTML()).setStyle(style)
+                new Element('SPAN', { className: 'iconImg' }).addClassName(f.i ? f.i.escapeHTML() : f.c.escapeHTML()).setStyle(style)
             ).insert(
                 f.l.escapeHTML()
             )
@@ -1235,12 +1242,6 @@ var DimpBase = {
             pp_uid = this._getPPId(data.imapuid, data.view);
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
-                  // There is a chance that the message may have been marked
-                  // as unseen since first being viewed. If so, we need to
-                  // explicitly flag as seen here. TODO?
-                if (!this.hasFlag('\\seen', data)) {
-                    this.flag('\\seen', true);
-                }
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
         }
@@ -1252,21 +1253,13 @@ var DimpBase = {
 
     _loadPreviewCallback: function(resp)
     {
-        var bg, ppuid, row, search, tmp,
+        var bg, ppuid, tmp, vs,
             pm = $('previewMsg'),
             r = resp.response.preview,
             t = $('msgHeadersContent').down('THEAD');
 
         bg = (this.pp &&
               (this.pp.imapuid != r.uid || this.pp.view != r.mailbox));
-
-        if (!r.error) {
-            search = this.viewport.getSelection().search({ imapuid: { equal: [ r.uid ] }, view: { equal: [ r.mailbox ] } });
-            if (search.size()) {
-                row = search.get('dataob').first();
-                this.updateSeenUID(row, 1);
-            }
-        }
 
         if (r.error || this.viewport.getSelected().size() != 1) {
             if (!bg) {
@@ -1277,6 +1270,8 @@ var DimpBase = {
             }
             return;
         }
+
+        vs = this.viewport.getSelection();
 
         // Store in cache.
         ppuid = this._getPPId(r.uid, r.mailbox);
@@ -1329,7 +1324,7 @@ var DimpBase = {
         }
 
         // Toggle resume link
-        [ $('msg_resume_draft').up() ].invoke(this.viewport.getSelection().get('dataob').first().draft ? 'show' : 'hide');
+        [ $('msg_resume_draft').up() ].invoke(vs.get('dataob').first().draft ? 'show' : 'hide');
 
         $('messageBody').update(r.msgtext);
         this.loadingImg('msg', false);
@@ -1341,7 +1336,7 @@ var DimpBase = {
             eval(r.js.join(';'));
         }
 
-        this.setHash('msg:' + row.view + ':' + row.imapuid);
+        this.setHash('msg:' + r.mailbox + ':' + r.uid);
     },
 
     _stripAttachmentCallback: function(r)
@@ -1451,25 +1446,6 @@ var DimpBase = {
     _getPPId: function(uid, mailbox)
     {
         return uid + '|' + mailbox;
-    },
-
-    // Labeling functions
-    updateSeenUID: function(r, setflag)
-    {
-        var isunseen = !this.hasFlag('\\seen', r),
-            sel, unseen;
-
-        if ((setflag && !isunseen) || (!setflag && isunseen)) {
-            return false;
-        }
-
-        sel = this.viewport.createSelection('dataob', r);
-        unseen = this.getUnseenCount(r.view);
-
-        unseen += setflag ? -1 : 1;
-        this.updateFlag(sel, '\\seen', setflag);
-
-        this.updateUnseenStatus(r.view, unseen);
     },
 
     // mbox = (string)
@@ -2446,12 +2422,27 @@ var DimpBase = {
         }
     },
 
-    _flagAllCallback: function(r)
+    flagCallback: function(r)
     {
-        if (r.response &&
-            r.response.mbox == this.folder) {
-            r.response.flags.each(function(f) {
-                this.updateFlag(this.viewport.createSelectionBuffer(), f, r.response.set);
+        if (!r.flag ||
+            r.flag.mbox != this.folder) {
+            return;
+        }
+
+        var f = r.flag,
+            sb = f.uids
+                ? this.viewport.createSelection('uid', DimpCore.parseRangeString(f.uids)[f.mbox])
+                : this.viewport.createSelectionBuffer();
+
+        if (f.add) {
+            f.add.each(function(f) {
+                this.updateFlag(sb, f, true);
+            }, this);
+        }
+
+        if (f.remove) {
+            f.remove.each(function(f) {
+                this.updateFlag(sb, f, false);
             }, this);
         }
     },
@@ -2931,86 +2922,42 @@ var DimpBase = {
     deleteMsg: function(opts)
     {
         opts = opts || {};
-        var vs = this._getFlagSelection(opts);
-
-        // Make sure that any given row is not deleted more than once. Need to
-        // explicitly mark here because message may already be flagged deleted
-        // when we load page (i.e. switching to using trash folder).
-        vs = vs.search({ isdel: { notequal: [ true ] } });
-        if (!vs.size()) {
-            return;
-        }
-        vs.set({ isdel: true });
-
-        opts.vs = vs;
+        opts.vs = this._getFlagSelection(opts);
 
         this._doMsgAction('deleteMessages', opts, {});
-        this.updateFlag(vs, '\\deleted', true);
+        this.updateFlag(opts.vs, '\\deleted', true);
     },
 
     // flag = (string) IMAP flag name
-    // set = (boolean) True to set flag
-    // opts = (Object) 'mailbox', 'noserver', 'uid'
-    flag: function(flag, set, opts)
+    // add = (boolean) True to add flag
+    // opts = (Object) 'mailbox', 'uid'
+    flag: function(flag, add, opts)
     {
-        opts = opts || {};
-        var flags = [ (set ? '' : '-') + flag ],
-            vs = this._getFlagSelection(opts);
+        var vs = this._getFlagSelection(opts || {});
 
         if (!vs.size()) {
             return;
         }
 
-        switch (flag) {
-        case '\\answered':
-            if (set) {
-                this.updateFlag(vs, '\\flagged', false);
-                flags.push('-\\flagged');
-            }
-            break;
+        this.updateFlag(vs, flag, add);
 
-        case '\\deleted':
-            vs.set({ isdel: false });
-            break;
-
-        case '\\seen':
-            vs.get('dataob').each(function(s) {
-                this.updateSeenUID(s, set);
-            }, this);
-            break;
-        }
-
-        this.updateFlag(vs, flag, set);
-        if (!opts.noserver) {
-            DimpCore.doAction('flagMessages', this.viewport.addRequestParams({ flags: Object.toJSON(flags), view: this.folder }), { uids: vs });
-        }
-    },
-
-    // type = (string) 'seen' or 'unseen'
-    // mbox = (string) The mailbox to flag
-    flagAll: function(type, set, mbox)
-    {
-        DimpCore.doAction('flagAll', { flags: Object.toJSON([ type ]), set: Number(set), mbox: mbox }, { callback: this._flagAllCallback.bind(this) });
+        DimpCore.doAction('flagMessages', this.viewport.addRequestParams({
+            add: Number(add),
+            flags: Object.toJSON([ flag ]),
+            view: this.folder
+        }), {
+            uids: vs
+        });
     },
 
     hasFlag: function(f, r)
     {
-        return this.convertFlag(f, r.flag ? r.flag.include(f) : false);
-    },
-
-    convertFlag: function(f, set)
-    {
-        /* For some flags, we need to do an inverse match (e.g. knowing a
-         * message is SEEN is not as important as knowing the message lacks
-         * the SEEN FLAG). This function will determine if, for a given flag,
-         * the inverse action should be taken on it. */
-        return DIMP.conf.flags[f].n ? !set : set;
+        return (r.flag ? r.flag.include(f) : false);
     },
 
     updateFlag: function(vs, flag, add)
     {
         var s = {};
-        add = this.convertFlag(flag, add);
 
         vs.get('dataob').each(function(ob) {
             this._updateFlag(ob, flag, add);
@@ -3146,8 +3093,8 @@ var DimpBase = {
             });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
             DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_filter');
-            DM.addSubMenu('ctx_qsearchopts_flag', 'ctx_flag');
-            DM.addSubMenu('ctx_qsearchopts_flagnot', 'ctx_flag');
+            DM.addSubMenu('ctx_qsearchopts_flag', 'ctx_flag_search');
+            DM.addSubMenu('ctx_qsearchopts_flagnot', 'ctx_flag_search');
 
             /* Create flag entries. */
             DIMP.conf.filters_o.each(function(f) {
@@ -3197,7 +3144,10 @@ var DimpBase = {
         /* Create flag entries. */
         DIMP.conf.flags_o.each(function(f) {
             if (DIMP.conf.flags[f].s) {
-                this.contextAddFlag(f, DIMP.conf.flags[f]);
+                this.contextAddFlag(f, DIMP.conf.flags[f], 'ctx_flag_search');
+            }
+            if (DIMP.conf.flags[f].a) {
+                this.contextAddFlag(f, DIMP.conf.flags[f], 'ctx_flag');
             }
         }, this);
 
@@ -3331,6 +3281,7 @@ DimpCore.onDoActionComplete = function(r) {
     if (DimpBase.viewport) {
         DimpBase.viewport.parseJSONResponse(r);
     }
+    DimpBase.flagCallback(r);
     DimpBase.pollCallback(r);
 };
 

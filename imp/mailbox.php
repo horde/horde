@@ -64,7 +64,7 @@ if (!Horde_Util::nonInputVar('from_message_page')) {
 }
 
 $do_filter = false;
-$imp_flags = $injector->getInstance('IMP_Imap_Flags');
+$imp_flags = $injector->getInstance('IMP_Flags');
 $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
 $indices = new IMP_Indices($vars->indices);
 
@@ -485,9 +485,25 @@ if ($pageOb['msgcount']) {
     $n_template->set('use_pop', $session->get('imp', 'protocol') == 'pop');
 
     if (!$n_template->get('use_pop')) {
-        $tmp = $imp_flags->getFlagList($search_mbox ? null : IMP::$mailbox);
-        $n_template->set('flaglist_set', $tmp['set']);
-        $n_template->set('flaglist_unset', $tmp['unset']);
+        $args = array(
+            'imap' => true,
+            'mailbox' => $search_mbox ? null : IMP::$mailbox
+        );
+
+        $form_set = $form_unset = array();
+        foreach ($imp_flags->getList($args) as $val) {
+            $form_set[] = array(
+                'f' => $val->form_set,
+                'l' => $val->label
+            );
+            $form_unset[] = array(
+                'f' => $val->form_unset,
+                'l' => $val->label
+            );
+        }
+
+        $n_template->set('flaglist_set', $form_set);
+        $n_template->set('flaglist_unset', $form_unset);
 
         if (!$search_mbox) {
             $filters = array();
@@ -755,7 +771,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     } catch (Horde_Exception_HookNotSet $e) {}
 
     $flag_parse = $imp_flags->parse(array(
-        'div' => true,
         'flags' => $ob['flags'],
         'headers' => $ob['headers'],
         'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => 'UTF-8'))
@@ -763,16 +778,14 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     $subject_flags = array();
     foreach ($flag_parse as $val) {
-        if ($val['type'] == 'imapp') {
+        if ($val instanceof IMP_Flag_User) {
             $subject_flags[] = $val;
         } else {
-            if (isset($val['div'])) {
-                $msg['status'] .= $val['div'];
+            if (!$val->bgdefault) {
+                $msg['bg'] = $val->bgcolor;
             }
-            if (isset($val['classname'])) {
-                $msg['class'] = $val['classname'];
-            }
-            $msg['bg'] = $val['bg'];
+            $msg['class'] = $val->css;
+            $msg['status'] .= $val->div;
         }
     }
 
@@ -830,9 +843,9 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Add subject flags. */
     foreach ($subject_flags as $val) {
-        $flag_label = Horde_String::truncate($val['label'], 12);
+        $flag_label = Horde_String::truncate($val->label, 12);
 
-        $msg['subject'] = '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . ';color:' . htmlspecialchars($val['fg']) . '" title="' . htmlspecialchars($val['label']) . '">' . htmlspecialchars($flag_label) . '</span>' . $msg['subject'];
+        $msg['subject'] = '<span class="' . $val->css . '" style="' . ($val->bgdefault ? '' : 'background:' . htmlspecialchars($val->bgcolor) . ';') . 'color:' . htmlspecialchars($val->fgcolor) . '" title="' . htmlspecialchars($val->label) . '">' . htmlspecialchars($flag_label) . '</span>' . $msg['subject'];
     }
 
     /* Set up threading tree now. */

@@ -471,8 +471,7 @@ class IMP_Prefs_Ui
             return $prefs->setValue('default_encrypt', $ui->vars->default_encrypt);
 
         case 'flagmanagement':
-            $this->_updateFlagManagement($ui);
-            return false;
+            return $this->_updateFlagManagement($ui);
 
         case 'initialpageselect':
             return $prefs->setValue('initial_page', IMP::formMbox($ui->vars->initial_page, false));
@@ -935,49 +934,38 @@ class IMP_Prefs_Ui
             'ImpFlagPrefs.confirm_delete' => _("Are you sure you want to delete this flag?")
         ));
 
-        $msgflags_locked = $GLOBALS['prefs']->isLocked('msgflags');
-        $userflags_locked = $GLOBALS['prefs']->isLocked('msgflags_user');
-
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
+        $t->set('locked', $GLOBALS['prefs']->isLocked('msgflags'));
 
         $out = array();
-        $flaglist = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('div' => true, 'fgcolor' => true));
-        foreach ($flaglist as $key => $val) {
-            $hash = hash('md5', $key);
+        $flaglist = $GLOBALS['injector']->getInstance('IMP_Flags')->getList();
+        foreach ($flaglist as $val) {
+            $hash = hash('md5', $val->id);
             $bgid = 'bg_' . $hash;
-            $color = htmlspecialchars($val['b']);
-            $label = htmlspecialchars($val['l']);
+            $color = htmlspecialchars($val->bgcolor);
+            $label = htmlspecialchars($val->label);
             $bgstyle = 'background-color:' . $color;
             $tmp = array();
 
-            if ($val['t'] == 'imapp') {
+            if ($val instanceof IMP_Flag_User) {
                 $tmp['label'] = $label;
-                $tmp['imapp'] = true;
+                $tmp['user'] = true;
                 $tmp['label_name'] = 'label_' . $hash;
-                if ($userflags_locked) {
-                    $tmp['locked'] = true;
-                }
             } else {
                 $tmp['label'] = Horde::label($bgid, $label);
-                $tmp['icon'] = $val['div'];
-                if ($msgflags_locked) {
-                    $tmp['locked'] = true;
-                }
+                $tmp['icon'] = $val->div;
             }
 
-            $tmp['colorstyle'] = $bgstyle . ';color:' . htmlspecialchars($val['f']);
+            $tmp['colorstyle'] = $bgstyle . ';color:' . htmlspecialchars($val->fgcolor);
             $tmp['colorid'] = $bgid;
             $tmp['color'] = $color;
-
-            $tmp['flag_del'] = !empty($val['d']);
 
             $out[] = $tmp;
         }
         $t->set('flags', $out);
 
         $t->set('picker_img', Horde::img('colorpicker.png', _("Color Picker")));
-        $t->set('userflags_notlocked', !$userflags_locked);
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/flags.html');
     }
@@ -986,10 +974,12 @@ class IMP_Prefs_Ui
      * Update IMAP flag related preferences.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return boolean  True if preferences were updated.
      */
     protected function _updateFlagManagement($ui)
     {
-        $imp_flags = $GLOBALS['injector']->getInstance('IMP_Imap_Flags');
+        $imp_flags = $GLOBALS['injector']->getInstance('IMP_Flags');
 
         if ($ui->vars->flag_action == 'add') {
             $GLOBALS['notification']->push(sprintf(_("Added flag \"%s\"."), $ui->vars->flag_data), 'horde.success');
@@ -997,38 +987,41 @@ class IMP_Prefs_Ui
             return;
         }
 
-        $def_color = $GLOBALS['prefs']->getValue('msgflags_color');
-
-        // Don't set updated on these actions. User may want to do more actions.
-        foreach ($imp_flags->getList() as $key => $val) {
-            $md5 = hash('md5', $key);
+        // Don't set updated on these actions. User may want to do more
+        // actions.
+        $update = false;
+        foreach ($imp_flags->getList() as $val) {
+            $md5 = hash('md5', $val->id);
 
             switch ($ui->vars->flag_action) {
             case 'delete':
-                if (($ui->vars->flag_data == ('bg_' . $md5)) &&
-                    $imp_flags->deleteFlag($key)) {
-                    $GLOBALS['notification']->push(sprintf(_("Deleted flag \"%s\"."), $val['l']), 'horde.success');
+                if ($ui->vars->flag_data == ('bg_' . $md5)) {
+                    unset($imp_flags[$val->id]);
+                    $GLOBALS['notification']->push(sprintf(_("Deleted flag \"%s\"."), $val->label), 'horde.success');
                 }
                 break;
 
             default:
                 /* Change labels for user-defined flags. */
-                if ($val['t'] == 'imapp') {
+                if ($val instanceof IMP_Flag_User) {
                     $label = $ui->vars->get('label_' . $md5);
-                    if (strlen($label) && ($label != $val['l'])) {
-                        $imp_flags->updateFlag($key, array('l' => $label));
+                    if (strlen($label) && ($label != $val->label)) {
+                        $imp_flags->updateFlag($val->id, 'label', $label);
+                        $update = true;
                     }
                 }
 
                 /* Change background for all flags. */
                 $bg = strtolower($ui->vars->get('bg_' . $md5));
-                if ((isset($val['b']) && ($bg != $val['b'])) ||
-                    (!isset($val['b']) && ($bg != $def_color))) {
-                    $imp_flags->updateFlag($key, array('b' => $bg));
+                if ($bg != $val->bgcolor) {
+                    $imp_flags->updateFlag($val->id, 'bgcolor', $bg);
+                    $update = true;
                 }
                 break;
             }
         }
+
+        return $update;
     }
 
     /* Initial page selection. */

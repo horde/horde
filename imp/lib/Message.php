@@ -651,12 +651,12 @@ class IMP_Message
     }
 
     /**
-     * Sets or clears a given flag(s) for all messages in a list of mailboxes.
+     * Adds or removes flag(s) for all messages in a list of mailboxes.
      * This function works with IMAP only, not POP3.
      *
-     * @param array $flags     The IMAP flag(s) to set or clear.
+     * @param array $flags     The IMAP flag(s) to add or remove.
      * @param array $mboxes    The list of mailboxes to flag.
-     * @param boolean $action  If true, set the flag(s), otherwise, clear the
+     * @param boolean $action  If true, add the flag(s), otherwise, remove the
      *                         flag(s).
      *
      * @return boolean  True if successful, false if not.

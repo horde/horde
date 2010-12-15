@@ -100,6 +100,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_AuthImap' => 'IMP_Injector_Factory_AuthImap',
             'IMP_Crypt_Pgp' => 'IMP_Injector_Factory_Pgp',
             'IMP_Crypt_Smime' => 'IMP_Injector_Factory_Smime',
+            'IMP_Flags' => 'IMP_Injector_Factory_Flags',
             'IMP_Identity' => 'IMP_Injector_Factory_Identity',
             'IMP_Imap_Tree' => 'IMP_Injector_Factory_Imaptree',
             'IMP_Mail' => 'IMP_Injector_Factory_Mail',

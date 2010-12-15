@@ -437,6 +437,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div class="context" id="ctx_flag" style="display:none">
 </div>
 
+<div class="context" id="ctx_flag_search" style="display:none">
+</div>
+
 <div class="context" id="ctx_contacts" style="display:none">
  <a id="ctx_contacts_new"><span class="iconImg"></span><?php echo _("New Message") ?></a>
  <a id="ctx_contacts_add"><span class="iconImg"></span><?php echo _("Add to Address Book") ?></a>

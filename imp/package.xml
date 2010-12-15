@@ -75,7 +75,7 @@ multiple folders, and multiple-language support.</description>
     <file name="flagprefs.js" role="horde" />
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
-    <file name="fullmessage-dimp.js" role="horde" />
+    <file name="message-dimp.js" role="horde" />
     <file name="imp.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox-dimp.js" role="horde" />
@@ -1141,7 +1141,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/js/flagprefs.js" name="js/flagprefs.js" />
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
-   <install as="imp/js/fullmessage-dimp.js" name="js/fullmessage-dimp.js" />
+   <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />

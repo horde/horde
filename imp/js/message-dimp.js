@@ -5,7 +5,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-var DimpFullmessage = {
+var DimpMessage = {
 
     // Variables defaulting to empty/false: mailbox, uid
     quickreply: function(type)
@@ -230,8 +230,16 @@ var DimpFullmessage = {
             DimpCore.updateMsgLog(this.log);
         }
 
-        if (this.strip && DimpCore.base) {
-            DimpCore.base.DimpBase.poll();
+        if (DimpCore.base) {
+            if (this.strip) {
+                DimpCore.base.DimpBase.poll();
+            } else if (this.poll) {
+                DimpCore.base.DimpBase.pollCallback({ poll: this.poll });
+            }
+
+            if (this.flag) {
+                DimpCore.base.DimpBase.flagCallback({ flag: this.flag });
+            }
         }
 
         $('dimpLoading').hide();
@@ -243,11 +251,11 @@ var DimpFullmessage = {
 };
 
 /* ContextSensitive functions. */
-DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpFullmessage.contextOnClick.bind(DimpFullmessage));
+DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpMessage.contextOnClick.bind(DimpMessage));
 
 /* Click handler. */
-DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpFullmessage.clickHandler.bind(DimpFullmessage));
+DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpMessage.clickHandler.bind(DimpMessage));
 
 /* Attach event handlers. */
-document.observe('dom:loaded', DimpFullmessage.onDomLoad.bind(DimpFullmessage));
-Event.observe(window, 'resize', DimpFullmessage.resizeWindow.bind(DimpFullmessage));
+document.observe('dom:loaded', DimpMessage.onDomLoad.bind(DimpMessage));
+Event.observe(window, 'resize', DimpMessage.resizeWindow.bind(DimpMessage));

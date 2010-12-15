@@ -281,8 +281,8 @@ var DimpCompose = {
 
             case 'sendMessage':
                 if (this.is_popup && DimpCore.base) {
-                    if (d.reply_type) {
-                        DimpCore.base.DimpBase.flag(d.reply_type == 'forward' ? '$forwarded' : '\\answered', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
+                    if (d.flag) {
+                        DimpCore.base.DimpBase.flagCallback(d);
                     }
 
                     if (d.mailbox) {
@@ -294,7 +294,7 @@ var DimpCompose = {
                     }
 
                     if (d.log) {
-                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.reply_folder });
+                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
