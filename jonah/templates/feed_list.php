@@ -23,8 +23,8 @@
  </thead>
 
  <tbody>
-<?php foreach (array_keys($sorted_feeds) as feed_id): ?>
- <?php $feed = $feeds[feed_id] ?>
+<?php foreach (array_keys($sorted_feeds) as $feed_id): ?>
+ <?php $feed = $feeds[$feed_id] ?>
   <tr>
    <td><?php echo Horde::link(Horde_Util::addParameter($edit_url_base, 't', $feed->getName()), _("Edit")) . $edit_img . '</a>' ?></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
@@ -33,8 +33,8 @@
    <td><?php echo Horde::link(Horde_Util::addParameter($delete_url_base, 't', $feed->getName()), _("Delete")) . $delete_img . '</a>' ?></td>
    <td><?php echo htmlspecialchars($feed->get('name')) ?></td>
    <td><?php echo is_null($feed->get('owner')) ? _("System") : _("Local") ?></td>
-   <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_feed', $feed->getName(), false); echo Horde::link($url, _("Click or copy this URL to display this feed"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
-   <td><?php $url = $subscribe_url_base . ($feed->get('owner') ? $feed->get('owner') : '-system-') . '/' . $feed->getName() . '.ics'; echo Horde::link($url, _("Click or copy this URL to display this feed"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+   <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_feed', $feed->getName(), false); echo Horde::link($url, _("Click or copy this URL to display this feed"), '', '_blank') . htmlspecialchars($url) . '</a>' ?></td>
+   <td><?php $url = $subscribe_url_base . ($feed->get('owner') ? $feed->get('owner') : '-system-') . '/' . $feed->getName() . '.ics'; echo Horde::link($url, _("Click or copy this URL to display this feed"), '', '_blank') . htmlspecialchars($url) . '</a>' ?></td>
 <?php endforeach; ?>
  </tbody>
 </table>
