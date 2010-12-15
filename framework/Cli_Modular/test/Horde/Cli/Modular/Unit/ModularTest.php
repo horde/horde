@@ -54,4 +54,58 @@ extends Horde_Cli_Modular_TestCase
         );
         $this->assertInstanceOf('Horde_Test_Stub_Parser', $modular->createParser());
     }
+
+    /**
+     * @expectedException Horde_Cli_Modular_Exception
+     */
+    public function testMissingModules()
+    {
+        $modular = new Horde_Cli_Modular();
+        $this->assertInstanceOf('Horde_Cli_Modular_Modules', $modular->createModules());
+    }
+
+    /**
+     * @expectedException Horde_Cli_Modular_Exception
+     */
+    public function testInvalidModules()
+    {
+        $modular = new Horde_Cli_Modular(array('modules' => 1.0));
+        $this->assertInstanceOf('Horde_Cli_Modular_Modules', $modular->createModules());
+    }
+
+    public function testObjectModules()
+    {
+        $modular = new Horde_Cli_Modular(
+            array('modules' => new Horde_Cli_Modular_Modules(
+                      array(
+                          'directory' => dirname(__FILE__) . '/../fixtures/Module'
+                      )
+                  )
+            )
+        );
+        $this->assertInstanceOf('Horde_Cli_Modular_Modules', $modular->createModules());
+    }
+
+    public function testStringModules()
+    {
+        $modular = new Horde_Cli_Modular(
+            array(
+                'modules' => 'Horde_Cli_Modular_Stub_Modules'
+            )
+        );
+        $this->assertInstanceOf('Horde_Cli_Modular_Modules', $modular->createModules());
+    }
+
+    public function testArrayModules()
+    {
+        $modular = new Horde_Cli_Modular(
+            array(
+                'modules' => array(
+                    'directory' => dirname(__FILE__) . '/../fixtures/Module'
+                ),
+            )
+        );
+        $this->assertInstanceOf('Horde_Cli_Modular_Modules', $modular->createModules());
+    }
+
 }

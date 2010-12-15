@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2010-12-15</date>
- <time>09:18:48</time>
+ <time>14:29:38</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -35,7 +35,10 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Cli">
-      <file name="#Modular.php#" role="php" />
+      <dir name="Modular">
+       <file name="Exception.php" role="php" />
+       <file name="Modules.php" role="php" />
+      </dir> <!-- /lib/Horde/Cli/Modular -->
       <file name="Modular.php" role="php" />
      </dir> <!-- /lib/Horde/Cli -->
     </dir> <!-- /lib/Horde -->
@@ -44,8 +47,18 @@
     <dir name="Horde">
      <dir name="Cli">
       <dir name="Modular">
+       <dir name="fixtures">
+        <dir name="Module">
+         <file name="One.php" role="test" />
+         <file name="Two.php" role="test" />
+        </dir> <!-- /test/Horde/Cli/Modular/fixtures/Module -->
+       </dir> <!-- /test/Horde/Cli/Modular/fixtures -->
+       <dir name="Stub">
+        <file name="Modules.php" role="test" />
+       </dir> <!-- /test/Horde/Cli/Modular/Stub -->
        <dir name="Unit">
         <file name="ModularTest.php" role="test" />
+        <file name="ModulesTest.php" role="test" />
        </dir> <!-- /test/Horde/Cli/Modular/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
@@ -70,13 +83,18 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Cli/#Modular.php#" name="lib/Horde/Cli/#Modular.php#" />
    <install as="Horde/Cli/Modular.php" name="lib/Horde/Cli/Modular.php" />
+   <install as="Horde/Cli/Modular/Exception.php" name="lib/Horde/Cli/Modular/Exception.php" />
+   <install as="Horde/Cli/Modular/Modules.php" name="lib/Horde/Cli/Modular/Modules.php" />
    <install as="Horde/Cli/Modular/AllTests.php" name="test/Horde/Cli/Modular/AllTests.php" />
    <install as="Horde/Cli/Modular/Autoload.php" name="test/Horde/Cli/Modular/Autoload.php" />
    <install as="Horde/Cli/Modular/phpunit.xml" name="test/Horde/Cli/Modular/phpunit.xml" />
    <install as="Horde/Cli/Modular/TestCase.php" name="test/Horde/Cli/Modular/TestCase.php" />
+   <install as="Horde/Cli/Modular/fixtures/Module/One.php" name="test/Horde/Cli/Modular/fixtures/Module/One.php" />
+   <install as="Horde/Cli/Modular/fixtures/Module/Two.php" name="test/Horde/Cli/Modular/fixtures/Module/Two.php" />
+   <install as="Horde/Cli/Modular/Stub/Modules.php" name="test/Horde/Cli/Modular/Stub/Modules.php" />
    <install as="Horde/Cli/Modular/Unit/ModularTest.php" name="test/Horde/Cli/Modular/Unit/ModularTest.php" />
+   <install as="Horde/Cli/Modular/Unit/ModulesTest.php" name="test/Horde/Cli/Modular/Unit/ModulesTest.php" />
    <install as="COPYING" name="COPYING" />
   </filelist>
  </phprelease>

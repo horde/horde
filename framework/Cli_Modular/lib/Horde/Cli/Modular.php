@@ -43,6 +43,11 @@ class Horde_Cli_Modular
      *    - parser
      *      - class: Class name of the parser that should be used to parse
      *               command line arguments.
+     *  - modules:   Determines the handler for modules. Can be one of:
+     *               (array)  A parameter array.
+     *                        See Horde_Cli_Modular_Modules::__construct()
+     *               (string) A class name.
+     *               (object) An instance of Horde_Cli_Modular_Modules
      * </pre>
      */
     public function __construct(array $parameters = null)
@@ -77,5 +82,31 @@ class Horde_Cli_Modular
                 'usage' => '%prog ' . _("[options] PACKAGE_PATH")
             )
         );
+    }
+
+    /**
+     * Create the module handler.
+     *
+     * @return Horde_Cli_Modular_Modules The module handler.
+     */
+    public function createModules()
+    {
+        if (is_array($this->_parameters['modules'])) {
+            return new Horde_Cli_Modular_Modules(
+                $this->_parameters['modules']
+            );
+        } else if ($this->_parameters['modules'] instanceOf Horde_Cli_Modular_Modules) {
+            return $this->_parameters['modules'];
+        } else if (is_string($this->_parameters['modules'])) {
+            return new $this->_parameters['modules']();
+        } else if (empty($this->_parameters['modules'])) {
+            throw new Horde_Cli_Modular_Exception(
+                'Missing "modules" parameter!'
+            );
+        } else {
+            throw new Horde_Cli_Modular_Exception(
+                'Invalid "modules" parameter!'
+            );
+        }
     }
 }
