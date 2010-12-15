@@ -5,11 +5,11 @@
  * PHP version 5
  *
  * @category   Kolab
- * @package    Kolab_Storage
+ * @package    Kolab_Cli
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link       http://pear.horde.org/index.php?package=Kolab_Cli
  */
 
 /**
@@ -26,19 +26,19 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category   Kolab
- * @package    Kolab_Storage
+ * @package    Kolab_Cli
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link       http://pear.horde.org/index.php?package=Kolab_Cli
  */
-class Horde_Kolab_Storage_Unit_Cli_OptionsTest
-extends Horde_Kolab_Storage_TestCase
+class Horde_Kolab_Cli_Unit_Cli_OptionsTest
+extends Horde_Kolab_Cli_TestCase
 {
     public function testOptionHelp()
     {
         $_SERVER['argv'] = array(
-            'kolab-storage'
+            'klb'
         );
         $this->assertRegExp(
             '/-h,[ ]*--help[ ]*show this help message and exit/',
@@ -49,7 +49,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testOptionDriver()
     {
         $_SERVER['argv'] = array(
-            'kolab-storage'
+            'klb'
         );
         $this->assertRegExp(
             '/-d[ ]*DRIVER,[ ]*--driver=DRIVER/',
@@ -60,7 +60,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testOptionUser()
     {
         $_SERVER['argv'] = array(
-            'kolab-storage'
+            'klb'
         );
         $this->assertRegExp(
             '/-u[ ]*USERNAME,[ ]*--username=USERNAME/',
@@ -71,7 +71,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testOptionPass()
     {
         $_SERVER['argv'] = array(
-            'kolab-storage'
+            'klb'
         );
         $this->assertRegExp(
             '/-p[ ]*PASSWORD,[ ]*--password=PASSWORD/',
@@ -82,7 +82,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testOptionHost()
     {
         $_SERVER['argv'] = array(
-            'kolab-storage'
+            'klb'
         );
         $this->assertRegExp(
             '/-H[ ]*HOST,[ ]*--host=HOST/',

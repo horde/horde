@@ -31,8 +31,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-14</date>
- <time>18:18:05</time>
+ <date>2010-12-15</date>
+ <time>06:41:58</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -51,9 +51,6 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="bin">
-    <file name="kolab-storage" role="script" />
-   </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Kolab">
@@ -134,13 +131,11 @@
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
-       <file name="Cli.php" role="php" />
        <file name="Data.php" role="php" />
        <file name="Driver.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="Folder.php" role="php" />
-       <file name="Pear.php" role="php" />
        <file name="Translation.php" role="php">
         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
        </file>
@@ -418,10 +413,6 @@
         <file name="DriverTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/Server -->
        <dir name="Unit">
-        <dir name="Cli">
-         <file name="ModuleTest.php" role="test" />
-         <file name="OptionsTest.php" role="test" />
-        </dir> <!-- /test/Horde/Kolab/Storage/Unit/Cli -->
         <dir name="Driver">
          <file name="CclientTest.php" role="test" />
          <file name="ImapTest.php" role="test" />
@@ -429,7 +420,6 @@
          <file name="PearTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Driver -->
         <file name="BaseTest.php" role="test" />
-        <file name="CliTest.php" role="test" />
         <file name="FactoryTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/Unit -->
        <file name="AclTest.php" role="test" />
@@ -525,19 +515,16 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="kolab-storage" name="bin/kolab-storage" />
    <install as="Horde/Kolab/Storage/usage.txt" name="doc/Horde/Kolab/Storage/usage.txt" />
    <install as="Horde/Kolab/Storage/list.php" name="examples/Horde/Kolab/Storage/list.php" />
    <install as="Horde/Kolab/Storage.php" name="lib/Horde/Kolab/Storage.php" />
    <install as="Horde/Kolab/Storage/Base.php" name="lib/Horde/Kolab/Storage/Base.php" />
    <install as="Horde/Kolab/Storage/Cache.php" name="lib/Horde/Kolab/Storage/Cache.php" />
-   <install as="Horde/Kolab/Storage/Cli.php" name="lib/Horde/Kolab/Storage/Cli.php" />
    <install as="Horde/Kolab/Storage/Data.php" name="lib/Horde/Kolab/Storage/Data.php" />
    <install as="Horde/Kolab/Storage/Driver.php" name="lib/Horde/Kolab/Storage/Driver.php" />
    <install as="Horde/Kolab/Storage/Exception.php" name="lib/Horde/Kolab/Storage/Exception.php" />
    <install as="Horde/Kolab/Storage/Factory.php" name="lib/Horde/Kolab/Storage/Factory.php" />
    <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
-   <install as="Horde/Kolab/Storage/Pear.php" name="lib/Horde/Kolab/Storage/Pear.php" />
    <install as="Horde/Kolab/Storage/Translation.php" name="lib/Horde/Kolab/Storage/Translation.php" />
    <install as="Horde/Kolab/Storage/Driver/Base.php" name="lib/Horde/Kolab/Storage/Driver/Base.php" />
    <install as="Horde/Kolab/Storage/Driver/Cclient.php" name="lib/Horde/Kolab/Storage/Driver/Cclient.php" />
@@ -679,10 +666,7 @@
    <install as="Horde/Kolab/Storage/TriggerTest.php" name="test/Horde/Kolab/Storage/TriggerTest.php" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
    <install as="Horde/Kolab/Storage/Unit/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/BaseTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/CliTest.php" name="test/Horde/Kolab/Storage/Unit/CliTest.php" />
    <install as="Horde/Kolab/Storage/Unit/FactoryTest.php" name="test/Horde/Kolab/Storage/Unit/FactoryTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/Cli/ModuleTest.php" name="test/Horde/Kolab/Storage/Unit/Cli/ModuleTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/Cli/OptionsTest.php" name="test/Horde/Kolab/Storage/Unit/Cli/OptionsTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/CclientTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/CclientTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/ImapTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/ImapTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/MockTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/MockTest.php" />
@@ -758,7 +742,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-14</date>
+   <date>2010-12-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added namespace support (Bug #6691).

@@ -5,10 +5,10 @@
  * PHP version 5
  *
  * @category Kolab
- * @package  Kolab_Storage
+ * @package  Kolab_Cli
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
 
 /**
@@ -21,12 +21,12 @@
  * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
  * @category Kolab
- * @package  Kolab_Storage
+ * @package  Kolab_Cli
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
-class Horde_Kolab_Storage_Cli
+class Horde_Kolab_Cli
 {
     /**
      * The main entry point for the application.
@@ -43,7 +43,7 @@ class Horde_Kolab_Storage_Cli
         $parser = self::_prepareParser($parameters);
         if (empty($parameters['output'])) {
             if (!class_exists('Horde_Cli')) {
-                throw new Horde_Kolab_Storage_Exception('The Horde_Cli package seems to be missing (Class Horde_Cli is missing)!');
+                throw new Horde_Kolab_Cli_Exception('The Horde_Cli package seems to be missing (Class Horde_Cli is missing)!');
             }
             $cli = Horde_Cli::init();
         } else {
@@ -85,7 +85,7 @@ class Horde_Kolab_Storage_Cli
                 array(
                     'action' => 'store',
                     'choices' => array('horde', 'horde-php', 'php', 'pear', 'roundcube', 'mock'),
-                    'help'   => Horde_Kolab_Storage_Translation::t(
+                    'help'   => Horde_Kolab_Cli_Translation::t(
 "The Kolab backend driver that should be used.
 Choices are:
 
@@ -103,7 +103,7 @@ Choices are:
                 '--username',
                 array(
                     'action' => 'store',
-                    'help'   => Horde_Kolab_Storage_Translation::t('The user accessing the backend.')
+                    'help'   => Horde_Kolab_Cli_Translation::t('The user accessing the backend.')
                 )
             ),
             new Horde_Argv_Option(
@@ -111,7 +111,7 @@ Choices are:
                 '--password',
                 array(
                     'action' => 'store',
-                    'help'   => Horde_Kolab_Storage_Translation::t('The password of the user accessing the backend.')
+                    'help'   => Horde_Kolab_Cli_Translation::t('The password of the user accessing the backend.')
                 )
             ),
             new Horde_Argv_Option(
@@ -119,11 +119,11 @@ Choices are:
                 '--host',
                 array(
                     'action' => 'store',
-                    'help'   => Horde_Kolab_Storage_Translation::t('The host that holds the data.')
+                    'help'   => Horde_Kolab_Cli_Translation::t('The host that holds the data.')
                 )
             ),
         );
-        $usage = Horde_Kolab_Storage_Translation::t(
+        $usage = Horde_Kolab_Cli_Translation::t(
             "[options] MODULE ACTION\nPossible MODULEs and ACTIONs:
 
   folder - Handle folders.

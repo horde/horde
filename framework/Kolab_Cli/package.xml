@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Kolab_Cli</name>
+ <channel>pear.horde.org</channel>
+ <summary>A command line interface to the Kolab storage system</summary>
+ <description>This package provides a set of utilities to deal with the various aspects of a Kolab server as backend. The primary focus is dealing with the data stored in IMAP.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-12-15</date>
+ <time>06:37:46</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="klb" role="script" />
+   </dir> <!-- /bin -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Cli">
+       <file name="Translation.php" role="php" />
+      </dir> <!-- /lib/Horde/Kolab/Cli -->
+      <file name="Cli.php" role="php" />
+     </dir> <!-- /lib/Horde/Kolab -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Cli">
+       <dir name="Unit">
+        <dir name="Cli">
+         <file name="ModuleTest.php" role="test" />
+         <file name="OptionsTest.php" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Cli/Unit/Cli -->
+        <file name="CliTest.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Cli/Unit -->
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
+       <file name="phpunit.xml" role="test" />
+       <file name="TestCase.php" role="test" />
+      </dir> <!-- /test/Horde/Kolab/Cli -->
+     </dir> <!-- /test/Horde/Kolab -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+   <file name="COPYING" role="data" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="klb" name="bin/klb" />
+   <install as="Horde/Kolab/Cli.php" name="lib/Horde/Kolab/Cli.php" />
+   <install as="Horde/Kolab/Cli/Translation.php" name="lib/Horde/Kolab/Cli/Translation.php" />
+   <install as="Horde/Kolab/Cli/AllTests.php" name="test/Horde/Kolab/Cli/AllTests.php" />
+   <install as="Horde/Kolab/Cli/Autoload.php" name="test/Horde/Kolab/Cli/Autoload.php" />
+   <install as="Horde/Kolab/Cli/phpunit.xml" name="test/Horde/Kolab/Cli/phpunit.xml" />
+   <install as="Horde/Kolab/Cli/TestCase.php" name="test/Horde/Kolab/Cli/TestCase.php" />
+   <install as="Horde/Kolab/Cli/Unit/CliTest.php" name="test/Horde/Kolab/Cli/Unit/CliTest.php" />
+   <install as="Horde/Kolab/Cli/Unit/Cli/ModuleTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/ModuleTest.php" />
+   <install as="Horde/Kolab/Cli/Unit/Cli/OptionsTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/OptionsTest.php" />
+   <install as="COPYING" name="COPYING" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-12-15</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

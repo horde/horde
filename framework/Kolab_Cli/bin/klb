@@ -5,4 +5,4 @@ if (strpos('@php_dir@', '@php_dir') === 0) {
 }
 
 require_once 'Horde/Autoloader/Default.php';
-Horde_Kolab_Storage_Cli::main();
+Horde_Kolab_Cli::main();

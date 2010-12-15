@@ -5,11 +5,11 @@
  * PHP version 5
  *
  * @category   Kolab
- * @package    Kolab_Storage
+ * @package    Kolab_Cli
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link       http://pear.horde.org/index.php?package=Kolab_Cli
  */
 
 /**
@@ -26,19 +26,19 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category   Kolab
- * @package    Kolab_Storage
+ * @package    Kolab_Cli
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link       http://pear.horde.org/index.php?package=Kolab_Cli
  */
-class Horde_Kolab_Storage_Unit_Cli_ModuleTest
-extends Horde_Kolab_Storage_TestCase
+class Horde_Kolab_Cli_Unit_Cli_ModuleTest
+extends Horde_Kolab_Cli_TestCase
 {
     public function testFolderModule()
     {
         $_SERVER['argv'] = array(
-            'kolab-storage'
+            'klb'
         );
         $this->assertRegExp(
             '/folder - Handle folders/',
