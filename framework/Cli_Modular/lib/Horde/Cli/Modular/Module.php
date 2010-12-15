@@ -32,5 +32,41 @@ interface Horde_Cli_Modular_Module
      *
      * @return string The description.
      */
-    static public function getUsage();
+    public function getUsage();
+
+    /**
+     * Get a set of base options that this module adds to the CLI argument
+     * parser.
+     *
+     * @return array The options.
+     */
+    public function getBaseOptions();
+
+    /**
+     * Indicate if the module provides an option group.
+     *
+     * @return boolean True if an option group should be added.
+     */
+    public function hasOptionGroup();
+
+    /**
+     * Return the title for the option group representing this module.
+     *
+     * @return string The group title.
+     */
+    public function getOptionGroupTitle();
+
+    /**
+     * Return the description for the option group representing this module.
+     *
+     * @return string The group description.
+     */
+    public function getOptionGroupDescription();
+
+    /**
+     * Return the options for this module.
+     *
+     * @return array The group options.
+     */
+    public function getOptionGroupOptions();
 }

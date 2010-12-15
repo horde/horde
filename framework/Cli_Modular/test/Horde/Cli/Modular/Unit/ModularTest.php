@@ -40,7 +40,10 @@ extends Horde_Cli_Modular_TestCase
         $modular = new Horde_Cli_Modular(
             array(
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/../fixtures/Module'
+                    'directory' => dirname(__FILE__) . '/../Stub/Module'
+                ),
+                'provider' => array(
+                    'prefix' => 'Horde_Cli_Modular_Stub_Module_'
                 ),
             )
         );
@@ -49,18 +52,7 @@ extends Horde_Cli_Modular_TestCase
 
     public function testCustomParser()
     {
-        $modular = new Horde_Cli_Modular(
-            array(
-                'cli' => array(
-                    'parser' => array(
-                        'class' => 'Horde_Test_Stub_Parser'
-                    )
-                ),
-                'modules' => array(
-                    'directory' => dirname(__FILE__) . '/../fixtures/Module'
-                ),
-            )
-        );
+        $modular = $this->_getDefault();
         $this->assertInstanceOf('Horde_Test_Stub_Parser', $modular->createParser());
     }
 
@@ -70,7 +62,7 @@ extends Horde_Cli_Modular_TestCase
     public function testMissingModules()
     {
         $modular = new Horde_Cli_Modular();
-        $this->assertInstanceOf('Horde_Cli_Modular_Modules', $modular->getModules());
+        $modular->getModules();
     }
 
     /**
@@ -79,7 +71,7 @@ extends Horde_Cli_Modular_TestCase
     public function testInvalidModules()
     {
         $modular = new Horde_Cli_Modular(array('modules' => 1.0));
-        $this->assertInstanceOf('Horde_Cli_Modular_Modules', $modular->getModules());
+        $modular->getModules();
     }
 
     public function testObjectModules()
@@ -117,4 +109,121 @@ extends Horde_Cli_Modular_TestCase
         $this->assertInstanceOf('Horde_Cli_Modular_Modules', $modular->getModules());
     }
 
+    /**
+     * @expectedException Horde_Cli_Modular_Exception
+     */
+    public function testMissingProviders()
+    {
+        $modular = new Horde_Cli_Modular();
+        $modular->getProvider();
+    }
+
+    /**
+     * @expectedException Horde_Cli_Modular_Exception
+     */
+    public function testInvalidProviders()
+    {
+        $modular = new Horde_Cli_Modular(array('provider' => 1.0));
+        $modular->getProvider();
+    }
+
+    public function testObjectProviders()
+    {
+        $modular = new Horde_Cli_Modular(
+            array('provider' => new Horde_Cli_Modular_ModuleProvider(
+                      array('prefix' => 'Test')
+                  )
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Cli_Modular_ModuleProvider', $modular->getProvider()
+        );
+    }
+
+    public function testStringProviders()
+    {
+        $modular = new Horde_Cli_Modular(
+            array(
+                'provider' => 'Horde_Cli_Modular_Stub_Provider'
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Cli_Modular_ModuleProvider', $modular->getProvider()
+        );
+    }
+
+    public function testArrayProviders()
+    {
+        $modular = new Horde_Cli_Modular(
+            array(
+                'provider' => array(
+                    'prefix' => 'Test'
+                ),
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Cli_Modular_ModuleProvider', $modular->getProvider()
+        );
+    }
+
+    public function testGeneralUsage()
+    {
+        $modular = $this->_getDefault();
+        $this->assertContains(
+            'GLOBAL USAGE', $modular->createParser()->formatHelp()
+        );
+    }
+
+    public function testBaseOption()
+    {
+        $modular = $this->_getDefault();
+        $this->assertContains(
+            '--something=SOMETHING', $modular->createParser()->formatHelp()
+        );
+    }
+
+    public function testGroupTitle()
+    {
+        $modular = $this->_getDefault();
+        $this->assertContains(
+            'Test Group Title', $modular->createParser()->formatHelp()
+        );
+    }
+
+    public function testGroupDescription()
+    {
+        $modular = $this->_getDefault();
+        $this->assertContains(
+            'Test Group Description', $modular->createParser()->formatHelp()
+        );
+    }
+
+    public function testGroupOption()
+    {
+        $modular = $this->_getDefault();
+        $this->assertContains(
+            '--group=GROUP', $modular->createParser()->formatHelp()
+        );
+    }
+
+    private function _getDefault()
+    {
+        return new Horde_Cli_Modular(
+            array(
+                'cli' => array(
+                    'parser' => array(
+                        'class' => 'Horde_Test_Stub_Parser',
+                        'usage' => 'GLOBAL USAGE'
+                        
+                    )
+                ),
+                'modules' => array(
+                    'directory' => dirname(__FILE__) . '/../Stub/Module'
+                ),
+                'provider' => array(
+                    'prefix' => 'Horde_Cli_Modular_Stub_Module_'
+                ),
+            )
+        );
+    }
 }

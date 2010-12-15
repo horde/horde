@@ -51,14 +51,19 @@ extends Horde_Cli_Modular_TestCase
         $provider = new Horde_Cli_Modular_ModuleProvider(
             array('prefix' => 'INVALID')
         );
-        $provider->getUsage('One');
+        $provider->getModule('One')->getUsage('One');
     }
 
     public function testUsage()
     {
         $provider = new Horde_Cli_Modular_ModuleProvider(
-            array('prefix' => 'Horde_Cli_Modular_Stub_Module_')
+            array(
+                'prefix' => 'Horde_Cli_Modular_Stub_Module_',
+                'dependencies' => new stdClass,
+            )
         );
-        $this->assertEquals('Use One', $provider->getUsage('One'));
+        $this->assertEquals(
+            'Use One', $provider->getModule('One')->getUsage('One')
+        );
     }
 }

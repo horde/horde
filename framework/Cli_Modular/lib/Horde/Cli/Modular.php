@@ -42,6 +42,13 @@ class Horde_Cli_Modular
     private $_modules;
 
     /**
+     * Module provider.
+     *
+     * @var Horde_Cli_Modular_ModuleProvider
+     */
+    private $_provider;
+
+    /**
      * Constructor.
      *
      * @param array $parameters Options for this instance.
@@ -56,6 +63,11 @@ class Horde_Cli_Modular
      *                        See Horde_Cli_Modular_Modules::__construct()
      *               (string) A class name.
      *               (object) An instance of Horde_Cli_Modular_Modules
+     *  - provider:  Determines the module provider. Can be one of:
+     *               (array)  A parameter array.
+     *                        See Horde_Cli_Modular_ModuleProvider::__construct()
+     *               (string) A class name.
+     *               (object) An instance of Horde_Cli_Modular_ModuleProvider
      * </pre>
      */
     public function __construct(array $parameters = null)
@@ -90,7 +102,7 @@ class Horde_Cli_Modular
             $usage = $this->_parameters['cli']['parser']['usage'];
         }
         foreach ($this->getModules() as $module) {
-            $usage .= '';
+            $usage .= $this->getProvider()->getModule($module)->getUsage();
         }
         return $usage;
     }
@@ -103,15 +115,33 @@ class Horde_Cli_Modular
     public function createParser()
     {
         $parser_class = $this->getParserClass();
-        return new $parser_class(
+        $parser = new $parser_class(
             array(
                 'usage' => '%prog ' . $this->getUsage()
             )
         );
+        foreach ($this->getModules() as $module_name) {
+            $module = $this->getProvider()->getModule($module_name);
+            foreach ($module->getBaseOptions() as $option) {
+                $parser->addOption($option);
+            }
+            if ($module->hasOptionGroup()) {
+                $group = new Horde_Argv_OptionGroup(
+                    $parser,
+                    $module->getOptionGroupTitle(),
+                    $module->getOptionGroupDescription()
+                );
+                foreach ($module->getOptionGroupOptions() as $option) {
+                    $group->addOption($option);
+                }
+                $parser->addOptionGroup($group);
+            }
+        }
+        return $parser;
     }
 
     /**
-     * Create the module handler.
+     * Return the module handler.
      *
      * @return Horde_Cli_Modular_Modules The module handler.
      */
@@ -145,6 +175,45 @@ class Horde_Cli_Modular
         } else {
             throw new Horde_Cli_Modular_Exception(
                 'Invalid "modules" parameter!'
+            );
+        }
+    }
+
+    /**
+     * Return the module provider.
+     *
+     * @return Horde_Cli_Modular_ModuleProvider The module provider.
+     */
+    public function getProvider()
+    {
+        if ($this->_provider === null) {
+            $this->_provider = $this->_createProvider();
+        }
+        return $this->_provider;
+    }
+
+    /**
+     * Create the module provider.
+     *
+     * @return Horde_Cli_Modular_ModuleProvider The module provider.
+     */
+    private function _createProvider()
+    {
+        if (is_array($this->_parameters['provider'])) {
+            return new Horde_Cli_Modular_ModuleProvider(
+                $this->_parameters['provider']
+            );
+        } else if ($this->_parameters['provider'] instanceOf Horde_Cli_Modular_ModuleProvider) {
+            return $this->_parameters['provider'];
+        } else if (is_string($this->_parameters['provider'])) {
+            return new $this->_parameters['provider']();
+        } else if (empty($this->_parameters['provider'])) {
+            throw new Horde_Cli_Modular_Exception(
+                'Missing "provider" parameter!'
+            );
+        } else {
+            throw new Horde_Cli_Modular_Exception(
+                'Invalid "provider" parameter!'
             );
         }
     }

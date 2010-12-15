@@ -37,11 +37,27 @@ class Horde_Cli_Modular_ModuleProvider
     private $_prefix;
 
     /**
+     * Constructor argument for CLI modules. Likely to be a Horde_Injector
+     * instance.
+     *
+     * @var mixed
+     */
+    private $_dependencies;
+
+    /**
+     * A cache for initialized module instances.
+     *
+     * @var array
+     */
+    private $_instances;
+
+    /**
      * Constructor.
      *
      * @param array $parameters Options for this instance.
      * <pre>
-     *  - 
+     *  - prefix: The module class name prefix.
+     *  - dependencies: Constructor argument for CLI modules.
      * </pre>
      */
     public function __construct(array $parameters = null)
@@ -52,29 +68,47 @@ class Horde_Cli_Modular_ModuleProvider
             );
         }
         $this->_prefix = $parameters['prefix'];
+        if (isset($parameters['dependencies'])) {
+            $this->_dependencies = $parameters['dependencies'];
+        }
     }
 
     /**
-     * Get the usage string for the specified module.
+     * Return the specified module.
      *
      * @param string $module The desired module.
      *
-     * @return string The usage description for this module.
+     * @return Horde_Cli_Modular_Module The module instance.
      *
      * @throws Horde_Cli_Modular_Exception In case the specified module does not
      * exist.
      */
-    public function getUsage($module)
+    public function getModule($module)
     {
-        if (!class_exists($this->_prefix . $module)) {
+        if (!isset($this->_instances[$module])) {
+            $this->_instances[$module] = $this->createModule($module);
+        }
+        return $this->_instances[$module];
+    }
+
+    /**
+     * Create the specified module.
+     *
+     * @param string $module The desired module.
+     *
+     * @return Horde_Cli_Modular_Module The module instance.
+     *
+     * @throws Horde_Cli_Modular_Exception In case the specified module does not
+     * exist.
+     */
+    protected function createModule($module)
+    {
+        $class = $this->_prefix . $module;
+        if (!class_exists($class)) {
             throw new Horde_Cli_Modular_Exception(
-                sprintf(
-                    'Invalid module %s!', $this->_prefix . $module
-                )
+                sprintf('Invalid module %s!', $class)
             );
         }
-        return call_user_func_array(
-            array($this->_prefix . $module, 'getUsage'), array()
-        );
+        return new $class();
     }
 }

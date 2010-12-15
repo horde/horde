@@ -85,7 +85,17 @@
    <pearinstaller>
     <min>1.9.0</min>
    </pearinstaller>
+   <package>
+    <name>Argv</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
+  <optional>
+   <package>
+    <name>Test</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
