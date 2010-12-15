@@ -1,6 +1,6 @@
 <?php
 /**
- * View for displaying Jonah channels.
+ * View for displaying Jonah feeds.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -21,53 +21,22 @@ class Jonah_View_ChannelList extends Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
         try {
-            $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
+            $feeds = Jonah::listFeeds();
         } catch (Exception $e) {
-            $notification->push(sprintf(_("An error occurred fetching channels: %s"), $e->getMessage()), 'horde.error');
-            $channels = false;
+            $notification->push(sprintf(_("An error occurred fetching feeds: %s"), $e->getMessage()), 'horde.error');
+            $feeds = false;
         }
-        if ($channels) {
-            $channels = Jonah::checkPermissions('channels', Horde_Perms::SHOW, $channels);
-            /* Build channel specific fields. */
-            foreach ($channels as $key => $channel) {
-                /* Edit channel link. */
-                $url = Horde::url('channels/edit.php')->add('channel_id', $channel['channel_id']);
-                $channels[$key]['edit_link'] = $url->link(array('title' => _("Edit channel"))) . Horde::img('edit.png') . '</a>';
-
-                /* Delete channel link. */
-                $url = Horde::url('channels/delete.php')->add('channel_id', $channel['channel_id']);
-                $channels[$key]['delete_link'] = $url->link(array('title' => _("Delete channel"))) . Horde::img('delete.png') . '</a>';
-
-                /* View stories link. */
-                $channels[$key]['stories_url'] = Horde::url('stories/index.php')->add('channel_id', $channel['channel_id']);
-
-                /* Channel type specific links. */
-                $channels[$key]['addstory_link'] = '';
-                $channels[$key]['refresh_link'] = '';
-
-                switch ($channel['channel_type']) {
-                case Jonah::INTERNAL_CHANNEL:
-                    /* Add story link. */
-                    $url = Horde::url('stories/edit.php')->add('channel_id', $channel['channel_id']);
-                    $channels[$key]['addstory_link'] = $url->link(array('title' => _("Add story"))) . Horde::img('new.png') . '</a>';
-                    break;
-                }
-                $channels[$key]['channel_type'] = Jonah::getChannelTypeLabel($channel['channel_type']);
-                $channels[$key]['channel_updated'] = ($channel['channel_updated'] ? strftime($prefs->getValue('date_format'), (int)$channel['channel_updated']) : '-');
-            }
+        /* Build feed specific fields. */
+        foreach ($feeds as $feed) {
+            $sorted_feeds[$feed->getName()] = $feed->get('name');
         }
+        asort($sorted_feeds);
 
-        $view = new Horde_View(array('templatePath' => JONAH_TEMPLATES . '/view'));
-        $view->addHelper('Tag');
-        $view->channels = $channels;
-        $view->search_img = Horde::img('search.png');
+        Horde::addScriptFile('tables.js', 'horde');
         $title = _("Feeds");
-        Horde::addScriptFile('prototype.js', 'horde', true);
-        Horde::addScriptFile('tables.js', 'horde', true);
-        Horde::addScriptFile('quickfinder.js', 'horde', true);
         require $registry->get('templates', 'horde') . '/common-header.inc';
-        require JONAH_TEMPLATES . '/menu.inc';
-        echo $view->render('channellist');
+        echo Horde::menu();
+        require JONAH_TEMPLATES . '/feed_list.php';
         require $registry->get('templates', 'horde') . '/common-footer.inc';
     }
 
