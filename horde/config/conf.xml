@@ -1521,7 +1521,7 @@
   <configheader>Menu Settings</configheader>
   <configsection name="menu">
    <configmultienum name="apps" desc="Select any applications that should be
-   linked in Horde's menu">
+   linked in Horde's menu" required="false">
     <values>
      <configspecial name="list-horde-apps" />
     </values>
