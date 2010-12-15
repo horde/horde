@@ -35,6 +35,13 @@ class Horde_Cli_Modular
     private $_parameters;
 
     /**
+     * Handler for the list of modules.
+     *
+     * @var Horde_Cli_Modular_Modules
+     */
+    private $_modules;
+
+    /**
      * Constructor.
      *
      * @param array $parameters Options for this instance.
@@ -43,6 +50,7 @@ class Horde_Cli_Modular
      *    - parser
      *      - class: Class name of the parser that should be used to parse
      *               command line arguments.
+     *      - usage: The usage decription shown in the help output of the CLI
      *  - modules:   Determines the handler for modules. Can be one of:
      *               (array)  A parameter array.
      *                        See Horde_Cli_Modular_Modules::__construct()
@@ -70,6 +78,24 @@ class Horde_Cli_Modular
     }
 
     /**
+     * Return the usage description for the help output of the parser.
+     *
+     * @return string The usage description.
+     */
+    public function getUsage()
+    {
+        if (empty($this->_parameters['cli']['parser']['usage'])) {
+            $usage = '[options]';
+        } else {
+            $usage = $this->_parameters['cli']['parser']['usage'];
+        }
+        foreach ($this->getModules() as $module) {
+            $usage .= '';
+        }
+        return $usage;
+    }
+
+    /**
      * Create the parser for command line arguments.
      *
      * @return Horde_Argv_Parser The parser.
@@ -79,7 +105,7 @@ class Horde_Cli_Modular
         $parser_class = $this->getParserClass();
         return new $parser_class(
             array(
-                'usage' => '%prog ' . _("[options] PACKAGE_PATH")
+                'usage' => '%prog ' . $this->getUsage()
             )
         );
     }
@@ -89,7 +115,20 @@ class Horde_Cli_Modular
      *
      * @return Horde_Cli_Modular_Modules The module handler.
      */
-    public function createModules()
+    public function getModules()
+    {
+        if ($this->_modules === null) {
+            $this->_modules = $this->_createModules();
+        }
+        return $this->_modules;
+    }
+
+    /**
+     * Create the module handler.
+     *
+     * @return Horde_Cli_Modular_Modules The module handler.
+     */
+    private function _createModules()
     {
         if (is_array($this->_parameters['modules'])) {
             return new Horde_Cli_Modular_Modules(

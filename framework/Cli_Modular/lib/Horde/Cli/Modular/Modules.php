@@ -54,7 +54,8 @@ implements Iterator, Countable
      *
      * @param array $parameters Options for this instance.
      * <pre>
-     *  - 
+     *  - directory: (string) The path to the directory that holds the modules.
+     *  - exclude:   (array) Exclude these modules from the list.
      * </pre>
      */
     public function __construct(array $parameters = null)

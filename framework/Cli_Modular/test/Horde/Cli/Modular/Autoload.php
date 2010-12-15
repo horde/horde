@@ -27,3 +27,4 @@ require_once dirname(__FILE__) . '/TestCase.php';
 
 /** Load stub classes */
 require_once dirname(__FILE__) . '/Stub/Modules.php';
+require_once dirname(__FILE__) . '/Stub/Module/One.php';
