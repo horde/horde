@@ -93,10 +93,11 @@ class Horde_Token_File extends Horde_Token_Base
         $this->_connect();
 
         /* Find already used IDs. */
+        $token = base64_encode($tokenID);
         $fileContents = file($this->_params['token_dir'] . '/conn_' . $this->_encodeRemoteAddress());
         if ($fileContents) {
             for ($i = 0, $iMax = count($fileContents); $i < $iMax; ++$i) {
-                if (chop($fileContents[$i]) == $tokenID) {
+                if (chop($fileContents[$i]) == $token) {
                     return true;
                 }
             }
@@ -117,7 +118,8 @@ class Horde_Token_File extends Horde_Token_Base
         $this->_connect();
 
         /* Write the entry. */
-        fwrite($this->_fd, $tokenID . "\n");
+        $token = base64_encode($tokenID);
+        fwrite($this->_fd, $token . "\n");
 
         $this->_disconnect();
     }
