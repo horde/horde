@@ -53,11 +53,10 @@ class Horde_Cli_Modular
      *
      * @param array $parameters Options for this instance.
      * <pre>
-     *  - cli
-     *    - parser
-     *      - class: Class name of the parser that should be used to parse
+     *  - parser
+     *    - class:   Class name of the parser that should be used to parse
      *               command line arguments.
-     *      - usage: The usage decription shown in the help output of the CLI
+     *    - usage:   The usage decription shown in the help output of the CLI
      *  - modules:   Determines the handler for modules. Can be one of:
      *               (array)  A parameter array.
      *                        See Horde_Cli_Modular_Modules::__construct()
@@ -82,10 +81,10 @@ class Horde_Cli_Modular
      */
     public function getParserClass()
     {
-        if (empty($this->_parameters['cli']['parser']['class'])) {
+        if (empty($this->_parameters['parser']['class'])) {
             return 'Horde_Argv_Parser';
         } else {
-            return $this->_parameters['cli']['parser']['class'];
+            return $this->_parameters['parser']['class'];
         }
     }
 
@@ -96,10 +95,10 @@ class Horde_Cli_Modular
      */
     public function getUsage()
     {
-        if (empty($this->_parameters['cli']['parser']['usage'])) {
+        if (empty($this->_parameters['parser']['usage'])) {
             $usage = '[options]';
         } else {
-            $usage = $this->_parameters['cli']['parser']['usage'];
+            $usage = $this->_parameters['parser']['usage'];
         }
         foreach ($this->getModules() as $module) {
             $usage .= $this->getProvider()->getModule($module)->getUsage();

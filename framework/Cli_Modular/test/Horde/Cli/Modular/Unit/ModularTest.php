@@ -210,12 +210,9 @@ extends Horde_Cli_Modular_TestCase
     {
         return new Horde_Cli_Modular(
             array(
-                'cli' => array(
-                    'parser' => array(
-                        'class' => 'Horde_Test_Stub_Parser',
-                        'usage' => 'GLOBAL USAGE'
-                        
-                    )
+                'parser' => array(
+                    'class' => 'Horde_Test_Stub_Parser',
+                    'usage' => 'GLOBAL USAGE'
                 ),
                 'modules' => array(
                     'directory' => dirname(__FILE__) . '/../Stub/Module'
