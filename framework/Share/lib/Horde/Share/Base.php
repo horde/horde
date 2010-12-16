@@ -16,7 +16,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Share
  */
-class Horde_Share_Base
+abstract class Horde_Share_Base
 {
     /**
      * The application we're managing shares for.
@@ -163,12 +163,6 @@ class Horde_Share_Base
     public function initShareObject(Horde_Share_Object $object)
     {
         $object->setShareOb($this->_shareCallback);
-        $this->_initShareObject($object);
-    }
-
-    protected function _initShareObject(Horde_Share_Object $object)
-    {
-        // noop here
     }
 
     public function setShareCallback($callback)
@@ -208,6 +202,18 @@ class Horde_Share_Base
     }
 
     /**
+     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * share name, with the details retrieved appropriately.
+     *
+     * @param string $name  The name of the share to retrieve.
+     *
+     * @return Horde_Share_Object  The requested share.
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Share_Exception
+     */
+    abstract protected function _getShare($name);
+
+    /**
      * Returns a Horde_Share_Object object corresponding to the given unique
      * ID, with the details retrieved appropriately.
      *
@@ -226,6 +232,17 @@ class Horde_Share_Base
 
         return $this->_cache[$this->_shareMap[$cid]];
     }
+
+    /**
+     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * unique ID, with the details retrieved appropriately.
+     *
+     * @param integer $id  The id of the share to retrieve.
+     *
+     * @return Horde_Share_Object_sql  The requested share.
+     * @throws Horde_Share_Exception, Horde_Exception_NotFound
+     */
+    abstract protected function _getShareById($id);
 
     /**
      * Returns an array of Horde_Share_Object objects corresponding to the
@@ -259,6 +276,18 @@ class Horde_Share_Base
     }
 
     /**
+     * Returns an array of Horde_Share_Object_sql objects corresponding
+     * to the given set of unique IDs, with the details retrieved
+     * appropriately.
+     *
+     * @param array $ids  The array of ids to retrieve.
+     *
+     * @return array  The requested shares.
+     * @throws Horde_Share_Exception
+     */
+    abstract protected function _getShares(array $ids);
+
+    /**
      * Lists *all* shares for the current app/share, regardless of
      * permissions.
      *
@@ -276,6 +305,14 @@ class Horde_Share_Base
 
         return $shares;
     }
+
+    /**
+     * Lists *all* shares for the current app/share, regardless of permissions.
+     *
+     * @return array  All shares for the current app/share.
+     * @throws Horde_Share_Exception
+     */
+    abstract protected function _listAllShares();
 
     /**
      * Returns an array of all shares that $userid has access to.
@@ -324,6 +361,16 @@ class Horde_Share_Base
     }
 
     /**
+     * Returns an array of all shares that $userid has access to.
+     *
+     * @param string $userid     The userid of the user to check access for.
+     * @param array  $params     See listShares().
+     *
+     * @return array  The shares the user has access to.
+     */
+    abstract protected function _listShares($userid, $params = array());
+
+    /**
      * Returns an array of all system shares.
      *
      * @return array  All system shares.
@@ -345,9 +392,10 @@ class Horde_Share_Base
      *
      * @return integer  The number of shares
      */
-    public function countShares($userid, $perm = Horde_Perms::SHOW, $attributes = null)
+    public function countShares($userid, $perm = Horde_Perms::SHOW,
+                                $attributes = null)
     {
-        return $this->_countShares($userid, $perm, $attributes);
+        return count($this->_listShares($userid, array('perm' => $perm, 'attributes' => $attributes)));
     }
 
     /**
@@ -367,6 +415,16 @@ class Horde_Share_Base
 
         return $share;
     }
+
+    /**
+     * Returns a new share object.
+     *
+     * @param string $name   The share's name.
+     *
+     * @return Horde_Share_Object  A new share object
+     * @throws InvalidArgumentException
+     */
+    abstract protected function _newShare($name);
 
     /**
      * Adds a share to the shares system.
@@ -398,6 +456,17 @@ class Horde_Share_Base
     }
 
     /**
+     * Adds a share to the shares system.
+     *
+     * The share must first be created with
+     * Horde_Share_sql::_newShare(), and have any initial details added
+     * to it, before this function is called.
+     *
+     * @param Horde_Share_Object $share  The new share object.
+     */
+    abstract protected function _addShare(Horde_Share_Object $share);
+
+    /**
      * Removes a share from the shares system permanently.
      *
      * @param Horde_Share_Object $share  The share to remove.
@@ -421,6 +490,16 @@ class Horde_Share_Base
     }
 
     /**
+     * Removes a share from the shares system permanently.
+     *
+     * @param Horde_Share_Object $share  The share to remove.
+     *
+     * @return boolean
+     * @throws Horde_Share_Exception
+     */
+    abstract protected function _removeShare(Horde_Share_Object $share);
+
+    /**
      * Checks if a share exists in the system.
      *
      * @param string $share  The share to check.
@@ -435,6 +514,16 @@ class Horde_Share_Base
 
         return $this->_exists($share);
     }
+
+    /**
+     * Checks if a share exists in the system.
+     *
+     * @param string $share  The share to check.
+     *
+     * @return boolean  True if the share exists.
+     * @throws Horde_Share_Exception
+     */
+    abstract protected function _exists($share);
 
     /**
      * Finds out what rights the given user has to this object.
@@ -487,7 +576,6 @@ class Horde_Share_Base
      */
     public function toDriverCharset($data)
     {
-        // noop
     }
 
     /**

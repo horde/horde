@@ -219,25 +219,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
-     * Returns the number of shares that $userid has access to.
-     *
-     * @param string $userid     The userid of the user to check access for.
-     * @param integer $perm      The level of permissions required.
-     * @param mixed $attributes  Restrict the shares counted to those
-     *                           matching $attributes. An array of
-     *                           attribute/values pairs or a share owner
-     *                           username.
-     *
-     * @return integer  The number of shares
-     */
-    protected function _countShares($userid, $perm = Horde_Perms::SHOW,
-                          $attributes = null)
-    {
-        $shares = $this->_listShares($userid, array('perm' => $perm, 'attributes' => $attributes));
-        return count($shares);
-    }
-
-    /**
      * Returns a new share object.
      *
      * @param string $name  The share's name.

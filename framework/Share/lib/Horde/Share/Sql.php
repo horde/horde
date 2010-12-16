@@ -456,6 +456,18 @@ class Horde_Share_Sql extends Horde_Share_Base
     }
 
     /**
+     * Returns an array of all shares that $userid has access to.
+     *
+     * @param string $userid     The userid of the user to check access for.
+     * @param array  $params     See listShares().
+     *
+     * @return array  The shares the user has access to.
+     */
+    protected function _listShares($userid, $params = array())
+    {
+    }
+
+    /**
      * Returns an array of all system shares.
      *
      * @return array  All system shares.
@@ -493,8 +505,8 @@ class Horde_Share_Sql extends Horde_Share_Base
      * @return integer  The number of shares
      * @throws Horde_Share_Exception
      */
-    protected function _countShares($userid, $perm = Horde_Perms::SHOW,
-                                    $attributes = null)
+    public function countShares($userid, $perm = Horde_Perms::SHOW,
+                                $attributes = null)
     {
         $query = 'SELECT COUNT(DISTINCT s.share_id) '
             . $this->getShareCriteria($userid, $perm, $attributes);
