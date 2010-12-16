@@ -159,7 +159,6 @@ abstract class Horde_Token_Base
      *
      * @param string  $token  The signed token.
      * @param string  $seed   The unique ID of the token.
-nce?
      *
      * @return array An array of two elements: The nonce and the hash.
      *
@@ -183,11 +182,11 @@ nce?
      *
      * @param string  $token  The signed token.
      * @param string  $seed   The unique ID of the token.
-nce?
      *
      * @return NULL
      *
-     * @throws Horde_Token_Exception If the token was invalid or has been used before.
+     * @throws Horde_Token_Exception If the token was invalid or has been used
+     * before.
      */
     public function validateUnique($token, $seed = '')
     {
