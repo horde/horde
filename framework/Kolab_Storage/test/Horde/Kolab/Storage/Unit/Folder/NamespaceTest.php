@@ -6,6 +6,7 @@
  *
  * @category Kolab
  * @package  Kolab_Storage
+ * @subpackage UnitTests
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
@@ -14,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once 'Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
  * Test the handling of namespaces.
@@ -30,7 +31,8 @@ require_once 'Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Storage_Unit_Folder_NamespaceTest
+extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
@@ -38,7 +40,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->_connection = $this->getMock('Horde_Kolab_Storage_Driver');
     }
 
-    public function testFolderTitleIsEmptyForPersonalNamespace()
+    public function testTitleForPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('INBOX', $namespace);
@@ -46,7 +48,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderTitleDoesNotContainPersonalNamespace()
+    public function testTitleWithoutPersonalPrefix()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('INBOX/test', $namespace);
@@ -54,7 +56,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderTitleOfOtherUserDoesNotContainUserPrefixAndOtherUserName()
+    public function testTitleWithoutOtherUserPrefix()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('user/test/his_folder', $namespace);
@@ -62,7 +64,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderTitleReplacesSeparatorWithDoubleColon()
+    public function testTitleSeparator()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('INBOX/test/sub', $namespace);
@@ -70,7 +72,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderTitleConvertsUtf7()
+    public function testTitleUtf7()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $name = Horde_String::convertCharset('äöü', 'UTF8', 'UTF7-IMAP');
@@ -79,7 +81,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderTitleIsAccessibleForNewFolders()
+    public function testTitleForNewFolders()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $this->_connection->expects($this->any())
@@ -91,7 +93,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerIsCurrentUserIfPrefixMatchesPersonalNamespace()
+    public function testOwnerForPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $this->_connection->expects($this->any())
@@ -102,7 +104,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerIsCurrentUserIfPrefixContainsPersonalNamespace()
+    public function testOwnerInPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $this->_connection->expects($this->any())
@@ -113,7 +115,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerIsOtherUserIfPrefixMatchesOtherNamespace()
+    public function testOwnerForOtherUserNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('user/test', $namespace);
@@ -121,7 +123,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerIsOtherUserIfPrefixContainsOtherNamespace()
+    public function testOwnerInOtherUserNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('user/test/mine', $namespace);
@@ -129,7 +131,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerIsAnonymousIfPrefixContainsSharedNamespace()
+    public function testAnonymousForSharedNamespace()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('shared.test', $namespace);
@@ -137,7 +139,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerIsAccessibleForNewFolders()
+    public function testOwnerForNewFolders()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $this->_connection->expects($this->any())
@@ -149,7 +151,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerHasDomainFromFolderDomain()
+    public function testOwnerDomain()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $this->_connection->expects($this->any())
@@ -160,7 +162,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerHasDomainFromCurrentUserIfNoFolderDomain()
+    public function testOwnerCurrentDomain()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('user/test/mine@example.com', $namespace);
@@ -168,7 +170,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testSetnameDoesAddDefaultPersonalNamespace()
+    public function testSetnameDefaultPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
@@ -177,7 +179,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testSetnameReplacesDoubleColonWithSeparator()
+    public function testSetnameSeparator()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
@@ -186,7 +188,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testSetnameConvertsToUtf7()
+    public function testSetnameUtf7()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
@@ -198,7 +200,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testSetnameAllowsCreatingFoldersInSharedNamespace()
+    public function testSetnameInSharedNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
@@ -207,7 +209,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testSetnameAllowsCreatingFoldersInOthersNamespace()
+    public function testSetnameInOthersNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
@@ -216,7 +218,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderSubpathIsAccessibleForNewFolders()
+    public function testSubpathForNewFolders()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
@@ -225,7 +227,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderSubpathDoesNotContainUsernameIfPrefixContainsOtherNamespace()
+    public function testSubpathWithoutUsername()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('user/test/mine', $namespace);
@@ -233,7 +235,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderSubpathReturnsSubpathWithoutNamespacePrefix()
+    public function testSubpathWithoutPrefix()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('INBOX/a/b', $namespace);
@@ -241,7 +243,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderSubpathReturnsSubpathWithoutSharedPrefix()
+    public function testSubpathWithoutSharedPrefix()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('shared.a/b', $namespace);
