@@ -415,20 +415,46 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
         try {
             $sql = "SELECT id FROM sports WHERE id = 1";
-            $this->assertNull($this->_conn->selectValue($sql));
+            $this->_conn->selectValue($sql);
+            $this->fail("Expected exception for wrong pk name");
         } catch (Exception $e) {
-            return;
         }
-        $this->fail("Expected exception for wrong pk name");
+
+        $sql = "INSERT INTO sports ('name', 'is_college') VALUES ('foo', 1)";
+        $this->assertEquals(2, $this->_conn->insert($sql));
     }
 
     public function testCreateTableWithSeparatePk()
     {
-        $table = $this->_conn->createTable('testings');
-          $table->column('foo', 'primaryKey');
+        $table = $this->_conn->createTable('testings', array('primaryKey' => false));
+        $table->column('foo', 'primaryKey');
+        $table->column('bar', 'string');
 
         $pkColumn = $table['foo'];
         $this->assertEquals('"foo" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL', $pkColumn->toSql());
+
+        $table->end();
+
+        $sql = "INSERT INTO testings ('bar') VALUES ('baz')";
+        $this->assertEquals(1, $this->_conn->insert($sql));
+        $this->assertEquals(2, $this->_conn->insert($sql));
+    }
+
+    public function testCreateTableWithSeparatePk2()
+    {
+        $table = $this->_conn->createTable('testings', array('primaryKey' => false));
+        $table->column('foo', 'integer', array('null' => false, 'autoincrement' => true));
+        $table->column('bar', 'string');
+        $table->primaryKey(array('foo'));
+
+        $pkColumn = $table['foo'];
+        $this->assertEquals('"foo" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL', $pkColumn->toSql());
+
+        $table->end();
+
+        $sql = "INSERT INTO testings ('bar') VALUES ('baz')";
+        $this->assertEquals(1, $this->_conn->insert($sql));
+        $this->assertEquals(2, $this->_conn->insert($sql));
     }
 
     public function testCreateTableCompositePk()
