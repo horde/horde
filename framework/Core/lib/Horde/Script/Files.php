@@ -22,6 +22,8 @@ class Horde_Script_Files
      */
     public $prototypejs = true;
 
+    protected $_full = false;
+
     /**
      * The list of script files to add.
      *
@@ -49,6 +51,9 @@ class Horde_Script_Files
      */
     public function add($file, $app = null, $full = false)
     {
+        if ($full && !$this->_full) {
+            $this->_full = true;
+        }
         if (($this->_add($file, $app, $full) === false) ||
             !Horde::contentSent()) {
             return;
@@ -170,7 +175,7 @@ class Horde_Script_Files
             if (!isset($this->_included['horde']['prototype.js'])) {
                 $old = $this->_files['horde'];
                 $this->_files['horde'] = array();
-                $this->_add('prototype.js', 'horde', false);
+                $this->_add('prototype.js', 'horde', $this->_full);
                 $this->_files['horde'] = array_merge($this->_files['horde'], $old);
             }
 
