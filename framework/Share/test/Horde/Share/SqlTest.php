@@ -11,6 +11,15 @@ class Horde_Share_SqlTest extends PHPUnit_Framework_TestCase
 {
     protected static $db;
 
+    protected static $share;
+
+    public function testAddShare()
+    {
+        $share = self::$share->newShare('john', 'myshare');
+        $this->assertInstanceOf('Horde_Share_Object_Sql', $share);
+        self::$share->addShare($share);
+    }
+
     public static function setUpBeforeClass()
     {
         if (!extension_loaded('pdo') ||
@@ -62,7 +71,8 @@ class Horde_Share_SqlTest extends PHPUnit_Framework_TestCase
 
         $migration->migrate('up');
 
-        return self::$db;
+        self::$share = new Horde_Share_Sql('test', 'john', new Horde_Perms(), new Horde_Group_Mock());
+        self::$share->setStorage(self::$db);
     }
 
     public static function tearDownAfterClass()
