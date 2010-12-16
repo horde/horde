@@ -112,13 +112,23 @@ Autocompleter.Base = Class.create({
                 this.knl.hide();
             }
         } else {
-            re = new RegExp("(" + this.getToken() + ")", "i");
+            re = new RegExp(this.getToken(), "i");
 
             choices.each(function(n) {
-                c.push({
-                    l: n.escapeHTML().gsub(re, '<strong>#{1}</strong>'),
-                    v: n
+                var m = n.match(re),
+                    out = { l: '', v: n };
+
+                n.match(re).each(function(m) {
+                    var idx = n.indexOf(m);
+                    out.l += n.substr(0, idx).escapeHTML() + '<strong>' + m.escapeHTML() + '</strong>';
+                    n = n.substr(idx + m.length);
                 });
+
+                if (n.length) {
+                    out.l += n.escapeHTML();
+                }
+
+                c.push(out);
             });
 
             if (!this.knl) {
