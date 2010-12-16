@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Kolab_Storage_Driver_Namespace_Config:: allows to use the information from
+ * The Horde_Kolab_Storage_Folder_Namespace_Config:: allows to use the information from
  * the IMAP NAMESPACE command to identify the IMAP namespaces on the Kolab
  * server.
  *
@@ -14,7 +14,7 @@
  */
 
 /**
- * The Horde_Kolab_Storage_Driver_Namespace_Config:: allows to use the information from
+ * The Horde_Kolab_Storage_Folder_Namespace_Config:: allows to use the information from
  * the IMAP NAMESPACE command to identify the IMAP namespaces on the Kolab
  * server.
  *
@@ -29,8 +29,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Driver_Namespace_Imap
-extends  Horde_Kolab_Storage_Driver_Namespace_Config
+class Horde_Kolab_Storage_Folder_Namespace_Imap
+extends  Horde_Kolab_Storage_Folder_Namespace_Config
 {
     /**
      * Constructor.

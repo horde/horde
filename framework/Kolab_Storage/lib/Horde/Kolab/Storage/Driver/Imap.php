@@ -406,7 +406,7 @@ extends Horde_Kolab_Storage_Driver_Base
     public function getNamespace()
     {
         if ($this->_imap->queryCapability('NAMESPACE') === true) {
-            return new Horde_Kolab_Storage_Driver_Namespace_Imap(
+            return new Horde_Kolab_Storage_Folder_Namespace_Imap(
                 $this->_imap->getNamespaces(),
                 $this->getParam('namespaces', array())
             );

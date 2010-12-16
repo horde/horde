@@ -44,17 +44,17 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
                     array(
                         array(
                             'name'      => 'INBOX/',
-                            'type'      =>  Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
+                            'type'      =>  Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
                             'delimiter' => '/',
                         ),
                         array(
                             'name'      => 'user/',
-                            'type'      =>  Horde_Kolab_Storage_Driver_Namespace::OTHER,
+                            'type'      =>  Horde_Kolab_Storage_Folder_Namespace::OTHER,
                             'delimiter' => '/',
                         ),
                         array(
                             'name'      => '',
-                            'type'      =>  Horde_Kolab_Storage_Driver_Namespace::SHARED,
+                            'type'      =>  Horde_Kolab_Storage_Folder_Namespace::SHARED,
                             'delimiter' => '/',
                         )
                     )
@@ -197,9 +197,7 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
 
     private function _getFolder($name)
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base($name);
-        $folder->restore($this->_storage, $this->_connection);
-        return $folder;
+        return new Horde_Kolab_Storage_Folder_Base($this->_storage, $this->_connection, $name);
     }
 
     private function _supportAcl()

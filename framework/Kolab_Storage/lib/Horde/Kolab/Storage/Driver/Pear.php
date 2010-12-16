@@ -424,7 +424,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     $namespaces[] = $namespace;
                 }
             }
-            return new Horde_Kolab_Storage_Driver_Namespace_Imap(
+            return new Horde_Kolab_Storage_Folder_Namespace_Imap(
                 $namespaces,
                 $this->getParam('namespaces', array())
             );

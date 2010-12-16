@@ -1,7 +1,7 @@
 <?php
 
-class Horde_Kolab_Storage_Driver_Namespace_Element_Personal
-extends Horde_Kolab_Storage_Driver_Namespace_Element
+class Horde_Kolab_Storage_Folder_Namespace_Element_Personal
+extends Horde_Kolab_Storage_Folder_Namespace_Element
 {
     /**
      * Return the type of this namespace (personal, other, or shared).
@@ -10,7 +10,7 @@ extends Horde_Kolab_Storage_Driver_Namespace_Element
      */
     public function getType()
     {
-        return Horde_Kolab_Storage_Driver_Namespace::PERSONAL;
+        return Horde_Kolab_Storage_Folder_Namespace::PERSONAL;
     }
 
     /**
@@ -22,6 +22,6 @@ extends Horde_Kolab_Storage_Driver_Namespace_Element
      */
     public function getOwner($name)
     {
-        return Horde_Kolab_Storage_Driver_Namespace::PERSONAL;
+        return Horde_Kolab_Storage_Folder_Namespace::PERSONAL;
     }
 }

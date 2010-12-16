@@ -1,6 +1,6 @@
 <?php
 
-abstract class Horde_Kolab_Storage_Driver_Namespace_Element
+abstract class Horde_Kolab_Storage_Folder_Namespace_Element
 {
     /**
      * The prefix identifying this namespace.

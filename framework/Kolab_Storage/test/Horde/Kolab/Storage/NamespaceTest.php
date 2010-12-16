@@ -181,7 +181,6 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
-            $folder->restore($this->_storage, $this->_connection);
             $folder->setName('a:b:c');
             $this->assertEquals('INBOX/a/b/c', $folder->getName());
         }
@@ -191,7 +190,6 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
-            $folder->restore($this->_storage, $this->_connection);
             $folder->setName('äöü');
             $this->assertEquals(
                 'INBOX/äöü',
@@ -256,51 +254,50 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->_connection->expects($this->any())
             ->method('getNamespace')
             ->will($this->returnValue($namespace));
-        $folder = new Horde_Kolab_Storage_Folder_Base($name);
-        $folder->restore($this->_storage, $this->_connection);
+        $folder = new Horde_Kolab_Storage_Folder_Base($this->_storage, $this->_connection, $name);
         return $folder;
     }
 
     private function _getNamespaces()
     {
         return array(
-            new Horde_Kolab_Storage_Driver_Namespace_Fixed(),
-            new Horde_Kolab_Storage_Driver_Namespace_Config(
+            new Horde_Kolab_Storage_Folder_Namespace_Fixed(),
+            new Horde_Kolab_Storage_Folder_Namespace_Config(
                 array(
                     array(
-                        'type' => Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
+                        'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
                         'name' => 'INBOX/',
                         'delimiter' => '/',
                         'add' => true,
                     ),
                     array(
-                        'type' => Horde_Kolab_Storage_Driver_Namespace::OTHER,
+                        'type' => Horde_Kolab_Storage_Folder_Namespace::OTHER,
                         'name' => 'user/',
                         'delimiter' => '/',
                     ),
                     array(
-                        'type' => Horde_Kolab_Storage_Driver_Namespace::SHARED,
+                        'type' => Horde_Kolab_Storage_Folder_Namespace::SHARED,
                         'name' => '',
                         'delimiter' => '/',
                         'prefix' => 'shared.'
                     ),
                 )
             ),
-            new Horde_Kolab_Storage_Driver_Namespace_Imap(
+            new Horde_Kolab_Storage_Folder_Namespace_Imap(
                 array(
                     array(
                         'name'      => 'INBOX/',
-                        'type'      =>  Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
+                        'type'      =>  Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
                         'delimiter' => '/',
                     ),
                     array(
                         'name'      => 'user/',
-                        'type'      =>  Horde_Kolab_Storage_Driver_Namespace::OTHER,
+                        'type'      =>  Horde_Kolab_Storage_Folder_Namespace::OTHER,
                         'delimiter' => '/',
                     ),
                     array(
                         'name'      => '',
-                        'type'      =>  Horde_Kolab_Storage_Driver_Namespace::SHARED,
+                        'type'      =>  Horde_Kolab_Storage_Folder_Namespace::SHARED,
                         'delimiter' => '/',
                     ),
                 ),

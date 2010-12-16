@@ -124,10 +124,10 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
             ->method('getNamespace')
             ->will(
                 $this->returnValue(
-                    new Horde_Kolab_Storage_Driver_Namespace_Imap(
+                    new Horde_Kolab_Storage_Folder_Namespace_Imap(
                         array(
                             array(
-                                'type' => Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
+                                'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
                                 'name' => 'INBOX/',
                                 'delimiter' => '/',
                                 'add' => true,
@@ -142,8 +142,7 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
         $connection->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('test' => 'lrid')));
-        $folder = new Horde_Kolab_Storage_Folder_Base('INBOX/test');
-        $folder->restore($storage, $connection);
+        $folder = new Horde_Kolab_Storage_Folder_Base($storage, $connection, 'INBOX/test');
         $permission = new Horde_Kolab_Storage_Folder_Permission(
             'test', $folder, $this->groups
         );
@@ -257,10 +256,10 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
             ->method('getNamespace')
             ->will(
                 $this->returnValue(
-                    new Horde_Kolab_Storage_Driver_Namespace_Imap(
+                    new Horde_Kolab_Storage_Folder_Namespace_Imap(
                         array(
                             array(
-                                'type' => Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
+                                'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
                                 'name' => 'INBOX/',
                                 'delimiter' => '/',
                                 'add' => true,
@@ -278,8 +277,7 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
         $connection->expects($this->once())
             ->method('setAcl')
             ->with('INBOX/test', 'test', 'alriswcd');
-        $folder = new Horde_Kolab_Storage_Folder_Base('INBOX/test');
-        $folder->restore($storage, $connection);
+        $folder = new Horde_Kolab_Storage_Folder_Base($storage, $connection, 'INBOX/test');
         $permission = new Horde_Kolab_Storage_Folder_Permission(
             'test', $folder, $this->groups
         );

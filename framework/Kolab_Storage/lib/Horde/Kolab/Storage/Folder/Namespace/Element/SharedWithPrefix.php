@@ -1,7 +1,7 @@
 <?php
 
-class Horde_Kolab_Storage_Driver_Namespace_Element_SharedWithPrefix
-extends Horde_Kolab_Storage_Driver_Namespace_Element_Shared
+class Horde_Kolab_Storage_Folder_Namespace_Element_SharedWithPrefix
+extends Horde_Kolab_Storage_Folder_Namespace_Element_Shared
 {
     /**
      * The prefix to hide when referencing this namespace.

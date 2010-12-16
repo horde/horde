@@ -61,15 +61,15 @@ implements Horde_Kolab_Storage_Driver
     /**
      * Retrieve the namespace information for this connection.
      *
-     * @return Horde_Kolab_Storage_Driver_Namespace The initialized namespace handler.
+     * @return Horde_Kolab_Storage_Folder_Namespace The initialized namespace handler.
      */
     public function getNamespace()
     {
         if (isset($this->_params['namespaces'])) {
-            return new Horde_Kolab_Storage_Driver_Namespace_Config(
+            return new Horde_Kolab_Storage_Folder_Namespace_Config(
                 $this->_params['namespaces']
             );
         }
-        return new Horde_Kolab_Storage_Driver_Namespace_Fixed();
+        return new Horde_Kolab_Storage_Folder_Namespace_Fixed();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Kolab_Storage_Driver_Namespace_Config:: allows to configure the available
+ * The Horde_Kolab_Storage_Folder_Namespace_Config:: allows to configure the available
  * IMAP namespaces on the Kolab server.
  *
  * PHP version 5
@@ -13,7 +13,7 @@
  */
 
 /**
- * The Horde_Kolab_Storage_Driver_Namespace_Config:: allows to configure the available
+ * The Horde_Kolab_Storage_Folder_Namespace_Config:: allows to configure the available
  * IMAP namespaces on the Kolab server.
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
@@ -27,8 +27,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Driver_Namespace_Config
-extends  Horde_Kolab_Storage_Driver_Namespace
+class Horde_Kolab_Storage_Folder_Namespace_Config
+extends  Horde_Kolab_Storage_Folder_Namespace
 {
     /**
      * Constructor.
@@ -37,14 +37,14 @@ extends  Horde_Kolab_Storage_Driver_Namespace
     {
         parent::__construct();
         foreach ($configuration as $element) {
-            if ($element['type'] == Horde_Kolab_Storage_Driver_Namespace::SHARED
+            if ($element['type'] == Horde_Kolab_Storage_Folder_Namespace::SHARED
                 && isset($element['prefix'])) {
-                $namespace_element = new Horde_Kolab_Storage_Driver_Namespace_Element_SharedWithPrefix(
+                $namespace_element = new Horde_Kolab_Storage_Folder_Namespace_Element_SharedWithPrefix(
                     $element['name'], $element['delimiter'], $element['prefix']
                 );
                 $this->_sharedPrefix = $element['prefix'];
             } else {
-                $class = 'Horde_Kolab_Storage_Driver_Namespace_Element_' . ucfirst($element['type']);
+                $class = 'Horde_Kolab_Storage_Folder_Namespace_Element_' . ucfirst($element['type']);
                 $namespace_element = new $class($element['name'], $element['delimiter']);
             }
             if (empty($element['name'])) {

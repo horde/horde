@@ -31,8 +31,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-15</date>
- <time>06:41:58</time>
+ <date>2010-12-16</date>
+ <time>17:00:56</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -78,23 +78,10 @@
          <file name="Base.php" role="php" />
          <file name="Log.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Decorator -->
-        <dir name="Namespace">
-         <dir name="Element">
-          <file name="Other.php" role="php" />
-          <file name="Personal.php" role="php" />
-          <file name="Shared.php" role="php" />
-          <file name="SharedWithPrefix.php" role="php" />
-         </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Namespace/Element -->
-         <file name="Config.php" role="php" />
-         <file name="Element.php" role="php" />
-         <file name="Fixed.php" role="php" />
-         <file name="Imap.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Namespace -->
         <file name="Base.php" role="php" />
         <file name="Cclient.php" role="php" />
         <file name="Imap.php" role="php" />
         <file name="Mock.php" role="php" />
-        <file name="Namespace.php" role="php" />
         <file name="Pear.php" role="php" />
         <file name="Rcube.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Driver -->
@@ -106,6 +93,18 @@
          <file name="Base.php" role="php" />
          <file name="Trigger.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Decorator -->
+        <dir name="Namespace">
+         <dir name="Element">
+          <file name="Other.php" role="php" />
+          <file name="Personal.php" role="php" />
+          <file name="Shared.php" role="php" />
+          <file name="SharedWithPrefix.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Namespace/Element -->
+         <file name="Config.php" role="php" />
+         <file name="Element.php" role="php" />
+         <file name="Fixed.php" role="php" />
+         <file name="Imap.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Namespace -->
         <dir name="Permission">
          <dir name="Acl">
           <file name="Anonymous.php" role="php" />
@@ -127,8 +126,13 @@
          <file name="ElementIterator.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Permission -->
         <file name="Base.php" role="php" />
+        <file name="Cached.php" role="php" />
+        <file name="Namespace.php" role="php" />
         <file name="Permission.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
+       <dir name="List">
+        <file name="Base.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Storage/List -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Data.php" role="php" />
@@ -136,11 +140,14 @@
        <file name="Exception.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="Folder.php" role="php" />
+       <file name="List.php" role="php" />
        <file name="Translation.php" role="php">
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
        </file>
       </dir> <!-- /lib/Horde/Kolab/Storage -->
       <file name="Storage.php" role="php" />
+      <file name="Storage_Old.php" role="php" />
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -518,6 +525,7 @@
    <install as="Horde/Kolab/Storage/usage.txt" name="doc/Horde/Kolab/Storage/usage.txt" />
    <install as="Horde/Kolab/Storage/list.php" name="examples/Horde/Kolab/Storage/list.php" />
    <install as="Horde/Kolab/Storage.php" name="lib/Horde/Kolab/Storage.php" />
+   <install as="Horde/Kolab/Storage_Old.php" name="lib/Horde/Kolab/Storage_Old.php" />
    <install as="Horde/Kolab/Storage/Base.php" name="lib/Horde/Kolab/Storage/Base.php" />
    <install as="Horde/Kolab/Storage/Cache.php" name="lib/Horde/Kolab/Storage/Cache.php" />
    <install as="Horde/Kolab/Storage/Data.php" name="lib/Horde/Kolab/Storage/Data.php" />
@@ -525,29 +533,31 @@
    <install as="Horde/Kolab/Storage/Exception.php" name="lib/Horde/Kolab/Storage/Exception.php" />
    <install as="Horde/Kolab/Storage/Factory.php" name="lib/Horde/Kolab/Storage/Factory.php" />
    <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
+   <install as="Horde/Kolab/Storage/List.php" name="lib/Horde/Kolab/Storage/List.php" />
    <install as="Horde/Kolab/Storage/Translation.php" name="lib/Horde/Kolab/Storage/Translation.php" />
    <install as="Horde/Kolab/Storage/Driver/Base.php" name="lib/Horde/Kolab/Storage/Driver/Base.php" />
    <install as="Horde/Kolab/Storage/Driver/Cclient.php" name="lib/Horde/Kolab/Storage/Driver/Cclient.php" />
    <install as="Horde/Kolab/Storage/Driver/Imap.php" name="lib/Horde/Kolab/Storage/Driver/Imap.php" />
    <install as="Horde/Kolab/Storage/Driver/Mock.php" name="lib/Horde/Kolab/Storage/Driver/Mock.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace.php" name="lib/Horde/Kolab/Storage/Driver/Namespace.php" />
    <install as="Horde/Kolab/Storage/Driver/Pear.php" name="lib/Horde/Kolab/Storage/Driver/Pear.php" />
    <install as="Horde/Kolab/Storage/Driver/Rcube.php" name="lib/Horde/Kolab/Storage/Driver/Rcube.php" />
    <install as="Horde/Kolab/Storage/Driver/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Base.php" />
    <install as="Horde/Kolab/Storage/Driver/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Log.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace/Config.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Config.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace/Element.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace/Fixed.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Fixed.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace/Imap.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Imap.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace/Element/Other.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element/Other.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace/Element/Personal.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element/Personal.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element/Shared.php" />
-   <install as="Horde/Kolab/Storage/Driver/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element/SharedWithPrefix.php" />
    <install as="Horde/Kolab/Storage/Exception/Pear.php" name="lib/Horde/Kolab/Storage/Exception/Pear.php" />
    <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
+   <install as="Horde/Kolab/Storage/Folder/Cached.php" name="lib/Horde/Kolab/Storage/Folder/Cached.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace.php" name="lib/Horde/Kolab/Storage/Folder/Namespace.php" />
    <install as="Horde/Kolab/Storage/Folder/Permission.php" name="lib/Horde/Kolab/Storage/Folder/Permission.php" />
    <install as="Horde/Kolab/Storage/Folder/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Base.php" />
    <install as="Horde/Kolab/Storage/Folder/Decorator/Trigger.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace/Config.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Config.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace/Element.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace/Fixed.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Fixed.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace/Imap.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Imap.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace/Element/Other.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/Other.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace/Element/Personal.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/Personal.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/Shared.php" />
+   <install as="Horde/Kolab/Storage/Folder/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/SharedWithPrefix.php" />
    <install as="Horde/Kolab/Storage/Folder/Permission/Acl.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl.php" />
    <install as="Horde/Kolab/Storage/Folder/Permission/AclIterator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/AclIterator.php" />
    <install as="Horde/Kolab/Storage/Folder/Permission/Element.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element.php" />
@@ -562,6 +572,7 @@
    <install as="Horde/Kolab/Storage/Folder/Permission/Element/Group.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Group.php" />
    <install as="Horde/Kolab/Storage/Folder/Permission/Element/Guest.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Guest.php" />
    <install as="Horde/Kolab/Storage/Folder/Permission/Element/User.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/User.php" />
+   <install as="Horde/Kolab/Storage/List/Base.php" name="lib/Horde/Kolab/Storage/List/Base.php" />
    <install as="locale/Horde_Kolab_Storage.pot" name="locale/Horde_Kolab_Storage.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" />
@@ -742,7 +753,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-15</date>
+   <date>2010-12-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added namespace support (Bug #6691).
