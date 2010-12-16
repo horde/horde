@@ -33,12 +33,11 @@ class Vilma_Driver_Sql extends Vilma_Driver
      */
     public function getDomains()
     {
-        $binds = $this->_getDomainKeyFilter();
         $sql = 'SELECT ' . $this->_getTableFields('domains')
             . ' FROM ' . $this->_params['tables']['domains']
-            . $binds[0] . ' ORDER BY domain_name';
+            . ' ORDER BY ' . $this->_getTableField('domains', 'domain_name');
         Horde::logMessage($sql, 'DEBUG');
-        return $this->_db->getAll($sql, $binds[1], DB_FETCHMODE_ASSOC);
+        return $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
     }
 
     /**
@@ -50,13 +49,11 @@ class Vilma_Driver_Sql extends Vilma_Driver
      */
     public function getDomain($domain_id)
     {
-        $binds = $this->_getDomainKeyFilter('AND');
         $sql = 'SELECT ' . $this->_getTableFields('domains')
             . ' FROM ' . $this->_params['tables']['domains']
-            . ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?' . $binds[0];
-        array_unshift($binds[1], (int)$domain_id);
+            . ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?';
         Horde::logMessage($sql, 'DEBUG');
-        return $this->_db->getRow($sql, $binds[1], DB_FETCHMODE_ASSOC);
+        return $this->_db->getRow($sql, array((int)$domain_id), DB_FETCHMODE_ASSOC);
     }
 
     /**
@@ -68,13 +65,11 @@ class Vilma_Driver_Sql extends Vilma_Driver
      */
     public function getDomainByName($domain_name)
     {
-        $binds = $this->_getDomainKeyFilter('AND');
         $sql = 'SELECT ' . $this->_getTableFields('domains')
             . ' FROM ' . $this->_params['tables']['domains']
-            . ' WHERE ' . $this->_getTableField('domains', 'domain_name') . ' = ?' . $binds[0];
-        array_unshift($binds[1], $domain_name);
+            . ' WHERE ' . $this->_getTableField('domains', 'domain_name') . ' = ?';
         Horde::logMessage($sql, 'DEBUG');
-        return $this->_db->getRow($sql, $binds[1], DB_FETCHMODE_ASSOC);
+        return $this->_db->getRow($sql, array($domain_name), DB_FETCHMODE_ASSOC);
     }
 
     /**
@@ -91,20 +86,14 @@ class Vilma_Driver_Sql extends Vilma_Driver
 
         if (empty($info['domain_id'])) {
             $record['domain_id'] = $this->_db->nextId($this->_params['tables']['domains']);
-            if (!empty($this->_params['tables']['domainkey'])) {
-                $record['domain_key'] = $this->_params['tables']['domainkey'];
-            }
-
             $sql = 'INSERT INTO ' . $this->_params['tables']['domains'] . ' '
                 . Horde_SQL::insertValues($this->_db, $this->_prepareRecord('domains', $record));
             $values = array();
         } else {
-            $binds = $this->_getDomainKeyFilter('AND');
             $sql = 'UPDATE ' . $this->_params['tables']['domains']
                 . ' SET ' . Horde_SQL::updateValues($this->_db, $this->_prepareRecord('domains', $record))
-                . ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?' . $binds[0];
-            array_unshift($binds[1], $info['domain_id']);
-            $values = $binds[1];
+                . ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?';
+            $values = array($info['domain_id']);
         }
 
         Horde::logMessage($sql, 'DEBUG');
@@ -154,13 +143,11 @@ class Vilma_Driver_Sql extends Vilma_Driver
      */
     public function getDomainNumUsers($domain_name)
     {
-        $binds = $this->_getUserKeyFilter('AND');
         $sql = 'SELECT count(' . $this->_getTableField('users', 'user_name') . ')'
             . ' FROM ' . $this->_params['tables']['users']
-            . ' WHERE ' . $this->_getTableField('users', 'user_name') . ' LIKE ?' . $binds[0];
-        array_unshift($binds[1], '%@' . $domain_name);
+            . ' WHERE ' . $this->_getTableField('users', 'user_name') . ' LIKE ?';
         Horde::logMessage($sql, 'DEBUG');
-        return $this->_db->getOne($sql, $binds[1]);
+        return $this->_db->getOne($sql, array('%@' . $domain_name));
     }
 
     /**
@@ -177,20 +164,17 @@ class Vilma_Driver_Sql extends Vilma_Driver
         /* Put together the SQL statement. */
         if (is_null($domain)) {
             /* Fetch all users. */
-            $binds = $this->_getUserKeyFilter();
             $sql = 'SELECT ' . $this->_getTableFields('users')
-                . ' FROM ' . $this->_params['tables']['users'] . $binds[0];
-            $values = $binds[1];
+                . ' FROM ' . $this->_params['tables']['users'];
+            $values = array();
         } else {
             /* Fetch only users for a domain. */
-            $binds = $this->_getUserKeyFilter('AND');
             $user_field =  $this->_getTableField('users', 'user_name');
             $sql = 'SELECT ' . $this->_getTableFields('users')
                 . ' FROM ' . $this->_params['tables']['users']
-                . ' WHERE ' . $user_field . ' LIKE ?' . $binds[0]
+                . ' WHERE ' . $user_field . ' LIKE ?'
                 . ' ORDER BY ' . $user_field;
-            array_unshift($binds[1], '%@' . $domain);
-            $values = $binds[1];
+            $values = array('%@' . $domain);
         }
         Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
@@ -206,13 +190,11 @@ class Vilma_Driver_Sql extends Vilma_Driver
      */
     public function getUser($user_id)
     {
-        $binds = $this->_getUserKeyFilter('AND');
         $sql = 'SELECT ' . $this->_getTableFields('users')
             . ' FROM ' . $this->_params['tables']['users']
-            . ' WHERE ' . $this->_getTableField('users', 'user_id') . ' = ?' . $binds[0];
-        array_unshift($binds[1], (int)$user_id);
+            . ' WHERE ' . $this->_getTableField('users', 'user_id') . ' = ?';
         Horde::logMessage($sql, 'DEBUG');
-        return $this->_db->getRow($sql, $binds[1], DB_FETCHMODE_ASSOC);
+        return $this->_db->getRow($sql, array((int)$user_id), DB_FETCHMODE_ASSOC);
     }
 
     /**
@@ -238,9 +220,10 @@ class Vilma_Driver_Sql extends Vilma_Driver
 
         // Slightly hackish.
         $mailboxes = Vilma_MailboxDriver::factory();
-        $mail_dir_base = isset($mailboxes->_params['mail_dir_base'])
-            ? $mailboxes->_params['mail_dir_base']
-            : '?';
+        $mail_dir_base = $mailboxes->getParam('mail_dir_base');
+        if (is_null($mail_dir_base)) {
+            $mail_dir_base = '?';
+        }
 
         $tuple = array(
             'user_id'         => (int)$info['user_id'],
@@ -252,15 +235,13 @@ class Vilma_Driver_Sql extends Vilma_Driver
             'user_enabled'    => (int)$info['user_enabled']);
 
         // UID and GID are slightly hackish (specific to maildrop driver), too.
-        if (!isset($mailboxes->_params['uid'])) {
+        $tuple['user_uid'] = $mailboxes->getParam('uid');
+        if (is_null($tuple['user_uid'])) {
             $tuple['user_uid'] = -1;
-        } else {
-            $tuple['user_uid'] = $mailboxes->_params['uid'];
         }
-        if (!isset($mailboxes->_params['gid'])) {
+        $tuple['user_gid'] = $mailboxes->getParam('gid');
+        if (is_null($tuple['user_gid'])) {
             $tuple['user_gid'] = -1;
-        } else {
-            $tuple['user_gid'] = $mailboxes->_params['gid'];
         }
 
         if (!empty($info['password'])) {
@@ -366,12 +347,10 @@ class Vilma_Driver_Sql extends Vilma_Driver
             $values = array($filter);
         }
 
-        $binds = $this->_getVirtualKeyFilter('AND');
         $sql = 'SELECT ' . $this->_getTableFields('virtuals')
             . ' FROM ' . $this->_params['tables']['virtuals']
-            . ' WHERE ' . $where . $binds[0]
+            . ' WHERE ' . $where
             . ' ORDER BY ' . $destination_field . ', ' . $email_field;
-        $values = array_merge($values, $binds[1]);
 
         Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
@@ -387,14 +366,12 @@ class Vilma_Driver_Sql extends Vilma_Driver
      */
     public function getVirtual($virtual_id)
     {
-        $binds = $this->_getVirtualKeyFilter('AND');
         $sql = 'SELECT ' . $this->_getTableFields('virtuals')
             . ' FROM ' . $this->_params['tables']['virtuals']
-            . ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?' . $binds[0];
-        array_unshift($binds[1], (int)$virtual_id);
+            . ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?';
 
         Horde::logMessage($sql, 'DEBUG');
-        $virtual = $this->_db->getRow($sql, $binds[1], DB_FETCHMODE_ASSOC);
+        $virtual = $this->_db->getRow($sql, array((int)$virtual_id), DB_FETCHMODE_ASSOC);
         $virtual['stripped_email'] = Vilma::stripUser($virtual['virtual_email']);
 
         return $virtual;
@@ -440,79 +417,10 @@ class Vilma_Driver_Sql extends Vilma_Driver
      */
     public function deleteVirtual($virtual_id)
     {
-        $binds = $this->_getVirtualKeyFilter('AND');
         $sql = 'DELETE FROM ' . $this->_params['tables']['virtuals']
-            . ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?' . $binds[0];
-        array_unshift($binds[1], $virtual_id);
+            . ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?';
         Horde::logMessage($sql, 'DEBUG');
-        return $this->_db->query($sql, $binds[1]);
-    }
-
-    /**
-     * Constructs an SQL WHERE fragment to filter domains by domain key.
-     *
-     * @param string $join  Keyword to join expression to rest of SQL statement
-     *                      (e.g. 'WHERE' or 'AND').
-     *
-     * @return array  An SQL fragment and a list of values suitable for
-     *                binding.
-     */
-    protected function _getDomainKeyFilter($join = 'WHERE')
-    {
-        if (empty($this->_params['tables']['domainkey'])) {
-            return array('', array());
-        }
-
-        return array(' ' . $join . ' domain_key = ?',
-                     array($this->_params['tables']['domainkey']));
-    }
-
-    /**
-     * Constructs an SQL WHERE fragment to filter users by domain key.
-     *
-     * @param string $join  Keyword to join expression to rest of SQL statement
-     *                      (e.g. 'WHERE' or 'AND'). Default: 'WHERE'.
-     *
-     * @return array  An SQL fragment and a list of values suitable for
-     *                binding.
-     */
-    protected function _getUserKeyFilter($join = 'WHERE')
-    {
-        if (empty($this->_params['tables']['domainkey'])) {
-            return array('', array());
-        }
-
-        $binds = $this->_getDomainKeyFilter('AND');
-        return array(' ' . $join . ' EXISTS (SELECT domain_name' .
-                     ' FROM ' . $this->_params['tables']['domains'] .
-                     ' WHERE ' . $this->_getTableField('users', 'user_name') .
-                     ' LIKE ? || ' . $this->_getTableField('domains', 'domain_name') .
-                     ' ' . $binds[0] . ' )',
-                     array_unshift($binds[1], '%@'));
-    }
-
-    /**
-     * Constructs an SQL WHERE fragment to filter virtuals by domain key.
-     *
-     * @param string $join  Keyword to join expression to rest of SQL statement
-     *                      (e.g. 'WHERE' or 'AND').  Default: 'WHERE'.
-     *
-     * @return array  An SQL fragment and a list of values suitable for
-     *                binding.
-     */
-    protected function _getVirtualKeyFilter($join = 'WHERE')
-    {
-        if (empty($this->_params['tables']['domainkey'])) {
-            return array('', array());
-        }
-
-        $binds = $this->_getDomainKeyFilter('AND');
-        return array(' ' . $join . ' EXISTS (SELECT domain_name' .
-                     ' FROM ' . $this->_params['tables']['domains'] .
-                     ' WHERE ' . $this->_getTableField('virtuals', 'virtual_email') .
-                     ' LIKE ? || ' . $this->_getTableField('domains', 'domain_name') .
-                     ' ' . $binds[0] . ' )',
-                     array_unshift($binds[1], '%@'));
+        return $this->_db->query($sql, array($virtual_id));
     }
 
     /**

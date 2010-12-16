@@ -9,7 +9,6 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Vilma
  */
 class VilmaBaseTables extends Horde_Db_Migration_Base

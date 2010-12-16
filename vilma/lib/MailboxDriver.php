@@ -27,6 +27,11 @@ abstract class Vilma_MailboxDriver
         $this->_params = $params;
     }
 
+    public function getParam($param)
+    {
+        return isset($this->_params[$param]) ? $this->_params[$param] : null;
+    }
+
     /**
      * Creates a new mailbox.
      *
