@@ -2,14 +2,14 @@
 /**
  * @category   Horde
  * @package    Support
- * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2007-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
 /**
  * @category   Horde
  * @package    Support
- * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2007-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  *
  * For a thorough description of consistent hashing, see
@@ -18,8 +18,8 @@
  * http://www8.org/w8-papers/2a-webserver/caching/paper2.html
  *
  * @TODO Ideas for future enhancement:
- *   - provide a callback when a point is moved on the circle, so that the calling
- *     code can take an action (say, tranferring data).
+ *   - provide a callback when a point is moved on the circle, so that the
+ *     calling code can take an action (say, transferring data).
  */
 class Horde_Support_ConsistentHash
 {
@@ -230,7 +230,7 @@ class Horde_Support_ConsistentHash
      */
     public function hash($key)
     {
-        return substr(hash('md5', $key), 0, 8);
+        return 'h' . substr(hash('md5', $key), 0, 8);
     }
 
     /**
