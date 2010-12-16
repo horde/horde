@@ -59,6 +59,16 @@ class Horde_Share_Sql extends Horde_Share_Base
     }
 
     /**
+     * Set the SQL table name to use for the current scope's share storage.
+     *
+     * @var string $table  The table name
+     */
+    public function setTable($table)
+    {
+        $this->_table = $table;
+    }
+
+    /**
      * Get storage table
      *
      * @return string
@@ -66,6 +76,11 @@ class Horde_Share_Sql extends Horde_Share_Base
     public function getTable()
     {
         return $this->_table;
+    }
+
+    public function setStorage(Horde_Db_Adapter $db)
+    {
+        $this->_db = $db;
     }
 
     /**
@@ -664,20 +679,6 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         return $query . ' WHERE ' . $where;
-    }
-
-    /**
-     * Set the SQL table name to use for the current scope's share storage.
-     *
-     * @var string $table  The table name
-     */
-    public function setShareTable($table) {
-        $this->_table = $table;
-    }
-
-    public function setStorage(Horde_Db_Adapter $db)
-    {
-        $this->_db = $db;
     }
 
     /**
