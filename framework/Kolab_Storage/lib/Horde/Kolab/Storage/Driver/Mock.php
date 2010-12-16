@@ -52,17 +52,20 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Constructor.
      *
-     * @param array $params Connection parameters.
+     * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
+     * @param array $params                        Connection parameters.
      */
-    public function __construct($params = array())
-    {
+    public function __construct(
+        Horde_Kolab_Storage_Factory $factory,
+        $params = array()
+    ) {
         if (isset($params['data'])) {
             $this->_data = $params['data'];
             unset($params['data']);
         } else {
             $this->_data = array();
         }
-        parent::__construct($params);
+        parent::__construct($factory, $params);
     }
 
     /**

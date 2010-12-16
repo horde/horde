@@ -29,6 +29,13 @@ abstract class Horde_Kolab_Storage_Driver_Base
 implements Horde_Kolab_Storage_Driver
 {
     /**
+     * Factory for generating helper objects.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    private $_factory;
+
+    /**
      * Additional connection parameters.
      *
      * @var array
@@ -38,11 +45,15 @@ implements Horde_Kolab_Storage_Driver
     /**
      * Constructor.
      *
-     * @param array $params        Connection parameters.
+     * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
+     * @param array $params                        Connection parameters.
      */
-    public function __construct($params = array())
-    {
-        $this->_params = $params;
+    public function __construct(
+        Horde_Kolab_Storage_Factory $factory,
+        $params = array()
+    ) {
+        $this->_factory = $factory;
+        $this->_params  = $params;
     }
 
     /**
@@ -59,6 +70,16 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Return the factory.
+     *
+     * @return Horde_Kolab_Storage_Factory The factory.
+     */
+    protected function getFactory()
+    {
+        return $this->_factory;
+    }
+
+    /**
      * Retrieve the namespace information for this connection.
      *
      * @return Horde_Kolab_Storage_Folder_Namespace The initialized namespace handler.
@@ -66,10 +87,10 @@ implements Horde_Kolab_Storage_Driver
     public function getNamespace()
     {
         if (isset($this->_params['namespaces'])) {
-            return new Horde_Kolab_Storage_Folder_Namespace_Config(
-                $this->_params['namespaces']
+            return $factory->createNamespace(
+                'config', $this->_params['namespaces']
             );
         }
-        return new Horde_Kolab_Storage_Folder_Namespace_Fixed();
+        return $this->_factory->createNamespace('fixed');
     }
 }

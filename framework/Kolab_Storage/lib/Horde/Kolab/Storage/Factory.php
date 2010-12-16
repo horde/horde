@@ -92,14 +92,15 @@ class Horde_Kolab_Storage_Factory
         switch ($params['driver']) {
         case 'mock':
             $config['data'] = array('user/test' => array());
-            return new Horde_Kolab_Storage_Driver_Mock($config);
+            return new Horde_Kolab_Storage_Driver_Mock($this, $config);
         case 'horde':
             $config['hostspec'] = $config['host'];
             unset($config['host']);
             return new Horde_Kolab_Storage_Driver_Imap(
                 new Horde_Imap_Client_Socket(
                     $config
-                )
+                ),
+                $this
             );
         case 'horde-php':
             $config['hostspec'] = $config['host'];
@@ -107,17 +108,18 @@ class Horde_Kolab_Storage_Factory
             return new Horde_Kolab_Storage_Driver_Imap(
                 new Horde_Imap_Client_Cclient(
                     $config
-                )
+                ),
+                $this
             );
         case 'php':
-            return new Horde_Kolab_Storage_Driver_Cclient($config);
+            return new Horde_Kolab_Storage_Driver_Cclient($this, $config);
         case 'pear':
             $client = new Net_IMAP($config['host']);
             Horde_Kolab_Storage_Exception_Pear::catchError(
                 $client->login($config['username'], $config['password'])
             );
             return new Horde_Kolab_Storage_Driver_Pear(
-                $client, $config
+                $client, $this, $config
             );
         case 'roundcube':
             $client = new rcube_imap_generic();
@@ -132,7 +134,7 @@ class Horde_Kolab_Storage_Factory
                 )
             );
             return new Horde_Kolab_Storage_Driver_Rcube(
-                $client, $config
+                $client, $this, $config
             );
         default:
             throw new Horde_Kolab_Storage_Exception(
@@ -146,4 +148,27 @@ class Horde_Kolab_Storage_Factory
         }
     }
 
+    /**
+     * Create a namespace handler.
+     *
+     * @param string $type   The namespace type.
+     * @param array  $params The parameters for the namespace. See 
+     *
+     * @return Horde_Kolab_Storage_Folder_Namespace The namespace handler.
+     */
+    public function createNamespace($type, array $params = array())
+    {
+        $class = 'Horde_Kolab_Storage_Folder_Namespace_' . ucfirst($type);
+        if (!class_exists($class)) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        'Invalid "namespace" type "%s"!'
+                    ),
+                    $type
+                )
+            );
+        }
+        return new $class($params);
+    }
 }

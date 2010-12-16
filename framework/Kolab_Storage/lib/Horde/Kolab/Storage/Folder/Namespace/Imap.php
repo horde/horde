@@ -32,18 +32,4 @@
 class Horde_Kolab_Storage_Folder_Namespace_Imap
 extends  Horde_Kolab_Storage_Folder_Namespace_Config
 {
-    /**
-     * Constructor.
-     */
-    public function __construct(array $namespaces, array $configuration = array())
-    {
-        $c = array();
-        foreach ($namespaces as $namespace) {
-            if (in_array($namespace['name'], array_keys($configuration))) {
-                $namespace = array_merge($namespace, $configuration[$namespace['name']]);
-            }
-            $c[] = $namespace;
-        }
-        parent::__construct($c);
-    }
 }

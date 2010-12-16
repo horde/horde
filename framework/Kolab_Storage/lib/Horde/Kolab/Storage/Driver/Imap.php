@@ -38,15 +38,17 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Constructor.
      *
-     * @param Horde_Imap_Client_Base $imap   The IMAP connection handler.
-     * @param array                  $params Connection parameters.
+     * @param Horde_Imap_Client_Base      $imap    The IMAP connection handler.
+     * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
+     * @param array                       $params  Connection parameters.
      */
     public function __construct(
         Horde_Imap_Client_Base $imap,
+        Horde_Kolab_Storage_Factory $factory,
         $params = array()
     ) {
         $this->_imap = $imap;
-        parent::__construct($params);
+        parent::__construct($factory, $params);
     }
 
     /**
@@ -406,10 +408,15 @@ extends Horde_Kolab_Storage_Driver_Base
     public function getNamespace()
     {
         if ($this->_imap->queryCapability('NAMESPACE') === true) {
-            return new Horde_Kolab_Storage_Folder_Namespace_Imap(
-                $this->_imap->getNamespaces(),
-                $this->getParam('namespaces', array())
-            );
+            $c = array();
+            $configuration = $this->getParam('namespaces', array());
+            foreach ($this->_imap->getNamespaces() as $namespace) {
+                if (in_array($namespace['name'], array_keys($configuration))) {
+                    $namespace = array_merge($namespace, $configuration[$namespace['name']]);
+                }
+                $c[] = $namespace;
+            }
+            return $this->getFactory()->createNamespace('imap', $c);
         }
         return parent::getNamespace();
     }

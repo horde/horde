@@ -39,6 +39,7 @@ extends PHPUnit_Framework_TestCase
     {
         $driver = new Horde_Kolab_Storage_Driver_Pear(
             $this->_getNamespaceMock(),
+            new Horde_Kolab_Storage_Factory(),
             array()
         );
         $this->assertType(
@@ -51,6 +52,7 @@ extends PHPUnit_Framework_TestCase
     {
         $driver = new Horde_Kolab_Storage_Driver_Pear(
             $this->_getNamespaceMock(),
+            new Horde_Kolab_Storage_Factory(),
             array()
         );
         $namespaces = array();

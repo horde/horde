@@ -38,15 +38,17 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Constructor.
      *
-     * @param rcube_imap_generic $imap   The IMAP connection handler.
-     * @param array              $params Connection parameters.
+     * @param rcube_imap_generic          $imap    The IMAP connection handler.
+     * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
+     * @param array                       $params  Connection parameters.
      */
     public function __construct(
         rcube_imap_generic $imap,
+        Horde_Kolab_Storage_Factory $factory,
         $params = array()
     ) {
         $this->_imap = $imap;
-        parent::__construct($params);
+        parent::__construct($factory, $params);
     }
 
     /**
