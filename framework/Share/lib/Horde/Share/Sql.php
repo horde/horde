@@ -155,7 +155,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e->getMessage());
         }
         if (!$results) {
-            $this->_logError(sprintf("Share name %s not found", $name), 'NOT FOUND');
+            $this->_logger->err(sprintf('Share name %s not found', $name));
             throw new Horde_Exception_NotFound();
         }
         $data = $this->_fromDriverCharset($results);
@@ -210,7 +210,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e->getMessage());
         }
         if (!$results) {
-            $this->_logError(sprintf("Share name %s not found", $name), 'NOT FOUND');
+            $this->_logger->err(sprintf('Share name %s not found', $name));
             throw new Horde_Exception_NotFound();
         }
         $data = $this->_fromDriverCharset($results);
@@ -642,7 +642,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                         . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                 }
             } catch (Horde_Group_Exception $e) {
-                $this->_logError($e, 'Horde_Share_Sql::getShareCriteria()');
+                $this->_logger->err($e);
             }
         } else {
             $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';

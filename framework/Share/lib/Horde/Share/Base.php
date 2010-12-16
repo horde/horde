@@ -669,48 +669,4 @@ abstract class Horde_Share_Base
 
         return count($aParts) > count($bParts);
     }
-
-    /**
-     * Logs a debug entry
-     *
-     * @param string $sql     The log statement.
-     * @param string $name    TODO
-     * @param float $runtime  Runtime interval.
-     */
-    protected function _logDebug($entry, $name, $runtime = null)
-    {
-        /*@TODO */
-        $name = (empty($name) ? '' : $name)
-              . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
-        $this->_logger->debug($this->_formatLogEntry($name, $entry));
-    }
-
-    /**
-     * Logs an error entry.
-     *
-     * @param string $error   The error statement.
-     * @param string $name    TODO
-     * @param float $runtime  Runtime interval.
-     */
-    protected function _logError($error, $name, $runtime = null)
-    {
-        /*@TODO */
-        $name = (empty($name) ? '' : $name)
-              . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
-        $this->_logger->err($this->_formatLogEntry($name, $error));
-    }
-
-    /**
-     * Formats the log entry.
-     *
-     * @param string $message  Message.
-     * @param string $sql      SQL statment.
-     *
-     * @return string  Formatted log entry.
-     */
-    protected function _formatLogEntry($message, $sql)
-    {
-        return "SQL $message  \n\t" . wordwrap(preg_replace("/\s+/", ' ', $sql), 70, "\n\t  ", 1);
-    }
-
 }
