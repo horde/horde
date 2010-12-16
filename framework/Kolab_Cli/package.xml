@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-15</date>
- <time>06:37:46</time>
+ <date>2010-12-16</date>
+ <time>06:33:31</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -45,6 +45,10 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Cli">
+       <dir name="Module">
+        <file name="Base.php" role="php" />
+        <file name="Folder.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Cli/Module -->
        <file name="Translation.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Cli -->
       <file name="Cli.php" role="php" />
@@ -81,6 +85,14 @@
    <pearinstaller>
     <min>1.9.0</min>
    </pearinstaller>
+   <package>
+    <name>Cli</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Cli_Modular</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>
@@ -88,6 +100,8 @@
    <install as="klb" name="bin/klb" />
    <install as="Horde/Kolab/Cli.php" name="lib/Horde/Kolab/Cli.php" />
    <install as="Horde/Kolab/Cli/Translation.php" name="lib/Horde/Kolab/Cli/Translation.php" />
+   <install as="Horde/Kolab/Cli/Module/Base.php" name="lib/Horde/Kolab/Cli/Module/Base.php" />
+   <install as="Horde/Kolab/Cli/Module/Folder.php" name="lib/Horde/Kolab/Cli/Module/Folder.php" />
    <install as="Horde/Kolab/Cli/AllTests.php" name="test/Horde/Kolab/Cli/AllTests.php" />
    <install as="Horde/Kolab/Cli/Autoload.php" name="test/Horde/Kolab/Cli/Autoload.php" />
    <install as="Horde/Kolab/Cli/phpunit.xml" name="test/Horde/Kolab/Cli/phpunit.xml" />
@@ -108,7 +122,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-15</date>
+   <date>2010-12-16</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.

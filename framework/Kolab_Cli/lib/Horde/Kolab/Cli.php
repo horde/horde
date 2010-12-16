@@ -40,7 +40,7 @@ class Horde_Kolab_Cli
      */
     static public function main(array $parameters = array())
     {
-        $parser = self::_prepareParser($parameters);
+        $modular = self::_prepareModular($parameters);
         if (empty($parameters['output'])) {
             if (!class_exists('Horde_Cli')) {
                 throw new Horde_Kolab_Cli_Exception('The Horde_Cli package seems to be missing (Class Horde_Cli is missing)!');
@@ -49,91 +49,37 @@ class Horde_Kolab_Cli
         } else {
             $cli = $parameters['output'];
         }
+        $parser = $modular->createParser();
         list($options, $arguments) = $parser->parseArgs();
         if (count($arguments) == 0) {
             $parser->printHelp();
         } else {
-            switch ($arguments[0]) {
-            case 'folder':
-                $factory = new Horde_Kolab_Storage_Factory();
-                var_dump(
-                    $factory->createFromParams(
-                        array(
-                            'driver' => $options['driver'],
-                            'params' => $options
-                        )
-                    )->listFolders()
-                );
-                break;
-            default:
+            try {
+                $modular->getProvider()
+                    ->getModule(ucfirst($arguments[0]))
+                    ->run($options, $arguments);
+            } catch (Horde_Cli_Modular_Exception $e) {
                 $parser->printHelp();
             }
         }
     }
 
-    static private function _prepareParser(array $parameters = array())
+    static private function _prepareModular(array $parameters = array())
     {
-        if (empty($parameters['parser']['class'])) {
-            $parser_class = 'Horde_Argv_Parser';
-        } else {
-            $parser_class = $parameters['parser']['class'];
-        }
-        $options = array(
-            new Horde_Argv_Option(
-                '-d',
-                '--driver',
-                array(
-                    'action' => 'store',
-                    'choices' => array('horde', 'horde-php', 'php', 'pear', 'roundcube', 'mock'),
-                    'help'   => Horde_Kolab_Cli_Translation::t(
-"The Kolab backend driver that should be used.
-Choices are:
-
- - horde     [IMAP]: The Horde_Imap_Client driver as pure PHP implementation.
- - horde-php [IMAP]: The Horde_Imap_Client driver based on c-client in PHP
- - php       [IMAP]: The PHP imap_* functions which are based on c-client
- - pear      [IMAP]: The PEAR-Net_IMAP driver
- - roundcube [IMAP]: The roundcube IMAP driver
- - mock    [Memory]: A dummy driver."
-                    )
-                )
-            ),
-            new Horde_Argv_Option(
-                '-u',
-                '--username',
-                array(
-                    'action' => 'store',
-                    'help'   => Horde_Kolab_Cli_Translation::t('The user accessing the backend.')
-                )
-            ),
-            new Horde_Argv_Option(
-                '-p',
-                '--password',
-                array(
-                    'action' => 'store',
-                    'help'   => Horde_Kolab_Cli_Translation::t('The password of the user accessing the backend.')
-                )
-            ),
-            new Horde_Argv_Option(
-                '-H',
-                '--host',
-                array(
-                    'action' => 'store',
-                    'help'   => Horde_Kolab_Cli_Translation::t('The host that holds the data.')
-                )
-            ),
-        );
-        $usage = Horde_Kolab_Cli_Translation::t(
-            "[options] MODULE ACTION\nPossible MODULEs and ACTIONs:
-
-  folder - Handle folders.
-    list [default] - List the folders
-"
-        );
-        return new $parser_class(
+        return new Horde_Cli_Modular(
             array(
-                'usage' => '%prog ' . $usage,
-                'optionList' => $options
+                'parser' => array(
+                    'class' => empty($parameters['parser']['class']) ? 'Horde_Argv_Parser' : $parameters['parser']['class'],
+                    'usage' => Horde_Kolab_Cli_Translation::t(
+                        "[options] MODULE ACTION\n\nPossible MODULEs and ACTIONs:\n\n"
+                    )
+                ),
+                'modules' => array(
+                    'directory' => dirname(__FILE__) . '/Cli/Module',
+                ),
+                'provider' => array(
+                    'prefix' => 'Horde_Kolab_Cli_Module_'
+                )
             )
         );
     }
