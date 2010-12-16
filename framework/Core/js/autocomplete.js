@@ -122,10 +122,12 @@ Autocompleter.Base = Class.create({
             });
 
             if (!this.knl) {
-                this.knl = new KeyNavList(this.elt, { onChoose: this.onSelect.bind(this),
-                                                        onShow: this.opts.onShow.bind(this),
-                                                     domParent: this.opts.domParent,
-                                               keydownObserver: this.opts.keydownObserver});
+                this.knl = new KeyNavList(this.elt, {
+                    onChoose: this.onSelect.bind(this),
+                    onShow: this.opts.onShow.bind(this),
+                    domParent: this.opts.domParent,
+                    keydownObserver: this.opts.keydownObserver
+                });
             }
 
             this.knl.show(c);

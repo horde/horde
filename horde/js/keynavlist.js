@@ -7,7 +7,11 @@
  * Usage:
  * ======
  * var knl = new KeyNavList(base, {
+ *     'domParent' - (Element) Specifies the parent element. Defaults to
+ *                   document.body
  *     'esc' - (boolean) Escape the displayed output?
+ *     'keydownObserver' - (Element) The element to register the keydown
+ *                         handler on. Defaults to document.
  *     'list' - (array) Array of objects with the following keys:
  *                      'l' - (label) Display data
  *                      's' - (selected) True if this entry should be selected
@@ -19,10 +23,6 @@
  *                list container element.
  *     'onShow' - (function) Called when the list is shown. Passed the
  *                list container element.
- *     'domParent' - (Element) Specifies the parent element. Defaults to
- *                   document.body
- *     'keydownObserver' - (Element) The element to register the keydown
- *                         handler on. Defaults to document.
  * });
  *
  * [base = (Element) The element to use for display positioning purposes]
