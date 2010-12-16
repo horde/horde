@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Share:: factory.
+ * A Horde_Injector based Horde_Share factory.
  *
  * @category Horde
  * @package  Core
@@ -8,7 +8,7 @@
  */
 
 /**
- * A Horde_Injector:: based Horde_Share:: factory.
+ * A Horde_Injector based Horde_Share factory.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *

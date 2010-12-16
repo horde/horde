@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/DataTree.php';
-
 /**
  * Horde_Share_datatree:: provides the datatree backend for the horde share
  * driver.
@@ -19,7 +16,7 @@ require_once 'Horde/DataTree.php';
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Share
  */
-class Horde_Share_Datatree extends Horde_Share
+class Horde_Share_Datatree extends Horde_Share_Base
 {
     /**
      * The Horde_Share_Object subclass to instantiate objects as

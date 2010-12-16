@@ -15,7 +15,7 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Share
  */
-class Horde_Share_kolab extends Horde_Share
+class Horde_Share_Kolab extends Horde_Share_Base
 {
     const VERSION = 1;
 
@@ -171,7 +171,7 @@ class Horde_Share_kolab extends Horde_Share
      * Returns an array of all shares that $userid has access to.
      *
      * @param string $userid     The userid of the user to check access for.
-     * @param array  $params  @see Horde_Share::listShares
+     * @param array  $params     See listShares().
      *
      * @return array  The shares the user has access to.
      */

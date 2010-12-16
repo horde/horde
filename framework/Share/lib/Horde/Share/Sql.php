@@ -16,7 +16,7 @@
 /**
  * @package Horde_Share
  */
-class Horde_Share_Sql extends Horde_Share
+class Horde_Share_Sql extends Horde_Share_Base
 {
     /* Share has user perms */
     const SQL_FLAG_USERS = 1;
@@ -50,7 +50,7 @@ class Horde_Share_Sql extends Horde_Share
 
     /**
      *
-     * @see Horde_Share::__construct()
+     * @see Horde_Share_Base::__construct()
      */
     public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
     {
@@ -630,7 +630,7 @@ class Horde_Share_Sql extends Horde_Share
                         . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                 }
             } catch (Horde_Group_Exception $e) {
-                $this->_logError($e, 'Horde_Share::getShareCriteria()');
+                $this->_logError($e, 'Horde_Share_Sql::getShareCriteria()');
             }
         } else {
             $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';

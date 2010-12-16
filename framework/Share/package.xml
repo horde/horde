@@ -3,16 +3,16 @@
  <name>Horde_Share</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Shared Permissions System</summary>
- <description>Horde_Share:: This class provides an interface to all shared
-resources a user owns or has access to.</description>
+ <description>Horde_Share provides an interface to all shared resources a user
+owns or has access to.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-07</date>
- <time>17:46:01</time>
+ <date>2010-12-16</date>
+ <time>19:14:43</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -44,6 +44,7 @@ resources a user owns or has access to.</description>
       <dir name="Sql">
        <file name="Hierarchical.php" role="php" />
       </dir> <!-- /lib/Horde/Share/Sql -->
+      <file name="Base.php" role="php" />
       <file name="Datatree.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Kolab.php" role="php" />
@@ -53,7 +54,6 @@ resources a user owns or has access to.</description>
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
      </dir> <!-- /lib/Horde/Share -->
-     <file name="Share.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
@@ -346,7 +346,7 @@ resources a user owns or has access to.</description>
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Share.php" name="lib/Horde/Share.php" />
+   <install as="Horde/Share/Base.php" name="lib/Horde/Share/Base.php" />
    <install as="Horde/Share/Datatree.php" name="lib/Horde/Share/Datatree.php" />
    <install as="Horde/Share/Exception.php" name="lib/Horde/Share/Exception.php" />
    <install as="Horde/Share/Kolab.php" name="lib/Horde/Share/Kolab.php" />
@@ -515,7 +515,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-12-07</date>
+   <date>2010-12-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Converted to Horde 4 coding standards

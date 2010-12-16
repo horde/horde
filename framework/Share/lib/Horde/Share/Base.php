@@ -1,8 +1,6 @@
 <?php
 /**
- * Horde_Share:: provides an interface to all shares a user might have.  Its
- * methods take care of any site-specific restrictions configured in in the
- * application's prefs.php and conf.php files.
+ * Base class for all Horde_Share drivers.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  * Copyright 2002-2007 Infoteck Internet <webmaster@infoteck.qc.ca>
@@ -18,7 +16,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Share
  */
-class Horde_Share
+class Horde_Share_Base
 {
     /**
      * The application we're managing shares for.
@@ -119,7 +117,7 @@ class Horde_Share
      * list     - Called immediately after a list of shares is received from
      *            storage. Passed the userid, share list, and any parameters
      *            passed to the listShare call. Should return the (possibly
-     *            modified) share list. @see Horde_Share::listShares() for more
+     *            modified) share list. @see listShares() for more
      *            info.
      *</pre>
      *
@@ -373,8 +371,8 @@ class Horde_Share
     /**
      * Adds a share to the shares system.
      *
-     * The share must first be created with Horde_Share::newShare(), and have
-     * any initial details added to it, before this function is called.
+     * The share must first be created with newShare(), and have any initial
+     * details added to it, before this function is called.
      *
      * @param Horde_Share_Object $share  The new share object.
      *

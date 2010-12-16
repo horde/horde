@@ -742,7 +742,7 @@ class Ansel_Storage
 
     /**
      * Check if a gallery exists. Need to do this here instead of Horde_Share
-     * since Horde_Share::exists() takes a share_name, not a share_id. We
+     * since Horde_Share_Base::exists() takes a share_name, not a share_id. We
      * might also be checking by gallery_slug and this is more efficient than
      * a listShares() call for one gallery.
      *
