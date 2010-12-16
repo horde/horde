@@ -102,7 +102,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @throws Horde_Share_Exception
      */
-    protected function _getShareUsers(&$share)
+    protected function _getShareUsers($share)
     {
         if ($this->_hasUsers($share)) {
             try {
@@ -123,7 +123,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @throws Horde_Share_Exception
      */
-    protected function _getShareGroups(&$share)
+    protected function _getShareGroups($share)
     {
         if ($this->_hasGroups($share)) {
             try {
@@ -177,14 +177,14 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @param array $data  Array of share attributes
      */
-    protected function _loadPermissions(&$data)
+    protected function _loadPermissions($data)
     {
         $this->_getShareUsers($data);
         $this->_getShareGroups($data);
         $this->_getSharePerms($data);
     }
 
-    protected function _getSharePerms(&$data)
+    protected function _getSharePerms($data)
     {
         $data['perm']['type'] = 'matrix';
         $data['perm']['default'] = isset($data['perm_default']) ? (int)$data['perm_default'] : 0;
