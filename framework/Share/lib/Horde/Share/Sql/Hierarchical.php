@@ -23,7 +23,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      *
      * @return Horde_Share_Object_sql  A new share object.
      */
-    protected function _newShare()
+    protected function _newShare($name = '')
     {
         return $this->_createObject();
     }
