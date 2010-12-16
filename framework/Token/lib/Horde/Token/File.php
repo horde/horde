@@ -30,19 +30,15 @@ class Horde_Token_File extends Horde_Token_Base
     /**
      * Constructor.
      *
+     * @see Horde_Token_Base::__construct() for more parameters.
+     *
      * @param array $params  Optional parameters:
-     * <pre>
-     * 'timeout' - (integer) The period (in seconds) after which an id is
-     *             purged.
-     *             DEFAULT: 86400 (24 hours)
-     * 'token_dir' - (string)  The directory where to keep token files.
-     *               DEFAULT: System temporary directory
-     * </pre>
+     * - token_dir (string): The directory where to keep token files.
+     *                       DEFAULT: System temporary directory
      */
     public function __construct($params = array())
     {
         $params = array_merge(array(
-            'timeout' => 86400,
             'token_dir' => Horde_Util::getTempDir()
         ), $params);
 
