@@ -114,7 +114,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
     protected function _getShares($ids)
     {
         $shares = array();
-        $objects = &$this->_datatree->getObjects($ids, 'DataTreeObject_Share');
+        $objects = $this->_datatree->getObjects($ids, 'DataTreeObject_Share');
         if (is_a($objects, 'PEAR_Error')) {
             throw new Horde_Share_Exception($objects->getMessage());
         }
@@ -134,7 +134,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
      * @return array  All shares for the current app/share.
      * @throws Horde_Share_Exception
      */
-    function _listAllShares()
+    protected function _listAllShares()
     {
         $sharelist = $this->_datatree->get(DATATREE_FORMAT_FLAT, DATATREE_ROOT, true);
         if ($sharelist instanceof PEAR_Error) {
@@ -161,9 +161,9 @@ class Horde_Share_Datatree extends Horde_Share_Base
      * @return array  The shares the user has access to.
      * @throws Horde_Share_Exception
      */
-    function _listShares($userid, $perm = Horde_Perms::SHOW,
-                         $attributes = null, $from = 0, $count = 0,
-                         $sort_by = null, $direction = 0)
+    protected function _listShares($userid, $perm = Horde_Perms::SHOW,
+                                   $attributes = null, $from = 0, $count = 0,
+                                   $sort_by = null, $direction = 0)
     {
         $key = serialize(array($userid, $perm, $attributes));
         if (empty($this->_listCache[$key])) {
@@ -216,9 +216,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
         }
         $datatreeObject = new Horde_Share_Object_DataTree_Share($name);
         $datatreeObject->setDataTree($this->_datatree);
-        $share = $this->_createObject($datatreeObject);
-
-        return $share;
+        return $this->_createObject($datatreeObject);
     }
 
     /**
@@ -346,5 +344,4 @@ class Horde_Share_Datatree extends Horde_Share_Base
 
         return $criteria;
     }
-
 }

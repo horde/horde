@@ -37,7 +37,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      * @return mixed  True if setting the attribute did succeed, a PEAR_Error
      *                otherwise.
      */
-    public function _set($attribute, $value)
+    public function set($attribute, $value)
     {
         return $this->datatreeObject->set($attribute, $value);
     }
@@ -50,7 +50,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      *
      * @return mixed  The value of the attribute, or an empty string.
      */
-    public function _get($attribute)
+    public function get($attribute)
     {
         return $this->datatreeObject->get($attribute);
     }
@@ -60,7 +60,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      *
      * @return string  The share's ID.
      */
-    protected function _getId()
+    public function getId()
     {
         return $this->datatreeObject->getId();
     }
@@ -70,7 +70,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      *
      * @return string  The share's name.
      */
-    protected function _getName()
+    public function getName()
     {
         return $this->datatreeObject->getName();
     }

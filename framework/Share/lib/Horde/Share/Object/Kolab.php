@@ -136,10 +136,10 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      * @param string $folder  Name of the Kolab folder.
      * @param array  $perms  The permissions of the folder if they are known.
      */
-    public function setFolder(&$folder)
+    public function setFolder($folder)
     {
         if (!isset($this->_folder)) {
-            $this->_folder = &$folder;
+            $this->_folder = $folder;
             $this->_folder_name = $folder->name;
         } else {
            throw new Horde_Share_Exception(Horde_Share_Translation::t("The share has already been initialized!"));
@@ -151,7 +151,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      *
      * @return string  The share's ID.
      */
-    protected function _getId()
+    public function getId()
     {
         return $this->_folder->getShareId();
     }
@@ -161,7 +161,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      *
      * @return string  The share's name.
      */
-    protected function _getName()
+    public function getName()
     {
         return $this->_folder->getShareId();
     }
@@ -173,7 +173,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      *
      * @return mixed  The value for $attribute.
      */
-    protected function _get($attribute)
+    public function get($attribute)
     {
         if (isset($this->_data[$attribute])) {
             return $this->_data[$attribute];
@@ -239,7 +239,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      * @return mixed  True if setting the attribute did succeed, a PEAR_Error
      *                otherwise.
      */
-    protected function _set($attribute, $value)
+    public function set($attribute, $value)
     {
         switch ($attribute) {
         case 'name':

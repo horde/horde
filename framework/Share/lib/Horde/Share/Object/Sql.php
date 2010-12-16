@@ -90,7 +90,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      *
      * @return boolean
      */
-    public function _set($attribute, $value)
+    public function set($attribute, $value)
     {
         if ($attribute == 'owner') {
             return $this->data['share_owner'] = $value;
@@ -107,7 +107,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      *
      * @return mixed  The value of the attribute, or an empty string.
      */
-    protected function _get($attribute)
+    public function get($attribute)
     {
         if ($attribute == 'owner') {
             return $this->data['share_owner'];
@@ -121,7 +121,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      *
      * @return string  The share's ID.
      */
-    protected function _getId()
+    public function getId()
     {
         return isset($this->data['share_id']) ? $this->data['share_id'] : null;
     }
@@ -131,7 +131,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      *
      * @return string  The share's name.
      */
-    protected function _getName()
+    public function getName()
     {
         return $this->data['share_name'];
     }
