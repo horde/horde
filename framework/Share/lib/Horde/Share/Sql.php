@@ -478,7 +478,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @return array  The shares the user has access to.
      */
-    protected function _listShares($userid, $params = array())
+    protected function _listShares($userid, array $params = array())
     {
     }
 

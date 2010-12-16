@@ -174,7 +174,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      *
      * @return array  The shares the user has access to.
      */
-    protected function _listShares($userid, $params = array())
+    protected function _listShares($userid, array $params = array())
     {
         $key = serialize(array($this->_type, $userid, $params['perm'], $params['attributes']));
         if ($this->_list === false) {

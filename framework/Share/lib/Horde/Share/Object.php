@@ -35,7 +35,7 @@ abstract class Horde_Share_Object implements Serializable
      */
     public function setShareOb($shareOb)
     {
-        if ($shareOb instanceof Horde_Share) {
+        if ($shareOb instanceof Horde_Share_Base) {
             $this->_shareOb = $shareOb;
         } else {
             $this->_shareCallback = $shareOb;

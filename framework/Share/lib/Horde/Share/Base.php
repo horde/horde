@@ -330,7 +330,7 @@ abstract class Horde_Share_Base
      *
      * @return array  The shares the user has access to.
      */
-    public function listShares($userid, $params = array())
+    public function listShares($userid, array $params = array())
     {
         $params = array_merge(array('perm' => Horde_Perms::SHOW,
                                     'attributes' => null,
@@ -368,7 +368,7 @@ abstract class Horde_Share_Base
      *
      * @return array  The shares the user has access to.
      */
-    abstract protected function _listShares($userid, $params = array());
+    abstract protected function _listShares($userid, array $params = array());
 
     /**
      * Returns an array of all system shares.
