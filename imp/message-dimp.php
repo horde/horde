@@ -68,7 +68,7 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as
     }
 }
 
-$js_vars['DimpMessage.flag'] = IMP_Ajax_Application::flagEntry(array('\\seen'), true, $vars->folder, $vars->uid);
+$js_vars['DimpMessage.flag'] = IMP_Ajax_Application::flagEntry(array('\\seen'), true, new IMP_Indices($vars->folder, $vars->uid));
 
 if ($poll = IMP_Ajax_Application::pollEntry($vars->folder)) {
     $js_vars['DimpMessage.poll'] = $poll;

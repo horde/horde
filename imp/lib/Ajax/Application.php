@@ -728,9 +728,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $result = new stdClass;
-        list($mbox, $uids) = $indices->getSingle(true);
-        $result->flag = $this->flagEntry($flags, $this->_vars->add, $mbox, $uids);
+        $result->flag = $this->flagEntry($flags, $this->_vars->add, $indices);
 
+        list($mbox,) = $indices->getSingle();
         if (in_array('\\seen', $flags) && ($poll = $this->pollEntry($mbox))) {
             $result->poll = $poll;
         }
@@ -999,7 +999,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
 
             /* Add changed flag information. */
-            $result->flag = $this->flagEntry(array('\\seen'), true, $mbox, $idx);
+            $result->flag = $this->flagEntry(array('\\seen'), true, $indices);
         } catch (Horde_Imap_Client_Exception $e) {
             $result->preview->error = $e->getMessage();
             $result->preview->errortype = 'horde.error';
@@ -1742,13 +1742,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($imp_compose->getMetadata('reply_type')) {
         case 'forward':
-            $result->flag = $this->flagEntry(array('$forwarded'), true, $result->mbox, $result->uid);
+            $result->flag = $this->flagEntry(array('$forwarded'), true, new IMP_Indices($result->mbox, $result->uid));
             break;
 
         case 'reply':
         case 'reply_all':
         case 'reply_list':
-            $result->flag = $this->flagEntry(array('\\answered'), true, $result->mbox, $result->uid);
+            $result->flag = $this->flagEntry(array('\\answered'), true, new IMP_Indices($result->mbox, $result->uid));
             break;
         }
 
@@ -1812,10 +1812,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Generate flag updated entry.
      *
-     * @param array $flags  List of flags that have changed.
-     * @param boolean $add  Were the flags added?
-     * @param string $mbox  Mailbox where flags changed.
-     * @param string $uids  IMAP UIDs of the changed flags.
+     * @param array $flags    List of flags that have changed.
+     * @param boolean $add    Were the flags added?
+     * @param mixed $indices  Either a mailbox string or an IMP_Indices
+     *                        object.
      *
      * @return stdClass  Object with these properties:
      * <pre>
@@ -1827,7 +1827,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *          changed.
      * </pre>
      */
-    static public function flagEntry($flags, $add, $mbox, $uids = null)
+    static public function flagEntry($flags, $add, $indices)
     {
         $changed = $GLOBALS['injector']->getInstance('IMP_Flags')->changed($flags, $add);
 
@@ -1835,12 +1835,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!empty($changed['add'])) {
             $result->add = array_map('strval', $changed['add']);
         }
-        $result->mbox = $mbox;
         if (!empty($changed['remove'])) {
             $result->remove = array_map('strval', $changed['remove']);
         }
-        if (!is_null($uids)) {
-            $result->uids = strval(new IMP_Indices($mbox, $uids));
+
+        if ($indices instanceof IMP_Indices) {
+            list($result->mbox,) = $indices->getSingle();
+            $result->uids = strval($indices);
+        } else {
+            $result->mbox = $indices;
         }
 
         return $result;
