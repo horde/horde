@@ -222,6 +222,10 @@ var DimpCore = {
         }
 
         msgs.find(function(m) {
+            if (!Object.isString(m.message)) {
+                return;
+            }
+
             switch (m.type) {
             case 'horde.ajaxtimeout':
                 this.logout(m.message);
