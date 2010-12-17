@@ -88,7 +88,7 @@ extends Horde_Kolab_Storage_TestCase
                 ->method('getAuth')
                 ->will($this->returnValue('test'));
             $folder = $this->_getFolder(null, $namespace);
-            $folder->setName('test');
+            $folder->setTitle('test');
             $this->assertEquals('test', $folder->getTitle());
         }
     }
@@ -146,7 +146,7 @@ extends Horde_Kolab_Storage_TestCase
                 ->method('getAuth')
                 ->will($this->returnValue('test'));
             $folder = $this->_getFolder(null, $namespace);
-            $folder->setName('test');
+            $folder->setTitle('test');
             $this->assertEquals('test', $folder->getOwner());
         }
     }
@@ -170,51 +170,51 @@ extends Horde_Kolab_Storage_TestCase
         }
     }
 
-    public function testSetnameDefaultPersonalNS()
+    public function testSettitleDefaultPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
-            $folder->setName('test:this');
-            $this->assertEquals('INBOX/test/this', $folder->getName());
+            $folder->setTitle('test:this');
+            $this->assertEquals('INBOX/test/this', $folder->getPath());
         }
     }
 
-    public function testSetnameSeparator()
+    public function testSettitleSeparator()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
-            $folder->setName('a:b:c');
-            $this->assertEquals('INBOX/a/b/c', $folder->getName());
+            $folder->setTitle('a:b:c');
+            $this->assertEquals('INBOX/a/b/c', $folder->getPath());
         }
     }
 
-    public function testSetnameUtf7()
+    public function testSettitleUtf7()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
-            $folder->setName('äöü');
+            $folder->setTitle('äöü');
             $this->assertEquals(
                 'INBOX/äöü',
-                Horde_String::convertCharset($folder->getName(), 'UTF7-IMAP', 'UTF8')
+                Horde_String::convertCharset($folder->getPath(), 'UTF7-IMAP', 'UTF8')
             );
         }
     }
 
-    public function testSetnameInSharedNS()
+    public function testSettitleInSharedNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
-            $folder->setName('shared.test');
-            $this->assertEquals('shared.test', $folder->getName());
+            $folder->setTitleInShared('test');
+            $this->assertEquals('shared.test', $folder->getPath());
         }
     }
 
-    public function testSetnameInOthersNS()
+    public function testSettitleInOthersNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
-            $folder->setName('user:test:test');
-            $this->assertEquals('user/test/test', $folder->getName());
+            $folder->setTitleInOther('test', 'test');
+            $this->assertEquals('user/test/test', $folder->getPath());
         }
     }
 
@@ -222,7 +222,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
-            $folder->setName('test');
+            $folder->setTitle('test');
             $this->assertEquals('test', $folder->getSubpath());
         }
     }

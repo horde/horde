@@ -40,56 +40,35 @@ implements Iterator
      *
      * @var array
      */
-    protected $_namespaces = array();
+    private $_namespaces = array();
 
     /**
-     * A prefix in the shared namespaces that will be ignored/removed.
-     *
-     * @var string
-     */
-    protected $_sharedPrefix;
-
-    /**
-     * The namespace that matches any folder name not matching to another
-     * namespace.
-     *
-     * @var Horde_Kolab_Storage_Folder_Namespace_Element
-     */
-    protected $_any;
-
-    /**
-     * Indicates the personal namespace that the class will use to create new
-     * folders.
-     *
-     * @var Horde_Kolab_Storage_Folder_Namespace_Element
-     */
-    protected $_primaryPersonalNamespace;
-
-    /**
-     * A helper for iteration over the namespaces.
+     * The namespaces with a defined prefix.
      *
      * @var array
      */
-    protected $_iteration;
+    private $_prefix_namespaces = array();
+
+    /**
+     * The fallback namespace matching any path if no other namesace matches.
+     *
+     * @var Horde_Kolab_Storage_Folder_Namespace_Element
+     */
+    private $_any;
 
     /**
      * Constructor.
+     *
+     * @param array $namespaces The namespaces.
      */
-    public function __construct()
+    public function __construct(array $namespaces)
     {
-        if (empty($this->_primaryPersonalNamespace)) {
-            $personal = null;
-            foreach ($this->_namespaces as $namespace) {
-                if ($namespace->getName() == 'INBOX') {
-                    $this->_primaryPersonalNamespace = $namespace;
-                    break;
-                }
-                if (empty($personal) && $namespace->getType() == self::PERSONAL) {
-                    $personal = $namespace;
-                }
-            }
-            if (empty($this->_primaryPersonalNamespace)) {
-                $this->_primaryPersonalNamespace = $personal;
+        $this->_namespaces = $namespaces;
+        foreach ($this->_namespaces as $namespace) {
+            if ($namespace->getName() == '') {
+                $this->_any = $namespace;
+            } else {
+                $this->_prefix_namespaces[] = $namespace;
             }
         }
     }
@@ -106,7 +85,7 @@ implements Iterator
      */
     public function matchNamespace($name)
     {
-        foreach ($this->_namespaces as $namespace) {
+        foreach ($this->_prefix_namespaces as $namespace) {
             if ($namespace->matches($name)) {
                 return $namespace;
             }
@@ -128,19 +107,6 @@ implements Iterator
     public function getCharset()
     {
         throw new Exception('This method is deprecated, assume UTF-8');
-    }
-
-    /**
-     * Return the title of a folder.
-     *
-     * @param string $name The name of the folder.
-     *
-     * @return string The title of the folder.
-     */
-    public function getTitle($name)
-    {
-        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
-        return $this->matchNamespace($name)->getTitle($name);
     }
 
     /**
@@ -170,49 +136,142 @@ implements Iterator
     }
 
     /**
-     * Generate an IMAP folder name.
+     * Return the title of a folder.
      *
-     * @param string $name The new folder name.
+     * @param string $name The name of the folder.
+     *
+     * @return string The title of the folder.
+     */
+    public function getTitle($name)
+    {
+        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
+        return $this->matchNamespace($name)->getTitle($name);
+    }
+
+    /**
+     * Generate an IMAP folder name in the personal namespace.
+     *
+     * @param string $title The new folder title.
      *
      * @return string The IMAP folder name.
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $namespace = $this->matchNamespace($name);
-        $path = explode(':', $name);
-        if (empty($this->_sharedPrefix)
-            || (strpos($path[0], $this->_sharedPrefix) === false
-                && $namespace->getType() != self::OTHER)) {
-            array_unshift($path, $this->_primaryPersonalNamespace->getName());
-            $namespace = $this->_primaryPersonalNamespace;
+        return $this->_setTitle(self::PERSONAL, explode(':', $title));
+    }
+
+    /**
+     * Generate an IMAP folder name in the other namespace.
+     *
+     * @param string $title The new folder title.
+     * @param string $owner The new owner of the folder.
+     *
+     * @return string The IMAP folder name.
+     */
+    public function setTitleInOther($title, $owner)
+    {
+        $path = explode(':', $title);
+        array_unshift($path, $owner);
+        return $this->_setTitle(self::OTHER, $path);
+    }
+
+    /**
+     * Generate an IMAP folder name in the shared namespace.
+     *
+     * @param string $title The new folder title.
+     *
+     * @return string The IMAP folder name.
+     */
+    public function setTitleInShared($title)
+    {
+        return $this->_setTitle(self::SHARED, explode(':', $title));
+    }
+
+    /**
+     * Generate an IMAP folder name in the specified namespace.
+     *
+     * @param string $type     The namespace type.
+     * @param array  $elements The new path elements.
+     *
+     * @return string The IMAP folder name.
+     */
+    private function _setTitle($type, array $elements)
+    {
+        $matching = array();
+        foreach ($this->_namespaces as $namespace) {
+            if ($namespace->getType() == $type) {
+                $matching[] = $namespace;
+            }
         }
-        return Horde_String::convertCharset($namespace->generateName($path), 'UTF-8', 'UTF7-IMAP');
+        if (count($matching) == 1) {
+            $selection = $matching[0];
+        } else if (count($matching) > 1) {
+            throw new Horde_Kolab_Storage_Exception(
+                'Specifying the folder path via title is not supported with multiple namespaces of the same type!'
+            );
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'No namespace of the type %s!',
+                    $type
+                )
+            );
+        }
+        return Horde_String::convertCharset(
+            $selection->generateName($elements),
+            'UTF-8',
+            'UTF7-IMAP'
+        );
     }
 
-    function rewind()
+    /**
+     * Implementation of the Iterator rewind() method. Rewinds the namespace list.
+     *
+     * return NULL
+     */
+    public function rewind()
     {
-        $this->_iterator = $this->_namespaces;
-        $this->_iterator[] = $this->_any;
-        return reset($this->_iterator);
+        return reset($this->_namespaces);
     }
 
-    function current()
+    /**
+     * Implementation of the Iterator current(). Returns the current namespace.
+     *
+     * @return Horde_Kolab_Storage_Folder_Namespace_Element|null The current namespace.
+     */
+    public function current()
     {
-        return current($this->_iterator);
+        return current($this->_namespaces);
     }
 
-    function key()
+    /**
+     * Implementation of the Iterator key() method. Returns the key of the current namespace.
+     *
+     * @return mixed The key for the current position.
+     */
+    public function key()
     {
-        return key($this->_iterator);
+        return key($this->_namespaces);
     }
 
-    function next()
+    /**
+     * Implementation of the Iterator next() method. Returns the next namespace.
+     *
+     * @return Horde_Kolab_Storage_Folder_Namespace_Element|null The next
+     * namespace or null if there are no more namespaces.
+     */
+    public function next()
     {
-        return next($this->_iterator);
+        return next($this->_namespaces);
     }
 
-    function valid()
+    /**
+     * Implementation of the Iterator valid() method. Indicates if the current element is a valid element.
+     *
+     * @return boolean Whether the current element is valid
+     */
+    public function valid()
     {
-        return key($this->_iterator) !== null;
+        return key($this->_namespaces) !== null;
     }
 }

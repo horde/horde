@@ -1,5 +1,30 @@
 <?php
+/**
+ * The Horde_Kolab_Storage_Folder_Namespace_Element:: class represents a namespace type.
+ *
+ * PHP version 5
+ *
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ */
 
+/**
+ * The Horde_Kolab_Storage_Folder_Namespace_Element:: class represents a namespace type.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ */
 abstract class Horde_Kolab_Storage_Folder_Namespace_Element
 {
     /**
@@ -129,6 +154,9 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
      */
     public function generateName($path)
     {
+        if (!empty($this->_name)) {
+            array_unshift($path, $this->_name);
+        }
         return join($path, $this->_delimiter);
     }
 
