@@ -285,15 +285,15 @@ extends Horde_Kolab_Storage_Driver_Base
         if ($this->_imap->queryCapability('ACL') === true) {
             if ($folder->getOwner() == $this->getAuth()) {
                 try {
-                    return $this->_getAcl($folder->getName());
+                    return $this->_getAcl($folder->getPath());
                 } catch (Exception $e) {
-                    return array($this->getAuth() => $this->_getMyAcl($folder->getName()));
+                    return array($this->getAuth() => $this->_getMyAcl($folder->getPath()));
                 }
             } else {
-                $acl = $this->_getMyAcl($folder->getName());
+                $acl = $this->_getMyAcl($folder->getPath());
                 if (strpos($acl, 'a')) {
                     try {
-                        return $this->_getAcl($folder->getName());
+                        return $this->_getAcl($folder->getPath());
                     } catch (Exception $e) {
                     }
                 }
@@ -407,7 +407,8 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getNamespace()
     {
-        if ($this->_imap->queryCapability('NAMESPACE') === true) {
+        if ($this->_namespace === null
+            && $this->_imap->queryCapability('NAMESPACE') === true) {
             $c = array();
             $configuration = $this->getParam('namespaces', array());
             foreach ($this->_imap->getNamespaces() as $namespace) {
@@ -416,7 +417,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 }
                 $c[] = $namespace;
             }
-            return $this->getFactory()->createNamespace('imap', $c);
+            $this->_namespace = $this->getFactory()->createNamespace('imap', $c);
         }
         return parent::getNamespace();
     }

@@ -43,6 +43,13 @@ implements Horde_Kolab_Storage_Driver
     private $_params;
 
     /**
+     * Memory cache for the namespace of this driver.
+     *
+     * @var Horde_Kolab_Storage_Folder_Namespace
+     */
+    protected $_namespace;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
@@ -86,11 +93,15 @@ implements Horde_Kolab_Storage_Driver
      */
     public function getNamespace()
     {
-        if (isset($this->_params['namespaces'])) {
-            return $factory->createNamespace(
-                'config', $this->_params['namespaces']
-            );
+        if ($this->_namespace === null) {
+            if (isset($this->_params['namespaces'])) {
+                $this->_namespace = $this->_factory->createNamespace(
+                    'config', $this->_params['namespaces']
+                );
+            } else {
+                $this->_namespace = $this->_factory->createNamespace('fixed');
+            }
         }
-        return $this->_factory->createNamespace('fixed');
+        return $this->_namespace;
     }
 }
