@@ -2934,8 +2934,6 @@ var DimpBase = {
             return;
         }
 
-        this.updateFlag(vs, flag, add);
-
         DimpCore.doAction('flagMessages', this.viewport.addRequestParams({
             add: Number(add),
             flags: Object.toJSON([ flag ]),
