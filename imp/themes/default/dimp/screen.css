@@ -374,6 +374,7 @@ span.iconImgSidebar {
 
 #logo, #dimpbarActions, #serviceActions, #foldersSidebar, #normalfolders {
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #folderopts a {
