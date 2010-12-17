@@ -77,12 +77,6 @@ class Horde_Registry
      */
     protected $_confCache = array();
 
-    /**
-     * NLS cached information.
-     *
-     * @var array
-     */
-    protected $_nlscache = array();
 
     /**
      * The last modified time of the newest modified registry file.
