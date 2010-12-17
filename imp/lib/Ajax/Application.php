@@ -2028,9 +2028,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   remove - (integer) True if messages should be removed from the
      *            viewport.
      *   uids - (string) The list of messages to delete.
-     * 'ViewPort' - (object) See _viewPortData().
+     * 'flag' - (object) See flagEntry().
      * 'poll' - (array) Mailbox names as the keys, number of unseen messages
      *          as the values.
+     * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
     protected function _generateDeleteResult($indices, $change,
@@ -2057,6 +2058,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->ViewPort = new stdClass;
             $result->ViewPort->updatecacheid = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MailboxList')->create($this->_vars->view)->getCacheID($this->_vars->view);
             $result->ViewPort->view = $this->_vars->view;
+        }
+
+        if (!$del->remove) {
+            $result->flag = $this->flagEntry(array('\\deleted'), true, $indices);
         }
 
         if ($poll = $this->pollEntry($this->_vars->view)) {

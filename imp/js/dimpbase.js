@@ -2398,14 +2398,9 @@ var DimpBase = {
             search = this.viewport.createSelection('uid', r.uids);
         }
 
-        if (search.size()) {
-            if (r.remove) {
-                this.viewport.remove(search, { noupdate: r.ViewPort });
-                this._expirePPCache(uids);
-            } else {
-                // Need this to catch spam deletions.
-                this.updateFlag(search, '\\deleted', true);
-            }
+        if (r.remove && search.size()) {
+            this.viewport.remove(search, { noupdate: r.ViewPort });
+            this._expirePPCache(uids);
         }
     },
 
