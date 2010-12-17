@@ -71,6 +71,13 @@ class Horde_Registry
     protected $_cache = array();
 
     /**
+     * Cached configuration information.
+     *
+     * @var array
+     */
+    protected $_confCache = array();
+
+    /**
      * NLS cached information.
      *
      * @var array
@@ -332,8 +339,8 @@ class Horde_Registry
          * instances. However, if HORDE_BASE is defined, and app is
          * 'horde', registry is not used in the method so we are free to
          * call it here (prevents us from duplicating a bunch of code). */
-        $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
-        $conf = $GLOBALS['conf'] = &$this->_cache['conf-horde'];
+        $this->importConfig('horde');
+        $conf = $GLOBALS['conf'];
 
         /* Initialize browser object. */
         $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
@@ -1318,20 +1325,20 @@ class Horde_Registry
      * Reads the configuration values for the given application and imports
      * them into the global $conf variable.
      *
-     * @param string $app  The name of the application.
+     * @param string $app  The application name.
      */
     public function importConfig($app)
     {
-        if (($app != 'horde') && !$this->_loadCache('conf-' . $app)) {
-            $appConfig = Horde::loadConfiguration('conf.php', 'conf', $app);
-            if (empty($appConfig)) {
-                $appConfig = array();
-            }
-            $this->_cache['conf-' . $app] = $appConfig;
-            $this->_savecache['conf-' . $app] = true;
+        if (!isset($this->_confCache[$app])) {
+            $config = Horde::loadConfiguration('conf.php', 'conf', $app);
+            $this->_confCache[$app] = empty($config)
+                ? array()
+                : $config;
         }
 
-        $GLOBALS['conf'] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $this->_cache['conf-' . $app]);
+        $GLOBALS['conf'] = ($app == 'horde')
+            ? $this->_confCache['horde']
+            : Horde_Array::array_merge_recursive_overwrite($this->_confCache['horde'], $this->_confCache[$app]);
     }
 
     /**
@@ -2182,8 +2189,8 @@ class Horde_Registry
                 return;
             }
             $this->clearCache();
-            $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
-            $GLOBALS['conf'] = &$this->_cache['conf-horde'];
+            $this->_confCache = array();
+            $this->importConfig('horde');
             $this->importConfig($this->getApp());
         }
         $GLOBALS['language'] = $lang;
