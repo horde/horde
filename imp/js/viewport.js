@@ -952,7 +952,7 @@ var ViewPort = Class.create({
         } else {
             vr.each(this.opts.content.fire.bind(this.opts.content, 'ViewPort:clear'));
             vr.invoke('remove');
-            c.update(this.empty_msg);
+            c.update(this.empty_msg.clone(true));
         }
 
         this.scroller.updateDisplay();
