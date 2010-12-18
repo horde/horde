@@ -940,23 +940,23 @@ class Nag_Task {
      */
     function fromiCalendar($vTodo)
     {
-        $name = $vTodo->getAttribute('SUMMARY');
-        if (!is_array($name) && !is_a($name, 'PEAR_Error')) {
-            $this->name = $name;
-        }
+        try {
+            $name = $vTodo->getAttribute('SUMMARY');
+            if (!is_array($name)) { $this->name = $name; }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $assignee = $vTodo->getAttribute('ORGANIZER');
-        if (!is_array($assignee) && !is_a($assignee, 'PEAR_Error')) {
-            $this->assignee = $assignee;
-        }
+        try {
+            $assignee = $vTodo->getAttribute('ORGANIZER');
+            if (!is_array($assignee)) { $this->assignee = $assignee; }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $uid = $vTodo->getAttribute('UID');
-        if (!is_array($uid) && !is_a($uid, 'PEAR_Error')) {
-            $this->uid = $uid;
-        }
+        try {
+            $uid = $vTodo->getAttribute('UID');
+            if (!is_array($uid)) { $this->uid = $uid; }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $relations = $vTodo->getAttribute('RELATED-TO');
-        if (!is_a($relations, 'PEAR_Error')) {
+        try {
+            $relations = $vTodo->getAttribute('RELATED-TO');
             if (!is_array($relations)) {
                 $relations = array($relations);
             }
@@ -973,10 +973,10 @@ class Nag_Task {
                     break;
                 }
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $start = $vTodo->getAttribute('DTSTART');
-        if (!is_a($start, 'PEAR_Error')) {
+        try {
+            $start = $vTodo->getAttribute('DTSTART');
             if (!is_array($start)) {
                 // Date-Time field
                 $this->start = $start;
@@ -984,55 +984,58 @@ class Nag_Task {
                 // Date field
                 $this->start = mktime(0, 0, 0, (int)$start['month'], (int)$start['mday'], (int)$start['year']);
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $due = $vTodo->getAttribute('DUE');
-        if (!is_a($due, 'PEAR_Error')) {
+        try {
+            $due = $vTodo->getAttribute('DUE');
             if (is_array($due)) {
                 $this->due = mktime(0, 0, 0, (int)$due['month'], (int)$due['mday'], (int)$due['year']);
             } elseif (!empty($due)) {
                 $this->due = $due;
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // vCalendar 1.0 alarms
-        $alarm = $vTodo->getAttribute('AALARM');
-        if (!is_array($alarm) && !is_a($alarm, 'PEAR_Error') &&
-            !empty($alarm) && !empty($this->due)) {
-            $this->alarm = intval(($this->due - $alarm) / 60);
-            if ($this->alarm === 0) {
-                // We don't support alarms exactly at due date.
-                $this->alarm = 1;
+        try {
+            $alarm = $vTodo->getAttribute('AALARM');
+            if (!is_array($alarm) && !empty($alarm) && !empty($this->due)) {
+                $this->alarm = intval(($this->due - $alarm) / 60);
+                if ($this->alarm === 0) {
+                    // We don't support alarms exactly at due date.
+                    $this->alarm = 1;
+                }
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // @TODO: vCalendar 2.0 alarms
 
-        $desc = $vTodo->getAttribute('DESCRIPTION');
-        if (!is_array($desc) && !is_a($desc, 'PEAR_Error')) {
-            $this->desc = $desc;
-        }
+        try {
+            $desc = $vTodo->getAttribute('DESCRIPTION');
+            if (!is_array($desc)) { $this->desc = $desc; }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $priority = $vTodo->getAttribute('PRIORITY');
-        if (!is_array($priority) && !is_a($priority, 'PEAR_Error')) {
-            $this->priority = $priority;
-        }
+        try {
+            $priority = $vTodo->getAttribute('PRIORITY');
+            if (!is_array($priority)) { $this->priority = $priority; }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $cat = $vTodo->getAttribute('CATEGORIES');
-        if (!is_array($cat) && !is_a($cat, 'PEAR_Error')) {
-            $this->category = $cat;
-        }
+        try {
+            $cat = $vTodo->getAttribute('CATEGORIES');
+            if (!is_array($cat)) { $this->category = $cat; }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $status = $vTodo->getAttribute('STATUS');
-        if (!is_array($status) && !is_a($status, 'PEAR_Error')) {
-            $this->completed = !strcasecmp($status, 'COMPLETED');
-        }
+        try {
+            $status = $vTodo->getAttribute('STATUS');
+            if (!is_array($status)) { $this->completed = !strcasecmp($status, 'COMPLETED'); }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $class = $vTodo->getAttribute('CLASS');
-        if (!is_array($class) && !is_a($class, 'PEAR_Error')) {
-            $class = Horde_String::upper($class);
-            $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
-        }
+        try {
+            $class = $vTodo->getAttribute('CLASS');
+            if (!is_array($class)) {
+                $class = Horde_String::upper($class);
+                $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
     }
 
     /**
