@@ -14,11 +14,11 @@
 <table summary="<?php echo _("Feed List") ?>" cellspacing="0" id="feed-list" class="striped sortable">
  <thead>
   <tr>
-   <th class="feed-list-icon nosort" colspan="<?php echo empty($conf['share']['no_sharing']) ? 4 : 3 ?>">&nbsp;</th>
+   <th class="feed-list-icon nosort" colspan=<?php $conf['share']['no_sharing'] ? 3:4 ?>>&nbsp;</th>
    <th class="sortdown"><?php echo _("Feed") ?></th>
    <th><?php echo _("Kind") ?></th>
-   <th class="feed-list-url nosort"><?php echo _("Display URL") ?></th>
-   <th class="feed-list-url nosort"><?php echo _("Subscription URL") ?></th>
+   <th class="feed-list nosort"><?php echo _("Display URL") ?></th>
+   <th class="feed-list nosort"><?php echo _("Subscription URL") ?></th>
   </tr>
  </thead>
 
@@ -35,7 +35,8 @@
    <td><?php echo htmlspecialchars($feed->get('name')) ?></td>
    <td><?php echo is_null($feed->get('owner')) ? _("System") : _("User") ?></td>
    <td><?php $url = Horde::url($feed->getName()); echo Horde::link($url, _("Click or copy this URL to display this feed"), '', '_blank') . htmlspecialchars($url) . '</a>' ?></td>
-   <td><?php $url = $subscribe_url_base . ($feed->get('owner') ? $feed->get('owner') : '-system-') . '/' . $feed->getName() . '.ics'; echo Horde::link($url, _("Click or copy this URL to display this feed"), '', '_blank') . htmlspecialchars($url) . '</a>' ?></td>
+   <td><?php $url = Horde::url('/' . $feed->getName() . '/rss'); echo Horde::link($url, _("Click or copy this URL to display this feed"), '', '_blank') . htmlspecialchars($url) . '</a>' ?></td>
+  </tr>
 <?php endforeach; ?>
  </tbody>
 </table>
