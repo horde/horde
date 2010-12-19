@@ -51,9 +51,7 @@ function _uploadFTP($params)
             $notification->push(sprintf(_("Could not write configuration for \"%s\": %s"), $app, $e->getMessage()), 'horde.error');
         }
     }
-
-    $registry->rebuild();
-
+    $registry->clearCache();
     return $no_errors;
 }
 

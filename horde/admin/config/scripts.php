@@ -34,7 +34,7 @@ if ($clean == 'tmp') {
     } else {
         $notification->push(sprintf(_("Could not delete configuration upgrade script \"%s\"."), Horde_Util::realPath($path)), 'horde.error');
     }
-    $registry->rebuild();
+    $registry->clearCache();
     Horde::url('admin/config/index.php', true)->redirect();
 }
 
