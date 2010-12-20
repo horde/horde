@@ -481,7 +481,8 @@ class Horde_Registry
     {
         $app = $this->getApp();
 
-        $this->applications = $this->_apiList = $this->_apis = $this->_confCache = $this->_interfaces = array();
+        $this->applications = $this->_apiList = $this->_confCache = $this->_interfaces = array();
+        unset($this->_apis);
 
         $GLOBALS['session']->remove('horde', 'registry/');
         $this->_saveCache('apis');
