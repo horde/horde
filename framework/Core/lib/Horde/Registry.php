@@ -2204,9 +2204,9 @@ class Horde_Registry
 
         $lang_charset = $lang . '.UTF-8';
         setlocale(LC_ALL, $lang_charset);
-        @putenv('LC_ALL=' . $lang_charset);
-        @putenv('LANG=' . $lang_charset);
-        @putenv('LANGUAGE=' . $lang_charset);
+        putenv('LC_ALL=' . $lang_charset);
+        putenv('LANG=' . $lang_charset);
+        putenv('LANGUAGE=' . $lang_charset);
 
         if ($changed) {
             $this->rebuild();
