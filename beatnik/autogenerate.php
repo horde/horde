@@ -36,7 +36,7 @@ if ($form->validate($vars)) {
 }
 
 $title = _("Autogenerate");
-require BEATNIK_BASE . '/templates/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require BEATNIK_BASE . '/templates/menu.inc';
 
 $form->renderActive(null, null, Horde::url('autogenerate.php'), 'post');

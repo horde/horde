@@ -67,7 +67,7 @@ case 'view_file':
     $key = key($ret);
 
     if (strpos($ret[$key]['type'], 'text/html') !== false) {
-        require WHUPS_BASE . '/templates/common-header.inc';
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         echo $ret[$key]['data'];
         require $registry->get('templates', 'horde') . '/common-footer.inc';
     } else {

@@ -45,7 +45,7 @@ if ($form->validate($vars)) {
 
 
 $title = _("Delete");
-require BEATNIK_BASE . '/templates/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require BEATNIK_BASE . '/templates/menu.inc';
 
 $form->renderActive(null, null, Horde::url('delete.php'), 'post');
