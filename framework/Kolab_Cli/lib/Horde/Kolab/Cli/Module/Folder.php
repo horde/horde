@@ -96,18 +96,66 @@ implements Horde_Cli_Modular_Module
     /**
      * Run the module.
      *
+     * @param Horde_Cli $cli       The CLI handler.
+     * @param mixed     $options   An array of options.
+     * @param mixed     $arguments An array of arguments.
+     *
      * @return NULL
      */
-    public function run($options, $arguments)
+    public function run($cli, $options, $arguments)
+    {
+        if (!isset($arguments[1])) {
+            $action = 'list';
+        } else {
+            $action = $arguments[1];
+        }
+        switch ($action) {
+        case 'list':
+            $folders = $this->_getStorage($options)->getList()->listFolders();
+            foreach ($folders as $folder) {
+                $cli->writeln($folder);
+            }
+            break;
+        case 'show':
+            if (!isset($arguments[2])) {
+                $folder_name = 'INBOX';
+            } else {
+                $folder_name = $arguments[2];
+            }
+            $folder = $this->_getStorage($options)->getFolder($folder_name);
+            $cli->writeln('Path:      ' . $folder->getPath());
+            $cli->writeln('Title:     ' . $folder->getTitle());
+            $cli->writeln('Owner:     ' . $folder->getOwner());
+            $cli->writeln('Type:      ' . $folder->getType());
+            $cli->writeln('Namespace: ' . $folder->getNamespace());
+            break;
+        default:
+            $cli->message(
+                sprintf(
+                    Horde_Kolab_Cli_Translation::t('Action %s not supported!'),
+                    $action
+                ),
+                'cli.error'
+            );
+            break;
+        }
+    }
+
+    /**
+     * Return the driver for the Kolab storage backend.
+     *
+     * @param mixed     $options   An array of options.
+     *
+     * @return Horde_Kolab_Storage The storage handler.
+     */
+    private function _getStorage($options)
     {
         $factory = new Horde_Kolab_Storage_Factory();
-        var_dump(
-            $factory->createFromParams(
-                array(
-                    'driver' => $options['driver'],
-                    'params' => $options
-                )
-            )->listFolders()
+        return $factory->createFromParams(
+            array(
+                'driver' => $options['driver'],
+                'params' => $options
+            )
         );
     }
 }
