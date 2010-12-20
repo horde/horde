@@ -2193,6 +2193,7 @@ class Horde_Registry
 
         $GLOBALS['session']->set('horde', 'language', $lang);
 
+        $changed = false;
         if (isset($GLOBALS['language'])) {
             if ($GLOBALS['language'] == $lang) {
                 return;
