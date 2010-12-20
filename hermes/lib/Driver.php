@@ -3,36 +3,70 @@
  * Hermes_Driver:: defines an API for implementing storage backends
  * for Hermes.
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Hermes 0.1
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Hermes
  */
-class Hermes_Driver {
+abstract class Hermes_Driver
+{
+    /**
+     * Parameters
+     *
+     * @var array
+     */
+    protected $_params;
+
+    /**
+     * Constructor
+     *
+     */
+    public function __construct($params = array())
+    {
+        $this->_params = $params;
+    }
 
     /**
      * Retrieve a specific job type record.
      *
-     * @param integer $jobTypeID            The ID of the job type.
+     * @param integer $jobTypeID  The ID of the job type.
      *
-     * @return mixed Hash of job type properties, or PEAR_Error on failure.
+     * @return array Hash of job type properties.
+     * @throws Horde_Exception_NotFound
      */
-    function getJobTypeByID($jobTypeID)
+    public function getJobTypeByID($jobTypeID)
     {
         $jobtypes = $this->listJobTypes(array('id' => $jobTypeID));
-        if (is_a($jobtypes, 'PEAR_Error')) {
-            return $jobtypes;
-        }
         if (!isset($jobtypes[$jobTypeID])) {
-            return PEAR::raiseError(sprintf(_("No job type with ID \"%s\"."),
-                                            $jobTypeID));
+            throw new Horde_Exception_NotFound(sprintf(_("No job type with ID \"%s\"."), $jobTypeID));
         }
+
         return $jobtypes[$jobTypeID];
+    }
+
+    /**
+     * Retrieve a deliverable by ID.
+     *
+     * @param integer $deliverableID  The ID of the deliverable to retrieve.
+     *
+     * @return array Hash of deliverable's properties.
+     * @throws Horde_Exception_NotFound
+     */
+    function getDeliverableByID($deliverableID)
+    {
+        $deliverables = $this->listDeliverables(array('id' => $deliverableID));
+        if (!isset($deliverables[$deliverableID])) {
+            throw new Horde_Exception_NotFound(sprintf(_("Deliverable %d not found."), $deliverableID));
+        }
+
+        return $deliverables[$deliverableID];
     }
 
     /**
      * Add or update a job type record.
      *
-     * @abstract
      * @param array $jobtype        A hash of job type properties:
      *                  'id'        => The ID of the job, if updating.  If not
      *                                 present, a new job type is created.
@@ -40,57 +74,32 @@ class Hermes_Driver {
      *                  'enabled'   => Whether the job type is enabled for new
      *                                 time entry.
      *
-     * @return mixed The job's ID, or PEAR_Error on failure.
+     * @return The job's ID.
      */
-    function updateJobType($jobtype)
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function updateJobType($jobtype);
+
+    /**
+     * @TODO
+     *
+     */
+    abstract public function deleteJobType($jobTypeID);
 
     /**
      * Retrieve list of job types.
-     *
-     * @abstract
      *
      * @param array $criteria  Hash of filter criteria:
      *
      *                      'enabled' => If present, only retrieve enabled
      *                                   or disabled job types.
      *
-     * @return mixed Associative array of job types, or PEAR_Error on failure.
+     * @return array Hash of job type.
      */
-    function listJobTypes($criteria = array())
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function listJobTypes(array $criteria = array());
 
-    /**
-     * Retrieve a deliverable by ID.
-     *
-     * @param integer $deliverableID        The ID of the deliverable to
-     *                                      retrieve.
-     * @return mixed Hash of deliverable's properties, or PEAR_Error on
-     *               failure.
-     */
-    function getDeliverableByID($deliverableID)
-    {
-        $deliverables = $this->listDeliverables(array('id' => $deliverableID));
-        if (is_a($deliverables, 'PEAR_Error')) {
-            return $deliverables;
-        }
-
-        if (!isset($deliverables[$deliverableID])) {
-            return PEAR::raiseError(sprintf(_("Deliverable %d not found."),
-                                            $deliverableID));
-        }
-
-        return $deliverables[$deliverableID];
-    }
 
     /**
      * Add or update a deliverable.
      *
-     * @abstract
      * @param array $deliverable    A hash of deliverable properties:
      *                  'id'            => The ID of the deliverable, if
      *                                     updating.  If not present, a new
@@ -105,18 +114,12 @@ class Hermes_Driver {
      *                  'description'   => Text description (notes) for this
      *                                     deliverable.
      *
-     * @return mixed Integer ID of new or saved deliverable, or PEAR_Error on
-     *               failure.
+     * @return integer  ID of new or saved deliverable.
      */
-    function updateDeliverable($deliverable)
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function updateDeliverable($deliverable);
 
     /**
      * Retrieve list of deliverables.
-     *
-     * @abstract
      *
      * @param array $criteria  A hash of search criteria:
      *              'id'        => If present, only deliverable with
@@ -124,25 +127,39 @@ class Hermes_Driver {
      *              'client_id' => If present, list is filtered by
      *                             client ID.
      *
-     * @return mixed Associative array of job types, or PEAR_Error on failure.
+     * @return array Hash of job types.
      */
-    function listDeliverables($criteria = array())
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function listDeliverables($criteria = array());
 
     /**
      * Delete a deliverable.
      *
-     * @abstract
-     * @param integer $deliverableID        The ID of the deliverable.
+     * @param integer $deliverableID  The ID of the deliverable.
      *
-     * @return mixed Null, or PEAR_Error on failure.
+     * @return void
      */
-    function deleteDeliverable($deliverableID)
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function deleteDeliverable($deliverableID);
+
+    /**
+     * @TODO:
+     *
+     */
+    abstract public function markAs($field, $hours);
+
+    /**
+     * @TODO
+     */
+    abstract public function getClientSettings($clientID);
+
+    /**
+     * @TODO
+     */
+    abstract public function updateClientSettings($clientID, $description, $exportId);
+
+    /**
+     * @TODO
+     */
+    abstract public function purge();
 
     /**
      * Attempts to return a concrete Hermes_Driver instance based on $driver.

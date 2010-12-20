@@ -39,20 +39,18 @@ class EditJobTypeStep1Form extends Horde_Form {
 
     function EditJobTypeStep1Form(&$vars)
     {
-        global $hermes;
-
         parent::Horde_Form($vars, 'editjobtypestep1form');
 
         $values = array();
-        $jobtypes = $hermes->driver->listJobTypes();
-        if (!is_a($jobtypes, 'PEAR_Error')) {
+        try {
+            $jobtypes = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes();
             foreach ($jobtypes as $id => $jobtype) {
                 $values[$id] = $jobtype['name'];
                 if (empty($jobtype['enabled'])) {
                     $values[$id] .= _(" (DISABLED)");
                 }
             }
-        }
+        } catch (Hermes_Exception $e) {}
 
         if ($values) {
             $subtype = 'enum';
@@ -74,13 +72,14 @@ class EditJobTypeStep2Form extends Horde_Form {
 
     function EditJobTypeStep2Form(&$vars)
     {
-        global $hermes;
-
         parent::Horde_Form($vars, 'editjobtypestep2form');
 
         $jobtype = $vars->get('jobtype');
-        $info = $hermes->driver->getJobTypeByID($jobtype);
-        if (!$info || is_a($info, 'PEAR_Error')) {
+        try {
+            $info = $GLOBALS['injector']->getInstance('Hermes_Driver')->getJobTypeByID($jobtype);
+        } catch (Exception $e) {}
+
+        if (!$info) {
             $stype = 'invalid';
             $type_params = array(_("This is not a valid job type."));
         } else {
@@ -112,13 +111,13 @@ class DeleteJobTypeForm extends Horde_Form {
 
     function DeleteJobTypeForm(&$vars)
     {
-        global $hermes;
-
         parent::Horde_Form($vars, 'deletejobtypeform');
 
         $jobtype = $vars->get('jobtype');
-        $info = $hermes->driver->getJobTypeByID($jobtype);
 
+        try {
+            $info = $GLOBALS['injector']->getInstance('Hermes_Driver')->getJobTypeByID($jobtype);
+        } catch (Exception $e) {}
         $yesnotype = 'enum';
         $type_params = array(array(0 => _("No"), 1 => _("Yes")));
 
@@ -165,13 +164,13 @@ class EditClientStep2Form extends Horde_Form {
 
     function EditClientStep2Form(&$vars)
     {
-        global $hermes;
-
         parent::Horde_Form($vars, 'editclientstep2form');
 
         $client = $vars->get('client');
-        $info = $hermes->driver->getClientSettings($client);
-        if (!$info || is_a($info, 'PEAR_Error')) {
+        try {
+            $info = $GLOBALS['injector']->getInstance('Hermes_Driver')->getClientSettings($client);
+        } catch (Hermes_Exception $e) {}
+        if (!$info) {
             $stype = 'invalid';
             $type_params = array(_("This is not a valid client."));
         } else {

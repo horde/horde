@@ -15,10 +15,10 @@ require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Form/Type/tableset.php';
 
-$hours = $hermes->driver->getHours(array('billable' => true,
-                                 'submitted' => true));
-if (is_a($hours, 'PEAR_Error')) {
-    $notification->push($hours->getMessage(), 'horde.error');
+try {
+    $hours = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('billable' => true, 'submitted' => true));
+} catch (Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
     Horde::url('time.php')->redirect();
 }
 if (empty($hours)) {
@@ -111,12 +111,12 @@ if ($form->validate()) {
                                            'discount' => 0);
         }
 
-        $invoice_id = $registry->call('invoices/save', array($invoice));
-        if (is_a($invoice_id, 'PEAR_Error')) {
-            $notification->push($invoice_id->getMessage(), 'horde.error');
-        } else {
+        try {
+            $invoice_id = $registry->call('invoices/save', array($invoice));
             $msg = sprintf(_("Invoice for client %s successfuly created."), $clients[$group['client']]);
             $notification->push($msg, 'horde.success');
+        } catch (Exception $e) {
+            $notification->push($invoice_id->getMessage(), 'horde.error');
         }
     }
 

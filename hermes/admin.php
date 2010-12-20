@@ -9,12 +9,10 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-$hermes = Horde_Registry::appInit('hermes');
-require_once HERMES_BASE . '/lib/Admin.php';
+Horde_Registry::appInit('hermes', array('admin' => true));
 
-if (!$registry->isAdmin()) {
-    exit('forbidden.');
-}
+// @TODO
+require_once HERMES_BASE . '/lib/Admin.php';
 
 $r = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
@@ -35,6 +33,8 @@ function _open()
     }
 }
 
+$driver = $GLOBALS['injector']->getInstance('Hermes_Driver');
+
 // This is a dirty work around to a Horde_Form behavior.
 // Horde_Variables#exists() only checks on expected variables, while
 // Horde_Variables#get() returns the value if one was passed.  Since the form
@@ -49,11 +49,11 @@ if (!empty($formname)) {
 
         if ($form->isValid()) {
             $form->getInfo($vars, $info);
-            $result = $hermes->driver->updateJobType($info);
-            if (!is_a($result, 'PEAR_Error')) {
+            try {
+                $result = $driver->updateJobType($info);
                 $notification->push(sprintf(_("The job type \"%s\" has been added."), $vars->get('name')), 'horde.success');
-            } else {
-                $notification->push(sprintf(_("There was an error adding the job type: %s."), $result->getMessage()), 'horde.error');
+            } catch (Exception $e) {
+                $notification->push(sprintf(_("There was an error adding the job type: %s."), $e->getMessage()), 'horde.error');
             }
         } else {
             _open();
@@ -146,11 +146,11 @@ if (!empty($formname)) {
             // update everything.
             $form1->getInfo($vars, $info);
             $info['id'] = $info['jobtype'];
-            $result = $hermes->driver->updateJobType($info);
-            if (!PEAR::isError($result)) {
+            try {
+                $result = $driver->updateJobType($info);
                 $notification->push(_("The job type has been modified."), 'horde.success');
-            } else {
-                $notification->push(sprintf(_("There was an error editing the job type: %s."), $result->getMessage()), 'horde.error');
+            } catch (Exception $e) {
+                $notification->push(sprintf(_("There was an error editing the job type: %s."), $e->getMessage()), 'horde.error');
             }
         } else {
             _open();
@@ -169,13 +169,13 @@ if (!empty($formname)) {
         $form->validate($vars);
 
         if ($form->isValid()) {
-            $result = $hermes->driver->updateClientSettings($vars->get('client'),
-                                                    $vars->get('enterdescription') ? 1 : 0,
-                                                    $vars->get('exportid'));
-            if (PEAR::isError($result)) {
-                $notification->push(sprintf(_("There was an error editing the client settings: %s."), $result->getMessage()), 'horde.error');
-            } else {
-                $notification->push(_("The client settings have been modified."), 'horde.success');
+            try {
+                $result = $driver->updateClientSettings($vars->get('client'),
+                                                        $vars->get('enterdescription') ? 1 : 0,
+                                                        $vars->get('exportid'));
+                 $notification->push(_("The client settings have been modified."), 'horde.success');
+            } catch (Exception $e) {
+                $notification->push(sprintf(_("There was an error editing the client settings: %s."), $e->getMessage()), 'horde.error');
             }
         } else {
             _open();
@@ -195,11 +195,11 @@ if (!empty($formname)) {
 
         if ($form->isValid()) {
             if ($vars->get('yesno') == 1) {
-                $result = $hermes->driver->deleteJobType($vars->get('jobtype'));
-                if (!PEAR::isError($result)) {
+                try {
+                    $result = $driver->deleteJobType($vars->get('jobtype'));
                     $notification->push(_("The job type has been deleted."), 'horde.success');
-                } else {
-                    $notification->push(sprintf(_("There was an error deleting the job type: %s."), $result->getMessage()), 'horde.error');
+                } catch (Exception $e) {
+                    $notification->push(sprintf(_("There was an error deleting the job type: %s."), $e->getMessage()), 'horde.error');
                 }
             } else {
                 $notification->push(_("The job type was not deleted."), 'horde.message');

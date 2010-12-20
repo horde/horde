@@ -6,12 +6,14 @@
  *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2010 Alkaloid Networks (http://projects.alkaloid.net/)
+ * Copyright 2010 The Horde Project (http://www.horde.org)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author Robert E. Coyle <robertecoyle@hotmail.com>
  * @author  Ben Klang <ben@alkaloid.net>
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Hermes
  */
 
@@ -43,23 +45,13 @@ class Hermes_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Driver object for reading/writing time entries
-     */
-    static public $driver = null;
-
-    /**
      * Initialization function.
      *
      * Global variables defined:
      */
     protected function _init()
     {
-        try {
-            $this->driver = Hermes::getDriver();
-        } catch (Hermes_Exception $e) {
-            $GLOBALS['notification']->push($e);
-            return false;
-        }
+        $GLOBALS['injector']->bindFactory('Hermes_Driver', 'Hermes_Injector_Factory_Driver', 'create');
     }
 
     /**

@@ -2,29 +2,21 @@
 /**
  * Hermes Base Class.
  *
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Hermes
  */
-class Hermes {
-
-    public static function &getDriver()
-    {
-        global $conf;
-
-        require_once HERMES_BASE . '/lib/Driver.php';
-        return Hermes_Driver::singleton();
-    }
-
-    public static function listClients()
+class Hermes
+{
+    static public function listClients()
     {
         static $clients;
 
         if (is_null($clients)) {
             $result = $GLOBALS['registry']->call('clients/searchClients', array(array('')));
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
             $client_name_field = $GLOBALS['conf']['client']['field'];
             $clients = array();
             if (!empty($result)) {
@@ -40,7 +32,7 @@ class Hermes {
         return $clients;
     }
 
-    public static function getDayOfWeek($timestamp)
+    static public function getDayOfWeek($timestamp)
     {
         // Return 0-6, indicating the position of $timestamp in the
         // period.
@@ -51,7 +43,7 @@ class Hermes {
     /**
      * Build Hermes' list of menu items.
      */
-    public static function getMenu($returnType = 'object')
+    static public function getMenu($returnType = 'object')
     {
         global $registry, $conf, $print_link;
 
@@ -62,11 +54,11 @@ class Hermes {
         $menu->add(Horde::url('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
-        if ($conf['time']['deliverables'] && $registry->isAdmin('hermes:deliverables')) {
+        if ($conf['time']['deliverables'] && $registry->isAdmin(array('permission' => 'hermes:deliverables'))) {
             $menu->add(Horde::url('deliverables.php'), _("_Deliverables"), 'hermes.png');
         }
 
-        if ($conf['invoices']['driver'] && $registry->isAdmin('hermes:invoicing')) {
+        if ($conf['invoices']['driver'] && $registry->isAdmin(array('permission' => 'hermes:invoicing'))) {
             $menu->add(Horde::url('invoicing.php'), _("_Invoicing"), 'invoices.png');
         }
 
@@ -87,16 +79,15 @@ class Hermes {
         }
     }
 
-    public static function canEditTimeslice($id)
+    static public function canEditTimeslice($id)
     {
-        $hermes = $GLOBALS['registry']->getApiInstance('hermes', 'application');
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             return true;
         }
 
-        $hours = $hermes->driver->getHours(array('id' => $id));
+        $hours = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $id));
         if (!is_array($hours) || count($hours) != 1) {
             return false;
         }
@@ -114,10 +105,10 @@ class Hermes {
      * Rewrite an hours array into a format useable by Horde_Data::
      *
      * @param array $hours          This is an array of the results from
-     *                              $hermes->driver->getHours().
+     *                              $driver->getHours().
      * @return array an array suitable for Horde_Data::
      */
-    public static function makeExportHours($hours)
+    static public function makeExportHours($hours)
     {
         if (is_null($hours)) {
             return null;
@@ -161,17 +152,17 @@ class Hermes {
      *
      * @return array A two-element array of the type and the type's parameters.
      */
-    public static function getEmployeesType($enumtype = 'multienum')
+    static public function getEmployeesType($enumtype = 'multienum')
     {
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if (!$auth->hasCapability('list')) {
             return array('text', array());
         }
-        $users = $auth->listUsers();
-        if (is_a($users, 'PEAR_Error')) {
+        try {
+            $users = $auth->listUsers();
+        } catch (Exception $e) {
             return array('invalid',
-                         array(sprintf(_("An error occurred listing users: %s"),
-                                       $users->getMessage())));
+                         array(sprintf(_("An error occurred listing users: %s"), $e->getMessage())));
         }
 
         $employees = array();
@@ -187,7 +178,7 @@ class Hermes {
         return array($enumtype, array($employees));
     }
 
-    public static function getCostObjectByID($id)
+    static public function getCostObjectByID($id)
     {
         static $cost_objects;
 
@@ -196,9 +187,6 @@ class Hermes {
 
             if (!isset($cost_objects[$app])) {
                 $results = $GLOBALS['registry']->callByPackage($app, 'listCostObjects', array(array()));
-                if (is_a($results, 'PEAR_Error')) {
-                    return $results;
-                }
                 $cost_objects[$app] = $results;
             }
 
@@ -211,10 +199,10 @@ class Hermes {
             }
         }
 
-        return PEAR::raiseError(_("Not found."));
+        throw new Horde_Exception_NotFound();
     }
 
-    public static function tabs()
+    static public function tabs()
     {
         /* Build search mode tabs. */
         $sUrl = Horde::selfUrl();

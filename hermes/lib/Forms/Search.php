@@ -69,39 +69,38 @@ class SearchForm extends Horde_Form {
 
     function getClientsType()
     {
-        $clients = Hermes::listClients();
-        if (is_a($clients, 'PEAR_Error')) {
-            return array('invalid', array(sprintf(_("An error occurred listing clients: %s"),
-                                           $clients->getMessage())));
-        } else {
-            $clients = array('' => _("- - None - -")) + $clients;
-            return array('multienum', array($clients));
+        try {
+            $clients = Hermes::listClients();
+        } catch (Exception $e) {
+            return array('invalid', array(sprintf(_("An error occurred listing clients: %s"), $e->getMessage())));
         }
+        $clients = array('' => _("- - None - -")) + $clients;
+
+        return array('multienum', array($clients));
     }
 
     function getJobTypesType()
     {
-        global $hermes;
-
-        $types = $hermes->driver->listJobTypes();
-        if (is_a($types, 'PEAR_Error')) {
+        try {
+            $types = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes();
+        } catch (Horde_Exception $e) {
             return array('invalid', array(sprintf(_("An error occurred listing job types: %s"),
-                                           $types->getMessage())));
-        } else {
-            $values = array();
-            foreach ($types as $id => $type) {
-                $values[$id] = $type['name'];
-                if (empty($type['enabled'])) {
-                    $values[$id] .= _(" (DISABLED)");
-                }
-            }
-            return array('multienum', array($values));
+                                           $e->getMessage())));
         }
+        $values = array();
+        foreach ($types as $id => $type) {
+            $values[$id] = $type['name'];
+            if (empty($type['enabled'])) {
+                $values[$id] .= _(" (DISABLED)");
+            }
+        }
+
+        return array('multienum', array($values));
     }
 
     function getCostObjectType($vars)
     {
-        global $hermes, $registry;
+        global $registry;
 
         $clients = $vars->get('clients');
         if (count($clients) == 0){
@@ -116,11 +115,10 @@ class SearchForm extends Horde_Form {
 
             foreach ($registry->listApps() as $app) {
                 if ($registry->hasMethod('listCostObjects', $app)) {
-                    $res = $registry->callByPackage($app, 'listCostObjects',
-                                                    array($criteria));
-                    if (is_a($res, 'PEAR_Error')) {
-                        global $notification;
-                        $notification->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $res->getMessage()), 'horde.error');
+                    try {
+                        $res = $registry->callByPackage($app, 'listCostObjects', array($criteria));
+                    } catch (Horde_Exception $e) {
+                        $GLOBALS['notification']->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $res->getMessage()), 'horde.error');
                         continue;
                     }
                     foreach (array_keys($res) as $catkey) {
@@ -153,8 +151,6 @@ class SearchForm extends Horde_Form {
 
     function getSearchCriteria(&$vars)
     {
-        require_once 'Date.php';
-
         if (!$this->isValid() || !$this->isSubmitted()) {
             return null;
         }

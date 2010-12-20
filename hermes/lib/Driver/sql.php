@@ -1,58 +1,41 @@
 <?php
 /**
- * Hermes storage implementation for PHP's PEAR database abstraction layer.
+ * Hermes SQL storage driver.
  *
- * Required values for $params:<pre>
- *      'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).</pre>
  *
- * Required by some database implementations:<pre>
- *      'hostspec'      The hostname of the database server.
- *      'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *      'database'      The name of the database.
- *      'username'      The username with which to connect to the database.
- *      'password'      The password associated with 'username'.
- *      'options'       Additional options to pass to the database.
- *      'tty'           The TTY on which to connect to the database.
- *      'port'          The port on which to connect to the database.</pre>
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
- * The table structure can be created by the
- * scripts/drivers/hermes.sql script.
- *
- * @author  Chuck Hagenbuch <chuck@horde.org
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Hermes
  */
-class Hermes_Driver_sql extends Hermes_Driver {
-
-    /**
-     * Hash containing connection parameters.
-     *
-     * @var array
-     */
-    var $_params = array();
-
+class Hermes_Driver_Sql extends Hermes_Driver
+{
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
-    var $_db;
+    protected $_db;
 
     /**
-     * Boolean indicating whether or not we're connected to the SQL server.
+     * Constructor
      *
-     * @var boolean
-     */
-    var $_connected = false;
-
-    /**
-     * Constructs a new SQL storage object.
+     * @param array $params  A hash containing connection parameters.
+     * <pre>
+     *   db_adapter => The Horde_Db_Adapter object
+     * </pre>
      *
-     * @param string $user      The user who owns these billing.
-     * @param array  $params    A hash containing connection parameters.
+     * @return Hermes_Driver_Sql  The driver object.
      */
-    function Hermes_Driver_sql($params = array())
+    public function __construct($params = array())
     {
-        $this->_params = $params;
+        parent::__construct($params);
+        if (empty($params['db_adapter'])) {
+            throw new InvalidArgumentException('Missing Horde_Db_Adapter parameter.');
+        }
+        $this->_db = $params['db_adapter'];
     }
 
     /**
@@ -71,29 +54,27 @@ class Hermes_Driver_sql extends Hermes_Driver {
      *                            billable hours.
      *             'description'  A short description of the work.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @return integer  The new timeslice_id of the newly entered slice
+     * @throws Hermes_Exception
      */
-    function enterTime($employee, $info)
+    public function enterTime($employee, array $info)
     {
-        require_once 'Date.php';
-
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         /* Get job rate */
         $sql = 'SELECT jobtype_rate FROM hermes_jobtypes WHERE jobtype_id = ?';
-        $job_rate = $this->_db->getOne($sql, array($info['type']));
-
+        try {
+            $job_rate = $this->_db->selectValue($sql, array($info['type']));
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
+        }
         $dt = new Date($info['date']);
-        $timeslice_id = $this->_db->nextId('hermes_timeslices');
-        $sql = 'INSERT INTO hermes_timeslices (timeslice_id, ' .
+        $sql = 'INSERT INTO hermes_timeslices (' .
                'clientjob_id, employee_id, jobtype_id, ' .
                'timeslice_hours, timeslice_isbillable, ' .
                'timeslice_date, timeslice_description, ' .
                'timeslice_note, timeslice_rate, costobject_id) ' .
-               'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $values = array((int)$timeslice_id,
-                        $info['client'],
+               'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        
+        $values = array($info['client'],
                         $employee,
                         $info['type'],
                         $info['hours'],
@@ -105,8 +86,11 @@ class Hermes_Driver_sql extends Hermes_Driver {
                         (empty($info['costobject']) ? null :
                          $info['costobject']));
 
-        Horde::logMessage($sql, 'DEBUG');
-        return $this->_db->query($sql, $values);
+        try {
+            return $this->_db->insert($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
+        }
     }
 
     /**
@@ -126,22 +110,22 @@ class Hermes_Driver_sql extends Hermes_Driver {
      *                        If any rows contain a 'delete' entry, those rows
      *                        will be deleted instead of updated.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @return mixed  boolean
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Hermes_Exception
      */
-    function updateTime($entries)
+    public function updateTime($entries)
     {
-        require_once 'Date.php';
-
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         foreach ($entries as $info) {
             if (!Hermes::canEditTimeslice($info['id'])) {
-                return PEAR::raiseError(_("Access denied; user cannot modify this timeslice."));
+                throw new Horde_Exception_PermissionDenied(_("Access denied; user cannot modify this timeslice."));
             }
             if (!empty($info['delete'])) {
-                $sql = 'DELETE FROM hermes_timeslices WHERE timeslice_id = ?';
-                $values = array((int)$info['id']);
+                try {
+                    return $this->_db->delete('DELETE FROM hermes_timeslices WHERE timeslice_id = ?', array((int)$info['id']));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Hermes_Exception($e);
+                }
             } else {
                 if (isset($info['employee'])) {
                     $employee_cl = ' employee_id = ?,';
@@ -166,25 +150,26 @@ class Hermes_Driver_sql extends Hermes_Driver {
                                 $info['note'],
                                 (empty($info['costobject']) ? null : $info['costobject']),
                                 (int)$info['id']);
-            }
-
-            Horde::logMessage($sql, 'DEBUG');
-
-            $result = $this->_db->query($sql, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+                try {
+                    return $this->_db->update($sql, $values);
+                } catch (Horde_Db_Exception $e) {
+                    throw new Hermes_Exception($e);
+                }
             }
         }
-
-        return true;
     }
 
-    function getHours($filters = array(), $fields = array())
+    /**
+     * @TODO
+     *
+     * @global <type> $conf
+     * @param <type> $filters
+     * @param <type> $fields
+     * @return <type> 
+     */
+    function getHours(array $filters = array(), array $fields = array())
     {
         global $conf;
-
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
 
         $fieldlist = array(
             'id' => 'b.timeslice_id as id',
@@ -272,17 +257,17 @@ class Hermes_Driver_sql extends Hermes_Driver {
                     break;
                 }
             }
+        }
+
         if (!empty($where)) {
             $sql .= ' WHERE ' . $where;
         }
-        }
-
         $sql .= ' ORDER BY timeslice_date DESC, clientjob_id';
-
-        Horde::logMessage($sql, 'DEBUG');
-        $hours = $this->_db->getAll($sql, DB_FETCHMODE_ASSOC);
-        if (is_a($hours, 'PEAR_Error')) {
-            return $hours;
+        
+        try {
+            $hours = $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
         }
 
         // Do per-record processing
@@ -292,16 +277,15 @@ class Hermes_Driver_sql extends Hermes_Driver {
 
             // Add cost object names to the results.
             if (empty($fields) || in_array('costobject', $fields)) {
-            
                 if (empty($hours[$hkey]['costobject'])) {
                     $hours[$hkey]['_costobject_name'] = '';
                 } else {
-                    $costobject = Hermes::getCostObjectByID($hours[$hkey]['costobject']);
-                    if (is_a($costobject, 'PEAR_Error')) {
-                        $hours[$hkey]['_costobject_name'] = sprintf(_("Error: %s"), $costobject->getMessage());
-                    } else {
-                        $hours[$hkey]['_costobject_name'] = $costobject['name'];
+                    try {
+                        $costobject = Hermes::getCostObjectByID($hours[$hkey]['costobject']);
+                    } catch (Horde_Exception $e) {
+                        $hours[$hkey]['_costobject_name'] = sprintf(_("Error: %s"), $e->getMessage());
                     }
+                    $hours[$hkey]['_costobject_name'] = $costobject['name'];
                 }
             }
         }
@@ -310,9 +294,9 @@ class Hermes_Driver_sql extends Hermes_Driver {
     }
 
     /**
-     * @access private
+     * @TODO
      */
-    function _equalClause($lhs, $rhs, $quote = true)
+    private function _equalClause($lhs, $rhs, $quote = true)
     {
         require_once 'Horde/SQL.php';
 
@@ -336,13 +320,18 @@ class Hermes_Driver_sql extends Hermes_Driver {
         return $ret . ' )';
     }
 
-    function markAs($field, $hours)
+    /**
+     * @TODO
+     *
+     * @param <type> $field
+     * @param <type> $hours
+     * @return <type>
+     */
+    public function markAs($field, $hours)
     {
         if (!count($hours)) {
             return false;
         }
-
-        $this->_connect();
 
         switch ($field) {
         case 'submitted':
@@ -365,16 +354,17 @@ class Hermes_Driver_sql extends Hermes_Driver {
         $sql = 'UPDATE hermes_timeslices SET ' . $h_field . ' = 1' .
                ' WHERE timeslice_id IN (' . implode(',', $ids) . ')';
 
-        Horde::logMessage($sql, 'DEBUG');
-
-        return $this->_db->query($sql);
+        return $this->_db->update($sql);
     }
 
-    function listJobTypes($criteria = array())
+    /**
+     * @TODO
+     *
+     * @param <type> $criteria
+     * @return <type>
+     */
+    public function listJobTypes(array $criteria = array())
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         $where = array();
         $values = array();
         if (isset($criteria['id'])) {
@@ -391,35 +381,27 @@ class Hermes_Driver_sql extends Hermes_Driver {
                (empty($where) ? '' : (' WHERE ' . join(' AND ', $where))) .
                ' ORDER BY jobtype_name';
 
-        Horde::logMessage($sql, 'DEBUG');
-
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $rows = $this->_db->selectAll($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
         }
 
         $results = array();
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        while (!empty($row) && !is_a($row, 'PEAR_Error')) {
+        foreach ($rows as $row) {
             $id = $row['jobtype_id'];
             $results[$id] = array('id'       => $id,
                                   'name'     => $row['jobtype_name'],
                                   'rate'     => (float)$row['jobtype_rate'],
                                   'billable' => (int)$row['jobtype_billable'],
                                   'enabled'  => !empty($row['jobtype_enabled']));
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        }
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
         }
 
         return $results;
     }
 
-    function updateJobType($jobtype)
+    public function updateJobType($jobtype)
     {
-        $this->_connect();
-
         if (!isset($jobtype['enabled'])) {
             $jobtype['enabled'] = 1;
         }
@@ -427,54 +409,58 @@ class Hermes_Driver_sql extends Hermes_Driver {
             $jobtype['billable'] = 1;
         }
         if (empty($jobtype['id'])) {
-            $jobtype['id'] = $this->_db->nextId('hermes_jobtypes');
-            $sql = 'INSERT INTO hermes_jobtypes (jobtype_id, jobtype_name, ' .
-                   ' jobtype_enabled, jobtype_rate, jobtype_billable) VALUES (?, ?, ?, ?, ?)';
-            $values = array($jobtype['id'], $jobtype['name'],
-                            (int)$jobtype['enabled'], (float)$jobtype['rate'], (int)$jobtype['billable']);
+            $sql = 'INSERT INTO hermes_jobtypes (jobtype_name, jobtype_enabled, '
+                . 'jobtype_rate, jobtype_billable) VALUES (?, ?, ?, ?)';
+            $values = array($jobtype['name'],
+                            (int)$jobtype['enabled'],
+                            (float)$jobtype['rate'],
+                            (int)$jobtype['billable']);
+
+            try {
+                return $this->_db->insert($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Hermes_Exception($e);
+            }
         } else {
             $sql = 'UPDATE hermes_jobtypes' .
                    ' SET jobtype_name = ?, jobtype_enabled = ?, jobtype_rate = ?,' .
                    ' jobtype_billable = ?  WHERE jobtype_id = ?';
-            $values = array($jobtype['name'], (int)$jobtype['enabled'],(float)$jobtype['rate'],
-                            (int)$jobtype['billable'], $jobtype['id']);
+            $values = array($jobtype['name'],
+                            (int)$jobtype['enabled'],
+                            (float)$jobtype['rate'],
+                            (int)$jobtype['billable'],
+                            $jobtype['id']);
+
+            try {
+                $this->_db->update($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Hermes_Exception($e);
+            }
+
+            return $jobtype['id'];
         }
-
-        Horde::logMessage($sql, 'DEBUG');
-
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return $jobtype['id'];
     }
 
-    function deleteJobType($jobTypeID)
+    public function deleteJobType($jobTypeID)
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
-        $sql = 'DELETE FROM hermes_jobtypes WHERE jobtype_id = ?';
-        $values = array($jobTypeID);
-
-        Horde::logMessage($sql, 'DEBUG');
-
-        return $this->_db->query($sql, $values);
+        try {
+            return $this->_db->delete('DELETE FROM hermes_jobtypes WHERE jobtype_id = ?', array($jobTypeID));
+        } catch (Horde_Db_Exception $e) {
+            throw Hermes_Exception($e);
+        }
     }
 
-    function updateDeliverable($deliverable)
+    /**
+     * @see Hermes_Driver::updateDeliverable
+     */
+    public function updateDeliverable($deliverable)
     {
-        $this->_connect();
-
         if (empty($deliverable['id'])) {
-            $deliverable['id'] = $this->_db->nextId('hermes_deliverables');
-            $sql = 'INSERT INTO hermes_deliverables (deliverable_id,' .
+            $sql = 'INSERT INTO hermes_deliverables (' .
                    ' client_id, deliverable_name, deliverable_parent,' .
                    ' deliverable_estimate, deliverable_active,' .
-                   ' deliverable_description) VALUES (?, ?, ?, ?, ?, ?, ?)';
-            $values = array((int)$deliverable['id'],
-                            $deliverable['client_id'],
+                   ' deliverable_description) VALUES (?, ?, ?, ?, ?, ?)';
+            $values = array($deliverable['client_id'],
                             $deliverable['name'],
                             (empty($deliverable['parent']) ? null :
                              (int)$deliverable['parent']),
@@ -483,6 +469,12 @@ class Hermes_Driver_sql extends Hermes_Driver {
                             ($deliverable['active'] ? 1 : 0),
                             (empty($deliverable['description']) ? null :
                              $deliverable['description']));
+
+            try {
+                return $this->_db->insert($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Hermes_Exception($e);
+            }
         } else {
             $sql = 'UPDATE hermes_deliverables SET client_id = ?,' .
                    ' deliverable_name = ?, deliverable_parent = ?,' .
@@ -498,22 +490,20 @@ class Hermes_Driver_sql extends Hermes_Driver {
                             (empty($deliverable['description']) ? null :
                              $deliverable['description']),
                             $deliverable['id']);
+            try {
+                $this->_db->update($sql, $values);
+                return $deliverable['id'];
+            } catch (Horde_Db_Exception $e) {
+                throw new Hermes_Exception($e);
+            }
         }
-
-        Horde::logMessage($sql, 'DEBUG');
-
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return $deliverable['id'];
     }
 
-    function listDeliverables($criteria = array())
+    /**
+     * @see Hermes_Driver::listDeliverables()
+     */
+    public function listDeliverables($criteria = array())
     {
-        $this->_connect();
-
         $where = array();
         $values = array();
         if (isset($criteria['id'])) {
@@ -536,17 +526,16 @@ class Hermes_Driver_sql extends Hermes_Driver {
         $sql = 'SELECT * FROM hermes_deliverables' .
                (count($where) ? ' WHERE ' . join(' AND ', $where) : '');
 
-        Horde::logMessage($sql, 'DEBUG');
-
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $rows = $this->_db->selectAll($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
         }
 
         $deliverables = array();
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        while (!empty($row) && !is_a($row, 'PEAR_Error')) {
-
+        //$row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        //while (!empty($row) && !is_a($row, 'PEAR_Error')) {
+        foreach ($rows as $row) {
             $deliverable = array('id'          => $row['deliverable_id'],
                                  'client_id'   => $row['client_id'],
                                  'name'        => $row['deliverable_name'],
@@ -555,66 +544,55 @@ class Hermes_Driver_sql extends Hermes_Driver {
                                  'active'      => !empty($row['deliverable_active']),
                                  'description' => $row['deliverable_description']);
             $deliverables[$row['deliverable_id']] = $deliverable;
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        }
-
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
         }
 
         return $deliverables;
     }
 
-    function deleteDeliverable($deliverableID)
+    /**
+     * @see Hermes_Driver::updateDeliverable
+     * @throws Hermes_Exception
+     */
+    public function deleteDeliverable($deliverableID)
     {
-        $this->_connect();
-
-        $sql = 'SELECT COUNT(*) AS c FROM hermes_deliverables' .
-               ' WHERE deliverable_parent = ?';
+        $sql = 'SELECT COUNT(*) AS c FROM hermes_deliverables WHERE deliverable_parent = ?';
         $values = array($deliverableID);
 
-        Horde::logMessage($sql, 'DEBUG');
-
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->_db->selectValue($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
         }
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if (!empty($row['c'])) {
-            return PEAR::raiseError(_("Cannot delete deliverable; it has children."));
+        if (!empty($result)) {
+            throw new Hermes_Exception(_("Cannot delete deliverable; it has children."));
         }
 
-        $sql = 'SELECT COUNT(*) AS c FROM hermes_timeslices' .
-               ' WHERE costobject_id = ?';
+        $sql = 'SELECT COUNT(*) AS c FROM hermes_timeslices WHERE costobject_id = ?';
         $values = array($deliverableID);
-
-        Horde::logMessage($sql, 'DEBUG');
-
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->_db->selectValue($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
         }
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if (!empty($row['c'])) {
-            return PEAR::raiseError(_("Cannot delete deliverable; there is time entered on it."));
+        if (!empty($result)) {
+            throw Hermes_Exception(_("Cannot delete deliverable; there is time entered on it."));
         }
 
         $sql = 'DELETE FROM hermes_deliverables WHERE deliverable_id = ?';
         $values = array($deliverableID);
 
-        Horde::logMessage($sql, 'DEBUG');
-
-        return $this->_db->query($sql, $values);
+        try {
+            return $this->_db->delete($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
+        }
     }
 
-    function getClientSettings($clientID)
+    public function getClientSettings($clientID)
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         $clients = Hermes::listClients();
         if (empty($clientID) || !isset($clients[$clientID])) {
-            return PEAR::raiseError('Does not exist');
+            throw new Hermes_Exception('Does not exist');
         }
 
         $sql = 'SELECT clientjob_id, clientjob_enterdescription,' .
@@ -622,13 +600,16 @@ class Hermes_Driver_sql extends Hermes_Driver {
                ' WHERE clientjob_id = ?';
         $values = array($clientID);
 
-        Horde::logMessage($sql, 'DEBUG');
-
-        $clientJob = $this->_db->getAssoc($sql, false, $values);
-        if (is_a($clientJob, 'PEAR_Error')) {
-            return $clientJob;
+        try {
+            $rows = $this->_db->selectAll($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
         }
-
+        $clientJob = array();
+        foreach ($rows as $row) {
+            $clientJob[$row['clientjob_id']] = array($row['clientjob_enterdescription'], $row['clientjob_exportid']);
+        }
+        
         if (isset($clientJob[$clientID])) {
             $settings = array('id' => $clientID,
                               'enterdescription' => $clientJob[$clientID][0],
@@ -643,82 +624,62 @@ class Hermes_Driver_sql extends Hermes_Driver {
         return $settings;
     }
 
-    function updateClientSettings($clientID, $enterdescription = 1, $exportid = null)
+    /**
+     * @TODO
+     *
+     * @param <type> $clientID
+     * @param <type> $enterdescription
+     * @param string $exportid
+     * @return <type>
+     */
+    public function updateClientSettings($clientID, $enterdescription = 1, $exportid = null)
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         if (empty($exportid)) {
             $exportid = null;
         }
 
-        $sql = 'SELECT clientjob_id FROM hermes_clientjobs' .
-               ' WHERE clientjob_id = ?';
+        $sql = 'SELECT clientjob_id FROM hermes_clientjobs WHERE clientjob_id = ?';
         $values = array($clientID);
 
-        Horde::logMessage($sql, 'DEBUG');
-
-        if ($this->_db->getOne($sql, $values) !== $clientID) {
+        if ($this->_db->selectValue($sql, $values) !== $clientID) {
             $sql = 'INSERT INTO hermes_clientjobs (clientjob_id,' .
                    ' clientjob_enterdescription, clientjob_exportid)' .
                    ' VALUES (?, ?, ?)';
             $values = array($clientID, (int)$enterdescription, $exportid);
+
+            try {
+                return $this->_db->insert($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Hermes_Exception($e);
+            }
         } else {
             $sql = 'UPDATE hermes_clientjobs SET' .
                    ' clientjob_exportid = ?, clientjob_enterdescription = ?' .
                    ' WHERE clientjob_id = ?';
             $values = array($exportid, (int)$enterdescription, $clientID);
+            
+            try {
+                return $this->_db->update($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Hermes_Exception($e);
+            }
         }
-
-        Horde::logMessage($sql, 'DEBUG');
-
-        return $this->_db->query($sql, $values);
     }
 
-    function purge()
+    /**
+     * @TODO
+     * @global  $conf
+     * @return <type>
+     */
+    public function purge()
     {
         global $conf;
-
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
 
         $query = 'DELETE FROM hermes_timeslices' .
                  ' WHERE timeslice_exported = ? AND timeslice_date < ?';
         $values = array(1, mktime(0, 0, 0, date('n'),
                                   date('j') - $conf['time']['days_to_keep']));
-        return $this->_db->query($query, $values);
+        return $this->_db->delete($query, $values);
     }
-
-    /**
-     * Attempts to open a persistent connection to the SQL server.
-     *
-     * @return boolean  True on success.
-     * @throws Horde_Exception
-     */
-    function _connect()
-    {
-        if ($this->_connected) {
-            return true;
-        }
-
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'hermes', 'storage');
-
-        return true;
-    }
-
-    /**
-     * Disconnect from the SQL server and clean up the connection.
-     *
-     * @return boolean  True on success, false on failure.
-     */
-    function _disconnect()
-    {
-        if ($this->_connected) {
-            $this->_connected = false;
-            return $this->_db->disconnect();
-        }
-
-        return true;
-    }
-
+    
 }

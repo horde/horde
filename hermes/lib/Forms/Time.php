@@ -16,8 +16,8 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Hermes
  */
-class TimeForm extends Horde_Form {
-
+class TimeForm extends Horde_Form
+{
     function TimeForm(&$vars, $name = null)
     {
         parent::Horde_Form($vars, $name);
@@ -25,30 +25,30 @@ class TimeForm extends Horde_Form {
 
     function getJobTypeType()
     {
-        global $hermes;
-
-        $types = $hermes->driver->listJobTypes(array('enabled' => true));
-        if (is_a($types, 'PEAR_Error')) {
-            return array('invalid', array(sprintf(_("An error occurred listing job types: %s"),
-                                                  $types->getMessage())));
-        } elseif (count($types)) {
+        try {
+            $types = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes(array('enabled' => true));
+        } catch (Horde_Exception $e) {
+            return array('invalid', array(sprintf(_("An error occurred listing job types: %s"), $e->getMessage())));
+        }
+        if (count($types)) {
             $values = array();
             foreach ($types as $id => $type) {
                 $values[$id] = $type['name'];
             }
             return array('enum', array($values));
-        } else {
-            return array('invalid', array(_("There are no job types configured.")));
         }
+
+        return array('invalid', array(_("There are no job types configured.")));
     }
 
     function getClientType()
     {
-        $clients = Hermes::listClients();
-        if (is_a($clients, 'PEAR_Error')) {
-            return array('invalid', array(sprintf(_("An error occurred listing clients: %s"),
-                                                  $clients->getMessage())));
-        } elseif ($clients) {
+        try {
+            $clients = Hermes::listClients();
+        } catch (Horde_Exception $e) {
+            return array('invalid', array(sprintf(_("An error occurred listing clients: %s"), $e->getMessage())));
+        }
+        if ($clients) {
             if (count($clients) > 1) {
                 $clients = array('' => _("--- Select A Client ---")) + $clients;
             }
@@ -62,7 +62,7 @@ class TimeForm extends Horde_Form {
      */
     function getCostObjectType($clientID = null)
     {
-        global $hermes, $registry;
+        global $registry;
 
         /* Check to see if any other active applications are exporting cost
          * objects to which we might want to bill our time. */
@@ -78,11 +78,10 @@ class TimeForm extends Horde_Form {
                 continue;
             }
 
-            $result = $registry->callByPackage($app, 'listCostObjects',
-                                               array($criteria));
-            if (is_a($result, 'PEAR_Error')) {
-                global $notification;
-                $notification->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $result->getMessage()), 'horde.error');
+            try {
+                $result = $registry->callByPackage($app, 'listCostObjects', array($criteria));
+            } catch (Horde_Exception $e) {
+                $GLOBALS['notification']->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $e->getMessage()), 'horde.error');
                 continue;
             }
 
@@ -116,12 +115,10 @@ class TimeForm extends Horde_Form {
                 if (!empty($GLOBALS['conf']['time']['sum_billable_only'])) {
                     $filter['billable'] = true;
                 }
-                $result = $hermes->driver->getHours($filter, array('hours'));
-                if (!is_a($result, 'PEAR_Error')) {
-                    foreach ($result as $entry) {
-                        if (!empty($entry['hours'])) {
-                            $hours += $entry['hours'];
-                        }
+                $result = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours($filter, array('hours'));
+                foreach ($result as $entry) {
+                    if (!empty($entry['hours'])) {
+                        $hours += $entry['hours'];
                     }
                 }
 
@@ -157,8 +154,8 @@ class TimeForm extends Horde_Form {
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Hermes
  */
-class TimeEntryForm extends TimeForm {
-
+class TimeEntryForm extends TimeForm
+{
     /**
      * Reference to the form field storing the cost objects.
      *
@@ -219,13 +216,14 @@ class TimeEntryForm extends TimeForm {
         }
 
         if ($vars->exists('client')) {
-            $info = $hermes->driver->getClientSettings($vars->get('client'));
-            if (!is_a($info, 'PEAR_Error') && !$info['enterdescription']) {
+            try {
+                $info = $GLOBALS['injector']->getInstance('Hermes_Driver')->getClientSettings($vars->get('client'));
+            } catch (Horde_Exception $e) {}
+            if (!$info['enterdescription']) {
                 $vars->set('description', _("See Attached Timesheet"));
             }
         }
         $descvar = &$this->addVariable(_("Description"), 'description', 'longtext', true, false, null, array(4, 60));
-
         $this->addVariable(_("Additional Notes"), 'note', 'longtext', false, false, null, array(4, 60));
     }
 
@@ -264,14 +262,13 @@ class TimeReviewForm extends TimeForm {
             $map = array();
             $clients = Hermes::listClients();
             foreach ($clients as $id => $name) {
-                $info = $hermes->driver->getClientSettings($id);
-                if (!is_a($info, 'PEAR_Error')) {
+                try {
+                    $info = $GLOBALS['injector']->getInstance('Hermes_Driver')->getClientSettings($id);
                     $map[$id] = $info['enterdescription'] ? '' : _("See Attached Timesheet");
-                } else {
+                } catch (Horde_Exception $e) {
                     $map[$id] = '';
                 }
             }
-
             require_once 'Horde/Form/Action.php';
             $action = &Horde_Form_Action::factory('conditional_setvalue',
                                                   array('map' => $map,
@@ -286,13 +283,13 @@ class TimeReviewForm extends TimeForm {
 
         require_once 'Horde/Identity.php';
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
-        $users = $auth->listUsers();
-        if (!is_a($users, 'PEAR_Error')) {
+        try {
+            $users = $auth->listUsers();
             foreach ($users as $user) {
                 $identity = &Identity::singleton('none', $user);
                 $employees[$user] = $identity->getValue('fullname');
             }
-        }
+        } catch (Horde_Exception $e) {}
 
         $this->addVariable(_("Employee"), 'employee', 'enum', true, false, null, array($employees));
 
