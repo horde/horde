@@ -770,9 +770,9 @@ class Horde_Registry
      */
     public function hasInterface($interface)
     {
-        return !empty($this->interfaces[$interface]) ?
-            $this->interfaces[$interface] :
-            false;
+        return !empty($this->_interfaces[$interface])
+            ? $this->_interfaces[$interface]
+            : false;
     }
 
     /**
@@ -788,10 +788,10 @@ class Horde_Registry
     {
         if (is_null($app)) {
             list($interface, $call) = explode('/', $method, 2);
-            if (!empty($this->interfaces[$method])) {
-                $app = $this->interfaces[$method];
-            } elseif (!empty($this->interfaces[$interface])) {
-                $app = $this->interfaces[$interface];
+            if (!empty($this->_interfaces[$method])) {
+                $app = $this->_interfaces[$method];
+            } elseif (!empty($this->_interfaces[$interface])) {
+                $app = $this->_interfaces[$interface];
             } else {
                 return false;
             }
@@ -842,10 +842,10 @@ class Horde_Registry
     {
         list($interface, $call) = explode('/', $method, 2);
 
-        if (!empty($this->interfaces[$method])) {
-            $app = $this->interfaces[$method];
-        } elseif (!empty($this->interfaces[$interface])) {
-            $app = $this->interfaces[$interface];
+        if (!empty($this->_interfaces[$method])) {
+            $app = $this->_interfaces[$method];
+        } elseif (!empty($this->_interfaces[$interface])) {
+            $app = $this->_interfaces[$interface];
         } else {
             throw new Horde_Exception('The method "' . $method . '" is not defined in the Horde Registry.');
         }
@@ -974,10 +974,10 @@ class Horde_Registry
     {
         list($interface, $call) = explode('/', $method, 2);
 
-        if (!empty($this->interfaces[$method])) {
-            $app = $this->interfaces[$method];
-        } elseif (!empty($this->interfaces[$interface])) {
-            $app = $this->interfaces[$interface];
+        if (!empty($this->_interfaces[$method])) {
+            $app = $this->_interfaces[$method];
+        } elseif (!empty($this->_interfaces[$interface])) {
+            $app = $this->_interfaces[$interface];
         } else {
             throw new Horde_Exception('The method "' . $method . '" is not defined in the Horde Registry.');
         }
