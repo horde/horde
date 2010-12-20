@@ -137,7 +137,7 @@ if ($logout_reason) {
 
     try {
         $result = $auth->getLoginParams();
-        foreach ($result['params'] as $val) {
+        foreach (array_keys($result['params']) as $val) {
             $auth_params[$val] = Horde_Util::getPost($val);
         }
     } catch (Horde_Exception $e) {}
