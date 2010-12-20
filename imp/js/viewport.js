@@ -1184,7 +1184,7 @@ var ViewPort = Class.create({
             sp.lines = this.page_size;
             sp.max = this.getPageSize('splitmax');
             sp.orig = this.page_size;
-            sp.pos = this.opts.content.positionedOffset()[1];
+            sp.pos = this.opts.content.viewportOffset()[1];
         }
 
         this.opts.container.fire('ViewPort:splitBarStart', this.pane_mode);
