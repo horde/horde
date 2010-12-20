@@ -510,6 +510,7 @@ class Horde_Registry
         if (!file_exists(HORDE_BASE . '/config/registry.php')) {
             throw new Horde_Exception('Missing registry.php configuration file');
         }
+
         require HORDE_BASE . '/config/registry.php';
         $files = glob(HORDE_BASE . '/config/registry.d/*.php');
         foreach ($files as $r) {
@@ -520,27 +521,47 @@ class Horde_Registry
             include $this->_vhost;
         }
 
+        if (!isset($this->applications['horde']['fileroot'])) {
+            $this->applications['horde']['fileroot'] = HORDE_BASE;
+        }
+        if (!isset($app_fileroot)) {
+            $app_fileroot = $this->applications['horde']['fileroot'];
+        }
+
+        if (!isset($this->applications['horde']['webroot'])) {
+            $this->applications['horde']['webroot'] = $this->_detectWebroot();
+        }
+        if (!isset($app_webroot)) {
+            $app_webroot = $this->applications['horde']['webroot'];
+        }
+
         /* Scan for all APIs provided by each app, and set other common
          * defaults like templates and graphics. */
         foreach (array_keys($this->applications) as $appName) {
             $app = &$this->applications[$appName];
-            if ($app['status'] == 'heading') {
+
+            if (!isset($app['status'])) {
+                $app['status'] = 'active';
+            } elseif ($app['status'] == 'heading') {
                 continue;
             }
 
-            if (isset($app['fileroot'])) {
-                $app['fileroot'] = rtrim($app['fileroot'], ' /');
-                if (!file_exists($app['fileroot']) ||
-                    (file_exists($app['fileroot'] . '/config/conf.xml') &&
-                    !file_exists($app['fileroot'] . '/config/conf.php'))) {
-                    $app['status'] = 'inactive';
-                    Horde::logMessage('Setting ' . $appName . ' inactive because the fileroot does not exist or the application is not configured yet.', 'DEBUG');
-                }
+            $app['fileroot'] = isset($app['fileroot'])
+                ? rtrim($app['fileroot'], ' /')
+                : $app_fileroot . '/' . $appName;
+
+            if (!isset($app['name'])) {
+                $app['name'] = '';
+            } elseif (!file_exists($app['fileroot']) ||
+                      (file_exists($app['fileroot'] . '/config/conf.xml') &&
+                       !file_exists($app['fileroot'] . '/config/conf.php'))) {
+                $app['status'] = 'inactive';
+                Horde::logMessage('Setting ' . $appName . ' inactive because the fileroot does not exist or the application is not configured yet.', 'DEBUG');
             }
 
-            if (isset($app['webroot'])) {
-                $app['webroot'] = rtrim($app['webroot'], ' /');
-            }
+            $app['webroot'] = isset($app['webroot'])
+                ? rtrim($app['webroot'], ' /')
+                : $app_webroot . '/' . $appName;
 
             if (($app['status'] != 'inactive') &&
                 isset($app['provides']) &&
@@ -575,6 +596,40 @@ class Horde_Registry
             $this->applications,
             $this->_interfaces
         ));
+    }
+
+    /**
+     * Attempt to auto-detect the Horde webroot.
+     *
+     * @return string  The webroot.
+     */
+    protected function _detectWebroot()
+    {
+        // Note for Windows: the below assumes the PHP_SELF variable uses
+        // forward slashes.
+        if (isset($_SERVER['SCRIPT_URL']) || isset($_SERVER['SCRIPT_NAME'])) {
+            $path = empty($_SERVER['SCRIPT_URL'])
+                ? $_SERVER['SCRIPT_NAME']
+                : $_SERVER['SCRIPT_URL'];
+            $hordedir = basename(str_replace(DIRECTORY_SEPARATOR, '/', realpath(HORDE_BASE)));
+            return (preg_match(';/' . $hordedir . ';', $path))
+                ? preg_replace(';/' . $hordedir . '.*;', '/' . $hordedir, $path)
+                : '';
+        }
+
+        if (!isset($_SERVER['PHP_SELF'])) {
+            return '/horde';
+        }
+
+        $webroot = preg_split(';/;', $_SERVER['PHP_SELF'], 2, PREG_SPLIT_NO_EMPTY);
+        $webroot = strstr(realpath(HORDE_BASE), DIRECTORY_SEPARATOR . array_shift($webroot));
+        if ($webroot !== false) {
+            return preg_replace(array('/\\\\/', ';/config$;'), array('/', ''), $webroot);
+        }
+
+        return ($webroot === false)
+            ? ''
+            : '/horde';
     }
 
     /**
