@@ -1207,7 +1207,7 @@ var ViewPort = Class.create({
 
         case 'vert':
             drag = DragDrop.Drags.getDrag(e.element());
-            sp.vert.width = drag.lastCoord[0];
+            sp.vert.width = drag.lastCoord[0] - this.opts.content.viewportOffset()[0];
             this.opts.content.setStyle({ width: sp.vert.width + 'px' });
             change = drag.wasDragged;
             break;
