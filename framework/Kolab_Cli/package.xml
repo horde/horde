@@ -94,6 +94,12 @@
     <channel>pear.horde.org</channel>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>

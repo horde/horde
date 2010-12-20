@@ -92,6 +92,14 @@ Choices are:
                     'help'   => Horde_Kolab_Cli_Translation::t('The host that holds the data.')
                 )
             ),
+            new Horde_Argv_Option(
+                '-t',
+                '--timed',
+                array(
+                    'action' => 'store_true',
+                    'help'   => Horde_Kolab_Cli_Translation::t('Produce time measurements to indicate how long the processing takes.')
+                )
+            ),
         );
     }
 

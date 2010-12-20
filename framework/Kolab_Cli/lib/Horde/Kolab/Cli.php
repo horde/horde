@@ -55,9 +55,23 @@ class Horde_Kolab_Cli
             $parser->printHelp();
         } else {
             try {
+                if (!empty($options['timed'])
+                    && class_exists('Horde_Support_Timer')) {
+                    $timer = new Horde_Support_Timer();
+                    $timer->push();
+                } else {
+                    $timer = false;
+                }
                 $modular->getProvider()
                     ->getModule(ucfirst($arguments[0]))
-                    ->run($options, $arguments);
+                    ->run($cli, $options, $arguments);
+                if (!empty($options['timed'])) {
+                    if ($timer) {
+                        $cli->message(floor($timer->pop() * 1000) . ' ms');
+                    } else {
+                        $cli->message('The class Horde_Support_Timer seems to be missing!');
+                    }
+                }
             } catch (Horde_Cli_Modular_Exception $e) {
                 $parser->printHelp();
             }

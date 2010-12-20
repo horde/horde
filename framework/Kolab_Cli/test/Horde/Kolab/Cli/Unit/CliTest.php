@@ -64,4 +64,39 @@ extends Horde_Kolab_Cli_TestCase
         );
         $this->assertContains('INBOX', $this->runCli());
     }
+
+    public function testTimeInfo()
+    {
+        $_SERVER['argv'] = array(
+            'klb',
+            '--driver=mock',
+            '--timed',
+            '--user=test',
+            'folder'
+        );
+        $this->assertContains('[  INFO  ]', $this->runCli());
+    }
+
+    public function testTimed()
+    {
+        $_SERVER['argv'] = array(
+            'klb',
+            '--driver=mock',
+            '--timed',
+            '--user=test',
+            'folder'
+        );
+        $this->assertRegExp('/\[  INFO  \] [0-9]+ ms/', $this->runCli());
+    }
+
+    public function testTimeMissing()
+    {
+        $_SERVER['argv'] = array(
+            'klb',
+            '--driver=mock',
+            '--user=test',
+            'folder'
+        );
+        $this->assertNotContains('[  INFO  ]', $this->runCli());
+    }
 }
