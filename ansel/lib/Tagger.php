@@ -368,7 +368,7 @@ class Ansel_Tagger
      */
     public function listRelatedImages(Ansel_Image $image, $ownerOnly = true)
     {
-        $args = array('typeId' => 'image', 'limit' => 1);
+        $args = array('typeId' => 'image', 'limit' => 10);
         if ($ownerOnly) {
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
             $args['userId'] = $gallery->get('owner');
