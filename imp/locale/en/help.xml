@@ -762,17 +762,17 @@
     </para>
 </entry>
 
-<entry id="prefs-disposition_request_read">
+<entry id="prefs-request_mdn">
     <title>Preferences: Request Read Receipts</title>
     <para>
-    &quot;Request a Read Receipt&quot; sends a request to the recipients of this message to notify you when this message is opened by the recipients. Not all clients support / honor this.
+    &quot;Request a Read Receipt&quot; sends a read receipt request (also known as a Message Dispositon Notification) to the recipients of a composed message to notify you when this message is opened by the recipients. Not all clients support / honor this.
     </para>
 </entry>
 
 <entry id="prefs-send_mdn">
     <title>Preferences: Send Read Receipt</title>
     <para>
-    &quot;Send a MDN&quot; sends a read receipt (also known as a Message Disposition Notification) when you view a message in which the user has requested that they receive notification that you have read the message. By default, you will be prompted to send the notification.
+    &quot;Send a Read Receipt&quot; sends a read receipt (also known as a Message Disposition Notification) when you view a message in which the user has requested that they receive notification that you have read the message. By default, you will be prompted to send the notification.
     </para>
 </entry>
 

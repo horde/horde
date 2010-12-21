@@ -276,7 +276,7 @@ case _("Send"):
 
         $options = array(
             'identity' => $identity,
-            'readreceipt' => ($conf['compose']['allow_receipts'] && ($prefs->getValue('disposition_request_read') == 'always')),
+            'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
             'save_sent' => $save_sent_mail,
             'sent_folder' => $sent_mail_folder
         );

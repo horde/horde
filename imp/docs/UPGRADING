@@ -54,6 +54,7 @@ minimal (mimp) display have been removed.
 
 The following configuration options have been removed:
 
+   allow_receipts
    append_trailer
    cache_folders
    limit_factor
@@ -74,6 +75,7 @@ your ``config/prefs.php`` file and your preferences backend::
    alternative_display
    attachment_display
    auto_delete_drafts
+   disposition_request_read
    disposition_send_mdn
    fckeditor_buttons
    fetchmail_link

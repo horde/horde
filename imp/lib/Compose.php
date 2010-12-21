@@ -657,7 +657,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $flags = array('\\seen');
 
             /* RFC 3503 [3.3] - set $MDNSent flag on sent message. */
-            if ($conf['compose']['allow_receipts']) {
+            if ($prefs->getValue('request_mdn') != 'never') {
                 $mdn = new Horde_Mime_Mdn($headers);
                 if ($mdn->getMdnReturnAddr()) {
                     $flags[] = array('$MDNSent');
@@ -751,7 +751,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Add Return Receipt Headers. */
         if (!empty($opts['readreceipt']) &&
-            $GLOBALS['conf']['compose']['allow_receipts']) {
+            ($GLOBALS['prefs']->getValue('request_mdn') != 'never')) {
             $mdn = new Horde_Mime_Mdn($ob);
             $mdn->addMdnRequestHeaders(Horde_Mime_Address::bareAddress($ob->getValue('from'), $GLOBALS['session']->get('imp', 'maildomain')));
         }

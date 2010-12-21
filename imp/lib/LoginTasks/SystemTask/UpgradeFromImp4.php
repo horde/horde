@@ -27,6 +27,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     public function execute()
     {
         $this->_upgradeAbookPrefs();
+        $this->_upgradeComposePrefs();
         $this->_upgradeForwardPrefs();
         $this->_upgradeLoginTasksPrefs();
         $this->_upgradeMsgDisplayPrefs();
@@ -64,6 +65,19 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
                 }
                 $prefs->setValue('search_fields', $fields);
             }
+        }
+    }
+
+    /**
+     * Upgrade to the new compose preferences.
+     */
+    protected function _upgradeComposePrefs()
+    {
+        global $prefs;
+
+        if ($prefs->isDefault('request_mdn') &&
+            ($val = $prefs->getValue('disposition_request_read'))) {
+            $prefs->setValue('request_mdn', $val);
         }
     }
 

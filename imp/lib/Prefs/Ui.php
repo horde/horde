@@ -207,9 +207,6 @@ class IMP_Prefs_Ui
             if ($prefs->isLocked('default_encrypt')) {
                 $ui->suppress[] = 'encryptselect';
             }
-            if (empty($conf['compose']['allow_receipts'])) {
-                $ui->suppress[] = 'disposition_request_read';
-            }
 
             if (!$prefs->getValue('compose_html')) {
                 $ui->suppress[] = 'compose_html_font_family';

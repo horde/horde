@@ -931,8 +931,8 @@ if ($redirect) {
         }
     }
 
-    $d_read = $prefs->getValue('disposition_request_read');
-    $t->set('rrr', $conf['compose']['allow_receipts'] && ($d_read != 'never'));
+    $d_read = $prefs->getValue('request_mdn');
+    $t->set('rrr', ($d_read != 'never'));
     if ($t->get('rrr')) {
         $t->set('rrr_selected', ($d_read != 'ask') || $request_read_receipt);
         $t->set('rrr_label', Horde::label('rrr', _("Request a _Read Receipt")));

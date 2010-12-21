@@ -408,7 +408,7 @@ $prefGroups['compose'] = array(
         'compose_confirm', 'set_priority', 'compose_popup', 'compose_html',
         'compose_html_font_family', 'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'save_attachments',
-        'disposition_request_read'
+        'request_mdn'
     )
 );
 
@@ -531,7 +531,7 @@ $_prefs['save_attachments'] = array(
 );
 
 // Disposition Notification Preferences
-$_prefs['disposition_request_read'] = array(
+$_prefs['request_mdn'] = array(
     'value' => 'ask',
     'type' => 'enum',
     'enum' => array(
@@ -540,7 +540,7 @@ $_prefs['disposition_request_read'] = array(
         'always' => _("Always")
     ),
     'desc' => _("Request read receipts?"),
-    'help' => 'prefs-disposition_request_read'
+    'help' => 'prefs-request_mdn'
 );
 
 // The list of buttons to show in CKeditor
