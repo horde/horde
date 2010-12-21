@@ -35,6 +35,7 @@ class Jonah_View_ChannelList extends Jonah_View_Base
         $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=jonah');
         $subscribe_url_base = $registry->get('webroot', 'horde');
 
+        $search_img = Horde::img('search.png', _("Search"));
         $add_img = Horde::img('new.png', _("Add Story"));
         $edit_img = Horde::img('edit.png', _("Edit"));
         $perms_img = Horde::img('perms.png', _("Change Permissions"));

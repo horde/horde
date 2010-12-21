@@ -1,5 +1,12 @@
 <h1 class="header">
  <?php echo _("Manage Feeds") ?>
+ <a id="quicksearchL" href="#" title="<?php echo _("Search")?>" onclick="$('quicksearchL').hide(); $('quicksearch').show(); $('quicksearchT').focus(); return false;"><?php echo $search_img?></a>
+ <div id="quicksearch" style="display:none;">
+  <input type="text" name="quicksearchT" id="quicksearchT" for="feeds-body" empty="feeds-empty" />
+  <small>
+   <a title="<?php echo _("Close Search")?>" href="#" onclick="$('quicksearch').hide(); $('quicksearchT').value = ''; QuickFinder.filter($('quicksearchT')); $('quicksearchL').show(); return false;">X</a>
+  </small>
+ </div>
 </h1>
 
 <?php if (!$prefs->isLocked('default_feed')): ?>
@@ -11,10 +18,11 @@
 </div>
 <?php endif; ?>
 
+<?php if (count($sorted_feeds)):?>
 <table summary="<?php echo _("Feed List") ?>" cellspacing="0" id="feed-list" class="striped sortable">
  <thead>
   <tr>
-   <th class="feed-list-icon nosort" colspan=<?php $conf['share']['no_sharing'] ? 3:4 ?>>&nbsp;</th>
+   <th class="feed-list-icon nosort" colspan=<?php echo empty($conf['share']['no_sharing']) ? 4:3 ?>>&nbsp;</th>
    <th class="sortdown"><?php echo _("Feed") ?></th>
    <th><?php echo _("Kind") ?></th>
    <th class="feed-list nosort"><?php echo _("Display URL") ?></th>
@@ -40,3 +48,8 @@
 <?php endforeach; ?>
  </tbody>
 </table>
+<?php else:?>
+<div class="text">
+ <em><?php echo _("No feeds are available.")?></em>
+</div>
+<?php endif;?>
