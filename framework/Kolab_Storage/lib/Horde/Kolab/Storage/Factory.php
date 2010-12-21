@@ -48,7 +48,7 @@ class Horde_Kolab_Storage_Factory
      *  - driver : The type of backend driver. One of "mock", "php", "pear",
      *             "horde", "horde-socket", and "roundcube".
      *  - params : Backend specific connection parameters.
-     *
+     *  - logger : An optional log handler.
      *    
      * </pre>
      *
@@ -56,9 +56,15 @@ class Horde_Kolab_Storage_Factory
      */
     public function createFromParams(array $params)
     {
-        return new Horde_Kolab_Storage_Base(
+        $storage = new Horde_Kolab_Storage_Base(
             $this->createDriverFromParams($params)
         );
+        if (isset($params['logger'])) {
+            $storage = new Horde_Kolab_Storage_Decorator_Log(
+                $storage, $params['logger']
+            );
+        }
+        return $storage;
     }
 
     /**
