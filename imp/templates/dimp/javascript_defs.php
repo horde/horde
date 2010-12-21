@@ -217,17 +217,18 @@ if ($compose_page) {
         );
     }
 
-    if (!($GLOBALS['prefs']->isLocked('default_encrypt')) &&
-        ($GLOBALS['prefs']->getValue('use_pgp') ||
-         $GLOBALS['prefs']->getValue('use_smime'))) {
+    if (!$GLOBALS['prefs']->isLocked('default_encrypt')) {
         $encrypt = array();
         foreach (IMP::encryptList(null, true) as $key => $val) {
             $encrypt[] = array(
                 'l' => htmlspecialchars($val),
-                'v' => intval($key)
+                'v' => $key
             );
         }
-        $code['conf_compose']['encrypt'] = $encrypt;
+
+        if (!empty($encrypt)) {
+            $code['conf_compose']['encrypt'] = $encrypt;
+        }
     }
 
     $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');

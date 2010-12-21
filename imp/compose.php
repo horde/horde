@@ -653,7 +653,7 @@ if ($prefs->getValue('use_pgp') &&
     $prefs->getValue('pgp_reply_pubkey')) {
     $default_encrypt = $prefs->getValue('default_encrypt');
     if (!$vars->compose_formToken &&
-        in_array($default_encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC))) {
+        in_array($default_encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC))) {
         try {
             $addrs = $imp_compose->recipientList($header);
             if (!empty($addrs['list'])) {
@@ -665,7 +665,7 @@ if ($prefs->getValue('use_pgp') &&
         } catch (IMP_Compose_Exception $e) {
         } catch (Horde_Exception $e) {
             $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
-            $encrypt_options = ($default_encrypt == IMP::PGP_ENCRYPT) ? IMP::ENCRYPT_NONE : IMP::PGP_SIGN;
+            $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
         }
     }
 }

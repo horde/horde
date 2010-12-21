@@ -18,6 +18,33 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     /* Name of the S/MIME public key field in addressbook. */
     const PUBKEY_FIELD = 'smimePublicKey';
 
+    /* Encryption type constants. */
+    const ENCRYPT = 'smime_encrypt';
+    const SIGN = 'smime_sign';
+    const SIGNENC = 'smime_signenc';
+
+    /**
+     * Return the list of available encryption options for composing.
+     *
+     * @return array  Keys are encryption type constants, values are gettext
+     *                strings describing the encryption type.
+     */
+    public function encryptList()
+    {
+        $ret = array(
+            self::ENCRYPT => _("S/MIME Encrypt Message")
+        );
+
+        if ($this->getPersonalPrivateKey()) {
+            $ret += array(
+                self::SIGN => _("S/MIME Sign Message"),
+                self::SIGNENC => _("S/MIME Sign/Encrypt Message")
+            );
+        }
+
+        return $ret;
+    }
+
     /**
      * Add the personal public key to the prefs.
      *
