@@ -526,7 +526,8 @@ class Content_Tagger
         $sql .= ' GROUP BY objects.object_name HAVING num_common_tags >= ' . $threshold
             . ' ORDER BY num_common_tags DESC';
 
-        $this->_db->addLimitOffset($sql, array('limit' => $max_objects));
+        $sql = $this->_db->addLimitOffset($sql, array('limit' => $max_objects));
+
         try {
             return $this->_db->selectAssoc($sql);
         } catch (Horde_Db_Exception $e) {
