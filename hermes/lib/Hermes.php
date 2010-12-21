@@ -11,6 +11,12 @@
  */
 class Hermes
 {
+    /**
+     * Get a list of available clients
+     *
+     * @staticvar array $clients
+     * @return array
+     */
     static public function listClients()
     {
         static $clients;
@@ -71,6 +77,15 @@ class Hermes
         }
     }
 
+    /**
+     * Determines if the current user can edit a specific timeslice according to
+     * the following rules: 'hermes:review' perms may edit any slice, the
+     * current user can edit his/her own slice prior to submitting it. Otherwise
+     * no editing allowed.
+     *
+     * @param <type> $id
+     * @return <type>
+     */
     static public function canEditTimeslice($id)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
@@ -96,8 +111,9 @@ class Hermes
     /**
      * Rewrite an hours array into a format useable by Horde_Data::
      *
-     * @param array $hours          This is an array of the results from
-     *                              $driver->getHours().
+     * @param array $hours  This is an array of the results from
+     *                      $driver->getHours().
+     *
      * @return array an array suitable for Horde_Data::
      */
     static public function makeExportHours($hours)
@@ -110,7 +126,6 @@ class Hermes
         $namecache = array();
         for ($i = 0; $i < count($hours); $i++) {
             $timeentry = &$hours[$i];
-
             $timeentry['item'] = $timeentry['_type_name'];
             if (isset($clients[$timeentry['client']])) {
                 $timeentry['client'] = $clients[$timeentry['client']];
