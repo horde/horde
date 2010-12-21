@@ -19,5 +19,5 @@
 
 require_once 'Horde/Test/Autoload.php';
 
-/** Catch strict standards */
+/* Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
