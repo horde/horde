@@ -40,7 +40,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
         if (!isset($params['stack'])) {
             throw new InvalidArgumentException('Missing stack parameter.');
         }
-        $this->_stack[] = $params['stack'];
+        $this->_stack = $params['stack'];
         unset($params['stack']);
 
         parent::__construct($params);

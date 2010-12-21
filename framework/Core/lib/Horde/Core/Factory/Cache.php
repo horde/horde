@@ -68,7 +68,6 @@ class Horde_Core_Factory_Cache
                 $params['memcache'] = $injector->getInstance('Horde_Memcache');
             }
 
-            $cname = $this->_driverToClassname($GLOBALS['conf']['cache']['use_memorycache']);
             $storage = new Horde_Cache_Storage_Stack(array(
                 'stack' => array(
                     $this->_getStorage($GLOBALS['conf']['cache']['use_memorycache'], $params),
