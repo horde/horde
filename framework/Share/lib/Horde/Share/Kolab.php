@@ -140,7 +140,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      *
      * @return array  An array of Horde_Share_Object_kolab objects.
      */
-    protected function _getShares($ids)
+    protected function _getShares(array $ids)
     {
         $objects = array();
         foreach ($ids as $id) {
@@ -241,7 +241,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      *
      * @param Horde_Share_Object_kolab $share  The new share object.
      */
-    protected function _addShare(&$share)
+    protected function _addShare(Horde_Share_Object $share)
     {
         return $share->save();
     }
