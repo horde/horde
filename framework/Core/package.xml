@@ -549,6 +549,10 @@ Application Framework.</description>
     <min>1.5.4</min>
    </pearinstaller>
    <package>
+    <name>ActiveSync</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Alarm</name>
     <channel>pear.horde.org</channel>
    </package>
