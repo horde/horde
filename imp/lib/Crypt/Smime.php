@@ -534,8 +534,9 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         global $session;
 
-        $href = $session[$reload];
-        unset($session[$reload]);
+        $href = $session->retrieve($reload);
+        $session->purge($reload);
+
         echo Horde::wrapInlineScript(array(
             'opener.focus();',
             'opener.location.href="' . $href . '";',

@@ -712,8 +712,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         global $session;
 
-        $href = $session[$reload];
-        unset($session[$reload]);
+        $href = $session->retrieve($reload);
+        $session->purge($reload);
+
         echo Horde::wrapInlineScript(array(
             'opener.focus();'.
             'opener.location.href="' . $href . '";',
