@@ -1,12 +1,16 @@
 <?php
 /**
+ * Require our basic test case definition
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
  * @package    Core
  * @subpackage UnitTests
  */
-
 class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
 {
     public function testUrl()
@@ -285,13 +289,84 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
             }
         }
     }
+
+    public function testSelfUrl()
+    {
+        $GLOBALS['registry'] = new Registry();
+        $GLOBALS['browser'] = new Browser();
+        $GLOBALS['conf']['server']['name'] = 'example.com';
+        $GLOBALS['conf']['server']['port'] = 80;
+        $GLOBALS['conf']['use_ssl'] = 3;
+        $_COOKIE[session_name()] = 'foo';
+
+        // Simple script access.
+        $_SERVER['SCRIPT_NAME'] = '/hordeurl/test.php';
+        $_SERVER['QUERY_STRING'] = '';
+        $this->assertEquals('/hordeurl/test.php', (string)Horde::selfUrl());
+        $this->assertEquals('/hordeurl/test.php', (string)Horde::selfUrl(true));
+        $this->assertEquals('http://example.com/hordeurl/test.php', (string)Horde::selfUrl(true, false, true));
+        $this->assertEquals('https://example.com/hordeurl/test.php', (string)Horde::selfUrl(true, false, true, true));
+
+        // No SCRIPT_NAME.
+        unset($_SERVER['SCRIPT_NAME']);
+        $_SERVER['PHP_SELF'] = '/hordeurl/test.php';
+        $_SERVER['QUERY_STRING'] = '';
+        $this->assertEquals('/hordeurl/test.php', (string)Horde::selfUrl());
+
+        // With parameters.
+        $_SERVER['SCRIPT_NAME'] = '/hordeurl/test.php';
+        $_SERVER['QUERY_STRING'] = 'foo=bar&x=y';
+        $this->assertEquals('/hordeurl/test.php', (string)Horde::selfUrl());
+        $this->assertEquals('/hordeurl/test.php?foo=bar&amp;x=y', (string)Horde::selfUrl(true));
+        $this->assertEquals('http://example.com/hordeurl/test.php?foo=bar&x=y', (string)Horde::selfUrl(true, false, true));
+        $this->assertEquals('https://example.com/hordeurl/test.php?foo=bar&x=y', (string)Horde::selfUrl(true, false, true, true));
+
+        // index.php script name.
+        $_SERVER['SCRIPT_NAME'] = '/hordeurl/index.php';
+        $_SERVER['QUERY_STRING'] = 'foo=bar&x=y';
+        $this->assertEquals('/hordeurl/', (string)Horde::selfUrl());
+        $this->assertEquals('/hordeurl/?foo=bar&amp;x=y', (string)Horde::selfUrl(true));
+        $this->assertEquals('http://example.com/hordeurl/?foo=bar&x=y', (string)Horde::selfUrl(true, false, true));
+
+        // Directory access.
+        $_SERVER['SCRIPT_NAME'] = '/hordeurl/';
+        $_SERVER['QUERY_STRING'] = 'foo=bar&x=y';
+        $this->assertEquals('/hordeurl/', (string)Horde::selfUrl());
+        $this->assertEquals('/hordeurl/?foo=bar&amp;x=y', (string)Horde::selfUrl(true));
+        $this->assertEquals('http://example.com/hordeurl/?foo=bar&x=y', (string)Horde::selfUrl(true, false, true));
+
+        // Path info.
+        $_SERVER['REQUEST_URI'] = '/hordeurl/test.php/foo/bar?foo=bar&x=y';
+        $_SERVER['SCRIPT_NAME'] = '/hordeurl/test.php';
+        $_SERVER['QUERY_STRING'] = 'foo=bar&x=y';
+        $this->assertEquals('/hordeurl/test.php', (string)Horde::selfUrl());
+        $this->assertEquals('/hordeurl/test.php/foo/bar?foo=bar&amp;x=y', (string)Horde::selfUrl(true));
+        $this->assertEquals('http://example.com/hordeurl/test.php/foo/bar?foo=bar&x=y', (string)Horde::selfUrl(true, false, true));
+
+        // URL rewriting.
+        $_SERVER['REQUEST_URI'] = '/hordeurl/test/foo/bar?foo=bar&x=y';
+        $_SERVER['SCRIPT_NAME'] = '/hordeurl/test/index.php';
+        $_SERVER['QUERY_STRING'] = 'foo=bar&x=y';
+        $this->assertEquals('/hordeurl/test/', (string)Horde::selfUrl());
+        $this->assertEquals('/hordeurl/test/foo/bar?foo=bar&amp;x=y', (string)Horde::selfUrl(true));
+        $this->assertEquals('http://example.com/hordeurl/test/foo/bar?foo=bar&x=y', (string)Horde::selfUrl(true, false, true));
+        $_SERVER['REQUEST_URI'] = '/hordeurl/foo/bar?foo=bar&x=y';
+        $_SERVER['SCRIPT_NAME'] = '/hordeurl/test.php';
+        $this->assertEquals('/hordeurl/test.php', (string)Horde::selfUrl());
+        $this->assertEquals('/hordeurl/foo/bar?foo=bar&amp;x=y', (string)Horde::selfUrl(true));
+    }
 }
 
 class Registry {
-
-    function get()
+    public function get()
     {
         return '/hordeurl';
     }
+}
 
+class Browser {
+    public function hasQuirk()
+    {
+        return false;
+    }
 }
