@@ -1,12 +1,16 @@
 <?php
 /**
+ * Require our basic test case definition
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
  * @package    Util
  * @subpackage UnitTests
  */
-
 class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
 {
     public function testAddParameter()
@@ -111,6 +115,8 @@ class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
         $_SERVER['REQUEST_URI'] = '/horde/path.php/foo/bar?baz';
         $_SERVER['QUERY_STRING'] = 'baz';
+        $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+        $_SERVER['REQUEST_URI'] = '/horde/foo/bar?baz';
         $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
 
         $_SERVER['REQUEST_URI'] = '/horde/';
