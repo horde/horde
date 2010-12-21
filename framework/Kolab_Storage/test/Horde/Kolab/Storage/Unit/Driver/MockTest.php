@@ -33,8 +33,26 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_Driver_MockTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Storage_TestCase
 {
+    public function testGetMailboxesReturnsArray()
+    {
+        $this->assertType('array', $this->getNullMock()->getMailboxes());
+    }
+
+    public function testGetMailboxesEmpty()
+    {
+        $this->assertEquals(array(), $this->getEmptyMock()->getMailboxes());
+    }
+
+    public function testGetMailboxesReturnsMailboxes()
+    {
+        $this->assertEquals(
+            array('INBOX', 'INBOX/a'),
+            $this->getTwoFolderMock()->getMailboxes()
+        );
+    }
+
     public function testGetAnnotationReturnsAnnotationValue()
     {
         $this->markTestIncomplete();
