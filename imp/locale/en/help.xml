@@ -776,13 +776,6 @@
     </para>
 </entry>
 
-<entry id="prefs-disposition_request_delivery">
-    <title>Preferences: Request Delivery Confirmation</title>
-    <para>
-    &quot;Request Delivery Confirmation&quot; sends a request to the recipient's e-mail server to notify you when it has delivered the message to the recipient's mailbox. It doesn't mean the message has been seen, just that it's sitting in a mailbox somewhere. Not all mail servers support this.
-    </para>
-</entry>
-
 <entry id="prefs-delete_spam_after_report">
     <title>Preferences: Delete Spam After Reporting</title>
     <para>
