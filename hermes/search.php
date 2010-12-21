@@ -11,14 +11,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
-// @TODO
-require_once HERMES_BASE . '/lib/Forms/Export.php';
-require_once HERMES_BASE . '/lib/Forms/Search.php';
-require_once HERMES_BASE . '/lib/Forms/Time.php';
-require_once HERMES_BASE . '/lib/Table.php';
-
 $vars = Horde_Variables::getDefaultVariables();
-
 $delete = $vars->get('delete');
 if (!empty($delete)) {
     try {
@@ -34,8 +27,8 @@ $criteria = null;
 
 $formname = $vars->get('formname');
 switch ($formname) {
-case 'searchform':
-    $form = new SearchForm($vars);
+case 'hermes_form_search':
+    $form = new Hermes_Form_Search($vars);
     $form->validate($vars);
     $criteria = $form->getSearchCriteria($vars);
     if (is_null($criteria)) {
@@ -45,16 +38,16 @@ case 'searchform':
     }
     break;
 
-case 'exportform':
+case 'hermes_form_export':
     if (!($searchVars = $session->get('hermes', 'search_criteria'))) {
         $notification->push(_("No search to export!"), 'horde.error');
     } else {
-        $searchForm = new SearchForm($searchVars);
+        $searchForm = new Hermes_Form_Search($searchVars);
         $criteria = $searchForm->getSearchCriteria($searchVars);
         if (is_null($criteria)) {
             $notification->push(_("No search to export!"), 'horde.error');
         } else {
-            $form = new ExportForm($vars);
+            $form = new Hermes_Form_Export($vars);
             $form->validate($vars);
             if ($form->isValid()) {
                 $form->getInfo($vars, $info);
@@ -94,7 +87,7 @@ require $registry->get('templates', 'horde') . '/common-header.inc';
 if (!($searchVars = $session->get('hermes', 'search_criteria'))) {
     $searchVars = $vars;
 }
-$form = new SearchForm($searchVars);
+$form = new Hermes_Form_Search($searchVars);
 
 $print_link = Horde::url(Horde_Util::addParameter('search.php', array('print' => 'true')));
 require HERMES_TEMPLATES . '/menu.inc';
@@ -108,7 +101,7 @@ if ($session->exists('hermes', 'search_criteria')) {
         $criteria = $form->getSearchCriteria($searchVars);
     }
 
-    $table = new Horde_Core_Ui_Table('results', $vars,
+    $table = new Hermes_Table('results', $vars,
                                 array('title' => _("Search Results"),
                                       'name' => 'hermes/hours',
                                       'params' => $criteria));
@@ -124,7 +117,7 @@ if ($session->exists('hermes', 'search_criteria')) {
 
 if (!$print_view) {
     echo '<br />';
-    $exportForm = new ExportForm($vars);
+    $exportForm = new Hermes_Form_Export($vars);
     $exportForm->renderActive(new Horde_Form_Renderer(), $vars, 'search.php', 'post');
 }
 

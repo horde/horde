@@ -400,8 +400,6 @@ class Hermes_Api extends Horde_Registry_Api
                                 $costObject, $hours, $billable = true,
                                 $description = '', $notes = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once 'Date.php';
         require_once HERMES_BASE . '/lib/Forms/Time.php';
 
         $dateobj = new Horde_Date($date);

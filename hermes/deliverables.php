@@ -8,17 +8,13 @@
  * @author Jason M. Felice <jason.m.felice@gmail.com>
  */
 require_once dirname(__FILE__) . '/lib/Application.php';
-
 Horde_Registry::appInit('hermes');
-
-// @TODO
-require_once HERMES_BASE . '/lib/Forms/Deliverable.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 
 switch ($vars->get('formname')) {
 case 'deliverableform':
-    $form = new DeliverableForm($vars);
+    $form = new Hermes_Form_Deliverable($vars);
     $form->validate($vars);
     if ($form->isValid()) {
         try {
@@ -56,7 +52,7 @@ require HERMES_TEMPLATES . '/menu.inc';
 $renderer = new Horde_Form_Renderer();
 
 if (!$vars->exists('deliverable_id') && !$vars->exists('new')) {
-    $clientSelector = new DeliverableClientSelector($vars);
+    $clientSelector = new Hermes_Form_Deliverable_ClientSelector($vars);
     $clientSelector->renderActive($renderer, $vars, 'deliverables.php', 'post');
 }
 
@@ -67,7 +63,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
             $vars->set($name, $value);
         }
     }
-    $form = new DeliverableForm($vars);
+    $form = new Hermes_Form_Deliverable($vars);
     $form->renderActive($renderer, $vars, 'deliverables.php', 'post');
 } elseif ($vars->exists('client_id')) {
     $clients = Hermes::listClients();

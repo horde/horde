@@ -12,11 +12,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
-require_once HERMES_BASE . '/lib/Forms/Time.php';
-require_once HERMES_BASE . '/lib/Table.php';
-
 $vars = Horde_Variables::getDefaultVariables();
-
 $delete = $vars->get('delete');
 if (!empty($delete)) {
     try {
@@ -55,7 +51,7 @@ $tabs = Hermes::tabs();
 $criteria = array('employee' => $GLOBALS['registry']->getAuth(),
                   'submitted' => false,
                   'link_page' => 'time.php');
-$table = new Horde_Core_Ui_Table('week', $vars,
+$table = new Hermes_Table('week', $vars,
                             array('title' => _("My Unsubmitted Time"),
                                   'name' => 'hermes/hours',
                                   'params' => $criteria));

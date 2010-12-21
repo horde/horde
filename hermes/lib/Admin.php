@@ -9,11 +9,6 @@
  */
 
 /**
- * Horde_Form
- */
-require_once 'Horde/Form.php';
-
-/**
  * @package Hermes
  */
 class AddJobTypeForm extends Horde_Form {

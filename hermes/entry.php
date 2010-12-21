@@ -12,11 +12,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
-// @TODO
-require_once HERMES_BASE . '/lib/Forms/Time.php';
-
 $vars = Horde_Variables::getDefaultVariables();
-
 if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');
     $timers = @unserialize($prefs->getValue('running_timers'));
@@ -34,8 +30,8 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
 }
 
 switch ($vars->get('formname')) {
-case 'timeentryform':
-    $form = new TimeEntryForm($vars);
+case 'hermes_form_time_entry':
+    $form = new Hermes_Form_Time_Entry($vars);
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
         try {
@@ -85,7 +81,7 @@ default:
             }
         }
     }
-    $form = new TimeEntryForm($vars);
+    $form = new Hermes_Form_Time_Entry($vars);
     break;
 }
 $form->setCostObjects($vars);
