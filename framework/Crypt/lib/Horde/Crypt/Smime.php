@@ -391,7 +391,14 @@ class Horde_Crypt_Smime extends Horde_Crypt
             throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not S/MIME sign message."));
         }
 
-        $data = file_get_contents($output);
+        /* Output from openssl_pkcs7_sign may contain both \n and \r\n EOLs.
+         * Canonicalize to \r\n. */
+        $fp = fopen($output, 'r');
+        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+        stream_filter_append($fp, 'horde_eol');
+        $data = stream_get_contents($fp);
+        fclose($fp);
+
         return $this->_fixContentType($data, 'signature');
     }
 
