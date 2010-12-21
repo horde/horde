@@ -473,18 +473,16 @@ class Content_Tagger
      *
      * @return array  An array of (client) object ids => similarity rank
      */
-    public function getSimilarObjects($object_id, $args = array())
+    public function getSimilarObjects($object_id, array $args = array())
     {
-        $defaults = array('limit' => 10,
-                          'threshold' => 1);
+        $defaults = array('limit' => 10, 'threshold' => 1);
         $args = array_merge($defaults, $args);
         if (is_array($object_id)) {
             $object_id = $this->_objectManager->exists($object_id['object'], $object_id['type']);
-            if ($object_id) {
-                $object_id = current(array_keys($object_id));
-            } else {
+            if (!$object_id) {
                 return array();
             }
+            $object_id = current(array_keys($object_id));
         } elseif (!is_int($object_id)) {
             throw new InvalidArgumentException(_("Missing or invalid object type parameter."));
         }
@@ -494,10 +492,7 @@ class Content_Tagger
         if (!isset($object_id) || !($object_id > 0)) {
             return array();
         }
-        if ($threshold <= 0) {
-            return array();
-        }
-        if ($max_objects <= 0) {
+        if ($threshold <= 0 || $max_objects <= 0) {
             return array();
         }
 
@@ -512,18 +507,20 @@ class Content_Tagger
         $sql = 'SELECT objects.object_name, COUNT(matches.object_id) AS num_common_tags FROM '
             . $this->_t('tagged') . ' matches INNER JOIN '
             . $this->_t('tags') . ' tags ON (tags.tag_id = matches.tag_id)';
-
         if (!empty($args['userId'])) {
-            $sql .= ' INNER JOIN ' . $this->_t('users') . ' users ON users.user_id = matches.user_id AND users.user_name = ' . $this->_db->quoteString($args['userId']);
+            $sql .= ' INNER JOIN ' . $this->_t('users')
+                . ' users ON users.user_id = matches.user_id AND users.user_name = '
+                . $this->_db->quoteString($args['userId']);
         }
-        $sql .= ' INNER JOIN ' . $this->_t('objects') . ' objects ON objects.object_id = matches.object_id';
+        $sql .= ' INNER JOIN ' . $this->_t('objects')
+            . ' objects ON objects.object_id = matches.object_id';
         if (!empty($args['typeId'])) {
-            $sql .= ' INNER JOIN ' . $this->_t('types') . ' types ON types.type_id=objects.type_id AND types.type_name = ' . $this->_db->quoteString($args['typeId']);
+            $sql .= ' INNER JOIN ' . $this->_t('types')
+                . ' types ON types.type_id=objects.type_id AND types.type_name = '
+                . $this->_db->quoteString($args['typeId']);
         }
-
-        $sql .= ' WHERE tags.tag_id IN (' . implode(',', $tagArray) . ') AND matches.object_id <> ' . (int)$object_id;
-
-        $sql .= ' GROUP BY objects.object_name HAVING num_common_tags >= ' . $threshold
+        $sql .= ' WHERE tags.tag_id IN (' . implode(',', $tagArray) . ') AND matches.object_id <> ' . (int)$object_id
+            .' GROUP BY objects.object_name HAVING num_common_tags >= ' . $threshold
             . ' ORDER BY num_common_tags DESC';
 
         $sql = $this->_db->addLimitOffset($sql, array('limit' => $max_objects));
