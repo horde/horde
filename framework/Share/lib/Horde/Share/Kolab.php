@@ -71,7 +71,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      *
      * @param Horde_Share_Object $object
      */
-    public function initShareObject($object)
+    public function initShareObject(Horde_Share_Object $object)
     {
         $object->setShareOb($this);
     }

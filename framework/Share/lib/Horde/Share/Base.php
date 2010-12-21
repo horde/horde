@@ -252,7 +252,7 @@ abstract class Horde_Share_Base
      *
      * @return array  The requested shares.
      */
-    public function getShares($cids)
+    public function getShares(array $cids)
     {
         $all_shares = $missing_ids = array();
         foreach ($cids as $cid) {
