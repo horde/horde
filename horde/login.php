@@ -94,6 +94,13 @@ case Horde_Auth::REASON_LOGOUT:
     break;
 }
 
+/* Change language. */
+if (!$is_auth &&
+    !$prefs->isLocked('language') &&
+    ($new_lang = Horde_Util::getGet('new_lang'))) {
+    $registry->setLanguageEnvironment($new_lang);
+}
+
 if ($logout_reason) {
     if ($is_auth) {
         try {
@@ -105,8 +112,6 @@ if ($logout_reason) {
         }
         $is_auth = null;
     }
-
-    $language = $prefs->getValue('language');
 
     $entry = sprintf('User %s [%s] logged out of Horde', $registry->getAuth(), $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'NOTICE');
@@ -124,10 +129,9 @@ if ($logout_reason) {
     }
 
     $session->setup();
-    $registry->setLanguageEnvironment($language, $vars->app);
 
-    /* Hook to preselect the correct language in the widget. */
-    $_GET['new_lang'] = $language;
+    /* Explicitly set language in un-authenticated session. */
+    $registry->setLanguage($GLOBALS['language']);
 } elseif (Horde_Util::getPost('login_post') ||
           Horde_Util::getPost('login_button')) {
     /* Get the login params from the login screen. */
@@ -178,8 +182,6 @@ if ($logout_reason) {
     $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
                      $vars->horde_user, $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'ERR');
-} elseif ($new_lang = Horde_Util::getGet('new_lang')) {
-    $registry->setLanguageEnvironment($new_lang);
 }
 
 /* Build the list of necessary login parameters.
@@ -253,12 +255,10 @@ if (!empty($conf['auth']['alternate_login'])) {
 
 /* Build the <select> widget containing the available languages. */
 if (!$is_auth && !$prefs->isLocked('language')) {
-    $session->set('horde', 'language', $registry->preferredLang($vars->new_lang));
     $langs = array();
-
     foreach ($registry->nlsconfig['languages'] as $key => $val) {
         $langs[] = array(
-            'sel' => ($key == $session->get('horde', 'language')),
+            'sel' => ($key == $GLOBALS['language']),
             'val' => $key,
             // Language names are already encoded.
             'name' => $val
