@@ -1,12 +1,16 @@
 <?php
 /**
+ * Require our basic test case definition
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
  * @package    Util
  * @subpackage UnitTests
  */
-
 class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
 {
     public function testUpper()
@@ -410,5 +414,12 @@ Lörem ipsüm dölör sit;
 EOT
 ,
             Horde_String::wordwrap($string, 31, "\n", false, 'utf-8', true));
+    }
+
+    public function testCommon()
+    {
+        $this->assertEquals('', Horde_String::common('foo', 'bar'));
+        $this->assertEquals('foo', Horde_String::common('foobar', 'fooxyx'));
+        $this->assertEquals('foo', Horde_String::common('foo', 'foobar'));
     }
 }

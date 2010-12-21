@@ -562,6 +562,24 @@ class Horde_String
     }
 
     /**
+     * Returns the common leading part of two strings.
+     *
+     * @param string $str1  A string.
+     * @param string $str2  Another string.
+     *
+     * @return string  The start of $str1 and $str2 that is identical in both.
+     */
+    static public function common($str1, $str2)
+    {
+        for ($result = '', $i = 0;
+             isset($str1[$i]) && isset($str2[$i]) && $str1[$i] == $str2[$i];
+             $i++) {
+            $result .= $str1[$i];
+        }
+        return $result;
+    }
+
+    /**
      * Returns true if the every character in the parameter is an alphabetic
      * character.
      *
