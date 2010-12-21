@@ -65,7 +65,8 @@ Choices are:
  - pear      [IMAP]: The PEAR-Net_IMAP driver
  - roundcube [IMAP]: The roundcube IMAP driver
  - mock      [Mem.]: A dummy driver that uses memory."
-                    )
+                    ),
+                    'default' => 'horde'
                 )
             ),
             new Horde_Argv_Option(
@@ -89,7 +90,8 @@ Choices are:
                 '--host',
                 array(
                     'action' => 'store',
-                    'help'   => Horde_Kolab_Cli_Translation::t('The host that holds the data.')
+                    'help'   => Horde_Kolab_Cli_Translation::t('The host that holds the data.'),
+                    'default' => 'localhost'
                 )
             ),
             new Horde_Argv_Option(
@@ -98,6 +100,14 @@ Choices are:
                 array(
                     'action' => 'store_true',
                     'help'   => Horde_Kolab_Cli_Translation::t('Produce time measurements to indicate how long the processing takes.')
+                )
+            ),
+            new Horde_Argv_Option(
+                '-l',
+                '--log',
+                array(
+                    'action' => 'store',
+                    'help'   => Horde_Kolab_Cli_Translation::t('Write a log file in the provided LOG location.')
                 )
             ),
         );
@@ -146,18 +156,30 @@ Choices are:
     /**
      * Handle the options and arguments.
      *
-     * @param mixed     $options   An array of options.
-     * @param mixed     $arguments An array of arguments.
+     * @param mixed &$options   An array of options.
+     * @param mixed &$arguments An array of arguments.
      *
      * @return NULL
      */
-    public function handleArguments($options, $arguments)
+    public function handleArguments(&$options, &$arguments)
     {
-        if (in_array($options['driver'], array('roundcube', 'php', 'pear'))) {
+        if (isset($options['driver'])
+            && in_array($options['driver'], array('roundcube', 'php', 'pear'))) {
             if (defined('E_DEPRECATED')) {
                 error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED & ~E_NOTICE);
             } else {
                 error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
+            }
+        }
+        if (isset($options['log'])) {
+            if (class_exists('Horde_Log_Logger')) {
+                $options['logger'] = new Horde_Log_Logger(
+                    new Horde_Log_Handler_Stream(
+                        $options['log']
+                    )
+                );
+            } else {
+                file_put_contents($options['log'], 'The Horde_Log_Logger class is not available!');
             }
         }
     }

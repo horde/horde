@@ -103,6 +103,10 @@
     <name>Support</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>

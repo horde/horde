@@ -100,4 +100,15 @@ extends Horde_Kolab_Cli_TestCase
             $this->runCli()
         );
     }
+
+    public function testOptionLog()
+    {
+        $_SERVER['argv'] = array(
+            'klb'
+        );
+        $this->assertRegExp(
+            '/-l[ ]*LOG,[ ]*--log=LOG/',
+            $this->runCli()
+        );
+    }
 }

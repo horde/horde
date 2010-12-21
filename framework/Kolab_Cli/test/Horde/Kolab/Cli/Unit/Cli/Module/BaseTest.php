@@ -37,12 +37,14 @@ extends Horde_Kolab_Cli_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->_storeErrorHandling();
     }
 
     public function tearDown()
     {
         $this->_restoreErrorHandling();
+        parent::tearDown();
     }
 
     public function testNotice()
@@ -52,16 +54,38 @@ extends Horde_Kolab_Cli_TestCase
 
     public function testMissingNoticeWithRoundcubeDriver()
     {
+        $options = array('driver' => 'roundcube');
+        $arguments = array();
         $base = new Horde_Kolab_Cli_Module_Base();
-        $base->handleArguments(array('driver' => 'roundcube'), array());
+        $base->handleArguments($options, $arguments);
         $this->assertFalse((bool) (error_reporting() & E_NOTICE));
     }
 
     public function testMissingNoticeWithHordeDriver()
     {
+        $options = array('driver' => 'horde');
+        $arguments = array();
         $base = new Horde_Kolab_Cli_Module_Base();
-        $base->handleArguments(array('driver' => 'horde'), array());
+        $base->handleArguments($options, $arguments);
         $this->assertTrue((bool) (error_reporting() & E_NOTICE));
+    }
+
+    public function testLoggerOption()
+    {
+        $options = array('log' => $this->getLogFile());
+        $arguments = array();
+        $base = new Horde_Kolab_Cli_Module_Base();
+        $base->handleArguments($options, $arguments);
+        $this->assertContains('logger', array_keys($options));
+    }
+
+    public function testLoggerClass()
+    {
+        $options = array('log' => $this->getLogFile());
+        $arguments = array();
+        $base = new Horde_Kolab_Cli_Module_Base();
+        $base->handleArguments($options, $arguments);
+        $this->assertInstanceOf('Horde_Log_Logger', $options['logger']);
     }
 
     private function _storeErrorHandling()

@@ -96,12 +96,12 @@ implements Horde_Kolab_Cli_Module
     /**
      * Handle the options and arguments.
      *
-     * @param mixed     $options   An array of options.
-     * @param mixed     $arguments An array of arguments.
+     * @param mixed &$options   An array of options.
+     * @param mixed &$arguments An array of arguments.
      *
      * @return NULL
      */
-    public function handleArguments($options, $arguments)
+    public function handleArguments(&$options, &$arguments)
     {
     }
 

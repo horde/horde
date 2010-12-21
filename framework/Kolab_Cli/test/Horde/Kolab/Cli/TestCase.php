@@ -30,6 +30,15 @@
 class Horde_Kolab_Cli_TestCase
 extends PHPUnit_Framework_TestCase
 {
+    private $_log_file;
+
+    public function tearDown()
+    {
+        if ($this->_log_file !== null && file_exists($this->_log_file)) {
+            unlink($this->_log_file);
+        }
+    }
+
     protected function runCli()
     {
         ob_start();
@@ -43,4 +52,13 @@ extends PHPUnit_Framework_TestCase
         ob_end_clean();
         return $output;
     }
+
+    protected function getLogFile()
+    {
+        $this->_log_file = sys_get_temp_dir() . DIRECTORY_SEPARATOR
+            . 'Kolab_Cli_' . mt_rand() . '.log';
+        return $this->_log_file;
+    }
+
+
 }
