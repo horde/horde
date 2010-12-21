@@ -166,7 +166,8 @@ implements Horde_Kolab_Cli_Module
         return $factory->createFromParams(
             array(
                 'driver' => $options['driver'],
-                'params' => $options
+                'params' => $options,
+                'logger' => isset($options['logger']) ? $options['logger'] : null,
             )
         );
     }
