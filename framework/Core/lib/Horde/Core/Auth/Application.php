@@ -104,10 +104,13 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      *
      * @param string $userId      The user ID to check.
      * @param array $credentials  The credentials to check.
+     * @param boolean $login      Whether to log the user in. If false, we'll
+     *                            only test the credentials and won't modify
+     *                            the current session. Defaults to true.
      *
      * @return boolean  Whether or not the credentials are valid.
      */
-    public function authenticate($userId, $credentials)
+    public function authenticate($userId, $credentials, $login = true)
     {
         try {
             list($userId, $credentials) = $this->runHook(trim($userId), $credentials, 'preauthenticate', 'authenticate');
@@ -116,10 +119,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->_base) {
-            if (!$this->_base->authenticate($userId, $credentials)) {
+            if (!$this->_base->authenticate($userId, $credentials, $login)) {
                 return false;
             }
-        } elseif (!parent::authenticate($userId, $credentials)) {
+        } elseif (!parent::authenticate($userId, $credentials, $login)) {
             return false;
         }
 

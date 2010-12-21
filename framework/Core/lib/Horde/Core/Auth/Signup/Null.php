@@ -20,7 +20,7 @@ class Horde_Core_Auth_Signup_Null extends Horde_Core_Auth_Signup_Base
      * @param mixed $info  Reference to array of parameters to be passed
      *                     to hook.
      */
-    protected function _queueSignup(&$info)
+    protected function _queueSignup($info)
     {
     }
 
