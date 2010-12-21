@@ -159,6 +159,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * <pre>
      * html - (boolean) Is this an HTML message?
      * priority - (string) The message priority ('high', 'normal', 'low').
+     * readreceipt - (boolean) Add return receipt headers?
      * </pre>
      *
      * @return string  Notification text on success.
@@ -181,6 +182,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * <pre>
      * html - (boolean) Is this an HTML message?
      * priority - (string) The message priority ('high', 'normal', 'low').
+     * readreceipt - (boolean) Add return receipt headers?
      * </pre>
      *
      * @return string  The body text.
@@ -306,12 +308,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @return mixed  An array with the following keys:
      * <pre>
-     * 'charset' - (string) The preferred sending charset.
-     * 'header' - (array) A list of headers to add to the outgoing message.
-     * 'identity' - (integer) The identity used to create the message.
-     * 'mode' - (string) 'html' or 'text'.
-     * 'msg' - (string) The message text.
-     * 'priority' - (string) The message priority.
+     * charset - (string) The preferred sending charset.
+     * header - (array) A list of headers to add to the outgoing message.
+     * identity - (integer) The identity used to create the message.
+     * mode - (string) 'html' or 'text'.
+     * msg - (string) The message text.
+     * priority - (string) The message priority.
+     * readreceipt - (boolean) Add return receipt headers?
      * </pre>
      * @throws IMP_Compose_Exception
      */
@@ -425,6 +428,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $imp_ui_hdrs = new IMP_Ui_Headers();
         $priority = $imp_ui_hdrs->getPriority($headers);
 
+        $mdn = new Horde_Mime_Mdn($headers);
+        $readreceipt = (bool)$mdn->getMdnReturnAddr();
+
         $this->_metadata['draft_uid_resume'] = $indices;
         $this->changed = 'changed';
 
@@ -434,7 +440,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             'identity' => $identity_id,
             'mode' => $mode,
             'msg' => $message,
-            'priority' => $priority
+            'priority' => $priority,
+            'readreceipt' => $readreceipt
         );
     }
 
@@ -479,7 +486,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function buildAndSendMessage($body, $header, array $opts = array())
     {
-        global $conf, $notification, $prefs, $registry;
+        global $conf, $injector, $notification, $prefs, $session, $registry;
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
@@ -500,7 +507,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        $barefrom = Horde_Mime_Address::bareAddress($header['from'], $GLOBALS['session']->get('imp', 'maildomain'));
+        $barefrom = Horde_Mime_Address::bareAddress($header['from'], $session->get('imp', 'maildomain'));
         $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
         $recipients = implode(', ', $recip['list']);
 
@@ -535,8 +542,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addReceivedHeader(array(
-            'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
-            'server' => $GLOBALS['conf']['server']['name']
+            'dns' => $injector->getInstance('Net_DNS2_Resolver'),
+            'server' => $conf['server']['name']
         ));
 
         /* Add Reply-To header. */
@@ -545,17 +552,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $headers->addHeader('Reply-to', $header['replyto']);
         }
 
-        /* Add Return Receipt Headers. */
-        $mdn = null;
-        if (!empty($opts['readreceipt']) &&
-            $conf['compose']['allow_receipts']) {
-            $mdn = new Horde_Mime_Mdn($headers);
-            $mdn->addMdnRequestHeaders($barefrom);
-        }
-
         /* Add the 'User-Agent' header. */
         if (empty($opts['useragent'])) {
-            $headers->setUserAgent('Internet Messaging Program (IMP) ' . $GLOBALS['registry']->getVersion());
+            $headers->setUserAgent('Internet Messaging Program (IMP) ' . $registry->getVersion());
         } else {
             $headers->setUserAgent($opts['useragent']);
         }
@@ -566,7 +565,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $reply_type = 'new';
         }
 
-        $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
+        $sentmail = $injector->getInstance('IMP_Sentmail');
 
         foreach ($send_msgs as $val) {
             try {
@@ -591,7 +590,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 IMP_Maillog::log($reply_type, $this->getMetadata('in_reply_to'), $recipients);
             }
 
-            $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
+            $imp_message = $injector->getInstance('IMP_Message');
             $reply_uid = new IMP_Indices($this);
 
             switch ($reply_type) {
@@ -611,7 +610,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth());
+        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth());
         Horde::logMessage($entry, 'INFO');
 
         /* Should we save this message in the sent mail folder? */
@@ -647,9 +646,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             /* Generate the message string. */
-            $fcc = $mime_message->toString(array('defserver' => $GLOBALS['session']->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
+            $fcc = $mime_message->toString(array('defserver' => $session->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
 
-            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+            $imp_folder = $injector->getInstance('IMP_Folder');
 
             if (!$imp_folder->exists($opts['sent_folder'])) {
                 $imp_folder->create($opts['sent_folder'], $prefs->getValue('subscribe'));
@@ -658,12 +657,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $flags = array('\\seen');
 
             /* RFC 3503 [3.3] - set $MDNSent flag on sent message. */
-            if ($mdn) {
-                $flags[] = array('$MDNSent');
+            if ($conf['compose']['allow_receipts']) {
+                $mdn = new Horde_Mime_Mdn($headers);
+                if ($mdn->getMdnReturnAddr()) {
+                    $flags[] = array('$MDNSent');
+                }
             }
 
             try {
-                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
+                $injector->getInstance('IMP_Injector_Factory_Imap')->create()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -745,6 +747,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $ob->addHeader('X-Priority', '5 (Lowest)');
                 break;
             }
+        }
+
+        /* Add Return Receipt Headers. */
+        if (!empty($opts['readreceipt']) &&
+            $GLOBALS['conf']['compose']['allow_receipts']) {
+            $mdn = new Horde_Mime_Mdn($ob);
+            $mdn->addMdnRequestHeaders(Horde_Mime_Address::bareAddress($ob->getValue('from'), $GLOBALS['session']->get('imp', 'maildomain')));
         }
 
         return $ob;
@@ -2673,7 +2682,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         try {
             $body = $this->_saveDraftMsg($headers, $vars->message, array(
                 'html' => $vars->rtemode,
-                'priority' => $vars->priority
+                'priority' => $vars->priority,
+                'readreceipt' => $vars->request_read_receipt
             ));
         } catch (IMP_Compose_Exception $e) {
             return;

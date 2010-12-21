@@ -1625,7 +1625,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * 'html' - (integer) In HTML compose mode?
      * 'message' - (string) The message text.
      * 'priority' - TODO
-     * 'request_read_receipt' - TODO
+     * 'request_read_receipt' - (boolean) Add request read receipt header?
      * 'save_attachments_select' - TODO
      * 'save_sent_mail' - TODO
      * 'save_sent_mail_folder' - (string) TODO
@@ -1958,6 +1958,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * 'html' - (integer) In HTML compose mode?
      * 'message' - (string) The message text.
      * 'priority' - (string) The priority of the message.
+     * 'request_read_receipt' - (boolean) Add request read receipt header?
      * </pre>
      *
      * @return object  An object with the following entries:
@@ -1976,7 +1977,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $res = $imp_compose->saveDraft($headers, $this->_vars->message, array(
                 'html' => $this->_vars->html,
-                'priority' => $this->_vars->priority
+                'priority' => $this->_vars->priority,
+                'readreceipt' => $this->_vars->request_read_receipt
             ));
             if ($this->_action == 'autoSaveDraft') {
                 $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');

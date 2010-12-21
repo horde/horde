@@ -190,6 +190,9 @@ $priority = isset($vars->priority)
     ? $vars->priority
     : 'normal';
 
+/* Request read receipt? */
+$request_read_receipt = (bool)$vars->request_read_receipt;
+
 /* Run through the action handlers. */
 $title = _("New Message");
 switch ($vars->actionID) {
@@ -241,6 +244,7 @@ case 'draft':
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
         $priority = $result['priority'];
+        $request_read_receipt = $result['readreceipt'];
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
     }
@@ -376,7 +380,8 @@ case 'send_message':
             try {
                 $result = $imp_compose->saveDraft($header, $message, array(
                     'html' => $rtemode,
-                    'priority' => $priority
+                    'priority' => $priority,
+                    'readreceipt' => $request_read_receipt
                 ));
 
                 /* Closing draft if requested by preferences. */
@@ -430,7 +435,7 @@ case 'send_message':
         'save_sent' => $save_sent_mail,
         'sent_folder' => $sent_mail_folder,
         'save_attachments' => $vars->save_attachments_select,
-        'readreceipt' => $vars->request_read_receipt
+        'readreceipt' => $request_read_receipt
     );
 
     try {
@@ -929,7 +934,7 @@ if ($redirect) {
     $d_read = $prefs->getValue('disposition_request_read');
     $t->set('rrr', $conf['compose']['allow_receipts'] && ($d_read != 'never'));
     if ($t->get('rrr')) {
-        $t->set('rrr_selected', ($d_read != 'ask') || ($vars->request_read_receipt == 'on'));
+        $t->set('rrr_selected', ($d_read != 'ask') || $request_read_receipt);
         $t->set('rrr_label', Horde::label('rrr', _("Request a _Read Receipt")));
     }
 

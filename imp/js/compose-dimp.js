@@ -552,6 +552,10 @@ var DimpCompose = {
             this.setPopdownLabel('p', opts.priority);
         }
 
+        if (opts.readreceipt && $('request_read_receipt')) {
+            $('request_read_receipt').setValue(true);
+        }
+
         this.processFwdList(opts.fwd_list);
 
         Field.focus(opts.focus || 'to');

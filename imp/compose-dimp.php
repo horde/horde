@@ -186,6 +186,7 @@ case 'resume':
         }
         $header = array_merge($header, $result['header']);
         $fillform_opts['priority'] = $result['priority'];
+        $fillform_opts['readreceipt'] = $result['readreceipt'];
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
     }
