@@ -596,6 +596,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Mime_Viewer</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Notification</name>
     <channel>pear.horde.org</channel>
    </package>
