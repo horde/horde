@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-16</date>
- <time>06:33:31</time>
+ <date>2010-12-21</date>
+ <time>07:16:30</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -49,6 +49,7 @@
         <file name="Base.php" role="php" />
         <file name="Folder.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Cli/Module -->
+       <file name="Module.php" role="php" />
        <file name="Translation.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Cli -->
       <file name="Cli.php" role="php" />
@@ -61,6 +62,9 @@
       <dir name="Cli">
        <dir name="Unit">
         <dir name="Cli">
+         <dir name="Module">
+          <file name="BaseTest.php" role="test" />
+         </dir> <!-- /test/Horde/Kolab/Cli/Unit/Cli/Module -->
          <file name="ModuleTest.php" role="test" />
          <file name="OptionsTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Cli/Unit/Cli -->
@@ -105,6 +109,7 @@
   <filelist>
    <install as="klb" name="bin/klb" />
    <install as="Horde/Kolab/Cli.php" name="lib/Horde/Kolab/Cli.php" />
+   <install as="Horde/Kolab/Cli/Module.php" name="lib/Horde/Kolab/Cli/Module.php" />
    <install as="Horde/Kolab/Cli/Translation.php" name="lib/Horde/Kolab/Cli/Translation.php" />
    <install as="Horde/Kolab/Cli/Module/Base.php" name="lib/Horde/Kolab/Cli/Module/Base.php" />
    <install as="Horde/Kolab/Cli/Module/Folder.php" name="lib/Horde/Kolab/Cli/Module/Folder.php" />
@@ -115,6 +120,7 @@
    <install as="Horde/Kolab/Cli/Unit/CliTest.php" name="test/Horde/Kolab/Cli/Unit/CliTest.php" />
    <install as="Horde/Kolab/Cli/Unit/Cli/ModuleTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/ModuleTest.php" />
    <install as="Horde/Kolab/Cli/Unit/Cli/OptionsTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/OptionsTest.php" />
+   <install as="Horde/Kolab/Cli/Unit/Cli/Module/BaseTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/Module/BaseTest.php" />
    <install as="COPYING" name="COPYING" />
   </filelist>
  </phprelease>
@@ -128,7 +134,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-16</date>
+   <date>2010-12-21</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.

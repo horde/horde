@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Cli_Modular
  */
 class Horde_Kolab_Cli_Module_Base
-implements Horde_Cli_Modular_Module
+implements Horde_Kolab_Cli_Module
 {
     /**
      * Get the usage description for this module.
@@ -141,5 +141,24 @@ Choices are:
     public function getOptionGroupOptions()
     {
         return array();
+    }
+
+    /**
+     * Handle the options and arguments.
+     *
+     * @param mixed     $options   An array of options.
+     * @param mixed     $arguments An array of arguments.
+     *
+     * @return NULL
+     */
+    public function handleArguments($options, $arguments)
+    {
+        if (in_array($options['driver'], array('roundcube', 'php', 'pear'))) {
+            if (defined('E_DEPRECATED')) {
+                error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED & ~E_NOTICE);
+            } else {
+                error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
+            }
+        }
     }
 }

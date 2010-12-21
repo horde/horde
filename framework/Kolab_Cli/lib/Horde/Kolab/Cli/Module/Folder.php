@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Cli_Modular
  */
 class Horde_Kolab_Cli_Module_Folder
-implements Horde_Cli_Modular_Module
+implements Horde_Kolab_Cli_Module
 {
     /**
      * Get the usage description for this module.
@@ -91,6 +91,18 @@ implements Horde_Cli_Modular_Module
     public function getOptionGroupOptions()
     {
         return array();
+    }
+
+    /**
+     * Handle the options and arguments.
+     *
+     * @param mixed     $options   An array of options.
+     * @param mixed     $arguments An array of arguments.
+     *
+     * @return NULL
+     */
+    public function handleArguments($options, $arguments)
+    {
     }
 
     /**
