@@ -194,19 +194,19 @@ class Jonah_Tagger
         } elseif (!empty($filter['feed'])) {
             // Only stories located in specific feed(s)
             if (!is_array($filter['feed'])) {
-                $filter['feed'] = array($filter['calendar']);
+                $filter['feed'] = array($filter['feed']);
             }
-            $args['feedId'] = $filter['calendar'];
+            $args['feedId'] = $filter['feed'];
         }
 
         /* Add the tags to the search */
         $args['tagId'] = $GLOBALS['injector']->getInstance('Content_Tagger')->getTagIds($tags);
 
         /* Restrict to stories or feeds? */
-        $cal_results = $story_results = array();
+        $feed_results = $story_results = array();
         if (empty($filter['type']) || $filter['type'] == 'feed') {
             $args['typeId'] = $this->_type_ids['feed'];
-            $cal_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
+            $feed_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
         }
 
         if (empty($filter['type']) || $filter['type'] == 'story') {
@@ -214,9 +214,9 @@ class Jonah_Tagger
             $story_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
         }
 
-        $results = array('feeds' => array_values($cal_results),
-                         'stories' => (!empty($args['feedId']) && count($event_results))
-                                     ? Jonah::getDriver()->filterEventsByCalendar(array_values($story_results), $args['feedId'])
+        $results = array('feeds' => array_values($feed_results),
+                         'stories' => (!empty($args['feedId']) && count($story_results))
+                                     ? Jonah::getDriver()->filterEventsByFeed(array_values($story_results), $args['feedId'])
                                      : array_values($story_results));
 
         return $results;
