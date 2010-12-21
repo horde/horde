@@ -132,6 +132,11 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             ($prefs->getValue('initial_page') == 'folders.php')) {
             $prefs->setValue('initial_page', IMP_Prefs_Ui::PREF_FOLDER_PAGE);
         }
+
+        if ($prefs->isDefault('send_mdn') &&
+            $prefs->getValue('disposition_send_mdn')) {
+            $prefs->setValue('send_mdn', 1);
+        }
     }
 
     /**

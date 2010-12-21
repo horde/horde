@@ -708,7 +708,7 @@ $prefGroups['viewing'] = array(
         'image_replacement', 'image_addrbook', 'highlight_text',
         'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
         'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'disposition_send_mdn'
+        'send_mdn'
     )
 );
 
@@ -838,7 +838,7 @@ $_prefs['default_msg_charset'] = array(
 );
 
 // Send read receipts?
-$_prefs['disposition_send_mdn'] = array(
+$_prefs['send_mdn'] = array(
     'value' => 1,
     'advanced' => true,
     'type' => 'enum',
@@ -850,7 +850,7 @@ $_prefs['disposition_send_mdn'] = array(
 //        2 => _("Prompt only if necessary; otherwise automatically send")
     ),
     'desc' => _("Prompt to send read receipt (a/k/a message disposition notification) when requested by the sender?"),
-    'help' => 'prefs-disposition_send_mdn'
+    'help' => 'prefs-send_mdn'
 );
 
 

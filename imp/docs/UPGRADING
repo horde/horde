@@ -74,6 +74,7 @@ your ``config/prefs.php`` file and your preferences backend::
    alternative_display
    attachment_display
    auto_delete_drafts
+   disposition_send_mdn
    fckeditor_buttons
    fetchmail_link
    fetchmail_menu

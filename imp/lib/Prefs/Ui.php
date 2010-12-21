@@ -353,7 +353,7 @@ class IMP_Prefs_Ui
 
         case 'viewing':
             if (empty($conf['maillog']['use_maillog'])) {
-                $ui->suppress[] = 'disposition_send_mdn';
+                $ui->suppress[] = 'send_mdn';
             }
 
             $mock_part = new Horde_Mime_Part();
