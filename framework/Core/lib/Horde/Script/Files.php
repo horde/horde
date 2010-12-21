@@ -22,8 +22,6 @@ class Horde_Script_Files
      */
     public $prototypejs = true;
 
-    protected $_full = false;
-
     /**
      * The list of script files to add.
      *
@@ -32,6 +30,13 @@ class Horde_Script_Files
     protected $_files = array(
         'horde' => array()
     );
+
+    /**
+     * TODO
+     *
+     * @var boolean
+     */
+    protected $_full = false;
 
     /**
      * The list of files we have already included.
@@ -72,8 +77,9 @@ class Horde_Script_Files
      */
     public function addExternal($url, $app = null)
     {
-        // Force external scripts under Horde scope to better avoid duplicates,
-        // and to ensure they are loaded before other application specific files
+        // Force external scripts under Horde scope to better avoid
+        // duplicates, and to ensure they are loaded before other application
+        // specific files
         $app = 'horde';
 
         // Don't include scripts multiple times.
