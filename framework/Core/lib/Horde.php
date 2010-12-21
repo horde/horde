@@ -1228,6 +1228,9 @@ HTML;
                 $_SERVER['SCRIPT_NAME'] :
                 $_SERVER['PHP_SELF'];
         }
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $url = Horde_String::common($_SERVER['REQUEST_URI'], $url);
+        }
         if (substr($url, -9) == 'index.php') {
             $url = substr($url, 0, -9);
         }
