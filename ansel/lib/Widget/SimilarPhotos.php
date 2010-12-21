@@ -4,6 +4,8 @@
  * thumbnails of images that are similar, based on tags.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license http://www.fsf.org/copyleft/gpl.html GPL
  * @package Ansel
  */
 class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
@@ -11,7 +13,7 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
     /**
      * Array of views that this widget may appear in.
      *
-     * @var unknown_type
+     * @var array
      */
     protected $_supported_views = array('Image');
 
@@ -19,6 +21,7 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
      * Constructor
      *
      * @param array $params  Any parameters for this widget
+     *
      * @return Ansel_Widget_SimilarPhotos
      */
     public function __construct($params)

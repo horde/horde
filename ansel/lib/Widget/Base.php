@@ -9,6 +9,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license http://www.fsf.org/copyleft/gpl.html GPL
  * @package Ansel
  */
 abstract class Ansel_Widget_Base
