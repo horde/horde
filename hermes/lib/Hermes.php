@@ -32,14 +32,6 @@ class Hermes
         return $clients;
     }
 
-    static public function getDayOfWeek($timestamp)
-    {
-        // Return 0-6, indicating the position of $timestamp in the
-        // period.
-        $dow = 7 + date('w', $timestamp) - $GLOBALS['prefs']->getValue('start_of_week');
-        return ($dow % 7);
-    }
-
     /**
      * Build Hermes' list of menu items.
      */
