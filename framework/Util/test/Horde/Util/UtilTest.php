@@ -138,5 +138,10 @@ class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
         $_SERVER['REQUEST_URI'] = '/horde/index.php/foo/bar?baz';
         $_SERVER['QUERY_STRING'] = 'baz';
         $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+
+        $_SERVER['REQUEST_URI'] = '/test/42?id=42';
+        $_SERVER['SCRIPT_NAME'] = '/test/index.php';
+        $_SERVER['QUERY_STRING'] = 'id=42&id=42';
+        $this->assertEquals('/42', Horde_Util::getPathInfo());
     }
 }

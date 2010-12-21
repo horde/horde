@@ -354,6 +354,12 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         $_SERVER['SCRIPT_NAME'] = '/hordeurl/test.php';
         $this->assertEquals('/hordeurl/', (string)Horde::selfUrl());
         $this->assertEquals('/hordeurl/foo/bar?foo=bar&amp;x=y', (string)Horde::selfUrl(true));
+
+        // Special cases.
+        $_SERVER['REQUEST_URI'] = '/test/42?id=42';
+        $_SERVER['SCRIPT_NAME'] = '/test/index.php';
+        $_SERVER['QUERY_STRING'] = 'id=42&id=42';
+        $this->assertEquals('/test/42?id=42', (string)Horde::selfUrl(true));
     }
 }
 

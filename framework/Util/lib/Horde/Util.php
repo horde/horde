@@ -726,7 +726,13 @@ class Horde_Util
             }
             $search = array($search);
             if (!empty($_SERVER['QUERY_STRING'])) {
-                $search[] = '?' . $_SERVER['QUERY_STRING'];
+                // We can't use QUERY_STRING directly because URL rewriting
+                // might add more parameters to the query string than those
+                // from the request URI.
+                $url = parse_url($_SERVER['REQUEST_URI']);
+                if (!empty($url['query'])) {
+                    $search[] = '?' . $url['query'];
+                }
             }
             $path = str_replace($search, '', $_SERVER['REQUEST_URI']);
             if ($path == '/') {
