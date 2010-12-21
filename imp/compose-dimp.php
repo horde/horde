@@ -185,6 +185,7 @@ case 'resume':
             $identity->setDefault($result['identity']);
         }
         $header = array_merge($header, $result['header']);
+        $fillform_opts['priority'] = $result['priority'];
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
     }

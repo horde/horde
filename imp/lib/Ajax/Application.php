@@ -1957,6 +1957,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * <pre>
      * 'html' - (integer) In HTML compose mode?
      * 'message' - (string) The message text.
+     * 'priority' - (string) The priority of the message.
      * </pre>
      *
      * @return object  An object with the following entries:
@@ -1973,7 +1974,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         try {
-            $res = $imp_compose->saveDraft($headers, $this->_vars->message, $this->_vars->html);
+            $res = $imp_compose->saveDraft($headers, $this->_vars->message, array(
+                'html' => $this->_vars->html,
+                'priority' => $this->_vars->priority
+            ));
             if ($this->_action == 'autoSaveDraft') {
                 $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
             } else {

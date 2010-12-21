@@ -512,7 +512,7 @@ var DimpCompose = {
         }
     },
 
-    // opts = auto, focus, fwd_list, noupdate, show_editor
+    // opts = auto, focus, fwd_list, noupdate, priority, show_editor
     fillForm: function(msg, header, opts)
     {
         if (!document.loaded) {
@@ -547,6 +547,10 @@ var DimpCompose = {
             }
         }
         $('subject').setValue(header.subject);
+
+        if (DIMP.conf_compose.priority && opts.priority) {
+            this.setPopdownLabel('p', opts.priority);
+        }
 
         this.processFwdList(opts.fwd_list);
 

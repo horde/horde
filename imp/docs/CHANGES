@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add priority information to saved draft (Request #9457).
 [mms] Added example in pre_sent hook to do forgotten attachment checking at
       send time (Request #9028).
 [mms] Add subfolder searching (subfolders dynamically determined at time of

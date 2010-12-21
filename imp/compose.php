@@ -185,6 +185,11 @@ if ($session->get('imp', 'file_upload')) {
     }
 }
 
+/* Get message priority. */
+$priority = isset($vars->priority)
+    ? $vars->priority
+    : 'normal';
+
 /* Run through the action handlers. */
 $title = _("New Message");
 switch ($vars->actionID) {
@@ -235,6 +240,7 @@ case 'draft':
             $identity->setDefault($result['identity']);
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
+        $priority = $result['priority'];
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
     }
@@ -368,7 +374,10 @@ case 'send_message':
     if (in_array($vars->actionID, array('auto_save_draft', 'save_draft'))) {
         if (!$readonly_drafts) {
             try {
-                $result = $imp_compose->saveDraft($header, $message, $rtemode);
+                $result = $imp_compose->saveDraft($header, $message, array(
+                    'html' => $rtemode,
+                    'priority' => $priority
+                ));
 
                 /* Closing draft if requested by preferences. */
                 if ($vars->actionID == 'save_draft') {
@@ -417,7 +426,7 @@ case 'send_message':
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
         'html' => $rtemode,
         'identity' => $identity,
-        'priority' => $vars->priority,
+        'priority' => $priority,
         'save_sent' => $save_sent_mail,
         'sent_folder' => $sent_mail_folder,
         'save_attachments' => $vars->save_attachments_select,
@@ -822,7 +831,6 @@ if ($redirect) {
         $t->set('priority_label', Horde::label('priority', _("_Priority")));
         $t->set('priority_tabindex', ++$tabindex);
 
-        $priority = isset($vars->priority) ? $vars->priority : 'normal';
         $priorities = array(
             'high' => _("High"),
             'normal' => _("Normal"),

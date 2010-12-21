@@ -151,40 +151,48 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Saves a message to the draft folder.
      *
-     * @param array $header    List of message headers (UTF-8).
-     * @param mixed $message   Either the message text (string) or a
-     *                         Horde_Mime_Part object that contains the
-     *                         text to send.
-     * @param boolean $html    Whether this is an HTML message.
+     * @param array $header   List of message headers (UTF-8).
+     * @param mixed $message  Either the message text (string) or a
+     *                        Horde_Mime_Part object that contains the text
+     *                        to send.
+     * @param array $opts     An array of options w/the following keys:
+     * <pre>
+     * html - (boolean) Is this an HTML message?
+     * priority - (string) The message priority ('high', 'normal', 'low').
+     * </pre>
      *
      * @return string  Notification text on success.
      * @throws IMP_Compose_Exception
      */
-    public function saveDraft($headers, $message, $html)
+    public function saveDraft($headers, $message, array $opts = array())
     {
-        $body = $this->_saveDraftMsg($headers, $message, $html);
+        $body = $this->_saveDraftMsg($headers, $message, $opts);
         return $this->_saveDraftServer($body);
     }
 
     /**
      * Prepare the draft message.
      *
-     * @param array $headers    List of message headers.
-     * @param mixed $message    Either the message text (string) or a
-     *                          Horde_Mime_Part object that contains the
-     *                          text to send.
-     * @param boolean $html     Whether this is an HTML message.
+     * @param array $headers  List of message headers.
+     * @param mixed $message  Either the message text (string) or a
+     *                        Horde_Mime_Part object that contains the text
+     *                        to send.
+     * @param array $opts     An array of options w/the following keys:
+     * <pre>
+     * html - (boolean) Is this an HTML message?
+     * priority - (string) The message priority ('high', 'normal', 'low').
+     * </pre>
      *
      * @return string  The body text.
      * @throws IMP_Compose_Exception
      */
-    protected function _saveDraftMsg($headers, $message, $html)
+    protected function _saveDraftMsg($headers, $message, $opts)
     {
         $has_session = (bool)$GLOBALS['registry']->getAuth();
 
         /* Set up the base message now. */
         $mime = $this->_createMimeMessage(array(null), $message, array(
-            'html' => $html,
+            'html' => !empty($opts['html']),
             'noattach' => !$has_session,
             'nofinal' => true
         ));
@@ -204,7 +212,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* Initalize a header object for the draft. */
-        $draft_headers = $this->_prepareHeaders($headers);
+        $draft_headers = $this->_prepareHeaders($headers, $opts);
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
@@ -303,6 +311,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * 'identity' - (integer) The identity used to create the message.
      * 'mode' - (string) 'html' or 'text'.
      * 'msg' - (string) The message text.
+     * 'priority' - (string) The message priority.
      * </pre>
      * @throws IMP_Compose_Exception
      */
@@ -413,6 +422,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             } catch (Exception $e) {}
         }
 
+        $imp_ui_hdrs = new IMP_Ui_Headers();
+        $priority = $imp_ui_hdrs->getPriority($headers);
+
         $this->_metadata['draft_uid_resume'] = $indices;
         $this->changed = 'changed';
 
@@ -421,7 +433,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             'header' => $header,
             'identity' => $identity_id,
             'mode' => $mode,
-            'msg' => $message
+            'msg' => $message,
+            'priority' => $priority
         );
     }
 
@@ -518,7 +531,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* Initalize a header object for the outgoing message. */
-        $headers = $this->_prepareHeaders($header);
+        $headers = $this->_prepareHeaders($header, $opts);
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addReceivedHeader(array(
@@ -530,21 +543,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if (!empty($header['replyto']) &&
             ($header['replyto'] != $barefrom)) {
             $headers->addHeader('Reply-to', $header['replyto']);
-        }
-
-        /* Add priority header, if requested. */
-        if (!empty($opts['priority'])) {
-            switch ($opts['priority']) {
-            case 'high':
-                $headers->addHeader('Importance', 'High');
-                $headers->addHeader('X-Priority', '1 (Highest)');
-                break;
-
-            case 'low':
-                $headers->addHeader('Importance', 'Low');
-                $headers->addHeader('X-Priority', '5 (Lowest)');
-                break;
-            }
         }
 
         /* Add Return Receipt Headers. */
@@ -692,12 +690,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @param array $headers  Array with 'from', 'to', 'cc', 'bcc', and
      *                        'subject' values.
+     * @param array $opts     An array of options w/the following keys:
+     * <pre>
+     * priority - (string) The message priority ('high', 'normal', 'low').
+     * </pre>
      *
-     * @return Horde_Mime_Headers  Headers object with the Date, From, To, Cc,
-     *                             Bcc, Subject, Message-ID, References, and
-     *                             In-Reply-To headers set.
+     * @return Horde_Mime_Headers  Headers object with the appropriate headers
+     *                             set.
      */
-    protected function _prepareHeaders($headers)
+    protected function _prepareHeaders($headers, array $opts = array())
     {
         $ob = new Horde_Mime_Headers();
 
@@ -728,6 +729,21 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
             if ($this->getMetadata('in_reply_to')) {
                 $ob->addHeader('In-Reply-To', $this->getMetadata('in_reply_to'));
+            }
+        }
+
+        /* Add priority header, if requested. */
+        if (!empty($opts['priority'])) {
+            switch ($opts['priority']) {
+            case 'high':
+                $ob->addHeader('Importance', 'High');
+                $ob->addHeader('X-Priority', '1 (Highest)');
+                break;
+
+            case 'low':
+                $ob->addHeader('Importance', 'Low');
+                $ob->addHeader('X-Priority', '5 (Lowest)');
+                break;
             }
         }
 
@@ -2655,7 +2671,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         try {
-            $body = $this->_saveDraftMsg($headers, $vars->message, $vars->rtemode);
+            $body = $this->_saveDraftMsg($headers, $vars->message, array(
+                'html' => $vars->rtemode,
+                'priority' => $vars->priority
+            ));
         } catch (IMP_Compose_Exception $e) {
             return;
         }
