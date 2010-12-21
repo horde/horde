@@ -468,7 +468,9 @@ class Jonah_Driver_Sql extends Jonah_Driver
         if ($results instanceof PEAR_Error) {
             throw new Jonah_Exception($results);
         }
-
+        foreach ($results as &$row) {
+            $row['tags'] = $this->readTags($row['id']);
+        }
         return $results;
     }
 
