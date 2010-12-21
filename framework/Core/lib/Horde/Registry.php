@@ -2060,6 +2060,8 @@ class Horde_Registry
      * 'change' - (boolean) Whether to request that the user change their
      *            password.
      *            DEFAULT: No
+     * 'language' - (string) The preferred language.
+     *              DEFAULT: null
      * </pre>
      */
     public function setAuth($authId, $credentials, array $options = array())
@@ -2095,7 +2097,7 @@ class Horde_Registry
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
-        $this->setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);
+        $this->setLanguageEnvironment(isset($options['language']) ? $options['language'] : null, $app);
     }
 
     /**

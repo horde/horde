@@ -562,6 +562,9 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             return true;
         }
 
+        /* Grab the current language before we destroy the session. */
+        $language = $registry->preferredLang();
+
         /* Destroy any existing session on login and make sure to use a
          * new session ID, to avoid session fixation issues. */
         if (!$registry->getAuth()) {
@@ -579,7 +582,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         $registry->setAuth($userId, $credentials, array(
             'app' => $this->_app,
-            'change' => $this->getCredential('change')
+            'change' => $this->getCredential('change'),
+            'language' => $language
         ));
 
         if ($this->_base &&
