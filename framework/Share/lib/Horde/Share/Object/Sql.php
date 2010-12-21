@@ -9,7 +9,9 @@
  */
 class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
 {
-    /** Serializable version **/
+    /**
+     * Serializable version.
+     */
     const VERSION = 2;
 
     /**
@@ -52,13 +54,11 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      */
     public function serialize()
     {
-        $data = array(
+        return serialize(array(
             self::VERSION,
             $this->data,
             $this->_shareCallback,
-        );
-
-        return serialize($data);
+        ));
     }
 
     /**

@@ -9,7 +9,9 @@
  */
 class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializable
 {
-    /** Serializable version **/
+    /**
+     * Serializable version.
+     */
     const VERSION = 2;
 
     /**
@@ -74,14 +76,19 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
         }
     }
 
+    /**
+     * Serialize this object.
+     *
+     * @return string  The serialized data.
+     */
     public function serialize()
     {
-        $data = array(
+        return serialize(array(
             self::VERSION,
             $this->_data,
             $this->_folder_name,
             $this->_shareCallback
-        );
+        ));
     }
 
     /**
