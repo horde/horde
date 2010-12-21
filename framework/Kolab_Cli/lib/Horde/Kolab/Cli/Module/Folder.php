@@ -167,7 +167,7 @@ implements Horde_Kolab_Cli_Module
             array(
                 'driver' => $options['driver'],
                 'params' => $options,
-                'logger' => isset($options['logger']) ? $options['logger'] : null,
+                'logger' => isset($options['log']) ? $options['log'] : null,
             )
         );
     }

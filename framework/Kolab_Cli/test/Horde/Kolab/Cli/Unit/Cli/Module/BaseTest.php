@@ -76,7 +76,7 @@ extends Horde_Kolab_Cli_TestCase
         $arguments = array();
         $base = new Horde_Kolab_Cli_Module_Base();
         $base->handleArguments($options, $arguments);
-        $this->assertContains('logger', array_keys($options));
+        $this->assertContains('log', array_keys($options));
     }
 
     public function testLoggerClass()
@@ -85,7 +85,7 @@ extends Horde_Kolab_Cli_TestCase
         $arguments = array();
         $base = new Horde_Kolab_Cli_Module_Base();
         $base->handleArguments($options, $arguments);
-        $this->assertInstanceOf('Horde_Log_Logger', $options['logger']);
+        $this->assertInstanceOf('Horde_Log_Logger', $options['log']);
     }
 
     private function _storeErrorHandling()

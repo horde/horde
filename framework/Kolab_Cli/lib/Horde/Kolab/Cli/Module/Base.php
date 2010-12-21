@@ -173,7 +173,7 @@ Choices are:
         }
         if (isset($options['log'])) {
             if (class_exists('Horde_Log_Logger')) {
-                $options['logger'] = new Horde_Log_Logger(
+                $options['log'] = new Horde_Log_Logger(
                     new Horde_Log_Handler_Stream(
                         $options['log']
                     )
