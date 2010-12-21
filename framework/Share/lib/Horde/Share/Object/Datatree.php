@@ -11,6 +11,11 @@
 class Horde_Share_Object_Datatree extends Horde_Share_Object
 {
     /**
+     * Serializable version.
+     */
+    const VERSION = 1;
+
+    /**
      * The actual storage object that holds the data.
      *
      * @var mixed
@@ -26,6 +31,41 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
     public function __construct(Horde_Share_Object_Datatree_Share $datatreeObject)
     {
         $this->datatreeObject = $datatreeObject;
+    }
+
+    /**
+     * Serialize this object.
+     *
+     * @return string  The serialized data.
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            self::VERSION,
+            $this->datatreeObject,
+            $this->_shareCallback,
+        ));
+    }
+
+    /**
+     * Reconstruct the object from serialized data.
+     *
+     * @param string $data  The serialized data.
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->datatreeObject = $data[1];
+        if (empty($data[2])) {
+            throw new Exception('Missing callback for Horde_Share_Object unserializing');
+        }
+        $this->_shareCallback = $data[2];
     }
 
     /**
