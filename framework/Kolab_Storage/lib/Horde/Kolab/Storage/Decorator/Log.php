@@ -1,6 +1,6 @@
 <?php
 /**
- * The basic handler for accessing data from Kolab storage.
+ * A log decorator for the Kolab storage handler.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * The basic handler for accessing data from Kolab storage.
+ * A log decorator for the Kolab storage handler.
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
@@ -25,26 +25,34 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Base
+class Horde_Kolab_Storage_Decorator_Log
 implements Horde_Kolab_Storage
 {
     /**
-     * The master Kolab storage system.
+     * The decorated storage handler.
      *
-     * @var Horde_Kolab_Storage_Driver
+     * @var Horde_Kolab_Storage
      */
-    private $_master;
+    private $_storage;
+
+    /**
+     * A log handler.
+     *
+     * @var mixed
+     */
+    private $_logger;
 
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Driver $master The primary connection driver.
-     * @param string $driver The driver used for the primary storage connection.
-     * @param array  $params Additional connection parameters.
+     * @param Horde_Kolab_Storage $storage The storage handler.
+     * @param mixed               $logger  The log handler. This instance
+     *                                     must provide the info() method.
      */
-    public function __construct(Horde_Kolab_Storage_Driver $master)
+    public function __construct(Horde_Kolab_Storage $storage, $logger)
     {
-        $this->_master = $master;
+        $this->_storage = $storage;
+        $this->_logger = $logger;
     }
 
     /**
@@ -55,8 +63,9 @@ implements Horde_Kolab_Storage
      */
     public function getList()
     {
-        return new Horde_Kolab_Storage_List_Base(
-            $this->_master
+        return new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->_storage->getList(),
+            $this->_logger
         );
     }
 
@@ -69,9 +78,7 @@ implements Horde_Kolab_Storage
      */
     public function getFolder($folder)
     {
-        return new Horde_Kolab_Storage_Folder_Base(
-            $this, $this->_master, $folder
-        );
+        return $this->_storage->getFolder();
     }
 
     /**
@@ -86,6 +93,7 @@ implements Horde_Kolab_Storage
      */
     public function getData($folder, $type)
     {
+        return $this->_storage->getData();
     }
 
 }
