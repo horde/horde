@@ -110,7 +110,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      *
      * @return boolean  True if no error occured, PEAR_Error otherwise
      */
-    public function setPermission(&$perm, $update = true)
+    public function setPermission($perm, $update = true)
     {
         $this->datatreeObject->data['perm'] = $perm->getData();
         if ($update) {
