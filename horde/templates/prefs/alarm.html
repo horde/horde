@@ -29,15 +29,15 @@
 <if:param_list.param.sound>
  <ul class="sound-list">
   <li>
-   <label><input type="radio" name="<tag:param_list.param.name />" value=""<if:param_list.param.checked> checked="checked"</if:param_list.param.checked> /><gettext>No Sound</gettext></label>
+   <label><input type="radio" name="<tag:param_list.param.name />" value=""<if:param_list.param.checked> checked="checked"</if:param_list.param.checked> /> <gettext>No Sound</gettext></label>
  </li>
 <loop:sounds>
  <li>
   <label>
-   <input type="radio" name="<tag:param_list.param.name />" value="<tag:param_list.param.val />"<if:param_list.param.c> checked="checked"</if:param_list.param.c> />
-   <tag:param_list.param.val />
+   <input type="radio" name="<tag:param_list.param.name />" value="<tag:sounds.val />"<if:sounds.c> checked="checked"</if:sounds.c> />
+   <tag:sounds.val />
   </label>
-  <embed autostart="false" src="<tag:param_list.param.uri />" />
+  <embed autostart="false" src="<tag:sounds.uri />" />
  </li>
 </loop:sounds>
 </ul>
