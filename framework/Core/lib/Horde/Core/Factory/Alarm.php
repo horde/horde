@@ -41,7 +41,6 @@ class Horde_Core_Factory_Alarm
 
         if (strcasecmp($driver, 'Sql') === 0) {
             $params['db'] = $injector->getInstance('Horde_Db_Adapter');
-            $params['charset'] = 'UTF-8';
         }
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
