@@ -94,4 +94,16 @@ extends PHPUnit_Framework_TestCase
         }
         $this->assertTrue($found);
     }
+
+    protected function assertLogRegExp($regular_expression)
+    {
+        $found = false;
+        foreach ($this->logHandler->events as $event) {
+            if (preg_match($regular_expression, $event['message'], $matches) !== false) {
+                $found = true;
+                break;
+            }
+        }
+        $this->assertTrue($found);
+    }
 }

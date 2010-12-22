@@ -122,5 +122,35 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testTimerDecoration()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $logger = $this->getMockLogger();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Driver_Decorator_Timer',
+            $factory->createDriverFromParams(
+                array(
+                    'driver' => 'mock',
+                    'logger' => $logger,
+                    'timelog' => $logger,
+                )
+            )
+        );
+    }
+
+    public function testTimedDriverConstruction()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $logger = $this->getMockLogger();
+        $factory->createDriverFromParams(
+            array(
+                'driver' => 'mock',
+                'logger' => $logger,
+                'timelog' => $logger,
+            )
+        );
+        $this->assertLogRegExp('/REQUEST OUT IMAP:.*construct.*/');
+    }
+
 
 }

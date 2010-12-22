@@ -29,12 +29,50 @@ class Horde_Kolab_Storage_Driver_Decorator_Base
 implements Horde_Kolab_Storage_Driver
 {
     /**
+     * The decorated driver.
+     *
+     * @var Horde_Kolab_Storage_Driver
+     */
+    private $_driver;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_Storage_Driver $driver The decorated driver.
+     */
+    public function __construct(Horde_Kolab_Storage_Driver $driver)
+    {
+        $this->_driver = $driver;
+    }
+
+    /**
+     * Return the class name of the decorated driver.
+     *
+     * @return string The class name of the decorated driver.
+     */
+    public function getDriverName()
+    {
+        return get_class($this->_driver);
+    }
+
+    /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the connection.
      */
     public function getAuth()
     {
+        return $this->_driver->getAuth();
+    }
+
+    /**
+     * Retrieves a list of mailboxes from the server.
+     *
+     * @return array The list of mailboxes.
+     */
+    public function getMailboxes()
+    {
+        return $this->_driver->getMailboxes();
     }
 
     /**

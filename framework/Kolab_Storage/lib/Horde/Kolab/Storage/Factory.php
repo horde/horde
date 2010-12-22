@@ -59,7 +59,7 @@ class Horde_Kolab_Storage_Factory
         $storage = new Horde_Kolab_Storage_Base(
             $this->createDriverFromParams($params)
         );
-        if (isset($params['logger'])) {
+        if (!empty($params['logger'])) {
             $storage = new Horde_Kolab_Storage_Decorator_Log(
                 $storage, $params['logger']
             );
@@ -72,11 +72,11 @@ class Horde_Kolab_Storage_Factory
      *
      * @param array $params The parameters for the backend access. See create().
      * <pre>
-     *  - driver : The type of backend driver. One of "mock", "php", "pear",
-     *             "horde", "horde-socket", and "roundcube".
-     *  - params : Backend specific connection parameters.
-     *
-     *    
+     *  - driver  : The type of backend driver. One of "mock", "php", "pear",
+     *              "horde", "horde-socket", and "roundcube".
+     *  - params  : Backend specific connection parameters.
+     *  - logger  : An optional log handler.
+     *  - timelog : An optional time keeping log handler.
      * </pre>
      *
      * @return Horde_Kolab_Storage_Driver The storage handler.
@@ -95,38 +95,47 @@ class Horde_Kolab_Storage_Factory
         } else {
             $config = array();
         }
+        if (!empty($params['timelog'])) {
+            $timer = new Horde_Support_Timer();
+            $timer->push();
+        }
         switch ($params['driver']) {
         case 'mock':
             $config['data'] = array('user/test' => array());
-            return new Horde_Kolab_Storage_Driver_Mock($this, $config);
+            $driver = new Horde_Kolab_Storage_Driver_Mock($this, $config);
+            break;
         case 'horde':
             $config['hostspec'] = $config['host'];
             unset($config['host']);
-            return new Horde_Kolab_Storage_Driver_Imap(
+            $driver = new Horde_Kolab_Storage_Driver_Imap(
                 new Horde_Imap_Client_Socket(
                     $config
                 ),
                 $this
             );
+            break;
         case 'horde-php':
             $config['hostspec'] = $config['host'];
             unset($config['host']);
-            return new Horde_Kolab_Storage_Driver_Imap(
+            $driver = new Horde_Kolab_Storage_Driver_Imap(
                 new Horde_Imap_Client_Cclient(
                     $config
                 ),
                 $this
             );
+            break;
         case 'php':
-            return new Horde_Kolab_Storage_Driver_Cclient($this, $config);
+            $driver = new Horde_Kolab_Storage_Driver_Cclient($this, $config);
+            break;
         case 'pear':
             $client = new Net_IMAP($config['host']);
             Horde_Kolab_Storage_Exception_Pear::catchError(
                 $client->login($config['username'], $config['password'])
             );
-            return new Horde_Kolab_Storage_Driver_Pear(
+            $driver = new Horde_Kolab_Storage_Driver_Pear(
                 $client, $this, $config
             );
+            break;
         case 'roundcube':
             $client = new rcube_imap_generic();
             $client->connect(
@@ -139,9 +148,10 @@ class Horde_Kolab_Storage_Factory
                     'force_caps' => false,
                 )
             );
-            return new Horde_Kolab_Storage_Driver_Rcube(
+            $driver = new Horde_Kolab_Storage_Driver_Rcube(
                 $client, $this, $config
             );
+            break;
         default:
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
@@ -152,6 +162,23 @@ class Horde_Kolab_Storage_Factory
                 )
             );
         }
+        if (!empty($params['logger'])) {
+            $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
+                $driver, $params['logger']
+            );
+        }
+        if (!empty($params['timelog'])) {
+            $params['timelog']->info(
+                sprintf(
+                    'REQUEST OUT IMAP: %s ms [construct]',
+                    floor($timer->pop() * 1000)
+                )
+            );
+            $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
+                $driver, $timer, $params['timelog']
+            );
+        }
+        return $driver;
     }
 
     /**

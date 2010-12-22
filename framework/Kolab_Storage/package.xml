@@ -31,8 +31,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-21</date>
- <time>20:59:39</time>
+ <date>2010-12-22</date>
+ <time>06:20:15</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -80,6 +80,7 @@
         <dir name="Decorator">
          <file name="Base.php" role="php" />
          <file name="Log.php" role="php" />
+         <file name="Timer.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Decorator -->
         <file name="Base.php" role="php" />
         <file name="Cclient.php" role="php" />
@@ -139,6 +140,7 @@
         </dir> <!-- /lib/Horde/Kolab/Storage/List/Decorator -->
         <file name="Base.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/List -->
+       <file name="#Factory.php#" role="php" />
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Data.php" role="php" />
@@ -429,6 +431,9 @@
          <file name="LogTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Decorator -->
         <dir name="Driver">
+         <dir name="Decorator">
+          <file name="LogTest.php" role="test" />
+         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Driver/Decorator -->
          <file name="CclientTest.php" role="test" />
          <file name="ImapTest.php" role="test" />
          <file name="MockTest.php" role="test" />
@@ -531,6 +536,10 @@
     <name>Imap_Client</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <extension>
     <name>imap</name>
    </extension>
@@ -542,6 +551,7 @@
    <install as="Horde/Kolab/Storage/list.php" name="examples/Horde/Kolab/Storage/list.php" />
    <install as="Horde/Kolab/Storage.php" name="lib/Horde/Kolab/Storage.php" />
    <install as="Horde/Kolab/Storage_Old.php" name="lib/Horde/Kolab/Storage_Old.php" />
+   <install as="Horde/Kolab/Storage/#Factory.php#" name="lib/Horde/Kolab/Storage/#Factory.php#" />
    <install as="Horde/Kolab/Storage/Base.php" name="lib/Horde/Kolab/Storage/Base.php" />
    <install as="Horde/Kolab/Storage/Cache.php" name="lib/Horde/Kolab/Storage/Cache.php" />
    <install as="Horde/Kolab/Storage/Data.php" name="lib/Horde/Kolab/Storage/Data.php" />
@@ -560,6 +570,7 @@
    <install as="Horde/Kolab/Storage/Driver/Rcube.php" name="lib/Horde/Kolab/Storage/Driver/Rcube.php" />
    <install as="Horde/Kolab/Storage/Driver/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Base.php" />
    <install as="Horde/Kolab/Storage/Driver/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Log.php" />
+   <install as="Horde/Kolab/Storage/Driver/Decorator/Timer.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Timer.php" />
    <install as="Horde/Kolab/Storage/Exception/Pear.php" name="lib/Horde/Kolab/Storage/Exception/Pear.php" />
    <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
    <install as="Horde/Kolab/Storage/Folder/Cached.php" name="lib/Horde/Kolab/Storage/Folder/Cached.php" />
@@ -700,6 +711,7 @@
    <install as="Horde/Kolab/Storage/Unit/Driver/ImapTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/ImapTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/MockTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/MockTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/PearTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/PearTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Driver/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Folder/NamespaceTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/NamespaceTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/List/Decorator/LogTest.php" />
@@ -774,7 +786,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-21</date>
+   <date>2010-12-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added namespace support (Bug #6691).

@@ -62,7 +62,7 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Retrieves a list of mailboxes on the server.
+     * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.
      */

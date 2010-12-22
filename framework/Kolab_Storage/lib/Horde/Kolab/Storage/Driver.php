@@ -35,6 +35,13 @@ interface Horde_Kolab_Storage_Driver
     public function getAuth();
 
     /**
+     * Retrieves a list of mailboxes from the server.
+     *
+     * @return array The list of mailboxes.
+     */
+    public function getMailboxes();
+
+    /**
      * Does the given folder exist?
      *
      * @param string $folder The folder to check.

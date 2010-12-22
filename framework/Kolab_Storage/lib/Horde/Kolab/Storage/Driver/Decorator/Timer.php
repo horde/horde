@@ -1,6 +1,6 @@
 <?php
 /**
- * A log decorator definition for the Kolab storage drivers.
+ * A stop watch decorator for outgoing requests from the Kolab storage drivers.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * A log decorator definition for the Kolab storage drivers.
+ * A stop watch decorator for outgoing requests from the Kolab storage drivers.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Driver_Decorator_Log
+class Horde_Kolab_Storage_Driver_Decorator_Timer
 extends Horde_Kolab_Storage_Driver_Decorator_Base
 {
     /**
@@ -36,15 +36,27 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     private $_logger;
 
     /**
+     * A stop watch.
+     *
+     * @var Horde_Support_Timer
+     */
+    private $_timer;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Driver $driver The decorated driver.
+     * @param Horde_Support_Timer        $timer  A stop watch.
      * @param mixed                      $logger The log handler. This instance
      *                                           must provide the info() method.
      */
-    public function __construct(Horde_Kolab_Storage_Driver $driver, $logger)
-    {
+    public function __construct(
+        Horde_Kolab_Storage_Driver $driver,
+        Horde_Support_Timer $timer,
+        $logger
+    ) {
         $this->_logger = $logger;
+        $this->_timer = $timer;
         parent::__construct($driver);
     }
 
@@ -55,15 +67,13 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      */
     public function getMailboxes()
     {
-        $this->_logger->info(
-            sprintf('Driver "%s": Listing folders.', $this->getDriverName())
-        );
+        $this->_timer->push();
         $result = parent::getMailboxes();
         $this->_logger->info(
             sprintf(
-                'Driver "%s": List contained %s folders.',
-                $this->getDriverName(),
-                count($result))
+                'REQUEST OUT IMAP: %s ms [getMailboxes]',
+                floor($this->_timer->pop() * 1000)
+            )
         );
         return $result;
     }
