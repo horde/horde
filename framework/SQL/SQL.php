@@ -28,7 +28,7 @@ class Horde_SQL {
      * @return mixed  The SQL test fragment, or an array containing the query
      *                and a list of values if $bind is true.
      */
-    function buildClause($dbh, $lhs, $op, $rhs, $bind = false, $params = array())
+    static public function buildClause($dbh, $lhs, $op, $rhs, $bind = false, $params = array())
     {
         $type = $dbh instanceof Horde_Db_Adapter ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
 
@@ -184,7 +184,7 @@ class Horde_SQL {
      *
      * @return string
      */
-    public function buildIntervalClause($dbh, $interval, $precision)
+    static public function buildIntervalClause($dbh, $interval, $precision)
     {
         $type = $dbh instanceof Horde_Db_Adapter ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
         switch ($type) {
@@ -210,12 +210,12 @@ class Horde_SQL {
      *
      * @return string  The correctly escaped string.
      */
-    function escapePrepare($query)
+    static public function escapePrepare($query)
     {
         return preg_replace('/[?!&]/', '\\\\$0', $query);
     }
 
-    function readBlob($dbh, $table, $field, $criteria)
+    static public function readBlob($dbh, $table, $field, $criteria)
     {
         if (!count($criteria)) {
             return PEAR::raiseError('You must specify the fetch criteria');
@@ -269,7 +269,7 @@ class Horde_SQL {
         return $result;
     }
 
-    function insertBlob($dbh, $table, $field, $data, $attributes)
+    static public function insertBlob($dbh, $table, $field, $data, $attributes)
     {
         $fields = array();
         $values = array();
@@ -327,10 +327,10 @@ class Horde_SQL {
         Horde::logMessage(sprintf('SQL Query by Horde_SQL::insertBlob(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
-        return $this->_db->query($query, $values);
+        return $dbh->query($query, $values);
     }
 
-    function updateBlob($dbh, $table, $field, $data, $where, $alsoupdate)
+    static public function updateBlob($dbh, $table, $field, $data, $where, $alsoupdate)
     {
         $fields = array();
         $values = array();
@@ -419,7 +419,7 @@ class Horde_SQL {
      *
      * @return string  The SQL SET fragment.
      */
-    function updateValues($dbh, $values)
+    static public function updateValues($dbh, $values)
     {
         $ret = array();
         foreach ($values as $key => $value) {
@@ -447,7 +447,7 @@ class Horde_SQL {
      *
      * @return string  The SQL fragment.
      */
-    function insertValues($dbh, $values)
+    static public function insertValues($dbh, $values)
     {
         $columns = array();
         $vals = array();
