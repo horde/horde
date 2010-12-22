@@ -1249,8 +1249,9 @@ class Horde_Registry
          * with the current language, and reset the language later. */
         $this->setLanguageEnvironment($GLOBALS['language'], $app);
 
-        /* Load config and prefs and set proper language from the prefs. */
-        $this->_onAppSwitch($app);
+        /* Load config and prefs. */
+        $this->importConfig($app);
+        $this->loadPrefs($app);
 
         /* Call post-push hook. */
         try {
@@ -1299,7 +1300,9 @@ class Horde_Registry
          * and set the gettext domain and the preferred language. */
         $app = $this->getApp();
         if ($app) {
-            $this->_onAppSwitch($app);
+            /* Load config and prefs. */
+            $this->importConfig($app);
+            $this->loadPrefs($app);
             $this->setTextdomain(
                 $app,
                 $this->get('fileroot', $app) . '/locale'
@@ -1307,30 +1310,6 @@ class Horde_Registry
         }
 
         return $previous;
-    }
-
-    /**
-     * Code to run when switching to an application.
-     *
-     * @param string $app  The application name.
-     *
-     * @throws Horde_Exception
-     */
-    protected function _onAppSwitch($app)
-    {
-        /* Import this application's configuration values. */
-        $this->importConfig($app);
-
-        /* Load preferences after the configuration has been loaded to make
-         * sure the prefs file has all the information it needs. */
-        $this->loadPrefs($app);
-
-        /* Reset the language in case there is a different one selected in the
-         * preferences. */
-        $language = $GLOBALS['prefs']->getValue('language');
-        if ($language != $GLOBALS['language']) {
-            $this->setLanguageEnvironment($language, $app);
-        }
     }
 
     /**
@@ -2180,22 +2159,29 @@ class Horde_Registry
      */
     public function preferredLang($lang = null)
     {
-        /* First, check if language pref is locked and, if so, set it to its
-         * value */
+        /* If language pref exists, we should use that. */
         if (isset($GLOBALS['prefs']) &&
-            $GLOBALS['prefs']->isLocked('language')) {
-            $language = $GLOBALS['prefs']->getValue('language');
+            ($language = $GLOBALS['prefs']->getValue('language'))) {
+            return basename($language);
+        }
+
         /* Check if the user selected a language from the login screen */
-        } elseif (!empty($lang) && $this->isValidLang($lang)) {
-            $language = $lang;
+        if (!empty($lang) && $this->isValidLang($lang)) {
+            return basename($lang);
+        }
+
         /* Check if we have a language set in the session */
-        } elseif ($GLOBALS['session']->exists('horde', 'language')) {
-            $language = $GLOBALS['session']->get('horde', 'language');
+        if ($GLOBALS['session']->exists('horde', 'language')) {
+            return basename($GLOBALS['session']->get('horde', 'language'));
+        }
+
         /* Use site-wide default, if one is defined */
-        } elseif (!empty($this->nlsconfig['defaults']['language'])) {
-            $language = $this->nlsconfig['defaults']['language'];
+        if (!empty($this->nlsconfig['defaults']['language'])) {
+            return basename($this->nlsconfig['defaults']['language']);
+        }
+
         /* Try browser-accepted languages. */
-        } elseif (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             /* The browser supplies a list, so return the first valid one. */
             $browser_langs = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
             foreach ($browser_langs as $lang) {
@@ -2203,6 +2189,7 @@ class Horde_Registry
                 if (($pos = strpos($lang, ';')) !== false) {
                     $lang = substr($lang, 0, $pos);
                 }
+
                 $lang = $this->_mapLang(trim($lang));
                 if ($this->isValidLang($lang)) {
                     $language = $lang;
