@@ -77,7 +77,7 @@ X-Horde-Alarm: This is a personal alarm\.
 Message-ID: <\d{14}\.Horde\.\w+@\w+>
 User-Agent: Horde Application Framework 4
 Date: \w{3}, \d\d \w{3} \d{4} \d\d:\d\d:\d\d [+-]\d{4}
-Content-Type: text\/plain; charset=us-ascii; format=flowed; DelSp=Yes
+Content-Type: text\/plain; charset=UTF-8; format=flowed; DelSp=Yes
 MIME-Version: 1\.0
 
 Action is required\.
@@ -105,7 +105,7 @@ EOR;
 
 class Horde_Alarm_HandlerTest_IdentityFactory
 {
-    public function getIdentity()
+    public function create()
     {
         return new Horde_Alarm_HandlerTest_Identity();
     }
