@@ -287,6 +287,7 @@ class Horde_Group_Mock extends Horde_Group {
      */
     public function __sleep()
     {
+        return array();
     }
 
 }
