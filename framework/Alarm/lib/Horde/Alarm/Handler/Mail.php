@@ -48,7 +48,7 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
             }
         }
         if (!method_exists($params['identity'], 'create')) {
-            throw new Horde_Alarm_Exception('Parameter \'identity\' does not implement create().');
+            throw new Horde_Alarm_Exception('Parameter \'identity\' does not have a method create().');
         }
         if (!($params['mail'] instanceof Horde_Mail_Transport)) {
             throw new Horde_Alarm_Exception('Parameter \'mail\' is not a Horde_Mail_Transport object.');
