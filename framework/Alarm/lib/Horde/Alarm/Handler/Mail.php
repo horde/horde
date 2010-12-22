@@ -80,9 +80,9 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
         }
 
         $mail = new Horde_Mime_Mail(array(
-            'subject' => $alarm['title'],
-            'to' => $email,
-            'from' => $email,
+            'Subject' => $alarm['title'],
+            'To' => $email,
+            'From' => $email,
             'charset' => 'UTF-8'
         ));
         $mail->addHeader('Auto-Submitted', 'auto-generated');
@@ -90,9 +90,9 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
         if (isset($alarm['params']['mail']['mimepart'])) {
             $mail->setBasePart($alarm['params']['mail']['mimepart']);
         } elseif (empty($alarm['params']['mail']['body'])) {
-            $mail->setBody($alarm['text']);
+            $mail->setBody($alarm['text'], 'UTF-8');
         } else {
-            $mail->setBody($alarm['params']['mail']['body']);
+            $mail->setBody($alarm['params']['mail']['body'], 'UTF-8');
         }
 
         $mail->send($this->_mail);
