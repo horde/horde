@@ -772,6 +772,8 @@ HTML;
             echo $output;
         }
 
+        Horde::logMessage('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
+
         if (is_null($var_names)) {
             return;
         } elseif (is_array($var_names)) {
