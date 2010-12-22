@@ -168,6 +168,7 @@ implements Horde_Kolab_Cli_Module
                 'driver' => $options['driver'],
                 'params' => $options,
                 'logger' => isset($options['log']) ? $options['log'] : null,
+                'timelog' => isset($options['log']) && isset($options['timed']) ? $options['log'] : null,
             )
         );
     }
