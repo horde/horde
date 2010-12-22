@@ -23,6 +23,13 @@ class IMP_Imap implements Serializable
     public $ob = null;
 
     /**
+     * Server configuration file.
+     *
+     * @var array
+     */
+    static protected $_config;
+
+    /**
      * Is connection read-only?
      *
      * @var array
@@ -350,14 +357,20 @@ class IMP_Imap implements Serializable
      */
     static public function loadServerConfig($server = null)
     {
-        try {
-            $servers = Horde::loadConfiguration('backends.php', 'servers', 'imp');
-            if ($servers === null) {
-                $servers = false;
+        if (isset(self::$_config)) {
+            $servers = self::$_config;
+        } else {
+            try {
+                $servers = Horde::loadConfiguration('backends.php', 'servers', 'imp');
+                if (is_null($servers)) {
+                    return false;
+                }
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                return false;
             }
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return false;
+
+            self::$_config = $servers;
         }
 
         if (is_null($server)) {
