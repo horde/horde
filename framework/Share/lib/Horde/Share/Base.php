@@ -607,6 +607,15 @@ abstract class Horde_Share_Base
     }
 
     /**
+     * Resets the internal caches.
+     */
+    public function resetCache()
+    {
+        $this->_cache = $this->_shareMap = array();
+        $this->setListCache(array());
+    }
+
+    /**
      * Give public access to call the share callbacks. Needed to run the
      * callbacks from the Horde_Share_Object objects.
      *
