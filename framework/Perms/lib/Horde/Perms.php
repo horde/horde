@@ -423,7 +423,7 @@ class Horde_Perms
      */
     public function hasPermission($permission, $user, $perm, $creator = null)
     {
-        return ($this->getPermissions($permission, $user, $creator) & $perm);
+        return (bool)($this->getPermissions($permission, $user, $creator) & $perm);
     }
 
     /**
@@ -460,7 +460,7 @@ class Horde_Perms
             );
 
             try {
-                return $GLOBALS['registry']->callAppMethod($app, 'hasPermission', array('args' => $args));
+                return (bool)$GLOBALS['registry']->callAppMethod($app, 'hasPermission', array('args' => $args));
             } catch (Horde_Exception $e) {}
         }
 
