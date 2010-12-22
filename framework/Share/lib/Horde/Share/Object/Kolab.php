@@ -149,7 +149,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
             $this->_folder = $folder;
             $this->_folder_name = $folder->name;
         } else {
-           throw new Horde_Share_Exception(Horde_Share_Translation::t("The share has already been initialized!"));
+            throw new Horde_Share_Exception(Horde_Share_Translation::t("The share has already been initialized!"));
         }
     }
 

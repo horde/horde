@@ -346,7 +346,7 @@ abstract class Horde_Share_Base
         }
 
         $shares = $this->getShares($shares);
-        if (is_null($sort_by)) {
+        if (is_null($params['sort_by'])) {
             $this->_sortList = $shares;
             uasort($shares, array($this, '_sortShares'));
             $this->_sortList = null;
@@ -434,14 +434,13 @@ abstract class Horde_Share_Base
      *
      * @param Horde_Share_Object $share  The new share object.
      *
-     * @return boolean
      * @throws Horde_Share_Exception
      */
     public function addShare(Horde_Share_Object $share)
     {
         // Run the results through the callback, if configured.
         $this->runCallback('add', array($share));
-        $result = $this->_addShare($share);
+        $this->_addShare($share);
 
         /* Store new share in the caches. */
         $id = $share->getId();
@@ -451,8 +450,6 @@ abstract class Horde_Share_Base
 
         /* Reset caches that depend on unknown criteria. */
         $this->_listcache = array();
-
-        return $result;
     }
 
     /**
@@ -486,7 +483,7 @@ abstract class Horde_Share_Base
         /* Reset caches that depend on unknown criteria. */
         $this->_listcache = array();
 
-        return $this->_removeShare($share);
+        $this->_removeShare($share);
     }
 
     /**
@@ -494,7 +491,6 @@ abstract class Horde_Share_Base
      *
      * @param Horde_Share_Object $share  The share to remove.
      *
-     * @return boolean
      * @throws Horde_Share_Exception
      */
     abstract protected function _removeShare(Horde_Share_Object $share);
@@ -576,6 +572,7 @@ abstract class Horde_Share_Base
      */
     public function toDriverCharset($data)
     {
+        return $data;
     }
 
     /**

@@ -161,8 +161,9 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      * @return string  The criteria string for fetching this user's shares.
      * @throws Horde_Share_Exception
      */
-    public function getShareCriteria($userid, $perm = Horde_Perms::SHOW, $attributes = null,
-                                     $parent = null, $allLevels = true)
+    public function getShareCriteria($userid, $perm = Horde_Perms::SHOW,
+                                     $attributes = null, $parent = null,
+                                     $allLevels = true)
     {
         static $criteria = array();
 
@@ -171,7 +172,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         } else {
             $parent_id = $parent;
         }
-        $key = hash('sha1', serialize(array($userid, $perm, $parent_id, $allLevels, $attributes, $ignorePerms)));
+        $key = hash('sha1', serialize(array($userid, $perm, $parent_id, $allLevels, $attributes)));
         if (isset($criteria[$key])) {
             return $criteria[$key];
         }
@@ -190,7 +191,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                 $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_creator', '&', $perm) . ')';
 
                 // (name == perm_creator and val & $perm)
-                $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_default',  '&', $perm) . ')';
+                $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_default', '&', $perm) . ')';
 
                 // (name == perm_users and key == $userid and val & $perm)
                 $query .= ' LEFT JOIN ' . $this->_table . '_users u ON u.share_id = s.share_id';
@@ -412,7 +413,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         return $all_shares;
     }
 
-   /**
+    /**
      * Removes a share from the shares system permanently. This will recursively
      * delete all child shares as well.
      *
@@ -426,14 +427,13 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         $children = $share->getChildren(null, null, true);
 
         /* Remove share from the caches. */
-        $id = $share->getId();
         $this->_cache = array();
         $this->_listCache = array();
         foreach ($children as $child) {
-            $result = $this->_removeShare($child);
+            $this->_removeShare($child);
         }
 
-        return $this->_removeShare($share);
+        $this->_removeShare($share);
     }
 
     /**
@@ -537,7 +537,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             . $this->getShareCriteria($userid, $perm, $attributes, $parent, $allLevels);
 
         try {
-            $result = $this->_db->selectValue($query);
+            $this->_db->selectValue($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e);
         }

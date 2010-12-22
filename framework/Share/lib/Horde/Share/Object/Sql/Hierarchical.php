@@ -127,7 +127,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
         }
 
         /* Now we can reset the children's parent */
-        foreach($children as $child) {
+        foreach ($children as $child) {
             $child->setParent($this);
         }
 

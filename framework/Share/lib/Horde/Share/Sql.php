@@ -225,7 +225,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e->getMessage());
         }
         if (!$results) {
-            $this->_logger->err(sprintf('Share name %s not found', $name));
+            $this->_logger->err(sprintf('Share id %s not found', $id));
             throw new Horde_Exception_NotFound();
         }
         $data = $this->_fromDriverCharset($results);
@@ -290,7 +290,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         $sharelist = array();
-        foreach ($shares as $id => $data) {
+        foreach ($shares as $data) {
             $this->_getSharePerms($data);
             $sharelist[$data['share_name']] = $this->_createObject($data);
         }
@@ -353,7 +353,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         $sharelist = array();
-        foreach ($shares as $id => $data) {
+        foreach ($shares as $data) {
             $this->_getSharePerms($data);
             $sharelist[$data['share_name']] = $this->_createObject($data);
         }
@@ -455,7 +455,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         $sharelist = array();
-        foreach ($shares as $id => $data) {
+        foreach ($shares as $data) {
             $this->_getSharePerms($data);
             $sharelist[$data['share_name']] = $this->_createObject($data);
         }
@@ -480,6 +480,8 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _listShares($userid, array $params = array())
     {
+        // We overwrite listShares(), this method is only implemented because
+        // it's abstract in the base class.
     }
 
     /**
@@ -563,7 +565,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _addShare(Horde_Share_Object $share)
     {
-        return $share->save();
+        $share->save();
     }
 
     /**
@@ -587,8 +589,6 @@ class Horde_Share_Sql extends Horde_Share_Base
                 throw new Horde_Share_Exception($e->getMessage());
             }
         }
-
-        return true;
     }
 
     /**
@@ -635,7 +635,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_creator', '&', $perm) . ')';
 
             // (name == perm_creator and val & $perm)
-            $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_default',  '&', $perm) . ')';
+            $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_default', '&', $perm) . ')';
 
             // (name == perm_users and key == $userid and val & $perm)
             $query .= ' LEFT JOIN ' . $this->_table . '_users u ON u.share_id = s.share_id';
@@ -686,10 +686,10 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _fromDriverCharset($data)
     {
-        foreach ($data as $key => $value) {
+        foreach ($data as $key => &$value) {
             if (substr($key, 0, 9) == 'attribute') {
-                $data[$key] = Horde_String::convertCharset(
-                    $data[$key], $this->_db->getOption('charset'), 'UTF-8');
+                $value = Horde_String::convertCharset(
+                    $value, $this->_db->getOption('charset'), 'UTF-8');
             }
         }
 
@@ -707,10 +707,10 @@ class Horde_Share_Sql extends Horde_Share_Base
             return $data;
         }
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $key => &$value) {
             if (substr($key, 0, 9) == 'attribute') {
-                $data[$key] = Horde_String::convertCharset(
-                    $data[$key], 'UTF-8', $this->_db->getOption('charset'));
+                $value = Horde_String::convertCharset(
+                    $value, 'UTF-8', $this->_db->getOption('charset'));
             }
         }
 

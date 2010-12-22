@@ -228,7 +228,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
      */
     protected function _addShare(Horde_Share_Object $share)
     {
-        return $this->_datatree->add($share->datatreeObject);
+        Horde_Exception_Pear::catchError($this->_datatree->add($share->datatreeObject));
     }
 
     /**
@@ -238,7 +238,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
      */
     protected function _removeShare(Horde_Share_Object $share)
     {
-        return $this->_datatree->remove($share->datatreeObject);
+        Horde_Exception_Pear::catchError($this->_datatree->remove($share->datatreeObject));
     }
 
     /**
@@ -308,7 +308,8 @@ class Horde_Share_Datatree extends Horde_Share_Base
                             array('field' => 'key', 'op' => 'IN', 'test' => array_keys($groups)),
                             array('field' => 'value', 'op' => '&', 'test' => $perm)));
                 }
-            } catch (Horde_Group_Exception $e) {}
+            } catch (Horde_Group_Exception $e) {
+            }
         } else {
             $criteria = array(
                 'AND' => array(

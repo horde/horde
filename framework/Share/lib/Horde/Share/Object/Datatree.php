@@ -165,7 +165,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      * @return Horde_Perms_Permission  Permission object that represents the
      *                           permissions on this share
      */
-    function getPermission()
+    public function getPermission()
     {
         $perm = new Horde_Perms_Permission($this->datatreeObject->getName());
         $perm->data = isset($this->datatreeObject->data['perm'])

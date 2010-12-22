@@ -243,7 +243,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _addShare(Horde_Share_Object $share)
     {
-        return $share->save();
+        $share->save();
     }
 
     /**
@@ -253,8 +253,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _removeShare(Horde_Share_Object $share)
     {
-        $share_id = $share->getName();
-        $result = $share->delete();
+        $share->delete();
     }
 
     /**
@@ -299,7 +298,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
 
         /* The value does not matter here as the share will rewrite it */
         $share->set('name', '');
-        $result = $this->addShare($share);
+        $this->addShare($share);
 
         return $share;
     }
