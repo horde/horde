@@ -822,8 +822,9 @@ if ($redirect) {
         $t->set('charset_label', Horde::label('charset', _("C_harset")));
         $t->set('charset_tabindex', ++$tabindex);
         $charset_array = array();
-        asort($registry->nlsconfig['encodings']);
-        foreach (array_merge(array('' => _("Default")), $registry->nlsconfig['encodings']) as $encoding => $label) {
+        $enc_list = $registry->nslconfig->encodings;
+        asort($enc_list);
+        foreach (array_merge(array('' => _("Default")), $enc_list) as $encoding => $label) {
             $charset_array[] = array(
                 'label' => $label,
                 'selected' => (strcasecmp($encoding, $charset) === 0),

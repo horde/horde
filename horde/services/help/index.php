@@ -13,7 +13,7 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $vars = Horde_Variables::getDefaultVariables();
 
-$rtl = isset($registry->nlsconfig['rtl'][$language]);
+$rtl = $registry->nlsconfig->curr_rtl;
 $title = _("Help");
 $show = isset($vars->show)
     ? Horde_String::lower($vars->show)

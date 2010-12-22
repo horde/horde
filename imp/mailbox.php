@@ -268,7 +268,7 @@ if ($readonly) {
 
 /* Generate paging links. */
 if ($pageOb['pagecount']) {
-    $rtl = !empty($registry->nlsconfig['rtl'][$language]);
+    $rtl = $registry->nlsconfig->curr_rtl;
     if ($pageOb['page'] == 1) {
         $pages_first = Horde::img($rtl ? 'nav/last-grey.png' : 'nav/first-grey.png');
         $pages_prev = Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png');

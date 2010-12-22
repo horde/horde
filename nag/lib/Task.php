@@ -552,9 +552,9 @@ class Nag_Task {
         }
         if ($this->indent) {
             if ($this->lastChild) {
-                $html .= Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\');
+                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\');
             } else {
-                $html .= Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/join.png' : 'tree/rev-join.png', '+');
+                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/join.png' : 'tree/rev-join.png', '+');
             }
         }
 

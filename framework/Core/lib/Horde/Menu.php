@@ -216,7 +216,7 @@ class Horde_Menu
 
         /* Sort to match explicitly set positions. */
         ksort($this->_menu);
-        if (!empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
+        if ($registry->nlsconfig->curr_rtl) {
             $this->_menu = array_reverse($this->_menu);
         }
 

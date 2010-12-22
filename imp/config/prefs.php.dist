@@ -823,15 +823,16 @@ $_prefs['mail_hdr'] = array(
 );
 
 // default message character set
+
 $_prefs['default_msg_charset'] = array(
-    'value' => isset($GLOBALS['registry']->nlsconfig['emails'][$GLOBALS['language']])
-        ? $GLOBALS['registry']->nlsconfig['emails'][$GLOBALS['language']]
-        : (isset($GLOBALS['registry']->nlsconfig['charsets'][$GLOBALS['language']])
-            ? $GLOBALS['registry']->nlsconfig['charsets'][$GLOBALS['language']]
+    'value' => $GLOBALS['registry']->getEmailCharset()
+        ? $GLOBALS['registry']->getEmailCharset()
+        : ($GLOBALS['registry']->getLanguageCharset()
+            ? $GLOBALS['registry']->getLanguageCharset()
             : ''),
     'type' => 'enum',
     'enum' => array_merge(
-        array('' => _("Default (US-ASCII)")), $GLOBALS['registry']->nlsconfig['encodings']
+        array('' => _("Default (US-ASCII)")), $GLOBALS['registry']->nlsconfig->encodings_sort
     ),
     'desc' => _("The default charset for messages with no charset information:"),
     'help' => 'prefs-default_msg_charset'

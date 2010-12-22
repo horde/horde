@@ -35,7 +35,7 @@ class Horde_Core_Ui_Language {
                             Horde::url($registry->get('webroot', 'horde') . '/services/language.php', false, -1));
             $html .= '<input type="hidden" name="url" value="' . @htmlspecialchars(Horde::selfUrl(false, false, true)) . '" />';
             $html .= '<select name="new_lang" onchange="document.language.submit()">';
-            foreach ($registry->nlsconfig['languages'] as $key => $val) {
+            foreach ($registry->nlsconfig->languages as $key => $val) {
                 $sel = ($key == $session->get('horde', 'language')) ? ' selected="selected"' : '';
                 $html .= "<option value=\"$key\"$sel>$val</option>";
             }

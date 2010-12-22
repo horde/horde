@@ -255,6 +255,7 @@ Application Framework.</description>
       <file name="Api.php" role="php" />
       <file name="Application.php" role="php" />
       <file name="Caller.php" role="php" />
+      <file name="Nlsconfig.php" role="php" />
      </dir> <!-- /lib/Horde/Registry -->
      <dir name="Script">
       <file name="Files.php" role="php" />
@@ -855,6 +856,7 @@ Application Framework.</description>
    <install as="Horde/Registry/Api.php" name="lib/Horde/Registry/Api.php" />
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />
    <install as="Horde/Registry/Caller.php" name="lib/Horde/Registry/Caller.php" />
+   <install as="Horde/Registry/Nlsconfig.php" name="lib/Horde/Registry/Nlsconfig.php" />
    <install as="Horde/Script/Files.php" name="lib/Horde/Script/Files.php" />
    <install as="Horde/Themes/Cache.php" name="lib/Horde/Themes/Cache.php" />
    <install as="Horde/Themes/Css.php" name="lib/Horde/Themes/Css.php" />

@@ -128,13 +128,6 @@ class IMP_Prefs_Ui
                 $ui->nobuttons = true;
             }
             break;
-
-        case 'viewing':
-            /* Sort encodings. */
-            if (!$prefs->isLocked('default_msg_charset')) {
-                asort($registry->nlsconfig['encodings']);
-            }
-            break;
         }
 
         /* Hide appropriate prefGroups. */

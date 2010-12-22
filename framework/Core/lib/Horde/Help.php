@@ -48,8 +48,8 @@ class Horde_Help
             throw new Horde_Exception('SimpleXML not available.');
         }
 
-        if (isset($GLOBALS['registry']->nlsconfig['charsets'][$GLOBALS['language']])) {
-            $this->_charset = $GLOBALS['registry']->nlsconfig['charsets'][$GLOBALS['language']];
+        if ($charset = $GLOBALS['registry']->nlsconfig->curr_charset) {
+            $this->_charset = $charset;
         }
 
         switch ($source) {

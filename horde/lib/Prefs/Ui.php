@@ -45,17 +45,13 @@ class Horde_Prefs_Ui
 
         case 'language':
             if (!$prefs->isLocked('language')) {
-                $ui->override['language'] = $registry->nlsconfig['languages'];
+                $ui->override['language'] = $registry->nlsconfig->languages;
                 array_unshift($ui->override['language'], _("Default"));
             }
 
             if (!$prefs->isLocked('timezone')) {
                 $ui->override['timezone'] = Horde_Nls::getTimezones();
                 array_unshift($ui->override['timezone'], _("Default"));
-            }
-
-            if (!$prefs->isLocked('sending_charset')) {
-                asort($registry->nlsconfig['encodings']);
             }
             break;
 

@@ -1590,10 +1590,7 @@ HTML;
      */
     static public function stripAccessKey($label)
     {
-        $multibyte = isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getLanguageCharset()]);
-        return preg_replace('/_([A-Za-z])/',
-                            $multibyte && preg_match('/[\x80-\xff]/', $label) ? '' : '\1',
-                            $label);
+        return preg_replace('/_([A-Za-z])/', $GLOBALS['registry']->nlsconfig->curr_multibyte && preg_match('/[\x80-\xff]/', $label) ? '' : '\1', $label);
     }
 
     /**
@@ -1613,11 +1610,12 @@ HTML;
             return $stripped_label;
         }
 
-        if (isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getLanguageCharset()])) {
+        if ($GLOBALS['registry']->nlsconfig->curr_multibyte) {
             /* Prefix parenthesis with the UTF-8 representation of the LRO
              * (Left-to-Right-Override) Unicode codepoint U+202D. */
-            return $stripped_label . "\xe2\x80\xad" . '(<span class="accessKey">'
-                . strtoupper($accessKey) . '</span>' . ')';
+            return $stripped_label . "\xe2\x80\xad" .
+                '(<span class="accessKey">' . strtoupper($accessKey) .
+                '</span>' . ')';
         }
 
         return str_replace('_' . $accessKey, '<span class="accessKey">' . $accessKey . '</span>', $label);

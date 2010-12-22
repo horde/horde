@@ -244,7 +244,7 @@ class Horde_Themes_Css
     {
         $css_list = array('screen.css');
 
-        if (isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']])) {
+        if ($GLOBALS['registry']->nlsconfig->curr_rtl) {
             $css_list[] = 'rtl.css';
         }
 

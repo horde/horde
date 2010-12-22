@@ -31,7 +31,7 @@ if (!Horde_Util::getFormData('ajaxui') &&
     $ajax_url = Horde::getServiceLink('ajax', 'horde');
     $ajax_url->pathInfo = 'sidebarUpdate';
 
-    $rtl = intval(isset($registry->nlsconfig['rtl'][$language]));
+    $rtl = intval($registry->nlsconfig->curr_rtl);
     $show_sidebar = !isset($_COOKIE['horde_sidebar_expanded']) || $_COOKIE['horde_sidebar_expanded'];
     $width = intval($prefs->getValue('sidebar_width'));
 

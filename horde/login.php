@@ -256,7 +256,7 @@ if (!empty($conf['auth']['alternate_login'])) {
 /* Build the <select> widget containing the available languages. */
 if (!$is_auth && !$prefs->isLocked('language')) {
     $langs = array();
-    foreach ($registry->nlsconfig['languages'] as $key => $val) {
+    foreach ($registry->nlsconfig->languages as $key => $val) {
         $langs[] = array(
             'sel' => ($key == $GLOBALS['language']),
             'val' => $key,

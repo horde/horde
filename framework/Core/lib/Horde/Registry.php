@@ -45,9 +45,9 @@ class Horde_Registry
     /**
      * NLS configuration.
      *
-     * @var array
+     * @var Horde_Registry_Nlsconfig
      */
-    public $nlsconfig = array();
+    public $nlsconfig;
 
     /**
      * Stack of in-use applications.
@@ -412,8 +412,8 @@ class Horde_Registry
         /* Always need to load applications information. */
         $this->_loadApplications();
 
-        /* Load the language configuration. */
-        $this->nlsconfig = Horde::loadConfiguration('nls.php', 'horde_nls_config', 'horde');
+        /* Initialize language configuration object. */
+        $this->nlsconfig = new Horde_Registry_Nlsconfig();
 
         /* Initialize the localization routines and variables. */
         $this->setLanguageEnvironment(null, 'horde');
@@ -494,6 +494,7 @@ class Horde_Registry
         $this->applications = $this->_apiList = $this->_confCache = $this->_interfaces = array();
         unset($this->_apis);
 
+        $GLOBALS['session']->remove('horde', 'nls/');
         $GLOBALS['session']->remove('horde', 'registry/');
         $this->_saveCache('apis');
         $this->_saveCache('app');
@@ -2128,9 +2129,9 @@ class Horde_Registry
      */
     public function getLanguageCharset()
     {
-        return empty($this->nlsconfig['charsets'][$GLOBALS['language']])
-            ? 'ISO-8859-1'
-            : $this->nlsconfig['charsets'][$GLOBALS['language']];
+        return ($charset = $this->nlsconfig->curr_charset)
+            ? $charset
+            : 'ISO-8859-1';
     }
 
     /**
@@ -2145,9 +2146,9 @@ class Horde_Registry
             return $charset;
         }
 
-        return isset($this->nlsconfig['emails'][$GLOBALS['language']])
-            ? $this->nlsconfig['emails'][$GLOBALS['language']]
-            : (isset($this->nlsconfig['charsets'][$GLOBALS['language']]) ? $this->nlsconfig['charsets'][$GLOBALS['language']] : 'ISO-8859-1');
+        return ($charset = $this->nlsconfig->curr_emails)
+            ? $charset
+            : $this->getLanguageCharset();
     }
 
     /**
@@ -2166,7 +2167,7 @@ class Horde_Registry
         }
 
         /* Check if the user selected a language from the login screen */
-        if (!empty($lang) && $this->isValidLang($lang)) {
+        if (!empty($lang) && $this->nlsconfig->validLang($lang)) {
             return basename($lang);
         }
 
@@ -2176,8 +2177,8 @@ class Horde_Registry
         }
 
         /* Use site-wide default, if one is defined */
-        if (!empty($this->nlsconfig['defaults']['language'])) {
-            return basename($this->nlsconfig['defaults']['language']);
+        if ($language = $this->nlsconfig->curr_default) {
+            return basename($this->nlsconfig->curr_default);
         }
 
         /* Try browser-accepted languages. */
@@ -2191,7 +2192,7 @@ class Horde_Registry
                 }
 
                 $lang = $this->_mapLang(trim($lang));
-                if ($this->isValidLang($lang)) {
+                if ($this->nlsconfig->validLang($lang)) {
                     $language = $lang;
                     break;
                 }
@@ -2200,11 +2201,11 @@ class Horde_Registry
                  * ll_LL, followed by just ll. */
                 if (!isset($partial_lang)) {
                     $ll_LL = Horde_String::lower(substr($lang, 0, 2)) . '_' . Horde_String::upper(substr($lang, 0, 2));
-                    if ($this->isValidLang($ll_LL)) {
+                    if ($this->nlsconfig->validLang($ll_LL)) {
                         $partial_lang = $ll_LL;
                     } else {
                         $ll = $this->_mapLang(substr($lang, 0, 2));
-                        if ($this->isValidLang($ll))  {
+                        if ($this->nlsconfig->validLang($ll))  {
                             $partial_lang = $ll;
                         }
                     }
@@ -2223,19 +2224,6 @@ class Horde_Registry
     }
 
     /**
-     * Determines whether the supplied language is valid.
-     *
-     * @param string $language  The abbreviated name of the language.
-     *
-     * @return boolean  True if the language is valid, false if it's not
-     *                  valid or unknown.
-     */
-    public function isValidLang($language)
-    {
-        return !empty($this->nlsconfig['languages'][$language]);
-    }
-
-    /**
      * Sets the language.
      *
      * @param string $lang  The language abbreviation.
@@ -2244,7 +2232,7 @@ class Horde_Registry
      */
     public function setLanguage($lang = null)
     {
-        if (empty($lang) || !$this->isValidLang($lang)) {
+        if (empty($lang) || !$this->nlsconfig->validLang($lang)) {
             $lang = $this->preferredLang();
         }
 
@@ -2343,8 +2331,8 @@ class Horde_Registry
             $trans_lang .= '_' . Horde_String::upper($lang_parts[1]);
         }
 
-        return empty($this->nlsconfig['aliases'][$trans_lang])
+        return empty($this->nlsconfig->aliases[$trans_lang])
             ? $trans_lang
-            : $this->nlsconfig['aliases'][$trans_lang];
+            : $this->nlsconfig->aliases[$trans_lang];
     }
 }

@@ -89,8 +89,8 @@ class Horde_Core_Prefs_Ui_Widgets
             ));
         }
 
-        $t->set('addimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', Horde_Core_Translation::t("Add source")));
-        $t->set('removeimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', Horde_Core_Translation::t("Remove source")));
+        $t->set('addimg', Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'lhand.png' : 'rhand.png', Horde_Core_Translation::t("Add source")));
+        $t->set('removeimg', Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'rhand.png' : 'lhand.png', Horde_Core_Translation::t("Remove source")));
 
         if (empty($data['no_up'])) {
             $t->set('upimg', Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")));

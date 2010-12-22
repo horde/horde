@@ -324,7 +324,7 @@ $_prefs['sending_charset'] = array(
     'type' => 'enum',
     'enum' => array_merge(
         array('' => _("Default")),
-        $GLOBALS['registry']->nlsconfig['encodings']
+        $GLOBALS['registry']->nlsconfig->encodings_sort
     ),
     'desc' => _("Default charset for sending e-mail messages:")
 );

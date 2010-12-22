@@ -542,11 +542,8 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
     }
 
     /* Build the charset options. */
-    $charsets = $registry->nlsconfig['encodings'];
-    asort($charsets);
-    $all_charsets = $registry->nlsconfig['charsets'];
-    natcasesort($all_charsets);
-    foreach ($all_charsets as $charset) {
+    $charsets = $registry->nlsconfig->encodings_sort;
+    foreach ($registry->nlsconfig->charsets as $charset) {
         if (!isset($charsets[$charset])) {
             $charsets[$charset] = $charset;
         }
