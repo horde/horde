@@ -59,7 +59,7 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
     {
         self::$alarm = new Horde_Alarm_Sql(array('db' => self::$db, 'charset' => 'UTF-8'));
         self::$alarm->initialize();
-        self::$alarm->gc();
+        self::$alarm->gc(true);
     }
 
     /**

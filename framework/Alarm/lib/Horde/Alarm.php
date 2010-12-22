@@ -553,12 +553,15 @@ abstract class Horde_Alarm
     /**
      * Garbage collects old alarms in the backend.
      *
+     * @param boolean $force  Force garbace collection? If false, GC happens
+     *                        with a 1% chance.
+     *
      * @throws Horde_Alarm_Exception
      */
-    public function gc()
+    public function gc($force = false)
     {
         /* A 1% chance we will run garbage collection during a call. */
-        if (rand(0, 99) == 0) {
+        if ($force || rand(0, 99) == 0) {
             $this->_gc();
         }
     }

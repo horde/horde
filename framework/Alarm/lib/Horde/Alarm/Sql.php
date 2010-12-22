@@ -370,7 +370,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
     {
         $query = sprintf('DELETE FROM %s WHERE alarm_end IS NOT NULL AND alarm_end < ?', $this->_params['table']);
         $end = new Horde_Date(time());
-        $this->_db->delete($query, (string)$end->setTimezone('UTC'));
+        $this->_db->delete($query, array((string)$end->setTimezone('UTC')));
     }
 
     /**
