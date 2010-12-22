@@ -1489,12 +1489,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function sendMDN()
     {
-        if (!$this->_vars->view || !$this->_vars->uid) {
+        if (!$this->_vars->folder || !$this->_vars->uid) {
             return false;
         }
 
         try {
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($this->_vars->view, array(
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($this->_vars->folder, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($this->_vars->uid)));
         } catch (Horde_Imap_Client_Exception $e) {
@@ -1502,7 +1502,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $imp_ui = new IMP_Ui_Message();
-        $imp_ui->MDNCheck($this->_vars->view, $this->_vars->uid, reset($fetch_ret[$this->_vars->uid]['headertext']), true);
+        $imp_ui->MDNCheck($this->_vars->folder, $this->_vars->uid, reset($fetch_ret[$this->_vars->uid]['headertext']), true);
 
         return true;
     }
