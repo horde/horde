@@ -86,11 +86,12 @@ class Horde
     static public function logMessage($event, $priority = null,
                                       array $options = array())
     {
-        if (!isset($GLOBALS['injector'])) {
-            throw new Horde_Exception('The default environment is missing. Unable to write log entries!');
+        /* Chicken/egg: wait until we have basic framework setup before we
+         * start logging. */
+        if (isset($GLOBALS['conf'])) {
+            $options['trace'] = 2;
+            $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
         }
-        $options['trace'] = 2;
-        $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
     }
 
     /**
