@@ -24,6 +24,13 @@
 abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
 {
     /**
+     * The last query sent to the database.
+     *
+     * @var string
+     */
+    public $last_query;
+
+    /**
      * Config options.
      *
      * @var array
@@ -521,6 +528,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         $t->push();
 
         try {
+            $this->last_query = $sql;
             $stmt = $this->_connection->query($sql);
         } catch (Exception $e) {
             $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());

@@ -88,18 +88,21 @@ class Horde_Db_Adapter_Pdo_Sqlite extends Horde_Db_Adapter_Pdo_Base
 
         $this->_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
 
+        $this->last_query = 'PRAGMA full_column_names=0';
         $retval = $this->_connection->exec('PRAGMA full_column_names=0');
         if ($retval === false) {
             $error = $this->_connection->errorInfo();
             throw new Horde_Db_Exception($error[2]);
         }
 
+        $this->last_query = 'PRAGMA short_column_names=1';
         $retval = $this->_connection->exec('PRAGMA short_column_names=1');
         if ($retval === false) {
             $error = $this->_connection->errorInfo();
             throw new Horde_Db_Exception($error[2]);
         }
 
+        $this->last_query = 'SELECT sqlite_version(*)';
         $this->_sqliteVersion = $this->selectValue('SELECT sqlite_version(*)');
     }
 

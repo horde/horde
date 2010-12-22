@@ -87,6 +87,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
         parent::connect();
 
+        $this->last_query = "SET datestyle TO 'iso'";
         $retval = $this->_connection->exec("SET datestyle TO 'iso'");
         if ($retval === false) {
             $error = $this->_connection->errorInfo();
@@ -196,7 +197,8 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     protected function _configureConnection()
     {
         if (!empty($this->_config['encoding'])) {
-            $this->_connection->execute('SET client_encoding TO '.$this->quoteString($this->_config['encoding']));
+            $this->last_query = 'SET client_encoding TO '.$this->quoteString($this->_config['encoding']);
+            $this->_connection->execute($this->last_query);
         }
 
         if (!empty($this->_config['client_min_messages'])) $this->setClientMinMessages($this->_config['client_min_messages']);

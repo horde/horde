@@ -167,6 +167,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function isActive()
     {
+        $this->last_query = 'SELECT 1';
         return isset($this->_connection) && $this->_connection->query('SELECT 1');
     }
 
@@ -298,6 +299,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         $t = new Horde_Support_Timer();
         $t->push();
 
+        $this->last_query = $sql;
         $stmt = $this->_connection->query($sql);
         if (!$stmt) {
             $this->_logInfo($sql, 'QUERY FAILED: ' . $this->_connection->error);
