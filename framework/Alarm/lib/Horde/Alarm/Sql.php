@@ -369,12 +369,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
     protected function _gc()
     {
         $query = sprintf('DELETE FROM %s WHERE alarm_end IS NOT NULL AND alarm_end < ?', $this->_params['table']);
-
         $end = new Horde_Date(time());
-
-        try {
-            $this->_db->delete($query, (string)$end->setTimezone('UTC'));
-        } catch (Horde_Db_Exception $e) {}
+        $this->_db->delete($query, (string)$end->setTimezone('UTC'));
     }
 
     /**
