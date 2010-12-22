@@ -1824,7 +1824,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
              $part->setContents($contents->fullMessageText(array('stream' => true)));
 
              // Throws IMP_Compose_Exception.
-             $this->addMIMEPartAttachment($part);
+             $this->addMimePartAttachment($part);
         }
 
         if ($attached == 1) {
@@ -1963,7 +1963,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @throws IMP_Compose_Exception
      */
-    public function addMIMEPartAttachment($part)
+    public function addMimePartAttachment($part)
     {
         global $conf;
 

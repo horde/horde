@@ -520,7 +520,7 @@ case 'selectlist_process':
                         $part->setName(reset($val));
                         $part->setContents($data);
                         try {
-                            $imp_compose->addMIMEPartAttachment($part);
+                            $imp_compose->addMimePartAttachment($part);
                         } catch (IMP_Compose_Exception $e) {
                             $notification->push($e);
                         }
