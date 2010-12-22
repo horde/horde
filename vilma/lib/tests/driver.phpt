@@ -7,7 +7,7 @@ echo "Load... ";
 
 define('AUTH_HANDLER', false);
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-$vilma = Horde_Registry::appInit('vilma');
+$vilma = Horde_Registry::appInit('vilma', array('authentication' => 'none'));
 
 echo "ok\n";
 
@@ -33,19 +33,11 @@ function checkConstruction()
     }
 
     $GLOBALS['unfiltered'] = Vilma_Driver::factory('sql', $unfiltered_params);
-    if (is_a($GLOBALS['unfiltered'], 'PEAR_Error')) {
-        printf(_("ERROR(1): %s\n"), $GLOBALS['unfiltered']->getMessage());
-        return;
-    }
 
     $filtered_params = $conf['storage']['params'];
     $filtered_params['tables']['domainkey'] = '__FOO';
 
     $GLOBALS['filtered'] = Vilma_Driver::factory('sql', $filtered_params);
-    if (is_a($GLOBALS['filtered'], 'PEAR_Error')) {
-        printf(_("ERROR(2): %s\n"), $GLOBALS['filtered']->getMessage());
-        return;
-    }
 
     echo "ok\n";
 }
@@ -62,18 +54,8 @@ function checkSaveDomain()
                     'domain_max_users'  => 15,
                     'domain_quota'      => 0);
 
-    $res = $filtered->saveDomain($domain);
-    if (is_a($res, 'PEAR_Error')) {
-        var_dump($res);
-        printf(_("ERROR(1): %s\n"), $res->getMessage());
-        return;
-    }
-
+    $filtered->saveDomain($domain);
     $res = $filtered->getDomainByName('filtered.example.com');
-    if (is_a($res, 'PEAR_Error')) {
-        printf(_("ERROR(2): %s\n"), $res->getMessage());
-        return;
-    }
 
     if ($res['domain_name'] != 'filtered.example.com') {
         echo _("ERROR(3): got wrong domain.\n");
@@ -88,17 +70,8 @@ function checkSaveDomain()
     }
 
     $domain['domain_name'] = 'unfiltered.example.com';
-    $res = $unfiltered->saveDomain($domain);
-    if (is_a($res, 'PEAR_Error')) {
-        printf(_("ERROR(5): %s\n"), $res->getMessage());
-        return;
-    }
-
+    $unfiltered->saveDomain($domain);
     $res = $unfiltered->getDomainByName('unfiltered.example.com');
-    if (is_a($res, 'PEAR_Error')) {
-        printf(_("ERROR(6): %s\n"), $res->getMessage());
-        return;
-    }
 
     if ($res['domain_name'] != 'unfiltered.example.com') {
         echo _("ERROR(7): got wrong domain.\n");
@@ -122,28 +95,10 @@ function checkDeleteDomain()
     echo "Checking deleteDomain()... ";
 
     $domain = $filtered->getDomainByName('filtered.example.com');
-    if (is_a($domain, 'PEAR_Error')) {
-        printf(_("ERROR(1): %s\n"), $domain->getMessage());
-        return;
-    }
-
-    $res = $filtered->deleteDomain($domain['domain_id']);
-    if (is_a($res, 'PEAR_Error')) {
-        printf(_("ERROR(2): %s\n"), $res->getMessage());
-        return;
-    }
+    $filtered->deleteDomain($domain['domain_id']);
 
     $domain = $unfiltered->getDomainByName('unfiltered.example.com');
-    if (is_a($domain, 'PEAR_Error')) {
-        printf(_("ERROR(3): %s\n"), $domain->getMessage());
-        return;
-    }
-
-    $res = $unfiltered->deleteDomain($domain['domain_id']);
-    if (is_a($res, 'PEAR_Error')) {
-        printf(_("ERROR(4): %s\n"), $res->getMessage());
-        return;
-    }
+    $unfiltered->deleteDomain($domain['domain_id']);
 
     echo "ok\n";
 }

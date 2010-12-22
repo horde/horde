@@ -10,11 +10,9 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-$hermes = Horde_Registry::appInit('hermes');
-require_once HERMES_BASE . '/lib/Forms/Time.php';
+Horde_Registry::appInit('hermes');
 
 $vars = Horde_Variables::getDefaultVariables();
-
 if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');
     $timers = @unserialize($prefs->getValue('running_timers'));
@@ -32,26 +30,27 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
 }
 
 switch ($vars->get('formname')) {
-case 'timeentryform':
-    $form = new TimeEntryForm($vars);
+case 'hermes_form_time_entry':
+    $form = new Hermes_Form_Time_Entry($vars);
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
-        if ($vars->exists('id')) {
-            $msg = _("Your time was successfully updated.");
-            $result = $hermes->driver->updateTime(array($info));
-            $do_redirect = true;
-        } else {
-            $msg = _("Your time was successfully entered.");
-            $result = $hermes->driver->enterTime($GLOBALS['registry']->getAuth(), $info);
+        try {
+            if ($vars->exists('id')) {
+                $msg = _("Your time was successfully updated.");
+                $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($info));
+                $do_redirect = true;
+            } else {
+                $msg = _("Your time was successfully entered.");
+                $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
+                $do_redirect = false;
+            }
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'err');
+            $notification->push(sprintf(_("There was an error storing your timesheet: %s"), $e->getMessage()), 'horde.error');
             $do_redirect = false;
         }
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            $notification->push(sprintf(_("There was an error storing your timesheet: %s"), $result->getMessage()), 'horde.error');
-            $do_redirect = false;
-        } else {
-            $notification->push($msg, 'horde.success');
-        }
+
+        $notification->push($msg, 'horde.success');
         if ($do_redirect) {
             $url = $vars->get('url');
             if (empty($url)) {
@@ -71,7 +70,7 @@ default:
             $notification->push(_("Access denied; user cannot modify this timeslice."), 'horde.error');
             Horde::url('time.php')->redirect();
         }
-        $myhours = $hermes->driver->getHours(array('id' => $id));
+        $myhours = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $id));
         if (is_array($myhours)) {
             foreach ($myhours as $item) {
                 if (isset($item['id']) && $item['id'] == $id) {
@@ -82,7 +81,7 @@ default:
             }
         }
     }
-    $form = new TimeEntryForm($vars);
+    $form = new Hermes_Form_Time_Entry($vars);
     break;
 }
 $form->setCostObjects($vars);

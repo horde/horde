@@ -15,8 +15,12 @@ var ColorPicker = Class.create({
 
     initialize: function(options)
     {
+        if (options.color) {
+            options.color = Color.normalizehex(options.color);
+        }
+
         this.options = Object.extend({
-            color: 'ffffff',
+            color: '#ffffff',
             update: [],
             draggable: false,
             resizable: false,
@@ -295,6 +299,21 @@ var ColorPicker = Class.create({
  * Color utility class
  */
 var Color = {
+
+    normalizehex: function(h)
+    {
+        if (h.substring(0, 1) == '#') {
+            h = h.substring(1);
+        }
+
+        if (h.length == 3) {
+            h = h.charAt(0).times(2) +
+                h.charAt(1).times(2) +
+                h.charAt(2).times(2);
+        }
+
+        return '#' + h;
+    },
 
     hsv2hex: function(h)
     {

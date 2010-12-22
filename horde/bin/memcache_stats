@@ -85,9 +85,17 @@ if ($all || $summary) {
         }
     }
 
-    $i = $s_count = count($stats);
+    $i = count($stats);
+    $s_count = 0;
 
     foreach ($stats as $key => $val) {
+        if ($val === false) {
+            $cli->message('Could not connect to server: ' . $key, 'cli.warning');
+            continue;
+        }
+
+        ++$s_count;
+
         if ($summary) {
             foreach ($total_keys as $k) {
                 $total[$k] += $val[$k];
@@ -104,8 +112,10 @@ if ($all || $summary) {
     }
 
     if ($summary) {
-        $cli->writeln($cli->green('Memcache pool (' . $s_count . ' server(s))'));
-        _outputInfo($total, $cli);
+        $cli->writeln($cli->green('Memcache pool (' . $s_count . ' active server(s))'));
+        if ($s_count) {
+            _outputInfo($total, $cli);
+        }
     }
 }
 

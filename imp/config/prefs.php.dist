@@ -408,7 +408,7 @@ $prefGroups['compose'] = array(
         'compose_confirm', 'set_priority', 'compose_popup', 'compose_html',
         'compose_html_font_family', 'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'save_attachments',
-        'disposition_request_read'
+        'request_mdn'
     )
 );
 
@@ -531,7 +531,7 @@ $_prefs['save_attachments'] = array(
 );
 
 // Disposition Notification Preferences
-$_prefs['disposition_request_read'] = array(
+$_prefs['request_mdn'] = array(
     'value' => 'ask',
     'type' => 'enum',
     'enum' => array(
@@ -540,7 +540,7 @@ $_prefs['disposition_request_read'] = array(
         'always' => _("Always")
     ),
     'desc' => _("Request read receipts?"),
-    'help' => 'prefs-disposition_request_read'
+    'help' => 'prefs-request_mdn'
 );
 
 // The list of buttons to show in CKeditor
@@ -708,7 +708,7 @@ $prefGroups['viewing'] = array(
         'image_replacement', 'image_addrbook', 'highlight_text',
         'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
         'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'disposition_send_mdn'
+        'send_mdn'
     )
 );
 
@@ -838,7 +838,7 @@ $_prefs['default_msg_charset'] = array(
 );
 
 // Send read receipts?
-$_prefs['disposition_send_mdn'] = array(
+$_prefs['send_mdn'] = array(
     'value' => 1,
     'advanced' => true,
     'type' => 'enum',
@@ -850,7 +850,7 @@ $_prefs['disposition_send_mdn'] = array(
 //        2 => _("Prompt only if necessary; otherwise automatically send")
     ),
     'desc' => _("Prompt to send read receipt (a/k/a message disposition notification) when requested by the sender?"),
-    'help' => 'prefs-disposition_send_mdn'
+    'help' => 'prefs-send_mdn'
 );
 
 
@@ -987,149 +987,11 @@ $_prefs['flagmanagement'] = array(
     'type' => 'special'
 );
 
-// Message flags - system defaults
-// This entry should normally never be changed.  It provides the base flags
-// for all users. Flags specific to a certain user should be defined in
-// 'msgflags_user'.
-$_prefs['msgflags'] = array(
-    // Format:
-    //   KEY: Flag name
-    //   VALUE: Array with the following entries
-    //          'a' - (string) [abbreviation] The abbreviation used in
-    //                the mobile (mimp) view.
-    //                DEFAULT: Don't show flag
-    //          'b' - (string) [background] The CSS background color
-    //                DEFAULT: Use value of 'msgflags_color'
-    //          'c' - (string) [class] The CSS background class (used to
-    //                display status icon).
-    //                NO DEFAULT (entry required)
-    //          'd' - (boolean) [delete] If true, entry can be deleted.
-    //                DEFAULT: false
-    //          'l' - (string) [label] The flag text label.
-    //                NO DEFAULT (entry required)
-    //          't' - (string) [type] The flag type:
-    //                'atc' - Attachment information
-    //                'imap' - IMAP system flags (not settable by user)
-    //                'imapp' - IMAP flags (personal flags - created by user
-    //                          through the prefs interface)
-    //                'imapu' - IMAP system flags (settable by user)
-    //                'imp' - IMP defined flags
-    //                NO DEFAULT (entry required)
-    'value' => json_encode(array(
-        // Static internal imp flags (i.e. status icons)
-        // THESE ENTRIES MUST NOT BE DELETED
-        'personal' => array(
-            'a' => '+',
-            'c' => 'flagPersonal',
-            'l' => _("Personal"),
-            't' => 'imp'
-        ),
-        'highpri' => array(
-            'a' => '!',
-            'b' => '#fcc',
-            'c' => 'flagHighpriority',
-            'l' => _("High Priority"),
-            't' => 'imp'
-        ),
-        'lowpri' => array(
-            'a' => '0',
-            'c' => 'flagLowpriority',
-            'l' => _("Low Priority"),
-            't' => 'imp'
-        ),
-
-        // Attachment flags
-        // THESE ENTRIES MUST NOT BE DELETED
-        'signed' => array(
-            'c' => 'flagSignedmsg',
-            'l' => _("Message is Signed"),
-            't' => 'atc'
-        ),
-        'encrypt' => array(
-            'c' => 'flagEncryptmsg',
-            'l' => _("Message is Encrypted"),
-            't' => 'atc'
-        ),
-        'attach' => array(
-            'c' => 'flagAttachmsg',
-            'l' => _("Message has Attachments"),
-            't' => 'atc'
-        ),
-
-        // IMAP flags
-        // KEY: IMAP flag as it exists on the IMAP server
-        // VALUES (additional to base values):
-        //   'n' - (boolean) [NOT match] Don't match the flag.
-        //         DEFAULT: false
-
-        // System IMAP flags (RFC 3501 [2.3.2])
-        '\\answered' => array(
-            'a' => 'r',
-            'b' => '#cfc',
-            'c' => 'flagAnswered',
-            'l' => _("Answered"),
-            // By default, this flag is not settable by the user - it is
-            // automatically set when a message is replied to.
-            't' => 'imap'
-        ),
-        '\\draft' => array(
-            'a' => 'd',
-            'c' => 'flagDraft',
-            'l' => _("Draft"),
-            // By default, this flag is not settable by the user - it is
-            // automatically set/reset when a message is drafted/finished.
-            't' => 'imap'
-        ),
-        '\\deleted' => array(
-            'a' => 'D',
-            'b' => '#999',
-            'c' => 'flagDeleted',
-            'l' => _("Deleted"),
-            // By default, this flag is not settable by the user - it is
-            // handled via the Delete/Undelete links.
-            't' => 'imap'
-        ),
-        '\\seen' => array(
-            'a' => 'N',
-            'b' => '#eef',
-            'c' => 'flagUnseen',
-            'l' => _("Unseen"),
-            'n' => true,
-            't' => 'imapu'
-        ),
-        '\\flagged' => array(
-            'a' => '*',
-            'b' => '#fcc',
-            'c' => 'flagFlagged',
-            'l' => _("Flagged for Followup"),
-            't' => 'imapu'
-        ),
-
-        // Forwarded flag (RFC 5550 [5.9])
-        '$forwarded' => array(
-            'a' => 'F',
-            'b' => '#bfdfdf',
-            'c' => 'flagForwarded',
-            'l' => _("Forwarded"),
-            // Pursuant to RFC, this flag SHOULD NOT be changed by the user
-            't' => 'imap'
-        ),
-    ))
-);
-
-// Message flags - user specific
 // This array contains the list of flags created by the user through the
-// flags UI. Additionally, an admin can define default non-system flags
-// for a user in this preference.
-// See the 'msgflags' preference for the format of this value.
-$_prefs['msgflags_user'] = array(
-    // 'value' = json_encode(array())
-    'value' => '[]'
-);
-
-// The default color to use for flags that don't require row highlighting.
-$_prefs['msgflags_color'] = array(
-    'value' => '#ddd'
+// flags UI, and any modifications to the built-in system flags.
+$_prefs['msgflags'] = array(
+    // 'value' = serialize(array())
+    'value' => 'a:0:{}'
 );
 
 // Show all flags (including flags set by other mail programs)?

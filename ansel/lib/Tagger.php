@@ -1,6 +1,7 @@
 <?php
 /**
- * The Ansel_Tagger:: class provides logic for dealing with tags within Ansel
+ * The Ansel_Tagger:: class wraps Ansel's interaction with the Content/Tagger
+ * system.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -8,6 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Ansel
  */
@@ -239,7 +241,7 @@ class Ansel_Tagger
      *
      * @param string $token  The token to match the start of the tag with.
      *
-     * @return A tag_id => tag_name hash
+     * @return array  A tag_id => tag_name hash
      * @throws Ansel_Exception
      */
     public function listTags($token)
@@ -366,7 +368,7 @@ class Ansel_Tagger
      */
     public function listRelatedImages(Ansel_Image $image, $ownerOnly = true)
     {
-        $args = array('typeId' => 'image', 'limit' => 1);
+        $args = array('typeId' => 'image', 'limit' => 10);
         if ($ownerOnly) {
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
             $args['userId'] = $gallery->get('owner');

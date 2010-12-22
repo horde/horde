@@ -17,7 +17,7 @@ class Horde_Core_Share_Driver
     /**
      * The composed Horde_Share driver
      *
-     * @var Horde_Share
+     * @var Horde_Share_Base
      */
     protected $_share;
 
@@ -33,7 +33,7 @@ class Horde_Core_Share_Driver
 
     /**
      */
-    public function __construct(Horde_Share $share)
+    public function __construct(Horde_Share_Base $share)
     {
         $this->_share = $share;
         $this->_share->setStorage($GLOBALS['injector']->getInstance($this->_storageMap[get_class($this->_share)]));
@@ -217,7 +217,7 @@ class Horde_Core_Share_Driver
     /**
      * Calls the share_remove hook before delegating to the share object.
      *
-     * @see Horde_Share::removeShare
+     * @see Horde_Share_Base::removeShare()
      */
     public function shareRemoveCallback(Horde_Share_Object $share)
     {

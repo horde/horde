@@ -69,7 +69,7 @@ $mailbox_name = $index_array['mailbox'];
 $uid = $index_array['uid'];
 $indices = new IMP_Indices($mailbox_name, $uid);
 
-$imp_flags = $injector->getInstance('IMP_Imap_Flags');
+$imp_flags = $injector->getInstance('IMP_Flags');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
 
@@ -409,17 +409,16 @@ if (is_null($identity)) {
 }
 
 $flag_parse = $imp_flags->parse(array(
-    'div' => true,
     'flags' => $flags,
     'personal' => $match_identity
 ));
 
 $status = '';
 foreach ($flag_parse as $val) {
-    if ($val['type'] == 'imapp') {
-        $status .= '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . ';color:' . htmlspecialchars($val['fg']) . '">' . htmlspecialchars($val['label']) . '</span>';
+    if ($val instanceof IMP_Flag_User) {
+        $status .= '<span class="' . $val->css . '" style="' . ($val->bgdefault ? '' : 'background:' . htmlspecialchars($val->bgcolor) . ';') . 'color:' . htmlspecialchars($val->fgcolor) . '">' . htmlspecialchars($val->label) . '</span>';
     } else {
-        $status .= $val['div'];
+        $status .= $val->div;
     }
 }
 
@@ -454,9 +453,25 @@ $n_template->set('id', 1);
 if (!$use_pop) {
     $n_template->set('mailbox', IMP::formMbox(IMP::$mailbox, true));
 
-    $tmp = $imp_flags->getFlagList(IMP::$mailbox);
-    $n_template->set('flaglist_set', $tmp['set']);
-    $n_template->set('flaglist_unset', $tmp['unset']);
+    $tmp = $imp_flags->getList(array(
+        'imap' => true,
+        'mailbox' => IMP::$mailbox
+    ));
+
+    $form_set = $form_unset = array();
+    foreach ($tmp as $val) {
+        $form_set[] = array(
+            'f' => $val->form_set,
+            'l' => $val->label
+        );
+        $form_unset[] = array(
+            'f' => $val->form_unset,
+            'l' => $val->label
+        );
+    }
+
+    $n_template->set('flaglist_set', $form_set);
+    $n_template->set('flaglist_unset', $form_unset);
 
     if ($conf['user']['allow_folders']) {
         $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));

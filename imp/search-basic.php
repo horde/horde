@@ -68,7 +68,7 @@ if ($vars->search_basic_mbox) {
     }
 
     if ($vars->search_criteria_flag) {
-        $formdata = $injector->getInstance('IMP_Imap_Flags')->parseFormId($vars->search_criteria_flag);
+        $formdata = $injector->getInstance('IMP_Flags')->parseFormId($vars->search_criteria_flag);
         $c_list[] = new IMP_Search_Element_Flag(
             $formdata['flag'],
             ($formdata['set'] && !$vars->search_criteria_flag_not)
@@ -86,12 +86,15 @@ if ($vars->search_basic_mbox) {
     Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
 }
 
-$flist = $injector->getInstance('IMP_Imap_Flags')->getFlagList($vars->search_mailbox);
+$flist = $injector->getInstance('IMP_Flags')->getList(array(
+    'imap' => true,
+    'mailbox' => $vars->search_mailbox
+));
 $flag_set = array();
-foreach ($flist['set'] as $val) {
+foreach ($flist as $val) {
     $flag_set[] = array(
-        'val' => $val['f'],
-        'label' => $val['l']
+        'val' => $val->form_set,
+        'label' => $val->label
     );
 }
 

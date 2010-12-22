@@ -35,7 +35,7 @@ abstract class Horde_Share_Object implements Serializable
      */
     public function setShareOb($shareOb)
     {
-        if ($shareOb instanceof Horde_Share) {
+        if ($shareOb instanceof Horde_Share_Base) {
             $this->_shareOb = $shareOb;
         } else {
             $this->_shareCallback = $shareOb;
@@ -64,10 +64,7 @@ abstract class Horde_Share_Object implements Serializable
      *
      * @return boolean
      */
-    public function set($attribute, $value)
-    {
-        return $this->_set($attribute, $value);
-    }
+    abstract public function set($attribute, $value);
 
     /**
      * Returns an attribute value from this object.
@@ -76,30 +73,21 @@ abstract class Horde_Share_Object implements Serializable
      *
      * @return mixed  The value for $attribute.
      */
-    public function get($attribute)
-    {
-        return $this->_get($attribute);
-    }
+    abstract public function get($attribute);
 
     /**
      * Returns the ID of this share.
      *
      * @return string  The share's ID.
      */
-    public function getId()
-    {
-        return $this->_getId();
-    }
+    abstract public function getId();
 
     /**
      * Returns the name of this share.
      *
      * @return string  The share's name.
      */
-    public function getName()
-    {
-        return $this->_getName();
-    }
+    abstract public function getName();
 
     /**
      * Saves the current attribute values.
@@ -113,6 +101,11 @@ abstract class Horde_Share_Object implements Serializable
         $this->getShareOb()->expireListCache();
         return $this->_save();
     }
+
+    /**
+     * Saves the current attribute values.
+     */
+    abstract protected function _save();
 
     /**
      * Gives a user a certain privilege for this share.
@@ -244,7 +237,8 @@ abstract class Horde_Share_Object implements Serializable
      *
      * @return boolean  Whether or not $userid has $permission.
      */
-    abstract public function hasPermission($userid, $permission, $creator = null);
+    abstract public function hasPermission($userid, $permission,
+                                           $creator = null);
 
     /**
      * Sets the permission of this share.
@@ -264,5 +258,4 @@ abstract class Horde_Share_Object implements Serializable
      *                                 permissions on this share.
      */
     abstract public function getPermission();
-
 }

@@ -108,27 +108,21 @@ class IMP_Views_ShowMessage
 
         /* Get envelope/header information. We don't use flags in this
          * view. */
+        $imp_contents = null;
         try {
             $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($uid)));
+
+            if (isset($fetch_ret[$uid]['headertext'])) {
+                /* Parse MIME info and create the body of the message. */
+                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mailbox, $uid));
+            }
         } catch (Horde_Imap_Client_Exception $e) {
-            $result['error'] = $error_msg;
-            $result['errortype'] = 'horde.error';
-            return $result;
-        }
+        } catch (IMP_Exception $e) {}
 
-        if (!isset($fetch_ret[$uid]['headertext'])) {
-            $result['error'] = $error_msg;
-            $result['errortype'] = 'horde.error';
-            return $result;
-        }
-
-        /* Parse MIME info and create the body of the message. */
-        try {
-            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mailbox, $uid));
-        } catch (IMP_Exception $e) {
+        if (is_null($imp_contents)) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';
             return $result;

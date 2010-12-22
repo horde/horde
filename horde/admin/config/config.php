@@ -61,7 +61,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
         fwrite($fp, $php);
         fclose($fp);
         $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
-        $registry->clearCache();
+        $registry->rebuild();
         Horde::url('admin/config/index.php', true)->redirect();
     } else {
         /* Cannot write. */

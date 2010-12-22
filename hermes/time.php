@@ -10,23 +10,18 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-$hermes = Horde_Registry::appInit('hermes');
-
-require_once HERMES_BASE . '/lib/Forms/Time.php';
-require_once HERMES_BASE . '/lib/Table.php';
+Horde_Registry::appInit('hermes');
 
 $vars = Horde_Variables::getDefaultVariables();
-
 $delete = $vars->get('delete');
 if (!empty($delete)) {
-    $result = $hermes->driver->updateTime(array(array('id' => $delete, 'delete' => true)));
-    if (is_a($result, 'PEAR_Error')) {
-        Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-        $notification->push(sprintf(_("There was an error deleting the time: %s"), $result->getMessage()), 'horde.error');
-    } else {
-        $notification->push(_("The time entry was successfully deleted."), 'horde.success');
-        $vars->remove('delete');
+    try {
+        $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array(array('id' => $delete, 'delete' => true)));
+    } catch (Horde_Exception $e) {
+        $notification->push(sprintf(_("There was an error deleting the time: %s"), $e->getMessage()), 'horde.error');
     }
+    $notification->push(_("The time entry was successfully deleted."), 'horde.success');
+    $vars->remove('delete');
 }
 
 switch ($vars->get('formname')) {
@@ -40,13 +35,12 @@ case 'submittimeform':
         foreach ($item as $id => $val) {
             $time[] = array('id' => $id);
         }
-        $result = $hermes->driver->markAs('submitted', $time);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push(sprintf(_("There was an error submitting your time: %s"), $result->getMessage()), 'horde.error');
-        } else {
-            $notification->push(_("Your time was successfully submitted."),
-                                'horde.success');
+        try {
+            $GLOBALS['injector']->getInstance('Hermes_Driver')->markAs('submitted', $time);
+            $notification->push(_("Your time was successfully submitted."), 'horde.success');
             $vars = new Horde_Variables();
+        } catch (Horde_Exception $e) {
+            $notification->push(sprintf(_("There was an error submitting your time: %s"), $result->getMessage()), 'horde.error');
         }
     }
     break;
@@ -57,7 +51,7 @@ $tabs = Hermes::tabs();
 $criteria = array('employee' => $GLOBALS['registry']->getAuth(),
                   'submitted' => false,
                   'link_page' => 'time.php');
-$table = new Horde_Core_Ui_Table('week', $vars,
+$table = new Hermes_Table('week', $vars,
                             array('title' => _("My Unsubmitted Time"),
                                   'name' => 'hermes/hours',
                                   'params' => $criteria));

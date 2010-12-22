@@ -167,10 +167,6 @@ class IMP_Imap_Thread
                     case '4':
                         $tmp .= '\-';
                         break;
-
-                    case '5':
-                        // TODO
-                        break;
                     }
                 }
             }

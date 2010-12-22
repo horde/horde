@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Cli_Modular</name>
+ <channel>pear.horde.org</channel>
+ <summary>A toolset for CLI interfaces that are modular.</summary>
+ <description>Command line interfaces can often be composed of different modules responsible for distinct actions. This package provides tools to support such a modular CLI.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-12-15</date>
+ <time>16:39:45</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Cli">
+      <dir name="Modular">
+       <file name="Exception.php" role="php" />
+       <file name="Module.php" role="php" />
+       <file name="ModuleProvider.php" role="php" />
+       <file name="Modules.php" role="php" />
+      </dir> <!-- /lib/Horde/Cli/Modular -->
+      <file name="Modular.php" role="php" />
+     </dir> <!-- /lib/Horde/Cli -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Cli">
+      <dir name="Modular">
+       <dir name="fixtures">
+        <dir name="Module">
+         <file name="One.php" role="test" />
+         <file name="Two.php" role="test" />
+        </dir> <!-- /test/Horde/Cli/Modular/fixtures/Module -->
+       </dir> <!-- /test/Horde/Cli/Modular/fixtures -->
+       <dir name="Stub">
+        <dir name="Module">
+         <file name="One.php" role="test" />
+        </dir> <!-- /test/Horde/Cli/Modular/Stub/Module -->
+        <file name="Modules.php" role="test" />
+       </dir> <!-- /test/Horde/Cli/Modular/Stub -->
+       <dir name="Unit">
+        <file name="ModularTest.php" role="test" />
+        <file name="ModuleProviderTest.php" role="test" />
+        <file name="ModulesTest.php" role="test" />
+       </dir> <!-- /test/Horde/Cli/Modular/Unit -->
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
+       <file name="phpunit.xml" role="test" />
+       <file name="TestCase.php" role="test" />
+      </dir> <!-- /test/Horde/Cli/Modular -->
+     </dir> <!-- /test/Horde/Cli -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+   <file name="COPYING" role="data" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+   <package>
+    <name>Argv</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Test</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Horde/Cli/Modular.php" name="lib/Horde/Cli/Modular.php" />
+   <install as="Horde/Cli/Modular/Exception.php" name="lib/Horde/Cli/Modular/Exception.php" />
+   <install as="Horde/Cli/Modular/Module.php" name="lib/Horde/Cli/Modular/Module.php" />
+   <install as="Horde/Cli/Modular/ModuleProvider.php" name="lib/Horde/Cli/Modular/ModuleProvider.php" />
+   <install as="Horde/Cli/Modular/Modules.php" name="lib/Horde/Cli/Modular/Modules.php" />
+   <install as="Horde/Cli/Modular/AllTests.php" name="test/Horde/Cli/Modular/AllTests.php" />
+   <install as="Horde/Cli/Modular/Autoload.php" name="test/Horde/Cli/Modular/Autoload.php" />
+   <install as="Horde/Cli/Modular/phpunit.xml" name="test/Horde/Cli/Modular/phpunit.xml" />
+   <install as="Horde/Cli/Modular/TestCase.php" name="test/Horde/Cli/Modular/TestCase.php" />
+   <install as="Horde/Cli/Modular/fixtures/Module/One.php" name="test/Horde/Cli/Modular/fixtures/Module/One.php" />
+   <install as="Horde/Cli/Modular/fixtures/Module/Two.php" name="test/Horde/Cli/Modular/fixtures/Module/Two.php" />
+   <install as="Horde/Cli/Modular/Stub/Modules.php" name="test/Horde/Cli/Modular/Stub/Modules.php" />
+   <install as="Horde/Cli/Modular/Stub/Module/One.php" name="test/Horde/Cli/Modular/Stub/Module/One.php" />
+   <install as="Horde/Cli/Modular/Unit/ModularTest.php" name="test/Horde/Cli/Modular/Unit/ModularTest.php" />
+   <install as="Horde/Cli/Modular/Unit/ModuleProviderTest.php" name="test/Horde/Cli/Modular/Unit/ModuleProviderTest.php" />
+   <install as="Horde/Cli/Modular/Unit/ModulesTest.php" name="test/Horde/Cli/Modular/Unit/ModulesTest.php" />
+   <install as="COPYING" name="COPYING" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-12-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

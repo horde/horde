@@ -34,14 +34,13 @@ class Horde_Token_Sql extends Horde_Token_Base
     /**
      * Constructor.
      *
-     * @param array $params  Parameters:
-     * <pre>
-     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the tokens table.
-     *           DEFAULT: 'horde_tokens'
-     * 'timeout' - (integer) The period (in seconds) after which an id is
-     *             purged.
-     *             DEFAULT: 86400 (24 hours)
+     * @see Horde_Token_Base::__construct() for more parameters.
+     *
+     * @param array $params  Required parameters:
+     * - db (Horde_Db_Adapter): The DB instance.
+     * Optional parameters:
+     * - table (string): The name of the tokens table.
+     *                   DEFAULT: 'horde_tokens'
      * </pre>
      *
      * @throws Horde_Token_Exception
@@ -56,7 +55,6 @@ class Horde_Token_Sql extends Horde_Token_Base
 
         $params = array_merge(array(
             'table' => 'horde_tokens',
-            'timeout' => 86400
         ), $params);
 
         parent::__construct($params);

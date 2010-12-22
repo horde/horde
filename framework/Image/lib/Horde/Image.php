@@ -25,7 +25,7 @@ class Horde_Image
      */
     static public function modifyColor($color, $factor = 0x11)
     {
-        list($r, $g, $b) = self::_getColor($color);
+        list($r, $g, $b) = self::getColor($color);
 
         $r = min(max($r + $factor, 0), 255);
         $g = min(max($g + $factor, 0), 255);
@@ -44,7 +44,7 @@ class Horde_Image
      */
     static public function moreIntenseColor($color, $factor = 0x11)
     {
-        list($r, $g, $b) = self::_getColor($color);
+        list($r, $g, $b) = self::getColor($color);
 
         if ($r >= $g && $r >= $b) {
             $g = $g / $r;
@@ -85,7 +85,7 @@ class Horde_Image
      */
     static public function brightness($color)
     {
-        list($r, $g, $b) = self::_getColor($color);
+        list($r, $g, $b) = self::getColor($color);
 
         return round((($r * 299) + ($g * 587) + ($b * 114)) / 1000);
     }
@@ -114,7 +114,7 @@ class Horde_Image
      *
      * @return array  Array with three elements: red, green, and blue.
      */
-    static public function _getColor($color)
+    static public function getColor($color)
     {
         if ($color[0] == '#') {
             $color = substr($color, 1);

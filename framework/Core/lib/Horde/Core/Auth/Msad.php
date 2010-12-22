@@ -39,25 +39,27 @@ class Horde_Core_Auth_Msad extends Horde_Auth_Msad
      *
      * @throws Horde_Auth_Exception
      */
-    public function updateUser($oldID, $newID, $credentials)
+    public function updateUser($oldID, $newID, $credentials, $olddn = null,
+                               $newdn = null)
     {
         list($oldId, $credentials) = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->runHook($oldId, $credentials, 'preauthenticate', 'admin');
 
-        parent::updateUser($oldID, $newID, $credentials);
+        parent::updateUser($oldID, $newID, $credentials, $olddn, $newdn);
     }
 
     /**
      * Delete a set of authentication credentials.
      *
      * @param string $userId  The user ID to delete.
+     * @param string $dn           TODO
      *
      * @throws Horde_Auth_Exception
      */
-    public function removeUser($userId)
+    public function removeUser($userId, $dn = null)
     {
         list($userId, $credentials) = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->runHook($userId, array(), 'preauthenticate', 'admin');
 
-        parent::removeUser($userId, isset($credentials['ldap']) ? $credentials['ldap']['dn'] : null);
+        parent::removeUser($userId, isset($credentials['ldap']) ? $credentials['ldap']['dn'] : $dn);
     }
 
 }

@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/DataTree.php';
-
 /**
  * Horde_Share_datatree:: provides the datatree backend for the horde share
  * driver.
@@ -19,7 +16,7 @@ require_once 'Horde/DataTree.php';
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Share
  */
-class Horde_Share_Datatree extends Horde_Share
+class Horde_Share_Datatree extends Horde_Share_Base
 {
     /**
      * The Horde_Share_Object subclass to instantiate objects as
@@ -114,10 +111,10 @@ class Horde_Share_Datatree extends Horde_Share
      * @return array  The requested shares.
      * @throws Horde_Share_Exception
      */
-    protected function _getShares($ids)
+    protected function _getShares(array $ids)
     {
         $shares = array();
-        $objects = &$this->_datatree->getObjects($ids, 'DataTreeObject_Share');
+        $objects = $this->_datatree->getObjects($ids, 'DataTreeObject_Share');
         if (is_a($objects, 'PEAR_Error')) {
             throw new Horde_Share_Exception($objects->getMessage());
         }
@@ -137,7 +134,7 @@ class Horde_Share_Datatree extends Horde_Share
      * @return array  All shares for the current app/share.
      * @throws Horde_Share_Exception
      */
-    function _listAllShares()
+    protected function _listAllShares()
     {
         $sharelist = $this->_datatree->get(DATATREE_FORMAT_FLAT, DATATREE_ROOT, true);
         if ($sharelist instanceof PEAR_Error) {
@@ -155,29 +152,27 @@ class Horde_Share_Datatree extends Horde_Share
      * Returns an array of all shares that $userid has access to.
      *
      * @param string $userid     The userid of the user to check access for.
-     * @param integer $perm      The level of permissions required.
-     * @param mixed $attributes  Restrict the shares counted to those
-     *                           matching $attributes. An array of
-     *                           attribute/values pairs or a share owner
-     *                           username.
+     * @param array  $params     See listShares().
      *
      * @return array  The shares the user has access to.
      * @throws Horde_Share_Exception
      */
-    function _listShares($userid, $perm = Horde_Perms::SHOW,
-                         $attributes = null, $from = 0, $count = 0,
-                         $sort_by = null, $direction = 0)
+    protected function _listShares($userid, array $params = array())
     {
-        $key = serialize(array($userid, $perm, $attributes));
+        $key = serialize(array($userid, $params['perm'], $params['attributes']));
         if (empty($this->_listCache[$key])) {
-            $criteria = $this->getShareCriteria($userid, $perm, $attributes);
+            $criteria = $this->getShareCriteria($userid, $params['perm'],
+                                                $params['attributes']);
             $sharelist = $this->_datatree->getByAttributes($criteria,
                                                            DATATREE_ROOT,
-                                                           true, 'id', $from,
-                                                           $count, $sort_by,
-                                                           null, $direction);
+                                                           true, 'id',
+                                                           $params['from'],
+                                                           $params['count'],
+                                                           $params['sort_by'],
+                                                           null,
+                                                           $params['direction']);
             if ($sharelist instanceof PEAR_Error) {
-                throw new Horde_Share_Exception($sharelist->getMessage());
+                throw new Horde_Share_Exception($sharelist);
             }
             $this->_listCache[$key] = array_keys($sharelist);
         }
@@ -219,9 +214,7 @@ class Horde_Share_Datatree extends Horde_Share
         }
         $datatreeObject = new Horde_Share_Object_DataTree_Share($name);
         $datatreeObject->setDataTree($this->_datatree);
-        $share = $this->_createObject($datatreeObject);
-
-        return $share;
+        return $this->_createObject($datatreeObject);
     }
 
     /**
@@ -233,7 +226,7 @@ class Horde_Share_Datatree extends Horde_Share
      *
      * @param Horde_Share_Object_datatree $share  The new share object.
      */
-    protected function _addShare($share)
+    protected function _addShare(Horde_Share_Object $share)
     {
         return $this->_datatree->add($share->datatreeObject);
     }
@@ -243,7 +236,7 @@ class Horde_Share_Datatree extends Horde_Share
      *
      * @param Horde_Share_Object_datatree $share  The share to remove.
      */
-    protected function _removeShare($share)
+    protected function _removeShare(Horde_Share_Object $share)
     {
         return $this->_datatree->remove($share->datatreeObject);
     }
@@ -349,5 +342,4 @@ class Horde_Share_Datatree extends Horde_Share
 
         return $criteria;
     }
-
 }

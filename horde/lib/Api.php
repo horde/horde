@@ -82,6 +82,11 @@ class Horde_Api extends Horde_Registry_Api
             );
         }
 
+        if (empty($GLOBALS['conf']['datatree']['driver']) ||
+            $GLOBALS['conf']['datatree']['driver'] == 'null') {
+            unset($admin['datatree']);
+        }
+
         return $admin;
     }
 

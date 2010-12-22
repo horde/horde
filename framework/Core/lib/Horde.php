@@ -117,7 +117,7 @@ class Horde
             $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
         }
 
-        if ($admin) {
+        if ($admin || $cli) {
             if ($error instanceof Exception) {
                 $trace = $error;
             } else {
@@ -225,7 +225,15 @@ HTML;
             return;
         }
 
-        $js_tocache = $js_force = $js_external = array();
+        $js = array(
+            'force' => array(),
+            'external' => array(),
+            'tocache' => array()
+        );
+        $mtime = array(
+            'force' => array(),
+            'tocache' => array()
+        );
 
         $s_list = $hsf->listFiles();
         if (empty($s_list)) {
@@ -260,39 +268,39 @@ HTML;
         }
 
         /* Output prototype.js separately from the other files. */
-        $js_force[] = array(
-            $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'],
-            'mtime' => array(filemtime($s_list['horde'][0]['p'] . $s_list['horde'][0]['f']))
-        );
+        $js['force'][] = $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'];
+        $mtime['force'][] = filemtime($s_list['horde'][0]['p'] . $s_list['horde'][0]['f']);
         unset($s_list['horde'][0]);
 
         foreach ($s_list as $files) {
             foreach ($files as $file) {
                 if ($file['d'] && ($file['f'][0] != '/') && empty($file['e'])) {
-                    $js_tocache[] = $file['p'] . $file['f'];
-                    $js_tocache['mtime'][] = filemtime($file['p'] . $file['f']);
+                    $js['tocache'][] = $file['p'] . $file['f'];
+                    $mtime['tocache'][] = filemtime($file['p'] . $file['f']);
                 } elseif (!empty($file['e'])) {
-                    $js_external[] = $file['u'];
+                    $js['external'][] = $file['u'];
                 } else {
-                    $js_force[] = array(
-                        $file['p'] . $file['f'],
-                        'mtime' => array(filemtime($file['p'] . $file['f']))
-                    );
+                    $js['force'][] = $file['p'] . $file['f'];
+                    $mtime['force'][] = filemtime($file['p'] . $file['f']);
                 }
             }
         }
 
-        foreach (array_merge($js_force, array($js_tocache)) as $files) {
+        foreach ($js as $key => $files) {
             if (!count($files)) {
                 continue;
             }
 
-            $mtime = max($files['mtime']);
-            unset($files['mtime']);
+            if ($key == 'external') {
+                foreach ($files as $val) {
+                    $hsf->outputTag($val);
+                }
+                continue;
+            }
 
             $sig_files = $files;
             sort($sig_files);
-            $sig = hash('md5', serialize($sig_files) . $mtime);
+            $sig = hash('md5', serialize($sig_files) . max($mtime[$key]));
 
             switch ($driver) {
             case 'filesystem':
@@ -344,10 +352,6 @@ HTML;
         }
 
         $hsf->clear();
-
-        foreach ($js_external as $val) {
-            $hsf->outputTag($val);
-        }
     }
 
     /**
@@ -1224,13 +1228,19 @@ HTML;
                 $_SERVER['SCRIPT_NAME'] :
                 $_SERVER['PHP_SELF'];
         }
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $url = Horde_String::common($_SERVER['REQUEST_URI'], $url);
+        }
         if (substr($url, -9) == 'index.php') {
             $url = substr($url, 0, -9);
         }
 
         if ($script_params) {
             if ($pathInfo = Horde_Util::getPathInfo()) {
-                $url .= (substr($url, -1) != '/' ?  '/' : '')  . $pathInfo;
+                if (substr($url, -1) == '/') {
+                    $pathInfo = substr($pathInfo, 1);
+                }
+                $url .= $pathInfo;
             }
             if (!empty($_SERVER['QUERY_STRING'])) {
                 $url .= '?' . $_SERVER['QUERY_STRING'];

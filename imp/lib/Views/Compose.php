@@ -134,11 +134,10 @@ class IMP_Views_Compose
                 'title' => _("Save as Draft")
             )));
 
-            $d_read = $prefs->getValue('disposition_request_read');
-            if ($conf['compose']['allow_receipts'] &&
-                ($d_read != 'never')) {
+            $d_read = $prefs->getValue('request_mdn');
+            if ($d_read != 'never') {
                 $t->set('read_receipt', true);
-                $t->set('read_receipt_set', $d_read != 'ask');
+                $t->set('read_receipt_set', ($d_read != 'ask'));
             }
 
             $t->set('save_sent_mail', ($conf['user']['allow_folders'] && !$prefs->isLocked('save_sent_mail')));

@@ -8,20 +8,20 @@
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
-class Horde_Core_Ui_Table extends Horde_Core_Ui_Widget {
-
+class Hermes_Table extends Horde_Core_Ui_Widget
+{
     /**
      * Data loaded from the getTableMetaData API.
      *
      * @access private
      * @var array
      */
-    var $_metaData = null;
+    private $_metaData = null;
 
     /**
      * @var array
      */
-    var $_formVars = array();
+    protected $_formVars = array();
 
     public function getMetaData()
     {

@@ -29,7 +29,7 @@ switch ($vars->actionID) {
 case 'strip_attachment':
     try {
         $indices = $injector->getInstance('IMP_Message')->stripPart(new IMP_Indices($vars->folder, $vars->uid), $vars->id);
-        $js_vars['-DimpFullmessage.strip'] = 1;
+        $js_vars['-DimpMessage.strip'] = 1;
         list(,$vars->uid) = $indices->getSingle();
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
     } catch (IMP_Exception $e) {
@@ -58,15 +58,22 @@ if (isset($show_msg_result['error'])) {
 $scripts = array(
     array('contextsensitive.js', 'horde'),
     array('textarearesize.js', 'horde'),
-    array('fullmessage-dimp.js', 'imp'),
+    array('message-dimp.js', 'imp'),
     array('imp.js', 'imp'),
 );
 
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
     if (!empty($show_msg_result[$val])) {
-        $js_vars['DimpFullmessage.' . $val] = $show_msg_result[$val];
+        $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }
 }
+
+$js_vars['DimpMessage.flag'] = IMP_Ajax_Application::flagEntry(array('\\seen'), true, new IMP_Indices($vars->folder, $vars->uid));
+
+if ($poll = IMP_Ajax_Application::pollEntry($vars->folder)) {
+    $js_vars['DimpMessage.poll'] = $poll;
+}
+
 $js_out = Horde::addInlineJsVars($js_vars, array('ret_vars' => true));
 
 /* Determine if compose mode is disabled. */

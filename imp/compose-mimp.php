@@ -257,7 +257,7 @@ case _("Send"):
     switch ($vars->a) {
     case _("Save Draft"):
         try {
-            $notification->push($imp_compose->saveDraft($header, $message, false), 'horde.success');
+            $notification->push($imp_compose->saveDraft($header, $message), 'horde.success');
             if ($prefs->getValue('close_draft')) {
                 $imp_compose->destroy('save_draft');
                 require IMP_BASE . '/mailbox-mimp.php';
@@ -276,7 +276,7 @@ case _("Send"):
 
         $options = array(
             'identity' => $identity,
-            'readreceipt' => ($conf['compose']['allow_receipts'] && ($prefs->getValue('disposition_request_read') == 'always')),
+            'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
             'save_sent' => $save_sent_mail,
             'sent_folder' => $sent_mail_folder
         );

@@ -374,6 +374,7 @@ span.iconImgSidebar {
 
 #logo, #dimpbarActions, #serviceActions, #foldersSidebar, #normalfolders {
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #folderopts a {
@@ -1012,7 +1013,7 @@ span.dimpactionResume {
 #ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }
-#ctx_flag span.iconImg.flagUser {
+#ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {
     border: 1px black solid;
     height: 15px;
     width: 15px;

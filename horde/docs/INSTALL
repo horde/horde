@@ -86,7 +86,7 @@ below at Prerequisites_.
 
 3. Install PEAR/PECL packages::
 
-     pear install -o Crypt_Blowfish Date DB File Net_DNS Services_Weather
+     pear install -o Crypt_Blowfish Date DB File Net_DNS2 Services_Weather
      pear -d preferred_state=beta install -a HTTP_WebDAV_Server
      pecl install -o fileinfo idn lzf [memcache]
 

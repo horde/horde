@@ -70,33 +70,6 @@ if (!$is_auth) {
 /* Get an Auth object. */
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create(($is_auth && $vars->app) ? $vars->app : null);
 
-/* Build the list of necessary login parameters. */
-$loginparams = array(
-    'horde_user' => array(
-        'label' => _("Username"),
-        'type' => 'text',
-        'value' => $vars->horde_user
-    ),
-    'horde_pass' => array(
-        'label' => _("Password"),
-        'type' => 'password'
-    )
-);
-$js_code = array(
-    'HordeLogin.user_error' => _("Please enter a username."),
-    'HordeLogin.pass_error' => _("Please enter a password.")
-);
-$js_files = array(
-    array('login.js', 'horde')
-);
-
-try {
-    $result = $auth->getLoginParams();
-    $loginparams = array_filter(array_merge($loginparams, $result['params']));
-    $js_code = array_merge($js_code, $result['js_code']);
-    $js_files = array_merge($js_files, $result['js_files']);
-} catch (Horde_Exception $e) {}
-
 /* Get URL/Anchor strings now. */
 if ($vars->url) {
     $url_in = new Horde_Url($vars->url);
@@ -121,6 +94,13 @@ case Horde_Auth::REASON_LOGOUT:
     break;
 }
 
+/* Change language. */
+if (!$is_auth &&
+    !$prefs->isLocked('language') &&
+    ($new_lang = Horde_Util::getGet('new_lang'))) {
+    $registry->setLanguageEnvironment($new_lang);
+}
+
 if ($logout_reason) {
     if ($is_auth) {
         try {
@@ -132,8 +112,6 @@ if ($logout_reason) {
         }
         $is_auth = null;
     }
-
-    $language = $prefs->getValue('language');
 
     $entry = sprintf('User %s [%s] logged out of Horde', $registry->getAuth(), $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'NOTICE');
@@ -151,19 +129,22 @@ if ($logout_reason) {
     }
 
     $session->setup();
-    $registry->setLanguageEnvironment($language, $vars->app);
 
-    /* Hook to preselect the correct language in the widget. */
-    $_GET['new_lang'] = $language;
+    /* Explicitly set language in un-authenticated session. */
+    $registry->setLanguage($GLOBALS['language']);
 } elseif (Horde_Util::getPost('login_post') ||
           Horde_Util::getPost('login_button')) {
     /* Get the login params from the login screen. */
     $auth_params = array(
         'password' => Horde_Util::getPost('horde_pass')
     );
-    foreach (array_diff(array_keys($loginparams), array('horde_user', 'horde_pass')) as $val) {
-        $auth_params[$val] = Horde_Util::getPost($val);
-    }
+
+    try {
+        $result = $auth->getLoginParams();
+        foreach (array_keys($result['params']) as $val) {
+            $auth_params[$val] = Horde_Util::getPost($val);
+        }
+    } catch (Horde_Exception $e) {}
 
     if ($vars->ie_version) {
         $browser->setIEVersion($vars->ie_version);
@@ -201,12 +182,35 @@ if ($logout_reason) {
     $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
                      $vars->horde_user, $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'ERR');
-} else {
-    $new_lang = Horde_Util::getGet('new_lang');
-    if ($new_lang) {
-        $registry->setLanguageEnvironment($new_lang);
-    }
 }
+
+/* Build the list of necessary login parameters.
+ * Need to wait until after we set language to get login parameters. */
+$loginparams = array(
+    'horde_user' => array(
+        'label' => _("Username"),
+        'type' => 'text',
+        'value' => $vars->horde_user
+    ),
+    'horde_pass' => array(
+        'label' => _("Password"),
+        'type' => 'password'
+    )
+);
+$js_code = array(
+    'HordeLogin.user_error' => _("Please enter a username."),
+    'HordeLogin.pass_error' => _("Please enter a password.")
+);
+$js_files = array(
+    array('login.js', 'horde')
+);
+
+try {
+    $result = $auth->getLoginParams();
+    $loginparams = array_filter(array_merge($loginparams, $result['params']));
+    $js_code = array_merge($js_code, $result['js_code']);
+    $js_files = array_merge($js_files, $result['js_files']);
+} catch (Horde_Exception $e) {}
 
 /* If we currently are authenticated, and are not trying to authenticate to
  * an application, redirect to initial page. This is done in index.php.
@@ -251,12 +255,10 @@ if (!empty($conf['auth']['alternate_login'])) {
 
 /* Build the <select> widget containing the available languages. */
 if (!$is_auth && !$prefs->isLocked('language')) {
-    $session->set('horde', 'language', $registry->preferredLang($vars->new_lang));
     $langs = array();
-
     foreach ($registry->nlsconfig['languages'] as $key => $val) {
         $langs[] = array(
-            'sel' => ($key == $session->get('horde', 'language')),
+            'sel' => ($key == $GLOBALS['language']),
             'val' => $key,
             // Language names are already encoded.
             'name' => $val

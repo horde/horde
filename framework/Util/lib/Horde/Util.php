@@ -720,16 +720,25 @@ class Horde_Util
             return $_SERVER['PATH_INFO'];
         } elseif (isset($_SERVER['REQUEST_URI']) &&
                   isset($_SERVER['SCRIPT_NAME'])) {
-            if (basename($_SERVER['SCRIPT_NAME']) == 'index.php') {
-                $search = array(dirname($_SERVER['SCRIPT_NAME']) . '/',
-                                'index.php');
-            } else {
-                $search = array($_SERVER['SCRIPT_NAME']);
+            $search = Horde_String::common($_SERVER['SCRIPT_NAME'], $_SERVER['REQUEST_URI']);
+            if (substr($search, -1) == '/') {
+                $search = substr($search, 0, -1);
             }
+            $search = array($search);
             if (!empty($_SERVER['QUERY_STRING'])) {
-                $search[] = '?' . $_SERVER['QUERY_STRING'];
+                // We can't use QUERY_STRING directly because URL rewriting
+                // might add more parameters to the query string than those
+                // from the request URI.
+                $url = parse_url($_SERVER['REQUEST_URI']);
+                if (!empty($url['query'])) {
+                    $search[] = '?' . $url['query'];
+                }
             }
-            return str_replace($search, '', $_SERVER['REQUEST_URI']);
+            $path = str_replace($search, '', $_SERVER['REQUEST_URI']);
+            if ($path == '/') {
+                $path = '';
+            }
+            return $path;
         }
 
         return '';

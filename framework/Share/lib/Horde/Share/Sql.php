@@ -16,7 +16,7 @@
 /**
  * @package Horde_Share
  */
-class Horde_Share_Sql extends Horde_Share
+class Horde_Share_Sql extends Horde_Share_Base
 {
     /* Share has user perms */
     const SQL_FLAG_USERS = 1;
@@ -50,12 +50,22 @@ class Horde_Share_Sql extends Horde_Share
 
     /**
      *
-     * @see Horde_Share::__construct()
+     * @see Horde_Share_Base::__construct()
      */
     public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
     {
         parent::__construct($app, $user, $perms, $groups);
         $this->_table = $this->_app . '_shares';
+    }
+
+    /**
+     * Set the SQL table name to use for the current scope's share storage.
+     *
+     * @var string $table  The table name
+     */
+    public function setTable($table)
+    {
+        $this->_table = $table;
     }
 
     /**
@@ -66,6 +76,11 @@ class Horde_Share_Sql extends Horde_Share
     public function getTable()
     {
         return $this->_table;
+    }
+
+    public function setStorage(Horde_Db_Adapter $db)
+    {
+        $this->_db = $db;
     }
 
     /**
@@ -102,7 +117,7 @@ class Horde_Share_Sql extends Horde_Share
      *
      * @throws Horde_Share_Exception
      */
-    protected function _getShareUsers(&$share)
+    protected function _getShareUsers($share)
     {
         if ($this->_hasUsers($share)) {
             try {
@@ -123,7 +138,7 @@ class Horde_Share_Sql extends Horde_Share
      *
      * @throws Horde_Share_Exception
      */
-    protected function _getShareGroups(&$share)
+    protected function _getShareGroups($share)
     {
         if ($this->_hasGroups($share)) {
             try {
@@ -155,7 +170,7 @@ class Horde_Share_Sql extends Horde_Share
             throw new Horde_Share_Exception($e->getMessage());
         }
         if (!$results) {
-            $this->_logError(sprintf("Share name %s not found", $name), 'NOT FOUND');
+            $this->_logger->err(sprintf('Share name %s not found', $name));
             throw new Horde_Exception_NotFound();
         }
         $data = $this->_fromDriverCharset($results);
@@ -177,14 +192,14 @@ class Horde_Share_Sql extends Horde_Share
      *
      * @param array $data  Array of share attributes
      */
-    protected function _loadPermissions(&$data)
+    protected function _loadPermissions($data)
     {
         $this->_getShareUsers($data);
         $this->_getShareGroups($data);
         $this->_getSharePerms($data);
     }
 
-    protected function _getSharePerms(&$data)
+    protected function _getSharePerms($data)
     {
         $data['perm']['type'] = 'matrix';
         $data['perm']['default'] = isset($data['perm_default']) ? (int)$data['perm_default'] : 0;
@@ -210,7 +225,7 @@ class Horde_Share_Sql extends Horde_Share
             throw new Horde_Share_Exception($e->getMessage());
         }
         if (!$results) {
-            $this->_logError(sprintf("Share name %s not found", $name), 'NOT FOUND');
+            $this->_logger->err(sprintf('Share name %s not found', $name));
             throw new Horde_Exception_NotFound();
         }
         $data = $this->_fromDriverCharset($results);
@@ -456,6 +471,18 @@ class Horde_Share_Sql extends Horde_Share
     }
 
     /**
+     * Returns an array of all shares that $userid has access to.
+     *
+     * @param string $userid     The userid of the user to check access for.
+     * @param array  $params     See listShares().
+     *
+     * @return array  The shares the user has access to.
+     */
+    protected function _listShares($userid, array $params = array())
+    {
+    }
+
+    /**
      * Returns an array of all system shares.
      *
      * @return array  All system shares.
@@ -493,8 +520,8 @@ class Horde_Share_Sql extends Horde_Share
      * @return integer  The number of shares
      * @throws Horde_Share_Exception
      */
-    protected function _countShares($userid, $perm = Horde_Perms::SHOW,
-                                    $attributes = null)
+    public function countShares($userid, $perm = Horde_Perms::SHOW,
+                                $attributes = null)
     {
         $query = 'SELECT COUNT(DISTINCT s.share_id) '
             . $this->getShareCriteria($userid, $perm, $attributes);
@@ -630,7 +657,7 @@ class Horde_Share_Sql extends Horde_Share
                         . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                 }
             } catch (Horde_Group_Exception $e) {
-                $this->_logError($e, 'Horde_Share::getShareCriteria()');
+                $this->_logger->err($e);
             }
         } else {
             $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';
@@ -652,20 +679,6 @@ class Horde_Share_Sql extends Horde_Share
         }
 
         return $query . ' WHERE ' . $where;
-    }
-
-    /**
-     * Set the SQL table name to use for the current scope's share storage.
-     *
-     * @var string $table  The table name
-     */
-    public function setShareTable($table) {
-        $this->_table = $table;
-    }
-
-    public function setStorage(Horde_Db_Adapter $db)
-    {
-        $this->_db = $db;
     }
 
     /**

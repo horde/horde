@@ -151,40 +151,50 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Saves a message to the draft folder.
      *
-     * @param array $header    List of message headers (UTF-8).
-     * @param mixed $message   Either the message text (string) or a
-     *                         Horde_Mime_Part object that contains the
-     *                         text to send.
-     * @param boolean $html    Whether this is an HTML message.
+     * @param array $header   List of message headers (UTF-8).
+     * @param mixed $message  Either the message text (string) or a
+     *                        Horde_Mime_Part object that contains the text
+     *                        to send.
+     * @param array $opts     An array of options w/the following keys:
+     * <pre>
+     * html - (boolean) Is this an HTML message?
+     * priority - (string) The message priority ('high', 'normal', 'low').
+     * readreceipt - (boolean) Add return receipt headers?
+     * </pre>
      *
      * @return string  Notification text on success.
      * @throws IMP_Compose_Exception
      */
-    public function saveDraft($headers, $message, $html)
+    public function saveDraft($headers, $message, array $opts = array())
     {
-        $body = $this->_saveDraftMsg($headers, $message, $html);
+        $body = $this->_saveDraftMsg($headers, $message, $opts);
         return $this->_saveDraftServer($body);
     }
 
     /**
      * Prepare the draft message.
      *
-     * @param array $headers    List of message headers.
-     * @param mixed $message    Either the message text (string) or a
-     *                          Horde_Mime_Part object that contains the
-     *                          text to send.
-     * @param boolean $html     Whether this is an HTML message.
+     * @param array $headers  List of message headers.
+     * @param mixed $message  Either the message text (string) or a
+     *                        Horde_Mime_Part object that contains the text
+     *                        to send.
+     * @param array $opts     An array of options w/the following keys:
+     * <pre>
+     * html - (boolean) Is this an HTML message?
+     * priority - (string) The message priority ('high', 'normal', 'low').
+     * readreceipt - (boolean) Add return receipt headers?
+     * </pre>
      *
      * @return string  The body text.
      * @throws IMP_Compose_Exception
      */
-    protected function _saveDraftMsg($headers, $message, $html)
+    protected function _saveDraftMsg($headers, $message, $opts)
     {
         $has_session = (bool)$GLOBALS['registry']->getAuth();
 
         /* Set up the base message now. */
         $mime = $this->_createMimeMessage(array(null), $message, array(
-            'html' => $html,
+            'html' => !empty($opts['html']),
             'noattach' => !$has_session,
             'nofinal' => true
         ));
@@ -204,7 +214,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* Initalize a header object for the draft. */
-        $draft_headers = $this->_prepareHeaders($headers);
+        $draft_headers = $this->_prepareHeaders($headers, $opts);
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
@@ -298,11 +308,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @return mixed  An array with the following keys:
      * <pre>
-     * 'charset' - (string) The preferred sending charset.
-     * 'header' - (array) A list of headers to add to the outgoing message.
-     * 'identity' - (integer) The identity used to create the message.
-     * 'mode' - (string) 'html' or 'text'.
-     * 'msg' - (string) The message text.
+     * charset - (string) The preferred sending charset.
+     * header - (array) A list of headers to add to the outgoing message.
+     * identity - (integer) The identity used to create the message.
+     * mode - (string) 'html' or 'text'.
+     * msg - (string) The message text.
+     * priority - (string) The message priority.
+     * readreceipt - (boolean) Add return receipt headers?
      * </pre>
      * @throws IMP_Compose_Exception
      */
@@ -413,6 +425,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             } catch (Exception $e) {}
         }
 
+        $imp_ui_hdrs = new IMP_Ui_Headers();
+        $priority = $imp_ui_hdrs->getPriority($headers);
+
+        $mdn = new Horde_Mime_Mdn($headers);
+        $readreceipt = (bool)$mdn->getMdnReturnAddr();
+
         $this->_metadata['draft_uid_resume'] = $indices;
         $this->changed = 'changed';
 
@@ -421,7 +439,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             'header' => $header,
             'identity' => $identity_id,
             'mode' => $mode,
-            'msg' => $message
+            'msg' => $message,
+            'priority' => $priority,
+            'readreceipt' => $readreceipt
         );
     }
 
@@ -444,8 +464,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @param array $opts      An array of options w/the following keys:
      * <pre>
      * encrypt - (integer) A flag whether to encrypt or sign the message.
-     *           One of IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC,
-     *           IMP::SMIME_ENCRYPT, or IMP::SMIME_SIGNENC.
+     *           One of IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC,
+     *           IMP_Crypt_Smime::ENCRYPT, or IMP_Crypt_Smime::SIGNENC.
      * html - (boolean) Whether this is an HTML message.
      *        DEFAULT: false
      * identity - (IMP_Prefs_Identity) If set, checks for proper tie-to
@@ -466,7 +486,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function buildAndSendMessage($body, $header, array $opts = array())
     {
-        global $conf, $notification, $prefs, $registry;
+        global $conf, $injector, $notification, $prefs, $session, $registry;
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
@@ -487,7 +507,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        $barefrom = Horde_Mime_Address::bareAddress($header['from'], $GLOBALS['session']->get('imp', 'maildomain'));
+        $barefrom = Horde_Mime_Address::bareAddress($header['from'], $session->get('imp', 'maildomain'));
         $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
         $recipients = implode(', ', $recip['list']);
 
@@ -502,7 +522,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Must encrypt & send the message one recipient at a time. */
         if ($prefs->getValue('use_smime') &&
-            in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGNENC))) {
+            in_array($encrypt, array(IMP_Crypt_Smime::ENCRYPT, IMP_Crypt_Smime::SIGNENC))) {
             foreach ($recip['list'] as $val) {
                 $send_msgs[] = $this->_createMimeMessage(array($val), $body, $msg_options);
             }
@@ -518,12 +538,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* Initalize a header object for the outgoing message. */
-        $headers = $this->_prepareHeaders($header);
+        $headers = $this->_prepareHeaders($header, $opts);
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addReceivedHeader(array(
-            'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
-            'server' => $GLOBALS['conf']['server']['name']
+            'dns' => $injector->getInstance('Net_DNS2_Resolver'),
+            'server' => $conf['server']['name']
         ));
 
         /* Add Reply-To header. */
@@ -532,32 +552,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $headers->addHeader('Reply-to', $header['replyto']);
         }
 
-        /* Add priority header, if requested. */
-        if (!empty($opts['priority'])) {
-            switch ($opts['priority']) {
-            case 'high':
-                $headers->addHeader('Importance', 'High');
-                $headers->addHeader('X-Priority', '1 (Highest)');
-                break;
-
-            case 'low':
-                $headers->addHeader('Importance', 'Low');
-                $headers->addHeader('X-Priority', '5 (Lowest)');
-                break;
-            }
-        }
-
-        /* Add Return Receipt Headers. */
-        $mdn = null;
-        if (!empty($opts['readreceipt']) &&
-            $conf['compose']['allow_receipts']) {
-            $mdn = new Horde_Mime_Mdn($headers);
-            $mdn->addMdnRequestHeaders($barefrom);
-        }
-
         /* Add the 'User-Agent' header. */
         if (empty($opts['useragent'])) {
-            $headers->setUserAgent('Internet Messaging Program (IMP) ' . $GLOBALS['registry']->getVersion());
+            $headers->setUserAgent('Internet Messaging Program (IMP) ' . $registry->getVersion());
         } else {
             $headers->setUserAgent($opts['useragent']);
         }
@@ -568,7 +565,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $reply_type = 'new';
         }
 
-        $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
+        $sentmail = $injector->getInstance('IMP_Sentmail');
 
         foreach ($send_msgs as $val) {
             try {
@@ -593,7 +590,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 IMP_Maillog::log($reply_type, $this->getMetadata('in_reply_to'), $recipients);
             }
 
-            $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
+            $imp_message = $injector->getInstance('IMP_Message');
             $reply_uid = new IMP_Indices($this);
 
             switch ($reply_type) {
@@ -613,7 +610,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth());
+        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth());
         Horde::logMessage($entry, 'INFO');
 
         /* Should we save this message in the sent mail folder? */
@@ -649,9 +646,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             /* Generate the message string. */
-            $fcc = $mime_message->toString(array('defserver' => $GLOBALS['session']->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
+            $fcc = $mime_message->toString(array('defserver' => $session->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
 
-            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+            $imp_folder = $injector->getInstance('IMP_Folder');
 
             if (!$imp_folder->exists($opts['sent_folder'])) {
                 $imp_folder->create($opts['sent_folder'], $prefs->getValue('subscribe'));
@@ -660,12 +657,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $flags = array('\\seen');
 
             /* RFC 3503 [3.3] - set $MDNSent flag on sent message. */
-            if ($mdn) {
-                $flags[] = array('$MDNSent');
+            if ($prefs->getValue('request_mdn') != 'never') {
+                $mdn = new Horde_Mime_Mdn($headers);
+                if ($mdn->getMdnReturnAddr()) {
+                    $flags[] = array('$MDNSent');
+                }
             }
 
             try {
-                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
+                $injector->getInstance('IMP_Injector_Factory_Imap')->create()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -692,12 +692,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @param array $headers  Array with 'from', 'to', 'cc', 'bcc', and
      *                        'subject' values.
+     * @param array $opts     An array of options w/the following keys:
+     * <pre>
+     * priority - (string) The message priority ('high', 'normal', 'low').
+     * </pre>
      *
-     * @return Horde_Mime_Headers  Headers object with the Date, From, To, Cc,
-     *                             Bcc, Subject, Message-ID, References, and
-     *                             In-Reply-To headers set.
+     * @return Horde_Mime_Headers  Headers object with the appropriate headers
+     *                             set.
      */
-    protected function _prepareHeaders($headers)
+    protected function _prepareHeaders($headers, array $opts = array())
     {
         $ob = new Horde_Mime_Headers();
 
@@ -729,6 +732,28 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             if ($this->getMetadata('in_reply_to')) {
                 $ob->addHeader('In-Reply-To', $this->getMetadata('in_reply_to'));
             }
+        }
+
+        /* Add priority header, if requested. */
+        if (!empty($opts['priority'])) {
+            switch ($opts['priority']) {
+            case 'high':
+                $ob->addHeader('Importance', 'High');
+                $ob->addHeader('X-Priority', '1 (Highest)');
+                break;
+
+            case 'low':
+                $ob->addHeader('Importance', 'Low');
+                $ob->addHeader('X-Priority', '5 (Lowest)');
+                break;
+            }
+        }
+
+        /* Add Return Receipt Headers. */
+        if (!empty($opts['readreceipt']) &&
+            ($GLOBALS['prefs']->getValue('request_mdn') != 'never')) {
+            $mdn = new Horde_Mime_Mdn($ob);
+            $mdn->addMdnRequestHeaders(Horde_Mime_Address::bareAddress($ob->getValue('from'), $GLOBALS['session']->get('imp', 'maildomain')));
         }
 
         return $ob;
@@ -1155,14 +1180,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $encrypt = empty($options['encrypt']) ? 0 : $options['encrypt'];
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             !empty($GLOBALS['conf']['gnupg']['path']) &&
-            in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGN, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
+            in_array($encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGN, IMP_Crypt_Pgp::SIGNENC, IMP_Crypt_Pgp::SYM_ENCRYPT, IMP_Crypt_Pgp::SYM_SIGNENC))) {
             $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
             $symmetric_passphrase = null;
 
             switch ($encrypt) {
-            case IMP::PGP_SIGN:
-            case IMP::PGP_SIGNENC:
-            case IMP::PGP_SYM_SIGNENC:
+            case IMP_Crypt_Pgp::SIGN:
+            case IMP_Crypt_Pgp::SIGNENC:
+            case IMP_Crypt_Pgp::SYM_SIGNENC:
                 /* Check to see if we have the user's passphrase yet. */
                 $passphrase = $imp_pgp->getPassphrase('personal');
                 if (empty($passphrase)) {
@@ -1172,8 +1197,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 }
                 break;
 
-            case IMP::PGP_SYM_ENCRYPT:
-            case IMP::PGP_SYM_SIGNENC:
+            case IMP_Crypt_Pgp::SYM_ENCRYPT:
+            case IMP_Crypt_Pgp::SYM_SIGNENC:
                 /* Check to see if we have the user's symmetric passphrase
                  * yet. */
                 $symmetric_passphrase = $imp_pgp->getPassphrase('symmetric', 'imp_compose_' . $this->_cacheid);
@@ -1188,35 +1213,35 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             /* Do the encryption/signing requested. */
             try {
                 switch ($encrypt) {
-                case IMP::PGP_SIGN:
+                case IMP_Crypt_Pgp::SIGN:
                     $base = $imp_pgp->IMPsignMIMEPart($base);
                     break;
 
-                case IMP::PGP_ENCRYPT:
-                case IMP::PGP_SYM_ENCRYPT:
+                case IMP_Crypt_Pgp::ENCRYPT:
+                case IMP_Crypt_Pgp::SYM_ENCRYPT:
                     $to_list = empty($options['from'])
                         ? $to
                         : array_keys(array_flip(array_merge($to, array($options['from']))));
-                    $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP::PGP_SYM_ENCRYPT) ? $symmetric_passphrase : null);
+                    $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null);
                     break;
 
-                case IMP::PGP_SIGNENC:
-                case IMP::PGP_SYM_SIGNENC:
+                case IMP_Crypt_Pgp::SIGNENC:
+                case IMP_Crypt_Pgp::SYM_SIGNENC:
                     $to_list = empty($options['from'])
                         ? $to
                         : array_keys(array_flip(array_merge($to, array($options['from']))));
-                    $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP::PGP_SYM_SIGNENC) ? $symmetric_passphrase : null);
+                    $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null);
                     break;
                 }
             } catch (Horde_Exception $e) {
                 throw new IMP_Compose_Exception(_("PGP Error: ") . $e->getMessage(), $e->getCode());
             }
         } elseif ($GLOBALS['prefs']->getValue('use_smime') &&
-                  in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
+                  in_array($encrypt, array(IMP_Crypt_Smime::ENCRYPT, IMP_Crypt_Smime::SIGN, IMP_Crypt_Smime::SIGNENC))) {
             $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
 
             /* Check to see if we have the user's passphrase yet. */
-            if (in_array($encrypt, array(IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
+            if (in_array($encrypt, array(IMP_Crypt_Smime::SIGN, IMP_Crypt_Smime::SIGNENC))) {
                 $passphrase = $imp_smime->getPassphrase();
                 if ($passphrase === false) {
                     $e = new IMP_Compose_Exception(_("S/MIME Error: Need passphrase for personal private key."));
@@ -1228,15 +1253,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             /* Do the encryption/signing requested. */
             try {
                 switch ($encrypt) {
-                case IMP::SMIME_SIGN:
+                case IMP_Crypt_Smime::SIGN:
                     $base = $imp_smime->IMPsignMIMEPart($base);
                     break;
 
-                case IMP::SMIME_ENCRYPT:
+                case IMP_Crypt_Smime::ENCRYPT:
                     $base = $imp_smime->IMPencryptMIMEPart($base, $to[0]);
                     break;
 
-                case IMP::SMIME_SIGNENC:
+                case IMP_Crypt_Smime::SIGNENC:
                     $base = $imp_smime->IMPsignAndEncryptMIMEPart($base, $to[0]);
                     break;
                 }
@@ -2655,7 +2680,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         try {
-            $body = $this->_saveDraftMsg($headers, $vars->message, $vars->rtemode);
+            $body = $this->_saveDraftMsg($headers, $vars->message, array(
+                'html' => $vars->rtemode,
+                'priority' => $vars->priority,
+                'readreceipt' => $vars->request_read_receipt
+            ));
         } catch (IMP_Compose_Exception $e) {
             return;
         }

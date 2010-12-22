@@ -15,6 +15,9 @@
  */
 class Horde_Mime_Mdn
 {
+    /* RFC 3798 header for requesting a MDN. */
+    const MDN_HEADER = 'Disposition-Notification-To';
+
     /**
      * The Horde_Mime_Headers object.
      *
@@ -49,7 +52,7 @@ class Horde_Mime_Mdn
     {
         /* RFC 3798 [2.1] requires the Disposition-Notification-To header
          * for an MDN to be created. */
-        return $this->_headers->getValue('Disposition-Notification-To');
+        return $this->_headers->getValue(self::MDN_HEADER);
     }
 
     /**
@@ -248,7 +251,7 @@ class Horde_Mime_Mdn
     public function addMdnRequestHeaders($to)
     {
         /* This is the RFC 3798 way of requesting a receipt. */
-        $this->_headers->addHeader('Disposition-Notification-To', $to);
+        $this->_headers->addHeader(self::MDN_HEADER, $to);
     }
 
 }

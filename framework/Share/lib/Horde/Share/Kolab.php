@@ -15,7 +15,7 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Share
  */
-class Horde_Share_kolab extends Horde_Share
+class Horde_Share_Kolab extends Horde_Share_Base
 {
     const VERSION = 1;
 
@@ -71,7 +71,7 @@ class Horde_Share_kolab extends Horde_Share
      *
      * @param Horde_Share_Object $object
      */
-    public function initShareObject($object)
+    public function initShareObject(Horde_Share_Object $object)
     {
         $object->setShareOb($this);
     }
@@ -105,15 +105,15 @@ class Horde_Share_kolab extends Horde_Share
             throw new Horde_Share_Exception('No object requested.');
         }
 
-        /** Get the corresponding folder for this share ID */
+        /* Get the corresponding folder for this share ID */
         $folder = $this->_list->getByShare($object, $this->_type);
 
-        /** Does the folder exist? */
+        /* Does the folder exist? */
         if (!$folder->exists()) {
             throw new Horde_Share_Exception(sprintf(Horde_Share_Translation::t("Share \"%s\" does not exist."), $object));
         }
 
-        /** Create the object from the folder */
+        /* Create the object from the folder */
         $share = new Horde_Share_Object_Kolab($object, $this->_type);
         $share->setFolder($folder);
 
@@ -127,7 +127,7 @@ class Horde_Share_kolab extends Horde_Share
      *
      * @return Horde_Share_Object_kolab  The share object.
      */
-    protected function &_getShareById($id)
+    protected function _getShareById($id)
     {
         return $this->_getShare($id);
     }
@@ -140,7 +140,7 @@ class Horde_Share_kolab extends Horde_Share
      *
      * @return array  An array of Horde_Share_Object_kolab objects.
      */
-    protected function &_getShares($ids)
+    protected function _getShares(array $ids)
     {
         $objects = array();
         foreach ($ids as $id) {
@@ -161,21 +161,20 @@ class Horde_Share_kolab extends Horde_Share
      *
      * @return array  All shares for the current app/share.
      */
-    protected function &_listAllShares()
+    protected function _listAllShares()
     {
-        $shares = array();
-        return $shares;
+        return array();
     }
 
     /**
      * Returns an array of all shares that $userid has access to.
      *
      * @param string $userid     The userid of the user to check access for.
-     * @param array  $params  @see Horde_Share::listShares
+     * @param array  $params     See listShares().
      *
      * @return array  The shares the user has access to.
      */
-    protected function _listShares($userid, $params = array())
+    protected function _listShares($userid, array $params = array())
     {
         $key = serialize(array($this->_type, $userid, $params['perm'], $params['attributes']));
         if ($this->_list === false) {
@@ -219,38 +218,18 @@ class Horde_Share_kolab extends Horde_Share
     }
 
     /**
-     * Returns the number of shares that $userid has access to.
-     *
-     * @param string $userid     The userid of the user to check access for.
-     * @param integer $perm      The level of permissions required.
-     * @param mixed $attributes  Restrict the shares counted to those
-     *                           matching $attributes. An array of
-     *                           attribute/values pairs or a share owner
-     *                           username.
-     *
-     * @return integer  The number of shares
-     */
-    protected function _countShares($userid, $perm = Horde_Perms::SHOW,
-                          $attributes = null)
-    {
-        $shares = $this->_listShares($userid, array('perm' => $perm, 'attributes' => $attributes));
-        return count($shares);
-    }
-
-    /**
      * Returns a new share object.
      *
      * @param string $name  The share's name.
      *
      * @return Horde_Share_Object_kolab  A new share object.
      */
-    protected function &_newShare($name)
+    protected function _newShare($name)
     {
         if (empty($name)) {
             throw new Horde_Share_Exception('Share names must be non-empty');
         }
-        $storageObject = new Horde_Share_Object_Kolab($name, $this->_type);
-        return $storageObject;
+        return new Horde_Share_Object_Kolab($name, $this->_type);
     }
 
     /**
@@ -262,7 +241,7 @@ class Horde_Share_kolab extends Horde_Share
      *
      * @param Horde_Share_Object_kolab $share  The new share object.
      */
-    protected function _addShare(&$share)
+    protected function _addShare(Horde_Share_Object $share)
     {
         return $share->save();
     }
@@ -291,7 +270,7 @@ class Horde_Share_kolab extends Horde_Share
             return false;
         }
 
-        /** Get the corresponding folder for this share ID */
+        /* Get the corresponding folder for this share ID */
         $folder = $this->_list->getByShare($object, $this->_type);
         if ($folder instanceof PEAR_Error) {
             throw new Horde_Share_Exception($folder->getMessage());
@@ -315,10 +294,10 @@ class Horde_Share_kolab extends Horde_Share
             return $this->getShare($default->getShareId());
         }
 
-        /** Okay, no default folder yet */
+        /* Okay, no default folder yet */
         $share = $this->newShare($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth());
 
-        /** The value does not matter here as the share will rewrite it */
+        /* The value does not matter here as the share will rewrite it */
         $share->set('name', '');
         $result = $this->addShare($share);
 

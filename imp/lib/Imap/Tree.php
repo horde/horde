@@ -1466,8 +1466,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      *               DEFAULT: false
      * 'render_params' - (array) List of params to pass to renderer if
      *                   auto-creating.
-     *                   DEFAULT: 'alternate', 'lines', 'lines_base', and
-     *                            'nosession' are passed in with true values
+     *                   DEFAULT: 'alternate', 'lines', and 'lines_base'
+     *                            are passed in with true values.
      * 'render_type' - (string) The renderer name.
      *                 DEFAULT: Javascript
      * </pre>
@@ -1492,8 +1492,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create($name, $opts['render_type'], array_merge(array(
                 'alternate' => true,
                 'lines' => true,
-                'lines_base' => true,
-                'nosession' => true
+                'lines_base' => true
             ), $opts['render_params']));
             $parent = null;
         }

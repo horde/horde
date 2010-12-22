@@ -185,6 +185,14 @@ if ($session->get('imp', 'file_upload')) {
     }
 }
 
+/* Get message priority. */
+$priority = isset($vars->priority)
+    ? $vars->priority
+    : 'normal';
+
+/* Request read receipt? */
+$request_read_receipt = (bool)$vars->request_read_receipt;
+
 /* Run through the action handlers. */
 $title = _("New Message");
 switch ($vars->actionID) {
@@ -235,6 +243,8 @@ case 'draft':
             $identity->setDefault($result['identity']);
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
+        $priority = $result['priority'];
+        $request_read_receipt = $result['readreceipt'];
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
     }
@@ -368,7 +378,11 @@ case 'send_message':
     if (in_array($vars->actionID, array('auto_save_draft', 'save_draft'))) {
         if (!$readonly_drafts) {
             try {
-                $result = $imp_compose->saveDraft($header, $message, $rtemode);
+                $result = $imp_compose->saveDraft($header, $message, array(
+                    'html' => $rtemode,
+                    'priority' => $priority,
+                    'readreceipt' => $request_read_receipt
+                ));
 
                 /* Closing draft if requested by preferences. */
                 if ($vars->actionID == 'save_draft') {
@@ -417,11 +431,11 @@ case 'send_message':
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
         'html' => $rtemode,
         'identity' => $identity,
-        'priority' => $vars->priority,
+        'priority' => $priority,
         'save_sent' => $save_sent_mail,
         'sent_folder' => $sent_mail_folder,
         'save_attachments' => $vars->save_attachments_select,
-        'readreceipt' => $vars->request_read_receipt
+        'readreceipt' => $request_read_receipt
     );
 
     try {
@@ -639,7 +653,7 @@ if ($prefs->getValue('use_pgp') &&
     $prefs->getValue('pgp_reply_pubkey')) {
     $default_encrypt = $prefs->getValue('default_encrypt');
     if (!$vars->compose_formToken &&
-        in_array($default_encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC))) {
+        in_array($default_encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC))) {
         try {
             $addrs = $imp_compose->recipientList($header);
             if (!empty($addrs['list'])) {
@@ -651,7 +665,7 @@ if ($prefs->getValue('use_pgp') &&
         } catch (IMP_Compose_Exception $e) {
         } catch (Horde_Exception $e) {
             $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
-            $encrypt_options = ($default_encrypt == IMP::PGP_ENCRYPT) ? IMP::ENCRYPT_NONE : IMP::PGP_SIGN;
+            $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
         }
     }
 }
@@ -822,7 +836,6 @@ if ($redirect) {
         $t->set('priority_label', Horde::label('priority', _("_Priority")));
         $t->set('priority_tabindex', ++$tabindex);
 
-        $priority = isset($vars->priority) ? $vars->priority : 'normal';
         $priorities = array(
             'high' => _("High"),
             'normal' => _("Normal"),
@@ -918,10 +931,10 @@ if ($redirect) {
         }
     }
 
-    $d_read = $prefs->getValue('disposition_request_read');
-    $t->set('rrr', $conf['compose']['allow_receipts'] && ($d_read != 'never'));
+    $d_read = $prefs->getValue('request_mdn');
+    $t->set('rrr', ($d_read != 'never'));
     if ($t->get('rrr')) {
-        $t->set('rrr_selected', ($d_read != 'ask') || ($vars->request_read_receipt == 'on'));
+        $t->set('rrr_selected', ($d_read != 'ask') || $request_read_receipt);
         $t->set('rrr_label', Horde::label('rrr', _("Request a _Read Receipt")));
     }
 

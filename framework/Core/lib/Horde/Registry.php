@@ -57,25 +57,39 @@ class Horde_Registry
     protected $_appStack = array();
 
     /**
+     * The list of external services.
+     *
+     * @var array
+     */
+    protected $_apis;
+
+    /**
      * The list of APIs.
      *
-     * @param array
+     * @var array
      */
-    protected $_apis = array();
+    protected $_apiList = array();
 
     /**
-     * Cached information.
+     * Cached configuration information.
      *
      * @var array
      */
-    protected $_cache = array();
+    protected $_confCache = array();
 
     /**
-     * NLS cached information.
+     * Interfaces list.
      *
      * @var array
      */
-    protected $_nlscache = array();
+    protected $_interfaces = array();
+
+    /**
+     * Object (Application/Api) cache.
+     *
+     * @var array
+     */
+    protected $_obCache = array();
 
     /**
      * The last modified time of the newest modified registry file.
@@ -85,11 +99,11 @@ class Horde_Registry
     protected $_regmtime;
 
     /**
-     * The list of cache entries to save on shutdown.
+     * The current vhost configuration file.
      *
-     * @var array
+     * @var string
      */
-    protected $_savecache = array();
+    protected $_vhost = null;
 
     /**
      * Application bootstrap initialization.
@@ -318,7 +332,7 @@ class Horde_Registry
         }
 
         $GLOBALS['registry'] = $this;
-        $injector->setInstance('Horde_Registry', $this);
+        $injector->setInstance(__CLASS__, $this);
 
         /* Setup autoloader instance and callbacks.
          * $__autoloader is defined in horde/lib/core.php */
@@ -332,8 +346,8 @@ class Horde_Registry
          * instances. However, if HORDE_BASE is defined, and app is
          * 'horde', registry is not used in the method so we are free to
          * call it here (prevents us from duplicating a bunch of code). */
-        $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
-        $conf = $GLOBALS['conf'] = &$this->_cache['conf-horde'];
+        $this->importConfig('horde');
+        $conf = $GLOBALS['conf'];
 
         /* Initialize browser object. */
         $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
@@ -357,13 +371,12 @@ class Horde_Registry
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
                                filemtime(HORDE_BASE . '/config/registry.d'));
 
-        $vhost = null;
         if (!empty($conf['vhosts'])) {
-            $vhost = HORDE_BASE . '/config/registry-' . $conf['server']['name'] . '.php';
-            if (file_exists($vhost)) {
-                $this->_regmtime = max($this->_regmtime, filemtime($vhost));
+            $this->_vhost = HORDE_BASE . '/config/registry-' . $conf['server']['name'] . '.php';
+            if (file_exists($this->_vhost)) {
+                $this->_regmtime = max($this->_regmtime, filemtime($this->_vhost));
             } else {
-                $vhost = null;
+                $this->_vhost = null;
             }
         }
 
@@ -387,7 +400,7 @@ class Horde_Registry
         $injector->setInstance('Horde_Session', $session);
 
         /* Always need to load applications information. */
-        $this->_loadApplicationsCache($vhost);
+        $this->_loadApplications();
 
         /* Load the language configuration. */
         $this->nlsconfig = Horde::loadConfiguration('nls.php', 'horde_nls_config', 'horde');
@@ -420,27 +433,6 @@ class Horde_Registry
      */
     public function shutdown()
     {
-        /* Store cache entries to persistent storage. */
-        if (!empty($this->_savecache)) {
-            $ob = $GLOBALS['injector']->getInstance('Horde_Cache');
-
-            foreach ($this->_savecache as $key => $val) {
-                if ($val) {
-                    // Entry has been updated.
-                    $data = serialize($this->_cache[$key]);
-                    $md5sum = hash('md5', $data);
-                    $GLOBALS['session']->set('horde', 'registry/' . $key, $md5sum);
-                    $id = $this->_getCacheId($key, false) . '|' . $md5sum;
-                    if ($ob->set($id, $data, 86400)) {
-                        Horde::logMessage('Horde_Registry: stored ' . $key . ' with cache ID ' . $id, 'DEBUG');
-                    }
-                } elseif ($id = $this->_getCacheId($key)) {
-                    // Entry has been deleted.
-                    $ob->expire($id);
-                }
-            }
-        }
-
         /* Register access key logger for translators. */
         if (!empty($GLOBALS['conf']['log_accesskeys'])) {
             Horde::getAccessKey(null, null, true);
@@ -469,7 +461,7 @@ class Horde_Registry
      */
     public function __clone()
     {
-        throw new Horde_Exception('Horde_Registry objects should never be cloned.');
+        throw new Horde_Exception('Registry objects should never be cloned.');
     }
 
     /**
@@ -479,81 +471,107 @@ class Horde_Registry
      */
     public function __sleep()
     {
-        throw new Horde_Exception('Horde_Registry objects should never be serialized.');
+        throw new Horde_Exception('Registry objects should never be serialized.');
     }
 
     /**
-     * Clear the registry cache.
+     * Rebuild the registry configuration.
      */
-    public function clearCache()
+    public function rebuild()
     {
+        $app = $this->getApp();
+
+        $this->applications = $this->_apiList = $this->_confCache = $this->_interfaces = array();
+        unset($this->_apis);
+
         $GLOBALS['session']->remove('horde', 'registry/');
-        $this->_cache = array();
-        $this->_savecache['api'] = false;
-        $this->_savecache['appcache'] = false;
+        $this->_saveCache('apis');
+        $this->_saveCache('app');
+
+        $this->_loadApplications();
+
+        $this->importConfig('horde');
+        $this->importConfig($app);
     }
 
     /**
-     * Fills the registry's application cache with application information.
-     *
-     * @param string $vhost  TODO
+     * Load application configuration information.
      */
-    protected function _loadApplicationsCache($vhost)
+    protected function _loadApplications()
     {
         /* First, try to load from cache. */
-        if ($this->_loadCache('appcache')) {
-            $this->applications = $this->_cache['appcache'][0];
-            $this->_cache['interfaces'] = $this->_cache['appcache'][1];
+        if ($ret = $this->_loadCache('app')) {
+            $this->applications = $ret[0];
+            $this->_interfaces = $ret[1];
             return;
         }
-
-        $this->_cache['interfaces'] = array();
 
         /* Read the registry configuration files. */
         if (!file_exists(HORDE_BASE . '/config/registry.php')) {
             throw new Horde_Exception('Missing registry.php configuration file');
         }
+
         require HORDE_BASE . '/config/registry.php';
         $files = glob(HORDE_BASE . '/config/registry.d/*.php');
         foreach ($files as $r) {
             include $r;
         }
 
-        if ($vhost) {
-            include $vhost;
+        if ($this->_vhost) {
+            include $this->_vhost;
+        }
+
+        if (!isset($this->applications['horde']['fileroot'])) {
+            $this->applications['horde']['fileroot'] = HORDE_BASE;
+        }
+        if (!isset($app_fileroot)) {
+            $app_fileroot = $this->applications['horde']['fileroot'];
+        }
+
+        if (!isset($this->applications['horde']['webroot'])) {
+            $this->applications['horde']['webroot'] = $this->_detectWebroot();
+        }
+        if (!isset($app_webroot)) {
+            $app_webroot = $this->applications['horde']['webroot'];
         }
 
         /* Scan for all APIs provided by each app, and set other common
          * defaults like templates and graphics. */
         foreach (array_keys($this->applications) as $appName) {
             $app = &$this->applications[$appName];
-            if ($app['status'] == 'heading') {
+
+            if (!isset($app['status'])) {
+                $app['status'] = 'active';
+            } elseif ($app['status'] == 'heading') {
                 continue;
             }
 
-            if (isset($app['fileroot'])) {
-                $app['fileroot'] = rtrim($app['fileroot'], ' /');
-                if (!file_exists($app['fileroot']) ||
-                    (file_exists($app['fileroot'] . '/config/conf.xml') &&
-                    !file_exists($app['fileroot'] . '/config/conf.php'))) {
-                    $app['status'] = 'inactive';
-                    Horde::logMessage('Setting ' . $appName . ' inactive because the fileroot does not exist or the application is not configured yet.', 'DEBUG');
-                }
+            $app['fileroot'] = isset($app['fileroot'])
+                ? rtrim($app['fileroot'], ' /')
+                : $app_fileroot . '/' . $appName;
+
+            if (!isset($app['name'])) {
+                $app['name'] = '';
+            } elseif (!file_exists($app['fileroot']) ||
+                      (file_exists($app['fileroot'] . '/config/conf.xml') &&
+                       !file_exists($app['fileroot'] . '/config/conf.php'))) {
+                $app['status'] = 'inactive';
+                Horde::logMessage('Setting ' . $appName . ' inactive because the fileroot does not exist or the application is not configured yet.', 'DEBUG');
             }
 
-            if (isset($app['webroot'])) {
-                $app['webroot'] = rtrim($app['webroot'], ' /');
-            }
+            $app['webroot'] = isset($app['webroot'])
+                ? rtrim($app['webroot'], ' /')
+                : $app_webroot . '/' . $appName;
 
             if (($app['status'] != 'inactive') &&
                 isset($app['provides']) &&
                 (($app['status'] != 'admin') || $this->isAdmin())) {
                 if (is_array($app['provides'])) {
                     foreach ($app['provides'] as $interface) {
-                        $this->_cache['interfaces'][$interface] = $appName;
+                        $this->_interfaces[$interface] = $appName;
                     }
                 } else {
-                    $this->_cache['interfaces'][$app['provides']] = $appName;
+                    $this->_interfaces[$app['provides']] = $appName;
                 }
             }
 
@@ -574,24 +592,55 @@ class Horde_Registry
             }
         }
 
-        $this->_cache['appcache'] = array(
-            // Index 0
+        $this->_saveCache('app', array(
             $this->applications,
-            // Index 1
-            $this->_cache['interfaces']
-        );
-        $this->_savecache['appcache'] = true;
+            $this->_interfaces
+        ));
     }
 
     /**
-     * Fills the registry's API cache with the available external services.
+     * Attempt to auto-detect the Horde webroot.
+     *
+     * @return string  The webroot.
+     */
+    protected function _detectWebroot()
+    {
+        // Note for Windows: the below assumes the PHP_SELF variable uses
+        // forward slashes.
+        if (isset($_SERVER['SCRIPT_URL']) || isset($_SERVER['SCRIPT_NAME'])) {
+            $path = empty($_SERVER['SCRIPT_URL'])
+                ? $_SERVER['SCRIPT_NAME']
+                : $_SERVER['SCRIPT_URL'];
+            $hordedir = basename(str_replace(DIRECTORY_SEPARATOR, '/', realpath(HORDE_BASE)));
+            return (preg_match(';/' . $hordedir . ';', $path))
+                ? preg_replace(';/' . $hordedir . '.*;', '/' . $hordedir, $path)
+                : '';
+        }
+
+        if (!isset($_SERVER['PHP_SELF'])) {
+            return '/horde';
+        }
+
+        $webroot = preg_split(';/;', $_SERVER['PHP_SELF'], 2, PREG_SPLIT_NO_EMPTY);
+        $webroot = strstr(realpath(HORDE_BASE), DIRECTORY_SEPARATOR . array_shift($webroot));
+        if ($webroot !== false) {
+            return preg_replace(array('/\\\\/', ';/config$;'), array('/', ''), $webroot);
+        }
+
+        return ($webroot === false)
+            ? ''
+            : '/horde';
+    }
+
+    /**
+     * Load the list of available external services.
      *
      * @throws Horde_Exception
      */
-    protected function _loadApiCache()
+    protected function _loadApis()
     {
-        /* First, try to load from cache. */
-        if ($this->_loadCache('api')) {
+        if (isset($this->_apis) ||
+            ($this->_apis = $this->_loadCache('apis'))) {
             return;
         }
 
@@ -601,13 +650,13 @@ class Horde_Registry
             $status[] = 'admin';
         }
 
-        $this->_cache['api'] = array();
+        $this->_apis = array();
 
         foreach (array_keys($this->applications) as $app) {
             if (in_array($this->applications[$app]['status'], $status)) {
                 try {
                     $api = $this->getApiInstance($app, 'api');
-                    $this->_cache['api'][$app] = array(
+                    $this->_apis[$app] = array(
                         'api' => array_diff(get_class_methods($api), array('__construct'), $api->disabled),
                         'links' => $api->links,
                         'noperms' => $api->noPerms
@@ -618,7 +667,7 @@ class Horde_Registry
             }
         }
 
-        $this->_savecache['api'] = true;
+        $this->_saveCache('apis', $this->_api);
     }
 
     /**
@@ -632,8 +681,8 @@ class Horde_Registry
      */
     public function getApiInstance($app, $type)
     {
-        if (isset($this->_cache['ob'][$app][$type])) {
-            return $this->_cache['ob'][$app][$type];
+        if (isset($this->_obCache[$app][$type])) {
+            return $this->_obCache[$app][$type];
         }
 
         $cname = Horde_String::ucfirst($type);
@@ -645,15 +694,16 @@ class Horde_Registry
         if (file_exists($path)) {
             include_once $path;
         } else {
-            $classname = 'Horde_Registry_' . $cname;
+            $classname = __CLASS__ . '_' . $cname;
         }
 
         if (!class_exists($classname, false)) {
             throw new Horde_Exception("$app does not have an API");
         }
 
-        $this->_cache['ob'][$app][$type] = new $classname();
-        return $this->_cache['ob'][$app][$type];
+        $this->_obCache[$app][$type] = new $classname();
+
+        return $this->_obCache[$app][$type];
     }
 
     /**
@@ -711,16 +761,18 @@ class Horde_Registry
      */
     public function listAPIs()
     {
-        if (empty($this->_apis)) {
-            if (!empty($this->_cache['interfaces'])) {
-                foreach (array_keys($this->_cache['interfaces']) as $interface) {
-                    list($api,) = explode('/', $interface, 2);
-                    $this->_apis[$api] = true;
-                }
+        if (empty($this->_apiList) && !empty($this->_interfaces)) {
+            $apis = array();
+
+            foreach (array_keys($this->_interfaces) as $interface) {
+                list($api,) = explode('/', $interface, 2);
+                $apis[$api] = true;
             }
+
+            $this->_apiList = array_keys($apis);
         }
 
-        return array_keys($this->_apis);
+        return $this->_apiList;
     }
 
     /**
@@ -736,7 +788,7 @@ class Horde_Registry
     {
         $methods = array();
 
-        $this->_loadApiCache();
+        $this->_loadApis();
 
         foreach (array_keys($this->applications) as $app) {
             if (isset($this->applications[$app]['provides'])) {
@@ -744,17 +796,17 @@ class Horde_Registry
                 if (!is_array($provides)) {
                     $provides = array($provides);
                 }
+
                 foreach ($provides as $method) {
                     if (strpos($method, '/') !== false) {
                         if (is_null($api) ||
                             (substr($method, 0, strlen($api)) == $api)) {
                             $methods[$method] = true;
                         }
-                    } elseif (is_null($api) || ($method == $api)) {
-                        if (isset($this->_cache['api'][$app])) {
-                            foreach ($this->_cache['api'][$app]['api'] as $service) {
-                                $methods[$method . '/' . $service] = true;
-                            }
+                    } elseif (isset($this->_apis[$app]) &&
+                              (is_null($api) || ($method == $api))) {
+                        foreach ($this->_apis[$app]['api'] as $service) {
+                            $methods[$method . '/' . $service] = true;
                         }
                     }
                 }
@@ -774,9 +826,9 @@ class Horde_Registry
      */
     public function hasInterface($interface)
     {
-        return !empty($this->_cache['interfaces'][$interface]) ?
-            $this->_cache['interfaces'][$interface] :
-            false;
+        return !empty($this->_interfaces[$interface])
+            ? $this->_interfaces[$interface]
+            : false;
     }
 
     /**
@@ -792,10 +844,10 @@ class Horde_Registry
     {
         if (is_null($app)) {
             list($interface, $call) = explode('/', $method, 2);
-            if (!empty($this->_cache['interfaces'][$method])) {
-                $app = $this->_cache['interfaces'][$method];
-            } elseif (!empty($this->_cache['interfaces'][$interface])) {
-                $app = $this->_cache['interfaces'][$interface];
+            if (!empty($this->_interfaces[$method])) {
+                $app = $this->_interfaces[$method];
+            } elseif (!empty($this->_interfaces[$interface])) {
+                $app = $this->_interfaces[$interface];
             } else {
                 return false;
             }
@@ -803,9 +855,9 @@ class Horde_Registry
             $call = $method;
         }
 
-        $this->_loadApiCache();
+        $this->_loadApis();
 
-        return (isset($this->_cache['api'][$app]) && in_array($call, $this->_cache['api'][$app]['api']))
+        return (isset($this->_apis[$app]) && in_array($call, $this->_apis[$app]['api']))
             ? $app
             : false;
     }
@@ -825,7 +877,9 @@ class Horde_Registry
         } catch (Horde_Exception $e) {
             return false;
         }
-        return (method_exists($appob, $method) && !in_array($method, $appob->disabled));
+
+        return (method_exists($appob, $method) &&
+                !in_array($method, $appob->disabled));
     }
 
     /**
@@ -844,10 +898,10 @@ class Horde_Registry
     {
         list($interface, $call) = explode('/', $method, 2);
 
-        if (!empty($this->_cache['interfaces'][$method])) {
-            $app = $this->_cache['interfaces'][$method];
-        } elseif (!empty($this->_cache['interfaces'][$interface])) {
-            $app = $this->_cache['interfaces'][$interface];
+        if (!empty($this->_interfaces[$method])) {
+            $app = $this->_interfaces[$method];
+        } elseif (!empty($this->_interfaces[$interface])) {
+            $app = $this->_interfaces[$interface];
         } else {
             throw new Horde_Exception('The method "' . $method . '" is not defined in the Horde Registry.');
         }
@@ -890,13 +944,10 @@ class Horde_Registry
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
-        $pushed = $this->pushApp($app, array('check_perms' => !in_array($call, $this->_cache['api'][$app]['noperms']) && empty($options['noperms'])));
+        $pushed = $this->pushApp($app, array('check_perms' => !in_array($call, $this->_apis[$app]['noperms']) && empty($options['noperms'])));
 
         try {
             $result = call_user_func_array(array($api, $call), $args);
-            if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($result);
-            }
         } catch (Horde_Exception $e) {
             $result = $e;
         }
@@ -979,10 +1030,10 @@ class Horde_Registry
     {
         list($interface, $call) = explode('/', $method, 2);
 
-        if (!empty($this->_cache['interfaces'][$method])) {
-            $app = $this->_cache['interfaces'][$method];
-        } elseif (!empty($this->_cache['interfaces'][$interface])) {
-            $app = $this->_cache['interfaces'][$interface];
+        if (!empty($this->_interfaces[$method])) {
+            $app = $this->_interfaces[$method];
+        } elseif (!empty($this->_interfaces[$interface])) {
+            $app = $this->_interfaces[$interface];
         } else {
             throw new Horde_Exception('The method "' . $method . '" is not defined in the Horde Registry.');
         }
@@ -1004,13 +1055,13 @@ class Horde_Registry
     public function linkByPackage($app, $call, $args = array(), $extra = '')
     {
         /* Make sure the link is defined. */
-        $this->_loadApiCache();
-        if (empty($this->_cache['api'][$app]['links'][$call])) {
+        $this->_loadApis();
+        if (empty($this->_apis[$app]['links'][$call])) {
             throw new Horde_Exception('The link ' . $call . ' is not defined in ' . $app . '\'s API.');
         }
 
         /* Initial link value. */
-        $link = $this->_cache['api'][$app]['links'][$call];
+        $link = $this->_apis[$app]['links'][$call];
 
         /* Fill in html-encoded arguments. */
         foreach ($args as $key => $val) {
@@ -1318,20 +1369,20 @@ class Horde_Registry
      * Reads the configuration values for the given application and imports
      * them into the global $conf variable.
      *
-     * @param string $app  The name of the application.
+     * @param string $app  The application name.
      */
     public function importConfig($app)
     {
-        if (($app != 'horde') && !$this->_loadCache('conf-' . $app)) {
-            $appConfig = Horde::loadConfiguration('conf.php', 'conf', $app);
-            if (empty($appConfig)) {
-                $appConfig = array();
-            }
-            $this->_cache['conf-' . $app] = $appConfig;
-            $this->_savecache['conf-' . $app] = true;
+        if (!isset($this->_confCache[$app])) {
+            $config = Horde::loadConfiguration('conf.php', 'conf', $app);
+            $this->_confCache[$app] = empty($config)
+                ? array()
+                : $config;
         }
 
-        $GLOBALS['conf'] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $this->_cache['conf-' . $app]);
+        $GLOBALS['conf'] = ($app == 'horde')
+            ? $this->_confCache['horde']
+            : Horde_Array::array_merge_recursive_overwrite($this->_confCache['horde'], $this->_confCache[$app]);
     }
 
     /**
@@ -1527,20 +1578,15 @@ class Horde_Registry
      *
      * @param string $name  Cache variable name.
      *
-     * @return boolean  True if value loaded from cache.
+     * @return mixed  The cached data or false if no data retrieved.
      */
     protected function _loadCache($name)
     {
-        if (isset($this->_cache[$name])) {
-            return true;
-        }
-
         if ($id = $this->_getCacheId($name)) {
             $result = $GLOBALS['injector']->getInstance('Horde_Cache')->get($id, 86400);
             if ($result !== false) {
-                $this->_cache[$name] = unserialize($result);
-                Horde::logMessage('Horde_Registry: retrieved ' . $name . ' with cache ID ' . $id, 'DEBUG');
-                return true;
+                Horde::logMessage(__CLASS__ . ': retrieved ' . $name . ' with cache ID ' . $id, 'DEBUG');
+                return unserialize($result);
             }
         }
 
@@ -1551,22 +1597,48 @@ class Horde_Registry
      * Get the cache storage ID for a particular cache name.
      *
      * @param string $name  Cache variable name.
-     * @param string $md5   Append MD5 value?
+     * @param string $md5   Use this MD5 value instead of session MD5 value.
      *
      * @return mixed  The cache ID or false if cache entry doesn't exist in
      *                the session.
      */
-    protected function _getCacheId($name, $md5 = true)
+    protected function _getCacheId($name, $md5 = null)
     {
-        $id = 'horde_registry_' . $name . '|' . $this->_regmtime;
+        $id = 'horde_registry|' . $name . '|' . $this->_regmtime;
 
-        if (!$md5) {
-            return $id;
-        } elseif ($hash = $GLOBALS['session']->get('horde', 'registry/' . $name)) {
-            return $id . '|' . $hash;
+        if (!is_null($md5) ||
+            ($md5 = $GLOBALS['session']->get('horde', 'registry/' . $name))) {
+            return $id . '|' . $md5;
         }
 
         return false;
+    }
+
+    /**
+     * Save a registry cache entry.
+     *
+     * @param string $key  The cache key.
+     * @param mixed $data  The cache data. If null, deletes the item.
+     */
+    protected function _saveCache($key, $data = null)
+    {
+        $ob = $GLOBALS['injector']->getInstance('Horde_Cache');
+
+        if (is_null($data)) {
+            if ($id = $this->_getCacheId($key)) {
+                // Entry has been deleted.
+                $ob->expire($id);
+            }
+        } else {
+            // Entry has been updated.
+            $data = serialize($data);
+            $md5sum = hash('md5', $data);
+            $GLOBALS['session']->set('horde', 'registry/' . $key, $md5sum);
+            $id = $this->_getCacheId($key, $md5sum);
+            if ($ob->set($id, $data, 86400)) {
+                Horde::logMessage(__CLASS__ . ': stored ' . $key . ' with cache ID ' . $id, 'DEBUG');
+            }
+        }
     }
 
     /**
@@ -1988,6 +2060,8 @@ class Horde_Registry
      * 'change' - (boolean) Whether to request that the user change their
      *            password.
      *            DEFAULT: No
+     * 'language' - (string) The preferred language.
+     *              DEFAULT: null
      * </pre>
      */
     public function setAuth($authId, $credentials, array $options = array())
@@ -2023,7 +2097,7 @@ class Horde_Registry
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
-        $this->setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);
+        $this->setLanguageEnvironment(isset($options['language']) ? $options['language'] : null, $app);
     }
 
     /**
@@ -2177,22 +2251,24 @@ class Horde_Registry
 
         $GLOBALS['session']->set('horde', 'language', $lang);
 
+        $changed = false;
         if (isset($GLOBALS['language'])) {
             if ($GLOBALS['language'] == $lang) {
                 return;
             }
-            $this->clearCache();
-            $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
-            $GLOBALS['conf'] = &$this->_cache['conf-horde'];
-            $this->importConfig($this->getApp());
+            $changed = true;
         }
         $GLOBALS['language'] = $lang;
 
         $lang_charset = $lang . '.UTF-8';
         setlocale(LC_ALL, $lang_charset);
-        @putenv('LC_ALL=' . $lang_charset);
-        @putenv('LANG=' . $lang_charset);
-        @putenv('LANGUAGE=' . $lang_charset);
+        putenv('LC_ALL=' . $lang_charset);
+        putenv('LANG=' . $lang_charset);
+        putenv('LANGUAGE=' . $lang_charset);
+
+        if ($changed) {
+            $this->rebuild();
+        }
     }
 
     /**

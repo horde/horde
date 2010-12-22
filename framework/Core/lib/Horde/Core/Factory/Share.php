@@ -8,7 +8,7 @@
  */
 
 /**
- * A Horde_Injector:: based Horde_Share:: factory.
+ * A Horde_Injector:: based Horde_Share factory.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -39,7 +39,7 @@ class Horde_Core_Factory_Share
     }
 
     /**
-     * Return the Horde_Share:: instance.
+     * Returns the Horde_Share_Base instance.
      *
      * @param string $app     The application scope to use, if not the current
      *                        app.

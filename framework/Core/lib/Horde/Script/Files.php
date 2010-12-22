@@ -32,6 +32,13 @@ class Horde_Script_Files
     );
 
     /**
+     * TODO
+     *
+     * @var boolean
+     */
+    protected $_full = false;
+
+    /**
      * The list of files we have already included.
      *
      * @var array
@@ -49,6 +56,9 @@ class Horde_Script_Files
      */
     public function add($file, $app = null, $full = false)
     {
+        if ($full && !$this->_full) {
+            $this->_full = true;
+        }
         if (($this->_add($file, $app, $full) === false) ||
             !Horde::contentSent()) {
             return;
@@ -67,8 +77,9 @@ class Horde_Script_Files
      */
     public function addExternal($url, $app = null)
     {
-        // Force external scripts under Horde scope to better avoid duplicates,
-        // and to ensure they are loaded before other application specific files
+        // Force external scripts under Horde scope to better avoid
+        // duplicates, and to ensure they are loaded before other application
+        // specific files
         $app = 'horde';
 
         // Don't include scripts multiple times.
@@ -170,7 +181,7 @@ class Horde_Script_Files
             if (!isset($this->_included['horde']['prototype.js'])) {
                 $old = $this->_files['horde'];
                 $this->_files['horde'] = array();
-                $this->_add('prototype.js', 'horde', false);
+                $this->_add('prototype.js', 'horde', $this->_full);
                 $this->_files['horde'] = array_merge($this->_files['horde'], $old);
             }
 

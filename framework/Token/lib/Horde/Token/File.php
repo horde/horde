@@ -30,19 +30,15 @@ class Horde_Token_File extends Horde_Token_Base
     /**
      * Constructor.
      *
+     * @see Horde_Token_Base::__construct() for more parameters.
+     *
      * @param array $params  Optional parameters:
-     * <pre>
-     * 'timeout' - (integer) The period (in seconds) after which an id is
-     *             purged.
-     *             DEFAULT: 86400 (24 hours)
-     * 'token_dir' - (string)  The directory where to keep token files.
-     *               DEFAULT: System temporary directory
-     * </pre>
+     * - token_dir (string): The directory where to keep token files.
+     *                       DEFAULT: System temporary directory
      */
     public function __construct($params = array())
     {
         $params = array_merge(array(
-            'timeout' => 86400,
             'token_dir' => Horde_Util::getTempDir()
         ), $params);
 
@@ -97,10 +93,11 @@ class Horde_Token_File extends Horde_Token_Base
         $this->_connect();
 
         /* Find already used IDs. */
+        $token = base64_encode($tokenID);
         $fileContents = file($this->_params['token_dir'] . '/conn_' . $this->_encodeRemoteAddress());
         if ($fileContents) {
             for ($i = 0, $iMax = count($fileContents); $i < $iMax; ++$i) {
-                if (chop($fileContents[$i]) == $tokenID) {
+                if (chop($fileContents[$i]) == $token) {
                     return true;
                 }
             }
@@ -121,7 +118,8 @@ class Horde_Token_File extends Horde_Token_Base
         $this->_connect();
 
         /* Write the entry. */
-        fwrite($this->_fd, $tokenID . "\n");
+        $token = base64_encode($tokenID);
+        fwrite($this->_fd, $token . "\n");
 
         $this->_disconnect();
     }

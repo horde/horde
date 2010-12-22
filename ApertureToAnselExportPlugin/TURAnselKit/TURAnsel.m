@@ -329,8 +329,20 @@
                                      withParams: params
                                       withOrder: order];
     if (results) {
-        NSDictionary *galleries = [results objectForKey: (id)kWSMethodInvocationResult];
-        for (NSString *gal in galleries) {
+        NSObject *galleries = [results objectForKey: (id)kWSMethodInvocationResult];
+        NSObject *g;
+
+        // php's xmlrpc can return either a struct (NSDictionary) or an array,
+        // depending on it's mood, or the lunar cycle, or sunspots or...
+        // Compile warnings here are normal, since we don't know ahead of time
+        // if we will have a NSArray or NSDictionary
+        if (![galleries respondsToSelector:@selector(allValues)]) {
+            // php xmlrpc returned an array
+            g = galleries;
+        } else {
+            g = [galleries allValues];
+        }
+        for (NSObject *gal in g) {
             TURAnselGallery *theGallery = [[TURAnselGallery alloc] initWithObject: gal
                                                                        controller: self];
             [theGallery setAnselController: self];

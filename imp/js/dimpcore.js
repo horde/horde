@@ -222,6 +222,10 @@ var DimpCore = {
         }
 
         msgs.find(function(m) {
+            if (!Object.isString(m.message)) {
+                return;
+            }
+
             switch (m.type) {
             case 'horde.ajaxtimeout':
                 this.logout(m.message);
@@ -471,7 +475,7 @@ var DimpCore = {
 
     reloadMessage: function(params)
     {
-        if (typeof DimpFullmessage != 'undefined') {
+        if (typeof DimpMessage != 'undefined') {
             window.location = this.addURLParam(document.location.href, params);
         } else {
             DimpBase.loadPreview(null, params);

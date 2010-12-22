@@ -7,49 +7,40 @@
  *
  * @author Jason M. Felice <jason.m.felice@gmail.com>
  */
-
 require_once dirname(__FILE__) . '/lib/Application.php';
-$hermes = Horde_Registry::appInit('hermes');
-require_once HERMES_BASE . '/lib/Forms/Deliverable.php';
+Horde_Registry::appInit('hermes');
 
 $vars = Horde_Variables::getDefaultVariables();
 
 switch ($vars->get('formname')) {
 case 'deliverableform':
-    $form = new DeliverableForm($vars);
+    $form = new Hermes_Form_Deliverable($vars);
     $form->validate($vars);
     if ($form->isValid()) {
-        $form->getInfo($vars, $info);
-        if (!empty($info['deliverable_id'])) {
-            $info['id'] = $info['deliverable_id'];
-            if (empty($info['parent'])) {
-                $origdeliv = $hermes->driver->getDeliverableByID($info['id']);
-                if (!is_a($origdeliv, 'PEAR_Error')) {
+        try {
+            $form->getInfo($vars, $info);
+            if (!empty($info['deliverable_id'])) {
+                $info['id'] = $info['deliverable_id'];
+                if (empty($info['parent'])) {
+                    $origdeliv = $GLOBALS['injector']->getInstance('Hermes_Driver')->getDeliverableByID($info['id']);
                     $info['parent'] = $origdeliv['parent'];
                 }
             }
-        }
-        $res = $hermes->driver->updateDeliverable($info);
-        if (is_a($res, 'PEAR_Error')) {
-            $notification->push(sprintf(_("Error saving deliverable: %s"),
-                                        $res->getMessage()),
-                                'horde.error');
-        } else {
-            $notification->push(_("Deliverable saved successfully."),
-                                'horde.success');
+            $res = $GLOBALS['injector']->getInstance('Hermes_Driver')->updateDeliverable($info);
+            $notification->push(_("Deliverable saved successfully."), 'horde.success');
             $vars = new Horde_Variables(array('client_id' => $vars->get('client_id')));
+        } catch (Exception $e) {
+            $notification->push(sprintf(_("Error saving deliverable: %s"), $res->getMessage()), 'horde.error');
         }
     }
     break;
 
 case 'deletedeliverable':
-    $res = $hermes->driver->deleteDeliverable($vars->get('delete'));
-    if (is_a($res, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Error deleting deliverable: %s"),
-                                    $res->getMessage()), 'horde.error');
-    } else {
-        $notification->push(_("Deliverable successfully deleted."),
-                            'horde.success');
+    try {
+        $res = $GLOBALS['injector']->getInstance('Hermes_Driver')->deleteDeliverable($vars->get('delete'));
+        $notification->push(_("Deliverable successfully deleted."), 'horde.success');
+    } catch (Exception $e) {
+        $notification->push(sprintf(_("Error deleting deliverable: %s"), $res->getMessage()), 'horde.error');
     }
     break;
 }
@@ -61,33 +52,24 @@ require HERMES_TEMPLATES . '/menu.inc';
 $renderer = new Horde_Form_Renderer();
 
 if (!$vars->exists('deliverable_id') && !$vars->exists('new')) {
-    $clientSelector = new DeliverableClientSelector($vars);
+    $clientSelector = new Hermes_Form_Deliverable_ClientSelector($vars);
     $clientSelector->renderActive($renderer, $vars, 'deliverables.php', 'post');
 }
 
 if ($vars->exists('deliverable_id') || $vars->exists('new')) {
     if ($vars->exists('deliverable_id')) {
-        $deliverable = $hermes->driver->getDeliverableByID($vars->get('deliverable_id'));
-        if (is_a($deliverable, 'PEAR_Error')) {
-            throw new Hermes_Exception($deliverable);
-        }
-
+        $deliverable = $GLOBALS['injector']->getInstance('Hermes_Driver')->getDeliverableByID($vars->get('deliverable_id'));
         foreach ($deliverable as $name => $value) {
             $vars->set($name, $value);
         }
     }
-
-    $form = new DeliverableForm($vars);
+    $form = new Hermes_Form_Deliverable($vars);
     $form->renderActive($renderer, $vars, 'deliverables.php', 'post');
 } elseif ($vars->exists('client_id')) {
     $clients = Hermes::listClients();
     $clientname = $clients[$vars->get('client_id')];
 
-    $deliverables = $hermes->driver->listDeliverables(array('client_id' => $vars->get('client_id')));
-    if (is_a($deliverables, 'PEAR_Error')) {
-        throw new Hermes_Exception($deliverables);
-    }
-
+    $deliverables = $GLOBALS['injector']->getInstance('Hermes_Driver')->listDeliverables(array('client_id' => $vars->get('client_id')));
     $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('deliverables', 'Javascript');
     $tree->setOption(array('class'       => 'item',
                            'alternate'   => true));

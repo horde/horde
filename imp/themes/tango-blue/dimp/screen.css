@@ -18,3 +18,7 @@
 #ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }
+
+span.dimpactionResume {
+    background-image: url("../graphics/mail_draft.png");
+}

@@ -176,17 +176,17 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msg['from'] = Horde_String::truncate($getfrom['from'], 50);
 
     /* Get flag information. */
-    $flag_parse = $injector->getInstance('IMP_Imap_Flags')->parse(array(
+    $flag_parse = $injector->getInstance('IMP_Flags')->parse(array(
         'flags' => $ob['flags'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => 'UTF-8')),
-        'priority' => $ob['headers']
+        'headers' => $ob['headers'],
+        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => 'UTF-8'))
     ));
 
     foreach ($flag_parse as $val) {
-        if (isset($val['abbrev'])) {
-            $msg['status'] .= $val['abbrev'];
-        } elseif ($val['type'] == 'imapp') {
-            $msg['subject'] = '*' . Horde_String::truncate($val['label'], 8) . '* ' . $msg['subject'];
+        if ($abbrev = $val->abbreviation) {
+            $msg['status'] .= $abbrev;
+        } elseif ($val instanceof IMP_Flag_User) {
+            $msg['subject'] = '*' . Horde_String::truncate($val->label, 8) . '* ' . $msg['subject'];
         }
     }
 

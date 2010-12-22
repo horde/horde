@@ -281,8 +281,8 @@ var DimpCompose = {
 
             case 'sendMessage':
                 if (this.is_popup && DimpCore.base) {
-                    if (d.reply_type) {
-                        DimpCore.base.DimpBase.flag(d.reply_type == 'forward' ? '$forwarded' : '\\answered', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
+                    if (d.flag) {
+                        DimpCore.base.DimpBase.flagCallback(d);
                     }
 
                     if (d.mailbox) {
@@ -294,7 +294,7 @@ var DimpCompose = {
                     }
 
                     if (d.log) {
-                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.reply_folder });
+                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
@@ -512,7 +512,7 @@ var DimpCompose = {
         }
     },
 
-    // opts = auto, focus, fwd_list, noupdate, show_editor
+    // opts = auto, focus, fwd_list, noupdate, priority, show_editor
     fillForm: function(msg, header, opts)
     {
         if (!document.loaded) {
@@ -547,6 +547,14 @@ var DimpCompose = {
             }
         }
         $('subject').setValue(header.subject);
+
+        if (DIMP.conf_compose.priority && opts.priority) {
+            this.setPopdownLabel('p', opts.priority);
+        }
+
+        if (opts.readreceipt && $('request_read_receipt')) {
+            $('request_read_receipt').setValue(true);
+        }
 
         this.processFwdList(opts.fwd_list);
 

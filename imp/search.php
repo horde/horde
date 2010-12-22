@@ -148,7 +148,7 @@ if (!$browser->hasFeature('javascript') ||
     exit;
 }
 
-$imp_flags = $injector->getInstance('IMP_Imap_Flags');
+$imp_flags = $injector->getInstance('IMP_Flags');
 $imp_search = $injector->getInstance('IMP_Search');
 $vars = Horde_Variables::getDefaultVariables();
 
@@ -168,7 +168,10 @@ if (isset($vars->search_mailbox)) {
     $search_mailbox = array('INBOX');
 }
 
-$flist = $imp_flags->getFlagList($default_mailbox);
+$flist = $imp_flags->getList(array(
+    'imap' => true,
+    'mailbox' => $default_mailbox
+));
 
 /* Generate the search query if 'criteria_form' is present in the form
  * data. */
@@ -433,12 +436,12 @@ $t->set('filterlist', $f_list);
 
 /* Create the flag list. */
 $flag_set = array();
-foreach ($flist['set'] as $val) {
+foreach ($flist as $val) {
     $flag_set[] = array(
-        'val' => rawurlencode($val['f']),
-        'label' => htmlspecialchars($val['l'])
+        'val' => rawurlencode($val->form_set),
+        'label' => htmlspecialchars($val->label)
     );
-    $types[rawurlencode($val['f'])] = 'flag';
+    $types[rawurlencode($val->form_set)] = 'flag';
 }
 $t->set('flist', $flag_set);
 

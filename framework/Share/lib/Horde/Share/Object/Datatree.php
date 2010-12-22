@@ -11,6 +11,11 @@
 class Horde_Share_Object_Datatree extends Horde_Share_Object
 {
     /**
+     * Serializable version.
+     */
+    const VERSION = 1;
+
+    /**
      * The actual storage object that holds the data.
      *
      * @var mixed
@@ -29,6 +34,41 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
     }
 
     /**
+     * Serialize this object.
+     *
+     * @return string  The serialized data.
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            self::VERSION,
+            $this->datatreeObject,
+            $this->_shareCallback,
+        ));
+    }
+
+    /**
+     * Reconstruct the object from serialized data.
+     *
+     * @param string $data  The serialized data.
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->datatreeObject = $data[1];
+        if (empty($data[2])) {
+            throw new Exception('Missing callback for Horde_Share_Object unserializing');
+        }
+        $this->_shareCallback = $data[2];
+    }
+
+    /**
      * Sets an attribute value in this object.
      *
      * @param string $attribute  The attribute to set.
@@ -37,7 +77,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      * @return mixed  True if setting the attribute did succeed, a PEAR_Error
      *                otherwise.
      */
-    public function _set($attribute, $value)
+    public function set($attribute, $value)
     {
         return $this->datatreeObject->set($attribute, $value);
     }
@@ -50,7 +90,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      *
      * @return mixed  The value of the attribute, or an empty string.
      */
-    public function _get($attribute)
+    public function get($attribute)
     {
         return $this->datatreeObject->get($attribute);
     }
@@ -60,7 +100,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      *
      * @return string  The share's ID.
      */
-    protected function _getId()
+    public function getId()
     {
         return $this->datatreeObject->getId();
     }
@@ -70,7 +110,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      *
      * @return string  The share's name.
      */
-    protected function _getName()
+    public function getName()
     {
         return $this->datatreeObject->getName();
     }
@@ -110,7 +150,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      *
      * @return boolean  True if no error occured, PEAR_Error otherwise
      */
-    public function setPermission(&$perm, $update = true)
+    public function setPermission($perm, $update = true)
     {
         $this->datatreeObject->data['perm'] = $perm->getData();
         if ($update) {

@@ -952,7 +952,7 @@ var ViewPort = Class.create({
         } else {
             vr.each(this.opts.content.fire.bind(this.opts.content, 'ViewPort:clear'));
             vr.invoke('remove');
-            c.update(this.empty_msg);
+            c.update(this.empty_msg.clone(true));
         }
 
         this.scroller.updateDisplay();
@@ -1184,7 +1184,7 @@ var ViewPort = Class.create({
             sp.lines = this.page_size;
             sp.max = this.getPageSize('splitmax');
             sp.orig = this.page_size;
-            sp.pos = this.opts.content.positionedOffset()[1];
+            sp.pos = this.opts.content.viewportOffset()[1];
         }
 
         this.opts.container.fire('ViewPort:splitBarStart', this.pane_mode);
@@ -1207,7 +1207,7 @@ var ViewPort = Class.create({
 
         case 'vert':
             drag = DragDrop.Drags.getDrag(e.element());
-            sp.vert.width = drag.lastCoord[0];
+            sp.vert.width = drag.lastCoord[0] - this.opts.content.viewportOffset()[0];
             this.opts.content.setStyle({ width: sp.vert.width + 'px' });
             change = drag.wasDragged;
             break;

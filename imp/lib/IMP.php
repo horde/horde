@@ -17,15 +17,7 @@
 class IMP
 {
     /* Encrypt constants. */
-    const ENCRYPT_NONE = 1;
-    const PGP_ENCRYPT = 2;
-    const PGP_SIGN = 3;
-    const PGP_SIGNENC = 4;
-    const SMIME_ENCRYPT = 5;
-    const SMIME_SIGN = 6;
-    const SMIME_SIGNENC = 7;
-    const PGP_SYM_ENCRYPT = 8;
-    const PGP_SYM_SIGNENC = 9;
+    const ENCRYPT_NONE = 'encrypt_none';
 
     /* IMP Mailbox view constants. */
     const MAILBOX_START_FIRSTUNSEEN = 1;
@@ -686,20 +678,11 @@ class IMP
 
         if (!empty($GLOBALS['conf']['gnupg']['path']) &&
             $GLOBALS['prefs']->getValue('use_pgp')) {
-            $enc_opts += array(
-                self::PGP_ENCRYPT => _("PGP Encrypt Message"),
-                self::PGP_SIGN => _("PGP Sign Message"),
-                self::PGP_SIGNENC => _("PGP Sign/Encrypt Message"),
-                self::PGP_SYM_ENCRYPT => _("PGP Encrypt Message with passphrase"),
-                self::PGP_SYM_SIGNENC => _("PGP Sign/Encrypt Message with passphrase")
-            );
+            $enc_opts += $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->encryptList();
         }
+
         if ($GLOBALS['prefs']->getValue('use_smime')) {
-            $enc_opts += array(
-                self::SMIME_ENCRYPT => _("S/MIME Encrypt Message"),
-                self::SMIME_SIGN => _("S/MIME Sign Message"),
-                self::SMIME_SIGNENC => _("S/MIME Sign/Encrypt Message")
-            );
+            $enc_opts += $GLOBALS['injector']->getInstance('IMP_Crypt_Smime')->encryptList();
         }
 
         if ($returnList) {

@@ -415,7 +415,9 @@ class Jonah_Driver_Sql extends Jonah_Driver
         } catch(Horde_Db_Exception $e) {
             throw new Jonah_Exception($e);
         }
-
+        foreach ($results as &$row) {
+            $row['tags'] = $this->readTags($row['id']);
+        }
         return $results;
     }
 

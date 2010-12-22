@@ -9,7 +9,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Vilma
  */
-class Vilma_MailboxDriver_imap extends Vilma_MailboxDriver
+class Vilma_MailboxDriver_Imap extends Vilma_MailboxDriver
 {
     /**
      * An IMAP client.

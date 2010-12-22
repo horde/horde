@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-11-12</date>
- <time>13:50:27</time>
+ <date>2010-12-21</date>
+ <time>23:03:16</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -34,7 +34,8 @@ Application Framework.</description>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add cache support for themes.
+ <notes>
+* Add cache support for themes.
 * Add Horde_Session.
 * Add Horde::addInlineJsVars().
 * Remove Horde::nocacheUrl() and Horde::url() (Ticket #9160).
@@ -548,6 +549,10 @@ Application Framework.</description>
     <min>1.5.4</min>
    </pearinstaller>
    <package>
+    <name>ActiveSync</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Alarm</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -593,6 +598,10 @@ Application Framework.</description>
    </package>
    <package>
     <name>Mime</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Mime_Viewer</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -975,9 +984,10 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-11-12</date>
+   <date>2010-12-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Add cache support for themes.
 * Add Horde_Session.
 * Add Horde::addInlineJsVars().
 * Remove Horde::nocacheUrl() and Horde::url() (Ticket #9160).

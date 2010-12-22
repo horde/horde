@@ -159,7 +159,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      *
      * @return mixed  The value of the attribute, or an empty string.
      */
-    protected function _get($attribute)
+    public function get($attribute)
     {
         if ($attribute == 'owner' || $attribute == 'parents') {
             return $this->data['share_' . $attribute];
@@ -175,9 +175,8 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      *
      * @return unknown
      */
-    protected function _getName()
+    public function getName()
     {
         return '';
     }
-
 }

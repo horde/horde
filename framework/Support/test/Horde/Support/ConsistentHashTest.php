@@ -3,16 +3,20 @@
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2008-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
 /**
- * @group      support
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2008-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
@@ -183,8 +187,7 @@ class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
         // Remove the fixed test value.
         $nodes = array_values($nodes);
         $testindex = array_search('key', $nodes);
-        $tmp = array_splice($nodes, $testindex, 1);
-        $testvalue = array_shift($tmp);
+        array_splice($nodes, $testindex, 1);
 
         foreach ($nodes as $node) {
             $h->add($node);
@@ -197,7 +200,7 @@ class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $expected,
-            $h->getNodes($testvalue, 10));
+            $h->getNodes('key', 10));
     }
 
     public function testFallbackWhenANodeIsRemoved()
@@ -217,8 +220,7 @@ class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
         // Remove the fixed test value.
         $nodes = array_values($nodes);
         $testindex = array_search('key', $nodes);
-        $tmp = array_splice($nodes, $testindex, 1);
-        $testvalue = array_shift($tmp);
+        array_splice($nodes, $testindex, 1);
 
         foreach ($nodes as $node) {
             $h->add($node);

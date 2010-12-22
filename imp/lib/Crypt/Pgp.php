@@ -18,6 +18,38 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /* Name of PGP public key field in addressbook. */
     const PUBKEY_FIELD = 'pgpPublicKey';
 
+    /* Encryption type constants. */
+    const ENCRYPT = 'pgp_encrypt';
+    const SIGN = 'pgp_sign';
+    const SIGNENC = 'pgp_signenc';
+    const SYM_ENCRYPT = 'pgp_sym_enc';
+    const SYM_SIGNENC = 'pgp_syn_sign';
+
+    /**
+     * Return the list of available encryption options for composing.
+     *
+     * @return array  Keys are encryption type constants, values are gettext
+     *                strings describing the encryption type.
+     */
+    public function encryptList()
+    {
+        $ret = array(
+            self::ENCRYPT => _("PGP Encrypt Message")
+        );
+
+        if ($this->getPersonalPrivateKey()) {
+            $ret += array(
+                self::SIGN => _("PGP Sign Message"),
+                self::SIGNENC => _("PGP Sign/Encrypt Message")
+            );
+        }
+
+        return $ret + array(
+            self::SYM_ENCRYPT => _("PGP Encrypt Message with passphrase"),
+            self::SYM_SIGNENC => _("PGP Sign/Encrypt Message with passphrase")
+        );
+    }
+
     /**
      * Generate the personal Public/Private keypair and store in prefs.
      *
@@ -680,8 +712,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         global $session;
 
-        $href = $session[$reload];
-        unset($session[$reload]);
+        $href = $session->retrieve($reload);
+        $session->purge($reload);
+
         echo Horde::wrapInlineScript(array(
             'opener.focus();'.
             'opener.location.href="' . $href . '";',

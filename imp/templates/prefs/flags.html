@@ -12,38 +12,38 @@
 <loop:flags>
   <tr>
    <td>
-<if:flags.imapp>
-<if:flags.locked>
+<if:flags.user>
+<if:locked>
     <tag:flags.label />
-<else:flags.locked>
+<else:locked>
     <input name="<tag:flags.label_name />" value="<tag:flags.label />" />
-</else:flags.locked></if:flags.locked>
-<else:flags.imapp>
+</else:locked></if:locked>
+<else:flags.user>
     <tag:flags.label />
-</else:flags.imapp></if:flags.imapp>
+</else:flags.user></if:flags.user>
    </td>
    <td class="flagicon">
-<if:flags.imapp><else:flags.imapp>
+<if:flags.user><else:flags.user>
     <tag:flags.icon />
-</else:flags.imapp></if:flags.imapp>
+</else:flags.user></if:flags.user>
    </td>
    <td>
-<if:flags.locked><else:flags.locked>
+<if:locked><else:locked>
     <input type="hidden" id="<tag:flags.colorid />" name="<tag:flags.colorid />" value="<tag:flags.color />" />
     <div class="iconImg msgflags flagUser" style="<tag:flags.colorstyle />"></div>
     <a class="flagcolorpicker" href="#"><tag:picker_img /></a>
-<if:flags.flag_del>
+<if:flags.user>
     <a class="flagdelete" href="#"><span class="iconImg deleteImg"></span></a>
-</if:flags.flag_del>
-</else:flags.locked></if:flags.locked>
+</if:flags.user>
+</else:locked></if:locked>
    </td>
   </tr>
 </loop:flags>
  </tbody>
 </table>
 
-<if:userflags_notlocked>
+<if:locked><else:locked>
 <div>
  <input id="new_button" type="button" class="button" value="<gettext>New Flag</gettext>" />
 </div>
-</if:userflags_notlocked>
+</else:locked></if:locked>

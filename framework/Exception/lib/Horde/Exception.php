@@ -16,8 +16,15 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
      */
     class Horde_Exception extends Exception
     {
-
         private $_previous = null;
+
+        /**
+         * Error details that should not be part of the main exception message,
+         * e.g. any additional debugging information.
+         *
+         * @var string
+         */
+        public $details;
 
         /**
          * Construct the exception
@@ -71,5 +78,12 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
      */
     class Horde_Exception extends Exception
     {
+        /**
+         * Error details that should not be part of the main exception message,
+         * e.g. any additional debugging information.
+         *
+         * @var string
+         */
+        public $details;
     }
 }

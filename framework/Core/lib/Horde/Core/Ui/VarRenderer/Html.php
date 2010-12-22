@@ -19,7 +19,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
     protected function _renderVarInputDefault($form, &$var, &$vars)
     {
         return '<strong>Warning:</strong> Unknown variable type ' .
-            @htmlspecialchars($var->getTypeName(), ENT_QUOTES, $this->_charset);
+            @htmlspecialchars($var->getTypeName());
     }
 
     protected function _renderVarInput_number($form, &$var, &$vars)
@@ -34,7 +34,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         if (!empty($linfo['mon_decimal_point'])) {
             $value = str_replace('.', $linfo['mon_decimal_point'], $value);
         }
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="number" size="5" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
@@ -45,18 +45,18 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_int($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="number" size="5" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $this->_getActionScripts($form, $var)
                );
     }
 
     protected function _renderVarInput_octal($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" size="5" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
@@ -67,11 +67,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_intlist($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $this->_getActionScripts($form, $var)
                );
     }
@@ -79,47 +79,47 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
     protected function _renderVarInput_text($form, &$var, &$vars)
     {
         $maxlength = $var->type->getMaxLength();
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" name="%s" id="%s" size="%s" value="%s" %s%s%s />',
                        $varname,
                        $varname,
                        $var->type->getSize(),
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        empty($maxlength) ? '' : ' maxlength="' . $maxlength . '"',
-                       $this->_getActionScripts($form, $var)
+                       $this->_getActionScripts($form, $var)    
                );
     }
 
     protected function _renderVarInput_stringlist($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" size="60" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $this->_getActionScripts($form, $var)
                );
     }
 
     protected function _renderVarInput_stringarray($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" size="60" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars(implode(', ', $var->getValue($vars)), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars(implode(', ', $var->getValue($vars))),
                        $this->_getActionScripts($form, $var)
                );
     }
 
     protected function _renderVarInput_phone($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" name="%s" id="%s" size="15" value="%s" %s%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        $this->_getActionScripts($form, $var)
                );
@@ -132,11 +132,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_ipaddress($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" name="%s" id="%s" size="16" value="%s" %s%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        $this->_getActionScripts($form, $var)
                );
@@ -144,11 +144,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_ip6address($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" name="%s" id="%s" size="40" value="%s" %s%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        $this->_getActionScripts($form, $var)
                );
@@ -156,7 +156,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_file($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="file" size="30" name="%s" id="%s"%s />',
                        $varname,
                        $varname,
@@ -279,7 +279,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
     {
         global $browser;
 
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         $html = sprintf('<textarea id="%s" name="%s" cols="%s" rows="%s"%s%s>%s</textarea>',
                         $varname,
                         $varname,
@@ -287,7 +287,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                         (int)$var->type->getRows(),
                         $this->_getActionScripts($form, $var),
                         $var->isDisabled() ? ' disabled="disabled"' : '',
-                        @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset));
+                        @htmlspecialchars($var->getValue($vars)));
 
         if ($var->type->hasHelper('rte')) {
             $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(
@@ -327,7 +327,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_countedtext($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<textarea name="%s" id="%s" cols="%s" rows="%s"%s%s>%s</textarea>',
                        $varname,
                        $varname,
@@ -335,12 +335,12 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                        (int)$var->type->getRows(),
                        $this->_getActionScripts($form, $var),
                        $var->isDisabled() ? ' disabled="disabled"' : '',
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset));
+                       @htmlspecialchars($var->getValue($vars)));
     }
 
     protected function _renderVarInput_address($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<textarea name="%s" id="%s" cols="%s" rows="%s"%s%s>%s</textarea>',
                        $varname,
                        $varname,
@@ -348,7 +348,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                        (int)$var->type->getRows(),
                        $this->_getActionScripts($form, $var),
                        $var->isDisabled() ? ' disabled="disabled"' : '',
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset));
+                       @htmlspecialchars($var->getValue($vars)));
     }
 
     protected function _renderVarInput_addresslink($form, &$var, &$vars)
@@ -373,27 +373,27 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_date($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $this->_getActionScripts($form, $var));
     }
 
     protected function _renderVarInput_time($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" size="5" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $this->_getActionScripts($form, $var));
     }
 
     protected function _renderVarInput_hourminutesecond($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         $time = $var->type->getTimeParts($var->getValue($vars));
 
         /* Output hours. */
@@ -512,7 +512,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         $html = '';
         $date_parts = array('month', 'day', 'year');
         foreach ($date_parts as $part) {
-            $varname = @htmlspecialchars($var->getVarName() . '[' . $part . ']', ENT_QUOTES, $this->_charset);
+            $varname = @htmlspecialchars($var->getVarName() . '[' . $part . ']');
             $html .= sprintf('<select name="%s" id="%s"%s>%s</select>',
                              $varname,
                              $varname,
@@ -546,14 +546,14 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_sound(&$form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
-        $value = @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
+        $value = @htmlspecialchars($var->getValue($vars));
         $html = '<ul class="sound-list">';
         if (!$var->isRequired()) {
             $html .= '<li><label><input type="radio" id="' . $varname . '" name="' . $varname . '" value=""' . (!$value ? ' checked="checked"' : '') . ' /> ' . Horde_Core_Translation::t("No Sound") . '</label></li>';
         }
         foreach ($var->type->getSounds() as $sound) {
-            $sound = @htmlspecialchars($sound, ENT_QUOTES, $this->_charset);
+            $sound = @htmlspecialchars($sound);
             $html .= '<li><label><input type="radio" id="' . $varname . '" name="' . $varname . '" value="' . $sound . '"' . ($value == $sound ? ' checked="checked"' : '') . ' />' . $sound . '</label>'
                 . ' <embed autostart="false" src="'. $GLOBALS['registry']->get('themesuri', 'horde') . '/sounds/' . $sound . '" /></li>';
         }
@@ -564,7 +564,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
     {
         global $registry, $browser;
 
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         $color = $var->getValue($vars);
         if ($color) {
             $style = ' style="background-color:' . $color . ';color:'
@@ -575,7 +575,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         $html = '<table cellspacing="0"><tr><td>'
             . '<input type="text" size="10" maxlength="7" name="'
             . $varname . '" id="' . $varname . '"' . $style
-            . ' value="' . @htmlspecialchars($color, ENT_QUOTES, $this->_charset)
+            . ' value="' . @htmlspecialchars($color)
             . '" /></td>';
         if ($browser->hasFeature('javascript')) {
             Horde::addScriptFile('colorpicker.js', 'horde');
@@ -591,7 +591,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
     {
         global $registry;
 
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         $instance = $var->type->getProperty('instance');
 
         Horde::addScriptFile('sorter.js', 'horde');
@@ -617,7 +617,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
         Horde::addScriptFile('form_assign.js', 'horde');
 
-        $name = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $name = @htmlspecialchars($var->getVarName());
         $size = $var->type->getSize();
         $width = $var->type->getWidth();
         $lhdr = (bool)$var->type->getHeader(0);
@@ -655,9 +655,9 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         $prompt = $var->type->getPrompt();
         $htmlchars = $var->getOption('htmlchars');
         if (!empty($prompt)) {
-            $prompt = '<option value="">' . ($htmlchars ? $prompt : @htmlspecialchars($prompt, ENT_QUOTES, $this->_charset)) . '</option>';
+            $prompt = '<option value="">' . ($htmlchars ? $prompt : @htmlspecialchars($prompt)) . '</option>';
         }
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<select name="%s" id="%s" %s>%s%s</select>',
                        $varname,
                        $varname,
@@ -669,7 +669,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
     protected function _renderVarInput_mlenum($form, &$var, &$vars)
     {
         $varname = $var->getVarName();
-        $hvarname = @htmlspecialchars($varname, ENT_QUOTES, $this->_charset);
+        $hvarname = @htmlspecialchars($varname);
         $values = $var->getValues();
         $prompts = $var->type->getPrompts();
         $selected = $var->getValue($vars);
@@ -686,7 +686,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         /* Hidden tag to store the current first level. */
         $html = sprintf('<input type="hidden" name="%s[old]" value="%s" %s />',
                         $hvarname,
-                        @htmlspecialchars($selected['1'], ENT_QUOTES, $this->_charset),
+                        @htmlspecialchars($selected['1']),
                         $this->_genID($varname . '[old]'));
 
         /* First level. */
@@ -697,7 +697,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                          'if (this.value) { document.' . $form->getName() . '.formname.value=\'\';' . 'document.' . $form->getName() . '.submit() }',
                          ($var->hasAction() ? ' ' . $this->_genActionScript($form, $var->_action, $varname) : ''));
         if (!empty($prompts)) {
-            $html .= '<option value="">' . @htmlspecialchars($prompts[0], ENT_QUOTES, $this->_charset) . '</option>';
+            $html .= '<option value="">' . @htmlspecialchars($prompts[0]) . '</option>';
         }
         $html .= $this->selectOptions($values_1, $selected['1']);
         $html .= '</select>';
@@ -708,7 +708,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                          $hvarname,
                          ($var->hasAction() ? ' ' . $this->_genActionScript($form, $var->_action, $varname) : ''));
         if (!empty($prompts)) {
-            $html .= '<option value="">' . @htmlspecialchars($prompts[1], ENT_QUOTES, $this->_charset) . '</option>';
+            $html .= '<option value="">' . @htmlspecialchars($prompts[1]) . '</option>';
         }
         $values_2 = array();
         if (!empty($selected['1'])) {
@@ -726,7 +726,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         }
         return sprintf('<select multiple="multiple" size="%s" name="%s[]" %s>%s</select>',
                        (int)$var->type->size,
-                       @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getVarName()),
                        $this->_getActionScripts($form, $var),
                        $this->_multiSelectOptions($values, $selected)) .
             "<br />\n" . Horde_Core_Translation::t("To select multiple items, hold down the Control (PC) or Command (Mac) key while clicking.") . "\n";
@@ -857,49 +857,49 @@ EOT;
 
     protected function _renderVarInput_password($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="password" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($var->getValue($vars)),
                        $this->_getActionScripts($form, $var));
     }
 
     protected function _renderVarInput_emailconfirm($form, &$var, &$vars)
     {
         $email = $var->getValue($vars);
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="email" name="%s[original]" id="%s[original]" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($email['original'], ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($email['original']),
                        $this->_getActionScripts($form, $var)) .
             ' ' . sprintf('<input type="email" name="%s[confirm]" id="%s[confirm]" value="%s"%s />',
                           $varname,
                           $varname,
-                          @htmlspecialchars($email['confirm'], ENT_QUOTES, $this->_charset),
+                          @htmlspecialchars($email['confirm']),
                           $this->_getActionScripts($form, $var));
     }
 
     protected function _renderVarInput_passwordconfirm($form, &$var, &$vars)
     {
         $password = $var->getValue($vars);
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="password" name="%s[original]" id="%s[original]" value="%s"%s />',
                        $varname,
                        $varname,
-                       @htmlspecialchars($password['original'], ENT_QUOTES, $this->_charset),
+                       @htmlspecialchars($password['original']),
                        $this->_getActionScripts($form, $var)) .
             ' ' . sprintf('<input type="password" name="%s[confirm]" id="%s[confirm]" value="%s"%s />',
                           $varname,
                           $varname,
-                          @htmlspecialchars($password['confirm'], ENT_QUOTES, $this->_charset),
+                          @htmlspecialchars($password['confirm']),
                           $this->_getActionScripts($form, $var));
     }
 
     protected function _renderVarInput_boolean($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         $html = '<input type="checkbox" class="checkbox" name="' .  $varname . '"' .
             ' id="' . $varname . '"' . ($var->getValue($vars) ? ' checked="checked"' : '');
         if ($var->hasAction()) {
@@ -911,9 +911,9 @@ EOT;
 
     protected function _renderVarInput_creditcard($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         $html = '<input type="text" name="' . $varname . '" id="' . $varname . '" value="' .
-            @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset) . '"';
+            @htmlspecialchars($var->getValue($vars)) . '"';
         if ($var->hasAction()) {
             $html .= $this->_genActionScript($form, $var->_action,
                                              $var->getVarName());
@@ -941,10 +941,10 @@ EOT;
             </script>
             ';
         $html .= sprintf('<input type="hidden" name="%s" id="%s"%s value="%s">',
-                         @htmlspecialchars($varname, ENT_QUOTES, $this->_charset),
+                         @htmlspecialchars($varname),
                          $fieldId,
                          $this->_getActionScripts($form, $var),
-                         @htmlspecialchars($varvalue, ENT_QUOTES, $this->_charset));
+                         @htmlspecialchars($varvalue));
         if (!empty($varvalue)) {
             $html .= $varvalue;
         }
@@ -963,31 +963,31 @@ EOT;
 
     protected function _renderVarInput_figlet($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" name="%s" id="%s" size="%s" value="%s" />',
                        $varname,
                        $varname,
                        strlen($var->type->getText()),
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset)) .
+                       @htmlspecialchars($var->getValue($vars))) .
             '<br />' . Horde_Core_Translation::t("Enter the letters below:") . '<br />' .
             $this->_renderVarDisplay_figlet($form, $var, $vars);
     }
 
     protected function _renderVarInput_captcha($form, &$var, &$vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         return sprintf('<input type="text" name="%s" id="%s" size="%s" value="%s" />',
                        $varname,
                        $varname,
                        strlen($var->type->getText()),
-                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset)) .
+                       @htmlspecialchars($var->getValue($vars))) .
             '<br />' . Horde_Core_Translation::t("Enter the letters below:") . '<br />' .
             $this->_renderVarDisplay_captcha($form, $var, $vars);
     }
 
     protected function _renderVarDisplayDefault($form, &$var, &$vars)
     {
-        return nl2br(@htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset));
+        return nl2br(@htmlspecialchars($var->getValue($vars)));
     }
 
     protected function _renderVarDisplay_html($form, &$var, &$vars)
@@ -1040,7 +1040,7 @@ EOT;
                 if (!empty($link)) {
                     $link .= ', ';
                 }
-                $link .= Horde::link($mail_link, $addr) . @htmlspecialchars($display_email, ENT_QUOTES, $this->_charset) . '</a>';
+                $link .= Horde::link($mail_link, $addr) . @htmlspecialchars($display_email) . '</a>';
             }
 
             return $link;
@@ -1053,7 +1053,7 @@ EOT;
                                          $email_val);
             }
 
-            return nl2br(@htmlspecialchars($email_val, ENT_QUOTES, $this->_charset));
+            return nl2br(@htmlspecialchars($email_val));
         }
     }
 
@@ -1084,7 +1084,7 @@ EOT;
         if (count($values) == 0) {
             return Horde_Core_Translation::t("No values");
         } elseif (isset($values[$value]) && $value != '') {
-            return @htmlspecialchars($values[$value], ENT_QUOTES, $this->_charset);
+            return @htmlspecialchars($values[$value]);
         }
     }
 
@@ -1094,7 +1094,7 @@ EOT;
         if (count($values) == 0) {
             return Horde_Core_Translation::t("No values");
         } elseif (isset($values[$var->getValue($vars)])) {
-            return @htmlspecialchars($values[$var->getValue($vars)], ENT_QUOTES, $this->_charset);
+            return @htmlspecialchars($values[$var->getValue($vars)]);
         }
     }
 
@@ -1111,7 +1111,7 @@ EOT;
                     $display[] = $name;
                 }
             }
-            return @htmlspecialchars(implode(', ', $display), ENT_QUOTES, $this->_charset);
+            return @htmlspecialchars(implode(', ', $display));
         }
     }
 
@@ -1128,7 +1128,7 @@ EOT;
                     $display[] = $name;
                 }
             }
-            return @htmlspecialchars(implode(', ', $display), ENT_QUOTES, $this->_charset);
+            return @htmlspecialchars(implode(', ', $display));
         }
     }
 
@@ -1165,7 +1165,7 @@ EOT;
         global $registry;
 
         $number = $var->getValue($vars);
-        $html = @htmlspecialchars($number, ENT_QUOTES, $this->_charset);
+        $html = @htmlspecialchars($number);
 
         if ($number && $registry->hasMethod('telephony/dial')) {
             $url = $registry->call('telephony/dial', array($number));
@@ -1304,7 +1304,7 @@ EOT;
             }
         }
 
-        $html = $text ? nl2br(@htmlspecialchars($address, ENT_QUOTES, $this->_charset)) : '';
+        $html = $text ? nl2br(@htmlspecialchars($address)) : '';
         if (!empty($mapurl)) {
             $html .= '&nbsp;&nbsp;' . Horde::link(Horde::externalUrl($mapurl), $desc, null, '_blank') . Horde::img($icon, $desc) . '</a>';
         }
@@ -1388,7 +1388,7 @@ EOT;
 
     protected function _renderVarDisplay_invalid($form, &$var, &$vars)
     {
-        return '<span class="form-error">' . @htmlspecialchars($var->type->message, ENT_QUOTES, $this->_charset) . '</span>';
+        return '<span class="form-error">' . @htmlspecialchars($var->type->message) . '</span>';
     }
 
     protected function _renderVarDisplay_link($form, &$var, &$vars)
@@ -1419,7 +1419,7 @@ EOT;
             if ($i > 0) {
                 $html .= ' | ';
             }
-            $html .= Horde::link($values[$i]['url'], $values[$i]['text'], 'widget', $values[$i]['target'], $values[$i]['onclick'], $values[$i]['title'], $values[$i]['accesskey']) . @htmlspecialchars($values[$i]['text'], ENT_QUOTES, $this->_charset) . '</a>';
+            $html .= Horde::link($values[$i]['url'], $values[$i]['text'], 'widget', $values[$i]['target'], $values[$i]['onclick'], $values[$i]['title'], $values[$i]['accesskey']) . @htmlspecialchars($values[$i]['text']) . '</a>';
         }
 
         return $html;
@@ -1476,7 +1476,7 @@ EOT;
     protected function _renderVarInput_selectFiles($form, &$var, &$vars)
     {
         /* Needed for gollem js calls */
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = @htmlspecialchars($var->getVarName());
         $html = sprintf('<input type="hidden" name="%s" id="%s" value="%s" />',
                         'selectlist_selectid',
                         'selectlist_selectid',
@@ -1508,12 +1508,12 @@ EOT;
                     if ($GLOBALS['registry']->hasMethod('files/getViewLink')) {
                         $filename = basename($filename);
                         $url = $GLOBALS['registry']->call('files/getViewLink', array($dir, $filename));
-                        $filename = Horde::link($url, Horde_Core_Translation::t("Preview"), null, 'form_file_view') . @htmlspecialchars(Horde_Util::realPath($dir . '/' . $filename), ENT_QUOTES, $this->_charset) . '</a>';
+                        $filename = Horde::link($url, Horde_Core_Translation::t("Preview"), null, 'form_file_view') . @htmlspecialchars(Horde_Util::realPath($dir . '/' . $filename)) . '</a>';
                     } else {
                         if (!empty($dir) && ($dir != '.')) {
                             $filename = $dir . '/' . $filename;
                         }
-                        $filename = @htmlspecialchars($filename, ENT_QUOTES, $this->_charset);
+                        $filename = @htmlspecialchars($filename);
                     }
                     $html .= '<li>' . $filename . "</li>\n";
                 }
@@ -1550,11 +1550,11 @@ EOT;
             $result .= ' <option value="';
             $result .= $htmlchars
                 ? $value
-                : @htmlspecialchars($value, ENT_QUOTES, $this->_charset);
+                : @htmlspecialchars($value);
             $result .= '"' . $selected . '>';
             $result .= $htmlchars
                 ? $display
-                : @htmlspecialchars($display, ENT_QUOTES, $this->_charset);
+                : @htmlspecialchars($display);
             $result .= "</option>\n";
         }
 
@@ -1577,7 +1577,7 @@ EOT;
             } else {
                 $selected = '';
             }
-            $result .= " <option value=\"" . @htmlspecialchars($value, ENT_QUOTES, $this->_charset) . "\"$selected>" . @htmlspecialchars($display, ENT_QUOTES, $this->_charset) . "</option>\n";
+            $result .= " <option value=\"" . @htmlspecialchars($value) . "\"$selected>" . @htmlspecialchars($display) . "</option>\n";
         }
 
         return $result;
@@ -1593,15 +1593,15 @@ EOT;
         foreach ($values as $value => $display) {
             $checked = (in_array($value, $checkedValues)) ? ' checked="checked"' : '';
             $result .= sprintf('<input id="%s%s" type="checkbox" class="checkbox" name="%s[]" value="%s"%s%s /><label for="%s%s">&nbsp;%s</label><br />',
-                               @htmlspecialchars($name, ENT_QUOTES, $this->_charset),
+                               @htmlspecialchars($name),
                                $i,
-                               @htmlspecialchars($name, ENT_QUOTES, $this->_charset),
-                               @htmlspecialchars($value, ENT_QUOTES, $this->_charset),
+                               @htmlspecialchars($name),
+                               @htmlspecialchars($value),
                                $checked,
                                $actions,
-                               @htmlspecialchars($name, ENT_QUOTES, $this->_charset),
+                               @htmlspecialchars($name),
                                $i,
-                               @htmlspecialchars($display, ENT_QUOTES, $this->_charset));
+                               @htmlspecialchars($display));
             $i++;
         }
 
@@ -1615,15 +1615,15 @@ EOT;
         foreach ($values as $value => $display) {
             $checked = (!is_null($checkedValue) && $value == $checkedValue) ? ' checked="checked"' : '';
             $result .= sprintf('<input id="%s%s" type="radio" class="checkbox" name="%s" value="%s"%s%s /><label for="%s%s">&nbsp;%s</label><br />',
-                               @htmlspecialchars($name, ENT_QUOTES, $this->_charset),
+                               @htmlspecialchars($name),
                                $i,
-                               @htmlspecialchars($name, ENT_QUOTES, $this->_charset),
-                               @htmlspecialchars($value, ENT_QUOTES, $this->_charset),
+                               @htmlspecialchars($name),
+                               @htmlspecialchars($value),
                                $checked,
                                $actions,
-                               @htmlspecialchars($name, ENT_QUOTES, $this->_charset),
+                               @htmlspecialchars($name),
                                $i,
-                               @htmlspecialchars($display, ENT_QUOTES, $this->_charset));
+                               @htmlspecialchars($display));
             $i++;
         }
 
@@ -1632,7 +1632,7 @@ EOT;
 
     protected function _genID($name, $fulltag = true)
     {
-        $name = @htmlspecialchars($name, ENT_QUOTES, $this->_charset);
+        $name = @htmlspecialchars($name);
         return $fulltag ? 'id="' . $name . '"' : $name;
     }
 

@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-07-10</date>
- <time>10:39:15</time>
+ <date>2010-12-16</date>
+ <time>14:31:38</time>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -21,7 +21,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>* Add Horde_Support_Randomid::.
+ <notes>
+* Add Horde_Support_Randomid::.
  * Add Portuguese numerizer.
  </notes>
  <contents>
@@ -63,6 +64,7 @@
       </dir> <!-- /test/Horde/Support/Numerizer -->
       <file name="AllTests.php" role="test" />
       <file name="ArrayTest.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="BacktraceTest.php" role="test" />
       <file name="CombineStreamTest.php" role="test" />
       <file name="ConsistentHashTest.php" role="test" />
@@ -111,6 +113,7 @@
    <install as="Horde/Support/Numerizer/Locale/Pt.php" name="lib/Horde/Support/Numerizer/Locale/Pt.php" />
    <install as="Horde/Support/AllTests.php" name="test/Horde/Support/AllTests.php" />
    <install as="Horde/Support/ArrayTest.php" name="test/Horde/Support/ArrayTest.php" />
+   <install as="Horde/Support/Autoload.php" name="test/Horde/Support/Autoload.php" />
    <install as="Horde/Support/BacktraceTest.php" name="test/Horde/Support/BacktraceTest.php" />
    <install as="Horde/Support/CombineStreamTest.php" name="test/Horde/Support/CombineStreamTest.php" />
    <install as="Horde/Support/ConsistentHashTest.php" name="test/Horde/Support/ConsistentHashTest.php" />
@@ -149,6 +152,22 @@
 * Initial Horde_Support_Timer object
 * Initial Horde_Support_Uuid object
 * Initial Horde_Support_Numerizer objects
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-12-16</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Add Horde_Support_Randomid::.
+ * Add Portuguese numerizer.
    </notes>
   </release>
  </changelog>

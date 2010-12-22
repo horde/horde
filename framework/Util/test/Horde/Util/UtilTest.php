@@ -1,12 +1,16 @@
 <?php
 /**
+ * Require our basic test case definition
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
  * @package    Util
  * @subpackage UnitTests
  */
-
 class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
 {
     public function testAddParameter()
@@ -112,6 +116,8 @@ class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
         $_SERVER['REQUEST_URI'] = '/horde/path.php/foo/bar?baz';
         $_SERVER['QUERY_STRING'] = 'baz';
         $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+        $_SERVER['REQUEST_URI'] = '/horde/foo/bar?baz';
+        $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
 
         $_SERVER['REQUEST_URI'] = '/horde/';
         $_SERVER['SCRIPT_NAME'] = '/horde/index.php';
@@ -132,5 +138,10 @@ class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
         $_SERVER['REQUEST_URI'] = '/horde/index.php/foo/bar?baz';
         $_SERVER['QUERY_STRING'] = 'baz';
         $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+
+        $_SERVER['REQUEST_URI'] = '/test/42?id=42';
+        $_SERVER['SCRIPT_NAME'] = '/test/index.php';
+        $_SERVER['QUERY_STRING'] = 'id=42&id=42';
+        $this->assertEquals('/42', Horde_Util::getPathInfo());
     }
 }

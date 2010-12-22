@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/Data/csv.php';
-
 /**
  * The Horde_Data_hermes_csv class extends Horde's CSV Data class with
  * Hermes-specific handling.

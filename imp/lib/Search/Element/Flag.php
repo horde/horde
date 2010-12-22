@@ -52,7 +52,8 @@ class IMP_Search_Element_Flag extends IMP_Search_Element
      */
     public function queryText()
     {
-        return sprintf(_("flagged \"%s\""), $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getLabel($this->_data->f, $this->_data->s));
+        $imp_flags = $GLOBALS['injector']->getInstance('IMP_Flags');
+        return sprintf(_("flagged \"%s\""), $imp_flags[$this->_data->f]->getLabel($this->_data->s));
     }
 
 }

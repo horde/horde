@@ -30,17 +30,4 @@
 class Horde_Kolab_Storage_TestCase
 extends PHPUnit_Framework_TestCase
 {
-    protected function runCli()
-    {
-        ob_start();
-        Horde_Kolab_Storage_Cli::main(
-            array(
-                'output' => new Horde_Test_Stub_Cli(),
-                'parser' => array('class' => 'Horde_Test_Stub_Parser')
-            )
-        );
-        $output = ob_get_contents();
-        ob_end_clean();
-        return $output;
-    }
 }

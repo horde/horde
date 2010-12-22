@@ -223,8 +223,7 @@ class IMP_Api extends Horde_Registry_Api
      * @param string $mailbox  If set, returns the list of flags filtered by
      *                         what the mailbox allows.
      *
-     * @return array  See IMP_Imap_Flags::getList() for the output. The
-     *                'f' key will be set.
+     * @return array  A list of IMP_Flag_Base objects.
      */
     public function flagList($mailbox = null)
     {
@@ -232,16 +231,10 @@ class IMP_Api extends Horde_Registry_Api
             return array();
         }
 
-        $opts = array(
-            'fgcolor' => true,
+        return $GLOBALS['injector']->getInstance('IMP_Flags')->getList(array(
             'imap' => true,
-        );
-
-        if (!is_null($mailbox)) {
-            $opts['mailbox'] = $mailbox;
-        }
-
-        return $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList($opts);
+            'mailbox' => $mailbox
+        ));
     }
 
 }

@@ -5,19 +5,28 @@
  * This file defines Hermes's external API interface. Other applications
  * can interact with Hermes through this API.
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+ *
  * @package Hermes
  */
-
 class Hermes_Api extends Horde_Registry_Api
 {
-
+    /**
+     * @TODO
+     *
+     * @param <type> $name
+     * @param <type> $params
+     *
+     * @return <type>
+     */
     public static function getTableMetaData($name, $params)
     {
         switch ($name) {
         case 'hours':
             $emptype = Hermes::getEmployeesType('enum');
             $clients = Hermes::listClients();
-            $hours = $GLOBALS['hermes']->driver->getHours($params);
+            $hours = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours($params);
             $yesno = array(1 => _("Yes"),
                            0 => _("No"));
 
@@ -97,20 +106,22 @@ class Hermes_Api extends Horde_Registry_Api
                                  'columns' => $fColumns)));
 
         default:
-            return PEAR::raiseError(sprintf(_("\"%s\" is not a defined table."),
-                                            $name));
+            throw new Hermes_Exception(sprintf(_("\"%s\" is not a defined table."), $name));
         }
     }
 
+    /**
+     * @TODO
+     *
+     * @param <type> $name
+     * @param <type> $params
+     * @return string
+     */
     public static function getTableData($name, $params)
     {
         switch ($name) {
         case 'hours':
-            $time_data = $GLOBALS['hermes']->driver->getHours($params);
-            if (is_a($time_data, 'PEAR_Error')) {
-                return $time_data;
-            }
-
+            $time_data = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours($params);
             $subtotal_column = null;
             if ($search_mode = $GLOBALS['session']->get('hermes', 'search_mode')) {
                 switch ($search_mode) {
@@ -246,6 +257,15 @@ class Hermes_Api extends Horde_Registry_Api
         return $result;
     }
 
+    /**
+     * @TODO
+     *
+     * @param <type> $table_data
+     * @param <type> $hours
+     * @param <type> $billable_hours
+     * @param <type> $value
+     * @return <type>
+     */
     public static function renderSubtotals(&$table_data, $hours, $billable_hours, $value)
     {
         $billable_pct = ($hours == 0.0) ? 0.0 :
@@ -273,17 +293,19 @@ class Hermes_Api extends Horde_Registry_Api
         return;
     }
 
+    /**
+     * @TODO
+     *
+     * @param <type> $criteria
+     * @return <type>
+     */
     function listCostObjects($criteria)
     {
         if (!$GLOBALS['conf']['time']['deliverables']) {
             return array();
         }
 
-        $deliverables = $GLOBALS['hermes']->driver->listDeliverables($criteria);
-        if (is_a($deliverables, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("An error occurred retrieving deliverables: %s"), $deliverables->getMessage()));
-        }
-
+        $deliverables = $GLOBALS['injector']->getInstance('Hermes_Driver')->listDeliverables($criteria);
         if (empty($criteria['id'])) {
             /* Build heirarchical tree. */
             $levels = array();
@@ -340,31 +362,44 @@ class Hermes_Api extends Horde_Registry_Api
     /**
      * Retrieve list of job types.
      *
-     * @abstract
-     *
      * @param array $criteria  Hash of filter criteria:
      *
      *                      'enabled' => If present, only retrieve enabled
      *                                   or disabled job types.
      *
-     * @return mixed Associative array of job types, or PEAR_Error on failure.
+     * @return array Associative array of job types
      */
     function listJobTypes($criteria = array())
     {
-        return $GLOBALS['hermes']->driver->listJobTypes($criteria);
+        return $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes($criteria);
     }
 
+    /**
+     *
+     * @see Hermes::listClients
+     */
     function listClients()
     {
         return Hermes::listClients();
     }
 
+    /**
+     * @TODO
+     *
+     * @param <type> $date
+     * @param <type> $client
+     * @param <type> $jobType
+     * @param <type> $costObject
+     * @param <type> $hours
+     * @param <type> $billable
+     * @param <type> $description
+     * @param <type> $notes
+     * @return <type>
+     */
     function recordTime($date, $client, $jobType,
                                 $costObject, $hours, $billable = true,
                                 $description = '', $notes = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once 'Date.php';
         require_once HERMES_BASE . '/lib/Forms/Time.php';
 
         $dateobj = new Horde_Date($date);
@@ -388,14 +423,10 @@ class Hermes_Api extends Horde_Registry_Api
         $form->useToken(false);
         if ($form->validate($vars)) {
             $form->getInfo($vars, $info);
-            $result = $GLOBALS['hermes']->driver->enterTime($GLOBALS['registry']->getAuth(), $info);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            } else {
-                return true;
-            }
+            return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
         } else {
-            return PEAR::raiseError(_("Invalid entry: check data and retry."));
+            throw new Hermes_Exception(_("Invalid entry: check data and retry."));
         }
     }
+
 }

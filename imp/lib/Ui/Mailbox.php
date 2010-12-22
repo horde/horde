@@ -157,38 +157,6 @@ class IMP_Ui_Mailbox
     }
 
     /**
-     * Return the icon to use for a given attachment.
-     *
-     * @return string  The mailbox display icon type (attach, encrypt,
-     *                 signed).
-     */
-    public function getAttachmentType($type)
-    {
-        list($primary, $sub) = explode('/', $type, 2);
-        if ($primary == 'multipart') {
-            switch ($sub) {
-            case 'signed':
-                return 'signed';
-
-            case 'encrypted':
-                return 'encrypt';
-
-            case 'alternative':
-            case 'related':
-                /* Treat this as no attachments. */
-                break;
-
-            default:
-                return 'attach';
-            }
-        } elseif ($type == 'application/pkcs7-mime') {
-             return 'encrypt';
-        }
-
-        return '';
-    }
-
-    /**
      * Formats the date header.
      *
      * @param integer $date    The UNIX timestamp.
