@@ -10,7 +10,6 @@
 class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 {
     protected static $skip = false;
-    protected static $pearConf;
     protected static $db;
     protected static $migrator;
     protected static $alarm;
@@ -19,9 +18,6 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        // @todo: remove when we no longer depend on DB.
-        error_reporting(E_ALL);
-
         // @fixme
         $GLOBALS['language'] = 'en_US';
 
@@ -37,13 +33,11 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
             return;
         }
 
-        self::$pearConf = $conf['alarm']['test']['pear'];
-
         $adapter = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($conf['alarm']['test']['horde']['adapter']))));
         $class = 'Horde_Db_Adapter_' . $adapter;
         self::$db = new $class($conf['alarm']['test']['horde']);
 
-        self::$migrator = new Horde_Db_Migration_Migrator(self::$db, null, array('migrationsPath' => dirname(dirname(dirname(dirname(__FILE__)))) . '/migrations'));
+        self::$migrator = new Horde_Db_Migration_Migrator(self::$db, null, array('migrationsPath' => dirname(dirname(dirname(dirname(__FILE__)))) . '/migration/Horde/Alarm'));
         self::$migrator->up();
     }
 
@@ -63,8 +57,8 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        self::$alarm = new Horde_Alarm_Sql(self::$pearConf);
-        self::$alarm->initilize();
+        self::$alarm = new Horde_Alarm_Sql(array('db' => self::$db, 'charset' => 'UTF-8'));
+        self::$alarm->initialize();
         self::$alarm->gc();
     }
 
