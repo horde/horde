@@ -79,7 +79,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      */
     public function set($attribute, $value)
     {
-        return $this->datatreeObject->set($attribute, $value);
+        Horde_Exception_Pear::catchError($this->datatreeObject->set($attribute, $value));
     }
 
     /**
@@ -92,7 +92,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      */
     public function get($attribute)
     {
-        return $this->datatreeObject->get($attribute);
+        return Horde_Exception_Pear::catchError($this->datatreeObject->get($attribute));
     }
 
     /**
@@ -102,7 +102,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      */
     public function getId()
     {
-        return $this->datatreeObject->getId();
+        return Horde_Exception_Pear::catchError($this->datatreeObject->getId());
     }
 
     /**
@@ -112,7 +112,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      */
     public function getName()
     {
-        return $this->datatreeObject->getName();
+        return Horde_Exception_Pear::catchError($this->datatreeObject->getName());
     }
 
     /**
@@ -120,7 +120,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      */
     protected function _save()
     {
-        return $this->datatreeObject->save();
+        Horde_Exception_Pear::catchError($this->datatreeObject->save());
     }
 
     /**
@@ -154,25 +154,22 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
     {
         $this->datatreeObject->data['perm'] = $perm->getData();
         if ($update) {
-            return $this->datatreeObject->save();
+            Horde_Exception_Pear::catchError($this->datatreeObject->save());
         }
-        return true;
     }
 
     /**
      * Returns the permission of this share.
      *
      * @return Horde_Perms_Permission  Permission object that represents the
-     *                           permissions on this share
+     *                                 permissions on this share
      */
     public function getPermission()
     {
-        $perm = new Horde_Perms_Permission($this->datatreeObject->getName());
+        $perm = new Horde_Perms_Permission(Horde_Exception_Pear::catchError($this->datatreeObject->getName()));
         $perm->data = isset($this->datatreeObject->data['perm'])
             ? $this->datatreeObject->data['perm']
             : array();
-
         return $perm;
     }
-
 }
