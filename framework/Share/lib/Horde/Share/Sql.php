@@ -248,51 +248,15 @@ class Horde_Share_Sql extends Horde_Share_Base
     {
         $shares = array();
         try {
-            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . str_repeat('?', count($ids) - 1) . '?) ', $ids);
+            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . str_repeat('?, ', count($ids) - 1) . '?)', $ids);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
 
-        $groups = array();
-        $users = array();
-        foreach ($rows as $share) {
-            $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
-            if ($this->_hasUsers($share)) {
-                $users[] = (int)$share['share_id'];
-            }
-            if ($this->_hasGroups($share)) {
-                $groups[] = (int)$share['share_id'];
-            }
-        }
-
-        // Get users' permissions
-        if (!empty($users)) {
-            try {
-                $rows = $this->_db->selectAll('SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users WHERE share_id IN (' . str_repeat('?', count($users) - 1) . '?) ', $users);
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_Share_Exception($e->getMessage());
-            }
-            foreach ($rows as $share) {
-                $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
-            }
-        }
-
-        // Get groups' permissions
-        if (!empty($groups)) {
-            try {
-                $rows = $this->_db->selectAll('SELECT share_id, group_uid, perm FROM ' . $this->_table . '_groups WHERE share_id IN (' .  str_repeat('?', count($groups) - 1) . '?) ', $groups);
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_Share_Exception($e->getMessage());
-            }
-            foreach ($rows as $share) {
-                $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
-            }
-        }
-
         $sharelist = array();
-        foreach ($shares as $data) {
-            $this->_getSharePerms($data);
-            $sharelist[$data['share_name']] = $this->_createObject($data);
+        foreach ($rows as $share) {
+            $this->_loadPermissions($share);
+            $sharelist[$share['share_name']] = $this->_createObject($share);
         }
 
         return $sharelist;
@@ -366,14 +330,12 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @param string $userid  The userid of the user to check access for.
      * @param array $params   Additional parameters for the search.
-     *<pre>
-     *  'perm'        Require this level of permissions. Horde_Perms constant.
-     *  'attribtues'  Restrict shares to these attributes. A hash or username.
-     *  'from'        Offset. Start at this share
-     *  'count'       Limit.  Only return this many.
-     *  'sort_by'     Sort by attribute.
-     *  'direction'   Sort by direction.
-     *</pre>
+     *  - 'perm':       Require this level of permissions. Horde_Perms constant.
+     *  - 'attributes': Restrict shares to these attributes. A hash or username.
+     *  - 'from':       Offset. Start at this share
+     *  - 'count':      Limit.  Only return this many.
+     *  - 'sort_by':    Sort by attribute.
+     *  - 'direction':  Sort by direction.
      *
      * @return array  The shares the user has access to.
      * @throws Horde_Share_Exception
