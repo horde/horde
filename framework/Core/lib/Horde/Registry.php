@@ -2176,11 +2176,6 @@ class Horde_Registry
             return basename($GLOBALS['session']->get('horde', 'language'));
         }
 
-        /* Use site-wide default, if one is defined */
-        if ($language = $this->nlsconfig->curr_default) {
-            return basename($this->nlsconfig->curr_default);
-        }
-
         /* Try browser-accepted languages. */
         if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             /* The browser supplies a list, so return the first valid one. */
@@ -2193,8 +2188,7 @@ class Horde_Registry
 
                 $lang = $this->_mapLang(trim($lang));
                 if ($this->nlsconfig->validLang($lang)) {
-                    $language = $lang;
-                    break;
+                    return basename($lang);
                 }
 
                 /* In case there's no full match, save our best guess. Try
@@ -2211,16 +2205,17 @@ class Horde_Registry
                     }
                 }
             }
+
+            if (isset($partial_lang)) {
+                return basename($partial_lang);
+            }
         }
 
-        if (!isset($language)) {
-            $language = isset($partial_lang)
-                ? $partial_lang
-                /* No dice auto-detecting, default to US English. */
-                : 'en_US';
-        }
-
-        return basename($language);
+        /* Use site-wide default, if one is defined */
+        return $this->nlsconfig->curr_default
+            ? basename($this->nlsconfig->curr_default)
+            /* No dice auto-detecting, default to US English. */
+            : 'en_US';
     }
 
     /**
