@@ -1177,7 +1177,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* Set up the base message now. */
-        $encrypt = empty($options['encrypt']) ? 0 : $options['encrypt'];
+        $encrypt = empty($options['encrypt'])
+            ? IMP::ENCRYPT_NONE
+            : $options['encrypt'];
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             !empty($GLOBALS['conf']['gnupg']['path']) &&
             in_array($encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGN, IMP_Crypt_Pgp::SIGNENC, IMP_Crypt_Pgp::SYM_ENCRYPT, IMP_Crypt_Pgp::SYM_SIGNENC))) {
