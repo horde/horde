@@ -197,7 +197,7 @@ class Kronolith_Application extends Horde_Registry_Application
             if (!empty($conf['alarms']['driver']) &&
                 !$prefs->isLocked('event_alarms') &&
                 !$prefs->isLocked('event_alarms_select')) {
-                Horde_Core_Prefs_Ui_Widgets::alarminit();
+                Horde_Core_Prefs_Ui_Widgets::alarmInit();
             }
             break;
 
