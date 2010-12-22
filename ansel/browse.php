@@ -9,7 +9,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-Horde::addScriptFile('prototype.js', 'horde');
 $layout = new Horde_Block_Layout_View(
     @unserialize($prefs->getValue('myansel_layout')),
     Horde::url('browse_edit.php'),
