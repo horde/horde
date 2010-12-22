@@ -378,11 +378,24 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $mime_message = $contents->getMIMEMessage();
 
-        if ($mime_message->getType() != 'multipart/alternative') {
-            $skip = (intval($text_id) == 1)
-                ? array('skip' => array(1))
-                : array();
-            $this->attachFilesFromMessage($contents, (intval($text_id) === 1) ? array('notify' => true, 'skip' => $skip) : array());
+        /* Add attachments. */
+        if (($mime_message->getPrimaryType() == 'multipart') &&
+            ($mime_message->getType() != 'multipart/alternative')) {
+            for ($i = 1; ; ++$i) {
+                if (intval($text_id) == $i) {
+                    continue;
+                }
+
+                if (!($part = $contents->getMIMEPart($i))) {
+                    break;
+                }
+
+                try {
+                    $this->addMimePartAttachment($part);
+                } catch (IMP_Compose_Exception $e) {
+                    $GLOBALS['notification']->push($e, 'horde.warning');
+                }
+            }
         }
 
         $identity_id = null;
@@ -1976,35 +1989,39 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $type = Horde_Mime_Magic::filenameToMIME($part->getName(true), false);
         }
 
-        /* Extract the data from the currently existing Horde_Mime_Part and
-         * then delete it. If this is an unknown MIME part, we must save to a
-         * temporary file to run the file analysis on it. */
+        /* Extract the data from the currently existing Horde_Mime_Part.
+         * If this is an unknown MIME part, we must save to a temporary file
+         * to run the file analysis on it. */
         if ($vfs) {
-            $vfs_data = $part->getContents();
+            $data = $part->getContents();
             if (($type == 'application/octet-stream') &&
-                ($analyzetype = Horde_Mime_Magic::analyzeData($vfs_data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
+                ($analyzetype = Horde_Mime_Magic::analyzeData($data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
                 $type = $analyzetype;
             }
         } else {
-            $attachment = Horde::getTempFile('impatt', false);
-            $res = file_put_contents($attachment, $part->getContents());
+            $data = Horde::getTempFile('impatt', false);
+            $res = file_put_contents($data, $part->getContents());
             if ($res === false) {
                 throw new IMP_Compose_Exception(sprintf(_("Could not attach %s to the message."), $part->getName()));
             }
 
             if (($type == 'application/octet-stream') &&
-                ($analyzetype = Horde_Mime_Magic::analyzeFile($attachment, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
+                ($analyzetype = Horde_Mime_Magic::analyzeFile($data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
                 $type = $analyzetype;
             }
         }
 
         $part->setType($type);
 
-        /* Set the size of the Part explicitly since we delete the contents
-           later on in this function. */
-        $bytes = $part->getBytes();
-        $part->setBytes($bytes);
+        /* Set the size of the part explicitly since the part will not
+         * contain the data until send time. */
+        $part->setBytes($part->getBytes());
+
+        /* We don't want the contents stored in the serialized object, so
+         * remove. We store the data in VFS in binary format so indicate that
+         * to the part for use when we reconsitute it. */
         $part->clearContents();
+        $part->setTransferEncoding('binary');
 
         /* Check for filesize limitations. */
         if (!empty($conf['compose']['attach_size_limit']) &&
@@ -2013,11 +2030,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* Store the data. */
-        if ($vfs) {
-            $this->_storeAttachment($part, $vfs_data, false);
-        } else {
-            $this->_storeAttachment($part, $attachment);
-        }
+        $this->_storeAttachment($part, $data, !$vfs);
     }
 
     /**
@@ -2100,17 +2113,18 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $atc = $this[$id];
 
         switch ($atc['filetype']) {
+        case 'file':
+            $fp = fopen($atc['filename'], 'r');
+            $atc['part']->setContents($fp);
+            fclose($fp);
+            break;
+
         case 'vfs':
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
                 $atc['part']->setContents($vfs->read(self::VFS_ATTACH_PATH, $atc['filename']));
             } catch (VFS_Exception $e) {}
             break;
-
-        case 'file':
-            $fp = fopen($atc['filename'], 'r');
-            $atc['part']->setContents($fp);
-            fclose($fp);
         }
 
         return $atc['part'];
@@ -2119,10 +2133,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Expand macros in attribution text when replying to messages.
      *
-     * @param string $line            The line of attribution text.
-     * @param string $from            The email address of the original
-     *                                sender.
-     * @param Horde_Mime_Headers &$h  The headers object for the message.
+     * @param string $line           The line of attribution text.
+     * @param string $from           The email address of the original sender.
+     * @param Horde_Mime_Headers $h  The headers object for the message.
      *
      * @return string  The attribution text.
      */
@@ -2247,40 +2260,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         return $size;
-    }
-
-    /**
-     * Adds attachments from the IMP_Contents object to the message.
-     *
-     * @param IMP_Contents $contents  An IMP_Contents object.
-     * @param array $options          Additional options:
-     * <pre>
-     * 'notify' - (boolean) Add notification message on errors?
-     * 'skip' - (array) Skip these MIME IDs.
-     * </pre>
-     */
-    public function attachFilesFromMessage($contents, $options = array())
-    {
-        $mime_message = $contents->getMIMEMessage();
-        $dl_list = array_slice(array_keys($mime_message->contentTypeMap()), 1);
-        if (!empty($options['skip'])) {
-            $dl_list = array_diff($dl_list, $options['skip']);
-        }
-
-        foreach ($dl_list as $key) {
-            if (strpos($key, '.', 1) === false) {
-                $mime = $contents->getMIMEPart($key);
-                if (!empty($mime)) {
-                    try {
-                        $this->addMIMEPartAttachment($mime);
-                    } catch (IMP_Compose_Exception $e) {
-                        if (!empty($options['notify'])) {
-                            $GLOBALS['notification']->push($e, 'horde.warning');
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**
