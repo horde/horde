@@ -106,6 +106,13 @@ class Horde_Registry
     protected $_vhost = null;
 
     /**
+     * The arguments that have been passed when instantiating the registry.
+     *
+     * @var array
+     */
+    protected $_args = array();
+
+    /**
      * Application bootstrap initialization.
      * Solves chicken-and-egg problem - need a way to init Horde environment
      * from application without an active Horde_Registry object.
@@ -214,7 +221,7 @@ class Horde_Registry
         }
 
         $classname = __CLASS__;
-        $registry = $GLOBALS['registry'] = new $classname($s_ctrl, $args['session_cache_limiter']);
+        $registry = $GLOBALS['registry'] = new $classname($s_ctrl, $args);
         $registry->initialApp = $app;
 
         $appob = $registry->getApiInstance($app, 'application');
@@ -264,8 +271,11 @@ class Horde_Registry
      *
      * @throws Horde_Exception
      */
-    public function __construct($session_flags = 0, $cache_limiter = null)
+    public function __construct($session_flags = 0, array $args = array())
     {
+        /* Save arguments. */
+        $this->_args = $args;
+
         /* Define autoloader callbacks. */
         $callbacks = array(
             'Horde_Mime' => 'Horde_Core_Autoloader_Callback_Mime',
@@ -273,8 +283,8 @@ class Horde_Registry
         );
 
         /* Define factories. By default, uses the 'create' method in the given
-         * classname (string). If other function needed, define as the
-         * second element in an array. */
+         * classname (string). If other function needed, define as the second
+         * element in an array. */
         $factories = array(
             'Horde_ActiveSyncBackend' => 'Horde_Core_Factory_ActiveSyncBackend',
             'Horde_ActiveSyncServer' => 'Horde_Core_Factory_ActiveSyncServer',
@@ -388,9 +398,9 @@ class Horde_Registry
              empty($_SERVER['SERVER_NAME']))) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
-            $session->setup(false, $cache_limiter);
+            $session->setup(false, $args['session_cache_limiter']);
         } else {
-            $session->setup(true, $cache_limiter);
+            $session->setup(true, $args['session_cache_limiter']);
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be made but
                    values are still available. */
@@ -944,7 +954,7 @@ class Horde_Registry
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
-        $pushed = $this->pushApp($app, array('check_perms' => !in_array($call, $this->_apis[$app]['noperms']) && empty($options['noperms'])));
+        $pushed = $this->pushApp($app, array('check_perms' => !in_array($call, $this->_apis[$app]['noperms']) && empty($options['noperms']) && $this->_args['authentication'] != 'none'));
 
         try {
             $result = call_user_func_array(array($api, $call), $args);
@@ -993,7 +1003,7 @@ class Horde_Registry
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
-        $pushed = $this->pushApp($app, array('check_perms' => empty($options['noperms'])));
+        $pushed = $this->pushApp($app, array('check_perms' => empty($options['noperms']) && $this->_args['authentication'] != 'none'));
 
         try {
             $result = call_user_func_array(array($api, $call), empty($options['args']) ? array() : $options['args']);
@@ -1203,7 +1213,9 @@ class Horde_Registry
         }
         $autoloader->addClassPathMapper($applicationMapper);
 
-        $checkPerms = !isset($options['check_perms']) || !empty($options['check_perms']);
+        $checkPerms = (!isset($options['check_perms']) ||
+                       !empty($options['check_perms'])) &&
+            $this->_args['authentication'] != 'none';
 
         /* If permissions checking is requested, return an error if the
          * current user does not have read perms to the application being
