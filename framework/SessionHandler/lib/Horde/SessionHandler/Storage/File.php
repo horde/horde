@@ -14,7 +14,15 @@
  */
 class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
 {
+    /* File prefix. */
     const PREFIX = 'horde_sh_';
+
+    /**
+     * File stream.
+     *
+     * @var resource
+     */
+    protected $_fp;
 
     /**
      * Constructor.
@@ -43,19 +51,45 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
     }
 
     /**
+     * Open the file stream connection.
+     *
+     * @param string $id  The session ID.
+     */
+    protected function _open($id)
+    {
+        if (!empty($this->_fp)) {
+            return;
+        }
+
+        $filename = $this->_params['path'] . '/' . self::PREFIX . $id;
+
+        $this->_fp = fopen($filename, is_readable($filename) ? 'r+' : 'w+');
+        if ($this->_fp) {
+            flock($this->_fp, LOCK_EX);
+        }
+    }
+
+    /**
      */
     public function close()
     {
+        if (!empty($this->_fp)) {
+            //flock($this->_fp, LOCK_UN);
+            fclose($this->_fp);
+            unset($this->_fp);
+        }
+
+        return true;
     }
 
     /**
      */
     public function read($id)
     {
-        $filename = $this->_params['path'] . '/' . self::PREFIX . $id;
+        $this->_open($id);
 
-        return is_readable($filename)
-            ? file_get_contents($filename)
+        return $this->_fp
+            ? strval(stream_get_contents($this->_fp, -1, 0))
             : '';
     }
 
@@ -63,15 +97,25 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
      */
     public function write($id, $session_data)
     {
-        $filename = $this->_params['path'] . '/' . self::PREFIX . $id;
+        $this->_open($id);
 
-        return @file_put_contents($filename, $session_data);
+        if (!$this->_fp) {
+            return false;
+        }
+
+        fseek($this->_fp, 0);
+        ftruncate($this->_fp, 0);
+        fwrite($this->_fp, $session_data);
+
+        return true;
     }
 
     /**
      */
     public function destroy($id)
     {
+        $this->close();
+
         $filename = $this->_params['path'] . '/' . self::PREFIX . $id;
 
         return @unlink($filename);
