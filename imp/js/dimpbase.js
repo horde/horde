@@ -3116,7 +3116,7 @@ var DimpBase = {
 
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */
-        this._listFolders({ initial: 1, mboxes: this.folder} );
+        this._listFolders({ initial: 1, mboxes: this.folder });
 
         this._setQsearchText(true);
 
