@@ -201,6 +201,12 @@ class Kronolith_Application extends Horde_Registry_Application
             }
             break;
 
+        case 'share':
+            foreach (Kronolith::listInternalCalendars(false, Horde_Perms::EDIT) as $id => $calendar) {
+                $ui->override['default_share'][$id] = $calendar->get('name');
+            }
+            break;
+
         case 'view':
             $hour = array();
             for ($i = 0; $i <= 48; ++$i) {
