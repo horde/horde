@@ -120,13 +120,17 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _getHash(array $alarm)
     {
+        $params = base64_decode($alarm['alarm_params']);
+        if (!strlen($params) && strlen($alarm['alarm_params'])) {
+            $params = $alarm['alarm_params'];
+        }
         return array(
             'id' => $alarm['alarm_id'],
             'user' => $alarm['alarm_uid'],
             'start' => new Horde_Date($alarm['alarm_start'], 'UTC'),
             'end' => empty($alarm['alarm_end']) ? null : new Horde_Date($alarm['alarm_end'], 'UTC'),
             'methods' => @unserialize($alarm['alarm_methods']),
-            'params' => @unserialize($alarm['alarm_params']),
+            'params' => @unserialize($params),
             'title' => $this->_fromDriver($alarm['alarm_title']),
             'text' => $this->_fromDriver($alarm['alarm_text']),
             'snooze' => empty($alarm['alarm_snooze']) ? null : new Horde_Date($alarm['alarm_snooze'], 'UTC'),
@@ -178,7 +182,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
             (string)$alarm['start']->setTimezone('UTC'),
             empty($alarm['end']) ? null : (string)$alarm['end']->setTimezone('UTC'),
             serialize($alarm['methods']),
-            serialize($alarm['params']),
+            base64_encode(serialize($alarm['params'])),
             $this->_toDriver($alarm['title']),
             empty($alarm['text']) ? null : $this->_toDriver($alarm['text']),
             null
@@ -208,7 +212,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $values = array((string)$alarm['start']->setTimezone('UTC'),
                         empty($alarm['end']) ? null : (string)$alarm['end']->setTimezone('UTC'),
                         serialize($alarm['methods']),
-                        serialize($alarm['params']),
+                        base64_encode(serialize($alarm['params'])),
                         $this->_toDriver($alarm['title']),
                         empty($alarm['text'])
                               ? null
