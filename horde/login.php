@@ -79,7 +79,7 @@ if ($vars->url) {
     $url_anchor = $url_in = null;
 }
 
-if (!($logout_reason = $auth->getError())) {;
+if (!($logout_reason = $auth->getError())) {
     $logout_reason = $vars->logout_reason;
 }
 
