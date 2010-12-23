@@ -94,9 +94,9 @@ class SyncML_SyncElement {
      * @param integer $cmdID
      * @param integer $size
      */
-    function SyncML_SyncElement(&$sync, $elementType, $cmdID, $size)
+    function SyncML_SyncElement($sync, $elementType, $cmdID, $size)
     {
-        $this->sync = &$sync;
+        $this->sync = $sync;
         $this->elementType = $elementType;
         $this->cmdID = $cmdID;
         $this->size = $size;

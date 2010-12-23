@@ -312,29 +312,28 @@ class SyncML_State {
      * @param string $target
      * @param SyncML_Sync $sync
      */
-    function setSync($target, &$sync)
+    function setSync($target, $sync)
     {
-        $this->_syncs[$target] = &$sync;
+        $this->_syncs[$target] = $sync;
     }
 
     /**
      * @param string $target
      * @return SyncML_Sync
      */
-    function &getSync($target)
+    function getSync($target)
     {
         if (isset($this->_syncs[$target])) {
             return $this->_syncs[$target];
         } else {
-            $sync = false;
-            return $sync;
+            return false;
         }
     }
 
     /**
      * @return array
      */
-    function &getSyncs()
+    function getSyncs()
     {
         return $this->_syncs;
     }
