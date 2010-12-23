@@ -53,7 +53,7 @@ try {
 
 // Open an output buffer to ensure that we catch errors that might break JSON
 // encoding.
-ob_start();
+Horde::startBuffer();
 
 $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, Horde_Variables::getDefaultVariables(), $action);
 try {
@@ -65,8 +65,8 @@ try {
 
 // Clear the output buffer that we started above, and log any unexpected
 // output at a DEBUG level.
-if (ob_get_length()) {
-    Horde::logMessage('Unexpected output: ' . ob_get_clean(), 'DEBUG');
+if ($out = Horde::endBuffer()) {
+    Horde::logMessage('Unexpected output: ' . $out, 'DEBUG');
 }
 
 // Send the final result.
