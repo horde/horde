@@ -79,7 +79,7 @@ for ($i = 1; $i < count($argv); ++$i) {
         if (!is_dir($pkg) || !file_exists($pkg . '/package.xml')) {
             exit("$pkg is not a valid package directory.\n");
         }
-        $pkg = preg_replace('|/+$|', '', $pkg) . '/package.xml';
+        $pkg = preg_replace('|/+$|', '', $pkg);
         break;
 
     default:
