@@ -95,10 +95,8 @@ case Horde_Auth::REASON_LOGOUT:
 }
 
 /* Change language. */
-if (!$is_auth &&
-    !$prefs->isLocked('language') &&
-    ($new_lang = Horde_Util::getGet('new_lang'))) {
-    $registry->setLanguageEnvironment($new_lang);
+if (!$is_auth && !$prefs->isLocked('language') && $vars->new_lang) {
+    $registry->setLanguageEnvironment($vars->new_lang);
 }
 
 if ($logout_reason) {
