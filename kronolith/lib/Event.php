@@ -1536,6 +1536,12 @@ abstract class Kronolith_Event
             }
         }
 
+        $serverName = $_SERVER['SERVER_NAME'];
+        $serverConf = $GLOBALS['conf']['server']['name'];
+        if (!empty($GLOBALS['conf']['reminder']['server_name'])) {
+            $_SERVER['SERVER_NAME'] = $GLOBALS['conf']['server']['name'] = $GLOBALS['conf']['reminder']['server_name'];
+        }
+
         if (empty($user)) {
             $user = $GLOBALS['registry']->getAuth();
         }
@@ -1596,7 +1602,7 @@ abstract class Kronolith_Event
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
         }
 
-        return array(
+        $alarm = array(
             'id' => $this->uid,
             'user' => $user,
             'start' => $start,
@@ -1605,6 +1611,11 @@ abstract class Kronolith_Event
             'params' => $methods,
             'title' => $this->getTitle($user),
             'text' => $this->description);
+
+        $_SERVER['SERVER_NAME'] = $serverName;
+        $GLOBALS['conf']['server']['name'] = $serverConf;
+
+        return $alarm;
     }
 
     /**
