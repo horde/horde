@@ -88,7 +88,7 @@ case Horde_Core_Auth_Application::REASON_SESSIONIP:
 case Horde_Core_Auth_Application::REASON_BROWSER:
 case Horde_Auth::REASON_LOGOUT:
     /* Don't show these logout reasons more than once. */
-    if (!$is_auth) {
+    if (!$registry->getAuth()) {
         $logout_reason = null;
     }
     break;
