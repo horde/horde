@@ -120,8 +120,6 @@ class Horde_Core_Factory_Auth
                 } catch (Horde_Imap_Client_Exception $e) {
                     throw new Horde_Auth_Exception($e);
                 }
-                break;
-
                 if ($lc_driver == 'cyrus') {
                     $params['backend'] = $this->getOb($params['backend']['driver'], $params['backend']['params']);
                 }
