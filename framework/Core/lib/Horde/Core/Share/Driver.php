@@ -226,14 +226,16 @@ class Horde_Core_Share_Driver
     {
         try {
             Horde::callHook('share_remove', array($share));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
     }
 
     public function shareModifyCallback(Horde_Share_Object $share)
     {
         try {
-            Horde::callHook('share_modify', array($this));
-        } catch (Horde_Exception_HookNotSet $e) {}
+            Horde::callHook('share_modify', array($share));
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
     }
 
 }
