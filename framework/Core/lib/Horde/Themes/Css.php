@@ -127,7 +127,8 @@ class Horde_Themes_Css
             if ($conf['cachecssparams']['compress'] == 'php') {
                 try {
                     $out = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($out, 'csstidy');
-                } catch (Horde_Exception $e) {}
+                } catch (Horde_Exception $e) {
+                }
             }
 
             switch ($cache_type) {
@@ -216,12 +217,14 @@ class Horde_Themes_Css
         /* Add user-defined additional stylesheets. */
         try {
             $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), 'horde'));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
 
         if ($curr_app != 'horde') {
             try {
                 $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), $curr_app));
-            } catch (Horde_Exception_HookNotSet $e) {}
+            } catch (Horde_Exception_HookNotSet $e) {
+            }
         }
 
         foreach ($add_css as $f => $u) {
@@ -260,7 +263,6 @@ class Horde_Themes_Css
                 $css_list[] = 'ie6_or_less.css';
             }
             break;
-
 
         case 'opera':
             $css_list[] = 'opera.css';

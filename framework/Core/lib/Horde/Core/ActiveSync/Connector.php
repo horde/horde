@@ -85,7 +85,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function calendar_getChanges($from_ts, $to_ts)
     {
-       try {
+        try {
             return $this->_registry->calendar->getChanges($from_ts, $to_ts);
         } catch (Exception $e) {
             return array('add' => array(),

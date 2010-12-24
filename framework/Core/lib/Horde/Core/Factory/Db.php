@@ -157,7 +157,7 @@ class Horde_Core_Factory_Db
             $config['host'] = $config['hostspec'];
         }
 
-        $adapter = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($config['adapter']))));
+        $adapter = str_replace(' ', '_', ucwords(str_replace('_', ' ', basename($config['adapter']))));
         $class = 'Horde_Db_Adapter_' . $adapter;
 
         if (class_exists($class)) {
