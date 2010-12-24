@@ -219,9 +219,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function getMessageList($folderid, $cutoffdate)
     {
         $this->_logger->debug('Horde::getMessageList(' . $folderid . ', ' . $cutoffdate . ')');
+
         ob_start();
         $messages = array();
-
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER:
             $startstamp = (int)$cutoffdate;
@@ -270,8 +270,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_endBuffer();
             return array();
         }
-
         $this->_endBuffer();
+
         return $messages;
     }
 
@@ -279,9 +279,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Get a list of server changes that occured during the specified time
      * period.
      *
-     * @param string $folderId  The server id of the collection to check.
-     * @param integer $from_ts  The starting timestamp
-     * @param integer $to_ts    The ending timestamp
+     * @param string $folderId     The server id of the collection to check.
+     * @param integer $from_ts     The starting timestamp
+     * @param integer $to_ts       The ending timestamp
+     * @param integer $cutoffdate  The earliest date to retrieve back to
      *
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.
@@ -289,8 +290,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)
     {
         $this->_logger->debug("Horde_ActiveSync_Driver_Horde::getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)");
-        $adds = array();
 
+        $changes = array();
         ob_start();
         switch ($folderId) {
         case self::APPOINTMENTS_FOLDER:
@@ -299,20 +300,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $startstamp = (int)$cutoffdate;
                 $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
                 try {
-                    $adds = $this->_connector->calendar_listUids($startstamp, $endstamp);
+                    $changes['add'] = $this->_connector->calendar_listUids($startstamp, $endstamp);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
                     return array();
                 }
-                $edits = $deletes = array();
             } else {
                 try {
-                      $changes = $this->_connector->calendar_getChanges($from_ts, $to_ts);
-                      // @TODO: these assignments are just until all collections are refactored.
-                      $adds = $changes['add'];
-                      $edits = $changes['modify'];
-                      $deletes = $changes['delete'];
+                    $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -320,11 +316,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             break;
+
         case self::CONTACTS_FOLDER:
             /* Can't use History for first sync */
             if ($from_ts == 0) {
                 try {
-                    $adds = $this->_connector->contacts_listUids();
+                    $changes['add'] = $this->_connector->contacts_listUids();
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -333,9 +330,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $edits = $deletes = array();
             } else {
                 try {
-                    $adds = $this->_connector->contacts_listBy('add', $from_ts, $to_ts);
-                    $edits = $this->_connector->contacts_listBy('modify', $from_ts, $to_ts);
-                    $deletes = $this->_connector->contacts_listBy('delete', $from_ts, $to_ts);
+                    $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -343,22 +338,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             break;
+
         case self::TASKS_FOLDER:
             /* Can't use History for first sync */
             if ($from_ts == 0) {
                 try {
-                    $adds = $this->_connector->tasks_listUids();
+                    $changes['add'] = $this->_connector->tasks_listUids();
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
                     return array();
                 }
-                $edits = $deletes = array();
             } else {
                 try {
-                    $adds = $this->_connector->tasks_listBy('add', $from_ts, $to_ts);
-                    $edits = $this->_connector->tasks_listBy('modify', $from_ts, $to_ts);
-                    $deletes = $this->_connector->tasks_listBy('delete', $from_ts, $to_ts);
+                    $changes = $this->_connector->getChanges('tasks', $from_ts, $to_ts);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -368,33 +361,32 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         }
 
-        /* Build the changes array */
-        $changes = array();
+        $results = array();
 
         /* Server additions */
-        foreach ($adds as $add) {
-            $changes[] = array(
+        foreach ($changes['add'] as $add) {
+            $results[] = array(
                 'id' => $add,
                 'type' => 'change',
                 'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
         }
 
         /* Server changes */
-        foreach ($edits as $change) {
-            $changes[] = array(
+        foreach ($changes['modify'] as $change) {
+            $results[] = array(
                 'id' => $change,
                 'type' => 'change');
         }
 
         /* Server Deletions */
-        foreach ($deletes as $deleted) {
-            $changes[] = array(
+        foreach ($changes['delete'] as $deleted) {
+            $results[] = array(
                 'id' => $deleted,
                 'type' => 'delete');
         }
-
         $this->_endBuffer();
-        return $changes;
+        
+        return $results;
     }
 
     /**

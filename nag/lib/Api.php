@@ -710,6 +710,23 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
+     * Method for obtaining all server changes between two timestamps. Basically
+     * a wrapper around listBy(), but returns an array containing all adds,
+     * edits and deletions.
+     *
+     * @param integer $start             The starting timestamp
+     * @param integer $end               The ending timestamp.
+     *
+     * @return array  An hash with 'add', 'modify' and 'delete' arrays.
+     */
+    public function getChanges($start, $end)
+    {
+        return array('add' => $this->listBy('add', $start, null, $end),
+                     'modify' => $this->listBy('modify', $start, null, $end),
+                     'delete' => $this->listBy('delete', $start, null, $end));
+    }
+
+    /**
      * Returns the timestamp of an operation for a given uid an action.
      *
      * @param string $uid      The uid to look for.

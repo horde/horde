@@ -537,7 +537,6 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        /* Need to get changes, then ensure they are not from an exception */
         $changes = array('add' => array(),
                          'modify' => array(),
                          'delete' => array());

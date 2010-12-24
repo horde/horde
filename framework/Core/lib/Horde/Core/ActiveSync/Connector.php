@@ -75,26 +75,6 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * Obtain all calendar server chages that occured in the specified time
-     * interval.
-     *
-     * @param integer $from_ts  Starting timestamp
-     * @param integer $to_ts    Ending timestamp
-     *
-     * @return array  Hash of add, modify, and delete arrays
-     */
-    public function calendar_getChanges($from_ts, $to_ts)
-    {
-        try {
-            return $this->_registry->calendar->getChanges($from_ts, $to_ts);
-        } catch (Exception $e) {
-            return array('add' => array(),
-                         'modify' => array(),
-                         'delete' => array());
-        }
-    }
-
-    /**
      * Export the specified event as an ActiveSync message
      *
      * @param string $uid          The calendar id
@@ -390,6 +370,29 @@ class Horde_Core_ActiveSync_Connector
     public function horde_hasInterface($api)
     {
         return $this->_registry->hasInterface($api);
+    }
+
+    /**
+     * Get all server changes for the specified collection
+     * @param string $collection  The collection type (calendar, contacts, tasks)
+     * @param integer $from_ts    Starting timestamp
+     * @param integer $to_ts      Ending timestamp
+     *
+     * @return array  A hash of add, modify, and delete uids
+     * @throws InvalidArgumentException
+     */
+    public function getChanges($collection, $from_ts, $to_ts)
+    {
+        if (!in_array($collection, array('calendar', 'contacts', 'tasks'))) {
+            throw new InvalidArgumentException('collection must be one of calendar, contacts, or tasks');
+        }
+        try {
+            return $this->_registry->{$collection}->getChanges($from_ts, $to_ts);
+        } catch (Exception $e) {
+            return array('add' => array(),
+                         'modify' => array(),
+                         'delete' => array());
+        }
     }
 
 }
