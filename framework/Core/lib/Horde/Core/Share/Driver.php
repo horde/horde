@@ -44,7 +44,8 @@ class Horde_Core_Share_Driver
 
         try {
             Horde::callHook('share_init', array($this, $this->_share->getApp()));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
     }
 
     /**
@@ -197,7 +198,8 @@ class Horde_Core_Share_Driver
         try {
             $params = new Horde_Support_Array($params);
             return Horde::callHook('share_list', array($userid, $params['perm'], $params['attributes'], $shares));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
 
         return $shares;
     }
@@ -211,7 +213,8 @@ class Horde_Core_Share_Driver
     {
         try {
             Horde::callHook('share_add', array($share));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
     }
 
     /**

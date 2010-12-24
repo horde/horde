@@ -1630,7 +1630,8 @@ class Horde_Config
         case 'list-contact-sources':
             try {
                 return $GLOBALS['registry']->call('contacts/sources');
-            } catch (Horde_Exception $e) {}
+            } catch (Horde_Exception $e) {
+            }
             break;
         }
 
