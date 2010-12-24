@@ -56,17 +56,17 @@ class Horde_Core_Factory_DbPear
      *
      * @param string $type  Either 'read' or 'rw'.
      * @param string $app   The application.
-     * @param mixed $type   The type. If this is an array, this is used as
+     * @param mixed $dtype  The type. If this is an array, this is used as
      *                      the configuration array.
      *
      * @return DB  The singleton DB instance.
      * @throws Horde_Exception
      */
-    public function create($type = 'rw', $app = 'horde', $type = null)
+    public function create($type = 'rw', $app = 'horde', $dtype = null)
     {
         global $registry;
 
-        $sig = hash('md5', serialize($type . '|' . $app . '|' . $type));
+        $sig = hash('md5', serialize($type . '|' . $app . '|' . $dtype));
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];
@@ -76,9 +76,9 @@ class Horde_Core_Factory_DbPear
             ? false
             : $registry->pushApp($app);
 
-        $config = is_array($type)
-            ? $type
-            : $this->getConfig($type);
+        $config = is_array($dtype)
+            ? $dtype
+            : $this->getConfig($dtype);
 
         /* Determine if we we are not using splitread or if we are using the
          * base SQL config. */
