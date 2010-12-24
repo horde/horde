@@ -134,7 +134,8 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
             foreach ($this->_params['folders'] as $folder) {
                 try {
                     $this->_imap->createMailbox($mailbox . Horde_String::convertCharset($this->_params['separator'] . $folder, $this->_params['charset'], 'utf7-imap'));
-                } catch (Horde_Imap_Client_Exception $e) {}
+                } catch (Horde_Imap_Client_Exception $e) {
+                }
             }
         }
 
