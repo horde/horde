@@ -80,16 +80,7 @@ class Horde_Core_Factory_DbPear
             ? $dtype
             : $this->getConfig($dtype);
 
-        /* Determine if we we are not using splitread or if we are using the
-         * base SQL config. */
-        if ((($type == 'read') && empty($config['splitread'])) ||
-            (isset($config['driverconfig']) &&
-             ($config['driverconfig'] == 'horde'))) {
-            $this->_instances[$sig] = $this->create($type);
-            return $this->_instances[$sig];
-        }
-
-        if ($type == 'read') {
+        if ($type == 'read' && !empty($config['splitread'])) {
             $config = array_merge($config, $config['read']);
         }
 
