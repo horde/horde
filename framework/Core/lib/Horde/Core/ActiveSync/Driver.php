@@ -108,7 +108,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @TODO
+     * Get the wastebasket folder
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getWasteBasket()
      */
@@ -139,15 +139,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
         $folders = array();
 
-        if (array_search('calendar', $supported)){
+        if (array_search('calendar', $supported)) {
             $folders[] = $this->statFolder(self::APPOINTMENTS_FOLDER);
         }
 
-        if (array_search('contacts', $supported)){
+        if (array_search('contacts', $supported)) {
             $folders[] = $this->statFolder(self::CONTACTS_FOLDER);
         }
 
-        if (array_search('tasks', $supported)){
+        if (array_search('tasks', $supported)) {
             $folders[] = $this->statFolder(self::TASKS_FOLDER);
         }
 
@@ -257,12 +257,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             try {
                 $tasks = $this->_connector->tasks_listUids();
             } catch (Horde_Exception $e) {
-               $this->_logger->err($e->getMessage());
-               $this->_endBuffer();
-               return array();
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                return array();
             }
-            foreach ($tasks as $task)
-            {
+            foreach ($tasks as $task) {
                 $messages[] = $this->_smartStatMessage($folderid, $task, false);
             }
             break;
@@ -414,7 +413,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->calendar_export($id);
                 // Nokia MfE requires the optional UID element.
                 if (!$message->getUid()) {
-                    $message->setUid(pack("H*" , md5($id)));
+                    $message->setUid(pack("H*", md5($id)));
                 }
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -685,13 +684,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Currently only used when meeting requests are sent from the PIM.
      *
      * @param string $rfc822    The rfc822 mime message
-     * @param boolean $forward  @TODO
-     * @param boolean $reply    @TODO
-     * @param boolean $parent   @TODO
+     * @param boolean $forward  Indicates if this is a forwarded message
+     * @param boolean $reply    Indicates if this is a reply
      *
      * @return boolean
      */
-    public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
+    public function sendMail($rfc822, $forward = false, $reply = false)
     {
         $headers = Horde_Mime_Headers::parseHeaders($rfc822);
         $part = Horde_Mime_Part::parseMessage($rfc822);

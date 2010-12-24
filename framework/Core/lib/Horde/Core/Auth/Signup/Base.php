@@ -37,7 +37,8 @@ abstract class Horde_Core_Auth_Signup_Base
         if (!empty($info['extra'])) {
             try {
                 Horde::callHook('signup_addextra', array($info['user_name'], $info['extra'], $info['password']));
-            } catch (Horde_Exception_HookNotSet $e) {}
+            } catch (Horde_Exception_HookNotSet $e) {
+            }
         }
     }
 
@@ -71,7 +72,9 @@ abstract class Horde_Core_Auth_Signup_Base
 
         try {
             Horde::callHook('signup_queued', array($info['user_name'], $info));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
+
 
         if (!empty($conf['signup']['email'])) {
             $link = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/signup_confirm.php', true, -1)->setRaw(true)->add(array(
@@ -105,7 +108,8 @@ abstract class Horde_Core_Auth_Signup_Base
     {
         try {
             $info = Horde::callHook('signup_preprocess', array($info));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
 
         // Check to see if the username already exists in the auth backend or
         // the signup queue.

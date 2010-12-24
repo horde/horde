@@ -54,7 +54,8 @@ class Horde_Core_Browser extends Horde_Browser
 
         try {
             Horde::callHook('browser_modify', array($this), 'horde');
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
     }
 
     /**
