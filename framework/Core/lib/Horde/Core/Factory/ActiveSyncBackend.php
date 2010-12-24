@@ -17,7 +17,7 @@ class Horde_Core_Factory_ActiveSyncBackend
         } else {
             $params['logger'] = $injector->getInstance('Horde_Log_Logger');
         }
-        
+
         // Backend driver and dependencies
         $params['registry'] = $GLOBALS['registry'];
         $driver_params = array(
