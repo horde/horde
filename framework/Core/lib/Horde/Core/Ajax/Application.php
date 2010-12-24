@@ -99,7 +99,8 @@ abstract class Horde_Core_Ajax_Application
         try {
             return Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
         } catch (Horde_Exception_HookNotSet $e) {
-        } catch (Horde_Exception $e) {}
+        } catch (Horde_Exception $e) {
+        }
 
         throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
     }
