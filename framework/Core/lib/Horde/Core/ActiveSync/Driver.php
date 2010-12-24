@@ -686,10 +686,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $rfc822    The rfc822 mime message
      * @param boolean $forward  Indicates if this is a forwarded message
      * @param boolean $reply    Indicates if this is a reply
+     * @param boolean $parent   Parent message in thread.
      *
      * @return boolean
      */
-    public function sendMail($rfc822, $forward = false, $reply = false)
+    public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
     {
         $headers = Horde_Mime_Headers::parseHeaders($rfc822);
         $part = Horde_Mime_Part::parseMessage($rfc822);
