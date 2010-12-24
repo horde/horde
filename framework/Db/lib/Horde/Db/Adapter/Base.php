@@ -498,7 +498,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         $result = $this->selectAll($sql, $arg1, $arg2);
         $values = array();
         foreach ($result as $row) {
-            $values[next($row)] = next($row);
+            $values[current($row)] = next($row);
         }
         return $values;
     }
