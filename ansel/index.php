@@ -10,4 +10,11 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
+
+/* Load mobile? */
+if ($browser->isMobile()) {
+    include ANSEL_BASE . '/mobile.php';
+    exit;
+}
+
 Ansel::getUrlFor('default_view', array())->redirect();
