@@ -1,7 +1,7 @@
 <?php
 global $prefs, $registry;
 
-$kronolith_webroot = $registry->get('webroot');
+$ansel_webroot = $registry->get('webroot');
 $horde_webroot = $registry->get('webroot', 'horde');
 $has_tasks = $registry->hasInterface('tasks');
 

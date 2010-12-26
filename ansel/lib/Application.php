@@ -84,7 +84,9 @@ class Ansel_Application extends Horde_Registry_Application
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
 
         /* Build initial Ansel javascript object. */
-        Horde::addInlineJsVars(array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass)));
+        if (!$GLOBALS['browser']->isMobile()) {
+            Horde::addInlineJsVars(array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass)));
+        }
     }
 
     /**
@@ -237,11 +239,13 @@ class Ansel_Application extends Horde_Registry_Application
         //Horde::addScriptFile('mobile.js');
         require ANSEL_TEMPLATES . '/mobile/javascript_defs.php';
 
+        Horde::addScriptFile('mobile.js');
         /* Inline script. */
         Horde::addInlineScript(
           '$(window.document).bind("mobileinit", function() {
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-              $.mobile.loadingMessage = "' . _("loading") . '";'
+              $.mobile.loadingMessage = "' . _("loading") . '";
+          });'
         );
     }
 

@@ -12,23 +12,6 @@
       </ul>
     </div>
   </div>
-  <div data-role="content" class="ui-body">
-      <ul data-role="listview">
-          <li>
-           <?php echo Horde::img('thumb-error.png')?>
-              <h3><a href="#">Gallery One</a></h3>
-              <p>Gallery Description</p>
-          </li>
-          <li>
-           <?php echo Horde::img('thumb-error.png')?>
-              <h3><a href="#">Gallery Two</a></h3>
-              <p>Gallery Description</p>
-          </li>
-          <li>
-           <?php echo Horde::img('thumb-error.png')?>
-              <h3><a href="#">Gallery Three</a></h3>
-              <p>Gallery Description</p>
-          </li>
-      </ul>
+  <div id="anselgallerylist" data-role="content" class="ui-body">
   </div>
 </div>
