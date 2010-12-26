@@ -52,7 +52,7 @@ class Ansel_View_List extends Ansel_View_Base
         $notification = $GLOBALS['injector']->getInstance('Horde_Notification');
 
         /* Ansel_Storage */
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // We'll need this in the template.
         $this->_sortBy = !empty($this->_params['sort']) ? $this->_params['sort'] : 'name';

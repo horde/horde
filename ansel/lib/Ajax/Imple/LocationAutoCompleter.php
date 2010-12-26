@@ -27,7 +27,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
 
         /* Use ajax? */
         if (!$GLOBALS['session']->exists('ansel', 'ajax_locationac')) {
-            $results = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->searchLocations();
+            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->searchLocations();
             if ($results instanceof PEAR_Error) {
                 Horde::logMessage($results, 'ERR');
             } else {
@@ -39,7 +39,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
             $ret['ajax'] = 'LocationAutoCompleter';
         } else {
             if (empty($results)) {
-                $results = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->searchLocations();
+                $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->searchLocations();
             }
             $ret['browser'] = Horde_Serialize::serialize($results, Horde_Serialize::JSON);
         }
@@ -55,7 +55,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
             return array();
         }
         try {
-            $locs = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->searchLocations($input);
+            $locs = $GLOBALS['injector']->getInstance('Ansel_Storage')->searchLocations($input);
             if (!count($locs)) {
                 $locs = new StdClass();
             }

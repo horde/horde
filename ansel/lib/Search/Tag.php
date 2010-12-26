@@ -113,7 +113,7 @@ class Ansel_Search_Tag
         /* Instantiate the Gallery objects */
         $galleries = array();
         foreach ($gresults as $gallery) {
-            $galleries[] = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery);
+            $galleries[] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery);
         }
 
         /* Do we need to get images? */
@@ -121,7 +121,7 @@ class Ansel_Search_Tag
         $count = $perpage - count($galleries);
         if ($count > 0) {
             $iresults = array_slice($this->_results['images'], $istart, $count);
-            $images = count($iresults) ? array_values($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImages(array('ids' => $iresults))) : array();
+            $images = count($iresults) ? array_values($GLOBALS['injector']->getInstance('Ansel_Storage')->getImages(array('ids' => $iresults))) : array();
             if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
                 $registry->hasMethod('forums/numMessagesBatch')) {
 

@@ -76,8 +76,8 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
                                            'count' => $count,
                                            'view_links' => true));
         } else {
-            $json = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageJson($images, null, true, $thumbsize, true);
-            $json_full = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageJson($images, null, true, 'screen', true);
+            $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, null, true, $thumbsize, true);
+            $json_full = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, null, true, 'screen', true);
         }
 
         $horde_css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');

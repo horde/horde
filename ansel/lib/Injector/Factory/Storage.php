@@ -1,6 +1,8 @@
 <?php
 /**
- * Ansel_Storage:: factory
+ * Factory for Ansel_Storage.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org)
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -10,7 +12,8 @@
 class Ansel_Injector_Factory_Storage
 {
     /**
-     * Depends on the Ansel_Scope value being available to the injector.
+     * Array of already instantiated instances
+     *
      * @var array
      */
     private $_instances = array();
@@ -21,15 +24,19 @@ class Ansel_Injector_Factory_Storage
      */
     private $_injector;
 
+    /**
+     * Constructor
+     *
+     * @param Horde_Injector $injector
+     */
     public function __construct(Horde_Injector $injector)
     {
         $this->_injector = $injector;
     }
 
     /**
-     * Return an Ansel_Storage instance scoped for the current Ansel scope
-     *
-     * @param string $scope  The application scope
+     * Return an Ansel_Storage instance scoped for the current Ansel scope.
+     * Scope is determined by the current value of Ansel_Config::scope
      *
      * @return Ansel_Storage
      */
@@ -42,4 +49,5 @@ class Ansel_Injector_Factory_Storage
 
         return $this->_instances[$scope];
     }
+
 }

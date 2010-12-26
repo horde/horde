@@ -112,8 +112,7 @@ class Ansel_Gallery_Decorator_Date
      */
     public function getRecentImages($limit = 10)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
-            ->create()
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')
             ->getRecentImages(array($this->_gallery->id), $limit);
     }
 
@@ -126,7 +125,7 @@ class Ansel_Gallery_Decorator_Date
      */
     public function getImage($id)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($id);
     }
 
     /**

@@ -27,7 +27,7 @@ class Ansel_Tile_Image
     {
         global $conf, $registry;
 
-        $parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+        $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
         if (is_null($style)) {
             $style = $parent->getStyle();
         }

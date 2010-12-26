@@ -81,7 +81,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
                 $images[] = $gallery->getKeyImage($gallery_style);
             }
         }
-        $json = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageJson($images, null, true, $thumbsize, true);
+        $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, null, true, $thumbsize, true);
 
         $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('jsembed.css');
         Horde::startBuffer();

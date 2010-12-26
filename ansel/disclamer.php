@@ -13,7 +13,7 @@ Horde_Registry::appInit('ansel');
 
 $vars = Horde_Variables::getDefaultVariables();
 try {
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($vars->get('gallery'));
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($vars->get('gallery'));
 } catch (Ansel_Exception $e) {
     $notification->push($gallery->getMessage());
     Horde::url('view.php?view=List', true)->redirect();

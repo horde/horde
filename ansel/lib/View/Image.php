@@ -32,7 +32,7 @@ class Ansel_View_Image extends Ansel_View_Base
         parent::__construct($params);
 
         /* Get the Ansel_Image */
-        $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($params['image_id']);
+        $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($params['image_id']);
 
         /* Get the Ansel_Gallery */
         $this->gallery = $this->_getGallery();

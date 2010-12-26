@@ -33,7 +33,7 @@ case 'modify':
 
 case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
     if (!$registry->getAuth() ||
         !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 
@@ -51,7 +51,7 @@ case 'empty':
     $galleryId = Horde_Util::getFormData('gallery');
     if ($galleryId) {
         try {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
             require $registry->get('templates', 'horde') . '/common-header.inc';
             echo Horde::menu();
             $notification->notify(array('listeners' => 'status'));
@@ -71,7 +71,7 @@ case 'generateDefault':
     // Re-generate the default pretty gallery image.
     $galleryId = Horde_Util::getFormData('gallery');
     try {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
         $gallery->clearStacks();
         $notification->push(_("The gallery's default photo has successfully been reset."), 'horde.success');
         Horde::url('view.php', true)->add('gallery', $galleryId)->redirect();
@@ -86,7 +86,7 @@ case 'generateThumbs':
     // Re-generate all of this gallery's prettythumbs.
     $galleryId = Horde_Util::getFormData('gallery');
     try {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
     } catch (Ansel_Exception $e) {
         $notification->push($gallery->getMessage(), 'horde.error');
         Horde::url('index.php', true)->redirect();
@@ -101,7 +101,7 @@ case 'deleteCache':
     // Delete all cached image views.
     $galleryId = Horde_Util::getFormData('gallery');
     try {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
     } catch (Ansel_Exception $e) {
         $notification->push($gallery->getMessage(), 'horde.error');
         Horde::url('index.php', true)->redirect();

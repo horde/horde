@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 try {
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery((int)Horde_Util::getFormData('gallery'));
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery((int)Horde_Util::getFormData('gallery'));
 } catch (Ansel_Exception $e) {
     echo $e->getMessage();
     Horde::logMessage($e->getMessage(), 'err');

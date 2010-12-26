@@ -17,7 +17,7 @@ if (empty($conf['ecard']['enable'])) {
 }
 
 /* Get the gallery and the image, and abort if either fails. */
-$gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(Horde_Util::getFormData('gallery'));
+$gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('gallery'));
 $image = $gallery->getImage(Horde_Util::getFormData('image'));
 
 /* Run through the action handlers. */

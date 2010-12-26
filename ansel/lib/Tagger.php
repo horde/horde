@@ -370,7 +370,7 @@ class Ansel_Tagger
     {
         $args = array('typeId' => 'image', 'limit' => 10);
         if ($ownerOnly) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
             $args['userId'] = $gallery->get('owner');
         }
 
@@ -385,7 +385,7 @@ class Ansel_Tagger
         }
 
         try {
-            $images = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImages(array('ids' => array_keys($ids)));
+            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImages(array('ids' => array_keys($ids)));
         } catch (Horde_Exception_NotFound $e) {
             $images = array();
         }

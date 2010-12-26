@@ -11,8 +11,8 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-$image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage(Horde_Util::getFormData('image'));
-$gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+$image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage(Horde_Util::getFormData('image'));
+$gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) || !$gallery->canDownload()) {
     throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
 }

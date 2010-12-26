@@ -158,7 +158,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         static $children = array();
 
         /* Ansel Storage */
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         $cache_key = md5($this->_gallery->id . serialize($this->_date) . $from . $to);
         if (!empty($children[$cache_key])) {
@@ -418,7 +418,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
          */
         if ($this->_gallery->get('has_subgalleries')) {
             $gallery_ids = array();
-            $images = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImages(array('ids' => $ids));
+            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImages(array('ids' => $ids));
             foreach ($images as $image) {
                 if (empty($gallery_ids[$image->gallery])) {
                     $gallery_ids[$image->gallery] = 1;
@@ -429,12 +429,12 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         }
 
         /* Bulk update the images to their new gallery_id */
-        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->setImagesGallery($ids, $gallery->id);
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->setImagesGallery($ids, $gallery->id);
 
         /* Update the gallery counts for each affected gallery */
         if ($this->_gallery->get('has_subgalleries')) {
             foreach ($gallery_ids as $id => $count) {
-                $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()
+                $GLOBALS['injector']->getInstance('Ansel_Storage')
                     ->getGallery($id)
                     ->updateImageCount($count, false);
             }
@@ -467,7 +467,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     {
         /* Make sure $image is an Ansel_Image; if not, try loading it. */
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image);
         }
 
         /* Make sure the image is in this gallery. */
@@ -497,11 +497,10 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         } catch (VFS_Exception $e) {}
 
         /* Delete from storage */
-        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()
-                ->removeImage($image->id);
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->removeImage($image->id);
 
         if (!$isStack) {
-            $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()
+            $GLOBALS['injector']->getInstance('Ansel_Storage')
                     ->getGallery($image_gallery)
                     ->updateImageCount(1, false);
         }
@@ -611,8 +610,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         if (!is_array($this->_subGalleries)) {
             /* Get a list of all the subgalleries */
             $subs = $GLOBALS['injector']
-                ->getInstance('Ansel_Injector_Factory_Storage')
-                ->create()
+                ->getInstance('Ansel_Storage')
                 ->listGalleries(array('parent' => $this->_gallery));
             $this->_subGalleries = array_keys($subs);
         }

@@ -18,7 +18,7 @@ $page = Horde_Util::getFormData('page', 0);
 
 /* If we have a single gallery, check perms now */
 if (!empty($gallery_id)) {
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
     if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to edit these photos."), 'horde.error');
         echo Horde::wrapInlineScript(array(
@@ -47,10 +47,10 @@ if ($actionID == 'edit_dates') {
     $count = 0;
     foreach (array_keys($images) as $image_id) {
         try {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
             if (empty($gallery_id)) {
                 // Images might be from different galleries
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
                 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                     continue;
                 }
@@ -82,7 +82,7 @@ $html = '';
 foreach ($keys as $key) {
     $html .= '<img src="' . Ansel::getImageUrl($key, 'mini', false) . '" style="margin:2px;" alt="[thumbnail]" />';
 }
-$image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage(array_pop($keys));
+$image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage(array_pop($keys));
 /* Display the form */
 $vars->set('image', $images);
 $vars->set('gallery', $gallery_id);

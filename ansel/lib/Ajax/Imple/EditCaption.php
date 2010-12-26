@@ -56,7 +56,7 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple
             /* Are we requesting the unformatted text? */
             if (!empty($args['action']) && $args['action'] == 'load') {
                 $id = $args['id'];
-                $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
+                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($id);
                 $caption = $image->caption;
 
                 return $caption;
@@ -68,8 +68,8 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple
                     return '';
             }
             $id = $args['id'];
-            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
-            $g = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($id);
+            $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
             if ($g->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $image->caption = $pref_value;
                 try {

@@ -55,7 +55,7 @@ class Ansel_View_Results extends Ansel_View_Base
         global $prefs, $conf;
 
         $notification = $GLOBALS['injector']->getInstance('Horde_Notification');
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         $this->_owner = Horde_Util::getFormData('owner', '');
         //@TODO: Inject the search object when we have more then just a tag search
@@ -226,7 +226,7 @@ class Ansel_View_Results extends Ansel_View_Base
         global $conf, $prefs;
 
         /* Ansel Storage*/
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // Get the slice of galleries/images to view on this page.
         $results = $this->_search->getSlice($this->_page, $this->_perPage);

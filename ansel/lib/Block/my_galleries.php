@@ -57,14 +57,13 @@ class Horde_Block_ansel_my_galleries extends Horde_Block
 
         /* Get the top level galleries */
         try {
-            $galleries = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
-                ->create()->listGalleries(array('perm' => Horde_Perms::EDIT,
-                                                'attributes' => $GLOBALS['registry']->getAuth(),
-                                                 'all_levels' => false,
-                                                 'count' => empty($this->_params['limit']) ? 0 : $this->_params['limit'],
-                                                 'sort_by' => 'last_modified',
-                                                 'direction' => Ansel::SORT_DESCENDING));
-
+            $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
+                ->listGalleries(array('perm' => Horde_Perms::EDIT,
+                                      'attributes' => $GLOBALS['registry']->getAuth(),
+                                      'all_levels' => false,
+                                      'count' => empty($this->_params['limit']) ? 0 : $this->_params['limit'],
+                                      'sort_by' => 'last_modified',
+                                      'direction' => Ansel::SORT_DESCENDING));
         } catch (Ansel_Exception $e) {
             return $e->getMessage();
         }

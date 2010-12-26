@@ -228,4 +228,21 @@ class Ansel_Application extends Horde_Registry_Application
         return false;
     }
 
+    /**
+     * Callback, called from common-template-mobile.inc that sets up the jquery
+     * mobile init hanler.
+     */
+    public function mobileInitCallback()
+    {
+        //Horde::addScriptFile('mobile.js');
+        require ANSEL_TEMPLATES . '/mobile/javascript_defs.php';
+
+        /* Inline script. */
+        Horde::addInlineScript(
+          '$(window.document).bind("mobileinit", function() {
+              $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
+              $.mobile.loadingMessage = "' . _("loading") . '";'
+        );
+    }
+
 }

@@ -166,7 +166,7 @@ EOT;
                 $cnt = count($image_ids);
                 for ($i = 0; $i < $conf['image']['autogen'] && $cnt > $i; $i++) {
                     $image_id = $image_ids[$i];
-                    $image = &$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
+                    $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
                     $image->createView('screen');
                     $image->createView('thumb');
                     $image->createView('mini');

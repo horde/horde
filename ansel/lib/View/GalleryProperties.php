@@ -149,7 +149,7 @@ class Ansel_View_GalleryProperties
         // permissions to add to it.
         $parentId = $this->_params['gallery'];
         try {
-            $parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($parentId);
+            $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($parentId);
         } catch (Ansel_Exception $e) {
             $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
             Horde::url('view.php?view=List', true)->redirect();
@@ -182,7 +182,7 @@ class Ansel_View_GalleryProperties
         }
 
         try {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->_params['gallery']);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($this->_params['gallery']);
             $parent = $gallery->getParent();
             $this->_properties = array(
                 'name' => $gallery->get('name'),
@@ -255,10 +255,10 @@ class Ansel_View_GalleryProperties
             $gallery_parent = null;
         }
         if ($galleryId &&
-            ($exists = ($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->galleryExists($galleryId)) === true)) {
+            ($exists = ($GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($galleryId)) === true)) {
 
             // Modifying an existing gallery.
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $GLOBALS['notification']->push(sprintf(_("Access denied saving gallery \"%s\"."), $gallery->get('name')), 'horde.error');
             } else {
@@ -287,7 +287,7 @@ class Ansel_View_GalleryProperties
                 }
                 if ($gallery_parent != $old_parent_id) {
                     if (!is_null($gallery_parent)) {
-                        $new_parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_parent);
+                        $new_parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_parent);
                     } else {
                         $new_parent = null;
                     }
@@ -310,7 +310,7 @@ class Ansel_View_GalleryProperties
             // Is this a new subgallery?
             if ($gallery_parent) {
                 try {
-                    $parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_parent);
+                    $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_parent);
                 } catch (Ansel_Exception $e) {
                     $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                     Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
@@ -340,7 +340,7 @@ class Ansel_View_GalleryProperties
             $parent = (!empty($gallery_parent)) ? $gallery_parent : null;
 
             try {
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery(
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->createGallery(
                         array('name' => $gallery_name,
                               'desc' => $gallery_desc,
                               'tags' => explode(',', $gallery_tags),
@@ -369,7 +369,7 @@ class Ansel_View_GalleryProperties
 
         // Make sure that the style hash is recorded, ignoring non-styled thumbs
         if ($style->thumbstyle != 'Thumb') {
-            $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->ensureHash($gallery->getViewHash('prettythumb'));
+            $GLOBALS['injector']->getInstance('Ansel_Storage')->ensureHash($gallery->getViewHash('prettythumb'));
         }
 
         // Clear the OtherGalleries widget cache

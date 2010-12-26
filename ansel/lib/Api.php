@@ -36,7 +36,7 @@ class Ansel_Api extends Horde_Registry_Api
         $path = trim($path, '/');
         $parts = explode('/', $path);
 
-        $storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
+        $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         if (empty($path)) {
             $owners = array();
             $galleries = $storage->listGalleries(array('all_levels' => false));
@@ -80,7 +80,7 @@ class Ansel_Api extends Horde_Registry_Api
                 // This request if for a certain gallery, list all sub-galleries
                 // and images.
                 $gallery_id = end($parts);
-                $galleries = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGalleries(array($gallery_id));
+                $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleries(array($gallery_id));
                 if (!isset($galleries[$gallery_id]) ||
                     !$galleries[$gallery_id]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
 
@@ -92,7 +92,7 @@ class Ansel_Api extends Horde_Registry_Api
 
             } elseif (count($parts) > 2 &&
                       $this->galleryExists(null, $parts[count($parts) - 2]) &&
-                      ($image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage(end($parts)))) {
+                      ($image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage(end($parts)))) {
 
                 return array('data' => $image->raw(),
                              'mimetype' => $image->type,
@@ -189,10 +189,10 @@ class Ansel_Api extends Horde_Registry_Api
         }
         $image_name = array_pop($parts);
         $gallery_id = end($parts);
-        if (!$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->galleryExists($gallery_id)) {
+        if (!$GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($gallery_id)) {
             throw new Horde_Exception_NotFound("Gallery does not exist");
         }
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to \"%s\"."));
         }
@@ -218,7 +218,7 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         try {
-            if (!($image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id))) {
+            if (!($image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id))) {
                 return false;
             }
         } catch (Ansel_Exception $e) {
@@ -337,9 +337,9 @@ class Ansel_Api extends Horde_Registry_Api
             throw new InvalidArgumentException(_("A gallery to add this photo to is required."));
         }
         if (!empty($params['slug'])) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGalleryBySlug($params['slug']);
-        } elseif ($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->galleryExists($gallery_id)) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleryBySlug($params['slug']);
+        } elseif ($GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($gallery_id)) {
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         }
 
         /* Check perms for requested gallery */
@@ -419,8 +419,8 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
         }
 
-        $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+        $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
         }
@@ -470,7 +470,7 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         /* Create the gallery */
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery($attributes, $permobj, $parent);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->createGallery($attributes, $permobj, $parent);
 
         return $gallery->id;
     }
@@ -500,11 +500,11 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         /* Get, and check perms on the gallery */
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting gallery \"%s\"."), $gallery->get('name')));
         } else {
-            return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeGallery($gallery);
+            return $GLOBALS['injector']->getInstance('Ansel_Storage')->removeGallery($gallery);
         }
     }
 
@@ -528,9 +528,9 @@ class Ansel_Api extends Horde_Registry_Api
 
         try {
             if (!empty($params['slug'])) {
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGalleryBySlug($params['slug']);
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleryBySlug($params['slug']);
             } else {
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
             }
             return (int)$gallery->countImages();
         } catch (Ansel_Exception $e) {
@@ -558,9 +558,9 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         if (!empty($params['slug'])) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGalleryBySlug($params['slug']);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleryBySlug($params['slug']);
         } else {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         }
 
         return $gallery->getKeyImage(empty($params['style']) ? 'ansel_default' : $params['style']);
@@ -617,8 +617,8 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         /* Get image and gallery */
-        $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+        $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
 
         /* Check age and password */
         if (!$gallery->hasPasswd() || !$gallery->isOldEnough()) {
@@ -679,8 +679,7 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
         }
         $galleries = $GLOBALS['injector']
-            ->getInstance('Ansel_Injector_Factory_Storage')
-            ->create()
+            ->getInstance('Ansel_Storage')
             ->listGalleries($params);
         $return = array();
         foreach ($galleries as $gallery) {
@@ -707,9 +706,9 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         if (count($slugs)) {
-            $results = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGalleriesBySlugs($slugs);
+            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleriesBySlugs($slugs);
         } else {
-            $results = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGalleries($ids);
+            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleries($ids);
         }
 
         // We can't just return the results of the getGalleries call - we need
@@ -780,7 +779,7 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
         }
 
-        $storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
+        $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         // Determine the default gallery when none is given. The first gallery
         // in the list is the default gallery.
         if (is_null($gallery_id) && empty($slug)) {
@@ -846,7 +845,7 @@ class Ansel_Api extends Horde_Registry_Api
         if (!is_null($app)) {
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
         }
-        $images = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRecentImages($galleries, $limit, $slugs);
+        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getRecentImages($galleries, $limit, $slugs);
         $imagelist = array();
         if ($style) {
             $style = Ansel::getStyleDefinition($style);
@@ -892,7 +891,7 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
         }
 
-        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->countGalleries($GLOBALS['registry']->getAuth(), $perm,
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->countGalleries($GLOBALS['registry']->getAuth(), $perm,
             $attributes, $parent,
             $allLevels);
     }
@@ -949,7 +948,7 @@ class Ansel_Api extends Horde_Registry_Api
         $return = array();
         if (!empty($results['images'])) {
             foreach ($results['images'] as $image_id) {
-                $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
+                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
                 $desc = $image->caption;
                 $title = $image->filename;
                 $view_url = Ansel::getUrlFor('view',
@@ -967,7 +966,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         if (!empty($results['galleries'])) {
             foreach ($results['galleries'] as $gallery) {
-                $gal = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery);
+                $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery);
                 $view_url = Horde::url('view.php')->add(
                         array('gallery' => $gallery,
                               'view' => 'Gallery'));
@@ -996,7 +995,7 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
         }
 
-        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->galleryExists($gallery_id, $slug);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($gallery_id, $slug);
     }
 
     /**

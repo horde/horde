@@ -29,7 +29,7 @@ class Ansel_ImageGenerator_RoundedThumb extends Ansel_ImageGenerator
          * (which will have a negative gallery_id). */
         if ($this->_image->gallery > 0) {
             if (is_null($this->_style)) {
-                $gal = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->_image->gallery);
+                $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($this->_image->gallery);
                 $styleDef = $gal->getStyle();
             } else {
                 $styleDef = $this->_style;

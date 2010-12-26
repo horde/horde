@@ -29,7 +29,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
     {
         /* Pass on up the chain */
         parent::__construct($attributes);
-        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->initShareObject($this);
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->initShareObject($this);
         $this->_setModeHelper(isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal');
     }
 
@@ -136,7 +136,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         }
 
         // Check for slug uniqueness
-        $slugGalleryId = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->slugExists($this->data['attribute_slug']);
+        $slugGalleryId = $GLOBALS['injector']->getInstance('Ansel_Storage')->slugExists($this->data['attribute_slug']);
         if ($slugGalleryId > 0 && $slugGalleryId <> $this->id) {
             throw InvalidArgumentException(
                 sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
@@ -256,7 +256,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         /* Check for a supported multi-page image */
         if ($image->isMultiPage() === true) {
             $params['name'] = $image->getImagePageCount() . ' page image: ' . $image->filename;
-            $mGallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery($params, $this->getPermission(), $this->getId());
+            $mGallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->createGallery($params, $this->getPermission(), $this->getId());
             $i = 1;
             foreach ($image as $page) {
                 $page->caption = sprintf(_("Page %d"), $i++);
@@ -550,7 +550,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
      */
     public function getRecentImages($limit = 10)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRecentImages(array($this->id),
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getRecentImages(array($this->id),
                                                           $limit);
     }
 
@@ -563,7 +563,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
      */
     public function &getImage($id)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($id);
     }
 
     /**
@@ -664,8 +664,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
                 /* Fall through to a key image of a sub gallery. */
                 try {
                     $galleries = $GLOBALS['injector']
-                        ->getInstance('Ansel_Injector_Factory_Storage')
-                        ->create()
+                        ->getInstance('Ansel_Storage')
                         ->listGalleries(array('parent' => $this, 'all_levels' => false));
 
                     foreach ($galleries as $galleryId => $gallery) {
@@ -863,7 +862,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
     {
         /* Make sure we have a gallery object */
         if (!is_null($parent) && !($parent instanceof Ansel_Gallery)) {
-            $parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($parent);
+            $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($parent);
         }
 
         /* Check this now since we don't know if we are updating the DB or not */
@@ -973,7 +972,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
     {
         return $this->_modeHelper->getGalleryCrumbData();
     }
-/**
+
+    /**
      * Serialize this object.
      *
      * @return string  The serialized data.
