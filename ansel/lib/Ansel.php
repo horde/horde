@@ -75,7 +75,7 @@ class Ansel
     static public function selectGalleries($params = array())
     {
         $galleries = $GLOBALS['injector']
-            ->getInstance('Ansel__Storage')
+            ->getInstance('Ansel_Storage')
             ->listGalleries($params);
 
         $params = new Horde_Support_Array($params);

@@ -30,9 +30,9 @@ $num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
     ->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, $group, null, false);
 
 if ($num_galleries < 5) {
-    $mini_galleries = $GLOBALS['injector']->
-        getInstance('Ansel_Storage')->
-        create()->listGalleries(array('attributes' => $group, 'all_levels' => false));
+    $mini_galleries = $GLOBALS['injector']
+        ->getInstance('Ansel_Storage')
+        ->listGalleries(array('attributes' => $group, 'all_levels' => false));
 } else {
     $mini_galleries = $GLOBALS['injector']
         ->getInstance('Ansel_Storage')
