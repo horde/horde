@@ -17,7 +17,7 @@ $code['conf'] = array(
 );
 
 // List of top level galleries
-$gallerylist = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('all_levels' => false, 'attribtues' => $registry->getAuth()));
+$gallerylist = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('all_levels' => false, 'attributes' => $registry->getAuth()));
 $galleries = array();
 
 foreach ($gallerylist as $gallery) {
