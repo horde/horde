@@ -16,11 +16,18 @@ $code['conf'] = array(
     'name' => $registry->get('name'),
 );
 
-// My Galleries
+// List of top level galleries
 $gallerylist = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('all_levels' => false, 'attribtues' => $registry->getAuth()));
 $galleries = array();
+
 foreach ($gallerylist as $gallery) {
-    $galleries[$gallery->id] = $gallery->data;
+    $galleries[$gallery->id] = array(
+        'n' => $gallery->get('name'),
+        'dc' => $gallery->get('date_created'),
+        'dm' => $gallery->get('date_modified'),
+        'd' => $gallery->get('desc'),
+        'ki' => Ansel::getImageUrl($gallery->getKeyImage(), 'prettythumb', false, 'ansel_mobile')->toString()
+    );
 }
 $code['conf']['galleries'] = $galleries;
 
