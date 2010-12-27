@@ -49,4 +49,25 @@ extends Horde_Kolab_Storage_TestCase
             $list->listFolders()
         );
     }
+
+    public function testTypeReturnsArray()
+    {
+        $list = new Horde_Kolab_Storage_List_Base($this->getNullMock());
+        $this->assertType('array', $list->listTypes());
+    }
+
+    public function testTypeReturnsAnnotations()
+    {
+        $list = new Horde_Kolab_Storage_List_Base($this->getAnnotatedMock());
+        $this->assertEquals(
+            array(
+                'INBOX/Calendar' => 'event.default',
+                'INBOX/Contacts' => 'contact.default',
+                'INBOX/Notes' => 'note.default',
+                'INBOX/Tasks' => 'task.default',
+            ),
+            $list->listTypes()
+        );
+    }
+
 }

@@ -35,7 +35,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 class Horde_Kolab_Storage_Unit_List_Decorator_LogTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function testListLogsEntry()
+    public function testListFolderCount()
     {
         $list = new Horde_Kolab_Storage_List_Decorator_Log(
             new Horde_Kolab_Storage_List_Base($this->getNullMock()),
@@ -45,7 +45,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertLogCount(2);
     }
 
-    public function testListFolderCount()
+    public function testListLogsEntry()
     {
         $list = new Horde_Kolab_Storage_List_Decorator_Log(
             new Horde_Kolab_Storage_List_Base($this->getTwoFolderMock()),
@@ -53,5 +53,25 @@ extends Horde_Kolab_Storage_TestCase
         );
         $list->listFolders();
         $this->assertLogContains('List contained 2 folders.');
+    }
+
+    public function testListTypesFolderCount()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            new Horde_Kolab_Storage_List_Base($this->getNullMock()),
+            $this->getMockLogger()
+        );
+        $list->listTypes();
+        $this->assertLogCount(2);
+    }
+
+    public function testListTypesLogsEntry()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            new Horde_Kolab_Storage_List_Base($this->getAnnotatedMock()),
+            $this->getMockLogger()
+        );
+        $list->listtypes();
+        $this->assertLogContains('List contained 4 folders and types.');
     }
 }

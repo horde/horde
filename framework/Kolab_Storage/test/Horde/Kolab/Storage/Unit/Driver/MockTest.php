@@ -53,6 +53,52 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testListAnnotationReturnsArray()
+    {
+        $this->assertType(
+            'array',
+            $this->getNullMock()->listAnnotation(
+                '/shared/vendor/kolab/folder-type'
+            )
+        );
+    }
+
+    public function testListAnnotationSize()
+    {
+        $this->assertEquals(
+            4,
+            count(
+                $this->getAnnotatedMock()->listAnnotation(
+                    '/shared/vendor/kolab/folder-type'
+                )
+            )
+        );
+    }
+
+    public function testListAnnotationKeys()
+    {
+        $this->assertEquals(
+            array('INBOX/Calendar', 'INBOX/Contacts', 'INBOX/Notes', 'INBOX/Tasks'),
+            array_keys(
+                $this->getAnnotatedMock()->listAnnotation(
+                    '/shared/vendor/kolab/folder-type'
+                )
+            )
+        );
+    }
+
+    public function testListAnnotationGermanKeys()
+    {
+        $this->assertEquals(
+            array('INBOX/Kalender', 'INBOX/Kontakte', 'INBOX/Notizen', 'INBOX/Aufgaben'),
+            array_keys(
+                $this->getGermanAnnotatedMock()->listAnnotation(
+                    '/shared/vendor/kolab/folder-type'
+                )
+            )
+        );
+    }
+
     public function testGetAnnotationReturnsAnnotationValue()
     {
         $this->markTestIncomplete();
