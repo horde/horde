@@ -42,6 +42,16 @@ interface Horde_Kolab_Storage_Driver
     public function getMailboxes();
 
     /**
+     * Retrieves the specified annotation for the complete list of mailboxes.
+     *
+     * @param string $annotation The name of the annotation to retrieve.
+     *
+     * @return array An associative array combining the folder names as key with
+     * the corresponding annotation value.
+     */
+    public function listAnnotation($annotation);
+
+    /**
      * Does the given folder exist?
      *
      * @param string $folder The folder to check.

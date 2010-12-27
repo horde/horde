@@ -104,4 +104,26 @@ implements Horde_Kolab_Storage_Driver
         }
         return $this->_namespace;
     }
+
+    /**
+     * Split a name for the METADATA extension into the correct syntax for the
+     * older ANNOTATEMORE version.
+     *
+     * @param string $name  A name for a metadata entry.
+     *
+     * @return array  A list of two elements: The entry name and the value
+     *                type.
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _getAnnotateMoreEntry($name)
+    {
+        if (substr($name, 0, 7) == '/shared') {
+            return array(substr($name, 7), 'value.shared');
+        } else if (substr($name, 0, 8) == '/private') {
+            return array(substr($name, 8), 'value.priv');
+        }
+
+        $this->_exception('Invalid METADATA entry: ' . $name);
+    }
+
 }

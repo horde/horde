@@ -36,6 +36,13 @@ extends Horde_Kolab_Storage_Driver_Base
     private $_data;
 
     /**
+     * The regular expression for converting folder names.
+     *
+     * @var string
+     */
+    private $_conversion_pattern;
+
+    /**
      * The data of the mailbox currently opened
      *
      * @var array
@@ -69,17 +76,35 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Parse the folder name into an id for this mock driver.
+     * Convert the external folder id to an internal mailbox name.
      *
-     * @return string The folder id.
+     * @param string $folder The external folder name.
+     *
+     * @return string The internal mailbox id.
      */
-    private function _parseFolder($folder)
+    private function _convertToInternal($folder)
     {
         if (substr($folder, 0, 5) == 'INBOX') {
             $user = explode('@', $this->_user);
             return 'user/' . $user[0] . substr($folder, 5);
         }
         return $folder;
+    }
+
+    /**
+     * Convert the internal mailbox name into an external folder id.
+     *
+     * @param string $mbox The internal mailbox name.
+     *
+     * @return string The external folder id.
+     */
+    private function _convertToExternal($mbox)
+    {
+        if ($this->_conversion_pattern === null) {
+            $user = explode('@', $this->getAuth());
+            $this->_conversion_pattern = '#^user/' . $user[0] . '#';
+        }
+        return preg_replace($this->_conversion_pattern, 'INBOX', $mbox);;
     }
 
     /**
@@ -99,11 +124,28 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
-        $user = explode('@', $this->getAuth());
-        $pattern = '#^user/' . $user[0] . '#';
         $result = array();
         foreach (array_keys($this->_data) as $mbox) {
-            $result[] = preg_replace($pattern, 'INBOX', $mbox);
+            $result[] = $this->_convertToExternal($mbox);
+        }
+        return $result;
+    }
+
+    /**
+     * Retrieves the specified annotation for the complete list of mailboxes.
+     *
+     * @param string $annotation The name of the annotation to retrieve.
+     *
+     * @return array An associative array combining the folder names as key with
+     *               the corresponding annotation value.
+     */
+    public function listAnnotation($annotation)
+    {
+        $result = array();
+        foreach (array_keys($this->_data) as $mbox) {
+            if (isset($this->_data[$mbox]['annotations'][$annotation])) {
+                $result[$this->_convertToExternal($mbox)] = $this->_data[$mbox]['annotations'][$annotation];
+            }
         }
         return $result;
     }
@@ -118,7 +160,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function select($folder)
     {
-        $folder = $this->_parseFolder($folder);
+        $folder = $this->_convertToInternal($folder);
         if (!isset($GLOBALS['KOLAB_TESTING'][$folder])) {
             throw new Horde_Kolab_Storage_Exception(sprintf("IMAP folder %s does not exist!", $folder));
         }
@@ -136,6 +178,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function exists($folder)
     {
+        //@todo: make faster by directly accessing the _data array.
         $folders = $this->getMailboxes();
         if (in_array($folder, $folders)) {
             return true;
@@ -418,7 +461,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAnnotation($entry, $mailbox_name)
     {
-        $mailbox_name = $this->_parseFolder($mailbox_name);
+        $mailbox_name = $this->_convertToInternal($mailbox_name);
         $old_mbox = null;
         if ($mailbox_name != $this->_mboxname) {
             $old_mbox = $this->_mboxname;

@@ -159,6 +159,28 @@ extends Horde_Kolab_Storage_Driver_Base
         return $folders;
     }
 
+
+    /**
+     * Retrieves the specified annotation for the complete list of mailboxes.
+     *
+     * @param string $annotation The name of the annotation to retrieve.
+     *
+     * @return array An associative array combining the folder names as key with
+     *               the corresponding annotation value.
+     */
+    public function listAnnotation($annotation)
+    {
+        list($entry, $value) = $this->_getAnnotateMoreEntry($annotation);
+        $list = array();
+        foreach ($this->getMailboxes() as $mailbox) {
+            $result = imap_getannotation($this->_getImap(), $mailbox, $entry, $value);
+            if (isset($result[$value])) {
+                $list[$mailbox] = $result[$value];
+            }
+        }
+        return $list;
+    }
+
     /**
      * Opens the given folder.
      *
