@@ -1604,7 +1604,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _getMetadata($mailbox, $entries, $options)
     {
-        return $this->_getSocket()->getMetadata($mailbox, $entry, $options);
+        return $this->_getSocket()->getMetadata($mailbox, $entries, $options);
     }
 
     /**
