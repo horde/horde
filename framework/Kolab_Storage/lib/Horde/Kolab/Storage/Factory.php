@@ -107,6 +107,7 @@ class Horde_Kolab_Storage_Factory
         case 'horde':
             $config['hostspec'] = $config['host'];
             unset($config['host']);
+            //$config['debug'] = '/tmp/imap.log';
             $driver = new Horde_Kolab_Storage_Driver_Imap(
                 new Horde_Imap_Client_Socket(
                     $config
@@ -138,6 +139,7 @@ class Horde_Kolab_Storage_Factory
             break;
         case 'roundcube':
             $client = new rcube_imap_generic();
+            //$client->setDebug(true);
             $client->connect(
                 $config['host'], $config['username'], $config['password'],
                 array(
