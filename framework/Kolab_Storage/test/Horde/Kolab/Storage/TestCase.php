@@ -72,6 +72,84 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getAnnotatedMock()
+    {
+        return new Horde_Kolab_Storage_Driver_Mock(
+            new Horde_Kolab_Storage_Factory(),
+            $this->getAnnotatedAccount()
+        );
+    }
+
+    protected function getAnnotatedAccount()
+    {
+        return array(
+            'username' => 'test@example.com',
+            'data' => array(
+                'user/test' => null,
+                'user/test/a' => null,
+                'user/test/Calendar' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/test/Contacts' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'contact.default',
+                    )
+                ),
+                'user/test/Notes' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'note.default',
+                    )
+                ),
+                'user/test/Tasks' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'task.default',
+                    )
+                ),
+            )
+        );
+    }
+
+    protected function getGermanAnnotatedMock()
+    {
+        return new Horde_Kolab_Storage_Driver_Mock(
+            new Horde_Kolab_Storage_Factory(),
+            $this->getGermanAnnotatedAccount()
+        );
+    }
+
+    protected function getGermanAnnotatedAccount()
+    {
+        return array(
+            'username' => 'test@example.com',
+            'data' => array(
+                'user/test' => null,
+                'user/test/Test' => null,
+                'user/test/Kalender' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/test/Kontakte' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'contact.default',
+                    )
+                ),
+                'user/test/Notizen' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'note.default',
+                    )
+                ),
+                'user/test/Aufgaben' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'task.default',
+                    )
+                ),
+            )
+        );
+    }
+
     protected function getMockLogger()
     {
         $this->logHandler = new Horde_Log_Handler_Mock();
