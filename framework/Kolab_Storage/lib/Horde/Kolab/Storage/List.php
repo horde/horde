@@ -34,4 +34,11 @@ interface Horde_Kolab_Storage_List
      */
     public function listFolders();
 
+    /**
+     * Returns the folder types as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               type as values.
+     */
+    public function listTypes();
 }

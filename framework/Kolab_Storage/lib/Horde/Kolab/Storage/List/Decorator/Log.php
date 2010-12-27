@@ -71,4 +71,20 @@ implements Horde_Kolab_Storage_List
         );
         return $result;
     }
+
+    /**
+     * Returns the folder types as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               type as values.
+     */
+    public function listTypes()
+    {
+        $this->_logger->info('Listing folder types.');
+        $result = $this->_list->listTypes();
+        $this->_logger->info(
+            sprintf('List contained %s folders and types.', count($result))
+        );
+        return $result;
+    }
 }
