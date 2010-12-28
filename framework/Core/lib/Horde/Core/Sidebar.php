@@ -131,7 +131,9 @@ class Horde_Core_Sidebar
                 try {
                     $registry->callAppMethod($params['app'], 'sidebarCreate', array('args' => array($tree, empty($params['menu_parent']) ? null : $params['menu_parent'], isset($params['sidebar_params']) ? $params['sidebar_params'] : array())));
                 } catch (Horde_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    if ($e->getCode() != Horde_Registry::NOT_ACTIVE) {
+                        Horde::logMessage($e, 'ERR');
+                    }
                 }
                 break;
 
