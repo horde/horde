@@ -216,7 +216,7 @@ class Horde_Mime_Mdn
             $part_two_text[] = 'Original-Recipient: rfc822;' . $orig_recip . "\n";
         }
         if ($opts['from_addr']) {
-            $part_two_text[] = 'Final-Recipient: rfc822;' . $from_addr . "\n";
+            $part_two_text[] = 'Final-Recipient: rfc822;' . $opts['from_addr'] . "\n";
         }
         if (!empty($msg_id)) {
             $part_two_text[] = 'Original-Message-ID: rfc822;' . $msg_id . "\n";
