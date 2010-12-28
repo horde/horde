@@ -205,9 +205,10 @@ class Kronolith
                 continue;
             }
             foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-                if (!empty($GLOBALS['conf']['share']['hidden']) &&
-                    $tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-                    !in_array('tasks/' . $id, $GLOBALS['display_external_calendars'])) {
+                if (!isset($GLOBALS['all_external_calendars']['tasks/' . $id]) ||
+                    (!empty($GLOBALS['conf']['share']['hidden']) &&
+                     $tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
+                     !in_array('tasks/' . $id, $GLOBALS['display_external_calendars']))) {
                     continue;
                 }
                 $owner = $GLOBALS['registry']->getAuth() &&
