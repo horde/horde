@@ -1,4 +1,4 @@
-div.horde_nicetitle {
+div.nicetitle {
     color: #000;
     background: #ffc;
     border: 1px solid #000;
@@ -11,7 +11,7 @@ div.horde_nicetitle {
     -webkit-border-radius: 3px;
 }
 
-div.horde_nicetitle pre {
+div.nicetitle pre {
     text-align: left;
     font-size: 75%;
     font-family: Consolas,"Lucida Console",'DejaVu Sans Mono,monospace;
