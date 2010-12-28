@@ -410,7 +410,7 @@ Drag = Class.create({
         if (!noupdate) {
             elt.setStyle({
                 left: pos[0] + 'px',
-                top: pos[1] + 'px',
+                top: pos[1] + 'px'
             });
         }
 
