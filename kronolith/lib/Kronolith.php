@@ -141,7 +141,7 @@ class Kronolith
             'prefs_url' => (string)Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)->add('ajaxui', 1),
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
-            'has_tasks' => $has_tasks,
+            'has_tasks' => (bool)$has_tasks,
             'is_ie6' => ($GLOBALS['browser']->isBrowser('msie') && ($GLOBALS['browser']->getMajor() < 7)),
             'login_view' => $prefs->getValue('defaultview') == 'workweek' ? 'week' : $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . self::getDefaultCalendar(Horde_Perms::EDIT),
@@ -1069,7 +1069,7 @@ class Kronolith
             }
         } else {
             $apis = array_unique($GLOBALS['registry']->listAPIs());
-            $ext_cals = $GLOBALS['session']->get('kronolith', 'all_external_calendars', Horde_Session::TYPE_ARRAY);
+            $ext_cals = array();
 
             foreach ($apis as $api) {
                 if (!$GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
