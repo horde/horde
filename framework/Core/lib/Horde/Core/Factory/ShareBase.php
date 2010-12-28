@@ -43,15 +43,14 @@ class Horde_Core_Factory_ShareBase
         $ob = new $class($app, $GLOBALS['registry']->getAuth(), $GLOBALS['injector']->getInstance('Horde_Perms'), $GLOBALS['injector']->getInstance('Horde_Group'));
         $cb = new Horde_Core_Share_FactoryCallback($app, $driver);
         $ob->setShareCallback(array($cb, 'create'));
+        $ob->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
         if (!empty($GLOBALS['conf']['share']['cache'])) {
             $cache_sig = 'horde_share/' . $app . '/' . $driver;
             $listCache = $GLOBALS['session']->retrieve($cache_sig);
             $ob->setListCache($listCache);
-        }
-        $ob->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
-        if (!empty($GLOBALS['conf']['share']['cache'])) {
             register_shutdown_function(array($this, 'shutdown'), $cache_sig, $ob);
         }
+
         $this->_instances[$sig] = $ob;
 
         return $ob;
