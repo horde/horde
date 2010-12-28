@@ -78,10 +78,13 @@ class Kronolith_FreeBusy
         $busy = array();
         foreach ($calendars as $calendar) {
             @list($type, $calendar) = explode('_', $calendar, 2);
-            $driver = Kronolith::getDriver($type, $calendar);
-            $events = $driver->listEvents(new Horde_Date($startstamp),
-                                          $enddate, true);
-            Kronolith::mergeEvents($busy, $events);
+            try {
+                $driver = Kronolith::getDriver($type, $calendar);
+                $events = $driver->listEvents(new Horde_Date($startstamp),
+                                              $enddate, true);
+                Kronolith::mergeEvents($busy, $events);
+            } catch (Exception $e) {
+            }
         }
 
         /* Create the new iCalendar. */
