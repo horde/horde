@@ -1593,7 +1593,10 @@ class Turba_Driver implements Countable
             case 'photo':
             case 'logo':
                 $name = Horde_String::upper($key);
-                $params = array('ENCODING' => 'b');
+                $params = array();
+                if (strlen($val)) {
+                    $params['ENCODING'] = 'b';
+                }
                 if (isset($hash[$key . 'type'])) {
                     $params['TYPE'] = $hash[$key . 'type'];
                 }

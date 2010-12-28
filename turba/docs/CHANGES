@@ -16,6 +16,8 @@ v3.0-git
 v2.3.6-cvs
 ----------
 
+[jan] Only set the encoding parameter for binary data in vCards, if data is not
+      empty (Bug #9413).
 [jan] Fix searching for fields matching an email address if using 'emails'
       attribute instead of 'email' (Bug #9472).
 [jan] Use personal address books first if determining the default one (Valentin
