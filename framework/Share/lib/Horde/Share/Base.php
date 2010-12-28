@@ -449,7 +449,7 @@ abstract class Horde_Share_Base
         $this->_shareMap[$id] = $name;
 
         /* Reset caches that depend on unknown criteria. */
-        $this->_listcache = array();
+        $this->expireListCache();
     }
 
     /**
@@ -481,7 +481,7 @@ abstract class Horde_Share_Base
         unset($this->_cache[$share->getName()]);
 
         /* Reset caches that depend on unknown criteria. */
-        $this->_listcache = array();
+        $this->expireListCache();
 
         $this->_removeShare($share);
     }
@@ -612,7 +612,7 @@ abstract class Horde_Share_Base
     public function resetCache()
     {
         $this->_cache = $this->_shareMap = array();
-        $this->setListCache(array());
+        $this->expireListCache();
     }
 
     /**
@@ -634,7 +634,6 @@ abstract class Horde_Share_Base
     /**
      * Expire the current list cache. This would be needed anytime a share is
      * either added, deleted, had a change in owner, parent, or perms.
-     *
      */
     public function expireListCache()
     {
