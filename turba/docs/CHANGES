@@ -16,6 +16,8 @@ v3.0-git
 v2.3.6-cvs
 ----------
 
+[jan] Fix searching for fields matching an email address if using 'emails'
+      attribute instead of 'email' (Bug #9472).
 [jan] Use personal address books first if determining the default one (Valentin
       Vidic, Request #9367).
 [jan] Use name format preference not only for paging, but for sorting too

@@ -1655,8 +1655,16 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
+            $criterium = array('email' => $address);
+            if (!isset($driver->map['email'])) {
+                if (isset($driver->map['emails'])) {
+                    $criterium = array('emails' => $address);
+                } else {
+                    continue;
+                }
+            }
 
-            $list = $driver->search(array('email' => $address), null, 'AND', array(), $strict ? array('email') : array());
+            $list = $driver->search($criterium, null, 'AND', array(), $strict ? array('email') : array());
             if (!($list instanceof Turba_List)) {
                 continue;
             }
