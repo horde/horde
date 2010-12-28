@@ -1,9 +1,9 @@
 <?php
 /**
- * Small factory class for wrapping the injection of Horde_Share obejcts into
- * the Horde_Share_Object objects. We must use the GLOBAL here instead of
- * keeping a reference to the injector since this object will be serialized
- * along with the Horde_Share_Object object.
+ * Small factory class for wrapping the injection of Horde_Share objects into
+ * the Horde_Share_Object objects. We must use $GLOBALS here instead of keeping
+ * a reference to the injector since this object will be serialized along with
+ * the Horde_Share_Object object.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
