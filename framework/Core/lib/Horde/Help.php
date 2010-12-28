@@ -92,7 +92,7 @@ class Horde_Help
                         break;
 
                     case 'para':
-                        $out .= '<p>' . $this->_processNode($child) . '</h2>';
+                        $out .= '<p>' . $this->_processNode($child) . '</p>';
                         break;
                     }
                 }
