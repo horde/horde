@@ -546,7 +546,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @throws Horde_Mime_Exception
      * @throws Kronolith_Exception
      */
-    protected function _updateEvent($event)
+    protected function _updateEvent(Kronolith_Event $event)
     {
         $values = array();
         $query = 'UPDATE ' . $this->_params['table'] . ' SET ';
@@ -606,7 +606,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @throws Horde_Mime_Exception
      * @throws Kronolith_Exception
      */
-    protected function _addEvent($event)
+    protected function _addEvent(Kronolith_Event $event)
     {
         if (!$event->id) {
             $event->id = (string)new Horde_Support_Randomid;

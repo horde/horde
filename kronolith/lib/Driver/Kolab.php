@@ -335,7 +335,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      * @return string  The event id.
      * @throws Horde_Mime_Exception
      */
-    protected function _updateEvent($event)
+    protected function _updateEvent(Kronolith_Event $event)
     {
         return $this->_saveEvent($event, true);
     }
@@ -348,7 +348,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      * @return string  The event id.
      * @throws Horde_Mime_Exception
      */
-    protected function _addEvent($event)
+    protected function _addEvent(Kronolith_Event $event)
     {
         return $this->_saveEvent($event, false);
     }

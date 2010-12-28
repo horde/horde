@@ -221,7 +221,7 @@ class Kronolith_Driver
      * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
      *                           instance.
      */
-    public function factory($driver = null, $params = null)
+    static public function factory($driver = null, $params = null)
     {
         $driver = basename($driver);
         $class = 'Kronolith_Driver_' . $driver;
@@ -303,7 +303,7 @@ class Kronolith_Driver
      * @throws Horde_Mime_Exception
      * @throws Kronolith_Exception
      */
-    public function saveEvent($event)
+    public function saveEvent(Kronolith_Event $event)
     {
         if ($event->stored || $event->exists()) {
             return $this->_updateEvent($event);
@@ -316,7 +316,7 @@ class Kronolith_Driver
      *
      * @throws Kronolith_Exception
      */
-    protected function _addEvent()
+    protected function _addEvent(Kronolith_Event $event)
     {
         throw new Kronolith_Exception($this->_errormsg);
     }
@@ -326,7 +326,7 @@ class Kronolith_Driver
      *
      * @throws Kronolith_Exception
      */
-    protected function _updateEvent()
+    protected function _updateEvent(Kronolith_Event $event)
     {
         throw new Kronolith_Exception($this->_errormsg);
     }

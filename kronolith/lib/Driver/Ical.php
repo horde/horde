@@ -402,7 +402,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      * @throws Horde_Mime_Exception
      * @throws Kronolith_Exception
      */
-    protected function _updateEvent($event)
+    protected function _updateEvent(Kronolith_Event $event)
     {
         $response = $this->_saveEvent($event);
         if (!in_array($response->code, array(200, 204))) {
@@ -422,7 +422,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      * @throws Horde_Mime_Exception
      * @throws Kronolith_Exception
      */
-    protected function _addEvent($event)
+    protected function _addEvent(Kronolith_Event $event)
     {
         if (!$event->uid) {
             $event->uid = (string)new Horde_Support_Uuid;
