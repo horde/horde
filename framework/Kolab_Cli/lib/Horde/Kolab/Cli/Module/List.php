@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Kolab_Cli_Module_Base:: module provides the base options of the
- * Kolab CLI.
+ * The Horde_Kolab_Cli_Module_List:: handles folder lists.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * The Horde_Kolab_Cli_Module_Base:: module provides the base options of the
- * Kolab CLI.
+ * The Horde_Kolab_Cli_Module_List:: handles folder lists.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -27,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Cli_Modular
  */
-class Horde_Kolab_Cli_Module_Folder
+class Horde_Kolab_Cli_Module_List
 implements Horde_Kolab_Cli_Module
 {
     /**
@@ -37,8 +35,10 @@ implements Horde_Kolab_Cli_Module
      */
     public function getUsage()
     {
-        return Horde_Kolab_Cli_Translation::t("  folder - Handle folders
-  - list [default]: List the folders in the backend
+        return Horde_Kolab_Cli_Translation::t("  list - Handle folder lists
+  - folders [default]: List the folders in the backend
+  - types            : Display all folders that have a folder type.
+  - type TYPE        : Display the folders of type TYPE.
 ");
     }
 
@@ -117,13 +117,35 @@ implements Horde_Kolab_Cli_Module
     public function run($cli, $options, $arguments)
     {
         if (!isset($arguments[1])) {
-            $action = 'list';
+            $action = 'folders';
         } else {
             $action = $arguments[1];
         }
         switch ($action) {
-        case 'list':
+        case 'folders':
             $folders = $this->_getStorage($options)->getList()->listFolders();
+            foreach ($folders as $folder) {
+                $cli->writeln($folder);
+            }
+            break;
+        case 'types':
+            $types = $this->_getStorage($options)->getList()->listTypes();
+            if (!empty($types)) {
+                $pad = max(array_map('strlen', array_keys($types))) + 2;
+                foreach ($types as $folder => $type) {
+                    $cli->writeln(Horde_String::pad($folder . ':', $pad) . $type);
+                }
+            }
+            break;
+        case 'type':
+            if (!isset($arguments[2])) {
+                throw new Horde_Kolab_Cli_Exception('You must provide a TYPE argument!');
+            }
+            $type = $arguments[2];
+            $folders = $this->_getStorage($options)
+                ->getList()
+                ->getQuery('Base')
+                ->listByType($type);
             foreach ($folders as $folder) {
                 $cli->writeln($folder);
             }
