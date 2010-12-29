@@ -37,6 +37,10 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testConstruction()
     {
-        new Horde_Kolab_Storage_Base(new Horde_Kolab_Storage_Driver_Mock(new Horde_Kolab_Storage_Factory()));
+        $factory = new Horde_Kolab_Storage_Factory();
+        new Horde_Kolab_Storage_Base(
+            new Horde_Kolab_Storage_Driver_Mock($factory),
+            $factory
+        );
     }
 }

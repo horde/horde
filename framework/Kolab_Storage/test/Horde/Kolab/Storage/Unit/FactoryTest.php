@@ -152,5 +152,14 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertLogRegExp('/REQUEST OUT IMAP:.*construct.*/');
     }
 
-
+    public function testCreateTypeReturnsType()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder_Type',
+            $factory->createFolderType(
+                'event'
+            )
+        );
+    }
 }

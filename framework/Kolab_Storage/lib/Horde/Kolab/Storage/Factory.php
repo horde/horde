@@ -28,6 +28,13 @@
 class Horde_Kolab_Storage_Factory
 {
     /**
+     * Folder type instances.
+     *
+     * @var array
+     */
+    private $_folder_types;
+
+    /**
      * Create the storage handler.
      *
      * @param Horde_Kolab_Storage_Driver $driver The required driver for access
@@ -37,7 +44,7 @@ class Horde_Kolab_Storage_Factory
      */
     public function create(Horde_Kolab_Storage_Driver $driver)
     {
-        return new Horde_Kolab_Storage_Base($driver);
+        return new Horde_Kolab_Storage_Base($driver, $this);
     }
 
     /**
@@ -57,7 +64,8 @@ class Horde_Kolab_Storage_Factory
     public function createFromParams(array $params)
     {
         $storage = new Horde_Kolab_Storage_Base(
-            $this->createDriverFromParams($params)
+            $this->createDriverFromParams($params),
+            $this
         );
         if (!empty($params['logger'])) {
             $storage = new Horde_Kolab_Storage_Decorator_Log(
@@ -205,5 +213,20 @@ class Horde_Kolab_Storage_Factory
             );
         }
         return new $class($params);
+    }
+
+    /**
+     * Create a folder type handler.
+     *
+     * @param string $annotation The folder type annotation value.
+     *
+     * @return Horde_Kolab_Storage_Folder_Type The folder type handler.
+     */
+    public function createFoldertype($annotation)
+    {
+        if (!isset($this->_folder_types[$annotation])) {
+           $this->_folder_types[$annotation] = new Horde_Kolab_Storage_Folder_Type($annotation);
+        }
+        return $this->_folder_types[$annotation];
     }
 }

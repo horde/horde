@@ -36,15 +36,25 @@ implements Horde_Kolab_Storage
     private $_master;
 
     /**
+     * The factory for generating additional resources.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    private $_factory;
+
+    /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Driver $master The primary connection driver.
-     * @param string $driver The driver used for the primary storage connection.
-     * @param array  $params Additional connection parameters.
+     * @param Horde_Kolab_Storage_Driver  $master  The primary connection driver.
+     * @param Horde_Kolab_Storage_Factory $factory The factory.
+.
      */
-    public function __construct(Horde_Kolab_Storage_Driver $master)
-    {
-        $this->_master = $master;
+    public function __construct(
+        Horde_Kolab_Storage_Driver $master,
+        Horde_Kolab_Storage_Factory $factory
+    ) {
+        $this->_master  = $master;
+        $this->_factory = $factory;
     }
 
     /**
@@ -56,7 +66,8 @@ implements Horde_Kolab_Storage
     public function getList()
     {
         return new Horde_Kolab_Storage_List_Base(
-            $this->_master
+            $this->_master,
+            $this->_factory
         );
     }
 

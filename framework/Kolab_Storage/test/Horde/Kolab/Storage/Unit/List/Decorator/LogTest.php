@@ -38,7 +38,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testListFolderCount()
     {
         $list = new Horde_Kolab_Storage_List_Decorator_Log(
-            new Horde_Kolab_Storage_List_Base($this->getNullMock()),
+            $this->getNullList(),
             $this->getMockLogger()
         );
         $list->listFolders();
@@ -48,7 +48,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testListLogsEntry()
     {
         $list = new Horde_Kolab_Storage_List_Decorator_Log(
-            new Horde_Kolab_Storage_List_Base($this->getTwoFolderMock()),
+            $this->getTwoFolderList(),
             $this->getMockLogger()
         );
         $list->listFolders();
@@ -58,7 +58,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testListTypesFolderCount()
     {
         $list = new Horde_Kolab_Storage_List_Decorator_Log(
-            new Horde_Kolab_Storage_List_Base($this->getNullMock()),
+            $this->getNullList(),
             $this->getMockLogger()
         );
         $list->listTypes();
@@ -68,10 +68,32 @@ extends Horde_Kolab_Storage_TestCase
     public function testListTypesLogsEntry()
     {
         $list = new Horde_Kolab_Storage_List_Decorator_Log(
-            new Horde_Kolab_Storage_List_Base($this->getAnnotatedMock()),
+            $this->getAnnotatedList(),
             $this->getMockLogger()
         );
-        $list->listtypes();
+        $list->listTypes();
         $this->assertLogContains('List contained 4 folders and types.');
+    }
+
+    public function testListAnnotationsLogsEntry()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedList(),
+            $this->getMockLogger()
+        );
+        $list->listFolderTypeAnnotations();
+        $this->assertLogContains('List contained 4 folders and annotations.');
+    }
+
+    public function testGetQueryReturnsQuery()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getNullList(),
+            $this->getMockLogger()
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Query',
+            $list->getQuery('Base')
+        );
     }
 }

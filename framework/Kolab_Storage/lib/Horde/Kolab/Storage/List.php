@@ -26,6 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 interface Horde_Kolab_Storage_List
+extends Horde_Kolab_Storage_Queriable
 {
     /**
      * Returns the list of folders visible to the current user.
@@ -41,4 +42,12 @@ interface Horde_Kolab_Storage_List
      *               type as values.
      */
     public function listTypes();
+
+    /**
+     * Returns the folder type annotation as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               type handler as values.
+     */
+    public function listFolderTypeAnnotations();
 }

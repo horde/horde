@@ -30,10 +30,28 @@
 class Horde_Kolab_Storage_TestCase
 extends PHPUnit_Framework_TestCase
 {
-    protected function getNullMock()
+    protected function completeFactory($factory)
     {
+        if ($factory === null) {
+            return new Horde_Kolab_Storage_Factory();
+        }
+        return $factory;
+    }
+
+    protected function getNullMock($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_Driver_Mock(
-            new Horde_Kolab_Storage_Factory()
+            $factory
+        );
+    }
+
+    protected function getNullList()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        return new Horde_Kolab_Storage_List_Base(
+            $this->getNullMock($factory),
+            $factory
         );
     }
 
@@ -53,14 +71,6 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getTwoFolderMock()
-    {
-        return new Horde_Kolab_Storage_Driver_Mock(
-            new Horde_Kolab_Storage_Factory(),
-            $this->getTwoFolderAccount()
-        );
-    }
-
     protected function getTwoFolderAccount()
     {
         return array(
@@ -72,11 +82,21 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getAnnotatedMock()
+    protected function getTwoFolderMock($factory = null)
     {
+        $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_Driver_Mock(
-            new Horde_Kolab_Storage_Factory(),
-            $this->getAnnotatedAccount()
+            $factory,
+            $this->getTwoFolderAccount()
+        );
+    }
+
+    protected function getTwoFolderList()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        return new Horde_Kolab_Storage_List_Base(
+            $this->getTwoFolderMock($factory),
+            $factory
         );
     }
 
@@ -111,11 +131,21 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getGermanAnnotatedMock()
+    protected function getAnnotatedMock($factory = null)
     {
+        $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_Driver_Mock(
-            new Horde_Kolab_Storage_Factory(),
-            $this->getGermanAnnotatedAccount()
+            $factory,
+            $this->getAnnotatedAccount()
+        );
+    }
+
+    protected function getAnnotatedList()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        return new Horde_Kolab_Storage_List_Base(
+            $this->getAnnotatedMock($factory),
+            $factory
         );
     }
 
@@ -147,6 +177,14 @@ extends PHPUnit_Framework_TestCase
                     )
                 ),
             )
+        );
+    }
+
+    protected function getGermanAnnotatedMock()
+    {
+        return new Horde_Kolab_Storage_Driver_Mock(
+            new Horde_Kolab_Storage_Factory(),
+            $this->getGermanAnnotatedAccount()
         );
     }
 

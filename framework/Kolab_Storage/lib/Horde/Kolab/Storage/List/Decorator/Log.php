@@ -87,4 +87,35 @@ implements Horde_Kolab_Storage_List
         );
         return $result;
     }
+
+    /**
+     * Returns the folder type annotation as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               type handler as values.
+     */
+    public function listFolderTypeAnnotations()
+    {
+        $this->_logger->info('Listing folder type annotations.');
+        $result = $this->_list->listFolderTypeAnnotations();
+        $this->_logger->info(
+            sprintf('List contained %s folders and annotations.', count($result))
+        );
+        return $result;
+    }
+
+    /**
+     * Return the specified query type.
+     *
+     * @param string $name The query name.
+     *
+     * @return Horde_Kolab_Storage_Query A query handler.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query is not supported.
+     */
+    public function getQuery($name)
+    {
+        return $this->_list->getQuery($name);
+    }
+
 }
