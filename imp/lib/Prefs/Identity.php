@@ -227,7 +227,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     {
         if (!isset($this->_cached['aliases'][$ident])) {
             $this->_cached['aliases'][$ident] = @array_merge(
-                $this->getValue('alias_addr', $ident),
+                (array)$this->getValue('alias_addr', $ident),
                 array($this->getValue('replyto_addr', $ident))
             );
         }
