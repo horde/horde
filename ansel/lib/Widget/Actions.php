@@ -178,7 +178,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
             } /* end if ($count) {} */
 
-            if (Ansel::isAvailable('photo_stack') && $this->_view->gallery->hasFeature('stacks')) {
+            if ($this->_view->gallery->hasFeature('stacks')) {
                 $html .= '<li>' . $galleryurl->copy()->add(array('actionID' => 'generateDefault', 'url' => $selfurl))->link(array('class' => 'widget')) . Horde::img('reload.png') . ' ' . _("Reset default photo") . '</a></li>';
             }
         }
