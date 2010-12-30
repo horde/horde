@@ -170,6 +170,11 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function listAnnotation($annotation)
     {
+        if (!function_exists('imap_getannotation')) {
+            throw new Horde_Kolab_Storage_Exception(
+                'This driver is not supported by your variant of PHP. The function "imap_getannotation" is missing!'
+            );
+        }
         list($entry, $value) = $this->_getAnnotateMoreEntry($annotation);
         $list = array();
         foreach ($this->getMailboxes() as $mailbox) {
