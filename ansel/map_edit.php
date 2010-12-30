@@ -147,7 +147,7 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'Locat
 //$html .= Horde_Util::bufferOutput(array($ac, 'attach'));
 
 /* Start the output */
-include ANSEL_TEMPLATES . '/common-header.inc';
+include $registry->get('templates', 'horde') . '/common-header.inc';
 echo '<div class="header">' . sprintf(_("Update position of %s"), $image->filename) . '</div>';
 echo $html;
 require $registry->get('templates', 'horde') . '/common-footer.inc';
