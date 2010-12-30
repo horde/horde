@@ -325,7 +325,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
     }
 
     /**
-     * Removes all generated and cached 'prettythumb' thumbnails for this
+     * Removes all generated and cached thumbnails for this
      * gallery
      *
      * @return void
@@ -335,7 +335,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         $images = $this->listImages();
         foreach ($images as $id) {
             $image = $this->getImage($id);
-            $image->deleteCache('prettythumb');
+            $image->deleteCache('thumb');
         }
     }
 
@@ -716,7 +716,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
     /**
      * Return the style definition for this gallery.
      *
-     * @return array  The style definition array.
+     * @return Ansel_Style  The style definition array.
      */
     public function getStyle()
     {
@@ -742,7 +742,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
             ($GLOBALS['browser']->hasQuirk('png_transparency') ||
              $GLOBALS['conf']['image']['type'] != 'png')) {
 
-            return Ansel::getStyleDefinition('ansel_default');
+            $style = Ansel::getStyleDefinition('ansel_default');
         }
 
         return $style;

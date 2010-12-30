@@ -226,20 +226,33 @@ class Ansel_Image Implements Iterator
      * Return the vfs path for this image.
      *
      * @param string $view        The view we want.
-     * @param Ansel_Style $style  A named gallery style.
+     * @param Ansel_Style $style  A gallery style.
      *
      * @return string  The vfs path for this image.
      */
-    public function getVFSPath($view = 'full', $style = null)
+    public function getVFSPath($view = 'full', Ansel_Style $style = null)
     {
-        $view = $this->getViewHash($view, $style);
-        return '.horde/ansel/'
+        return $this->getVFSPathFromHash($this->getViewHash($view, $style));
+    }
+
+    /**
+     * Generate a path on the VFS given a known style hash.
+     *
+     * @param string $hash  The sytle hash
+     *
+     * @return string the VFS path to the directory for the provided hash
+     */
+    public function getVFSPathFromHash($hash)
+    {
+         return '.horde/ansel/'
                 . substr(str_pad($this->id, 2, 0, STR_PAD_LEFT), -2)
-                . '/' . $view;
+                . '/' . $hash;
     }
 
     /**
      * Returns the file name of this image as used in the VFS backend.
+     *
+     * @param string $view  The image view (full, screen, thumb, mini).
      *
      * @return string  This image's VFS file name.
      */
@@ -278,6 +291,7 @@ class Ansel_Image Implements Iterator
         if ($view == 'full' && !empty($this->_data['full'])) {
             $this->_image->loadString($this->_data['full']);
             $this->_loaded['full'] = true;
+
             return true;
         }
         $viewHash = $this->getViewHash($view, $style);
@@ -738,37 +752,36 @@ class Ansel_Image Implements Iterator
      */
     public function deleteCache($view = 'all')
     {
-        /* Catch exceptions from VFS */
-        try {
-            /* Delete cached screen image. (We don't care if the file is not found) */
-            if ($view == 'all' || $view == 'screen') {
+
+        /* Delete cached screen image. (We don't care if the file is not found) */
+        if ($view == 'all' || $view == 'screen') {
+            try {
                 $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
                     $this->getVFSPath('screen'), $this->getVFSName('screen'));
+            } catch (VFS_Exception $e) {
             }
+        }
 
-            /* Delete cached thumbnail. */
-            if ($view == 'all' || $view == 'thumb') {
-                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
-                    $this->getVFSPath('thumb'), $this->getVFSName('thumb'));
-            }
-
-            /* Delete cached mini image. */
-            if ($view == 'all' || $view == 'mini') {
+        /* Delete cached mini image. */
+        if ($view == 'all' || $view == 'mini') {
+            try {
                 $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
                     $this->getVFSPath('mini'), $this->getVFSName('mini'));
+            } catch (VFS_Exception $e) {
             }
-
-            if ($view == 'all' || $view == 'prettythumb') {
-                $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
-                $hashes = $GLOBALS['injector']->getInstance('Ansel_Storage')->getHashes();
-                foreach ($hashes as $hash)
-                {
+        }
+        if ($view == 'all' || $view == 'thumb') {
+            $hashes = $GLOBALS['injector']->getInstance('Ansel_Storage')->getHashes();
+            foreach ($hashes as $hash)
+            {
+                try {
                     $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
                         ->create('images')
-                        ->deleteFile($this->getVFSPath($hash), $this->getVFSName($hash));
+                        ->deleteFile($this->getVFSPathFromHash($hash), $this->getVFSName('thumb'));
+                } catch (VFS_Exception $e) {
                 }
             }
-        } catch (VFS_Exception $e) {}
+        }
     }
 
     /**
