@@ -63,4 +63,26 @@ extends Horde_Kolab_Storage_TestCase
         $driver->getMailboxes();
         $this->assertLogRegExp('/REQUEST OUT IMAP:.*getMailboxes.*/');
     }
+
+    public function testListAnnotationLogsEntry()
+    {
+        $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
+            $this->getNullMock(),
+            new Horde_Support_Timer(),
+            $this->getMockLogger()
+        );
+        $driver->listAnnotation('/shared/vendor/kolab/folder-type');
+        $this->assertLogCount(1);
+    }
+
+    public function testListAnnotationFolderCount()
+    {
+        $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
+            $this->getTwoFolderMock(),
+            new Horde_Support_Timer(),
+            $this->getMockLogger()
+        );
+        $driver->listAnnotation('/shared/vendor/kolab/folder-type');
+        $this->assertLogRegExp('/REQUEST OUT IMAP:.*listAnnotation.*/');
+    }
 }

@@ -115,7 +115,7 @@ implements Horde_Kolab_Storage_List
      */
     public function getQuery($name)
     {
-        return $this->_list->getQuery($name);
+        return $this->_list->getQueryWithParent($name, $this);
     }
 
 }

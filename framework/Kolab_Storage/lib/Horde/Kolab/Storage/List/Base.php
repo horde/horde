@@ -111,9 +111,24 @@ implements Horde_Kolab_Storage_List
      */
     public function getQuery($name)
     {
+        return $this->getQueryWithParent($name, $this);
+    }
+
+    /**
+     * Return the specified query type based on the specified parent object.
+     *
+     * @param string                   $name   The query name.
+     * @param Horde_Kolab_Storage_List $parent The base for the query object.
+     *
+     * @return Horde_Kolab_Storage_Query A query handler.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query is not supported.
+     */
+    public function getQueryWithParent($name, Horde_Kolab_Storage_List $parent)
+    {
         $class = 'Horde_Kolab_Storage_List_Query_' . $name;
         if (class_exists($class)) {
-            return new $class($this);
+            return new $class($parent);
         }
         throw new Horde_Kolab_Storage_Exception(sprintf('No such query "%s"!', $name));
     }

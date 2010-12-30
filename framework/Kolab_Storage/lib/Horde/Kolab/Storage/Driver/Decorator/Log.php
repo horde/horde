@@ -69,6 +69,29 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     }
 
     /**
+     * Retrieves the specified annotation for the complete list of mailboxes.
+     *
+     * @param string $annotation The name of the annotation to retrieve.
+     *
+     * @return array An associative array combining the folder names as key with
+     *               the corresponding annotation value.
+     */
+    public function listAnnotation($annotation)
+    {
+        $this->_logger->info(
+            sprintf('Driver "%s": Listing annotation "%s".', $this->getDriverName(), $annotation)
+        );
+        $result = parent::listAnnotation($annotation);
+        $this->_logger->info(
+            sprintf(
+                'Driver "%s": List contained %s folder annotations.',
+                $this->getDriverName(),
+                count($result))
+        );
+        return $result;
+    }
+
+    /**
      * Does the given folder exist?
      *
      * @param string $folder The folder to check.

@@ -54,4 +54,24 @@ extends Horde_Kolab_Storage_TestCase
         $driver->getMailboxes();
         $this->assertLogContains('Driver "Horde_Kolab_Storage_Driver_Mock": List contained 2 folders.');
     }
+
+    public function testListAnnotationLogsEntry()
+    {
+        $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
+            $this->getNullMock(),
+            $this->getMockLogger()
+        );
+        $driver->listAnnotation('/shared/vendor/kolab/folder-type');
+        $this->assertLogCount(2);
+    }
+
+    public function testListAnnotationFolderCount()
+    {
+        $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
+            $this->getAnnotatedMock(),
+            $this->getMockLogger()
+        );
+        $driver->listAnnotation('/shared/vendor/kolab/folder-type');
+        $this->assertLogContains('Driver "Horde_Kolab_Storage_Driver_Mock": List contained 4 folder annotations.');
+    }
 }
