@@ -751,7 +751,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
     /**
      * Return a hash key for the given view and style.
      *
-     * @param string $view         The view (thumb, prettythumb etc...)
+     * @param string $view         The view (thumb, etc...)
      * @param Ansel_Style $style   The style.
      *
      * @return string  A md5 hash suitable for use as a key.

@@ -35,7 +35,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
         $thumbsize = (!empty($this->_params['thumbsize'])) ? $this->_params['thumbsize'] : 'mini';
         // Limit to these image views only.
         if ($thumbsize != 'mini' && $thumbsize != 'thumb' &&
-            $thumbsize != 'prettythumb' && $thumbsize != 'screen') {
+            $thumbsize != 'screen') {
 
              $thumbsize = 'mini';
         }

@@ -43,7 +43,7 @@ class Ansel_Tile_Image
         }
 
         /* Override the thumbnail to mini or use style default? */
-        $thumbstyle = $mini ? 'mini' : $style->thumbstyle;
+        $thumbstyle = $mini ? 'mini' : 'thumb';
 
         /* URL for image properties/actions etc... */
         $image_url = Horde::url('image.php')->add(

@@ -59,7 +59,7 @@ class Horde_Block_ansel_random_photo extends Horde_Block
                                                   'view' => 'Image'), true);
 
         if ($gallery->isOldEnough() && !$gallery->hasPasswd()) {
-            $img = '<img src="' . Ansel::getImageUrl($imageId, 'thumb', true) . '" alt="[random photo]" />';
+            $img = '<img src="' . Ansel::getImageUrl($imageId, 'thumb', true, Ansel::getStyleDefinition('ansel_default')) . '" alt="[random photo]" />';
         } else {
             $img = Horde::img('thumb-error.png');
         }

@@ -71,7 +71,7 @@ class Ansel_Tile_DateGallery
                 $style = $dgallery->getStyle();
             }
 
-            $thumbstyle = $mini ? 'mini' : $style->thumbstyle;
+            $thumbstyle = $mini ? 'mini' : 'thumb';
             $gallery_image = Ansel::getImageUrl(
                 $dgallery->getKeyImage(),
                 $thumbstyle,

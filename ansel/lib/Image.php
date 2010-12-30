@@ -368,6 +368,11 @@ class Ansel_Image Implements Iterator
             $this->_image->setType('jpeg');
         }
 
+        /* Default to the gallery's style */
+        if (empty($style)) {
+            $style = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($this->gallery)->getStyle();
+        }
+
         /* Get the VFS info. */
         $vfspath = $this->getVFSPath($view, $style);
         if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->exists($vfspath, $this->getVFSName($view))) {
@@ -382,10 +387,10 @@ class Ansel_Image Implements Iterator
 
         $vHash = $this->getViewHash($view, $style);
         $this->_image->loadString($data);
-        if ($view == 'prettythumb') {
+        if ($view == 'thumb') {
             $viewType = $style->thumbstyle;
         } else {
-            // Screen, Mini, Thumb
+            // Screen, Mini
             $viewType = ucfirst($view);
         }
 
@@ -394,7 +399,8 @@ class Ansel_Image Implements Iterator
         } catch (Ansel_Exception $e) {
             // It could be we don't support the requested effect, try
             // ansel_default before giving up.
-            if ($view == 'prettythumb') {
+            //if ($view == 'prettythumb') {
+            if ($view == 'thumb' && $viewType != 'Thumb') {
                 $iview = Ansel_ImageGenerator::factory('Thumb', array('image' => $this, 'style' => Ansel::getStyleDefinition('ansel_default')));
             } else {
                 // If it wasn't a prettythumb, then something else must be wrong
@@ -1169,7 +1175,7 @@ class Ansel_Image Implements Iterator
     public function getViewHash($view, $style = null)
     {
         // These views do not care about style...just return the $view value.
-        if ($view == 'screen' || $view == 'thumb' || $view == 'mini' || $view == 'full') {
+        if ($view == 'screen' || $view == 'mini' || $view == 'full') {
             return $view;
         }
 
@@ -1177,6 +1183,11 @@ class Ansel_Image Implements Iterator
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(abs($this->gallery));
             $style = $gallery->getStyle();
         }
+
+        if ($view == 'thumb' && $style->thumbstyle == 'Thumb') {
+            return $view;
+        }
+        
         $view = md5($style->thumbstyle . '.' . $style->background);
 
         return $view;

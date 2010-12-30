@@ -352,8 +352,8 @@ class Ansel
      * factors.
      *
      * @param string $imageId     The id of the image.
-     * @param string $view        The view ('screen', 'thumb', 'prettythumb' or
-     *                            'full') to show.
+     * @param string $view        The view ('screen', 'thumb', 'full', 'mini')
+     *                            to show.
      * @param boolean $full       Return a path that includes the server name?
      * @param Ansel_Style $style  Use this gallery style
      *
@@ -366,16 +366,16 @@ class Ansel
         // To avoid having to add a new img/* file everytime we add a new
         // thumbstyle, we check for the 'non-prettythumb' views, then route the
         // rest through prettythumb, passing it the style.
-        switch ($view) {
-        case 'screen':
-        case 'full':
-        case 'thumb':
-        case 'mini':
-            // Do nothing.
-            break;
-        default:
-            $view = 'prettythumb';
-        }
+//        switch ($view) {
+//        case 'screen':
+//        case 'full':
+//        case 'thumb':
+//        case 'mini':
+//            // Do nothing.
+//            break;
+//        default:
+//            $view = 'prettythumb';
+//        }
 
         if (empty($imageId)) {
             return Horde::url((string)Ansel::getErrorImage($view), $full);
@@ -650,17 +650,6 @@ class Ansel
     static public function getStyleSelect($element_name, $selected = '')
     {
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
-
-        // @TODO: Look at this code: probably duplicated in the binder above.
-        /* No prettythumbs allowed at all by admin choice */
-        if (empty($GLOBALS['conf']['image']['prettythumbs'])) {
-            $test = $styles;
-            foreach ($test as $key => $style) {
-                if ($style['thumbstyle'] != 'thumb') {
-                    unset($styles[$key]);
-                }
-            }
-        }
 
         /* Build the available styles, but don't show hidden styles */
         foreach ($styles as $key => $style) {

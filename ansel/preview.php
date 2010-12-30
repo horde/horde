@@ -15,7 +15,7 @@ $imageId = Horde_Util::getFormData('image');
 try {
     $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($imageId);
     $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(abs($image->gallery));
-    $img = Ansel::getImageUrl($imageId, 'thumb', false);
+    $img = Ansel::getImageUrl($imageId, 'thumb', false, Ansel::getStyleDefinition('ansel_default'));
 } catch (Ansel_Exception $e) {
     Horde::logMessage($e->getMessage(), 'ERR');
     exit;

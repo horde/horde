@@ -46,7 +46,7 @@ class Ansel_Tile_Gallery
             if (is_null($style)) {
                 $style = $gallery->getStyle();
             }
-            $thumbstyle = $mini ? 'mini' : $style->thumbstyle;
+            $thumbstyle = $mini ? 'mini' : 'thumb';
             if ($gallery->hasPasswd()) {
                 $gallery_image = Horde::img('gallery-locked.png');
             } else {
