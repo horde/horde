@@ -122,7 +122,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
 
                 anselnodes = new Array();
                 anseljson = new Object();
-                document.write('$cssurl');
+                document.write('$css');
                 document.write('<script type="text/javascript" src="$jsurl"></script>');
             }
             anselnodes[anselnodes.length] = '$node';
@@ -166,6 +166,7 @@ EOT;
                 anseljson['$node']['lightbox'] = $json_full;
 EOT;
         }
+
         return $html;
     }
 
