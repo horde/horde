@@ -47,7 +47,7 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
                              'OwnerFaces' => array()));
 
             $rows = $this->_connection->selectAll($sql);
-            $update = 'UPDATE ansel_shares SET attribute_style=? WHERE share_id=?;';
+            $update = 'UPDATE ansel_shares SET attribute_style = ? WHERE share_id = ?;';
             foreach ($rows as $row) {
                 // Make sure we haven't already migrated
                 if (@unserialize($row['attribute_style']) instanceof Ansel_Style) {
@@ -66,7 +66,7 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
                 $this->announce('Migrating share id: ' . $row['share_id'] . ' from: ' . $row['attribute_style'] . ' to: ' . $newStyle, 'cli.message');
 
                 try {
-                    $this->_connection->execute($update, array($newStyle, $row['attribute_style']));
+                    $this->_connection->execute($update, array($newStyle, $row['share_id']));
                 } catch (Horde_Db_Exception $e) {
                     $this->announce('ERROR: ' . $e->getMessage());
                 }
