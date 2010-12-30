@@ -21,10 +21,9 @@ var AnselMobile = {
         var list = $('<ul>')
             .addClass('anselGalleryList')
             .attr({ 'data-role': 'listview' }), item;
-
         $('#anselgallerylist ul').detach();
         $.each(galleries, function(k, g) {
-            var item = $('<li>');
+            var item = $('<li>').attr({ 'class': 'ansel-gallery', 'ansel-gallery-id': g.id });
             item.append($('<img>').attr({ src: g.ki }));
             item.append($('<h3>').append($('<a>').attr({ href: '#' }).text(g.n)));
             item.append($('<p>').text(g.d));
@@ -35,12 +34,38 @@ var AnselMobile = {
     },
 
     /**
+     * Load the specified gallery
+     */
+    toGallery: function(id)
+    {
+        HordeMobile.doAction('getGallery', { id: id }, AnselMobile.galleryLoaded);
+    },
+
+    /**
+     * Callback for after a gallery is loaded.
+     */
+    galleryLoaded: function(r)
+    {
+        console.log(r);
+    },
+    
+    /**
      * Global click handler
      *
      */
     clickHandler: function(e)
     {
+        var elt = $(e.target), id;
 
+        while (elt && elt != window.document && elt.parent().length) {
+
+            // Navigate to a gallery
+            if (elt.hasClass('ansel-gallery')) {
+                alert(elt.attr('ansel-gallery-id'));
+                AnselMobile.toGallery(elt.attr('ansel-gallery-id'));
+            }
+            elt = elt.parent();
+        }
     },
 
     /**

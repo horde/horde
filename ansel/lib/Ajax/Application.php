@@ -19,6 +19,33 @@ class Ansel_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public $notify = true;
 
-
+    /**
+     * Obtain a gallery
+     *
+     * @return mixed  False on failure, object representing the gallery with
+     *                the following structure:
+     * <pre>
+     * 'n'  - gallery name
+     * 'dc' - date created
+     * 'dm' - date modified
+     * 'd'  - description
+     * 'ki' - key image
+     * 'sg' - an object with the following properties:
+     *      'n'  - gallery name
+     *      'dc' - date created
+     *      'dm' - date modified
+     *      'd'  - description
+     *      'ki' - key image
+     *
+     *  'imgs' - an array of image objects with the following properties:
+     *      'id'  - the image id
+     *      'url' - the image url
+     * </pre>
+     */
+    public function getGallery()
+    {
+        $id = $this->_vars->id;
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($id)->toJson(true);
+    }
     
 }

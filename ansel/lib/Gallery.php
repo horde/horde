@@ -994,4 +994,43 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         parent::unserialize($data);
         $this->_setModeHelper($this->get('view_mode'));
     }
+
+    /**
+     * Returns a json representation of this gallery.
+     *
+     * @param boolean $full  Return all information (subgalleries and images)?
+     *
+     * @return StdClass  An object describing the gallery
+     */
+    public function toJson($full = false)
+    {
+        $json = new StdClass();
+        $json->id = $this->getId();
+        $json->n = $this->get('name');
+        $json->dc = $this->get('date_created');
+        $json->dm = $this->get('date_modified');
+        $json->d = $this->get('desc');
+        $json->ki = Ansel::getImageUrl($this->getKeyImage(), 'mini', false, 'ansel_default')->toString();
+
+        if ($full) {
+            $json->sg = array();
+            if ($this->hasSubGalleries()) {
+                $sgs = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('parent' => $this->getId(), 'all_levels' => false));
+                foreach ($sgs as $g) {
+                    $json->sg[] = $g->toJson();
+                }
+            }
+
+            $images = $this->listImages();
+            foreach ($images as $img) {
+                $i = new StdClass();
+                $i->id = $img;
+                $i->url = Ansel::getImageUrl($img, 'mini', false, Ansel::getStyleDefinition('ansel_mobile'))->toString();
+                $json->imgs[] = $i;
+            }
+        }
+
+        return $json;
+    }
+
 }

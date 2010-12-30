@@ -21,13 +21,7 @@ $gallerylist = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries
 $galleries = array();
 
 foreach ($gallerylist as $gallery) {
-    $galleries[$gallery->id] = array(
-        'n' => $gallery->get('name'),
-        'dc' => $gallery->get('date_created'),
-        'dm' => $gallery->get('date_modified'),
-        'd' => $gallery->get('desc'),
-        'ki' => Ansel::getImageUrl($gallery->getKeyImage(), 'prettythumb', false, 'ansel_mobile')->toString()
-    );
+    $galleries[] = $gallery->toJson();
 }
 $code['conf']['galleries'] = $galleries;
 

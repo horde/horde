@@ -25,10 +25,10 @@ class Ansel_ImageGenerator_SquareThumb extends Ansel_ImageGenerator
     protected function _create()
     {
         // Take the largest requested dimension
-        if (empty($this->_dimensions['width'])) {
-            $size = max($GLOBALS['conf']['thumbnail']['height'], $GLOBALS['conf']['thumbnail']['width']);
+        if (empty($this->_params['width'])) {
+            $size = min($GLOBALS['conf']['thumbnail']['height'], $GLOBALS['conf']['thumbnail']['width']);
         } else {
-            $size = max($this->_dimensions['width'], $this->_dimensions['height']);
+            $size = min($this->_params['width'], $this->_params['height']);
         }
 
         // Use smartcrop algorithm if we have it, otherwise a plain center crop.
