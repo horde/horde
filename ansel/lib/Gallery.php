@@ -638,6 +638,10 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
                 $prettyData = serialize(array_merge($thumbs, array($styleHash => $newImg->id)));
                 $this->set('default_prettythumb', $prettyData, true);
 
+                // Make sure the hash is saved since it might be different then
+                // the gallery's
+                $GLOBALS['injector']->getInstance('Ansel_Storage')->ensureHash($styleHash);
+
                 return $newImg->id;
             } catch (Horde_Exception $e) {
                 // Might not support the requested style...try ansel_default
