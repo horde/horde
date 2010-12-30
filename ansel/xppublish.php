@@ -177,7 +177,7 @@ if ($cmd == 'add') {
                 $error = false;
             }
         } catch (Ansel_Exception $e) {
-            $error = _("There was an error accessing the gallery");
+            $error = _("There was an error accessing the gallery.");
         }
     }
     if (!$name || $error) {

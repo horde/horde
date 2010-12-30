@@ -229,7 +229,12 @@ class Ansel_View_Results extends Ansel_View_Base
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // Get the slice of galleries/images to view on this page.
-        $results = $this->_search->getSlice($this->_page, $this->_perPage);
+        try {
+            $results = $this->_search->getSlice($this->_page, $this->_perPage);
+        } catch (Ansel_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            return _("An error has occured retrieving the image. Details have been logged.");
+        }
         $total = $this->_search->count();
         $total = $total['galleries'] + $total['images'];
 

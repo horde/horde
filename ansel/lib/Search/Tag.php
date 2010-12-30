@@ -93,9 +93,6 @@ class Ansel_Search_Tag
     /**
      * Fetch the matching resources that should appear on the current page
      *
-     * @TODO: Implement an Interface that Ansel_Gallery and Ansel_Image should
-     *        implement that the client search code will use.
-     *
      * @return Array of Ansel_Images and Ansel_Galleries
      */
     public function getSlice($page, $perpage)
@@ -121,7 +118,11 @@ class Ansel_Search_Tag
         $count = $perpage - count($galleries);
         if ($count > 0) {
             $iresults = array_slice($this->_results['images'], $istart, $count);
-            $images = count($iresults) ? array_values($GLOBALS['injector']->getInstance('Ansel_Storage')->getImages(array('ids' => $iresults))) : array();
+            try {
+                $images = count($iresults) ? array_values($GLOBALS['injector']->getInstance('Ansel_Storage')->getImages(array('ids' => $iresults))) : array();
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Ansel_Exception($e);
+            }
             if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
                 $registry->hasMethod('forums/numMessagesBatch')) {
 
