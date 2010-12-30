@@ -1166,5 +1166,10 @@ class Ansel_Storage
     public function getHashes()
     {
         $hashes = $this->_db->query('SELECT style_hash FROM ansel_hashes');
+        if (!($hashes instanceof PEAR_Error)) {
+            return $hashes->fetchCol();
+        } else {
+            throw new Ansel_Exception($hashes);
+        }
     }
 }
