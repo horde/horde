@@ -1,5 +1,6 @@
 <?php echo $this->subject ?> (<?php printf(_("on %s at %s"), $this->event->start->strftime('%x'), $this->event->start->strftime('%X')) ?>)
 
+
 <?php if (strlen($this->event->location)): ?>
 <?php echo _("Location:") ?> <?php echo $this->event->location ?>
 
