@@ -345,7 +345,7 @@ class Ansel_Image Implements Iterator
         }
 
         /* Get the VFS path. */
-        $view = Ansel::getViewHash($view, $style);
+        $view = $style->getHash($view);
 
         /* Can't call the various vfs methods here, since this method needs
         to be called statically */

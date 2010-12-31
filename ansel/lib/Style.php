@@ -57,9 +57,7 @@ class Ansel_Style
 
     public function getHash($view)
     {
-        if ($view != 'screen' && $view != 'thumb' && $view != 'mini' &&
-            $view != 'full') {
-
+        if ($view != 'screen' && $view != 'mini' && $view != 'full') {
             $view = md5($this->thumbstyle . '.' . $this->background);
         }
 
