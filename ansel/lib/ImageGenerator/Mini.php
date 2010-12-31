@@ -15,7 +15,8 @@ class Ansel_ImageGenerator_Mini extends Ansel_ImageGenerator
     {
         $generator = Ansel_ImageGenerator::factory('SquareThumb', array('width' => min(50, $this->_dimensions['width']),
                                                                         'height' => min(50, $this->_dimensions['height']),
-                                                                        'image' => $this->_image));
+                                                                        'image' => $this->_image,
+                                                                        'style' => $this->_params['style']));
         return $generator->create();
     }
 
