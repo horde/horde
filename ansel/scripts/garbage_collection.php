@@ -9,7 +9,7 @@
  * directory.
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 
 // Default arguments.
@@ -39,7 +39,6 @@ foreach ($opts as $opt) {
 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
 $vfspath = '.horde/ansel/';
 $garbagepath = $vfspath . 'garbage/';
-
 $hash = $vfs->listFolder($vfspath, null, false, true);
 sort($hash);
 

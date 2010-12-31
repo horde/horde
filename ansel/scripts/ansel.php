@@ -9,7 +9,7 @@
 * @author Vijay Mahrra <webmaster@stain.net>
 */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 
 // We accept the user name on the command-line.
