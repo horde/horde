@@ -753,23 +753,6 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
     }
 
     /**
-     * Return a hash key for the given view and style.
-     *
-     * @param string $view         The view (thumb, etc...)
-     * @param Ansel_Style $style   The style.
-     *
-     * @return string  A md5 hash suitable for use as a key.
-     */
-    public function getViewHash($view, $style = null)
-    {
-        if (empty($style)) {
-            $style = $this->getStyle();
-        }
-
-        return Ansel::getViewHash($view, $style);
-    }
-
-    /**
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.

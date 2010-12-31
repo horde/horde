@@ -677,25 +677,6 @@ class Ansel
     }
 
     /**
-     * Return a hash key for the given view and style.
-     *
-     * @param string $view        The view (thumb, prettythumb etc...)
-     * @param Ansel_Style $style  The style object.
-     *
-     * @return string  A md5 hash suitable for use as a key.
-     */
-    static public function getViewHash($view, $style)
-    {
-        if ($view != 'screen' && $view != 'thumb' && $view != 'mini' &&
-            $view != 'full') {
-
-            $view = md5($style->thumbstyle . '.' . $style->background);
-        }
-
-        return $view;
-    }
-
-    /**
      * Get a date parts array containing only enough date parts for the depth
      * we are at. If an empty array is passed, attempt to get the parts from
      * url parametrs. Any missing date parts must be set to 0.

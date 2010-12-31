@@ -1197,13 +1197,7 @@ class Ansel_Image Implements Iterator
             $style = $gallery->getStyle();
         }
 
-        if ($view == 'thumb' && $style->thumbstyle == 'Thumb') {
-            return $view;
-        }
-
-        $view = md5($style->thumbstyle . '.' . $style->background);
-
-        return $view;
+        return $style->getHash($view);
     }
 
     /**
