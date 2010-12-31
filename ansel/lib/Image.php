@@ -158,7 +158,7 @@ class Ansel_Image Implements Iterator
      *
      * @return Ansel_Image
      */
-    public function __construct($image = array())
+    public function __construct(array $image = array())
     {
         if ($image) {
             $this->filename = $image['image_filename'];
@@ -283,7 +283,7 @@ class Ansel_Image Implements Iterator
      * @return boolean
      * @throws Ansel_Exception
      */
-    public function load($view = 'full', $style = null)
+    public function load($view = 'full', Ansel_Style $style = null)
     {
         // If this is a new image that hasn't been saved yet, we will
         // already have the full data loaded. If we auto-rotate the image
@@ -337,7 +337,7 @@ class Ansel_Image Implements Iterator
      *
      * @return mixed  False if image does not exists | string vfs name
      */
-    static public function viewExists($id, $view, $style)
+    static public function viewExists($id, $view, Ansel_Style $style)
     {
         /* We cannot check empty styles since we cannot get the hash */
         if (empty($style)) {
@@ -375,7 +375,7 @@ class Ansel_Image Implements Iterator
      * @return boolean
      * @throws Ansel_Exception
      */
-    public function createView($view, $style = null)
+    public function createView($view, Ansel_Style $style = null)
     {
         /* Force screen images to ALWAYS be jpegs for performance/size */
         if ($view == 'screen' && $GLOBALS['conf']['image']['type'] != 'jpeg') {
@@ -572,7 +572,7 @@ class Ansel_Image Implements Iterator
      * @return void
      * @throws Ansel_Exception
      */
-    public function replace($imageData)
+    public function replace(array $imageData)
     {
         /* Reset the data array and remove all cached images */
         $this->_data = array();
@@ -597,7 +597,7 @@ class Ansel_Image Implements Iterator
      *
      * @return void
      */
-    protected function _exifToTags($fields = array())
+    protected function _exifToTags(array $fields = array())
     {
         $tags = array();
         foreach ($fields as $field) {
@@ -1128,7 +1128,7 @@ class Ansel_Image Implements Iterator
      * @return void
      * @throws Horde_Exception_PermissionDenied
      */
-    public function setTags($tags)
+    public function setTags(array $tags)
     {
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(abs($this->gallery));
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
@@ -1152,7 +1152,7 @@ class Ansel_Image Implements Iterator
      * @return string  HTML for this image's view tile.
      *
      */
-    public function getTile($parent = null, $style = null, $mini = false, $params = array())
+    public function getTile($parent = null, $style = null, $mini = false, array $params = array())
     {
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
@@ -1185,7 +1185,7 @@ class Ansel_Image Implements Iterator
      *
      * @return string  A md5 hash suitable for use as a key.
      */
-    public function getViewHash($view, $style = null)
+    public function getViewHash($view, Ansel_Style $style = null)
     {
         // These views do not care about style...just return the $view value.
         if ($view == 'screen' || $view == 'mini' || $view == 'full') {
@@ -1200,7 +1200,7 @@ class Ansel_Image Implements Iterator
         if ($view == 'thumb' && $style->thumbstyle == 'Thumb') {
             return $view;
         }
-        
+
         $view = md5($style->thumbstyle . '.' . $style->background);
 
         return $view;
