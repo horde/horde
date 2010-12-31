@@ -367,15 +367,14 @@ class Ansel
             return Horde::url((string)Ansel::getErrorImage($view), $full);
         }
 
-        // Default to ansel_default since we really only need to know the style
-        // if we are requesting a 'prettythumb'
+        // Default to ansel_default
         if (is_null($style)) {
             $style = Ansel::getStyleDefinition('ansel_default');
         }
 
         // Don't load the image if the view exists
-        if ($conf['vfs']['src'] != 'php' &&
-            ($viewHash = Ansel_Image::viewExists($imageId, $view, $style)) === false) {
+        $viewHash = Ansel_Image::viewExists($imageId, $view, $style);
+        if ($conf['vfs']['src'] != 'php' && $viewHash === false) {
             // We have to make sure the image exists first, since we won't
             // be going through img/*.php to auto-create it.
             try {
@@ -385,7 +384,7 @@ class Ansel
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
             try {
-                $image->createView($view, $style, false);
+                $image->createView($view, $style);
             } catch (Ansel_Exception $e) {
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
