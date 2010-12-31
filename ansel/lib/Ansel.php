@@ -363,20 +363,6 @@ class Ansel
     {
         global $conf;
 
-        // To avoid having to add a new img/* file everytime we add a new
-        // thumbstyle, we check for the 'non-prettythumb' views, then route the
-        // rest through prettythumb, passing it the style.
-//        switch ($view) {
-//        case 'screen':
-//        case 'full':
-//        case 'thumb':
-//        case 'mini':
-//            // Do nothing.
-//            break;
-//        default:
-//            $view = 'prettythumb';
-//        }
-
         if (empty($imageId)) {
             return Horde::url((string)Ansel::getErrorImage($view), $full);
         }
