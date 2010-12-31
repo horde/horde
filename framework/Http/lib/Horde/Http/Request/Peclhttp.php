@@ -51,7 +51,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
     public function send()
     {
         if (!defined('HTTP_METH_' . $this->method)) {
-            throw new Horde_Http_Exception('Method ' . $this->method . ' not supported.'); 
+            throw new Horde_Http_Exception('Method ' . $this->method . ' not supported.');
         }
 
         $httpRequest = new HttpRequest($this->uri, constant('HTTP_METH_' . $this->method));
