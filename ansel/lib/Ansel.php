@@ -359,7 +359,7 @@ class Ansel
      *
      * @return Horde_Url The image path.
      */
-    static public function getImageUrl($imageId, $view = 'screen', $full = false, $style = null)
+    static public function getImageUrl($imageId, $view = 'screen', $full = false, Ansel_Style $style = null)
     {
         global $conf;
 
