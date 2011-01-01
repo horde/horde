@@ -154,7 +154,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                         $imgsrc .= '</div>';
                         $content .= sprintf(_("No location data present. Place using %s map %s or click on image to place at the same location."), $addLink, '</a>') . $imgsrc;
                     } else {
-                        $content .= _("No location data present. You may add some ") . $addLink . _("here") . '</a>';
+                        $content .= sprintf(_("No location data present. You may add some %s."), $addLink . _("here") . '</a>');
                     }
             } else {
                 // For now, just put up a notice. In future, maybe provide a link
