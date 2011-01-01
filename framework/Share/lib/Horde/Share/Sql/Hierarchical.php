@@ -264,7 +264,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         }
 
         if (empty($where_parent)) {
-            $criteria[$key] = $query . ' WHERE ' . $where;
+            $criteria[$key] = $query . (!empty($where) ? ' WHERE ' . $where : '');
         } else {
             if (!empty($where)) {
                 $criteria[$key] = $query . ' WHERE (' . $where . ') AND ' . $where_parent;
