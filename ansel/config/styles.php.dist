@@ -156,3 +156,15 @@ $styles['ansel_lightbox_simple_polaroid'] = array(
     'background' => 'none',
     'gallery_view' => 'GalleryLightbox'
 );
+
+/* Style for specifying mobile specific views. Ansel looks for this
+ * style when rendering on a mobile device.
+ */
+$styles['ansel_mobile'] = array(
+    'name' => 'ansel_mobile',
+    'title' => _("Mobile View"),
+    'thumbstyle' => 'SquareThumb',
+    'background' => 'none',
+    'width' => 75,
+    'height' => 75,
+);

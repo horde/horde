@@ -1012,7 +1012,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
             foreach ($images as $img) {
                 $i = new StdClass();
                 $i->id = $img;
-                $i->url = Ansel::getImageUrl($img, 'mini', false, Ansel::getStyleDefinition('ansel_mobile'))->toString();
+                $i->url = Ansel::getImageUrl($img, 'thumb', false, Ansel::getStyleDefinition('ansel_mobile'))->toString();
                 $json->imgs[] = $i;
             }
         }

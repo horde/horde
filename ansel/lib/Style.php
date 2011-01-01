@@ -26,6 +26,8 @@ class Ansel_Style
      *                      to display on the gallery view.
      *                      e.g. Array('Geotag' => array(),
      *                                 'Tags' => array('view' => 'gallery'))
+     *   'width'         - Optional width of generated thumbnails.
+     *   'height'        - Option height of generated thumbnails.
      *   'image_widgets' - @TODO: not yet implemented.
      * </pre>
      *
@@ -58,7 +60,7 @@ class Ansel_Style
     public function getHash($view)
     {
         if ($view != 'screen' && $view != 'mini' && $view != 'full') {
-            $view = md5($this->thumbstyle . '.' . $this->background);
+            $view = md5($this->thumbstyle . '.' . $this->background . (!empty($this->width) ? $this->width : '') . (!empty($this->height) ? $this->height : ''));
         }
 
         return $view;
@@ -76,7 +78,7 @@ class Ansel_Style
             return $class;
         }
 
-        return $this->_properties[$property];
+        return !empty($this->_properties[$property]) ? $this->_properties[$property] : null;
     }
 
     public function __isset($property)

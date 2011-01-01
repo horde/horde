@@ -16,6 +16,12 @@ class Ansel_ImageGenerator_SquareThumb extends Ansel_ImageGenerator
     {
         parent::__construct($params);
         $this->title = _("Square Thumbnails");
+        if (empty($this->_params['width'])) {
+            $this->_params['width'] = $this->_style->width;
+        }
+        if (empty($this->_params['height'])) {
+            $this->_params['height'] = $this->_style->height;
+        }
     }
 
     /**
