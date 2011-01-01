@@ -752,13 +752,12 @@ class Ansel_Image Implements Iterator
      */
     public function deleteCache($view = 'all')
     {
-
         /* Delete cached screen image. (We don't care if the file is not found) */
         if ($view == 'all' || $view == 'screen') {
             try {
                 $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
                     $this->getVFSPath('screen'), $this->getVFSName('screen'));
-            } catch (VFS_Exception $e) {
+            } catch (VFS_Exception $e   ) {
             }
         }
 
@@ -772,8 +771,7 @@ class Ansel_Image Implements Iterator
         }
         if ($view == 'all' || $view == 'thumb') {
             $hashes = $GLOBALS['injector']->getInstance('Ansel_Storage')->getHashes();
-            foreach ($hashes as $hash)
-            {
+            foreach ($hashes as $hash) {
                 try {
                     $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
                         ->create('images')
