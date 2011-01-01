@@ -86,6 +86,14 @@
    themes and generation of 'pretty' thumbnails?  This can be a performance
     hit on some installations but is required for the generation of all but the
     most basic image thumbnails." required="false">false</configboolean>
+   <configboolean name="squaremini" desc="Should Ansel generate square
+   thumbnails for mini images? Doing so is recommended as this gives a cleaner
+   look to views. For those that prefer the look of the older mini images that
+   Ansel generated, uncheck this option">true</configboolean>
+   <configboolean name="smartcrop" desc="Should Ansel use a SmartCrop algorithm
+   if available when generating mini or square thumbnails? This gives a better
+   change that the crop will contain an interesting part of the image, but will
+   increase CPU usage during image generation."></configboolean>
    <configstring name="num_uploads" desc="How many photos should a user be
    allowed to upload at once?">5</configstring>
    <configstring name="font" required="false" desc="What font would you like

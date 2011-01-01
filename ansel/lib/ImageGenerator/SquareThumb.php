@@ -32,7 +32,7 @@ class Ansel_ImageGenerator_SquareThumb extends Ansel_ImageGenerator
         }
 
         // Use smartcrop algorithm if we have it, otherwise a plain center crop.
-        if (Ansel::isAvailable('SmartCrop')) {
+        if (Ansel::isAvailable('SmartCrop') && $GLOBALS['conf']['image']['smartcrop']) {
             $this->_image->addEffect('SmartCrop', array('width' => $size, 'height' => $size));
         } else {
             $this->_image->addEffect('CenterCrop', array('width' => $size, 'height' => $size));
