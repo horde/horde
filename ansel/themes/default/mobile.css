@@ -1,0 +1,32 @@
+ul.thumbView{
+    list-style:none;
+    margin:0px;
+    border:none;
+}
+ul.thumbView li {
+    float:left;
+    position:relative;
+    width:80px;
+    height:80px;
+    border:none;
+    margin:0px;
+    padding:0px;
+    background:transparent;
+    line-height:80px;
+    overflow:visible;
+}
+ul.thumbView li a {
+    height:80px;
+    margin:0;
+    padding:0;
+    width:80px;
+    text-align:center;
+    vertical-align:middle;
+    display:table-cell;
+    overflow:visible;
+}
+ul.thumbView li a img{
+    border:none;
+    vertical-align:middle;
+    -webkit-box-shadow:2px 2px 8px #000;
+}

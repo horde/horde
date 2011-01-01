@@ -46,7 +46,13 @@ var AnselMobile = {
      */
     galleryLoaded: function(r)
     {
-        console.log(r);
+        $('#galleryview h1').text(r.n);
+        // TODO: error checks, build any subgallery lists etc...
+        $.mobile.changePage('galleryview', 'slide', false, true);
+        $.each(r.imgs, function(k, i) {
+            var img = $('<li>').append($('<img>').attr({ src: i.url }));
+            $('#thumbs').append(img);
+        });
     },
     
     /**
