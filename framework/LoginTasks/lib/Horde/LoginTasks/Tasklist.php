@@ -43,7 +43,7 @@ class Horde_LoginTasks_Tasklist
     protected $_tasks = array();
 
     /**
-     * THe list of system tasks to run during this login.
+     * The list of system tasks to run during this login.
      *
      * @see $_tasks
      *
