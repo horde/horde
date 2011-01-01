@@ -14,10 +14,10 @@ Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(),
-                              'hu:p:lc:g:a:d:t:',
+                              'hu:p:lc:g:a:d:t:r',
                               array('help', 'username=', 'password=', 'list',
                                     'create=', 'gallery=', 'add=', 'dir=',
-                                    'caption='));
+                                    'caption=', 'reset='));
 
 if ($ret instanceof PEAR_Error) {
     $error = _("Couldn't read command-line options.");
@@ -83,6 +83,20 @@ foreach ($opts as $opt) {
     case '--caption':
         $caption = $optValue;
         break;
+    case 'r':
+    case '--reset':
+        $resetting = true;
+        $resetType = $optValue;
+        if (!empty($resetType)) {
+            switch ($resetType) {
+            case 'stacks':
+            case 'thumbs':
+                break;
+            default:
+                Horde:fatal(_("Invalid image type. Must be \"stacks\" or \"thumbs\""));
+            }
+        }
+        break;
     }
 }
 
@@ -98,6 +112,28 @@ if (!empty($username) && !empty($password)) {
         Horde::logMessage($msg, 'DEBUG');
         $cli->message($msg, 'cli.success');
     }
+}
+
+if (!empty($resetting)) {
+    if (!$registry->isAdmin()) {
+        Horde::fatal(_("Requires admin access."));
+    }
+    $cli->message(_("Resetting thumbnails: "), 'cli.info');
+    $galleries = $injector->getInstance('Ansel_Storage')->listGalleries(array('perm' => null));
+    foreach ($galleries as $gallery) {
+        if (empty($resetType) || $resetType == 'stacks') {
+            $gallery->clearStacks();
+            $cli->message(sprintf(_("Successfully reset stack cache for gallery: %d"), $gallery->getId()), 'cli.success');
+
+        }
+        if (empty($resetType) || $resetType == 'thumbs') {
+            $gallery->clearViews();
+            $cli->message(sprintf(_("Successfully reset image cache for gallery: %d"), $gallery->getId()), 'cli.success');
+        }
+    }
+
+    $cli->message(_("Done."), 'cli.success');
+    exit;
 }
 
 // Choose the gallery to add to (or use the created one).
@@ -266,14 +302,15 @@ function showHelp()
     $cli->writeln();
     $cli->writeln(_("Mandatory arguments to long options are mandatory for short options too."));
     $cli->writeln();
-    $cli->writeln(_("-h, --help                   Show this help"));
-    $cli->writeln(_("-l, --list                   List galleries or photos (if combined with -g)"));
-    $cli->writeln(_("-c, --create[=name/description/owner]\n                             Create gallery (and use it)  Combined with -g to create a subgallery."));
-    $cli->writeln(_("-g, --gallery[=shortname]    Select gallery to use"));
-    $cli->writeln(_("-a, --add[=filename]         Add local file to selected gallery"));
-    $cli->writeln(_("-d, --dir[=directory]        Add all files from the directory to the selected\n                             gallery"));
-    $cli->writeln(_("-u, --username[=username]    Horde login username"));
-    $cli->writeln(_("-p, --password[=password]    Horde login password"));
-    $cli->writeln(_("-t, --caption[=caption]      Caption for photo (if combined with -a)"));
+    $cli->writeln(_("-h, --help                    Show this help"));
+    $cli->writeln(_("-l, --list                    List galleries or photos (if combined with -g)"));
+    $cli->writeln(_("-c, --create[=name/description/owner]\n      Create gallery (and use it)  Combined with -g to create a subgallery."));
+    $cli->writeln(_("-g, --gallery[=shortname]     Select gallery to use"));
+    $cli->writeln(_("-a, --add[=filename]          Add local file to selected gallery"));
+    $cli->writeln(_("-d, --dir[=directory]         Add all files from the directory to the selected gallery"));
+    $cli->writeln(_("-u, --username[=username]     Horde login username"));
+    $cli->writeln(_("-p, --password[=password]     Horde login password"));
+    $cli->writeln(_("-t, --caption[=caption]       Caption for photo (if combined with -a)"));
+    $cli->writeln(_("-r, --reset[=[thumbs|stacks]]\n      Reset generated images, optionally only a certain type. Script must be run as root or another system user with enough permissions to the VFS to delete."));
     $cli->writeln();
 }
