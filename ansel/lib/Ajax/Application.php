@@ -25,6 +25,7 @@ class Ansel_Ajax_Application extends Horde_Core_Ajax_Application
      * @return mixed  False on failure, object representing the gallery with
      *                the following structure:
      * <pre>
+     * 'id' - gallery id
      * 'n'  - gallery name
      * 'dc' - date created
      * 'dm' - date modified

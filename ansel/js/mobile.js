@@ -13,6 +13,8 @@
  */
 var AnselMobile = {
 
+    currentGallery: null,
+
     /**
      * Build a gallery list
      */
@@ -46,8 +48,14 @@ var AnselMobile = {
      */
     galleryLoaded: function(r)
     {
-        $('#galleryview h1').text(r.n);
         // TODO: error checks, build any subgallery lists etc...
+        if (r.id == AnselMobile.currentGallery) {
+            $.mobile.changePage('galleryview', 'slide', false, true);
+            return;
+        }
+        AnselMobile.currentGallery = r.id;
+        $('#thumbs').text('');
+        $('#galleryview h1').text(r.n);
         $.mobile.changePage('galleryview', 'slide', false, true);
         $.each(r.imgs, function(k, i) {
             var img = $('<li>').append($('<img>').attr({ src: i.url }));
