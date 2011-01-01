@@ -47,10 +47,10 @@ Event.observe(
       <input type="hidden" name="y2" id="y2" value="<?php echo $y2 ?>" />
       <div class="control">
       <div id="previewArea"></div>
-      <?php echo _("Person in photo") ?>:<input type="text" name="name" id="name" value="<?php echo htmlspecialchars($name) ?>" /><br />
-       <input type="submit" name="submit" id="submit" value="<?php echo _("Save") ?>" />
-       <input type="submit" name="submit" id="submit" value="<?php echo _("Cancel") ?>" />
-       <input type="reset" name="reset" id="reset" value="<?php echo _("Reset") ?>" />
+        <?php echo _("Person in photo") ?>:<input type="text" name="name" id="name" value="<?php echo htmlspecialchars($name) ?>" /><br />
+        <input type="submit" name="submit" class="button" value="<?php echo _("Save") ?>" />
+        <input type="submit" name="submit" class="button" value="<?php echo _("Cancel") ?>" />
+        <input type="reset" name="reset" class="button" value="<?php echo _("Reset") ?>" />
       </div>
    </form>
 </div>
