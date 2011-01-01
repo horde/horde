@@ -124,15 +124,22 @@ class Horde_LoginTasks
                     break;
 
                 case self::MONTHLY:
-                    $addtask = (($cur_date['year'] > $lastrun['year']) || ($cur_date['mon'] > $lastrun['mon']));
+                    $addtask = (($cur_date['year'] > $lastrun['year']) ||
+                                ($cur_date['mon'] > $lastrun['mon']));
                     break;
 
                 case self::WEEKLY:
-                    $addtask = (($cur_date['wday'] < $lastrun['wday']) || ($cur_date['yday'] >= $lastrun['yday'] + 7));
+                    $days = date('L', $lastrun[0]) ? 366 : 365;
+                    $addtask = (($cur_date['wday'] < $lastrun['wday']) ||
+                                (($cur_date['year'] == $lastrun['year']) &&
+                                 ($cur_date['yday'] >= $lastrun['yday'] + 7)) ||
+                                (($cur_date['year'] > $lastrun['year']) &&
+                                 ($cur_date['yday'] >= $lastrun['yday'] + 7 - $days)));
                     break;
 
                 case self::DAILY:
-                    $addtask = (($cur_date['year'] > $lastrun['year']) || ($cur_date['yday'] > $lastrun['yday']));
+                    $addtask = (($cur_date['year'] > $lastrun['year']) ||
+                                ($cur_date['yday'] > $lastrun['yday']));
                     break;
 
                 case self::EVERY:
