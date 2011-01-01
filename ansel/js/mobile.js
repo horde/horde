@@ -67,7 +67,6 @@ var AnselMobile = {
 
             // Navigate to a gallery
             if (elt.hasClass('ansel-gallery')) {
-                alert(elt.attr('ansel-gallery-id'));
                 AnselMobile.toGallery(elt.attr('ansel-gallery-id'));
             }
             elt = elt.parent();
