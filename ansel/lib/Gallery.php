@@ -997,7 +997,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         $json->dc = $this->get('date_created');
         $json->dm = $this->get('date_modified');
         $json->d = $this->get('desc');
-        $json->ki = Ansel::getImageUrl($this->getKeyImage(), 'mini', false, 'ansel_default')->toString();
+        $json->ki = Ansel::getImageUrl($this->getKeyImage(), 'mini', false, Ansel::getStyleDefinition('ansel_default'))->toString();
 
         if ($full) {
             $json->sg = array();
