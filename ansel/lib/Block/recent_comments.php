@@ -41,7 +41,9 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
                         'default' => '__random',
                         'values' => array('all' => 'All')));
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
-        if ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+        if (empty($GLOBALS['conf']['gallery']['listlimit']) ||
+            ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit'])) {
+
             foreach ($storage->listGalleries(array('perm' => Horde_Perms::READ)) as $id => $gal) {
                 $params['gallery']['values'][$id] = $gal->get('name');
             }

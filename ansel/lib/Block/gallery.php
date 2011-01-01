@@ -49,7 +49,9 @@ class Horde_Block_ansel_gallery extends Horde_Block
                             'default' => true));
 
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
-        if ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+        if (empty($GLOBALS['conf']['gallery']['listlimit']) ||
+            ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit'])) {
+
             foreach ($storage->listGalleries() as $gal) {
                 $params['gallery']['values'][$gal->id] = $gal->get('name');
             }
