@@ -30,6 +30,7 @@ class Horde_Support_StubTest extends PHPUnit_Framework_TestCase
     {
         $stub = new Horde_Support_Stub;
         $this->assertTrue(is_callable(array($stub, uniqid())));
+        $this->assertNull($stub->{uniqid()}());
     }
 
     public function testAnyStaticMethodIsCallable()
@@ -38,6 +39,12 @@ class Horde_Support_StubTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped();
         }
         $this->assertTrue(is_callable(array('Horde_Support_Stub', uniqid())));
+        $unique = uniqid();
+        $this->assertNull(Horde_Support_Stub::$unique());
     }
 
+    public function testToString()
+    {
+        $this->assertEquals('', (string)new Horde_Support_Stub());
+    }
 }
