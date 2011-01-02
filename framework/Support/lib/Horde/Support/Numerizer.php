@@ -19,7 +19,7 @@ class Horde_Support_Numerizer
                 return new $class($args);
             }
 
-            $language = array_shift(explode('_', $locale));
+            list($language,) = explode('_', $locale);
             if ($language != $locale) {
                 $class = 'Horde_Support_Numerizer_Locale_' . $language;
                 if (class_exists($class)) {
