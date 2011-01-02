@@ -3,16 +3,15 @@
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2007-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
 /**
- * @group      support
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2007-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 class Horde_Support_ArrayTest extends PHPUnit_Framework_TestCase
