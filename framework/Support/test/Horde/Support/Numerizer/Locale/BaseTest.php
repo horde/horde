@@ -67,4 +67,8 @@ class Horde_Support_Numerizer_Locale_BaseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2006-08-20 15:30:30', $numerizer->numerize('2006-08-20 15:30:30'));
     }
 
+    public function testStaticNumerize()
+    {
+        $this->assertEquals('2006-08-20 03:00', Horde_Support_Numerizer::numerize('2006-08-20 03:00'));
+    }
 }

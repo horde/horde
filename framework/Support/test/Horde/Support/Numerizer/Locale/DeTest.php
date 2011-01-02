@@ -61,4 +61,14 @@ class Horde_Support_Numerizer_Locale_DeTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testLocaleVariants()
+    {
+        $this->assertInstanceOf('Horde_Support_Numerizer_Locale_De', Horde_Support_Numerizer::factory(array('locale' => 'de_DE')));
+        $this->assertInstanceOf('Horde_Support_Numerizer_Locale_De', Horde_Support_Numerizer::factory(array('locale' => 'de_at')));
+    }
+
+    public function testStaticNumerize()
+    {
+        $this->assertEquals(1250007, Horde_Support_Numerizer::numerize('eine million zweihundertfünfzigtausendundsieben', array('locale' => 'de')));
+    }
 }
