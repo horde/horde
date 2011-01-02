@@ -35,7 +35,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Kolab_Storage_Unit_Decorator_LogTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function testListLogsEntry()
+    public function testDecoratedList()
     {
         $storage = new Horde_Kolab_Storage_Decorator_Log(
             new Horde_Kolab_Storage_Base(
