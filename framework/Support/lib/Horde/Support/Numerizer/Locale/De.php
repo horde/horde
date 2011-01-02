@@ -1,4 +1,21 @@
 <?php
+/**
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Support
+ */
+
+/**
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Support
+ */
 class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_Base
 {
     public $DIRECT_NUMS = array(

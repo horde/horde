@@ -5,14 +5,14 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Support
+ * @package  Support
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Support
+ * @package  Support
  */
 class Horde_Support_StringStream implements Horde_Stream_Wrapper_StringStream
 {

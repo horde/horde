@@ -7,14 +7,14 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Support
+ * @package  Support
  */
 
 /**
  * @author   Michael Slusarz <slusarz@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Support
+ * @package  Support
  */
 class Horde_Support_CombineStream implements Horde_Stream_Wrapper_CombineStream
 {

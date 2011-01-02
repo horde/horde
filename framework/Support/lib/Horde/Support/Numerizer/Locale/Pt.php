@@ -1,4 +1,17 @@
 <?php
+/**
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Support
+ */
+
+/**
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Support
+ */
 class Horde_Support_Numerizer_Locale_Pt extends Horde_Support_Numerizer_Locale_Base
 {
     public $DIRECT_NUMS = array(
