@@ -3,30 +3,25 @@
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  1999-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  1999-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
 /**
- * @group      support
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  1999-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  1999-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 class Horde_Support_UuidTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * test instantiating a normal timer
-     */
-    public function testUuidLength()
+    public function testLength()
     {
-        $uuid = strval(new Horde_Support_Uuid());
-        $this->assertEquals(36, strlen($uuid));
+        $this->assertEquals(36, strlen(new Horde_Support_Uuid()));
     }
 
-    public function testUuidDuplicates()
+    public function testDuplicates()
     {
         $values = array();
         $cnt = 0;
@@ -42,5 +37,4 @@ class Horde_Support_UuidTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(0, $cnt);
     }
-
 }
