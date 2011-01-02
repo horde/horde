@@ -4,16 +4,16 @@ class Horde_Support_Numerizer_Locale_Pt extends Horde_Support_Numerizer_Locale_B
     public $DIRECT_NUMS = array(
         'treze' => '13',
         'catorze' => '14',
-		'quatorze' => '14',
+        'quatorze' => '14',
         'quinze' => '15',
         'dezasseis' => '16',
         'dezassete' => '17',
         'dezoito' => '18',
         'dezanove' => '19',
         'um(\W|$)' => '1$1',
-		'uma(\W|$)' => '1$1',
+        'uma(\W|$)' => '1$1',
         'dois' => '2',
-		'duas' => '2',
+        'duas' => '2',
         'tres' => '3',
         'quatro' => '4',
         'cinco' => '5',
@@ -47,8 +47,8 @@ class Horde_Support_Numerizer_Locale_Pt extends Horde_Support_Numerizer_Locale_B
 
     public function numerize($string)
     {
-		// preprocess
-		$string = $this->_splitHyphenateWords($string);
+        // preprocess
+        $string = $this->_splitHyphenateWords($string);
         $string = $this->_replaceTenPrefixes($string);
         $string = $this->_directReplacements($string);
         $string = $this->_replaceBigPrefixes($string);

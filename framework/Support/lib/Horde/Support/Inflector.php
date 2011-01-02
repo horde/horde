@@ -2,7 +2,7 @@
 /**
  * @category   Horde
  * @package    Support
- * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2007-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
@@ -14,13 +14,14 @@
  *
  * @category   Horde
  * @package    Support
- * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2007-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
-class Horde_Support_Inflector {
-
+class Horde_Support_Inflector
+{
     /**
      * Inflection cache
+     *
      * @var array
      */
     protected $_cache = array();
@@ -118,9 +119,9 @@ class Horde_Support_Inflector {
     );
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * Store a map of the uncountable words for quicker checks.
+     * Stores a map of the uncountable words for quicker checks.
      */
     public function __construct()
     {
@@ -128,7 +129,7 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Add an uncountable word.
+     * Adds an uncountable word.
      *
      * @param string $word The uncountable word.
      */
@@ -193,11 +194,11 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Camel-case a word
+     * Camel-cases a word.
      *
-     * @param string $word The word to camel-case
-     * @param string $firstLetter Whether to upper or lower case the first
-     * letter of each slash-separated section. Defaults to 'upper';
+     * @param string $word         The word to camel-case.
+     * @param string $firstLetter  Whether to upper or lower case the first.
+     *                             letter of each slash-separated section.
      *
      * @return string Camelized $word
      */
@@ -208,7 +209,8 @@ class Horde_Support_Inflector {
         }
 
         $camelized = $word;
-        if (strtolower($camelized) != $camelized && strpos($camelized, '_') !== false) {
+        if (strtolower($camelized) != $camelized &&
+            strpos($camelized, '_') !== false) {
             $camelized = str_replace('_', '/', $camelized);
         }
         if (strpos($camelized, '/') !== false) {
@@ -218,7 +220,7 @@ class Horde_Support_Inflector {
             $camelized = strtr($camelized, '_', ' ');
         }
 
-        $camelized = str_replace(' ' , '', ucwords($camelized));
+        $camelized = str_replace(' ', '', ucwords($camelized));
 
         if ($firstLetter == 'lower') {
             $parts = array();
@@ -233,16 +235,18 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Capitalizes all the words and replaces some characters in the string to create
-     * a nicer looking title. Titleize is meant for creating pretty output.
+     * Capitalizes all the words and replaces some characters in the string to
+     * create a nicer looking title.
+     *
+     * Titleize is meant for creating pretty output.
      *
      * See:
-     *   http://daringfireball.net/2008/05/title_case
-     *   http://daringfireball.net/2008/08/title_case_update
+     * - http://daringfireball.net/2008/05/title_case
+     * - http://daringfireball.net/2008/08/title_case_update
      *
-     * Examples
-     *   titleize("man from the boondocks") #=> "Man From The Boondocks"
-     *   titleize("x-men: the last stand")  #=> "X Men: The Last Stand"
+     * Examples:
+     * 1. titleize("man from the boondocks") => "Man From The Boondocks"
+     * 2. titleize("x-men: the last stand")  => "X Men: The Last Stand"
      */
     public function titleize($word)
     {
@@ -250,11 +254,13 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * The reverse of +camelize+. Makes an underscored form from the expression in the string.
+     * The reverse of camelize().
      *
-     * Examples
-     *   underscore("ActiveRecord")        #=> "active_record"
-     *   underscore("ActiveRecord_Errors") #=> active_record_errors
+     * Makes an underscored form from the expression in the string.
+     *
+     * Examples:
+     * 1. underscore("ActiveRecord")        => "active_record"
+     * 2. underscore("ActiveRecord_Errors") => "active_record_errors"
      */
     public function underscore($camelCasedWord)
     {
@@ -269,8 +275,8 @@ class Horde_Support_Inflector {
     /**
      * Replaces underscores with dashes in the string.
      *
-     * Example
-     *   dasherize("puni_puni") #=> "puni-puni"
+     * Example:
+     * 1. dasherize("puni_puni") => "puni-puni"
      */
     public function dasherize($underscoredWord)
     {
@@ -283,12 +289,14 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Capitalizes the first word and turns underscores into spaces and strips _id.
-     * Like titleize, this is meant for creating pretty output.
+     * Capitalizes the first word and turns underscores into spaces and strips
+     * _id.
      *
-     * Examples
-     *   humanize("employee_salary") #=> "Employee salary"
-     *   humanize("author_id")       #=> "Author"
+     * Like titleize(), this is meant for creating pretty output.
+     *
+     * Examples:
+     * 1. humanize("employee_salary") => "Employee salary"
+     * 2. humanize("author_id")       => "Author"
      */
     public function humanize($lowerCaseAndUnderscoredWord)
     {
@@ -305,11 +313,11 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Removes the module part from the expression in the string
+     * Removes the module part from the expression in the string.
      *
-     * Examples
-     *   demodulize("Fax_Job") #=> "Job"
-     *   demodulize("User")    #=> "User"
+     * Examples:
+     * 1. demodulize("Fax_Job") => "Job"
+     * 1. demodulize("User")    => "User"
      */
     public function demodulize($classNameInModule)
     {
@@ -318,14 +326,14 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Create the name of a table like Rails does for models to table
-     * names. This method uses the pluralize method on the last word in the
-     * string.
+     * Creates the name of a table like Rails does for models to table names.
      *
-     * Examples
-     *   tableize("RawScaledScorer") #=> "raw_scaled_scorers"
-     *   tableize("egg_and_ham")     #=> "egg_and_hams"
-     *   tableize("fancyCategory")   #=> "fancy_categories"
+     * This method uses the pluralize() method on the last word in the string.
+     *
+     * Examples:
+     * 1. tableize("RawScaledScorer") => "raw_scaled_scorers"
+     * 2. tableize("egg_and_ham")     => "egg_and_hams"
+     * 3. tableize("fancyCategory")   => "fancy_categories"
      */
     public function tableize($className)
     {
@@ -339,12 +347,12 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Create a class name from a table name like Rails does for table names to
-     * models.
+     * Creates a class name from a table name like Rails does for table names
+     * to models.
      *
-     * Examples
-     *   classify("egg_and_hams") #=> "EggAndHam"
-     *   classify("post")         #=> "Post"
+     * Examples:
+     * 1. classify("egg_and_hams") => "EggAndHam"
+     * 2. classify("post")         => "Post"
      */
     public function classify($tableName)
     {
@@ -360,41 +368,37 @@ class Horde_Support_Inflector {
 
     /**
      * Creates a foreign key name from a class name.
-     * +separate_class_name_and_id_with_underscore+ sets whether
-     * the method should put '_' between the name and 'id'.
      *
-     * Examples
-     *   foreignKey("Message")        #=> "message_id"
-     *   foreignKey("Message", false) #=> "messageid"
-     *   foreignKey("Fax_Job")        #=> "fax_job_id"
+     * $separateClassNameAndIdWithUnderscore sets whether the method should put
+     * '_' between the name and 'id'.
+     *
+     * Examples:
+     * 1. foreignKey("Message")        => "message_id"
+     * 2. foreignKey("Message", false) => "messageid"
+     * 3. foreignKey("Fax_Job")        => "fax_job_id"
      */
-    public function foreignKey($className, $separateClassNameAndIdWithUnderscore=true)
+    public function foreignKey($className, $separateClassNameAndIdWithUnderscore = true)
     {
         throw new Exception('not implemented yet');
     }
 
     /**
-     * Ordinalize turns a number into an ordinal string used to denote the
-     * position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
+     * Turns a number into an ordinal string used to denote the position in an
+     * ordered sequence such as 1st, 2nd, 3rd, 4th.
      *
-     * Examples
-     *   ordinalize(1)     # => "1st"
-     *   ordinalize(2)     # => "2nd"
-     *   ordinalize(1002)  # => "1002nd"
-     *   ordinalize(1003)  # => "1003rd"
+     * Examples:
+     * 1. ordinalize(1)      => "1st"
+     * 2. ordinalize(2)      => "2nd"
+     * 3. ordinalize(1002)   => "1002nd"
+     * 4. ordinalize(1003)   => "1003rd"
      */
     public function ordinalize($number)
     {
         throw new Exception('not implemented yet');
     }
 
-
-    /*##########################################################################
-    # Store the results of the inflections to increase performance
-    ##########################################################################*/
-
     /**
-     * Clear the inflection cache
+     * Clears the inflection cache.
      */
     public function clearCache()
     {
@@ -402,7 +406,7 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Get a cached inflection
+     * Retuns a cached inflection.
      *
      * @return string | false
      */
@@ -413,11 +417,11 @@ class Horde_Support_Inflector {
     }
 
     /**
-     * Cache an inflection
+     * Caches an inflection.
      *
-     * @param string $word The word being inflected
-     * @param string $rule The inflection rule
-     * @param string $value The inflected value of $word
+     * @param string $word   The word being inflected.
+     * @param string $rule   The inflection rule.
+     * @param string $value  The inflected value of $word.
      *
      * @return string The inflected value
      */
@@ -426,5 +430,4 @@ class Horde_Support_Inflector {
         $this->_cache[$word . '|' . $rule] = $value;
         return $value;
     }
-
 }
