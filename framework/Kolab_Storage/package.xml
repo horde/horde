@@ -31,8 +31,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-28</date>
- <time>22:52:37</time>
+ <date>2011-01-02</date>
+ <time>07:30:52</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -74,6 +74,7 @@
      <dir name="Kolab">
       <dir name="Storage">
        <dir name="Decorator">
+        <file name="Cache.php" role="php" />
         <file name="Log.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Decorator -->
        <dir name="Driver">
@@ -137,6 +138,7 @@
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
        <dir name="List">
         <dir name="Decorator">
+         <file name="Cache.php" role="php" />
          <file name="Log.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/List/Decorator -->
         <dir name="Query">
@@ -433,6 +435,7 @@
        </dir> <!-- /test/Horde/Kolab/Storage/Server -->
        <dir name="Unit">
         <dir name="Decorator">
+         <file name="CacheTest.php" role="test" />
          <file name="LogTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Decorator -->
         <dir name="Driver">
@@ -572,6 +575,7 @@
    <install as="Horde/Kolab/Storage/Queriable.php" name="lib/Horde/Kolab/Storage/Queriable.php" />
    <install as="Horde/Kolab/Storage/Query.php" name="lib/Horde/Kolab/Storage/Query.php" />
    <install as="Horde/Kolab/Storage/Translation.php" name="lib/Horde/Kolab/Storage/Translation.php" />
+   <install as="Horde/Kolab/Storage/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/Decorator/Cache.php" />
    <install as="Horde/Kolab/Storage/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/Driver/Base.php" name="lib/Horde/Kolab/Storage/Driver/Base.php" />
    <install as="Horde/Kolab/Storage/Driver/Cclient.php" name="lib/Horde/Kolab/Storage/Driver/Cclient.php" />
@@ -613,6 +617,7 @@
    <install as="Horde/Kolab/Storage/Folder/Permission/Element/Guest.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Guest.php" />
    <install as="Horde/Kolab/Storage/Folder/Permission/Element/User.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/User.php" />
    <install as="Horde/Kolab/Storage/List/Base.php" name="lib/Horde/Kolab/Storage/List/Base.php" />
+   <install as="Horde/Kolab/Storage/List/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/List/Decorator/Cache.php" />
    <install as="Horde/Kolab/Storage/List/Decorator/Log.php" name="lib/Horde/Kolab/Storage/List/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/List/Query/Base.php" name="lib/Horde/Kolab/Storage/List/Query/Base.php" />
    <install as="locale/Horde_Kolab_Storage.pot" name="locale/Horde_Kolab_Storage.pot" />
@@ -719,6 +724,7 @@
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
    <install as="Horde/Kolab/Storage/Unit/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/FactoryTest.php" name="test/Horde/Kolab/Storage/Unit/FactoryTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Decorator/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/CclientTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/CclientTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/ImapTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/ImapTest.php" />
@@ -802,7 +808,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-28</date>
+   <date>2011-01-02</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added namespace support (Bug #6691).
