@@ -1032,6 +1032,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         }
 
         if ($full) {
+            $json->tiny = ($GLOBALS['conf']['vfs']['src'] == 'direct' || $this->hasPermission('', Horde_Perms::READ));
             $json->sg = array();
             if ($this->hasSubGalleries()) {
                 $sgs = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('parent' => $this->getId(), 'all_levels' => false));
@@ -1040,11 +1041,13 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
                 }
             }
 
-            $images = $this->listImages();
+            $images = $this->getImages();
             foreach ($images as $img) {
                 $i = new StdClass();
-                $i->id = $img;
-                $i->url = Ansel::getImageUrl($img, 'thumb', false, Ansel::getStyleDefinition('ansel_mobile'))->toString();
+                $i->id = $img->id;
+                $i->url = Ansel::getImageUrl($img->id, 'thumb', false, Ansel::getStyleDefinition('ansel_mobile'))->toString();
+                $i->screen = Ansel::getImageUrl($img->id, 'screen', $json->tiny, Ansel::getStyleDefinition('ansel_default'))->toString();
+                $i->fn = $img->filename;
                 $json->imgs[] = $i;
             }
         }

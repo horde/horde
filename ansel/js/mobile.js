@@ -20,6 +20,8 @@ var AnselMobile = {
      */
     currentGallery: null,
 
+    currentImages: null,
+
     /**
      * Currently loaded image thumbnails
      */
@@ -61,6 +63,17 @@ var AnselMobile = {
         HordeMobile.doAction('getGallery', { id: id }, AnselMobile.galleryLoaded);
     },
 
+    toImage: function(index)
+    {
+        var i = $('<img>').attr({ 'src': ((AnselMobile.currentGallery.tiny) ? 'http://i.tinysrc.mobi/' : '') + AnselMobile.currentImages[index].screen });
+        $('#anselimageview').empty();
+        $('#anselimageview').append(i);
+        $('#imageview h1').text(AnselMobile.currentImages[index].fn)
+        $('#imagebackbutton .ui-btn-text').text(AnselMobile.currentGallery.n);
+        //$('#gallerybackbutton').attr({ 'action': 'back' });
+        $.mobile.changePage('imageview', 'slide', false, true);
+    },
+
     /**
      * Callback for after a gallery is loaded.
      *
@@ -84,20 +97,21 @@ var AnselMobile = {
             $('#thumbs').before(AnselMobile.buildGalleryList(l, r.sg).listview());
         }
         $('#galleryview h1').text(r.n);
+        $('#thumbs').empty();
+        AnselMobile.currentImages = r.imgs;
+        $.each(r.imgs, function(k, i) {
+            var img = $('<li>').addClass('anselthumb').append($('<a>').attr({ 'href': '#', 'image-key': k, }).append($('<img>').attr({ src: i.url })));
+            $('#thumbs').append(img);
+        });
         if ($.mobile.activePage.attr('id') != 'galleryview') {
             $.mobile.changePage('galleryview', 'slide', false, true);
         }
-        $('#thumbs').empty();
-        $.each(r.imgs, function(k, i) {
-            var img = $('<li>').addClass('anselthumb').append($('<a>').attr({ 'href': '#' }).append($('<img>').attr({ src: i.url })));
-            $('#thumbs').append(img);
-        });
         if (r.p) {
             $('#gallerybackbutton .ui-btn-text').text(r.pn);
             $('#gallerybackbutton').attr({ 'action': 'gallery', 'gallery-id': r.p });
         } else {
             $('#gallerybackbutton .ui-btn-text').text($.mobile.page.prototype.options.backBtnText);
-            $('#gallerybackbutton').attr({ 'action': 'home' });
+            $('#gallerybackbutton').attr({ 'action': 'home', 'gallery-id': null });
         }
         AnselMobile.centerGrid();
     },
@@ -138,6 +152,10 @@ var AnselMobile = {
             if (elt.hasClass('ansel-gallery')) {
                 AnselMobile.toGallery(elt.attr('ansel-gallery-id'));
             }
+
+            if (elt.attr('image-key')) {
+                AnselMobile.toImage(elt.attr('image-key'));
+            }
             if (elt.attr('id') == 'gallerybackbutton') {
                 switch (elt.attr('action')) {
                 case 'home':
@@ -146,6 +164,9 @@ var AnselMobile = {
                 case 'gallery':
                     AnselMobile.toGallery(elt.attr('gallery-id'));
                 }
+            }
+            if (elt.attr('id') == 'imagebackbutton') {
+                window.history.back();
             }
             elt = elt.parent();
         }

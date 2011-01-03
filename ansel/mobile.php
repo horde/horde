@@ -27,7 +27,7 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 echo $view->render('head');
 echo $view->render('galleries');
 echo $view->render('gallery');
-//echo $view->render('gallery');
+echo $view->render('image');
 //echo $view->render('photo');
 echo $view->render('notice');
 $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
