@@ -61,6 +61,8 @@ class Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Base
         $type = $this->_mimepart->getType();
 
         switch ($type) {
+        case 'image/jpg':
+            /* image/jpg == image/jpeg. */
         case 'image/pjpeg':
             /* image/jpeg and image/pjpeg *appear* to be the same entity, but
              * Mozilla (for one) don't seem to want to accept the latter. */
