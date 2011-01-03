@@ -62,3 +62,7 @@ li.ansel-gallery p {
 #anselgalleryview ul.anselgalleries {
     margin: 15px;
 }
+
+#anselimageview {
+    text-align: center;
+}

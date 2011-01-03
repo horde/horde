@@ -70,7 +70,6 @@ var AnselMobile = {
         $('#anselimageview').append(i);
         $('#imageview h1').text(AnselMobile.currentImages[index].fn)
         $('#imagebackbutton .ui-btn-text').text(AnselMobile.currentGallery.n);
-        //$('#gallerybackbutton').attr({ 'action': 'back' });
         $.mobile.changePage('imageview', 'slide', false, true);
     },
 
