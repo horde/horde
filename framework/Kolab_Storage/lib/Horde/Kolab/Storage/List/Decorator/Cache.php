@@ -28,11 +28,23 @@
 class Horde_Kolab_Storage_List_Decorator_Cache
 implements Horde_Kolab_Storage_List
 {
-    /** Marks the folder list. */
+    /** Key for the folder list. */
     const FOLDERS = 'F';
 
-    /** Marks the type list. */
+    /** Key for the type list. */
     const TYPES = 'T';
+
+    /** Key for the last time the list was synchronized. */
+    const SYNC = 'S';
+
+    /** Holds query cache results. */
+    const QUERIES = 'Q';
+
+    /** Key for the cache format version. */
+    const VERSION = 'V';
+
+    /** Holds the version number of the cache format. */
+    const FORMAT_VERSION = '1';
 
     /**
      * Decorated list handler.
@@ -47,6 +59,13 @@ implements Horde_Kolab_Storage_List
      * @var Horde_Kolab_Storage_Cache
      */
     private $_cache;
+
+    /**
+     * Has the cache already been loaded and validated?
+     *
+     * @var boolean
+     */
+    private $_init = false;
 
     /**
      * Constructor.
@@ -80,6 +99,24 @@ implements Horde_Kolab_Storage_List
      */
     private function _init()
     {
+        if ($this->_init) {
+            return;
+        }
+        $last_sync = $this->_cache->loadListData(
+            $this->_list->getConnectionId(),
+            self::SYNC
+        );
+        if (empty($last_sync)) {
+            $this->synchronize();
+            return;
+        }
+        $version = $this->_cache->loadListData(
+            $this->_list->getConnectionId(),
+            self::VERSION
+        );
+        if ($version != self::FORMAT_VERSION) {
+            $this->synchronize();
+        }
     }
 
     /**
@@ -90,30 +127,10 @@ implements Horde_Kolab_Storage_List
     public function listFolders()
     {
         $this->_init();
-        $a = $this->_cache->loadListData(
+        return $this->_cache->loadListData(
             $this->_list->getConnectionId(),
             self::FOLDERS
         );
-        if (empty($a)) {
-            $a = $this->_cacheFolders();
-        }
-        return $a;
-    }
-
-    /**
-     * Caches and returns the list of folders visible to the current user.
-     *
-     * @return array The list of folders, represented as a list of strings.
-     */
-    private function _cacheFolders()
-    {
-        $list = $this->_list->listFolders();
-        $this->_cache->storeListData(
-            $this->_list->getConnectionId(),
-            self::FOLDERS,
-            $list
-        );
-        return $list;
     }
 
     /**
@@ -125,31 +142,10 @@ implements Horde_Kolab_Storage_List
     public function listFolderTypes()
     {
         $this->_init();
-        $a = $this->_cache->loadListData(
+        return $this->_cache->loadListData(
             $this->_list->getConnectionId(),
             self::TYPES
         );
-        if (empty($a)) {
-            $a = $this->_cacheFolderTypes();
-        }
-        return $a;
-    }
-
-    /**
-     * Cache and returns the folder type annotation as associative array.
-     *
-     * @return array The list folder types with the folder names as key and the
-     *               folder type as values.
-     */
-    private function _cacheFolderTypes()
-    {
-        $types = $this->_list->listFolderTypes();
-        $this->_cache->storeListData(
-            $this->_list->getConnectionId(),
-            self::TYPES,
-            $types
-        );
-        return $types;
     }
 
     /**
@@ -159,7 +155,31 @@ implements Horde_Kolab_Storage_List
      */
     public function synchronize()
     {
-        $this->_cacheFolders();
-        $this->_cacheFolderTypes();
+        $this->_cache->storeListData(
+            $this->_list->getConnectionId(),
+            self::QUERIES,
+            array()
+        );
+        $this->_cache->storeListData(
+            $this->_list->getConnectionId(),
+            self::FOLDERS,
+            $this->_list->listFolders()
+        );
+        $this->_cache->storeListData(
+            $this->_list->getConnectionId(),
+            self::TYPES,
+            $this->_list->listFolderTypes()
+        );
+        $this->_cache->storeListData(
+            $this->_list->getConnectionId(),
+            self::VERSION,
+            self::FORMAT_VERSION
+        );
+        $this->_cache->storeListData(
+            $this->_list->getConnectionId(),
+            self::SYNC,
+            time()
+        );
+        $this->_init = true;
     }
 }

@@ -253,4 +253,64 @@ extends Horde_Kolab_Storage_TestCase
         $list->synchronize();
         $list->listFolderTypes();
     }
+
+    public function testSynchronizeIfEmpty()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            $this->getMockCache()
+        );
+        $this->mockDriver->expects($this->once())
+            ->method('listAnnotation')
+            ->will($this->returnValue(array('INBOX' => 'mail.default')));
+        $list->listFolders();
+    }
+
+    public function testEmptyIfFooled()
+    {
+        $cache = $this->getMockCache();
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            $cache
+        );
+        $cache->storeListData($list->getConnectionId(), 'S', time());
+        $cache->storeListData($list->getConnectionId(), 'V', '1');
+        $this->mockDriver->expects($this->never())
+            ->method('getMailboxes') 
+            ->will($this->returnValue(array('INBOX')));
+        $this->assertEmpty($list->listFolders());
+    }
+
+    public function testInvalidVersion()
+    {
+        $cache = $this->getMockCache();
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            $cache
+        );
+        $cache->storeListData($list->getConnectionId(), 'S', time());
+        $cache->storeListData($list->getConnectionId(), 'V', '2');
+        $this->mockDriver->expects($this->once())
+            ->method('getMailboxes') 
+            ->will($this->returnValue(array('INBOX')));
+        $this->mockDriver->expects($this->once())
+            ->method('listAnnotation')
+            ->will($this->returnValue(array('INBOX' => 'mail.default')));
+        $list->listFolders();
+    }
+
+    public function testInitialization()
+    {
+        $cache = $this->getMockCache();
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            $cache
+        );
+        $this->mockDriver->expects($this->once())
+            ->method('getMailboxes') 
+            ->will($this->returnValue(array('INBOX')));
+        $list->listFolders();
+        $cache->storeListData($list->getConnectionId(), 'V', '2');
+        $list->listFolders();
+    }
 }
