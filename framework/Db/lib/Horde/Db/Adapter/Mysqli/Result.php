@@ -148,7 +148,7 @@ class Horde_Db_Adapter_Mysqli_Result implements Iterator
         }
 
         if ($this->_result) {
-            $row = $this->_result->fetch_array(MYSQLI_BOTH);
+            $row = $this->_result->fetch_array(MYSQLI_ASSOC);
             if (!$row) {
                 $this->_eof = true;
             } else {
