@@ -66,6 +66,16 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Return the unique connection id.
+     *
+     * @return string The connection id.
+     */
+    public function getId()
+    {
+        return $this->_driver->getId();
+    }
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.
