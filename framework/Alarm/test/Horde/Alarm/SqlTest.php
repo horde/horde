@@ -7,7 +7,7 @@
  * @subpackage UnitTests
  */
 
-class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
+class Horde_Alarm_SqlTest extends Horde_Test_Case
 {
     protected static $skip = false;
     protected static $db;
@@ -21,13 +21,7 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
         // @fixme
         $GLOBALS['language'] = 'en_US';
 
-        $config = getenv('ALARM_TEST_CONFIG');
-        if ($config === false) {
-            $config = dirname(__FILE__) . '/conf.php';
-        }
-        if (file_exists($config)) {
-            require $config;
-        }
+        $conf = self::getConfig('ALARM_TEST_CONFIG');
         if (!isset($conf['alarm']['test'])) {
             self::$skip = true;
             return;

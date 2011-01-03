@@ -61,20 +61,16 @@ class Horde_Db_Adapter_MysqlSuite extends PHPUnit_Framework_TestSuite
 
     public function getConnection()
     {
-        $config = getenv('DB_ADAPTER_MYSQL_TEST_CONFIG');
-        if ($config && !is_dir(dirname($config))) {
-            $config = array_merge(array('host' => 'localhost', 'username' => '', 'password' => '', 'dbname' => 'test'), json_decode($config, true));
-        } else {
-            if (!$config) {
-                $config = dirname(__FILE__) . '/conf.php';
-            }
-            if (file_exists($config)) {
-                require $config;
-            }
-            if (!isset($conf['db']['adapter']['mysql']['test'])) {
-                throw new Exception('No configuration for mysql test');
-            }
-            $config = $conf['db']['adapter']['mysql']['test'];
+        $config = Horde_Test_Case::getConfig('DB_ADAPTER_MYSQL_TEST_CONFIG',
+                                             array('host' => 'localhost',
+                                                   'username' => '',
+                                                   'password' => '',
+                                                   'dbname' => 'test'));
+        if (isset($config['db']['adapter']['mysql']['test'])) {
+            $config = $config['db']['adapter']['mysql']['test'];
+        }
+        if (!is_array($config)) {
+            throw new Exception('No configuration for mysql test');
         }
 
         $conn = new Horde_Db_Adapter_Mysql($config);

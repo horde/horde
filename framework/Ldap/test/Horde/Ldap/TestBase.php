@@ -7,7 +7,7 @@
  * @license    http://www.gnu.org/copyleft/lesser.html LGPL
  */
 
-class Horde_Ldap_TestBase extends PHPUnit_Framework_TestCase
+class Horde_Ldap_TestBase extends Horde_Test_Case
 {
     protected static $ldapcfg;
 
@@ -20,11 +20,10 @@ class Horde_Ldap_TestBase extends PHPUnit_Framework_TestCase
             $this->markTestSkipped($e->getMessage());
         }
 
-        $file = dirname(__FILE__) . '/conf.php';
-        if (!file_exists($file) || !is_readable($file)) {
-            $this->markTestSkipped('conf.php cannot be opened.');
+        $config = $this->getConfig('LDAP_TEST_CONFIG');
+        if (!$config) {
+            $this->markTestSkipped('No configuration for LDAP tests.');
         }
-        include $file;
-        self::$ldapcfg = $conf;
+        self::$ldapcfg = $config;
     }
 }

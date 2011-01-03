@@ -67,20 +67,15 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
             return self::$conn;
         }
 
-        $config = getenv('DB_ADAPTER_PDO_PGSQL_TEST_CONFIG');
-        if ($config && !is_dir(dirname($config))) {
-            $config = array_merge(array('username' => '', 'password' => '', 'dbname' => 'test'), json_decode($config, true));
-        } else {
-            if (!$config) {
-                $config = dirname(__FILE__) . '/../conf.php';
-            }
-            if (file_exists($config)) {
-                require $config;
-            }
-            if (!isset($conf['db']['adapter']['pdo']['pgsql']['test'])) {
-                throw new Exception('No configuration for pdo_pgsql test');
-            }
-            $config = $conf['db']['adapter']['pdo']['pgsql']['test'];
+        $config = Horde_Test_Case::getConfig('DB_ADAPTER_PDO_PGSQL_TEST_CONFIG',
+                                             array('username' => '',
+                                                   'password' => '',
+                                                   'dbname' => 'test'));
+        if (isset($config['db']['adapter']['pdo']['pgsql']['test'])) {
+            $config = $config['db']['adapter']['pdo']['pgsql']['test'];
+        }
+        if (!is_array($config)) {
+            throw new Exception('No configuration for pdo_pgsql test');
         }
 
         $conn = new Horde_Db_Adapter_Pdo_Pgsql($config);
