@@ -208,6 +208,13 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Kolab_Storage_Cache(new Horde_Cache_Storage_Mock());
     }
 
+    protected function getMockListCache()
+    {
+        return new Horde_Kolab_Storage_Cache_List(
+            $this->getMockCache()
+        );
+    }
+
     protected function assertLogCount($count)
     {
         $this->assertEquals(count($this->logHandler->events), $count);

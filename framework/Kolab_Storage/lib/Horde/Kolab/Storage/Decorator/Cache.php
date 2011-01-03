@@ -66,7 +66,9 @@ implements Horde_Kolab_Storage
     {
         return new Horde_Kolab_Storage_List_Decorator_Cache(
             $this->_storage->getList(),
-            $this->_cache
+            new Horde_Kolab_Storage_Cache_List(
+                $this->_cache
+            )
         );
     }
 

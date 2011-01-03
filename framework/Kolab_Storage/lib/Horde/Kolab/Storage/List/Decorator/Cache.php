@@ -28,37 +28,12 @@
 class Horde_Kolab_Storage_List_Decorator_Cache
 implements Horde_Kolab_Storage_List
 {
-    /** Key for the folder list. */
-    const FOLDERS = 'F';
-
-    /** Key for the type list. */
-    const TYPES = 'T';
-
-    /** Key for the last time the list was synchronized. */
-    const SYNC = 'S';
-
-    /** Holds query cache results. */
-    const QUERIES = 'Q';
-
-    /** Key for the cache format version. */
-    const VERSION = 'V';
-
-    /** Holds the version number of the cache format. */
-    const FORMAT_VERSION = '1';
-
     /**
      * Decorated list handler.
      *
      * @var Horde_Kolab_Storage_List
      */
     private $_list;
-
-    /**
-     * The cache.
-     *
-     * @var Horde_Kolab_Storage_Cache
-     */
-    private $_cache;
 
     /**
      * The list cache.
@@ -77,17 +52,17 @@ implements Horde_Kolab_Storage_List
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_List  $list  The original list handler.
-     * @param Horde_Kolab_Storage_Cache $cache The cache storing data for this
-     *                                         decorator.
+     * @param Horde_Kolab_Storage_List       $list  The original list handler.
+     * @param Horde_Kolab_Storage_Cache_List $cache The cache storing data for
+     *                                              this decorator.
      */
     public function __construct(
         Horde_Kolab_Storage_List $list,
-        Horde_Kolab_Storage_Cache $cache
+        Horde_Kolab_Storage_Cache_List $cache
     ) {
         $this->_list = $list;
-        $this->_cache = $cache;
-        $this->_list_cache = new Horde_Kolab_Storage_Cache_List($cache);
+        $this->_list_cache = $cache;
+        $this->_list_cache->setListId($this->_list->getConnectionId());
     }
 
     /**
@@ -110,19 +85,7 @@ implements Horde_Kolab_Storage_List
         if ($this->_init) {
             return;
         }
-        $last_sync = $this->_cache->loadListData(
-            $this->_list->getConnectionId(),
-            self::SYNC
-        );
-        if (empty($last_sync)) {
-            $this->synchronize();
-            return;
-        }
-        $version = $this->_cache->loadListData(
-            $this->_list->getConnectionId(),
-            self::VERSION
-        );
-        if ($version != self::FORMAT_VERSION) {
+        if (!$this->_list_cache->isInitialized()) {
             $this->synchronize();
         }
     }
@@ -135,10 +98,7 @@ implements Horde_Kolab_Storage_List
     public function listFolders()
     {
         $this->_init();
-        return $this->_cache->loadListData(
-            $this->_list->getConnectionId(),
-            self::FOLDERS
-        );
+        return $this->_list_cache->getFolders();
     }
 
     /**
@@ -150,10 +110,7 @@ implements Horde_Kolab_Storage_List
     public function listFolderTypes()
     {
         $this->_init();
-        return $this->_cache->loadListData(
-            $this->_list->getConnectionId(),
-            self::TYPES
-        );
+        return $this->_list_cache->getFolderTypes();
     }
 
     /**
@@ -165,31 +122,11 @@ implements Horde_Kolab_Storage_List
     {
         $this->_list->synchronize();
 
-        $this->_cache->storeListData(
-            $this->_list->getConnectionId(),
-            self::QUERIES,
-            array()
-        );
-        $this->_cache->storeListData(
-            $this->_list->getConnectionId(),
-            self::FOLDERS,
-            $this->_list->listFolders()
-        );
-        $this->_cache->storeListData(
-            $this->_list->getConnectionId(),
-            self::TYPES,
+        $this->_list_cache->store(
+            $this->_list->listFolders(),
             $this->_list->listFolderTypes()
         );
-        $this->_cache->storeListData(
-            $this->_list->getConnectionId(),
-            self::VERSION,
-            self::FORMAT_VERSION
-        );
-        $this->_cache->storeListData(
-            $this->_list->getConnectionId(),
-            self::SYNC,
-            time()
-        );
+
         $this->_init = true;
     }
 }
