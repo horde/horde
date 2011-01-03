@@ -11,8 +11,8 @@ owns or has access to.</description>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-16</date>
- <time>22:49:36</time>
+ <date>2011-01-03</date>
+ <time>15:20:05</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -321,7 +321,9 @@ owns or has access to.</description>
     <dir name="Horde">
      <dir name="Share">
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="SqlTest.php" role="test" />
+      <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/Share -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -448,7 +450,9 @@ owns or has access to.</description>
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Share.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Share.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Share.po" name="locale/zh_TW/LC_MESSAGES/Horde_Share.po" />
    <install as="Horde/Share/AllTests.php" name="test/Horde/Share/AllTests.php" />
+   <install as="Horde/Share/Autoload.php" name="test/Horde/Share/Autoload.php" />
    <install as="Horde/Share/SqlTest.php" name="test/Horde/Share/SqlTest.php" />
+   <install as="Horde/Share/TestBase.php" name="test/Horde/Share/TestBase.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -517,7 +521,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-12-16</date>
+   <date>2011-01-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Converted to Horde 4 coding standards
