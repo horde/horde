@@ -442,66 +442,14 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      * to the given set of unique IDs, with the details retrieved
      * appropriately.
      *
-     * @param array $cids  The array of ids to retrieve.
+     * @param array $ids  The array of ids to retrieve.
      *
-     * @return array  The requested shares keyed by share_id.
+     * @return array  The requested shares keyed be share_id.
      * @throws Horde_Share_Exception
      */
     protected function _getShares(array $ids)
     {
-        $shares = array();
-        $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
-        try {
-            $rows = $this->_db->selectAll($query, $ids);
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_Share_Exception($e->getMessage());
-        }
-
-        $groups = array();
-        $users = array();
-        foreach ($rows as $share) {
-            $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
-            if ($this->_hasUsers($share)) {
-                $users[] = (int)$share['share_id'];
-            }
-            if ($this->_hasGroups($share)) {
-                $groups[] = (int)$share['share_id'];
-            }
-        }
-
-        // Get users permissions
-        if (!empty($users)) {
-            $query = 'SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users  WHERE share_id IN (' . str_repeat('?,', count($users) - 1) . '?)';
-            try {
-                $rows = $this->_db->selectAll($query, $users);
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_Share_Exception($e->getMessage());
-            }
-            foreach ($rows as $share) {
-                $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
-            }
-        }
-
-        // Get groups permissions
-        if (!empty($groups)) {
-            $query = 'SELECT share_id, group_uid, perm FROM ' . $this->_table . '_groups'
-                   . ' WHERE share_id IN (' . str_repeat('?,', count($groups) - 1) . '?)';
-            try {
-                $rows = $this->_db->selectAll($query, $groups);
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_Share_Exception($e->getMessage());
-            }
-            foreach ($rows as $share) {
-                $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
-            }
-        }
-
-        $sharelist = array();
-        foreach ($shares as $id => $data) {
-            $sharelist[$id] = $this->_createObject($data);
-        }
-
-        return $sharelist;
+        return parent::_getShares($ids, 'share_id');
     }
 
     /**

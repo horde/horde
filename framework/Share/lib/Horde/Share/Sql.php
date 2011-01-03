@@ -239,12 +239,13 @@ class Horde_Share_Sql extends Horde_Share_Base
      * to the given set of unique IDs, with the details retrieved
      * appropriately.
      *
-     * @param array $ids  The array of ids to retrieve.
+     * @param array $ids   The array of ids to retrieve.
+     * @param string $key  The column name that should for the list keys.
      *
      * @return array  The requested shares.
      * @throws Horde_Share_Exception
      */
-    protected function _getShares(array $ids)
+    protected function _getShares(array $ids, $key = 'share_name')
     {
         $shares = array();
         try {
@@ -256,7 +257,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         $sharelist = array();
         foreach ($rows as $share) {
             $this->_loadPermissions($share);
-            $sharelist[$share['share_name']] = $this->_createObject($share);
+            $sharelist[$share[$key]] = $this->_createObject($share);
         }
 
         return $sharelist;
