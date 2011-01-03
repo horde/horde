@@ -213,6 +213,10 @@ class Horde_Array
      */
     static public function array_merge_recursive_overwrite(array $a1, array $a2)
     {
+        if (function_exists('array_replace_recursive')) {
+            return array_replace_recursive($a1, $a2);
+        }
+
         foreach ($a2 as $key => $val) {
             if (!isset($a1[$key])) {
                 $a1[$key] = array();
