@@ -206,6 +206,8 @@ class Horde_Array
      * stock function is later value always overwrites earlier value (stock
      * function will instead create an array with all values of key).
      *
+     * @todo Remove when requiring PHP 5.3.
+     *
      * @param array $a1  The old array.
      * @param array $a2  The new array.
      *
