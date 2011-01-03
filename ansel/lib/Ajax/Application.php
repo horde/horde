@@ -24,24 +24,7 @@ class Ansel_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, object representing the gallery with
      *                the following structure:
-     * <pre>
-     * 'id' - gallery id
-     * 'n'  - gallery name
-     * 'dc' - date created
-     * 'dm' - date modified
-     * 'd'  - description
-     * 'ki' - key image
-     * 'sg' - an object with the following properties:
-     *      'n'  - gallery name
-     *      'dc' - date created
-     *      'dm' - date modified
-     *      'd'  - description
-     *      'ki' - key image
-     *
-     *  'imgs' - an array of image objects with the following properties:
-     *      'id'  - the image id
-     *      'url' - the image url
-     * </pre>
+     * @see Ansel_Gallery::toJson()
      */
     public function getGallery()
     {

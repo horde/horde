@@ -988,6 +988,26 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
      * @param boolean $full  Return all information (subgalleries and images)?
      *
      * @return StdClass  An object describing the gallery
+     * <pre>
+     * 'id' - gallery id
+     * 'p'  - gallery's parent's id (null if top level)
+     * 'pn' - gallery's parent's name (null if top level)
+     * 'n'  - gallery name
+     * 'dc' - date created
+     * 'dm' - date modified
+     * 'd'  - description
+     * 'ki' - key image
+     * 'sg' - an object with the following properties:
+     *      'n'  - gallery name
+     *      'dc' - date created
+     *      'dm' - date modified
+     *      'd'  - description
+     *      'ki' - key image
+     *
+     *  'imgs' - an array of image objects with the following properties:
+     *      'id'  - the image id
+     *      'url' - the image url
+     * </pre>
      */
     public function toJson($full = false)
     {
@@ -1003,9 +1023,11 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         $parents = $this->get('parents');
         if (empty($parents)) {
             $json->p = null;
+            $json->pn - null;
         } else {
             $parents = explode(':', $parents);
             $json->p = array_pop($parents);
+            $json->pn = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($json->p)->get('name');
         }
 
         if ($full) {
