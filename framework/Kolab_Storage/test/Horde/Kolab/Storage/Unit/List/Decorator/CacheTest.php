@@ -276,8 +276,7 @@ extends Horde_Kolab_Storage_TestCase
                 $cache
             )
         );
-        $cache->storeListData($list->getConnectionId(), 'S', time());
-        $cache->storeListData($list->getConnectionId(), 'V', '1');
+        $cache->storeListData($list->getConnectionId(), array('S' => time(), 'V' => '1'));
         $this->mockDriver->expects($this->never())
             ->method('getMailboxes') 
             ->will($this->returnValue(array('INBOX')));

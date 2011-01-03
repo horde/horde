@@ -60,6 +60,13 @@ class Horde_Kolab_Storage_Cache_List
     private $_list_id;
 
     /**
+     * The list data.
+     *
+     * @var array
+     */
+    private $_data = false;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Cache $cache   The core cache driver.
@@ -83,23 +90,50 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
+     * Retrieve list data.
+     *
+     * @param string $key Access key to the cached data.
+     *
+     * @return mixed The data of the object.
+     */
+    private function _load($key)
+    {
+        $data = $this->_cache->loadListData($this->_list_id);
+        if (isset($data[$key])) {
+            return $data[$key];
+        }
+    }
+
+    /**
+     * Store list data.
+     *
+     * @param string $key  Access key to the cached data.
+     * @param mixed  $data Value to cache.
+     *
+     * @return NULL
+     */
+    private function _store($key, $data)
+    {
+        $stored = $this->_cache->loadListData($this->_list_id);
+        if (!is_array($stored)) {
+            $stored = array();
+        }
+        $stored[$key] = $data;
+        $this->_cache->storeListData($this->_list_id, $stored);
+    }
+
+    /**
      * Check if the cache has been initialized.
      *
      * @return boolean True if cache data is available.
      */
     public function isInitialized()
     {
-        $last_sync = $this->_cache->loadListData(
-            $this->_list_id,
-            self::SYNC
-        );
+        $last_sync = $this->_load(self::SYNC);
         if (empty($last_sync)) {
             return false;
         }
-        $version = $this->_cache->loadListData(
-            $this->_list_id,
-            self::VERSION
-        );
+        $version = $this->_load(self::VERSION);
         if ($version != self::FORMAT_VERSION) {
             return false;
         }
@@ -113,10 +147,7 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function getFolders()
     {
-        return $this->_cache->loadListData(
-            $this->_list_id,
-            self::FOLDERS
-        );
+        return $this->_load(self::FOLDERS);
     }
 
     /**
@@ -127,10 +158,7 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function getFolderTypes()
     {
-        return $this->_cache->loadListData(
-            $this->_list_id,
-            self::TYPES
-        );
+        return $this->_load(self::TYPES);
     }
 
     /**
@@ -140,30 +168,10 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function store(array $folders = null, array $types = null)
     {
-        $this->_cache->storeListData(
-            $this->_list_id,
-            self::QUERIES,
-            array()
-        );
-        $this->_cache->storeListData(
-            $this->_list_id,
-            self::FOLDERS,
-            $folders
-        );
-        $this->_cache->storeListData(
-            $this->_list_id,
-            self::TYPES,
-            $types
-        );
-        $this->_cache->storeListData(
-            $this->_list_id,
-            self::VERSION,
-            self::FORMAT_VERSION
-        );
-        $this->_cache->storeListData(
-            $this->_list_id,
-            self::SYNC,
-            time()
-        );
+        $this->_store(self::QUERIES, array());
+        $this->_store(self::FOLDERS, $folders);
+        $this->_store(self::TYPES, $types);
+        $this->_store(self::VERSION, self::FORMAT_VERSION);
+        $this->_store(self::SYNC, time());
     }
 }

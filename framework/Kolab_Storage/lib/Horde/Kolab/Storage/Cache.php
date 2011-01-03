@@ -177,27 +177,25 @@ class Horde_Kolab_Storage_Cache
      * Retrieve list data.
      *
      * @param string $connection_id ID of the connection matching the list.
-     * @param string $key           Access key to the cached data.
      *
      * @return mixed The data of the object.
      */
-    public function loadListData($connection_id, $key)
+    public function loadListData($connection_id)
     {
-        return $this->horde_cache->get($this->_getListKey($connection_id, $key), 0);
+        return $this->horde_cache->get($this->_getListKey($connection_id), 0);
     }
 
     /**
      * Cache list data.
      *
      * @param string $connection_id ID of the connection matching the list.
-     * @param string $key           Access key to the cached data.
      * @param string $data          The data to be cached.
      *
      * @return boolean True if successfull.
      */
-    public function storeListData($connection_id, $key, $data)
+    public function storeListData($connection_id, $data)
     {
-        $this->horde_cache->set($this->_getListKey($connection_id, $key), $data);
+        $this->horde_cache->set($this->_getListKey($connection_id), $data);
     }
 
     /**
@@ -208,9 +206,9 @@ class Horde_Kolab_Storage_Cache
      *
      * @return mixed The data of the object.
      */
-    private function _getListKey($connection_id, $key)
+    private function _getListKey($connection_id)
     {
-        return $connection_id . ':LIST:' . $key;
+        return $connection_id . ':LIST';
     }
 
     /**
