@@ -1,4 +1,4 @@
-<div data-role="page" id="monthview" class="monthview">
+<div data-role="page" id="monthview">
   <div data-role="header">
     <h1><?php echo _("Month")?></h1>
     <a rel="external" href="<?php echo $this->portal ?>"><?php echo _("Portal")?></a>
