@@ -98,25 +98,20 @@ class Horde_Kolab_Storage_Cache_List
     {
         if ($this->_data === false) {
             $this->_data = $this->_cache->loadListData($this->_list_id);
+            if (!is_array($this->_data)) {
+                $this->_data = array();
+            }
         }
     }
 
     /**
-     * Store list data.
-     *
-     * @param string $key  Access key to the cached data.
-     * @param mixed  $data Value to cache.
+     * Cache the list data.
      *
      * @return NULL
      */
-    private function _store($key, $data)
+    public function save()
     {
-        $stored = $this->_cache->loadListData($this->_list_id);
-        if (!is_array($stored)) {
-            $stored = array();
-        }
-        $stored[$key] = $data;
-        $this->_cache->storeListData($this->_list_id, $stored);
+        $this->_cache->storeListData($this->_list_id, $this->_data);
     }
 
     /**
@@ -169,10 +164,11 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function store(array $folders = null, array $types = null)
     {
-        $this->_store(self::QUERIES, array());
-        $this->_store(self::FOLDERS, $folders);
-        $this->_store(self::TYPES, $types);
-        $this->_store(self::VERSION, self::FORMAT_VERSION);
-        $this->_store(self::SYNC, time());
+        $this->_load();
+        $this->_data[self::QUERIES] = array();
+        $this->_data[self::FOLDERS] = $folders;
+        $this->_data[self::TYPES] = $types;
+        $this->_data[self::VERSION] = self::FORMAT_VERSION;
+        $this->_data[self::SYNC] = time();
     }
 }

@@ -109,8 +109,8 @@ extends Horde_Kolab_Storage_TestCase
     public function testCachingListData()
     {
         $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeListData('user@example.com:143', 'folders', array('a', 'b'));
-        $this->assertEquals(array('a', 'b'), $cache->loadListData('user@example.com:143', 'folders'));
+        $cache->storeListData('user@example.com:143', array('folders' => array('a', 'b')));
+        $this->assertEquals(array('folders' => array('a', 'b')), $cache->loadListData('user@example.com:143'));
     }
 
     /**

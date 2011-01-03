@@ -127,6 +127,8 @@ implements Horde_Kolab_Storage_List
             $this->_list->listFolderTypes()
         );
 
+        $this->_list_cache->save();
+
         $this->_init = true;
     }
 }
