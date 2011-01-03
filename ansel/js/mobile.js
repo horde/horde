@@ -78,11 +78,10 @@ var AnselMobile = {
 
         //AnselMobile.imgs = r.imgs;
         AnselMobile.currentGallery = r;
+        $('.anselgalleries').detach();
         if (r.sg.length) {
             var l = $('<ul>').addClass('anselgalleries').attr({ 'data-role': 'listview', 'data-inset': 'true' });
             $('#thumbs').before(AnselMobile.buildGalleryList(l, r.sg).listview());
-        } else {
-            $('.anselgalleries').detach();
         }
         $('#galleryview h1').text(r.n);
         if ($.mobile.activePage.attr('id') != 'galleryview') {
