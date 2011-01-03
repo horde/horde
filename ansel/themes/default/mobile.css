@@ -58,3 +58,7 @@ li.ansel-gallery h3 {
 li.ansel-gallery p {
     margin-left: 25px;
 }
+
+#anselgalleryview ul.anselgalleries {
+    margin: 15px;
+}

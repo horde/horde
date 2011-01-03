@@ -23,28 +23,27 @@ var AnselMobile = {
     /**
      * Build a gallery list
      *
+     * @param object l   The ul object to append to
      * @param object gs  A hash of the galleries
-     * @param string c   The CSS class to use for the ul
      *
      * @return a ul dom object
      */
-    buildGalleryList: function(gs, c)
+    buildGalleryList: function(l, gs)
     {
-        if (!c) {
-            c = 'anselgalleries';
-        }
-        var list = $('<ul>')
-            .addClass(c)
-            .attr({'data-role': 'listview'}), item;
         $.each(gs, function(k, g) {
             var item = $('<li>').attr({ 'ansel-gallery-id': g.id }).addClass('ansel-gallery');
             item.append($('<img>').attr({ src: g.ki }).addClass('ui-li-icon'));
             item.append($('<h3>').append($('<a>').attr({ href: '#' }).text(g.n)));
             item.append($('<p>').text(g.d));
-            list.append(item);
+            l.append(item);
         });
 
-        return list;
+        return l;
+    },
+
+    getSubGalleryUL: function()
+    {
+        return $('<ul>').addClass('anselgalleries').attr({ 'data-role': 'listview', 'data-inset': 'true' });
     },
 
     /**
@@ -74,8 +73,12 @@ var AnselMobile = {
 
         //AnselMobile.imgs = r.imgs;
         AnselMobile.currentGallery = r.id;
-
-        $('.anselgalleries').replaceWith(AnselMobile.buildGalleryList(r.sg).listview());
+        if (r.sg.length) {
+            var l = $('<ul>').addClass('anselgalleries').attr({ 'data-role': 'listview', 'data-inset': 'true' });
+            $('#thumbs').before(AnselMobile.buildGalleryList(l, r.sg).listview());
+        } else {
+            $('.anselgalleries').detach();
+        }
         $('#galleryview h1').text(r.n);
         if ($.mobile.activePage.attr('id') != 'galleryview') {
             $.mobile.changePage('galleryview', 'slide', false, true);
@@ -151,8 +154,8 @@ var AnselMobile = {
         $('body').bind('swipeleft', AnselMobile.handleSwipe);
         $('body').bind('swiperight', AnselMobile.handleSwipe);
 
-        // Todo, eventually move to mobile callback so page reloads work etc...
-        $('#anselgallerylist').append(AnselMobile.buildGalleryList(Ansel.conf.galleries, 'anselgallerylist'));
+        var list = $('<ul>').addClass('anselgallerylist').attr({ 'data-role': 'listview' });
+        $('#anselgallerylist').append(AnselMobile.buildGalleryList(list, Ansel.conf.galleries, 'anselgallerylist'));
 
         // We need to recenter the thumbnail grid, and (eventually) try to
         // resize the main image if it's  being shown.
