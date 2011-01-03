@@ -29,6 +29,13 @@ interface Horde_Kolab_Storage_List
 extends Horde_Kolab_Storage_Queriable
 {
     /**
+     * Return the ID of the underlying connection.
+     *
+     * @return string The connection ID.
+     */
+    public function getConnectionId();
+
+    /**
      * Returns the list of folders visible to the current user.
      *
      * @return array The list of folders, represented as strings.

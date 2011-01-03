@@ -69,5 +69,4 @@ extends Horde_Kolab_Storage_TestCase
         $type = new Horde_Kolab_Storage_Folder_Type('contact');
         $this->assertFalse($type->isDefault());
     }
-
 }

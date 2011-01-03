@@ -58,14 +58,56 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Return the ID of the underlying connection.
+     *
+     * @return string The connection ID.
+     */
+    public function getConnectionId()
+    {
+        return $this->_list->getConnectionId();
+    }
+
+    /**
+     * Check if the cache has been initialized at all and synchronize it if not.
+     *
+     * @return NULL
+     */
+    private function _init()
+    {
+    }
+
+    /**
      * Returns the list of folders visible to the current user.
      *
      * @return array The list of folders, represented as a list of strings.
      */
     public function listFolders()
     {
-        $result = $this->_list->listFolders();
-        return $result;
+        $this->_init();
+        $a = $this->_cache->loadListData(
+            $this->_list->getConnectionId(),
+            'FOLDERS'
+        );
+        if (empty($a)) {
+            $a = $this->_cacheFolders();
+        }
+        return $a;
+    }
+
+    /**
+     * Caches and returns the list of folders visible to the current user.
+     *
+     * @return array The list of folders, represented as a list of strings.
+     */
+    private function _cacheFolders()
+    {
+        $list = $this->_list->listFolders();
+        $this->_cache->storeListData(
+            $this->_list->getConnectionId(),
+            'FOLDERS',
+            $list
+        );
+        return $list;
     }
 
     /**
@@ -90,6 +132,16 @@ implements Horde_Kolab_Storage_List
     {
         $result = $this->_list->listFolderTypeAnnotations();
         return $result;
+    }
+
+    /**
+     * Synchronize the list information with the information from the backend.
+     *
+     * @return NULL
+     */
+    public function synchronize()
+    {
+        $this->_cacheFolders();
     }
 
     /**

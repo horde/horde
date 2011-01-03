@@ -103,6 +103,9 @@ class Horde_Kolab_Storage_Factory
         } else {
             $config = array();
         }
+        $config = array_merge(
+            array('host' => 'localhost', 'port' => 143), $config
+        );
         if (!empty($params['timelog'])) {
             $timer = new Horde_Support_Timer();
             $timer->push();
@@ -137,7 +140,7 @@ class Horde_Kolab_Storage_Factory
             $driver = new Horde_Kolab_Storage_Driver_Cclient($this, $config);
             break;
         case 'pear':
-            $client = new Net_IMAP($config['host']);
+            $client = new Net_IMAP($config['host'], $config['port']);
             Horde_Kolab_Storage_Exception_Pear::catchError(
                 $client->login($config['username'], $config['password'])
             );
@@ -153,7 +156,7 @@ class Horde_Kolab_Storage_Factory
                 array(
                     'debug_mode' => false,
                     'ssl_mode' => false,
-                    'port' => 143,
+                    'port' => $config['port'],
                     'timeout' => 0,
                     'force_caps' => false,
                 )

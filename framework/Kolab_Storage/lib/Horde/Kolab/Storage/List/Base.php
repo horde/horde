@@ -57,6 +57,16 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Return the ID of the underlying connection.
+     *
+     * @return string The connection ID.
+     */
+    public function getConnectionId()
+    {
+        return $this->_driver->getId();
+    }
+
+    /**
      * Returns the list of folders visible to the current user.
      *
      * @return array The list of folders, represented as a list of strings.

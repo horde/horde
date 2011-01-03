@@ -188,10 +188,24 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getMockDriverList()
+    {
+        $this->mockDriver = $this->getMock('Horde_Kolab_Storage_Driver');
+        return new Horde_Kolab_Storage_List_Base(
+            $this->mockDriver,
+            new Horde_Kolab_Storage_Factory()
+        );
+    }
+
     protected function getMockLogger()
     {
         $this->logHandler = new Horde_Log_Handler_Mock();
         return new Horde_Log_Logger($this->logHandler);
+    }
+
+    protected function getMockCache()
+    {
+        return new Horde_Kolab_Storage_Cache(new Horde_Cache_Storage_Mock());
     }
 
     protected function assertLogCount($count)
