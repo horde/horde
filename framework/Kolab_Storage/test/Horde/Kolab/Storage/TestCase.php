@@ -46,9 +46,9 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getNullList()
+    protected function getNullList($factory = null)
     {
-        $factory = new Horde_Kolab_Storage_Factory();
+        $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Base(
             $this->getNullMock($factory),
             $factory
@@ -140,9 +140,9 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getAnnotatedList()
+    protected function getAnnotatedList($factory = null)
     {
-        $factory = new Horde_Kolab_Storage_Factory();
+        $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Base(
             $this->getAnnotatedMock($factory),
             $factory

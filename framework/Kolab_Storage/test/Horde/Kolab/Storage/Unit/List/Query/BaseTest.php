@@ -37,31 +37,53 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testByTypeReturnsArray()
     {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $query = $list->getQuery('Base');
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getNullList($factory));
         $this->assertType('array', $query->listByType('test'));
     }
 
     public function testListCalendarsListsCalendars()
     {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getAnnotatedMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $query = $list->getQuery('Base');
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
         $this->assertEquals(array('INBOX/Calendar'), $query->listByType('event'));
     }
 
     public function testListTasklistsListsTasklists()
     {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getAnnotatedMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $query = $list->getQuery('Base');
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
         $this->assertEquals(array('INBOX/Tasks'), $query->listByType('task'));
+    }
+
+    public function testTypeReturnsArray()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getNullList($factory));
+        $this->assertType('array', $query->listTypes());
+    }
+
+    public function testTypeReturnsAnnotations()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $this->assertEquals(
+            array(
+                'INBOX/Calendar' => 'event',
+                'INBOX/Contacts' => 'contact',
+                'INBOX/Notes' => 'note',
+                'INBOX/Tasks' => 'task',
+            ),
+            $query->listTypes()
+        );
+    }
+
+    public function testAnnotationsReturnsHandlers()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        foreach ($query->listFolderTypeAnnotations() as $folder => $type) {
+            $this->assertInstanceOf('Horde_Kolab_Storage_Folder_Type', $type);
+        };
     }
 }

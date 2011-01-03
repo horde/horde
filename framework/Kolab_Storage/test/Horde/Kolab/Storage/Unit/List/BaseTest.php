@@ -56,41 +56,13 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    public function testTypeReturnsArray()
+    public function testListFolderTypesReturnsArray()
     {
         $list = new Horde_Kolab_Storage_List_Base(
             $this->getNullMock(),
             new Horde_Kolab_Storage_Factory()
         );
-        $this->assertType('array', $list->listTypes());
-    }
-
-    public function testTypeReturnsAnnotations()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getAnnotatedMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $this->assertEquals(
-            array(
-                'INBOX/Calendar' => 'event',
-                'INBOX/Contacts' => 'contact',
-                'INBOX/Notes' => 'note',
-                'INBOX/Tasks' => 'task',
-            ),
-            $list->listTypes()
-        );
-    }
-
-    public function testAnnotationsReturnsHandlers()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getAnnotatedMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        foreach ($list->listFolderTypeAnnotations() as $folder => $type) {
-            $this->assertInstanceOf('Horde_Kolab_Storage_Folder_Type', $type);
-        };
+        $this->assertType('array', $list->listFolderTypes());
     }
 
     public function testListQueriable()
@@ -100,26 +72,5 @@ extends Horde_Kolab_Storage_TestCase
             new Horde_Kolab_Storage_Factory()
         );
         $this->assertTrue($list instanceOf Horde_Kolab_Storage_Queriable);
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testGetQueryForUnsupported()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $list->getQuery('NO_SUCH_QUERY');
-    }
-
-    public function testQueryReturnsQuery()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $this->assertInstanceOf('Horde_Kolab_Storage_Query', $list->getQuery('Base'));
     }
 }

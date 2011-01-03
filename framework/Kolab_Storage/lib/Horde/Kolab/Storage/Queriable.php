@@ -27,15 +27,5 @@
  */
 interface Horde_Kolab_Storage_Queriable
 {
-    /**
-     * Return the specified query type.
-     *
-     * @param string $name The query name.
-     *
-     * @return Horde_Kolab_Storage_Query A query handler.
-     *
-     * @throws Horde_Kolab_Storage_Exception In case the requested query is not supported.
-     */
-    public function getQuery($name);
 }
 

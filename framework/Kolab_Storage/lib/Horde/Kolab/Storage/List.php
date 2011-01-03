@@ -43,18 +43,10 @@ extends Horde_Kolab_Storage_Queriable
     public function listFolders();
 
     /**
-     * Returns the folder types as associative array.
-     *
-     * @return array The list folder types with the folder names as key and the
-     *               type as values.
-     */
-    public function listTypes();
-
-    /**
      * Returns the folder type annotation as associative array.
      *
      * @return array The list folder types with the folder names as key and the
-     *               type handler as values.
+     *               folder type as values.
      */
-    public function listFolderTypeAnnotations();
+    public function listFolderTypes();
 }

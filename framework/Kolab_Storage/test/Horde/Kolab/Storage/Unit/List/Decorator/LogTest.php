@@ -52,27 +52,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getMockLogger()
         );
         $list->listFolders();
-        $this->assertLogContains('List contained 2 folders.');
-    }
-
-    public function testListTypesFolderCount()
-    {
-        $list = new Horde_Kolab_Storage_List_Decorator_Log(
-            $this->getNullList(),
-            $this->getMockLogger()
-        );
-        $list->listTypes();
-        $this->assertLogCount(2);
-    }
-
-    public function testListTypesLogsEntry()
-    {
-        $list = new Horde_Kolab_Storage_List_Decorator_Log(
-            $this->getAnnotatedList(),
-            $this->getMockLogger()
-        );
-        $list->listTypes();
-        $this->assertLogContains('List contained 4 folders and types.');
+        $this->assertLogContains('List for test@example.com@mock:0 contained 2 folders.');
     }
 
     public function testListAnnotationsLogsEntry()
@@ -81,19 +61,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getAnnotatedList(),
             $this->getMockLogger()
         );
-        $list->listFolderTypeAnnotations();
-        $this->assertLogContains('List contained 4 folders and annotations.');
-    }
-
-    public function testGetQueryReturnsQuery()
-    {
-        $list = new Horde_Kolab_Storage_List_Decorator_Log(
-            $this->getNullList(),
-            $this->getMockLogger()
-        );
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Query',
-            $list->getQuery('Base')
-        );
+        $list->listFolderTypes();
+        $this->assertLogContains('List for test@example.com@mock:0 contained 4 folders and annotations.');
     }
 }

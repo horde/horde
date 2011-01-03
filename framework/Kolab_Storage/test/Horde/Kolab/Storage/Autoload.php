@@ -19,3 +19,6 @@ error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
 require_once dirname(__FILE__) . '/TestCase.php';
+
+/** Load stub definitions */
+require_once dirname(__FILE__) . '/Stub/FactoryQuery.php';

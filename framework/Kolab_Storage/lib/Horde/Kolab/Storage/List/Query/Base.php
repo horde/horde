@@ -36,6 +36,13 @@ implements Horde_Kolab_Storage_Query
     private $_queriable;
 
     /**
+     * The factory for generating additional resources.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    private $_factory;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Queriable $queriable The queriable list.
@@ -43,6 +50,50 @@ implements Horde_Kolab_Storage_Query
     public function __construct(Horde_Kolab_Storage_Queriable $queriable)
     {
         $this->_queriable = $queriable;
+    }
+
+    /**
+     * Inject the factory.
+     *
+     * @param Horde_Kolab_Storage_Factory $factory The factory.
+     *
+     * @return NULL
+     */
+    public function setFactory(Horde_Kolab_Storage_Factory $factory)
+    {
+        $this->_factory = $factory;
+    }
+
+    /**
+     * Returns the folder types as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               type as values.
+     */
+    public function listTypes()
+    {
+        $result = array();
+        $list = $this->listFolderTypeAnnotations();
+        foreach ($list as $folder => $annotation) {
+            $result[$folder] = $annotation->getType();
+        }
+        return $result;
+    }
+
+    /**
+     * Returns the folder type annotation as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               type handler as values.
+     */
+    public function listFolderTypeAnnotations()
+    {
+        $result = array();
+        $list = $this->_queriable->listFolderTypes();
+        foreach ($list as $folder => $annotation) {
+            $result[$folder] = $this->_factory->createFolderType($annotation);
+        }
+        return $result;
     }
 
     /**
@@ -55,7 +106,7 @@ implements Horde_Kolab_Storage_Query
     public function listByType($type)
     {
         $result = array();
-        foreach ($this->_queriable->listTypes() as $folder => $folder_type) {
+        foreach ($this->listTypes() as $folder => $folder_type) {
             if ($folder_type == $type) {
                 $result[] = $folder;
             }
