@@ -32,7 +32,7 @@
   <active>yes</active>
  </lead>
  <date>2011-01-03</date>
- <time>15:55:17</time>
+ <time>17:20:40</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -73,6 +73,9 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Storage">
+       <dir name="Cache">
+        <file name="List.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Storage/Cache -->
        <dir name="Decorator">
         <file name="Cache.php" role="php" />
         <file name="Log.php" role="php" />
@@ -583,6 +586,7 @@
    <install as="Horde/Kolab/Storage/Queriable.php" name="lib/Horde/Kolab/Storage/Queriable.php" />
    <install as="Horde/Kolab/Storage/Query.php" name="lib/Horde/Kolab/Storage/Query.php" />
    <install as="Horde/Kolab/Storage/Translation.php" name="lib/Horde/Kolab/Storage/Translation.php" />
+   <install as="Horde/Kolab/Storage/Cache/List.php" name="lib/Horde/Kolab/Storage/Cache/List.php" />
    <install as="Horde/Kolab/Storage/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/Decorator/Cache.php" />
    <install as="Horde/Kolab/Storage/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/Driver/Base.php" name="lib/Horde/Kolab/Storage/Driver/Base.php" />

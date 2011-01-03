@@ -61,6 +61,13 @@ implements Horde_Kolab_Storage_List
     private $_cache;
 
     /**
+     * The list cache.
+     *
+     * @var Horde_Kolab_Storage_Cache_List
+     */
+    private $_list_cache;
+
+    /**
      * Has the cache already been loaded and validated?
      *
      * @var boolean
@@ -80,6 +87,7 @@ implements Horde_Kolab_Storage_List
     ) {
         $this->_list = $list;
         $this->_cache = $cache;
+        $this->_list_cache = new Horde_Kolab_Storage_Cache_List($cache);
     }
 
     /**
