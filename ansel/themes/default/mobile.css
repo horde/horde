@@ -1,32 +1,60 @@
-ul.thumbView{
-    list-style:none;
-    margin:0px;
-    border:none;
+/* Custom 'h' theme (based on 'b' with a black background */
+.ui-bar-h { border: 1px solid #456f9a; background: #5e87b0; color: #fff; font-weight: bold; text-shadow: 0 -1px 1px #254f7a; background-image: -moz-linear-gradient(top, #81a8ce, #5e87b0); background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #81a8ce),color-stop(1, #5e87b0)); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#81a8ce', EndColorStr='#5e87b0')"; }
+.ui-bar-h, .ui-bar-b input, .ui-bar-b select, .ui-bar-b textarea, .ui-bar-b button { font-family: Helvetica, Arial, sans-serif; }
+.ui-bar-h .ui-link-inherit { color: #fff; }
+.ui-bar-h .ui-link { color: #7cc4e7; font-weight: bold; }
+
+.ui-body-h { border: 1px solid #2A2A2A; background: #222222; color: #fff; text-shadow: 0 1px 0 #000; font-weight: normal; background-image: -moz-linear-gradient(top, #666666, #222222); background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #666666),color-stop(1, #222222)); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#666666', EndColorStr='#222222)')"; }
+.ui-body-h, .ui-body-h input, .ui-body-h select, .ui-body-h textarea, .ui-body-h button { font-family: Helvetica, Arial, sans-serif; }
+.ui-body-h .ui-link-inherit { color: #fff; }
+.ui-body-h .ui-link { color: #2489CE; font-weight: bold; }
+.ui-br { border-bottom: 1px solid rgba(130,130,130,.3); }
+
+.ui-btn-up-h { border: 1px solid #145072; background: #2567ab; font-weight: bold; color: #fff; cursor: pointer; text-shadow: 0 -1px 1px #145072; text-decoration: none; background-image: -moz-linear-gradient(top, #4e89c5, #2567ab); background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #5f9cc5),color-stop(1, #396b9e)); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#4e89c5', EndColorStr='#2567ab')"; }
+.ui-btn-up-h a.ui-link-inherit { color: #fff; }
+.ui-btn-hover-h { border: 1px solid #00516e; background: #4b88b6; font-weight: bold; color: #fff; text-shadow: 0 -1px 1px #014D68; background-image: -moz-linear-gradient(top, #72b0d4, #4b88b6); text-decoration: none; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #72b0d4),color-stop(1, #4b88b6)); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#72b0d4', EndColorStr='#4b88b6')"; }
+.ui-btn-hover-h a.ui-link-inherit { color: #fff; }
+.ui-btn-down-h { border: 1px solid #225377; background: #4e89c5; font-weight: bold; color: #fff; text-shadow: 0 -1px 1px #225377; background-image: -moz-linear-gradient(top, #396b9e, #4e89c5); background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #396b9e),color-stop(1, #4e89c5)); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#396b9e', EndColorStr='#4e89c5')"; }
+.ui-btn-down-h a.ui-link-inherit { color: #fff; }
+.ui-btn-up-h, .ui-btn-hover-h, .ui-btn-down-h { font-family: Helvetica, Arial, sans-serif; }
+
+ul.thumbView {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    border: none;
 }
 ul.thumbView li {
-    float:left;
-    position:relative;
-    width:80px;
-    height:80px;
-    border:none;
-    margin:0px;
-    padding:0px;
-    background:transparent;
-    line-height:80px;
-    overflow:visible;
+    float: left;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    background: transparent;
+    line-height: 80px;
+    overflow: visible;
 }
 ul.thumbView li a {
-    height:80px;
-    margin:0;
-    padding:0;
-    width:80px;
-    text-align:center;
-    vertical-align:middle;
-    display:table-cell;
-    overflow:visible;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    width: 80px;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+    overflow: visible;
 }
-ul.thumbView li a img{
-    border:none;
-    vertical-align:middle;
-    -webkit-box-shadow:2px 2px 8px #000;
+ul.thumbView li a img {
+    border: none;
+    vertical-align: middle;
+    -webkit-box-shadow: 2px 2px 8px #000;
+}
+
+li.ansel-gallery h3 {
+    margin-left: 20px
+}
+li.ansel-gallery p {
+    margin-left: 25px;
 }

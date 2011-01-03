@@ -16,27 +16,41 @@ var AnselMobile = {
     currentGallery: null,
 
     /**
-     * Build a gallery list
+     * Currently loaded image thumbnails
      */
-    buildGalleryList: function(galleries)
+    //imgs: [],
+
+    /**
+     * Build a gallery list
+     *
+     * @param object gs  A hash of the galleries
+     * @param string c   The CSS class to use for the ul
+     *
+     * @return a ul dom object
+     */
+    buildGalleryList: function(gs, c)
     {
+        if (!c) {
+            c = 'anselgalleries';
+        }
         var list = $('<ul>')
-            .addClass('anselGalleryList')
-            .attr({ 'data-role': 'listview' }), item;
-        $('#anselgallerylist ul').detach();
-        $.each(galleries, function(k, g) {
-            var item = $('<li>').attr({ 'class': 'ansel-gallery', 'ansel-gallery-id': g.id });
-            item.append($('<img>').attr({ src: g.ki }));
+            .addClass(c)
+            .attr({'data-role': 'listview'}), item;
+        $.each(gs, function(k, g) {
+            var item = $('<li>').attr({ 'ansel-gallery-id': g.id }).addClass('ansel-gallery');
+            item.append($('<img>').attr({ src: g.ki }).addClass('ui-li-icon'));
             item.append($('<h3>').append($('<a>').attr({ href: '#' }).text(g.n)));
             item.append($('<p>').text(g.d));
             list.append(item);
         });
 
-        $('#anselgallerylist').append(list);
+        return list;
     },
 
     /**
      * Load the specified gallery
+     *
+     * @param integer id  The gallery id to return
      */
     toGallery: function(id)
     {
@@ -45,24 +59,57 @@ var AnselMobile = {
 
     /**
      * Callback for after a gallery is loaded.
+     *
+     * @param object r  The response object
      */
     galleryLoaded: function(r)
     {
         // TODO: error checks, build any subgallery lists etc...
-        if (r.id == AnselMobile.currentGallery) {
+        if ($.mobile.currentPage != 'galleryview' &&
+            AnselMobile.currentGallery && (r.id == AnselMobile.currentGallery)) {
+
             $.mobile.changePage('galleryview', 'slide', false, true);
             return;
         }
+
+        //AnselMobile.imgs = r.imgs;
         AnselMobile.currentGallery = r.id;
-        $('#thumbs').text('');
+
+        $('.anselgalleries').replaceWith(AnselMobile.buildGalleryList(r.sg).listview());
         $('#galleryview h1').text(r.n);
-        $.mobile.changePage('galleryview', 'slide', false, true);
+        if ($.mobile.activePage.attr('id') != 'galleryview') {
+            $.mobile.changePage('galleryview', 'slide', false, true);
+        }
+        $('#thumbs').empty();
         $.each(r.imgs, function(k, i) {
-            var img = $('<li>').append($('<img>').attr({ src: i.url }));
+            var img = $('<li>').addClass('anselthumb').append($('<a>').attr({ 'href': '#' }).append($('<img>').attr({ src: i.url })));
             $('#thumbs').append(img);
         });
+        AnselMobile.centerGrid();
     },
-    
+
+    /**
+     * Utility function to attempt to center the thumbnail grid
+     *
+     * Logic unabashedly borrowed from:
+     *  http://tympanus.net/codrops/2010/05/27/awesome-mobile-image-gallery-web-app/
+     */
+    centerGrid: function()
+    {
+		if ($('.anselthumb').size() > 0) {
+			var perRow = Math.floor($(window).width() / 80);
+			var left = Math.floor(($(window).width() - (perRow * 80)) / 2);
+			$('.anselthumb').each(function(i) {
+				var $this = $(this);
+				if (i % perRow == 0) {
+					$this.css('margin-left', left + 'px');
+				} else {
+					$this.css('margin-left', '0px');
+				}
+			});
+		}
+    },
+
     /**
      * Global click handler
      *
@@ -105,7 +152,13 @@ var AnselMobile = {
         $('body').bind('swiperight', AnselMobile.handleSwipe);
 
         // Todo, eventually move to mobile callback so page reloads work etc...
-        AnselMobile.buildGalleryList(Ansel.conf.galleries);
+        $('#anselgallerylist').append(AnselMobile.buildGalleryList(Ansel.conf.galleries, 'anselgallerylist'));
+
+        // We need to recenter the thumbnail grid, and (eventually) try to
+        // resize the main image if it's  being shown.
+        $(window).bind('resize', function() {
+            AnselMobile.centerGrid();
+        });
     }
 };
 $(AnselMobile.onDocumentReady);

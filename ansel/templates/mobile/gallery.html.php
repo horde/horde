@@ -1,8 +1,9 @@
-<div data-role="page" data-theme="b" id="galleryview">
+<div data-role="page" data-theme="h" id="galleryview">
   <div data-role="header">
     <h1></h1>
   </div>
-  <div id="anselgalleryview" data-role="content" class="ui-body">
+  <div id="anselgalleryview">
+   <ul class="anselgalleries" data-role="listview"></ul>
    <ul id="thumbs" class="thumbView"></ul>
   </div>
 </div>
