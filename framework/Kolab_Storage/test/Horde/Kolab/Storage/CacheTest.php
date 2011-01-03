@@ -82,20 +82,34 @@ class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(false, $cache->uids[11]);
     }
 
-    /**
-     * Test storing/loading attachments.
-     *
-     * @return NULL
-     */
-    public function testAttachments()
+    public function testLoadAttachment()
     {
         $cache = new Horde_Kolab_Storage_Cache($this->cache);
         $cache->storeAttachment('a', 'attachment');
         $this->assertEquals('attachment', $cache->loadAttachment('a'));
+    }
+
+    public function testLoadSecondAttachment()
+    {
+        $cache = new Horde_Kolab_Storage_Cache($this->cache);
+        $cache->storeAttachment('a', 'attachment');
         $cache->storeAttachment('b', 'b');
         $this->assertEquals('b', $cache->loadAttachment('b'));
+    }
+
+    public function testOverrideAttachment()
+    {
+        $cache = new Horde_Kolab_Storage_Cache($this->cache);
+        $cache->storeAttachment('a', 'attachment');
         $cache->storeAttachment('a', 'a');
         $this->assertEquals('a', $cache->loadAttachment('a'));
+    }
+
+    public function testCachingListData()
+    {
+        $cache = new Horde_Kolab_Storage_Cache($this->cache);
+        $cache->storeListData('user@example.com:143', 'folders', array('a', 'b'));
+        $this->assertEquals(array('a', 'b'), $cache->loadListData('user@example.com:143', 'folders'));
     }
 
     /**
