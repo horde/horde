@@ -29,10 +29,7 @@ class Horde_Share_TestBase extends PHPUnit_Framework_TestCase
         return $share;
     }
 
-    /**
-     * @depends testAddShare
-     */
-    public function basePermissions()
+    public function basePermissions($myshareid)
     {
         // System share.
         $share = self::$share->newShare(null, 'systemshare');
@@ -47,31 +44,30 @@ class Horde_Share_TestBase extends PHPUnit_Framework_TestCase
         $this->assertFalse($share->hasPermission('john', Horde_Perms::DELETE));
 
         // Foreign share with user permissions.
-        $share = self::$share->newShare('jane', 'janeshare');
-        $share->addUserPermission('john', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT);
-        $share->save();
-        $this->assertTrue($share->hasPermission('john', Horde_Perms::SHOW));
-        $this->assertTrue($share->hasPermission('john', Horde_Perms::READ));
-        $this->assertTrue($share->hasPermission('john', Horde_Perms::EDIT));
-        $this->assertFalse($share->hasPermission('john', Horde_Perms::DELETE));
+        $janeshare = self::$share->newShare('jane', 'janeshare');
+        $janeshare->addUserPermission('john', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT);
+        $janeshare->save();
+        $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::SHOW));
+        $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::READ));
+        $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
+        $this->assertFalse($janeshare->hasPermission('john', Horde_Perms::DELETE));
 
         // Foreign share with group permissions.
-        $share = self::$share->newShare('jane', 'groupshare');
-        $share->addGroupPermission('mygroup', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::DELETE);
-        $share->save();
-        $this->assertTrue($share->hasPermission('john', Horde_Perms::SHOW));
-        $this->assertTrue($share->hasPermission('john', Horde_Perms::READ));
-        $this->assertFalse($share->hasPermission('john', Horde_Perms::EDIT));
-        $this->assertTrue($share->hasPermission('john', Horde_Perms::DELETE));
+        $groupshare = self::$share->newShare('jane', 'groupshare');
+        $groupshare->addGroupPermission('mygroup', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::DELETE);
+        $groupshare->save();
+        $this->assertTrue($groupshare->hasPermission('john', Horde_Perms::SHOW));
+        $this->assertTrue($groupshare->hasPermission('john', Horde_Perms::READ));
+        $this->assertFalse($groupshare->hasPermission('john', Horde_Perms::EDIT));
+        $this->assertTrue($groupshare->hasPermission('john', Horde_Perms::DELETE));
 
         // Foreign share without permissions.
         $share = self::$share->newShare('jane', 'noshare');
         $share->save();
+
+        return array($myshareid, $janeshare->getId(), $groupshare->getId());
     }
 
-    /**
-     * @depends testAddShare
-     */
     public function baseExists()
     {
         $this->assertTrue(self::$share->exists('myshare'));
@@ -82,9 +78,6 @@ class Horde_Share_TestBase extends PHPUnit_Framework_TestCase
         $this->assertTrue(self::$share->exists('myshare'));
     }
 
-    /**
-     * @depends testPermissions
-     */
     public function baseCountShares()
     {
         // Getting shares from cache.
@@ -99,9 +92,6 @@ class Horde_Share_TestBase extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, self::$share->countShares('john', Horde_Perms::EDIT));
     }
 
-    /**
-     * @depends testPermissions
-     */
     public function baseGetShare()
     {
         $share = self::$share->getShare('myshare');
@@ -174,9 +164,6 @@ class Horde_Share_TestBase extends PHPUnit_Framework_TestCase
         $this->assertEquals($newshares['groupshare'], $shares[2]);
     }
 
-    /**
-     * @depends testPermissions
-     */
     public function baseListAllShares()
     {
         // Getting shares from cache.
@@ -203,9 +190,6 @@ class Horde_Share_TestBase extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('noshare', $shares);
     }
 
-    /**
-     * @depends testPermissions
-     */
     public function baseListSystemShares()
     {
         // Getting shares from cache.
@@ -227,12 +211,20 @@ class Horde_Share_TestBase extends PHPUnit_Framework_TestCase
     public function baseRemoveShare(array $share)
     {
         self::$share->removeShare($share[0]);
-        $this->assertEquals(4, count(self::$share->listAllShares()));
+        try {
+            self::$share->getShareById($share[0]->getId());
+            $this->fail('Share ' . $share[0]->getId() . ' should be removed by now.');
+        } catch (Horde_Exception_NotFound $e) {
+        }
 
         // Reset cache.
         self::$share->resetCache();
 
-        $this->assertEquals(4, count(self::$share->listAllShares()));
+        try {
+            self::$share->getShareById($share[0]->getId());
+            $this->fail('Share ' . $share[0]->getId() . ' should be removed by now.');
+        } catch (Horde_Exception_NotFound $e) {
+        }
     }
 }
 

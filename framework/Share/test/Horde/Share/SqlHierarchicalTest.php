@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @copyright  2010 The Horde Project (http://www.horde.org/)
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  */
-class Horde_Share_SqlTest extends Horde_Share_TestBase
+class Horde_Share_SqlHierarchicalTest extends Horde_Share_TestBase
 {
     protected static $db;
 
@@ -33,7 +33,7 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
     public function testAddShare()
     {
         $share = parent::baseAddShare();
-        $this->assertInstanceOf('Horde_Share_Object_Sql', $share);
+        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $share);
         return $share->getId();
     }
 
@@ -42,7 +42,10 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
      */
     public function testPermissions($myshareid)
     {
-        return parent::basePermissions($myshareid);
+        $shareids = parent::basePermissions($myshareid);
+        return array(self::$share->getShareById($shareids[0]),
+                     self::$share->getShareById($shareids[1]),
+                     self::$share->getShareById($shareids[2]));
     }
 
     /**
@@ -50,7 +53,7 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
      */
     public function testExists()
     {
-        parent::baseExists();
+        $this->markTestSkipped('Not supported by hierarchical driver.');
     }
 
     /**
@@ -66,15 +69,11 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
      */
     public function testGetShare()
     {
-        $shares = parent::baseGetShare();
-        $this->assertInstanceOf('Horde_Share_Object_Sql', $shares[0]);
-        $this->assertInstanceOf('Horde_Share_Object_Sql', $shares[1]);
-        $this->assertInstanceOf('Horde_Share_Object_Sql', $shares[2]);
-        return $shares;
+        $this->markTestSkipped('Not supported by hierarchical driver.');
     }
 
     /**
-     * @depends testGetShare
+     * @depends testPermissions
      */
     public function testGetShareById(array $shares)
     {
@@ -82,11 +81,32 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
     }
 
     /**
-     * @depends testGetShare
+     * @depends testPermissions
      */
     public function testGetShares(array $shares)
     {
-        parent::baseGetShares($shares);
+        $newshares = self::$share->getShares(array($shares[0]->getId(), $shares[1]->getId(), $shares[2]->getId()));
+        $this->assertType('array', $newshares);
+        $this->assertEquals(3, count($newshares));
+        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[0]);
+        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[1]);
+        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[2]);
+        $this->assertEquals($newshares[0], $shares[0]);
+        $this->assertEquals($newshares[1], $shares[1]);
+        $this->assertEquals($newshares[2], $shares[2]);
+
+        // Reset cache.
+        self::$share->resetCache();
+
+        $newshares = self::$share->getShares(array($shares[0]->getId(), $shares[1]->getId(), $shares[2]->getId()));
+        $this->assertType('array', $newshares);
+        $this->assertEquals(3, count($newshares));
+        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[$shares[0]->getId()]);
+        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[$shares[1]->getId()]);
+        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[$shares[2]->getId()]);
+        $this->assertEquals($newshares[$shares[0]->getId()], $shares[0]);
+        $this->assertEquals($newshares[$shares[1]->getId()], $shares[1]);
+        $this->assertEquals($newshares[$shares[2]->getId()], $shares[2]);
     }
 
     /**
@@ -94,7 +114,7 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
      */
     public function testListAllShares()
     {
-        parent::baseListAllShares();
+        $this->markTestSkipped('Not supported by hierarchical driver.');
     }
 
     /**
@@ -102,11 +122,11 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
      */
     public function testListSystemShares()
     {
-        parent::baseListSystemShares();
+        $this->markTestSkipped('Not supported by hierarchical driver.');
     }
 
     /**
-     * @depends testGetShare
+     * @depends testPermissions
      */
     public function testRemoveShare(array $share)
     {
@@ -126,9 +146,9 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
 
         $t = $migration->createTable('test_shares', array('primaryKey' => 'share_id'));
         //$t->column('share_id', 'integer', array('null' => false, 'autoincrement' => true));
-        $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
         $t->column('share_owner', 'string', array('limit' => 255));
         $t->column('share_flags', 'integer', array('default' => 0, 'null' => false));
+        $t->column('share_parents', 'string', array('limit' => 255));
         $t->column('perm_creator', 'integer', array('default' => 0, 'null' => false));
         $t->column('perm_default', 'integer', array('default' => 0, 'null' => false));
         $t->column('perm_guest', 'integer', array('default' => 0, 'null' => false));
@@ -136,11 +156,11 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
         $t->column('attribute_desc', 'string', array('limit' => 255));
         $t->end();
 
-        $migration->addIndex('test_shares', array('share_name'));
         $migration->addIndex('test_shares', array('share_owner'));
         $migration->addIndex('test_shares', array('perm_creator'));
         $migration->addIndex('test_shares', array('perm_default'));
         $migration->addIndex('test_shares', array('perm_guest'));
+        $migration->addIndex('test_shares', array('share_parents'));
 
         $t = $migration->createTable('test_shares_groups');
         $t->column('share_id', 'integer', array('null' => false));
@@ -165,7 +185,7 @@ class Horde_Share_SqlTest extends Horde_Share_TestBase
         $migration->migrate('up');
 
         $group = new Horde_Group_Test();
-        self::$share = new Horde_Share_Sql('test', 'john', new Horde_Perms(), $group);
+        self::$share = new Horde_Share_Sql_Hierarchical('test', 'john', new Horde_Perms(), $group);
         self::$share->setStorage(self::$db);
 
         // FIXME

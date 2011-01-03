@@ -12,7 +12,7 @@ owns or has access to.</description>
   <active>yes</active>
  </lead>
  <date>2011-01-03</date>
- <time>15:20:05</time>
+ <time>17:30:14</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -322,6 +322,7 @@ owns or has access to.</description>
      <dir name="Share">
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="SqlHierarchicalTest.php" role="test" />
       <file name="SqlTest.php" role="test" />
       <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/Share -->
@@ -451,6 +452,7 @@ owns or has access to.</description>
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Share.po" name="locale/zh_TW/LC_MESSAGES/Horde_Share.po" />
    <install as="Horde/Share/AllTests.php" name="test/Horde/Share/AllTests.php" />
    <install as="Horde/Share/Autoload.php" name="test/Horde/Share/Autoload.php" />
+   <install as="Horde/Share/SqlHierarchicalTest.php" name="test/Horde/Share/SqlHierarchicalTest.php" />
    <install as="Horde/Share/SqlTest.php" name="test/Horde/Share/SqlTest.php" />
    <install as="Horde/Share/TestBase.php" name="test/Horde/Share/TestBase.php" />
   </filelist>
