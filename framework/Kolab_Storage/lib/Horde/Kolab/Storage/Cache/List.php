@@ -90,17 +90,14 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
-     * Retrieve list data.
-     *
-     * @param string $key Access key to the cached data.
+     * Retrieve the cached list data.
      *
      * @return mixed The data of the object.
      */
-    private function _load($key)
+    private function _load()
     {
-        $data = $this->_cache->loadListData($this->_list_id);
-        if (isset($data[$key])) {
-            return $data[$key];
+        if ($this->_data === false) {
+            $this->_data = $this->_cache->loadListData($this->_list_id);
         }
     }
 
@@ -129,12 +126,12 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function isInitialized()
     {
-        $last_sync = $this->_load(self::SYNC);
-        if (empty($last_sync)) {
+        $this->_load();
+        if (!isset($this->_data[self::SYNC])) {
             return false;
         }
-        $version = $this->_load(self::VERSION);
-        if ($version != self::FORMAT_VERSION) {
+        if (!isset($this->_data[self::VERSION])
+            || $this->_data[self::VERSION] != self::FORMAT_VERSION) {
             return false;
         }
         return true;
@@ -147,7 +144,9 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function getFolders()
     {
-        return $this->_load(self::FOLDERS);
+        $this->_load();
+        return isset($this->_data[self::FOLDERS]) ?
+            $this->_data[self::FOLDERS] : array();
     }
 
     /**
@@ -158,7 +157,9 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function getFolderTypes()
     {
-        return $this->_load(self::TYPES);
+        $this->_load();
+        return isset($this->_data[self::TYPES]) ?
+            $this->_data[self::TYPES] : array();
     }
 
     /**
