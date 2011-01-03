@@ -36,6 +36,13 @@ implements Horde_Kolab_Storage_List
     private $_driver;
 
     /**
+     * The list of registered queries.
+     *
+     * @var array
+     */
+    private $_queries = array();
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Driver  $driver  The primary connection driver.
@@ -87,5 +94,20 @@ implements Horde_Kolab_Storage_List
      */
     public function synchronize()
     {
+        foreach ($this->_queries as $query) {
+            $query->synchronize();
+        }
+    }
+
+    /**
+     * Register a query to be updated if the underlying data changes.
+     *
+     * @param Horde_Kolab_Storage_Query $query The query to register.
+     *
+     * @return NULL
+     */
+    public function registerQuery(Horde_Kolab_Storage_Query $query)
+    {
+        $this->_queries[] = $query;
     }
 }

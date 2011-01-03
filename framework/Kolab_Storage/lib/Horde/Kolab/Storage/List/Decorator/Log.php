@@ -131,4 +131,16 @@ implements Horde_Kolab_Storage_List
             )
         );
     }
+
+    /**
+     * Register a query to be updated if the underlying data changes.
+     *
+     * @param Horde_Kolab_Storage_Query $query The query to register.
+     *
+     * @return NULL
+     */
+    public function registerQuery(Horde_Kolab_Storage_Query $query)
+    {
+        $this->_list->registerQuery($query);
+    }
 }

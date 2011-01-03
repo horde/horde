@@ -3,6 +3,7 @@ class Horde_Kolab_Storage_Stub_FactoryQuery
 implements Horde_Kolab_Storage_Query
 {
     public $called = false;
+    public $synchronized = false;
 
     /**
      * Constructor.
@@ -32,5 +33,6 @@ implements Horde_Kolab_Storage_Query
      */
     public function synchronize()
     {
+        $this->synchronized = true;
     }
 }

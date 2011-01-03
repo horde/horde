@@ -218,6 +218,7 @@ class Horde_Kolab_Storage_Factory
         if (method_exists($query, 'setFactory')) {
             $query->setFactory($this);
         }
+        $list->registerQuery($query);
         return $query;
     }
 
