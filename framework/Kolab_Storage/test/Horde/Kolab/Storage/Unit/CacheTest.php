@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once 'Autoload.php';
+require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
  * Test the Kolab cache.
@@ -30,7 +30,8 @@ require_once 'Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Storage_CacheTest
+extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
