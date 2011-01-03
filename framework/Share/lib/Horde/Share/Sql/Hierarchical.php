@@ -19,11 +19,12 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
     /**
      * Returns a new share object.
      *
+     * @param string $owner The share owner name.
      * @param string $name  The share's name.
      *
-     * @return Horde_Share_Object_sql  A new share object.
+     * @return Horde_Share_Object_Sql_Hierarchical  A new share object.
      */
-    protected function _newShare($name = '')
+    protected function _newShare($owner, $name = '')
     {
         return $this->_createObject();
     }
