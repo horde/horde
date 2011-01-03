@@ -195,6 +195,33 @@ class Horde_Kolab_Storage_Factory
     }
 
     /**
+     * Create the specified list query type.
+     *
+     * @param string                   $name The query name.
+     * @param Horde_Kolab_Storage_List $list The list that should be queried.
+     *
+     * @return Horde_Kolab_Storage_Query A query handler.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query is not supported.
+     */
+    public function createListQuery($name, Horde_Kolab_Storage_List $list)
+    {
+        if (class_exists($name)) {
+            $query = new $name($list);
+        } else if (strpos($name, 'Horde_Kolab_Storage_List_Query_') === false) {
+            $query = $this->createListQuery(
+                'Horde_Kolab_Storage_List_Query_' . $name, $list
+            );
+        } else {
+            throw new Horde_Kolab_Storage_Exception(sprintf('No such query "%s"!', $name));
+        }
+        if (method_exists($query, 'setFactory')) {
+            $query->setFactory($this);
+        }
+        return $query;
+    }
+
+    /**
      * Create a namespace handler.
      *
      * @param string $type   The namespace type.
