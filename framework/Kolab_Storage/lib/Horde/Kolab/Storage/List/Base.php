@@ -79,4 +79,13 @@ implements Horde_Kolab_Storage_List
             '/shared/vendor/kolab/folder-type'
         );
     }
+
+    /**
+     * Synchronize the list information with the information from the backend.
+     *
+     * @return NULL
+     */
+    public function synchronize()
+    {
+    }
 }

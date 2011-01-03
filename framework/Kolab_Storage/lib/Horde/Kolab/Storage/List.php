@@ -49,4 +49,11 @@ extends Horde_Kolab_Storage_Queriable
      *               folder type as values.
      */
     public function listFolderTypes();
+
+    /**
+     * Synchronize the list information with the information from the backend.
+     *
+     * @return NULL
+     */
+    public function synchronize();
 }

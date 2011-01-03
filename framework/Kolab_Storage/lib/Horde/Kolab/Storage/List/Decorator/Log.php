@@ -115,4 +115,20 @@ implements Horde_Kolab_Storage_List
         );
         return $result;
     }
+
+    /**
+     * Synchronize the list information with the information from the backend.
+     *
+     * @return NULL
+     */
+    public function synchronize()
+    {
+        $this->_list->synchronize();
+        $this->_logger->info(
+            sprintf(
+                'Synchronized folder list for %s.',
+                $this->getConnectionId()
+            )
+        );
+    }
 }

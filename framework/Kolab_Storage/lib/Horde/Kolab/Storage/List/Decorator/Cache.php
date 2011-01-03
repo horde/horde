@@ -155,6 +155,8 @@ implements Horde_Kolab_Storage_List
      */
     public function synchronize()
     {
+        $this->_list->synchronize();
+
         $this->_cache->storeListData(
             $this->_list->getConnectionId(),
             self::QUERIES,
