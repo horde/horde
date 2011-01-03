@@ -159,4 +159,98 @@ extends Horde_Kolab_Storage_TestCase
         $list->synchronize();
         $list->listFolders();
     }
+
+    public function testTypeListIsArray()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getNullList(),
+            $this->getMockCache()
+        );
+        $this->assertType('array', $list->listFolderTypes());
+    }
+
+    public function testFolderTypes()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getTwoFolderList(),
+            $this->getMockCache()
+        );
+        $this->assertEquals(
+            array(),
+            $list->listFolderTypes()
+        );
+    }
+
+    public function testMoreTypes()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getAnnotatedList(),
+            $this->getMockCache()
+        );
+        $this->assertEquals(
+            array(
+                'INBOX/Calendar' => 'event.default',
+                'INBOX/Contacts' => 'contact.default',
+                'INBOX/Notes' => 'note.default',
+                'INBOX/Tasks' => 'task.default'
+            ),
+            $list->listFolderTypes()
+        );
+    }
+
+    public function testMockedTypes()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            $this->getMockCache()
+        );
+        $this->mockDriver->expects($this->once())
+            ->method('listAnnotation')
+            ->will($this->returnValue(array('INBOX' => 'mail.default')));
+        $this->assertEquals(
+            array('INBOX' => 'mail.default'),
+            $list->listFolderTypes()
+        );
+    }
+
+    public function testCachedTypes()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            $this->getMockCache()
+        );
+        $this->mockDriver->expects($this->once())
+            ->method('listAnnotation')
+            ->will($this->returnValue(array('INBOX' => 'mail.default')));
+        $list->listFolderTypes();
+        $this->assertEquals(
+            array('INBOX' => 'mail.default'),
+            $list->listFolderTypes()
+        );
+    }
+
+    public function testSynchronizeTypes()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            $this->getMockCache()
+        );
+        $this->mockDriver->expects($this->once())
+            ->method('listAnnotation')
+            ->will($this->returnValue(array('INBOX' => 'mail.default')));
+        $list->synchronize();
+    }
+
+    public function testSynchronizeTypeCache()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            $this->getMockCache()
+        );
+        $this->mockDriver->expects($this->once())
+            ->method('listAnnotation')
+            ->will($this->returnValue(array('INBOX' => 'mail.default')));
+        $list->synchronize();
+        $list->listFolderTypes();
+    }
 }

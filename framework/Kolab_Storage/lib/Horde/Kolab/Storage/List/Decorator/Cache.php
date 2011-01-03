@@ -28,6 +28,12 @@
 class Horde_Kolab_Storage_List_Decorator_Cache
 implements Horde_Kolab_Storage_List
 {
+    /** Marks the folder list. */
+    const FOLDERS = 'F';
+
+    /** Marks the type list. */
+    const TYPES = 'T';
+
     /**
      * Decorated list handler.
      *
@@ -86,7 +92,7 @@ implements Horde_Kolab_Storage_List
         $this->_init();
         $a = $this->_cache->loadListData(
             $this->_list->getConnectionId(),
-            'FOLDERS'
+            self::FOLDERS
         );
         if (empty($a)) {
             $a = $this->_cacheFolders();
@@ -104,7 +110,7 @@ implements Horde_Kolab_Storage_List
         $list = $this->_list->listFolders();
         $this->_cache->storeListData(
             $this->_list->getConnectionId(),
-            'FOLDERS',
+            self::FOLDERS,
             $list
         );
         return $list;
@@ -118,8 +124,32 @@ implements Horde_Kolab_Storage_List
      */
     public function listFolderTypes()
     {
-        $result = $this->_list->listFolderTypes();
-        return $result;
+        $this->_init();
+        $a = $this->_cache->loadListData(
+            $this->_list->getConnectionId(),
+            self::TYPES
+        );
+        if (empty($a)) {
+            $a = $this->_cacheFolderTypes();
+        }
+        return $a;
+    }
+
+    /**
+     * Cache and returns the folder type annotation as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               folder type as values.
+     */
+    private function _cacheFolderTypes()
+    {
+        $types = $this->_list->listFolderTypes();
+        $this->_cache->storeListData(
+            $this->_list->getConnectionId(),
+            self::TYPES,
+            $types
+        );
+        return $types;
     }
 
     /**
@@ -130,5 +160,6 @@ implements Horde_Kolab_Storage_List
     public function synchronize()
     {
         $this->_cacheFolders();
+        $this->_cacheFolderTypes();
     }
 }
