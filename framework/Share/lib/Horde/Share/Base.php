@@ -162,7 +162,7 @@ abstract class Horde_Share_Base
      */
     public function initShareObject(Horde_Share_Object $object)
     {
-        $object->setShareOb($this->_shareCallback);
+        $object->setShareOb(empty($this->_shareCallback) ? $this : $this->_shareCallback);
     }
 
     public function setShareCallback($callback)
@@ -411,8 +411,6 @@ abstract class Horde_Share_Base
     {
         $share = $this->_newShare($name);
         $share->set('owner', $owner);
-        $share->setShareOb(empty($this->_shareCallback) ? $this : $this->_shareCallback);
-
         return $share;
     }
 
