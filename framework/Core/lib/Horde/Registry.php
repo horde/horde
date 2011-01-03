@@ -1377,7 +1377,7 @@ class Horde_Registry
 
         $GLOBALS['conf'] = ($app == 'horde')
             ? $this->_confCache['horde']
-            : Horde_Array::array_merge_recursive_overwrite($this->_confCache['horde'], $this->_confCache[$app]);
+            : Horde_Array::replaceRecursive($this->_confCache['horde'], $this->_confCache[$app]);
     }
 
     /**

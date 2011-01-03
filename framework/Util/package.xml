@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-21</date>
- <time>23:03:12</time>
+ <date>2011-01-03</date>
+ <time>13:04:38</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -28,16 +28,17 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Renamed Horde_Array::array_merge_recursive_overwrite() to Horde_Array::replaceRecursive().
 * Added Horde_Domhtml::.
- * Removed Horde_Util::assertDriverConfig().
- * Removed Horde_Util::bufferOutput().
- * Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
- * Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
- * Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
- * Added Horde_String::convertToUtf8().
- * Added Horde_Util::abbreviate().
- * Removed Horde_Array::combine() and Horde_Util::hmac().
- * Initial Horde 4 package.
+* Removed Horde_Util::assertDriverConfig().
+* Removed Horde_Util::bufferOutput().
+* Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
+* Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
+* Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
+* Added Horde_String::convertToUtf8().
+* Added Horde_Util::abbreviate().
+* Removed Horde_Array::combine() and Horde_Util::hmac().
+* Initial Horde 4 package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -243,19 +244,20 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-12-21</date>
+   <date>2011-01-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Renamed Horde_Array::array_merge_recursive_overwrite() to Horde_Array::replaceRecursive().
 * Added Horde_Domhtml::.
- * Removed Horde_Util::assertDriverConfig().
- * Removed Horde_Util::bufferOutput().
- * Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
- * Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
- * Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
- * Added Horde_String::convertToUtf8().
- * Added Horde_Util::abbreviate().
- * Removed Horde_Array::combine() and Horde_Util::hmac().
- * Initial Horde 4 package.
+* Removed Horde_Util::assertDriverConfig().
+* Removed Horde_Util::bufferOutput().
+* Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
+* Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
+* Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
+* Added Horde_String::convertToUtf8().
+* Added Horde_Util::abbreviate().
+* Removed Horde_Array::combine() and Horde_Util::hmac().
+* Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

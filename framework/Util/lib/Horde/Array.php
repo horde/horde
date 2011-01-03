@@ -202,9 +202,7 @@ class Horde_Array
     }
 
     /**
-     * Enhanced array_merge_recursive() function.  Main difference from PHP's
-     * stock function is later value always overwrites earlier value (stock
-     * function will instead create an array with all values of key).
+     * Backported array_replace_recursive().
      *
      * @todo Remove when requiring PHP 5.3.
      *
@@ -213,7 +211,7 @@ class Horde_Array
      *
      * @return array  The merged array.
      */
-    static public function array_merge_recursive_overwrite(array $a1, array $a2)
+    static public function replaceRecursive(array $a1, array $a2)
     {
         if (function_exists('array_replace_recursive')) {
             return array_replace_recursive($a1, $a2);
@@ -225,7 +223,7 @@ class Horde_Array
             }
 
             $a1[$key] = (is_array($val))
-                ? self::array_merge_recursive_overwrite($a1[$key], $val)
+                ? self::replaceRecursive($a1[$key], $val)
                 : $val;
         }
 

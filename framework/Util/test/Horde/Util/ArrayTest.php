@@ -62,7 +62,7 @@ class Horde_Util_ArrayTest extends PHPUnit_Framework_TestCase
                                  'two/two' => 22),
                   'three' => 33,
                   'four' => 4),
-            Horde_Array::array_merge_recursive_overwrite(
+            Horde_Array::replaceRecursive(
                 array('one' => 1,
                       'two' => array('two/one' => 1,
                                      'two/two' => 2),

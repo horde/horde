@@ -320,7 +320,7 @@ class Horde_Core_Factory_MimeViewer
                     unset($tmp['icons']);
                 }
 
-                $config = array_merge(Horde_Array::array_merge_recursive_overwrite($config, $tmp), array(
+                $config = array_merge(Horde_Array::replaceRecursive($config, $tmp), array(
                     'app' => $val[0],
                     'driver' => $driver
                 ));

@@ -96,11 +96,11 @@ function printfile_raw($pathname)
     extract($result);
     $result = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'luxor');
     if (isset($result['mime_drivers'])) {
-        $mime_drivers = Horde_Array::array_merge_recursive_overwrite(
+        $mime_drivers = Horde_Array::replaceRecursive(
             $mime_drivers, $result['mime_drivers']);
     }
     if (isset($result['mime_drivers_map'])) {
-        $mime_drivers_map = Horde_Array::array_merge_recursive_overwrite(
+        $mime_drivers_map = Horde_Array::replaceRecursive(
             $mime_drivers_map, $result['mime_drivers_map']);
     }
 
