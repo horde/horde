@@ -270,7 +270,7 @@ class Horde_Service_Facebook_Auth
         } elseif (!$ignore_cookies &&
                   $fb_params = $this->_getParams($this->_request->getCookieVars(), null, $this->_facebook->apiKey)) {
 
-            $cookies = $this->_reqeust->getCookieVars();
+            $cookies = $this->_request->getCookieVars();
             // Nothing yet, try cookies...this is where we will get our values
             // for an extenral web app accessing FB's API - assuming the session
             // has already been retrieved previously.
