@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Query_Base
-implements Horde_Kolab_Storage_Query
+implements Horde_Kolab_Storage_List_Query
 {
     /**
      * The queriable list.
@@ -112,5 +112,14 @@ implements Horde_Kolab_Storage_Query
             }
         }
         return $result;
+    }
+
+    /**
+     * Synchronize the query data with the information from the backend.
+     *
+     * @return NULL
+     */
+    public function synchronize()
+    {
     }
 }

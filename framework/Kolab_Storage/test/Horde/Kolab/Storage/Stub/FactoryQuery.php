@@ -24,4 +24,13 @@ implements Horde_Kolab_Storage_Query
     {
         $this->called = true;
     }
+
+    /**
+     * Synchronize the query data with the information from the backend.
+     *
+     * @return NULL
+     */
+    public function synchronize()
+    {
+    }
 }
