@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @copyright  2010 The Horde Project (http://www.horde.org/)
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  */
-class Horde_Share_TestBase extends PHPUnit_Framework_TestCase
+class Horde_Share_Test_Base extends Horde_Test_Case
 {
     protected static $share;
 

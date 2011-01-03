@@ -12,7 +12,7 @@ owns or has access to.</description>
   <active>yes</active>
  </lead>
  <date>2011-01-03</date>
- <time>17:30:14</time>
+ <time>22:15:46</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -320,11 +320,30 @@ owns or has access to.</description>
    <dir name="test">
     <dir name="Horde">
      <dir name="Share">
+      <dir name="Sql">
+       <dir name="Pdo">
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Share/Sql/Pdo -->
+       <file name="Base.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Share/Sql -->
+      <dir name="SqlHierarchical">
+       <dir name="Pdo">
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Share/SqlHierarchical/Pdo -->
+       <file name="Base.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Share/SqlHierarchical -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
-      <file name="SqlHierarchicalTest.php" role="test" />
-      <file name="SqlTest.php" role="test" />
-      <file name="TestBase.php" role="test" />
+      <file name="Base.php" role="test" />
+      <file name="conf.php.dist" role="test" />
      </dir> <!-- /test/Horde/Share -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -452,9 +471,20 @@ owns or has access to.</description>
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Share.po" name="locale/zh_TW/LC_MESSAGES/Horde_Share.po" />
    <install as="Horde/Share/AllTests.php" name="test/Horde/Share/AllTests.php" />
    <install as="Horde/Share/Autoload.php" name="test/Horde/Share/Autoload.php" />
-   <install as="Horde/Share/SqlHierarchicalTest.php" name="test/Horde/Share/SqlHierarchicalTest.php" />
-   <install as="Horde/Share/SqlTest.php" name="test/Horde/Share/SqlTest.php" />
-   <install as="Horde/Share/TestBase.php" name="test/Horde/Share/TestBase.php" />
+   <install as="Horde/Share/Base.php" name="test/Horde/Share/Base.php" />
+   <install as="Horde/Share/conf.php.dist" name="test/Horde/Share/conf.php.dist" />
+   <install as="Horde/Share/Sql/Base.php" name="test/Horde/Share/Sql/Base.php" />
+   <install as="Horde/Share/Sql/MysqliTest.php" name="test/Horde/Share/Sql/MysqliTest.php" />
+   <install as="Horde/Share/Sql/MysqlTest.php" name="test/Horde/Share/Sql/MysqlTest.php" />
+   <install as="Horde/Share/Sql/Pdo/MysqlTest.php" name="test/Horde/Share/Sql/Pdo/MysqlTest.php" />
+   <install as="Horde/Share/Sql/Pdo/PgsqlTest.php" name="test/Horde/Share/Sql/Pdo/PgsqlTest.php" />
+   <install as="Horde/Share/Sql/Pdo/SqliteTest.php" name="test/Horde/Share/Sql/Pdo/SqliteTest.php" />
+   <install as="Horde/Share/SqlHierarchical/Base.php" name="test/Horde/Share/SqlHierarchical/Base.php" />
+   <install as="Horde/Share/SqlHierarchical/MysqliTest.php" name="test/Horde/Share/SqlHierarchical/MysqliTest.php" />
+   <install as="Horde/Share/SqlHierarchical/MysqlTest.php" name="test/Horde/Share/SqlHierarchical/MysqlTest.php" />
+   <install as="Horde/Share/SqlHierarchical/Pdo/MysqlTest.php" name="test/Horde/Share/SqlHierarchical/Pdo/MysqlTest.php" />
+   <install as="Horde/Share/SqlHierarchical/Pdo/PgsqlTest.php" name="test/Horde/Share/SqlHierarchical/Pdo/PgsqlTest.php" />
+   <install as="Horde/Share/SqlHierarchical/Pdo/SqliteTest.php" name="test/Horde/Share/SqlHierarchical/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>

@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once dirname(__FILE__) . '/../Base.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @copyright  2010 The Horde Project (http://www.horde.org/)
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  */
-class Horde_Share_SqlHierarchicalTest extends Horde_Share_TestBase
+class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
 {
     protected static $db;
 
@@ -135,12 +135,6 @@ class Horde_Share_SqlHierarchicalTest extends Horde_Share_TestBase
 
     public static function setUpBeforeClass()
     {
-        if (!extension_loaded('pdo') ||
-            !in_array('sqlite', PDO::getAvailableDrivers())) {
-            return;
-        }
-
-        self::$db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
         //self::$db->setLogger(new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT)));
         $migration = new Horde_Db_Migration_Base(self::$db);
 
