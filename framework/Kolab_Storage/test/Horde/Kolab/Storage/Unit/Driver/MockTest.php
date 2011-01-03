@@ -155,4 +155,9 @@ extends Horde_Kolab_Storage_TestCase
             $namespaces
         );
     }
+
+    public function testGetIdReturnsString()
+    {
+        $this->assertType('string', $this->getNullMock()->getId());
+    }
 }
