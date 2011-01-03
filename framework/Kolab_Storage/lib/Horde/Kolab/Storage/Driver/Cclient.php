@@ -105,6 +105,16 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Return the unique connection id.
+     *
+     * @return string The connection id.
+     */
+    public function getId()
+    {
+        return $this->getAuth() . '@' . $this->getParam('host');
+    }
+
+    /**
      * Return the root mailbox of the current user.
      *
      * @return string The id of the user that opened the IMAP connection.

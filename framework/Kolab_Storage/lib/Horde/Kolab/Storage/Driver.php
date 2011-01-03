@@ -35,6 +35,13 @@ interface Horde_Kolab_Storage_Driver
     public function getAuth();
 
     /**
+     * Return the unique connection id.
+     *
+     * @return string The connection id.
+     */
+    public function getId();
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.

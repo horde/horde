@@ -62,6 +62,18 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Return the unique connection id.
+     *
+     * @return string The connection id.
+     */
+    public function getId()
+    {
+        return $this->getAuth() . '@'
+            . $this->_imap->getParam('hostspec') . ':'
+            . $this->_imap->getParam('port');
+    }
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.
