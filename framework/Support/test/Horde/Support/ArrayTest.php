@@ -19,19 +19,19 @@ class Horde_Support_ArrayTest extends PHPUnit_Framework_TestCase
     public function testImplementsArrayAccess()
     {
         $o = new Horde_Support_Array();
-        $this->assertType('ArrayAccess', $o);
+        $this->assertInstanceOf('ArrayAccess', $o);
     }
 
     public function testImplementsIterator()
     {
         $o = new Horde_Support_Array();
-        $this->assertType('Iterator', $o);
+        $this->assertInstanceOf('Iterator', $o);
     }
 
     public function testImplementsCountable()
     {
         $o = new Horde_Support_Array();
-        $this->assertType('Countable', $o);
+        $this->assertInstanceOf('Countable', $o);
     }
 
     // offsetGet()

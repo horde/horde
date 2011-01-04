@@ -157,7 +157,7 @@ class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
         $h = new Horde_Support_ConsistentHash(range(1, 10));
         $nodes = $h->getNodes('r', 2);
 
-        $this->assertType('array', $nodes);
+        $this->assertInternalType('array', $nodes);
         $this->assertEquals(count($nodes), 2);
         $this->assertNotEquals($nodes[0], $nodes[1]);
     }
