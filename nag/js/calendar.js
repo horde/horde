@@ -34,7 +34,7 @@ var NagCalendar =
         $(prefix + '_month').setValue(e.memo.getMonth() + 1);
         $(prefix + '_day').setValue(e.memo.getDate());
 
-        this.doAction(prefix + '_year');
+        this.updateWday(prefix);
     },
 
     updateWday: function(p)
