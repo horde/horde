@@ -128,14 +128,6 @@ try {
 $imp_ui = new IMP_Ui_Compose();
 $stationery = $injector->getInstance('IMP_Compose_Stationery');
 
-/* Set charset defaults. */
-$charset = $prefs->isLocked('sending_charset')
-    ? $prefs->getValue('sending_charset')
-    : $vars->charset;
-if ($charset) {
-    $imp_compose->charset = $charset;
-}
-
 /* Is this a popup window? */
 $isPopup = ($prefs->getValue('compose_popup') || $vars->popup);
 
@@ -234,7 +226,6 @@ case 'draft':
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
         }
-        $charset = $result['charset'];
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
         if (!is_null($result['identity']) &&
@@ -286,8 +277,6 @@ case 'reply_list':
         break;
     }
     $title .= ' ' . $header['subject'];
-
-    $charset = $reply_msg['charset'];
     break;
 
 case 'forward_attach':
@@ -307,7 +296,6 @@ case 'forward_both':
     $format = $fwd_msg['format'];
     $rtemode = ($rtemode || (!is_null($rtemode) && ($format == 'html')));
     $title = $header['title'];
-    $charset = $fwd_msg['charset'];
     break;
 
 case 'redirect_compose':
@@ -817,22 +805,6 @@ if ($redirect) {
     $t->set('help-subject', Horde_Help::link('imp', 'compose-subject'));
 
     $t->set('set_priority', $prefs->getValue('set_priority'));
-    $t->set('unlocked_charset', !$prefs->isLocked('sending_charset'));
-    if ($t->get('unlocked_charset')) {
-        $t->set('charset_label', Horde::label('charset', _("C_harset")));
-        $t->set('charset_tabindex', ++$tabindex);
-        $charset_array = array();
-        $enc_list = $registry->nlsconfig->encodings;
-        asort($enc_list);
-        foreach (array_merge(array('' => _("Default")), $enc_list) as $encoding => $label) {
-            $charset_array[] = array(
-                'label' => $label,
-                'selected' => (strcasecmp($encoding, $charset) === 0),
-                'value' => $encoding
-            );
-        }
-        $t->set('charset_array', $charset_array);
-    }
     if ($t->get('set_priority')) {
         $t->set('priority_label', Horde::label('priority', _("_Priority")));
         $t->set('priority_tabindex', ++$tabindex);

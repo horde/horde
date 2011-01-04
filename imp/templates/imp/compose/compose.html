@@ -69,21 +69,6 @@
   </td>
  </tr>
 
-<if:unlocked_charset>
- <tr>
-  <td class="light rightAlign">
-   <strong><tag:charset_label /></strong>
-  </td>
-  <td class="item">
-   <select id="charset" name="charset" tabindex="<tag:charset_tabindex />">
-<loop:charset_array>
-    <option value="<tag:charset_array.value />" <if:charset_array.selected>selected="selected" </if:charset_array.selected>><tag:charset_array.label /></option>
-</loop:charset_array>
-   </select>
-  </td>
- </tr>
-</if:unlocked_charset>
-
 <if:set_priority>
  <tr>
   <td class="light rightAlign">

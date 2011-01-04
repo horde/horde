@@ -308,7 +308,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @return mixed  An array with the following keys:
      * <pre>
-     * charset - (string) The preferred sending charset.
      * header - (array) A list of headers to add to the outgoing message.
      * identity - (integer) The identity used to create the message.
      * mode - (string) 'html' or 'text'.
@@ -447,8 +446,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $this->_metadata['draft_uid_resume'] = $indices;
         $this->changed = 'changed';
 
+        $this->charset = $charset;
+
         return array(
-            'charset' => $charset,
             'header' => $header,
             'identity' => $identity_id,
             'mode' => $mode,
@@ -1307,7 +1307,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @return array  An array with the following keys:
      * <pre>
      * 'body'     - The text of the body part
-     * 'charset'  - The guessed charset to use for the reply
      * 'format'   - The format of the body message
      * 'headers'  - The headers of the message to use for the reply
      * 'identity' - The identity to use for the reply based on the original
@@ -1485,11 +1484,18 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $this->changed = 'changed';
         }
 
+        $ret = $this->replyMessageText($contents);
+        if ($ret['charset'] != $this->charset) {
+            $this->charset = $ret['charset'];
+            $this->changed = 'changed';
+        }
+        unset($ret['charset']);
+
         return array_merge(array(
             'headers' => $header,
             'identity' => $match_identity,
             'type' => $reply_type
-        ), $this->replyMessageText($contents));
+        ), $ret);
     }
 
     /**
@@ -1589,7 +1595,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @return array  An array with the following keys:
      * <pre>
      * 'body'     - The text of the body part
-     * 'charset'  - The guessed charset to use for the reply
      * 'format'   - The format of the body message
      * 'headers'  - The headers of the message to use for the reply
      * 'identity' - The identity to use for the reply based on the original
@@ -1643,16 +1648,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             in_array($type, array('forward_attach', 'forward_both'))) {
             try {
                 $this->attachImapMessage(new IMP_Indices($contents));
-            } catch (IMP_Exception $e) {
-            }
+            } catch (IMP_Exception $e) {}
         }
 
         if (in_array($type, array('forward_body', 'forward_both'))) {
             $ret = $this->forwardMessageText($contents);
+            $this->charset = $ret['charset'];
+            unset($ret['charset']);
         } else {
             $ret = array(
                 'body' => '',
-                'charset' => '',
                 'format' => $GLOBALS['prefs']->getValue('compose_html') ? 'html' : 'text'
             );
         }
