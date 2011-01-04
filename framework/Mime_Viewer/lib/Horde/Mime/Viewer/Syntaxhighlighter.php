@@ -78,18 +78,19 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         switch ($type) {
         case 'application/javascript':
         case 'application/x-javascript':
-        case 'x-extension/javascript':
-        case 'x-extension/js':
+        case 'application/x-extension-javascript':
+        case 'application/x-extension-js':
             return 'js';
 
         case 'application/x-perl':
-        case 'x-extension/pl':
+        case 'application/x-extension-pl':
             return 'perl';
 
         case 'application/x-php':
-        case 'x-extension/php':
-        case 'x-extension/phps':
-        case 'x-extension/php3s':
+        case 'application/x-extension-php':
+        case 'application/x-extension-php3':
+        case 'application/x-extension-phps':
+        case 'application/x-extension-php3s':
         case 'application/x-httpd-php':
         case 'application/x-httpd-php3':
         case 'application/x-httpd-phps':
@@ -103,8 +104,8 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
 
         case 'application/x-sh':
         case 'application/x-shellscript':
-        case 'x-extension/bash':
-        case 'x-extension/sh':
+        case 'application/x-extension-bash':
+        case 'application/x-extension-sh':
             return 'bash';
 
         case 'application/xml':
@@ -116,7 +117,7 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
             return 'xml';
 
         case 'text/css':
-        case 'x-extension/css':
+        case 'application/x-extension-css':
             return 'css';
 
         case 'text/diff':
@@ -142,14 +143,14 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'text/x-sql':
             return 'sql';
 
-        case 'x-extension/bat':
+        case 'application/x-extension-bat':
             return 'batch';
 
-        case 'x-extension/cs':
+        case 'application/x-extension-cs':
             return 'csharp';
 
-        case 'x-extension/vb':
-        case 'x-extension/vba':
+        case 'application/x-extension-vb':
+        case 'application/x-extension-vba':
             return 'vb';
 
         default:
