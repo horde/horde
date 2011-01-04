@@ -1011,13 +1011,15 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
      */
     public function toJson($full = false)
     {
+        $style = Ansel::getStyleDefinition('ansel_mobile');
+
         $json = new StdClass();
         $json->id = $this->getId();
         $json->n = $this->get('name');
         $json->dc = $this->get('date_created');
         $json->dm = $this->get('date_modified');
         $json->d = $this->get('desc');
-        $json->ki = Ansel::getImageUrl($this->getKeyImage(), 'mini', false, Ansel::getStyleDefinition('ansel_default'))->toString();
+        $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'thumb', false, $style)->toString(true);
         $json->imgs = array();
 
         // Parent
@@ -1046,7 +1048,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
             foreach ($images as $img) {
                 $i = new StdClass();
                 $i->id = $img->id;
-                $i->url = Ansel::getImageUrl($img->id, 'thumb', false, Ansel::getStyleDefinition('ansel_mobile'))->toString(true);
+                $i->url = Ansel::getImageUrl($img->id, 'thumb', false, $style)->toString(true);
                 $i->screen = Ansel::getImageUrl($img->id, 'screen', $json->tiny, Ansel::getStyleDefinition('ansel_default'))->toString(true);
                 $i->fn = $img->filename;
                 $json->imgs[] = $i;
