@@ -100,6 +100,11 @@ var NagCalendar =
         case 'start_minute':
             $('start_date_specified').setValue(1);
             break;
+
+        case 'alarm_unit':
+        case 'alarm_value':
+            $('alarmon').setValue(1);
+            break;
         }
     },
 

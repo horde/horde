@@ -206,7 +206,8 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
                        $value['on'] ? '' : ' checked="checked"',
                        $varname,
                        _("None"))
-            . sprintf('<input type="radio" class="radio" name="%s[on]" value="1"%s />',
+            . sprintf('<input id="%son" type="radio" class="radio" name="%s[on]" value="1"%s />',
+                      $varname,
                       $varname,
                       $value['on'] ? ' checked="checked"' : '')
             . sprintf('<input type="text" size="2" name="%s[value]" id="%s_value" value="%s" />',
