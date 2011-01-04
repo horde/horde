@@ -89,7 +89,7 @@ class Chora
         }
 
         $GLOBALS['notification']->push($message, 'horde.error');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
         require CHORA_TEMPLATES . '/menu.inc';
         require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
         exit;
