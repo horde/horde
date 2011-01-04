@@ -92,38 +92,34 @@ case 'sidebar':
             $node_params = $node_params_master;
             $parent = null;
 
-            $node_params['url'] = $base_url->copy()->setRaw(true)->add(array(
-                'show' => 'entry',
-                'topic' => $id
-            ));
-
             /* If the title doesn't begin with :: then replace all
              * double colons with single colons. */
             if (substr($title, 0, 2) != '::') {
                 $title = str_replace('::', ': ', $title);
             }
 
-            /* Remove linebreaks that would be rendered in the tree. */
-            $title = preg_replace('/\s+/', ' ', $title);
-
             /* Split title in multiple levels */
             $levels = preg_split('/:\s/', $title);
-            if (count($levels) > 1) {
-                $parent = null;
-                $idx = '';
-                while ($name = array_shift($levels)) {
-                    $idx .= '|' . $name;
-                    if (empty($added_nodes[$idx])) {
-                        $added_nodes[$idx] = true;
-                        if (count($levels)) {
-                            unset($node_params['url']);
-                        }
-                        $tree->addNode($idx, $parent, $name, 0, false, $node_params);
+            if (count($levels) == 1) {
+                $levels = array(1 => $title);
+            }
+
+            $parent = null;
+            $idx = '';
+
+            foreach ($levels as $key => $name) {
+                $idx .= '|' . $name;
+                if (empty($added_nodes[$idx])) {
+                    $added_nodes[$idx] = true;
+                    if ($key) {
+                        $node_params['url'] = $base_url->copy()->setRaw(true)->add(array(
+                            'show' => 'entry',
+                            'topic' => $id
+                        ));
                     }
-                    $parent .= '|' . $name;
+                    $tree->addNode($idx, $parent, $name, 0, false, $node_params);
                 }
-            } else {
-                $tree->addNode($id, $parent, $title, 0, false, $node_params);
+                $parent .= '|' . $name;
             }
         }
         break;
