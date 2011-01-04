@@ -217,19 +217,4 @@ extends Horde_Kolab_Storage_TestCase
             )
         );
     }
-
-    public function testQueryFactoryInjection()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_Stub_FactoryQuery',
-            $list
-        );
-        $this->assertTrue($query->called);
-    }
-
 }

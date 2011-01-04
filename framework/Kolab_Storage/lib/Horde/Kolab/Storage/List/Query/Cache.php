@@ -58,18 +58,16 @@ implements Horde_Kolab_Storage_List_Query
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_List       $list       The queriable list.
-     * @param Horde_Kolab_Storage_Factory    $factory    The factory.
-     * @param Horde_Kolab_Storage_Cache_List $list_cache The list cache.
+     * @param Horde_Kolab_Storage_List $list   The queriable list.
+     * @param array                    $params Additional parameters.
      */
     public function __construct(
         Horde_Kolab_Storage_List $list,
-        Horde_Kolab_Storage_Factory $factory,
-        Horde_Kolab_Storage_Cache_List $list_cache
+        $params
     ) {
         $this->_list = $list;
-        $this->_list_cache = $list_cache;
-        $this->_factory = $factory;
+        $this->_list_cache = $params['cache'];
+        $this->_factory = $params['factory'];
     }
 
     /**

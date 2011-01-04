@@ -37,12 +37,14 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testDecoratedList()
     {
+        $factory = new Horde_Kolab_Storage_Factory();
         $storage = new Horde_Kolab_Storage_Decorator_Cache(
             new Horde_Kolab_Storage_Base(
-                $this->getNullMock(),
-                new Horde_Kolab_Storage_Factory()
+                $this->getNullMock($factory),
+                $factory
             ),
-            new Horde_Kolab_Storage_Cache(null)
+            new Horde_Kolab_Storage_Cache(null),
+            $factory
         );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_List_Decorator_Cache',

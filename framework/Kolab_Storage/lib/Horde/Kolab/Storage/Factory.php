@@ -197,28 +197,30 @@ class Horde_Kolab_Storage_Factory
     /**
      * Create the specified list query type.
      *
-     * @param string                   $name The query name.
-     * @param Horde_Kolab_Storage_List $list The list that should be queried.
+     * @param string                   $name   The query name.
+     * @param Horde_Kolab_Storage_List $list   The list that should be queried.
+     * @param array                    $params Additional parameters provided
+     *                                        to the query constructor.
      *
      * @return Horde_Kolab_Storage_Query A query handler.
      *
      * @throws Horde_Kolab_Storage_Exception In case the requested query is not supported.
      */
-    public function createListQuery($name, Horde_Kolab_Storage_List $list)
+    public function createListQuery($name, Horde_Kolab_Storage_List $list, $params = array())
     {
         if (class_exists($name)) {
-            $query = new $name($list);
+            $constructor_params = array_merge(
+                array('factory' => $this), $params
+            );
+            $query = new $name($list, $constructor_params);
         } else if (strpos($name, 'Horde_Kolab_Storage_List_Query_') === false) {
             $query = $this->createListQuery(
-                'Horde_Kolab_Storage_List_Query_' . $name, $list
+                'Horde_Kolab_Storage_List_Query_' . $name, $list, $params
             );
         } else {
             throw new Horde_Kolab_Storage_Exception(sprintf('No such query "%s"!', $name));
         }
-        if (method_exists($query, 'setFactory')) {
-            $query->setFactory($this);
-        }
-        $list->registerQuery($query);
+        $list->registerQuery($name, $query);
         return $query;
     }
 

@@ -45,23 +45,15 @@ implements Horde_Kolab_Storage_List_Query
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_List $list The queriable list.
+     * @param Horde_Kolab_Storage_List $list   The queriable list.
+     * @param array                    $params Additional parameters.
      */
-    public function __construct(Horde_Kolab_Storage_List $list)
-    {
+    public function __construct(
+        Horde_Kolab_Storage_List $list,
+        $params
+    ) {
         $this->_list = $list;
-    }
-
-    /**
-     * Inject the factory.
-     *
-     * @param Horde_Kolab_Storage_Factory $factory The factory.
-     *
-     * @return NULL
-     */
-    public function setFactory(Horde_Kolab_Storage_Factory $factory)
-    {
-        $this->_factory = $factory;
+        $this->_factory = $params['factory'];
     }
 
     /**

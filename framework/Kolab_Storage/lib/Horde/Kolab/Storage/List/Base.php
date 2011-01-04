@@ -94,7 +94,7 @@ implements Horde_Kolab_Storage_List
      */
     public function synchronize()
     {
-        foreach ($this->_queries as $query) {
+        foreach ($this->_queries as $name => $query) {
             $query->synchronize();
         }
     }
@@ -102,12 +102,29 @@ implements Horde_Kolab_Storage_List
     /**
      * Register a query to be updated if the underlying data changes.
      *
+     * @param string                    $name  The query name.
      * @param Horde_Kolab_Storage_Query $query The query to register.
      *
      * @return NULL
      */
-    public function registerQuery(Horde_Kolab_Storage_Query $query)
+    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
-        $this->_queries[] = $query;
+        $this->_queries[$name] = $query;
+    }
+
+    /**
+     * Return a registered query.
+     *
+     * @param string $name The query name.
+     *
+     * @return NULL
+     */
+    public function getQuery($name)
+    {
+        if (isset($this->_queries[$name])) {
+            return $this->_queries[$name];
+        } else {
+            throw new Horde_Kolab_Storage_Exception('No such query!');
+        }
     }
 }

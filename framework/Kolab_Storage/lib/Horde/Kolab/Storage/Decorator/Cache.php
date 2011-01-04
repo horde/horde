@@ -43,17 +43,27 @@ implements Horde_Kolab_Storage
     private $_cache;
 
     /**
+     * The factory for generating additional resources.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    private $_factory;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage       $storage The storage handler.
      * @param Horde_Kolab_Storage_Cache $cache   The cache.
+     * @param Horde_Kolab_Storage_Factory $factory The factory.
      */
     public function __construct(
         Horde_Kolab_Storage $storage, 
-        Horde_Kolab_Storage_Cache $cache
+        Horde_Kolab_Storage_Cache $cache,
+        Horde_Kolab_Storage_Factory $factory
     ) {
         $this->_storage = $storage;
         $this->_cache = $cache;
+        $this->_factory = $factory;
     }
 
     /**
@@ -64,12 +74,17 @@ implements Horde_Kolab_Storage
      */
     public function getList()
     {
-        return new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->_storage->getList(),
-            new Horde_Kolab_Storage_Cache_List(
-                $this->_cache
-            )
+        $list_cache = new Horde_Kolab_Storage_Cache_List(
+            $this->_cache
         );
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->_storage->getList(),
+            $list_cache
+        );
+        $this->_factory->createListQuery(
+            'Cache', $list, array('cache' => $list_cache)
+        );
+        return $list;
     }
 
     /**

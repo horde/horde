@@ -15,18 +15,6 @@ implements Horde_Kolab_Storage_Query
     }
 
     /**
-     * Inject the factory.
-     *
-     * @param Horde_Kolab_Storage_Factory $factory The factory.
-     *
-     * @return NULL
-     */
-    public function setFactory(Horde_Kolab_Storage_Factory $factory)
-    {
-        $this->called = true;
-    }
-
-    /**
      * Synchronize the query data with the information from the backend.
      *
      * @return NULL

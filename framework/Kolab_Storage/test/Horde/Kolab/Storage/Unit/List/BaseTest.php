@@ -85,8 +85,25 @@ extends Horde_Kolab_Storage_TestCase
             'Horde_Kolab_Storage_Stub_FactoryQuery',
             $list
         );
-        $list->registerQuery($query);
+        $list->registerQuery('stub', $query);
         $list->synchronize();
         $this->assertTrue($query->synchronized);
+    }
+
+    public function testGetQuery()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->getNullMock(),
+            $factory
+        );
+        $query = $factory->createListQuery(
+            'Horde_Kolab_Storage_Stub_FactoryQuery',
+            $list
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Stub_FactoryQuery',
+            $list->getQuery('Horde_Kolab_Storage_Stub_FactoryQuery')
+        );
     }
 }

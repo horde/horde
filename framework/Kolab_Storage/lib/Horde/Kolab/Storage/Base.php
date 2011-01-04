@@ -65,10 +65,12 @@ implements Horde_Kolab_Storage
      */
     public function getList()
     {
-        return new Horde_Kolab_Storage_List_Base(
+        $list = new Horde_Kolab_Storage_List_Base(
             $this->_master,
             $this->_factory
         );
+        $this->_factory->createListQuery('Base', $list);
+        return $list;
     }
 
     /**

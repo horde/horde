@@ -135,12 +135,25 @@ implements Horde_Kolab_Storage_List
     /**
      * Register a query to be updated if the underlying data changes.
      *
+     * @param string                    $name  The query name.
      * @param Horde_Kolab_Storage_Query $query The query to register.
      *
      * @return NULL
      */
-    public function registerQuery(Horde_Kolab_Storage_Query $query)
+    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
-        $this->_list->registerQuery($query);
+        $this->_list->registerQuery($name, $query);
+    }
+
+    /**
+     * Return a registered query.
+     *
+     * @param string $name The query name.
+     *
+     * @return NULL
+     */
+    public function getQuery($name)
+    {
+        $this->_list->getQuery($name);
     }
 }

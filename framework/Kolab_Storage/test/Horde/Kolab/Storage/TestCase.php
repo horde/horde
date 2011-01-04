@@ -197,10 +197,12 @@ extends PHPUnit_Framework_TestCase
         );
         $query = new Horde_Kolab_Storage_List_Query_Cache(
             $list,
-            $factory,
-            $list_cache
+            array(
+                'factory' => $factory,
+                'cache' => $list_cache
+            )
         );
-        $list->registerQuery($query);
+        $list->registerQuery('test', $query);
         $list->synchronize();
         return $query;
     }
