@@ -15,15 +15,17 @@ var NagCalendar =
 {
     calendarSelect: function(e)
     {
-        var prefix;
+        var prefix, radio;
 
         switch (e.element().identify()) {
         case 'dueimg':
             prefix = 'due';
+            radio = 'due_type_specified';
             break;
 
         case 'startimg':
             prefix = 'start';
+            radio = 'start_date_specified';
             break;
 
         default:
@@ -33,6 +35,8 @@ var NagCalendar =
         $(prefix + '_year').setValue(e.memo.getFullYear());
         $(prefix + '_month').setValue(e.memo.getMonth() + 1);
         $(prefix + '_day').setValue(e.memo.getDate());
+
+        $(radio).setValue(1);
 
         this.updateWday(prefix);
     },
@@ -90,6 +94,11 @@ var NagCalendar =
         case 'start_month':
         case 'start_year':
             this.updateWday('start');
+            // Fall-through
+
+        case 'start_hour':
+        case 'start_minute':
+            $('start_date_specified').setValue(1);
             break;
         }
     },
@@ -102,7 +111,6 @@ var NagCalendar =
         $('nag_taskform_active').observe('click', this.clickHandler.bindAsEventListener(this));
         $('nag_taskform_active').observe('change', this.changeHandler.bindAsEventListener(this));
     }
-
 };
 
 document.observe('dom:loaded', NagCalendar.onDomLoad.bind(NagCalendar));
