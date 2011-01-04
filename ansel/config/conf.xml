@@ -94,6 +94,12 @@
    if available when generating mini or square thumbnails? This gives a better
    change that the crop will contain an interesting part of the image, but will
    increase CPU usage during image generation."></configboolean>
+   <configboolean name="tiny" desc="Should Ansel use the TinySrc.mobi webservice
+   to generate mobile image screen views if appropriate? The gallery must either
+   be publicly viewable or you must be using the VFS direct option above. If
+   this is enabled, and these conditions are not met, Ansel will fall back to
+   an average sized mobile image. Note also that if you are using localhost or
+   something similar as the server name, this will fail.">false</configboolean>
    <configstring name="num_uploads" desc="How many photos should a user be
    allowed to upload at once?">5</configstring>
    <configstring name="font" required="false" desc="What font would you like

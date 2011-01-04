@@ -398,6 +398,12 @@ class Ansel
             if (!is_null($style)) {
                 $params['t'] = $style->thumbstyle;
                 $params['b'] = $style->background;
+                if ($style->width) {
+                    $params['w'] = $style->width;
+                }
+                if ($style->height) {
+                    $params['h'] = $style->height;
+                }
             }
 
             return Horde::url('img/' . $view . '.php', $full)->add($params);

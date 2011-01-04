@@ -13,11 +13,15 @@ Horde_Registry::appInit('ansel');
 
 $thumbstyle = Horde_Util::getFormData('t');
 $background = Horde_Util::getFormData('b');
+$w = Horde_Util::getFormData('w');
+$h = Horde_Util::getFormData('h');
 
 // Create a dummy style object with only what is needed to generate
-if ($thumbstyle && $background) {
+if ($thumbstyle || $background || $w || $h) {
     $style = new Ansel_Style(array('thumbstyle' => $thumbstyle,
-                                   'background' => $background));
+                                   'background' => $background,
+                                   'width' => $w,
+                                   'height' => $h));
 } else {
     $style = null;
 }

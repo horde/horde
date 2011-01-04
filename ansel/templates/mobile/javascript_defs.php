@@ -3,7 +3,6 @@ global $prefs, $registry;
 
 $ansel_webroot = $registry->get('webroot');
 $horde_webroot = $registry->get('webroot', 'horde');
-$has_tasks = $registry->hasInterface('tasks');
 
 /* Variables used in core javascript files. */
 $code['conf'] = array(

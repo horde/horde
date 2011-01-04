@@ -1032,7 +1032,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         }
 
         if ($full) {
-            $json->tiny = ($GLOBALS['conf']['vfs']['src'] == 'direct' || $this->hasPermission('', Horde_Perms::READ));
+            $json->tiny = ($GLOBALS['conf']['image']['tiny'] &&
+                           ($GLOBALS['conf']['vfs']['src'] == 'direct' || $this->hasPermission('', Horde_Perms::READ)));
             $json->sg = array();
             if ($this->hasSubGalleries()) {
                 $sgs = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('parent' => $this->getId(), 'all_levels' => false));
@@ -1045,8 +1046,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
             foreach ($images as $img) {
                 $i = new StdClass();
                 $i->id = $img->id;
-                $i->url = Ansel::getImageUrl($img->id, 'thumb', false, Ansel::getStyleDefinition('ansel_mobile'))->toString();
-                $i->screen = Ansel::getImageUrl($img->id, 'screen', $json->tiny, Ansel::getStyleDefinition('ansel_default'))->toString();
+                $i->url = Ansel::getImageUrl($img->id, 'thumb', false, Ansel::getStyleDefinition('ansel_mobile'))->toString(true);
+                $i->screen = Ansel::getImageUrl($img->id, 'screen', $json->tiny, Ansel::getStyleDefinition('ansel_default'))->toString(true);
                 $i->fn = $img->filename;
                 $json->imgs[] = $i;
             }
