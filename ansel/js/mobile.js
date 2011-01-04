@@ -99,7 +99,7 @@ var AnselMobile = {
         $('#thumbs').empty();
         AnselMobile.currentImages = r.imgs;
         $.each(r.imgs, function(k, i) {
-            var img = $('<li>').addClass('anselthumb').append($('<a>').attr({ 'href': '#', 'image-key': k, }).append($('<img>').attr({ src: i.url })));
+            var img = $('<li>').addClass('anselthumb').append($('<a>').attr({ 'href': '#', 'image-key': k, }).append($('<img>').attr({ 'width': Ansel.conf.thumbWidth, 'height': Ansel.conf.thumbHeight, src: i.url })));
             $('#thumbs').append(img);
         });
         if ($.mobile.activePage.attr('id') != 'galleryview') {
