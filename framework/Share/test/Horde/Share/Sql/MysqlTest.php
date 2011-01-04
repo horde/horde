@@ -20,7 +20,9 @@ class Horde_Share_Sql_MysqlTest extends Horde_Share_Test_Sql_Base
             return;
         }
         $config = self::getConfig('SHARE_SQL_MYSQL_TEST_CONFIG');
-        self::$db = new Horde_Db_Adapter_Mysql($config['share']['sql']['mysql']);
-        parent::setUpBeforeClass();
+        if ($config) {
+            self::$db = new Horde_Db_Adapter_Mysql($config['share']['sql']['mysql']);
+            parent::setUpBeforeClass();
+        }
     }
 }

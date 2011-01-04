@@ -20,7 +20,9 @@ class Horde_Share_SqlHierarchical_MysqliTest extends Horde_Share_Test_SqlHierarc
             return;
         }
         $config = self::getConfig('SHARE_SQL_MYSQLI_TEST_CONFIG');
-        self::$db = new Horde_Db_Adapter_Mysqli($config['share']['sql']['mysqli']);
-        parent::setUpBeforeClass();
+        if ($config) {
+            self::$db = new Horde_Db_Adapter_Mysqli($config['share']['sql']['mysqli']);
+            parent::setUpBeforeClass();
+        }
     }
 }
