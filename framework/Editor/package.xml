@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-07</date>
- <time>19:15:08</time>
+ <date>2011-01-04</date>
+ <time>15:37:55</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -116,6 +116,9 @@
        <file name="logo_ckeditor.png" role="horde" />
       </dir> <!-- /js/plugins/about/dialogs -->
      </dir> <!-- /js/plugins/about -->
+     <dir name="autogrow">
+      <file name="plugin.js" role="horde" />
+     </dir> <!-- /js/plugins/autogrow -->
      <dir name="clipboard">
       <dir name="dialogs">
        <file name="paste.js" role="horde" />
@@ -183,7 +186,6 @@
       <dir name="dialogs">
        <file name="liststyle.js" role="horde" />
       </dir> <!-- /js/plugins/liststyle/dialogs -->
-      <file name="plugin.js" role="horde" />
      </dir> <!-- /js/plugins/liststyle -->
      <dir name="pagebreak">
       <dir name="images">
@@ -259,23 +261,14 @@
        <file name="default.js" role="horde" />
       </dir> <!-- /js/plugins/styles/styles -->
      </dir> <!-- /js/plugins/styles -->
-     <dir name="syntaxhighlight">
-      <dir name="dialogs">
-       <file name="syntaxhighlight.js" role="horde" />
-      </dir> <!-- /js/plugins/syntaxhighlight/dialogs -->
-      <dir name="images">
-       <file name="syntaxhighlight.gif" role="horde" />
-      </dir> <!-- /js/plugins/syntaxhighlight/images -->
-      <dir name="lang">
-       <file name="en.js" role="horde" />
-      </dir> <!-- /js/plugins/syntaxhighlight/lang -->
-      <file name="plugin.js" role="horde" />
-     </dir> <!-- /js/plugins/syntaxhighlight -->
      <dir name="table">
       <dir name="dialogs">
        <file name="table.js" role="horde" />
       </dir> <!-- /js/plugins/table/dialogs -->
      </dir> <!-- /js/plugins/table -->
+     <dir name="tableresize">
+      <file name="plugin.js" role="horde" />
+     </dir> <!-- /js/plugins/tableresize -->
      <dir name="tabletools">
       <dir name="dialogs">
        <file name="tableCell.js" role="horde" />
@@ -300,6 +293,7 @@
       </dir> <!-- /js/plugins/uicolor/dialogs -->
       <dir name="lang">
        <file name="en.js" role="horde" />
+       <file name="he.js" role="horde" />
       </dir> <!-- /js/plugins/uicolor/lang -->
       <dir name="yui">
        <dir name="assets">
@@ -338,6 +332,7 @@
       <file name="dialog.css" role="horde" />
       <file name="editor.css" role="horde" />
       <file name="icons.png" role="horde" />
+      <file name="icons_rtl.png" role="horde" />
       <file name="skin.js" role="horde" />
       <file name="templates.css" role="horde" />
      </dir> <!-- /js/skins/kama -->
@@ -354,6 +349,7 @@
       <file name="dialog.css" role="horde" />
       <file name="editor.css" role="horde" />
       <file name="icons.png" role="horde" />
+      <file name="icons_rtl.png" role="horde" />
       <file name="skin.js" role="horde" />
       <file name="templates.css" role="horde" />
      </dir> <!-- /js/skins/office2003 -->
@@ -371,6 +367,7 @@
       <file name="dialog.css" role="horde" />
       <file name="editor.css" role="horde" />
       <file name="icons.png" role="horde" />
+      <file name="icons_rtl.png" role="horde" />
       <file name="skin.js" role="horde" />
       <file name="templates.css" role="horde" />
      </dir> <!-- /js/skins/v2 -->
@@ -500,6 +497,7 @@
    <install as="js/plugins/a11yhelp/lang/he.js" name="js/plugins/a11yhelp/lang/he.js" />
    <install as="js/plugins/about/dialogs/about.js" name="js/plugins/about/dialogs/about.js" />
    <install as="js/plugins/about/dialogs/logo_ckeditor.png" name="js/plugins/about/dialogs/logo_ckeditor.png" />
+   <install as="js/plugins/autogrow/plugin.js" name="js/plugins/autogrow/plugin.js" />
    <install as="js/plugins/clipboard/dialogs/paste.js" name="js/plugins/clipboard/dialogs/paste.js" />
    <install as="js/plugins/colordialog/dialogs/colordialog.js" name="js/plugins/colordialog/dialogs/colordialog.js" />
    <install as="js/plugins/dialog/dialogDefinition.js" name="js/plugins/dialog/dialogDefinition.js" />
@@ -521,7 +519,6 @@
    <install as="js/plugins/link/dialogs/anchor.js" name="js/plugins/link/dialogs/anchor.js" />
    <install as="js/plugins/link/dialogs/link.js" name="js/plugins/link/dialogs/link.js" />
    <install as="js/plugins/link/images/anchor.gif" name="js/plugins/link/images/anchor.gif" />
-   <install as="js/plugins/liststyle/plugin.js" name="js/plugins/liststyle/plugin.js" />
    <install as="js/plugins/liststyle/dialogs/liststyle.js" name="js/plugins/liststyle/dialogs/liststyle.js" />
    <install as="js/plugins/pagebreak/images/pagebreak.gif" name="js/plugins/pagebreak/images/pagebreak.gif" />
    <install as="js/plugins/pastefromword/filter/default.js" name="js/plugins/pastefromword/filter/default.js" />
@@ -563,11 +560,8 @@
    <install as="js/plugins/smiley/images/wink_smile.gif" name="js/plugins/smiley/images/wink_smile.gif" />
    <install as="js/plugins/specialchar/dialogs/specialchar.js" name="js/plugins/specialchar/dialogs/specialchar.js" />
    <install as="js/plugins/styles/styles/default.js" name="js/plugins/styles/styles/default.js" />
-   <install as="js/plugins/syntaxhighlight/plugin.js" name="js/plugins/syntaxhighlight/plugin.js" />
-   <install as="js/plugins/syntaxhighlight/dialogs/syntaxhighlight.js" name="js/plugins/syntaxhighlight/dialogs/syntaxhighlight.js" />
-   <install as="js/plugins/syntaxhighlight/images/syntaxhighlight.gif" name="js/plugins/syntaxhighlight/images/syntaxhighlight.gif" />
-   <install as="js/plugins/syntaxhighlight/lang/en.js" name="js/plugins/syntaxhighlight/lang/en.js" />
    <install as="js/plugins/table/dialogs/table.js" name="js/plugins/table/dialogs/table.js" />
+   <install as="js/plugins/tableresize/plugin.js" name="js/plugins/tableresize/plugin.js" />
    <install as="js/plugins/tabletools/dialogs/tableCell.js" name="js/plugins/tabletools/dialogs/tableCell.js" />
    <install as="js/plugins/templates/dialogs/templates.js" name="js/plugins/templates/dialogs/templates.js" />
    <install as="js/plugins/templates/templates/default.js" name="js/plugins/templates/templates/default.js" />
@@ -578,6 +572,7 @@
    <install as="js/plugins/uicolor/uicolor.gif" name="js/plugins/uicolor/uicolor.gif" />
    <install as="js/plugins/uicolor/dialogs/uicolor.js" name="js/plugins/uicolor/dialogs/uicolor.js" />
    <install as="js/plugins/uicolor/lang/en.js" name="js/plugins/uicolor/lang/en.js" />
+   <install as="js/plugins/uicolor/lang/he.js" name="js/plugins/uicolor/lang/he.js" />
    <install as="js/plugins/uicolor/yui/yui.js" name="js/plugins/uicolor/yui/yui.js" />
    <install as="js/plugins/uicolor/yui/assets/hue_bg.png" name="js/plugins/uicolor/yui/assets/hue_bg.png" />
    <install as="js/plugins/uicolor/yui/assets/hue_thumb.png" name="js/plugins/uicolor/yui/assets/hue_thumb.png" />
@@ -591,6 +586,7 @@
    <install as="js/skins/kama/dialog.css" name="js/skins/kama/dialog.css" />
    <install as="js/skins/kama/editor.css" name="js/skins/kama/editor.css" />
    <install as="js/skins/kama/icons.png" name="js/skins/kama/icons.png" />
+   <install as="js/skins/kama/icons_rtl.png" name="js/skins/kama/icons_rtl.png" />
    <install as="js/skins/kama/skin.js" name="js/skins/kama/skin.js" />
    <install as="js/skins/kama/templates.css" name="js/skins/kama/templates.css" />
    <install as="js/skins/kama/images/dialog_sides.gif" name="js/skins/kama/images/dialog_sides.gif" />
@@ -604,6 +600,7 @@
    <install as="js/skins/office2003/dialog.css" name="js/skins/office2003/dialog.css" />
    <install as="js/skins/office2003/editor.css" name="js/skins/office2003/editor.css" />
    <install as="js/skins/office2003/icons.png" name="js/skins/office2003/icons.png" />
+   <install as="js/skins/office2003/icons_rtl.png" name="js/skins/office2003/icons_rtl.png" />
    <install as="js/skins/office2003/skin.js" name="js/skins/office2003/skin.js" />
    <install as="js/skins/office2003/templates.css" name="js/skins/office2003/templates.css" />
    <install as="js/skins/office2003/images/dialog_sides.gif" name="js/skins/office2003/images/dialog_sides.gif" />
@@ -616,6 +613,7 @@
    <install as="js/skins/v2/dialog.css" name="js/skins/v2/dialog.css" />
    <install as="js/skins/v2/editor.css" name="js/skins/v2/editor.css" />
    <install as="js/skins/v2/icons.png" name="js/skins/v2/icons.png" />
+   <install as="js/skins/v2/icons_rtl.png" name="js/skins/v2/icons_rtl.png" />
    <install as="js/skins/v2/skin.js" name="js/skins/v2/skin.js" />
    <install as="js/skins/v2/templates.css" name="js/skins/v2/templates.css" />
    <install as="js/skins/v2/images/dialog_sides.gif" name="js/skins/v2/images/dialog_sides.gif" />
@@ -674,7 +672,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-07</date>
+   <date>2011-01-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Removed Xinha driver.
