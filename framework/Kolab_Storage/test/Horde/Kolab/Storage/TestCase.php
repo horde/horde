@@ -195,7 +195,7 @@ extends PHPUnit_Framework_TestCase
             $bare_list,
             $list_cache
         );
-        $query = new Horde_Kolab_Storage_List_Query_Decorator_Cache(
+        $query = new Horde_Kolab_Storage_List_Query_Cache(
             $list,
             $factory,
             $list_cache
