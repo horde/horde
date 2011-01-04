@@ -31,9 +31,9 @@ implements Horde_Kolab_Storage_List_Query
     /**
      * The queriable list.
      *
-     * @var Horde_Kolab_Storage_Queriable
+     * @var Horde_Kolab_Storage_List
      */
-    private $_queriable;
+    private $_list;
 
     /**
      * The factory for generating additional resources.
@@ -45,11 +45,11 @@ implements Horde_Kolab_Storage_List_Query
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Queriable $queriable The queriable list.
+     * @param Horde_Kolab_Storage_List $list The queriable list.
      */
-    public function __construct(Horde_Kolab_Storage_Queriable $queriable)
+    public function __construct(Horde_Kolab_Storage_List $list)
     {
-        $this->_queriable = $queriable;
+        $this->_list = $list;
     }
 
     /**
@@ -89,7 +89,7 @@ implements Horde_Kolab_Storage_List_Query
     public function listFolderTypeAnnotations()
     {
         $result = array();
-        $list = $this->_queriable->listFolderTypes();
+        $list = $this->_list->listFolderTypes();
         foreach ($list as $folder => $annotation) {
             $result[$folder] = $this->_factory->createFolderType($annotation);
         }

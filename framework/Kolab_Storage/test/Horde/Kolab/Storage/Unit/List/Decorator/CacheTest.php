@@ -262,12 +262,18 @@ extends Horde_Kolab_Storage_TestCase
             $this->getMockListCache()
         );
         $this->mockDriver->expects($this->once())
+            ->method('getMailboxes') 
+            ->will($this->returnValue(array('INBOX')));
+        $this->mockDriver->expects($this->once())
             ->method('listAnnotation')
             ->will($this->returnValue(array('INBOX' => 'mail.default')));
         $list->listFolders();
     }
 
-    public function testEmptyIfFooled()
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testExceptionIfFooled()
     {
         $cache = $this->getMockCache();
         $list = new Horde_Kolab_Storage_List_Decorator_Cache(
@@ -280,7 +286,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->mockDriver->expects($this->never())
             ->method('getMailboxes') 
             ->will($this->returnValue(array('INBOX')));
-        $this->assertEmpty($list->listFolders());
+        $list->listFolders();
     }
 
     public function testInvalidVersion()

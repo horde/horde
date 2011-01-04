@@ -140,8 +140,13 @@ class Horde_Kolab_Storage_Cache_List
     public function getFolders()
     {
         $this->_load();
-        return isset($this->_data[self::FOLDERS]) ?
-            $this->_data[self::FOLDERS] : array();
+        if (isset($this->_data[self::FOLDERS])) {
+            return $this->_data[self::FOLDERS];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Missing cache data (Key: %s). Synchronize first!', self::FOLDERS)
+            );
+        }
     }
 
     /**
@@ -153,8 +158,46 @@ class Horde_Kolab_Storage_Cache_List
     public function getFolderTypes()
     {
         $this->_load();
-        return isset($this->_data[self::TYPES]) ?
-            $this->_data[self::TYPES] : array();
+        if (isset($this->_data[self::TYPES])) {
+            return $this->_data[self::TYPES];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Missing cache data (Key: %s). Synchronize first!', self::TYPES)
+            );
+        }
+    }
+
+    /**
+     * Return query information.
+     *
+     * @param string $key The query key.
+     *
+     * @return mixed The query data.
+     */
+    public function getQuery($key)
+    {
+        $this->_load();
+        if (isset($this->_data[self::QUERIES][$key])) {
+            return $this->_data[self::QUERIES][$key];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Missing query cache data (Key: %s). Synchronize first!', $key)
+            );
+        }
+    }
+
+    /**
+     * Set query information.
+     *
+     * @param string $key  The query key.
+     * @param mixed  $data The query data.
+     *
+     * @return NULL
+     */
+    public function setQuery($key, $data)
+    {
+        $this->_load();
+        $this->_data[self::QUERIES][$key] = $data;
     }
 
     /**

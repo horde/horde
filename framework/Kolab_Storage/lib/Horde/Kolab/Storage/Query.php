@@ -28,13 +28,6 @@
 interface Horde_Kolab_Storage_Query
 {
     /**
-     * Constructor.
-     *
-     * @param Horde_Kolab_Storage_Queriable $queriable The queriable object.
-     */
-    public function __construct(Horde_Kolab_Storage_Queriable $queriable);
-
-    /**
      * Synchronize the query data with the information from the backend.
      *
      * @return NULL

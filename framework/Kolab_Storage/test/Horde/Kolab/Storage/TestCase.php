@@ -188,6 +188,23 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getCachedQueryForList($bare_list, $factory)
+    {
+        $list_cache = $this->getMockListCache();
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $bare_list,
+            $list_cache
+        );
+        $query = new Horde_Kolab_Storage_List_Query_Decorator_Cache(
+            $list,
+            $factory,
+            $list_cache
+        );
+        $list->registerQuery($query);
+        $list->synchronize();
+        return $query;
+    }
+
     protected function getMockDriverList()
     {
         $this->mockDriver = $this->getMock('Horde_Kolab_Storage_Driver');

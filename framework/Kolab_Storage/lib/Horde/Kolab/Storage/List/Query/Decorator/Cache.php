@@ -28,12 +28,25 @@
 class Horde_Kolab_Storage_List_Query_Decorator_Cache
 implements Horde_Kolab_Storage_List_Query
 {
+    /** The folder type list */
+    const TYPES = 'TYPES';
+
+    /** The folder list sorted by type */
+    const BY_TYPE = 'BY_TYPE';
+
     /**
      * The queriable list.
      *
-     * @var Horde_Kolab_Storage_Queriable
+     * @var Horde_Kolab_Storage_List
      */
-    private $_queriable;
+    private $_list;
+
+    /**
+     * The list cache.
+     *
+     * @var Horde_Kolab_Storage_Cache_List
+     */
+    private $_list_cache;
 
     /**
      * The factory for generating additional resources.
@@ -45,22 +58,17 @@ implements Horde_Kolab_Storage_List_Query
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Queriable $queriable The queriable list.
+     * @param Horde_Kolab_Storage_List       $list       The queriable list.
+     * @param Horde_Kolab_Storage_Factory    $factory    The factory.
+     * @param Horde_Kolab_Storage_Cache_List $list_cache The list cache.
      */
-    public function __construct(Horde_Kolab_Storage_Queriable $queriable)
-    {
-        $this->_queriable = $queriable;
-    }
-
-    /**
-     * Inject the factory.
-     *
-     * @param Horde_Kolab_Storage_Factory $factory The factory.
-     *
-     * @return NULL
-     */
-    public function setFactory(Horde_Kolab_Storage_Factory $factory)
-    {
+    public function __construct(
+        Horde_Kolab_Storage_List $list,
+        Horde_Kolab_Storage_Factory $factory,
+        Horde_Kolab_Storage_Cache_List $list_cache
+    ) {
+        $this->_list = $list;
+        $this->_list_cache = $list_cache;
         $this->_factory = $factory;
     }
 
@@ -72,6 +80,7 @@ implements Horde_Kolab_Storage_List_Query
      */
     public function listTypes()
     {
+        return $this->_list_cache->getQuery(self::TYPES);
     }
 
     /**
@@ -82,6 +91,12 @@ implements Horde_Kolab_Storage_List_Query
      */
     public function listFolderTypeAnnotations()
     {
+        $result = array();
+        $list = $this->_list_cache->getFolderTypes();
+        foreach ($list as $folder => $annotation) {
+            $result[$folder] = $this->_factory->createFolderType($annotation);
+        }
+        return $result;
     }
 
     /**
@@ -93,6 +108,12 @@ implements Horde_Kolab_Storage_List_Query
      */
     public function listByType($type)
     {
+        $by_type = $this->_list_cache->getQuery(self::BY_TYPE);
+        if (isset($by_type[$type])) {
+            return $by_type[$type];
+        } else {
+            return array();
+        }
     }
 
     /**
@@ -102,5 +123,14 @@ implements Horde_Kolab_Storage_List_Query
      */
     public function synchronize()
     {
+        $types = array();
+        $by_type = array();
+        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
+            $type = $annotation->getType();
+            $types[$folder] = $type;
+            $by_type[$type][] = $folder;
+        }
+        $this->_list_cache->setQuery(self::TYPES, $types);
+        $this->_list_cache->setQuery(self::BY_TYPE, $by_type);
     }
 }
