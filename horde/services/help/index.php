@@ -92,7 +92,7 @@ case 'sidebar':
             $node_params = $node_params_master;
             $parent = null;
 
-            $node_params['url'] = $base_url->copy()->add(array(
+            $node_params['url'] = $base_url->copy()->setRaw(true)->add(array(
                 'show' => 'entry',
                 'topic' => $id
             ));
