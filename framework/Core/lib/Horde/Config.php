@@ -1200,11 +1200,6 @@ class Horde_Config
                             'desc' => 'Absolute path to the database file',
                             'default' => $this->_default($ctx . '|database', '')
                         ),
-                        'mode' => array(
-                            '_type' => 'text',
-                            'desc' => 'The mode to open the file with',
-                            'default' => $this->_default($ctx . '|mode', '0644')
-                        ),
                         'charset' => $charset
                     )
                 )
