@@ -8,6 +8,11 @@
  */
 
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * @group      support
  * @category   Horde
  * @package    Support

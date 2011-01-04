@@ -7,6 +7,11 @@
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
+/**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
 function backtraceTestFunction()
 {
     return debug_backtrace(false);
