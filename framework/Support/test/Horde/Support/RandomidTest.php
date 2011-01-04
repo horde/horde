@@ -23,9 +23,7 @@ class Horde_Support_RandomidTest extends PHPUnit_Framework_TestCase
 {
     public function testLength()
     {
-        $length = strlen(new Horde_Support_Randomid());
-        $this->assertLessThanOrEqual(23, $length);
-        $this->assertGreaterThanOrEqual(22, $length);
+        $this->assertEquals(23, strlen(new Horde_Support_Randomid()));
     }
 
     public function testDuplicates()
