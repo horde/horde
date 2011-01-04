@@ -83,10 +83,6 @@ class Horde_Help
             if ($entry->attributes()->id == $id) {
                 foreach ($entry->children() as $child) {
                     switch ($child->getName()) {
-                    case 'title':
-                        $out .= '<h1>' . $this->_processNode($child) . '</h1>';
-                        break;
-
                     case 'heading':
                         $out .= '<h2>' . $this->_processNode($child) . '</h2>';
                         break;
@@ -94,10 +90,16 @@ class Horde_Help
                     case 'para':
                         $out .= '<p>' . $this->_processNode($child) . '</p>';
                         break;
+
+                    case 'raw':
+                        $out .= '<p class="fixed">' . htmlentities($this->_processNode($child)) . '</p>';
+                        break;
+
+                    case 'title':
+                        $out .= '<h1>' . $this->_processNode($child) . '</h1>';
+                        break;
                     }
                 }
-
-                break;
             }
         }
 
@@ -217,6 +219,5 @@ class Horde_Help
         return $url->link(array('title' => Horde_Core_Translation::t("Help"), 'class' => 'helplink', 'target' => 'hordehelpwin', 'onclick' => Horde::popupJs($url, array('urlencode' => true)) . 'return false;'))
             . Horde::img('help.png', Horde_Core_Translation::t("Help")) . '</a>';
     }
-
 
 }
