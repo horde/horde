@@ -138,6 +138,22 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
+    public function testRemoveUserPermissions(array $shares)
+    {
+        return parent::removeUserPermissions(array($shares[0]->getId(), $shares[1]->getId(), $shares[2]->getId()));
+    }
+
+    /**
+     * @depends testRemoveUserPermissions
+     */
+    public function testRemoveGroupPermissions(array $shareids)
+    {
+        parent::removeGroupPermissions($shareids);
+    }
+
+    /**
+     * @depends testPermissions
+     */
     public function testRemoveShare(array $share)
     {
         parent::removeShare($share);

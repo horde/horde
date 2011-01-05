@@ -114,6 +114,22 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
     }
 
     /**
+     * @depends testPermissions
+     */
+    public function testRemoveUserPermissions(array $shareids)
+    {
+        return parent::removeUserPermissions($shareids);
+    }
+
+    /**
+     * @depends testRemoveUserPermissions
+     */
+    public function testRemoveGroupPermissions(array $shareids)
+    {
+        parent::removeGroupPermissions($shareids);
+    }
+
+    /**
      * @depends testGetShare
      */
     public function testRemoveShare(array $share)
