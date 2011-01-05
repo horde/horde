@@ -21,7 +21,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals('test', self::$share->getApp());
     }
 
-    public function baseAddShare()
+    public function addShare()
     {
         $share = self::$share->newShare('john', 'myshare');
         $share->set('name', 'My Share');
@@ -30,7 +30,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         return $share;
     }
 
-    public function basePermissions($myshareid)
+    public function permissions($myshareid)
     {
         // System share.
         $share = self::$share->newShare(null, 'systemshare');
@@ -72,7 +72,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         return array($myshareid, $janeshare->getId(), $groupshare->getId());
     }
 
-    public function baseExists()
+    public function exists()
     {
         // Getting shares from cache.
         $this->assertTrue(self::$share->exists('myshare'));
@@ -84,7 +84,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertTrue(self::$share->exists('myshare'));
     }
 
-    public function baseCountShares()
+    public function countShares()
     {
         // Getting shares from cache.
         $this->assertEquals(4, self::$share->countShares('john'));
@@ -98,7 +98,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals(2, self::$share->countShares('john', Horde_Perms::EDIT));
     }
 
-    public function baseGetShare()
+    public function getShare()
     {
         // Getting shares from cache.
         $share = self::$share->getShare('myshare');
@@ -114,19 +114,19 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         return array($share, self::$share->getShare('janeshare'), self::$share->getShare('groupshare'));
     }
 
-    public function baseGetShareById(array $shares)
+    public function getShareById(array $shares)
     {
         // Getting shares from cache.
-        $this->_baseGetShareById($shares);
+        $this->_getShareById($shares);
 
         // Reset cache.
         self::$share->resetCache();
 
         // Getting shares from backend.
-        $this->_baseGetShareById($shares);
+        $this->_getShareById($shares);
     }
 
-    protected function _baseGetShareById(array $shares)
+    protected function _getShareById(array $shares)
     {
         $newshare = self::$share->getShareById($shares[0]->getId());
         $this->assertInstanceOf('Horde_Share_Object', $newshare);
@@ -139,19 +139,19 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals($shares[2], $newshare);
     }
 
-    public function baseGetShares(array $shares)
+    public function getShares(array $shares)
     {
         // Getting shares from cache.
-        $this->_baseGetShares($shares);
+        $this->_getShares($shares);
 
         // Reset cache.
         self::$share->resetCache();
 
         // Getting shares from backend.
-        $this->_baseGetShares($shares);
+        $this->_getShares($shares);
     }
 
-    protected function _baseGetShares(array $shares)
+    protected function _getShares(array $shares)
     {
         $newshares = self::$share->getShares(array($shares[0]->getId(), $shares[1]->getId(), $shares[2]->getId()));
         $this->assertType('array', $newshares);
@@ -167,19 +167,19 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals($newshares['groupshare'], $shares[2]);
     }
 
-    public function baseListAllShares()
+    public function listAllShares()
     {
         // Getting shares from cache.
-        $this->_baseListAllShares();
+        $this->_listAllShares();
 
         // Reset cache.
         self::$share->resetCache();
 
         // Getting shares from backend.
-        $this->_baseListAllShares();
+        $this->_listAllShares();
     }
 
-    protected function _baseListAllShares()
+    protected function _listAllShares()
     {
         $shares = self::$share->listAllShares();
         $this->assertType('array', $shares);
@@ -191,19 +191,19 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertArrayHasKey('noshare', $shares);
     }
 
-    public function baseListShares(array $shareids)
+    public function listShares(array $shareids)
     {
         // Getting shares from cache.
-        $this->_baseListShares($shareids);
+        $this->_listShares($shareids);
 
         // Reset cache.
         self::$share->resetCache();
 
         // Getting shares from backend.
-        $this->_baseListShares($shareids);
+        $this->_listShares($shareids);
     }
 
-    public function _baseListShares(array $shareids)
+    public function _listShares(array $shareids)
     {
         // Default listing.
         $shares = self::$share->listShares('john');
@@ -266,19 +266,19 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals($shareids[1], $shares[0]->getId());
     }
 
-    public function baseListSystemShares()
+    public function listSystemShares()
     {
         // Getting shares from cache.
-        $this->_baseListSystemShares();
+        $this->_listSystemShares();
 
         // Reset cache.
         self::$share->resetCache();
 
         // Getting shares from backend.
-        $this->_baseListSystemShares();
+        $this->_listSystemShares();
     }
 
-    public function _baseListSystemShares()
+    public function _listSystemShares()
     {
         $shares = self::$share->listSystemShares();
         $this->assertType('array', $shares);
@@ -286,19 +286,19 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertArrayHasKey('systemshare', $shares);
     }
 
-    public function baseRemoveShare(array $share)
+    public function removeShare(array $share)
     {
         // Getting shares from cache.
-        $this->_baseRemoveShare($share);
+        $this->_removeShare($share);
 
         // Reset cache.
         self::$share->resetCache();
 
         // Getting shares from backend.
-        $this->_baseRemoveShare($share);
+        $this->_removeShare($share);
     }
 
-    public function _baseRemoveShare(array $share)
+    public function _removeShare(array $share)
     {
         self::$share->removeShare($share[0]);
         try {

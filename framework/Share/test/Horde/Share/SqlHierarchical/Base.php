@@ -32,7 +32,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
 
     public function testAddShare()
     {
-        $share = parent::baseAddShare();
+        $share = parent::addShare();
         $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $share);
         return $share->getId();
     }
@@ -42,7 +42,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
      */
     public function testPermissions($myshareid)
     {
-        $shareids = parent::basePermissions($myshareid);
+        $shareids = parent::permissions($myshareid);
         return array(self::$share->getShareById($shareids[0]),
                      self::$share->getShareById($shareids[1]),
                      self::$share->getShareById($shareids[2]));
@@ -61,7 +61,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
      */
     public function testCountShares()
     {
-        parent::baseCountShares();
+        parent::countShares();
     }
 
     /**
@@ -71,7 +71,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
      */
     public function testGetShare()
     {
-        parent::baseGetShare();
+        parent::getShare();
     }
 
     /**
@@ -79,7 +79,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
      */
     public function testGetShareById(array $shares)
     {
-        parent::baseGetShareById($shares);
+        parent::getShareById($shares);
     }
 
     /**
@@ -124,7 +124,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
      */
     public function testListShares(array $shareids)
     {
-        parent::baseListShares(array($shareids[0]->getId(), $shareids[1]->getId(), $shareids[2]->getId()));
+        parent::listShares(array($shareids[0]->getId(), $shareids[1]->getId(), $shareids[2]->getId()));
     }
 
     /**
@@ -140,7 +140,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
      */
     public function testRemoveShare(array $share)
     {
-        parent::baseRemoveShare($share);
+        parent::removeShare($share);
     }
 
     public static function setUpBeforeClass()
