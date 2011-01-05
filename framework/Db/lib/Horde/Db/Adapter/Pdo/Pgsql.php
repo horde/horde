@@ -172,6 +172,25 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         }
     }
 
+    /**
+     * Appends LIMIT and OFFSET options to a SQL statement.
+     *
+     * @param string $sql     SQL statement.
+     * @param array $options  Hash with 'limit' and (optional) 'offset' values.
+     *
+     * @return string
+     */
+    public function addLimitOffset($sql, $options)
+    {
+        if (isset($options['limit']) && $limit = $options['limit']) {
+            $sql .= " LIMIT $limit";
+        }
+        if (isset($options['offset']) && $offset = $options['offset']) {
+            $sql .= " OFFSET $offset";
+        }
+        return $sql;
+    }
+
 
     /*##########################################################################
     # Protected

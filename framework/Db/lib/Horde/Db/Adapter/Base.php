@@ -644,10 +644,10 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     }
 
     /**
-     * Appends +LIMIT+ and +OFFSET+ options to a SQL statement.
+     * Appends LIMIT and OFFSET options to a SQL statement.
      *
      * @param string $sql     SQL statement.
-     * @param array $options  TODO
+     * @param array $options  Hash with 'limit' and (optional) 'offset' values.
      *
      * @return string
      */
