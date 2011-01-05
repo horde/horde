@@ -1369,7 +1369,12 @@ class Horde_Registry
     public function importConfig($app)
     {
         if (!isset($this->_confCache[$app])) {
-            $config = Horde::loadConfiguration('conf.php', 'conf', $app);
+            try {
+                $config = Horde::loadConfiguration('conf.php', 'conf', $app);
+            } catch (Horde_Exception $e) {
+                $config = null;
+            }
+
             $this->_confCache[$app] = empty($config)
                 ? array()
                 : $config;
