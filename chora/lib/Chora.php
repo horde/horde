@@ -130,6 +130,8 @@ class Chora
                 if (!empty($args['ps'])) {
                     $script = urlencode(isset($args['rt']) ? $args['rt'] : $GLOBALS['acts']['rt']) . '/-/commit/' . $args['ps'];
                     unset($arglist['ps']);
+                } else {
+                    $script .= '/' . $uri;
                 }
                 break;
 
