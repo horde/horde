@@ -137,6 +137,11 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
         parent::removeShare($share);
     }
 
+    public function testCallback()
+    {
+        parent::callback(new Horde_Share_Object_Sql(array()));
+    }
+
     public static function setUpBeforeClass()
     {
         $migration = new Horde_Db_Migration_Base(self::$db);

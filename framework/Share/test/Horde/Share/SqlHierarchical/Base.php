@@ -159,6 +159,41 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
         parent::removeShare($share);
     }
 
+    public function testCallback()
+    {
+        parent::callback(new Horde_Share_Object_Sql_Hierarchical(array()));
+    }
+
+    public function testListOwners()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testCountOwners()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testCountChildren()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testGetParent()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testGetParents()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testSetParent()
+    {
+        $this->markTestIncomplete();
+    }
+
     public static function setUpBeforeClass()
     {
         $migration = new Horde_Db_Migration_Base(self::$db);

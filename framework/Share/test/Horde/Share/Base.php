@@ -38,6 +38,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $perm = $share->getPermission();
         $this->assertInstanceOf('Horde_Perms_Permission', $perm);
         $perm->addDefaultPermission(Horde_Perms::SHOW | Horde_Perms::READ);
+        $perm->addGuestPermission(Horde_Perms::SHOW);
         $share->setPermission($perm);
         $share->save();
         $this->assertTrue($share->hasPermission('john', Horde_Perms::SHOW));
@@ -103,6 +104,11 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         // Getting shares from cache.
         $share = self::$share->getShare('myshare');
         $this->assertInstanceOf('Horde_Share_Object', $share);
+        try {
+            self::$share->getShare('nonexistant');
+            $this->fail('Share "nonexistant" was expected to not exist.');
+        } catch (Horde_Exception_NotFound $e) {
+        }
 
         // Reset cache.
         self::$share->resetCache();
@@ -118,6 +124,11 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     {
         // Getting shares from cache.
         $this->_getShareById($shares);
+        try {
+            self::$share->getShareById(99999);
+            $this->fail('Share 99999 was expected to not exist.');
+        } catch (Horde_Exception_NotFound $e) {
+        }
 
         // Reset cache.
         self::$share->resetCache();
@@ -139,6 +150,8 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals(array('john', 'jane'), $janeshare->listUsers(Horde_Perms::EDIT));
         $this->assertEquals(array('jane'), $janeshare->listUsers(Horde_Perms::DELETE));
         $this->assertEquals('Jane\'s Share', $janeshare->get('name'));
+        $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
+        $this->assertTrue($janeshare->hasPermission('jane', 99999));
 
         $groupshare = self::$share->getShareById($shares[2]->getId());
         $this->assertInstanceOf('Horde_Share_Object', $groupshare);
@@ -235,6 +248,13 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals(2, count($shares));
         $this->assertEquals($shareids[1], $shares[0]->getId());
         $this->assertEquals($shareids[2], $shares[1]->getId());
+
+        // Guest shares.
+        $share = self::$share->getShareById(2);
+        $shares = array_values(self::$share->listShares(false, array('perm' => Horde_Perms::SHOW, 'sort_by' => 'id')));
+        $this->assertType('array', $shares);
+        $this->assertEquals(1, count($shares));
+        $this->assertEquals('System Share', $shares[0]->get('name'));
 
         // Shares with certain permissions.
         $this->assertEquals(4, count(self::$share->listShares('john', array('perm' => Horde_Perms::READ))));
@@ -378,6 +398,12 @@ class Horde_Share_Test_Base extends Horde_Test_Case
             $this->fail('Share ' . $share[0]->getId() . ' should be removed by now.');
         } catch (Horde_Exception_NotFound $e) {
         }
+    }
+
+    public function callback($share)
+    {
+        $share->setShareOb(new Horde_Support_Stub());
+        $this->assertEquals($share, unserialize(serialize($share)));
     }
 }
 
