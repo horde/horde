@@ -16,7 +16,7 @@
  * @category Horde
  * @package  Horde_Oauth
  */
-abstract class Horde_Oauth_SignatureMethod_Base
+abstract class Horde_Oauth_SignatureMethod
 {
     abstract public function getName();
 

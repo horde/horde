@@ -33,7 +33,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Oauth">
       <dir name="SignatureMethod">
-       <file name="Base.php" role="php" />
        <file name="HmacSha1.php" role="php" />
        <file name="Plaintext.php" role="php" />
        <file name="RsaSha1.php" role="php" />
@@ -41,6 +40,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Consumer.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Request.php" role="php" />
+      <file name="SignatureMethod.php" role="php" />
       <file name="Token.php" role="php" />
       <file name="Utils.php" role="php" />
      </dir> <!-- /lib/Horde/Oauth -->

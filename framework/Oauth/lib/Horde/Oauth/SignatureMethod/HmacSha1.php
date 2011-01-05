@@ -16,7 +16,7 @@
  * @category Horde
  * @package  Horde_Oauth
  */
-class Horde_Oauth_SignatureMethod_HmacSha1 extends Horde_Oauth_SignatureMethod_Base
+class Horde_Oauth_SignatureMethod_HmacSha1 extends Horde_Oauth_SignatureMethod
 {
     public function getName()
     {
