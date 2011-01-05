@@ -149,8 +149,13 @@ if ($app == 'horde') {
                 if ($name = $registry->get('name', $val)) {
                     echo ' [' . $name . ']';
                 }
-                echo ': ' . $registry->getVersion($val) .
-                    ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
+                echo ': ' . $registry->getVersion($val);
+
+                if (file_exists($registry->get('fileroot', $val) . '/lib/Test.php')) {
+                    echo ' (<a href="' . $url->copy()->add('app', $val) . '">run tests</a>)</li>';
+                }
+
+                echo "\n";
             }
         } catch (Exception $e) {
             $init_exception = $e;
