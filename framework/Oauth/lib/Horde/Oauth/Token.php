@@ -47,5 +47,4 @@ class Horde_Oauth_Token
         parse_str($string, $parts);
         return new self($parts['oauth_token'], $parts['oauth_token_secret']);
     }
-
 }

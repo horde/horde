@@ -51,5 +51,4 @@ class Horde_Oauth_SignatureMethod_RsaSha1 extends Horde_Oauth_SignatureMethod_Ba
 
         return $result == 1;
     }
-
 }

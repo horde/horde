@@ -37,5 +37,4 @@ class Horde_Oauth_SignatureMethod_HmacSha1 extends Horde_Oauth_SignatureMethod_B
 
         return base64_encode(hash_hmac('sha1', $baseString, $key, true));
     }
-
 }

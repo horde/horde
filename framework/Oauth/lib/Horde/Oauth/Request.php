@@ -62,7 +62,7 @@ class Horde_Oauth_Request
         $this->_params['oauth_signature_method'] = $signatureMethod->getName();
         $this->_params['oauth_signature'] = $signatureMethod->sign($this, $consumer, $token);
 
-        return $this->_url . '?' . $this->buildHttpQuery();
+        return $this->_getNormalizedUrl() . '?' . $this->buildHttpQuery();
     }
 
     /**
@@ -74,8 +74,8 @@ class Horde_Oauth_Request
     public function getSignatureBaseString()
     {
         $parts = array(
-            $this->_method,
-            $this->_url,
+            $this->_getNormalizedHttpMethod(),
+            $this->_getNormalizedUrl(),
             $this->_getSignableParameters()
         );
 
@@ -94,6 +94,8 @@ class Horde_Oauth_Request
         return implode('&', $parts);
     }
 
+    /**
+     */
     public function buildAuthorizationHeader($realm = '')
     {
         $header = '';
@@ -166,4 +168,31 @@ class Horde_Oauth_Request
         return implode('&', $pairs);
     }
 
+    /**
+     * Uppercases the HTTP method
+     */
+    protected function _getNormalizedHttpMethod()
+    {
+        return strtoupper($this->_method);
+    }
+
+    /**
+     * Parse the url and rebuilds it to be scheme://host/path
+     */
+    protected function _getNormalizedUrl()
+    {
+        $parts = parse_url($this->_url);
+
+        $port = !empty($parts['port']) ? $parts['port'] : '80';
+        $scheme = $parts['scheme'];
+        $host = $parts['host'];
+        $path = !empty($parts['path']) ? $parts['path'] : '';
+
+        if (($scheme == 'https' && $port != '443') ||
+            ($scheme == 'http' && $port != '80')) {
+            $host = "$host:$port";
+        }
+
+        return "$scheme://$host$path";
+    }
 }

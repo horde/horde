@@ -37,5 +37,4 @@ class Horde_Oauth_SignatureMethod_Plaintext extends Horde_Oauth_SignatureMethod_
 
         return Horde_Oauth_Utils::urlencodeRfc3986(implode('&', $signature));
     }
-
 }

@@ -26,5 +26,4 @@ abstract class Horde_Oauth_SignatureMethod_Base
     {
         return $signature == $this->sign($request, $consumer, $token);
     }
-
 }

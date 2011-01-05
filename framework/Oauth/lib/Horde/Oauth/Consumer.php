@@ -123,5 +123,4 @@ class Horde_Oauth_Consumer
 
         return Horde_Oauth_Token::fromString($response->getBody());
     }
-
 }
