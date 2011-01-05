@@ -28,8 +28,8 @@ multiple folders, and multiple-language support.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-03</date>
- <time>09:15:43</time>
+ <date>2011-01-05</date>
+ <time>13:59:34</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -75,11 +75,11 @@ multiple folders, and multiple-language support.</description>
     <file name="flagprefs.js" role="horde" />
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
-    <file name="message-dimp.js" role="horde" />
     <file name="imp.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox-dimp.js" role="horde" />
     <file name="mailbox.js" role="horde" />
+    <file name="message-dimp.js" role="horde" />
     <file name="message.js" role="horde" />
     <file name="mobile.js" role="horde" />
     <file name="search.js" role="horde" />
@@ -108,12 +108,34 @@ multiple folders, and multiple-language support.</description>
      <file name="Pgp.php" role="horde" />
      <file name="Smime.php" role="horde" />
     </dir> <!-- /lib/Crypt -->
+    <dir name="Flag">
+     <dir name="Imap">
+      <file name="Answered.php" role="php" />
+      <file name="Deleted.php" role="php" />
+      <file name="Draft.php" role="php" />
+      <file name="Flagged.php" role="php" />
+      <file name="Forwarded.php" role="php" />
+      <file name="Seen.php" role="php" />
+     </dir> <!-- /lib/Flag/Imap -->
+     <dir name="System">
+      <file name="Attachment.php" role="php" />
+      <file name="Encrypted.php" role="php" />
+      <file name="HighPriority.php" role="php" />
+      <file name="LowPriority.php" role="php" />
+      <file name="Personal.php" role="php" />
+      <file name="Signed.php" role="php" />
+      <file name="Unseen.php" role="php" />
+     </dir> <!-- /lib/Flag/System -->
+     <file name="Base.php" role="php" />
+     <file name="Imap.php" role="php" />
+     <file name="System.php" role="php" />
+     <file name="User.php" role="php" />
+    </dir> <!-- /lib/Flag -->
     <dir name="Imap">
      <dir name="Tree">
       <file name="Element.php" role="horde" />
      </dir> <!-- /lib/Imap/Tree -->
      <file name="Acl.php" role="horde" />
-     <file name="Flags.php" role="horde" />
      <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
@@ -122,6 +144,7 @@ multiple folders, and multiple-language support.</description>
       <file name="AuthImap.php" role="horde" />
       <file name="Compose.php" role="horde" />
       <file name="Contents.php" role="horde" />
+      <file name="Flags.php" role="php" />
       <file name="Identity.php" role="horde" />
       <file name="Imap.php" role="horde" />
       <file name="Imaptree.php" role="horde" />
@@ -295,6 +318,7 @@ multiple folders, and multiple-language support.</description>
     <file name="Dimp.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
+    <file name="Flags.php" role="php" />
     <file name="Folder.php" role="horde" />
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
@@ -829,6 +853,7 @@ multiple folders, and multiple-language support.</description>
       <file name="forward.png" role="horde" />
       <file name="gallery.png" role="horde" />
       <file name="ham.png" role="horde" />
+      <file name="help.png" role="data" />
       <file name="ico_message_off.png" role="horde" />
       <file name="imp.png" role="horde" />
       <file name="info_icon.png" role="horde" />
@@ -961,6 +986,7 @@ multiple folders, and multiple-language support.</description>
       <file name="filters.png" role="horde" />
       <file name="forward.png" role="horde" />
       <file name="ham.png" role="horde" />
+      <file name="help.png" role="data" />
       <file name="imp.png" role="horde" />
       <file name="info_icon.png" role="horde" />
       <file name="locked.png" role="horde" />
@@ -1141,11 +1167,11 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/js/flagprefs.js" name="js/flagprefs.js" />
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
-   <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
+   <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/message.js" name="js/message.js" />
    <install as="imp/js/mobile.js" name="js/mobile.js" />
    <install as="imp/js/search.js" name="js/search.js" />
@@ -1161,6 +1187,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/lib/Dimp.php" name="lib/Dimp.php" />
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
+   <install as="Flags.php" name="lib/Flags.php" />
    <install as="imp/lib/Folder.php" name="lib/Folder.php" />
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
@@ -1182,14 +1209,31 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/lib/Compose/Stationery.php" name="lib/Compose/Stationery.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
+   <install as="Flag/Base.php" name="lib/Flag/Base.php" />
+   <install as="Flag/Imap.php" name="lib/Flag/Imap.php" />
+   <install as="Flag/System.php" name="lib/Flag/System.php" />
+   <install as="Flag/User.php" name="lib/Flag/User.php" />
+   <install as="Flag/Imap/Answered.php" name="lib/Flag/Imap/Answered.php" />
+   <install as="Flag/Imap/Deleted.php" name="lib/Flag/Imap/Deleted.php" />
+   <install as="Flag/Imap/Draft.php" name="lib/Flag/Imap/Draft.php" />
+   <install as="Flag/Imap/Flagged.php" name="lib/Flag/Imap/Flagged.php" />
+   <install as="Flag/Imap/Forwarded.php" name="lib/Flag/Imap/Forwarded.php" />
+   <install as="Flag/Imap/Seen.php" name="lib/Flag/Imap/Seen.php" />
+   <install as="Flag/System/Attachment.php" name="lib/Flag/System/Attachment.php" />
+   <install as="Flag/System/Encrypted.php" name="lib/Flag/System/Encrypted.php" />
+   <install as="Flag/System/HighPriority.php" name="lib/Flag/System/HighPriority.php" />
+   <install as="Flag/System/LowPriority.php" name="lib/Flag/System/LowPriority.php" />
+   <install as="Flag/System/Personal.php" name="lib/Flag/System/Personal.php" />
+   <install as="Flag/System/Signed.php" name="lib/Flag/System/Signed.php" />
+   <install as="Flag/System/Unseen.php" name="lib/Flag/System/Unseen.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
-   <install as="imp/lib/Imap/Flags.php" name="lib/Imap/Flags.php" />
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/Imap/Tree/Element.php" name="lib/Imap/Tree/Element.php" />
    <install as="imp/lib/Injector/Factory/AuthImap.php" name="lib/Injector/Factory/AuthImap.php" />
    <install as="imp/lib/Injector/Factory/Compose.php" name="lib/Injector/Factory/Compose.php" />
    <install as="imp/lib/Injector/Factory/Contents.php" name="lib/Injector/Factory/Contents.php" />
+   <install as="Injector/Factory/Flags.php" name="lib/Injector/Factory/Flags.php" />
    <install as="imp/lib/Injector/Factory/Identity.php" name="lib/Injector/Factory/Identity.php" />
    <install as="imp/lib/Injector/Factory/Imap.php" name="lib/Injector/Factory/Imap.php" />
    <install as="imp/lib/Injector/Factory/Imaptree.php" name="lib/Injector/Factory/Imaptree.php" />
@@ -1537,6 +1581,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/themes/default/graphics/forward.png" name="themes/default/graphics/forward.png" />
    <install as="imp/themes/default/graphics/gallery.png" name="themes/default/graphics/gallery.png" />
    <install as="imp/themes/default/graphics/ham.png" name="themes/default/graphics/ham.png" />
+   <install as="themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
    <install as="imp/themes/default/graphics/ico_message_off.png" name="themes/default/graphics/ico_message_off.png" />
    <install as="imp/themes/default/graphics/imp.png" name="themes/default/graphics/imp.png" />
    <install as="imp/themes/default/graphics/info_icon.png" name="themes/default/graphics/info_icon.png" />
@@ -1637,6 +1682,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/themes/silver/graphics/filters.png" name="themes/silver/graphics/filters.png" />
    <install as="imp/themes/silver/graphics/forward.png" name="themes/silver/graphics/forward.png" />
    <install as="imp/themes/silver/graphics/ham.png" name="themes/silver/graphics/ham.png" />
+   <install as="themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
    <install as="imp/themes/silver/graphics/imp.png" name="themes/silver/graphics/imp.png" />
    <install as="imp/themes/silver/graphics/info_icon.png" name="themes/silver/graphics/info_icon.png" />
    <install as="imp/themes/silver/graphics/locked.png" name="themes/silver/graphics/locked.png" />
@@ -1759,7 +1805,7 @@ multiple folders, and multiple-language support.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-03</date>
+   <date>2011-01-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.
