@@ -246,8 +246,6 @@ abstract class Horde_Share_Object implements Serializable
      * @param Horde_Perms_Permission $perm  Permission object.
      * @param boolean $update               Should the share be saved
      *                                      after this operation?
-     *
-     * @return boolean
      */
     abstract public function setPermission($perm, $update = true);
 

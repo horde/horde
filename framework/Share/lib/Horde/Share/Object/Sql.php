@@ -236,16 +236,13 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      * @param Horde_Perms_Permission $perm  Permission object.
      * @param boolean $update               Should the share be saved
      *                                      after this operation?
-     *
-     * @return boolean
      */
     public function setPermission($perm, $update = true)
     {
         $this->data['perm'] = $perm->getData();
         if ($update) {
-            return $this->save();
+            $this->save();
         }
-        return true;
     }
 
     /**
