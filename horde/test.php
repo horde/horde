@@ -97,7 +97,7 @@ if ($session && !$session->exists('horde', 'test_count')) {
 $test_templates = HORDE_TEMPLATES . '/test';
 
 /* Self URL. */
-$url = Horde::url('test.php');
+$url = Horde::url('test.php', false, array('app' => 'horde'));
 $self_url = $url->copy()->add('app', $app);
 
 /* Handle special modes. */
