@@ -166,16 +166,10 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                                      $attributes = null, $parent = null,
                                      $allLevels = true)
     {
-        static $criteria = array();
-
         if (is_object($parent)) {
             $parent_id = $parent->getId();
         } else {
             $parent_id = $parent;
-        }
-        $key = hash('sha1', serialize(array($userid, $perm, $parent_id, $allLevels, $attributes)));
-        if (isset($criteria[$key])) {
-            return $criteria[$key];
         }
 
         $query = ' FROM ' . $this->_table . ' s ';
@@ -264,17 +258,15 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             $where_parent = "(s.share_parents = '' OR s.share_parents IS NULL)";
         }
 
-        if (empty($where_parent)) {
-            $criteria[$key] = $query . (!empty($where) ? ' WHERE ' . $where : '');
-        } else {
-            if (!empty($where)) {
-                $criteria[$key] = $query . ' WHERE (' . $where . ') AND ' . $where_parent;
+        if (!empty($where_parent)) {
+            if (empty($where)) {
+                $where = $where_parent;
             } else {
-                $criteria[$key] = $query . ' WHERE ' . $where_parent;
+                $where = '(' . $where . ') AND ' . $where_parent;
             }
         }
 
-        return $criteria[$key];
+        return $query . ' WHERE ' . $where;
     }
 
     /**
