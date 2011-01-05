@@ -1187,7 +1187,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/lib/Dimp.php" name="lib/Dimp.php" />
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
-   <install as="Flags.php" name="lib/Flags.php" />
+   <install as="imp/lib/Flags.php" name="lib/Flags.php" />
    <install as="imp/lib/Folder.php" name="lib/Folder.php" />
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
@@ -1209,23 +1209,23 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/lib/Compose/Stationery.php" name="lib/Compose/Stationery.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
-   <install as="Flag/Base.php" name="lib/Flag/Base.php" />
-   <install as="Flag/Imap.php" name="lib/Flag/Imap.php" />
-   <install as="Flag/System.php" name="lib/Flag/System.php" />
-   <install as="Flag/User.php" name="lib/Flag/User.php" />
-   <install as="Flag/Imap/Answered.php" name="lib/Flag/Imap/Answered.php" />
-   <install as="Flag/Imap/Deleted.php" name="lib/Flag/Imap/Deleted.php" />
-   <install as="Flag/Imap/Draft.php" name="lib/Flag/Imap/Draft.php" />
-   <install as="Flag/Imap/Flagged.php" name="lib/Flag/Imap/Flagged.php" />
-   <install as="Flag/Imap/Forwarded.php" name="lib/Flag/Imap/Forwarded.php" />
-   <install as="Flag/Imap/Seen.php" name="lib/Flag/Imap/Seen.php" />
-   <install as="Flag/System/Attachment.php" name="lib/Flag/System/Attachment.php" />
-   <install as="Flag/System/Encrypted.php" name="lib/Flag/System/Encrypted.php" />
-   <install as="Flag/System/HighPriority.php" name="lib/Flag/System/HighPriority.php" />
-   <install as="Flag/System/LowPriority.php" name="lib/Flag/System/LowPriority.php" />
-   <install as="Flag/System/Personal.php" name="lib/Flag/System/Personal.php" />
-   <install as="Flag/System/Signed.php" name="lib/Flag/System/Signed.php" />
-   <install as="Flag/System/Unseen.php" name="lib/Flag/System/Unseen.php" />
+   <install as="imp/lib/Flag/Base.php" name="lib/Flag/Base.php" />
+   <install as="imp/lib/Flag/Imap.php" name="lib/Flag/Imap.php" />
+   <install as="imp/lib/Flag/System.php" name="lib/Flag/System.php" />
+   <install as="imp/lib/Flag/User.php" name="lib/Flag/User.php" />
+   <install as="imp/lib/Flag/Imap/Answered.php" name="lib/Flag/Imap/Answered.php" />
+   <install as="imp/lib/Flag/Imap/Deleted.php" name="lib/Flag/Imap/Deleted.php" />
+   <install as="imp/lib/Flag/Imap/Draft.php" name="lib/Flag/Imap/Draft.php" />
+   <install as="imp/lib/Flag/Imap/Flagged.php" name="lib/Flag/Imap/Flagged.php" />
+   <install as="imp/lib/Flag/Imap/Forwarded.php" name="lib/Flag/Imap/Forwarded.php" />
+   <install as="imp/lib/Flag/Imap/Seen.php" name="lib/Flag/Imap/Seen.php" />
+   <install as="imp/lib/Flag/System/Attachment.php" name="lib/Flag/System/Attachment.php" />
+   <install as="imp/lib/Flag/System/Encrypted.php" name="lib/Flag/System/Encrypted.php" />
+   <install as="imp/lib/Flag/System/HighPriority.php" name="lib/Flag/System/HighPriority.php" />
+   <install as="imp/lib/Flag/System/LowPriority.php" name="lib/Flag/System/LowPriority.php" />
+   <install as="imp/lib/Flag/System/Personal.php" name="lib/Flag/System/Personal.php" />
+   <install as="imp/lib/Flag/System/Signed.php" name="lib/Flag/System/Signed.php" />
+   <install as="imp/lib/Flag/System/Unseen.php" name="lib/Flag/System/Unseen.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
@@ -1233,7 +1233,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/lib/Injector/Factory/AuthImap.php" name="lib/Injector/Factory/AuthImap.php" />
    <install as="imp/lib/Injector/Factory/Compose.php" name="lib/Injector/Factory/Compose.php" />
    <install as="imp/lib/Injector/Factory/Contents.php" name="lib/Injector/Factory/Contents.php" />
-   <install as="Injector/Factory/Flags.php" name="lib/Injector/Factory/Flags.php" />
+   <install as="imp/lib/Injector/Factory/Flags.php" name="lib/Injector/Factory/Flags.php" />
    <install as="imp/lib/Injector/Factory/Identity.php" name="lib/Injector/Factory/Identity.php" />
    <install as="imp/lib/Injector/Factory/Imap.php" name="lib/Injector/Factory/Imap.php" />
    <install as="imp/lib/Injector/Factory/Imaptree.php" name="lib/Injector/Factory/Imaptree.php" />
@@ -1581,7 +1581,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/themes/default/graphics/forward.png" name="themes/default/graphics/forward.png" />
    <install as="imp/themes/default/graphics/gallery.png" name="themes/default/graphics/gallery.png" />
    <install as="imp/themes/default/graphics/ham.png" name="themes/default/graphics/ham.png" />
-   <install as="themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
+   <install as="imp/themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
    <install as="imp/themes/default/graphics/ico_message_off.png" name="themes/default/graphics/ico_message_off.png" />
    <install as="imp/themes/default/graphics/imp.png" name="themes/default/graphics/imp.png" />
    <install as="imp/themes/default/graphics/info_icon.png" name="themes/default/graphics/info_icon.png" />
@@ -1682,7 +1682,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/themes/silver/graphics/filters.png" name="themes/silver/graphics/filters.png" />
    <install as="imp/themes/silver/graphics/forward.png" name="themes/silver/graphics/forward.png" />
    <install as="imp/themes/silver/graphics/ham.png" name="themes/silver/graphics/ham.png" />
-   <install as="themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
+   <install as="imp/themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
    <install as="imp/themes/silver/graphics/imp.png" name="themes/silver/graphics/imp.png" />
    <install as="imp/themes/silver/graphics/info_icon.png" name="themes/silver/graphics/info_icon.png" />
    <install as="imp/themes/silver/graphics/locked.png" name="themes/silver/graphics/locked.png" />
