@@ -267,7 +267,7 @@ class Horde_Registry
      * Create a new Horde_Registry instance.
      *
      * @param integer $session_flags  Any session flags.
-     * @param string $cache_limiter   The cache limiter to use.
+     * @param array $args             See appInit().
      *
      * @throws Horde_Exception
      */
