@@ -42,7 +42,10 @@ if (!file_exists(dirname(__FILE__) . '/config/registry.php')) {
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 try {
-    Horde_Registry::appInit('horde', array('authentication' => 'none'));
+    Horde_Registry::appInit('horde', array(
+        'authentication' => 'none',
+        'test' => true
+    ));
     $init_exception = null;
 } catch (Exception $e) {
     define('HORDE_TEMPLATES', dirname(__FILE__) . '/templates');

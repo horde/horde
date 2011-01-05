@@ -71,6 +71,13 @@ class Horde_Registry
     protected $_apiList = array();
 
     /**
+     * The arguments that have been passed when instantiating the registry.
+     *
+     * @var array
+     */
+    protected $_args = array();
+
+    /**
      * Cached configuration information.
      *
      * @var array
@@ -104,13 +111,6 @@ class Horde_Registry
      * @var string
      */
     protected $_vhost = null;
-
-    /**
-     * The arguments that have been passed when instantiating the registry.
-     *
-     * @var array
-     */
-    protected $_args = array();
 
     /**
      * Application bootstrap initialization.
@@ -155,6 +155,9 @@ class Horde_Registry
      *   'none' - Do not start a session
      *   'readonly' - Start session readonly
      *   [DEFAULT] - Start read/write session
+     * 'test' - (boolean) Is this the test script? If so, we relax several
+     *          sanity checks and don't load things from the cache.
+     *          DEFAULT: false
      * 'timezone' - (boolean) Set the time zone?
      *              DEFAULT: false
      * 'user_admin' - (boolean) Set authentication to an admin user?
@@ -564,7 +567,8 @@ class Horde_Registry
             if (!isset($app['name'])) {
                 $app['name'] = '';
             } elseif (!file_exists($app['fileroot']) ||
-                      (file_exists($app['fileroot'] . '/config/conf.xml') &&
+                      (empty($this->_args['test']) &&
+                       file_exists($app['fileroot'] . '/config/conf.xml') &&
                        !file_exists($app['fileroot'] . '/config/conf.php'))) {
                 $app['status'] = 'inactive';
                 Horde::logMessage('Setting ' . $appName . ' inactive because the fileroot does not exist or the application is not configured yet.', 'DEBUG');
@@ -1582,7 +1586,8 @@ class Horde_Registry
      */
     protected function _loadCache($name)
     {
-        if ($id = $this->_getCacheId($name)) {
+        if (empty($this->_args['test']) &&
+            ($id = $this->_getCacheId($name))) {
             $result = $GLOBALS['injector']->getInstance('Horde_Cache')->get($id, 86400);
             if ($result !== false) {
                 Horde::logMessage(__CLASS__ . ': retrieved ' . $name . ' with cache ID ' . $id, 'DEBUG');
@@ -1622,6 +1627,10 @@ class Horde_Registry
      */
     protected function _saveCache($key, $data = null)
     {
+        if (!empty($this->_args['test'])) {
+            return;
+        }
+
         $ob = $GLOBALS['injector']->getInstance('Horde_Cache');
 
         if (is_null($data)) {
