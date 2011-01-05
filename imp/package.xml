@@ -110,26 +110,26 @@ multiple folders, and multiple-language support.</description>
     </dir> <!-- /lib/Crypt -->
     <dir name="Flag">
      <dir name="Imap">
-      <file name="Answered.php" role="php" />
-      <file name="Deleted.php" role="php" />
-      <file name="Draft.php" role="php" />
-      <file name="Flagged.php" role="php" />
-      <file name="Forwarded.php" role="php" />
-      <file name="Seen.php" role="php" />
+      <file name="Answered.php" role="horde" />
+      <file name="Deleted.php" role="horde" />
+      <file name="Draft.php" role="horde" />
+      <file name="Flagged.php" role="horde" />
+      <file name="Forwarded.php" role="horde" />
+      <file name="Seen.php" role="horde" />
      </dir> <!-- /lib/Flag/Imap -->
      <dir name="System">
-      <file name="Attachment.php" role="php" />
-      <file name="Encrypted.php" role="php" />
-      <file name="HighPriority.php" role="php" />
-      <file name="LowPriority.php" role="php" />
-      <file name="Personal.php" role="php" />
-      <file name="Signed.php" role="php" />
-      <file name="Unseen.php" role="php" />
+      <file name="Attachment.php" role="horde" />
+      <file name="Encrypted.php" role="horde" />
+      <file name="HighPriority.php" role="horde" />
+      <file name="LowPriority.php" role="horde" />
+      <file name="Personal.php" role="horde" />
+      <file name="Signed.php" role="horde" />
+      <file name="Unseen.php" role="horde" />
      </dir> <!-- /lib/Flag/System -->
-     <file name="Base.php" role="php" />
-     <file name="Imap.php" role="php" />
-     <file name="System.php" role="php" />
-     <file name="User.php" role="php" />
+     <file name="Base.php" role="horde" />
+     <file name="Imap.php" role="horde" />
+     <file name="System.php" role="horde" />
+     <file name="User.php" role="horde" />
     </dir> <!-- /lib/Flag -->
     <dir name="Imap">
      <dir name="Tree">
@@ -144,7 +144,7 @@ multiple folders, and multiple-language support.</description>
       <file name="AuthImap.php" role="horde" />
       <file name="Compose.php" role="horde" />
       <file name="Contents.php" role="horde" />
-      <file name="Flags.php" role="php" />
+      <file name="Flags.php" role="horde" />
       <file name="Identity.php" role="horde" />
       <file name="Imap.php" role="horde" />
       <file name="Imaptree.php" role="horde" />
@@ -318,7 +318,7 @@ multiple folders, and multiple-language support.</description>
     <file name="Dimp.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
-    <file name="Flags.php" role="php" />
+    <file name="Flags.php" role="horde" />
     <file name="Folder.php" role="horde" />
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
