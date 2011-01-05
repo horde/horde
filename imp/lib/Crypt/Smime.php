@@ -193,7 +193,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         $params = IMP::getAddressbookSearchParams();
 
         try {
-            $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
+            $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
         } catch (Horde_Exception $e) {
             /* See if the address points to the user's public key. */
             $identity = $GLOBALS['injector']->getInstance('IMP_Identity');

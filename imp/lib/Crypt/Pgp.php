@@ -214,7 +214,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $params = IMP::getAddressbookSearchParams();
         $result = null;
         try {
-            $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
+            $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
         } catch (Horde_Exception $e) {}
 
         if (is_null($result)) {
