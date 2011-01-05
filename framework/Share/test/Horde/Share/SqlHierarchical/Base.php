@@ -66,10 +66,12 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
 
     /**
      * @depends testPermissions
+     * @expectedException Horde_Share_Exception
+     * @expectedExceptionMessage Share names are not supported in this driver
      */
     public function testGetShare()
     {
-        $this->markTestSkipped('Not supported by hierarchical driver.');
+        parent::baseGetShare();
     }
 
     /**
@@ -120,6 +122,14 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
+    public function testListShares(array $shareids)
+    {
+        parent::baseListShares(array($shareids[0]->getId(), $shareids[1]->getId(), $shareids[2]->getId()));
+    }
+
+    /**
+     * @depends testPermissions
+     */
     public function testListSystemShares()
     {
         $this->markTestSkipped('Not supported by hierarchical driver.');
@@ -135,7 +145,6 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
 
     public static function setUpBeforeClass()
     {
-        //self::$db->setLogger(new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT)));
         $migration = new Horde_Db_Migration_Base(self::$db);
 
         $t = $migration->createTable('test_shares', array('primaryKey' => 'share_id'));

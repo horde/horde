@@ -100,6 +100,14 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
+    public function testListShares(array $shareids)
+    {
+        parent::baseListShares($shareids);
+    }
+
+    /**
+     * @depends testPermissions
+     */
     public function testListSystemShares()
     {
         parent::baseListSystemShares();
@@ -115,7 +123,6 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
 
     public static function setUpBeforeClass()
     {
-        //self::$db->setLogger(new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT)));
         $migration = new Horde_Db_Migration_Base(self::$db);
 
         $t = $migration->createTable('test_shares', array('primaryKey' => 'share_id'));
