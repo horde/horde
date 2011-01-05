@@ -145,7 +145,11 @@ if ($app == 'horde') {
             $app_list = array_diff($registry->listAllApps(), array($app));
             sort($app_list);
             foreach ($app_list as $val) {
-                echo '<li>' . ucfirst($val) . ' [' . $registry->get('name', $val) . ']: ' . $registry->getVersion($val) .
+                echo '<li>' . ucfirst($val);
+                if ($name = $registry->get('name', $val)) {
+                    echo ' [' . $name . ']';
+                }
+                echo ': ' . $registry->getVersion($val) .
                     ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
             }
         } catch (Exception $e) {
