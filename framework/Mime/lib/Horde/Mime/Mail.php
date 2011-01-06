@@ -51,6 +51,13 @@ class Horde_Mime_Mail
     protected $_recipients = array();
 
     /**
+     * Bcc recipients.
+     *
+     * @var string
+     */
+    protected $_bcc;
+
+    /**
      * All MIME parts except the main body part.
      *
      * @var array
@@ -156,17 +163,10 @@ class Horde_Mime_Mail
             $this->_headers->removeHeader($header);
         }
 
-        if ($lc_header !== 'bcc') {
+        if ($lc_header === 'bcc') {
+            $this->_bcc = $charset ? Horde_Mime::encodeAddress($value, $charset) : $value;
+        } else {
             $this->_headers->addHeader($header, $value, array('charset' => $charset));
-        }
-
-        if (in_array($lc_header, array('to', 'cc', 'bcc'))) {
-            if ($charset) {
-                $value = in_array($lc_header, $this->_headers->addressFields())
-                    ? Horde_Mime::encodeAddress($value, $charset)
-                    : Horde_Mime::encode($value, $charset);
-            }
-            return $this->addRecipients($value);
         }
     }
 
@@ -177,12 +177,10 @@ class Horde_Mime_Mail
      */
     public function removeHeader($header)
     {
-        $value = $this->_headers->getValue($header);
-        $this->_headers->removeHeader($header);
-        if (in_array(Horde_String::lower($header), array('to', 'cc', 'bcc'))) {
-            try {
-                $this->removeRecipients($value);
-            } catch (Horde_Mime_Exception $e) {}
+        if (Horde_String::lower($header) === 'bcc') {
+            unset($this->_bcc);
+        } else {
+            $this->_headers->removeHeader($header);
         }
     }
 
@@ -459,8 +457,25 @@ class Horde_Mime_Mail
             }
         }
 
+        /* Build recipients. */
+        $recipients = $this->_recipients;
+        foreach (array('to', 'cc') as $header) {
+            $value = $this->_headers->getValue($header, Horde_Mime_Headers::VALUE_BASE);
+            if (is_null($value)) {
+                continue;
+            }
+            $params = $this->_headers->getValue($header, Horde_Mime_Headers::VALUE_PARAMS);
+            if (!empty($params['charset'])) {
+                $value = Horde_Mime::encodeAddress($value, $params['charset']);
+            }
+            $recipients = array_merge($recipients, $this->_buildRecipients($value));
+        }
+        if ($this->_bcc) {
+            $recipients = array_merge($recipients, $this->_buildRecipients($this->_bcc));
+        }
+
         /* Send message. */
-        return $basepart->send(implode(', ', $this->_recipients),
+        return $basepart->send(implode(', ', $recipients),
                                $this->_headers, $mailer);
     }
 
