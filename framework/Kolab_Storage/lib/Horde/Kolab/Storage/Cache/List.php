@@ -97,7 +97,7 @@ class Horde_Kolab_Storage_Cache_List
     private function _load()
     {
         if ($this->_data === false) {
-            $this->_data = $this->_cache->loadListData($this->_list_id);
+            $this->_data = unserialize($this->_cache->loadListData($this->_list_id));
             if (!is_array($this->_data)) {
                 $this->_data = array();
             }
@@ -111,7 +111,7 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function save()
     {
-        $this->_cache->storeListData($this->_list_id, $this->_data);
+        $this->_cache->storeListData($this->_list_id, serialize($this->_data));
     }
 
     /**
