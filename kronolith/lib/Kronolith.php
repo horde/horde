@@ -1705,7 +1705,7 @@ class Kronolith
             $image = self::getImagePart('big_share.png');
             $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/share'));
             new Horde_View_Helper_Text($view);
-            $view->user = $identity->getName();
+            $view->identity = $identity;
             $view->calendar = $share->get('name');
             $view->imageId = $image->getContentId();
         }
@@ -2206,6 +2206,7 @@ class Kronolith
         $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
         $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/itip'));
         new Horde_View_Helper_Text($view);
+        $view->identity = $ident;
         $view->event = $event;
         $view->imageId = $image->getContentId();
 
