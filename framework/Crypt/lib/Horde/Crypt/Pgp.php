@@ -786,7 +786,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $pubkey = 'keytext=' . urlencode(rtrim($pubkey));
         $cmd = array(
             'Host: ' . $server . ':11371',
-            'User-Agent: Horde Application Framework 3.2',
+            'User-Agent: Horde Application Framework',
             'Content-Type: application/x-www-form-urlencoded',
             'Content-Length: ' . strlen($pubkey),
             'Connection: close',
