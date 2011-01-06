@@ -115,7 +115,7 @@ class Components_Pear_Package_Contents
 
         $this->_tasks->annotate($this->getPackage(), $taskfiles);
         // Workaround for [#9364] Components notices and fatal error
-        if ($this->getPackage()->_packageInfo['changelog'] == '') {
+        if (empty($this->getPackage()->_packageInfo['changelog'])) {
             unset($this->getPackage()->_packageInfo['changelog']);
         }
         $this->_filelist_factory->create($this->getPackage())->update();
