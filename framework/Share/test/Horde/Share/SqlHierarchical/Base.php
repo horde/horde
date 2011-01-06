@@ -254,6 +254,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
             $migration->dropTable('test_shares');
             $migration->dropTable('test_shares_groups');
             $migration->dropTable('test_shares_users');
+            self::$db = null;
         }
     }
 
