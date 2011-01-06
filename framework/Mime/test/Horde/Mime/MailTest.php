@@ -64,6 +64,11 @@ MIME-Version: 1.0',
             "This is\nthe body\n",
             $dummy->sentMessages[0]['body']
         );
+
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
+        );
     }
 
     public function testMethods()
@@ -100,6 +105,12 @@ MIME-Version: 1.0',
         $this->assertEquals(
             "This is\nthe body\n",
             $dummy->sentMessages[0]['body']
+        );
+
+        $this->assertEquals(
+            array('recipient@example.com',
+                  'invisible@example.com'),
+            $dummy->sentMessages[0]['recipients']
         );
     }
 
@@ -139,6 +150,12 @@ Content-Transfer-Encoding: quoted-printable',
         $this->assertEquals(
             "H=FCbsche Umlaute\n  und Leerzeichen.\n",
             $dummy->sentMessages[0]['body']
+        );
+
+        $this->assertEquals(
+            array('recipient@example.com',
+                  'peter@example.com'),
+            $dummy->sentMessages[0]['recipients']
         );
     }
 
@@ -213,6 +230,11 @@ bHRlciBEZWljaC4K
         } else {
             $this->markTestSkipped();
         }
+
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
+        );
     }
 
     public function addHtmlTest()
@@ -249,6 +271,11 @@ MIME-Version: 1.0',
             $dummy->sentMessages[0]['body']
         );
 
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
+        );
+
         $mail = new Horde_Mime_Mail(array(
             'Subject' => 'My Subject',
             'To' => 'recipient@example.com',
@@ -283,6 +310,11 @@ MIME-Version: 1.0',
         $this->assertEquals(
             "<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>",
             $dummy->sentMessages[0]['body']
+        );
+
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
         );
 
         $mail = new Horde_Mime_Mail(array(
@@ -338,6 +370,11 @@ Content-Description: HTML Version of Message
         } else {
             $this->markTestSkipped();
         }
+
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
+        );
     }
 
     public function testAddAttachment()
@@ -421,6 +458,11 @@ end
         } else {
             $this->markTestSkipped();
         }
+
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
+        );
     }
 
     public function testReusing()
@@ -443,6 +485,15 @@ end
         $hdrs2 = Horde_Mime_Headers::parseHeaders($dummy->sentMessages[1]['header_text']);
 
         $this->assertNotEquals($hdrs1->getValue('message-id'), $hdrs2->getValue('message-id'));
+
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
+        );
+        $this->assertEquals(
+            array('recipient2@example.com'),
+            $dummy->sentMessages[1]['recipients']
+        );
     }
 
     public function testFlowedText()
@@ -484,6 +535,11 @@ id est laborum.
 ',
             $dummy->sentMessages[0]['body']
         );
+
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
+        );
     }
 
     public function testEmptyBody()
@@ -502,6 +558,10 @@ id est laborum.
             "\n",
             $dummy->sentMessages[0]['body']
         );
-    }
 
+        $this->assertEquals(
+            array('recipient@example.com'),
+            $dummy->sentMessages[0]['recipients']
+        );
+    }
 }
