@@ -1,0 +1,269 @@
+Kolab_Storage structure and API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Introduction
+============
+
+Kolab_Storage is a PHP library that provides access to the user data
+stored in a Kolab Server backend. The data is usually accessed via
+IMAP which is not cheap. Hence the primary purpose of the library is
+to reduce the IMAP traffic to a minimal amount. This is achieved by
+caching the parsed Kolab groupware data after retrieving it from the
+IMAP account and only updating the cache incrementally whenever
+possible.
+
+
+Core Elements
+=============
+
+The library divides the data access into three conceptual elements:
+
+ - The "List"
+ - The "Folder"
+ - The "Data"
+
+
+1. Rationale
+
+First and foremost this structure intends to provide simple Kolab data
+access for the developer using the API. In addition this structure
+does at least to some degree follow structures that one would choose
+when representing the data available in the Kolab server backend in a
+relational database. But it also reflects specific constraints imposed
+by the IMAP protocol.
+
+The following sections will - among other things
+- try to highlight the reasons for the specific boundaries between the
+different elements.
+
+
+2. Querying
+
+Each of the elements mentioned above is able to handle a defined set
+of data. While handling this information efficiently is important it
+is often even more important to allow quick access ("queries") into
+the data set. How these queries are made quick is left to the
+implementation but the library strives to clearly separate data
+management and querying the data to allow optimizing both
+independantly.
+
+Wherever applicable the following sections will also highlight the
+most common queries.
+
+
+3. Caching
+
+It was initially mentioned that caching is a central aspect of the
+library. It is however equally important to point out that caching is
+totally irrelevant to the API itself. The three elements mentioned
+above always provide the same set of functions to the
+consumer. Whether the data access is cached in between or not. This
+design choice allows invisible changes to the actual caching technique
+up to a complete swapping of different caching approaches. There are
+other benefits as well when it comes to logging and time series
+measurements.
+
+The following sections will - if applicable - indicate what needs to
+be done on the IMAP level in order to synchronize the server backend
+with the cache. This will focus on keeping the IMAP traffic to a
+minimum.
+
+
+"List"
+------
+
+The list handler is concerned with the IMAP folder list visible for a
+user. It is handles folder names, types, and ownership. While folders
+typically have many other attributes only this small selection has
+been chosen to be dealt with by the list handler.
+
+The primary reason for this is the fact that folder names and folder
+types can each be listed using just a single IMAP
+statement. Additional folder attributes often need to be read using an
+IMAP statment *per folder*. In addition the other attributes are less
+frequently used. Folder attributes not represented by the "List" are
+represented by the "Folder" element.
+
+
+1. Data
+
+The managed data consists only of the folder names and the folder type
+annotation ('/shared/vendor/kolab/folder-type'). There are several
+additional information that can be derived from these basic
+attributes:
+
+ - Namespace of the folder ('personal', 'other', 'shared')
+ - Owner of the folder (self, other user, or anonymous)
+ - Folder type ('event', 'task', 'note', 'contact', 'journal', ...)
+ - Default setting (e.g. the "default" calendar of a user)
+
+These are however a topic for the queries based on the list.
+
+For information about namespace/ownership handling you should refer to
+the "Folder Namespace" section within "Other Elements" below.
+
+Core methods of the list handler:
+
+    /**
+     * Returns the list of folders visible to the current user.
+     *
+     * @return array The list of folders, represented as strings.
+     */
+    public function listFolders();
+
+    /**
+     * Returns the folder type annotation as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               folder type as values.
+     */
+    public function listFolderTypes();
+
+
+2. Queries
+
+A number of relevant queries can be based on this relatively small dataset:
+
+ - List all folders with their folder type
+ - List all folders of a specified folder type
+ - Identify the default folder of a specific folder type
+ - Identify the default folder of another user (again given a specific folder type)
+
+Core methods of the basic list query:
+
+    /**
+     * Returns the folder types as associative array.
+     *
+     * @return array The list folder types with the folder names as key and the
+     *               type as values.
+     */
+    public function listTypes();
+
+    /**
+     * List all folders of a specific type.
+     *
+     * @param string $type The folder type the listing should be limited to.
+     *
+     * @return array The list of folders.
+     */
+    public function listByType($type);
+
+    /**
+     * Get the default folder for a certain type.
+     *
+     * @param string $type The type of the share/folder.
+     *
+     * @return string|boolean The name of the default folder, false if there is no default.
+     */
+    public function getDefault($type);
+
+    /**
+     * Get the default folder for a certain type from a different owner.
+     *
+     * @param string $owner The folder owner.
+     * @param string $type  The type of the share/folder.
+     *
+     * @return string|boolean The name of the default folder, false if there is no default.
+     */
+    public function getForeignDefault($owner, $type);
+
+
+3. Synchronization
+
+In order to synchronize the cache with the server backend two IMAP commands are needed:
+
+ A0002 LIST "" "*"
+ A0003 GETANNOTATION "*" ("/vendor/kolab/folder-type") ("value.shared")
+
+The second command is not required in case the folder list did not
+change at all. If only one or very few folders changed in the folder
+list it might make sense to call "GETANNOTATION" per folder. This
+could be quicker if the user has access to many folders. 
+
+
+4. Remarks
+
+ i.  The Kolab specific patch to the c-client library that implements
+     the "GETANNOTATION" command is unable to deal with the return
+     value of a 'GETANNOTATION "*"' call. Thus it is forced to deal
+     with the folder type annotation one by one. This introduces
+     significant problems when a user has many folders. At the current
+     state the PHP IMAP extension cannot be recommend for such
+     situations. None of the other supported IMAP drivers have this
+     specific problem. They all support a multi-folder response.
+
+ ii. Currently the folder STATUS is also checked on a per-folder
+     basis. One might consider doing this for the complete folder list
+     as well. This is however not supported by the Kolab server at the
+     moment. And the number of folders checked for their status should
+     also always be significantly smaller than the complete folder
+     list.
+
+
+"Folder"
+--------
+
+TBD
+
+
+"Data"
+------
+
+TBD
+
+
+Other Elements
+==============
+
+The Kolab_Storage library also provides a number of supporting
+elements that are less visible within the API. Some of them should be
+mentioned though to highlight important features of the library.
+
+
+Driver
+------
+
+Currently there are five backend drivers available. Nearly all of them
+are IMAP based. In theory it would be possible to provide drivers that
+use alternative means to read and write the groupware data. One could
+imagine a file based driver that could be used for test purposes. So
+far the need for such experiments has not arisen though.
+
+The currently supported drivers:
+
+ - "Cclient":
+
+   based on the PHP IMAP extension (which uses the c-client library)
+
+ - "Imap":
+
+   based on the Horde_Imap_Client library (a pure PHP implementation
+   for IMAP access)
+
+ - "Rcube":
+
+   based on the roundcube IMAP library (a pure PHP implementation for
+   IMAP access)
+
+ - "Pear":
+
+   based on the PEAR-Net_IMAP library (a pure PHP implementation for
+   IMAP access)
+
+ - "Mock":
+
+   a mock implementation that handles the data access purely in
+   memory. This is being used for testing purposes.
+
+
+Folder Namespace
+----------------
+
+The newer variants of the Kolab_Storage library are capable of using
+the IMAP namespace information provided by servers with the NAMESPACE
+capability.
+
+Older versions were using hardcoded namespace information and strings
+such as "INBOX", "user/", "shared." were directly used in the
+code. While this works fine for the Kolab server it is hardly portable
+to many other IMAP setups.
