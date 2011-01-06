@@ -122,6 +122,20 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testCacheDecoration()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Decorator_Cache',
+            $factory->createFromParams(
+                array(
+                    'driver' => 'mock',
+                    'cache' => array('')
+                )
+            )
+        );
+    }
+
     public function testTimerDecoration()
     {
         $factory = new Horde_Kolab_Storage_Factory();
@@ -215,6 +229,23 @@ extends Horde_Kolab_Storage_TestCase
                 'Horde_Kolab_Storage_Stub_FactoryQuery',
                 $list
             )
+        );
+    }
+
+    public function testCacheInstance()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Cache', $factory->createCache($cache)
+        );
+    }
+
+    public function testCacheFilebased()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Cache', $factory->createCache(array())
         );
     }
 }

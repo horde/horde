@@ -67,6 +67,13 @@ class Horde_Kolab_Storage_Factory
             $this->createDriverFromParams($params),
             $this
         );
+        if (!empty($params['cache'])) {
+            $storage = new Horde_Kolab_Storage_Decorator_Cache(
+                $storage,
+                $this->createCache($params['cache']),
+                $this
+            );
+        }
         if (!empty($params['logger'])) {
             $storage = new Horde_Kolab_Storage_Decorator_Log(
                 $storage, $params['logger']
@@ -261,5 +268,29 @@ class Horde_Kolab_Storage_Factory
            $this->_folder_types[$annotation] = new Horde_Kolab_Storage_Folder_Type($annotation);
         }
         return $this->_folder_types[$annotation];
+    }
+
+    /**
+     * Create the cache handler.
+     *
+     * @param mixed $params The cache configuration or a Horde cache object
+     *
+     * @return Horde_Kolab_Storage_Cache The cache handler.
+     */
+    public function createCache($params)
+    {
+        if ($params instanceOf Horde_Cache) {
+            return new Horde_Kolab_Storage_Cache($params);
+        } else {
+            $cache = new Horde_Cache(
+                new Horde_Cache_Storage_File(
+                    $params
+                ),
+                array('lifetime' => 0)
+            );
+        }
+        return new Horde_Kolab_Storage_Cache(
+            $cache
+        );
     }
 }
