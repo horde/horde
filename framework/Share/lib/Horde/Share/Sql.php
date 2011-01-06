@@ -572,11 +572,8 @@ class Horde_Share_Sql extends Horde_Share_Base
     }
 
     /**
-     * Returns an array of criteria for querying shares.
-     * @access protected
+     * Returns a criteria statement for querying shares.
      *
-     * @TODO: Horde_SQL:: stuff should be refactored/removed when it's ported
-     *        to Horde_Db
      * @param string  $userid      The userid of the user to check access for.
      * @param integer $perm        The level of permissions required.
      * @param mixed   $attributes  Restrict the shares returned to those who
@@ -587,10 +584,49 @@ class Horde_Share_Sql extends Horde_Share_Base
     public function getShareCriteria($userid, $perm = Horde_Perms::SHOW,
                                      $attributes = null)
     {
-        $query = ' FROM ' . $this->_table . ' s ';
-        $where = '';
+        list($query, $where) = $this->_getUserAndGroupCriteria($userid, $perm);
+        $query = ' FROM ' . $this->_table . ' s ' . $query;
 
-        if (!empty($userid)) {
+        /* Convert to driver's keys */
+        $attributes = $this->_toDriverKeys($attributes);
+
+        /* ...and to driver charset */
+        $attributes = $this->toDriverCharset($attributes);
+
+        if (is_array($attributes)) {
+            // Build attribute/key filter.
+            $where = ' (' . $where . ') ';
+            foreach ($attributes as $key => $value) {
+                $where .= ' AND ' . $key . ' = ' . $this->_db->quote($value);
+            }
+        } elseif (!empty($attributes)) {
+            // Restrict to shares owned by the user specified in the
+            // $attributes string.
+            $where = ' (' . $where . ') AND s.share_owner = ' . $this->_db->quote($attributes);
+        }
+
+        return $query . ' WHERE ' . $where;
+    }
+
+    /**
+     * Returns criteria statement fragments for querying shares.
+     *
+     * @todo: Horde_SQL:: stuff should be refactored/removed when it's ported
+     *        to Horde_Db
+     *
+     * @param string  $userid  The userid of the user to check access for.
+     * @param integer $perm    The level of permissions required.
+     *
+     * @return array  An array with query and where string fragments.
+     */
+    protected function _getUserAndGroupCriteria($userid,
+                                                $perm = Horde_Perms::SHOW)
+    {
+        $query = $where = '';
+
+        if (empty($userid)) {
+            $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';
+        } else {
             // (owner == $userid)
             $where .= 's.share_owner = ' . $this->_db->quote($userid);
 
@@ -622,26 +658,9 @@ class Horde_Share_Sql extends Horde_Share_Base
             } catch (Horde_Group_Exception $e) {
                 $this->_logger->err($e);
             }
-        } else {
-            $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';
         }
 
-        $attributes = $this->_toDriverKeys($attributes);
-        $attributes = $this->toDriverCharset($attributes);
-
-        if (is_array($attributes)) {
-            // Build attribute/key filter.
-            $where = ' (' . $where . ') ';
-            foreach ($attributes as $key => $value) {
-                $where .= ' AND ' . $key . ' = ' . $this->_db->quote($value);
-            }
-        } elseif (!empty($attributes)) {
-            // Restrict to shares owned by the user specified in the
-            // $attributes string.
-            $where = ' (' . $where . ') AND s.share_owner = ' . $this->_db->quote($attributes);
-        }
-
-        return $query . ' WHERE ' . $where;
+        return array($query, $where);
     }
 
     /**
