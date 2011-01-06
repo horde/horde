@@ -198,7 +198,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function quoteString($string)
     {
-        return "'".str_replace(array('\\', '\''), array('\\\\', '\\\''), $string)."'";
+        return "'" . str_replace(array('\\', '\''), array('\\\\', '\\\''), $string) . "'";
     }
 
     /**
@@ -466,10 +466,11 @@ abstract class Horde_Db_Adapter_Base_Schema
         $temp = !empty($options['temporary']) ? 'TEMPORARY'           : null;
         $opts = !empty($options['options'])   ? $options['options']   : null;
 
-        $sql  = "CREATE $temp TABLE ".$this->quoteTableName($tableDefinition->getName())." (\n".
-                  $tableDefinition->toSql()."\n".
-                ") $opts";
-
+        $sql  = sprintf("CREATE %s TABLE %s (\n%s\n) %s",
+                        $temp,
+                        $this->quoteTableName($tableDefinition->getName()),
+                        $tableDefinition->toSql(),
+                        $opts);
         return $this->execute($sql);
     }
 
@@ -512,9 +513,10 @@ abstract class Horde_Db_Adapter_Base_Schema
         $scale     = isset($options['scale'])     ? $options['scale']     : null;
         $unsigned  = isset($options['unsigned'])  ? $options['unsigned']  : null;
 
-        $sql = 'ALTER TABLE ' . $this->quoteTableName($tableName) .
-            ' ADD '.$this->quoteColumnName($columnName) .
-            ' '.$this->typeToSql($type, $limit, $precision, $scale, $unsigned);
+        $sql = sprintf('ALTER TABLE %s ADD %s %s',
+                       $this->quoteTableName($tableName),
+                       $this->quoteColumnName($columnName),
+                       $this->typeToSql($type, $limit, $precision, $scale, $unsigned));
         $sql = $this->addColumnOptions($sql, $options);
         return $this->execute($sql);
     }
@@ -531,7 +533,9 @@ abstract class Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        $sql = 'ALTER TABLE ' . $this->quoteTableName($tableName).' DROP '.$this->quoteColumnName($columnName);
+        $sql = sprintf('ALTER TABLE %s DROP %s',
+                       $this->quoteTableName($tableName),
+                       $this->quoteColumnName($columnName));
         return $this->execute($sql);
     }
 
@@ -547,7 +551,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      * @param   string  $type
      * @param   array   $options
      */
-    abstract public function changeColumn($tableName, $columnName, $type, $options=array());
+    abstract public function changeColumn($tableName, $columnName, $type, $options = array());
 
     /**
      * Sets a new default value for a column.  If you want to set the default
@@ -615,15 +619,18 @@ abstract class Horde_Db_Adapter_Base_Schema
         $columnNames = (array)($columnName);
         $indexName = $this->indexName($tableName, array('column' => $columnNames));
 
-        $indexType = !empty($options['unique']) ? "UNIQUE"         : null;
+        $indexType = !empty($options['unique']) ? 'UNIQUE'         : null;
         $indexName = !empty($options['name'])   ? $options['name'] : $indexName;
 
         foreach ($columnNames as $colName) {
             $quotedCols[] = $this->quoteColumnName($colName);
         }
         $quotedColumnNames = implode(', ', $quotedCols);
-        $sql = "CREATE $indexType INDEX ".$this->quoteColumnName($indexName).
-            'ON '.$this->quoteTableName($tableName) . " ($quotedColumnNames)";
+        $sql = sprintf('CREATE %s INDEX %s ON %s (%s)',
+                       $indexType,
+                       $this->quoteColumnName($indexName),
+                       $this->quoteTableName($tableName),
+                       $quotedColumnNames);
         return $this->execute($sql);
     }
 
@@ -649,7 +656,9 @@ abstract class Horde_Db_Adapter_Base_Schema
         $this->_clearTableCache($tableName);
 
         $index = $this->indexName($tableName, $options);
-        $sql = "DROP INDEX ".$this->quoteColumnName($index).' ON ' . $this->quoteTableName($tableName);
+        $sql = sprintf('DROP INDEX %s ON %s',
+                       $this->quoteColumnName($index),
+                       $this->quoteTableName($tableName));
         return $this->execute($sql);
     }
 
@@ -719,7 +728,9 @@ abstract class Horde_Db_Adapter_Base_Schema
     {
         $natives = $this->nativeDatabaseTypes();
         $native = isset($natives[$type]) ? $natives[$type] : null;
-        if (empty($native)) { return $type; }
+        if (empty($native)) {
+            return $type;
+        }
 
         $sql = is_array($native) ? $native['name'] : $native;
         if ($type == 'decimal') {
@@ -766,7 +777,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         if (isset($options['default'])) {
             $default = $options['default'];
             $column  = isset($options['column'])  ? $options['column']  : null;
-            $sql .= ' DEFAULT '.$this->quote($default, $column);
+            $sql .= ' DEFAULT ' . $this->quote($default, $column);
         }
 
         return $sql;
@@ -784,7 +795,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function distinct($columns, $orderBy=null)
     {
-        return "DISTINCT $columns";
+        return 'DISTINCT ' . $columns;
     }
 
     /**
@@ -797,7 +808,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function addOrderByForAssocLimiting($sql, $options)
     {
-        return $sql.'ORDER BY '.$options['order'];
+        return $sql . 'ORDER BY ' . $options['order'];
     }
 
 
@@ -810,7 +821,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     protected function _clearTableCache($tableName)
     {
-        $this->_cache->set("tables/columns/$tableName", '');
-        $this->_cache->set("tables/indexes/$tableName", '');
+        $this->_cache->set('tables/columns/' . $tableName, '');
+        $this->_cache->set('tables/indexes/' . $tableName, '');
     }
 }

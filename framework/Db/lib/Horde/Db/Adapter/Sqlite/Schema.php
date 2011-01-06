@@ -204,8 +204,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     public function renameTable($name, $newName)
     {
         $this->_clearTableCache($name);
-
-        return $this->execute('ALTER TABLE ' . $this->quoteTableName($name) . ' RENAME TO ' . $this->quoteTableName($newName));
+        $sql = sprintf('ALTER TABLE %s RENAME TO %s',
+                       $this->quoteTableName($name),
+                       $this->quoteTableName($newName));
+        return $this->execute($sql);
     }
 
     /**
@@ -244,7 +246,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         $this->_clearTableCache($tableName);
 
         return $this->_alterTable($tableName, array(),
-            create_function('$definition', 'unset($definition["'.$columnName.'"]);'));
+            create_function('$definition', 'unset($definition["' . $columnName . '"]);'));
     }
 
     /**
@@ -257,11 +259,19 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        $defs = array('$definition["'.$columnName.'"]->setType("'.$type.'");');
-        if (isset($options['limit'])) { $defs[] = '$definition["'.$columnName.'"]->setLimit("'.$options['limit'].'");'; }
-        if (isset($options['null'])) { $defs[] = '$definition["'.$columnName.'"]->setNull("'.$options['null'].'");'; }
-        if (isset($options['precision'])) { $defs[] = '$definition["'.$columnName.'"]->setPrecision("'.$options['precision'].'");'; }
-        if (isset($options['scale'])) { $defs[] = '$definition["'.$columnName.'"]->setScale("'.$options['scale'].'");'; }
+        $defs = array(sprintf('$definition["%s"]->setType("%s");', $columnName, $type));
+        if (isset($options['limit'])) {
+            $defs[] = sprintf('$definition["%s"]->setLimit("%s");', $columnName, $options['limit']);
+        }
+        if (isset($options['null'])) {
+            $defs[] = sprintf('$definition["%s"]->setNull("%s");', $columnName, $options['null']);
+        }
+        if (isset($options['precision'])) {
+            $defs[] = sprintf('$definition["%s"]->setPrecision("%s");', $columnName, $options['precision']);
+        }
+        if (isset($options['scale'])) {
+            $defs[] = sprintf('$definition["%s"]->setScale("%s");', $columnName, $options['scale']);
+        }
 
         if (array_key_exists('default', $options)) {
             if ($options['default'] === true) {
@@ -273,7 +283,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             } else {
                 $default = '"' . $options['default'] . '"';
             }
-            $defs[] = '$definition["'.$columnName.'"]->setDefault('.$default.');'; }
+            $defs[] = sprintf('$definition["%s"]->setDefault(%s);', $columnName, $default);
+        }
 
         return $this->_alterTable($tableName, array(),
             create_function('$definition', implode("\n", $defs)));
@@ -290,7 +301,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
         $default = is_null($default) ? 'null' : '"' . $default . '"';
         return $this->_alterTable($tableName, array(),
-            create_function('$definition', '$definition["'.$columnName.'"]->setDefault('.$default.');'));
+                                  create_function('$definition', sprintf('$definition["%s"]->setDefault(%s);', $columnName, $default)));
     }
 
     /**
@@ -327,7 +338,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         $this->_clearTableCache($tableName);
 
         $index = $this->indexName($tableName, $options);
-        $sql = 'DROP INDEX '.$this->quoteColumnName($index);
+        $sql = 'DROP INDEX ' . $this->quoteColumnName($index);
         return $this->execute($sql);
     }
 
@@ -349,7 +360,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->beginDbTransaction();
 
-        $alteredTableName = "altered_$tableName";
+        $alteredTableName = 'altered_' . $tableName;
         $this->_moveTable($tableName, $alteredTableName, array_merge($options, array('temporary' => true)));
         $this->_moveTable($alteredTableName, $tableName, array(), $callback);
 
@@ -371,7 +382,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
         $definition = $this->createTable($to, $options);
         foreach ($fromColumns as $column) {
-            $columnName = isset($options['rename'][$column->getName()]) ? $options['rename'][$column->getName()] : $column->getName();
+            $columnName = isset($options['rename'][$column->getName()])
+                ? $options['rename'][$column->getName()]
+                : $column->getName();
 
             $definition->column($columnName, $column->getType(), array(
                 'limit' => $column->getLimit(),
@@ -380,7 +393,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         $primaryKey = $this->primaryKey($from);
-        if ($primaryKey) { $definition->primaryKey($primaryKey); }
+        if ($primaryKey) {
+            $definition->primaryKey($primaryKey);
+        }
 
         if (is_callable($callback)) {
             call_user_func($callback, $definition);
@@ -403,9 +418,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
         foreach ($this->indexes($from) as $index) {
             $name = $index->getName();
-            if ($to == "altered_$from") {
-                $name = "temp_$name";
-            } elseif ($from == "altered_$to") {
+            if ($to == 'altered_' . $from) {
+                $name = 'temp_' . $name;
+            } elseif ($from == 'altered_' . $to) {
                 $name = substr($name, 5);
             }
 
@@ -421,8 +436,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
             if (!empty($columns)) {
                 // Index name can't be the same
-                $opts = array('name' => str_replace("_$from_", "_$to_", $name));
-                if ($index->unique) { $opts['unique'] = true; }
+                $opts = array('name' => str_replace('_' . $from . '_', '_' . $to . '_', $name));
+                if ($index->unique) {
+                    $opts['unique'] = true;
+                }
                 $this->addIndex($to, $columns, $opts);
             }
         }
@@ -460,6 +477,11 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         $quotedFrom = $this->quoteTableName($from);
         $quotedFromColumns = implode(', ', array_map(array($this, 'quoteColumnName'), $fromColumns));
 
-        $this->execute("INSERT INTO $quotedTo ($quotedToColumns) SELECT $quotedFromColumns FROM $quotedFrom");
+        $sql = sprintf('INSERT INTO %s (%s) SELECT %s FROM %s',
+                       $quotedTo,
+                       $quotedToColumns,
+                       $quotedFromColumns,
+                       $quotedFrom);
+        $this->execute($sql);
     }
 }

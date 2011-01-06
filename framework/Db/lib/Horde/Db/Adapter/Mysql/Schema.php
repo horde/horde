@@ -227,7 +227,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $opts = 'ENGINE=InnoDB';
         if (!empty($options['charset'])) {
-            $opts .=' DEFAULT CHARSET=' . $options['charset'];
+            $opts .= ' DEFAULT CHARSET=' . $options['charset'];
         }
         return parent::endTable($name, array_merge(array('options' => $opts), $options));
     }
@@ -239,8 +239,10 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     public function renameTable($name, $newName)
     {
         $this->_clearTableCache($name);
-
-        return $this->execute('ALTER TABLE '.$this->quoteTableName($name).' RENAME '.$this->quoteTableName($newName));
+        $sql = sprintf('ALTER TABLE %s RENAME %s',
+                       $this->quoteTableName($name),
+                       $this->quoteTableName($newName));
+        return $this->execute($sql);
     }
 
     /**
@@ -255,13 +257,19 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $quotedTableName = $this->quoteTableName($tableName);
         $quotedColumnName = $this->quoteColumnName($columnName);
 
-        $sql = "SHOW COLUMNS FROM $quotedTableName LIKE ".$this->quoteString($columnName);
+        $sql = sprintf('SHOW COLUMNS FROM %s LIKE %s',
+                       $quotedTableName,
+                       $this->quoteString($columnName));
         $res = $this->selectOne($sql);
         $currentType = $res['Type'];
 
         $default = $this->quote($default);
-        $sql = "ALTER TABLE $quotedTableName CHANGE $quotedColumnName $quotedColumnName
-                $currentType DEFAULT $default";
+        $sql = sprintf('ALTER TABLE %s CHANGE %s %s %s DEFAULT %s',
+                       $quotedTableName,
+                       $quotedColumnName,
+                       $quotedColumnName,
+                       $currentType,
+                       $default);
         return $this->execute($sql);
     }
 
@@ -279,7 +287,10 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $quotedColumnName = $this->quoteColumnName($columnName);
 
         if (!array_key_exists('default', $options)) {
-            $row = $this->selectOne("SHOW COLUMNS FROM $quotedTableName LIKE ".$this->quoteString($columnName));
+            $sql = sprintf('SHOW COLUMNS FROM %s LIKE %s',
+                           $quotedTableName,
+                           $this->quoteString($columnName));
+            $row = $this->selectOne($sql);
             $options['default'] = $row['Default'];
         }
 
@@ -290,7 +301,11 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
 
         $typeSql = $this->typeToSql($type, $limit, $precision, $scale, $unsigned);
 
-        $sql = "ALTER TABLE $quotedTableName CHANGE $quotedColumnName $quotedColumnName $typeSql";
+        $sql = sprintf('ALTER TABLE %s CHANGE %s %s %s',
+                       $quotedTableName,
+                       $quotedColumnName,
+                       $quotedColumnName,
+                       $typeSql);
         $sql = $this->addColumnOptions($sql, $options);
         $this->execute($sql);
     }
@@ -307,14 +322,17 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $quotedTableName = $this->quoteTableName($tableName);
         $quotedColumnName = $this->quoteColumnName($columnName);
 
-        $sql = "SHOW COLUMNS FROM $quotedTableName LIKE ".$this->quoteString($columnName);
+        $sql = sprintf('SHOW COLUMNS FROM %s LIKE %s',
+                       $quotedTableName,
+                       $this->quoteString($columnName));
         $res = $this->selectOne($sql);
-        $currentType = $res["Type"];
+        $currentType = $res['Type'];
 
-        $sql = "ALTER TABLE $quotedTableName CHANGE ".
-                $quotedColumnName.' '.
-                $this->quoteColumnName($newColumnName)." ".
-                $currentType;
+        $sql = sprintf('ALTER TABLE %s CHANGE %s %s %s',
+                       $quotedTableName,
+                       $quotedColumnName,
+                       $this->quoteColumnName($newColumnName),
+                       $currentType);
         return $this->execute($sql);
     }
 
@@ -341,7 +359,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function showVariable($name)
     {
-        $value = $this->selectOne('SHOW VARIABLES LIKE '.$this->quoteString($name));
+        $value = $this->selectOne('SHOW VARIABLES LIKE ' . $this->quoteString($name));
         if ($value['Variable_name'] == $name) {
             return $value['Value'];
         } else {
@@ -376,7 +394,9 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         if ($type == 'integer' && !empty($unsigned) && empty($limit)) {
             $natives = $this->nativeDatabaseTypes();
             $native = isset($natives[$type]) ? $natives[$type] : null;
-            if (empty($native)) { return $type; }
+            if (empty($native)) {
+                return $type;
+            }
 
             $nativeLimit = is_array($native) ? $native['limit'] : null;
             if (is_integer($nativeLimit)) {
@@ -404,12 +424,11 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $sql = parent::addColumnOptions($sql, $options);
         if (isset($options['after'])) {
-            $sql .= " AFTER ".$this->quoteColumnName($options['after']);
+            $sql .= ' AFTER ' . $this->quoteColumnName($options['after']);
         }
         if (!empty($options['autoincrement'])) {
             $sql .= ' AUTO_INCREMENT';
         }
         return $sql;
     }
-
 }
