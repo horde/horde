@@ -224,7 +224,7 @@ extends PHPUnit_Framework_TestCase
 
     protected function getMockCache()
     {
-        return new Horde_Kolab_Storage_Cache(new Horde_Cache_Storage_Mock());
+        return new Horde_Kolab_Storage_Cache(new Horde_Cache(new Horde_Cache_Storage_Mock()));
     }
 
     protected function getMockListCache()
