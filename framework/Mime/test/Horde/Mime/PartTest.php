@@ -12,6 +12,11 @@
  */
 
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
