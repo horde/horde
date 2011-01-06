@@ -130,6 +130,8 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
             $body_txt = $body;
         }
 
+        $recipients = $this->parseRecipients($recipients);
+
         $this->sentMessages[] = array(
             'body' => $body_txt,
             'headers' => $headers,
