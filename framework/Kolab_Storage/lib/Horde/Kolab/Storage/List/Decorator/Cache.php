@@ -120,6 +120,7 @@ implements Horde_Kolab_Storage_List
      */
     public function synchronize()
     {
+        //@todo Do not fetch the folder types in case the folder list did not change.
         $this->_list_cache->store(
             $this->_list->listFolders(),
             $this->_list->listFolderTypes()
@@ -154,6 +155,6 @@ implements Horde_Kolab_Storage_List
      */
     public function getQuery($name)
     {
-        $this->_list->getQuery($name);
+        return $this->_list->getQuery($name);
     }
 }

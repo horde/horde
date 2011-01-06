@@ -64,4 +64,18 @@ extends Horde_Kolab_Storage_TestCase
         $list->listFolderTypes();
         $this->assertLogContains('List for test@example.com@mock:0 contained 4 folders and annotations.');
     }
+
+    public function testGetQuery()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getNullList($factory),
+            $this->getMockLogger()
+        );
+        $factory->createListQuery('Base', $list);
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Query',
+            $list->getQuery('Base')
+        );
+    }
 }

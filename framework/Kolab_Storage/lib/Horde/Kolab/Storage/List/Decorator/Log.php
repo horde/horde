@@ -154,6 +154,6 @@ implements Horde_Kolab_Storage_List
      */
     public function getQuery($name)
     {
-        $this->_list->getQuery($name);
+        return $this->_list->getQuery($name);
     }
 }

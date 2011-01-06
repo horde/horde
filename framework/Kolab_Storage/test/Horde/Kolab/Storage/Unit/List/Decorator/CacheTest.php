@@ -324,4 +324,21 @@ extends Horde_Kolab_Storage_TestCase
         $cache->storeListData($list->getConnectionId(), 'V', '2');
         $list->listFolders();
     }
+
+    public function testGetQuery()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $cache = $this->getMockCache();
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getMockDriverList(),
+            new Horde_Kolab_Storage_Cache_List(
+                $cache
+            )
+        );
+        $factory->createListQuery('Base', $list);
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Query',
+            $list->getQuery('Base')
+        );
+    }
 }
