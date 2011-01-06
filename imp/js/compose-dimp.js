@@ -558,8 +558,6 @@ var DimpCompose = {
 
         this.processFwdList(opts.fwd_list);
 
-        Field.focus(opts.focus || 'to');
-
         switch (opts.auto) {
         case 'forward_attach':
             $('noticerow', 'fwdattachnotice').invoke('show');
@@ -581,6 +579,8 @@ var DimpCompose = {
 
         this.setBodyText(msg);
         this.resizeMsgArea();
+
+        Field.focus(opts.focus || 'to');
 
         if (DIMP.conf_compose.show_editor || opts.show_editor) {
             if (!IMP_Compose_Base.editor_on) {
