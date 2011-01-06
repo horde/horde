@@ -64,30 +64,30 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
 
     public function testMail()
     {
+        $header =
+'Subject: This is a personal alarm.
+To: john@example.com
+From: john@example.com
+Auto-Submitted: auto-generated
+X-Horde-Alarm: This is a personal alarm.
+Message-ID: <%d.Horde.%s@%s>
+User-Agent: Horde Application Framework 4
+Date: %s, %d %s %s %d:%d:%d %s%d
+Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
+MIME-Version: 1.0';
+        $body = "Action is required.\n";
+
         $alarm = self::$alarm->get('personalalarm', 'john');
         $alarm['methods'] = array('mail');
         self::$alarm->set($alarm);
         self::$alarm->notify('john', false);
-        $regexp = <<<EOR
-Subject: This is a personal alarm\.
-To: john@example\.com
-From: john@example\.com
-Auto-Submitted: auto-generated
-X-Horde-Alarm: This is a personal alarm\.
-Message-ID: <\d{14}\.Horde\.\w+@\w+>
-User-Agent: Horde Application Framework 4
-Date: \w{3}, \d\d \w{3} \d{4} \d\d:\d\d:\d\d [+-]\d{4}
-Content-Type: text\/plain; charset=UTF-8; format=flowed; DelSp=Yes
-MIME-Version: 1\.0
-
-Action is required\.
-
-EOR;
-        $regexp = trim(str_replace("\r\n", "\n", $regexp));
-
         $last_sent = end(self::$mail->sentMessages);
-        $sent_message = $last_sent['header_text'] . "\n\n" . $last_sent['body'];
-        $this->assertRegExp('/' . $regexp . '/', trim(str_replace("\r\n", "\n", $sent_message)));
+
+        $this->assertStringMatchesFormat(
+            $header,
+            trim(str_replace("\r\n", "\n", $last_sent['header_text']))
+        );
+        $this->assertEquals($body, $last_sent['body']);
 
         self::$mail->sentMessages = array();
         self::$alarm->notify('john', false);
@@ -98,8 +98,11 @@ EOR;
         self::$alarm->notify('john', false);
 
         $last_sent = end(self::$mail->sentMessages);
-        $sent_message = $last_sent['header_text'] . "\n\n" . $last_sent['body'];
-        $this->assertRegExp('/' . $regexp . '/', trim(str_replace("\r\n", "\n", $sent_message)));
+        $this->assertStringMatchesFormat(
+            $header,
+            trim(str_replace("\r\n", "\n", $last_sent['header_text']))
+        );
+        $this->assertEquals($body, $last_sent['body']);
     }
 }
 
