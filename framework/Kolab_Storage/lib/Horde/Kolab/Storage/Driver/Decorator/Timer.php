@@ -61,6 +61,24 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     }
 
     /**
+     * Create the backend driver.
+     *
+     * @return mixed The backend driver.
+     */
+    public function createBackend()
+    {
+        $this->_timer->push();
+        $result = parent::createBackend();
+        $this->_logger->info(
+            sprintf(
+                'REQUEST OUT IMAP: %s ms [construct]',
+                floor($this->_timer->pop() * 1000)
+            )
+        );
+        return $result;
+    }
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.

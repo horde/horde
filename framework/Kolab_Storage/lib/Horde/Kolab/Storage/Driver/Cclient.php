@@ -29,13 +29,6 @@ class Horde_Kolab_Storage_Driver_Cclient
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
-     * IMAP resource.
-     *
-     * @var resource
-     */
-    private $_imap;
-
-    /**
      * Server name.
      *
      * @var string
@@ -50,35 +43,29 @@ extends Horde_Kolab_Storage_Driver_Base
     private $_base_mbox;
 
     /**
-     * Lazy connect to the IMAP server.
+     * Create the backend driver.
      *
-     * @return resource The IMAP connection.
-     *
-     * @throws Horde_Kolab_Storage_Exception In case the connection failed.
+     * @return mixed The backend driver.
      */
-    private function _getImap()
+    public function createBackend()
     {
-        if (!isset($this->_imap)) {
-            $result = @imap_open(
-                $this->_getBaseMbox(),
-                $this->getParam('username'),
-                $this->getParam('password'),
-                OP_HALFOPEN
+        $result = @imap_open(
+            $this->_getBaseMbox(),
+            $this->getParam('username'),
+            $this->getParam('password'),
+            OP_HALFOPEN
+        );
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Connecting to server %s failed. Error: %s"
+                    ),
+                    $this->_getHost(),
+                    @imap_last_error()
+                )
             );
-            if (!$result) {
-                throw new Horde_Kolab_Storage_Exception(
-                    sprintf(
-                        Horde_Kolab_Storage_Translation::t(
-                            "Connecting to server %s failed. Error: %s"
-                        ),
-                        $this->_getHost(),
-                        @imap_last_error()
-                    )
-                );
-            }
-            $this->_imap = $result;
         }
-        return $this->_imap;
     }
 
     /**
@@ -92,26 +79,6 @@ extends Horde_Kolab_Storage_Driver_Base
             $this->_base_mbox = '{' . $this->_getHost() . ':143/notls}';
         }
         return $this->_base_mbox;
-    }
-
-    /**
-     * Return the id of the user currently authenticated.
-     *
-     * @return string The id of the user that opened the IMAP connection.
-     */
-    public function getAuth()
-    {
-        return $this->getParam('username');
-    }
-
-    /**
-     * Return the unique connection id.
-     *
-     * @return string The connection id.
-     */
-    public function getId()
-    {
-        return $this->getAuth() . '@' . $this->getParam('host');
     }
 
     /**
@@ -145,7 +112,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folders = array();
 
-        $result = @imap_list($this->_getImap(), $this->_getBaseMbox(), '*');
+        $result = @imap_list($this->getBackend(), $this->_getBaseMbox(), '*');
         if (!$result) {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
@@ -188,7 +155,7 @@ extends Horde_Kolab_Storage_Driver_Base
         list($entry, $value) = $this->_getAnnotateMoreEntry($annotation);
         $list = array();
         foreach ($this->getMailboxes() as $mailbox) {
-            $result = imap_getannotation($this->_getImap(), $mailbox, $entry, $value);
+            $result = imap_getannotation($this->getBackend(), $mailbox, $entry, $value);
             if (isset($result[$value])) {
                 $list[$mailbox] = $result[$value];
             }

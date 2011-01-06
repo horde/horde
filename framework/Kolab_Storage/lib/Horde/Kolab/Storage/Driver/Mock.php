@@ -108,13 +108,12 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Return the id of the user currently authenticated.
+     * Create the backend driver.
      *
-     * @return string The id of the user that opened the IMAP connection.
+     * @return mixed The backend driver.
      */
-    public function getAuth()
+    public function createBackend()
     {
-        return $this->getParam('username');
     }
 
     /**

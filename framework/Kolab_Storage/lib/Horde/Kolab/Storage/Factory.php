@@ -123,54 +123,17 @@ class Horde_Kolab_Storage_Factory
             $driver = new Horde_Kolab_Storage_Driver_Mock($this, $config);
             break;
         case 'horde':
-            $config['hostspec'] = $config['host'];
-            unset($config['host']);
-            //$config['debug'] = '/tmp/imap.log';
-            $driver = new Horde_Kolab_Storage_Driver_Imap(
-                new Horde_Imap_Client_Socket(
-                    $config
-                ),
-                $this
-            );
-            break;
         case 'horde-php':
-            $config['hostspec'] = $config['host'];
-            unset($config['host']);
-            $driver = new Horde_Kolab_Storage_Driver_Imap(
-                new Horde_Imap_Client_Cclient(
-                    $config
-                ),
-                $this
-            );
+            $driver = new Horde_Kolab_Storage_Driver_Imap($this, $config);
             break;
         case 'php':
             $driver = new Horde_Kolab_Storage_Driver_Cclient($this, $config);
             break;
         case 'pear':
-            $client = new Net_IMAP($config['host'], $config['port']);
-            Horde_Kolab_Storage_Exception_Pear::catchError(
-                $client->login($config['username'], $config['password'])
-            );
-            $driver = new Horde_Kolab_Storage_Driver_Pear(
-                $client, $this, $config
-            );
+            $driver = new Horde_Kolab_Storage_Driver_Pear($this, $config);
             break;
         case 'roundcube':
-            $client = new rcube_imap_generic();
-            //$client->setDebug(true);
-            $client->connect(
-                $config['host'], $config['username'], $config['password'],
-                array(
-                    'debug_mode' => false,
-                    'ssl_mode' => false,
-                    'port' => $config['port'],
-                    'timeout' => 0,
-                    'force_caps' => false,
-                )
-            );
-            $driver = new Horde_Kolab_Storage_Driver_Rcube(
-                $client, $this, $config
-            );
+            $driver = new Horde_Kolab_Storage_Driver_Rcube($this, $config);
             break;
         default:
             throw new Horde_Kolab_Storage_Exception(
@@ -188,12 +151,6 @@ class Horde_Kolab_Storage_Factory
             );
         }
         if (!empty($params['timelog'])) {
-            $params['timelog']->info(
-                sprintf(
-                    'REQUEST OUT IMAP: %s ms [construct]',
-                    floor($timer->pop() * 1000)
-                )
-            );
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
                 $driver, $timer, $params['timelog']
             );

@@ -50,6 +50,13 @@ implements Horde_Kolab_Storage_Driver
     protected $_namespace;
 
     /**
+     * The backend to use.
+     *
+     * @var mixed
+     */
+    private $_backend;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
@@ -60,7 +67,48 @@ implements Horde_Kolab_Storage_Driver
         $params = array()
     ) {
         $this->_factory = $factory;
+        if (isset($params['backend'])) {
+            $this->setBackend($params['backend']);
+        }
         $this->_params  = $params;
+    }
+
+    /**
+     * Returns the actual backend driver.
+     *
+     * If there is no driver set the driver should be constructed within this
+     * method.
+     *
+     * @return mixed The backend driver.
+     */
+    public function getBackend()
+    {
+        if ($this->_backend === null) {
+            $this->_backend = $this->createBackend();
+        }
+        return $this->_backend;
+    }
+
+    /**
+     * Set the backend driver.
+     *
+     * @param mixed $backend The driver that should be used.
+     *
+     * @return NULL
+     */
+    public function setBackend($backend)
+    {
+        $this->_backend = $backend;
+    }
+
+    /**
+     * Return all parameter settings for this connection.
+     *
+     * @return array The parameters.
+     */
+    public function getParams()
+    {
+        return $this->_params;
     }
 
     /**
@@ -74,6 +122,28 @@ implements Horde_Kolab_Storage_Driver
     public function getParam($key, $default = null)
     {
         return isset($this->_params[$key]) ? $this->_params[$key] : $default;
+    }
+
+    /**
+     * Return the id of the user currently authenticated.
+     *
+     * @return string The id of the user that opened the IMAP connection.
+     */
+    public function getAuth()
+    {
+        return $this->getParam('username');
+    }
+
+    /**
+     * Return the unique connection id.
+     *
+     * @return string The connection id.
+     */
+    public function getId()
+    {
+        return $this->getAuth() . '@'
+            . $this->getParam('host') . ':'
+            . $this->getParam('port');
     }
 
     /**

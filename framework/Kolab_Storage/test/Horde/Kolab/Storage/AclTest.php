@@ -37,8 +37,8 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
         $this->_storage = $this->getMock('Horde_Kolab_Storage', array(), array(), '', false, false);
         $this->_imap = $this->getMock('Horde_Imap_Client_Socket', array(), array(), '', false, false);
         $this->_connection = new Horde_Kolab_Storage_Driver_Imap(
-            $this->_imap,
-            new Horde_Kolab_Storage_Factory()
+            new Horde_Kolab_Storage_Factory(),
+            array('backend' => $this->_imap, 'username' => 'user')
         );
         $this->_imap->expects($this->any())
             ->method('getNamespaces')
@@ -93,10 +93,6 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
             ->method('getMyACLRights')
             ->with('INBOX')
             ->will($this->returnValue('lr'));
-        $this->_imap->expects($this->any())
-            ->method('getParam')
-            ->with('username')
-            ->will($this->returnValue('user'));
         $folder = $this->_getFolder('INBOX');
         $this->assertEquals(array('user' => 'lr'), $folder->getAcl());
     }
@@ -109,14 +105,10 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array('INBOX')));
         $this->_imap->expects($this->once())
             ->method('getMyACLRights')
-            ->with('user/test')
+            ->with('user/user')
             ->will($this->returnValue('lr'));
-        $this->_imap->expects($this->any())
-            ->method('getParam')
-            ->with('username')
-            ->will($this->returnValue('test'));
-        $folder = $this->_getFolder('user/test');
-        $this->assertEquals(array('test' => 'lr'), $folder->getAcl());
+        $folder = $this->_getFolder('user/user');
+        $this->assertEquals(array('user' => 'lr'), $folder->getAcl());
     }
 
     public function testGetaclRetrievesAllFolderAclOnForeignFolderWithAdminRights()
@@ -127,18 +119,14 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array('INBOX')));
         $this->_imap->expects($this->once())
             ->method('getMyACLRights')
-            ->with('user/test')
+            ->with('user/user')
             ->will($this->returnValue('lra'));
         $this->_imap->expects($this->once())
             ->method('getAcl')
-            ->with('user/test')
-            ->will($this->returnValue(array('test' => 'lra')));
-        $this->_imap->expects($this->any())
-            ->method('getParam')
-            ->with('username')
-            ->will($this->returnValue('test'));
-        $folder = $this->_getFolder('user/test');
-        $this->assertEquals(array('test' => 'lra'), $folder->getAcl());
+            ->with('user/user')
+            ->will($this->returnValue(array('user' => 'lra')));
+        $folder = $this->_getFolder('user/user');
+        $this->assertEquals(array('user' => 'lra'), $folder->getAcl());
     }
 
     public function testSetacletsFolderAcl()
@@ -170,10 +158,6 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
         $this->_imap->expects($this->once())
             ->method('listMailboxes')
             ->will($this->returnValue(array('INBOX')));
-        $this->_imap->expects($this->any())
-            ->method('getParam')
-            ->with('username')
-            ->will($this->returnValue('user'));
         $folder = $this->_getFolder('INBOX');
         $this->assertEquals(array('user' => 'lrid'), $folder->getAcl());
     }

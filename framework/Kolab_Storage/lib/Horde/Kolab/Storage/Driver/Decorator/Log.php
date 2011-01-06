@@ -49,6 +49,25 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     }
 
     /**
+     * Create the backend driver.
+     *
+     * @return mixed The backend driver.
+     */
+    public function createBackend()
+    {
+        $this->_logger->info(
+            sprintf('Driver "%s": Creating backend.', $this->getDriverName())
+        );
+        $result = $this->_driver->createBackend();
+        $this->_logger->info(
+            sprintf(
+                'Driver "%s": Backend successfully created', $this->getDriverName()
+            )
+        );
+        return $result;
+    }
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.

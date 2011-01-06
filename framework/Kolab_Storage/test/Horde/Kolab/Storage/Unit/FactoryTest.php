@@ -152,20 +152,6 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    public function testTimedDriverConstruction()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $logger = $this->getMockLogger();
-        $factory->createDriverFromParams(
-            array(
-                'driver' => 'mock',
-                'logger' => $logger,
-                'timelog' => $logger,
-            )
-        );
-        $this->assertLogRegExp('/REQUEST OUT IMAP:.*construct.*/');
-    }
-
     public function testCreateTypeReturnsType()
     {
         $factory = new Horde_Kolab_Storage_Factory();

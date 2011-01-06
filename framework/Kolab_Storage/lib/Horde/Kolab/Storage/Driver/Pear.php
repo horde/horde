@@ -29,48 +29,18 @@ class Horde_Kolab_Storage_Driver_Pear
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
-     * The IMAP client.
+     * Create the backend driver.
      *
-     * @var Net_IMAP
+     * @return mixed The backend driver.
      */
-    private $_imap;
-
-    /**
-     * Constructor.
-     *
-     * @param Net_IMAP                    $imap    The IMAP connection handler.
-     * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
-     * @param array                       $params  Connection parameters.
-     */
-    public function __construct(
-        Net_IMAP $imap,
-        Horde_Kolab_Storage_Factory $factory,
-        $params = array()
-    ) {
-        $this->_imap = $imap;
-        parent::__construct($factory, $params);
-    }
-
-    /**
-     * Return the id of the user currently authenticated.
-     *
-     * @return string The id of the user that opened the IMAP connection.
-     */
-    public function getAuth()
+    public function createBackend()
     {
-        return $this->getParam('username');
-    }
-
-    /**
-     * Return the unique connection id.
-     *
-     * @return string The connection id.
-     */
-    public function getId()
-    {
-        return $this->getAuth() . '@'
-            . $this->getParam('host') . ':'
-            . $this->getParam('port');
+        $config = $this->getParams();
+        $client = new Net_IMAP($config['host'], $config['port']);
+        Horde_Kolab_Storage_Exception_Pear::catchError(
+            $client->login($config['username'], $config['password'])
+        );
+        return $client;
     }
 
     /**
@@ -80,7 +50,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
-        return $this->_imap->getMailboxes();
+        return $this->getBackend()->getMailboxes();
     }
 
     /**
@@ -95,7 +65,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         list($entry, $value) = $this->_getAnnotateMoreEntry($annotation);
         $list = array();
-        $result = $this->_imap->getAnnotation($entry, $value, '*');
+        $result = $this->getBackend()->getAnnotation($entry, $value, '*');
         foreach ($result as $element) {
             if (isset($element['ATTRIBUTES'][$value])) {
                 $list[$element['MAILBOX']] = $element['ATTRIBUTES'][$value];
@@ -114,7 +84,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function select($folder)
     {
-        $this->_imap->openMailbox($folder, Horde_Imap_Client::OPEN_AUTO);
+        $this->getBackend()->openMailbox($folder, Horde_Imap_Client::OPEN_AUTO);
         return true;
     }
 
@@ -143,7 +113,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function status($folder)
     {
-        return $this->_imap->status($folder,
+        return $this->getBackend()->status($folder,
                                     Horde_Imap_Client::STATUS_UIDNEXT
                                     | Horde_Imap_Client::STATUS_UIDVALIDITY);
     }
@@ -159,7 +129,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $search_query = new Horde_Imap_Client_Search_Query();
         $search_query->flag('DELETED', false);
-        $uidsearch = $this->_imap->search($folder, $search_query);
+        $uidsearch = $this->getBackend()->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids;
     }
@@ -174,7 +144,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function create($folder)
     {
-        return $this->_imap->createMailbox($folder);
+        return $this->getBackend()->createMailbox($folder);
     }
 
     /**
@@ -187,7 +157,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function delete($folder)
     {
-        return $this->_imap->deleteMailbox($folder);
+        return $this->getBackend()->deleteMailbox($folder);
     }
 
     /**
@@ -201,7 +171,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function rename($old, $new)
     {
-        return $this->_imap->renameMailbox($old, $new);
+        return $this->getBackend()->renameMailbox($old, $new);
     }
 
     /**
@@ -215,7 +185,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function appendMessage($mailbox, $msg)
     {
-        return $this->_imap->append($mailbox, array(array('data' => $msg)));
+        return $this->getBackend()->append($mailbox, array(array('data' => $msg)));
     }
 
     /**
@@ -230,7 +200,7 @@ extends Horde_Kolab_Storage_Driver_Base
         if (!is_array($uids)) {
             $uids = array($uids);
         }
-        return $this->_imap->store($mailbox, array('add' => array('\\deleted'), 'ids' => $uids));
+        return $this->getBackend()->store($mailbox, array('add' => array('\\deleted'), 'ids' => $uids));
     }
 
     /**
@@ -244,7 +214,7 @@ extends Horde_Kolab_Storage_Driver_Base
     public function moveMessage($old_folder, $uid, $new_folder)
     {
         $options = array('ids' => array($uid), 'move' => true);
-        return $this->_imap->copy($old_folder, $new_folder, $options);
+        return $this->getBackend()->copy($old_folder, $new_folder, $options);
     }
 
     /**
@@ -257,7 +227,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function expunge($mailbox)
     {
-        return $this->_imap->expunge($mailbox);
+        return $this->getBackend()->expunge($mailbox);
     }
 
     /**
@@ -279,7 +249,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 )
             )
         );
-        $result = $this->_imap->fetch($mailbox, $criteria, $options);
+        $result = $this->getBackend()->fetch($mailbox, $criteria, $options);
         return $result[$uid]['headertext'][0];
     }
 
@@ -301,7 +271,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 )
             )
         );
-        $result = $this->_imap->fetch($mailbox, $criteria, $options);
+        $result = $this->getBackend()->fetch($mailbox, $criteria, $options);
         return $result[$uid]['bodytext'][0];
     }
 
@@ -315,7 +285,7 @@ extends Horde_Kolab_Storage_Driver_Base
     public function getAcl(Horde_Kolab_Storage_Folder $folder)
     {
         //@todo: Separate driver class
-        if ($this->_imap->queryCapability('ACL') === true) {
+        if ($this->getBackend()->queryCapability('ACL') === true) {
             if ($folder->getOwner() == $this->getAuth()) {
                 try {
                     return $this->_getAcl($folder->getName());
@@ -346,7 +316,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     private function _getAcl($folder)
     {
-        $acl = $this->_imap->getACL($folder);
+        $acl = $this->getBackend()->getACL($folder);
         $result = array();
         foreach ($acl as $user => $rights) {
             $result[$user] = join('', $rights);
@@ -363,7 +333,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     private function _getMyAcl($folder)
     {
-        return $this->_imap->getMyACLRights($folder);
+        return $this->getBackend()->getMyACLRights($folder);
     }
 
     /**
@@ -378,8 +348,8 @@ extends Horde_Kolab_Storage_Driver_Base
     public function setAcl($folder, $user, $acl)
     {
         //@todo: Separate driver class
-        if ($this->_imap->queryCapability('ACL') === true) {
-            $this->_imap->setACL($folder, $user, array('rights' => $acl));
+        if ($this->getBackend()->queryCapability('ACL') === true) {
+            $this->getBackend()->setACL($folder, $user, array('rights' => $acl));
         }
     }
 
@@ -394,8 +364,8 @@ extends Horde_Kolab_Storage_Driver_Base
     public function deleteAcl($folder, $user)
     {
         //@todo: Separate driver class
-        if ($this->_imap->queryCapability('ACL') === true) {
-            $this->_imap->setACL($folder, $user, array('remove' => true));
+        if ($this->getBackend()->queryCapability('ACL') === true) {
+            $this->getBackend()->setACL($folder, $user, array('remove' => true));
         }
     }
 
@@ -410,7 +380,7 @@ extends Horde_Kolab_Storage_Driver_Base
     public function getAnnotation($entry, $mailbox_name)
     {
         try {
-            $result = $this->_imap->getMetadata($mailbox_name, $entry);
+            $result = $this->getBackend()->getMetadata($mailbox_name, $entry);
         } catch (Exception $e) {
             return '';
         }
@@ -428,7 +398,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAnnotation($entry, $value, $mailbox_name)
     {
-        return $this->_imap->setMetadata($mailbox_name,
+        return $this->getBackend()->setMetadata($mailbox_name,
                                          array($entry => $value));
     }
 
@@ -440,9 +410,9 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getNamespace()
     {
-        if ($this->_imap->hasCapability('NAMESPACE') === true) {
+        if ($this->getBackend()->hasCapability('NAMESPACE') === true) {
             $namespaces = array();
-            foreach ($this->_imap->getNamespace() as $type => $elements) {
+            foreach ($this->getBackend()->getNamespace() as $type => $elements) {
                 foreach ($elements as $namespace) {
                     switch ($type) {
                     case 'personal':

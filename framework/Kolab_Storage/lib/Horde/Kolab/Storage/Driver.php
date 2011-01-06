@@ -28,6 +28,32 @@
 interface Horde_Kolab_Storage_Driver
 {
     /**
+     * Create the backend driver.
+     *
+     * @return mixed The backend driver.
+     */
+    public function createBackend();
+
+    /**
+     * Returns the actual backend driver.
+     *
+     * If there is no driver set the driver should be constructed within this
+     * method.
+     *
+     * @return mixed The backend driver.
+     */
+    public function getBackend();
+
+    /**
+     * Set the backend driver.
+     *
+     * @param mixed $backend The driver that should be used.
+     *
+     * @return NULL
+     */
+    public function setBackend($backend);
+
+    /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the connection.

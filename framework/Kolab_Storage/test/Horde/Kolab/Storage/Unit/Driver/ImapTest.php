@@ -38,9 +38,8 @@ extends PHPUnit_Framework_TestCase
     public function testGetNamespaceReturnsNamespaceHandler()
     {
         $driver = new Horde_Kolab_Storage_Driver_Imap(
-            $this->_getNamespaceMock(),
             new Horde_Kolab_Storage_Factory(),
-            array()
+            array('backend' => $this->_getNamespaceMock())
         );
         $this->assertType(
             'Horde_Kolab_Storage_Folder_Namespace',
@@ -51,9 +50,8 @@ extends PHPUnit_Framework_TestCase
     public function testGetNamespaceReturnsExpectedNamespaces()
     {
         $driver = new Horde_Kolab_Storage_Driver_Imap(
-            $this->_getNamespaceMock(),
             new Horde_Kolab_Storage_Factory(),
-            array()
+            array('backend' => $this->_getNamespaceMock())
         );
         $namespaces = array();
         foreach ($driver->getNamespace() as $namespace) {
