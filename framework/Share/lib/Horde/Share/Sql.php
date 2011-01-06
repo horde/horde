@@ -247,7 +247,6 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _getShares(array $ids, $key = 'share_name')
     {
-        $shares = array();
         try {
             $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . str_repeat('?, ', count($ids) - 1) . '?)', $ids);
         } catch (Horde_Db_Exception $e) {
