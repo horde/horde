@@ -269,6 +269,28 @@ class Horde_String
     }
 
     /**
+     * Returns a string with the first letter of each word capitalized if it is
+     * alphabetic.
+     *
+     * Sentences are splitted into words at whitestrings.
+     *
+     * @param string $string   The string to be capitalized.
+     * @param boolean $locale  If true the string will be converted based on a
+     *                         given charset, locale independent else.
+     * @param string $charset  The charset to use, defaults to current charset.
+     *
+     * @return string  The capitalized string.
+     */
+    static public function ucwords($string, $locale = false, $charset = null)
+    {
+        $words = preg_split('/(\s+)/', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
+        for ($i = 0, $c = count($words); $i < $c; $i += 2) {
+            $words[$i] = Horde_String::ucfirst($words[$i], $locale, $charset);
+        }
+        return implode('', $words);
+    }
+
+    /**
      * Returns part of a string.
      *
      * @param string $string   The string to be converted.

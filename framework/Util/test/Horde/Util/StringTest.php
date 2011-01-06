@@ -93,6 +93,24 @@ class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testUcwords()
+    {
+        $this->assertEquals(
+            'Integer  Inside',
+            Horde_String::ucwords('integer  inside', true, 'us-ascii')
+        );
+        $this->assertEquals(
+            'Integer  Inside',
+            Horde_String::ucwords('integer  inside', true, 'Big5')
+        );
+        $this->assertEquals(
+            'İnteger  İnside',
+            Horde_String::convertCharset(
+                Horde_String::ucwords('integer  inside', true, 'iso-8859-9'),
+                'iso-8859-9', 'utf-8')
+        );
+    }
+
     public function testUcfirstTurkish()
     {
         if (!setlocale(LC_ALL, 'tr_TR')) {
