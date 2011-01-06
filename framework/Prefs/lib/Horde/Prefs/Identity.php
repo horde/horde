@@ -388,9 +388,10 @@ class Horde_Prefs_Identity
         $addr = $this->getValue($this->_prefnames['from_addr']);
         if (empty($addr)) {
             $addr = $this->_user;
-            if (empty($from_addr)) {
-                return $addr;
-            }
+        }
+
+        if (empty($from_addr)) {
+            return $addr;
         }
 
         return $from_addr . '<' . $addr . '>';
