@@ -88,6 +88,16 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Returns the namespace for the list.
+     *
+     * @return Horde_Kolab_Storage_Folder_Namespace The namespace handler.
+     */
+    public function getNamespace()
+    {
+        return $this->_driver->getNamespace();
+    }
+
+    /**
      * Synchronize the list information with the information from the backend.
      *
      * @return NULL

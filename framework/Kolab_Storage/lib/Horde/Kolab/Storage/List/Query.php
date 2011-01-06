@@ -52,4 +52,24 @@ extends Horde_Kolab_Storage_Query
      * @return array The list of folders.
      */
     public function listByType($type);
+
+    /**
+     * Get the default folder for a certain type.
+     *
+     * @param string $type The type of the share/folder.
+     *
+     * @return string|boolean The name of the default folder, false if there is no default.
+     */
+//    public function getDefault($type);
+
+    /**
+     * Get the default folder for a certain type from a different owner.
+     *
+     * @param string $owner The folder owner.
+     * @param string $type  The type of the share/folder.
+     *
+     * @return string|boolean The name of the default folder, false if there is no default.
+     */
+//    public function getForeignDefault($owner, $type);
+
 }

@@ -51,6 +51,13 @@ extends Horde_Kolab_Storage_Queriable
     public function listFolderTypes();
 
     /**
+     * Returns the namespace for the list.
+     *
+     * @return Horde_Kolab_Storage_Folder_Namespace The namespace handler.
+     */
+    public function getNamespace();
+
+    /**
      * Synchronize the list information with the information from the backend.
      *
      * @return NULL

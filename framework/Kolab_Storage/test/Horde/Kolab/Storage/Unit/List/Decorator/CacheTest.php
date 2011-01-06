@@ -325,6 +325,18 @@ extends Horde_Kolab_Storage_TestCase
         $list->listFolders();
     }
 
+    public function testGetNamespace()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getNullList(),
+            $this->getMockListCache()
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder_Namespace',
+            $list->getNamespace()
+        );
+    }
+
     public function testGetQuery()
     {
         $factory = new Horde_Kolab_Storage_Factory();

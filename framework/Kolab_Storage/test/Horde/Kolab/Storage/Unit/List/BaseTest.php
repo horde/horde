@@ -65,6 +65,15 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertType('array', $list->listFolderTypes());
     }
 
+    public function testGetNamespace()
+    {
+        $list = $this->getNullList();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder_Namespace',
+            $list->getNamespace()
+        );
+    }
+
     public function testListQueriable()
     {
         $list = new Horde_Kolab_Storage_List_Base(
@@ -106,4 +115,5 @@ extends Horde_Kolab_Storage_TestCase
             $list->getQuery('Horde_Kolab_Storage_Stub_FactoryQuery')
         );
     }
+
 }

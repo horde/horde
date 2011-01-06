@@ -65,6 +65,18 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertLogContains('List for test@example.com@mock:0 contained 4 folders and annotations.');
     }
 
+    public function testGetNamespace()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getNullList(),
+            $this->getMockLogger()
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder_Namespace',
+            $list->getNamespace()
+        );
+    }
+
     public function testGetQuery()
     {
         $factory = new Horde_Kolab_Storage_Factory();
