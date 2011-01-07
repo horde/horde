@@ -87,6 +87,24 @@ class Horde_Domhtml
     }
 
     /**
+     * Returns the HEAD element, or creates one if it doesn't exist.
+     *
+     * @return DOMElement  HEAD element.
+     */
+    public function getHead()
+    {
+        $head = $this->dom->getElementsByTagName('head');
+        if ($head->length) {
+            return $head->item(0);
+        }
+
+        $headelt = $this->dom->createElement('head');
+        $this->dom->appendChild($headelt);
+
+        return $headelt;
+    }
+
+    /**
      * Returns the full HTML text in the original charset.
      *
      * @return string  HTML text.

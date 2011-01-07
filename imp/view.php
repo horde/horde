@@ -307,7 +307,7 @@ case 'print_attach':
                     $headers = $contents->getHeaderOb();
                     $imp_ui_mbox = new IMP_Ui_Mailbox();
 
-                    $headelt = $doc->dom->getElementsByTagName('head')->item(0);
+                    $headelt = $doc->getHead();
                     foreach ($headelt->getElementsByTagName('title') as $node) {
                         $headelt->removeChild($node);
                     }
