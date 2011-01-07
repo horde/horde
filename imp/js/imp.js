@@ -80,18 +80,19 @@ document.observe('dom:loaded', function() {
         id = $(id);
         var d = id.contentWindow.document;
 
+        id.observe('load', IMP.iframeResize.bind(IMP, id));
+
         d.open();
         d.write(data);
         d.close();
 
         id.show().previous().remove();
-        this.iframeResize(id);
     };
 
     IMP.iframeResize = function(id)
     {
         if (id = $(id)) {
-            id.setStyle({ height: id.contentWindow.document.lastChild.scrollHeight + 'px' });
+            id.stopObserving('load').setStyle({ height: id.contentWindow.document.lastChild.scrollHeight + 'px' });
 
             // For whatever reason, browsers will report different heights
             // after the initial height setting.
