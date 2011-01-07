@@ -665,7 +665,8 @@ class IMP
      * @param boolean $returnList  Whether to return a hash with options
      *                             instead of the options tag.
      *
-     * @return string  The list of option tags.
+     * @return mixed  The list of option tags. This is empty if no encryption
+     *                is available.
      */
     static public function encryptList($default = null, $returnList = false)
     {
@@ -673,7 +674,7 @@ class IMP
             $default = $GLOBALS['prefs']->getValue('default_encrypt');
         }
 
-        $enc_opts = array(self::ENCRYPT_NONE => _("None"));
+        $enc_opts = array();
         $output = '';
 
         if (!empty($GLOBALS['conf']['gnupg']['path']) &&
@@ -683,6 +684,13 @@ class IMP
 
         if ($GLOBALS['prefs']->getValue('use_smime')) {
             $enc_opts += $GLOBALS['injector']->getInstance('IMP_Crypt_Smime')->encryptList();
+        }
+
+        if (!empty($enc_opts)) {
+            $enc_opts = array_merge(
+                array(self::ENCRYPT_NONE => _("None")),
+                $enc_opts
+            );
         }
 
         if ($returnList) {
