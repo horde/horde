@@ -106,4 +106,15 @@ class Wicked_Page_AddPage extends Wicked_Page {
         return $this->_newpage;
     }
 
+    /**
+     *
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        // New page, no text to return
+        return '';
+    }
+
 }
