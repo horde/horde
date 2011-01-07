@@ -394,7 +394,7 @@ class Turba {
             return $sources;
         }
 
-        $sortedShares = $defaults = $vbooks = array();
+        $sortedSources = $defaults = $vbooks = array();
         $personal = false;
         foreach ($shares as $name => &$share) {
             if (isset($sources[$name])) {
