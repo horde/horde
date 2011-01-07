@@ -1097,3 +1097,17 @@ span.readonlyImg {
     cursor: pointer;
     float: right;
 }
+
+@media print {
+    /* Hide UI elements when printing message in popup window. */
+    div.dimpActionsMsg,
+    div.msgfullread div.dimpOptions,
+    div.msgfullread div.mimePartInfo a.iconImg {
+        display: none;
+    }
+
+    div.msgfullread div.messageBody{
+        height: auto !important;
+        overflow: visible;
+    }
+}
