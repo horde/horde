@@ -22,7 +22,11 @@ class Hermes
         static $clients;
 
         if (is_null($clients)) {
-            $result = $GLOBALS['registry']->call('clients/searchClients', array(array('')));
+            try {
+                $result = $GLOBALS['registry']->call('clients/searchClients', array(array('')));
+            } catch (Horde_Exception $e) {
+                // No client backend
+            }
             $client_name_field = $GLOBALS['conf']['client']['field'];
             $clients = array();
             if (!empty($result)) {
