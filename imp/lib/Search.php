@@ -372,7 +372,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         /* Build list of default virtual folders. */
         $di = new DirectoryIterator(IMP_BASE . '/lib/Search/Vfolder');
-        $disabled = array('IMP_Search_Vfolder_Vtrash');
+        $disable = array('IMP_Search_Vfolder_Vtrash');
 
         foreach ($di as $val) {
             if ($val->isFile()) {
@@ -380,7 +380,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                 if (($cname != 'IMP_Search_Vfolder_Builtin') &&
                     class_exists($cname)) {
                     $vfolder = new $cname(array(
-                        'disabled' => in_array($cname, $disabled)
+                        'disable' => in_array($cname, $disable)
                     ));
                     $vf[$vfolder->id] = $vfolder;
                 }
