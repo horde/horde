@@ -24,11 +24,11 @@ $form = new Turba_Form_CreateAddressBook($vars);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
-    $result = $form->execute();
-    if ($result instanceof PEAR_Error) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $result = $form->execute();
         $notification->push(sprintf(_("The address book \"%s\" has been created."), $vars->get('name')), 'horde.success');
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
     }
 
     Horde::url('addressbooks/', true)->redirect();
