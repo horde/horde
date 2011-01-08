@@ -82,7 +82,10 @@ var AnselMobile = {
      */
     toImage: function(index)
     {
-        var i = $('<img>').attr({ 'src': ((AnselMobile.currentGallery.tiny) ? 'http://i.tinysrc.mobi/' : '') + AnselMobile.currentImages[index].screen });
+        var i = $('<img>').load(
+            function() {
+                AnselMobile.resize($(this));
+            }).attr({ 'src': ((AnselMobile.currentGallery.tiny) ? 'http://i.tinysrc.mobi/' : '') + AnselMobile.currentImages[index].screen });
 
         AnselMobile.currentImage = index;
         $('#anselimageview').empty();
@@ -156,6 +159,54 @@ var AnselMobile = {
 				}
 			});
 		}
+    },
+
+	/**
+     * Resize the image, based on windows width and height.
+     *
+     * @param dom object $image the image node
+     */
+	resize: function($image)
+    {
+		var widthMargin = 10;
+		var heightMargin = 80;
+
+		var windowH = $(window).height() - heightMargin;
+		var windowW = $(window).width() - widthMargin;
+		var theImage = new Image();
+		theImage.src = $image.attr('src');
+		var imgwidth = theImage.width;
+		var imgheight = theImage.height;
+		if (imgwidth > windowW || imgheight > windowH) {
+			if (imgwidth > imgheight) {
+				var newwidth = windowW;
+				var ratio = imgwidth / windowW;
+				var newheight = imgheight / ratio;
+				theImage.height = newheight;
+				theImage.width= newwidth;
+				if (newheight > windowH) {
+					var newnewheight = windowH;
+					var newratio = newheight / windowH;
+					var newnewwidth =newwidth / newratio;
+					theImage.width = newnewwidth;
+					theImage.height= newnewheight;
+				}
+			} else {
+				var newheight = windowH;
+				var ratio = imgheight / windowH;
+				var newwidth = imgwidth / ratio;
+				theImage.height = newheight;
+				theImage.width = newwidth;
+				if (newwidth > windowW) {
+					var newnewwidth = windowW;
+					var newratio = newwidth / windowW;
+					var newnewheight =newheight / newratio;
+					theImage.height = newnewheight;
+					theImage.width = newnewwidth;
+				}
+			}
+		}
+		$image.css({ 'width': theImage.width + 'px', 'height': theImage.height + 'px' });
     },
 
     /**
