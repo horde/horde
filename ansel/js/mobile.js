@@ -45,9 +45,9 @@ var AnselMobile = {
     buildGalleryList: function(l, gs)
     {
         $.each(gs, function(k, g) {
-            var item = $('<li>').attr({ 'ansel-gallery-id': g.id }).addClass('ansel-gallery');
-            item.append($('<img>').attr({ src: g.ki }).addClass('ui-li-icon'));
-            item.append($('<h3>').append($('<a>').attr({ href: '#' }).text(g.n)));
+            var item = $('<li>').attr({'ansel-gallery-id': g.id}).addClass('ansel-gallery');
+            item.append($('<img>').attr({src: g.ki}).addClass('ui-li-icon'));
+            item.append($('<h3>').append($('<a>').attr({href: '#'}).text(g.n)));
             item.append($('<p>').text(g.d));
             l.append(item);
         });
@@ -62,7 +62,7 @@ var AnselMobile = {
      */
     getSubGalleryUL: function()
     {
-        return $('<ul>').addClass('anselgalleries').attr({ 'data-role': 'listview', 'data-inset': 'true' });
+        return $('<ul>').addClass('anselgalleries').attr({'data-role': 'listview', 'data-inset': 'true'});
     },
 
     /**
@@ -72,7 +72,7 @@ var AnselMobile = {
      */
     toGallery: function(id)
     {
-        HordeMobile.doAction('getGallery', { id: id }, AnselMobile.galleryLoaded);
+        HordeMobile.doAction('getGallery', {id: id}, AnselMobile.galleryLoaded);
     },
 
     /**
@@ -85,7 +85,7 @@ var AnselMobile = {
         var i = $('<img>').load(
             function() {
                 AnselMobile.resize($(this));
-            }).attr({ 'src': ((AnselMobile.currentGallery.tiny) ? 'http://i.tinysrc.mobi/' : '') + AnselMobile.currentImages[index].screen });
+            }).attr({'src': ((AnselMobile.currentGallery.tiny) ? 'http://i.tinysrc.mobi/' : '') + AnselMobile.currentImages[index].screen});
 
         AnselMobile.currentImage = index;
         $('#anselimageview').empty();
@@ -116,14 +116,14 @@ var AnselMobile = {
         AnselMobile.currentGallery = r;
         $('.anselgalleries').detach();
         if (r.sg.length) {
-            var l = $('<ul>').addClass('anselgalleries').attr({ 'data-role': 'listview', 'data-inset': 'true' });
+            var l = $('<ul>').addClass('anselgalleries').attr({'data-role': 'listview', 'data-inset': 'true'});
             $('#thumbs').before(AnselMobile.buildGalleryList(l, r.sg).listview());
         }
         $('#galleryview h1').text(r.n);
         $('#thumbs').empty();
         AnselMobile.currentImages = r.imgs;
         $.each(r.imgs, function(k, i) {
-            var img = $('<li>').addClass('anselthumb').append($('<a>').attr({ 'href': '#', 'image-key': k, }).append($('<img>').attr({ 'width': Ansel.conf.thumbWidth, 'height': Ansel.conf.thumbHeight, src: i.url })));
+            var img = $('<li>').addClass('anselthumb').append($('<a>').attr({'href': '#', 'image-key': k,}).append($('<img>').attr({ 'width': Ansel.conf.thumbWidth, 'height': Ansel.conf.thumbHeight, src: i.url })));
             $('#thumbs').append(img);
         });
         if ($.mobile.activePage.attr('id') != 'galleryview') {
@@ -131,10 +131,10 @@ var AnselMobile = {
         }
         if (r.p) {
             $('#ansel-gallery-back .ui-btn-text').text(r.pn);
-            $('#ansel-gallery-back').attr({ 'action': 'gallery', 'gallery-id': r.p });
+            $('#ansel-gallery-back').attr({'action': 'gallery', 'gallery-id': r.p});
         } else {
             $('#ansel-gallery-back .ui-btn-text').text($.mobile.page.prototype.options.backBtnText);
-            $('#ansel-gallery-back').attr({ 'action': 'home', 'gallery-id': null });
+            $('#ansel-gallery-back').attr({'action': 'home', 'gallery-id': null});
         }
         AnselMobile.centerGrid();
     },
@@ -206,7 +206,7 @@ var AnselMobile = {
 				}
 			}
 		}
-		$image.css({ 'width': theImage.width + 'px', 'height': theImage.height + 'px' });
+		$image.css({'width': theImage.width + 'px', 'height': theImage.height + 'px'});
     },
 
     /**
@@ -299,13 +299,23 @@ var AnselMobile = {
         $('body').bind('swipeleft', AnselMobile.handleSwipe);
         $('body').bind('swiperight', AnselMobile.handleSwipe);
 
-        var list = $('<ul>').addClass('anselgallerylist').attr({ 'data-role': 'listview' });
+        var list = $('<ul>').addClass('anselgallerylist').attr({'data-role': 'listview'});
         $('#anselgallerylist').append(AnselMobile.buildGalleryList(list, Ansel.conf.galleries, 'anselgallerylist'));
 
         // We need to recenter the thumbnail grid, and (eventually) try to
         // resize the main image if it's  being shown.
         $(window).bind('resize', function() {
             AnselMobile.centerGrid();
+            if ($('#anselimageview').find('img').length) {
+                AnselMobile.resize($('#anselimageview').find('img'));
+            }
+        });
+
+        $('body').bind('orientationchange', function() {
+            AnselMobile.centerGrid();
+            if ($('#anselimageview').find('img').length) {
+                AnselMobile.resize($('#anselimageview').find('img'));
+            }
         });
     }
 };
