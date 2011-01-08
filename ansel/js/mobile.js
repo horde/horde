@@ -20,12 +20,19 @@ var AnselMobile = {
      */
     currentGallery: null,
 
+    /**
+     * Array of images in the currentGallery
+     *
+     * @var array
+     */
     currentImages: null,
 
     /**
-     * Currently loaded image thumbnails
+     * The index in currentImages[] for the currently displayed image
+     *
+     * @var integer
      */
-    //imgs: [],
+    currentImage: null,
 
     /**
      * Build a gallery list
@@ -48,6 +55,11 @@ var AnselMobile = {
         return l;
     },
 
+    /**
+     * Build a <UL> node to hold the current gallery's subgalleries
+     *
+     * @return dom object
+     */
     getSubGalleryUL: function()
     {
         return $('<ul>').addClass('anselgalleries').attr({ 'data-role': 'listview', 'data-inset': 'true' });
@@ -63,14 +75,24 @@ var AnselMobile = {
         HordeMobile.doAction('getGallery', { id: id }, AnselMobile.galleryLoaded);
     },
 
+    /**
+     * Display the selected image
+     *
+     * @param integer index  The index into the currentImages array
+     */
     toImage: function(index)
     {
         var i = $('<img>').attr({ 'src': ((AnselMobile.currentGallery.tiny) ? 'http://i.tinysrc.mobi/' : '') + AnselMobile.currentImages[index].screen });
+        
+        AnselMobile.currentImage = index;
         $('#anselimageview').empty();
         $('#anselimageview').append(i);
         $('#imageview h1').text(AnselMobile.currentImages[index].fn)
         $('#imagebackbutton .ui-btn-text').text(AnselMobile.currentGallery.n);
-        $.mobile.changePage('imageview', 'slide', false, true);
+
+        if ($.mobile.activePage.attr('id') != 'imageview') {
+            $.mobile.changePage('imageview', 'slide', false, true);
+        }
     },
 
     /**
@@ -88,7 +110,6 @@ var AnselMobile = {
             return;
         }
 
-        //AnselMobile.imgs = r.imgs;
         AnselMobile.currentGallery = r;
         $('.anselgalleries').detach();
         if (r.sg.length) {
@@ -177,7 +198,21 @@ var AnselMobile = {
      */
     handleSwipe: function(map)
     {
-
+        if ($.mobile.activePage.attr('id') != 'imageview') {
+            return;
+        }
+        if (map.type == 'swipeleft') {
+            AnselMobile.currentImage++;
+            if (AnselMobile.currentImage >= AnselMobile.currentImages.length) {
+                AnselMobile.currentImage = 0;
+            }
+        } else if (map.type == 'swiperight') {
+            AnselMobile.currentImage--;
+            if (AnselMobile.currentImage < 0) {
+                AnselMobile.currentImage = AnselMobile.currentImages.length - 1;
+            }
+        }
+        AnselMobile.toImage(AnselMobile.currentImage);
     },
 
     /**
