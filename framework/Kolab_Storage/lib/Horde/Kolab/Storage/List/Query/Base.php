@@ -158,6 +158,43 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Get the default folder for a certain type from a different owner.
+     *
+     * @param string $owner The folder owner.
+     * @param string $type  The type of the share/folder.
+     *
+     * @return string|boolean The name of the default folder, false if there is no default.
+     */
+    public function getForeignDefault($owner, $type)
+    {
+        $result = null;
+        $namespace = $this->_list->getNamespace();
+        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
+            if ($annotation->getType() == $type
+                && $annotation->isDefault()
+                && ($namespace->getOwner($folder) == $owner)) {
+                if ($result === null) {
+                    $result = $folder;
+                } else {
+                    throw new Horde_Kolab_Storage_Exception(
+                        sprintf(
+                            'Both folders %s and %s are marked as default folder of type %s!',
+                            $result,
+                            $folder,
+                            $type
+                        )
+                    );
+                }
+            }
+        }
+        if ($result === null) {
+            return false;
+        } else {
+            return $result;
+        }
+    }
+
+    /**
      * Synchronize the query data with the information from the backend.
      *
      * @return NULL

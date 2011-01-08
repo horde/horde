@@ -321,6 +321,26 @@ extends PHPUnit_Framework_TestCase
                         '/shared/vendor/kolab/folder-type' => 'event.default',
                     )
                 ),
+                'user/test/Notes' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'note.default',
+                    )
+                ),
+                'user/someone/Calendar' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/someone/Events' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event',
+                    )
+                ),
+                'user/someone/Notes' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'note.default',
+                    )
+                ),
             )
         );
     }
@@ -355,6 +375,16 @@ extends PHPUnit_Framework_TestCase
                     )
                 ),
                 'user/test/Events' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/someone/Calendar' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/someone/Events' => array(
                     'annotations' => array(
                         '/shared/vendor/kolab/folder-type' => 'event.default',
                     )
