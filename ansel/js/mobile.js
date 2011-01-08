@@ -313,9 +313,9 @@ var AnselMobile = {
 
         $('body').bind('orientationchange', function() {
             AnselMobile.centerGrid();
-            if ($('#anselimageview').find('img').length) {
-                AnselMobile.resize($('#anselimageview').find('img'));
-            }
+//            if ($('#anselimageview').find('img').length) {
+//                AnselMobile.resize($('#anselimageview').find('img'));
+//            }
         });
     }
 };
