@@ -42,11 +42,12 @@ extends Horde_Kolab_Storage_Folder_Namespace_Element_Shared
      *
      * @param string $name      The prefix identifying this namespace.
      * @param string $delimiter The delimiter used for this namespace.
-     * @param string $prefix The prefix to hide.
+     * @param string $user      The current user.
+     * @param string $prefix    The prefix to hide.
      */
-    public function __construct($name, $delimiter, $prefix)
+    public function __construct($name, $delimiter, $user, $prefix)
     {
-        parent::__construct($name, $delimiter);
+        parent::__construct($name, $delimiter, $user);
         $this->_prefix = $prefix;
     }
 

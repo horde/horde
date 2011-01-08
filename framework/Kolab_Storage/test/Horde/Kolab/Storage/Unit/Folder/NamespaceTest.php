@@ -84,9 +84,6 @@ extends Horde_Kolab_Storage_TestCase
     public function testTitleForNewFolders()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $this->_connection->expects($this->any())
-                ->method('getAuth')
-                ->will($this->returnValue('test'));
             $folder = $this->_getFolder(null, $namespace);
             $folder->setTitle('test');
             $this->assertEquals('test', $folder->getTitle());
@@ -96,9 +93,6 @@ extends Horde_Kolab_Storage_TestCase
     public function testOwnerForPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $this->_connection->expects($this->any())
-                ->method('getAuth')
-                ->will($this->returnValue('test'));
             $folder = $this->_getFolder('INBOX', $namespace);
             $this->assertEquals('test', $folder->getOwner());
         }
@@ -107,9 +101,6 @@ extends Horde_Kolab_Storage_TestCase
     public function testOwnerInPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $this->_connection->expects($this->any())
-                ->method('getAuth')
-                ->will($this->returnValue('test'));
             $folder = $this->_getFolder('INBOX/mine', $namespace);
             $this->assertEquals('test', $folder->getOwner());
         }
@@ -142,9 +133,6 @@ extends Horde_Kolab_Storage_TestCase
     public function testOwnerForNewFolders()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $this->_connection->expects($this->any())
-                ->method('getAuth')
-                ->will($this->returnValue('test'));
             $folder = $this->_getFolder(null, $namespace);
             $folder->setTitle('test');
             $this->assertEquals('test', $folder->getOwner());
@@ -153,10 +141,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testOwnerDomain()
     {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $this->_connection->expects($this->any())
-                ->method('getAuth')
-                ->will($this->returnValue('test@example.com'));
+        foreach ($this->_getNamespaces('test@example.com') as $namespace) {
             $folder = $this->_getFolder('user/test/mine', $namespace);
             $this->assertEquals('test@example.com', $folder->getOwner());
         }
@@ -260,11 +245,12 @@ extends Horde_Kolab_Storage_TestCase
         return $folder;
     }
 
-    private function _getNamespaces()
+    private function _getNamespaces($user = 'test')
     {
         return array(
-            new Horde_Kolab_Storage_Folder_Namespace_Fixed(),
+            new Horde_Kolab_Storage_Folder_Namespace_Fixed($user),
             new Horde_Kolab_Storage_Folder_Namespace_Config(
+                $user,
                 array(
                     array(
                         'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
@@ -286,6 +272,7 @@ extends Horde_Kolab_Storage_TestCase
                 )
             ),
             new Horde_Kolab_Storage_Folder_Namespace_Imap(
+                $user,
                 array(
                     array(
                         'name'      => 'INBOX/',

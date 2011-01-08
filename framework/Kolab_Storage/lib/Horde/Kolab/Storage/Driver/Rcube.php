@@ -436,12 +436,13 @@ extends Horde_Kolab_Storage_Driver_Base
                         $namespace['type'] = 'shared';
                         break;
                     }
-                    $namespace['delimiter'] = $namespace['delimter'];
+                    $namespace['delimiter'] = $namespace['delimiter'];
                     $namespaces[] = $namespace;
                 }
             }
             return new Horde_Kolab_Storage_Driver_Namespace_Imap(
                 $namespaces,
+                $this->getAuth(),
                 $this->getParam('namespaces', array())
             );
         }

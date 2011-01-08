@@ -128,7 +128,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetNamespaceReturnsExpectedNamespaces()
     {
         $driver = new Horde_Kolab_Storage_Driver_Mock(
-            new Horde_Kolab_Storage_Factory(), array()
+            new Horde_Kolab_Storage_Factory(), array('username' => 'test')
         );
         $namespaces = array();
         foreach ($driver->getNamespace() as $namespace) {

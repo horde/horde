@@ -125,6 +125,7 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
             ->will(
                 $this->returnValue(
                     new Horde_Kolab_Storage_Folder_Namespace_Imap(
+                        'test',
                         array(
                             array(
                                 'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
@@ -257,6 +258,7 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
             ->will(
                 $this->returnValue(
                     new Horde_Kolab_Storage_Folder_Namespace_Imap(
+                        'test',
                         array(
                             array(
                                 'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,

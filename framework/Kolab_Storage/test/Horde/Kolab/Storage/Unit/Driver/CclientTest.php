@@ -49,7 +49,7 @@ extends PHPUnit_Framework_TestCase
     public function testGetNamespaceReturnsExpectedNamespaces()
     {
         $driver = new Horde_Kolab_Storage_Driver_Cclient(
-            new Horde_Kolab_Storage_Factory(), array()
+            new Horde_Kolab_Storage_Factory(), array('username' => 'test')
         );
         $namespaces = array();
         foreach ($driver->getNamespace() as $namespace) {

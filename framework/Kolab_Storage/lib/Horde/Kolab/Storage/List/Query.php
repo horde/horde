@@ -54,6 +54,14 @@ extends Horde_Kolab_Storage_Query
     public function listByType($type);
 
     /**
+     * Get the folder owners.
+     *
+     * @return array The folder owners with the folder names as key and the
+     *               owner as values.
+     */
+//    public function listOwners();
+
+    /**
      * Get the default folder for a certain type.
      *
      * @param string $type The type of the share/folder.

@@ -107,6 +107,22 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Get the folder owners.
+     *
+     * @return array The folder owners with the folder names as key and the
+     *               owner as values.
+     */
+    public function listOwners()
+    {
+        $result = array();
+        $namespace = $this->_list->getNamespace();
+        foreach ($this->_list->listFolders() as $folder) {
+            $result[$folder] = $namespace->getOwner($folder);
+        }
+        return $result;
+    }
+
+    /**
      * Synchronize the query data with the information from the backend.
      *
      * @return NULL

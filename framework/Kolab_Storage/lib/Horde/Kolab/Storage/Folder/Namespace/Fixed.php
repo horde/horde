@@ -33,13 +33,13 @@ extends  Horde_Kolab_Storage_Folder_Namespace
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct($user)
     {
         parent::__construct(
             array(
-                new Horde_Kolab_Storage_Folder_Namespace_Element_Personal('INBOX/', '/'),
-                new Horde_Kolab_Storage_Folder_Namespace_Element_Other('user/', '/'),
-                new Horde_Kolab_Storage_Folder_Namespace_Element_SharedWithPrefix('', '/', 'shared.')
+                new Horde_Kolab_Storage_Folder_Namespace_Element_Personal('INBOX/', '/', $user),
+                new Horde_Kolab_Storage_Folder_Namespace_Element_Other('user/', '/', $user),
+                new Horde_Kolab_Storage_Folder_Namespace_Element_SharedWithPrefix('', '/', $user, 'shared.')
             )
         );
     }

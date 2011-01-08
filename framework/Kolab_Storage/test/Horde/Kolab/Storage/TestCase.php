@@ -188,6 +188,85 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getNamespaceAccount()
+    {
+        return array(
+            'username' => 'test@example.com',
+            'data' => array(
+                'user/test' => null,
+                'user/test/a' => null,
+                'user/test/Calendar' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/test/Contacts' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'contact.default',
+                    )
+                ),
+                'user/test/Notes' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'note.default',
+                    )
+                ),
+                'user/test/Tasks' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'task.default',
+                    )
+                ),
+                'user/example/Notes' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'note.default',
+                    )
+                ),
+                'user/example/Calendar' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/someone/Calendars/Events' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/someone/Calendars/Party' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event',
+                    )
+                ),
+                'shared.Calendars/All' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event',
+                    )
+                ),
+                'shared.Calendars/Others' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event',
+                    )
+                ),
+            )
+        );
+    }
+
+    protected function getNamespaceMock($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_Driver_Mock(
+            $factory,
+            $this->getNamespaceAccount()
+        );
+    }
+
+    protected function getNamespaceList($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_List_Base(
+            $this->getNamespaceMock($factory),
+            $factory
+        );
+    }
+
     protected function getCachedQueryForList($bare_list, $factory)
     {
         $list_cache = $this->getMockListCache();

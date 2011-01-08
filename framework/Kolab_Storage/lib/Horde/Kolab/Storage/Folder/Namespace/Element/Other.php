@@ -55,9 +55,14 @@ extends Horde_Kolab_Storage_Folder_Namespace_Element
             $domain = strstr(array_pop($path), '@');
             if (!empty($domain)) {
                 $user .= $domain;
+            } else {
+                $domain = strstr($this->_user, '@');
+                if (!empty($domain)) {
+                    $user .= $domain;
+                }
             }
         }
-        return Horde_Kolab_Storage_Folder_Namespace::OTHER . ':' . $user;
+        return $user;
     }
 
     /**

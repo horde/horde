@@ -192,11 +192,12 @@ class Horde_Kolab_Storage_Factory
      * Create a namespace handler.
      *
      * @param string $type   The namespace type.
+     * @param string $user   The current user.
      * @param array  $params The parameters for the namespace. See 
      *
      * @return Horde_Kolab_Storage_Folder_Namespace The namespace handler.
      */
-    public function createNamespace($type, array $params = array())
+    public function createNamespace($type, $user, array $params = array())
     {
         $class = 'Horde_Kolab_Storage_Folder_Namespace_' . ucfirst($type);
         if (!class_exists($class)) {
@@ -209,7 +210,7 @@ class Horde_Kolab_Storage_Factory
                 )
             );
         }
-        return new $class($params);
+        return new $class($user, $params);
     }
 
     /**

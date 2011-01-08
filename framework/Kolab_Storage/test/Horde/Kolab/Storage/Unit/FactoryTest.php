@@ -93,7 +93,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $factory->createNamespace(
-            'undefined'
+            'undefined', 'test'
         );
     }
 
@@ -103,7 +103,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder_Namespace_Fixed',
             $factory->createNamespace(
-                'fixed'
+                'fixed', 'test'
             )
         );
     }

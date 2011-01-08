@@ -86,4 +86,54 @@ extends Horde_Kolab_Storage_TestCase
             $this->assertInstanceOf('Horde_Kolab_Storage_Folder_Type', $type);
         };
     }
+
+    public function testListOwnersReturn()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $this->assertType(
+            'array',
+            $query->listOwners()
+        );
+    }
+
+    public function testListOwnerList()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $this->assertEquals(
+            array(
+                'INBOX' => 'test@example.com',
+                'INBOX/Calendar' => 'test@example.com',
+                'INBOX/Contacts' => 'test@example.com',
+                'INBOX/Notes' => 'test@example.com',
+                'INBOX/Tasks' => 'test@example.com',
+                'INBOX/a' => 'test@example.com',
+            ),
+            $query->listOwners()
+        );
+    }
+
+    public function testListOwnerNamespace()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getNamespaceList($factory));
+        $this->assertEquals(
+            array(
+                'INBOX' => 'test@example.com',
+                'INBOX/Calendar' => 'test@example.com',
+                'INBOX/Contacts' => 'test@example.com',
+                'INBOX/Notes' => 'test@example.com',
+                'INBOX/Tasks' => 'test@example.com',
+                'INBOX/a' => 'test@example.com',
+                'shared.Calendars/All' => 'anonymous',
+                'shared.Calendars/Others' => 'anonymous',
+                'user/example/Calendar' => 'example@example.com',
+                'user/example/Notes' => 'example@example.com',
+                'user/someone/Calendars/Events' => 'someone@example.com',
+                'user/someone/Calendars/Party' => 'someone@example.com',
+            ),
+            $query->listOwners()
+        );
+    }
 }

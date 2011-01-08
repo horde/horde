@@ -166,10 +166,12 @@ implements Horde_Kolab_Storage_Driver
         if ($this->_namespace === null) {
             if (isset($this->_params['namespaces'])) {
                 $this->_namespace = $this->_factory->createNamespace(
-                    'config', $this->_params['namespaces']
+                    'config', $this->getAuth(), $this->_params['namespaces']
                 );
             } else {
-                $this->_namespace = $this->_factory->createNamespace('fixed');
+                $this->_namespace = $this->_factory->createNamespace(
+                    'fixed', $this->getAuth()
+                );
             }
         }
         return $this->_namespace;

@@ -422,7 +422,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 }
                 $c[] = $namespace;
             }
-            $this->_namespace = $this->getFactory()->createNamespace('imap', $c);
+            $this->_namespace = $this->getFactory()->createNamespace('imap', $this->getAuth(), $c);
         }
         return parent::getNamespace();
     }

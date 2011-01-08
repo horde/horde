@@ -49,6 +49,6 @@ extends Horde_Kolab_Storage_Folder_Namespace_Element
      */
     public function getOwner($name)
     {
-        return Horde_Kolab_Storage_Folder_Namespace::SHARED;
+        return 'anonymous';
     }
 }

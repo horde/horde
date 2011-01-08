@@ -32,19 +32,22 @@ extends  Horde_Kolab_Storage_Folder_Namespace
 {
     /**
      * Constructor.
+     *
+     * @param string $user          The current user.
+     * @param array  $configuration The namespace configuration.
      */
-    public function __construct(array $configuration)
+    public function __construct($user, array $configuration)
     {
         $namespace = array();
         foreach ($configuration as $element) {
             if ($element['type'] == Horde_Kolab_Storage_Folder_Namespace::SHARED
                 && isset($element['prefix'])) {
                 $namespace_element = new Horde_Kolab_Storage_Folder_Namespace_Element_SharedWithPrefix(
-                    $element['name'], $element['delimiter'], $element['prefix']
+                    $element['name'], $element['delimiter'], $user, $element['prefix']
                 );
             } else {
                 $class = 'Horde_Kolab_Storage_Folder_Namespace_Element_' . ucfirst($element['type']);
-                $namespace_element = new $class($element['name'], $element['delimiter']);
+                $namespace_element = new $class($element['name'], $element['delimiter'], $user);
             }
             $namespaces[] = $namespace_element;
         }

@@ -42,18 +42,27 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
     protected $_delimiter;
 
     /**
+     * The current user.
+     *
+     * @var string
+     */
+    protected $_user;
+
+    /**
      * Constructor.
      *
      * @param string $name      The prefix identifying this namespace.
      * @param string $delimiter The delimiter used for this namespace.
+     * @param string $user      The current user.
      */
-    public function __construct($name, $delimiter)
+    public function __construct($name, $delimiter, $user)
     {
         if (substr($name, -1) == $delimiter) {
             $name = substr($name, 0, -1);
         }
         $this->_name = $name;
         $this->_delimiter = $delimiter;
+        $this->_user = $user;
     }
 
     /**
