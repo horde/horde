@@ -245,6 +245,13 @@ class Ansel_Application extends Horde_Registry_Application
           '$(window.document).bind("mobileinit", function() {
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
               $.mobile.loadingMessage = "' . _("loading") . '";
+              // TODO: Figure out how to force load the gallerylist page..
+              // this does not work
+              //$("#imageview").live("pagebeforeshow", function() {
+              //    if (!AnselMobile.currentImage) {
+              //        $.mobile.changePage("gallerylist", "slide", false, true);
+              //    }
+              //});
           });'
         );
     }
