@@ -84,7 +84,7 @@ var AnselMobile = {
     {
         var i = $('<img>').load(
             function() {
-                AnselMobile.resize($(this));
+               // AnselMobile.resize($(this));
             }).attr({'src': ((AnselMobile.currentGallery.tiny) ? 'http://i.tinysrc.mobi/' : '') + AnselMobile.currentImages[index].screen});
 
         AnselMobile.currentImage = index;
@@ -161,12 +161,12 @@ var AnselMobile = {
 		}
     },
 
-	/**
+    /**
      * Resize the image, based on windows width and height.
      *
      * @param dom object $image the image node
      */
-	resize: function($image)
+    resize: function($image)
     {
 		var widthMargin = 10;
 		var heightMargin = 80;
@@ -306,9 +306,9 @@ var AnselMobile = {
         // resize the main image if it's  being shown.
         $(window).bind('resize', function() {
             AnselMobile.centerGrid();
-            if ($('#anselimageview').find('img').length) {
-                AnselMobile.resize($('#anselimageview').find('img'));
-            }
+            //if ($('#anselimageview').find('img').length) {
+            //    AnselMobile.resize($('#anselimageview').find('img'));
+            //}
         });
 
         $('body').bind('orientationchange', function() {
