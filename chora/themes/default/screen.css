@@ -160,7 +160,7 @@ h3.file-view-header {
     background: #eee;
     padding: .5em;
     font-size: 100%;
-    margin: .2em 0;
+    margin: .2em 0 .5em 0;
 }
 .commit-message {
     font-size: 110%;
