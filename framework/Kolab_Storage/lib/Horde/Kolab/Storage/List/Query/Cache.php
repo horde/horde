@@ -37,6 +37,12 @@ implements Horde_Kolab_Storage_List_Query
     /** The folder owner list */
     const OWNERS = 'OWNERS';
 
+    /** The default folder list for the current user */
+    const PERSONAL_DEFAULTS = 'PERSONAL_DEFAULTS';
+
+    /** The default folder list */
+    const DEFAULTS = 'DEFAULTS';
+
     /**
      * The queriable list.
      *
@@ -129,6 +135,23 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Get the default folder for a certain type.
+     *
+     * @param string $type The type of the share/folder.
+     *
+     * @return string|boolean The name of the default folder, false if there is no default.
+     */
+    public function getDefault($type)
+    {
+        $defaults = $this->_list_cache->getQuery(self::PERSONAL_DEFAULTS);
+        if (isset($defaults[$type])) {
+            return $defaults[$type];
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Synchronize the query data with the information from the backend.
      *
      * @return NULL
@@ -151,5 +174,30 @@ implements Horde_Kolab_Storage_List_Query
             $owners[$folder] = $namespace->getOwner($folder);
         }
         $this->_list_cache->setQuery(self::OWNERS, $owners);
+
+        $personal_defaults = array();
+        $namespace = $this->_list->getNamespace();
+        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
+            if ($annotation->isDefault()
+                && ($namespace->matchNamespace($folder)->getType()
+                    == Horde_Kolab_Storage_Folder_Namespace::PERSONAL)) {
+                $type = $annotation->getType();
+                if (!isset($personal_defaults[$type])) {
+                    $personal_defaults[$type] = $folder;
+                } else {
+                    throw new Horde_Kolab_Storage_Exception(
+                        sprintf(
+                            'Both folders %s and %s are marked as default folder of type %s!',
+                            $personal_defaults[$type],
+                            $folder,
+                            $type
+                        )
+                    );
+                }
+            }
+        }
+        $this->_list_cache->setQuery(
+            self::PERSONAL_DEFAULTS, $personal_defaults
+        );
     }
 }

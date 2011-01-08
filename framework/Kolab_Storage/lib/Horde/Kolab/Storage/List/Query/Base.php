@@ -65,8 +65,7 @@ implements Horde_Kolab_Storage_List_Query
     public function listTypes()
     {
         $result = array();
-        $list = $this->listFolderTypeAnnotations();
-        foreach ($list as $folder => $annotation) {
+        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
             $result[$folder] = $annotation->getType();
         }
         return $result;
@@ -81,8 +80,7 @@ implements Horde_Kolab_Storage_List_Query
     public function listFolderTypeAnnotations()
     {
         $result = array();
-        $list = $this->_list->listFolderTypes();
-        foreach ($list as $folder => $annotation) {
+        foreach ($this->_list->listFolderTypes() as $folder => $annotation) {
             $result[$folder] = $this->_factory->createFolderType($annotation);
         }
         return $result;
@@ -120,6 +118,43 @@ implements Horde_Kolab_Storage_List_Query
             $result[$folder] = $namespace->getOwner($folder);
         }
         return $result;
+    }
+
+    /**
+     * Get the default folder for a certain type.
+     *
+     * @param string $type The type of the share/folder.
+     *
+     * @return string|boolean The name of the default folder, false if there is no default.
+     */
+    public function getDefault($type)
+    {
+        $result = null;
+        $namespace = $this->_list->getNamespace();
+        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
+            if ($annotation->getType() == $type
+                && $annotation->isDefault()
+                && ($namespace->matchNamespace($folder)->getType()
+                    == Horde_Kolab_Storage_Folder_Namespace::PERSONAL)) {
+                if ($result === null) {
+                    $result = $folder;
+                } else {
+                    throw new Horde_Kolab_Storage_Exception(
+                        sprintf(
+                            'Both folders %s and %s are marked as default folder of type %s!',
+                            $result,
+                            $folder,
+                            $type
+                        )
+                    );
+                }
+            }
+        }
+        if ($result === null) {
+            return false;
+        } else {
+            return $result;
+        }
     }
 
     /**

@@ -267,6 +267,120 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getForeignDefaultAccount()
+    {
+        return array(
+            'username' => 'test@example.com',
+            'data' => array(
+                'user/test' => null,
+                'user/example/Calendar' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/someone/Calendars/Events' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+            )
+        );
+    }
+
+    protected function getForeignDefaultMock($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_Driver_Mock(
+            $factory,
+            $this->getForeignDefaultAccount()
+        );
+    }
+
+    protected function getForeignDefaultList($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_List_Base(
+            $this->getForeignDefaultMock($factory),
+            $factory
+        );
+    }
+
+    protected function getEventAccount()
+    {
+        return array(
+            'username' => 'test@example.com',
+            'data' => array(
+                'user/test' => null,
+                'user/test/Calendar' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event',
+                    )
+                ),
+                'user/test/Events' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+            )
+        );
+    }
+
+    protected function getEventMock($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_Driver_Mock(
+            $factory,
+            $this->getEventAccount()
+        );
+    }
+
+    protected function getEventList($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_List_Base(
+            $this->getEventMock($factory),
+            $factory
+        );
+    }
+
+    protected function getDoubleEventAccount()
+    {
+        return array(
+            'username' => 'test@example.com',
+            'data' => array(
+                'user/test' => null,
+                'user/test/Calendar' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+                'user/test/Events' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'event.default',
+                    )
+                ),
+            )
+        );
+    }
+
+    protected function getDoubleEventMock($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_Driver_Mock(
+            $factory,
+            $this->getDoubleEventAccount()
+        );
+    }
+
+    protected function getDoubleEventList($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_List_Base(
+            $this->getDoubleEventMock($factory),
+            $factory
+        );
+    }
+
     protected function getCachedQueryForList($bare_list, $factory)
     {
         $list_cache = $this->getMockListCache();

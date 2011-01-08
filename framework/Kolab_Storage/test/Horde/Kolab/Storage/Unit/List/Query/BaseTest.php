@@ -136,4 +136,72 @@ extends Horde_Kolab_Storage_TestCase
             $query->listOwners()
         );
     }
+
+    public function testDefaultReturn()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $this->assertType(
+            'string',
+            $query->getDefault('event')
+        );
+    }
+
+    public function testDefaultCalendar()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $this->assertEquals(
+            'INBOX/Calendar',
+            $query->getDefault('event')
+        );
+    }
+
+    public function testDefaultNotes()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $this->assertEquals(
+            'INBOX/Notes',
+            $query->getDefault('note')
+        );
+    }
+
+    public function testMissingDefault()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getNullList($factory));
+        $this->assertFalse(
+            $query->getDefault('note')
+        );
+    }
+
+    public function testIgnoreForeignDefault()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getForeignDefaultList($factory));
+        $this->assertFalse(
+            $query->getDefault('event')
+        );
+    }
+
+    public function testIdentifyDefault()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getEventList($factory));
+        $this->assertEquals(
+            'INBOX/Events',
+            $query->getDefault('event')
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testBailOnDoubleDefault()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getDoubleEventList($factory));
+        $query->getDefault('event');
+    }
 }
