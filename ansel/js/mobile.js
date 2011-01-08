@@ -83,12 +83,12 @@ var AnselMobile = {
     toImage: function(index)
     {
         var i = $('<img>').attr({ 'src': ((AnselMobile.currentGallery.tiny) ? 'http://i.tinysrc.mobi/' : '') + AnselMobile.currentImages[index].screen });
-        
+
         AnselMobile.currentImage = index;
         $('#anselimageview').empty();
         $('#anselimageview').append(i);
         $('#imageview h1').text(AnselMobile.currentImages[index].fn)
-        $('#imagebackbutton .ui-btn-text').text(AnselMobile.currentGallery.n);
+        $('#ansel-image-back .ui-btn-text').text(AnselMobile.currentGallery.n);
 
         if ($.mobile.activePage.attr('id') != 'imageview') {
             $.mobile.changePage('imageview', 'slide', false, true);
@@ -127,11 +127,11 @@ var AnselMobile = {
             $.mobile.changePage('galleryview', 'slide', false, true);
         }
         if (r.p) {
-            $('#gallerybackbutton .ui-btn-text').text(r.pn);
-            $('#gallerybackbutton').attr({ 'action': 'gallery', 'gallery-id': r.p });
+            $('#ansel-gallery-back .ui-btn-text').text(r.pn);
+            $('#ansel-gallery-back').attr({ 'action': 'gallery', 'gallery-id': r.p });
         } else {
-            $('#gallerybackbutton .ui-btn-text').text($.mobile.page.prototype.options.backBtnText);
-            $('#gallerybackbutton').attr({ 'action': 'home', 'gallery-id': null });
+            $('#ansel-gallery-back .ui-btn-text').text($.mobile.page.prototype.options.backBtnText);
+            $('#ansel-gallery-back').attr({ 'action': 'home', 'gallery-id': null });
         }
         AnselMobile.centerGrid();
     },
@@ -167,26 +167,34 @@ var AnselMobile = {
         var elt = $(e.target), id;
 
         while (elt && elt != window.document && elt.parent().length) {
-
             // Navigate to a gallery
             if (elt.hasClass('ansel-gallery')) {
                 AnselMobile.toGallery(elt.attr('ansel-gallery-id'));
+                return;
+            } else if (elt.attr('image-key')) {
+                AnselMobile.toImage(elt.attr('image-key'));
+                return;
             }
 
-            if (elt.attr('image-key')) {
-                AnselMobile.toImage(elt.attr('image-key'));
-            }
-            if (elt.attr('id') == 'gallerybackbutton') {
-                switch (elt.attr('action')) {
-                case 'home':
-                    $.mobile.changePage('gallerylist', 'slide', true, true);
-                    break;
-                case 'gallery':
-                    AnselMobile.toGallery(elt.attr('gallery-id'));
-                }
-            }
-            if (elt.attr('id') == 'imagebackbutton') {
-                window.history.back();
+            switch (elt.attr('id')) {
+                case 'ansel-image-prev':
+                    AnselMobile.prevImage();
+                    return;
+                case 'ansel-image-next':
+                    AnselMobile.nextImage();
+                    return;
+                case 'ansel-gallery-back':
+                    switch (elt.attr('action')) {
+                    case 'home':
+                        $.mobile.changePage('gallerylist', 'slide', true, true);
+                        break;
+                    case 'gallery':
+                        AnselMobile.toGallery(elt.attr('gallery-id'));
+                    }
+                    return;
+                case 'ansel-image-back':
+                    window.history.back();
+                    return;
             }
             elt = elt.parent();
         }
@@ -202,15 +210,26 @@ var AnselMobile = {
             return;
         }
         if (map.type == 'swipeleft') {
-            AnselMobile.currentImage++;
-            if (AnselMobile.currentImage >= AnselMobile.currentImages.length) {
-                AnselMobile.currentImage = 0;
-            }
+            AnselMobile.nextImage();
         } else if (map.type == 'swiperight') {
-            AnselMobile.currentImage--;
-            if (AnselMobile.currentImage < 0) {
-                AnselMobile.currentImage = AnselMobile.currentImages.length - 1;
-            }
+            AnselMobile.prevImage();
+        }
+    },
+
+    nextImage: function()
+    {
+        AnselMobile.currentImage++;
+        if (AnselMobile.currentImage >= AnselMobile.currentImages.length) {
+            AnselMobile.currentImage = 0;
+        }
+        AnselMobile.toImage(AnselMobile.currentImage);
+    },
+
+    prevImage: function()
+    {
+        AnselMobile.currentImage--;
+        if (AnselMobile.currentImage < 0) {
+            AnselMobile.currentImage = AnselMobile.currentImages.length - 1;
         }
         AnselMobile.toImage(AnselMobile.currentImage);
     },

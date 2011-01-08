@@ -1,6 +1,6 @@
 <div data-role="page" data-theme="h" id="galleryview">
   <div data-role="header">
-    <a data-role="button" data-icon="arrow-l" href="#" id="gallerybackbutton"></a>
+    <a data-role="button" data-icon="arrow-l" href="#" id="ansel-gallery-back"></a>
     <h1></h1>
   </div>
   <div id="anselgalleryview">
