@@ -34,6 +34,9 @@ implements Horde_Kolab_Storage_List_Query
     /** The folder list sorted by type */
     const BY_TYPE = 'BY_TYPE';
 
+    /** The folder owner list */
+    const OWNERS = 'OWNERS';
+
     /**
      * The queriable list.
      *
@@ -115,6 +118,17 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Get the folder owners.
+     *
+     * @return array The folder owners with the folder names as key and the
+     *               owner as values.
+     */
+    public function listOwners()
+    {
+        return $this->_list_cache->getQuery(self::OWNERS);
+    }
+
+    /**
      * Synchronize the query data with the information from the backend.
      *
      * @return NULL
@@ -130,5 +144,12 @@ implements Horde_Kolab_Storage_List_Query
         }
         $this->_list_cache->setQuery(self::TYPES, $types);
         $this->_list_cache->setQuery(self::BY_TYPE, $by_type);
+
+        $owners = array();
+        $namespace = $this->_list->getNamespace();
+        foreach ($this->_list->listFolders() as $folder) {
+            $owners[$folder] = $namespace->getOwner($folder);
+        }
+        $this->_list_cache->setQuery(self::OWNERS, $owners);
     }
 }

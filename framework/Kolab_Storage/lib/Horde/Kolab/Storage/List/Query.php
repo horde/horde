@@ -59,7 +59,7 @@ extends Horde_Kolab_Storage_Query
      * @return array The folder owners with the folder names as key and the
      *               owner as values.
      */
-//    public function listOwners();
+    public function listOwners();
 
     /**
      * Get the default folder for a certain type.
