@@ -252,6 +252,8 @@ class Ansel_Application extends Horde_Registry_Application
               //        $.mobile.changePage("gallerylist", "slide", false, true);
               //    }
               //});
+              // Reactivate pinch/zoom
+              $.mobile.metaViewportContent = "width=device-width";
           });'
         );
     }
