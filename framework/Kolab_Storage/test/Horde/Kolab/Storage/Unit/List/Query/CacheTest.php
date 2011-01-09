@@ -270,4 +270,36 @@ extends Horde_Kolab_Storage_TestCase
         $query = $this->getCachedQueryForList($this->getDoubleEventList($factory), $factory);
         $query->getForeignDefault('someone@example.com', 'event');
     }
+
+    public function testListPersonalDefaults()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
+        $this->assertEquals(
+            array(
+                'contact' => 'INBOX/Contacts',
+                'event' => 'INBOX/Calendar',
+                'note' => 'INBOX/Notes',
+                'task' => 'INBOX/Tasks'
+            ),
+            $query->listPersonalDefaults()
+        );
+    }
+
+    public function testListDefaults()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $this->getCachedQueryForList($this->getForeignDefaultList($factory), $factory);
+        $this->assertEquals(
+            array(
+                'example@example.com' => array(
+                    'event' => 'user/example/Calendar'
+                ),
+                'someone@example.com' => array(
+                    'event' => 'user/someone/Calendars/Events'
+                )
+            ),
+            $query->listDefaults()
+        );
+    }
 }

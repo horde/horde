@@ -62,6 +62,15 @@ extends Horde_Kolab_Storage_Query
     public function listOwners();
 
     /**
+     * Return the list of default folders.
+     *
+     * @return array An array with owners as keys and another array as
+     *               value. The second array associates type (key) with the
+     *               corresponding default folder (value).
+     */
+    public function listDefaults();
+
+    /**
      * Get the default folder for a certain type.
      *
      * @param string $type The type of the share/folder.

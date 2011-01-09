@@ -121,6 +121,45 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Return the list of personal default folders.
+     *
+     * @return array An array that associates type (key) with the corresponding
+     *               default folder name (value).
+     */
+    public function listPersonalDefaults()
+    {
+        $result = array();
+        $namespace = $this->_list->getNamespace();
+        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
+            if ($annotation->isDefault()
+                && ($namespace->matchNamespace($folder)->getType()
+                    == Horde_Kolab_Storage_Folder_Namespace::PERSONAL)) {
+                $result[$annotation->getType()] = $folder;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Return the list of default folders.
+     *
+     * @return array An array with owners as keys and another array as
+     *               value. The second array associates type (key) with the
+     *               corresponding default folder (value).
+     */
+    public function listDefaults()
+    {
+        $result = array();
+        $namespace = $this->_list->getNamespace();
+        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
+            if ($annotation->isDefault()) {
+                $result[$namespace->getOwner($folder)][$annotation->getType()] = $folder;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Get the default folder for a certain type.
      *
      * @param string $type The type of the share/folder.

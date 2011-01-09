@@ -135,6 +135,29 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Return the list of personal default folders.
+     *
+     * @return array An array that associates type (key) with the corresponding
+     *               default folder name (value).
+     */
+    public function listPersonalDefaults()
+    {
+        return $this->_list_cache->getQuery(self::PERSONAL_DEFAULTS);
+    }
+
+    /**
+     * Return the list of default folders.
+     *
+     * @return array An array with owners as keys and another array as
+     *               value. The second array associates type (key) with the
+     *               corresponding default folder (value).
+     */
+    public function listDefaults()
+    {
+        return $this->_list_cache->getQuery(self::DEFAULTS);
+    }
+
+    /**
      * Get the default folder for a certain type.
      *
      * @param string $type The type of the share/folder.
