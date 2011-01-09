@@ -122,7 +122,7 @@ class Horde_Group_SqlObject extends Horde_Group_DataTreeObject
                      ' VALUES (?, ?)';
             foreach ($this->data['users'] as $user) {
                 try {
-                    $this->db->insert($query, array(intval($this->id), $user));
+                    $this->_groupOb->db->insert($query, array(intval($this->id), $user));
                 } catch (Horde_Db_Exception $e) {
                     throw new Horde_Group_Exception($e);
                 }
