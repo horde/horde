@@ -236,6 +236,15 @@ extends Horde_Kolab_Storage_TestCase
         }
     }
 
+    public function testToString()
+    {
+        $namespace = new Horde_Kolab_Storage_Folder_Namespace_Fixed('test@example.com');
+        $this->assertEquals(
+            'Horde_Kolab_Storage_Folder_Namespace_Fixed: "INBOX" (personal, "/"), "user" (other, "/"), "" (shared, "/")',
+            (string) $namespace
+        );
+    }
+
     private function _getFolder($name, $namespace)
     {
         $this->_connection->expects($this->any())

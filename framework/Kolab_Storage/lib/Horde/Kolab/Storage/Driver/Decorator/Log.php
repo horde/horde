@@ -335,6 +335,18 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      */
     public function getNamespace()
     {
+        $this->_logger->info(
+            sprintf('Driver "%s": Retrieving namespaces.', $this->getDriverName())
+        );
+        $result = parent::getNamespace();
+        $this->_logger->info(
+            sprintf(
+                'Driver "%s": Retrieved namespaces [%s].',
+                $this->getDriverName(),
+                (string) $result
+            )
+        );
+        return $result;
     }
 
     /**

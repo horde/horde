@@ -342,6 +342,15 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      */
     public function getNamespace()
     {
+        $this->_timer->push();
+        $result = parent::getNamespace();
+        $this->_logger->info(
+            sprintf(
+                'REQUEST OUT IMAP: %s ms [getNamespace]',
+                floor($this->_timer->pop() * 1000)
+            )
+        );
+        return $result;
     }
 
     /**

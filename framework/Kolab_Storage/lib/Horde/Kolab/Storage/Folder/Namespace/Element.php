@@ -169,4 +169,13 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
         return join($path, $this->_delimiter);
     }
 
+    /**
+     * Convert the namespace description to a string.
+     *
+     * @return string The namespace description.
+     */
+    public function __toString()
+    {
+        return '"' . $this->_name . '" (' . $this->getType() . ', "' . $this->_delimiter . '")';
+    }
 }

@@ -274,4 +274,14 @@ implements Iterator
     {
         return key($this->_namespaces) !== null;
     }
+
+    /**
+     * Convert the namespace description to a string.
+     *
+     * @return string The namespace description.
+     */
+    public function __toString()
+    {
+        return get_class($this) . ': ' . join(', ', $this->_namespaces);
+    }
 }

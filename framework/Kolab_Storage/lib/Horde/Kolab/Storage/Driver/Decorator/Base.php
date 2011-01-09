@@ -358,6 +358,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function getNamespace()
     {
+        return $this->_driver->getNamespace();
     }
 
     /**

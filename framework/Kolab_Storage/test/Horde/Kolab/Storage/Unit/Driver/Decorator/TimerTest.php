@@ -85,4 +85,28 @@ extends Horde_Kolab_Storage_TestCase
         $driver->listAnnotation('/shared/vendor/kolab/folder-type');
         $this->assertLogRegExp('/REQUEST OUT IMAP:.*listAnnotation.*/');
     }
+
+    public function testGetNamespaceLogsEntry()
+    {
+        $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
+            $this->getTwoFolderMock(),
+            new Horde_Support_Timer(),
+            $this->getMockLogger()
+        );
+        $driver->getNamespace();
+        $this->assertLogRegExp('/REQUEST OUT IMAP:.*getNamespace.*/');
+    }
+
+    public function testGetNamespaceType()
+    {
+        $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
+            $this->getTwoFolderMock(),
+            new Horde_Support_Timer(),
+            $this->getMockLogger()
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder_Namespace',
+            $driver->getNamespace()
+        );
+    }
 }

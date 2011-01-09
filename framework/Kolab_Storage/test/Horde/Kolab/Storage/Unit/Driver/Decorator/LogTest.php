@@ -74,4 +74,27 @@ extends Horde_Kolab_Storage_TestCase
         $driver->listAnnotation('/shared/vendor/kolab/folder-type');
         $this->assertLogContains('Driver "Horde_Kolab_Storage_Driver_Mock": List contained 4 folder annotations.');
     }
+
+    public function testGetNamespaceLogsEntry()
+    {
+        $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
+            $this->getNullMock(),
+            $this->getMockLogger()
+        );
+        $driver->getNamespace();
+        $this->assertLogCount(2);
+    }
+
+    public function testGetNamespaceType()
+    {
+        $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
+            $this->getNullMock(),
+            $this->getMockLogger()
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder_Namespace',
+            $driver->getNamespace()
+        );
+    }
+
 }
