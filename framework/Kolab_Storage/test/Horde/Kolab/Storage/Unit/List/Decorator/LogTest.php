@@ -84,7 +84,8 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullList($factory),
             $this->getMockLogger()
         );
-        $factory->createListQuery('Base', $list);
+        $query = $factory->createListQuery('Base', $list);
+        $list->registerQuery('Base', $query);
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Query',
             $list->getQuery('Base')

@@ -184,7 +184,6 @@ class Horde_Kolab_Storage_Factory
         } else {
             throw new Horde_Kolab_Storage_Exception(sprintf('No such query "%s"!', $name));
         }
-        $list->registerQuery($name, $query);
         return $query;
     }
 
