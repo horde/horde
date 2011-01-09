@@ -74,16 +74,18 @@ if ($groupedit) {
 }
 
 /* Execute() checks validation first. */
-$edited = $form->execute();
-if (!($edited instanceof PEAR_Error)) {
-    $url = Horde_Util::getFormData('url');
-    if (empty($url)) {
-        $url = $contact->url('Contact', true);
-    } else {
-        $url = new Horde_Url($url, true);
-    }
-    $url->unique()->redirect();
+try {
+    $edited = $form->execute();
+} catch (Turba_Exception $e) {
 }
+$url = Horde_Util::getFormData('url');
+if (empty($url)) {
+    $url = $contact->url('Contact', true);
+} else {
+    $url = new Horde_Url($url, true);
+}
+$url->unique()->redirect();
+
 
 $title = sprintf(_("Edit \"%s\""), $contact->getValue('name'));
 require $registry->get('templates', 'horde') . '/common-header.inc';

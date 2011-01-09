@@ -37,15 +37,15 @@ $form = new Turba_Form_EditAddressBook($vars, $addressbook);
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     $original_name = $addressbook->get('name');
-    $result = $form->execute();
-    if ($result instanceof PEAR_Error) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $result = $form->execute();
         if ($addressbook->get('name') != $original_name) {
             $notification->push(sprintf(_("The addressbook \"%s\" has been renamed to \"%s\"."), $original_name, $addressbook->get('name')), 'horde.success');
         } else {
             $notification->push(sprintf(_("The addressbook \"%s\" has been saved."), $original_name), 'horde.success');
         }
+    } catch (Turba_Exception $e) {
+        $notification->push($result, 'horde.error');
     }
 
     Horde::url('addressbooks/', true)->redirect();
