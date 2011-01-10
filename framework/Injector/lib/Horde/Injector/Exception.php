@@ -5,6 +5,6 @@
  * @category Horde
  * @package  Injector
  */
-class Horde_Injector_Exception extends Exception
+class Horde_Injector_Exception extends Horde_Exception
 {
 }
