@@ -3,6 +3,14 @@
 class Horde_Cli_Modular_Stub_Module_One
 implements Horde_Cli_Modular_Module
 {
+    public $args;
+
+    public function __construct()
+    {
+        $this->args = func_get_args();
+    }
+
+
     public function getUsage()
     {
         return 'Use One';

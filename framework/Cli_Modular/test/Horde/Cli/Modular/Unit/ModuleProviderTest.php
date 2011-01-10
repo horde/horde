@@ -66,4 +66,18 @@ extends Horde_Cli_Modular_TestCase
             'Use One', $provider->getModule('One')->getUsage('One')
         );
     }
+
+    public function testDependencies()
+    {
+        $dependencies = new stdClass;
+        $provider = new Horde_Cli_Modular_ModuleProvider(
+            array(
+                'prefix' => 'Horde_Cli_Modular_Stub_Module_',
+                'dependencies' => $dependencies,
+            )
+        );
+        $this->assertSame(
+            $dependencies, $provider->getModule('One')->args[0]
+        );
+    }
 }

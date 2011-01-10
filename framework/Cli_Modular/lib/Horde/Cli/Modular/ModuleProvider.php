@@ -109,6 +109,6 @@ class Horde_Cli_Modular_ModuleProvider
                 sprintf('Invalid module %s!', $class)
             );
         }
-        return new $class();
+        return new $class($this->_dependencies);
     }
 }
