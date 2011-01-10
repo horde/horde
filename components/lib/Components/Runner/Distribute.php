@@ -92,7 +92,7 @@ class Components_Runner_Distribute
         if (empty($template)) {
             throw new Components_Exception(
                 sprintf(
-                    'No packaging template starting with "distribute_" was found in the template directoy %s!',
+                    'No packaging template starting with "distribute_" was found in the template directory %s!',
                     $this->_config_application->getTemplateDirectory()
                 )
             );
