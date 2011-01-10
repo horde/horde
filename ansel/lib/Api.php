@@ -563,7 +563,11 @@ class Ansel_Api extends Horde_Registry_Api
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         }
 
-        return $gallery->getKeyImage(empty($params['style']) ? 'ansel_default' : $params['style']);
+        $style = empty($params['style']) ?
+            Ansel::getStyleDefinition('ansel_default') :
+            Ansel::getStyleDefinition($params['style']);
+        
+        return $gallery->getKeyImage($style);
     }
 
     /**
@@ -586,10 +590,14 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
         }
 
+        $style = empty($params['style']) ?
+            Ansel::getStyleDefinition('ansel_default') :
+            Ansel::getStyleDefinition($params['style']);
+
         return (string)Ansel::getImageUrl($image_id,
                                           empty($params['view']) ? 'screen': $params['view'],
                                           empty($params['full']) ? false : $params['full'],
-                                          empty($params['style']) ? 'ansel_default' : $params['style']);
+                                          $style);
     }
 
     /**

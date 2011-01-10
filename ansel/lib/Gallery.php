@@ -599,7 +599,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
      *
      * @return mixed  The image_id of the key image or false.
      */
-    public function getKeyImage($style = null)
+    public function getKeyImage(Ansel_Style $style = null)
     {
         if (is_null($style)) {
             $style = $this->getStyle();
