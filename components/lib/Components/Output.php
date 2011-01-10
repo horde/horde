@@ -135,6 +135,11 @@ class Components_Output
         $this->_cli->fatal($text);
     }
 
+    public function log($status, $text)
+    {
+        $this->pear($text);
+    }
+
     public function pear($text)
     {
         if (!$this->_verbose) {

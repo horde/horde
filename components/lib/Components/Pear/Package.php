@@ -357,6 +357,7 @@ class Components_Pear_Package
         $pkg->_packageInfo['version']['release'] = $version;
         $pkg->setDate(date('Y-m-d'));
         $pkg->setTime(date('H:i:s'));
+        $pkg->setLogger($this->_output);
         $errors = array();
         ob_start();
         $old_dir = getcwd();
