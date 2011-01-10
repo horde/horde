@@ -43,13 +43,13 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
     {
         $log_list = null;
 
+        if (empty($this->_branch)) { $this->_branch = $this->_rep->getDefaultBranch(); }
+
         /* First, grab the master list of revisions. If quicklog is specified,
          * we don't need this master list - we are only concerned about the
          * most recent revision for the given branch. */
         if ($this->_quicklog) {
-            $branchlist = empty($this->_branch)
-                ? array($this->_rep->getDefaultBranch())
-                : array($this->_branch);
+            $branchlist = array($this->_branch);
         } else {
             if (version_compare($this->_rep->version, '1.6.0', '>=')) {
                 $cmd = $this->_rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
@@ -85,27 +85,21 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
             $branchlist = array_keys($this->queryBranches());
         }
 
-        /* Get the list of revisions. Need to get all revisions, not just
-         * those on $this->_branch, for branch determination reasons. */
-        foreach ($branchlist as $key) {
-            $revs = array();
-            $cmd = $this->_rep->getCommand() . ' rev-list ' . ($this->_quicklog ? '-n 1' : '') . ' ' . escapeshellarg($key) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
-            exec($cmd, $revs);
+        $revs = array();
+        $cmd = $this->_rep->getCommand() . ' rev-list' . ($this->_quicklog ? ' -n 1' : '') . ' ' . escapeshellarg($this->_branch) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        exec($cmd, $revs);
 
-            if (!empty($revs)) {
-                if (stripos($revs[0], 'fatal') === 0) {
-                    throw new Horde_Vcs_Exception(implode(', ', $revs));
-                }
+        if (!empty($revs)) {
+            if (stripos($revs[0], 'fatal') === 0) {
+                throw new Horde_Vcs_Exception(implode(', ', $revs));
+            }
 
-                $this->_revlist[$key] = $revs;
+            $this->_revlist[$this->_branch] = $revs;
 
-                if (!empty($this->_branch) && ($this->_branch == $key)) {
-                    $log_list = $revs;
-                }
+            $log_list = $revs;
 
-                if ($this->_quicklog) {
-                    $this->_revs[] = reset($revs);
-                }
+            if ($this->_quicklog) {
+                $this->_revs[] = reset($revs);
             }
         }
 

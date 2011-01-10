@@ -8,13 +8,16 @@ var Chora_RevLog = {
 
     highlight: function()
     {
-        $('revlog_body').select('TR').each(function(tr) {
-            if (Prototype.Browser.IE) {
-                tr.observe('mouseover', this.rowover.bindAsEventListener(this, 'over'));
-                tr.observe('mouseover', this.rowover.bindAsEventListener(this, 'out'));
-            }
-            tr.observe('click', this.toggle.bindAsEventListener(this));
-        }, this);
+        revlog_body = $('revlog_body');
+        if (revlog_body) {
+            revlog_body.select('TR').each(function(tr) {
+                if (Prototype.Browser.IE) {
+                    tr.observe('mouseover', this.rowover.bindAsEventListener(this, 'over'));
+                    tr.observe('mouseover', this.rowover.bindAsEventListener(this, 'out'));
+                }
+                tr.observe('click', this.toggle.bindAsEventListener(this));
+            }, this);
+        }
     },
 
     rowover: function(e, type)

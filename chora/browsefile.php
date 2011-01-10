@@ -20,7 +20,7 @@ if ($atdir) {
     exit;
 }
 
-$onb = Horde_Util::getFormData('onb');
+$onb = Horde_Util::getFormData('onb', $VC->getDefaultBranch());
 try {
     $fl = $VC->getFileObject($where, array('branch' => $onb));
 } catch (Horde_Vcs_Exception $e) {
@@ -47,51 +47,23 @@ if ($VC->hasFeature('branches')) {
     }
 }
 
-Horde::addScriptFile('tables.js', 'horde');
-Horde::addScriptFile('quickfinder.js', 'horde');
 Horde::addScriptFile('revlog.js', 'chora');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/log/header.inc';
 
-$i = 0;
-$diff_img = Horde::img('diff.png');
 reset($logs);
-while (list(,$lg) = each($logs)) {
-    $rev = $lg->queryRevision();
-    $branch_info = $lg->queryBranch();
-
-    $added = $deleted = null;
-    $fileinfo = $lg->queryFiles($where);
-    if ($fileinfo && isset($fileinfo['added'])) {
-        $added = $fileinfo['added'];
-        $deleted = $fileinfo['deleted'];
+$view = $injector->createInstance('Horde_View');
+$currentDay = null;
+echo '<div class="commit-list">';
+foreach ($logs as $log) {
+    $day = date('Y-m-d', $log->queryDate());
+    if ($day != $currentDay) {
+        echo '<h3>' . $day . '</h3>';
+        $currentDay = $day;
     }
-
-    // TODO: Remove in favor of getting info from queryFiles()
-    $changedlines = $lg->queryChangedLines();
-
-    $textUrl = Chora::url('co', $where, array('r' => $rev));
-    $commitDate = Chora::formatDate($lg->queryDate());
-    $readableDate = Chora::readableTime($lg->queryDate(), true);
-
-    $author = Chora::showAuthorName($lg->queryAuthor(), true);
-    $tags = Chora::getTags($lg, $where);
-
-    if ($prevRevision = $fl->queryPreviousRevision($lg->queryRevision())) {
-        $diffUrl = Chora::url('diff', $where, array('r1' => $prevRevision, 'r2' => $rev));
-    } else {
-        $diffUrl = '';
-    }
-
-    $logMessage = Chora::formatLogMessage($lg->queryLog());
-
-    require CHORA_TEMPLATES . '/log/rev.inc';
-
-    if (($i++ > 100) && !Horde_Util::getFormData('all')) {
-        break;
-    }
+    echo $view->renderPartial('app/views/logMessage', array('object' => $log));
 }
-require CHORA_TEMPLATES . '/log/footer.inc';
+echo '</div>';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

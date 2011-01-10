@@ -1,9 +1,5 @@
 <div class="browsefileoptions">
- <div>
-  <?php echo _("Search Revisions:") ?>
-  <input type="text" for="revlog_body" size="20" />
- </div>
-
+<!--
  <div>
 <?php if (!$browser->hasFeature('javascript')): ?>
   <form method="get" action="diff.php">
@@ -17,13 +13,13 @@
 <?php endif; ?>
    <em><?php printf(_("%1\$s shows diffs to the previous revision. If you select a revision by clicking its row, %1\$s will show the differences to the selected row."), Horde::img('diff.png', _("Show Differences"))) ?></em>
  </div>
+-->
 
 <?php if (!empty($selAllBranches)): ?>
  <div>
   <form method="get" action="<?php echo Chora::url('browsefile', Horde_Util::getFormData('f')) ?>">
    <?php echo _("Show Branch:") ?>
    <select name="onb" onchange="this.form.submit()">
-    <option value="0"<?php if (!isset($onb) || !$onb) echo ' selected="selected"' ?>><?php echo _("All Branches") ?></option>
     <?php echo $selAllBranches ?>
    </select>
    <noscript><input class="button" type="submit" value="<?php echo _("View") ?>" /></noscript>
@@ -31,15 +27,3 @@
  </div>
 <?php endif; ?>
 </div>
-
-<table class="revlog striped sortable" id="revlog" cellspacing="0">
-<thead>
- <tr class="item leftAlign">
-  <th class="nosort">&nbsp;</th>
-  <th><?php echo _("Revision") ?></th>
-  <th class="sortup"><?php echo _("Date") ?></th>
-  <th><?php echo _("Author") ?></th>
-  <th class="nosort"><?php echo _("Log Message") ?></th>
- </tr>
-</thead>
-<tbody id="revlog_body">
