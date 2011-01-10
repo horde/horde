@@ -4,16 +4,49 @@
 
  - Document usage
 
- - Add option to add local configurations into the CI test setup
+ - Add module for generating component documentation.
+
+   Ideas:
+
+   - http://pear.php.net/
+   - http://components.symfony-project.org/
+   - http://incubator.apache.org/zetacomponents/documentation/trunk/Mail/tutorial.html
+   - http://qafoo.com/blog/011_apache_zeta_components_doing_mail_right.html
+
+   Elements:
+
+   - Name
+   - Summary
+   - Important bullet points (http://components.symfony-project.org/dependency-injection/)
+   - Description
+   - Changelog
+   - Last Release version
+   - Released versions + changes
+   - Dependencies
+   - Release Feed
+   - Download link
+   - Repo link
+   - Developers (www / mail)
+   - License
+   - Documentation
+   - Installation instructions
+   - Link to mailing list
+   - API doc
+   - Examples
+   - CI link / stats
+   - Horde backlink
+
+ - Allow downloading documentation from the wiki.
+
+ - WWW frontend
+
+ - The package descriptions need to be escaped when writing them into
+   the Hudson config.xml file
 
  - Allow channel dependency detection with external/local package
    dependencies.
 
  - Fix dependency listing with the --optional=yes/no flag
-
- - Allow downloading documentation from the wiki.
-
- - Add module for generating component documentation.
 
  - Add a commit module that automatically adds a changelog entry in
    the notes section of the package.xml
@@ -22,4 +55,6 @@
 
  - Allow absolute/relative paths as arguments
 
- - WWW frontend
+ - Fix double file task entry bug.
+
+ - Convert to Cli_Modular
