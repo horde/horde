@@ -671,7 +671,7 @@ extends PHPUnit_Extensions_Story_TestCase
     private function _callComponents(array $parameters, $callback)
     {
         ob_start();
-        $parameters['cli']['parser']['class'] = 'Horde_Test_Stub_Parser';
+        $parameters['parser']['class'] = 'Horde_Test_Stub_Parser';
         $parameters['dependencies'] = new Components_Dependencies_Injector();
         $parameters['dependencies']->setInstance(
             'Horde_Cli',

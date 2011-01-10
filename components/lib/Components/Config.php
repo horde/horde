@@ -30,14 +30,6 @@
 interface Components_Config
 {
     /**
-     * Provide each configuration handler with the list of supported modules.
-     *
-     * @param Components_Modules $modules A list of modules.
-     * @return NULL
-     */
-    public function handleModules(Components_Modules $modules);
-
-    /**
      * Return the options provided by the configuration handlers.
      *
      * @return array An array of options.

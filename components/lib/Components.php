@@ -41,17 +41,16 @@ class Components
      */
     static public function main(array $parameters = array())
     {
-        $parser = self::_prepareParser($parameters);
-        $config = self::_prepareConfig($parser);
         if (isset($parameters['dependencies'])
             && $parameters['dependencies'] instanceOf Components_Dependencies) {
             $dependencies = $parameters['dependencies'];
         } else {
             $dependencies = new Components_Dependencies_Injector();
         }
+        $modular = self::_prepareModular($dependencies, $parameters);
+        $parser = $modular->createParser();
+        $config = self::_prepareConfig($parser);
         $dependencies->initConfig($config);
-        $modules = self::_prepareModules($dependencies);
-        $config->handleModules($modules);
         try {
             self::_validateArguments($config);
         } catch (Components_Exception $e) {
@@ -59,8 +58,8 @@ class Components
             return;
         }
         try {
-            foreach ($modules as $module) {
-                $module->handle($config);
+            foreach ($modular->getModules() as $module) {
+                $modular->getProvider()->getModule($module)->handle($config);
             }
         } catch (Components_Exception $e) {
             $dependencies->getOutput()->fail($e);
@@ -68,16 +67,23 @@ class Components
         }
     }
 
-    static private function _prepareParser(array $parameters = array())
-    {
-        if (empty($parameters['cli']['parser']['class'])) {
-            $parser_class = 'Horde_Argv_Parser';
-        } else {
-            $parser_class = $parameters['cli']['parser']['class'];
-        }
-        return new $parser_class(
+    static private function _prepareModular(
+        Components_Dependencies $dependencies, array $parameters = array()
+    ) {
+        return new Horde_Cli_Modular(
             array(
-                'usage' => '%prog ' . _("[options] PACKAGE_PATH")
+                'parser' => array(
+                    'class' => empty($parameters['parser']['class']) ? 'Horde_Argv_Parser' : $parameters['parser']['class'],
+                    'usage' => '%prog [options] PACKAGE_PATH'
+                ),
+                'modules' => array(
+                    'directory' => dirname(__FILE__) . '/Components/Module',
+                    'exclude' => 'Base'
+                ),
+                'provider' => array(
+                    'prefix' => 'Components_Module_',
+                    'dependencies' => $dependencies
+                )
             )
         );
     }
@@ -91,13 +97,6 @@ class Components
             )
         );
         return $config;
-    }
-
-    static private function _prepareModules(Components_Dependencies $dependencies)
-    {
-        $modules = new Components_Modules($dependencies);
-        $modules->addModulesFromDirectory(dirname(__FILE__) . '/Components/Module');
-        return $modules;
     }
 
     static private function _validateArguments(Components_Config $config)

@@ -110,19 +110,6 @@ implements Components_Config
                 )
             )
         );
-    }
-
-    /**
-     * Load the options for the list of supported modules.
-     *
-     * @param Components_Modules $modules A list of modules.
-     * @return NULL
-     */
-    public function handleModules(Components_Modules $modules)
-    {
-        foreach ($modules as $module) {
-            $this->_addOptionsFromModule($this->_parser, $module);
-        }
 
         list($this->_options, $this->_arguments) = $this->_parser->parseArgs();
     }
@@ -157,26 +144,5 @@ implements Components_Config
     {
         $arguments = $this->getArguments();
         return $arguments[0];
-    }
-
-    /**
-     * Add an option group from the provided module to the parser.
-     *
-     * @param Horde_Argv_Parser $parser The parser.
-     * @param Components_Module   $module The module providing the option group.
-     *
-     * @return NULL
-     */
-    private function _addOptionsFromModule($parser, $module)
-    {
-        $group = new Horde_Argv_OptionGroup(
-            $parser,
-            $module->getOptionGroupTitle(),
-            $module->getOptionGroupDescription()
-        );
-        foreach ($module->getOptionGroupOptions() as $option) {
-            $group->addOption($option);
-        }
-        $parser->addOptionGroup($group);
     }
 }

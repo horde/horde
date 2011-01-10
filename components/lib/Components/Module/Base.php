@@ -48,6 +48,37 @@ implements Components_Module
     }
 
     /**
+     * Get the usage description for this module.
+     *
+     * @return string The description.
+     */
+    public function getUsage()
+    {
+        return '';
+    }
+
+    /**
+     * Get a set of base options that this module adds to the CLI argument
+     * parser.
+     *
+     * @return array The options.
+     */
+    public function getBaseOptions()
+    {
+        return array();
+    }
+
+    /**
+     * Indicate if the module provides an option group.
+     *
+     * @return boolean True if an option group should be added.
+     */
+    public function hasOptionGroup()
+    {
+        return true;
+    }
+
+    /**
      * Validate that there is a package.xml file in the provided directory.
      *
      * @param string $directory The package directory.

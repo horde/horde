@@ -56,5 +56,3 @@
  - Allow absolute/relative paths as arguments
 
  - Fix double file task entry bug.
-
- - Convert to Cli_Modular
