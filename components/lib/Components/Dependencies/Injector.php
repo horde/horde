@@ -38,6 +38,9 @@ implements Components_Dependencies
     {
         parent::__construct(new Horde_Injector_TopLevel());
         $this->setInstance('Components_Dependencies', $this);
+        $this->bindFactory(
+            'Horde_Cli', 'Components_Dependencies', 'createCli'
+        );
     }
 
     /**
@@ -80,6 +83,16 @@ implements Components_Dependencies
     public function getRunnerDistribute()
     {
         return $this->getInstance('Components_Runner_Distribute');
+    }
+
+    /**
+     * Returns the documentation handler for a package.
+     *
+     * @return Components_Runner_Document The distribution handler.
+     */
+    public function getRunnerDocument()
+    {
+        return $this->getInstance('Components_Runner_Document');
     }
 
     /**
@@ -130,5 +143,15 @@ implements Components_Dependencies
     public function getOutput()
     {
         return $this->getInstance('Components_Output');
+    }
+
+    /**
+     * Create the CLI handler.
+     *
+     * @return Horde_Cli The CLI handler.
+     */
+    public function createCli()
+    {
+        return Horde_Cli::init();
     }
 }

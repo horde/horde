@@ -67,6 +67,13 @@ interface Components_Dependencies
     public function getRunnerDistribute();
 
     /**
+     * Returns the documentation handler for a package.
+     *
+     * @return Components_Runner_Document The distribution handler.
+     */
+    public function getRunnerDocument();
+
+    /**
      * Returns the installer for a package.
      *
      * @return Components_Runner_Installer The installer.
