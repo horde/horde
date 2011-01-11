@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-10</date>
- <time>05:54:35</time>
+ <date>2011-01-11</date>
+ <time>05:29:34</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -67,6 +67,7 @@
       <file name="InstallationRun.php" role="php" />
       <file name="ListRun.php" role="php" />
       <file name="Root.php" role="php" />
+      <file name="Templates.php" role="php" />
       <file name="Tree.php" role="php" />
      </dir> <!-- /lib/Components/Helper -->
      <dir name="Module">
@@ -75,6 +76,7 @@
       <file name="Dependencies.php" role="php" />
       <file name="DevPackage.php" role="php" />
       <file name="Distribute.php" role="php" />
+      <file name="Document.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
      </dir> <!-- /lib/Components/Module -->
@@ -207,6 +209,7 @@
         <file name="DependenciesTest.php" role="test" />
         <file name="DevPackageTest.php" role="test" />
         <file name="DistributeTest.php" role="test" />
+        <file name="DocumentTest.php" role="test" />
         <file name="InstallerTest.php" role="test" />
         <file name="PearPackageXmlTest.php" role="test" />
        </dir> <!-- /test/Components/Integration/Components/Module -->
@@ -215,6 +218,9 @@
      </dir> <!-- /test/Components/Integration -->
      <dir name="Unit">
       <dir name="Components">
+       <dir name="Helper">
+        <file name="TemplatesTest.php" role="test" />
+       </dir> <!-- /test/Components/Unit/Components/Helper -->
        <dir name="Pear">
         <dir name="Package">
          <dir name="Filelist">
@@ -228,6 +234,7 @@
      <file name="Autoload.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="StoryTestCase.php" role="test" />
+     <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Components -->
    </dir> <!-- /test -->
    <file name="COPYING" role="doc" />
@@ -300,12 +307,14 @@
    <install as="Components/Helper/InstallationRun.php" name="lib/Components/Helper/InstallationRun.php" />
    <install as="Components/Helper/ListRun.php" name="lib/Components/Helper/ListRun.php" />
    <install as="Components/Helper/Root.php" name="lib/Components/Helper/Root.php" />
+   <install as="Components/Helper/Templates.php" name="lib/Components/Helper/Templates.php" />
    <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
    <install as="Components/Module/DevPackage.php" name="lib/Components/Module/DevPackage.php" />
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
+   <install as="Components/Module/Document.php" name="lib/Components/Module/Document.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
    <install as="Components/Pear/Dependencies.php" name="lib/Components/Pear/Dependencies.php" />
@@ -332,6 +341,7 @@
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
    <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
    <install as="Components/StoryTestCase.php" name="test/Components/StoryTestCase.php" />
+   <install as="Components/TestCase.php" name="test/Components/TestCase.php" />
    <install as="Components/fixture/changelog/lib/Some.php" name="test/Components/fixture/changelog/lib/Some.php" />
    <install as="Components/fixture/channels/pear.horde.org.channel.xml" name="test/Components/fixture/channels/pear.horde.org.channel.xml" />
    <install as="Components/fixture/channels/pear.php.net.channel.xml" name="test/Components/fixture/channels/pear.php.net.channel.xml" />
@@ -363,8 +373,10 @@
    <install as="Components/Integration/Components/Module/DependenciesTest.php" name="test/Components/Integration/Components/Module/DependenciesTest.php" />
    <install as="Components/Integration/Components/Module/DevPackageTest.php" name="test/Components/Integration/Components/Module/DevPackageTest.php" />
    <install as="Components/Integration/Components/Module/DistributeTest.php" name="test/Components/Integration/Components/Module/DistributeTest.php" />
+   <install as="Components/Integration/Components/Module/DocumentTest.php" name="test/Components/Integration/Components/Module/DocumentTest.php" />
    <install as="Components/Integration/Components/Module/InstallerTest.php" name="test/Components/Integration/Components/Module/InstallerTest.php" />
    <install as="Components/Integration/Components/Module/PearPackageXmlTest.php" name="test/Components/Integration/Components/Module/PearPackageXmlTest.php" />
+   <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
    <install as="COPYING" name="COPYING" />
    <install as="TODO" name="TODO" />
@@ -380,7 +392,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-10</date>
+   <date>2011-01-11</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

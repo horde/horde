@@ -28,3 +28,4 @@ error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
 require_once dirname(__FILE__) . '/StoryTestCase.php';
+require_once dirname(__FILE__) . '/TestCase.php';
