@@ -1,0 +1,133 @@
+#!/usr/bin/env php
+<?php
+
+require 'Horde/Autoloader/Default.php';
+
+/* Setting up command line. */
+$cmd = basename($argv[0]);
+$description = <<<EOD
+This script creates a large numbers of shares with varying permission in the specified share backend and then runs some benchmarks on common share actions.
+
+Example: $cmd -b sql_hierarchical -c pdo_pgsql
+EOD;
+
+$argv = new Horde_Argv_Parser(array('description' => $description));
+$argv->addOption(
+    '-b', '--backend',
+    array('type' => 'choice',
+          'choices' => array('sql', 'sql_hierarchical', 'kolab', 'datatree'),
+          'help' => 'The backend to test. Must be configured in the conf.php configuration file.'));
+$argv->addOption(
+    '-c', '--configuration',
+    array('help' => 'The configuration to use for the specified backend.'));
+$argv->addOption(
+    '--users',
+    array('type' => 'int',
+          'default' => 10000,
+          'help' => 'Number of users to create (default: 10000).'));
+$argv->addOption(
+    '--groups',
+    array('type' => 'int',
+          'default' => 10,
+          'help' => 'Number of groups to assume (default: 10).'));
+$argv->addOption(
+    '--sharing-users',
+    array('type' => 'int',
+          'default' => 5,
+          'help' => 'Percentage of users actually sharing with others (default: 5).'));
+$argv->addOption(
+    '--max-users',
+    array('type' => 'int',
+          'default' => 4,
+          'help' => 'Maximum number of users to share with (default: 4).'));
+$argv->addOption(
+    '--max-groups',
+    array('type' => 'int',
+          'default' => 1,
+          'help' => 'Maximum number of groups to share with (default: 1).'));
+$argv->addOption(
+    '--runs',
+    array('type' => 'int',
+          'default' => 500,
+          'help' => 'Number of executed test calls (default: 500).'));
+
+list($options) = $argv->parseArgs();
+if (!$options['backend'] || !$options['configuration']) {
+    $argv->printHelp();
+    exit(2);
+}
+
+/* Load configuration. */
+if (!file_exists(dirname(__FILE__) . '/conf.php')) {
+    echo "Configuration file conf.php missing.\n";
+    exit(1);
+}
+
+require dirname(__FILE__) . '/conf.php';
+$config = isset($conf['share']['sql'][$options['configuration']])
+    ? $conf['share']['sql'][$options['configuration']]
+    : array();
+
+/* Create storage backend. */
+switch ($options['backend']) {
+case 'sql':
+case 'sql_hierarchical':
+    $class = 'Horde_Db_Adapter_' . implode('_', array_map(array('Horde_String', 'ucwords'), explode('_', $options['configuration'])));
+    $storage = new $class($config);
+    require_once dirname(__FILE__) . '/migration/' . $options['backend'] . '.php';
+    call_user_func('migrate_' . $options['backend'], $storage);
+    break;
+default:
+    echo "Storage configuration for ${options['backend']} not implemented yet.\n";
+    exit(1);
+}
+
+/* Create share backend. */
+$class = 'Horde_Share_' . implode('_', array_map(array('Horde_String', 'ucwords'), explode('_', $options['backend'])));
+$shares = new $class('test', false, new Horde_Perms(), new Horde_Group_Mock());
+$shares->setStorage($storage);
+
+/* Start timer. */
+$timer = new Horde_Support_Timer();
+
+/* Create test shares. */
+echo "Creating ${options['users']} users.\n";
+$timer->push();
+$users = $groups = 0;
+for ($i = 0; $i < $options['users']; $i++) {
+    /* Create share. */
+    $share = $shares->newShare(sprintf('user%0' . strlen($options['users']) . 'd', $i),
+                               (string)new Horde_Support_Randomid());
+    $shares->addShare($share);
+
+    /* Add permissions with some probability. */
+    if (rand(0, 100) <= $options['sharing_users']) {
+        for ($j = 0, $r = rand(0, $options['max_users']); $j < $r; $j++) {
+            $share->addUserPermission(sprintf('user%0' . strlen($options['users']) . 'd', rand(0, $options['users'] - 1)), Horde_Perms::SHOW | Horde_Perms::READ);
+            $users++;
+        }
+        for ($j = 0, $r = rand(0, $options['max_groups']); $j < $r; $j++) {
+            $share->addGroupPermission(sprintf('group%0' . strlen($options['groups']) . 'd', rand(0, $options['groups'] - 1)), Horde_Perms::SHOW | Horde_Perms::READ);
+            $groups++;
+        }
+    }
+
+    /* Progress marker. */
+    if (!($i % ($options['users'] / 10))) {
+        echo '.';
+    }
+}
+echo "\nTime spent: " . $timer->pop() . " seconds\n";
+echo "Sharing with $users users and $groups groups.\n";
+
+echo "\nExecuting ${options['runs']} listShares() calls.\n";
+$timer->push();
+for ($i = 0; $i < $options['runs']; $i++) {
+    $shares->listShares(sprintf('user%0' . strlen($options['users']) . 'd', rand(0, $options['users'] - 1)));
+
+    /* Progress marker. */
+    if (!($i % ($options['runs'] / 10))) {
+        echo '.';
+    }
+}
+echo "\nTime spent: " . $timer->pop() . " seconds\n";

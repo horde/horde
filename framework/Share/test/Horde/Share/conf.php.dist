@@ -1,21 +1,27 @@
 <?php
 // IMPORTANT: the conf.php version of this file must be both in this  and any
 // subdirectory. A symlink is fine too.
+$conf['share']['sql']['mysql']['adapter'] = 'mysql';
 $conf['share']['sql']['mysql']['host'] = 'localhost';
 $conf['share']['sql']['mysql']['username'] = '';
 $conf['share']['sql']['mysql']['password'] = '';
 $conf['share']['sql']['mysql']['dbname'] = 'test';
 $conf['share']['sql']['mysql']['charset'] = 'utf-8';
+$conf['share']['sql']['mysqli']['adapter'] = 'mysqli';
 $conf['share']['sql']['mysqli']['host'] = 'localhost';
 $conf['share']['sql']['mysqli']['username'] = '';
 $conf['share']['sql']['mysqli']['password'] = '';
 $conf['share']['sql']['mysqli']['dbname'] = 'test';
 $conf['share']['sql']['mysqli']['charset'] = 'utf-8';
+$conf['share']['sql']['pdo_mysql']['adapter'] = 'pdo_mysql';
 $conf['share']['sql']['pdo_mysql']['host'] = 'localhost';
 $conf['share']['sql']['pdo_mysql']['username'] = '';
 $conf['share']['sql']['pdo_mysql']['password'] = '';
 $conf['share']['sql']['pdo_mysql']['dbname'] = 'test';
 $conf['share']['sql']['pdo_mysql']['charset'] = 'utf-8';
+$conf['share']['sql']['pdo_pgsql']['adapter'] = 'pdo_pgsql';
 $conf['share']['sql']['pdo_pgsql']['username'] = '';
 $conf['share']['sql']['pdo_pgsql']['password'] = '';
 $conf['share']['sql']['pdo_pgsql']['dbname'] = 'test';
+$conf['share']['sql']['pdo_sqlite']['adapter'] = 'pdo_sqlite';
+$conf['share']['sql']['pdo_sqlite']['database'] = ':memory:';
