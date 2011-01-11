@@ -37,9 +37,37 @@ extends Components_TestCase
 {
     public function testWrite()
     {
+        $source = dirname(__FILE__) . '/../../../fixture/templates/simple';
         $target = $this->getTemporaryDirectory() . '/target';
-        $templates = new Components_Helper_Templates('', $target, array());
+        $templates = new Components_Helper_Templates($source, $target);
         $templates->write();
         $this->assertTrue(file_exists($target));
+    }
+
+    public function testSource()
+    {
+        $source = dirname(__FILE__) . '/../../../fixture/templates/simple';
+        $target = $this->getTemporaryDirectory() . '/target';
+        $templates = new Components_Helper_Templates($source, $target);
+        $templates->write();
+        $this->assertEquals("SIMPLE\n", file_get_contents($target));
+    }
+
+    /**
+     * @expectedException Components_Exception
+     */
+    public function testMissingSource()
+    {
+        $source = dirname(__FILE__) . '/NO_SUCH_TEMPLATE';
+        $templates = new Components_Helper_Templates($source, '');
+    }
+
+    public function testVariables()
+    {
+        $source = dirname(__FILE__) . '/../../../fixture/templates/variables';
+        $target = $this->getTemporaryDirectory() . '/target';
+        $templates = new Components_Helper_Templates($source, $target);
+        $templates->write(array('1' => 'One', '2' => 'Two'));
+        $this->assertEquals("One : Two\n", file_get_contents($target));
     }
 }

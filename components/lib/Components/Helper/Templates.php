@@ -28,6 +28,13 @@
 class Components_Helper_Templates
 {
     /**
+     * The source location.
+     *
+     * @var string
+     */
+    private $_source;
+
+    /**
      * The target location.
      *
      * @var string
@@ -42,6 +49,11 @@ class Components_Helper_Templates
      */
     public function __construct($source, $target)
     {
+        if (file_exists($source . '.template')) {
+            $this->_source = $source . '.template';
+        } else {
+            throw new Components_Exception("No template at $source!");
+        }
         $this->_target = $target;
     }
 
@@ -54,6 +66,7 @@ class Components_Helper_Templates
      */
     public function write(array $parameters = array())
     {
-        file_put_contents($this->_target, '');
+        $source = file_get_contents($this->_source);
+        file_put_contents($this->_target, vsprintf($source, $parameters));
     }
 }
