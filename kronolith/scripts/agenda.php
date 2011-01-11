@@ -121,7 +121,7 @@ function send_agendas()
         $eventlist = array();
         foreach ($calendars as $calId) {
             $kronolith_driver->open($calId);
-            $events = $kronolith_driver->listEvents($runtime, $runtime);
+            $events = $kronolith_driver->listEvents($runtime, $runtime, true);
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
                     // The event list contains events starting at 12am.
