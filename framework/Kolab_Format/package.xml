@@ -29,8 +29,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-10</date>
- <time>12:02:39</time>
+ <date>2011-01-11</date>
+ <time>21:25:25</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -377,6 +377,7 @@
        </dir> <!-- /test/Horde/Kolab/Format/fixtures -->
        <dir name="Integration">
         <dir name="fixtures">
+         <file name="contact-kyr.xml" role="test" />
          <file name="contact_category.xml" role="test" />
          <file name="contact_mail.xml" role="test" />
          <file name="contact_pgp.xml" role="test" />
@@ -576,6 +577,7 @@
    <install as="Horde/Kolab/Format/Integration/RecurrenceTest.php" name="test/Horde/Kolab/Format/Integration/RecurrenceTest.php" />
    <install as="Horde/Kolab/Format/Integration/TaskTest.php" name="test/Horde/Kolab/Format/Integration/TaskTest.php" />
    <install as="Horde/Kolab/Format/Integration/XmlTest.php" name="test/Horde/Kolab/Format/Integration/XmlTest.php" />
+   <install as="Horde/Kolab/Format/Integration/fixtures/contact-kyr.xml" name="test/Horde/Kolab/Format/Integration/fixtures/contact-kyr.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/contact_category.xml" name="test/Horde/Kolab/Format/Integration/fixtures/contact_category.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/contact_mail.xml" name="test/Horde/Kolab/Format/Integration/fixtures/contact_mail.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/contact_pgp.xml" name="test/Horde/Kolab/Format/Integration/fixtures/contact_pgp.xml" />
@@ -725,7 +727,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2010-12-10</date>
+   <date>2011-01-11</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Removed dependency on the Kolab package within the task handler.

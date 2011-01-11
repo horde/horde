@@ -99,6 +99,19 @@ extends PHPUnit_Framework_TestCase
         $this->assertContains('Test', $object['categories']);
     }
 
+    public function testUtf8()
+    {
+        $contact = new Horde_Kolab_Format_Xml_Contact(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            )
+        );
+        $xml = file_get_contents(dirname(__FILE__) . '/fixtures/contact-kyr.xml');
+
+        $object = $contact->load($xml);
+        $this->assertEquals('леле  Какакака', $object['full-name']);
+    }
+
     /* /\** */
     /*  * Test loading a contact with a category with preferences. */
     /*  * */

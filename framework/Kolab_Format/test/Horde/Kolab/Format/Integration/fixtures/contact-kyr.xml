@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<contact version="1.0">
+  <uid>20110111175940.2085781xeofrt3ks@legolas.home.edu</uid>
+  <body></body>
+  <categories></categories>
+  <creation-date>2011-01-11T15:59:41Z</creation-date>
+  <last-modification-date>2011-01-11T16:05:27Z</last-modification-date>
+  <sensitivity>public</sensitivity>
+  <product-id>Horde::Kolab</product-id>
+  <name>
+    <given-name>&#x43B;&#x435;&#x43B;&#x435;</given-name>
+    <middle-names></middle-names>
+    <last-name>&#x41A;&#x430;&#x43A;&#x430;&#x43A;&#x430;&#x43A;&#x430; &#x43B;&#x435; &#x433;</last-name>
+    <full-name>&#x43B;&#x435;&#x43B;&#x435;  &#x41A;&#x430;&#x43A;&#x430;&#x43A;&#x430;&#x43A;&#x430;</full-name>
+    <initials></initials>
+    <prefix></prefix>
+    <suffix></suffix>
+  </name>
+  <free-busy-url></free-busy-url>
+  <organization></organization>
+  <web-page></web-page>
+  <im-address></im-address>
+  <department></department>
+  <office-location></office-location>
+  <profession></profession>
+  <job-title></job-title>
+  <manager-name></manager-name>
+  <assistant></assistant>
+  <nick-name></nick-name>
+  <spouse-name></spouse-name>
+  <children></children>
+  <language></language>
+  <latitude></latitude>
+  <longitude></longitude>
+</contact>
