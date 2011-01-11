@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP 4.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-08-18 00:25+0200\n"
-"PO-Revision-Date: 2010-08-18 00:28+0200\n"
+"PO-Revision-Date: 2011-01-11 21:21+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1071,8 +1071,8 @@ msgstr ""
 "Um mehrere einzelne Nachrichten auszuwählen, klicken Sie auf die "
 "Nachrichten, während Sie die %s-Taste gedrückt halten. Um mehrere "
 "aufeinander folgende Nachrichten auszuwählen, klicken Sie zunächst auf die "
-"erste Nachricht und anschließend auf die letzte Nachricht, während Sie die %"
-"s-Taste gedrückt halten."
+"erste Nachricht und anschließend auf die letzte Nachricht, während Sie die "
+"%s-Taste gedrückt halten."
 
 #: config/prefs.php.dist:1257
 msgid "Clicking on the address will compose a new message to the sender"
@@ -1714,7 +1714,7 @@ msgstr "Entwürfe-Ordner"
 
 #: lib/IMP.php:473
 msgid "Drafts"
-msgstr "Entw&APw-rfe"
+msgstr "Entwürfe"
 
 #: lib/Prefs/Ui.php:857
 msgid "Drafts folder:"
@@ -4075,8 +4075,8 @@ msgstr ""
 #: lib/Compose.php:219
 #, php-format
 msgid ""
-"Saving the draft failed. The %s header contains an invalid e-mail address: %"
-"s."
+"Saving the draft failed. The %s header contains an invalid e-mail address: "
+"%s."
 msgstr ""
 "Der Entwurf konnte nicht gespeichert werden. Der %s-Kopfeintrag enhält eine "
 "ungültige E-Mail-Adresse: %s."
