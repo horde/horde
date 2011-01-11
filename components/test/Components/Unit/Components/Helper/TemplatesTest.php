@@ -37,20 +37,31 @@ extends Components_TestCase
 {
     public function testWrite()
     {
-        $source = dirname(__FILE__) . '/../../../fixture/templates/simple';
-        $target = $this->getTemporaryDirectory() . '/target';
-        $templates = new Components_Helper_Templates($source, $target);
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates(
+            dirname(__FILE__) . '/../../../fixture/templates',
+            $tdir,
+            'simple',
+            'target'
+        );
         $templates->write();
-        $this->assertTrue(file_exists($target));
+        $this->assertTrue(file_exists($tdir . DIRECTORY_SEPARATOR . 'target'));
     }
 
     public function testSource()
     {
-        $source = dirname(__FILE__) . '/../../../fixture/templates/simple';
-        $target = $this->getTemporaryDirectory() . '/target';
-        $templates = new Components_Helper_Templates($source, $target);
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates(
+            dirname(__FILE__) . '/../../../fixture/templates',
+            $tdir,
+            'simple',
+            'target'
+        );
         $templates->write();
-        $this->assertEquals("SIMPLE\n", file_get_contents($target));
+        $this->assertEquals(
+            "SIMPLE\n",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'target')
+        );
     }
 
     /**
@@ -64,10 +75,17 @@ extends Components_TestCase
 
     public function testVariables()
     {
-        $source = dirname(__FILE__) . '/../../../fixture/templates/variables';
-        $target = $this->getTemporaryDirectory() . '/target';
-        $templates = new Components_Helper_Templates($source, $target);
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates(
+            dirname(__FILE__) . '/../../../fixture/templates',
+            $tdir,
+            'variables',
+            'target'
+        );
         $templates->write(array('1' => 'One', '2' => 'Two'));
-        $this->assertEquals("One : Two\n", file_get_contents($target));
+        $this->assertEquals(
+            "One : Two\n",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'target')
+        );
     }
 }

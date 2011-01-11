@@ -93,9 +93,10 @@ class Components_Runner_CiSetup
         }
 
         $config_template = new Components_Helper_Templates(
-            $this->_config_application->getTemplateDirectory()
-            . DIRECTORY_SEPARATOR . 'hudson-component-config.xml',
-            $options['cisetup'] . DIRECTORY_SEPARATOR . 'config.xml'
+            $this->_config_application->getTemplateDirectory(),
+            $options['cisetup'],
+            'hudson-component-config.xml',
+            'config.xml'
         );
         $config_template->write(
             array(

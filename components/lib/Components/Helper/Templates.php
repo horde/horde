@@ -44,17 +44,20 @@ class Components_Helper_Templates
     /**
      * Constructor.
      *
-     * @param string $source     The template(s) source path.
-     * @param string $target     The template(s) target path.
+     * @param string $sdir  The templates source directory.
+     * @param string $tdir  The templates target directory.
+     * @param string $sfile The exact template source file.
+     * @param string $tfile The exact template target file.
      */
-    public function __construct($source, $target)
+    public function __construct($sdir, $tdir, $sfile = '', $tfile = '')
     {
-        if (file_exists($source . '.template')) {
-            $this->_source = $source . '.template';
+        $source = $sdir . DIRECTORY_SEPARATOR . $sfile . '.template';
+        if (file_exists($source)) {
+            $this->_source = $source;
         } else {
             throw new Components_Exception("No template at $source!");
         }
-        $this->_target = $target;
+        $this->_target = $tdir . DIRECTORY_SEPARATOR . $tfile;
     }
 
     /**

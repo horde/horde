@@ -82,16 +82,18 @@ class Components_Runner_CiPrebuild
         }
 
         $build_template = new Components_Helper_Templates(
-            $this->_config_application->getTemplateDirectory()
-            . DIRECTORY_SEPARATOR . 'hudson-component-build.xml',
-            $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'build.xml'
+            $this->_config_application->getTemplateDirectory(),
+            $options['ciprebuild'],
+            'hudson-component-build.xml',
+            'build.xml'
         );
         $build_template->write(array('toolsdir' => $options['toolsdir']));
 
         $phpunit_template = new Components_Helper_Templates(
-            $this->_config_application->getTemplateDirectory()
-            . DIRECTORY_SEPARATOR . 'hudson-component-phpunit.xml',
-            $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'phpunit.xml'
+            $this->_config_application->getTemplateDirectory(),
+            $options['ciprebuild'],
+            'hudson-component-phpunit.xml',
+            'phpunit.xml'
         );
         $phpunit_template->write(
             array(
