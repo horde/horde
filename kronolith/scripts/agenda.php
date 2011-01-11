@@ -93,12 +93,14 @@ function send_agendas()
                 $user,
                 array('perm' => Horde_Perms::SHOW,
                       'attributes' => $user));
+            $calendars = array_keys($calendars);
             break;
 
         case 'read':
             $calendars = $GLOBALS['kronolith_shares']->listShares(
                 $user,
                 array('perm' => Horde_Perms::SHOW));
+            $calendars = array_keys($calendars);
             break;
 
         case 'show':
@@ -108,16 +110,16 @@ function send_agendas()
             $cals = $GLOBALS['kronolith_shares']->listShares(
                 $user,
                 array('perm' => Horde_Perms::SHOW));
-            foreach ($cals as $calId => $cal) {
+            foreach (array_keys($cals) as $calId) {
                 if (in_array($calId, $shown_calendars)) {
-                    $calendars[$calId] = $cal;
+                    $calendars[] = $calId;
                 }
             }
         }
 
         // Get a list of events for today
         $eventlist = array();
-        foreach ($calendars as $calId => $calendar) {
+        foreach ($calendars as $calId) {
             $kronolith_driver->open($calId);
             $events = $kronolith_driver->listEvents($runtime, $runtime);
             foreach ($events as $dayevents) {
