@@ -81,28 +81,22 @@ class Components_Runner_CiPrebuild
             );
         }
 
-        file_put_contents(
-            $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'build.xml',
-            sprintf(
-                file_get_contents(
-                    $this->_config_application->getTemplateDirectory()
-                    . DIRECTORY_SEPARATOR . 'hudson-component-build.xml.template',
-                    'r'
-                ),
-                $options['toolsdir']
-            )
+        $build_template = new Components_Helper_Templates(
+            $this->_config_application->getTemplateDirectory()
+            . DIRECTORY_SEPARATOR . 'hudson-component-build.xml',
+            $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'build.xml'
         );
+        $build_template->write(array('toolsdir' => $options['toolsdir']));
 
-        file_put_contents(
-            $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'phpunit.xml',
-            sprintf(
-                file_get_contents(
-                    $this->_config_application->getTemplateDirectory()
-                    . DIRECTORY_SEPARATOR . 'hudson-component-phpunit.xml.template',
-                    'r'
-                ),
-                basename($arguments[0]),
-                strtr(basename($arguments[0]), '_', '/')
+        $phpunit_template = new Components_Helper_Templates(
+            $this->_config_application->getTemplateDirectory()
+            . DIRECTORY_SEPARATOR . 'hudson-component-phpunit.xml',
+            $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'phpunit.xml'
+        );
+        $phpunit_template->write(
+            array(
+                'testclass' => basename($arguments[0]),
+                'testpath' => strtr(basename($arguments[0]), '_', '/')
             )
         );
     }

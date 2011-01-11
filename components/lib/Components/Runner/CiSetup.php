@@ -92,18 +92,17 @@ class Components_Runner_CiSetup
             $origin = basename($arguments[0]);
         }
 
-        file_put_contents(
-            $options['cisetup'] . DIRECTORY_SEPARATOR . 'config.xml',
-            sprintf(
-                file_get_contents(
-                    $this->_config_application->getTemplateDirectory()
-                    . DIRECTORY_SEPARATOR . 'hudson-component-config.xml.template',
-                    'r'
-                ),
-                $origin,
-                'horde',
-                $options['toolsdir'],
-                $this->_factory->createPackageForInstallLocation(
+        $config_template = new Components_Helper_Templates(
+            $this->_config_application->getTemplateDirectory()
+            . DIRECTORY_SEPARATOR . 'hudson-component-config.xml',
+            $options['cisetup'] . DIRECTORY_SEPARATOR . 'config.xml'
+        );
+        $config_template->write(
+            array(
+                'sourcepath' => $origin,
+                'sourcejob' => 'horde',
+                'toolsdir' => $options['toolsdir'],
+                'description' => $this->_factory->createPackageForInstallLocation(
                     $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml',
                     $options['pearrc']
                 )->getDescription()
