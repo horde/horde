@@ -30,7 +30,7 @@ class Horde_Injector_DependencyFinder
                 $dependencies[] = $this->getParameterDependency($injector, $parameter);
             }
         } catch (Horde_Injector_Exception $e) {
-            throw new Horde_Injector_Exception("$method has unfulfilled dependencies (parameter: $parameter, error: $e->getMessage())", 0);
+            throw new Horde_Injector_Exception("$method has unfulfilled dependencies ($parameter)", 0, $e);
         }
 
         return $dependencies;
