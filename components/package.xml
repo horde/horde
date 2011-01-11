@@ -25,7 +25,7 @@
   <active>yes</active>
  </lead>
  <date>2011-01-11</date>
- <time>05:29:34</time>
+ <time>11:29:20</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -64,9 +64,18 @@
       <file name="Pear.php" role="php" />
      </dir> <!-- /lib/Components/Exception -->
      <dir name="Helper">
+      <dir name="Template">
+       <file name="Php.php" role="php" />
+       <file name="Printf.php" role="php" />
+      </dir> <!-- /lib/Components/Helper/Template -->
+      <dir name="Templates">
+       <file name="Prefix.php" role="php" />
+       <file name="Single.php" role="php" />
+      </dir> <!-- /lib/Components/Helper/Templates -->
       <file name="InstallationRun.php" role="php" />
       <file name="ListRun.php" role="php" />
       <file name="Root.php" role="php" />
+      <file name="Template.php" role="php" />
       <file name="Templates.php" role="php" />
       <file name="Tree.php" role="php" />
      </dir> <!-- /lib/Components/Helper -->
@@ -200,6 +209,10 @@
        <file name="hudson-component-build.xml.template" role="test" />
        <file name="hudson-component-config.xml.template" role="test" />
        <file name="hudson-component-phpunit.xml.template" role="test" />
+       <file name="input.template" role="test" />
+       <file name="php.template" role="test" />
+       <file name="simple.template" role="test" />
+       <file name="variables.template" role="test" />
       </dir> <!-- /test/Components/fixture/templates -->
      </dir> <!-- /test/Components/fixture -->
      <dir name="Integration">
@@ -307,8 +320,13 @@
    <install as="Components/Helper/InstallationRun.php" name="lib/Components/Helper/InstallationRun.php" />
    <install as="Components/Helper/ListRun.php" name="lib/Components/Helper/ListRun.php" />
    <install as="Components/Helper/Root.php" name="lib/Components/Helper/Root.php" />
+   <install as="Components/Helper/Template.php" name="lib/Components/Helper/Template.php" />
    <install as="Components/Helper/Templates.php" name="lib/Components/Helper/Templates.php" />
    <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
+   <install as="Components/Helper/Template/Php.php" name="lib/Components/Helper/Template/Php.php" />
+   <install as="Components/Helper/Template/Printf.php" name="lib/Components/Helper/Template/Printf.php" />
+   <install as="Components/Helper/Templates/Prefix.php" name="lib/Components/Helper/Templates/Prefix.php" />
+   <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
@@ -368,6 +386,10 @@
    <install as="Components/fixture/templates/hudson-component-build.xml.template" name="test/Components/fixture/templates/hudson-component-build.xml.template" />
    <install as="Components/fixture/templates/hudson-component-config.xml.template" name="test/Components/fixture/templates/hudson-component-config.xml.template" />
    <install as="Components/fixture/templates/hudson-component-phpunit.xml.template" name="test/Components/fixture/templates/hudson-component-phpunit.xml.template" />
+   <install as="Components/fixture/templates/input.template" name="test/Components/fixture/templates/input.template" />
+   <install as="Components/fixture/templates/php.template" name="test/Components/fixture/templates/php.template" />
+   <install as="Components/fixture/templates/simple.template" name="test/Components/fixture/templates/simple.template" />
+   <install as="Components/fixture/templates/variables.template" name="test/Components/fixture/templates/variables.template" />
    <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
    <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
    <install as="Components/Integration/Components/Module/DependenciesTest.php" name="test/Components/Integration/Components/Module/DependenciesTest.php" />

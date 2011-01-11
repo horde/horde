@@ -74,30 +74,6 @@ class Components_Runner_Distribute
         $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
 
-        $template = null;
-        foreach (
-            new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator(
-                    $this->_config_application->getTemplateDirectory()
-                ),
-                RecursiveIteratorIterator::CHILD_FIRST
-            )
-            as $file
-        ) {
-            if (strpos($file->getBasename(), 'distribute_') === 0) {
-                $template = $file;
-                break;
-            }
-        }
-        if (empty($template)) {
-            throw new Components_Exception(
-                sprintf(
-                    'No packaging template starting with "distribute_" was found in the template directory %s!',
-                    $this->_config_application->getTemplateDirectory()
-                )
-            );
-        }
-
         if (!isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForDefaultLocation(
                 $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
@@ -112,13 +88,15 @@ class Components_Runner_Distribute
         $version = $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M');
         $package->generateSnapshot($version, dirname($options['distribute']));
 
-        ob_start();
-        include $template->getPathname();
-        $packaging = ob_get_clean();
-
-        file_put_contents(
-            $options['distribute'],
-            $packaging
+        $build_template = new Components_Helper_Templates_Prefix(
+            $this->_config_application->getTemplateDirectory(),
+            dirname($options['distribute']),
+            'distribute_',
+            basename($options['distribute'])
         );
+        $build_template->write(
+            array('package' => $package, 'version' => $version)
+        );
+
     }
 }

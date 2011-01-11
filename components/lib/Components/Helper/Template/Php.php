@@ -1,6 +1,6 @@
 <?php
 /**
- * Components_Helper_Templates:: converts templates into target files.
+ * Components_Helper_Template_Php:: converts a PHP template into a target file.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Components_Helper_Templates:: converts templates into target files.
+ * Components_Helper_Template_Php:: converts a PHP template into a target file.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -25,20 +25,23 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-abstract class Components_Helper_Templates
+class Components_Helper_Template_Php
+extends Components_Helper_Template
 {
     /**
      * Rewrite the template from the source to the target location.
      *
-     * @param string $source     The source location.
-     * @param string $target     The target location.
-     * @param array  $parameters The template(s) parameters.
+     * @param array  $parameters The template parameters.
      *
      * @return NULL
      */
-    protected function writeSourceToTarget($source, $target, array $parameters = array())
+    public function write(array $parameters = array())
     {
-        $template = Components_Helper_Template::factory($source, $target)
-            ->write($parameters);
+        foreach ($parameters as $key => $value) {
+            ${$key} = $value;
+        }
+        ob_start();
+        include $this->_source;
+        file_put_contents($this->_target, ob_get_clean());
     }
 }

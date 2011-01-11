@@ -38,7 +38,7 @@ extends Components_TestCase
     public function testWrite()
     {
         $tdir =  $this->getTemporaryDirectory();
-        $templates = new Components_Helper_Templates(
+        $templates = new Components_Helper_Templates_Single(
             dirname(__FILE__) . '/../../../fixture/templates',
             $tdir,
             'simple',
@@ -51,7 +51,7 @@ extends Components_TestCase
     public function testSource()
     {
         $tdir =  $this->getTemporaryDirectory();
-        $templates = new Components_Helper_Templates(
+        $templates = new Components_Helper_Templates_Single(
             dirname(__FILE__) . '/../../../fixture/templates',
             $tdir,
             'simple',
@@ -70,13 +70,13 @@ extends Components_TestCase
     public function testMissingSource()
     {
         $source = dirname(__FILE__) . '/NO_SUCH_TEMPLATE';
-        $templates = new Components_Helper_Templates($source, '');
+        $templates = new Components_Helper_Templates_Single($source, '', '', '');
     }
 
     public function testVariables()
     {
         $tdir =  $this->getTemporaryDirectory();
-        $templates = new Components_Helper_Templates(
+        $templates = new Components_Helper_Templates_Single(
             dirname(__FILE__) . '/../../../fixture/templates',
             $tdir,
             'variables',
@@ -85,6 +85,68 @@ extends Components_TestCase
         $templates->write(array('1' => 'One', '2' => 'Two'));
         $this->assertEquals(
             "One : Two\n",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'target')
+        );
+    }
+
+    public function testPrefix()
+    {
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates_Prefix(
+            dirname(__FILE__) . '/../../../fixture/templates',
+            $tdir,
+            'var',
+            'target'
+        );
+        $templates->write(array('1' => 'One', '2' => 'Two'));
+        $this->assertEquals(
+            "One : Two\n",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'target')
+        );
+    }
+
+    /**
+     * @expectedException Components_Exception
+     */
+    public function testMissingPrefixTemplate()
+    {
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates_Prefix(
+            dirname(__FILE__) . '/../../../fixture/templates',
+            $tdir,
+            'NOSUCHPREFIX',
+            'target'
+        );
+    }
+
+    public function testPhp()
+    {
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates_Single(
+            dirname(__FILE__) . '/../../../fixture/templates',
+            $tdir,
+            'php',
+            'target'
+        );
+        $templates->write();
+        $this->assertEquals(
+            "test",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'target')
+        );
+    }
+
+    public function testInput()
+    {
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates_Single(
+            dirname(__FILE__) . '/../../../fixture/templates',
+            $tdir,
+            'input',
+            'target'
+        );
+        $templates->write(array('input' => 'SOME INPUT'));
+        $this->assertEquals(
+            "SOME INPUT",
             file_get_contents($tdir . DIRECTORY_SEPARATOR . 'target')
         );
     }

@@ -92,7 +92,7 @@ class Components_Runner_CiSetup
             $origin = basename($arguments[0]);
         }
 
-        $config_template = new Components_Helper_Templates(
+        $config_template = new Components_Helper_Templates_Single(
             $this->_config_application->getTemplateDirectory(),
             $options['cisetup'],
             'hudson-component-config.xml',
