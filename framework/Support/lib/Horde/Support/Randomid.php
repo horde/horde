@@ -48,7 +48,7 @@ class Horde_Support_Randomid
     {
         // Base64 can have /, +, and = characters. Restrict to URL-safe characters.
         return str_replace(array('/', '+', '='), array('-', '_', ''), base64_encode(
-            pack('II', mt_rand(), crc32(php_uname('n'))) . pack('H*', uniqid() . dechex(getmypid()))
+            pack('II', mt_rand(), crc32(php_uname('n'))) . pack('H*', uniqid() . sprintf('%04s', dechex(getmypid())))
         ));
     }
 
