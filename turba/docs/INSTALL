@@ -27,9 +27,9 @@ Or use the mirror closest to you:
 
    http://www.horde.org/mirrors.php
 
-Bleeding-edge development versions of Turba are available via CVS; see the
+Bleeding-edge development versions of Turba are available via Git; see the
 file `docs/HACKING`_ in the Horde distribution, or the website
-http://www.horde.org/source/, for information on accessing the Horde CVS
+http://www.horde.org/source/, for information on accessing the Horde Git
 repository.
 
 
@@ -51,14 +51,13 @@ To function properly, Turba **requires** the following:
    at
 
       http://www.horde.org/horde/
-
       ftp://ftp.horde.org/pub/horde/
 
    Many of Turba's prerequisites are also Horde prerequisites.
 
    .. Important:: Be sure to have completed all of the steps in the
                   `horde/docs/INSTALL`_ file for the Horde Framework before
-                  installing IMP.
+                  installing Turba.
 
    .. _`Horde Application Framework`: http://www.horde.org/horde/
 
@@ -115,12 +114,6 @@ Configuring Turba
       Horde, either in the URL, in the filesystem or both, you must update the
       ``fileroot`` and ``webroot`` settings to their correct values.
 
-   b. Optional: Provide Turba access from IMP
-
-      If you wish to have Turba appear in IMP's menubar, edit IMP's
-      configuration and select Turba in ``Administration/Configuration/Menu
-      Settings``.
-
 2. Creating databases
 
    The specific steps to create Turba databases depend on which database
@@ -158,11 +151,6 @@ Configuring Turba
    **examples**.  Please remove or comment out those examples that **you don't
    need**.
 
-   A few advanced attribute definitions have been commented out in
-   ``config/attributes.php`` by default because they require Horde 3.2 or
-   later to be installed. If you have a sufficiently recent Horde version you
-   can uncomment those lines in ``attributes.php``.
-
    You must login to Horde as a Horde Administrator to finish the
    configuration of Turba.  Use the Horde ``Administration`` menu item to get
    to the administration page, and then click on the ``Configuration`` icon to
@@ -175,7 +163,7 @@ Configuring Turba
    choose one of the other methods to create the configuration file
    ``turba/config/conf.php``.
 
-   Note for international users: IMP uses GNU gettext to provide local
+   Note for international users: Turba uses GNU gettext to provide local
    translations of text displayed by applications; the translations are found
    in the po/ directory.  If a translation is not yet available for your
    locale (and you wish to create one), see the ``horde/po/README`` file, or
@@ -184,7 +172,7 @@ Configuring Turba
 
 4. Securing Turba
 
-   Before you can secure IMP, you need a secure Horde installation.  Please
+   Before you can secure Turba, you need a secure Horde installation.  Please
    read the file in `horde/docs/SECURITY`_ for Horde security information
    before proceeding.
 
@@ -211,8 +199,6 @@ Configuring Turba
    existing and a known nonexisting entry in each of your data sources, and to
    create and then look up a new entry in each data source which allows users
    to create new entries.
-
-   If appropriate, ensure that Turba appears in the IMP menu bar.
 
 
 Obtaining Support

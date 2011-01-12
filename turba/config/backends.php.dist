@@ -230,10 +230,8 @@ $cfgSources['localsql'] = array(
         //                 'format' => '%s %s'),
         'alias' => 'object_alias',
         'birthday' => 'object_bday',
-        // The photo field requires at least Horde 3.3 and a matching type
-        // field.
-        // 'photo' => 'object_photo',
-        // 'phototype' => 'object_phototype',
+        'photo' => 'object_photo',
+        'phototype' => 'object_phototype',
         'homeStreet' => 'object_homestreet',
         'homePOBox' => 'object_homepob',
         'homeCity' => 'object_homecity',
@@ -263,10 +261,8 @@ $cfgSources['localsql'] = array(
         'title' => 'object_title',
         'role' => 'object_role',
         'company' => 'object_company',
-        // The logo field requires at least Horde 3.3 and a matching type
-        // field.
-        // 'logo' => 'object_logo',
-        // 'logotype' => 'object_logotype',
+        'logo' => 'object_logo',
+        'logotype' => 'object_logotype',
         'category' => 'object_category',
         'notes' => 'object_notes',
         'website' => 'object_url',
