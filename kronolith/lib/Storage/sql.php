@@ -3,6 +3,7 @@
  * Kronolith_Storage:: defines an API for storing free/busy information.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
 class Kronolith_Storage_sql extends Kronolith_Storage
@@ -10,17 +11,9 @@ class Kronolith_Storage_sql extends Kronolith_Storage
     /**
      * Handle for the current database connection, used for reading.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
     protected $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
 
     /**
      * Hash containing connection parameters.
@@ -37,25 +30,13 @@ class Kronolith_Storage_sql extends Kronolith_Storage
     public function __construct($user, $params = array())
     {
         $this->_user = $user;
+        if (empty($params['db'])) {
+            throw new InvalidArgumentException(_("Missing required db parameter"));
+        }
 
-        /* Use defaults where needed. */
+        $this->_db = $params['db'];
         $this->_params = $params;
         $this->_params['table'] = isset($params['table']) ? $params['table'] : 'kronolith_storage';
-    }
-
-    /**
-     * Connect to the database
-     *
-     * @throws Kronolith_Exception
-     */
-    public function initialize()
-    {
-        try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'kronolith', 'storage');
-            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'kronolith', 'storage');
-        } catch (Horde_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
     }
 
     /**
@@ -71,33 +52,26 @@ class Kronolith_Storage_sql extends Kronolith_Storage
     public function search($email, $private_only = false)
     {
         /* Build the SQL query. */
-        $query = sprintf('SELECT vfb_serialized FROM %s WHERE vfb_email=? AND (vfb_owner=?',
+        $query = sprintf('SELECT vfb_serialized FROM %s WHERE vfb_email = ? AND (vfb_owner = ?',
                          $this->_params['table']);
         $values = array($email, $this->_user);
 
         if ($private_only) {
             $query .= ')';
         } else {
-            $query .= " OR vfb_owner='')";
+            $query .= " OR vfb_owner = '')";
         }
-
-        /* Log the query at debug level. */
-        Horde::logMessage(sprintf('SQL search by %s: query = "%s"',
-                                  $GLOBALS['registry']->getAuth(), $query), 'DEBUG');
 
         /* Execute the query. */
-        $result = $this->_db->query($query, $values);
-        if (!($result instanceof PEAR_Error)) {
-            $row = $result->fetchRow(DB_GETMODE_ASSOC);
-            $result->free();
-            if (is_array($row)) {
-                /* Retrieve Freebusy object.  TODO: check for multiple
-                 * results and merge them into one and return. */
-                $vfb = Horde_Serialize::unserialize($row['vfb_serialized'], Horde_Serialize::BASIC);
-                return $vfb;
+        try {
+            $result = $this->_db->selectValue($query, $values);
+            if (empty($result)) {
+                throw new Horde_Exception_NotFound();
             }
+            return Horde_Serialize::unserialize($result, Horde_Serialize::BASIC);
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
-        throw new Horde_Exception_NotFound();
     }
 
     /**
@@ -116,28 +90,11 @@ class Kronolith_Storage_sql extends Kronolith_Storage
                          $this->_params['table']);
         $values = array($public ? '' : $this->_user, $email, Horde_Serialize::serialize($vfb, Horde_Serialize::BASIC));
 
-        /* Log the query at debug level. */
-        Horde::logMessage(sprintf('SQL insert by %s: query = "%s"',
-                                  $GLOBALS['registry']->getAuth(), $query), 'DEBUG');
-
         /* Execute the query. */
-        $result = $this->_write_db->query($query, $values);
-        $this->handleError($result);
-    }
-
-    /**
-     * Determines if the given result is a PEAR error. If it is, logs the event
-     * and throws an exception.
-     *
-     * @param mixed $result The result to check.
-     *
-     * @throws Horde_Exception
-     */
-    protected function handleError($result)
-    {
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Kronolith_Exception($result);
+        try {
+            $result = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
     }
 

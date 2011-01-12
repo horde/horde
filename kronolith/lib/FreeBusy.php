@@ -222,7 +222,7 @@ class Kronolith_FreeBusy
         }
 
         /* Check storage driver. */
-        $storage = Kronolith_Storage::factory();
+        $storage = $GLOBALS['injector']->getInstance('Kronolith_Injector_Factory_Storage')->create();
 
         try {
             $fb = $storage->search($email);
