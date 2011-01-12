@@ -1930,7 +1930,7 @@ class Horde_Registry
     /**
      * Return whether the authentication backend requested a password change.
      *
-     * @return boolean Whether the backend requested a password change.
+     * @return boolean  Whether the backend requested a password change.
      */
     public function passwordChangeRequested()
     {
