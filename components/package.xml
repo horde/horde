@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-11</date>
- <time>11:29:20</time>
+ <date>2011-01-12</date>
+ <time>10:29:42</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -69,6 +69,7 @@
        <file name="Printf.php" role="php" />
       </dir> <!-- /lib/Components/Helper/Template -->
       <dir name="Templates">
+       <file name="Directory.php" role="php" />
        <file name="Prefix.php" role="php" />
        <file name="Single.php" role="php" />
       </dir> <!-- /lib/Components/Helper/Templates -->
@@ -206,6 +207,10 @@
        <file name="IGNORE.txt" role="test" />
       </dir> <!-- /test/Components/fixture/simple -->
       <dir name="templates">
+       <dir name="dir">
+        <file name="one" role="test" />
+        <file name="two" role="test" />
+       </dir> <!-- /test/Components/fixture/templates/dir -->
        <file name="hudson-component-build.xml.template" role="test" />
        <file name="hudson-component-config.xml.template" role="test" />
        <file name="hudson-component-phpunit.xml.template" role="test" />
@@ -325,6 +330,7 @@
    <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
    <install as="Components/Helper/Template/Php.php" name="lib/Components/Helper/Template/Php.php" />
    <install as="Components/Helper/Template/Printf.php" name="lib/Components/Helper/Template/Printf.php" />
+   <install as="Components/Helper/Templates/Directory.php" name="lib/Components/Helper/Templates/Directory.php" />
    <install as="Components/Helper/Templates/Prefix.php" name="lib/Components/Helper/Templates/Prefix.php" />
    <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
@@ -390,6 +396,8 @@
    <install as="Components/fixture/templates/php.template" name="test/Components/fixture/templates/php.template" />
    <install as="Components/fixture/templates/simple.template" name="test/Components/fixture/templates/simple.template" />
    <install as="Components/fixture/templates/variables.template" name="test/Components/fixture/templates/variables.template" />
+   <install as="Components/fixture/templates/dir/one" name="test/Components/fixture/templates/dir/one" />
+   <install as="Components/fixture/templates/dir/two" name="test/Components/fixture/templates/dir/two" />
    <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
    <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
    <install as="Components/Integration/Components/Module/DependenciesTest.php" name="test/Components/Integration/Components/Module/DependenciesTest.php" />
@@ -414,7 +422,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-11</date>
+   <date>2011-01-12</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

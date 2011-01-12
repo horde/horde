@@ -41,7 +41,8 @@
  - WWW frontend
 
  - The package descriptions need to be escaped when writing them into
-   the Hudson config.xml file
+   the Hudson config.xml file (probably means that the templating
+   should be switched to PHP based templates)
 
  - Allow channel dependency detection with external/local package
    dependencies.

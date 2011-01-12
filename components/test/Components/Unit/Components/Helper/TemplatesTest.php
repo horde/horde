@@ -110,10 +110,9 @@ extends Components_TestCase
      */
     public function testMissingPrefixTemplate()
     {
-        $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_Prefix(
             dirname(__FILE__) . '/../../../fixture/templates',
-            $tdir,
+            $this->getTemporaryDirectory(),
             'NOSUCHPREFIX',
             'target'
         );
@@ -148,6 +147,54 @@ extends Components_TestCase
         $this->assertEquals(
             "SOME INPUT",
             file_get_contents($tdir . DIRECTORY_SEPARATOR . 'target')
+        );
+    }
+
+    public function testDirectory()
+    {
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates_Directory(
+            dirname(__FILE__) . '/../../../fixture/templates/dir',
+            $tdir
+        );
+        $templates->write(array('one' => 'One', 'two' => 'Two'));
+        $this->assertEquals(
+            "One",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'one')
+        );
+        $this->assertEquals(
+            "Two",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'two')
+        );
+    }
+
+    /**
+     * @expectedException Components_Exception
+     */
+    public function testMissingDirectory()
+    {
+        new Components_Helper_Templates_Directory(
+            dirname(__FILE__) . '/../../../fixture/templates/NOSUCHDIR',
+            $this->getTemporaryDirectory()
+        );
+    }
+
+    public function testMissingTargetDirectory()
+    {
+        $tdir =  $this->getTemporaryDirectory() . DIRECTORY_SEPARATOR
+            . 'a' .DIRECTORY_SEPARATOR . 'b';
+        $templates = new Components_Helper_Templates_Directory(
+            dirname(__FILE__) . '/../../../fixture/templates/dir',
+            $tdir
+        );
+        $templates->write(array('one' => 'One', 'two' => 'Two'));
+        $this->assertEquals(
+            "One",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'one')
+        );
+        $this->assertEquals(
+            "Two",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'two')
         );
     }
 }
