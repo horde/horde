@@ -21,6 +21,23 @@
  */
 class Horde_Core_Factory_ShareBase
 {
+    /**
+     * Local cache of created share instances.
+     *
+     * @var array
+     */
+    protected $_instances;
+
+    /**
+     * Returns the share driver instance.
+     *
+     * @param string $app     The application scope of the share. If empty, default
+     *                        to current application.
+     * @param string $driver  The storage driver to use. If empty, use the
+     *                        globally configured storage driver.
+     *
+     * @return Horde_Share  The share driver instance.
+     */
     public function create($app = null, $driver = null)
     {
         if (empty($driver)) {
