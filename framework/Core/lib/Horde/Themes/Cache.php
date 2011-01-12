@@ -149,9 +149,11 @@ class Horde_Themes_Cache implements Serializable
         } elseif ($entry & self::APP_DEFAULT) {
             $app = $this->_app;
             $theme = 'default';
-        } else {
+        } elseif ($entry & self::HORDE_DEFAULT) {
             $app = 'horde';
             $theme = 'default';
+        } else {
+            return null;
         }
 
         return $this->_getOutput($app, $theme, $item);
