@@ -1,0 +1,78 @@
+<?php //Need to fix the template type recognition in components. ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title><?php echo 'Component: "' . $package->getName() . '": Installation'; ?></title>
+
+  <link href="http://dev.horde.org/routes/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
+  
+</head>
+<body id="contents_home">
+  <div id="wrapper">
+
+  <div id="header" class="clr">
+    <div id="logo" class="left">
+      <span>
+      <img alt="Horde/Routes" src="http://dev.horde.org/routes/images/common/logo.gif" />
+      </span>
+    </div>
+      <ul id="nav" class="right">
+        <li><a href="index.html">Home</a></li>
+        <li>Install</li>
+      </ul>
+  </div>
+
+  <div id="content" class="clr">
+      
+  <h1>Installation"</h1>
+
+  <div id="main">
+    <p class="top">
+      <pre>
+	<?php echo 'pear install horde/' . $package->getName(); ?>
+      </pre>
+    </p>
+  </div> <!-- /main -->
+
+  <div id="sidebar">
+  <div class="side_item">
+    <h4>Latest Version</h4>
+    <p><a href="install.html">Version <?php echo $package->getVersion(); ?></a></p>
+    <div class="side_bottom">&nbsp;</div>
+  </div>
+
+  <div class="side_item">
+    <h4>Developers</h4>
+    <?php foreach ($package->getLeads() as $lead): ?>
+    <p>
+      <a href="mailto:<?php echo $lead['email']; ?>"><?php echo $lead['name'] ?></a>
+    </p>
+    <?php endforeach; ?>
+
+    <div class="side_bottom">&nbsp;</div>
+  </div>
+
+  <div class="side_item">
+    <h4>License</h4>
+    <p>
+      <?php echo $package->getName(); ?> is free software, covered by a standard <a href="<?php $loc = $package->getLicenseLocation(); echo $loc['uri']; ?>"><?php echo $package->getLicense(); ?></a>.
+    </p>
+    <div class="side_bottom">&nbsp;</div>
+  </div>
+</div>
+
+
+  </div>
+
+  <div id="footer" class="clr">
+    <span class="right">
+      <?php echo $package->getName();?> is part of the <a href="http://www.horde.org">Horde Project</a>.
+    </span>
+  </div>
+
+  
+
+  </div>
+</body>
+</html>

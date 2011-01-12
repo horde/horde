@@ -269,6 +269,16 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the license location for this package.
+     *
+     * @return string The package license location.
+     */
+    public function getLicenseLocation()
+    {
+        return $this->_getPackageFile()->getLicenseLocation();
+    }
+
+    /**
      * Return the summary for this package.
      *
      * @return string The package summary.
@@ -276,6 +286,26 @@ class Components_Pear_Package
     public function getSummary()
     {
         return $this->_getPackageFile()->getSummary();
+    }
+
+    /**
+     * Return the leads for this package.
+     *
+     * @return string The package leads.
+     */
+    public function getLeads()
+    {
+        return $this->_getPackageFile()->getLeads();
+    }
+
+    /**
+     * Return the maintainers for this package.
+     *
+     * @return string The package maintainers.
+     */
+    public function getMaintainers()
+    {
+        return $this->_getPackageFile()->getMaintainers();
     }
 
     /**

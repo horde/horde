@@ -44,4 +44,14 @@ extends Components_StoryTestCase
             ->when('calling the package with the help option')
             ->then('the help will contain the option', '-O\s*DOCUMENT,\s*--document=DOCUMENT');
     }
+
+    /**
+     * @scenario
+     */
+    public function theTheOOptionGeneratesHtmlDocumentation()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the document option and a path to a Horde framework component')
+            ->then('the package documentation will be generated at the indicated location');
+    }
 }

@@ -300,6 +300,15 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the document option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--templatedir=' . dirname(__FILE__) . '/fixture/templates/html',
+                '--document=' . $this->_getTemporaryDirectory(),
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -612,6 +621,20 @@ extends PHPUnit_Extensions_Story_TestCase
                 file_exists(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
                     . 'package.spec'
+                )
+            );
+            break;
+        case 'the package documentation will be generated at the indicated location':
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'index.html'
+                )
+            );
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'install.html'
                 )
             );
             break;
