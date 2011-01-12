@@ -433,7 +433,7 @@ class Chora
     static public function showAuthorName($name, $fullname = false)
     {
         try {
-            $users = $GLOBALS['VC']->getUsers($GLOBALS['conf']['paths']['cvsusers']);
+            $users = $GLOBALS['VC']->getUsers($GLOBALS['chora_conf']['cvsusers']);
             if (isset($users[$name])) {
                 return '<a href="mailto:' . htmlspecialchars($users[$name]['mail']) . '">' .
                     htmlspecialchars($fullname ? $users[$name]['name'] : $name) .
@@ -447,7 +447,7 @@ class Chora
     static public function getAuthorEmail($name)
     {
         try {
-            $users = $GLOBALS['VC']->getUsers($GLOBALS['conf']['paths']['cvsusers']);
+            $users = $GLOBALS['VC']->getUsers($GLOBALS['chora_conf']['cvsusers']);
             if (isset($users[$name])) {
                 return $users[$name]['mail'];
             }

@@ -35,7 +35,7 @@ try {
 
 /* Decide what title to display. */
 $title = ($where == '')
-    ? $conf['options']['introTitle']
+    ? $chora_conf['introTitle']
     : "/$where";
 
 $extraLink = $VC->hasFeature('deleted')

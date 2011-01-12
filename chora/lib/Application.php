@@ -44,12 +44,12 @@ class Chora_Application extends Horde_Registry_Application
      * Initialization function.
      *
      * Global variables defined:
+     *   $chora_conf
      *   $sourceroots
      */
     protected function _init()
     {
-        global $conf;
-        global $acts, $defaultActs, $where, $atdir, $fullname, $sourceroot;
+        global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 
         try {
             $GLOBALS['sourceroots'] = Horde::loadConfiguration('backends.php', 'sourceroots');
@@ -119,20 +119,21 @@ class Chora_Application extends Horde_Registry_Application
             ? null
             : $GLOBALS['injector']->getInstance('Horde_Cache');
 
-        $conf['paths']['temp'] = Horde::getTempDir();
+        $GLOBALS['chora_conf'] = array(
+            'cvsusers' => $sourcerootopts['location'] . '/' . (isset($sourcerootopts['cvsusers']) ? $sourcerootopts['cvsusers'] : ''),
+            'introText' => CHORA_BASE . '/config/' . (isset($sourcerootopts['intro']) ? $sourcerootopts['intro'] : ''),
+            'introTitle' => (isset($sourcerootopts['title']) ? $sourcerootopts['title'] : ''),
+            'sourceRootName' => $sourcerootopts['name']
+        );
+        $chora_conf = &$GLOBALS['chora_conf'];
 
-        $GLOBALS['VC'] = Horde_Vcs::factory(Horde_String::ucfirst($sourcerootopts['type']),
-            array('cache' => $cache,
-                  'sourceroot' => $sourcerootopts['location'],
-                  'paths' => $conf['paths'],
-                  'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
-                  'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''));
-
-        $conf['paths']['sourceroot'] = $sourcerootopts['location'];
-        $conf['paths']['cvsusers'] = $sourcerootopts['location'] . '/' . (isset($sourcerootopts['cvsusers']) ? $sourcerootopts['cvsusers'] : '');
-        $conf['paths']['introText'] = CHORA_BASE . '/config/' . (isset($sourcerootopts['intro']) ? $sourcerootopts['intro'] : '');
-        $conf['options']['introTitle'] = isset($sourcerootopts['title']) ? $sourcerootopts['title'] : '';
-        $conf['options']['sourceRootName'] = $sourcerootopts['name'];
+        $GLOBALS['VC'] = Horde_Vcs::factory(Horde_String::ucfirst($sourcerootopts['type']), array(
+            'cache' => $cache,
+            'sourceroot' => $sourcerootopts['location'],
+            'paths' => array_merge($conf['paths'], array('temp' => Horde::getTempDir())),
+            'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
+            'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''
+        ));
 
         $where = Horde_Util::getFormData('f', '/');
 
