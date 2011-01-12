@@ -21,7 +21,10 @@ if (!$GLOBALS['VC']->hasFeature('patchsets')) {
     Chora::url('browsedir', $where)->redirect();
 }
 
-$commit_id = Horde_Util::getFormData('commit');
+if (!($commit_id = Horde_Util::getFormData('commit'))) {
+    Chora::fatal(_("No commit ID given"));
+}
+
 $title = sprintf(_("Commit %s"), $commit_id);
 
 try {
