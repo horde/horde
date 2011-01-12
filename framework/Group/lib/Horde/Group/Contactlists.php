@@ -26,7 +26,7 @@ class Horde_Group_Contactlists extends Horde_Group
      * Handles for the database connections. Need one for each possible
      * source.
      *
-     * @var DB
+     * @var array
      */
     protected $_db = array();
 
@@ -56,7 +56,11 @@ class Horde_Group_Contactlists extends Horde_Group
 
         // We only support sql type sources.
         foreach ($turba_sources as $key => $source) {
-            if ($source['type'] == 'sql') {
+            if ($source['type'] == 'sql' &&
+                isset($source['map']['__key']) &&
+                isset($source['list_name_field']) &&
+                isset($source['map']['__type']) &&
+                isset($source['map']['__owner'])) {
                 $this->_sources[$key] = $source;
             }
         }
@@ -323,6 +327,7 @@ class Horde_Group_Contactlists extends Horde_Group
      *                          group list is refreshed from the group backend.
      *
      * @return array  ID => groupname hash.
+     * @throws Horde_Group_Exception
      */
     public function listGroups($refresh = false)
     {
@@ -358,17 +363,18 @@ class Horde_Group_Contactlists extends Horde_Group
             }
             $owner_ids = array();
             foreach ($owners as $owner) {
-                $owner_ids[] = $this->_db[$key]->quote($owner);
+                $owner_ids[] = $this->_db[$key]->quoteString($owner);
             }
             $sql = 'SELECT ' . $source['map']['__key'] . ', ' . $source['map'][$source['list_name_field']]
                 . '  FROM ' . $source['params']['table'] . ' WHERE '
                 . $source['map']['__type'] . ' = \'Group\' AND '
                 . $source['map']['__owner'] . ' IN (' . implode(',', $owner_ids ) . ')';
 
-            $results = $this->_db[$key]->getAssoc($sql);
-            if (is_a($results, 'PEAR_Error')) {
-                Horde::logMessage($results);
-                throw new Horde_Group_Exception($results);
+            try {
+                $results = $this->_db[$key]->selectAssoc($sql);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e);
+                throw new Horde_Group_Exception($e);
             }
             foreach ($results as $id => $name) {
                 $groups[$key . ':' . $id] = $name;
@@ -418,12 +424,13 @@ class Horde_Group_Contactlists extends Horde_Group
             . $this->_sources[$source]['map']['email'] . ','
             . $this->_sources[$source]['map'][$this->_sources[$source]['list_name_field']]
             . ' from ' . $this->_sources[$source]['params']['table'] . ' WHERE '
-            . $this->_sources[$source]['map']['__key'] . ' = ' . $this->_db[$source]->quote($id);
+            . $this->_sources[$source]['map']['__key'] . ' = ' . $this->_db[$source]->quoteString($id);
 
-        $results = $this->_db[$source]->getRow($sql, array(), DB_FETCHMODE_ASSOC);
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($results, 'ERR');
-            throw new Horde_Group_Exception($results);
+        try {
+            $results = $this->_db[$source]->selectOne($sql);
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e);
+            throw new Horde_Group_Exception($e);
         }
         $this->_listEntries[$gid] = $results;
 
@@ -469,12 +476,13 @@ class Horde_Group_Contactlists extends Horde_Group
                 . ', ' . $this->_sources[$newSource]['map']['__type']
                 . ' FROM ' . $this->_sources[$newSource]['params']['table']
                 . ' WHERE ' . $this->_sources[$newSource]['map']['__key']
-                . ' = ' . $this->_db[$newSource]->quote($member);
+                . ' = ' . $this->_db[$newSource]->quoteString($member);
 
-            $results = $this->_db[$newSource]->getRow($sql);
-            if ($results instanceof PEAR_Error) {
-                Horde::logMessage($results, 'ERR');
-                throw new Horde_Group_Exception($results);
+            try {
+                $results = $this->_db[$newSource]->selectOne($sql);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e);
+                throw new Horde_Group_Exception($e);
             }
 
             // Sub-Lists are treated as sub groups the best that we can...
@@ -505,20 +513,22 @@ class Horde_Group_Contactlists extends Horde_Group
         foreach ($this->_sources as $key => $source) {
             $this->_connect($key);
             $sql = 'SELECT ' . $source['map']['__key'] . ','
-            . $source['map']['__members'] . ','
-            . $source['map']['email'] . ','
-            . $source['map'][$source['list_name_field']]
-            . ' FROM ' . $source['params']['table'] . ' WHERE '
-            . $source['map']['__type'] . ' = \'Group\'';
+                . $source['map']['__members'] . ','
+                . $source['map']['email'] . ','
+                . $source['map'][$source['list_name_field']]
+                . ' FROM ' . $source['params']['table'] . ' WHERE '
+                . $source['map']['__type'] . ' = \'Group\'';
 
-           $results = $this->_db[$key]->query($sql);
-           if ($results instanceof PEAR_Error) {
-               throw new Horde_Group_Exception($results);
-           }
+            try {
+                $results = $this->_db[$key]->select($sql);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e);
+                throw new Horde_Group_Exception($e);
+            }
 
-           while ($row = $results->fetchRow(DB_FETCHMODE_ASSOC)) {
+            foreach ($results as $row) {
                 $this->_listEntries[$key . ':' . $row[$source['map']['__key']]] = $row;
-           }
+            }
         }
 
         return $this->_listEntries;
@@ -583,7 +593,6 @@ class Horde_Group_Contactlists extends Horde_Group
     /**
      * Attempts to open a persistent connection to the sql server.
      *
-     * @return boolean  True on success.
      * @throws Horde_Group_Exception
      */
     protected function _connect($source = null)
@@ -598,25 +607,14 @@ class Horde_Group_Contactlists extends Horde_Group
 
         foreach ($sources as $source) {
             if (empty($this->_db[$source])) {
-                $this->_db[$source] = DB::connect($this->_sources[$source]['params'],
-                    array('persistent' => !empty($this->_sources[$source]['params']['persistent'])));
-                if ($this->_db[$source] instanceof PEAR_Error) {
-                    throw new Horde_Group_Exception($this->_db[$source]);
-                }
-
-                /* Set DB portability options. */
-                switch ($this->_db[$source]->phptype) {
-                case 'mssql':
-                    $this->_db[$source]->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                    break;
-
-                default:
-                    $this->_db[$source]->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+                try {
+                    $this->_db[$source] = empty($this->_sources[$source]['params']['sql'])
+                        ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create()
+                        : $this->_sources[$source]['params']['sql'];
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Group_Exception($e);
                 }
             }
         }
-
-        return true;
     }
-
 }
