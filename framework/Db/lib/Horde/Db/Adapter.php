@@ -121,7 +121,7 @@ interface Horde_Db_Adapter
      * @param string $arg2   If $arg1 contains bound parameters, the query
      *                       name.
      *
-     * @return PDOStatement
+     * @return Iterator
      * @throws Horde_Db_Exception
      */
     public function select($sql, $arg1 = null, $arg2 = null);
@@ -211,7 +211,7 @@ interface Horde_Db_Adapter
      * @param string $arg2  If $arg1 contains bound parameters, the query
      *                      name.
      *
-     * @return PDOStatement
+     * @return Iterator
      * @throws Horde_Db_Exception
      */
     public function execute($sql, $arg1 = null, $arg2 = null);
