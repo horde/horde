@@ -13,12 +13,13 @@ class Horde_Translation_WrapperTest extends Horde_Translation_TestBase
 {
     public function testWrappers()
     {
-        $this->assertEquals('1 Woche', sprintf(Horde_Translation_TestWrapper::ngettext('%d week', '%d weeks', 1), 1));
-        $this->assertEquals('Heute', Horde_Translation_TestWrapper::t('Today'));
+        $this->assertEquals('Heute', Horde_Translation_TestWrapperA::t('Today'));
+        $this->assertEquals('1 Woche', sprintf(Horde_Translation_TestWrapperA::ngettext('%d week', '%d weeks', 1), 1));
+        $this->assertEquals('Morgen', Horde_Translation_TestWrapperB::t('Tomorrow'));
     }
 }
 
-class Horde_Translation_TestWrapper extends Horde_Translation
+class Horde_Translation_TestWrapperA extends Horde_Translation
 {
     static public function t($message)
     {
@@ -30,6 +31,23 @@ class Horde_Translation_TestWrapper extends Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Translation';
+        self::$_directory = dirname(__FILE__) . '/locale';
+        return parent::ngettext($singular, $plural, $number);
+    }
+}
+
+class Horde_Translation_TestWrapperB extends Horde_Translation
+{
+    static public function t($message)
+    {
+        self::$_domain = 'Horde_Other';
+        self::$_directory = dirname(__FILE__) . '/locale';
+        return parent::t($message);
+    }
+
+    static public function ngettext($singular, $plural, $number)
+    {
+        self::$_domain = 'Horde_Other';
         self::$_directory = dirname(__FILE__) . '/locale';
         return parent::ngettext($singular, $plural, $number);
     }

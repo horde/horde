@@ -36,11 +36,11 @@ abstract class Horde_Translation
     static protected $_directory;
 
     /**
-     * The handler providing the actual translations.
+     * The handlers providing the actual translations.
      *
-     * @var Horde_Translation_Handler
+     * @var array
      */
-    static protected $_handler;
+    static protected $_handlers = array();
 
     /**
      * Loads a translation handler class pointing to the library's translations
@@ -54,24 +54,25 @@ abstract class Horde_Translation
         if (!self::$_domain || !self::$_directory) {
             throw new Horde_Translation_Exception('The domain and directory properties must be set by the class that extends Horde_Translation.');
         }
-        self::setHandler(new $handlerClass(self::$_domain, self::$_directory));
+        self::setHandler(self::$_domain, new $handlerClass(self::$_domain, self::$_directory));
     }
 
     /**
-     * Assigns a translation handler object to $_handler.
+     * Assigns a translation handler object to $_handlers.
      *
      * Type hinting isn't used on purpose. You should extend a custom
      * translation handler passed here from the Horde_Translation interface,
      * but technically it's sufficient if you provide the API of that
      * interface.
      *
+     * @param string $domain                      The translation domain.
      * @param Horde_Translation_Handler $handler  An object implementing the
      *                                            Horde_Translation_Handler
      *                                            interface.
      */
-    static public function setHandler($handler)
+    static public function setHandler($domain, $handler)
     {
-        self::$_handler = $handler;
+        self::$_handlers[$domain] = $handler;
     }
 
     /**
@@ -84,10 +85,10 @@ abstract class Horde_Translation
      */
     static public function t($message)
     {
-        if (!self::$_handler) {
+        if (!isset(self::$_handlers[self::$_domain])) {
             self::loadHandler('Horde_Translation_Handler_Gettext');
         }
-        return self::$_handler->t($message);
+        return self::$_handlers[self::$_domain]->t($message);
     }
 
     /**
@@ -102,9 +103,9 @@ abstract class Horde_Translation
      */
     static public function ngettext($singular, $plural, $number)
     {
-        if (!self::$_handler) {
+        if (!isset(self::$_handlers[self::$_domain])) {
             self::loadHandler('Horde_Translation_Handler_Gettext');
         }
-        return self::$_handler->ngettext($singular, $plural, $number);
+        return self::$_handlers[self::$_domain]->ngettext($singular, $plural, $number);
     }
 }
