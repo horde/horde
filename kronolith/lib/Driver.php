@@ -209,38 +209,6 @@ class Kronolith_Driver
     }
 
     /**
-     * Attempts to return a concrete Kronolith_Driver instance based on
-     * $driver.
-     *
-     * @param string $driver  The type of concrete Kronolith_Driver subclass
-     *                        to return.
-     *
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
-     *                           instance.
-     */
-    static public function factory($driver = null, $params = null)
-    {
-        $driver = basename($driver);
-        $class = 'Kronolith_Driver_' . $driver;
-
-        if (class_exists($class)) {
-            $driver = new $class($params);
-            try {
-                $driver->initialize();
-            } catch (Exception $e) {
-                $driver = new Kronolith_Driver($params, sprintf(_("The Calendar backend is not currently available: %s"), $e->getMessage()));
-            }
-        } else {
-            $driver = new Kronolith_Driver($params, sprintf(_("Unable to load the definition of %s."), $class));
-        }
-
-        return $driver;
-    }
-
-    /**
      * Stub to initiate a driver.
      *
      * @throws Kronolith_Exception

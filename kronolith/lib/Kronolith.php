@@ -2721,6 +2721,12 @@ class Kronolith
             case 'Sql':
             case 'Resource':
                 $params = Horde::getDriverConfig('calendar', 'sql');
+                if ($params['driverconfig'] != 'Horde') {
+                    // Custom
+                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('kronolith', $params);
+                } else {
+                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbBase')->create();
+                }
                 break;
 
             case 'Kolab':
@@ -2747,7 +2753,7 @@ class Kronolith
                 break;
             }
 
-            self::$_instances[$driver] = Kronolith_Driver::factory($driver, $params);
+            self::$_instances[$driver] = $GLOBALS['injector']->getInstance('Kronolith_Injector_Factory_Driver')->create($driver, $params);
         }
 
         if (!is_null($calendar)) {

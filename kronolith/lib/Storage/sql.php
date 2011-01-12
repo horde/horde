@@ -6,7 +6,7 @@
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Storage_sql extends Kronolith_Storage
+class Kronolith_Storage_Sql extends Kronolith_Storage
 {
     /**
      * Handle for the current database connection, used for reading.

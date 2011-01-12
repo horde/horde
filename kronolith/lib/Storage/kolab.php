@@ -9,7 +9,7 @@
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @package Kronolith
  */
-class Kronolith_Storage_kolab extends Kronolith_Storage
+class Kronolith_Storage_Kolab extends Kronolith_Storage
 {
     protected $_params = array();
 
