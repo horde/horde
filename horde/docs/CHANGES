@@ -58,6 +58,7 @@ v4.0-cvs
 v3.3.12-cvs
 -----------
 
+[jan] Fix splitread database usage in VFS (Bug #9467).
 [jan] Fix invalidating permission cache in SQL driver (Bug #9392).
 
 

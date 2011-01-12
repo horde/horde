@@ -301,7 +301,7 @@ class VFS_sql extends VFS
                        (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
         $values = array(self::FILE, $name);
         $this->log($sql, PEAR_LOG_DEBUG);
-        $result = $this->_db->query($sql, $values);
+        $result = $this->_write_db->query($sql, $values);
 
         if ($this->_db->affectedRows() == 0) {
             throw new VFS_Exception('Unable to delete VFS file.');
@@ -383,7 +383,7 @@ class VFS_sql extends VFS
 
         $values = array($id, self::FOLDER, $this->_convertPath($path), $name, time(), $this->_params['user']);
 
-        return $this->_db->query($sql, $values);
+        return $this->_write_db->query($sql, $values);
     }
 
     /**
