@@ -973,11 +973,13 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         foreach (array_keys($shares) as $calendar) {
-            $ids = Kronolith::listEventIds(null, null, $calendar);
-            $this->handleError($ids);
+            $driver = Kronolith::getDriver(null, $calendar);
+            $events = $driver->listEvents(null, null, false, false, false);
             $uids = array();
-            foreach ($ids as $cal) {
-                $uids = array_merge($uids, array_keys($cal));
+            foreach ($events as $dayevents) {
+                foreach ($dayevents as $event) {
+                    $uids[] = $event->uid;
+                }
             }
 
             foreach ($uids as $uid) {
