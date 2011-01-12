@@ -142,11 +142,10 @@ class IMP_Imap implements Serializable
      */
     protected function _postcreate()
     {
-        global $conf, $prefs;
+        global $prefs;
 
         if ($this->ob instanceof Horde_Imap_Client_Socket_Pop3) {
             /* Turn some options off if we are working with POP3. */
-            $conf['user']['allow_folders'] = false;
             $prefs->setValue('save_sent_mail', false);
             $prefs->setLocked('save_sent_mail', true);
             $prefs->setLocked('sent_mail_folder', true);
@@ -188,6 +187,17 @@ class IMP_Imap implements Serializable
         }
 
         return $this->_readonly[$mailbox];
+    }
+
+    /**
+     * Are folders allowed?
+     *
+     * @return boolean  True if folders are allowed.
+     */
+    public function allowFolders()
+    {
+        return !empty($GLOBALS['conf']['user']['allow_folders']) &&
+            !($this->ob instanceof Horde_Imap_Client_Socket_Pop3);
     }
 
     /**

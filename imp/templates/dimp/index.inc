@@ -14,11 +14,12 @@ $use_trash = $prefs->getValue('use_trash');
 $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 
+$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+
 // Quota information
 $show_quota = $session->get('imp', 'imap_quota')
     ? '<span class="used">' . Horde::img('quotauncover.gif') . '</span>'
     : '';
-
 
 function _simpleButton($id, $text, $image, $nodisplay = false)
 {
@@ -317,7 +318,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_container_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
 </div>
 
-<?php if ($conf['user']['allow_folders']): ?>
+<?php if ($imp_imap->allowFolders()): ?>
 <div class="context" id="ctx_folderopts" style="display:none">
  <a id="ctx_folderopts_new"><span class="iconImg"></span><?php echo _("New Folder") ?></a>
 <?php if ($use_sub): ?>

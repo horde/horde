@@ -746,7 +746,7 @@ if ($redirect) {
 
     $t->set('title', htmlspecialchars($title));
     $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
-    if ($conf['user']['allow_folders'] && !$readonly_drafts) {
+    if ($imp_imap->allowFolders() && !$readonly_drafts) {
         $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
     }
     $t->set('help', Horde_Help::link('imp', 'compose-buttons'));
@@ -868,7 +868,7 @@ if ($redirect) {
     }
     $t->set('compose_options', $compose_options);
 
-    $t->set('ssm', ($conf['user']['allow_folders'] && !$prefs->isLocked('save_sent_mail')));
+    $t->set('ssm', ($imp_imap->allowFolders() && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
         if ($readonly_sentmail) {
             $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail_folder), 'horde.warning'));

@@ -85,6 +85,13 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     public $unseen = 0;
 
     /**
+     * Are folders allowed?
+     *
+     * @var boolean
+     */
+    protected $_allowFolders;
+
+    /**
      * Array containing the mailbox tree.
      *
      * @var array
@@ -165,12 +172,14 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     public function __construct()
     {
         if ($GLOBALS['session']->get('imp', 'protocol') == 'imap') {
-            $ns = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getNamespaceList();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+            $ns = $imp_imap->getNamespaceList();
             $ptr = reset($ns);
+            $this->_allowFolders = $imp_imap->allowFolders();
             $this->_delimiter = $ptr['delimiter'];
-            $this->_namespaces = empty($GLOBALS['conf']['user']['allow_folders'])
-                ? array()
-                : $ns;
+            $this->_namespaces = $this->_allowFolders
+                ? $ns
+                : array();
         }
 
         $this->init();
@@ -203,8 +212,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         /* Add INBOX and exit if folders aren't allowed or if we are using
          * POP3. */
-        if (empty($conf['user']['allow_folders']) ||
-            ($session->get('imp', 'protocol') == 'pop')) {
+        if (!$this->_allowFolders) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
             return;
         }
@@ -1322,7 +1330,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             $this->changed = true;
         }
 
-        if (empty($GLOBALS['conf']['user']['allow_folders'])) {
+        if (!$this->_allowFolders) {
             return;
         }
 

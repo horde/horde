@@ -22,7 +22,7 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
 new Horde_View_Helper_Text($view);
 
-if (empty($conf['user']['allow_folders'])) {
+if (!$injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
     $view->allowFolders = false;
 } else {
     $view->allowFolders = true;
@@ -41,7 +41,7 @@ $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
 echo $view->render('head.html.php');
-if (!empty($conf['user']['allow_folders'])) {
+if ($view->allowFolders) {
     echo $view->render('folders.html.php');
 }
 echo $view->render('mailbox.html.php');

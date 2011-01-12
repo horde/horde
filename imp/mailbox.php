@@ -230,7 +230,7 @@ if ($do_filter) {
 }
 
 /* Generate folder options list. */
-if ($conf['user']['allow_folders']) {
+if ($imp_imap->allowFolders()) {
     $folder_options = IMP::flistSelect(array('heading' => _("Messages to"), 'new_folder' => true, 'inc_tasklists' => true, 'inc_notepads' => true));
 }
 
@@ -480,7 +480,7 @@ if ($pageOb['msgcount']) {
     $n_template->setOption('gettext', true);
     $n_template->set('id', 1);
     $n_template->set('sessiontag', Horde_Util::formInput());
-    $n_template->set('use_folders', $conf['user']['allow_folders']);
+    $n_template->set('use_folders', $imp_imap->allowFolders());
     $n_template->set('readonly', $readonly);
     $n_template->set('use_pop', $session->get('imp', 'protocol') == 'pop');
 

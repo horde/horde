@@ -242,7 +242,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $conf, $injector, $prefs, $registry;
+        global $injector, $prefs, $registry;
 
         $menu_mailbox_url = Horde::url('mailbox.php');
 
@@ -292,7 +292,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        if ($conf['user']['allow_folders']) {
+        if ($injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
             $menu->addArray(array(
                 'icon' => 'folders/folder.png',
                 'text' => _("_Folders"),

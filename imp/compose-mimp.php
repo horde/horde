@@ -331,7 +331,7 @@ if ($vars->a == 'rc') {
 } else {
     $t->set('compose_enable', !$compose_disable);
     $t->set('msg', htmlspecialchars($msg));
-    $t->set('save_draft', $conf['user']['allow_folders'] && !$readonly_drafts);
+    $t->set('save_draft', $imp_imap->allowFolders() && !$readonly_drafts);
     $t->set('subject', htmlspecialchars($header['subject']));
 
     if (!$prefs->isLocked('default_identity')) {

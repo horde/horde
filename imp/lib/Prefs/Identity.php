@@ -563,11 +563,9 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function saveSentmail($ident = null)
     {
-        if (!$GLOBALS['conf']['user']['allow_folders']) {
-            return false;
-        }
-
-        return $this->getValue('save_sent_mail', $ident);
+        return $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()
+            ? $this->getValue('save_sent_mail', $ident)
+            : false;
     }
 
 }

@@ -161,7 +161,7 @@ class IMP_Prefs_Ui
             $ui->suppressGroups[] = 'smime';
         }
 
-        if (empty($conf['user']['allow_folders'])) {
+        if (!$injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
             $ui->suppressGroups[] = 'searches';
         }
 
@@ -1023,13 +1023,15 @@ class IMP_Prefs_Ui
      */
     protected function _initialPage()
     {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        global $injector, $prefs;
+
+        $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        if (empty($GLOBALS['conf']['user']['allow_folders'])) {
+        if (!$injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
             $t->set('nofolder', true);
         } else {
-            $mailbox_selected = $GLOBALS['prefs']->getValue('initial_page');
+            $mailbox_selected = $prefs->getValue('initial_page');
             $t->set('folder_page', IMP::formMbox(self::PREF_FOLDER_PAGE, true));
             $t->set('folder_sel', $mailbox_selected == self::PREF_FOLDER_PAGE);
             $t->set('flist', IMP::flistSelect(array(
@@ -1445,9 +1447,11 @@ class IMP_Prefs_Ui
      */
     protected function _updateSentmail($ui)
     {
-        global $conf, $prefs;
+        global $injector, $prefs;
 
-        if (!$conf['user']['allow_folders'] ||
+        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+
+        if (!$imp_imap->allowFolders() ||
             $prefs->isLocked('sent_mail_folder')) {
             return false;
         }
@@ -1462,17 +1466,17 @@ class IMP_Prefs_Ui
             $sent_mail_folder = $sm_default;
         }
 
-        $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->appendNamespace($sent_mail_folder);
+        $sent_mail_folder = $imp_imap->appendNamespace($sent_mail_folder);
 
         if ($sent_mail_folder) {
-            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+            $imp_folder = $injector->getInstance('IMP_Folder');
             if (!$imp_folder->exists($sent_mail_folder) &&
                 !$imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'), array('sent' => true))) {
                 return false;
             }
         }
 
-        return $GLOBALS['injector']->getInstance('IMP_Identity')->setValue('sent_mail_folder', $sent_mail_folder);
+        return $injector->getInstance('IMP_Identity')->setValue('sent_mail_folder', $sent_mail_folder);
     }
 
     /* Personal S/MIME certificate management. */
@@ -1934,9 +1938,11 @@ class IMP_Prefs_Ui
      */
     protected function _updateSpecialFolders($pref, $folder, $new, $type, $ui)
     {
-        global $prefs;
+        global $injector, $prefs;
 
-        if (!$GLOBALS['conf']['user']['allow_folders'] ||
+        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+
+        if (!$imp_imap->allowFolders() ||
             $prefs->isLocked($pref)) {
             return false;
         }
@@ -1949,8 +1955,8 @@ class IMP_Prefs_Ui
             $folder = substr($folder, strlen(self::PREF_SPECIALUSE));
         } elseif (!empty($new)) {
             $new = Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP');
-            $folder = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->appendNamespace($new);
-            if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'), array($type => true))) {
+            $folder = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->appendNamespace($new);
+            if (!$injector->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'), array($type => true))) {
                 $folder = null;
             }
         }

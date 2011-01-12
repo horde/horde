@@ -140,7 +140,8 @@ class IMP_Views_Compose
                 $t->set('read_receipt_set', ($d_read != 'ask'));
             }
 
-            $t->set('save_sent_mail', ($conf['user']['allow_folders'] && !$prefs->isLocked('save_sent_mail')));
+            $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+            $t->set('save_sent_mail', ($imp_imap->allowFolders() && !$prefs->isLocked('save_sent_mail')));
             $t->set('priority', $prefs->getValue('set_priority'));
             if (!$prefs->isLocked('default_encrypt') &&
                 ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {

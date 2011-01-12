@@ -23,7 +23,8 @@ Horde_Registry::appInit('imp', array(
 Horde::addScriptFile('folders.js', 'imp');
 
 /* Redirect back to the mailbox if folder use is not allowed. */
-if (!$conf['user']['allow_folders']) {
+$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+if (!$imp_imap->allowFolders()) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
     Horde::url('mailbox.php', true)->redirect();
 }
@@ -171,7 +172,6 @@ case 'rename_folder':
     if (!empty($new_names) &&
         !empty($old_names) &&
         ($iMax == count($old_names))) {
-        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
         for ($i = 0; $i < $iMax; ++$i) {
             $old_name = IMP::formMbox($old_names[$i], false);
             $old_ns = $imp_imap->getNamespace($old_name);
