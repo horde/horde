@@ -505,7 +505,7 @@ class Turba_Driver_Sql extends Turba_Driver
 
         $values[] = $object_id;
 
-        $query = 'UPDATE ' . $this->_params['table'] . ' SET ' . implode(', ', $fields) . ' WHERE ' . $where;
+        $query = 'UPDATE ' . $this->_params['table'] . ' SET ' . implode(' = ?, ', $fields) . ' = ? WHERE ' . $where;
 
         try {
             $this->_db->update($query, $values);
