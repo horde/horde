@@ -169,6 +169,22 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
 
 
     /*##########################################################################
+    # Quoting
+    ##########################################################################*/
+
+    /**
+     * Quotes a string, escaping any special characters.
+     *
+     * @param   string  $string
+     * @return  string
+     */
+    public function quoteString($string)
+    {
+        return $this->_read->quoteString($string);
+    }
+
+
+    /*##########################################################################
     # Database Statements
     ##########################################################################*/
 
