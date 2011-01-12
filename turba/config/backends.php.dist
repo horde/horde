@@ -196,13 +196,14 @@
 $cfgSources['localsql'] = array(
     'title' => _("My Address Book"),
     'type' => 'sql',
-    // The default connection details are pulled from the Horde-wide SQL
-    // connection configuration.
-    'params' => array_merge($GLOBALS['conf']['sql'], array('table' => 'turba_objects')),
-    // Using two tables as datasource.
-    // 'params' => array_merge($GLOBALS['conf']['sql'],
-    //                         array('table' => 'leaddetails LEFT JOIN leadaddress ON leaddetails.leadid = leadaddress.leadaddressid',
-    //                               'filter' => 'leaddetails.converted = 0')),
+    'params' => array(
+        // The default connection details are pulled from the Horde-wide SQL
+        // connection configuration.
+        // To use another DB connection, you must define a Horde_Db_Adapter
+        // object here.
+        'sql' => false,
+        'table' => 'turba_objects'
+    ),
     'map' => array(
         '__key' => 'object_id',
         '__owner' => 'owner_id',

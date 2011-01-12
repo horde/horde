@@ -26,21 +26,6 @@ class Turba_Driver_Sql extends Turba_Driver
     );
 
     /**
-     * Handle for the database connection.
-     *
-     * @var DB
-     */
-    protected $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
-
-    /**
      * count() cache.
      *
      * @var array
@@ -48,15 +33,26 @@ class Turba_Driver_Sql extends Turba_Driver
     protected $_countCache = array();
 
     /**
+     * Handle for the current database connection.
+     *
+     * @var Horde_Db_Adapter
+     */
+    protected $_db;
+
+    /**
      * @throws Turba_Exception
      */
     protected function _init()
     {
-        try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'turba', $this->_params);
-            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'turba', $this->_params);
-        } catch (Horde_Exception $e) {
-            throw new Turba_Exception($e);
+        // TODO: Move to injector
+        if (empty($this->_params['sql'])) {
+            try {
+                $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create();
+            } catch (Horde_Db_Exception $e) {
+                throw new Turba_Exception($e);
+            }
+        } else {
+            $this->_db = $this->_params['sql'];
         }
     }
 
@@ -74,11 +70,12 @@ class Turba_Driver_Sql extends Turba_Driver
                      ' WHERE ' . $this->toDriver('__owner') . ' = ?';
             $values = array($test);
 
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage('SQL query by Turba_Driver_sql::count(): ' . $query, 'DEBUG');
-
             /* Run query. */
-            $this->_countCache[$test] = $this->_db->getOne($query, $values);
+            try {
+                $this->_countCache[$test] = $this->_db->selectValue($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                $this->_countCache[$test] = 0;
+            }
         }
 
         return $this->_countCache[$test];
@@ -91,7 +88,7 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @param array $criteria      Array containing the search criteria.
      * @param array $fields        List of fields to return.
-     * @param array $blobFields    
+     * @param array $blobFields    TODO
      * @param array $appendWhere   An additional where clause to append.
      *                             Array should contain 'sql' and 'params'
      *                             params are used as bind parameters.
@@ -104,6 +101,7 @@ class Turba_Driver_Sql extends Turba_Driver
         /* Build the WHERE clause. */
         $where = '';
         $values = array();
+
         if (count($criteria) || !empty($this->_params['filter'])) {
             foreach ($criteria as $key => $vals) {
                 if ($key == 'OR' || $key == 'AND') {
@@ -134,42 +132,36 @@ class Turba_Driver_Sql extends Turba_Driver
         /* Build up the full query. */
         $query = 'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where;
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_search(): ' . $query, 'DEBUG');
-
-        /* Run query. */
-        $result = $this->_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Turba_Exception($result);
+        try {
+            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values));
+        } catch (Horde_Db_Exception $e) {
+            throw new Turba_Exception($e);
         }
+    }
 
+    protected function _parseRead($blobFields, $result)
+    {
         $results = array();
-        $iMax = count($fields);
-        while ($row = $result->fetchRow()) {
-            if ($row instanceof PEAR_Error) {
-                Horde::logMessage($row, 'ERR');
-                throw new Turba_Exception($row);
-            }
 
+        foreach ($result as $row) {
             $entry = array();
-            for ($i = 0; $i < $iMax; $i++) {
-                $field = $fields[$i];
+
+            foreach ($row as $field => $val) {
                 if (isset($blobFields[$field])) {
-                    switch ($this->_db->dbsyntax) {
-                    case 'pgsql':
-                    case 'mssql':
-                        $entry[$field] = pack('H' . strlen($row[$i]), $row[$i]);
+                    switch ($this->_db->adapterName()) {
+                    case 'PDO_PostgreSQL':
+                        $entry[$field] = pack('H' . strlen($val), $val);
                         break;
 
                     default:
-                        $entry[$field] = $row[$i];
+                        $entry[$field] = $val;
                         break;
                     }
                 } else {
-                    $entry[$field] = $this->_convertFromDriver($row[$i]);
+                    $entry[$field] = $this->_convertFromDriver($val);
                 }
             }
+
             $results[] = $entry;
         }
 
@@ -287,20 +279,17 @@ class Turba_Driver_Sql extends Turba_Driver
                              $where[$i],
                              $order[$i]);
 
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage('SQL query by Turba_Driver_sql::searchDuplicates(): ' . $query, 'DEBUG');
-
             /* Run query. */
-            $ids = $this->_db->getCol($query, 0, array($owner, $owner));
-            if (is_a($ids, 'PEAR_Error')) {
-                Horde::logMessage($ids, 'ERR');
-                throw new Turba_Exception($ids);
+            try {
+                $ids = $this->_db->selectValues($query, array($owner, $owner));
+            } catch (Horde_Db_Exception $e) {
+                throw new Turba_Exception($e);
             }
-            if ($i == 0) {
-                $field = 'name';
-            } else {
-                $field = array_search($fields[$i], $this->map);
-            }
+
+            $field = ($i == 0)
+                ? 'name'
+                : array_search($fields[$i], $this->map);
+
             $contacts = array();
             foreach ($ids as $id) {
                 $contact = $this->getObject($id);
@@ -368,40 +357,11 @@ class Turba_Driver_Sql extends Turba_Driver
         $query  = 'SELECT ' . implode(', ', $fields) . ' FROM '
             . $this->_params['table'] . ' WHERE ' . $where;
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_read(): ' . $query . 'Values: ' . print_r($values, true), 'DEBUG');
-
-        $result = $this->_db->getAll($query, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Turba_Exception($result);
+        try {
+            return $this->_parseRead($blob_fields, $this->_db->selectAll($query, $values));
+        } catch (Horde_Db_Exception $e) {
+            throw new Turba_Exception($e);
         }
-
-        $results = array();
-        $iMax = count($fields);
-        foreach ($result as $row) {
-            $entry = array();
-            for ($i = 0; $i < $iMax; $i++) {
-                $field = $fields[$i];
-                if (isset($blob_fields[$field])) {
-                    switch ($this->_db->dbsyntax) {
-                    case 'pgsql':
-                    case 'mssql':
-                        $entry[$field] = pack('H' . strlen($row[$i]), $row[$i]);
-                        break;
-
-                    default:
-                        $entry[$field] = $row[$i];
-                        break;
-                    }
-                } else {
-                    $entry[$field] = $this->_convertFromDriver($row[$i]);
-                }
-            }
-            $results[] = $entry;
-        }
-
-        return $results;
     }
 
     /**
@@ -413,13 +373,28 @@ class Turba_Driver_Sql extends Turba_Driver
      */
     protected function _add($attributes, $blob_fields = array())
     {
+        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields);
+        $query  = 'INSERT INTO ' . $this->_params['table']
+            . ' (' . implode(', ', $fields) . ')'
+            . ' VALUES (' . str_repeat('?, ', count($values) - 1) . '?)';
+
+        try {
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Turba_Exception($e);
+        }
+    }
+
+    protected function _prepareWrite($attributes, $blob_fields)
+    {
         $fields = $values = array();
+
         foreach ($attributes as $field => $value) {
             $fields[] = $field;
+
             if (!empty($value) && isset($blob_fields[$field])) {
-                switch ($this->_write_db->dbsyntax) {
-                case 'mssql':
-                case 'pgsql':
+                switch ($this->_db->adapterName()) {
+                case 'PDO_PostgreSQL':
                     $values[] = bin2hex($value);
                     break;
 
@@ -431,15 +406,8 @@ class Turba_Driver_Sql extends Turba_Driver
                 $values[] = $this->_convertToDriver($value);
             }
         }
-        $query  = 'INSERT INTO ' . $this->_params['table']
-            . ' (' . implode(', ', $fields) . ')'
-            . ' VALUES (' . str_repeat('?, ', count($values) - 1) . '?)';
 
-        $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Turba_Exception($result);
-        }
+        return array($fields, $values);
     }
 
     /**
@@ -452,6 +420,8 @@ class Turba_Driver_Sql extends Turba_Driver
 
     /**
      * Deletes the specified object from the SQL database.
+     *
+     * @throws Turba_Exception
      */
     protected function _delete($object_key, $object_id)
     {
@@ -459,13 +429,10 @@ class Turba_Driver_Sql extends Turba_Driver
                  ' WHERE ' . $object_key . ' = ?';
         $values = array($object_id);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_delete(): ' . $query, 'DEBUG');
-
-        $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Turba_Exception($result);
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Turba_Exception($e);
         }
     }
 
@@ -487,30 +454,31 @@ class Turba_Driver_Sql extends Turba_Driver
 
         /* Need a list of UIDs so we can notify History */
         $query = 'SELECT '. $this->map['__uid'] . ' FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
-        Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query, 'DEBUG');
-        $ids = $this->_write_db->query($query, $values);
-        if ($ids instanceof PEAR_Error) {
-            throw new Turba_Exception($ids);
+
+        try {
+            $ids = $this->_db->selectValues($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Turba_Exception($e);
         }
 
         /* Do the deletion */
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
-        Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query, 'DEBUG');
 
-        $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Turba_Exception($result);
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Turba_Exception($e);
         }
 
         /* Update Horde_History */
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
-            while ($ids->fetchInto($row)) {
+            foreach ($ids as $id) {
                 // This is slightly hackish, but it saves us from having to
                 // create and save an array of Turba_Objects before we delete
                 // them, just to be able to calculate this using
                 // Turba_Object#getGuid
-                $guid = 'turba:' . $this->getName() . ':' . $row[0];
+                $guid = 'turba:' . $this->getName() . ':' . $id;
                 $history->log($guid, array('action' => 'delete'), true);
             }
         } catch (Exception $e) {
@@ -533,36 +501,16 @@ class Turba_Driver_Sql extends Turba_Driver
         $where = $object_key . ' = ?';
         unset($attributes[$object_key]);
 
-        $fields = $values =  array();
-        foreach ($attributes as $field => $value) {
-            $fields[] = $field . ' = ?';
-            if (!empty($value) && isset($blob_fields[$field])) {
-                switch ($this->_write_db->dbsyntax) {
-                case 'mssql':
-                case 'pgsql':
-                    $values[] = bin2hex($value);
-                    break;
-
-                default:
-                    $values[] = $value;
-                    break;
-                }
-            } else {
-                $values[] = $this->_convertToDriver($value);
-            }
-        }
+        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields);
 
         $values[] = $object_id;
 
         $query = 'UPDATE ' . $this->_params['table'] . ' SET ' . implode(', ', $fields) . ' WHERE ' . $where;
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_save(): ' . $query, 'DEBUG');
-
-        $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Turba_Exception($result);
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Turba_Exception($e);
         }
 
         return $object_id;
@@ -659,7 +607,7 @@ class Turba_Driver_Sql extends Turba_Driver
      */
     protected function _convertFromDriver($value)
     {
-        return Horde_String::convertCharset($value, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset($value, $this->_db->getOption('charset'), 'UTF-8');
     }
 
     /**
@@ -671,7 +619,7 @@ class Turba_Driver_Sql extends Turba_Driver
      */
     protected function _convertToDriver($value)
     {
-        return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
+        return Horde_String::convertCharset($value, 'UTF-8', $this->_db->getOption('charset'));
     }
 
     /**
