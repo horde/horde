@@ -722,7 +722,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $values = array($calendar);
 
         try {
-            $result = $this->_db->delete($query, $values);
+            $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -748,7 +748,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE event_id = ? AND calendar_id = ?';
         try {
-            $result = $this->_db->delete($query, array($eventId, $this->calendar));
+            $this->_db->delete($query, array($eventId, $this->calendar));
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }

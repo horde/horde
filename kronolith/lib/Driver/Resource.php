@@ -11,6 +11,7 @@
  * @author  Luc Saillard <luc.saillard@fr.alcove.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
 class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
@@ -64,24 +65,43 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function save($resource)
     {
         if ($resource->getId()) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ?, resource_email = ? WHERE resource_id = ?';
-            $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')), $resource->get('email'), $resource->getId());
-            $result = $this->_write_db->query($query, $values);
-            $this->handleError($result);
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, '
+                . 'resource_calendar = ? , resource_description = ?, '
+                . 'resource_response_type = ?, resource_type = ?, '
+                . 'resource_members = ?, resource_email = ? WHERE resource_id = ?';
+
+            $values = array($this->convertToDriver($resource->get('name')),
+                            $resource->get('calendar'),
+                            $this->convertToDriver($resource->get('description')),
+                            $resource->get('response_type'),
+                            $resource->get('type'),
+                            serialize($resource->get('members')),
+                            $resource->get('email'),
+                            $resource->getId());
+
+            try {
+                $result = $this->_db->update($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Kronolith_Exception($e);
+            }
         } else {
-            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email)';
-            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-            $id = $this->_db->nextId('kronolith_resources');
-            $values = array($id,
-                            $this->convertToDriver($resource->get('name')),
+            $query = 'INSERT INTO kronolith_resources '
+                . '(resource_name, resource_calendar, '
+                .  'resource_description, resource_response_type, '
+                . ' resource_type, resource_members, resource_email)'
+                . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
+            $values = array($this->convertToDriver($resource->get('name')),
                             $resource->get('calendar'),
                             $this->convertToDriver($resource->get('description')),
                             $resource->get('response_type'),
                             $resource->get('type'),
                             serialize($resource->get('members')),
                             $resource->get('email'));
-            $result = $this->_write_db->query($query . $cols_values, $values);
-            $this->handleError($result);
+            try {
+                $result = $this->_db->insert($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Kronolith_Exception($e);
+            }
             $resource->setId($id);
         }
 
@@ -103,11 +123,13 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         }
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
-        $result = $this->_write_db->query($query, array($resource->get('calendar')));
-        $this->handleError($result);
-        $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
-        $result = $this->_write_db->query($query, array($resource->getId()));
-        $this->handleError($result);
+        try {
+            $this->_db->delete($query, array($resource->get('calendar')));
+            $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
+            $this->_db->delete($query, array($resource->getId()));
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
     }
 
     /**
@@ -115,15 +137,22 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param int $id  The key for the Kronolith_Resource
      *
-     * @return Kronolith_Resource_Single|Kronolith_Resource_Group
+     * @return Kronolith_Resource_Base
      * @throws Kronolith_Exception
      */
     public function getResource($id)
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email FROM kronolith_resources WHERE resource_id = ?';
-        $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
-        $this->handleError($results);
-        if (empty($results)) {
+        $query = 'SELECT resource_id, resource_name, resource_calendar, '
+            . 'resource_description, resource_response_type, resource_type, '
+            . 'resource_members, resource_email FROM kronolith_resources '
+            . 'WHERE resource_id = ?';
+
+        try {
+            $results = $this->_db->selectOne($query, array($id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+        if (!count($results)) {
             throw new Kronolith_Exception('Resource not found');
         }
 
@@ -146,8 +175,11 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function getResourceIdByCalendar($calendar)
     {
         $query = 'SELECT resource_id FROM kronolith_resources WHERE resource_calendar = ?';
-        $result = $this->_db->getOne($query, array($calendar));
-        $this->handleError($result);
+        try {
+            $result = $this->_db->selectValue($query, array($calendar));
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
         if (empty($result)) {
             throw new Kronolith_Exception('Resource not found');
         }
@@ -185,13 +217,15 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $query .= $clause;
         }
 
-        $results = $this->_db->getAssoc($query, true, $filter, DB_FETCHMODE_ASSOC, false);
-        $this->handleError($results);
-
+        try {
+            $results = $this->_db->selectAll($query, $filter);
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
         $return = array();
-        foreach ($results as $key => $result) {
-            $class = 'Kronolith_Resource_' . $result['resource_type'];
-            $return[$key] = new $class($this->_fromDriver(array_merge(array('resource_id' => $key), $result)));
+        foreach ($results as $row) {
+            $class = 'Kronolith_Resource_' . $row['resource_type'];
+            $return[$row['resource_id']] = new $class($this->_fromDriver(array_merge(array('resource_id' => $row['resource_id']), $row)));
         }
 
         return $return;
