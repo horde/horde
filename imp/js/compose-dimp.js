@@ -388,31 +388,34 @@ var DimpCompose = {
         if (!DIMP.conf_compose.rte_avail) {
             return;
         }
+
         noupdate = noupdate || false;
         if (DIMP.SpellChecker) {
             DIMP.SpellChecker.resume();
         }
 
-        var changed, config, text;
+        var changed, text;
 
         if (IMP_Compose_Base.editor_on) {
+            this.RTELoading('show');
+
             changed = (this.msgHash() != this.md5_msgOrig);
             text = this.rte.getData();
-            this.rte.destroy();
-            this.rte_loaded = false;
 
-            this.RTELoading('show');
             DimpCore.doAction('html2Text', {
                 changed: Number(changed),
                 identity: $F('identity'),
                 imp_compose: $F('composeCache'),
                 text: text
             }, {
-                ajaxopts: { asynchronous: false },
-                callback: this.setMessageText.bind(this)
+                callback: this.setMessageText.bind(this, false)
             });
-            this.RTELoading('hide');
+
+            this.rte.destroy();
+            delete this.rte;
         } else {
+            this.RTELoading('show');
+
             if (!noupdate) {
                 DimpCore.doAction('text2Html', {
                     changed: Number(this.msgHash() != this.md5_msgOrig),
@@ -420,23 +423,24 @@ var DimpCompose = {
                     imp_compose: $F('composeCache'),
                     text: $F('composeMessage')
                 }, {
-                    ajaxopts: { asynchronous: false },
-                    callback: this.setMessageText.bind(this)
+                    callback: this.setMessageText.bind(this, true)
                 });
             }
 
-            config = Object.clone(IMP.ckeditor_config);
-            if (!config.on) {
-                config.on = {};
+            if (Object.isUndefined(this.rte_loaded)) {
+                CKEDITOR.on('instanceReady', function(evt) {
+                    this.resizeMsgArea();
+                    this.RTELoading('hide');
+                    this.rte.focus();
+                    this.rte_loaded = true;
+                }.bind(this));
+                CKEDITOR.on('instanceDestroyed', function(evt) {
+                    this.RTELoading('hide');
+                    this.rte_loaded = false;
+                }.bind(this));
             }
-            config.on.instanceReady = function(evt) {
-                this.resizeMsgArea();
-                this.RTELoading('hide');
-                this.rte.focus();
-                this.rte_loaded = true;
-            }.bind(this);
-            this.RTELoading('show');
-            this.rte = CKEDITOR.replace('composeMessage', config);
+
+            this.rte = CKEDITOR.replace('composeMessage', Object.clone(IMP.ckeditor_config));
         }
 
         IMP_Compose_Base.editor_on = !IMP_Compose_Base.editor_on;
@@ -497,19 +501,23 @@ var DimpCompose = {
         }
     },
 
-    setMessageText: function(r)
+    setMessageText: function(rte, r)
     {
         var ta = $('composeMessage');
-
         if (!ta) {
-            $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%' }).insert(r.response.text));
-        } else {
-            ta.setValue(r.response.text);
+            $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%' }));
         }
 
-        if (!IMP_Compose_Base.editor_on) {
-            this.resizeMsgArea();
+        if (this.rte_loaded && rte) {
+            this.rte.setData(r.response.text);
+        } else if (!this.rte_loaded && !rte) {
+            ta.setValue(r.response.text);
+        } else {
+            this.setMessageText.bind(this, rte, r).defer();
+            return;
         }
+
+        this.resizeMsgArea();
     },
 
     // opts = auto, focus, fwd_list, noupdate, priority, show_editor
