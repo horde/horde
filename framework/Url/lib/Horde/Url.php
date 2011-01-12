@@ -111,8 +111,8 @@ class Horde_Url
             }
             $pairs = explode('&', $query);
             foreach ($pairs as $pair) {
-                @list($parameter, $value) = explode('=', urldecode($pair), 2);
-                $this->add($parameter, $value);
+                $result = explode('=', urldecode($pair), 2);
+                $this->add($result[0], isset($result[1]) ? $result[1] : null);
             }
         }
 
