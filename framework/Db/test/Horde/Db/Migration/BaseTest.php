@@ -99,7 +99,7 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM reminders");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $m = new WeNeedReminders1($this->_conn);
         $m->up();
@@ -114,7 +114,7 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM reminders");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
     }
 
     public function testAddTableWithDecimals()
@@ -123,7 +123,7 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM big_numbers");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $m = new GiveMeBigNumbers($this->_conn);
         $m->up();
@@ -142,6 +142,6 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM big_numbers");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
     }
 }

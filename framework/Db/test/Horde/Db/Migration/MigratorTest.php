@@ -67,7 +67,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM reminders");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
         $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
@@ -93,7 +93,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM reminders");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
     }
 
     public function testOneUp()
@@ -102,7 +102,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM reminders");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
         $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
@@ -116,7 +116,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM reminders");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $migrator->up(2);
         $this->assertEquals(2, $migrator->getCurrentVersion());
@@ -165,7 +165,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM reminders");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $migrator->up();
 
@@ -201,7 +201,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         try {
             $this->_conn->selectValues("SELECT * FROM reminders");
         } catch (Exception $e) {}
-        $this->assertType('Horde_Db_Exception', $e);
+        $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $columns = $this->_columnNames('users');
         $this->assertTrue(in_array('last_name', $columns));

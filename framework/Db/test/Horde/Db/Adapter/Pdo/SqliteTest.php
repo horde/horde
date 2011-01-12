@@ -144,11 +144,11 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     {
         $sql = "SELECT * FROM unit_tests WHERE id='1'";
         $result = $this->_conn->select($sql);
-        $this->assertType('Traversable', $result);
+        $this->assertInstanceOf('Traversable', $result);
         $this->assertGreaterThan(0, count($result));
 
         foreach ($result as $row) break;
-        $this->assertType('array', $row);
+        $this->assertInternalType('array', $row);
         $this->assertEquals(1, $row['id']);
     }
 
@@ -156,11 +156,11 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     {
         $sql = "SELECT * FROM unit_tests WHERE id=?";
         $result = $this->_conn->select($sql, array(1));
-        $this->assertType('Traversable', $result);
+        $this->assertInstanceOf('Traversable', $result);
         $this->assertGreaterThan(0, count($result));
 
         foreach ($result as $row) break;
-        $this->assertType('array', $row);
+        $this->assertInternalType('array', $row);
         $this->assertEquals(1, $row['id']);
     }
 
@@ -168,11 +168,11 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     {
         $sql = "SELECT * FROM unit_tests WHERE string_value=?";
         $result = $this->_conn->select($sql, array('name a'));
-        $this->assertType('Traversable', $result);
+        $this->assertInstanceOf('Traversable', $result);
         $this->assertGreaterThan(0, count($result));
 
         foreach ($result as $row) break;
-        $this->assertType('array', $row);
+        $this->assertInternalType('array', $row);
         $this->assertEquals(1, $row['id']);
     }
 
@@ -180,7 +180,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     {
         $sql = "SELECT * FROM unit_tests WHERE id='1'";
         $result = $this->_conn->selectAll($sql);
-        $this->assertType('array', $result);
+        $this->assertInternalType('array', $result);
         $this->assertGreaterThan(0, count($result));
         $this->assertEquals(1, $result[0]['id']);
     }
