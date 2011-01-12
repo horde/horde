@@ -445,7 +445,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $table = $this->_conn->createTable('testings', array('primaryKey' => false));
         $table->column('foo', 'integer', array('null' => false, 'autoincrement' => true));
         $table->column('bar', 'string');
-        $table->primaryKey(array('foo'));
+        $table->primaryKey('foo');
 
         $pkColumn = $table['foo'];
         $this->assertEquals('"foo" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL', $pkColumn->toSql());
