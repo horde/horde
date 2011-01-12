@@ -89,6 +89,21 @@ extends Components_TestCase
         );
     }
 
+    /**
+     * @expectedException Components_Exception
+     */
+    public function testNoStringInput()
+    {
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates_Single(
+            dirname(__FILE__) . '/../../../fixture/templates',
+            $tdir,
+            'variables',
+            'target'
+        );
+        $templates->write(array('1' => new stdClass, '2' => 'Two'));
+    }
+
     public function testPrefix()
     {
         $tdir =  $this->getTemporaryDirectory();

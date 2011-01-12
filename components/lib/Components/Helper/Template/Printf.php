@@ -37,6 +37,18 @@ extends Components_Helper_Template
      */
     public function write(array $parameters = array())
     {
+        foreach ($parameters as $key => $value) {
+            if (!is_string($value)) {
+                throw new Components_Exception(
+                    sprintf(
+                        'File %s is a printf() based template and requires string input only. Key "%s" however is of type %s!',
+                        $this->_source,
+                        $key,
+                        gettype($value)
+                    )
+                );
+            }
+        }
         $source = file_get_contents($this->_source);
         file_put_contents(
             $this->_target, vsprintf($source, $parameters)
