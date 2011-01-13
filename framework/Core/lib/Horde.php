@@ -167,6 +167,12 @@ HTML;
     static public function errorHandler($errno, $errstr, $errfile, $errline,
                                         $errcontext)
     {
+        // Calls prefixed with '@'.
+        if (error_reporting() == 0) {
+            // Must return false to populate $php_errormsg (as of PHP 5.2).
+            return false;
+        }
+
         if (class_exists('Horde_Log')) {
             try {
                 self::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), 'DEBUG');
