@@ -111,8 +111,11 @@ abstract class Horde_Mail_Transport
      */
     public function prepareHeaders(array $headers)
     {
-        $lines = array();
         $from = null;
+        $lines = array();
+        $raw = isset($headers['_raw'])
+            ? $headers['_raw']
+            : null;
 
         $parser = new Horde_Mail_Rfc822();
 
@@ -129,7 +132,7 @@ abstract class Horde_Mail_Transport
                 }
 
                 $lines[] = $key . ': ' . $value;
-            } elseif (strcasecmp($key, 'Received') === 0) {
+            } elseif (!$raw && (strcasecmp($key, 'Received') === 0)) {
                 $received = array();
                 if (!is_array($value)) {
                     $value = array($value);
@@ -143,7 +146,7 @@ abstract class Horde_Mail_Transport
                 // flag messages with Received: headers after the Subject:
                 // as spam.
                 $lines = array_merge($received, $lines);
-            } else {
+            } elseif (!$raw) {
                 // If $value is an array (i.e., a list of addresses), convert
                 // it to a comma-delimited string of its elements (addresses).
                 if (is_array($value)) {
@@ -153,7 +156,7 @@ abstract class Horde_Mail_Transport
             }
         }
 
-        return array($from, isset($headers['_raw']) ? $headers['_raw'] : join($this->sep, $lines));
+        return array($from, $raw ? $raw : implode($this->sep, $lines));
     }
 
     /**
