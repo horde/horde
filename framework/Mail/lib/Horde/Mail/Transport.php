@@ -201,16 +201,19 @@ abstract class Horde_Mail_Transport
      * strings present in a legitimate header's value.  The goal of this
      * filter is to prevent mail injection attacks.
      *
+     * Raw headers are sent as-is.
+     *
      * @param array $headers  The associative array of headers to sanitize.
      *
      * @return array  The sanitized headers.
      */
     protected function _sanitizeHeaders($headers)
     {
-        foreach (array_keys($headers) as $key) {
+        foreach (array_diff(array_keys($headers), array('_raw')) as $key) {
             $headers[$key] = preg_replace('=((<CR>|<LF>|0x0A/%0A|0x0D/%0D|\\n|\\r)\S).*=i', null, $headers[$key]);
         }
 
         return $headers;
     }
+
 }
