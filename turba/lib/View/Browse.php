@@ -69,7 +69,7 @@ class Turba_View_Browse {
             $notification->push(_("There are no browseable address books."), 'horde.warning');
         } else {
             try {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
+                $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
             } catch (Turba_Exception $e) {
                 $notification->push($e, 'horde.error');
                 unset($driver);
@@ -141,7 +141,7 @@ class Turba_View_Browse {
                 $targetSource = $vars->get('targetAddressbook');
 
                 try {
-                    $targetDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($targetSource);
+                    $targetDriver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($targetSource);
                 } catch (Turba_Exception $e) {
                     $notification->push($e, 'horde.error');
                     break;
@@ -170,7 +170,7 @@ class Turba_View_Browse {
 
                     // Try and load the driver for the source.
                     try {
-                        $sourceDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($objectSource);
+                        $sourceDriver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($objectSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');
                         continue;
@@ -256,7 +256,7 @@ class Turba_View_Browse {
                     }
 
                     try {
-                        $targetDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($targetSource);
+                        $targetDriver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($targetSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');
                         break;
@@ -271,7 +271,7 @@ class Turba_View_Browse {
                 } else {
                     $targetSource = $vars->get('targetAddressbook');
                     try {
-                        $targetDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($targetSource);
+                        $targetDriver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($targetSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');
                         break;

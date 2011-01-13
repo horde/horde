@@ -45,7 +45,7 @@ if ($source === null || !isset($cfgSources[$source])) {
     $url->redirect();
 }
 
-$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+$driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($source);
 
 /* Set the contact from the requested key. */
 try {

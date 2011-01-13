@@ -47,14 +47,14 @@ class Turba_KolabTest extends Turba_KolabTestBase {
         $this->_kolab->_storage->save($object);
 
         // Check that the driver can be created
-        $turba = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver('wrobel@example.org');
+        $turba = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create('wrobel@example.org');
         //$this->assertNoError($turba);
 
         $result = $turba->search(array(), array('last-name'));
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
 
-        $turba = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver('INBOX%2Ftest2');
+        $turba = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create('INBOX%2Ftest2');
         $result = $turba->search(array(), array('last-name'));
 
         $this->assertEquals(0, count($result));
@@ -75,7 +75,7 @@ class Turba_KolabTest extends Turba_KolabTestBase {
         );
 
         // Save the contact
-        $turba = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver('wrobel@example.org');
+        $turba = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create('wrobel@example.org');
         //$this->assertNoError($turba);
 
         $this->assertNoError($turba->_add($object));
@@ -102,7 +102,7 @@ class Turba_KolabTest extends Turba_KolabTestBase {
         );
 
         // Save the contact
-        $turba = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver('wrobel@example.org');
+        $turba = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create('wrobel@example.org');
         //$this->assertNoError($turba);
 
         $this->assertNoError($turba->_add($object));

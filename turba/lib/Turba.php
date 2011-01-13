@@ -353,7 +353,7 @@ class Turba {
 
         foreach ($in as $sourceId => $source) {
             try {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourceId);
+                $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($sourceId);
             } catch (Turba_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 continue;
@@ -440,7 +440,7 @@ class Turba {
             if ($GLOBALS['registry']->getAuth() && !$personal) {
                 // User's default share is missing.
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
                 } catch (Turba_Exception $e) {
                     $GLOBALS['notification']->push($driver, 'horde.error');
                     continue;

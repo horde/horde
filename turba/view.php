@@ -28,7 +28,7 @@ if (!isset($cfgSources[$source])) {
     throw new Turba_Exception(_("The contact you requested does not exist."));
 }
 
-$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+$driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($source);
 $object = $driver->getObject($key);
 
 /* Check permissions. */

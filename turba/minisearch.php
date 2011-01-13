@@ -22,7 +22,7 @@ $source = Horde_Util::getFormData('source', Turba::getDefaultAddressBook());
 // Do the search if we have one.
 if (!is_null($search)) {
     try {
-        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+        $driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($source);
         $criteria['name'] = trim($search);
         $res = $driver->search($criteria);
 

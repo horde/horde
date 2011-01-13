@@ -60,7 +60,7 @@ class Turba_Injector_Factory_Driver
      * @return Turba_Driver  The singleton instance.
      * @throws Turba_Exception
      */
-    public function getDriver($name)
+    public function create($name)
     {
         if (is_array($name)) {
             $key = md5(serialize($name));

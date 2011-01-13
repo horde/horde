@@ -50,7 +50,7 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
             throw new Turba_Exception(_("You do not have permissions to delete this address book."));
         }
 
-        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($this->_addressbook->getName());
+        $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($this->_addressbook->getName());
 
         // We have a Turba_Driver, try to delete the address book.
         $driver->deleteAll();

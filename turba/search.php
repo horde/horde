@@ -85,7 +85,7 @@ $val = Horde_Util::getFormData('val');
 $action = Horde_Util::getFormData('actionID');
 
 try {
-    $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+    $driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($source);
 } catch (Turba_Exception $e) {
     $notification->push($e, 'horde.error');
     $driver = null;

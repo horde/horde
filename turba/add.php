@@ -34,7 +34,7 @@ if (!$addSources) {
 /* A source has been selected, connect and set up the fields. */
 if ($source) {
     try {
-        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+        $driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($source);
     } catch (Turba_Exception $e) {
         $notification->push($e, 'horde.error');
         $driver = null;

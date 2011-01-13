@@ -59,15 +59,6 @@ class Turba_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        /* Add Turba-specific binders. */
-        $binders = array(
-            'Turba_Driver' => new Turba_Injector_Binder_Driver()
-        );
-
-        foreach ($binders as $key => $val) {
-            $GLOBALS['injector']->addBinder($key, $val);
-        }
-
         // Turba source and attribute configuration.
         $attributes = Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
         include TURBA_BASE . '/config/backends.php';
@@ -399,7 +390,7 @@ class Turba_Application extends Horde_Registry_Application
             if (empty($source['use_shares'])) {
                 // Shares not enabled for this source
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
                 } catch (Turba_Exception $e) {
                     Horde::logMessage($e, 'ERR');
                     throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
@@ -432,7 +423,7 @@ class Turba_Application extends Horde_Registry_Application
             if (!empty($params['default'])) {
                 $config = Turba::getSourceFromShare($share);
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($config);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($config);
                 } catch (Turba_Exception $e) {
                     continue;
                 }
