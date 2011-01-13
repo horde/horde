@@ -20,11 +20,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
     const VERSION = 1;
 
     /**
-     * Our Kolab folder list handler
+     * The Kolab storage handler
      *
-     * @var Kolab_List
+     * @var Horde_Kolab_Storage
      */
-    protected $_list;
+    protected $_storage;
 
     /**
      * The share type
@@ -41,12 +41,29 @@ class Horde_Share_Kolab extends Horde_Share_Base
     protected $_listCacheValidity;
 
     /**
-     * The session handler.
+     * Set the Kolab storage backend.
      *
-     * @var Horde_Kolab_Session
+     * @param Horde_Kolab_Storage $driver The Kolab storage driver.
+     *
+     * @return NULL
      */
-    protected $_session;
+    public function setStorage(Horde_Kolab_Storage $driver)
+    {
+        $this->_storage = $driver;
+    }
 
+    /**
+     * Return the Kolab storage backend associated with this driver.
+     *
+     * @return Horde_Kolab_Storage The Kolab storage driver.
+     */
+    public function getStorage()
+    {
+        if ($this->_storage === null) {
+            throw new Horde_Share_Exception('The storage backend has not yet been set!');
+        }
+        return $this->_storage;
+    }
 
     private function _getFolderType($app)
     {
@@ -77,21 +94,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
-     * Set the kolab storage backend.
-     *
-     * @param Horde_Kolab_Storage $driver
-     */
-    public function setStorage(Horde_Kolab_Storage $driver)
-    {
-        $this->_list = $driver;
-    }
-
-    public function getStorage()
-    {
-        return $this->_list;
-    }
-
-    /**
      * Returns a Horde_Share_Object_kolab object of the request folder.
      *
      * @param string $object  The share to fetch.
@@ -106,7 +108,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
         }
 
         /* Get the corresponding folder for this share ID */
-        $folder = $this->_list->getByShare($object, $this->_type);
+        $folder = $this->_storage->getByShare($object, $this->_type);
 
         /* Does the folder exist? */
         if (!$folder->exists()) {
@@ -177,11 +179,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
     protected function _listShares($userid, array $params = array())
     {
         $key = serialize(array($this->_type, $userid, $params['perm'], $params['attributes']));
-        if ($this->_list === false) {
+        if ($this->_storage === false) {
             $this->_listCache[$key] = array();
         } else if (empty($this->_listCache[$key])
             || $this->_list->validity != $this->_listCacheValidity) {
-            $sharelist = $this->_list->getByType($this->_type);
+            $sharelist = $this->_storage->getByType($this->_type);
             if ($sharelist instanceof PEAR_Error) {
                 throw new Horde_Share_Exception($sharelist->getMessage());
             }
@@ -211,7 +213,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
                 }
             }
             $this->_listCache[$key] = $shares;
-            $this->_listCacheValidity = $this->_list->validity;
+            $this->_listCacheValidity = $this->_storage->validity;
         }
 
         return $this->_listCache[$key];
@@ -270,7 +272,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
         }
 
         /* Get the corresponding folder for this share ID */
-        $folder = $this->_list->getByShare($object, $this->_type);
+        $folder = $this->_storage->getByShare($object, $this->_type);
         if ($folder instanceof PEAR_Error) {
             throw new Horde_Share_Exception($folder->getMessage());
         }
@@ -285,7 +287,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function getDefaultShare()
     {
-        $default = $this->_list->getDefault($this->_type);
+        $default = $this->_storage->getDefault($this->_type);
         if ($default instanceof PEAR_Error) {
             throw new Horde_Share_Exception($default->getMessage());
         }

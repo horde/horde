@@ -36,8 +36,27 @@ class Horde_Share_Kolab_UnitTest
 extends PHPUnit_Framework_TestCase
 {
 
-    public function test()
+    public function testGetStorage()
     {
+        $storage = $this->getMock('Horde_Kolab_Storage');
+        $driver = $this->_getDriver();
+        $driver->setStorage($storage);
+        $this->assertSame($storage, $driver->getStorage());
     }
 
+    /**
+     * @expectedException Horde_Share_Exception
+     */
+    public function testStorageMissing()
+    {
+        $driver = $this->_getDriver();
+        $driver->getStorage();
+    }
+
+    private function _getDriver()
+    {
+        return new Horde_Share_Kolab(
+            'test', 'john', new Horde_Perms(), new Horde_Group_Test()
+        );
+    }
 }
