@@ -213,6 +213,9 @@ class Horde_Registry_Application
 
     /**
      * Code to run if the language preference changes.
+     *
+     * Called only in applications the user is currently authenticated to in
+     * the current session.
      */
     // public function changeLanguage() {}
 
