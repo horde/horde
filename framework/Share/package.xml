@@ -371,6 +371,10 @@ owns or has access to.</description>
     <name>Test</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Kolab_Storage</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
