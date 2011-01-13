@@ -365,11 +365,10 @@ abstract class Kronolith_Event
             }
             return $this->_tags;
         case 'geoLocation':
-            if (!isset($this->_geoLocation) &&
-                ($gDriver = Kronolith::getGeoDriver())) {
+            if (!isset($this->_geoLocation)) {
                 try {
-                    $this->_geoLocation = $gDriver->getLocation($this->id);
-                } catch (Exception $e) {}
+                    $this->_geoLocation = $GLOBALS['injector']->getInstance('Kronolith_Geo')->getLocation($this->id);
+                } catch (Kronolith_Exception $e) {}
             }
             return $this->_geoLocation;
         }

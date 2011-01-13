@@ -72,6 +72,8 @@ class Kronolith_Application extends Horde_Registry_Application
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
         }
 
+        $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Injector_Factory_Geo', 'create');
+
         /* Set the timezone variable, if available. */
         $GLOBALS['registry']->setTimeZone();
 

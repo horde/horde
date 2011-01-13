@@ -564,8 +564,10 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $this->_updateTags($event);
 
         /* Update Geolocation */
-        if ($gDriver = Kronolith::getGeoDriver()) {
-            $gDriver->setLocation($event->id, $event->geoLocation);
+        try {
+            $GLOBALS['injector']->getInstance('Kronolith_Geo')->setLocation($event->id, $event->geoLocation);
+        } catch (Kronolith_Exception $e) {
+
         }
 
         /* Notify users about the changed event. */
@@ -621,8 +623,12 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $this->_addTags($event);
 
         /* Update Geolocation */
-        if ($event->geoLocation && $gDriver = Kronolith::getGeoDriver()) {
-            $gDriver->setLocation($event->id, $event->geoLocation);
+        if ($event->geoLocation) {
+            try {
+                $GLOBALS['injector']->getInstance('Kronolith_Geo')->setLocation($event->id, $event->geoLocation);
+            } catch (Kronolith_Exception $e) {
+
+            }
         }
 
         /* Notify users about the new event. */
@@ -781,8 +787,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $tagger->replaceTags($event->uid, array(), $event->creator, 'event');
 
         /* Remove any geolocation data */
-        if ($gDriver = Kronolith::getGeoDriver()) {
-            $gDriver->deleteLocation($event->id);
+        try {
+            $GLOBALS['injector']->getInstance('Kronolith_Geo')->deleteLocation($event->id);
+        } catch (Kronolith_Exception $e) {
         }
 
         /* Notify about the deleted event. */

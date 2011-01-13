@@ -20,19 +20,18 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
     /**
      * Set the location of the specified event _id
      *
-     * @see kronolith/lib/Driver/Kronolith_Driver_Geo#setLocation($event_id, $point)
+     * @see Kronolith_Geo_Base#setLocation()
      * @throws Kronolith_Exception
      */
     public function setLocation($event_id, $point)
     {
         /* First make sure it doesn't already exist */
         $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
-        Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
-            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
-        $count = $this->_db->getOne($sql, array($event_id));
-        if ($count instanceof PEAR_Error) {
-            Horde::logMessage($count, 'ERR');
-            throw new Horde_Exception($count);
+
+        try {
+            $count = $this->_db->selectValue($sql, array($event_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         /* Do we actually have data? */
@@ -56,15 +55,12 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         }
         $sql = sprintf($sql, $point['lat'], $point['lon']);
         $values = array($point['zoom'], $event_id);
-        Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
-                                  $GLOBALS['registry']->getAuth(), $sql, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Exception($result);
-        }
 
-        return $result;
+        try {
+            $this->_db->execute($sql, $values);
+        } catch (Horde_Db_Error $e) {
+            throw new Kronolith_Exception($e);
+        }
     }
 
     /**
@@ -76,14 +72,11 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
     public function getLocation($event_id)
     {
         $sql = 'SELECT x(event_coordinates) as lat, y(event_coordinates) as lon, event_zoom as zoom FROM kronolith_events_geo WHERE event_id = ?';
-        Horde::logMessage(sprintf('Kronolith_Geo_Mysql::getLocation(): user = "%s"; query = "%s"; values = "%s"',
-            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
-        $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Exception($result);
+        try {
+            return $this->_db->selectOne($sql, array($event_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
-        return $result;
     }
 
     /**
@@ -113,15 +106,13 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
                . "GLength(LINESTRINGFromWKB(LineString(event_coordinates, GeomFromText('POINT(" . (float)$point['lat'] . " " . (float)$point['lon'] . ")')))) * ? as distance, "
                . "x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo HAVING distance < ?  ORDER BY distance ASC LIMIT ?";
 
-        Horde::logMessage(sprintf('Kronolith_Geo_Mysql::search(): user = "%s"; query = "%s"; values = "%s"',
-            $GLOBALS['registry']->getAuth(), $sql, print_r($params, true)), 'DEBUG');
-
-        $results = $this->_db->getAssoc($sql, false, $params, DB_FETCHMODE_ASSOC);
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($results, 'ERR');
-            throw new Horde_Exception($results);
+        try {
+            $results = $this->_db->selectAll($sql, $params);
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         return $results;
     }
+
 }

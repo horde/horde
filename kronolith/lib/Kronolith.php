@@ -2966,18 +2966,6 @@ class Kronolith
         return self::$_tagger;
     }
 
-    public static function getGeoDriver()
-    {
-        if (!empty($GLOBALS['conf']['maps']['geodriver'])) {
-            try {
-                return Kronolith_Geo::factory($GLOBALS['conf']['maps']['geodriver']);
-            } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
-            }
-        }
-        return false;
-    }
-
     /**
      * Obtain an internal calendar. Use this where we don't know if we will
      * have a Horde_Share or a Kronolith_Resource based calendar.
