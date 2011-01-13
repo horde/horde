@@ -196,9 +196,9 @@ if (!is_array($cal)) {
 // If the free/busy calendars preference is empty, default to the user's
 // default_share preference, and if that's empty, to their username.
 if (!$cal) {
-    $cal = $prefs->getValue('default_share');
+    $cal = 'internal_' . $prefs->getValue('default_share');
     if (!$cal) {
-        $cal = $GLOBALS['registry']->getAuth();
+        $cal = 'internal_' . $GLOBALS['registry']->getAuth();
     }
     $cal = array($cal);
 }
