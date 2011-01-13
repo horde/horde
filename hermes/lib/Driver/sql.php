@@ -533,8 +533,6 @@ class Hermes_Driver_Sql extends Hermes_Driver
         }
 
         $deliverables = array();
-        //$row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        //while (!empty($row) && !is_a($row, 'PEAR_Error')) {
         foreach ($rows as $row) {
             $deliverable = array('id'          => $row['deliverable_id'],
                                  'client_id'   => $row['client_id'],

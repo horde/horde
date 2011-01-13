@@ -23,6 +23,11 @@ class Hermes_Table extends Horde_Core_Ui_Widget
      */
     protected $_formVars = array();
 
+    /**
+     *
+     * @return array
+     * @throws Hermes_Exception
+     */
     public function getMetaData()
     {
         if (is_null($this->_metaData)) {
@@ -30,9 +35,7 @@ class Hermes_Table extends Horde_Core_Ui_Widget
             $args = array($name, $this->_config['params']);
             $this->_metaData = $GLOBALS['registry']->callByPackage(
                 $app, 'getTableMetaData', $args);
-            if (is_a($this->_metaData, 'PEAR_Error')) {
-                return $this->_metaData;
-            }
+
 
             // We need to make vars for the columns.
             foreach ($this->_metaData['sections'] as $secname => $section) {
@@ -79,14 +82,12 @@ class Hermes_Table extends Horde_Core_Ui_Widget
      * Returns the largest column count of any section, taking into account
      * 'colspan' attributes.
      *
-     * @return mixed number of columns or PEAR_Error
+     * @return integer number of columns
+     * @throws Hermes_Exception
      */
     public function getColumnCount()
     {
         $res = $this->getMetaData();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
         $colcount = 0;
         foreach ($this->_metaData['sections'] as $section) {
             $sec_colcount = 0;
@@ -112,9 +113,10 @@ class Hermes_Table extends Horde_Core_Ui_Widget
     {
         global $notification;
 
-        $result = $this->getMetaData();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
+        try {
+            $result = $this->getMetaData();
+        } catch (Hermes_Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
             return false;
         }
 
@@ -163,9 +165,10 @@ class Hermes_Table extends Horde_Core_Ui_Widget
         $html .= '</tr></thead>';
 
         // Display data.
-        $data = $this->_getData();
-        if (is_a($data, 'PEAR_Error')) {
-            $notification->push($data, 'horde.error');
+        try {
+            $data = $this->_getData();
+        } catch (Hermes_Exception $e) {
+            $notification->push($e, 'horde.error');
             $data = array();
         }
 

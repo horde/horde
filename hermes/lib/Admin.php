@@ -135,16 +135,18 @@ class EditClientStep1Form extends Horde_Form {
     {
         parent::Horde_Form($vars, 'editclientstep1form');
 
-        $clients = Hermes::listClients();
-        if (is_a($clients, 'PEAR_Error')) {
+        try {
+            $clients = Hermes::listClients();
+            if (count($clients)) {
+                $subtype = 'enum';
+                $type_params = array($clients);
+            } else {
+                $subtype = 'invalid';
+                $type_params = array(_("There are no clients to edit"));
+            }
+        } catch (Hermes_Exception $e) {
             $subtype = 'invalid';
             $type_params = array($clients->getMessage());
-        } elseif (count($clients)) {
-            $subtype = 'enum';
-            $type_params = array($clients);
-        } else {
-            $subtype = 'invalid';
-            $type_params = array(_("There are no clients to edit"));
         }
 
         $this->addVariable(_("Client Name"), 'client', $subtype, true, false, null, $type_params);
