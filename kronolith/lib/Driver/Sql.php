@@ -960,20 +960,4 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return true;
     }
 
-    /**
-     * Determines if the given result is a PEAR error. If it is, logs the event
-     * and throws an exception.
-     *
-     * @param mixed $result The result to check.
-     *
-     * @throws Horde_Exception
-     */
-    protected function handleError($result)
-    {
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Kronolith_Exception($result);
-        }
-    }
-
 }

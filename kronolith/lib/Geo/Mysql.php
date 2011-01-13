@@ -9,12 +9,16 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
  * @package Kronolith
  */
 class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 {
-    // Roughly 69 miles per distance unit
+    /**
+     * Conversion factor needed by search functions
+     *  Roughly 69 miles per distance unit
+     *
+     * @var integer
+     */
     private $_conversionFactor = 69;
 
     /**
