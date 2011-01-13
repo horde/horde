@@ -43,11 +43,6 @@ class Kronolith_FreeBusy
                     $user = $share->get('owner');
                     break;
                 } catch (Horde_Exception $e) {
-                    /* Might be a Kronolith_Resource. */
-                    if (Kronolith_Resource::isResourceCalendar($calendar)) {
-                        $user = $calendar;
-                        break;
-                    }
                 }
             }
         }
