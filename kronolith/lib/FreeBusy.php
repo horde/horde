@@ -169,23 +169,15 @@ class Kronolith_FreeBusy
         $url = self::getUrl($email);
         if ($url) {
             $url = trim($url);
-            $options['method'] = 'GET';
-            $options['timeout'] = 5;
-            $options['allowRedirects'] = true;
-
-            if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-                $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
-            }
-
-            $http = new HTTP_Request($url, $options);
-            $response = @$http->sendRequest();
-            if ($response instanceof PEAR_Error) {
+            $http = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create();
+            try {
+                $response = $http->get($url);
+            } catch (Horde_Http_Client_Exception $e) {
                 throw new Kronolith_Exception(sprintf(_("The free/busy url for %s cannot be retrieved."), $email));
             }
-            if ($http->getResponseCode() == 200 &&
-                $data = $http->getResponseBody()) {
+            if ($response->code == 200 && $data = $response->getBody()) {
                 // Detect the charset of the iCalendar data.
-                $contentType = $http->getResponseHeader('Content-Type');
+                $contentType = $response->getHeader('Content-Type');
                 if ($contentType && strpos($contentType, ';') !== false) {
                     list(,$charset,) = explode(';', $contentType);
                     $data = Horde_String::convertCharset($data, trim(str_replace('charset=', '', $charset)), 'UTF-8');
