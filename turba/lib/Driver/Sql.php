@@ -47,7 +47,7 @@ class Turba_Driver_Sql extends Turba_Driver
         // TODO: Move to injector
         if (empty($this->_params['sql'])) {
             try {
-                $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create();
+                $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
             } catch (Horde_Db_Exception $e) {
                 throw new Turba_Exception($e);
             }
