@@ -146,11 +146,11 @@ class Horde_String
             /* We need to tack an extra character temporarily because of a bug
              * in iconv() if the last character is not a 7 bit ASCII
              * character. */
-            $oldTrackErrors = ini_set('track_errors', 1);
             unset($php_errormsg);
+            ini_set('track_errors', 1);
             $out = @iconv($from, $to . '//TRANSLIT', $input . 'x');
             $errmsg = isset($php_errormsg);
-            ini_set('track_errors', $oldTrackErrors);
+            ini_restore('track_errors');
             if (!$errmsg) {
                 return self::substr($out, 0, -1, $to);
             }
