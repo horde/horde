@@ -77,11 +77,27 @@ class Turba_Injector_Factory_Driver
 
         if (!isset($this->_instances[$key])) {
             $class = 'Turba_Driver_' . ucfirst(basename($srcConfig['type']));
-            if (class_exists($class)) {
-                $driver = new $class($srcName, $srcConfig['params']);
-            } else {
+            if (!class_exists($class)) {
                 throw new Turba_Exception(sprintf(_("Unable to load the definition of %s."), $class));
             }
+
+            if (empty($srcConfig['params'])) {
+                $srcConfig['params'] = array();
+            }
+
+            switch ($class) {
+            case 'Turba_Driver_Sql':
+                try {
+                    $srcConfig['params']['db'] = empty($srcConfig['params']['sql'])
+                        ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
+                        : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $this->_params['sql']);
+                } catch (Horde_Db_Exception $e) {
+                    throw new Turba_Exception($e);
+                }
+                break;
+            }
+
+            $driver = new $class($srcName, $srcConfig['params']);
 
             // Title
             $driver->title = $srcConfig['title'];

@@ -40,23 +40,19 @@ class Turba_Driver_Sql extends Turba_Driver
     protected $_db;
 
     /**
+     * Constructor.
      *
-     * @param string $name
-     * @param array $params
+     * @param array $params  Additional parameters needed:
+     * <pre>
+     * 'db' - (Horde_Db_Adapter) A DB Adapter object.
+     * </pre>
      */
     public function __construct($name = '', $params = array())
     {
+        $this->_db = $params['db'];
+        unset($params['db']);
+
         parent::__construct($name, $params);
-       // TODO: Move to injector
-        if (empty($this->_params['sql'])) {
-            try {
-                $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
-            } catch (Horde_Db_Exception $e) {
-                throw new Turba_Exception($e);
-            }
-        } else {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $this->_params['sql']);
-        }
     }
 
     /**
