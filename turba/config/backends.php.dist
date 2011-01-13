@@ -201,17 +201,18 @@ $cfgSources['localsql'] = array(
         // connection configuration.
         // To use another DB connection, you must provide configuration
         // information here - for example,
-        //'sql' => array('persistent' => true,
-        //               'username' => 'horde',
-        //               'password' => 'xxx',
-        //               'socket' => '/opt/local/var/run/mysql5/mysqld.sock',
-        //               'protocol' => 'unix',
-        //               'database' => 'horde',
-        //               'charset' => 'iso-8859-1',
-        //               'ssl' => false,
-        //              'splitread' => false,
-        //               'phptype' => 'mysql'),
-        'sql' => false,
+        //'sql' => array(
+        //    'persistent' => true,
+        //    'username' => 'horde',
+        //    'password' => 'xxx',
+        //    'socket' => '/opt/local/var/run/mysql5/mysqld.sock',
+        //    'protocol' => 'unix',
+        //    'database' => 'horde',
+        //    'charset' => 'iso-8859-1',
+        //    'ssl' => false,
+        //    'splitread' => false,
+        //    'phptype' => 'mysql'
+        //),
         'table' => 'turba_objects'
     ),
     'map' => array(
