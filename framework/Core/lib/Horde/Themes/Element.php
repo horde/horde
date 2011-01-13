@@ -86,7 +86,7 @@ class Horde_Themes_Element
     /**
      * String representation of this object.
      *
-     * @return string  The URI.
+     * @return string  The relative URI.
      */
     public function __toString()
     {
@@ -101,7 +101,12 @@ class Horde_Themes_Element
     /**
      * Retrieve URI/filesystem path values.
      *
-     * @param string $name  Either 'fs' or 'uri'.
+     * @param string $name  One of:
+     * <pre>
+     * 'fs' - (string) Filesystem location.
+     * 'fulluri' - (Horde_Url) Full URI.
+     * 'uri' - (string) Relative URI.
+     * </pre>
      *
      * @return string  The requested value.
      */
@@ -109,32 +114,38 @@ class Horde_Themes_Element
     {
         global $prefs, $registry;
 
-        if (!empty($this->_data)) {
-            return isset($this->_data[$name])
-                ? $this->_data[$name]
-                : null;
+        if (empty($this->_data)) {
+            $theme = array_key_exists('theme', $this->_opts)
+                ? $this->_opts['theme']
+                : $prefs->getValue('theme');
+
+            if (is_null($this->_name)) {
+                /* Return directory only. */
+                $this->_data = array(
+                    'fs' => $registry->get('themesfs', $this->app) . '/' . $theme . '/' . $this->_dirname,
+                    'uri' => $registry->get('themesuri', $this->app) . '/' . $theme . '/' . $this->_dirname
+                );
+            } else {
+                $cache = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($this->app, $theme);
+                $mask = empty($this->_opts['nohorde'])
+                    ? 0
+                    : Horde_Themes_Cache::APP_DEFAULT | Horde_Themes_Cache::APP_THEME;
+
+                $this->_data = $cache->get($this->_dirname . '/' . $this->_name, $mask);
+            }
         }
 
-        $theme = array_key_exists('theme', $this->_opts)
-            ? $this->_opts['theme']
-            : $prefs->getValue('theme');
+        switch ($name) {
+        case 'fs':
+        case 'uri':
+            return $this->_data[$name];
 
-        if (is_null($this->_name)) {
-            /* Return directory only. */
-            $this->_data = array(
-                'fs' => $registry->get('themesfs', $this->app) . '/' . $theme . '/' . $this->_dirname,
-                'uri' => $registry->get('themesuri', $this->app) . '/' . $theme . '/' . $this->_dirname
-            );
-        } else {
-            $cache = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($this->app, $theme);
-            $mask = empty($this->_opts['nohorde'])
-                ? 0
-                : Horde_Themes_Cache::APP_DEFAULT | Horde_Themes_Cache::APP_THEME;
+        case 'fulluri':
+            return Horde::url($this->_data['uri'], true);
 
-            $this->_data = $cache->get($this->_dirname . '/' . $this->_name, $mask);
+        default:
+            return null;
         }
-
-        return $this->_data[$name];
     }
 
     /**
