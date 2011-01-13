@@ -197,6 +197,7 @@ $cfgSources['localsql'] = array(
     'title' => _("My Address Book"),
     'type' => 'sql',
     'params' => array(
+        'sql' => false,
         // The default connection details are pulled from the Horde-wide SQL
         // connection configuration.
         // To use another DB connection, you must provide configuration
