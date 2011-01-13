@@ -39,12 +39,11 @@ class Kronolith_Injector_Factory_Driver
      */
     public function create($driver, $params = array())
     {
-        $key = $driver . md5(serialize($params));
-        if (!empty($this->_instances[$key])) {
-            return $this->_instances[$key];
-        }
-
         $driver = basename($driver);
+        if (!empty($this->_instances[$driver])) {
+            return $this->_instances[$driver];
+        }
+        $key = $driver;
         $class = 'Kronolith_Driver_' . $driver;
         if (class_exists($class)) {
             $driver = new $class($params);
