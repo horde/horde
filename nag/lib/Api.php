@@ -1389,17 +1389,18 @@ class Nag_Api extends Horde_Registry_Api
      * At the moment only the title, description and due date are saved.
      *
      * @param array $timeobject  A time object hash.
+     * @throws Nag_Exception
      */
     public function saveTimeObject($timeobject)
     {
         $storage = Nag_Driver::singleton();
         $existing = $storage->get($timeobject['id']);
         if (is_a($existing, 'PEAR_Error')) {
-            return $existing;
+            throw new Nag_Exception($existing->getMessage());
         }
         if (!array_key_exists($existing->tasklist,
                               Nag::listTasklists(false, Horde_Perms::EDIT))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
         $storage = Nag_Driver::singleton($existing->tasklist);
 
