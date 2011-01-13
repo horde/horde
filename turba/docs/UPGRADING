@@ -15,7 +15,9 @@ Upgrading Turba from 2.x to 3.x
 
 
 The ``config/sources.php`` configuration file has been renamed to
-``config/backends.php``.
+``config/backends.php``.  The entry for defining the connection parameters for
+an SQL backend other than the default Horde backend has changed - see the
+'params' -> 'sql' configuration value.
 
 The ``_turba_hook_encode_{attribute}`` hook has been moved to the
 'encode_attribute' hook.
