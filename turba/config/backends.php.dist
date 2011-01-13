@@ -199,8 +199,18 @@ $cfgSources['localsql'] = array(
     'params' => array(
         // The default connection details are pulled from the Horde-wide SQL
         // connection configuration.
-        // To use another DB connection, you must define a Horde_Db_Adapter
-        // object here.
+        // To use another DB connection, you must provide configuration
+        // information here - for example,
+        //'sql' => array('persistent' => true,
+        //               'username' => 'horde',
+        //               'password' => 'xxx',
+        //               'socket' => '/opt/local/var/run/mysql5/mysqld.sock',
+        //               'protocol' => 'unix',
+        //               'database' => 'horde',
+        //               'charset' => 'iso-8859-1',
+        //               'ssl' => false,
+        //              'splitread' => false,
+        //               'phptype' => 'mysql'),
         'sql' => false,
         'table' => 'turba_objects'
     ),

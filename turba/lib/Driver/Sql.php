@@ -52,7 +52,7 @@ class Turba_Driver_Sql extends Turba_Driver
                 throw new Turba_Exception($e);
             }
         } else {
-            $this->_db = $this->_params['sql'];
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $this->_params['sql']);
         }
     }
 
