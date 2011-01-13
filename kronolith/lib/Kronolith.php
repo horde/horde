@@ -2725,7 +2725,7 @@ class Kronolith
                     // Custom
                     $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('kronolith', $params);
                 } else {
-                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbBase')->create();
+                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
                 }
                 break;
 

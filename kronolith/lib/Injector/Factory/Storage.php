@@ -57,7 +57,7 @@ class Kronolith_Injector_Factory_Storage
                 $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('kronolith', Horde::getDriverConfig('storage', 'Sql'));
             } else {
                 // Horde default DB config
-                $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_DbBase')->create();
+                $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
             }
             $params['table'] = $driver_params['table'];
         }
