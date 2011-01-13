@@ -41,8 +41,9 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Attempts to open a Kolab Groupware folder.
      */
-    protected function _init()
+    public function __construct($name = '', $params = array())
     {
+        parent::__construct($name, $params);
         $this->_kolab = new Kolab();
         $wrapper = empty($this->_kolab->version)
             ? 'Turba_Driver_Kolab_Wrapper_old'

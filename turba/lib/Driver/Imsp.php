@@ -74,20 +74,14 @@ class Turba_Driver_Imsp extends Turba_Driver
      */
     public function __construct($params)
     {
+        parent::__construct($name, $params);
+
         $this->params       = $params;
         $this->_groupField  = $params['group_id_field'];
         $this->_groupValue  = $params['group_id_value'];
         $this->_myRights    = $params['my_rights'];
         $this->_perms       = $this->_aclToHordePerms($params['my_rights']);
-    }
 
-    /**
-     * Initialize the IMSP connection and check for error.
-     *
-     * @throws Turba_Exception
-     */
-    protected function _init()
-    {
         global $conf;
 
         $this->_bookName = $this->getContactOwner();

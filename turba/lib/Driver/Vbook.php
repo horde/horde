@@ -29,21 +29,12 @@ class Turba_Driver_Vbook extends Turba_Driver
     public $searchCriteria;
 
     /**
-     * Return the owner to use when searching or creating contacts in
-     * this address book.
-     *
-     * @return string
-     */
-    protected function _getContactOwner()
-    {
-        return $this->_driver->getContactOwner();
-    }
-
-    /**
      * @throws Turba_Exception
      */
-    protected function _init()
+    public function __construct($name = '', $params = array())
     {
+        parent::__construct($name, $params);
+
         /* Grab a reference to the share for this vbook. */
         $this->_share = $this->_params['share'];
 
@@ -56,6 +47,17 @@ class Turba_Driver_Vbook extends Turba_Driver
         $this->searchType = (count($this->searchCriteria) > 1)
             ? 'advanced'
             : 'basic';
+    }
+
+    /**
+     * Return the owner to use when searching or creating contacts in
+     * this address book.
+     *
+     * @return string
+     */
+    protected function _getContactOwner()
+    {
+        return $this->_driver->getContactOwner();
     }
 
     /**

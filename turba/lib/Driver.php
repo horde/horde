@@ -118,8 +118,9 @@ class Turba_Driver implements Countable
      * @param array $params  Hash containing additional configuration
      *                       parameters.
      */
-    public function __construct($params = array())
+    public function __construct($name = '', $params = array())
     {
+        $this->_name = $name;
         $this->_params = $params;
     }
 

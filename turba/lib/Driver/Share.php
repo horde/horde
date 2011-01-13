@@ -32,6 +32,21 @@ class Turba_Driver_Share extends Turba_Driver
     protected $_driver;
 
     /**
+     * Constructor
+     *
+     * @param string $name   The source name
+     * @param array $params  The parameter array describing the source
+     *
+     * @return Turba_Driver
+     */
+    public function __construct($name = '', $params = array())
+    {
+        parent::__construct($name, $params);
+        $this->_share = $this->_params['config']['params']['share'];
+        $this->_driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($this->_params['config']);
+    }
+
+    /**
      * Checks if this backend has a certain capability.
      *
      * @param string $capability  The capability to check for.
@@ -82,15 +97,6 @@ class Turba_Driver_Share extends Turba_Driver
         }
 
         throw new Turba_Exception(_("Unable to find contact owner."));
-    }
-
-    /**
-     * @throws Turba_Exception
-     */
-    protected function _init()
-    {
-        $this->_share = &$this->_params['config']['params']['share'];
-        $this->_driver = Turba_Driver::factory($this->_name, $this->_params['config']);
     }
 
     /**

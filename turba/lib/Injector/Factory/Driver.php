@@ -76,7 +76,46 @@ class Turba_Injector_Factory_Driver
         }
 
         if (!isset($this->_instances[$key])) {
-            $this->_instances[$key] = Turba_Driver::factory($srcName, $srcConfig);
+            $class = 'Turba_Driver_' . ucfirst(basename($srcConfig['type']));
+            if (class_exists($class)) {
+                $driver = new $class($srcName, $srcConfig['params']);
+            } else {
+                throw new Turba_Exception(sprintf(_("Unable to load the definition of %s."), $class));
+            }
+
+            // Title
+            $driver->title = $srcConfig['title'];
+
+            /* Initialize */
+            //$driver->_init();
+
+            /* Store and translate the map at the Source level. */
+            $driver->map = $srcConfig['map'];
+            foreach ($driver->map as $key => $val) {
+                if (!is_array($val)) {
+                    $driver->fields[$key] = $val;
+                }
+            }
+
+            /* Store tabs. */
+            if (isset($srcConfig['tabs'])) {
+                $driver->tabs = $srcConfig['tabs'];
+            }
+
+            /* Store remaining fields. */
+            if (isset($srcConfig['strict'])) {
+                $driver->strict = $srcConfig['strict'];
+            }
+            if (isset($srcConfig['approximate'])) {
+                $driver->approximate = $srcConfig['approximate'];
+            }
+            if (isset($srcConfig['list_name_field'])) {
+                $driver->listNameField = $srcConfig['list_name_field'];
+            }
+            if (isset($srcConfig['alternative_name'])) {
+                $driver->alternativeName = $srcConfig['alternative_name'];
+            }
+            $this->_instances[$key] = $driver;
         }
 
         return $this->_instances[$key];

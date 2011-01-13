@@ -54,13 +54,6 @@ class Turba_Driver_Ldap extends Turba_Driver
         ), $params);
 
         parent::__construct($params);
-    }
-
-    /**
-     * @throws Turba_Exception
-     */
-    protected function _init()
-    {
         if (!Horde_Util::extensionExists('ldap')) {
             throw new Turba_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));
         }

@@ -134,7 +134,7 @@ class Turba_Api extends Horde_Registry_Api
                 }
 
                 try {
-                    $driver = Turba_Driver::factory($params['source'], $cfgSources[$params['source']]);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($params['source']);
                     if ($driver->checkDefaultShare($share, $cfgSources[$params['source']])) {
                         return $uid;
                     }

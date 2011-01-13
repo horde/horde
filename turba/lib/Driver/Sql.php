@@ -40,11 +40,14 @@ class Turba_Driver_Sql extends Turba_Driver
     protected $_db;
 
     /**
-     * @throws Turba_Exception
+     *
+     * @param string $name
+     * @param array $params
      */
-    protected function _init()
+    public function __construct($name = '', $params = array())
     {
-        // TODO: Move to injector
+        parent::__construct($name, $params);
+       // TODO: Move to injector
         if (empty($this->_params['sql'])) {
             try {
                 $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
