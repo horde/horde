@@ -104,35 +104,6 @@ extends Components_TestCase
         $templates->write(array('1' => new stdClass, '2' => 'Two'));
     }
 
-    public function testPrefix()
-    {
-        $tdir =  $this->getTemporaryDirectory();
-        $templates = new Components_Helper_Templates_Prefix(
-            dirname(__FILE__) . '/../../../fixture/templates',
-            $tdir,
-            'var',
-            'target'
-        );
-        $templates->write(array('1' => 'One', '2' => 'Two'));
-        $this->assertEquals(
-            "One : Two\n",
-            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'target')
-        );
-    }
-
-    /**
-     * @expectedException Components_Exception
-     */
-    public function testMissingPrefixTemplate()
-    {
-        $templates = new Components_Helper_Templates_Prefix(
-            dirname(__FILE__) . '/../../../fixture/templates',
-            $this->getTemporaryDirectory(),
-            'NOSUCHPREFIX',
-            'target'
-        );
-    }
-
     public function testPhp()
     {
         $tdir =  $this->getTemporaryDirectory();
@@ -212,4 +183,19 @@ extends Components_TestCase
             file_get_contents($tdir . DIRECTORY_SEPARATOR . 'two')
         );
     }
+
+    public function testTargetRewrite()
+    {
+        $tdir =  $this->getTemporaryDirectory();
+        $templates = new Components_Helper_Templates_Directory(
+            dirname(__FILE__) . '/../../../fixture/templates/rewrite',
+            $tdir
+        );
+        $templates->write(array('one' => 'One'));
+        $this->assertEquals(
+            "One",
+            file_get_contents($tdir . DIRECTORY_SEPARATOR . 'rewritten')
+        );
+    }
+
 }

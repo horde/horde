@@ -40,8 +40,10 @@ extends Components_Helper_Template
         foreach ($parameters as $key => $value) {
             ${$key} = $value;
         }
+        $tdir = dirname($this->_target);
+        $target = basename($this->_target);
         ob_start();
         include $this->_source;
-        file_put_contents($this->_target, ob_get_clean());
+        file_put_contents($tdir . DIRECTORY_SEPARATOR . $target, ob_get_clean());
     }
 }
