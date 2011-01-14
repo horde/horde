@@ -523,7 +523,7 @@ var DimpCompose = {
     // opts = auto, focus, fwd_list, noupdate, priority, show_editor
     fillForm: function(msg, header, opts)
     {
-        if (!document.loaded) {
+        if (!document.loaded || !$('pageContainer').visible()) {
             this.fillForm.bind(this, msg, header, opts).defer();
             return;
         }
@@ -792,7 +792,7 @@ var DimpCompose = {
             return;
         }
 
-        if (!document.loaded) {
+        if (!document.loaded || !$('pageContainer').visible()) {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
