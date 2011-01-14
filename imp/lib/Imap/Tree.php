@@ -85,13 +85,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     public $unseen = 0;
 
     /**
-     * Are folders allowed?
-     *
-     * @var boolean
-     */
-    protected $_allowFolders;
-
-    /**
      * Array containing the mailbox tree.
      *
      * @var array
@@ -103,42 +96,42 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      *
      * @var string
      */
-    protected $_currparent = null;
+    protected $_currparent;
 
     /**
      * Location of current element in the tree.
      *
      * @var integer
      */
-    protected $_currkey = null;
+    protected $_currkey;
 
     /**
      * Show unsubscribed mailboxes?
      *
      * @var boolean
      */
-    protected $_showunsub = false;
+    protected $_showunsub;
 
     /**
      * Parent list.
      *
      * @var array
      */
-    protected $_parent = array();
+    protected $_parent;
 
     /**
      * The string used for the IMAP delimiter.
      *
      * @var string
      */
-    protected $_delimiter = '/';
+    protected $_delimiter;
 
     /**
      * The list of namespaces to add to the tree.
      *
      * @var array
      */
-    protected $_namespaces = array();
+    protected $_namespaces;
 
     /**
      * Used to determine the list of element changes.
@@ -171,17 +164,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      */
     public function __construct()
     {
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'imap') {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
-            $ns = $imp_imap->getNamespaceList();
-            $ptr = reset($ns);
-            $this->_allowFolders = $imp_imap->allowFolders();
-            $this->_delimiter = $ptr['delimiter'];
-            $this->_namespaces = $this->_allowFolders
-                ? $ns
-                : array();
-        }
-
         $this->init();
     }
 
@@ -199,9 +181,21 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         /* Reset class variables to the defaults. */
         $this->changed = true;
         $this->_currkey = $this->_currparent = null;
-        $this->recent = $this->_tree = $this->_parent = array();
+        $this->_delimiter = '/';
+        $this->recent = $this->_namespaces = $this->_parent = $this->_tree = array();
         $this->_showunsub = $unsubmode;
         unset($this->_cache['fulllist'], $this->_cache['subscribed']);
+
+        /* Do IMAP specific initialization. */
+        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+        if ($session->get('imp', 'protocol') == 'imap') {
+            $ns = $imp_imap->getNamespaceList();
+            $ptr = reset($ns);
+            $this->_delimiter = $ptr['delimiter'];
+            if ($imp_imap->allowFolders()) {
+                $this->_namespaces = $ns;
+            }
+        }
 
         /* Create a placeholder element to the base of the tree list so we can
          * keep track of whether the base level needs to be sorted. */
@@ -212,7 +206,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         /* Add INBOX and exit if folders aren't allowed or if we are using
          * POP3. */
-        if (!$this->_allowFolders) {
+        if (!$imp_imap->allowFolders()) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
             return;
         }
@@ -1330,7 +1324,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             $this->changed = true;
         }
 
-        if (!$this->_allowFolders) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
             return;
         }
 
