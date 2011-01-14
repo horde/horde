@@ -119,7 +119,9 @@ class Horde_Kolab_Storage_Factory
         }
         switch ($params['driver']) {
         case 'mock':
-            $config['data'] = array('user/test' => array());
+            if (!isset($config['data'])) {
+                $config['data'] = array('user/test' => array());
+            }
             $driver = new Horde_Kolab_Storage_Driver_Mock($this, $config);
             break;
         case 'horde':
