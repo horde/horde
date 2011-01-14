@@ -25,7 +25,7 @@
   <active>yes</active>
  </lead>
  <date>2011-01-14</date>
- <time>15:22:29</time>
+ <time>16:08:10</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -72,10 +72,6 @@
       <file name="Pear.php" role="php" />
      </dir> <!-- /lib/Components/Exception -->
      <dir name="Helper">
-      <dir name="Template">
-       <file name="Php.php" role="php" />
-       <file name="Printf.php" role="php" />
-      </dir> <!-- /lib/Components/Helper/Template -->
       <dir name="Templates">
        <file name="Directory.php" role="php" />
        <file name="Single.php" role="php" />
@@ -350,8 +346,6 @@
    <install as="Components/Helper/Template.php" name="lib/Components/Helper/Template.php" />
    <install as="Components/Helper/Templates.php" name="lib/Components/Helper/Templates.php" />
    <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
-   <install as="Components/Helper/Template/Php.php" name="lib/Components/Helper/Template/Php.php" />
-   <install as="Components/Helper/Template/Printf.php" name="lib/Components/Helper/Template/Printf.php" />
    <install as="Components/Helper/Templates/Directory.php" name="lib/Components/Helper/Templates/Directory.php" />
    <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />

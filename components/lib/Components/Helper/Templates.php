@@ -38,7 +38,7 @@ abstract class Components_Helper_Templates
      */
     protected function writeSourceToTarget($source, $target, array $parameters = array())
     {
-        $template = Components_Helper_Template::factory($source, $target)
-            ->write($parameters);
+        $template = new Components_Helper_Template($source, $target);
+        $template->write($parameters);
     }
 }

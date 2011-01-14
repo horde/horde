@@ -62,21 +62,13 @@ class Components_Helper_Template
      */
     public function write(array $parameters = array())
     {
-        throw new Horde_Component_Exception('Overwrite in the extending class!');
-    }
-
-    /**
-     * A factory for the specific template type.
-     */
-    static public function factory($source, $target)
-    {
-        $sh = fopen($source, 'r');
-        $lead = fread($sh, 5);
-        fclose($sh);
-        if ($lead == '<?php') {
-            return new Components_Helper_Template_Php($source, $target);
-        } else {
-            return new Components_Helper_Template_Printf($source, $target);
+        foreach ($parameters as $key => $value) {
+            ${$key} = $value;
         }
+        $tdir = dirname($this->_target);
+        $target = basename($this->_target);
+        ob_start();
+        include $this->_source;
+        file_put_contents($tdir . DIRECTORY_SEPARATOR . $target, ob_get_clean());
     }
 }
