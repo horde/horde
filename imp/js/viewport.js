@@ -350,28 +350,35 @@ var ViewPort = Class.create({
     },
 
     // rownum = (integer) Row number
-    // opts = (Object) [noupdate, top] TODO
+    // opts = (Object) [bottom, noupdate, top] TODO
     scrollTo: function(rownum, opts)
     {
-        var s = this.scroller;
+        var s = this.scroller,
+            to = null;
         opts = opts || {};
 
         s.noupdate = opts.noupdate;
 
         switch (this.isVisible(rownum)) {
         case -1:
-            s.moveScroll(rownum - 1);
+            to = rownum - 1;
             break;
 
         case 0:
             if (opts.top) {
-                s.moveScroll(rownum - 1);
+                to = rownum - 1;
             }
             break;
 
         case 1:
-            s.moveScroll(Math.min(rownum - 1, this.getMetaData('total_rows') - this.getPageSize()));
+            to = opts.bottom
+                ? Math.max(0, rownum - this.getPageSize())
+                : Math.min(rownum - 1, this.getMetaData('total_rows') - this.getPageSize());
             break;
+        }
+
+        if (to !== null) {
+            s.moveScroll(to);
         }
 
         s.noupdate = false;

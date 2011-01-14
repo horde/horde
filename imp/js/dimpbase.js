@@ -99,11 +99,13 @@ var DimpBase = {
     },
 
     // num = (integer) See absolute.
-    // absolute = Is num an absolute row number - from 1 -> page_size (true) -
-    //            or a relative change from the current selected value (false)
+    // absolute = (boolean) Is num an absolute row number - from 1 ->
+    //            page_size (true) - or a relative change from the current
+    //            selected value (false)
     //            If no current selected value, the first message in the
     //            current viewport is selected.
-    moveSelected: function(num, absolute)
+    // bottom = (boolean) Make selected appear at bottom?
+    moveSelected: function(num, absolute, bottom)
     {
         var curr, curr_row, row, row_data, sel;
 
@@ -141,7 +143,7 @@ var DimpBase = {
         if (row.size()) {
             row_data = row.get('dataob').first();
             if (!curr_row || row_data.imapuid != curr_row.imapuid) {
-                this.viewport.scrollTo(row_data.VP_rownum);
+                this.viewport.scrollTo(row_data.VP_rownum, { bottom: bottom });
                 this.viewport.select(row, { delay: 0.3 });
             }
         } else {
@@ -1869,7 +1871,7 @@ var DimpBase = {
                     this.msgSelect(row.VP_domid, { shift: true });
                 }
             } else {
-                this.moveSelected(kc == Event.KEY_UP ? -1 : 1);
+                this.moveSelected(kc == Event.KEY_UP ? -1 : 1, false, kc == Event.KEY_DOWN);
             }
             e.stop();
             break;
@@ -1911,7 +1913,7 @@ var DimpBase = {
                         break;
                     }
                 }
-                this.moveSelected(move);
+                this.moveSelected(move, false, kc == Event.KEY_PAGEDOWN);
                 e.stop();
             }
             break;
