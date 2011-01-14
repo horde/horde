@@ -300,7 +300,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     isset($sig_result->email) &&
                     $GLOBALS['registry']->hasMethod('contacts/addField') &&
                     $GLOBALS['prefs']->getValue('add_source')) {
-                    $status[] = '[' . $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View Certificate"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '] [' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->getConfigParam('imp_contents')->getUid(), $sig_id) . ' return false;') . _("Save Certificate in your Address Book") . '</a>]';
+                    $status[] = '[' . $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View Certificate"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '] [' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($this->getConfigParam('imp_contents')->getMailbox(), $this->getConfigParam('imp_contents')->getUid(), $sig_id) . ' return false;') . _("Save Certificate in your Address Book") . '</a>]';
                 }
             } catch (Horde_Exception $e) {
                 self::$_cache[$base_id]['status'][0]['icon'] = ($e->getCode() == 'horde.warning')
