@@ -2107,16 +2107,6 @@ class Horde_Registry
         $this->loadPrefs();
 
         $this->setLanguageEnvironment(isset($options['language']) ? $options['language'] : null, $app);
-
-        /* If an admin, check for logger errors. */
-        if ($this->isAdmin()) {
-            // Do this to ensure Logger object was initialized.
-            $injector->getInstance('Horde_Log_Logger');
-
-            if ($error = $injector->getInstance('Horde_Core_Factory_Logger')->error) {
-                $injector->getInstance('Horde_Notification')->push($error, 'horde.warning');
-            }
-        }
     }
 
     /**
