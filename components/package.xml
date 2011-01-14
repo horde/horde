@@ -25,7 +25,7 @@
   <active>yes</active>
  </lead>
  <date>2011-01-14</date>
- <time>15:17:04</time>
+ <time>15:22:29</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -257,7 +257,6 @@
      <dir name="Unit">
       <dir name="Components">
        <dir name="Helper">
-        <file name="rewritten" role="test" />
         <file name="TemplatesTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Helper -->
        <dir name="Pear">
@@ -433,7 +432,6 @@
    <install as="Components/Integration/Components/Module/DocumentTest.php" name="test/Components/Integration/Components/Module/DocumentTest.php" />
    <install as="Components/Integration/Components/Module/InstallerTest.php" name="test/Components/Integration/Components/Module/InstallerTest.php" />
    <install as="Components/Integration/Components/Module/PearPackageXmlTest.php" name="test/Components/Integration/Components/Module/PearPackageXmlTest.php" />
-   <install as="Components/Unit/Components/Helper/rewritten" name="test/Components/Unit/Components/Helper/rewritten" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
    <install as="COPYING" name="COPYING" />
