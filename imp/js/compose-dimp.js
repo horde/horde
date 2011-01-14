@@ -429,10 +429,10 @@ var DimpCompose = {
 
             if (Object.isUndefined(this.rte_loaded)) {
                 CKEDITOR.on('instanceReady', function(evt) {
-                    this.resizeMsgArea();
                     this.RTELoading('hide');
                     this.rte.focus();
                     this.rte_loaded = true;
+                    this.resizeMsgArea();
                 }.bind(this));
                 CKEDITOR.on('instanceDestroyed', function(evt) {
                     this.RTELoading('hide');
@@ -803,7 +803,7 @@ var DimpCompose = {
 
         mah = document.viewport.getHeight() - cmp.offsetTop;
 
-        if (IMP_Compose_Base.editor_on) {
+        if (this.rte_loaded) {
             [ 'margin', 'padding', 'border' ].each(function(s) {
                 [ 'Top', 'Bottom' ].each(function(h) {
                     var a = parseInt(cmp.getStyle(s + h), 10);
@@ -814,7 +814,7 @@ var DimpCompose = {
             });
 
             this.rte.resize('99%', mah - pad - 1, false);
-        } else {
+        } else if (!IMP_Compose_Base.editor_on) {
             /* If the line-height CSS value exists, use that. */
             if (!(lh = msg.getStyle('line-height'))) {
                 /* Logic: Determine the size of a given textarea row, divide
@@ -833,6 +833,10 @@ var DimpCompose = {
                     msg.writeAttribute({ rows: rows--, disabled: false });
                 } while ((de.scrollHeight - de.clientHeight) > 0);
             }
+        }
+
+        if ($('rteloading') && $('rteloading').visible()) {
+            this.RTELoading();
         }
 
         this.resizing = false;
