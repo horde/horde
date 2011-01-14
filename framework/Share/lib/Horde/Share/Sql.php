@@ -119,14 +119,19 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _getShareUsers(&$share)
     {
-        if ($this->_hasUsers($share)) {
-            try {
-                $rows = $this->_db->selectAll('SELECT user_uid, perm FROM ' . $this->_table . '_users WHERE share_id = ?', array($share['share_id']));
-                foreach ($rows as $row) {
-                    $share['perm']['users'][$row['user_uid']] = (int)$row['perm'];
-                }
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_Share_Exception($e->getMessage());
+        if (!$this->_hasUsers($share)) {
+            return;
+        }
+
+        try {
+            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . '_users WHERE share_id = ?', array($share['share_id']));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            foreach ($row as $column => $value) {
+                $share['perm']['users'] = $this->_buildPermsFromRow($row, 'user_uid');
             }
         }
     }
@@ -140,14 +145,19 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _getShareGroups(&$share)
     {
-        if ($this->_hasGroups($share)) {
-            try {
-                $rows = $this->_db->selectAll('SELECT group_uid, perm FROM ' . $this->_table . '_groups WHERE share_id = ?', array($share['share_id']));
-                foreach ($rows as $row) {
-                    $share['perm']['groups'][$row['group_uid']] = (int)$row['perm'];
-                }
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_Share_Exception($e->getMessage());
+        if (!$this->_hasGroups($share)) {
+            return;
+        }
+
+        try {
+            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . '_groups WHERE share_id = ?', array($share['share_id']));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            foreach ($row as $column => $value) {
+                $share['perm']['groups'] = $this->_buildPermsFromRow($row, 'group_uid');
             }
         }
     }
@@ -298,22 +308,22 @@ class Horde_Share_Sql extends Horde_Share_Base
 
         // Get users permissions
         try {
-            $rows = $this->_db->selectAll('SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users');
+            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . '_users');
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e);
         }
-        foreach ($rows as $share) {
-            $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
+        foreach ($rows as $row) {
+            $shares[$row['share_id']]['perm']['users'] = $this->_buildPermsFromRow($row, 'user_uid');
         }
 
         // Get groups permissions
         try {
-            $rows = $this->_db->selectAll('SELECT share_id, group_uid, perm FROM ' . $this->_table . '_groups');
+            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . '_groups');
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
-        foreach ($rows as $share) {
-            $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
+        foreach ($rows as $row) {
+            $shares[$row['share_id']]['perm']['groups'] = $this->_buildPermsFromRow($row, 'group_uid');
         }
 
         $sharelist = array();
@@ -388,7 +398,7 @@ class Horde_Share_Sql extends Horde_Share_Base
 
         // Get users permissions
         if (!empty($users)) {
-            $query = 'SELECT share_id, user_uid, perm FROM ' . $this->_table
+            $query = 'SELECT * FROM ' . $this->_table
                  . '_users WHERE share_id IN (' . implode(', ', $users)
                  . ')';
             try {
@@ -396,14 +406,14 @@ class Horde_Share_Sql extends Horde_Share_Base
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Share_Exception($e->getMessage());
             }
-            foreach ($rows as $share) {
-                $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
+            foreach ($rows as $row) {
+                $shares[$row['share_id']]['perm']['users'] = $this->_buildPermsFromRow($row, 'user_uid');
             }
         }
 
         // Get groups permissions
         if (!empty($groups)) {
-            $query = 'SELECT share_id, group_uid, perm FROM ' . $this->_table
+            $query = 'SELECT * FROM ' . $this->_table
                      . '_groups WHERE share_id IN (' . implode(', ', $groups)
                      . ')';
             try {
@@ -411,8 +421,8 @@ class Horde_Share_Sql extends Horde_Share_Base
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Share_Exception($e->getMessage());
             }
-            foreach ($rows as $share) {
-                $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
+            foreach ($rows as $row) {
+                $shares[$row['share_id']]['perm']['groups'] = $this->_buildPermsFromRow($row, 'group_uid');
             }
         }
 
@@ -660,6 +670,20 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         return array($query, $where);
+    }
+
+    /**
+     * Builds a list of permission bit masks from the "perm" column.
+     *
+     * @param array $row     A data row including permission columns.
+     * @param string $index  Name of the column that should be used as the key
+     *                       for the permissions list.
+     *
+     * @return array  A permission hash.
+     */
+    protected function _buildPermsFromRow($row, $index)
+    {
+        return array($row[$index] => (int)$row['perm']);
     }
 
     /**

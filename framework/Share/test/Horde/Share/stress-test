@@ -15,7 +15,7 @@ $argv = new Horde_Argv_Parser(array('description' => $description));
 $argv->addOption(
     '-b', '--backend',
     array('type' => 'choice',
-          'choices' => array('sql', 'sql_hierarchical', 'kolab', 'datatree'),
+          'choices' => array('sql', 'sql_hierarchical', 'sqlng', 'kolab', 'datatree'),
           'help' => 'The backend to test. Must be configured in the conf.php configuration file.'));
 $argv->addOption(
     '-c', '--configuration',
@@ -71,6 +71,7 @@ $config = isset($conf['share']['sql'][$options['configuration']])
 /* Create storage backend. */
 switch ($options['backend']) {
 case 'sql':
+case 'sqlng':
 case 'sql_hierarchical':
     $class = 'Horde_Db_Adapter_' . implode('_', array_map(array('Horde_String', 'ucwords'), explode('_', $options['configuration'])));
     $storage = new $class($config);

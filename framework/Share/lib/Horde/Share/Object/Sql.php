@@ -87,15 +87,13 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      *
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
-     *
-     * @return boolean
      */
     public function set($attribute, $value)
     {
         if ($attribute == 'owner') {
-            return $this->data['share_owner'] = $value;
+            $this->data['share_owner'] = $value;
         } else {
-            return $this->data['attribute_' . $attribute] = $value;
+            $this->data['attribute_' . $attribute] = $value;
         }
     }
 

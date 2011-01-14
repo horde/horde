@@ -156,7 +156,7 @@ abstract class Horde_Share_Base
     }
 
     /**
-     * (re)connect the share object to this share driver.
+     * (Re)connects the share object to this share driver.
      *
      * @param Horde_Share_Object $object
      */

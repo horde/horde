@@ -44,6 +44,8 @@ framework/Share/test/Horde/Share/Sql/conf.php
 framework/Share/test/Horde/Share/Sql/Pdo/conf.php
 framework/Share/test/Horde/Share/SqlHierarchical/conf.php
 framework/Share/test/Horde/Share/SqlHierarchical/Pdo/conf.php
+framework/Share/test/Horde/Share/Sqlng/conf.php
+framework/Share/test/Horde/Share/Sqlng/Pdo/conf.php
 
 # Dynamically generated content that may live in the repo directories
 /lib/

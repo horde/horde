@@ -11,8 +11,8 @@ owns or has access to.</description>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-03</date>
- <time>22:15:46</time>
+ <date>2011-01-14</date>
+ <time>22:44:18</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -40,6 +40,7 @@ owns or has access to.</description>
        <file name="Datatree.php" role="php" />
        <file name="Kolab.php" role="php" />
        <file name="Sql.php" role="php" />
+       <file name="Sqlng.php" role="php" />
       </dir> <!-- /lib/Horde/Share/Object -->
       <dir name="Sql">
        <file name="Hierarchical.php" role="php" />
@@ -50,6 +51,7 @@ owns or has access to.</description>
       <file name="Kolab.php" role="php" />
       <file name="Object.php" role="php" />
       <file name="Sql.php" role="php" />
+      <file name="Sqlng.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
@@ -320,6 +322,15 @@ owns or has access to.</description>
    <dir name="test">
     <dir name="Horde">
      <dir name="Share">
+      <dir name="Kolab">
+       <file name="MockTest.php" role="test" />
+       <file name="UnitTest.php" role="test" />
+      </dir> <!-- /test/Horde/Share/Kolab -->
+      <dir name="migration">
+       <file name="sql.php" role="test" />
+       <file name="sqlng.php" role="test" />
+       <file name="sql_hierarchical.php" role="test" />
+      </dir> <!-- /test/Horde/Share/migration -->
       <dir name="Sql">
        <dir name="Pdo">
         <file name="MysqlTest.php" role="test" />
@@ -340,10 +351,25 @@ owns or has access to.</description>
        <file name="MysqliTest.php" role="test" />
        <file name="MysqlTest.php" role="test" />
       </dir> <!-- /test/Horde/Share/SqlHierarchical -->
+      <dir name="Sqlng">
+       <dir name="Pdo">
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Share/Sqlng/Pdo -->
+       <file name="Base.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Share/Sqlng -->
+      <dir name="Stub">
+       <file name="Group.php" role="test" />
+      </dir> <!-- /test/Horde/Share/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="Base.php" role="test" />
       <file name="conf.php.dist" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="stress-test" role="test" />
      </dir> <!-- /test/Horde/Share -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -385,10 +411,12 @@ owns or has access to.</description>
    <install as="Horde/Share/Kolab.php" name="lib/Horde/Share/Kolab.php" />
    <install as="Horde/Share/Object.php" name="lib/Horde/Share/Object.php" />
    <install as="Horde/Share/Sql.php" name="lib/Horde/Share/Sql.php" />
+   <install as="Horde/Share/Sqlng.php" name="lib/Horde/Share/Sqlng.php" />
    <install as="Horde/Share/Translation.php" name="lib/Horde/Share/Translation.php" />
    <install as="Horde/Share/Object/Datatree.php" name="lib/Horde/Share/Object/Datatree.php" />
    <install as="Horde/Share/Object/Kolab.php" name="lib/Horde/Share/Object/Kolab.php" />
    <install as="Horde/Share/Object/Sql.php" name="lib/Horde/Share/Object/Sql.php" />
+   <install as="Horde/Share/Object/Sqlng.php" name="lib/Horde/Share/Object/Sqlng.php" />
    <install as="Horde/Share/Object/Datatree/Share.php" name="lib/Horde/Share/Object/Datatree/Share.php" />
    <install as="Horde/Share/Object/Sql/Hierarchical.php" name="lib/Horde/Share/Object/Sql/Hierarchical.php" />
    <install as="Horde/Share/Sql/Hierarchical.php" name="lib/Horde/Share/Sql/Hierarchical.php" />
@@ -483,6 +511,13 @@ owns or has access to.</description>
    <install as="Horde/Share/Autoload.php" name="test/Horde/Share/Autoload.php" />
    <install as="Horde/Share/Base.php" name="test/Horde/Share/Base.php" />
    <install as="Horde/Share/conf.php.dist" name="test/Horde/Share/conf.php.dist" />
+   <install as="Horde/Share/phpunit.xml" name="test/Horde/Share/phpunit.xml" />
+   <install as="Horde/Share/stress-test" name="test/Horde/Share/stress-test" />
+   <install as="Horde/Share/Kolab/MockTest.php" name="test/Horde/Share/Kolab/MockTest.php" />
+   <install as="Horde/Share/Kolab/UnitTest.php" name="test/Horde/Share/Kolab/UnitTest.php" />
+   <install as="Horde/Share/migration/sql.php" name="test/Horde/Share/migration/sql.php" />
+   <install as="Horde/Share/migration/sqlng.php" name="test/Horde/Share/migration/sqlng.php" />
+   <install as="Horde/Share/migration/sql_hierarchical.php" name="test/Horde/Share/migration/sql_hierarchical.php" />
    <install as="Horde/Share/Sql/Base.php" name="test/Horde/Share/Sql/Base.php" />
    <install as="Horde/Share/Sql/MysqliTest.php" name="test/Horde/Share/Sql/MysqliTest.php" />
    <install as="Horde/Share/Sql/MysqlTest.php" name="test/Horde/Share/Sql/MysqlTest.php" />
@@ -495,6 +530,13 @@ owns or has access to.</description>
    <install as="Horde/Share/SqlHierarchical/Pdo/MysqlTest.php" name="test/Horde/Share/SqlHierarchical/Pdo/MysqlTest.php" />
    <install as="Horde/Share/SqlHierarchical/Pdo/PgsqlTest.php" name="test/Horde/Share/SqlHierarchical/Pdo/PgsqlTest.php" />
    <install as="Horde/Share/SqlHierarchical/Pdo/SqliteTest.php" name="test/Horde/Share/SqlHierarchical/Pdo/SqliteTest.php" />
+   <install as="Horde/Share/Sqlng/Base.php" name="test/Horde/Share/Sqlng/Base.php" />
+   <install as="Horde/Share/Sqlng/MysqliTest.php" name="test/Horde/Share/Sqlng/MysqliTest.php" />
+   <install as="Horde/Share/Sqlng/MysqlTest.php" name="test/Horde/Share/Sqlng/MysqlTest.php" />
+   <install as="Horde/Share/Sqlng/Pdo/MysqlTest.php" name="test/Horde/Share/Sqlng/Pdo/MysqlTest.php" />
+   <install as="Horde/Share/Sqlng/Pdo/PgsqlTest.php" name="test/Horde/Share/Sqlng/Pdo/PgsqlTest.php" />
+   <install as="Horde/Share/Sqlng/Pdo/SqliteTest.php" name="test/Horde/Share/Sqlng/Pdo/SqliteTest.php" />
+   <install as="Horde/Share/Stub/Group.php" name="test/Horde/Share/Stub/Group.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -563,7 +605,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-01-03</date>
+   <date>2011-01-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Converted to Horde 4 coding standards
