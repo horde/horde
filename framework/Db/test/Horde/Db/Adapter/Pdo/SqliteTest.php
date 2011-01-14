@@ -277,12 +277,12 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
     public function testQuoteTrue()
     {
-        $this->assertEquals("'t'", $this->_conn->quote(true));
+        $this->assertEquals('1', $this->_conn->quote(true));
     }
 
     public function testQuoteFalse()
     {
-        $this->assertEquals("'f'", $this->_conn->quote(false));
+        $this->assertEquals('0', $this->_conn->quote(false));
     }
 
     public function testQuoteString()

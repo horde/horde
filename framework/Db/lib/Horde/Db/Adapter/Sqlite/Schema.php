@@ -48,6 +48,22 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         return '"' . str_replace('"', '""', $name) . '"';
     }
 
+    /**
+     * @return  string
+     */
+    public function quoteTrue()
+    {
+        return '1';
+    }
+
+    /**
+     * @return  string
+     */
+    public function quoteFalse()
+    {
+        return '0';
+    }
+
 
     /*##########################################################################
     # Schema Statements
