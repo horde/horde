@@ -35,6 +35,12 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Share_Kolab_UnitTest
 extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        if (!interface_exists('Horde_Kolab_Storage')) {
+            $this->markTestSkipped('The Kolab_Storage package seems to be unavailable.');
+        }
+    }
 
     public function testGetStorage()
     {
@@ -51,6 +57,32 @@ extends PHPUnit_Framework_TestCase
     {
         $driver = $this->_getDriver();
         $driver->getStorage();
+    }
+
+    public function testListArray()
+    {
+        $this->assertType(
+            'array',
+            $this->_getCompleteDriver()->listShares('john')
+        );
+    }
+
+    private function _getCompleteDriver()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $driver = $this->_getDriver();
+        $driver->setStorage(
+            $factory->createFromParams(
+                array(
+                    'driver' => 'mock',
+                    'data'   => array('user/john' => array()),
+                    'cache'  => new Horde_Cache(
+                        new Horde_Cache_Storage_Mock()
+                    ),
+                )
+            )
+        );
+        return $driver;
     }
 
     private function _getDriver()

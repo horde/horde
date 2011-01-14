@@ -40,5 +40,12 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         self::$share = new Horde_Share_Kolab('test', 'john', new Horde_Perms(), $group);
     }
 
+    public function setUp()
+    {
+        if (!class_exists('Horde_Kolab_Storage')) {
+            $this->markTestSkipped('The Kolab_Storage package seems to be unavailable.');
+        }
+    }
+
 
 }

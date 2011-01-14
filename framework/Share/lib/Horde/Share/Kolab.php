@@ -65,6 +65,80 @@ class Horde_Share_Kolab extends Horde_Share_Base
         return $this->_storage;
     }
 
+    /**
+     * Returns an array of all shares that $userid has access to.
+     *
+     * @param string $userid     The userid of the user to check access for.
+     * @param array  $params     See listShares().
+     *
+     * @return array  The shares the user has access to.
+     */
+    protected function _listShares($userid, array $params = array())
+    {
+        return array();
+
+        $key = serialize(array($userid, $params['perm'], $params['attributes']));
+        if ($this->_storage === false) {
+            $this->_listcache[$key] = array();
+        } else if (empty($this->_listcache[$key])
+            || $this->_list->validity != $this->_listCacheValidity) {
+            $sharelist = $this->_storage->getByType($this->_type);
+            if ($sharelist instanceof PEAR_Error) {
+                throw new Horde_Share_Exception($sharelist->getMessage());
+            }
+
+            $shares = array();
+            foreach ($sharelist as $folder) {
+                $id = $folder->getShareId();
+                $share = $this->getShare($id);
+                $keep = true;
+                if (!$share->hasPermission($userid, $params['perm'])) {
+                    $keep = false;
+                }
+                if (isset($params['attributes']) && $keep) {
+                    if (is_array($params['attributes'])) {
+                        foreach ($params['attributes'] as $key => $value) {
+                            if (!$share->get($key) == $value) {
+                                $keep = false;
+                                break;
+                            }
+                        }
+                    } elseif (!$share->get('owner') == $params['attributes']) {
+                        $keep = false;
+                    }
+                }
+                if ($keep) {
+                    $shares[] = $id;
+                }
+            }
+            $this->_listcache[$key] = $shares;
+            $this->_listCacheValidity = $this->_storage->validity;
+        }
+
+        return $this->_listcache[$key];
+    }
+
+
+    /**
+     * Lists *all* shares for the current app/share, regardless of
+     * permissions.
+     *
+     * For the Kolab backend this cannot work in the same way as for the SQL
+     * based backend. Permissions are always handled by the backend automatically (IMAP ACLs) and cannot be disabled.
+     *
+     * listAllShares() is apparently used during command line scipts where it
+     * represents administrator access. This is possible on Kolab by using the
+     * "manager" user. In that case a standard listShares() authenticated as
+     * "manager" should be sufficient.
+     *
+     * @return array  All shares for the current app/share.
+     */
+    protected function _listAllShares()
+    {
+        return array();
+    }
+
+
     private function _getFolderType($app)
     {
         switch ($app) {
@@ -153,70 +227,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $objects[$id] = &$result;
         }
         return $objects;
-    }
-
-    /**
-     * Lists *all* shares for the current app/share, regardless of
-     * permissions.
-     *
-     * Currently not implemented in this class.
-     *
-     * @return array  All shares for the current app/share.
-     */
-    protected function _listAllShares()
-    {
-        return array();
-    }
-
-    /**
-     * Returns an array of all shares that $userid has access to.
-     *
-     * @param string $userid     The userid of the user to check access for.
-     * @param array  $params     See listShares().
-     *
-     * @return array  The shares the user has access to.
-     */
-    protected function _listShares($userid, array $params = array())
-    {
-        $key = serialize(array($this->_type, $userid, $params['perm'], $params['attributes']));
-        if ($this->_storage === false) {
-            $this->_listCache[$key] = array();
-        } else if (empty($this->_listCache[$key])
-            || $this->_list->validity != $this->_listCacheValidity) {
-            $sharelist = $this->_storage->getByType($this->_type);
-            if ($sharelist instanceof PEAR_Error) {
-                throw new Horde_Share_Exception($sharelist->getMessage());
-            }
-
-            $shares = array();
-            foreach ($sharelist as $folder) {
-                $id = $folder->getShareId();
-                $share = $this->getShare($id);
-                $keep = true;
-                if (!$share->hasPermission($userid, $params['perm'])) {
-                    $keep = false;
-                }
-                if (isset($params['attributes']) && $keep) {
-                    if (is_array($params['attributes'])) {
-                        foreach ($params['attributes'] as $key => $value) {
-                            if (!$share->get($key) == $value) {
-                                $keep = false;
-                                break;
-                            }
-                        }
-                    } elseif (!$share->get('owner') == $params['attributes']) {
-                        $keep = false;
-                    }
-                }
-                if ($keep) {
-                    $shares[] = $id;
-                }
-            }
-            $this->_listCache[$key] = $shares;
-            $this->_listCacheValidity = $this->_storage->validity;
-        }
-
-        return $this->_listCache[$key];
     }
 
     /**
