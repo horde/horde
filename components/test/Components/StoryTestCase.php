@@ -295,7 +295,8 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'calling the package with the distribute option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
-                '--distribute=' . $this->_getTemporaryDirectory() . '/package.spec',
+                '--templatedir=' . dirname(__FILE__) . '/fixture/templates/distribute/openpkg',
+                '--distribute=' . $this->_getTemporaryDirectory(),
                 dirname(__FILE__) . '/fixture/framework/Install'
             );
             $world['output'] = $this->_callUnstrictComponents();
@@ -620,7 +621,7 @@ extends PHPUnit_Extensions_Story_TestCase
             $this->assertTrue(
                 file_exists(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
-                    . 'package.spec'
+                    . 'Install.spec'
                 )
             );
             break;

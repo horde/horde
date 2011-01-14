@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-12</date>
- <time>10:29:42</time>
+ <date>2011-01-14</date>
+ <time>15:17:04</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -46,7 +46,15 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="data">
-    <file name="distribute_package.spec" role="data" />
+    <dir name="distribute">
+     <dir name="openpkg">
+      <file name="package.spec" role="data" />
+     </dir> <!-- /data/distribute/openpkg -->
+    </dir> <!-- /data/distribute -->
+    <dir name="html">
+     <file name="index.html" role="doc" />
+     <file name="install.html" role="doc" />
+    </dir> <!-- /data/html -->
     <file name="hudson-component-build.xml.template" role="data" />
     <file name="hudson-component-config.xml.template" role="data" />
     <file name="hudson-component-phpunit.xml.template" role="data" />
@@ -70,7 +78,6 @@
       </dir> <!-- /lib/Components/Helper/Template -->
       <dir name="Templates">
        <file name="Directory.php" role="php" />
-       <file name="Prefix.php" role="php" />
        <file name="Single.php" role="php" />
       </dir> <!-- /lib/Components/Helper/Templates -->
       <file name="InstallationRun.php" role="php" />
@@ -117,6 +124,7 @@
       <file name="Dependencies.php" role="php" />
       <file name="DevPackage.php" role="php" />
       <file name="Distribute.php" role="php" />
+      <file name="Document.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
@@ -211,6 +219,18 @@
         <file name="one" role="test" />
         <file name="two" role="test" />
        </dir> <!-- /test/Components/fixture/templates/dir -->
+       <dir name="distribute">
+        <dir name="openpkg">
+         <file name="package.spec" role="test" />
+        </dir> <!-- /test/Components/fixture/templates/distribute/openpkg -->
+       </dir> <!-- /test/Components/fixture/templates/distribute -->
+       <dir name="html">
+        <file name="index.html" role="test" />
+        <file name="install.html" role="test" />
+       </dir> <!-- /test/Components/fixture/templates/html -->
+       <dir name="rewrite">
+        <file name="one" role="test" />
+       </dir> <!-- /test/Components/fixture/templates/rewrite -->
        <file name="hudson-component-build.xml.template" role="test" />
        <file name="hudson-component-config.xml.template" role="test" />
        <file name="hudson-component-phpunit.xml.template" role="test" />
@@ -237,6 +257,7 @@
      <dir name="Unit">
       <dir name="Components">
        <dir name="Helper">
+        <file name="rewritten" role="test" />
         <file name="TemplatesTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Helper -->
        <dir name="Pear">
@@ -306,10 +327,12 @@
  <phprelease>
   <filelist>
    <install as="horde-components" name="bin/horde-components" />
-   <install as="distribute_package.spec" name="data/distribute_package.spec" />
    <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
    <install as="hudson-component-config.xml.template" name="data/hudson-component-config.xml.template" />
    <install as="hudson-component-phpunit.xml.template" name="data/hudson-component-phpunit.xml.template" />
+   <install as="distribute/openpkg/package.spec" name="data/distribute/openpkg/package.spec" />
+   <install as="html/index.html" name="data/html/index.html" />
+   <install as="html/install.html" name="data/html/install.html" />
    <install as="Components.php" name="lib/Components.php" />
    <install as="Components/Config.php" name="lib/Components/Config.php" />
    <install as="Components/Configs.php" name="lib/Components/Configs.php" />
@@ -331,7 +354,6 @@
    <install as="Components/Helper/Template/Php.php" name="lib/Components/Helper/Template/Php.php" />
    <install as="Components/Helper/Template/Printf.php" name="lib/Components/Helper/Template/Printf.php" />
    <install as="Components/Helper/Templates/Directory.php" name="lib/Components/Helper/Templates/Directory.php" />
-   <install as="Components/Helper/Templates/Prefix.php" name="lib/Components/Helper/Templates/Prefix.php" />
    <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
@@ -359,6 +381,7 @@
    <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
    <install as="Components/Runner/DevPackage.php" name="lib/Components/Runner/DevPackage.php" />
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
+   <install as="Components/Runner/Document.php" name="lib/Components/Runner/Document.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="Components/Runner/PearPackageXml.php" name="lib/Components/Runner/PearPackageXml.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
@@ -398,6 +421,10 @@
    <install as="Components/fixture/templates/variables.template" name="test/Components/fixture/templates/variables.template" />
    <install as="Components/fixture/templates/dir/one" name="test/Components/fixture/templates/dir/one" />
    <install as="Components/fixture/templates/dir/two" name="test/Components/fixture/templates/dir/two" />
+   <install as="Components/fixture/templates/distribute/openpkg/package.spec" name="test/Components/fixture/templates/distribute/openpkg/package.spec" />
+   <install as="Components/fixture/templates/html/index.html" name="test/Components/fixture/templates/html/index.html" />
+   <install as="Components/fixture/templates/html/install.html" name="test/Components/fixture/templates/html/install.html" />
+   <install as="Components/fixture/templates/rewrite/one" name="test/Components/fixture/templates/rewrite/one" />
    <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
    <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
    <install as="Components/Integration/Components/Module/DependenciesTest.php" name="test/Components/Integration/Components/Module/DependenciesTest.php" />
@@ -406,6 +433,7 @@
    <install as="Components/Integration/Components/Module/DocumentTest.php" name="test/Components/Integration/Components/Module/DocumentTest.php" />
    <install as="Components/Integration/Components/Module/InstallerTest.php" name="test/Components/Integration/Components/Module/InstallerTest.php" />
    <install as="Components/Integration/Components/Module/PearPackageXmlTest.php" name="test/Components/Integration/Components/Module/PearPackageXmlTest.php" />
+   <install as="Components/Unit/Components/Helper/rewritten" name="test/Components/Unit/Components/Helper/rewritten" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
    <install as="COPYING" name="COPYING" />
@@ -422,7 +450,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-12</date>
+   <date>2011-01-14</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

@@ -88,11 +88,9 @@ class Components_Runner_Distribute
         $version = $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M');
         $package->generateSnapshot($version, dirname($options['distribute']));
 
-        $build_template = new Components_Helper_Templates_Prefix(
+        $build_template = new Components_Helper_Templates_Directory(
             $this->_config_application->getTemplateDirectory(),
-            dirname($options['distribute']),
-            'distribute_',
-            basename($options['distribute'])
+            $options['distribute']
         );
         $build_template->write(
             array('package' => $package, 'version' => $version)
