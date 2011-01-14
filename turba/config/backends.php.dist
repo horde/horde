@@ -203,13 +203,13 @@ $cfgSources['localsql'] = array(
         // To use another DB connection, you must provide configuration
         // information here - for example,
         //'sql' => array(
-        //    'persistent' => true,
+        //    'persistent' => false,
         //    'username' => 'horde',
-        //    'password' => 'xxx',
-        //    'socket' => '/opt/local/var/run/mysql5/mysqld.sock',
+        //    'password' => 'secret',
+        //    'socket' => '/var/run/mysqld/mysqld.sock',
         //    'protocol' => 'unix',
         //    'database' => 'horde',
-        //    'charset' => 'iso-8859-1',
+        //    'charset' => 'utf-8',
         //    'ssl' => false,
         //    'splitread' => false,
         //    'phptype' => 'mysql'
