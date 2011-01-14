@@ -932,17 +932,8 @@ class Horde_Crypt_Smime extends Horde_Crypt
             case 0x02:
                 // Integer type
                 $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-
-                $integer_data = substr($data, 2 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
+                $integer_data = substr($data, 2, $len);
+                $data = substr($data, 2 + $len);
 
                 $value = 0;
                 if ($len <= 4) {
