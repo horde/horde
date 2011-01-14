@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script verifies that the logger was initialized without errors.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
+ */
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
+
+// Ensure Logger object was initialized.
+$injector->getInstance('Horde_Log_Logger');
+
+if ($error = $injector->getInstance('Horde_Core_Factory_Logger')->error) {
+    $cli->fatal($error);
+} else {
+    $cli->message('Logger successfully loaded', 'cli.success');
+    Horde::logMessage('Test log message.');
+    $cli->message('Sent test log message.');
+}

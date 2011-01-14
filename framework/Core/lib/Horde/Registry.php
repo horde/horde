@@ -2075,7 +2075,7 @@ class Horde_Registry
      */
     public function setAuth($authId, $credentials, array $options = array())
     {
-        global $session;
+        global $browser, $injector, $session;
 
         $app = empty($options['app'])
             ? 'horde'
@@ -2088,7 +2088,7 @@ class Horde_Registry
         }
 
         $session->set('horde', 'auth/authId', $authId);
-        $session->set('horde', 'auth/browser', $GLOBALS['browser']->getAgentString());
+        $session->set('horde', 'auth/browser', $browser->getAgentString());
         if (!empty($options['change'])) {
             $session->set('horde', 'auth/change', 1);
         }
@@ -2103,10 +2103,20 @@ class Horde_Registry
 
         /* Reload preferences for the new user. */
         unset($GLOBALS['prefs']);
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
+        $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
         $this->setLanguageEnvironment(isset($options['language']) ? $options['language'] : null, $app);
+
+        /* If an admin, check for logger errors. */
+        if ($this->isAdmin()) {
+            // Do this to ensure Logger object was initialized.
+            $injector->getInstance('Horde_Log_Logger');
+
+            if ($error = $injector->getInstance('Horde_Core_Factory_Logger')->error) {
+                $injector->getInstance('Horde_Notification')->push($error, 'horde.warning');
+            }
+        }
     }
 
     /**
