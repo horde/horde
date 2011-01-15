@@ -135,7 +135,7 @@ abstract class Ansel_View_Base
         }
 
         if (empty($galleryId) && empty($slug)) {
-            throw new InvalidArgumentException(_("No gallery specified"));
+            throw new Ansel_Exception(_("No gallery specified"));
         }
 
         // If we have a slug, use it.
