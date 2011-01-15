@@ -81,6 +81,7 @@ class IMP_Dimp
         // loading CSS/JS. See:
         // http://developer.yahoo.com/performance/rules.html#flush
         echo Horde::endBuffer();
+        flush();
     }
 
     /**
