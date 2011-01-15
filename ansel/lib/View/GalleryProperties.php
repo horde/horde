@@ -360,11 +360,12 @@ class Ansel_View_GalleryProperties
             } catch (Ansel_Exception $e) {
                 $galleryId = null;
                 $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),
-                                 $gallery_name, $gallery->getMessage());
+                                 $gallery_name, $e->getMessage());
                 Horde::logMessage($error, 'ERR');
                 $GLOBALS['notification']->push($error, 'horde.error');
+                Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
+                exit;
             }
-
         }
 
         // Make sure that the style hash is recorded, ignoring non-styled thumbs
