@@ -67,6 +67,51 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetTypeString()
+    {
+        $driver = new Horde_Share_Kolab(
+            'mnemo', 'john', new Horde_Perms(), new Horde_Group_Test()
+        );        
+        $this->assertType('string', $driver->getType());
+    }
+
+    public function testMnemoSupport()
+    {
+        $driver = new Horde_Share_Kolab(
+            'mnemo', 'john', new Horde_Perms(), new Horde_Group_Test()
+        );        
+        $this->assertEquals('note', $driver->getType());
+    }
+
+    public function testKronolithSupport()
+    {
+        $driver = new Horde_Share_Kolab(
+            'kronolith', 'john', new Horde_Perms(), new Horde_Group_Test()
+        );        
+        $this->assertEquals('event', $driver->getType());
+    }
+
+    public function testTurbaSupport()
+    {
+        $driver = new Horde_Share_Kolab(
+            'turba', 'john', new Horde_Perms(), new Horde_Group_Test()
+        );        
+        $this->assertEquals('contact', $driver->getType());
+    }
+
+    public function testNagSupport()
+    {
+        $driver = new Horde_Share_Kolab(
+            'nag', 'john', new Horde_Perms(), new Horde_Group_Test()
+        );        
+        $this->assertEquals('task', $driver->getType());
+    }
+
+    /**
+     * @todo: Reminder: Check that external modification of the Storage system
+     * works (former list->validity).
+     */
+
     private function _getCompleteDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();
@@ -88,7 +133,7 @@ extends PHPUnit_Framework_TestCase
     private function _getDriver()
     {
         return new Horde_Share_Kolab(
-            'test', 'john', new Horde_Perms(), new Horde_Group_Test()
+            'mnemo', 'john', new Horde_Perms(), new Horde_Group_Test()
         );
     }
 }

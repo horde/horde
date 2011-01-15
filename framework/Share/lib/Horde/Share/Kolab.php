@@ -27,7 +27,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     protected $_storage;
 
     /**
-     * The share type
+     * The folder type in the storage backend.
      *
      * @var string
      */
@@ -39,6 +39,36 @@ class Horde_Share_Kolab extends Horde_Share_Base
      * @var int
      */
     protected $_listCacheValidity;
+
+    /**
+     * Constructor.
+     *
+     * @param string $app          The application that the shares belong to
+     * @param string $user         The current user
+     * @param Horde_Perms $perms   The permissions object
+     * @param Horde_Group $groups  The Horde_Group object
+     *
+     */
+    public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
+    {
+        switch ($app) {
+        case 'mnemo':
+            $this->_type = 'note';
+            break;
+        case 'kronolith':
+            $this->_type = 'event';
+            break;
+        case 'turba':
+            $this->_type = 'contact';
+            break;
+        case 'nag':
+            $this->_type = 'task';
+            break;
+        default:
+            throw new Horde_Share_Exception(sprintf(Horde_Share_Translation::t("The Horde/Kolab integration engine does not support \"%s\""), $app));
+        }
+        parent::__construct($app, $user, $perms, $groups);
+    }
 
     /**
      * Set the Kolab storage backend.
@@ -138,23 +168,17 @@ class Horde_Share_Kolab extends Horde_Share_Base
         return array();
     }
 
-
-    private function _getFolderType($app)
+    /**
+     * Return the type of folder this share driver will access in the Kolab
+     * storage backend (depends on the application calling the share driver).
+     *
+     * @return string
+     */
+    public function getType()
     {
-        switch ($app) {
-        case 'mnemo':
-            return 'note';
-        case 'kronolith':
-            return 'event';
-        case 'turba':
-            return 'contact';
-        case 'nag':
-            return 'task';
-        default:
-            throw new Horde_Share_Exception(sprintf(Horde_Share_Translation::t("The Horde/Kolab integration engine does not support \"%s\""), $app));
-        }
+        return $this->_type;
     }
-
+    
     /**
      * (re)connect the share object to this share driver. Userful for when
      * share objects are unserialized from a cache separate from the share
