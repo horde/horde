@@ -88,7 +88,7 @@ class Horde
     {
         /* Chicken/egg: wait until we have basic framework setup before we
          * start logging. */
-        if (isset($GLOBALS['conf'])) {
+        if (isset($GLOBALS['conf']) && isset($GLOBALS['injector'])) {
             $options['trace'] = 2;
             $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
         }
