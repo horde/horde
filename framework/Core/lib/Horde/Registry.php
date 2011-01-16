@@ -282,7 +282,7 @@ class Horde_Registry
         /* Define autoloader callbacks. */
         $callbacks = array(
             'Horde_Mime' => 'Horde_Core_Autoloader_Callback_Mime',
-            'Horde_Nls' => 'Horde_Core_Autoloader_Callback_Nls'
+            'Horde_Nls' => 'Horde_Core_Autoloader_Callback_Nls',
         );
 
         /* Define factories. By default, uses the 'create' method in the given
