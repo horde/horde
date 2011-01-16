@@ -15,65 +15,29 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     const VERSION = 2;
 
     /**
-     * The Kolab folder this share is based on.
-     *
-     * @var Kolab_Folder
-     */
-    protected $_folder;
-
-    /**
-     * The Kolab folder name.
+     * The share id.
      *
      * @var string
      */
-    protected $_folder_name;
+    private $_id;
 
     /**
-     * A cache for the share attributes.
+     * The share attributes.
      *
      * @var array
      */
     protected $_data;
 
     /**
-     * Our Kolab folder list handler
-     *
-     * @var Kolab_List
-     */
-    protected $_list;
-
-    /**
      * Constructor.
      *
-     * Sets the folder name.
-     *
-     * @param string $id  The share id.
+     * @param string $id    The share id.
+     * @param array  $data  The share data.
      */
-    public function __construct($id, $type)
+    public function __construct($id, array $data = array())
     {
-        // We actually ignore the random id string that all horde apps provide
-        // as initial name and wait for a set('name', 'xyz') call. But we want
-        // to know if we should create a default share.
-        if ($id == $GLOBALS['registry']->getAuth()) {
-            $this->_data['default'] = true;
-        } else {
-            $this->_data['default'] = false;
-        }
-        $this->_type = $type;
-        $this->__wakeup();
-    }
-
-    /**
-     * Associates a Share object with this share.
-     *
-     * @param Horde_Share $shareOb  The Share object.
-     */
-    public function setShareOb($shareOb)
-    {
-        $this->_list = $shareOb->getStorage();
-        if (isset($this->_folder_name)) {
-            $this->_folder = $this->_list->getFolder($this->_folder_name);
-        }
+        $this->_id   = $id;
+        $this->_data = $data;
     }
 
     /**
@@ -85,8 +49,8 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     {
         return serialize(array(
             self::VERSION,
+            $this->_id,
             $this->_data,
-            $this->_folder_name,
             $this->_shareCallback
         ));
     }
@@ -105,8 +69,8 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
             throw new Exception('Cache version change');
         }
 
-        $this->_data = $data[1];
-        $this->_folder_name = $data[2];
+        $this->_id = $data[1];
+        $this->_data = $data[2];
         if (empty($data[3])) {
             throw new Exception('Missing callback for unserializing Horde_Share_Object');
         }
@@ -138,29 +102,13 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     }
 
     /**
-     * Sets the folder for this storage object.
-     *
-     * @param string $folder  Name of the Kolab folder.
-     * @param array  $perms  The permissions of the folder if they are known.
-     */
-    public function setFolder($folder)
-    {
-        if (!isset($this->_folder)) {
-            $this->_folder = $folder;
-            $this->_folder_name = $folder->name;
-        } else {
-            throw new Horde_Share_Exception(Horde_Share_Translation::t("The share has already been initialized!"));
-        }
-    }
-
-    /**
      * Returns the ID of this share.
      *
      * @return string  The share's ID.
      */
     public function getId()
     {
-        return $this->_folder->getShareId();
+        return $this->_id;
     }
 
     /**
@@ -170,7 +118,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      */
     public function getName()
     {
-        return $this->_folder->getShareId();
+        return $this->_id;
     }
 
     /**
@@ -302,19 +250,6 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     }
 
     /**
-     * Delete this share.
-     *
-     * @return boolean|PEAR_Error  True on success.
-     */
-    public function delete()
-    {
-        if (!isset($this->_folder)) {
-            return $this->_folderError();
-        }
-        return $this->_folder->delete();
-    }
-
-    /**
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.
@@ -359,16 +294,5 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
             return $this->_folderError();
         }
         return $this->_folder->setPermission($perms, $update);
-    }
-
-    /**
-     * Return a standard error in case the share has not been
-     * correctly initialized.
-     *
-     * @throws Horde_Share_Exception
-     */
-    protected function _folderError()
-    {
-        throw new Horde_Share_Exception(Horde_Share_Translation::t("The Kolab share object has not been initialized yet!"));
     }
 }

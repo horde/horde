@@ -105,7 +105,12 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _listShares($userid, array $params = array())
     {
-        return array();
+        return array_map(
+            'rawurlencode',
+            $this->_storage->getList()
+            ->getQuery('Base')
+            ->listByType($this->_type)
+        );
 
         $key = serialize(array($userid, $params['perm'], $params['attributes']));
         if ($this->_storage === false) {
@@ -192,40 +197,29 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
-     * Returns a Horde_Share_Object_kolab object of the request folder.
+     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * share name, with the details retrieved appropriately.
      *
-     * @param string $object  The share to fetch.
+     * @param string $name  The name of the share to retrieve.
      *
-     * @return Horde_Share_Object_kolab  The share object.
+     * @return Horde_Share_Object  The requested share.
+     * @throws Horde_Exception_NotFound
      * @throws Horde_Share_Exception
      */
-    protected function _getShare($object)
+    protected function _getShare($name)
     {
-        if (empty($object)) {
-            throw new Horde_Share_Exception('No object requested.');
-        }
-
-        /* Get the corresponding folder for this share ID */
-        $folder = $this->_storage->getByShare($object, $this->_type);
-
-        /* Does the folder exist? */
-        if (!$folder->exists()) {
-            throw new Horde_Share_Exception(sprintf(Horde_Share_Translation::t("Share \"%s\" does not exist."), $object));
-        }
-
-        /* Create the object from the folder */
-        $share = new Horde_Share_Object_Kolab($object, $this->_type);
-        $share->setFolder($folder);
-
-        return $share;
+        //@todo: get $data from the list cache.
+        return new Horde_Share_Object_Kolab($name);
     }
 
     /**
-     * Returns a Horde_Share_Object_kolab object of the requested folder.
+     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * unique ID, with the details retrieved appropriately.
      *
-     * @param string $id  The id of the share to fetch.
+     * @param integer $id  The id of the share to retrieve.
      *
-     * @return Horde_Share_Object_kolab  The share object.
+     * @return Horde_Share_Object_sql  The requested share.
+     * @throws Horde_Share_Exception, Horde_Exception_NotFound
      */
     protected function _getShareById($id)
     {
@@ -244,11 +238,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     {
         $objects = array();
         foreach ($ids as $id) {
-            $result = &$this->_getShare($id);
-            if ($result instanceof PEAR_Error) {
-                return $result;
-            }
-            $objects[$id] = &$result;
+            $objects[$id] = $this->_getShare($id);
         }
         return $objects;
     }
