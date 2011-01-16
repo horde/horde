@@ -575,6 +575,7 @@ body.login-form {
     padding-bottom: 10px;
     background: #eee;
     white-space: nowrap;
+    text-align: left;
 }
 #sidebarPanel a, #sidebarPanel span {
     color: #000;
