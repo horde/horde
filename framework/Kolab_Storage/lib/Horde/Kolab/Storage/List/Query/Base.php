@@ -105,6 +105,28 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * List basic folder data for the folders of a specific type.
+     *
+     * @param string $type The folder type the listing should be limited to.
+     *
+     * @return array The list of folders.
+     */
+    public function dataByType($type)
+    {
+        $result = array();
+        $namespace = $this->_list->getNamespace();
+        foreach ($this->listTypes() as $folder => $folder_type) {
+            if ($folder_type == $type) {
+                $result[$folder] = array(
+                    'owner' => $namespace->getOwner($folder),
+                    'name' => $namespace->getTitle($folder),
+                );
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Get the folder owners.
      *
      * @return array The folder owners with the folder names as key and the

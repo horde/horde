@@ -45,6 +45,15 @@ extends Horde_Kolab_Storage_Query
     public function listFolderTypeAnnotations();
 
     /**
+     * List basic folder data for the folders of a specific type.
+     *
+     * @param string $type The folder type the listing should be limited to.
+     *
+     * @return array The list of folders.
+     */
+    public function dataByType($type);
+
+    /**
      * List all folders of a specific type.
      *
      * @param string $type The folder type the listing should be limited to.

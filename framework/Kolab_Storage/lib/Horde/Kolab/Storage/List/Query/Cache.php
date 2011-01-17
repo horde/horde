@@ -117,7 +117,24 @@ implements Horde_Kolab_Storage_List_Query
     {
         $by_type = $this->_list_cache->getQuery(self::BY_TYPE);
         if (isset($by_type[$type])) {
-            return $by_type[$type];
+            return array_keys($by_type[$type]);
+        } else {
+            return array();
+        }
+    }
+
+    /**
+     * List basic folder data for the folders of a specific type.
+     *
+     * @param string $type The folder type the listing should be limited to.
+     *
+     * @return array The list of folders.
+     */
+    public function dataByType($type)
+    {
+        $data_by_type = $this->_list_cache->getQuery(self::BY_TYPE);
+        if (isset($data_by_type[$type])) {
+            return $data_by_type[$type];
         } else {
             return array();
         }
@@ -199,30 +216,30 @@ implements Horde_Kolab_Storage_List_Query
      */
     public function synchronize()
     {
-        $types = array();
-        $by_type = array();
-        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
-            $type = $annotation->getType();
-            $types[$folder] = $type;
-            $by_type[$type][] = $folder;
-        }
-        $this->_list_cache->setQuery(self::TYPES, $types);
-        $this->_list_cache->setQuery(self::BY_TYPE, $by_type);
+        $namespace = $this->_list->getNamespace();
 
         $owners = array();
-        $namespace = $this->_list->getNamespace();
         foreach ($this->_list->listFolders() as $folder) {
             $owners[$folder] = $namespace->getOwner($folder);
         }
         $this->_list_cache->setQuery(self::OWNERS, $owners);
 
+        $types = array();
+        $by_type = array();
         $personal_defaults = array();
         $defaults = array();
-        $namespace = $this->_list->getNamespace();
+
         foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
+            $type = $annotation->getType();
+            $owner = $namespace->getOwner($folder);
+            $title = $namespace->getTitle($folder);
+
+            $types[$folder] = $type;
+            $by_type[$type][$folder] = array(
+                'owner' => $owner, 'name' => $title
+            );
+
             if ($annotation->isDefault()) {
-                $type = $annotation->getType();
-                $owner = $namespace->getOwner($folder);
                 if (!isset($defaults[$owner][$type])) {
                     $defaults[$owner][$type] = $folder;
                 } else {
@@ -252,6 +269,8 @@ implements Horde_Kolab_Storage_List_Query
                 }
             }
         }
+        $this->_list_cache->setQuery(self::TYPES, $types);
+        $this->_list_cache->setQuery(self::BY_TYPE, $by_type);
         $this->_list_cache->setQuery(self::DEFAULTS, $defaults);
         $this->_list_cache->setQuery(
             self::PERSONAL_DEFAULTS, $personal_defaults

@@ -295,4 +295,47 @@ extends Horde_Kolab_Storage_TestCase
             $query->listDefaults()
         );
     }
+
+    public function testDataByTypeReturnsArray()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getNullList($factory));
+        $this->assertType('array', $query->dataByType('test'));
+    }
+
+    public function testListCalendarsListsCalendarData()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $this->assertEquals(array('INBOX/Calendar'), array_keys($query->dataByType('event')));
+    }
+
+    public function testListTasklistsListsTasklistData()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $this->assertEquals(array('INBOX/Tasks'), array_keys($query->dataByType('task')));
+    }
+
+    public function testListDataHasOwner()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $data = $query->dataByType('event');
+        $this->assertEquals(
+            'test@example.com',
+            $data['INBOX/Calendar']['owner']
+        );
+    }
+
+    public function testListDataHasTitle()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $query = $factory->createListQuery('Base', $this->getAnnotatedList($factory));
+        $data = $query->dataByType('event');
+        $this->assertEquals(
+            'Calendar',
+            $data['INBOX/Calendar']['name']
+        );
+    }
 }
