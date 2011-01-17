@@ -215,9 +215,9 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
      */
     protected function _configureConnection()
     {
-        if (!empty($this->_config['encoding'])) {
-            $this->last_query = 'SET client_encoding TO '.$this->quoteString($this->_config['encoding']);
-            $this->_connection->execute($this->last_query);
+        if (!empty($this->_config['charset'])) {
+            $this->last_query = 'SET client_encoding TO '.$this->quoteString($this->_config['charset']);
+            $this->execute($this->last_query);
         }
 
         if (!empty($this->_config['client_min_messages'])) $this->setClientMinMessages($this->_config['client_min_messages']);

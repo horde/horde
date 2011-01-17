@@ -140,17 +140,14 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Create a new PostgreSQL database.  Options include <tt>:owner</tt>, <tt>:template</tt>,
-     * <tt>:encoding</tt>, <tt>:tablespace</tt>, and <tt>:connection_limit</tt> (note that MySQL uses
-     * <tt>:charset</tt> while PostgreSQL uses <tt>:encoding</tt>).
+     * Creates a new PostgreSQL database.
      *
-     * Example:
-     *   create_database config[:database], config
-     *   create_database 'foo_development', :encoding => 'unicode'
+     * Options include: owner, template, charset, tablespace, and
+     * connection_limit.
      */
     public function createDatabase($name, $options = array())
     {
-        $options = array_merge(array('encoding' => 'utf8'), $options);
+        $options = array_merge(array('charset' => 'utf8'), $options);
 
         $optionString = '';
         foreach ($options as $key => $value) {
@@ -161,7 +158,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             case 'template':
                 $optionString .= " TEMPLATE = $value";
                 break;
-            case 'encoding':
+            case 'charset':
                 $optionString .= " ENCODING = '$value'";
                 break;
             case 'tablespace':
