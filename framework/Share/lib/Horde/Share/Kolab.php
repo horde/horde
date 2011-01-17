@@ -107,7 +107,8 @@ class Horde_Share_Kolab extends Horde_Share_Base
     {
         return array_map(
             'rawurlencode',
-            $this->_storage->getList()
+            $this->getStorage()
+            ->getList()
             ->getQuery('Base')
             ->listByType($this->_type)
         );
