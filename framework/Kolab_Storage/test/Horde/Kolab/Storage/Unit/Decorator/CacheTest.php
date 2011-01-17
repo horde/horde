@@ -51,4 +51,20 @@ extends Horde_Kolab_Storage_TestCase
             $storage->getList()
         );
     }
+
+    public function testFolder()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $base = $this->getMock('Horde_Kolab_Storage');
+        $base->expects($this->once())
+            ->method('getFolder')
+            ->with('test')
+            ->will($this->returnValue('FOLDER'));
+        $storage = new Horde_Kolab_Storage_Decorator_Cache(
+            $base,
+            new Horde_Kolab_Storage_Cache(null),
+            $factory
+        );
+        $this->assertEquals('FOLDER', $storage->getFolder('test'));
+    }
 }
