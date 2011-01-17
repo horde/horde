@@ -16,9 +16,9 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 {
     protected static $share;
 
-    public function testGetApp()
+    public function getApp($app)
     {
-        $this->assertEquals('test', self::$share->getApp());
+        $this->assertEquals($app, self::$share->getApp());
     }
 
     public function addShare()

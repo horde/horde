@@ -16,6 +16,11 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
 {
     protected static $db;
 
+    public function testGetApp()
+    {
+        $this->getApp('test');
+    }
+
     public function testSetTable()
     {
         $this->assertEquals('test_shares', self::$share->getTable());
