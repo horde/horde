@@ -22,7 +22,11 @@ class Horde_Share_SqlHierarchical_Pdo_PgsqlTest extends Horde_Share_Test_SqlHier
         }
         $config = self::getConfig('SHARE_SQL_PDO_PGSQL_TEST_CONFIG');
         if ($config) {
-            self::$db = new Horde_Db_Adapter_Pdo_Pgsql($config['share']['sql']['pdo_pgsql']);
+            try {
+                self::$db = new Horde_Db_Adapter_Pdo_Pgsql($config['share']['sql']['pdo_pgsql']);
+            } catch (Horde_Db_Exception $e) {
+                return;
+            }
             parent::setUpBeforeClass();
         }
     }

@@ -22,7 +22,11 @@ class Horde_Share_SqlHierarchical_Pdo_MysqlTest extends Horde_Share_Test_SqlHier
         }
         $config = self::getConfig('SHARE_SQL_PDO_MYSQL_TEST_CONFIG');
         if ($config) {
-            self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['share']['sql']['pdo_mysql']);
+            try {
+                self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['share']['sql']['pdo_mysql']);
+            } catch (Horde_Db_Exception $e) {
+                return;
+            }
             parent::setUpBeforeClass();
         }
     }
