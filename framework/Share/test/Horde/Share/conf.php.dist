@@ -23,5 +23,6 @@ $conf['share']['sql']['pdo_pgsql']['adapter'] = 'pdo_pgsql';
 $conf['share']['sql']['pdo_pgsql']['username'] = '';
 $conf['share']['sql']['pdo_pgsql']['password'] = '';
 $conf['share']['sql']['pdo_pgsql']['dbname'] = 'test';
+$conf['share']['sql']['pdo_pgsql']['charset'] = 'utf-8';
 $conf['share']['sql']['pdo_sqlite']['adapter'] = 'pdo_sqlite';
 $conf['share']['sql']['pdo_sqlite']['database'] = ':memory:';
