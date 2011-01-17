@@ -164,8 +164,6 @@ abstract class Ansel_View_GalleryRenderer_Base
                     (($conf['report_content']['allow'] == 'authenticated' &&
                       $GLOBALS['registry']->isAuthenticated()) ||
                      $conf['report_content']['allow'] == 'all')) {
-
-                    $this->view->addWidget(Ansel_Widget::factory('Actions'));
                 }
                 unset($this->style->widgets['Actions']);
             }
