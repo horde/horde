@@ -179,10 +179,6 @@ class Horde_Kolab_Storage_Factory
                 array('factory' => $this), $params
             );
             $query = new $name($list, $constructor_params);
-        } else if (strpos($name, 'Horde_Kolab_Storage_List_Query_') === false) {
-            $query = $this->createListQuery(
-                'Horde_Kolab_Storage_List_Query_' . $name, $list, $params
-            );
         } else {
             throw new Horde_Kolab_Storage_Exception(sprintf('No such query "%s"!', $name));
         }

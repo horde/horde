@@ -347,7 +347,9 @@ extends Horde_Kolab_Storage_TestCase
                 $cache
             )
         );
-        $query = $factory->createListQuery('Base', $list);
+        $query = $factory->createListQuery(
+            'Horde_Kolab_Storage_List_Query_Base', $list
+        );
         $list->registerQuery('Base', $query);
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Query',

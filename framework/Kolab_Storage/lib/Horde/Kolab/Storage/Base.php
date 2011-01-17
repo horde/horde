@@ -70,7 +70,9 @@ implements Horde_Kolab_Storage
             $this->_factory
         );
         $list->registerQuery(
-            'Base', $this->_factory->createListQuery('Base', $list)
+            'Base', $this->_factory->createListQuery(
+                'Horde_Kolab_Storage_List_Query_Base', $list
+            )
         );
         return $list;
     }

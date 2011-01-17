@@ -55,6 +55,14 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getNullQuery($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return $factory->createListQuery(
+            'Horde_Kolab_Storage_List_Query_Base', $this->getNullList($factory)
+        );
+    }
+
     protected function getEmptyMock()
     {
         return new Horde_Kolab_Storage_Driver_Mock(
@@ -146,6 +154,14 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Kolab_Storage_List_Base(
             $this->getAnnotatedMock($factory),
             $factory
+        );
+    }
+
+    protected function getAnnotatedQuery($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return $factory->createListQuery(
+            'Horde_Kolab_Storage_List_Query_Base', $this->getAnnotatedList($factory)
         );
     }
 
@@ -267,6 +283,14 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getNamespaceQuery($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return $factory->createListQuery(
+            'Horde_Kolab_Storage_List_Query_Base', $this->getNamespaceList($factory)
+        );
+    }
+
     protected function getForeignDefaultAccount()
     {
         return array(
@@ -302,6 +326,14 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Kolab_Storage_List_Base(
             $this->getForeignDefaultMock($factory),
             $factory
+        );
+    }
+
+    protected function getForeignDefaultQuery($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return $factory->createListQuery(
+            'Horde_Kolab_Storage_List_Query_Base', $this->getForeignDefaultList($factory)
         );
     }
 
@@ -363,6 +395,14 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getEventQuery($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return $factory->createListQuery(
+            'Horde_Kolab_Storage_List_Query_Base', $this->getEventList($factory)
+        );
+    }
+
     protected function getDoubleEventAccount()
     {
         return array(
@@ -408,6 +448,14 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Kolab_Storage_List_Base(
             $this->getDoubleEventMock($factory),
             $factory
+        );
+    }
+
+    protected function getDoubleEventQuery($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return $factory->createListQuery(
+            'Horde_Kolab_Storage_List_Query_Base', $this->getDoubleEventList($factory)
         );
     }
 
