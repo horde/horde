@@ -34,13 +34,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     protected $_type;
 
     /**
-     * A marker for the validity of the list cache
-     *
-     * @var int
-     */
-    protected $_listCacheValidity;
-
-    /**
      * Constructor.
      *
      * @param string $app          The application that the shares belong to
