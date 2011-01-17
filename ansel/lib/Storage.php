@@ -224,45 +224,6 @@ class Ansel_Storage
     }
 
     /**
-     * Check that a slug exists.
-     *
-     * @param string $slug  The slug name
-     *
-     * @return integer  The share_id the slug represents, or 0 if not found.
-     */
-    public function getGalleryIdFromSlug($slug)
-    {
-        // An empty slug should never match.
-        if (!strlen($slug)) {
-            return 0;
-        }
-
-        $stmt = $this->_db->prepare('SELECT share_id FROM '
-            . $this->_shares->getTable() . ' WHERE attribute_slug = ?');
-
-        if ($stmt instanceof PEAR_Error) {
-            Horde::logMessage($stmt, 'ERR');
-            return 0;
-        }
-
-        $result = $stmt->execute($slug);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            return 0;
-        }
-        if (!$result->numRows()) {
-            return 0;
-        }
-
-        $slug = $result->fetchRow();
-
-        $result->free();
-        $stmt->free();
-
-        return $slug[0];
-    }
-
-    /**
      * Retrieve an Ansel_Gallery given the gallery's slug
      *
      * @param string $slug  The gallery slug
@@ -274,12 +235,15 @@ class Ansel_Storage
      */
     public function getGalleryBySlug($slug, $overrides = array())
     {
-        $id = $this->getGalleryIdFromSlug($slug);
-        if ($id) {
-            return $this->getGallery($id, $overrides);
-        } else {
+        $shares = $this->_shares->listShares(
+            $GLOBALS['registry']->getAuth(),
+            array('attributes' => array('slug' => $slug)));
+
+        if (!count($shares)) {
             throw new Horde_Exception_NotFound(sprintf(_("Gallery %s not found."), $slug));
         }
+
+        return current($shares);
      }
 
     /**

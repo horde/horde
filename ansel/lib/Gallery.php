@@ -136,11 +136,12 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         }
 
         // Check for slug uniqueness
-        $slugGalleryId = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleryIdFromSlug($this->data['attribute_slug']);
-        if ($slugGalleryId > 0 && $slugGalleryId <> $this->id) {
-            throw InvalidArgumentException(
-                sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
-                        $this->data['attribute_slug']));
+        if (!empty($this->_oldSlug)) {
+            if ($GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists(null, $this->_data['attribute_slug'])) {
+                throw InvalidArgumentException(
+                    sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
+                            $this->data['attribute_slug']));
+            }
         }
 
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
@@ -915,6 +916,10 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
 
             $mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
             $this->_setModeHelper($mode);
+        }
+
+        if ($driver_key == 'attribute_slug') {
+            $this->_oldSlug = $this->data['attribute_slug'];
         }
 
         /* Need to serialize the style object */
