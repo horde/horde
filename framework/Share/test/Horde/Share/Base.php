@@ -25,6 +25,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     {
         $share = self::$share->newShare('john', 'myshare');
         $share->set('name', 'My Share');
+        $share->set('desc', '行事曆');
         $this->assertInstanceOf('Horde_Share_Object', $share);
         self::$share->addShare($share);
         return $share;
@@ -142,6 +143,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $myshare = self::$share->getShareById($shares[0]->getId());
         $this->assertInstanceOf('Horde_Share_Object', $myshare);
         $this->assertEquals($shares[0], $myshare);
+        $this->assertEquals('行事曆', $myshare->get('desc'));
 
         $janeshare = self::$share->getShareById($shares[1]->getId());
         $this->assertInstanceOf('Horde_Share_Object', $janeshare);
@@ -294,6 +296,10 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertType('array', $shares);
         $this->assertEquals(1, count($shares));
         $this->assertEquals($shareids[1], $shares[0]->getId());
+        $shares = array_values(self::$share->listShares('john', array('attributes' => array('desc' => '行事曆'))));
+        $this->assertType('array', $shares);
+        $this->assertEquals(1, count($shares));
+        $this->assertEquals($shareids[0], $shares[0]->getId());
     }
 
     public function listSystemShares()
