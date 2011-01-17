@@ -921,7 +921,7 @@ class Whups_QueryManager {
             $shares = $this->_shareManager->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => Horde_Perms::READ,
-                      'attribtues' => array('slug' => $slug)));
+                      'attributes' => array('slug' => $slug)));
         } catch (Horde_Share_Exception $e) {
             throw new Whups_Exception($e);
         }
