@@ -80,14 +80,9 @@ class Ansel_Api extends Horde_Registry_Api
                 // This request if for a certain gallery, list all sub-galleries
                 // and images.
                 $gallery_id = end($parts);
-                $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleries(array($gallery_id));
-                if (!isset($galleries[$gallery_id]) ||
-                    !$galleries[$gallery_id]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-
-                    throw new Horde_Exception_NotFound(_("Invalid gallery specified."));
-                }
                 $galleries = $storage->listGalleries(array('parent' => $gallery_id,
-                                                           'all_levels' => false));
+                                                           'all_levels' => false,
+                                                           'perm' => Horde_Perms::SHOW));
                 $images = $this->listImages(null, $gallery_id, Horde_Perms::SHOW, 'mini');
 
             } elseif (count($parts) > 2 &&
@@ -720,12 +715,10 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         // We can't just return the results of the getGalleries call - we need
-        // to ensure the caller has at least Horde_Perms::READ on the galleries.
+        // to build the non-object return structure.
         $galleries = array();
         foreach ($results as $gallery) {
-            if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-                $galleries[$gallery->id] = array_merge($gallery->data, array('crumbs' => $gallery->getGalleryCrumbData()));
-            }
+            $galleries[$gallery->id] = array_merge($gallery->data, array('crumbs' => $gallery->getGalleryCrumbData()));
         }
 
         return $galleries;

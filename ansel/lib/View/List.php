@@ -97,13 +97,7 @@ class Ansel_View_List extends Ansel_View_Base
             $this->_numGalleries = count($this->_params['gallery_ids']);
             if ($this->_numGalleries > $this->_start) {
                 $getThese = array_slice($this->_params['gallery_ids'], $this->_start, $this->_g_perPage);
-                $try = $ansel_storage->getGalleries($getThese);
-                $this->_galleryList = array();
-                foreach ($try as $id => $gallery) {
-                    if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
-                        $this->_galleryList[$id] = $gallery;
-                    }
-                }
+                $this->_galleryList = $ansel_storage->getGalleries($getThese);
             } else {
                 $this->_galleryList = array();
             }

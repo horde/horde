@@ -293,36 +293,41 @@ class Ansel_Storage
      * @return array of Ansel_Gallery objects
      * @throws Ansel_Exception
      */
-    public function getGalleriesBySlugs($slugs)
+    public function getGalleriesBySlugs(array $slugs, $perms = Horde_Perms::SHOW)
     {
-        $sql = 'SELECT share_id FROM ' . $this->_shares->getTable()
-            . ' WHERE attribute_slug IN (' . str_repeat('?, ', count($slugs) - 1) . '?)';
-
-        $stmt = $this->_shares->getReadDb()->prepare($sql);
-        if ($stmt instanceof PEAR_Error) {
-            throw new Horde_Exception($stmt->getMessage());
+        try {
+            return $this->_shares->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $perms, 'attribtues' => array('slugs' => $slugs)));
+        } catch (Horde_Share_Exception $e) {
+            throw new Ansel_Exception($e);
         }
-        $result = $stmt->execute($slugs);
-        if ($result instanceof PEAR_Error) {
-            throw new Ansel_Exception($result);
-        }
-        $ids = array_values($result->fetchCol());
-        $shares = $this->_shares->getShares($ids);
-
-        $stmt->free();
-        $result->free();
-
-        return $shares;
     }
 
     /**
      * Retrieve an array of Ansel_Gallery objects for the requested ids
      *
+     * @param array $ids      Gallery ids to fetch
+     * @param integer $perms  Horde_Perms constant for the perms required.
+     *
      * @return array of Ansel_Gallery objects
+     * @throws Ansel_Exception
      */
-    public function getGalleries($ids)
+    public function getGalleries(array $ids, $perms = Horde_Perms::SHOW)
     {
-        return $this->_shares->getShares($ids);
+        try {
+            $shares = $this->_shares->getShares($ids);
+        } catch (Horde_Share_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+        $galleries = array();
+        foreach ($shares as $id => $gallery) {
+            if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), $perms)) {
+                $galleries[$id] = $gallery;
+            }
+        }
+
+        return $galleries;
     }
 
     /**
