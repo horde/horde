@@ -359,7 +359,6 @@ class Horde_Share_Sql extends Horde_Share_Base
                                     'sort_by' => null,
                                     'direction' => 0),
                               $params);
-
         $key = md5(serialize(array($userid, $params)));
         if (!empty($this->_listcache[$key])) {
             return $this->_listcache[$key];
@@ -606,7 +605,12 @@ class Horde_Share_Sql extends Horde_Share_Base
             // Build attribute/key filter.
             $where = ' (' . $where . ') ';
             foreach ($attributes as $key => $value) {
-                $where .= ' AND ' . $key . ' = ' . $this->_db->quote($value);
+                if (is_array($value)) {
+                    $value = array_map(array($this->_db, 'quote'), $value);
+                    $where .= ' AND ' . $key . ' IN (' . implode(', ', $value) . ')';
+                } else {
+                    $where .= ' AND ' . $key . ' = ' . $this->_db->quote($value);
+                }
             }
         } elseif (!empty($attributes)) {
             // Restrict to shares owned by the user specified in the

@@ -166,12 +166,6 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                                      $attributes = null, $parent = null,
                                      $allLevels = true)
     {
-        if (is_object($parent)) {
-            $parent_id = $parent->getId();
-        } else {
-            $parent_id = $parent;
-        }
-
         $query = $where = '';
         if (!is_null($perm)) {
             list($query, $where) = $this->_getUserAndGroupCriteria($userid, $perm);
@@ -190,11 +184,11 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                 $where = ' (' . $where . ') ';
             }
             foreach ($attributes as $key => $value) {
-                $where .= ' AND ' . $key;
                 if (is_array($value)) {
-                    $where .= ' ' . $value[0]. ' ' . $this->_db->quote($value[1]);
+                    $value = array_map(array($this->_db, 'quote'), $value);
+                    $where .= ' AND ' . $key . ' IN (' . implode(', ', $value) . ')';
                 } else {
-                    $where .= ' = ' . $this->_db->quote($value);
+                    $where .= ' AND ' . $key . ' = ' . $this->_db->quote($value);
                 }
             }
         } elseif (!empty($attributes)) {
