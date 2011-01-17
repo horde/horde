@@ -136,7 +136,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
         }
 
         // Check for slug uniqueness
-        $slugGalleryId = $GLOBALS['injector']->getInstance('Ansel_Storage')->slugExists($this->data['attribute_slug']);
+        $slugGalleryId = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleryIdFromSlug($this->data['attribute_slug']);
         if ($slugGalleryId > 0 && $slugGalleryId <> $this->id) {
             throw InvalidArgumentException(
                 sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),

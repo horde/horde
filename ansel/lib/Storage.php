@@ -115,7 +115,7 @@ class Ansel_Storage
 
         /* Check for slug uniqueness */
         if (!empty($attributes['slug']) &&
-            $this->slugExists($attributes['slug'])) {
+            $this->galleryExists(null, $attributes['slug'])) {
             throw new Horde_Exception(sprintf(_("The slug \"%s\" already exists."), $attributes['slug']));
         }
 
@@ -230,7 +230,7 @@ class Ansel_Storage
      *
      * @return integer  The share_id the slug represents, or 0 if not found.
      */
-    public function slugExists($slug)
+    public function getGalleryIdFromSlug($slug)
     {
         // An empty slug should never match.
         if (!strlen($slug)) {
@@ -274,7 +274,7 @@ class Ansel_Storage
      */
     public function getGalleryBySlug($slug, $overrides = array())
     {
-        $id = $this->slugExists($slug);
+        $id = $this->getGalleryIdFromSlug($slug);
         if ($id) {
             return $this->getGallery($id, $overrides);
         } else {
@@ -741,10 +741,8 @@ class Ansel_Storage
     }
 
     /**
-     * Check if a gallery exists. Need to do this here instead of Horde_Share
-     * since Horde_Share_Base::exists() takes a share_name, not a share_id. We
-     * might also be checking by gallery_slug and this is more efficient than
-     * a listShares() call for one gallery.
+     * Check if a gallery exists. Need to do this here so we can also check by
+     * gallery slug.
      *
      * @param integer $gallery_id  The gallery id
      * @param string  $slug        The gallery slug
@@ -752,21 +750,15 @@ class Ansel_Storage
      * @return boolean
      * @throws Ansel_Exception
      */
-    public function galleryExists($gallery_id, $slug = null)
+    public function galleryExists($gallery_id = null, $slug = null)
     {
         if (empty($slug)) {
-            $results = $this->_db->queryOne(
-                'SELECT COUNT(share_id) FROM ' . $this->_shares->getTable()
-                . ' WHERE share_id = ' . (int)$gallery_id);
-            if ($results instanceof PEAR_Error) {
-                throw new Ansel_Exception($results);
-            }
-
-            return (bool)$results;
+            $results = $this->_shares->exists($gallery_id);
         } else {
-
-            return (bool)$this->slugExists($slug);
+            $results = $this->_shares->countShares($GLOBALS['registry']->getAuth(), Horde_Perms::READ, array('slug' => $slug));
         }
+
+        return (bool)$results;
     }
 
    /**
