@@ -450,4 +450,21 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         return $this->_db->selectValue($query);
     }
 
+    /**
+     * Checks if a share exists in the system.
+     *
+     * @param string $share  The share to check.
+     *
+     * @return boolean  True if the share exists.
+     * @throws Horde_Share_Exception
+     */
+    protected function _exists($share)
+    {
+        try {
+            return (boolean)$this->_db->selectOne('SELECT 1 FROM ' . $this->_table . ' WHERE share_id = ?', array($share));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
+    }
+
 }
