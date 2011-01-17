@@ -1617,16 +1617,14 @@ class Turba_Driver implements Countable
 
         // No explicit firstname/lastname in data source: we have to guess.
         if (!isset($hash['lastname']) && isset($hash['name'])) {
-            $i = strpos($hash['name'], ',');
-            if (is_int($i)) {
+            if (($pos = strpos($hash['name'], ',')) !== false) {
                 // Assume Last, First
-                $hash['lastname'] = Horde_String::substr($hash['name'], 0, $i);
-                $hash['firstname'] = trim(Horde_String::substr($hash['name'], $i + 1));
-            } elseif (is_int(strpos($hash['name'], ' '))) {
+                $hash['lastname'] = Horde_String::substr($hash['name'], 0, $pos);
+                $hash['firstname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
+            } elseif (($pos = Horde_String::rpos($hash['name'], ' ')) !== false) {
                 // Assume everything after last space as lastname
-                $i = strrpos($hash['name'], ' ');
-                $hash['lastname'] = trim(Horde_String::substr($hash['name'], $i + 1));
-                $hash['firstname'] = Horde_String::substr($hash['name'], 0, $i);
+                $hash['lastname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
+                $hash['firstname'] = Horde_String::substr($hash['name'], 0, $pos);
             } else {
                 $hash['lastname'] = $hash['name'];
                 $hash['firstname'] = '';

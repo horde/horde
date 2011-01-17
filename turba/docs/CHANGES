@@ -16,6 +16,7 @@ v3.0-git
 v2.3.6-cvs
 ----------
 
+[jan] Fix splitting up names when exporting to N properties of vCards.
 [jan] Only set the encoding parameter for binary data in vCards, if data is not
       empty (Bug #9413).
 [jan] Fix searching for fields matching an email address if using 'emails'
