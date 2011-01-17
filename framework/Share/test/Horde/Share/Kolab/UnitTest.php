@@ -61,7 +61,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testListArray()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->_getCompleteDriver()->listShares('john')
         );
@@ -72,7 +72,7 @@ extends PHPUnit_Framework_TestCase
         $driver = new Horde_Share_Kolab(
             'mnemo', 'john', new Horde_Perms(), new Horde_Group_Test()
         );        
-        $this->assertType('string', $driver->getType());
+        $this->assertInternalType('string', $driver->getType());
     }
 
     public function testMnemoSupport()

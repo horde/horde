@@ -93,7 +93,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
     public function testGetShares(array $shares)
     {
         $newshares = self::$share->getShares(array($shares[0]->getId(), $shares[1]->getId(), $shares[2]->getId()));
-        $this->assertType('array', $newshares);
+        $this->assertInternalType('array', $newshares);
         $this->assertEquals(3, count($newshares));
         $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[0]);
         $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[1]);
@@ -106,7 +106,7 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
         self::$share->resetCache();
 
         $newshares = self::$share->getShares(array($shares[0]->getId(), $shares[1]->getId(), $shares[2]->getId()));
-        $this->assertType('array', $newshares);
+        $this->assertInternalType('array', $newshares);
         $this->assertEquals(3, count($newshares));
         $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[$shares[0]->getId()]);
         $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $newshares[$shares[1]->getId()]);
