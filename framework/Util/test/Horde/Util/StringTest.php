@@ -196,6 +196,16 @@ class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
             Horde_String::length('Я могу есть стекло, оно мне не вредит.', 'utf-8'));
     }
 
+    public function testPos()
+    {
+        $this->assertEquals(3, Horde_String::pos('Schöne Neue Welt', 'ö'));
+        $this->assertEquals(7, Horde_String::pos('Schöne Neue Welt', 'N'));
+        $this->assertEquals(6, Horde_String::pos('Schöne Neue Welt', ' '));
+        $this->assertEquals(3, Horde_String::rpos('Schöne Neue Welt', 'ö'));
+        $this->assertEquals(7, Horde_String::rpos('Schöne Neue Welt', 'N'));
+        $this->assertEquals(11, Horde_String::rpos('Schöne Neue Welt', ' '));
+    }
+
     public function testPad()
     {
         /* Simple single byte tests. */

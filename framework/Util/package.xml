@@ -28,7 +28,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Added Horde_String::rpos().
 * Renamed Horde_Array::array_merge_recursive_overwrite() to Horde_Array::replaceRecursive().
+* Added Horde_String::common().
 * Added Horde_Domhtml::.
 * Removed Horde_Util::assertDriverConfig().
 * Removed Horde_Util::bufferOutput().

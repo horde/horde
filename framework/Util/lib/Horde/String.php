@@ -376,7 +376,8 @@ class Horde_String
      *
      * @return integer  The position of first occurrence.
      */
-    static public function pos($haystack, $needle, $offset, $charset = 'UTF-8')
+    static public function pos($haystack, $needle, $offset = 0,
+                               $charset = 'UTF-8')
     {
         if (Horde_Util::extensionExists('mbstring')) {
             $track_errors = ini_set('track_errors', 1);
@@ -388,6 +389,34 @@ class Horde_String
         }
 
         return strpos($haystack, $needle, $offset);
+    }
+
+    /**
+     * Returns the numeric position of the last occurrence of $needle
+     * in the $haystack string.
+     *
+     * @param string $haystack  The string to search through.
+     * @param string $needle    The string to search for.
+     * @param integer $offset   Allows to specify which character in haystack
+     *                          to start searching.
+     * @param string $charset   The charset to use when searching for the
+     *                          $needle string.
+     *
+     * @return integer  The position of first occurrence.
+     */
+    static public function rpos($haystack, $needle, $offset = 0,
+                                $charset = 'UTF-8')
+    {
+        if (Horde_Util::extensionExists('mbstring')) {
+            $track_errors = ini_set('track_errors', 1);
+            $ret = @mb_strrpos($haystack, $needle, $offset, self::_mbstringCharset($charset));
+            ini_set('track_errors', $track_errors);
+            if (!isset($php_errormsg)) {
+                return $ret;
+            }
+        }
+
+        return strrpos($haystack, $needle, $offset);
     }
 
     /**
