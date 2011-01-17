@@ -339,7 +339,12 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             // Build attribute/key filter.
             $where = '(' . $where . ') ';
             foreach ($attributes as $key => $value) {
-                $where .= ' AND ' . $key . ' = ' . $this->_db->quote($value);
+                if (is_array($value)) {
+                    $value = array_map(array($this->_db, 'quote'), $value);
+                    $where .= ' AND ' . $key . ' IN (' . implode(', ', $value) . ')';
+                } else {
+                    $where .= ' AND ' . $key . ' = ' . $this->_db->quote($value);
+                }
             }
         } elseif (!empty($attributes)) {
             // Restrict to shares owned by the user specified in the
