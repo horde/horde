@@ -202,7 +202,7 @@ abstract class Horde_Share_Base
     }
 
     /**
-     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * Returns a Horde_Share_Object object corresponding to the given
      * share name, with the details retrieved appropriately.
      *
      * @param string $name  The name of the share to retrieve.
@@ -234,7 +234,7 @@ abstract class Horde_Share_Base
     }
 
     /**
-     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * Returns a Horde_Share_Object object corresponding to the given
      * unique ID, with the details retrieved appropriately.
      *
      * @param integer $id  The id of the share to retrieve.
@@ -276,7 +276,7 @@ abstract class Horde_Share_Base
     }
 
     /**
-     * Returns an array of Horde_Share_Object_sql objects corresponding
+     * Returns an array of Horde_Share_Object objects corresponding
      * to the given set of unique IDs, with the details retrieved
      * appropriately.
      *

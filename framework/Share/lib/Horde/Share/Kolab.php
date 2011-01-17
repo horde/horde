@@ -89,6 +89,121 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
+     * Return the type of folder this share driver will access in the Kolab
+     * storage backend (depends on the application calling the share driver).
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->_type;
+    }
+    
+    /**
+     * Encode a share ID.
+     *
+     * @todo: In Horde3 share IDs were not properly escaped everywhere and it
+     * made sense to escape them here just in case they are placed in a
+     * URL. Needs checking, fixing and removal in Horde4.
+     *
+     * @param string $id The ID to be encoded.
+     *
+     * @return string The encoded ID.
+     */
+    private function _idEncode($id)
+    {
+        return rawurlencode($id);
+    }
+
+    /**
+     * Decode a share ID.
+     *
+     * @param string $id The ID to be decoded.
+     *
+     * @return string The decoded ID.
+     */
+    private function _idDecode($id)
+    {
+        return rawurldecode($id);
+    }
+
+    /**
+     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * share name, with the details retrieved appropriately.
+     *
+     * @param string $name  The name of the share to retrieve.
+     *
+     * @return Horde_Share_Object  The requested share.
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Share_Exception
+     */
+    protected function _getShare($name)
+    {
+        $data = $this->getStorage()
+            ->getList()
+            ->getQuery('Base')
+            ->dataByType($this->_type);
+
+        if (!isset($data[$this->_idDecode($name)])) {
+            $this->_logger->err(sprintf('Share name %s not found', $name));
+            throw new Horde_Exception_NotFound();
+        }
+        return new Horde_Share_Object_Kolab(
+            $name, $data[$this->_idDecode($name)]
+        );
+    }
+
+    /**
+     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * unique ID, with the details retrieved appropriately.
+     *
+     * @param integer $id  The id of the share to retrieve.
+     *
+     * @return Horde_Share_Object_sql  The requested share.
+     * @throws Horde_Share_Exception, Horde_Exception_NotFound
+     */
+    protected function _getShareById($id)
+    {
+        return $this->_getShare($id);
+    }
+
+    /**
+     * Returns an array of Horde_Share_Object_kolab objects corresponding to
+     * the requested folders.
+     *
+     * @param string $ids  The ids of the shares to fetch.
+     *
+     * @return array  An array of Horde_Share_Object_kolab objects.
+     */
+    protected function _getShares(array $ids)
+    {
+        $objects = array();
+        foreach ($ids as $id) {
+            $objects[$id] = $this->_getShare($id);
+        }
+        return $objects;
+    }
+
+    /**
+     * Checks if a share exists in the system.
+     *
+     * @param string $share  The share to check.
+     *
+     * @return boolean  True if the share exists.
+     * @throws Horde_Share_Exception
+     */
+    protected function _exists($share)
+    {
+        return in_array(
+            $this->_idDecode($share),
+            $this->getStorage()
+            ->getList()
+            ->getQuery('Base')
+            ->listByType($this->_type)
+        );
+    }
+
+    /**
      * Returns an array of all shares that $userid has access to.
      *
      * @param string $userid     The userid of the user to check access for.
@@ -99,7 +214,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     protected function _listShares($userid, array $params = array())
     {
         return array_map(
-            'rawurlencode',
+            array($this, '_idEncode'),
             $this->getStorage()
             ->getList()
             ->getQuery('Base')
@@ -168,76 +283,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
-     * Return the type of folder this share driver will access in the Kolab
-     * storage backend (depends on the application calling the share driver).
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->_type;
-    }
-    
-    /**
-     * (re)connect the share object to this share driver. Userful for when
-     * share objects are unserialized from a cache separate from the share
-     * driver.
-     *
-     * @param Horde_Share_Object $object
-     */
-    public function initShareObject(Horde_Share_Object $object)
-    {
-        $object->setShareOb($this);
-    }
-
-    /**
-     * Returns a Horde_Share_Object_sql object corresponding to the given
-     * share name, with the details retrieved appropriately.
-     *
-     * @param string $name  The name of the share to retrieve.
-     *
-     * @return Horde_Share_Object  The requested share.
-     * @throws Horde_Exception_NotFound
-     * @throws Horde_Share_Exception
-     */
-    protected function _getShare($name)
-    {
-        //@todo: get $data from the list cache.
-        return new Horde_Share_Object_Kolab($name);
-    }
-
-    /**
-     * Returns a Horde_Share_Object_sql object corresponding to the given
-     * unique ID, with the details retrieved appropriately.
-     *
-     * @param integer $id  The id of the share to retrieve.
-     *
-     * @return Horde_Share_Object_sql  The requested share.
-     * @throws Horde_Share_Exception, Horde_Exception_NotFound
-     */
-    protected function _getShareById($id)
-    {
-        return $this->_getShare($id);
-    }
-
-    /**
-     * Returns an array of Horde_Share_Object_kolab objects corresponding to
-     * the requested folders.
-     *
-     * @param string $ids  The ids of the shares to fetch.
-     *
-     * @return array  An array of Horde_Share_Object_kolab objects.
-     */
-    protected function _getShares(array $ids)
-    {
-        $objects = array();
-        foreach ($ids as $id) {
-            $objects[$id] = $this->_getShare($id);
-        }
-        return $objects;
-    }
-
-    /**
      * Returns a new share object.
      *
      * @param string $name  The share's name.
@@ -274,28 +319,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     protected function _removeShare(Horde_Share_Object $share)
     {
         $share->delete();
-    }
-
-    /**
-     * Checks if a share exists in the system.
-     *
-     * @param string $share  The share to check.
-     *
-     * @return boolean  True if the share exists.
-     */
-    protected function _exists($object)
-    {
-        if (empty($object)) {
-            return false;
-        }
-
-        /* Get the corresponding folder for this share ID */
-        $folder = $this->_storage->getByShare($object, $this->_type);
-        if ($folder instanceof PEAR_Error) {
-            throw new Horde_Share_Exception($folder->getMessage());
-        }
-
-        return $folder->exists();
     }
 
     /**

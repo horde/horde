@@ -133,20 +133,9 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
         if (isset($this->_data[$attribute])) {
             return $this->_data[$attribute];
         }
-
-        if (!isset($this->_folder)) {
-            return $this->_folderError();
-        }
+        return;
 
         switch ($attribute) {
-        case 'owner':
-            $this->_data['owner'] = $this->_folder->getOwner();
-            break;
-
-        case 'name':
-            $this->_data['name'] = $this->_folder->getTitle();
-            break;
-
         case 'type':
             $this->_data['type'] = $this->_folder->getType();
             break;

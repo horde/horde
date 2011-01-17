@@ -129,10 +129,65 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $object->getName());
     }
 
+    public function testGetShare()
+    {
+        $this->assertEquals(
+            'INBOX%2FCalendar',
+            $this->_getPrefilledDriver()->getShare('INBOX%2FCalendar')->getId()
+        );
+    }
+
+    public function testExists()
+    {
+        $this->assertTrue(
+            $this->_getPrefilledDriver()->exists('INBOX%2FCalendar')
+        );
+    }
+
+    public function testDoesNotExists()
+    {
+        $this->assertFalse(
+            $this->_getPrefilledDriver()->exists('DOES_NOT_EXIST')
+        );
+    }
+
+    public function testGetShareById()
+    {
+        $this->assertEquals(
+            'INBOX%2FCalendar',
+            $this->_getPrefilledDriver()
+            ->getShareById('INBOX%2FCalendar')
+            ->getId()
+        );
+    }
+
     /**
-     * @todo: Reminder: Check that external modification of the Storage system
-     * works (former list->validity).
+     * @expectedException Horde_Exception_NotFound
      */
+    public function testMissingShare()
+    {
+        $this->_getPrefilledDriver()->getShare('DOES_NOT_EXIST');
+    }
+
+    public function testShareOwner()
+    {
+        $this->assertEquals(
+            'john',
+            $this->_getPrefilledDriver()
+            ->getShare('INBOX%2FCalendar')
+            ->get('owner')
+        );
+    }
+
+    public function testShareName()
+    {
+        $this->assertEquals(
+            'Calendar',
+            $this->_getPrefilledDriver()
+            ->getShare('INBOX%2FCalendar')
+            ->get('name')
+        );
+    }
 
     private function _getPrefilledDriver()
     {
