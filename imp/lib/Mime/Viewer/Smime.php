@@ -275,26 +275,25 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             Horde_Util::getFormData('smime_verify_msg')) {
             try {
                 $sig_result = $this->_impsmime->verifySignature($raw_text);
-                self::$_cache[$base_id]['status'][0]['icon'] = Horde::img('alerts/success.png', _("Success"));
+                self::$_cache[$base_id]['status'][0]['icon'] = $sig_result->verify
+                    ? Horde::img('alerts/success.png', _("Success"))
+                    : Horde::img('alerts/warning.png', _("Warning"));
                 self::$_cache[$base_id]['wrap'] = 'mimePartWrapValid';
 
-                if (empty($sig_result->result) ||
-                    ($sig_result->result === true)) {
-                    $email = is_array($sig_result->email)
-                        ? implode(', ', $sig_result->email)
-                        : $sig_result->email;
+                $email = is_array($sig_result->email)
+                    ? implode(', ', $sig_result->email)
+                    : $sig_result->email;
 
-                    $status[] = _("The data has been verified.");
+                $status[] = $sig_result->msg;
 
-                    if (!empty($sig_result->cert)) {
-                        $cert = $this->_impsmime->parseCert($sig_result->cert);
-                        if (isset($cert['certificate']['subject']['CommonName'])) {
-                            $email = $cert['certificate']['subject']['CommonName'] . ' (' . $email . ' )';
-                        }
+                if (!empty($sig_result->cert)) {
+                    $cert = $this->_impsmime->parseCert($sig_result->cert);
+                    if (isset($cert['certificate']['subject']['CommonName'])) {
+                        $email = $cert['certificate']['subject']['CommonName'] . ' (' . trim($email) . ')';
                     }
-
-                    $status[] = sprintf(_("Sender: %s"), htmlspecialchars($email));
                 }
+
+                $status[] = sprintf(_("Sender: %s"), htmlspecialchars($email));
 
                 if (!empty($sig_result->cert) &&
                     isset($sig_result->email) &&
@@ -303,9 +302,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     $status[] = '[' . $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View Certificate"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '] [' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($this->getConfigParam('imp_contents')->getMailbox(), $this->getConfigParam('imp_contents')->getUid(), $sig_id) . ' return false;') . _("Save Certificate in your Address Book") . '</a>]';
                 }
             } catch (Horde_Exception $e) {
-                self::$_cache[$base_id]['status'][0]['icon'] = ($e->getCode() == 'horde.warning')
-                    ? Horde::img('alerts/warning.png', _("Warning"))
-                    : Horde::img('alerts/error.png', _("Error"));
+                self::$_cache[$base_id]['status'][0]['icon'] = Horde::img('alerts/error.png', _("Error"));
                 self::$_cache[$base_id]['wrap'] = 'mimePartWrapInvalid';
                 $status[] = $e->getMessage();
             }
