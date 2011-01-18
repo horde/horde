@@ -130,6 +130,11 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
 
         parent::log($eventob);
 
+        /* If logging an exception, log the backtrace too. */
+        if ($event instanceof Exception) {
+            parent::log((string)new Horde_Support_Backtrace($event), $priority);
+        }
+
         /* Restore original locale and timezone. */
         // TODO: Needed?
         setlocale(LC_TIME, $locale);
