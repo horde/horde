@@ -132,7 +132,9 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
 
         /* If logging an exception, log the backtrace too. */
         if ($event instanceof Exception) {
-            parent::log((string)new Horde_Support_Backtrace($event), $priority);
+            if (class_exists('Horde_Support_Backtrace')) {
+                parent::log((string)new Horde_Support_Backtrace($event), $priority);
+            }
         }
 
         /* Restore original locale and timezone. */
