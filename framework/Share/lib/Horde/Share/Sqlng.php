@@ -38,6 +38,16 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
     protected $_availablePermissions = array();
 
     /**
+     *
+     * @see Horde_Share_Base::__construct()
+     */
+    public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
+    {
+        parent::__construct($app, $user, $perms, $groups);
+        $this->_table = $this->_app . '_sharesng';
+    }
+
+    /**
      * Passes the available permissions to the share object.
      *
      * @param Horde_Share_Object $object

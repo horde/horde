@@ -23,7 +23,7 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
 
     public function testSetTable()
     {
-        $this->assertEquals('test_shares', self::$share->getTable());
+        $this->assertEquals('test_sharesng', self::$share->getTable());
         self::$share->setTable('foo');
         $this->assertEquals('foo', self::$share->getTable());
         self::$share->setTable('test_shares');
@@ -164,12 +164,10 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
     public static function tearDownAfterClass()
     {
         if (self::$db) {
-            /*
             $migration = new Horde_Db_Migration_Base(self::$db);
             $migration->dropTable('test_shares');
             $migration->dropTable('test_shares_groups');
             $migration->dropTable('test_shares_users');
-            */
             self::$db = null;
         }
     }
