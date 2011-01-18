@@ -619,11 +619,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         foreach ($cert_details['fingerprints'] as $hash => $fingerprint) {
             $label = sprintf(Horde_Crypt_Translation::t("%s Fingerprint"), Horde_String::upper($hash));
-            $fingerprint_str = '';
-            for ($i = 0, $f_len = strlen($fingerprint); $i < $f_len; $i += 2) {
-                $fingerprint_str .= substr($fingerprint, $i, 2) . ':';
-            }
-            $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $label, $fingerprint_str);
+            $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $label, rtrim(chunk_split($fingerprint, 2, ':'), ':'));
         }
         $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Signature Algorithm"), $cert_details['signatureAlgorithm']);
         $text .= sprintf("&nbsp;&nbsp;%s:", Horde_Crypt_Translation::t("Signature"));
