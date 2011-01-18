@@ -1576,7 +1576,7 @@ class IMP_Prefs_Ui
 
         if (!empty($pubkey_list)) {
             $plist = array();
-            $self_url = $ui->selfUrl(array('special' => true));
+            $self_url = $ui->selfUrl(array('special' => true, 'token' => true));
 
             foreach ($pubkey_list as $val) {
                 $plist[] = array(
