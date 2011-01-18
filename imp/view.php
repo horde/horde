@@ -217,7 +217,7 @@ case 'print_attach':
     switch ($vars->pmode) {
     case 'content':
     case 'headers':
-        if (!$vars->id) {
+        if (!isset($vars->id)) {
             exit;
         }
 
