@@ -1029,8 +1029,7 @@ if ($redirect) {
 }
 
 if ($rtemode && !$redirect) {
-    IMP_Ui_Editor::init();
-    Horde::addInlineScript('CKEDITOR.replace("composeMessage", IMP.ckeditor_config)', 'load');
+    IMP_Ui_Editor::init(false, 'composeMessage');
 }
 
 if ($showmenu) {

@@ -19,8 +19,10 @@ class Horde_Editor_Ckeditor extends Horde_Editor
      * <pre>
      * 'basic' - (boolean) Load "basic" editor (a small javascript stub that
      *           will download the full code on demand)?
-     * 'config' - (array) The javascript config hash used to indiciate the
-     *            config for this editor instance.
+     * 'config' - (mixed) If an array, the javascript config hash used to
+     *            indiciate the config for this editor instance. If a string,
+     *            will be used directly as the javascript config name to use
+     *            when loading (must exist elsewhere in page).
      * 'id' - (string) The ID of the text area to turn into an editor. If
      *        empty, won't automatically load the editor.
      * 'no_notify' - (boolean) Don't output JS code automatically. Code will
@@ -33,19 +35,20 @@ class Horde_Editor_Ckeditor extends Horde_Editor
             return;
         }
 
-        $params = array_merge(array(
-            'config' => array()
-        ), $params);
-
         $ck_file = empty($params['basic'])
             ? 'ckeditor.js'
             : 'ckeditor_basic.js';
         $ck_path = $GLOBALS['registry']->get('jsuri', 'horde') . '/';
 
-        /* Globally disable spell check as you type. */
-        $params['config']['scayt_autoStartup'] = false;
-
-        $params['config'] = Horde_Serialize::serialize($params['config'], Horde_Serialize::JSON);
+        if (isset($params['config'])) {
+            if (is_array($params['config'])) {
+                /* Globally disable spell check as you type. */
+                $params['config']['scayt_autoStartup'] = false;
+                $params['config'] = Horde_Serialize::serialize($params['config'], Horde_Serialize::JSON);
+            }
+        } else {
+            $params['config'] = array();
+        }
 
         if (empty($params['no_notify'])) {
             Horde::addScriptFile($ck_path . $ck_file, null, array('external' => true));

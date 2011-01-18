@@ -28,6 +28,7 @@ class IMP_Ui_Editor
 
         $injector->getInstance('Horde_Editor')->initialize(array(
             'basic' => $basic,
+            'config' => 'IMP.ckeditor_config',
             'id' => $id
         ));
 
