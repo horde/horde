@@ -204,9 +204,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        $raw_text = $this->_mimepart->getMimeId()
-            ? $this->getConfigParam('imp_contents')->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true))
-            : $this->getConfigParam('imp_contents')->fullMessageText();
+        $raw_text = $this->_getPartStream($this->_mimepart->getMimeId());
 
         try {
             $decrypted_data = $this->_impsmime->decryptMessage($this->_mimepart->replaceEOL($raw_text, Horde_Mime_Part::RFC_EOL));
@@ -261,9 +259,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             $hdrs->addHeader('From', $this->_mimepart->getMetadata('imp-smime-from'));
             $stream = $this->_mimepart->toString(array('headers' => $hdrs, 'stream' => true));
         } else {
-            $stream = $base_id
-                ? $this->getConfigParam('imp_contents')->getBodyPart($base_id, array('mimeheaders' => true, 'stream' => true))
-                : $this->getConfigParam('imp_contents')->fullMessageText(array('stream' => true));
+            $stream = $this->_getPartStream($base_id);
         }
 
         $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
@@ -347,9 +343,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return array();
         }
 
-        $raw_text = $this->_mimepart->getMimeId()
-            ? $this->getConfigParam('imp_contents')->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true))
-            : $this->getConfigParam('imp_contents')->fullMessageText();
+        $raw_text = $this->_getPartStream($this->_mimepart->getMimeId());
 
         try {
             $sig_result = $this->_impsmime->verifySignature($this->_mimepart->replaceEOL($raw_text, Horde_Mime_Part::RFC_EOL));
@@ -364,6 +358,15 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
+    }
+
+    /**
+     */
+    protected function _getPartStream($id)
+    {
+        return $id
+            ? $this->getConfigParam('imp_contents')->getBodyPart($id, array('mimeheaders' => true, 'stream' => true))
+            : $this->getConfigParam('imp_contents')->fullMessageText();
     }
 
 }
