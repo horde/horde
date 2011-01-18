@@ -13,7 +13,6 @@ function migrate_sql_hierarchical($db)
     }
 
     $t = $migration->createTable('test_shares', array('primaryKey' => 'share_id'));
-    //$t->column('share_id', 'integer', array('null' => false, 'autoincrement' => true));
     $t->column('share_owner', 'string', array('limit' => 255));
     $t->column('share_flags', 'integer', array('default' => 0, 'null' => false));
     $t->column('share_parents', 'string', array('limit' => 255));
