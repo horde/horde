@@ -342,6 +342,7 @@ class Horde_Core_Prefs_Ui
      * <pre>
      * 'special' - (boolean) If set, will trigger special action update
      *             processing when the URL is loaded.
+     * 'token' - (boolean) If set, includes the form token in the URL.
      * </pre>
      *
      * @return Horde_Url  The URL object.
@@ -354,6 +355,9 @@ class Horde_Core_Prefs_Ui
         }
         if (!empty($options['special'])) {
             $url->add('actionID', 'update_special');
+        }
+        if (!empty($options['token'])) {
+            $url->add('horde_prefs_token', $GLOBALS['injector']->getInstance('Horde_Token')->get('horde.prefs'));
         }
         return $url;
     }
