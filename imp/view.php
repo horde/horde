@@ -221,12 +221,20 @@ case 'print_attach':
             exit;
         }
 
+        if (!($render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_FULL))) {
+            break;
+        }
+        reset($render);
+        $render_key = key($render);
+
         switch ($vars->pmode) {
         case 'headers':
             $imp_ui = new IMP_Ui_Message();
             $basic_headers = $imp_ui->basicHeaders();
             unset($basic_headers['bcc'], $basic_headers['reply-to']);
             $headerob = $contents->getHeaderOb();
+
+            $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type']);
 
             $headers = array();
             foreach ($basic_headers as $key => $val) {
@@ -239,7 +247,7 @@ case 'print_attach':
 
                     $headers[] = array(
                         'header' => htmlspecialchars($val),
-                        'value' => htmlspecialchars($hdr_val)
+                        'value' => htmlspecialchars(Horde_String::convertCharset($hdr_val, null, $d_param['params']['charset']))
                     );
                 }
             }
@@ -290,33 +298,28 @@ case 'print_attach':
             // Fall-through
 
         case 'content':
-            $render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_FULL);
-            if (!empty($render)) {
-                reset($render);
-                $key = key($render);
-                $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
-                if ($browser->isBrowser('mozilla')) {
-                    $pstring = Horde_Mime::decodeParam('content-type', $render[$key]['type']);
+            $browser->downloadHeaders($render[$render_key]['name'], $render[$render_key]['type'], true, strlen($render[$render_key]['data']));
+            if ($browser->isBrowser('mozilla')) {
+                $pstring = Horde_Mime::decodeParam('content-type', $render[$render_key]['type']);
 
-                    $doc = new Horde_Domhtml($render[$key]['data'], $pstring['params']['charset']);
+                $doc = new Horde_Domhtml($render[$render_key]['data'], $pstring['params']['charset']);
 
-                    $bodyelt = $doc->dom->getElementsByTagName('body')->item(0);
-                    $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);
+                $bodyelt = $doc->dom->getElementsByTagName('body')->item(0);
+                $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);
 
-                    /* Make the title the e-mail subject. */
-                    $headers = $contents->getHeaderOb();
-                    $imp_ui_mbox = new IMP_Ui_Mailbox();
+                /* Make the title the e-mail subject. */
+                $headers = $contents->getHeaderOb();
+                $imp_ui_mbox = new IMP_Ui_Mailbox();
 
-                    $headelt = $doc->getHead();
-                    foreach ($headelt->getElementsByTagName('title') as $node) {
-                        $headelt->removeChild($node);
-                    }
-                    $headelt->appendChild($doc->dom->createElement('title', htmlspecialchars($imp_ui_mbox->getSubject($headers->getValue('subject')))));
-
-                    echo $doc->returnHtml();
-                } else {
-                    echo $render[$key]['data'];
+                $headelt = $doc->getHead();
+                foreach ($headelt->getElementsByTagName('title') as $node) {
+                    $headelt->removeChild($node);
                 }
+                $headelt->appendChild($doc->dom->createElement('title', htmlspecialchars($imp_ui_mbox->getSubject($headers->getValue('subject')))));
+
+                echo $doc->returnHtml();
+            } else {
+                echo $render[$render_key]['data'];
             }
             break;
         }
