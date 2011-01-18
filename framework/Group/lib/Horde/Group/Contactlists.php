@@ -451,6 +451,10 @@ class Horde_Group_Contactlists extends Horde_Group
         list($source, $id) = explode(':', $gid);
         $entry = $this->_retrieveListEntry($gid);
         $members = @unserialize($entry[$this->_sources[$source]['map']['__members']]);
+        if (!is_array($members)) {
+            return array();
+        }
+
         $users = array();
 
         // TODO: optimize this to only query each table once
@@ -472,8 +476,9 @@ class Horde_Group_Contactlists extends Horde_Group
                 $newSource = $source;
             }
 
-            $sql = 'SELECT ' . $this->_sources[$newSource]['map']['email']
-                . ', ' . $this->_sources[$newSource]['map']['__type']
+            $type = $this->_sources[$newSource]['map']['__type'];
+            $email = $this->_sources[$newSource]['map']['email'];
+            $sql = 'SELECT ' . $email . ', ' . $type
                 . ' FROM ' . $this->_sources[$newSource]['params']['table']
                 . ' WHERE ' . $this->_sources[$newSource]['map']['__key']
                 . ' = ' . $this->_db[$newSource]->quoteString($member);
@@ -486,13 +491,13 @@ class Horde_Group_Contactlists extends Horde_Group
             }
 
             // Sub-Lists are treated as sub groups the best that we can...
-            if ($subGroups && $results[1] == 'Group') {
+            if ($subGroups && $results[$type] == 'Group') {
                 $this->_subGroups[$gid] = $newSource . ':' . $member;
                 $users = array_merge($users, $this->_getAllMembers($newSource . ':' . $member));
             }
-            if (strlen($results[0])) {
+            if (strlen($results[$email])) {
                 // use a key to dump dups
-                $users[$results[0]] = $results[0];
+                $users[$results[$email]] = $results[$email];
             }
         }
 
