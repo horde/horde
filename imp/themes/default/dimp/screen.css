@@ -229,8 +229,11 @@ div.msCheck {
 div.msCheck:hover {
     background-image: url("../graphics/checkbox_over.png") !important;
 }
-div.vpRowSelected div.msCheck {
+div.msCheckOn, div.vpRowSelected div.msCheck {
     background-image: url("../graphics/checkbox_on.png");
+}
+div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
+    margin-right: 2px;
 }
 
 /* Rows (vertical mode) */

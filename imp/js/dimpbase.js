@@ -753,7 +753,7 @@ var DimpBase = {
 
     contextOnClick: function(parentfunc, e)
     {
-        var flag, tmp,
+        var tmp,
             elt = e.memo.elt,
             id = elt.readAttribute('id'),
             menu = e.memo.trigger;
@@ -951,9 +951,11 @@ var DimpBase = {
                     mbox: this.folder
                 }
                 this.go('folder:' + DIMP.conf.fsearchid);
-            } else if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
-                flag = elt.retrieve('flag');
-                this.flag(flag, menu.endsWith('_setflag'));
+            } else if (menu.endsWith('_setflag')) {
+                tmp = elt.down('DIV');
+                this.flag(elt.retrieve('flag'), !tmp.visible() || tmp.hasClassName('msCheck'));
+            } else if (menu.endsWith('_unsetflag')) {
+                this.flag(elt.retrieve('flag'), false);
             } else if (menu.endsWith('_flag') || menu.endsWith('_flagnot')) {
                 this.search = {
                     flag: elt.retrieve('flag'),
@@ -971,7 +973,7 @@ var DimpBase = {
 
     contextOnShow: function(parentfunc, e)
     {
-        var baseelt, elts, ob, sel, tmp,
+        var baseelt, elts, flags, ob, sel, tmp,
             ctx_id = e.memo;
 
         switch (ctx_id) {
@@ -1047,14 +1049,19 @@ var DimpBase = {
                     tmp.push(o.up());
                 }
             });
+
+            sel = this.viewport.getSelected();
+
             if ($('oa_setflag')) {
                 if (this.viewport.getMetaData('readonly')) {
                     $('oa_setflag').up().hide();
                 } else {
                     tmp.push($('oa_setflag').up());
+                    [ $('oa_unsetflag') ].invoke((sel.size() > 1) ? 'show' : 'hide');
                 }
             }
-            tmp.compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
+
+            tmp.compact().invoke(sel.size() ? 'show' : 'hide');
             break;
 
         case 'ctx_qsearchby':
@@ -1065,7 +1072,36 @@ var DimpBase = {
         case 'ctx_message':
             [ $('ctx_message_source').up() ].invoke(DIMP.conf.preview_pref ? 'hide' : 'show');
             sel = this.viewport.getSelected();
-            [ $('ctx_message_resume') ].invoke(sel.size() == 1 && sel.get('dataob').first().draft ? 'show' : 'hide');
+            if (sel.size() == 1) {
+                [ $('ctx_message_resume') ].invoke(sel.get('dataob').first().draft ? 'show' : 'hide');
+                [ $('ctx_message_unsetflag') ].compact().invoke('hide');
+            } else {
+                $('ctx_message_resume').hide();
+                [ $('ctx_message_unsetflag') ].compact().invoke('show');
+            }
+            break;
+
+        case 'ctx_flag':
+            sel = this.viewport.getSelected();
+            flags = (sel.size() == 1)
+                ? sel.get('dataob').first().flag
+                : null;
+
+            $(ctx_id).childElements().each(function(elt) {
+                var a, r;
+                if (flags === null) {
+                    elt.down('DIV').hide();
+                } else {
+                    if (flags.include(elt.retrieve('flag'))) {
+                        a = 'msCheckOn';
+                        r = 'msCheck';
+                    } else {
+                        a = 'msCheck';
+                        r = 'msCheckOn';
+                    }
+                    elt.down('DIV').removeClassName(r).addClassName(a).show();
+                }
+            });
             break;
 
         default:
@@ -1085,6 +1121,10 @@ var DimpBase = {
     {
         var a = new Element('A'),
             style = {};
+
+        if (id == 'ctx_flag') {
+            a.insert(new Element('DIV', { className: 'iconImg' }));
+        }
 
         if (f.u) {
             style.backgroundColor = f.b.escapeHTML();

@@ -355,7 +355,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_message_resume" style="display:none"><span class="iconImg"></span><?php echo _("Resume Draft") ?></a>
  <a id="ctx_message_reply"><span class="iconImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward"><span class="iconImg"></span><?php echo _("Forward") ?></a>
- <div id="ctx_message_flagopts" style="display:none">
+ <div style="display:none">
   <div class="sep"></div>
   <a id="ctx_message_setflag"><span class="iconImg"></span><?php echo _("Mark as") ?>...</a>
   <a id="ctx_message_unsetflag"><span class="iconImg"></span><?php echo _("Unmark as") ?>...</a>
@@ -404,7 +404,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="oa_preview_show"><span class="iconImg"></span><?php echo _("Show Preview") ?></a>
  <a id="oa_layout_horiz"><span class="iconImg"></span><?php echo _("Horizontal Layout") ?></a>
  <a id="oa_layout_vert"><span class="iconImg"></span><?php echo _("Vertical Layout") ?></a>
- <div id="oa_flagopts" style="display:none">
+ <div style="display:none">
   <div class="sep"></div>
   <a id="oa_setflag"><span class="iconImg"></span><?php echo _("Mark as") ?>...</a>
   <a id="oa_unsetflag"><span class="iconImg"></span><?php echo _("Unmark as") ?>...</a>
