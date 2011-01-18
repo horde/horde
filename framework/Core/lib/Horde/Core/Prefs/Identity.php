@@ -40,7 +40,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         $this->_prefs->setValue('confirm_email', serialize($pref));
 
         $new_addr = $this->getValue($this->_prefnames['from_addr'], $id);
-        $confirm = Horde::getServiceLink('emailconfirm')->add('h', $hash)->setRaw(true);
+        $confirm = Horde::url(Horde::getServiceLink('emailconfirm'), true)->add('h', $hash)->setRaw(true);
         $message = sprintf(Horde_Core_Translation::t("You have requested to add the email address \"%s\" to the list of your personal email addresses.\n\nGo to the following link to confirm that this is really your address:\n%s\n\nIf you don't know what this message means, you can delete it."),
                            $new_addr,
                            $confirm);
