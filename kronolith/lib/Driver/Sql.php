@@ -868,13 +868,13 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Handle any database specific initialization code to run. */
         try {
-            switch ($this->_db->dbsyntax) {
-            case 'oci8':
+            switch ($this->_db->adapterName()) {
+            case 'Oracle':
                 $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
                 $this->_db->execute($query);
                 break;
 
-            case 'pgsql':
+            case 'PDO_PostgreSQL':
                 $query = "SET datestyle TO 'iso'";
                 $this->_db->execute($query);
                 break;
