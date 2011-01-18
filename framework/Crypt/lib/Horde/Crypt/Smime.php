@@ -140,10 +140,13 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * @param mixed $certs  Either a single or array of root certificates.
      *
      * @return stdClass  Object with the following elements:
-     *                   'result' -> Returns true on success.
-     *                   'cert' -> The certificate of the signer stored
-     *                             in the message (in PEM format).
-     *                   'email' -> The email of the signing person.
+     * <pre>
+     * cert - (string) The certificate of the signer stored in the message (in
+     *        PEM format).
+     * email - (string) The email of the signing person.
+     * msg - (string) Status string.
+     * verify - (boolean) True if certificate was verified.
+     * </pre>
      * @throws Horde_Crypt_Exception
      */
     public function verify($text, $certs)
@@ -171,26 +174,23 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         $ob = new stdClass;
 
-        if (!empty($root_certs)) {
-            $result = openssl_pkcs7_verify($input, 0, $output, $root_certs);
+        if (!empty($root_certs) &&
+            (openssl_pkcs7_verify($input, 0, $output, $root_certs) === true)) {
             /* Message verified */
-            if ($result === true) {
-                $ob->result = true;
-                $ob->cert = file_get_contents($output);
-                $ob->email = $this->getEmailFromKey($ob->cert);
-                return $ob;
-            }
-        }
-
-        /* Try again without verfying the signer's cert */
-        $result = openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $output);
-
-        if ($result === true) {
-            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Message Verified Successfully but the signer's certificate could not be verified."));
-        } elseif ($result == -1) {
-            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Verification failed - an unknown error has occurred."));
+            $ob->msg = Horde_Crypt_Translation::t("Message verified successfully.");
+            $ob->verify = true;
         } else {
-            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Verification failed - this message may have been tampered with."));
+            /* Try again without verfying the signer's cert */
+            $result = openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $output);
+
+            if ($result === -1) {
+                throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Verification failed - an unknown error has occurred."));
+            } elseif ($result === false) {
+                throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Verification failed - this message may have been tampered with."));
+            }
+
+            $ob->msg = Horde_Crypt_Translation::t("Message verified successfully but the signer's certificate could not be verified.");
+            $ob->verify = false;
         }
 
         $ob->cert = file_get_contents($output);
