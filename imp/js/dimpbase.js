@@ -191,13 +191,6 @@ var DimpBase = {
                     $('dimpmain_portal').hide();
                     $('dimpmain_folder').show();
                 }
-
-                // This catches the refresh case - no need to re-add to history
-                if (!Object.isUndefined(this.folder)) {
-                    this.setHash(loc);
-                }
-            } else if (this.folder == f) {
-                this.setHash(loc);
             }
 
             this.loadMailbox(f);
@@ -589,10 +582,9 @@ var DimpBase = {
                 l = this.viewport.getMetaData('label');
 
             this.setMessageListTitle();
+            this.setMsgHash();
 
             if (this.isSearch()) {
-                this.setMsgHash();
-
                 tmp = this.viewport.getMetaData('slabel');
                 if (this.viewport.getMetaData('vfolder')) {
                     $('search_close').hide();
