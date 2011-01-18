@@ -67,15 +67,15 @@ class Horde_Mime_Viewer_Base
      *
      * @param Horde_Mime_Part $mime_part  The object with the data to be
      *                                    rendered.
-     * @param array $conf
-     *     Configuration:
-     *     - 'temp_file': (callback) A callback function that returns a
-     *                    temporary filename.  Is passed one parameter: a
-     *                     prefix string. DEFAULT: Uses
-     *                     Horde_Util::getTempFile().
-     *     - 'text_filter': (callback) A callback function used to filter text.
-     *                      Is called the same as Horde_Text_Filter::filter().
-     *                      DEFAULT: Uses Horde_Text_Filter::filter().
+     * @param array $conf                 Configuration:
+     * <pre>
+     * temp_file - (callback) A callback function that returns a temporary
+     *             filename.  Is passed one parameter: a prefix string.
+     *             DEFAULT: Uses Horde_Util::getTempFile().
+     * text_filter - (callback) A callback function used to filter text. Is
+     *               called the same as Horde_Text_Filter::filter().
+     *               DEFAULT: Uses Horde_Text_Filter::filter().
+     * </pre>
      *
      * @throws InvalidArgumentException
      */
@@ -177,7 +177,8 @@ class Horde_Mime_Viewer_Base
     }
 
     /**
-     * Return the full rendered version of the Horde_Mime_Part object.
+     * Return the full HTML rendered version of the Horde_Mime_Part object.
+     * This MUST be text/html data.
      *
      * @return array  See render().
      * @throws Horde_Exception
@@ -192,6 +193,9 @@ class Horde_Mime_Viewer_Base
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
+     * This MUST be text/html data.
+     * This is not a full HTML document - only the HTML necessary to output
+     * the part.
      *
      * @return array  See render().
      * @throws Horde_Exception
@@ -219,7 +223,7 @@ class Horde_Mime_Viewer_Base
     }
 
     /**
-     * Return the rendered information about the Horde_Mime_Part object.
+     * Return the raw representation of the Horde_Mime_Part object.
      *
      * @return array  See render().
      * @throws Horde_Exception
