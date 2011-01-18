@@ -93,7 +93,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             $sortfield = 'attribute_' . $params['sort_by'];
         }
 
-        $query = 'SELECT DISTINCT * FROM ' . $this->_table . ' WHERE '
+        $query = 'SELECT * FROM ' . $this->_table . ' WHERE '
             . $this->_getShareCriteria($userid, $perms, $params['attributes'], $shareids)
             . ' ORDER BY ' . $sortfield
             . (($params['direction'] == 0) ? ' ASC' : ' DESC');
@@ -159,7 +159,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             list(, , $shareids) = $this->_getUserAndGroupShares($userid, $perms);
         }
 
-        $query = 'SELECT COUNT(DISTINCT share_id) FROM '
+        $query = 'SELECT COUNT(share_id) FROM '
             . $this->_table . ' WHERE '
             . $this->_getShareCriteria($userid, $perms, $attributes, $shareids);
 
