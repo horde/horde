@@ -147,7 +147,7 @@ var DimpBase = {
                 this.viewport.select(row, { delay: 0.3 });
             }
         } else {
-            this.rownum = curr;
+            this.rownum = [ curr ];
             this.viewport.requestContentRefresh(curr - 1);
         }
     },
@@ -155,7 +155,7 @@ var DimpBase = {
 
     go: function(loc, data)
     {
-        var app, f, separator;
+        var app, f, msg;
 
         /* If switching from options, we need to reload page to pick up any
          * prefs changes. */
@@ -172,10 +172,10 @@ var DimpBase = {
         }
 
         if (loc.startsWith('msg:')) {
-            separator = loc.indexOf(':', 4);
-            f = loc.substring(4, separator);
-            this.uid = parseInt(loc.substring(separator + 1), 10);
+            msg = DimpCore.parseRangeString(loc.substring(4));
+            f = Object.keys(msg).first();
             loc = 'folder:' + f;
+            this.uid = msg[f];
             // Now fall through to the 'folder:' check below.
         }
 
@@ -268,7 +268,23 @@ var DimpBase = {
 
     setHash: function(loc)
     {
-        location.hash = escape(encodeURIComponent(loc));
+        location.hash = loc
+            ? escape(encodeURIComponent(loc))
+            : null;
+    },
+
+    setMsgHash: function()
+    {
+        var vs = this.viewport.getSelection(),
+            view = vs.getBuffer().getView();
+
+        if (this.isSearch(view)) {
+            this.setHash();
+        } else if (vs.size()) {
+            this.setHash('msg:' + DimpCore.toRangeString(DimpCore.selectionToRange(vs)));
+        } else {
+            this.setHash('folder:' + view);
+        }
     },
 
     highlightSidebar: function(id)
@@ -367,7 +383,7 @@ var DimpBase = {
             }
         }
 
-        this.viewport.loadView(f, { search: (this.uid ? { imapuid: this.uid } : null), background: opts.background});
+        this.viewport.loadView(f, { search: (this.uid ? { imapuid: this.uid.first() } : null), background: opts.background});
 
         if (need_delete) {
             this.viewport.deleteView(need_delete);
@@ -532,15 +548,15 @@ var DimpBase = {
             }.bind(this),
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    var row = this.viewport.createSelectionBuffer().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
+                    var row = this.viewport.createSelectionBuffer().search({ imapuid: { equal: this.uid }, view: { equal: [ this.folder ] } });
                     if (row.size()) {
-                        this.rownum = row.get('rownum').first();
+                        this.rownum = row.get('rownum');
                     }
                     this.uid = null;
                 }
 
                 if (this.rownum) {
-                    this.viewport.scrollTo(this.rownum, { noupdate: true, top: true });
+                    this.viewport.scrollTo(this.rownum.first(), { noupdate: true, top: true });
                     offset = this.viewport.currentOffset();
                 }
 
@@ -575,6 +591,8 @@ var DimpBase = {
             this.setMessageListTitle();
 
             if (this.isSearch()) {
+                this.setMsgHash();
+
                 tmp = this.viewport.getMetaData('slabel');
                 if (this.viewport.getMetaData('vfolder')) {
                     $('search_close').hide();
@@ -602,7 +620,7 @@ var DimpBase = {
             this.updateTitle(this.viewport.getMetaData('noexist'));
 
             if (this.rownum) {
-                this.viewport.select(this.viewport.createSelection('rownum', this.rownum));
+                this.viewport.select(this.rownum);
                 this.rownum = null;
             }
 
@@ -698,6 +716,8 @@ var DimpBase = {
             } else if ((count == 1) && DIMP.conf.preview_pref) {
                 this.loadPreview(sel.get('dataob').first());
             }
+
+            this.setMsgHash();
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:endFetch', this.loadingImg.bind(this, 'viewport', false));
@@ -710,17 +730,17 @@ var DimpBase = {
                 this.lastrow = this.pivotrow = d.first();
             }
 
+            this.setMsgHash();
+
             this.toggleButtons();
 
             if (DIMP.conf.preview_pref) {
                 if (e.memo.opts.right) {
                     this.clearPreviewPane();
+                } else if (e.memo.opts.delay) {
+                    this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                 } else {
-                    if (e.memo.opts.delay) {
-                        this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
-                    } else {
-                        this.initPreviewPane();
-                    }
+                    this.initPreviewPane();
                 }
             }
         }.bindAsEventListener(this));
@@ -1377,8 +1397,6 @@ var DimpBase = {
         if (r.js) {
             eval(r.js.join(';'));
         }
-
-        this.setHash('msg:' + r.mailbox + ':' + r.uid);
     },
 
     _stripAttachmentCallback: function(r)
@@ -1389,7 +1407,7 @@ var DimpBase = {
         // cause the preview pane to be cleared.
         if (DimpCore.inAjaxCallback) {
             this.preview_replace = true;
-            this.uid = r.response.newuid;
+            this.uid = [ r.response.newuid ];
             this._stripAttachmentCallback.bind(this, r).defer();
             return;
         }

@@ -1280,8 +1280,8 @@ var ViewPort = Class.create({
         return this.createSelection('uid', buffer ? buffer.getSelected().get('uid') : [], view);
     },
 
-    // vs = (ViewPort_Selection | array) A ViewPort_Selection object -or- if
-    //       opts.range is set, an array of row numbers.
+    // vs = (ViewPort_Selection | array) A ViewPort_Selection object -or- an
+    //       array of row numbers.
     // opts = (object) [add, search]
     select: function(vs, opts)
     {
