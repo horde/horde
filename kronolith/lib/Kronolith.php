@@ -1122,7 +1122,7 @@ class Kronolith
             $share = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
             $share->set('name', sprintf(_("Calendar of %s"), $identity->getName()));
             $GLOBALS['kronolith_shares']->addShare($share);
-            $GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()] = new Kronolith_Calendar_Internal(array('share' => $share));
+            $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $GLOBALS['display_calendars'][] = $share->getName();
 
             /* Calendar auto-sharing with the user's groups */
