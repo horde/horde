@@ -158,11 +158,7 @@ class IMP_Auth
         }
 
         try {
-            return self::authenticate(array(
-                'password' => $credentials['password'],
-                'server' => $credentials['server'],
-                'userId' => $credentials['userId']
-            ));
+            return self::authenticate($credentials);
         } catch (Horde_Auth_Exception $e) {
             return false;
         }
