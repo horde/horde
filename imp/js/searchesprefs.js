@@ -32,7 +32,7 @@ var ImpSearchesPrefs = {
                 return;
             } else if (elt.match('SPAN.vfolderenabled')) {
                 e.stop();
-                window.parent.DimpBase.go('folder:' + this.mailboxids[elt.up().next('.enabled').down('INPUT').readAttribute('name')]);
+                window.parent.DimpBase.go('mbox', this.mailboxids[elt.up().next('.enabled').down('INPUT').readAttribute('name')]);
                 return;
             }
 

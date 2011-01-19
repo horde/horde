@@ -57,7 +57,7 @@ class IMP_Ui_Block
                 }
 
                 if ($mode != 'imp') {
-                    $onclick = ' onclick="try{DimpBase.go(\'folder:' . htmlspecialchars($folder) . '\');}catch(e){window.location=\'' . htmlspecialchars($mbox_url . rawurlencode(':' . $folder)) . '\';}return false;"';
+                    $onclick = ' onclick="try{DimpBase.go(\'mbox\', \'' . htmlspecialchars($folder) . '\');}catch(e){window.location=\'' . htmlspecialchars($mbox_url . rawurlencode(':' . $folder)) . '\';}return false;"';
                 }
 
                 $html .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';

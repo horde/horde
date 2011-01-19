@@ -52,7 +52,7 @@ class IMP_Block_Newmail extends Horde_Block
                 $from = $imp_ui->getFrom($ob['envelope'], array('specialchars' => $charset));
                 $subject = $imp_ui->getSubject($ob['envelope']['subject'], true);
 
-                $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg:INBOX:' . $uid . '\');return false;"><td>' .
+                $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg\', \'{5}INBOX' . $uid . '\');return false;"><td>' .
                     '<strong>' . $from['from'] . '</strong><br />' .
                     $subject . '</td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
@@ -62,7 +62,7 @@ class IMP_Block_Newmail extends Horde_Block
             $text = ($more_msgs > 0)
                 ? sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs)
                 : _("Go to your Inbox...");
-            $html .= '<tr><td colspan="2" style="cursor:pointer" align="right" onclick="DimpBase.go(\'folder:INBOX\');return false;">' . $text . '</td></tr>';
+            $html .= '<tr><td colspan="2" style="cursor:pointer" align="right" onclick="DimpBase.go();return false;">' . $text . '</td></tr>';
         }
 
         return $html . '</table>';

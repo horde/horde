@@ -326,16 +326,9 @@ var DimpCore = {
     },
 
     // url = (string) URL to redirect to
-    // hash = (boolean) If true, url is treated as hash information to alter
-    //        on the current page
-    redirect: function(url, hash)
+    redirect: function(url)
     {
-        if (hash) {
-            window.location.hash = escape(url);
-            window.location.reload();
-        } else {
-            window.location.assign(this.addURLParam(url));
-        }
+        window.location.assign(this.addURLParam(url));
     },
 
     loadingImg: function(elt, id, show)

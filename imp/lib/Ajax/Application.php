@@ -1381,7 +1381,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 // Don't do substitutions on our own blocks.
                 if ($app != 'imp') {
                     $content = preg_replace('/<a href="([^"]+)"/',
-                                            '<a onclick="DimpBase.go(\'app:' . $app . '\', \'$1\');return false"',
+                                            '<a onclick="DimpBase.go(\'app\', { app: \'' . $app . '\', data: \'$1\' });return false"',
                                             $content);
                     if (preg_match_all('/<link .*?rel="stylesheet".*?\/>/',
                                        $content, $links)) {

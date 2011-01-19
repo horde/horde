@@ -153,116 +153,135 @@ var DimpBase = {
     },
     // End message selection functions
 
-    go: function(loc, data)
+    // type = (string) app, compose, mbox, menu, msg, portal, prefs, search
+    //        DEFAULT: View INBOX
+    // data = (mixed)
+    //     'app' - (object) [app, data]
+    //     'mbox' - (string) Mailbox to display
+    //     'menu' - (string) Menu item to display
+    //     'msg' - (string) IMAP sequence string
+    //     'prefs' - (object) Extra parameters to add to prefs URL
+    //     'search' - (object)
+    //         'edit_query' = folder to edit
+    //         'search_mailbox' = folders to search
+    //         'subfolder' = do subfolder search
+    //         If not set, loads search screen with current mailbox as
+    //         default search mailbox
+    go: function(type, data)
     {
-        var app, f, msg;
+        var msg;
+
+        if (!type) {
+            type = 'mbox';
+        }
 
         /* If switching from options, we need to reload page to pick up any
          * prefs changes. */
-        if (loc != 'prefs' &&
+        if (type != 'prefs' &&
             $('appprefs') &&
             $('appprefs').hasClassName('on')) {
             $('dimpPage').hide();
             $('dimpLoading').show();
-            return DimpCore.redirect(loc, true);
-        }
-
-        if (loc.startsWith('compose:')) {
+            this.setHash(type, data);
+            window.location.reload();
             return;
         }
 
-        if (loc.startsWith('msg:')) {
-            msg = DimpCore.parseRangeString(loc.substring(4));
-            f = Object.keys(msg).first();
-            loc = 'folder:' + f;
-            this.uid = msg[f];
-            // Now fall through to the 'folder:' check below.
+        if (type == 'compose') {
+            return;
         }
 
-        if (loc.startsWith('folder:')) {
-            f = loc.substring(7);
-            if (f.empty()) {
-                f = this.folder;
+        if (type == 'msg') {
+            type = 'mbox';
+            msg = DimpCore.parseRangeString(data);
+            data = Object.keys(msg).first();
+            this.uid = msg[data];
+            // Fall through to the 'mbox' check below.
+        }
+
+        if (type == 'mbox') {
+            if (Object.isUndefined(data) || data.empty()) {
+                data = Object.isUndefined(this.folder)
+                    ? 'INBOX'
+                    : this.folder;
             }
 
-            if (this.folder != f || !$('dimpmain_folder').visible()) {
-                this.highlightSidebar(this.getFolderId(f));
+            if (this.folder != data || !$('dimpmain_folder').visible()) {
+                this.highlightSidebar(this.getFolderId(data));
                 if (!$('dimpmain_folder').visible()) {
                     $('dimpmain_portal').hide();
                     $('dimpmain_folder').show();
                 }
             }
 
-            this.loadMailbox(f);
+            this.loadMailbox(data);
             return;
         }
 
-        f = this.folder;
         $('dimpmain_folder').hide();
         $('dimpmain_portal').update(DIMP.text.loading).show();
 
-        if (loc.startsWith('app:')) {
-            app = loc.substr(4);
-            if (app == 'imp') {
-                this.go('folder:INBOX');
-                return;
+        switch (type) {
+        case 'app':
+            if (data.app == 'imp') {
+                this.go();
+                break;
             }
             this.highlightSidebar();
-            this.setHash(loc);
-            if (data) {
-                this.iframeContent(loc, data);
-            } else if (DIMP.conf.portal_urls[app]) {
-                this.iframeContent(loc, DIMP.conf.portal_urls[app]);
+            this.setHash('app', data.app);
+            if (data.data) {
+                this.iframeContent(data.app, data.data);
+            } else if (DIMP.conf.portal_urls[data.app]) {
+                this.iframeContent(data.app, DIMP.conf.portal_urls[data.app]);
             }
-            return;
-        }
+            break;
 
-        if (loc.startsWith('menu:')) {
-            app = loc.substr(5);
+        case 'menu':
             this.highlightSidebar();
-            this.setHash(loc);
-            if (DIMP.conf.menu_urls[app]) {
-                this.iframeContent(loc, DIMP.conf.menu_urls[app]);
+            this.setHash('menu', data);
+            if (DIMP.conf.menu_urls[data]) {
+                this.iframeContent(type, DIMP.conf.menu_urls[data]);
             }
-            return;
-        }
+            break;
 
-        switch (loc) {
         case 'search':
-            // data: 'edit_query' = folder to edit
-            //       'search_mailbox' = folders to search
-            //       'subfolder' = do subfolder search
-            //       If not set, loads search screen with current mailbox as
-            //       default search mailbox
             if (!data) {
                 data = { search_mailbox: f };
             }
             this.highlightSidebar();
             DimpCore.setTitle(DIMP.text.search);
-            this.iframeContent(loc, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, data));
+            this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, data));
             break;
 
         case 'portal':
             this.highlightSidebar('appportal');
-            this.setHash(loc);
+            this.setHash(type);
             DimpCore.setTitle(DIMP.text.portal);
             DimpCore.doAction('showPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
 
         case 'prefs':
-            // data: Extra parameters to add to prefs URL.
             this.highlightSidebar('appprefs');
-            this.setHash(loc);
+            this.setHash(type);
             DimpCore.setTitle(DIMP.text.prefs);
-            this.iframeContent(loc, DimpCore.addURLParam(DIMP.conf.URI_PREFS_IMP, data));
+            this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_PREFS_IMP, data));
             break;
         }
     },
 
-    setHash: function(loc)
+    setHash: function(type, data)
     {
-        location.hash = loc
-            ? escape(encodeURIComponent(loc))
+        var h;
+
+        if (type) {
+            h = type;
+            if (data) {
+                h += ':' + data;
+            }
+        }
+
+        window.location.hash = h
+            ? escape(encodeURIComponent(h))
             : null;
     },
 
@@ -274,9 +293,9 @@ var DimpBase = {
         if (this.isSearch(view)) {
             this.setHash();
         } else if (vs.size()) {
-            this.setHash('msg:' + DimpCore.toRangeString(DimpCore.selectionToRange(vs)));
+            this.setHash('msg', DimpCore.toRangeString(DimpCore.selectionToRange(vs)));
         } else {
-            this.setHash('folder:' + view);
+            this.setHash('mbox', view);
         }
     },
 
@@ -962,7 +981,7 @@ var DimpBase = {
                     label: this.viewport.getMetaData('label'),
                     mbox: this.folder
                 }
-                this.go('folder:' + DIMP.conf.fsearchid);
+                this.go('mbox', DIMP.conf.fsearchid);
             } else if (menu.endsWith('_setflag')) {
                 tmp = elt.down('DIV');
                 this.flag(elt.retrieve('flag'), !tmp.visible() || tmp.hasClassName('msCheck'));
@@ -975,7 +994,7 @@ var DimpBase = {
                     mbox: this.folder,
                     not: menu.endsWith('_flagnot')
                 };
-                this.go('folder:' + DIMP.conf.fsearchid);
+                this.go('mbox', DIMP.conf.fsearchid);
             } else {
                 parentfunc(e);
             }
@@ -1692,7 +1711,7 @@ var DimpBase = {
                 qsearch: true,
                 query: q
             };
-            this.go('folder:' + DIMP.conf.qsearchid);
+            this.go('mbox', DIMP.conf.qsearchid);
         }
     },
 
@@ -1714,7 +1733,7 @@ var DimpBase = {
             this.resetSelected();
             $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
             if (!noload) {
-                this.go('folder:' + (this.search ? this.search.mbox : 'INBOX'));
+                this.go('mbox', (this.search ? this.search.mbox : 'INBOX'));
             }
             this.viewport.deleteView(f);
             this.search = null;
@@ -2228,7 +2247,7 @@ var DimpBase = {
                 }
                 if (tmp) {
                     // Prefix is 'sidebarapp_'
-                    this.go('menu:' + tmp.down('A').identify().substring(11));
+                    this.go('menu', tmp.down('A').identify().substring(11));
                     e.stop();
                     return;
                 }
@@ -2237,7 +2256,7 @@ var DimpBase = {
             case 'tabbar':
                 if (e.element().hasClassName('applicationtab')) {
                     // Prefix is 'apptab_'
-                    this.go('menu:' + e.element().identify().substring(7));
+                    this.go('menu', e.element().identify().substring(7));
                     e.stop();
                     return;
                 }
@@ -2245,7 +2264,7 @@ var DimpBase = {
 
             case 'dimpmain_portal':
                 if (e.element().match('H1.header a')) {
-                    this.go('app:' + e.element().readAttribute('app'));
+                    this.go('app', { app: e.element().readAttribute('app') });
                     e.stop();
                     return;
                 }
@@ -2549,7 +2568,7 @@ var DimpBase = {
             case 'special':
             case 'vfolder':
                 e.stop();
-                return this.go('folder:' + li.retrieve('mbox'));
+                return this.go('mbox', li.retrieve('mbox'));
             }
         }
     },
@@ -2811,7 +2830,7 @@ var DimpBase = {
     deleteFolder: function(folder)
     {
         if (this.folder == folder) {
-            this.go('folder:INBOX');
+            this.go();
         }
         this.deleteFolderElt(this.getFolderId(folder), true);
     },
@@ -2835,7 +2854,7 @@ var DimpBase = {
 
         this.deleteFolderElt(fid, !ob.ch);
         if (ob.co && this.folder == ob.m) {
-            this.go('folder:INBOX');
+            this.go();
         }
         this.createFolder(ob);
         if (ob.ch && oldexpand) {
@@ -3158,9 +3177,10 @@ var DimpBase = {
         }
 
         if (!tmp.empty()) {
-            this.go(decodeURIComponent(unescape(tmp)));
+            tmp = decodeURIComponent(unescape(tmp)).split(':', 2);
+            this.go(tmp[0], tmp[1]);
         } else if (DIMP.conf.login_view == 'inbox') {
-            this.go('folder:INBOX');
+            this.go();
         } else {
             this.go('portal');
             this.loadMailbox('INBOX', { background: true });

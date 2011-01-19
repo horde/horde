@@ -488,13 +488,13 @@ var ImpSearch = {
 
             case 'search_dimp_return':
                 e.stop();
-                window.parent.DimpBase.go('folder:' + this.data.searchmbox);
+                window.parent.DimpBase.go('mbox', this.data.searchmbox);
                 return;
 
             case 'search_edit_query_cancel':
                 e.stop();
                 if (this.data.dimp) {
-                    window.parent.DimpBase.go('folder:');
+                    window.parent.DimpBase.go();
                 } else {
                     document.location.href = this.prefsurl;
                 }
