@@ -39,7 +39,8 @@ var AccessKeys = {
                     evt.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
                     elt.dispatchEvent(evt);
                 } else {
-                    elt.fireEvent('onclick');
+                    evt = document.createEventObject();
+                    elt.fireEvent('onclick', evt);
                 }
             }
         }
