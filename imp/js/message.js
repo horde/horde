@@ -120,16 +120,16 @@ var ImpMessage = {
                 return;
             }
 
-            fixcopy = iefix.clone(false);
+            fixcopy = $(iefix.clone(false));
             li.insert(fixcopy);
             fixcopy.clonePosition(ul);
 
             zindex = li.getStyle('zIndex');
-            if (zindex == '') {
+            if (zindex === null || zindex == '') {
                 li.setStyle({ zIndex: 2 });
                 fixcopy.setStyle({ zIndex: 1 });
             } else {
-                fixcopy.setStyle({ zIndex: parseInt(zindex) - 1 });
+                fixcopy.setStyle({ zIndex: parseInt(zindex, 10) - 1 });
             }
 
             li.observe('mouseout', function() {

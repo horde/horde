@@ -129,7 +129,8 @@ document.observe('dom:loaded', function() {
     // If menu is present, attach event handlers to folder switcher.
     var tmp = $('openfoldericon');
     if (tmp) {
-        $('menuform').observe('change', IMP.menuFolderSubmit.bind(IMP));
+        // Observe actual element since IE does not bubble change events.
+        $('menu').down('[name=mailbox]').observe('change', IMP.menuFolderSubmit.bind(IMP));
         tmp.down().observe('click', IMP.menuFolderSubmit.bind(IMP, true));
     }
 });
