@@ -221,4 +221,16 @@ extends Horde_Kolab_Storage_TestCase
             'Horde_Kolab_Storage_Cache', $factory->createCache(array())
         );
     }
+
+    public function testFolder()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder',
+            $factory->createFolder(
+                $this->getMock('Horde_Kolab_Storage_List'),
+                'INBOX'
+            )
+        );
+    }
 }
