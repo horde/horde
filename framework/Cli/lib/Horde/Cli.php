@@ -341,19 +341,19 @@ class Horde_Cli
      */
     public function prompt($prompt, $choices = null, $default = null)
     {
-        if ($default !== null) {
-            $prompt .= ' [' . $default . ']';
-        }
-
         // Main event loop to capture top level command.
         while (true) {
             // Print out the prompt message.
-            $this->writeln($prompt . ' ', !is_array($choices));
             if (is_array($choices) && !empty($choices)) {
+                $this->writeln(wordwrap($prompt) . ' ', !is_array($choices));
                 foreach ($choices as $key => $choice) {
                     $this->writeln($this->indent('(' . $this->bold($key) . ') ' . $choice));
                 }
-                $this->writeln(Horde_Cli_Translation::t("Type your choice: "), true);
+                $question = Horde_Cli_Translation::t("Type your choice");
+                if ($default !== null) {
+                    $question .= ' [' . $default . ']';
+                }
+                $this->writeln($question . ': ', true);
                 @ob_flush();
 
                 // Get the user choice.
@@ -367,6 +367,10 @@ class Horde_Cli
                     $this->writeln($this->red(sprintf(Horde_Cli_Translation::t("\"%s\" is not a valid choice."), $response)));
                 }
             } else {
+                if ($default !== null) {
+                    $prompt .= ' [' . $default . ']';
+                }
+                $this->writeln(wordwrap($prompt) . ' ', true);
                 @ob_flush();
                 $response = trim(fgets(STDIN));
                 if ($response === '' && $default !== null) {
