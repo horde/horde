@@ -127,6 +127,38 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * List basic folder data for the specified folder.
+     *
+     * @param string $folder The folder path.
+     *
+     * @return array The folder data.
+     */
+    public function folderData($folder)
+    {
+        $list = $this->_list->listFolders();
+        if (!in_array($folder, $list)) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Folder %s does not exist!', $folder)
+            );
+        }
+        $annotations = $this->listFolderTypeAnnotations();
+        if (!isset($annotations[$folder])) {
+            $type = $this->_factory->createFolderType('mail');
+        } else {
+            $type = $annotations[$folder];
+        }
+        $namespace = $this->_list->getNamespace();
+        return array(
+            'type' => $type->getType(),
+            'default' => $type->isDefault(),
+            'namespace' => $namespace->matchNamespace($folder)->getType(),
+            'owner' => $namespace->getOwner($folder),
+            'name' => $namespace->getTitle($folder),
+            'subpath' => $namespace->getSubpath($folder),
+        );
+    }
+
+    /**
      * Get the folder owners.
      *
      * @return array The folder owners with the folder names as key and the

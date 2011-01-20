@@ -64,10 +64,12 @@ extends Horde_Kolab_Storage_TestCase
         $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
         $this->assertEquals(
             array(
+                'INBOX' => 'mail',
                 'INBOX/Calendar' => 'event',
                 'INBOX/Contacts' => 'contact',
                 'INBOX/Notes' => 'note',
                 'INBOX/Tasks' => 'task',
+                'INBOX/a' => 'mail',
             ),
             $query->listTypes()
         );
@@ -343,6 +345,99 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals(
             'Calendar',
             $data['INBOX/Calendar']['name']
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingFolderData()
+    {
+        $this->assertType('array', $this->getNullQuery()->folderData('INBOX/Calendar'));
+    }
+
+    public function testFolderDataReturnsArray()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertType('array', $data);
+    }
+
+    public function testFolderDataHasOwner()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'test@example.com',
+            $data['owner']
+        );
+    }
+
+    public function testFolderDataHasTitle()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'Calendar',
+            $data['name']
+        );
+    }
+
+    public function testFolderDataHasType()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'event',
+            $data['type']
+        );
+    }
+
+    public function testFolderDataHasDefault()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertTrue(
+            $data['default']
+        );
+    }
+
+    public function testMailFolderDataType()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX');
+        $this->assertEquals(
+            'mail',
+            $data['type']
+        );
+    }
+
+    public function testMailFolderDataNoDefault()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX');
+        $this->assertFalse(
+            $data['default']
+        );
+    }
+
+    public function testFolderDataHasNamespace()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'personal',
+            $data['namespace']
+        );
+    }
+
+    public function testFolderDataHasSubpath()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'Calendar',
+            $data['subpath']
         );
     }
 }

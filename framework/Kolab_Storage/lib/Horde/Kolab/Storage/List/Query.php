@@ -54,6 +54,15 @@ extends Horde_Kolab_Storage_Query
     public function dataByType($type);
 
     /**
+     * List basic folder data for the specified folder.
+     *
+     * @param string $folder The folder path.
+     *
+     * @return array The folder data.
+     */
+    public function folderData($folder);
+
+    /**
      * List all folders of a specific type.
      *
      * @param string $type The folder type the listing should be limited to.

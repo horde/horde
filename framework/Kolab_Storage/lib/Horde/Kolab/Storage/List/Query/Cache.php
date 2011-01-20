@@ -34,6 +34,9 @@ implements Horde_Kolab_Storage_List_Query
     /** The folder list sorted by type */
     const BY_TYPE = 'BY_TYPE';
 
+    /** The list of folder data */
+    const FOLDERS = 'FOLDERS';
+
     /** The folder owner list */
     const OWNERS = 'OWNERS';
 
@@ -141,6 +144,25 @@ implements Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * List basic folder data for the specified folder.
+     *
+     * @param string $folder The folder path.
+     *
+     * @return array The folder data.
+     */
+    public function folderData($folder)
+    {
+        $folders = $this->_list_cache->getQuery(self::FOLDERS);
+        if (isset($folders[$folder])) {
+            return $folders[$folder];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Folder %s does not exist!', $folder)
+            );
+        }
+    }
+
+    /**
      * Get the folder owners.
      *
      * @return array The folder owners with the folder names as key and the
@@ -217,58 +239,74 @@ implements Horde_Kolab_Storage_List_Query
     public function synchronize()
     {
         $namespace = $this->_list->getNamespace();
+        $annotations = $this->listFolderTypeAnnotations();
+        $mail_type = $this->_factory->createFolderType('mail');
 
+        $folders = array();
         $owners = array();
-        foreach ($this->_list->listFolders() as $folder) {
-            $owners[$folder] = $namespace->getOwner($folder);
-        }
-        $this->_list_cache->setQuery(self::OWNERS, $owners);
-
         $types = array();
         $by_type = array();
         $personal_defaults = array();
         $defaults = array();
 
-        foreach ($this->listFolderTypeAnnotations() as $folder => $annotation) {
-            $type = $annotation->getType();
+        foreach ($this->_list->listFolders() as $folder) {
+            if (!isset($annotations[$folder])) {
+                $type = $mail_type;
+            } else {
+                $type = $annotations[$folder];
+            }
+            $folder_type = $type->getType();
             $owner = $namespace->getOwner($folder);
-            $title = $namespace->getTitle($folder);
 
-            $types[$folder] = $type;
-            $by_type[$type][$folder] = array(
-                'owner' => $owner, 'name' => $title
+            $owners[$folder] = $owner;
+            $folders[$folder] = array(
+                'type' => $folder_type,
+                'default' => $type->isDefault(),
+                'namespace' => $namespace->matchNamespace($folder)->getType(),
+                'owner' => $owner,
+                'name' => $namespace->getTitle($folder),
+                'subpath' => $namespace->getSubpath($folder),
             );
 
-            if ($annotation->isDefault()) {
-                if (!isset($defaults[$owner][$type])) {
-                    $defaults[$owner][$type] = $folder;
+            $types[$folder] = $folders[$folder]['type'];
+            $by_type[$folder_type][$folder] = array(
+                'owner' => $folders[$folder]['owner'],
+                'name' => $folders[$folder]['name']
+            );
+
+            if ($folders[$folder]['default']) {
+                if (!isset($defaults[$owner][$folder_type])) {
+                    $defaults[$owner][$folder_type] = $folder;
                 } else {
                     throw new Horde_Kolab_Storage_Exception(
                         sprintf(
                             'Both folders %s and %s are marked as default folder of type %s!',
-                            $defaults[$owner][$type],
+                            $defaults[$owner][$folder_type],
                             $folder,
-                            $type
+                            $folder_type
                         )
                     );
                 }
-                if ($namespace->matchNamespace($folder)->getType()
+                if ($folders[$folder]['namespace']
                     == Horde_Kolab_Storage_Folder_Namespace::PERSONAL) {
-                    if (!isset($personal_defaults[$type])) {
-                        $personal_defaults[$type] = $folder;
+                    if (!isset($personal_defaults[$folder_type])) {
+                        $personal_defaults[$folder_type] = $folder;
                     } else {
                         throw new Horde_Kolab_Storage_Exception(
                             sprintf(
                                 'Both folders %s and %s are marked as default folder of type %s!',
-                                $personal_defaults[$type],
+                                $personal_defaults[$folder_type],
                                 $folder,
-                                $type
+                                $folder_type
                             )
                         );
                     }
                 }
             }
         }
+
+        $this->_list_cache->setQuery(self::FOLDERS, $folders);
+        $this->_list_cache->setQuery(self::OWNERS, $owners);
         $this->_list_cache->setQuery(self::TYPES, $types);
         $this->_list_cache->setQuery(self::BY_TYPE, $by_type);
         $this->_list_cache->setQuery(self::DEFAULTS, $defaults);

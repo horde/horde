@@ -305,4 +305,87 @@ extends Horde_Kolab_Storage_TestCase
             $data['INBOX/Calendar']['name']
         );
     }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingFolderData()
+    {
+        $this->assertType('array', $this->getNullQuery()->folderData('INBOX/Calendar'));
+    }
+
+    public function testFolderDataReturnsArray()
+    {
+        $this->assertType('array', $this->getAnnotatedQuery()->folderData('INBOX/Calendar'));
+    }
+
+    public function testFolderDataHasOwner()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'test@example.com',
+            $data['owner']
+        );
+    }
+
+    public function testFolderDataHasTitle()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'Calendar',
+            $data['name']
+        );
+    }
+
+    public function testFolderDataHasType()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'event',
+            $data['type']
+        );
+    }
+
+    public function testFolderDataHasDefault()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
+        $this->assertTrue(
+            $data['default']
+        );
+    }
+
+    public function testMailFolderDataType()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX');
+        $this->assertEquals(
+            'mail',
+            $data['type']
+        );
+    }
+
+    public function testMailFolderDataNoDefault()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX');
+        $this->assertFalse(
+            $data['default']
+        );
+    }
+
+    public function testFolderDataHasNamespace()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'personal',
+            $data['namespace']
+        );
+    }
+
+    public function testFolderDataHasSubpath()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
+        $this->assertEquals(
+            'Calendar',
+            $data['subpath']
+        );
+    }
 }
