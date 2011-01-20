@@ -63,6 +63,9 @@ class Horde_Vcs_Git extends Horde_Vcs
      */
     public $version;
 
+    /**
+     * @throws Horde_Vcs_Exception
+     */
     public function __construct($params = array())
     {
         parent::__construct($params);
@@ -81,6 +84,8 @@ class Horde_Vcs_Git extends Horde_Vcs
                 $this->_sourceroot .= '.git';
             } elseif (file_exists($this->sourceroot() . '/.git/HEAD')) {
                 $this->_sourceroot .= '/.git';
+            } else {
+                throw new Horde_Vcs_Exception('Can not find git repository.');
             }
         }
     }
