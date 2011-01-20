@@ -736,6 +736,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $address  The email address of the PGP key.
      *
      * @return string  The PGP public key.
+     * @throws Horde_Crypt_Exception
      */
     public function getPublicKeyserver($keyid,
                                        $server = self::KEYSERVER_PUBLIC,
@@ -811,19 +812,14 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function getKeyID($address, $server = self::KEYSERVER_PUBLIC,
                              $timeout = self::KEYSERVER_TIMEOUT)
     {
+        $pubkey = null;
+
         /* Connect to the public keyserver. */
         $uri = '/pks/lookup?op=index&options=mr&search=' . urlencode($address);
         $output = $this->_connectKeyserver('GET', $server, $uri, '', $timeout);
 
-        if (($start = strstr($output, '-----BEGIN PGP PUBLIC KEY BLOCK'))) {
-            /* The server returned the matching key immediately. */
-            $length = strpos($start, '-----END PGP PUBLIC KEY BLOCK') + 34;
-            $info = $this->pgpPacketInformation(substr($start, 0, $length));
-            if (!empty($info['keyid']) &&
-                (empty($info['public_key']['expires']) ||
-                 $info['public_key']['expires'] > time())) {
-                return $info['keyid'];
-            }
+        if (strpos($output, '-----BEGIN PGP PUBLIC KEY BLOCK') !== false) {
+            $pubkey = $output;
         } elseif (strpos($output, 'pub:') !== false) {
             $output = explode("\n", $output);
             $keyids = array();
@@ -841,7 +837,16 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             /* Sort by timestamp to use the newest key. */
             if (count($keyids)) {
                 ksort($keyids);
-                return array_pop($keyids);
+                $pubkey = $this->getPublicKeyserver(array_pop($keyids));
+            }
+        }
+
+        if ($pubkey) {
+            $sig = $this->pgpPacketSignature($pubkey, $address);
+            if (!empty($sig['keyid']) &&
+                (empty($sig['public_key']['expires']) ||
+                 $sig['public_key']['expires'] > time())) {
+                return substr($this->_getKeyIDString($sig['keyid']), 2);
             }
         }
 
@@ -891,6 +896,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
     /**
      * Connects to a public key server via HKP (Horrowitz Keyserver Protocol).
+     * http://tools.ietf.org/html/draft-shaw-openpgp-hkp-00
      *
      * @param string $method    POST, GET, etc.
      * @param string $server    The keyserver to use.
