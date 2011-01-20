@@ -102,10 +102,10 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             'default_domain' => null
         ));
 
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result);
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_OBJECT, $result[0]);
+        $this->assertInternalType('array', $result);
+        $this->assertInternalType('object', $result[0]);
         $this->assertEquals($result[0]->personal, '');
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result[0]->comment);
+        $this->assertInternalType('array', $result[0]->comment);
         $this->assertEquals($result[0]->comment, array());
         $this->assertEquals($result[0]->mailbox, 'user');
         $this->assertEquals($result[0]->host, 'example.com');
@@ -116,28 +116,28 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             'default_domain' => null
         ));
 
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result);
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_OBJECT, $result[0]);
+        $this->assertInternalType('array', $result);
+        $this->assertInternalType('object', $result[0]);
         $this->assertEquals($result[0]->groupname, 'My Group');
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result[0]->addresses);
+        $this->assertInternalType('array', $result[0]->addresses);
 
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_OBJECT, $result[0]->addresses[0]);
+        $this->assertInternalType('object', $result[0]->addresses[0]);
         $this->assertEquals($result[0]->addresses[0]->personal, '"Richard"');
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result[0]->addresses[0]->comment);
+        $this->assertInternalType('array', $result[0]->addresses[0]->comment);
         $this->assertEquals($result[0]->addresses[0]->comment[0], 'A comment');
         $this->assertEquals($result[0]->addresses[0]->mailbox, 'richard');
         $this->assertEquals($result[0]->addresses[0]->host, 'localhost');
 
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_OBJECT, $result[0]->addresses[1]);
+        $this->assertInternalType('object', $result[0]->addresses[1]);
         $this->assertEquals($result[0]->addresses[1]->personal, '');
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result[0]->addresses[1]->comment);
+        $this->assertInternalType('array', $result[0]->addresses[1]->comment);
         $this->assertEquals($result[0]->addresses[1]->comment[0], 'Ted Bloggs');
         $this->assertEquals($result[0]->addresses[1]->mailbox, 'ted');
         $this->assertEquals($result[0]->addresses[1]->host, 'example.com');
 
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_OBJECT, $result[0]->addresses[2]);
+        $this->assertInternalType('object', $result[0]->addresses[2]);
         $this->assertEquals($result[0]->addresses[2]->personal, '');
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result[0]->addresses[2]->comment);
+        $this->assertInternalType('array', $result[0]->addresses[2]->comment);
         $this->assertEquals($result[0]->addresses[2]->comment, array());
         $this->assertEquals($result[0]->addresses[2]->mailbox, 'Barney');
         $this->assertEquals($result[0]->addresses[2]->host, 'localhost');
@@ -148,10 +148,10 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             'default_domain' => null
         ));
 
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result);
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_OBJECT, $result[0]);
+        $this->assertInternalType('array', $result);
+        $this->assertInternalType('object', $result[0]);
         $this->assertEquals($result[0]->personal, '');
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $result[0]->comment);
+        $this->assertInternalType('array', $result[0]->comment);
         $this->assertEquals($result[0]->comment, array());
         $this->assertEquals($result[0]->mailbox, '"Jon Parise"');
         $this->assertEquals($result[0]->host, 'php.net');
@@ -185,7 +185,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $res = $parser->parseAddressList($address_string, array(
             'default_domain' => 'example.com'
         ));
-        $this->assertType(PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $res);
+        $this->assertInternalType('array', $res);
         $this->assertEquals(count($res), 3);
     }
 
