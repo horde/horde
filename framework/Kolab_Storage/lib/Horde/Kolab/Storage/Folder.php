@@ -32,6 +32,50 @@
 interface Horde_Kolab_Storage_Folder
 {
     /**
+     * Return the storage path of the folder.
+     *
+     * @return string The storage path of the folder.
+     */
+    public function getPath();
+
+    /**
+     * Returns a readable title for this folder.
+     *
+     * @return string  The folder title.
+     */
+    public function getTitle();
+
+    /**
+     * Return the namespace of the folder.
+     *
+     * @return string The namespace of the folder.
+     */
+    public function getNamespace();
+
+    /**
+     * Returns the owner of the folder.
+     *
+     * @return string The owner of this folder.
+     */
+    public function getOwner();
+
+    /**
+     * Returns the folder path without namespace components.
+     *
+     * @return string The subpath of this folder.
+     */
+    public function getSubpath();
+
+
+
+
+
+
+
+
+
+
+    /**
      * Retrieve the driver for this folder.
      *
      * @return Horde_Kolab_Storage_Driver The folder driver.

@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once 'Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
  * Test the Kolab folder handler.
@@ -30,50 +30,125 @@ require_once 'Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_FolderTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Storage_Unit_Folder_BaseTest
+extends Horde_Kolab_Storage_TestCase
 {
-    /**
-     * Test setup.
-     */
-    public function setUp()
+    public function testConstructor()
     {
-        /* $world = $this->prepareBasicSetup(); */
-
-        /* $this->storage = $this->authenticate($world['auth'], */
-        /*                  'wrobel@example.org', */
-        /*                  'none'); */
-
-        /* $this->prepareNewFolder($this->storage, 'Contacts', 'contact', true); */
-        /* $this->prepareNewFolder($this->storage, 'NewContacts', 'contact'); */
-    }
-
-    /**
-     * Test destruction.
-     */
-    public function tearDown()
-    {
-        /* Horde_Imap_Client_Mock::clean(); */
-        /* if ($this->storage) { */
-        /*     $this->storage->clean(); */
-        /* } */
-    }
-
-    /**
-     * Test class creation.
-     */
-    public function testConstruct()
-    {
-        $this->markTestIncomplete('Currently broken');
-        $GLOBALS['language'] = 'de_DE';
         $folder = new Horde_Kolab_Storage_Folder_Base(
-            'INBOX/Contacts',
-            new Horde_Kolab_Storage_Driver_Namespace_Fixed()
+            $this->getMock('Horde_Kolab_Storage_List'),
+            ''
         );
-        $this->assertEquals('INBOX/Contacts', $folder->name);
-        $this->assertTrue(is_array($folder->_data));
-        $this->assertTrue(empty($folder->_data));
-        $this->assertTrue(empty($folder->new_name));
     }
+
+    public function testGetPath()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path'
+        );
+        $this->assertEquals('path', $folder->getPath());
+    }
+
+    public function testGetNamespace()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path',
+            array(
+                'namespace' => 'personal'
+            )
+        );
+        $this->assertEquals('personal', $folder->getNamespace());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingNamespace()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path'
+        );
+        $folder->getNamespace();
+    }
+
+    public function testGetTitle()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path',
+            array(
+                'name' => 'title'
+            )
+        );
+        $this->assertEquals('title', $folder->getTitle());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingTitle()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path'
+        );
+        $folder->getTitle();
+    }
+
+    public function testGetOwner()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path',
+            array(
+                'owner' => 'owner'
+            )
+        );
+        $this->assertEquals('owner', $folder->getOwner());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingOwner()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path'
+        );
+        $folder->getOwner();
+    }
+
+    public function testGetSubpath()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path',
+            array(
+                'subpath' => 'subpath'
+            )
+        );
+        $this->assertEquals('subpath', $folder->getSubpath());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingSubpath()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path'
+        );
+        $folder->getSubpath();
+    }
+
+
+
+
 
     /**
      * Test renaming.

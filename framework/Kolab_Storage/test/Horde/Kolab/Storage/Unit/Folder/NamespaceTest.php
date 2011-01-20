@@ -81,15 +81,6 @@ extends Horde_Kolab_Storage_TestCase
         }
     }
 
-    public function testTitleForNewFolders()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $folder = $this->_getFolder(null, $namespace);
-            $folder->setTitle('test');
-            $this->assertEquals('test', $folder->getTitle());
-        }
-    }
-
     public function testOwnerForPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
@@ -130,15 +121,6 @@ extends Horde_Kolab_Storage_TestCase
         }
     }
 
-    public function testOwnerForNewFolders()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $folder = $this->_getFolder(null, $namespace);
-            $folder->setTitle('test');
-            $this->assertEquals('test', $folder->getOwner());
-        }
-    }
-
     public function testOwnerDomain()
     {
         foreach ($this->_getNamespaces('test@example.com') as $namespace) {
@@ -152,63 +134,6 @@ extends Horde_Kolab_Storage_TestCase
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('user/test/mine@example.com', $namespace);
             $this->assertEquals('test@example.com', $folder->getOwner());
-        }
-    }
-
-    public function testSettitleDefaultPersonalNS()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $folder = $this->_getFolder(null, $namespace);
-            $folder->setTitle('test:this');
-            $this->assertEquals('INBOX/test/this', $folder->getPath());
-        }
-    }
-
-    public function testSettitleSeparator()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $folder = $this->_getFolder(null, $namespace);
-            $folder->setTitle('a:b:c');
-            $this->assertEquals('INBOX/a/b/c', $folder->getPath());
-        }
-    }
-
-    public function testSettitleUtf7()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $folder = $this->_getFolder(null, $namespace);
-            $folder->setTitle('äöü');
-            $this->assertEquals(
-                'INBOX/äöü',
-                Horde_String::convertCharset($folder->getPath(), 'UTF7-IMAP', 'UTF8')
-            );
-        }
-    }
-
-    public function testSettitleInSharedNS()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $folder = $this->_getFolder(null, $namespace);
-            $folder->setTitleInShared('test');
-            $this->assertEquals('shared.test', $folder->getPath());
-        }
-    }
-
-    public function testSettitleInOthersNS()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $folder = $this->_getFolder(null, $namespace);
-            $folder->setTitleInOther('test', 'test');
-            $this->assertEquals('user/test/test', $folder->getPath());
-        }
-    }
-
-    public function testSubpathForNewFolders()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $folder = $this->_getFolder(null, $namespace);
-            $folder->setTitle('test');
-            $this->assertEquals('test', $folder->getSubpath());
         }
     }
 
@@ -247,11 +172,28 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getFolder($name, $namespace)
     {
+        $factory = new Horde_Kolab_Storage_Factory();
         $this->_connection->expects($this->any())
             ->method('getNamespace')
             ->will($this->returnValue($namespace));
-        $folder = new Horde_Kolab_Storage_Folder_Base($this->_storage, $this->_connection, $name);
-        return $folder;
+        $this->_connection->expects($this->any())
+            ->method('getMailboxes')
+            ->will($this->returnValue(array($name)));
+        $this->_connection->expects($this->any())
+            ->method('listAnnotation')
+            ->will($this->returnValue(array($name => 'mail')));
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->_connection,
+            $factory
+        );
+        $list->registerQuery(
+            Horde_Kolab_Storage_List::QUERY_BASE,
+            $factory->createListQuery(
+                'Horde_Kolab_Storage_List_Query_Base',
+                $list
+            )
+        );
+        return $list->getFolder($name);
     }
 
     private function _getNamespaces($user = 'test')
