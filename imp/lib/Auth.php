@@ -145,16 +145,18 @@ class IMP_Auth
      */
     static public function transparent($auth_ob)
     {
-        /* It is possible that preauthenticate() set the credentials.
-         * If so, use that information instead of hordeauth. */
-        if ($auth_ob->getCredential('transparent')) {
-            $credentials = $auth_ob->getCredential();
-        } else {
+        $credentials = $auth_ob->getCredential('credentials');
+
+        if (empty($credentials['transparent'])) {
             /* Attempt hordeauth authentication. */
             $credentials = self::_canAutoLogin();
             if ($credentials === false) {
                 return false;
             }
+        } else {
+            /* It is possible that preauthenticate() set the credentials.
+             * If so, use that information instead of hordeauth. */
+            $credentials['userId'] = $auth_ob->getCredential('userId');
         }
 
         try {
