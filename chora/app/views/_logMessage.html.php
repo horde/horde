@@ -3,7 +3,7 @@
  <div class="commit-info">
   <ul>
    <li>
-    <a href="<?php echo Chora::url('patchsets', $GLOBALS['where'], array('ps' => $logMessage->queryRevision())) ?>" title="<?php echo _("View commit") ?>"><?php echo $this->escape($logMessage->queryRevision()) ?></a>
+    <a href="<?php echo Chora::url('co', $GLOBALS['where'], array('r' => $logMessage->queryRevision())) ?>" title="<?php echo _("View commit") ?>"><?php echo $this->escape($logMessage->queryRevision()) ?></a>
     <span class="diffadd">+<?php echo $this->escape($logMessage->getAddedLines()) ?></span>, <span class="diffdel">-<?php echo $this->escape($logMessage->getDeletedLines()) ?></span>
    </li>
   </ul>
