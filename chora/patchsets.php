@@ -57,20 +57,14 @@ while (list($id, $patchset) = each($patchsets)) {
         ->link(array('title' => sprintf("Commits to %s", $id)))
         . htmlspecialchars($VC->abbrev($id)) . '</a>';
 
-    $files = $tags = array();
-
-    $commitDate = Chora::formatDate($patchset['date']);
-    $readableDate = Chora::readableTime($patchset['date'], true);
-    $author = Chora::showAuthorName($patchset['author'], true);
-    $logMessage = Chora::formatLogMessage($patchset['log']);
-
-    if (!empty($patchset['branch'])) {
-        $tags = $patchset['branch'];
-    }
-
-    if (!empty($patchset['tag'])) {
-        $tags = array_merge($tags, $patchset['tag']);
-    }
+    $commitDate = Chora::formatDate($patchset['log']->queryDate());
+    $readableDate = Chora::readableTime($patchset['log']->queryDate(), true);
+    $author = Chora::showAuthorName($patchset['log']->queryAuthor(), true);
+    $logMessage = Chora::formatLogMessage($patchset['log']->queryLog());
+    $tags = array_merge(
+        $patchset['log']->queryBranch(),
+        $patchset['log']->queryTags()
+    );
 
     require CHORA_TEMPLATES . '/patchsets/ps.inc';
 }
