@@ -557,14 +557,14 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         $this->changed = true;
 
+        $prev = ($this->_trackdiff && !is_null($this->_eltdiff) && !isset($this->_eltdiff['a'][$elt['p']]))
+            ? $this->hasChildren($this->_tree[$elt['p']])
+            : null;
+
         /* Set the parent array to the value in $elt['p']. */
         if (empty($this->_parent[$elt['p']])) {
             $this->_parent[$elt['p']] = array();
         }
-
-        $prev = ($this->_trackdiff && !is_null($this->_eltdiff) && !isset($this->_eltdiff['a'][$elt['p']]))
-            ? $this->hasChildren($this->_tree[$elt['p']])
-            : null;
 
         $this->_parent[$elt['p']][] = $elt['v'];
         $this->_tree[$elt['v']] = $elt;
