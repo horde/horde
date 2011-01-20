@@ -842,13 +842,42 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
-        /* Properly encode the addresses we're sending to. */
+        /* Properly encode the addresses we're sending to. Always try
+         * charset of original message as we know that the user can handle
+         * that charset. */
         try {
-            $email = Horde_Mime::encodeAddress($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset(), $GLOBALS['session']->get('imp', 'maildomain'));
+            return $this->_prepSendMessageEncode($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset());
+        } catch (IMP_Compose_Exception $e) {
+            if (is_null($message)) {
+                throw $e;
+            }
+        }
 
-            /* Validate the recipient addresses. */
+        /* Fallback to UTF-8 (if replying, original message might be in
+         * US-ASCII, for example, but To/Subject/Etc. may contain 8-bit
+         * characters. */
+        $message->setHeaderCharset('UTF-8');
+        return $this->_prepSendMessageEncode($email, 'UTF-8');
+    }
+
+    /**
+     * Encode address and do sanity checking on encoded address.
+     *
+     * @param string $email    The e-mail list to send to.
+     * @param string $charset  The charset to encode to.
+     *
+     * @return string  The encoded $email list.
+     * @throws IMP_Compose_Exception
+     */
+    protected function _prepSendMessageEncode($email, $charset)
+    {
+        $mdomain = $GLOBALS['session']->get('imp', 'maildomain');
+
+        /* Validate the recipient addresses. */
+        try {
+            $email = Horde_Mime::encodeAddress($email, $charset, $mdomain);
             Horde_Mime_Address::parseAddressList($email, array(
-                'defserver' => $GLOBALS['session']->get('imp', 'maildomain'),
+                'defserver' => $mdomain,
                 'validate' => true
             ));
         } catch (Horde_Mime_Exception $e) {
