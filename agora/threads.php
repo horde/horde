@@ -12,7 +12,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('agora', array('cli' => true));
 
 /* Make sure we have a forum id. */
 list($forum_id, , $scope) = Agora::getAgoraId();

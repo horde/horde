@@ -2,7 +2,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none', 'cli' => true));
+$hylax = Horde_Registry::appInit('hylax', array('cli' => true));
 
 /* Get the arguments. The first argument is the filename from which the job ID
  * is obtained, in the format 'recvq/faxNNNNN.tif'. */

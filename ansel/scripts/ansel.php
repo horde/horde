@@ -10,7 +10,7 @@
 */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('ansel', array('cli' => true));
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(),

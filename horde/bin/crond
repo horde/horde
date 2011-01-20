@@ -22,7 +22,7 @@ $cron_tasks = array(
 // End Configuration
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('horde', array('cli' => true));
 
 // Get an instance of the cron scheduler.
 $daemon = Horde_Scheduler::factory('Cron');

@@ -13,7 +13,7 @@
 */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('ansel', array('cli' => true));
 
 /* Command line options */
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:g:s:d:kr:zl',

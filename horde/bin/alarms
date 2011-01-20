@@ -10,6 +10,6 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true, 'user_admin' => true));
+Horde_Registry::appInit('horde', array('cli' => true, 'user_admin' => true));
 
 $injector->getInstance('Horde_Alarm')->notify(null, true, false, array('notify', 'desktop'));

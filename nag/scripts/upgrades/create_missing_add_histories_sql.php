@@ -11,7 +11,7 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('nag', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('nag', array('cli' => true));
 
 $history = $GLOBALS['injector']->getInstance('Horde_History');
 

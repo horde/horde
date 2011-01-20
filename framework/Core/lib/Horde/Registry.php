@@ -140,7 +140,9 @@ class Horde_Registry
      *   'none'  - Do not authenticate
      *   'throw' - Authenticate; on no auth, throw a Horde_Exception
      *   [DEFAULT] - Authenticate; on no auth redirect to login screen
-     * 'cli' - (boolean) Initialize a CLI interface.
+     * 'cli' - (boolean) Initialize a CLI interface. Setting this to true
+     *         implicits setting 'authentication' to 'none' and 'admin' and
+     *         'nocompress' to true.
      *         DEFAULT: false
      * 'nocompress' - (boolean) If set, the page will not be compressed.
      *                DEFAULT: false
@@ -199,6 +201,7 @@ class Horde_Registry
             $GLOBALS['cli'] = Horde_Cli::init();
 
             $args['nocompress'] = true;
+            $args['authentication'] = 'none';
         }
 
         // Registry.

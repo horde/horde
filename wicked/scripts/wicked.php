@@ -10,7 +10,7 @@
 */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('wicked', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('wicked', array('cli' => true));
 
 $debug = false;
 $out = 'screen';

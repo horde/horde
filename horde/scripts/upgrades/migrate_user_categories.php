@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('horde', array('cli' => true));
 
 $cManager = new Horde_Prefs_CategoryManager();
 $apps = $registry->listApps(array('hidden', 'notoolbar', 'active', 'admin'));

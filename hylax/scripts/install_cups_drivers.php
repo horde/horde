@@ -2,7 +2,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none', 'cli' => true));
+$hylax = Horde_Registry::appInit('hylax', array('cli' => true));
 
 /* The CUPS backend file. */
 $hylafax_backend = file_get_contents(HYLAX_BASE . '/scripts/cups/hylafax');

@@ -19,7 +19,7 @@ $BUGZILLA_PRIORITIES = array('P1', 'P2', 'P3', 'P4', 'P5');
 /* END CONFIGURATION */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('whups', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('whups', array('cli' => true));
 
 function sectionHeader($text)
 {

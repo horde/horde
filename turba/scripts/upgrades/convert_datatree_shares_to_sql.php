@@ -9,7 +9,7 @@
 
 /* Set up the CLI environment */
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('turba', array('cli' => true));
 
 /* Grab what we need to steal the DB config */
 require_once HORDE_BASE . '/config/conf.php';

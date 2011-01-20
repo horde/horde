@@ -2,7 +2,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none', 'cli' => true));
+$hylax = Horde_Registry::appInit('hylax', array('cli' => true));
 
 /* Create the fax information array. Set fax_type to 0 for incoming. */
 $info = array('fax_type' => 0,

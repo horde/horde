@@ -87,7 +87,7 @@ require_once 'SyncML/Backend.php';
 /* Do Horde includes if test for horde backend: */
 if ($syncml_backend_driver == 'Horde') {
     require_once dirname(__FILE__) . '/../../../lib/Application.php';
-    Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true, 'session_control' => 'none'));
+    Horde_Registry::appInit('horde', array('cli' => true, 'session_control' => 'none'));
 }
 
 if (!empty($testsetuponly)) {

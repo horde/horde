@@ -6,7 +6,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('horde', array('cli' => true));
 
 $p = Horde_Perms::factory('datatree');
 

@@ -13,7 +13,7 @@ class Whups_TestBase Extends PHPUnit_Framework_TestCase {
     function setUp()
     {
         require_once dirname(__FILE__) . '/../Application.php';
-        Horde_Registry::appInit('whups', array('authentication' => 'none', 'cli' => true));
+        Horde_Registry::appInit('whups', array('cli' => true));
     }
 
     /**

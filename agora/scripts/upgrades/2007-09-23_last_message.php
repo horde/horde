@@ -5,7 +5,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('agora', array('cli' => true));
 
 /* Open the database. */
 $params = Horde::getDriverConfig('storage', 'sql');

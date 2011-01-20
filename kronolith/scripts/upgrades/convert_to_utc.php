@@ -6,7 +6,7 @@
 
 /* Set up the CLI environment. */
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('kronolith', array('cli' => true));
 
 /* Prepare DB stuff. */
 PEAR::pushErrorHandling(PEAR_ERROR_CALLBACK, create_function('$e', 'echo $e->toString()."\n";exit;'));

@@ -6,7 +6,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('jonah', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('jonah', array('cli' => true));
 
 if (empty($argv[1]) || !file_exists($argv[1])) {
     exit("Need a valid filename.\n");

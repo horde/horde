@@ -19,7 +19,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../../lib/Application.php';
-Horde_Registry::appInit('ingo', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('ingo', array('cli' => true));
 
 /* Initialize storage backends. */
 if ($conf['storage']['driver'] != 'sql') {

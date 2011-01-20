@@ -12,7 +12,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true, 'no_compress' => true));
+Horde_Registry::appInit('folks', array('cli' => true, 'no_compress' => true));
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:dt:f:c:',

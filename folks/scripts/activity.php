@@ -17,7 +17,7 @@
 exit;
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('folks', array('cli' => true));
 
 try {
     $db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();

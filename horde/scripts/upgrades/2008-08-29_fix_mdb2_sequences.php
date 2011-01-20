@@ -24,7 +24,7 @@ $to_upgrade = array('ansel_shares' => 'share_id',
 
 /* Set up the CLI environment */
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('horde', array('cli' => true));
 
 $config = $GLOBALS['conf']['sql'];
 unset($config['charset']);

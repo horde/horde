@@ -14,7 +14,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('kronolith', array('cli' => true));
 
 // Read command line parameters.
 $cli = Horde_Cli::singleton();

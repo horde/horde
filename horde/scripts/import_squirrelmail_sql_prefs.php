@@ -17,7 +17,7 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('horde', array('cli' => true));
 
 // Read command line parameters.
 if ($argc != 2) {
