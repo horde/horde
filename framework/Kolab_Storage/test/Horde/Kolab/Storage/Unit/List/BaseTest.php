@@ -139,6 +139,73 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetFolder()
     {
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder',
+            $this->_getFolder()->getFolder('INBOX/Calendar')
+        );
+    }
+
+    public function testFolderPath()
+    {
+        $this->assertEquals(
+            'INBOX/Calendar',
+            $this->_getFolder()
+            ->getFolder('INBOX/Calendar')
+            ->getPath()
+        );
+    }
+
+    public function testFolderNamespace()
+    {
+        $this->assertEquals(
+            'personal',
+            $this->_getFolder()
+            ->getFolder('INBOX/Calendar')
+            ->getNamespace()
+        );
+    }
+
+    public function testFolderTitle()
+    {
+        $this->assertEquals(
+            'Calendar',
+            $this->_getFolder()
+            ->getFolder('INBOX/Calendar')
+            ->getTitle()
+        );
+    }
+
+    public function testFolderOwner()
+    {
+        $this->assertEquals(
+            'test@example.com',
+            $this->_getFolder()
+            ->getFolder('INBOX/Calendar')
+            ->getOwner()
+        );
+    }
+
+    public function testFolderSubpath()
+    {
+        $this->assertEquals(
+            'Calendar',
+            $this->_getFolder()
+            ->getFolder('INBOX/Calendar')
+            ->getSubpath()
+        );
+    }
+
+    public function testFolderDefault()
+    {
+        $this->assertTrue(
+            $this->_getFolder()
+            ->getFolder('INBOX/Calendar')
+            ->isDefault()
+        );
+    }
+
+    public function _getFolder()
+    {
         $factory = new Horde_Kolab_Storage_Factory();
         $list = new Horde_Kolab_Storage_List_Base(
             $this->getAnnotatedMock(),
@@ -151,9 +218,6 @@ extends Horde_Kolab_Storage_TestCase
                 $list
             )
         );
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Folder',
-            $list->getFolder('INBOX/Calendar')
-        );
+        return $list;
     }
 }

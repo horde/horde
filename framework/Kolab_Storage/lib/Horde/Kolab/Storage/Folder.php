@@ -66,6 +66,12 @@ interface Horde_Kolab_Storage_Folder
      */
     public function getSubpath();
 
+    /**
+     * Is this a default folder?
+     *
+     * @return boolean Boolean that indicates the default status.
+     */
+    public function isDefault();
 
 
 

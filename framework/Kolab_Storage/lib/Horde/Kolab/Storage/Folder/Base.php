@@ -128,6 +128,18 @@ implements Horde_Kolab_Storage_Folder
         throw new Horde_Kolab_Storage_Exception('No "subpath" information available!');
     }
 
+    /**
+     * Is this a default folder?
+     *
+     * @return boolean Boolean that indicates the default status.
+     */
+    public function isDefault()
+    {
+        if (isset($this->_data['default'])) {
+            return $this->_data['default'];
+        }
+        throw new Horde_Kolab_Storage_Exception('No "default" information available!');
+    }
 
 
 
@@ -274,6 +286,7 @@ implements Horde_Kolab_Storage_Folder
     {
         return $this->_driver->getNamespace()->getSubpath($path);
     }
+
 
 
 
@@ -520,20 +533,6 @@ implements Horde_Kolab_Storage_Folder
             $this->_type_annotation = $type_annotation;
         }
         return $this->_type;
-    }
-
-    /**
-     * Is this a default folder?
-     *
-     * @return boolean Boolean that indicates the default status.
-     */
-    function isDefault()
-    {
-        if (!isset($this->_default)) {
-            /* This call also determines default status */
-            $this->getType();
-        }
-        return $this->_default;
     }
 
     /**

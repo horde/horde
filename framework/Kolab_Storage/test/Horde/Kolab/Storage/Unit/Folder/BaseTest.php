@@ -146,6 +146,30 @@ extends Horde_Kolab_Storage_TestCase
         $folder->getSubpath();
     }
 
+    public function testGetDefault()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path',
+            array(
+                'default' => true
+            )
+        );
+        $this->assertTrue($folder->isDefault());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingDefault()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path'
+        );
+        $folder->isDefault();
+    }
+
 
 
 
