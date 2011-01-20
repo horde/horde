@@ -82,7 +82,9 @@ class Wicked
         }
 
         $url = Horde::url($script, $full, array('append_session' => $append_session));
-        $url->url = preg_replace('|^([a-zA-Z][a-zA-Z0-9+.-]{0,19})://[^/]*|', '', $url->url);
+        if (!$full) {
+            $url->url = preg_replace('|^([a-zA-Z][a-zA-Z0-9+.-]{0,19})://[^/]*|', '', $url->url);
+        }
 
         return $url;
     }
