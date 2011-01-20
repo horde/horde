@@ -66,10 +66,11 @@ class Horde_Crypt
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     *                       - 'email_charset': (string) The default email
-     *                                          charset. DEFAULT: NONE
-     *                       - 'temp': (string) [REQUIRED] Location of
-     *                                          temporary directory.
+     * <pre>
+     * email_charset - (string) The default email charset.
+     *                 DEFAULT: NONE
+     * temp - (string) [REQUIRED] Location of temporary directory.
+     * </pre>
      *
      * @throws InvalidArgumentException
      */

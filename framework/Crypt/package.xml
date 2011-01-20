@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:03:01</time>
+ <date>2011-01-19</date>
+ <time>23:11:03</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -35,6 +35,7 @@
       <file name="Pgp.php" role="php" />
       <file name="Smime.php" role="php" />
       <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
      </dir> <!-- /lib/Horde/Crypt -->
@@ -317,28 +318,10 @@
        <file name="pgp_signed2.txt" role="test" />
        <file name="smime_subjectAltName.pem" role="test" />
       </dir> <!-- /test/Horde/Crypt/fixtures -->
-      <file name="bug_6601.phpt" role="test" />
-      <file name="pgp.inc" role="test" />
-      <file name="pgp_decrypt.phpt" role="test" />
-      <file name="pgp_decrypt_symmetric.phpt" role="test" />
-      <file name="pgp_encrypt.phpt" role="test" />
-      <file name="pgp_encryptedSymmetrically.phpt" role="test" />
-      <file name="pgp_encrypt_symmetric.phpt" role="test" />
-      <file name="pgp_generateRevocation.phpt" role="test" />
-      <file name="pgp_getSignersKeyID.phpt" role="test" />
-      <file name="pgp_parsePGPData.phpt" role="test" />
-      <file name="pgp_pgpPacketInformation.phpt" role="test" />
-      <file name="pgp_pgpPacketSignature.phpt" role="test" />
-      <file name="pgp_pgpPacketSignatureByUidIndex.phpt" role="test" />
-      <file name="pgp_pgpPrettyKey.phpt" role="test" />
-      <file name="pgp_publicKeyMIMEPart.phpt" role="test" />
-      <file name="pgp_sign.phpt" role="test" />
-      <file name="pgp_skipif.inc" role="test" />
-      <file name="pgp_verify.phpt" role="test" />
-      <file name="pgp_verifyPassphrase.phpt" role="test" />
-      <file name="smime.inc" role="test" />
-      <file name="smime_skipif.inc" role="test" />
-      <file name="smime_subjectAltName.phpt" role="test" />
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="PgpTest.php" role="test" />
+      <file name="SmimeTest.php" role="test" />
      </dir> <!-- /test/Horde/Crypt -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -468,28 +451,10 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_CN/LC_MESSAGES/Horde_Crypt.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" />
-   <install as="Horde/Crypt/bug_6601.phpt" name="test/Horde/Crypt/bug_6601.phpt" />
-   <install as="Horde/Crypt/pgp.inc" name="test/Horde/Crypt/pgp.inc" />
-   <install as="Horde/Crypt/pgp_decrypt.phpt" name="test/Horde/Crypt/pgp_decrypt.phpt" />
-   <install as="Horde/Crypt/pgp_decrypt_symmetric.phpt" name="test/Horde/Crypt/pgp_decrypt_symmetric.phpt" />
-   <install as="Horde/Crypt/pgp_encrypt.phpt" name="test/Horde/Crypt/pgp_encrypt.phpt" />
-   <install as="Horde/Crypt/pgp_encryptedSymmetrically.phpt" name="test/Horde/Crypt/pgp_encryptedSymmetrically.phpt" />
-   <install as="Horde/Crypt/pgp_encrypt_symmetric.phpt" name="test/Horde/Crypt/pgp_encrypt_symmetric.phpt" />
-   <install as="Horde/Crypt/pgp_generateRevocation.phpt" name="test/Horde/Crypt/pgp_generateRevocation.phpt" />
-   <install as="Horde/Crypt/pgp_getSignersKeyID.phpt" name="test/Horde/Crypt/pgp_getSignersKeyID.phpt" />
-   <install as="Horde/Crypt/pgp_parsePGPData.phpt" name="test/Horde/Crypt/pgp_parsePGPData.phpt" />
-   <install as="Horde/Crypt/pgp_pgpPacketInformation.phpt" name="test/Horde/Crypt/pgp_pgpPacketInformation.phpt" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignature.phpt" name="test/Horde/Crypt/pgp_pgpPacketSignature.phpt" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.phpt" name="test/Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.phpt" />
-   <install as="Horde/Crypt/pgp_pgpPrettyKey.phpt" name="test/Horde/Crypt/pgp_pgpPrettyKey.phpt" />
-   <install as="Horde/Crypt/pgp_publicKeyMIMEPart.phpt" name="test/Horde/Crypt/pgp_publicKeyMIMEPart.phpt" />
-   <install as="Horde/Crypt/pgp_sign.phpt" name="test/Horde/Crypt/pgp_sign.phpt" />
-   <install as="Horde/Crypt/pgp_skipif.inc" name="test/Horde/Crypt/pgp_skipif.inc" />
-   <install as="Horde/Crypt/pgp_verify.phpt" name="test/Horde/Crypt/pgp_verify.phpt" />
-   <install as="Horde/Crypt/pgp_verifyPassphrase.phpt" name="test/Horde/Crypt/pgp_verifyPassphrase.phpt" />
-   <install as="Horde/Crypt/smime.inc" name="test/Horde/Crypt/smime.inc" />
-   <install as="Horde/Crypt/smime_skipif.inc" name="test/Horde/Crypt/smime_skipif.inc" />
-   <install as="Horde/Crypt/smime_subjectAltName.phpt" name="test/Horde/Crypt/smime_subjectAltName.phpt" />
+   <install as="Horde/Crypt/AllTests.php" name="test/Horde/Crypt/AllTests.php" />
+   <install as="Horde/Crypt/Autoload.php" name="test/Horde/Crypt/Autoload.php" />
+   <install as="Horde/Crypt/PgpTest.php" name="test/Horde/Crypt/PgpTest.php" />
+   <install as="Horde/Crypt/SmimeTest.php" name="test/Horde/Crypt/SmimeTest.php" />
    <install as="Horde/Crypt/fixtures/bug_6601.asc" name="test/Horde/Crypt/fixtures/bug_6601.asc" />
    <install as="Horde/Crypt/fixtures/clear.txt" name="test/Horde/Crypt/fixtures/clear.txt" />
    <install as="Horde/Crypt/fixtures/pgp_encrypted.txt" name="test/Horde/Crypt/fixtures/pgp_encrypted.txt" />
@@ -544,7 +509,7 @@ Initial release as a PEAR package
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-01-19</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Horde_Crypt_Exception::.
