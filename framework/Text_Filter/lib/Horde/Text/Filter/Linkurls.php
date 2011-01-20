@@ -83,7 +83,7 @@ class Horde_Text_Filter_Linkurls extends Horde_Text_Filter_Base
 
         return array(
             'regexp' => array(
-                '|^([a-zA-Z][a-zA-Z0-9+.-]{0,19})://([^\s"<]*[\w+#?/&=])|e' => $replacement
+                '|([a-zA-Z][a-zA-Z0-9+.-]{0,19})://([^\s"<]*[\w+#?/&=])|e' => $replacement
             )
         );
     }
