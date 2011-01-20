@@ -41,8 +41,12 @@ class Turba_Driver_Ldap extends Turba_Driver
      *
      * @param $params  Hash containing additional configuration parameters.
      */
-    public function __construct($params)
+    public function __construct($name = '', $params = array())
     {
+        if (!Horde_Util::extensionExists('ldap')) {
+            throw new Turba_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));
+        }
+
         $params = array_merge(array(
             'charset' => '',
             'deref' => LDAP_DEREF_NEVER,
@@ -53,10 +57,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             'server' => 'localhost'
         ), $params);
 
-        parent::__construct($params);
-        if (!Horde_Util::extensionExists('ldap')) {
-            throw new Turba_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));
-        }
+        parent::__construct($name, $params);
 
         if (!($this->_ds = @ldap_connect($this->_params['server'], $this->_params['port']))) {
             throw new Turba_Exception(_("Connection failure"));
