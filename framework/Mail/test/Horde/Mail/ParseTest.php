@@ -189,4 +189,33 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(count($res), 3);
     }
 
+    public function testBug9525()
+    {
+        $parser = new Horde_Mail_Rfc822();
+
+        try {
+            $ob = $parser->parseAddressList(
+                'ß <test@example.com>',
+                array(
+                    'default_domain' => 'example.com',
+                    'validate' => true
+                )
+            );
+
+            $this->fail('Expecting Exception.');
+        } catch (Horde_Mail_Exception $e) {}
+
+        try {
+            $ob = $parser->parseAddressList(
+                '"ß" <test@example.com>',
+                array(
+                    'default_domain' => 'example.com',
+                    'validate' => true
+                )
+            );
+        } catch (Horde_Mail_Exception $e) {
+            $this->fail('Unexpected Exception.');
+        }
+    }
+
 }
