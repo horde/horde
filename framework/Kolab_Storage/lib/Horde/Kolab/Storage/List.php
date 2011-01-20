@@ -28,6 +28,9 @@
 interface Horde_Kolab_Storage_List
 extends Horde_Kolab_Storage_Queriable
 {
+    /** Identifies the basic list query */
+    const QUERY_BASE = 'Base';
+
     /**
      * Return the ID of the underlying connection.
      *
