@@ -61,6 +61,8 @@ class IMP_Imap implements Serializable
      */
     public function createImapObject($username, $password, $key)
     {
+        global $prefs;
+
         if (!is_null($this->ob)) {
             return $this->ob;
         }
@@ -102,7 +104,15 @@ class IMP_Imap implements Serializable
         }
 
         $this->ob = $ob;
-        $this->_postcreate();
+
+        if ($protocol == 'pop') {
+            /* Turn some options off if we are working with POP3. */
+            $prefs->setValue('save_sent_mail', false);
+            $prefs->setLocked('save_sent_mail', true);
+            $prefs->setLocked('sent_mail_folder', true);
+            $prefs->setLocked('drafts_folder', true);
+            $prefs->setLocked('trash_folder', true);
+        }
 
         return $ob;
     }
@@ -135,23 +145,6 @@ class IMP_Imap implements Serializable
             'lifetime' => empty($config['lifetime']) ? false : $config['lifetime'],
             'slicesize' => empty($config['slicesize']) ? false : $config['slicesize'],
         );
-    }
-
-    /**
-     * Alter some IMP/Horde settings once we load/create the object.
-     */
-    protected function _postcreate()
-    {
-        global $prefs;
-
-        if ($this->ob instanceof Horde_Imap_Client_Socket_Pop3) {
-            /* Turn some options off if we are working with POP3. */
-            $prefs->setValue('save_sent_mail', false);
-            $prefs->setLocked('save_sent_mail', true);
-            $prefs->setLocked('sent_mail_folder', true);
-            $prefs->setLocked('drafts_folder', true);
-            $prefs->setLocked('trash_folder', true);
-        }
     }
 
     /**
@@ -435,8 +428,6 @@ class IMP_Imap implements Serializable
             $this->ob,
             $this->_nsdefault
         ) = unserialize($data);
-
-        $this->_postcreate();
     }
 
 }
