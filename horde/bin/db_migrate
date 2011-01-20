@@ -3,7 +3,7 @@
 /**
  * Database migration script.
  *
- * Usage: ./db_migrate application [up | down | version [debug]]
+ * Usage: ./db_migrate [application | directory] [up | down | version [debug]]
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -23,11 +23,15 @@ Horde_Registry::appInit('horde', array(
 array_shift($_SERVER['argv']);
 $args = $_SERVER['argv'];
 if (empty($args[0])) {
-    $cli->fatal('Usage: db_migrate application [up | down | version]');
+    $cli->fatal('Usage: db_migrate [application | directory] [up | down | version]');
 }
 
 $app = $args[0];
-if (!in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null))) {
+if (in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null))) {
+    $dir = $registry->get('fileroot', $app) . '/migration/';
+} elseif (is_directory($app)) {
+    $dir = $app;
+} else {
     $cli->fatal("$app is not a configured Horde application");
 }
 
@@ -47,8 +51,6 @@ if (!empty($args[1])) {
 }
 
 // Run
-$dir = $registry->get('fileroot', $app) . '/migration/';
-
 $db = $injector->getInstance('Horde_Db_Adapter');
 $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
 if (!empty($args[2]) && strpos($args[2], 'debug') !== false) {
