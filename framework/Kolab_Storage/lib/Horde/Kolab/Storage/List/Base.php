@@ -36,6 +36,13 @@ implements Horde_Kolab_Storage_List
     private $_driver;
 
     /**
+     * The factory for generating additional resources.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    private $_factory;
+
+    /**
      * The list of registered queries.
      *
      * @var array
@@ -49,9 +56,11 @@ implements Horde_Kolab_Storage_List
      * @param Horde_Kolab_Storage_Factory $factory The factory.
      */
     public function __construct(
-        Horde_Kolab_Storage_Driver $driver
+        Horde_Kolab_Storage_Driver $driver,
+        Horde_Kolab_Storage_Factory $factory
     ) {
         $this->_driver  = $driver;
+        $this->_factory = $factory;
     }
 
     /**
@@ -62,6 +71,22 @@ implements Horde_Kolab_Storage_List
     public function getConnectionId()
     {
         return $this->_driver->getId();
+    }
+
+    /**
+     * Returns a representation for the requested folder.
+     *
+     * @param string $folder The path of the folder to return.
+     *
+     * @return Horde_Kolab_Storage_Folder The folder representation.
+     */
+    public function getFolder($folder)
+    {
+        return $this->_factory->createFolder(
+            $this,
+            $folder,
+            $this->getQuery()->folderData($folder)
+        );
     }
 
     /**
@@ -127,7 +152,10 @@ implements Horde_Kolab_Storage_List
      *
      * @param string $name The query name.
      *
-     * @return NULL
+     * @return Horde_Kolab_Storage_Query The requested query.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query does
+     *                                       not exist.
      */
     public function getQuery($name = null)
     {

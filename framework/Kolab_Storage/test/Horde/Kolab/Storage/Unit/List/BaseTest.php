@@ -136,4 +136,24 @@ extends Horde_Kolab_Storage_TestCase
             $list->getQuery()
         );
     }
+
+    public function testGetFolder()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->getAnnotatedMock(),
+            $factory
+        );
+        $list->registerQuery(
+            Horde_Kolab_Storage_List::QUERY_BASE,
+            $factory->createListQuery(
+                'Horde_Kolab_Storage_List_Query_Base',
+                $list
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder',
+            $list->getFolder('INBOX/Calendar')
+        );
+    }
 }
