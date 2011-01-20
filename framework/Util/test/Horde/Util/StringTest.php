@@ -450,4 +450,13 @@ EOT
         $this->assertEquals('foo', Horde_String::common('foobar', 'fooxyx'));
         $this->assertEquals('foo', Horde_String::common('foo', 'foobar'));
     }
+
+    public function testBug9528()
+    {
+        $this->assertEquals(
+            "<html>",
+            Horde_String::convertCharset("<html>", 'UTF-8', 'Windows-1258')
+        );
+    }
+
 }
