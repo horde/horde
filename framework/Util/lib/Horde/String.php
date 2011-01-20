@@ -32,15 +32,16 @@ class Horde_String
     /**
      * Converts a string from one charset to another.
      *
-     * Works only if either the iconv or the mbstring extension
-     * are present and best if both are available.
+     * Uses the iconv or the mbstring extensions.
      * The original string is returned if conversion failed or none
      * of the extensions were available.
      *
-     * @param mixed $input  The data to be converted. If $input is an an array,
-     *                      the array's values get converted recursively.
-     * @param string $from  The string's current charset.
-     * @param string $to    The charset to convert the string to.
+     * @param mixed $input    The data to be converted. If $input is an an
+     *                        array, the array's values get converted
+     *                        recursively.
+     * @param string $from    The string's current charset.
+     * @param string $to      The charset to convert the string to.
+     * @param boolean $force  Force conversion?
      *
      * @return mixed  The converted input data.
      */
