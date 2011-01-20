@@ -91,6 +91,19 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Returns a representation for the requested folder.
+     *
+     * @param string $folder The path of the folder to return.
+     *
+     * @return Horde_Kolab_Storage_Folder The folder representation.
+     */
+    public function getFolder($folder)
+    {
+        $this->_init();
+        return $this->_list->getFolder($folder);
+    }
+
+    /**
      * Returns the list of folders visible to the current user.
      *
      * @return array The list of folders, represented as a list of strings.
