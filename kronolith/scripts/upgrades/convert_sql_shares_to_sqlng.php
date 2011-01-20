@@ -18,7 +18,6 @@ require_once dirname(__FILE__) . '/../../migration/15_kronolith_upgrade_sqlng.ph
 
 $db = $injector->getInstance('Horde_Db_Adapter');
 $migration = new KronolithUpgradeSqlng($db);
-$cli = new Horde_Cli();
 
 $delete = $cli->prompt('Delete existing shares from the NEW backend before migrating the OLD backend? This should be done to avoid duplicate entries or primary key collisions in the storage backend from earlier migrations.', array('y' => 'Yes', 'n' => 'No'), 'n');
 
