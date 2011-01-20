@@ -1775,7 +1775,7 @@ class Horde_Registry
     {
         if (Horde_Cli::runningFromCLI()) {
             $cli = new Horde_Cli();
-            $cli->fatal(Horde_Core_Translation::t("You are not authenticated."));
+            $cli->fatal($e ? $e : Horde_Core_Translation::t("You are not authenticated."));
         }
 
         if (is_null($e)) {
