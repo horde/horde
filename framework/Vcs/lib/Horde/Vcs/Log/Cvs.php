@@ -40,11 +40,17 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
             /* Found revision and filename, now looking for date */
             case 'date':
                 $line = array_shift($raw);
-                if (preg_match("|^date:\s+(\d+)[-/](\d+)[-/](\d+)\s+(\d+):(\d+):(\d+).*?;\s+author:\s+(.+);\s+state:\s+(\S+);(\s+lines:\s+([0-9\s+-]+))?|", $line, $parts)) {
+                if (preg_match("|^date:\s+(\d+)[-/](\d+)[-/](\d+)\s+(\d+):(\d+):(\d+).*?;\s+author:\s+(.+);\s+state:\s+(\S+);(\s+lines:\s+\+(\d+)\s\-(\d+))?|", $line, $parts)) {
                     $this->_date = gmmktime($parts[4], $parts[5], $parts[6], $parts[2], $parts[3], $parts[1]);
                     $this->_author = $parts[7];
                     $this->_state = $parts[8];
-                    $this->_lines = isset($parts[10]) ? $parts[10] : '';
+                    if (isset($parts[9])) {
+                        $this->_lines = '+' . $parts[10] . ' -' . $parts[11];
+                        $this->_files[$this->_file->queryModulePath()] = array(
+                            'added' => $parts[10],
+                            'deleted' => $parts[11]
+                        );
+                    }
                     $state = 'branches';
                 }
                 break;
