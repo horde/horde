@@ -7,7 +7,7 @@
  */
 
 /* Set up the CLI environment */
-require_once dirname(__FILE__) . '/../../Application.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
 
 $config = $GLOBALS['conf']['sql'];
