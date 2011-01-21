@@ -1937,7 +1937,7 @@ HTML;
             $url .= '/' . $key . '=' . rawurlencode(strval($val));
         }
 
-        return self::url($url);
+        return self::url($url, true, array('append_session' => -1));
     }
 
     /**
