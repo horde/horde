@@ -130,9 +130,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         foreach ($rows as $row) {
-            foreach ($row as $column => $value) {
-                $share['perm']['users'] = $this->_buildPermsFromRow($row, 'user_uid');
-            }
+            $share['perm']['users'] = $this->_buildPermsFromRow($row, 'user_uid');
         }
     }
 
