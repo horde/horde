@@ -114,12 +114,12 @@ case 'save_attachment_public_key':
             ? $contents->getBodyPart($vars->mime_id, array('mimeheaders' => true, 'stream' => true))
             : $contents->fullMessageText();
         $raw_text = $mime_part->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
-
-        $sig_result = $imp_smime->verifySignature($raw_text);
-        $imp_smime->addPublicKey($sig_result->cert);
-        echo Horde::wrapInlineScript(array('window.close();'));
     } catch (Horde_Exception $e) {
         throw new IMP_Exception(_("No certificate found."));
     }
+
+    $sig_result = $imp_smime->verifySignature($raw_text);
+    $imp_smime->addPublicKey($sig_result->cert);
+    echo Horde::wrapInlineScript(array('window.close();'));
     break;
 }
