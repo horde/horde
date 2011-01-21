@@ -1928,7 +1928,7 @@ HTML;
      *             the default 'public'.
      * </pre>
      *
-     * @return string  The URL to the cache page.
+     * @return Horde_Url  The URL to the cache page.
      */
     static public function getCacheUrl($type, $params = array())
     {
@@ -1947,7 +1947,7 @@ HTML;
      * @param array $options         Additional options:
      * <pre>
      * 'height' - (integer) The height of the popup window.
-     *            DEFAULT: 650 px
+     *            DEFAULT: 650px
      * 'menu' - (boolean) Show the browser menu in the popup window?
      *          DEFAULT: false
      * 'onload' - (string) A JS function to call after the popup window is

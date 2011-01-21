@@ -127,8 +127,7 @@ class Horde_Themes_Css
             if ($conf['cachecssparams']['compress'] == 'php') {
                 try {
                     $out = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($out, 'csstidy');
-                } catch (Horde_Exception $e) {
-                }
+                } catch (Horde_Exception $e) {}
             }
 
             switch ($cache_type) {
