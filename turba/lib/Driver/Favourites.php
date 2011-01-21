@@ -131,7 +131,18 @@ class Turba_Driver_Favourites extends Turba_Driver
             throw new Turba_Exception(_("No source for favourite recipients exists."));
         }
 
-        $addresses = $registry->call('contacts/favouriteRecipients', array($this->_params['limit']));
+        try {
+            $addresses = $registry->call('contacts/favouriteRecipients', array($this->_params['limit']));
+        } catch (Horde_Exception $e) {
+            if ($e->getCode() == Horde_Registry::AUTH_FAILURE ||
+                $e->getCode() == Horde_Registry::NOT_ACTIVE ||
+                $e->getCode() == Horde_Registry::PERMISSION_DENIED) {
+                return array();
+            }
+            throw new Turba_Exception($e);
+        } catch (Exception $e) {
+            throw new Turba_Exception($e);
+        }
 
         $addressbook = array();
         foreach ($addresses as $address) {
