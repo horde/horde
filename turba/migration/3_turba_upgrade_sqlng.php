@@ -37,7 +37,7 @@ class TurbaUpgradeSqlng extends Horde_Db_Migration_Base
         $t->column('perm_guest_' . Horde_Perms::DELETE, 'boolean', array('default' => false, 'null' => false));
         $t->column('attribute_name', 'string', array('limit' => 255, 'null' => false));
         $t->column('attribute_desc', 'string', array('limit' => 255));
-        $t->column('attribute_params', 'string', array('limit' => 7));
+        $t->column('attribute_params', 'text');
         $t->end();
 
         $this->addIndex('turba_sharesng', array('share_name'));
