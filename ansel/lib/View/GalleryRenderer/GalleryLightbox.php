@@ -136,7 +136,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         /* Output js/css here if we are calling via the api */
         if ($this->view->api) {
             $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('lightbox.css');
-            Horde::includeStylesheetFiles(array('nobase' => true), true);
+            Horde::includeStylesheetFiles(array('nobase' => true));
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
             $includes->add('accesskeys.js', 'horde', true);
             $includes->add('effects.js', 'horde', true);
