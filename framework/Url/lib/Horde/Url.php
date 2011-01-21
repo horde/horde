@@ -213,12 +213,13 @@ class Horde_Url
     /**
      * Creates the full URL string.
      *
-     * @param boolean $raw  Whether to output the URL in the raw URL format or
-     *                      HTML-encoded.
+     * @param boolean $raw   Whether to output the URL in the raw URL format
+     *                       or HTML-encoded.
+     * @param boolean $full  Output the full URL?
      *
      * @return string  The string representation of this object.
      */
-    public function toString($raw = false)
+    public function toString($raw = false, $full = true)
     {
         if ($this->toStringCallback) {
             $callback = $this->toStringCallback;
@@ -243,7 +244,10 @@ class Horde_Url
             }
         }
 
-        $url = $this->url;
+        $url = $full
+            ? $this->url
+            : parse_url($this->url, PHP_URL_PATH);
+
         if (strlen($this->pathInfo)) {
             $url = rtrim($url, '/');
             $url .= '/' . $this->pathInfo;

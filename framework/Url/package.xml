@@ -28,7 +28,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Add Horde_Url_Exception::.
+ * Add ability to return relative URL when converting to string.
+ * Add Horde_Url_Exception::.
  * Add Horde_Url::redirect().
  * Add Horde_Url::unique().
  * Add support for callback function for toString conversion.
@@ -56,6 +57,7 @@
       <file name="RawTest.php" role="test" />
       <file name="RedirectTest.php" role="test" />
       <file name="RemoveTest.php" role="test" />
+      <file name="TostringTest.php" role="test" />
      </dir> <!-- /test/Horde/Url -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -86,6 +88,7 @@
    <install as="Horde/Url/RawTest.php" name="test/Horde/Url/RawTest.php" />
    <install as="Horde/Url/RedirectTest.php" name="test/Horde/Url/RedirectTest.php" />
    <install as="Horde/Url/RemoveTest.php" name="test/Horde/Url/RemoveTest.php" />
+   <install as="Horde/Url/TostringTest.php" name="test/Horde/Url/TostringTest.php" />
   </filelist>
  </phprelease>
  <changelog>
