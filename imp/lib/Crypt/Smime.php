@@ -125,16 +125,25 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function addPublicKey($cert)
     {
+        list($key_info, $mail) = $this->publicKeyInfo($cert);
+
+        $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
+    }
+
+    /**
+     * Get information about a public certificate.
+     *
+     * @param string $cert  The public certificate.
+     *
+     * @return array  Two element array: the name and e-mail for the cert.
+     * @throws Horde_Crypt_Exception
+     */
+    public function publicKeyInfo($cert)
+    {
         /* Make sure the certificate is valid. */
         $key_info = openssl_x509_parse($cert);
         if (!is_array($key_info) || !isset($key_info['subject'])) {
             throw new Horde_Crypt_Exception(_("Not a valid public key."));
-        }
-
-        /* Add key to the user's address book. */
-        $email = $this->getEmailFromKey($cert);
-        if (is_null($email)) {
-            throw new Horde_Crypt_Exception(_("No email information located in the public key."));
         }
 
         /* Get the name corresponding to this key. */
@@ -146,7 +155,13 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             throw new Horde_Crypt_Exception(_("Not a valid public key."));
         }
 
-        $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
+        /* Add key to the user's address book. */
+        $email = $this->getEmailFromKey($cert);
+        if (is_null($email)) {
+            throw new Horde_Crypt_Exception(_("No email information located in the public key."));
+        }
+
+        return array($key_info, $mail);
     }
 
     /**
@@ -268,7 +283,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         return $this->verify($text, empty($GLOBALS['conf']['openssl']['cafile']) ? array() : $GLOBALS['conf']['openssl']['cafile']);
     }
-
 
     /**
      * Decrypt a message with user's public/private keypair.
