@@ -60,7 +60,7 @@ class TurbaBaseTables extends Horde_Db_Migration_Base
             $t->column('object_title', 'string', array('limit' => 255));
             $t->column('object_role', 'string', array('limit' => 255));
             $t->column('object_logo', 'binary');
-            $t->column('object_logo_type', 'string', array('limit' => 10));
+            $t->column('object_logotype', 'string', array('limit' => 10));
             $t->column('object_company', 'string', array('limit' => 255));
             $t->column('object_category', 'string', array('limit' => 80));
             $t->column('object_notes', 'text');
