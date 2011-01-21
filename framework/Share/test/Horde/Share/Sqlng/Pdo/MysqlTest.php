@@ -21,7 +21,7 @@ class Horde_Share_Sqlng_Pdo_MysqlTest extends Horde_Share_Test_Sqlng_Base
             return;
         }
         $config = self::getConfig('SHARE_SQL_PDO_MYSQL_TEST_CONFIG');
-        if ($config) {
+        if ($config && !empty($config['share']['sql']['pdo_mysql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['share']['sql']['pdo_mysql']);
             parent::setUpBeforeClass();
         }
