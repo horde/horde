@@ -172,6 +172,10 @@ abstract class Horde_Db_Adapter_Base_Schema
             return $this->_adapter->quoteString($type == 'integer'
                                                 ? $value->format('U')
                                                 : $value->format('Y-m-d H:i:s'));
+        } elseif ($type == 'integer') {
+            return (int)$value;
+        } elseif ($type == 'float') {
+            return (float)$value;
         } else {
             /*@TODO
           when String, ActiveSupport::Multibyte::Chars

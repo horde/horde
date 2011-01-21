@@ -261,14 +261,14 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
                        $quotedTableName,
                        $this->quoteString($columnName));
         $res = $this->selectOne($sql);
-        $currentType = $res['Type'];
+        $column = $this->makeColumn($columnName, $res['Default'], $res['Type'], $res['Null'] == 'YES');
 
-        $default = $this->quote($default);
+        $default = $this->quote($default, $column);
         $sql = sprintf('ALTER TABLE %s CHANGE %s %s %s DEFAULT %s',
                        $quotedTableName,
                        $quotedColumnName,
                        $quotedColumnName,
-                       $currentType,
+                       $res['Type'],
                        $default);
         return $this->execute($sql);
     }
@@ -292,6 +292,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
                            $this->quoteString($columnName));
             $row = $this->selectOne($sql);
             $options['default'] = $row['Default'];
+            $options['column'] = $this->makeColumn($columnName, $row['Default'], $row['Type'], $row['Null'] == 'YES');
         }
 
         $limit     = !empty($options['limit'])     ? $options['limit']     : null;
