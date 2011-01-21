@@ -19,28 +19,24 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
      */
     public function html()
     {
-        /* Required */
+        // Required
         $node = $this->_params['container'];
         if (empty($node)) {
             return '';
         }
 
-        /* Optional */
+        // Optional
         $gallery_slug = !empty($this->_params['gallery_slug']) ? $this->_params['gallery_slug'] : '';
         $gallery_id = !empty($this->_params['gallery_id']) ? $this->_params['gallery_id']: null;
-
         $start = (isset($this->_params['start'])) ? $this->_params['start'] : 0;
         $count = (isset($this->_params['count'])) ? $this->_params['count'] : 0;
         $perpage = (isset($this->_params['perpage'])) ? $this->_params['perpage'] : 0;
         $thumbsize = (!empty($this->_params['thumbsize'])) ? $this->_params['thumbsize'] : 'mini';
-        // Limit to these image views only.
-        if ($thumbsize != 'mini' && $thumbsize != 'thumb' &&
-            $thumbsize != 'screen') {
-
+        if ($thumbsize != 'mini' && $thumbsize != 'thumb' && $thumbsize != 'screen') {
              $thumbsize = 'mini';
         }
 
-        /* An image list instead of a gallery? */
+        // An image list instead of a gallery?
         $images = (!empty($this->_params['images'])) ? $this->_params['images'] : array();
         if (!empty($images)) {
             // Images are filtered for age and password protected galleries

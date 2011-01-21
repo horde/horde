@@ -875,11 +875,7 @@ class Ansel_Storage
 
         }
 
-        if (count($json)) {
-            return Horde_Serialize::serialize($json, Horde_Serialize::JSON);
-        }
-
-        return '';
+        return Horde_Serialize::serialize($json, Horde_Serialize::JSON);
     }
 
     /**
