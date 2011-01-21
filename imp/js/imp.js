@@ -80,7 +80,7 @@ document.observe('dom:loaded', function() {
         id = $(id);
         var d = id.contentWindow.document;
 
-        id.observe('load', IMP.iframeResize.bind(IMP, id));
+        id.observe('load', function() { IMP.iframeResize.bind(IMP, id).defer(0.3); } );
 
         d.open();
         d.write(data);
@@ -91,18 +91,16 @@ document.observe('dom:loaded', function() {
 
     IMP.iframeResize = function(id)
     {
-        if (id = $(id)) {
-            id.stopObserving('load').setStyle({ height: id.contentWindow.document.lastChild.scrollHeight + 'px' });
-
-            // For whatever reason, browsers will report different heights
-            // after the initial height setting.
-            this.iframeResize2.bind(this, id).defer(0.3);
+        if (!(id = $(id))) {
+            return;
         }
-    };
 
-    IMP.iframeResize2 = function(id)
-    {
+        id.stopObserving('load');
+
         var lc = id.contentWindow.document.lastChild;
+        if (!lc.scrollHeight) {
+            lc = id.contentWindow.document.body;
+        }
 
         // Try expanding IFRAME if we detect a scroll.
         if (lc.clientHeight != lc.scrollHeight ||
