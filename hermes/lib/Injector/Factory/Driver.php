@@ -41,7 +41,7 @@ class Hermes_Injector_Factory_Driver
             } else {
                 throw new Horde_Exception('Using non-global db connection not yet supported.');
             }
-            $class = 'Hermes_Driver_' . $driver;
+            $class = 'Hermes_Driver_' . Horde_String::ucfirst($driver);
             $this->_instances[$signature] = new $class($params);
         }
 
