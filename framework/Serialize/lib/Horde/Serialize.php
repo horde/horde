@@ -355,7 +355,10 @@ class Horde_Serialize
             break;
 
         case self::JSON:
-            $data = json_decode($data);
+            $out = json_decode($data);
+            if (!is_null($out) || (strcasecmp($data, 'null') === 0)) {
+                return $out;
+            }
             break;
 
         case self::LZF:
