@@ -88,7 +88,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
         Horde::includeStylesheetFiles(array(
             'nobase' => true,
             'nohorde' => true
-        ));
+        ), true);
         $css = Horde::endBuffer();
 
         /* Some paths */

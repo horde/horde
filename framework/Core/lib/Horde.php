@@ -1416,11 +1416,13 @@ HTML;
      *
      * @param array $opts  Options to pass to
      *                     Horde_Themes_Css::getStylesheetUrls().
+     *
+     * @param boolean $full  Output full uris.
      */
-    static public function includeStylesheetFiles(array $opts = array())
+    static public function includeStylesheetFiles(array $opts = array(), $full = false)
     {
         foreach ($GLOBALS['injector']->getInstance('Horde_Themes_Css')->getStylesheetUrls($opts) as $val) {
-            echo '<link href="' . $val . '" rel="stylesheet" type="text/css" />';
+            echo '<link href="' . (!$full ? $val : $val->fulluri) . '" rel="stylesheet" type="text/css" />';
         }
     }
 
