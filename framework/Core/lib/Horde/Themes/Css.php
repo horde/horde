@@ -74,7 +74,7 @@ class Horde_Themes_Css
      * 'themeonly' - (boolean) If true, only load the theme files.
      * </pre>
      *
-     * @return array  The list of URLs to display.
+     * @return array  The list of URLs to display (Horde_Url objects).
      */
     public function getStylesheetUrls(array $opts = array())
     {
@@ -95,7 +95,7 @@ class Horde_Themes_Css
         if ($cache_type == 'none') {
             $css_out = array();
             foreach ($css as $file) {
-                $css_out[] = $file['uri'];
+                $css_out[] = Horde::url($file['uri'], true, array('append_session' => -1));
             }
             return $css_out;
         }
@@ -107,7 +107,7 @@ class Horde_Themes_Css
         case 'filesystem':
             $css_filename = '/static/' . $sig . '.css';
             $css_path = $registry->get('fileroot', 'horde') . $css_filename;
-            $css_url = $registry->get('webroot', 'horde') . $css_filename;
+            $css_url = Horde::url($registry->get('webroot', 'horde') . $css_filename, true, array('append_session' => -1));
             $exists = file_exists($css_path);
             break;
 
