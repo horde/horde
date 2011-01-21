@@ -6,7 +6,7 @@
  *
  * Copyright 2000-2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file LICENSE for license information (ASL).  If you did
+ * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>

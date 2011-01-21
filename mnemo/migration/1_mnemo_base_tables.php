@@ -4,12 +4,12 @@
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/asl.php ASL
  * @package  Mnemo
  */
 class MnemoBaseTables extends Horde_Db_Migration_Base
