@@ -19,7 +19,7 @@ class IngoUpgradeAutoIncrement extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('ingo_rules', 'rule_id', 'integer', array('null' => false, 'autoincrement' => true));
+        $this->changeColumn('ingo_rules', 'rule_id', 'integer', array('null' => false, 'autoincrement' => true, 'default' => null));
         $this->changeColumn('ingo_shares', 'share_id', 'integer', array('null' => false, 'autoincrement' => true));
     }
 
