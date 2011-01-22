@@ -96,8 +96,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
 
         Horde::startBuffer();
         Horde::includeStylesheetFiles(array(
-            'nobase' => true
-        ));
+            'nobase' => true), true);
         $css = Horde::endBuffer();
 
         /* Start building the javascript */
