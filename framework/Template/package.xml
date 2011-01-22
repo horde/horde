@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Template</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Template System</summary>
- <description>Horde Template system. Adapted from bTemplate, by Brian Lozier &lt;brian@massassi.net&gt;.
- </description>
+ <description>Horde Template system. Adapted from bTemplate, by Brian Lozier &lt;brian@massassi.net&gt;.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,7 +16,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-06-10</date>
+ <date>2011-01-24</date>
+ <time>17:28:58</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -30,11 +27,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Remove dependency on Horde_Core.
+ <notes>
+* Remove dependency on Horde_Core.
  * Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <file name="Template.php" role="php" />
@@ -43,20 +41,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="test">
     <dir name="Horde">
      <dir name="Template">
-      <file name="array_assoc.html" role="test" />
-      <file name="array_assoc.phpt" role="test" />
-      <file name="array_if.html" role="test" />
-      <file name="array_if.phpt" role="test" />
-      <file name="array_nested.html" role="test" />
-      <file name="array_nested.phpt" role="test" />
-      <file name="array_simple.html" role="test" />
-      <file name="array_simple.phpt" role="test" />
-      <file name="divider.phpt" role="test" />
-      <file name="if.html" role="test" />
-      <file name="if.phpt" role="test" />
-      <file name="iterator.phpt" role="test" />
-      <file name="scalar.html" role="test" />
-      <file name="scalar.phpt" role="test" />
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="TemplateTest.php" role="test" />
      </dir> <!-- /test/Horde/Template -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -83,10 +70,28 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Template.php" as="Horde/Template.php" />
+   <install as="Horde/Template.php" name="lib/Horde/Template.php" />
+   <install as="Horde/Template/AllTests.php" name="test/Horde/Template/AllTests.php" />
+   <install as="Horde/Template/Autoload.php" name="test/Horde/Template/Autoload.php" />
+   <install as="Horde/Template/TemplateTest.php" name="test/Horde/Template/TemplateTest.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>23:32:28</time>
@@ -100,22 +105,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-   - Converted to package.xml 2.0 for pear.horde.org
-   - Remove numeric array key constraint (Request #4413).
+- Converted to package.xml 2.0 for pear.horde.org
+- Remove numeric array key constraint (Request #4413).
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2003-07-05</date>
+   <date>2011-01-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Remove dependency on Horde_Core.
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>
