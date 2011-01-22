@@ -19,7 +19,9 @@ class AnselUpgradeSqlHierarchical extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->removeIndex('ansel_shares', 'share_parents');
+        try {
+            $this->removeIndex('ansel_shares', 'share_parents');
+        } catch (Exception $e) {}
         $this->addColumn('ansel_shares', 'share_name', 'string', array('limit' => 255, 'null' => false));
         $this->changeColumn('ansel_shares', 'share_parents', 'text');
 
