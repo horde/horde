@@ -254,6 +254,23 @@ class Horde_Share_Datatree extends Horde_Share_Base
     }
 
     /**
+     * Check that a share id exists in the system.
+     *
+     * @param integer $id  The share id
+     *
+     * @return boolean True if the share exists.
+     */
+    protected function _idExists($id)
+    {
+        try {
+            $this->_getShareById($id);
+            return true;
+        } catch (Horde_Share_Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * Returns an array of criteria for querying shares.
      * @access protected
      *

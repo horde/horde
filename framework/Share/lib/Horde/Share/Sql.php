@@ -703,6 +703,13 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
     }
 
+    /**
+     * Check that a share id exists in the system.
+     *
+     * @param integer $id  The share id
+     *
+     * @return boolean True if the share exists.
+     */
     protected function _idExists($id)
     {
         try {
