@@ -121,7 +121,7 @@ class Ansel_Storage
 
         /* Create the gallery */
         try {
-            $gallery = $this->_shares->newShare($GLOBALS['registry']->getAuth(), '');
+            $gallery = $this->_shares->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage, 'ERR');
             throw new Ansel_Exception($e);
@@ -722,7 +722,7 @@ class Ansel_Storage
     public function galleryExists($gallery_id = null, $slug = null)
     {
         if (empty($slug)) {
-            $results = $this->_shares->exists($gallery_id);
+            $results = $this->_shares->idExists($gallery_id);
         } else {
             $results = $this->_shares->countShares($GLOBALS['registry']->getAuth(), Horde_Perms::READ, array('slug' => $slug));
         }
@@ -745,11 +745,11 @@ class Ansel_Storage
     * @param boolean $allLevels    Return all levels, or just the direct
     *                              children of $parent? Defaults to all levels.
     *
-    * @return int  The count
+    * @return integer  The count
     * @throws Ansel_Exception
     */
-    public function countGalleries($userid, $perm = Horde_Perms::SHOW, $attributes = null,
-                            $parent = null, $allLevels = true)
+    public function countGalleries($userid, $perm = Horde_Perms::SHOW,
+        $attributes = null, $parent = null, $allLevels = true)
     {
         static $counts;
 
@@ -757,6 +757,9 @@ class Ansel_Storage
             $parent_id = $parent->getId();
         } else {
             $parent_id = $parent;
+            if (!is_null($parent)) {
+                $parent = $this->_shares->getShare($parent);
+            }
         }
 
         $key = "$userid,$perm,$parent_id,$allLevels" . serialize($attributes);

@@ -15,6 +15,7 @@ function migrate_sqlng($db)
     $t = $migration->createTable('test_shares', array('primaryKey' => 'share_id'));
     $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
     $t->column('share_owner', 'string', array('limit' => 255));
+    $t->column('share_parents', 'text');
     $t->column('share_flags', 'integer', array('default' => 0, 'null' => false));
     $t->column('perm_creator_' . Horde_Perms::SHOW, 'boolean', array('default' => false, 'null' => false));
     $t->column('perm_creator_' . Horde_Perms::READ, 'boolean', array('default' => false, 'null' => false));

@@ -44,7 +44,7 @@ class Ansel_Injector_Factory_Storage
     {
         $scope = $this->_injector->getInstance('Ansel_Config')->get('scope');
         if (empty($this->_instances[$scope])) {
-            $this->_instances[$scope] = new Ansel_Storage($this->_injector->getInstance('Horde_Core_Factory_Share')->create($scope, 'Sql_Hierarchical'));
+            $this->_instances[$scope] = new Ansel_Storage($this->_injector->getInstance('Horde_Core_Factory_Share')->create($scope, 'Sql'));
         }
 
         return $this->_instances[$scope];

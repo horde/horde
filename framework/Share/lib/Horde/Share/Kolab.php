@@ -204,6 +204,23 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
+     * Check that a share id exists in the system.
+     *
+     * @param integer $id  The share id
+     *
+     * @return boolean True if the share exists.
+     */
+    protected function _idExists($id)
+    {
+        try {
+            $share = $this->_getShare($id);
+            return true;
+        } catch (Horde_Exception_NotFound $e) {
+            return false;
+        }
+    }
+
+    /**
      * Returns an array of all shares that $userid has access to.
      *
      * @param string $userid     The userid of the user to check access for.

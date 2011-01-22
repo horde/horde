@@ -131,34 +131,31 @@ abstract class Ansel_View_GalleryRenderer_Base
         $this->gallerySlug = $this->view->gallery->get('slug');
         $this->page = $this->view->page;
 
-        /* Number perpage from prefs or config */
+        // Number perpage from prefs or config
         if ($this->view->tilesperpage) {
             $this->perpage = $this->view->tilesperpage;
         } else {
             $this->perpage = min($prefs->getValue('tilesperpage'),
                                  $conf['thumbnail']['perpage']);
         }
-
-        /* Calculate the starting and ending images on this page */
         $this->pagestart = ($this->page * $this->perpage) + 1;
 
-        /* Fetch the children */
+        // Fetch the children
         $this->fetchChildren($this->view->force_grouping);
 
         // Do we have an explicit style set from the API?
-        //  If not, use the gallery's
+        // If not, use the gallery's
         if (!empty($this->view->style)) {
             $this->style = Ansel::getStyleDefinition($this->view->style);
         } else {
             $this->style = $this->view->gallery->getStyle();
         }
 
-        /* Include any widgets */
+        // Include any widgets
         if (!empty($this->style->widgets) && !$this->view->api) {
-
-            /* Special case widgets - these are built in */
+            // Special case widgets - these are built in
             if (array_key_exists('Actions', $this->style->widgets)) {
-                /* Don't show action widget if no actions */
+                // Don't show action widget if no actions
                 if ($GLOBALS['registry']->getAuth() ||
                     !empty($conf['report_content']['driver']) &&
                     (($conf['report_content']['allow'] == 'authenticated' &&
@@ -184,7 +181,6 @@ abstract class Ansel_View_GalleryRenderer_Base
     /**
      * Default implementation for fetching children/images for this view.
      * Other view classes can override this if they need anything special.
-     *
      */
     public function fetchChildren($noauto)
     {

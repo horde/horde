@@ -20,11 +20,7 @@ class Horde_Share_Sql_Pdo_SqliteTest extends Horde_Share_Test_Sql_Base
             !in_array('sqlite', PDO::getAvailableDrivers())) {
             return;
         }
-        try {
-            self::$db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
-        } catch (Horde_Db_Exception $e) {
-            return;
-        }
+        self::$db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
         parent::setUpBeforeClass();
     }
 }

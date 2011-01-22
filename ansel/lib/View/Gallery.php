@@ -46,13 +46,13 @@ class Ansel_View_Gallery extends Ansel_View_Base
                       'month' => isset($this->_params['month']) ? $this->_params['month'] : 0,
                       'day' => isset($this->_params['day']) ? $this->_params['day'] : 0));
 
-                $galleryurl = Ansel::getUrlFor('view', array_merge(
-                                   array('gallery' => $this->gallery->id,
-                                         'slug' => empty($params['slug']) ? '' : $params['slug'],
-                                         'page' => empty($params['page']) ? 0 : $params['page'],
-                                         'view' => 'Gallery'),
-                                   $date),
-                                   true);
+            $galleryurl = Ansel::getUrlFor('view', array_merge(
+                               array('gallery' => $this->gallery->id,
+                                     'slug' => empty($params['slug']) ? '' : $params['slug'],
+                                     'page' => empty($params['page']) ? 0 : $params['page'],
+                                     'view' => 'Gallery'),
+                               $date),
+                               true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
             Horde::url('disclamer.php')->add($params)->setRaw(true)->redirect();
@@ -61,7 +61,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
 
         if ($this->gallery->hasPasswd()) {
             if (!empty($params['api'])) {
-                return PEAR::raiseError(_("Locked galleries are not viewable via the api."));
+                throw new Ansel_Exception(_("Locked galleries are not viewable via the api."));
             }
             $date = Ansel::getDateParameter(
                 array('year' => isset($this->_params['year']) ? $this->_params['year'] : 0,
@@ -85,12 +85,10 @@ class Ansel_View_Gallery extends Ansel_View_Base
             throw new Horde_Exception('Access denied viewing this gallery.');
         }
 
-        // Since this is a gallery view, the resource is just a reference to the
-        // gallery. We keep both instance variables becuase both gallery and
-        // image views are assumed to have a gallery object.
+        // Since this is a gallery view, the resource is the gallery.
         $this->resource = $this->gallery;
 
-        /* Do we have an explicit style set? If not, use the gallery's */
+        // Do we have an explicit style set? If not, use the gallery's
         if (!empty($this->_params['style'])) {
             $style = Ansel::getStyleDefinition($this->_params['style']);
         } else {
@@ -103,7 +101,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
             $renderer = (!empty($style->gallery_view)) ? $style->gallery_view : 'Gallery';
         }
 
-        /* Load the helper */
+        // Load the helper
         $classname = 'Ansel_View_GalleryRenderer_' . basename($renderer);
         $this->_renderer = new $classname($this);
         $this->_renderer->init();

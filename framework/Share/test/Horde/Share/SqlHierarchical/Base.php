@@ -37,9 +37,10 @@ class Horde_Share_Test_SqlHierarchical_Base extends Horde_Share_Test_Base
 
     public function testAddShare()
     {
-        $share = parent::addShare();
-        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $share);
-        return $share->getId();
+        $this->markTestSkipped('Hierarchical driver tests are deprecated.');
+//        $share = parent::addShare();
+//        $this->assertInstanceOf('Horde_Share_Object_Sql_Hierarchical', $share);
+//        return $share->getId();
     }
 
     /**

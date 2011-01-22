@@ -11,7 +11,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Serializable
+class Ansel_Gallery extends Horde_Share_Object_Sql implements Serializable
 {
     /**
      * The gallery mode helper
@@ -27,10 +27,13 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
      */
     public function __construct($attributes = array())
     {
-        /* Pass on up the chain */
         parent::__construct($attributes);
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->initShareObject($this);
-        $this->_setModeHelper(isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal');
+        $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->shares->initShareObject($this);
+
+        $this->_setModeHelper(isset($attributes['attribute_view_mode']) ?
+            $attributes['attribute_view_mode'] :
+            'Normal');
     }
 
     /**
@@ -77,6 +80,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Seria
     /**
      * Simple factory to set the proper mode object.
      *
+     * @TODO: Use DI
      * @param string $type  The mode to use
      *
      * @return Ansel_Gallery_Mode object

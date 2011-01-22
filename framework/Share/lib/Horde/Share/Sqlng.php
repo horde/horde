@@ -63,12 +63,17 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
      *
      * @param string $userid  The userid of the user to check access for.
      * @param array $params   Additional parameters for the search.
-     *  - 'perm':       Require this level of permissions. Horde_Perms constant.
-     *  - 'attributes': Restrict shares to these attributes. A hash or username.
-     *  - 'from':       Offset. Start at this share
-     *  - 'count':      Limit.  Only return this many.
-     *  - 'sort_by':    Sort by attribute.
-     *  - 'direction':  Sort by direction.
+     *<pre>
+     *  'perm'          Require this level of permissions. Horde_Perms constant.
+     *  'attribtues'    Restrict shares to these attributes. A hash or username.
+     *  'from'          Offset. Start at this share
+     *  'count'         Limit.  Only return this many.
+     *  'sort_by'       Sort by attribute.
+     *  'direction'     Sort by direction.
+     *  'parent'        Start at this share in the hierarchy. Either share_id or
+     *                  Horde_Share_Object
+     *  'all_levels'    List all levels or just the direct children of parent?
+     *</pre>
      *
      * @return array  The shares the user has access to.
      * @throws Horde_Share_Exception
@@ -80,7 +85,9 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
                                     'from' => 0,
                                     'count' => 0,
                                     'sort_by' => null,
-                                    'direction' => 0),
+                                    'direction' => 0,
+                                    'parent' => null,
+                                    'all_levels' => true),
                               $params);
 
         $key = md5(serialize(array($userid, $params)));
@@ -102,13 +109,14 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         } else {
             $sortfield = 'attribute_' . $params['sort_by'];
         }
-
-        $query = 'SELECT * FROM ' . $this->_table . ' WHERE '
-            . $this->_getShareCriteria($userid, $perms, $params['attributes'], $shareids)
+        $where = $this->_getShareCriteria($userid, $perms, $params['attributes'], $shareids, $params['parent'], $params['all_levels']);
+        $query = 'SELECT DISTINCT * FROM ' . $this->_table . ' s ' .
+            (!empty($where) ? ' WHERE ' . $where : '')
             . ' ORDER BY ' . $sortfield
             . (($params['direction'] == 0) ? ' ASC' : ' DESC');
 
         $query = $this->_db->addLimitOffset($query, array('limit' => $params['count'], 'offset' => $params['from']));
+
         try {
             $rows = $this->_db->selectAll($query);
         } catch (Horde_Db_Exception $e) {
@@ -148,20 +156,24 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
     }
 
     /**
-     * Returns the number of shares that $userid has access to.
+     * Returns the count of all shares that $userid has access to.
      *
-     * @param string $userid     The userid of the user to check access for.
-     * @param integer $perm      The level of permissions required.
-     * @param mixed $attributes  Restrict the shares counted to those
-     *                           matching $attributes. An array of
-     *                           attribute/values pairs or a share owner
-     *                           username.
+     * @param string  $userid      The userid of the user to check access for.
+     * @param integer $perm        The level of permissions required.
+     * @param mixed   $attributes  Restrict the shares counted to those
+     *                             matching $attributes. An array of
+     *                             attribute/values pairs or a share owner
+     *                             username.
+     * @param mixed  $parent      The share to start searching from
+     *                            (Horde_Share_Object, share_id, or null)
+     * @param boolean $allLevels  Return all levels, or just the direct
+     *                            children of $parent?
      *
-     * @return integer  The number of shares
+     * @return integer  Number of shares the user has access to.
      * @throws Horde_Share_Exception
      */
     public function countShares($userid, $perm = Horde_Perms::SHOW,
-                                $attributes = null)
+        $attributes = null, $parent = null, $allLevels = true)
     {
         $perms = $this->convertBitmaskToArray($perm);
         $shareids = null;
@@ -169,10 +181,9 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             list(, , $shareids) = $this->_getUserAndGroupShares($userid, $perms);
         }
 
-        $query = 'SELECT COUNT(share_id) FROM '
-            . $this->_table . ' WHERE '
-            . $this->_getShareCriteria($userid, $perms, $attributes, $shareids);
-
+        $query = 'SELECT COUNT(DISTINCT share_id) FROM '
+            . $this->_table . ' s WHERE '
+            . $this->_getShareCriteria($userid, $perms, $attributes, $shareids, $parent, $allLevels);
         try {
             return $this->_db->selectValue($query);
         } catch (Horde_Db_Exception $e) {
@@ -319,7 +330,8 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
      * @return string  The criteria string for fetching this user's shares.
      */
     protected function _getShareCriteria($userid, array $perms, $attributes,
-                                         $shareids = null)
+                                         $shareids = null, $parent = null,
+                                         $allLevels = true)
     {
         /* Convert to driver's keys */
         $attributes = $this->_toDriverKeys($attributes);
@@ -360,6 +372,33 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             // Restrict to shares owned by the user specified in the
             // $attributes string.
             $where = '(' . $where . ') AND share_owner = ' . $this->_db->quote($attributes);
+        }
+
+        // See if we need to filter by parent or get the parent object
+        if ($parent != null) {
+            if (!($parent instanceof Horde_Share_Object)) {
+                $parent = $this->getShareById($parent);
+            }
+
+            // Need to append the parent's share id to the list of parents in
+            // order to search the share_parents field.
+            $parents = $parent->get('parents') . ':' . $parent->getId();
+            if ($allLevels) {
+                $where_parent = '(share_parents = ' . $this->_db->quote($parents)
+                    . ' OR share_parents LIKE ' . $this->_db->quote($parents . ':%') . ')';
+            } else {
+                $where_parent = 's.share_parents = ' . $this->_db->quote($parents);
+            }
+        } elseif (!$allLevels) {
+            // No parents, and we only want the root.
+            $where_parent = "(s.share_parents = '' OR s.share_parents IS NULL)";
+        }
+        if (!empty($where_parent)) {
+            if (empty($where)) {
+                $where = $where_parent;
+            } else {
+                $where = '(' . $where . ') AND ' . $where_parent;
+            }
         }
 
         return $where;

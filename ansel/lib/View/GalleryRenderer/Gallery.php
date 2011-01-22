@@ -32,7 +32,6 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
      * Return the HTML representing this view.
      *
      * @return string  The HTML.
-     *
      */
     public function html()
     {
@@ -45,20 +44,28 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
             $owner = $galleryOwner;
         }
 
-        /* Only need these if not being called via the api */
         if (empty($this->view->api)) {
-            $option_edit = $this->view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
-            $option_select = $option_delete = $this->view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
-            $option_move = ($option_delete && $GLOBALS['injector']->getInstance('Ansel_Storage')->countGalleries(Horde_Perms::EDIT));
-            $option_copy = ($option_edit && $GLOBALS['injector']->getInstance('Ansel_Storage')->countGalleries(Horde_Perms::EDIT));
+            $option_edit = $this->view->gallery->hasPermission(
+                $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
 
-            /* See if we requested a show_actions change */
+            $option_select = $option_delete = $this->view->gallery->hasPermission(
+                $GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
+
+            $option_move = ($option_delete && $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->countGalleries(Horde_Perms::EDIT));
+
+            $option_copy = ($option_edit && $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->countGalleries(Horde_Perms::EDIT));
+
+            // See if we requested a show_actions change
             if (Horde_Util::getFormData('actionID', '') == 'show_actions') {
                 $prefs->setValue('show_actions', (int)!$prefs->getValue('show_actions'));
             }
         }
 
-        /* Set up the pager */
+        // Set up the pager
         $date_params = Ansel::getDateParameter(
             array('year' => !empty($this->view->year) ? $this->view->year : 0,
                   'month' => !empty($this->view->month) ? $this->view->month : 0,
@@ -72,11 +79,9 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
             $pagerurl = new Horde_Url(str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url)));
             $pagerurl->add($date_params);
         } else {
-            /*
-             * Build the pager url. Add the needed variables directly to the
-             * url instead of passing it as a preserved variable to the pager
-             * since the logic to build the URL is already in getUrlFor()
-             */
+             // Build the pager url. Add the needed variables directly to the
+             // url instead of passing it as a preserved variable to the pager
+             // since the logic to build the URL is already in getUrlFor()
             $pager_params =  array_merge(
                 array('gallery' => $this->galleryId,
                       'view' => 'Gallery',
@@ -85,17 +90,13 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
             $pagerurl = Ansel::getUrlfor('view', $pager_params, true);
         }
 
-        /* See what callback to use to tweak the pager urls */
-        if (!empty($this->view->urlCallback)) {
-            $callback = $this->view->urlCallback;
-        } else {
-            $callback = null;
-        }
-        $params = array('num' => $this->numTiles,
-                        'url' => $pagerurl,
-                        'perpage' => $this->perpage,
-                        'url_callback' => $callback);
-
+        // See what callback to use to tweak the pager urls
+        $params = array(
+            'num' => $this->numTiles,
+            'url' => $pagerurl,
+            'perpage' => $this->perpage,
+            'url_callback' => empty($this->view->urlCallback) ? null : $this->view->urlCallback,
+        );
         $pager = new Horde_Core_Ui_Pager('page', $vars, $params);
 
         Horde::startBuffer();
@@ -105,7 +106,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
             $includes->includeFiles();
         }
 
-        /* Needed in the template files */
+        // Needed in the template files
         $tilesperrow = $prefs->getValue('tilesperrow');
         $cellwidth = round(100 / $tilesperrow);
         $count = 0;

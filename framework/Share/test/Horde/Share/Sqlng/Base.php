@@ -95,6 +95,15 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
     }
 
     /**
+     */
+    public function testGetParent()
+    {
+        $share = self::$share->getShare('myshare');
+        $child = self::$share->getShare('mychildshare');
+        $this->assertEquals($share->getId(), $child->getParent()->getId());
+    }
+
+    /**
      * @depends testPermissions
      */
     public function testListAllShares()

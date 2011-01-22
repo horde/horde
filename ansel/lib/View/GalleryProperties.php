@@ -254,6 +254,7 @@ class Ansel_View_GalleryProperties
         if (empty($gallery_parent)) {
             $gallery_parent = null;
         }
+
         if ($galleryId &&
             ($exists = ($GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($galleryId)) === true)) {
 

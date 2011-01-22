@@ -494,9 +494,9 @@ abstract class Horde_Share_Base
     abstract protected function _removeShare(Horde_Share_Object $share);
 
     /**
-     * Checks if a share exists in the system.
+     * Checks if a share name exists in the system.
      *
-     * @param string $share  The share to check.
+     * @param string $share  The share name to check.
      *
      * @return boolean  True if the share exists.
      */
@@ -510,6 +510,23 @@ abstract class Horde_Share_Base
     }
 
     /**
+     * Check that a share id exists in the system.
+     *
+     * @param integer $id  The share id
+     *
+     * @return boolean True if the share exists.
+     */
+    public function idExists($id)
+    {
+        if (isset($this->_shareMap[$id])) {
+            return true;
+        }
+
+        return $this->_idExists($id);
+    }
+
+
+    /**
      * Checks if a share exists in the system.
      *
      * @param string $share  The share to check.
@@ -518,6 +535,15 @@ abstract class Horde_Share_Base
      * @throws Horde_Share_Exception
      */
     abstract protected function _exists($share);
+
+    /**
+     * Check that a share id exists in the system.
+     *
+     * @param integer $id  The share id
+     *
+     * @return boolean True if the share exists.
+     */
+    abstract protected function _idExists($id);
 
     /**
      * Finds out what rights the given user has to this object.

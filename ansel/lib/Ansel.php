@@ -64,7 +64,6 @@ class Ansel
      *                        the filters. Can be an array of attribute/values
      *                        pairs or a gallery owner username.
      *     (boolean)all_levels
-     *     (integer)parent    The parent share to start listing at.
      *     (integer)from      The gallery to start listing at.
      *     (integer)count     The number of galleries to return.
      *     (integer)ignore    An Ansel_Gallery id to ignore when building the tree.
@@ -79,38 +78,28 @@ class Ansel
             ->listGalleries($params);
 
         $params = new Horde_Support_Array($params);
-        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('gallery_tree', 'Select');
 
-        /* Remove the ignored gallery, make sure it's also not the selected
-         * gallery */
+        $tree = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Tree')
+            ->create('gallery_tree', 'Select');
+
+        // Remove the ignored gallery, make sure it's also not the selected
         if ($params->ignore) {
            if ($params->selected == $params->ignore) {
                $params->selected = null;
            }
         }
 
-        foreach ($galleries as $gallery_id => $gallery) {
-            // We don't use $gallery->getParents() on purpose since we
-            // only need the count of parents. This potentially saves a number
-            // of DB queries.
-            $parents = $gallery->get('parents');
-            $indents = empty($parents) ? 0 : substr_count($parents, ':') + 1;
+        foreach ($galleries as $gallery) {
+            $gallery_id = $gallery->getId();
             $gallery_name = $gallery->get('name');
+            $label = Horde_String::abbreviate($gallery_name);
             $len = Horde_String::length($gallery_name);
-            if ($len > 30) {
-                $label = Horde_String::substr($gallery_name, 0, 30) . '...';
-            } else {
-                $label = $gallery_name;
-            }
             $treeparams = array();
             $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
-            $parent = (empty($params['parent'])) ? null : $params['parent']->id;
-            if ((!empty($params['parent']) && !empty($galleries[$params['parent']])) ||
-                (empty($params['parent']))) {
-
-                $tree->addNode($gallery->id, $parent, $label, $indents, true, $treeparams);
-            }
+            $parent = empty($parent) ? null : $parent->getId();
+            $tree->addNode($gallery->id, $parent, $label, null, true, $treeparams);
         }
 
         return $tree->getTree();
