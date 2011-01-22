@@ -162,6 +162,14 @@ class Nag_Application extends Horde_Registry_Application
             }
             break;
 
+        case 'notification':
+            if (!empty($conf['alarms']['driver']) &&
+                !$prefs->isLocked('task_alarms') &&
+                !$prefs->isLocked('task_alarms_select')) {
+                Horde_Core_Prefs_Ui_Widgets::alarmInit();
+            }
+            break;
+
         case 'tasks':
             if (!$prefs->isLocked('default_due_time')) {
                 $twentyfour = $prefs->getValue('twentyFour');
