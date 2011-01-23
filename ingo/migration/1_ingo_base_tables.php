@@ -115,7 +115,7 @@ class IngoBaseTables extends Horde_Db_Migration_Base
         if (!in_array('ingo_shares_users', $tableList)) {
             $t = $this->createTable('ingo_shares_users');
             $t->column('share_id', 'integer', array('null' => false));
-            $t->column('user_uid', 'string', array('limit' => 255));
+            $t->column('user_uid', 'string', array('limit' => 255, 'null' => false));
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 

@@ -86,7 +86,7 @@ class NagBaseTables extends Horde_Db_Migration_Base
         if (!in_array('nag_shares_users', $tableList)) {
             $t = $this->createTable('nag_shares_users', array('primaryKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
-            $t->column('user_uid', 'string', array('null' => false));
+            $t->column('user_uid', 'string', array('null' => false, 'null' => false));
             $t->column('perm', 'integer', array('limit' => 2, 'null' => false));
             $t->end();
 
