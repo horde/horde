@@ -676,7 +676,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql implements Serializable
                         ->getInstance('Ansel_Storage')
                         ->listGalleries(array('parent' => $this, 'all_levels' => false));
 
-                    foreach ($galleries as $galleryId => $gallery) {
+                    foreach ($galleries as $gallery) {
                         if ($default_img = $gallery->getKeyImage($style)) {
                             return $default_img;
                         }

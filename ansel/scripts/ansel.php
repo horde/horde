@@ -193,8 +193,9 @@ if (!empty($list)) {
         $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries();
         $cli->message(_("Listing Gallery/Name"), 'cli.success');
         $cli->writeln();
-        foreach ($galleries as $id => $gallery) {
+        foreach ($galleries as $gallery) {
             $name = $gallery->get('name');
+            $id = $gallery->getId();
             $msg = "$id/$name";
             $cli->writeln($msg);
             Horde::logMessage($msg, 'DEBUG');

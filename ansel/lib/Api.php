@@ -98,8 +98,8 @@ class Ansel_Api extends Horde_Registry_Api
             }
 
             $results = array();
-            foreach ($galleries as $galleryId => $gallery) {
-                $retpath = 'ansel/' . implode('/', $parts) . '/' . $galleryId;
+            foreach ($galleries as $gallery) {
+                $retpath = 'ansel/' . implode('/', $parts) . '/' . $gallery->getId();
                 if (in_array('name', $properties)) {
                     $results[$retpath]['name'] = $gallery->data['attribute_name'];
                 }
@@ -686,7 +686,7 @@ class Ansel_Api extends Horde_Registry_Api
             ->listGalleries($params);
         $return = array();
         foreach ($galleries as $gallery) {
-            $return[$gallery->id] = array_merge($gallery->data,
+            $return[$gallery->getId()] = array_merge($gallery->data,
                                                 array('crumbs' => $gallery->getGalleryCrumbData()));
         }
 
@@ -788,9 +788,8 @@ class Ansel_Api extends Horde_Registry_Api
             if (!count($galleries)) {
                 return array();
             }
-            $keys = array_keys($galleries);
-            $gallery_names = array_keys($galleries[$keys[0]]['galleries']);
-            $gallery_id = $gallery_names[0];
+            $g = current($galleries);
+            $gallery_id = $g->getId();
         } elseif (!empty($slug)) {
             $gallery = $storage->getGalleryBySlug($slug);
         } else {

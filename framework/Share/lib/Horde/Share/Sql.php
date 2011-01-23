@@ -363,9 +363,9 @@ class Horde_Share_Sql extends Horde_Share_Base
                                     'all_levels' => true),
                               $params);
         $key = md5(serialize(array($userid, $params)));
-        if (!empty($this->_listcache[$key])) {
-            return $this->_listcache[$key];
-        }
+        //if (!empty($this->_listcache[$key])) {
+        //    return $this->_listcache[$key];
+        //}
         $shares = array();
         if (is_null($params['sort_by'])) {
             $sortfield = 's.share_id';
@@ -431,7 +431,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         $sharelist = array();
         foreach ($shares as $id => $data) {
             $this->_getSharePerms($data);
-            $sharelist[$id] = $this->_createObject($data);
+            $sharelist[$data['share_name']] = $this->_createObject($data);
         }
         unset($shares);
 

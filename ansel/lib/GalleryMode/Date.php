@@ -612,7 +612,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $subs = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
                 ->listGalleries(array('parent' => $this->_gallery));
-            $this->_subGalleries = array_keys($subs);
+            foreach ($subs as $sub) {
+                $this->_subGalleries[] = $sub->getId();
+            }
         }
     }
 }
