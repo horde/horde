@@ -254,7 +254,10 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals($shares, self::$share->listShares('john', array('perm' => Horde_Perms::SHOW, 'attributes' => null, 'from' => 0, 'count' => 0, 'sort_by' => null, 'direction' => 0)));
 
         // Getting back the correct shares?
-        $shares = array_values(self::$share->listShares('john', array('all_levels' => false, 'sort_by' => 'id')));
+        $shares = self::$share->listShares('john', array('all_levels' => false, 'sort_by' => 'id'));
+        // Keyed by name, and not id?
+        $this->assertEquals('myshare', current(array_keys($shares)));
+        $shares = array_values($shares);
         $this->assertEquals($shareids[0], $shares[0]->getId());
         $this->assertEquals($shareids[1], $shares[2]->getId());
         $this->assertEquals($shareids[2], $shares[3]->getId());
