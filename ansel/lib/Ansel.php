@@ -52,6 +52,11 @@ class Ansel
         return $mdb;
     }
 
+    static public function keysFromNames($gallery)
+    {
+        return $gallery->getId();
+    }
+
     /**
      * Return a string containing an <option> listing of the given
      * gallery array.

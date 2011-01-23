@@ -1012,8 +1012,8 @@ class Ansel_Storage
         if (empty($galleries)) {
             return array();
         }
-
-        $where = 'gallery_id IN(' . implode(',', array_keys($galleries)) . ') AND LENGTH(image_latitude) > 0 GROUP BY image_latitude, image_longitude';
+        $ids = array_map(array('Ansel', 'keysFromNames'), $galleries);
+        $where = 'gallery_id IN(' . implode(',', $ids) . ') AND LENGTH(image_latitude) > 0 GROUP BY image_latitude, image_longitude';
         return $this->listImages(0, $start, $count, array('image_id as id', 'image_id', 'gallery_id', 'image_latitude', 'image_longitude', 'image_location'), $where, 'image_geotag_date DESC');
     }
 
