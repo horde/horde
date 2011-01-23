@@ -13,7 +13,7 @@ Horde_Registry::appInit('hermes');
 $vars = Horde_Variables::getDefaultVariables();
 
 switch ($vars->get('formname')) {
-case 'deliverableform':
+case 'hermes_form_deliverable':
     $form = new Hermes_Form_Deliverable($vars);
     $form->validate($vars);
     if ($form->isValid()) {
