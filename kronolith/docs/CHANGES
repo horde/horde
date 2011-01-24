@@ -46,6 +46,7 @@ v3.0-git
 v2.3.6-cvs
 ----------
 
+[jan] Add upgrade scripts for next-generation SQL share driver.
 [jan] Export recurrence exceptions in a more portable way.
 
 
