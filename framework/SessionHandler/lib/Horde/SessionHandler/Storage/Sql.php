@@ -137,7 +137,10 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
             $this->_db->update($query, $values);
             $this->_db->commitDbTransaction();
         } catch (Horde_Db_Exception $e) {
-            $this->_db->rollbackDbTransaction();
+            try {
+                $this->_db->rollbackDbTransaction();
+            } catch (Horde_Db_Exception $e) {
+            }
             return false;
         }
 
@@ -202,5 +205,4 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
             return array();
         }
     }
-
 }
