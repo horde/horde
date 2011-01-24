@@ -72,11 +72,14 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
     public function close()
     {
         /* Close any open transactions. */
-        try {
-            $this->_db->commitDbTransaction();
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_SessionHandler_Exception($e);
+        if ($this->_db->transactionStarted()) {
+            try {
+                $this->_db->commitDbTransaction();
+            } catch (Horde_Db_Exception $e) {
+                return false;
+            }
         }
+        return true;
     }
 
     /**
@@ -104,6 +107,8 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
      */
     public function write($id, $session_data)
     {
+        if (!$this->_db->isActive()) { $this->_db->reconnect(); }
+
         /* Build the SQL query. */
         $query = sprintf('SELECT session_id FROM %s WHERE session_id = ?',
                          $this->_params['table']);
