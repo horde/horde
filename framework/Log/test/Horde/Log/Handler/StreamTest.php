@@ -36,7 +36,7 @@ class Horde_Log_Handler_StreamTest extends PHPUnit_Framework_TestCase
             new Horde_Log_Handler_Stream($resource);
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/not a stream/i', $e->getMessage());
         }
         xml_parser_free($resource);
@@ -60,7 +60,7 @@ class Horde_Log_Handler_StreamTest extends PHPUnit_Framework_TestCase
             new Horde_Log_Handler_Stream($stream, 'w');
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/existing stream/i', $e->getMessage());
         }
     }
@@ -71,7 +71,7 @@ class Horde_Log_Handler_StreamTest extends PHPUnit_Framework_TestCase
             new Horde_Log_Handler_Stream('');
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/cannot be opened/i', $e->getMessage());
         }
     }
@@ -83,7 +83,7 @@ class Horde_Log_Handler_StreamTest extends PHPUnit_Framework_TestCase
             $handler->setOption('foo', 42);
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/unknown option/i', $e->getMessage());
         }
     }
@@ -117,7 +117,7 @@ class Horde_Log_Handler_StreamTest extends PHPUnit_Framework_TestCase
             $handler->write(array('message' => 'foo', 'level' => 1));
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/unable to write/i', $e->getMessage());
         }
     }

@@ -48,7 +48,7 @@ class Horde_Log_Filter_LevelTest extends PHPUnit_Framework_TestCase
             new Horde_Log_Filter_Level('foo');
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('InvalidArgumentException', $e);
+            $this->assertInstanceOf('InvalidArgumentException', $e);
             $this->assertRegExp('/must be an integer/i', $e->getMessage());
         }
     }

@@ -102,7 +102,7 @@ class Horde_Log_LogTest extends PHPUnit_Framework_TestCase
             $logger->log('foo', 42);
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/bad log level/i', $e->getMessage());
         }
     }
@@ -114,7 +114,7 @@ class Horde_Log_LogTest extends PHPUnit_Framework_TestCase
             $logger->nonexistantLevel('');
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/bad log level/i', $e->getMessage());
         }
     }
@@ -126,7 +126,7 @@ class Horde_Log_LogTest extends PHPUnit_Framework_TestCase
             $logger->addLevel('BOB', 0);
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/existing log level/i', $e->getMessage());
         }
 

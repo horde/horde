@@ -50,6 +50,6 @@ class Horde_Log_Formatter_XmlTest extends PHPUnit_Framework_TestCase
         $line = $f->format(array('message' => $message = 'message', 'level' => $level = 1));
 
         $sxml = @simplexml_load_string($line);
-        $this->assertType('SimpleXMLElement', $sxml, 'Formatted XML is invalid');
+        $this->assertInstanceOf('SimpleXMLElement', $sxml, 'Formatted XML is invalid');
     }
 }

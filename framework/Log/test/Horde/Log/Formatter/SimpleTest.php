@@ -30,7 +30,7 @@ class Horde_Log_Formatter_SimpleTest extends PHPUnit_Framework_TestCase
             new Horde_Log_Formatter_Simple(1);
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('InvalidArgumentException', $e);
+            $this->assertInstanceOf('InvalidArgumentException', $e);
             $this->assertRegExp('/must be a string/i', $e->getMessage());
         }
     }

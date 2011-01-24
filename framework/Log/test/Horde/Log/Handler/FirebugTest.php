@@ -36,7 +36,7 @@ class Horde_Log_Handler_FirebugTest extends PHPUnit_Framework_TestCase
             $handler->setOption('foo', 42);
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertInstanceOf('Horde_Log_Exception', $e);
             $this->assertRegExp('/unknown option/i', $e->getMessage());
         }
     }
