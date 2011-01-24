@@ -24,7 +24,6 @@
  */
 class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 {
-    // @todo - add logger instance
     protected function setUp()
     {
         list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
