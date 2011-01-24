@@ -16,5 +16,4 @@ class Horde_Core_Factory_DbBase
     {
         return $injector->getInstance('Horde_Core_Factory_Db')->create('horde');
     }
-
 }

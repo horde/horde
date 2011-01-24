@@ -165,7 +165,11 @@ class Horde_Core_Factory_Db
             $ob = new $class($config);
 
             if (!isset($config['cache'])) {
-                $ob->setCache($this->_injector->getInstance('Horde_Cache'));
+                $injector = $this->_injector->createChildInjector();
+                $injector->setInstance('Horde_Db_Adapter', $ob);
+                $cacheFactory = $this->_injector->getInstance('Horde_Core_Factory_Cache');
+                $cache = $cacheFactory->create($injector);
+                $ob->setCache($cache);
             }
 
             if (!isset($config['logger'])) {
