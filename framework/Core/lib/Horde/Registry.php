@@ -2109,7 +2109,7 @@ class Horde_Registry
         $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
-        $this->setLanguageEnvironment(isset($options['language']) ? $options['language'] : null, $app);
+        $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
     }
 
     /**
