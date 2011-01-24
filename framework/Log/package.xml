@@ -50,7 +50,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /lib/Horde/Log/Formatter -->
       <dir name="Handler">
        <file name="Base.php" role="php" />
-       <file name="Db.php" role="php" />
        <file name="Firebug.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Null.php" role="php" />
@@ -100,7 +99,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Log/Formatter/Xml.php" as="Horde/Log/Formatter/Xml.php" />
    <install name="lib/Horde/Log/Formatter.php" as="Horde/Log/Formatter.php" />
    <install name="lib/Horde/Log/Handler/Base.php" as="Horde/Log/Handler/Base.php" />
-   <install name="lib/Horde/Log/Handler/Db.php" as="Horde/Log/Handler/Db.php" />
    <install name="lib/Horde/Log/Handler/Firebug.php" as="Horde/Log/Handler/Firebug.php" />
    <install name="lib/Horde/Log/Handler/Mock.php" as="Horde/Log/Handler/Mock.php" />
    <install name="lib/Horde/Log/Handler/Null.php" as="Horde/Log/Handler/Null.php" />
