@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PubSub</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Publish/Subscribe library</summary>
+ <description>Horde Publish/Subscribe package that can act as an inter-app messaging hub
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-01-23</date>
+ <time>22:00:00</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>* Initial packaging
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="PubSub">
+      <file name="Handle.php" role="php" />
+      <file name="Provider.php" role="php" />
+     </dir> <!-- /lib/Horde/PubSub -->
+     <file name="PubSub.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/PubSub/Handle.php" as="Horde/PubSub/Handle.php" />
+   <install name="lib/Horde/PubSub/Provider.php" as="Horde/PubSub/Provider.php" />
+   <install name="lib/Horde/PubSub.php" as="Horde/PubSub.php" />
+  </filelist>
+ </phprelease>
+</package>
