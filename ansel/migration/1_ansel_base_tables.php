@@ -146,7 +146,7 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             // Create: ansel_shares_users
             $t = $this->createTable('ansel_shares_users');
             $t->column('share_id', 'integer', array('null' => false));
-            $t->column('user_uid', 'integer', array('null' => false));
+            $t->column('user_uid', 'integer', array('limit' => 255, 'null' => false));
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 

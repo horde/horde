@@ -73,7 +73,7 @@ class TurbaUpgradeSqlng extends Horde_Db_Migration_Base
 
         $t = $this->createTable('turba_sharesng_users', array('primaryKey' => false));
         $t->column('share_id', 'integer', array('null' => false));
-        $t->column('user_uid', 'string', array('limit' => 255));
+        $t->column('user_uid', 'string', array('limit' => 255, 'null' => false));
         $t->column('perm_' . Horde_Perms::SHOW, 'boolean', array('default' => false, 'null' => false));
         $t->column('perm_' . Horde_Perms::READ, 'boolean', array('default' => false, 'null' => false));
         $t->column('perm_' . Horde_Perms::EDIT, 'boolean', array('default' => false, 'null' => false));
