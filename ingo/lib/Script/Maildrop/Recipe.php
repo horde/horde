@@ -128,10 +128,9 @@ class Ingo_Script_Maildrop_Recipe
             }
 
             // Writing vacation.msg file
-            $reason = Horde_Mime::encode($params['action-value']['reason'], $scriptparams['charset']);
             $transport = Ingo::getTransport();
             $transport->_connect();
-            $result = $transport->_vfs->writeData($transport->_params['vfs_path'], 'vacation.msg', $reason, true);
+            $result = $transport->_vfs->writeData($transport->_params['vfs_path'], 'vacation.msg', $params['action-value']['reason'], true);
 
             // Rule : Do not send responses to bulk or list messages
             if ($params['action-value']['ignorelist'] == 1) {

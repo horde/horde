@@ -12,6 +12,7 @@ v2.0-git
 v1.2.6-cvs
 ----------
 
+[mms] Fix encoding of vacation message in maildrop driver (Bug #9532).
 [jan] Add upgrade scripts for next-generation SQL share driver.
 
 
