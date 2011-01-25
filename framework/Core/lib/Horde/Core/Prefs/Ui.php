@@ -151,35 +151,54 @@ class Horde_Core_Prefs_Ui
      */
     public function getChangeablePrefs($group = null)
     {
-        $prefs = array();
-
         if (is_null($group)) {
             if (!$this->group) {
-                return $prefs;
+                return array();
             }
 
             $group = $this->group;
         }
 
-        if (!empty($this->prefGroups[$group]['members'])) {
-            foreach ($this->prefGroups[$group]['members'] as $pref) {
-                /* Changeable pref if:
-                 *   1. Not locked
-                 *   2. Not in suppressed array ($this->suppress)
-                 *   3. Not an advanced pref -or- in advanced view mode
-                 *   4. Not an implicit pref */
-                if (!$GLOBALS['prefs']->isLocked($pref) &&
-                    !in_array($pref, $this->suppress) &&
-                    (empty($this->prefs[$pref]['advanced']) ||
-                     $GLOBALS['session']->get('horde', 'prefs_advanced')) &&
-                    ((!empty($this->prefs[$pref]['type']) &&
-                     ($this->prefs[$pref]['type'] != 'implicit')))) {
-                    $prefs[] = $pref;
+        return empty($this->prefGroups[$group]['members'])
+            ? array()
+            : $this->_getChangeablePrefs($this->prefGroups[$group]['members']);
+    }
+
+    /**
+     * Returns the list of changeable prefs.
+     *
+     * @param array $preflist  The list of preferences to check.
+     *
+     * @return array  The list of changeable prefs.
+     */
+    protected function _getChangeablePrefs($preflist)
+    {
+        $cprefs = array();
+
+        foreach ($preflist as $pref) {
+            /* Changeable pref if:
+             *   1. Not locked
+             *   2. Not in suppressed array ($this->suppress)
+             *   3. Not an advanced pref -or- in advanced view mode
+             *   4. Not an implicit pref */
+            if (!$GLOBALS['prefs']->isLocked($pref) &&
+                !in_array($pref, $this->suppress) &&
+                (empty($this->prefs[$pref]['advanced']) ||
+                 $GLOBALS['session']->get('horde', 'prefs_advanced')) &&
+                ((!empty($this->prefs[$pref]['type']) &&
+                 ($this->prefs[$pref]['type'] != 'implicit')))) {
+                if ($this->prefs[$pref]['type'] == 'container') {
+                    if (isset($this->prefs[$pref]['value']) &&
+                        is_array($this->prefs[$pref]['value'])) {
+                        $cprefs = array_merge($cprefs, $this->prefs[$pref]['value']);
+                    }
+                } else {
+                    $cprefs[] = $pref;
                 }
             }
         }
 
-        return $prefs;
+        return $cprefs;
     }
 
     /**

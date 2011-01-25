@@ -177,14 +177,6 @@
  * ADDITIONAL KEYS:
  *   'value' - (string) The raw (already escaped) HTML to output to the page.
  *
- * 'special'
- * ---------
- * Used as placeholder to indicate that the application will provide both the
- * UI display code and the subsequent preferences storage.
- *
- * This pref is a UI placeholder only and will not be stored in the preference
- * backend.
- *
  * 'text'
  * ------
  * Provides a single-line textbox.
@@ -201,6 +193,20 @@
  *   'desc' - (string) The description text to use on the preferences page.
  *   'value' - (string) The preference value. Lines should be separated
  *             with the "\n" character.
+ *
+ *
+ * Placeholder types - these prefs are UI placeholders only and will not
+ * be stored in the preference backend.
+ *
+ * 'container'
+ * -----------
+ * Used to indicate a list of preferences that MUST appear on the same page
+ * for UI purposes.
+ *
+ * 'special'
+ * ---------
+ * Used as placeholder to indicate that the application will provide both the
+ * UI display code and the subsequent preferences storage.
  *
  * $Id$
  */
