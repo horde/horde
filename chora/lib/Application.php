@@ -79,7 +79,7 @@ class Chora_Application extends Horde_Registry_Application
             'ws'  => 1,
         );
 
-        /* See if any actions have been passed as GET variables, and if so,
+        /* See if any actions have been passed as form variables, and if so,
          * assign them into the acts array. */
         $vars = Horde_Variables::getDefaultVariables();
         foreach (array_keys($acts) as $key) {

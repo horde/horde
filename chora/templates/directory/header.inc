@@ -1,7 +1,7 @@
 <?php if (count($branches) > 1): ?>
 <div class="options">
  <span>
-  <form method="get" action="<?php echo Chora::url('browsedir', Horde_Util::getFormData('f')) ?>">
+  <form method="post" action="<?php echo Chora::url('browsedir', Horde_Util::getFormData('f')) ?>">
    <?php echo _("View Branch:") ?>
    <select name="onb" onchange="this.form.submit()">
     <option value="0"<?php if (!isset($onb) || !$onb) echo ' selected="selected"' ?>><?php echo _("All Branches") ?></option>
