@@ -1,11 +1,11 @@
 CREATE TABLE horde_histories (
-    history_id       INT UNSIGNED NOT NULL IDENTITY PRIMARY KEY,
+    history_id       SERIAL PRIMARY KEY,
     object_uid       VARCHAR(255) NOT NULL,
     history_action   VARCHAR(32) NOT NULL,
     history_ts       BIGINT NOT NULL,
-    history_desc     VARCHAR(MAX),
+    history_desc     TEXT,
     history_who      VARCHAR(255),
-    history_extra    VARCHAR(MAX)
+    history_extra    TEXT
 );
 
 CREATE INDEX history_action_idx ON horde_histories (history_action);

@@ -12,10 +12,6 @@ class Horde_Core_Factory_History
             throw new Horde_Exception(Horde_Core_Translation::t("The History system is disabled."));
         }
 
-        $ob = Horde_History::factory('Sql', $GLOBALS['conf']['sql']);
-        $ob->setLogger($injector->getInstance('Horde_Log_Logger'));
-
-        return $ob;
+        return $injector->getInstance('Horde_History_Sql');
     }
-
 }

@@ -30,7 +30,6 @@
     <dir name="Horde">
      <dir name="History">
       <file name="Exception.php" role="php" />
-      <file name="Factory.php" role="php" />
       <file name="Log.php" role="php" />
       <file name="Mock.php" role="php" />
       <file name="Sql.php" role="php" />
@@ -74,7 +73,6 @@
   <filelist>
    <install as="Horde/History.php" name="lib/Horde/History.php" />
    <install as="Horde/History/Exception.php" name="lib/Horde/History/Exception.php" />
-   <install as="Horde/History/Factory.php" name="lib/Horde/History/Factory.php" />
    <install as="Horde/History/Log.php" name="lib/Horde/History/Log.php" />
    <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
    <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
