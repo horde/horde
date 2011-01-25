@@ -10,7 +10,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+try {
+    Horde_Registry::appInit('chora');
+} catch (Exception $e) {
+    Chora::fatal($e);
+}
 
 /* Spawn the file object. */
 try {

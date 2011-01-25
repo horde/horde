@@ -216,9 +216,6 @@ class Chora_Application extends Horde_Registry_Application
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
-        define('CHORA_ERROR_HANDLER', true);
-
-        $arr = array();
         asort($GLOBALS['sourceroots']);
 
         foreach ($GLOBALS['sourceroots'] as $key => $val) {

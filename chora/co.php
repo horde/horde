@@ -10,7 +10,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+try {
+    Horde_Registry::appInit('chora');
+} catch (Exception $e) {
+    Chora::fatal($e);
+}
 
 /* If we know we're at a directory, just go to browsedir.php. */
 if ($atdir) {

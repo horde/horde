@@ -76,9 +76,7 @@ class Chora
      */
     static public function fatal($message, $code = null)
     {
-        if (defined('CHORA_ERROR_HANDLER') && constant('CHORA_ERROR_HANDLER')) {
-            return;
-        }
+        global $notification, $registry;
 
         if (is_a($message, 'Horde_Vcs_Exception')) {
             $message = $message->getMessage();
@@ -88,10 +86,13 @@ class Chora
             header('HTTP/1.0 ' . $code);
         }
 
-        $GLOBALS['notification']->push($message, 'horde.error');
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
+        // Make sure we are in Chora scope.
+        $registry->pushApp('chora');
+
+        $notification->push($message, 'horde.error');
+        require $registry->get('templates', 'horde') . '/common-header.inc';
         require CHORA_TEMPLATES . '/menu.inc';
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+        require $registry->get('templates', 'horde') . '/common-footer.inc';
         exit;
     }
 

@@ -12,7 +12,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+try {
+    Horde_Registry::appInit('chora');
+} catch (Exception $e) {
+    Chora::fatal($e);
+}
 
 try {
     $fl = $VC->getFileObject($where);

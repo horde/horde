@@ -10,7 +10,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+try {
+    Horde_Registry::appInit('chora');
+} catch (Exception $e) {
+    Chora::fatal($e);
+}
 
 // TODO - This currently doesn't work.
 Chora::fatal('History display is currently broken', '500 Internal Server Error');
