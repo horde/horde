@@ -19,49 +19,9 @@ class Horde_Prefs_Ui
      */
     public function prefsInit($ui)
     {
-        global $conf, $injector, $prefs, $registry;
+        global $conf, $injector;
 
-        switch ($ui->group) {
-        case 'display':
-            if (!$prefs->isLocked('initial_application')) {
-                $out = array();
-                $apps = $registry->listApps(array('active'));
-                foreach ($apps as $a) {
-                    $perms = $injector->getInstance('Horde_Perms');
-                    if (file_exists($registry->get('fileroot', $a)) &&
-                        (($perms->exists($a) && ($perms->hasPermission($a, $registry->getAuth(), Horde_Perms::READ) || $registry->isAdmin())) ||
-                         !$perms->exists($a))) {
-                        $out[$a] = $registry->get('name', $a);
-                    }
-                }
-                asort($out);
-                $ui->override['initial_application'] = $out;
-            }
-
-            if (!$prefs->isLocked('theme')) {
-                $ui->override['theme'] = Horde_Themes::themeList();
-            }
-            break;
-
-        case 'language':
-            if (!$prefs->isLocked('language')) {
-                $ui->override['language'] = $registry->nlsconfig->languages;
-                array_unshift($ui->override['language'], _("Default"));
-            }
-
-            if (!$prefs->isLocked('timezone')) {
-                $ui->override['timezone'] = Horde_Nls::getTimezones();
-                array_unshift($ui->override['timezone'], _("Default"));
-            }
-            break;
-
-        case 'remote':
-            Horde::addScriptFile('rpcprefs.js', 'horde');
-            $ui->nobuttons = true;
-            break;
-        }
-
-        /* Hide appropriate prefGroups. */
+        /* Hide prefGroups. */
         try {
             $injector->getInstance('Horde_Core_Factory_Auth')->create()->hasCapability('update');
         } catch (Horde_Exception $e) {
@@ -86,6 +46,54 @@ class Horde_Prefs_Ui
 
         if (empty($conf['activesync']['enabled'])) {
             $ui->suppressGroups[] = 'activesync';
+        }
+    }
+
+    /**
+     * Determine active prefs when displaying a group.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsGroup($ui)
+    {
+        global $injector, $registry;
+
+        foreach ($ui->getChangeablePrefs() as $val) {
+            switch ($val) {
+            case 'initial_application':
+                $out = array();
+                $apps = $registry->listApps(array('active'));
+                foreach ($apps as $a) {
+                    $perms = $injector->getInstance('Horde_Perms');
+                    if (file_exists($registry->get('fileroot', $a)) &&
+                        (($perms->exists($a) && ($perms->hasPermission($a, $registry->getAuth(), Horde_Perms::READ) || $registry->isAdmin())) ||
+                         !$perms->exists($a))) {
+                        $out[$a] = $registry->get('name', $a);
+                    }
+                }
+                asort($out);
+                $ui->override['initial_application'] = $out;
+                break;
+
+            case 'language':
+                $ui->override['language'] = $registry->nlsconfig->languages;
+                array_unshift($ui->override['language'], _("Default"));
+                break;
+
+            case 'remotemanagement':
+                Horde::addScriptFile('rpcprefs.js', 'horde');
+                $ui->nobuttons = true;
+                break;
+
+            case 'theme':
+                $ui->override['theme'] = Horde_Themes::themeList();
+                break;
+
+            case 'timezone':
+                $ui->override['timezone'] = Horde_Nls::getTimezones();
+                array_unshift($ui->override['timezone'], _("Default"));
+                break;
+            }
         }
     }
 

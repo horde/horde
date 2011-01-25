@@ -92,20 +92,18 @@ class Gollem_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Determine active prefs when displaying a group.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsGroup($ui)
     {
-        global $prefs;
-
-        switch ($ui->group) {
-        case 'display':
-            if (!$prefs->isLocked('columns')) {
+        foreach ($ui->getChangeablePrefs() as $val) {
+            switch ($val) {
+            case 'columns':
                 Horde_Core_Prefs_Ui_Widgets::sourceInit();
+                break;
             }
-            break;
         }
     }
 

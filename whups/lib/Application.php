@@ -123,14 +123,24 @@ class Whups_Application extends Horde_Registry_Application
      */
     public function prefsInit($ui)
     {
-        switch ($ui->group) {
-        case 'addressbooks':
-            Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
-            break;
-        }
-
         if (!$GLOBALS['registry']->hasMethod('contacts/sources')) {
             $ui->suppressGroups[] = 'addressbooks';
+        }
+    }
+
+    /**
+     * Determine active prefs when displaying a group.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsGroup($ui)
+    {
+        foreach ($ui->getChangeablePrefs() as $val) {
+            switch ($val) {
+            case 'sourceselect':
+                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                break;
+            }
         }
     }
 

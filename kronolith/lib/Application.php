@@ -176,54 +176,7 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function prefsInit($ui)
     {
-        global $conf, $prefs, $registry;
-
-        switch ($ui->group) {
-        case 'addressbooks':
-            if (!$prefs->isLocked('sourceselect')) {
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
-            }
-            break;
-
-        case 'freebusy':
-            if (!$prefs->isLocked('fb_cals')) {
-                $fb_list = array();
-                foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
-                    if ($cal->display()) {
-                        $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->name());
-                    }
-                }
-                $ui->override['fb_cals'] = $fb_list;
-            }
-            break;
-
-        case 'notification':
-            if (!empty($conf['alarms']['driver']) &&
-                !$prefs->isLocked('event_alarms') &&
-                !$prefs->isLocked('event_alarms_select')) {
-                Horde_Core_Prefs_Ui_Widgets::alarmInit();
-            }
-            break;
-
-        case 'share':
-            foreach (Kronolith::listInternalCalendars(false, Horde_Perms::EDIT) as $id => $calendar) {
-                $ui->override['default_share'][$id] = $calendar->get('name');
-            }
-            break;
-
-        case 'view':
-            $hour = array();
-            for ($i = 0; $i <= 48; ++$i) {
-                $hour[$i] = date(($prefs->getValue('twentyFour')) ? 'G:i' : 'g:ia', mktime(0, $i * 30, 0));
-            }
-            if (!$prefs->isLocked('day_hour_start')) {
-                $ui->override['day_hour_start'] = $hour;
-            }
-            if (!$prefs->isLocked('day_hour_end')) {
-                $ui->override['day_hour_end'] = $hour;
-            }
-            break;
-        }
+        global $prefs, $registry;
 
         /* Suppress prefGroups display. */
         if (!$registry->hasMethod('contacts/sources')) {
@@ -244,14 +197,46 @@ class Kronolith_Application extends Horde_Registry_Application
     {
         global $conf, $prefs;
 
-        switch ($ui->group) {
-        case 'notification':
-            if (empty($conf['alarms']['driver']) ||
-                $prefs->isLocked('event_alarms') ||
-                $prefs->isLocked('event_alarms_select')) {
-                $ui->suppress[] = 'event_alarms';
+        foreach ($ui->getChangeablePrefs() as $val) {
+            switch ($val) {
+            case 'day_hour_end':
+            case 'day_hour_start':
+                $hour = array();
+                for ($i = 0; $i <= 48; ++$i) {
+                    $hour[$i] = date(($prefs->getValue('twentyFour')) ? 'G:i' : 'g:ia', mktime(0, $i * 30, 0));
+                }
+                $ui->override[$val] = $hour;
+                break;
+
+            case 'default_share':
+                foreach (Kronolith::listInternalCalendars(false, Horde_Perms::EDIT) as $id => $calendar) {
+                    $ui->override['default_share'][$id] = $calendar->get('name');
+                }
+                break;
+
+            case 'event_alarms':
+                if (empty($conf['alarms']['driver']) ||
+                    $prefs->isLocked('event_alarms_select')) {
+                    $ui->suppress[] = 'event_alarms';
+                } else {
+                    Horde_Core_Prefs_Ui_Widgets::alarmInit();
+                }
+                break;
+
+            case 'fb_cals':
+                $fb_list = array();
+                foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
+                    if ($cal->display()) {
+                        $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->name());
+                    }
+                }
+                $ui->override['fb_cals'] = $fb_list;
+                break;
+
+            case 'sourceselect':
+                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                break;
             }
-            break;
         }
     }
 

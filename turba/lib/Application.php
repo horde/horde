@@ -188,47 +188,57 @@ class Turba_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Determine active prefs when displaying a group.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsGroup($ui)
     {
         global $prefs;
 
-        switch ($ui->group) {
-        case 'addressbooks':
-            if (!$prefs->isLocked('default_dir')) {
+        $source_init = false;
+
+        foreach ($ui->getChangeablePrefs() as $val) {
+            switch ($val->group) {
+            case 'columnselect':
+                Horde::addScriptFile('effects.js', 'horde');
+                Horde::addScriptFile('dragdrop.js', 'horde');
+                Horde::addScriptFile('columnprefs.js', 'turba');
+                break;
+
+            case 'default_dir':
                 $out = array();
                 foreach ($GLOBALS['cfgSources'] as $key => $info) {
                     $out[$key] = $info['title'];
                 }
                 $ui->override['default_dir'] = $out;
-            }
 
-            $out = array();
-            foreach (Turba::getAddressBooks() as $key => $curSource) {
-                if (empty($curSource['map']['__uid'])) {
-                    continue;
-                }
-                if (!empty($curSource['browse'])) {
-                    $out[$key] = $curSource['title'];
-                }
-                $sync_books = @unserialize($prefs->getValue('sync_books'));
-                if (empty($sync_books)) {
-                    $prefs->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
-                }
-            }
-            $ui->override['sync_books'] = $out;
+                $source_init = true;
+                break;
 
+            case 'sync_books':
+                $out = array();
+                foreach (Turba::getAddressBooks() as $key => $curSource) {
+                    if (empty($curSource['map']['__uid'])) {
+                        continue;
+                    }
+                    if (!empty($curSource['browse'])) {
+                        $out[$key] = $curSource['title'];
+                    }
+                    $sync_books = @unserialize($prefs->getValue('sync_books'));
+                    if (empty($sync_books)) {
+                        $prefs->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
+                    }
+                }
+                $ui->override['sync_books'] = $out;
+
+                $source_init = true;
+                break;
+            }
+        }
+
+        if ($source_init) {
             Horde_Core_Prefs_Ui_Widgets::sourceInit();
-            break;
-
-        case 'columns':
-            Horde::addScriptFile('effects.js', 'horde');
-            Horde::addScriptFile('dragdrop.js', 'horde');
-            Horde::addScriptFile('columnprefs.js', 'turba');
-            break;
         }
     }
 

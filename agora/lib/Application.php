@@ -124,18 +124,7 @@ class Agora_Application extends Horde_Registry_Application
      */
     public function prefsInit($ui)
     {
-        switch ($ui->group) {
-        case 'display_avatar':
-            $vfs = Agora::getVFS();
-            if (!($vfs instanceof PEAR_Error) &&
-                $GLOBALS['conf']['avatar']['enable_gallery'] &&
-                $vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
-                Horde::addScriptFile('popup.js', 'horde', true);
-            }
-            break;
-        }
-
-        /* Hide appropriate prefGroups. */
+        /* Hide prefGroups. */
         if (!$GLOBALS['conf']['avatar']['allow_avatars']) {
             $ui->suppressGroups[] = 'display_avatar';
         }
@@ -148,15 +137,19 @@ class Agora_Application extends Horde_Registry_Application
      */
     public function prefsGroup($ui)
     {
-        switch ($ui->group) {
-        case 'display_avatar':
-            $vfs = Agora::getVFS();
-            if (($vfs instanceof PEAR_Error) ||
-                !$GLOBALS['conf']['avatar']['enable_gallery'] ||
-                !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
-                $suppress[] = 'avatar_link';
+        foreach ($ui->getChangeablePrefs() as $val) {
+            switch ($val) {
+            case 'avatar_link':
+                $vfs = Agora::getVFS();
+                if (($vfs instanceof PEAR_Error) ||
+                    !$GLOBALS['conf']['avatar']['enable_gallery'] ||
+                    !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
+                    $ui->suppress[] = 'avatar_link';
+                } else {
+                    Horde::addScriptFile('popup.js', 'horde', true);
+                }
+                break;
             }
-            break;
         }
     }
 

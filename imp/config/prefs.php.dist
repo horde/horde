@@ -1333,9 +1333,17 @@ $prefGroups['pgp'] = array(
     'label' => _("PGP Preferences"),
     'desc' => sprintf(_("Control PGP support for %s."), $GLOBALS['registry']->get('name')),
     'members' => array(
+        'pgpmanagement'
+    )
+);
+
+// These preferences MUST appear on the same page.
+$_prefs['pgpmanagement'] = array(
+    'value' => array(
         'use_pgp', 'use_pgp_text', 'pgp_attach_pubkey', 'pgp_scan_body',
         'pgp_verify', 'pgp_reply_pubkey', 'pgppublickey', 'pgpprivatekey'
-    )
+    ),
+    'type' => 'container'
 );
 
 // Activate PGP support?
@@ -1405,9 +1413,17 @@ $prefGroups['smime'] = array(
     'label' => _("S/MIME Preferences"),
     'desc' => sprintf(_("Control S/MIME support for %s."), $GLOBALS['registry']->get('name')),
     'members' => array(
+        'smimemanagement'
+    )
+);
+
+// These preferences MUST appear on the same page.
+$_prefs['smimemanagement'] = array(
+    'value' => array(
         'use_smime', 'use_smime_text', 'smime_verify', 'smimepublickey',
         'smimeprivatekey'
-    )
+    ),
+    'type' => 'container'
 );
 
 // Activate S/MIME support?

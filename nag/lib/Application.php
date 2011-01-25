@@ -131,17 +131,30 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Determine active prefs when displaying a group.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsGroup($ui)
     {
         global $conf, $prefs, $registry;
 
-        switch ($ui->group) {
-        case 'share':
-            if (!$prefs->isLocked('default_tasklist')) {
+        foreach ($ui->getChangeablePrefs() as $val) {
+            switch ($val) {
+            case 'default_due_time':
+                $twentyfour = $prefs->getValue('twentyFour');
+
+                $vals = array('now' => _("The current hour"));
+                for ($i = 0; $i < 24; ++$i) {
+                    $value = sprintf('%02d:00', $i);
+                    $vals[$value] = ($twentyfour)
+                        ? $value
+                        : sprintf('%02d:00 ' . ($i >= 12 ? _("pm") : _("am")), ($i % 12 ? $i % 12 : 12));
+                }
+                $ui->override['default_due_time'] = $vals;
+                break;
+
+            case 'default_tasklist':
                 $all_tasklists = Nag::listTasklists();
                 $tasklists = array();
 
@@ -159,61 +172,27 @@ class Nag_Application extends Horde_Registry_Application
                     $vals[htmlspecialchars($id)] = htmlspecialchars($tasklist->get('name'));
                 }
                 $ui->override['default_tasklist'] = $vals;
-            }
-            break;
+                break;
 
-        case 'notification':
-            if (!empty($conf['alarms']['driver']) &&
-                !$prefs->isLocked('task_alarms') &&
-                !$prefs->isLocked('task_alarms_select')) {
-                Horde_Core_Prefs_Ui_Widgets::alarmInit();
-            }
-            break;
-
-        case 'tasks':
-            if (!$prefs->isLocked('default_due_time')) {
-                $twentyfour = $prefs->getValue('twentyFour');
-
-                $vals = array('now' => _("The current hour"));
-                for ($i = 0; $i < 24; ++$i) {
-                    $value = sprintf('%02d:00', $i);
-                    $vals[$value] = ($twentyfour)
-                        ? $value
-                        : sprintf('%02d:00 ' . ($i >= 12 ? _("pm") : _("am")), ($i % 12 ? $i % 12 : 12));
+            case 'show_external':
+                if ($registry->hasMethod('getListTypes', 'whups')) {
+                    $ui->override['show_external'] = array(
+                        'whups' => $registry->get('name', 'whups')
+                    );
+                } else {
+                    $ui->suppress[] = 'show_external';
                 }
-                $ui->override['default_due_time'] = $vals;
+                break;
+
+            case 'task_alarms':
+                if (empty($conf['alarms']['driver']) ||
+                    $prefs->isLocked('task_alarms_select')) {
+                    $ui->suppress[] = 'task_alarms';
+                } else {
+                    Horde_Core_Prefs_Ui_Widgets::alarmInit();
+                }
+                break;
             }
-            break;
-        }
-
-        if ($registry->hasMethod('getListTypes', 'whups')) {
-            $ui->override['show_external'] = array(
-                'whups' => $registry->get('name', 'whups')
-            );
-        }
-    }
-
-    /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsGroup($ui)
-    {
-        global $conf, $prefs, $registry;
-
-        switch ($ui->group) {
-        case 'notification':
-            if (empty($conf['alarms']['driver']) ||
-                $prefs->isLocked('task_alarms') ||
-                $prefs->isLocked('task_alarms_select')) {
-                $ui->suppress[] = 'task_alarms';
-            }
-            break;
-        }
-
-        if (!$registry->hasMethod('getListTypes', 'whups')) {
-            $ui->suppress[] = 'show_external';
         }
     }
 

@@ -120,22 +120,22 @@ class Mnemo_Application extends Horde_Registry_Application
     }
 
     /**
-     * Run once on init when viewing prefs for an application.
+     * Determine active prefs when displaying a group.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsGroup($ui)
     {
-        switch ($ui->group) {
-        case 'share':
-            if (!$GLOBALS['prefs']->isLocked('default_notepad')) {
+        foreach ($ui->getChangeablePrefs() as $val) {
+            switch ($val) {
+            case 'default_notepad':
                 $notepads = array();
                 foreach (Mnemo::listNotepads() as $key => $val) {
                     $notepads[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
                 }
                 $ui->override['default_notepad'] = $notepads;
+                break;
             }
-            break;
         }
     }
 
