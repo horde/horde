@@ -269,7 +269,7 @@ class Horde_Mime
                 } else {
                     if (($val['personal'][0] == '"') &&
                         (substr($val['personal'], -1) == '"')) {
-                        $addr['personal'] = stripslashes(substr($val['personal'], 1, -1));
+                        $val['personal'] = stripslashes(substr($val['personal'], 1, -1));
                     }
                     $personal = self::encode($val['personal'], $charset);
                 }
