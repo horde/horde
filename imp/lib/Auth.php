@@ -182,11 +182,14 @@ class IMP_Auth
             $level = 'INFO';
         }
 
-        $auth_id = $GLOBALS['registry']->getAuth();
+        $user = $imap_ob->getParam('username');
+        if (($auth_id = $GLOBALS['registry']->getAuth()) !== false) {
+            $user .= ' (Horde user ' . $auth_id . ')';
+        }
 
         $msg = sprintf(
-            $msg . ' %s [%s]%s to {%s:%s%s}',
-            !strlen($auth_id) ? '' : 'for ' . $auth_id,
+            $msg . ' for %s [%s]%s to {%s:%s%s}',
+            $user,
             $_SERVER['REMOTE_ADDR'],
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
             $imap_ob->ob ? $imap_ob->getParam('hostspec') : '',
