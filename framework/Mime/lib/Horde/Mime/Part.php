@@ -1883,7 +1883,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         if (isset($data['description'])) {
-            $ob->setDescription(Horde_Mime::decode($data['description']));
+            $ob->setDescription(Horde_Mime::decode($data['description']), 'UTF-8');
         }
 
         /* Set the name. */
