@@ -98,7 +98,7 @@ class Chora_Application extends Horde_Registry_Application
 
         $acts = array();
         if (!isset($defaultActs['rt'])) {
-            throw new Chora_Exception(_("No repositories found."));
+            Chora::fatal(new Chora_Exception(_("No repositories found.")));
         }
 
         /* See if any have been passed as GET variables, and if so, assign
@@ -108,7 +108,7 @@ class Chora_Application extends Horde_Registry_Application
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
-            throw new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt']));
+            Chora::fatal(new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt'])));
         }
 
         $sourcerootopts = $sourceroots[$acts['rt']];
@@ -127,13 +127,17 @@ class Chora_Application extends Horde_Registry_Application
         );
         $chora_conf = &$GLOBALS['chora_conf'];
 
-        $GLOBALS['VC'] = Horde_Vcs::factory(Horde_String::ucfirst($sourcerootopts['type']), array(
-            'cache' => $cache,
-            'sourceroot' => $sourcerootopts['location'],
-            'paths' => array_merge($conf['paths'], array('temp' => Horde::getTempDir())),
-            'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
-            'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''
-        ));
+        try {
+            $GLOBALS['VC'] = Horde_Vcs::factory(Horde_String::ucfirst($sourcerootopts['type']), array(
+                'cache' => $cache,
+                'sourceroot' => $sourcerootopts['location'],
+                'paths' => array_merge($conf['paths'], array('temp' => Horde::getTempDir())),
+                'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
+                'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''
+            ));
+        } catch (Horde_Vcs_Exception $e) {
+            Chora::fatal($e);
+        }
 
         $where = Horde_Util::getFormData('f', '/');
 
@@ -155,11 +159,11 @@ class Chora_Application extends Horde_Registry_Application
 
         if (($sourcerootopts['type'] == 'cvs') &&
             !@is_dir($sourcerootopts['location'])) {
-            throw new Chora_Exception(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later."));
+                Chora::fatal(new Chora_Exception(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later.")));
         }
 
         if (Chora::isRestricted($where)) {
-            throw new Chora_Exception(sprintf(_("%s: Forbidden by server configuration"), $where));
+            Chora::fatal(new Chora_Exception(sprintf(_("%s: Forbidden by server configuration"), $where)));
         }
     }
 
