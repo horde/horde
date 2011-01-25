@@ -90,7 +90,7 @@ class IMP_Auth
             }
 
             if (!$imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
-                self::_logMessage(false);
+                self::_logMessage(false, $imp_imap);
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
             }
 
@@ -102,7 +102,7 @@ class IMP_Auth
         try {
             $imp_imap->login();
         } catch (Horde_Imap_Client_Exception $e) {
-            self::_logMessage(false);
+            self::_logMessage(false, $imp_imap);
 
             switch ($e->getCode()) {
             case Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED:
@@ -169,9 +169,10 @@ class IMP_Auth
     /**
      * Log login related message.
      *
-     * @param boolean $success  True on success, false on failure.
+     * @param boolean $success   True on success, false on failure.
+     * @param IMP_Imap $imap_ob  The IMP_Imap object to use.
      */
-    static protected function _logMessage($status)
+    static protected function _logMessage($status, $imap_ob)
     {
         if ($status) {
             $msg = 'Login success';
@@ -182,7 +183,6 @@ class IMP_Auth
         }
 
         $auth_id = $GLOBALS['registry']->getAuth();
-        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         $msg = sprintf(
             $msg . ' %s [%s]%s to {%s:%s%s}',
@@ -486,7 +486,7 @@ class IMP_Auth
         /* Check for drafts due to session timeouts. */
         $imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create()->recoverSessionExpireDraft();
 
-        self::_logMessage(true);
+        self::_logMessage(true, $imp_imap);
     }
 
     /**
