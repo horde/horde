@@ -809,7 +809,6 @@
    <file baseinstalldir="/" name="mobile.php" role="horde" />
    <file baseinstalldir="/" name="month.php" role="horde" />
    <file baseinstalldir="/" name="new.php" role="horde" />
-   <file baseinstalldir="/" name="package.xml.old" role="data" />
    <file baseinstalldir="/" name="perms.php" role="horde" />
    <file baseinstalldir="/" name="README" role="data" />
    <file baseinstalldir="/" name="search.php" role="horde" />
@@ -1325,7 +1324,6 @@
    <install as="kronolith/mobile.php" name="mobile.php" />
    <install as="kronolith/month.php" name="month.php" />
    <install as="kronolith/new.php" name="new.php" />
-   <install as="package.xml.old" name="package.xml.old" />
    <install as="kronolith/perms.php" name="perms.php" />
    <install as="README" name="README" />
    <install as="kronolith/search.php" name="search.php" />

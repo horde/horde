@@ -459,7 +459,6 @@
    <file baseinstalldir="/" name="forward.php" role="horde" />
    <file baseinstalldir="/" name="index.php" role="horde" />
    <file baseinstalldir="/" name="LICENSE" role="data" />
-   <file baseinstalldir="/" name="package.xml.old" role="data" />
    <file baseinstalldir="/" name="README" role="data" />
    <file baseinstalldir="/" name="rule.php" role="horde" />
    <file baseinstalldir="/" name="script.php" role="horde" />
@@ -706,7 +705,6 @@
    <install as="ingo/forward.php" name="forward.php" />
    <install as="ingo/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />
-   <install as="package.xml.old" name="package.xml.old" />
    <install as="README" name="README" />
    <install as="ingo/rule.php" name="rule.php" />
    <install as="ingo/script.php" name="script.php" />
