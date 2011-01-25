@@ -61,50 +61,55 @@ class Chora_Application extends Horde_Registry_Application
 
         /**
          * Variables we wish to propagate across web pages
-         *  sbt = Sort By Type (name, age, author, etc)
          *  ha  = Hide Attic Files
          *  ord = Sort order
+         *  sbt = Sort By Type (name, age, author, etc)
          *
          * Obviously, defaults go into $defaultActs :)
          * TODO: defaults of 1 will not get propagated correctly - avsm
          * XXX: Rewrite this propagation code, since it sucks - avsm
          */
-        $defaultActs = array(
-            'sbt' => constant($conf['options']['defaultsort']),
-            'sa'  => 0,
-            'ord' => Horde_Vcs::SORT_ASCENDING,
-            'ws'  => 1,
+        $acts = array(
             'onb' => 0,
+            'ord' => Horde_Vcs::SORT_ASCENDING,
             'rev' => 0,
+            'rt'  => null,
+            'sa'  => 0,
+            'sbt' => constant($conf['options']['defaultsort']),
+            'ws'  => 1,
         );
 
-        /* Use the last sourceroot used as the default value if the user has
-         * that preference. */
-        $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot')
-            ? $GLOBALS['prefs']->getValue('last_sourceroot')
-            : null;
-
-        if (!empty($last_sourceroot) &&
-            !empty($sourceroots[$last_sourceroot]) &&
-            is_array($sourceroots[$last_sourceroot])) {
-            $defaultActs['rt'] = $last_sourceroot;
-        } else {
-            foreach ($sourceroots as $key => $val) {
-                if (isset($val['default']) || !isset($defaultActs['rt'])) {
-                    $defaultActs['rt'] = $key;
-                }
+        /* See if any actions have been passed as GET variables, and if so,
+         * assign them into the acts array. */
+        $vars = Horde_Variables::getDefaultVariables();
+        foreach (array_keys($acts) as $key) {
+            if (isset($vars->$key)) {
+                $acts[$key] = $vars->$key;
             }
         }
 
-        $acts = array();
-        if (!isset($defaultActs['rt'])) {
-            Chora::fatal(new Chora_Exception(_("No repositories found.")));
-        }
+        /* Use the value of the 'rt' form value for the sourceroot. If not
+         * present, use the last sourceroot used as the default value if the
+         * user has that preference. Otherwise, use default sourceroot. */
+        if (is_null($acts['rt'])) {
+            $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot');
 
-        /* See if any have been passed as GET variables, and if so, assign
-         * them into the acts array. */
-        foreach ($defaultActs as $key => $default) {
-            $acts[$key] = Horde_Util::getFormData($key, $default);
+            if (!empty($last_sourceroot) &&
+                !empty($sourceroots[$last_sourceroot]) &&
+                is_array($sourceroots[$last_sourceroot])) {
+                $acts['rt'] = $last_sourceroot;
+            } else {
+                foreach ($sourceroots as $key => $val) {
+                    if (isset($val['default'])) {
+                        $acts['rt'] = $key;
+                        break;
+                    }
+                }
+
+                if (is_null($acts['rt'])) {
+                    Chora::fatal(new Chora_Exception(_("No repositories found.")));
+                }
+            }
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
