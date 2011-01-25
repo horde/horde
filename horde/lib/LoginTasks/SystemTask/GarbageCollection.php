@@ -1,15 +1,15 @@
 <?php
 /**
- * Login system task for automated upgrade tasks.
+ * Login system task for automated garbage collection tasks.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Horde
  */
 class Horde_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_SystemTask
