@@ -149,9 +149,17 @@ class Horde_Core_Prefs_Ui
      *
      * @return array  The list of changeable prefs.
      */
-    public function getChangeablePrefs($group)
+    public function getChangeablePrefs($group = null)
     {
         $prefs = array();
+
+        if (is_null($group)) {
+            if (!$this->group) {
+                return $prefs;
+            }
+
+            $group = $this->group;
+        }
 
         if (!empty($this->prefGroups[$group]['members'])) {
             foreach ($this->prefGroups[$group]['members'] as $pref) {
