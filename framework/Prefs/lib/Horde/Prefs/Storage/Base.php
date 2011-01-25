@@ -35,6 +35,16 @@ abstract class Horde_Prefs_Storage_Base
     }
 
     /**
+     * Get the list of driver parameters.
+     *
+     * @return array  Driver parameters.
+     */
+    public function getParams()
+    {
+        return $this->_params;
+    }
+
+    /**
      * Retrieves the requested preferences scope from the storage backend.
      *
      * @param Horde_Prefs_Scope $scope_ob  The scope object.

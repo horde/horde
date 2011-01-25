@@ -129,6 +129,16 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
+     * Return the storage driver.
+     *
+     * @return Horde_Prefs_Storage_Base  The storage driver.
+     */
+    public function getStorage()
+    {
+        return $this->_storage;
+    }
+
+    /**
      * Removes a preference entry from the $prefs hash.
      *
      * @param string $pref  The name of the preference to remove.
