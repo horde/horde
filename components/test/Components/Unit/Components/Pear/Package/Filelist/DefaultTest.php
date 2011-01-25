@@ -17,8 +17,6 @@
  */
 require_once dirname(__FILE__) . '/../../../../../Autoload.php';
 
-                               //@require_once 'PEAR/Validate.php';
-
 /**
  * Test the handling of file lists.
  *
@@ -39,10 +37,17 @@ extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->_old_errorreporting = error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
+        error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
         if (!defined('PEAR_VALIDATE_INSTALLING')) {
             define('PEAR_VALIDATE_INSTALLING', 1);
             define('PEAR_VALIDATE_NORMAL', 3);
         }
+    }
+
+    public function tearDown()
+    {
+        error_reporting($this->_old_errorreporting);
     }
 
     /**
@@ -86,6 +91,21 @@ extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array('role' => 'horde')));
         $package->expects($this->never())
             ->method('addUsesRole');
+        $this->_getFilelist($package)->update();
+    }
+
+    public function testApplication()
+    {
+        $package = $this->_getPackage(array('role' => 'horde', 'name' => 'a'));
+        $package->expects($this->once())
+            ->method('getUsesRole')
+            ->will($this->returnValue(array('role' => 'horde')));
+        $package->expects($this->any())
+            ->method('getName')
+            ->will($this->returnValue('imp'));
+        $package->expects($this->once())
+            ->method('addInstallAs')
+            ->with('a', 'imp/a');
         $this->_getFilelist($package)->update();
     }
 

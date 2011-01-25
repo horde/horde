@@ -41,6 +41,7 @@ class Components_Pear_Package_Contents_Factory
         $root = new Components_Helper_Root(
             $package->_options['packagedirectory']
         );
+        $package->_options['roles'] = $this->_getRoles($root->getBase());
         $package->_options['dir_roles'] = $this->_getMapping($root->getBase());
         return new Components_Pear_Package_Contents_List(
             $package->_options['packagedirectory'],
@@ -62,22 +63,25 @@ class Components_Pear_Package_Contents_Factory
     {
         switch ($path) {
         case 'horde/':
+        case 'imp/':
+        case 'ingo/':
+        case 'kronolith/':
+        case 'mnemo/':
+        case 'nag/':
+        case 'turba/':
             return array(
-                'admin'     => 'horde',
                 'bin'       => 'script',
                 'config'    => 'horde',
                 'script'    => 'script',
                 'docs'      => 'doc',
                 'js'        => 'horde',
-                'lib'       => 'horde',
+                'locale'    => 'horde',
                 'scripts'   => 'data',
-                'services'  => 'horde',
                 'test'      => 'test',
                 'templates' => 'horde',
                 'themes'    => 'horde',
                 'util'      => 'horde',
             );
-            break;
         default:
             return array(
                 'bin'       => 'script',
@@ -91,7 +95,51 @@ class Components_Pear_Package_Contents_Factory
                 'scripts'   => 'data',
                 'test'      => 'test',
             );
-            break;
+        }
+    }
+
+    /**
+     * Return the default role mapping for the specific package.
+     *
+     * @param string $path The package path.
+     *
+     * @return array The mapping.
+     */
+    private function _getRoles($path)
+    {
+        switch ($path) {
+        case 'horde/':
+        case 'imp/':
+        case 'ingo/':
+        case 'kronolith/':
+        case 'mnemo/':
+        case 'nag/':
+        case 'turba/':
+            return array(
+                'h'    => 'src',
+                'c'    => 'src',
+                'cpp'  => 'src',
+                'in'   => 'src',
+                'm4'   => 'src',
+                'w32'  => 'src',
+                'dll'  => 'ext',
+                'php'  => 'horde',
+                'html' => 'doc',
+                '*'    => 'data',
+            );
+        default:
+            return array(
+                'h'    => 'src',
+                'c'    => 'src',
+                'cpp'  => 'src',
+                'in'   => 'src',
+                'm4'   => 'src',
+                'w32'  => 'src',
+                'dll'  => 'ext',
+                'php'  => 'php',
+                'html' => 'doc',
+                '*'    => 'data',
+            );
         }
     }
 }

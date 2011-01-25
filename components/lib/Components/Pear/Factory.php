@@ -192,8 +192,7 @@ class Components_Pear_Factory
     public function getPackageFile(
         $package_xml_path,
         Components_Pear_InstallLocation $environment
-    )
-    {
+    ) {
         $pkg = new PEAR_PackageFile($environment->getPearConfig());
         return Components_Exception_Pear::catchError(
             $pkg->fromPackageFile($package_xml_path, PEAR_VALIDATE_NORMAL)
@@ -211,8 +210,7 @@ class Components_Pear_Factory
     public function getPackageFileFromTgz(
         $package_tgz_path,
         Components_Pear_InstallLocation $environment
-    )
-    {
+    ) {
         $pkg = new PEAR_PackageFile($environment->getPearConfig());
         return Components_Exception_Pear::catchError(
             $pkg->fromTgzFile($package_tgz_path, PEAR_VALIDATE_NORMAL)
@@ -229,11 +227,10 @@ class Components_Pear_Factory
      */
     public function createPackageFile(
         $package_xml_dir
-    )
-    {
+    ) {
         $environment = $this->_dependencies->getInstance('Components_Pear_InstallLocation');
         $pkg = new PEAR_PackageFile_v2_rw();
-        $pkg->setPackage('REPLACE');
+        $pkg->setPackage(basename($package_xml_dir));
         $pkg->setDescription('REPLACE');
         $pkg->setSummary('REPLACE');
         $pkg->setReleaseVersion('0.0.1');

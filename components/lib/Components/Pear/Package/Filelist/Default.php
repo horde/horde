@@ -74,8 +74,16 @@ class Components_Pear_Package_Filelist_Default
             switch ($role) {
             case 'horde':
                 $horde_role = true;
+                if (in_array(
+                        $this->_package->getName(),
+                        array('imp', 'ingo', 'kronolith', 'mnemo', 'nag', 'turba')
+                    )) {
+                    $prefix = $this->_package->getName() . '/';
+                } else {
+                    $prefix = '';
+                }
                 $this->_package->addInstallAs(
-                    $file['attribs']['name'], $file['attribs']['name']
+                    $file['attribs']['name'], $prefix . $file['attribs']['name']
                 );
                 break;
             case 'doc':
