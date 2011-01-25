@@ -108,6 +108,20 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
             '=?utf-8?b?w58=?= <test@example.com>',
             Horde_Mime::encodeAddress($email, 'UTF-8', 'example.com')
         );
+
+        $email2 = 'ß X <test@example.com>';
+
+        $this->assertEquals(
+            '=?utf-8?b?w58=?= X <test@example.com>',
+            Horde_Mime::encodeAddress($email2, 'UTF-8', 'example.com')
+        );
+
+        $email3 = '"ß X" <test@example.com>';
+
+        $this->assertEquals(
+            '=?utf-8?b?w58=?= X <test@example.com>',
+            Horde_Mime::encodeAddress($email3, 'UTF-8', 'example.com')
+        );
     }
 
     public function testDecode()
