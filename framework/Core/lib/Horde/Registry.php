@@ -1458,17 +1458,9 @@ class Horde_Registry
                 : (isset($this->applications['horde'][$parameter]) ? $this->applications['horde'][$parameter] : null);
         }
 
-        if ($parameter != 'name') {
-            return $pval;
-        }
-
-        $pushed = $this->pushApp('horde');
-        $pval = _($pval);
-        if ($pushed) {
-            $this->popApp();
-        }
-
-        return $pval;
+        return ($parameter == 'name')
+            ? _($pval)
+            : $pval;
     }
 
     /**
