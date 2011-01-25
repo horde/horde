@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>turba</name>
+ <channel>pear.horde.org</channel>
+ <summary>A web based addressbook.</summary>
+ <description>Turba is the Horde address book / contact management program. It provides a generic frontend to searching and managing LDAP, SQL, IMSP, and several other contact sources.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-01-25</date>
+ <time>10:00:23</time>
+ <version>
+  <release>3.0.0</release>
+  <api>3.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="addressbooks">
+    <file baseinstalldir="/" name="create.php" role="horde" />
+    <file baseinstalldir="/" name="delete.php" role="horde" />
+    <file baseinstalldir="/" name="edit.php" role="horde" />
+    <file baseinstalldir="/" name="index.php" role="horde" />
+   </dir> <!-- /addressbooks -->
+   <dir name="config">
+    <file baseinstalldir="/" name="attributes.php.dist" role="horde" />
+    <file baseinstalldir="/" name="backends.php.dist" role="horde" />
+    <file baseinstalldir="/" name="conf.xml" role="horde" />
+    <file baseinstalldir="/" name="hooks.php.dist" role="horde" />
+    <file baseinstalldir="/" name="menu.php.dist" role="horde" />
+    <file baseinstalldir="/" name="mime_drivers.php.dist" role="horde" />
+    <file baseinstalldir="/" name="prefs.php.dist" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <dir name="vcf">
+     <file baseinstalldir="/" name="brad.vcf" role="doc" />
+     <file baseinstalldir="/" name="dimitris.vcf" role="doc" />
+     <file baseinstalldir="/" name="dwalt.vcf" role="doc" />
+     <file baseinstalldir="/" name="foo.vcf" role="doc" />
+     <file baseinstalldir="/" name="larry.vcf" role="doc" />
+     <file baseinstalldir="/" name="multiple.vcf" role="doc" />
+     <file baseinstalldir="/" name="palm.vcf" role="doc" />
+     <file baseinstalldir="/" name="README" role="doc" />
+     <file baseinstalldir="/" name="sfg.vcf" role="doc" />
+     <file baseinstalldir="/" name="test.vcf" role="doc" />
+    </dir> <!-- /docs/vcf -->
+    <file baseinstalldir="/" name="CHANGES" role="doc" />
+    <file baseinstalldir="/" name="CREDITS" role="doc" />
+    <file baseinstalldir="/" name="INSTALL" role="doc" />
+    <file baseinstalldir="/" name="LDAP" role="doc" />
+    <file baseinstalldir="/" name="RELEASE_NOTES" role="doc" />
+    <file baseinstalldir="/" name="UPGRADING" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="js">
+    <file baseinstalldir="/" name="browse.js" role="horde" />
+    <file baseinstalldir="/" name="columnprefs.js" role="horde" />
+    <file baseinstalldir="/" name="contact_tabs.js" role="horde" />
+    <file baseinstalldir="/" name="search.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Block">
+     <file baseinstalldir="/" name="minisearch.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Data">
+     <file baseinstalldir="/" name="Ldif.php" role="horde" />
+    </dir> <!-- /lib/Data -->
+    <dir name="Driver">
+     <dir name="Kolab">
+      <dir name="Wrapper">
+       <file baseinstalldir="/" name="New.php" role="horde" />
+       <file baseinstalldir="/" name="Old.php" role="horde" />
+      </dir> <!-- /lib/Driver/Kolab/Wrapper -->
+      <file baseinstalldir="/" name="Wrapper.php" role="horde" />
+     </dir> <!-- /lib/Driver/Kolab -->
+     <file baseinstalldir="/" name="Facebook.php" role="horde" />
+     <file baseinstalldir="/" name="Favourites.php" role="horde" />
+     <file baseinstalldir="/" name="Group.php" role="horde" />
+     <file baseinstalldir="/" name="Imsp.php" role="horde" />
+     <file baseinstalldir="/" name="Kolab.php" role="horde" />
+     <file baseinstalldir="/" name="Ldap.php" role="horde" />
+     <file baseinstalldir="/" name="Prefs.php" role="horde" />
+     <file baseinstalldir="/" name="Share.php" role="horde" />
+     <file baseinstalldir="/" name="Sql.php" role="horde" />
+     <file baseinstalldir="/" name="Vbook.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Form">
+     <file baseinstalldir="/" name="AddContact.php" role="horde" />
+     <file baseinstalldir="/" name="Contact.php" role="horde" />
+     <file baseinstalldir="/" name="CreateAddressBook.php" role="horde" />
+     <file baseinstalldir="/" name="DeleteAddressBook.php" role="horde" />
+     <file baseinstalldir="/" name="EditAddressBook.php" role="horde" />
+     <file baseinstalldir="/" name="EditContact.php" role="horde" />
+     <file baseinstalldir="/" name="EditContactGroup.php" role="horde" />
+    </dir> <!-- /lib/Form -->
+    <dir name="Injector">
+     <dir name="Factory">
+      <file baseinstalldir="/" name="Driver.php" role="horde" />
+     </dir> <!-- /lib/Injector/Factory -->
+    </dir> <!-- /lib/Injector -->
+    <dir name="LoginTasks">
+     <dir name="SystemTask">
+      <file baseinstalldir="/" name="UpgradeFromTurba2.php" role="horde" />
+      <file baseinstalldir="/" name="UpgradeLists.php" role="horde" />
+      <file baseinstalldir="/" name="UpgradePrefs.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/SystemTask -->
+    </dir> <!-- /lib/LoginTasks -->
+    <dir name="Object">
+     <file baseinstalldir="/" name="Group.php" role="horde" />
+    </dir> <!-- /lib/Object -->
+    <dir name="tests">
+     <file baseinstalldir="/" name="ApiTest.php" role="horde" />
+     <file baseinstalldir="/" name="az.png" role="data" />
+     <file baseinstalldir="/" name="BrowsePageTest.php" role="horde" />
+     <file baseinstalldir="/" name="bug_6518.phpt" role="data" />
+     <file baseinstalldir="/" name="DriverTest.php" role="horde" />
+     <file baseinstalldir="/" name="GroupTest.php" role="horde" />
+     <file baseinstalldir="/" name="import.ldif" role="data" />
+     <file baseinstalldir="/" name="importCRLF.ldif" role="data" />
+     <file baseinstalldir="/" name="KolabTest.php" role="horde" />
+     <file baseinstalldir="/" name="KolabTestBase.php" role="horde" />
+     <file baseinstalldir="/" name="ldif_exportFile.phpt" role="data" />
+     <file baseinstalldir="/" name="ldif_importFile.phpt" role="data" />
+     <file baseinstalldir="/" name="ldif_importFileCRLF.phpt" role="data" />
+     <file baseinstalldir="/" name="ListTest.php" role="horde" />
+     <file baseinstalldir="/" name="ListViewTest.php" role="horde" />
+     <file baseinstalldir="/" name="TestBase.php" role="horde" />
+     <file baseinstalldir="/" name="tohash.phpt" role="data" />
+     <file baseinstalldir="/" name="tovcard.phpt" role="data" />
+     <file baseinstalldir="/" name="ViewBrowseTest.php" role="horde" />
+     <file baseinstalldir="/" name="ViewListTest.php" role="horde" />
+    </dir> <!-- /lib/tests -->
+    <dir name="View">
+     <file baseinstalldir="/" name="Browse.php" role="horde" />
+     <file baseinstalldir="/" name="Contact.php" role="horde" />
+     <file baseinstalldir="/" name="DeleteContact.php" role="horde" />
+     <file baseinstalldir="/" name="Duplicates.php" role="horde" />
+     <file baseinstalldir="/" name="EditContact.php" role="horde" />
+     <file baseinstalldir="/" name="List.php" role="horde" />
+    </dir> <!-- /lib/View -->
+    <file baseinstalldir="/" name="Api.php" role="horde" />
+    <file baseinstalldir="/" name="Application.php" role="horde" />
+    <file baseinstalldir="/" name="Driver.php" role="horde" />
+    <file baseinstalldir="/" name="Exception.php" role="horde" />
+    <file baseinstalldir="/" name="List.php" role="horde" />
+    <file baseinstalldir="/" name="Object.php" role="horde" />
+    <file baseinstalldir="/" name="Test.php" role="horde" />
+    <file baseinstalldir="/" name="Turba.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="turba.mo" role="horde" />
+      <file baseinstalldir="/" name="turba.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file baseinstalldir="/" name="turba.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file baseinstalldir="/" name="1_turba_base_tables.php" role="horde" />
+    <file baseinstalldir="/" name="2_turba_upgrade_autoincrement.php" role="horde" />
+    <file baseinstalldir="/" name="3_turba_upgrade_sqlng.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="scripts">
+    <dir name="ldap">
+     <file baseinstalldir="/" name="addou" role="data" />
+     <file baseinstalldir="/" name="addou.pl" role="data" />
+    </dir> <!-- /scripts/ldap -->
+    <dir name="upgrades">
+     <file baseinstalldir="/" name="convert_datatree_shares_to_sql.php" role="data" />
+     <file baseinstalldir="/" name="convert_sql_shares_to_sqlng.php" role="data" />
+     <file baseinstalldir="/" name="public_to_horde_share.php" role="data" />
+    </dir> <!-- /scripts/upgrades -->
+    <file baseinstalldir="/" name="import_squirrelmail_file_abook.php" role="data" />
+    <file baseinstalldir="/" name="import_squirrelmail_sql_abook.php" role="data" />
+    <file baseinstalldir="/" name="import_vcards.php" role="data" />
+    <file baseinstalldir="/" name="Turba.reg" role="data" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="block">
+     <file baseinstalldir="/" name="minisearch.inc" role="horde" />
+    </dir> <!-- /templates/block -->
+    <dir name="browse">
+     <file baseinstalldir="/" name="actions.inc" role="horde" />
+     <file baseinstalldir="/" name="column_footers.inc" role="horde" />
+     <file baseinstalldir="/" name="column_headers.inc" role="horde" />
+     <file baseinstalldir="/" name="header.inc" role="horde" />
+     <file baseinstalldir="/" name="row.inc" role="horde" />
+    </dir> <!-- /templates/browse -->
+    <dir name="data">
+     <file baseinstalldir="/" name="export.inc" role="horde" />
+     <file baseinstalldir="/" name="import.inc" role="horde" />
+    </dir> <!-- /templates/data -->
+    <dir name="list">
+     <file baseinstalldir="/" name="alphaPager.inc" role="horde" />
+     <file baseinstalldir="/" name="numPager.inc" role="horde" />
+    </dir> <!-- /templates/list -->
+    <dir name="prefs">
+     <file baseinstalldir="/" name="column.html" role="horde" />
+    </dir> <!-- /templates/prefs -->
+    <dir name="search">
+     <dir name="duplicate">
+      <file baseinstalldir="/" name="contact_footer.html.php" role="horde" />
+      <file baseinstalldir="/" name="contact_header.html.php" role="horde" />
+      <file baseinstalldir="/" name="footer.html.php" role="horde" />
+      <file baseinstalldir="/" name="header.html.php" role="horde" />
+      <file baseinstalldir="/" name="list.html.php" role="horde" />
+     </dir> <!-- /templates/search/duplicate -->
+     <file baseinstalldir="/" name="advanced.html.php" role="horde" />
+     <file baseinstalldir="/" name="basic.html.php" role="horde" />
+     <file baseinstalldir="/" name="duplicate.html.php" role="horde" />
+     <file baseinstalldir="/" name="header.html.php" role="horde" />
+     <file baseinstalldir="/" name="vbook.html.php" role="horde" />
+    </dir> <!-- /templates/search -->
+    <dir name="test">
+     <file baseinstalldir="/" name="ldapserver.inc" role="horde" />
+    </dir> <!-- /templates/test -->
+    <file baseinstalldir="/" name="addressbook_list.php" role="horde" />
+    <file baseinstalldir="/" name="menu.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="bluewhite">
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/bluewhite -->
+    <dir name="default">
+     <dir name="graphics">
+      <dir name="menu">
+       <file baseinstalldir="/" name="browse.png" role="horde" />
+       <file baseinstalldir="/" name="new.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/menu -->
+      <file baseinstalldir="/" name="az.png" role="horde" />
+      <file baseinstalldir="/" name="az_secondary.png" role="horde" />
+      <file baseinstalldir="/" name="contact.png" role="horde" />
+      <file baseinstalldir="/" name="favicon.ico" role="horde" />
+      <file baseinstalldir="/" name="group.png" role="horde" />
+      <file baseinstalldir="/" name="new.png" role="horde" />
+      <file baseinstalldir="/" name="search.png" role="horde" />
+      <file baseinstalldir="/" name="turba.png" role="horde" />
+      <file baseinstalldir="/" name="za.png" role="horde" />
+      <file baseinstalldir="/" name="za_secondary.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file baseinstalldir="/" name="ie6_or_less.css" role="horde" />
+     <file baseinstalldir="/" name="ie7.css" role="horde" />
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+    <dir name="ideas">
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/ideas -->
+    <dir name="silver">
+     <dir name="graphics">
+      <dir name="menu">
+       <file baseinstalldir="/" name="browse.png" role="horde" />
+       <file baseinstalldir="/" name="new.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/menu -->
+      <file baseinstalldir="/" name="az.png" role="horde" />
+      <file baseinstalldir="/" name="az_secondary.png" role="horde" />
+      <file baseinstalldir="/" name="contact.png" role="horde" />
+      <file baseinstalldir="/" name="favicon.ico" role="horde" />
+      <file baseinstalldir="/" name="group.png" role="horde" />
+      <file baseinstalldir="/" name="new.png" role="horde" />
+      <file baseinstalldir="/" name="turba.png" role="horde" />
+      <file baseinstalldir="/" name="za.png" role="horde" />
+      <file baseinstalldir="/" name="za_secondary.png" role="horde" />
+     </dir> <!-- /themes/silver/graphics -->
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/silver -->
+    <dir name="tango-blue">
+     <dir name="graphics">
+      <dir name="menu">
+       <file baseinstalldir="/" name="browse.png" role="horde" />
+       <file baseinstalldir="/" name="new.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/menu -->
+      <file baseinstalldir="/" name="az_secondary.png" role="horde" />
+      <file baseinstalldir="/" name="contact.png" role="horde" />
+      <file baseinstalldir="/" name="favicon.ico" role="horde" />
+      <file baseinstalldir="/" name="group.png" role="horde" />
+      <file baseinstalldir="/" name="new.png" role="horde" />
+      <file baseinstalldir="/" name="turba.png" role="horde" />
+      <file baseinstalldir="/" name="za_secondary.png" role="horde" />
+     </dir> <!-- /themes/tango-blue/graphics -->
+    </dir> <!-- /themes/tango-blue -->
+   </dir> <!-- /themes -->
+   <file baseinstalldir="/" name="add.php" role="horde" />
+   <file baseinstalldir="/" name="browse.php" role="horde" />
+   <file baseinstalldir="/" name="contact.php" role="horde" />
+   <file baseinstalldir="/" name="data.php" role="horde" />
+   <file baseinstalldir="/" name="delete.php" role="horde" />
+   <file baseinstalldir="/" name="deletefile.php" role="horde" />
+   <file baseinstalldir="/" name="edit.php" role="horde" />
+   <file baseinstalldir="/" name="index.php" role="horde" />
+   <file baseinstalldir="/" name="LICENSE" role="data" />
+   <file baseinstalldir="/" name="merge.php" role="horde" />
+   <file baseinstalldir="/" name="minisearch.php" role="horde" />
+   <file baseinstalldir="/" name="README" role="data" />
+   <file baseinstalldir="/" name="search.php" role="horde" />
+   <file baseinstalldir="/" name="vcard.php" role="horde" />
+   <file baseinstalldir="/" name="view.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="turba/addressbooks/create.php" name="addressbooks/create.php" />
+   <install as="turba/addressbooks/delete.php" name="addressbooks/delete.php" />
+   <install as="turba/addressbooks/edit.php" name="addressbooks/edit.php" />
+   <install as="turba/addressbooks/index.php" name="addressbooks/index.php" />
+   <install as="turba/config/attributes.php.dist" name="config/attributes.php.dist" />
+   <install as="turba/config/backends.php.dist" name="config/backends.php.dist" />
+   <install as="turba/config/conf.xml" name="config/conf.xml" />
+   <install as="turba/config/hooks.php.dist" name="config/hooks.php.dist" />
+   <install as="turba/config/menu.php.dist" name="config/menu.php.dist" />
+   <install as="turba/config/mime_drivers.php.dist" name="config/mime_drivers.php.dist" />
+   <install as="turba/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="LDAP" name="docs/LDAP" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="vcf/brad.vcf" name="docs/vcf/brad.vcf" />
+   <install as="vcf/dimitris.vcf" name="docs/vcf/dimitris.vcf" />
+   <install as="vcf/dwalt.vcf" name="docs/vcf/dwalt.vcf" />
+   <install as="vcf/foo.vcf" name="docs/vcf/foo.vcf" />
+   <install as="vcf/larry.vcf" name="docs/vcf/larry.vcf" />
+   <install as="vcf/multiple.vcf" name="docs/vcf/multiple.vcf" />
+   <install as="vcf/palm.vcf" name="docs/vcf/palm.vcf" />
+   <install as="vcf/README" name="docs/vcf/README" />
+   <install as="vcf/sfg.vcf" name="docs/vcf/sfg.vcf" />
+   <install as="vcf/test.vcf" name="docs/vcf/test.vcf" />
+   <install as="turba/js/browse.js" name="js/browse.js" />
+   <install as="turba/js/columnprefs.js" name="js/columnprefs.js" />
+   <install as="turba/js/contact_tabs.js" name="js/contact_tabs.js" />
+   <install as="turba/js/search.js" name="js/search.js" />
+   <install as="turba/lib/Api.php" name="lib/Api.php" />
+   <install as="turba/lib/Application.php" name="lib/Application.php" />
+   <install as="turba/lib/Driver.php" name="lib/Driver.php" />
+   <install as="turba/lib/Exception.php" name="lib/Exception.php" />
+   <install as="turba/lib/List.php" name="lib/List.php" />
+   <install as="turba/lib/Object.php" name="lib/Object.php" />
+   <install as="turba/lib/Test.php" name="lib/Test.php" />
+   <install as="turba/lib/Turba.php" name="lib/Turba.php" />
+   <install as="turba/lib/Block/minisearch.php" name="lib/Block/minisearch.php" />
+   <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
+   <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
+   <install as="turba/lib/Driver/Favourites.php" name="lib/Driver/Favourites.php" />
+   <install as="turba/lib/Driver/Group.php" name="lib/Driver/Group.php" />
+   <install as="turba/lib/Driver/Imsp.php" name="lib/Driver/Imsp.php" />
+   <install as="turba/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
+   <install as="turba/lib/Driver/Ldap.php" name="lib/Driver/Ldap.php" />
+   <install as="turba/lib/Driver/Prefs.php" name="lib/Driver/Prefs.php" />
+   <install as="turba/lib/Driver/Share.php" name="lib/Driver/Share.php" />
+   <install as="turba/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="turba/lib/Driver/Vbook.php" name="lib/Driver/Vbook.php" />
+   <install as="turba/lib/Driver/Kolab/Wrapper.php" name="lib/Driver/Kolab/Wrapper.php" />
+   <install as="turba/lib/Driver/Kolab/Wrapper/New.php" name="lib/Driver/Kolab/Wrapper/New.php" />
+   <install as="turba/lib/Driver/Kolab/Wrapper/Old.php" name="lib/Driver/Kolab/Wrapper/Old.php" />
+   <install as="turba/lib/Form/AddContact.php" name="lib/Form/AddContact.php" />
+   <install as="turba/lib/Form/Contact.php" name="lib/Form/Contact.php" />
+   <install as="turba/lib/Form/CreateAddressBook.php" name="lib/Form/CreateAddressBook.php" />
+   <install as="turba/lib/Form/DeleteAddressBook.php" name="lib/Form/DeleteAddressBook.php" />
+   <install as="turba/lib/Form/EditAddressBook.php" name="lib/Form/EditAddressBook.php" />
+   <install as="turba/lib/Form/EditContact.php" name="lib/Form/EditContact.php" />
+   <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
+   <install as="turba/lib/Injector/Factory/Driver.php" name="lib/Injector/Factory/Driver.php" />
+   <install as="turba/lib/LoginTasks/SystemTask/UpgradeFromTurba2.php" name="lib/LoginTasks/SystemTask/UpgradeFromTurba2.php" />
+   <install as="turba/lib/LoginTasks/SystemTask/UpgradeLists.php" name="lib/LoginTasks/SystemTask/UpgradeLists.php" />
+   <install as="turba/lib/LoginTasks/SystemTask/UpgradePrefs.php" name="lib/LoginTasks/SystemTask/UpgradePrefs.php" />
+   <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
+   <install as="turba/lib/tests/ApiTest.php" name="lib/tests/ApiTest.php" />
+   <install as="tests/az.png" name="lib/tests/az.png" />
+   <install as="turba/lib/tests/BrowsePageTest.php" name="lib/tests/BrowsePageTest.php" />
+   <install as="tests/bug_6518.phpt" name="lib/tests/bug_6518.phpt" />
+   <install as="turba/lib/tests/DriverTest.php" name="lib/tests/DriverTest.php" />
+   <install as="turba/lib/tests/GroupTest.php" name="lib/tests/GroupTest.php" />
+   <install as="tests/import.ldif" name="lib/tests/import.ldif" />
+   <install as="tests/importCRLF.ldif" name="lib/tests/importCRLF.ldif" />
+   <install as="turba/lib/tests/KolabTest.php" name="lib/tests/KolabTest.php" />
+   <install as="turba/lib/tests/KolabTestBase.php" name="lib/tests/KolabTestBase.php" />
+   <install as="tests/ldif_exportFile.phpt" name="lib/tests/ldif_exportFile.phpt" />
+   <install as="tests/ldif_importFile.phpt" name="lib/tests/ldif_importFile.phpt" />
+   <install as="tests/ldif_importFileCRLF.phpt" name="lib/tests/ldif_importFileCRLF.phpt" />
+   <install as="turba/lib/tests/ListTest.php" name="lib/tests/ListTest.php" />
+   <install as="turba/lib/tests/ListViewTest.php" name="lib/tests/ListViewTest.php" />
+   <install as="turba/lib/tests/TestBase.php" name="lib/tests/TestBase.php" />
+   <install as="tests/tohash.phpt" name="lib/tests/tohash.phpt" />
+   <install as="tests/tovcard.phpt" name="lib/tests/tovcard.phpt" />
+   <install as="turba/lib/tests/ViewBrowseTest.php" name="lib/tests/ViewBrowseTest.php" />
+   <install as="turba/lib/tests/ViewListTest.php" name="lib/tests/ViewListTest.php" />
+   <install as="turba/lib/View/Browse.php" name="lib/View/Browse.php" />
+   <install as="turba/lib/View/Contact.php" name="lib/View/Contact.php" />
+   <install as="turba/lib/View/DeleteContact.php" name="lib/View/DeleteContact.php" />
+   <install as="turba/lib/View/Duplicates.php" name="lib/View/Duplicates.php" />
+   <install as="turba/lib/View/EditContact.php" name="lib/View/EditContact.php" />
+   <install as="turba/lib/View/List.php" name="lib/View/List.php" />
+   <install as="turba/locale/turba.pot" name="locale/turba.pot" />
+   <install as="turba/locale/ar/LC_MESSAGES/turba.mo" name="locale/ar/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/ar/LC_MESSAGES/turba.po" name="locale/ar/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/bg/LC_MESSAGES/turba.mo" name="locale/bg/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/bg/LC_MESSAGES/turba.po" name="locale/bg/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/ca/help.xml" name="locale/ca/help.xml" />
+   <install as="turba/locale/ca/LC_MESSAGES/turba.mo" name="locale/ca/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/ca/LC_MESSAGES/turba.po" name="locale/ca/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/cs/LC_MESSAGES/turba.mo" name="locale/cs/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/cs/LC_MESSAGES/turba.po" name="locale/cs/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/da/LC_MESSAGES/turba.mo" name="locale/da/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/da/LC_MESSAGES/turba.po" name="locale/da/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="turba/locale/de/LC_MESSAGES/turba.mo" name="locale/de/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/de/LC_MESSAGES/turba.po" name="locale/de/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/el/LC_MESSAGES/turba.mo" name="locale/el/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/el/LC_MESSAGES/turba.po" name="locale/el/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="turba/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="turba/locale/es/LC_MESSAGES/turba.mo" name="locale/es/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/es/LC_MESSAGES/turba.po" name="locale/es/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/et/LC_MESSAGES/turba.mo" name="locale/et/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/et/LC_MESSAGES/turba.po" name="locale/et/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/eu/help.xml" name="locale/eu/help.xml" />
+   <install as="turba/locale/eu/LC_MESSAGES/turba.mo" name="locale/eu/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/eu/LC_MESSAGES/turba.po" name="locale/eu/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/fa/help.xml" name="locale/fa/help.xml" />
+   <install as="turba/locale/fa/LC_MESSAGES/turba.mo" name="locale/fa/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/fa/LC_MESSAGES/turba.po" name="locale/fa/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="turba/locale/fi/LC_MESSAGES/turba.mo" name="locale/fi/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/fi/LC_MESSAGES/turba.po" name="locale/fi/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/fr/help.xml" name="locale/fr/help.xml" />
+   <install as="turba/locale/fr/LC_MESSAGES/turba.mo" name="locale/fr/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/fr/LC_MESSAGES/turba.po" name="locale/fr/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/gl/LC_MESSAGES/turba.mo" name="locale/gl/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/gl/LC_MESSAGES/turba.po" name="locale/gl/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/hr/help.xml" name="locale/hr/help.xml" />
+   <install as="turba/locale/hr/LC_MESSAGES/turba.mo" name="locale/hr/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/hr/LC_MESSAGES/turba.po" name="locale/hr/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/hu/LC_MESSAGES/turba.mo" name="locale/hu/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/hu/LC_MESSAGES/turba.po" name="locale/hu/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/is/LC_MESSAGES/turba.mo" name="locale/is/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/is/LC_MESSAGES/turba.po" name="locale/is/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/it/LC_MESSAGES/turba.mo" name="locale/it/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/it/LC_MESSAGES/turba.po" name="locale/it/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/ja/LC_MESSAGES/turba.mo" name="locale/ja/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/ja/LC_MESSAGES/turba.po" name="locale/ja/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/ko/LC_MESSAGES/turba.mo" name="locale/ko/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/ko/LC_MESSAGES/turba.po" name="locale/ko/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/lt/LC_MESSAGES/turba.mo" name="locale/lt/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/lt/LC_MESSAGES/turba.po" name="locale/lt/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/lv/LC_MESSAGES/turba.mo" name="locale/lv/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/lv/LC_MESSAGES/turba.po" name="locale/lv/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/mk/LC_MESSAGES/turba.mo" name="locale/mk/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/mk/LC_MESSAGES/turba.po" name="locale/mk/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/nb/LC_MESSAGES/turba.mo" name="locale/nb/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/nb/LC_MESSAGES/turba.po" name="locale/nb/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/nl/LC_MESSAGES/turba.mo" name="locale/nl/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/nl/LC_MESSAGES/turba.po" name="locale/nl/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/nn/LC_MESSAGES/turba.mo" name="locale/nn/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/nn/LC_MESSAGES/turba.po" name="locale/nn/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/pl/LC_MESSAGES/turba.mo" name="locale/pl/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/pl/LC_MESSAGES/turba.po" name="locale/pl/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/pt/help.xml" name="locale/pt/help.xml" />
+   <install as="turba/locale/pt/LC_MESSAGES/turba.mo" name="locale/pt/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/pt/LC_MESSAGES/turba.po" name="locale/pt/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/pt_BR/help.xml" name="locale/pt_BR/help.xml" />
+   <install as="turba/locale/pt_BR/LC_MESSAGES/turba.mo" name="locale/pt_BR/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/pt_BR/LC_MESSAGES/turba.po" name="locale/pt_BR/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/ro/LC_MESSAGES/turba.mo" name="locale/ro/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/ro/LC_MESSAGES/turba.po" name="locale/ro/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/ru/LC_MESSAGES/turba.mo" name="locale/ru/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/ru/LC_MESSAGES/turba.po" name="locale/ru/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/sk/help.xml" name="locale/sk/help.xml" />
+   <install as="turba/locale/sk/LC_MESSAGES/turba.mo" name="locale/sk/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/sk/LC_MESSAGES/turba.po" name="locale/sk/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/sl/LC_MESSAGES/turba.mo" name="locale/sl/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/sl/LC_MESSAGES/turba.po" name="locale/sl/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/sv/LC_MESSAGES/turba.mo" name="locale/sv/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/sv/LC_MESSAGES/turba.po" name="locale/sv/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/tr/help.xml" name="locale/tr/help.xml" />
+   <install as="turba/locale/tr/LC_MESSAGES/turba.mo" name="locale/tr/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/tr/LC_MESSAGES/turba.po" name="locale/tr/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/uk/LC_MESSAGES/turba.mo" name="locale/uk/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/uk/LC_MESSAGES/turba.po" name="locale/uk/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/zh_CN/LC_MESSAGES/turba.mo" name="locale/zh_CN/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/zh_CN/LC_MESSAGES/turba.po" name="locale/zh_CN/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/zh_TW/LC_MESSAGES/turba.mo" name="locale/zh_TW/LC_MESSAGES/turba.mo" />
+   <install as="turba/locale/zh_TW/LC_MESSAGES/turba.po" name="locale/zh_TW/LC_MESSAGES/turba.po" />
+   <install as="turba/migration/1_turba_base_tables.php" name="migration/1_turba_base_tables.php" />
+   <install as="turba/migration/2_turba_upgrade_autoincrement.php" name="migration/2_turba_upgrade_autoincrement.php" />
+   <install as="turba/migration/3_turba_upgrade_sqlng.php" name="migration/3_turba_upgrade_sqlng.php" />
+   <install as="scripts/import_squirrelmail_file_abook.php" name="scripts/import_squirrelmail_file_abook.php" />
+   <install as="scripts/import_squirrelmail_sql_abook.php" name="scripts/import_squirrelmail_sql_abook.php" />
+   <install as="scripts/import_vcards.php" name="scripts/import_vcards.php" />
+   <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
+   <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
+   <install as="scripts/ldap/addou.pl" name="scripts/ldap/addou.pl" />
+   <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />
+   <install as="scripts/upgrades/convert_sql_shares_to_sqlng.php" name="scripts/upgrades/convert_sql_shares_to_sqlng.php" />
+   <install as="scripts/upgrades/public_to_horde_share.php" name="scripts/upgrades/public_to_horde_share.php" />
+   <install as="turba/templates/addressbook_list.php" name="templates/addressbook_list.php" />
+   <install as="turba/templates/menu.inc" name="templates/menu.inc" />
+   <install as="turba/templates/block/minisearch.inc" name="templates/block/minisearch.inc" />
+   <install as="turba/templates/browse/actions.inc" name="templates/browse/actions.inc" />
+   <install as="turba/templates/browse/column_footers.inc" name="templates/browse/column_footers.inc" />
+   <install as="turba/templates/browse/column_headers.inc" name="templates/browse/column_headers.inc" />
+   <install as="turba/templates/browse/header.inc" name="templates/browse/header.inc" />
+   <install as="turba/templates/browse/row.inc" name="templates/browse/row.inc" />
+   <install as="turba/templates/data/export.inc" name="templates/data/export.inc" />
+   <install as="turba/templates/data/import.inc" name="templates/data/import.inc" />
+   <install as="turba/templates/list/alphaPager.inc" name="templates/list/alphaPager.inc" />
+   <install as="turba/templates/list/numPager.inc" name="templates/list/numPager.inc" />
+   <install as="turba/templates/prefs/column.html" name="templates/prefs/column.html" />
+   <install as="turba/templates/search/advanced.html.php" name="templates/search/advanced.html.php" />
+   <install as="turba/templates/search/basic.html.php" name="templates/search/basic.html.php" />
+   <install as="turba/templates/search/duplicate.html.php" name="templates/search/duplicate.html.php" />
+   <install as="turba/templates/search/header.html.php" name="templates/search/header.html.php" />
+   <install as="turba/templates/search/vbook.html.php" name="templates/search/vbook.html.php" />
+   <install as="turba/templates/search/duplicate/contact_footer.html.php" name="templates/search/duplicate/contact_footer.html.php" />
+   <install as="turba/templates/search/duplicate/contact_header.html.php" name="templates/search/duplicate/contact_header.html.php" />
+   <install as="turba/templates/search/duplicate/footer.html.php" name="templates/search/duplicate/footer.html.php" />
+   <install as="turba/templates/search/duplicate/header.html.php" name="templates/search/duplicate/header.html.php" />
+   <install as="turba/templates/search/duplicate/list.html.php" name="templates/search/duplicate/list.html.php" />
+   <install as="turba/templates/test/ldapserver.inc" name="templates/test/ldapserver.inc" />
+   <install as="turba/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
+   <install as="turba/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
+   <install as="turba/themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="turba/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="turba/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="turba/themes/default/graphics/az_secondary.png" name="themes/default/graphics/az_secondary.png" />
+   <install as="turba/themes/default/graphics/contact.png" name="themes/default/graphics/contact.png" />
+   <install as="turba/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="turba/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
+   <install as="turba/themes/default/graphics/new.png" name="themes/default/graphics/new.png" />
+   <install as="turba/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
+   <install as="turba/themes/default/graphics/turba.png" name="themes/default/graphics/turba.png" />
+   <install as="turba/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
+   <install as="turba/themes/default/graphics/za_secondary.png" name="themes/default/graphics/za_secondary.png" />
+   <install as="turba/themes/default/graphics/menu/browse.png" name="themes/default/graphics/menu/browse.png" />
+   <install as="turba/themes/default/graphics/menu/new.png" name="themes/default/graphics/menu/new.png" />
+   <install as="turba/themes/ideas/screen.css" name="themes/ideas/screen.css" />
+   <install as="turba/themes/silver/screen.css" name="themes/silver/screen.css" />
+   <install as="turba/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
+   <install as="turba/themes/silver/graphics/az_secondary.png" name="themes/silver/graphics/az_secondary.png" />
+   <install as="turba/themes/silver/graphics/contact.png" name="themes/silver/graphics/contact.png" />
+   <install as="turba/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
+   <install as="turba/themes/silver/graphics/group.png" name="themes/silver/graphics/group.png" />
+   <install as="turba/themes/silver/graphics/new.png" name="themes/silver/graphics/new.png" />
+   <install as="turba/themes/silver/graphics/turba.png" name="themes/silver/graphics/turba.png" />
+   <install as="turba/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
+   <install as="turba/themes/silver/graphics/za_secondary.png" name="themes/silver/graphics/za_secondary.png" />
+   <install as="turba/themes/silver/graphics/menu/browse.png" name="themes/silver/graphics/menu/browse.png" />
+   <install as="turba/themes/silver/graphics/menu/new.png" name="themes/silver/graphics/menu/new.png" />
+   <install as="turba/themes/tango-blue/graphics/az_secondary.png" name="themes/tango-blue/graphics/az_secondary.png" />
+   <install as="turba/themes/tango-blue/graphics/contact.png" name="themes/tango-blue/graphics/contact.png" />
+   <install as="turba/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
+   <install as="turba/themes/tango-blue/graphics/group.png" name="themes/tango-blue/graphics/group.png" />
+   <install as="turba/themes/tango-blue/graphics/new.png" name="themes/tango-blue/graphics/new.png" />
+   <install as="turba/themes/tango-blue/graphics/turba.png" name="themes/tango-blue/graphics/turba.png" />
+   <install as="turba/themes/tango-blue/graphics/za_secondary.png" name="themes/tango-blue/graphics/za_secondary.png" />
+   <install as="turba/themes/tango-blue/graphics/menu/browse.png" name="themes/tango-blue/graphics/menu/browse.png" />
+   <install as="turba/themes/tango-blue/graphics/menu/new.png" name="themes/tango-blue/graphics/menu/new.png" />
+   <install as="turba/add.php" name="add.php" />
+   <install as="turba/browse.php" name="browse.php" />
+   <install as="turba/contact.php" name="contact.php" />
+   <install as="turba/data.php" name="data.php" />
+   <install as="turba/delete.php" name="delete.php" />
+   <install as="turba/deletefile.php" name="deletefile.php" />
+   <install as="turba/edit.php" name="edit.php" />
+   <install as="turba/index.php" name="index.php" />
+   <install as="LICENSE" name="LICENSE" />
+   <install as="turba/merge.php" name="merge.php" />
+   <install as="turba/minisearch.php" name="minisearch.php" />
+   <install as="README" name="README" />
+   <install as="turba/search.php" name="search.php" />
+   <install as="turba/vcard.php" name="vcard.php" />
+   <install as="turba/view.php" name="view.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-01-25</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

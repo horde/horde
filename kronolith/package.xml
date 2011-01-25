@@ -1,0 +1,1355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>kronolith</name>
+ <channel>pear.horde.org</channel>
+ <summary>A web based calendar.</summary>
+ <description>The Kronolith calendar provides a robust web-based calendar for any number of users or groups, with the ability to show any number of calendars in a single overlaid view. Users can create any number of calendars and grant read, edit, or full permissions to any user, group, or any combination thereof.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-01-25</date>
+ <time>10:00:14</time>
+ <version>
+  <release>3.0.0</release>
+  <api>3.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="calendars">
+    <file baseinstalldir="/" name="create.php" role="horde" />
+    <file baseinstalldir="/" name="delete.php" role="horde" />
+    <file baseinstalldir="/" name="edit.php" role="horde" />
+    <file baseinstalldir="/" name="index.php" role="horde" />
+    <file baseinstalldir="/" name="info.php" role="horde" />
+    <file baseinstalldir="/" name="remote_edit.php" role="horde" />
+    <file baseinstalldir="/" name="remote_subscribe.php" role="horde" />
+    <file baseinstalldir="/" name="remote_unsubscribe.php" role="horde" />
+    <file baseinstalldir="/" name="subscribe.php" role="horde" />
+   </dir> <!-- /calendars -->
+   <dir name="config">
+    <file baseinstalldir="/" name="conf.xml" role="horde" />
+    <file baseinstalldir="/" name="hooks.php.dist" role="horde" />
+    <file baseinstalldir="/" name="menu.php.dist" role="horde" />
+    <file baseinstalldir="/" name="prefs.php.dist" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file baseinstalldir="/" name="CHANGES" role="doc" />
+    <file baseinstalldir="/" name="CREDITS" role="doc" />
+    <file baseinstalldir="/" name="INSTALL" role="doc" />
+    <file baseinstalldir="/" name="lighttpd-kronolith.conf" role="doc" />
+    <file baseinstalldir="/" name="RELEASE_NOTES" role="doc" />
+    <file baseinstalldir="/" name="TODO" role="doc" />
+    <file baseinstalldir="/" name="UPGRADING" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="feed">
+    <file baseinstalldir="/" name="index.php" role="horde" />
+   </dir> <!-- /feed -->
+   <dir name="js">
+    <file baseinstalldir="/" name="calendar-panel.js" role="horde" />
+    <file baseinstalldir="/" name="edit.js" role="horde" />
+    <file baseinstalldir="/" name="embed.js" role="horde" />
+    <file baseinstalldir="/" name="goto.js" role="horde" />
+    <file baseinstalldir="/" name="kronolith.js" role="horde" />
+    <file baseinstalldir="/" name="mobile.js" role="horde" />
+    <file baseinstalldir="/" name="tagactions.js" role="horde" />
+    <file baseinstalldir="/" name="views.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Imple">
+      <file baseinstalldir="/" name="ContactAutoCompleter.php" role="horde" />
+      <file baseinstalldir="/" name="Embed.php" role="horde" />
+      <file baseinstalldir="/" name="TagActions.php" role="horde" />
+      <file baseinstalldir="/" name="TagAutoCompleter.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Imple -->
+     <file baseinstalldir="/" name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
+    <dir name="Block">
+     <file baseinstalldir="/" name="month.php" role="horde" />
+     <file baseinstalldir="/" name="monthlist.php" role="horde" />
+     <file baseinstalldir="/" name="prevmonthlist.php" role="horde" />
+     <file baseinstalldir="/" name="summary.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Calendar">
+     <dir name="External">
+      <file baseinstalldir="/" name="Tasks.php" role="horde" />
+     </dir> <!-- /lib/Calendar/External -->
+     <file baseinstalldir="/" name="External.php" role="horde" />
+     <file baseinstalldir="/" name="Holiday.php" role="horde" />
+     <file baseinstalldir="/" name="Internal.php" role="horde" />
+     <file baseinstalldir="/" name="Remote.php" role="horde" />
+    </dir> <!-- /lib/Calendar -->
+    <dir name="Driver">
+     <file baseinstalldir="/" name="Holidays.php" role="horde" />
+     <file baseinstalldir="/" name="Horde.php" role="horde" />
+     <file baseinstalldir="/" name="Ical.php" role="horde" />
+     <file baseinstalldir="/" name="Kolab.php" role="horde" />
+     <file baseinstalldir="/" name="Resource.php" role="horde" />
+     <file baseinstalldir="/" name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Event">
+     <file baseinstalldir="/" name="Holidays.php" role="horde" />
+     <file baseinstalldir="/" name="Horde.php" role="horde" />
+     <file baseinstalldir="/" name="Ical.php" role="horde" />
+     <file baseinstalldir="/" name="Kolab.php" role="horde" />
+     <file baseinstalldir="/" name="Resource.php" role="horde" />
+     <file baseinstalldir="/" name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Event -->
+    <dir name="Forms">
+     <file baseinstalldir="/" name="CreateCalendar.php" role="horde" />
+     <file baseinstalldir="/" name="CreateResource.php" role="horde" />
+     <file baseinstalldir="/" name="CreateResourceGroup.php" role="horde" />
+     <file baseinstalldir="/" name="DeleteCalendar.php" role="horde" />
+     <file baseinstalldir="/" name="DeleteResource.php" role="horde" />
+     <file baseinstalldir="/" name="DeleteResourceGroup.php" role="horde" />
+     <file baseinstalldir="/" name="EditCalendar.php" role="horde" />
+     <file baseinstalldir="/" name="EditRemoteCalendar.php" role="horde" />
+     <file baseinstalldir="/" name="EditResource.php" role="horde" />
+     <file baseinstalldir="/" name="EditResourceGroup.php" role="horde" />
+     <file baseinstalldir="/" name="SubscribeRemoteCalendar.php" role="horde" />
+     <file baseinstalldir="/" name="UnsubscribeRemoteCalendar.php" role="horde" />
+    </dir> <!-- /lib/Forms -->
+    <dir name="FreeBusy">
+     <dir name="View">
+      <file baseinstalldir="/" name="Day.php" role="horde" />
+      <file baseinstalldir="/" name="Month.php" role="horde" />
+      <file baseinstalldir="/" name="Week.php" role="horde" />
+      <file baseinstalldir="/" name="Workweek.php" role="horde" />
+     </dir> <!-- /lib/FreeBusy/View -->
+     <file baseinstalldir="/" name="View.php" role="horde" />
+    </dir> <!-- /lib/FreeBusy -->
+    <dir name="Geo">
+     <file baseinstalldir="/" name="Base.php" role="horde" />
+     <file baseinstalldir="/" name="Mysql.php" role="horde" />
+     <file baseinstalldir="/" name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Geo -->
+    <dir name="Injector">
+     <dir name="Factory">
+      <file baseinstalldir="/" name="Driver.php" role="horde" />
+      <file baseinstalldir="/" name="Geo.php" role="horde" />
+      <file baseinstalldir="/" name="Storage.php" role="horde" />
+     </dir> <!-- /lib/Injector/Factory -->
+    </dir> <!-- /lib/Injector -->
+    <dir name="LoginTasks">
+     <dir name="SystemTask">
+      <file baseinstalldir="/" name="UpgradeFromKronolith2.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/SystemTask -->
+     <dir name="Task">
+      <file baseinstalldir="/" name="PurgeEvents.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/Task -->
+    </dir> <!-- /lib/LoginTasks -->
+    <dir name="Notification">
+     <dir name="Listener">
+      <file baseinstalldir="/" name="AjaxStatus.php" role="horde" />
+     </dir> <!-- /lib/Notification/Listener -->
+    </dir> <!-- /lib/Notification -->
+    <dir name="Resource">
+     <file baseinstalldir="/" name="Base.php" role="horde" />
+     <file baseinstalldir="/" name="Group.php" role="horde" />
+     <file baseinstalldir="/" name="Single.php" role="horde" />
+    </dir> <!-- /lib/Resource -->
+    <dir name="Storage">
+     <file baseinstalldir="/" name="kolab.php" role="horde" />
+     <file baseinstalldir="/" name="Kolab.php" role="horde" />
+     <file baseinstalldir="/" name="sql.php" role="horde" />
+     <file baseinstalldir="/" name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Storage -->
+    <dir name="tests">
+     <file baseinstalldir="/" name="allday.ics" role="data" />
+     <file baseinstalldir="/" name="allday.phpt" role="data" />
+     <file baseinstalldir="/" name="bug6031.phpt" role="data" />
+     <file baseinstalldir="/" name="bug7068.ics" role="data" />
+     <file baseinstalldir="/" name="bug7068.phpt" role="data" />
+     <file baseinstalldir="/" name="fromicalendar.ics" role="data" />
+     <file baseinstalldir="/" name="fromicalendar.phpt" role="data" />
+     <file baseinstalldir="/" name="toicalendar.phpt" role="data" />
+    </dir> <!-- /lib/tests -->
+    <dir name="View">
+     <file baseinstalldir="/" name="Day.php" role="horde" />
+     <file baseinstalldir="/" name="DeleteEvent.php" role="horde" />
+     <file baseinstalldir="/" name="EditEvent.php" role="horde" />
+     <file baseinstalldir="/" name="Event.php" role="horde" />
+     <file baseinstalldir="/" name="ExportEvent.php" role="horde" />
+     <file baseinstalldir="/" name="Month.php" role="horde" />
+     <file baseinstalldir="/" name="Week.php" role="horde" />
+     <file baseinstalldir="/" name="WorkWeek.php" role="horde" />
+     <file baseinstalldir="/" name="Year.php" role="horde" />
+    </dir> <!-- /lib/View -->
+    <file baseinstalldir="/" name="Api.php" role="horde" />
+    <file baseinstalldir="/" name="Application.php" role="horde" />
+    <file baseinstalldir="/" name="Calendar.php" role="horde" />
+    <file baseinstalldir="/" name="Day.php" role="horde" />
+    <file baseinstalldir="/" name="Driver.php" role="horde" />
+    <file baseinstalldir="/" name="Event.php" role="horde" />
+    <file baseinstalldir="/" name="Exception.php" role="horde" />
+    <file baseinstalldir="/" name="FreeBusy.php" role="horde" />
+    <file baseinstalldir="/" name="Kronolith.php" role="horde" />
+    <file baseinstalldir="/" name="Resource.php" role="horde" />
+    <file baseinstalldir="/" name="Storage.php" role="horde" />
+    <file baseinstalldir="/" name="Tagger.php" role="horde" />
+    <file baseinstalldir="/" name="Test.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/eu -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/fr -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/hu -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+     <file baseinstalldir="/" name="help.xml" role="horde" />
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file baseinstalldir="/" name="kronolith.mo" role="horde" />
+      <file baseinstalldir="/" name="kronolith.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file baseinstalldir="/" name="kronolith.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file baseinstalldir="/" name="1_kronolith_base_tables.php" role="horde" />
+    <file baseinstalldir="/" name="2_kronolith_upgrade_autoincrement.php" role="horde" />
+    <file baseinstalldir="/" name="3_kronolith_upgrade_addallday.php" role="horde" />
+    <file baseinstalldir="/" name="4_kronolith_upgrade_addalarmmethods.php" role="horde" />
+    <file baseinstalldir="/" name="5_kronolith_upgrade_addcolor.php" role="horde" />
+    <file baseinstalldir="/" name="6_kronolith_upgrade_addresources.php" role="horde" />
+    <file baseinstalldir="/" name="7_kronolith_upgrade_resourceautoincrement.php" role="horde" />
+    <file baseinstalldir="/" name="8_kronolith_upgrade_addgeo.php" role="horde" />
+    <file baseinstalldir="/" name="9_kronolith_upgrade_addurl.php" role="horde" />
+    <file baseinstalldir="/" name="10_kronolith_upgrade_exceptions.php" role="horde" />
+    <file baseinstalldir="/" name="11_kronolith_upgrade_resourceemail.php" role="horde" />
+    <file baseinstalldir="/" name="12_kronolith_upgrade_addzoom.php" role="horde" />
+    <file baseinstalldir="/" name="13_kronolith_upgrade_systemshares.php" role="horde" />
+    <file baseinstalldir="/" name="14_kronolith_upgrade_missingresourcefield.php" role="horde" />
+    <file baseinstalldir="/" name="15_kronolith_upgrade_sqlng.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="packaging">
+    <dir name="redhat">
+     <file baseinstalldir="/" name="kronolith.conf" role="data" />
+     <file baseinstalldir="/" name="kronolith.README" role="data" />
+     <file baseinstalldir="/" name="kronolith.spec" role="data" />
+    </dir> <!-- /packaging/redhat -->
+   </dir> <!-- /packaging -->
+   <dir name="resources">
+    <dir name="groups">
+     <file baseinstalldir="/" name="create.php" role="horde" />
+     <file baseinstalldir="/" name="delete.php" role="horde" />
+     <file baseinstalldir="/" name="edit.php" role="horde" />
+     <file baseinstalldir="/" name="index.php" role="horde" />
+    </dir> <!-- /resources/groups -->
+    <file baseinstalldir="/" name="create.php" role="horde" />
+    <file baseinstalldir="/" name="delete.php" role="horde" />
+    <file baseinstalldir="/" name="edit.php" role="horde" />
+    <file baseinstalldir="/" name="index.php" role="horde" />
+   </dir> <!-- /resources -->
+   <dir name="scripts">
+    <dir name="sql">
+     <file baseinstalldir="/" name="add_geo.mysql.sql" role="data" />
+    </dir> <!-- /scripts/sql -->
+    <dir name="upgrades">
+     <file baseinstalldir="/" name="convert_datatree_shares_to_sql.php" role="data" />
+     <file baseinstalldir="/" name="convert_sql_shares_to_sqlng.php" role="data" />
+     <file baseinstalldir="/" name="convert_to_utc.php" role="data" />
+    </dir> <!-- /scripts/upgrades -->
+    <file baseinstalldir="/" name="agenda.php" role="data" />
+    <file baseinstalldir="/" name="import_icals.php" role="data" />
+    <file baseinstalldir="/" name="import_squirrelmail_calendar.php" role="data" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="agenda">
+     <file baseinstalldir="/" name="notification.html.php" role="horde" />
+     <file baseinstalldir="/" name="notification.plain.php" role="horde" />
+    </dir> <!-- /templates/agenda -->
+    <dir name="alarm">
+     <file baseinstalldir="/" name="mail.html.php" role="horde" />
+     <file baseinstalldir="/" name="mail.plain.php" role="horde" />
+    </dir> <!-- /templates/alarm -->
+    <dir name="attendees">
+     <file baseinstalldir="/" name="attendees.inc" role="horde" />
+    </dir> <!-- /templates/attendees -->
+    <dir name="chunks">
+     <file baseinstalldir="/" name="calendar.php" role="horde" />
+     <file baseinstalldir="/" name="permissions.inc" role="horde" />
+    </dir> <!-- /templates/chunks -->
+    <dir name="contacts">
+     <file baseinstalldir="/" name="contacts.inc" role="horde" />
+    </dir> <!-- /templates/contacts -->
+    <dir name="data">
+     <file baseinstalldir="/" name="export.inc" role="horde" />
+     <file baseinstalldir="/" name="import.inc" role="horde" />
+    </dir> <!-- /templates/data -->
+    <dir name="day">
+     <file baseinstalldir="/" name="all_day.inc" role="horde" />
+     <file baseinstalldir="/" name="head.inc" role="horde" />
+     <file baseinstalldir="/" name="head_side_by_side.inc" role="horde" />
+     <file baseinstalldir="/" name="rows.html" role="horde" />
+    </dir> <!-- /templates/day -->
+    <dir name="delete">
+     <file baseinstalldir="/" name="delete.inc" role="horde" />
+     <file baseinstalldir="/" name="one.inc" role="horde" />
+    </dir> <!-- /templates/delete -->
+    <dir name="edit">
+     <file baseinstalldir="/" name="edit.inc" role="horde" />
+     <file baseinstalldir="/" name="edit_timespan.inc" role="horde" />
+    </dir> <!-- /templates/edit -->
+    <dir name="fbview">
+     <file baseinstalldir="/" name="busyblock.html" role="horde" />
+     <file baseinstalldir="/" name="emptyblock.html" role="horde" />
+     <file baseinstalldir="/" name="header.html" role="horde" />
+     <file baseinstalldir="/" name="legend.html" role="horde" />
+     <file baseinstalldir="/" name="meetingblock.html" role="horde" />
+     <file baseinstalldir="/" name="row.html" role="horde" />
+     <file baseinstalldir="/" name="section.html" role="horde" />
+     <file baseinstalldir="/" name="unknownblock.html" role="horde" />
+    </dir> <!-- /templates/fbview -->
+    <dir name="feeds">
+     <file baseinstalldir="/" name="atom.xml" role="horde" />
+    </dir> <!-- /templates/feeds -->
+    <dir name="index">
+     <file baseinstalldir="/" name="agenda.inc" role="horde" />
+     <file baseinstalldir="/" name="day.inc" role="horde" />
+     <file baseinstalldir="/" name="edit.inc" role="horde" />
+     <file baseinstalldir="/" name="index.inc" role="horde" />
+     <file baseinstalldir="/" name="month.inc" role="horde" />
+     <file baseinstalldir="/" name="task.inc" role="horde" />
+     <file baseinstalldir="/" name="tasks.inc" role="horde" />
+     <file baseinstalldir="/" name="week.inc" role="horde" />
+     <file baseinstalldir="/" name="year.inc" role="horde" />
+    </dir> <!-- /templates/index -->
+    <dir name="itip">
+     <file baseinstalldir="/" name="notification.html.php" role="horde" />
+     <file baseinstalldir="/" name="notification.plain.php" role="horde" />
+    </dir> <!-- /templates/itip -->
+    <dir name="mobile">
+     <file baseinstalldir="/" name="day.html.php" role="horde" />
+     <file baseinstalldir="/" name="event.html.php" role="horde" />
+     <file baseinstalldir="/" name="head.html.php" role="horde" />
+     <file baseinstalldir="/" name="javascript_defs.php" role="horde" />
+     <file baseinstalldir="/" name="month.html.php" role="horde" />
+     <file baseinstalldir="/" name="notice.html.php" role="horde" />
+     <file baseinstalldir="/" name="summary.html.php" role="horde" />
+    </dir> <!-- /templates/mobile -->
+    <dir name="month">
+     <file baseinstalldir="/" name="head.inc" role="horde" />
+     <file baseinstalldir="/" name="head_side_by_side.inc" role="horde" />
+    </dir> <!-- /templates/month -->
+    <dir name="perms">
+     <file baseinstalldir="/" name="perms.inc" role="horde" />
+    </dir> <!-- /templates/perms -->
+    <dir name="prefs">
+     <file baseinstalldir="/" name="defaultalarm.html" role="horde" />
+    </dir> <!-- /templates/prefs -->
+    <dir name="resources">
+     <file baseinstalldir="/" name="form-header.inc" role="horde" />
+     <file baseinstalldir="/" name="resource-form.php" role="horde" />
+    </dir> <!-- /templates/resources -->
+    <dir name="search">
+     <file baseinstalldir="/" name="empty.inc" role="horde" />
+     <file baseinstalldir="/" name="event_footers.inc" role="horde" />
+     <file baseinstalldir="/" name="event_headers.inc" role="horde" />
+     <file baseinstalldir="/" name="event_summaries.inc" role="horde" />
+     <file baseinstalldir="/" name="header.inc" role="horde" />
+     <file baseinstalldir="/" name="search.inc" role="horde" />
+     <file baseinstalldir="/" name="search_advanced.inc" role="horde" />
+    </dir> <!-- /templates/search -->
+    <dir name="share">
+     <file baseinstalldir="/" name="notification.html.php" role="horde" />
+     <file baseinstalldir="/" name="notification.plain.php" role="horde" />
+    </dir> <!-- /templates/share -->
+    <dir name="view">
+     <file baseinstalldir="/" name="view.inc" role="horde" />
+    </dir> <!-- /templates/view -->
+    <dir name="week">
+     <file baseinstalldir="/" name="head.inc" role="horde" />
+     <file baseinstalldir="/" name="head_side_by_side.inc" role="horde" />
+    </dir> <!-- /templates/week -->
+    <dir name="year">
+     <file baseinstalldir="/" name="head.inc" role="horde" />
+    </dir> <!-- /templates/year -->
+    <file baseinstalldir="/" name="calendar_info.php" role="horde" />
+    <file baseinstalldir="/" name="calendar_list.php" role="horde" />
+    <file baseinstalldir="/" name="calendar_titles.inc" role="horde" />
+    <file baseinstalldir="/" name="javascript_defs.php" role="horde" />
+    <file baseinstalldir="/" name="panel.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="bluewhite">
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/bluewhite -->
+    <dir name="burntorange">
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/burntorange -->
+    <dir name="default">
+     <dir name="graphics">
+      <dir name="alerts">
+       <file baseinstalldir="/" name="alarm.png" role="horde" />
+       <file baseinstalldir="/" name="error.png" role="horde" />
+       <file baseinstalldir="/" name="message.png" role="horde" />
+       <file baseinstalldir="/" name="success.png" role="horde" />
+       <file baseinstalldir="/" name="warning.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/alerts -->
+      <file baseinstalldir="/" name="addressbook_browse.png" role="horde" />
+      <file baseinstalldir="/" name="agenda.png" role="horde" />
+      <file baseinstalldir="/" name="alarm-000.png" role="horde" />
+      <file baseinstalldir="/" name="alarm-fff.png" role="horde" />
+      <file baseinstalldir="/" name="alarm.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-accepted.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-declined.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-none.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-tentative.png" role="horde" />
+      <file baseinstalldir="/" name="attendees-000.png" role="horde" />
+      <file baseinstalldir="/" name="attendees-fff.png" role="horde" />
+      <file baseinstalldir="/" name="attendees.png" role="horde" />
+      <file baseinstalldir="/" name="back_quick.png" role="horde" />
+      <file baseinstalldir="/" name="big_agenda.png" role="horde" />
+      <file baseinstalldir="/" name="big_alarm.png" role="horde" />
+      <file baseinstalldir="/" name="big_invitation.png" role="horde" />
+      <file baseinstalldir="/" name="big_share.png" role="horde" />
+      <file baseinstalldir="/" name="calendars.png" role="horde" />
+      <file baseinstalldir="/" name="checkbox_off.png" role="horde" />
+      <file baseinstalldir="/" name="checkbox_on.png" role="horde" />
+      <file baseinstalldir="/" name="checkbox_over.png" role="horde" />
+      <file baseinstalldir="/" name="close.png" role="horde" />
+      <file baseinstalldir="/" name="dayview.png" role="horde" />
+      <file baseinstalldir="/" name="delete-000.png" role="horde" />
+      <file baseinstalldir="/" name="delete-fff.png" role="horde" />
+      <file baseinstalldir="/" name="drag-handle.png" role="horde" />
+      <file baseinstalldir="/" name="edit-000.png" role="horde" />
+      <file baseinstalldir="/" name="edit-fff.png" role="horde" />
+      <file baseinstalldir="/" name="exception-000.png" role="horde" />
+      <file baseinstalldir="/" name="exception-fff.png" role="horde" />
+      <file baseinstalldir="/" name="favicon.ico" role="horde" />
+      <file baseinstalldir="/" name="goto.png" role="horde" />
+      <file baseinstalldir="/" name="kronolith.png" role="horde" />
+      <file baseinstalldir="/" name="left.png" role="horde" />
+      <file baseinstalldir="/" name="loading.gif" role="horde" />
+      <file baseinstalldir="/" name="minus.png" role="horde" />
+      <file baseinstalldir="/" name="monthview.png" role="horde" />
+      <file baseinstalldir="/" name="new.png" role="horde" />
+      <file baseinstalldir="/" name="new_big.png" role="horde" />
+      <file baseinstalldir="/" name="new_small.png" role="horde" />
+      <file baseinstalldir="/" name="new_small_fade.png" role="horde" />
+      <file baseinstalldir="/" name="new_task.png" role="horde" />
+      <file baseinstalldir="/" name="picker.png" role="horde" />
+      <file baseinstalldir="/" name="plus.png" role="horde" />
+      <file baseinstalldir="/" name="print.png" role="horde" />
+      <file baseinstalldir="/" name="private-000.png" role="horde" />
+      <file baseinstalldir="/" name="private-fff.png" role="horde" />
+      <file baseinstalldir="/" name="recur-000.png" role="horde" />
+      <file baseinstalldir="/" name="recur-fff.png" role="horde" />
+      <file baseinstalldir="/" name="right.png" role="horde" />
+      <file baseinstalldir="/" name="search.png" role="horde" />
+      <file baseinstalldir="/" name="tasks.png" role="horde" />
+      <file baseinstalldir="/" name="today.png" role="horde" />
+      <file baseinstalldir="/" name="unknown-background.png" role="horde" />
+      <file baseinstalldir="/" name="weekview.png" role="horde" />
+      <file baseinstalldir="/" name="workweekview.png" role="horde" />
+      <file baseinstalldir="/" name="yearview.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file baseinstalldir="/" name="embed.css" role="horde" />
+     <file baseinstalldir="/" name="ie7.css" role="horde" />
+     <file baseinstalldir="/" name="ie8.css" role="horde" />
+     <file baseinstalldir="/" name="mobile.css" role="horde" />
+     <file baseinstalldir="/" name="opera.css" role="horde" />
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+    <dir name="fadetogreen">
+     <dir name="graphics">
+      <file baseinstalldir="/" name="headerbox.png" role="horde" />
+     </dir> <!-- /themes/fadetogreen/graphics -->
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/fadetogreen -->
+    <dir name="mozilla">
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/mozilla -->
+    <dir name="silver">
+     <dir name="graphics">
+      <dir name="alerts">
+       <file baseinstalldir="/" name="alarm.png" role="horde" />
+       <file baseinstalldir="/" name="error.png" role="horde" />
+       <file baseinstalldir="/" name="message.png" role="horde" />
+       <file baseinstalldir="/" name="success.png" role="horde" />
+       <file baseinstalldir="/" name="warning.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/alerts -->
+      <file baseinstalldir="/" name="addressbook_browse.png" role="horde" />
+      <file baseinstalldir="/" name="alarm-000.png" role="horde" />
+      <file baseinstalldir="/" name="alarm-fff.png" role="horde" />
+      <file baseinstalldir="/" name="alarm.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-accepted.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-declined.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-none.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-tentative.png" role="horde" />
+      <file baseinstalldir="/" name="attendees-000.png" role="horde" />
+      <file baseinstalldir="/" name="attendees-fff.png" role="horde" />
+      <file baseinstalldir="/" name="attendees.png" role="horde" />
+      <file baseinstalldir="/" name="calendars.png" role="horde" />
+      <file baseinstalldir="/" name="close.png" role="horde" />
+      <file baseinstalldir="/" name="dayview.png" role="horde" />
+      <file baseinstalldir="/" name="delete-000.png" role="horde" />
+      <file baseinstalldir="/" name="delete-fff.png" role="horde" />
+      <file baseinstalldir="/" name="edit-000.png" role="horde" />
+      <file baseinstalldir="/" name="edit-fff.png" role="horde" />
+      <file baseinstalldir="/" name="exception-000.png" role="horde" />
+      <file baseinstalldir="/" name="exception-fff.png" role="horde" />
+      <file baseinstalldir="/" name="favicon.ico" role="horde" />
+      <file baseinstalldir="/" name="goto.png" role="horde" />
+      <file baseinstalldir="/" name="kronolith.png" role="horde" />
+      <file baseinstalldir="/" name="loading.gif" role="horde" />
+      <file baseinstalldir="/" name="minus.png" role="horde" />
+      <file baseinstalldir="/" name="monthview.png" role="horde" />
+      <file baseinstalldir="/" name="new.png" role="horde" />
+      <file baseinstalldir="/" name="new_big.png" role="horde" />
+      <file baseinstalldir="/" name="new_small.png" role="horde" />
+      <file baseinstalldir="/" name="picker.png" role="horde" />
+      <file baseinstalldir="/" name="plus.png" role="horde" />
+      <file baseinstalldir="/" name="print.png" role="horde" />
+      <file baseinstalldir="/" name="private-000.png" role="horde" />
+      <file baseinstalldir="/" name="private-fff.png" role="horde" />
+      <file baseinstalldir="/" name="recur-000.png" role="horde" />
+      <file baseinstalldir="/" name="recur-fff.png" role="horde" />
+      <file baseinstalldir="/" name="search.png" role="horde" />
+      <file baseinstalldir="/" name="today.png" role="horde" />
+      <file baseinstalldir="/" name="unknown-background.png" role="horde" />
+      <file baseinstalldir="/" name="weekview.png" role="horde" />
+      <file baseinstalldir="/" name="workweekview.png" role="horde" />
+      <file baseinstalldir="/" name="yearview.png" role="horde" />
+     </dir> <!-- /themes/silver/graphics -->
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/silver -->
+    <dir name="simplex">
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/simplex -->
+    <dir name="tango-blue">
+     <dir name="graphics">
+      <dir name="alerts">
+       <file baseinstalldir="/" name="alarm.png" role="horde" />
+       <file baseinstalldir="/" name="error.png" role="horde" />
+       <file baseinstalldir="/" name="message.png" role="horde" />
+       <file baseinstalldir="/" name="success.png" role="horde" />
+       <file baseinstalldir="/" name="warning.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/alerts -->
+      <file baseinstalldir="/" name="addressbook_browse.png" role="horde" />
+      <file baseinstalldir="/" name="alarm-000.png" role="horde" />
+      <file baseinstalldir="/" name="alarm-fff.png" role="horde" />
+      <file baseinstalldir="/" name="alarm.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-accepted.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-declined.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-none.png" role="horde" />
+      <file baseinstalldir="/" name="attendee-tentative.png" role="horde" />
+      <file baseinstalldir="/" name="attendees-000.png" role="horde" />
+      <file baseinstalldir="/" name="attendees-fff.png" role="horde" />
+      <file baseinstalldir="/" name="attendees.png" role="horde" />
+      <file baseinstalldir="/" name="calendars.png" role="horde" />
+      <file baseinstalldir="/" name="close.png" role="horde" />
+      <file baseinstalldir="/" name="dayview.png" role="horde" />
+      <file baseinstalldir="/" name="delete-000.png" role="horde" />
+      <file baseinstalldir="/" name="delete-fff.png" role="horde" />
+      <file baseinstalldir="/" name="edit-000.png" role="horde" />
+      <file baseinstalldir="/" name="edit-fff.png" role="horde" />
+      <file baseinstalldir="/" name="exception-000.png" role="horde" />
+      <file baseinstalldir="/" name="exception-fff.png" role="horde" />
+      <file baseinstalldir="/" name="favicon.ico" role="horde" />
+      <file baseinstalldir="/" name="goto.png" role="horde" />
+      <file baseinstalldir="/" name="kronolith.png" role="horde" />
+      <file baseinstalldir="/" name="loading.gif" role="horde" />
+      <file baseinstalldir="/" name="minus.png" role="horde" />
+      <file baseinstalldir="/" name="monthview.png" role="horde" />
+      <file baseinstalldir="/" name="new.png" role="horde" />
+      <file baseinstalldir="/" name="new_big.png" role="horde" />
+      <file baseinstalldir="/" name="new_small.png" role="horde" />
+      <file baseinstalldir="/" name="picker.png" role="horde" />
+      <file baseinstalldir="/" name="plus.png" role="horde" />
+      <file baseinstalldir="/" name="print.png" role="horde" />
+      <file baseinstalldir="/" name="private-000.png" role="horde" />
+      <file baseinstalldir="/" name="private-fff.png" role="horde" />
+      <file baseinstalldir="/" name="recur-000.png" role="horde" />
+      <file baseinstalldir="/" name="recur-fff.png" role="horde" />
+      <file baseinstalldir="/" name="search.png" role="horde" />
+      <file baseinstalldir="/" name="today.png" role="horde" />
+      <file baseinstalldir="/" name="unknown-background.png" role="horde" />
+      <file baseinstalldir="/" name="weekview.png" role="horde" />
+      <file baseinstalldir="/" name="workweekview.png" role="horde" />
+      <file baseinstalldir="/" name="yearview.png" role="horde" />
+     </dir> <!-- /themes/tango-blue/graphics -->
+     <file baseinstalldir="/" name="screen.css" role="horde" />
+    </dir> <!-- /themes/tango-blue -->
+   </dir> <!-- /themes -->
+   <file baseinstalldir="/" name="add.php" role="horde" />
+   <file baseinstalldir="/" name="attend.php" role="horde" />
+   <file baseinstalldir="/" name="attendees.php" role="horde" />
+   <file baseinstalldir="/" name="contacts.php" role="horde" />
+   <file baseinstalldir="/" name="COPYING" role="data" />
+   <file baseinstalldir="/" name="data.php" role="horde" />
+   <file baseinstalldir="/" name="day.php" role="horde" />
+   <file baseinstalldir="/" name="delete.php" role="horde" />
+   <file baseinstalldir="/" name="edit.php" role="horde" />
+   <file baseinstalldir="/" name="event.php" role="horde" />
+   <file baseinstalldir="/" name="fb.php" role="horde" />
+   <file baseinstalldir="/" name="index.php" role="horde" />
+   <file baseinstalldir="/" name="mobile.php" role="horde" />
+   <file baseinstalldir="/" name="month.php" role="horde" />
+   <file baseinstalldir="/" name="new.php" role="horde" />
+   <file baseinstalldir="/" name="package.xml.old" role="data" />
+   <file baseinstalldir="/" name="perms.php" role="horde" />
+   <file baseinstalldir="/" name="README" role="data" />
+   <file baseinstalldir="/" name="search.php" role="horde" />
+   <file baseinstalldir="/" name="view.php" role="horde" />
+   <file baseinstalldir="/" name="week.php" role="horde" />
+   <file baseinstalldir="/" name="workweek.php" role="horde" />
+   <file baseinstalldir="/" name="year.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="kronolith/calendars/create.php" name="calendars/create.php" />
+   <install as="kronolith/calendars/delete.php" name="calendars/delete.php" />
+   <install as="kronolith/calendars/edit.php" name="calendars/edit.php" />
+   <install as="kronolith/calendars/index.php" name="calendars/index.php" />
+   <install as="kronolith/calendars/info.php" name="calendars/info.php" />
+   <install as="kronolith/calendars/remote_edit.php" name="calendars/remote_edit.php" />
+   <install as="kronolith/calendars/remote_subscribe.php" name="calendars/remote_subscribe.php" />
+   <install as="kronolith/calendars/remote_unsubscribe.php" name="calendars/remote_unsubscribe.php" />
+   <install as="kronolith/calendars/subscribe.php" name="calendars/subscribe.php" />
+   <install as="kronolith/config/conf.xml" name="config/conf.xml" />
+   <install as="kronolith/config/hooks.php.dist" name="config/hooks.php.dist" />
+   <install as="kronolith/config/menu.php.dist" name="config/menu.php.dist" />
+   <install as="kronolith/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="lighttpd-kronolith.conf" name="docs/lighttpd-kronolith.conf" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="kronolith/feed/index.php" name="feed/index.php" />
+   <install as="kronolith/js/calendar-panel.js" name="js/calendar-panel.js" />
+   <install as="kronolith/js/edit.js" name="js/edit.js" />
+   <install as="kronolith/js/embed.js" name="js/embed.js" />
+   <install as="kronolith/js/goto.js" name="js/goto.js" />
+   <install as="kronolith/js/kronolith.js" name="js/kronolith.js" />
+   <install as="kronolith/js/mobile.js" name="js/mobile.js" />
+   <install as="kronolith/js/tagactions.js" name="js/tagactions.js" />
+   <install as="kronolith/js/views.js" name="js/views.js" />
+   <install as="kronolith/lib/Api.php" name="lib/Api.php" />
+   <install as="kronolith/lib/Application.php" name="lib/Application.php" />
+   <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
+   <install as="kronolith/lib/Day.php" name="lib/Day.php" />
+   <install as="kronolith/lib/Driver.php" name="lib/Driver.php" />
+   <install as="kronolith/lib/Event.php" name="lib/Event.php" />
+   <install as="kronolith/lib/Exception.php" name="lib/Exception.php" />
+   <install as="kronolith/lib/FreeBusy.php" name="lib/FreeBusy.php" />
+   <install as="kronolith/lib/Kronolith.php" name="lib/Kronolith.php" />
+   <install as="kronolith/lib/Resource.php" name="lib/Resource.php" />
+   <install as="kronolith/lib/Storage.php" name="lib/Storage.php" />
+   <install as="kronolith/lib/Tagger.php" name="lib/Tagger.php" />
+   <install as="kronolith/lib/Test.php" name="lib/Test.php" />
+   <install as="kronolith/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="kronolith/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
+   <install as="kronolith/lib/Ajax/Imple/Embed.php" name="lib/Ajax/Imple/Embed.php" />
+   <install as="kronolith/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
+   <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="kronolith/lib/Block/month.php" name="lib/Block/month.php" />
+   <install as="kronolith/lib/Block/monthlist.php" name="lib/Block/monthlist.php" />
+   <install as="kronolith/lib/Block/prevmonthlist.php" name="lib/Block/prevmonthlist.php" />
+   <install as="kronolith/lib/Block/summary.php" name="lib/Block/summary.php" />
+   <install as="kronolith/lib/Calendar/External.php" name="lib/Calendar/External.php" />
+   <install as="kronolith/lib/Calendar/Holiday.php" name="lib/Calendar/Holiday.php" />
+   <install as="kronolith/lib/Calendar/Internal.php" name="lib/Calendar/Internal.php" />
+   <install as="kronolith/lib/Calendar/Remote.php" name="lib/Calendar/Remote.php" />
+   <install as="kronolith/lib/Calendar/External/Tasks.php" name="lib/Calendar/External/Tasks.php" />
+   <install as="kronolith/lib/Driver/Holidays.php" name="lib/Driver/Holidays.php" />
+   <install as="kronolith/lib/Driver/Horde.php" name="lib/Driver/Horde.php" />
+   <install as="kronolith/lib/Driver/Ical.php" name="lib/Driver/Ical.php" />
+   <install as="kronolith/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
+   <install as="kronolith/lib/Driver/Resource.php" name="lib/Driver/Resource.php" />
+   <install as="kronolith/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="kronolith/lib/Event/Holidays.php" name="lib/Event/Holidays.php" />
+   <install as="kronolith/lib/Event/Horde.php" name="lib/Event/Horde.php" />
+   <install as="kronolith/lib/Event/Ical.php" name="lib/Event/Ical.php" />
+   <install as="kronolith/lib/Event/Kolab.php" name="lib/Event/Kolab.php" />
+   <install as="kronolith/lib/Event/Resource.php" name="lib/Event/Resource.php" />
+   <install as="kronolith/lib/Event/Sql.php" name="lib/Event/Sql.php" />
+   <install as="kronolith/lib/Forms/CreateCalendar.php" name="lib/Forms/CreateCalendar.php" />
+   <install as="kronolith/lib/Forms/CreateResource.php" name="lib/Forms/CreateResource.php" />
+   <install as="kronolith/lib/Forms/CreateResourceGroup.php" name="lib/Forms/CreateResourceGroup.php" />
+   <install as="kronolith/lib/Forms/DeleteCalendar.php" name="lib/Forms/DeleteCalendar.php" />
+   <install as="kronolith/lib/Forms/DeleteResource.php" name="lib/Forms/DeleteResource.php" />
+   <install as="kronolith/lib/Forms/DeleteResourceGroup.php" name="lib/Forms/DeleteResourceGroup.php" />
+   <install as="kronolith/lib/Forms/EditCalendar.php" name="lib/Forms/EditCalendar.php" />
+   <install as="kronolith/lib/Forms/EditRemoteCalendar.php" name="lib/Forms/EditRemoteCalendar.php" />
+   <install as="kronolith/lib/Forms/EditResource.php" name="lib/Forms/EditResource.php" />
+   <install as="kronolith/lib/Forms/EditResourceGroup.php" name="lib/Forms/EditResourceGroup.php" />
+   <install as="kronolith/lib/Forms/SubscribeRemoteCalendar.php" name="lib/Forms/SubscribeRemoteCalendar.php" />
+   <install as="kronolith/lib/Forms/UnsubscribeRemoteCalendar.php" name="lib/Forms/UnsubscribeRemoteCalendar.php" />
+   <install as="kronolith/lib/FreeBusy/View.php" name="lib/FreeBusy/View.php" />
+   <install as="kronolith/lib/FreeBusy/View/Day.php" name="lib/FreeBusy/View/Day.php" />
+   <install as="kronolith/lib/FreeBusy/View/Month.php" name="lib/FreeBusy/View/Month.php" />
+   <install as="kronolith/lib/FreeBusy/View/Week.php" name="lib/FreeBusy/View/Week.php" />
+   <install as="kronolith/lib/FreeBusy/View/Workweek.php" name="lib/FreeBusy/View/Workweek.php" />
+   <install as="kronolith/lib/Geo/Base.php" name="lib/Geo/Base.php" />
+   <install as="kronolith/lib/Geo/Mysql.php" name="lib/Geo/Mysql.php" />
+   <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
+   <install as="kronolith/lib/Injector/Factory/Driver.php" name="lib/Injector/Factory/Driver.php" />
+   <install as="kronolith/lib/Injector/Factory/Geo.php" name="lib/Injector/Factory/Geo.php" />
+   <install as="kronolith/lib/Injector/Factory/Storage.php" name="lib/Injector/Factory/Storage.php" />
+   <install as="kronolith/lib/LoginTasks/SystemTask/UpgradeFromKronolith2.php" name="lib/LoginTasks/SystemTask/UpgradeFromKronolith2.php" />
+   <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
+   <install as="kronolith/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
+   <install as="kronolith/lib/Resource/Base.php" name="lib/Resource/Base.php" />
+   <install as="kronolith/lib/Resource/Group.php" name="lib/Resource/Group.php" />
+   <install as="kronolith/lib/Resource/Single.php" name="lib/Resource/Single.php" />
+   <install as="kronolith/lib/Storage/kolab.php" name="lib/Storage/kolab.php" />
+   <install as="kronolith/lib/Storage/Kolab.php" name="lib/Storage/Kolab.php" />
+   <install as="kronolith/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
+   <install as="kronolith/lib/Storage/sql.php" name="lib/Storage/sql.php" />
+   <install as="tests/allday.ics" name="lib/tests/allday.ics" />
+   <install as="tests/allday.phpt" name="lib/tests/allday.phpt" />
+   <install as="tests/bug6031.phpt" name="lib/tests/bug6031.phpt" />
+   <install as="tests/bug7068.ics" name="lib/tests/bug7068.ics" />
+   <install as="tests/bug7068.phpt" name="lib/tests/bug7068.phpt" />
+   <install as="tests/fromicalendar.ics" name="lib/tests/fromicalendar.ics" />
+   <install as="tests/fromicalendar.phpt" name="lib/tests/fromicalendar.phpt" />
+   <install as="tests/toicalendar.phpt" name="lib/tests/toicalendar.phpt" />
+   <install as="kronolith/lib/View/Day.php" name="lib/View/Day.php" />
+   <install as="kronolith/lib/View/DeleteEvent.php" name="lib/View/DeleteEvent.php" />
+   <install as="kronolith/lib/View/EditEvent.php" name="lib/View/EditEvent.php" />
+   <install as="kronolith/lib/View/Event.php" name="lib/View/Event.php" />
+   <install as="kronolith/lib/View/ExportEvent.php" name="lib/View/ExportEvent.php" />
+   <install as="kronolith/lib/View/Month.php" name="lib/View/Month.php" />
+   <install as="kronolith/lib/View/Week.php" name="lib/View/Week.php" />
+   <install as="kronolith/lib/View/WorkWeek.php" name="lib/View/WorkWeek.php" />
+   <install as="kronolith/lib/View/Year.php" name="lib/View/Year.php" />
+   <install as="kronolith/locale/kronolith.pot" name="locale/kronolith.pot" />
+   <install as="kronolith/locale/ar/LC_MESSAGES/kronolith.mo" name="locale/ar/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/ar/LC_MESSAGES/kronolith.po" name="locale/ar/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/bg/LC_MESSAGES/kronolith.mo" name="locale/bg/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/bg/LC_MESSAGES/kronolith.po" name="locale/bg/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/ca/help.xml" name="locale/ca/help.xml" />
+   <install as="kronolith/locale/ca/LC_MESSAGES/kronolith.mo" name="locale/ca/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/ca/LC_MESSAGES/kronolith.po" name="locale/ca/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/cs/LC_MESSAGES/kronolith.mo" name="locale/cs/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/cs/LC_MESSAGES/kronolith.po" name="locale/cs/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/da/LC_MESSAGES/kronolith.mo" name="locale/da/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/da/LC_MESSAGES/kronolith.po" name="locale/da/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="kronolith/locale/de/LC_MESSAGES/kronolith.mo" name="locale/de/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/de/LC_MESSAGES/kronolith.po" name="locale/de/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/el/LC_MESSAGES/kronolith.mo" name="locale/el/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/el/LC_MESSAGES/kronolith.po" name="locale/el/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="kronolith/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="kronolith/locale/es/LC_MESSAGES/kronolith.mo" name="locale/es/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/es/LC_MESSAGES/kronolith.po" name="locale/es/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/et/LC_MESSAGES/kronolith.mo" name="locale/et/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/et/LC_MESSAGES/kronolith.po" name="locale/et/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/eu/help.xml" name="locale/eu/help.xml" />
+   <install as="kronolith/locale/eu/LC_MESSAGES/kronolith.mo" name="locale/eu/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/eu/LC_MESSAGES/kronolith.po" name="locale/eu/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="kronolith/locale/fi/LC_MESSAGES/kronolith.mo" name="locale/fi/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/fi/LC_MESSAGES/kronolith.po" name="locale/fi/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/fr/help.xml" name="locale/fr/help.xml" />
+   <install as="kronolith/locale/fr/LC_MESSAGES/kronolith.mo" name="locale/fr/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/fr/LC_MESSAGES/kronolith.po" name="locale/fr/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/hr/help.xml" name="locale/hr/help.xml" />
+   <install as="kronolith/locale/hr/LC_MESSAGES/kronolith.mo" name="locale/hr/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/hr/LC_MESSAGES/kronolith.po" name="locale/hr/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/hu/help.xml" name="locale/hu/help.xml" />
+   <install as="kronolith/locale/hu/LC_MESSAGES/kronolith.mo" name="locale/hu/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/hu/LC_MESSAGES/kronolith.po" name="locale/hu/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/it/LC_MESSAGES/kronolith.mo" name="locale/it/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/it/LC_MESSAGES/kronolith.po" name="locale/it/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/ja/LC_MESSAGES/kronolith.mo" name="locale/ja/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/ja/LC_MESSAGES/kronolith.po" name="locale/ja/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/ko/LC_MESSAGES/kronolith.mo" name="locale/ko/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/ko/LC_MESSAGES/kronolith.po" name="locale/ko/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/lt/LC_MESSAGES/kronolith.mo" name="locale/lt/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/lt/LC_MESSAGES/kronolith.po" name="locale/lt/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/lv/LC_MESSAGES/kronolith.mo" name="locale/lv/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/lv/LC_MESSAGES/kronolith.po" name="locale/lv/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/nb/LC_MESSAGES/kronolith.mo" name="locale/nb/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/nb/LC_MESSAGES/kronolith.po" name="locale/nb/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/nl/LC_MESSAGES/kronolith.mo" name="locale/nl/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/nl/LC_MESSAGES/kronolith.po" name="locale/nl/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/nn/LC_MESSAGES/kronolith.mo" name="locale/nn/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/nn/LC_MESSAGES/kronolith.po" name="locale/nn/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/pl/LC_MESSAGES/kronolith.mo" name="locale/pl/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/pl/LC_MESSAGES/kronolith.po" name="locale/pl/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/pt/LC_MESSAGES/kronolith.mo" name="locale/pt/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/pt/LC_MESSAGES/kronolith.po" name="locale/pt/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/pt_BR/help.xml" name="locale/pt_BR/help.xml" />
+   <install as="kronolith/locale/pt_BR/LC_MESSAGES/kronolith.mo" name="locale/pt_BR/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/pt_BR/LC_MESSAGES/kronolith.po" name="locale/pt_BR/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/ro/LC_MESSAGES/kronolith.mo" name="locale/ro/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/ro/LC_MESSAGES/kronolith.po" name="locale/ro/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/ru/LC_MESSAGES/kronolith.mo" name="locale/ru/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/ru/LC_MESSAGES/kronolith.po" name="locale/ru/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/sk/LC_MESSAGES/kronolith.mo" name="locale/sk/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/sk/LC_MESSAGES/kronolith.po" name="locale/sk/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/sl/LC_MESSAGES/kronolith.mo" name="locale/sl/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/sl/LC_MESSAGES/kronolith.po" name="locale/sl/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/sv/LC_MESSAGES/kronolith.mo" name="locale/sv/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/sv/LC_MESSAGES/kronolith.po" name="locale/sv/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/tr/help.xml" name="locale/tr/help.xml" />
+   <install as="kronolith/locale/tr/LC_MESSAGES/kronolith.mo" name="locale/tr/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/tr/LC_MESSAGES/kronolith.po" name="locale/tr/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/uk/LC_MESSAGES/kronolith.mo" name="locale/uk/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/uk/LC_MESSAGES/kronolith.po" name="locale/uk/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/zh_CN/LC_MESSAGES/kronolith.mo" name="locale/zh_CN/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/zh_CN/LC_MESSAGES/kronolith.po" name="locale/zh_CN/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/zh_TW/LC_MESSAGES/kronolith.mo" name="locale/zh_TW/LC_MESSAGES/kronolith.mo" />
+   <install as="kronolith/locale/zh_TW/LC_MESSAGES/kronolith.po" name="locale/zh_TW/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/migration/1_kronolith_base_tables.php" name="migration/1_kronolith_base_tables.php" />
+   <install as="kronolith/migration/2_kronolith_upgrade_autoincrement.php" name="migration/2_kronolith_upgrade_autoincrement.php" />
+   <install as="kronolith/migration/3_kronolith_upgrade_addallday.php" name="migration/3_kronolith_upgrade_addallday.php" />
+   <install as="kronolith/migration/4_kronolith_upgrade_addalarmmethods.php" name="migration/4_kronolith_upgrade_addalarmmethods.php" />
+   <install as="kronolith/migration/5_kronolith_upgrade_addcolor.php" name="migration/5_kronolith_upgrade_addcolor.php" />
+   <install as="kronolith/migration/6_kronolith_upgrade_addresources.php" name="migration/6_kronolith_upgrade_addresources.php" />
+   <install as="kronolith/migration/7_kronolith_upgrade_resourceautoincrement.php" name="migration/7_kronolith_upgrade_resourceautoincrement.php" />
+   <install as="kronolith/migration/8_kronolith_upgrade_addgeo.php" name="migration/8_kronolith_upgrade_addgeo.php" />
+   <install as="kronolith/migration/9_kronolith_upgrade_addurl.php" name="migration/9_kronolith_upgrade_addurl.php" />
+   <install as="kronolith/migration/10_kronolith_upgrade_exceptions.php" name="migration/10_kronolith_upgrade_exceptions.php" />
+   <install as="kronolith/migration/11_kronolith_upgrade_resourceemail.php" name="migration/11_kronolith_upgrade_resourceemail.php" />
+   <install as="kronolith/migration/12_kronolith_upgrade_addzoom.php" name="migration/12_kronolith_upgrade_addzoom.php" />
+   <install as="kronolith/migration/13_kronolith_upgrade_systemshares.php" name="migration/13_kronolith_upgrade_systemshares.php" />
+   <install as="kronolith/migration/14_kronolith_upgrade_missingresourcefield.php" name="migration/14_kronolith_upgrade_missingresourcefield.php" />
+   <install as="kronolith/migration/15_kronolith_upgrade_sqlng.php" name="migration/15_kronolith_upgrade_sqlng.php" />
+   <install as="packaging/redhat/kronolith.conf" name="packaging/redhat/kronolith.conf" />
+   <install as="packaging/redhat/kronolith.README" name="packaging/redhat/kronolith.README" />
+   <install as="packaging/redhat/kronolith.spec" name="packaging/redhat/kronolith.spec" />
+   <install as="kronolith/resources/create.php" name="resources/create.php" />
+   <install as="kronolith/resources/delete.php" name="resources/delete.php" />
+   <install as="kronolith/resources/edit.php" name="resources/edit.php" />
+   <install as="kronolith/resources/index.php" name="resources/index.php" />
+   <install as="kronolith/resources/groups/create.php" name="resources/groups/create.php" />
+   <install as="kronolith/resources/groups/delete.php" name="resources/groups/delete.php" />
+   <install as="kronolith/resources/groups/edit.php" name="resources/groups/edit.php" />
+   <install as="kronolith/resources/groups/index.php" name="resources/groups/index.php" />
+   <install as="scripts/agenda.php" name="scripts/agenda.php" />
+   <install as="scripts/import_icals.php" name="scripts/import_icals.php" />
+   <install as="scripts/import_squirrelmail_calendar.php" name="scripts/import_squirrelmail_calendar.php" />
+   <install as="scripts/sql/add_geo.mysql.sql" name="scripts/sql/add_geo.mysql.sql" />
+   <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />
+   <install as="scripts/upgrades/convert_sql_shares_to_sqlng.php" name="scripts/upgrades/convert_sql_shares_to_sqlng.php" />
+   <install as="scripts/upgrades/convert_to_utc.php" name="scripts/upgrades/convert_to_utc.php" />
+   <install as="kronolith/templates/calendar_info.php" name="templates/calendar_info.php" />
+   <install as="kronolith/templates/calendar_list.php" name="templates/calendar_list.php" />
+   <install as="kronolith/templates/calendar_titles.inc" name="templates/calendar_titles.inc" />
+   <install as="kronolith/templates/javascript_defs.php" name="templates/javascript_defs.php" />
+   <install as="kronolith/templates/panel.inc" name="templates/panel.inc" />
+   <install as="kronolith/templates/agenda/notification.html.php" name="templates/agenda/notification.html.php" />
+   <install as="kronolith/templates/agenda/notification.plain.php" name="templates/agenda/notification.plain.php" />
+   <install as="kronolith/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
+   <install as="kronolith/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
+   <install as="kronolith/templates/attendees/attendees.inc" name="templates/attendees/attendees.inc" />
+   <install as="kronolith/templates/chunks/calendar.php" name="templates/chunks/calendar.php" />
+   <install as="kronolith/templates/chunks/permissions.inc" name="templates/chunks/permissions.inc" />
+   <install as="kronolith/templates/contacts/contacts.inc" name="templates/contacts/contacts.inc" />
+   <install as="kronolith/templates/data/export.inc" name="templates/data/export.inc" />
+   <install as="kronolith/templates/data/import.inc" name="templates/data/import.inc" />
+   <install as="kronolith/templates/day/all_day.inc" name="templates/day/all_day.inc" />
+   <install as="kronolith/templates/day/head.inc" name="templates/day/head.inc" />
+   <install as="kronolith/templates/day/head_side_by_side.inc" name="templates/day/head_side_by_side.inc" />
+   <install as="kronolith/templates/day/rows.html" name="templates/day/rows.html" />
+   <install as="kronolith/templates/delete/delete.inc" name="templates/delete/delete.inc" />
+   <install as="kronolith/templates/delete/one.inc" name="templates/delete/one.inc" />
+   <install as="kronolith/templates/edit/edit.inc" name="templates/edit/edit.inc" />
+   <install as="kronolith/templates/edit/edit_timespan.inc" name="templates/edit/edit_timespan.inc" />
+   <install as="kronolith/templates/fbview/busyblock.html" name="templates/fbview/busyblock.html" />
+   <install as="kronolith/templates/fbview/emptyblock.html" name="templates/fbview/emptyblock.html" />
+   <install as="kronolith/templates/fbview/header.html" name="templates/fbview/header.html" />
+   <install as="kronolith/templates/fbview/legend.html" name="templates/fbview/legend.html" />
+   <install as="kronolith/templates/fbview/meetingblock.html" name="templates/fbview/meetingblock.html" />
+   <install as="kronolith/templates/fbview/row.html" name="templates/fbview/row.html" />
+   <install as="kronolith/templates/fbview/section.html" name="templates/fbview/section.html" />
+   <install as="kronolith/templates/fbview/unknownblock.html" name="templates/fbview/unknownblock.html" />
+   <install as="kronolith/templates/feeds/atom.xml" name="templates/feeds/atom.xml" />
+   <install as="kronolith/templates/index/agenda.inc" name="templates/index/agenda.inc" />
+   <install as="kronolith/templates/index/day.inc" name="templates/index/day.inc" />
+   <install as="kronolith/templates/index/edit.inc" name="templates/index/edit.inc" />
+   <install as="kronolith/templates/index/index.inc" name="templates/index/index.inc" />
+   <install as="kronolith/templates/index/month.inc" name="templates/index/month.inc" />
+   <install as="kronolith/templates/index/task.inc" name="templates/index/task.inc" />
+   <install as="kronolith/templates/index/tasks.inc" name="templates/index/tasks.inc" />
+   <install as="kronolith/templates/index/week.inc" name="templates/index/week.inc" />
+   <install as="kronolith/templates/index/year.inc" name="templates/index/year.inc" />
+   <install as="kronolith/templates/itip/notification.html.php" name="templates/itip/notification.html.php" />
+   <install as="kronolith/templates/itip/notification.plain.php" name="templates/itip/notification.plain.php" />
+   <install as="kronolith/templates/mobile/day.html.php" name="templates/mobile/day.html.php" />
+   <install as="kronolith/templates/mobile/event.html.php" name="templates/mobile/event.html.php" />
+   <install as="kronolith/templates/mobile/head.html.php" name="templates/mobile/head.html.php" />
+   <install as="kronolith/templates/mobile/javascript_defs.php" name="templates/mobile/javascript_defs.php" />
+   <install as="kronolith/templates/mobile/month.html.php" name="templates/mobile/month.html.php" />
+   <install as="kronolith/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
+   <install as="kronolith/templates/mobile/summary.html.php" name="templates/mobile/summary.html.php" />
+   <install as="kronolith/templates/month/head.inc" name="templates/month/head.inc" />
+   <install as="kronolith/templates/month/head_side_by_side.inc" name="templates/month/head_side_by_side.inc" />
+   <install as="kronolith/templates/perms/perms.inc" name="templates/perms/perms.inc" />
+   <install as="kronolith/templates/prefs/defaultalarm.html" name="templates/prefs/defaultalarm.html" />
+   <install as="kronolith/templates/resources/form-header.inc" name="templates/resources/form-header.inc" />
+   <install as="kronolith/templates/resources/resource-form.php" name="templates/resources/resource-form.php" />
+   <install as="kronolith/templates/search/empty.inc" name="templates/search/empty.inc" />
+   <install as="kronolith/templates/search/event_footers.inc" name="templates/search/event_footers.inc" />
+   <install as="kronolith/templates/search/event_headers.inc" name="templates/search/event_headers.inc" />
+   <install as="kronolith/templates/search/event_summaries.inc" name="templates/search/event_summaries.inc" />
+   <install as="kronolith/templates/search/header.inc" name="templates/search/header.inc" />
+   <install as="kronolith/templates/search/search.inc" name="templates/search/search.inc" />
+   <install as="kronolith/templates/search/search_advanced.inc" name="templates/search/search_advanced.inc" />
+   <install as="kronolith/templates/share/notification.html.php" name="templates/share/notification.html.php" />
+   <install as="kronolith/templates/share/notification.plain.php" name="templates/share/notification.plain.php" />
+   <install as="kronolith/templates/view/view.inc" name="templates/view/view.inc" />
+   <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
+   <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
+   <install as="kronolith/templates/year/head.inc" name="templates/year/head.inc" />
+   <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
+   <install as="kronolith/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
+   <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
+   <install as="kronolith/themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
+   <install as="kronolith/themes/default/mobile.css" name="themes/default/mobile.css" />
+   <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
+   <install as="kronolith/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="kronolith/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
+   <install as="kronolith/themes/default/graphics/agenda.png" name="themes/default/graphics/agenda.png" />
+   <install as="kronolith/themes/default/graphics/alarm-000.png" name="themes/default/graphics/alarm-000.png" />
+   <install as="kronolith/themes/default/graphics/alarm-fff.png" name="themes/default/graphics/alarm-fff.png" />
+   <install as="kronolith/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
+   <install as="kronolith/themes/default/graphics/attendee-accepted.png" name="themes/default/graphics/attendee-accepted.png" />
+   <install as="kronolith/themes/default/graphics/attendee-declined.png" name="themes/default/graphics/attendee-declined.png" />
+   <install as="kronolith/themes/default/graphics/attendee-none.png" name="themes/default/graphics/attendee-none.png" />
+   <install as="kronolith/themes/default/graphics/attendee-tentative.png" name="themes/default/graphics/attendee-tentative.png" />
+   <install as="kronolith/themes/default/graphics/attendees-000.png" name="themes/default/graphics/attendees-000.png" />
+   <install as="kronolith/themes/default/graphics/attendees-fff.png" name="themes/default/graphics/attendees-fff.png" />
+   <install as="kronolith/themes/default/graphics/attendees.png" name="themes/default/graphics/attendees.png" />
+   <install as="kronolith/themes/default/graphics/back_quick.png" name="themes/default/graphics/back_quick.png" />
+   <install as="kronolith/themes/default/graphics/big_agenda.png" name="themes/default/graphics/big_agenda.png" />
+   <install as="kronolith/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
+   <install as="kronolith/themes/default/graphics/big_invitation.png" name="themes/default/graphics/big_invitation.png" />
+   <install as="kronolith/themes/default/graphics/big_share.png" name="themes/default/graphics/big_share.png" />
+   <install as="kronolith/themes/default/graphics/calendars.png" name="themes/default/graphics/calendars.png" />
+   <install as="kronolith/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
+   <install as="kronolith/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
+   <install as="kronolith/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
+   <install as="kronolith/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
+   <install as="kronolith/themes/default/graphics/dayview.png" name="themes/default/graphics/dayview.png" />
+   <install as="kronolith/themes/default/graphics/delete-000.png" name="themes/default/graphics/delete-000.png" />
+   <install as="kronolith/themes/default/graphics/delete-fff.png" name="themes/default/graphics/delete-fff.png" />
+   <install as="kronolith/themes/default/graphics/drag-handle.png" name="themes/default/graphics/drag-handle.png" />
+   <install as="kronolith/themes/default/graphics/edit-000.png" name="themes/default/graphics/edit-000.png" />
+   <install as="kronolith/themes/default/graphics/edit-fff.png" name="themes/default/graphics/edit-fff.png" />
+   <install as="kronolith/themes/default/graphics/exception-000.png" name="themes/default/graphics/exception-000.png" />
+   <install as="kronolith/themes/default/graphics/exception-fff.png" name="themes/default/graphics/exception-fff.png" />
+   <install as="kronolith/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="kronolith/themes/default/graphics/goto.png" name="themes/default/graphics/goto.png" />
+   <install as="kronolith/themes/default/graphics/kronolith.png" name="themes/default/graphics/kronolith.png" />
+   <install as="kronolith/themes/default/graphics/left.png" name="themes/default/graphics/left.png" />
+   <install as="kronolith/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
+   <install as="kronolith/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
+   <install as="kronolith/themes/default/graphics/monthview.png" name="themes/default/graphics/monthview.png" />
+   <install as="kronolith/themes/default/graphics/new.png" name="themes/default/graphics/new.png" />
+   <install as="kronolith/themes/default/graphics/new_big.png" name="themes/default/graphics/new_big.png" />
+   <install as="kronolith/themes/default/graphics/new_small.png" name="themes/default/graphics/new_small.png" />
+   <install as="kronolith/themes/default/graphics/new_small_fade.png" name="themes/default/graphics/new_small_fade.png" />
+   <install as="kronolith/themes/default/graphics/new_task.png" name="themes/default/graphics/new_task.png" />
+   <install as="kronolith/themes/default/graphics/picker.png" name="themes/default/graphics/picker.png" />
+   <install as="kronolith/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
+   <install as="kronolith/themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
+   <install as="kronolith/themes/default/graphics/private-000.png" name="themes/default/graphics/private-000.png" />
+   <install as="kronolith/themes/default/graphics/private-fff.png" name="themes/default/graphics/private-fff.png" />
+   <install as="kronolith/themes/default/graphics/recur-000.png" name="themes/default/graphics/recur-000.png" />
+   <install as="kronolith/themes/default/graphics/recur-fff.png" name="themes/default/graphics/recur-fff.png" />
+   <install as="kronolith/themes/default/graphics/right.png" name="themes/default/graphics/right.png" />
+   <install as="kronolith/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
+   <install as="kronolith/themes/default/graphics/tasks.png" name="themes/default/graphics/tasks.png" />
+   <install as="kronolith/themes/default/graphics/today.png" name="themes/default/graphics/today.png" />
+   <install as="kronolith/themes/default/graphics/unknown-background.png" name="themes/default/graphics/unknown-background.png" />
+   <install as="kronolith/themes/default/graphics/weekview.png" name="themes/default/graphics/weekview.png" />
+   <install as="kronolith/themes/default/graphics/workweekview.png" name="themes/default/graphics/workweekview.png" />
+   <install as="kronolith/themes/default/graphics/yearview.png" name="themes/default/graphics/yearview.png" />
+   <install as="kronolith/themes/default/graphics/alerts/alarm.png" name="themes/default/graphics/alerts/alarm.png" />
+   <install as="kronolith/themes/default/graphics/alerts/error.png" name="themes/default/graphics/alerts/error.png" />
+   <install as="kronolith/themes/default/graphics/alerts/message.png" name="themes/default/graphics/alerts/message.png" />
+   <install as="kronolith/themes/default/graphics/alerts/success.png" name="themes/default/graphics/alerts/success.png" />
+   <install as="kronolith/themes/default/graphics/alerts/warning.png" name="themes/default/graphics/alerts/warning.png" />
+   <install as="kronolith/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
+   <install as="kronolith/themes/fadetogreen/graphics/headerbox.png" name="themes/fadetogreen/graphics/headerbox.png" />
+   <install as="kronolith/themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
+   <install as="kronolith/themes/silver/screen.css" name="themes/silver/screen.css" />
+   <install as="kronolith/themes/silver/graphics/addressbook_browse.png" name="themes/silver/graphics/addressbook_browse.png" />
+   <install as="kronolith/themes/silver/graphics/alarm-000.png" name="themes/silver/graphics/alarm-000.png" />
+   <install as="kronolith/themes/silver/graphics/alarm-fff.png" name="themes/silver/graphics/alarm-fff.png" />
+   <install as="kronolith/themes/silver/graphics/alarm.png" name="themes/silver/graphics/alarm.png" />
+   <install as="kronolith/themes/silver/graphics/attendee-accepted.png" name="themes/silver/graphics/attendee-accepted.png" />
+   <install as="kronolith/themes/silver/graphics/attendee-declined.png" name="themes/silver/graphics/attendee-declined.png" />
+   <install as="kronolith/themes/silver/graphics/attendee-none.png" name="themes/silver/graphics/attendee-none.png" />
+   <install as="kronolith/themes/silver/graphics/attendee-tentative.png" name="themes/silver/graphics/attendee-tentative.png" />
+   <install as="kronolith/themes/silver/graphics/attendees-000.png" name="themes/silver/graphics/attendees-000.png" />
+   <install as="kronolith/themes/silver/graphics/attendees-fff.png" name="themes/silver/graphics/attendees-fff.png" />
+   <install as="kronolith/themes/silver/graphics/attendees.png" name="themes/silver/graphics/attendees.png" />
+   <install as="kronolith/themes/silver/graphics/calendars.png" name="themes/silver/graphics/calendars.png" />
+   <install as="kronolith/themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
+   <install as="kronolith/themes/silver/graphics/dayview.png" name="themes/silver/graphics/dayview.png" />
+   <install as="kronolith/themes/silver/graphics/delete-000.png" name="themes/silver/graphics/delete-000.png" />
+   <install as="kronolith/themes/silver/graphics/delete-fff.png" name="themes/silver/graphics/delete-fff.png" />
+   <install as="kronolith/themes/silver/graphics/edit-000.png" name="themes/silver/graphics/edit-000.png" />
+   <install as="kronolith/themes/silver/graphics/edit-fff.png" name="themes/silver/graphics/edit-fff.png" />
+   <install as="kronolith/themes/silver/graphics/exception-000.png" name="themes/silver/graphics/exception-000.png" />
+   <install as="kronolith/themes/silver/graphics/exception-fff.png" name="themes/silver/graphics/exception-fff.png" />
+   <install as="kronolith/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
+   <install as="kronolith/themes/silver/graphics/goto.png" name="themes/silver/graphics/goto.png" />
+   <install as="kronolith/themes/silver/graphics/kronolith.png" name="themes/silver/graphics/kronolith.png" />
+   <install as="kronolith/themes/silver/graphics/loading.gif" name="themes/silver/graphics/loading.gif" />
+   <install as="kronolith/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
+   <install as="kronolith/themes/silver/graphics/monthview.png" name="themes/silver/graphics/monthview.png" />
+   <install as="kronolith/themes/silver/graphics/new.png" name="themes/silver/graphics/new.png" />
+   <install as="kronolith/themes/silver/graphics/new_big.png" name="themes/silver/graphics/new_big.png" />
+   <install as="kronolith/themes/silver/graphics/new_small.png" name="themes/silver/graphics/new_small.png" />
+   <install as="kronolith/themes/silver/graphics/picker.png" name="themes/silver/graphics/picker.png" />
+   <install as="kronolith/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
+   <install as="kronolith/themes/silver/graphics/print.png" name="themes/silver/graphics/print.png" />
+   <install as="kronolith/themes/silver/graphics/private-000.png" name="themes/silver/graphics/private-000.png" />
+   <install as="kronolith/themes/silver/graphics/private-fff.png" name="themes/silver/graphics/private-fff.png" />
+   <install as="kronolith/themes/silver/graphics/recur-000.png" name="themes/silver/graphics/recur-000.png" />
+   <install as="kronolith/themes/silver/graphics/recur-fff.png" name="themes/silver/graphics/recur-fff.png" />
+   <install as="kronolith/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
+   <install as="kronolith/themes/silver/graphics/today.png" name="themes/silver/graphics/today.png" />
+   <install as="kronolith/themes/silver/graphics/unknown-background.png" name="themes/silver/graphics/unknown-background.png" />
+   <install as="kronolith/themes/silver/graphics/weekview.png" name="themes/silver/graphics/weekview.png" />
+   <install as="kronolith/themes/silver/graphics/workweekview.png" name="themes/silver/graphics/workweekview.png" />
+   <install as="kronolith/themes/silver/graphics/yearview.png" name="themes/silver/graphics/yearview.png" />
+   <install as="kronolith/themes/silver/graphics/alerts/alarm.png" name="themes/silver/graphics/alerts/alarm.png" />
+   <install as="kronolith/themes/silver/graphics/alerts/error.png" name="themes/silver/graphics/alerts/error.png" />
+   <install as="kronolith/themes/silver/graphics/alerts/message.png" name="themes/silver/graphics/alerts/message.png" />
+   <install as="kronolith/themes/silver/graphics/alerts/success.png" name="themes/silver/graphics/alerts/success.png" />
+   <install as="kronolith/themes/silver/graphics/alerts/warning.png" name="themes/silver/graphics/alerts/warning.png" />
+   <install as="kronolith/themes/simplex/screen.css" name="themes/simplex/screen.css" />
+   <install as="kronolith/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
+   <install as="kronolith/themes/tango-blue/graphics/addressbook_browse.png" name="themes/tango-blue/graphics/addressbook_browse.png" />
+   <install as="kronolith/themes/tango-blue/graphics/alarm-000.png" name="themes/tango-blue/graphics/alarm-000.png" />
+   <install as="kronolith/themes/tango-blue/graphics/alarm-fff.png" name="themes/tango-blue/graphics/alarm-fff.png" />
+   <install as="kronolith/themes/tango-blue/graphics/alarm.png" name="themes/tango-blue/graphics/alarm.png" />
+   <install as="kronolith/themes/tango-blue/graphics/attendee-accepted.png" name="themes/tango-blue/graphics/attendee-accepted.png" />
+   <install as="kronolith/themes/tango-blue/graphics/attendee-declined.png" name="themes/tango-blue/graphics/attendee-declined.png" />
+   <install as="kronolith/themes/tango-blue/graphics/attendee-none.png" name="themes/tango-blue/graphics/attendee-none.png" />
+   <install as="kronolith/themes/tango-blue/graphics/attendee-tentative.png" name="themes/tango-blue/graphics/attendee-tentative.png" />
+   <install as="kronolith/themes/tango-blue/graphics/attendees-000.png" name="themes/tango-blue/graphics/attendees-000.png" />
+   <install as="kronolith/themes/tango-blue/graphics/attendees-fff.png" name="themes/tango-blue/graphics/attendees-fff.png" />
+   <install as="kronolith/themes/tango-blue/graphics/attendees.png" name="themes/tango-blue/graphics/attendees.png" />
+   <install as="kronolith/themes/tango-blue/graphics/calendars.png" name="themes/tango-blue/graphics/calendars.png" />
+   <install as="kronolith/themes/tango-blue/graphics/close.png" name="themes/tango-blue/graphics/close.png" />
+   <install as="kronolith/themes/tango-blue/graphics/dayview.png" name="themes/tango-blue/graphics/dayview.png" />
+   <install as="kronolith/themes/tango-blue/graphics/delete-000.png" name="themes/tango-blue/graphics/delete-000.png" />
+   <install as="kronolith/themes/tango-blue/graphics/delete-fff.png" name="themes/tango-blue/graphics/delete-fff.png" />
+   <install as="kronolith/themes/tango-blue/graphics/edit-000.png" name="themes/tango-blue/graphics/edit-000.png" />
+   <install as="kronolith/themes/tango-blue/graphics/edit-fff.png" name="themes/tango-blue/graphics/edit-fff.png" />
+   <install as="kronolith/themes/tango-blue/graphics/exception-000.png" name="themes/tango-blue/graphics/exception-000.png" />
+   <install as="kronolith/themes/tango-blue/graphics/exception-fff.png" name="themes/tango-blue/graphics/exception-fff.png" />
+   <install as="kronolith/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
+   <install as="kronolith/themes/tango-blue/graphics/goto.png" name="themes/tango-blue/graphics/goto.png" />
+   <install as="kronolith/themes/tango-blue/graphics/kronolith.png" name="themes/tango-blue/graphics/kronolith.png" />
+   <install as="kronolith/themes/tango-blue/graphics/loading.gif" name="themes/tango-blue/graphics/loading.gif" />
+   <install as="kronolith/themes/tango-blue/graphics/minus.png" name="themes/tango-blue/graphics/minus.png" />
+   <install as="kronolith/themes/tango-blue/graphics/monthview.png" name="themes/tango-blue/graphics/monthview.png" />
+   <install as="kronolith/themes/tango-blue/graphics/new.png" name="themes/tango-blue/graphics/new.png" />
+   <install as="kronolith/themes/tango-blue/graphics/new_big.png" name="themes/tango-blue/graphics/new_big.png" />
+   <install as="kronolith/themes/tango-blue/graphics/new_small.png" name="themes/tango-blue/graphics/new_small.png" />
+   <install as="kronolith/themes/tango-blue/graphics/picker.png" name="themes/tango-blue/graphics/picker.png" />
+   <install as="kronolith/themes/tango-blue/graphics/plus.png" name="themes/tango-blue/graphics/plus.png" />
+   <install as="kronolith/themes/tango-blue/graphics/print.png" name="themes/tango-blue/graphics/print.png" />
+   <install as="kronolith/themes/tango-blue/graphics/private-000.png" name="themes/tango-blue/graphics/private-000.png" />
+   <install as="kronolith/themes/tango-blue/graphics/private-fff.png" name="themes/tango-blue/graphics/private-fff.png" />
+   <install as="kronolith/themes/tango-blue/graphics/recur-000.png" name="themes/tango-blue/graphics/recur-000.png" />
+   <install as="kronolith/themes/tango-blue/graphics/recur-fff.png" name="themes/tango-blue/graphics/recur-fff.png" />
+   <install as="kronolith/themes/tango-blue/graphics/search.png" name="themes/tango-blue/graphics/search.png" />
+   <install as="kronolith/themes/tango-blue/graphics/today.png" name="themes/tango-blue/graphics/today.png" />
+   <install as="kronolith/themes/tango-blue/graphics/unknown-background.png" name="themes/tango-blue/graphics/unknown-background.png" />
+   <install as="kronolith/themes/tango-blue/graphics/weekview.png" name="themes/tango-blue/graphics/weekview.png" />
+   <install as="kronolith/themes/tango-blue/graphics/workweekview.png" name="themes/tango-blue/graphics/workweekview.png" />
+   <install as="kronolith/themes/tango-blue/graphics/yearview.png" name="themes/tango-blue/graphics/yearview.png" />
+   <install as="kronolith/themes/tango-blue/graphics/alerts/alarm.png" name="themes/tango-blue/graphics/alerts/alarm.png" />
+   <install as="kronolith/themes/tango-blue/graphics/alerts/error.png" name="themes/tango-blue/graphics/alerts/error.png" />
+   <install as="kronolith/themes/tango-blue/graphics/alerts/message.png" name="themes/tango-blue/graphics/alerts/message.png" />
+   <install as="kronolith/themes/tango-blue/graphics/alerts/success.png" name="themes/tango-blue/graphics/alerts/success.png" />
+   <install as="kronolith/themes/tango-blue/graphics/alerts/warning.png" name="themes/tango-blue/graphics/alerts/warning.png" />
+   <install as="kronolith/add.php" name="add.php" />
+   <install as="kronolith/attend.php" name="attend.php" />
+   <install as="kronolith/attendees.php" name="attendees.php" />
+   <install as="kronolith/contacts.php" name="contacts.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="kronolith/data.php" name="data.php" />
+   <install as="kronolith/day.php" name="day.php" />
+   <install as="kronolith/delete.php" name="delete.php" />
+   <install as="kronolith/edit.php" name="edit.php" />
+   <install as="kronolith/event.php" name="event.php" />
+   <install as="kronolith/fb.php" name="fb.php" />
+   <install as="kronolith/index.php" name="index.php" />
+   <install as="kronolith/mobile.php" name="mobile.php" />
+   <install as="kronolith/month.php" name="month.php" />
+   <install as="kronolith/new.php" name="new.php" />
+   <install as="package.xml.old" name="package.xml.old" />
+   <install as="kronolith/perms.php" name="perms.php" />
+   <install as="README" name="README" />
+   <install as="kronolith/search.php" name="search.php" />
+   <install as="kronolith/view.php" name="view.php" />
+   <install as="kronolith/week.php" name="week.php" />
+   <install as="kronolith/workweek.php" name="workweek.php" />
+   <install as="kronolith/year.php" name="year.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-01-25</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
