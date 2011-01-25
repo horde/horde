@@ -417,7 +417,7 @@ class IMP_Ui_Message
      * Prints out a MIME summary (in HTML).
      *
      * @param array $summary  Summary information from
-     *                        IMP_Summary::getSummary().
+     *                        IMP_Contents::getSummary().
      * @param array $display  The fields to display (in this order).
      * @param boolean $atc    Is this an attachment?
      *
