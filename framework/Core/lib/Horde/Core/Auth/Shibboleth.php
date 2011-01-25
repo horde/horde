@@ -23,8 +23,17 @@ class Horde_Core_Auth_Shibboleth extends Horde_Auth_Shibboleth
      */
     public function validateAuth()
     {
-        return !empty($_SERVER[$this->getParam('username_header')]) &&
-               ($this->_removeScope($_SERVER[$this->getParam('username_header')]) == $GLOBALS['registry']->getAuth('original'));
+        if (!empty($_SERVER[$this->getParam('username_header')]) &&
+            ($this->_removeScope($_SERVER[$this->getParam('username_header')]) == $GLOBALS['registry']->getAuth('original'))) {
+            return true;
+        }
+
+        // Consider this a session expiration.
+        $this->setError(Horde_Auth::REASON_SESSION);
+
+        Horde::logMessage('Shibboleth authentication expired for user ' . $GLOBALS['registry']->getAuth(), 'INFO');
+
+        return false;
     }
 
 }
