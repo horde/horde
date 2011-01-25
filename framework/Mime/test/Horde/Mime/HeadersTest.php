@@ -43,4 +43,21 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testHeaderDecode()
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader(
+            'Test',
+            '=?iso-8859-15?b?VmVyc2nzbg==?=',
+            array(
+                'decode' => true
+            )
+        );
+
+        $this->assertEquals(
+            'Versión',
+            $hdrs->getValue('Test')
+        );
+    }
+
 }
