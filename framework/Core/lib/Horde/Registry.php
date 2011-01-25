@@ -2136,7 +2136,16 @@ class Horde_Registry
             return false;
         }
 
-        return $auth->validateAuth();
+        if ($auth->validateAuth()) {
+            return true;
+        }
+
+        /* Make sure there is always a logout reason set. */
+        if (!$auth->getError()) {
+            $auth->setError(Horde_Auth::REASON_SESSION);
+        }
+
+        return false;
     }
 
     /* NLS functions. */
