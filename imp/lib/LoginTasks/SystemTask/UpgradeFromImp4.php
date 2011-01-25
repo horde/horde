@@ -32,6 +32,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         $this->_upgradeLoginTasksPrefs();
         $this->_upgradeMsgDisplayPrefs();
         $this->_upgradeSortPrefs();
+        $this->_upgradeStationery();
         $this->_upgradeVirtualFolders();
     }
 
@@ -206,6 +207,18 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         }
 
         return null;
+    }
+
+    /**
+     * Upgrade stationery preference.
+     */
+    protected function _upgradeStationery()
+    {
+        $upgrade_prefs = array(
+            'stationery'
+        );
+
+        $GLOBALS['injector']->getInstance('Horde_Core_Prefs_Storage_Upgrade')->upgradeSerialized($GLOBALS['prefs'], $upgrade_prefs);
     }
 
     /**

@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-12-21</date>
- <time>23:03:16</time>
+ <date>2011-01-24</date>
+ <time>23:13:57</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -203,6 +203,7 @@ Application Framework.</description>
        <dir name="Storage">
         <file name="Configuration.php" role="php" />
         <file name="Hooks.php" role="php" />
+        <file name="Upgrade.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Prefs/Storage -->
        <dir name="Ui">
         <file name="Widgets.php" role="php" />
@@ -831,6 +832,7 @@ Application Framework.</description>
    <install as="Horde/Core/Prefs/Cache/Session.php" name="lib/Horde/Core/Prefs/Cache/Session.php" />
    <install as="Horde/Core/Prefs/Storage/Configuration.php" name="lib/Horde/Core/Prefs/Storage/Configuration.php" />
    <install as="Horde/Core/Prefs/Storage/Hooks.php" name="lib/Horde/Core/Prefs/Storage/Hooks.php" />
+   <install as="Horde/Core/Prefs/Storage/Upgrade.php" name="lib/Horde/Core/Prefs/Storage/Upgrade.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
@@ -986,7 +988,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-12-21</date>
+   <date>2011-01-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add cache support for themes.
