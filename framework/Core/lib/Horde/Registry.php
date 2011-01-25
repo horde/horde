@@ -14,6 +14,7 @@
  * @author   Anil Madhavapeddy <anil@recoil.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
 class Horde_Registry
@@ -901,15 +902,14 @@ class Horde_Registry
     }
 
     /**
-     * Return the hook corresponding to the default package that
-     * provides the functionality requested by the $method
-     * parameter. $method is a string consisting of
-     * "packagetype/methodname".
+     * Return the hook corresponding to the default package that provides the
+     * functionality requested by the $method parameter.
+     * $method is a string consisting of "packagetype/methodname".
      *
      * @param string $method  The method to call.
      * @param array $args     Arguments to the method.
      *
-     * @return mixed  TODO
+     * @return mixed  Return from method call.
      * @throws Horde_Exception
      */
     public function call($method, $args = array())
@@ -938,7 +938,7 @@ class Horde_Registry
      * 'noperms' - (boolean) If true, don't check the perms.
      * </pre>
      *
-     * @return mixed  TODO
+     * @return mixed  Return from application call.
      * @throws Horde_Exception
      */
     public function callByPackage($app, $call, $args = array(),
@@ -1398,6 +1398,7 @@ class Horde_Registry
      * $app will be the active application after calling this function.
      *
      * @param string $app  The name of the application.
+     *
      * @throws Horde_Exception
      */
     public function loadPrefs($app = null)
@@ -1884,14 +1885,13 @@ class Horde_Registry
      *
      * @param string $format  The return format, defaults to the unique Horde
      *                        ID. Alternative formats:
-     *                        - bare: Horde ID without any domain information
-     *                          (e.g., foo@example.com would be returned as
-     *                          'foo').
-     *                        - domain: Domain of the Horde ID (e.g.,
-     *                          foo@example.com would be returned as
-     *                          'example.com').
-     *                        - original: The username used to originally login
-     *                          to Horde.
+     * <pre>
+     * bare - Horde ID without any domain information.
+     *        EXAMPLE: foo@example.com would be returned as 'foo'.
+     * domain: Domain of the Horde ID.
+     *         EXAMPLE: foo@example.com would be returned as 'example.com'.
+     * original: The username used to originally login to Horde.
+     * </pre>
      *
      * @return mixed  The user ID or false if no user is logged in.
      */
