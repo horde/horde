@@ -599,6 +599,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Lock</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Log</name>
     <channel>pear.horde.org</channel>
    </package>
