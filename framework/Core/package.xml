@@ -627,6 +627,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Share</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Support</name>
     <channel>pear.horde.org</channel>
    </package>
