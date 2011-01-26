@@ -61,7 +61,7 @@ function _usage()
 {
     global $cli;
 
-    $cli->writeln($cli->bold('Usage: themes.php [--expirecache]'));
+    $cli->writeln($cli->bold('Usage: themes [--expirecache]'));
     $cli->writeln();
     $cli->writeln($cli->indent('--expirecache   Expire all cache entries'));
 
