@@ -6,42 +6,55 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_View_DeleteEvent {
-
-    var $event;
+class Kronolith_View_DeleteEvent
+{
+    /**
+     * @var Kronolith_Event
+     */
+    protected $_event;
 
     /**
      * @param Kronolith_Event $event
      */
-    function Kronolith_View_DeleteEvent($event)
+    public function __construct(Kronolith_Event $event)
     {
-        $this->event = $event;
+        $this->_event = $event;
     }
 
-    function getTitle()
+    public function __get($property)
     {
-        if (!$this->event) {
+        switch ($property) {
+        case 'event':
+            return $this->_event;
+        default:
+            throw new Exception(_("Property does not exist."));
+        }
+    }
+
+    public function getTitle()
+    {
+        if (!$this->_event) {
             return _("Not Found");
         }
-        if (is_string($this->event)) {
-            return $this->event;
+        if (is_string($this->_event)) {
+            return $this->_event;
         }
-        return sprintf(_("Delete %s"), $this->event->getTitle());
+        return sprintf(_("Delete %s"), $this->_event->getTitle());
     }
 
-    function link()
+    public function link()
     {
-        return $this->event->getDeleteUrl();
+        return $this->_event->getDeleteUrl();
     }
 
-    function html($active = true)
+    public function html($active = true)
     {
-        if (!$this->event) {
+        if (!$this->_event) {
             echo '<h3>' . _("Event not found") . '</h3>';
             exit;
         }
-        if (is_string($this->event)) {
-            echo '<h3>' . $this->event . '</h3>';
+        if (is_string($this->_event)) {
+            echo '<h3>' . $this->_event . '</h3>';
             exit;
         }
 
@@ -59,7 +72,7 @@ class Kronolith_View_DeleteEvent {
         $url = Horde_Util::getFormData('url');
 
         echo '<div id="DeleteEvent"' . ($active ? '' : ' style="display:none"') . '>';
-        if (!$this->event->recurs()) {
+        if (!$this->_event->recurs()) {
             require KRONOLITH_TEMPLATES . '/delete/one.inc';
         } else {
             require KRONOLITH_TEMPLATES . '/delete/delete.inc';
@@ -67,18 +80,18 @@ class Kronolith_View_DeleteEvent {
         echo '</div>';
 
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
-            if ($this->event->hasPermission(Horde_Perms::READ)) {
-                $view = new Kronolith_View_Event($this->event);
+            if ($this->_event->hasPermission(Horde_Perms::READ)) {
+                $view = new Kronolith_View_Event($this->_event);
                 $view->html(false);
             }
-            if ($this->event->hasPermission(Horde_Perms::EDIT)) {
-                $edit = new Kronolith_View_EditEvent($this->event);
+            if ($this->_event->hasPermission(Horde_Perms::EDIT)) {
+                $edit = new Kronolith_View_EditEvent($this->_event);
                 $edit->html(false);
             }
         }
     }
 
-    function getName()
+    public function getName()
     {
         return 'DeleteEvent';
     }

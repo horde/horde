@@ -25,9 +25,12 @@ class Kronolith_Storage_Sql extends Kronolith_Storage
     /**
      * Constructs a new Kronolith_Storage SQL instance.
      *
+     * @param string $user   The user the fb info belongs to.
      * @param array $params  A hash containing connection parameters.
+     *
+     * @return Kronolith_Storage_Sql
      */
-    public function __construct($user, $params = array())
+    public function __construct($user, array $params = array())
     {
         $this->_user = $user;
         if (empty($params['db'])) {

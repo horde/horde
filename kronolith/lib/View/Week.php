@@ -6,25 +6,25 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_View_Week {
-
-    var $parsed = false;
-    var $days = array();
-    var $week = null;
-    var $year = null;
-    var $startDay = null;
-    var $endDay = null;
-    var $startDate = null;
-    var $_controller = 'week.php';
-    var $_sidebyside = false;
-    var $_currentCalendars = array();
+class Kronolith_View_Week
+{
+    public $parsed = false;
+    public $days = array();
+    public $week = null;
+    public $year = null;
+    public $startDay = null;
+    public $endDay = null;
+    public $startDate = null;
+    protected $_controller = 'week.php';
+    public $sidebyside = false;
+    public $_currentCalendars = array();
 
     /**
      * How many time slots are we dividing each hour into?
      *
      * @var integer
      */
-    var $_slotsPerHour = 2;
+    public $_slotsPerHour = 2;
 
     /**
      * How many slots do we have per day? Calculated from $_slotsPerHour.
@@ -32,9 +32,9 @@ class Kronolith_View_Week {
      * @see $_slotsPerHour
      * @var integer
      */
-    var $_slotsPerDay;
+    public $_slotsPerDay;
 
-    function Kronolith_View_Week($date)
+    public function __construct(Horde_Date $date)
     {
         $week = $date->weekOfYear();
         $year = $date->year;
@@ -81,14 +81,14 @@ class Kronolith_View_Week {
                                        ? $allevents[$date_stamp]
                                        : array());
         }
-        $this->_sidebyside = $this->days[$this->startDay]->_sidebyside;
-        $this->_currentCalendars = $this->days[$this->startDay]->_currentCalendars;
-        $this->_slotsPerHour = $this->days[$this->startDay]->_slotsPerHour;
-        $this->_slotsPerDay = $this->days[$this->startDay]->_slotsPerDay;
-        $this->_slotLength = $this->days[$this->startDay]->_slotLength;
+        $this->sidebyside = $this->days[$this->startDay]->sidebyside;
+        $this->_currentCalendars = $this->days[$this->startDay]->currentCalendars;
+        $this->slotsPerHour = $this->days[$this->startDay]->slotsPerHour;
+        $this->slotsPerDay = $this->days[$this->startDay]->slotsPerDay;
+        $this->slotLength = $this->days[$this->startDay]->slotLength;
     }
 
-    function html()
+    public function html()
     {
         global $prefs;
 
@@ -104,7 +104,7 @@ class Kronolith_View_Week {
         $slots = $this->days[$this->startDay]->slots;
         $cid = 0;
         require KRONOLITH_TEMPLATES . '/week/head.inc';
-        if ($this->_sidebyside) {
+        if ($this->sidebyside) {
             require KRONOLITH_TEMPLATES . '/week/head_side_by_side.inc';
         }
         echo '</thead><tbody>';
@@ -112,8 +112,8 @@ class Kronolith_View_Week {
         $event_count = 0;
         for ($j = $this->startDay; $j <= $this->endDay; ++$j) {
             foreach (array_keys($this->_currentCalendars) as $cid) {
-                $event_count = max($event_count, count($this->days[$j]->_all_day_events[$cid]));
-                reset($this->days[$j]->_all_day_events[$cid]);
+                $event_count = max($event_count, count($this->days[$j]->all_day_events[$cid]));
+                reset($this->days[$j]->all_day_events[$cid]);
             }
         }
 
@@ -126,18 +126,18 @@ class Kronolith_View_Week {
         $row = '';
         for ($j = $this->startDay; $j <= $this->endDay; ++$j) {
             $row .= '<td class="hour rightAlign daySpacer">' . ($more_timeslots ? _("All day") : '&nbsp;') . '</td>' .
-                '<td colspan="' . $this->days[$j]->_totalspan . '" valign="top"><table width="100%" cellspacing="0">';
-            if ($this->days[$j]->_all_day_maxrowspan > 0) {
-                for ($k = 0; $k < $this->days[$j]->_all_day_maxrowspan; ++$k) {
+                '<td colspan="' . $this->days[$j]->totalspan . '" valign="top"><table width="100%" cellspacing="0">';
+            if ($this->days[$j]->all_day_maxrowspan > 0) {
+                for ($k = 0; $k < $this->days[$j]->all_day_maxrowspan; ++$k) {
                     $row .= '<tr>';
-                    foreach (array_keys($this->days[$j]->_currentCalendars) as $cid) {
-                        if (count($this->days[$j]->_all_day_events[$cid]) === $k) {
-                            $row .= '<td rowspan="' . ($this->days[$j]->_all_day_maxrowspan - $k) . '" width="'. round(99 / count($this->days[$j]->_currentCalendars)) . '%">&nbsp;</td>';
-                        } elseif (count($this->days[$j]->_all_day_events[$cid]) > $k) {
-                            $event = $this->days[$j]->_all_day_events[$cid][$k];
+                    foreach (array_keys($this->days[$j]->currentCalendars) as $cid) {
+                        if (count($this->days[$j]->all_day_events[$cid]) === $k) {
+                            $row .= '<td rowspan="' . ($this->days[$j]->all_day_maxrowspan - $k) . '" width="'. round(99 / count($this->days[$j]->currentCalendars)) . '%">&nbsp;</td>';
+                        } elseif (count($this->days[$j]->all_day_events[$cid]) > $k) {
+                            $event = $this->days[$j]->all_day_events[$cid][$k];
                             $row .= '<td class="week-eventbox"'
                                 . $event->getCSSColors()
-                                . 'width="' . round(99 / count($this->days[$j]->_currentCalendars)) . '%" '
+                                . 'width="' . round(99 / count($this->days[$j]->currentCalendars)) . '%" '
                                 . 'valign="top">'
                                 . $event->getLink($this->days[$j], true, $this->link(0, true));
                             if ($showLocation) {
@@ -159,12 +159,12 @@ class Kronolith_View_Week {
         require KRONOLITH_TEMPLATES . '/day/all_day.inc';
 
         $day_hour_force = $prefs->getValue('day_hour_force');
-        $day_hour_start = $prefs->getValue('day_hour_start') / 2 * $this->_slotsPerHour;
-        $day_hour_end = $prefs->getValue('day_hour_end') / 2 * $this->_slotsPerHour;
+        $day_hour_start = $prefs->getValue('day_hour_start') / 2 * $this->slotsPerHour;
+        $day_hour_end = $prefs->getValue('day_hour_end') / 2 * $this->slotsPerHour;
         $rows = array();
         $covered = array();
 
-        for ($i = 0; $i < $this->_slotsPerDay; ++$i) {
+        for ($i = 0; $i < $this->slotsPerDay; ++$i) {
             if ($i >= $day_hour_end && $i > $this->last) {
                 break;
             }
@@ -172,8 +172,8 @@ class Kronolith_View_Week {
                 continue;
             }
 
-            if (($m = $i % $this->_slotsPerHour) != 0) {
-                $time = ':' . $m * $this->_slotLength;
+            if (($m = $i % $this->slotsPerHour) != 0) {
+                $time = ':' . $m * $this->slotLength;
                 $hourclass = 'halfhour';
             } else {
                 $time = Kronolith_View_Day::prefHourFormat($slots[$i]['hour']);
@@ -204,15 +204,15 @@ class Kronolith_View_Week {
                     // first available cell of the day.
                     for (; isset($covered[$j][$i][$current_indent]); ++$current_indent);
 
-                    foreach ($this->days[$j]->_event_matrix[$cid][$i] as $key) {
-                        $event = &$this->days[$j]->_events[$key];
+                    foreach ($this->days[$j]->event_matrix[$cid][$i] as $key) {
+                        $event = &$this->days[$j]->events[$key];
                         if ($include_all_events || $event->calendar == $cid) {
                             // Since we've made sure that this event's
                             // overlap is a factor of the total span,
                             // we get this event's individual span by
                             // dividing the total span by this event's
                             // overlap.
-                            $span = $this->days[$j]->_span[$cid] / $event->overlap;
+                            $span = $this->days[$j]->span[$cid] / $event->overlap;
 
                             // Store the indent we're starting this event at
                             // for future use.
@@ -259,13 +259,13 @@ class Kronolith_View_Week {
                             $current_indent += $event->span;
 
                             $start = new Horde_Date(array(
-                                'hour'  => floor($i / $this->_slotsPerHour),
-                                'min'   => ($i % $this->_slotsPerHour) * $this->_slotLength,
+                                'hour'  => floor($i / $this->slotsPerHour),
+                                'min'   => ($i % $this->slotsPerHour) * $this->slotLength,
                                 'month' => $this->days[$j]->month,
                                 'mday'  => $this->days[$j]->mday,
                                 'year'  => $this->days[$j]->year));
                             $slot_end = new Horde_Date($start);
-                            $slot_end->min += $this->_slotLength;
+                            $slot_end->min += $this->slotLength;
                             if (((!$day_hour_force || $i >= $day_hour_start) &&
                                  $event->start->compareDateTime($start) >= 0 &&
                                  $event->start->compareDateTime($slot_end) < 0 ||
@@ -284,7 +284,7 @@ class Kronolith_View_Week {
                                 $row .= '<td class="week-eventbox"'
                                     . $event->getCSSColors()
                                     . 'valign="top" '
-                                    . 'width="' . floor(((90 / count($this->days)) / count($this->_currentCalendars)) * ($span / $this->days[$j]->_span[$cid])) . '%" '
+                                    . 'width="' . floor(((90 / count($this->days)) / count($this->_currentCalendars)) * ($span / $this->days[$j]->span[$cid])) . '%" '
                                     . 'colspan="' . $event->span . '" rowspan="' . $event->rowspan . '">'
                                     . $event->getLink($this->days[$j], true, $this->link(0, true));
                                 if ($showTime) {
@@ -298,7 +298,7 @@ class Kronolith_View_Week {
                         }
                     }
 
-                    $diff = $this->days[$j]->_span[$cid] - $hspan;
+                    $diff = $this->days[$j]->span[$cid] - $hspan;
                     if ($diff > 0) {
                         $row .= str_repeat('<td>&nbsp;</td>', $diff);
                     }
@@ -309,7 +309,7 @@ class Kronolith_View_Week {
         }
 
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
-        $template->set('row_height', round(20 / $this->_slotsPerHour));
+        $template->set('row_height', round(20 / $this->slotsPerHour));
         $template->set('rows', $rows);
         $template->set('show_slots', !$more_timeslots, true);
         echo $template->fetch(KRONOLITH_TEMPLATES . '/day/rows.html')
@@ -321,7 +321,7 @@ class Kronolith_View_Week {
      * run through the results to get the total horizontal span for
      * the week, and the latest event of the week.
      */
-    function parse()
+    public function parse()
     {
         for ($i = $this->startDay; $i <= $this->endDay; ++$i) {
             $this->days[$i]->parse();
@@ -330,18 +330,18 @@ class Kronolith_View_Week {
         $this->totalspan = 0;
         $this->span = array();
         for ($i = $this->startDay; $i <= $this->endDay; ++$i) {
-            $this->totalspan += $this->days[$i]->_totalspan;
+            $this->totalspan += $this->days[$i]->totalspan;
             foreach (array_keys($this->_currentCalendars) as $cid) {
                 if (isset($this->span[$cid])) {
-                    $this->span[$cid] += $this->days[$i]->_span[$cid];
+                    $this->span[$cid] += $this->days[$i]->span[$cid];
                 } else {
-                    $this->span[$cid] = $this->days[$i]->_span[$cid];
+                    $this->span[$cid] = $this->days[$i]->span[$cid];
                 }
             }
         }
 
         $this->last = 0;
-        $this->first = $this->_slotsPerDay;
+        $this->first = $this->slotsPerDay;
         for ($i = $this->startDay; $i <= $this->endDay; ++$i) {
             if ($this->days[$i]->last > $this->last) {
                 $this->last = $this->days[$i]->last;
@@ -352,21 +352,21 @@ class Kronolith_View_Week {
         }
     }
 
-    function getWeek($offset = 0)
+    public function getWeek($offset = 0)
     {
         $week = new Horde_Date($this->startDate);
         $week->mday += $offset * 7;
         return $week;
     }
 
-    function link($offset = 0, $full = false)
+    public function link($offset = 0, $full = false)
     {
         $week = $this->getWeek($offset);
         return Horde::url($this->_controller, $full)
             ->add('date', $week->dateString());
     }
 
-    function getName()
+    public function getName()
     {
         return 'Week';
     }

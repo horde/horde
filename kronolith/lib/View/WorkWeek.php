@@ -6,13 +6,13 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_View_WorkWeek extends Kronolith_View_Week {
+class Kronolith_View_WorkWeek extends Kronolith_View_Week
+{
+    public $startDay = Horde_Date::DATE_MONDAY;
+    public $endDay = Horde_Date::DATE_FRIDAY;
+    protected $_controller = 'workweek.php';
 
-    var $startDay = Horde_Date::DATE_MONDAY;
-    var $endDay = Horde_Date::DATE_FRIDAY;
-    var $_controller = 'workweek.php';
-
-    function getName()
+    public function getName()
     {
         return 'WorkWeek';
     }

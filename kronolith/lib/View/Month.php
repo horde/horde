@@ -7,49 +7,56 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_View_Month {
+class Kronolith_View_Month
+{
+    /**
+     * @var integer
+     */
+    public $month;
 
     /**
      * @var integer
      */
-    var $month;
-
-    /**
-     * @var integer
-     */
-    var $year;
+    public $year;
 
     /**
      * @var Horde_Date
      */
-    var $date;
+    public $date;
 
     /**
      * @var array
      */
-    var $_events = array();
+    protected $_events = array();
 
     /**
      * @var array
      */
-    var $_currentCalendars = array();
+    protected $_currentCalendars = array();
 
     /**
      * @var integer
      */
-    var $_daysInView;
+    protected $_daysInView;
 
     /**
      * @var integer
      */
-    var $_startOfView;
+    protected $_startOfView;
 
     /**
      * @var integer
      */
-    var $_startday;
+    protected $_startday;
 
-    function Kronolith_View_Month($date)
+    /**
+     *
+     * @global Horde_Prefs $prefs
+     * @param Horde_Date $date
+     *
+     * @return Kronolith_View_Month
+     */
+    public function __construct(Horde_Date $date)
     {
         global $prefs;
 
@@ -112,7 +119,7 @@ class Kronolith_View_Month {
         }
     }
 
-    function html()
+    public function html()
     {
         global $prefs;
 
@@ -224,21 +231,21 @@ class Kronolith_View_Month {
         echo $html . '</tbody></table>';
     }
 
-    function getMonth($offset = 0)
+    public function getMonth($offset = 0)
     {
         $month = new Horde_Date($this->date);
         $month->month += $offset;
         return $month;
     }
 
-    function link($offset = 0, $full = false)
+    public function link($offset = 0, $full = false)
     {
         $month = $this->getMonth($offset);
         return Horde::url('month.php', $full)
             ->add('date', $month->dateString());
     }
 
-    function getName()
+    public function getName()
     {
         return 'Month';
     }
