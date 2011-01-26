@@ -1,0 +1,102 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Database migration script.
+ *
+ * Usage: horde-db-migrate --adapter=pdo_mysql [--host=db.example.com] [--username=user] [--password=secret] [--database=db] [...] directory module [(up|down|version) [debug]]
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you did
+ * not receive this file, see http://opensource.org/licenses/bsd-license.php
+ *
+ * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+require_once 'Horde/Autoloader/Default.php';
+
+// Parse command line arguments
+array_shift($_SERVER['argv']);
+$args = $params = array();
+foreach ($_SERVER['argv'] as $arg) {
+    if (substr($arg, 0, 2) == '--') {
+        $param = substr($arg, 2);
+        $param = explode('=', $param, 2);
+        if (count($param) != 2) {
+            die("The --${param[0]} parameter must have a value.\n");
+        }
+        $params[$param[0]] = $param[1];
+    } else {
+        $args[] = $arg;
+    }
+}
+if (empty($args[1])) {
+    die("horde-db-migrate [--parameter=value ...] directory module [(up|down|version) [debug]]\n");
+}
+if (!isset($params['adapter'])) {
+    die("The --adapter parameter is required. Other parameters may be required depending on the adapter.\n");
+}
+
+$dir = $args[0];
+$module = $args[1];
+if (!is_dir($dir)) {
+    die("$dir is not a migration directory");
+}
+
+$action = 'up';
+if (!empty($args[2])) {
+    switch ($args[2]) {
+    case 'up':
+    case 'down':
+        $action = $args[2];
+        break;
+
+    default:
+        $action = 'migrate';
+        $targetVersion = $args[2];
+        break;
+    }
+}
+
+// Build Horde_Db adapter.
+$class = 'Horde_Db_Adapter_' . str_replace(' ', '_', ucwords(str_replace('_', ' ', basename($params['adapter']))));
+if (!class_exists($class)) {
+    die($params['adapter'] . " is not a valid adapter name.\n");
+}
+unset($params['adapter']);
+try {
+    $db = new $class($params);
+} catch (Exception $e) {
+    die($e->getMessage() . "\n");
+}
+$logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
+if (!empty($args[3]) && strpos($args[3], 'debug') !== false) {
+    $db->setLogger($logger);
+}
+$migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $module . '_schema_info'));
+
+echo 'Current schema version: ' . $migrator->getCurrentVersion() . "\n";
+
+try {
+    switch ($action) {
+    case 'up':
+        echo "Migrating DB up.\n";
+        $migrator->up();
+        break;
+
+    case 'down':
+        echo "Migrating DB down.\n";
+        $migrator->down();
+        break;
+
+    case 'migrate':
+        echo 'Migrating DB to schema version ' . $targetVersion . ".\n";
+        $migrator->migrate($targetVersion);
+        break;
+    }
+} catch (Exception $e) {
+    die($e->getMessage() . "\n");
+}
+
+echo 'Ending schema version: ' . $migrator->getCurrentVersion() . "\n";

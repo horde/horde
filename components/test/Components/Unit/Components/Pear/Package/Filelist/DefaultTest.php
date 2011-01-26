@@ -137,7 +137,7 @@ extends PHPUnit_Framework_TestCase
             array('php', 'view.php', 'view.php'),
             array('data', 'data/table.sql', 'table.sql'),
             array('data', 'locale/de.mo', 'locale/de.mo'),
-            array('data', 'migration/Horde/Alarm/1_horde_alarms_table.php', 'Horde/Alarm/migration/1_horde_alarms_table.php'),
+            array('data', 'migration/Horde/Alarm/1_horde_alarms_table.php', 'migration/1_horde_alarms_table.php'),
             array('data', 'somedata', 'somedata'),
         );
     }

@@ -3,7 +3,7 @@
 /**
  * Database migration script.
  *
- * Usage: ./db_migrate application [up | down | version [debug]]
+ * Usage: db_migrate [(application|directory) [(up|down|version) [debug]]]
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -11,6 +11,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author Jan Schneider <jan@horde.org>
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
@@ -19,16 +20,48 @@ Horde_Registry::appInit('horde', array(
     'cli' => true
 ));
 
-// Parse command line arguments
+// Parse command line arguments.
 array_shift($_SERVER['argv']);
 $args = $_SERVER['argv'];
-if (empty($args[0])) {
-    $cli->fatal('Usage: db_migrate application [up | down | version]');
-}
 
-$app = $args[0];
-if (!in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null))) {
-    $cli->fatal("$app is not a configured Horde application");
+if (empty($args[0])) {
+    // Run all migrations.
+    $apps = $dirs = array();
+    // Loop through all applications.
+    foreach ($registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null) as $app) {
+        $dir = $registry->get('fileroot', $app) . '/migration';
+        if (is_dir($dir)) {
+            $apps[] = $app;
+            $dirs[] = $dir;
+        }
+    }
+    // Loop through local framework checkout.
+    foreach (glob(dirname(__FILE__) . '/../../framework/*/migration') as $dir) {
+        $apps[] = 'horde_' . Horde_String::lower(basename(dirname($dir)));
+        $dirs[] = $dir;
+    }
+    // Loop through installed PEAR packages.
+    $pear = new PEAR_Config();
+    foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
+        $app = 'horde_' . Horde_String::lower(basename(dirname($dir)));;
+        if (!in_array($app, $apps)) {
+            $apps[] = $app;
+            $dirs[] = $dir;
+        }
+    }
+} else {
+    // Run a specific migration.
+    $app = $args[0];
+    if (in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null))) {
+        $dir = $registry->get('fileroot', $app) . '/migration';
+    } elseif (is_dir($app)) {
+        $dir = $app;
+        $app = 'horde_' . Horde_String::lower(basename(dirname($dir)));
+    } else {
+        $cli->fatal("$app is neither a configured Horde application nor a migration directory");
+    }
+    $dirs = array($dir);
+    $apps = array($app);
 }
 
 $action = 'up';
@@ -47,37 +80,38 @@ if (!empty($args[1])) {
 }
 
 // Run
-$dir = $registry->get('fileroot', $app) . '/migration/';
-
 $db = $injector->getInstance('Horde_Db_Adapter');
 $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
 if (!empty($args[2]) && strpos($args[2], 'debug') !== false) {
     $db->setLogger($logger);
 }
-$migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $app . '_schema_info'));
 
-$cli->message('Current schema version: ' . $migrator->getCurrentVersion());
+foreach ($apps as $key => $app) {
+    $migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dirs[$key], 'schemaTableName' => $app . '_schema_info'));
 
-try {
-    switch ($action) {
-    case 'up':
-        $cli->message('Migrating DB up.');
-        $migrator->up();
-        break;
+    $cli->message("Current $app schema version: " . $migrator->getCurrentVersion());
 
-    case 'down':
-        $cli->message('Migrating DB down.');
-        $migrator->down();
-        break;
+    try {
+        switch ($action) {
+        case 'up':
+            $cli->message('Migrating DB up.');
+            $migrator->up();
+            break;
 
-    case 'migrate':
-        $cli->message('Migrating DB to schema version ' . $targetVersion . '.');
-        $migrator->migrate($targetVersion);
-        break;
+        case 'down':
+            $cli->message('Migrating DB down.');
+            $migrator->down();
+            break;
+
+        case 'migrate':
+            $cli->message('Migrating DB to schema version ' . $targetVersion . '.');
+            $migrator->migrate($targetVersion);
+            break;
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage() . "\n";
+        exit(1);
     }
-} catch (Exception $e) {
-    echo $e->getMessage() . "\n";
-    exit(1);
-}
 
-$cli->message('Ending schema version: ' . $migrator->getCurrentVersion());
+    $cli->message("Ending $app schema version: " . $migrator->getCurrentVersion());
+}

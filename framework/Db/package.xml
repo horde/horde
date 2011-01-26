@@ -171,6 +171,10 @@
   </required>
   <optional>
    <package>
+    <name>Autoloader</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Cache</name>
     <channel>pear.horde.org</channel>
    </package>

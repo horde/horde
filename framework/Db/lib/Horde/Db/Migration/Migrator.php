@@ -46,9 +46,13 @@ class Horde_Db_Migration_Migrator
     /**
      * Constructor.
      *
-     * @param   string  $direction
-     * @param   string  $migrationsPath
-     * @param   integer $targetVersion
+     * @param Horde_Db_Adapter $connection  A DB connection object.
+     * @param Horde_Log_Logger $logger      A logger object.
+     * @param array $options                Additional options for the migrator:
+     *                                      - migrationsPath: directory with the
+     *                                        migration files.
+     *                                      - schemaTableName: table for storing
+     *                                        the schema version.
      *
      * @throws Horde_Db_Migration_Exception
      */
@@ -174,7 +178,7 @@ class Horde_Db_Migration_Migrator
         }
 
         // Sort by version.
-        ksort($migrations);
+        uksort($migrations, 'strnatcmp');
         $sorted = array_values($migrations);
 
         return $this->_isDown() ? array_reverse($sorted) : $sorted;
@@ -200,8 +204,21 @@ class Horde_Db_Migration_Migrator
      */
     protected function _getMigrationFiles()
     {
-        $files = glob($this->_migrationsPath . '/[0-9]*_*.php');
-        return $this->_isDown() ? array_reverse($files) : $files;
+        return array_keys(
+            iterator_to_array(
+                new RegexIterator(
+                    new RecursiveIteratorIterator(
+                        new RecursiveDirectoryIterator(
+                            $this->_migrationsPath,
+                            FilesystemIterator::SKIP_DOTS
+                        )
+                    ),
+                    '/\/\d+_.*\.php$/',
+                    RecursiveRegexIterator::MATCH,
+                    RegexIterator::USE_KEY
+                )
+            )
+        );
     }
 
     /**
