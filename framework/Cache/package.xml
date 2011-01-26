@@ -19,8 +19,8 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.</descriptio
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-11-16</date>
- <time>15:41:39</time>
+ <date>2011-01-26</date>
+ <time>21:38:11</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -65,6 +65,11 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.</descriptio
      <file name="Cache.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="migration">
+    <dir name="Horde_Cache">
+     <file name="1_horde_cache_base_tables.php" role="data" />
+    </dir> <!-- /migration/Horde_Cache -->
+   </dir> <!-- /migration -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -126,6 +131,7 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.</descriptio
    <install as="Horde/Cache/Storage/Sql.php" name="lib/Horde/Cache/Storage/Sql.php" />
    <install as="Horde/Cache/Storage/Stack.php" name="lib/Horde/Cache/Storage/Stack.php" />
    <install as="Horde/Cache/Storage/Xcache.php" name="lib/Horde/Cache/Storage/Xcache.php" />
+   <install as="migration/1_horde_cache_base_tables.php" name="migration/Horde_Cache/1_horde_cache_base_tables.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -170,7 +176,7 @@ Initial packaging.
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-11-16</date>
+   <date>2011-01-26</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Abstracted storage-specific code into &apos;Storage&apos; drivers.
