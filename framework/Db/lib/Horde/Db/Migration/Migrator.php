@@ -178,7 +178,7 @@ class Horde_Db_Migration_Migrator
         }
 
         // Sort by version.
-        ksort($migrations);
+        uksort($migrations, 'strnatcmp');
         $sorted = array_values($migrations);
 
         return $this->_isDown() ? array_reverse($sorted) : $sorted;
