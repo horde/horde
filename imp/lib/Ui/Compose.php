@@ -171,7 +171,7 @@ class IMP_Ui_Compose
 
         if (!is_null($indices)) {
             try {
-                $ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create($indices);
+                $ob = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
             } catch (Horde_Exception $e) {}
         }
 

@@ -109,7 +109,7 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
             if ($val == $number) {
                 $parts[$number] = $this->_mimepart->getContents();
             } else {
-                $ic = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $val));
+                $ic = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $val));
                 $parts[$ic->getMIMEMessage()->getContentTypeParameter('number')] = $ic->getBody();
             }
         }

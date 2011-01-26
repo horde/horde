@@ -45,7 +45,7 @@ class IMP_Imap_Acl
             throw new IMP_Exception(_("ACLs not configured for this server."));
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         if (!$imp_imap->queryCapability('ACL')) {
             throw new IMP_Exception(_("IMAP server does not support ACLs."));
         }
@@ -129,7 +129,7 @@ class IMP_Imap_Acl
     public function getACL($mbox)
     {
         try {
-            return $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getACL($mbox);
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getACL($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new IMP_Exception(_("Could not retrieve ACL"));
         }
@@ -147,7 +147,7 @@ class IMP_Imap_Acl
     public function editACL($mbox, $user, $acl)
     {
         try {
-            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->setACL($mbox, $user, array('remove' => empty($acl), 'rights' => implode('', $acl)));
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->setACL($mbox, $user, array('remove' => empty($acl), 'rights' => implode('', $acl)));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new IMP_Exception(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
         }
@@ -164,7 +164,7 @@ class IMP_Imap_Acl
     public function canEdit($mbox, $user)
     {
         try {
-            $rights = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->listACLRights($mbox, $user);
+            $rights = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listACLRights($mbox, $user);
             $rights = array_merge($rights['required'], $rights['optional']);
             foreach ($rights as $val) {
                 if (strpos($val, 'a') !== false) {

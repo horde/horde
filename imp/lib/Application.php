@@ -86,7 +86,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
             Horde_Util::getFormData('composeCache')) {
-            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
+            $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
         }
     }
 
@@ -97,16 +97,16 @@ class IMP_Application extends Horde_Registry_Application
     {
         /* Add IMP-specific factories. */
         $factories = array(
-            'IMP_AuthImap' => 'IMP_Injector_Factory_AuthImap',
-            'IMP_Crypt_Pgp' => 'IMP_Injector_Factory_Pgp',
-            'IMP_Crypt_Smime' => 'IMP_Injector_Factory_Smime',
-            'IMP_Flags' => 'IMP_Injector_Factory_Flags',
-            'IMP_Identity' => 'IMP_Injector_Factory_Identity',
-            'IMP_Imap_Tree' => 'IMP_Injector_Factory_Imaptree',
-            'IMP_Mail' => 'IMP_Injector_Factory_Mail',
-            'IMP_Quota' => 'IMP_Injector_Factory_Quota',
-            'IMP_Search' => 'IMP_Injector_Factory_Search',
-            'IMP_Sentmail' => 'IMP_Injector_Factory_Sentmail'
+            'IMP_AuthImap' => 'IMP_Factory_AuthImap',
+            'IMP_Crypt_Pgp' => 'IMP_Factory_Pgp',
+            'IMP_Crypt_Smime' => 'IMP_Factory_Smime',
+            'IMP_Flags' => 'IMP_Factory_Flags',
+            'IMP_Identity' => 'IMP_Factory_Identity',
+            'IMP_Imap_Tree' => 'IMP_Factory_Imaptree',
+            'IMP_Mail' => 'IMP_Factory_Mail',
+            'IMP_Quota' => 'IMP_Factory_Quota',
+            'IMP_Search' => 'IMP_Factory_Search',
+            'IMP_Sentmail' => 'IMP_Factory_Sentmail'
         );
 
         foreach ($factories as $key => $val) {
@@ -162,7 +162,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         /* Clean up dangling IMP_Compose objects. */
         foreach (array_keys($GLOBALS['session']->get('imp', 'compose_cache', Horde_Session::TYPE_ARRAY)) as $key) {
-            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create($key)->destroy('cancel');
+            $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($key)->destroy('cancel');
         }
 
         /* No need to keep Tree object in cache - it will be recreated next
@@ -260,7 +260,7 @@ class IMP_Application extends Horde_Registry_Application
                 $trash_folder = IMP::folderPref($trash_folder, true);
 
                 if ($injector->getInstance('IMP_Search')->isVTrash($trash_folder) ||
-                    !$injector->getInstance('IMP_Injector_Factory_Imap')->create()->isReadOnly($trash_folder)) {
+                    !$injector->getInstance('IMP_Factory_Imap')->create()->isReadOnly($trash_folder)) {
                     $menu->addArray(array(
                         'class' => '__noselection',
                         'icon' => 'empty_trash.png',
@@ -292,7 +292,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        if ($injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
+        if ($injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
             $menu->addArray(array(
                 'icon' => 'folders/folder.png',
                 'text' => _("_Folders"),

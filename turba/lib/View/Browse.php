@@ -68,7 +68,7 @@ class Turba_View_Browse
         } else {
             try {
                 $driver = $GLOBALS['injector']
-                    ->getInstance('Turba_Injector_Factory_Driver')
+                    ->getInstance('Turba_Factory_Driver')
                     ->create($source);
             } catch (Turba_Exception $e) {
                 $notification->push($e, 'horde.error');
@@ -160,7 +160,7 @@ class Turba_View_Browse
 
                 try {
                     $targetDriver = $GLOBALS['injector']
-                        ->getInstance('Turba_Injector_Factory_Driver')
+                        ->getInstance('Turba_Factory_Driver')
                         ->create($targetSource);
                 } catch (Turba_Exception $e) {
                     $notification->push($e, 'horde.error');
@@ -191,7 +191,7 @@ class Turba_View_Browse
                     // Try and load the driver for the source.
                     try {
                         $sourceDriver = $GLOBALS['injector']
-                            ->getInstance('Turba_Injector_Factory_Driver')
+                            ->getInstance('Turba_Factory_Driver')
                             ->create($objectSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');
@@ -303,7 +303,7 @@ class Turba_View_Browse
 
                     try {
                         $targetDriver = $GLOBALS['injector']
-                            ->getInstance('Turba_Injector_Factory_Driver')
+                            ->getInstance('Turba_Factory_Driver')
                             ->create($targetSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');
@@ -320,7 +320,7 @@ class Turba_View_Browse
                     $targetSource = $vars->get('targetAddressbook');
                     try {
                         $targetDriver = $GLOBALS['injector']
-                            ->getInstance('Turba_Injector_Factory_Driver')
+                            ->getInstance('Turba_Factory_Driver')
                             ->create($targetSource);
                     } catch (Turba_Exception $e) {
                         $notification->push($e, 'horde.error');

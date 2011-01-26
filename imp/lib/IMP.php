@@ -348,7 +348,7 @@ class IMP
             return $cache[$folder];
         }
 
-        $ns_info = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getNamespace($folder);
+        $ns_info = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($folder);
         $delimiter = is_null($ns_info) ? '' : $ns_info['delimiter'];
 
         /* Substitute any translated prefix text. */
@@ -418,7 +418,7 @@ class IMP
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
-        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders(), true);
+        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders(), true);
         if ($t->get('use_folders')) {
             Horde::addScriptFile('imp.js', 'imp');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
@@ -547,7 +547,7 @@ class IMP
      */
     static public function folderPref($folder, $append)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $def_ns = $imp_imap->defaultNamespace();
         $empty_ns = $imp_imap->getNamespace('');
 

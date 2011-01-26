@@ -66,12 +66,12 @@ class Ansel_Application extends Horde_Registry_Application
         }
 
         $factories = array(
-            'Ansel_Styles' => array('Ansel_Injector_Factory_Styles', 'create'),
-            'Ansel_Faces' => array('Ansel_Injector_Factory_Faces', 'create'),
-            'Ansel_Storage' => array('Ansel_Injector_Factory_Storage', 'create'),
+            'Ansel_Styles' => 'Ansel_Factory_Styles',
+            'Ansel_Faces' => 'Ansel_Factory_Faces',
+            'Ansel_Storage' => 'Ansel_Factory_Storage',
         );
         foreach ($factories as $interface => $v) {
-            $GLOBALS['injector']->bindFactory($interface, $v[0], $v[1]);
+            $GLOBALS['injector']->bindFactory($interface, $v, 'create');
         }
 
         // Create db, share, and vfs instances.

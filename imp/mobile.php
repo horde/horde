@@ -22,7 +22,7 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
 new Horde_View_Helper_Text($view);
 
-if (!$injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
+if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
     $view->allowFolders = false;
 } else {
     $view->allowFolders = true;

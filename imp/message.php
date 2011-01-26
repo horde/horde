@@ -32,11 +32,11 @@ $registry->setTimeZone();
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
  * the RECENT flag. */
 if (!($search_mbox = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$mailbox))) {
-    $injector->getInstance('IMP_Injector_Factory_Imap')->create()->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
+    $injector->getInstance('IMP_Factory_Imap')->create()->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
 }
 
 /* Make sure we have a valid index. */
-$imp_mailbox = $injector->getInstance('IMP_Injector_Factory_MailboxList')->create(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 if (!$imp_mailbox->isValidIndex()) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
@@ -61,7 +61,7 @@ if ($vars->actionID) {
 }
 
 /* Determine if mailbox is readonly. */
-$peek = $readonly = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->isReadOnly(IMP::$mailbox);
+$peek = $readonly = $injector->getInstance('IMP_Factory_Imap')->create()->isReadOnly(IMP::$mailbox);
 
 /* Get mailbox/UID of message. */
 $index_array = $imp_mailbox->getIMAPIndex();
@@ -211,7 +211,7 @@ $uid = $index_array['uid'];
 
 /* Parse the message. */
 try {
-    $imp_contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
+    $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
 } catch (IMP_Exception $e) {
     $imp_mailbox->removeMsgs(true);
     _returnToMailbox(null, 'message_missing');
@@ -223,10 +223,10 @@ try {
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
-    $flags_ret = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox_name, array(
+    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_FLAGS => true,
     ), array('ids' => array($uid)));
-    $fetch_ret = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox_name, array(
+    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true,
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $peek))
     ), array('ids' => array($uid)));
@@ -473,7 +473,7 @@ if (!$use_pop) {
     $n_template->set('flaglist_set', $form_set);
     $n_template->set('flaglist_unset', $form_unset);
 
-    if ($injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
+    if ($injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
         $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
         $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
         $n_template->set('options', IMP::flistSelect(array('heading' => _("This message to"), 'new_folder' => true, 'inc_tasklists' => true, 'inc_notepads' => true)));

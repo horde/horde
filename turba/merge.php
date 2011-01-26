@@ -16,7 +16,7 @@ Horde_Registry::appInit('turba');
 $source = Horde_Util::getFormData('source');
 $key = Horde_Util::getFormData('key');
 $mergeInto = Horde_Util::getFormData('merge_into');
-$driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($source);
+$driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 
 if ($url = Horde_Util::getFormData('url')) {
     $url = new Horde_Url($url, true);

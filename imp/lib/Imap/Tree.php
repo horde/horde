@@ -187,7 +187,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         unset($this->_cache['fulllist'], $this->_cache['subscribed']);
 
         /* Do IMAP specific initialization. */
-        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($session->get('imp', 'protocol') == 'imap') {
             $ns = $imp_imap->getNamespaceList();
             $ptr = reset($ns);
@@ -264,7 +264,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         }
 
         try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('attributes' => true, 'delimiter' => true, 'sort' => true));
 
             /* INBOX must always appear. */
@@ -470,7 +470,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         if (!empty($id)) {
             try {
-                $this->_insert($GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->listMailboxes($id, Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true, 'sort' => true)));
+                $this->_insert($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($id, Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true, 'sort' => true)));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
     }
@@ -1262,7 +1262,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     {
         if (!in_array($mailbox, array(self::OTHER_KEY, self::SHARED_KEY, self::VFOLDER_KEY)) &&
             (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)) {
-            return $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getNamespace($mailbox);
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($mailbox);
         }
         return null;
     }
@@ -1324,7 +1324,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             $this->changed = true;
         }
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
             return;
         }
 
@@ -1429,7 +1429,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     public function createMailboxName($parent, $new)
     {
         $ns_info = empty($parent)
-            ? $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->defaultNamespace()
+            ? $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->defaultNamespace()
             : $this->_getNamespace($parent);
 
         if (is_null($ns_info)) {

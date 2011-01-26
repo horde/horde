@@ -651,7 +651,7 @@ class IMP_Hooks
 //        // Requires the 'command' parameter to be defined in backends.php,
 //        // which defines the quota reporting function to run on the SSH
 //        // host.
-//        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+//        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 //        $host = $imap_ob->ob->getParam('hostspec');
 //        $user = $params['host'];
 //        $pass = $imap_ob->ob->getParam('password');

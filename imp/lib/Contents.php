@@ -99,7 +99,7 @@ class IMP_Contents
 
             /* Get the Horde_Mime_Part object for the given UID. */
             try {
-                $ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($this->_mailbox, array(
+                $ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, array(
                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
                 ), array('ids' => array($this->_uid)));
             } catch (Horde_Imap_Client_Exception $e) {
@@ -153,7 +153,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($this->_mailbox, array(
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_uid)));
             return $res[$this->_uid]['bodytext'][0];
@@ -212,7 +212,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
             if (empty($options['mimeheaders'])) {
                 if (!empty($res[$this->_uid]['bodypartdecode'][$id])) {
                     $this->lastBodyPartDecode = $res[$this->_uid]['bodypartdecode'][$id];
@@ -250,7 +250,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($this->_mailbox, array(
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_uid)));
@@ -284,7 +284,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($this->_mailbox, array(
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => $parse, 'peek' => true))
             ), array('ids' => array($this->_uid)));
             return $res[$this->_uid]['headertext'][0];
@@ -385,7 +385,7 @@ class IMP_Contents
             ? null
             : $options['type'];
 
-        $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mime_part, $this, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this, $type);
 
         switch ($mode) {
         case self::RENDER_FULL:
@@ -678,7 +678,7 @@ class IMP_Contents
         if ($is_atc &&
             $download_zip &&
             ($part['bytes'] > 204800)) {
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mime_part, $this, $mime_type);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this, $mime_type);
             if (!$viewer->getMetadata('compressed')) {
                 $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'iconImg downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
             }
@@ -896,7 +896,7 @@ class IMP_Contents
             $last_id = null;
 
             $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mime_part, $this);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this);
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
@@ -931,7 +931,7 @@ class IMP_Contents
         if (!is_object($part)) {
             $part = $this->getMIMEPart($part, array('nocontents' => true));
         }
-        $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($part, $this, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, $this, $type);
 
         if ($mask & self::RENDER_INLINE_AUTO) {
             $mask |= self::RENDER_INLINE | self::RENDER_INFO;

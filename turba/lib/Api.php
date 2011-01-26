@@ -51,7 +51,7 @@ class Turba_Api extends Horde_Registry_Api
         @list($source, $key) = explode('.', $id, 2);
         if (isset($GLOBALS['cfgSources'][$source]) && $key) {
             try {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+                $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
                 $object = $driver->getObject($key)->getValue('name');
             } catch (Turba_Exception $e) {}
         }
@@ -134,7 +134,7 @@ class Turba_Api extends Horde_Registry_Api
                 }
 
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($params['source']);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($params['source']);
                     if ($driver->checkDefaultShare($share, $cfgSources[$params['source']])) {
                         return $uid;
                     }
@@ -322,7 +322,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             // Load the Turba driver.
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($parts[1]);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($parts[1]);
 
             $contacts = $driver->search(array());
 
@@ -371,7 +371,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             // Load the Turba driver.
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($parts[1]);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($parts[1]);
 
             $contact = $driver->getObject($parts[2]);
 
@@ -418,7 +418,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         // Load the Turba driver.
-        $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($parts[1]);
+        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($parts[1]);
 
         return $driver->delete($parts[2]);
     }
@@ -458,7 +458,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
-            $storage = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $storage = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
             try {
                 $results = $storage->search(array());
@@ -518,7 +518,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
             $histories = $history->getByTimestamp(
                 '>', $timestamp, $filter,
@@ -589,7 +589,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
             $ts = $history->getActionTimestamp('turba:' . $driver->getName()
                 . ':' . $uid,
@@ -635,7 +635,7 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $import_source));
         }
 
-        $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($import_source);
+        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($import_source);
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
@@ -763,7 +763,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(_("Invalid ID"));
             }
 
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
             if (!$driver->hasPermission(Horde_Perms::READ)) {
                 continue;
@@ -827,7 +827,7 @@ class Turba_Api extends Horde_Registry_Api
     public function ownVCard()
     {
         $contact = $this->getOwnContactObject();
-        $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($contact['source']);
+        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($contact['source']);
 
         $vcard = $driver->tovCard($contact['contact'], '3.0', null, true);
         $vcard->setAttribute('VERSION', '3.0');
@@ -868,7 +868,7 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("The address book with your own contact doesn't exist anymore."));
         }
 
-        $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
         if (!$driver->hasPermission(Horde_Perms::READ)) {
             throw new Turba_Exception(_("You don't have sufficient permissions to read the address book that contains your own contact."));
@@ -933,7 +933,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(_("Invalid ID"));
             }
 
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
             if (!$GLOBALS['registry']->isAdmin() &&
                 !$driver->hasPermission(Horde_Perms::DELETE)) {
@@ -996,7 +996,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             // Check permissions.
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
             if (!$driver->hasPermission(Horde_Perms::EDIT)) {
                 continue;
             }
@@ -1121,7 +1121,7 @@ class Turba_Api extends Horde_Registry_Api
                     continue;
                 }
 
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
             // Determine the name of the column to sort by.
             $columns = isset($sort_columns[$source])
@@ -1274,7 +1274,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         if (isset($cfgSources[$source])) {
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
             $object = $driver->getObject($objectId);
 
@@ -1310,7 +1310,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         if (isset($cfgSources[$source])) {
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
             $objects = $driver->getObjects($objectIds);
 
@@ -1351,7 +1351,7 @@ class Turba_Api extends Horde_Registry_Api
         $results = array();
         foreach ($sources as $source) {
             if (isset($cfgSources[$source])) {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+                $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
                 $res = $driver->search(array());
                 if (!($res instanceof Turba_List)) {
@@ -1419,7 +1419,7 @@ class Turba_Api extends Horde_Registry_Api
         $objects = array();
         foreach ($time_categories as $category) {
             list($category, $source) = explode('/', $category, 2);
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
             $objects = array_merge($objects, $driver->listTimeObjects($start, $end, $category));
         }
 
@@ -1563,7 +1563,7 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("Invalid entry"));
         }
 
-        $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
@@ -1654,7 +1654,7 @@ class Turba_Api extends Horde_Registry_Api
                 continue;
             }
 
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
             $criterium = array('email' => $address);
             if (!isset($driver->map['email'])) {
                 if (isset($driver->map['emails'])) {
@@ -1719,7 +1719,7 @@ class Turba_Api extends Horde_Registry_Api
 
         foreach ($sources as $source) {
             if (isset($cfgSources[$source])) {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+                $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
                 if (!$driver->hasPermission(Horde_Perms::EDIT)) {
                     continue;
                 }

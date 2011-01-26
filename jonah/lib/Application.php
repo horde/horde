@@ -35,7 +35,7 @@ class Jonah_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $GLOBALS['injector']->bindFactory('Jonah_Driver', 'Jonah_Injector_Factory_Driver', 'create');
+        $GLOBALS['injector']->bindFactory('Jonah_Driver', 'Jonah_Factory_Driver', 'create');
 
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
             $url = Horde::url('delivery/rss.php', true, -1)

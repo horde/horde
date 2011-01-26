@@ -101,7 +101,7 @@ $compose_disable = !IMP::canCompose();
 $imp_folder = $injector->getInstance('IMP_Folder');
 $readonly_drafts = $readonly_sentmail = false;
 $draft = $prefs->getValue('drafts_folder');
-$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 if (!empty($draft)) {
     $draft = IMP::folderPref($draft, true);
     $readonly_drafts = $imp_folder->exists($draft) &&
@@ -114,7 +114,7 @@ if ($readonly_sentmail) {
 }
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create($vars->composeCache);
+$imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
 $imp_compose->pgpAttachPubkey((bool) $vars->pgp_attach_pubkey);
 $imp_compose->userLinkAttachments((bool) $vars->link_attachments);
 

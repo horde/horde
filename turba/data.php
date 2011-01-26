@@ -242,7 +242,7 @@ case 'export':
     foreach ($sources as $source => $objectkeys) {
         /* Create a Turba storage instance. */
         try {
-            $driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($source);
+            $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
         } catch (Turba_Exception $e) {
             $notification->push($e, 'horde.error');
             $error = true;
@@ -335,7 +335,7 @@ case 'export':
 case Horde_Data::IMPORT_FILE:
     $dest = Horde_Util::getFormData('dest');
     try {
-        $driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($dest);
+        $driver = $injector->getInstance('Turba_Factory_Driver')->create($dest);
     } catch (Turba_Exception $e) {
         $notification->push($e, 'horde.error');
         $error = true;
@@ -423,7 +423,7 @@ if (is_array($next_step)) {
     /* Create a Turba storage instance. */
     $dest = $session->get('horde', 'import_data/target');
     try {
-        $driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($dest);
+        $driver = $injector->getInstance('Turba_Factory_Driver')->create($dest);
     } catch (Turba_Exception $e) {
         $notification->push($e, 'horde.error');
         $driver = null;

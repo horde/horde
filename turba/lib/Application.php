@@ -400,7 +400,7 @@ class Turba_Application extends Horde_Registry_Application
             if (empty($source['use_shares'])) {
                 // Shares not enabled for this source
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
                 } catch (Turba_Exception $e) {
                     Horde::logMessage($e, 'ERR');
                     throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
@@ -433,7 +433,7 @@ class Turba_Application extends Horde_Registry_Application
             if (!empty($params['default'])) {
                 $config = Turba::getSourceFromShare($share);
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($config);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($config);
                 } catch (Turba_Exception $e) {
                     continue;
                 }

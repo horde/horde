@@ -22,7 +22,7 @@ if (!isset($GLOBALS['cfgSources'][$source])) {
 
 /* Set the contact from the key requested. */
 try {
-    $driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($source);
+    $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 } catch (Turba_Exception $e) {
     $notification->push($e, 'horde.error');
     Horde::url($prefs->getValue('initial_page'), true)->redirect();

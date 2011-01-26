@@ -46,7 +46,7 @@ if (!empty($request)) {
     $new_mail = (isset($request_parts[1]) && ($request_parts[1] === 'new'));
 }
 
-$imp_mailbox = $injector->getInstance('IMP_Injector_Factory_MailboxList')->create($mailbox);
+$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create($mailbox);
 $imp_search = $injector->getInstance('IMP_Search');
 
 /* Obtain some information describing the mailbox state. */

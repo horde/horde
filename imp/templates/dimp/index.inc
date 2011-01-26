@@ -14,7 +14,7 @@ $use_trash = $prefs->getValue('use_trash');
 $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 
-$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
 // Quota information
 $show_quota = $session->get('imp', 'imap_quota')

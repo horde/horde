@@ -37,7 +37,7 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 /* Determine if mailbox is readonly. */
-$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $readonly = $imp_imap->isReadOnly(IMP::$mailbox);
 
 /* Get the base URL for this page. */
@@ -125,7 +125,7 @@ case 'rs':
 }
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = $injector->getInstance('IMP_Injector_Factory_MailboxList')->create(IMP::$mailbox);
+$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create(IMP::$mailbox);
 $pageOb = $imp_mailbox->buildMailboxPage($vars->p, $vars->s);
 
 /* Generate page title. */

@@ -40,7 +40,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4Auth extends Horde_LoginTasks_Sys
     protected function _upgradeExpireImapCache()
     {
         try {
-            $ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->ob;
+            $ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->ob;
 
             if ($cache = $ob->getCache()) {
                 $ob->login();

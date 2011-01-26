@@ -66,7 +66,7 @@ class IMP_Prefs_Ui
             $ui->suppressGroups[] = 'smime';
         }
 
-        if (!$injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
+        if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
             $ui->suppressGroups[] = 'searches';
         }
 
@@ -129,7 +129,7 @@ class IMP_Prefs_Ui
             case 'alternative_display':
                 $mock_part = new Horde_Mime_Part();
                 $mock_part->setType('text/html');
-                $v = $injector->getInstance('IMP_Injector_Factory_MimeViewer')->create($mock_part);
+                $v = $injector->getInstance('IMP_Factory_MimeViewer')->create($mock_part);
 
                 if (!$v->canRender('inline')) {
                     $ui->suppress[] = 'alternative_display';
@@ -1020,7 +1020,7 @@ class IMP_Prefs_Ui
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        if (!$injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
+        if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
             $t->set('nofolder', true);
         } else {
             $mailbox_selected = $prefs->getValue('initial_page');
@@ -1441,7 +1441,7 @@ class IMP_Prefs_Ui
     {
         global $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if (!$imp_imap->allowFolders() ||
             $prefs->isLocked('sent_mail_folder')) {
@@ -1932,7 +1932,7 @@ class IMP_Prefs_Ui
     {
         global $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if (!$imp_imap->allowFolders() ||
             $prefs->isLocked($pref)) {
@@ -1947,7 +1947,7 @@ class IMP_Prefs_Ui
             $folder = substr($folder, strlen(self::PREF_SPECIALUSE));
         } elseif (!empty($new)) {
             $new = Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP');
-            $folder = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->appendNamespace($new);
+            $folder = $injector->getInstance('IMP_Factory_Imap')->create()->appendNamespace($new);
             if (!$injector->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'), array($type => true))) {
                 $folder = null;
             }
@@ -1968,7 +1968,7 @@ class IMP_Prefs_Ui
     protected function _getSpecialUse($use)
     {
         if (is_null($this->_cache)) {
-            $this->_cache = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
+            $this->_cache = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
                 'attributes' => true,
                 'special_use' => true,
                 'sort' => true

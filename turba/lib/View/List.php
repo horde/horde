@@ -161,7 +161,7 @@ class Turba_View_List implements Countable
         global $prefs, $session, $default_source, $copymove_source_options;
 
         $driver = $GLOBALS['injector']
-            ->getInstance('Turba_Injector_Factory_Driver')
+            ->getInstance('Turba_Factory_Driver')
             ->create($default_source);
         $hasDelete = $driver->hasPermission(Horde_Perms::DELETE);
         $hasEdit = $driver->hasPermission(Horde_Perms::EDIT);
@@ -424,7 +424,7 @@ class Turba_View_List implements Countable
                                             'name' => '&nbsp;&nbsp;' . htmlspecialchars($srcConfig['title']),
                                             'source' => htmlspecialchars($src));
 
-                $srcDriver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($src);
+                $srcDriver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($src);
                 try {
                     $listList = $srcDriver->search(
                         array('__type' => 'Group'),

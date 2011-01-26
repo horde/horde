@@ -28,8 +28,8 @@ $mode = $vars->mode
     ? $vars->mode
     : 'thread';
 
-$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
-$imp_mailbox = $injector->getInstance('IMP_Injector_Factory_MailboxList')->create(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 
 $error = false;
 if ($mode == 'thread') {
@@ -95,7 +95,7 @@ foreach ($imp_indices->indices() as $mbox => $idxlist) {
 
         /* Get the body of the message. */
         $curr_msg = $curr_tree = array();
-        $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
+        $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
         $mime_id = $contents->findBody();
         if ($contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
             $ret = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);

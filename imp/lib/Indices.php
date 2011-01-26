@@ -81,7 +81,7 @@ class IMP_Indices implements Countable, Iterator
                     }
                 }
             } elseif (is_string($data)) {
-                $indices = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->fromSequenceString($data);
+                $indices = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->fromSequenceString($data);
             } elseif ($data instanceof IMP_Compose) {
                 $indices = array(
                     $data->getMetadata('mailbox') => array($data->getMetadata('uid'))
@@ -184,7 +184,7 @@ class IMP_Indices implements Countable, Iterator
      */
     public function __toString()
     {
-        return $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->toSequenceString($this->_indices, array('mailbox' => true));
+        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->toSequenceString($this->_indices, array('mailbox' => true));
     }
 
     /* Iterator methods. */

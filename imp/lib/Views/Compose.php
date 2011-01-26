@@ -45,7 +45,7 @@ class IMP_Views_Compose
         $t->setOption('gettext', true);
 
         if (!empty($args['composeCache'])) {
-            $imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create($args['composeCache']);
+            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($args['composeCache']);
             $t->set('composeCache', $args['composeCache']);
         }
 
@@ -140,7 +140,7 @@ class IMP_Views_Compose
                 $t->set('read_receipt_set', ($d_read != 'ask'));
             }
 
-            $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
             $t->set('save_sent_mail', ($imp_imap->allowFolders() && !$prefs->isLocked('save_sent_mail')));
             $t->set('priority', $prefs->getValue('set_priority'));
             if (!$prefs->isLocked('default_encrypt') &&

@@ -2753,7 +2753,7 @@ class Kronolith
                 break;
             }
 
-            self::$_instances[$driver] = $GLOBALS['injector']->getInstance('Kronolith_Injector_Factory_Driver')->create($driver, $params);
+            self::$_instances[$driver] = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create($driver, $params);
         }
 
         if (!is_null($calendar)) {

@@ -219,7 +219,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         /* Add information necessary to log replies/forwards when finally
          * sent. */
         if ($this->getMetadata('reply_type')) {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             try {
                 $imap_url = $imp_imap->getUtils()->createUrl(array(
                     'type' => $GLOBALS['session']->get('imp', 'protocol'),
@@ -287,7 +287,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
+            $ids = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
 
             if ($old_uid) {
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
@@ -322,7 +322,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         global $injector, $prefs;
 
         try {
-            $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create($indices);
+            $contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
         } catch (IMP_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -419,7 +419,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         if ($val) {
-            $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
             $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
 
             try {
@@ -429,7 +429,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
                     ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
-                    $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
+                    $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                     $this->_metadata['mailbox'] = $imap_url['mailbox'];
                     $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
@@ -678,7 +678,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             try {
-                $injector->getInstance('IMP_Injector_Factory_Imap')->create()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
+                $injector->getInstance('IMP_Factory_Imap')->create()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -1381,7 +1381,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
+            : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
 
         $force = false;
         if (in_array($type, array('reply', 'reply_auto', '*'))) {
@@ -1665,7 +1665,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
-            $subject = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->getBaseSubject($header['subject'], array('keepblob' => true));
+            $subject = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($header['subject'], array('keepblob' => true));
             $header['title'] = _("Forward") . ': ' . $subject;
             $header['subject'] = 'Fwd: ' . $subject;
         } else {
@@ -1861,7 +1861,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $attached = 0;
         foreach ($indices as $mbox => $idx) {
             ++$attached;
-             $contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
+             $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
              $headerob = $contents->getHeaderOb();
 
              $part = new Horde_Mime_Part();
@@ -1880,7 +1880,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             } else {
                 $name = Horde_String::truncate($name, 80);
             }
-            return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->getBaseSubject($name, array('keepblob' => true));
+            return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($name, array('keepblob' => true));
         }
 
         return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
@@ -2753,7 +2753,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     public function getContentsOb()
     {
         return $this->getMetadata('reply_type')
-            ? $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
+            ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
             : null;
     }
 

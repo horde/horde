@@ -38,7 +38,7 @@ class Turba_List implements Countable
         foreach ($ids as $value) {
             list($source, $key) = explode(':', $value);
             try {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($source);
+                $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
                 $this->insert($driver->getObject($key));
             } catch (Turba_Exception $e) {}
         }

@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
 
 /* Redirect back to the mailbox if folder use is not allowed. */
-if (!$injector->getInstance('IMP_Injector_Factory_Imap')->create()->allowFolders()) {
+if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
     Horde::url('mailbox-mimp.php', true)->redirect();
 }

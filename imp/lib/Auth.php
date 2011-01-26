@@ -80,7 +80,7 @@ class IMP_Auth
             $credentials['server'] = self::getAutoLoginServer();
         }
 
-        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create($credentials['server']);
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create($credentials['server']);
 
         // Check for valid IMAP Client object.
         if (!$imp_imap->ob) {
@@ -264,7 +264,7 @@ class IMP_Auth
      */
     static protected function _canAutoLogin($server_key = null, $force = false)
     {
-        if (($servers = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->loadServerConfig()) === false) {
+        if (($servers = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->loadServerConfig()) === false) {
             return false;
         }
 
@@ -351,7 +351,7 @@ class IMP_Auth
     {
         global $browser, $conf, $injector, $prefs, $registry, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create(null, true);
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create(null, true);
         $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));
         if ($ptr === false) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
@@ -487,7 +487,7 @@ class IMP_Auth
         }
 
         /* Check for drafts due to session timeouts. */
-        $imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create()->recoverSessionExpireDraft();
+        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create()->recoverSessionExpireDraft();
 
         self::_logMessage(true, $imp_imap);
     }

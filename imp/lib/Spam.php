@@ -43,7 +43,7 @@ class IMP_Spam
             return 0;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $report_count = $result = 0;
 
         foreach ($indices->indices() as $mbox => $msgIndices) {
@@ -57,7 +57,7 @@ class IMP_Spam
                 /* Fetch the raw message contents (headers and complete
                  * body). */
                 try {
-                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
+                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
                 } catch (IMP_Exception $e) {
                     continue;
                 }
@@ -119,7 +119,7 @@ class IMP_Spam
                     }
 
                     if (!isset($imp_compose)) {
-                        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create();
+                        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create();
                         try {
                             $from_line = $GLOBALS['injector']->getInstance('IMP_Identity')->getFromLine();
                         } catch (Horde_Exception $e) {

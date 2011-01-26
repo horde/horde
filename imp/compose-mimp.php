@@ -64,7 +64,7 @@ $sent_mail_folder = $identity->getValue('sent_mail_folder');
 
 /* Determine if mailboxes are readonly. */
 $readonly_drafts = false;
-$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 if (!empty($draft)) {
     $draft = IMP::folderPref($draft, true);
     $readonly_drafts = $imp_folder->exists($draft) &&
@@ -78,7 +78,7 @@ $save_sent_mail = ($imp_folder->exists($sent_mail_folder) && $imp_imap->isReadOn
 $compose_disable = !IMP::canCompose();
 
 /* Initialize objects. */
-$imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create($vars->composeCache);
+$imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
 $imp_ui = new IMP_Ui_Compose();
 
 foreach (array_keys($display_hdrs) as $val) {

@@ -83,7 +83,7 @@ foreach($files as $file) {
 
     // Initiate driver
     try {
-        $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($import_source);
+        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($import_source);
     } catch (Turba_Exception $e) {
         PEAR::raiseError(sprintf(_("Connection failed: %s"), $e->getMessage()), 'horde.error', null, null, $import_source);
         continue;

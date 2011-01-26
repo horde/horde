@@ -65,7 +65,7 @@ if (!Horde_Util::nonInputVar('from_message_page')) {
 
 $do_filter = false;
 $imp_flags = $injector->getInstance('IMP_Flags');
-$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $indices = new IMP_Indices($vars->indices);
 
 /* Run through the action handlers */
@@ -235,7 +235,7 @@ if ($imp_imap->allowFolders()) {
 }
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = $injector->getInstance('IMP_Injector_Factory_MailboxList')->create(IMP::$mailbox);
+$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create(IMP::$mailbox);
 $pageOb = $imp_mailbox->buildMailboxPage($vars->page, $start);
 $show_preview = $prefs->getValue('preview_enabled');
 

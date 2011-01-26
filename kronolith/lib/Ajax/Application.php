@@ -850,7 +850,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         $result = new stdClass;
         try {
-            $driver = $GLOBALS['injector']->getInstance('Kronolith_Injector_Factory_Driver')->create('Ical', $params);
+            $driver = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create('Ical', $params);
             $driver->open($this->_vars->url);
             $ical = $driver->getRemoteCalendar(false);
             $result->success = true;

@@ -70,7 +70,7 @@ class IMP_Ui_Message
      */
     public function MDNCheck($mailbox, $uid, $headers, $confirmed = false)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $pref_val = $GLOBALS['prefs']->getValue('send_mdn');
 
         if (!$pref_val || $imp_imap->isReadOnly($mailbox)) {

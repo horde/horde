@@ -117,7 +117,7 @@ class IMP_Flags implements ArrayAccess, Serializable
         try {
             /* Make sure we are in R/W mailbox mode (SELECT). No flags are
              * allowed in EXAMINE mode. */
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             $imp_imap->openMailbox($opts['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
             $status = $imp_imap->status($opts['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
         } catch (Horde_Imap_Client_Exception $e) {

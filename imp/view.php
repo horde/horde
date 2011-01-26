@@ -57,7 +57,7 @@ Horde_Registry::appInit('imp', array(
  * message data. Rather, we must use the IMP_Compose object to get the
  * necessary data for Horde_Mime_Part. */
 if ($vars->actionID == 'compose_attach_preview') {
-    $imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create($vars->composeCache);
+    $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
     $mime = $imp_compose->buildAttachment($vars->id);
     $mime->setMimeId($vars->id);
 
@@ -68,7 +68,7 @@ if ($vars->actionID == 'compose_attach_preview') {
     if (!$vars->uid || !$vars->mailbox) {
         exit;
     }
-    $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
 }
 
 /* Run through action handlers */

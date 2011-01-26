@@ -92,7 +92,7 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
 
         // Initiate driver
         try {
-            $driver = $injector->getInstance('Turba_Injector_Factory_Driver')->create($import_source);
+            $driver = $injector->getInstance('Turba_Factory_Driver')->create($import_source);
         } catch (Turba_Exception $e) {
             $cli->message('  ' . sprintf(_("Connection failed: %s"), $e->getMessage()), 'cli.error');
             continue;

@@ -23,7 +23,7 @@ Horde_Registry::appInit('imp', array(
 Horde::addScriptFile('folders.js', 'imp');
 
 /* Redirect back to the mailbox if folder use is not allowed. */
-$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 if (!$imp_imap->allowFolders()) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
     Horde::url('mailbox.php', true)->redirect();
@@ -251,7 +251,7 @@ case 'folders_empty_mailbox_confirm':
             }
 
             try {
-                $elt_info = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->status($val, Horde_Imap_Client::STATUS_MESSAGES);
+                $elt_info = $injector->getInstance('IMP_Factory_Imap')->create()->status($val, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
                 $elt_info = null;
             }
@@ -427,7 +427,7 @@ if (!empty($imaptree->recent)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
     foreach ($imaptree->recent as $mbox => $nm) {
-        $injector->getInstance('IMP_Injector_Factory_Imap')->create()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+        $injector->getInstance('IMP_Factory_Imap')->create()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
     }
 
     IMP::newmailAlerts($imaptree->recent);

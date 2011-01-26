@@ -106,7 +106,7 @@ class IMP_Views_ListMessages
         }
 
         /* Generate the sorted mailbox list now. */
-        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MailboxList')->create($mbox);
+        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Factory_MailboxList')->create($mbox);
         $sorted_list = $imp_mailbox->getSortedList();
         $msgcount = count($sorted_list['s']);
 
@@ -173,7 +173,7 @@ class IMP_Views_ListMessages
             }
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         /* These entries may change during a session, so always need to
          * update them. */

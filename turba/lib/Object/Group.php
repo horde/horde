@@ -69,7 +69,7 @@ class Turba_Object_Group extends Turba_Object
         if ($sourceId == $this->getSource()) {
             $contact = $this->driver->getObject($contactId);
         } else {
-            $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($sourceId);
+            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($sourceId);
             $contact = $driver->getObject($contactId);
         }
 
@@ -172,7 +172,7 @@ class Turba_Object_Group extends Turba_Object
                 }
 
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Injector_Factory_Driver')->create($sourceId);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($sourceId);
                 } catch (Turba_Exception $e) {
                     continue;
                 }
