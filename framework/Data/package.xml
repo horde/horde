@@ -363,10 +363,6 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>File_Csv</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Icalendar</name>
     <channel>pear.horde.org</channel>
    </package>
