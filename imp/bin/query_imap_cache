@@ -3,8 +3,8 @@
 /**
  * Query the contents of a user's cached IMAP data.
  *
- * Usage: query-imap-cache.php [--user=username] [--pass=password]
- *                             [--server=serverkey]
+ * Usage: query_imap_cache [--user=username] [--pass=password]
+ *                         [--server=serverkey]
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
