@@ -10,11 +10,11 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View {
+class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View
+{
+    public $view = 'day';
 
-    var $view = 'day';
-
-    function _title()
+    protected function _title()
     {
         global $registry, $prefs;
 
@@ -31,7 +31,7 @@ class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View {
             . '</a>';
     }
 
-    function _hours()
+    protected function _hours()
     {
         global $prefs;
 
@@ -49,7 +49,7 @@ class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View {
         return $hours_html;
     }
 
-    function _render($day = null)
+    protected function _render($day = null)
     {
         $this->_start = new Horde_Date($day);
         $this->_start->hour = $this->_startHour;

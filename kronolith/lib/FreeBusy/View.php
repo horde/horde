@@ -10,41 +10,69 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View {
+class Kronolith_FreeBusy_View
+{
+    protected $_requiredMembers = array();
+    protected $_optionalMembers = array();
+    protected $_requiredResourceMembers = array();
+    protected $_optionalResourceMembers = array();
+    protected $_timeBlocks = array();
 
-    var $_requiredMembers = array();
-    var $_optionalMembers = array();
-    var $_requiredResourceMembers = array();
-    var $_optionalResourceMembers = array();
-    var $_timeBlocks = array();
+    protected $_startHour;
+    protected $_endHour;
 
-    var $_startHour;
-    var $_endHour;
+    protected $_start;
+    protected $_end;
 
-    var $_start;
-    var $_end;
-
-    function addRequiredMember($vFreebusy)
+    /**
+     * Adds a required attendee
+     *
+     * @param Kronolith_Freebusy $vFreebusy
+     */
+    public function addRequiredMember(Kronolith_Freebusy $vFreebusy)
     {
         $this->_requiredMembers[] = clone $vFreebusy;
     }
 
-    function addOptionalMember($vFreebusy)
+    /**
+     * Adds an optional attendee
+     *
+     * @param Kronolith_Freebusy $vFreebusy
+     */
+    public function addOptionalMember(Kronoolith_Freebusy $vFreebusy)
     {
         $this->_optionalMembers[] = clone $vFreebusy;
     }
 
-    function addOptionalResourceMember($vFreebusy)
+    /**
+     * Adds an optional resource
+     *
+     * @param Kronolith_Freebusy $vFreebusy
+     */
+    public function addOptionalResourceMember(Kronolith_Freebusy $vFreebusy)
     {
         $this->_optionalResourceMembers[] = clone $vFreebusy;
     }
 
-    function addRequiredResourceMember($vFreebusy)
+    /**
+     * Adds a required resource
+     *
+     * @param Kronolith_Freebusy $vFreebusy
+     */
+    public function addRequiredResourceMember(Kronolith_Freebusy $vFreebusy)
     {
         $this->_requiredResourceMembers[] = clone $vFreebusy;
     }
 
-    function render($day = null)
+    /**
+     * Renders the fb view
+     *
+     * @global Horde_Prefs $prefs
+     * @param  Horde_Date $day  The day to render
+     *
+     * @return string  The html of the rendered fb view.
+     */
+    public function render($day = null)
     {
         global $prefs;
 
@@ -140,8 +168,7 @@ class Kronolith_FreeBusy_View {
             $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html');
         }
 
-        // Required Resources
-        //if (count($this->_requiredResourceMembers) > 0) {
+        // Resources
         if (count($this->_requiredResourceMembers) > 0 || count($this->_optionalResourceMembers) > 0) {
             $template = $GLOBALS['injector']->createInstance('Horde_Template');
             $rows = '';
@@ -169,28 +196,6 @@ class Kronolith_FreeBusy_View {
             $template->set('legend', '');
             $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html');
         }
-
-//        // Optional Resources
-//        if (count($this->_optionalResourceMembers) > 0) {
-//            $template = $GLOBALS['injector']->createInstance('Horde_Template');
-//            $rows = '';
-//            foreach ($this->_optionalResourceMembers as $member) {
-//                $member->simplify();
-//                $blocks = $this->_getBlocks($member, $member->getBusyPeriods(), 'busyblock.html', _("Busy"));
-//                $template = $GLOBALS['injector']->createInstance('Horde_Template');
-//                $template->set('blocks', $blocks);
-//                $template->set('name', $member->getName());
-//                $rows .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/row.html');
-//            }
-//            $template = $GLOBALS['injector']->createInstance('Horde_Template');
-//            $template->set('title', _("Optional Resources"));
-//            $template->set('rows', $rows);
-//            $template->set('span', count($this->_timeBlocks));
-//            $template->set('hours', $hours_html);
-//            $template->set('legend', '');
-//            $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html');
-//        }
-
 
         // Possible meeting times.
         $optimal->setAttribute('ORGANIZER', _("All Attendees"));
@@ -253,7 +258,7 @@ class Kronolith_FreeBusy_View {
      * @return mixed  The newly created concrete Kronolith_FreeBusy_View
      *                instance, or false on an error.
      */
-    function factory($view)
+    static public function factory($view)
     {
         $driver = basename($view);
         $class = 'Kronolith_FreeBusy_View_' . $driver;
@@ -279,7 +284,7 @@ class Kronolith_FreeBusy_View {
      * @return mixed  The created concrete Kronolith_FreeBusy_View instance, or
      *                false on an error.
      */
-    function &singleton($view)
+    static public function &singleton($view)
     {
         static $instances = array();
 
@@ -290,7 +295,17 @@ class Kronolith_FreeBusy_View {
         return $instances[$view];
     }
 
-    function _getBlocks($member, $periods, $blockfile, $label)
+    /**
+     * Render the blocks
+     *
+     * @param Horde_Icalendar_Vfreebusy $member  Member's freebusy info
+     * @param array $periods                     Free periods
+     * @param string $blockfile                  Template file to use for blocks
+     * @param string $label                      Label to use
+     *
+     * @return string  The block html
+     */
+    protected function _getBlocks($member, $periods, $blockfile, $label)
     {
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->set('label', $label);

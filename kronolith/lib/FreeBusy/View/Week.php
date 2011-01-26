@@ -10,12 +10,23 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View {
+class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View
+{
+    /**
+     * This view type
+     *
+     * @var string
+     */
+    public $view = 'week';
 
-    var $view = 'week';
-    var $_days = 7;
+    /**
+     * Number of days
+     *
+     * @var integer
+     */
+    protected $_days = 7;
 
-    function _title()
+    protected function _title()
     {
         global $prefs;
 
@@ -35,7 +46,7 @@ class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View {
             . '</a>';
     }
 
-    function _hours()
+    protected function _hours()
     {
         global $prefs;
 
@@ -77,7 +88,7 @@ class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View {
         return $hours_html;
     }
 
-    function _render($day = null)
+    protected function _render($day = null)
     {
         $this->_start = new Horde_Date(Date_Calc::beginOfWeek($day->mday, $day->month, $day->year, '%Y%m%d000000'));
         $this->_end = new Horde_Date($this->_start);

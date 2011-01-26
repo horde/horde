@@ -10,9 +10,20 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View_Workweek extends Kronolith_FreeBusy_View_Week {
-
+class Kronolith_FreeBusy_View_Workweek extends Kronolith_FreeBusy_View_Week
+{
+   /**
+     * This view type
+     *
+     * @var string
+     */
     var $view = 'workweek';
+
+    /**
+     * Number of days
+     *
+     * @var integer
+     */
     var $_days = 5;
 
 }
