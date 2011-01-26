@@ -49,7 +49,7 @@ class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View
         return $hours_html;
     }
 
-    protected function _render($day = null)
+    protected function _render(Horde_Date $day = null)
     {
         $this->_start = new Horde_Date($day);
         $this->_start->hour = $this->_startHour;

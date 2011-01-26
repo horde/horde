@@ -10,7 +10,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View
+abstract class Kronolith_FreeBusy_View
 {
     protected $_requiredMembers = array();
     protected $_optionalMembers = array();
@@ -72,7 +72,7 @@ class Kronolith_FreeBusy_View
      *
      * @return string  The html of the rendered fb view.
      */
-    public function render($day = null)
+    public function render(Horde_Date $day = null)
     {
         global $prefs;
 
@@ -351,5 +351,9 @@ class Kronolith_FreeBusy_View
 
         return $blocks;
     }
+
+    abstract protected function _title();
+    abstract protected function _hours();
+    abstract protected function _render(Horde_Date $day = null);
 
 }
