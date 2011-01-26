@@ -108,6 +108,7 @@ class Components_Pear_Package_Contents_Factory
     private function _getRoles($path)
     {
         switch ($path) {
+        case 'content/':
         case 'horde/':
         case 'imp/':
         case 'ingo/':

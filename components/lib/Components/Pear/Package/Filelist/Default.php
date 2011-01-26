@@ -76,7 +76,7 @@ class Components_Pear_Package_Filelist_Default
                 $horde_role = true;
                 if (in_array(
                         $this->_package->getName(),
-                        array('imp', 'ingo', 'kronolith', 'mnemo', 'nag', 'turba')
+                        array('content', 'imp', 'ingo', 'kronolith', 'mnemo', 'nag', 'turba')
                     )) {
                     $prefix = $this->_package->getName() . '/';
                 } else {

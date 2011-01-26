@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>content</name>
+ <channel>pear.horde.org</channel>
+ <summary>Tagging application</summary>
+ <description>This application provides tagging support for the other Horde applications.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-01-26</date>
+ <time>10:30:11</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="app">
+    <dir name="controllers">
+     <file baseinstalldir="/" name="ApplicationController.php" role="horde" />
+     <file baseinstalldir="/" name="TagController.php" role="horde" />
+    </dir> <!-- /app/controllers -->
+    <dir name="views">
+     <dir name="Tag">
+      <file baseinstalldir="/" name="recentTags.html.php" role="horde" />
+      <file baseinstalldir="/" name="searchTags.html.php" role="horde" />
+     </dir> <!-- /app/views/Tag -->
+    </dir> <!-- /app/views -->
+   </dir> <!-- /app -->
+   <dir name="bin">
+    <file baseinstalldir="/" name="object_add.php" role="script" />
+    <file baseinstalldir="/" name="object_delete.php" role="script" />
+    <file baseinstalldir="/" name="tag.php" role="script" />
+    <file baseinstalldir="/" name="tag_add.php" role="script" />
+    <file baseinstalldir="/" name="tag_delete.php" role="script" />
+    <file baseinstalldir="/" name="untag.php" role="script" />
+   </dir> <!-- /bin -->
+   <dir name="doc">
+    <file baseinstalldir="/" name="TODO.txt" role="doc" />
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Index">
+     <file baseinstalldir="/" name="Index.php" role="php" />
+     <file baseinstalldir="/" name="IndexMapper.php" role="php" />
+    </dir> <!-- /lib/Index -->
+    <dir name="Linkbacks">
+     <file baseinstalldir="/" name="Linkback.php" role="php" />
+     <file baseinstalldir="/" name="LinkbackMapper.php" role="php" />
+    </dir> <!-- /lib/Linkbacks -->
+    <dir name="Objects">
+     <file baseinstalldir="/" name="Manager.php" role="php" />
+     <file baseinstalldir="/" name="Object.php" role="php" />
+     <file baseinstalldir="/" name="ObjectMapper.php" role="php" />
+    </dir> <!-- /lib/Objects -->
+    <dir name="Relationships">
+     <file baseinstalldir="/" name="Relationship.php" role="php" />
+     <file baseinstalldir="/" name="RelationshipMapper.php" role="php" />
+    </dir> <!-- /lib/Relationships -->
+    <dir name="Tags">
+     <file baseinstalldir="/" name="Tag.php" role="php" />
+     <file baseinstalldir="/" name="TagMapper.php" role="php" />
+    </dir> <!-- /lib/Tags -->
+    <dir name="Types">
+     <file baseinstalldir="/" name="Manager.php" role="php" />
+    </dir> <!-- /lib/Types -->
+    <dir name="Users">
+     <file baseinstalldir="/" name="Manager.php" role="php" />
+    </dir> <!-- /lib/Users -->
+    <file baseinstalldir="/" name="Exception.php" role="php" />
+    <file baseinstalldir="/" name="Tagger.php" role="php" />
+   </dir> <!-- /lib -->
+   <dir name="migration">
+    <file baseinstalldir="/" name="1_rampage_base_tables.php" role="data" />
+    <file baseinstalldir="/" name="2_rampage_tag_tables.php" role="data" />
+   </dir> <!-- /migration -->
+   <dir name="test">
+    <dir name="fixtures">
+     <file baseinstalldir="/" name="schema.sql" role="test" />
+    </dir> <!-- /test/fixtures -->
+    <dir name="Tags">
+     <file baseinstalldir="/" name="TaggerTest.php" role="test" />
+    </dir> <!-- /test/Tags -->
+    <file baseinstalldir="/" name="AllTests.php" role="test" />
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="content/app/controllers/ApplicationController.php" name="app/controllers/ApplicationController.php" />
+   <install as="content/app/controllers/TagController.php" name="app/controllers/TagController.php" />
+   <install as="content/app/views/Tag/recentTags.html.php" name="app/views/Tag/recentTags.html.php" />
+   <install as="content/app/views/Tag/searchTags.html.php" name="app/views/Tag/searchTags.html.php" />
+   <install as="object_add" name="bin/object_add.php" />
+   <install as="object_delete" name="bin/object_delete.php" />
+   <install as="tag" name="bin/tag.php" />
+   <install as="tag_add" name="bin/tag_add.php" />
+   <install as="tag_delete" name="bin/tag_delete.php" />
+   <install as="untag" name="bin/untag.php" />
+   <install as="TODO.txt" name="doc/TODO.txt" />
+   <install as="Exception.php" name="lib/Exception.php" />
+   <install as="Tagger.php" name="lib/Tagger.php" />
+   <install as="Index/Index.php" name="lib/Index/Index.php" />
+   <install as="Index/IndexMapper.php" name="lib/Index/IndexMapper.php" />
+   <install as="Linkbacks/Linkback.php" name="lib/Linkbacks/Linkback.php" />
+   <install as="Linkbacks/LinkbackMapper.php" name="lib/Linkbacks/LinkbackMapper.php" />
+   <install as="Objects/Manager.php" name="lib/Objects/Manager.php" />
+   <install as="Objects/Object.php" name="lib/Objects/Object.php" />
+   <install as="Objects/ObjectMapper.php" name="lib/Objects/ObjectMapper.php" />
+   <install as="Relationships/Relationship.php" name="lib/Relationships/Relationship.php" />
+   <install as="Relationships/RelationshipMapper.php" name="lib/Relationships/RelationshipMapper.php" />
+   <install as="Tags/Tag.php" name="lib/Tags/Tag.php" />
+   <install as="Tags/TagMapper.php" name="lib/Tags/TagMapper.php" />
+   <install as="Types/Manager.php" name="lib/Types/Manager.php" />
+   <install as="Users/Manager.php" name="lib/Users/Manager.php" />
+   <install as="migration/1_rampage_base_tables.php" name="migration/1_rampage_base_tables.php" />
+   <install as="migration/2_rampage_tag_tables.php" name="migration/2_rampage_tag_tables.php" />
+   <install as="AllTests.php" name="test/AllTests.php" />
+   <install as="fixtures/schema.sql" name="test/fixtures/schema.sql" />
+   <install as="Tags/TaggerTest.php" name="test/Tags/TaggerTest.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-01-26</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
