@@ -518,7 +518,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     {
         $val = parent::getValue($key, $identity);
         return (($key == 'sent_mail_folder') && strlen($val))
-            ? IMP::folderPref($val, true)
+            ? IMP_Mailbox::get($val)
             : $val;
     }
 
@@ -530,7 +530,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function setValue($key, $val, $identity = null)
     {
         if ($key == 'sent_mail_folder') {
-            $val = IMP::folderPref($val, false);
+            $val = IMP_Mailbox::prefTo($val);
         }
         return parent::setValue($key, $val, $identity);
     }
@@ -544,14 +544,14 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function getAllSentmailFolders()
     {
         $list = array();
-        foreach ($this->_identities as $key => $identity) {
+
+        foreach (array_keys($this->_identities) as $key) {
             if ($folder = $this->getValue('sent_mail_folder', $key)) {
-                $list[$folder] = 1;
+                $list[strval($folder)] = 1;
             }
         }
 
-        /* Get rid of duplicates and empty folders. */
-        return array_filter(array_keys($list));
+        return array_keys($list);
     }
 
     /**

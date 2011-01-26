@@ -73,7 +73,7 @@ class IMP_Ui_Message
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $pref_val = $GLOBALS['prefs']->getValue('send_mdn');
 
-        if (!$pref_val || $imp_imap->isReadOnly($mailbox)) {
+        if (!$pref_val || IMP_Mailbox::get($mailbox)->readonly) {
             return false;
         }
 
@@ -668,7 +668,7 @@ class IMP_Ui_Message
     public function moveAfterAction()
     {
         return (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
-                !IMP::hideDeletedMsgs(IMP::$mailbox) &&
+                !IMP::$mailbox->hideDeletedMsgs() &&
                 !$GLOBALS['prefs']->getValue('use_trash'));
     }
 

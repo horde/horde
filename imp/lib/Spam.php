@@ -32,7 +32,8 @@ class IMP_Spam
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
      */
-    static public function reportSpam($indices, $action, array $opts = array())
+    static public function reportSpam(IMP_Indices $indices, $action,
+                                      array $opts = array())
     {
         global $notification;
 
@@ -43,21 +44,20 @@ class IMP_Spam
             return 0;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $report_count = $result = 0;
 
-        foreach ($indices->indices() as $mbox => $msgIndices) {
+        foreach ($indices as $ob) {
             try {
-                $imp_imap->checkUidvalidity($mbox);
+                $ob->mbox->uidvalid;
             } catch (IMP_Exception $e) {
                 continue;
             }
 
-            foreach ($msgIndices as $idx) {
+            foreach ($ob->uids as $idx) {
                 /* Fetch the raw message contents (headers and complete
                  * body). */
                 try {
-                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
+                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $idx));
                 } catch (IMP_Exception $e) {
                     continue;
                 }
@@ -226,9 +226,8 @@ class IMP_Spam
                     break;
 
                 case 2:
-                    $targetMbox = $GLOBALS['prefs']->getValue('spam_folder');
-                    if ($targetMbox) {
-                        if (!$imp_message->copy(IMP::folderPref($targetMbox, true), 'move', $indices, array_merge($mbox_args, array('create' => true)))) {
+                    if ($targetMbox = IMP_Mailbox::getPref('spam_folder')) {
+                        if (!$imp_message->copy($targetMbox, 'move', $indices, array_merge($mbox_args, array('create' => true)))) {
                             $result = 0;
                         }
                     } else {

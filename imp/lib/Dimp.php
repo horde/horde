@@ -85,14 +85,6 @@ class IMP_Dimp
     }
 
     /**
-     * Return an appended IMP folder string
-     */
-    static public function appendedFolderPref($folder)
-    {
-        return IMP::folderPref($folder, true);
-    }
-
-    /**
      * Return information about the current attachments for a message
      *
      * @param IMP_Compose $imp_compose  An IMP_Compose object.

@@ -104,7 +104,7 @@ $t->setOption('gettext', true);
 
 $t->set('action', Horde::url('search-basic.php'));
 $t->set('mbox', htmlspecialchars($vars->search_mailbox));
-$t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::displayFolder($vars->search_mailbox))));
+$t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP_Mailbox::get($vars->search_mailbox)->display)));
 $t->set('flist', $flag_set);
 
 $title = _("Search");

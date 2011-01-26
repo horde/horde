@@ -42,16 +42,16 @@ class IMP
     /**
      * The current active mailbox (may be search mailbox).
      *
-     * @var string
+     * @var IMP_Mailbox
      */
-    static public $mailbox = '';
+    static public $mailbox;
 
     /**
      * The real IMAP mailbox of the current index.
      *
-     * @var string
+     * @var IMP_Mailbox
      */
-    static public $thismailbox = '';
+    static public $thismailbox;
 
     /**
      * The IMAP UID.
@@ -59,20 +59,6 @@ class IMP
      * @var integer
      */
     static public $uid = '';
-
-    /**
-     * displayFolder() cache.
-     *
-     * @var array
-     */
-    static private $_displaycache = array();
-
-    /**
-     * hideDeletedMsgs() cache.
-     *
-     * @var array
-     */
-    static private $_delhide = null;
 
     /**
      * Returns the current view mode for IMP.
@@ -84,31 +70,6 @@ class IMP
         return ($view = $GLOBALS['session']->get('imp', 'view'))
             ? $view
             : 'imp';
-    }
-
-    /**
-     * Returns the plain text label that is displayed for the current mailbox,
-     * replacing virtual search mailboxes with an appropriate description,
-     * removing namespace and mailbox prefix information from what is shown to
-     * the user, and passing the label through a user-defined hook.
-     *
-     * @param string $mbox  The mailbox to use for the label.
-     *
-     * @return string  The plain text label.
-     */
-    static public function getLabel($mbox)
-    {
-        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-
-        $label = ($ob = $imp_search[$mbox])
-            ? $ob->label
-            : self::displayFolder($mbox);
-
-        try {
-            return Horde::callHook('mbox_label', array($mbox, $label), 'imp');
-        } catch (Horde_Exception_HookNotSet $e) {
-            return $label;
-        }
     }
 
     /**
@@ -328,69 +289,6 @@ class IMP
     }
 
     /**
-     * If there is information available to tell us about a prefix in front of
-     * mailbox names that shouldn't be displayed to the user, then use it to
-     * strip that prefix out. Additionally, translate prefix text if this
-     * is one of the folders with special meaning.
-     *
-     * @param string $folder        The folder name to display (UTF7-IMAP).
-     * @param boolean $notranslate  Do not translate the folder prefix.
-     *
-     * @return string  The folder, with any prefix gone/translated.
-     */
-    static public function displayFolder($folder, $notranslate = false)
-    {
-        global $prefs;
-
-        $cache = &self::$_displaycache;
-
-        if (!$notranslate && isset($cache[$folder])) {
-            return $cache[$folder];
-        }
-
-        $ns_info = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($folder);
-        $delimiter = is_null($ns_info) ? '' : $ns_info['delimiter'];
-
-        /* Substitute any translated prefix text. */
-        $sub_array = array(
-            'INBOX' => _("Inbox"),
-            $prefs->getValue('sent_mail_folder') => _("Sent"),
-            $prefs->getValue('drafts_folder') => _("Drafts"),
-            $prefs->getValue('trash_folder') => _("Trash"),
-            $prefs->getValue('spam_folder') => _("Spam")
-        );
-
-        /* Strip namespace information. */
-        if (!is_null($ns_info) &&
-            !empty($ns_info['name']) &&
-            ($ns_info['type'] == 'personal') &&
-            substr($folder, 0, strlen($ns_info['name'])) == $ns_info['name']) {
-            $out = substr($folder, strlen($ns_info['name']));
-        } else {
-            $out = $folder;
-        }
-
-        if ($notranslate) {
-            return $out;
-        }
-
-        foreach ($sub_array as $key => $val) {
-            if ((($key != 'INBOX') || ($folder == $out)) &&
-                stripos($out, $key) === 0) {
-                $len = strlen($key);
-                if ((strlen($out) == $len) || ($out[$len] == $delimiter)) {
-                    $out = substr_replace($out, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
-                    break;
-                }
-            }
-        }
-
-        $cache[$folder] = Horde_String::convertCharset($out, 'UTF7-IMAP', 'UTF-8');
-
-        return $cache[$folder];
-    }
-
-    /**
      * Filters a string, if requested.
      *
      * @param string $text  The text to filter.
@@ -532,50 +430,6 @@ class IMP
     }
 
     /**
-     * Convert a preference value to/from the value stored in the preferences.
-     *
-     * To allow folders from the personal namespace to be stored without this
-     * prefix for portability, we strip the personal namespace. To tell apart
-     * folders from the personal and any empty namespace, we prefix folders
-     * from the empty namespace with the delimiter.
-     *
-     * @param string $folder   The folder path.
-     * @param boolean $append  True - convert from preference value.
-     *                         False - convert to preference value.
-     *
-     * @return string  The folder name.
-     */
-    static public function folderPref($folder, $append)
-    {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        $def_ns = $imp_imap->defaultNamespace();
-        $empty_ns = $imp_imap->getNamespace('');
-
-        if ($append) {
-            /* Converting from preference value. */
-            if (!is_null($empty_ns) &&
-                strpos($folder, $empty_ns['delimiter']) === 0) {
-                /* Prefixed with delimiter => from empty namespace. */
-                $folder = substr($folder, strlen($empty_ns['delimiter']));
-            } elseif (($ns = $imp_imap->getNamespace($folder, true)) == null) {
-                /* No namespace prefix => from personal namespace. */
-                $folder = $def_ns['name'] . $folder;
-            }
-        } elseif (($ns = $imp_imap->getNamespace($folder)) !== null) {
-            /* Converting to preference value. */
-            if ($ns['name'] == $def_ns['name']) {
-                /* From personal namespace => strip namespace. */
-                $folder = substr($folder, strlen($def_ns['name']));
-            } elseif ($ns['name'] == $empty_ns['name']) {
-                /* From empty namespace => prefix with delimiter. */
-                $folder = $empty_ns['delimiter'] . $folder;
-            }
-        }
-
-        return $folder;
-    }
-
-    /**
      * Generates a URL with necessary mailbox/UID information.
      *
      * @param string|Horde_Url $page  Page name to link to.
@@ -621,41 +475,6 @@ class IMP
             }
         }
         return $params;
-    }
-
-    /**
-     * Determine whether we're hiding deleted messages.
-     *
-     * @param string $mbox    The current mailbox.
-     * @param boolean $force  Force a redetermination of the return value
-     *                        (return value is normally cached after the first
-     *                        call).
-     *
-     * @return boolean  True if deleted messages should be hidden.
-     */
-    static public function hideDeletedMsgs($mbox, $force = false)
-    {
-        global $injector, $prefs;
-
-        $delhide = &self::$_delhide;
-
-        if (is_null($delhide) || $force) {
-            $imp_search = $injector->getInstance('IMP_Search');
-            $use_trash = $prefs->getValue('use_trash');
-
-            if ($use_trash &&
-                $imp_search->isVTrash($prefs->getValue('trash_folder'))) {
-                $delhide = !$imp_search->isVTrash($mbox);
-            } else {
-                $sortpref = self::getSort();
-                $delhide = ($prefs->getValue('delhide') &&
-                            !$use_trash &&
-                            ($injector->getInstance('IMP_Search')->isSearchMbox($mbox) ||
-                             ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD)));
-            }
-        }
-
-        return $delhide;
     }
 
     /**
@@ -705,166 +524,6 @@ class IMP
     }
 
     /**
-     * Return the sorting preference for the current mailbox.
-     *
-     * @param string $mbox      The mailbox to use (defaults to current
-     *                          mailbox in the session).
-     * @param boolean $convert  Convert 'by' to a Horde_Imap_Client constant?
-     *
-     * @return array  An array with the following keys:
-     * <pre>
-     * 'by'  - (integer) Sort type.
-     * 'dir' - (integer) Sort direction.
-     * </pre>
-     */
-    static public function getSort($mbox = null, $convert = false)
-    {
-        global $prefs;
-
-        if (is_null($mbox)) {
-            $mbox = self::$mailbox;
-        }
-
-        $search_mbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox);
-        $prefmbox = $search_mbox
-            ? $mbox
-            : self::folderPref($mbox, false);
-
-        $sortpref = @unserialize($prefs->getValue('sortpref'));
-        $entry = isset($sortpref[$prefmbox])
-            ? $sortpref[$prefmbox]
-            : array();
-
-        if (!isset($entry['b'])) {
-            $sortby = $prefs->getValue('sortby');
-        }
-
-        $ob = array(
-            'by' => isset($entry['b']) ? $entry['b'] : $sortby,
-            'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
-        );
-
-        /* Restrict POP3 sorting to sequence only.  Although possible to
-         * abstract other sorting methods, all other methods require a
-         * download of all messages, which is too much overhead.*/
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
-            $ob['by'] = Horde_Imap_Client::SORT_SEQUENCE;
-            return $ob;
-        }
-
-        switch ($ob['by']) {
-        case Horde_Imap_Client::SORT_THREAD:
-            /* Can't do threaded searches in search mailboxes. */
-            if (!self::threadSortAvailable($mbox)) {
-                $ob['by'] = self::IMAP_SORT_DATE;
-            }
-            break;
-
-        case Horde_Imap_Client::SORT_FROM:
-            /* If the preference is to sort by From Address, when we are
-             * in the Drafts or Sent folders, sort by To Address. */
-            if (self::isSpecialFolder($mbox)) {
-                $ob['by'] = Horde_Imap_Client::SORT_TO;
-            }
-            break;
-
-        case Horde_Imap_Client::SORT_TO:
-            if (!self::isSpecialFolder($mbox)) {
-                $ob['by'] = Horde_Imap_Client::SORT_FROM;
-            }
-            break;
-        }
-
-        if ($convert && ($ob['by'] == self::IMAP_SORT_DATE)) {
-            $ob['by'] = $prefs->getValue('sortdate');
-        }
-
-        /* Sanity check: make sure we have some sort of sort value. */
-        if (!$ob['by']) {
-            $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
-        }
-
-        return $ob;
-    }
-
-    /**
-     * Determines if thread sorting is available.
-     *
-     * @param string $mbox  The mailbox to check.
-     *
-     * @return boolean  True if thread sort is available for this mailbox.
-     */
-    static public function threadSortAvailable($mbox)
-    {
-        /* Thread sort is always available for IMAP servers, since
-         * Horde_Imap_Client_Socket has a built-in ORDEREDSUBJECT
-         * implementation. We will always prefer REFERENCES, but will fallback
-         * to ORDEREDSUBJECT if the server doesn't support THREAD sorting. */
-        return (($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
-                !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox));
-    }
-
-    /**
-     * Set the sorting preference for the current mailbox.
-     *
-     * @param integer $by      The sort type.
-     * @param integer $dir     The sort direction.
-     * @param string $mbox     The mailbox to use (defaults to current mailbox
-     *                         in the session).
-     * @param boolean $delete  Delete the entry?
-     */
-    static public function setSort($by = null, $dir = null, $mbox = null,
-                                   $delete = false)
-    {
-        $entry = array();
-        $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
-
-        if (is_null($mbox)) {
-            $mbox = self::$mailbox;
-        }
-
-        $prefmbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox)
-            ? $mbox
-            : self::folderPref($mbox, false);
-
-        if ($delete) {
-            unset($sortpref[$prefmbox]);
-        } else {
-            if (!is_null($by)) {
-                $entry['b'] = $by;
-            }
-            if (!is_null($dir)) {
-                $entry['d'] = $dir;
-            }
-
-            if (!empty($entry)) {
-                $sortpref[$prefmbox] = isset($sortpref[$prefmbox])
-                    ? array_merge($sortpref[$prefmbox], $entry)
-                    : $entry;
-            }
-        }
-
-        if ($delete || !empty($entry)) {
-            $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
-        }
-    }
-
-    /**
-     * Is $mbox a 'special' folder (e.g. 'drafts' or 'sent-mail' folder)?
-     *
-     * @param string $mbox  The mailbox to query.
-     *
-     * @return boolean  Is $mbox a 'special' folder?
-     */
-    static public function isSpecialFolder($mbox)
-    {
-        /* Get the identities. */
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-
-        return (($mbox == self::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) || in_array($mbox, $identity->getAllSentmailFolders()));
-    }
-
-    /**
      * Sets mailbox/index information for current page load. This information
      * is accessible via IMP::$mailbox, IMP::$thismailbox, and IMP::$uid.
      *
@@ -874,12 +533,18 @@ class IMP
     {
         if (is_null($mbox)) {
             $mbox = Horde_Util::getFormData('mailbox');
-            self::$mailbox = empty($mbox) ? 'INBOX' : self::formMbox($mbox, false);
-            self::$thismailbox = self::formMbox(Horde_Util::getFormData('thismailbox', $mbox), false);
+            self::$mailbox = is_null($mbox)
+                ? IMP_Mailbox::get('INBOX')
+                : IMP_Mailbox::formFrom($mbox);
+
+            $mbox = Horde_Util::getFormData('thismailbox');
+            self::$thismailbox = is_null($mbox)
+                ? self::$mailbox
+                : IMP_Mailbox::formFrom($mbox);
+
             self::$uid = Horde_Util::getFormData('uid');
         } else {
-            self::$mailbox = $mbox;
-            self::$thismailbox = $mbox;
+            self::$mailbox = self::$thismailbox = IMP_Mailbox::get($mbox);
             self::$uid = null;
         }
     }
@@ -955,7 +620,7 @@ class IMP
             $folders = array();
             foreach ($var as $mb => $nm) {
                 $folders[] = array(
-                    'name' => htmlspecialchars(self::displayFolder($mb)),
+                    'name' => htmlspecialchars(IMP_Mailbox::get($mb)->display),
                     'new' => intval($nm),
                     'url' => self::generateIMPUrl('mailbox.php', $mb),
                 );
@@ -1000,24 +665,6 @@ class IMP
             'fields' => $fields,
             'sources' => $src
         );
-    }
-
-    /**
-     * Converts a mailbox to/from a valid representation that can be used
-     * in a form element.  Needed because null characters (used for various
-     * internal non-IMAP mailbox representations) will not work in form
-     * elements.
-     *
-     * @param string $mbox  The mailbox name.
-     * @param boolean $to   Convert to the form representation?
-     *
-     * @return string  The converted mailbox.
-     */
-    static public function formMbox($mbox, $to)
-    {
-        return $to
-            ? htmlspecialchars(rawurlencode($mbox), ENT_COMPAT, 'UTF-8')
-            : rawurldecode($mbox);
     }
 
 }

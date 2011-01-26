@@ -182,7 +182,7 @@ class IMP_Search_Query implements Serializable
                     }
                 }
 
-                $this->_cache['mboxes'] = array_keys(array_flip($out));
+                $this->_cache['mboxes'] = IMP_Mailbox::get(array_keys(array_flip($out)));
             }
 
             return $this->_cache['mboxes'];
@@ -233,7 +233,12 @@ class IMP_Search_Query implements Serializable
             }
             array_pop($text);
 
-            return implode(' ', $text) . ' ' . _("in") . ' [' . implode(', ', array_map(array('IMP', 'displayFolder'), $this->mboxes)) . ']';
+            $mbox_display = array();
+            foreach ($this->mboxes as $val) {
+                $mbox_display[] = $val->display;
+            }
+
+            return implode(' ', $text) . ' ' . _("in") . ' [' . implode(', ', $mbox_display) . ']';
         }
     }
 

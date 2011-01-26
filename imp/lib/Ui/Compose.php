@@ -280,7 +280,7 @@ class IMP_Ui_Compose
                 // Save in sent mail folder by default?
                 'smf_save' => (bool)$identity->saveSentmail($ident),
                 // Sent mail display name
-                'smf_display' => IMP::displayFolder($identity->getValue('sent_mail_folder', $ident)),
+                'smf_display' => IMP_Mailbox::get($identity->getValue('sent_mail_folder', $ident))->display,
                 // Bcc addresses to add
                 'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident), array('charset' => 'UTF-8'))
             );

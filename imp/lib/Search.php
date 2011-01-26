@@ -108,7 +108,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         }
 
         /* How do we want to sort results? */
-        $sortpref = IMP::getSort(null, true);
+        $sortpref = IMP::$mailbox->getSort(true);
         if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
             $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
         }
@@ -157,7 +157,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * because certain configuration parameters may need to be dynamically
      * altered.
      *
-     * @param string $mailbox                        The mailbox to search.
+     * @param IMP_Mailbox $mailbox                   The mailbox to search.
      * @param Horde_Imap_Client_Search_Query $query  The search query object.
      * @param array $opts                            Additional options.
      *

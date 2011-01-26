@@ -57,9 +57,10 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
      */
     public function create($mailbox, $indices = null)
     {
+        $mbox_key = strval($mailbox);
         $mode = IMP::getViewMode();
 
-        if (!isset($this->_instances[$mailbox])) {
+        if (!isset($this->_instances[$mbox_key])) {
             switch ($mode) {
             case 'dimp':
             case 'mobile':
@@ -80,18 +81,18 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
                 break;
             }
 
-            $this->_instances[$mailbox] = $ob;
+            $this->_instances[$mbox_key] = $ob;
         }
 
         switch ($mode) {
         case 'imp':
         case 'mimp':
-            $this->_instances[$mailbox]->setIndex($indices);
-            $this->_instance[$mailbox]->checkcache = is_null($indices);
+            $this->_instances[$mbox_key]->setIndex($indices);
+            $this->_instances[$mbox_key]->checkcache = is_null($indices);
             break;
         }
 
-        return $this->_instances[$mailbox];
+        return $this->_instances[$mbox_key];
     }
 
     /**

@@ -332,7 +332,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         $elt['c'] = count($tmp) - 1;
 
         /* Get the mailbox label. */
-        $label = IMP::getLabel($name);
+        $label = IMP_Mailbox::get($name)->label;
         $elt['l'] = (($pos = strrpos($label, $delimiter)) === false)
             ? $label
             : substr($label, $pos + 1);
@@ -793,13 +793,15 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Does the element have any active children?
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return boolean  True if the element has active children.
      */
-    public function hasChildren($elt)
+    public function hasChildren($in)
     {
-        if (isset($this->_parent[$elt['v']])) {
+        $elt = $this->getElement($in);
+
+        if ($elt && isset($this->_parent[$elt['v']])) {
             if ($this->_showunsub) {
                 return true;
             }
@@ -818,13 +820,17 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Is the tree element open?
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return integer  True if the element is open.
      */
-    public function isOpen($elt)
+    public function isOpen($in)
     {
-        return (($elt['a'] & self::ELT_IS_OPEN) && $this->hasChildren($elt));
+        $elt = $this->getElement($in);
+
+        return ($elt &&
+                ($elt['a'] & self::ELT_IS_OPEN) &&
+                $this->hasChildren($elt));
     }
 
     /**
@@ -843,16 +849,19 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      * Is this element a container only, not a mailbox (meaning you can
      * not open it)?
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return integer  True if the element is a container.
      */
-    public function isContainer($elt)
+    public function isContainer($in)
     {
-        return (($elt['a'] & self::ELT_NOSELECT) ||
-                (!$this->_showunsub &&
-                 !$this->isSubscribed($elt) &&
-                 $this->hasChildren($elt)));
+        $elt = $this->getElement($in);
+
+        return ($elt &&
+                (($elt['a'] & self::ELT_NOSELECT) ||
+                 (!$this->_showunsub &&
+                  !$this->isSubscribed($elt) &&
+                  $this->hasChildren($elt))));
     }
 
     /**
@@ -869,13 +878,15 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Is the user subscribed to this element?
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return integer  True if the user is subscribed to the element.
      */
-    public function isSubscribed($elt)
+    public function isSubscribed($in)
     {
-        return $elt['a'] & self::ELT_IS_SUBSCRIBED;
+        $elt = $this->getElement($in);
+
+        return ($elt && ($elt['a'] & self::ELT_IS_SUBSCRIBED));
     }
 
     /**
@@ -899,25 +910,29 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Is the element a namespace container?
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return integer  True if the element is a namespace container.
      */
-    public function isNamespace($elt)
+    public function isNamespace($in)
     {
-        return $elt['a'] & self::ELT_NAMESPACE;
+        $elt = $this->getElement($in);
+
+        return ($elt && ($elt['a'] & self::ELT_NAMESPACE));
     }
 
     /**
      * Is the element a non-IMAP element?
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return integer  True if the element is a non-IMAP element.
      */
-    public function isNonImapElt($elt)
+    public function isNonImapElt($in)
     {
-        return $elt['a'] & self::ELT_NONIMAP;
+        $elt = $this->getElement($in);
+
+        return ($elt && ($elt['a'] & self::ELT_NONIMAP));
     }
 
     /**
@@ -1083,15 +1098,17 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Does the user want to poll this mailbox for new/unseen messages?
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return integer  True if the user wants to poll the element.
      */
-    public function isPolled($elt)
+    public function isPolled($in)
     {
+        $elt = $this->getElement($in);
+
         return $GLOBALS['prefs']->getValue('nav_poll_all')
             ? true
-            : ($elt['a'] & self::ELT_IS_POLLED);
+            : ($elt && ($elt['a'] & self::ELT_IS_POLLED));
     }
 
     /**
@@ -1108,13 +1125,15 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Is the element invisible?
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return integer  True if the element is marked as invisible.
      */
-    public function isInvisible($elt)
+    public function isInvisible($in)
     {
-        return $elt['a'] & self::ELT_INVISIBLE;
+        $elt = $this->getElement($in);
+
+        return ($elt && ($elt['a'] & self::ELT_INVISIBLE));
     }
 
     /**
@@ -1352,13 +1371,15 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Returns whether this element is a virtual folder.
      *
-     * @param array $elt  A tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return integer  True if the element is a virtual folder.
      */
-    public function isVFolder($elt)
+    public function isVFolder($in)
     {
-        return $elt['a'] & self::ELT_VFOLDER;
+        $elt = $this->getElement($in);
+
+        return ($elt && ($elt['a'] & self::ELT_VFOLDER));
     }
 
     /**
@@ -1386,8 +1407,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      * Return the list of 'special' mailboxes.
      *
      * @return array  A list of folders, with keys of 'draft', 'sent', 'spam',
-     *                and 'trash' and values containing the mailbox names
-     *                ('sent' contains a list of mailbox names).
+     *                and 'trash' and values containing the IMP_Mailbox
+     *                objects ('sent' contains a list of mailbox objects).
      */
     public function getSpecialMailboxes()
     {
@@ -1396,10 +1417,10 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         return array(
-            'draft' => IMP::folderPref($prefs->getValue('drafts_folder'), true),
+            'draft' => IMP_Mailbox::getPref('drafts_folder'),
             'sent' => $identity->getAllSentmailFolders(),
-            'spam' => IMP::folderPref($prefs->getValue('spam_folder'), true),
-            'trash' => IMP::folderPref($prefs->getValue('trash_folder'), true)
+            'spam' => IMP_Mailbox::getPref('spam_folder'),
+            'trash' => IMP_Mailbox::getPref('trash_folder')
         );
     }
 
@@ -1510,13 +1531,13 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             switch ($opts['render_type']) {
             case 'IMP_Tree_Flist':
                 $is_open = true;
-                $label = $val->name;
+                $label = htmlspecialchars($val->abbrev_label);
                 $params['orig_label'] = $val->label;
                 break;
 
             case 'Javascript':
                 $is_open = $val->is_open;
-                $label = $val->name;
+                $label = htmlspecialchars($val->abbrev_label);
                 $icon = $val->icon;
                 $params['icon'] = $icon->icon;
                 $params['iconopen'] = $icon->iconopen;
@@ -1570,7 +1591,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                 }
             }
 
-            $checkbox = '<input type="checkbox" class="checkbox" name="folder_list[]" value="' . IMP::formMbox($val->value, true) . '"';
+            $checkbox = '<input type="checkbox" class="checkbox" name="folder_list[]" value="' . $val->form_to . '"';
 
             if ($val->vfolder) {
                 $checkbox .= ' disabled="disabled"';
@@ -1597,6 +1618,26 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         return $tree;
     }
 
+    /**
+     * Returns the internal IMAP Tree element for a given mailbox.
+     *
+     * @param mixed $elt  A mailbox name or a tree element.
+     *
+     * @return mixed  The element array, or null if not found.
+     */
+    public function getElement($in)
+    {
+        if (is_array($in)) {
+            return $in;
+        }
+
+        $in = $this->_convertName($in);
+
+        return isset($this->_tree[$in])
+            ? $this->_tree[$in]
+            : null;
+    }
+
     /* ArrayAccess methods. */
 
     public function offsetExists($offset)
@@ -1607,7 +1648,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     public function offsetGet($offset)
     {
         return $this->offsetExists($offset)
-            ? new IMP_Imap_Tree_Element($this->_tree[$this->_convertName($offset)], $this)
+            ? IMP_Mailbox::get($this->_convertName($offset))
             : null;
     }
 
@@ -1776,7 +1817,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      * Is the given element an "active" element (i.e. an element that should
      * be worked with given the current viewing parameters).
      *
-     * @param IMP_Imap_Tree_Element $elt  A tree element.
+     * @param IMP_Mailbox $elt  A mailbox element.
      *
      * @return boolean  True if it is an active element.
      */
@@ -1857,9 +1898,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /* Serializable methods. */
 
     /**
-     * Serialization.
-     *
-     * @return string  Serialized data.
      */
     public function serialize()
     {
@@ -1875,10 +1913,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Unserialization.
-     *
-     * @param string $data  Serialized data.
-     *
      * @throws Exception
      */
     public function unserialize($data)

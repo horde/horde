@@ -54,7 +54,7 @@ class IMP_Views_ShowMessage
      * <pre>
      * 'headers' - (array) The headers desired in the returned headers array
      *             (only used with non-preview view)
-     * 'mailbox' - (string) The mailbox name
+     * 'mailbox' - (IMP_Mailbox) The mailbox name
      * 'preview' - (boolean) Is this the preview view?
      * 'uid' - (integer) The UID of the message
      * </pre>
@@ -99,7 +99,7 @@ class IMP_Views_ShowMessage
 
         $result = array(
             'js' => array(),
-            'mailbox' => $mailbox,
+            'mailbox' => strval($mailbox),
             'uid' => $uid
         );
 

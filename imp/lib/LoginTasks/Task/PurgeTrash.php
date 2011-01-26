@@ -37,18 +37,10 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
     {
         global $injector, $notification, $prefs;
 
-        /* If we aren't using a Trash folder or if there is no Trash
-           folder set, just return. */
         if (!$prefs->getValue('use_trash') ||
-            !($trash_folder = $prefs->getValue('trash_folder'))) {
-            return false;
-        }
-        $trash_folder = IMP::folderPref($trash_folder, true);
-
-        /* Make sure the Trash folder exists. */
-        $imp_search = $injector->getInstance('IMP_Search');
-        if ($imp_search->isVTrash($trash_folder) ||
-            !$injector->getInstance('IMP_Folder')->exists($trash_folder)) {
+            !($trash_folder = IMP_Mailbox::getPref('trash_folder')) ||
+            $trash_folder->vtrash ||
+            !$trash_folder->exists) {
             return false;
         }
 
@@ -60,7 +52,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         /* Get the list of messages older than 'purge_trash_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-        $msg_ids = $imp_search->runQuery($query, $trash_folder);
+        $msg_ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $trash_folder);
 
         /* Go through the message list and delete the messages. */
         if (!$injector->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
@@ -81,7 +73,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
     public function describe()
     {
         return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
-                       IMP::displayFolder(IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true)),
+                       IMP_Mailbox::getPref('trash_folder')->display,
                        $GLOBALS['prefs']->getValue('purge_trash_keep'));
     }
 

@@ -36,15 +36,9 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        /* If there is no Spam folder set, just return. */
-        $spam_folder = $GLOBALS['prefs']->getValue('spam_folder');
-        if (!$spam_folder) {
-            return false;
-        }
-        $spam_folder = IMP::folderPref($spam_folder, true);
-
-        /* Make sure the Spam folder exists. */
-        if (!$GLOBALS['injector']->getInstance('IMP_Folder')->exists($spam_folder)) {
+        /* If there is no Spam folder set, or it doesn't exist, exit. */
+        if (!($spam_folder = IMP_Mailbox::getPref('spam_folder')) ||
+            !$spam_folder->exists) {
             return false;
         }
 
@@ -77,7 +71,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     public function describe()
     {
         return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
-                       IMP::displayFolder(IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)),
+                       IMP_Mailbox::getPref('spam_folder')->display,
                        $GLOBALS['prefs']->getValue('purge_spam_keep'));
     }
 

@@ -227,7 +227,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     'hostspec' => $imp_imap->getParam('hostspec'),
                     'mailbox' => $this->getMetadata('mailbox'),
                     'uid' => $this->getMetadata('uid'),
-                    'uidvalidity' => $imp_imap->checkUidvalidity($this->getMetadata('mailbox'))
+                    'uidvalidity' => $this->getMetadata('mailbox')->uidvalid
                 ));
 
                 switch ($this->getMetadata('reply_type')) {
@@ -260,17 +260,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     protected function _saveDraftServer($data)
     {
-        $drafts_mbox = $GLOBALS['prefs']->getValue('drafts_folder');
-        if (empty($drafts_mbox)) {
+        if (!$drafts_mbox = IMP_Mailbox::getPref('drafts_folder')) {
             throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
         }
-        $drafts_mbox = IMP::folderPref($drafts_mbox, true);
-
-        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
         /* Check for access to drafts folder. */
-        if (!$imp_folder->exists($drafts_mbox) &&
-            !$imp_folder->create($drafts_mbox, $GLOBALS['prefs']->getValue('subscribe'))) {
+        if (!$drafts_mbox->create()) {
             throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts folder."));
         }
 
@@ -295,7 +290,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             $this->_metadata['draft_uid'] = new IMP_Indices($drafts_mbox, $ids);
             $this->changed = 'changed';
-            return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
+            return sprintf(_("The draft has been saved to the \"%s\" folder."), $drafts_mbox->display);
         } catch (Horde_Imap_Client_Exception $e) {
             return _("The draft was not successfully saved.");
         }
@@ -430,7 +425,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     // catch any true server/backend changes.
                     ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
                     $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
-                    $this->_metadata['mailbox'] = $imap_url['mailbox'];
+                    $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
                     $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
                 }
@@ -485,7 +480,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *            addresses.
      * priority - (string) The message priority ('high', 'normal', 'low').
      * save_sent - (boolean) Save sent mail?
-     * sent_folder - (string) The sent-mail folder (UTF7-IMAP).
+     * sent_folder - (IMP_Mailbox) The sent-mail folder (UTF7-IMAP).
      * save_attachments - (bool) Save attachments with the message?
      * readreceipt - (boolean) Add return receipt headers?
      * useragent - (string) The User-Agent string to use.
@@ -662,11 +657,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             /* Generate the message string. */
             $fcc = $mime_message->toString(array('defserver' => $session->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
 
-            $imp_folder = $injector->getInstance('IMP_Folder');
-
-            if (!$imp_folder->exists($opts['sent_folder'])) {
-                $imp_folder->create($opts['sent_folder'], $prefs->getValue('subscribe'));
-            }
+            /* Make sure sent folder is created. */
+            $sent_folder = IMP_Mailbox::get($opts['sent_folder']);
+            $sent_folder->create();
 
             $flags = array('\\seen');
 
@@ -679,9 +672,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             try {
-                $injector->getInstance('IMP_Factory_Imap')->create()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
+                $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_folder, array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
+                $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), $sent_folder->display));
                 $sent_saved = false;
             }
         }
@@ -1857,19 +1850,21 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         $attached = 0;
-        foreach ($indices as $mbox => $idx) {
-            ++$attached;
-             $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
-             $headerob = $contents->getHeaderOb();
+        foreach ($indices as $ob) {
+            foreach ($ob->uids as $idx) {
+                ++$attached;
+                $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $idx));
+                $headerob = $contents->getHeaderOb();
 
-             $part = new Horde_Mime_Part();
-             $part->setCharset('UTF-8');
-             $part->setType('message/rfc822');
-             $part->setName(_("Forwarded Message"));
-             $part->setContents($contents->fullMessageText(array('stream' => true)));
+                $part = new Horde_Mime_Part();
+                $part->setCharset('UTF-8');
+                $part->setType('message/rfc822');
+                $part->setName(_("Forwarded Message"));
+                $part->setContents($contents->fullMessageText(array('stream' => true)));
 
-             // Throws IMP_Compose_Exception.
-             $this->addMimePartAttachment($part);
+                // Throws IMP_Compose_Exception.
+                $this->addMimePartAttachment($part);
+            }
         }
 
         if ($attached == 1) {

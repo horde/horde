@@ -100,8 +100,8 @@ class IMP_Tree_Flist extends Horde_Tree_Select
             foreach ($imp_search as $val) {
                 $vfolder_list[] = array(
                     'l' => $filter->filter($val->label, 'space2html', array('encode' => true)),
-                    'sel' => (IMP::$mailbox == strval($val)),
-                    'v' => IMP::formMbox(strval($val), true)
+                    'sel' => (IMP::$mailbox == $val),
+                    'v' => $val->form_to
                 );
             }
 
@@ -121,7 +121,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
                     foreach ($tasklists as $id => $tasklist) {
                         $tasklist_list[] = array(
                             'l' => $filter->filter($tasklist->get('name'), 'space2html', array('encode' => true)),
-                            'v' => IMP::formMbox(IMP::TASKLIST_EDIT . $id, true)
+                            'v' => IMP_Mailbox::formTo(IMP::TASKLIST_EDIT . $id)
                         );
                     }
                     $t->set('tasklist', $tasklist_list);
@@ -140,7 +140,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
                             'l' => $filter->filter($notepad->get('name'), 'space2html', array('encode' => true)),
-                            'v' => IMP::formMbox(IMP::NOTEPAD_EDIT . $id, true)
+                            'v' => IMP_Mailbox::formTo(IMP::NOTEPAD_EDIT . $id)
                         );
                     }
                     $t->set('notepad', $notepad_list);

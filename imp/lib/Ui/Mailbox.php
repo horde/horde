@@ -21,7 +21,7 @@ class IMP_Ui_Mailbox
     /**
      * The current mailbox.
      *
-     * @var string
+     * @var IMP_Mailbox
      */
     private $_mailbox;
 
@@ -35,7 +35,7 @@ class IMP_Ui_Mailbox
     /**
      * Constructor.
      *
-     * @param string $mailbox  The current mailbox.
+     * @param IMP_Mailbox $mailbox  The current mailbox.
      */
     public function __construct($mailbox = null)
     {
@@ -71,7 +71,7 @@ class IMP_Ui_Mailbox
         }
 
         if (!isset($this->_cache['drafts_sm_folder'])) {
-            $this->_cache['drafts_sm_folder'] = IMP::isSpecialFolder($this->_mailbox);
+            $this->_cache['drafts_sm_folder'] = $this->_mailbox->special_outgoing;
         }
 
         $from = Horde_Mime_Address::getAddressesFromObject($ob->from, array('charset' => 'UTF-8'));
@@ -239,7 +239,7 @@ class IMP_Ui_Mailbox
     {
         return in_array('\\draft', $flags) ||
                !empty($GLOBALS['conf']['user']['allow_resume_all']) ||
-               ($this->_mailbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true));
+               ($this->_mailbox == IMP_Mailbox::getPref('drafts_folder'));
     }
 
 }

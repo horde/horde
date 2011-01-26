@@ -70,7 +70,7 @@ class IMP_Ui_Block
                 $html .= ($mode == 'imp'
                           ? Horde::link($mbox_url->add('mailbox', $folder))
                           : '<a>')
-                    . IMP::displayFolder($folder) . '</a>';
+                    . IMP_Mailbox::get($folder)->display . '</a>';
 
                 if (!empty($status[$folder]['unseen'])) {
                     $html .= '</strong>';

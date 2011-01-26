@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Indices implements Countable, Iterator
+class IMP_Indices implements ArrayAccess, Countable, Iterator
 {
     /**
      * The indices list.
@@ -59,7 +59,7 @@ class IMP_Indices implements Countable, Iterator
      *
      * 2 arguments:
      * ------------
-     * 1st argument: Mailbox name
+     * 1st argument: Mailbox name -or- IMP_Mailbox object
      * 2nd argument: Either a single UID, array of UIDs, or a
      *               Horde_Imap_Client_Ids object.
      * </pre>
@@ -89,7 +89,7 @@ class IMP_Indices implements Countable, Iterator
                 );
             } elseif ($data instanceof IMP_Contents) {
                 $indices = array(
-                    $data->getMailbox() => array($data->getUid())
+                    strval($data->getMailbox()) => array($data->getUid())
                 );
             } elseif ($data instanceof IMP_Indices) {
                 $indices = $data->indices();
@@ -113,7 +113,7 @@ class IMP_Indices implements Countable, Iterator
 
             if (!empty($secondarg)) {
                 $indices = array(
-                    func_get_arg(0) => $secondarg
+                    strval(func_get_arg(0)) => $secondarg
                 );
             }
             break;
@@ -142,25 +142,60 @@ class IMP_Indices implements Countable, Iterator
      *                       in an array. If false, returns the first UID for
      *                       the first index as a string.
      *
-     * @return array  A 2-element array with the mailbox and the UID(s).
+     * @return array  A 2-element array with an IMP_Mailbox object and the
+     *                UID(s).
      */
     public function getSingle($all = false)
     {
         $val = reset($this->_indices);
-        return array(key($this->_indices), $all ? $val : reset($val));
+        return array(
+            IMP_Mailbox::get(key($this->_indices)),
+            $all ? $val : reset($val)
+        );
     }
 
     /**
      * Return a copy of the indices array.
      *
      * @return array  The indices array (keys are mailbox names, values are
-     *                arrays of UIDS).
+     *                arrays of UIDs).
      */
     public function indices()
     {
-        /* This creates a copy of the indices array. Needed because the
-         * Iterator functions rely on pointers. */
         return $this->_indices;
+    }
+
+    /* ArrayAccess methods. */
+
+    /**
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->_indices[$offset]);
+    }
+
+    /**
+     */
+    public function offsetGet($offset)
+    {
+        return isset($this->_indices[$offset])
+            ? $this->_indices[$offset]
+            : null;
+    }
+
+    /**
+     */
+    public function offsetSet($offset, $value)
+    {
+        unset($this->_indices[$offset]);
+        $this->add($offset, $value);
+    }
+
+    /**
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->_indices[$offset]);
     }
 
     /* Countable methods. */
@@ -197,7 +232,15 @@ class IMP_Indices implements Countable, Iterator
 
     public function current()
     {
-        return current($this->_indices[$this->key()]);
+        if (!$this->valid()) {
+            return null;
+        }
+
+        $ret = new stdClass;
+        $ret->mbox = IMP_Mailbox::get($this->key());
+        $ret->uids = current($this->_indices);
+
+        return $ret;
     }
 
     public function key()
@@ -207,17 +250,14 @@ class IMP_Indices implements Countable, Iterator
 
     public function next()
     {
-        if ((next($this->_indices[$this->key()]) === false) &&
-            (next($this->_indices) !== false)) {
-            reset($this->_indices[$this->key()]);
+        if ($this->valid()) {
+            next($this->_indices);
         }
     }
 
     public function rewind()
     {
-        if (reset($this->_indices)) {
-            reset(current($this->_indices));
-        }
+        reset($this->_indices);
     }
 
     public function valid()

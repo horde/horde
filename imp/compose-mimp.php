@@ -59,18 +59,11 @@ if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
     $identity->setDefault($vars->identity);
 }
 
-$draft = $prefs->getValue('drafts_folder');
-$sent_mail_folder = $identity->getValue('sent_mail_folder');
-
 /* Determine if mailboxes are readonly. */
-$readonly_drafts = false;
-$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-if (!empty($draft)) {
-    $draft = IMP::folderPref($draft, true);
-    $readonly_drafts = $imp_folder->exists($draft) &&
-        $imp_imap->isReadOnly($draft);
-}
-$save_sent_mail = ($imp_folder->exists($sent_mail_folder) && $imp_imap->isReadOnly($sent_mail_folder))
+$drafts = IMP_Mailbox::getPref('drafts_folder');
+$readonly_drafts = $drafts && $drafts->readonly;
+$sent_mail_folder = $identity->getValue('sent_mail_folder');
+$save_sent_mail = ($sent_mail_folder && $sent_mail_folder->readonly)
     ? false
     : $prefs->getValue('save_sent_mail');
 
@@ -331,7 +324,7 @@ if ($vars->a == 'rc') {
 } else {
     $t->set('compose_enable', !$compose_disable);
     $t->set('msg', htmlspecialchars($msg));
-    $t->set('save_draft', $imp_imap->allowFolders() && !$readonly_drafts);
+    $t->set('save_draft', $injector->getInstance('IMP_Factory_Imap')->create()->allowFolders() && !$readonly_drafts);
     $t->set('subject', htmlspecialchars($header['subject']));
 
     if (!$prefs->isLocked('default_identity')) {

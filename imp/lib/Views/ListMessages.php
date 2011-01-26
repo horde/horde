@@ -17,21 +17,23 @@ class IMP_Views_ListMessages
     /**
      * Returns a list of messages for use with ViewPort.
      *
-     * @var array $args  TODO (applyfilter, initial)
+     * @var array $args  TODO (applyfilter, initial, mbox, qsearchmbox,
+     *                   qsearchfilter)
      *
      * @return array  TODO
      */
     public function listMessages($args)
     {
-        $mbox = $args['mbox'];
-        $is_search = false;
+        global $injector;
 
-        $sortpref = IMP::getSort($mbox);
+        $is_search = false;
+        $mbox = IMP_Mailbox::get($args['mbox']);
+        $sortpref = $mbox->getSort();
 
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {
             if (strlen($args['qsearchfilter'])) {
-                $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+                $imp_search = $injector->getInstance('IMP_Search');
                 $imp_search->applyFilter($args['qsearchfilter'], array($args['qsearchmbox']), $mbox);
                 $is_search = true;
             } else {
@@ -80,8 +82,7 @@ class IMP_Views_ListMessages
 
                 /* Store the search in the session. */
                 if ($is_search) {
-                    $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-                    $imp_search->createQuery($c_list, array(
+                    $injector->getInstance('IMP_Search')->createQuery($c_list, array(
                         'id' => $mbox,
                         'mboxes' => array($args['qsearchmbox']),
                         'type' => IMP_Search::CREATE_QUERY
@@ -89,8 +90,7 @@ class IMP_Views_ListMessages
                 }
             }
         } else {
-            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            $is_search = $imp_search->isSearchMbox($mbox);
+            $is_search = $mbox->search;
         }
 
         /* Set the current time zone. */
@@ -102,17 +102,17 @@ class IMP_Views_ListMessages
             !empty($args['applyfilter']) ||
             (($mbox == 'INBOX') &&
              $GLOBALS['prefs']->getValue('filter_on_display'))) {
-            $GLOBALS['injector']->getInstance('IMP_Filter')->filter($mbox);
+            $injector->getInstance('IMP_Filter')->filter($mbox);
         }
 
         /* Generate the sorted mailbox list now. */
-        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Factory_MailboxList')->create($mbox);
-        $sorted_list = $imp_mailbox->getSortedList();
+        $mailbox_list = $mbox->getListOb();
+        $sorted_list = $mailbox_list->getSortedList();
         $msgcount = count($sorted_list['s']);
 
         /* Create the base object. */
         $result = $this->getBaseOb($mbox);
-        $result->cacheid = $imp_mailbox->getCacheID();
+        $result->cacheid = $mbox->cacheid;
         if (!empty($args['requestid'])) {
             $result->requestid = intval($args['requestid']);
         }
@@ -123,7 +123,7 @@ class IMP_Views_ListMessages
 
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
-        if (!IMP::threadSortAvailable($mbox)) {
+        if (!$mbox->threadsort) {
             $md->nothread = 1;
         }
         if ($args['initial'] || !is_null($args['sortby'])) {
@@ -135,12 +135,12 @@ class IMP_Views_ListMessages
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
-            if (IMP::isSpecialFolder($mbox)) {
+            if ($mbox->special_outgoing) {
                 $md->special = 1;
-                if ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) {
+                if ($mbox == IMP_Mailbox::getPref('drafts_folder')) {
                     $md->drafts = 1;
                 }
-            } elseif ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)) {
+            } elseif ($mbox == IMP_Mailbox::getPref('spam_folder')) {
                 $md->spam = 1;
             }
             if ($is_search) {
@@ -148,7 +148,7 @@ class IMP_Views_ListMessages
             }
 
             /* Generate flag array. */
-            $flaglist = $GLOBALS['injector']->getInstance('IMP_Flags')->getList(array(
+            $flaglist = $injector->getInstance('IMP_Flags')->getList(array(
                 'imap' => true,
                 'mailbox' => $is_search ? null : $mbox
             ));
@@ -162,7 +162,9 @@ class IMP_Views_ListMessages
         /* The search query may have changed. */
         if ($is_search &&
             ($args['initial'] || strlen($args['qsearchmbox']))) {
-            if ($imp_search->isVFolder($mbox)) {
+            $imp_search = $injector->getInstance('IMP_Search');
+
+            if ($mbox->vfolder) {
                 $md->slabel = $imp_search[$mbox]->label;
                 $md->vfolder = 1;
                 if (!$imp_search->isVFolder($mbox, true)) {
@@ -173,22 +175,22 @@ class IMP_Views_ListMessages
             }
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
         /* These entries may change during a session, so always need to
          * update them. */
-        $md->readonly = intval($imp_imap->isReadOnly($mbox));
+        $md->readonly = intval($mbox->readonly);
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
          * 1 message, we don't need this check. */
         if (empty($msgcount) && !$is_search) {
-            if (!$GLOBALS['injector']->getInstance('IMP_Folder')->exists($mbox)) {
-                $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), IMP::getLabel($mbox)), 'horde.error');
+            if (!$mbox->exists) {
+                $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
             }
 
             return $result;
         }
+
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
@@ -254,7 +256,7 @@ class IMP_Views_ListMessages
             /* Do an unseen search.  We know what messages the browser
              * doesn't have based on $cached. Thus, search for the first
              * unseen message not located in $cached. */
-            $unseen_search = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MATCH, true);
+            $unseen_search = $mailbox_list->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MATCH, true);
             if (!($uid_search = array_diff($unseen_search['match'], array_keys($cached)))) {
                 return $result;
             }
@@ -272,7 +274,7 @@ class IMP_Views_ListMessages
             /* If this is the initial request for a mailbox, figure out the
              * starting location based on user's preferences. */
             $rownum = $args['initial']
-                ? intval($imp_mailbox->mailboxStart($msgcount))
+                ? intval($mailbox_list->mailboxStart($msgcount))
                 : null;
         }
 
@@ -334,13 +336,13 @@ class IMP_Views_ListMessages
         if ($args['rangeslice']) {
             $slice = new stdClass;
             $slice->rangelist = array_keys($rowlist);
-            $slice->view = $mbox;
+            $slice->view = strval($mbox);
 
             return $slice;
         }
 
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($imp_mailbox, $mbox, array_keys($data), $is_search);
+        $result->data = $this->_getOverviewData($mbox, array_keys($data), $is_search);
 
         /* Get unseen/thread information. */
         if (!$is_search) {
@@ -351,7 +353,7 @@ class IMP_Views_ListMessages
             } catch (Horde_Imap_Client_Exception $e) {}
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-                $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
+                $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());
                 $md->thread = $imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
             }
         } else {
@@ -390,16 +392,15 @@ class IMP_Views_ListMessages
     /**
      * Obtains IMAP overview data for a given set of message UIDs.
      *
-     * @param IMP_Mailbox_List $imp_mailbox  The mailbox list  object.
-     * @param string $folder                 The current folder.
-     * @param array $msglist                 The list of message sequence
-     *                                       numbers to process.
-     * @param boolean $search                Is this a search mbox?
+     * @param IMP_Mailbox $mbox  The current mailbox.
+     * @param array $msglist     The list of message sequence numbers to
+     *                           process.
+     * @param boolean $search    Is this a search mbox?
      *
      * @return array  TODO
      * @throws Horde_Exception
      */
-    private function _getOverviewData($imp_mailbox, $folder, $msglist, $search)
+    private function _getOverviewData($mbox, $msglist, $search)
     {
         $msgs = array();
 
@@ -408,12 +409,12 @@ class IMP_Views_ListMessages
         }
 
         /* Get mailbox information. */
-        $overview = $imp_mailbox->getMailboxArray($msglist, array(
+        $overview = $mbox->getListOb()->getMailboxArray($msglist, array(
             'headers' => true,
             'type' => $GLOBALS['prefs']->getValue('atc_flag')
         ));
         $charset = 'UTF-8';
-        $imp_ui = new IMP_Ui_Mailbox($folder);
+        $imp_ui = new IMP_Ui_Mailbox($mbox);
         $no_flags_hook = false;
 
         /* Display message information. */
@@ -493,20 +494,20 @@ class IMP_Views_ListMessages
     /**
      * Prepare the base object used by the ViewPort javascript class.
      *
-     * @param string $mbox  The mailbox name.
+     * @param IMP_Mailbox $mbox  The mailbox object.
      *
      * @return object  The base ViewPort object.
      */
-    public function getBaseOb($mbox)
+    public function getBaseOb(IMP_Mailbox $mbox)
     {
         $ob = new stdClass;
         $ob->cacheid = 0;
         $ob->data = array();
-        $ob->label = htmlspecialchars(IMP::getLabel($mbox));
+        $ob->label = htmlspecialchars($mbox->label);
         $ob->metadata = new stdClass;
         $ob->rowlist = array();
         $ob->totalrows = 0;
-        $ob->view = $mbox;
+        $ob->view = strval($mbox);
 
         return $ob;
     }

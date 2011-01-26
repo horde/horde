@@ -37,8 +37,7 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 /* Determine if mailbox is readonly. */
-$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-$readonly = $imp_imap->isReadOnly(IMP::$mailbox);
+$readonly = IMP::$mailbox->readonly;
 
 /* Get the base URL for this page. */
 $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox);
@@ -91,12 +90,12 @@ case 'e':
 
 // 'c' = change sort
 case 'c':
-    IMP::setSort($vars->sb, $vars->sd);
+    IMP::$mailbox->setSort($vars->sb, $vars->sd);
     break;
 
 // 's' = search
 case 's':
-    $title = sprintf(_("Search %s"), IMP::getLabel(IMP::$mailbox));
+    $title = sprintf(_("Search %s"), IMP::$mailbox->label);
 
     $t->set('mailbox', IMP::$mailbox);
     $t->set('menu', $imp_ui_mimp->getMenu('search'));
@@ -118,18 +117,18 @@ case 'rs':
         IMP::setCurrentMailboxInfo(strval($q_ob));
 
         /* Need to re-calculate these values. */
-        $readonly = $imp_imap->isReadOnly(IMP::$mailbox);
+        $readonly = IMP::$mailbox->readonly;
         $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox);
     }
     break;
 }
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create(IMP::$mailbox);
+$imp_mailbox = IMP::$mailbox->getListOb();
 $pageOb = $imp_mailbox->buildMailboxPage($vars->p, $vars->s);
 
 /* Generate page title. */
-$title = IMP::getLabel(IMP::$mailbox);
+$title = IMP::$mailbox->label;
 
 /* Modify title for display on page. */
 if ($pageOb['msgcount']) {
@@ -147,7 +146,7 @@ $t->set('title', $title);
 $curr_time = time();
 $curr_time -= $curr_time % 60;
 $msgs = array();
-$sortpref = IMP::getSort(IMP::$mailbox);
+$sortpref = IMP::$mailbox->getSort();
 
 $imp_ui = new IMP_Ui_Mailbox(IMP::$mailbox);
 
@@ -157,7 +156,7 @@ $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end'
 /* Get thread information. */
 if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
     $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
-    $threadtree = $imp_thread->getThreadTextTree(reset($mbox_info['uids']->indices()), $sortpref['dir']);
+    $threadtree = $imp_thread->getThreadTextTree($mbox_info['uids'][strval(IMP::$mailbox)], $sortpref['dir']);
 } else {
     $imp_thread = null;
     $threadtree = array();
@@ -233,7 +232,7 @@ foreach ($hdr_list as $key => $val) {
 }
 
 /* Add thread header entry. */
-if (!$search_mbox && IMP::threadSortAvailable(IMP::$mailbox)) {
+if (!$search_mbox && IMP::$mailbox->threadsort) {
     if (is_null($imp_thread)) {
         $t->set('hdr_subject_minor', $t->get('hdr_thread'));
     } else {
@@ -245,8 +244,9 @@ if (!$search_mbox && IMP::threadSortAvailable(IMP::$mailbox)) {
 /* Add search link. */
 if ($session->get('imp', 'protocol') == 'imap') {
     if ($search_mbox) {
-        $orig_mbox = reset($imp_search[IMP::$mailbox]->mboxes);
-        $menu[] = array(sprintf(_("New Search in %s"), IMP::getLabel($orig_mbox)), IMP::generateIMPUrl('mailbox-mimp.php', $orig_mbox)->add('a', 's'));
+        $mboxes = $imp_search[IMP::$mailbox]->mboxes;
+        $orig_mbox = IMP_Mailbox::get(reset($mboxes));
+        $menu[] = array(sprintf(_("New Search in %s"), $orig_mbox->label), IMP::generateIMPUrl('mailbox-mimp.php', $orig_mbox)->add('a', 's'));
     } else {
         $menu[] = array(_("Search"), $mailbox_url->copy()->add('a', 's'));
     }

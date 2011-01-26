@@ -58,9 +58,9 @@ class IMP_Contents
     /**
      * The mailbox of the current message.
      *
-     * @var string
+     * @var IMP_Malbox
      */
-    protected $_mailbox = null;
+    protected $_mailbox;
 
     /**
      * The Horde_Mime_Part object for the message.
@@ -126,7 +126,7 @@ class IMP_Contents
     /**
      * Returns the IMAP mailbox for the current message.
      *
-     * @return string  The message mailbox.
+     * @return IMP_Mailbox  The message mailbox.
      */
     public function getMailbox()
     {
@@ -147,7 +147,7 @@ class IMP_Contents
      */
     public function getBody($options = array())
     {
-        if (is_null($this->_mailbox)) {
+        if (!$this->_mailbox) {
             return $this->_message->toString(array(
                 'headers' => true,
                 'stream' => !empty($options['stream'])
@@ -199,7 +199,7 @@ class IMP_Contents
             return '';
         }
 
-        if (is_null($this->_mailbox)) {
+        if (!$this->_mailbox) {
             // TODO: Include MIME headers?
             $ob = $this->getMIMEPart($id, array('nocontents' => true));
             return is_null($ob)
@@ -261,7 +261,7 @@ class IMP_Contents
      */
     public function fullMessageText($options = array())
     {
-        if (is_null($this->_mailbox)) {
+        if (!$this->_mailbox) {
             return $this->_message->toString();
         }
 
@@ -369,7 +369,7 @@ class IMP_Contents
         if (!empty($id) &&
             !is_null($part) &&
             empty($options['nocontents']) &&
-            !is_null($this->_mailbox) &&
+            $this->_mailbox &&
             !$part->getContents(array('stream' => true))) {
             $body = $this->getBodyPart($id, array('decode' => true, 'length' => empty($options['length']) ? null : $options['length'], 'stream' => true));
             $part->setContents($body, array('encoding' => $this->lastBodyPartDecode, 'usestream' => true));
@@ -785,7 +785,7 @@ class IMP_Contents
             'id' => isset($params['id']) ? $params['id'] : $mime_part->getMIMEId()
         ));
 
-        if (!is_null($this->_mailbox)) {
+        if ($this->_mailbox) {
             $params['uid'] = $this->_uid;
             $params['mailbox'] = $this->_mailbox;
         }

@@ -29,12 +29,12 @@ Horde_Registry::appInit('imp', array(
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
-$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = IMP::$mailbox->getListOb(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 if (!$imp_mailbox->isValidIndex()) {
     IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('a', 'm')->redirect();
 }
 
-$readonly = $injector->getInstance('IMP_Factory_Imap')->create()->isReadOnly(IMP::$mailbox);
+$readonly = IMP::$mailbox->readonly;
 
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $imp_hdr_ui = new IMP_Ui_Headers();
@@ -293,17 +293,17 @@ if ($next_msg = $imp_mailbox->getIMAPIndex(1)) {
     $menu[] = array(_("Next Message"), IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $next_msg['uid'], $next_msg['mailbox']));
 }
 
-$menu[] = array(sprintf(_("To %s"), IMP::getLabel(IMP::$mailbox)), $mailbox_link);
+$menu[] = array(sprintf(_("To %s"), IMP::$mailbox->label), $mailbox_link);
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] ||
-     ($mailbox_name != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
+     ($mailbox_name != IMP_Mailbox::getPref('spam_folder')))) {
     $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 
 if ($conf['notspam']['reporting'] &&
     (!$conf['notspam']['spamfolder'] ||
-     ($mailbox_name == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
+     ($mailbox_name == IMP_Mailbox::getPref('spam_folder')))) {
     $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 

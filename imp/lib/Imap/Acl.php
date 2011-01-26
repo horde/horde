@@ -121,12 +121,12 @@ class IMP_Imap_Acl
     /**
      * Attempts to retrieve the existing ACL for a mailbox from the server.
      *
-     * @param string $mbox  The mailbox to get the ACL for.
+     * @param IMP_Mailbox $mbox  The mailbox to get the ACL for.
      *
      * @return array  See Horde_Imap_Client_Base::getACL().
      * @throws IMP_Exception
      */
-    public function getACL($mbox)
+    public function getACL(IMP_Mailbox $mbox)
     {
         try {
             return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getACL($mbox);
@@ -138,13 +138,13 @@ class IMP_Imap_Acl
     /**
      * Edits an ACL on the server.
      *
-     * @param string $mbox  The mailbox on which to edit the ACL.
-     * @param string $user  The user to grant rights to.
-     * @param array $acl    The rights to be granted.
+     * @param IMP_Mailbox $mbox  The mailbox on which to edit the ACL.
+     * @param string $user       The user to grant rights to.
+     * @param array $acl         The rights to be granted.
      *
      * @throws IMP_Exception
      */
-    public function editACL($mbox, $user, $acl)
+    public function editACL(IMP_Mailbox $mbox, $user, $acl)
     {
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->setACL($mbox, $user, array('remove' => empty($acl), 'rights' => implode('', $acl)));
@@ -156,12 +156,12 @@ class IMP_Imap_Acl
     /**
      * Can a user edit the ACL for this mailbox?
      *
-     * @param string $mbox  The mailbox name.
-     * @param string $user  A user name.
+     * @param IMP_Mailbox $mbox  The mailbox name.
+     * @param string $user       A user name.
      *
      * @return boolean  True if $user has 'a' right.
      */
-    public function canEdit($mbox, $user)
+    public function canEdit(IMP_Mailbox $mbox, $user)
     {
         try {
             $rights = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listACLRights($mbox, $user);

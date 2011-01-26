@@ -288,7 +288,7 @@ if ($vars->criteria_form) {
     switch ($vars->search_type) {
     case 'filter':
         $q_ob = $imp_search->createQuery($c_list, array(
-            'id' => IMP::formMbox($vars->edit_query_filter, false),
+            'id' => IMP_Mailbox::formFrom($vars->edit_query_filter),
             'label' => $vars->search_label,
             'type' => IMP_Search::CREATE_FILTER
         ));
@@ -305,7 +305,7 @@ if ($vars->criteria_form) {
     case 'vfolder':
         $folders_form = Horde_Serialize::unserialize($vars->folders_form, Horde_Serialize::JSON);
         $q_ob = $imp_search->createQuery($c_list, array(
-            'id' => IMP::formMbox($vars->edit_query_vfolder, false),
+            'id' => IMP_Mailbox::formFrom($vars->edit_query_vfolder),
             'label' => $vars->search_label,
             'mboxes' => $folders_form->mbox,
             'subfolders' => $folders_form->subfolder,
@@ -359,22 +359,24 @@ $t->set('action', Horde::url('search.php'));
 $t->set('virtualfolder', $session->get('imp', 'protocol') != 'pop');
 
 /* Determine if we are editing a search query. */
-if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {
-    $q_ob = $imp_search[$vars->edit_query];
-    if ($imp_search->isVFolder($q_ob)) {
-        if (!$imp_search->isVFolder($q_ob, true)) {
+$edit_query = IMP_Mailbox::get($vars->edit_query);
+if ($edit_query && $edit_query->search) {
+    $q_ob = $edit_query->getSearchOb();
+
+    if ($edit_query->vfolder) {
+        if (!$edit_query->editvfolder) {
             $notification->push(_("Built-in Virtual Folders cannot be edited."), 'horde.error');
             Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $t->set('edit_query', true);
-        $t->set('edit_query_vfolder', IMP::formMbox($q_ob, true));
+        $t->set('edit_query_vfolder', IMP_Mailbox::formTo($edit_query));
     } elseif ($imp_search->isFilter($q_ob)) {
         if (!$imp_search->isFilter($q_ob, true)) {
             $notification->push(_("Built-in Filters cannot be edited."), 'horde.error');
             Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $t->set('edit_query', true);
-        $t->set('edit_query_filter', IMP::formMbox($q_ob, true));
+        $t->set('edit_query_filter', IMP_Mailbox::formTo($edit_query));
     }
 
     if ($t->get('edit_query')) {
@@ -498,7 +500,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
 
 if ($dimp_view) {
     if (!$vars->edit_query) {
-        $t->set('return_mailbox_val', sprintf(_("Return to %s"), htmlspecialchars(IMP::displayFolder($default_mailbox))));
+        $t->set('return_mailbox_val', sprintf(_("Return to %s"), htmlspecialchars(IMP_Mailbox::get($default_mailbox)->display)));
     }
 } else {
     $menu = IMP::menu();

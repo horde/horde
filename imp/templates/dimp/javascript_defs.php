@@ -74,7 +74,7 @@ $code['conf'] = array_filter(array(
     'filters_o' => array_keys($filters),
     'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
         ? array()
-        : array_map(array('IMP_Dimp', 'appendedFolderPref'), $GLOBALS['conf']['server']['fixed_folders']),
+        : array_map(array('IMP_Mailbox', 'prefFrom'), $GLOBALS['conf']['server']['fixed_folders']),
     'flags' => $flags,
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),
@@ -180,7 +180,7 @@ if ($compose_page) {
         'cc' => intval($GLOBALS['prefs']->getValue('compose_cc')),
         'close_draft' => intval($GLOBALS['prefs']->getValue('close_draft')),
         'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
-        'drafts_mbox' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true),
+        'drafts_mbox' => strval(IMP_Mailbox::getPref('drafts_folder')),
         'rte_avail' => intval($GLOBALS['browser']->hasFeature('rte')),
         'spellcheck' => intval($GLOBALS['prefs']->getValue('compose_spellcheck')),
     ));

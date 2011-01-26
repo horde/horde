@@ -142,7 +142,7 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
      */
     protected function _buildMailbox()
     {
-        $cacheid = $this->getCacheID();
+        $cacheid = $this->_mailbox->cacheid;
 
         /* Check cache ID: will catch changes to the mailbox after coming out
          * of message view mode. */

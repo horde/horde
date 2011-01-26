@@ -89,10 +89,7 @@ class IMP_Views_Compose
                 /* Check to make sure the sent-mail folders are created - they
                  * need to exist to show up in drop-down list. */
                 foreach (array_keys($identity->getAll('id')) as $ident) {
-                    $val = $identity->getValue('sent_mail_folder', $ident);
-                    if (!$imp_folder->exists($val)) {
-                        $imp_folder->create($val, true);
-                    }
+                    $identity->getValue('sent_mail_folder', $ident)->create();
                 }
 
                 $flist = array();
@@ -140,8 +137,7 @@ class IMP_Views_Compose
                 $t->set('read_receipt_set', ($d_read != 'ask'));
             }
 
-            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-            $t->set('save_sent_mail', ($imp_imap->allowFolders() && !$prefs->isLocked('save_sent_mail')));
+            $t->set('save_sent_mail', ($injector->getInstance('IMP_Factory_Imap')->create()->allowFolders() && !$prefs->isLocked('save_sent_mail')));
             $t->set('priority', $prefs->getValue('set_priority'));
             if (!$prefs->isLocked('default_encrypt') &&
                 ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {

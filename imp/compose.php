@@ -76,9 +76,6 @@ if ($vars->actionID) {
     }
 }
 
-$save_sent_mail = $vars->save_sent_mail;
-$sent_mail_folder = $identity->getValue('sent_mail_folder');
-
 /* Check for duplicate submits. */
 if ($vars->compose_formToken) {
     $tokenSource = $injector->getInstance('Horde_Token');
@@ -98,18 +95,12 @@ if ($vars->compose_formToken) {
 $compose_disable = !IMP::canCompose();
 
 /* Determine if mailboxes are readonly. */
-$imp_folder = $injector->getInstance('IMP_Folder');
-$readonly_drafts = $readonly_sentmail = false;
-$draft = $prefs->getValue('drafts_folder');
-$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-if (!empty($draft)) {
-    $draft = IMP::folderPref($draft, true);
-    $readonly_drafts = $imp_folder->exists($draft) &&
-        $imp_imap->isReadOnly($draft);
-}
-$readonly_sentmail = $imp_folder->exists($sent_mail_folder) &&
-    $imp_imap->isReadOnly($sent_mail_folder);
-if ($readonly_sentmail) {
+$draft = IMP_Mailbox::getPref('drafts_folder');
+$readonly_drafts = $draft && $draft->readonly;
+
+$save_sent_mail = $vars->save_sent_mail;
+$sent_mail_folder = $identity->getValue('sent_mail_folder');
+if ($readonly_sentmail = ($sent_mail_folder && $sent_mail_folder->readonly)) {
     $save_sent_mail = false;
 }
 
@@ -125,6 +116,7 @@ try {
 }
 
 /* Init objects. */
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $imp_ui = new IMP_Ui_Compose();
 $stationery = $injector->getInstance('IMP_Compose_Stationery');
 
@@ -871,7 +863,7 @@ if ($redirect) {
     $t->set('ssm', ($imp_imap->allowFolders() && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
         if ($readonly_sentmail) {
-            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail_folder), 'horde.warning'));
+            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", IMP_Mailbox::get($sent_mail_folder)->display), 'horde.warning'));
         }
         $t->set('ssm_selected', $vars->compose_formToken ? ($save_sent_mail == 'on') : $identity->saveSentmail());
         $t->set('ssm_label', Horde::label('ssm', _("Sa_ve a copy in ")));
@@ -889,15 +881,13 @@ if ($redirect) {
 
             /* Check to make sure the sent-mail folder is created - it needs
              * to exist to show up in drop-down list. */
-            $imp_folder = $injector->getInstance('IMP_Folder');
-            if (!$imp_folder->exists($sent_mail_folder)) {
-                $imp_folder->create($sent_mail_folder, true);
-            }
+            $sent_mail_folder = IMP_Mailbox::get($sent_mail_folder);
+            $sent_mail_folder->create();
 
             $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
         } else {
-            if (!empty($sent_mail_folder)) {
-                $sent_mail_folder = '&quot;' . IMP::displayFolder($sent_mail_folder) . '&quot;';
+            if ($sent_mail_folder) {
+                $sent_mail_folder = '&quot;' . $sent_mail_folder->display . '&quot;';
             }
             $t->set('ssm_folder', $sent_mail_folder);
             $t->set('ssm_folders', false);

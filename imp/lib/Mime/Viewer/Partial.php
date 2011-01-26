@@ -104,13 +104,15 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
 
         /* Get the contents of each of the parts. */
         $parts = array();
-        foreach ($indices as $mbox => $val) {
-            /* No need to fetch the current part again. */
-            if ($val == $number) {
-                $parts[$number] = $this->_mimepart->getContents();
-            } else {
-                $ic = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $val));
-                $parts[$ic->getMIMEMessage()->getContentTypeParameter('number')] = $ic->getBody();
+        foreach ($indices as $ob) {
+            foreach ($ob->uids as $val) {
+                /* No need to fetch the current part again. */
+                if ($val == $number) {
+                    $parts[$number] = $this->_mimepart->getContents();
+                } else {
+                    $ic = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $val));
+                    $parts[$ic->getMIMEMessage()->getContentTypeParameter('number')] = $ic->getBody();
+                }
             }
         }
 

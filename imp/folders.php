@@ -49,13 +49,11 @@ $imp_folder = $injector->getInstance('IMP_Folder');
 /* Initialize the IMP_Imap_Tree object. */
 $imaptree = $injector->getInstance('IMP_Imap_Tree');
 
-/* $folder_list is already encoded in UTF7-IMAP, but entries are urlencoded. */
-$folder_list = array();
-if (isset($vars->folder_list)) {
-    foreach ($vars->folder_list as $val) {
-        $folder_list[] = IMP::formMbox($val, false);
-    }
-}
+/* $folder_list is already encoded in UTF7-IMAP, but entries are
+ * urlencoded. */
+$folder_list = isset($vars->folder_list)
+    ? array_map(array('IMP_Mailbox', 'formFrom'), $vars->folder_list)
+    : array();
 
 /* Token to use in requests */
 $folders_token = $injector->getInstance('Horde_Token')->get('imp.folders');
@@ -95,7 +93,7 @@ case 'rebuild_tree':
 
 case 'expunge_folder':
     if (!empty($folder_list)) {
-        $injector->getInstance('IMP_Message')->expungeMailbox(array_flip($folder_list));
+        $injector->getInstance('IMP_Message')->expungeMailbox($folder_list->indices());
     }
     break;
 
@@ -155,7 +153,7 @@ case 'import_mbox':
 case 'create_folder':
     if ($vars->new_mailbox) {
         try {
-            $new_mailbox = $imaptree->createMailboxName(array_shift($folder_list), Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP'));
+            $new_mailbox = $imaptree->createMailboxName($folder_list[0], Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP'));
             $imp_folder->create($new_mailbox, $subscribe);
         } catch (Horde_Exception $e) {
             $notification->push($e);
@@ -173,8 +171,8 @@ case 'rename_folder':
         !empty($old_names) &&
         ($iMax == count($old_names))) {
         for ($i = 0; $i < $iMax; ++$i) {
-            $old_name = IMP::formMbox($old_names[$i], false);
-            $old_ns = $imp_imap->getNamespace($old_name);
+            $old_name = IMP_Mailbox::formFrom($old_names[$i]);
+            $old_ns = $old_name->namespace_info;
             $new = trim($new_names[$i], $old_ns['delimiter']);
 
             /* If this is a personal namespace, then anything goes as far as
@@ -243,27 +241,26 @@ case 'folders_empty_mailbox_confirm':
         $loop = array();
         $rowct = 0;
         foreach ($folder_list as $val) {
-            if (($vars->actionID == 'delete_folder_confirm') &&
-                !empty($conf['server']['fixed_folders']) &&
-                in_array(IMP::folderPref($val, false), $conf['server']['fixed_folders'])) {
-                $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), IMP::displayFolder($val)), 'horde.error');
+            if (($vars->actionID == 'delete_folder_confirm') && $val->fixed) {
+                $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $val->display), 'horde.error');
                 continue;
             }
 
             try {
-                $elt_info = $injector->getInstance('IMP_Factory_Imap')->create()->status($val, Horde_Imap_Client::STATUS_MESSAGES);
+                $elt_info = $imp_imap->status($val, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
                 $elt_info = null;
             }
 
             $data = array(
                 'class' => 'item' . (++$rowct % 2),
-                'name' => htmlspecialchars(IMP::displayFolder($val)),
+                'name' => htmlspecialchars($val->display),
                 'msgs' => $elt_info ? $elt_info['messages'] : 0,
                 'val' => htmlspecialchars($val)
             );
             $loop[] = $data;
         }
+
         if (!count($loop)) {
             break;
         }
@@ -307,7 +304,7 @@ case 'mbox_size':
             $size = $imp_message->sizeMailbox($val, false);
             $data = array(
                 'class' => 'item' . (++$rowct % 2),
-                'name' => htmlspecialchars(IMP::displayFolder($val)),
+                'name' => htmlspecialchars($val->display),
                 'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
                 'sort' => $size
             );
@@ -416,7 +413,7 @@ $displayNames = $fullNames = array();
 foreach ($imaptree as $key => $val) {
     $tmp = $displayNames[] = $val->display;
 
-    $tmp2 = IMP::displayFolder($val->value, true);
+    $tmp2 = $val->display_notranslate;
     if ($tmp != $tmp2) {
         $fullNames[$key] = $tmp2;
     }
@@ -427,7 +424,7 @@ if (!empty($imaptree->recent)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
     foreach ($imaptree->recent as $mbox => $nm) {
-        $injector->getInstance('IMP_Factory_Imap')->create()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+        $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
     }
 
     IMP::newmailAlerts($imaptree->recent);

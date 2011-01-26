@@ -35,23 +35,23 @@ $request = Horde_Util::getPathInfo();
 if (!empty($request)) {
     $request_parts = explode('/-/', $request);
     if (!empty($request_parts[0])) {
-        $ns_info = $imp_imap->getNamespace();
-        $mailbox = $imp_imap->appendNamespace(preg_replace('/\//', $ns_info['delimiter'], trim($request_parts[0], '/')));
+        $ns_info = $injector->getInstance('IMP_Factory_Imap')->create()->getNamespace();
+        $mailbox = IMP_Mailbox::get(preg_replace('/\//', $ns_info['delimiter'], trim($request_parts[0], '/')))->namespace_append;
 
         /* Make sure mailbox exists or else exit immediately. */
-        if (!$injector->getInstance('IMP_Folder')->exists($mailbox)) {
+        if (!$mailbox->exists) {
             exit;
         }
     }
     $new_mail = (isset($request_parts[1]) && ($request_parts[1] === 'new'));
 }
 
-$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create($mailbox);
-$imp_search = $injector->getInstance('IMP_Search');
+$mailbox = IMP_Mailbox::get($mailbox);
+$imp_mailbox = $mailbox->getListOb();
 
 /* Obtain some information describing the mailbox state. */
 $total_num = count($imp_mailbox);
-$unseen_num = ($imp_search->isVinbox($mailbox))
+$unseen_num = $mailbox->vinbox
     ? $total_num
     : $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 
@@ -59,12 +59,12 @@ $query = new Horde_Imap_Client_Search_Query();
 if ($new_mail) {
     $query->flag('\\seen', false);
 }
-$ids = $imp_search->runQuery($query, $mailbox, Horde_Imap_Client::SORT_ARRIVAL, 1);
+$ids = $injector->getInstance('IMP_Search')->runQuery($query, $mailbox, Horde_Imap_Client::SORT_ARRIVAL, 1);
 
 if (count($ids)) {
-    $imp_ui = new IMP_Ui_Mailbox(IMP::$mailbox);
+    $imp_ui = new IMP_Ui_Mailbox($mailbox);
 
-    $overview = $imp_mailbox->getMailboxArray(array_slice(reset($ids->indices()), 0, 20), array('preview' => $prefs->getValue('preview_enabled')));
+    $overview = $imp_mailbox->getMailboxArray(array_slice($ids[$mailbox], 0, 20), array('preview' => $prefs->getValue('preview_enabled')));
 
     foreach ($overview['overview'] as $ob) {
         $from_addr = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true));
@@ -81,14 +81,14 @@ if (count($ids)) {
 
 $description = ($total_num == 0)
     ? _("No Messages")
-    : sprintf(_("%u of %u messages in %s unread."), $unseen_num, $total_num, IMP::getLabel($mailbox));
+    : sprintf(_("%u of %u messages in %s unread."), $unseen_num, $total_num, $mailbox->label);
 
 $t = $injector->createInstance('Horde_Template');
 $t->set('charset', 'UTF-8');
 $t->set('xsl', Horde_Themes::getFeedXsl());
 $t->set('pubDate', htmlspecialchars(date('r')));
 $t->set('desc', htmlspecialchars($description));
-$t->set('title', htmlspecialchars($registry->get('name') . ' - ' . IMP::getLabel($mailbox)));
+$t->set('title', htmlspecialchars($registry->get('name') . ' - ' . $mailbox->label));
 $t->set('items', $items, true);
 $t->set('url', htmlspecialchars(Horde::url(IMP::generateIMPUrl('message.php', $mailbox), true, array('append_session' => -1))));
 $t->set('rss_url', htmlspecialchars(Horde::url('rss.php', true, array('append_session' => -1))));

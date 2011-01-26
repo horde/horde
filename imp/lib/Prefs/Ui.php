@@ -447,7 +447,7 @@ class IMP_Prefs_Ui
             return false;
 
         case 'draftsselect':
-            return $this->_updateSpecialFolders('drafts_folder', IMP::formMbox($ui->vars->drafts, false), $ui->vars->drafts_folder_new, 'drafts', $ui);
+            return $this->_updateSpecialFolders('drafts_folder', IMP_Mailbox::formFrom($ui->vars->drafts), $ui->vars->drafts_folder_new, 'drafts', $ui);
 
         case 'encryptselect':
             return $prefs->setValue('default_encrypt', $ui->vars->default_encrypt);
@@ -456,7 +456,7 @@ class IMP_Prefs_Ui
             return $this->_updateFlagManagement($ui);
 
         case 'initialpageselect':
-            return $prefs->setValue('initial_page', IMP::formMbox($ui->vars->initial_page, false));
+            return $prefs->setValue('initial_page', IMP_Mailbox::formFrom($ui->vars->initial_page));
 
         case 'pgpprivatekey':
             $this->_updatePgpPrivateKey($ui);
@@ -491,7 +491,7 @@ class IMP_Prefs_Ui
             return $this->_updateSource($ui);
 
         case 'spamselect':
-            return $this->_updateSpecialFolders('spam_folder', IMP::formMbox($ui->vars->spam, false), $ui->vars->spam_new, 'spam', $ui);
+            return $this->_updateSpecialFolders('spam_folder', IMP_Mailbox::formFrom($ui->vars->spam), $ui->vars->spam_new, 'spam', $ui);
 
         case 'stationerymanagement':
             return $this->_updateStationeryManagement($ui);
@@ -675,9 +675,9 @@ class IMP_Prefs_Ui
         $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
         $rights = $acl->getRights();
 
-        $folder = empty($ui->vars->folder)
-            ? 'INBOX'
-            : IMP::formMbox($ui->vars->folder, false);
+        $folder = isset($ui->vars->folder)
+            ? IMP_Mailbox::formFrom($ui->vars->folder)
+            : IMP_Mailbox::get('INBOX');
 
         try {
             $curr_acl = $acl->getACL($folder);
@@ -700,8 +700,8 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         $t->set('options', IMP::flistSelect(array('selected' => $folder)));
-        $t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($folder)));
-        $t->set('folder', IMP::formMbox($folder, true));
+        $t->set('current', sprintf(_("Current access to %s"), $folder->display));
+        $t->set('folder', $folder->form_to);
         $t->set('hasacl', count($curr_acl));
 
         if (!$t->get('hasacl')) {
@@ -776,7 +776,7 @@ class IMP_Prefs_Ui
         }
 
         $acl = $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
-        $folder = IMP::formMbox($ui->vars->folder, false);
+        $folder = IMP_Mailbox::formFrom($ui->vars->folder);
         $rights = array_keys($acl->getRights());
 
         $acl_list = $ui->vars->acl;
@@ -793,9 +793,9 @@ class IMP_Prefs_Ui
                 try {
                     $acl->editACL($folder, $new_user, $ui->vars->new_acl);
                     if (count($ui->vars->new_acl)) {
-                        $GLOBALS['notification']->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $new_user, IMP::getLabel($folder)), 'horde.success');
+                        $GLOBALS['notification']->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $new_user, $folder->label), 'horde.success');
                     } else {
-                        $GLOBALS['notification']->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), IMP::getLabel($folder), $new_user), 'horde.success');
+                        $GLOBALS['notification']->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder->label, $new_user), 'horde.success');
                     }
                 } catch (IMP_Exception $e) {
                     $GLOBALS['notification']->push($e);
@@ -850,10 +850,10 @@ class IMP_Prefs_Ui
                 $acl->editACL($folder, $user, $val);
                 if (!count($val)) {
                     if (isset($curr_acl[$user])) {
-                        $GLOBALS['notification']->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), IMP::getLabel($folder), $user), 'horde.success');
+                        $GLOBALS['notification']->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder->label, $user), 'horde.success');
                     }
                 } else {
-                    $GLOBALS['notification']->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, IMP::getLabel($folder)), 'horde.success');
+                    $GLOBALS['notification']->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, $folder->label), 'horde.success');
                 }
             } catch (IMP_Exception $e) {
                 $GLOBALS['notification']->push($e);
@@ -874,11 +874,11 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         $t->set('label', Horde::label('drafts', _("Drafts folder:")));
-        $t->set('nofolder', IMP::formMbox(self::PREF_NO_FOLDER, true));
+        $t->set('nofolder', IMP_Mailbox::formTo(self::PREF_NO_FOLDER));
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
             'new_folder' => true,
-            'selected' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)
+            'selected' => IMP_Mailbox::getPref('drafts_folder')
         )));
         $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['drafts']));
 
@@ -1024,7 +1024,7 @@ class IMP_Prefs_Ui
             $t->set('nofolder', true);
         } else {
             $mailbox_selected = $prefs->getValue('initial_page');
-            $t->set('folder_page', IMP::formMbox(self::PREF_FOLDER_PAGE, true));
+            $t->set('folder_page', IMP_Mailbox::formTo(self::PREF_FOLDER_PAGE));
             $t->set('folder_sel', $mailbox_selected == self::PREF_FOLDER_PAGE);
             $t->set('flist', IMP::flistSelect(array(
                 'inc_vfolder' => true,
@@ -1419,7 +1419,7 @@ class IMP_Prefs_Ui
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        $t->set('default', IMP::formMbox(self::PREF_DEFAULT, true));
+        $t->set('default', IMP_Mailbox::formTo(self::PREF_DEFAULT));
         $t->set('label', Horde::label('sent_mail_folder', _("Sent mail folder:")));
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
@@ -1448,7 +1448,7 @@ class IMP_Prefs_Ui
             return false;
         }
 
-        $sent_mail_folder = IMP::formMbox($ui->vars->sent_mail_folder, false);
+        $sent_mail_folder = IMP_Mailbox::formFrom($ui->vars->sent_mail_folder);
         if (empty($sent_mail_folder) && $ui->vars->sent_mail_folder_new) {
             $sent_mail_folder = Horde_String::convertCharset($ui->vars->sent_mail_folder_new, 'UTF-8', 'UTF7-IMAP');
         } elseif (strpos($sent_mail_folder, self::PREF_SPECIALUSE) === 0) {
@@ -1458,14 +1458,9 @@ class IMP_Prefs_Ui
             $sent_mail_folder = $sm_default;
         }
 
-        $sent_mail_folder = $imp_imap->appendNamespace($sent_mail_folder);
-
-        if ($sent_mail_folder) {
-            $imp_folder = $injector->getInstance('IMP_Folder');
-            if (!$imp_folder->exists($sent_mail_folder) &&
-                !$imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'), array('sent' => true))) {
-                return false;
-            }
+        if (($sent_mail_folder = IMP_Mailbox::get($sent_mail_folder)->namespace_append) &&
+            !$sent_mail_folder->create()) {
+            return false;
         }
 
         return $injector->getInstance('IMP_Identity')->setValue('sent_mail_folder', $sent_mail_folder);
@@ -1713,11 +1708,11 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         $t->set('label', Horde::label('spam', _("Spam folder:")));
-        $t->set('nofolder', IMP::formMbox(self::PREF_NO_FOLDER, true));
+        $t->set('nofolder', IMP_Mailbox::formTo(self::PREF_NO_FOLDER));
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
             'new_folder' => true,
-            'selected' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)
+            'selected' => IMP_Mailbox::getPref('spam_folder')
         )));
         $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['spam']));
 
@@ -1872,13 +1867,13 @@ class IMP_Prefs_Ui
         global $injector, $prefs;
 
         $imp_search = $injector->getInstance('IMP_Search');
-        $trash_folder = IMP::folderPref($prefs->getValue('trash_folder'), true);
+        $trash_folder = IMP_Mailbox::getPref('trash_folder');
 
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
         $t->set('label', Horde::label('trash', _("Trash folder:")));
-        $t->set('nofolder', IMP::formMbox(self::PREF_NO_FOLDER, true));
+        $t->set('nofolder', IMP_Mailbox::formTo(self::PREF_NO_FOLDER));
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
             'new_folder' => true,
@@ -1887,8 +1882,8 @@ class IMP_Prefs_Ui
         $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['trash']));
 
         if (!$prefs->isLocked('vfolder') || $imp_search['vtrash']->enabled) {
-            $t->set('vtrash', IMP::formMbox($imp_search->createSearchId('vtrash'), true));
-            $t->set('vtrash_select', $imp_search->isVTrash($trash_folder));
+            $t->set('vtrash', IMP_Mailbox::formTo($imp_search->createSearchId('vtrash')));
+            $t->set('vtrash_select', $trash_folder->vtrash);
         }
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/trash.html');
@@ -1904,11 +1899,11 @@ class IMP_Prefs_Ui
     protected function _updateTrash($ui)
     {
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-        $trash = IMP::formMbox($ui->vars->trash, false);
+        $trash = IMP_Mailbox::formFrom($ui->vars->trash);
 
         if (!$GLOBALS['prefs']->isLocked('vfolder')) {
             $vtrash = $imp_search['vtrash'];
-            $vtrash->enabled = $imp_search->isVTrash($trash);
+            $vtrash->enabled = $trash->vtrash;
             $imp_search['vtrash'] = $vtrash;
         }
 
@@ -1934,8 +1929,7 @@ class IMP_Prefs_Ui
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        if (!$imp_imap->allowFolders() ||
-            $prefs->isLocked($pref)) {
+        if (!$imp_imap->allowFolders() || $prefs->isLocked($pref)) {
             return false;
         }
 
@@ -1944,17 +1938,17 @@ class IMP_Prefs_Ui
         }
 
         if (strpos($folder, self::PREF_SPECIALUSE) === 0) {
-            $folder = substr($folder, strlen(self::PREF_SPECIALUSE));
+            $folder = IMP_Mailbox::get(substr($folder, strlen(self::PREF_SPECIALUSE)));
         } elseif (!empty($new)) {
             $new = Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP');
-            $folder = $injector->getInstance('IMP_Factory_Imap')->create()->appendNamespace($new);
-            if (!$injector->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'), array($type => true))) {
+            $folder = IMP_Mailbox::get($new)->namespace_append;
+            if (!$folder->create(array($type => true))) {
                 $folder = null;
             }
         }
 
-        return strlen($folder)
-            ? $prefs->setValue($pref, IMP::folderPref($folder, false))
+        return $folder
+            ? $prefs->setValue($pref, $folder->pref_to)
             : false;
     }
 
@@ -1967,8 +1961,10 @@ class IMP_Prefs_Ui
      */
     protected function _getSpecialUse($use)
     {
+        global $injector;
+
         if (is_null($this->_cache)) {
-            $this->_cache = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
+            $this->_cache = $injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
                 'attributes' => true,
                 'special_use' => true,
                 'sort' => true
@@ -1976,11 +1972,12 @@ class IMP_Prefs_Ui
         }
 
         $special_use = array();
-        foreach ($this->_cache as $key => $val) {
+        foreach ($this->_cache as $val) {
             if (in_array($use, $val['attributes'])) {
+                $mbox_ob = IMP_Mailbox::get($val['mailbox']);
                 $special_use[] = array(
-                    'l' => htmlspecialchars(IMP::getLabel($val)),
-                    'v' => IMP::formMbox(PREF_SPECIALUSE . $key, true)
+                    'l' => htmlspecialchars($mbox_ob->label),
+                    'v' => IMP_Mailbox::formTo(PREF_SPECIALUSE . $mbox_ob)
                 );
             }
         }
@@ -1989,7 +1986,7 @@ class IMP_Prefs_Ui
             return '';
         }
 
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         $t->set('special_use', $special_use);
 

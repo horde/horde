@@ -16,7 +16,7 @@
 class IMP_Mailbox_List implements Countable, Serializable
 {
     /* Serialized version. */
-    const VERSION = 1;
+    const VERSION = 2;
 
     /**
      * Has the internal message list changed?
@@ -28,16 +28,9 @@ class IMP_Mailbox_List implements Countable, Serializable
     /**
      * The mailbox to work with.
      *
-     * @var string
+     * @var IMP_Mailbox
      */
     protected $_mailbox;
-
-    /**
-     * Is this a search malbox?
-     *
-     * @var boolean
-     */
-    protected $_searchmbox;
 
     /**
      * The list of additional variables to serialize.
@@ -71,12 +64,11 @@ class IMP_Mailbox_List implements Countable, Serializable
     /**
      * Constructor.
      *
-     * @param string $mailbox  The mailbox to work with.
+     * @param string $mbox  The mailbox to work with.
      */
-    public function __construct($mailbox)
+    public function __construct($mbox)
     {
-        $this->_mailbox = $mailbox;
-        $this->_searchmbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mailbox);
+        $this->_mailbox = IMP_Mailbox::get($mbox);
     }
 
     /**
@@ -127,7 +119,9 @@ class IMP_Mailbox_List implements Countable, Serializable
                we're looking at. If we're hiding deleted messages, for
                example, there may be gaps here. */
             if (isset($this->_sorted[$i - 1])) {
-                $mboxname = ($this->_searchmbox) ? $this->_sortedMbox[$i - 1] : $this->_mailbox;
+                $mboxname = $this->_mailbox->search
+                    ? $this->_sortedMbox[$i - 1]
+                    : strval($this->_mailbox);
 
                 // $uids - KEY: UID, VALUE: sequence number
                 $to_process[$mboxname][$this->_sorted[$i - 1]] = $i;
@@ -257,8 +251,8 @@ class IMP_Mailbox_List implements Countable, Serializable
         $this->_sorted = $this->_sortedMbox = array();
         $query = null;
 
-        if ($this->_searchmbox) {
-            if (IMP::hideDeletedMsgs($this->_mailbox)) {
+        if ($this->_mailbox->search) {
+            if ($this->_mailbox->hideDeletedMsgs()) {
                 $query = new Horde_Imap_Client_Search_Query();
                 $query->flag('\\deleted', false);
             }
@@ -272,14 +266,14 @@ class IMP_Mailbox_List implements Countable, Serializable
                 $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
             }
         } else {
-            $sortpref = IMP::getSort($this->_mailbox, true);
+            $sortpref = $this->_mailbox->getSort(true);
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $this->_threadob = null;
                 $threadob = $this->getThreadOb();
                 $this->_sorted = $threadob->messageList((bool)$sortpref['dir']);
             } else {
                 if (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
-                    IMP::hideDeletedMsgs($this->_mailbox)) {
+                    $this->_mailbox->hideDeletedMsgs()) {
                     $query = new Horde_Imap_Client_Search_Query();
                     $query->flag('\\deleted', false);
                 }
@@ -343,11 +337,10 @@ class IMP_Mailbox_List implements Countable, Serializable
     {
         $count = ($results == Horde_Imap_Client::SORT_RESULTS_COUNT);
 
-        if ($this->_searchmbox || empty($this->_sorted)) {
+        if ($this->_mailbox->search || empty($this->_sorted)) {
             if ($count &&
-                $this->_searchmbox &&
                 ($type == 'unseen') &&
-                $GLOBALS['injector']->getInstance('IMP_Search')->isVinbox($this->_mailbox)) {
+                $this->_mailbox->vinbox) {
                 return count($this);
             }
 
@@ -357,7 +350,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         $criteria = new Horde_Imap_Client_Search_Query();
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
-        if (IMP::hideDeletedMsgs($this->_mailbox)) {
+        if ($this->_mailbox->hideDeletedMsgs()) {
             $criteria->flag('\\deleted', false);
         } elseif ($count) {
             try {
@@ -422,7 +415,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                     /* Search for the last visited page first. */
                     if ($GLOBALS['session']->exists('imp', 'mbox_page/' . $this->_mailbox)) {
                         $page = $GLOBALS['session']->get('imp', 'mbox_page/' . $this->_mailbox);
-                    } elseif ($this->_searchmbox) {
+                    } elseif ($this->_mailbox->search) {
                         $page = 1;
                     } else {
                         $page = ceil($this->mailboxStart($ret['msgcount']) / $page_size);
@@ -456,7 +449,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         /* If there are no viewable messages, check for deleted messages in
            the mailbox. */
         $ret['anymsg'] = true;
-        if (!$ret['msgcount'] && !$this->_searchmbox) {
+        if (!$ret['msgcount'] && !$this->_mailbox->search) {
             try {
                 $status = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES);
                 $ret['anymsg'] = (bool)$status['messages'];
@@ -481,7 +474,7 @@ class IMP_Mailbox_List implements Countable, Serializable
      */
     public function mailboxStart($total)
     {
-        if ($this->_searchmbox) {
+        if ($this->_mailbox->search) {
             return 1;
         }
 
@@ -493,7 +486,7 @@ class IMP_Mailbox_List implements Countable, Serializable
             return $total;
 
         case IMP::MAILBOX_START_FIRSTUNSEEN:
-            $sortpref = IMP::getSort($this->_mailbox);
+            $sortpref = $this->_mailbox->getSort();
 
             /* Optimization: if sorting by sequence then first unseen
              * information is returned via a SELECT/EXAMINE call. */
@@ -571,7 +564,7 @@ class IMP_Mailbox_List implements Countable, Serializable
 
         $this->_buildMailbox();
 
-        if ($this->_searchmbox) {
+        if ($this->_mailbox->search) {
             if (is_null($mbox)) {
                 $mbox = IMP::$thismailbox;
             }
@@ -635,44 +628,24 @@ class IMP_Mailbox_List implements Countable, Serializable
         }
 
         /* Remove the current entry and recalculate the range. */
-        foreach ($indices as $mbox => $uid) {
-            $val = $this->getArrayIndex($uid, $mbox);
-            unset($this->_sorted[$val]);
-            if ($this->_searchmbox) {
-                unset($this->_sortedMbox[$val]);
+        foreach ($indices as $ob) {
+            foreach ($ob->uids as $uid) {
+                $val = $this->getArrayIndex($uid, $mbox);
+                unset($this->_sorted[$val]);
+                if ($this->_mailbox->search) {
+                    unset($this->_sortedMbox[$val]);
+                }
             }
         }
 
         $this->changed = true;
         $this->_sorted = array_values($this->_sorted);
-        if ($this->_searchmbox) {
+        if ($this->_mailbox->search) {
             $this->_sortedMbox = array_values($this->_sortedMbox);
         }
         $this->_threadob = null;
 
         return true;
-    }
-
-    /**
-     * Returns a unique identifier for the current mailbox status.
-     *
-     * This cache ID is guaranteed to change if messages are added/deleted from
-     * the mailbox. Additionally, if CONDSTORE is available on the remote
-     * IMAP server, this ID will change if flag information changes.
-     *
-     * @return string  The cache ID string, which will change when the
-     *                 composition of the mailbox changes.
-     */
-    public function getCacheID()
-    {
-        if (!$this->_searchmbox) {
-            $sortpref = IMP::getSort($this->_mailbox, true);
-            try {
-                return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mailbox, array($sortpref['by'], $sortpref['dir']));
-            } catch (Horde_Imap_Client_Exception $e) {}
-        }
-
-        return strval(new Horde_Support_Randomid());
     }
 
     /* Countable methods. */
@@ -699,7 +672,6 @@ class IMP_Mailbox_List implements Countable, Serializable
     {
         $data = array(
             'm' => $this->_mailbox,
-            's' => $this->_searchmbox,
             'v' => self::VERSION
         );
 
@@ -714,7 +686,7 @@ class IMP_Mailbox_List implements Countable, Serializable
             $data[$val] = $this->$val;
         }
 
-        return json_encode($data);
+        return serialize($data);
     }
 
     /**
@@ -726,7 +698,7 @@ class IMP_Mailbox_List implements Countable, Serializable
      */
     public function unserialize($data)
     {
-        $data = json_decode($data, true);
+        $data = @unserialize($data, true);
         if (!is_array($data) ||
             !isset($data['v']) ||
             ($data['v'] != self::VERSION)) {
@@ -734,7 +706,6 @@ class IMP_Mailbox_List implements Countable, Serializable
         }
 
         $this->_mailbox = $data['m'];
-        $this->_searchmbox = $data['s'];
 
         if (isset($data['so'])) {
             $this->_sorted = $data['so'];

@@ -35,17 +35,16 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
     {
         $success = true;
 
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
         $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
-        foreach ($identity->getAllSentmailfolders() as $sent_folder) {
+        foreach ($this->_getSentmail() as $sent_folder) {
             /* Display a message to the user and rename the folder.
                Only do this if sent-mail folder currently exists. */
-            if ($imp_folder->exists($sent_folder)) {
-                $old_folder = $this->_renameSentmailMonthlyName($sent_folder);
-                $GLOBALS['notification']->push(sprintf(_("%s folder being renamed at the start of the month."), IMP::displayFolder($sent_folder)), 'horde.message');
-                if ($imp_folder->exists($old_folder)) {
-                    $GLOBALS['notification']->push(sprintf(_("%s already exists. Your %s folder was not renamed."), IMP::displayFolder($old_folder), IMP::displayFolder($sent_folder)), 'horde.warning');
+            if ($sent_folder->exists) {
+                $old_folder = $this->_renameSentmailMonthly($sent_folder);
+                $GLOBALS['notification']->push(sprintf(_("%s folder being renamed at the start of the month."), $sent_folder->display), 'horde.message');
+                if ($old_folder->exists) {
+                    $GLOBALS['notification']->push(sprintf(_("%s already exists. Your %s folder was not renamed."), $old_folder->display, $sent_folder->display), 'horde.warning');
                     $success = false;
                 } else {
                     $success =
@@ -66,12 +65,11 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-
         $new_folders = $old_folders = array();
-        foreach ($identity->getAllSentmailfolders() as $folder) {
-            $old_folders[] = IMP::displayFolder($folder);
-            $new_folders[] = IMP::displayFolder($this->_renameSentmailMonthlyName($folder));
+
+        foreach ($this->_getSentmail() as $folder) {
+            $old_folders[] = $folder->display;
+            $new_folders[] = $this->_renameSentmailMonthly($folder)->display;
         }
 
         return sprintf(_("The current folder(s) \"%s\" will be renamed to \"%s\"."), implode(', ', $old_folders), implode(', ', $new_folders));
@@ -91,17 +89,31 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      *
      * @param string $folder  The name of the sent-mail folder to rename.
      *
-     * @return string  New sent-mail folder name.
+     * @return IMP_Mailbox  New sent-mail folder name.
      */
-    protected function _renameSentmailMonthlyName($folder)
+    protected function _renameSentmailMonthly($folder)
     {
         // @TODO
-        $last_maintenance = $GLOBALS['prefs']->getValue('last_maintenance');
-        $last_maintenance = empty($last_maintenance) ? mktime(0, 0, 0, date('m') - 1, 1) : $last_maintenance;
+        $last_maint = $GLOBALS['prefs']->getValue('last_maintenance');
+        if (empty($last_maint)) {
+            $last_maintenance = mktime(0, 0, 0, date('m') - 1, 1);
+        }
 
-        $text = (substr($GLOBALS['language'], 0, 2) == 'en') ? strtolower(strftime('-%b-%Y', $last_maintenance)) : strftime('-%m-%Y', $last_maintenance);
+        $text = (substr($GLOBALS['language'], 0, 2) == 'en')
+            ? strtolower(strftime('-%b-%Y', $last_maint))
+            : strftime('-%m-%Y', $last_maint);
 
-        return $folder . Horde_String::convertCharset($text, 'UTF-8', 'UTF7-IMAP');
+        return IMP_Mailbox::get($folder . Horde_String::convertCharset($text, 'UTF-8', 'UTF7-IMAP'));
+    }
+
+    /**
+     * Returns the list of sent-mail mailboxes.
+     *
+     * @return array  All sent-mail mailboxes (IMP_Mailbox objects).
+     */
+    protected function _getSentmail()
+    {
+        return array_map(array('IMP_Mailbox', 'get'), $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailfolders());
     }
 
 }

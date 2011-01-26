@@ -151,14 +151,16 @@ class IMP_Imap implements Serializable
     /**
      * Is the given mailbox read-only?
      *
-     * @param string $mailbox  The mailbox to check.
+     * @param IMP_Mailbox $mailbox  The mailbox to check.
      *
      * @return boolean  Is the mailbox read-only?
      * @throws Horde_Exception
      */
-    public function isReadOnly($mailbox)
+    public function isReadOnly(IMP_Mailbox $mailbox)
     {
-        if (!isset($this->_readonly[$mailbox])) {
+        $mbox_key = strval($mailbox);
+
+        if (!isset($this->_readonly[$mbox_key])) {
             $res = false;
 
             /* These tests work on both regular and search mailboxes. */
@@ -170,17 +172,17 @@ class IMP_Imap implements Serializable
             // TODO: POP3 also?
             if (!$res &&
                 ($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
-                !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mailbox)) {
+                !$mailbox->search) {
                 try {
-                    $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
+                    $status = $this->ob->status($mbox_key, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
                     $res = $status['uidnotsticky'];
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
 
-            $this->_readonly[$mailbox] = $res;
+            $this->_readonly[$mbox_key] = $res;
         }
 
-        return $this->_readonly[$mailbox];
+        return $this->_readonly[$mbox_key];
     }
 
     /**

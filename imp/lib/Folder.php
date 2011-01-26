@@ -46,20 +46,18 @@ class IMP_Folder
         $return_value = true;
         $deleted = array();
 
-        foreach ($folders as $folder) {
-            if (!$force &&
-                !empty($conf['server']['fixed_folders']) &&
-                in_array(IMP::folderPref($folder, false), $conf['server']['fixed_folders'])) {
-                $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), IMP::displayFolder($folder)), 'horde.error');
+        foreach (IMP_Mailbox::get($folders) as $folder) {
+            if (!$force && $folder->fixed) {
+                $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $folder->display), 'horde.error');
                 continue;
             }
 
             try {
                 $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->deleteMailbox($folder);
-                $notification->push(sprintf(_("The folder \"%s\" was successfully deleted."), IMP::displayFolder($folder)), 'horde.success');
+                $notification->push(sprintf(_("The folder \"%s\" was successfully deleted."), $folder->display), 'horde.success');
                 $deleted[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("The folder \"%s\" was not deleted. This is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
+                $notification->push(sprintf(_("The folder \"%s\" was not deleted. This is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
             }
         }
 
@@ -79,8 +77,8 @@ class IMP_Folder
     protected function _onDelete($deleted)
     {
         /* Clear the folder from the sort prefs. */
-        foreach ($deleted as $val) {
-            IMP::setSort(null, null, $val, true);
+        foreach (IMP_Mailbox::get($deleted) as $val) {
+            $val->setSort(null, null, true);
         }
     }
 
@@ -127,9 +125,11 @@ class IMP_Folder
             return false;
         }
 
+        $folder = IMP_Mailbox::get($folder);
+
         /* Make sure we are not trying to create a duplicate folder */
-        if ($this->exists($folder)) {
-            $notification->push(sprintf(_("The folder \"%s\" already exists"), IMP::displayFolder($folder)), 'horde.warning');
+        if ($folder->exists) {
+            $notification->push(sprintf(_("The folder \"%s\" already exists"), $folder->display), 'horde.warning');
             return false;
         }
 
@@ -145,11 +145,11 @@ class IMP_Folder
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->createMailbox($folder, array('special_use' => $special_use));
         } catch (Horde_Imap_Client_Exception $e) {
-            $notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
+            $notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
             return false;
         }
 
-        $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" was successfully created."), IMP::displayFolder($folder)), 'horde.success');
+        $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" was successfully created."), $folder->display), 'horde.success');
 
         /* Subscribe, if requested. */
         if ($subscribe) {
@@ -160,28 +160,6 @@ class IMP_Folder
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($folder);
 
         return true;
-    }
-
-    /**
-     * Finds out if a specific folder exists or not.
-     *
-     * @param string $folder  The folder name to be checked (UTF7-IMAP).
-     *
-     * @return boolean  Does the folder exist?
-     */
-    public function exists($folder)
-    {
-        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        if (isset($imaptree[$folder])) {
-            return !$imaptree[$folder]->container;
-        }
-
-        try {
-            $ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($folder, array('flat' => true));
-            return !empty($ret);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return false;
-        }
     }
 
     /**
@@ -196,15 +174,16 @@ class IMP_Folder
      */
     public function rename($old, $new, $force = false)
     {
+        $old = IMP_Mailbox::get($old);
+        $new = IMP_Mailbox::get($new);
+
         /* Don't try to rename from or to an empty string. */
-        if ((strlen($old) == 0) || (strlen($new) == 0)) {
+        if (!$old || !$new) {
             return false;
         }
 
-        if (!$force &&
-            !empty($GLOBALS['conf']['server']['fixed_folders']) &&
-            in_array(IMP::folderPref($old, false), $GLOBALS['conf']['server']['fixed_folders'])) {
-            $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be renamed."), IMP::displayFolder($old)), 'horde.error');
+        if (!$force && $old->fixed) {
+            $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be renamed."), $old->display), 'horde.error');
             return false;
         }
 
@@ -216,11 +195,11 @@ class IMP_Folder
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->renameMailbox($old, $new);
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['notification']->push(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), IMP::displayFolder($old), IMP::displayFolder($new)) . ': ' . $e->getMessage(), 'horde.error');
+            $GLOBALS['notification']->push(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), $old->display, $new->display) . ': ' . $e->getMessage(), 'horde.error');
             return false;
         }
 
-        $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" was successfully renamed to \"%s\"."), IMP::displayFolder($old), IMP::displayFolder($new)), 'horde.success');
+        $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" was successfully renamed to \"%s\"."), $old->display, $new->display), 'horde.success');
 
         foreach ($all_folders as $folder_old) {
             $deleted[] = $folder_old;
@@ -256,13 +235,13 @@ class IMP_Folder
             return false;
         }
 
-        foreach (array_filter($folders) as $folder) {
+        foreach (IMP_Mailbox::get($folders) as $folder) {
             try {
                 $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->subscribeMailbox($folder, true);
-                $notification->push(sprintf(_("You were successfully subscribed to \"%s\""), IMP::displayFolder($folder)), 'horde.success');
+                $notification->push(sprintf(_("You were successfully subscribed to \"%s\""), $folder->display), 'horde.success');
                 $subscribed[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
+                $notification->push(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
                 $return_value = false;
             }
         }
@@ -293,16 +272,16 @@ class IMP_Folder
             return false;
         }
 
-        foreach (array_filter($folders) as $folder) {
-            if (strcasecmp($folder, 'INBOX') == 0) {
-                $notification->push(sprintf(_("You cannot unsubscribe from \"%s\"."), IMP::displayFolder($folder)), 'horde.error');
+        foreach (IMP_Mailbox::get($folders) as $folder) {
+            if ($folder->inbox) {
+                $notification->push(sprintf(_("You cannot unsubscribe from \"%s\"."), $folder->display), 'horde.error');
             } else {
                 try {
                     $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->subscribeMailbox($folder, false);
-                    $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\""), IMP::displayFolder($folder)), 'horde.success');
+                    $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\""), $folder->display), 'horde.success');
                     $unsubscribed[] = $folder;
                 } catch (Horde_Imap_Client_Exception $e) {
-                    $notification->push(sprintf(_("You were not unsubscribed from \"%s\". Here is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
+                    $notification->push(sprintf(_("You were not unsubscribed from \"%s\". Here is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
                     $return_value = false;
                 }
             }

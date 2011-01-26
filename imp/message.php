@@ -36,7 +36,7 @@ if (!($search_mbox = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$ma
 }
 
 /* Make sure we have a valid index. */
-$imp_mailbox = $injector->getInstance('IMP_Factory_MailboxList')->create(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = IMP::$mailbox->getListOb(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 if (!$imp_mailbox->isValidIndex()) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
@@ -61,7 +61,7 @@ if ($vars->actionID) {
 }
 
 /* Determine if mailbox is readonly. */
-$peek = $readonly = $injector->getInstance('IMP_Factory_Imap')->create()->isReadOnly(IMP::$mailbox);
+$peek = $readonly = IMP::$mailbox->readonly;
 
 /* Get mailbox/UID of message. */
 $index_array = $imp_mailbox->getIMAPIndex();
@@ -112,9 +112,9 @@ case 'move_message':
 case 'copy_message':
     if (isset($vars->targetMbox) &&
         (!$readonly || ($vars->actionID == 'copy_message'))) {
-        $targetMbox = IMP::formMbox($vars->targetMbox, false);
+        $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
         if ($vars->newMbox) {
-            $vars->targetMbox = IMP::folderPref($targetMbox, true);
+            $vars->targetMbox = IMP_Mailbox::prefFrom($targetMbox);
             $newMbox = true;
         } else {
             $newMbox = false;
@@ -249,7 +249,7 @@ $mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch:
 $use_pop = ($session->get('imp', 'protocol') == 'pop');
 
 /* Get the title/mailbox label of the mailbox page. */
-$page_label = IMP::getLabel(IMP::$mailbox);
+$page_label = IMP::$mailbox->label;
 
 /* Generate the link to ourselves. */
 $msgindex = $imp_mailbox->getMessageIndex();
@@ -429,14 +429,14 @@ foreach ($flag_parse as $val) {
 $h_page_label = htmlspecialchars($page_label);
 $header_label = $h_page_label;
 if ($search_mbox) {
-    $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', $mailbox_name)) . IMP::displayFolder($mailbox_name) . '</a>]';
+    $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', $mailbox_name)) . IMP_Mailbox::get($mailbox_name)->display . '</a>]';
 }
 
 /* Prepare the navbar top template. */
 $t_template = $injector->createInstance('Horde_Template');
 $t_template->set('message_url', $message_url);
 $t_template->set('form_input', Horde_Util::formInput());
-$t_template->set('mailbox', IMP::formMbox(IMP::$mailbox, true));
+$t_template->set('mailbox', IMP::$mailbox->form_to);
 $t_template->set('thismailbox', htmlspecialchars($mailbox_name));
 $t_template->set('start', htmlspecialchars($msgindex));
 $t_template->set('uid', htmlspecialchars($uid));
@@ -453,7 +453,7 @@ $n_template->set('usepop', $use_pop);
 $n_template->set('id', 1);
 
 if (!$use_pop) {
-    $n_template->set('mailbox', IMP::formMbox(IMP::$mailbox, true));
+    $n_template->set('mailbox', IMP::$mailbox->form_to);
 
     $tmp = $imp_flags->getList(array(
         'imap' => true,
@@ -545,7 +545,7 @@ if (!$disable_compose) {
     $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), 'widget', '', '', _("Redirec_t"), true));
 }
 
-if (IMP::threadSortAvailable(IMP::$mailbox)) {
+if (IMP::$mailbox->threadsort) {
     $a_template->set('show_thread', Horde::widget(IMP::generateIMPUrl('thread.php', IMP::$mailbox, $uid, $mailbox_name)->add(array('start' => $msgindex)), _("View Thread"), 'widget', '', '', _("_View Thread"), true));
 }
 
@@ -573,13 +573,13 @@ $a_template->set('save_as', Horde::widget(Horde::downloadUrl($subject, array_mer
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] ||
-     ($mailbox_name != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
+     ($mailbox_name != IMP_Mailbox::getPref('spam_folder')))) {
     $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget spamAction', '', '', _("Report as Spam"), true));
 }
 
 if ($conf['notspam']['reporting'] &&
     (!$conf['notspam']['spamfolder'] ||
-     ($mailbox_name == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
+     ($mailbox_name == IMP_Mailbox::getPref('spam_folder')))) {
     $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget notspamAction', '', '', _("Report as Innocent"), true));
 }
 

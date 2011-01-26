@@ -25,7 +25,7 @@ if (!$vars->uid || !$vars->folder) {
 
 $imp_ui = new IMP_Ui_Message();
 $js_onload = $js_vars = array();
-$readonly = $injector->getInstance('IMP_Factory_Imap')->create()->isReadOnly($vars->folder);
+$readonly = IMP_Mailbox::get($vars->folder)->readonly;
 
 switch ($vars->actionID) {
 case 'strip_attachment':
@@ -147,7 +147,7 @@ $t->set('forward_button', IMP_Dimp::actionButton(array(
 
 if (!empty($conf['spam']['reporting']) &&
     (!$conf['spam']['spamfolder'] ||
-     ($vars->folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
+     ($vars->folder != IMP_Mailbox::getPref('spam_folder')))) {
     $t->set('spam_button', IMP_Dimp::actionButton(array(
         'icon' => 'Spam',
         'id' => 'button_spam',
@@ -157,7 +157,7 @@ if (!empty($conf['spam']['reporting']) &&
 
 if (!empty($conf['notspam']['reporting']) &&
     (!$conf['notspam']['spamfolder'] ||
-    ($vars->folder == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
+    ($vars->folder == IMP_Mailbox::getPref('spam_folder')))) {
     $t->set('ham_button', IMP_Dimp::actionButton(array(
         'icon' => 'Ham',
         'id' => 'button_ham',
