@@ -482,7 +482,7 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Alarm.po" name="locale/zh_CN/LC_MESSAGES/Horde_Alarm.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Alarm.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Alarm.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Alarm.po" name="locale/zh_TW/LC_MESSAGES/Horde_Alarm.po" />
-   <install as="Horde/Alarm/migration/1_horde_alarms_table.php" name="migration/Horde/Alarm/1_horde_alarms_table.php" />
+   <install as="migration/1_horde_alarms_table.php" name="migration/Horde/Alarm/1_horde_alarms_table.php" />
    <install as="Horde/Alarm/AllTests.php" name="test/Horde/Alarm/AllTests.php" />
    <install as="Horde/Alarm/conf.php.dist" name="test/Horde/Alarm/conf.php.dist" />
    <install as="Horde/Alarm/HandlerTest.php" name="test/Horde/Alarm/HandlerTest.php" />
