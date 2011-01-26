@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-25</date>
- <time>14:01:04</time>
+ <date>2011-01-26</date>
+ <time>21:24:42</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -84,6 +84,13 @@
      <file name="ActiveSync.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="ActiveSync">
+      <file name="1_horde_activesync_base_tables.php" role="data" />
+     </dir> <!-- /migration/Horde/ActiveSync -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="ActiveSync">
@@ -156,6 +163,7 @@
    <install as="Horde/ActiveSync/State/History.php" name="lib/Horde/ActiveSync/State/History.php" />
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
+   <install as="migration/1_horde_activesync_base_tables.php" name="migration/Horde/ActiveSync/1_horde_activesync_base_tables.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/FileStateTest.php" name="test/Horde/ActiveSync/FileStateTest.php" />
@@ -176,7 +184,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-25</date>
+   <date>2011-01-26</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
 * Initial release
