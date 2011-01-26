@@ -55,9 +55,10 @@ class Kronolith_Driver
      * Just stores the $params in our newly-created object. All other work is
      * done by {@link initialize()}.
      *
-     * @param array $params  Any parameters needed for this driver.
+     * @param array $params     Any parameters needed for this driver.
+     * @param string $errormsg  A custom error message to use.
      */
-    public function __construct($params = array(), $errormsg = null)
+    public function __construct(array $params = array(), $errormsg = null)
     {
         $this->_params = $params;
         if ($errormsg === null) {

@@ -6,12 +6,12 @@
  * @author  Jan Schneider <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_View_ExportEvent {
-
+class Kronolith_View_ExportEvent
+{
     /**
      * @param Kronolith_Event $event
      */
-    function Kronolith_View_ExportEvent($event)
+    public function __construct(Kronolith_Event $event)
     {
         if (!$event) {
             echo '<h3>' . _("Event not found") . '</h3>';

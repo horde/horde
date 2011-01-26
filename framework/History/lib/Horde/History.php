@@ -38,33 +38,6 @@ abstract class Horde_History
     protected $_logger;
 
     /**
-     * Attempts to return a reference to a concrete History instance.
-     *
-     * @param string $driver  The driver to use.
-     * @param array $params   Parameters needed for the driver.
-     *
-     * @return Horde_History  The concrete Horde_History reference.
-     * @throws Horde_History_Exception
-     */
-    static public function factory($driver, $params = array())
-    {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-
-        $injector->bindFactory(
-            __CLASS__,
-            __CLASS__ . '_Factory',
-            'getHistory'
-        );
-
-        $config = new stdClass;
-        $config->driver = $driver;
-        $config->params = $params;
-        $injector->setInstance(__CLASS__ . '_Config', $config);
-
-        return $injector->getInstance(__CLASS__);
-    }
-
-    /**
      * Set the log handler.
      *
      * @param Horde_Log_Logger $logger The log handler.
@@ -95,13 +68,12 @@ abstract class Horde_History
      *                               that entry instead of creating a new one.
      *
      * @throws Horde_History_Exception
-     * @throws InvalidArgumentException
      */
     public function log($guid, array $attributes = array(),
                         $replaceAction = false)
     {
         if (!is_string($guid)) {
-            throw new InvalidArgumentException('The guid needs to be a string!');
+            throw new Horde_History_Exception('The guid needs to be a string!');
         }
 
         $history = $this->getHistory($guid);
@@ -143,12 +115,11 @@ abstract class Horde_History
      * @return Horde_History_Log  A Horde_History_Log object.
      *
      * @throws Horde_History_Exception
-     * @throws InvalidArgumentException
      */
     public function getHistory($guid)
     {
         if (!is_string($guid)) {
-            throw new InvalidArgumentException('The guid needs to be a string!');
+            throw new Horde_History_Exception('The guid needs to be a string!');
         }
         return $this->_getHistory($guid);
     }
@@ -185,16 +156,15 @@ abstract class Horde_History
      *                none matched the criteria.
      *
      * @throws Horde_History_Exception
-     * @throws InvalidArgumentException
      */
     public function getByTimestamp($cmp, $ts, array $filters = array(),
                                    $parent = null)
     {
         if (!is_string($cmp)) {
-            throw new InvalidArgumentException('The comparison operator needs to be a string!');
+            throw new Horde_History_Exception('The comparison operator needs to be a string!');
         }
         if (!is_integer($ts)) {
-            throw new InvalidArgumentException('The timestamp needs to be an integer!');
+            throw new Horde_History_Exception('The timestamp needs to be an integer!');
         }
         return $this->_getByTimestamp($cmp, $ts, $filters, $parent);
     }
@@ -234,13 +204,12 @@ abstract class Horde_History
      *
      * @return integer  The timestamp, or 0 if no matching entry is found.
      *
-     * @throws InvalidArgumentException If the input parameters are not of
-     *                                  type string.
+     * @throws Horde_History_Exception If the input parameters are not of type string.
      */
     public function getActionTimestamp($guid, $action)
     {
         if (!is_string($guid) || !is_string($action)) {
-            throw new InvalidArgumentException('$guid and $action need to be strings!');
+            throw new Horde_History_Exception('$guid and $action need to be strings!');
         }
 
         try {
@@ -285,5 +254,4 @@ abstract class Horde_History
      * @throws Horde_History_Exception
      */
     abstract public function removeByNames(array $names);
-
 }

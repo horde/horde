@@ -332,7 +332,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function isActive()
     {
-        return $this->_active;
+        return $this->_active && $this->_connection;
     }
 
     /**
@@ -517,6 +517,8 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function execute($sql, $arg1 = null, $arg2 = null)
     {
+        if (!$this->isActive()) { $this->reconnect(); }
+
         if (is_array($arg1)) {
             $sql = $this->_replaceParameters($sql, $arg1);
             $name = $arg2;

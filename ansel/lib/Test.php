@@ -23,15 +23,6 @@ class Ansel_Test extends Horde_Test
             'required' => false,
             'error' => 'Ansel can make use of the Facedetect PHP extension for automatically detecting human faces in images.'
         ),
-        'gd' => array(
-            'descrip' => 'GD Support',
-            'error' => 'You need either GD2 support in PHP, or an external driver like ImageMagick.  Either recompile PHP with GD2 support, or make sure that the path to ImageMagick\'s convert utility is set in horde/config/conf.php.'
-        ),
-        'imagick' => array(
-            'descrip' => 'Imagick Library',
-            'required' => false,
-            'error' => 'Ansel can make use of the Imagick Library, if it is installed on your system.  It is highly recommended to use either ImageMagick\'s convert utility or the Imagick php library for faster results.'
-        ),
         'libpuzzle' => array(
             'descrip' => 'Puzzle Library',
             'required' => false,
@@ -56,12 +47,7 @@ class Ansel_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_pearList = array(
-        'MDB2' => array(
-            'required' => true,
-            'error' => 'You do not have the MDB2 package installed on your system. In addition to this package, you will need the appropriate MDB2_Driver package for your database backend.'
-        )
-    );
+    protected $_pearList = array();
 
     /**
      * Required configuration files.

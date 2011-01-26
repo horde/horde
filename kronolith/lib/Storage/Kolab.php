@@ -13,7 +13,7 @@ class Kronolith_Storage_Kolab extends Kronolith_Storage
 {
     protected $_params = array();
 
-    function __construct($user, $params = array())
+    public function __construct($user, array $params = array())
     {
         $this->_user = $user;
         $this->_params = $params;

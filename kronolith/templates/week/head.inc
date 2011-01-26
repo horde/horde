@@ -16,7 +16,7 @@ echo $this->link(1)->link(array('title' => _("Next week"), 'class' => 'iconNav',
 
 <?php $colwidth = round((100 - count($this->days) - 1) / count($this->days)); foreach ($this->days as $day): ?>
   <th class="control" width="1%">&nbsp;</th>
-  <th class="nowrap <?php echo ($day->isToday() ? 'selected-control' : 'control') ?>" width="<?php echo $colwidth ?>%" colspan="<?php echo $day->_totalspan ?>">
+  <th class="nowrap <?php echo ($day->isToday() ? 'selected-control' : 'control') ?>" width="<?php echo $colwidth ?>%" colspan="<?php echo $day->totalspan ?>">
 <?php
 if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
     ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||

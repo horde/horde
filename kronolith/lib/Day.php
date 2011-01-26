@@ -5,15 +5,15 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_Day extends Horde_Date {
-
+class Kronolith_Day extends Horde_Date
+{
     /**
      * How many time slots are we dividing each hour into? Set from user
      * preferences.
      *
      * @var integer
      */
-    var $_slotsPerHour;
+    public $slotsPerHour;
 
     /**
      * How many slots do we have per day? Calculated from $_slotsPerHour.
@@ -21,7 +21,7 @@ class Kronolith_Day extends Horde_Date {
      * @see $_slotsPerHour
      * @var integer
      */
-    var $_slotsPerDay;
+    public $slotsPerDay;
 
     /**
      * How many minutes are in each slot? Calculated from $_slotsPerHour.
@@ -29,14 +29,14 @@ class Kronolith_Day extends Horde_Date {
      * @see $_slotsPerHour
      * @var integer
      */
-    var $_slotLength;
+    public $slotLength;
 
     /**
      * Array of slots holding hours and minutes for each piece of this day.
      *
      * @var array
      */
-    var $slots = array();
+    public $slots = array();
 
     /**
      * Constructor.
@@ -45,7 +45,7 @@ class Kronolith_Day extends Horde_Date {
      * @param integer $day
      * @param integer $year
      */
-    function Kronolith_Day($month = null, $day = null, $year = null)
+    public function __construct($month = null, $day = null, $year = null)
     {
         if (is_null($month)) {
             $month = date('n');
@@ -58,21 +58,21 @@ class Kronolith_Day extends Horde_Date {
         }
         parent::__construct(array('year' => $year, 'month' => $month, 'mday' => $day));
 
-        $this->_slotsPerHour = $GLOBALS['prefs']->getValue('slots_per_hour');
-        if (!$this->_slotsPerHour) {
-            $this->_slotsPerHour = 1;
+        $this->slotsPerHour = $GLOBALS['prefs']->getValue('slots_per_hour');
+        if (!$this->slotsPerHour) {
+            $this->slotsPerHour = 1;
         }
-        $this->_slotsPerDay = $this->_slotsPerHour * 24;
-        $this->_slotLength = 60 / $this->_slotsPerHour;
+        $this->slotsPerDay = $this->slotsPerHour * 24;
+        $this->slotLength = 60 / $this->slotsPerHour;
 
-        for ($i = 0; $i < $this->_slotsPerDay; $i++) {
-            $minutes = $i * $this->_slotLength;
+        for ($i = 0; $i < $this->slotsPerDay; $i++) {
+            $minutes = $i * $this->slotLength;
             $this->slots[$i]['hour'] = (int)($minutes / 60);
             $this->slots[$i]['min'] = $minutes % 60;
         }
     }
 
-    function getTime($format, $offset = 0)
+    public function getTime($format, $offset = 0)
     {
         $date = new Horde_Date(array('month' => $this->month,
                                      'mday' => $this->mday + $offset,
@@ -80,7 +80,7 @@ class Kronolith_Day extends Horde_Date {
         return $date->strftime($format);
     }
 
-    function getTomorrow()
+    public function getTomorrow()
     {
         $date = new Horde_Date(array('month' => $this->month,
                                      'mday' => $this->mday + 1,
@@ -88,7 +88,7 @@ class Kronolith_Day extends Horde_Date {
         return $date;
     }
 
-    function getYesterday()
+    public function getYesterday()
     {
         $date = new Horde_Date(array('month' => $this->month,
                                      'mday' => $this->mday - 1,
@@ -96,12 +96,12 @@ class Kronolith_Day extends Horde_Date {
         return $date;
     }
 
-    function isToday()
+    public function isToday()
     {
         return $this->compareDate(new Horde_Date(mktime(0, 0, 0))) == 0;
     }
 
-    function isTomorrow()
+    public function isTomorrow()
     {
         $date = new Horde_Date(array('month' => $this->month,
                                      'mday' => $this->mday - 1,
@@ -109,7 +109,7 @@ class Kronolith_Day extends Horde_Date {
         return $date->compareDate(new Horde_Date(mktime(0, 0, 0))) == 0;
     }
 
-    function diff()
+    public function diff()
     {
         $day2 = new Kronolith_Day();
         return Date_Calc::dateDiff($this->mday, $this->month, $this->year,

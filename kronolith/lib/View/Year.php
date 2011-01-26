@@ -6,12 +6,18 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_View_Year {
+class Kronolith_View_Year
+{
+    public $year;
+    protected $_events = array();
 
-    var $year;
-    var $_events = array();
-
-    function Kronolith_View_Year($date)
+    /**
+     *
+     * @param Horde_Date $date
+     *
+     * @return Kronolith_View_Year
+     */
+    public function __construct(Horde_Date $date)
     {
         $this->year = $date->year;
         $startDate = new Horde_Date(array('year' => $this->year,
@@ -32,7 +38,7 @@ class Kronolith_View_Year {
         }
     }
 
-    function html()
+    public function html()
     {
         global $prefs;
 
@@ -163,13 +169,13 @@ class Kronolith_View_Year {
         echo $html . '</tr></table>';
     }
 
-    function link($offset = 0, $full = false)
+    public function link($offset = 0, $full = false)
     {
         return Horde::url('year.php', $full)
             ->add('date', ($this->year + $offset) . '0101');
     }
 
-    function getName()
+    public function getName()
     {
         return 'Year';
     }

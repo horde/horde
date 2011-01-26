@@ -5,42 +5,56 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_View_Event {
-
-    var $event;
+class Kronolith_View_Event
+{
+    /**
+     *
+     * @var Kronolith_Event
+     */
+    protected $_event;
 
     /**
      * @param Kronolith_Event $event
      */
-    function Kronolith_View_Event($event)
+    public function __construct(Kronolith_Event $event)
     {
-        $this->event = $event;
+        $this->_event = $event;
     }
 
-    function getTitle()
+    public function __get($property)
     {
-        if (!$this->event) {
+        switch ($property) {
+        case 'event':
+            return $this->_event;
+        default:
+            throw new Exception(_("Property does not exist."));
+        }
+    }
+
+    public function getTitle()
+    {
+        if (!$this->_event) {
             return _("Not Found");
         }
-        if (is_string($this->event)) {
-            return $this->event;
+        if (is_string($this->_event)) {
+            return $this->_event;
         }
-        return $this->event->getTitle();
+        return $this->_event->getTitle();
     }
 
-    function link()
+    public function link()
     {
-        return $this->event->getViewUrl();
+        return $this->_event->getViewUrl();
     }
 
-    function html($active = true)
+    public function html($active = true)
     {
-        if (!$this->event) {
+        if (!$this->_event) {
             echo '<h3>' . _("Event not found") . '</h3>';
             exit;
         }
-        if (is_string($this->event)) {
-            echo '<h3>' . $this->event . '</h3>';
+        if (is_string($this->_event)) {
+            echo '<h3>' . $this->_event . '</h3>';
             exit;
         }
 
@@ -49,11 +63,11 @@ class Kronolith_View_Event {
         $createdby = '';
         $modifiedby = '';
         $userId = $GLOBALS['registry']->getAuth();
-        if ($this->event->uid) {
+        if ($this->_event->uid) {
             /* Get the event's history. */
             try {
                 $log = $GLOBALS['injector']->getInstance('Horde_History')
-                    ->getHistory('kronolith:' . $this->event->calendar . ':' . $this->event->uid);
+                    ->getHistory('kronolith:' . $this->_event->calendar . ':' . $this->_event->uid);
                 foreach ($log as $entry) {
                     switch ($entry['action']) {
                     case 'add':
@@ -78,15 +92,15 @@ class Kronolith_View_Event {
             } catch (Exception $e) {}
         }
 
-        $creatorId = $this->event->creator;
-        $description = $this->event->description;
-        $location = $this->event->location;
-        $eventurl = $this->event->url;
-        $private = $this->event->private && $creatorId != $GLOBALS['registry']->getAuth();
+        $creatorId = $this->_event->creator;
+        $description = $this->_event->description;
+        $location = $this->_event->location;
+        $eventurl = $this->_event->url;
+        $private = $this->_event->private && $creatorId != $GLOBALS['registry']->getAuth();
         $owner = Kronolith::getUserName($creatorId);
-        $status = Kronolith::statusToString($this->event->status);
-        $attendees = $this->event->attendees;
-        $resources = $this->event->getResources();
+        $status = Kronolith::statusToString($this->_event->status);
+        $attendees = $this->_event->attendees;
+        $resources = $this->_event->getResources();
         if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;
@@ -100,7 +114,7 @@ class Kronolith_View_Event {
         $timeFormat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:ia';
 
         // Tags
-        $tags = implode(', ', $this->event->tags);
+        $tags = implode(', ', $this->_event->tags);
 
 
         echo '<div id="Event"' . ($active ? '' : ' style="display:none"') . '>';
@@ -110,18 +124,18 @@ class Kronolith_View_Event {
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
             /* We check for read permissions, because we can always save a
              * copy if we can read the event. */
-            if ($this->event->hasPermission(Horde_Perms::READ)) {
-                $edit = new Kronolith_View_EditEvent($this->event);
+            if ($this->_event->hasPermission(Horde_Perms::READ)) {
+                $edit = new Kronolith_View_EditEvent($this->_event);
                 $edit->html(false);
             }
-            if ($this->event->hasPermission(Horde_Perms::DELETE)) {
-                $delete = new Kronolith_View_DeleteEvent($this->event);
+            if ($this->_event->hasPermission(Horde_Perms::DELETE)) {
+                $delete = new Kronolith_View_DeleteEvent($this->_event);
                 $delete->html(false);
             }
         }
     }
 
-    function getName()
+    public function getName()
     {
         return 'Event';
     }

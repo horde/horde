@@ -10,12 +10,24 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
+class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View
+{
+    /**
+     * This view type
+     *
+     * @var string
+     */
+    public $view = 'month';
 
-    var $view = 'month';
-    var $_days = 30;
+    /**
+     * Number of days
+     *
+     * @var integer
+     */
+    protected $_days = 30;
 
-    function _title()
+
+    protected function _title()
     {
         $end = new Horde_Date($this->_start);
         $end->mday += $this->_days - 1;
@@ -32,7 +44,7 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
             . '</a>';
     }
 
-    function _hours()
+    protected function _hours()
     {
         global $prefs;
 
@@ -81,7 +93,7 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
         return $hours_html;
     }
 
-    function _render($day = null)
+    protected function _render(Horde_Date $day = null)
     {
         $this->_start = new Horde_Date($day);
         $this->_start->mday = 1;
