@@ -6,7 +6,7 @@
  * @package  Ingo
  */
 
-require_once dirname(__FILE__) . '/../lib/Kronolith.php';
+require_once dirname(__FILE__) . '/../lib/Ingo.php';
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver

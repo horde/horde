@@ -6,7 +6,7 @@
  * @package  Whups
  */
 
-require_once dirname(__FILE__) . '/../lib/Kronolith.php';
+require_once dirname(__FILE__) . '/../lib/Whups.php';
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver
