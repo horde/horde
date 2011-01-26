@@ -73,7 +73,7 @@ class Horde_Test
         ),
         'gd' => array(
             'descrip' => 'GD Support',
-            'error' => 'Horde will use the GD extension to perform manipulations on image data. You can also use the ImageMagick software to do these manipulations instead.'
+            'error' => 'Horde will use the GD extension to perform manipulations on image data. You can also use either the ImageMagick software or Imagick extension to do these manipulations instead.'
         ),
         'gettext' => array(
             'descrip' => 'Gettext Support',
@@ -146,7 +146,7 @@ class Horde_Test
         ),
         'pdo' => array(
             'descrip' => 'PDO',
-            'error' => 'The PDO extension is required if you plan on using a database backend other than mysqli with Horde_Db.',
+            'error' => 'The PDO extension is required if you plan on using a database backend other than mysql or mysqli with Horde_Db.',
         ),
         'pgsql' => array(
             'descrip' => 'PostgreSQL Support',

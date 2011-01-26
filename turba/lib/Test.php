@@ -17,14 +17,7 @@ class Turba_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_moduleList = array(
-        'mysql' => 'MySQL Support',
-        'pgsql' => 'PostgreSQL Support',
-        'mssql' => 'Microsoft SQL Support',
-        'oci8' => 'Oracle Support',
-        'odbc' => 'Unified ODBC Support',
-        'ldap' => 'LDAP Support'
-    );
+    protected $_moduleList = array();
 
     /**
      * PHP settings list.

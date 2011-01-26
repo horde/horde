@@ -17,14 +17,7 @@ class Kronolith_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_moduleList = array(
-        'mysqli' => array(
-            'descrip' => 'mysqli',
-            'error' => 'The tagging capabilites require either the PDO or mysqli extension.'),
-        'pdo' => array(
-            'descrip' => 'PDO',
-            'error' => 'The tagging capabilites require either the PDO or mysqli extension.')
-    );
+    protected $_moduleList = array();
 
     /**
      * PHP settings list.
