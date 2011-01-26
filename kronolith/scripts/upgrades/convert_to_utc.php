@@ -9,7 +9,6 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('kronolith', array('cli' => true));
 
 /* Prepare DB stuff. */
-PEAR::pushErrorHandling(PEAR_ERROR_CALLBACK, create_function('$e', 'echo $e->toString()."\n";exit;'));
 $db = $injector->getInstance('Horde_Db_Adapter');
 try {
     $result = $db->selectAll('SELECT event_title, event_id, event_creator_id, event_start, event_end, event_allday, event_recurenddate FROM ' . $conf['calendar']['params']['table'] . ' ORDER BY event_creator_id');
