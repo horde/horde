@@ -1,1 +1,0 @@
-ALTER TABLE horde_groups CHANGE COLUMN group_uid group_uid INT(11) NOT NULL AUTO_INCREMENT;

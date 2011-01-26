@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-08-15</date>
- <time>15:32:50</time>
+ <date>2011-01-26</date>
+ <time>21:54:50</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -48,10 +48,16 @@
       <file name="Mock.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="SqlObject.php" role="php" />
-     </dir> <!-- //lib/Horde/Group -->
+     </dir> <!-- /lib/Horde/Group -->
      <file name="Group.php" role="php" />
-    </dir> <!-- //lib/Horde -->
-   </dir> <!-- //lib -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="migration">
+    <dir name="Horde_Group">
+     <file name="1_horde_group_base_tables.php" role="data" />
+     <file name="2_horde_group_upgrade_autoincrement.php" role="data" />
+    </dir> <!-- /migration/Horde_Group -->
+   </dir> <!-- /migration -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -109,6 +115,8 @@
    <install as="Horde/Group/Mock.php" name="lib/Horde/Group/Mock.php" />
    <install as="Horde/Group/Sql.php" name="lib/Horde/Group/Sql.php" />
    <install as="Horde/Group/SqlObject.php" name="lib/Horde/Group/SqlObject.php" />
+   <install as="migration/1_horde_group_base_tables.php" name="migration/Horde_Group/1_horde_group_base_tables.php" />
+   <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde_Group/2_horde_group_upgrade_autoincrement.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -181,7 +189,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-08-15</date>
+   <date>2011-01-26</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Throw exceptions, not PEAR_Errors.
