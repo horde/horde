@@ -831,6 +831,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Date_Parser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
    </package>
