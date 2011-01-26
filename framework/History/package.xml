@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>History</name>
  <channel>pear.horde.org</channel>
  <summary>API for tracking the history of an object.</summary>
@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-04-27</date>
- <time>08:49:28</time>
+ <date>2011-01-26</date>
+ <time>22:04:10</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -38,6 +38,11 @@
      <file name="History.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="migration">
+    <dir name="Horde_History">
+     <file name="1_horde_history_base_tables.php" role="data" />
+    </dir> <!-- /migration/Horde_History -->
+   </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="History">
@@ -78,6 +83,7 @@
    <install as="Horde/History/Log.php" name="lib/Horde/History/Log.php" />
    <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
    <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
+   <install as="migration/1_horde_history_base_tables.php" name="migration/Horde_History/1_horde_history_base_tables.php" />
    <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
    <install as="Horde/History/InterfaceTest.php" name="test/Horde/History/InterfaceTest.php" />
   </filelist>
@@ -123,7 +129,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-04-27</date>
+   <date>2011-01-26</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial Horde 4 package.
