@@ -109,10 +109,8 @@ class Components_Pear_Package_Filelist_Default
                     );
                     break;
                 case 'migration':
-                    $components = explode('/', $components[1]);
-                    array_splice($components, count($components) - 1, 0, 'migration');
                     $this->_package->addInstallAs(
-                        $file['attribs']['name'], implode('/', $components)
+                        $file['attribs']['name'], 'migration/' . basename($file['attribs']['name'])
                     );
                     break;
                 default:
