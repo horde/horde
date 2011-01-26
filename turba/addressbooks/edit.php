@@ -56,5 +56,5 @@ $vars->set('description', $addressbook->get('desc'));
 $title = $form->getTitle();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $form->renderActive($form->getRenderer(), $vars, Horde::url('edit.php'), 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/edit.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
