@@ -591,6 +591,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>History</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Injector</name>
     <channel>pear.horde.org</channel>
    </package>
