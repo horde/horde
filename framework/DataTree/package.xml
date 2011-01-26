@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_DataTree</name>
+ <name>DataTree</name>
  <channel>pear.horde.org</channel>
  <summary>DataTree API</summary>
  <description>TODO
@@ -53,7 +53,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_SQL</name>
+    <name>SQL</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

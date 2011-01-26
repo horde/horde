@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_SQL</name>
+ <name>SQL</name>
  <channel>pear.horde.org</channel>
  <summary>SQL Utility Class</summary>
  <description>Horde_SQL:: contains some utility functions for dealing with SQL.
