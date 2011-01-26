@@ -125,6 +125,7 @@ class Horde_Core_Prefs_Ui
         }
 
         if ($this->group &&
+            !in_array($this->group, $this->suppressGroups) &&
             $registry->hasAppMethod($this->app, 'prefsGroup')) {
             $registry->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
         }
@@ -159,7 +160,7 @@ class Horde_Core_Prefs_Ui
             $group = $this->group;
         }
 
-        return empty($this->prefGroups[$group]['members'])
+        return (empty($this->prefGroups[$group]['members']) || in_array($this->group, $this->suppressGroups))
             ? array()
             : $this->_getChangeablePrefs($this->prefGroups[$group]['members']);
     }
