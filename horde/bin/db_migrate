@@ -86,6 +86,20 @@ if (!empty($args[2]) && strpos($args[2], 'debug') !== false) {
     $db->setLogger($logger);
 }
 
+switch ($action) {
+case 'up':
+    $cli->message('Migrating DB up.');
+    break;
+
+case 'down':
+    $cli->message('Migrating DB down.');
+    break;
+
+case 'migrate':
+    $cli->message('Migrating DB to schema version ' . $targetVersion . '.');
+    break;
+}
+
 foreach ($apps as $key => $app) {
     $migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dirs[$key], 'schemaTableName' => $app . '_schema_info'));
 
@@ -94,17 +108,14 @@ foreach ($apps as $key => $app) {
     try {
         switch ($action) {
         case 'up':
-            $cli->message('Migrating DB up.');
             $migrator->up();
             break;
 
         case 'down':
-            $cli->message('Migrating DB down.');
             $migrator->down();
             break;
 
         case 'migrate':
-            $cli->message('Migrating DB to schema version ' . $targetVersion . '.');
             $migrator->migrate($targetVersion);
             break;
         }
