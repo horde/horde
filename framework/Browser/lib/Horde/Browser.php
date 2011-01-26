@@ -78,6 +78,7 @@ class Horde_Browser
         /* The most common ones. */
         'Googlebot',
         'msnbot',
+        'bingbot',
         'Slurp',
         'Yahoo',
         /* The rest alphabetically. */
