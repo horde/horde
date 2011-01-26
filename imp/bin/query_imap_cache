@@ -1,12 +1,12 @@
-#!/bin/env php
+#!/usr/bin/env php
 <?php
 /**
  * Query the contents of a user's cached IMAP data.
  *
- * Usage: query_imap_cache [--user=username] [--pass=password]
- *                         [--server=serverkey]
- *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -21,16 +21,16 @@ $c = new Console_Getopt();
 $argv = $c->readPHPArgv();
 array_shift($argv);
 $options = $c->getopt2($argv, '', array('user=', 'pass=', 'server='));
+
 if (PEAR::isError($options)) {
-    $cli->fatal("Invalid arguments.\n");
+    _usage();
 }
 
 $pass = $server = $user = null;
 foreach ($options[0] as $val) {
     switch ($val[0]) {
-    case '--user':
-        $user = $val[1];
-        break;
+    case '--help':
+        _usage();
 
     case '--pass':
         $pass = $val[1];
@@ -38,6 +38,10 @@ foreach ($options[0] as $val) {
 
     case '--server':
         $server = $val[1];
+        break;
+
+    case '--user':
+        $user = $val[1];
         break;
     }
 }
@@ -292,4 +296,18 @@ while (true) {
         }
         break;
     }
+}
+
+function _usage()
+{
+    global $cli;
+
+    $cli->writeln($cli->bold('Usage: query_imap_cache [--user=username]'));
+    $cli->writeln($cli->bold('                        [--pass=password]'));
+    $cli->writeln($cli->bold('                        [--server=serverkey]'));
+    $cli->writeln();
+    $cli->writeln($cli->indent('--pass    Use this password (otherwise, is prompted)'));
+    $cli->writeln($cli->indent('--server  Use this server key (otherwise, is prompted)'));
+    $cli->writeln($cli->indent('--user    Use this username (otherwise, is prompted)'));
+    exit;
 }
