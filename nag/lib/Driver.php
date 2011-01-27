@@ -210,6 +210,7 @@ class Nag_Driver
             return $taskId;
         }
         $task = $this->get($taskId);
+        $task->process();
 
         /* Log the creation of this item in the history log. */
         $history = $GLOBALS['injector']->getInstance('Horde_History');
