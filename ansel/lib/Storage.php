@@ -653,6 +653,8 @@ class Ansel_Storage
      * @param string $slugs     An array of gallery slugs.
      * @param string $where     Additional where clause
      *
+     * @TODO: Need to refactor this to not directly access the share table and
+     *  no longer use ->getShareCriteria
      * @return array An array of Ansel_Image objects
      * @throws Ansel_Exception
      */
