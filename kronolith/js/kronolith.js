@@ -5430,18 +5430,20 @@ KronolithCore = {
      */
     toggleRecurrence: function(recur)
     {
-        if (recur != 'Length') {
-            $('kronolithEventTabRecur').select('div').invoke('hide');
-        }
-
         if (recur == 'Exception') {
-            $('kronolithEventRepeatException').show();
+            if (!$('kronolithEventRepeatException').visible()) {
+                $('kronolithEventTabRecur').select('div').invoke('hide');
+                $('kronolithEventRepeatException').show();
+            }
         } else if (recur != 'None') {
             var div = $('kronolithEventRepeat' + recur),
                 length = $('kronolithEventRepeatLength');
-            div.show();
-            length.show();
-            $('kronolithEventRepeatType').show();
+            if (!div.visible()) {
+                $('kronolithEventTabRecur').select('div').invoke('hide');
+                div.show();
+                length.show();
+                $('kronolithEventRepeatType').show();
+            }
             switch (recur) {
             case 'Daily':
             case 'Weekly':
@@ -5469,7 +5471,10 @@ KronolithCore = {
                 $('kronolithEventRecurCount').disable();
             }
         } else {
-            $('kronolithEventRepeatType').show();
+            if (!$('kronolithEventRepeatType').visible()) {
+                $('kronolithEventTabRecur').select('div').invoke('hide');
+                $('kronolithEventRepeatType').show();
+            }
         }
     },
 
