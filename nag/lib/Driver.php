@@ -349,6 +349,7 @@ class Nag_Driver
             $horde_alarm->delete($task->uid);
         } else {
             $task = $this->get($taskId);
+            $task->process();
             $alarm = $task->toAlarm();
             if ($alarm) {
                 $alarm['start'] = new Horde_Date($alarm['start']);
