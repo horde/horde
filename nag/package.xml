@@ -3,7 +3,7 @@
  <name>nag</name>
  <channel>pear.horde.org</channel>
  <summary>A web based task list manager.</summary>
- <description>Nag is a multiuser task list manager. Users can create any number of "task lists", which can be shared with individual users, groups, or any combination. Any number of task lists can be viewed in a single list. Tasks have due dates, completion times, and can be imported and exported in multiple formats.</description>
+ <description>Nag is a multiuser task list manager. Users can create any number of &quot;task lists&quot;, which can be shared with individual users, groups, or any combination. Any number of task lists can be viewed in a single list. Tasks have due dates, completion times, and can be imported and exported in multiple formats.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-25</date>
- <time>10:00:19</time>
+ <date>2011-01-27</date>
+ <time>23:00:46</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -33,399 +33,415 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
-    <file baseinstalldir="/" name="conf.xml" role="horde" />
-    <file baseinstalldir="/" name="hooks.php.dist" role="horde" />
-    <file baseinstalldir="/" name="menu.php.dist" role="horde" />
-    <file baseinstalldir="/" name="prefs.php.dist" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="menu.php.dist" role="horde" />
+    <file name="prefs.php.dist" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
     <dir name="vtodo">
-     <file baseinstalldir="/" name="todo.ics" role="doc" />
+     <file name="todo.ics" role="doc" />
     </dir> <!-- /docs/vtodo -->
-    <file baseinstalldir="/" name="CHANGES" role="doc" />
-    <file baseinstalldir="/" name="CREDITS" role="doc" />
-    <file baseinstalldir="/" name="INSTALL" role="doc" />
-    <file baseinstalldir="/" name="RELEASE_NOTES" role="doc" />
-    <file baseinstalldir="/" name="TODO" role="doc" />
-    <file baseinstalldir="/" name="UPGRADING" role="doc" />
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
-    <file baseinstalldir="/" name="calendar.js" role="horde" />
+    <file name="calendar.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
-     <file baseinstalldir="/" name="Application.php" role="horde" />
+     <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
-     <file baseinstalldir="/" name="summary.php" role="horde" />
+     <file name="summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Driver">
-     <file baseinstalldir="/" name="Kolab.php" role="horde" />
-     <file baseinstalldir="/" name="Sql.php" role="horde" />
+     <file name="Kolab.php" role="horde" />
+     <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
-    <dir name="Forms">
-     <file baseinstalldir="/" name="CreateTaskList.php" role="horde" />
-     <file baseinstalldir="/" name="DeleteTaskList.php" role="horde" />
-     <file baseinstalldir="/" name="EditTaskList.php" role="horde" />
-     <file baseinstalldir="/" name="task.php" role="horde" />
-    </dir> <!-- /lib/Forms -->
+    <dir name="Form">
+     <dir name="Renderer">
+      <file name="Task.php" role="horde" />
+     </dir> <!-- /lib/Form/Renderer -->
+     <dir name="Type">
+      <file name="NagAlarm.php" role="horde" />
+      <file name="NagDue.php" role="horde" />
+      <file name="NagMethod.php" role="horde" />
+      <file name="NagStart.php" role="horde" />
+     </dir> <!-- /lib/Form/Type -->
+     <file name="CreateTaskList.php" role="horde" />
+     <file name="DeleteTaskList.php" role="horde" />
+     <file name="EditTaskList.php" role="horde" />
+     <file name="task.php" role="horde" />
+    </dir> <!-- /lib/Form -->
     <dir name="Ui">
      <dir name="VarRenderer">
-      <file baseinstalldir="/" name="Nag.php" role="horde" />
+      <file name="Nag.php" role="horde" />
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
-    <file baseinstalldir="/" name="Api.php" role="horde" />
-    <file baseinstalldir="/" name="Application.php" role="horde" />
-    <file baseinstalldir="/" name="Driver.php" role="horde" />
-    <file baseinstalldir="/" name="Exception.php" role="horde" />
-    <file baseinstalldir="/" name="Nag.php" role="horde" />
-    <file baseinstalldir="/" name="QuickParser.php" role="horde" />
-    <file baseinstalldir="/" name="Task.php" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Nag.php" role="horde" />
+    <file name="QuickParser.php" role="horde" />
+    <file name="Task.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ar">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/ar/LC_MESSAGES -->
     </dir> <!-- /locale/ar -->
     <dir name="bg">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/bg/LC_MESSAGES -->
     </dir> <!-- /locale/bg -->
     <dir name="ca">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/ca/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/ca -->
     <dir name="cs">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/cs/LC_MESSAGES -->
     </dir> <!-- /locale/cs -->
     <dir name="da">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/da/LC_MESSAGES -->
     </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/de -->
     <dir name="el">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
     <dir name="en">
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/es -->
     <dir name="et">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fi -->
     <dir name="fr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
     <dir name="hr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/hr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/hr -->
     <dir name="hu">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/hu/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/hu -->
     <dir name="id">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/id/LC_MESSAGES -->
     </dir> <!-- /locale/id -->
     <dir name="it">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/it/LC_MESSAGES -->
     </dir> <!-- /locale/it -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
     <dir name="ko">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/ko/LC_MESSAGES -->
     </dir> <!-- /locale/ko -->
     <dir name="lt">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="nb">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/nb/LC_MESSAGES -->
     </dir> <!-- /locale/nb -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/nl/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/nl -->
     <dir name="nn">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/nn/LC_MESSAGES -->
     </dir> <!-- /locale/nn -->
     <dir name="pl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/pl/LC_MESSAGES -->
     </dir> <!-- /locale/pl -->
     <dir name="pt">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/pt/LC_MESSAGES -->
     </dir> <!-- /locale/pt -->
     <dir name="pt_BR">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
     </dir> <!-- /locale/pt_BR -->
     <dir name="ro">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/ro/LC_MESSAGES -->
     </dir> <!-- /locale/ro -->
     <dir name="ru">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/ru/LC_MESSAGES -->
     </dir> <!-- /locale/ru -->
     <dir name="sk">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/sk/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/sk -->
     <dir name="sl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/sl/LC_MESSAGES -->
     </dir> <!-- /locale/sl -->
     <dir name="sv">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/sv/LC_MESSAGES -->
     </dir> <!-- /locale/sv -->
     <dir name="tr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/tr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/tr -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
     </dir> <!-- /locale/zh_CN -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="nag.mo" role="horde" />
-      <file baseinstalldir="/" name="nag.po" role="horde" />
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
-    <file baseinstalldir="/" name="nag.pot" role="horde" />
+    <file name="nag.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
-    <file baseinstalldir="/" name="1_nag_base_tables.php" role="horde" />
-    <file baseinstalldir="/" name="2_nag_upgrade_autoincrement.php" role="horde" />
-    <file baseinstalldir="/" name="3_nag_upgrade_addalarmmethods.php" role="horde" />
-    <file baseinstalldir="/" name="4_nag_upgrade_addcolor.php" role="horde" />
-    <file baseinstalldir="/" name="5_nag_upgrade_systemshares.php" role="horde" />
-    <file baseinstalldir="/" name="6_nag_upgrade_sqlng.php" role="horde" />
+    <file name="1_nag_base_tables.php" role="horde" />
+    <file name="2_nag_upgrade_autoincrement.php" role="horde" />
+    <file name="3_nag_upgrade_addalarmmethods.php" role="horde" />
+    <file name="4_nag_upgrade_addcolor.php" role="horde" />
+    <file name="5_nag_upgrade_systemshares.php" role="horde" />
+    <file name="6_nag_upgrade_sqlng.php" role="horde" />
+    <file name="7_nag_upgrade_sqlhierarchical.php" role="horde" />
+    <file name="8_nag_upgrade_sqlnghierarchical.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="upgrades">
-     <file baseinstalldir="/" name="convert_datatree_shares_to_sql.php" role="data" />
-     <file baseinstalldir="/" name="convert_sql_shares_to_sqlng.php" role="data" />
-     <file baseinstalldir="/" name="create_missing_add_histories_sql.php" role="data" />
+     <file name="convert_datatree_shares_to_sql.php" role="data" />
+     <file name="convert_sql_shares_to_sqlng.php" role="data" />
+     <file name="create_missing_add_histories_sql.php" role="data" />
     </dir> <!-- /scripts/upgrades -->
-    <file baseinstalldir="/" name="import_vtodos.php" role="data" />
+    <file name="import_vtodos.php" role="data" />
    </dir> <!-- /scripts -->
    <dir name="tasklists">
-    <file baseinstalldir="/" name="create.php" role="horde" />
-    <file baseinstalldir="/" name="delete.php" role="horde" />
-    <file baseinstalldir="/" name="edit.php" role="horde" />
-    <file baseinstalldir="/" name="index.php" role="horde" />
-    <file baseinstalldir="/" name="info.php" role="horde" />
+    <file name="create.php" role="horde" />
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="index.php" role="horde" />
+    <file name="info.php" role="horde" />
    </dir> <!-- /tasklists -->
    <dir name="tasks">
-    <file baseinstalldir="/" name="index.php" role="horde" />
+    <file name="index.php" role="horde" />
    </dir> <!-- /tasks -->
    <dir name="templates">
+    <dir name="alarm">
+     <file name="mail.html.php" role="horde" />
+     <file name="mail.plain.php" role="horde" />
+    </dir> <!-- /templates/alarm -->
     <dir name="data">
-     <file baseinstalldir="/" name="export.inc" role="horde" />
-     <file baseinstalldir="/" name="import.inc" role="horde" />
+     <file name="export.inc" role="horde" />
+     <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
     <dir name="list">
-     <file baseinstalldir="/" name="empty.inc" role="horde" />
-     <file baseinstalldir="/" name="header.inc" role="horde" />
-     <file baseinstalldir="/" name="task_footers.inc" role="horde" />
-     <file baseinstalldir="/" name="task_headers.inc" role="horde" />
-     <file baseinstalldir="/" name="task_summaries.inc" role="horde" />
+     <file name="empty.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="task_footers.inc" role="horde" />
+     <file name="task_headers.inc" role="horde" />
+     <file name="task_summaries.inc" role="horde" />
     </dir> <!-- /templates/list -->
     <dir name="search">
-     <file baseinstalldir="/" name="search.inc" role="horde" />
+     <file name="search.inc" role="horde" />
     </dir> <!-- /templates/search -->
     <dir name="view">
-     <file baseinstalldir="/" name="task.inc" role="horde" />
+     <file name="task.inc" role="horde" />
     </dir> <!-- /templates/view -->
-    <file baseinstalldir="/" name="list.html.php" role="horde" />
-    <file baseinstalldir="/" name="panel.inc" role="horde" />
-    <file baseinstalldir="/" name="quick.inc" role="horde" />
-    <file baseinstalldir="/" name="tasklist_info.php" role="horde" />
-    <file baseinstalldir="/" name="tasklist_list.php" role="horde" />
+    <file name="list.html.php" role="horde" />
+    <file name="panel.inc" role="horde" />
+    <file name="quick.inc" role="horde" />
+    <file name="tasklist_info.php" role="horde" />
+    <file name="tasklist_list.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="bluewhite">
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/bluewhite -->
     <dir name="default">
      <dir name="graphics">
-      <file baseinstalldir="/" name="add.png" role="horde" />
-      <file baseinstalldir="/" name="alarm.png" role="horde" />
-      <file baseinstalldir="/" name="alarm_small.png" role="horde" />
-      <file baseinstalldir="/" name="az.png" role="horde" />
-      <file baseinstalldir="/" name="checkbox.png" role="horde" />
-      <file baseinstalldir="/" name="checked.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="minus.png" role="horde" />
-      <file baseinstalldir="/" name="nag.png" role="horde" />
-      <file baseinstalldir="/" name="note.png" role="horde" />
-      <file baseinstalldir="/" name="plus.png" role="horde" />
-      <file baseinstalldir="/" name="search.png" role="horde" />
-      <file baseinstalldir="/" name="tasklists.png" role="horde" />
-      <file baseinstalldir="/" name="unchecked.png" role="horde" />
-      <file baseinstalldir="/" name="za.png" role="horde" />
+      <file name="add.png" role="horde" />
+      <file name="alarm.png" role="horde" />
+      <file name="alarm_small.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="big_alarm.png" role="horde" />
+      <file name="checkbox.png" role="horde" />
+      <file name="checked.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="minus.png" role="horde" />
+      <file name="nag.png" role="horde" />
+      <file name="note.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="tasklists.png" role="horde" />
+      <file name="unchecked.png" role="horde" />
+      <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file baseinstalldir="/" name="categoryCSS.php" role="horde" />
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="categoryCSS.php" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="fadetogreen">
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/fadetogreen -->
     <dir name="silver">
      <dir name="graphics">
-      <file baseinstalldir="/" name="add.png" role="horde" />
-      <file baseinstalldir="/" name="alarm.png" role="horde" />
-      <file baseinstalldir="/" name="alarm_small.png" role="horde" />
-      <file baseinstalldir="/" name="az.png" role="horde" />
-      <file baseinstalldir="/" name="checkbox.png" role="horde" />
-      <file baseinstalldir="/" name="checked.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="minus.png" role="horde" />
-      <file baseinstalldir="/" name="nag.png" role="horde" />
-      <file baseinstalldir="/" name="note.png" role="horde" />
-      <file baseinstalldir="/" name="plus.png" role="horde" />
-      <file baseinstalldir="/" name="search.png" role="horde" />
-      <file baseinstalldir="/" name="tasklists.png" role="horde" />
-      <file baseinstalldir="/" name="unchecked.png" role="horde" />
-      <file baseinstalldir="/" name="za.png" role="horde" />
+      <file name="add.png" role="horde" />
+      <file name="alarm.png" role="horde" />
+      <file name="alarm_small.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="checkbox.png" role="horde" />
+      <file name="checked.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="minus.png" role="horde" />
+      <file name="nag.png" role="horde" />
+      <file name="note.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="tasklists.png" role="horde" />
+      <file name="unchecked.png" role="horde" />
+      <file name="za.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="tango-blue">
      <dir name="graphics">
-      <file baseinstalldir="/" name="add.png" role="horde" />
-      <file baseinstalldir="/" name="alarm.png" role="horde" />
-      <file baseinstalldir="/" name="alarm_small.png" role="horde" />
-      <file baseinstalldir="/" name="checkbox.png" role="horde" />
-      <file baseinstalldir="/" name="checked.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="nag.png" role="horde" />
-      <file baseinstalldir="/" name="note.png" role="horde" />
-      <file baseinstalldir="/" name="tasklists.png" role="horde" />
-      <file baseinstalldir="/" name="unchecked.png" role="horde" />
+      <file name="add.png" role="horde" />
+      <file name="alarm.png" role="horde" />
+      <file name="alarm_small.png" role="horde" />
+      <file name="checkbox.png" role="horde" />
+      <file name="checked.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="nag.png" role="horde" />
+      <file name="note.png" role="horde" />
+      <file name="tasklists.png" role="horde" />
+      <file name="unchecked.png" role="horde" />
      </dir> <!-- /themes/tango-blue/graphics -->
     </dir> <!-- /themes/tango-blue -->
    </dir> <!-- /themes -->
-   <file baseinstalldir="/" name="COPYING" role="data" />
-   <file baseinstalldir="/" name="data.php" role="horde" />
-   <file baseinstalldir="/" name="index.php" role="horde" />
-   <file baseinstalldir="/" name="list.php" role="horde" />
-   <file baseinstalldir="/" name="mobile.php" role="horde" />
-   <file baseinstalldir="/" name="quick.php" role="horde" />
-   <file baseinstalldir="/" name="README" role="data" />
-   <file baseinstalldir="/" name="search.php" role="horde" />
-   <file baseinstalldir="/" name="task.php" role="horde" />
-   <file baseinstalldir="/" name="view.php" role="horde" />
+   <file name="COPYING" role="data" />
+   <file name="data.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="list.php" role="horde" />
+   <file name="mobile.php" role="horde" />
+   <file name="quick.php" role="horde" />
+   <file name="README" role="data" />
+   <file name="search.php" role="horde" />
+   <file name="task.php" role="horde" />
+   <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -472,10 +488,15 @@
    <install as="nag/lib/Block/summary.php" name="lib/Block/summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="nag/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
-   <install as="nag/lib/Forms/CreateTaskList.php" name="lib/Forms/CreateTaskList.php" />
-   <install as="nag/lib/Forms/DeleteTaskList.php" name="lib/Forms/DeleteTaskList.php" />
-   <install as="nag/lib/Forms/EditTaskList.php" name="lib/Forms/EditTaskList.php" />
-   <install as="nag/lib/Forms/task.php" name="lib/Forms/task.php" />
+   <install as="nag/lib/Form/CreateTaskList.php" name="lib/Form/CreateTaskList.php" />
+   <install as="nag/lib/Form/DeleteTaskList.php" name="lib/Form/DeleteTaskList.php" />
+   <install as="nag/lib/Form/EditTaskList.php" name="lib/Form/EditTaskList.php" />
+   <install as="nag/lib/Form/task.php" name="lib/Form/task.php" />
+   <install as="nag/lib/Form/Renderer/Task.php" name="lib/Form/Renderer/Task.php" />
+   <install as="nag/lib/Form/Type/NagAlarm.php" name="lib/Form/Type/NagAlarm.php" />
+   <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
+   <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
+   <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
    <install as="nag/locale/ar/LC_MESSAGES/nag.mo" name="locale/ar/LC_MESSAGES/nag.mo" />
@@ -564,6 +585,8 @@
    <install as="nag/migration/4_nag_upgrade_addcolor.php" name="migration/4_nag_upgrade_addcolor.php" />
    <install as="nag/migration/5_nag_upgrade_systemshares.php" name="migration/5_nag_upgrade_systemshares.php" />
    <install as="nag/migration/6_nag_upgrade_sqlng.php" name="migration/6_nag_upgrade_sqlng.php" />
+   <install as="nag/migration/7_nag_upgrade_sqlhierarchical.php" name="migration/7_nag_upgrade_sqlhierarchical.php" />
+   <install as="nag/migration/8_nag_upgrade_sqlnghierarchical.php" name="migration/8_nag_upgrade_sqlnghierarchical.php" />
    <install as="scripts/import_vtodos.php" name="scripts/import_vtodos.php" />
    <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />
    <install as="scripts/upgrades/convert_sql_shares_to_sqlng.php" name="scripts/upgrades/convert_sql_shares_to_sqlng.php" />
@@ -579,6 +602,8 @@
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
    <install as="nag/templates/tasklist_info.php" name="templates/tasklist_info.php" />
    <install as="nag/templates/tasklist_list.php" name="templates/tasklist_list.php" />
+   <install as="nag/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
+   <install as="nag/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
    <install as="nag/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="nag/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="nag/templates/list/empty.inc" name="templates/list/empty.inc" />
@@ -595,6 +620,7 @@
    <install as="nag/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
    <install as="nag/themes/default/graphics/alarm_small.png" name="themes/default/graphics/alarm_small.png" />
    <install as="nag/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="nag/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
    <install as="nag/themes/default/graphics/checkbox.png" name="themes/default/graphics/checkbox.png" />
    <install as="nag/themes/default/graphics/checked.png" name="themes/default/graphics/checked.png" />
    <install as="nag/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
@@ -655,7 +681,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-25</date>
+   <date>2011-01-27</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.
