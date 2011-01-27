@@ -5931,7 +5931,7 @@ KronolithCore = {
         $('kronolithEventStartDate', 'kronolithEventStartTime').invoke('observe', 'change', this.updateEndTime.bind(this));
 
         if (Kronolith.conf.has_tasks) {
-            $('kronolithTaskDueDate', 'kronolithEventDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
+            $('kronolithTaskDueDate', 'kronolithTaskDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
         }
 
         document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));
