@@ -94,10 +94,10 @@ class Horde_Share_Sql extends Horde_Share_Base
 
     /**
      * Finds out if the share has user set
-     * @TODO: fix method prefix or make protected
+     *
      * @param boolean
      */
-    public function _hasUsers($share)
+    protected function _hasUsers($share)
     {
         return $share['share_flags'] & self::SQL_FLAG_USERS;
     }
@@ -105,7 +105,7 @@ class Horde_Share_Sql extends Horde_Share_Base
     /**
      * Finds out if the share has user set
      */
-    public function _hasGroups($share)
+    protected function _hasGroups($share)
     {
         return $share['share_flags'] & self::SQL_FLAG_GROUPS;
     }
