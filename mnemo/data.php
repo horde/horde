@@ -98,7 +98,7 @@ if (!$error && $import_format) {
     try {
         $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
         $next_step = $data->nextStep($actionID, $param);
-    } catch (Horde_Data_Exception $e) {
+    } catch (Horde_Exception $e) {
         if ($data) {
             $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();

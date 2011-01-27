@@ -218,7 +218,7 @@ if (!$error && $import_format) {
         } else {
             $next_step = $data->nextStep($actionID, $param);
         }
-    } catch (Horde_Data_Exception $e) {
+    } catch (Exception $e) {
         if ($data) {
             $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();

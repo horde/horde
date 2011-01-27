@@ -243,7 +243,7 @@ case 'export':
         /* Create a Turba storage instance. */
         try {
             $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
-        } catch (Turba_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push($e, 'horde.error');
             $error = true;
             break;
@@ -336,7 +336,7 @@ case Horde_Data::IMPORT_FILE:
     $dest = Horde_Util::getFormData('dest');
     try {
         $driver = $injector->getInstance('Turba_Factory_Driver')->create($dest);
-    } catch (Turba_Exception $e) {
+    } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
         $error = true;
         break;
@@ -387,7 +387,7 @@ if (!$error && !empty($import_format)) {
         } else {
             $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
         }
-    } catch (Turba_Exception $e) {
+    } catch (Horde_Exception $e) {
         $notification->push(_("This file format is not supported."), 'horde.error');
         $data = null;
         $next_step = Horde_Data::IMPORT_FILE;
@@ -407,7 +407,7 @@ if (!$error && !empty($import_format)) {
                     $notification->push(_("The import can be finished despite the warnings."), 'horde.message');
                 }
             }
-        } catch (Turba_Exception $e) {
+        } catch (Horde_Data_Exception $e) {
             $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();
         }
@@ -424,7 +424,7 @@ if (is_array($next_step)) {
     $dest = $session->get('horde', 'import_data/target');
     try {
         $driver = $injector->getInstance('Turba_Factory_Driver')->create($dest);
-    } catch (Turba_Exception $e) {
+    } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
         $driver = null;
     }
