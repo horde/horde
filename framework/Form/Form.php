@@ -155,7 +155,12 @@ class Horde_Form {
      */
     function getType($type, $params = array())
     {
-        $type_class = 'Horde_Form_Type_' . $type;
+        if (strpos($type, ':') !== false) {
+            list($app, $type) = explode(':', $type);
+            $type_class = $app . '_Form_Type_' . $type;
+        } else {
+            $type_class = 'Horde_Form_Type_' . $type;
+        }
         if (!class_exists($type_class)) {
             throw new Horde_Exception(sprintf('Nonexistant class "%s" for field type "%s"', $type_class, $type));
         }
