@@ -299,7 +299,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
                 }
                 $query = 'SELECT * FROM ' . $this->_table
                     . '_groups WHERE group_uid IN ('
-                    . implode(',', $group_ids) . ')' . ' AND ('
+                    . implode(',', $group_ids) . ') AND ('
                     . $this->_getPermsCriteria('perm', $perms) . ')';
                 try {
                     $groups = $this->_db->selectAll($query);
