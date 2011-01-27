@@ -9,8 +9,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('nag');
 
-require_once NAG_BASE . '/lib/Forms/EditTaskList.php';
-
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
     Horde::url('list.php', true)->redirect();

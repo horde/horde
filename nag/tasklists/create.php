@@ -9,8 +9,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('nag');
 
-require_once NAG_BASE . '/lib/Forms/CreateTaskList.php';
-
 // Exit if this isn't an authenticated user or if the user can't
 // create new task lists (default share is locked).
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_tasklist')) {
