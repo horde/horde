@@ -16,36 +16,39 @@ class Nag_Driver
      *
      * @var Nag_Task
      */
-    var $tasks;
+    public $tasks;
 
     /**
      * String containing the current tasklist.
      *
      * @var string
      */
-    var $_tasklist = '';
+    protected $_tasklist = '';
 
     /**
      * Hash containing connection parameters.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * An error message to throw when something is wrong.
      *
      * @var string
      */
-    var $_errormsg;
+    protected $_errormsg;
 
     /**
      * Constructor - just store the $params in our newly-created
      * object. All other work is done by initialize().
      *
-     * @param array $params  Any parameters needed for this driver.
+     * @param array $params     Any parameters needed for this driver.
+     * @param string $errormsg  Custom error message
+     *
+     * @return Nag_Driver
      */
-    function Nag_Driver($params = array(), $errormsg = null)
+    public function __construct(array $params = array(), $errormsg = null)
     {
         $this->tasks = new Nag_Task();
         $this->_params = $params;
@@ -63,13 +66,10 @@ class Nag_Driver
      *
      * @return array  An array of tasks that have alarms that match.
      */
-    function listAlarms($date)
+    public function listAlarms($date)
     {
         if (!$this->tasks->count()) {
             $result = $this->retrieve(0);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
         }
         $alarms = array();
         $this->tasks->reset();
@@ -99,25 +99,21 @@ class Nag_Driver
      * @return mixed    The newly created concrete Nag_Driver instance, or
      *                  false on an error.
      */
-    function factory($tasklist = '', $driver = null, $params = null)
+    static public function factory($tasklist = '', $driver = null, $params = null)
     {
         if (is_null($driver)) {
             $driver = $GLOBALS['conf']['storage']['driver'];
         }
-
         $driver = ucfirst(basename($driver));
-
         if (is_null($params)) {
             $params = Horde::getDriverConfig('storage', $driver);
         }
-
-        require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $class = 'Nag_Driver_' . $driver;
         if (class_exists($class)) {
-            $nag = new $class($tasklist, $params);
-            $result = $nag->initialize();
-            if (is_a($result, 'PEAR_Error')) {
-                $nag = new Nag_Driver($params, sprintf(_("The Tasks backend is not currently available: %s"), $result->getMessage()));
+            try {
+                $nag = new $class($tasklist, $params);
+            } catch (Nag_Exception $e) {
+                $nag = new Nag_Driver($params, sprintf(_("The Tasks backend is not currently available: %s"), $e->getMessage()));
             }
         } else {
             $nag = new Nag_Driver($params, sprintf(_("Unable to load the definition of %s."), $class));
@@ -150,7 +146,7 @@ class Nag_Driver
      * @return mixed    The created concrete Nag_Driver instance, or false
      *                  on error.
      */
-    function &singleton($tasklist = '', $driver = null, $params = null)
+    static public function &singleton($tasklist = '', $driver = null, array $params = null)
     {
         static $instances = array();
 
@@ -191,9 +187,9 @@ class Nag_Driver
      *
      * @return array  array(ID,UID) of new task
      */
-    function add($name, $desc, $start = 0, $due = 0, $priority = 0,
+    public function add($name, $desc, $start = 0, $due = 0, $priority = 0,
                  $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
-                 $methods = null, $uid = null, $parent = '', $private = false,
+                 array $methods = null, $uid = null, $parent = '', $private = false,
                  $owner = null, $assignee = null)
     {
         if (is_null($uid)) {
@@ -206,9 +202,7 @@ class Nag_Driver
         $taskId = $this->_add($name, $desc, $start, $due, $priority, $estimate,
                               $completed, $category, $alarm, $methods, $uid,
                               $parent, $private, $owner, $assignee);
-        if (is_a($taskId, 'PEAR_Error')) {
-            return $taskId;
-        }
+
         $task = $this->get($taskId);
         $task->process();
 
@@ -231,9 +225,6 @@ class Nag_Driver
 
         /* Notify users about the new event. */
         $result = Nag::sendNotification('add', $task);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-        }
 
         /* Add an alarm if necessary. */
         if (!empty($alarm) &&
@@ -266,31 +257,26 @@ class Nag_Driver
      * @param string $assignee         The assignee of the event.
      * @param integer $completed_date  The task's completion date.
      * @param string $tasklist         The new tasklist.
+     *
+     * @throws Nag_Exception
      */
-    function modify($taskId, $name, $desc, $start = 0, $due = 0, $priority = 0,
+    public function modify($taskId, $name, $desc, $start = 0, $due = 0, $priority = 0,
                     $estimate = 0.0, $completed = 0, $category = '',
-                    $alarm = 0, $methods = null, $parent = '', $private = false,
+                    $alarm = 0, array $methods = null, $parent = '', $private = false,
                     $owner = null, $assignee = null, $completed_date = null,
                     $tasklist = null)
     {
         /* Retrieve unmodified task. */
         $task = $this->get($taskId);
-        if (is_a($task, 'PEAR_Error')) {
-            return $task;
-        }
 
         /* Avoid circular reference. */
         if ($parent == $taskId) {
             $parent = '';
         }
-
         $modify = $this->_modify($taskId, $name, $desc, $start, $due,
                                  $priority, $estimate, $completed, $category,
                                  $alarm, $methods, $parent, $private, $owner,
                                  $assignee, $completed_date);
-        if (is_a($modify, 'PEAR_Error')) {
-            return $modify;
-        }
 
         $new_task = $this->get($task->id);
         $log_tasklist = $this->_tasklist;
@@ -320,9 +306,6 @@ class Nag_Driver
             }
 
             $moved = $this->_move($task->id, $tasklist);
-            if ($moved instanceof PEAR_Error) {
-                return $moved;
-            }
             $new_storage = Nag_Driver::singleton($tasklist);
             $new_task = $new_storage->get($task->id);
 
@@ -380,9 +363,10 @@ class Nag_Driver
         }
 
         /* Notify users about the changed event. */
-        $result = Nag::sendNotification('edit', $new_task, $task);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+        try {
+            $result = Nag::sendNotification('edit', $new_task, $task);
+        } catch (Nag_Exception $e) {
+            Horde::logMessage($e, 'ERR');
         }
 
         return true;
@@ -393,18 +377,11 @@ class Nag_Driver
      *
      * @param string $taskId  The task to delete.
      */
-    function delete($taskId)
+    public function delete($taskId)
     {
         /* Get the task's details for use later. */
         $task = $this->get($taskId);
-        if ($task instanceof PEAR_Error) {
-            return $task;
-        }
-
         $delete = $this->_delete($taskId);
-        if (is_a($delete, 'PEAR_Error')) {
-            return $delete;
-        }
 
         /* Log the deletion of this item in the history log. */
         if (!empty($task->uid)) {
@@ -416,27 +393,26 @@ class Nag_Driver
         }
 
         /* Notify users about the deleted event. */
-        $result = Nag::sendNotification('delete', $task);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+        try {
+            $result = Nag::sendNotification('delete', $task);
+        } catch (Nag_Exception $e) {
+            Horde::logMessage($e, 'ERR');
         }
 
         /* Delete alarm if necessary. */
         if (!empty($task->alarm)) {
             $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($task->uid);
         }
-
-        return true;
     }
 
     /**
      * Retrieves tasks from the database.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @throws Nag_Exception
      */
-    function retrieve()
+    public function retrieve()
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Nag_Exception($this->_errormsg);
     }
 
     /**
@@ -445,10 +421,11 @@ class Nag_Driver
      * @param string $parentId  The parent id for the sub-tasks to retrieve.
      *
      * @return array  List of sub-tasks.
+     * @throws Nag_Exception
      */
-    function getChildren($parentId)
+    public function getChildren($parentId)
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Nag_Exception($this->_errormsg);
     }
 
     /**
@@ -457,10 +434,11 @@ class Nag_Driver
      * @param string $taskId  The id of the task to retrieve.
      *
      * @return Nag_Task  A Nag_Task object.
+     * @throws Nag_Exception
      */
-    function get($taskId)
+    public function get($taskId)
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Nag_Exception($this->_errormsg);
     }
 
     /**
@@ -469,10 +447,11 @@ class Nag_Driver
      * @param string $uid  The UID of the task to retrieve.
      *
      * @return Nag_Task  A Nag_Task object.
+     * @throws Nag_Exception
      */
-    function getByUID($uid)
+    public function getByUID($uid)
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Nag_Exception($this->_errormsg);
     }
 
 }

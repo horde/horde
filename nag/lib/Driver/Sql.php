@@ -10,14 +10,14 @@
  * @author  Jon Parise <jon@horde.org>
  * @package Nag
  */
-class Nag_Driver_Sql extends Nag_Driver {
-
+class Nag_Driver_Sql extends Nag_Driver
+{
     /**
      * Handle for the current database connection.
      *
      * @var Horde_Db_Adapter
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Constructs a new SQL storage object.
@@ -29,6 +29,14 @@ class Nag_Driver_Sql extends Nag_Driver {
     {
         $this->_tasklist = $tasklist;
         $this->_params = $params;
+        if (!isset($this->_params['table'])) {
+            $this->_params['table'] = 'nag_tasks';
+        }
+
+        // @TODO: Use a bound factory for Nag_Driver and inject this from there.
+        $this->_db = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Db')
+            ->create('nag', 'storage');
     }
 
     /**
@@ -37,25 +45,24 @@ class Nag_Driver_Sql extends Nag_Driver {
      * @param string $taskId  The id of the task to retrieve.
      *
      * @return Nag_Task  A Nag_Task object.
+     * @throws Horde_Exception_NotFound
+     * @throws Nag_Exception
      */
-    function get($taskId)
+    public function get($taskId)
     {
-        /* Build the SQL query. */
         $query = sprintf('SELECT * FROM %s WHERE task_id = ?',
                          $this->_params['table']);
         $values = array($taskId);
-
         try {
             $row = $this->_db->selectOne($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e);
         }
-
         if (!$row) {
-            return PEAR::raiseError(_("Task not found"));
+            throw new Horde_Exception_NotFound("Task not found");
         }
 
-        /* Decode and return the task. */
+        // Decode and return the task.
         return new Nag_Task($this->_buildTask($row));
     }
 
@@ -65,27 +72,25 @@ class Nag_Driver_Sql extends Nag_Driver {
      * @param string $uid  The UID of the task to retrieve.
      *
      * @return Nag_Task  A Nag_Task object.
+     * @throws Horde_Exception_NotFound
+     * @throws Nag_Exception
      */
-    function getByUID($uid)
+    public function getByUID($uid)
     {
-        /* Build the SQL query. */
         $query = sprintf('SELECT * FROM %s WHERE task_uid = ?',
                          $this->_params['table']);
         $values = array($uid);
-
         try {
             $row = $this->_db->selectOne($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e->getMessage());
         }
-
         if (!$row) {
-            return PEAR::raiseError(_("Task UID not found"));
+            throw new Horde_Exception_NotFound(_("Task UID not found"));
         }
-
-        /* Decode and return the task. */
         $this->_tasklist = $row['task_owner'];
 
+        // Decode and return the task.
         return new Nag_Task($this->_buildTask($row));
     }
 
@@ -109,10 +114,11 @@ class Nag_Driver_Sql extends Nag_Driver {
      * @param string $assignee    The assignee of the event.
      *
      * @return string  The Nag ID of the new task.
+     * @throws Nag_Exception
      */
-    function _add($name, $desc, $start = 0, $due = 0, $priority = 0,
+    protected function _add($name, $desc, $start = 0, $due = 0, $priority = 0,
                   $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
-                  $methods = null, $uid = null, $parent = '', $private = false,
+                  array $methods = null, $uid = null, $parent = '', $private = false,
                   $owner = null, $assignee = null)
     {
         $taskId = strval(new Horde_Support_Randomid());
@@ -148,7 +154,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         try {
             $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e->getMessage());
         }
 
         return $taskId;
@@ -174,10 +180,12 @@ class Nag_Driver_Sql extends Nag_Driver {
      * @param string $owner            The owner of the event.
      * @param string $assignee         The assignee of the event.
      * @param integer $completed_date  The task's completion date.
+     *
+     * @throws Nag_Exception
      */
-    function _modify($taskId, $name, $desc, $start = 0, $due = 0,
+    protected function _modify($taskId, $name, $desc, $start = 0, $due = 0,
                      $priority = 0, $estimate = 0.0, $completed = 0,
-                     $category = '', $alarm = 0, $methods = null,
+                     $category = '', $alarm = 0, array $methods = null,
                      $parent = '', $private = false, $owner = null,
                      $assignee = null, $completed_date = null)
     {
@@ -220,7 +228,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e->getMessage());
         }
 
         return true;
@@ -231,8 +239,10 @@ class Nag_Driver_Sql extends Nag_Driver {
      *
      * @param string $taskId       The task to move.
      * @param string $newTasklist  The new tasklist.
+     *
+     * @throws Nag_Exception
      */
-    function _move($taskId, $newTasklist)
+    protected function _move($taskId, $newTasklist)
     {
         $query = sprintf('UPDATE %s SET task_owner = ? WHERE task_owner = ? AND task_id = ?',
                          $this->_params['table']);
@@ -241,18 +251,18 @@ class Nag_Driver_Sql extends Nag_Driver {
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e->getMessage());
         }
-
-        return true;
     }
 
     /**
      * Deletes a task from the backend.
      *
      * @param string $taskId  The task to delete.
+     *
+     * @throws Nag_Exception
      */
-    function _delete($taskId)
+    protected function _delete($taskId)
     {
         /* Get the task's details for use later. */
         $task = $this->get($taskId);
@@ -264,18 +274,16 @@ class Nag_Driver_Sql extends Nag_Driver {
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw Nag_Exception($e->getMessage());
         }
-
-        return true;
     }
 
     /**
      * Deletes all tasks from the backend.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @throws Nag_Exception
      */
-    function deleteAll()
+    public function deleteAll()
     {
         $query = sprintf('DELETE FROM %s WHERE task_owner = ?',
                          $this->_params['table']);
@@ -285,10 +293,8 @@ class Nag_Driver_Sql extends Nag_Driver {
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e->getMessage());
         }
-
-        return true;
     }
 
     /**
@@ -298,8 +304,7 @@ class Nag_Driver_Sql extends Nag_Driver {
      *                            0 = incomplete tasks, 2 = complete tasks,
      *                            3 = future tasks, 4 = future and incomplete
      *                            tasks).
-     *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @throws Nag_Exception
      */
     function retrieve($completed = Nag::VIEW_ALL)
     {
@@ -330,7 +335,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         try {
             $result = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e->getMessage());
         }
 
         /* Store the retrieved values in a fresh task list. */
@@ -360,8 +365,6 @@ class Nag_Driver_Sql extends Nag_Driver {
                 $this->tasks->add($dict[$key]);
             }
         }
-
-        return true;
     }
 
     /**
@@ -370,10 +373,11 @@ class Nag_Driver_Sql extends Nag_Driver {
      * @param string $parentId  The parent id for the sub-tasks to retrieve.
      *
      * @return array  List of sub-tasks.
+     * @throws Nag_Exception
      */
-    function getChildren($parentId)
+    public function getChildren($parentId)
     {
-        /* Build the SQL query. */
+        // Build the SQL query.
         $query = sprintf('SELECT * FROM %s WHERE task_owner = ? AND task_parent = ?',
                          $this->_params['table']);
         $values = array($this->_tasklist, $parentId);
@@ -381,17 +385,14 @@ class Nag_Driver_Sql extends Nag_Driver {
         try {
             $result = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e->getMessage());
         }
 
-        /* Store the retrieved values in a fresh task list. */
+        // Store the retrieved values in a fresh task list.
         $tasks = array();
         foreach ($result as $row) {
             $task = new Nag_Task($this->_buildTask($row));
             $children = $this->getChildren($task->id);
-            if ($children instanceof PEAR_Error) {
-                return $children;
-            }
             $task->mergeChildren($children);
             $tasks[] = $task;
         }
@@ -405,8 +406,9 @@ class Nag_Driver_Sql extends Nag_Driver {
      * @param integer $date  The unix epoch time to check for alarms.
      *
      * @return array  An array of tasks that have alarms that match.
+     * @throws Nag_Exception
      */
-    function listAlarms($date)
+    public function listAlarms($date)
     {
         $q = 'SELECT * FROM ' . $this->_params['table'] .
             ' WHERE task_owner = ?' .
@@ -418,7 +420,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         try {
             $result = $this->_db->selectAll($q, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Nag_Exception($e->getMessage());
         }
 
         $tasks = array();
@@ -431,9 +433,9 @@ class Nag_Driver_Sql extends Nag_Driver {
 
     /**
      */
-    function _buildTask($row)
+    protected function _buildTask($row)
     {
-        /* Make sure tasks always have a UID. */
+        // Make sure tasks always have a UID.
         if (empty($row['task_uid'])) {
             $row['task_uid'] = strval(new Horde_Support_Guid());
 
@@ -468,22 +470,6 @@ class Nag_Driver_Sql extends Nag_Driver {
             'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset'], 'UTF-8'),
             'private' => $row['task_private']
         );
-    }
-
-    /**
-     * Attempts to open a connection to the SQL server.
-     *
-     * @return boolean  True on success, PEAR_Error on failure.
-     */
-    function initialize()
-    {
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'nag_tasks';
-        }
-
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('nag', 'storage');
-
-        return true;
     }
 
 }

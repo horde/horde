@@ -19,7 +19,7 @@
  */
 class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
 {
-    protected function _renderVarInput_nag_method($form, $var, $vars)
+    protected function _renderVarInput_NagMethod($form, $var, $vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $varvalue = $var->getValue($vars);
@@ -79,7 +79,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         }
     }
 
-    protected function _renderVarInput_nag_start($form, $var, $vars)
+    protected function _renderVarInput_NagStart($form, $var, $vars)
     {
         $var->type->getInfo($vars, $var, $task_start);
         $start_date = ($task_start == 0)
@@ -112,7 +112,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         }
     }
 
-    protected function _renderVarInput_nag_due($form, $var, $vars)
+    protected function _renderVarInput_NagDue($form, $var, $vars)
     {
         $var->type->getInfo($vars, $var, $task_due);
         if ($task_due == 0) {
@@ -171,7 +171,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
 <?php
     }
 
-    protected function _renderVarInput_nag_alarm($form, $var, $vars)
+    protected function _renderVarInput_NagAlarm($form, $var, $vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $value = $var->getValue($vars);

@@ -97,9 +97,10 @@ class Horde_Block_nag_summary extends Horde_Block
 
         if (!empty($this->_params['show_alarms'])) {
             $messages = array();
-            $alarmList = Nag::listAlarms($now);
-            if (is_a($alarmList, 'PEAR_Error')) {
-                return '<em>' . htmlspecialchars($alarmList->getMessage())
+            try {
+                $alarmList = Nag::listAlarms($now);
+            } catch (Nag_Exception $e) {
+                return '<em>' . htmlspecialchars($e->getMessage())
                     . '</em>';
             }
             foreach ($alarmList as $task) {
@@ -139,14 +140,18 @@ class Horde_Block_nag_summary extends Horde_Block
         }
 
         $i = 0;
-        $tasks = Nag::listTasks(
-            null, null, null,
-            isset($this->_params['show_tasklists'])
-                ? $this->_params['show_tasklists']
-            : array_keys(Nag::listTasklists(false, Horde_Perms::READ)),
-            empty($this->_params['show_completed']) ? 0 : 1);
-        if (is_a($tasks, 'PEAR_Error')) {
-            return '<em>' . htmlspecialchars($tasks->getMessage()) . '</em>';
+        try {
+            $tasks = Nag::listTasks(
+                null, null, null,
+                isset($this->_params['show_tasklists']) ?
+                    $this->_params['show_tasklists'] :
+                    array_keys(Nag::listTasklists(false, Horde_Perms::READ)),
+                empty($this->_params['show_completed']) ?
+                        0 :
+                        1
+            );
+        } catch (Nag_Exception $e) {
+            return '<em>' . htmlspecialchars($e->getMessage()) . '</em>';
         }
 
         $tasks->reset();

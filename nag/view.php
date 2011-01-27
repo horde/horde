@@ -13,11 +13,11 @@ Horde_Registry::appInit('nag');
  * UID first. */
 if ($uid = Horde_Util::getFormData('uid')) {
     $storage = Nag_Driver::singleton();
-    $task = $storage->getByUID($uid);
-    if ($task instanceof PEAR_Error) {
+    try {
+        $task = $storage->getByUID($uid);
+    } catch (Nag_Exception $e) {
         Horde::url('list.php', true)->redirect();
     }
-
     $task_id = $task->id;
     $tasklist_id = $task->tasklist;
 } else {

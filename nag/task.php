@@ -12,12 +12,8 @@
 function _delete($task_id, $tasklist_id)
 {
     if (!empty($task_id)) {
-        $task = Nag::getTask($tasklist_id, $task_id);
-        if ($task instanceof PEAR_Error) {
-            $GLOBALS['notification']->push(
-                sprintf(_("Error deleting task: %s"),
-                        $task->getMessage()), 'horde.error');
-        } else {
+        try {
+            $task = Nag::getTask($tasklist_id, $task_id);
             try {
                 $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
             } catch (Horde_Share_Exception $e) {
@@ -38,6 +34,10 @@ function _delete($task_id, $tasklist_id)
                 $GLOBALS['notification']->push(sprintf(_("Deleted %s."), $task->name),
                                                'horde.success');
             }
+        } catch (Nag_Exception $e) {
+            $GLOBALS['notification']->push(
+                sprintf(_("Error deleting task: %s"),
+                        $e->getMessage()), 'horde.error');
         }
     }
 
@@ -52,7 +52,6 @@ function _delete($task_id, $tasklist_id)
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
-require_once NAG_BASE . '/lib/Forms/task.php';
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Redirect to the task list if no action has been requested. */
@@ -80,7 +79,7 @@ case 'add_task':
     if (!$vars->exists('tasklist_id')) {
         $vars->set('tasklist_id', Nag::getDefaultTasklist(Horde_Perms::EDIT));
     }
-    $form = new Nag_TaskForm($vars, _("New Task"));
+    $form = new Nag_Form_Task($vars, _("New Task"));
     break;
 
 case 'modify_task':
@@ -104,7 +103,7 @@ case 'modify_task':
             $vars->set('actionID', 'save_task');
             $vars->set('old_tasklist', $task->tasklist);
             $vars->set('url', Horde_Util::getFormData('url'));
-            $form = new Nag_TaskForm($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE));
+            $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE));
             break;
         }
     }
@@ -117,7 +116,7 @@ case 'save_task':
         _delete($vars->get('task_id'), $vars->get('old_tasklist'));
     }
 
-    $form = new Nag_TaskForm($vars, $vars->get('task_id') ? sprintf(_("Edit: %s"), $vars->get('name')) : _("New Task"));
+    $form = new Nag_Form_Task($vars, $vars->get('task_id') ? sprintf(_("Edit: %s"), $vars->get('name')) : _("New Task"));
     if (!$form->validate($vars)) {
         break;
     }
@@ -169,29 +168,31 @@ case 'save_task':
 
         /* Creating a new task. */
         $storage = Nag_Driver::singleton($info['tasklist_id']);
-        $result = $storage->add($info['name'], $info['desc'], $info['start'],
-                                $info['due'], $info['priority'],
-                                (float)$info['estimate'],
-                                (int)$info['completed'],
-                                $info['category']['value'],
-                                $info['alarm'], $info['methods'], null,
-                                $info['parent'], (int)$info['private'],
-                                $GLOBALS['registry']->getAuth(), $info['assignee']);
+        try {
+            $storage->add(
+                $info['name'], $info['desc'], $info['start'],
+                $info['due'], $info['priority'],
+                (float)$info['estimate'],
+                (int)$info['completed'],
+                $info['category']['value'],
+                $info['alarm'], $info['methods'], null,
+                $info['parent'], (int)$info['private'],
+                $GLOBALS['registry']->getAuth(), $info['assignee']
+            );
+        } catch (Nag_Exception $e) {
+            $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
+            Horde::url('list.php', true)->redirect();
+        }
     }
 
     /* Check our results. */
-    if ($result instanceof PEAR_Error) {
-        $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
-    } else {
-        $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
-        /* Return to the last page or to the task list. */
-        if ($url = Horde_Util::getFormData('url')) {
-            header('Location: ' . $url);
-            exit;
-        }
-        Horde::url('list.php', true)->redirect();
+    $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
+    /* Return to the last page or to the task list. */
+    if ($url = Horde_Util::getFormData('url')) {
+        header('Location: ' . $url);
+        exit;
     }
-
+    Horde::url('list.php', true)->redirect();
     break;
 
 case 'delete_task':
@@ -215,17 +216,18 @@ case 'complete_task':
             } else {
                 $task->completed_date = null;
             }
-            $result = $task->save();
-            if ($result instanceof PEAR_Error) {
+            try {
+                $result = $task->save();
+            } catch (Nag_Exception $e) {
                 $notification->push(sprintf(_("There was a problem completing %s: %s"),
-                                            $task->name, $result->getMessage()), 'horde.error');
-            } else {
-                if ($task->completed) {
-                    $notification->push(sprintf(_("Completed %s."), $task->name), 'horde.success');
-                } else {
-                    $notification->push(sprintf(_("%s is now incomplete."), $task->name), 'horde.success');
-                }
+                                            $task->name, $e->getMessage()), 'horde.error');
             }
+            if ($task->completed) {
+                $notification->push(sprintf(_("Completed %s."), $task->name), 'horde.success');
+            } else {
+                $notification->push(sprintf(_("%s is now incomplete."), $task->name), 'horde.success');
+            }
+
         }
     }
 

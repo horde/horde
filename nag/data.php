@@ -87,47 +87,49 @@ case 'export':
     }
 
     /* Get the full, sorted task list. */
-    $tasks = Nag::listTasks(null, null, null, $tasklists,
-                            Horde_Util::getFormData('exportTasks'));
-    if (is_a($tasks, 'PEAR_Error')) {
-        $notification->push($tasks);
-        $error = true;
-    } elseif (!$tasks->hasTasks()) {
-        $notification->push(_("There were no tasks to export."), 'horde.message');
-        $error = true;
-    } else {
-        $tasks->reset();
-        switch ($exportID) {
-        case Horde_Data::EXPORT_CSV:
-            $data = array();
-            while ($task = $tasks->each()) {
-                $task = $task->toHash();
-                unset($task['task_id']);
-                $task['desc'] = str_replace(',', '', $task['desc']);
-                unset($task['tasklist_id']);
-                unset($task['parent']);
-                unset($task['view_link']);
-                unset($task['complete_link']);
-                unset($task['edit_link']);
-                unset($task['delete_link']);
-                $data[] = $task;
-            }
-            $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("tasks.csv"), $data, true);
-            exit;
+    try {
+        $tasks = Nag::listTasks(null, null, null, $tasklists,
+                                Horde_Util::getFormData('exportTasks'));
+        if (!$tasks->hasTasks()) {
+            $notification->push(_("There were no tasks to export."), 'horde.message');
+            $error = true;
+        } else {
+            $tasks->reset();
+            switch ($exportID) {
+            case Horde_Data::EXPORT_CSV:
+                $data = array();
+                while ($task = $tasks->each()) {
+                    $task = $task->toHash();
+                    unset($task['task_id']);
+                    $task['desc'] = str_replace(',', '', $task['desc']);
+                    unset($task['tasklist_id']);
+                    unset($task['parent']);
+                    unset($task['view_link']);
+                    unset($task['complete_link']);
+                    unset($task['edit_link']);
+                    unset($task['delete_link']);
+                    $data[] = $task;
+                }
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("tasks.csv"), $data, true);
+                exit;
 
-        case Horde_Data::EXPORT_ICALENDAR:
-            $iCal = new Horde_Icalendar();
-            $iCal->setAttribute(
-                'PRODID',
-                '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
-            while ($task = $tasks->each()) {
-                $iCal->addComponent($task->toiCalendar($iCal));
+            case Horde_Data::EXPORT_ICALENDAR:
+                $iCal = new Horde_Icalendar();
+                $iCal->setAttribute(
+                    'PRODID',
+                    '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
+                while ($task = $tasks->each()) {
+                    $iCal->addComponent($task->toiCalendar($iCal));
+                }
+                $data = $iCal->exportvCalendar();
+                $browser->downloadHeaders(_("tasks.ics"), 'text/calendar', false, strlen($data));
+                echo $data;
+                exit;
             }
-            $data = $iCal->exportvCalendar();
-            $browser->downloadHeaders(_("tasks.ics"), 'text/calendar', false, strlen($data));
-            echo $data;
-            exit;
         }
+    } catch (Nag_Exception $e) {
+        $notification->push($e->getMessage());
+        $error = true;
     }
     break;
 
@@ -187,14 +189,20 @@ if (is_array($next_step)) {
             }
         }
 
-        $result = $storage->add($row['name'], $row['desc'], $row['start'],
-                                $row['due'], $row['priority'],
-                                $row['estimate'], $row['completed'],
-                                $row['category'], $row['alarm'], $row['uid'],
-                                isset($row['parent']) ? $row['parent'] : '',
-                                $row['private'], $GLOBALS['registry']->getAuth(),
-                                $row['assignee']);
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            $storage->add(
+                $row['name'], $row['desc'], $row['start'],
+                $row['due'], $row['priority'],
+                $row['estimate'], $row['completed'],
+                $row['category'], $row['alarm'], $row['uid'],
+                isset($row['parent']) ? $row['parent'] : '',
+                $row['private'], $GLOBALS['registry']->getAuth(),
+                $row['assignee']
+            );
+        } catch (Nag_Exception $e) {
+            $haveError = true;
+            $notification->push(sprintf(_("There was an error importing the data: %s"),
+                                        $result->getMessage()), 'horde.error');
             break;
         }
 
@@ -211,10 +219,7 @@ if (is_array($next_step)) {
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any tasks."),
                                     $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
-    } elseif (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error importing the data: %s"),
-                                    $result->getMessage()), 'horde.error');
-    } else {
+    } elseif (empty($haveError)) {
         $notification->push(sprintf(_("%s successfully imported"),
                                     $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');
     }

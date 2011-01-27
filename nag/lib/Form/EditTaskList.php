@@ -7,13 +7,6 @@
  *
  * @package Nag
  */
-
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
  * The Nag_EditTaskListForm class provides the form for
  * editing a task list.
@@ -21,29 +14,38 @@ require_once 'Horde/Form/Renderer.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Nag
  */
-class Nag_EditTaskListForm extends Horde_Form {
-
+class Nag_Form_EditTaskList extends Horde_Form
+{
     /**
      * Task list being edited
+     *
+     *
+     * @var Horde_Share_Object
      */
-    var $_tasklist;
+    protected $_tasklist;
 
-    function Nag_EditTaskListForm(&$vars, &$tasklist)
+    /**
+     *
+     * @param array $vars
+     * @param Horde_Share_Object $tasklist
+     */
+    public function __construct($vars, Horde_Share_Object $tasklist)
     {
-        $this->_tasklist = &$tasklist;
-        parent::Horde_Form($vars, sprintf(_("Edit %s"), $tasklist->get('name')));
-
+        $this->_tasklist = $tasklist;
+        parent::__construct($vars, sprintf(_("Edit %s"), $tasklist->get('name')));
         $this->addHidden('', 't', 'text', true);
         $this->addVariable(_("Task List Name"), 'name', 'text', true);
         $this->addVariable(_("Task List Description"), 'description', 'longtext', false, false, null, array(4, 60));
         if ($GLOBALS['registry']->isAdmin()) {
-            $this->addVariable(_("System Task List"), 'system', 'boolean', false, false, _("System task lists don't have an owner. Only administrators can change the task list settings and permissions."));
+            $this->addVariable(
+                _("System Task List"), 'system', 'boolean', false, false,
+                _("System task lists don't have an owner. Only administrators can change the task list settings and permissions.")
+            );
         }
-
         $this->setButtons(array(_("Save")));
     }
 
-    function execute()
+    public function execute()
     {
         $info = array();
         foreach (array('name', 'color', 'description', 'system') as $key) {

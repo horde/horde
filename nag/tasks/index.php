@@ -20,11 +20,8 @@ $tasks = Nag::listTasks(
     $prefs->getValue('sortdir'),
     $prefs->getValue('altsortby'),
     null,
-    1);
-if ($tasks instanceof PEAR_Error) {
-    throw new Nag_Exception($tasks);
-}
-
+    1
+);
 $search_pattern = '/^' . preg_quote($search, '/') . '/i';
 $search_results = new Nag_Task();
 $tasks->reset();

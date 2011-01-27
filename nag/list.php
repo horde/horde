@@ -44,12 +44,15 @@ case 'search_tasks':
     $vars->set('show_completed', $search_completed);
 
     /* Get the full, sorted task list. */
-    $tasks = Nag::listTasks($prefs->getValue('sortby'),
-                            $prefs->getValue('sortdir'),
-                            $prefs->getValue('altsortby'),
-                            null,
-                            $search_completed);
-    if (is_a($tasks, 'PEAR_Error')) {
+    try {
+        $tasks = Nag::listTasks(
+            $prefs->getValue('sortby'),
+            $prefs->getValue('sortdir'),
+            $prefs->getValue('altsortby'),
+            null,
+            $search_completed
+        );
+    } catch (Nag_Exception $e) {
         $notification->push($tasks, 'horde.error');
         $tasks = new Nag_Task();
     }
@@ -75,10 +78,13 @@ case 'search_tasks':
 
 default:
     /* Get the full, sorted task list. */
-    $tasks = Nag::listTasks($prefs->getValue('sortby'),
-                            $prefs->getValue('sortdir'),
-                            $prefs->getValue('altsortby'));
-    if (is_a($tasks, 'PEAR_Error')) {
+    try {
+        $tasks = Nag::listTasks(
+            $prefs->getValue('sortby'),
+            $prefs->getValue('sortdir'),
+            $prefs->getValue('altsortby')
+        );
+    } catch (Nag_Exception $e) {
         $notification->push($tasks, 'horde.error');
         $tasks = new Nag_Task();
     }

@@ -258,21 +258,17 @@ class Nag_Application extends Horde_Registry_Application
 
         /* Get the list of all tasks */
         $tasks = Nag::listTasks(null, null, null, $user, 1);
-        if ($tasks instanceof PEAR_Error) {
-            Horde::logMessage($tasks, 'ERR');
-            throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
-        } else {
-            $uids = array();
-            $tasks->reset();
-            while ($task = $tasks->each()) {
-                $uids[] = $task->uid;
-            }
-
-            /* ... and delete them. */
-            foreach ($uids as $uid) {
-                $this->delete($uid);
-            }
+        $uids = array();
+        $tasks->reset();
+        while ($task = $tasks->each()) {
+            $uids[] = $task->uid;
         }
+
+        /* ... and delete them. */
+        foreach ($uids as $uid) {
+            $this->delete($uid);
+        }
+
 
         /* ...and finally, delete the actual share */
         if (!empty($share)) {
@@ -317,13 +313,8 @@ class Nag_Application extends Horde_Registry_Application
             // Get any alarms in the next hour.
             $now = time();
             $alarms = Nag::listAlarms($now);
-            if ($alarms instanceof PEAR_Error) {
-                return;
-            }
-
             $alarmCount = 0;
             $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
-
             foreach ($alarms as $taskId => $task) {
                 if ($horde_alarm->isSnoozed($task->uid, $registry->getAuth())) {
                     continue;

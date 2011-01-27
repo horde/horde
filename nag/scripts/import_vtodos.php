@@ -35,12 +35,11 @@ if (empty($vtodo)) {
 Horde_Auth::setAuth($user, array());
 
 // Import data.
-$result = $registry->call('tasks/import',
-                          array($vtodo, 'text/calendar', $tasklist));
-if (is_a($result, 'PEAR_Error')) {
+try {
+    $result = $registry->tasks->import($vtodo, 'text/calendar', $tasklist);
+} catch (Horde_Exception $e) {
     $cli->fatal($result->toString());
 }
-
 $cli->message('Imported successfully ' . count($result) . ' tasks', 'cli.success');
 
 function usage()

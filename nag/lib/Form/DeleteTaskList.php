@@ -7,13 +7,6 @@
  *
  * @package Nag
  */
-
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
  * The Nag_DeleteTaskListForm class provides the form for
  * deleting a task list.
@@ -21,25 +14,33 @@ require_once 'Horde/Form/Renderer.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Nag
  */
-class Nag_DeleteTaskListForm extends Horde_Form {
+class Nag_Form_DeleteTaskList extends Horde_Form
+{
+    /**
+     * Task list being deleted.
+     *
+     * @var Horde_Share_Object
+     */
+    protected $_tasklist;
 
     /**
-     * Task list being deleted
+     *
+     * @param array $vars
+     * @param Horde_Share_Object $tasklist
      */
-    var $_tasklist;
-
-    function Nag_DeleteTaskListForm(&$vars, &$tasklist)
+    public function __construct($vars, Horde_Share_Object $tasklist)
     {
-        $this->_tasklist = &$tasklist;
-        parent::Horde_Form($vars, sprintf(_("Delete %s"), $tasklist->get('name')));
-
+        $this->_tasklist = $tasklist;
+        parent::__construct($vars, sprintf(_("Delete %s"), $tasklist->get('name')));
         $this->addHidden('', 't', 'text', true);
-        $this->addVariable(sprintf(_("Really delete the task list \"%s\"? This cannot be undone and all data on this task list will be permanently removed."), $this->_tasklist->get('name')), 'desc', 'description', false);
-
+        $this->addVariable(
+            sprintf(_("Really delete the task list \"%s\"? This cannot be undone and all data on this task list will be permanently removed."),
+            $this->_tasklist->get('name')), 'desc', 'description', false
+        );
         $this->setButtons(array(_("Delete"), _("Cancel")));
     }
 
-    function execute()
+    public function execute()
     {
         // If cancel was clicked, return false.
         if ($this->_vars->get('submitbutton') == _("Cancel")) {

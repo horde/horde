@@ -10,16 +10,17 @@ $actionID = $vars->actionID;
 $title = _("My Tasks");
 
 /* Get the full, sorted task list. */
-$tasks = Nag::listTasks($prefs->getValue('sortby'),
-                        $prefs->getValue('sortdir'),
-                        $prefs->getValue('altsortby'));
-if (is_a($tasks, 'PEAR_Error')) {
+try {
+    $tasks = Nag::listTasks(
+        $prefs->getValue('sortby'),
+        $prefs->getValue('sortdir'),
+        $prefs->getValue('altsortby')
+     );
+} catch (Nag_Exception $e) {
     $notification->push($tasks, 'horde.error');
     $tasks = new Nag_Task();
 }
-
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-
 ?>
 <style type="text/css">
 .ui-icon-nag-unchecked {

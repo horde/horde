@@ -9,189 +9,189 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
-class Nag_Task {
-
+class Nag_Task
+{
     /**
      * The task id.
      *
      * @var string
      */
-    var $id;
+    public $id;
 
     /**
      * This task's tasklist id.
      *
      * @var string
      */
-    var $tasklist;
+    public $tasklist;
 
     /**
      * The task uid.
      *
      * @var string
      */
-    var $uid;
+    public $uid;
 
     /**
      * The task owner.
      *
      * @var string
      */
-    var $owner;
+    public $owner;
 
     /**
      * The task assignee.
      *
      * @var string
      */
-    var $assignee;
+    public $assignee;
 
     /**
      * The task title.
      *
      * @var string
      */
-    var $name;
+    public $name;
 
     /**
      * The task decription.
      *
      * @var string
      */
-    var $desc;
+    public $desc;
 
     /**
      * The start date timestamp.
      *
      * @var integer
      */
-    var $start;
+    public $start;
 
     /**
      * The due date timestamp.
      *
      * @var integer
      */
-    var $due;
+    public $due;
 
     /**
      * The task priority.
      *
      * @var integer
      */
-    var $priority;
+    public $priority;
 
     /**
      * The estimated task length.
      *
      * @var float
      */
-    var $estimate;
+    public $estimate;
 
     /**
      * Whether the task is completed.
      *
      * @var boolean
      */
-    var $completed;
+    public $completed;
 
     /**
      * The completion date timestamp.
      *
      * @var integer
      */
-    var $completed_date;
+    public $completed_date;
 
     /**
      * The task category
      *
      * @var string
      */
-    var $category;
+    public $category;
 
     /**
      * The task alarm threshold.
      *
      * @var integer
      */
-    var $alarm;
+    public $alarm;
 
     /**
      * The particular alarm methods overridden for this task.
      *
      * @var array
      */
-    var $methods;
+    public $methods;
 
     /**
      * Whether the task is private.
      *
      * @var boolean
      */
-    var $private;
+    public $private;
 
     /**
      * URL to view the task.
      *
      * @var string
      */
-    var $view_link;
+    public $view_link;
 
     /**
      * URL to complete the task.
      *
      * @var string
      */
-    var $complete_link;
+    public $complete_link;
 
     /**
      * URL to edit the task.
      *
      * @var string
      */
-    var $edit_link;
+    public $edit_link;
 
     /**
      * URL to delete the task.
      *
      * @var string
      */
-    var $delete_link;
+    public $delete_link;
 
     /**
      * The parent task's id.
      *
      * @var string
      */
-    var $parent_id = '';
+    public $parent_id = '';
 
     /**
      * The parent task.
      *
      * @var Nag_Task
      */
-    var $parent;
+    public $parent;
 
     /**
      * The sub-tasks.
      *
      * @var array
      */
-    var $children = array();
+    public $children = array();
 
     /**
      * This task's idention (child) level.
      *
      * @var integer
      */
-    var $indent = 0;
+    public $indent = 0;
 
     /**
      * Whether this is the last sub-task.
      *
      * @var boolean
      */
-    var $lastChild;
+    public $lastChild;
 
     /**
      * Internal flag.
@@ -199,7 +199,7 @@ class Nag_Task {
      * @var boolean
      * @see each()
      */
-    var $_inlist = false;
+    protected $_inlist = false;
 
     /**
      * Internal pointer.
@@ -207,14 +207,14 @@ class Nag_Task {
      * @var integer
      * @see each()
      */
-    var $_pointer;
+    protected $_pointer;
 
     /**
      * Task id => pointer dictionary.
      *
      * @var array
      */
-    var $_dict = array();
+    protected $_dict = array();
 
     /**
      * Constructor.
@@ -223,7 +223,7 @@ class Nag_Task {
      *
      * @param array $task  A task hash.
      */
-    function Nag_Task($task = null)
+    public function __construct(array $task = null)
     {
         if ($task) {
             $this->merge($task);
@@ -235,7 +235,7 @@ class Nag_Task {
      *
      * @param array $task  A task hash.
      */
-    function merge($task)
+    public function merge(array $task)
     {
         foreach ($task as $key => $val) {
             if ($key == 'tasklist_id') {
@@ -252,7 +252,7 @@ class Nag_Task {
     /**
      * Saves this task in the storage backend.
      */
-    function save()
+    public function save()
     {
         $storage = Nag_Driver::singleton($this->tasklist);
         return $storage->modify($this->id,
@@ -276,10 +276,9 @@ class Nag_Task {
     /**
      * Returns the parent task of this task, if one exists.
      *
-     * @return Nag_Task  The parent task, null if none exists, PEAR_Error on
-     *                   failure.
+     * @return mixed  The parent task, null if none exists
      */
-    function getParent()
+    public function getParent()
     {
         if (!$this->parent_id) {
             return null;
@@ -292,7 +291,7 @@ class Nag_Task {
      *
      * @param Nag_Task $task  A sub task.
      */
-    function add($task)
+    public function add(Nag_Task $task)
     {
         $this->_dict[$task->id] = count($this->children);
         $task->parent = $this;
@@ -302,13 +301,12 @@ class Nag_Task {
     /**
      * Loads all sub-tasks.
      */
-    function loadChildren()
+    public function loadChildren()
     {
         $storage = Nag_Driver::singleton($this->tasklist);
-        $children = $storage->getChildren($this->id);
-        if (!is_a($children, 'PEAR_Error')) {
-            $this->children = $children;
-        }
+        try {
+            $this->children = $storage->getChildren($this->id);
+        } catch (Nag_Exception $e) {}
     }
 
     /**
@@ -317,7 +315,7 @@ class Nag_Task {
      * @param array $children  A list of Nag_Tasks.
      *
      */
-    function mergeChildren($children)
+    public function mergeChildren(array $children)
     {
         for ($i = 0, $c = count($children); $i < $c; ++$i) {
             $this->add($children[$i]);
@@ -334,14 +332,11 @@ class Nag_Task {
      *
      * @return Nag_Task  The searched task or null.
      */
-    function get($key)
+    public function get($key)
     {
-        if (isset($this->_dict[$key])) {
-            $task = $this->children[$this->_dict[$key]];
-        } else {
-            $task = null;
-        }
-        return $task;
+        return isset($this->_dict[$key]) ?
+            $this->children[$this->_dict[$key]] :
+            null;
     }
 
     /**
@@ -350,12 +345,9 @@ class Nag_Task {
      *
      * @return boolean  True if this is a task or has sub tasks.
      */
-    function hasTasks()
+    public function hasTasks()
     {
-        if ($this->id) {
-            return true;
-        }
-        return $this->hasSubTasks();
+        return ($this->id) ? true : $this->hasSubTasks();
     }
 
     /**
@@ -363,7 +355,7 @@ class Nag_Task {
      *
      * @return boolean  True if this task has sub tasks.
      */
-    function hasSubTasks()
+    public function hasSubTasks()
     {
         foreach ($this->children as $task) {
             if ($task->hasTasks()) {
@@ -378,7 +370,7 @@ class Nag_Task {
      *
      * @return boolean  True if all sub tasks are completed.
      */
-    function childrenCompleted()
+    public function childrenCompleted()
     {
         foreach ($this->children as $task) {
             if (!$task->completed || !$task->childrenCompleted()) {
@@ -393,7 +385,7 @@ class Nag_Task {
      *
      * @return integer  The number of tasks and sub tasks.
      */
-    function count()
+    public function count()
     {
         $count = $this->id ? 1 : 0;
         foreach ($this->children as $task) {
@@ -407,7 +399,7 @@ class Nag_Task {
      *
      * @return integer  The estimated length sum.
      */
-    function estimation()
+    public function estimation()
     {
         $estimate = $this->estimate;
         foreach ($this->children as $task) {
@@ -421,9 +413,13 @@ class Nag_Task {
      *
      * @return string
      */
-    function getFormattedDescription()
+    public function getFormattedDescription()
     {
-        $desc = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->desc, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $desc = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter($this->desc,
+                     'text2html',
+                     array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         try {
             return Horde::callHook('format_description', array($desc), 'nag');
         } catch (Horde_Exception_HookNotSet $e) {
@@ -438,7 +434,7 @@ class Nag_Task {
      *
      * @see each()
      */
-    function reset()
+    public function reset()
     {
         foreach (array_keys($this->children) as $key) {
             $this->children[$key]->reset();
@@ -459,7 +455,7 @@ class Nag_Task {
      *
      * @see reset()
      */
-    function each()
+    public function each()
     {
         if ($this->id && !$this->_inlist) {
             $this->_inlist = true;
@@ -483,7 +479,7 @@ class Nag_Task {
      *
      * @param integer $indent  The indention level of the tasks.
      */
-    function process($indent = 0)
+    public function process($indent = 0)
     {
         /* Link cache. */
         static $view_url_list, $task_url_list;
@@ -537,7 +533,7 @@ class Nag_Task {
      *
      * @return string  The HTML code for necessary tree icons.
      */
-    function treeIcons()
+    public function treeIcons()
     {
         $html = '';
 
@@ -571,7 +567,7 @@ class Nag_Task {
      *                           (Nag::SORT_ASCEND, Nag::SORT_DESCEND).
      * @param string $altsortby  The secondary sort field.
      */
-    function sort($sortby, $sortdir, $altsortby)
+    public function sort($sortby, $sortdir, $altsortby)
     {
         /* Sorting criteria for the task list. */
         $sort_functions = array(
@@ -627,7 +623,7 @@ class Nag_Task {
      *
      * @return array  A task hash.
      */
-    function toHash()
+    public function toHash()
     {
         return array('tasklist_id' => $this->tasklist,
                      'task_id' => $this->id,
@@ -658,7 +654,7 @@ class Nag_Task {
      *
      * @return object  A simple object.
      */
-    function toJson($full = false, $time_format = 'H:i')
+    public function toJson($full = false, $time_format = 'H:i')
     {
         $json = new stdClass;
         $json->l = $this->tasklist;
@@ -726,7 +722,7 @@ class Nag_Task {
      *
      * @return array  Alarm hash or null.
      */
-    function toAlarm($user = null, $prefs = null)
+    public function toAlarm($user = null, $prefs = null)
     {
         if (empty($this->alarm) || $this->completed) {
             return;
@@ -795,7 +791,7 @@ class Nag_Task {
      *
      * @return Horde_Icalendar_Vtodo  A vtodo component of this task.
      */
-    function toiCalendar($calendar)
+    public function toiCalendar(Horde_Icalendar $calendar)
     {
         $vTodo = Horde_Icalendar::newComponent('vtodo', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
@@ -892,6 +888,7 @@ class Nag_Task {
     /**
      * Create an AS message from this task
      *
+     * @return Horde_ActiveSync_Message_Task
      */
     function toASTask()
     {
@@ -946,7 +943,7 @@ class Nag_Task {
      *
      * @param Horde_Icalendar_Vtodo $vTodo  The iCalendar data to update from.
      */
-    function fromiCalendar($vTodo)
+    function fromiCalendar(Horde_Icalendar_Vtodo $vTodo)
     {
         try {
             $name = $vTodo->getAttribute('SUMMARY');
@@ -972,12 +969,10 @@ class Nag_Task {
             foreach ($relations as $id => $relation) {
                 if (empty($params[$id]['RELTYPE']) ||
                     Horde_String::upper($params[$id]['RELTYPE']) == 'PARENT') {
-                    $storage = Nag_Driver::singleton($this->tasklist);
 
+                    $storage = Nag_Driver::singleton($this->tasklist);
                     $parent = $storage->getByUID($relation);
-                    if (!is_a($parent, 'PEAR_Error')) {
-                        $this->parent_id = $parent->id;
-                    }
+                    $this->parent_id = $parent->id;
                     break;
                 }
             }
@@ -1049,6 +1044,7 @@ class Nag_Task {
     /**
      * Create a nag Task object from an activesync message
      *
+     * @param Horde_ActiveSync_Message_Task $message  The task object
      */
     function fromASTask(Horde_ActiveSync_Message_Task $message)
     {

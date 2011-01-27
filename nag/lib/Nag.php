@@ -92,6 +92,12 @@ class Nag
      */
     const VIEW_FUTURE_INCOMPLETE = 4;
 
+    /**
+     *
+     * @param integer $seconds
+     *
+     * @return string
+     */
     public static function secondsToString($seconds)
     {
         $hours = floor($seconds / 3600);
@@ -146,7 +152,7 @@ class Nag
     public static function listTasks($sortby = null,
                                      $sortdir = null,
                                      $altsortby = null,
-                                     $tasklists = null,
+                                     array $tasklists = null,
                                      $completed = null)
     {
         global $prefs, $registry;
@@ -178,9 +184,6 @@ class Nag
 
             /* Retrieve the tasklist from storage. */
             $result = $storage->retrieve($completed);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
             $tasks->mergeChildren($storage->tasks->children);
         }
 
@@ -193,20 +196,21 @@ class Nag
             foreach ($apps as $app) {
                 if ($app != 'nag' &&
                     $registry->hasMethod('getListTypes', $app)) {
-                    $types = $registry->callByPackage($app, 'getListTypes');
-                    if (is_a($types, 'PEAR_Error')) {
+                    try {
+                        $types = $registry->callByPackage($app, 'getListTypes');
+                    } catch (Horde_Exception $e) {
                         continue;
                     }
                     if (!empty($types['taskHash'])) {
-                        $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
-                        if (is_a($newtasks, 'PEAR_Error')) {
-                            Horde::logMessage($newtasks, 'ERR');
-                        } else {
-                            foreach ($newtasks as $task) {
+                        try {
+                            $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
+                             foreach ($newtasks as $task) {
                                 $task['tasklist_id'] = '**EXTERNAL**';
                                 $task['tasklist_name'] = $registry->get('name', $app);
                                 $tasks->add(new Nag_Task($task));
                             }
+                        } catch (Horde_Exception $e) {
+                            Horde::logMessage($newtasks, 'ERR');
                         }
                     }
                 }
@@ -231,9 +235,6 @@ class Nag
     {
         $storage = Nag_Driver::singleton($tasklist);
         $task = $storage->get($task);
-        if (is_a($task, 'PEAR_Error')) {
-            return $task;
-        }
         $task->process();
         return $task;
     }
@@ -250,7 +251,7 @@ class Nag
             return $count;
         }
 
-        $tasklists = Nag::listTasklists(true, Horde_Perms::ALL);
+        $tasklists = self::listTasklists(true, Horde_Perms::ALL);
 
         $count = 0;
         foreach (array_keys($tasklists) as $tasklist) {
@@ -278,9 +279,9 @@ class Nag
     public static function createTasksFromText($text, $tasklist = null)
     {
         if ($tasklist === null) {
-            $tasklist = Nag::getDefaultTasklist(Horde_Perms::EDIT);
+            $tasklist = self::getDefaultTasklist(Horde_Perms::EDIT);
         }
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::EDIT))) {
+        if (!array_key_exists($tasklist, self::listTasklists(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -311,9 +312,6 @@ class Nag
             } else {
                 $newTask = $storage->add($name, '', 0, $due, 3);
             }
-            if (is_a($newTask, 'PEAR_Error')) {
-                return $newTask;
-            }
             $uids[] = $newTask[1];
             $task['id'] = $newTask[0];
         }
@@ -324,11 +322,12 @@ class Nag
     /**
      * Returns all the alarms active right on $date.
      *
-     * @param integer $date  The unix epoch time to check for alarms.
+     * @param integer $date     The unix epoch time to check for alarms.
+     * @param array $tasklists  An array of tasklists
      *
      * @return array  The alarms (taskId) active on $date.
      */
-    public static function listAlarms($date, $tasklists = null)
+    public static function listAlarms($date, array $tasklists = null)
     {
         if (is_null($tasklists)) {
             $tasklists = $GLOBALS['display_tasklists'];
@@ -341,9 +340,6 @@ class Nag
 
             /* Retrieve the alarms for the task list. */
             $newtasks = $storage->listAlarms($date);
-            if (is_a($newtasks, 'PEAR_Error')) {
-                return $newtasks;
-            }
 
             /* Don't show an alarm for complete tasks. */
             foreach ($newtasks as $taskID => $task) {
@@ -391,13 +387,12 @@ class Nag
      * Filters data based on permissions.
      *
      * @param array $in            The data we want filtered.
-     * @param string $filter       What type of data we are filtering.
      * @param integer $permission  The Horde_Perms::* constant we will filter
      *                             on.
      *
      * @return array  The filtered data.
      */
-    public static function permissionsFilter($in, $permission = Horde_Perms::READ)
+    public static function permissionsFilter(array $in, $permission = Horde_Perms::READ)
     {
         // FIXME: Must find a way to check individual tasklists for
         // permission.  Can't specify attributes as it does not check for the
@@ -419,13 +414,17 @@ class Nag
     /**
      * Returns the default tasklist for the current user at the specified
      * permissions level.
+     *
+     * @param integer $permission  The permission to require.
+     *
+     * @return mixed The default tasklist or false if none.
      */
     public static function getDefaultTasklist($permission = Horde_Perms::SHOW)
     {
         global $prefs;
 
         $default_tasklist = $prefs->getValue('default_tasklist');
-        $tasklists = Nag::listTasklists(false, $permission);
+        $tasklists = self::listTasklists(false, $permission);
 
         if (isset($tasklists[$default_tasklist])) {
             return $default_tasklist;
@@ -446,7 +445,7 @@ class Nag
      *
      * @return Horde_Share  The new share.
      */
-    public static function addTasklist($info)
+    public static function addTasklist(array $info)
     {
         try {
             $tasklist = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
@@ -471,13 +470,13 @@ class Nag
     /**
      * Updates an existing share.
      *
-     * @param Horde_Share $share  The share to update.
-     * @param array $info         Hash with task list information.
+     * @param Horde_Share_Object $tasklist  The share to update.
+     * @param array $info                   Hash with task list information.
      *
      * @throws Horde_Exception_PermissionDenied
      * @throws Nag_Exception
      */
-    public static function updateTasklist($tasklist, $info)
+    public static function updateTasklist(Horde_Share_Object $tasklist, array $info)
     {
         if (!$GLOBALS['registry']->getAuth() ||
             ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
@@ -501,9 +500,11 @@ class Nag
     /**
      * Deletes a task list.
      *
-     * @param Horde_Share $tasklist  The task list to delete.
+     * @param Horde_Share_Object $tasklist  The task list to delete.
+     * @throws Nag_Exception
+     * @throws Horde_Exception_PermissionDenied
      */
-    public static function deleteTasklist($tasklist)
+    public static function deleteTasklist(Horde_Share_Object $tasklist)
     {
         if (!$GLOBALS['registry']->getAuth() ||
             ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
@@ -514,9 +515,6 @@ class Nag
         // Delete the task list.
         $storage = &Nag_Driver::singleton($tasklist->getName());
         $result = $storage->deleteAll();
-        if ($result instanceof PEAR_Error) {
-            throw new Nag_Exception(sprintf(_("Unable to delete \"%s\": %s"), $tasklist->get('name'), $result->getMessage()));
-        }
 
         // Remove share and all groups/permissions.
         try {
@@ -593,7 +591,7 @@ class Nag
     /**
      * Returns the string representation of the given completion status.
      *
-     * @param int $completed  The completion value.
+     * @param integer $completed  The completion value.
      *
      * @return string  The HTML representation of $completed.
      */
@@ -607,7 +605,7 @@ class Nag
     /**
      * Returns a colored representation of a priority.
      *
-     * @param int $priority  The priority level.
+     * @param integer $priority  The priority level.
      *
      * @return string  The HTML representation of $priority.
      */
@@ -620,7 +618,7 @@ class Nag
     /**
      * Returns the string matching the given alarm value.
      *
-     * @param int $value  The alarm value in minutes.
+     * @param integer $value  The alarm value in minutes.
      *
      * @return string  The formatted alarm string.
      */
@@ -711,7 +709,7 @@ class Nag
 
         // Make sure all task lists exist now, to save on checking later.
         $_temp = $GLOBALS['display_tasklists'];
-        $GLOBALS['all_tasklists'] = Nag::listTasklists();
+        $GLOBALS['all_tasklists'] = self::listTasklists();
         $GLOBALS['display_tasklists'] = array();
         foreach ($_temp as $id) {
             if (isset($GLOBALS['all_tasklists'][$id])) {
@@ -728,7 +726,7 @@ class Nag
         /* If the user doesn't own a task list, create one. */
         if (!empty($GLOBALS['conf']['share']['auto_create']) &&
             $GLOBALS['registry']->getAuth() &&
-            !count(Nag::listTasklists(true))) {
+            !count(self::listTasklists(true))) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
             $share->set('name', sprintf(_("Task list of %s"), $identity->getName()));
@@ -756,11 +754,8 @@ class Nag
         if (empty($GLOBALS['conf']['alarms']['driver'])) {
             // Get any alarms in the next hour.
             $now = time();
-            $alarmList = Nag::listAlarms($now);
-            if (is_a($alarmList, 'PEAR_Error')) {
-                Horde::logMessage($alarmList, 'ERR');
-                $notification->push($alarmList, 'horde.error');
-            } else {
+            try {
+                $alarmList = self::listAlarms($now);
                 $messages = array();
                 foreach ($alarmList as $task) {
                     $differential = $task->due - $now;
@@ -772,7 +767,7 @@ class Nag
                         $messages[$key] = array(sprintf(_("%s is due now."), $task->name), 'horde.alarm');
                     } elseif ($differential >= 60) {
                         $messages[$key] = array(sprintf(_("%s is due in %s"), $task->name,
-                                                        Nag::secondsToString($differential)), 'horde.alarm');
+                                                        self::secondsToString($differential)), 'horde.alarm');
                     }
                 }
 
@@ -780,12 +775,15 @@ class Nag
                 foreach ($messages as $message) {
                     $notification->push($message[0], $message[1]);
                 }
+            } catch (Nag_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                $notification->push($e->getMessage(), 'horde.error');
             }
         }
 
         // Check here for guest task lists so that we don't get multiple
         // messages after redirects, etc.
-        if (!$GLOBALS['registry']->getAuth() && !count(Nag::listTasklists())) {
+        if (!$GLOBALS['registry']->getAuth() && !count(self::listTasklists())) {
             $notification->push(_("No task lists are available to guests."));
         }
 
@@ -801,11 +799,13 @@ class Nag
      *                            "delete".
      * @param Nag_Task $task      The changed task.
      * @param Nag_Task $old_task  The original task if $action is "edit".
+     *
+     * @throws Nag_Exception
      */
     public static function sendNotification($action, $task, $old_task = null)
     {
         if (!in_array($action, array('add', 'edit', 'delete'))) {
-            return PEAR::raiseError('Unknown event action: ' . $action);
+            throw new Nag_Exception('Unknown event action: ' . $action);
         }
 
         try {
@@ -822,12 +822,12 @@ class Nag
 
         $owner = $share->get('owner');
         if (strlen($owner)) {
-            $recipients[$owner] = Nag::_notificationPref($owner, 'owner');
+            $recipients[$owner] = self::_notificationPref($owner, 'owner');
         }
 
         foreach ($share->listUsers(Horde_Perms::READ) as $user) {
             if (empty($recipients[$user])) {
-                $recipients[$user] = Nag::_notificationPref($user, 'read', $task->tasklist);
+                $recipients[$user] = self::_notificationPref($user, 'read', $task->tasklist);
             }
         }
         foreach ($share->listGroups(Horde_Perms::READ) as $group) {
@@ -841,7 +841,7 @@ class Nag
 
             foreach ($group_users as $user) {
                 if (empty($recipients[$user])) {
-                    $recipients[$user] = Nag::_notificationPref($user, 'read', $task->tasklist);
+                    $recipients[$user] = self::_notificationPref($user, 'read', $task->tasklist);
                 }
             }
         }
@@ -915,14 +915,14 @@ class Nag
                 }
                 if ($old_task->parent_id != $task->parent_id) {
                     $old_parent = $old_task->getParent();
-                    $parent = $task->getParent();
-                    if (!is_a($parent, 'PEAR_Error')) {
+                    try {
+                        $parent = $task->getParent();
                         $notification_message .= "\n - "
                             . sprintf(_("Changed parent task from \"%s\" to \"%s\""),
                                       $old_parent ? $old_parent->name : _("no parent"),
                                       $parent ? $parent->name : _("no parent"));
+                    } catch (Tag_Exception $e) {
                     }
-
                 }
                 if ($old_task->category != $task->category) {
                     $notification_message .= "\n - "
@@ -951,19 +951,19 @@ class Nag
                 if ($old_task->due != $task->due) {
                     $notification_message .= "\n - "
                         . sprintf(_("Changed due date from %s to %s"),
-                                  $old_task->due ? Nag::formatDate($old_task->due) : _("no due date"),
-                                  $task->due ? Nag::formatDate($task->due) : _("no due date"));
+                                  $old_task->due ? self::formatDate($old_task->due) : _("no due date"),
+                                  $task->due ? self::formatDate($task->due) : _("no due date"));
                 }
                 if ($old_task->start != $task->start) {
                     $notification_message .= "\n - "
                         . sprintf(_("Changed start date from %s to %s"),
-                                  $old_task->start ? Nag::formatDate($old_task->start) : _("no start date"),
-                                  $task->start ? Nag::formatDate($task->start) : _("no start date"));
+                                  $old_task->start ? self::formatDate($old_task->start) : _("no start date"),
+                                  $task->start ? self::formatDate($task->start) : _("no start date"));
                 }
                 if ($old_task->alarm != $task->alarm) {
                     $notification_message .= "\n - "
                         . sprintf(_("Changed alarm from %s to %s"),
-                                  Nag::formatAlarm($old_task->alarm), Nag::formatAlarm($task->alarm));
+                                  self::formatAlarm($old_task->alarm), self::formatAlarm($task->alarm));
                 }
                 if ($old_task->priority != $task->priority) {
                     $notification_message .= "\n - "
@@ -1074,6 +1074,10 @@ class Nag
 
     /**
      * Returns the real name, if available, of a user.
+     *
+     * @param string $uid  The userid of the user to retrieve
+     *
+     * @return string  The fullname of the user.
      */
     public static function getUserName($uid)
     {
