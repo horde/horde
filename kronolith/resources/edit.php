@@ -15,8 +15,6 @@ if (Kronolith::showAjaxView()) {
     Horde::url('', true)->redirect();
 }
 
-require_once KRONOLITH_BASE . '/lib/Forms/EditResource.php';
-
 // Exit if this isn't an authenticated administrative user.
 if (!$registry->isAdmin()) {
     Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
@@ -33,7 +31,7 @@ try {
     $notification->push($e, 'horde.error');
     Horde::url('resources/', true)->redirect();
 }
-$form = new Kronolith_EditResourceForm($vars, $resource);
+$form = new Kronolith_Form_EditResource($vars, $resource);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {

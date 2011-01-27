@@ -15,8 +15,6 @@ if (Kronolith::showAjaxView()) {
     Horde::url('', true)->setAnchor('calendar:internal')->redirect();
 }
 
-require_once KRONOLITH_BASE . '/lib/Forms/CreateCalendar.php';
-
 // Exit if this isn't an authenticated user or if the user can't
 // create new calendars (default share is locked).
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_share')) {
@@ -24,7 +22,7 @@ if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_share')) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$form = new Kronolith_CreateCalendarForm($vars);
+$form = new Kronolith_Form_CreateCalendar($vars);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {

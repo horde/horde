@@ -17,8 +17,6 @@ if (Kronolith::showAjaxView()) {
     Horde::url('', true)->setAnchor('calendar:internal|' . $vars->get('c'))->redirect();
 }
 
-require_once KRONOLITH_BASE . '/lib/Forms/EditCalendar.php';
-
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
     Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
@@ -35,7 +33,7 @@ if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
     $notification->push(_("You are not allowed to change this calendar."), 'horde.error');
     Horde::url('calendars/', true)->redirect();
 }
-$form = new Kronolith_EditCalendarForm($vars, $calendar);
+$form = new Kronolith_Form_EditCalendar($vars, $calendar);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {

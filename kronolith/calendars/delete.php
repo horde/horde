@@ -11,8 +11,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
-require_once KRONOLITH_BASE . '/lib/Forms/DeleteCalendar.php';
-
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
     Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
@@ -36,7 +34,7 @@ if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
     $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
     Horde::url('calendars/', true)->redirect();
 }
-$form = new Kronolith_DeleteCalendarForm($vars, $calendar);
+$form = new Kronolith_Form_DeleteCalendar($vars, $calendar);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {

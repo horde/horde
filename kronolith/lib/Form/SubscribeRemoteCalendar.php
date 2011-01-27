@@ -15,11 +15,11 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_SubscribeRemoteCalendarForm extends Horde_Form
+class Kronolith_Form_SubscribeRemoteCalendar extends Horde_Form
 {
     public function __construct($vars)
     {
-        parent::Horde_Form($vars, _("Subscribe to a Remote Calendar"));
+        parent::__construct($vars, _("Subscribe to a Remote Calendar"));
 
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Color"), 'color', 'colorpicker', false);

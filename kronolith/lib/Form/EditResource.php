@@ -16,7 +16,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_EditResourceForm extends Horde_Form
+class Kronolith_Form_EditResource extends Horde_Form
 {
     /**
      * Resource being edited.
@@ -31,7 +31,7 @@ class Kronolith_EditResourceForm extends Horde_Form
     public function __construct($vars, $resource)
     {
         $this->_resource = $resource;
-        parent::Horde_Form($vars, sprintf(_("Edit %s"), $resource->get('name')));
+        parent::__construct($vars, sprintf(_("Edit %s"), $resource->get('name')));
 
         $responses =  array(Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT => _("Always Accept"),
                             Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE => _("Always Decline"),

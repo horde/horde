@@ -15,8 +15,6 @@ if (Kronolith::showAjaxView()) {
     Horde::url('', true)->redirect();
 }
 
-require_once KRONOLITH_BASE . '/lib/Forms/DeleteResource.php';
-
 // Exit if this isn't an authenticated administrative user.
 if (!$registry->isAdmin()) {
     Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();

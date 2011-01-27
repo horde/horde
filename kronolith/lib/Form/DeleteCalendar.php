@@ -15,7 +15,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_DeleteCalendarForm extends Horde_Form
+class Kronolith_Form_DeleteCalendar extends Horde_Form
 {
     /**
      * Calendar being deleted.
@@ -25,7 +25,7 @@ class Kronolith_DeleteCalendarForm extends Horde_Form
     public function __construct($vars, $calendar)
     {
         $this->_calendar = $calendar;
-        parent::Horde_Form($vars, sprintf(_("Delete %s"), $calendar->get('name')));
+        parent::__construct($vars, sprintf(_("Delete %s"), $calendar->get('name')));
 
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(sprintf(_("Really delete the calendar \"%s\"? This cannot be undone and all data on this calendar will be permanently removed."), $this->_calendar->get('name')), 'desc', 'description', false);

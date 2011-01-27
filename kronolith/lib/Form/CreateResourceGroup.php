@@ -16,14 +16,14 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_CreateResourceGroupForm extends Horde_Form
+class Kronolith_Form_CreateResourceGroup extends Horde_Form
 {
     /**
      * @throws Kronolith_Exception
      */
     public function __construct($vars)
     {
-        parent::Horde_Form($vars, _("Create Resource"));
+        parent::__construct($vars, _("Create Resource"));
 
         $resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE));
         $enum = array();

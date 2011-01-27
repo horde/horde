@@ -15,11 +15,11 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_UnsubscribeRemoteCalendarForm extends Horde_Form
+class Kronolith_Form_UnsubscribeRemoteCalendar extends Horde_Form
 {
     public function __construct($vars, $calendar)
     {
-        parent::Horde_Form($vars, sprintf(_("Unsubscribe from %s"), $calendar['name']));
+        parent::__construct($vars, sprintf(_("Unsubscribe from %s"), $calendar['name']));
 
         $this->addHidden('', 'url', 'text', true);
         $this->addVariable(sprintf(_("Really unsubscribe from the calendar \"%s\" (%s)?"), $calendar['name'], $calendar['url']), 'desc', 'description', false);

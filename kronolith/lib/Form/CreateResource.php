@@ -16,14 +16,14 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_CreateResourceForm extends Horde_Form
+class Kronolith_Form_CreateResource extends Horde_Form
 {
     /**
      * @throws Kronolith_Exception
      */
     public function __construct($vars)
     {
-        parent::Horde_Form($vars, _("Create Resource"));
+        parent::__construct($vars, _("Create Resource"));
 
         $responses =  array(Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT => _("Always Accept"),
                             Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE => _("Always Decline"),

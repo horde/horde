@@ -16,7 +16,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_EditResourceGroupForm extends Horde_Form
+class Kronolith_Form_EditResourceGroup extends Horde_Form
 {
     /**
      * Resource group being edited.
@@ -31,7 +31,7 @@ class Kronolith_EditResourceGroupForm extends Horde_Form
     public function __construct($vars, $resource)
     {
         $this->_resource = $resource;
-        parent::Horde_Form($vars, sprintf(_("Edit %s"), $resource->get('name')));
+        parent::__construct($vars, sprintf(_("Edit %s"), $resource->get('name')));
 
         $resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE));
         $enum = array();

@@ -11,8 +11,6 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
-require_once KRONOLITH_BASE . '/lib/Forms/DeleteResourceGroup.php';
-
 // Exit if this isn't an authenticated administrative user.
 if (!$registry->isAdmin()) {
     Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
@@ -30,7 +28,7 @@ try {
     Horde::url('resources/groups/', true)->redirect();
 }
 
-$form = new Kronolith_DeleteResourceGroupForm($vars, $resource);
+$form = new Kronolith_Form_DeleteResourceGroup($vars, $resource);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {

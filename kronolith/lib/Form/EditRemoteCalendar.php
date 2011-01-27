@@ -15,11 +15,11 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_EditRemoteCalendarForm extends Horde_Form
+class Kronolith_Form_EditRemoteCalendar extends Horde_Form
 {
     public function __construct($vars, $remote_calendar)
     {
-        parent::Horde_Form($vars, sprintf(_("Edit %s"), $remote_calendar['name']));
+        parent::__construct($vars, sprintf(_("Edit %s"), $remote_calendar['name']));
 
         $this->addHidden('', 'url', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);

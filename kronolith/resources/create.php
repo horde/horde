@@ -20,10 +20,8 @@ if (!$registry->isAdmin()) {
     Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
-require_once KRONOLITH_BASE . '/lib/Forms/CreateResource.php';
-
 $vars = Horde_Variables::getDefaultVariables();
-$form = new Kronolith_CreateResourceForm($vars);
+$form = new Kronolith_Form_CreateResource($vars);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {

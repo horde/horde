@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Form for deleting resource groups.
+ * Horde_Form for deleting resources.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -9,26 +9,26 @@
  */
 
 /**
- * The Kronolith_DeleteResourceGroupForm class provides the form for deleting
- * a resource group.
+ * The Kronolith_DeleteResourceForm class provides the form for deleting a
+ * resource.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_DeleteResourceGroupForm extends Horde_Form
+class Kronolith_Form_DeleteResource extends Horde_Form
 {
     /**
-     * Resource group being deleted.
+     * Resource being deleted.
      *
-     * @var Kronolith_Resource_Group
+     * @var Kronolith_Resource_Single
      */
     protected $_resource;
 
     public function __construct($vars, $resource)
     {
         $this->_resource = $resource;
-        parent::Horde_Form($vars, sprintf(_("Delete %s"), $resource->get('name')));
+        parent::__construct($vars, sprintf(_("Delete %s"), $resource->get('name')));
 
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(sprintf(_("Really delete the resource \"%s\"? This cannot be undone and all data on this resource will be permanently removed."), $this->_resource->get('name')), 'desc', 'description', false);
