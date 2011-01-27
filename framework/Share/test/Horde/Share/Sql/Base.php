@@ -37,17 +37,16 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
 
     public function testAddShare()
     {
-        $share = parent::addShare();
+        $share = $this->addShare();
         $this->assertInstanceOf('Horde_Share_Object_Sql', $share);
-        return $share->getId();
     }
 
     /**
      * @depends testAddShare
      */
-    public function testPermissions($myshareid)
+    public function testPermissions()
     {
-        return parent::permissions($myshareid);
+        $this->permissions();
     }
 
     /**
@@ -55,7 +54,7 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
      */
     public function testExists()
     {
-        parent::exists();
+        $this->exists();
     }
 
     /**
@@ -63,7 +62,7 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
      */
     public function testCountShares()
     {
-        parent::countShares();
+        $this->countShares();
     }
 
     /**
@@ -71,11 +70,8 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
      */
     public function testGetShare()
     {
-        $shares = parent::getShare();
-        $this->assertInstanceOf('Horde_Share_Object_Sql', $shares[0]);
-        $this->assertInstanceOf('Horde_Share_Object_Sql', $shares[1]);
-        $this->assertInstanceOf('Horde_Share_Object_Sql', $shares[2]);
-        return $shares;
+        $share = $this->getShare();
+        $this->assertInstanceOf('Horde_Share_Object_Sql', $share);
     }
 
     /**
@@ -90,17 +86,17 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
     /**
      * @depends testGetShare
      */
-    public function testGetShareById(array $shares)
+    public function testGetShareById()
     {
-        parent::getShareById($shares);
+        $this->getShareById();
     }
 
     /**
      * @depends testGetShare
      */
-    public function testGetShares(array $shares)
+    public function testGetShares()
     {
-        parent::getShares($shares);
+        $this->getShares();
     }
 
     /**
@@ -108,15 +104,15 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
      */
     public function testListAllShares()
     {
-        parent::listAllShares();
+        $this->listAllShares();
     }
 
     /**
      * @depends testPermissions
      */
-    public function testListShares(array $shareids)
+    public function testListShares()
     {
-        parent::listShares($shareids);
+        $this->listShares();
     }
 
     /**
@@ -124,36 +120,36 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
      */
     public function testListSystemShares()
     {
-        parent::listSystemShares();
+        $this->listSystemShares();
     }
 
     /**
      * @depends testPermissions
      */
-    public function testRemoveUserPermissions(array $shareids)
+    public function testRemoveUserPermissions()
     {
-        return parent::removeUserPermissions($shareids);
+        return $this->removeUserPermissions();
     }
 
     /**
      * @depends testRemoveUserPermissions
      */
-    public function testRemoveGroupPermissions(array $shareids)
+    public function testRemoveGroupPermissions()
     {
-        parent::removeGroupPermissions($shareids);
+        $this->removeGroupPermissions();
     }
 
     /**
      * @depends testGetShare
      */
-    public function testRemoveShare(array $share)
+    public function testRemoveShare()
     {
-        parent::removeShare($share);
+        $this->removeShare();
     }
 
     public function testCallback()
     {
-        parent::callback(new Horde_Share_Object_Sql(array()));
+        $this->callback(new Horde_Share_Object_Sql(array()));
     }
 
     public static function setUpBeforeClass()

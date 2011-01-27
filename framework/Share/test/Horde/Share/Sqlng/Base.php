@@ -39,15 +39,14 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
     {
         $share = parent::addShare();
         $this->assertInstanceOf('Horde_Share_Object_Sqlng', $share);
-        return $share->getId();
     }
 
     /**
      * @depends testAddShare
      */
-    public function testPermissions($myshareid)
+    public function testPermissions()
     {
-        return parent::permissions($myshareid);
+        parent::permissions();
     }
 
     /**
@@ -71,27 +70,24 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
      */
     public function testGetShare()
     {
-        $shares = parent::getShare();
-        $this->assertInstanceOf('Horde_Share_Object_Sqlng', $shares[0]);
-        $this->assertInstanceOf('Horde_Share_Object_Sqlng', $shares[1]);
-        $this->assertInstanceOf('Horde_Share_Object_Sqlng', $shares[2]);
-        return $shares;
+        $share = parent::getShare();
+        $this->assertInstanceOf('Horde_Share_Object_Sqlng', $share);
     }
 
     /**
      * @depends testGetShare
      */
-    public function testGetShareById(array $shares)
+    public function testGetShareById()
     {
-        parent::getShareById($shares);
+        parent::getShareById();
     }
 
     /**
      * @depends testGetShare
      */
-    public function testGetShares(array $shares)
+    public function testGetShares()
     {
-        parent::getShares($shares);
+        parent::getShares();
     }
 
     /**
@@ -114,9 +110,9 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
-    public function testListShares(array $shareids)
+    public function testListShares()
     {
-        parent::listShares($shareids);
+        parent::listShares();
     }
 
     /**
@@ -130,25 +126,25 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
-    public function testRemoveUserPermissions(array $shareids)
+    public function testRemoveUserPermissions()
     {
-        return parent::removeUserPermissions($shareids);
+        return parent::removeUserPermissions();
     }
 
     /**
      * @depends testRemoveUserPermissions
      */
-    public function testRemoveGroupPermissions(array $shareids)
+    public function testRemoveGroupPermissions()
     {
-        parent::removeGroupPermissions($shareids);
+        parent::removeGroupPermissions();
     }
 
     /**
      * @depends testGetShare
      */
-    public function testRemoveShare(array $share)
+    public function testRemoveShare()
     {
-        parent::removeShare($share);
+        parent::removeShare();
     }
 
     public function testCallback()
