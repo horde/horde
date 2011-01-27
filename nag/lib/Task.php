@@ -762,12 +762,20 @@ class Nag_Task {
             }
         }
         if (isset($methods['mail'])) {
-            $methods['mail']['body'] = sprintf(
-                _("We would like to remind you of this due task.\n\n%s\n\nDate: %s\nTime: %s\n\n%s"),
-                $this->name,
-                strftime($prefs->getValue('date_format'), $this->due),
-                date($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia', $this->due),
-                $this->desc);
+            $image = Nag::getImagePart('big_alarm.png');
+
+            $view = new Horde_View(array('templatePath' => NAG_TEMPLATES . '/alarm', 'encoding' => 'UTF-8'));
+            new Horde_View_Helper_Text($view);
+            $view->task = $this;
+            $view->imageId = $image->getContentId();
+            $view->due = new Horde_Date($this->due);
+            $view->dateFormat = $prefs->getValue('date_format');
+            $view->timeFormat = $prefs->getValue('twentyFour') ? 'H:i' : 'h:ia';
+            if (!$prefs->isLocked('task_alarms')) {
+                $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'nag'), true)->remove(session_name());
+            }
+
+            $methods['mail']['mimepart'] = Nag::buildMimeMessage($view, 'mail', $image);
         }
         return array(
             'id' => $this->uid,
