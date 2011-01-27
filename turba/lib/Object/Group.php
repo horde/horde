@@ -18,7 +18,7 @@ class Turba_Object_Group extends Turba_Object
      */
     public function __construct(Turba_Driver $driver, array $attributes = array())
     {
-        parent::Turba_Object($driver, $attributes);
+        parent::__construct($driver, $attributes);
         $this->attributes['__type'] = 'Group';
     }
 
