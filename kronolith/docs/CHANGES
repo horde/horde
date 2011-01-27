@@ -12,7 +12,8 @@ v3.0-git
       iCalendar format (Request #9091).
 [jan] Add remote calendars to the possible list of calendars for free/busy
       information.
-[jan] Send iTip notifications with HTML part and convert to Horde_View.
+[jan] Send alarm and iTip notifications with HTML part and convert to
+      Horde_View.
 [jan] Add option to notify users about calendar permission changes.
 [mjr] listTimeObject calendars are now viewable independently in the calendar
       portal blocks (Request #8530).
