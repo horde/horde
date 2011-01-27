@@ -214,7 +214,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
                 break;
 
-            case 'event_alarms':
+            case 'event_alarms_select':
                 if (empty($conf['alarms']['driver']) ||
                     $prefs->isLocked('event_alarms_select')) {
                     $ui->suppress[] = 'event_alarms';
