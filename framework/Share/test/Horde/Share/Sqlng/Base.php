@@ -126,6 +126,14 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
+    public function testGetPermission()
+    {
+        return $this->getPermission();
+    }
+
+    /**
+     * @depends testPermissions
+     */
     public function testRemoveUserPermissions()
     {
         return parent::removeUserPermissions();
