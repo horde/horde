@@ -4,7 +4,11 @@
  */
 class Turba_Form_Contact extends Horde_Form
 {
-    public function __construct(&$vars, &$contact, $tabs = true)
+    /**
+     * @param array $vars  Array of form variables
+     * @param Turba_Object $contact
+     */
+    public function __construct($vars, Turba_Object $contact, $tabs = true)
     {
         global $conf, $notification;
 
@@ -34,9 +38,12 @@ class Turba_Form_Contact extends Horde_Form
 
     /**
      * Set up the Horde_Form fields for $contact's attributes.
+     *
+     * @param Turba_Object $contact  The contact
      */
-    function _addFields($contact, $useTabs = true)
+    public function _addFields(Turba_Object $contact, $useTabs = true)
     {
+        // @TODO: inject this
         global $attributes;
 
         // Run through once to see what form actions, if any, we need
@@ -81,11 +88,11 @@ class Turba_Form_Contact extends Horde_Form
                 $desc = isset($attribute['desc']) ? $attribute['desc'] : null;
 
                 if (is_array($map[$field])) {
-                    $v = &$this->addVariable($attribute['label'], 'object[' . $field . ']', $attribute['type'], false, false, $desc, $params);
+                    $v = $this->addVariable($attribute['label'], 'object[' . $field . ']', $attribute['type'], false, false, $desc, $params);
                     $v->disable();
                 } else {
                     $readonly = isset($attribute['readonly']) ? $attribute['readonly'] : null;
-                    $v = &$this->addVariable($attribute['label'], 'object[' . $field . ']', $attribute['type'], $attribute['required'], $readonly, $desc, $params);
+                    $v = $this->addVariable($attribute['label'], 'object[' . $field . ']', $attribute['type'], $attribute['required'], $readonly, $desc, $params);
 
                     if (!empty($actions[$field])) {
                         $actionfields = array();

@@ -19,12 +19,14 @@ class Turba_Form_EditAddressBook extends Horde_Form
 {
     /**
      * Address book being edited
+     *
+     * @var Horde_Share_Object
      */
-    var $_addressbook;
+    protected $_addressbook;
 
-    public function __construct(&$vars, &$addressbook)
+    public function __construct($vars, Horde_Share_Object $addressbook)
     {
-        $this->_addressbook = &$addressbook;
+        $this->_addressbook = $addressbook;
         parent::__construct($vars, sprintf(_("Edit %s"), $addressbook->get('name')));
 
         $this->addHidden('', 'a', 'text', true);
@@ -34,16 +36,15 @@ class Turba_Form_EditAddressBook extends Horde_Form
         $this->setButtons(array(_("Save")));
     }
 
-    function execute()
+    public function execute()
     {
         $this->_addressbook->set('name', $this->_vars->get('name'));
         $this->_addressbook->set('desc', $this->_vars->get('description'));
-
         try {
             $this->_addressbook->save();
             return true;
-        } catch (Turba_Exception $e) {
-            return PEAR::raiseError(sprintf(_("Unable to save address book \"%s\": %s"), $id, $e->getMessage()));
+        } catch (Horde_Share_Exception $e) {
+            throw new Turba_Exception(sprintf(_("Unable to save address book \"%s\": %s"), $id, $e->getMessage()));
         }
     }
 

@@ -29,9 +29,11 @@ class Turba_Driver_Vbook extends Turba_Driver
     public $searchCriteria;
 
     /**
+     *
+     * @see Turba_Driver::__construct
      * @throws Turba_Exception
      */
-    public function __construct($name = '', $params = array())
+    public function __construct($name = '', array $params = array())
     {
         parent::__construct($name, $params);
 
@@ -66,11 +68,12 @@ class Turba_Driver_Vbook extends Turba_Driver
      *
      * @param array $criteria  Array containing the search criteria.
      * @param array $fields    List of fields to return
+     * @param array $blobFileds  Array of fields that contain
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
     {
         /* Add the passed in search criteria to the vbook criteria
          * (which need to be mapped from turba fields to
@@ -90,7 +93,7 @@ class Turba_Driver_Vbook extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    protected function _read($key, $ids, $owner, $fields)
+    protected function _read($key, $ids, $owner, array $fields)
     {
         return $this->_driver->_read($key, $ids, $owner, $fields);
     }
@@ -98,9 +101,10 @@ class Turba_Driver_Vbook extends Turba_Driver
     /**
      * Not supported for virtual address books.
      *
+     * @see Turba_Driver::_add
      * @throws Turba_Exception
      */
-    protected function _add($attributes)
+    protected function _add(array $attributes)
     {
         throw new Turba_Exception(_("You cannot add new contacts to a virtual address book"));
     }
@@ -108,6 +112,7 @@ class Turba_Driver_Vbook extends Turba_Driver
     /**
      * Not supported for virtual address books.
      *
+     * @see Turba_Driver::_delete
      * @throws Turba_Exception
      */
     protected function _delete($object_key, $object_id)
@@ -116,9 +121,9 @@ class Turba_Driver_Vbook extends Turba_Driver
     }
 
     /**
-     * TODO
+     * @see Turba_Driver::_save
      */
-    protected function _save($object)
+    protected function _save(Turba_Object $object)
     {
         return $this->_driver->save($object);
     }

@@ -33,7 +33,7 @@ class Turba_List implements Countable
     /**
      * Constructor.
      */
-    public function __construct($ids = array())
+    public function __construct(array $ids = array())
     {
         foreach ($ids as $value) {
             list($source, $key) = explode(':', $value);
@@ -49,7 +49,7 @@ class Turba_List implements Countable
      *
      * @param Turba_Object $object  The object to insert.
      */
-    public function insert($object)
+    public function insert(Turba_Object $object)
     {
         if ($object instanceof Turba_Object) {
             $key = $object->getSource() . ':' . $object->getValue('__key');
@@ -179,7 +179,7 @@ class Turba_List implements Countable
      *
      * @return integer  Comparison of the two field values.
      */
-    protected function _cmp($a, $b)
+    protected function _cmp(Turba_Object $a, Turba_Object $b)
     {
         foreach ($this->_usortCriteria as $field) {
             // Set the comparison type based on the type of attribute we're

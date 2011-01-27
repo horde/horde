@@ -165,7 +165,7 @@ class Turba_Application extends Horde_Registry_Application
      *
      * @param Horde_Menu $menu  The menu object.
      */
-    public function menu($menu)
+    public function menu(Horde_Menu $menu)
     {
         if ($GLOBALS['session']->get('turba', 'has_share')) {
             $menu->add(Horde::url('addressbooks/index.php'), _("_My Address Books"), 'turba.png');
@@ -192,7 +192,7 @@ class Turba_Application extends Horde_Registry_Application
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsGroup($ui)
+    public function prefsGroup(Horde_Core_Prefs_Ui $ui)
     {
         global $prefs;
 
@@ -250,7 +250,7 @@ class Turba_Application extends Horde_Registry_Application
      *
      * @return string  The HTML code to display on the prefs page.
      */
-    public function prefsSpecial($ui, $item)
+    public function prefsSpecial(Horde_Core_Prefs_Ui $ui, $item)
     {
         switch ($item) {
         case 'addressbookselect':
@@ -360,7 +360,7 @@ class Turba_Application extends Horde_Registry_Application
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsSpecialUpdate($ui, $item)
+    public function prefsSpecialUpdate(Horde_Core_Prefs_Ui $ui, $item)
     {
         global $prefs;
 

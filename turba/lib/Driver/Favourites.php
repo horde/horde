@@ -42,11 +42,12 @@ class Turba_Driver_Favourites extends Turba_Driver
      *
      * @param array $criteria  Array containing the search criteria.
      * @param array $fields    List of fields to return.
+     * @param array $blobFields  A list of fields that contain binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
     {
         $results = array();
 
@@ -94,13 +95,14 @@ class Turba_Driver_Favourites extends Turba_Driver
      * fields.
      *
      * @param array $criteria  Search criteria.
-     * @param string $id       Data identifier.
+     * @param mixed $id        Data identifier.
+     * @param string $owner    Filter on contacts owned by this owner.
      * @param array $fields    List of fields to return.
      *
      * @return arry  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($criteria, $ids, $owner, $fields)
+    protected function _read(array $criteria, $ids, $owner, array $fields)
     {
         $book = $this->_getAddressBook();
 

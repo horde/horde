@@ -17,7 +17,7 @@
  */
 class Turba_Form_CreateAddressBook extends Horde_Form
 {
-    public function __construct(&$vars)
+    public function __construct($vars)
     {
         parent::__construct($vars, _("Create Address Book"));
 
@@ -30,7 +30,7 @@ class Turba_Form_CreateAddressBook extends Horde_Form
     /**
      * @throws Turba_Exception
      */
-    function execute()
+    public function execute()
     {
         // Need a clean cfgSources array
         include TURBA_BASE . '/config/backends.php';

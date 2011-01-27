@@ -12,17 +12,16 @@
  */
 class Turba_Data_Ldif extends Horde_Data
 {
-    var $_extension = 'ldif';
+    protected $_extension = 'ldif';
 
-    var $_contentType = 'text/ldif';
+    protected $_contentType = 'text/ldif';
 
     /**
      * Useful Mozilla address book attribute names.
      *
-     * @private
      * @var array
      */
-    var $_mozillaAttr = array('cn', 'givenName', 'sn', 'mail', 'mozillaNickname',
+    private $_mozillaAttr = array('cn', 'givenName', 'sn', 'mail', 'mozillaNickname',
                              'homeStreet', 'mozillaHomeStreet2', 'mozillaHomeLocalityName',
                              'mozillaHomeState', 'mozillaHomePostalCode',
                              'mozillaHomeCountryName', 'street',
@@ -34,10 +33,9 @@ class Turba_Data_Ldif extends Horde_Data
     /**
      * Useful Turba address book attribute names.
      *
-     * @private
      * @var array
      */
-    var $_turbaAttr = array('name', 'firstname', 'lastname', 'email', 'alias',
+    private $_turbaAttr = array('name', 'firstname', 'lastname', 'email', 'alias',
                             'homeAddress', 'homeStreet', 'homeCity',
                             'homeProvince', 'homePostalCode', 'homeCountry',
                             'workAddress', 'workStreet', 'workCity', 'workProvince',
@@ -48,10 +46,9 @@ class Turba_Data_Ldif extends Horde_Data
     /**
      * Turba address book attribute names and the corresponding Mozilla name.
      *
-     * @private
      * @var array
      */
-    var $_turbaMozillaMap = array('name' => 'cn',
+    private $_turbaMozillaMap = array('name' => 'cn',
                                   'firstname' => 'givenName',
                                   'lastname' => 'sn',
                                   'email' => 'mail',
@@ -89,7 +86,7 @@ class Turba_Data_Ldif extends Horde_Data
      *
      * @return boolean  True if the string is safe, false otherwise.
      */
-    function _is_safe_string($str)
+    private function _is_safe_string($str)
     {
         /*  SAFE-CHAR         = %x01-09 / %x0B-0C / %x0E-7F
          *                     ; any value <= 127 decimal except NUL, LF,
@@ -116,7 +113,7 @@ class Turba_Data_Ldif extends Horde_Data
         return true;
     }
 
-    function importData($contents, $header = false)
+    public function importData($contents, $header = false)
     {
         $data = array();
         $records = preg_split('/(\r?\n){2}/', $contents);
@@ -151,7 +148,7 @@ class Turba_Data_Ldif extends Horde_Data
      * @param boolean $header   If true, the rows of $data are associative
      *                          arrays with field names as their keys.
      */
-    function exportFile($filename, $data, $header = false)
+    public function exportFile($filename, $data, $header = false)
     {
         $export = $this->exportData($data, $header);
         $GLOBALS['browser']->downloadHeaders($filename, 'text/ldif', false, strlen($export));
@@ -168,7 +165,7 @@ class Turba_Data_Ldif extends Horde_Data
      *
      * @return string  The LDIF data.
      */
-    function exportData($data, $header = false)
+    public function exportData($data, $header = false)
     {
         if (!is_array($data) || !count($data)) {
             return '';
@@ -219,7 +216,7 @@ class Turba_Data_Ldif extends Horde_Data
      *                data set after the final step.
      * @throws Horde_Data_Exception
      */
-    function nextStep($action, $param = array())
+    public function nextStep($action, $param = array())
     {
         switch ($action) {
         case Horde_Data::IMPORT_FILE:

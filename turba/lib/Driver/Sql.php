@@ -1,6 +1,6 @@
 <?php
 /**
- * Turba directory driver implementation for PHP's PEAR database abstraction
+ * Turba directory driver implementation for the Horde_Db database abstraction
  * layer.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org)
@@ -9,6 +9,7 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author   Jon Parise <jon@csh.rit.edu>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/asl.php ASL
  * @package  Turba
@@ -42,13 +43,17 @@ class Turba_Driver_Sql extends Turba_Driver
     /**
      * Constructor.
      *
+     * @param string $name   The source name
      * @param array $params  Additional parameters needed:
      * <pre>
      * 'db' - (Horde_Db_Adapter) A DB Adapter object.
      * </pre>
      */
-    public function __construct($name = '', $params = array())
+    public function __construct($name = '', array $params = array())
     {
+        if (empty($params['db'])) {
+            throw new InvalidArgumentException(_("Missing required Horde_Db_Adapter obejct"));
+        }
         $this->_db = $params['db'];
         unset($params['db']);
 
@@ -317,16 +322,17 @@ class Turba_Driver_Sql extends Turba_Driver
      * Reads the given data from the SQL database and returns the
      * results.
      *
-     * @param string $key    The primary key field to use.
-     * @param mixed $ids     The ids of the contacts to load.
-     * @param string $owner  Only return contacts owned by this user.
-     * @param array $fields  List of fields to return.
+     * @param string $key         The primary key field to use.
+     * @param mixed $ids          The ids of the contacts to load.
+     * @param string $owner       Only return contacts owned by this user.
+     * @param array $fields       List of fields to return.
+     * @param array $blob_fields  List of fields that contain binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, $fields,
-                             $blob_fields = array())
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blob_fields = array())
     {
         $values = array();
 
@@ -488,10 +494,12 @@ class Turba_Driver_Sql extends Turba_Driver
     /**
      * Saves the specified object in the SQL database.
      *
+     * @param Turba_Object $object  The object to save.
+     *
      * @return string  The object id, possibly updated.
      * @throws Turba_Exception
      */
-    function _save($object)
+    function _save(Turba_Object $object)
     {
         list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
         $attributes = $this->toDriverKeys($object->getAttributes());
@@ -523,7 +531,7 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @return string  A unique ID for the new object.
      */
-    protected function _makeKey($attributes)
+    protected function _makeKey(array $attributes)
     {
         return strval(new Horde_Support_Randomid());
     }
@@ -537,7 +545,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return array  An SQL fragment and a list of values suitable for binding
      *                as an array.
      */
-    protected function _buildSearchQuery($glue, $criteria)
+    protected function _buildSearchQuery($glue, array $criteria)
     {
         $clause = '';
         $values = array();
@@ -626,13 +634,13 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @param string $user  The user's data to remove.
      *
-     * @throws Turba_Exception
+     * @throws Horde_Exception_PermissionDenied
      */
     public function removeUserData($user)
     {
         // Make sure we are being called by an admin.
         if (!$GLOBALS['registry']->isAdmin()) {
-            throw new Turba_Exception(_("Permission denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission denied"));
         }
 
         $this->_deleteAll($user);

@@ -1,23 +1,28 @@
 <?php
 /**
  * The Turba_View_DeleteContact:: class provides an API for viewing events.
+ * @TODO: Refactor to a Horde_View
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Turba
  */
-class Turba_View_DeleteContact {
-
-    var $contact;
+class Turba_View_DeleteContact
+{
+    /**
+     * @var Turba_Object
+     *
+     */
+    public $contact;
 
     /**
-     * @param Turba_Object &$contact
+     * @param Turba_Object $contact
      */
-    public function __construct($contact)
+    public function __construct(Turba_Object $contact)
     {
         $this->contact = $contact;
     }
 
-    function getTitle()
+    public function getTitle()
     {
         if (!$this->contact) {
             return _("Not Found");
@@ -25,7 +30,7 @@ class Turba_View_DeleteContact {
         return sprintf(_("Delete %s"), $this->contact->getValue('name'));
     }
 
-    function html($active = true)
+    public function html($active = true)
     {
         global $conf, $prefs;
 
@@ -45,19 +50,19 @@ class Turba_View_DeleteContact {
         }
 
         echo '<div id="DeleteContact"' . ($active ? '' : ' style="display:none"') . '>';
-?>
-    <form action="<?php echo Horde::url('delete.php') ?>" method="post">
-<?php echo Horde_Util::formInput() ?>
-<input type="hidden" name="url" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url')) ?>" />
-<input type="hidden" name="source" value="<?php echo htmlspecialchars($this->contact->driver->getName()) ?>" />
-<input type="hidden" name="key" value="<?php echo htmlspecialchars($this->contact->getValue('__key')) ?>" />
-<div class="headerbox" style="padding: 8px">
- <p><?php echo _("Permanently delete this contact?") ?></p>
- <input type="submit" class="button" name="delete" value="<?php echo _("Delete") ?>" />
-</div>
-</form>
-</div>
-<?php
+        ?>
+        <form action="<?php echo Horde::url('delete.php') ?>" method="post">
+        <?php echo Horde_Util::formInput() ?>
+        <input type="hidden" name="url" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url')) ?>" />
+        <input type="hidden" name="source" value="<?php echo htmlspecialchars($this->contact->driver->getName()) ?>" />
+        <input type="hidden" name="key" value="<?php echo htmlspecialchars($this->contact->getValue('__key')) ?>" />
+        <div class="headerbox" style="padding: 8px">
+         <p><?php echo _("Permanently delete this contact?") ?></p>
+         <input type="submit" class="button" name="delete" value="<?php echo _("Delete") ?>" />
+        </div>
+        </form>
+        </div>
+        <?php
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
             if ($this->contact->hasPermission(Horde_Perms::READ)) {
                 $view = new Turba_View_Contact($this->contact);

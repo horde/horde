@@ -4,14 +4,15 @@
  */
 class Turba_Form_AddContact extends Turba_Form_Contact
 {
-    var $_contact = null;
+    protected $_contact = null;
 
-    public function __construct(&$vars, &$contact)
+    public function __construct($vars, Turba_Object $contact)
     {
+        // @TODO: $addSources should be injected
         global $addSources, $notification;
 
         parent::Horde_Form($vars, _("Add Contact"));
-        $this->_contact = &$contact;
+        $this->_contact = $contact;
 
         $this->setButtons(_("Add"));
         $this->addHidden('', 'url', 'text', false);
@@ -43,7 +44,7 @@ class Turba_Form_AddContact extends Turba_Form_Contact
         }
     }
 
-    function validate()
+    public function validate()
     {
         if (!$this->_vars->get('source')) {
             return false;
@@ -51,8 +52,10 @@ class Turba_Form_AddContact extends Turba_Form_Contact
         return parent::validate($this->_vars);
     }
 
-    function execute()
+    public function execute()
     {
+        // @TODO $driver should be injected, or at the very least, obtained
+        //       via the injector
         global $driver, $notification;
 
         /* Form valid, save data. */

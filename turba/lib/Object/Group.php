@@ -7,8 +7,8 @@
  * @author  Jon Parise <jon@csh.rit.edu>
  * @package Turba
  */
-class Turba_Object_Group extends Turba_Object {
-
+class Turba_Object_Group extends Turba_Object
+{
     /**
      * Constructs a new Turba_Object_Group.
      *
@@ -16,7 +16,7 @@ class Turba_Object_Group extends Turba_Object {
      *                              from.
      * @param array $attributes     Hash of attributes for this group.
      */
-    function Turba_Object_Group(&$driver, $attributes = array())
+    public function __construct(Turba_Driver $driver, array $attributes = array())
     {
         parent::Turba_Object($driver, $attributes);
         $this->attributes['__type'] = 'Group';
@@ -27,15 +27,17 @@ class Turba_Object_Group extends Turba_Object {
      *
      * @return boolean  True.
      */
-    function isGroup()
+    public function isGroup()
     {
         return true;
     }
 
     /**
      * Contact url.
+     *
+     * @return Horde_Url
      */
-    function url($view = null, $full = false)
+    public function url($view = null, $full = false)
     {
         return Horde::url('browse.php', $full)->add(array(
             'source' => $this->getSource(),
@@ -51,7 +53,7 @@ class Turba_Object_Group extends Turba_Object {
      *
      * @throws Turba_Exception
      */
-    function addMember($contactId, $sourceId = null)
+    public function addMember($contactId, $sourceId = null)
     {
         // Default to the same source as the group.
         if (is_null($sourceId)) {
@@ -99,7 +101,7 @@ class Turba_Object_Group extends Turba_Object {
      * @param string $contactId  The id of the contact to remove.
      * @param string $sourceId   The source $contactId is from.
      */
-    function removeMember($contactId, $sourceId = null)
+    public function removeMember($contactId, $sourceId = null)
     {
         $members = @unserialize($this->attributes['__members']);
 
@@ -123,7 +125,7 @@ class Turba_Object_Group extends Turba_Object {
      *
      * @return integer
      */
-    function count()
+    public function count()
     {
         $children = @unserialize($this->attributes['__members']);
         if (!is_array($children)) {
@@ -141,7 +143,7 @@ class Turba_Object_Group extends Turba_Object {
      *
      * @return Turba_List   List containing the members of this group
      */
-    function &listMembers($sort = null)
+    public function listMembers($sort = null)
     {
         $list = new Turba_List();
 

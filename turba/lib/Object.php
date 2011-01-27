@@ -7,35 +7,35 @@
  * @author  Jon Parise <jon@csh.rit.edu>
  * @package Turba
  */
-class Turba_Object {
-
+class Turba_Object
+{
     /**
      * Underlying driver.
      *
      * @var Turba_Driver
      */
-    var $driver;
+    public $driver;
 
     /**
      * Hash of attributes for this contact.
      *
      * @var array
      */
-    var $attributes;
+    public $attributes;
 
     /**
      * Reference to this object's VFS instance.
      *
      * @var VFS
      */
-    var $_vfs;
+    protected $_vfs;
 
     /**
      * Keeps the normalized values of sort columns.
      *
      * @var array
      */
-    var $sortValue = array();
+    public $sortValue = array();
 
     /**
      * Constructs a new Turba_Object object.
@@ -43,9 +43,9 @@ class Turba_Object {
      * @param Turba_Driver $driver  The source that this object came from.
      * @param array $attributes     Hash of attributes for this object.
      */
-    function Turba_Object(&$driver, $attributes = array())
+    public function __construct(Turba_Driver $driver, array $attributes = array())
     {
-        $this->driver = &$driver;
+        $this->driver = $driver;
         $this->attributes = $attributes;
         $this->attributes['__type'] = 'Object';
     }
@@ -55,7 +55,7 @@ class Turba_Object {
      *
      * @return array  All properties of this object.
      */
-    function getAttributes()
+    public function getAttributes()
     {
         return $this->attributes;
     }
@@ -63,7 +63,7 @@ class Turba_Object {
     /**
      * Returns the name of the address book that this object is from.
      */
-    function getSource()
+    public function getSource()
     {
         return $this->driver->getName();
     }
@@ -75,7 +75,7 @@ class Turba_Object {
      *
      * @return string Fully qualified contact id.
      */
-    function getGuid($delimiter = ':')
+    public function getGuid($delimiter = ':')
     {
         return 'turba' . $delimiter . $this->getSource() . $delimiter . $this->getValue('__uid');
     }
@@ -96,7 +96,6 @@ class Turba_Object {
                 return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute]), 'turba');
             } catch (Turba_Exception $e) {}
         }
-
         if (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute])) {
             $args = array();
@@ -127,14 +126,13 @@ class Turba_Object {
      * @param string $attribute  The attribute to set.
      * @param string $value      The value of $attribute.
      */
-    function setValue($attribute, $value)
+    public function setValue($attribute, $value)
     {
         if (Horde::hookExists('encode_attribute', 'turba')) {
             try {
                 $value = Horde::callHook('encode_attribute', array($attribute, $value, isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null, $this), 'turba');
             } catch (Turba_Exception $e) {}
         }
-
         if (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute]) &&
             !isset($this->driver->map[$attribute]['attribute'])) {
@@ -153,7 +151,7 @@ class Turba_Object {
      *
      * @return boolean  Whether or not there is a value for $attribute.
      */
-    function hasValue($attribute)
+    public function hasValue($attribute)
     {
         if (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute])) {
@@ -175,18 +173,16 @@ class Turba_Object {
      *
      * @return integer  The timestamp of the last modification or zero.
      */
-    function lastModification()
+    public function lastModification()
     {
         $time = $this->getValue('__modified');
         if (!is_null($time)) {
             return $time;
         }
-
         if (!$this->getValue('__uid')) {
             $this->setValue('__modified', 0);
             return 0;
         }
-
         $time = 0;
         try {
             $log = $GLOBALS['injector']
@@ -210,7 +206,7 @@ class Turba_Object {
      *
      * @param Turba_Object $contact  Another contact.
      */
-    function merge(Turba_Object $contact)
+    public function merge(Turba_Object $contact)
     {
         foreach (array_keys($contact->attributes) as $attribute) {
             if (!$this->hasValue($attribute) && $contact->hasValue($attribute)) {
@@ -225,12 +221,11 @@ class Turba_Object {
      * @return array  A hash with the optional entries 'created' and 'modified'
      *                and human readable history information as the values.
      */
-    function getHistory()
+    public function getHistory()
     {
         if (!$this->getValue('__uid')) {
             return array();
         }
-
         $history = array();
         try {
             $log = $GLOBALS['injector']
@@ -263,7 +258,7 @@ class Turba_Object {
      *
      * @return boolean  True if this object is a group of multiple contacts.
      */
-    function isGroup()
+    public function isGroup()
     {
         return false;
     }
@@ -273,7 +268,7 @@ class Turba_Object {
      *
      * @return boolean  Whether or not the current user can edit this object
      */
-    function isEditable()
+    public function isEditable()
     {
         return $this->driver->hasPermission(Horde_Perms::EDIT);
     }
@@ -285,15 +280,20 @@ class Turba_Object {
      *
      * @return boolean True if user has the permission.
      */
-    function hasPermission($perm)
+    public function hasPermission($perm)
     {
         return $this->driver->hasPermission($perm);
     }
 
     /**
      * Contact url.
+     *
+     * @param string $view   The view for the url
+     * @param boolean $full  Generate a full url?
+     *
+     * @return string
      */
-    function url($view = null, $full = false)
+    public function url($view = null, $full = false)
     {
         $url = Horde::url('contact.php', $full)->add(array(
             'source' => $this->driver->getName(),
@@ -314,10 +314,9 @@ class Turba_Object {
      *                     Horde_Form_Type_file.
      * @throws Turba_Exception
      */
-    function addFile($info)
+    public function addFile(array $info)
     {
         $this->_vfsInit();
-
         $dir = TURBA_VFS_PATH . '/' . $this->getValue('__uid');
         $file = $info['name'];
         while ($this->_vfs->exists($dir, $file)) {
@@ -332,7 +331,6 @@ class Turba_Object {
                 }
             }
         }
-
         try {
             $this->_vfs->write($dir, $file, $info['tmp_name'], true);
         } catch (VFS_Exception $e) {
@@ -346,7 +344,7 @@ class Turba_Object {
      * @param string $file  The file name.
      * @throws Turba_Exception
      */
-    function deleteFile($file)
+    public function deleteFile($file)
     {
         $this->_vfsInit();
         try {
@@ -361,7 +359,7 @@ class Turba_Object {
      *
      * @throws Turba_Exception
      */
-    function deleteFiles()
+    public function deleteFiles()
     {
         $this->_vfsInit();
         if ($this->_vfs->exists(TURBA_VFS_PATH, $this->getValue('__uid'))) {
@@ -378,7 +376,7 @@ class Turba_Object {
      *
      * @return array  A list of hashes with file informations.
      */
-    function listFiles()
+    public function listFiles()
     {
         try {
             $this->_vfsInit();
@@ -398,7 +396,7 @@ class Turba_Object {
      *
      * @return string  The HTML code of the generated link.
      */
-    function vfsDisplayUrl($file)
+    public function vfsDisplayUrl($file)
     {
         global $registry, $mime_drivers_map, $mime_drivers;
 
@@ -433,7 +431,7 @@ class Turba_Object {
      *
      * @return string  The HTML code of the generated link.
      */
-    function vfsEditUrl($file)
+    public function vfsEditUrl($file)
     {
         $delform = '<form action="' .
             Horde::url('deletefile.php') .
@@ -463,7 +461,7 @@ class Turba_Object {
      *
      * @throws Turba_Exception
      */
-    function _vfsInit()
+    protected function _vfsInit()
     {
         if (!isset($this->_vfs)) {
             try {

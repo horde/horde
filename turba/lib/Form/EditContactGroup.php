@@ -4,7 +4,7 @@
  */
 class Turba_Form_EditContactGroup extends Turba_Form_EditContact
 {
-    public function __construct(&$vars, &$contact)
+    public function __construct($vars, $contact)
     {
         $this->addHidden('', 'objectkeys', 'text', false);
         $this->addHidden('', 'original_source', 'text', false);
@@ -30,7 +30,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
         $this->appendButtons(_("Finish"));
     }
 
-    function renderActive($renderer, &$vars, $action, $method)
+    public function renderActive($renderer, $vars, $action, $method)
     {
         parent::renderActive($renderer, $vars, $action, $method);
 
@@ -44,7 +44,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
         echo '<br />' . $listView->getPage($numDisplayed);
     }
 
-    function execute()
+    public function execute()
     {
         $result = parent::execute();
 

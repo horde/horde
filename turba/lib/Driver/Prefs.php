@@ -19,12 +19,13 @@ class Turba_Driver_Prefs extends Turba_Driver
      * Returns all entries - searching isn't implemented here for now. The
      * parameters are simply ignored.
      *
-     * @param array $criteria  Array containing the search criteria.
-     * @param array $fields    List of fields to return.
+     * @param array $criteria    Array containing the search criteria.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
     {
         return array_values($this->_getAddressBook());
     }
@@ -34,12 +35,12 @@ class Turba_Driver_Prefs extends Turba_Driver
      * fields.
      *
      * @param array $criteria  Search criteria.
-     * @param string $id       Data identifier.
+     * @param mixed $ids       Data identifier(s).
      * @param array $fields    List of fields to return.
      *
      * @return  Hash containing the search results.
      */
-    protected function _read($criteria, $ids, $fields)
+    protected function _read(array $criteria, $ids, array $fields)
     {
         $book = $this->_getAddressBook();
         $results = array();
@@ -60,7 +61,7 @@ class Turba_Driver_Prefs extends Turba_Driver
      *
      * @param array $attributes  TODO
      */
-    protected function _add($attributes)
+    protected function _add(array $attributes)
     {
         $book = $this->_getAddressBook();
         $book[$attributes['id']] = $attributes;
@@ -78,8 +79,8 @@ class Turba_Driver_Prefs extends Turba_Driver
     /**
      * Deletes the specified object from the preferences.
      *
-     * @param $object_key TODO
-     * @param $object_id  TODO
+     * @param string $object_key TODO
+     * @param string $object_id  TODO
      */
     protected function _delete($object_key, $object_id)
     {
@@ -91,7 +92,7 @@ class Turba_Driver_Prefs extends Turba_Driver
     /**
      * Saves the specified object in the preferences.
      *
-     * @param $object TODO
+     * @param Turba_Object $object TODO
      */
     function _save($object)
     {

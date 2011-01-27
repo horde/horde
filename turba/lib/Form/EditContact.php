@@ -4,15 +4,19 @@
  */
 class Turba_Form_EditContact extends Turba_Form_Contact
 {
-    var $_source;
-    var $_contact;
+    protected $_source;
+    protected $_contact;
 
-    public function __construct(&$vars, &$contact)
+    /**
+     * @param Turba_Object $contact
+     * @param array $vars
+     */
+    public function __construct($vars, Turba_Object $contact)
     {
         global $conf;
 
         parent::Horde_Form($vars, '', 'Turba_View_EditContact');
-        $this->_contact = &$contact;
+        $this->_contact = $contact;
 
         $this->setButtons(_("Save"));
         $this->addHidden('', 'url', 'text', false);
@@ -36,17 +40,17 @@ class Turba_Form_EditContact extends Turba_Form_Contact
         $vars->set('source', $contact->getSource());
     }
 
-    function getSource()
+    public function getSource()
     {
         return $this->_source;
     }
 
-    function execute()
+    public function execute()
     {
         global $conf, $notification;
 
         if (!$this->validate($this->_vars)) {
-            return PEAR::raiseError('Invalid');
+            throw new Turba_Exception('Invalid');
         }
 
         /* Form valid, save data. */
@@ -71,7 +75,7 @@ class Turba_Form_EditContact extends Turba_Form_Contact
         } catch (Turba_Exception $e) {
             Horde::logMessage($e, 'ERR');
             $notification->push(_("There was an error saving the contact. Contact your system administrator for further help."), 'horde.error');
-            return PEAR::raiseError($e->getMessage());
+            throw $e;
         }
 
         if ($conf['documents']['type'] != 'none' && isset($info['vfs'])) {

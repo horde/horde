@@ -39,9 +39,12 @@ class Turba_Driver_Ldap extends Turba_Driver
     /**
      * Constructs a new Turba LDAP driver object.
      *
-     * @param $params  Hash containing additional configuration parameters.
+     * @param string $name   The source name
+     * @param array $params  Hash containing additional configuration parameters.
+     *
+     * @return Turba_Driver_Ldap
      */
-    public function __construct($name = '', $params = array())
+    public function __construct($name = '', array $params = array())
     {
         if (!Horde_Util::extensionExists('ldap')) {
             throw new Turba_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));
@@ -105,7 +108,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      *
      * @return array  Translated version of $hash.
      */
-    public function toDriverKeys($hash)
+    public function toDriverKeys(array $hash)
     {
         // First check for combined fields in the dn-fields and add them.
         if (is_array($this->_params['dn'])) {
@@ -135,13 +138,14 @@ class Turba_Driver_Ldap extends Turba_Driver
      * a filtered list of results. If no criteria are specified, all
      * records are returned.
      *
-     * @param array $criteria  Array containing the search criteria.
-     * @param array $fields    List of fields to return.
+     * @param array $criteria    Array containing the search criteria.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Fields that contain binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
     {
         /* Build the LDAP filter. */
         $filter = '';
@@ -207,7 +211,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, $fields)
+    protected function _read($key, $ids, $owner, array $fields)
     {
         /* Only DN. */
         if ($key != 'dn') {
@@ -257,7 +261,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      *
      * @throws Turba_Exception
      */
-    protected function _add($attributes)
+    protected function _add(array $attributes)
     {
         if (empty($attributes['dn'])) {
             throw new Turba_Exception('Tried to add an object with no dn: [' . serialize($attributes) . '].');
@@ -314,7 +318,8 @@ class Turba_Driver_Ldap extends Turba_Driver
     /**
      * Deletes the specified entry from the LDAP directory.
      *
-     * TODO
+     * @param string $object_key
+     * @param string $object_id
      *
      * @throws Turba_Exception
      */
@@ -331,6 +336,8 @@ class Turba_Driver_Ldap extends Turba_Driver
 
     /**
      * Modifies the specified entry in the LDAP directory.
+     *
+     * @param Turba_Object $object  The object we wish to save.
      *
      * @return string  The object id, possibly updated.
      * @throw Turba_Exception
@@ -416,7 +423,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      *
      * @return string  The RDN for the new object.
      */
-    protected function _makeRDN($attributes)
+    protected function _makeRDN(array $attributes)
     {
         if (!is_array($this->_params['dn'])) {
             return '';
@@ -441,7 +448,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      *
      * @return string  The DN for the new object.
      */
-    protected function _makeKey($attributes)
+    protected function _makeKey(array $attributes)
     {
         return $this->_makeRDN($attributes) . ',' . $this->_params['root'];
     }
@@ -453,7 +460,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      *
      * @return string  An LDAP query fragment.
      */
-    protected function _buildSearchQuery($criteria)
+    protected function _buildSearchQuery(array $criteria)
     {
         $clause = '';
 
@@ -493,7 +500,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      * @return array  Hash containing the results.
      * @throws Turba_Exception
      */
-    protected function _getResults($fields, $res)
+    protected function _getResults(array $fields, $res)
     {
         $entries = @ldap_get_entries($this->_ds, $res);
         if ($entries === false) {
@@ -573,6 +580,8 @@ class Turba_Driver_Ldap extends Turba_Driver
     /**
      * Format and encode attributes including postal addresses,
      * character set encoding, etc.
+     *
+     * @param array $attributes  The attributes array.
      */
     protected function _encodeAttributes(&$attributes)
     {
@@ -608,7 +617,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      *                that have been configured as being required.
      * @throws Turba_Exception
      */
-    protected function _checkRequiredAttributes($objectclasses)
+    protected function _checkRequiredAttributes(array $objectclasses)
     {
        $retval = array();
        $schema = $this->_ldap->schema();
@@ -697,4 +706,5 @@ class Turba_Driver_Ldap extends Turba_Driver
 
         return $this->_syntaxCache[$att];
     }
+
 }

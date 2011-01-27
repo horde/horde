@@ -5,19 +5,23 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Turba
  */
-class Turba_View_EditContact {
-
-    var $contact;
+class Turba_View_EditContact
+{
+    /**
+     *
+     * @var Turba_Object
+     */
+    public $contact;
 
     /**
      * @param Turba_Object $contact
      */
-    public function __construct($contact)
+    public function __construct(Turba_Object $contact)
     {
         $this->contact = $contact;
     }
 
-    function getTitle()
+    public function getTitle()
     {
         if (!$this->contact) {
             return _("Not Found");
@@ -25,7 +29,7 @@ class Turba_View_EditContact {
         return sprintf(_("Edit %s"), $this->contact->getValue('name'));
     }
 
-    function html($active = true)
+    public function html($active = true)
     {
         global $conf, $prefs, $vars;
 
@@ -45,7 +49,7 @@ class Turba_View_EditContact {
         }
 
         echo '<div id="EditContact"' . ($active ? '' : ' style="display:none"') . '>';
-        $form = &new Turba_Form_EditContact($vars, $this->contact);
+        $form = new Turba_Form_EditContact($vars, $this->contact);
         $form->renderActive(new Horde_Form_Renderer, $vars, Horde::url('edit.php'), 'post');
         echo '</div>';
 

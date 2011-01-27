@@ -20,11 +20,11 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
     /**
      * Address book being deleted
      */
-    var $_addressbook;
+    protected $_addressbook;
 
-    public function __construct(&$vars, &$addressbook)
+    public function __construct($vars, $addressbook)
     {
-        $this->_addressbook = &$addressbook;
+        $this->_addressbook = $addressbook;
         parent::__construct($vars, sprintf(_("Delete %s"), $addressbook->get('name')));
 
         $this->addHidden('', 'a', 'text', true);
@@ -38,7 +38,7 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
      *
      * @throws Turba_Exception
      */
-    function execute()
+    public function execute()
     {
         // If cancel was clicked, return false.
         if ($this->_vars->get('submitbutton') == _("Cancel")) {
@@ -55,8 +55,7 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
         // We have a Turba_Driver, try to delete the address book.
         $driver->deleteAll();
 
-        // Address book successfully deleted from backend, remove the
-        // share.
+        // Address book successfully deleted from backend, remove the share.
         try {
             $GLOBALS['turba_shares']->removeShare($this->_addressbook);
         } catch (Horde_Share_Exception $e) {

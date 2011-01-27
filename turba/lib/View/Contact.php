@@ -5,22 +5,22 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Turba
  */
-class Turba_View_Contact {
-
+class Turba_View_Contact
+{
     /**
      * @var Turba_Object
      */
-    var $contact;
+    public $contact;
 
     /**
      * @param Turba_Object &$contact
      */
-    public function __construct(&$contact)
+    public function __construct(Turba_Object $contact)
     {
-        $this->contact = &$contact;
+        $this->contact = $contact;
     }
 
-    function getTitle()
+    public function getTitle()
     {
         if (!$this->contact) {
             return _("Not Found");
@@ -28,7 +28,7 @@ class Turba_View_Contact {
         return $this->contact->getValue('name');
     }
 
-    function html($active = true)
+    public function html($active = true)
     {
         global $conf, $prefs, $registry;
 
@@ -44,9 +44,12 @@ class Turba_View_Contact {
         /* Get the contact's history. */
         $history = $this->contact->getHistory();
         foreach ($history as $what => $when) {
-            $v = &$form->addVariable(
+            $v = $form->addVariable(
                 $what == 'created' ? _("Created") : _("Last Modified"),
-                'object[__' . $what . ']', 'text', false, false);
+                'object[__' . $what . ']',
+                'text',
+                false,
+                false);
             $v->disable();
             $vars->set('object[__' . $what . ']', $when);
         }

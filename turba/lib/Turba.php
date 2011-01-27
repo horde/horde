@@ -9,12 +9,19 @@ define('TURBA_VFS_PATH', '.horde/turba/documents');
  * @author  Jon Parise <jon@horde.org>
  * @package Turba
  */
-class Turba {
-
+class Turba
+{
     /**
      * @todo Consolidate on a single mail/compose method.
+     *
+     * @param mixed $data  Either a single email address or an array of email
+     *                     addresses to format.
+     * @param string $name  The personal name phrase.
+     *
+     * @return mixed Either the formatted address or an array of formatted
+     *               addresses.
      */
-    function formatEmailAddresses($data, $name)
+    static public function formatEmailAddresses($data, $name)
     {
         global $registry;
         static $useRegistry;
@@ -93,10 +100,10 @@ class Turba {
      *
      * @return array  The filtered, ordered $cfgSources entries.
      */
-    function getAddressBooks($permission = Horde_Perms::READ, $options = array())
+    static public function getAddressBooks($permission = Horde_Perms::READ, array $options = array())
     {
         $addressbooks = array();
-        foreach (array_keys(Turba::getAddressBookOrder()) as $addressbook) {
+        foreach (array_keys(self::getAddressBookOrder()) as $addressbook) {
             $addressbooks[$addressbook] = $GLOBALS['cfgSources'][$addressbook];
         }
 
@@ -104,7 +111,7 @@ class Turba {
             $addressbooks = $GLOBALS['cfgSources'];
         }
 
-        return Turba::permissionsFilter($addressbooks, $permission, $options);
+        return self::permissionsFilter($addressbooks, $permission, $options);
     }
 
     /**
@@ -134,7 +141,7 @@ class Turba {
      *
      * @return string  The default address book name.
      */
-    function getDefaultAddressBook()
+    static public function getDefaultAddressBook()
     {
         $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
         if (!empty($lines)) {
@@ -149,7 +156,7 @@ class Turba {
         /* In case of shares select first user owned address book as default */
         if (!empty($_SESSION['turba']['has_share'])) {
             try {
-                $owned_shares = Turba::listShares(true);
+                $owned_shares = self::listShares(true);
                 if (count($owned_shares) > 0) {
                     return key($owned_shares);
                 }
@@ -163,7 +170,7 @@ class Turba {
     /**
      * Returns the sort order selected by the user
      */
-    function getPreferredSortOrder()
+    static public function getPreferredSortOrder()
     {
         return @unserialize($GLOBALS['prefs']->getValue('sortorder'));
     }
@@ -171,7 +178,7 @@ class Turba {
     /**
      * Retrieves a column's field name
      */
-    function getColumnName($i, $columns)
+    static public function getColumnName($i, $columns)
     {
         return $i == 0 ? 'name' : $columns[$i - 1];
     }
@@ -203,7 +210,7 @@ class Turba {
      *
      * @return string  String containing the last name.
      */
-    function guessLastname($name)
+    static public function guessLastname($name)
     {
         $name = trim(preg_replace('|\s|', ' ', $name));
         if (!empty($name)) {
@@ -244,7 +251,7 @@ class Turba {
      *                 or "Lastname, Firstname" depending on $name_format or
      *                 the user's preference.
      */
-    function formatName($ob, $name_format = null)
+    static public function formatName(Turba_Object $ob, $name_format = null)
     {
         static $default_format;
 
@@ -270,7 +277,7 @@ class Turba {
         } else {
             /* One field, we'll have to guess. */
             $name = $ob->getValue('name');
-            $lastname = Turba::guessLastname($name);
+            $lastname = self::guessLastname($name);
             if ($name_format == 'last_first' &&
                 !is_int(strpos($name, ',')) &&
                 Horde_String::length($name) > Horde_String::length($lastname)) {
@@ -283,14 +290,19 @@ class Turba {
                 $name = preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name);
                 $name = $name . ' ' . $lastname;
             }
+
             return $name;
         }
     }
 
     /**
      * Returns the real name, if available, of a user.
+     *
+     * @param string $uid  The uid of the name to return.
+     *
+     * @return string  The user's full, real name.
      */
-    function getUserName($uid)
+    static public function getUserName($uid)
     {
         static $names = array();
 
@@ -309,12 +321,14 @@ class Turba {
     /**
      * Gets extended permissions on an address book.
      *
-     * @param Turba_Driver $addressBook The address book to get extended permissions for.
-     * @param string $permission  What extended permission to get.
+     * @param Turba_Driver $addressBook  The address book to get extended
+     *                                   permissions for.
+     * @param string $permission         What extended permission to get.
      *
-     * @return mixed  The requested extended permissions value, or true if it doesn't exist.
+     * @return mixed  The requested extended permissions value, or true if it
+     *                doesn't exist.
      */
-    function getExtendedPermission($addressBook, $permission)
+    static public function getExtendedPermission(Turba_Driver $addressBook, $permission)
     {
         // We want to check the base source as extended permissions
         // are enforced per backend, not per share.
@@ -347,7 +361,7 @@ class Turba {
      *
      * @return array  The filtered data.
      */
-    function permissionsFilter($in, $permission = Horde_Perms::READ, $options = array())
+    static public function permissionsFilter(array $in, $permission = Horde_Perms::READ, array $options = array())
     {
         $out = array();
 
@@ -374,19 +388,19 @@ class Turba {
      * Replaces all share-enabled sources in a source list with all shares
      * from this source that the current user has access to.
      *
-     * This will only sync shares that are unique to Horde (basically, a SQL
-     * driver source for now).  Any backend that supports ACLs or similar
-     * mechanism should be configured from within backends.php or
+     * This will only sync shares that are unique to Horde (such as a SQL
+     * source).  Any backend that supports ACLs or similar mechanism should be
+     * configured from within backends.php or
      * _horde_hook_share_* calls.
      *
      * @param array $sources  The default $cfgSources array.
      *
      * @return array  The $cfgSources array.
      */
-    function getConfigFromShares($sources)
+    static public function getConfigFromShares(array $sources)
     {
         try {
-            $shares = Turba::listShares();
+            $shares = self::listShares();
         } catch (Horde_Share_Exception $e) {
             // Notify the user if we failed, but still return the $cfgSource
             // array.
@@ -495,8 +509,10 @@ class Turba {
      * Retrieve a new source config entry based on a Turba share.
      *
      * @param Horde_Share object  The share to base config on.
+     *
+     * @return array  The $cfgSource entry for this share source.
      */
-    function getSourceFromShare($share)
+    static public function getSourceFromShare(Horde_Share $share)
     {
         // Require a fresh config file.
         require TURBA_BASE . '/config/backends.php';
@@ -522,7 +538,7 @@ class Turba {
      *
      * @return array  Shares the user has the requested permissions to.
      */
-    function listShares($owneronly = false, $permission = Horde_Perms::READ)
+    static public function listShares($owneronly = false, $permission = Horde_Perms::READ)
     {
         if (!$GLOBALS['session']->get('turba', 'has_share')) {
             // No backends are configured to provide shares
@@ -548,13 +564,13 @@ class Turba {
     /**
      * Create a new Turba share.
      *
-     * @param string $share_id The id for the new share.
-     * @param array $params Parameters for the new share.
+     * @param string $share_name  The id for the new share.
+     * @param array  $params      Parameters for the new share.
      *
      * @return Horde_Share  The new share object.
      * @throws Turba_Exception
      */
-    static public function createShare($share_id, $params)
+    static public function createShare($share_name, $params)
     {
         if (!isset($params['name'])) {
             /* Sensible default for empty display names */
@@ -567,7 +583,7 @@ class Turba {
 
         /* Generate the new share. */
         try {
-            $share = $GLOBALS['turba_shares']->newShare($GLOBALS['registry']->getAuth(), $share_id);
+            $share = $GLOBALS['turba_shares']->newShare($GLOBALS['registry']->getAuth(), $share_name);
 
             /* Set the display name for this share. */
             $share->set('name', $name);
@@ -588,13 +604,13 @@ class Turba {
 
         /* Update share_id as backends like Kolab change it to the IMAP folder
          * name. */
-        $share_id = $share->getName();
+        $share_name = $share->getName();
 
         /* Add the new addressbook to the user's list of visible address
          * books. */
         $prefs = json_decode($GLOBALS['prefs']->getValue('addressbooks'), true);
-        if (!is_array($prefs) || array_search($share_id, $prefs) === false) {
-            $prefs[] = $share_id;
+        if (!is_array($prefs) || array_search($share_name, $prefs) === false) {
+            $prefs[] = $share_name;
             $GLOBALS['prefs']->setValue('addressbooks', json_encode($prefs));
         }
 
@@ -604,7 +620,7 @@ class Turba {
     /**
      * Add browse.js javascript to page.
      */
-    public function addBrowseJs()
+    static public function addBrowseJs()
     {
         Horde::addScriptFile('browse.js', 'turba');
         Horde::addInlineJsVars(array(

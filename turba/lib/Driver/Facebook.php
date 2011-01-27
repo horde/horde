@@ -2,7 +2,6 @@
 /**
  * Read-only Turba directory driver for Facebook friends. Requires a Horde
  * application to be setup on Facebook and configured in horde/config/conf.php.
- * This driver based on the favourites driver.
  *
  * Of limited utility since email addresses are not retrievable via the
  * Facebook API, unless the user allows the Horde application to access it -
@@ -23,6 +22,8 @@ class Turba_Driver_Facebook extends Turba_Driver
 {
     /**
      * TODO
+     *
+     * @var Horde_Service_Facebook
      */
     private $_facebook;
 
@@ -51,13 +52,14 @@ class Turba_Driver_Facebook extends Turba_Driver
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
      *
-     * @param array $criteria  Array containing the search criteria.
-     * @param array $fields    List of fields to return.
+     * @param array $criteria    Array containing the search criteria.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  A list of fields that contain binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
     {
         $results = $this->_getAddressBook($fields);
 
@@ -105,12 +107,13 @@ class Turba_Driver_Facebook extends Turba_Driver
      * fields.
      *
      * @param array $criteria  Search criteria.
-     * @param string $id       Data identifier.
+     * @param mixed $ids       Data identifier.
+     * @param string $owner    Restrict contacts to those owned by this user.
      * @param array $fields    List of fields to return.
      *
      * @return array  Hash containing the search results.
      */
-    protected function _read($criteria, $ids, $owner, $fields)
+    protected function _read(array $criteria, $ids, $owner, array $fields)
     {
         return $this->_getEntry($ids, $fields);
     }
@@ -118,7 +121,7 @@ class Turba_Driver_Facebook extends Turba_Driver
     /**
      * TODO
      */
-    protected function _getEntry($keys, $fields)
+    protected function _getEntry(array $keys, array $fields)
     {
         $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         $fields = implode(', ', $fields);
@@ -135,7 +138,7 @@ class Turba_Driver_Facebook extends Turba_Driver
     /**
      * TODO
      */
-    protected function _getAddressBook($fields = array())
+    protected function _getAddressBook(array $fields = array())
     {
         $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         $fields = implode(', ', $fields);
@@ -162,42 +165,6 @@ class Turba_Driver_Facebook extends Turba_Driver
         }
 
         return $addressbook;
-    }
-
-    /**
-     * TODO
-     *
-     * @throws Turba_Exception
-     */
-    function _getFacebook()
-    {
-        global $conf, $prefs;
-
-        if (!$conf['facebook']['enabled']) {
-            throw new Turba_Exception(_("No Facebook integration exists."));
-        }
-
-        if (empty($this->_facebook)) {
-            $context = array(
-                'http_client' => new Horde_Http_Client(),
-                'http_request' => $GLOBALS['injector']->getInstance('Horde_Controller_Request')
-            );
-            $this->_facebook = new Horde_Service_Facebook(
-                $conf['facebook']['key'],
-                $conf['facebook']['secret'],
-                $context
-            );
-
-            $session = unserialize($prefs->getValue('facebook'));
-            if (!$session ||
-                !isset($session['uid']) ||
-                !isset($session['sid'])) {
-                throw new Turba_Exception(_("You have to connect to Facebook in your address book preferences."));
-            }
-            $this->_facebook->auth->setUser($session['uid'], $session['sid'], 0);
-        }
-
-        return $this->_facebook;
     }
 
 }

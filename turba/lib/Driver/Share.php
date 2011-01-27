@@ -11,6 +11,7 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@csh.rit.edu>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/asl.php ASL
  * @package  Turba
@@ -39,7 +40,7 @@ class Turba_Driver_Share extends Turba_Driver
      *
      * @return Turba_Driver
      */
-    public function __construct($name = '', $params = array())
+    public function __construct($name = '', array $params = array())
     {
         parent::__construct($name, $params);
         $this->_share = $this->_params['config']['params']['share'];
@@ -104,13 +105,14 @@ class Turba_Driver_Share extends Turba_Driver
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
      *
-     * @param array $criteria  Array containing the search criteria.
-     * @param array $fields    List of fields to return.
+     * @param array $criteria    Array containing the search criteria.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
     {
         return $this->_driver->_search($criteria, $fields, $blobFields);
     }
@@ -140,12 +142,13 @@ class Turba_Driver_Share extends Turba_Driver
      * @param mixed $ids     The ids of the contacts to load.
      * @param string $owner  Only return contacts owned by this user.
      * @param array $fields  List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, $fields,
-                             $blob_fields = array())
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blob_fields = array())
     {
         return $this->_driver->_read($key, $ids, $owner, $fields, $blob_fields);
     }
@@ -153,9 +156,10 @@ class Turba_Driver_Share extends Turba_Driver
     /**
      * Adds the specified object to the SQL database.
      *
-     * TODO
+     * @param array $attributes
+     * @param array $blob_fields
      */
-    protected function _add($attributes, $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         $this->_driver->_add($attributes, $blob_fields);
     }
@@ -181,6 +185,8 @@ class Turba_Driver_Share extends Turba_Driver
     /**
      * Deletes all contacts from a specific address book.
      *
+     * @param string $sourceName  The source to delete all contacts from.
+     *
      * @throws Turba_Exception
      */
     protected function _deleteAll($sourceName = null)
@@ -194,16 +200,20 @@ class Turba_Driver_Share extends Turba_Driver
     /**
      * Saves the specified object in the SQL database.
      *
+     * @param Turba_Object $object The object to save
+     *
      * @return string  The object id, possibly updated.
      * @throws Turba_Exception
      */
-    protected function _save($object)
+    protected function _save(Turba_Object $object)
     {
         return $this->_driver->_save($object);
     }
 
     /**
-     * Stub for removing all data for a specific user.
+     * Remove all data for a specific user.
+     *
+     * @param string $user  The user to remove all data for.
      */
     public function removeUserData($user)
     {
@@ -213,15 +223,21 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
-     * TODO
+     * @param array $attributes
      */
-    protected function _makeKey($attributes)
+    protected function _makeKey(array $attributes)
     {
         return $this->_driver->_makeKey($attributes);
     }
 
     /**
-     * TODO
+     * @param Horde_Date $start  The starting date.
+     * @param Horde_Date $end    The ending date.
+     * @param string $field      The address book field containing the
+     *                           timeObject information (birthday,
+     *                           anniversary).
+     *
+     * @return array  The list of timeobjects
      */
     public function getTimeObjectTurbaList($start, $end, $field)
     {
