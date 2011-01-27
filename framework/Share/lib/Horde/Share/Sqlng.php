@@ -103,7 +103,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
 
         $shares = array();
         if (is_null($params['sort_by'])) {
-            $sortfield = 'share_name';
+            $sortfield = 'share_id';
         } elseif ($params['sort_by'] == 'owner' || $params['sort_by'] == 'id') {
             $sortfield = 'share_' . $params['sort_by'];
         } else {

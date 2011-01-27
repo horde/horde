@@ -353,7 +353,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     public function listShares($userid, array $params = array())
     {
-         $params = array_merge(array('perm' => Horde_Perms::SHOW,
+        $params = array_merge(array('perm' => Horde_Perms::SHOW,
                                     'attributes' => null,
                                     'from' => 0,
                                     'count' => 0,
