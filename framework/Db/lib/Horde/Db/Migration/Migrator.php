@@ -209,8 +209,7 @@ class Horde_Db_Migration_Migrator
                 new RegexIterator(
                     new RecursiveIteratorIterator(
                         new RecursiveDirectoryIterator(
-                            $this->_migrationsPath,
-                            FilesystemIterator::SKIP_DOTS
+                            $this->_migrationsPath
                         )
                     ),
                     '/\/\d+_.*\.php$/',
