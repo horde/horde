@@ -206,31 +206,49 @@ class IMP_Application extends Horde_Registry_Application
      *
      * @param string $permission  The permission to check.
      * @param mixed $allowed      The allowed permissions.
-     * @param array $opts         Additional options ('value').
+     * @param array $opts         Additional options:
+     *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
+     *     recipients in the current message.
      *
-     * @return mixed  The value of the specified permission.
+     * @return boolean  Does the user has permission?
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
         switch ($permission) {
         case 'create_folders':
-            $allowed = (bool)count(array_filter($allowed));
+            // No-op
             break;
 
         case 'max_folders':
-            $allowed = max($allowed);
             if (empty($opts['value'])) {
-                return ($allowed > count($GLOBALS['injector']->getInstance('IMP_Folder')->flist_IMP(array(), false)));
+                return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Folder')->flist_IMP(array(), false)));
             }
             break;
 
         case 'max_recipients':
+            if (isset($opts['value'])) {
+                return ($allowed >= $opts['value']);
+            }
+            break;
+
         case 'max_timelimit':
-            $allowed = max($allowed);
+            if (isset($opts['value'])) {
+                $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
+                if (!($sentmail instanceof IMP_Sentmail_Base)) {
+                    Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
+                    return true;
+                }
+
+                try {
+                    $opts['value'] += $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
+                } catch (IMP_Exception $e) {}
+
+                return ($allowed >= $opts['value']);
+            }
             break;
         }
 
-        return $allowed;
+        return (bool)$allowed;
     }
 
     /* Menu methods. */
