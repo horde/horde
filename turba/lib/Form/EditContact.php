@@ -15,7 +15,7 @@ class Turba_Form_EditContact extends Turba_Form_Contact
     {
         global $conf;
 
-        parent::Horde_Form($vars, '', 'Turba_View_EditContact');
+        parent::__construct($vars, $contact, true, 'Turba_View_EditContact');
         $this->_contact = $contact;
 
         $this->setButtons(_("Save"));

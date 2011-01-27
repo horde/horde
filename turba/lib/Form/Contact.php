@@ -8,14 +8,18 @@ class Turba_Form_Contact extends Horde_Form
      * @param array $vars  Array of form variables
      * @param Turba_Object $contact
      */
-    public function __construct($vars, Turba_Object $contact, $tabs = true)
+    public function __construct($vars, Turba_Object $contact, $tabs = true, $title = null)
     {
         global $conf, $notification;
 
-        parent::__construct($vars, '', 'Turba_View_Contact');
+        if (is_null($title)) {
+            $title = 'Turba_View_Contact';
+        }
+        parent::__construct($vars, '', $title);
 
         /* Get the values through the Turba_Object class. */
         $object = array();
+
         foreach ($contact->driver->getCriteria() as $info_key => $info_val) {
             $object[$info_key] = $contact->getValue($info_key);
         }
