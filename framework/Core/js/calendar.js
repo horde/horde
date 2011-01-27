@@ -301,11 +301,11 @@ var Horde_Calendar =
 
     clickHandler: function(e)
     {
-        var elt = e.element();
+        var elt = e.element(), day;
 
         if (elt.hasClassName('hordeCalendarDay')) {
             this.hideCal();
-            this.trigger.fire('Horde_Calendar:select', new Date(this.year, this.month, parseInt(e.element().textContent, 10)));
+            this.trigger.fire('Horde_Calendar:select', new Date(this.year, this.month, parseInt(elt.textContent || elt.innerText, 10)));
         } else if (elt.hasClassName('hordeCalendarClose')) {
             this.hideCal();
         } else if (elt.hasClassName('hordeCalendarPrevYear')) {
@@ -323,7 +323,8 @@ var Horde_Calendar =
             this.trigger.fire('Horde_Calendar:selectMonth', new Date(this.year, this.month, 1));
             this.hideCal();
         } else if (this.click_week && elt.hasClassName('hordeCalendarWeek')) {
-            this.trigger.fire('Horde_Calendar:selectWeek', new Date(this.year, this.month, elt.up('TR').down('A.hordeCalendarDay').textContent));
+            day = elt.up('TR').down('A.hordeCalendarDay');
+            this.trigger.fire('Horde_Calendar:selectWeek', new Date(this.year, this.month, day.textContent || day.innerText));
             this.hideCal();
         }
 
