@@ -28,8 +28,8 @@ multiple folders, and multiple-language support.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-05</date>
- <time>13:59:34</time>
+ <date>2011-01-27</date>
+ <time>17:27:58</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -44,6 +44,10 @@ multiple folders, and multiple-language support.</description>
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="bounce_spam" role="script" />
+    <file name="query_imap_cache" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
     <file name="backends.php.dist" role="horde" />
     <file name="conf.xml" role="horde" />
@@ -108,6 +112,23 @@ multiple folders, and multiple-language support.</description>
      <file name="Pgp.php" role="horde" />
      <file name="Smime.php" role="horde" />
     </dir> <!-- /lib/Crypt -->
+    <dir name="Factory">
+     <file name="AuthImap.php" role="horde" />
+     <file name="Compose.php" role="horde" />
+     <file name="Contents.php" role="horde" />
+     <file name="Flags.php" role="horde" />
+     <file name="Identity.php" role="horde" />
+     <file name="Imap.php" role="horde" />
+     <file name="Imaptree.php" role="horde" />
+     <file name="Mail.php" role="horde" />
+     <file name="MailboxList.php" role="horde" />
+     <file name="MimeViewer.php" role="horde" />
+     <file name="Pgp.php" role="horde" />
+     <file name="Quota.php" role="horde" />
+     <file name="Search.php" role="horde" />
+     <file name="Sentmail.php" role="horde" />
+     <file name="Smime.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
     <dir name="Flag">
      <dir name="Imap">
       <file name="Answered.php" role="horde" />
@@ -139,25 +160,6 @@ multiple folders, and multiple-language support.</description>
      <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
-    <dir name="Injector">
-     <dir name="Factory">
-      <file name="AuthImap.php" role="horde" />
-      <file name="Compose.php" role="horde" />
-      <file name="Contents.php" role="horde" />
-      <file name="Flags.php" role="horde" />
-      <file name="Identity.php" role="horde" />
-      <file name="Imap.php" role="horde" />
-      <file name="Imaptree.php" role="horde" />
-      <file name="Mail.php" role="horde" />
-      <file name="MailboxList.php" role="horde" />
-      <file name="MimeViewer.php" role="horde" />
-      <file name="Pgp.php" role="horde" />
-      <file name="Quota.php" role="horde" />
-      <file name="Search.php" role="horde" />
-      <file name="Sentmail.php" role="horde" />
-      <file name="Smime.php" role="horde" />
-     </dir> <!-- /lib/Injector/Factory -->
-    </dir> <!-- /lib/Injector -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="GarbageCollection.php" role="horde" />
@@ -632,10 +634,6 @@ multiple folders, and multiple-language support.</description>
     <file name="1_imp_base_tables.php" role="horde" />
     <file name="2_imp_autoincrement_sentmail.php" role="horde" />
    </dir> <!-- /migration -->
-   <dir name="scripts">
-    <file name="bounce_spam.php" role="horde" />
-    <file name="query-imap-cache.php" role="horde" />
-   </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="dimp">
      <dir name="compose">
@@ -853,7 +851,7 @@ multiple folders, and multiple-language support.</description>
       <file name="forward.png" role="horde" />
       <file name="gallery.png" role="horde" />
       <file name="ham.png" role="horde" />
-      <file name="help.png" role="data" />
+      <file name="help.png" role="horde" />
       <file name="ico_message_off.png" role="horde" />
       <file name="imp.png" role="horde" />
       <file name="info_icon.png" role="horde" />
@@ -986,7 +984,7 @@ multiple folders, and multiple-language support.</description>
       <file name="filters.png" role="horde" />
       <file name="forward.png" role="horde" />
       <file name="ham.png" role="horde" />
-      <file name="help.png" role="data" />
+      <file name="help.png" role="horde" />
       <file name="imp.png" role="horde" />
       <file name="info_icon.png" role="horde" />
       <file name="locked.png" role="horde" />
@@ -1141,6 +1139,8 @@ multiple folders, and multiple-language support.</description>
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="bounce_spam" name="bin/bounce_spam" />
+   <install as="query_imap_cache" name="bin/query_imap_cache" />
    <install as="imp/config/backends.php.dist" name="config/backends.php.dist" />
    <install as="imp/config/conf.xml" name="config/conf.xml" />
    <install as="imp/config/filter.txt.dist" name="config/filter.txt.dist" />
@@ -1209,6 +1209,21 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/lib/Compose/Stationery.php" name="lib/Compose/Stationery.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
+   <install as="imp/lib/Factory/AuthImap.php" name="lib/Factory/AuthImap.php" />
+   <install as="imp/lib/Factory/Compose.php" name="lib/Factory/Compose.php" />
+   <install as="imp/lib/Factory/Contents.php" name="lib/Factory/Contents.php" />
+   <install as="imp/lib/Factory/Flags.php" name="lib/Factory/Flags.php" />
+   <install as="imp/lib/Factory/Identity.php" name="lib/Factory/Identity.php" />
+   <install as="imp/lib/Factory/Imap.php" name="lib/Factory/Imap.php" />
+   <install as="imp/lib/Factory/Imaptree.php" name="lib/Factory/Imaptree.php" />
+   <install as="imp/lib/Factory/Mail.php" name="lib/Factory/Mail.php" />
+   <install as="imp/lib/Factory/MailboxList.php" name="lib/Factory/MailboxList.php" />
+   <install as="imp/lib/Factory/MimeViewer.php" name="lib/Factory/MimeViewer.php" />
+   <install as="imp/lib/Factory/Pgp.php" name="lib/Factory/Pgp.php" />
+   <install as="imp/lib/Factory/Quota.php" name="lib/Factory/Quota.php" />
+   <install as="imp/lib/Factory/Search.php" name="lib/Factory/Search.php" />
+   <install as="imp/lib/Factory/Sentmail.php" name="lib/Factory/Sentmail.php" />
+   <install as="imp/lib/Factory/Smime.php" name="lib/Factory/Smime.php" />
    <install as="imp/lib/Flag/Base.php" name="lib/Flag/Base.php" />
    <install as="imp/lib/Flag/Imap.php" name="lib/Flag/Imap.php" />
    <install as="imp/lib/Flag/System.php" name="lib/Flag/System.php" />
@@ -1230,21 +1245,6 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/Imap/Tree/Element.php" name="lib/Imap/Tree/Element.php" />
-   <install as="imp/lib/Injector/Factory/AuthImap.php" name="lib/Injector/Factory/AuthImap.php" />
-   <install as="imp/lib/Injector/Factory/Compose.php" name="lib/Injector/Factory/Compose.php" />
-   <install as="imp/lib/Injector/Factory/Contents.php" name="lib/Injector/Factory/Contents.php" />
-   <install as="imp/lib/Injector/Factory/Flags.php" name="lib/Injector/Factory/Flags.php" />
-   <install as="imp/lib/Injector/Factory/Identity.php" name="lib/Injector/Factory/Identity.php" />
-   <install as="imp/lib/Injector/Factory/Imap.php" name="lib/Injector/Factory/Imap.php" />
-   <install as="imp/lib/Injector/Factory/Imaptree.php" name="lib/Injector/Factory/Imaptree.php" />
-   <install as="imp/lib/Injector/Factory/Mail.php" name="lib/Injector/Factory/Mail.php" />
-   <install as="imp/lib/Injector/Factory/MailboxList.php" name="lib/Injector/Factory/MailboxList.php" />
-   <install as="imp/lib/Injector/Factory/MimeViewer.php" name="lib/Injector/Factory/MimeViewer.php" />
-   <install as="imp/lib/Injector/Factory/Pgp.php" name="lib/Injector/Factory/Pgp.php" />
-   <install as="imp/lib/Injector/Factory/Quota.php" name="lib/Injector/Factory/Quota.php" />
-   <install as="imp/lib/Injector/Factory/Search.php" name="lib/Injector/Factory/Search.php" />
-   <install as="imp/lib/Injector/Factory/Sentmail.php" name="lib/Injector/Factory/Sentmail.php" />
-   <install as="imp/lib/Injector/Factory/Smime.php" name="lib/Injector/Factory/Smime.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeFromImp4.php" name="lib/LoginTasks/SystemTask/UpgradeFromImp4.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeFromImp4Auth.php" name="lib/LoginTasks/SystemTask/UpgradeFromImp4Auth.php" />
@@ -1455,8 +1455,6 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/locale/zh_TW/LC_MESSAGES/imp.po" name="locale/zh_TW/LC_MESSAGES/imp.po" />
    <install as="imp/migration/1_imp_base_tables.php" name="migration/1_imp_base_tables.php" />
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
-   <install as="imp/scripts/bounce_spam.php" name="scripts/bounce_spam.php" />
-   <install as="imp/scripts/query-imap-cache.php" name="scripts/query-imap-cache.php" />
    <install as="imp/templates/common-header.inc" name="templates/common-header.inc" />
    <install as="imp/templates/dimp/index.inc" name="templates/dimp/index.inc" />
    <install as="imp/templates/dimp/javascript_defs.php" name="templates/dimp/javascript_defs.php" />
@@ -1805,7 +1803,7 @@ multiple folders, and multiple-language support.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-05</date>
+   <date>2011-01-27</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.

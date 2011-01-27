@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-25</date>
- <time>10:00:23</time>
+ <date>2011-01-27</date>
+ <time>17:28:51</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -33,520 +33,524 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="addressbooks">
-    <file baseinstalldir="/" name="create.php" role="horde" />
-    <file baseinstalldir="/" name="delete.php" role="horde" />
-    <file baseinstalldir="/" name="edit.php" role="horde" />
-    <file baseinstalldir="/" name="index.php" role="horde" />
+    <file name="create.php" role="horde" />
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="index.php" role="horde" />
    </dir> <!-- /addressbooks -->
    <dir name="config">
-    <file baseinstalldir="/" name="attributes.php.dist" role="horde" />
-    <file baseinstalldir="/" name="backends.php.dist" role="horde" />
-    <file baseinstalldir="/" name="conf.xml" role="horde" />
-    <file baseinstalldir="/" name="hooks.php.dist" role="horde" />
-    <file baseinstalldir="/" name="menu.php.dist" role="horde" />
-    <file baseinstalldir="/" name="mime_drivers.php.dist" role="horde" />
-    <file baseinstalldir="/" name="prefs.php.dist" role="horde" />
+    <file name="attributes.php.dist" role="horde" />
+    <file name="backends.php.dist" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="menu.php.dist" role="horde" />
+    <file name="mime_drivers.php.dist" role="horde" />
+    <file name="prefs.php.dist" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
     <dir name="vcf">
-     <file baseinstalldir="/" name="brad.vcf" role="doc" />
-     <file baseinstalldir="/" name="dimitris.vcf" role="doc" />
-     <file baseinstalldir="/" name="dwalt.vcf" role="doc" />
-     <file baseinstalldir="/" name="foo.vcf" role="doc" />
-     <file baseinstalldir="/" name="larry.vcf" role="doc" />
-     <file baseinstalldir="/" name="multiple.vcf" role="doc" />
-     <file baseinstalldir="/" name="palm.vcf" role="doc" />
-     <file baseinstalldir="/" name="README" role="doc" />
-     <file baseinstalldir="/" name="sfg.vcf" role="doc" />
-     <file baseinstalldir="/" name="test.vcf" role="doc" />
+     <file name="brad.vcf" role="doc" />
+     <file name="dimitris.vcf" role="doc" />
+     <file name="dwalt.vcf" role="doc" />
+     <file name="foo.vcf" role="doc" />
+     <file name="larry.vcf" role="doc" />
+     <file name="multiple.vcf" role="doc" />
+     <file name="palm.vcf" role="doc" />
+     <file name="README" role="doc" />
+     <file name="sfg.vcf" role="doc" />
+     <file name="test.vcf" role="doc" />
     </dir> <!-- /docs/vcf -->
-    <file baseinstalldir="/" name="CHANGES" role="doc" />
-    <file baseinstalldir="/" name="CREDITS" role="doc" />
-    <file baseinstalldir="/" name="INSTALL" role="doc" />
-    <file baseinstalldir="/" name="LDAP" role="doc" />
-    <file baseinstalldir="/" name="RELEASE_NOTES" role="doc" />
-    <file baseinstalldir="/" name="UPGRADING" role="doc" />
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="LDAP" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
-    <file baseinstalldir="/" name="browse.js" role="horde" />
-    <file baseinstalldir="/" name="columnprefs.js" role="horde" />
-    <file baseinstalldir="/" name="contact_tabs.js" role="horde" />
-    <file baseinstalldir="/" name="search.js" role="horde" />
+    <file name="browse.js" role="horde" />
+    <file name="columnprefs.js" role="horde" />
+    <file name="contact_tabs.js" role="horde" />
+    <file name="search.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Block">
-     <file baseinstalldir="/" name="minisearch.php" role="horde" />
+     <file name="minisearch.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Data">
-     <file baseinstalldir="/" name="Ldif.php" role="horde" />
+     <file name="Ldif.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Driver">
      <dir name="Kolab">
       <dir name="Wrapper">
-       <file baseinstalldir="/" name="New.php" role="horde" />
-       <file baseinstalldir="/" name="Old.php" role="horde" />
+       <file name="New.php" role="horde" />
+       <file name="Old.php" role="horde" />
       </dir> <!-- /lib/Driver/Kolab/Wrapper -->
-      <file baseinstalldir="/" name="Wrapper.php" role="horde" />
+      <file name="Wrapper.php" role="horde" />
      </dir> <!-- /lib/Driver/Kolab -->
-     <file baseinstalldir="/" name="Facebook.php" role="horde" />
-     <file baseinstalldir="/" name="Favourites.php" role="horde" />
-     <file baseinstalldir="/" name="Group.php" role="horde" />
-     <file baseinstalldir="/" name="Imsp.php" role="horde" />
-     <file baseinstalldir="/" name="Kolab.php" role="horde" />
-     <file baseinstalldir="/" name="Ldap.php" role="horde" />
-     <file baseinstalldir="/" name="Prefs.php" role="horde" />
-     <file baseinstalldir="/" name="Share.php" role="horde" />
-     <file baseinstalldir="/" name="Sql.php" role="horde" />
-     <file baseinstalldir="/" name="Vbook.php" role="horde" />
+     <file name="Facebook.php" role="horde" />
+     <file name="Favourites.php" role="horde" />
+     <file name="Group.php" role="horde" />
+     <file name="Imsp.php" role="horde" />
+     <file name="Kolab.php" role="horde" />
+     <file name="Ldap.php" role="horde" />
+     <file name="Prefs.php" role="horde" />
+     <file name="Share.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+     <file name="Vbook.php" role="horde" />
     </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
     <dir name="Form">
-     <file baseinstalldir="/" name="AddContact.php" role="horde" />
-     <file baseinstalldir="/" name="Contact.php" role="horde" />
-     <file baseinstalldir="/" name="CreateAddressBook.php" role="horde" />
-     <file baseinstalldir="/" name="DeleteAddressBook.php" role="horde" />
-     <file baseinstalldir="/" name="EditAddressBook.php" role="horde" />
-     <file baseinstalldir="/" name="EditContact.php" role="horde" />
-     <file baseinstalldir="/" name="EditContactGroup.php" role="horde" />
+     <file name="AddContact.php" role="horde" />
+     <file name="Contact.php" role="horde" />
+     <file name="CreateAddressBook.php" role="horde" />
+     <file name="DeleteAddressBook.php" role="horde" />
+     <file name="EditAddressBook.php" role="horde" />
+     <file name="EditContact.php" role="horde" />
+     <file name="EditContactGroup.php" role="horde" />
     </dir> <!-- /lib/Form -->
-    <dir name="Injector">
-     <dir name="Factory">
-      <file baseinstalldir="/" name="Driver.php" role="horde" />
-     </dir> <!-- /lib/Injector/Factory -->
-    </dir> <!-- /lib/Injector -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
-      <file baseinstalldir="/" name="UpgradeFromTurba2.php" role="horde" />
-      <file baseinstalldir="/" name="UpgradeLists.php" role="horde" />
-      <file baseinstalldir="/" name="UpgradePrefs.php" role="horde" />
+      <file name="UpgradeFromTurba2.php" role="horde" />
+      <file name="UpgradeLists.php" role="horde" />
+      <file name="UpgradePrefs.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Object">
-     <file baseinstalldir="/" name="Group.php" role="horde" />
+     <file name="Group.php" role="horde" />
     </dir> <!-- /lib/Object -->
     <dir name="tests">
-     <file baseinstalldir="/" name="ApiTest.php" role="horde" />
-     <file baseinstalldir="/" name="az.png" role="data" />
-     <file baseinstalldir="/" name="BrowsePageTest.php" role="horde" />
-     <file baseinstalldir="/" name="bug_6518.phpt" role="data" />
-     <file baseinstalldir="/" name="DriverTest.php" role="horde" />
-     <file baseinstalldir="/" name="GroupTest.php" role="horde" />
-     <file baseinstalldir="/" name="import.ldif" role="data" />
-     <file baseinstalldir="/" name="importCRLF.ldif" role="data" />
-     <file baseinstalldir="/" name="KolabTest.php" role="horde" />
-     <file baseinstalldir="/" name="KolabTestBase.php" role="horde" />
-     <file baseinstalldir="/" name="ldif_exportFile.phpt" role="data" />
-     <file baseinstalldir="/" name="ldif_importFile.phpt" role="data" />
-     <file baseinstalldir="/" name="ldif_importFileCRLF.phpt" role="data" />
-     <file baseinstalldir="/" name="ListTest.php" role="horde" />
-     <file baseinstalldir="/" name="ListViewTest.php" role="horde" />
-     <file baseinstalldir="/" name="TestBase.php" role="horde" />
-     <file baseinstalldir="/" name="tohash.phpt" role="data" />
-     <file baseinstalldir="/" name="tovcard.phpt" role="data" />
-     <file baseinstalldir="/" name="ViewBrowseTest.php" role="horde" />
-     <file baseinstalldir="/" name="ViewListTest.php" role="horde" />
+     <file name="ApiTest.php" role="horde" />
+     <file name="az.png" role="data" />
+     <file name="BrowsePageTest.php" role="horde" />
+     <file name="bug_6518.phpt" role="data" />
+     <file name="DriverTest.php" role="horde" />
+     <file name="GroupTest.php" role="horde" />
+     <file name="import.ldif" role="data" />
+     <file name="importCRLF.ldif" role="data" />
+     <file name="KolabTest.php" role="horde" />
+     <file name="KolabTestBase.php" role="horde" />
+     <file name="ldif_exportFile.phpt" role="data" />
+     <file name="ldif_importFile.phpt" role="data" />
+     <file name="ldif_importFileCRLF.phpt" role="data" />
+     <file name="ListTest.php" role="horde" />
+     <file name="ListViewTest.php" role="horde" />
+     <file name="TestBase.php" role="horde" />
+     <file name="tohash.phpt" role="data" />
+     <file name="tovcard.phpt" role="data" />
+     <file name="ViewBrowseTest.php" role="horde" />
+     <file name="ViewListTest.php" role="horde" />
     </dir> <!-- /lib/tests -->
     <dir name="View">
-     <file baseinstalldir="/" name="Browse.php" role="horde" />
-     <file baseinstalldir="/" name="Contact.php" role="horde" />
-     <file baseinstalldir="/" name="DeleteContact.php" role="horde" />
-     <file baseinstalldir="/" name="Duplicates.php" role="horde" />
-     <file baseinstalldir="/" name="EditContact.php" role="horde" />
-     <file baseinstalldir="/" name="List.php" role="horde" />
+     <dir name="List">
+      <file name="AlphaFilter.php" role="horde" />
+      <file name="PageFilter.php" role="horde" />
+     </dir> <!-- /lib/View/List -->
+     <file name="Browse.php" role="horde" />
+     <file name="Contact.php" role="horde" />
+     <file name="DeleteContact.php" role="horde" />
+     <file name="Duplicates.php" role="horde" />
+     <file name="EditContact.php" role="horde" />
+     <file name="List.php" role="horde" />
     </dir> <!-- /lib/View -->
-    <file baseinstalldir="/" name="Api.php" role="horde" />
-    <file baseinstalldir="/" name="Application.php" role="horde" />
-    <file baseinstalldir="/" name="Driver.php" role="horde" />
-    <file baseinstalldir="/" name="Exception.php" role="horde" />
-    <file baseinstalldir="/" name="List.php" role="horde" />
-    <file baseinstalldir="/" name="Object.php" role="horde" />
-    <file baseinstalldir="/" name="Test.php" role="horde" />
-    <file baseinstalldir="/" name="Turba.php" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="List.php" role="horde" />
+    <file name="Object.php" role="horde" />
+    <file name="Test.php" role="horde" />
+    <file name="Turba.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ar">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/ar/LC_MESSAGES -->
     </dir> <!-- /locale/ar -->
     <dir name="bg">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/bg/LC_MESSAGES -->
     </dir> <!-- /locale/bg -->
     <dir name="ca">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/ca/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/ca -->
     <dir name="cs">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/cs/LC_MESSAGES -->
     </dir> <!-- /locale/cs -->
     <dir name="da">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/da/LC_MESSAGES -->
     </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/de -->
     <dir name="el">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
     <dir name="en">
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/es -->
     <dir name="et">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/eu -->
     <dir name="fa">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/fa/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fa -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fi -->
     <dir name="fr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fr -->
     <dir name="gl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/gl/LC_MESSAGES -->
     </dir> <!-- /locale/gl -->
     <dir name="hr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/hr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/hr -->
     <dir name="hu">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/hu/LC_MESSAGES -->
     </dir> <!-- /locale/hu -->
     <dir name="is">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/is/LC_MESSAGES -->
     </dir> <!-- /locale/is -->
     <dir name="it">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/it/LC_MESSAGES -->
     </dir> <!-- /locale/it -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
     <dir name="ko">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/ko/LC_MESSAGES -->
     </dir> <!-- /locale/ko -->
     <dir name="lt">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
     </dir> <!-- /locale/lv -->
     <dir name="mk">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/mk/LC_MESSAGES -->
     </dir> <!-- /locale/mk -->
     <dir name="nb">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/nb/LC_MESSAGES -->
     </dir> <!-- /locale/nb -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/nl/LC_MESSAGES -->
     </dir> <!-- /locale/nl -->
     <dir name="nn">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/nn/LC_MESSAGES -->
     </dir> <!-- /locale/nn -->
     <dir name="pl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/pl/LC_MESSAGES -->
     </dir> <!-- /locale/pl -->
     <dir name="pt">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/pt/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/pt -->
     <dir name="pt_BR">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/pt_BR -->
     <dir name="ro">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/ro/LC_MESSAGES -->
     </dir> <!-- /locale/ro -->
     <dir name="ru">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/ru/LC_MESSAGES -->
     </dir> <!-- /locale/ru -->
     <dir name="sk">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/sk/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/sk -->
     <dir name="sl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/sl/LC_MESSAGES -->
     </dir> <!-- /locale/sl -->
     <dir name="sv">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/sv/LC_MESSAGES -->
     </dir> <!-- /locale/sv -->
     <dir name="tr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/tr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/tr -->
     <dir name="uk">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/uk/LC_MESSAGES -->
     </dir> <!-- /locale/uk -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
     </dir> <!-- /locale/zh_CN -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="turba.mo" role="horde" />
-      <file baseinstalldir="/" name="turba.po" role="horde" />
+      <file name="turba.mo" role="horde" />
+      <file name="turba.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
-    <file baseinstalldir="/" name="turba.pot" role="horde" />
+    <file name="turba.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
-    <file baseinstalldir="/" name="1_turba_base_tables.php" role="horde" />
-    <file baseinstalldir="/" name="2_turba_upgrade_autoincrement.php" role="horde" />
-    <file baseinstalldir="/" name="3_turba_upgrade_sqlng.php" role="horde" />
+    <file name="1_turba_base_tables.php" role="horde" />
+    <file name="2_turba_upgrade_autoincrement.php" role="horde" />
+    <file name="3_turba_upgrade_sqlng.php" role="horde" />
+    <file name="4_turba_upgrade_sqlhierarchical.php" role="horde" />
+    <file name="5_turba_upgrade_sqlnghierarchical.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
-     <file baseinstalldir="/" name="addou" role="data" />
-     <file baseinstalldir="/" name="addou.pl" role="data" />
+     <file name="addou" role="data" />
+     <file name="addou.pl" role="data" />
     </dir> <!-- /scripts/ldap -->
     <dir name="upgrades">
-     <file baseinstalldir="/" name="convert_datatree_shares_to_sql.php" role="data" />
-     <file baseinstalldir="/" name="convert_sql_shares_to_sqlng.php" role="data" />
-     <file baseinstalldir="/" name="public_to_horde_share.php" role="data" />
+     <file name="convert_datatree_shares_to_sql.php" role="data" />
+     <file name="convert_sql_shares_to_sqlng.php" role="data" />
+     <file name="public_to_horde_share.php" role="data" />
     </dir> <!-- /scripts/upgrades -->
-    <file baseinstalldir="/" name="import_squirrelmail_file_abook.php" role="data" />
-    <file baseinstalldir="/" name="import_squirrelmail_sql_abook.php" role="data" />
-    <file baseinstalldir="/" name="import_vcards.php" role="data" />
-    <file baseinstalldir="/" name="Turba.reg" role="data" />
+    <file name="import_squirrelmail_file_abook.php" role="data" />
+    <file name="import_squirrelmail_sql_abook.php" role="data" />
+    <file name="import_vcards.php" role="data" />
+    <file name="Turba.reg" role="data" />
    </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="block">
-     <file baseinstalldir="/" name="minisearch.inc" role="horde" />
+     <file name="minisearch.inc" role="horde" />
     </dir> <!-- /templates/block -->
     <dir name="browse">
-     <file baseinstalldir="/" name="actions.inc" role="horde" />
-     <file baseinstalldir="/" name="column_footers.inc" role="horde" />
-     <file baseinstalldir="/" name="column_headers.inc" role="horde" />
-     <file baseinstalldir="/" name="header.inc" role="horde" />
-     <file baseinstalldir="/" name="row.inc" role="horde" />
+     <file name="actions.inc" role="horde" />
+     <file name="column_footers.inc" role="horde" />
+     <file name="column_headers.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="row.inc" role="horde" />
     </dir> <!-- /templates/browse -->
     <dir name="data">
-     <file baseinstalldir="/" name="export.inc" role="horde" />
-     <file baseinstalldir="/" name="import.inc" role="horde" />
+     <file name="export.inc" role="horde" />
+     <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
     <dir name="list">
-     <file baseinstalldir="/" name="alphaPager.inc" role="horde" />
-     <file baseinstalldir="/" name="numPager.inc" role="horde" />
+     <file name="alphaPager.inc" role="horde" />
+     <file name="numPager.inc" role="horde" />
     </dir> <!-- /templates/list -->
     <dir name="prefs">
-     <file baseinstalldir="/" name="column.html" role="horde" />
+     <file name="column.html" role="horde" />
     </dir> <!-- /templates/prefs -->
     <dir name="search">
      <dir name="duplicate">
-      <file baseinstalldir="/" name="contact_footer.html.php" role="horde" />
-      <file baseinstalldir="/" name="contact_header.html.php" role="horde" />
-      <file baseinstalldir="/" name="footer.html.php" role="horde" />
-      <file baseinstalldir="/" name="header.html.php" role="horde" />
-      <file baseinstalldir="/" name="list.html.php" role="horde" />
+      <file name="contact_footer.html.php" role="horde" />
+      <file name="contact_header.html.php" role="horde" />
+      <file name="footer.html.php" role="horde" />
+      <file name="header.html.php" role="horde" />
+      <file name="list.html.php" role="horde" />
      </dir> <!-- /templates/search/duplicate -->
-     <file baseinstalldir="/" name="advanced.html.php" role="horde" />
-     <file baseinstalldir="/" name="basic.html.php" role="horde" />
-     <file baseinstalldir="/" name="duplicate.html.php" role="horde" />
-     <file baseinstalldir="/" name="header.html.php" role="horde" />
-     <file baseinstalldir="/" name="vbook.html.php" role="horde" />
+     <file name="advanced.html.php" role="horde" />
+     <file name="basic.html.php" role="horde" />
+     <file name="duplicate.html.php" role="horde" />
+     <file name="header.html.php" role="horde" />
+     <file name="vbook.html.php" role="horde" />
     </dir> <!-- /templates/search -->
     <dir name="test">
-     <file baseinstalldir="/" name="ldapserver.inc" role="horde" />
+     <file name="ldapserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
-    <file baseinstalldir="/" name="addressbook_list.php" role="horde" />
-    <file baseinstalldir="/" name="menu.inc" role="horde" />
+    <file name="addressbook_list.php" role="horde" />
+    <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="bluewhite">
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/bluewhite -->
     <dir name="default">
      <dir name="graphics">
       <dir name="menu">
-       <file baseinstalldir="/" name="browse.png" role="horde" />
-       <file baseinstalldir="/" name="new.png" role="horde" />
+       <file name="browse.png" role="horde" />
+       <file name="new.png" role="horde" />
       </dir> <!-- /themes/default/graphics/menu -->
-      <file baseinstalldir="/" name="az.png" role="horde" />
-      <file baseinstalldir="/" name="az_secondary.png" role="horde" />
-      <file baseinstalldir="/" name="contact.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="group.png" role="horde" />
-      <file baseinstalldir="/" name="new.png" role="horde" />
-      <file baseinstalldir="/" name="search.png" role="horde" />
-      <file baseinstalldir="/" name="turba.png" role="horde" />
-      <file baseinstalldir="/" name="za.png" role="horde" />
-      <file baseinstalldir="/" name="za_secondary.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="az_secondary.png" role="horde" />
+      <file name="contact.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="group.png" role="horde" />
+      <file name="new.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="turba.png" role="horde" />
+      <file name="za.png" role="horde" />
+      <file name="za_secondary.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file baseinstalldir="/" name="ie6_or_less.css" role="horde" />
-     <file baseinstalldir="/" name="ie7.css" role="horde" />
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="ie6_or_less.css" role="horde" />
+     <file name="ie7.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="ideas">
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/ideas -->
     <dir name="silver">
      <dir name="graphics">
       <dir name="menu">
-       <file baseinstalldir="/" name="browse.png" role="horde" />
-       <file baseinstalldir="/" name="new.png" role="horde" />
+       <file name="browse.png" role="horde" />
+       <file name="new.png" role="horde" />
       </dir> <!-- /themes/silver/graphics/menu -->
-      <file baseinstalldir="/" name="az.png" role="horde" />
-      <file baseinstalldir="/" name="az_secondary.png" role="horde" />
-      <file baseinstalldir="/" name="contact.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="group.png" role="horde" />
-      <file baseinstalldir="/" name="new.png" role="horde" />
-      <file baseinstalldir="/" name="turba.png" role="horde" />
-      <file baseinstalldir="/" name="za.png" role="horde" />
-      <file baseinstalldir="/" name="za_secondary.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="az_secondary.png" role="horde" />
+      <file name="contact.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="group.png" role="horde" />
+      <file name="new.png" role="horde" />
+      <file name="turba.png" role="horde" />
+      <file name="za.png" role="horde" />
+      <file name="za_secondary.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="tango-blue">
      <dir name="graphics">
       <dir name="menu">
-       <file baseinstalldir="/" name="browse.png" role="horde" />
-       <file baseinstalldir="/" name="new.png" role="horde" />
+       <file name="browse.png" role="horde" />
+       <file name="new.png" role="horde" />
       </dir> <!-- /themes/tango-blue/graphics/menu -->
-      <file baseinstalldir="/" name="az_secondary.png" role="horde" />
-      <file baseinstalldir="/" name="contact.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="group.png" role="horde" />
-      <file baseinstalldir="/" name="new.png" role="horde" />
-      <file baseinstalldir="/" name="turba.png" role="horde" />
-      <file baseinstalldir="/" name="za_secondary.png" role="horde" />
+      <file name="az_secondary.png" role="horde" />
+      <file name="contact.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="group.png" role="horde" />
+      <file name="new.png" role="horde" />
+      <file name="turba.png" role="horde" />
+      <file name="za_secondary.png" role="horde" />
      </dir> <!-- /themes/tango-blue/graphics -->
     </dir> <!-- /themes/tango-blue -->
    </dir> <!-- /themes -->
-   <file baseinstalldir="/" name="add.php" role="horde" />
-   <file baseinstalldir="/" name="browse.php" role="horde" />
-   <file baseinstalldir="/" name="contact.php" role="horde" />
-   <file baseinstalldir="/" name="data.php" role="horde" />
-   <file baseinstalldir="/" name="delete.php" role="horde" />
-   <file baseinstalldir="/" name="deletefile.php" role="horde" />
-   <file baseinstalldir="/" name="edit.php" role="horde" />
-   <file baseinstalldir="/" name="index.php" role="horde" />
-   <file baseinstalldir="/" name="LICENSE" role="data" />
-   <file baseinstalldir="/" name="merge.php" role="horde" />
-   <file baseinstalldir="/" name="minisearch.php" role="horde" />
-   <file baseinstalldir="/" name="README" role="data" />
-   <file baseinstalldir="/" name="search.php" role="horde" />
-   <file baseinstalldir="/" name="vcard.php" role="horde" />
-   <file baseinstalldir="/" name="view.php" role="horde" />
+   <file name="add.php" role="horde" />
+   <file name="browse.php" role="horde" />
+   <file name="contact.php" role="horde" />
+   <file name="data.php" role="horde" />
+   <file name="delete.php" role="horde" />
+   <file name="deletefile.php" role="horde" />
+   <file name="edit.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="LICENSE" role="data" />
+   <file name="merge.php" role="horde" />
+   <file name="minisearch.php" role="horde" />
+   <file name="README" role="data" />
+   <file name="search.php" role="horde" />
+   <file name="vcard.php" role="horde" />
+   <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -624,6 +628,7 @@
    <install as="turba/lib/Driver/Kolab/Wrapper.php" name="lib/Driver/Kolab/Wrapper.php" />
    <install as="turba/lib/Driver/Kolab/Wrapper/New.php" name="lib/Driver/Kolab/Wrapper/New.php" />
    <install as="turba/lib/Driver/Kolab/Wrapper/Old.php" name="lib/Driver/Kolab/Wrapper/Old.php" />
+   <install as="turba/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="turba/lib/Form/AddContact.php" name="lib/Form/AddContact.php" />
    <install as="turba/lib/Form/Contact.php" name="lib/Form/Contact.php" />
    <install as="turba/lib/Form/CreateAddressBook.php" name="lib/Form/CreateAddressBook.php" />
@@ -631,7 +636,6 @@
    <install as="turba/lib/Form/EditAddressBook.php" name="lib/Form/EditAddressBook.php" />
    <install as="turba/lib/Form/EditContact.php" name="lib/Form/EditContact.php" />
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
-   <install as="turba/lib/Injector/Factory/Driver.php" name="lib/Injector/Factory/Driver.php" />
    <install as="turba/lib/LoginTasks/SystemTask/UpgradeFromTurba2.php" name="lib/LoginTasks/SystemTask/UpgradeFromTurba2.php" />
    <install as="turba/lib/LoginTasks/SystemTask/UpgradeLists.php" name="lib/LoginTasks/SystemTask/UpgradeLists.php" />
    <install as="turba/lib/LoginTasks/SystemTask/UpgradePrefs.php" name="lib/LoginTasks/SystemTask/UpgradePrefs.php" />
@@ -662,6 +666,8 @@
    <install as="turba/lib/View/Duplicates.php" name="lib/View/Duplicates.php" />
    <install as="turba/lib/View/EditContact.php" name="lib/View/EditContact.php" />
    <install as="turba/lib/View/List.php" name="lib/View/List.php" />
+   <install as="turba/lib/View/List/AlphaFilter.php" name="lib/View/List/AlphaFilter.php" />
+   <install as="turba/lib/View/List/PageFilter.php" name="lib/View/List/PageFilter.php" />
    <install as="turba/locale/turba.pot" name="locale/turba.pot" />
    <install as="turba/locale/ar/LC_MESSAGES/turba.mo" name="locale/ar/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/ar/LC_MESSAGES/turba.po" name="locale/ar/LC_MESSAGES/turba.po" />
@@ -755,6 +761,8 @@
    <install as="turba/migration/1_turba_base_tables.php" name="migration/1_turba_base_tables.php" />
    <install as="turba/migration/2_turba_upgrade_autoincrement.php" name="migration/2_turba_upgrade_autoincrement.php" />
    <install as="turba/migration/3_turba_upgrade_sqlng.php" name="migration/3_turba_upgrade_sqlng.php" />
+   <install as="turba/migration/4_turba_upgrade_sqlhierarchical.php" name="migration/4_turba_upgrade_sqlhierarchical.php" />
+   <install as="turba/migration/5_turba_upgrade_sqlnghierarchical.php" name="migration/5_turba_upgrade_sqlnghierarchical.php" />
    <install as="scripts/import_squirrelmail_file_abook.php" name="scripts/import_squirrelmail_file_abook.php" />
    <install as="scripts/import_squirrelmail_sql_abook.php" name="scripts/import_squirrelmail_sql_abook.php" />
    <install as="scripts/import_vcards.php" name="scripts/import_vcards.php" />
@@ -853,7 +861,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-25</date>
+   <date>2011-01-27</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * Initial release.
