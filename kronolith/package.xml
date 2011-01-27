@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-01-27</date>
- <time>17:28:44</time>
+ <time>22:04:12</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -117,7 +117,7 @@
      <file name="Geo.php" role="horde" />
      <file name="Storage.php" role="horde" />
     </dir> <!-- /lib/Factory -->
-    <dir name="Forms">
+    <dir name="Form">
      <file name="CreateCalendar.php" role="horde" />
      <file name="CreateResource.php" role="horde" />
      <file name="CreateResourceGroup.php" role="horde" />
@@ -130,7 +130,7 @@
      <file name="EditResourceGroup.php" role="horde" />
      <file name="SubscribeRemoteCalendar.php" role="horde" />
      <file name="UnsubscribeRemoteCalendar.php" role="horde" />
-    </dir> <!-- /lib/Forms -->
+    </dir> <!-- /lib/Form -->
     <dir name="FreeBusy">
      <dir name="View">
       <file name="Day.php" role="horde" />
@@ -916,18 +916,18 @@
    <install as="kronolith/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="kronolith/lib/Factory/Geo.php" name="lib/Factory/Geo.php" />
    <install as="kronolith/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
-   <install as="kronolith/lib/Forms/CreateCalendar.php" name="lib/Forms/CreateCalendar.php" />
-   <install as="kronolith/lib/Forms/CreateResource.php" name="lib/Forms/CreateResource.php" />
-   <install as="kronolith/lib/Forms/CreateResourceGroup.php" name="lib/Forms/CreateResourceGroup.php" />
-   <install as="kronolith/lib/Forms/DeleteCalendar.php" name="lib/Forms/DeleteCalendar.php" />
-   <install as="kronolith/lib/Forms/DeleteResource.php" name="lib/Forms/DeleteResource.php" />
-   <install as="kronolith/lib/Forms/DeleteResourceGroup.php" name="lib/Forms/DeleteResourceGroup.php" />
-   <install as="kronolith/lib/Forms/EditCalendar.php" name="lib/Forms/EditCalendar.php" />
-   <install as="kronolith/lib/Forms/EditRemoteCalendar.php" name="lib/Forms/EditRemoteCalendar.php" />
-   <install as="kronolith/lib/Forms/EditResource.php" name="lib/Forms/EditResource.php" />
-   <install as="kronolith/lib/Forms/EditResourceGroup.php" name="lib/Forms/EditResourceGroup.php" />
-   <install as="kronolith/lib/Forms/SubscribeRemoteCalendar.php" name="lib/Forms/SubscribeRemoteCalendar.php" />
-   <install as="kronolith/lib/Forms/UnsubscribeRemoteCalendar.php" name="lib/Forms/UnsubscribeRemoteCalendar.php" />
+   <install as="kronolith/lib/Form/CreateCalendar.php" name="lib/Form/CreateCalendar.php" />
+   <install as="kronolith/lib/Form/CreateResource.php" name="lib/Form/CreateResource.php" />
+   <install as="kronolith/lib/Form/CreateResourceGroup.php" name="lib/Form/CreateResourceGroup.php" />
+   <install as="kronolith/lib/Form/DeleteCalendar.php" name="lib/Form/DeleteCalendar.php" />
+   <install as="kronolith/lib/Form/DeleteResource.php" name="lib/Form/DeleteResource.php" />
+   <install as="kronolith/lib/Form/DeleteResourceGroup.php" name="lib/Form/DeleteResourceGroup.php" />
+   <install as="kronolith/lib/Form/EditCalendar.php" name="lib/Form/EditCalendar.php" />
+   <install as="kronolith/lib/Form/EditRemoteCalendar.php" name="lib/Form/EditRemoteCalendar.php" />
+   <install as="kronolith/lib/Form/EditResource.php" name="lib/Form/EditResource.php" />
+   <install as="kronolith/lib/Form/EditResourceGroup.php" name="lib/Form/EditResourceGroup.php" />
+   <install as="kronolith/lib/Form/SubscribeRemoteCalendar.php" name="lib/Form/SubscribeRemoteCalendar.php" />
+   <install as="kronolith/lib/Form/UnsubscribeRemoteCalendar.php" name="lib/Form/UnsubscribeRemoteCalendar.php" />
    <install as="kronolith/lib/FreeBusy/View.php" name="lib/FreeBusy/View.php" />
    <install as="kronolith/lib/FreeBusy/View/Day.php" name="lib/FreeBusy/View/Day.php" />
    <install as="kronolith/lib/FreeBusy/View/Month.php" name="lib/FreeBusy/View/Month.php" />
