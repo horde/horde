@@ -43,7 +43,7 @@ class Kronolith_CreateResourceForm extends Horde_Form
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Email"), 'email', 'email', false);
-        $v = &$this->addVariable(_("Response type"), 'responsetype', 'enum', true, false, null, array('enum' => $responses));
+        $v = $this->addVariable(_("Response type"), 'responsetype', 'enum', true, false, null, array('enum' => $responses));
         $v->setDefault(Kronolith_Resource::RESPONSETYPE_AUTO);
         $this->addVariable(_("Groups"), 'category', 'multienum', false, false, null, array('enum' => $enum));
         $this->setButtons(array(_("Create")));
