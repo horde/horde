@@ -844,8 +844,8 @@ class Horde_Share_Sql extends Horde_Share_Base
                         $group_ids[] = $this->_db->quote((string)$id);
                     }
                     $query .= ' LEFT JOIN ' . $this->_table . '_groups g ON g.share_id = s.share_id';
-                    $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
-                        . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
+                    $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids)
+                        . ') AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                 }
             } catch (Horde_Group_Exception $e) {
                 $this->_logger->err($e);
