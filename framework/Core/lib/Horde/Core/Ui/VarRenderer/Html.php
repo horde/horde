@@ -477,6 +477,14 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_monthdayyear($form, &$var, &$vars)
     {
+        $js = "document.observe('Horde_Calendar:select', " .
+          "function(e) {" .
+              "var elt = e.element();" .
+              "elt.up().previous('SELECT[name$=\"[month]\"]').setValue(e.memo.getMonth() + 1);" .
+              "elt.up().previous('SELECT[name$=\"[day]\"]').setValue(e.memo.getDate());" .
+              "elt.up().previous('SELECT[name$=\"[year]\"]').setValue(e.memo.getFullYear());" .
+          "});\n";
+        Horde::addInlineScript($js, 'dom');
         $dates = array();
         $dates['month'] = array(''   => Horde_Core_Translation::t("MM"),
                                 '1'  => Horde_Core_Translation::t("January"),
@@ -532,14 +540,6 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_datetime(&$form, &$var, &$vars)
     {
-        $js = "document.observe('Horde_Calendar:select', " .
-              "function(e) {" .
-                  "var elt = e.element();" .
-                  "elt.up().previous('SELECT[name$=\"[month]\"]').setValue(e.memo.getMonth() + 1);" .
-                  "elt.up().previous('SELECT[name$=\"[day]\"]').setValue(e.memo.getDate());" .
-                  "elt.up().previous('SELECT[name$=\"[year]\"]').setValue(e.memo.getFullYear());" .
-              "});\n";
-        Horde::addInlineScript($js, 'dom');
         return $this->_renderVarInput_monthdayyear($form, $var, $vars) .
             $this->_renderVarInput_hourminutesecond($form, $var, $vars);
     }
