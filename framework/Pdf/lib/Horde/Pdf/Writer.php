@@ -9,7 +9,7 @@
  * (http://maintainable.com).
  *
  * Copyright 2001-2003 Olivier Plathey <olivier@fpdf.org>
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * @author   Olivier Plathey <olivier@fpdf.org>
  * @author   Marko Djukic <marko@oblo.com>

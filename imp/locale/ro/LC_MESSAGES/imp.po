@@ -1,5 +1,5 @@
 # IMP Romanian translation.
-# Copyright 2002-2010 The Horde Project.
+# Copyright 2002-2011 The Horde Project.
 # Corneliu MUSAT <cmusat@keysys.ro>, 2002.
 #
 msgid ""

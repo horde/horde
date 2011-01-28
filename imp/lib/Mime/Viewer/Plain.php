@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Plain class renders out text/plain MIME parts
  * with URLs made into hyperlinks.
  *
- * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

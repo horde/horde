@@ -4,7 +4,7 @@
  * cached value.  This driver allows for use of caching backends on top of
  * persistent backends.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

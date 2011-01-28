@@ -47,7 +47,7 @@
  *         and the text is "Mail to Carlos".
  * </pre>
  *
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * Email validation based on Chuck Hagenbuch's
  * Mail_RFC822::isValidInetAddress().

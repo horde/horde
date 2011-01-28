@@ -3,7 +3,7 @@
  * This file provides configuration settings for both the freebusy.php
  * and the pfb.php scripts.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author  Gunnar Wrobel <p@rdus.de>

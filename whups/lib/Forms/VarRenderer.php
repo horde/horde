@@ -3,7 +3,7 @@
  * This file contains all Horde_Core_Ui_VarRenderer extensions for Whups
  * specific form fields.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

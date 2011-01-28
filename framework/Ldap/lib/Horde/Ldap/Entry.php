@@ -8,7 +8,7 @@
  * @author    Benedikt Hallinger <beni@php.net>
  * @author    Ben Klang <ben@alkaloid.net>
  * @author    Jan Schneider <jan@horde.org>
- * @copyright 2009-2010 The Horde Project
+ * @copyright 2009-2011 The Horde Project
  * @copyright 2003-2007 Tarjej Huse, Jan Wagner, Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  */

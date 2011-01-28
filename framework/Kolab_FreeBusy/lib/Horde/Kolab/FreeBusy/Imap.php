@@ -33,7 +33,7 @@ define('KRONOLITH_STATUS_FREE', 4);
  * the Horde::Kronolith free/busy driver.
  *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.

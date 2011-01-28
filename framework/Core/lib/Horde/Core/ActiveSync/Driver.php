@@ -4,7 +4,7 @@
  * ActiveSync server.  Some code based on an implementation found on Z-Push's
  * fourm. Original header appears below. All other changes are:
  *
- * Copyright 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync

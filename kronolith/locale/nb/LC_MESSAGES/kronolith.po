@@ -1,5 +1,5 @@
 # Norwegian Kronolith Translation.
-# Copyright 2002-2010 The Horde Project.
+# Copyright 2002-2011 The Horde Project.
 # This file is distributed under the same license as the Kronolith package.
 # Torstein S. Hansen <huleboer@techbee.no>, 2002.
 # Andreas Gunleikskaas <andreas@gunleikskaas.no>, 2003.

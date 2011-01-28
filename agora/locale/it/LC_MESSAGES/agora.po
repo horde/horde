@@ -1,5 +1,5 @@
 # Italian translations for op package.
-# Copyright 2003-2010 The Horde Project
+# Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the op package.
 # Automatically generated, 2003.
 #

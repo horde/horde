@@ -1,7 +1,7 @@
 /**
  * Provides the javascript for the search.php script (basic view).
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.

@@ -276,7 +276,7 @@ Now you can start the translation by editing the created
 complete header of the created PO file, e.g.::
 
   # Dutch translation for Horde.
-  # Copyright 2004-2010 The Horde Project (http://www.horde.org/)
+  # Copyright 2004-2011 The Horde Project (http://www.horde.org/)
   # This file is distributed under the same license as the Horde package.
   # Joris Braakman <jbraakman@yahoo.com>, 2004.
   #

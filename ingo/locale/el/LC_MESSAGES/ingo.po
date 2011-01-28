@@ -1,6 +1,6 @@
 # German translations for Ingo package
 # German messages for Ingo.
-# Copyright 2003-2010 The Horde Project
+# Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the Ingo package.
 # Milosis C. Konstantinos, 2005.
 #

@@ -2,7 +2,7 @@
 /**
  * The Horde_Form_VarRenderer_Xhtml:: class renders variables as Xhtml.
  *
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  * Copyright 2005 Matt Warden <mwarden@gmail.com>
  *
  * See the enclosed file LICENSE for license information (LGPL).

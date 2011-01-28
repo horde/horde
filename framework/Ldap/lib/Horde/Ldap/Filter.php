@@ -36,7 +36,7 @@
  * @author    Benedikt Hallinger <beni@php.net>
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2009 Benedikt Hallinger
- * @copyright 2010 The Horde Project
+ * @copyright 2010-2011 The Horde Project
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  */
 class Horde_Ldap_Filter

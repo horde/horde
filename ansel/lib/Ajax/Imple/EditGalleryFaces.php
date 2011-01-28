@@ -3,7 +3,7 @@
  * Ansel_Ajax_Imple_EditGalleryFaces:: class for performing Ajax discovery of
  * an entire gallery's images.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * @author Duck <duck@obala.net>
  * @author Michael J. Rubinsky <mrubinsk@horde.org>

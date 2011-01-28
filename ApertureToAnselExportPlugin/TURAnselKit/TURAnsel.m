@@ -3,7 +3,7 @@
  *
  * Main class for interacting with a remote Ansel server.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>

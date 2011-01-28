@@ -1,6 +1,6 @@
 # Slovenian translations for Horde packaga
 # Slovenski prevod Horde paketa
-# Copyright 2006-2010 The Horde Project (http://www.horde.org/)
+# Copyright 2006-2011 The Horde Project (http://www.horde.org/)
 # This file is distributed under the same license as the horde package.
 # Automatically generated, 2006.
 #

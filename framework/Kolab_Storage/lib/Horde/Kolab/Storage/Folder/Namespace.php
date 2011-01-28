@@ -16,7 +16,7 @@
  * The Horde_Kolab_Storage_Folder_Namespace:: class handles IMAP namespaces and allows
  * to derive folder information from folder names.
  *
- * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

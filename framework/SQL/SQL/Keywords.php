@@ -3,7 +3,7 @@
  * This class provides a parser which can construct an SQL WHERE
  * clause from a Google-like search expression.
  *
- * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

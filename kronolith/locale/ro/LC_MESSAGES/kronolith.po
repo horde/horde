@@ -1,5 +1,5 @@
 # Kronolith 1.0 Romanian translation
-# Copyright 2002-2010 The Horde Project.
+# Copyright 2002-2011 The Horde Project.
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 # Marius Dragulescu<mariusd@urban-grafx.ro>, 2003.
 #

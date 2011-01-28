@@ -1,5 +1,5 @@
 # Italian translations for Ingo package.
-# Copyright 2003-2010 The Horde Project
+# Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the Ingo package.
 # Automatically generated, 2003.
 # Copyright 2007 nethesis srl.

@@ -16,7 +16,7 @@
  * The Components_Dependencies:: interface is a central broker for
  * providing the dependencies to the different application parts.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

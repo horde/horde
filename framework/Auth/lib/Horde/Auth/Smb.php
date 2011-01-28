@@ -11,7 +11,7 @@
  * and not equal to each other. In other words, to use this module you must
  * have a domain with at least one PDC and one BDC.
  *
- * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php

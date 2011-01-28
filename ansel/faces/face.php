@@ -6,7 +6,7 @@
  * At least, we need to rename this to something other that image.php to
  * reflect what it's used for.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

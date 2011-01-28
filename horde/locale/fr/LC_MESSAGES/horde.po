@@ -1,6 +1,6 @@
 # translation of fr_FR.po to french
 # Horde 3.2-cvs French translation.
-# Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+# Copyright 2001-2011 The Horde Project (http://www.horde.org/)
 #
 # Pierre Lachance <pl@pierrelachance.net> et Benoit St-André (ben@benoitst-andre.net), 2003, 2004.
 # Frederic Trudeau <ftrudeau@cam.org>, 2001.

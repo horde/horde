@@ -3,7 +3,7 @@
  * The IMP_Ui_Mailbox:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for the mailbox page.
  *
- * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

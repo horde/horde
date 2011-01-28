@@ -3,7 +3,7 @@
 $block_name = _("Account Information");
 
 /**
- * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -130,7 +130,7 @@ class Horde_Block_Horde_account extends Horde_Block
  * Accounts_Driver:: defines an API for getting/displaying account information
  * for a user for the accounts module.
  *
- * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -239,7 +239,7 @@ class Accounts_Driver {
  * local accounts on the local machine.  The exception is the quota support.
  * See that routine for additional comments.
  *
- * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -406,7 +406,7 @@ class Accounts_Driver_localhost extends Accounts_Driver {
  * The ldap class attempts to return user information stored in an ldap
  * directory service.
  *
- * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

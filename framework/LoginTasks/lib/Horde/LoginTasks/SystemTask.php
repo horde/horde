@@ -3,7 +3,7 @@
  * Abstract class to allow for modularization of specific system login tasks
  * that are always run on login.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

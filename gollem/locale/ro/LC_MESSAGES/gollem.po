@@ -1,5 +1,5 @@
 # Romanian translations for Gollem package.
-# Copyright 2003-2010 The Horde Project
+# Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the Gollem package.
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 #

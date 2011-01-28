@@ -1,6 +1,6 @@
 # Portuguese translations for horde package
 # Traduções em português para o pacote horde.
-# Copyright 2005-2010 The Horde Project
+# Copyright 2005-2011 The Horde Project
 # This file is distributed under the same license as the horde package.
 # Automatically generated, 2004.
 #

@@ -2,7 +2,7 @@
 /**
  * Effect for creating a polaroid looking image.
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Image

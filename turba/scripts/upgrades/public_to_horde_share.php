@@ -9,7 +9,7 @@
  * a SQL source (such as 'localsql') - otherwise, you will turn every user's
  * private address book into a public source!
  *
- * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.

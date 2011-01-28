@@ -1,7 +1,7 @@
 # translation of sl_SI.po to Slovene
 # Slovenian translations for Ingo packaga
 # Slovenski prevod Ingo paketa
-# Copyright 2006-2010 The Horde Project
+# Copyright 2006-2011 The Horde Project
 # This file is distributed under the same license as the horde package.
 #
 # Automatically generated, 2007.

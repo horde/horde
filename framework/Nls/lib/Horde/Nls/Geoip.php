@@ -9,7 +9,7 @@
  * 2002 by jim winstead <jimw@apache.org>
  *
  * Copyright 2003 MaxMind LLC
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public

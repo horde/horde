@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/TestCase.php';
 /**
  * Skip LDAP based tests if we don't have ldap or Horde_Ldap.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

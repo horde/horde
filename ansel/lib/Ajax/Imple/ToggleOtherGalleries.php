@@ -3,7 +3,7 @@
  * Ansel_Ajax_Imple_ToggleOtherGalleries:: class for performing Ajax setting of
  * the gallery show_actions user pref.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel

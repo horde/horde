@@ -3,7 +3,7 @@
  * The Horde_Mime_Address:: class provides methods for dealing with email
  * address standards (RFC 822/2822/3490/5322).
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

@@ -1,6 +1,6 @@
 # Chinese translations for Ingo package
 # PACKAGE 软件包的简体中文翻译.
-# Copyright 2007-2010 The Horde Project
+# Copyright 2007-2011 The Horde Project
 # This file is distributed under the same license as the Ingo package.
 # Automatically generated, 2007.
 #

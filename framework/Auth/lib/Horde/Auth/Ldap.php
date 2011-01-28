@@ -6,7 +6,7 @@
  * 'preauthenticate' hook should return LDAP connection information in the
  * 'ldap' credentials key.
  *
- * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php

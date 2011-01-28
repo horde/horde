@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * http://www.scribd.com/platform/documentation/api?method_name=Authentication
  * http://www.scribd.com/platform/account

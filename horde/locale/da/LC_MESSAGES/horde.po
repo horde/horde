@@ -1,6 +1,6 @@
 # Danish translations for Horde package
 # Danske oversættelser for pakke Horde.
-# Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+# Copyright 2001-2011 The Horde Project (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Martin List-Petersen <martin@list-petersen.dk>, 2001
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2005-2006.

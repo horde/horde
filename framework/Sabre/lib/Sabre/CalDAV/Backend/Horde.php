@@ -2,7 +2,7 @@
 /**
  * This class implements a Horde CalDAV backend for SabreDAV.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * @package Sabre
  * @author  Jan Schneider <jan@horde.org>

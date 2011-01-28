@@ -3,7 +3,7 @@
  * The Horde_Rpc_Webdav class provides a WebDAV implementation of the
  * Horde RPC system.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * Derived from the HTTP_WebDAV_Server PEAR package:
  * +------------------------------------------------------------------------+
@@ -38,7 +38,7 @@
  * | POSSIBILITY OF SUCH DAMAGE.                                            |
  * +------------------------------------------------------------------------+
  *
- * Portions Copyright 2004-2010 The Horde Project (http://www.horde.org/)
+ * Portions Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

@@ -1,5 +1,5 @@
 # German translations for Horde.
-# Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+# Copyright 2001-2011 The Horde Project (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Jan Schneider <jan@horde.org>, 2001-2010.
 #

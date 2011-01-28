@@ -3,7 +3,7 @@
  * File based state management. Some code based on the Z-Push project's
  * diff backend, original copyright notice appears below.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync

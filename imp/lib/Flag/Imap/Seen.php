@@ -3,7 +3,7 @@
  * This class implements the seen flag (RFC 3501 [2.3.2]).
  * Unseen display formatting is handled by the IMP_Flag_System_Unseen class.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

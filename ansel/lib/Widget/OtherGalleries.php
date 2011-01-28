@@ -4,7 +4,7 @@
  * thumbnails and links to other galleries owned by the same user as the
  * currently viewed image/gallery.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel

@@ -1,5 +1,5 @@
 # Horde - Indonesian Language Translation
-# Copyright 2005-2010 The Horde Project (http://www.horde.org/)
+# Copyright 2005-2011 The Horde Project (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # James <james@actionmessage.com>, 2005.
 #

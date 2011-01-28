@@ -14,7 +14,7 @@
 /**
  * A wrapper for vEvent iCalender data.
  *
- * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not

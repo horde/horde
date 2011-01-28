@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Rfc822 class extends the base Horde Mime Viewer
  * by indicating that all subparts should be wrapped in a display DIV.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

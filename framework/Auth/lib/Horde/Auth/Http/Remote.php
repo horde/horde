@@ -3,7 +3,7 @@
  * The Horde_Auth_Http_Remote class authenticates users against a remote
  * HTTP-Auth endpoint.
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php

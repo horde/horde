@@ -71,7 +71,7 @@ define('CHARSET_UTF_16LE', 'UTF-16LE');
 define('CHARSET_UTF_16', 'UTF-16');
 
 /**
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

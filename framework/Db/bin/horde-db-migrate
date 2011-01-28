@@ -5,7 +5,7 @@
  *
  * Usage: horde-db-migrate --adapter=pdo_mysql [--host=db.example.com] [--username=user] [--password=secret] [--database=db] [...] directory module [(up|down|version) [debug]]
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you did
  * not receive this file, see http://opensource.org/licenses/bsd-license.php

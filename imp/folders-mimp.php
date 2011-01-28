@@ -5,7 +5,7 @@
  * URL Parameters:
  *   'ts' = (integer) Toggle subscribe view.
  *
- * Copyright 2000-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

@@ -1,5 +1,5 @@
 # Japanese translations for Ansel package.
-# Copyright 2008-2010 The Horde Project
+# Copyright 2008-2011 The Horde Project
 # This file is distributed under the same license as the Ansel package.
 # Automatically generated, 2008.
 #

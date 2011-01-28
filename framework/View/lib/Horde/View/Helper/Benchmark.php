@@ -4,7 +4,7 @@
  * to the log.
  *
  * Copyright 2007-2008 Maintainable Software, LLC
- * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>

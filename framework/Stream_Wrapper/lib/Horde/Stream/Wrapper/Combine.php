@@ -3,7 +3,7 @@
  * A stream wrapper that will combine multiple strings/streams into a single
  * stream.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD

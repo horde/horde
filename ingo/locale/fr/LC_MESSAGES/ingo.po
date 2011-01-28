@@ -1,6 +1,6 @@
 # translation of fr_FR.po to french
 # French translation for Ingo
-# Copyright 2003-2010 The Horde Project
+# Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the ingo package.
 #
 # AIDE Florent <faide@alphacent.com>, 2003.

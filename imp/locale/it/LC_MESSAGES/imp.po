@@ -1,5 +1,5 @@
 # Italian translations for Imp package.
-# Copyright 2007-2010 The Horde Project
+# Copyright 2007-2011 The Horde Project
 # This file is distributed under the same license as the Imp package.
 # Automatically generated, 2007.
 # Copyright 2007 nethesis srl.

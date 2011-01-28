@@ -1,7 +1,7 @@
 /**
  * Javascript specific for the adding/moving a geotag via the map_edit.php page
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky
  * @package Ansel

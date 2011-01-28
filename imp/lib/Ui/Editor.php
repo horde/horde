@@ -3,7 +3,7 @@
  * THis class provices a place to share common code relating to IMP's
  * setup and configuration of the browser HTML editor.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

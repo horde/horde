@@ -3,7 +3,7 @@
  * The Horde_Core_Ui_Language:: class provides a widget for changing the
  * currently selected language.
  *
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

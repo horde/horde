@@ -1,6 +1,6 @@
 # Danish translations for Kronolith package
 # Danske oversættelser for pakke Kronolith.
-# Copyright 2006-2010 The Horde Project
+# Copyright 2006-2011 The Horde Project
 # This file is distributed under the same license as the Kronolith package.
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.
 #

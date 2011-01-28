@@ -1,5 +1,5 @@
 # German translations for Gollem.
-# Copyright 2001-2010 The Horde Project
+# Copyright 2001-2011 The Horde Project
 # This file is distributed under the same license as the Gollem package.
 # Jan Schneider <jan@horde.org>, 2001-2010.
 #

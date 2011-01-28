@@ -6,7 +6,7 @@
  * Based on the FPDF class by Olivier Plathey (http://www.fpdf.org/).
  *
  * Copyright 2001-2003 Olivier Plathey <olivier@fpdf.org>
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

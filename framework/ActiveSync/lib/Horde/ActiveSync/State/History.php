@@ -36,7 +36,7 @@
  *        device_folders - Account's folder data
  * </pre>
  *
- * Copyright 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync

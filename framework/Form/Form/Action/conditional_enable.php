@@ -16,7 +16,7 @@
  * action is attached to if the value of 'foo' is 1 or 2, and disable it
  * otherwise.
  *
- * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

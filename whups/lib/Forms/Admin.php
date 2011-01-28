@@ -3,7 +3,7 @@
  * This file contains any general Horde_Form classes for administration
  * purposes that don't have have their own file in the Admin/ subdirectory.
  *
- * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

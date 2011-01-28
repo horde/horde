@@ -1,5 +1,5 @@
 # French Traduction for the Agora Module to the Horde Framework
-# Copyright 2003-2010 The Horde Project
+# Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the hordecvs package.
 # Florent AIDE <faide@alphacent.com>, 2003
 #

@@ -4,7 +4,7 @@
  * class that works around the PHP 5.2.x issue that does not allow DateTime
  * objects to be serialized.  See http://bugs.php.net/bug.php?id=41334
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

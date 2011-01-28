@@ -5,7 +5,7 @@
  *
  * Requires: prototype.js (v1.6.1+), KeyNavList.js
  *
- * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
  * Custom Events:
  * --------------

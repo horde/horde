@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Partial class allows message/partial messages
  * to be displayed (RFC 2046 [5.2.2]).
  *
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

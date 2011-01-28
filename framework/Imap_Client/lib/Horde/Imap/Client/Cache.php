@@ -24,7 +24,7 @@
  *               DEFAULT: 50
  * </pre>
  *
- * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

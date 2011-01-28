@@ -2,7 +2,7 @@
 /**
  * A class for computing three way diffs.
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-license.php.

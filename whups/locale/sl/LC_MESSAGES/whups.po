@@ -1,6 +1,6 @@
 # Slovenian translations for Whups packaga
 # Slovenski prevod Whups paketa
-# Copyright 2006-2010 The Horde Project
+# Copyright 2006-2011 The Horde Project
 # This file is distributed under the same license as the horde package.
 # Automatically generated, 2006.
 #

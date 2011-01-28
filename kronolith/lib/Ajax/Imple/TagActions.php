@@ -3,7 +3,7 @@
  * Kronolith_Ajax_Imple_TagActions:: handles ajax requests for adding and
  * removing tags from kronolith objects.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith

@@ -1,6 +1,6 @@
 # translation of nb_NO.po to Norsk bokmål
 # Norwegian Horde Translation.
-# Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+# Copyright 2001-2011 The Horde Project (http://www.horde.org/)
 #
 # Oystein Steimler <oystein@rexta.net>, 2001.
 # Torstein S. Hansen <huleboer@techbee.no>, 2002.

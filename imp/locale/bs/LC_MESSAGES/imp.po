@@ -1,6 +1,6 @@
 # translation of imp-bs.po to Bosnian
 # Bosnian translations for imp package.
-# Copyright 2003-2010 The Horde Project
+# Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the imp package.
 # Automatically generated, 2003.
 # Alen Sarkinovic <alen@linux.org.ba>, 2005.

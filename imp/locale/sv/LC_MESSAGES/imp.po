@@ -1,5 +1,5 @@
 # IMP Swedish translation
-# Copyright 2002-2010 The Horde Project
+# Copyright 2002-2011 The Horde Project
 # This file is distributed under the same license as the Imp package.
 # Andreas Dahlén <andreas@dahlen.ws>, 2005.
 # Joaquim Homrighausen <joho@webbplatsen.se>, 2005.

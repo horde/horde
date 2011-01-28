@@ -1,5 +1,5 @@
 # Latvian translations for Gollem package.
-# Copyright 2004-2010 The Horde Project
+# Copyright 2004-2011 The Horde Project
 # This file is distributed under the same license as the Gollem package.
 # Automatically generated, 2004.
 #

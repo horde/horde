@@ -2,7 +2,7 @@
 /**
  * The Horde_Tree_Select:: class provides <option> tag rendering.
  *
- * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

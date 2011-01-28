@@ -3,7 +3,7 @@
  * The IMP_Accounts class provides an interface to deal with storing
  * connection details of additional accounts to access within IMP.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

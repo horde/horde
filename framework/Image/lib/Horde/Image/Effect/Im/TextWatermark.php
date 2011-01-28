@@ -2,7 +2,7 @@
 /**
  * Image effect for watermarking images with text for the im driver..
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Image

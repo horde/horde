@@ -1,5 +1,5 @@
 # Bulgarian translations for Whups package.
-# Copyright 2002-2010 The Horde Project
+# Copyright 2002-2011 The Horde Project
 # This file is distributed under the same license as the Whups package.
 # Miroslav Pendev <miro@cybershade.us>, 2002.
 #

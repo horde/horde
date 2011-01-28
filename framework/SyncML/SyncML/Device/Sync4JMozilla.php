@@ -4,7 +4,7 @@
  * specific to the Sync4JMozilla Plugin. See
  * http://sourceforge.net/projects/sync4jmozilla/
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

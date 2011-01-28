@@ -8,7 +8,7 @@ if (!empty($GLOBALS['conf']['facebook']['enabled'])) {
  * filter it using the same Facebook filters available on facebook.com.  Also
  * provides ability to update the current user's status.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block

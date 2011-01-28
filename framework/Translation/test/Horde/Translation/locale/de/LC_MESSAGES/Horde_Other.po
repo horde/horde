@@ -1,5 +1,5 @@
 # German test translation for Horde_Translation.
-# Copyright 2010 The Horde Project (http://www.horde.org/)
+# Copyright 2010-2011 The Horde Project (http://www.horde.org/)
 # Jan Schneider <jan@horde.org>, 2010.
 msgid ""
 msgstr ""

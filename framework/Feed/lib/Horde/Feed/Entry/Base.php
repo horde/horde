@@ -1,7 +1,7 @@
 <?php
 /**
  * Portions Copyright 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * @category Horde
  * @package Horde_Feed

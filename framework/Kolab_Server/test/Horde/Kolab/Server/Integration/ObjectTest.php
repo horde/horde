@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/Scenario.php';
 /**
  * The the handling of objects.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -198,7 +198,7 @@ class Horde_Kolab_Server_Integration_ObjectTest extends Horde_Kolab_Server_Integ
 /**
  * A dummy class for testing.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

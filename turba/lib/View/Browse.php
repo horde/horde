@@ -3,7 +3,7 @@
  * The Turba_View_Browse class provides the logic for browsing lists
  * of contacts.
  *
- * Copyright 2000-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/asl.php.

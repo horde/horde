@@ -3,7 +3,7 @@
  * A decorator around an Ansel_Gallery to allow multiple date groupings
  * to access the same Ansel_Gallery instance.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

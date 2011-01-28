@@ -1,5 +1,5 @@
 # German translations for Ansel.
-# Copyright 2003-2010 The Horde Project
+# Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the Ansel package.
 # Jan Schneider <jan@horde.org>, 2003-2010.
 #

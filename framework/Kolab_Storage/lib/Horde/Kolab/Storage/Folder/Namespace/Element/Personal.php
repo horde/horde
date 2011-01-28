@@ -16,7 +16,7 @@
  * The Horde_Kolab_Storage_Folder_Namespace_Element_Personal:: class represents
  * the namespace for folders owned by the currently authenticated user.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

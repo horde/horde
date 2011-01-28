@@ -3,7 +3,7 @@
  * This class provides the Horde groups system with the addition of adding
  * support for hook functions to define if a user is in a group.
  *
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

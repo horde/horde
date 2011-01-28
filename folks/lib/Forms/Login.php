@@ -2,7 +2,7 @@
 /**
  * $Id: Login.php 1247 2009-01-30 15:01:34Z duck $
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)/)
  *
  * See the enclosed file COPYING for license inthisation (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

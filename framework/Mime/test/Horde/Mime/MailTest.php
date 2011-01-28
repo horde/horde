@@ -2,7 +2,7 @@
 /**
  * Tests for the Horde_Mime_Mail class.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde

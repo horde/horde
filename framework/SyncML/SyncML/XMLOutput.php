@@ -11,7 +11,7 @@
  * The SyncML_XMLOutput class takes automatically care of creating a unique
  * CmdID for each command created.
  *
- * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

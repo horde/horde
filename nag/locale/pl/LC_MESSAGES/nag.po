@@ -1,6 +1,6 @@
 # Polish translations for Nag package
 # Polskie tlumaczenia dla pakietu Nag.
-# Copyright 2007-2010 The Horde Project
+# Copyright 2007-2011 The Horde Project
 # This file is distributed under the same license as the Nag package.
 # Automatically generated, 2007.
 # Mariusz Zynel <mariusz@math.uwb.edu.pl>, 2001.

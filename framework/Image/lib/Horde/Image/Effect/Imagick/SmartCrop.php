@@ -1,7 +1,7 @@
 <?php
 /**
  * Image effect for determining the best crop based on the center of edginess.
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * Based on ideas and code by Jue Wang <jue@jueseph.com>
  * http://jueseph.com/2010/06/opticrop-usage-and-implementation/

@@ -1,6 +1,6 @@
 # Polish translations for Whups package
 # Polskie tlumaczenia dla pakietu Whups.
-# Copyright 2007-2010 The Horde Project
+# Copyright 2007-2011 The Horde Project
 # This file is distributed under the same license as the Whups package.
 # Automatically generated, 2007.
 # Tadeusz Lesiecki <lesiecki@tmtsystem.pl>, 2007.

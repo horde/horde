@@ -3,7 +3,7 @@
  * The DataTree_null:: class provides a dummy implementation of the
  * DataTree:: API; no data will last beyond a single page request.
  *
- * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

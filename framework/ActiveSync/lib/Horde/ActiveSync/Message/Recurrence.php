@@ -3,7 +3,7 @@
  * Horde_ActiveSync_Message_Recurrence class represents a single ActiveSync
  * recurrence sub-object.
  *
- * @copyright 2010 The Horde Project (http://www.horde.org)
+ * @copyright 2010-2011 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync

@@ -1,5 +1,5 @@
 # Turkish translations for Ansel.
-# Copyright 2008-2010 The Horde Project
+# Copyright 2008-2011 The Horde Project
 # This file is distributed under the same license as the Ansel package.
 # Akif Dinc <akif@dinc.org>, 2008.
 #

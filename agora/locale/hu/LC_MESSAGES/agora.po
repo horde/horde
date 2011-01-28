@@ -1,5 +1,5 @@
 # Hungarian translations for Agora.
-# Copyright 2006-2010 The Horde Project
+# Copyright 2006-2011 The Horde Project
 # This file is distributed under the same license as the Agora package.
 #
 # George Hron <hron@hronszoft.dyndns.biz>, 2007.

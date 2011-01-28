@@ -4,7 +4,7 @@
  * the seen flag (RFC 3501 [2.3.2]) is NOT set; thus, it can not be handled
  * in the seen flag object.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

@@ -3,7 +3,7 @@
  * The Horde_Mime_Mail:: class wraps around the various MIME library classes
  * to provide a simple interface for creating and sending MIME messages.
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

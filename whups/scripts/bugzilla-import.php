@@ -6,7 +6,7 @@
  * This script imports the contents of an existing Bugzilla bug database into
  * a Whups database.
  *
- * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * @author Jon Parise <jon@horde.org>
  */

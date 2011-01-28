@@ -1,5 +1,5 @@
 # Wicked Traditional Chinese Translation
-# Copyright 2004-2010 The Horde Project
+# Copyright 2004-2011 The Horde Project
 # David Chang <david@tmv.gov.tw>, 2004.
 msgid ""
 msgstr ""

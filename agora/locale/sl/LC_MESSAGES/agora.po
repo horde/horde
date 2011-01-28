@@ -3,7 +3,7 @@
 # Marko McLion <mclion@obala.net>, 2007.
 # Slovenian translations for Agora packaga
 # Slovenski prevod Agora paketa
-# Copyright 2006-2010 The Horde Project
+# Copyright 2006-2011 The Horde Project
 # This file is distributed under the same license as the horde package.
 msgid ""
 msgstr ""

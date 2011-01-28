@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Rpm class renders out lists of files in RPM
  * packages by using the rpm tool to query the package.
  *
- * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

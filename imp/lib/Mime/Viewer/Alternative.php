@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Alternative class renders out messages from
  * multipart/alternative content types (RFC 2046 [5.1.4]).
  *
- * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

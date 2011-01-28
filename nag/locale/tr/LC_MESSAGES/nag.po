@@ -1,6 +1,6 @@
 # Turkish translations for Nag package
 # Görevler paketi için Türkçe çeviriler.
-# Copyright 2008-2010 The Horde Project
+# Copyright 2008-2011 The Horde Project
 # This file is distributed under the same license as the Nag package.
 # horde-tr team <horde-tr@horde.org>, 2008.
 #

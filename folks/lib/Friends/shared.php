@@ -8,7 +8,7 @@ require_once dirname(__FILE__) . '/sql.php';
  *
  * $Id: shared.php 1247 2009-01-30 15:01:34Z duck $
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

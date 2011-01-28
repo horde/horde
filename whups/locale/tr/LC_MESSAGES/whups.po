@@ -1,6 +1,6 @@
 # Turkish translations for Whups package
 # whups paketi için Türkçe çeviriler.
-# Copyright 2008-2010 The Horde Project
+# Copyright 2008-2011 The Horde Project
 # This file is distributed under the same license as the Whups package.
 # Akif Dinc <akif@dinc.org>, 2008.
 #

@@ -1,6 +1,6 @@
 # Danish translations for Nag package
 # Danske oversættelser for pakke Nag
-# Copyright 2006-2010 The Horde Project
+# Copyright 2006-2011 The Horde Project
 # This file is distributed under the same license as the Nag package.
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.
 #

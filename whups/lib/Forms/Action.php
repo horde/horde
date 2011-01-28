@@ -8,7 +8,7 @@ require_once 'Horde/Form/Action.php';
  * form with the current (not the original) value after the form element
  * that the action is attached to is modified.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

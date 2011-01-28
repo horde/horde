@@ -6,7 +6,7 @@
  * compiled with exif support), the Exiftool package (more complete but slower),
  * or the bundled exif library.
  *
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @author Chuck Hagenbuch <chuck@horde.org>

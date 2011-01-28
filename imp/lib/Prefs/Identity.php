@@ -4,7 +4,7 @@
  * user might have. Its methods take care of any site-specific
  * restrictions configured in prefs.php and conf.php.
  *
- * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

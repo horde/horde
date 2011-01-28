@@ -1,5 +1,5 @@
 # IMP Catalan translation.
-# Copyright 2004-2010 The Horde Project
+# Copyright 2004-2011 The Horde Project
 # This file is distributed under the same license as the IMP package.
 # Jordi Giralt <projecte.k2@upcnet.es>, 2006.
 #

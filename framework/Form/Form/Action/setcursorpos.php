@@ -5,7 +5,7 @@
  *
  * The params array contains the desired cursor position.
  *
- * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

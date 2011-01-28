@@ -1,5 +1,5 @@
 # Japanese translation for kronolith.
-# Copyright 2004-2010 The Horde Project
+# Copyright 2004-2011 The Horde Project
 # This file is distributed under the same license as the kronorith package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #

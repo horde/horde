@@ -1,5 +1,5 @@
 # German translations for IMP.
-# Copyright 2001-2010 The Horde Project
+# Copyright 2001-2011 The Horde Project
 # This file is distributed under the same license as the IMP package.
 # Carsten Guenther <cguenther@guenthers.net>, 2001.
 # Jan Schneider <jan@horde.org>, 2001-2010.

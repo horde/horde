@@ -3,7 +3,7 @@
  * Horde_Serivce_VimeoSimple:: wrapper around Vimeo's (http://www.vimeo.com)
  * Simple API.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD

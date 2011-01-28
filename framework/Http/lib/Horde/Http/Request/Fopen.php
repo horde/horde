@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * Resources:
  * http://wezfurlong.org/blog/2006/nov/http-post-from-php-without-curl
