@@ -1146,7 +1146,6 @@ class Kronolith
                     if (count($group_list)) {
                         $perm = $share->getPermission();
                         // Add the default perm, not added otherwise
-                        $perm->addUserPermission($GLOBALS['registry']->getAuth(), Horde_Perms::ALL, false);
                         foreach ($group_list as $group_id => $group_name) {
                             $perm->addGroupPermission($group_id, $perm_value, false);
                         }

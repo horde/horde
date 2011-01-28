@@ -70,7 +70,6 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     }
     if (count($permissions)) {
         $perm = $share->getPermission();
-        $perm->addUserPermission($user, Horde_Perms::ALL, false);
         foreach ($permissions as $key => $value) {
             $perm->addUserPermission($key, $value, false);
         }
