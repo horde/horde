@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:02:59</time>
+ <date>2011-01-28</date>
+ <time>23:23:40</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -313,6 +313,14 @@
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Perms.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="Perms">
+      <file name="1_horde_perms_base_tables.php" role="data" />
+      <file name="2_horde_perms_upgrade_autoincrement.php" role="data" />
+     </dir> <!-- /migration/Horde/Perms -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -444,6 +452,8 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Perms.po" name="locale/zh_CN/LC_MESSAGES/Horde_Perms.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Perms.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Perms.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Perms.po" name="locale/zh_TW/LC_MESSAGES/Horde_Perms.po" />
+   <install as="migration/1_horde_perms_base_tables.php" name="migration/Horde/Perms/1_horde_perms_base_tables.php" />
+   <install as="migration/2_horde_perms_upgrade_autoincrement.php" name="migration/Horde/Perms/2_horde_perms_upgrade_autoincrement.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -508,7 +518,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Eliminated horde/Core dependency.

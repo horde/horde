@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-26</date>
- <time>22:04:10</time>
+ <date>2011-01-28</date>
+ <time>23:24:17</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -40,6 +40,7 @@
    <dir name="migration">
     <dir name="Horde_History">
      <file name="1_horde_history_base_tables.php" role="data" />
+     <file name="2_horde_history_upgrade_autoincrement.php" role="data" />
     </dir> <!-- /migration/Horde_History -->
    </dir> <!-- /migration -->
    <dir name="test">
@@ -82,6 +83,7 @@
    <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
    <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
    <install as="migration/1_horde_history_base_tables.php" name="migration/Horde_History/1_horde_history_base_tables.php" />
+   <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde_History/2_horde_history_upgrade_autoincrement.php" />
    <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
    <install as="Horde/History/InterfaceTest.php" name="test/Horde/History/InterfaceTest.php" />
   </filelist>
@@ -127,7 +129,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-01-26</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial Horde 4 package.
