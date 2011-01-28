@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:02:58</time>
+ <date>2011-01-28</date>
+ <time>23:49:23</time>
  <version>
   <release>0.7.0</release>
   <api>0.7.0</api>
@@ -299,6 +299,13 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_SyncML.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="SyncML">
+      <file name="1_horde_syncml_base_tables.php" role="data" />
+     </dir> <!-- /migration/Horde/SyncML -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
    <dir name="SyncML">
     <dir name="Backend">
      <file name="Horde.php" role="php" />
@@ -332,7 +339,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <file name="State.php" role="php" />
     <file name="Sync.php" role="php" />
     <file name="Translation.php" role="php">
-      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+     <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
     </file>
     <file name="XMLOutput.php" role="php" />
    </dir> <!-- /SyncML -->
@@ -581,6 +588,10 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="INSTALL.p900.txt" name="docs/INSTALL.p900.txt" />
+   <install as="README.program_flow.txt" name="docs/README.program_flow.txt" />
+   <install as="README.syncml_primer.txt" name="docs/README.syncml_primer.txt" />
+   <install as="TODO" name="docs/TODO" />
    <install as="locale/Horde_SyncML.pot" name="locale/Horde_SyncML.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_SyncML.mo" name="locale/ar/LC_MESSAGES/Horde_SyncML.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_SyncML.po" name="locale/ar/LC_MESSAGES/Horde_SyncML.po" />
@@ -668,6 +679,239 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <install as="locale/zh_CN/LC_MESSAGES/Horde_SyncML.po" name="locale/zh_CN/LC_MESSAGES/Horde_SyncML.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_SyncML.mo" name="locale/zh_TW/LC_MESSAGES/Horde_SyncML.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_SyncML.po" name="locale/zh_TW/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="migration/1_horde_syncml_base_tables.php" name="migration/Horde/SyncML/1_horde_syncml_base_tables.php" />
+   <install as="SyncML/Backend.php" name="SyncML/Backend.php" />
+   <install as="SyncML/Command.php" name="SyncML/Command.php" />
+   <install as="SyncML/Constants.php" name="SyncML/Constants.php" />
+   <install as="SyncML/Device.php" name="SyncML/Device.php" />
+   <install as="SyncML/DeviceInfo.php" name="SyncML/DeviceInfo.php" />
+   <install as="SyncML/State.php" name="SyncML/State.php" />
+   <install as="SyncML/Sync.php" name="SyncML/Sync.php" />
+   <install as="SyncML/Translation.php" name="SyncML/Translation.php" />
+   <install as="SyncML/XMLOutput.php" name="SyncML/XMLOutput.php" />
+   <install as="SyncML/Backend/Horde.php" name="SyncML/Backend/Horde.php" />
+   <install as="SyncML/Backend/Sql.php" name="SyncML/Backend/Sql.php" />
+   <install as="SyncML/Command/Alert.php" name="SyncML/Command/Alert.php" />
+   <install as="SyncML/Command/Final.php" name="SyncML/Command/Final.php" />
+   <install as="SyncML/Command/Get.php" name="SyncML/Command/Get.php" />
+   <install as="SyncML/Command/Map.php" name="SyncML/Command/Map.php" />
+   <install as="SyncML/Command/Put.php" name="SyncML/Command/Put.php" />
+   <install as="SyncML/Command/Replace.php" name="SyncML/Command/Replace.php" />
+   <install as="SyncML/Command/Results.php" name="SyncML/Command/Results.php" />
+   <install as="SyncML/Command/Status.php" name="SyncML/Command/Status.php" />
+   <install as="SyncML/Command/Sync.php" name="SyncML/Command/Sync.php" />
+   <install as="SyncML/Command/SyncElement.php" name="SyncML/Command/SyncElement.php" />
+   <install as="SyncML/Command/SyncHdr.php" name="SyncML/Command/SyncHdr.php" />
+   <install as="SyncML/Device/Nokia.php" name="SyncML/Device/Nokia.php" />
+   <install as="SyncML/Device/P800.php" name="SyncML/Device/P800.php" />
+   <install as="SyncML/Device/Sync4j.php" name="SyncML/Device/Sync4j.php" />
+   <install as="SyncML/Device/Sync4JMozilla.php" name="SyncML/Device/Sync4JMozilla.php" />
+   <install as="SyncML/Device/Synthesis.php" name="SyncML/Device/Synthesis.php" />
+   <install as="sif.phpt" name="tests/sif.phpt" />
+   <install as="testpacket.php" name="tests/testpacket.php" />
+   <install as="testsync.php" name="tests/testsync.php" />
+   <install as="testcase_funambol_outlook3015_calendar/data.txt" name="tests/testcase_funambol_outlook3015_calendar/data.txt" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_10.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_10.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_11.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_11.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_12.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_12.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_13.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_13.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_20.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_20.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_21.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_21.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_22.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_22.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_23.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_23.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_30.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_30.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_31.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_31.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_32.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_32.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_33.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_33.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_40.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_40.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_41.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_41.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_42.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_42.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_43.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_43.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_50.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_50.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_51.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_51.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_52.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_52.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_client_53.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_client_53.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_log.txt" name="tests/testcase_funambol_outlook3015_calendar/syncml_log.txt" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_10.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_10.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_11.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_11.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_12.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_12.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_13.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_13.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_20.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_20.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_21.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_21.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_22.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_22.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_23.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_23.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_30.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_30.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_31.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_31.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_32.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_32.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_33.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_33.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_40.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_40.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_41.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_41.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_42.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_42.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_43.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_43.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_50.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_50.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_51.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_51.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_52.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_52.xml" />
+   <install as="testcase_funambol_outlook3015_calendar/syncml_server_53.xml" name="tests/testcase_funambol_outlook3015_calendar/syncml_server_53.xml" />
+   <install as="testcase_P900_tasksandcalendar/data.txt" name="tests/testcase_P900_tasksandcalendar/data.txt" />
+   <install as="testcase_P900_tasksandcalendar/devinf.txt" name="tests/testcase_P900_tasksandcalendar/devinf.txt" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_10.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_10.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_11.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_11.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_12.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_12.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_20.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_20.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_21.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_21.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_22.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_22.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_30.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_30.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_31.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_31.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_32.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_32.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_40.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_40.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_41.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_41.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_42.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_42.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_50.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_50.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_51.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_51.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_52.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_52.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_60.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_60.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_61.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_61.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_client_62.xml" name="tests/testcase_P900_tasksandcalendar/syncml_client_62.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_log.txt" name="tests/testcase_P900_tasksandcalendar/syncml_log.txt" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_10.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_10.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_11.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_11.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_12.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_12.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_20.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_20.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_21.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_21.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_22.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_22.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_30.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_30.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_31.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_31.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_32.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_32.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_40.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_40.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_41.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_41.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_42.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_42.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_50.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_50.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_51.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_51.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_52.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_52.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_60.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_60.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_61.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_61.xml" />
+   <install as="testcase_P900_tasksandcalendar/syncml_server_62.xml" name="tests/testcase_P900_tasksandcalendar/syncml_server_62.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_10.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_10.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_11.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_11.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_12.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_12.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_13.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_13.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_20.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_20.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_21.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_21.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_22.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_22.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_23.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_23.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_30.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_30.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_31.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_31.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_32.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_32.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_33.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_33.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_40.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_40.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_41.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_41.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_42.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_42.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_client_43.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_client_43.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_10.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_10.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_11.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_11.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_12.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_12.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_13.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_13.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_20.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_20.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_21.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_21.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_22.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_22.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_23.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_23.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_30.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_30.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_31.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_31.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_32.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_32.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_33.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_33.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_40.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_40.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_41.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_41.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_42.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_42.xml" />
+   <install as="testcase_sync4j_pocketpc_calendar/syncml_server_43.xml" name="tests/testcase_sync4j_pocketpc_calendar/syncml_server_43.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_10.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_10.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_11.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_11.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_12.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_12.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_13.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_13.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_20.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_20.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_21.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_21.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_22.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_22.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_23.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_23.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_30.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_30.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_31.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_31.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_32.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_32.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_33.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_33.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_40.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_40.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_41.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_41.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_42.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_42.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_client_43.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_client_43.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_10.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_10.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_11.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_11.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_12.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_12.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_13.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_13.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_20.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_20.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_21.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_21.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_22.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_22.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_23.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_23.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_30.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_30.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_31.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_31.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_32.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_32.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_33.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_33.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_40.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_40.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_41.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_41.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_42.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_42.xml" />
+   <install as="testcase_sync4j_pocketpc_contacts/syncml_server_43.xml" name="tests/testcase_sync4j_pocketpc_contacts/syncml_server_43.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_10.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_10.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_11.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_11.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_12.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_12.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_13.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_13.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_20.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_20.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_21.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_21.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_22.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_22.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_23.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_23.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_30.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_30.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_31.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_31.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_32.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_32.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_33.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_33.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_40.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_40.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_41.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_41.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_42.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_42.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_client_43.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_client_43.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_10.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_10.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_11.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_11.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_12.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_12.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_13.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_13.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_20.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_20.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_21.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_21.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_22.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_22.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_23.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_23.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_30.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_30.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_31.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_31.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_32.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_32.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_33.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_33.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_40.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_40.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_41.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_41.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_42.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_42.xml" />
+   <install as="testcase_sync4j_pocketpc_notes/syncml_server_43.xml" name="tests/testcase_sync4j_pocketpc_notes/syncml_server_43.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_10.xml" name="tests/testcase_synthesis_tasks/syncml_client_10.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_11.xml" name="tests/testcase_synthesis_tasks/syncml_client_11.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_12.xml" name="tests/testcase_synthesis_tasks/syncml_client_12.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_20.xml" name="tests/testcase_synthesis_tasks/syncml_client_20.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_21.xml" name="tests/testcase_synthesis_tasks/syncml_client_21.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_22.xml" name="tests/testcase_synthesis_tasks/syncml_client_22.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_30.xml" name="tests/testcase_synthesis_tasks/syncml_client_30.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_31.xml" name="tests/testcase_synthesis_tasks/syncml_client_31.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_32.xml" name="tests/testcase_synthesis_tasks/syncml_client_32.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_40.xml" name="tests/testcase_synthesis_tasks/syncml_client_40.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_41.xml" name="tests/testcase_synthesis_tasks/syncml_client_41.xml" />
+   <install as="testcase_synthesis_tasks/syncml_client_42.xml" name="tests/testcase_synthesis_tasks/syncml_client_42.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_10.xml" name="tests/testcase_synthesis_tasks/syncml_server_10.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_11.xml" name="tests/testcase_synthesis_tasks/syncml_server_11.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_12.xml" name="tests/testcase_synthesis_tasks/syncml_server_12.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_20.xml" name="tests/testcase_synthesis_tasks/syncml_server_20.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_21.xml" name="tests/testcase_synthesis_tasks/syncml_server_21.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_22.xml" name="tests/testcase_synthesis_tasks/syncml_server_22.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_30.xml" name="tests/testcase_synthesis_tasks/syncml_server_30.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_31.xml" name="tests/testcase_synthesis_tasks/syncml_server_31.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_32.xml" name="tests/testcase_synthesis_tasks/syncml_server_32.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_40.xml" name="tests/testcase_synthesis_tasks/syncml_server_40.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_41.xml" name="tests/testcase_synthesis_tasks/syncml_server_41.xml" />
+   <install as="testcase_synthesis_tasks/syncml_server_42.xml" name="tests/testcase_synthesis_tasks/syncml_server_42.xml" />
+   <install as="SyncML.php" name="SyncML.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -725,7 +969,7 @@ Passes all tests of SyncML conformance suite now.
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 Make the SyncML package independant from Horde, provide a new Sql backend as a reference implementation for a backend.

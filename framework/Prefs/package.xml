@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-11-16</date>
- <time>15:41:42</time>
+ <date>2011-01-28</date>
+ <time>23:49:00</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -322,6 +322,27 @@
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Prefs.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="Prefs">
+      <file name="1_horde_prefs_base_tables.php" role="data" />
+     </dir> <!-- /migration/Horde/Prefs -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Prefs">
+      <dir name="Unit">
+       <dir name="Storage">
+        <file name="FileTest.php" role="test" />
+       </dir> <!-- /test/Horde/Prefs/Unit/Storage -->
+      </dir> <!-- /test/Horde/Prefs/Unit -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Prefs -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -461,6 +482,11 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_CN/LC_MESSAGES/Horde_Prefs.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="migration/1_horde_prefs_base_tables.php" name="migration/Horde/Prefs/1_horde_prefs_base_tables.php" />
+   <install as="Horde/Prefs/AllTests.php" name="test/Horde/Prefs/AllTests.php" />
+   <install as="Horde/Prefs/Autoload.php" name="test/Horde/Prefs/Autoload.php" />
+   <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
+   <install as="Horde/Prefs/Unit/Storage/FileTest.php" name="test/Horde/Prefs/Unit/Storage/FileTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -522,7 +548,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-11-16</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Abstract caching code into Horde_Prefs_Cache.

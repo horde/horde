@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-01-24</date>
- <time>23:13:57</time>
+ <date>2011-01-28</date>
+ <time>23:49:10</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -526,6 +526,13 @@ Application Framework.</description>
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Core.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="Core">
+      <file name="1_horde_core_base_tables.php" role="data" />
+     </dir> <!-- /migration/Horde/Core -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Core">
@@ -951,6 +958,7 @@ Application Framework.</description>
    <install as="locale/uk/LC_MESSAGES/Horde_Core.po" name="locale/uk/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Core.po" name="locale/zh_CN/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Core.po" name="locale/zh_TW/LC_MESSAGES/Horde_Core.po" />
+   <install as="migration/1_horde_core_base_tables.php" name="migration/Horde/Core/1_horde_core_base_tables.php" />
    <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
    <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
@@ -1000,7 +1008,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-01-24</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add cache support for themes.

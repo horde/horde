@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Lock</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Resource Locking System</summary>
@@ -10,8 +10,8 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2010-10-02</date>
- <time>21:09:53</time>
+ <date>2011-01-28</date>
+ <time>23:49:31</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -33,10 +33,18 @@
       <file name="Exception.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
-     </dir> <!-- //lib/Horde/Lock -->
+     </dir> <!-- /lib/Horde/Lock -->
      <file name="Lock.php" role="php" />
-    </dir> <!-- //lib/Horde -->
-   </dir> <!-- //lib -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="Lock">
+      <file name="1_horde_lock_base_tables.php" role="data" />
+      <file name="2_horde_lock_upgrade_column_types.php" role="data" />
+     </dir> <!-- /migration/Horde/Lock -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -80,6 +88,8 @@
    <install as="Horde/Lock/Exception.php" name="lib/Horde/Lock/Exception.php" />
    <install as="Horde/Lock/Null.php" name="lib/Horde/Lock/Null.php" />
    <install as="Horde/Lock/Sql.php" name="lib/Horde/Lock/Sql.php" />
+   <install as="migration/1_horde_lock_base_tables.php" name="migration/Horde/Lock/1_horde_lock_base_tables.php" />
+   <install as="migration/2_horde_lock_upgrade_column_types.php" name="migration/Horde/Lock/2_horde_lock_upgrade_column_types.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -92,7 +102,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-02</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Null driver.

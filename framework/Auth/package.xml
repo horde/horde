@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-01</date>
- <time>22:08:24</time>
+ <date>2011-01-28</date>
+ <time>23:49:18</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -71,6 +71,13 @@
      <file name="Auth.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="Auth">
+      <file name="1_horde_auth_base_tables.php" role="data" />
+     </dir> <!-- /migration/Horde/Auth -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Auth">
@@ -166,6 +173,7 @@
    <install as="Horde/Auth/Smbclient.php" name="lib/Horde/Auth/Smbclient.php" />
    <install as="Horde/Auth/Sql.php" name="lib/Horde/Auth/Sql.php" />
    <install as="Horde/Auth/Http/Remote.php" name="lib/Horde/Auth/Http/Remote.php" />
+   <install as="migration/1_horde_auth_base_tables.php" name="migration/Horde/Auth/1_horde_auth_base_tables.php" />
    <install as="Horde/Auth/AllTests.php" name="test/Horde/Auth/AllTests.php" />
    <install as="Horde/Auth/Autoload.php" name="test/Horde/Auth/Autoload.php" />
    <install as="Horde/Auth/phpunit.xml" name="test/Horde/Auth/phpunit.xml" />
@@ -245,7 +253,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-12-01</date>
+   <date>2011-01-28</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
 * Remove dependency on horde/Core.

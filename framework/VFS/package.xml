@@ -26,8 +26,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:02:59</time>
+ <date>2011-01-28</date>
+ <time>23:48:38</time>
  <version>
   <release>0.4.0</release>
   <api>0.4.0</api>
@@ -334,6 +334,14 @@ Reading, writing and listing of files are all supported, and there are both obje
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_VFS.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="VFS">
+      <file name="1_horde_vfs_base_tables.php" role="data" />
+      <file name="2_horde_vfs_upgrade_autoincrement.php" role="data" />
+     </dir> <!-- /migration/Horde/VFS -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="VFS">
      <file name="vfs.php" role="script">
@@ -482,6 +490,9 @@ Reading, writing and listing of files are all supported, and there are both obje
    <install as="locale/zh_CN/LC_MESSAGES/Horde_VFS.po" name="locale/zh_CN/LC_MESSAGES/Horde_VFS.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_VFS.mo" name="locale/zh_TW/LC_MESSAGES/Horde_VFS.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_VFS.po" name="locale/zh_TW/LC_MESSAGES/Horde_VFS.po" />
+   <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/VFS/1_horde_vfs_base_tables.php" />
+   <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/VFS/2_horde_vfs_upgrade_autoincrement.php" />
+   <install as="vfs" name="scripts/VFS/vfs.php" />
    <install as="VFS/AllTests.php" name="test/VFS/AllTests.php" />
    <install as="VFS/KolabTest.php" name="test/VFS/KolabTest.php" />
    <install as="VFS/SmbTest.php" name="test/VFS/SmbTest.php" />
@@ -673,7 +684,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Now throws exceptions instead of returning PEAR_Errors. Package now requires PHP 5.
