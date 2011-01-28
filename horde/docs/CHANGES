@@ -3,6 +3,7 @@ v4.0-cvs
 --------
 
 [jan] Add a new Share SQL driver with better performance.
+[cjh] Drop Log SQL driver.
 [mms] Update prototypejs to v1.7.
 [mms] Add theme caching.
 [mms] Add hook to allow browser capabilities to be modified.
