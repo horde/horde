@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-27</date>
- <time>23:00:46</time>
+ <date>2011-01-28</date>
+ <time>09:11:50</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -76,7 +76,7 @@
      <file name="CreateTaskList.php" role="horde" />
      <file name="DeleteTaskList.php" role="horde" />
      <file name="EditTaskList.php" role="horde" />
-     <file name="task.php" role="horde" />
+     <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
     <dir name="Ui">
      <dir name="VarRenderer">
@@ -491,7 +491,7 @@
    <install as="nag/lib/Form/CreateTaskList.php" name="lib/Form/CreateTaskList.php" />
    <install as="nag/lib/Form/DeleteTaskList.php" name="lib/Form/DeleteTaskList.php" />
    <install as="nag/lib/Form/EditTaskList.php" name="lib/Form/EditTaskList.php" />
-   <install as="nag/lib/Form/task.php" name="lib/Form/task.php" />
+   <install as="nag/lib/Form/Task.php" name="lib/Form/Task.php" />
    <install as="nag/lib/Form/Renderer/Task.php" name="lib/Form/Renderer/Task.php" />
    <install as="nag/lib/Form/Type/NagAlarm.php" name="lib/Form/Type/NagAlarm.php" />
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
@@ -681,7 +681,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-27</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.
