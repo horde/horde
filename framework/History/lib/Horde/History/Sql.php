@@ -42,10 +42,9 @@ class Horde_History_Sql extends Horde_History
      *
      * @throws Horde_History_Exception
      */
-    public function __construct(Horde_Db_Adapter $db, Horde_Log_Logger $logger)
+    public function __construct(Horde_Db_Adapter $db)
     {
         $this->_db = $db;
-        $this->_logger = $logger;
     }
 
     /**
@@ -120,10 +119,7 @@ class Horde_History_Sql extends Horde_History
                             ' history_extra = ? WHERE history_id = ?', $values
                         );
                     } catch (Horde_Db_Exception $e) {
-                        if ($this->_logger) {
-                            $this->_logger->err($e);
-                            throw new Horde_History_Exception($e);
-                        }
+                        throw new Horde_History_Exception($e);
                     }
 
                     $done = true;
@@ -155,10 +151,7 @@ class Horde_History_Sql extends Horde_History
                     ' VALUES (?, ?, ?, ?, ?, ?)', $values
                 );
             } catch (Horde_Db_Exception $e) {
-                if ($this->_logger) {
-                    $this->_logger->err($e);
-                    throw new Horde_History_Exception($e);
-                }
+                throw new Horde_History_Exception($e);
             }
         }
     }
