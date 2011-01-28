@@ -112,7 +112,7 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
         $line = $this->_formatter->format($event);
 
         if (!@fwrite($this->_stream, $line)) {
-            throw new Horde_Log_Exception(__CLASS__ . 'Unable to write to stream');
+            throw new Horde_Log_Exception(__CLASS__ . ': Unable to write to stream');
         }
 
         return true;
