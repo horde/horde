@@ -101,7 +101,6 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             list($users, $groups, $shareids) = $this->_getUserAndGroupShares($userid, $perms);
         }
 
-        $shares = array();
         if (is_null($params['sort_by'])) {
             $sortfield = 'share_id';
         } elseif ($params['sort_by'] == 'owner' || $params['sort_by'] == 'id') {
@@ -122,29 +121,13 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
-        foreach ($rows as $share) {
-            $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
-        }
-
-        if (!empty($userid)) {
-            foreach ($users as $user) {
-                if (isset($shares[$user['share_id']])) {
-                    $shares[$user['share_id']]['perm']['users'] = $this->_buildPermsFromRow($user, 'user_uid');
-                }
-            }
-            foreach ($groups as $group) {
-                if (isset($shares[$group['share_id']])) {
-                    $shares[$group['share_id']]['perm']['groups'] = $this->_buildPermsFromRow($group, 'group_uid');
-                }
-            }
-        }
 
         $sharelist = array();
-        foreach ($shares as $data) {
-            $this->_getSharePerms($data);
-            $sharelist[$data['share_name']] = $this->_createObject($data);
+        foreach ($rows as $share) {
+            $share = $this->_fromDriverCharset($share);
+            $this->_loadPermissions($share);
+            $sharelist[$share['share_name']] = $this->_createObject($share);
         }
-        unset($shares);
 
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['list'])) {

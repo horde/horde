@@ -26,9 +26,12 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     public function addShare()
     {
         $share = self::$share->newShare('john', 'myshare');
+        $this->assertInstanceOf('Horde_Share_Object', $share);
         $share->set('name', 'My Share');
         $share->set('desc', '行事曆');
-        $this->assertInstanceOf('Horde_Share_Object', $share);
+        $share->addDefaultPermission(Horde_Perms::SHOW);
+        $share->addUserPermission('jane', Horde_Perms::SHOW);
+        $share->addGroupPermission('mygroup', Horde_Perms::SHOW);
         self::$share->addShare($share);
 
         // Add a child to the share to test hierarchical functions
@@ -47,11 +50,9 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         // System share.
         $share = self::$share->newShare(null, 'systemshare');
         $share->set('name', 'System Share');
-        $perm = $share->getPermission();
-        $this->assertInstanceOf('Horde_Perms_Permission', $perm);
-        $perm->addDefaultPermission(Horde_Perms::SHOW | Horde_Perms::READ);
-        $perm->addGuestPermission(Horde_Perms::SHOW);
-        $share->setPermission($perm);
+        $this->assertInstanceOf('Horde_Perms_Permission', $share->getPermission());
+        $share->addDefaultPermission(Horde_Perms::SHOW | Horde_Perms::READ);
+        $share->addGuestPermission(Horde_Perms::SHOW);
         $share->save();
         $this->assertTrue($share->hasPermission('john', Horde_Perms::SHOW));
         $this->assertTrue($share->hasPermission('john', Horde_Perms::READ));
@@ -356,17 +357,35 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function getPermission()
     {
+        $permission = new Horde_Perms_Permission('myshare');
+        $permission->addDefaultPermission(Horde_Perms::SHOW);
+        $permission->addGuestPermission(0);
+        $permission->addCreatorPermission(0);
+        $permission->addUserPermission('jane', Horde_Perms::SHOW);
+        $permission->addGroupPermission('mygroup', Horde_Perms::SHOW);
+        $this->assertEquals($permission, self::$shares['myshare']->getPermission());
+        self::$share->resetCache();
+        $this->assertEquals($permission, self::$share->getShare('myshare')->getPermission());
+        self::$share->resetCache();
+        $shares = self::$share->getShares(array(self::$shares['myshare']->getId()));
+        $this->assertEquals($permission, $shares['myshare']->getPermission());
+        self::$share->resetCache();
+        $shares = self::$share->listShares('john');
+        $this->assertEquals($permission, $shares['myshare']->getPermission());
+
         $permission = new Horde_Perms_Permission('systemshare');
         $permission->addDefaultPermission(Horde_Perms::SHOW | Horde_Perms::READ);
         $permission->addGuestPermission(Horde_Perms::SHOW);
         $permission->addCreatorPermission(0);
         $this->assertEquals($permission, self::$shares['systemshare']->getPermission());
+
         $permission = new Horde_Perms_Permission('janeshare');
         $permission->addDefaultPermission(0);
         $permission->addGuestPermission(0);
         $permission->addCreatorPermission(0);
         $permission->addUserPermission('john', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT);
         $this->assertEquals($permission, self::$shares['janeshare']->getPermission());
+
         $permission = new Horde_Perms_Permission('groupshare');
         $permission->addDefaultPermission(0);
         $permission->addGuestPermission(0);
