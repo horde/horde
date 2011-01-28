@@ -1,0 +1,431 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script imports SquirrelMail file-based preferences into Horde.
+ * It was developed against SquirrelMail 1.4.0, so use at your own risk
+ * against different versions.
+ *
+ * Input can be either a single squirrelmail .pref file, or a directory
+ * containing multiple .pref files.
+ *
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Ben Chavet <ben@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
+ */
+
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array('cli' => true));
+
+// Read command line parameters.
+if ($argc != 2) {
+    SM_Horde_Convert::usage();
+}
+
+if (stripos($argv[1], 'file:') === 0) {
+    $ob = new SM_Horde_Convert_File(substr($argv[1], 5));
+} elseif (stripos($argv[1], 'sql:') === 0) {
+    $ob = new SM_Horde_Convert_Sql(substr($argv[1], 4));
+} else {
+    SM_Horde_Convert::usage();
+}
+
+$ob->convert();
+
+
+class SM_Horde_Convert
+{
+    /**
+     * Print usage and exit.
+     */
+    static public function usage()
+    {
+        global $cli;
+
+        $cli->message('Incorrect parameters.', 'cli.error');
+        $cli->writeln();
+        $cli->writeln('Usage: import_squirrelmail_prefs [data]');
+        $cli->writeln();
+        $cli->writeln('Data types:');
+        $cli->writeln($cli->indent('file:[filename]'));
+        $cli->writeln($cli->indent($cli->indent('filename can be either a file or a directory')));
+        $cli->writeln();
+        $cli->writeln($cli->indent('sql:[DSN]'));
+        $cli->writeln($cli->indent($cli->indent('DSN is to database containing the "userprefs" table. Example:')));
+        $cli->writeln($cli->indent($cli->indent('mysql://root:password@localhost/squirrelmail')));
+        exit;
+    }
+
+    /**
+     */
+    public function convert()
+    {
+    }
+
+    /**
+     * Returns the horde pref value(s) that correspond with the given
+     * squirrelmail pref.
+     *
+     * @return mixed  Array of pref arrays ('name', 'scope', 'value').
+     *                False if there is no horde pref equivalent, or the horde
+     *                default should be used.
+     */
+    private function _translate($sm_pref_name, $sm_pref_value)
+    {
+        switch ($sm_pref_name) {
+        case 'compose_new_win':
+            return array(array('name' => 'compose_popup', 'scope' => 'imp', 'value' => $sm_pref_value));
+
+        case 'draft_folder':
+            if ($sm_pref_value != '[ ' . _("Do not use Drafts") . ' ]') {
+                return array(array('name' => 'drafts_folder', 'scope' => 'imp', 'value' => $sm_pref_value));
+            }
+            break;
+
+        case 'email_address':
+            return array(array('name' => 'from_addr', 'scope' => 'horde', 'value' => $sm_pref_value));
+
+        case 'full_name':
+            return array(array('name' => 'fullname', 'scope' => 'horde', 'value' => $sm_pref_value));
+
+        case 'hour_format':
+            return array(array('name' => 'twentyFour', 'scope' => 'horde', 'value' => ($sm_pref_value == 1)));
+
+        case 'internal_date_sort':
+            if ($sm_pref_value == 1) {
+                return array(array('name' => 'sortby', 'scope' => 'imp', 'value' => '1'));
+            }
+            break;
+
+        case 'language':
+            return array(array('name' => 'language', 'scope' => 'horde', 'value' => $sm_pref_value));
+
+        case 'left_refresh':
+            return array(array('name' => 'menu_refresh_time', 'scope' => 'horde', 'value' => $sm_pref_value));
+
+        case 'left_size':
+            return array(array('name' => 'sidebar_width', 'scope' => 'horde', 'value' => $sm_pref_value));
+
+        case 'mdn_user_support':
+            $value = 'ask';
+            if ($sm_pref_value == 0) {
+                $value = 'never';
+            }
+            return array(array('name' => 'disposition_request_read',
+                'scope' => 'imp',
+                'value' => $value));
+
+        case 'prefix_sig':
+            return array(array('name' => 'sig_dashes', 'scope' => 'imp', 'value' => $sm_pref_value));
+
+        case 'reply_citation_style':
+            switch ($sm_pref_value) {
+            case 'none':
+                return array(array('name' => 'attrib_text', 'scope' => 'imp', 'value' => ''));
+
+            case 'author_said':
+                return array(array('name' => 'attrib_text', 'scope' => 'imp', 'value' => '%p wrote'));
+
+            case 'date_time_author':
+                return array(array('name' => 'attrib_text', 'scope' => 'imp', 'value' => 'On %c, %p wrote'));
+            }
+            break;
+
+        case 'reply_to':
+            return array(array('name' => 'replyto_addr', 'scope' => 'imp', 'value' => $sm_pref_value));
+
+        case 'sent_folder':
+            if ($sm_pref_value == '[ ' . _("Do not use Sent") . ' ]') {
+                return array(array('name' => 'save_sent_mail', 'scope' => 'imp', 'value' => '0'));
+            }
+            return array(array('name' => 'save_sent_mail', 'scope' => 'imp', 'value' => '1'),
+                array('name' => 'sent_mail_folder', 'scope' => 'imp', 'value' => $sm_pref_value));
+
+        case 'show_num':
+            return array(array('name' => 'max_msgs', 'scope' => 'imp', 'value' => $sm_pref_value));
+
+        case 'show_xmailer_default':
+            if ($sm_pref_value == 1) {
+                $GLOBALS['registry']->pushApp('imp');
+                $value = "X-Mailer\n" . $GLOBALS['prefs']->getValue('mail_hdr');
+                $GLOBALS['registry']->popApp();
+                return array(array('name' => 'mail_hdr', 'scope' => 'imp', 'value' => trim($value)));
+            }
+            break;
+
+        case 'sig_first':
+            return array(array('name' => 'sig_first', 'scope' => 'imp', 'value' => $sm_pref_value));
+
+        case 'signature':
+            return array(array('name' => 'signature', 'scope' => 'imp', 'value' => $sm_pref_value));
+
+        case 'sort_by_ref':
+            if ($sm_pref_value == 1) {
+                return array(array('name' => 'sortby', 'scope' => 'imp', 'value' => '161'));
+            }
+            break;
+
+        case 'timezone':
+            return array(array('name' => 'timezone', 'scope' => 'horde', 'value' => $sm_pref_value));
+
+        case 'trash_folder':
+            if ($sm_pref_value == '[ ' . _("Do not use Trash") . ' ]') {
+                return array(array('name' => 'use_trash', 'scope' => 'imp', 'value' => '0'));
+            }
+            return array(array('name' => 'use_trash', 'scope' => 'imp', 'value' => '1'),
+                array('name' => 'trash_folder', 'scope' => 'imp', 'value' => $sm_pref_value));
+
+        case 'unseen_notify':
+            if ($sm_pref_value == 2) {
+                return array(array('name' => 'nav_poll_all', 'scope' => 'imp', 'value' => false));
+            } else if ($sm_pref_value == 3) {
+                return array(array('name' => 'nav_poll_all', 'scope' => 'imp', 'value' => true));
+            }
+            break;
+
+        case 'use_signature':
+            if ($sm_pref_value == 0) {
+                return array(array('name' => 'signature', 'scope' => 'imp', 'value' => ''));
+            }
+            break;
+        }
+
+        // The rest of the SquirrelMail options do not translate
+        // Default to no conversion.
+        return false;
+    }
+
+    /**
+     */
+    private function _savePrefs($user, $basename, $prefs_cache)
+    {
+        global $prefs, $registry;
+
+        // Load default SquirrelMail signature
+        $prefs_cache['signature'] = $this->_getSignature($basename);
+
+        // Loop through the SquirrelMail prefs and translate them to Horde
+        // prefs.
+        foreach ($prefs_cache as $key => $val) {
+            $horde_pref = $this->_translate($key, $val);
+            if (!$horde_pref) {
+                continue;
+            }
+
+            foreach ($horde_pref as $pref) {
+                $pushed = $registry->pushApp($pref['scope']);
+                $prefs->setValue($pref['name'], $pref['value']);
+                if ($pushed) {
+                    $registry->popApp();
+                }
+            }
+        }
+
+        // Import identities
+        if (isset($prefs_cache['identities']) &&
+            ($prefs_cache['identities'] > 1)) {
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user, 'imp');
+
+            // Intentionally off-by-one
+            for ($i = 1; $i < $prefs_cache['identities']; $i++) {
+                $new_identity = array('id' => 'Identity #' . ($i + 1),
+                    'fullname' => $prefs_cache['full_name' . $i],
+                    'replyto_addr' => $prefs_cache['reply_to' . $i],
+                    'from_addr' => $prefs_cache['email_address' . $i],
+                    'signature' => $this->_getSignature($basename, $i));
+                if (isset($prefs_cache['prefix_sig'])) {
+                    $new_identity['sig_dashes'] = $prefs_cache['prefix_sig'];
+                }
+                if (isset($prefs_cache['sig_first'])) {
+                    $new_identity['sig_first'] = $prefs_cache['sig_first'];
+                }
+                if (isset($prefs_cache['sent_folder'])) {
+                    if ($prefs_cache['sent_folder'] == '[ ' . _("Do not use Sent") . ' ]') {
+                        $new_identity['save_sent_mail'] = 0;
+                    } else {
+                        $new_identity['save_sent_mail'] = 1;
+                    }
+                }
+                $identity->add($new_identity);
+            }
+            $identity->save();
+        }
+    }
+
+    /**
+     */
+    private function _getSignature()
+    {
+        return '';
+    }
+
+}
+
+
+class SM_Horde_Convert_File extends SM_Horde_Convert
+{
+    private $_files;
+
+    /**
+     */
+    public function __construct($data)
+    {
+        // Get list of SquirrelMail pref files
+        $this->_files = is_dir($data)
+            ? glob(rtrim($data, '/') . "/*.pref")
+            : array($data);
+    }
+
+    /**
+     */
+    public function convert()
+    {
+        // Loop through SquirrelMail pref files
+        foreach ($this->_files as $file) {
+            if (!($handle = fopen($file, 'r'))) {
+                continue;
+            }
+
+            // Set current user
+            $user = substr(basename($file), 0, -5);
+            $GLOBALS['registry']->setAuth($user, array());
+            $GLOBALS['cli']->message('Importing ' . $user . '\'s preferences');
+
+            // Reset user prefs
+            $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
+                'cache' => false,
+                'user' => $user
+            ));
+            $prefs_cache = array();
+
+            // Read pref file, one line at a time
+            while (!feof($handle)) {
+                $buffer = fgets($handle);
+                if (empty($buffer)) {
+                    continue;
+                }
+
+                /**
+                 * BEGIN: Code from squirrelmail to parse pref (GPL)
+                 */
+                $pref = trim($buffer);
+                $equalsAt = strpos($pref, '=');
+                if ($equalsAt > 0) {
+                    $key = substr($pref, 0, $equalsAt);
+                    $value = substr($pref, $equalsAt + 1);
+                    /* this is to 'rescue' old-style highlighting rules. */
+                    if (substr($key, 0, 9) == 'highlight') {
+                        $key = 'highlight' . $highlight_num++;
+                    }
+
+                    if ($value != '') {
+                        $prefs_cache[$key] = $value;
+                    }
+                }
+                /**
+                 * END: Code from squirrelmail to parse pref (GPL)
+                 */
+            }
+
+            fclose($handle);
+
+            $this->_savePrefs($user, substr($file, 0, -5), $prefs_cache);
+        }
+    }
+
+    /**
+     */
+    private function _getSignature($basename, $number = 'g')
+    {
+        $sigfile = $basename . '.si' . $number;
+
+        return file_exists($sigfile)
+            ? file_get_contents($sigfile)
+            : '';
+    }
+
+}
+
+
+class SM_Horde_Convert_Sql extends SM_Horde_Convert
+{
+    private $_cache;
+    private $_db;
+
+    /**
+     */
+    public function __construct($dsn)
+    {
+        // Connect to database.
+        $this->_db = DB::connect($dsn);
+        if ($this->_db instanceof PEAR_Error) {
+            $GLOBALS['cli']->fatal($this->_db->toString());
+        }
+    }
+
+    /**
+     */
+    public function convert()
+    {
+        // Loop through SquirrelMail address books.
+        $handle = $this->_db->query('SELECT user, prefkey, prefval FROM userprefs ORDER BY user');
+        if ($handle instanceof PEAR_Error) {
+            $GLOBALS['cli']->fatal($handle->toString());
+        }
+
+        $user = null;
+        $prefs_cache = array();
+
+        while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
+            if (is_null($user)) {
+                $user = $row['user'];
+            }
+            if ($row['user'] != $user) {
+                $this->_importPrefs($user, $prefs_cache);
+                $prefs_cache = array();
+                $user = $row['user'];
+            }
+
+            $prefs_cache[$row['prefkey']] = $row['prefval'];
+        }
+
+        $this->_importPrefs($user, $prefs_cache);
+    }
+
+    /**
+     */
+    private function _importPrefs($user, $prefs_cache)
+    {
+        global $cli, $conf, $injector, $registry;
+
+        $registry->setAuth($user, array());
+        $cli->message('Importing ' . $user . '\'s preferences');
+
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
+            'cache' => false,
+            'user' => $user
+        ));
+
+        $this->_cache = $prefs_cache;
+        $this->_savePrefs($user, null, $prefs_cache);
+    }
+
+    /**
+     */
+    private function _getSignature($basename, $number = 'nature')
+    {
+        $key = '___sig' . $number . '___';
+
+        return isset($this->_cache[$key])
+            ? $this->_cache[$key]
+            : '';
+    }
+
+}

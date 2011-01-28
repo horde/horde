@@ -1,0 +1,69 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script will set the permissions on your Horde tree so that the files
+ * will be accessible by the web server.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
+ */
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
+
+$cli->message('Horde directory: ' . realpath(HORDE_BASE), 'cli.message');
+
+$owner = $cli->prompt(
+    'Owner of Horde files?',
+    null,
+    'root'
+);
+
+$group = $cli->prompt(
+    'Group under which web server/PHP runs?',
+    null,
+    'nobody'
+);
+
+$cli->writeln();
+
+if ($cli->prompt($cli->red('Are you sure you want to alter permissions?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+    $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(realpath(HORDE_BASE)));
+    foreach ($it as $key => $val) {
+        if (!$it->isDot()) {
+            if ($val->getOwner() != $owner) {
+                $cli->message('Changing owner for ' . $key, 'cli.message');
+                chown($key, $owner);
+            }
+
+            if ($val->getGroup() != $group) {
+                $cli->message('Changing group for ' . $key, 'cli.message');
+                chgrp($key, $group);
+            }
+
+            $octal_perms = substr(sprintf('%o', $val->getPerms()), -4);
+
+            if ($val->isDir()) {
+                if ($octal_perms != 0750) {
+                    $cli->message('Changing permissions for ' . $key, 'cli.message');
+                    chmod($key, 0750);
+                }
+            } elseif ($val->isFile()) {
+                if ($octal_perms != 0640) {
+                    $cli->message('Changing permissions for ' . $key, 'cli.message');
+                    chmod($key, 0640);
+                }
+            }
+        }
+    }
+}
