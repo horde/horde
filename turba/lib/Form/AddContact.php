@@ -25,7 +25,7 @@ class Turba_Form_AddContact extends Turba_Form_Contact
             foreach ($addSources as $key => $config) {
                 $options[$key] = $config['title'];
             }
-            $v = &$this->addVariable(_("Choose an address book"), 'source', 'enum', true, false, null, array($options, true));
+            $v = $this->addVariable(_("Choose an address book"), 'source', 'enum', true, false, null, array($options, true));
             $action = Horde_Form_Action::factory('submit');
             $v->setAction($action);
             $v->setOption('trackchange', true);

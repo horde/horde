@@ -25,7 +25,7 @@ $tasks = Nag::listTasks(
 $search_pattern = '/^' . preg_quote($search, '/') . '/i';
 $search_results = new Nag_Task();
 $tasks->reset();
-while ($task = &$tasks->each()) {
+while ($task = $tasks->each()) {
     if (preg_match($search_pattern, $task->name)) {
         $search_results->add($task);
     }
