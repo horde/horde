@@ -246,33 +246,3 @@ drastically improve performance.
 Execute the provided PHP script to migrate your histories to the new table::
 
    php scripts/upgrades/move_history_out_of_datatree.php
-
-
-Upgrading Horde from 2.x to 3.0.x
-=================================
-
-
-Configuration files
--------------------
-
-The configuration files have been changed to XML format.  To generate a valid
-configuration file from the XML file, follow the configuration instructions
-in the applications' ``docs/INSTALL`` file.
-
-
-Preferences
------------
-
-The ``last_login`` and ``date_format`` preferences have changed their format
-and/or scope.  Just remove all ``last_login`` and ``date_format`` preferences
-from the preferences backend.
-
-
-SQL Backends
-------------
-
-A few new tables have been added to Horde.
-
-Execute the provided SQL script to update your data to the new Horde version::
-
-   mysql --user=root --password=<MySQL-root-password> <db name> < scripts/upgrades/2.2_to_3.0.mysql.sql

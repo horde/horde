@@ -109,29 +109,3 @@ with free/busy urls has changed both the name and the format. The preference
 used to be called "search_abook" and contained a serialized PHP array. The new
 preference is called "search_sources", contains a tab-separated list, and goes
 along with the "search_fields" preference.
-
-
-Upgrading Kronolith from 1.1.x to 2.0.x
-=======================================
-
-
-SQL Backends
-------------
-
-Three new fields and a new table have been added to the default SQL table
-layout to provide the scheduling features to Kronolith.
-
-Execute the provided SQL script to update your data to the new Kronolith
-version::
-
-   mysql --user=root --password=<MySQL-root-password> <db name> < scripts/upgrades/1.1_to_2.0.mysql.sql
-
-
-Categories
-----------
-
-Categories are now being maintained centrally for all Horde applications that
-support them.  To convert the old event categories execute the provided PHP
-script::
-
-   php scripts/upgrades/2004-05-19_convert_categories_to_strings.php

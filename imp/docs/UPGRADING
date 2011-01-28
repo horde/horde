@@ -297,22 +297,3 @@ Virtual Folders
 The format for saved Virtual Folders has changed.  To convert to the new
 format you must run the script located at
 ``scripts/upgrades/convert_vfolders.php``.
-
-
-Upgrading IMP From 3.x To 4.0.x
-===============================
-
-This is a non-exhaustive, quick explanation of what has changed between an IMP
-3.x installation to IMP 4.0.x.
-
-
-Filters
--------
-
-Filtering code has been removed from IMP.  To have the same features as the
-old code, you should install the Ingo_ module.  See the INSTALL_ file for more
-information.
-
-.. _Ingo: http://www.horde.org/ingo/
-.. _INSTALL: ?f=INSTALL.html
-.. _FCKeditor: http://www.fckeditor.net/
