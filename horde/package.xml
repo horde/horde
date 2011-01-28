@@ -19,8 +19,8 @@ applications.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-27</date>
- <time>17:28:32</time>
+ <date>2011-01-28</date>
+ <time>23:26:39</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -81,6 +81,9 @@ applications.</description>
     <file name="user.php" role="horde" />
    </dir> <!-- /admin -->
    <dir name="bin">
+    <dir name="import">
+     <file name="import_squirrelmail_prefs" role="script" />
+    </dir> <!-- /bin/import -->
     <file name="active_sessions" role="horde" />
     <file name="alarms" role="horde" />
     <file name="check_logger" role="horde" />
@@ -88,6 +91,7 @@ applications.</description>
     <file name="db_migrate" role="horde" />
     <file name="memcache_stats" role="horde" />
     <file name="run_task" role="horde" />
+    <file name="set_perms" role="script" />
     <file name="themes" role="script" />
     <file name="translation" role="horde" />
    </dir> <!-- /bin -->
@@ -696,51 +700,9 @@ applications.</description>
      <file name="rfc2739.schema" role="data" />
     </dir> <!-- /scripts/ldap -->
     <dir name="sql">
-     <file name="create.mssql.sql" role="data" />
-     <file name="create.mysql.sql" role="data" />
-     <file name="create.oci8.sql" role="data" />
-     <file name="create.pgsql.sql" role="data" />
-     <file name="create.sql" role="data" />
-     <file name="create.sybase.sql" role="data" />
-     <file name="create.xml" role="data" />
-     <file name="horde_datatree.mssql.sql" role="data" />
-     <file name="horde_datatree.mysql.sql" role="data" />
-     <file name="horde_datatree.pgsql.sql" role="data" />
-     <file name="horde_datatree.sql" role="data" />
-     <file name="horde_locks.sql" role="data" />
-     <file name="horde_log.mssql.sql" role="data" />
-     <file name="horde_log.sql" role="data" />
-     <file name="horde_muvfs.mssql.sql" role="data" />
-     <file name="horde_muvfs.sql" role="data" />
-     <file name="horde_perms.mysql.sql" role="data" />
-     <file name="horde_perms.oci8.sql" role="data" />
-     <file name="horde_perms.pgsql.sql" role="data" />
-     <file name="horde_perms.sql" role="data" />
-     <file name="horde_prefs.mssql.sql" role="data" />
-     <file name="horde_prefs.pgsql.sql" role="data" />
-     <file name="horde_prefs.sql" role="data" />
-     <file name="horde_sessionhandler.mssql.sql" role="data" />
-     <file name="horde_sessionhandler.mysql.sql" role="data" />
-     <file name="horde_sessionhandler.oci8.sql" role="data" />
-     <file name="horde_sessionhandler.pgsql.sql" role="data" />
-     <file name="horde_sessionhandler.sql" role="data" />
-     <file name="horde_signups.mysql.sql" role="data" />
-     <file name="horde_signups.sql" role="data" />
-     <file name="horde_syncml.sql" role="data" />
-     <file name="horde_tokens.sql" role="data" />
-     <file name="horde_users.sql" role="data" />
-     <file name="horde_vfs.mssql.sql" role="data" />
-     <file name="horde_vfs.oci8.sql" role="data" />
-     <file name="horde_vfs.pgsql.sql" role="data" />
-     <file name="horde_vfs.sql" role="data" />
-     <file name="README" role="data" />
-     <file name="README.OCI8" role="data" />
      <file name="script.initial_horde_user.sql" role="data" />
     </dir> <!-- /scripts/sql -->
     <dir name="upgrades">
-     <file name="2.2_to_3.0.mysql.sql" role="data" />
-     <file name="2.2_to_3.0.oci8.sql" role="data" />
-     <file name="2.2_to_3.0.pgsql.sql" role="data" />
      <file name="3.0_to_3.1.mysql.sql" role="data" />
      <file name="3.0_to_3.1.oci8.sql" role="data" />
      <file name="3.0_to_3.1.sql" role="data" />
@@ -751,22 +713,8 @@ applications.</description>
      <file name="3.1_to_3.2.sql" role="data" />
      <file name="3.1_to_3.2.sybase.sql" role="data" />
      <file name="3.3_to_3.3.5.sql" role="data" />
-     <file name="2005-09-22_horde_prefs_varchar2.oci8.sql" role="data" />
-     <file name="2006-06-29_horde_prefs_indexes.sql" role="data" />
-     <file name="2008-04-04_horde_syncml_map_split_indexes.pgsql.sql" role="data" />
-     <file name="2008-04-04_horde_syncml_map_split_indexes.sql" role="data" />
-     <file name="2008-04-09_horde_syncml_map.php" role="data" />
-     <file name="2008-04-09_horde_syncml_map.sql" role="data" />
-     <file name="2008-04-23-horde_cache_expiry.sql" role="data" />
-     <file name="2008-05-15-horde_lock_schema.sql" role="data" />
-     <file name="2008-05-16_horde_lock_uuid.sql" role="data" />
      <file name="2008-08-29_fix_mdb2_sequences.php" role="data" />
-     <file name="2009-02-13_horde_sessionhandler_lastmodified_index.sql" role="data" />
      <file name="2009-04-13_horde_pgsql_upgrade.sql" role="data" />
-     <file name="2009-09-10_horde_signup_drop_email.sql" role="data" />
-     <file name="2010-05-24_horde_perms_autoincrement.mysql.sql" role="data" />
-     <file name="2010-05-24_horde_perms_autoincrement.oci8.sql" role="data" />
-     <file name="2010-05-24_horde_perms_autoincrement.pgsql.sql" role="data" />
      <file name="convert_datatree_groups_to_sql.php" role="data" />
      <file name="convert_datatree_perms_to_sql.php" role="data" />
      <file name="migrate_user_categories.php" role="data" />
@@ -776,11 +724,7 @@ applications.</description>
     <file name="get_login.php" role="data" />
     <file name="horde.logrotate" role="data" />
     <file name="http_login_refer.php" role="data" />
-    <file name="import_squirrelmail_file_prefs.php" role="data" />
-    <file name="import_squirrelmail_prefs.php" role="data" />
-    <file name="import_squirrelmail_sql_prefs.php" role="data" />
     <file name="SCRIPTS" role="data" />
-    <file name="set_perms.sh" role="data" />
     <file name="temp-cleanup.cron" role="data" />
    </dir> <!-- /scripts -->
    <dir name="services">
@@ -2184,8 +2128,10 @@ applications.</description>
    <install as="bin/db_migrate" name="bin/db_migrate" />
    <install as="bin/memcache_stats" name="bin/memcache_stats" />
    <install as="bin/run_task" name="bin/run_task" />
+   <install as="set_perms" name="bin/set_perms" />
    <install as="themes" name="bin/themes" />
    <install as="bin/translation" name="bin/translation" />
+   <install as="import_squirrelmail_prefs" name="bin/import/import_squirrelmail_prefs" />
    <install as="config/conf.php.dist" name="config/conf.php.dist" />
    <install as="config/conf.xml" name="config/conf.xml" />
    <install as="config/hooks.php.dist" name="config/hooks.php.dist" />
@@ -2566,60 +2512,14 @@ applications.</description>
    <install as="scripts/get_login.php" name="scripts/get_login.php" />
    <install as="scripts/horde.logrotate" name="scripts/horde.logrotate" />
    <install as="scripts/http_login_refer.php" name="scripts/http_login_refer.php" />
-   <install as="scripts/import_squirrelmail_file_prefs.php" name="scripts/import_squirrelmail_file_prefs.php" />
-   <install as="scripts/import_squirrelmail_prefs.php" name="scripts/import_squirrelmail_prefs.php" />
-   <install as="scripts/import_squirrelmail_sql_prefs.php" name="scripts/import_squirrelmail_sql_prefs.php" />
    <install as="scripts/SCRIPTS" name="scripts/SCRIPTS" />
-   <install as="scripts/set_perms.sh" name="scripts/set_perms.sh" />
    <install as="scripts/temp-cleanup.cron" name="scripts/temp-cleanup.cron" />
    <install as="scripts/ldap/horde.ldif" name="scripts/ldap/horde.ldif" />
    <install as="scripts/ldap/horde.prefs.acl" name="scripts/ldap/horde.prefs.acl" />
    <install as="scripts/ldap/horde.schema" name="scripts/ldap/horde.schema" />
    <install as="scripts/ldap/rfc2739.ldif" name="scripts/ldap/rfc2739.ldif" />
    <install as="scripts/ldap/rfc2739.schema" name="scripts/ldap/rfc2739.schema" />
-   <install as="scripts/sql/create.mssql.sql" name="scripts/sql/create.mssql.sql" />
-   <install as="scripts/sql/create.mysql.sql" name="scripts/sql/create.mysql.sql" />
-   <install as="scripts/sql/create.oci8.sql" name="scripts/sql/create.oci8.sql" />
-   <install as="scripts/sql/create.pgsql.sql" name="scripts/sql/create.pgsql.sql" />
-   <install as="scripts/sql/create.sql" name="scripts/sql/create.sql" />
-   <install as="scripts/sql/create.sybase.sql" name="scripts/sql/create.sybase.sql" />
-   <install as="scripts/sql/create.xml" name="scripts/sql/create.xml" />
-   <install as="scripts/sql/horde_datatree.mssql.sql" name="scripts/sql/horde_datatree.mssql.sql" />
-   <install as="scripts/sql/horde_datatree.mysql.sql" name="scripts/sql/horde_datatree.mysql.sql" />
-   <install as="scripts/sql/horde_datatree.pgsql.sql" name="scripts/sql/horde_datatree.pgsql.sql" />
-   <install as="scripts/sql/horde_datatree.sql" name="scripts/sql/horde_datatree.sql" />
-   <install as="scripts/sql/horde_locks.sql" name="scripts/sql/horde_locks.sql" />
-   <install as="scripts/sql/horde_log.mssql.sql" name="scripts/sql/horde_log.mssql.sql" />
-   <install as="scripts/sql/horde_log.sql" name="scripts/sql/horde_log.sql" />
-   <install as="scripts/sql/horde_muvfs.mssql.sql" name="scripts/sql/horde_muvfs.mssql.sql" />
-   <install as="scripts/sql/horde_muvfs.sql" name="scripts/sql/horde_muvfs.sql" />
-   <install as="scripts/sql/horde_perms.mysql.sql" name="scripts/sql/horde_perms.mysql.sql" />
-   <install as="scripts/sql/horde_perms.oci8.sql" name="scripts/sql/horde_perms.oci8.sql" />
-   <install as="scripts/sql/horde_perms.pgsql.sql" name="scripts/sql/horde_perms.pgsql.sql" />
-   <install as="scripts/sql/horde_perms.sql" name="scripts/sql/horde_perms.sql" />
-   <install as="scripts/sql/horde_prefs.mssql.sql" name="scripts/sql/horde_prefs.mssql.sql" />
-   <install as="scripts/sql/horde_prefs.pgsql.sql" name="scripts/sql/horde_prefs.pgsql.sql" />
-   <install as="scripts/sql/horde_prefs.sql" name="scripts/sql/horde_prefs.sql" />
-   <install as="scripts/sql/horde_sessionhandler.mssql.sql" name="scripts/sql/horde_sessionhandler.mssql.sql" />
-   <install as="scripts/sql/horde_sessionhandler.mysql.sql" name="scripts/sql/horde_sessionhandler.mysql.sql" />
-   <install as="scripts/sql/horde_sessionhandler.oci8.sql" name="scripts/sql/horde_sessionhandler.oci8.sql" />
-   <install as="scripts/sql/horde_sessionhandler.pgsql.sql" name="scripts/sql/horde_sessionhandler.pgsql.sql" />
-   <install as="scripts/sql/horde_sessionhandler.sql" name="scripts/sql/horde_sessionhandler.sql" />
-   <install as="scripts/sql/horde_signups.mysql.sql" name="scripts/sql/horde_signups.mysql.sql" />
-   <install as="scripts/sql/horde_signups.sql" name="scripts/sql/horde_signups.sql" />
-   <install as="scripts/sql/horde_syncml.sql" name="scripts/sql/horde_syncml.sql" />
-   <install as="scripts/sql/horde_tokens.sql" name="scripts/sql/horde_tokens.sql" />
-   <install as="scripts/sql/horde_users.sql" name="scripts/sql/horde_users.sql" />
-   <install as="scripts/sql/horde_vfs.mssql.sql" name="scripts/sql/horde_vfs.mssql.sql" />
-   <install as="scripts/sql/horde_vfs.oci8.sql" name="scripts/sql/horde_vfs.oci8.sql" />
-   <install as="scripts/sql/horde_vfs.pgsql.sql" name="scripts/sql/horde_vfs.pgsql.sql" />
-   <install as="scripts/sql/horde_vfs.sql" name="scripts/sql/horde_vfs.sql" />
-   <install as="scripts/sql/README" name="scripts/sql/README" />
-   <install as="scripts/sql/README.OCI8" name="scripts/sql/README.OCI8" />
    <install as="scripts/sql/script.initial_horde_user.sql" name="scripts/sql/script.initial_horde_user.sql" />
-   <install as="scripts/upgrades/2.2_to_3.0.mysql.sql" name="scripts/upgrades/2.2_to_3.0.mysql.sql" />
-   <install as="scripts/upgrades/2.2_to_3.0.oci8.sql" name="scripts/upgrades/2.2_to_3.0.oci8.sql" />
-   <install as="scripts/upgrades/2.2_to_3.0.pgsql.sql" name="scripts/upgrades/2.2_to_3.0.pgsql.sql" />
    <install as="scripts/upgrades/3.0_to_3.1.mysql.sql" name="scripts/upgrades/3.0_to_3.1.mysql.sql" />
    <install as="scripts/upgrades/3.0_to_3.1.oci8.sql" name="scripts/upgrades/3.0_to_3.1.oci8.sql" />
    <install as="scripts/upgrades/3.0_to_3.1.sql" name="scripts/upgrades/3.0_to_3.1.sql" />
@@ -2630,22 +2530,8 @@ applications.</description>
    <install as="scripts/upgrades/3.1_to_3.2.sql" name="scripts/upgrades/3.1_to_3.2.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.sybase.sql" name="scripts/upgrades/3.1_to_3.2.sybase.sql" />
    <install as="scripts/upgrades/3.3_to_3.3.5.sql" name="scripts/upgrades/3.3_to_3.3.5.sql" />
-   <install as="scripts/upgrades/2005-09-22_horde_prefs_varchar2.oci8.sql" name="scripts/upgrades/2005-09-22_horde_prefs_varchar2.oci8.sql" />
-   <install as="scripts/upgrades/2006-06-29_horde_prefs_indexes.sql" name="scripts/upgrades/2006-06-29_horde_prefs_indexes.sql" />
-   <install as="scripts/upgrades/2008-04-04_horde_syncml_map_split_indexes.pgsql.sql" name="scripts/upgrades/2008-04-04_horde_syncml_map_split_indexes.pgsql.sql" />
-   <install as="scripts/upgrades/2008-04-04_horde_syncml_map_split_indexes.sql" name="scripts/upgrades/2008-04-04_horde_syncml_map_split_indexes.sql" />
-   <install as="scripts/upgrades/2008-04-09_horde_syncml_map.php" name="scripts/upgrades/2008-04-09_horde_syncml_map.php" />
-   <install as="scripts/upgrades/2008-04-09_horde_syncml_map.sql" name="scripts/upgrades/2008-04-09_horde_syncml_map.sql" />
-   <install as="scripts/upgrades/2008-04-23-horde_cache_expiry.sql" name="scripts/upgrades/2008-04-23-horde_cache_expiry.sql" />
-   <install as="scripts/upgrades/2008-05-15-horde_lock_schema.sql" name="scripts/upgrades/2008-05-15-horde_lock_schema.sql" />
-   <install as="scripts/upgrades/2008-05-16_horde_lock_uuid.sql" name="scripts/upgrades/2008-05-16_horde_lock_uuid.sql" />
    <install as="scripts/upgrades/2008-08-29_fix_mdb2_sequences.php" name="scripts/upgrades/2008-08-29_fix_mdb2_sequences.php" />
-   <install as="scripts/upgrades/2009-02-13_horde_sessionhandler_lastmodified_index.sql" name="scripts/upgrades/2009-02-13_horde_sessionhandler_lastmodified_index.sql" />
    <install as="scripts/upgrades/2009-04-13_horde_pgsql_upgrade.sql" name="scripts/upgrades/2009-04-13_horde_pgsql_upgrade.sql" />
-   <install as="scripts/upgrades/2009-09-10_horde_signup_drop_email.sql" name="scripts/upgrades/2009-09-10_horde_signup_drop_email.sql" />
-   <install as="scripts/upgrades/2010-05-24_horde_perms_autoincrement.mysql.sql" name="scripts/upgrades/2010-05-24_horde_perms_autoincrement.mysql.sql" />
-   <install as="scripts/upgrades/2010-05-24_horde_perms_autoincrement.oci8.sql" name="scripts/upgrades/2010-05-24_horde_perms_autoincrement.oci8.sql" />
-   <install as="scripts/upgrades/2010-05-24_horde_perms_autoincrement.pgsql.sql" name="scripts/upgrades/2010-05-24_horde_perms_autoincrement.pgsql.sql" />
    <install as="scripts/upgrades/convert_datatree_groups_to_sql.php" name="scripts/upgrades/convert_datatree_groups_to_sql.php" />
    <install as="scripts/upgrades/convert_datatree_perms_to_sql.php" name="scripts/upgrades/convert_datatree_perms_to_sql.php" />
    <install as="scripts/upgrades/migrate_user_categories.php" name="scripts/upgrades/migrate_user_categories.php" />
@@ -3776,7 +3662,7 @@ applications.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-27</date>
+   <date>2011-01-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial package.xml.
