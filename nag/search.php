@@ -17,7 +17,8 @@ if ($prefs->getValue('show_panel')) {
     $bodyClass = 'rightPanel';
 }
 $title = _("Search");
-NAG_TEMPLATES . '/common-header.inc';
+
+require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Nag::menu();
 Nag::status();
 require NAG_TEMPLATES . '/search/search.inc';
