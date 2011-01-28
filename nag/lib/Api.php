@@ -1404,7 +1404,7 @@ class Nag_Api extends Horde_Registry_Api
         if ((empty($user) || $user != $GLOBALS['registry']->getAuth()) &&
             !$GLOBALS['registry']->isAdmin()) {
 
-            throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         $storage = Nag_Driver::singleton();
