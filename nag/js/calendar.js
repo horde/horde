@@ -113,8 +113,8 @@ var NagCalendar =
         this.updateWday('due');
         this.updateWday('start');
 
-        $('nag_taskform_active').observe('click', this.clickHandler.bindAsEventListener(this));
-        $('nag_taskform_active').observe('change', this.changeHandler.bindAsEventListener(this));
+        $('nag_form_task_active').observe('click', this.clickHandler.bindAsEventListener(this));
+        $('nag_form_task_active').observe('change', this.changeHandler.bindAsEventListener(this));
     }
 };
 
