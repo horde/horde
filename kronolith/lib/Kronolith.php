@@ -1151,7 +1151,6 @@ class Kronolith
                             $perm->addGroupPermission($group_id, $perm_value, false);
                         }
                         $share->setPermission($perm);
-                        $share->save();
                         $GLOBALS['notification']->push(sprintf(_("New calendar created and automatically shared with the following group(s): %s."), implode(', ', $group_list)), 'horde.success');
                     }
                 } catch (Horde_Group_Exception $e) {}
@@ -1940,8 +1939,7 @@ class Kronolith
             }
         }
         try {
-            $share->setPermission($perm, false);
-            $share->save();
+            $share->setPermission($perm);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }

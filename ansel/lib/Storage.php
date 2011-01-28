@@ -213,7 +213,7 @@ class Ansel_Storage
                 }
             }
         }
-        $gallery->setPermission($perm, true);
+        $gallery->setPermission($perm);
 
         /* Initial tags */
         if (count($tags)) {

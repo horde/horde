@@ -233,7 +233,6 @@ case 'editforminherit':
         }
 
         $share->setPermission($perm);
-        $share->save();
 
         /* If we were asked to, push permissions to all child shares
          * to. */
