@@ -563,25 +563,21 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-        $share = $shares->getShare($shareName);
         try {
+            $share = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Share')
+                ->create($scope)
+                ->getShare($shareName);
             $perm = $share->getPermission();
-        } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception_Prior($e);
-        }
-
-        foreach ($permissions as $permission) {
-            $permission = Horde_String::upper($permission);
-            if (defined('Horde_Perms::' . $permission)) {
-                $perm->addUserPermission($userName, constant('Horde_Perms::' . $permission), false);
+            foreach ($permissions as $permission) {
+                $permission = Horde_String::upper($permission);
+                if (defined('Horde_Perms::' . $permission)) {
+                    $perm->addUserPermission($userName, constant('Horde_Perms::' . $permission), false);
+                }
             }
-        }
-
-        try {
             $share->setPermission($perm);
         } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception($e);
         }
     }
 
@@ -603,8 +599,6 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-        $shares->getShare($shareName);
         try {
             $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $groupId = $groups->getGroupId($groupName);
@@ -612,15 +606,18 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception($e);
         }
 
-        $perm = $share->getPermission();
-        foreach ($permissions as $permission) {
-            $permission = Horde_String::upper($permission);
-            if (defined('Horde_Perms::' . $permission)) {
-                $perm->addGroupPermission($groupId, constant('Horde_Perms::' . $permission), false);
-            }
-        }
-
         try {
+            $share = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Share')
+                ->create($scope)
+                ->getShare($shareName);
+            $perm = $share->getPermission();
+            foreach ($permissions as $permission) {
+                $permission = Horde_String::upper($permission);
+                if (defined('Horde_Perms::' . $permission)) {
+                    $perm->addGroupPermission($groupId, constant('Horde_Perms::' . $permission), false);
+                }
+            }
             $share->setPermission($perm);
         } catch (Horde_Share_Exception $e) {
             throw new Horde_Exception($e);
