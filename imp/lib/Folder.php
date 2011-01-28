@@ -105,7 +105,7 @@ class IMP_Folder
      * @return boolean  Whether or not the folder was successfully created.
      * @throws Horde_Exception
      */
-    public function create($folder, $subscribe)
+    public function create($folder, $subscribe, array $opts = array())
     {
         global $conf, $injector, $notification;
 
@@ -136,7 +136,7 @@ class IMP_Folder
         /* Special use flags. */
         $special_use = array();
         foreach (self::$specialUse as $key => $val) {
-            if (!empty($this->_opts[$key])) {
+            if (!empty($opts[$key])) {
                 $special_use[] = $val;
             }
         }
