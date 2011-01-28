@@ -165,7 +165,7 @@ class Horde_Imap_Client_Utf7imap
     {
         /* No need to do conversion if all chars are in US-ASCII range. */
         if (!preg_match('/[\x80-\xff]/', $str)) {
-            return $str;
+            return strval($str);
         }
 
         /* Try mbstring, if available, which should be faster. Don't use the
