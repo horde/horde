@@ -2172,21 +2172,23 @@ KronolithCore = {
 
     setEventText: function(div, event, length)
     {
-        var calendar = event.calendar.split('|');
+        var calendar = event.calendar.split('|'),
+            span = new Element('span');
         div.update();
         if (event.ic) {
             div.insert(new Element('img', { src: event.ic }));
         }
         div.insert((length ? event.t.truncate(length) : event.t).escapeHTML());
+        div.insert(span);
         if (event.a) {
-            div.insert(' ')
+            span.insert(' ')
                 .insert(new Element('img', { src: Kronolith.conf.images.alarm.replace(/fff/, Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1)), title: Kronolith.text.alarm + ' ' + event.a }));
         }
         if (event.r) {
-            div.insert(' ')
+            span.insert(' ')
                 .insert(new Element('img', { src: Kronolith.conf.images.recur.replace(/fff/, Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1)), title: Kronolith.text.recur[event.r] }));
         } else if (event.bid) {
-            div.insert(' ')
+            span.insert(' ')
                 .insert(new Element('img', { src: Kronolith.conf.images.exception.replace(/fff/, Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1)), title: Kronolith.text.recur.exception }));
         }
         return div;
