@@ -154,8 +154,12 @@ class Turba_Driver_Sql extends Turba_Driver
                 if (isset($blobFields[$field])) {
                     switch ($this->_db->adapterName()) {
                     case 'PDO_PostgreSQL':
-                        $entry[$field] = pack('H' . strlen($val), $val);
-                        break;
+                        if (is_resource($val)) {
+                            $tmp = stream_get_contents($val);
+                            fclose($val);
+                            $val = $tmp;
+                        }
+                        // Fall-through
 
                     default:
                         $entry[$field] = $val;
