@@ -31,7 +31,7 @@ class Horde_Data_Vnote extends Horde_Data_Imc
 
         $s = '';
         foreach ($data as $event) {
-            $s. = $event->exportvCalendar();
+            $s .= $event->exportvCalendar();
         }
 
         return $s;

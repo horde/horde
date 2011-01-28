@@ -132,7 +132,6 @@ class Hylax_Image {
         }
 
         throw new Horde_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
-        }
     }
 
     /**

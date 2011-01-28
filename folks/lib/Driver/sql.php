@@ -100,6 +100,7 @@ class Folks_Driver_sql extends Folks_Driver {
         } else {
             $sql = 'SELECT user_uid FROM ' . $this->_params['table']
                 . ' WHERE user_picture = 1 ORDER BY RAND()';
+        }
         
         $result = $this->_db->limitQuery($sql, 0, $limit);
         $value = $result->fetchRow(DB_FETCHMODE_ORDERED);

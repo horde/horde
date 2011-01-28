@@ -30,9 +30,9 @@ if ($live) {
     $values = array($scope, $name);
     try {
         if ($db->delete($sql, $values)) {
-            $cli->writeln(sprintf('Preferences "%s" deleted in scope "%s".'), $name, $scope));
+            $cli->writeln(sprintf('Preferences "%s" deleted in scope "%s".', $name, $scope));
         } else {
-            $cli->writeln(sprintf('No preference "%s" found in scope "%s".'), $name, $scope));
+            $cli->writeln(sprintf('No preference "%s" found in scope "%s".', $name, $scope));
         }
     } catch (Horde_Db_Exception $e) {
         print_r($e);
@@ -44,7 +44,7 @@ if ($live) {
         if ($result = $db->selectAll($sql, $values)) {
             var_dump($result);
         } else {
-            $cli->writeln(sprintf('No preference "%s" found in scope "%s".'), $name, $scope));
+            $cli->writeln(sprintf('No preference "%s" found in scope "%s".', $name, $scope));
         }
     } catch (Horde_Db_Exception $e) {
         print_r($e);
