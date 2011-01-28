@@ -229,6 +229,78 @@ abstract class Horde_Share_Object implements Serializable
     }
 
     /**
+     * Gives guests a certain privilege for this share.
+     *
+     * @param integer $permission  A Horde_Perms::* constant.
+     */
+    public function addGuestPermission($permission)
+    {
+        $perm = $this->getPermission();
+        $perm->addGuestPermission($permission, false);
+        $this->setPermission($perm);
+    }
+
+    /**
+     * Removes a certain privilege for guests from this share.
+     *
+     * @param integer $permission  A Horde_Perms::* constant.
+     */
+    public function removeGuestPermission($permission)
+    {
+        $perm = $this->getPermission();
+        $perm->removeGuestPermission($permission, false);
+        $this->setPermission($perm);
+    }
+
+    /**
+     * Gives creators a certain privilege for this share.
+     *
+     * @param integer $permission  A Horde_Perms::* constant.
+     */
+    public function addCreatorPermission($permission)
+    {
+        $perm = $this->getPermission();
+        $perm->addCreatorPermission($permission, false);
+        $this->setPermission($perm);
+    }
+
+    /**
+     * Removes a certain privilege for creators from this share.
+     *
+     * @param integer $permission  A Horde_Perms::* constant.
+     */
+    public function removeCreatorPermission($permission)
+    {
+        $perm = $this->getPermission();
+        $perm->removeCreatorPermission($permission, false);
+        $this->setPermission($perm);
+    }
+
+    /**
+     * Gives all authenticated users a certain privilege for this share.
+     *
+     * @param integer $permission  A Horde_Perms::* constant.
+     */
+    public function addDefaultPermission($permission)
+    {
+        $perm = $this->getPermission();
+        $perm->addDefaultPermission($permission, false);
+        $this->setPermission($perm);
+    }
+
+    /**
+     * Removes a certain privilege for all authenticated users from this share.
+     *
+     * @param integer $permission  A Horde_Perms::* constant.
+     */
+    public function removeDefaultPermission($permission)
+    {
+        $perm = $this->getPermission();
+        $perm->removeDefaultPermission($permission, false);
+        $this->setPermission($perm);
+    }
+
+    /**
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.
