@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-04</date>
- <time>15:37:55</time>
+ <date>2011-01-29</date>
+ <time>23:14:33</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -261,6 +261,18 @@
        <file name="default.js" role="horde" />
       </dir> <!-- /js/plugins/styles/styles -->
      </dir> <!-- /js/plugins/styles -->
+     <dir name="syntaxhighlight">
+      <dir name="dialogs">
+       <file name="syntaxhighlight.js" role="horde" />
+      </dir> <!-- /js/plugins/syntaxhighlight/dialogs -->
+      <dir name="images">
+       <file name="syntaxhighlight.gif" role="horde" />
+      </dir> <!-- /js/plugins/syntaxhighlight/images -->
+      <dir name="lang">
+       <file name="en.js" role="horde" />
+      </dir> <!-- /js/plugins/syntaxhighlight/lang -->
+      <file name="plugin.js" role="horde" />
+     </dir> <!-- /js/plugins/syntaxhighlight -->
      <dir name="table">
       <dir name="dialogs">
        <file name="table.js" role="horde" />
@@ -560,6 +572,10 @@
    <install as="js/plugins/smiley/images/wink_smile.gif" name="js/plugins/smiley/images/wink_smile.gif" />
    <install as="js/plugins/specialchar/dialogs/specialchar.js" name="js/plugins/specialchar/dialogs/specialchar.js" />
    <install as="js/plugins/styles/styles/default.js" name="js/plugins/styles/styles/default.js" />
+   <install as="js/plugins/syntaxhighlight/plugin.js" name="js/plugins/syntaxhighlight/plugin.js" />
+   <install as="js/plugins/syntaxhighlight/dialogs/syntaxhighlight.js" name="js/plugins/syntaxhighlight/dialogs/syntaxhighlight.js" />
+   <install as="js/plugins/syntaxhighlight/images/syntaxhighlight.gif" name="js/plugins/syntaxhighlight/images/syntaxhighlight.gif" />
+   <install as="js/plugins/syntaxhighlight/lang/en.js" name="js/plugins/syntaxhighlight/lang/en.js" />
    <install as="js/plugins/table/dialogs/table.js" name="js/plugins/table/dialogs/table.js" />
    <install as="js/plugins/tableresize/plugin.js" name="js/plugins/tableresize/plugin.js" />
    <install as="js/plugins/tabletools/dialogs/tableCell.js" name="js/plugins/tabletools/dialogs/tableCell.js" />
@@ -672,7 +688,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-01-04</date>
+   <date>2011-01-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Removed Xinha driver.
