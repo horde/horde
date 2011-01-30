@@ -750,9 +750,9 @@ class Jonah_Driver_Sql extends Jonah_Driver
         } else {
             $stories = array();
             $sql = 'SELECT DISTINCT s.story_id, s.channel_id FROM jonah_stories'
-                   . ' as s, jonah_stories_tags as t';
+                   . ' s, jonah_stories_tags t';
             for ($i = 0; $i < count($ids); $i++) {
-                $sql .= ', jonah_stories_tags as t' . $i;
+                $sql .= ', jonah_stories_tags t' . $i;
             }
             $sql .= ' WHERE s.story_id = t.story_id';
             for ($i = 0 ; $i < count($ids); $i++) {
