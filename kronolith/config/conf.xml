@@ -108,7 +108,6 @@
      <values>
       <value desc="Google">Google</value>
       <value desc="Yahoo">Yahoo</value>
-      <value desc="Virtual Earth/Bing">Ve</value>
       <value desc="CloudMade">Cloudmade</value>
       <value desc="Various Open Sources">Public</value>
      </values>
@@ -119,7 +118,6 @@
      <values>
       <value desc="None" default="true">Null</value>
       <value desc="Google">Google</value>
-      <value desc="Virtual Earth/Bing">Ve</value>
       <value desc="Yahoo">Yahoo</value>
      </values> 
     </configenum>
