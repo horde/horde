@@ -2343,6 +2343,7 @@ abstract class Kronolith_Event
                     $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_day_of_month_interval', 1));
                     break;
                 }
+                break;
 
             case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
                 $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_week_of_month_interval', 1));
@@ -2360,6 +2361,7 @@ abstract class Kronolith_Event
                     $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_interval', 1));
                     break;
                 }
+                break;
 
             case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
                 $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_day_interval', $yearly_interval));
