@@ -141,6 +141,19 @@ implements Horde_Kolab_Storage_Folder
         throw new Horde_Kolab_Storage_Exception('No "default" information available!');
     }
 
+    /**
+     * The type of this folder.
+     *
+     * @return string The folder type.
+     */
+    function getType()
+    {
+        if (isset($this->_data['type'])) {
+            return $this->_data['type'];
+        }
+        throw new Horde_Kolab_Storage_Exception('No "type" information available!');
+    }
+
 
 
 
@@ -505,34 +518,6 @@ implements Horde_Kolab_Storage_Folder
         $this->_driver->delete($this->_path);
         $this->_storage->removeFromCache($this);
         return true;
-    }
-
-    /**
-     * The type of this folder.
-     *
-     * @return string|PEAR_Error  The folder type.
-     */
-    function getType()
-    {
-        if (!isset($this->_type)) {
-            try {
-                $type_annotation = $this->_getAnnotation(self::ANNOT_FOLDER_TYPE,
-                                                         $this->_path);
-            } catch (Exception $e) {
-                $this->_default = false;
-                throw $e;
-            }
-            if (empty($type_annotation)) {
-                $this->_default = false;
-                $this->_type = '';
-            } else {
-                $type = explode('.', $type_annotation);
-                $this->_default = (!empty($type[1]) && $type[1] == 'default');
-                $this->_type = $type[0];
-            }
-            $this->_type_annotation = $type_annotation;
-        }
-        return $this->_type;
     }
 
     /**

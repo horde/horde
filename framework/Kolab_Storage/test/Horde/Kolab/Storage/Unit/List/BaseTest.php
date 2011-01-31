@@ -204,6 +204,16 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testFolderType()
+    {
+        $this->assertEquals(
+            'event',
+            $this->_getFolder()
+            ->getFolder('INBOX/Calendar')
+            ->getType()
+        );
+    }
+
     public function _getFolder()
     {
         $factory = new Horde_Kolab_Storage_Factory();

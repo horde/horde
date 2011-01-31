@@ -170,6 +170,32 @@ extends Horde_Kolab_Storage_TestCase
         $folder->isDefault();
     }
 
+    public function testGetType()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path',
+            array(
+                'type' => 'type'
+            )
+        );
+        $this->assertEquals('type', $folder->getType());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingType()
+    {
+        $folder = new Horde_Kolab_Storage_Folder_Base(
+            $this->getMock('Horde_Kolab_Storage_List'),
+            'path'
+        );
+        $folder->getType();
+    }
+
+
+
 
 
 
