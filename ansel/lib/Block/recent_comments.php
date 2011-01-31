@@ -44,8 +44,8 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
         if (empty($GLOBALS['conf']['gallery']['listlimit']) ||
             ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit'])) {
 
-            foreach ($storage->listGalleries(array('perm' => Horde_Perms::READ)) as $id => $gal) {
-                $params['gallery']['values'][$id] = $gal->get('name');
+            foreach ($storage->listGalleries(array('perm' => Horde_Perms::READ)) as $gal) {
+                $params['gallery']['values'][$gal->getId()] = $gal->get('name');
             }
         }
 
