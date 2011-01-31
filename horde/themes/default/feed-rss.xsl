@@ -39,10 +39,6 @@
         <xsl:variable name="resource" select="/rss/channel/atom:link"/>
 
         <div>
-          <a href="http://www.rojo.com/add-subscription?resource={$resource}">
-            <img src="http://www.rojo.com/skins/static/images/add-to-rojo.gif" alt="Subscribe in Rojo"/>
-          </a>
-
           <a href="http://add.my.yahoo.com/rss?url={$resource}">
             <img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="Add to My yahoo" />
           </a>
