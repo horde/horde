@@ -1,7 +1,4 @@
 <?php
-/** The virtual path to use for VFS data. */
-define('TURBA_VFS_PATH', '.horde/turba/documents');
-
 /**
  * Turba Base Class.
  *
@@ -11,6 +8,11 @@ define('TURBA_VFS_PATH', '.horde/turba/documents');
  */
 class Turba
 {
+    /**
+     *  The virtual path to use for VFS data.
+     */
+    const VFS_PATH = '.horde/turba/documents';
+
     /**
      * @todo Consolidate on a single mail/compose method.
      *

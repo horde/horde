@@ -317,7 +317,7 @@ class Turba_Object
     public function addFile(array $info)
     {
         $this->_vfsInit();
-        $dir = TURBA_VFS_PATH . '/' . $this->getValue('__uid');
+        $dir = Turba::VFS_PATH . '/' . $this->getValue('__uid');
         $file = $info['name'];
         while ($this->_vfs->exists($dir, $file)) {
             if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $file, $match)) {
@@ -348,7 +348,7 @@ class Turba_Object
     {
         $this->_vfsInit();
         try {
-            $this->_vfs->deleteFile(TURBA_VFS_PATH . '/' . $this->getValue('__uid'), $file);
+            $this->_vfs->deleteFile(Turba::VFS_PATH . '/' . $this->getValue('__uid'), $file);
         } catch (VFS_Exception $e) {
             throw new Turba_Exception($e);
         }
@@ -362,9 +362,9 @@ class Turba_Object
     public function deleteFiles()
     {
         $this->_vfsInit();
-        if ($this->_vfs->exists(TURBA_VFS_PATH, $this->getValue('__uid'))) {
+        if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
             try {
-                $this->_vfs->deleteFolder(TURBA_VFS_PATH, $this->getValue('__uid'), true);
+                $this->_vfs->deleteFolder(Turba::VFS_PATH, $this->getValue('__uid'), true);
             } catch (VFS_Exception $e) {
                 throw new Turba_Exception($e);
             }
@@ -380,8 +380,8 @@ class Turba_Object
     {
         try {
             $this->_vfsInit();
-            if ($this->_vfs->exists(TURBA_VFS_PATH, $this->getValue('__uid'))) {
-                return $this->_vfs->listFolder(TURBA_VFS_PATH . '/' . $this->getValue('__uid'));
+            if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
+                return $this->_vfs->listFolder(Turba::VFS_PATH . '/' . $this->getValue('__uid'));
             }
         } catch (Turba_Exception $e) {}
 
