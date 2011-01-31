@@ -368,6 +368,7 @@ KronolithCore = {
 
                 this.addHistory(fullloc);
                 this.view = loc;
+                this.date = date;
                 this.updateView(date, loc);
                 var dates = this.viewDates(date, loc);
                 this.loadEvents(dates[0], dates[1], loc);
@@ -391,7 +392,6 @@ KronolithCore = {
                 });
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
                 this.updateMinical(date, loc);
-                this.date = date;
 
                 break;
 
@@ -1542,7 +1542,10 @@ KronolithCore = {
         while (!day.isAfter(dates[1])) {
             // Skip if somehow events slipped in though the view is gone.
             if (!day.between(viewDates[0], viewDates[1])) {
-                console.log(day, this.dates);
+                if (window.console) {
+                    window.console.trace();
+                }
+                day.next().day();
                 continue;
             }
 
