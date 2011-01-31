@@ -1,4 +1,4 @@
-<?php echo '<?xml version="1.0" encoding="' . $charset . '"?>' ?>
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>' ?>
 
 <?php echo '<?xml-stylesheet href="' . $xsl . '" type="text/xsl"?>' ?>
 
