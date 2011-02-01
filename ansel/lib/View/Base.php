@@ -16,27 +16,6 @@ abstract class Ansel_View_Base
     protected $_params = array();
 
     /**
-     * The ansel resource this view is for.
-     *
-     * @var mixed  Either an Ansel_Gallery or Ansel_Image
-     */
-    public $resource;
-
-    /**
-     * The gallery object (will be eq to $resource in a gallery view
-     *
-     * @var Ansel_Gallery
-     */
-    public $gallery;
-
-    /**
-     * Collection of Ansel_Widgets to display in this view.
-     *
-     * @var array
-     */
-    protected $_widgets = array();
-
-    /**
      * Const'r
      *
      * Any javascript files needed by the (non-api) view should be included
@@ -117,6 +96,16 @@ abstract class Ansel_View_Base
     }
 
     /**
+     * Getter for the view parameters.
+     *
+     * @return unknown_type
+     */
+    public function getParams()
+    {
+        return $this->_params;
+    }
+
+    /**
      * Todo
      *
      * @param integer $galleryId  The gallery id
@@ -167,60 +156,16 @@ abstract class Ansel_View_Base
         return $gallery;
     }
 
-    /**
-     * Add an Ansel_Widget to be displayed in this view.
-     *
-     * @param Ansel_Widget $widget  The Ansel_Widget to display
-     */
-    public function addWidget($widget)
-    {
-        $result = $widget->attach($this);
-        if (!empty($result)) {
-            $this->_widgets[] = $widget;
-        }
-    }
-
-    /**
-     * Output any widgets associated with this view.
-     *
-     */
-    public function renderWidgets()
-    {
-        $this->_renderWidgets();
-    }
-
-    /**
-     * Count the number of widgets we have attached.
-     *
-     * @return integer  The number of widgets attached to this view.
-     */
-    public function countWidgets()
-    {
-        return count($this->_widgets);
-    }
-
-    /**
-     * Default widget rendering, can be overridden by any subclass.
-     *
-     */
-    protected function _renderWidgets()
-    {
-        echo '<div class="anselWidgets">';
-        foreach ($this->_widgets as $widget) {
-            if ($widget->autoRender) {
-                echo $widget->html();
-                echo '<br />';
-            }
-        }
-        echo '</div>';
-    }
 
    /**
-     * JSON representation of this gallery's images.
+     * JSON representation of this gallery's images. We don't use
+     * Ansel_Gallery::toJson() on purpose since that is a general jsonification
+     * of the gallery data. This method is specific to the view, paging, links
+     * etc...
      *
-     * @param array $params  An array of parameters for this method:
+     * @param Ansel_Gallery $gallery  The gallery to represent in this view
+     * @param array $params           An array of parameters for this method:
      *   <pre>
-     *      images     - Array of Ansel_Images to generate JSON for [null]
      *      full       - Should a full URL be generated? [false]
      *      from       - Starting image count [0]
      *      count      - The number of images to include (starting at from) [0]
@@ -231,7 +176,7 @@ abstract class Ansel_View_Base
      *
      * @return string  A serialized JSON array.
      */
-    public function json($params = array())
+    static public function json(Ansel_Gallery $gallery, $params = array())
     {
         global $conf, $prefs;
 
@@ -251,10 +196,10 @@ abstract class Ansel_View_Base
         $curpage =  0;
 
         if (empty($params['images'])) {
-            $images = $this->gallery->getImages($params['from'], $params['count']);
+            $images = $gallery->getImages($params['from'], $params['count']);
         }
 
-        $style = $this->gallery->getStyle();
+        $style = $gallery->getStyle();
         foreach ($images as $image) {
             // Calculate the page this image will appear on in the
             // gallery view.
@@ -270,15 +215,15 @@ abstract class Ansel_View_Base
                           $curpage);
             if ($params['view_links']) {
                 $data[] = (string)Ansel::getUrlFor('view',
-                    array('gallery' => $this->gallery->id,
-                          'slug' => $this->gallery->get('slug'),
+                    array('gallery' => $gallery->id,
+                          'slug' => $gallery->get('slug'),
                           'image' => $image->id,
                           'view' => 'Image',
                           'page' => $curpage),
                     true);
                 $data[] = (string)Ansel::getUrlFor('view',
                     array('gallery' => $image->gallery,
-                          'slug' => $this->gallery->get('slug'),
+                          'slug' => $gallery->get('slug'),
                           'view' => 'Gallery'),
                     true);
             }
@@ -288,27 +233,5 @@ abstract class Ansel_View_Base
 
         return Horde_Serialize::serialize($json, Horde_Serialize::JSON);
     }
-
-    /**
-     * Getter for the view parameters.
-     *
-     * @return unknown_type
-     */
-    public function getParams()
-    {
-        return $this->_params;
-    }
-
-    /**
-     * @abstract
-     * @return unknown_type
-     */
-    abstract public function viewType();
-
-    abstract public function getGalleryCrumbData();
-
-    abstract public function getTitle();
-
-    abstract public function html();
 
 }

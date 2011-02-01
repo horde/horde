@@ -10,8 +10,13 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
+class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
 {
+    public function __construct($params = array())
+    {
+        $this->_params = $params;
+    }
+
     /**
      * Build the javascript that will render the view.
      *
@@ -62,12 +67,15 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
         }
 
         if (empty($images)) {
-            $json = $this->json(array('full' => true,
+            $images =
+            $json = self::json($this->gallery,
+                                array('full' => true,
                                       'from' => $start,
                                       'count' => $count,
                                       'image_view' => $thumbsize,
                                       'view_links' => true));
-            $json_full = $this->json(array('full' => true,
+            $json_full = self::json($this->gallery,
+                                     array('full' => true,
                                            'from' => $start,
                                            'count' => $count,
                                            'view_links' => true));

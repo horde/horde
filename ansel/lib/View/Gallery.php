@@ -10,7 +10,7 @@
  *
  * @package Ansel
  */
-class Ansel_View_Gallery extends Ansel_View_Base
+class Ansel_View_Gallery extends Ansel_View_Ansel
 {
     /**
      *  Holds the object that does the actual rendering.

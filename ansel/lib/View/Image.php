@@ -10,7 +10,7 @@
  *
  * @package Ansel
  */
-class Ansel_View_Image extends Ansel_View_Base
+class Ansel_View_Image extends Ansel_View_Ansel
 {
 
     protected $_slug;

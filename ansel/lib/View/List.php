@@ -7,10 +7,12 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
+ * @TODO: should extend Base, not Ansel
+ *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_List extends Ansel_View_Base
+class Ansel_View_List extends Ansel_View_Ansel
 {
     private $_groupby;
     private $_owner;

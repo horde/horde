@@ -1,6 +1,6 @@
 <script type="text/javascript">
 //<![CDATA[
-SlideController.initialize(<?php echo $this->json(array('view_links' => true)) ?>, <?php echo $imageIndex ?>, "<?php echo $GLOBALS['registry']->get('webroot')?>", <?php echo $this->gallery->id ?>, "<?php echo $this->gallery->getName()?>");
+SlideController.initialize(<?php echo self::json($this->view->gallery, array('view_links' => true)) ?>, <?php echo $imageIndex ?>, "<?php echo $GLOBALS['registry']->get('webroot')?>", <?php echo $this->gallery->id ?>, "<?php echo $this->gallery->getName()?>");
 //]]>
 
 function stopSlideShow()

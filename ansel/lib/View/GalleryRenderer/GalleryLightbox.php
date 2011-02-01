@@ -58,14 +58,22 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         /* Get JSON data for view */
         // 0 == normal, 1 == by date
         if ($this->mode == 0) {
-            $json = $this->view->json(array(
-                'full' => !empty($this->view->api),
-                'perpage' => $this->perpage));
+            $json = Ansel_View_Base::json(
+                $this->view->gallery,
+                array(
+                    'full' => !empty($this->view->api),
+                    'perpage' => $this->perpage
+                )
+            );
         } else {
             if (!empty($this->date['day']) && $this->numTiles) {
-                $json = $this->view->json(array(
-                    'full' => !empty($this->view->api),
-                    'perpage' => $this->perpage));
+                $json = Ansel_View_Base::json(
+                    $this->view->gallery,
+                    array(
+                        'full' => !empty($this->view->api),
+                        'perpage' => $this->perpage
+                    )
+                );
             } else {
                 $json = '[]';
             }
