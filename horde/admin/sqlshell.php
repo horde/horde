@@ -11,19 +11,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
-$title = _("SQL Shell");
-Horde::addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/admin/menu.inc';
-
-?>
-<div>
-<h1 class="header"><?php echo $title ?></h1>
-<form name="sqlshell" action="sqlshell.php" method="post">
-<?php Horde_Util::pformInput() ?>
-
-<?php
-
 $db = $injector->getInstance('Horde_Db_Adapter');
 $q_cache = $session->retrieve('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);
 
@@ -47,6 +34,20 @@ if (Horde_Util::getFormData('list-tables')) {
         $notification->push($e);
     }
 }
+
+$title = _("SQL Shell");
+Horde::addScriptFile('stripe.js', 'horde');
+require HORDE_TEMPLATES . '/common-header.inc';
+require HORDE_TEMPLATES . '/admin/menu.inc';
+
+?>
+<div>
+<h1 class="header"><?php echo $title ?></h1>
+<br />
+<form name="sqlshell" action="sqlshell.php" method="post">
+<?php Horde_Util::pformInput() ?>
+
+<?php
 
 if (isset($result)) {
     if ($command) {
@@ -94,6 +95,7 @@ if (isset($result)) {
 ?>
 
 <?php if (count($q_cache)): ?>
+<p>
   <label for="query_cache" class="hidden"><?php echo ("Query cache") ?></label>
   <select id="query_cache" name="query_cache" onchange="document.sqlshell.sql.value = document.sqlshell.query_cache[document.sqlshell.query_cache.selectedIndex].value;">
   <?php foreach ($q_cache as $query): ?>
@@ -102,19 +104,23 @@ if (isset($result)) {
   </select>
   <input type="button" value="<?php echo _("Paste") ?>" class="button" onclick="document.sqlshell.sql.value = document.sqlshell.query_cache[document.sqlshell.query_cache.selectedIndex].value;">
   <input type="button" value="<?php echo _("Run") ?>" class="button" onclick="document.sqlshell.sql.value = document.sqlshell.query_cache[document.sqlshell.query_cache.selectedIndex].value; document.sqlshell.submit();">
+</p>
 <?php endif; ?>
 
-<label for="sql" class="hidden"><?php echo ("SQL Query") ?></label>
-<textarea class="fixed" id="sql" name="sql" rows="10" cols="80">
-<?php if (strlen($command)) echo htmlspecialchars($command) ?></textarea>
+<p>
+  <label for="sql" class="hidden"><?php echo ("SQL Query") ?></label>
+  <textarea class="fixed" id="sql" name="sql" rows="10" cols="80"><?php if (strlen($command)) echo htmlspecialchars($command) ?></textarea>
+</p>
 
-<input type="submit" class="button" value="<?php echo _("Execute") ?>">
-<input type="button" class="button" value="<?php echo _("Clear Query") ?>" onclick="document.sqlshell.sql.value=''">
-<?php if (strlen($command)): ?>
-<input type="reset" class="button" value="<?php echo _("Restore Last Query") ?>">
-<?php endif; ?>
-<input type="submit" class="button" name="list-tables" value="<?php echo _("List Tables") ?>">
-<?php echo Horde_Help::link('admin', 'admin-sqlshell') ?>
+<p>
+  <input type="submit" class="button" value="<?php echo _("Execute") ?>">
+  <input type="button" class="button" value="<?php echo _("Clear Query") ?>" onclick="document.sqlshell.sql.value=''">
+  <?php if (strlen($command)): ?>
+  <input type="reset" class="button" value="<?php echo _("Restore Last Query") ?>">
+  <?php endif; ?>
+  <input type="submit" class="button" name="list-tables" value="<?php echo _("List Tables") ?>">
+  <?php echo Horde_Help::link('admin', 'admin-sqlshell') ?>
+</p>
 
 </form>
 </div>
