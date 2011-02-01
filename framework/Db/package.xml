@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>09:45:53</time>
+ <date>2011-02-01</date>
+ <time>15:51:20</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -33,6 +33,9 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="horde-db-migrate" role="script" />
+   </dir> <!-- /bin -->
    <dir name="doc">
     <file name="README.TESTING.txt" role="doc" />
     <file name="TODO.txt" role="doc" />
@@ -85,6 +88,7 @@
       <file name="Exception.php" role="php" />
       <file name="StatementParser.php" role="php" />
      </dir> <!-- /lib/Horde/Db -->
+     <file name="Db.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="test">
@@ -186,8 +190,10 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde-db-migrate" name="bin/horde-db-migrate" />
    <install as="README.TESTING.txt" name="doc/README.TESTING.txt" />
    <install as="TODO.txt" name="doc/TODO.txt" />
+   <install as="Horde/Db.php" name="lib/Horde/Db.php" />
    <install as="Horde/Db/Adapter.php" name="lib/Horde/Db/Adapter.php" />
    <install as="Horde/Db/Exception.php" name="lib/Horde/Db/Exception.php" />
    <install as="Horde/Db/StatementParser.php" name="lib/Horde/Db/StatementParser.php" />
@@ -267,7 +273,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-02-01</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * Add support for adding autoincrement to a column.

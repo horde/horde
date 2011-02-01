@@ -68,6 +68,11 @@ class Horde_Db_Adapter_Mysqli_Result implements Iterator
     protected $_eof;
 
     /**
+     * Which kind of keys to use for results.
+     */
+    protected $_fetchMode = MYSQLI_ASSOC;
+
+    /**
      * Constructor
      *
      * @param   Horde_Db_Adapter $adapter
@@ -148,7 +153,7 @@ class Horde_Db_Adapter_Mysqli_Result implements Iterator
         }
 
         if ($this->_result) {
-            $row = $this->_result->fetch_array(MYSQLI_ASSOC);
+            $row = $this->_result->fetch_array($this->_fetchMode);
             if (!$row) {
                 $this->_eof = true;
             } else {
@@ -168,13 +173,17 @@ class Horde_Db_Adapter_Mysqli_Result implements Iterator
     }
 
     /**
-     * Return the current row and advance the recordset one row.
+     * Returns the current row and advances the recordset one row.
+     *
+     * @param integer $fetchmode  The default fetch mode for this result. One
+     *                            of the Horde_Db::FETCH_* constants.
      */
-    public function fetch()
+    public function fetch($fetchmode = Horde_Db::FETCH_ASSOC)
     {
         if (!$this->valid()) {
             return null;
         }
+        $this->setFetchMode($fetchmode);
         $row = $this->current();
         $this->next();
         return $row;
@@ -193,4 +202,16 @@ class Horde_Db_Adapter_Mysqli_Result implements Iterator
         return !$this->_eof;
     }
 
+    /**
+     * Sets the default fetch mode for this result.
+     *
+     * @param integer $fetchmode  One of the Horde_Db::FETCH_* constants.
+     */
+    public function setFetchMode($fetchmode)
+    {
+        $map = array(Horde_Db::FETCH_ASSOC => MYSQL_ASSOC,
+                     Horde_Db::FETCH_NUM   => MYSQL_NUM,
+                     Horde_Db::FETCH_BOTH  => MYSQL_BOTH);
+        $this->_fetchMode = $map[$fetchmode];
+    }
 }
