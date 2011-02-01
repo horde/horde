@@ -28,7 +28,7 @@ if (empty($args[0])) {
     // Run all migrations.
     $apps = $dirs = array();
     // Loop through all applications.
-    foreach ($registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null) as $app) {
+    foreach ($registry->listApps(array('hidden', 'notoolbar', 'admin', 'active'), false, null) as $app) {
         $dir = $registry->get('fileroot', $app) . '/migration';
         if (is_dir($dir)) {
             $apps[] = $app;
