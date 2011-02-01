@@ -38,14 +38,14 @@ class Horde_Log_Handler_Syslog extends Horde_Log_Handler_Base
      *
      * @var string
      */
-    protected static $_lastIdent;
+    protected $_lastIdent;
 
     /**
      * Last facility name set by a syslog-handler instance.
      *
      * @var string
      */
-    protected static $_lastFacility;
+    protected $_lastFacility;
 
     /**
      * Map of log levels to syslog priorities.
