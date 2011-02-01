@@ -56,7 +56,7 @@ if (isset($result)) {
 
     echo '<h1 class="header">' . _("Results") . '</h1>';
 
-    if (is_object($result)) {
+    if (is_object($result) && $result->columnCount()) {
         echo '<table cellspacing="1" class="item striped">';
         $first = true;
         $i = 0;
@@ -89,7 +89,7 @@ if (isset($result)) {
         }
         echo '</table>';
     } else {
-        echo '<strong>' . _("Success") . '</strong>';
+        echo '<p><strong>' . _("Success") . '</strong></p>';
     }
 }
 ?>
