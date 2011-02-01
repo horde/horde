@@ -794,7 +794,7 @@ class Content_Tagger
         }
 
         /* Note that we don't convertCharset here, it's done in listTagInfo */
-        $tags = $GLOBALS['ansel_db']->queryAll($sql, null, MDB2_FETCHMODE_ASSOC, true);
+        $tags = $this->_db->selectAssoc($sql);
 
         return $tags;
     }
