@@ -214,4 +214,17 @@ class Horde_Db_Adapter_Mysqli_Result implements Iterator
                      Horde_Db::FETCH_BOTH  => MYSQL_BOTH);
         $this->_fetchMode = $map[$fetchmode];
     }
+
+    /**
+     * Returns the number of columns in the result set
+     *
+     * @return integer  Number of columns.
+     */
+    public function columnCount()
+    {
+        if (is_null($this->_result)) {
+            $this->rewind();
+        }
+        return $this->_result->field_count;
+    }
 }
