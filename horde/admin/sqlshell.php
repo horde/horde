@@ -41,7 +41,11 @@ if (Horde_Util::getFormData('list-tables')) {
     $session->set('horde', 'sql_query_cache', $q_cache);
 
     // Parse out the query results.
-    $result = $db->execute(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
+    try {
+        $result = $db->execute(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
+    } catch (Horde_Db_Exception $e) {
+        $notification->push($e);
+    }
 }
 
 if (isset($result)) {
