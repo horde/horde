@@ -60,7 +60,7 @@ if (isset($result)) {
         echo '<table cellspacing="1" class="item striped">';
         $first = true;
         $i = 0;
-        while ($row = $result->fetch()) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             if ($first) {
                 echo '<tr>';
                 foreach ($row as $key => $val) {
