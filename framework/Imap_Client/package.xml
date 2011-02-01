@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Imap_Client</name>
  <channel>pear.horde.org</channel>
  <summary>Horde IMAP abstraction interface</summary>
  <description>This package provides an abstracted API interface to various
- IMAP4rev1 (RFC 3501) backend drivers.
- </description>
+ IMAP4rev1 (RFC 3501) backend drivers.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
@@ -21,7 +17,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-02-25</date>
+ <date>2011-02-01</date>
+ <time>15:18:13</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -31,7 +28,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Remove static logCallback variable in Horde_Imap_Client_Exception.
+ <notes>
+* Remove static logCallback variable in Horde_Imap_Client_Exception.
  * Improved login error reporting (Request #9211).
  * Add support for special-use mailboxes (draft-ietf-morg-list-specialuse-02).
  * Add Horde_Imap_Client_Base::validSearchCharset().
@@ -53,7 +51,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  * Initial release
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Imap">
@@ -61,6 +59,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Cclient">
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Cclient -->
+       <dir name="Data">
+        <file name="Thread.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Data -->
        <dir name="Search">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
@@ -75,7 +76,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Mock.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
-       <file name="Thread.php" role="php" />
        <file name="Utf7imap.php" role="php" />
        <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Imap/Client -->
@@ -83,6 +83,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Imap -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Imap">
+      <file name="test_client.php" role="test" />
+      <file name="test_email.txt" role="test" />
+      <file name="test_email2.txt" role="test" />
+     </dir> <!-- /test/Horde/Imap -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -128,21 +137,60 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Imap/Client/Base.php" as="Horde/Imap/Client/Base.php" />
-   <install name="lib/Horde/Imap/Client/Cache.php" as="Horde/Imap/Client/Cache.php" />
-   <install name="lib/Horde/Imap/Client/Cclient/Pop3.php" as="Horde/Imap/Client/Cclient/Pop3.php" />
-   <install name="lib/Horde/Imap/Client/Cclient.php" as="Horde/Imap/Client/Cclient.php" />
-   <install name="lib/Horde/Imap/Client/DateTime.php" as="Horde/Imap/Client/DateTime.php" />
-   <install name="lib/Horde/Imap/Client/Exception.php" as="Horde/Imap/Client/Exception.php" />
-   <install name="lib/Horde/Imap/Client/Mock.php" as="Horde/Imap/Client/Mock.php" />
-   <install name="lib/Horde/Imap/Client/Search/Query.php" as="Horde/Imap/Client/Search/Query.php" />
-   <install name="lib/Horde/Imap/Client/Socket.php" as="Horde/Imap/Client/Socket.php" />
-   <install name="lib/Horde/Imap/Client/Socket/Pop3.php" as="Horde/Imap/Client/Socket/Pop3.php" />
-   <install name="lib/Horde/Imap/Client/Sort.php" as="Horde/Imap/Client/Sort.php" />
-   <install name="lib/Horde/Imap/Client/Thread.php" as="Horde/Imap/Client/Thread.php" />
-   <install name="lib/Horde/Imap/Client/Utf7imap.php" as="Horde/Imap/Client/Utf7imap.php" />
-   <install name="lib/Horde/Imap/Client/Utils.php" as="Horde/Imap/Client/Utils.php" />
-   <install name="lib/Horde/Imap/Client.php" as="Horde/Imap/Client.php" />
+   <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
+   <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
+   <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />
+   <install as="Horde/Imap/Client/Cclient.php" name="lib/Horde/Imap/Client/Cclient.php" />
+   <install as="Horde/Imap/Client/DateTime.php" name="lib/Horde/Imap/Client/DateTime.php" />
+   <install as="Horde/Imap/Client/Exception.php" name="lib/Horde/Imap/Client/Exception.php" />
+   <install as="Horde/Imap/Client/Mock.php" name="lib/Horde/Imap/Client/Mock.php" />
+   <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
+   <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
+   <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
+   <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
+   <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
+   <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
+   <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
+   <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
+   <install as="Horde/Imap/test_client.php" name="test/Horde/Imap/test_client.php" />
+   <install as="Horde/Imap/test_email.txt" name="test/Horde/Imap/test_email.txt" />
+   <install as="Horde/Imap/test_email2.txt" name="test/Horde/Imap/test_email2.txt" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-02-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Remove static logCallback variable in Horde_Imap_Client_Exception.
+ * Improved login error reporting (Request #9211).
+ * Add support for special-use mailboxes (draft-ietf-morg-list-specialuse-02).
+ * Add Horde_Imap_Client_Base::validSearchCharset().
+ * Add Horde_Imap_Client_Base::fetchFromSectionString().
+ * Add support for RFC 4469 (CATENATE).
+ * Correctly output 8-bit strings (RFC 3501 [4.3]).
+ * Add Horde_Imap_Client_Utils::stripNonAtomChars().
+ * Add sequence sort (numeric sort by UID/sequence number).
+ * Add ability to disable server capabilities.
+ * Add Horde_Imap_Client_Base::parseCacheId().
+ * Added STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS status() entries.
+ * Add support for LIST-STATUS (draft-ietf-morg-status-in-list-01).
+ * Add support for THREAD=REFS (draft-ietf-morg-inthread-00).
+ * Add support for RFC 5258 (LIST-EXTENDED).
+ * Add Horde_Imap_Client_Utils::createUrl().
+ * Support SORT=DISPLAY extension.
+ * Added search and thread (message list) caching.
+ * Added PHP socket based POP3 driver.
+ * Initial release
+   </notes>
+  </release>
+ </changelog>
 </package>

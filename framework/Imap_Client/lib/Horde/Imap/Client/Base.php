@@ -1724,7 +1724,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *              DEFAULT: Stored/referred to by UID.
      * </pre>
      *
-     * @return Horde_Imap_Client_Thread  A Horde_Imap_Client_Thread object.
+     * @return Horde_Imap_Client_Data_Thread  A thread data object.
      * @throws Horde_Imap_Client_Exception
      */
     public function thread($mailbox, $options = array())
@@ -1741,12 +1741,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
              empty($options['search']) ||
              !$options['search']->flagSearch())) {
             $cache = $this->_getSearchCache('thread', $mailbox, $options);
-            if (isset($cache['data'])) {
+            if (isset($cache['data']) &&
+                ($cache['data'] instanceof Horde_Imap_Client_Data_Thread)) {
                 return $cache['data'];
             }
+            unset($cache['data']);
         }
 
-        $ob = new Horde_Imap_Client_Thread($this->_thread($options), empty($options['sequence']) ? 'uid' : 'sequence');
+        $ob = new Horde_Imap_Client_Data_Thread($this->_thread($options), empty($options['sequence']) ? 'uid' : 'sequence');
 
         if ($cache) {
             $this->_setSearchCache($ob, $cache);

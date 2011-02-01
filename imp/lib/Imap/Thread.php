@@ -18,14 +18,14 @@ class IMP_Imap_Thread
     /**
      * The thread data object.
      *
-     * @var Horde_Imap_Client_Thread
+     * @var Horde_Imap_Client_Data_Thread
      */
     protected $_thread;
 
     /**
      * Constructor.
      *
-     * @param Horde_Imap_Client_Thread $thread  The thread data object.
+     * @param Horde_Imap_Client_Data_Thread $thread  The thread data object.
      */
     public function __construct($thread)
     {

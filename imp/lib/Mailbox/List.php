@@ -62,9 +62,9 @@ class IMP_Mailbox_List implements Countable, Serializable
     protected $_sortedMbox = array();
 
     /**
-     * The Horde_Imap_Client_Thread object for the mailbox.
+     * The thread object for the mailbox.
      *
-     * @var Horde_Imap_Client_Thread
+     * @var Horde_Imap_Client_Data_Thread
      */
     protected $_threadob = null;
 
@@ -519,10 +519,10 @@ class IMP_Mailbox_List implements Countable, Serializable
     }
 
     /**
-     * Get the Horde_Imap_Client_Thread object for the current mailbox.
+     * Get the thread object for the current mailbox.
      *
-     * @return Horde_Imap_Client_Thread  The thread object for the current
-     *                                   mailbox.
+     * @return Horde_Imap_Client_Data_Thread  The thread object for the
+     *                                        current mailbox.
      */
     public function getThreadOb()
     {
@@ -531,7 +531,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                 $this->_threadob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->thread($this->_mailbox, array('criteria' => $GLOBALS['session']->get('imp', 'imap_thread')));
             } catch (Horde_Imap_Client_Exception $e) {
                 $GLOBALS['notification']->push($e);
-                return new Horde_Imap_Client_Thread(array(), 'uid');
+                return new Horde_Imap_Client_Data_Thread(array(), 'uid');
             }
         }
 

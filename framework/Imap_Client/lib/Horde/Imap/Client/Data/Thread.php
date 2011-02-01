@@ -1,7 +1,7 @@
 <?php
 /**
  * A class allowing easy access to threaded sort results from
- * Horde_Imap_Client::thread().
+ * Horde_Imap_Client_Base::thread().
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Thread
+class Horde_Imap_Client_Data_Thread
 {
     /**
      * Internal thread data structure.
