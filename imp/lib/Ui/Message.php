@@ -154,31 +154,20 @@ class IMP_Ui_Message
     /**
      * Adds the local time string to the date header.
      *
-     * @param string $date  The date string.
+     * @param Horde_Imap_Client_DateTime $date  The date object.
      *
      * @return string  The local formatted time string.
      */
-    public function getLocalTime($date)
+    public function getLocalTime(Horde_Imap_Client_DateTime $date)
     {
-        if (empty($date)) {
-            $ltime = false;
-        } else {
-            $date = preg_replace('/\s+\(\w+\)$/', '', $date);
-            $ltime = strtotime($date);
-        }
-
-        if (($ltime === false) || ($ltime === -1)) {
-            return '';
-        }
-
-        $time_str = strftime($GLOBALS['prefs']->getValue('time_format'), $ltime);
+        $time_str = strftime($GLOBALS['prefs']->getValue('time_format'), strval($date));
         $tz = strftime('%Z');
 
-        if ((date('Y') != @date('Y', $ltime)) ||
-            (date('M') != @date('M', $ltime)) ||
-            (date('d') != @date('d', $ltime))) {
+        if ((date('Y') != $date->format('Y')) ||
+            (date('M') != $date->format('M')) ||
+            (date('d') != $date->format('d'))) {
             /* Not today, use the date. */
-            $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), $ltime);
+            $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), strval($date));
             return sprintf('%s %s %s', $date_str, $time_str, $tz);
         }
 

@@ -55,6 +55,14 @@ class Horde_Imap_Client_DateTime implements Serializable
     }
 
     /**
+     * String representation: UNIX timestamp.
+     */
+    public function __toString()
+    {
+        return $this->format('U');
+    }
+
+    /**
      * Serialize.
      *
      * @return string  Serialized representation of this object.
@@ -90,13 +98,22 @@ class Horde_Imap_Client_DateTime implements Serializable
 
     /**
      * Called on a function call.
+     *
+     * @throws Exception
      */
     public function __call($name, $arguments)
     {
         if (is_null($this->_datetime)) {
-            $this->_datetime = is_null($this->_tz)
-                ? new DateTime($this->_string)
-                : new DateTime($this->_string, $this->_tz);
+            try {
+                $this->_datetime = new DateTime($this->_string, $this->_tz);
+            } catch (Exception $e) {
+                /* Bug #5717 - Check for UT vs. UTC. */
+                if (substr(rtrim($date), -3) != ' UT') {
+                    throw $e;
+                }
+
+                $this->_datetime = new DateTime($this->_string . 'C', $this->_tz);
+            }
         }
 
         return call_user_func_array(array($this->_datetime, $name), $arguments);

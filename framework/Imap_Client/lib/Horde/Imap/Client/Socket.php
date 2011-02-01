@@ -2034,13 +2034,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     }
 
                     foreach ($slice as $num) {
-                        if (empty($fetch_res[$num]['envelope'][$field])) {
+                        if (empty($fetch_res[$num]['envelope']->$field)) {
                             $sorted[$num] = null;
                         } else {
-                            $tmp = ($display_sort && !empty($fetch_res[$num]['envelope'][$field][0]['personal']))
+                            $tmp = ($display_sort && !empty($fetch_res[$num]['envelope']->$field[0]['personal']))
                                 ? 'personal'
                                 : 'mailbox';
-                            $sorted[$num] = $fetch_res[$num]['envelope'][$field][0][$tmp];
+                            $sorted[$num] = $fetch_res[$num]['envelope']->$field[0][$tmp];
                         }
                     }
                     asort($sorted, SORT_LOCALE_STRING);
@@ -2060,9 +2060,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 case Horde_Imap_Client::SORT_SUBJECT:
                     // Subject sorting rules in RFC 5256 [2.1]
                     foreach ($slice as $num) {
-                        $sorted[$num] = empty($fetch_res[$num]['envelope']['subject'])
-                            ? ''
-                            : $this->utils->getBaseSubject($fetch_res[$num]['envelope']['subject']);
+                        $sorted[$num] = $this->utils->getBaseSubject($fetch_res[$num]['envelope']->subject);
                     }
                     asort($sorted, SORT_LOCALE_STRING);
                     break;
@@ -2120,13 +2118,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $dates = array();
 
-        $tz = new DateTimeZone('UTC');
         foreach ($ids as $num) {
-            $dt = ($internal || empty($data[$num]['envelope']['date']))
+            $dt = ($internal || !isset($data[$num]['envelope']->date))
                 // RFC 5256 [3] & 3501 [6.4.4]: disregard timezone when
                 // using internaldate.
                 ? $data[$num]['date']
-                : new DateTime($data[$num]['envelope']['date'], $tz);
+                : $data[$num]['envelope']->date;
             $dates[$num] = $dt->format('U');
         }
 
@@ -2305,9 +2302,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         reset($data);
         while (list($k, $v) = each($data)) {
-            $subject = empty($v['envelope']['subject'])
-                ? ''
-                : $this->utils->getBaseSubject($v['envelope']['subject']);
+            $subject = $this->utils->getBaseSubject($v['envelope']->subject);
             if (!isset($sorted[$subject])) {
                 $sorted[$subject] = array();
             }
@@ -2891,7 +2886,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param array $data  The tokenized information from the server.
      *
-     * @return array  The array of envelope information.
+     * @return Horde_Imap_Client_Data_Envelope  An envelope object.
      */
     protected function _parseEnvelope($data)
     {
@@ -2901,39 +2896,45 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $env_data = array(
             0 => 'date',
             1 => 'subject',
-            8 => 'in-reply-to',
-            9 => 'message-id'
+            8 => 'in_reply_to',
+            9 => 'message_id'
         );
         $env_data_array = array(
             2 => 'from',
             3 => 'sender',
-            4 => 'reply-to',
+            4 => 'reply_to',
             5 => 'to',
             6 => 'cc',
             7 => 'bcc'
         );
 
-        $ret = array();
+        $ret = new Horde_Imap_Client_Data_Envelope();
 
         foreach ($env_data as $key => $val) {
-            $ret[$val] = (strtoupper($data[$key]) == 'NIL') ? null : $data[$key];
+            if (isset($data[$key]) &&
+                (strcasecmp($data[$key], 'NIL') !== 0)) {
+                $ret->$val = $data[$key];
+            }
         }
 
         // These entries are address structures.
         foreach ($env_data_array as $key => $val) {
-            $ret[$val] = array();
             // Check for 'NIL' value here.
             if (is_array($data[$key])) {
+                $tmp = array();
                 reset($data[$key]);
+
                 while (list(,$a_val) = each($data[$key])) {
                     $tmp_addr = array();
                     foreach ($addr_structure as $add_key => $add_val) {
-                        if (strtoupper($a_val[$add_key]) != 'NIL') {
+                        if (strcasecmp($a_val[$add_key], 'NIL') !== 0) {
                             $tmp_addr[$add_val] = $a_val[$add_key];
                         }
                     }
-                    $ret[$val][] = $tmp_addr;
+                    $tmp[] = $tmp_addr;
                 }
+
+                $ret->$val = $tmp;
             }
         }
 

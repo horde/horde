@@ -177,18 +177,18 @@ if (($subject = $mime_headers->getValue('subject'))) {
 }
 $display_headers['subject'] = $subject;
 
-$format_date = $imp_ui->getLocalTime($envelope['date']);
+$format_date = $imp_ui->getLocalTime($envelope->date);
 if (!empty($format_date)) {
     $display_headers['date'] = $format_date;
 }
 
 /* Build From address links. */
-$display_headers['from'] = $imp_ui->buildAddressLinks($envelope['from'], null, false);
+$display_headers['from'] = $imp_ui->buildAddressLinks($envelope->from, null, false);
 
 /* Build To/Cc/Bcc links. */
 foreach (array('to', 'cc', 'bcc') as $val) {
     $msgAddresses[] = $mime_headers->getValue($val);
-    $addr_val = $imp_ui->buildAddressLinks($envelope[$val], null, false);
+    $addr_val = $imp_ui->buildAddressLinks($envelope->$val, null, false);
     if (!empty($addr_val)) {
         $display_headers[$val] = $addr_val;
     }
@@ -270,7 +270,7 @@ if (IMP::canCompose()) {
         $menu[] = array(_("Reply to List"), IMP::composeLink(array(), array('a' => 'rl') + $compose_params));
     }
 
-    if (Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), array('charset' => 'UTF-8', 'filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
+    if (Horde_Mime_Address::addrArray2String(array_merge($envelope->to, $envelope->cc), array('charset' => 'UTF-8', 'filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
         $menu[] = array(_("Reply All"), IMP::composeLink(array(), array('a' => 'ra') + $compose_params));
     }
 

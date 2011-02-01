@@ -889,17 +889,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_ENVELOPE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
-                    $ret[$id]['envelope'] = array(
+                    $ret[$id]['envelope'] = new Horde_Imap_Client_Data_Envelope(array(
                         'date' => $tmp->getValue('date'),
                         'subject' => $tmp->getValue('subject'),
                         'from' => $tmp->getOb('from'),
-                        'reply-to' => $tmp->getOb('reply-to'),
+                        'sender' => $tmp->getOb('sender'),
+                        'reply_to' => $tmp->getOb('reply-to'),
                         'to' => $tmp->getOb('to'),
                         'cc' => $tmp->getOb('cc'),
                         'bcc' => $tmp->getOb('bcc'),
-                        'in-reply-to' => $tmp->getValue('in-reply-to'),
-                        'message-id' => $tmp->getValue('message-id')
-                    );
+                        'in_reply_to' => $tmp->getValue('in-reply-to'),
+                        'message_id' => $tmp->getValue('message-id')
+                    ));
                 }
                 break;
 

@@ -69,12 +69,12 @@ if (count($ids)) {
     foreach ($overview['overview'] as $ob) {
         $from_addr = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true));
         $items[] = array_map('htmlspecialchars', array(
-            'title' => $imp_ui->getSubject($ob['envelope']['subject']),
-            'pubDate' => date('r', strtotime($ob['envelope']['date'])),
+            'title' => $imp_ui->getSubject($ob['envelope']->subject),
+            'pubDate' => $ob['envelope']->date->format('r'),
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
             'url' => Horde::url(IMP::generateIMPUrl('message.php', $mailbox, $ob['uid'], $mailbox), true, array('append_session' => -1)),
             'fromAddr' => $from_addr['fullfrom'],
-            'toAddr' => Horde_Mime_Address::addrArray2String(isset($ob['envelope']['to']) ? $ob['envelope']['to'] : array(), array('charset' => 'UTF-8'))
+            'toAddr' => Horde_Mime_Address::addrArray2String($ob['envelope']->to, array('charset' => 'UTF-8'))
         ));
     }
 }

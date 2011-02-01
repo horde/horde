@@ -18,7 +18,7 @@
   <active>yes</active>
  </lead>
  <date>2011-02-01</date>
- <time>15:18:13</time>
+ <time>16:18:41</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -29,7 +29,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Remove static logCallback variable in Horde_Imap_Client_Exception.
+* Add Horde_Imap_Client_Data_Envelope data object.
+ * Remove static logCallback variable in Horde_Imap_Client_Exception.
  * Improved login error reporting (Request #9211).
  * Add support for special-use mailboxes (draft-ietf-morg-list-specialuse-02).
  * Add Horde_Imap_Client_Base::validSearchCharset().
@@ -60,6 +61,7 @@
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Cclient -->
        <dir name="Data">
+        <file name="Envelope.php" role="php" />
         <file name="Thread.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Data -->
        <dir name="Search">
@@ -149,6 +151,7 @@
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
+   <install as="Horde/Imap/Client/Data/Envelope.php" name="lib/Horde/Imap/Client/Data/Envelope.php" />
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
@@ -170,7 +173,8 @@
    <date>2011-02-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Remove static logCallback variable in Horde_Imap_Client_Exception.
+* Add Horde_Imap_Client_Data_Envelope data object.
+ * Remove static logCallback variable in Horde_Imap_Client_Exception.
  * Improved login error reporting (Request #9211).
  * Add support for special-use mailboxes (draft-ietf-morg-list-specialuse-02).
  * Add Horde_Imap_Client_Base::validSearchCharset().

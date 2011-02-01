@@ -358,8 +358,8 @@ class IMP_Folder
                 }
 
                 $from = '<>';
-                if (!empty($ptr['envelope']['from'])) {
-                    $ptr2 = reset($ptr['envelope']['from']);
+                if (!empty($ptr['envelope']->from)) {
+                    $ptr2 = reset($ptr['envelope']->from);
                     if (!empty($ptr2['mailbox']) && !empty($ptr2['host'])) {
                         $from = $ptr2['mailbox']. '@' . $ptr2['host'];
                     }

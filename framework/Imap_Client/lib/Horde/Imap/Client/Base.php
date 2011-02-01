@@ -2034,7 +2034,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *     'description' - (string) The part's Content-Description value.
      *     'encoding' - (string) The part's Content-Transfer-Encoding value.
      *     'size' - (integer) - The part's size in bytes.
-     *     'envelope' - [ONLY message/rfc822] (array) See 'envelope' response.
+     *     'envelope' - [ONLY message/rfc822] (Horde_Imap_Client_Data_Envelope)
+     *                  See 'envelope' response.
      *     'structure' - [ONLY message/rfc822] (array) See 'structure'
      *                   response.
      *     'lines' - [ONLY message/rfc822 and text/*] (integer) The size of
@@ -2046,15 +2047,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *         ONLY ONE of these entries should be defined per fetch request.
      *   Value: NONE
      *   Return key: 'envelope' [CACHEABLE]
-     *   Return format: (array) This array has 9 elements: 'date', 'subject',
-     *     'from', 'sender', 'reply-to', 'to', 'cc', 'bcc', 'in-reply-to', and
-     *     'message-id'. For 'date', 'subject', 'in-reply-to', and
-     *     'message-id', the values will be a string or null if it doesn't
-     *     exist. For the other keys, the value will be an array of arrays (or
-     *     an empty array if the header does not exist). Each of these
-     *     underlying arrays corresponds to a single address and contains 4
-     *     keys: 'personal', 'adl', 'mailbox', and 'host'. These keys will
-     *     only be set if the server returned information.
+     *   Return format: (Horde_Imap_Client_Data_Envelope) An envelope object.
      *
      * Key: Horde_Imap_Client::FETCH_FLAGS
      *   Desc: Flags set for the message
@@ -2350,6 +2343,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     }
                     break;
 
+                case Horde_Imap_Client::FETCH_ENVELOPE:
+                    /* Retrieved from cache so store in return array.
+                     * Sanity checking that returned data is an object. */
+                    if (isset($data[$val][$cval['c']]) &&
+                        is_object($data[$val][$cval['c']])) {
+                        $ret[$id][$cval['f']] = $data[$val][$cval['c']];
+                        unset($crit[$key]);
+                    }
+                    break;
+
                 default:
                     /* Retrieved from cache so store in return array. */
                     if (isset($data[$val][$cval['c']])) {
@@ -2359,7 +2362,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     break;
                 }
             }
-
 
             /* HEADERTEXT caching for this access only. */
             if (!is_null($headertext) &&

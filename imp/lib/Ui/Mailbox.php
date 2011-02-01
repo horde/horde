@@ -45,14 +45,12 @@ class IMP_Ui_Mailbox
     /**
      * Get From address information for display on mailbox page.
      *
-     * @param array $ob       An array of envelope information.
-     * @param array $options  Additional options:
-     * <pre>
-     * 'fullfrom' - (boolean) If true, returns 'fullfrom' information.
-     *              DEFAULT: false
-     * 'specialchars' - (string) If set, run 'from' return through
-     *                  htmlspecialchars() using the given charset.
-     * </pre>
+     * @param Horde_Imap_Client_Data_Envelope $ob  An envelope object.
+     * @param array $options                       Additional options:
+     *   - fullfrom: (boolean) If true, returns 'fullfrom' information.
+     *               DEFAULT: false
+     *   - specialchars: (string) If set, run 'from' return through
+     *                   htmlspecialchars() using the given charset.
      *
      * @return array  An array of information:
      * <pre>
@@ -66,7 +64,7 @@ class IMP_Ui_Mailbox
     {
         $ret = array('error' => false, 'to' => false);
 
-        if (empty($ob['from'])) {
+        if (empty($ob->from)) {
             $ret['from'] = $ret['fullfrom'] = _("Invalid Address");
             $ret['error'] = true;
             return $ret;
@@ -76,7 +74,7 @@ class IMP_Ui_Mailbox
             $this->_cache['drafts_sm_folder'] = IMP::isSpecialFolder($this->_mailbox);
         }
 
-        $from = Horde_Mime_Address::getAddressesFromObject($ob['from'], array('charset' => 'UTF-8'));
+        $from = Horde_Mime_Address::getAddressesFromObject($ob->from, array('charset' => 'UTF-8'));
         $from = reset($from);
 
         if (empty($from)) {
@@ -86,11 +84,11 @@ class IMP_Ui_Mailbox
             if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($from['inner'])) {
                 /* This message was sent by one of the user's identity
                  * addresses - show To: information instead. */
-                if (empty($ob['to'])) {
+                if (empty($ob->to)) {
                     $ret['from'] = _("Undisclosed Recipients");
                     $ret['error'] = true;
                 } else {
-                    $to = Horde_Mime_Address::getAddressesFromObject($ob['to'], array('charset' => 'UTF-8'));
+                    $to = Horde_Mime_Address::getAddressesFromObject($ob->to, array('charset' => 'UTF-8'));
                     $first_to = reset($to);
                     if (empty($first_to)) {
                         $ret['from'] = _("Undisclosed Recipients");
@@ -159,23 +157,17 @@ class IMP_Ui_Mailbox
     /**
      * Formats the date header.
      *
-     * @param integer $date    The UNIX timestamp.
-     * @param integer $format  Mask of formatting options:
-     * <pre>
-     * IMP_Mailbox_Ui::DATE_FORCE - Force use of date formatting, instead of
-     *                              time formatting, for all dates.
-     * IMP_Mailbox_Ui::DATE_FULL - Use full representation of date, including
-     *                             time information.
-     * </pre>
+     * @param Horde_Imap_Client_DateTime $date  The date object.
+     * @param integer $format                   Mask of formatting options:
+     *   - IMP_Mailbox_Ui::DATE_FORCE - Force use of date formatting, instead
+     *                                  of time formatting, for all dates.
+     *   - IMP_Mailbox_Ui::DATE_FULL - Use full representation of date,
+     *                                 including time information.
      *
      * @return string  The formatted date header.
      */
-    public function getDate($date, $format = 0)
+    public function getDate(Horde_Imap_Client_DateTime $date, $format = 0)
     {
-        if (empty($date)) {
-            return _("Unknown Date");
-        }
-
         if (!($format & self::DATE_FORCE) &&
             !isset($this->_cache['today_start'])) {
             $this->_cache['today_start'] = new DateTime('today');
@@ -183,19 +175,10 @@ class IMP_Ui_Mailbox
         }
 
         try {
-            $d = new DateTime($date);
+            $udate = $date->format('U');
         } catch (Exception $e) {
-            /* Bug #5717 - Check for UT vs. UTC. */
-            if (substr(rtrim($date), -3) != ' UT') {
-                return _("Unknown Date");
-            }
-            try {
-                $d = new DateTime($date . 'C');
-            } catch (Exception $e) {
-                return _("Unknown Date");
-            }
+            return _("Unknown Date");
         }
-        $udate = $d->format('U');
 
         if (($format & self::DATE_FORCE) ||
             ($udate < $this->_cache['today_start']->format('U')) ||

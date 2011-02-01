@@ -750,7 +750,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msg = array(
         'bg' => '',
         'class' => '',
-        'date' => htmlspecialchars($imp_ui->getDate($ob['envelope']['date'])),
+        'date' => htmlspecialchars($imp_ui->getDate($ob['envelope']->date)),
         'preview' => '',
         'status' => '',
         'size' => htmlspecialchars($imp_ui->getSize($ob['size'])),
@@ -773,7 +773,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $flag_parse = $imp_flags->parse(array(
         'flags' => $ob['flags'],
         'headers' => $ob['headers'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => 'UTF-8'))
+        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
     ));
 
     $subject_flags = array();
@@ -834,7 +834,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Format the Subject: Header. */
-    $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject'], true);
+    $msg['subject'] = $imp_ui->getSubject($ob['envelope']->subject, true);
     if ($preview_tooltip) {
         $msg['subject'] = substr(Horde::linkTooltip($target, $msg['preview'], '', '', '', $msg['preview']), 0, -1) . ' class="mboxSubject">' . $msg['subject'] . '</a>';
     } else {

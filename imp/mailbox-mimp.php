@@ -167,7 +167,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Initialize the header fields. */
     $msg = array(
         'status' => '',
-        'subject' => trim($imp_ui->getSubject($ob['envelope']['subject'])),
+        'subject' => trim($imp_ui->getSubject($ob['envelope']->subject)),
         'uid' => strval(new IMP_Indices($ob['mailbox'], $ob['uid']))
     );
 
@@ -179,7 +179,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $flag_parse = $injector->getInstance('IMP_Flags')->parse(array(
         'flags' => $ob['flags'],
         'headers' => $ob['headers'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => 'UTF-8'))
+        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
     ));
 
     foreach ($flag_parse as $val) {

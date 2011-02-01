@@ -434,7 +434,7 @@ class IMP_Views_ListMessages
             $flag_parse = $GLOBALS['injector']->getInstance('IMP_Flags')->parse(array(
                 'flags' => $ob['flags'],
                 'headers' => $ob['headers'],
-                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $charset))
+                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => $charset))
             ));
 
             if (!empty($flag_parse)) {
@@ -453,14 +453,14 @@ class IMP_Views_ListMessages
             $msg['size'] = htmlspecialchars($imp_ui->getSize($ob['size']), ENT_QUOTES, $charset);
 
             /* Format the Date: Header. */
-            $msg['date'] = htmlspecialchars($imp_ui->getDate($ob['envelope']['date']), ENT_QUOTES, $charset);
+            $msg['date'] = htmlspecialchars($imp_ui->getDate($ob['envelope']->date), ENT_QUOTES, $charset);
 
             /* Format the From: Header. */
             $getfrom = $imp_ui->getFrom($ob['envelope'], array('specialchars' => $charset));
             $msg['from'] = $getfrom['from'];
 
             /* Format the Subject: Header. */
-            $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject'], true);
+            $msg['subject'] = $imp_ui->getSubject($ob['envelope']->subject, true);
 
             /* Check to see if this is a list message. Namely, we want to
              * check for 'List-Post' information because that is the header

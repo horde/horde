@@ -258,13 +258,13 @@ $self_link = IMP::generateIMPUrl('message.php', IMP::$mailbox, $uid, $mailbox_na
 $basic_headers = $imp_ui->basicHeaders();
 $display_headers = $msgAddresses = array();
 
-$format_date = $imp_ui->getLocalTime($envelope['date']);
+$format_date = $imp_ui->getLocalTime($envelope->date);
 if (!empty($format_date)) {
     $display_headers['date'] = $format_date;
 }
 
 /* Build From address links. */
-$display_headers['from'] = $imp_ui->buildAddressLinks($envelope['from'], $self_link);
+$display_headers['from'] = $imp_ui->buildAddressLinks($envelope->from, $self_link);
 
 /* Add country/flag image. Try X-Originating-IP first, then fall back to the
  * sender's domain name. */
@@ -280,8 +280,8 @@ if ($origin_host) {
     trim($from_img);
 }
 
-if (empty($from_img) && !empty($envelope['from'])) {
-    $from_ob = reset($envelope['from']);
+if (empty($from_img) && !empty($envelope->from)) {
+    $from_ob = reset($envelope->from);
     $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($from_ob['host']) . ' ';
 }
 
@@ -300,7 +300,7 @@ if ($mime_headers->getValue('face')) {
 /* Build To/Cc/Bcc links. */
 foreach (array('to', 'cc', 'bcc') as $val) {
     $msgAddresses[] = $mime_headers->getValue($val);
-    $addr_val = $imp_ui->buildAddressLinks($envelope[$val], $self_link);
+    $addr_val = $imp_ui->buildAddressLinks($envelope->$val, $self_link);
     if (!empty($addr_val)) {
         $display_headers[$val] = $addr_val;
     }
@@ -330,10 +330,10 @@ case 'low':
 }
 
 /* Build Reply-To address link. */
-if (!empty($envelope['reply-to']) &&
-    (Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String(reset($envelope['from']), array('charset' => 'UTF-8'))) !=
-     Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String(reset($envelope['reply-to']), array('charset' => 'UTF-8')))) &&
-    ($reply_to = $imp_ui->buildAddressLinks($envelope['reply-to'], $self_link))) {
+if (!empty($envelope->reply_to) &&
+    (Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String(reset($envelope->from), array('charset' => 'UTF-8'))) !=
+     Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String(reset($envelope->reply_to), array('charset' => 'UTF-8')))) &&
+    ($reply_to = $imp_ui->buildAddressLinks($envelope->reply_to, $self_link))) {
     $display_headers['reply-to'] = $reply_to;
 }
 
@@ -528,7 +528,7 @@ if (!$disable_compose) {
         $a_template->set('reply_list', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_list') + $compose_params), _("To List"), 'widget', '', '', _("To _List"), true));
     }
 
-    if (Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), array('charset' => 'UTF-8', 'filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
+    if (Horde_Mime_Address::addrArray2String(array_merge($envelope->to, $envelope->cc), array('charset' => 'UTF-8', 'filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
         $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), 'widget', '', '', _("To _All"), true));
     }
 
@@ -723,7 +723,7 @@ Horde::noDnsPrefetch();
 require IMP_TEMPLATES . '/common-header.inc';
 
 if (!empty($conf['maillog']['use_maillog'])) {
-    IMP_Maillog::displayLog($envelope['message-id']);
+    IMP_Maillog::displayLog($envelope->message_id);
 }
 echo $menu;
 IMP::status();

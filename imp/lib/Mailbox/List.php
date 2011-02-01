@@ -100,8 +100,8 @@ class IMP_Mailbox_List implements Countable, Serializable
      * @return array  An array with the following keys:
      * <pre>
      * overview - (array) The overview information. Contains the following:
-     *     envelope - (array) Envelope information returned from the IMAP
-     *                server. See Horde_Imap_Client::fetch() for format.
+     *     envelope - (Horde_Imap_Client_Data_Envelope) Envelope information
+     *                returned from the IMAP server.
      *     flags - (array) The list of IMAP flags returned from the server.
      *             See Horde_Imap_Client::fetch() for the format.
      *     headers - (array) Horde_Mime_Headers objects containing header data

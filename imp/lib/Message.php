@@ -286,8 +286,8 @@ class IMP_Message
                     $msg_ids = array();
                     reset($fetch);
                     while (list(,$v) = each($fetch)) {
-                        if (!empty($v['envelope']['message-id'])) {
-                            $msg_ids[] = $v['envelope']['message-id'];
+                        if (!empty($v['envelope']->message_id)) {
+                            $msg_ids[] = $v['envelope']->message_id;
                         }
                     }
 

@@ -152,7 +152,7 @@ class IMP_Views_ShowMessage
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
             if (isset($headers_list[$val]) &&
                 (!$preview || ($val != 'reply-to'))) {
-                $tmp = $this->_buildAddressList($envelope[$val]);
+                $tmp = $this->_buildAddressList(($val == 'reply-to') ? $envelope->reply_to : $envelope->$val);
                 if (!empty($tmp)) {
                     $result[$val] = $tmp;
                 } elseif ($val == 'to') {
@@ -169,7 +169,7 @@ class IMP_Views_ShowMessage
             if ($val = $mime_headers->getValue($head)) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
-                    $val = htmlspecialchars($imp_ui->getLocalTime($envelope['date']));
+                    $val = htmlspecialchars($imp_ui->getLocalTime($envelope->date));
                     if ($preview) {
                         $result['localdate'] = $val;
                     }
@@ -198,14 +198,14 @@ class IMP_Views_ShowMessage
 
         /* Grab maillog information. */
         if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
-            ($tmp = IMP_Dimp::getMsgLogInfo($envelope['message-id']))) {
+            ($tmp = IMP_Dimp::getMsgLogInfo($envelope->message_id))) {
             $result['log'] = $tmp;
         }
 
         if ($preview) {
             /* Get minidate. */
             $imp_mailbox_ui = new IMP_Ui_Mailbox();
-            $localdate = $imp_mailbox_ui->getDate($envelope['date']);
+            $localdate = $imp_mailbox_ui->getDate($envelope->date);
             if (empty($localdate)) {
                 $localdate = _("Unknown Date");
             }

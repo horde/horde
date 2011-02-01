@@ -1143,26 +1143,16 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 );
 
                 foreach ($options['ids'] as $id) {
+                    $env_data = array();
                     $hptr = &$hdrinfo[$id];
-                    $ret[$id]['envelope'] = array();
-                    $ptr = &$ret[$id]['envelope'];
 
                     foreach ($env_data as $e_val) {
-                        $label = strtr($e_val, '_', '-');
                         if (isset($hptr->$e_val)) {
-                            if (is_array($hptr->$e_val)) {
-                                $tmp = array();
-                                foreach ($hptr->$e_val as $a_val) {
-                                    $tmp[] = (array)$a_val;
-                                }
-                                $ptr[$label] = $tmp;
-                            } else {
-                                $ptr[$label] = $hptr->$e_val;
-                            }
-                        } else {
-                            $ptr[$label] = null;
+                            $env_data[$label] = $hptr->$e_val;
                         }
                     }
+
+                    $ret[$id]['envelope'] = new Horde_Imap_Client_Data_Envelope($env_data);
                 }
                 break;
 
@@ -1320,7 +1310,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             if (($ret['type'] == 'message') && ($ret['subtype'] == 'rfc822')) {
                 // @todo - Doesn't seem to be an easy way to obtain the
                 // envelope information for this part.
-                $ret['envelope'] = array();
+                $ret['envelope'] = new Horde_Imap_Client_Data_Envelope();
                 $ret['structure'] = $this->_parseStructure(reset($data->parts));
                 $ret['lines'] = $data->lines;
             } elseif ($ret['type'] == 'text') {
