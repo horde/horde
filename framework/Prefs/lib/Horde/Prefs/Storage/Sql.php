@@ -63,7 +63,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         try {
             $result = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw Horde_Prefs_Exception($e);
+            throw new Horde_Prefs_Exception($e);
         }
 
         foreach ($result as $row) {
