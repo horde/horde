@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Data_Thread
+class Horde_Imap_Client_Data_Thread implements Countable
 {
     /**
      * Internal thread data structure.
@@ -105,7 +105,9 @@ class Horde_Imap_Client_Data_Thread
      */
     public function messageList($new)
     {
-        return ($new) ? array_reverse(array_keys($this->_thread)) : array_keys($this->_thread);
+        return $new
+            ? array_reverse(array_keys($this->_thread))
+            : array_keys($this->_thread);
     }
 
     /**
@@ -140,6 +142,15 @@ class Horde_Imap_Client_Data_Thread
         }
 
         return $thread_list;
+    }
+
+    /* Countable methods. */
+
+    /**
+     */
+    public function count()
+    {
+        return count($this->_thread);
     }
 
 }
