@@ -3,7 +3,7 @@ global $prefs, $registry;
 
 $kronolith_webroot = $registry->get('webroot');
 $horde_webroot = $registry->get('webroot', 'horde');
-$has_tasks = $registry->hasInterface('tasks');
+$has_tasks = Kronolith::hasApiPermission('tasks');
 
 /* Variables used in core javascript files. */
 $code['conf'] = array(

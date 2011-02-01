@@ -43,10 +43,10 @@
       <li><a id="kronolithNavWeek" accesskey="2"><span><?php echo _("Week") ?></span></a></li>
       <li><a id="kronolithNavMonth" accesskey="3"><span><?php echo _("Month") ?></span></a></li>
       <li><a id="kronolithNavYear" accesskey="4"><span><?php echo _("Year") ?></span></a></li>
-    <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
+    <?php if (Kronolith::hasApiPermission('tasks')): ?>
       <li><a id="kronolithNavTasks" accesskey="5"><span><?php echo _("Tasks") ?></span></a></li>
     <?php endif; ?>
-      <li><a id="kronolithNavAgenda" accesskey="<?php echo $GLOBALS['registry']->hasInterface('tasks') ? 6 : 5 ?>"><span><?php echo _("Agenda") ?></span></a></li>
+      <li><a id="kronolithNavAgenda" accesskey="<?php echo Kronolith::hasApiPermission('tasks') ? 6 : 5 ?>"><span><?php echo _("Agenda") ?></span></a></li>
     </ul>
   </div>
 </div>
@@ -102,7 +102,7 @@
   <div id="kronolithMyCalendars" class="kronolithCalendars">
   </div>
 
-  <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
+  <?php if (Kronolith::hasApiPermission('tasks')): ?>
   <h3>
     <?php if ($GLOBALS['registry']->getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddtasklists" class="kronolithAdd" title="<?php echo _("New Task List") ?>">+</a>
@@ -123,7 +123,7 @@
   <div id="kronolithSharedCalendars" class="kronolithCalendars">
   </div>
 
-  <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
+  <?php if (Kronolith::hasApiPermission('tasks')): ?>
   <h3>
     <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddtasklistsshared" class="kronolithAdd">+</a>-->
     <span><?php echo _("Shared Task Lists") ?></span>
@@ -169,7 +169,7 @@ require dirname(__FILE__) . '/month.inc';
 require dirname(__FILE__) . '/week.inc';
 require dirname(__FILE__) . '/day.inc';
 require dirname(__FILE__) . '/year.inc';
-if ($GLOBALS['registry']->hasInterface('tasks')) {
+if (Kronolith::hasApiPermission('tasks')) {
     require dirname(__FILE__) . '/tasks.inc';
     require dirname(__FILE__) . '/task.inc';
 }

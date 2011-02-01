@@ -115,7 +115,7 @@ class Kronolith
 
         $kronolith_webroot = $registry->get('webroot');
         $horde_webroot = $registry->get('webroot', 'horde');
-        $has_tasks = $registry->hasInterface('tasks');
+        $has_tasks = Kronolith::hasApiPermission('tasks');
         $app_urls = array();
         if (isset($GLOBALS['conf']['menu']['apps']) &&
             is_array($GLOBALS['conf']['menu']['apps'])) {
@@ -1056,13 +1056,16 @@ class Kronolith
         $GLOBALS['prefs']->setValue('holiday_drivers', serialize($GLOBALS['display_holidays']));
 
         /* Get a list of external calendars. */
-        $has_tasks = $GLOBALS['registry']->hasInterface('tasks');
+        $has_tasks = Kronolith::hasApiPermission('tasks');
         $tasklists = $has_tasks
             ? $GLOBALS['registry']->tasks->listTasklists()
             : array();
         $GLOBALS['all_external_calendars'] = array();
         if ($GLOBALS['session']->exists('kronolith', 'all_external_calendars')) {
             foreach ($GLOBALS['session']->get('kronolith', 'all_external_calendars') as $calendar) {
+                if (!Kronolith::hasApiPermission($calendar['a'])) {
+                    continue;
+                }
                 $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = $calendar['a'] == 'tasks'
                     ? new Kronolith_Calendar_External_Tasks(array('api' => $calendar['a'], 'name' => $calendar['d'], 'share' => $tasklists[$calendar['n']]))
                     : new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d']));
@@ -1072,7 +1075,8 @@ class Kronolith
             $ext_cals = array();
 
             foreach ($apis as $api) {
-                if (!$GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
+                if (!Kronolith::hasApiPermission($api) ||
+                    !$GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
                     continue;
                 }
                 try {
@@ -3006,4 +3010,18 @@ class Kronolith
         );
     }
 
+    /**
+     * Checks whether an API (application) exists and the user has permission
+     * to access it.
+     *
+     * @param string $api    The API (application) to check.
+     * @param integer $perm  The permission to check.
+     *
+     * @return boolean  True if the API can be accessed.
+     */
+    static public function hasApiPermission($api, $perm = Horde_Perms::READ)
+    {
+        return $GLOBALS['registry']->hasInterface($api) &&
+            $GLOBALS['registry']->hasPermission($api, $perm);
+    }
 }
