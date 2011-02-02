@@ -35,8 +35,9 @@ extends Horde_Cli_Modular_Module
      *
      * @param mixed &$options   An array of options.
      * @param mixed &$arguments An array of arguments.
+     * @param array &$world     A list of initialized dependencies.
      *
      * @return NULL
      */
-    public function handleArguments(&$options, &$arguments);
+    public function handleArguments(&$options, &$arguments, &$world);
 }

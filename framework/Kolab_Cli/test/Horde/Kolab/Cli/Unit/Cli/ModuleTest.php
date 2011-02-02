@@ -41,7 +41,7 @@ extends Horde_Kolab_Cli_TestCase
             'klb'
         );
         $this->assertRegExp(
-            '/folder - Handle folders/',
+            '/list - Handle folder lists/',
             $this->runCli()
         );
     }

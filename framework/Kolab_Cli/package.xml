@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-12-29</date>
- <time>11:02:02</time>
+ <date>2011-02-02</date>
+ <time>18:11:34</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -47,6 +47,7 @@
       <dir name="Cli">
        <dir name="Module">
         <file name="Base.php" role="php" />
+        <file name="Folder.php" role="php" />
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Cli/Module -->
        <file name="Module.php" role="php" />
@@ -120,6 +121,7 @@
    <install as="Horde/Kolab/Cli/Module.php" name="lib/Horde/Kolab/Cli/Module.php" />
    <install as="Horde/Kolab/Cli/Translation.php" name="lib/Horde/Kolab/Cli/Translation.php" />
    <install as="Horde/Kolab/Cli/Module/Base.php" name="lib/Horde/Kolab/Cli/Module/Base.php" />
+   <install as="Horde/Kolab/Cli/Module/Folder.php" name="lib/Horde/Kolab/Cli/Module/Folder.php" />
    <install as="Horde/Kolab/Cli/Module/List.php" name="lib/Horde/Kolab/Cli/Module/List.php" />
    <install as="Horde/Kolab/Cli/AllTests.php" name="test/Horde/Kolab/Cli/AllTests.php" />
    <install as="Horde/Kolab/Cli/Autoload.php" name="test/Horde/Kolab/Cli/Autoload.php" />
@@ -142,7 +144,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-12-29</date>
+   <date>2011-02-02</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.

@@ -55,10 +55,11 @@ class Horde_Kolab_Cli
             $parser->printHelp();
         } else {
             try {
+                $world = array();
                 foreach ($modular->getModules() as $module) {
                     $modular->getProvider()
                         ->getModule($module)
-                        ->handleArguments($options, $arguments);
+                        ->handleArguments($options, $arguments, $world);
                 }
                 if (!empty($options['timed'])
                     && class_exists('Horde_Support_Timer')) {
@@ -69,7 +70,7 @@ class Horde_Kolab_Cli
                 }
                 $modular->getProvider()
                     ->getModule(ucfirst($arguments[0]))
-                    ->run($cli, $options, $arguments);
+                    ->run($cli, $options, $arguments, $world);
                 if (!empty($options['timed'])) {
                     if ($timer) {
                         $cli->message(floor($timer->pop() * 1000) . ' ms');

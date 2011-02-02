@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Kolab_Cli_Module_List:: handles folder lists.
+ * The Horde_Kolab_Cli_Module_Folder:: class handles single folders.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * The Horde_Kolab_Cli_Module_List:: handles folder lists.
+ * The Horde_Kolab_Cli_Module_Folder:: class handles single folders.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
-class Horde_Kolab_Cli_Module_List
+class Horde_Kolab_Cli_Module_Folder
 implements Horde_Kolab_Cli_Module
 {
     /**
@@ -35,14 +35,8 @@ implements Horde_Kolab_Cli_Module
      */
     public function getUsage()
     {
-        return Horde_Kolab_Cli_Translation::t("  list - Handle folder lists
-  - folders [default]: List the folders in the backend
-  - types            : Display all folders that have a folder type.
-  - type TYPE        : Display the folders of type TYPE.
-  - owners           : List all folders and their owners.
-  - defaults         : List the default folders for all users.
-  - namespace        : Display the server namespace information.
-  - sync             : Synchronize the cache.
+        return Horde_Kolab_Cli_Translation::t("  folder [PATH] - Handle the single folder at PATH
+  - show [default]: Display folder information.
 
 ");
     }
@@ -124,71 +118,37 @@ implements Horde_Kolab_Cli_Module
     public function run($cli, $options, $arguments, &$world)
     {
         if (!isset($arguments[1])) {
-            $action = 'folders';
+            $action = 'show';
         } else {
             $action = $arguments[1];
         }
+        if (!isset($arguments[2])) {
+            $folder_name = 'INBOX';
+        } else {
+            $folder_name = $arguments[2];
+        }
         switch ($action) {
-        case 'folders':
-            $folders = $world['storage']->getList()->listFolders();
-            foreach ($folders as $folder) {
-                $cli->writeln($folder);
-            }
+        case 'show':
+            $folder = $world['storage']->getList()->getFolder($folder_name);
+            $cli->writeln('Path:      ' . $folder->getPath());
+            $cli->writeln('Title:     ' . $folder->getTitle());
+            $cli->writeln('Owner:     ' . $folder->getOwner());
+            $cli->writeln('Type:      ' . $folder->getType());
+            $cli->writeln('Namespace: ' . $folder->getNamespace());
             break;
-        case 'types':
-            $types = $world['storage']->getList()
-                ->getQuery('Base')
-                ->listTypes();
-            if (!empty($types)) {
-                $pad = max(array_map('strlen', array_keys($types))) + 2;
-                foreach ($types as $folder => $type) {
-                    $cli->writeln(Horde_String::pad($folder . ':', $pad) . $type);
-                }
+        case 'create':
+            if (!isset($arguments[3])) {
+                $folder = $world['storage']->getList()
+                    ->createFolder($folder_name);
+            } else {
+                $folder = $world['storage']->getList()
+                    ->createFolder($folder_name, $arguments[3]);
             }
-            break;
-        case 'type':
-            if (!isset($arguments[2])) {
-                throw new Horde_Kolab_Cli_Exception('You must provide a TYPE argument!');
-            }
-            $type = $arguments[2];
-            $folders = $world['storage']->getList()
-                ->getQuery('Base')
-                ->listByType($type);
-            foreach ($folders as $folder) {
-                $cli->writeln($folder);
-            }
-            break;
-        case 'owners':
-            $owners = $world['storage']->getList()
-                ->getQuery('Base')
-                ->listOwners();
-            if (!empty($owners)) {
-                $pad = max(array_map('strlen', array_keys($owners))) + 2;
-                foreach ($owners as $folder => $owner) {
-                    $cli->writeln(Horde_String::pad($folder . ':', $pad) . $owner);
-                }
-            }
-            break;
-        case 'defaults':
-            $defaults = $world['storage']->getList()
-                ->getQuery('Base')
-                ->listDefaults();
-            if (!empty($defaults)) {
-                foreach ($defaults as $owner => $folders) {
-                    $cli->writeln('User "' . $owner . '":');
-                    $cli->writeln();
-                    foreach ($folders as $type => $folder) {
-                        $cli->writeln('  ' . Horde_String::pad($type . ':', 14) . $folder);
-                    }
-                    $cli->writeln();
-                }
-            }
-            break;
-        case 'namespaces':
-            $cli->writeln((string) $world['storage']->getList()->getNamespace());
-            break;
-        case 'sync':
-            $folders = $world['storage']->getList()->synchronize();
+            $cli->writeln('Path:      ' . $folder->getPath());
+            $cli->writeln('Title:     ' . $folder->getTitle());
+            $cli->writeln('Owner:     ' . $folder->getOwner());
+            $cli->writeln('Type:      ' . $folder->getType());
+            $cli->writeln('Namespace: ' . $folder->getNamespace());
             break;
         default:
             $cli->message(

@@ -6,10 +6,10 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Cli_Modular
+ * @package  Kolab_Cli
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Cli_Modular
+ * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
 
 /**
@@ -22,10 +22,10 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Cli_Modular
+ * @package  Kolab_Cli
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Cli_Modular
+ * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
 class Horde_Kolab_Cli_Module_Base
 implements Horde_Kolab_Cli_Module
@@ -190,10 +190,11 @@ Choices are:
      *
      * @param mixed &$options   An array of options.
      * @param mixed &$arguments An array of arguments.
+     * @param array &$world     A list of initialized dependencies.
      *
      * @return NULL
      */
-    public function handleArguments(&$options, &$arguments)
+    public function handleArguments(&$options, &$arguments, &$world)
     {
         if (isset($options['driver'])
             && in_array($options['driver'], array('roundcube', 'php', 'pear'))) {
@@ -214,5 +215,32 @@ Choices are:
                 file_put_contents($options['log'], 'The Horde_Log_Logger class is not available!');
             }
         }
+        $world['storage'] = $this->_getStorage($options);
+    }
+
+
+    /**
+     * Return the driver for the Kolab storage backend.
+     *
+     * @param mixed     $options   An array of options.
+     *
+     * @return Horde_Kolab_Storage The storage handler.
+     */
+    private function _getStorage($options)
+    {
+        if (empty($options['driver'])) {
+            return;
+        }
+        $factory = new Horde_Kolab_Storage_Factory();
+        $params = array(
+            'driver' => $options['driver'],
+            'params' => $options,
+            'logger' => isset($options['log']) ? $options['log'] : null,
+            'timelog' => isset($options['log']) && isset($options['timed']) ? $options['log'] : null,
+        );
+        if (empty($options['nocache'])) {
+            $params['cache'] = array('prefix' => 'kolab_cache_', 'dir' => '/tmp/kolab', 'lifetime' => 0);
+        }
+        return $factory->createFromParams($params);
     }
 }

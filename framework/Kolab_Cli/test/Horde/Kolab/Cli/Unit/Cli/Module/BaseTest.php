@@ -55,37 +55,37 @@ extends Horde_Kolab_Cli_TestCase
     public function testMissingNoticeWithRoundcubeDriver()
     {
         $options = array('driver' => 'roundcube');
-        $arguments = array();
-        $base = new Horde_Kolab_Cli_Module_Base();
-        $base->handleArguments($options, $arguments);
+        $this->_handleOptions($options);
         $this->assertFalse((bool) (error_reporting() & E_NOTICE));
     }
 
     public function testMissingNoticeWithHordeDriver()
     {
         $options = array('driver' => 'horde');
-        $arguments = array();
-        $base = new Horde_Kolab_Cli_Module_Base();
-        $base->handleArguments($options, $arguments);
+        $this->_handleOptions($options);
         $this->assertTrue((bool) (error_reporting() & E_NOTICE));
     }
 
     public function testLoggerOption()
     {
         $options = array('log' => $this->getLogFile());
-        $arguments = array();
-        $base = new Horde_Kolab_Cli_Module_Base();
-        $base->handleArguments($options, $arguments);
+        $this->_handleOptions($options);
         $this->assertContains('log', array_keys($options));
     }
 
     public function testLoggerClass()
     {
         $options = array('log' => $this->getLogFile());
+        $this->_handleOptions($options);
+        $this->assertInstanceOf('Horde_Log_Logger', $options['log']);
+    }
+
+    private function _handleOptions(&$options)
+    {
         $arguments = array();
         $base = new Horde_Kolab_Cli_Module_Base();
-        $base->handleArguments($options, $arguments);
-        $this->assertInstanceOf('Horde_Log_Logger', $options['log']);
+        $world = array();
+        $base->handleArguments($options, $arguments, $world);
     }
 
     private function _storeErrorHandling()
