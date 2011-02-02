@@ -72,7 +72,8 @@ class IMP_Application extends Horde_Registry_Application
     {
         /* Methods only available if admin config is set for this
          * server/login. */
-        if (!$GLOBALS['session']->get('imp', 'imap_admin')) {
+        if (!isset($GLOBALS['session']) ||
+            !$GLOBALS['session']->get('imp', 'imap_admin')) {
             $this->disabled = array_merge($this->disabled, array('authAddUser', 'authRemoveUser', 'authUserList'));
         }
     }
