@@ -9,7 +9,7 @@
    </td>
   </tr>
   <tr>
-   <td align="right" valign="top"><strong><?php echo _("Backgrond Color"); ?></strong></td>
+   <td align="right" valign="top"><strong><?php echo _("Background Color"); ?></strong></td>
    <td>
     <select name="background_color">
       <option value="none" selected="selected">None</option>
