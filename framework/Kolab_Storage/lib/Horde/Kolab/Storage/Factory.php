@@ -110,9 +110,12 @@ class Horde_Kolab_Storage_Factory
         } else {
             $config = array();
         }
-        $config = array_merge(
-            array('host' => 'localhost', 'port' => 143), $config
-        );
+        if (empty($config['host'])) {
+            $config['host'] = 'localhost';
+        }
+        if (empty($config['port'])) {
+            $config['port'] = 143;
+        }
         if (!empty($params['timelog'])) {
             $timer = new Horde_Support_Timer();
             $timer->push();
