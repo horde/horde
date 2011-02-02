@@ -75,6 +75,16 @@ interface Horde_Kolab_Storage_Driver
     public function getMailboxes();
 
     /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return mixed True in case the operation was successfull, a
+     *               PEAR error otherwise.
+     */
+    public function create($folder);
+
+    /**
      * Retrieves the specified annotation for the complete list of mailboxes.
      *
      * @param string $annotation The name of the annotation to retrieve.
@@ -83,6 +93,37 @@ interface Horde_Kolab_Storage_Driver
      * the corresponding annotation value.
      */
     public function listAnnotation($annotation);
+
+    /**
+     * Fetches the annotation on a folder.
+     *
+     * @param string $entry  The entry to fetch.
+     * @param string $folder The name of the folder.
+     *
+     * @return string The annotation value.
+     */
+    public function getAnnotation($entry, $folder);
+
+    /**
+     * Sets the annotation on a folder.
+     *
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to set.
+     * @param array  $value      The values to set
+     *
+     * @return NULL
+     */
+    public function setAnnotation($mailbox, $annotation, $value);
+
+    /**
+     * Retrieve the namespace information for this connection.
+     *
+     * @return Horde_Kolab_Storage_Driver_Namespace The initialized namespace handler.
+     */
+    public function getNamespace();
+
+
+
 
     /**
      * Does the given folder exist?
@@ -120,16 +161,6 @@ interface Horde_Kolab_Storage_Driver
      * @return array  The message ids.
      */
     public function getUids($folder);
-
-    /**
-     * Create the specified folder.
-     *
-     * @param string $folder The folder to create.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function create($folder);
 
     /**
      * Delete the specified folder.
@@ -244,32 +275,4 @@ interface Horde_Kolab_Storage_Driver
      * @return NULL
      */
     public function deleteAcl($folder, $user);
-
-    /**
-     * Fetches the annotation on a folder.
-     *
-     * @param string $entry  The entry to fetch.
-     * @param string $folder The name of the folder.
-     *
-     * @return string The annotation value.
-     */
-    public function getAnnotation($entry, $folder);
-
-    /**
-     * Sets the annotation on a folder.
-     *
-     * @param string $entry  The entry to set.
-     * @param array  $value  The values to set
-     * @param string $folder The name of the folder.
-     *
-     * @return NULL
-     */
-    public function setAnnotation($entry, $value, $folder);
-
-    /**
-     * Retrieve the namespace information for this connection.
-     *
-     * @return Horde_Kolab_Storage_Driver_Namespace The initialized namespace handler.
-     */
-    public function getNamespace();
 }

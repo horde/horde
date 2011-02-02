@@ -119,6 +119,18 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
+        return $this->decodeList($this->_getMailboxes());
+    }
+
+    /**
+     * Retrieves a UTF7-IMAP encoded list of mailboxes on the server.
+     *
+     * @return array The list of mailboxes.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case listing the folders failed.
+     */
+    private function _getMailboxes()
+    {
         $folders = array();
 
         $result = imap_list($this->getBackend(), $this->_getBaseMbox(), '*');
@@ -142,9 +154,36 @@ extends Horde_Kolab_Storage_Driver_Base
             }
         }
 
-        return $this->decodeList($folders);
+        return $folders;
     }
 
+    /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return mixed True in case the operation was successfull, a
+     *               PEAR error otherwise.
+     */
+    public function create($folder)
+    {
+        $result = imap_createmailbox(
+            $this->getBackend(),
+            $this->_getBaseMbox() . $this->encodePath($folder)
+        );
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Creating folder %s%s failed. Error: %s"
+                    ),
+                    $this->_getBaseMbox(),
+                    $folder,
+                    @imap_last_error()
+                )
+            );
+        }
+    }
 
     /**
      * Retrieves the specified annotation for the complete list of mailboxes.
@@ -163,13 +202,64 @@ extends Horde_Kolab_Storage_Driver_Base
         }
         list($entry, $value) = $this->_getAnnotateMoreEntry($annotation);
         $list = array();
-        foreach ($this->getMailboxes() as $mailbox) {
+        foreach ($this->_getMailboxes() as $mailbox) {
             $result = imap_getannotation($this->getBackend(), $mailbox, $entry, $value);
             if (isset($result[$value])) {
                 $list[$mailbox] = $result[$value];
             }
         }
         return $this->decodeListKeys($list);
+    }
+
+
+    /**
+     * Fetches the annotation on a folder.
+     *
+     * @param string $entry         The entry to fetch.
+     * @param string $mailbox_name  The name of the folder.
+     *
+     * @return mixed  The annotation value or a PEAR error in case of an error.
+     */
+    public function getAnnotation($entry, $mailbox_name)
+    {
+        try {
+            $result = $this->_imap->getMetadata($mailbox_name, $entry);
+        } catch (Exception $e) {
+            return '';
+        }
+        return isset($result[$mailbox_name][$entry]) ? $result[$mailbox_name][$entry] : '';
+    }
+
+    /**
+     * Sets the annotation on a folder.
+     *
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to set.
+     * @param array  $value      The values to set
+     *
+     * @return NULL
+     */
+    public function setAnnotation($mailbox, $annotation, $value)
+    {
+        list($entry, $key) = $this->_getAnnotateMoreEntry($annotation);
+        $result = imap_setannotation(
+            $this->getBackend(), $this->encodePath($mailbox), $entry, $key, $value
+        );
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
+                    ),
+                    $entry,
+                    $key,
+                    $this->_getBaseMbox(),
+                    $mailbox,
+                    $value,
+                    @imap_last_error()
+                )
+            );
+        }
     }
 
     /**
@@ -230,19 +320,6 @@ extends Horde_Kolab_Storage_Driver_Base
         $uidsearch = $this->_imap->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids;
-    }
-
-    /**
-     * Create the specified folder.
-     *
-     * @param string $folder The folder to create.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function create($folder)
-    {
-        return $this->_imap->createMailbox($folder);
     }
 
     /**
@@ -465,38 +542,5 @@ extends Horde_Kolab_Storage_Driver_Base
         if ($this->_imap->queryCapability('ACL') === true) {
             $this->_imap->setACL($folder, $user, array('remove' => true));
         }
-    }
-
-    /**
-     * Fetches the annotation on a folder.
-     *
-     * @param string $entry         The entry to fetch.
-     * @param string $mailbox_name  The name of the folder.
-     *
-     * @return mixed  The annotation value or a PEAR error in case of an error.
-     */
-    public function getAnnotation($entry, $mailbox_name)
-    {
-        try {
-            $result = $this->_imap->getMetadata($mailbox_name, $entry);
-        } catch (Exception $e) {
-            return '';
-        }
-        return isset($result[$mailbox_name][$entry]) ? $result[$mailbox_name][$entry] : '';
-    }
-
-    /**
-     * Sets the annotation on a folder.
-     *
-     * @param string $entry          The entry to set.
-     * @param array  $value          The values to set
-     * @param string $mailbox_name   The name of the folder.
-     *
-     * @return mixed  True if successfull, a PEAR error otherwise.
-     */
-    public function setAnnotation($entry, $value, $mailbox_name)
-    {
-        return $this->_imap->setMetadata($mailbox_name,
-                                         array($entry => $value));
     }
 }

@@ -97,6 +97,30 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return mixed True in case the operation was successfull, a
+     *               PEAR error otherwise.
+     */
+    public function create($folder)
+    {
+        $this->getBackend()->createFolder($this->encodePath($folder));
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Creating folder %s failed. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+    }
+
+    /**
      * Retrieves the specified annotation for the complete list of mailboxes.
      *
      * @param string $annotation The name of the annotation to retrieve.
@@ -118,6 +142,55 @@ extends Horde_Kolab_Storage_Driver_Base
             }
         }
         return $this->decodeListKeys($data);
+    }
+
+    /**
+     * Fetches the annotation on a folder.
+     *
+     * @param string $entry         The entry to fetch.
+     * @param string $mailbox_name  The name of the folder.
+     *
+     * @return mixed  The annotation value or a PEAR error in case of an error.
+     */
+    public function getAnnotation($entry, $mailbox_name)
+    {
+        try {
+            $result = $this->getBackend()->getMetadata($mailbox_name, $entry);
+        } catch (Exception $e) {
+            return '';
+        }
+        return isset($result[$mailbox_name][$entry]) ? $result[$mailbox_name][$entry] : '';
+    }
+
+    /**
+     * Sets the annotation on a folder.
+     *
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to set.
+     * @param array  $value      The values to set
+     *
+     * @return NULL
+     */
+    public function setAnnotation($mailbox, $annotation, $value)
+    {
+        list($attr, $type) = $this->_getAnnotateMoreEntry($annotation);
+        $this->getBackend()->setAnnotation(
+            $this->encodePath($mailbox), array(array($attr, $type, $value))
+        );
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Setting annotation %s[%s] on folder %s to %s failed. Error: %s"
+                    ),
+                    $attr,
+                    $type,
+                    $mailbox,
+                    $value,
+                    $this->getBackend()->error
+                )
+            );
+        }
     }
 
     /**
@@ -178,19 +251,6 @@ extends Horde_Kolab_Storage_Driver_Base
         $uidsearch = $this->getBackend()->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids;
-    }
-
-    /**
-     * Create the specified folder.
-     *
-     * @param string $folder The folder to create.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function create($folder)
-    {
-        return $this->getBackend()->createMailbox($folder);
     }
 
     /**
@@ -414,40 +474,6 @@ extends Horde_Kolab_Storage_Driver_Base
             $this->getBackend()->setACL($folder, $user, array('remove' => true));
         }
     }
-
-    /**
-     * Fetches the annotation on a folder.
-     *
-     * @param string $entry         The entry to fetch.
-     * @param string $mailbox_name  The name of the folder.
-     *
-     * @return mixed  The annotation value or a PEAR error in case of an error.
-     */
-    public function getAnnotation($entry, $mailbox_name)
-    {
-        try {
-            $result = $this->getBackend()->getMetadata($mailbox_name, $entry);
-        } catch (Exception $e) {
-            return '';
-        }
-        return isset($result[$mailbox_name][$entry]) ? $result[$mailbox_name][$entry] : '';
-    }
-
-    /**
-     * Sets the annotation on a folder.
-     *
-     * @param string $entry          The entry to set.
-     * @param array  $value          The values to set
-     * @param string $mailbox_name   The name of the folder.
-     *
-     * @return mixed  True if successfull, a PEAR error otherwise.
-     */
-    public function setAnnotation($entry, $value, $mailbox_name)
-    {
-        return $this->getBackend()->setMetadata($mailbox_name,
-                                         array($entry => $value));
-    }
-
 
     /**
      * Retrieve the namespace information for this connection.

@@ -85,7 +85,7 @@ extends Horde_Kolab_Storage_Driver_Base
     private function _convertToInternal($folder)
     {
         if (substr($folder, 0, 5) == 'INBOX') {
-            $user = explode('@', $this->_user);
+            $user = explode('@', $this->getAuth());
             return 'user/' . $user[0] . substr($folder, 5);
         }
         return $folder;
@@ -160,6 +160,80 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Fetches the annotation on a folder.
+     *
+     * @param string $entry         The entry to fetch.
+     * @param string $mailbox_name  The name of the folder.
+     *
+     * @return mixed  The annotation value or a PEAR error in case of an error.
+     */
+    public function getAnnotation($entry, $mailbox_name)
+    {
+        $mailbox_name = $this->_convertToInternal($mailbox_name);
+        $old_mbox = null;
+        if ($mailbox_name != $this->_mboxname) {
+            $old_mbox = $this->_mboxname;
+            $result = $this->select($mailbox_name);
+            if (is_a($result, 'PEAR_Error')) {
+                return $result;
+            }
+        }
+        if (!isset($this->_mbox['annotations'][$entries])
+            || !isset($this->_mbox['annotations'][$entries][$value])) {
+            return false;
+        }
+        $annotation = $this->_mbox['annotations'][$entries][$value];
+        if ($old_mbox) {
+            $this->select($old_mbox);
+        }
+        return $annotation;
+    }
+
+    /**
+     * Sets the annotation on a folder.
+     *
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to set.
+     * @param array  $value      The values to set
+     *
+     * @return NULL
+     */
+    public function setAnnotation($mailbox, $annotation, $value)
+    {
+        $mailbox = $this->_convertToInternal($mailbox);
+        $this->_data[$mailbox]['annotations'][$annotation] = $value;
+    }
+
+    /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return mixed True in case the operation was successfull, a
+     *               PEAR error otherwise.
+     */
+    public function create($folder)
+    {
+        $folder = $this->_convertToInternal($folder);
+        if (isset($this->_data[$folder])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf("IMAP folder %s does already exist!", $folder)
+            );
+        }
+        $this->_data[$folder] = array(
+            'status' => array(
+                'uidvalidity' => time(),
+                'uidnext' => 1),
+            'mails' => array(),
+            'permissions' => array(),
+            'annotations' => array(),
+        );
+    }
+
+
+
+
+    /**
      * Opens the given folder.
      *
      * @param string $folder  The folder to open
@@ -223,19 +297,6 @@ extends Horde_Kolab_Storage_Driver_Base
         $uidsearch = $this->_imap->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids;
-    }
-
-    /**
-     * Create the specified folder.
-     *
-     * @param string $folder The folder to create.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function create($folder)
-    {
-        return $this->_imap->createMailbox($folder);
     }
 
     /**
@@ -460,48 +521,4 @@ extends Horde_Kolab_Storage_Driver_Base
         }
     }
 
-    /**
-     * Fetches the annotation on a folder.
-     *
-     * @param string $entry         The entry to fetch.
-     * @param string $mailbox_name  The name of the folder.
-     *
-     * @return mixed  The annotation value or a PEAR error in case of an error.
-     */
-    public function getAnnotation($entry, $mailbox_name)
-    {
-        $mailbox_name = $this->_convertToInternal($mailbox_name);
-        $old_mbox = null;
-        if ($mailbox_name != $this->_mboxname) {
-            $old_mbox = $this->_mboxname;
-            $result = $this->select($mailbox_name);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-        }
-        if (!isset($this->_mbox['annotations'][$entries])
-            || !isset($this->_mbox['annotations'][$entries][$value])) {
-            return false;
-        }
-        $annotation = $this->_mbox['annotations'][$entries][$value];
-        if ($old_mbox) {
-            $this->select($old_mbox);
-        }
-        return $annotation;
-    }
-
-    /**
-     * Sets the annotation on a folder.
-     *
-     * @param string $entry          The entry to set.
-     * @param array  $value          The values to set
-     * @param string $mailbox_name   The name of the folder.
-     *
-     * @return mixed  True if successfull, a PEAR error otherwise.
-     */
-    public function setAnnotation($entry, $value, $mailbox_name)
-    {
-        return $this->_imap->setMetadata($mailbox_name,
-                                         array($entry => $value));
-    }
 }
