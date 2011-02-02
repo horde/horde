@@ -77,8 +77,7 @@ extends Horde_Kolab_Storage_Driver_Base
         $client->connect(
             $config['host'], $config['username'], $config['password'],
             array(
-                'debug_mode' => false,
-                'ssl_mode' => false,
+                'ssl_mode' => $config['secure'],
                 'port' => $config['port'],
                 'timeout' => 0,
                 'force_caps' => false,
@@ -460,11 +459,13 @@ extends Horde_Kolab_Storage_Driver_Base
         if ($this->getBackend()->getCapability('NAMESPACE') === true) {
             $namespaces = array();
             foreach ($this->getBackend()->getNamespace() as $type => $elements) {
-                foreach ($elements as $namespace) {
-                    $namespace['name'] = $namespace[0];
-                    $namespace['delimiter'] = $namespace[1];
-                    $namespace['type'] = $type;
-                    $namespaces[] = $namespace;
+                if (is_array($elements)) {
+                    foreach ($elements as $namespace) {
+                        $namespace['name'] = $namespace[0];
+                        $namespace['delimiter'] = $namespace[1];
+                        $namespace['type'] = $type;
+                        $namespaces[] = $namespace;
+                    }
                 }
             }
             $this->_namespace = $this->getFactory()->createNamespace('imap', $this->getAuth(), $namespaces);
