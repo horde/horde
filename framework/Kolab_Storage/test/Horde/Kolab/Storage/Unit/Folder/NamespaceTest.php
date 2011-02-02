@@ -72,15 +72,6 @@ extends Horde_Kolab_Storage_TestCase
         }
     }
 
-    public function testTitleUtf7()
-    {
-        foreach ($this->_getNamespaces() as $namespace) {
-            $name = Horde_String::convertCharset('äöü', 'UTF8', 'UTF7-IMAP');
-            $folder = $this->_getFolder('INBOX/' . $name, $namespace);
-            $this->assertEquals('äöü', $folder->getTitle());
-        }
-    }
-
     public function testOwnerForPersonalNS()
     {
         foreach ($this->_getNamespaces() as $namespace) {
