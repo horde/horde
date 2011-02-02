@@ -1,37 +1,38 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Horde_Argv package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Horde_Argv \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Argv/Parser.php:507
+#: lib/Horde/Argv/Parser.php:495
 #, php-format
 msgid "%s option does not take a value"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:497 lib/Horde/Argv/Parser.php:549
+#: lib/Horde/Argv/Parser.php:485 lib/Horde/Argv/Parser.php:537
 #, php-format
 msgid "%s option requires %d arguments"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:495 lib/Horde/Argv/Parser.php:547
+#: lib/Horde/Argv/Parser.php:483 lib/Horde/Argv/Parser.php:535
 #, php-format
 msgid "%s option requires an argument"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:672
+#: lib/Horde/Argv/Parser.php:660
 msgid "Options"
 msgstr ""
 
@@ -43,34 +44,34 @@ msgstr ""
 msgid "Usage:"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:199
+#: lib/Horde/Argv/Parser.php:186
 msgid "[options]"
 msgstr ""
 
-#: lib/Horde/Argv/Option.php:129
+#: lib/Horde/Argv/Option.php:122
 #, php-format
 msgid "option %s: invalid choice: '%s' (choose from %s)"
 msgstr ""
 
-#: lib/Horde/Argv/Option.php:111
+#: lib/Horde/Argv/Option.php:104
 #, php-format
 msgid "option %s: invalid floating-point value: '%s'"
 msgstr ""
 
-#: lib/Horde/Argv/Option.php:101
+#: lib/Horde/Argv/Option.php:94
 #, php-format
 msgid "option %s: invalid integer value: '%s'"
 msgstr ""
 
-#: lib/Horde/Argv/Option.php:102
+#: lib/Horde/Argv/Option.php:95
 #, php-format
 msgid "option %s: invalid long integer value: '%s'"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:171
+#: lib/Horde/Argv/Parser.php:158
 msgid "show program's version number and exit"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:165
+#: lib/Horde/Argv/Parser.php:152
 msgid "show this help message and exit"
 msgstr ""

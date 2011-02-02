@@ -1,30 +1,31 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Horde_Kolab_Format package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Horde_Kolab_Format \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Kolab/Format/Xml.php:562 lib/Horde/Kolab/Format/Xml.php:727
+#: lib/Horde/Kolab/Format/Xml.php:514 lib/Horde/Kolab/Format/Xml.php:654
 #, php-format
 msgid "Data value for %s is empty in Kolab XML object!"
 msgstr ""
 
-#: lib/Horde/Kolab/Format/Xml.php:456 lib/Horde/Kolab/Format/Xml.php:611
-msgid "No or unreadable content in Kolab XML object"
+#: lib/Horde/Kolab/Format/Xml.php:423
+msgid "UID not found in Kolab XML object"
 msgstr ""
 
-#: lib/Horde/Kolab/Format/Xml.php:471
-msgid "UID not found in Kolab XML object"
+#: lib/Horde/Kolab/Format/Cli.php:69
+msgid "[options] PACKAGE_PATH"
 msgstr ""

@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the Horde_Kolab package.
+# This file is distributed under the same license as the Skeleton package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Kolab \n"
+"Project-Id-Version: Skeleton H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -17,27 +17,30 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Kolab.php:741
-msgid "Calendar"
+#: lib/Block/example.php:15 lib/Block/example.php:26
+msgid "Color"
 msgstr ""
 
-#: Kolab.php:753
-msgid "Contacts"
+#: lib/Block/example.php:3
+msgid "Example Block"
 msgstr ""
 
-#: Kolab.php:730
-msgid "Notes"
+#: lib/Application.php:61 list.php:16
+msgid "List"
 msgstr ""
 
-#: Kolab.php:775
-msgid "Preferences"
+#: config/prefs.php.dist:10
+msgid "Sample Pref"
 msgstr ""
 
-#: Kolab.php:764
-msgid "Tasks"
+#: config/prefs.php.dist:9
+msgid "Sample Prefs"
 msgstr ""
 
-#: Kolab.php:780
-#, php-format
-msgid "The Horde/Kolab integration engine does not support \"%s\""
+#: config/prefs.php.dist:11
+msgid "Set your sample preference."
+msgstr ""
+
+#: config/prefs.php.dist:19
+msgid "This is your sample preference."
 msgstr ""

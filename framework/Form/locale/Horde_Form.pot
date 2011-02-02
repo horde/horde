@@ -1,184 +1,185 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Horde_Form package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Horde_Form \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Form/Type.php:2520
+#: Form/Type.php:2499
 #, php-format
 msgid " (%s days ago)"
 msgstr ""
 
-#: Form/Type.php:2528
+#: Form/Type.php:2507
 #, php-format
 msgid " (in %s days)"
 msgstr ""
 
-#: Form/Type.php:2524
+#: Form/Type.php:2503
 msgid " (today)"
 msgstr ""
 
-#: Form/Type.php:2526
+#: Form/Type.php:2505
 msgid " (tomorrow)"
 msgstr ""
 
-#: Form/Type.php:2522
+#: Form/Type.php:2501
 msgid " (yesterday)"
 msgstr ""
 
-#: Form/Type.php:1460
+#: Form/Type.php:1439
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr ""
 
-#: Form/Type.php:2475
+#: Form/Type.php:2454
 #, php-format
 msgid "%s is required"
 msgstr ""
 
-#: Form/Type.php:2190 Form/Type.php:2253
+#: Form/Type.php:2169 Form/Type.php:2232
 msgid "-- select --"
 msgstr ""
 
-#: Form/Type.php:843 Form/Type.php:886
+#: Form/Type.php:820 Form/Type.php:863
 msgid "A temporary directory"
 msgstr ""
 
-#: Form/Type.php:773
+#: Form/Type.php:750
 msgid "Address"
 msgstr ""
 
-#: Form/Type.php:795
+#: Form/Type.php:772
 msgid "Address Link"
 msgstr ""
 
-#: Form/Type.php:1620
+#: Form/Type.php:1599
 msgid "Allow multiple addresses?"
 msgstr ""
 
-#: Form/Type.php:3473
+#: Form/Type.php:3452
 msgid "Assignment columns"
 msgstr ""
 
-#: Form/Type.php:3745
+#: Form/Type.php:3724
 msgid "Category"
 msgstr ""
 
-#: Form/Type.php:1632
+#: Form/Type.php:1611
 msgid "Character to split multiple addresses with"
 msgstr ""
 
-#: Form/Type.php:3161
+#: Form/Type.php:3140
 msgid "Colour selection"
 msgstr ""
 
-#: Form/Type.php:2072
+#: Form/Type.php:2051
 msgid "Column titles"
 msgstr ""
 
-#: Form/Type.php:662
+#: Form/Type.php:639
 msgid "Counted text"
 msgstr ""
 
-#: Form/Type.php:909
+#: Form/Type.php:886
 msgid "Country drop down list"
 msgstr ""
 
-#: Form/Type.php:3588
+#: Form/Type.php:3567
 msgid "Credit card number"
 msgstr ""
 
-#: Form/Type.php:3643
+#: Form/Type.php:3622
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
 
-#: Form/Type.php:3641
+#: Form/Type.php:3620
 msgid "Database lookup"
 msgstr ""
 
-#: Form/Type.php:2549
+#: Form/Type.php:2528
 msgid "Date"
 msgstr ""
 
-#: Form/Type.php:3121
+#: Form/Type.php:3100
 msgid "Date and time selection"
 msgstr ""
 
-#: Form/Type.php:2958
+#: Form/Type.php:2937
 msgid "Date selection"
 msgstr ""
 
-#: Form/Type.php:132
+#: Form/Type.php:109
 msgid "Description"
 msgstr ""
 
-#: Form/Type.php:2968 Form/Type.php:3131
+#: Form/Type.php:2947 Form/Type.php:3110
 msgid "Display format"
 msgstr ""
 
-#: Form/Type.php:2233
+#: Form/Type.php:2212
 msgid "Drop down list"
 msgstr ""
 
-#: Form/Type.php:1617
+#: Form/Type.php:1596
 msgid "Email"
 msgstr ""
 
-#: Form/Type.php:2088
+#: Form/Type.php:2067
 msgid "Email addresses must match."
 msgstr ""
 
-#: Form/Type.php:2115
+#: Form/Type.php:2094
 msgid "Email with confirmation"
 msgstr ""
 
-#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+#: Form/Type.php:2725 Form/Type.php:2941 Form/Type.php:3104
 msgid "End year"
 msgstr ""
 
-#: Form/Type.php:2070
+#: Form/Type.php:2049
 msgid "Field matrix"
 msgstr ""
 
-#: Form/Type.php:3696
+#: Form/Type.php:3675
 msgid "Figlet CAPTCHA"
 msgstr ""
 
-#: Form/Type.php:3700
+#: Form/Type.php:3679
 msgid "Figlet font"
 msgstr ""
 
-#: Form/Type.php:3347
+#: Form/Type.php:3326
 msgid "File selection"
 msgstr ""
 
-#: Form/Type.php:952
+#: Form/Type.php:929
 msgid "File upload"
 msgstr ""
 
-#: Form/Type.php:3719
+#: Form/Type.php:3698
 msgid "Font"
 msgstr ""
 
-#: Form/Type.php:152
+#: Form/Type.php:129
 msgid "HTML"
 msgstr ""
 
-#: Form/Type.php:115 Form/Type.php:3285
+#: Form/Type.php:92 Form/Type.php:3264
 msgid "Header"
 msgstr ""
 
@@ -186,303 +187,303 @@ msgstr ""
 msgid "Headers"
 msgstr ""
 
-#: Form/Type.php:617
+#: Form/Type.php:594
 msgid "Helpers"
 msgstr ""
 
-#: Form/Type.php:528
+#: Form/Type.php:505
 msgid "IP address"
 msgstr ""
 
-#: Form/Type.php:558
+#: Form/Type.php:535
 msgid "IPv6 address"
 msgstr ""
 
-#: Form/Type.php:3349
+#: Form/Type.php:3328
 msgid "Id"
 msgstr ""
 
-#: Form/Type.php:3715
+#: Form/Type.php:3694
 msgid "Image CAPTCHA"
 msgstr ""
 
-#: Form/Type.php:1292
+#: Form/Type.php:1271
 msgid "Image upload"
 msgstr ""
 
-#: Form/Type.php:263
+#: Form/Type.php:240
 msgid "Integer"
 msgstr ""
 
-#: Form/Type.php:317
+#: Form/Type.php:294
 msgid "Integer list"
 msgstr ""
 
-#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type.php:2187 Form/Type.php:2262 Form/Type.php:2335 Form/Type.php:2414
 #: Form/Type/tableset.php:34
 msgid "Invalid data submitted."
 msgstr ""
 
-#: Form/Type.php:3479
+#: Form/Type.php:3458
 msgid "Left header"
 msgstr ""
 
-#: Form/Type.php:3475
+#: Form/Type.php:3454
 msgid "Left values"
 msgstr ""
 
-#: Form/Type.php:1352
+#: Form/Type.php:1331
 msgid "Link"
 msgstr ""
 
-#: Form/Type.php:1355
+#: Form/Type.php:1334
 msgid "Link URL"
 msgstr ""
 
-#: Form/Type.php:1370
+#: Form/Type.php:1349
 msgid "Link access key"
 msgstr ""
 
-#: Form/Type.php:3353
+#: Form/Type.php:3332
 msgid "Link style"
 msgstr ""
 
-#: Form/Type.php:1361
+#: Form/Type.php:1340
 msgid "Link target"
 msgstr ""
 
-#: Form/Type.php:1358 Form/Type.php:3351
+#: Form/Type.php:1337 Form/Type.php:3330
 msgid "Link text"
 msgstr ""
 
-#: Form/Type.php:1626
+#: Form/Type.php:1605
 msgid "Link the email address to the compose page when displaying?"
 msgstr ""
 
-#: Form/Type.php:1367
+#: Form/Type.php:1346
 msgid "Link title attribute"
 msgstr ""
 
-#: Form/Type.php:611
+#: Form/Type.php:588
 msgid "Long text"
 msgstr ""
 
-#: Form/Type.php:1298
+#: Form/Type.php:1277
 msgid "Maximum file size in bytes"
 msgstr ""
 
-#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+#: Form/Type.php:377 Form/Type.php:397 Form/Type.php:423
 msgid "Maximum length"
 msgstr ""
 
-#: Form/Type.php:487
+#: Form/Type.php:464
 msgid "Mobile phone number"
 msgstr ""
 
-#: Form/Type.php:2742
+#: Form/Type.php:2721
 msgid "Month and year"
 msgstr ""
 
-#: Form/Type.php:2309
+#: Form/Type.php:2288
 msgid "Multi-level drop down lists"
 msgstr ""
 
-#: Form/Type.php:2366
+#: Form/Type.php:2345
 msgid "Multiple selection"
 msgstr ""
 
-#: Form/Type.php:236
+#: Form/Type.php:213
 msgid "Number"
 msgstr ""
 
-#: Form/Type.php:668
+#: Form/Type.php:645
 msgid "Number of characters"
 msgstr ""
 
-#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
-#: Form/Type.php:890
+#: Form/Type.php:592 Form/Type.php:643 Form/Type.php:754 Form/Type.php:824
+#: Form/Type.php:867
 msgid "Number of columns"
 msgstr ""
 
-#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
-#: Form/Type.php:888
+#: Form/Type.php:590 Form/Type.php:641 Form/Type.php:752 Form/Type.php:822
+#: Form/Type.php:865
 msgid "Number of rows"
 msgstr ""
 
-#: Form/Type.php:290
+#: Form/Type.php:267
 msgid "Octal"
 msgstr ""
 
-#: Form/Type.php:1364
+#: Form/Type.php:1343
 msgid "Onclick event"
 msgstr ""
 
-#: Form/Type.php:2098
+#: Form/Type.php:2077
 msgid "Only one email address allowed."
 msgstr ""
 
-#: Form/Type.php:1449
+#: Form/Type.php:1428
 msgid "Only one email address is allowed."
 msgstr ""
 
-#: Form/Type.php:839
+#: Form/Type.php:816
 msgid "PGP Key"
 msgstr ""
 
-#: Form/Type.php:2142
+#: Form/Type.php:2121
 msgid "Password"
 msgstr ""
 
-#: Form/Type.php:2175
+#: Form/Type.php:2154
 msgid "Password with confirmation"
 msgstr ""
 
-#: Form/Type.php:2157
+#: Form/Type.php:2136
 msgid "Passwords must match."
 msgstr ""
 
-#: Form/Type.php:841
+#: Form/Type.php:818
 msgid "Path to the GnuPG binary"
 msgstr ""
 
-#: Form/Type.php:475
+#: Form/Type.php:452
 msgid "Phone number"
 msgstr ""
 
-#: Form/Type.php:3191
+#: Form/Type.php:3170
 msgid "Please choose a sound."
 msgstr ""
 
-#: Form/Type.php:2720
+#: Form/Type.php:2699
 msgid "Please enter a month and a year."
 msgstr ""
 
-#: Form/Type.php:513 Form/Type.php:543
+#: Form/Type.php:490 Form/Type.php:520
 msgid "Please enter a valid IP address."
 msgstr ""
 
-#: Form/Type.php:2800
+#: Form/Type.php:2779
 msgid "Please enter a valid date, check the number of days in the month."
 msgstr ""
 
-#: Form/Type.php:2598
+#: Form/Type.php:2577
 msgid "Please enter a valid time."
 msgstr ""
 
-#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+#: Form/Type.php:888 Form/Type.php:2216 Form/Type.php:2292 Form/Type.php:3626
 msgid "Prompt text"
 msgstr ""
 
-#: Form/Type.php:1623
+#: Form/Type.php:1602
 msgid "Protect address from spammers?"
 msgstr ""
 
-#: Form/Type.php:2401
+#: Form/Type.php:2380
 msgid "Radio selection"
 msgstr ""
 
-#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+#: Form/Type.php:373 Form/Type.php:393 Form/Type.php:419
 msgid "Regex"
 msgstr ""
 
-#: Form/Type.php:3605
+#: Form/Type.php:3584
 msgid "Relationship browser"
 msgstr ""
 
-#: Form/Renderer.php:344
+#: Form/Renderer.php:329
 msgid "Required Field"
 msgstr ""
 
-#: Form.php:632
+#: Form.php:626
 msgid "Required secret is invalid - potentially malicious request."
 msgstr ""
 
-#: Form.php:368 Form/Renderer.php:329
+#: Form.php:362 Form/Renderer.php:314
 msgid "Reset"
 msgstr ""
 
-#: Form/Type.php:3481
+#: Form/Type.php:3460
 msgid "Right header"
 msgstr ""
 
-#: Form/Type.php:3477
+#: Form/Type.php:3456
 msgid "Right values"
 msgstr ""
 
-#: Form/Type.php:884
+#: Form/Type.php:861
 msgid "S/MIME Key"
 msgstr ""
 
-#: Form/Type.php:3645
+#: Form/Type.php:3624
 msgid "SQL statement for value lookups"
 msgstr ""
 
-#: Form/Type.php:3326
+#: Form/Type.php:3305
 msgid "Select Files"
 msgstr ""
 
-#: Form/Type.php:2803
+#: Form/Type.php:2782
 msgid "Select all date components."
 msgstr ""
 
-#: Form/Type.php:2450
+#: Form/Type.php:2429
 msgid "Set"
 msgstr ""
 
-#: Form/Type.php:3355
+#: Form/Type.php:3334
 msgid "Show icon?"
 msgstr ""
 
-#: Form/Type.php:1296
+#: Form/Type.php:1275
 msgid "Show option to keep original?"
 msgstr ""
 
-#: Form/Type.php:2964 Form/Type.php:3127
+#: Form/Type.php:2943 Form/Type.php:3106
 msgid "Show picker?"
 msgstr ""
 
-#: Form/Type.php:2688 Form/Type.php:3133
+#: Form/Type.php:2667 Form/Type.php:3112
 msgid "Show seconds?"
 msgstr ""
 
-#: Form/Type.php:1294
+#: Form/Type.php:1273
 msgid "Show upload?"
 msgstr ""
 
-#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
-#: Form/Type.php:3283 Form/Type.php:3483
+#: Form/Type.php:375 Form/Type.php:395 Form/Type.php:421 Form/Type.php:2349
+#: Form/Type.php:3262 Form/Type.php:3462
 msgid "Size"
 msgstr ""
 
-#: Form/Type.php:3279
+#: Form/Type.php:3258
 msgid "Sort order selection"
 msgstr ""
 
-#: Form/Type.php:3200
+#: Form/Type.php:3179
 msgid "Sound selection"
 msgstr ""
 
-#: Form/Type.php:98
+#: Form/Type.php:75
 msgid "Spacer"
 msgstr ""
 
-#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+#: Form/Type.php:2723 Form/Type.php:2939 Form/Type.php:3102
 msgid "Start year"
 msgstr ""
 
-#: Form/Type.php:2966 Form/Type.php:3129
+#: Form/Type.php:2945 Form/Type.php:3108
 msgid "Storage format"
 msgstr ""
 
-#: Form/Type.php:414
+#: Form/Type.php:391
 msgid "String list"
 msgstr ""
 
-#: Form/Type.php:440
+#: Form/Type.php:417
 msgid "String list returning an array"
 msgstr ""
 
-#: Form.php:361 Form/Renderer.php:326
+#: Form.php:355 Form/Renderer.php:311
 msgid "Submit"
 msgstr ""
 
@@ -490,30 +491,30 @@ msgstr ""
 msgid "Table Set"
 msgstr ""
 
-#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+#: Form/Type.php:371 Form/Type.php:3677 Form/Type.php:3696
 msgid "Text"
 msgstr ""
 
-#: Form/Type.php:1056
+#: Form/Type.php:1033
 msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
 
-#: Form/Type.php:1060
+#: Form/Type.php:1037
 #, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr ""
 
-#: Form/Type.php:1629
+#: Form/Type.php:1608
 msgid "The name to use when linking to the compose page"
 msgstr ""
 
-#: Form/Type.php:3673
+#: Form/Type.php:3652
 msgid "The text you entered did not match the text on the screen."
 msgstr ""
 
-#: Form/Type.php:644
+#: Form/Type.php:621
 #, php-format
 msgid ""
 "There are too many characters in this field. You have entered %d character; "
@@ -522,111 +523,111 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: Form/Type.php:3504
+#: Form/Type.php:3483
 msgid "This does not seem to be a valid card number."
 msgstr ""
 
-#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
-#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
-#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
-#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
-#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
-#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
-#: Form/Variable.php:471 Form/Variable.php:479
+#: Form/Type.php:146 Form/Type.php:223 Form/Type.php:250 Form/Type.php:277
+#: Form/Type.php:342 Form/Type.php:436 Form/Type.php:494 Form/Type.php:524
+#: Form/Type.php:618 Form/Type.php:1018 Form/Type.php:2062 Form/Type.php:2109
+#: Form/Type.php:2131 Form/Type.php:2178 Form/Type.php:2253 Form/Type.php:2324
+#: Form/Type.php:2538 Form/Type.php:2580 Form/Type.php:2774 Form/Type.php:3123
+#: Form/Type.php:3162 Form/Type.php:3475 Form/Type.php:3647 Form/Type.php:3730
+#: Form/Variable.php:454 Form/Variable.php:462
 msgid "This field is required."
 msgstr ""
 
-#: Form/Type.php:254
+#: Form/Type.php:231
 msgid "This field may only contain integers."
 msgstr ""
 
-#: Form/Type.php:2567
+#: Form/Type.php:2546
 msgid "This field may only contain numbers and the colon."
 msgstr ""
 
-#: Form/Type.php:281
+#: Form/Type.php:258
 msgid "This field may only contain octal values."
 msgstr ""
 
-#: Form/Type.php:308
+#: Form/Type.php:285
 msgid "This field must be a comma or space separated list of integers"
 msgstr ""
 
-#: Form/Type.php:180
+#: Form/Type.php:157
 msgid "This field must be a valid number."
 msgstr ""
 
-#: Form/Type.php:3152
+#: Form/Type.php:3131
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
 msgstr ""
 
-#: Form.php:629
+#: Form.php:623
 msgid "This form has already been processed."
 msgstr ""
 
-#: Form/Type.php:2576
+#: Form/Type.php:2555
 msgid "Time"
 msgstr ""
 
-#: Form/Type.php:2686
+#: Form/Type.php:2665
 msgid "Time selection"
 msgstr ""
 
-#: Form/Type.php:1321
+#: Form/Type.php:1300
 msgid "True or false"
 msgstr ""
 
-#: Form/Type.php:360
+#: Form/Type.php:337
 #, php-format
 msgid "Value is over the maximum length of %d."
 msgstr ""
 
-#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type.php:2347 Form/Type.php:2382 Form/Type.php:2431 Form/Type.php:3260
 #: Form/Type/tableset.php:56
 msgid "Values"
 msgstr ""
 
-#: Form/Type.php:2235 Form/Type.php:2311
+#: Form/Type.php:2214 Form/Type.php:2290
 msgid "Values to select from"
 msgstr ""
 
-#: Form/Type.php:3485
+#: Form/Type.php:3464
 msgid "Width in CSS units"
 msgstr ""
 
-#: Form/Type.php:2102
+#: Form/Type.php:2081
 msgid "You did not enter a valid email address."
 msgstr ""
 
-#: Form/Type.php:3028
+#: Form/Type.php:3007
 msgid "You must choose a date."
 msgstr ""
 
-#: Form/Type.php:3026
+#: Form/Type.php:3005
 msgid "You must choose a time."
 msgstr ""
 
-#: Form/Type.php:463
+#: Form/Type.php:440
 msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
 msgstr ""
 
-#: Form/Type.php:371
+#: Form/Type.php:348
 msgid "You must enter a valid value."
 msgstr ""
 
-#: Form/Type.php:1470
+#: Form/Type.php:1449
 msgid "You must enter an email address."
 msgstr ""
 
-#: Form/Type.php:1468
+#: Form/Type.php:1447
 msgid "You must enter at least one email address."
 msgstr ""
 
-#: Form/Type.php:645
+#: Form/Type.php:622
 #, php-format
 msgid "you must enter less than %d."
 msgstr ""

@@ -1,17 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Passwd package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Passwd unknown\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-08-17 17:46+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,7 +38,7 @@ msgstr ""
 msgid "ADSI error %s."
 msgstr ""
 
-#: lib/Driver/pspasswd.php:105 lib/Driver/adsi.php:64
+#: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
 msgid "Access Denied."
 msgstr ""
 
@@ -49,7 +50,7 @@ msgstr ""
 msgid "Cannot send command to server."
 msgstr ""
 
-#: main.php:275 templates/main/main.inc:141
+#: main.php:265 templates/main/main.inc:141
 msgid "Change Password"
 msgstr ""
 
@@ -70,7 +71,7 @@ msgstr ""
 msgid "Confirm new password:"
 msgstr ""
 
-#: lib/Driver/ldap.php:127 lib/Driver/kolab.php:60
+#: lib/Driver/kolab.php:60 lib/Driver/ldap.php:127
 msgid "Could not bind to LDAP server"
 msgstr ""
 
@@ -82,7 +83,7 @@ msgstr ""
 msgid "Could not change password."
 msgstr ""
 
-#: lib/Driver/ldap.php:87 lib/Driver/kolab.php:46
+#: lib/Driver/kolab.php:46 lib/Driver/ldap.php:87
 msgid "Could not connect to LDAP server"
 msgstr ""
 
@@ -114,7 +115,7 @@ msgstr ""
 msgid "Failed to verify old password."
 msgstr ""
 
-#: main.php:232 lib/Driver/composite.php:102
+#: lib/Driver/composite.php:102 main.php:224
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr ""
@@ -123,13 +124,13 @@ msgstr ""
 msgid "Full buffer."
 msgstr ""
 
-#: lib/Driver.php:72 lib/Driver/ldap.php:144 lib/Driver/http.php:72
-#: lib/Driver/vmailmgr.php:42 lib/Driver/kolab.php:84
-#: lib/Driver/poppassd.php:120
+#: lib/Driver.php:72 lib/Driver/http.php:72 lib/Driver/kolab.php:84
+#: lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
+#: lib/Driver/vmailmgr.php:42
 msgid "Incorrect old password."
 msgstr ""
 
-#: lib/Driver/ldap.php:210
+#: lib/Driver/ldap.php:208
 msgid "Minimum password age has not yet expired"
 msgstr ""
 
@@ -158,7 +159,7 @@ msgstr ""
 msgid "Passwd is not properly configured."
 msgstr ""
 
-#: main.php:219
+#: main.php:211
 #, php-format
 msgid "Password changed on %s."
 msgstr ""
@@ -180,7 +181,7 @@ msgstr ""
 msgid "Password module is missing target parameter."
 msgstr ""
 
-#: main.php:193 lib/Driver/servuftp.php:71
+#: lib/Driver/servuftp.php:71 main.php:191
 msgid "Password module is not properly configured"
 msgstr ""
 
@@ -240,12 +241,12 @@ msgstr ""
 msgid "Unable to open expect stream!"
 msgstr ""
 
-#: lib/Driver/sql.php:135 lib/Driver/poppassd.php:114
+#: lib/Driver/poppassd.php:114 lib/Driver/sql.php:135
 #: lib/Driver/vpopmail.php:150
 msgid "User not found"
 msgstr ""
 
-#: lib/Driver/ldap.php:187 lib/Driver/ldap.php:259 lib/Driver/kolab.php:76
+#: lib/Driver/kolab.php:76 lib/Driver/ldap.php:185 lib/Driver/ldap.php:257
 #: lib/Driver/pine.php:231
 msgid "User not found."
 msgstr ""
@@ -254,48 +255,48 @@ msgstr ""
 msgid "Username:"
 msgstr ""
 
-#: main.php:57
+#: main.php:55
 #, php-format
 msgid "You can't change password for user %s"
 msgstr ""
 
-#: main.php:65
+#: main.php:63
 msgid "You must give your current password"
 msgstr ""
 
-#: main.php:74
+#: main.php:72
 msgid "You must give your new password"
 msgstr ""
 
-#: main.php:78
+#: main.php:76
 msgid "You must verify your new password"
 msgstr ""
 
-#: main.php:98
+#: main.php:96
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
 msgstr ""
 
-#: main.php:182
+#: main.php:180
 msgid "Your new password is too simple to guess!  Not changed!"
 msgstr ""
 
-#: main.php:173
+#: main.php:171
 msgid "Your new password is too simple to guess. Not changed!"
 msgstr ""
 
-#: main.php:93
+#: main.php:91
 #, php-format
 msgid "Your new password must be at least %d characters long!"
 msgstr ""
 
-#: main.php:86
+#: main.php:84
 msgid "Your new password must be different from your current password"
 msgstr ""
 
-#: main.php:138
+#: main.php:136
 #, php-format
 msgid "Your new password must contain at least %d alphabetic character."
 msgid_plural ""
@@ -303,7 +304,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:143
+#: main.php:141
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric character."
 msgid_plural ""
@@ -311,51 +312,51 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:148
+#: main.php:146
 #, php-format
 msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
 
-#: main.php:128
+#: main.php:126
 #, php-format
 msgid "Your new password must contain at least %d lowercase character."
 msgid_plural "Your new password must contain at least %d lowercase characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:133
+#: main.php:131
 #, php-format
 msgid "Your new password must contain at least %d numeric character."
 msgid_plural "Your new password must contain at least %d numeric characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:162
+#: main.php:160
 #, php-format
 msgid "Your new password must contain at least %d symbol character."
 msgid_plural "Your new password must contain at least %d symbol characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:123
+#: main.php:121
 #, php-format
 msgid "Your new password must contain at least %d uppercase character."
 msgid_plural "Your new password must contain at least %d uppercase characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:154
+#: main.php:152
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
 msgstr ""
 
-#: main.php:156
+#: main.php:154
 msgid "Your new password must not contain whitespace characters."
 msgstr ""
 
-#: main.php:82
+#: main.php:80
 msgid "Your new passwords didn't match"
 msgstr ""
 

@@ -1,41 +1,42 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Horde_Kolab_Resource package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Horde_Kolab_Resource \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Kolab/Resource.php:576
+#: lib/Horde/Kolab/Resource.php:557
 #, php-format
 msgid "%s has been cancelled"
 msgstr ""
 
-#: lib/Horde/Kolab/Resource.php:555 lib/Horde/Kolab/Resource.php:560
+#: lib/Horde/Kolab/Resource.php:536 lib/Horde/Kolab/Resource.php:541
 #, php-format
 msgid "Error processing \"%s\""
 msgstr ""
 
-#: lib/Horde/Kolab/Resource.php:575
+#: lib/Horde/Kolab/Resource.php:556
 msgid "The following event has been successfully removed:"
 msgstr ""
 
-#: lib/Horde/Kolab/Resource.php:559
+#: lib/Horde/Kolab/Resource.php:540
 #, php-format
 msgid "The following event that was canceled is not present in %s's calendar:"
 msgstr ""
 
-#: lib/Horde/Kolab/Resource.php:554
+#: lib/Horde/Kolab/Resource.php:535
 #, php-format
 msgid "Unable to access %s's calendar:"
 msgstr ""

@@ -1,105 +1,141 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Vilma package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Vilma H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-08-18 14:36+0200\n"
+"POT-Creation-Date: 2011-02-02 18:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: users/edit.php:67
+#: users/edit.php:62
 #, php-format
 msgid "\"%s\" already has the maximum number of users allowed."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1204
+#: lib/Driver/Qmailldap.php:431
 msgid "Account Status"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1212
+#: users/delete.php:93
+#, php-format
+msgid "Account belongs to %d group."
+msgid_plural "Account belongs to %d groups."
+msgstr[0] ""
+msgstr[1] ""
+
+#: users/delete.php:87
+#, php-format
+msgid "Account has %d alias."
+msgid_plural "Account has %d aliases."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Driver/Qmailldap.php:439
 msgid "Account is active"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1215
+#: lib/Driver/Qmailldap.php:442
 msgid "Account is disabled"
 msgstr ""
 
-#: templates/users/index.html:13
+#: users/delete.php:90
+#, php-format
+msgid "Account is the target of %d forward."
+msgid_plural "Account is the target of %d forwards."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/users/index.html:11
 msgid "Address"
 msgstr ""
 
-#: lib/Vilma.php:59
+#: lib/Vilma.php:58
 msgid "Alias"
 msgstr ""
 
-#: users/delete.php:119
+#: lib/Form/EditAlias.php:34
+msgid "Alias Address"
+msgstr ""
+
+#: users/delete.php:114
 msgid "Alias deleted."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:354
+#: lib/Driver/Qmailldap.php:545
 #, php-format
 msgid "Alias for %s"
 msgstr ""
 
-#: users/editAlias.php:46
+#: users/editAlias.php:31
 msgid "Alias saved."
 msgstr ""
 
-#: lib/Vilma.php:60
+#: lib/Vilma.php:59
 msgid "Aliases"
 msgstr ""
 
-#: lib/Vilma.php:53 lib/Vilma.php:54
+#: lib/Vilma.php:52 lib/Vilma.php:53
 msgid "All"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1214
+#: lib/Driver/Qmailldap.php:441
 msgid "Bounce Incoming Only"
 msgstr ""
 
-#: domains/delete.php:24 users/delete.php:84 users/delete.php:107
-#: virtuals/delete.php:30 virtuals/delete.php:34
-#: lib/Forms/DeleteDomainForm.php:25
+#: domains/delete.php:32 lib/Form/DeleteDomain.php:21 users/delete.php:75
+#: users/delete.php:104 virtuals/delete.php:37 virtuals/delete.php:41
 msgid "Delete"
 msgstr ""
 
-#: users/delete.php:82
+#: users/delete.php:74
 #, php-format
 msgid "Delete %s"
 msgstr ""
 
-#: domains/index.php:45 lib/Forms/DeleteDomainForm.php:15
+#: users/delete.php:81
+#, php-format
+msgid "Delete %s \"%s\" and all dependencies?"
+msgstr ""
+
+#: users/delete.php:83
+#, php-format
+msgid "Delete %s \"%s\"?"
+msgstr ""
+
+#: domains/index.php:48 lib/Form/DeleteDomain.php:15
 msgid "Delete Domain"
 msgstr ""
 
-#: users/index.php:137 virtuals/index.php:53
+#: users/index.php:115 virtuals/index.php:61
 msgid "Delete User"
 msgstr ""
 
-#: virtuals/delete.php:27
+#: virtuals/delete.php:34
 msgid "Delete Virtual Email Address"
 msgstr ""
 
-#: lib/Forms/DeleteDomainForm.php:27
+#: lib/Form/DeleteDomain.php:23
 #, php-format
 msgid "Delete domain \"%s\" and all associated email addresses?"
 msgstr ""
 
-#: virtuals/delete.php:32
+#: virtuals/delete.php:39
 #, php-format
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
 msgstr ""
 
-#: virtuals/edit.php:59 templates/virtuals/index.html:20
+#: virtuals/edit.php:58 templates/virtuals/index.html:18
 msgid "Destination"
 msgstr ""
 
@@ -107,7 +143,7 @@ msgstr ""
 msgid "Destination type"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1213
+#: lib/Driver/Qmailldap.php:440
 msgid "Disable Delivery Only"
 msgstr ""
 
@@ -119,63 +155,56 @@ msgstr ""
 msgid "Display listings"
 msgstr ""
 
-#: domains/delete.php:36 users/delete.php:84 users/delete.php:158
-#: virtuals/delete.php:30 virtuals/delete.php:48
-#: lib/Forms/DeleteDomainForm.php:25
+#: domains/delete.php:27 lib/Form/DeleteDomain.php:21 users/delete.php:75
+#: users/delete.php:97 virtuals/delete.php:27 virtuals/delete.php:37
 msgid "Do not delete"
 msgstr ""
 
-#: lib/Forms/EditDomainForm.php:34 templates/domains/index.html:16
+#: lib/Form/EditDomain.php:30 templates/domains/index.html:14
 msgid "Domain"
 msgstr ""
 
-#: lib/Driver.php:305
-msgid ""
-"Domain added but an error was encountered while calling the configured "
-"hook.  Contact your administrator for futher assistance."
-msgstr ""
-
-#: domains/delete.php:32
+#: domains/delete.php:37
 msgid "Domain deleted."
 msgstr ""
 
-#: domains/delete.php:37
+#: domains/delete.php:28
 msgid "Domain not deleted."
 msgstr ""
 
-#: domains/edit.php:33
+#: domains/edit.php:32
 msgid "Domain saved."
 msgstr ""
 
-#: lib/Forms/EditAliasForm.php:21
+#: lib/Form/EditAlias.php:17
 #, php-format
 msgid "Edit Alias \"%s\" for \"%s\""
 msgstr ""
 
-#: domains/index.php:46 lib/Forms/EditDomainForm.php:19
+#: domains/index.php:49 lib/Form/EditDomain.php:18
 msgid "Edit Domain"
 msgstr ""
 
-#: lib/Forms/EditForwardForm.php:21
+#: lib/Form/EditForward.php:17
 #, php-format
 msgid "Edit Forward \"%s\" for \"%s\""
 msgstr ""
 
-#: lib/Forms/EditUserForm.php:24
+#: lib/Form/EditUser.php:23
 #, php-format
 msgid "Edit Forward for \"%s\""
 msgstr ""
 
-#: lib/Forms/EditUserForm.php:22
+#: lib/Form/EditUser.php:19
 #, php-format
 msgid "Edit Group for \"%s\""
 msgstr ""
 
-#: users/index.php:138 virtuals/index.php:54
+#: users/index.php:116 virtuals/index.php:62
 msgid "Edit User"
 msgstr ""
 
-#: lib/Forms/EditUserForm.php:26
+#: lib/Form/EditUser.php:27
 #, php-format
 msgid "Edit User for \"%s\""
 msgstr ""
@@ -193,147 +222,154 @@ msgid ""
 "characters, and must end with an alphanumerical character."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1178
+#: lib/Driver/Qmailldap.php:380
 #, php-format
 msgid "Error adding account to LDAP: %s"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:711
+#: lib/Driver/Qmailldap.php:424
 #, php-format
 msgid "Error deleting account from LDAP: %s"
 msgstr ""
 
-#: users/delete.php:117
+#: users/delete.php:116
 #, php-format
 msgid "Error deleting alias. %s."
 msgstr ""
 
-#: domains/delete.php:30
+#: domains/delete.php:40
 #, php-format
 msgid "Error deleting domain. %s."
 msgstr ""
 
-#: users/delete.php:134
+#: users/delete.php:129
 #, php-format
 msgid "Error deleting forward. %s."
 msgstr ""
 
-#: users/delete.php:149
+#: users/delete.php:140
 #, php-format
 msgid "Error deleting user. %s."
 msgstr ""
 
-#: virtuals/delete.php:40
+#: virtuals/delete.php:52
 #, php-format
 msgid "Error deleting virtual email. %s."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:193 lib/Driver/qmailldap.php:198
+#: lib/Driver/Qmailldap.php:139 lib/Driver/Qmailldap.php:144
 #, php-format
 msgid "Error in LDAP search: %s"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:800 lib/Driver/qmailldap.php:858
-#: lib/Driver/qmailldap.php:951 lib/Driver/qmailldap.php:1016
-#: lib/Driver/qmailldap.php:1134
+#: lib/Driver/Qmailldap.php:327 lib/Driver/Qmailldap.php:768
+#: lib/Driver/Qmailldap.php:823 lib/Driver/Qmailldap.php:899
+#: lib/Driver/Qmailldap.php:952
 #, php-format
 msgid "Error modifying account: %s"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:738 lib/Driver/qmailldap.php:818
-#: lib/Driver/qmailldap.php:889 lib/Driver/qmailldap.php:976
-#: lib/Driver/qmailldap.php:1061
+#: lib/Driver/Qmailldap.php:255 lib/Driver/Qmailldap.php:723
+#: lib/Driver/Qmailldap.php:790 lib/Driver/Qmailldap.php:854
+#: lib/Driver/Qmailldap.php:921
 msgid "Error reading address information from backend."
 msgstr ""
 
-#: users/edit.php:35 users/editForward.php:60 users/editAlias.php:64
-#: users/delete.php:67
+#: users/delete.php:30 users/edit.php:33 users/editAlias.php:59
+#: users/editAlias.php:71 users/editForward.php:57
 #, php-format
 msgid "Error reading address information from backend: %s"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:631 lib/Driver/qmailldap.php:663
-#: lib/Driver/qmailldap.php:700
+#: lib/Driver/Qmailldap.php:411 lib/Driver/Qmailldap.php:981
 #, php-format
 msgid "Error retrieving LDAP results: %s"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:330 lib/Driver/qmailldap.php:423
-#: lib/Driver/qmailldap.php:505
+#: lib/Driver/Qmailldap.php:523 lib/Driver/Qmailldap.php:602
+#: lib/Driver/Qmailldap.php:682
 #, php-format
 msgid "Error returning LDAP results: %s"
 msgstr ""
 
-#: lib/Driver.php:271
+#: lib/Driver.php:310
 msgid "Error running authentication update script."
 msgstr ""
 
-#: users/editAlias.php:34
+#: users/editAlias.php:37
 #, php-format
 msgid "Error saving alias. %s"
 msgstr ""
 
-#: domains/edit.php:31
+#: domains/edit.php:35
 #, php-format
 msgid "Error saving domain: %s."
 msgstr ""
 
-#: users/editForward.php:34
+#: users/editForward.php:35
 #, php-format
 msgid "Error saving forward. %s"
 msgstr ""
 
-#: users/edit.php:77
+#: users/edit.php:89
 #, php-format
 msgid "Error saving user. %s"
 msgstr ""
 
-#: virtuals/edit.php:72
+#: virtuals/edit.php:76
 #, php-format
 msgid "Error saving virtual email. %s."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:324 lib/Driver/qmailldap.php:417
-#: lib/Driver/qmailldap.php:500 lib/Driver/qmailldap.php:626
-#: lib/Driver/qmailldap.php:658 lib/Driver/qmailldap.php:695
+#: lib/Driver/Qmailldap.php:407 lib/Driver/Qmailldap.php:518
+#: lib/Driver/Qmailldap.php:597 lib/Driver/Qmailldap.php:678
+#: lib/Driver/Qmailldap.php:977
 #, php-format
 msgid "Error searching LDAP: %s"
 msgstr ""
 
-#: lib/Driver.php:356
-msgid "Error while calling hook to delete domain."
-msgstr ""
-
-#: lib/Driver/qmailldap.php:779 lib/Driver/qmailldap.php:930
+#: lib/Driver/Qmailldap.php:747 lib/Driver/Qmailldap.php:878
 #, php-format
-msgid "Existing entry \"%s\" could not be found: "
+msgid "Existing entry \"%s\" could not be found."
 msgstr ""
 
-#: lib/Vilma.php:68
+#: lib/Vilma.php:64
 msgid "Forward"
 msgstr ""
 
-#: users/delete.php:136
+#: lib/Form/EditForward.php:34
+msgid "Forward Address"
+msgstr ""
+
+#: lib/Form/EditUser.php:24
+msgid "Forward Name"
+msgstr ""
+
+#: users/delete.php:127
 msgid "Forward deleted."
 msgstr ""
 
-#: lib/Vilma.php:69
+#: lib/Vilma.php:65
 msgid "Forwards"
 msgstr ""
 
-#: lib/Forms/EditUserForm.php:55 templates/users/index.html:16
+#: lib/Form/EditUser.php:51 templates/users/index.html:14
 msgid "Full Name"
 msgstr ""
 
-#: lib/Vilma.php:65
+#: lib/Vilma.php:61
 msgid "Group"
 msgstr ""
 
-#: lib/Vilma.php:66
+#: lib/Form/EditUser.php:20
+msgid "Group Name"
+msgstr ""
+
+#: lib/Vilma.php:62
 msgid "Groups"
 msgstr ""
 
-#: config/prefs.php.dist:18
+#: config/prefs.php.dist:17
 msgid "How many domain to display per page."
 msgstr ""
 
@@ -341,65 +377,65 @@ msgstr ""
 msgid "Local user"
 msgstr ""
 
-#: lib/MailboxDriver/imap.php:43
+#: lib/MailboxDriver/Imap.php:86
 #, php-format
-msgid "Mailbox '%s@%s' does not exist."
+msgid "Mailbox \"%s\" does not exist."
 msgstr ""
 
-#: lib/MailboxDriver/maildrop.php:41
+#: lib/MailboxDriver/Maildrop.php:64
 #, php-format
 msgid "Maildrop directory \"%s\" does not exist."
 msgstr ""
 
-#: templates/domains/index.html:19
+#: templates/domains/index.html:17
 msgid "Max Users"
 msgstr ""
 
-#: lib/Forms/EditDomainForm.php:37
+#: lib/Form/EditDomain.php:32
 msgid "Max users"
 msgstr ""
 
-#: users/index.php:119
+#: users/index.php:103
 msgid "Maximum Users"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:509
+#: lib/Driver/Qmailldap.php:686
 msgid ""
 "More than one DN returned for this alias.  Please contact an administrator "
 "to resolve this error."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:669 lib/Driver/qmailldap.php:706
+#: lib/Driver/Qmailldap.php:418 lib/Driver/Qmailldap.php:988
 msgid "More than one DN returned.  Aborting delete operation."
 msgstr ""
 
-#: lib/Forms/EditUserForm.php:49
+#: lib/Form/EditUser.php:45
 msgid ""
 "Name must begin with an alphanumeric character, must contain only "
 "alphanumeric and '._-' characters, and must end with an alphanumeric "
 "character."
 msgstr ""
 
-#: lib/Forms/EditAliasForm.php:23
+#: lib/Form/EditAlias.php:21
 #, php-format
 msgid "New Alias for %s"
 msgstr ""
 
-#: lib/Forms/EditDomainForm.php:19
+#: lib/Form/EditDomain.php:18
 msgid "New Domain"
 msgstr ""
 
-#: lib/Forms/EditForwardForm.php:23
+#: lib/Form/EditForward.php:21
 #, php-format
 msgid "New Forward for %s"
 msgstr ""
 
-#: lib/Forms/EditUserForm.php:29
+#: lib/Form/EditUser.php:32
 #, php-format
 msgid "New User @%s"
 msgstr ""
 
-#: virtuals/index.php:46
+#: virtuals/index.php:51
 msgid "New Virtual Email"
 msgstr ""
 
@@ -407,45 +443,41 @@ msgstr ""
 msgid "New Virtual Email Address"
 msgstr ""
 
-#: lib/Vilma.php:180
+#: lib/Application.php:100
 msgid "New _Address"
 msgstr ""
 
-#: lib/MailboxDriver/maildrop.php:16
+#: lib/MailboxDriver/Maildrop.php:76
 msgid "No 'mail_dir_base' parameter specified to maildrop driver."
 msgstr ""
 
-#: lib/MailboxDriver/maildrop.php:54
+#: lib/MailboxDriver/Maildrop.php:25
 msgid "No 'system_user' parameter specified to maildrop driver."
 msgstr ""
 
-#: lib/Driver.php:108
+#: lib/Driver.php:400
 #, php-format
 msgid "No such address %s of type %s found."
 msgstr ""
 
-#: lib/Driver.php:452
+#: lib/Driver.php:542
 #, php-format
 msgid "No such backend \"%s\" found"
 msgstr ""
 
-#: lib/Driver.php:321 lib/Driver.php:370
-msgid "Not implemented."
-msgstr ""
-
-#: lib/Forms/EditUserForm.php:51
+#: lib/Form/EditUser.php:47
 msgid "Only enter a password if you wish to change this user's password"
 msgstr ""
 
-#: lib/Forms/EditUserForm.php:51 lib/Forms/EditUserForm.php:53
+#: lib/Form/EditUser.php:47 lib/Form/EditUser.php:49
 msgid "Password"
 msgstr ""
 
-#: lib/Driver/sql.php:463
+#: lib/Driver/Sql.php:252
 msgid "Password must be supplied when creating a new user."
 msgstr ""
 
-#: lib/Forms/EditDomainForm.php:38
+#: lib/Form/EditDomain.php:33
 msgid "Quota"
 msgstr ""
 
@@ -453,7 +485,7 @@ msgstr ""
 msgid "Remote address"
 msgstr ""
 
-#: virtuals/edit.php:56
+#: virtuals/edit.php:55
 msgid "Remote e-mail address"
 msgstr ""
 
@@ -461,154 +493,142 @@ msgstr ""
 msgid "Set default display parameters."
 msgstr ""
 
-#: templates/users/index.html:22
+#: templates/users/index.html:20
 msgid "Status"
 msgstr ""
 
-#: lib/Application.php:42
+#: lib/Application.php:73
 msgid "Super Administrator"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:765
+#: lib/Driver/Qmailldap.php:739
 msgid "That alias already exists!"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:916
+#: lib/Driver/Qmailldap.php:870
 #, php-format
 msgid "That forward, \"%s\", already exists!"
 msgstr ""
 
-#: lib/Forms/EditAliasForm.php:37
+#: lib/Form/EditAlias.php:34
 msgid ""
 "The email address to add as an alias for this user.  Note that the server "
 "must be configured to receive mail for the domain contained in this address."
 msgstr ""
 
-#: lib/Forms/EditForwardForm.php:37
+#: lib/Form/EditForward.php:34
 msgid ""
 "The email address to add as an forward for this user.  Note that the server "
 "must be configured to receive mail for the domain contained in this address."
 msgstr ""
 
-#: lib/MailboxDriver.php:76
-msgid "This driver cannot create mailboxes."
-msgstr ""
-
-#: lib/MailboxDriver.php:92
-msgid "This driver cannot delete mailboxes."
-msgstr ""
-
-#: lib/Forms/EditDomainForm.php:36
+#: lib/Form/EditDomain.php:31
 msgid "Transport"
 msgstr ""
 
-#: templates/users/index.html:19
+#: templates/users/index.html:17
 msgid "Type"
 msgstr ""
 
-#: lib/Driver/qmailldap.php:667 lib/Driver/qmailldap.php:704
+#: lib/Driver/Qmailldap.php:415 lib/Driver/Qmailldap.php:985
 msgid "Unable to acquire handle on DN.  Aborting delete operation."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1045
+#: lib/Driver/Qmailldap.php:243
 msgid "Unable to acquire handle on address."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1091 lib/Driver/qmailldap.php:1145
-#: lib/Driver/qmailldap.php:1252
+#: lib/Driver/Qmailldap.php:286 lib/Driver/Qmailldap.php:347
+#: lib/Driver/Qmailldap.php:1023
 msgid "Unable to bind to the LDAP server.  Check authentication credentials."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:794 lib/Driver/qmailldap.php:852
-#: lib/Driver/qmailldap.php:945 lib/Driver/qmailldap.php:1010
+#: lib/Driver/Qmailldap.php:762 lib/Driver/Qmailldap.php:817
+#: lib/Driver/Qmailldap.php:893 lib/Driver/Qmailldap.php:946
 msgid "Unable to bind to the LDAP server. Check authentication credentials."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1183
-msgid "Unable to connect to LDAP server"
-msgstr ""
-
-#: lib/Driver/qmailldap.php:147
+#: lib/Driver/Qmailldap.php:205
 msgid "Unable to qualify address."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:142
+#: lib/Driver/Qmailldap.php:250
 #, php-format
-msgid "Unable to qualify address: %s"
+msgid "Unable to save account of type \"%s\""
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1187
+#: lib/Driver/Qmailldap.php:225
 msgid "Unable to save user information."
 msgstr ""
 
-#: lib/Driver/qmailldap.php:1247
+#: lib/Driver/Qmailldap.php:1018
 msgid "Unable to set LDAP protocol version"
 msgstr ""
 
-#: lib/Driver.php:275
+#: lib/Driver.php:313
 msgid "Unknown error running authentication update script."
 msgstr ""
 
-#: lib/Vilma.php:56
+#: lib/Vilma.php:55
 msgid "User"
 msgstr ""
 
-#: users/edit.php:79
+#: lib/Form/EditUser.php:28
+msgid "User Name"
+msgstr ""
+
+#: users/edit.php:72
 msgid "User details saved."
 msgstr ""
 
-#: lib/Driver.php:132
+#: lib/Driver.php:258
 msgid "User disabled."
 msgstr ""
 
-#: users/delete.php:159
+#: users/delete.php:98
 msgid "User not deleted."
 msgstr ""
 
-#: lib/Driver.php:155
+#: lib/Driver.php:276
 msgid "User ready."
 msgstr ""
 
-#: virtuals/index.php:49 lib/Vilma.php:57
+#: lib/Vilma.php:56 virtuals/index.php:57
 msgid "Users"
 msgstr ""
 
-#: lib/Forms/EditDomainForm.php:38
+#: lib/Form/EditDomain.php:33
 msgid "Value in MB"
-msgstr ""
-
-#: lib/Driver.php:286
-msgid "Vilma_Driver::deleteUser(): Method Not Implemented."
 msgstr ""
 
 #: virtuals/edit.php:48
 msgid "Virtual Email"
 msgstr ""
 
-#: templates/virtuals/index.html:17
+#: templates/virtuals/index.html:15
 msgid "Virtual Email Address"
 msgstr ""
 
-#: virtuals/delete.php:42
+#: virtuals/delete.php:46
 msgid "Virtual email deleted."
 msgstr ""
 
-#: virtuals/delete.php:49
+#: virtuals/delete.php:28
 msgid "Virtual email not deleted."
 msgstr ""
 
-#: virtuals/edit.php:74
+#: virtuals/edit.php:70
 msgid "Virtual email saved."
 msgstr ""
 
-#: lib/Vilma.php:173
+#: lib/Application.php:96
 msgid "_Domains"
 msgstr ""
 
-#: lib/Vilma.php:182
+#: lib/Application.php:102
 msgid "_New Domain"
 msgstr ""
 
-#: users/editForward.php:45
+#: users/editForward.php:32
 msgid "forward saved."
 msgstr ""

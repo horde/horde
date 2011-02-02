@@ -1,37 +1,38 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Horde_LoginTasks package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Horde_LoginTasks \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/LoginTasks.php:266
+#: lib/Horde/LoginTasks.php:269
 msgid "Daily"
 msgstr ""
 
-#: lib/Horde/LoginTasks.php:267
+#: lib/Horde/LoginTasks.php:270
 msgid "Every Login"
 msgstr ""
 
-#: lib/Horde/LoginTasks.php:264
+#: lib/Horde/LoginTasks.php:267
 msgid "Monthly"
 msgstr ""
 
-#: lib/Horde/LoginTasks.php:265
+#: lib/Horde/LoginTasks.php:268
 msgid "Weekly"
 msgstr ""
 
-#: lib/Horde/LoginTasks.php:263
+#: lib/Horde/LoginTasks.php:266
 msgid "Yearly"
 msgstr ""

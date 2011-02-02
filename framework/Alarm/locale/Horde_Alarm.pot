@@ -1,37 +1,38 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Horde_Alarm package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Horde_Alarm \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Alarm/Handler/Desktop.php:86
+#: lib/Horde/Alarm/Handler/Desktop.php:87
 msgid "Desktop notification (with certain browsers)"
 msgstr ""
 
-#: lib/Horde/Alarm/Handler/Mail.php:118
+#: lib/Horde/Alarm/Handler/Mail.php:123
 msgid "Email"
 msgstr ""
 
-#: lib/Horde/Alarm/Handler/Mail.php:138
+#: lib/Horde/Alarm/Handler/Mail.php:143
 msgid "Email address (optional)"
 msgstr ""
 
-#: lib/Horde/Alarm/Handler/Notify.php:81
+#: lib/Horde/Alarm/Handler/Notify.php:79
 msgid "Inline"
 msgstr ""
 
-#: lib/Horde/Alarm/Handler/Notify.php:101
+#: lib/Horde/Alarm/Handler/Notify.php:99
 msgid "Play a sound?"
 msgstr ""

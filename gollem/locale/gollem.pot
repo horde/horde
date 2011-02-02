@@ -1,58 +1,59 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Gollem package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Gollem H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-08-17 17:46+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: manager.php:58
+#: manager.php:62
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
 msgstr ""
 
-#: quota.php:56
+#: quota.php:49
 #, php-format
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr ""
 
-#: manager.php:555
+#: manager.php:581
 #, php-format
 msgid "%d item"
 msgstr ""
 
-#: manager.php:555
+#: manager.php:581
 #, php-format
 msgid "%d items"
 msgstr ""
 
-#: edit.php:36
+#: edit.php:31
 #, php-format
 msgid "%s successfully saved."
 msgstr ""
 
-#: manager.php:182
+#: manager.php:188
 #, php-format
 msgid "%s was successfully pasted."
 msgstr ""
 
-#: edit.php:34 edit.php:48 view.php:37 view.php:44
+#: edit.php:33 edit.php:45
 #, php-format
 msgid "Access denied to %s"
 msgstr ""
 
-#: lib/Gollem.php:39 lib/Gollem.php:340 lib/Gollem.php:385 lib/Gollem.php:404
-#: lib/Gollem.php:421
+#: lib/Gollem.php:41 lib/Gollem.php:333 lib/Gollem.php:377 lib/Gollem.php:397
+#: lib/Gollem.php:415
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr ""
@@ -61,31 +62,27 @@ msgstr ""
 msgid "Actions:"
 msgstr ""
 
-#: selectlist.php:95
+#: selectlist.php:93
 msgid "Add"
-msgstr ""
-
-#: lib/Application.php:155
-msgid "Address books that will not be displayed:"
 msgstr ""
 
 #: templates/manager/manager.html:11
 msgid "All"
 msgstr ""
 
-#: templates/javascript_defs.php:22
+#: templates/javascript_defs.php:20
 msgid "Are you sure you wish to continue?"
 msgstr ""
 
-#: templates/javascript_defs.php:20
+#: templates/javascript_defs.php:18
 msgid "Are you sure?"
 msgstr ""
 
-#: config/prefs.php.dist:59
+#: config/prefs.php.dist:64
 msgid "Ascending"
 msgstr ""
 
-#: config/prefs.php.dist:86
+#: config/prefs.php.dist:94
 msgid "Ask"
 msgstr ""
 
@@ -93,43 +90,47 @@ msgstr ""
 msgid "Attributes"
 msgstr ""
 
-#: lib/Application.php:84
+#: lib/Application.php:79
 msgid "Backends"
+msgstr ""
+
+#: lib/Application.php:149
+msgid "Backends that will not be displayed:"
 msgstr ""
 
 #: templates/clipboard/clipboard.html:11
 msgid "Below is the current contents of your clipboard."
 msgstr ""
 
-#: manager.php:293 selectlist.php:97 clipboard.php:38
+#: clipboard.php:24 manager.php:304 selectlist.php:95
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr ""
 
-#: manager.php:80
+#: manager.php:87
 #, php-format
 msgid "Cannot chmod %s: %s"
 msgstr ""
 
-#: manager.php:153
+#: manager.php:160
 msgid "Cannot copy items onto clipboard."
 msgstr ""
 
-#: manager.php:215
+#: manager.php:238
 #, php-format
 msgid "Cannot create home directory: %s"
 msgstr ""
 
-#: manager.php:155
+#: manager.php:162
 msgid "Cannot cut items onto clipboard."
 msgstr ""
 
-#: manager.php:176
+#: manager.php:190
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr ""
 
-#: manager.php:322 templates/manager/manager.html:70
+#: manager.php:332 templates/manager/manager.html:70
 msgid "Change Folder"
 msgstr ""
 
@@ -137,55 +138,47 @@ msgstr ""
 msgid "Change Permissions"
 msgstr ""
 
-#: selectlist.php:105 lib/Gollem.php:711
+#: lib/Gollem.php:655
 msgid "Change Server"
 msgstr ""
 
-#: config/prefs.php.dist:21
-msgid "Change file and folder handling settings."
-msgstr ""
-
-#: config/prefs.php.dist:11
-msgid "Change your file sorting options."
-msgstr ""
-
-#: lib/Gollem.php:692
+#: lib/Application.php:175
 msgid "Check Quota"
 msgstr ""
 
-#: manager.php:551
+#: manager.php:577
 msgid "Check _All/None"
 msgstr ""
 
-#: manager.php:78
+#: manager.php:85
 msgid "Chmod done: "
 msgstr ""
 
-#: lib/Application.php:151
-msgid "Choose which address books to display, and in what order:"
+#: lib/Application.php:145
+msgid "Choose which backends to display, and in what order:"
 msgstr ""
 
-#: clipboard.php:39 templates/manager/manager.html:129
+#: clipboard.php:25 templates/manager/manager.html:129
 msgid "Clear"
 msgstr ""
 
-#: clipboard.php:19 templates/clipboard/clipboard.html:7
+#: clipboard.php:44 templates/clipboard/clipboard.html:7
 msgid "Clipboard"
 msgstr ""
 
-#: quota.php:32
+#: quota.php:28
 msgid "Close"
 msgstr ""
 
-#: clipboard.php:42 templates/manager/manager.html:113
+#: clipboard.php:28 templates/manager/manager.html:113
 msgid "Copy"
 msgstr ""
 
-#: manager.php:315 templates/manager/manager.html:58
+#: manager.php:325 templates/manager/manager.html:58
 msgid "Create Folder"
 msgstr ""
 
-#: permissions.php:42
+#: permissions.php:51
 #, php-format
 msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
@@ -196,15 +189,15 @@ msgstr ""
 msgid "Current directory:"
 msgstr ""
 
-#: clipboard.php:41 templates/manager/manager.html:114
+#: clipboard.php:27 templates/manager/manager.html:114
 msgid "Cut"
 msgstr ""
 
-#: config/prefs.php.dist:51
+#: config/prefs.php.dist:56
 msgid "Default sorting criteria:"
 msgstr ""
 
-#: config/prefs.php.dist:62
+#: config/prefs.php.dist:67
 msgid "Default sorting direction:"
 msgstr ""
 
@@ -212,23 +205,23 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: config/prefs.php.dist:88
+#: config/prefs.php.dist:96
 msgid "Delete folders recursively?"
 msgstr ""
 
-#: config/prefs.php.dist:60
+#: config/prefs.php.dist:65
 msgid "Descending"
 msgstr ""
 
-#: selectlist.php:96
+#: selectlist.php:94
 msgid "Done"
 msgstr ""
 
-#: manager.php:238
+#: manager.php:248
 msgid "Download"
 msgstr ""
 
-#: manager.php:436
+#: manager.php:452
 #, php-format
 msgid "Download %s"
 msgstr ""
@@ -237,7 +230,7 @@ msgstr ""
 msgid "ERROR:"
 msgstr ""
 
-#: manager.php:237
+#: manager.php:247
 msgid "Edit"
 msgstr ""
 
@@ -246,48 +239,56 @@ msgstr ""
 msgid "Edit %s"
 msgstr ""
 
-#: config/credentials.php.dist:28
-msgid "Email"
-msgstr ""
-
 #: templates/manager/manager.html:26
 msgid "Execute"
 msgstr ""
 
-#: templates/javascript_defs.php:24 templates/manager/manager.html:195
+#: templates/javascript_defs.php:22 templates/manager/manager.html:195
 msgid "File"
 msgstr ""
 
-#: config/prefs.php.dist:10
+#: config/prefs.php.dist:83
+msgid "File Actions"
+msgstr ""
+
+#: config/prefs.php.dist:12
 msgid "File Display"
 msgstr ""
 
-#: config/prefs.php.dist:48
+#: config/prefs.php.dist:53
 msgid "File Modification Time"
 msgstr ""
 
-#: config/prefs.php.dist:47
+#: config/prefs.php.dist:52
 msgid "File Name"
 msgstr ""
 
-#: config/prefs.php.dist:49
+#: config/prefs.php.dist:54
 msgid "File Size"
 msgstr ""
 
-#: config/prefs.php.dist:46
+#: config/prefs.php.dist:51
 msgid "File Type"
 msgstr ""
 
-#: manager.php:97
+#: config/prefs.php.dist:84
+msgid "File action settings."
+msgstr ""
+
+#: manager.php:102
 msgid "File deleted: "
 msgstr ""
 
-#: manager.php:119
+#: config/prefs.php.dist:13
+msgid "File display preferences."
+msgstr ""
+
+#: manager.php:124
 #, php-format
 msgid "File received: %s"
 msgstr ""
 
-#: lib/Api.php:152
+#: lib/Api.php:123
 msgid "Files must be written inside a VFS backend."
 msgstr ""
 
@@ -299,11 +300,11 @@ msgstr ""
 msgid "Filter:"
 msgstr ""
 
-#: manager.php:89
+#: manager.php:94
 msgid "Folder removed: "
 msgstr ""
 
-#: lib/Api.php:203 lib/Api.php:209 lib/Api.php:257
+#: lib/Api.php:152 lib/Api.php:181
 msgid "Folders must be created inside a VFS backend."
 msgstr ""
 
@@ -311,35 +312,34 @@ msgstr ""
 msgid "Go to:"
 msgstr ""
 
-#: permissions.php:15
+#: permissions.php:22
 msgid "Gollem Backend Permissions Administration"
 msgstr ""
 
-#: manager.php:530 templates/manager/manager.html:10
+#: manager.php:556 templates/manager/manager.html:10
 msgid "Group"
 msgstr ""
 
-#: manager.php:63
+#: manager.php:69
 msgid "Incorrect number of items."
 msgstr ""
 
-#: lib/Api.php:58 lib/Api.php:164 lib/Api.php:216 lib/Api.php:281
-#: lib/Api.php:334
+#: lib/Api.php:394
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr ""
 
-#: manager.php:146
+#: manager.php:153
 #, php-format
 msgid "Item copied to clipboard: %s"
 msgstr ""
 
-#: manager.php:148
+#: manager.php:155
 #, php-format
 msgid "Item cut to clipboard: %s"
 msgstr ""
 
-#: config/prefs.php.dist:76
+#: config/prefs.php.dist:74
 msgid "Items per page"
 msgstr ""
 
@@ -347,19 +347,15 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: config/prefs.php.dist:69
+#: config/prefs.php.dist:31
 msgid "List folders first?"
 msgstr ""
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr ""
-
-#: manager.php:500
+#: manager.php:526
 msgid "Modified"
 msgstr ""
 
-#: manager.php:478
+#: manager.php:504
 msgid "Name"
 msgstr ""
 
@@ -367,11 +363,11 @@ msgstr ""
 msgid "Name:"
 msgstr ""
 
-#: manager.php:42
+#: manager.php:47
 msgid "New folder created: "
 msgstr ""
 
-#: config/prefs.php.dist:84
+#: config/prefs.php.dist:92
 msgid "No"
 msgstr ""
 
@@ -379,58 +375,53 @@ msgstr ""
 msgid "No quota found."
 msgstr ""
 
-#: manager.php:294
+#: manager.php:305
 msgid "OK"
 msgstr ""
 
-#: manager.php:523 templates/manager/manager.html:9
+#: manager.php:549 templates/manager/manager.html:9
 msgid "Owner"
 msgstr ""
 
-#: config/credentials.php.dist:23
-msgid "Password"
-msgstr ""
-
-#: clipboard.php:40
+#: clipboard.php:26
 msgid "Paste"
 msgstr ""
 
-#: manager.php:516
+#: manager.php:542
 msgid "Permission"
 msgstr ""
 
-#: selectlist.php:60
+#: selectlist.php:72
 #, php-format
 msgid "Permission denied to %s: %s"
 msgstr ""
 
-#: manager.php:223
+#: manager.php:230
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
 msgstr ""
 
-#: lib/Api.php:69 lib/Api.php:175 lib/Api.php:227 lib/Api.php:292
-#: lib/Api.php:345
+#: lib/Api.php:402
 msgid "Permission denied to this backend."
 msgstr ""
 
-#: templates/javascript_defs.php:15
+#: templates/javascript_defs.php:13
 msgid "Please provide your password."
 msgstr ""
 
-#: templates/javascript_defs.php:14
+#: templates/javascript_defs.php:12
 msgid "Please provide your username."
 msgstr ""
 
-#: templates/javascript_defs.php:18
+#: templates/javascript_defs.php:16
 msgid "Please select an item before this action."
 msgstr ""
 
-#: templates/javascript_defs.php:23
+#: templates/javascript_defs.php:21
 msgid "Please specify at least one file to upload."
 msgstr ""
 
-#: quota.php:19 templates/quota/quota.html:2
+#: quota.php:56 templates/quota/quota.html:2
 msgid "Quota Display"
 msgstr ""
 
@@ -438,7 +429,7 @@ msgstr ""
 msgid "Read"
 msgstr ""
 
-#: manager.php:299
+#: manager.php:310
 msgid "Refresh"
 msgstr ""
 
@@ -446,11 +437,11 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: lib/Api.php:275
+#: lib/Api.php:195
 msgid "Renaming across backends is not supported."
 msgstr ""
 
-#: lib/Api.php:263 lib/Api.php:271
+#: lib/Api.php:189
 msgid "Renaming of backends is not allowed."
 msgstr ""
 
@@ -458,7 +449,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: manager.php:292 templates/edit/edit.inc:11
+#: manager.php:303 templates/edit/edit.inc:11
 msgid "Save"
 msgstr ""
 
@@ -466,7 +457,7 @@ msgstr ""
 msgid "Select All/None"
 msgstr ""
 
-#: lib/Application.php:153
+#: lib/Application.php:147
 msgid "Select a backend:"
 msgstr ""
 
@@ -474,40 +465,36 @@ msgstr ""
 msgid "Server"
 msgstr ""
 
-#: config/prefs.php.dist:20
-msgid "Settings"
-msgstr ""
-
-#: config/prefs.php.dist:28
+#: config/prefs.php.dist:24
 msgid "Show dotfiles?"
 msgstr ""
 
-#: manager.php:508
+#: manager.php:534
 msgid "Size"
 msgstr ""
 
-#: lib/Api.php:322
+#: lib/Api.php:222
 msgid "The application folder can not be deleted."
 msgstr ""
 
-#: templates/javascript_defs.php:21
+#: templates/javascript_defs.php:19
 msgid "The following item(s) are folders:"
 msgstr ""
 
-#: templates/javascript_defs.php:19
+#: templates/javascript_defs.php:17
 msgid "The following items will be permanently deleted:"
 msgstr ""
 
-#: templates/javascript_defs.php:27
+#: templates/javascript_defs.php:25
 msgid "The original opener window has been closed. Exiting."
 msgstr ""
 
-#: selectlist.php:195 templates/manager/manager.html:138
+#: selectlist.php:190 templates/manager/manager.html:138
 msgid "There are no files in this folder."
 msgstr ""
 
-#: lib/Application.php:152
-msgid "These addressbooks will display in this order:"
+#: lib/Application.php:146
+msgid "These backends will display in this order:"
 msgstr ""
 
 #: templates/clipboard/clipboard.html:15
@@ -522,48 +509,43 @@ msgid ""
 "next to the filename and click on &quot;Paste&quot;."
 msgstr ""
 
-#: manager.php:470
+#: manager.php:496
 msgid "Type"
 msgstr ""
 
-#: lib/Api.php:66 lib/Api.php:172 lib/Api.php:224 lib/Api.php:289
-#: lib/Api.php:342
+#: lib/Api.php:398
 msgid "Unable to create Gollem session"
 msgstr ""
 
-#: permissions.php:38
+#: permissions.php:46
 #, php-format
 msgid "Unable to create backend permission: %s"
 msgstr ""
 
-#: manager.php:94
+#: manager.php:104
 #, php-format
 msgid "Unable to delete file %s: %s"
 msgstr ""
 
-#: manager.php:86
+#: manager.php:96
 #, php-format
 msgid "Unable to delete folder %s: %s"
 msgstr ""
 
-#: lib/Gollem.php:651 lib/Gollem.php:661
+#: lib/Gollem.php:622 lib/Gollem.php:632
 #, php-format
 msgid "Up to %s"
 msgstr ""
 
-#: manager.php:311
+#: manager.php:321
 msgid "Upload File(s)"
 msgstr ""
 
-#: config/prefs.php.dist:9 config/prefs.php.dist:19
+#: config/prefs.php.dist:11 config/prefs.php.dist:82
 msgid "User Interface"
 msgstr ""
 
-#: config/credentials.php.dist:18
-msgid "Username"
-msgstr ""
-
-#: manager.php:306
+#: manager.php:316
 msgid "View Clipboard"
 msgstr ""
 
@@ -571,30 +553,30 @@ msgstr ""
 msgid "Write"
 msgstr ""
 
-#: config/prefs.php.dist:85
+#: config/prefs.php.dist:93
 msgid "Yes"
 msgstr ""
 
-#: permissions.php:19
+#: permissions.php:20
 msgid "You need at least one backend defined to set permissions."
 msgstr ""
 
-#: lib/Gollem.php:709 lib/Gollem.php:712
+#: lib/Gollem.php:653 lib/Gollem.php:656
 msgid "_Change Server"
 msgstr ""
 
-#: lib/Gollem.php:678
+#: lib/Application.php:163
 msgid "_My Home"
 msgstr ""
 
-#: lib/Gollem.php:683
+#: lib/Application.php:166
 msgid "_Permissions"
 msgstr ""
 
-#: manager.php:239 selectlist.php:71
+#: manager.php:249 selectlist.php:85
 msgid "folder"
 msgstr ""
 
-#: manager.php:240 selectlist.php:72
+#: manager.php:250 selectlist.php:86
 msgid "symlink"
 msgstr ""

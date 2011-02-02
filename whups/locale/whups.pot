@@ -1,17 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Whups package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Whups H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-08-17 17:46+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,12 +31,12 @@ msgstr ""
 msgid "%d people watching, %d people responsible"
 msgstr ""
 
-#: queue/rss.php:93
+#: queue/rss.php:92
 #, php-format
 msgid "%s %s tickets in %s"
 msgstr ""
 
-#: queue/rss.php:97
+#: queue/rss.php:96
 #, php-format
 msgid "%s %s tickets in all queues"
 msgstr ""
@@ -60,22 +61,22 @@ msgstr ""
 msgid "%s days"
 msgstr ""
 
-#: queue/rss.php:101
+#: queue/rss.php:100
 #, php-format
 msgid "%s tickets in %s"
 msgstr ""
 
-#: queue/rss.php:105
+#: queue/rss.php:104
 #, php-format
 msgid "%s tickets in all queues"
 msgstr ""
 
-#: ticket/watch.php:56
+#: ticket/watch.php:57
 #, php-format
 msgid "%s will be notified when this ticket is updated."
 msgstr ""
 
-#: ticket/watch.php:68
+#: ticket/watch.php:69
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
 msgstr ""
@@ -96,11 +97,11 @@ msgstr ""
 msgid "--queue-name or --queue-id must specify a valid and public queue."
 msgstr ""
 
-#: templates/prevnext.inc:16
+#: templates/prevnext.inc:15
 msgid "<<First"
 msgstr ""
 
-#: templates/prevnext.inc:20
+#: templates/prevnext.inc:18
 msgid "<Prev"
 msgstr ""
 
@@ -121,7 +122,7 @@ msgstr ""
 msgid "Add Content"
 msgstr ""
 
-#: query/index.php:232
+#: query/index.php:235
 msgid "Add Criterion"
 msgstr ""
 
@@ -178,11 +179,11 @@ msgstr ""
 msgid "Add Version"
 msgstr ""
 
-#: ticket/watch.php:44
+#: ticket/watch.php:45
 msgid "Add Watcher"
 msgstr ""
 
-#: ticket/create.php:57
+#: ticket/create.php:52
 #, php-format
 msgid "Adding your ticket failed: %s."
 msgstr ""
@@ -191,11 +192,11 @@ msgstr ""
 msgid "Address Books"
 msgstr ""
 
-#: admin/index.php:51 lib/Application.php:80
+#: admin/index.php:51 lib/Application.php:73
 msgid "Administration"
 msgstr ""
 
-#: lib/Renderer/Query.php:75 lib/Forms/Query.php:22
+#: lib/Forms/Query.php:22 lib/Renderer/Query.php:75
 msgid "And"
 msgstr ""
 
@@ -204,7 +205,7 @@ msgstr ""
 msgid "Any"
 msgstr ""
 
-#: ticket/type.php:38 ticket/queue.php:44
+#: ticket/queue.php:44 ticket/type.php:38
 msgid "Any Group"
 msgstr ""
 
@@ -212,12 +213,12 @@ msgstr ""
 msgid "Ascending"
 msgstr ""
 
-#: lib/Application.php:95
+#: lib/Application.php:94
 msgid "Assign"
 msgstr ""
 
-#: lib/Api.php:711 lib/Whups.php:683 lib/Ticket.php:978 lib/Driver.php:213
-#: lib/Renderer/Query.php:154 config/prefs.php.dist:51
+#: lib/Api.php:702 lib/Driver.php:213 lib/Renderer/Query.php:154
+#: lib/Ticket.php:986 lib/Whups.php:687 config/prefs.php.dist:51
 msgid "Assigned"
 msgstr ""
 
@@ -238,8 +239,8 @@ msgstr ""
 msgid "Associations updated successfully."
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:164 lib/Forms/EditTicket.php:151
-#: lib/Forms/AddComment.php:22
+#: lib/Forms/AddComment.php:22 lib/Forms/CreateTicket.php:164
+#: lib/Forms/EditTicket.php:151
 msgid "Attachment"
 msgstr ""
 
@@ -248,12 +249,12 @@ msgstr ""
 msgid "Attachment %s deleted."
 msgstr ""
 
-#: lib/Ticket.php:492 lib/Driver/sql.php:1232
+#: lib/Driver/sql.php:1232 lib/Ticket.php:492
 #, php-format
 msgid "Attachment %s not found."
 msgstr ""
 
-#: lib/Ticket.php:988
+#: lib/Ticket.php:996
 msgid "Attachments"
 msgstr ""
 
@@ -316,7 +317,7 @@ msgstr ""
 msgid "Branch Type"
 msgstr ""
 
-#: scripts/mail-filter.php:176
+#: scripts/mail-filter.php:172
 msgid "Cannot authenticate at mail server:"
 msgstr ""
 
@@ -329,18 +330,18 @@ msgid "Change"
 msgstr ""
 
 #: config/prefs.php.dist:11
-msgid "Change display options such as how search results are sorted."
+msgid "Change display preferences such as how search results are sorted."
 msgstr ""
 
 #: config/prefs.php.dist:22
-msgid "Change options for email notifications of ticket activity."
+msgid "Change preferences for email notifications of ticket activity."
 msgstr ""
 
 #: query/index.php:161
 msgid "Choose Action:"
 msgstr ""
 
-#: lib/Query.php:673
+#: lib/Query.php:683
 msgid "Choose New Query instead of deleting the root node."
 msgstr ""
 
@@ -368,8 +369,8 @@ msgstr ""
 msgid "Comma Separated Values (CSV file)"
 msgstr ""
 
-#: ticket/type.php:28 ticket/queue.php:31 lib/Renderer/Query.php:86
-#: lib/Forms/EditTicket.php:156 lib/Forms/AddComment.php:21
+#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:156
+#: lib/Renderer/Query.php:86 ticket/queue.php:31 ticket/type.php:28
 msgid "Comment"
 msgstr ""
 
@@ -383,11 +384,11 @@ msgstr ""
 msgid "Comment #%d (Private)"
 msgstr ""
 
-#: ticket/comment.php:83
+#: ticket/comment.php:79
 msgid "Comment added"
 msgstr ""
 
-#: ticket/comment.php:48
+#: ticket/comment.php:44
 #, php-format
 msgid "Comment on %s"
 msgstr ""
@@ -438,12 +439,12 @@ msgstr ""
 msgid "Create Ticket - Step 4"
 msgstr ""
 
-#: lib/Api.php:716 lib/Whups.php:681 lib/Ticket.php:963
-#: lib/Renderer/Query.php:139 config/prefs.php.dist:50
+#: lib/Api.php:707 lib/Renderer/Query.php:139 lib/Ticket.php:971
+#: lib/Whups.php:685 config/prefs.php.dist:50
 msgid "Created"
 msgstr ""
 
-#: lib/Ticket.php:611 lib/Ticket.php:637
+#: lib/Ticket.php:621 lib/Ticket.php:647
 msgid "Created By"
 msgstr ""
 
@@ -455,7 +456,7 @@ msgstr ""
 msgid "Created to"
 msgstr ""
 
-#: query/index.php:222 query/index.php:239
+#: query/index.php:225 query/index.php:242
 msgid "Current Query"
 msgstr ""
 
@@ -471,7 +472,7 @@ msgstr ""
 msgid "DD/MM/YY HH:MM:SS"
 msgstr ""
 
-#: lib/Ticket.php:722
+#: lib/Ticket.php:732
 msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
 msgstr ""
 
@@ -499,12 +500,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/Whups.php:849 lib/Whups.php:850
+#: lib/Whups.php:853 lib/Whups.php:854
 #, php-format
 msgid "Delete %s"
 msgstr ""
 
-#: ticket/delete.php:57
+#: ticket/delete.php:58
 #, php-format
 msgid "Delete %s?"
 msgstr ""
@@ -573,7 +574,7 @@ msgstr ""
 msgid "Delete entry"
 msgstr ""
 
-#: lib/Ticket.php:616 lib/Ticket.php:714
+#: lib/Ticket.php:626 lib/Ticket.php:724
 msgid "Deleted Attachment"
 msgstr ""
 
@@ -591,10 +592,10 @@ msgid "Description"
 msgstr ""
 
 #: config/prefs.php.dist:10
-msgid "Display Options"
+msgid "Display Preferences"
 msgstr ""
 
-#: lib/Whups.php:840
+#: lib/Whups.php:844
 msgid "Download"
 msgstr ""
 
@@ -602,8 +603,8 @@ msgstr ""
 msgid "Download these results as: "
 msgstr ""
 
-#: lib/Api.php:720 lib/Ticket.php:608 lib/Ticket.php:804 lib/Ticket.php:968
-#: lib/Renderer/Query.php:159
+#: lib/Api.php:711 lib/Renderer/Query.php:159 lib/Ticket.php:618
+#: lib/Ticket.php:812 lib/Ticket.php:976
 msgid "Due"
 msgstr ""
 
@@ -624,7 +625,7 @@ msgstr ""
 msgid "Due to"
 msgstr ""
 
-#: lib/Query.php:225
+#: lib/Query.php:235
 msgid "E_xecute Query"
 msgstr ""
 
@@ -715,7 +716,7 @@ msgstr ""
 msgid "Edit Version"
 msgstr ""
 
-#: lib/Query.php:221
+#: lib/Query.php:231
 msgid "Edit _Permissions"
 msgstr ""
 
@@ -783,11 +784,11 @@ msgstr ""
 msgid "Entry deleted."
 msgstr ""
 
-#: scripts/mail-filter.php:165 scripts/mail-filter.php:185
+#: scripts/mail-filter.php:161 scripts/mail-filter.php:181
 msgid "Error processing message:"
 msgstr ""
 
-#: query/index.php:190
+#: query/index.php:193
 #, php-format
 msgid "Error: Unknown query form \"%s\", defaulting to properties"
 msgstr ""
@@ -796,7 +797,7 @@ msgstr ""
 msgid "Exact Match"
 msgstr ""
 
-#: query/run.php:109
+#: query/run.php:112
 msgid "Execute Query"
 msgstr ""
 
@@ -808,7 +809,7 @@ msgstr ""
 msgid "For tickets which are"
 msgstr ""
 
-#: lib/Application.php:109
+#: lib/Application.php:82
 msgid "Form Replies"
 msgstr ""
 
@@ -831,7 +832,7 @@ msgid "Form Reply:"
 msgstr ""
 
 #: config/prefs.php.dist:9 config/prefs.php.dist:20 config/prefs.php.dist:26
-msgid "General Options"
+msgid "General Preferences"
 msgstr ""
 
 #: templates/menu.inc:5
@@ -842,15 +843,15 @@ msgstr ""
 msgid "Group Owners"
 msgstr ""
 
-#: lib/Renderer/Query.php:83 lib/Forms/Query.php:101 lib/Forms/Query.php:103
+#: lib/Forms/Query.php:101 lib/Forms/Query.php:103 lib/Renderer/Query.php:83
 msgid "Groups"
 msgstr ""
 
-#: lib/Application.php:83
+#: lib/Application.php:76
 msgid "Hidden Comments"
 msgstr ""
 
-#: ticket/index.php:40
+#: ticket/index.php:41
 msgid "History"
 msgstr ""
 
@@ -858,8 +859,8 @@ msgstr ""
 msgid "Hoist Children"
 msgstr ""
 
-#: lib/Whups.php:666 lib/Whups.php:673 lib/Renderer/Query.php:81
-#: lib/Forms/Query.php:174 config/prefs.php.dist:43
+#: lib/Forms/Query.php:174 lib/Renderer/Query.php:81 lib/Whups.php:670
+#: lib/Whups.php:677 config/prefs.php.dist:43
 msgid "Id"
 msgstr ""
 
@@ -889,7 +890,7 @@ msgstr ""
 msgid "Invalid Queue"
 msgstr ""
 
-#: lib/Api.php:340 lib/Whups.php:263
+#: lib/Api.php:340 lib/Whups.php:267
 msgid "Invalid Ticket Id"
 msgstr ""
 
@@ -918,7 +919,7 @@ msgstr ""
 msgid "Keep a set of versions for this queue?"
 msgstr ""
 
-#: templates/prevnext.inc:30
+#: templates/prevnext.inc:26
 msgid "Last>>"
 msgstr ""
 
@@ -943,7 +944,7 @@ msgstr ""
 msgid "Make a clone of %s"
 msgstr ""
 
-#: lib/Forms/EditTicket.php:192 lib/Forms/AddComment.php:36
+#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:192
 msgid "Make this comment visible only to members of a group?"
 msgstr ""
 
@@ -967,10 +968,6 @@ msgstr ""
 msgid "Maximum time a ticket is unresolved"
 msgstr ""
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr ""
-
 #: reports.php:28
 msgid "Minimum time a ticket is unresolved"
 msgstr ""
@@ -979,7 +976,7 @@ msgstr ""
 msgid "Most recent first"
 msgstr ""
 
-#: ticket/queue.php:177
+#: ticket/queue.php:185
 #, php-format
 msgid "Moved ticket %d to \"%s\""
 msgstr ""
@@ -994,7 +991,7 @@ msgstr ""
 msgid "My %s :: Add Content"
 msgstr ""
 
-#: search.php:177 lib/Block/myqueries.php:3 lib/Block/myqueries.php:22
+#: lib/Block/myqueries.php:3 lib/Block/myqueries.php:22 search.php:177
 msgid "My Queries"
 msgstr ""
 
@@ -1007,19 +1004,19 @@ msgstr ""
 msgid "My Tickets"
 msgstr ""
 
-#: lib/Api.php:684
+#: lib/Api.php:675
 msgid "My tickets by assignment date"
 msgstr ""
 
-#: lib/Api.php:683
+#: lib/Api.php:674
 msgid "My tickets by creation date"
 msgstr ""
 
-#: lib/Api.php:685
+#: lib/Api.php:676
 msgid "My tickets by due date"
 msgstr ""
 
-#: lib/Api.php:686
+#: lib/Api.php:677
 msgid "My tickets by resolution date"
 msgstr ""
 
@@ -1031,7 +1028,7 @@ msgstr ""
 msgid "Name of the cloned copy"
 msgstr ""
 
-#: lib/Query.php:211
+#: lib/Query.php:221
 msgid "Ne_w Query"
 msgstr ""
 
@@ -1039,7 +1036,7 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: lib/Ticket.php:615 lib/Ticket.php:708
+#: lib/Ticket.php:625 lib/Ticket.php:718
 msgid "New Attachment"
 msgstr ""
 
@@ -1052,7 +1049,7 @@ msgstr ""
 msgid "New Queue"
 msgstr ""
 
-#: ticket/create.php:68 lib/Block/tree_menu.php:19
+#: lib/Application.php:217 ticket/create.php:63
 msgid "New Ticket"
 msgstr ""
 
@@ -1060,14 +1057,14 @@ msgstr ""
 msgid "New Type"
 msgstr ""
 
-#: templates/prevnext.inc:26
+#: templates/prevnext.inc:23
 msgid "Next>"
 msgstr ""
 
-#: ticket/delete.php:29 lib/Forms/Query.php:452 lib/Forms/Admin/Version.php:98
-#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Priority.php:119
-#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Attribute.php:147
-#: lib/Forms/Admin/Reply.php:108 lib/Forms/Admin/Type.php:174
+#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
+#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
+#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
+#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:452 ticket/delete.php:29
 msgid "No"
 msgstr ""
 
@@ -1123,7 +1120,7 @@ msgstr ""
 msgid "No tickets in queue."
 msgstr ""
 
-#: lib/Whups.php:715
+#: lib/Whups.php:719
 msgid "No tickets matched your search criteria."
 msgstr ""
 
@@ -1136,12 +1133,12 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: lib/Renderer/Query.php:77 lib/Forms/Query.php:24
+#: lib/Forms/Query.php:24 lib/Renderer/Query.php:77
 msgid "Not"
 msgstr ""
 
 #: config/prefs.php.dist:21
-msgid "Notification Options"
+msgid "Notification Preferences"
 msgstr ""
 
 #: lib/Driver.php:193
@@ -1193,27 +1190,27 @@ msgstr ""
 msgid "Open Tickets in %s"
 msgstr ""
 
-#: queue/rss.php:116 queue/index.php:40 queue/index.php:54
+#: queue/index.php:40 queue/index.php:54 queue/rss.php:115
 #, php-format
 msgid "Open tickets in %s"
 msgstr ""
 
-#: queue/rss.php:118
+#: queue/rss.php:117
 msgid "Open tickets in all queues."
 msgstr ""
 
-#: lib/Renderer/Query.php:76 lib/Forms/Query.php:23
+#: lib/Forms/Query.php:23 lib/Renderer/Query.php:76
 msgid "Or"
 msgstr ""
 
-#: lib/Whups.php:680 lib/Ticket.php:614 lib/Ticket.php:698 lib/Ticket.php:699
-#: lib/Ticket.php:702 lib/Ticket.php:808 lib/Ticket.php:829 lib/Ticket.php:950
-#: lib/Renderer/Query.php:82 lib/Forms/CreateTicket.php:236
-#: lib/Forms/CreateTicket.php:254 lib/Forms/EditTicket.php:120
+#: lib/Forms/CreateTicket.php:236 lib/Forms/CreateTicket.php:254
+#: lib/Forms/EditTicket.php:120 lib/Renderer/Query.php:82 lib/Ticket.php:624
+#: lib/Ticket.php:708 lib/Ticket.php:709 lib/Ticket.php:712 lib/Ticket.php:816
+#: lib/Ticket.php:837 lib/Ticket.php:958 lib/Whups.php:684
 msgid "Owners"
 msgstr ""
 
-#: lib/Whups.php:849
+#: lib/Whups.php:853
 #, php-format
 msgid "Permanently delete %s?"
 msgstr ""
@@ -1222,16 +1219,17 @@ msgstr ""
 msgid "Permanently delete entry?"
 msgstr ""
 
-#: ticket/update.php:18 ticket/type.php:70 ticket/delete_attachment.php:17
-#: ticket/delete_history.php:16 ticket/delete.php:47 ticket/queue.php:127
+#: ticket/delete.php:48 ticket/delete_attachment.php:17
+#: ticket/delete_history.php:16 ticket/queue.php:136 ticket/type.php:71
+#: ticket/update.php:19
 msgid "Permission Denied"
 msgstr ""
 
-#: ticket/delete.php:36 lib/Forms/EditTicket.php:222
+#: lib/Forms/EditTicket.php:222 ticket/delete.php:36
 msgid "Permission Denied."
 msgstr ""
 
-#: query/run.php:43 query/index.php:30 lib/Forms/Query.php:462
+#: lib/Forms/Query.php:462 query/index.php:29 query/run.php:43
 #, php-format
 msgid "Permission denied."
 msgstr ""
@@ -1240,11 +1238,10 @@ msgstr ""
 msgid "Priorities for this Type"
 msgstr ""
 
-#: ticket/type.php:62 ticket/queue.php:113 lib/Whups.php:668 lib/Whups.php:677
-#: lib/Ticket.php:607 lib/Ticket.php:803 lib/Ticket.php:945
-#: lib/Renderer/Query.php:123 lib/Forms/CreateTicket.php:158
-#: lib/Forms/EditTicket.php:84 lib/Forms/Query.php:201
-#: config/prefs.php.dist:47
+#: lib/Forms/CreateTicket.php:158 lib/Forms/EditTicket.php:84
+#: lib/Forms/Query.php:201 lib/Renderer/Query.php:123 lib/Ticket.php:617
+#: lib/Ticket.php:811 lib/Ticket.php:953 lib/Whups.php:672 lib/Whups.php:681
+#: ticket/queue.php:114 ticket/type.php:62 config/prefs.php.dist:47
 msgid "Priority"
 msgstr ""
 
@@ -1268,7 +1265,7 @@ msgstr ""
 msgid "Public Queries"
 msgstr ""
 
-#: query/index.php:171
+#: query/index.php:174
 msgid "Query Builder"
 msgstr ""
 
@@ -1280,8 +1277,8 @@ msgstr ""
 msgid "Query Parameters"
 msgstr ""
 
-#: query/rss.php:61 query/run.php:78 lib/Block/query.php:3
-#: lib/Block/query.php:47
+#: lib/Block/query.php:3 lib/Block/query.php:47 query/rss.php:60
+#: query/run.php:81
 msgid "Query Results"
 msgstr ""
 
@@ -1293,10 +1290,10 @@ msgstr ""
 msgid "Query to run"
 msgstr ""
 
-#: lib/Whups.php:678 lib/Ticket.php:603 lib/Ticket.php:799 lib/Ticket.php:910
-#: lib/Ticket.php:915 lib/Renderer/Query.php:92 lib/Forms/Query.php:184
-#: lib/Forms/Search.php:38 lib/Block/queuecontents.php:29
-#: lib/Block/queuesummary.php:46 config/prefs.php.dist:48
+#: lib/Block/queuecontents.php:29 lib/Block/queuesummary.php:46
+#: lib/Forms/Query.php:184 lib/Forms/Search.php:38 lib/Renderer/Query.php:92
+#: lib/Ticket.php:613 lib/Ticket.php:807 lib/Ticket.php:918 lib/Ticket.php:923
+#: lib/Whups.php:682 config/prefs.php.dist:48
 msgid "Queue"
 msgstr ""
 
@@ -1318,9 +1315,9 @@ msgstr ""
 msgid "Queue Email"
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:32 lib/Forms/CreateTicket.php:48
 #: lib/Forms/Admin/Queue.php:21 lib/Forms/Admin/Queue.php:58
 #: lib/Forms/Admin/Queue.php:83 lib/Forms/Admin/Queue.php:164
+#: lib/Forms/CreateTicket.php:32 lib/Forms/CreateTicket.php:48
 msgid "Queue Name"
 msgstr ""
 
@@ -1332,8 +1329,8 @@ msgstr ""
 msgid "Queue Summary"
 msgstr ""
 
-#: ticket/queue.php:82 lib/Ticket.php:924 lib/Ticket.php:930
 #: lib/Forms/CreateTicket.php:96 lib/Forms/EditTicket.php:74
+#: lib/Ticket.php:932 lib/Ticket.php:938 ticket/queue.php:83
 msgid "Queue Version"
 msgstr ""
 
@@ -1345,11 +1342,11 @@ msgstr ""
 msgid "Queue/Type Matrix"
 msgstr ""
 
-#: lib/Api.php:31 lib/Application.php:86
+#: lib/Api.php:31 lib/Application.php:79
 msgid "Queues"
 msgstr ""
 
-#: templates/prevnext.inc:32
+#: templates/prevnext.inc:28
 msgid "Re_turn to Search Results"
 msgstr ""
 
@@ -1370,7 +1367,9 @@ msgid "Really delete this query? This operation is not undoable."
 msgstr ""
 
 #: lib/Forms/Admin/Queue.php:174
-msgid "Really delete this queue? This may cause data problems!"
+msgid ""
+"Really delete this queue? This will also delete all associated tickets and "
+"their comments. This can not be undone!"
 msgstr ""
 
 #: lib/Forms/Admin/State.php:120
@@ -1406,7 +1405,7 @@ msgstr ""
 msgid "Remove User"
 msgstr ""
 
-#: ticket/watch.php:45
+#: ticket/watch.php:46
 msgid "Remove Watcher"
 msgstr ""
 
@@ -1418,7 +1417,7 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
-#: lib/Whups.php:679 lib/Ticket.php:957 lib/Renderer/Query.php:84
+#: lib/Renderer/Query.php:84 lib/Ticket.php:965 lib/Whups.php:683
 msgid "Requester"
 msgstr ""
 
@@ -1426,8 +1425,8 @@ msgstr ""
 msgid "Required Attribute?"
 msgstr ""
 
-#: lib/Api.php:725 lib/Whups.php:684 lib/Ticket.php:983 lib/Driver.php:214
-#: lib/Renderer/Query.php:149 config/prefs.php.dist:52
+#: lib/Api.php:716 lib/Driver.php:214 lib/Renderer/Query.php:149
+#: lib/Ticket.php:991 lib/Whups.php:688 config/prefs.php.dist:52
 msgid "Resolved"
 msgstr ""
 
@@ -1443,19 +1442,19 @@ msgstr ""
 msgid "Responsible Users"
 msgstr ""
 
-#: lib/Whups.php:305
+#: lib/Whups.php:309
 msgid "S_et Queue"
 msgstr ""
 
-#: lib/Query.php:229
+#: lib/Query.php:239
 msgid "Sa_ve Query"
 msgstr ""
 
-#: templates/view/results.inc:96 lib/Forms/Query.php:388
+#: lib/Forms/Query.php:388 templates/view/results.inc:96
 msgid "Save"
 msgstr ""
 
-#: query/index.php:232
+#: query/index.php:235
 msgid "Save Criterion"
 msgstr ""
 
@@ -1463,11 +1462,11 @@ msgstr ""
 msgid "Save Query"
 msgstr ""
 
-#: search.php:67 lib/Forms/Search.php:17
+#: lib/Forms/Search.php:17 search.php:67
 msgid "Save as Query"
 msgstr ""
 
-#: search.php:154 lib/Block/tree_menu.php:28
+#: lib/Application.php:229 search.php:154
 msgid "Search"
 msgstr ""
 
@@ -1492,11 +1491,11 @@ msgstr ""
 msgid "Search Requester"
 msgstr ""
 
-#: search.php:146 search/rss.php:53 search/rss.php:57
+#: search.php:146 search/rss.php:52 search/rss.php:56
 msgid "Search Results"
 msgstr ""
 
-#: templates/prevnext.inc:38
+#: templates/prevnext.inc:34
 #, php-format
 msgid "Search Results: %s of %s"
 msgstr ""
@@ -1537,41 +1536,41 @@ msgstr ""
 msgid "Set Default State"
 msgstr ""
 
-#: ticket/queue.php:197 ticket/queue.php:206 ticket/queue.php:218
+#: ticket/queue.php:205 ticket/queue.php:214 ticket/queue.php:226
 msgid "Set Queue - Step 1"
 msgstr ""
 
-#: ticket/queue.php:198 ticket/queue.php:207
+#: ticket/queue.php:206 ticket/queue.php:215
 msgid "Set Queue - Step 2"
 msgstr ""
 
-#: ticket/queue.php:208
+#: ticket/queue.php:216
 msgid "Set Queue - Step 3"
 msgstr ""
 
-#: ticket/queue.php:185
+#: ticket/queue.php:193
 #, php-format
 msgid "Set Queue for %s"
 msgstr ""
 
-#: lib/Application.php:96
+#: lib/Application.php:95
 msgid "Set Requester"
 msgstr ""
 
-#: ticket/type.php:135 ticket/type.php:144
+#: ticket/type.php:136 ticket/type.php:145
 msgid "Set Type - Step 1"
 msgstr ""
 
-#: ticket/type.php:136
+#: ticket/type.php:137
 msgid "Set Type - Step 2"
 msgstr ""
 
-#: ticket/type.php:123
+#: ticket/type.php:124
 #, php-format
 msgid "Set Type for %s"
 msgstr ""
 
-#: lib/Whups.php:310
+#: lib/Whups.php:314
 msgid "Set _Type"
 msgstr ""
 
@@ -1604,15 +1603,15 @@ msgstr ""
 msgid "Sort by %s"
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:139 lib/Forms/CreateTicket.php:186
 #: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:49
+#: lib/Forms/CreateTicket.php:139 lib/Forms/CreateTicket.php:186
 msgid "Spam protection"
 msgstr ""
 
-#: ticket/type.php:61 ticket/queue.php:112 lib/Whups.php:669 lib/Whups.php:675
-#: lib/Ticket.php:606 lib/Ticket.php:802 lib/Ticket.php:941
-#: lib/Renderer/Query.php:115 lib/Forms/EditTicket.php:78
-#: lib/Forms/Query.php:196 config/prefs.php.dist:45
+#: lib/Forms/EditTicket.php:78 lib/Forms/Query.php:196
+#: lib/Renderer/Query.php:115 lib/Ticket.php:616 lib/Ticket.php:810
+#: lib/Ticket.php:949 lib/Whups.php:673 lib/Whups.php:679 ticket/queue.php:113
+#: ticket/type.php:61 config/prefs.php.dist:45
 msgid "State"
 msgstr ""
 
@@ -1644,11 +1643,11 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: ticket/create.php:147
+#: ticket/create.php:141
 msgid "Submit"
 msgstr ""
 
-#: query/run.php:92 query/run.php:93
+#: query/run.php:95 query/run.php:96
 msgid "Subscribe to this query"
 msgstr ""
 
@@ -1657,14 +1656,14 @@ msgstr ""
 msgid "Successfully Cloned %s to %s."
 msgstr ""
 
-#: ticket/type.php:114
+#: ticket/type.php:115
 msgid "Successfully changed ticket type."
 msgstr ""
 
-#: ticket/delete.php:26 lib/Whups.php:667 lib/Whups.php:674 lib/Ticket.php:613
-#: lib/Ticket.php:640 lib/Ticket.php:643 lib/Ticket.php:647 lib/Ticket.php:808
-#: lib/Ticket.php:817 lib/Ticket.php:904 lib/Renderer/Query.php:87
 #: lib/Forms/CreateTicket.php:163 lib/Forms/EditTicket.php:62
+#: lib/Renderer/Query.php:87 lib/Ticket.php:623 lib/Ticket.php:650
+#: lib/Ticket.php:653 lib/Ticket.php:657 lib/Ticket.php:816 lib/Ticket.php:825
+#: lib/Ticket.php:912 lib/Whups.php:671 lib/Whups.php:678 ticket/delete.php:26
 #: config/prefs.php.dist:44
 msgid "Summary"
 msgstr ""
@@ -1695,7 +1694,7 @@ msgstr ""
 msgid "The Requester's Email Address"
 msgstr ""
 
-#: view.php:43 lib/Ticket.php:431 lib/Ticket.php:481
+#: lib/Ticket.php:431 lib/Ticket.php:481 view.php:43
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
 
@@ -1811,7 +1810,7 @@ msgstr ""
 msgid "The state was not deleted."
 msgstr ""
 
-#: ticket/delete.php:73
+#: ticket/delete.php:74
 msgid "The ticket was not deleted."
 msgstr ""
 
@@ -1960,7 +1959,7 @@ msgstr ""
 msgid "There was an error deleting the state:"
 msgstr ""
 
-#: ticket/delete.php:71
+#: ticket/delete.php:72
 msgid "There was an error deleting the ticket:"
 msgstr ""
 
@@ -2029,7 +2028,7 @@ msgstr ""
 msgid "There was an error setting the default state:"
 msgstr ""
 
-#: lib/Forms/EditTicket.php:191 lib/Forms/AddComment.php:35
+#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:191
 msgid "This comment is visible to everyone"
 msgstr ""
 
@@ -2043,28 +2042,28 @@ msgstr ""
 msgid "This is not a search results template."
 msgstr ""
 
-#: lib/Query.php:430 lib/Query.php:663
+#: lib/Query.php:440 lib/Query.php:673
 msgid "This query element cannot be edited."
 msgstr ""
 
-#: ticket/queue.php:77 lib/Forms/CreateTicket.php:91
-#: lib/Forms/EditTicket.php:69
+#: lib/Forms/CreateTicket.php:91 lib/Forms/EditTicket.php:69
+#: ticket/queue.php:78
 msgid ""
 "This queue requires that you specify a version, but there are no versions "
 "associated with it. Until versions are created for this queue, you will not "
 "be able to create tickets."
 msgstr ""
 
-#: lib/Ticket.php:635 lib/Ticket.php:816
+#: lib/Ticket.php:645 lib/Ticket.php:824
 msgid "Ticket"
 msgstr ""
 
-#: ticket/delete.php:67
+#: ticket/delete.php:68
 #, php-format
 msgid "Ticket %d has been deleted."
 msgstr ""
 
-#: lib/Api.php:650
+#: lib/Api.php:641
 #, php-format
 msgid "Ticket %s - %s"
 msgstr ""
@@ -2094,26 +2093,26 @@ msgstr ""
 msgid "Ticket Types associated with this Queue"
 msgstr ""
 
-#: lib/Ticket.php:630
+#: lib/Ticket.php:640
 #, php-format
 msgid "Ticket URL: %s"
 msgstr ""
 
-#: ticket/update.php:93
+#: ticket/update.php:94
 msgid "Ticket Updated"
 msgstr ""
 
-#: lib/Api.php:671
+#: lib/Api.php:662
 msgid "Tickets"
 msgstr ""
 
-#: query/rss.php:68
+#: query/rss.php:67
 #, php-format
 msgid "Tickets matching the query \"%s\"."
 msgstr ""
 
-#: ticket/queue.php:85 lib/Whups.php:676 lib/Ticket.php:605 lib/Ticket.php:801
-#: lib/Ticket.php:937 lib/Renderer/Query.php:106 lib/Forms/Query.php:177
+#: lib/Forms/Query.php:177 lib/Renderer/Query.php:106 lib/Ticket.php:615
+#: lib/Ticket.php:809 lib/Ticket.php:945 lib/Whups.php:680 ticket/queue.php:86
 #: config/prefs.php.dist:46
 msgid "Type"
 msgstr ""
@@ -2138,7 +2137,7 @@ msgstr ""
 msgid "Type: %s; State: %s"
 msgstr ""
 
-#: lib/Ticket.php:953
+#: lib/Ticket.php:961
 msgid "Unassigned"
 msgstr ""
 
@@ -2159,11 +2158,11 @@ msgstr ""
 msgid "Unknown node type %s"
 msgstr ""
 
-#: lib/Application.php:97
+#: lib/Application.php:96
 msgid "Update"
 msgstr ""
 
-#: ticket/update.php:107
+#: ticket/update.php:108
 #, php-format
 msgid "Update %s"
 msgstr ""
@@ -2172,11 +2171,11 @@ msgstr ""
 msgid "Update Associations"
 msgstr ""
 
-#: lib/Whups.php:682 lib/Ticket.php:973 lib/Renderer/Query.php:144
+#: lib/Renderer/Query.php:144 lib/Ticket.php:981 lib/Whups.php:686
 msgid "Updated"
 msgstr ""
 
-#: lib/Ticket.php:612 lib/Ticket.php:637
+#: lib/Ticket.php:622 lib/Ticket.php:647
 msgid "Updated By"
 msgstr ""
 
@@ -2205,8 +2204,8 @@ msgstr ""
 msgid "Users responsible for this queue"
 msgstr ""
 
-#: lib/Ticket.php:604 lib/Ticket.php:800 lib/Renderer/Query.php:100
-#: lib/Forms/Query.php:188 config/prefs.php.dist:49
+#: lib/Forms/Query.php:188 lib/Renderer/Query.php:100 lib/Ticket.php:614
+#: lib/Ticket.php:808 config/prefs.php.dist:49
 msgid "Version"
 msgstr ""
 
@@ -2229,7 +2228,7 @@ msgstr ""
 msgid "Version Name"
 msgstr ""
 
-#: ticket/type.php:39 ticket/queue.php:46
+#: ticket/queue.php:46 ticket/type.php:39
 msgid "Viewable only by members of"
 msgstr ""
 
@@ -2237,7 +2236,7 @@ msgstr ""
 msgid "Watch this ticket"
 msgstr ""
 
-#: ticket/watch.php:74
+#: ticket/watch.php:75
 #, php-format
 msgid "Watchers for %s"
 msgstr ""
@@ -2258,10 +2257,10 @@ msgstr ""
 msgid "YY/MM/DD HH:MM:SS"
 msgstr ""
 
-#: ticket/delete.php:29 lib/Forms/Query.php:452 lib/Forms/Admin/Version.php:98
-#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Priority.php:119
-#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Attribute.php:147
-#: lib/Forms/Admin/Reply.php:108 lib/Forms/Admin/Type.php:174
+#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
+#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
+#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
+#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:452 ticket/delete.php:29
 msgid "Yes"
 msgstr ""
 
@@ -2283,19 +2282,19 @@ msgstr ""
 msgid "You have no open requests."
 msgstr ""
 
-#: lib/Forms/Query.php:422 lib/Block/query.php:25
+#: lib/Block/query.php:25 lib/Forms/Query.php:422
 msgid "You have no saved queries."
 msgstr ""
 
-#: lib/Whups.php:709
+#: lib/Whups.php:713
 msgid "You must select at least one queue to send reminders for."
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:135 lib/Forms/AddComment.php:16
+#: lib/Forms/AddComment.php:16 lib/Forms/CreateTicket.php:135
 msgid "Your Email Address"
 msgstr ""
 
-#: ticket/create.php:62
+#: ticket/create.php:57
 #, php-format
 msgid ""
 "Your ticket ID is %s. An appropriate person has been notified of this "
@@ -2306,15 +2305,15 @@ msgstr ""
 msgid "[ Could not render body of message. ]"
 msgstr ""
 
-#: lib/Whups.php:483
+#: lib/Whups.php:487
 msgid "[Hidden]"
 msgstr ""
 
-#: lib/Whups.php:771
+#: lib/Whups.php:775
 msgid "_Admin"
 msgstr ""
 
-#: lib/Whups.php:297
+#: lib/Whups.php:301
 msgid "_Comment"
 msgstr ""
 
@@ -2322,15 +2321,15 @@ msgstr ""
 msgid "_Date Criteria"
 msgstr ""
 
-#: lib/Whups.php:315
+#: lib/Whups.php:319
 msgid "_Delete"
 msgstr ""
 
-#: lib/Query.php:232
+#: lib/Query.php:242
 msgid "_Delete Query"
 msgstr ""
 
-#: lib/Query.php:213
+#: lib/Query.php:223
 msgid "_Edit Query"
 msgstr ""
 
@@ -2346,20 +2345,20 @@ msgstr ""
 msgid "_Group Criteria"
 msgstr ""
 
-#: lib/Whups.php:291
+#: lib/Whups.php:295
 msgid "_History"
 msgstr ""
 
-#: lib/Query.php:226
+#: lib/Query.php:236
 msgid "_Load Query"
 msgstr ""
 
-#: lib/Whups.php:762
+#: lib/Whups.php:766
 #, php-format
 msgid "_My %s"
 msgstr ""
 
-#: lib/Whups.php:765
+#: lib/Whups.php:769
 msgid "_New Ticket"
 msgstr ""
 
@@ -2367,15 +2366,15 @@ msgstr ""
 msgid "_Property Criteria"
 msgstr ""
 
-#: lib/Whups.php:766
+#: lib/Whups.php:770
 msgid "_Query Builder"
 msgstr ""
 
-#: lib/Whups.php:767
+#: lib/Whups.php:771
 msgid "_Reports"
 msgstr ""
 
-#: lib/Whups.php:764
+#: lib/Whups.php:768
 msgid "_Search"
 msgstr ""
 
@@ -2383,7 +2382,7 @@ msgstr ""
 msgid "_Text Criteria"
 msgstr ""
 
-#: lib/Whups.php:293
+#: lib/Whups.php:297
 msgid "_Update"
 msgstr ""
 
@@ -2391,7 +2390,7 @@ msgstr ""
 msgid "_User Criteria"
 msgstr ""
 
-#: lib/Whups.php:301
+#: lib/Whups.php:305
 msgid "_Watch"
 msgstr ""
 
@@ -2411,7 +2410,7 @@ msgstr ""
 msgid "current user:"
 msgstr ""
 
-#: lib/Api.php:659
+#: lib/Api.php:650
 msgid "estimated time"
 msgstr ""
 
