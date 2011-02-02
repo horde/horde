@@ -7,62 +7,41 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Share\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Share/Object/Kolab.php:131
+#: lib/Horde/Share/Object/Kolab.php:94
 msgid "Calendar"
 msgstr "Kalender"
 
-#: lib/Horde/Share/Object/Kolab.php:127
+#: lib/Horde/Share/Object/Kolab.php:90
 msgid "Contacts"
 msgstr "Kontakte"
 
-#: lib/Horde/Share/Object/Kolab.php:135
+#: lib/Horde/Share/Object/Kolab.php:98
 msgid "Filters"
 msgstr "Filter"
 
-#: lib/Horde/Share/Object/Kolab.php:129
+#: lib/Horde/Share/Object/Kolab.php:92
 msgid "Notes"
 msgstr "Notizen"
 
-#: lib/Horde/Share/Object/Kolab.php:137
+#: lib/Horde/Share/Object/Kolab.php:100
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
-#: lib/Horde/Share/Kolab.php:117 lib/Horde/Share/Sql.php:210
-#, php-format
-msgid "Share \"%s\" does not exist."
-msgstr "Share \"%s\" existiert nicht."
-
-#: lib/Horde/Share/Sql.php:272
-#, php-format
-msgid "Share ID %d does not exist."
-msgstr "Share-ID %d existiert nicht."
-
-#: lib/Horde/Share/Sql/Hierarchical.php:547
-msgid "Share names are not supported in this driver"
-msgstr "Sharenamen werden von diesem Treiber nicht unterstützt"
-
-#: lib/Horde/Share/Object/Kolab.php:133
+#: lib/Horde/Share/Object/Kolab.php:96
 msgid "Tasks"
 msgstr "Aufgaben"
 
-#: lib/Horde/Share/Kolab.php:81
+#: lib/Horde/Share/Kolab.php:61
 #, php-format
 msgid "The Horde/Kolab integration engine does not support \"%s\""
 msgstr "Die Horde/Kolab Integrationsfunktionen unterstützen \"%s\" nicht"
-
-#: lib/Horde/Share/Object/Kolab.php:373
-msgid "The Kolab share object has not been initialized yet!"
-msgstr "Das Kolab-Shareobjekt wurde noch nicht instialisiert!"
-
-#: lib/Horde/Share/Object/Kolab.php:153
-msgid "The share has already been initialized!"
-msgstr "Dieses Share wurde bereits initialisiert!"

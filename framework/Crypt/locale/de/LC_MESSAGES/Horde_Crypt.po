@@ -7,31 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-02-02 16:36+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Crypt/Smime.php:614
+#: lib/Horde/Crypt/Smime.php:621
 #, php-format
 msgid "%s Fingerprint"
 msgstr "%s Fingerabdruck"
 
-#: lib/Horde/Crypt/Pgp.php:1240
+#: lib/Horde/Crypt/Pgp.php:1246
 msgid "A passphrase is required to decrypt a message."
 msgstr "Ein Passwort wird für die Entschlüsselung einer Nachricht benötigt."
 
-#: lib/Horde/Crypt/Pgp.php:1307
+#: lib/Horde/Crypt/Pgp.php:1313
 msgid "A public PGP key is required to verify a signed message."
 msgstr ""
 "Ein öffentlicher PGP-Schlüssel wird für die Überprüfung einer "
 "unterzeichneten Nachricht benötigt."
 
-#: lib/Horde/Crypt/Pgp.php:1164
+#: lib/Horde/Crypt/Pgp.php:1170
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -45,7 +46,7 @@ msgstr ""
 "Ein öffentlicher S/MIME-Schlüssel wird für die Verschlüsselung einer "
 "Nachricht benötigt."
 
-#: lib/Horde/Crypt/Smime.php:422
+#: lib/Horde/Crypt/Smime.php:429
 msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
@@ -61,19 +62,19 @@ msgstr ""
 "Ein öffentlicher und ein privater S/MIME-Schlüssel sowie ein Passwort wird "
 "für die Unterzeichnung einer Nachricht benötigt."
 
-#: lib/Horde/Crypt/Smime.php:506
+#: lib/Horde/Crypt/Smime.php:513
 msgid "CRL Distribution Points"
 msgstr "CRL Distributionsstelle"
 
-#: lib/Horde/Crypt/Smime.php:609
+#: lib/Horde/Crypt/Smime.php:616
 msgid "Certificate Details"
 msgstr "Zertifikatdetails"
 
-#: lib/Horde/Crypt/Smime.php:520
+#: lib/Horde/Crypt/Smime.php:527
 msgid "Certificate Owner"
 msgstr "Zertifikatbesitzer"
 
-#: lib/Horde/Crypt/Smime.php:505
+#: lib/Horde/Crypt/Smime.php:512
 msgid "Certificate Policies"
 msgstr "Zertifikatrichtlinien"
 
@@ -81,25 +82,25 @@ msgstr "Zertifikatrichtlinien"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: lib/Horde/Crypt/Smime.php:475
+#: lib/Horde/Crypt/Smime.php:482
 msgid "Common Name"
 msgstr "Eindeutiger Name"
 
-#: lib/Horde/Crypt/Pgp.php:939
+#: lib/Horde/Crypt/Pgp.php:945
 msgid "Connection refused to the public keyserver."
 msgstr "Verbindung zum öffentlichen Schlüsselserver wurde abgewiesen."
 
-#: lib/Horde/Crypt/Pgp.php:950
+#: lib/Horde/Crypt/Pgp.php:956
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr ""
 "Verbindung zum öffentlichen Schlüsselserver wurde abgewiesen. Grund: %s (%s)"
 
-#: lib/Horde/Crypt/Pgp.php:1132
+#: lib/Horde/Crypt/Pgp.php:1138
 msgid "Could not PGP encrypt message: "
 msgstr "Die Nachricht konnte nicht mit PGP verschlüsselt werden: "
 
-#: lib/Horde/Crypt/Pgp.php:1201
+#: lib/Horde/Crypt/Pgp.php:1207
 msgid "Could not PGP sign message: "
 msgstr "Die Nachricht konnte nicht mit PGP unterzeichnet werden: "
 
@@ -111,11 +112,11 @@ msgstr "Die Nachricht konnte nicht mit S/MIME verschlüsselt werden."
 msgid "Could not S/MIME sign message."
 msgstr "Die Nachricht konnte nicht mit S/MIME unterzeichnet werden."
 
-#: lib/Horde/Crypt/Pgp.php:1276
+#: lib/Horde/Crypt/Pgp.php:1282
 msgid "Could not decrypt PGP data: "
 msgstr "PGP-Daten konnten nicht entschlüsselt werden: "
 
-#: lib/Horde/Crypt/Smime.php:440
+#: lib/Horde/Crypt/Smime.php:447
 msgid "Could not decrypt S/MIME data."
 msgstr "S/MIME-Daten konnten nicht entschlüsselt werden."
 
@@ -123,11 +124,11 @@ msgstr "S/MIME-Daten konnten nicht entschlüsselt werden."
 msgid "Could not determine the recipient's e-mail address."
 msgstr "Die E-Mail-Adresse des Empfängers konnte nicht ermittelt werden."
 
-#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+#: lib/Horde/Crypt/Pgp.php:760 lib/Horde/Crypt/Pgp.php:853
 msgid "Could not obtain public key from the keyserver."
 msgstr "Öffentlicher Schlüssel konnte nicht vom Schlüsselserver geholt werden."
 
-#: lib/Horde/Crypt/Smime.php:478
+#: lib/Horde/Crypt/Smime.php:485
 msgid "Country"
 msgstr "Land"
 
@@ -135,16 +136,16 @@ msgstr "Land"
 msgid "E-Mail"
 msgstr "E-Mail-Adresse"
 
-#: lib/Horde/Crypt/Smime.php:474
+#: lib/Horde/Crypt/Smime.php:481
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
-#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+#: lib/Horde/Crypt/Pgp.php:1590 lib/Horde/Crypt/Pgp.php:1598
 msgid "Error while talking to pgp binary."
 msgstr "Fehler beim Aufruf des PGP-Programms."
 
-#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
-#: lib/Horde/Crypt/Smime.php:1284
+#: lib/Horde/Crypt/Smime.php:1245 lib/Horde/Crypt/Smime.php:1263
+#: lib/Horde/Crypt/Smime.php:1278
 msgid "Error while talking to smime binary."
 msgstr "Fehler beim Aufruf der S/MIME-Bibliothek."
 
@@ -152,11 +153,11 @@ msgstr "Fehler beim Aufruf der S/MIME-Bibliothek."
 msgid "Expiration Date"
 msgstr "Verfallsdatum"
 
-#: lib/Horde/Crypt/Smime.php:586
+#: lib/Horde/Crypt/Smime.php:593
 msgid "Exponent"
 msgstr "Exponent"
 
-#: lib/Horde/Crypt/Smime.php:484
+#: lib/Horde/Crypt/Smime.php:491
 msgid "Given Name"
 msgstr "Vorname"
 
@@ -164,7 +165,7 @@ msgstr "Vorname"
 msgid "Hash-Algorithm"
 msgstr "Hash-Algorithmus"
 
-#: lib/Horde/Crypt/Smime.php:534
+#: lib/Horde/Crypt/Smime.php:541
 msgid "Issuer"
 msgstr "Aussteller"
 
@@ -188,28 +189,32 @@ msgstr "Schlüssellänge"
 msgid "Key Type"
 msgstr "Schlüsseltyp"
 
-#: lib/Horde/Crypt/Smime.php:507
+#: lib/Horde/Crypt/Smime.php:514
 msgid "Key Usage"
 msgstr "Schlüsselzweck"
 
-#: lib/Horde/Crypt/Pgp.php:782
+#: lib/Horde/Crypt/Pgp.php:783
 msgid "Key already exists on the public keyserver."
 msgstr ""
 "Der Schlüssel befindet sich bereits auf dem öffentlichen Schlüsselserver."
 
-#: lib/Horde/Crypt/Smime.php:480
+#: lib/Horde/Crypt/Smime.php:487
 msgid "Location"
 msgstr "Ort"
 
-#: lib/Horde/Crypt/Smime.php:189
+#: lib/Horde/Crypt/Smime.php:192
 msgid ""
-"Message Verified Successfully but the signer's certificate could not be "
+"Message verified successfully but the signer's certificate could not be "
 "verified."
 msgstr ""
 "Die Nachricht konnte erfolgreich überprüft werden aber nicht das Zertifikat "
-"des Absenders."
+"des Unterzeichners."
 
-#: lib/Horde/Crypt/Smime.php:583
+#: lib/Horde/Crypt/Smime.php:180
+msgid "Message verified successfully."
+msgstr "Nachricht erfolgreich überprüft."
+
+#: lib/Horde/Crypt/Smime.php:590
 msgid "Modulus"
 msgstr "Modulus"
 
@@ -217,35 +222,35 @@ msgstr "Modulus"
 msgid "Name"
 msgstr "Name"
 
-#: lib/Horde/Crypt/Smime.php:490
+#: lib/Horde/Crypt/Smime.php:497
 msgid "Netscape Base URL"
 msgstr "Netscape-Basis-URL"
 
-#: lib/Horde/Crypt/Smime.php:492
+#: lib/Horde/Crypt/Smime.php:499
 msgid "Netscape CA Revocation URL"
 msgstr "Netscape-CA-Sperrungs-URL"
 
-#: lib/Horde/Crypt/Smime.php:494
+#: lib/Horde/Crypt/Smime.php:501
 msgid "Netscape CA policy URL"
 msgstr "Netscape-CA-Richtlinien-URL"
 
-#: lib/Horde/Crypt/Smime.php:493
+#: lib/Horde/Crypt/Smime.php:500
 msgid "Netscape Renewal URL"
 msgstr "Netscape-Zetifikatserneuerungs-URL"
 
-#: lib/Horde/Crypt/Smime.php:491
+#: lib/Horde/Crypt/Smime.php:498
 msgid "Netscape Revocation URL"
 msgstr "Netscape-Sperrungs-URL"
 
-#: lib/Horde/Crypt/Smime.php:495
+#: lib/Horde/Crypt/Smime.php:502
 msgid "Netscape SSL server name"
 msgstr "Netscape-SSL-Servername"
 
-#: lib/Horde/Crypt/Smime.php:496
+#: lib/Horde/Crypt/Smime.php:503
 msgid "Netscape certificate comment"
 msgstr "Netscape-Kommentar"
 
-#: lib/Horde/Crypt/Smime.php:489
+#: lib/Horde/Crypt/Smime.php:496
 msgid "Netscape certificate type"
 msgstr "Netscape-Zertifikattyp"
 
@@ -253,7 +258,7 @@ msgstr "Netscape-Zertifikattyp"
 msgid "Never"
 msgstr "Nie"
 
-#: lib/Horde/Crypt/Smime.php:1217
+#: lib/Horde/Crypt/Smime.php:1211
 msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
@@ -265,11 +270,11 @@ msgstr ""
 msgid "None"
 msgstr "Keine"
 
-#: lib/Horde/Crypt/Smime.php:549
+#: lib/Horde/Crypt/Smime.php:556
 msgid "Not After"
 msgstr "Gültig bis"
 
-#: lib/Horde/Crypt/Smime.php:548
+#: lib/Horde/Crypt/Smime.php:555
 msgid "Not Before"
 msgstr "Gültig ab"
 
@@ -278,31 +283,31 @@ msgid "OpenSSL error: Could not extract data from signed S/MIME part."
 msgstr ""
 "OpenSSL-Fehler: Signierte S/MIME-Daten konnten nicht extrahiert werden."
 
-#: lib/Horde/Crypt/Smime.php:476
+#: lib/Horde/Crypt/Smime.php:483
 msgid "Organisation"
 msgstr "Organisation"
 
-#: lib/Horde/Crypt/Smime.php:477
+#: lib/Horde/Crypt/Smime.php:484
 msgid "Organisational Unit"
 msgstr "Organisationsabteilung"
 
-#: lib/Horde/Crypt/Pgp.php:1406
+#: lib/Horde/Crypt/Pgp.php:1412
 msgid "PGP Digital Signature"
 msgstr "Digitale PGP-Signatur"
 
-#: lib/Horde/Crypt/Pgp.php:1450
+#: lib/Horde/Crypt/Pgp.php:1456
 msgid "PGP Encrypted Data"
 msgstr "PGP-verschlüsselte Daten"
 
-#: lib/Horde/Crypt/Pgp.php:1511
+#: lib/Horde/Crypt/Pgp.php:1517
 msgid "PGP Public Key"
 msgstr "Öffentlicher PGP-Schlüssel"
 
-#: lib/Horde/Crypt/Pgp.php:1493
+#: lib/Horde/Crypt/Pgp.php:1499
 msgid "PGP Signed/Encrypted Data"
 msgstr "Mit PGP unterzeichnete/verschlüsselte Daten"
 
-#: lib/Horde/Crypt/Smime.php:1256
+#: lib/Horde/Crypt/Smime.php:1250
 msgid "Password incorrect"
 msgstr "Falsches Passwort"
 
@@ -314,11 +319,11 @@ msgstr "Privater Schlüssel"
 msgid "Public Key"
 msgstr "Öffentlicher Schlüssel"
 
-#: lib/Horde/Crypt/Smime.php:554
+#: lib/Horde/Crypt/Smime.php:561
 msgid "Public Key Algorithm"
 msgstr "Algorithmus des öffentlichen Schlüssels"
 
-#: lib/Horde/Crypt/Smime.php:553
+#: lib/Horde/Crypt/Smime.php:560
 msgid "Public Key Info"
 msgstr "Informationen zum öffentlichen Schlüssel"
 
@@ -326,7 +331,7 @@ msgstr "Informationen zum öffentlichen Schlüssel"
 msgid "Public/Private keypair not generated successfully."
 msgstr "Das öffentliche/private Schlüsselpaar konnte nicht erstellt werden."
 
-#: lib/Horde/Crypt/Smime.php:572
+#: lib/Horde/Crypt/Smime.php:579
 #, php-format
 msgid "RSA Public Key (%d bit)"
 msgstr "Öffentlicher RSA Schlüssel (%d Bit)"
@@ -335,7 +340,7 @@ msgstr "Öffentlicher RSA Schlüssel (%d Bit)"
 msgid "Returned error message:"
 msgstr "Zurückgelieferte Fehlermeldung:"
 
-#: lib/Horde/Crypt/Pgp.php:1644
+#: lib/Horde/Crypt/Pgp.php:1650
 msgid "Revocation key not generated successfully."
 msgstr "Der Rückrufschlüssel konnte nicht erstellt werden."
 
@@ -347,46 +352,46 @@ msgstr "S/MIME Signatur"
 msgid "S/MIME Encrypted Message"
 msgstr "Mit S/MIME verschlüsselte Nachricht"
 
-#: lib/Horde/Crypt/Smime.php:611
+#: lib/Horde/Crypt/Smime.php:618
 msgid "Serial Number"
 msgstr "Seriennummer"
 
-#: lib/Horde/Crypt/Smime.php:622
+#: lib/Horde/Crypt/Smime.php:625
 msgid "Signature"
 msgstr "Signatur"
 
-#: lib/Horde/Crypt/Smime.php:621
+#: lib/Horde/Crypt/Smime.php:624
 msgid "Signature Algorithm"
 msgstr "Signaturalgorithmus"
 
-#: lib/Horde/Crypt/Smime.php:479
+#: lib/Horde/Crypt/Smime.php:486
 msgid "State or Province"
 msgstr "Bundesstaat oder Provinz"
 
-#: lib/Horde/Crypt/Smime.php:481
+#: lib/Horde/Crypt/Smime.php:488
 msgid "Street Address"
 msgstr "Straße"
 
-#: lib/Horde/Crypt/Smime.php:483
+#: lib/Horde/Crypt/Smime.php:490
 msgid "Surname"
 msgstr "Nachname"
 
-#: lib/Horde/Crypt/Smime.php:482
+#: lib/Horde/Crypt/Smime.php:489
 msgid "Telephone Number"
 msgstr "Telefonnummer"
 
-#: lib/Horde/Crypt/Pgp.php:1311
+#: lib/Horde/Crypt/Pgp.php:1317
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
 "Der PGP-Signaturblock wird benötigt, um die unterzeichnete Nachricht zu "
 "überprüfen."
 
-#: lib/Horde/Crypt/Smime.php:1146
+#: lib/Horde/Crypt/Smime.php:1140
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
 msgstr "Das OpenSSL-Modul wird für die Horde_Crypt_Smime:: Klasse benötigt."
 
-#: lib/Horde/Crypt/Smime.php:512
+#: lib/Horde/Crypt/Smime.php:519
 msgid "Unable to extract certificate details"
 msgstr "Die Zertifikatdetails konnten nicht ausgelesen werden"
 
@@ -395,48 +400,48 @@ msgstr "Die Zertifikatdetails konnten nicht ausgelesen werden"
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
-#: lib/Horde/Crypt/Smime.php:850
+#: lib/Horde/Crypt/Smime.php:603 lib/Horde/Crypt/Smime.php:847
+#: lib/Horde/Crypt/Smime.php:853
 msgid "Unsupported Extension"
 msgstr "Erweiterung nicht unterstützt"
 
-#: lib/Horde/Crypt/Smime.php:547
+#: lib/Horde/Crypt/Smime.php:554
 msgid "Validity"
 msgstr "Gültigkeit"
 
-#: lib/Horde/Crypt/Smime.php:191
+#: lib/Horde/Crypt/Smime.php:187
 msgid "Verification failed - an unknown error has occurred."
 msgstr "Überprüfung fehlgeschlagen - ein unbekannter Fehler ist aufgetreten."
 
-#: lib/Horde/Crypt/Smime.php:193
+#: lib/Horde/Crypt/Smime.php:189
 msgid "Verification failed - this message may have been tampered with."
 msgstr ""
 "Überprüfung fehlgeschlagen - diese Nachricht könnte manipuliert worden sein."
 
-#: lib/Horde/Crypt/Smime.php:610
+#: lib/Horde/Crypt/Smime.php:617
 msgid "Version"
 msgstr "Version"
 
-#: lib/Horde/Crypt/Smime.php:502
+#: lib/Horde/Crypt/Smime.php:509
 msgid "X509v3 Basic Constraints"
 msgstr "X509v3 Generelle Einschränkung"
 
-#: lib/Horde/Crypt/Smime.php:501
+#: lib/Horde/Crypt/Smime.php:508
 msgid "X509v3 Extended Key Usage"
 msgstr "X509v3 Erweiterter Schlüsselzweck"
 
-#: lib/Horde/Crypt/Smime.php:503
+#: lib/Horde/Crypt/Smime.php:510
 msgid "X509v3 Subject Alternative Name"
 msgstr "X509v3 Alternativer Name des Zertifikatinhabers"
 
-#: lib/Horde/Crypt/Smime.php:504
+#: lib/Horde/Crypt/Smime.php:511
 msgid "X509v3 Subject Key Identifier"
 msgstr "X509v3 Identität des Zertifikatschlüssels"
 
-#: lib/Horde/Crypt/Smime.php:592
+#: lib/Horde/Crypt/Smime.php:599
 msgid "X509v3 extensions"
 msgstr "X509v3 Erweiterungen"
 
-#: lib/Horde/Crypt/Smime.php:1135
+#: lib/Horde/Crypt/Smime.php:1129
 msgid "not yet implemented"
 msgstr "Noch nicht implementiert"

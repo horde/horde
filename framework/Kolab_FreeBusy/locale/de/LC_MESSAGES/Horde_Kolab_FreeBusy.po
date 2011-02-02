@@ -7,51 +7,52 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:241
+#: lib/Horde/Kolab/FreeBusy/View.php:229
 msgid "401 Unauthorized"
 msgstr "401 Nicht autorisiert"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:220
+#: lib/Horde/Kolab/FreeBusy/View.php:208
 msgid "404 Not Found"
 msgstr "404 Nicht gefunden"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:258
+#: lib/Horde/Kolab/FreeBusy/View.php:246
 msgid "500 Server Error"
 msgstr "500 Serverfehler"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:258
+#: lib/Horde/Kolab/FreeBusy/View.php:246
 msgid "Error"
 msgstr "Fehler"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:66
+#: lib/Horde/Kolab/FreeBusy/Report.php:53
 msgid "Errors:"
 msgstr "Fehler:"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:58
+#: lib/Horde/Kolab/FreeBusy/Report.php:45
 #, php-format
 msgid "Failed regenerating calendar %s: %s"
 msgstr "Der Kalender %s konnte nicht neu geladen werden: %s"
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:141
+#: lib/Horde/Kolab/FreeBusy/Imap.php:128
 #, php-format
 msgid "Folder %s does not exist!"
 msgstr "Der Order %s existiert nicht!"
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:148
+#: lib/Horde/Kolab/FreeBusy/Imap.php:135
 #, php-format
 msgid "Folder %s has type \"%s\" not \"event\"!"
 msgstr "Der Ordner %s hat den Typ \"%s\" nicht \"event\"!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:196
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:183
 #, php-format
 msgid "Invalid authentication for user %s!"
 msgstr "Ungültige Authentifizierung für Benutzer %s!"
@@ -66,28 +67,28 @@ msgstr "Kein Konto %s gefunden!"
 msgid "No such folder %s"
 msgstr "Ordner %s nicht gefunden"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:220
+#: lib/Horde/Kolab/FreeBusy/View.php:208
 msgid "Not found"
 msgstr "Nicht gefunden"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:192
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:179
 msgid "Please authenticate!"
 msgstr "Bitte anmelden!"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:45
+#: lib/Horde/Kolab/FreeBusy/Report.php:32
 msgid "Starting to regenerate the free/busy cache..."
 msgstr "Der Frei/Gebucht-Zwischenspeicher wird neu erzeugt..."
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:74
+#: lib/Horde/Kolab/FreeBusy/Report.php:61
 msgid "Successfully regenerated all calendar caches!"
 msgstr "Alle Kalender-Zwischenspeicher erfolgreich gefüllt!"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:51
+#: lib/Horde/Kolab/FreeBusy/Report.php:38
 #, php-format
 msgid "Successfully regenerated calendar \"%s\"!"
 msgstr "Der Kalender \"%s\" wurde erfolgreich neu erzeugt!"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:218
+#: lib/Horde/Kolab/FreeBusy/View.php:206
 #, php-format
 msgid "The requested URL %s was not found on this server."
 msgstr "Die gesuchte URL (%s) wurde auf diesem Server nicht gefunden."
@@ -102,10 +103,10 @@ msgstr ""
 msgid "Unable to read free/busy information from %s"
 msgstr "Fehler beim Auslesen der Frei/Gebucht-Informationen von %s"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:241
+#: lib/Horde/Kolab/FreeBusy/View.php:229
 msgid "Unauthorized"
 msgstr "Nicht autorisiert"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:242
+#: lib/Horde/Kolab/FreeBusy/View.php:230
 msgid "You are not authorized to access the requested URL."
 msgstr "Sie sind nicht autorisiert, auf die angefragte URL zuzugreifen."

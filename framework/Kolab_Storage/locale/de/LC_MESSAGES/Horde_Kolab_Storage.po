@@ -7,14 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:62
+#, fuzzy, php-format
+msgid "Connecting to server %s failed. Error: %s"
+msgstr "Verbindung zum Server fehlgeschlagen."
 
 #: lib/Horde/Kolab/Storage/Folder/Base.php:993
 #: lib/Horde/Kolab/Storage/Folder/Base.php:999
@@ -29,17 +35,44 @@ msgstr ""
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr "Fehler beim Anlegen des Ordners %s. Fehlermeldung des Servers: %s"
 
-#: lib/Horde/Kolab/Storage/Data.php:630
+#: lib/Horde/Kolab/Storage/Factory.php:144
+#, php-format
+msgid ""
+"Invalid \"driver\" parameter \"%s\". Please use one of \"mock\", \"php\", "
+"\"pear\", \"horde\", \"horde-php\", and \"roundcube\"!"
+msgstr ""
+
+#: lib/Horde/Kolab/Storage/Factory.php:204
+#, fuzzy, php-format
+msgid "Invalid \"namespace\" type \"%s\"!"
+msgstr "Ungültiger Kolab-Objekttyp \"%s\"."
+
+#: lib/Horde/Kolab/Storage/Data.php:613
 #, php-format
 msgid "Kolab cache: Object uid %s does not exist in the cache!"
 msgstr "Kolab cache: Objekt-UID %s existiert nicht im Cache!"
 
-#: lib/Horde/Kolab/Storage/Data.php:315
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:120
+#, fuzzy, php-format
+msgid "Listing folders for %s failed. Error: %s"
+msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
+
+#: lib/Horde/Kolab/Storage/Factory.php:104
+#, fuzzy
+msgid "Missing \"driver\" parameter!"
+msgstr "Container-Parameter fehlt."
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:96
+#, fuzzy
+msgid "Missing \"host\" parameter!"
+msgstr "Container-Parameter fehlt."
+
+#: lib/Horde/Kolab/Storage/Data.php:298
 #, php-format
 msgid "Old object %s does not exist."
 msgstr "Altes Object %s existiert nicht."
 
-#: lib/Horde/Kolab/Storage/Data.php:322
+#: lib/Horde/Kolab/Storage/Data.php:305
 #, php-format
 msgid "Old object %s does not map to a uid."
 msgstr "Das alte Objekt %s kann keiner UID zugeordnet werden."

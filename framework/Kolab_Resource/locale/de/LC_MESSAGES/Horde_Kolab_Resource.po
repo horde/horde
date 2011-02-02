@@ -7,35 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Resource\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Kolab/Resource.php:576
+#: lib/Horde/Kolab/Resource.php:557
 #, php-format
 msgid "%s has been cancelled"
 msgstr "%s hat abgesagt"
 
-#: lib/Horde/Kolab/Resource.php:555 lib/Horde/Kolab/Resource.php:560
+#: lib/Horde/Kolab/Resource.php:536 lib/Horde/Kolab/Resource.php:541
 #, php-format
 msgid "Error processing \"%s\""
 msgstr "Fehler beim Verarbeiten von \"%s\""
 
-#: lib/Horde/Kolab/Resource.php:575
+#: lib/Horde/Kolab/Resource.php:556
 msgid "The following event has been successfully removed:"
 msgstr "Der folgende Termin wurde erfolgreich entfernt:"
 
-#: lib/Horde/Kolab/Resource.php:559
+#: lib/Horde/Kolab/Resource.php:540
 #, php-format
 msgid "The following event that was canceled is not present in %s's calendar:"
 msgstr "Der folgende abgesagte Termin befindet sich nicht in %ss Kalender:"
 
-#: lib/Horde/Kolab/Resource.php:554
+#: lib/Horde/Kolab/Resource.php:535
 #, php-format
 msgid "Unable to access %s's calendar:"
 msgstr "Zugriff auf %ss Kalender nicht möglich:"

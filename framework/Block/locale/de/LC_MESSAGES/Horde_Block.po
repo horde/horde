@@ -7,73 +7,74 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Block\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Block/Ui.php:97
+#: lib/Horde/Block/Ui.php:81
 msgid "Application"
 msgstr "Anwendung"
 
-#: lib/Horde/Block/Collection.php:410
+#: lib/Horde/Block/Collection.php:398
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "Block \"%s\" der Anwendung \"%s\" nicht gefunden."
 
-#: lib/Horde/Block/Layout.php:130 lib/Horde/Block/Layout.php:131
+#: lib/Horde/Block/Layout.php:107 lib/Horde/Block/Layout.php:108
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: lib/Horde/Block/Ui.php:89
+#: lib/Horde/Block/Ui.php:73
 msgid "Edit Block"
 msgstr "Block bearbeiten"
 
-#: lib/Horde/Block/Layout/View.php:98
+#: lib/Horde/Block/Layout/View.php:97
 msgid "Error"
 msgstr "Fehler"
 
-#: lib/Horde/Block/Layout/Manager.php:576
+#: lib/Horde/Block/Layout/Manager.php:574
 msgid "Expand"
 msgstr "Vergrößern"
 
-#: lib/Horde/Block/Layout/Manager.php:610
+#: lib/Horde/Block/Layout/Manager.php:608
 msgid "Move Down"
 msgstr "Nach unten"
 
-#: lib/Horde/Block/Layout/Manager.php:614
+#: lib/Horde/Block/Layout/Manager.php:612
 msgid "Move Left"
 msgstr "Nach links"
 
-#: lib/Horde/Block/Layout/Manager.php:618
+#: lib/Horde/Block/Layout/Manager.php:616
 msgid "Move Right"
 msgstr "Nach rechts"
 
-#: lib/Horde/Block/Layout/Manager.php:606
+#: lib/Horde/Block/Layout/Manager.php:604
 msgid "Move Up"
 msgstr "Nach oben"
 
-#: lib/Horde/Block/Layout/Manager.php:121
+#: lib/Horde/Block/Layout/Manager.php:120
 msgid "No block exists at the requested position"
 msgstr "Es existiert kein Block an der angegebenen Position"
 
-#: lib/Horde/Block/Layout.php:139
+#: lib/Horde/Block/Layout.php:116
 msgid "Really delete this block?"
 msgstr "Diesen Block wirklich löschen?"
 
-#: lib/Horde/Block/Layout.php:136 lib/Horde/Block/Layout.php:140
+#: lib/Horde/Block/Layout.php:113 lib/Horde/Block/Layout.php:117
 msgid "Remove"
 msgstr "Entfernen"
 
-#: lib/Horde/Block/Layout/Manager.php:581
+#: lib/Horde/Block/Layout/Manager.php:579
 msgid "Shrink"
 msgstr "Verkleinern"
 
-#: lib/Horde/Block/Layout/Manager.php:245
+#: lib/Horde/Block/Layout/Manager.php:244
 #, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."

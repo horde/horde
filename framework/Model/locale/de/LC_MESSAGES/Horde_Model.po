@@ -7,49 +7,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Model\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Form.php:2062 lib/Horde/Form/Type/Date.php:46
+#: lib/Horde/Form.php:2049 lib/Horde/Form/Type/Date.php:46
 #, php-format
 msgid " (%s days ago)"
 msgstr " (vor %s Tagen)"
 
-#: lib/Horde/Form.php:2070 lib/Horde/Form/Type/Date.php:54
+#: lib/Horde/Form.php:2057 lib/Horde/Form/Type/Date.php:54
 #, php-format
 msgid " (in %s days)"
 msgstr " (in %s Tagen)"
 
-#: lib/Horde/Form.php:2066 lib/Horde/Form/Type/Date.php:50
+#: lib/Horde/Form.php:2053 lib/Horde/Form/Type/Date.php:50
 msgid " (today)"
 msgstr " (heute)"
 
-#: lib/Horde/Form.php:2068 lib/Horde/Form/Type/Date.php:52
+#: lib/Horde/Form.php:2055 lib/Horde/Form/Type/Date.php:52
 msgid " (tomorrow)"
 msgstr " (morgen)"
 
-#: lib/Horde/Form.php:2064 lib/Horde/Form/Type/Date.php:48
+#: lib/Horde/Form.php:2051 lib/Horde/Form/Type/Date.php:48
 msgid " (yesterday)"
 msgstr " (gestern)"
 
-#: lib/Horde/Form.php:1251 lib/Horde/Form/Type/Email.php:88
+#: lib/Horde/Form.php:1238 lib/Horde/Form/Type/Email.php:88
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" ist keine gültige E-Mail-Adresse."
 
-#: lib/Horde/Form.php:2030
+#: lib/Horde/Form.php:2017
 #, php-format
 msgid "%s is required"
 msgstr "%s ist notwendig"
 
-#: lib/Horde/Form.php:1775 lib/Horde/Form.php:1823
-#: lib/Horde/Form/VarRenderer/Xhtml.php:650
+#: lib/Horde/Form.php:1762 lib/Horde/Form.php:1810
+#: lib/Horde/Form/VarRenderer/Xhtml.php:631
 msgid "-- select --"
 msgstr "-- Auswählen --"
 
@@ -57,7 +58,7 @@ msgstr "-- Auswählen --"
 msgid "A Date"
 msgstr "Ein Datum"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:456
+#: lib/Horde/Form/VarRenderer/Xhtml.php:437
 msgid "Add column"
 msgstr "Spalte hinzufügen"
 
@@ -65,25 +66,25 @@ msgstr "Spalte hinzufügen"
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
 
-#: lib/Horde/Form.php:1074
+#: lib/Horde/Form.php:1061
 msgid "Address"
 msgstr "Adresse"
 
-#: lib/Horde/Form.php:1438
+#: lib/Horde/Form.php:1425
 msgid "Allow multiple addresses?"
 msgstr "Mehrere Adressen erlauben?"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:301
-#: lib/Horde/Form/VarRenderer/Xhtml.php:340
+#: lib/Horde/Form/VarRenderer/Xhtml.php:282
+#: lib/Horde/Form/VarRenderer/Xhtml.php:321
 msgid "April"
 msgstr "April"
 
-#: lib/Horde/Form.php:2902
+#: lib/Horde/Form.php:2889
 msgid "Assignment columns"
 msgstr "Zuordnungsfelder"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:305
-#: lib/Horde/Form/VarRenderer/Xhtml.php:344
+#: lib/Horde/Form/VarRenderer/Xhtml.php:286
+#: lib/Horde/Form/VarRenderer/Xhtml.php:325
 msgid "August"
 msgstr "August"
 
@@ -95,7 +96,7 @@ msgstr "Balkenfeld"
 msgid "Boolean"
 msgstr "Boolean"
 
-#: lib/Horde/Form.php:1446
+#: lib/Horde/Form.php:1433
 msgid "Character to split multiple addresses with"
 msgstr "Zeichen, durch das mehrere E-Mail-Adressen getrenn werden sollen"
 
@@ -107,20 +108,20 @@ msgstr "Checkbox-Gruppe"
 msgid "Color"
 msgstr "Farbig"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:398
-#: lib/Horde/Form/VarRenderer/Xhtml.php:399
+#: lib/Horde/Form/VarRenderer/Xhtml.php:379
+#: lib/Horde/Form/VarRenderer/Xhtml.php:380
 msgid "Color Picker"
 msgstr "Farbauswahl"
 
-#: lib/Horde/Form.php:2662
+#: lib/Horde/Form.php:2649
 msgid "Colour selection"
 msgstr "Farbwahl"
 
-#: lib/Horde/Form.php:1658
+#: lib/Horde/Form.php:1645
 msgid "Column titles"
 msgstr "Spaltenüberschriften"
 
-#: lib/Horde/Form.php:1054
+#: lib/Horde/Form.php:1041
 msgid "Counted text"
 msgstr "Gezählter Text"
 
@@ -128,63 +129,63 @@ msgstr "Gezählter Text"
 msgid "Credit Card"
 msgstr "Kreditkarte"
 
-#: lib/Horde/Form.php:3017
+#: lib/Horde/Form.php:3004
 msgid "Credit card number"
 msgstr "Kreditkartennummer"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:349
+#: lib/Horde/Form/VarRenderer/Xhtml.php:330
 msgid "DD"
 msgstr "TT"
 
-#: lib/Horde/Form.php:3073
+#: lib/Horde/Form.php:3060
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
 "DSN (siehe http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 
-#: lib/Horde/Form.php:3071
+#: lib/Horde/Form.php:3058
 msgid "Database lookup"
 msgstr "Datenbankabfrage"
 
-#: lib/Horde/Form.php:2091
+#: lib/Horde/Form.php:2078
 msgid "Date"
 msgstr "Datum"
 
-#: lib/Horde/Form.php:2622
+#: lib/Horde/Form.php:2609
 msgid "Date and time selection"
 msgstr "Datums- und Zeitauswahl"
 
-#: lib/Horde/Form.php:2483
+#: lib/Horde/Form.php:2470
 msgid "Date selection"
 msgstr "Datumsauswahl"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:309
-#: lib/Horde/Form/VarRenderer/Xhtml.php:348
+#: lib/Horde/Form/VarRenderer/Xhtml.php:290
+#: lib/Horde/Form/VarRenderer/Xhtml.php:329
 msgid "December"
 msgstr "Dezember"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:932
+#: lib/Horde/Form/VarRenderer/Xhtml.php:913
 #, php-format
 msgid "Dial %s"
 msgstr "%s wählen"
 
-#: lib/Horde/Form.php:2493 lib/Horde/Form.php:2632
+#: lib/Horde/Form.php:2480 lib/Horde/Form.php:2619
 msgid "Display format"
 msgstr "Anzeigeformat"
 
-#: lib/Horde/Form.php:1803
+#: lib/Horde/Form.php:1790
 msgid "Drop down list"
 msgstr "Auswahlliste"
 
-#: lib/Horde/Form.php:1436 www/test.php:49
+#: lib/Horde/Form.php:1423 www/test.php:49
 msgid "Email"
 msgstr "E-Mail-Adresse"
 
-#: lib/Horde/Form.php:1674 lib/Horde/Form/Type/Email.php:429
+#: lib/Horde/Form.php:1661 lib/Horde/Form/Type/Email.php:429
 msgid "Email addresses must match."
 msgstr "Die E-Mail-Adressen müssen gleich sein."
 
-#: lib/Horde/Form.php:1700
+#: lib/Horde/Form.php:1687
 msgid "Email with confirmation"
 msgstr "E-Mail-Adresse mit Bestätigung"
 
@@ -192,61 +193,61 @@ msgstr "E-Mail-Adresse mit Bestätigung"
 msgid "Email2"
 msgstr "E-Mail-Adresse 2"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:200
-#: lib/Horde/Form/VarRenderer/Xhtml.php:201
+#: lib/Horde/Form/VarRenderer/Xhtml.php:181
+#: lib/Horde/Form/VarRenderer/Xhtml.php:182
 msgid "Emoticons"
 msgstr "Smileys"
 
-#: lib/Horde/Form.php:2283 lib/Horde/Form.php:2487 lib/Horde/Form.php:2626
+#: lib/Horde/Form.php:2270 lib/Horde/Form.php:2474 lib/Horde/Form.php:2613
 msgid "End year"
 msgstr "Endjahr"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:794
+#: lib/Horde/Form/VarRenderer/Xhtml.php:775
 msgid "Enter the letters below:"
 msgstr "Geben Sie die folgenden Buchstaben ein:"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:299
-#: lib/Horde/Form/VarRenderer/Xhtml.php:338
+#: lib/Horde/Form/VarRenderer/Xhtml.php:280
+#: lib/Horde/Form/VarRenderer/Xhtml.php:319
 msgid "February"
 msgstr "Februar"
 
-#: lib/Horde/Form.php:1656
+#: lib/Horde/Form.php:1643
 msgid "Field matrix"
 msgstr "Feldmatrix"
 
-#: lib/Horde/Form.php:3116
+#: lib/Horde/Form.php:3103
 msgid "Figlet CAPTCHA"
 msgstr "Figlet CAPTCHA"
 
-#: lib/Horde/Form.php:3120
+#: lib/Horde/Form.php:3107
 msgid "Figlet font"
 msgstr "Figlet-Font"
 
-#: lib/Horde/Form.php:2791
+#: lib/Horde/Form.php:2778
 msgid "File selection"
 msgstr "Dateiauswahl"
 
-#: lib/Horde/Form.php:1128
+#: lib/Horde/Form.php:1115
 msgid "File upload"
 msgstr "Datei-Hochladen"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1037
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1018
 msgid "Google Maps"
 msgstr "Google Maps"
 
-#: lib/Horde/Form.php:2729
+#: lib/Horde/Form.php:2716
 msgid "Header"
 msgstr "Überschrift"
 
-#: lib/Horde/Form.php:1015
+#: lib/Horde/Form.php:1002
 msgid "Helper?"
 msgstr "Helfer?"
 
-#: lib/Horde/Form.php:966
+#: lib/Horde/Form.php:953
 msgid "IP address"
 msgstr "IP-Adresse"
 
-#: lib/Horde/Form.php:2793
+#: lib/Horde/Form.php:2780
 msgid "Id"
 msgstr "Id"
 
@@ -262,242 +263,242 @@ msgstr "Text einfügen"
 msgid "Insert some text in this box"
 msgstr "Text in diese Box einfügen"
 
-#: lib/Horde/Form.php:737 www/test.php:38
+#: lib/Horde/Form.php:724 www/test.php:38
 msgid "Integer"
 msgstr "Ganzzahl"
 
-#: lib/Horde/Form.php:791
+#: lib/Horde/Form.php:778
 msgid "Integer list"
 msgstr "Liste von Ganzzahlen"
 
-#: lib/Horde/Form.php:1793 lib/Horde/Form.php:1853 lib/Horde/Form.php:1916
-#: lib/Horde/Form.php:1995 lib/Horde/Form/Type/Enum.php:37
+#: lib/Horde/Form.php:1780 lib/Horde/Form.php:1840 lib/Horde/Form.php:1903
+#: lib/Horde/Form.php:1982 lib/Horde/Form/Type/Enum.php:37
 #: lib/Horde/Form/Type/Set.php:30 lib/Horde/Form/Type/Set.php:62
 msgid "Invalid data."
 msgstr "Ungültige Daten."
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:581
+#: lib/Horde/Form/VarRenderer/Xhtml.php:562
 msgid "Invert selection"
 msgstr "Auswahl umkehren"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:298
-#: lib/Horde/Form/VarRenderer/Xhtml.php:337
+#: lib/Horde/Form/VarRenderer/Xhtml.php:279
+#: lib/Horde/Form/VarRenderer/Xhtml.php:318
 msgid "January"
 msgstr "Januar"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:304
-#: lib/Horde/Form/VarRenderer/Xhtml.php:343
+#: lib/Horde/Form/VarRenderer/Xhtml.php:285
+#: lib/Horde/Form/VarRenderer/Xhtml.php:324
 msgid "July"
 msgstr "Juli"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:303
-#: lib/Horde/Form/VarRenderer/Xhtml.php:342
+#: lib/Horde/Form/VarRenderer/Xhtml.php:284
+#: lib/Horde/Form/VarRenderer/Xhtml.php:323
 msgid "June"
 msgstr "Juni"
 
-#: lib/Horde/Form.php:2908
+#: lib/Horde/Form.php:2895
 msgid "Left header"
 msgstr "Linke Überschrift"
 
-#: lib/Horde/Form.php:2904
+#: lib/Horde/Form.php:2891
 msgid "Left values"
 msgstr "Linke Werte"
 
-#: lib/Horde/Form.php:1181
+#: lib/Horde/Form.php:1168
 msgid "Link"
 msgstr "Link"
 
-#: lib/Horde/Form.php:1184
+#: lib/Horde/Form.php:1171
 msgid "Link URL"
 msgstr "Link-URL"
 
-#: lib/Horde/Form.php:1199
+#: lib/Horde/Form.php:1186
 msgid "Link access key"
 msgstr "Link-Zugriffstaste"
 
-#: lib/Horde/Form.php:2797
+#: lib/Horde/Form.php:2784
 msgid "Link style"
 msgstr "Link-Stil"
 
-#: lib/Horde/Form.php:1190
+#: lib/Horde/Form.php:1177
 msgid "Link target"
 msgstr "Link-Ziel"
 
-#: lib/Horde/Form.php:1187 lib/Horde/Form.php:2795
+#: lib/Horde/Form.php:1174 lib/Horde/Form.php:2782
 msgid "Link text"
 msgstr "Link-Text"
 
-#: lib/Horde/Form.php:1442
+#: lib/Horde/Form.php:1429
 msgid "Link the email address to the compose page when displaying?"
 msgstr ""
 "E-Mail-Adresse beim Anzeigen zum Fenster für neue Nachrichten verlinken?"
 
-#: lib/Horde/Form.php:1196
+#: lib/Horde/Form.php:1183
 msgid "Link title attribute"
 msgstr "Link-Title-Attribut"
 
-#: lib/Horde/Form.php:1009
+#: lib/Horde/Form.php:996
 msgid "Long text"
 msgstr "Langer Text"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:297
-#: lib/Horde/Form/VarRenderer/Xhtml.php:336
+#: lib/Horde/Form/VarRenderer/Xhtml.php:278
+#: lib/Horde/Form/VarRenderer/Xhtml.php:317
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1062
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1043
 msgid "Map24 map"
 msgstr "Map24-Karte"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:993
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1077
+#: lib/Horde/Form/VarRenderer/Xhtml.php:974
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1058
 msgid "MapQuest map"
 msgstr "MapQuest-Karte"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:300
-#: lib/Horde/Form/VarRenderer/Xhtml.php:339
+#: lib/Horde/Form/VarRenderer/Xhtml.php:281
+#: lib/Horde/Form/VarRenderer/Xhtml.php:320
 msgid "March"
 msgstr "März"
 
-#: lib/Horde/Form.php:860 lib/Horde/Form.php:880
+#: lib/Horde/Form.php:847 lib/Horde/Form.php:867
 msgid "Maximum length"
 msgstr "Maximale Länge"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:302
-#: lib/Horde/Form/VarRenderer/Xhtml.php:341
+#: lib/Horde/Form/VarRenderer/Xhtml.php:283
+#: lib/Horde/Form/VarRenderer/Xhtml.php:322
 msgid "May"
 msgstr "Mai"
 
-#: lib/Horde/Form.php:925
+#: lib/Horde/Form.php:912
 msgid "Mobile phone number"
 msgstr "Mobiltelefonnummer"
 
-#: lib/Horde/Form.php:2279
+#: lib/Horde/Form.php:2266
 msgid "Month and year"
 msgstr "Monat und Jahr"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:426
+#: lib/Horde/Form/VarRenderer/Xhtml.php:407
 msgid "Move down"
 msgstr "Nach unten"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:422
-#: lib/Horde/Form/VarRenderer/Xhtml.php:423
-#: lib/Horde/Form/VarRenderer/Xhtml.php:425
+#: lib/Horde/Form/VarRenderer/Xhtml.php:403
+#: lib/Horde/Form/VarRenderer/Xhtml.php:404
+#: lib/Horde/Form/VarRenderer/Xhtml.php:406
 msgid "Move up"
 msgstr "Nach oben"
 
-#: lib/Horde/Form.php:1869
+#: lib/Horde/Form.php:1856
 msgid "Multi-level drop down lists"
 msgstr "Auswahlliste in mehreren Ebenen"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:964
+#: lib/Horde/Form/VarRenderer/Xhtml.php:945
 msgid "Multimap UK map"
 msgstr "Multimap-UK-Karte"
 
-#: lib/Horde/Form.php:1926
+#: lib/Horde/Form.php:1913
 msgid "Multiple selection"
 msgstr "Mehrfachauswahl"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:35
+#: lib/Horde/Form/VarRenderer/Xhtml.php:846 www/test.php:35
 msgid "No"
 msgstr "Nein"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:873
-#: lib/Horde/Form/VarRenderer/Xhtml.php:883
-#: lib/Horde/Form/VarRenderer/Xhtml.php:894
-#: lib/Horde/Form/VarRenderer/Xhtml.php:911
+#: lib/Horde/Form/VarRenderer/Xhtml.php:854
+#: lib/Horde/Form/VarRenderer/Xhtml.php:864
+#: lib/Horde/Form/VarRenderer/Xhtml.php:875
+#: lib/Horde/Form/VarRenderer/Xhtml.php:892
 msgid "No values"
 msgstr "Keine Werte"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:308
-#: lib/Horde/Form/VarRenderer/Xhtml.php:347
+#: lib/Horde/Form/VarRenderer/Xhtml.php:289
+#: lib/Horde/Form/VarRenderer/Xhtml.php:328
 msgid "November"
 msgstr "November"
 
-#: lib/Horde/Form.php:711
+#: lib/Horde/Form.php:698
 msgid "Number"
 msgstr "Zahl"
 
-#: lib/Horde/Form.php:1060
+#: lib/Horde/Form.php:1047
 msgid "Number of characters"
 msgstr "Anzahl der Zeichen"
 
-#: lib/Horde/Form.php:1013 lib/Horde/Form.php:1058 lib/Horde/Form.php:1078
+#: lib/Horde/Form.php:1000 lib/Horde/Form.php:1045 lib/Horde/Form.php:1065
 msgid "Number of columns"
 msgstr "Anzahl der Spalten"
 
-#: lib/Horde/Form.php:1011 lib/Horde/Form.php:1056 lib/Horde/Form.php:1076
+#: lib/Horde/Form.php:998 lib/Horde/Form.php:1043 lib/Horde/Form.php:1063
 msgid "Number of rows"
 msgstr "Anzahl der Zeilen"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+#: lib/Horde/Form/VarRenderer/Xhtml.php:758
 msgid "Object"
 msgstr "Objekt"
 
-#: lib/Horde/Form.php:764 www/test.php:54
+#: lib/Horde/Form.php:751 www/test.php:54
 msgid "Octal"
 msgstr "Oktalzahl"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:307
-#: lib/Horde/Form/VarRenderer/Xhtml.php:346
+#: lib/Horde/Form/VarRenderer/Xhtml.php:288
+#: lib/Horde/Form/VarRenderer/Xhtml.php:327
 msgid "October"
 msgstr "Oktober"
 
-#: lib/Horde/Form.php:1193
+#: lib/Horde/Form.php:1180
 msgid "Onclick event"
 msgstr "Onclick-Event"
 
-#: lib/Horde/Form.php:1683 lib/Horde/Form/Type/Email.php:441
+#: lib/Horde/Form.php:1670 lib/Horde/Form/Type/Email.php:441
 msgid "Only one email address allowed."
 msgstr "Nur eine E-Mail-Adresse erlaubt."
 
-#: lib/Horde/Form.php:1240 lib/Horde/Form/Type/Email.php:77
+#: lib/Horde/Form.php:1227 lib/Horde/Form/Type/Email.php:77
 msgid "Only one email address is allowed."
 msgstr "Nur eine E-Mail-Adresse ist erlaubt."
 
-#: lib/Horde/Form.php:1727 www/test.php:42 www/test.php:52
+#: lib/Horde/Form.php:1714 www/test.php:42 www/test.php:52
 msgid "Password"
 msgstr "Passwort"
 
-#: lib/Horde/Form.php:1760 www/test.php:53
+#: lib/Horde/Form.php:1747 www/test.php:53
 msgid "Password with confirmation"
 msgstr "Passwort mit Bestätigung"
 
-#: lib/Horde/Form.php:1742 lib/Horde/Form/Type/Password.php:38
+#: lib/Horde/Form.php:1729 lib/Horde/Form/Type/Password.php:38
 msgid "Passwords must match."
 msgstr "Die Passwörter müssen gleich sein."
 
-#: lib/Horde/Form.php:913
+#: lib/Horde/Form.php:900
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: lib/Horde/Form.php:2257
+#: lib/Horde/Form.php:2244
 msgid "Please enter a month and a year."
 msgstr "Bitte einen Monat und ein Jahr angeben."
 
-#: lib/Horde/Form.php:951
+#: lib/Horde/Form.php:938
 msgid "Please enter a valid IP address."
 msgstr "Bitte eine gültige IP-Adresse eingeben."
 
-#: lib/Horde/Form.php:2335
+#: lib/Horde/Form.php:2322
 msgid "Please enter a valid date, check the number of days in the month."
 msgstr ""
 "Bitte geben Sie ein gültiges Datum an; überprüfen Sie die Zahl der Tage in "
 "dem Monat."
 
-#: lib/Horde/Form.php:2140
+#: lib/Horde/Form.php:2127
 msgid "Please enter a valid time."
 msgstr "Bitte einen gültigen Zeitwert eingeben."
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1218
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1199
 msgid "Preview"
 msgstr "Vorschau"
 
-#: lib/Horde/Form.php:1807 lib/Horde/Form.php:1873 lib/Horde/Form.php:3077
+#: lib/Horde/Form.php:1794 lib/Horde/Form.php:1860 lib/Horde/Form.php:3064
 msgid "Prompt text"
 msgstr "Nachfragetext"
 
-#: lib/Horde/Form.php:1440
+#: lib/Horde/Form.php:1427
 msgid "Protect address from spammers?"
 msgstr "Adresse vor Spammern schützen?"
 
@@ -505,19 +506,19 @@ msgstr "Adresse vor Spammern schützen?"
 msgid "Radio Group"
 msgstr "Auswahlknopf-Gruppe"
 
-#: lib/Horde/Form.php:1961
+#: lib/Horde/Form.php:1948
 msgid "Radio selection"
 msgstr "Auswahlknopf"
 
-#: lib/Horde/Form.php:856 lib/Horde/Form.php:876
+#: lib/Horde/Form.php:843 lib/Horde/Form.php:863
 msgid "Regex"
 msgstr "Regulärer Ausdruck"
 
-#: lib/Horde/Form.php:3034
+#: lib/Horde/Form.php:3021
 msgid "Relationship browser"
 msgstr "Verbindungs-Browser"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:459
+#: lib/Horde/Form/VarRenderer/Xhtml.php:440
 msgid "Remove column"
 msgstr "Spalte löschen"
 
@@ -525,40 +526,40 @@ msgstr "Spalte löschen"
 msgid "Required Field"
 msgstr "Notwendiges Feld"
 
-#: lib/Horde/Form/Renderer.php:88 lib/Horde/Form/Renderer/Xhtml.php:282
+#: lib/Horde/Form/Renderer.php:73 lib/Horde/Form/Renderer/Xhtml.php:282
 #: www/test.php:82
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: lib/Horde/Form.php:2910
+#: lib/Horde/Form.php:2897
 msgid "Right header"
 msgstr "Rechte Überschrift"
 
-#: lib/Horde/Form.php:2906
+#: lib/Horde/Form.php:2893
 msgid "Right values"
 msgstr "Rechte Werte"
 
-#: lib/Horde/Form.php:3075
+#: lib/Horde/Form.php:3062
 msgid "SQL statement for value lookups"
 msgstr "SQL-Anweisung zur Abfrage der Werte"
 
-#: lib/Horde/Form.php:2770
+#: lib/Horde/Form.php:2757
 msgid "Select Files"
 msgstr "Dateien auswählen"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:579
+#: lib/Horde/Form/VarRenderer/Xhtml.php:560
 msgid "Select all"
 msgstr "Alle auswählen"
 
-#: lib/Horde/Form.php:2338
+#: lib/Horde/Form.php:2325
 msgid "Select all date components."
 msgstr "Legen Sie alle Datumskomponenten fest."
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+#: lib/Horde/Form/VarRenderer/Xhtml.php:758
 msgid "Select an object"
 msgstr "Objekt auswählen"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:580
+#: lib/Horde/Form/VarRenderer/Xhtml.php:561
 msgid "Select none"
 msgstr "Keinen auswählen"
 
@@ -574,28 +575,28 @@ msgstr "Etwas auswählen 2"
 msgid "Select:"
 msgstr "Auswahl:"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:948
+#: lib/Horde/Form/VarRenderer/Xhtml.php:929
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:306
-#: lib/Horde/Form/VarRenderer/Xhtml.php:345
+#: lib/Horde/Form/VarRenderer/Xhtml.php:287
+#: lib/Horde/Form/VarRenderer/Xhtml.php:326
 msgid "September"
 msgstr "September"
 
-#: lib/Horde/Form.php:2005
+#: lib/Horde/Form.php:1992
 msgid "Set"
 msgstr "Auswahl-Satz"
 
-#: lib/Horde/Form.php:2799
+#: lib/Horde/Form.php:2786
 msgid "Show icon?"
 msgstr "Symbol anzeigen?"
 
-#: lib/Horde/Form.php:2489 lib/Horde/Form.php:2628
+#: lib/Horde/Form.php:2476 lib/Horde/Form.php:2615
 msgid "Show picker?"
 msgstr "Auswähler anzeigen?"
 
-#: lib/Horde/Form.php:2225 lib/Horde/Form.php:2634
+#: lib/Horde/Form.php:2212 lib/Horde/Form.php:2621
 msgid "Show seconds?"
 msgstr "Sekunden anzeigen?"
 
@@ -603,46 +604,46 @@ msgstr "Sekunden anzeigen?"
 msgid "Simple description"
 msgstr "Einfache Beschreibung"
 
-#: lib/Horde/Form.php:858 lib/Horde/Form.php:878 lib/Horde/Form.php:1930
-#: lib/Horde/Form.php:2727 lib/Horde/Form.php:2912
+#: lib/Horde/Form.php:845 lib/Horde/Form.php:865 lib/Horde/Form.php:1917
+#: lib/Horde/Form.php:2714 lib/Horde/Form.php:2899
 msgid "Size"
 msgstr "Größe"
 
-#: lib/Horde/Form.php:2723
+#: lib/Horde/Form.php:2710
 msgid "Sort order selection"
 msgstr "Auswahl der Sortierreihenfolge"
 
-#: lib/Horde/Form.php:2281 lib/Horde/Form.php:2485 lib/Horde/Form.php:2624
+#: lib/Horde/Form.php:2268 lib/Horde/Form.php:2472 lib/Horde/Form.php:2611
 msgid "Start year"
 msgstr "Startjahr"
 
-#: lib/Horde/Form.php:2491 lib/Horde/Form.php:2630
+#: lib/Horde/Form.php:2478 lib/Horde/Form.php:2617
 msgid "Storage format"
 msgstr "Speicherformat"
 
-#: lib/Horde/Form.php:874
+#: lib/Horde/Form.php:861
 msgid "String list"
 msgstr "Zeichenliste"
 
-#: lib/Horde/Form/Renderer.php:81 lib/Horde/Form/Renderer/Xhtml.php:279
+#: lib/Horde/Form/Renderer.php:66 lib/Horde/Form/Renderer/Xhtml.php:279
 msgid "Submit"
 msgstr "Abschicken"
 
-#: lib/Horde/Form.php:854 lib/Horde/Form.php:3118
+#: lib/Horde/Form.php:841 lib/Horde/Form.php:3105
 msgid "Text"
 msgstr "Text"
 
-#: lib/Horde/Form.php:1444
+#: lib/Horde/Form.php:1431
 msgid "The name to use when linking to the compose page"
 msgstr "Name für den Link zur Nachrichtenerstellung"
 
-#: lib/Horde/Form.php:3103
+#: lib/Horde/Form.php:3090
 msgid "The text you entered did not match the text on the screen."
 msgstr ""
 "Der Text, den Sie angegeben haben, entspricht nicht dem Text auf dem "
 "Bildschirm."
 
-#: lib/Horde/Form.php:1042
+#: lib/Horde/Form.php:1029
 #, php-format
 msgid ""
 "There are too many characters in this field. You have entered %s characters; "
@@ -651,18 +652,18 @@ msgstr ""
 "Dieses Feld enthält zu viele Zeichen. Sie haben %s Zeichen eingegeben; Sie "
 "müssen weniger als %s eingeben."
 
-#: lib/Horde/Form.php:2933 lib/Horde/Form/Type/CreditCard.php:18
+#: lib/Horde/Form.php:2920 lib/Horde/Form/Type/CreditCard.php:18
 msgid "This does not seem to be a valid card number."
 msgstr "Dies scheint keine gültige Kartennummer zu sein."
 
-#: lib/Horde/Form.php:644 lib/Horde/Form.php:720 lib/Horde/Form.php:747
-#: lib/Horde/Form.php:774 lib/Horde/Form.php:837 lib/Horde/Form.php:896
-#: lib/Horde/Form.php:955 lib/Horde/Form.php:1039 lib/Horde/Form.php:1669
-#: lib/Horde/Form.php:1715 lib/Horde/Form.php:1737 lib/Horde/Form.php:1784
-#: lib/Horde/Form.php:1844 lib/Horde/Form.php:1905 lib/Horde/Form.php:2101
-#: lib/Horde/Form.php:2143 lib/Horde/Form.php:2332 lib/Horde/Form.php:2645
-#: lib/Horde/Form.php:2925 lib/Horde/Form.php:3098 lib/Horde/Form.php:3586
-#: lib/Horde/Form.php:3594 lib/Horde/Form/Type/Color.php:10
+#: lib/Horde/Form.php:631 lib/Horde/Form.php:707 lib/Horde/Form.php:734
+#: lib/Horde/Form.php:761 lib/Horde/Form.php:824 lib/Horde/Form.php:883
+#: lib/Horde/Form.php:942 lib/Horde/Form.php:1026 lib/Horde/Form.php:1656
+#: lib/Horde/Form.php:1702 lib/Horde/Form.php:1724 lib/Horde/Form.php:1771
+#: lib/Horde/Form.php:1831 lib/Horde/Form.php:1892 lib/Horde/Form.php:2088
+#: lib/Horde/Form.php:2130 lib/Horde/Form.php:2319 lib/Horde/Form.php:2632
+#: lib/Horde/Form.php:2912 lib/Horde/Form.php:3085 lib/Horde/Form.php:3573
+#: lib/Horde/Form.php:3581 lib/Horde/Form/Type/Color.php:10
 #: lib/Horde/Form/Type/CreditCard.php:10 lib/Horde/Form/Type/Date.php:17
 #: lib/Horde/Form/Type/Email.php:424 lib/Horde/Form/Type/Enum.php:28
 #: lib/Horde/Form/Type/Int.php:10 lib/Horde/Form/Type/Number.php:14
@@ -673,29 +674,29 @@ msgstr "Dies scheint keine gültige Kartennummer zu sein."
 msgid "This field is required."
 msgstr "Dieses Feld ist notwendig."
 
-#: lib/Horde/Form.php:728 lib/Horde/Form/Type/Int.php:18
+#: lib/Horde/Form.php:715 lib/Horde/Form/Type/Int.php:18
 msgid "This field may only contain integers."
 msgstr "Dieses Feld darf nur ganze Zahlen enthalten."
 
-#: lib/Horde/Form.php:2109 lib/Horde/Form/Type/Time.php:18
+#: lib/Horde/Form.php:2096 lib/Horde/Form/Type/Time.php:18
 msgid "This field may only contain numbers and the colon."
 msgstr "Dieses Feld darf nur Zahlen und einen Punkt enthalten."
 
-#: lib/Horde/Form.php:755 lib/Horde/Form/Type/Octal.php:18
+#: lib/Horde/Form.php:742 lib/Horde/Form/Type/Octal.php:18
 msgid "This field may only contain octal values."
 msgstr "Dieses Feld darf nur Oktalzahlen enthalten."
 
-#: lib/Horde/Form.php:782
+#: lib/Horde/Form.php:769
 msgid "This field must be a comma or space separated list of integers"
 msgstr ""
 "Dieses Feld muss eine komma- oder leerzeichengetrennte Liste von ganzen "
 "Zahlen enthalten"
 
-#: lib/Horde/Form.php:655 lib/Horde/Form/Type/Number.php:25
+#: lib/Horde/Form.php:642 lib/Horde/Form/Type/Number.php:25
 msgid "This field must be a valid number."
 msgstr "Dieses Feld muss eine gültige Zahl enthalten."
 
-#: lib/Horde/Form.php:2653 lib/Horde/Form/Type/Color.php:18
+#: lib/Horde/Form.php:2640 lib/Horde/Form/Type/Color.php:18
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
@@ -703,19 +704,19 @@ msgstr ""
 "Dieses Feld muss einen Farbwert im hexadezimalen RGB-Format enthalten, z. B. "
 "'#1234af'."
 
-#: lib/Horde/Form.php:388
+#: lib/Horde/Form.php:375
 msgid "This form has already been processed."
 msgstr "Dieses Formular wurde bereits verarbeitet."
 
-#: lib/Horde/Form.php:2118
+#: lib/Horde/Form.php:2105
 msgid "Time"
 msgstr "Zeit"
 
-#: lib/Horde/Form.php:2223
+#: lib/Horde/Form.php:2210
 msgid "Time selection"
 msgstr "Zeitauswahl"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:551
+#: lib/Horde/Form/VarRenderer/Xhtml.php:532
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
@@ -723,7 +724,7 @@ msgstr ""
 "Halten Sie beim Klicken Strg bzw. (PC) Command (Mac) gedrückt, um mehrere "
 "Einträge auszuwählen."
 
-#: lib/Horde/Form.php:1150
+#: lib/Horde/Form.php:1137
 msgid "True or false"
 msgstr "Wahr oder falsch"
 
@@ -731,42 +732,42 @@ msgstr "Wahr oder falsch"
 msgid "Username"
 msgstr "Benutzername"
 
-#: lib/Horde/Form.php:834 lib/Horde/Form/Type/String.php:29
+#: lib/Horde/Form.php:821 lib/Horde/Form/Type/String.php:29
 #, php-format
 msgid "Value is over the maximum length of %s."
 msgstr "Der Wert ist über der maximalen Länge von %s."
 
-#: lib/Horde/Form.php:1928 lib/Horde/Form.php:1963 lib/Horde/Form.php:2007
-#: lib/Horde/Form.php:2725
+#: lib/Horde/Form.php:1915 lib/Horde/Form.php:1950 lib/Horde/Form.php:1994
+#: lib/Horde/Form.php:2712
 msgid "Values"
 msgstr "Werte"
 
-#: lib/Horde/Form.php:1805 lib/Horde/Form.php:1871
+#: lib/Horde/Form.php:1792 lib/Horde/Form.php:1858
 msgid "Values to select from"
 msgstr "Werte, aus denen ausgewählt werden kann"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:970
+#: lib/Horde/Form/VarRenderer/Xhtml.php:951
 msgid "Whereis Australia map"
 msgstr "Whereis-Australia-Karte"
 
-#: lib/Horde/Form.php:2914
+#: lib/Horde/Form.php:2901
 msgid "Width in CSS units"
 msgstr "Breite in CSS-Einheiten"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:310
-#: lib/Horde/Form/VarRenderer/Xhtml.php:353
+#: lib/Horde/Form/VarRenderer/Xhtml.php:291
+#: lib/Horde/Form/VarRenderer/Xhtml.php:334
 msgid "YYYY"
 msgstr "JJJJ"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1017
+#: lib/Horde/Form/VarRenderer/Xhtml.php:998
 msgid "Yahoo! map"
 msgstr "Yahoo! Karte"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:34
+#: lib/Horde/Form/VarRenderer/Xhtml.php:846 www/test.php:34
 msgid "Yes"
 msgstr "Ja"
 
-#: lib/Horde/Form.php:1687 lib/Horde/Form/Type/Email.php:445
+#: lib/Horde/Form.php:1674 lib/Horde/Form/Type/Email.php:445
 msgid "You did not enter a valid email address."
 msgstr "Sie haben keine gültige E-Mail-Adresse angegeben."
 
@@ -774,7 +775,7 @@ msgstr "Sie haben keine gültige E-Mail-Adresse angegeben."
 msgid "You have to fill in some long text here"
 msgstr "Sie müssen hier einen langen Text eingeben"
 
-#: lib/Horde/Form.php:901 lib/Horde/Form/Type/Phone.php:19
+#: lib/Horde/Form.php:888 lib/Horde/Form/Type/Phone.php:19
 msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
@@ -782,27 +783,27 @@ msgstr ""
 "Sie müssen eine gültige Telefonnummer angeben, nur aus Zahlen und ggf. einem "
 "\"+\" für internationale Vorwahlen bestehend."
 
-#: lib/Horde/Form.php:841 lib/Horde/Form/Type/String.php:36
+#: lib/Horde/Form.php:828 lib/Horde/Form/Type/String.php:36
 msgid "You must enter a valid value."
 msgstr "Sie müssen einen gültigen Wert angegeben."
 
-#: lib/Horde/Form.php:1261 lib/Horde/Form/Type/Email.php:98
+#: lib/Horde/Form.php:1248 lib/Horde/Form/Type/Email.php:98
 msgid "You must enter an email address."
 msgstr "Sie müssen eine E-Mail-Adresse angeben."
 
-#: lib/Horde/Form.php:1259 lib/Horde/Form/Type/Email.php:96
+#: lib/Horde/Form.php:1246 lib/Horde/Form/Type/Email.php:96
 msgid "You must enter at least one email address."
 msgstr "Sie müssen mindestens eine E-Mail-Adresse angeben."
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:259
+#: lib/Horde/Form/VarRenderer/Xhtml.php:240
 msgid "hh"
 msgstr "hh"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:269
+#: lib/Horde/Form/VarRenderer/Xhtml.php:250
 msgid "mm"
 msgstr "mm"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:281
+#: lib/Horde/Form/VarRenderer/Xhtml.php:262
 msgid "ss"
 msgstr "ss"
 
