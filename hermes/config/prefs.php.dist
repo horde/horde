@@ -5,7 +5,7 @@
 
 $prefGroups['timer'] = array(
     'column' => _("General Preferences"),
-    'label' => _("Timer Preferences"),
+    'label' => _("Stop watch Preferences"),
     'desc' => _("Set preferences on the stop watch timer."),
     'members' => array('add_description')
 );
