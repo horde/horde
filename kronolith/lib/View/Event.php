@@ -27,7 +27,7 @@ class Kronolith_View_Event
         case 'event':
             return $this->_event;
         default:
-            throw new Exception(_("Property does not exist."));
+            throw new Kronolith_Exception('Property does not exist.');
         }
     }
 

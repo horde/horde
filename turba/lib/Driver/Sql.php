@@ -52,7 +52,7 @@ class Turba_Driver_Sql extends Turba_Driver
     public function __construct($name = '', array $params = array())
     {
         if (empty($params['db'])) {
-            throw new InvalidArgumentException(_("Missing required Horde_Db_Adapter obejct"));
+            throw new InvalidArgumentException('Missing required Horde_Db_Adapter object');
         }
         $this->_db = $params['db'];
         unset($params['db']);

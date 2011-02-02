@@ -34,7 +34,7 @@ class Kronolith_Storage_Sql extends Kronolith_Storage
     {
         $this->_user = $user;
         if (empty($params['db'])) {
-            throw new InvalidArgumentException(_("Missing required db parameter"));
+            throw new InvalidArgumentException('Missing required db parameter');
         }
 
         $this->_db = $params['db'];

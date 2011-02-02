@@ -28,7 +28,7 @@ class Kronolith_Factory_Geo
                 $db = $injector->getInstance('Horde_Db_Adapter');
                 $this->_instances[$GLOBALS['conf']['maps']['geodriver']] = new $class($db);
             } else {
-                throw new Kronolith_Exception(_("Geospatial support not configured."));
+                throw new Kronolith_Exception('Geospatial support not configured.');
             }
         }
 

@@ -52,10 +52,10 @@ foreach ($to_upgrade as $table => $field) {
             $table, array('on' => array('table' => $table, 'field' => $field)), true);
 
         if (is_a($results, 'PEAR_Error')) {
-            $cli->fatal(sprintf(_("Unable to modify the sequence for %s: %s"), $table, $results->getMessage()));
+            $cli->fatal(sprintf('Unable to modify the sequence for %s: %s', $table, $results->getMessage()));
         }
-        $cli->message(sprintf(_("Modified sequence for %s"), $table), 'cli.success');
+        $cli->message(sprintf('Modified sequence for %s', $table), 'cli.success');
     }
 }
 
-$cli->message(_("Done"), 'cli.success');
+$cli->message('Done', 'cli.success');

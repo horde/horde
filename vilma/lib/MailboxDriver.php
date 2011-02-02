@@ -90,6 +90,6 @@ abstract class Vilma_MailboxDriver
             return new $class($params);
         }
 
-        throw new Vilma_Exception(sprintf(_("No such mailbox driver \"%s\" found"), $driver));
+        throw new Vilma_Exception(sprintf('No such mailbox driver "%s" found', $driver));
     }
 }
