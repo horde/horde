@@ -47,6 +47,11 @@ extends  Horde_Kolab_Storage_Folder_Namespace
                 );
             } else {
                 $class = 'Horde_Kolab_Storage_Folder_Namespace_Element_' . ucfirst($element['type']);
+                if (!class_exists($class)) {
+                    throw new Horde_Kolab_Storage_Exception(
+                        sprintf('Unkown namespace type "%s"', $element['type'])
+                    );
+                }
                 $namespace_element = new $class($element['name'], $element['delimiter'], $user);
             }
             $namespaces[] = $namespace_element;
