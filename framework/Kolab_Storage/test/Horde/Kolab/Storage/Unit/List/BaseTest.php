@@ -141,7 +141,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder',
-            $this->_getFolder()->getFolder('INBOX/Calendar')
+            $this->_getList()->getFolder('INBOX/Calendar')
         );
     }
 
@@ -149,7 +149,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'INBOX/Calendar',
-            $this->_getFolder()
+            $this->_getList()
             ->getFolder('INBOX/Calendar')
             ->getPath()
         );
@@ -159,7 +159,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'personal',
-            $this->_getFolder()
+            $this->_getList()
             ->getFolder('INBOX/Calendar')
             ->getNamespace()
         );
@@ -169,7 +169,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'Calendar',
-            $this->_getFolder()
+            $this->_getList()
             ->getFolder('INBOX/Calendar')
             ->getTitle()
         );
@@ -179,7 +179,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'test@example.com',
-            $this->_getFolder()
+            $this->_getList()
             ->getFolder('INBOX/Calendar')
             ->getOwner()
         );
@@ -189,7 +189,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'Calendar',
-            $this->_getFolder()
+            $this->_getList()
             ->getFolder('INBOX/Calendar')
             ->getSubpath()
         );
@@ -198,7 +198,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testFolderDefault()
     {
         $this->assertTrue(
-            $this->_getFolder()
+            $this->_getList()
             ->getFolder('INBOX/Calendar')
             ->isDefault()
         );
@@ -208,13 +208,51 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'event',
-            $this->_getFolder()
+            $this->_getList()
             ->getFolder('INBOX/Calendar')
             ->getType()
         );
     }
 
-    public function _getFolder()
+    public function testCreateFolder()
+    {
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder',
+            $this->_getList()->createFolder('INBOX/NewFolder')
+        );
+    }
+
+    public function testCreateWithUmlaut()
+    {
+        $this->assertEquals(
+            'NewFolderÄ',
+            $this->_getList()
+            ->createFolder('INBOX/NewFolderÄ')
+            ->getTitle()
+        );
+    }
+
+    public function testCreateFolderCreatesFolder()
+    {
+        $list = $this->_getList();
+        $list->createFolder('INBOX/NewFolderÄ');
+        $this->assertContains(
+            'INBOX/NewFolderÄ',
+            $list->listFolders()
+        );
+    }
+
+    public function testCreateFolderWithAnnotation()
+    {
+        $list = $this->_getList();
+        $list->createFolder('INBOX/NewFolderÄ', 'event');
+        $this->assertContains(
+            'INBOX/NewFolderÄ',
+            $list->getQuery()->listByType('event')
+        );
+    }
+
+    private function _getList()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $list = new Horde_Kolab_Storage_List_Base(

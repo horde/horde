@@ -28,6 +28,9 @@
 class Horde_Kolab_Storage_List_Base
 implements Horde_Kolab_Storage_List
 {
+    /** The folder type annotation */
+    const ANNOTATION_FOLDER_TYPE = '/shared/vendor/kolab/folder-type';
+
     /**
      * The driver for accessing the Kolab storage system.
      *
@@ -74,6 +77,29 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Create a new folder.
+     *
+     * @param string $folder The path of the folder to create.
+     * @param string $type   An optional type for the folder.
+     *
+     * @return Horde_Kolab_Storage_Folder The folder representation.
+     */
+    public function createFolder($folder, $type = null)
+    {
+        $this->_driver->create($folder);
+        if ($type) {
+            $this->_driver->setAnnotation(
+                $folder, self::ANNOTATION_FOLDER_TYPE, $type
+            );
+        }
+        return $this->_factory->createFolder(
+            $this,
+            $folder,
+            $this->getQuery()->folderData($folder)
+        );
+    }
+
+    /**
      * Returns a representation for the requested folder.
      *
      * @param string $folder The path of the folder to return.
@@ -108,7 +134,7 @@ implements Horde_Kolab_Storage_List
     public function listFolderTypes()
     {
         return $this->_driver->listAnnotation(
-            '/shared/vendor/kolab/folder-type'
+            self::ANNOTATION_FOLDER_TYPE
         );
     }
 
