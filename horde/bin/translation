@@ -321,7 +321,7 @@ function xtract()
             . ' --keyword=_ --keyword=ngettext --keyword=t --keyword=n'
             . ' --sort-output'
             . ' --package-name=' . ($apps[$i] == 'imp' ? 'IMP' : ucfirst($apps[$i]))
-            . ' --package-version=' . $version
+            . ' --package-version="' . $version . '"'
             . ' --copyright-holder="Horde Project"'
             . ' --msgid-bugs-address="dev@lists.horde.org"'
             . ' --files-from=' . $file . '.list'
@@ -1367,12 +1367,12 @@ if (empty($language)) {
 }
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array(
-    'authentication' => 'none',
-    'cli' => true
-));
 
-$c = $cli;
+$c = new Horde_Cli();
+if (!$c->runningFromCLI()) {
+    $c->fatal('This script must be run from the command line.');
+}
+$c->init();
 
 $c->writeln($c->bold('---------------------------'));
 $c->writeln($c->bold('Horde translation generator'));
