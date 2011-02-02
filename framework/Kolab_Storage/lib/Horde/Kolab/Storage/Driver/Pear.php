@@ -47,6 +47,7 @@ extends Horde_Kolab_Storage_Driver_Base
         Horde_Kolab_Storage_Exception_Pear::catchError(
             $client->login($config['username'], $config['password'])
         );
+        $this->charset = 'ISO-8859-1';
         return $client;
     }
 
@@ -57,7 +58,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
-        return $this->getBackend()->getMailboxes();
+        return $this->decodeList($this->getBackend()->getMailboxes());
     }
 
     /**
@@ -78,7 +79,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 $list[$element['MAILBOX']] = $element['ATTRIBUTES'][$value];
             }
         }
-        return $list;
+        return $this->decodeListKeys($list);
     }
 
     /**

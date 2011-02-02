@@ -99,17 +99,6 @@ implements Iterator
     }
 
     /**
-     * Get the character set used/expected when calling the getTitle() or
-     * setName() methods.
-     *
-     * @return string The character set.
-     */
-    public function getCharset()
-    {
-        throw new Exception('This method is deprecated, assume UTF-8');
-    }
-
-    /**
      * Return the owner of a folder.
      *
      * @param string $name The name of the folder.
@@ -118,7 +107,6 @@ implements Iterator
      */
     public function getOwner($name)
     {
-        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
         return $this->matchNamespace($name)->getOwner($name);
     }
 
@@ -131,7 +119,6 @@ implements Iterator
      */
     public function getSubpath($name)
     {
-        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
         return $this->matchNamespace($name)->getSubpath($name);
     }
 
@@ -144,7 +131,6 @@ implements Iterator
      */
     public function getTitle($name)
     {
-        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
         return $this->matchNamespace($name)->getTitle($name);
     }
 
@@ -217,11 +203,7 @@ implements Iterator
                 )
             );
         }
-        return Horde_String::convertCharset(
-            $selection->generateName($elements),
-            'UTF-8',
-            'UTF7-IMAP'
-        );
+        return $selection->generateName($elements);
     }
 
     /**

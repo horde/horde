@@ -55,7 +55,11 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
-        return $this->getBackend()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
+        return $this->decodeList(
+            $this->getBackend()->listMailboxes(
+                '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true)
+            )
+        );
     }
 
     /**
@@ -75,7 +79,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 $data[$folder] = $annotations[$annotation];
             }
         }
-        return $data;
+        return $this->decodeListKeys($data);
     }
 
     /**

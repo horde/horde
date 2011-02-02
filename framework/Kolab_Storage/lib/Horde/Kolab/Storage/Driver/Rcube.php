@@ -93,7 +93,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
-        return $this->getBackend()->listMailboxes('', '*');
+        return $this->decodeList($this->getBackend()->listMailboxes('', '*'));
     }
 
     /**
@@ -117,7 +117,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 $data[$folder] = $annotations[$annotation];
             }
         }
-        return $data;
+        return $this->decodeListKeys($data);
     }
 
     /**

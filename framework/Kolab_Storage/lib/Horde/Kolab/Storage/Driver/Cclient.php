@@ -66,6 +66,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 )
             );
         }
+        return $result;
     }
 
     /**
@@ -76,7 +77,15 @@ extends Horde_Kolab_Storage_Driver_Base
     private function _getBaseMbox()
     {
         if (!isset($this->_base_mbox)) {
-            $this->_base_mbox = '{' . $this->_getHost() . ':143/notls}';
+            $this->_base_mbox = '{' . $this->_getHost()
+                . ':' . $this->getParam('port') . '/imap';
+            $secure = $this->getParam('secure');
+            if (!empty($secure)) {
+                $this->_base_mbox .= '/' . $secure . '/novalidate-cert';
+            } else {
+                $this->_base_mbox .= '/notls';
+            }
+            $this->_base_mbox .= '}';
         }
         return $this->_base_mbox;
     }
@@ -112,7 +121,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folders = array();
 
-        $result = @imap_list($this->getBackend(), $this->_getBaseMbox(), '*');
+        $result = imap_list($this->getBackend(), $this->_getBaseMbox(), '*');
         if (!$result) {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
@@ -133,7 +142,7 @@ extends Horde_Kolab_Storage_Driver_Base
             }
         }
 
-        return $folders;
+        return $this->decodeList($folders);
     }
 
 
@@ -160,7 +169,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 $list[$mailbox] = $result[$value];
             }
         }
-        return $list;
+        return $this->decodeListKeys($list);
     }
 
     /**

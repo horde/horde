@@ -57,6 +57,13 @@ implements Horde_Kolab_Storage_Driver
     private $_backend;
 
     /**
+     * Charset used by this driver.
+     *
+     * @var string
+     */
+    protected $charset = 'UTF7-IMAP';
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
@@ -154,6 +161,60 @@ implements Horde_Kolab_Storage_Driver
     protected function getFactory()
     {
         return $this->_factory;
+    }
+
+    /**
+     * Encode IMAP path names from  UTF-8 to the driver charset.
+     *
+     * @param string $path The UTF-8 encoded path name.
+     *
+     * @return string The path name in the driver charset.
+     */
+    protected function encodePath($path)
+    {
+        return Horde_String::convertCharset($path, 'UTF-8', $this->charset);
+    }
+
+    /**
+     * Decode IMAP path names from the driver charset to UTF-8.
+     *
+     * @param string $path The the driver charset encoded path name.
+     *
+     * @return string The path name in UTF-8.
+     */
+    protected function decodePath($path)
+    {
+        return Horde_String::convertCharset($path,  $this->charset, 'UTF-8');
+    }
+
+    /**
+     * Decode a list of IMAP path names from the driver charset to UTF-8.
+     *
+     * @param array $list The the driver charset encoded path names.
+     *
+     * @return array The path names in UTF-8.
+     */
+    protected function decodeList(array $list)
+    {
+        return array_map(array($this, 'decodePath'), $list);
+    }
+
+    /**
+     * Decode the keys of a list of IMAP path names from the driver charset to
+     * UTF-8.
+     *
+     * @param array $list The list with the driver charset encoded path names as
+     *                    keys.
+     *
+     * @return array The list with path names in UTF-8 as keys.
+     */
+    protected function decodeListKeys(array $list)
+    {
+        $result = array();
+        foreach ($list as $key => $value) {
+            $result[$this->decodePath($key)] = $value;
+        }
+        return $result;
     }
 
     /**
