@@ -648,7 +648,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function getCharset()
     {
         $charset = $this->getContentTypeParameter('charset');
-        return empty($charset) ? null : $charset;
+        if (is_null($charset)) {
+            return null;
+        }
+
+        $charset = Horde_String::lower($charset);
+
+        if ($this->getPrimaryType() == 'text') {
+            $d_charset = Horde_String::lower(self::$defaultCharset);
+            if (($d_charset != 'us-ascii') && ($charset == 'us-ascii')) {
+                return $d_charset;
+            }
+        }
+
+        return $charset;
     }
 
     /**
@@ -1773,146 +1786,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     }
 
     /**
-     * Parse an array of MIME structure information into a Horde_Mime_Part
-     * object.
-     * This function can be called statically via:
-     *    $mime_part = Horde_Mime_Part::parseStructure();
-     *
-     * @param array $structure  An array of structure information in the
-     *                          following format:
-     * <pre>
-     * MANDATORY:
-     *   'type' - (string) The MIME type
-     *   'subtype' - (string) The MIME subtype
-     *
-     * The array MAY contain the following information:
-     *   'contents' - (string) The contents of the part.
-     *   'disposition' - (string) The disposition type of the part (e.g.
-     *                   'attachment', 'inline').
-     *   'dparameters' - (array) Attribute/value pairs from the part's
-     *                   Content-Disposition header.
-     *   'language' - (array) A list of body language values.
-     *   'location' - (string) The body content URI.
-     *
-     * Depending on the MIME type of the part, the array will also contain
-     * further information. If labeled as [OPTIONAL], the array MAY
-     * contain this information, but only if 'noext' is false and the
-     * server returned the requested information. Else, the value is not
-     * set.
-     *
-     * multipart/* parts:
-     * ==================
-     * 'parts' - (array) An array of subparts (follows the same format as
-     *           the base structure array).
-     * 'parameters' - [OPTIONAL] (array) Attribute/value pairs from the
-     *                part's Content-Type header.
-     *
-     * All other parts:
-     * ================
-     * 'parameters' - (array) Attribute/value pairs from the part's
-     *                Content-Type header.
-     * 'id' - (string) The part's Content-ID value.
-     * 'description' - (string) The part's Content-Description value.
-     * 'encoding' - (string) The part's Content-Transfer-Encoding value.
-     * 'size' - (integer) - The part's size in bytes.
-     * 'envelope' - [ONLY message/rfc822] (array) See 'envelope' response.
-     * 'structure' - [ONLY message/rfc822] (array) See 'structure'
-     *               response.
-     * 'lines' - [ONLY message/rfc822 and text/*] (integer) The size of
-     *           the body in text lines.
-     * 'md5' - [OPTIONAL] (string) The part's MD5 value.
-     * </pre>
-     *
-     * @return object  A Horde_Mime_Part object.
-     */
-    static public function parseStructure($structure)
-    {
-        $ob = self::_parseStructure($structure);
-        $ob->buildMimeIds();
-        return $ob;
-    }
-
-    /**
-     * Parse a subpart of a MIME message into a Horde_Mime_Part object.
-     *
-     * @param array $data  Structure information in the format described
-     *                     in parseStructure().
-     *
-     * @return Horde_Mime_Part  The generated object.
-     */
-    static protected function _parseStructure($data)
-    {
-        $ob = new Horde_Mime_Part();
-        $ob->setType($data['type'] . '/' . $data['subtype']);
-
-        if (isset($data['encoding'])) {
-            $ob->setTransferEncoding($data['encoding']);
-        }
-
-        if (isset($data['contents'])) {
-            $ob->setContents($data['contents']);
-        }
-
-        if (isset($data['size'])) {
-            $ob->setBytes($data['size']);
-        }
-
-        if (isset($data['disposition'])) {
-            $ob->setDisposition($data['disposition']);
-            if (!empty($data['dparameters'])) {
-                $params = Horde_Mime::decodeParam('content-disposition', $data['dparameters']);
-                foreach ($params['params'] as $key => $val) {
-                    $ob->setDispositionParameter($key, $val);
-                }
-            }
-        }
-
-        if (isset($data['id'])) {
-            $ob->setContentId($data['id']);
-        }
-
-        if (!empty($data['parameters'])) {
-            $params = Horde_Mime::decodeParam('content-type', $data['parameters']);
-            foreach ($params['params'] as $key => $val) {
-                $ob->setContentTypeParameter($key, $val);
-            }
-        }
-
-        /* Set the default character set. */
-        if (($data['subtype'] == 'text') &&
-            (self::$defaultCharset != 'us-ascii') &&
-            (Horde_String::lower($ob->getCharset()) == 'us-ascii')) {
-            $ob->setCharset(self::$defaultCharset);
-        }
-
-        if (isset($data['description'])) {
-            $ob->setDescription(Horde_Mime::decode($data['description'], 'UTF-8'));
-        }
-
-        /* Set the name. */
-        if (!$ob->getName()) {
-            $fname = $ob->getDispositionParameter('filename');
-            if (strlen($fname)) {
-                $ob->setName($fname);
-            }
-        }
-
-        // @todo Handle language, location, md5, lines, envelope
-
-        /* Add multipart parts. */
-        if (!empty($data['parts'])) {
-            reset($data['parts']);
-            while (list(,$val) = each($data['parts'])) {
-                $ob->addPart(self::_parseStructure($val));
-            }
-        } elseif (!empty($data['structure'])) {
-            $ob->addPart(self::_parseStructure($data['structure']));
-        }
-
-        return $ob;
-    }
-
-    /**
      * Attempts to build a Horde_Mime_Part object from message text.
      * This function can be called statically via:
      *    $mime_part = Horde_Mime_Part::parseMessage();
@@ -1924,13 +1797,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      *               MIME data. If not, a MIME-Version header must exist (RFC
      *               2045 [4]) to be parsed as a MIME message.
      *               DEFAULT: false
-     * 'structure' - (boolean) If true, returns a structure object instead of
-     *               a Horde_Mime_Part object.
-     *               Default: false
      * </pre>
      *
-     * @return mixed  If 'structure' is true, a structure array. If 'structure'
-     *                is false, a Horde_Mime_Part object.
+     * @return Horde_Mime_Part  A MIME Part object.
      * @throws Horde_Mime_Exception
      */
     static public function parseMessage($text, $options = array())
@@ -1939,10 +1808,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         list($hdr_pos, $eol) = self::_findHeader($text);
 
         $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), null, !empty($options['forcemime']));
-
-        return empty($options['structure'])
-            ? self::parseStructure($ob)
-            : $ob;
+        $ob->buildMimeIds();
+        return $ob;
     }
 
     /**
@@ -1955,7 +1822,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      *                            MIME data. If not, a MIME-Version header
      *                            must exist to be parsed as a MIME message.
      *
-     * @return array  See Horde_Mime_Part::parseStructure().
+     * @return Horde_Mime_Part  TODO
      */
     static protected function _getStructure($header, $body,
                                             $ctype = 'application/octet-stream',
@@ -1964,92 +1831,85 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         /* Parse headers text into a Horde_Mime_Headers object. */
         $hdrs = Horde_Mime_Headers::parseHeaders($header);
 
+        $ob = new Horde_Mime_Part();
+
         /* This is not a MIME message. */
         if (!$forcemime && !$hdrs->getValue('mime-version')) {
-            $nonmime = array(
-                'dparameters' => array(),
-                'parameters' => array(),
-                'parts' => array(),
-                'type' => 'text',
-                'subtype' => 'plain'
-            );
+            $ob->setType('text/plain');
 
             if (!empty($body)) {
-                $nonmime['contents'] = $body;
-                $nonmime['size'] = strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body));
+                $ob->setContents($body);
+                $ob->setBytes( strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
             }
 
-            return $nonmime;
+            return $ob;
         }
-
-        $part = array('parts' => array());
 
         /* Content type. */
-        $tmp = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_BASE);
-        if (!$tmp) {
-            $tmp = $ctype;
+        if ($tmp = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_BASE)) {
+            $ob->setType($tmp);
+
+            $ctype_params = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_PARAMS);
+            foreach ($ctype_params as $key => $val) {
+                $ob->setContentTypeParameter($key, $val);
+            }
+        } else {
+            $ob->setType($ctype);
+            $ctype_params = array();
         }
-        list($part['type'], $part['subtype']) = explode('/', strtolower($tmp), 2);
 
         /* Content transfer encoding. */
-        $tmp = $hdrs->getValue('content-transfer-encoding');
-        if ($tmp) {
-            $part['encoding'] = strtolower($tmp);
+        if ($tmp = $hdrs->getValue('content-transfer-encoding')) {
+            $ob->setTransferEncoding($tmp);
         }
 
-        /* Content-Type and Disposition parameters. */
-        $part['dparameters'] = $hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_PARAMS);
-        $part['parameters'] = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_PARAMS);
-
         /* Content-Description. */
-        $tmp = $hdrs->getValue('content-description');
-        if ($tmp) {
-            $part['description'] = $tmp;
+        if ($tmp = $hdrs->getValue('content-description')) {
+            $ob->setDescription($tmp);
         }
 
         /* Content-Disposition. */
-        $tmp = $hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_BASE);
-        if ($tmp) {
-            $part['disposition'] = strtolower($tmp);
+        if ($tmp = $hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_BASE)) {
+            $ob->setDisposition($tmp);
+            foreach ($hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_PARAMS) as $key => $val) {
+                $ob->setDispositionParameter($key, $val);
+            }
         }
 
         /* Content-ID. */
-        $tmp = $hdrs->getValue('content-id');
-        if ($tmp) {
-            $part['id'] = $tmp;
+        if ($tmp = $hdrs->getValue('content-id')) {
+            $ob->setContentId($tmp);
         }
 
         /* Get file size (if 'body' text is set). */
         if (!empty($body)) {
-            $part['contents'] = $body;
-            if (($part['type'] != 'message') &&
-                ($part['subtype'] != 'rfc822')) {
-                $part['size'] = strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body));
+            $ob->setContents($body);
+            if ($ob->getType() != '/message/rfc822') {
+                $ob->setBytes(strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
             }
         }
 
         /* Process subparts. */
-        switch ($part['type']) {
+        switch ($ob->getPrimaryType()) {
         case 'message':
-            if ($part['subtype'] == 'rfc822') {
-                $part['parts'][] = self::parseMessage($body, array('forcemime' => true, 'structure' => true));
+            if ($ob->getSubType() == 'rfc822') {
+                $ob->addPart(self::parseMessage($body, array('forcemime' => true)));
             }
             break;
 
         case 'multipart':
-            $tmp = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_PARAMS);
-            if (isset($tmp['boundary'])) {
-                $b_find = self::_findBoundary($body, 0, $tmp['boundary']);
+            if (isset($ctype_params['boundary'])) {
+                $b_find = self::_findBoundary($body, 0, $ctype_params['boundary']);
                 foreach ($b_find as $val) {
                     $subpart = substr($body, $val['start'], $val['length']);
                     list($hdr_pos, $eol) = self::_findHeader($subpart);
-                    $part['parts'][] = self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($part['subtype'] == 'digest') ? 'message/rfc822' : 'text/plain', true);
+                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain', true));
                 }
             }
             break;
         }
 
-        return $part;
+        return $ob;
     }
 
     /**
