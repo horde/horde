@@ -95,6 +95,22 @@ Choices are:
                 )
             ),
             new Horde_Argv_Option(
+                '-P',
+                '--port',
+                array(
+                    'action' => 'store',
+                    'help'   => Horde_Kolab_Cli_Translation::t('The port that should be used to connect to the host.')
+                )
+            ),
+            new Horde_Argv_Option(
+                '-S',
+                '--secure',
+                array(
+                    'action' => 'store',
+                    'help'   => Horde_Kolab_Cli_Translation::t('Sets the connection type. Use either "tls" or "ssl" here.')
+                )
+            ),
+            new Horde_Argv_Option(
                 '-t',
                 '--timed',
                 array(
