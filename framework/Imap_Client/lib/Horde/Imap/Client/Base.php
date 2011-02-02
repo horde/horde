@@ -1825,8 +1825,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *     'length' - (integer) If 'start' is defined, the length of the
      *                substring to return.
      *                DEFAULT: The entire text is returned.
-     *     'parse' - (boolean) If true, and the Horde MIME library is
-     *               available, parse the header text into a
+     *     'parse' - (boolean) If true, parse the header text into a
      *               Horde_Mime_Headers object.
      *               DEFAULT: The full header text is returned.
      *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
@@ -1971,8 +1970,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                DEFAULT: The entire text is returned.
      *     'notsearch' - (boolean) Do a 'NOT' search on the headers.
      *                   DEFAULT: false
-     *     'parse' - (boolean) If true, and the Horde_Mime library is
-     *               available, parse the returned headers into a
+     *     'parse' - (boolean) If true, parse the returned headers into a
      *               Horde_Mime_Headers object.
      *               DEFAULT: The full header text is returned.
      *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
@@ -1994,8 +1992,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   Value: (array) The following options are available:
      *     'noext' - (boolean) Don't return information on extensions
      *               DEFAULT: Will return information on extensions
-     *     'parse' - (boolean) If true, and the Horde_Mime library is
-     *               available, parse the returned structure into a
+     *     'parse' - (boolean) If true, parse the returned structure into a
      *               Horde_Mime_Part object.
      *               DEFAULT: The array representation is returned.
      *   Return key: 'structure' [CACHEABLE]

@@ -211,7 +211,7 @@ class Horde_Imap_Client_Utils
      */
     public function getBaseSubject($str, $options = array())
     {
-        // Rule 1a: MIME decode to UTF-8 (if possible).
+        // Rule 1a: MIME decode to UTF-8.
         $str = Horde_Mime::decode($str, 'UTF-8');
 
         // Rule 1b: Remove superfluous whitespace.

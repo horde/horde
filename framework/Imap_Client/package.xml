@@ -104,6 +104,10 @@
    <pearinstaller>
     <min>1.5.0</min>
    </pearinstaller>
+   <package>
+    <name>Mime</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <extension>
     <name>hash</name>
    </extension>
@@ -115,10 +119,6 @@
    </package>
    <package>
     <name>Cache</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
