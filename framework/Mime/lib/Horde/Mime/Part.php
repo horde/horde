@@ -31,6 +31,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     const ENCODE_8BIT = 2;
     const ENCODE_BINARY = 4;
 
+    /* Unknown types. */
+    const UNKNOWN = 'x-unknown';
+
     /**
      * The default charset to use when parsing text parts with no charset
      * information.
@@ -533,7 +536,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         /* RFC 2045: Any entity with unrecognized encoding must be treated
          * as if it has a Content-Type of "application/octet-stream"
          * regardless of what the Content-Type field actually says. */
-        if (($this->_transferEncoding == 'x-unknown') ||
+        if (($this->_transferEncoding == self::UNKNOWN) ||
             (strpos($type, '/') === false)) {
             return;
         }
@@ -550,7 +553,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
                 $this->clearContentTypeParameter('boundary');
             }
         } else {
-            $this->_type = 'x-unknown';
+            $this->_type = self::UNKNOWN;
             $this->clearContentTypeParameter('boundary');
         }
     }
@@ -734,7 +737,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
              * as if it has a Content-Type of "application/octet-stream"
              * regardless of what the Content-Type field actually says. */
             $this->setType('application/octet-stream');
-            $this->_transferEncoding = 'x-unknown';
+            $this->_transferEncoding = self::UNKNOWN;
         }
     }
 
