@@ -1189,16 +1189,25 @@ class Horde_Translation_Script
             if (empty($lang)) {
                 if ($help_only) {
                     $files = array_merge($files, $this->strip_horde($this->search_ext('xml', $dirs[$i] . DS . 'locale')));
+                } elseif ($git) {
+                    $files = array_merge($files, $this->search_file('^[a-z]{2}(_[A-Z]{2})?', $dirs[$i] . DS . 'locale', true));
                 } else {
                     $files = array_merge($files, $this->strip_horde($this->get_po_files($dirs[$i] . DS . 'po')));
                     $files = array_merge($files, $this->strip_horde($this->search_file('^[a-z]{2}(_[A-Z]{2})?', $dirs[$i] . DS . 'locale', true)));
                 }
             } else {
+                if (!is_dir($dirs[$i] . DS . 'locale' . DS . $lang)) {
+                    continue;
+                }
                 if ($help_only &&
                     !file_exists($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml')) {
                     continue;
                 }
-                $files[] = $this->strip_horde($dirs[$i] . DS . 'locale' . DS . $lang);
+                if ($git) {
+                    $files[] = $dirs[$i] . DS . 'locale' . DS . $lang;
+                } else {
+                    $files[] = $this->strip_horde($dirs[$i] . DS . 'locale' . DS . $lang);
+                }
             }
             if ($docs && !$help_only && $apps[$i]) {
                 $files[] = $this->strip_horde($dirs[$i] . DS . 'docs');
