@@ -42,8 +42,11 @@ interface Horde_Kolab_Storage_Queriable
      *
      * @param string $name The query name.
      *
-     * @return NULL
+     * @return Horde_Kolab_Storage_Query The requested query.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query does
+     *                                       not exist.
      */
-    public function getQuery($name);
+    public function getQuery($name = null);
 }
 
