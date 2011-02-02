@@ -38,7 +38,9 @@ extends Horde_Kolab_Storage_Driver_Base
         $config = $this->getParams();
         $config['hostspec'] = $config['host'];
         unset($config['host']);
-        //$config['debug'] = '/tmp/imap.log';
+        if (isset($config['debug']) && $config['debug'] == 'STDOUT') {
+            $config['debug'] == STDOUT;
+        }
         if ($config['driver'] = 'horde') {
             return new Horde_Imap_Client_Socket($config);
         } else {
@@ -412,17 +414,19 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getNamespace()
     {
-        if ($this->_namespace === null
-            && $this->getBackend()->queryCapability('NAMESPACE') === true) {
-            $c = array();
-            $configuration = $this->getParam('namespaces', array());
-            foreach ($this->getBackend()->getNamespaces() as $namespace) {
-                if (in_array($namespace['name'], array_keys($configuration))) {
-                    $namespace = array_merge($namespace, $configuration[$namespace['name']]);
+        if ($this->_namespace === null) {
+            $this->getBackend()->login();
+            if ( $this->getBackend()->queryCapability('NAMESPACE') === true) {
+                $c = array();
+                $configuration = $this->getParam('namespaces', array());
+                foreach ($this->getBackend()->getNamespaces() as $namespace) {
+                    if (in_array($namespace['name'], array_keys($configuration))) {
+                        $namespace = array_merge($namespace, $configuration[$namespace['name']]);
+                    }
+                    $c[] = $namespace;
                 }
-                $c[] = $namespace;
+                $this->_namespace = $this->getFactory()->createNamespace('imap', $this->getAuth(), $c);
             }
-            $this->_namespace = $this->getFactory()->createNamespace('imap', $this->getAuth(), $c);
         }
         return parent::getNamespace();
     }

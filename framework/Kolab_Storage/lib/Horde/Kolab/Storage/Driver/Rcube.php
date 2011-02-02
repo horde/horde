@@ -29,6 +29,35 @@ class Horde_Kolab_Storage_Driver_Rcube
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
+     * Debug log
+     *
+     * @var resource
+     */
+    private $_debug_log;
+
+    /**
+     * Write a line of debugging output to the log.
+     *
+     * @return NULL
+     */
+    public function debugLog($driver, $message)
+    {
+        fwrite($this->_debug_log, $message . "\n");
+    }
+        
+    /**
+     * Destructor.
+     */
+    public function __destruct()
+    {
+        if (is_resource($this->_debug_log)) {
+            fflush($this->_debug_log);
+            fclose($this->_debug_log);
+            $this->_debug_log = null;
+        }
+    }
+
+    /**
      * Create the backend driver.
      *
      * @return mixed The backend driver.
@@ -37,7 +66,14 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $config = $this->getParams();
         $client = new rcube_imap_generic();
-        //$client->setDebug(true);
+        if (isset($config['debug'])) {
+            if ($config['debug'] == 'STDOUT') {
+                $client->setDebug(true);
+            } else {
+                $this->_debug_log = fopen($config['debug'], 'a');
+                $client->setDebug(true, array($this, 'debugLog'));
+            }
+        }
         $client->connect(
             $config['host'], $config['username'], $config['password'],
             array(
@@ -421,30 +457,17 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getNamespace()
     {
-        if ($this->getBackend()->hasCapability('NAMESPACE') === true) {
+        if ($this->getBackend()->getCapability('NAMESPACE') === true) {
             $namespaces = array();
             foreach ($this->getBackend()->getNamespace() as $type => $elements) {
                 foreach ($elements as $namespace) {
-                    switch ($type) {
-                    case 'personal':
-                        $namespace['type'] = 'personal';
-                        break;
-                    case 'others':
-                        $namespace['type'] = 'other';
-                        break;
-                    case 'shared':
-                        $namespace['type'] = 'shared';
-                        break;
-                    }
-                    $namespace['delimiter'] = $namespace['delimiter'];
+                    $namespace['name'] = $namespace[0];
+                    $namespace['delimiter'] = $namespace[1];
+                    $namespace['type'] = $type;
                     $namespaces[] = $namespace;
                 }
             }
-            return new Horde_Kolab_Storage_Driver_Namespace_Imap(
-                $namespaces,
-                $this->getAuth(),
-                $this->getParam('namespaces', array())
-            );
+            $this->_namespace = $this->getFactory()->createNamespace('imap', $this->getAuth(), $namespaces);
         }
         return parent::getNamespace();
     }

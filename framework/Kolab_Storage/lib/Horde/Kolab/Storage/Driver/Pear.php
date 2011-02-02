@@ -37,6 +37,13 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $config = $this->getParams();
         $client = new Net_IMAP($config['host'], $config['port']);
+        if (isset($config['debug'])) {
+            if ($config['debug'] == 'STDOUT') {
+                $client->setDebug(true);
+            } else {
+                throw new Horde_Kolab_Storage_Exception('This driver does not support debug logging into a file.');
+            }
+        }
         Horde_Kolab_Storage_Exception_Pear::catchError(
             $client->login($config['username'], $config['password'])
         );
@@ -415,14 +422,11 @@ extends Horde_Kolab_Storage_Driver_Base
             foreach ($this->getBackend()->getNamespace() as $type => $elements) {
                 foreach ($elements as $namespace) {
                     switch ($type) {
-                    case 'personal':
-                        $namespace['type'] = 'personal';
-                        break;
                     case 'others':
                         $namespace['type'] = 'other';
                         break;
-                    case 'shared':
-                        $namespace['type'] = 'shared';
+                    default:
+                        $namespace['type'] = $type;
                         break;
                     }
                     $namespace['delimiter'] = $namespace['delimter'];
