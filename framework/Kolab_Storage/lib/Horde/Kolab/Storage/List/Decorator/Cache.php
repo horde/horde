@@ -133,6 +133,7 @@ implements Horde_Kolab_Storage_List
      */
     public function getNamespace()
     {
+        //@todo: cache as well
         return $this->_list->getNamespace();
     }
 
@@ -174,9 +175,12 @@ implements Horde_Kolab_Storage_List
      *
      * @param string $name The query name.
      *
-     * @return NULL
+     * @return Horde_Kolab_Storage_Query The requested query.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query does
+     *                                       not exist.
      */
-    public function getQuery($name)
+    public function getQuery($name = null)
     {
         return $this->_list->getQuery($name);
     }
