@@ -936,12 +936,7 @@ foreach ($url_types as $type => $label) {
     }
 }
 
-if (isset($fetch_res) &&
-    @require_once 'Horde/Mime/Part.php') {
-    print "\nTesting Horde_Mime_Part::parseStructure() on complex MIME message:\n";
-    $parse_res = Horde_Mime_Part::parseStructure($fetch_res[$uid3]['structure']);
-    print_r($parse_res);
-
+if (isset($fetch_res)) {
     print "\nTesting Horde_Mime_Part::parseMessage() on complex MIME message:\n";
     $parse_text_res = Horde_Mime_Part::parseMessage(file_get_contents($currdir . '/test_email2.txt'));
     print_r($parse_text_res);

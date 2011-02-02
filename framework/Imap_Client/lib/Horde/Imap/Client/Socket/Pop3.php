@@ -879,7 +879,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     $tmp = false;
                     if ($ptr = $this->_pop3Cache('msg', $id)) {
                         try {
-                            $tmp = Horde_Mime_Part::parseMessage(stream_get_contents($ptr), array('structure' => empty($c_val['parse'])));
+                            $tmp = Horde_Mime_Part::parseMessage(stream_get_contents($ptr));
                         } catch (Horde_Exception $e) {}
                     }
                     $ret[$id]['structure'] = $tmp;

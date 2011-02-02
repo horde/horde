@@ -983,8 +983,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                         $err = true;
                         break 2;
                     }
-                    $structure = $this->_parseStructure($structure);
-                    $ret[$id]['structure'] = empty($c_val['parse']) ? $structure : Horde_Mime_Part::parseStructure($structure);
+                    $ob = $this->_parseStructure($structure);
+                    $ob->buildMimeIds();
+                    $ret[$id]['structure'] = $ob;
                 }
                 break;
 
@@ -1259,68 +1260,70 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     }
 
     /**
-     * Parse the output from imap_fetchstructure() in the format that
-     * this class returns structure data in.
+     * Parse the output from imap_fetchstructure() into a MIME Part object.
      *
      * @param object $data  Data from imap_fetchstructure().
      *
-     * @return array  See self::fetch() for structure return format.
+     * @return Horde_Mime_Part  A MIME Part object.
      */
     protected function _parseStructure($data)
     {
-        // Required entries
-        $ret = array(
-            'type' => $this->_mimeTypes[$data->type],
-            'subtype' => $data->ifsubtype ? strtolower($data->subtype) : 'x-unknown'
-        );
+        $ob = new Horde_Mime_Part();
+
+        $ob->setType($this->_mimeTypes[$data->type] . '/' . ($data->ifsubtype ? strtolower($data->subtype) : Horde_Mime_Part::UNKNOWN));
 
         // Optional for multipart-parts, required for all others
         if ($data->ifparameters) {
-            $ret['parameters'] = array();
+            $params = array();
             foreach ($data->parameters as $val) {
-                $ret['parameters'][$val->attribute] = $val->value;
+                $params[$val->attribute] = $val->value;
+            }
+
+            $params = Horde_Mime::decodeParam('content-type', $params, 'UTF-8');
+            foreach ($params['params'] as $key => $val) {
+                $ob->setContentTypeParameter($key, $val);
             }
         }
 
         // Optional entries. 'location' and 'language' not supported
         if ($data->ifdisposition) {
-            $ret['disposition'] = $data->disposition;
+            $ob->setDisposition($data->disposition);
             if ($data->ifdparameters) {
-                $ret['dparameters'] = array();
+                $dparams = array();
                 foreach ($data->dparameters as $val) {
-                    $ret['dparameters'][$val->attribute] = $val->value;
+                    $dparams[$val->attribute] = $val->value;
+                }
+
+                $dparams = Horde_Mime::decodeParam('content-disposition', $dparams, 'UTF-8');
+                foreach ($dparams['params'] as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
                 }
             }
         }
 
-        if ($ret['type'] == 'multipart') {
+        if ($ob->getPrimaryType() == 'multipart') {
             // multipart/* specific entries
-            $ret['parts'] = array();
             foreach ($data->parts as $val) {
-                $ret['parts'][] = $this->_parseStructure($val);
+                $ob->addPart($this->_parseStructure($val));
             }
         } else {
             // Required options
-            $ret['id'] = $data->ifid ? $data->id : null;
-            $ret['description'] = $data->ifdescription ? $data->description : null;
-            $ret['encoding'] = $this->_mimeEncodings[$data->encoding];
-            $ret['size'] = $data->bytes;
-
-            // Part specific options
-            if (($ret['type'] == 'message') && ($ret['subtype'] == 'rfc822')) {
-                // @todo - Doesn't seem to be an easy way to obtain the
-                // envelope information for this part.
-                $ret['envelope'] = new Horde_Imap_Client_Data_Envelope();
-                $ret['structure'] = $this->_parseStructure(reset($data->parts));
-                $ret['lines'] = $data->lines;
-            } elseif ($ret['type'] == 'text') {
-                $ret['lines'] = $data->lines;
+            if ($data->ifid) {
+                $ob->setContentId($data->id);
+            }
+            if ($data->ifdescription) {
+                $ob->setDescription(Horde_Mime::decode($data->description, 'UTF-8'));
             }
 
-            // No support for 'md5' option
+            $ob->setTransferEncoding($this->_mimeEncodings[$data->encoding]);
+            $ob->setBytes($data->bytes);
+
+            if ($ob->getType() == 'message/rfc822') {
+                $ob->addPart($this->_parseStructure(reset($data->parts)));
+            }
         }
 
-        return $ret;
+        return $ob;
     }
 
     /**

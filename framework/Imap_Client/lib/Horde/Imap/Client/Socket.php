@@ -2359,7 +2359,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          *   BINARY[.PEEK][<section #>]<<partial>> (RFC 3516)
          *     see BODY[] response
          *   BINARY.SIZE[<section #>] (RFC 3516)
-         *   BODY
          *   BODY[.PEEK][<section>]<<partial>>
          *     <section> = HEADER, HEADER.FIELDS, HEADER.FIELDS.NOT, MIME,
          *                 TEXT, empty
@@ -2375,6 +2374,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * No need to support these (can be built from other queries):
          * ===========================================================
          *   ALL macro => (FLAGS INTERNALDATE RFC822.SIZE ENVELOPE)
+         *   BODY => Use BODYSTRUCTURE instead
          *   FAST macro => (FLAGS INTERNALDATE RFC822.SIZE)
          *   FULL macro => (FLAGS INTERNALDATE RFC822.SIZE ENVELOPE BODY)
          *   RFC822 => BODY[]
@@ -2389,8 +2389,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             switch ($type) {
             case Horde_Imap_Client::FETCH_STRUCTURE:
-                $fp['parsestructure'] = !empty($c_val['parse']);
-                $fetch[] = !empty($c_val['noext']) ? 'BODY' : 'BODYSTRUCTURE';
+                $fetch[] = 'BODYSTRUCTURE';
                 break;
 
             case Horde_Imap_Client::FETCH_FULLMSG:
@@ -2601,12 +2600,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         while ($i < $cnt) {
             $tag = strtoupper($data[$i]);
             switch ($tag) {
-            case 'BODY':
             case 'BODYSTRUCTURE':
-                // Only care about these if doing a FETCH command.
-                $tmp['structure'] = empty($fp['parsestructure'])
-                    ? $this->_parseBodystructure($data[++$i])
-                    : Horde_Mime_Part::parseStructure($this->_parseBodystructure($data[++$i]));
+                $ob = $this->_parseBodystructure($data[++$i]);
+                $ob->buildMimeIds();
+                $tmp['structure'] = $ob;
                 break;
 
             case 'ENVELOPE':
@@ -2743,75 +2740,75 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseBodystructure($data)
     {
+        $ob = new Horde_Mime_Part();
+
         // If index 0 is an array, this is a multipart part.
         if (is_array($data[0])) {
-            $ret = array(
-                'parts' => array(),
-                'type' => 'multipart'
-            );
-
             // Keep going through array values until we find a non-array.
             for ($i = 0, $cnt = count($data); $i < $cnt; ++$i) {
                 if (!is_array($data[$i])) {
                     break;
                 }
-                $ret['parts'][] = $this->_parseBodystructure($data[$i]);
+                $ob->addPart($this->_parseBodystructure($data[$i]));
             }
 
             // The first string entry after an array entry gives us the
             // subpart type.
-            $ret['subtype'] = strtolower($data[$i]);
+            $ob->setType('multipart/' . $data[$i]);
 
             // After the subtype is further extension information. This
-            // information won't be present if this is a BODY request, and
-            // MAY not appear for BODYSTRUCTURE requests.
+            // information MAY not appear for BODYSTRUCTURE requests.
 
             // This is parameter information.
             if (isset($data[++$i]) && is_array($data[$i])) {
-                $ret['parameters'] = $this->_parseStructureParams($data[$i]);
+                foreach ($this->_parseStructureParams($data[$i], 'content-type') as $key => $val) {
+                    $ob->setContentTypeParameter($key, $val);
+                }
             }
 
             // This is disposition information.
             if (isset($data[++$i]) && is_array($data[$i])) {
-                $ret['disposition'] = strtolower($data[$i][0]);
-                $ret['dparameters'] = $this->_parseStructureParams($data[$i][1]);
-            }
+                $ob->setDisposition($data[$i][0]);
 
-            // This is body language information.
-            if (isset($data[++$i])) {
-                if (is_array($data[$i])) {
-                    $ret['language'] = $data[$i];
-                } elseif ($data[$i] != 'NIL') {
-                    $ret['language'] = array($data[$i]);
+                foreach ($this->_parseStructureParams($data[$i][1], 'content-disposition') as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
                 }
             }
 
-            // This is body location information
-            if (isset($data[++$i]) && ($data[$i] != 'NIL')) {
-                $ret['location'] = $data[$i];
-            }
-
+            // Ignore: language, location
             // There can be further information returned in the future, but
             // for now we are done.
         } else {
-            $ret = array(
-                'type' => strtolower($data[0]),
-                'subtype' => strtolower($data[1]),
-                'parameters' => $this->_parseStructureParams($data[2]),
-                'id' => ($data[3] == 'NIL') ? null : $data[3],
-                'description' => ($data[4] == 'NIL') ? null : $data[4],
-                'encoding' => ($data[5] == 'NIL') ? null : strtolower($data[5]),
-                'size' => ($data[6] == 'NIL') ? null : $data[6]
-            );
+            $ob->setType($data[0] . '/' . $data[1]);
+
+            foreach ($this->_parseStructureParams($data[2], 'content-type') as $key => $val) {
+                $ob->setContentTypeParameter($key, $val);
+            }
+
+            if ($data[3] != 'NIL') {
+                $ob->setContentId($data[3]);
+            }
+
+            if ($data[4] != 'NIL') {
+                $ob->setDescription(Horde_Mime::decode($data[4], 'UTF-8'));
+            }
+
+            if ($data[5] != 'NIL') {
+                $ob->setTransferEncoding($data[5]);
+            }
+
+            if ($data[6] != 'NIL') {
+                $ob->setBytes($data[6]);
+            }
 
             // If the type is 'message/rfc822' or 'text/*', several extra
             // fields are included
-            switch ($ret['type']) {
+            switch ($ob->getPrimaryType()) {
             case 'message':
-                if ($ret['subtype'] == 'rfc822') {
-                    $ret['envelope'] = $this->_parseEnvelope($data[7]);
-                    $ret['structure'] = $this->_parseBodystructure($data[8]);
-                    $ret['lines'] = $data[9];
+                if ($ob->getSubType() == 'rfc822') {
+                    // Ignore: envelope
+                    $ob->addPart($this->_parseBodystructure($data[8]));
+                    // Ignore: lines
                     $i = 10;
                 } else {
                     $i = 7;
@@ -2819,7 +2816,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case 'text':
-                $ret['lines'] = $data[7];
+                // Ignore: lines
                 $i = 8;
                 break;
 
@@ -2829,56 +2826,46 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             // After the subtype is further extension information. This
-            // information won't be present if this is a BODY request, and
-            // MAY not appear for BODYSTRUCTURE requests.
+            // information MAY appear for BODYSTRUCTURE requests.
 
-            // This is MD5 information
-            if (isset($data[$i]) && ($data[$i] != 'NIL')) {
-                $ret['md5'] = $data[$i];
-            }
+            // Ignore: MD5
 
             // This is disposition information
             if (isset($data[++$i]) && is_array($data[$i])) {
-                $ret['disposition'] = strtolower($data[$i][0]);
-                $ret['dparameters'] = $this->_parseStructureParams($data[$i][1]);
-            }
+                $ob->setDisposition($data[$i][0]);
 
-            // This is body language information.
-            if (isset($data[++$i])) {
-                if (is_array($data[$i])) {
-                    $ret['language'] = $data[$i];
-                } elseif ($data[$i] != 'NIL') {
-                    $ret['language'] = array($data[$i]);
+                foreach ($this->_parseStructureParams($data[$i][1], 'content-disposition') as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
                 }
             }
 
-            // This is body location information
-            if (isset($data[++$i]) && ($data[$i] != 'NIL')) {
-                $ret['location'] = $data[$i];
-            }
+            // Ignore: language, location
         }
 
-        return $ret;
+        return $ob;
     }
 
     /**
      * Helper function to parse a parameters-like tokenized array.
      *
-     * @param array $data  The tokenized data.
+     * @param array $data   The tokenized data.
+     * @param string $type  The header name.
      *
      * @return array  The parameter array.
      */
-    protected function _parseStructureParams($data)
+    protected function _parseStructureParams($data, $type)
     {
-        $ret = array();
+        $params = array();
 
         if (is_array($data)) {
             for ($i = 0, $cnt = count($data); $i < $cnt; ++$i) {
-                $ret[strtolower($data[$i])] = $data[++$i];
+                $params[strtolower($data[$i])] = $data[++$i];
             }
         }
 
-        return $ret;
+        $ret = Horde_Mime::decodeParam($type, $params);
+
+        return $ret['params'];
     }
 
     /**

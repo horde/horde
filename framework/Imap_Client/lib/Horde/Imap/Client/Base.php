@@ -1989,55 +1989,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Key: Horde_Imap_Client::FETCH_STRUCTURE
      *   Desc: Returns MIME structure information
      *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: (array) The following options are available:
-     *     'noext' - (boolean) Don't return information on extensions
-     *               DEFAULT: Will return information on extensions
-     *     'parse' - (boolean) If true, parse the returned structure into a
-     *               Horde_Mime_Part object.
-     *               DEFAULT: The array representation is returned.
+     *   Value: NONE
      *   Return key: 'structure' [CACHEABLE]
-     *   Return format: (mixed) If 'parse' is true, a Horde_Mime_Part object.
-     *                          Else, an array with the following information:
-     *
-     *     'type' - (string) The MIME type
-     *     'subtype' - (string) The MIME subtype
-     *
-     *     The returned array MAY contain the following information:
-     *     'disposition' - (string) The disposition type of the part (e.g.
-     *                     'attachment', 'inline').
-     *     'dparameters' - (array) Attribute/value pairs from the part's
-     *                     Content-Disposition header.
-     *     'language' - (array) A list of body language values.
-     *     'location' - (string) The body content URI.
-     *
-     *     Depending on the MIME type of the part, the array will also contain
-     *     further information. If labeled as [OPTIONAL], the array MAY
-     *     contain this information, but only if 'noext' is false and the
-     *     server returned the requested information. Else, the value is not
-     *     set.
-     *
-     *     multipart/* parts:
-     *     ==================
-     *     'parts' - (array) An array of subparts (follows the same format as
-     *               the base structure array).
-     *     'parameters' - [OPTIONAL] (array) Attribute/value pairs from the
-     *                    part's Content-Type header.
-     *
-     *     All other parts:
-     *     ================
-     *     'parameters' - (array) Attribute/value pairs from the part's
-     *                    Content-Type header.
-     *     'id' - (string) The part's Content-ID value.
-     *     'description' - (string) The part's Content-Description value.
-     *     'encoding' - (string) The part's Content-Transfer-Encoding value.
-     *     'size' - (integer) - The part's size in bytes.
-     *     'envelope' - [ONLY message/rfc822] (Horde_Imap_Client_Data_Envelope)
-     *                  See 'envelope' response.
-     *     'structure' - [ONLY message/rfc822] (array) See 'structure'
-     *                   response.
-     *     'lines' - [ONLY message/rfc822 and text/*] (integer) The size of
-     *               the body in text lines.
-     *     'md5' - [OPTIONAL] (string) The part's MD5 value.
+     *   Return format: (Horde_Mime_Part) A MIME part object.
      *
      * Key: Horde_Imap_Client::FETCH_ENVELOPE
      *   Desc: Envelope header data
@@ -2174,14 +2128,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             switch ($k) {
             case Horde_Imap_Client::FETCH_STRUCTURE:
-                /* Don't cache if 'noext' is present. It will probably be a
-                 * rare event anyway. */
-                if (empty($v['noext']) && isset($cf[$k])) {
-                    /* Structure can be cached two ways - via Horde_Mime_Part
-                     * or by internal array format. */
-                    $cache_field = empty($v['parse'])
-                        ? 'HICstructa'
-                        : 'HICstructm';
+                if (isset($cf[$k])) {
+                    $cache_field = 'HICstruct';
                     $fetch_field = 'structure';
                 }
                 break;
@@ -2341,6 +2289,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     break;
 
                 case Horde_Imap_Client::FETCH_ENVELOPE:
+                case Horde_Imap_Client::FETCH_STRUCTURE:
                     /* Retrieved from cache so store in return array.
                      * Sanity checking that returned data is an object. */
                     if (isset($data[$val][$cval['c']]) &&
@@ -3275,11 +3224,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 switch ($label) {
                 case 'structure':
                     if (isset($cf[Horde_Imap_Client::FETCH_STRUCTURE])) {
-                        if (is_array($val)) {
-                            $tmp['HICstructa'] = $val;
-                        } else {
-                            $tmp['HICstructm'] = clone $val;
-                        }
+                        $tmp['HICstruct'] = clone $val;
                     }
                     break;
 

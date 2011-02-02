@@ -100,7 +100,7 @@ class IMP_Contents
             /* Get the Horde_Mime_Part object for the given UID. */
             try {
                 $ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, array(
-                    Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
+                    Horde_Imap_Client::FETCH_STRUCTURE => true
                 ), array('ids' => array($this->_uid)));
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new IMP_Exception('Error displaying message.');
