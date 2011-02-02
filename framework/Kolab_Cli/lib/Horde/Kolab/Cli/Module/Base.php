@@ -103,11 +103,27 @@ Choices are:
                 )
             ),
             new Horde_Argv_Option(
+                '-n',
+                '--nocache',
+                array(
+                    'action' => 'store_true',
+                    'help'   => Horde_Kolab_Cli_Translation::t('Deactivate caching of the IMAP data.')
+                )
+            ),
+            new Horde_Argv_Option(
                 '-l',
                 '--log',
                 array(
                     'action' => 'store',
                     'help'   => Horde_Kolab_Cli_Translation::t('Write a log file in the provided LOG location.')
+                )
+            ),
+            new Horde_Argv_Option(
+                '-D',
+                '--debug',
+                array(
+                    'action' => 'store',
+                    'help'   => Horde_Kolab_Cli_Translation::t('Activates the IMAP debug log. This will log the full IMAP communication - CAUTION: the "php" driver is the only driver variant that does not support this feature. For most drivers you should use "STDOUT" which will direct the debug log to your screen. For the horde, the horde-php, and the roundcube drivers you may also set this to a filename and the output will be directed there.'),
                 )
             ),
         );
