@@ -3503,9 +3503,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $this->_sendLine(
-            'SETANNOTATION',
-            array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox),
-            $data_elements
+            array(
+                'SETANNOTATION',
+                array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox),
+                $data_elements[0]
+            )
         );
     }
 
