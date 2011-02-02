@@ -54,6 +54,58 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
+     * Returns a readable title for this folder.
+     *
+     * @return string  The folder title.
+     */
+    public function getTitle()
+    {
+        return $this->_folder->getTitle();
+    }
+
+    /**
+     * Return the namespace of the folder.
+     *
+     * @return string The namespace of the folder.
+     */
+    public function getNamespace()
+    {
+        return $this->_folder->getNamespace();
+    }
+
+    /**
+     * Returns the owner of the folder.
+     *
+     * @return string The owner of this folder.
+     */
+    public function getOwner()
+    {
+        return $this->_folder->getOwner();
+    }
+
+    /**
+     * Returns the folder path without namespace components.
+     *
+     * @return string The subpath of this folder.
+     */
+    public function getSubpath()
+    {
+        return $this->_folder->getSubpath();
+    }
+
+    /**
+     * Is this a default folder?
+     *
+     * @return boolean Boolean that indicates the default status.
+     */
+    public function isDefault()
+    {
+        return $this->_folder->isDefault();
+    }
+
+
+
+    /**
      * Set a new storage path for the folder. The new path will be
      * realized when saving the folder.
      *
@@ -62,16 +114,6 @@ implements Horde_Kolab_Storage_Folder
     public function setPath($path)
     {
         $this->_folder->setPath($path);
-    }
-
-    /**
-     * Returns a readable title for this folder.
-     *
-     * @return string  The folder title.
-     */
-    public function getTitle()
-    {
-        return $this->_folder->getTitle();
     }
 
     /**
@@ -113,36 +155,6 @@ implements Horde_Kolab_Storage_Folder
     public function setTitleInShared($title)
     {
         $this->_folder->setTitleInShared($title);
-    }
-
-    /**
-     * Return the namespace of the folder.
-     *
-     * @return string The namespace of the folder.
-     */
-    public function getNamespace()
-    {
-        return $this->_folder->getNamespace();
-    }
-
-    /**
-     * Returns the owner of the folder.
-     *
-     * @return string The owner of this folder.
-     */
-    public function getOwner()
-    {
-        return $this->_folder->getOwner();
-    }
-
-    /**
-     * Returns the folder path without namespace components.
-     *
-     * @return string The subpath of this folder.
-     */
-    public function getSubpath()
-    {
-        return $this->_folder->getSubpath();
     }
 
     /**
