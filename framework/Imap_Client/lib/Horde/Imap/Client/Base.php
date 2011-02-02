@@ -204,7 +204,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->utils = new Horde_Imap_Client_Utils();
 
         if (!empty($this->_params['debug'])) {
-            $this->_debug = @fopen($this->_params['debug'], 'a');
+            if (is_resource($this->_params['debug'])) {
+                $this->_debug = $this->_params['debug'];
+            } else {
+                $this->_debug = @fopen($this->_params['debug'], 'a');
+            }
         }
     }
 
