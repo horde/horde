@@ -7,1364 +7,1532 @@
  * ./translation help
  */
 
-function footer()
+/**
+ * Base class for translation script.
+ *
+ * Implicitely set properties: gettext, msgattrib, msgcat, msgcomm, msgfmt,
+ * msginit, msgmerge, xgettext.
+ */
+class Horde_Translation_Script
 {
-    global $c, $curdir;
+    /**
+     * CLI interface.
+     *
+     * @var Horde_Cli
+     */
+    public $cli;
 
-    $c->writeln();
-    $c->writeln('Please report any bugs to i18n@lists.horde.org.');
+    /**
+     * File_Find instance.
+     *
+     * @var File_Find
+     */
+    public $ff;
 
-    chdir($curdir);
-    exit;
-}
+    /**
+     * The directory at startup time.
+     *
+     * @var string
+     */
+    public $currentDir;
 
-function usage()
-{
-    global $options, $c;
+    /**
+     * The directories of all found applications.
+     *
+     * @var array
+     */
+    public $dirs = array();
 
-    if (count($options[1]) &&
-        ($options[1][0] == 'help' && !empty($options[1][1]) ||
-        !empty($options[1][0]) && in_array($options[1][0], array('commit', 'compendium', 'extract', 'init', 'make', 'merge')))) {
-        if ($options[1][0] == 'help') {
-            $cmd = $options[1][1];
-        } else {
-            $cmd = $options[1][0];
-        }
-        $c->writeln('Usage:' . ' translation [options] ' . $cmd . ' [command-options]');
-        if (!empty($cmd)) {
-            $c->writeln();
-            $c->writeln('Command options:');
-        }
-        switch ($cmd) {
-        case 'cleanup':
-            $c->writeln('  -l, --locale=ll_CC     Use only this locale.');
-            $c->writeln('  -m, --module=MODULE    Cleanup PO files only for this (Horde) module.');
-            break;
-        case 'commit':
-        case 'commit-help':
-            $c->writeln('  -l, --locale=ll_CC     Use this locale.');
-            $c->writeln('  -m, --module=MODULE    Commit translations only for this (Horde) module.');
-            $c->writeln('  -M, --message=MESSAGE  Use this commit message instead of the default ones.');
-            $c->writeln('  -n, --new              This is a new translation, commit also CREDITS,');
-            $c->writeln('                         CHANGES and nls.php.');
-            $c->writeln('  -s, --skip             Skip all modules that are not maintained in CVS.');
-            break;
-        case 'compendium':
-            $c->writeln('  -a, --add=FILE        Add this PO file to the compendium. Useful to');
-            $c->writeln('                        include a compendium from a different branch to');
-            $c->writeln('                        the generated compendium.');
-            $c->writeln('  -d, --directory=DIR   Create compendium in this directory.');
-            $c->writeln('  -l, --locale=ll_CC    Use this locale.');
-            break;
-        case 'extract':
-            $c->writeln('  -m, --module=MODULE  Generate POT file only for this (Horde) module.');
-            break;
-        case 'init':
-            $c->writeln('  -l, --locale=ll_CC     Use this locale.');
-            $c->writeln('  -m, --module=MODULE    Create a PO file only for this (Horde) module.');
-            $c->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
-            $c->writeln('                         one (compendium.po in the horde/locale directory).');
-            $c->writeln('  -n, --no-compendium    Don\'t use a compendium.');
-            break;
-        case 'make':
-            $c->writeln('  -l, --locale=ll_CC     Use only this locale.');
-            $c->writeln('  -m, --module=MODULE    Build MO files only for this (Horde) module.');
-            $c->writeln('  -c, --compendium=FILE  Merge new translations to this compendium file');
-            $c->writeln('                         instead of the default one (compendium.po in the');
-            $c->writeln('                         horde/locale directory.');
-            $c->writeln('  -n, --no-compendium    Don\'t merge new translations to the compendium.');
-            $c->writeln('  -s, --statistics       Save translation statistics in a local file.');
-            break;
-        case 'make-help':
-        case 'update-help':
-            $c->writeln('  -l, --locale=ll_CC     Use only this locale.');
-            $c->writeln('  -m, --module=MODULE    Update help files only for this (Horde) module.');
-            break;
-        case 'merge':
-            $c->writeln('  -l, --locale=ll_CC     Use this locale.');
-            $c->writeln('  -m, --module=MODULE    Merge PO files only for this (Horde) module.');
-            $c->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
-            $c->writeln('                         one (compendium.po in the horde/locale directory).');
-            $c->writeln('  -n, --no-compendium    Don\'t use a compendium.');
-            break;
-        case 'update':
-            $c->writeln('  -l, --locale=ll_CC     Use this locale.');
-            $c->writeln('  -m, --module=MODULE    Update only this (Horde) module.');
-            $c->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
-            $c->writeln('                         one (compendium.po in the horde/locale directory).');
-            $c->writeln('  -n, --no-compendium    Don\'t use a compendium.');
-            break;
-        }
-    } else {
-        $c->writeln('Usage:' . ' translation [options] command [command-options]');
-        $c->writeln(str_repeat(' ', Horde_String::length('Usage:')) . ' translation [help|-h|--help] [command]');
-        $c->writeln();
-        $c->writeln('Helper application to create and maintain translations for the Horde');
-        $c->writeln('framework and its applications.');
-        $c->writeln('For further information, see horde/docs/TRANSLATIONS.');
-        $c->writeln();
-        $c->writeln('Commands:');
-        $c->writeln('  help        Show this help message.');
-        $c->writeln('  compendium  Rebuild the compendium file. Warning: This overwrites the');
-        $c->writeln('              current compendium.');
-        $c->writeln('  extract     Generate PO template (.pot) files.');
-        $c->writeln('  init        Create one or more PO files for a new locale. Warning: This');
-        $c->writeln('              overwrites the existing PO files of this locale.');
-        $c->writeln('  merge       Merge the current PO file with the current PO template file.');
-        $c->writeln('  update      Run extract and merge sequent.');
-        $c->writeln('  update-help Extract all new and changed entries from the English XML help');
-        $c->writeln('              file and merge them with the existing ones.');
-        $c->writeln('  cleanup     Cleans the PO files up from untranslated and obsolete entries.');
-        $c->writeln('  make        Build binary MO files from the specified PO files.');
-        $c->writeln('  make-help   Mark all entries in the XML help file being up-to-date and');
-        $c->writeln('              prepare the file for the next execution of update-help. You');
-        $c->writeln('              should only run make-help AFTER update-help and revising the');
-        $c->writeln('              help file.');
-        $c->writeln('  commit      Commit translations to the CVS server.');
-        $c->writeln('  commit-help Commit help files to the CVS server.');
+    /**
+     * All found applications.
+     *
+     * @var array
+     */
+    public $apps = array();
+
+    /**
+     * Enable debug mode?
+     *
+     * @boolean
+     */
+    public $debug = false;
+
+    /**
+     * Enable test mode?
+     *
+     * @boolean
+     */
+    public $test = false;
+
+    /**
+     * Silencing appendix for error output.
+     *
+     * @var string
+     */
+    public $silence;
+
+    /**
+     * Appendix to redirect error messages to standard output.
+     *
+     * @var string
+     */
+    protected $_redirErr;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->_redirErr = substr(PHP_OS, 0, 3) == 'WIN' ? '' : ' 2>&1';
+        $this->currentDir = getcwd();
+        $this->ff = new File_Find();
     }
 
-    $c->writeln();
-    $c->writeln('Options:');
-    $c->writeln('  -b, --base=/PATH  Full path to the (Horde) base directory that should be');
-    $c->writeln('                    used.');
-    $c->writeln('  -d, --debug       Show error messages from the executed binaries.');
-    $c->writeln('  -h, --help        Show this help message.');
-    $c->writeln('  -t, --test        Show the executed commands but don\'t run anything.');
-}
-
-function check_binaries()
-{
-    global $c;
-
-    $c->writeln('Searching gettext binaries...');
-    foreach (array('gettext', 'msgattrib', 'msgcat', 'msgcomm', 'msgfmt', 'msginit', 'msgmerge', 'xgettext') as $binary) {
-        $GLOBALS[$binary] = System::which($binary);
-        if (!$GLOBALS[$binary]) {
-            $c->message($binary . ' not found', 'cli.error');
-            footer();
-        }
-        $c->message($binary . ' found: ' . $GLOBALS[$binary], 'cli.success');
-    }
-    $c->writeln();
-
-    $out = '';
-    exec($GLOBALS['gettext'] . ' --version', $out, $ret);
-    $split = explode(' ', $out[0]);
-    $version_string = 'gettext version: ' . $split[count($split) - 1];
-    $gettext_version = explode('.', $split[count($split) - 1]);
-    if ($gettext_version[0] == 0 && $gettext_version[1] < 12) {
-        $c->writeln();
-        $c->message($version_string, 'cli.error');
-        $c->message('Your gettext version is too old and does not support PHP natively.', 'cli.error');
-        footer();
-    }
-    $c->message($version_string, 'cli.success');
-    $c->writeln();
-}
-
-function search_file($file, $dir = '.', $local = false)
-{
-    static $ff;
-    if (!isset($ff)) {
-        $ff = new File_Find();
+    /**
+     * Shortcut for Horde_Cli::writeln().
+     *
+     * @param string $message  The text to write on the screen.
+     */
+    public function writeln($message)
+    {
+        $this->cli->writeln($message);
     }
 
-    if (substr($file, 0, 1) != DS) {
-        $file = "/$file/";
+    /**
+     * Prints the footer and halts the script.
+     */
+    public function footer()
+    {
+        $this->writeln();
+        $this->writeln('Please report any bugs to i18n@lists.horde.org.');
+
+        chdir($this->currentDir);
+        exit;
     }
 
-    if ($local) {
-        $files = $ff->glob($file, $dir, 'perl');
-        $files = array_map(create_function('$file', 'return "' . $dir . DS . '" . $file;'), $files);
-        return $files;
-    } else {
-        return $ff->search($file, $dir, 'perl', false);
-    }
-}
-
-function search_ext($ext, $dir = '.', $local = false)
-{
-    return search_file("^[^.].*\\.$ext\$", $dir, $local);
-}
-
-function get_po_files($dir)
-{
-    $langs = search_ext('po', $dir);
-    if (($key = array_search($dir . DS . 'messages.po', $langs)) !== false) {
-        unset($langs[$key]);
-    }
-    if (($key = array_search($dir . DS . 'compendium.po', $langs)) !== false) {
-        unset($langs[$key]);
-    }
-    return $langs;
-}
-
-function get_languages($dir)
-{
-    global $curdir;
-
-    chdir($dir);
-    $langs = get_po_files('locale');
-    $langs = array_map('basename', array_map('dirname', array_map('dirname', $langs)));
-    chdir($curdir);
-    return $langs;
-}
-
-function search_modules()
-{
-    $dirs = array();
-    if (is_dir(HORDE_BASE . '/locale')) {
-        $dirs[] = HORDE_BASE;
-    }
-    $dh = opendir(BASE);
-    if (!$dh) {
-        return array();
-    }
-    while ($entry = readdir($dh)) {
-        $dir = BASE . '/' . $entry;
-        if (!is_dir($dir) ||
-            substr($entry, 0, 1) == '.' ||
-            fileinode(HORDE_BASE) == fileinode($dir)) {
-            continue;
-        }
-        $sub = opendir($dir);
-        if (!$sub) {
-            continue;
-        }
-        while ($subentry = readdir($sub)) {
-            if ($subentry == 'locale' && is_dir($dir . '/' . $subentry)) {
-                $dirs[] = $dir;
+    /**
+     * Prints usage information.
+     */
+    public function usage()
+    {
+        if (count($this->options[1]) &&
+            ($this->options[1][0] == 'help' && !empty($this->options[1][1]) ||
+             !empty($this->options[1][0]) && in_array($this->options[1][0], array('commit', 'compendium', 'extract', 'init', 'make', 'merge')))) {
+            if ($this->options[1][0] == 'help') {
+                $cmd = $this->options[1][1];
+            } else {
+                $cmd = $this->options[1][0];
+            }
+            $this->writeln('Usage:' . ' translation [options] ' . $cmd . ' [command-options]');
+            if (!empty($cmd)) {
+                $this->writeln();
+                $this->writeln('Command options:');
+            }
+            switch ($cmd) {
+            case 'cleanup':
+                $this->writeln('  -l, --locale=ll_CC     Use only this locale.');
+                $this->writeln('  -m, --module=MODULE    Cleanup PO files only for this (Horde) module.');
+                break;
+            case 'commit':
+            case 'commit-help':
+                $this->writeln('  -l, --locale=ll_CC     Use this locale.');
+                $this->writeln('  -m, --module=MODULE    Commit translations only for this (Horde) module.');
+                $this->writeln('  -M, --message=MESSAGE  Use this commit message instead of the default ones.');
+                $this->writeln('  -n, --new              This is a new translation, commit also CREDITS,');
+                $this->writeln('                         CHANGES and nls.php.');
+                $this->writeln('  -s, --skip             Skip all modules that are not maintained in CVS.');
+                break;
+            case 'compendium':
+                $this->writeln('  -a, --add=FILE        Add this PO file to the compendium. Useful to');
+                $this->writeln('                        include a compendium from a different branch to');
+                $this->writeln('                        the generated compendium.');
+                $this->writeln('  -d, --directory=DIR   Create compendium in this directory.');
+                $this->writeln('  -l, --locale=ll_CC    Use this locale.');
+                break;
+            case 'extract':
+                $this->writeln('  -m, --module=MODULE  Generate POT file only for this (Horde) module.');
+                break;
+            case 'init':
+                $this->writeln('  -l, --locale=ll_CC     Use this locale.');
+                $this->writeln('  -m, --module=MODULE    Create a PO file only for this (Horde) module.');
+                $this->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
+                $this->writeln('                         one (compendium.po in the horde/locale directory).');
+                $this->writeln('  -n, --no-compendium    Don\'t use a compendium.');
+                break;
+            case 'make':
+                $this->writeln('  -l, --locale=ll_CC     Use only this locale.');
+                $this->writeln('  -m, --module=MODULE    Build MO files only for this (Horde) module.');
+                $this->writeln('  -c, --compendium=FILE  Merge new translations to this compendium file');
+                $this->writeln('                         instead of the default one (compendium.po in the');
+                $this->writeln('                         horde/locale directory.');
+                $this->writeln('  -n, --no-compendium    Don\'t merge new translations to the compendium.');
+                $this->writeln('  -s, --statistics       Save translation statistics in a local file.');
+                break;
+            case 'make-help':
+            case 'update-help':
+                $this->writeln('  -l, --locale=ll_CC     Use only this locale.');
+                $this->writeln('  -m, --module=MODULE    Update help files only for this (Horde) module.');
+                break;
+            case 'merge':
+                $this->writeln('  -l, --locale=ll_CC     Use this locale.');
+                $this->writeln('  -m, --module=MODULE    Merge PO files only for this (Horde) module.');
+                $this->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
+                $this->writeln('                         one (compendium.po in the horde/locale directory).');
+                $this->writeln('  -n, --no-compendium    Don\'t use a compendium.');
+                break;
+            case 'update':
+                $this->writeln('  -l, --locale=ll_CC     Use this locale.');
+                $this->writeln('  -m, --module=MODULE    Update only this (Horde) module.');
+                $this->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
+                $this->writeln('                         one (compendium.po in the horde/locale directory).');
+                $this->writeln('  -n, --no-compendium    Don\'t use a compendium.');
                 break;
             }
-            if ($entry != 'framework') {
+        } else {
+            $this->writeln('Usage:' . ' translation [options] command [command-options]');
+            $this->writeln(str_repeat(' ', Horde_String::length('Usage:')) . ' translation [help|-h|--help] [command]');
+            $this->writeln();
+            $this->writeln('Helper application to create and maintain translations for the Horde');
+            $this->writeln('framework and its applications.');
+            $this->writeln('For further information, see horde/docs/TRANSLATIONS.');
+            $this->writeln();
+            $this->writeln('Commands:');
+            $this->writeln('  help        Show this help message.');
+            $this->writeln('  compendium  Rebuild the compendium file. Warning: This overwrites the');
+            $this->writeln('              current compendium.');
+            $this->writeln('  extract     Generate PO template (.pot) files.');
+            $this->writeln('  init        Create one or more PO files for a new locale. Warning: This');
+            $this->writeln('              overwrites the existing PO files of this locale.');
+            $this->writeln('  merge       Merge the current PO file with the current PO template file.');
+            $this->writeln('  update      Run extract and merge sequent.');
+            $this->writeln('  update-help Extract all new and changed entries from the English XML help');
+            $this->writeln('              file and merge them with the existing ones.');
+            $this->writeln('  cleanup     Cleans the PO files up from untranslated and obsolete entries.');
+            $this->writeln('  make        Build binary MO files from the specified PO files.');
+            $this->writeln('  make-help   Mark all entries in the XML help file being up-to-date and');
+            $this->writeln('              prepare the file for the next execution of update-help. You');
+            $this->writeln('              should only run make-help AFTER update-help and revising the');
+            $this->writeln('              help file.');
+            $this->writeln('  commit      Commit translations to the CVS server.');
+            $this->writeln('  commit-help Commit help files to the CVS server.');
+        }
+
+        $this->writeln();
+        $this->writeln('Options:');
+        $this->writeln('  -b, --base=/PATH  Full path to the (Horde) base directory that should be');
+        $this->writeln('                    used.');
+        $this->writeln('  -d, --debug       Show error messages from the executed binaries.');
+        $this->writeln('  -h, --help        Show this help message.');
+        $this->writeln('  -t, --test        Show the executed commands but don\'t run anything.');
+    }
+
+    /**
+     * Checks that all necessary binaries are available and have the correct
+     * version.
+     *
+     * Also sets the binary locations as object properties,
+     * e.g. $this->msgattrib, etc.
+     */
+    public function check_binaries()
+    {
+        $this->writeln('Searching gettext binaries...');
+        foreach (array('gettext', 'msgattrib', 'msgcat', 'msgcomm', 'msgfmt', 'msginit', 'msgmerge', 'xgettext') as $binary) {
+            $this->$binary = System::which($binary);
+            if (!$this->$binary) {
+                $this->cli->message($binary . ' not found', 'cli.error');
+                $this->footer();
+            }
+            $this->cli->message($binary . ' found: ' . $this->$binary, 'cli.success');
+        }
+        $this->writeln();
+
+        $out = '';
+        exec($this->gettext . ' --version', $out, $ret);
+        $split = explode(' ', $out[0]);
+        $version_string = 'gettext version: ' . $split[count($split) - 1];
+        $gettext_version = explode('.', $split[count($split) - 1]);
+        if ($gettext_version[0] == 0 && $gettext_version[1] < 12) {
+            $this->writeln();
+            $this->cli->message($version_string, 'cli.error');
+            $this->cli->message('Your gettext version is too old and does not support PHP natively.', 'cli.error');
+            $this->footer();
+        }
+        $this->cli->message($version_string, 'cli.success');
+        $this->writeln();
+    }
+
+    /**
+     * Searches for files matching a PCRE.
+     *
+     * @param string $file    Regular expression of the file names to search
+     *                        for.
+     * @param string $dir     The directory to search.
+     * @param boolean $local  Whether to search only the directory. If false,
+     *                        all sub-directories will be searched too.
+     *
+     * @return array  A list of file names.
+     */
+    public function search_file($file, $dir = '.', $local = false)
+    {
+        if (substr($file, 0, 1) != DS) {
+            $file = "/$file/";
+        }
+
+        if ($local) {
+            $files = $this->ff->glob($file, $dir, 'perl');
+            $files = array_map(create_function('$file', 'return "' . $dir . DS . '" . $file;'), $files);
+            return $files;
+        }
+        return $this->ff->search($file, $dir, 'perl', false);
+    }
+
+    /**
+     * Searches for files with a certain extension.
+     *
+     * @param string $ext     The extension to search for.
+     * @param string $dir     The directory to search.
+     * @param boolean $local  Whether to search only the directory. If false,
+     *                        all sub-directories will be searched too.
+     *
+     * @return array  A list of file names.
+     */
+    public function search_ext($ext, $dir = '.', $local = false)
+    {
+        return $this->search_file("^[^.].*\\.$ext\$", $dir, $local);
+    }
+
+    /**
+     * Returns all .po files from a directory.
+     *
+     * @param string $dir  The directory to search.
+     *
+     * @return array  A list of .po files.
+     */
+    public function get_po_files($dir)
+    {
+        $langs = $this->search_ext('po', $dir);
+        if (($key = array_search($dir . DS . 'messages.po', $langs)) !== false) {
+            unset($langs[$key]);
+        }
+        if (($key = array_search($dir . DS . 'compendium.po', $langs)) !== false) {
+            unset($langs[$key]);
+        }
+        return $langs;
+    }
+
+    /**
+     * Returns all translation languages from a directory.
+     *
+     * @param string $dir  The directory to search.
+     *
+     * @return array  A list of languages.
+     */
+    public function get_languages($dir)
+    {
+        chdir($dir);
+        $langs = $this->get_po_files('locale');
+        $langs = array_map('basename', array_map('dirname', array_map('dirname', $langs)));
+        chdir($this->currentDir);
+        return $langs;
+    }
+
+    /**
+     * Searches all translateable applications and framework libraries.
+     */
+    public function search_modules()
+    {
+        if (is_dir(HORDE_BASE . '/locale')) {
+            $this->dirs[] = HORDE_BASE;
+        }
+        $dh = opendir(BASE);
+        if (!$dh) {
+            return array();
+        }
+        while ($entry = readdir($dh)) {
+            $dir = BASE . '/' . $entry;
+            if (!is_dir($dir) ||
+                substr($entry, 0, 1) == '.' ||
+                fileinode(HORDE_BASE) == fileinode($dir)) {
                 continue;
             }
-            $framework = opendir($dir . '/' . $subentry);
-            if (!$framework) {
+            $sub = opendir($dir);
+            if (!$sub) {
                 continue;
             }
-            while ($package = readdir($framework)) {
-                if ($package == 'locale' &&
-                    is_dir($dir . '/' . $subentry . '/' . $package)) {
-                    $dirs[] = $dir . '/' . $subentry;
+            while ($subentry = readdir($sub)) {
+                if ($subentry == 'locale' && is_dir($dir . '/' . $subentry)) {
+                    $this->dirs[] = $dir;
                     break;
                 }
-            }
-        }
-    }
-    return $dirs;
-}
-
-function strip_horde($file)
-{
-    if (is_array($file)) {
-        return array_map('strip_horde', $file);
-    } else {
-        return str_replace(array(BASE . DS, 'framework/'), array('', 'Horde_'), $file);
-    }
-}
-
-function xtract()
-{
-    global $cmd_options, $apps, $dirs, $debug, $test, $c, $silence, $curdir;
-
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        }
-    }
-
-    for ($i = 0; $i < count($dirs); $i++) {
-        if (!empty($module) && $module != $apps[$i]) {
-            continue;
-        }
-        printf('Extracting from %s... ', $apps[$i]);
-        chdir($dirs[$i]);
-        $files = array();
-        if ($apps[$i] == 'horde') {
-            $files = array('config/nls.php');
-        }
-        $files = array_merge($files, search_ext('(php|inc)'));
-        $files = array_filter($files, create_function('$file', 'return substr($file, 0, 9) != "." . DS . "config" . DS;'));
-        $files = array_merge($files, search_ext('dist', 'config'));
-        $file = 'locale' . DS . $apps[$i] . '.pot';
-        /* Store the file list because it gets too long to be passed on the
-         * command line. */
-        file_put_contents($file . '.list', implode("\n", $files));
-        if (file_exists($file) && !is_writable($file)) {
-            $c->message(sprintf('%s is not writable.', $file), 'cli.error');
-            footer();
-        }
-        /* We must use a .pot extension, otherwise msgcomm complains about an
-         * invalid charset being used in this file. */
-        $tmp_file = $file . '.tmp.pot';
-
-        if (file_exists($dirs[$i] . '/lib/Application.php')) {
-            include_once $dirs[$i] . '/lib/Application.php';
-            $className = $apps[$i] . '_Application';
-            $appOb = new $className;
-            $version = $appOb->version;
-        } else {
-            include_once $dirs[$i] . '/lib/version.php';
-            $version = constant(strtoupper($apps) . '_VERSION');
-        }
-        $sh = $GLOBALS['xgettext']
-            . ' --language=PHP'
-            . ' --from-code=iso-8859-1'
-            . ' --keyword=_ --keyword=ngettext --keyword=t --keyword=n'
-            . ' --sort-output'
-            . ' --package-name=' . ($apps[$i] == 'imp' ? 'IMP' : ucfirst($apps[$i]))
-            . ' --package-version="' . $version . '"'
-            . ' --copyright-holder="Horde Project"'
-            . ' --msgid-bugs-address="dev@lists.horde.org"'
-            . ' --files-from=' . $file . '.list'
-            . ' --output=' . $tmp_file;
-        if ($debug) {
-            $sh .= $silence;
-        }
-        if ($debug || $test) {
-            $c->writeln('Executing:');
-            $c->writeln($sh);
-        }
-        if (!$test) {
-            exec($sh);
-        }
-        unlink($file . '.list');
-        $app = $apps[$i] == 'imp' ? 'IMP' : ucfirst($apps[$i]);
-        file_put_contents($tmp_file, str_replace('PACKAGE package.', $app . ' package.', file_get_contents($tmp_file)));
-
-        $diff = array();
-        if (file_exists($tmp_file)) {
-            /* Search for Horde_Template template files and extract <gettext>
-             * tags manually. */
-            $files = search_ext('html', 'templates');
-            if (!$test) $tmp = fopen($file . '.templates', 'w');
-            foreach ($files as $template) {
-                $fp = fopen($template, 'r');
-                $lineno = 0;
-                while (($line = fgets($fp, 4096)) !== false) {
-                    $lineno++;
-                    $offset = 0;
-                    while (($left = strpos($line, '<gettext>', $offset)) !== false) {
-                        $left += 9;
-                        $buffer = '';
-                        $linespan = 0;
-                        while (($end = strpos($line, '</gettext>', $left)) === false) {
-                            $buffer .= substr($line, $left);
-                            $left = 0;
-                            $line = fgets($fp, 4096);
-                            $linespan++;
-                            if ($line === false) {
-                                $c->message(sprintf("<gettext> tag not closed in file %s.\nOpening tag found in line %d.", $template, $lineno), 'cli.warning');
-                                break 2;
-                            }
-                        }
-                        $buffer .= substr($line, $left, $end - $left);
-                        if (!$test) {
-                            fwrite($tmp, "#: $template:$lineno\n");
-                            fwrite($tmp, 'msgid "' . str_replace(array('"', "\n"), array('\"', "\\n\"\n\""), $buffer) . "\"\n");
-                            fwrite($tmp, 'msgstr ""' . "\n\n");
-                        }
-                        $offset = $end + 10;
+                if ($entry != 'framework') {
+                    continue;
+                }
+                $framework = opendir($dir . '/' . $subentry);
+                if (!$framework) {
+                    continue;
+                }
+                while ($package = readdir($framework)) {
+                    if ($package == 'locale' &&
+                        is_dir($dir . '/' . $subentry . '/' . $package)) {
+                        $this->dirs[] = $dir . '/' . $subentry;
+                        break;
                     }
                 }
-                fclose($fp);
             }
+        }
 
-            /* Merge with the base .pot file. */
-            if (!$test) fclose($tmp);
-            $sh = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$tmp_file\" \"$file.templates\" --output-file \"$tmp_file\"" . $silence;
-            if ($debug || $test) {
-                $c->writeln('Executing:');
-                $c->writeln($sh);
+        $this->apps = $this->strip_horde($this->dirs);
+        $this->apps[0] = 'horde';
+    }
+
+    /**
+     * Converts path names into application or library names.
+     *
+     * @param string|array $file  A path name or a list of path names.
+     *
+     * @return string|array  A module name or a list of module names.
+     */
+    public function strip_horde($file)
+    {
+        if (is_array($file)) {
+            return array_map(array($this, 'strip_horde'), $file);
+        } else {
+            return str_replace(array(BASE . DS, 'framework/'), array('', 'Horde_'), $file);
+        }
+    }
+
+    /**
+     * Extracts messages from the source code.
+     *
+     * @param array $options  Command line arguments.
+     */
+    public function xtract($options)
+    {
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'm':
+            case '--module':
+                $module = $option[1];
+            break;
             }
-            if (!$test) {
+        }
+
+        for ($i = 0; $i < count($this->dirs); $i++) {
+            if (!empty($module) && $module != $this->apps[$i]) {
+                continue;
+            }
+            printf('Extracting from %s... ', $this->apps[$i]);
+            chdir($this->dirs[$i]);
+            $files = array();
+            if ($this->apps[$i] == 'horde') {
+                $files = array('config/nls.php');
+            }
+            $files = array_merge($files, $this->search_ext('(php|inc)'));
+            $files = array_filter($files, create_function('$file', 'return substr($file, 0, 9) != "." . DS . "config" . DS;'));
+            $files = array_merge($files, $this->search_ext('dist', 'config'));
+            $file = 'locale' . DS . $this->apps[$i] . '.pot';
+            /* Store the file list because it gets too long to be passed on the
+             * command line. */
+            file_put_contents($file . '.list', implode("\n", $files));
+            if (file_exists($file) && !is_writable($file)) {
+                $this->climessage(sprintf('%s is not writable.', $file), 'cli.error');
+                $this->footer();
+            }
+            /* We must use a .pot extension, otherwise msgcomm complains about an
+             * invalid charset being used in this file. */
+            $tmp_file = $file . '.tmp.pot';
+
+            if (file_exists($this->dirs[$i] . '/lib/Application.php')) {
+                include_once $this->dirs[$i] . '/lib/Application.php';
+                $className = $this->apps[$i] . '_Application';
+                $appOb = new $className;
+                $version = $appOb->version;
+            } else {
+                include_once $this->dirs[$i] . '/lib/version.php';
+                $version = constant(strtoupper($this->apps[$i]) . '_VERSION');
+            }
+            $sh = $this->xgettext
+                . ' --language=PHP'
+                . ' --from-code=iso-8859-1'
+                . ' --keyword=_ --keyword=ngettext --keyword=t --keyword=n'
+                . ' --sort-output'
+                . ' --package-name=' . ($this->apps[$i] == 'imp' ? 'IMP' : ucfirst($this->apps[$i]))
+                . ' --package-version="' . $version . '"'
+                . ' --copyright-holder="Horde Project"'
+                . ' --msgid-bugs-address="dev@lists.horde.org"'
+                . ' --files-from=' . $file . '.list'
+                . ' --output=' . $tmp_file;
+            if ($this->debug) {
+                $sh .= $this->silence;
+            }
+            if ($this->debug || $this->test) {
+                $this->writeln('Executing:');
+                $this->writeln($sh);
+            }
+            if (!$this->test) {
                 exec($sh);
-                unlink($file . '.templates');
             }
+            unlink($file . '.list');
+            $app = $this->apps[$i] == 'imp' ? 'IMP' : ucfirst($this->apps[$i]);
+            file_put_contents($tmp_file, str_replace('PACKAGE package.', $app . ' package.', file_get_contents($tmp_file)));
 
-            /* Parse conf.xml files for <configphp> tags. */
-            if (file_exists('config/conf.xml')) {
-                if (!$test) $tmp = fopen($file . '.config', 'w');
-                $conf_content = file_get_contents('config/conf.xml');
-                if (preg_match_all('/<configphp .*?>([^<]*_\(".+?"\)[^<]*)<\/configphp>/s',
-                                   $conf_content, $matches)) {
-                    foreach ($matches[1] as $configphp) {
-                        if (preg_match_all('/_\("(.+?)"\)/', $configphp, $strings)) {
-                            if (!$test) {
-                                foreach ($strings[1] as $string) {
-                                    fwrite($tmp, "#: config/conf.xml\n");
-                                    fwrite($tmp, 'msgid "' . $string . "\"\n");
-                                    fwrite($tmp, 'msgstr ""' . "\n\n");
+            $diff = array();
+            if (file_exists($tmp_file)) {
+                /* Search for Horde_Template template files and extract <gettext>
+                 * tags manually. */
+                $files = $this->search_ext('html', 'templates');
+                if (!$this->test) $tmp = fopen($file . '.templates', 'w');
+                foreach ($files as $template) {
+                    $fp = fopen($template, 'r');
+                    $lineno = 0;
+                    while (($line = fgets($fp, 4096)) !== false) {
+                        $lineno++;
+                        $offset = 0;
+                        while (($left = strpos($line, '<gettext>', $offset)) !== false) {
+                            $left += 9;
+                            $buffer = '';
+                            $linespan = 0;
+                            while (($end = strpos($line, '</gettext>', $left)) === false) {
+                                $buffer .= substr($line, $left);
+                                $left = 0;
+                                $line = fgets($fp, 4096);
+                                $linespan++;
+                                if ($line === false) {
+                                    $this->climessage(sprintf("<gettext> tag not closed in file %s.\nOpening tag found in line %d.", $template, $lineno), 'cli.warning');
+                                    break 2;
                                 }
                             }
+                            $buffer .= substr($line, $left, $end - $left);
+                            if (!$this->test) {
+                                fwrite($tmp, "#: $template:$lineno\n");
+                                fwrite($tmp, 'msgid "' . str_replace(array('"', "\n"), array('\"', "\\n\"\n\""), $buffer) . "\"\n");
+                                fwrite($tmp, 'msgstr ""' . "\n\n");
+                            }
+                            $offset = $end + 10;
                         }
                     }
+                    fclose($fp);
                 }
-                if (!$test) fclose($tmp);
 
                 /* Merge with the base .pot file. */
-                $sh = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$tmp_file\" \"$file.config\" --output-file \"$tmp_file\"" . $silence;
-                if ($debug || $test) {
-                    $c->writeln('Executing:');
-                    $c->writeln($sh);
+                if (!$this->test) fclose($tmp);
+                $sh = $this->msgcomm . " --more-than=0 --sort-output \"$tmp_file\" \"$file.templates\" --output-file \"$tmp_file\"" . $this->silence;
+                if ($this->debug || $this->test) {
+                    $this->writeln('Executing:');
+                    $this->writeln($sh);
                 }
-                if (!$test) {
+                if (!$this->test) {
                     exec($sh);
-                    unlink($file . '.config');
+                    unlink($file . '.templates');
+                }
+
+                /* Parse conf.xml files for <configphp> tags. */
+                if (file_exists('config/conf.xml')) {
+                    if (!$this->test) $tmp = fopen($file . '.config', 'w');
+                    $conf_content = file_get_contents('config/conf.xml');
+                    if (!$this->test &&
+                        preg_match_all('/<configphp .*?>([^<]*_\(".+?"\)[^<]*)<\/configphp>/s',
+                                       $conf_content, $matches)) {
+                        foreach ($matches[1] as $configphp) {
+                            if (!preg_match_all('/_\("(.+?)"\)/', $configphp, $strings)) {
+                                continue;
+                            }
+                            foreach ($strings[1] as $string) {
+                                fwrite($tmp, "#: config/conf.xml\n");
+                                fwrite($tmp, 'msgid "' . $string . "\"\n");
+                                fwrite($tmp, 'msgstr ""' . "\n\n");
+                            }
+                        }
+                    }
+                    if (!$this->test) fclose($tmp);
+                    
+                    /* Merge with the base .pot file. */
+                    $sh = $this->msgcomm . " --more-than=0 --sort-output \"$tmp_file\" \"$file.config\" --output-file \"$tmp_file\"" . $this->silence;
+                    if ($this->debug || $this->test) {
+                        $this->writeln('Executing:');
+                        $this->writeln($sh);
+                    }
+                    if (!$this->test) {
+                        exec($sh);
+                        unlink($file . '.config');
+                    }
+                }
+                
+                /* Check if the new .pot file has any changed content at
+                 * all. */
+                if (file_exists($file)) {
+                    $diff = array_merge(array_diff(file($tmp_file), file($file)),
+                                        array_diff(file($file), file($tmp_file)));
+                    $diff = preg_grep('/^"POT-Creation-Date:/', $diff, PREG_GREP_INVERT);
                 }
             }
-
-            /* Check if the new .pot file has any changed content at all. */
-            if (file_exists($file)) {
-                $diff = array_merge(array_diff(file($tmp_file), file($file)),
-                                    array_diff(file($file), file($tmp_file)));
-                $diff = preg_grep('/^"POT-Creation-Date:/', $diff, PREG_GREP_INVERT);
+            if (!file_exists($file) || count($diff)) {
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+                rename($tmp_file, $file);
+                $this->writeln($this->cli->green('updated'));
+            } else {
+                if (file_exists($tmp_file)) {
+                    unlink($tmp_file);
+                }
+                $this->writeln($this->cli->bold('not changed'));
             }
-        }
-        if (!file_exists($file) || count($diff)) {
-            if (file_exists($file)) {
-                unlink($file);
-            }
-            rename($tmp_file, $file);
-            $c->writeln($c->green('updated'));
-        } else {
-            if (file_exists($tmp_file)) {
-                unlink($tmp_file);
-            }
-            $c->writeln($c->bold('not changed'));
-        }
-        chdir($curdir);
-    }
-}
-
-function merge()
-{
-    global $cmd_options, $apps, $dirs, $debug, $test, $c;
-
-    $compendium = ' --compendium="' . HORDE_BASE . DS . 'locale' . DS . 'compendium.po"';
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        case 'c':
-        case '--compendium':
-            $compendium = ' --compendium=' . $option[1];
-            break;
-        case 'n':
-        case '--no-compendium':
-            $compendium = '';
-            break;
+            chdir($this->currentDir);
         }
     }
 
-    cleanup();
-
-    for ($i = 0; $i < count($dirs); $i++) {
-        if (!empty($module) && $module != $apps[$i]) {
-            continue;
+    /**
+     * Merges old translations with new .pot files and optionally a compendium.
+     *
+     * @param array $options  Command line arguments.
+     */
+    public function merge($options)
+    {
+        $compendium = ' --compendium="' . HORDE_BASE . DS . 'locale' . DS . 'compendium.po"';
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'm':
+            case '--module':
+                $module = $option[1];
+                break;
+            case 'c':
+            case '--compendium':
+                $compendium = ' --compendium=' . $option[1];
+                break;
+            case 'n':
+            case '--no-compendium':
+                $compendium = '';
+                break;
+            }
         }
-        $c->writeln(sprintf('Merging translation for module %s...', $c->bold($apps[$i])));
-        $dir = $dirs[$i] . DS . 'locale' . DS;
-        $po = $dir . '%s' . DS . 'LC_MESSAGES' . DS . $apps[$i] . '.po';
-        if (empty($lang)) {
-            $langs = get_languages($dirs[$i]);
-        } else {
-            if (!file_exists(sprintf($po, $lang))) {
-                $c->writeln('Skipped...');
-                $c->writeln();
+
+        $this->cleanup($options);
+
+        for ($i = 0; $i < count($this->dirs); $i++) {
+            if (!empty($module) && $module != $this->apps[$i]) {
                 continue;
             }
-            $langs = array($lang);
-        }
-        foreach ($langs as $locale) {
-            $c->writeln(sprintf('Merging locale %s... ', $c->bold($locale)));
-            $sh = $GLOBALS['msgmerge']
-                . sprintf(' --update -v%s "%s" "%s.pot"',
-                          $compendium, sprintf($po, $locale), $dir . $apps[$i]);
-            if ($debug || $test) {
-                $c->writeln('Executing:');
-                $c->writeln($sh);
+            $this->writeln(sprintf('Merging translation for module %s...', $this->cli->bold($this->apps[$i])));
+            $dir = $this->dirs[$i] . DS . 'locale' . DS;
+            $po = $dir . '%s' . DS . 'LC_MESSAGES' . DS . $this->apps[$i] . '.po';
+            if (empty($lang)) {
+                $langs = $this->get_languages($this->dirs[$i]);
+            } else {
+                if (!file_exists(sprintf($po, $lang))) {
+                    $this->writeln('Skipped...');
+                    $this->writeln();
+                    continue;
+                }
+                $langs = array($lang);
             }
-            if (!$test) exec($sh);
-            $c->writeln($c->green('done'));
+            foreach ($langs as $locale) {
+                $this->writeln(sprintf('Merging locale %s... ', $this->cli->bold($locale)));
+                $sh = $this->msgmerge
+                    . sprintf(' --update -v%s "%s" "%s.pot"',
+                              $compendium, sprintf($po, $locale), $dir . $this->apps[$i]);
+                if ($this->debug || $this->test) {
+                    $this->writeln('Executing:');
+                    $this->writeln($sh);
+                }
+                if (!$this->test) exec($sh);
+                $this->writeln($this->cli->green('done'));
+            }
         }
     }
-}
 
-function status()
-{
-    return;
-    global $cmd_options, $apps, $dirs, $debug, $test, $c;
-
-    $output = 'status.html';
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        case 'o':
-        case '--output':
-            $output = $option[1];
-            break;
+    /**
+     * Unused yet.
+     *
+     * @param array $options  Command line arguments.
+     */
+    public function status($options)
+    {
+        $output = 'status.html';
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'm':
+            case '--module':
+                $module = $option[1];
+                break;
+            case 'o':
+            case '--output':
+                $output = $option[1];
+                break;
+            }
         }
-    }
-    for ($i = 0; $i < count($dirs); $i++) {
-        if (!empty($module) && $module != $apps[$i]) {
-            continue;
-        }
-        $c->writeln(sprintf('Generating status for module %s...', $c->bold($apps[$i])));
-        if (empty($lang)) {
-            $langs = get_languages($dirs[$i]);
-        } else {
-            if (!file_exists($dirs[$i] . '/locale/' . $lang . '/LC_MESSAGES/' . $apps[$i] . '.po')) {
-                $c->writeln('Skipped...');
-                $c->writeln();
+        for ($i = 0; $i < count($this->dirs); $i++) {
+            if (!empty($module) && $module != $this->apps[$i]) {
                 continue;
             }
-            $langs = array($lang);
-        }
-        foreach ($langs as $locale) {
-            $c->writeln(sprintf('Status for locale %s... ', $c->bold($locale)));
-        }
-    }
-}
-
-function compendium()
-{
-    global $cmd_options, $dirs, $apps, $debug, $test, $c, $silence;
-
-    $dir = HORDE_BASE . DS . 'locale' . DS;
-    $add = '';
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'd':
-        case '--directory':
-            $dir = $option[1];
-            break;
-        case 'a':
-        case '--add':
-            $add .= ' ' . $option[1];
-            break;
-        }
-    }
-    if (!isset($lang)) {
-        $c->message('No locale specified.', 'cli.error');
-        $c->writeln();
-        usage();
-        footer();
-    }
-    printf('Merging all %s.po files to the compendium... ', $lang);
-    $pofiles = array();
-    for ($i = 0; $i < count($dirs); $i++) {
-        $pofile = $dirs[$i] . DS . 'locale' . DS . $lang . DS . 'LC_MESSAGES' . DS . $apps[$i] . '.po';
-        if (file_exists($pofile)) {
-            $pofiles[] = $pofile;
-        }
-    }
-    if (!empty($dir) && substr($dir, -1) != DS) {
-        $dir .= DS;
-    }
-    $sh = $GLOBALS['msgcat'] . ' --sort-output ' . implode(' ', $pofiles) . $add . ' > ' . $dir . 'compendium.po ' . ($debug ? '' : $silence);
-    if ($debug || $test) {
-        $c->writeln();
-        $c->writeln('Executing:');
-        $c->writeln($sh);
-    }
-    if ($test) {
-        $ret = 0;
-    } else {
-        exec($sh, $out, $ret);
-    }
-    if ($ret == 0) {
-        $c->writeln($c->green('done'));
-    } else {
-        $c->writeln($c->red('failed'));
-    }
-}
-
-function init()
-{
-    global $cmd_options, $apps, $dirs, $debug, $test, $c, $silence;
-
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        }
-    }
-    if (empty($lang)) {
-        $lang = getenv('LANG');
-    }
-
-    for ($i = 0; $i < count($dirs); $i++) {
-        if (!empty($module) && $module != $apps[$i]) {
-            continue;
-        }
-        printf('Initializing module %s... ', $apps[$i]);
-        $dir = $dirs[$i] . DS . 'locale' . DS;
-        $targetdir = $dir . $lang . DS . 'LC_MESSAGES';
-        $pot = $dir . $apps[$i] . '.pot';
-        $po = $targetdir . DS . $apps[$i] . '.po';
-        if (!file_exists($pot)) {
-            $c->writeln();
-            $c->message(sprintf('%s not found. Run \'translation extract\' first.', $pot), 'cli.warning');
-            continue;
-        }
-        if (!is_dir($targetdir)) {
-            if ($debug) {
-                $c->writeln(sprintf('Making directory %s', $targetdir));
+            $this->writeln(sprintf('Generating status for module %s...', $this->cli->bold($this->apps[$i])));
+            if (empty($lang)) {
+                $langs = $this->get_languages($this->dirs[$i]);
+            } else {
+                if (!file_exists($this->dirs[$i] . '/locale/' . $lang . '/LC_MESSAGES/' . $this->apps[$i] . '.po')) {
+                    $this->writeln('Skipped...');
+                    $this->writeln();
+                    continue;
+                }
+                $langs = array($lang);
             }
-            if (!$test && !System::mkdir("-p $targetdir")) {
-                $c->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
-                $c->writeln($targetdir);
-                $c->writeln();
-                continue;
+            foreach ($langs as $locale) {
+                $this->writeln(sprintf('Status for locale %s... ', $this->cli->bold($locale)));
             }
         }
-        $sh = $GLOBALS['msginit'] . ' --no-translator -i ' . $pot;
-        if (!empty($lang)) {
-            $lcdir = $dir . $lang . DS . 'LC_MESSAGES';
-            $pofile = $lcdir . DS . $apps[$i] . '.po';
-            $sh .= ' --output-file ' . $po . ' --locale=' . $lang;
-            if (!is_dir($lcdir) && !System::mkdir('-p ' . $lcdir)) {
-                $c->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
-                $c->writeln($lcdir);
-                $c->writeln();
-                continue;
+    }
+
+    /**
+     * Builds or updates a compendium.
+     *
+     * @param array $options  Command line arguments.
+     */
+    public function compendium($options)
+    {
+        $dir = HORDE_BASE . DS . 'locale' . DS;
+        $add = '';
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'd':
+            case '--directory':
+                $dir = $option[1];
+                break;
+            case 'a':
+            case '--add':
+                $add .= ' ' . $option[1];
+                break;
             }
         }
-        if (!$debug) {
-            $sh .= $silence;
+        if (!isset($lang)) {
+            $this->cli->message('No locale specified.', 'cli.error');
+            $this->writeln();
+            $this->usage();
+            $this->footer();
         }
-        if ($debug || $test) {
-            $c->writeln();
-            $c->writeln('Executing:');
-            $c->writeln($sh);
+        printf('Merging all %s.po files to the compendium... ', $lang);
+        $pofiles = array();
+        for ($i = 0; $i < count($this->dirs); $i++) {
+            $pofile = $this->dirs[$i] . DS . 'locale' . DS . $lang . DS . 'LC_MESSAGES' . DS . $this->apps[$i] . '.po';
+            if (file_exists($pofile)) {
+                $pofiles[] = $pofile;
+            }
         }
-        if ($test) {
+        if (!empty($dir) && substr($dir, -1) != DS) {
+            $dir .= DS;
+        }
+        $sh = $this->msgcat . ' --sort-output ' . implode(' ', $pofiles) . $add . ' > ' . $dir . 'compendium.po ' . ($this->debug ? '' : $this->silence);
+        if ($this->debug || $this->test) {
+            $this->writeln();
+            $this->writeln('Executing:');
+            $this->writeln($sh);
+        }
+        if ($this->test) {
             $ret = 0;
         } else {
             exec($sh, $out, $ret);
         }
-        $app = $apps[$i] == 'imp' ? 'IMP' : ucfirst($apps[$i]);
-        file_put_contents($po,
-                          str_replace(array('Language-Team: none',
-                                            'PACKAGE package.',
-                                            'Content-Type: text/plain; charset=ASCII'),
-                                      array('Language-Team: i18n@lists.horde.org',
-                                            $app . ' package.',
-                                            'Content-Type: text/plain; charset=UTF-8'),
-                                      file_get_contents($po)));
         if ($ret == 0) {
-            $c->writeln($c->green('done'));
+            $this->writeln($this->cli->green('done'));
         } else {
-            $c->writeln($c->red('failed'));
+            $this->writeln($this->cli->red('failed'));
         }
     }
-}
 
-function make()
-{
-    global $cmd_options, $apps, $dirs, $debug, $test, $c, $silence, $redir_err;
-
-    $compendium = HORDE_BASE . DS . 'locale' . DS . 'compendium.po';
-    $save_stats = false;
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        case 'c':
-        case '--compendium':
-            $compendium = $option[1];
-            break;
-        case 'n':
-        case '--no-compendium':
-            $compendium = '';
-            break;
-        case 's':
-        case '--statistics':
-            $save_stats = true;
-            break;
+    /**
+     * Creates initial translations.
+     *
+     * @param array $options  Command line arguments.
+     */
+    public function init($options)
+    {
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'm':
+            case '--module':
+                $module = $option[1];
+                break;
+            }
         }
-    }
-    $horde = array_search('horde', $apps);
-    $horde_msg = array();
-    $stats_array = array();
-
-    $stats = new Console_Table();
-    $stats->setHeaders(array('Module', 'Language', 'Translated', 'Fuzzy', 'Untranslated', 'Updated'));
-
-    for ($i = 0; $i < count($dirs); $i++) {
-        if (!empty($module) && $module != $apps[$i]) {
-            continue;
-        }
-        $c->writeln(sprintf('Building MO files for module %s...', $c->bold($apps[$i])));
-        $dir = $dirs[$i] . DS . 'locale' . DS . '%s' . DS . 'LC_MESSAGES' . DS;
         if (empty($lang)) {
-            $langs = get_languages($dirs[$i]);
-        } else {
-            if (!file_exists(sprintf($dir, $lang) . $apps[$i] . '.po')) {
-                $c->writeln('Skipped...');
-                $c->writeln();
-                continue;
-            }
-            $langs = array($lang);
+            $lang = getenv('LANG');
         }
-        foreach ($langs as $locale) {
-            $c->writeln(sprintf('Building locale %s...', $c->bold($locale)));
-            $targetdir = sprintf($dir, $locale);
-            $pofile = $targetdir . $apps[$i] . '.po';
 
-            /* Convert to unix linebreaks. */
-            $content = str_replace("\r", '', file_get_contents($pofile));
-            file_put_contents($pofile, $content);
-
-            /* Remember update date. */
-            $last_update = preg_match(
-                '/^"PO-Revision-Date: (\d{4}-\d{2}-\d{2})/m',
-                $content, $matches)
-                ? $matches[1] : '';
-
-            /* Check PO file sanity. */
-            $sh = $GLOBALS['msgfmt'] . " --check --output-file=/dev/null \"$pofile\" $redir_err";
-            if ($debug || $test) {
-                $c->writeln('Executing:');
-                $c->writeln($sh);
-            }
-            if ($test) {
-                $ret = 0;
-            } else {
-                exec($sh, $out, $ret);
-            }
-            if ($ret != 0) {
-                $c->message('An error has occured:', 'cli.warning');
-                $c->writeln(implode("\n", $out));
-                $c->writeln();
-                if ($apps[$i] == 'horde') {
-                    continue 2;
-                }
+        for ($i = 0; $i < count($this->dirs); $i++) {
+            if (!empty($module) && $module != $this->apps[$i]) {
                 continue;
             }
-
-            /* Compile MO file. */
-            $sh = $GLOBALS['msgfmt'] . ' --statistics -o "' . $targetdir . $apps[$i] . '.mo" ';
-            if ($apps[$i] != 'horde' &&
-                substr($apps[$i], 0, 6) != 'Horde_') {
-                $horde_po = $dirs[$horde] . DS . 'locale' . DS . $locale . DS . 'LC_MESSAGES/horde.po';
-                if (!is_readable($horde_po)) {
-                    $c->message(sprintf('The Horde PO file for the locale %s does not exist:', $locale), 'cli.warning');
-                    $c->writeln($horde_po);
-                    $c->writeln();
-                    $sh .= '"' . $targetdir . DS . $apps[$i] . '.po"';
-                } else {
-                    $sh = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$pofile\" \"$horde_po\" | $sh -";
+            printf('Initializing module %s... ', $this->apps[$i]);
+            $dir = $this->dirs[$i] . DS . 'locale' . DS;
+            $targetdir = $dir . $lang . DS . 'LC_MESSAGES';
+            $pot = $dir . $this->apps[$i] . '.pot';
+            $po = $targetdir . DS . $this->apps[$i] . '.po';
+            if (!file_exists($pot)) {
+                $this->writeln();
+                $this->cli->message(sprintf('%s not found. Run \'translation extract\' first.', $pot), 'cli.warning');
+                continue;
+            }
+            if (!is_dir($targetdir)) {
+                if ($this->debug) {
+                    $this->writeln(sprintf('Making directory %s', $targetdir));
                 }
-            } else {
-                $sh .= '"' . $pofile . '"';
+                if (!$this->test && !System::mkdir("-p $targetdir")) {
+                    $this->cli->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
+                    $this->writeln($targetdir);
+                    $this->writeln();
+                    continue;
+                }
             }
-            $sh .= $redir_err;
-            if ($debug || $test) {
-                $c->writeln('Executing:');
-                $c->writeln($sh);
+            $sh = $this->msginit . ' --no-translator -i ' . $pot;
+            if (!empty($lang)) {
+                $lcdir = $dir . $lang . DS . 'LC_MESSAGES';
+                $pofile = $lcdir . DS . $this->apps[$i] . '.po';
+                $sh .= ' --output-file ' . $po . ' --locale=' . $lang;
+                if (!is_dir($lcdir) && !System::mkdir('-p ' . $lcdir)) {
+                    $this->cli->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
+                    $this->writeln($lcdir);
+                    $this->writeln();
+                    continue;
+                }
             }
-            $out = '';
-            if ($test) {
+            if (!$this->debug) {
+                $sh .= $this->silence;
+            }
+            if ($this->debug || $this->test) {
+                $this->writeln();
+                $this->writeln('Executing:');
+                $this->writeln($sh);
+            }
+            if ($this->test) {
                 $ret = 0;
             } else {
-                putenv('LANG=en');
                 exec($sh, $out, $ret);
-                putenv('LANG=' . $GLOBALS['language']);
             }
+            $app = $this->apps[$i] == 'imp' ? 'IMP' : ucfirst($this->apps[$i]);
+            file_put_contents($po,
+                              str_replace(array('Language-Team: none',
+                                                'PACKAGE package.',
+                                                'Content-Type: text/plain; charset=ASCII'),
+                                          array('Language-Team: i18n@lists.horde.org',
+                                                $app . ' package.',
+                                                'Content-Type: text/plain; charset=UTF-8'),
+                                          file_get_contents($po)));
             if ($ret == 0) {
-                $c->writeln($c->green('done'));
-                $messages = array(0, 0, 0, $last_update);
-                if (preg_match('/(\d+) translated/', $out[0], $match)) {
-                    $messages[0] = $match[1];
-                    if (substr($apps[$i], 0, 6) != 'Horde_' &&
-                        isset($horde_msg[$locale])) {
-                        $messages[0] -= $horde_msg[$locale][0];
-                        if ($messages[0] < 0) $messages[0] = 0;
-                    }
-                }
-                if (preg_match('/(\d+) fuzzy/', $out[0], $match)) {
-                    $messages[1] = $match[1];
-                    if (substr($apps[$i], 0, 6) != 'Horde_' &&
-                        isset($horde_msg[$locale])) {
-                        $messages[1] -= $horde_msg[$locale][1];
-                        if ($messages[1] < 0) $messages[1] = 0;
-                    }
-                }
-                if (preg_match('/(\d+) untranslated/', $out[0], $match)) {
-                    $messages[2] = $match[1];
-                    if (substr($apps[$i], 0, 6) != 'Horde_' &&
-                        isset($horde_msg[$locale])) {
-                        $messages[2] -= $horde_msg[$locale][2];
-                        if ($messages[2] < 0) $messages[2] = 0;
-                    }
-                }
-                if ($apps[$i] == 'horde') {
-                    $horde_msg[$locale] = $messages;
-                }
-                $stats_array[$apps[$i]][$locale] = $messages;
-                $stats->addRow(array($apps[$i], $locale, $messages[0], $messages[1], $messages[2], $messages[3]));
+                $this->writeln($this->cli->green('done'));
             } else {
-                $c->writeln($c->red('failed'));
-                exec($sh, $out, $ret);
-                $c->writeln(implode("\n", $out));
+                $this->writeln($this->cli->red('failed'));
             }
-            if (count($langs) > 1) {
+        }
+    }
+
+    /**
+     * Compiles translations to .mo files.
+     *
+     * @param array $options  Command line arguments.
+     */
+    public function make($options)
+    {
+        $compendium = HORDE_BASE . DS . 'locale' . DS . 'compendium.po';
+        $save_stats = false;
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'm':
+            case '--module':
+                $module = $option[1];
+                break;
+            case 'c':
+            case '--compendium':
+                $compendium = $option[1];
+                break;
+            case 'n':
+            case '--no-compendium':
+                $compendium = '';
+                break;
+            case 's':
+            case '--statistics':
+                $save_stats = true;
+                break;
+            }
+        }
+        $horde_msg = array();
+        $stats_array = array();
+
+        $stats = new Console_Table();
+        $stats->setHeaders(array('Module', 'Language', 'Translated', 'Fuzzy', 'Untranslated', 'Updated'));
+
+        for ($i = 0; $i < count($this->dirs); $i++) {
+            if (!empty($module) && $module != $this->apps[$i]) {
                 continue;
             }
+            $this->writeln(sprintf('Building MO files for module %s...', $this->cli->bold($this->apps[$i])));
+            $dir = $this->dirs[$i] . DS . 'locale' . DS . '%s' . DS . 'LC_MESSAGES' . DS;
+            if (empty($lang)) {
+                $langs = $this->get_languages($this->dirs[$i]);
+            } else {
+                if (!file_exists(sprintf($dir, $lang) . $this->apps[$i] . '.po')) {
+                    $this->writeln('Skipped...');
+                    $this->writeln();
+                    continue;
+                }
+                $langs = array($lang);
+            }
+            foreach ($langs as $locale) {
+                $this->writeln(sprintf('Building locale %s...', $this->cli->bold($locale)));
+                $targetdir = sprintf($dir, $locale);
+                $pofile = $targetdir . $this->apps[$i] . '.po';
 
-            /* Merge translation into compendium. */
-            if (!empty($compendium)) {
-                printf('Merging the PO file for %s to the compendium... ', $c->bold($apps[$i]));
-                if (!empty($targetdir) && substr($targetdir, -1) != DS) {
-                    $targetdir .= DS;
+                /* Convert to unix linebreaks. */
+                $content = str_replace("\r", '', file_get_contents($pofile));
+                file_put_contents($pofile, $content);
+
+                /* Remember update date. */
+                $last_update = preg_match(
+                    '/^"PO-Revision-Date: (\d{4}-\d{2}-\d{2})/m',
+                    $content, $matches)
+                    ? $matches[1] : '';
+
+                /* Check PO file sanity. */
+                $sh = $this->msgfmt . " --check --output-file=/dev/null \"$pofile\" " . $this->_redirErr;
+                if ($this->debug || $this->test) {
+                    $this->writeln('Executing:');
+                    $this->writeln($sh);
                 }
-                $sh = $GLOBALS['msgcat'] . " --sort-output \"$compendium\" \"$pofile\" > \"$compendium.tmp\"";
-                if (!$debug) {
-                    $sh .= $silence;
-                }
-                if ($debug || $test) {
-                    $c->writeln();
-                    $c->writeln('Executing:');
-                    $c->writeln($sh);
-                }
-                $out = '';
-                if ($test) {
+                if ($this->test) {
                     $ret = 0;
                 } else {
                     exec($sh, $out, $ret);
                 }
-                unlink($compendium);
-                rename($compendium . '.tmp', $compendium);
-                if ($ret == 0) {
-                    $c->writeln($c->green('done'));
+                if ($ret != 0) {
+                    $this->cli->message('An error has occured:', 'cli.warning');
+                    $this->writeln(implode("\n", $out));
+                    $this->writeln();
+                    if ($this->apps[$i] == 'horde') {
+                        continue 2;
+                    }
+                    continue;
+                }
+
+                /* Compile MO file. */
+                $sh = $this->msgfmt . ' --statistics -o "' . $targetdir . $this->apps[$i] . '.mo" ';
+                if ($this->apps[$i] != 'horde' &&
+                    substr($this->apps[$i], 0, 6) != 'Horde_') {
+                    $horde_po = $this->dirs[$horde] . DS . 'locale' . DS . $locale . DS . 'LC_MESSAGES/horde.po';
+                    if (!is_readable($horde_po)) {
+                        $this->cli->message(sprintf('The Horde PO file for the locale %s does not exist:', $locale), 'cli.warning');
+                        $this->writeln($horde_po);
+                        $this->writeln();
+                        $sh .= '"' . $targetdir . DS . $this->apps[$i] . '.po"';
+                    } else {
+                        $sh = $this->msgcomm . " --more-than=0 --sort-output \"$pofile\" \"$horde_po\" | $sh -";
+                    }
                 } else {
-                    $c->writeln($c->red('failed'));
+                    $sh .= '"' . $pofile . '"';
                 }
-            }
-            $c->writeln();
-        }
-    }
-    if (empty($module)) {
-        $c->writeln('Results:');
-    } else {
-        $c->writeln('Results (including Horde):');
-    }
-    $c->writeln($stats->getTable());
-    if ($save_stats) {
-        file_put_contents('translation_stats.txt', serialize($stats_array));
-    }
-}
-
-function cleanup($keep_untranslated = false)
-{
-    global $cmd_options, $apps, $dirs, $debug, $test, $c, $silence;
-
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        }
-    }
-
-    for ($i = 0; $i < count($dirs); $i++) {
-        if (!empty($module) && $module != $apps[$i]) {
-            continue;
-        }
-        $c->writeln(sprintf('Cleaning up PO files for module %s...', $c->bold($apps[$i])));
-        $po = $dirs[$i] . DS . 'locale' . DS . '%s' . DS . 'LC_MESSAGES' .DS . $apps[$i] . '.po';
-        if (empty($lang)) {
-            $langs = get_languages($dirs[$i]);
-        } else {
-            $c->writeln(sprintf($po, $lang));
-            if (!file_exists(sprintf($po, $lang))) {
-                $c->writeln('Skipped...');
-                $c->writeln();
-                continue;
-            }
-            $langs = array($lang);
-        }
-        foreach ($langs as $locale) {
-            $c->writeln(sprintf('Cleaning up locale %s... ', $c->bold($locale)));
-            $pofile = sprintf($po, $locale);
-            $sh = $GLOBALS['msgattrib'] . ($keep_untranslated ? '' : ' --translated') . " --no-obsolete --force-po \"$pofile\" > \"$pofile.tmp\"";
-            if (!$debug) {
-                $sh .= $silence;
-            }
-            if ($debug || $test) {
-                $c->writeln();
-                $c->writeln('Executing:');
-                $c->writeln($sh);
-            }
-            $out = '';
-            if ($test) {
-                $ret = 0;
-            } else {
-                exec($sh, $out, $ret);
-            }
-            if ($ret == 0) {
-                unlink($pofile);
-                rename($pofile . '.tmp', $pofile);
-                $c->writeln($c->green('done'));
-            } else {
-                unlink($pofile . '.tmp', $pofile);
-                $c->writeln($c->red('failed'));
-            }
-            $c->writeln();
-        }
-    }
-}
-
-function commit($help_only = false)
-{
-    global $cmd_options, $apps, $dirs, $debug, $test, $c;
-
-    $docs = $skip = $lang = false;
-    $git = is_dir(BASE . '/.git');
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        case 'n':
-        case '--new':
-            $docs = true;
-            break;
-        case 'M':
-        case '--message':
-            $msg = $option[1];
-            break;
-        case 's':
-        case '--skip':
-            $skip = true;
-            break;
-        }
-    }
-    $files = array();
-    for ($i = 0; $i < count($dirs); $i++) {
-        if ((!empty($module) && $module != $apps[$i]) ||
-            (!$git && $skip && !is_dir($dirs[$i] . DS . 'CVS'))) {
-            continue;
-        }
-        if ($apps[$i] == 'horde') {
-            $dirs[] = $dirs[$i] . DS . 'admin';
-            $apps[] = 'horde/admin';
-            if (!empty($module)) {
-                $module = 'horde/admin';
-            }
-        }
-        if (empty($lang)) {
-            if ($help_only) {
-                $files = array_merge($files, strip_horde(search_ext('xml', $dirs[$i] . DS . 'locale')));
-            } else {
-                $files = array_merge($files, strip_horde(get_po_files($dirs[$i] . DS . 'po')));
-                $files = array_merge($files, strip_horde(search_file('^[a-z]{2}(_[A-Z]{2})?', $dirs[$i] . DS . 'locale', true)));
-            }
-        } else {
-            if ($help_only &&
-                !file_exists($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml')) {
-                continue;
-            }
-            $files[] = strip_horde($dirs[$i] . DS . 'locale' . DS . $lang);
-        }
-        if ($docs && !$help_only && $apps[$i]) {
-            $files[] = strip_horde($dirs[$i] . DS . 'docs');
-            if ($apps[$i] == 'horde') {
-                $horde_conf = $dirs[array_search('horde', $dirs)] . DS . 'config' . DS;
-                $files[] = strip_horde($horde_conf . 'nls.php');
-            }
-        }
-    }
-    chdir(BASE);
-    if (count($files)) {
-        if ($docs) {
-            $c->writeln('Adding new files to repository:');
-            $add_files = array();
-            foreach ($files as $file) {
-                if (strstr($file, 'locale')) {
-                    $add_files[] = $file;
-                    $c->writeln($file);
+                $sh .= $this->_redirErr;
+                if ($this->debug || $this->test) {
+                    $this->writeln('Executing:');
+                    $this->writeln($sh);
                 }
-            }
-            foreach ($files as $file) {
-                if (strstr($file, 'locale')) {
-                    if ($help_only) {
-                        $add_files[] = $file . DS . '*.xml';
-                        $c->writeln($file . DS . '*.xml');
-                    } else {
-                        $add_files[] = $file . DS . '*.xml ' . $file . DS . 'LC_MESSAGES';
-                        $c->writeln($file . DS . "*.xml\n$file" . DS . 'LC_MESSAGES');
-                    }
+                $out = '';
+                if ($this->test) {
+                    $ret = 0;
+                } else {
+                    exec($sh, $out, $ret);
                 }
-            }
-            if (!$help_only) {
-                foreach ($files as $file) {
-                    if (strstr($file, 'locale')) {
-                        $c->writeln($add_files[] = $file . DS . 'LC_MESSAGES' . DS . '*.po');
-                        $c->writeln($add_files[] = $file . DS . 'LC_MESSAGES' . DS . '*.mo');
-                    }
-                }
-            }
-            $c->writeln();
-            if ($git) {
-                if ($debug || $test) {
-                    $c->writeln('Executing:');
-                    $c->writeln('git add ' . implode(' ', $add_files));
-                }
-                if (!$test) {
-                    system('git add ' . implode(' ', $add_files));
-                }
-            } else {
-                foreach ($add_files as $add_file) {
-                    if ($debug || $test) {
-                        $c->writeln('Executing:');
-                        $c->writeln('cvs add ' . $add_file);
-                    }
-                    if (!$test) {
-                        system('cvs add ' . $add_file);
-                    }
-                }
-            }
-            $c->writeln();
-        }
-        $c->writeln('Committing:');
-        $c->writeln(implode(' ', $files));
-        if (!empty($lang)) {
-            $lang = ' ' . $lang;
-        }
-        if (empty($msg)) {
-            if ($docs) {
-                $msg = "Add$lang translation.";
-            } elseif ($help_only) {
-                $msg = "Update$lang help file.";
-            } else {
-                $msg = "Update$lang translation.";
-            }
-        }
-        if ($git) {
-            $sh = 'git add ' . implode(' ', $files) . '; git commit -m "' . $msg . '"';
-        } else {
-            $sh = 'cvs commit -m "' . $msg . '" ' . implode(' ', $files);
-        }
-        if ($debug || $test) {
-            $c->writeln('Executing:');
-            $c->writeln($sh);
-        }
-        if (!$test) system($sh);
-        if ($git) {
-            $c->message('You have to push the commit manually!', 'cli.warning');
-        }
-    }
-}
-
-function update_help()
-{
-    global $cmd_options, $dirs, $apps, $debug, $test, $last_error_msg, $c;
-
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        }
-    }
-    $files = array();
-    for ($i = 0; $i < count($dirs); $i++) {
-        if (!empty($module) && $module != $apps[$i]) {
-            continue;
-        }
-        if (!is_dir("$dirs[$i]/locale")) {
-            continue;
-        }
-        if ($apps[$i] == 'horde') {
-            $dirs[] = $dirs[$i] . DS . 'admin';
-            $apps[] = 'horde/admin';
-            if (!empty($module)) {
-                $module = 'horde/admin';
-            }
-        }
-        if (empty($lang)) {
-            $files = search_file('help.xml', $dirs[$i] . DS . 'locale');
-        } else {
-            $files = array($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml');
-        }
-        $file_en  = $dirs[$i] . DS . 'locale' . DS . 'en' . DS . 'help.xml';
-        if (!file_exists($file_en)) {
-            $c->message(sprintf('There doesn\'t yet exist a help file for %s.', $c->bold($apps[$i])), 'cli.warning');
-            $c->writeln();
-            continue;
-        }
-        foreach ($files as $file_loc) {
-            $locale = substr($file_loc, 0, strrpos($file_loc, DS));
-            $locale = substr($locale, strrpos($locale, DS) + 1);
-            if ($locale == 'en') {
-                continue;
-            }
-            if (!file_exists($file_loc)) {
-                $c->message(sprintf('The %s help file for %s doesn\'t yet exist. Creating a new one.', $c->bold($locale), $c->bold($apps[$i])), 'cli.warning');
-                $dir_loc = substr($file_loc, 0, -9);
-                if (!is_dir($dir_loc)) {
-                    if ($debug || $test) {
-                        $c->writeln(sprintf('Making directory %s', $dir_loc));
-                    }
-                    if (!$test && !System::mkdir("-p $dir_loc")) {
-                        $c->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
-                        $c->writeln($dir_loc);
-                        $c->writeln();
-                        continue;
-                    }
-                }
-                if ($debug || $test) {
-                    $c->writeln(wordwrap(sprintf('Copying %s to %s', $file_en, $file_loc)));
-                }
-                if (!$test && !copy($file_en, $file_loc)) {
-                    $c->message(sprintf('Could not copy %s to %s', $file_en, $file_loc), 'cli.warning');
-                }
-                $c->writeln();
-                continue;
-            }
-            $c->writeln(sprintf('Updating %s help file for %s.', $c->bold($locale), $c->bold($apps[$i])));
-
-            if (!($doc_en = DOMDocument::load($file_en))) {
-                $c->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
-                $c->writeln();
-                continue 2;
-            }
-            $doc_en->encoding = 'UTF-8';
-            $doc_en->formatOutput = true;
-
-            if (!($doc_loc = DOMDocument::load($file_loc))) {
-                $c->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
-                $c->writeln();
-                continue;
-            }
-
-            $count_uptodate = $count_new = $count_changed = $count_unknown = 0;
-            $date = date('Y-m-d');
-            $xpath = new DOMXPath($doc_loc);
-            foreach ($doc_en->getElementsByTagName('entry') as $entry) {
-                $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
-                if ($list->length) {
-                    $entry_loc = $doc_en->importNode($list->item(0), true);
-                    if ($entry_loc->hasAttribute('md5') &&
-                        md5($entry->textContent) != $entry_loc->getAttribute('md5')) {
-                        $comment = $doc_en->createComment(" English entry ($date):\n" . str_replace('--', '&#45;&#45;', $doc_en->saveXML($entry)));
-                        $entry_loc->appendChild($comment);
-                        $entry_loc->setAttribute('state', 'changed');
-                        $count_changed++;
-                    } else {
-                        if (!$entry_loc->hasAttribute('state')) {
-                            $comment = $doc_en->createComment(" English entry ($date):\n" . str_replace('--', '&#45;&#45;', $doc_en->saveXML($entry)));
-                            $entry_loc->appendChild($comment);
-                            $entry_loc->setAttribute('state', 'unknown');
-                            $count_unknown++;
-                        } else {
-                            $count_uptodate++;
+                if ($ret == 0) {
+                    $this->writeln($this->cli->green('done'));
+                    $messages = array(0, 0, 0, $last_update);
+                    if (preg_match('/(\d+) translated/', $out[0], $match)) {
+                        $messages[0] = $match[1];
+                        if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                            isset($horde_msg[$locale])) {
+                            $messages[0] -= $horde_msg[$locale][0];
+                            if ($messages[0] < 0) $messages[0] = 0;
                         }
                     }
+                    if (preg_match('/(\d+) fuzzy/', $out[0], $match)) {
+                        $messages[1] = $match[1];
+                        if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                            isset($horde_msg[$locale])) {
+                            $messages[1] -= $horde_msg[$locale][1];
+                            if ($messages[1] < 0) $messages[1] = 0;
+                        }
+                    }
+                    if (preg_match('/(\d+) untranslated/', $out[0], $match)) {
+                        $messages[2] = $match[1];
+                        if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                            isset($horde_msg[$locale])) {
+                            $messages[2] -= $horde_msg[$locale][2];
+                            if ($messages[2] < 0) $messages[2] = 0;
+                        }
+                    }
+                    if ($this->apps[$i] == 'horde') {
+                        $horde_msg[$locale] = $messages;
+                    }
+                    $stats_array[$this->apps[$i]][$locale] = $messages;
+                    $stats->addRow(array($this->apps[$i], $locale, $messages[0], $messages[1], $messages[2], $messages[3]));
                 } else {
-                    $entry_loc = $doc_en->importNode($entry, true);
-                    $entry_loc->setAttribute('state', 'new');
-                    $count_new++;
+                    $this->writeln($this->cli->red('failed'));
+                    exec($sh, $out, $ret);
+                    $this->writeln(implode("\n", $out));
                 }
-                $entry->parentNode->replaceChild($entry_loc, $entry);
-            }
-            $c->writeln(wordwrap(sprintf('Entries: %d total, %d up-to-date, %d new, %d changed, %d unknown',
-                                         $count_uptodate + $count_new + $count_changed + $count_unknown,
-                                         $count_uptodate, $count_new, $count_changed, $count_unknown)));
+                if (count($langs) > 1) {
+                    continue;
+                }
 
-            if ($debug || $test) {
-                $c->writeln(wordwrap(sprintf('Writing updated help file to %s.', $file_loc)));
-            }
-            if (!$test) {
-                $doc_en->save($file_loc);
-            }
-            $c->writeln();
-        }
-    }
-}
-
-function make_help()
-{
-    global $cmd_options, $dirs, $apps, $debug, $test, $c;
-
-    foreach ($cmd_options[0] as $option) {
-        switch ($option[0]) {
-        case 'h':
-            usage();
-            footer();
-        case 'l':
-        case '--locale':
-            $lang = $option[1];
-            break;
-        case 'm':
-        case '--module':
-            $module = $option[1];
-            break;
-        }
-    }
-    $files = array();
-    for ($i = 0; $i < count($dirs); $i++) {
-        if (!empty($module) && $module != $apps[$i]) {
-            continue;
-        }
-        if (!is_dir("$dirs[$i]/locale")) continue;
-        if ($apps[$i] == 'horde') {
-            $dirs[] = $dirs[$i] . DS . 'admin';
-            $apps[] = 'horde/admin';
-            if (!empty($module)) {
-                $module = 'horde/admin';
-            }
-        }
-        if (empty($lang)) {
-            $files = search_file('help.xml', $dirs[$i] . DS . 'locale');
-        } else {
-            $files = array($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml');
-        }
-        $file_en = $dirs[$i] . DS . 'locale' . DS . 'en' . DS . 'help.xml';
-        if (!file_exists($file_en)) {
-            continue;
-        }
-
-        if (!($doc_en = DOMDocument::load($file_en))) {
-            $c->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
-            $c->writeln();
-            continue;
-        }
-        $xpath = new DOMXPath($doc_en);
-
-        foreach ($files as $file_loc) {
-            if (!file_exists($file_loc)) {
-                $c->writeln('Skipped...');
-                $c->writeln();
-                continue;
-            }
-            $locale = substr($file_loc, 0, strrpos($file_loc, DS));
-            $locale = substr($locale, strrpos($locale, DS) + 1);
-            if ($locale == 'en') continue;
-            $c->writeln(sprintf('Updating %s help file for %s.', $c->bold($locale), $c->bold($apps[$i])));
-
-            if (!($doc_loc = DOMDocument::load($file_loc))) {
-                $c->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
-                $c->writeln();
-                continue;
-            }
-            $doc_loc->encoding = 'UTF-8';
-            $doc_loc->formatOutput = true;
-
-            $count_all = $count = 0;
-            foreach ($doc_loc->getElementsByTagName('entry') as $entry) {
-                foreach ($entry->childNodes as $child) {
-                    if ($child->nodeType == XML_COMMENT_NODE &&
-                        strstr($child->nodeValue, 'English entry')) {
-                        $entry->removeChild($child);
+                /* Merge translation into compendium. */
+                if (!empty($compendium)) {
+                    printf('Merging the PO file for %s to the compendium... ', $this->cli->bold($this->apps[$i]));
+                    if (!empty($targetdir) && substr($targetdir, -1) != DS) {
+                        $targetdir .= DS;
+                    }
+                    $sh = $this->msgcat . " --sort-output \"$compendium\" \"$pofile\" > \"$compendium.tmp\"";
+                    if (!$this->debug) {
+                        $sh .= $this->silence;
+                    }
+                    if ($this->debug || $this->test) {
+                        $this->writeln();
+                        $this->writeln('Executing:');
+                        $this->writeln($sh);
+                    }
+                    $out = '';
+                    if ($this->test) {
+                        $ret = 0;
+                    } else {
+                        exec($sh, $out, $ret);
+                    }
+                    unlink($compendium);
+                    rename($compendium . '.tmp', $compendium);
+                    if ($ret == 0) {
+                        $this->writeln($this->cli->green('done'));
+                    } else {
+                        $this->writeln($this->cli->red('failed'));
                     }
                 }
-                $count_all++;
-                $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
-                if ($list->length) {
-                    $entry->setAttribute('md5', md5($list->item(0)->textContent));
-                    $entry->setAttribute('state', 'uptodate');
-                    $count++;
+                $this->writeln();
+            }
+        }
+        if (empty($module)) {
+            $this->writeln('Results:');
+        } else {
+            $this->writeln('Results (including Horde):');
+        }
+        $this->writeln($stats->getTable());
+        if ($save_stats) {
+            file_put_contents('translation_stats.txt', serialize($stats_array));
+        }
+    }
+
+    /**
+     * Cleans up .po files, removing obsolete translations and optionally
+     * untranslated strings.
+     *
+     * @param array $options              Command line arguments.
+     * @param boolean $keep_untranslated  Whether to keep untranslated strings.
+     */
+    public function cleanup($options, $keep_untranslated = false)
+    {
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'm':
+            case '--module':
+                $module = $option[1];
+                break;
+            }
+        }
+
+        for ($i = 0; $i < count($this->dirs); $i++) {
+            if (!empty($module) && $module != $this->apps[$i]) {
+                continue;
+            }
+            $this->writeln(sprintf('Cleaning up PO files for module %s...', $this->cli->bold($this->apps[$i])));
+            $po = $this->dirs[$i] . DS . 'locale' . DS . '%s' . DS . 'LC_MESSAGES' .DS . $this->apps[$i] . '.po';
+            if (empty($lang)) {
+                $langs = $this->get_languages($this->dirs[$i]);
+            } else {
+                $this->writeln(sprintf($po, $lang));
+                if (!file_exists(sprintf($po, $lang))) {
+                    $this->writeln('Skipped...');
+                    $this->writeln();
+                    continue;
+                }
+                $langs = array($lang);
+            }
+            foreach ($langs as $locale) {
+                $this->writeln(sprintf('Cleaning up locale %s... ', $this->cli->bold($locale)));
+                $pofile = sprintf($po, $locale);
+                $sh = $this->msgattrib . ($keep_untranslated ? '' : ' --translated') . " --no-obsolete --force-po \"$pofile\" > \"$pofile.tmp\"";
+                if (!$this->debug) {
+                    $sh .= $this->silence;
+                }
+                if ($this->debug || $this->test) {
+                    $this->writeln();
+                    $this->writeln('Executing:');
+                    $this->writeln($sh);
+                }
+                $out = '';
+                if ($this->test) {
+                    $ret = 0;
                 } else {
-                    $c->message(sprintf('No entry with the id "%s" exists in the original help file.', $entry->getAttribute('id')), 'cli.warning');
+                    exec($sh, $out, $ret);
+                }
+                if ($ret == 0) {
+                    unlink($pofile);
+                    rename($pofile . '.tmp', $pofile);
+                    $this->writeln($this->cli->green('done'));
+                } else {
+                    unlink($pofile . '.tmp', $pofile);
+                    $this->writeln($this->cli->red('failed'));
+                }
+                $this->writeln();
+            }
+        }
+    }
+
+    /**
+     * Commits tranlations to either CVS or Git.
+     *
+     * @param array $options      Command line arguments.
+     * @param boolean $help_only  Whether to only commit help files.
+     */
+    public function commit($options, $help_only = false)
+    {
+        $dirs = $this->dirs;
+        $apps = $this->apps;
+        $docs = $skip = $lang = false;
+        $git = is_dir(BASE . '/.git');
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'm':
+            case '--module':
+                $module = $option[1];
+                break;
+            case 'n':
+            case '--new':
+                $docs = true;
+                break;
+            case 'M':
+            case '--message':
+                $msg = $option[1];
+                break;
+            case 's':
+            case '--skip':
+                $skip = true;
+                break;
+            }
+        }
+        $files = array();
+        for ($i = 0; $i < count($dirs); $i++) {
+            if ((!empty($module) && $module != $apps[$i]) ||
+                (!$git && $skip && !is_dir($dirs[$i] . DS . 'CVS'))) {
+                continue;
+            }
+            if ($apps[$i] == 'horde') {
+                $dirs[] = $dirs[$i] . DS . 'admin';
+                $apps[] = 'horde/admin';
+                if (!empty($module)) {
+                    $module = 'horde/admin';
                 }
             }
-
-            if (!$test) {
-                $doc_loc->save($file_loc);
+            if (empty($lang)) {
+                if ($help_only) {
+                    $files = array_merge($files, $this->strip_horde($this->search_ext('xml', $dirs[$i] . DS . 'locale')));
+                } else {
+                    $files = array_merge($files, $this->strip_horde($this->get_po_files($dirs[$i] . DS . 'po')));
+                    $files = array_merge($files, $this->strip_horde($this->search_file('^[a-z]{2}(_[A-Z]{2})?', $dirs[$i] . DS . 'locale', true)));
+                }
+            } else {
+                if ($help_only &&
+                    !file_exists($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml')) {
+                    continue;
+                }
+                $files[] = $this->strip_horde($dirs[$i] . DS . 'locale' . DS . $lang);
             }
-            $c->writeln(sprintf('%d of %d entries marked as up-to-date', $count, $count_all));
-            $c->writeln();
+            if ($docs && !$help_only && $apps[$i]) {
+                $files[] = $this->strip_horde($dirs[$i] . DS . 'docs');
+                if ($apps[$i] == 'horde') {
+                    $horde_conf = $dirs[array_search('horde', $dirs)] . DS . 'config' . DS;
+                    $files[] = $this->strip_horde($horde_conf . 'nls.php');
+                }
+            }
+        }
+        chdir(BASE);
+        if (count($files)) {
+            if ($docs) {
+                $this->writeln('Adding new files to repository:');
+                $add_files = array();
+                foreach ($files as $file) {
+                    if (strstr($file, 'locale')) {
+                        $add_files[] = $file;
+                        $this->writeln($file);
+                    }
+                }
+                foreach ($files as $file) {
+                    if (strstr($file, 'locale')) {
+                        if ($help_only) {
+                            $add_files[] = $file . DS . '*.xml';
+                            $this->writeln($file . DS . '*.xml');
+                        } else {
+                            $add_files[] = $file . DS . '*.xml ' . $file . DS . 'LC_MESSAGES';
+                            $this->writeln($file . DS . "*.xml\n$file" . DS . 'LC_MESSAGES');
+                        }
+                    }
+                }
+                if (!$help_only) {
+                    foreach ($files as $file) {
+                        if (strstr($file, 'locale')) {
+                            $this->writeln($add_files[] = $file . DS . 'LC_MESSAGES' . DS . '*.po');
+                            $this->writeln($add_files[] = $file . DS . 'LC_MESSAGES' . DS . '*.mo');
+                        }
+                    }
+                }
+                $this->writeln();
+                if ($git) {
+                    if ($this->debug || $this->test) {
+                        $this->writeln('Executing:');
+                        $this->writeln('git add ' . implode(' ', $add_files));
+                    }
+                    if (!$this->test) {
+                        system('git add ' . implode(' ', $add_files));
+                    }
+                } else {
+                    foreach ($add_files as $add_file) {
+                        if ($this->debug || $this->test) {
+                            $this->writeln('Executing:');
+                            $this->writeln('cvs add ' . $add_file);
+                        }
+                        if (!$this->test) {
+                            system('cvs add ' . $add_file);
+                        }
+                    }
+                }
+                $this->writeln();
+            }
+            $this->writeln('Committing:');
+            $this->writeln(implode(' ', $files));
+            if (!empty($lang)) {
+                $lang = ' ' . $lang;
+            }
+            if (empty($msg)) {
+                if ($docs) {
+                    $msg = "Add$lang translation.";
+                } elseif ($help_only) {
+                    $msg = "Update$lang help file.";
+                } else {
+                    $msg = "Update$lang translation.";
+                }
+            }
+            if ($git) {
+                $sh = 'git add ' . implode(' ', $files) . '; git commit -m "' . $msg . '"';
+            } else {
+                $sh = 'cvs commit -m "' . $msg . '" ' . implode(' ', $files);
+            }
+            if ($this->debug || $this->test) {
+                $this->writeln('Executing:');
+                $this->writeln($sh);
+            }
+            if (!$this->test) system($sh);
+            if ($git) {
+                $this->cli->message('You have to push the commit manually!', 'cli.warning');
+            }
+        }
+    }
+
+    /**
+     * Merges old help translations with new English versions.
+     *
+     * @param array $options  Command line arguments.
+     */
+    public function update_help($options)
+    {
+        $dirs = $this->dirs;
+        $apps = $this->apps;
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'm':
+            case '--module':
+                $module = $option[1];
+                break;
+            }
+        }
+        $files = array();
+        for ($i = 0; $i < count($dirs); $i++) {
+            if (!empty($module) && $module != $apps[$i]) {
+                continue;
+            }
+            if (!is_dir("$dirs[$i]/locale")) {
+                continue;
+            }
+            if ($apps[$i] == 'horde') {
+                $dirs[] = $dirs[$i] . DS . 'admin';
+                $apps[] = 'horde/admin';
+                if (!empty($module)) {
+                    $module = 'horde/admin';
+                }
+            }
+            if (empty($lang)) {
+                $files = $this->search_file('help.xml', $dirs[$i] . DS . 'locale');
+            } else {
+                $files = array($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml');
+            }
+            $file_en  = $dirs[$i] . DS . 'locale' . DS . 'en' . DS . 'help.xml';
+            if (!file_exists($file_en)) {
+                $this->cli->message(sprintf('There doesn\'t yet exist a help file for %s.', $this->cli->bold($apps[$i])), 'cli.warning');
+                $this->writeln();
+                continue;
+            }
+            foreach ($files as $file_loc) {
+                $locale = substr($file_loc, 0, strrpos($file_loc, DS));
+                $locale = substr($locale, strrpos($locale, DS) + 1);
+                if ($locale == 'en') {
+                    continue;
+                }
+                if (!file_exists($file_loc)) {
+                    $this->cli->message(sprintf('The %s help file for %s doesn\'t yet exist. Creating a new one.', $this->cli->bold($locale), $this->cli->bold($apps[$i])), 'cli.warning');
+                    $dir_loc = substr($file_loc, 0, -9);
+                    if (!is_dir($dir_loc)) {
+                        if ($this->debug || $this->test) {
+                            $this->writeln(sprintf('Making directory %s', $dir_loc));
+                        }
+                        if (!$this->test && !System::mkdir("-p $dir_loc")) {
+                            $this->cli->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
+                            $this->writeln($dir_loc);
+                            $this->writeln();
+                            continue;
+                        }
+                    }
+                    if ($this->debug || $this->test) {
+                        $this->writeln(wordwrap(sprintf('Copying %s to %s', $file_en, $file_loc)));
+                    }
+                    if (!$this->test && !copy($file_en, $file_loc)) {
+                        $this->cli->message(sprintf('Could not copy %s to %s', $file_en, $file_loc), 'cli.warning');
+                    }
+                    $this->writeln();
+                    continue;
+                }
+                $this->writeln(sprintf('Updating %s help file for %s.', $this->cli->bold($locale), $this->cli->bold($apps[$i])));
+
+                if (!($doc_en = DOMDocument::load($file_en))) {
+                    $this->cli->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
+                    $this->writeln();
+                    continue 2;
+                }
+                $doc_en->encoding = 'UTF-8';
+                $doc_en->formatOutput = true;
+
+                if (!($doc_loc = DOMDocument::load($file_loc))) {
+                    $this->cli->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
+                    $this->writeln();
+                    continue;
+                }
+
+                $count_uptodate = $count_new = $count_changed = $count_unknown = 0;
+                $date = date('Y-m-d');
+                $xpath = new DOMXPath($doc_loc);
+                foreach ($doc_en->getElementsByTagName('entry') as $entry) {
+                    $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
+                    if ($list->length) {
+                        $entry_loc = $doc_en->importNode($list->item(0), true);
+                        if ($entry_loc->hasAttribute('md5') &&
+                            md5($entry->textContent) != $entry_loc->getAttribute('md5')) {
+                            $comment = $doc_en->createComment(" English entry ($date):\n" . str_replace('--', '&#45;&#45;', $doc_en->saveXML($entry)));
+                            $entry_loc->appendChild($comment);
+                            $entry_loc->setAttribute('state', 'changed');
+                            $count_changed++;
+                        } else {
+                            if (!$entry_loc->hasAttribute('state')) {
+                                $comment = $doc_en->createComment(" English entry ($date):\n" . str_replace('--', '&#45;&#45;', $doc_en->saveXML($entry)));
+                                $entry_loc->appendChild($comment);
+                                $entry_loc->setAttribute('state', 'unknown');
+                                $count_unknown++;
+                            } else {
+                                $count_uptodate++;
+                            }
+                        }
+                    } else {
+                        $entry_loc = $doc_en->importNode($entry, true);
+                        $entry_loc->setAttribute('state', 'new');
+                        $count_new++;
+                    }
+                    $entry->parentNode->replaceChild($entry_loc, $entry);
+                }
+                $this->writeln(wordwrap(sprintf('Entries: %d total, %d up-to-date, %d new, %d changed, %d unknown',
+                                             $count_uptodate + $count_new + $count_changed + $count_unknown,
+                                             $count_uptodate, $count_new, $count_changed, $count_unknown)));
+
+                if ($this->debug || $this->test) {
+                    $this->writeln(wordwrap(sprintf('Writing updated help file to %s.', $file_loc)));
+                }
+                if (!$this->test) {
+                    $doc_en->save($file_loc);
+                }
+                $this->writeln();
+            }
+        }
+    }
+
+    /**
+     * Marks all entries in help files as translated.
+     *
+     * @param array $options  Command line arguments.
+     */
+    public function make_help($options)
+    {
+        $dirs = $this->dirs;
+        $apps = $this->apps;
+        foreach ($options as $option) {
+            switch ($option[0]) {
+            case 'h':
+                $this->usage();
+                $this->footer();
+            case 'l':
+            case '--locale':
+                $lang = $option[1];
+                break;
+            case 'm':
+            case '--module':
+                $module = $option[1];
+                break;
+            }
+        }
+        $files = array();
+        for ($i = 0; $i < count($dirs); $i++) {
+            if (!empty($module) && $module != $apps[$i]) {
+                continue;
+            }
+            if (!is_dir("$dirs[$i]/locale")) continue;
+            if ($apps[$i] == 'horde') {
+                $dirs[] = $dirs[$i] . DS . 'admin';
+                $apps[] = 'horde/admin';
+                if (!empty($module)) {
+                    $module = 'horde/admin';
+                }
+            }
+            if (empty($lang)) {
+                $files = $this->search_file('help.xml', $dirs[$i] . DS . 'locale');
+            } else {
+                $files = array($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml');
+            }
+            $file_en = $dirs[$i] . DS . 'locale' . DS . 'en' . DS . 'help.xml';
+            if (!file_exists($file_en)) {
+                continue;
+            }
+
+            if (!($doc_en = DOMDocument::load($file_en))) {
+                $this->cli->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
+                $this->writeln();
+                continue;
+            }
+            $xpath = new DOMXPath($doc_en);
+
+            foreach ($files as $file_loc) {
+                if (!file_exists($file_loc)) {
+                    $this->writeln('Skipped...');
+                    $this->writeln();
+                    continue;
+                }
+                $locale = substr($file_loc, 0, strrpos($file_loc, DS));
+                $locale = substr($locale, strrpos($locale, DS) + 1);
+                if ($locale == 'en') continue;
+                $this->writeln(sprintf('Updating %s help file for %s.', $this->cli->bold($locale), $this->cli->bold($apps[$i])));
+
+                if (!($doc_loc = DOMDocument::load($file_loc))) {
+                    $this->cli->message(sprintf('There was an error opening the file %s. Try running the translation script with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
+                    $this->writeln();
+                    continue;
+                }
+                $doc_loc->encoding = 'UTF-8';
+                $doc_loc->formatOutput = true;
+
+                $count_all = $count = 0;
+                foreach ($doc_loc->getElementsByTagName('entry') as $entry) {
+                    foreach ($entry->childNodes as $child) {
+                        if ($child->nodeType == XML_COMMENT_NODE &&
+                            strstr($child->nodeValue, 'English entry')) {
+                            $entry->removeChild($child);
+                        }
+                    }
+                    $count_all++;
+                    $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
+                    if ($list->length) {
+                        $entry->setAttribute('md5', md5($list->item(0)->textContent));
+                        $entry->setAttribute('state', 'uptodate');
+                        $count++;
+                    } else {
+                        $this->cli->message(sprintf('No entry with the id "%s" exists in the original help file.', $entry->getAttribute('id')), 'cli.warning');
+                    }
+                }
+
+                if (!$this->test) {
+                    $doc_loc->save($file_loc);
+                }
+                $this->writeln(sprintf('%d of %d entries marked as up-to-date', $count, $count_all));
+                $this->writeln();
+            }
         }
     }
 }
 
-$curdir = getcwd();
 define('DS', DIRECTORY_SEPARATOR);
-
-$language = getenv('LANG');
-if (empty($language)) {
-    $language = getenv('LANGUAGE');
-}
+putenv('LANG=en');
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 
@@ -1378,20 +1546,20 @@ $c->writeln($c->bold('---------------------------'));
 $c->writeln($c->bold('Horde translation generator'));
 $c->writeln($c->bold('---------------------------'));
 
+/* Instantiate main object. */
+$script = new Horde_Translation_Script();
+$script->cli = $c;
+
 /* Sanity checks */
 if (!extension_loaded('gettext')) {
     $c->message('Gettext extension not found!', 'cli.error');
-    footer();
+    $script->footer();
 }
 
 $c->writeln('Loading libraries...');
 $libs_found = true;
 
-foreach (array('Console_Getopt' => 'Console/Getopt.php',
-               'Console_Table'  => 'Console/Table.php',
-               'File_Find'      => 'File/Find.php')
-         as $class => $file) {
-    include $file;
+foreach (array('Console_Getopt', 'Console_Table', 'File_Find') as $class) {
     if (class_exists($class)) {
         $c->message(sprintf('%s found.', $class), 'cli.success');
     } else {
@@ -1404,7 +1572,7 @@ if (!$libs_found) {
     $c->writeln();
     $c->writeln('Make sure that you have PEAR installed and in your include path.');
     $c->writeln('include_path: ' . ini_get('include_path'));
-    footer();
+    $script->footer();
 }
 $c->writeln();
 
@@ -1418,17 +1586,15 @@ if (PEAR::isError($options) && $args[0] == $_SERVER['PHP_SELF']) {
 if (PEAR::isError($options)) {
     $c->message('Argument error: ' . str_replace('Console_Getopt:', '', $options->getMessage()), 'cli.error');
     $c->writeln();
-    usage();
-    footer();
+    $script->usage();
+    $script->footer();
 }
 if (empty($options[0][0]) && empty($options[1][0])) {
     $c->message('No command specified.', 'cli.error');
     $c->writeln();
-    usage();
-    footer();
+    $script->usage();
+    $script->footer();
 }
-$debug = false;
-$test  = false;
 foreach ($options[0] as $option) {
     switch ($option[0]) {
     case 'b':
@@ -1437,19 +1603,19 @@ foreach ($options[0] as $option) {
         break;
     case 'd':
     case '--debug':
-        $debug = true;
+        $script->debug = true;
         break;
     case 't':
     case '--test':
-        $test = true;
+        $script->test = true;
         break;
     case 'h':
     case '--help':
-        usage();
-        footer();
+        $script->usage();
+        $script->footer();
     }
 }
-if (!$debug) {
+if (!$script->debug) {
     ini_set('error_reporting', false);
 }
 if (!defined('BASE')) {
@@ -1460,11 +1626,10 @@ if (!defined('BASE')) {
     }
 }
 if ($options[1][0] == 'help') {
-    usage();
-    footer();
+    $script->usage();
+    $script->footer();
 }
-$silence = $debug || OS_WINDOWS ? '' : ' 2> /dev/null';
-$redir_err = OS_WINDOWS ? '' : ' 2>&1';
+$script->silence = $script->debug || OS_WINDOWS ? '' : ' 2> /dev/null';
 $options_list = array(
     'cleanup'    => array('hl:m:', array('module=', 'locale=')),
     'commit'     => array('hl:m:nM:s', array('module=', 'locale=', 'new', 'message=', 'skip')),
@@ -1486,25 +1651,23 @@ if (array_key_exists($cmd, $options_list)) {
     if (PEAR::isError($cmd_options)) {
         $c->message(str_replace('Console_Getopt:', '', $cmd_options->getMessage()), 'cli.error');
         $c->writeln();
-        usage();
-        footer();
+        $script->usage();
+        $script->footer();
     }
 }
 
 /* Searching modules */
-check_binaries();
+$script->check_binaries();
 
 $c->writeln(sprintf('Searching Horde modules in %s', BASE));
-$dirs = search_modules();
+$script->search_modules();
 
-if ($debug) {
+if ($script->debug) {
     $c->writeln('Found directories:');
-    $c->writeln(implode("\n", $dirs));
+    $c->writeln(implode("\n", $script->dirs));
 }
 
-$apps = strip_horde($dirs);
-$apps[0] = 'horde';
-$c->writeln(wordwrap(sprintf('Found modules: %s', implode(', ', $apps))));
+$c->writeln(wordwrap(sprintf('Found modules: %s', implode(', ', $script->apps))));
 $c->writeln();
 
 switch ($cmd) {
@@ -1512,43 +1675,43 @@ case 'cleanup':
 case 'commit':
 case 'compendium':
 case 'merge':
-    $cmd();
+    $script->$cmd($cmd_options[0]);
     break;
 case 'commit-help':
-    commit(true);
+    $script->commit($cmd_options[0], true);
     break;
 case 'extract':
-    xtract();
+    $script->xtract($cmd_options[0]);
     break;
 case 'init':
-    init();
+    $script->init($cmd_options[0]);
     $c->writeln();
-    merge();
+    $script->merge($cmd_options[0]);
     break;
 case 'make':
-    cleanup(true);
+    $script->cleanup($cmd_options[0], true);
     $c->writeln();
-    make();
+    $script->make($cmd_options[0]);
     break;
 case 'make-help':
-    make_help();
+    $script->make_help($cmd_options[0]);
     break;
 case 'update':
-    xtract();
+    $script->xtract($cmd_options[0]);
     $c->writeln();
-    merge();
+    $script->merge($cmd_options[0]);
     break;
 case 'update-help':
-    update_help();
+    $script->update_help($cmd_options[0]);
     break;
 case 'status':
-    merge();
+    $script->merge($cmd_options[0]);
     break;
 default:
     $c->message(sprintf('Unknown command: %s', $cmd), 'cli.error');
     $c->writeln();
-    usage();
-    footer();
+    $script->usage();
+    $script->footer();
 }
 
-footer();
+$script->footer();
