@@ -891,6 +891,7 @@ class Horde_Translation_Script
                 break;
             }
         }
+        $horde = array_search('horde', $this->apps);
         $horde_msg = array();
         $stats_array = array();
 
