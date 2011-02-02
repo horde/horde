@@ -39,7 +39,7 @@ extends Horde_Kolab_Storage_Driver_Base
         $config['hostspec'] = $config['host'];
         unset($config['host']);
         if (isset($config['debug']) && $config['debug'] == 'STDOUT') {
-            $config['debug'] == STDOUT;
+            $config['debug'] = STDOUT;
         }
         if ($config['driver'] = 'horde') {
             return new Horde_Imap_Client_Socket($config);
