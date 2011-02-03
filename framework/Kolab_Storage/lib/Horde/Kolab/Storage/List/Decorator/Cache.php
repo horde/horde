@@ -76,16 +76,23 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Check if the cache has been initialized.
+     *
+     * @return NULL
+     */
+    private function _isInitialized()
+    {
+        return ($this->_init || $this->_list_cache->isInitialized());
+    }
+
+    /**
      * Check if the cache has been initialized at all and synchronize it if not.
      *
      * @return NULL
      */
     private function _init()
     {
-        if ($this->_init) {
-            return;
-        }
-        if (!$this->_list_cache->isInitialized()) {
+        if (!$this->_isInitialized()) {
             $this->synchronize();
         }
     }
@@ -100,7 +107,7 @@ implements Horde_Kolab_Storage_List
      */
     public function createFolder($folder, $type = null)
     {
-        $result = $this->_list->createFolder($folder);
+        $result = $this->_list->createFolder($folder, $type);
         return $result;
     }
 
@@ -158,11 +165,23 @@ implements Horde_Kolab_Storage_List
      */
     public function synchronize()
     {
-        //@todo Do not fetch the folder types in case the folder list did not change.
-        $this->_list_cache->store(
+        $this->_store(
             $this->_list->listFolders(),
             $this->_list->listFolderTypes()
         );
+    }
+
+    /**
+     * Store updated information in the list cache.
+     *
+     * @param array|NULL $folders The list of folders.
+     * @param array|NULL $types   The list of types.
+     *
+     * @return NULL
+     */
+    private function _store($folders, $types)
+    {
+        $this->_list_cache->store($folders, $types);
 
         if (!$this->_list_cache->hasNamespace()) {
             $this->_list_cache->setNamespace(

@@ -78,7 +78,7 @@ implements Horde_Kolab_Storage_List
     public function createFolder($folder, $type = null)
     {
         $this->_logger->info(sprintf('Creating folder %s.', $folder));
-        $result = $this->_list->createFolder($folder);
+        $result = $this->_list->createFolder($folder, $type);
         $this->_logger->info(
             sprintf(
                 'Successfully created folder %s [type: %s, owner: %s, namespace: %s, title: %s].',
