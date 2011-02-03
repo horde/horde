@@ -121,6 +121,53 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Delete a folder.
+     *
+     * @param string $folder The path of the folder to delete.
+     *
+     * @return NULL
+     */
+    public function deleteFolder($folder)
+    {
+        $result = $this->_list->deleteFolder($folder);
+        if ($this->_isInitialized()) {
+            $folders = $this->listFolders();
+            $types = $this->listFolderTypes();
+            $folders = array_diff($folders, array($folder));
+            if (isset($types[$folder])) {
+                unset($types[$folder]);
+            }
+            $this->_store($folders, $types);
+        }
+        return $result;
+    }
+
+    /**
+     * Rename a folder.
+     *
+     * @param string $old The old path of the folder.
+     * @param string $new The new path of the folder.
+     *
+     * @return NULL
+     */
+    public function renameFolder($old, $new)
+    {
+        $result = $this->_list->renameFolder($old, $new);
+        if ($this->_isInitialized()) {
+            $folders = $this->listFolders();
+            $types = $this->listFolderTypes();
+            $folders = array_diff($folders, array($old));
+            $folders[] = $new;
+            if (isset($types[$old])) {
+                $types[$new] = $types[$old];
+                unset($types[$old]);
+            }
+            $this->_store($folders, $types);
+        }
+        return $result;
+    }
+
+    /**
      * Returns a representation for the requested folder.
      *
      * @param string $folder The path of the folder to return.

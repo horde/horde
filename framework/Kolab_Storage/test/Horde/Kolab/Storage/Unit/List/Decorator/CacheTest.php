@@ -351,6 +351,59 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals(1, $count);
     }
 
+    public function testDeleteFolder()
+    {
+        $list = $this->getCachedAnnotatedQueriableList();
+        $list->deleteFolder('INBOX/Calendar');
+        $this->assertNotContains(
+            'INBOX/Calendar',
+            $list->listFolders()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testCacheUpdateAfterDelete()
+    {
+        $list = $this->getCachedAnnotatedQueriableList();
+        $list->listFolders();
+        $list->deleteFolder('INBOX/Calendar');
+        $list->getFolder('INBOX/Calendar');
+    }
+
+    public function testRenameFolder()
+    {
+        $list = $this->getCachedAnnotatedQueriableList();
+        $list->renameFolder('INBOX/Calendar', 'INBOX/Ä');
+        $this->assertNotContains(
+            'INBOX/Calendar',
+            $list->listFolders()
+        );
+    }
+
+    public function testRenameFolderTarget()
+    {
+        $list = $this->getCachedAnnotatedQueriableList();
+        $list->renameFolder('INBOX/Calendar', 'INBOX/Ä');
+        $this->assertContains(
+            'INBOX/Ä',
+            $list->listFolders()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testCacheUpdateAfterRename()
+    {
+        $list = $this->getCachedAnnotatedQueriableList();
+        $list->listFolders();
+        $list->renameFolder('INBOX/Calendar', 'INBOX/Ä');
+        $list->getFolder('INBOX/Calendar');
+    }
+
+
     private function _setupMockList($cache = null)
     {
         $list = $this->_setupBareMockList($cache);
