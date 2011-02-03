@@ -1590,7 +1590,7 @@ class Horde_Config
     {
         switch ($node->getAttribute('name')) {
         case 'list-horde-apps':
-            $apps = Horde_Array::valuesToKeys($GLOBALS['registry']->listApps(array('hidden', 'notoolbar', 'active')));
+            $apps = Horde_Array::valuesToKeys($GLOBALS['registry']->listApps(array('active')));
             asort($apps);
             return $apps;
 
