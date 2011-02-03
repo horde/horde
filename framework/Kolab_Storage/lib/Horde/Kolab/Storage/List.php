@@ -44,7 +44,7 @@ extends Horde_Kolab_Storage_Queriable
      * @param string $folder The path of the folder to create.
      * @param string $type   An optional type for the folder.
      *
-     * @return Horde_Kolab_Storage_Folder The folder representation.
+     * @return NULL
      */
     public function createFolder($folder, $type = null);
 

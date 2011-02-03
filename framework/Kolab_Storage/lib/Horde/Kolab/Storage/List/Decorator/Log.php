@@ -73,23 +73,15 @@ implements Horde_Kolab_Storage_List
      * @param string $folder The path of the folder to create.
      * @param string $type   An optional type for the folder.
      *
-     * @return Horde_Kolab_Storage_Folder The folder representation.
+     * @return NULL
      */
     public function createFolder($folder, $type = null)
     {
         $this->_logger->info(sprintf('Creating folder %s.', $folder));
         $result = $this->_list->createFolder($folder, $type);
         $this->_logger->info(
-            sprintf(
-                'Successfully created folder %s [type: %s, owner: %s, namespace: %s, title: %s].',
-                $result->getPath(),
-                $result->getType(),
-                $result->getOwner(),
-                $result->getNamespace(),
-                $result->getTitle()
-            )
+            sprintf('Successfully created folder %s.', $folder)
         );
-        return $result;
     }
 
     /**

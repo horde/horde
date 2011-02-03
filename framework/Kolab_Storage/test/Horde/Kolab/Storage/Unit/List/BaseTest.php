@@ -216,18 +216,18 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testCreateFolder()
     {
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Folder',
+        $this->assertNull(
             $this->getAnnotatedQueriableList()->createFolder('INBOX/NewFolder')
         );
     }
 
     public function testCreateWithUmlaut()
     {
+        $list = $this->getAnnotatedQueriableList();
+        $list->createFolder('INBOX/NewFolderÄ');
         $this->assertEquals(
             'NewFolderÄ',
-            $this->getAnnotatedQueriableList()
-            ->createFolder('INBOX/NewFolderÄ')
+            $list->getFolder('INBOX/NewFolderÄ')
             ->getTitle()
         );
     }

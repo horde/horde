@@ -144,6 +144,6 @@ extends Horde_Kolab_Storage_TestCase
             $this->getMockLogger()
         );#
         $list->createFolder('INBOX/NewFolderÄ');
-        $this->assertLogContains('Successfully created folder INBOX/NewFolderÄ [type: mail, owner: test@example.com, namespace: personal, title: NewFolderÄ].');
+        $this->assertLogContains('Successfully created folder INBOX/NewFolderÄ.');
     }
 }

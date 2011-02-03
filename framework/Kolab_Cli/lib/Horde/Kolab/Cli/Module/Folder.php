@@ -128,14 +128,6 @@ implements Horde_Kolab_Cli_Module
             $folder_name = $arguments[2];
         }
         switch ($action) {
-        case 'show':
-            $folder = $world['storage']->getList()->getFolder($folder_name);
-            $cli->writeln('Path:      ' . $folder->getPath());
-            $cli->writeln('Title:     ' . $folder->getTitle());
-            $cli->writeln('Owner:     ' . $folder->getOwner());
-            $cli->writeln('Type:      ' . $folder->getType());
-            $cli->writeln('Namespace: ' . $folder->getNamespace());
-            break;
         case 'create':
             if (!isset($arguments[3])) {
                 $folder = $world['storage']->getList()
@@ -144,6 +136,8 @@ implements Horde_Kolab_Cli_Module
                 $folder = $world['storage']->getList()
                     ->createFolder($folder_name, $arguments[3]);
             }
+        case 'show':
+            $folder = $world['storage']->getList()->getFolder($folder_name);
             $cli->writeln('Path:      ' . $folder->getPath());
             $cli->writeln('Title:     ' . $folder->getTitle());
             $cli->writeln('Owner:     ' . $folder->getOwner());
