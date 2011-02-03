@@ -213,6 +213,26 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testShareType()
+    {
+        $this->assertEquals(
+            'event',
+            $this->_getPrefilledDriver()
+            ->getShare('INBOX%2FCalendar')
+            ->get('type')
+        );
+    }
+
+    public function testNewShare()
+    {
+        $this->assertEquals(
+            'john',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE')
+            ->get('owner')
+        );
+    }
+
     private function _getPrefilledDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();

@@ -318,10 +318,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _newShare($name)
     {
-        if (empty($name)) {
-            throw new Horde_Share_Exception('Share names must be non-empty');
-        }
-        return $this->_createObject($name, array('type' => $this->_type));
+        return $this->_createObject(null, array('type' => $this->_type));
     }
 
     /**
