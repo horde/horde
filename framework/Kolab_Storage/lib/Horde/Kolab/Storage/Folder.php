@@ -82,13 +82,6 @@ interface Horde_Kolab_Storage_Folder
 
 
     /**
-     * Retrieve the driver for this folder.
-     *
-     * @return Horde_Kolab_Storage_Driver The folder driver.
-     */
-    public function getDriver();
-
-    /**
      * Get the permissions for this folder.
      *
      * @return Horde_Kolab_Storage_Folder_Permission The permission handler.

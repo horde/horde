@@ -233,72 +233,6 @@ implements Horde_Kolab_Storage_Folder
      */
     var $tainted = false;
 
-    /**
-     * Set a new storage path for the folder. The new path will be
-     * realized when saving the folder.
-     *
-     * @param string $path  The new folder path.
-     */
-    public function setPath($path)
-    {
-        $this->_new_path = $path;
-        $this->_title = null;
-    }
-
-    /**
-     * Set a new title for the folder. The new title will be realized when
-     * saving the folder.
-     *
-     * @param string $title     The new folder title.
-     * @param string $namespace The new namespace of the folder.
-     *
-     * @return NULL
-     */
-    public function setTitle($title)
-    {
-        $this->_new_path = $this->_driver->getNamespace()->setTitle($title);
-    }
-
-    /**
-     * Set a new title for the folder and assign it to the namespace of other
-     * users. The new title will be realized when saving the folder.
-     *
-     * @param string $title The new folder title.
-     * @param string $owner The new owner of the folder.
-     *
-     * @return NULL
-     */
-    public function setTitleInOther($title, $owner)
-    {
-        $this->_new_path = $this->_driver->getNamespace()
-            ->setTitleInOther($title, $owner);
-    }
-
-    /**
-     * Set a new title for the folder and assign it to the shared namespace. The
-     * new title will be realized when saving the folder.
-     *
-     * @param string $title The new folder title.
-     *
-     * @return NULL
-     */
-    public function setTitleInShared($title)
-    {
-        $this->_new_path = $this->_driver->getNamespace()
-            ->setTitleInShared($title);
-    }
-
-    /**
-     * Returns the path without namespace components.
-     *
-     * @param string $path The original path.
-     *
-     * @return string The path with namespace components removed.
-     */
-    protected function subpath($path)
-    {
-        return $this->_driver->getNamespace()->getSubpath($path);
-    }
 
 
 
@@ -306,16 +240,6 @@ implements Horde_Kolab_Storage_Folder
 
 
 
-
-    /**
-     * Retrieve the driver for this folder.
-     *
-     * @return Horde_Kolab_Storage_Driver The folder driver.
-     */
-    public function getDriver()
-    {
-        return $this->_driver;
-    }
 
     /**
      * Get the permissions for this folder.
