@@ -80,7 +80,40 @@ implements Horde_Kolab_Storage_List
         $this->_logger->info(sprintf('Creating folder %s.', $folder));
         $result = $this->_list->createFolder($folder, $type);
         $this->_logger->info(
-            sprintf('Successfully created folder %s.', $folder)
+            sprintf('Successfully created folder %s [type: %s].', $folder, $type)
+        );
+    }
+
+    /**
+     * Delete a folder.
+     *
+     * @param string $folder The path of the folder to delete.
+     *
+     * @return NULL
+     */
+    public function deleteFolder($folder)
+    {
+        $this->_logger->info(sprintf('Deleting folder %s.', $folder));
+        $result = $this->_list->deleteFolder($folder);
+        $this->_logger->info(
+            sprintf('Successfully deleted folder %s.', $folder)
+        );
+    }
+
+    /**
+     * Rename a folder.
+     *
+     * @param string $old The old path of the folder.
+     * @param string $new The new path of the folder.
+     *
+     * @return NULL
+     */
+    public function renameFolder($old, $new)
+    {
+        $this->_logger->info(sprintf('Renaming folder %s.', $old));
+        $result = $this->_list->renameFolder($old, $new);
+        $this->_logger->info(
+            sprintf('Successfully renamed folder %s to %s.', $old, $new)
         );
     }
 

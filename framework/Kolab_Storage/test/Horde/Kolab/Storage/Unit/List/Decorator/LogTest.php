@@ -144,6 +144,72 @@ extends Horde_Kolab_Storage_TestCase
             $this->getMockLogger()
         );#
         $list->createFolder('INBOX/NewFolderÄ');
-        $this->assertLogContains('Successfully created folder INBOX/NewFolderÄ.');
+        $this->assertLogContains('Successfully created folder INBOX/NewFolderÄ [type: ].');
+    }
+
+    public function testDeleteFolder()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );
+        $list->deleteFolder('INBOX/Calendar');
+        $this->assertNotContains(
+            'INBOX/Calendar',
+            $list->listFolders()
+        );
+    }
+
+    public function testDeleteFolderLogOne()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );
+        $list->deleteFolder('INBOX/Calendar');
+        $this->assertLogContains('Deleting folder INBOX/Calendar.');
+    }
+
+    public function testDeleteFolderLogTwo()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );#
+        $list->deleteFolder('INBOX/Calendar');
+        $this->assertLogContains('Successfully deleted folder INBOX/Calendar.');
+    }
+
+    public function testRenameFolder()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );
+        $list->renameFolder('INBOX/Calendar', 'INBOX/Käländää');
+        $this->assertNotContains(
+            'INBOX/Calendar',
+            $list->listFolders()
+        );
+    }
+
+    public function testRenameFolderLogOne()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );
+        $list->renameFolder('INBOX/Calendar', 'INBOX/Käländää');
+        $this->assertLogContains('Renaming folder INBOX/Calendar.');
+    }
+
+    public function testRenameFolderLogTwo()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );#
+              $list->renameFolder('INBOX/Calendar', 'INBOX/Käländää');
+        $this->assertLogContains('Successfully renamed folder INBOX/Calendar to INBOX/Käländää.');
     }
 }
