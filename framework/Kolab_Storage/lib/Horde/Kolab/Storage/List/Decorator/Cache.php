@@ -147,8 +147,8 @@ implements Horde_Kolab_Storage_List
      */
     public function getNamespace()
     {
-        //@todo: cache as well
-        return $this->_list->getNamespace();
+        $this->_init();
+        return unserialize($this->_list_cache->getNamespace());
     }
 
     /**
@@ -163,6 +163,12 @@ implements Horde_Kolab_Storage_List
             $this->_list->listFolders(),
             $this->_list->listFolderTypes()
         );
+
+        if (!$this->_list_cache->hasNamespace()) {
+            $this->_list_cache->setNamespace(
+                serialize($this->_list->getNamespace())
+            );
+        }
 
         $this->_list->synchronize();
 

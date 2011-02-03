@@ -260,6 +260,23 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testCachedNamespace()
+    {
+        $list = $this->_setupBareMockList();
+        $this->mockDriver->expects($this->once())
+            ->method('getNamespace') 
+            ->will(
+                $this->returnValue(
+                    new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')
+                )
+            );
+        $list->getNamespace();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder_Namespace',
+            $list->getNamespace()
+        );
+    }
+
     public function testGetQuery()
     {
         $factory = new Horde_Kolab_Storage_Factory();
@@ -301,6 +318,15 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _setupMockList($cache = null)
     {
+        $list = $this->_setupBareMockList($cache);
+        $this->mockDriver->expects($this->once())
+            ->method('getMailboxes') 
+            ->will($this->returnValue(array('INBOX')));
+        return $list;
+    }
+
+    private function _setupBareMockList($cache = null)
+    {
         if ($cache === null) {
             $cache = $this->getMockListCache();
         }
@@ -312,9 +338,6 @@ extends Horde_Kolab_Storage_TestCase
             $mock_list,
             $cache
         );
-        $this->mockDriver->expects($this->once())
-            ->method('getMailboxes') 
-            ->will($this->returnValue(array('INBOX')));
         return $list;
     }
 
