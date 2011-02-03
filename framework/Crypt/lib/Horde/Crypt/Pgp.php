@@ -1227,11 +1227,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *
      * @return stdClass  An object with the following properties:
      * <pre>
-     * 'message'     -  The decrypted message.
-     * 'sig_result'  -  The result of the signature test.
-     * </pre>
-     * @return stdClass  An object with the following properties:
-     * <pre>
      * 'message' - (string) The signature result text.
      * 'result' - (boolean) The result of the signature test.
      * </pre>
