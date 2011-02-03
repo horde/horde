@@ -103,11 +103,20 @@ implements Horde_Kolab_Storage_List
      * @param string $folder The path of the folder to create.
      * @param string $type   An optional type for the folder.
      *
-     * @return Horde_Kolab_Storage_Folder The folder representation.
+     * @return NULL
      */
     public function createFolder($folder, $type = null)
     {
         $result = $this->_list->createFolder($folder, $type);
+        if ($this->_isInitialized()) {
+            $folders = $this->listFolders();
+            $types = $this->listFolderTypes();
+            $folders[] = $folder;
+            if (!empty($type)) {
+                $types[$folder] = $type;
+            }
+            $this->_store($folders, $types);
+        }
         return $result;
     }
 

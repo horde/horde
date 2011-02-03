@@ -171,6 +171,24 @@ extends PHPUnit_Framework_TestCase
         return $list;
     }
 
+    protected function getCachedAnnotatedQueriableList($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getAnnotatedList($factory),
+            $this->getMockListCache(),
+            $factory
+        );
+        $list->registerQuery(
+            Horde_Kolab_Storage_List::QUERY_BASE,
+            $factory->createListQuery(
+                'Horde_Kolab_Storage_List_Query_Base',
+                $list
+            )
+        );
+        return $list;
+    }
+
     protected function getAnnotatedQuery($factory = null)
     {
         $factory = $this->completeFactory($factory);

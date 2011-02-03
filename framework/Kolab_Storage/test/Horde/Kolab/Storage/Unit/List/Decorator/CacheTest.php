@@ -299,7 +299,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetFolder()
     {
-        $list = $this->_getCachedList($this->getAnnotatedQueriableList());
+        $list = $this->getCachedAnnotatedQueriableList();
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder',
             $list->getFolder('INBOX/Calendar')
@@ -308,12 +308,47 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testCreateFolder()
     {
-        $list = $this->_getCachedList($this->getAnnotatedQueriableList());
+        $list = $this->getCachedAnnotatedQueriableList();
         $list->createFolder('INBOX/NewFolderÄ');
         $this->assertContains(
             'INBOX/NewFolderÄ',
             $list->listFolders()
         );
+    }
+
+    public function testCacheUpdateAfterCreate()
+    {
+        $list = $this->getCachedAnnotatedQueriableList();
+        $list->listFolders();
+        $list->createFolder('INBOX/NewFolderÄ');
+        $this->assertContains(
+            'INBOX/NewFolderÄ',
+            $list->listFolders()
+        );
+    }
+
+    public function testTypeAfterCreate()
+    {
+        $list = $this->getCachedAnnotatedQueriableList();
+        $list->listFolders();
+        $list->createFolder('INBOX/NewFolderÄ');
+        $this->assertEquals(
+            'mail',
+            $list->getFolder('INBOX/NewFolderÄ')->getType()
+        );
+    }
+
+    public function testNewFolderNotCachedTwice()
+    {
+        $list = $this->getCachedAnnotatedQueriableList();
+        $list->createFolder('INBOX/NewFolderÄ');
+        $count = 0;
+        foreach ($list->listFolders() as $folder) {
+            if ($folder == 'INBOX/NewFolderÄ') {
+                $count++;
+            }
+        }
+        $this->assertEquals(1, $count);
     }
 
     private function _setupMockList($cache = null)
