@@ -66,6 +66,13 @@ class IMP_Application extends Horde_Registry_Application
     protected $_cacheSess = array();
 
     /**
+     * Server key used in logged out session.
+     *
+     * @var string
+     */
+    protected $_oldserver = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -171,6 +178,10 @@ class IMP_Application extends Horde_Registry_Application
         if ($treeob = $GLOBALS['session']->get('imp', 'treeob')) {
             $GLOBALS['injector']->getInstance('Horde_Cache')->expire($treeob);
         }
+
+        /* Grab the current server from the session to correctly populate
+         * login form. */
+        $this->_oldserver = $GLOBALS['session']->get('imp', 'server_key');
     }
 
     /* Horde permissions. */
@@ -350,7 +361,10 @@ class IMP_Application extends Horde_Registry_Application
         if ($GLOBALS['conf']['server']['server_list'] == 'shown') {
             $servers = IMP_Imap::loadServerConfig();
             $server_list = array();
-            $selected = Horde_Util::getFormData('imp_server_key', IMP_Auth::getAutoLoginServer());
+            $selected = is_null($this->_oldserver)
+                ? Horde_Util::getFormData('imp_server_key', IMP_Auth::getAutoLoginServer())
+                : $this->_oldserver;
+
             foreach ($servers as $key => $val) {
                 $server_list[$key] = array(
                     'name' => $val['name'],
