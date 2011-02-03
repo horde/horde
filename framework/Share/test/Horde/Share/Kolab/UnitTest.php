@@ -245,6 +245,31 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testShareAddedToList()
+    {
+        $share = $this->_getPrefilledDriver();
+        $object = $share->newShare('john', 'IGNORE');
+        $object->set('name', 'Test');
+        $share->addShare($object);
+        $this->assertContains(
+            'INBOX%2FTest',
+            array_keys($share->listShares('john'))
+        );
+    }
+
+    public function testDeleteShare()
+    {
+        $share = $this->_getPrefilledDriver();
+        $object = $share->newShare('john', 'IGNORE');
+        $object->set('name', 'Test');
+        $share->addShare($object);
+        $share->removeShare($object);
+        $this->assertNotContains(
+            'INBOX%2FTest',
+            array_keys($share->listShares('john'))
+        );
+    }
+
     private function _getPrefilledDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();

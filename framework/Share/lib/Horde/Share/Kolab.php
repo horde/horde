@@ -342,7 +342,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _removeShare(Horde_Share_Object $share)
     {
-        $share->delete();
+        $this->getStorage()->getList()->deleteFolder($this->_idDecode($share->getId()));
     }
 
     /**
