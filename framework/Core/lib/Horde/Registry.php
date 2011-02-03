@@ -1459,7 +1459,7 @@ class Horde_Registry
         }
 
         return ($parameter == 'name')
-            ? _($pval)
+            ? (strlen($pval) ? _($pval) : '')
             : $pval;
     }
 
