@@ -223,6 +223,28 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Share_Exception
+     */
+    public function testAddShareWithoutName()
+    {
+        $share = $this->_getPrefilledDriver();
+        $object = $share->newShare('john', 'IGNORE');
+        $share->addShare($object);
+    }
+
+    public function testAddShare()
+    {
+        $share = $this->_getPrefilledDriver();
+        $object = $share->newShare('john', 'IGNORE');
+        $object->set('name', 'Test');
+        $share->addShare($object);
+        $this->assertEquals(
+            'INBOX%2FTest',
+            $share->getShare('INBOX%2FTest')->getId()
+        );
+    }
+
     private function _getPrefilledDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();

@@ -317,17 +317,18 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _newShare($name)
     {
+        //@todo: The Kolab driver requires a folder name
         return $this->_createObject(null, array('type' => $this->_type));
     }
 
     /**
      * Adds a share to the shares system.
      *
-     * The share must first be created with Horde_Share_kolab::_newShare(),
+     * The share must first be created with Horde_Share::newShare(),
      * and have any initial details added to it, before this function is
      * called.
      *
-     * @param Horde_Share_Object_kolab $share  The new share object.
+     * @param Horde_Share_Object $share  The new share object.
      */
     protected function _addShare(Horde_Share_Object $share)
     {
@@ -337,10 +338,34 @@ class Horde_Share_Kolab extends Horde_Share_Base
     /**
      * Removes a share from the shares system permanently.
      *
-     * @param Horde_Share_Object_Kolab $share  The share to remove.
+     * @param Horde_Share_Object $share  The share to remove.
      */
     protected function _removeShare(Horde_Share_Object $share)
     {
         $share->delete();
+    }
+
+    /**
+     * Save share data to the storage backend.
+     *
+     * @param string $id   The share id.
+     * @param array  $data The share data.
+     *
+     * @return string The (new) share id.
+     */
+    public function save($id, $data)
+    {
+        if ($id === null) {
+            if (!isset($data['name'])) {
+                throw new Horde_Share_Exception(
+                    'A Kolab share requires a set("name", ...) call before saving.'
+                );
+            }
+            $path = $this->getStorage()->getList()->getNamespace()->setTitle(
+                $data['name']
+            );
+            $this->getStorage()->getList()->createFolder($path, $this->_type);
+            return $this->_idEncode($path);
+        }
     }
 }

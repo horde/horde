@@ -79,29 +79,6 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     }
 
     /**
-     * Returns the default share name for the current application.
-     *
-     * @return string  The default share name.
-     */
-    public function getDefaultShareName()
-    {
-        switch ($this->_type) {
-        case 'contact':
-            return Horde_Share_Translation::t("Contacts");
-        case 'note':
-            return Horde_Share_Translation::t("Notes");
-        case 'event':
-            return Horde_Share_Translation::t("Calendar");
-        case 'task':
-            return Horde_Share_Translation::t("Tasks");
-        case 'filter':
-            return Horde_Share_Translation::t("Filters");
-        case 'h-prefs':
-            return Horde_Share_Translation::t("Preferences");
-        }
-    }
-
-    /**
      * Returns the ID of this share.
      *
      * @return string  The share's ID.
@@ -126,52 +103,13 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      *
      * @param string $attribute  The attribute to return.
      *
-     * @return mixed  The value for $attribute.
+     * @return mixed The value for $attribute.
      */
     public function get($attribute)
     {
         if (isset($this->_data[$attribute])) {
             return $this->_data[$attribute];
         }
-        return;
-
-        switch ($attribute) {
-        case 'type':
-            $this->_data['type'] = $this->_folder->getType();
-            break;
-
-        case 'params':
-            $params = @unserialize($this->_folder->getAttribute('params'));
-            $default = array('source' => 'kolab',
-                             'default' => $this->get('default'),
-                             'name' => $this->get('name'));
-            $type = $this->get('type');
-            if (!($type instanceof PEAR_Error) && $type == 'event') {
-                $default = array_merge($default, array(
-                                           'fbrelevance' => $this->_folder->getFbrelevance(),
-                                           'xfbaccess'   => $this->_folder->getXfbaccess()
-                                       ));
-            }
-            if ($params instanceof PEAR_Error || $params == '') {
-                $params = $default;
-            }
-            $this->_data['params'] = serialize(array_merge($default, $params));
-            break;
-
-        case 'default':
-            $this->_data['default'] = $this->_folder->isDefault();
-            break;
-
-        default:
-            $annotation = $this->_folder->getAttribute($attribute);
-            if ($annotation instanceof PEAR_Error || empty($annotation)) {
-                $annotation = '';
-            }
-            $this->_data[$attribute] = $annotation;
-            break;
-        }
-
-        return $this->_data[$attribute];
     }
 
     /**
@@ -180,37 +118,11 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
      *
-     * @return mixed  True if setting the attribute did succeed, a PEAR_Error
-     *                otherwise.
+     * @return NULL
      */
     public function set($attribute, $value)
     {
-        switch ($attribute) {
-        case 'name':
-            /* On folder creation of default shares we wish to ignore
-             * the names provided by the Horde applications. We use
-             * the Kolab default names. */
-            if (!isset($this->_folder)) {
-                if ($this->get('default')) {
-                    $value = $this->getDefaultShareName();
-                }
-                $this->setFolder($this->_list->getNewFolder());
-            }
-            $this->_folder->setName($value);
-            $this->_data['name'] = $this->_folder->getTitle();
-            break;
-
-        case 'params':
-            $value = unserialize($value);
-            if (isset($value['default'])) {
-                $this->_data['default'] = $value['default'];
-                unset($value['default']);
-            }
-            $value = serialize($value);
-
-        default:
-            $this->_data[$attribute] = $value;
-        }
+        $this->_data[$attribute] = $value;
     }
 
     /**
@@ -218,24 +130,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      */
     protected function _save()
     {
-        if (!isset($this->_folder)) {
-            return $this->_folderError();
-        }
-
-        $data = $this->_data;
-        /** The name is handled immediately when set */
-        unset($data['name']);
-        $data['type'] = $this->_type;
-
-        $result = $this->_folder->save($data);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
-
-        /** The name may have changed */
-        $this->_data['name'] = $this->_folder->getTitle();
-        $this->_folder_name = $this->_folder->name;
-        return true;
+        $this->_id = $this->getShareOb()->save($this->_id, $this->_data);
     }
 
     /**
