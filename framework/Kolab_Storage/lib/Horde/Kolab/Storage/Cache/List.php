@@ -112,7 +112,10 @@ class Horde_Kolab_Storage_Cache_List
     {
         if ($this->_data === false) {
             $this->_data = unserialize($this->_cache->loadListData($this->getListId()));
-            if (!is_array($this->_data)) {
+            if (!is_array($this->_data)
+                || !isset($this->_data[self::SYNC])
+                || !isset($this->_data[self::VERSION])
+                || $this->_data[self::VERSION] != self::FORMAT_VERSION) {
                 $this->_data = array();
             }
         }
@@ -136,14 +139,7 @@ class Horde_Kolab_Storage_Cache_List
     public function isInitialized()
     {
         $this->_load();
-        if (!isset($this->_data[self::SYNC])) {
-            return false;
-        }
-        if (!isset($this->_data[self::VERSION])
-            || $this->_data[self::VERSION] != self::FORMAT_VERSION) {
-            return false;
-        }
-        return true;
+        return !empty($this->_data);
     }
 
     /**
