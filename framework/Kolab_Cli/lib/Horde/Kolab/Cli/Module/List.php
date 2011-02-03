@@ -35,14 +35,16 @@ implements Horde_Kolab_Cli_Module
      */
     public function getUsage()
     {
-        return Horde_Kolab_Cli_Translation::t("  list - Handle folder lists
-  - folders [default]: List the folders in the backend
+        return Horde_Kolab_Cli_Translation::t("  list - Handle folder lists (the default action is \"folders\")
+
+  - folders          : List the folders in the backend
   - types            : Display all folders that have a folder type.
   - type TYPE        : Display the folders of type TYPE.
   - owners           : List all folders and their owners.
   - defaults         : List the default folders for all users.
   - namespace        : Display the server namespace information.
   - sync             : Synchronize the cache.
+
 
 ");
     }

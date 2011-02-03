@@ -35,8 +35,13 @@ implements Horde_Kolab_Cli_Module
      */
     public function getUsage()
     {
-        return Horde_Kolab_Cli_Translation::t("  folder [PATH] - Handle the single folder at PATH
-  - show [default]: Display folder information.
+        return Horde_Kolab_Cli_Translation::t("  folder - Handle a single folder (the default action is \"show\")
+
+  - show   PATH        : Display information about the folder at PATH.
+  - create PATH [TYPE] : Create the folder PATH (with the optional type TYPE).
+  - delete PATH        : Delete the folder PATH.
+  - rename OLD NEW     : Rename the folder from OLD to NEW.
+
 
 ");
     }
