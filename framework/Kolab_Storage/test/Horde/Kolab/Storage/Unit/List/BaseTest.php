@@ -141,7 +141,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder',
-            $this->_getList()->getFolder('INBOX/Calendar')
+            $this->getAnnotatedQueriableList()->getFolder('INBOX/Calendar')
         );
     }
 
@@ -149,7 +149,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'INBOX/Calendar',
-            $this->_getList()
+            $this->getAnnotatedQueriableList()
             ->getFolder('INBOX/Calendar')
             ->getPath()
         );
@@ -159,7 +159,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'personal',
-            $this->_getList()
+            $this->getAnnotatedQueriableList()
             ->getFolder('INBOX/Calendar')
             ->getNamespace()
         );
@@ -169,7 +169,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'Calendar',
-            $this->_getList()
+            $this->getAnnotatedQueriableList()
             ->getFolder('INBOX/Calendar')
             ->getTitle()
         );
@@ -179,7 +179,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'test@example.com',
-            $this->_getList()
+            $this->getAnnotatedQueriableList()
             ->getFolder('INBOX/Calendar')
             ->getOwner()
         );
@@ -189,7 +189,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'Calendar',
-            $this->_getList()
+            $this->getAnnotatedQueriableList()
             ->getFolder('INBOX/Calendar')
             ->getSubpath()
         );
@@ -198,7 +198,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testFolderDefault()
     {
         $this->assertTrue(
-            $this->_getList()
+            $this->getAnnotatedQueriableList()
             ->getFolder('INBOX/Calendar')
             ->isDefault()
         );
@@ -208,7 +208,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'event',
-            $this->_getList()
+            $this->getAnnotatedQueriableList()
             ->getFolder('INBOX/Calendar')
             ->getType()
         );
@@ -218,7 +218,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder',
-            $this->_getList()->createFolder('INBOX/NewFolder')
+            $this->getAnnotatedQueriableList()->createFolder('INBOX/NewFolder')
         );
     }
 
@@ -226,7 +226,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             'NewFolderÄ',
-            $this->_getList()
+            $this->getAnnotatedQueriableList()
             ->createFolder('INBOX/NewFolderÄ')
             ->getTitle()
         );
@@ -234,7 +234,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testCreateFolderCreatesFolder()
     {
-        $list = $this->_getList();
+        $list = $this->getAnnotatedQueriableList();
         $list->createFolder('INBOX/NewFolderÄ');
         $this->assertContains(
             'INBOX/NewFolderÄ',
@@ -244,28 +244,11 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testCreateFolderWithAnnotation()
     {
-        $list = $this->_getList();
+        $list = $this->getAnnotatedQueriableList();
         $list->createFolder('INBOX/NewFolderÄ', 'event');
         $this->assertContains(
             'INBOX/NewFolderÄ',
             $list->getQuery()->listByType('event')
         );
-    }
-
-    private function _getList()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getAnnotatedMock(),
-            $factory
-        );
-        $list->registerQuery(
-            Horde_Kolab_Storage_List::QUERY_BASE,
-            $factory->createListQuery(
-                'Horde_Kolab_Storage_List_Query_Base',
-                $list
-            )
-        );
-        return $list;
     }
 }
