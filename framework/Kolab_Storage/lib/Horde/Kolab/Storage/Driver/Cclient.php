@@ -186,6 +186,66 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Delete the specified folder.
+     *
+     * @param string $folder  The folder to delete.
+     *
+     * @return mixed True in case the operation was successfull, a
+     *               PEAR error otherwise.
+     */
+    public function delete($folder)
+    {
+        $result = imap_deletemailbox(
+            $this->getBackend(),
+            $this->_getBaseMbox() . $this->encodePath($folder)
+        );
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Deleting folder %s%s failed. Error: %s"
+                    ),
+                    $this->_getBaseMbox(),
+                    $folder,
+                    @imap_last_error()
+                )
+            );
+        }
+    }
+
+    /**
+     * Rename the specified folder.
+     *
+     * @param string $old  The folder to rename.
+     * @param string $new  The new name of the folder.
+     *
+     * @return mixed True in case the operation was successfull, a
+     *               PEAR error otherwise.
+     */
+    public function rename($old, $new)
+    {
+        $result = imap_renamemailbox(
+            $this->getBackend(),
+            $this->_getBaseMbox() . $this->encodePath($old),
+            $this->_getBaseMbox() . $this->encodePath($new)
+        );
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Renaming folder %s%s to %s%s failed. Error: %s"
+                    ),
+                    $this->_getBaseMbox(),
+                    $old,
+                    $this->_getBaseMbox(),
+                    $new,
+                    @imap_last_error()
+                )
+            );
+        }
+    }
+
+    /**
      * Retrieves the specified annotation for the complete list of mailboxes.
      *
      * @param string $annotation The name of the annotation to retrieve.
@@ -320,33 +380,6 @@ extends Horde_Kolab_Storage_Driver_Base
         $uidsearch = $this->_imap->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids;
-    }
-
-    /**
-     * Delete the specified folder.
-     *
-     * @param string $folder  The folder to delete.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function delete($folder)
-    {
-        return $this->_imap->deleteMailbox($folder);
-    }
-
-    /**
-     * Rename the specified folder.
-     *
-     * @param string $old  The folder to rename.
-     * @param string $new  The new name of the folder.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function rename($old, $new)
-    {
-        return $this->_imap->renameMailbox($old, $new);
     }
 
     /**

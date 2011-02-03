@@ -121,6 +121,57 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Delete the specified folder.
+     *
+     * @param string $folder  The folder to delete.
+     *
+     * @return NULL
+     */
+    public function delete($folder)
+    {
+        $this->getBackend()->deleteFolder($this->encodePath($folder));
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Deleting folder %s failed. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+    }
+
+    /**
+     * Rename the specified folder.
+     *
+     * @param string $old  The folder to rename.
+     * @param string $new  The new name of the folder.
+     *
+     * @return NULL
+     */
+    public function rename($old, $new)
+    {
+        $this->getBackend()->renameFolder(
+            $this->encodePath($old),
+            $this->encodePath($new)
+        );
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Renaming folder %s to %s failed. Error: %s"
+                    ),
+                    $old,
+                    $new,
+                    $this->getBackend()->error
+                )
+            );
+        }
+    }
+
+    /**
      * Retrieves the specified annotation for the complete list of mailboxes.
      *
      * @param string $annotation The name of the annotation to retrieve.
@@ -251,33 +302,6 @@ extends Horde_Kolab_Storage_Driver_Base
         $uidsearch = $this->getBackend()->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids;
-    }
-
-    /**
-     * Delete the specified folder.
-     *
-     * @param string $folder  The folder to delete.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function delete($folder)
-    {
-        return $this->getBackend()->deleteMailbox($folder);
-    }
-
-    /**
-     * Rename the specified folder.
-     *
-     * @param string $old  The folder to rename.
-     * @param string $new  The new name of the folder.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function rename($old, $new)
-    {
-        return $this->getBackend()->renameMailbox($old, $new);
     }
 
     /**

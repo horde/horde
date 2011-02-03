@@ -67,7 +67,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMailboxes()
     {
-        return $this->decodeList($this->getBackend()->getMailboxes());
+        $list = Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->getMailboxes()
+        );
+        return $this->decodeList($list);
     }
 
     /**
@@ -75,12 +78,45 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder The folder to create.
      *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
+     * @return NULL
      */
     public function create($folder)
     {
-        return $this->getBackend()->createMailbox($this->encodePath($folder));
+        Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->createMailbox($this->encodePath($folder))
+        );
+    }
+
+    /**
+     * Delete the specified folder.
+     *
+     * @param string $folder  The folder to delete.
+     *
+     * @return NULL
+     */
+    public function delete($folder)
+    {
+        Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->deleteMailbox($this->encodePath($folder))
+        );
+    }
+
+    /**
+     * Rename the specified folder.
+     *
+     * @param string $old  The folder to rename.
+     * @param string $new  The new name of the folder.
+     *
+     * @return NULL
+     */
+    public function rename($old, $new)
+    {
+        Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->renameMailbox(
+                $this->encodePath($old),
+                $this->encodePath($new)
+            )
+        );
     }
 
     /**
@@ -95,7 +131,9 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         list($entry, $value) = $this->_getAnnotateMoreEntry($annotation);
         $list = array();
-        $result = $this->getBackend()->getAnnotation($entry, $value, '*');
+        $result = Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->getAnnotation($entry, $value, '*')
+        );
         foreach ($result as $element) {
             if (isset($element['ATTRIBUTES'][$value])) {
                 $list[$element['MAILBOX']] = $element['ATTRIBUTES'][$value];
@@ -134,8 +172,10 @@ extends Horde_Kolab_Storage_Driver_Base
     public function setAnnotation($mailbox, $annotation, $value)
     {
         list($entry, $type) = $this->_getAnnotateMoreEntry($annotation);
-        $this->getBackend()->setAnnotation(
-            $entry, array($type => $value), $this->encodePath($mailbox)
+        Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->setAnnotation(
+                $entry, array($type => $value), $this->encodePath($mailbox)
+            )
         );
     }
 
@@ -197,33 +237,6 @@ extends Horde_Kolab_Storage_Driver_Base
         $uidsearch = $this->getBackend()->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids;
-    }
-
-    /**
-     * Delete the specified folder.
-     *
-     * @param string $folder  The folder to delete.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function delete($folder)
-    {
-        return $this->getBackend()->deleteMailbox($folder);
-    }
-
-    /**
-     * Rename the specified folder.
-     *
-     * @param string $old  The folder to rename.
-     * @param string $new  The new name of the folder.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function rename($old, $new)
-    {
-        return $this->getBackend()->renameMailbox($old, $new);
     }
 
     /**
