@@ -114,4 +114,36 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testCreateFolder()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );
+        $list->createFolder('INBOX/NewFolderÄ');
+        $this->assertContains(
+            'INBOX/NewFolderÄ',
+            $list->listFolders()
+        );
+    }
+
+    public function testCreateFolderLogOne()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );
+        $list->createFolder('INBOX/NewFolderÄ');
+        $this->assertLogContains('Creating folder INBOX/NewFolderÄ.');
+    }
+
+    public function testCreateFolderLogTwo()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Log(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockLogger()
+        );#
+        $list->createFolder('INBOX/NewFolderÄ');
+        $this->assertLogContains('Successfully created folder INBOX/NewFolderÄ [type: mail, owner: test@example.com, namespace: personal, title: NewFolderÄ].');
+    }
 }
