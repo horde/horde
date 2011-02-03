@@ -28,12 +28,19 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 abstract class Horde_Kolab_Storage_Folder_Namespace
-implements Iterator
+implements Iterator, Serializable
 {
     /** The possible namespace types (RFC 2342 [5]) */
     const PERSONAL = 'personal';
     const OTHER    = 'other';
     const SHARED   = 'shared';
+
+    /**
+     * The current user.
+     *
+     * @var string
+     */
+    protected $user;
 
     /**
      * The namespaces.
@@ -62,6 +69,18 @@ implements Iterator
      * @param array $namespaces The namespaces.
      */
     public function __construct(array $namespaces)
+    {
+        $this->initialize($namespaces);
+    }
+
+    /**
+     * Initialize the class with a set of namespace configurations.
+     *
+     * @param array $namespaces The namespaces.
+     *
+     * @return NULL
+     */
+    protected function initialize(array $namespaces)
     {
         $this->_namespaces = $namespaces;
         foreach ($this->_namespaces as $namespace) {

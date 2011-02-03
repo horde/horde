@@ -161,6 +161,22 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testSerializable()
+    {
+        $data = array();
+        foreach ($this->_getNamespaces() as $namespace) {
+            $data[] = (string) unserialize(serialize($namespace));
+        }
+        $this->assertEquals(
+            array(
+                'Horde_Kolab_Storage_Folder_Namespace_Fixed: "INBOX" (personal, "/"), "user" (other, "/"), "" (shared, "/")',
+                'Horde_Kolab_Storage_Folder_Namespace_Config: "INBOX" (personal, "/"), "user" (other, "/"), "" (shared, "/")',
+                'Horde_Kolab_Storage_Folder_Namespace_Imap: "INBOX" (personal, "/"), "user" (other, "/"), "" (shared, "/")'
+            ),
+            $data
+        );
+    }
+
     private function _getFolder($name, $namespace)
     {
         $factory = new Horde_Kolab_Storage_Factory();
