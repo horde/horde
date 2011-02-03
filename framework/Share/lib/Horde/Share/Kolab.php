@@ -155,16 +155,16 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _getShare($name)
     {
-        try {
-            $data = $this->getStorage()
-                ->getList()
-                ->getQuery()
-                ->folderData($this->_idDecode($name));
-        } catch (Horde_Kolab_Storage_Exception $e) {
+        $data = $this->getStorage()
+            ->getList()
+            ->getQuery('Base')
+            ->dataByType($this->_type);
+
+        if (!isset($data[$this->_idDecode($name)])) {
             $this->_logger->err(sprintf('Share name %s not found', $name));
             throw new Horde_Exception_NotFound();
         }
-        return $this->_createObject($name, $data);
+        return $this->_createObject($name, $data[$this->_idDecode($name)]);
     }
 
     /**
@@ -208,14 +208,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _exists($share)
     {
-        try {
+        return in_array(
+            $this->_idDecode($share),
             $this->getStorage()
-                ->getList()
-                ->getFolder($this->_idDecode($share));
-            return true;
-        } catch (Horde_Kolab_Storage_Exception $e) {
-            return false;
-        }
+            ->getList()
+            ->getQuery('Base')
+            ->listByType($this->_type)
+        );
     }
 
     /**

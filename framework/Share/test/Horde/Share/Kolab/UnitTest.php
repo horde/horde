@@ -213,16 +213,6 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testShareType()
-    {
-        $this->assertEquals(
-            'event',
-            $this->_getPrefilledDriver()
-            ->getShare('INBOX%2FCalendar')
-            ->get('type')
-        );
-    }
-
     public function testNewShare()
     {
         $this->assertEquals(
