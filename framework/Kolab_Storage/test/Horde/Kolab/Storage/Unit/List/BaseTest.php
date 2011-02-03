@@ -221,6 +221,16 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testCreateExistingFolder()
+    {
+        $list = $this->getAnnotatedQueriableList();
+        $list->createFolder('INBOX/NewFolder');
+        $list->createFolder('INBOX/NewFolder');
+    }
+
     public function testCreateWithUmlaut()
     {
         $list = $this->getAnnotatedQueriableList();
@@ -251,4 +261,79 @@ extends Horde_Kolab_Storage_TestCase
             $list->getQuery()->listByType('event')
         );
     }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testDeleteMissingFolder()
+    {
+        $this->getAnnotatedQueriableList()->deleteFolder('INBOX/ÄBC');
+    }
+
+    public function testDeleteFolder()
+    {
+        $list = $this->getAnnotatedQueriableList();
+        $list->createFolder('INBOX/ÄBC');
+        $this->assertNull(
+            $list->deleteFolder('INBOX/ÄBC')
+        );
+    }
+
+    public function testDeleteRemovesFolder()
+    {
+        $list = $this->getAnnotatedQueriableList();
+        $list->deleteFolder('INBOX/Calendar');
+        $this->assertNotContains(
+            'INBOX/Calendar',
+            $list->listFolders()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testRenameMissingFolder()
+    {
+        $this->getAnnotatedQueriableList()->renameFolder('INBOX/ÄBC', 'INBOX/A');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testRenameToExistingFolder()
+    {
+        $list = $this->getAnnotatedQueriableList();
+        $list->createFolder('INBOX/ÜBC');
+        $list->renameFolder('INBOX/ÄBC', 'INBOX/ÜBC');
+    }
+
+    public function testRenameFolder()
+    {
+        $list = $this->getAnnotatedQueriableList();
+        $list->createFolder('INBOX/ÄBC');
+        $this->assertNull(
+            $list->renameFolder('INBOX/ÄBC', 'INBOX/ÜBC')
+        );
+    }
+
+    public function testRenameRemovesFolder()
+    {
+        $list = $this->getAnnotatedQueriableList();
+        $list->renameFolder('INBOX/Calendar', 'INBOX/ÄBC');
+        $this->assertNotContains(
+            'INBOX/Calendar',
+            $list->listFolders()
+        );
+    }
+
+    public function testRenameAddsFolder()
+    {
+        $list = $this->getAnnotatedQueriableList();
+        $list->renameFolder('INBOX/Calendar', 'INBOX/ÄBC');
+        $this->assertContains(
+            'INBOX/ÄBC',
+            $list->listFolders()
+        );
+    }
+
 }

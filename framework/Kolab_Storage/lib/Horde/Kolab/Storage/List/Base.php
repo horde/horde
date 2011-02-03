@@ -95,6 +95,31 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Delete a folder.
+     *
+     * @param string $folder The path of the folder to delete.
+     *
+     * @return NULL
+     */
+    public function deleteFolder($folder)
+    {
+        $this->_driver->delete($folder);
+    }
+
+    /**
+     * Rename a folder.
+     *
+     * @param string $old The old path of the folder.
+     * @param string $new The new path of the folder.
+     *
+     * @return NULL
+     */
+    public function renameFolder($old, $new)
+    {
+        $this->_driver->rename($old, $new);
+    }
+
+    /**
      * Returns a representation for the requested folder.
      *
      * @param string $folder The path of the folder to return.

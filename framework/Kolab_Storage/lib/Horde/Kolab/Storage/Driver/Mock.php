@@ -141,6 +141,75 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return NULL
+     */
+    public function create($folder)
+    {
+        $folder = $this->_convertToInternal($folder);
+        if (isset($this->_data[$folder])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf("IMAP folder %s does already exist!", $folder)
+            );
+        }
+        $this->_data[$folder] = array(
+            'status' => array(
+                'uidvalidity' => time(),
+                'uidnext' => 1),
+            'mails' => array(),
+            'permissions' => array(),
+            'annotations' => array(),
+        );
+    }
+
+    /**
+     * Delete the specified folder.
+     *
+     * @param string $folder The folder to delete.
+     *
+     * @return NULL
+     */
+    public function delete($folder)
+    {
+        $folder = $this->_convertToInternal($folder);
+        if (!isset($this->_data[$folder])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf("IMAP folder %s does not exist!", $folder)
+            );
+        }
+        unset($this->_data[$folder]);
+    }
+
+    /**
+     * Rename the specified folder.
+     *
+     * @param string $old  The folder to rename.
+     * @param string $new  The new name of the folder.
+     *
+     * @return NULL
+     */
+    public function rename($old, $new)
+    {
+        $old = $this->_convertToInternal($old);
+        $new = $this->_convertToInternal($new);
+        if (!isset($this->_data[$old])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf("IMAP folder %s does not exist!", $old)
+            );
+        }
+        if (isset($this->_data[$new])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf("IMAP folder %s does already exist!", $new)
+            );
+        }
+        $this->_data[$new] = $this->_data[$old];
+        unset($this->_data[$old]);
+    }
+
+    /**
      * Retrieves the specified annotation for the complete list of mailboxes.
      *
      * @param string $annotation The name of the annotation to retrieve.
@@ -203,33 +272,6 @@ extends Horde_Kolab_Storage_Driver_Base
         $mailbox = $this->_convertToInternal($mailbox);
         $this->_data[$mailbox]['annotations'][$annotation] = $value;
     }
-
-    /**
-     * Create the specified folder.
-     *
-     * @param string $folder The folder to create.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function create($folder)
-    {
-        $folder = $this->_convertToInternal($folder);
-        if (isset($this->_data[$folder])) {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf("IMAP folder %s does already exist!", $folder)
-            );
-        }
-        $this->_data[$folder] = array(
-            'status' => array(
-                'uidvalidity' => time(),
-                'uidnext' => 1),
-            'mails' => array(),
-            'permissions' => array(),
-            'annotations' => array(),
-        );
-    }
-
 
 
 
@@ -297,33 +339,6 @@ extends Horde_Kolab_Storage_Driver_Base
         $uidsearch = $this->_imap->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids;
-    }
-
-    /**
-     * Delete the specified folder.
-     *
-     * @param string $folder  The folder to delete.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function delete($folder)
-    {
-        return $this->_imap->deleteMailbox($folder);
-    }
-
-    /**
-     * Rename the specified folder.
-     *
-     * @param string $old  The folder to rename.
-     * @param string $new  The new name of the folder.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function rename($old, $new)
-    {
-        return $this->_imap->renameMailbox($old, $new);
     }
 
     /**
