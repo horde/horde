@@ -24,14 +24,14 @@ class Horde_Share_Kolab extends Horde_Share_Base
      *
      * @var Horde_Kolab_Storage
      */
-    protected $_storage;
+    private $_storage;
 
     /**
      * The folder type in the storage backend.
      *
      * @var string
      */
-    protected $_type;
+    private $_type;
 
     /**
      * Constructor.
@@ -128,7 +128,23 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
-     * Returns a Horde_Share_Object_sql object corresponding to the given
+     * Returns a Horde_Share_Object_Kolab object corresponding to the given
+     * share name, with the details retrieved appropriately.
+     *
+     * @param string $name  The name of the share to retrieve.
+     * @param array  $data  The share data.
+     *
+     * @return Horde_Share_Object  The requested share.
+     */
+    private function _createObject($name, array $data = array())
+    {
+        $object = new Horde_Share_Object_Kolab($name, $data);
+        $this->initShareObject($object);
+        return $object;
+    }
+
+    /**
+     * Returns a Horde_Share_Object_Kolab object corresponding to the given
      * share name, with the details retrieved appropriately.
      *
      * @param string $name  The name of the share to retrieve.
@@ -139,18 +155,16 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _getShare($name)
     {
-        $data = $this->getStorage()
-            ->getList()
-            ->getQuery('Base')
-            ->dataByType($this->_type);
-
-        if (!isset($data[$this->_idDecode($name)])) {
+        try {
+            $data = $this->getStorage()
+                ->getList()
+                ->getQuery()
+                ->folderData($this->_idDecode($name));
+        } catch (Horde_Kolab_Storage_Exception $e) {
             $this->_logger->err(sprintf('Share name %s not found', $name));
             throw new Horde_Exception_NotFound();
         }
-        return new Horde_Share_Object_Kolab(
-            $name, $data[$this->_idDecode($name)]
-        );
+        return $this->_createObject($name, $data);
     }
 
     /**
@@ -194,13 +208,14 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _exists($share)
     {
-        return in_array(
-            $this->_idDecode($share),
+        try {
             $this->getStorage()
-            ->getList()
-            ->getQuery('Base')
-            ->listByType($this->_type)
-        );
+                ->getList()
+                ->getFolder($this->_idDecode($share));
+            return true;
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -212,12 +227,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _idExists($id)
     {
-        try {
-            $share = $this->_getShare($id);
-            return true;
-        } catch (Horde_Exception_NotFound $e) {
-            return false;
-        }
+        return $this->_exists($id);
     }
 
     /**
@@ -311,7 +321,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
         if (empty($name)) {
             throw new Horde_Share_Exception('Share names must be non-empty');
         }
-        return new Horde_Share_Object_Kolab($name, $this->_type);
+        return $this->_createObject($name, array('type' => $this->_type));
     }
 
     /**
@@ -336,30 +346,5 @@ class Horde_Share_Kolab extends Horde_Share_Base
     protected function _removeShare(Horde_Share_Object $share)
     {
         $share->delete();
-    }
-
-    /**
-     * Create a default share for the current app
-     *
-     * @return string The share ID of the new default share.
-     */
-    public function getDefaultShare()
-    {
-        $default = $this->_storage->getDefault($this->_type);
-        if ($default instanceof PEAR_Error) {
-            throw new Horde_Share_Exception($default->getMessage());
-        }
-        if ($default !== false) {
-            return $this->getShare($default->getShareId());
-        }
-
-        /* Okay, no default folder yet */
-        $share = $this->newShare($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth());
-
-        /* The value does not matter here as the share will rewrite it */
-        $share->set('name', '');
-        $this->addShare($share);
-
-        return $share;
     }
 }

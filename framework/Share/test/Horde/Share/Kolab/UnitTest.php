@@ -107,6 +107,16 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('task', $driver->getType());
     }
 
+    /**
+     * @expectedException Horde_Share_Exception
+     */
+    public function testSupportException()
+    {
+        $driver = new Horde_Share_Kolab(
+            'NOTSUPPORTED', 'john', new Horde_Perms(), new Horde_Group_Test()
+        );        
+    }
+
     public function testListIds()
     {
         $this->assertEquals(
@@ -148,6 +158,20 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertFalse(
             $this->_getPrefilledDriver()->exists('DOES_NOT_EXIST')
+        );
+    }
+
+    public function testIdExists()
+    {
+        $this->assertTrue(
+            $this->_getPrefilledDriver()->idExists('INBOX%2FCalendar')
+        );
+    }
+
+    public function testIdDoesNotExists()
+    {
+        $this->assertFalse(
+            $this->_getPrefilledDriver()->idExists('DOES_NOT_EXIST')
         );
     }
 
