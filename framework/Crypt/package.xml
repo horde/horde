@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-19</date>
- <time>23:11:03</time>
+ <date>2011-02-03</date>
+ <time>10:28:18</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -320,6 +320,7 @@
       </dir> <!-- /test/Horde/Crypt/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="PgpKeyserverTest.php" role="test" />
       <file name="PgpTest.php" role="test" />
       <file name="SmimeTest.php" role="test" />
      </dir> <!-- /test/Horde/Crypt -->
@@ -453,6 +454,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" />
    <install as="Horde/Crypt/AllTests.php" name="test/Horde/Crypt/AllTests.php" />
    <install as="Horde/Crypt/Autoload.php" name="test/Horde/Crypt/Autoload.php" />
+   <install as="Horde/Crypt/PgpKeyserverTest.php" name="test/Horde/Crypt/PgpKeyserverTest.php" />
    <install as="Horde/Crypt/PgpTest.php" name="test/Horde/Crypt/PgpTest.php" />
    <install as="Horde/Crypt/SmimeTest.php" name="test/Horde/Crypt/SmimeTest.php" />
    <install as="Horde/Crypt/fixtures/bug_6601.asc" name="test/Horde/Crypt/fixtures/bug_6601.asc" />
@@ -509,7 +511,7 @@ Initial release as a PEAR package
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-19</date>
+   <date>2011-02-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Horde_Crypt_Exception::.

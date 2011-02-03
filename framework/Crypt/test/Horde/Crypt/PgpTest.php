@@ -512,17 +512,4 @@ Version: GnuPG v%d.%d.%d (%s)
         );
     }
 
-    public function testKeyserverRetrieve()
-    {
-        $this->_pgp->getPublicKeyserver('4DE5B969');
-    }
-
-    public function testKeyserverRetrieveByEmail()
-    {
-        $this->assertEquals(
-            '4DE5B969',
-            $this->_pgp->getKeyID('jan@horde.org')
-        );
-    }
-
 }
