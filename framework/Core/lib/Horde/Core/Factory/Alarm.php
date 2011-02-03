@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_Alarm
+class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Injector
 {
     /**
      * Return a Horde_Alarm instance

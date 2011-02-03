@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Sentmail
+class IMP_Factory_Sentmail extends Horde_Core_Factory_Injector
 {
     /**
      * Return the IMP_Sentmail instance.

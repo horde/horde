@@ -5,15 +5,8 @@
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Factory_Geo
+class Kronolith_Factory_Geo extends Horde_Core_Factory_Injector
 {
-    /**
-     * Instances.
-     *
-     * @var array
-     */
-    private $_instances = array();
-
     /**
      * Return the driver instance.
      *
@@ -22,17 +15,14 @@ class Kronolith_Factory_Geo
      */
     public function create(Horde_Injector $injector)
     {
-        if (empty($this->_instances[$GLOBALS['conf']['maps']['geodriver']])) {
-            if (!empty($GLOBALS['conf']['maps']['geodriver'])) {
-                $class = 'Kronolith_Geo_' . $GLOBALS['conf']['maps']['geodriver'];
-                $db = $injector->getInstance('Horde_Db_Adapter');
-                $this->_instances[$GLOBALS['conf']['maps']['geodriver']] = new $class($db);
-            } else {
-                throw new Kronolith_Exception('Geospatial support not configured.');
-            }
+        if (empty($GLOBALS['conf']['maps']['geodriver'])) {
+            throw new Kronolith_Exception('Geospatial support not configured.');
         }
 
-        return $this->_instances[$GLOBALS['conf']['maps']['geodriver']];
+        $class = 'Kronolith_Geo_' . $GLOBALS['conf']['maps']['geodriver'];
+        $db = $injector->getInstance('Horde_Db_Adapter');
+
+        return new $class($db);
     }
 
 }

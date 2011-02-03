@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=Turba
  * @package  Turba
  */
-class Turba_Factory_Driver
+class Turba_Factory_Driver extends Horde_Core_Factory_Base
 {
     /**
      * Instances.
@@ -33,23 +33,6 @@ class Turba_Factory_Driver
      * @var array
      */
     private $_instances = array();
-
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
 
     /**
      * Return the Turba_Driver:: instance.
@@ -89,8 +72,8 @@ class Turba_Factory_Driver
             case 'Turba_Driver_Sql':
                 try {
                     $srcConfig['params']['db'] = empty($srcConfig['params']['sql'])
-                        ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
-                        : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $this->_params['sql']);
+                        ? $this->_injector->getInstance('Horde_Db_Adapter')
+                        : $this->_injector->getInstance('Horde_Core_Factory_Db')->create('turba', $this->_params['sql']);
                 } catch (Horde_Db_Exception $e) {
                     throw new Turba_Exception($e);
                 }

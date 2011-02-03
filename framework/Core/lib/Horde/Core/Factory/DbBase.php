@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory_DbBase
+class Horde_Core_Factory_DbBase extends Horde_Core_Factory_Injector
 {
     /**
      * Returns the Horde_Db_Adapter object for the default Horde DB/SQL

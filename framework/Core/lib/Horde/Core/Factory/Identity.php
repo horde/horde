@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_Identity
+class Horde_Core_Factory_Identity extends Horde_Core_Factory_Base
 {
     /**
      * Instances.
@@ -33,23 +33,6 @@ class Horde_Core_Factory_Identity
      * @var array
      */
     private $_instances = array();
-
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
 
     /**
      * Return the Horde_Identity:: instance.
@@ -63,7 +46,7 @@ class Horde_Core_Factory_Identity
      */
     public function create($user = null, $driver = null)
     {
-        global $injector, $prefs, $registry;
+        global $prefs, $registry;
 
         $class = empty($driver)
             ? 'Horde_Core_Prefs_Identity'
@@ -82,7 +65,7 @@ class Horde_Core_Factory_Identity
             if (isset($prefs) && ($params['user'] == $registry->getAuth())) {
                 $params['prefs'] = $prefs;
             } else {
-                $params['prefs'] = $injector->getInstance('Horde_Core_Factory_Prefs')->create($registry->getApp(), array(
+                $params['prefs'] = $this->_injector->getInstance('Horde_Core_Factory_Prefs')->create($registry->getApp(), array(
                     'cache' => false,
                     'user' => $user
                 ));

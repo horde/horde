@@ -19,25 +19,8 @@
  * @package  Core
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Horde_Core_Factory_Share
+class Horde_Core_Factory_Share extends Horde_Core_Factory_Base
 {
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
-
     /**
      * Returns the Horde_Share_Base instance.
      *

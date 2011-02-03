@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Flags
+class IMP_Factory_Flags extends Horde_Core_Factory_Injector
 {
     /**
      * Return the IMP_Flags instance.

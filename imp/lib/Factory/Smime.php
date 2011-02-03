@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Smime
+class IMP_Factory_Smime extends Horde_Core_Factory_Injector
 {
     /**
      * Return the IMP_Crypt_Smime instance.

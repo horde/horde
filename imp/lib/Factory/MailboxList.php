@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_MailboxList
+class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
 {
     /**
      * Instances.
@@ -35,12 +35,11 @@ class IMP_Factory_MailboxList
     private $_instances = array();
 
     /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
      */
     public function __construct(Horde_Injector $injector)
     {
+        parent::__construct($injector);
+
         register_shutdown_function(array($this, 'shutdown'));
     }
 

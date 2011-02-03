@@ -7,7 +7,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Ansel
  */
-class Ansel_Factory_Styles
+class Ansel_Factory_Styles extends Horde_Core_Factory_Injector
 {
     public function create (Horde_Injector $injector)
     {

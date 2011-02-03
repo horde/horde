@@ -7,24 +7,12 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Hermes
  */
-class Hermes_Factory_Driver
+class Hermes_Factory_Driver extends Horde_Core_Factory_Base
 {
     /**
-     *
      * @var array
      */
     private $_instances = array();
-
-    /**
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
 
     /**
      * Return an Hermes_Storage instance.

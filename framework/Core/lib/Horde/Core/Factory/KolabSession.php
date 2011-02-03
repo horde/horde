@@ -25,24 +25,13 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_KolabSession
+class Horde_Core_Factory_KolabSession extends Horde_Core_Factory_Base
 {
     /**
-     * The injector.
-     *
-     * @var Horde_Injector
      */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector The injector to use.
-     */
-    public function __construct(
-        Horde_Injector $injector
-    ) {
-        $this->_injector = $injector;
+    public function __construct(Horde_Injector $injector)
+    {
+        parent::__construct($injector);
         $this->_injector->bindImplementation(
             'Horde_Kolab_Session_Storage',
             'Horde_Kolab_Session_Storage_Session'

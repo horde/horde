@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_Cache
+class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
 {
     /**
      * Return the Horde_Cache:: instance.

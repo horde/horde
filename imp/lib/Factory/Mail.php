@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Mail
+class IMP_Factory_Mail extends Horde_Core_Factory_Injector
 {
     /**
      * Return the Horde_Mail instance.
@@ -51,7 +51,7 @@ class IMP_Factory_Mail
          * current IMAP / POP3 connection are valid for SMTP authentication as
          * well. */
         if (!empty($params['auth']) && empty($params['username'])) {
-            $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();
             $params['username'] = $imap_ob->getParam('username');
             $params['password'] = $imap_ob->getParam('password');
         }

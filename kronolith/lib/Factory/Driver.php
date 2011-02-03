@@ -2,7 +2,7 @@
 /**
  * Horde_Injector based factory for Kronolith_Driver
  */
-class Kronolith_Factory_Driver
+class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
 {
     /**
      * Instances.
@@ -10,23 +10,6 @@ class Kronolith_Factory_Driver
      * @var array
      */
     private $_instances = array();
-
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
 
     /**
      * Return the driver instance.

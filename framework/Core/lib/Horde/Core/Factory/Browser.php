@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory_Browser
+class Horde_Core_Factory_Browser extends Horde_Core_Factory_Injector
 {
     /**
      */

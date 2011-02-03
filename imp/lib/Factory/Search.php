@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Search
+class IMP_Factory_Search extends Horde_Core_Factory_Injector
 {
     /**
      * Return the IMP_Search instance.

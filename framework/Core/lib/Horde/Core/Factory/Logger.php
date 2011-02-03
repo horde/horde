@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory_Logger
+class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
 {
     /**
      * Stores the exception if the logger could not be started.

@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based factory for creating PEAR DB objects..
+ * A Horde_Injector:: based factory for creating PEAR DB objects.
  *
  * PHP version 5
  *
@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_DbPear
+class Horde_Core_Factory_DbPear extends Horde_Core_Factory_Base
 {
     /**
      * Instances.
@@ -33,23 +33,6 @@ class Horde_Core_Factory_DbPear
      * @var array
      */
     private $_instances = array();
-
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
 
     /**
      * Return the DB instance.

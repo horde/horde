@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Editor:: factory.
+ * The abstract Horde factory class.
  *
  * PHP version 5
  *
@@ -12,9 +12,12 @@
  */
 
 /**
- * A Horde_Injector:: based Horde_Editor:: factory.
+ * The abstract Horde factory class.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * This class is used for factories that are intended to have their create()
+ * methods manually called by code.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,20 +28,30 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_Editor extends Horde_Core_Factory_Base
+class Horde_Core_Factory_Base
 {
     /**
-     * Return the Horde_Editor:: instance.
+     * The injector.
      *
-     * @param string $driver  The editor driver.
-     * @param array $params   Additional parameters to pass to the driver
-     *                        (will override Horde defaults).
+     * @var Horde_Injector
+     */
+    protected $_injector;
+
+    /**
+     * Constructor.
      *
-     * @return Horde_Editor  The singleton editor instance.
-     * @throws Horde_Editor_Exception
+     * @param Horde_Injector $injector  The injector to use.
+     */
+    public function __construct(Horde_Injector $injector)
+    {
+        $this->_injector = $injector;
+    }
+
+    /**
+     * @throws Horde_Exception
      */
     public function create()
     {
-        return $this->_injector->getInstance('Horde_Editor_Ckeditor');
     }
+
 }

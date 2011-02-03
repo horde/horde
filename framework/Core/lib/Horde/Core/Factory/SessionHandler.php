@@ -7,7 +7,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory_SessionHandler
+class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
 {
     /**
      * Attempts to return a concrete instance based on $driver.

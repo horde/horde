@@ -3,25 +3,8 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory_Image
+class Horde_Core_Factory_Image extends Horde_Core_Factory_Base
 {
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
-
     /**
      * Returns an appropriate Horde_Image object based on Horde's configuration.
      *
@@ -32,7 +15,7 @@ class Horde_Core_Factory_Image
     public function create(array $params = array())
     {
         global $conf;
-        
+
         $driver = $conf['image']['driver'];
         $context = array(
             'tmpdir' => Horde::getTempdir(),
@@ -45,9 +28,9 @@ class Horde_Core_Factory_Image
         $class = 'Horde_Image_' . $driver;
         if (class_exists($class)) {
             return new $class($params, $context);
-        } else {
-            throw new Horde_Exception('Invalid Image driver specified: ' . $class . ' not found.');
         }
+
+        throw new Horde_Exception('Invalid Image driver specified: ' . $class . ' not found.');
     }
 
 }

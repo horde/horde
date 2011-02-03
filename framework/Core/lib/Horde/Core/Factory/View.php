@@ -28,7 +28,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_View
+class Horde_Core_Factory_View extends Horde_Core_Factory_Injector
 {
     public function create(Horde_Injector $injector)
     {

@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Quota
+class IMP_Factory_Quota extends Horde_Core_Factory_Injector
 {
     /**
      * Return the IMP_Quota instance.

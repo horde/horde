@@ -25,25 +25,8 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @link     http://pear.horde.org/index.php?package=IMP
  */
-class IMP_Factory_MimeViewer
+class IMP_Factory_MimeViewer extends Horde_Core_Factory_Base
 {
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
-
     /**
      * Attempts to return a concrete Horde_Mime_Viewer object based on the
      * MIME type.

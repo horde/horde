@@ -3,25 +3,8 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory_HttpClient
+class Horde_Core_Factory_HttpClient extends Horde_Core_Factory_Base
 {
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
-
     /**
      * Get client object.
      *

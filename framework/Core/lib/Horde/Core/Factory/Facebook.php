@@ -3,7 +3,7 @@
  * @category Horde
  * @package Core
  */
-class Horde_Core_Factory_Facebook
+class Horde_Core_Factory_Facebook extends Horde_Core_Factory_Injector
 {
     public function create(Horde_Injector $injector)
     {

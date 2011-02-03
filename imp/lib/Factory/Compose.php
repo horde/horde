@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Compose
+class IMP_Factory_Compose extends Horde_Core_Factory_Base
 {
     /**
      * Instances.
@@ -35,20 +35,10 @@ class IMP_Factory_Compose
     private $_instances = array();
 
     /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
      */
     public function __construct(Horde_Injector $injector)
     {
-        $this->_injector = $injector;
+        parent::__construct($injector);
 
         register_shutdown_function(array($this, 'shutdown'));
     }

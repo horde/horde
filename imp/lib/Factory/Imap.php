@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Imap
+class IMP_Factory_Imap extends Horde_Core_Factory_Base
 {
     /**
      * Instances.

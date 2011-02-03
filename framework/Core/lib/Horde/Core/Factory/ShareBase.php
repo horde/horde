@@ -19,20 +19,20 @@
  * @package  Core
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Horde_Core_Factory_ShareBase
+class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
 {
     /**
      * Local cache of created share instances.
      *
      * @var array
      */
-    protected $_instances;
+    protected $_instances = array();
 
     /**
      * Returns the share driver instance.
      *
-     * @param string $app     The application scope of the share. If empty, default
-     *                        to current application.
+     * @param string $app     The application scope of the share. If empty,
+     *                        default to current application.
      * @param string $driver  The storage driver to use. If empty, use the
      *                        globally configured storage driver.
      *
@@ -44,7 +44,7 @@ class Horde_Core_Factory_ShareBase
             $driver = $GLOBALS['conf']['share']['driver'];
         }
         if (empty($app)) {
-            $app = $GLOBALS['injector']->getInstance('Horde_Registry')->getApp();
+            $app = $this->_injector->getInstance('Horde_Registry')->getApp();
         }
 
         $sig = $app . '_' . $driver;
@@ -57,10 +57,10 @@ class Horde_Core_Factory_ShareBase
             throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" share driver not found."), $driver));
         }
 
-        $ob = new $class($app, $GLOBALS['registry']->getAuth(), $GLOBALS['injector']->getInstance('Horde_Perms'), $GLOBALS['injector']->getInstance('Horde_Group'));
+        $ob = new $class($app, $GLOBALS['registry']->getAuth(), $this->_injector->getInstance('Horde_Perms'), $this->_injector->getInstance('Horde_Group'));
         $cb = new Horde_Core_Share_FactoryCallback($app, $driver);
         $ob->setShareCallback(array($cb, 'create'));
-        $ob->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+        $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
         if (!empty($GLOBALS['conf']['share']['cache'])) {
             $cache_sig = 'horde_share/' . $app . '/' . $driver;
             $listCache = $GLOBALS['session']->retrieve($cache_sig);

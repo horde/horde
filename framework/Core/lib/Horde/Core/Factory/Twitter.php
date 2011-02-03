@@ -2,11 +2,11 @@
 /**
  * Binder for creating Horde_Service_Twitter objects.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @package Core
+ * @package  Core
  */
-class Horde_Core_Factory_Twitter
+class Horde_Core_Factory_Twitter extends Horde_Core_Factory_Injector
 {
     public function create(Horde_Injector $injector)
     {
