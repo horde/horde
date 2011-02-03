@@ -136,13 +136,19 @@ implements Horde_Kolab_Cli_Module
                 $folder = $world['storage']->getList()
                     ->createFolder($folder_name, $arguments[3]);
             }
+            $this->_showFolder($folder_name, $world, $cli);
+            break;
+        case 'rename':
+            $folder = $world['storage']->getList()
+                ->renameFolder($folder_name, $arguments[3]);
+            $this->_showFolder($arguments[3], $world, $cli);
+            break;
+        case 'delete':
+            $folder = $world['storage']->getList()
+                ->deleteFolder($folder_name);
+            break;
         case 'show':
-            $folder = $world['storage']->getList()->getFolder($folder_name);
-            $cli->writeln('Path:      ' . $folder->getPath());
-            $cli->writeln('Title:     ' . $folder->getTitle());
-            $cli->writeln('Owner:     ' . $folder->getOwner());
-            $cli->writeln('Type:      ' . $folder->getType());
-            $cli->writeln('Namespace: ' . $folder->getNamespace());
+            $this->_showFolder($folder_name, $world, $cli);
             break;
         default:
             $cli->message(
@@ -154,5 +160,15 @@ implements Horde_Kolab_Cli_Module
             );
             break;
         }
+    }
+
+    private function _showFolder($folder_name, $world, $cli)
+    {
+        $folder = $world['storage']->getList()->getFolder($folder_name);
+        $cli->writeln('Path:      ' . $folder->getPath());
+        $cli->writeln('Title:     ' . $folder->getTitle());
+        $cli->writeln('Owner:     ' . $folder->getOwner());
+        $cli->writeln('Type:      ' . $folder->getType());
+        $cli->writeln('Namespace: ' . $folder->getNamespace());
     }
 }
