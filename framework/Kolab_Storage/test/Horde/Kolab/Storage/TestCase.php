@@ -492,8 +492,9 @@ extends PHPUnit_Framework_TestCase
         return $query;
     }
 
-    protected function getMockDriverList()
+    protected function getMockDriverList($factory = null)
     {
+        $factory = $this->completeFactory($factory);
         $this->mockDriver = $this->getMock('Horde_Kolab_Storage_Driver');
         return new Horde_Kolab_Storage_List_Base(
             $this->mockDriver,

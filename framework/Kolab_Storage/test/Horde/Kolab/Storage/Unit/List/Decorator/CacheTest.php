@@ -37,19 +37,13 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testListFolderIsArray()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getNullList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_setupMockList();
         $this->assertType('array', $list->listFolders());
     }
 
     public function testListFolder()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getTwoFolderList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_getCachedList($this->getTwoFolderList());
         $this->assertEquals(
             array('INBOX', 'INBOX/a'),
             $list->listFolders()
@@ -58,10 +52,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testLongerList()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getAnnotatedList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_getCachedList($this->getAnnotatedList());
         $this->assertEquals(
             array('INBOX', 'INBOX/a', 'INBOX/Calendar', 'INBOX/Contacts', 'INBOX/Notes', 'INBOX/Tasks'),
             $list->listFolders()
@@ -139,19 +130,13 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testTypeListIsArray()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getNullList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_getCachedList($this->getNullList());
         $this->assertType('array', $list->listFolderTypes());
     }
 
     public function testFolderTypes()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getTwoFolderList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_getCachedList($this->getTwoFolderList());
         $this->assertEquals(
             array(),
             $list->listFolderTypes()
@@ -160,10 +145,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testMoreTypes()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getAnnotatedList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_getCachedList($this->getAnnotatedList());
         $this->assertEquals(
             array(
                 'INBOX/Calendar' => 'event.default',
@@ -271,10 +253,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetNamespace()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getNullList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_getCachedList($this->getNullList());
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder_Namespace',
             $list->getNamespace()
@@ -286,7 +265,7 @@ extends Horde_Kolab_Storage_TestCase
         $factory = new Horde_Kolab_Storage_Factory();
         $cache = $this->getMockCache();
         $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getMockDriverList(),
+            $this->getMockDriverList($factory),
             new Horde_Kolab_Storage_Cache_List(
                 $cache
             )
@@ -303,10 +282,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetFolder()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getAnnotatedQueriableList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_getCachedList($this->getAnnotatedQueriableList());
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder',
             $list->getFolder('INBOX/Calendar')
@@ -315,10 +291,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testCreateFolder()
     {
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getAnnotatedQueriableList(),
-            $this->getMockListCache()
-        );
+        $list = $this->_getCachedList($this->getAnnotatedQueriableList());
         $list->createFolder('INBOX/NewFolderÄ');
         $this->assertContains(
             'INBOX/NewFolderÄ',
@@ -343,5 +316,14 @@ extends Horde_Kolab_Storage_TestCase
             ->method('getMailboxes') 
             ->will($this->returnValue(array('INBOX')));
         return $list;
+    }
+
+    private function _getCachedList($list)
+    {
+        return new Horde_Kolab_Storage_List_Decorator_Cache(
+            $list,
+            $this->getMockListCache(),
+            new Horde_Kolab_Storage_Factory()
+        );
     }
 }
