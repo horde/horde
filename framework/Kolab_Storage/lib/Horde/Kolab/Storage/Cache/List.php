@@ -33,11 +33,14 @@ class Horde_Kolab_Storage_Cache_List
     /** Key for the type list. */
     const TYPES = 'T';
 
-    /** Key for the last time the list was synchronized. */
-    const SYNC = 'S';
+    /** Key for the namespace data. */
+    const NAME_SPACE = 'N';
 
     /** Holds query cache results. */
     const QUERIES = 'Q';
+
+    /** Key for the last time the list was synchronized. */
+    const SYNC = 'S';
 
     /** Key for the cache format version. */
     const VERSION = 'V';
@@ -178,6 +181,33 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
+     * Return namespace information.
+     *
+     * @return mixed The namespace data.
+     */
+    public function hasNamespace()
+    {
+        $this->_load();
+        return isset($this->_data[self::NAME_SPACE]);
+    }
+
+    /**
+     * Return namespace information.
+     *
+     * @return mixed The namespace data.
+     */
+    public function getNamespace()
+    {
+        if ($this->hasNamespace()) {
+            return $this->_data[self::NAME_SPACE];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                'Missing namespace data. Synchronize first!'
+            );
+        }
+    }
+
+    /**
      * Return query information.
      *
      * @param string $key The query key.
@@ -194,6 +224,19 @@ class Horde_Kolab_Storage_Cache_List
                 sprintf('Missing query cache data (Key: %s). Synchronize first!', $key)
             );
         }
+    }
+
+    /**
+     * Set namespace information.
+     *
+     * @param mixed $data The namespace data.
+     *
+     * @return NULL
+     */
+    public function setNamespace($data)
+    {
+        $this->_load();
+        $this->_data[self::NAME_SPACE] = $data;
     }
 
     /**

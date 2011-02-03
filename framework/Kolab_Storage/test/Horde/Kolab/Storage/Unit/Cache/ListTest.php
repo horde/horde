@@ -74,6 +74,22 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertFalse($this->_getTestCache($cache)->isInitialized());
     }
 
+    public function testNamespace()
+    {
+        $cache = $this->_getTestCache();
+        $cache->setNamespace('DUMMY');
+        $this->assertEquals('DUMMY', $cache->getNamespace());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingNamespace()
+    {
+        $cache = $this->_getTestCache();
+        $cache->getNamespace();
+    }
+
     private function _getTestCache($cache = null)
     {
         if ($cache === null) {
