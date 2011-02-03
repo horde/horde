@@ -359,24 +359,27 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetFolder()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $cache = $this->getMockCache();
         $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getAnnotatedList($factory),
-            new Horde_Kolab_Storage_Cache_List(
-                $cache
-            )
-        );
-        $list->registerQuery(
-            Horde_Kolab_Storage_List::QUERY_BASE,
-            $factory->createListQuery(
-                'Horde_Kolab_Storage_List_Query_Base',
-                $list
-            )
+            $this->getAnnotatedQueriableList(),
+            $this->getMockListCache()
         );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder',
             $list->getFolder('INBOX/Calendar')
         );
     }
+
+    public function testCreateFolder()
+    {
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
+            $this->getAnnotatedQueriableList(),
+            $this->getMockListCache()
+        );
+        $list->createFolder('INBOX/NewFolderÄ');
+        $this->assertContains(
+            'INBOX/NewFolderÄ',
+            $list->listFolders()
+        );
+    }
+
 }

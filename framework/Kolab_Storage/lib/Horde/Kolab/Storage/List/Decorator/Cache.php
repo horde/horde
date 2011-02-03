@@ -91,6 +91,20 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
+     * Create a new folder.
+     *
+     * @param string $folder The path of the folder to create.
+     * @param string $type   An optional type for the folder.
+     *
+     * @return Horde_Kolab_Storage_Folder The folder representation.
+     */
+    public function createFolder($folder, $type = null)
+    {
+        $result = $this->_list->createFolder($folder);
+        return $result;
+    }
+
+    /**
      * Returns a representation for the requested folder.
      *
      * @param string $folder The path of the folder to return.
