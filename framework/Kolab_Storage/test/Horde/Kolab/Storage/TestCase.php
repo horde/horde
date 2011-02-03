@@ -514,9 +514,11 @@ extends PHPUnit_Framework_TestCase
 
     protected function getMockListCache()
     {
-        return new Horde_Kolab_Storage_Cache_List(
+        $cache = new Horde_Kolab_Storage_Cache_List(
             $this->getMockCache()
         );
+        $cache->setListId('test');
+        return $cache;
     }
 
     protected function assertLogCount($count)

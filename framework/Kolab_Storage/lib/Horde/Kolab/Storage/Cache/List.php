@@ -77,16 +77,30 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
-     * The the list ID.
+     * The ID for the list cache.
      *
-     * @param string                    $list_id The unique ID for the list
-     *                                           used when caching it.
+     * @param string $list_id The unique ID for the list used when caching it.
      *
      * @return NULL
      */
     public function setListId($list_id)
     {
         $this->_list_id = $list_id;
+    }
+
+    /**
+     * Return the ID for the list cache.
+     *
+     * @return string The unique ID for the list used when caching it.
+     */
+    public function getListId()
+    {
+        if ($this->_list_id === null) {
+            throw new Horde_Kolab_Storage_Exception(
+                'You must set the ID of the list cache!'
+            );
+        }
+        return $this->_list_id;
     }
 
     /**
@@ -97,7 +111,7 @@ class Horde_Kolab_Storage_Cache_List
     private function _load()
     {
         if ($this->_data === false) {
-            $this->_data = unserialize($this->_cache->loadListData($this->_list_id));
+            $this->_data = unserialize($this->_cache->loadListData($this->getListId()));
             if (!is_array($this->_data)) {
                 $this->_data = array();
             }
@@ -111,7 +125,7 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function save()
     {
-        $this->_cache->storeListData($this->_list_id, serialize($this->_data));
+        $this->_cache->storeListData($this->getListId(), serialize($this->_data));
     }
 
     /**
