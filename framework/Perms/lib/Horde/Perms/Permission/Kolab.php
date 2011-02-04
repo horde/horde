@@ -4,11 +4,11 @@
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Storage
+ * @category Horde
+ * @package  Perms
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link     http://pear.horde.org/index.php?package=Perms
  */
 
 /**
@@ -19,21 +19,21 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Kolab
- * @package  Kolab_Storage
+ * @category Horde
+ * @package  Perms
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link     http://pear.horde.org/index.php?package=Perms
  */
-class Horde_Kolab_Storage_Folder_Permission
+class Horde_Perms_Permission_Kolab
 extends Horde_Perms_Permission
 {
     /**
      * The Kolab Folder these permissions belong to.
      *
-     * @var Horde_Kolab_Storage_Folder
+     * @var Horde_Perms_Permission_Kolab_Storage
      */
-    private $_folder;
+    private $_storage;
 
     /**
      * The Horde_Group:: handler.
@@ -53,20 +53,20 @@ extends Horde_Perms_Permission
     /**
      * Constructor.
      *
-     * @param string                     $name   The name of the folder.
-     * @param Horde_Kolab_Storage_Folder $acl    The folder these permissions
-     *                                           belong to.
-     * @param Horde_Group                $groups The group handler.
+     * @param Horde_Perms_Permission_Kolab_Storage $storage The storage object
+     *                                                      represented by this
+     *                                                      permission instance.
+     *
+     * @param Horde_Group                          $groups  The group handler.
      */
     public function __construct(
-        $name,
-        Horde_Kolab_Storage_Folder $folder,
+        Horde_Perms_Permission_Kolab_Storage $storage,
         Horde_Group $groups
     ) {
-        parent::__construct(__CLASS__ . '::' . $name);
-        $this->_folder = $folder;
-        $this->_groups = $groups;
-        $this->data    = $this->getCurrentPermissions();
+        parent::__construct(__CLASS__ . '::' . $storage->getId());
+        $this->_storage = $storage;
+        $this->_groups  = $groups;
+        $this->data     = $this->getCurrentPermissions();
     }
 
     /**
@@ -78,10 +78,10 @@ extends Horde_Perms_Permission
     public function getCurrentPermissions()
     {
         $data = array();
-        $acl = new Horde_Kolab_Storage_Folder_Permission_AclIterator(
-            $this->_folder->getAcl(),
+        $acl = new Horde_Perms_Permission_Kolab_AclIterator(
+            $this->_storage->getAcl(),
             $this->_groups,
-            $this->_folder->getOwner()
+            $this->_storage->getOwner()
         );
         foreach ($acl as $element) {
             $element->toHorde($data);
@@ -102,20 +102,20 @@ extends Horde_Perms_Permission
          */
         $current = $this->getCurrentPermissions();
 
-        $elements = new Horde_Kolab_Storage_Folder_Permission_ElementIterator(
-            $this->data, $this->_groups, $this->_folder->getOwner()
+        $elements = new Horde_Perms_Permission_Kolab_ElementIterator(
+            $this->data, $this->_groups, $this->_storage->getOwner()
         );
         foreach ($elements as $element) {
-            $this->_folder->setAcl($element->getId(), $element->fromHorde());
+            $this->_storage->setAcl($element->getId(), $element->fromHorde());
             $element->unsetInCurrent($current);
         }
 
         // Delete ACLs that have been removed
-        $elements = new Horde_Kolab_Storage_Folder_Permission_ElementIterator(
-            $current, $this->_groups, $this->_folder->getOwner()
+        $elements = new Horde_Perms_Permission_Kolab_ElementIterator(
+            $current, $this->_groups, $this->_storage->getOwner()
         );
         foreach ($elements as $element) {
-            $this->_folder->deleteAcl($element->getId());
+            $this->_storage->deleteAcl($element->getId());
         }
 
         // Load the permission from the folder again

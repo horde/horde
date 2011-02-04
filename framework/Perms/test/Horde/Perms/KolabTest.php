@@ -4,11 +4,12 @@
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Storage
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @category   Horde
+ * @package    Perms
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Perms
  */
 
 /**
@@ -24,16 +25,18 @@ require_once 'Autoload.php';
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Kolab
- * @package  Kolab_Storage
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @category   Horde
+ * @package    Perms
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Perms
  */
-class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
+class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->markTestIncomplete();
         $this->folder = $this->getMock('Horde_Kolab_Storage_Folder_Base', array(), array(), '', false, false);
         $this->groups = $this->getMock('Horde_Group', array(), array(), '', false, false);
         $this->perms = new Horde_Perms();

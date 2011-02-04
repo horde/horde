@@ -1,32 +1,32 @@
 <?php
 /**
- * Maps a single Kolab_Storage known user ACL element to the Horde permission system.
+ * Maps a single Kolab_Storage creator ACL element to the Horde permission system.
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Storage
+ * @category Horde
+ * @package  Perms
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link     http://pear.horde.org/index.php?package=Perms
  */
 
 /**
- * Maps a single Kolab_Storage known user ACL element to the Horde permission system.
+ * Maps a single Kolab_Storage creator ACL element to the Horde permission system.
  *
  * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Kolab
- * @package  Kolab_Storage
+ * @category Horde
+ * @package  Perms
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link     http://pear.horde.org/index.php?package=Perms
  */
-class Horde_Kolab_Storage_Folder_Permission_Acl_Anyone
-extends Horde_Kolab_Storage_Folder_Permission_Acl
+class Horde_Perms_Permission_Kolab_Acl_Creator
+extends Horde_Perms_Permission_Kolab_Acl
 {
     /**
      * Convert the Acl string to a Horde_Perms:: mask and store it in the
@@ -38,6 +38,6 @@ extends Horde_Kolab_Storage_Folder_Permission_Acl
      */
     public function toHorde(array &$data)
     {
-        $data['default'] = $this->convertAclToMask();
+        $data['creator'] = $this->convertAclToMask();
     }
 }

@@ -4,11 +4,11 @@
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Storage
+ * @category Horde
+ * @package  Perms
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link     http://pear.horde.org/index.php?package=Perms
  */
 
 /**
@@ -19,13 +19,14 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Kolab
- * @package  Kolab_Storage
+ * @category Horde
+ * @package  Perms
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link     http://pear.horde.org/index.php?package=Perms
  */
-class Horde_Kolab_Storage_Folder_Permission_ElementIterator implements IteratorAggregate
+class Horde_Perms_Permission_Kolab_ElementIterator
+implements IteratorAggregate
 {
     /**
      * The Horde permission elements.
@@ -45,26 +46,26 @@ class Horde_Kolab_Storage_Folder_Permission_ElementIterator implements IteratorA
     {
         foreach ($permissions as $user => $user_perms) {
             if ($user == 'default') {
-                $this->_elements[] = new Horde_Kolab_Storage_Folder_Permission_Element_Default(
+                $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_Default(
                     $user_perms
                 );
             } else if ($user == 'guest') {
-                $this->_elements[] = new Horde_Kolab_Storage_Folder_Permission_Element_Guest(
+                $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_Guest(
                     $user_perms
                 );
             } else if ($user == 'creator') {
-                $this->_elements[] = new Horde_Kolab_Storage_Folder_Permission_Element_Creator(
+                $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_Creator(
                     $user_perms, $creator
                 );
             } else if ($user == 'groups') {
                 foreach ($user_perms as $user_entry => $perms) {
-                    $this->_elements[] = new Horde_Kolab_Storage_Folder_Permission_Element_Group(
+                    $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_Group(
                         $perms, $user_entry, $groups
                     );
                 }
             } else if ($user == 'users') {
                 foreach ($user_perms as $user_entry => $perms) {
-                    $this->_elements[] = new Horde_Kolab_Storage_Folder_Permission_Element_User(
+                    $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_User(
                         $perms, $user_entry
                     );
                 }
