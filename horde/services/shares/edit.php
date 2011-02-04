@@ -36,7 +36,7 @@ $reload = false;
 switch (Horde_Util::getFormData('actionID', 'edit')) {
 case 'edit':
     try {
-        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
+        $share = $shares->getShareById(Horde_Util::getFormData('cid', 0));
         $form = 'edit.inc';
         $perm = $share->getPermission();
     } catch (Horde_Exception_NotFound $e) {
@@ -255,7 +255,7 @@ case 'editform':
     break;
 }
 
-$title = ($share instanceof PEAR_Error)
+$title = (!$share instanceof Horde_Share_Object)
     ? _("Edit permissions")
     : sprintf(_("Edit permissions for \"%s\""), $share->get('name'));
 
