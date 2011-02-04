@@ -27,4 +27,44 @@
  */
 interface Horde_Perms_Permission_Kolab_Storage
 {
+    /**
+     * Return the ID of this storage object.
+     *
+     * @return string The ID.
+     */
+    public function getId();
+
+    /**
+     * Retrieve the Kolab specific access rights for this storage object.
+     *
+     * @return An array of rights.
+     */
+    public function getAcl();
+
+    /**
+     * Return the owner of this storage object.
+     *
+     * @return string The owner.
+     */
+    public function getOwner();
+
+    /**
+     * Set the Kolab specific access rights for this storage object.
+     *
+     * @param string $user The user to set the ACL for.
+     * @param string $acl  The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($user, $acl);
+
+    /**
+     * Delete Kolab specific access rights for this storage object.
+     *
+     * @param string $user The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($user);
+
 }
