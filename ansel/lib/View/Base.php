@@ -186,33 +186,34 @@ abstract class Ansel_View_Base
             'count' => 0,
             'image_view' => 'screen',
             'view_links' => false,
-            'perpage' => $prefs->getValue('tilesperpage', $conf['thumbnail']['perpage']),
+            'perpage' => $prefs->getValue('tilesperpage', $conf['thumbnail']['perpage'])
         );
 
         $params = array_merge($default, $params);
-
         $json = array();
         $curimage = 0;
         $curpage =  0;
-
         if (empty($params['images'])) {
             $images = $gallery->getImages($params['from'], $params['count']);
         }
-
         $style = $gallery->getStyle();
+        if ($params['image_view'] == 'thumb' && !empty($params['generator'])) {
+            $style->thumbstyle = $params['generator'];
+        }
         foreach ($images as $image) {
-            // Calculate the page this image will appear on in the
-            // gallery view.
+            // Calculate the page this image will appear on in the gallery view.
             if (++$curimage > $params['perpage']) {
                 ++$curpage;
                 $curimage = 0;
             }
 
-            $data = array((string)Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style),
-                          htmlspecialchars($image->filename),
-                          $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
-                          $image->id,
-                          $curpage);
+            $data = array(
+                (string)Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style),
+                htmlspecialchars($image->filename),
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
+                $image->id,
+                $curpage
+            );
             if ($params['view_links']) {
                 $data[] = (string)Ansel::getUrlFor('view',
                     array('gallery' => $gallery->id,
