@@ -30,13 +30,13 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
      */
     public function html()
     {
-        /* Required */
+        // Required
         $node = $this->_params['container'];
         if (empty($node)) {
             return '';
         }
 
-        /* Need at least one of these */
+        // Need at least one of these
         $galleries = !empty($this->_params['gallery_slug']) ? explode(':', $this->_params['gallery_slug']) : '';
         $haveSlugs = true;
         if (empty($galleries)) {
@@ -44,18 +44,15 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
             $haveSlugs = false;
         }
 
-        /* Determine the style/thumnailsize etc... */
-        $thumbsize = empty($this->_params['thumbsize']) ?
-            'thumb' :
-            $this->_params['thumbsize'];
-
+        // Determine the style/thumnailsize etc...
+        $thumbsize = empty($this->_params['thumbsize']) ? 'thumb' : $this->_params['thumbsize'];
         $images = array();
-        foreach ($galleries as $identifier) {
+        foreach ($galleries as $id) {
             try {
                 if ($haveSlugs) {
-                    $gallery = $this->_getGallery(null, $identifier);
+                    $gallery = $this->_getGallery(null, $id);
                 } else {
-                    $gallery = $this->_getGallery($identifier);
+                    $gallery = $this->_getGallery($id);
                 }
             } catch (Horde_Exception $e) {
                 Horde::logMessage($e, 'ERR');
@@ -65,21 +62,11 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
                 return '';
             }
 
-            /* Ideally, since gallery key images are unique in that each style
-             * needs it's own unique image_id, the thumbsize and style parameters
-             * are mutually exclusive - specifying a specific gallery style is only
-             * needed if requesting the prettythumb thumbsize value. Make sure that
-             * both were not passed in.
-             */
-            if ($thumbsize == 'thumb') {
-                $images[] = $gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
-            } else {
-                // Default to gallery's defined style if not provided.
-                $gallery_style = empty($this->_params['style']) ?
-                $gallery->get('style') :
-                $this->_params['style'];
-                $images[] = $gallery->getKeyImage($gallery_style);
-            }
+            // Since we are possibly displaying multiple galleries, standardize
+            // on a single gallery style. If none is requested, default to
+            // ansel_default.
+            $gallery_style = empty($this->_params['style']) ? 'ansel_default' : $this->_params['style'];
+            $images[] = $gallery->getKeyImage(Ansel::getStyleDefinition($gallery_style));
         }
         $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, null, true, $thumbsize, true);
 
