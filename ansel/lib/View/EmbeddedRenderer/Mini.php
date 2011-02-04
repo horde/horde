@@ -12,11 +12,6 @@
  */
 class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
 {
-    public function __construct($params = array())
-    {
-        $this->_params = $params;
-    }
-
     /**
      * Build the javascript that will render the view.
      *

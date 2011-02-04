@@ -9,19 +9,18 @@
  *
  * Example usage:
  * <pre>
- *
  *   <script type="text/javascript" src="http://example.com/horde/services/
  *   imple.php?imple=Embed/impleApp=ansel/gallery_view=GalleryLink/
  *   gallery_slug=slug1:slug2:slug3/container=divId/
  *   thumbsize=prettythumb/style=ansel_polaroid"></script>
  *   <div id="divId"></div>
  *   <style type="text/css">#divId .anselGalleryWidget img {border:none;}</style>
- *
+ *</pre>
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
+class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Base
 {
     /**
      * Build the javascript that will render the view.
@@ -67,6 +66,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
             // ansel_default.
             $gallery_style = empty($this->_params['style']) ? 'ansel_default' : $this->_params['style'];
             $images[] = $gallery->getKeyImage(Ansel::getStyleDefinition($gallery_style));
+
         }
         $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, null, true, $thumbsize, true);
 
@@ -77,15 +77,14 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
             'nohorde' => true), true);
         $css = Horde::endBuffer();
 
-        /* Some paths */
+        // Some paths
         $js_path = $GLOBALS['registry']->get('jsuri', 'horde');
         $pturl = Horde::url($js_path . '/prototype.js', true);
         $ansel_js_path = $GLOBALS['registry']->get('jsuri', 'ansel');
         $jsurl = Horde::url($ansel_js_path . '/embed.js', true);
 
-        /* Start building the javascript - we use the same parameters as with
-         * the mini gallery view so we can use the same javascript to display it
-         */
+        // Start building the javascript - we use the same parameters as with
+        //the mini gallery view so we can use the same javascript to display it
         $html = <<<EOT
             //<![CDATA[
             // Old fashioned way to play nice with Safari 2 (Adding script inline with the
