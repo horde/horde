@@ -18,7 +18,7 @@ require_once 'Horde/Kolab.php';
  * @since   Mnemo 2.0
  * @package Mnemo
  */
-class Mnemo_Driver_kolab extends Mnemo_Driver {
+class Mnemo_Driver_Kolab extends Mnemo_Driver {
 
     /**
      * Our Kolab server connection.

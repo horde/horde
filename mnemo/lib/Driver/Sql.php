@@ -12,7 +12,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Mnemo
  */
-class Mnemo_Driver_sql extends Mnemo_Driver
+class Mnemo_Driver_Sql extends Mnemo_Driver
 {
     /**
      * The database connection object.
