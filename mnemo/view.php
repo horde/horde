@@ -15,13 +15,13 @@ $passphrase = Horde_Util::getFormData('memo_passphrase');
 
 /* We can either have a UID or a memo id and a notepad. Check for UID
  * first. */
-$storage = Mnemo_Driver::singleton();
+$storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
 if ($uid = Horde_Util::getFormData('uid')) {
-    $memo = $storage->getByUID($uid, $passphrase);
-    if (is_a($memo, 'PEAR_Error')) {
+    try {
+        $memo = $storage->getByUID($uid, $passphrase);
+    } catch (Mnemo_Exception $e) {
         Horde::url('list.php', true)->redirect();
     }
-
     $memo_id = $memo['memo_id'];
     $memolist_id = $memo['memolist_id'];
 } else {
@@ -59,7 +59,7 @@ $createdby = '';
 $modifiedby = '';
 if (!empty($memo['uid'])) {
     $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
-    if ($log && !is_a($log, 'PEAR_Error')) {
+    if ($log) {
 	foreach ($log as $entry) {
             switch ($entry['action']) {
             case 'add':
@@ -86,7 +86,7 @@ if (!empty($memo['uid'])) {
 
 /* Encryption tests. */
 $show_passphrase = false;
-if (is_a($memo['body'], 'PEAR_Error')) {
+if ($memo['body'] instanceof Mnemo_Exception) {
     /* Check for secure connection. */
     $secure_check = Horde::isConnectionSecure();
     if ($memo['body']->getCode() == Mnemo::ERR_NO_PASSPHRASE) {

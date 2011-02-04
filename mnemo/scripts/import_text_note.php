@@ -59,12 +59,7 @@ $registry = Horde_Registry::singleton();
 Horde_Auth::setAuth($user, array());
 
 // Import data.
-$result = $registry->call('notes/import',
-                          array($data, 'text/plain', $notepad));
-if (is_a($result, 'PEAR_Error')) {
-    $cli->fatal($result->toString());
-}
-
+$result = $registry->call('notes/import', array($data, 'text/plain', $notepad));
 $cli->message('Imported successfully ' . count($result) . ' notes', 'cli.success');
 
 function usage()

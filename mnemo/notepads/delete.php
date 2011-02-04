@@ -12,8 +12,6 @@
 require_once MNEMO_BASE . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
-require_once MNEMO_BASE . '/lib/Forms/DeleteNotepad.php';
-
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
     Horde::url('list.php', true)->redirect();
@@ -32,14 +30,16 @@ if (!$GLOBALS['registry']->getAuth() || $notepad->get('owner') != $GLOBALS['regi
     Horde::url('notepads/', true)->redirect();
 }
 
-$form = new Mnemo_DeleteNotepadForm($vars, $notepad);
+$form = new Mnemo_Form_DeleteNotepad($vars, $notepad);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {
-    $result = $form->execute();
-    if ($result instanceof PEAR_Error) {
-        $notification->push($result, 'horde.error');
-    } elseif ($result) {
+    try {
+        $result = $form->execute();
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
+    }
+    if ($result) {
         $notification->push(sprintf(_("The notepad \"%s\" has been deleted."), $notepad->get('name')), 'horde.success');
     }
 

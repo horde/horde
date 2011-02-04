@@ -10,20 +10,19 @@
 
 @define('MNEMO_BASE', dirname(dirname(__FILE__)));
 require_once MNEMO_BASE . '/lib/Application.php';
-require_once 'File/PDF.php';
 
 /* Check if a passphrase has been sent. */
 $passphrase = Horde_Util::getFormData('memo_passphrase');
 
 /* We can either have a UID or a memo id and a notepad. Check for UID
  * first. */
-$storage = &Mnemo_Driver::singleton();
+$storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
 if ($uid = Horde_Util::getFormData('uid')) {
-    $note = $storage->getByUID($uid, $passphrase);
-    if ($note instanceof PEAR_Error) {
+    try {
+        $note = $storage->getByUID($uid, $passphrase);
+    } catch (Mnemo_Exception $e) {
         Horde::url('list.php', true)->redirect();
     }
-
     $note_id = $note['memo_id'];
     $notelist_id = $note['memolist_id'];
 } else {

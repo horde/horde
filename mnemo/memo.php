@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: mnemo/memo.php,v 1.71 2009/12/01 04:56:31 chuck Exp $
- *
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -19,7 +17,7 @@ function showPassphrase($memo)
 {
     global $notification;
 
-    if (!($memo['body'] instanceof PEAR_Error)) {
+    if (!($memo['body'] instanceof Mnemo_Exception)) {
         return false;
     }
 
@@ -81,15 +79,16 @@ case 'add_memo':
     }
     /* Set up the note attributes. */
     if (empty($memolist_id)) {
-        $memolist_id = Mnemo::getDefaultNotepad();
-    }
-    if ($memolist_id instanceof PEAR_Error) {
-        $notification->push($memolist_id, 'horde.error');
+        try {
+            $memolist_id = Mnemo::getDefaultNotepad();
+        } catch (Mnemo_Exception $e) {
+            $notification->push($memolist_id, 'horde.error');
+        }
     }
     $memo_id = null;
     $memo_body = '';
     $memo_category = '';
-    $storage = &Mnemo_Driver::singleton();
+    $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
 
     $title = _("New Note");
     break;
@@ -104,7 +103,7 @@ case 'modify_memo':
         $notification->push(_("Note not found."), 'horde.error');
         Horde::url('list.php', true)->redirect();
     }
-    $storage = &Mnemo_Driver::singleton($memolist_id);
+    $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($memolist_id);
 
     /* Encryption tests. */
     $show_passphrase = showPassphrase($memo);
@@ -150,7 +149,7 @@ case 'save_memo':
             $memo_encrypted = $memo['encrypted'];
             $memolist_id = $memolist_original;
         }
-        $storage = &Mnemo_Driver::singleton($memolist_original);
+        $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($memolist_original);
         break;
     } else {
         if ($new_category = Horde_Util::getFormData('new_category')) {
@@ -163,9 +162,8 @@ case 'save_memo':
 
         /* If $memo_id is set, we're modifying an existing note.  Otherwise,
          * we're adding a new note with the provided attributes. */
-        if (!empty($memo_id) &&
-            !(Mnemo::getMemo($memolist_original, $memo_id) instanceof PEAR_Error)) {
-            $storage = &Mnemo_Driver::singleton($memolist_original);
+        if (!empty($memo_id)) {
+            $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($memolist_original);
             if ($memolist_original != $notepad_target) {
                 /* Moving the note to another notepad. */
                 try {
@@ -175,13 +173,13 @@ case 'save_memo':
                 }
                 if ($share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
                     try {
-                        $share = &$mnemo_shares->getShare($notepad_target);
+                        $share = $mnemo_shares->getShare($notepad_target);
                     } catch (Horde_Share_Exception $e) {
                         throw new Mnemo_Exception($e);
                     }
                     if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                         $result = $storage->move($memo_id, $notepad_target);
-                        $storage = &Mnemo_Driver::singleton($notepad_target);
+                        $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad_target);
                     } else {
                         $notification->push(_("Access denied moving the note."), 'horde.error');
                     }
@@ -194,7 +192,11 @@ case 'save_memo':
                 Horde_Util::getFormData('memo_encrypt') == 'on') {
                 $memo_passphrase = Mnemo::getPassphrase($memo_id);
             }
-            $result = $storage->modify($memo_id, $memo_desc, $memo_body, $memo_category, $memo_passphrase);
+            try {
+                $storage->modify($memo_id, $memo_desc, $memo_body, $memo_category, $memo_passphrase);
+            } catch (Mnemo_Exception $e) {
+                $haveError = $e->getMessage();
+            }
         } else {
             /* Check permissions. */
             if ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
@@ -202,16 +204,20 @@ case 'save_memo':
                 Horde::url('list.php', true)->redirect();
             }
             /* Creating a new note. */
-            $storage = Mnemo_Driver::singleton($notepad_target);
+            $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad_target);
             $memo_desc = $storage->getMemoDescription($memo_body);
-            $result = $memo_id = $storage->add($memo_desc, $memo_body,
-                                               $memo_category, null,
-                                               $memo_passphrase);
+            try {
+                $result = $memo_id = $storage->add($memo_desc, $memo_body,
+                                                   $memo_category, null,
+                                                   $memo_passphrase);
+            } catch (Mnemo_Exception $e) {
+                $haveError = $e->getMessage();
+            }
         }
 
         /* Check our results. */
-        if ($result instanceof PEAR_Error) {
-            $notification->push(sprintf(_("There was an error saving the note: %s"), $result->getMessage()), 'horde.warning');
+        if (!empty($haveError)) {
+            $notification->push(sprintf(_("There was an error saving the note: %s"), $haveError), 'horde.warning');
         } else {
             $notification->push(sprintf(_("Successfully saved \"%s\"."), $memo_desc), 'horde.success');
         }
@@ -232,12 +238,12 @@ case 'delete_memos':
             throw new Mnemo_Exception($e);
         }
         if ($share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
-            $storage = &Mnemo_Driver::singleton($memolist_id);
-            $result = $storage->delete($memo_id);
-            if ($result instanceof PEAR_Error) {
-                $notification->push(sprintf(_("There was an error removing the note: %s"), $result->getMessage()), 'horde.warning');
-            } else {
+            $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($memolist_id);
+            try {
+                $storage->delete($memo_id);
                 $notification->push(_("The note was deleted."), 'horde.success');
+            } catch (Mnemo_Exception $e) {
+                $notification->push(sprintf(_("There was an error removing the note: %s"), $e->getMessage()), 'horde.warning');
             }
         } else {
             $notification->push(_("Access denied deleting note."), 'horde.warning');

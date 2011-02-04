@@ -2,39 +2,28 @@
 /**
  * Horde_Form for editing notepads.
  *
- * $Horde: mnemo/lib/Forms/EditNotepad.php,v 1.3 2009/06/10 17:33:40 slusarz Exp $
- *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @package Mnemo
  */
-
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Mnemo_EditNotepadForm class provides the form for
- * editing a notepad.
+ * The Mnemo_Form_EditNotepadclass provides the form for editing a notepad.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Mnemo 2.2
  * @package Mnemo
  */
-class Mnemo_EditNotepadForm extends Horde_Form {
-
+class Mnemo_Form_EditNotepad extends Horde_Form
+{
     /**
      * Notepad being edited
      */
-    var $_notepad;
+    protected $_notepad;
 
-    function Mnemo_EditNotepadForm(&$vars, &$notepad)
+    public function __construct(&$vars, $notepad)
     {
         $this->_notepad = &$notepad;
-        parent::Horde_Form($vars, sprintf(_("Edit %s"), $notepad->get('name')));
+        parent::__construct($vars, sprintf(_("Edit %s"), $notepad->get('name')));
 
         $this->addHidden('', 'n', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);
@@ -43,14 +32,12 @@ class Mnemo_EditNotepadForm extends Horde_Form {
         $this->setButtons(array(_("Save")));
     }
 
-    function execute()
+    public function execute()
     {
         $this->_notepad->set('name', $this->_vars->get('name'));
         $this->_notepad->set('desc', $this->_vars->get('description'));
-        $result = $this->_notepad->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save notepad \"%s\": %s"), $id, $result->getMessage()));
-        }
+        $this->_notepad->save();
+
         return true;
     }
 

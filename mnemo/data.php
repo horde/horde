@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -62,7 +62,7 @@ case 'export':
     $exportID = Horde_Util::getFormData('exportID');
 
     /* Create a Mnemo storage instance. */
-    $storage = &Mnemo_Driver::singleton($GLOBALS['registry']->getAuth());
+    $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($GLOBALS['registry']->getAuth());
     $storage->retrieve();
 
     /* Get the full, sorted memo list. */
@@ -116,7 +116,7 @@ if (is_array($next_step)) {
     $categories = $cManager->get();
 
     /* Create a Mnemo storage instance. */
-    $storage = &Mnemo_Driver::singleton($session->get('horde', 'import_data/target'));
+    $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($session->get('horde', 'import_data/target'));
     $max_memos = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes');
     $num_memos = Mnemo::countMemos();
     foreach ($next_step as $row) {
@@ -130,7 +130,7 @@ if (is_array($next_step)) {
         }
 
         /* Check if we need to convert from iCalendar data into an array. */
-        if (is_a($row, 'Horde_Icalendar_vnote')) {
+        if ($row instanceof Horde_Icalendar_vnote) {
             $row = $storage->fromiCalendar($row);
         }
 
@@ -150,9 +150,10 @@ if (is_array($next_step)) {
             $tmp = explode("\n", $row['body'], 2);
             $row['desc'] = array_shift($tmp);
         }
-
-        $result = $storage->add($row['desc'], $row['body'], $row['category']);
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            $result = $storage->add($row['desc'], $row['body'], $row['category']);
+        } catch (Mnemo_Exception $e) {
+            $haveError = $e->getMessage();
             break;
         }
         $note = $storage->get($result);
@@ -188,9 +189,8 @@ if (is_array($next_step)) {
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any notes."),
                                     $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
-    } elseif (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error importing the data: %s"),
-                                    $result->getMessage()), 'horde.error');
+    } elseif (!empty($haveError)) {
+        $notification->push(sprintf(_("There was an error importing the data: %s"), $haveError), 'horde.error');
     } else {
         $notification->push(sprintf(_("%s file successfully imported"),
                                     $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');

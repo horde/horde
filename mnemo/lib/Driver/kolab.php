@@ -116,11 +116,16 @@ class Mnemo_Driver_kolab extends Mnemo_Driver {
      * @param string $category  The category of the note.
      * @param string $passphrase  The passphrase to encrypt the note with.
      *
-     * @return booelan  True if successful, a PEAR error otherwise.
+     * @return booelan
      */
     function modify($noteId, $desc, $body, $category = '', $passphrase = null)
     {
-        return $this->_wrapper->modify($noteId, $desc, $body, $category, $passphrase);
+        try {
+            $this->_wrapper->modify($noteId, $desc, $body, $category, $passphrase);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -604,7 +609,7 @@ class Mnemo_Driver_kolab_wrapper_new extends Mnemo_Driver_kolab_wrapper {
         }
 
         if ($passphrase) {
-            $body = $this->encrypt($body, $passphrase);
+            $body = $this->_encrypt($body, $passphrase);
             if (is_a($body, 'PEAR_Error')) {
                 return $body;
             }
@@ -765,7 +770,7 @@ class Mnemo_Driver_kolab_wrapper_new extends Mnemo_Driver_kolab_wrapper {
             if (empty($passphrase)) {
                 $body = PEAR::raiseError(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
             } else {
-                $body = $this->decrypt($body, $passphrase);
+                $body = $this->_decrypt($body, $passphrase);
                 if (is_a($body, 'PEAR_Error')) {
                     $body->code = Mnemo::ERR_DECRYPT;
                 } else {

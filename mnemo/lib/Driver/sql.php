@@ -1,72 +1,49 @@
 <?php
 /**
- * Mnemo storage implementation for PHP's PEAR database abstraction
+ * Mnemo storage implementation for Horde's Horde_Db database abstraction
  * layer.
  *
- * The table structure is defined in scripts/drivers/mnemo_memos.sql.
- *
- * $Horde: mnemo/lib/Driver/sql.php,v 1.53 2009/07/09 08:18:32 slusarz Exp $
- *
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Mnemo 1.0
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Mnemo
  */
-class Mnemo_Driver_sql extends Mnemo_Driver {
-
-    /**
-     * Hash containing connection parameters.
-     *
-     * @var array
-     */
-    var $_params = array();
-
+class Mnemo_Driver_sql extends Mnemo_Driver
+{
     /**
      * The database connection object.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
-    var $_db;
+    protected $_db;
 
     /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
+     * Share table name
      *
-     * @var DB
+     * @var string
      */
-    var $_write_db;
+    protected $_table;
 
     /**
      * Construct a new SQL storage object.
      *
-     * @param string $notepad   The name of the notepad to load/save notes from.
-     * @param array  $params    A hash containing connection parameters.
-     */
-    function Mnemo_Driver_sql($notepad, $params = array())
-    {
-        $this->_notepad = $notepad;
-        $this->_params = $params;
-    }
-
-    /**
-     * Attempts to open a connection to the SQL server.
+     * @param string $notepad  The name of the notepad to load/save notes from.
+     * @param array $params    The connection parameters
      *
-     * @return boolean  True on success.
+     * @throws InvalidArguementException
      */
-    function initialize()
+    public function __construct($notepad, $params = array())
     {
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'mnemo', 'storage');
-        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'mnemo', 'storage');
-
-        $this->_params = array_merge(array(
-            'table' => 'mnemo_memos'
-        ), $this->_params);
-
-        return true;
+        if (empty($params['db']) || empty($params['table'])) {
+            throw new InvalidArgumentException('Missing required connection parameter(s).');
+        }
+        $this->_notepad = $notepad;
+        $this->_db = $params['db'];
+        $this->_table = $params['table'];
     }
 
     /**
@@ -77,22 +54,22 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
      *                            supposed to be encrypted.
      *
      * @return array  The array of note attributes.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_NotFound
      */
-    function get($noteId, $passphrase = null)
+    public function get($noteId, $passphrase = null)
     {
-        /* Build the SQL query. */
-        $query = 'SELECT * FROM ' . $this->_params['table'] .
+        $query = 'SELECT * FROM ' . $this->_table .
                  ' WHERE memo_owner = ? AND memo_id = ?';
         $values = array($this->_notepad, $noteId);
+        try {
+            $row = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
+        }
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::get(): %s', $query), 'DEBUG');
-
-        /* Execute the query. */
-        $row = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
+        if (!count($row)) {
+            throw new Horde_Exception_NotFound(_("Not Found"));
         }
 
         return $this->_buildNote($row, $passphrase);
@@ -106,28 +83,24 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
      *                            supposed to be encrypted.
      *
      * @return array  The array of note attributes.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_NotFound
      */
-    function getByUID($uid, $passphrase = null)
+    public function getByUID($uid, $passphrase = null)
     {
-        /* Build the SQL query. */
-        $query = 'SELECT * FROM ' . $this->_params['table'] .
-                 ' WHERE memo_uid = ?';
+        $query = 'SELECT * FROM ' . $this->_table . ' WHERE memo_uid = ?';
         $values = array($uid);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::getByUID(): %s', $query), 'DEBUG');
-
-        /* Execute the query. */
-        $row = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
-        } elseif ($row === null) {
-            return PEAR::raiseError(_("Not found"));
+        try {
+            $row = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
         }
 
-        /* Decode and return the task. */
+        if (!count($row)) {
+            throw new Horde_Exception_NotFound('Not found');
+        }
         $this->_notepad = $row['memo_owner'];
+
         return $this->_buildNote($row, $passphrase);
     }
 
@@ -141,16 +114,14 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
      * @param string $passphrase  The passphrase to encrypt the note with.
      *
      * @return string  The unique ID of the new note.
+     * @throws Mnemo_Exception
      */
-    function add($desc, $body, $category = '', $uid = null, $passphrase = null)
+    public function add($desc, $body, $category = '', $uid = null, $passphrase = null)
     {
         $noteId = strval(new Horde_Support_Randomid());
 
         if ($passphrase) {
-            $body = $this->encrypt($body, $passphrase);
-            if (is_a($body, 'PEAR_Error')) {
-                return $body;
-            }
+            $body = $this->_encrypt($body, $passphrase);
             Mnemo::storePassphrase($noteId, $passphrase);
         }
 
@@ -158,7 +129,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
             $uid = strval(new Horde_Support_Uuid());
         }
 
-        $query = 'INSERT INTO ' . $this->_params['table'] .
+        $query = 'INSERT INTO ' . $this->_table .
                  ' (memo_owner, memo_id, memo_desc, memo_body, memo_category, memo_uid)' .
                  ' VALUES (?, ?, ?, ?, ?, ?)';
         $values = array($this->_notepad,
@@ -168,19 +139,14 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
                         Horde_String::convertCharset($category, 'UTF-8', $this->_params['charset']),
                         Horde_String::convertCharset($uid, 'UTF-8', $this->_params['charset']));
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::add(): %s', $query), 'DEBUG');
-
-        /* Attempt the insertion query. */
-        $result = $this->_write_db->query($query, $values);
-
-        /* Return an error immediately if the query failed. */
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
         }
 
-        /* Log the creation of this item in the history log. */
+        // Log the creation of this item in the history log.
+        // @TODO: Inject the history driver
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $history->log('mnemo:' . $this->_notepad . ':' . $uid, array('action' => 'add'), true);
 
@@ -195,23 +161,22 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
      * @param string $body        The description (long) of the note.
      * @param string $category    The category of the note.
      * @param string $passphrase  The passphrase to encrypt the note with.
+     *
+     * @throws Mnemo_Exception
      */
-    function modify($noteId, $desc, $body, $category = null, $passphrase = null)
+    public function modify($noteId, $desc, $body, $category = null, $passphrase = null)
     {
         if ($passphrase) {
-            $body = $this->encrypt($body, $passphrase);
-            if (is_a($body, 'PEAR_Error')) {
-                return $body;
-            }
+            $body = $this->_encrypt($body, $passphrase);
             Mnemo::storePassphrase($noteId, $passphrase);
         }
 
-        $query  = 'UPDATE ' . $this->_params['table'] .
-                  ' SET memo_desc = ?, memo_body = ?';
+        $query  = 'UPDATE ' . $this->_table . ' SET memo_desc = ?, memo_body = ?';
         $values = array(Horde_String::convertCharset($desc, 'UTF-8', $this->_params['charset']),
                         Horde_String::convertCharset($body, 'UTF-8', $this->_params['charset']));
 
         // Don't change the category if it isn't provided.
+        // @TODO: Category -> Tags
         if (!is_null($category)) {
             $query .= ', memo_category = ?';
             $values[] = Horde_String::convertCharset($category, 'UTF-8', $this->_params['charset']);
@@ -219,25 +184,17 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         $query .= ' WHERE memo_owner = ? AND memo_id = ?';
         array_push($values, $this->_notepad, $noteId);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::modify(): %s', $query), 'DEBUG');
-
-        /* Attempt the update query. */
-        $result = $this->_write_db->query($query, $values);
-
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
         }
-
-        /* Log the modification of this item in the history log. */
+        // Log the modification of this item in the history log.
         $note = $this->get($noteId);
         if (!empty($note['uid'])) {
             $history = $GLOBALS['injector']->getInstance('Horde_History');
             $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'modify'), true);
         }
-
-        return true;
     }
 
     /**
@@ -245,133 +202,129 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
      *
      * @param string $noteId      The note to move.
      * @param string $newNotepad  The new notepad.
+     *
+     * @throws Mnemo_Exception
      */
-    function move($noteId, $newNotepad)
+    public function move($noteId, $newNotepad)
     {
-        /* Get the note's details for use later. */
+        // Get the note's details for use later.
         $note = $this->get($noteId);
 
-        $query = 'UPDATE ' . $this->_params['table'] .
+        $query = 'UPDATE ' . $this->_table .
                  ' SET memo_owner = ?' .
                  ' WHERE memo_owner = ? AND memo_id = ?';
         $values = array($newNotepad, $this->_notepad, $noteId);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::move(): %s', $query), 'DEBUG');
-
-        /* Attempt the move query. */
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
         }
 
-        /* Log the moving of this item in the history log. */
+        // Log the moving of this item in the history log.
         if (!empty($note['uid'])) {
             $history = $GLOBALS['injector']->getInstance('Horde_History');
             $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
             $history->log('mnemo:' . $newNotepad . ':' . $note['uid'], array('action' => 'add'), true);
         }
-
-        return true;
     }
 
-    function delete($noteId)
+    /**
+     * Delete a note permanently
+     *
+     * @param string $noteId  The note to delete.
+     *
+     * @throws Mnemo_Exception
+     */
+    public function delete($noteId)
     {
-        /* Get the note's details for use later. */
+        // Get the note's details for use later.
         $note = $this->get($noteId);
 
-        $query = 'DELETE FROM ' . $this->_params['table'] .
+        $query = 'DELETE FROM ' . $this->_table .
                  ' WHERE memo_owner = ? AND memo_id = ?';
         $values = array($this->_notepad, $noteId);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::delete(): %s', $query), 'DEBUG');
-
-        /* Attempt the delete query. */
-        $result = $this->_write_db->query($query, $values);
-
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
         }
 
-        /* Log the deletion of this item in the history log. */
+        // Log the deletion of this item in the history log.
         if (!empty($note['uid'])) {
             $history = $GLOBALS['injector']->getInstance('Horde_History');
             $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
         }
-
-        return true;
     }
 
-    function deleteAll()
+    /**
+     * Remove ALL notes belonging to the curernt user.
+     *
+     * @throws Mnemo_Exception
+     */
+    public function deleteAll()
     {
         $query = sprintf('DELETE FROM %s WHERE memo_owner = ?',
-			 $this->_params['table']);
+			 $this->_table);
         $values = array($this->_notepad);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::deleteAll(): %s', $query), 'DEBUG');
-
-        /* Attempt the delete query. */
-        $result = $this->_write_db->query($query, $values);
-
-        return is_a($result, 'PEAR_Error') ? $result : true;
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
+        }
     }
 
     /**
      * Retrieves all of the notes from $this->_notepad from the
      * database.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @throws Mnemo_Exception
      */
-    function retrieve()
+    public function retrieve()
     {
-        /* Build the SQL query. */
-        $query = sprintf('SELECT * FROM %s WHERE memo_owner = ?',
-			 $this->_params['table']);
+        $query = sprintf('SELECT * FROM %s WHERE memo_owner = ?', $this->_table);
         $values = array($this->_notepad);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::retrieve(): %s', $query), 'DEBUG');
-
-        /* Execute the query. */
-        $result = $this->_db->query($query, $values);
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $rows = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
         }
 
-        /* Store the retrieved values in a fresh $memos list. */
+        // Store the retrieved values in a fresh $memos list.
         $this->_memos = array();
-        while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+        foreach ($rows as $row) {
             $this->_memos[$row['memo_id']] = $this->_buildNote($row);
         }
-        $result->free();
-
-        return true;
     }
 
     /**
+     *
+     * @param array $row           Hash of the note data, db keys.
+     * @param string  $passphrase  The encryption passphrase.
+     *
+     * @return array a Task hash.
+     * @throws Mnemo_Exception
      */
-    function _buildNote($row, $passphrase = null)
+    protected function _buildNote($row, $passphrase = null)
     {
-        /* Make sure notes always have a UID. */
+        // Make sure notes always have a UID.
         if (empty($row['memo_uid'])) {
             $row['memo_uid'] = strval(new Horde_Support_Guid());
 
-            $query = 'UPDATE ' . $this->_params['table'] .
+            $query = 'UPDATE ' . $this->_table .
                 ' SET memo_uid = ?' .
                 ' WHERE memo_owner = ? AND memo_id = ?';
             $values = array($row['memo_uid'], $row['memo_owner'], $row['memo_id']);
-
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Mnemo_Driver_sql adding missing UID: %s', $query), 'DEBUG');
-            $this->_write_db->query($query, $values);
+            try {
+                $this->_db->update($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Mnemo_Exception($e->getMessage());
+            }
         }
 
-        /* Decrypt note if requested. */
+        // Decrypt note if requested.
         $encrypted = false;
         $body = Horde_String::convertCharset($row['memo_body'], $this->_params['charset'], 'UTF-8');
         if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
@@ -380,19 +333,19 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
                 $passphrase = Mnemo::getPassphrase($row['memo_id']);
             }
             if (empty($passphrase)) {
-                $body = PEAR::raiseError(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
+                $body = new Mnemo_Exception(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
             } else {
-                $body = $this->decrypt($body, $passphrase);
-                if (is_a($body, 'PEAR_Error')) {
-                    $body->code = Mnemo::ERR_DECRYPT;
-                } else {
+                try {
+                    $body = $this->_decrypt($body, $passphrase);
                     $body = $body->message;
-                    Mnemo::storePassphrase($row['memo_id'], $passphrase);
+                } catch (Mnemo_Exception $e) {
+                    $body = $e;
                 }
+                Mnemo::storePassphrase($row['memo_id'], $passphrase);
             }
         }
 
-        /* Create a new task based on $row's values. */
+        // Create a new task based on $row's values.
         return array('memolist_id' => $row['memo_owner'],
                      'memo_id' => $row['memo_id'],
                      'uid' => Horde_String::convertCharset($row['memo_uid'], $this->_params['charset'], 'UTF-8'),

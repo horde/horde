@@ -25,7 +25,7 @@ class Mnemo_Api extends Horde_Registry_Api
      */
     public function removeUserData($user)
     {
-        /* Get the share object for later deletion */
+        // Get the share object for later deletion
         try {
             $share = $GLOBALS['mnemo_shares']->getShare($user);
         } catch (Horde_Share_Exception $e) {
@@ -34,19 +34,14 @@ class Mnemo_Api extends Horde_Registry_Api
 
         $GLOBALS['display_notepads'] = array($user);
         $memos = Mnemo::listMemos();
-        if ($memos instanceof PEAR_Error) {
-            Horde::logMessage($mnemos, 'ERR');
-            throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
-        } else {
-            $uids = array();
-            foreach ($memos as $memo) {
-                $uids[] = $memo['uid'];
-            }
+        $uids = array();
+        foreach ($memos as $memo) {
+            $uids[] = $memo['uid'];
+        }
 
-            /* ... and delete them. */
-            foreach ($uids as $uid) {
-                _mnemo_delete($uid);
-            }
+        // ... and delete them.
+        foreach ($uids as $uid) {
+            $this->delete($uid);
         }
 
         /* Remove the share itself */
@@ -59,8 +54,7 @@ class Mnemo_Api extends Horde_Registry_Api
             }
         }
 
-        /* Get a list of all shares this user has perms to and remove the
-         * perms. */
+        // Get a list of all shares this user has perms to and remove the perms.
         try {
             $shares = $GLOBALS['mnemo_shares']->listShares($user);
             foreach ($shares as $share) {
@@ -91,33 +85,29 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param string $notepad  The notepad to list notes from.
      *
      * @return array  An array of UIDs for all notes the user can access.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_PermissionDenied
      */
     public function listUids($notepad = null)
     {
         global $conf;
 
         if (!isset($conf['storage']['driver'])) {
-            return PEAR::raiseError('Not configured');
+            throw new Mnemo_Exception('Not configured');
         }
 
-        /* Make sure we have a valid notepad. */
+        // Make sure we have a valid notepad.
         if (empty($notepad)) {
             $notepad = Mnemo::getDefaultNotepad();
         }
 
-        if (!array_key_exists($notepad,
-                              Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
+        if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
-        /* Set notepad for listMemos. */
+        // Set notepad for listMemos.
         $GLOBALS['display_notepads'] = array($notepad);
-
         $memos = Mnemo::listMemos();
-        if (is_a($memos, 'PEAR_Error')) {
-            return $memos;
-        }
-
         $uids = array();
         foreach ($memos as $memo) {
             $uids[] = $memo['uid'];
@@ -144,9 +134,8 @@ class Mnemo_Api extends Horde_Registry_Api
             $notepad = Mnemo::getDefaultNotepad();
         }
 
-        if (!array_key_exists($notepad,
-                              Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
+        if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
+           throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
@@ -155,9 +144,6 @@ class Mnemo_Api extends Horde_Registry_Api
         }
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $histories = $history->getByTimestamp('>', $timestamp, $filter, 'mnemo:' . $notepad);
-        if (is_a($histories, 'PEAR_Error')) {
-            return $histories;
-        }
 
         // Strip leading mnemo:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -171,6 +157,7 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param string $notepad The notepad to search in.
      *
      * @return integer  The timestamp for this action.
+     * @throws Horde_Exception_PermissionDenied
      */
     public function getActionTimestamp($uid, $action, $notepad = null)
     {
@@ -179,9 +166,8 @@ class Mnemo_Api extends Horde_Registry_Api
             $notepad = Mnemo::getDefaultNotepad();
         }
 
-        if (!array_key_exists($notepad,
-                              Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
+        if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         $history = $GLOBALS['injector']->getInstance('Horde_History');
@@ -198,6 +184,8 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param string $notepad      (optional) The notepad to save the memo on.
      *
      * @return string  The new UID, or false on failure.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_PermissionDenied
      */
     public function import($content, $contentType, $notepad = null)
     {
@@ -210,11 +198,11 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::EDIT))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         /* Create a Mnemo_Driver instance. */
-        $storage = Mnemo_Driver::singleton($notepad);
+        $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad);
 
         switch ($contentType) {
         case 'text/plain':
@@ -222,16 +210,16 @@ class Mnemo_Api extends Horde_Registry_Api
             break;
 
         case 'text/x-vnote':
-            if (!is_a($content, 'Horde_Icalendar_Vnote')) {
+            if (!($content instanceof Horde_Icalendar_Vnote)) {
                 $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
-                    return PEAR::raiseError(_("There was an error importing the iCalendar data."));
+                    throw new Mnemo_Exception(_("There was an error importing the iCalendar data."));
                 }
 
                 $components = $iCal->getComponents();
                 switch (count($components)) {
                 case 0:
-                    return PEAR::raiseError(_("No iCalendar data was found."));
+                    throw new Mnemo_Exception(_("No iCalendar data was found."));
 
                 case 1:
                     $content = $components[0];
@@ -240,14 +228,11 @@ class Mnemo_Api extends Horde_Registry_Api
                 default:
                     $ids = array();
                     foreach ($components as $content) {
-                        if (is_a($content, 'Horde_Icalendar_Vnote')) {
+                        if ($content instanceof Horde_Icalendar_Vnote) {
                             $note = $storage->fromiCalendar($content);
                             $noteId = $storage->add($note['desc'],
                                                     $note['body'],
                                                     !empty($note['category']) ? $note['category'] : '');
-                            if (is_a($noteId, 'PEAR_Error')) {
-                                return $noteId;
-                            }
                             $ids[] = $noteId;
                         }
                     }
@@ -261,14 +246,10 @@ class Mnemo_Api extends Horde_Registry_Api
             break;
 
         default:
-            return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"),$contentType));
+            throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }
-
-        if (is_a($noteId, 'PEAR_Error')) {
-            return $noteId;
-        }
-
         $note = $storage->get($noteId);
+
         return $note['uid'];
     }
 
@@ -283,27 +264,26 @@ class Mnemo_Api extends Horde_Registry_Api
      *                               'text/x-vnote'
      *                             </pre>
      *
-     * @return string  The requested data or PEAR_Error.
+     * @return string  The requested data
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_PermissionDenied
      */
     public function export($uid, $contentType)
     {
-        $storage = Mnemo_Driver::singleton();
-        $memo = $storage->getByUID($uid);
-        if (is_a($memo, 'PEAR_Error')) {
-            return $memo;
-        }
+        $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
+        try {
+            $memo = $storage->getByUID($uid);
+        } catch (Mnemo_Exception $e) {
+            if ($e->getCode() == Mnemo::ERR_NO_PASSPHRASE ||
+                $e->getCode() == Mnemo::ERR_DECRYPT) {
 
-        if (!array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
-        }
-
-        if (is_a($memo['body'], 'PEAR_Error')) {
-            if ($memo['body']->getCode() == Mnemo::ERR_NO_PASSPHRASE ||
-                $memo['body']->getCode() == Mnemo::ERR_DECRYPT) {
                 $memo['body'] = _("This note has been encrypted.");
             } else {
-                return $memo['body'];
+                throw $e;
             }
+        }
+        if (!array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::READ))) {
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         switch ($contentType) {
@@ -311,13 +291,10 @@ class Mnemo_Api extends Horde_Registry_Api
             return $memo['body'];
 
         case 'text/x-vnote':
-            require_once dirname(__FILE__) . '/version.php';
-            require_once 'Horde/iCalendar.php';
-
             // Create the new iCalendar container.
             $iCal = new Horde_Icalendar('1.1');
             $iCal->setAttribute('VERSION', '1.1');
-            $iCal->setAttribute('PRODID', '-//The Horde Project//Mnemo ' . Mnemo::VERSION . '//EN');
+            $iCal->setAttribute('PRODID', '-//The Horde Project//Mnemo ' . $registry->getVersion() . '//EN');
             $iCal->setAttribute('METHOD', 'PUBLISH');
 
             // Create a new vNote.
@@ -325,7 +302,7 @@ class Mnemo_Api extends Horde_Registry_Api
             return $vNote->exportvCalendar();
         }
 
-        return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"),$contentType));
+        throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
     }
 
     /**
@@ -333,8 +310,7 @@ class Mnemo_Api extends Horde_Registry_Api
      *
      * @param string | array $uid  Identify the note to delete, either a
      *                             single UID or an array.
-     *
-     * @return boolean  Success or failure.
+     * @throws Horde_Exception_PermissionDenied
      */
     public function delete($uid)
     {
@@ -342,29 +318,20 @@ class Mnemo_Api extends Horde_Registry_Api
         // notes at once.
         if (is_array($uid)) {
             foreach ($uid as $u) {
-                $result = _mnemo_delete($u);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
+                $result = $this->delete($u);
             }
-
-            return true;
         }
 
 
-        $storage = Mnemo_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
         $memo = $storage->getByUID($uid);
-        if (is_a($memo, 'PEAR_Error')) {
-            return $memo;
-        }
-
         if (!$GLOBALS['registry']->isAdmin() &&
-            !array_key_exists($memo['memolist_id'],
-                              Mnemo::listNotepads(false, Horde_Perms::DELETE))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            !array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::DELETE))) {
+
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
-        return $storage->delete($memo['memo_id']);
+        $storage->delete($memo['memo_id']);
     }
 
     /**
@@ -376,52 +343,50 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param string $contentType  What format is the data in? Currently supports:
      *                             text/plain
      *                             text/x-vnote
-     *
-     * @return boolean  Success or failure.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_PermissionDenied
      */
     public function replace($uid, $content, $contentType)
     {
-        $storage = Mnemo_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
         $memo = $storage->getByUID($uid);
-        if (is_a($memo, 'PEAR_Error')) {
-            return $memo;
-        }
-
         if (!array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::EDIT))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         switch ($contentType) {
         case 'text/plain':
-            return $storage->modify($memo['memo_id'], $storage->getMemoDescription($content), $content, null);
-
+            $storage->modify($memo['memo_id'], $storage->getMemoDescription($content), $content, null);
+            break;
         case 'text/x-vnote':
-            if (!is_a($content, 'Horde_Icalendar_Vnote')) {
+            if (!($content instanceof Horde_Icalendar_Vnote)) {
                 $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
-                    return PEAR::raiseError(_("There was an error importing the iCalendar data."));
+                    throw new Mnemo_Exception(_("There was an error importing the iCalendar data."));
                 }
 
                 $components = $iCal->getComponents();
                 switch (count($components)) {
                 case 0:
-                    return PEAR::raiseError(_("No iCalendar data was found."));
+                    throw new Mnemo_Exception(_("No iCalendar data was found."));
 
                 case 1:
                     $content = $components[0];
                     break;
 
                 default:
-                    return PEAR::raiseError(_("Multiple iCalendar components found; only one vNote is supported."));
+                    throw new Mnemo_Exception(_("Multiple iCalendar components found; only one vNote is supported."));
                 }
             }
             $note = $storage->fromiCalendar($content);
-
-            return $storage->modify($memo['memo_id'], $note['desc'],
-                                    $note['body'],!empty($note['category']) ? $note['category'] : '');
-
+            $storage->modify($memo['memo_id'],
+                             $note['desc'],
+                             $note['body'],
+                             !empty($note['category']) ? $note['category'] : '');
+            break;
         default:
-            return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"),$contentType));
+            throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
         }
     }
+
 }

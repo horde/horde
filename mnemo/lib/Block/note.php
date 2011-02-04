@@ -60,9 +60,10 @@ class Horde_Block_Mnemo_note extends Horde_Block
         }
 
         $uid = $this->_params['note_uid'];
-        $storage = Mnemo_Driver::singleton();
-        $memo = $storage->getByUID($uid);
-        if (is_a($memo, 'PEAR_Error')) {
+        $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
+        try {
+            $memo = $storage->getByUID($uid);
+        } catch (Mnemo_Exception $e) {
             if (!empty($this->_notename)) {
                 $msg = sprintf(_("An error occurred displaying %s"), $this->_notename);
             } else {

@@ -2,59 +2,39 @@
 /**
  * Mnemo_Driver:: defines an API for implementing storage backends for Mnemo.
  *
- * $Horde: mnemo/lib/Driver.php,v 1.47 2009/07/14 00:25:34 mrubinsk Exp $
- *
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Jon Parise <jon@horde.org>
- * @since   Mnemo 1.0
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Mnemo
  */
-class Mnemo_Driver {
-
+abstract class Mnemo_Driver
+{
     /**
      * Array holding the current memo list.  Each array entry is a hash
      * describing a memo.  The array is indexed numerically by memo ID.
      *
      * @var array
      */
-    var $_memos = array();
+    protected $_memos = array();
 
     /**
      * String containing the current notepad name.
      *
      * @var string
      */
-    var $_notepad = '';
+    protected $_notepad = '';
 
     /**
      * Crypting processor.
      *
      * @var Horde_Crypt_pgp
      */
-    var $_pgp;
+    protected $_pgp;
 
-    /**
-     * An error message to throw when something is wrong.
-     *
-     * @var string
-     */
-    var $_errormsg;
-
-    /**
-     * Constructor - All real work is done by initialize().
-     */
-    function Mnemo_Driver($errormsg = null)
-    {
-        if (is_null($errormsg)) {
-            $this->_errormsg = _("The Notes backend is not currently available.");
-        } else {
-            $this->_errormsg = $errormsg;
-        }
-    }
 
     /**
      * Lists memos based on the given criteria. All memos will be
@@ -62,7 +42,7 @@ class Mnemo_Driver {
      *
      * @return array    Returns a list of the requested memos.
      */
-    function listMemos()
+    public function listMemos()
     {
         return $this->_memos;
     }
@@ -72,7 +52,7 @@ class Mnemo_Driver {
      *
      * @param integer $memo_id  The memo to update.
      */
-    function getMemoDescription($body)
+    public function getMemoDescription($body)
     {
         if (!strstr($body, "\n") && Horde_String::length($body) <= 64) {
             return trim($body);
@@ -97,12 +77,13 @@ class Mnemo_Driver {
 
     /**
      * Loads the PGP encryption driver.
+     *
+     * @TODO: Inject *into* driver from the factory binder
      */
-    function loadPGP()
+    protected function _loadPGP()
     {
         if (empty($GLOBALS['conf']['utils']['gnupg'])) {
-            $this->_pgp = PEAR::raiseError(_("Encryption support has not been configured, please contact your administrator."));
-            return;
+            throw new Mnemo_Exception(_("Encryption support has not been configured, please contact your administrator."));
         }
 
         $this->_pgp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Crypt')->create('pgp', array(
@@ -116,14 +97,11 @@ class Mnemo_Driver {
      * @param string $note        The note text.
      * @param string $passphrase  The passphrase to encrypt the note with.
      *
-     * @return string|PEAR_Error  The encrypted text or PEAR_Error on failure.
+     * @return string  The encrypted text.
      */
-    function encrypt($note, $passphrase)
+    protected function _encrypt($note, $passphrase)
     {
-        $this->loadPGP();
-        if (is_a($this->_pgp, 'PEAR_Error')) {
-            return $this->_pgp;
-        }
+        $this->_loadPGP();
         return $this->_pgp->encrypt($note, array('type' => 'message', 'symmetric' => true, 'passphrase' => $passphrase));
     }
 
@@ -133,15 +111,18 @@ class Mnemo_Driver {
      * @param string $note        The encrypted note text.
      * @param string $passphrase  The passphrase to decrypt the note with.
      *
-     * @return string|PEAR_Error  The decrypted text or PEAR_Error on failure.
+     * @return string  The decrypted text.
+     * @throws Mnemo_Exception
      */
-    function decrypt($note, $passphrase)
+    protected function _decrypt($note, $passphrase)
     {
-        $this->loadPGP();
-        if (is_a($this->_pgp, 'PEAR_Error')) {
-            return $this->_pgp;
+        $this->_loadPGP();
+
+        try {
+            return $this->_pgp->decrypt($note, array('type' => 'message', 'passphrase' => $passphrase));
+        } catch (Horde_Crypt_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage(), Mnemo::ERR_DECRYPT);
         }
-        return $this->_pgp->decrypt($note, array('type' => 'message', 'passphrase' => $passphrase));
     }
 
     /**
@@ -152,111 +133,25 @@ class Mnemo_Driver {
      *
      * @return boolean  Whether encryption is suppoted.
      */
-    function encryptionSupported()
+    public function encryptionSupported()
     {
-        $this->loadPGP();
+        try {
+            $this->_loadPGP();
+        } catch (Mnemo_Exception $e) {
+        }
         return (is_callable(array($this->_pgp, 'encryptedSymmetrically')) &&
                 Horde::isConnectionSecure());
     }
 
     /**
-     * Attempts to return a concrete Mnemo_Driver instance based on $driver.
-     *
-     * @param string    $notepad    The name of the current notepad.
-     *
-     * @param string    $driver     The type of concrete Mnemo_Driver subclass
-     *                              to return.  The is based on the storage
-     *                              driver ($driver).  The code is dynamically
-     *                              included.
-     *
-     * @param array     $params     (optional) A hash containing any additional
-     *                              configuration or connection parameters a
-     *                              subclass might need.
-     *
-     * @return mixed    The newly created concrete Mnemo_Driver instance, or
-     *                  dummy instance containing an error message.
-     */
-    function &factory($notepad = '', $driver = null, $params = null)
-    {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-
-        $driver = basename($driver);
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        $class = 'Mnemo_Driver_' . $driver;
-        if (class_exists($class)) {
-            $mnemo = new $class($notepad, $params);
-            $result = $mnemo->initialize();
-            if (is_a($result, 'PEAR_Error')) {
-                $mnemo = new Mnemo_Driver(sprintf(_("The Notes backend is not currently available: %s"), $result->getMessage()));
-            }
-        } else {
-            $mnemo = new Mnemo_Driver(sprintf(_("Unable to load the definition of %s."), $class));
-        }
-
-        return $mnemo;
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Mnemo_Driver instance based
-     * on $driver.
-     *
-     * It will only create a new instance if no Mnemo_Driver instance with the
-     * same parameters currently exists.
-     *
-     * This should be used if multiple storage sources are required.
-     *
-     * This method must be invoked as: $var = &Mnemo_Driver::singleton()
-     *
-     * @param string    $notepad    The name of the current notepad.
-     *
-     * @param string    $driver     The type of concrete Mnemo_Driver subclass
-     *                              to return.  The is based on the storage
-     *                              driver ($driver).  The code is dynamically
-     *                              included.
-     *
-     * @param array     $params     (optional) A hash containing any additional
-     *                              configuration or connection parameters a
-     *                              subclass might need.
-     *
-     * @return mixed    The created concrete Mnemo_Driver instance, or false
-     *                  on error.
-     */
-    function &singleton($notepad = '', $driver = null, $params = null)
-    {
-        static $instances = array();
-
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        $signature = serialize(array($notepad, $driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = &Mnemo_Driver::factory($notepad, $driver, $params);
-        }
-
-        return $instances[$signature];
-    }
-
-    /**
      * Export this memo in iCalendar format.
      *
-     * @param array  memo      the memo (hash array) to export
-     * @param object vcal      a Horde_Icalendar object that acts as container.
+     * @param array  memo      The memo (hash array) to export
+     * @param Horde_Icalendar  A Horde_Icalendar object that acts as container.
      *
-     * @return object  Horde_Icalendar_Vnote object for this event.
+     * @return Horde_Icalendar_Vnote  object for this event.
      */
-    function toiCalendar($memo, &$calendar)
+    public function toiCalendar($memo, $calendar)
     {
         global $prefs;
 
@@ -273,7 +168,7 @@ class Mnemo_Driver {
         /* Get the note's history. */
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $log = $history->getHistory('mnemo:' . $memo['memolist_id'] . ':' . $memo['uid']);
-        if ($log && !is_a($log, 'PEAR_Error')) {
+        if ($log) {
             foreach ($log->getData() as $entry) {
                 switch ($entry['action']) {
                 case 'add':
@@ -304,12 +199,15 @@ class Mnemo_Driver {
      *
      * @return array  Memo (hash array) created from the vNote.
      */
-    function fromiCalendar($vNote)
+    public function fromiCalendar(Horde_Icalendar_Vnote $vNote)
     {
         $memo = array();
 
-        $body = $vNote->getAttribute('BODY');
-        if (!is_array($body) && !is_a($body, 'PEAR_Error')) {
+        try {
+            $body = $vNote->getAttribute('BODY');
+        } catch (Horde_Icalendar_Exception $e) {
+        }
+        if (!is_array($body)) {
             $memo['body'] = $body;
         } else {
             $memo['body'] = '';
@@ -317,8 +215,11 @@ class Mnemo_Driver {
 
         $memo['desc'] = $this->getMemoDescription($memo['body']);
 
-        $cat = $vNote->getAttribute('CATEGORIES');
-        if (!is_array($cat) && !is_a($cat, 'PEAR_Error')) {
+        try {
+            $cat = $vNote->getAttribute('CATEGORIES');
+        } catch (Horde_Icalendar_Exception $e) {
+        }
+        if (!is_array($cat)) {
             $memo['category'] = $cat;
         }
 
@@ -328,11 +229,7 @@ class Mnemo_Driver {
     /**
      * Retrieves notes from the database.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @thows Mnemo_Exception
      */
-    function retrieve()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
+    abstract public function retrieve();
 }

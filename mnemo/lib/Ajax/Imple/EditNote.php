@@ -56,7 +56,7 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple
             /* Are we requesting the unformatted text? */
             if (!empty($args['action']) && $args['action'] == 'load') {
                 $id = $args['id'];
-                $storage = Mnemo_Driver::singleton();
+                $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
                 $memo = $storage->getByUID($id);
                 return $memo['body'];
             }
@@ -67,7 +67,7 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple
                     return '';
             }
 
-            $storage = Mnemo_Driver::singleton();
+            $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
             $memo = $storage->getByUID($args['id']);
             $share = $GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {

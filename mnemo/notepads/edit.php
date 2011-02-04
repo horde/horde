@@ -12,8 +12,6 @@
 require_once MNEMO_BASE . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
-require_once MNEMO_BASE . '/lib/Forms/EditNotepad.php';
-
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
     Horde::url('list.php', true)->redirect();
@@ -32,22 +30,21 @@ if (!$GLOBALS['registry']->getAuth() ||
     $notification->push(_("You are not allowed to change this notepad."), 'horde.error');
     Horde::url('notepads/', true)->redirect();
 }
-$form = new Mnemo_EditNotepadForm($vars, $notepad);
+$form = new Mnemo_Form_EditNotepad($vars, $notepad);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     $original_name = $notepad->get('name');
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $result = $form->execute();
         if ($notepad->get('name') != $original_name) {
             $notification->push(sprintf(_("The notepad \"%s\" has been renamed to \"%s\"."), $original_name, $notepad->get('name')), 'horde.success');
         } else {
             $notification->push(sprintf(_("The notepad \"%s\" has been saved."), $original_name), 'horde.success');
         }
+    } catch (Exception $e) {
+        $notification->push($result, 'horde.error');
     }
-
     Horde::url('notepads/', true)->redirect();
 }
 

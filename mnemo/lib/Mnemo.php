@@ -1,20 +1,20 @@
 <?php
 /**
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @package Mnemo
  */
-
 /**
  * Mnemo Base Class.
  *
  * @author  Jon Parise <jon@horde.org>
  * @package Mnemo
  */
-class Mnemo {
+class Mnemo
+{
     /**
      * Sort by memo description.
      */
@@ -77,17 +77,13 @@ class Mnemo {
         );
 
         foreach ($display_notepads as $notepad) {
-            /* Create a Mnemo storage instance. */
-            $storage = Mnemo_Driver::singleton($notepad);
+            $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad);
             $storage->retrieve();
-
-            /* Retrieve the memo list from storage. */
             $newmemos = $storage->listMemos();
             $memos = array_merge($memos, $newmemos);
         }
 
-        /* Sort the array if we have a sort function defined for this
-         * field. */
+        // Sort the array if we have a sort function defined
         if (isset($sort_functions[$sortby])) {
             $prefix = ($sortdir == self::SORT_DESCEND) ? '_rsort' : '_sort';
             uasort($memos, array('Mnemo', $prefix . $sort_functions[$sortby]));
@@ -101,7 +97,7 @@ class Mnemo {
      *
      * @return integer  The number of notes that the user owns.
      */
-    function countMemos()
+    public static function countMemos()
     {
         static $count;
         if (isset($count)) {
@@ -109,14 +105,10 @@ class Mnemo {
         }
 
         $notepads = Mnemo::listNotepads(true, Horde_Perms::ALL);
-
         $count = 0;
         foreach (array_keys($notepads) as $notepad) {
-            /* Create a Mnemo storage instance. */
-            $storage = Mnemo_Driver::singleton($notepad);
+            $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad);
             $storage->retrieve();
-
-            /* Retrieve the memo list from storage. */
             $count += count($storage->listMemos());
         }
 
@@ -133,9 +125,9 @@ class Mnemo {
      *
      * @return array  The note.
      */
-    function getMemo($notepad, $noteId, $passphrase = null)
+    public static function getMemo($notepad, $noteId, $passphrase = null)
     {
-        $storage = Mnemo_Driver::singleton($notepad);
+        $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad);
         return $storage->get($noteId, $passphrase);
     }
 
@@ -144,14 +136,10 @@ class Mnemo {
      *
      * @param array $note The note array
      *
-     * @return string A few lines of the note for previews or
-     * tooltips.
+     * @return string A few lines of the note for previews or tooltips.
      */
-    function getNotePreview($note)
+    public static function getNotePreview($note)
     {
-        if (is_a($note['body'], 'PEAR_Error')) {
-            return $note['body']->getMessage();
-        }
         $lines = explode("\n", wordwrap($note['body']));
         return implode("\n", array_splice($lines, 0, 20));
     }
@@ -187,6 +175,8 @@ class Mnemo {
     /**
      * Returns the default notepad for the current user at the specified
      * permissions level.
+     *
+     * @return mixed  The notepad identifier, or false if none found
      */
     public static function getDefaultNotepad($permission = Horde_Perms::SHOW)
     {
@@ -200,7 +190,7 @@ class Mnemo {
         } elseif ($prefs->isLocked('default_notepad')) {
             return $GLOBALS['registry']->getAuth();
         } elseif (count($notepads)) {
-	    reset($notepads);
+            reset($notepads);
             return key($notepads);
         }
 
@@ -210,9 +200,9 @@ class Mnemo {
     /**
      * Returns the real name, if available, of a user.
      *
-     * @since Mnemo 2.2
+     * @return string  The real name
      */
-    function getUserName($uid)
+    public static function getUserName($uid)
     {
         static $names = array();
 
@@ -237,7 +227,7 @@ class Mnemo {
      * @return integer  1 if memo one is greater, -1 if memo two is greater; 0
      *                  if they are equal.
      */
-    function _sortByDesc($a, $b)
+    protected static function _sortByDesc($a, $b)
     {
         return strcasecmp($a['desc'], $b['desc']);
     }
@@ -251,7 +241,7 @@ class Mnemo {
      * @return integer  -1 if note one is greater, 1 if note two is greater; 0
      *                  if they are equal.
      */
-    function _rsortByDesc($a, $b)
+    protected static function _rsortByDesc($a, $b)
     {
         return strcasecmp($b['desc'], $a['desc']);
     }
@@ -265,7 +255,7 @@ class Mnemo {
      * @return integer  1 if note one is greater, -1 if note two is greater; 0
      *                  if they are equal.
      */
-    function _sortByCategory($a, $b)
+    protected static function _sortByCategory($a, $b)
     {
         return strcasecmp($a['category'] ? $a['category'] : _("Unfiled"),
                           $b['category'] ? $b['category'] : _("Unfiled"));
@@ -280,7 +270,7 @@ class Mnemo {
      * @return integer  -1 if note one is greater, 1 if note two is greater; 0
      *                  if they are equal.
      */
-    function _rsortByCategory($a, $b)
+    protected static function _rsortByCategory($a, $b)
     {
         return strcasecmp($b['category'] ? $b['category'] : _("Unfiled"),
                           $a['category'] ? $a['category'] : _("Unfiled"));
@@ -295,7 +285,7 @@ class Mnemo {
      * @return integer  1 if note one is greater, -1 if note two is greater;
      *                  0 if they are equal.
      */
-    function _sortByNotepad($a, $b)
+    protected static function _sortByNotepad($a, $b)
     {
         $aowner = $a['memolist_id'];
         $bowner = $b['memolist_id'];
@@ -322,7 +312,7 @@ class Mnemo {
      * @return integer  -1 if note one is greater, 1 if note two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByNotepad($a, $b)
+    protected static function _rsortByNotepad($a, $b)
     {
         $aowner = $a['memolist_id'];
         $bowner = $b['memolist_id'];
@@ -343,13 +333,11 @@ class Mnemo {
     /**
      * Returns the specified permission for the current user.
      *
-     * @since Mnemo 2.1
-     *
      * @param string $permission  A permission, currently only 'max_notes'.
      *
      * @return mixed  The value of the specified permission.
      */
-    function hasPermission($permission)
+    public static function hasPermission($permission)
     {
         global $perms;
 
@@ -377,7 +365,7 @@ class Mnemo {
      *
      * @return string  The passphrase, if set.
      */
-    function getPassphrase($id)
+    public static function getPassphrase($id)
     {
         if ($passphrase = $GLOBALS['session']->get('mnemo', 'passphrase/' . $id)) {
             return Horde_Secret::read(Horde_Secret::getKey('mnemo'), $passphrase);
@@ -393,13 +381,17 @@ class Mnemo {
      *
      * @return boolean  True
      */
-    function storePassphrase($id, $passphrase)
+    public static function storePassphrase($id, $passphrase)
     {
         $GLOBALS['session']->set('mnemo', 'passphrase/' . $id, Horde_Secret::write(Horde_Secret::getKey('mnemo'), $passphrase));
     }
 
     /**
      * Initial app setup code.
+     *
+     * Defines the following $GLOBALS (@TODO these should use the injector)
+     *  mnemo_shares
+     *  display_notepads
      */
     public static function initialize()
     {
@@ -433,7 +425,7 @@ class Mnemo {
             }
         }
 
-        /* All tasklists for guests. */
+        // All tasklists for guests.
         if (!count($GLOBALS['display_notepads']) &&
             !$GLOBALS['registry']->getAuth()) {
             $GLOBALS['display_tasklists'] = array_keys($_all);
