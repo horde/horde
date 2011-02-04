@@ -597,56 +597,39 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     /**
      * Fetch message data.
      *
-     * @param array $criteria The fetch criteria. Function must not handle
-     *                        'parse' param to FETCH_HEADERTEXT.
-     * @param array $options  Additional options.
+     * @param Horde_Imap_Client_Fetch_Query $query  The fetch query object.
+     * @param array $options                        Additional options.
      *
      * @return array  See self::fetch().
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _fetch($criteria, $options)
+    protected function _fetch($query, $options)
     {
-        $fetch  = array();
-        $result = array();
+        $fetch = $result = array();
 
-        reset($criteria);
-        while (list($type, $c_val) = each($criteria)) {
-            if (!is_array($c_val)) {
-                $c_val = array();
-            }
-
+        foreach ($query as $type => $c_val) {
             $uid = $options['ids'][0];
 
             switch ($type) {
-            case Horde_Imap_Client::FETCH_HEADERTEXT:
+            case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
                 if (!isset($this->_mbox['mails'][$uid])) {
                     $this->_exception(sprintf("No IMAP message %s!", $uid));
                 }
                 $result['headertext'][$uid] = $this->_mbox['mails'][$uid]['header'];
                 break;
-            case Horde_Imap_Client::FETCH_BODYTEXT:
+
+            case Horde_Imap_Client_Fetch_Query::BODYTEXT:
                 if (!isset($this->_mbox['mails'][$uid])) {
                     $this->_exception(sprintf("No IMAP message %s!", $uid));
                 }
-                $result['bodytext'][$uid] =  $this->_mbox['mails'][$uid]['body'];
+                $result['bodytext'][$uid] = $this->_mbox['mails'][$uid]['body'];
                 break;
 
-            case Horde_Imap_Client::FETCH_STRUCTURE:
-            case Horde_Imap_Client::FETCH_FULLMSG:
-            case Horde_Imap_Client::FETCH_MIMEHEADER:
-            case Horde_Imap_Client::FETCH_BODYPART:
-            case Horde_Imap_Client::FETCH_HEADERS:
-            case Horde_Imap_Client::FETCH_BODYPARTSIZE:
-            case Horde_Imap_Client::FETCH_ENVELOPE:
-            case Horde_Imap_Client::FETCH_FLAGS:
-            case Horde_Imap_Client::FETCH_DATE:
-            case Horde_Imap_Client::FETCH_SIZE:
-            case Horde_Imap_Client::FETCH_UID:
-            case Horde_Imap_Client::FETCH_SEQ:
-            case Horde_Imap_Client::FETCH_MODSEQ:
+            default:
                 $this->_exception('Not supported!');
             }
         }
+
         return $result;
     }
 

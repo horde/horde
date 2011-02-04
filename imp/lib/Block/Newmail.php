@@ -47,10 +47,11 @@ class IMP_Block_Newmail extends Horde_Core_Block
                 ? 3
                 : $this->_params['msgs_shown'];
 
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
+
             try {
-                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch('INBOX', array(
-                    Horde_Imap_Client::FETCH_ENVELOPE => true
-                ), array('ids' => array_slice($indices, 0, $shown)));
+                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch('INBOX', $query, array('ids' => array_slice($indices, 0, $shown)));
                 reset($fetch_ret);
             } catch (Horde_Imap_Client_Exception $e) {
                 $fetch_ret = array();

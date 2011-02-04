@@ -110,10 +110,14 @@ class IMP_Views_ShowMessage
          * view. */
         $imp_contents = null;
         try {
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, array(
-                Horde_Imap_Client::FETCH_ENVELOPE => true,
-                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
-            ), array('ids' => array($uid)));
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
+            $query->headerText(array(
+                'parse' => true,
+                'peek' => false
+            ));
+
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array('ids' => array($uid)));
 
             if (isset($fetch_ret[$uid]['headertext'])) {
                 /* Parse MIME info and create the body of the message. */

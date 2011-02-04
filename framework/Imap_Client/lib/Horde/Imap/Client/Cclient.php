@@ -941,13 +941,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     /**
      * Fetch message data.
      *
-     * @param array $criteria  The fetch criteria.
-     * @param array $options   Additional options.
+     * @param Horde_Imap_Client_Fetch_Query $query  The fetch query object.
+     * @param array $options                        Additional options.
      *
      * @return array  See self::fetch().
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _fetch($criteria, $options)
+    protected function _fetch($query, $options)
     {
         // Already guaranteed to be logged in here
 
@@ -957,7 +957,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         // These options are not supported by this driver.
         if (!empty($options['changedsince']) ||
             (reset($options['ids']) == Horde_Imap_Client::USE_SEARCHRES)) {
-            return $this->_getSocket()->fetch($this->_selected, $criteria, $options);
+            return $this->_getSocket()->fetch($this->_selected, $query, $options);
         }
 
         if (empty($options['ids'])) {
@@ -969,14 +969,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $ret = array_combine($options['ids'], array_fill(0, count($options['ids']), array()));
 
-        foreach ($criteria as $type => $c_val) {
-            if (!is_array($c_val)) {
-                $c_val = array();
-            }
-
+        foreach ($query as $type => $c_val) {
             switch ($type) {
-            case Horde_Imap_Client::FETCH_STRUCTURE:
-                // 'noext' has no effect in this driver
+            case Horde_Imap_Client_Fetch_Query::STRUCTURE:
                 foreach ($options['ids'] as $id) {
                     $structure = @imap_fetchstructure($this->_stream, $id, empty($options['sequence']) ? FT_UID : 0);
                     if (!$structure) {
@@ -989,57 +984,47 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_FULLMSG:
+            case Horde_Imap_Client_Fetch_Query::FULLMSG:
                 foreach ($options['ids'] as $id) {
                     $tmp = @imap_fetchheader($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | FT_PREFETCHTEXT) .
                            @imap_body($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | (empty($c_val['peek']) ? 0 : FT_PEEK));
-                    if (isset($c_val['start']) && !empty($c_val['length'])) {
-                        $ret[$id]['fullmsg'] = substr($tmp, $c_val['start'], $c_val['length']);
-                    } else {
-                        $ret[$id]['fullmsg'] = $tmp;
-                    }
+
+                    $ret[$id]['fullmsg'] = $this->_partialString($tmp, $c_val);
 
                     if (!empty($c_val['stream'])) {
                         $ptr = fopen('php://temp', 'r+');
-                        fwrite($ptr, $tmp);
+                        fwrite($ptr, $ret[$id]['fullmsg']);
                         $ret[$id]['fullmsg'] = $ptr;
                     }
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_HEADERTEXT:
-            case Horde_Imap_Client::FETCH_BODYPART:
-                foreach ($c_val as $val) {
-                    if ($type == Horde_Imap_Client::FETCH_HEADERTEXT) {
+            case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
+            case Horde_Imap_Client_Fetch_Query::BODYPART:
+                foreach ($c_val as $key => $val) {
+                    $body_key = $key;
+
+                    if ($type == Horde_Imap_Client_Fetch_Query::HEADERTEXT) {
                         $label = 'headertext';
                         /* imap_fetchbody() can return header parts for a
                          * given MIME part by appending '.0' (or 0 for the
                          * main header) */
-                        if (empty($val['id'])) {
-                            $val['id'] = 0;
-                            $body_key = 0;
-                        } else {
-                            $body_key = $val['id'] . '.0';
+                        if ($body_key != 0) {
+                            $body_key .= '.0';
                         }
                     } else {
                         $label = 'bodypart';
-                        if (empty($val['id'])) {
-                            $this->_exception('Need a MIME ID when retrieving a MIME body part.');
-                        }
-                        $body_key = $val['id'];
                     }
 
                     foreach ($options['ids'] as $id) {
                         if (!isset($ret[$id][$label])) {
                             $ret[$id][$label] = array();
                         }
-                        $tmp = @imap_fetchbody($this->_stream, $id, $header_key, empty($options['sequence']) ? FT_UID : 0);
+                        $tmp = @imap_fetchbody($this->_stream, $id, $body_key, empty($options['sequence']) ? FT_UID : 0);
 
-                        if (isset($val['start']) && !empty($val['length'])) {
-                            $tmp = substr($tmp, $val['start'], $val['length']);
-                        }
+                        $tmp = $this->_partialString($tmp, $val);
 
-                        if ($type == Horde_Imap_Client::FETCH_BODYPART) {
+                        if ($type == Horde_Imap_Client_Fetch_Query::BODYPART) {
                             if (!empty($val['parse'])) {
                                 $tmp = Horde_Mime_Headers::parseHeaders($tmp);
                             } elseif (!empty($val['stream'])) {
@@ -1049,75 +1034,73 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                             }
                         }
 
-                        $ret[$id][$label][$val['id']] = $tmp;
+                        $ret[$id][$label][$key] = $tmp;
                     }
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_BODYTEXT:
-                foreach ($c_val as $val) {
-                    // This is the base body.  This is easily obtained via
-                    // imap_body().
-                    $use_imapbody = empty($val['id']);
-
+            case Horde_Imap_Client_Fetch_Query::BODYTEXT:
+                foreach ($c_val as $key => $val) {
                     foreach ($options['ids'] as $id) {
                         if (!isset($ret[$id]['bodytext'])) {
                             $ret[$id]['bodytext'] = array();
                         }
-                        if ($use_imapbody) {
+
+                        if ($key == 0) {
                             $tmp = @imap_body($this->_stream, $id, (empty($options['sequence']) ? FT_UID : 0) | (empty($val['peek']) ? 0 : FT_PEEK));
-                            if (isset($val['start']) && !empty($val['length'])) {
-                                $ret[$id]['bodytext'][0] = substr($tmp, $val['start'], $val['length']);
-                            } else {
-                                $ret[$id]['bodytext'][0] = $tmp;
-                            }
                         } else {
                             /* OY! There is no way to download just the body
                              * of the message/rfc822 part.  The best we can do
                              * is download the header of the part, determine
                              * the length, and then remove that info from the
                              * beginning of the imap_fetchbody() data. */
-                            $hdr_len = strlen(@imap_fetchbody($this->_stream, $id, $val['id'] . '.0', (empty($options['sequence']) ? FT_UID : 0)));
-                            $tmp = substr(@imap_fetchbody($this->_stream, $id, $val['id'], (empty($options['sequence']) ? FT_UID : 0)), $hdr_len);
-                            if (isset($val['start']) && !empty($val['length'])) {
-                                $ret[$id]['bodytext'][$val['id']] = substr($tmp, $val['start'], $val['length']);
-                            } else {
-                                $ret[$id]['bodytext'][$val['id']] = $tmp;
-                            }
+                            $hdr_len = strlen(@imap_fetchbody($this->_stream, $id, $key . '.0', (empty($options['sequence']) ? FT_UID : 0)));
+                            $tmp = substr(@imap_fetchbody($this->_stream, $id, $key, (empty($options['sequence']) ? FT_UID : 0)), $hdr_len);
                         }
+
+                        $ret[$id]['bodytext'][$key] = $this->_partialString($tmp, $val);
 
                         if (!empty($val['stream'])) {
                             $ptr = fopen('php://temp', 'r+');
-                            fwrite($ptr, $ret[$id]['bodytext'][$val['id']]);
-                            $ret[$id]['bodytext'][$val['id']] = $ptr;
+                            fwrite($ptr, $ret[$id]['bodytext'][$key]);
+                            $ret[$id]['bodytext'][$key] = $ptr;
                         }
                     }
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_MIMEHEADER:
-            case Horde_Imap_Client::FETCH_HEADERS:
-            case Horde_Imap_Client::FETCH_MODSEQ:
+            case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
+            case Horde_Imap_Client_Fetch_Query::HEADERS:
+            case Horde_Imap_Client_Fetch_Query::MODSEQ:
                 // Can't do it. Nope. Nada. Without heavy duty parsing of the
                 // full imap_body() object, it is impossible to retrieve the
                 // MIME headers for each individual part. Ship it off to
                 // the Socket driver. Adios.
                 // This goes for header field searches also.
                 // MODSEQ isn't available in c-client either.
+                $tmp_query = new Horde_Imap_Client_Fetch_Query();
+
                 switch ($type) {
-                case Horde_Imap_Client::FETCH_MIMEHEADER:
+                case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
                     $label = 'mimeheader';
+                    foreach ($c_val as $key => $val) {
+                        $tmp_query->mimeHeader($key, $val);
+                    }
                     break;
 
-                case Horde_Imap_Client::FETCH_HEADERS:
+                case Horde_Imap_Client_Fetch_Query::HEADERS:
                     $label = 'headers';
+                    foreach ($c_val as $key => $val) {
+                        $tmp_query->headers($key, $val['headers'], $val);
+                    }
                     break;
 
-                case Horde_Imap_Client::FETCH_MODSEQ:
+                case Horde_Imap_Client_Fetch_Query::MODSEQ:
                     $label = 'modseq';
+                    $tmp_query->modseq();
                     break;
                 }
-                $tmp = $this->_getSocket()->fetch($this->_selected, array($type => $c_val), $options);
+                $tmp = $this->_getSocket()->fetch($this->_selected, $tmp_query, $options);
                 foreach ($tmp as $id => $id_data) {
                     if (!isset($ret[$id][$label])) {
                         $ret[$id][$label] = array();
@@ -1126,7 +1109,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_ENVELOPE:
+            case Horde_Imap_Client_Fetch_Query::ENVELOPE:
                 if (is_null($hdrinfo)) {
                     $hdrinfo = array();
                     foreach ($options['ids'] as $id) {
@@ -1157,7 +1140,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_FLAGS:
+            case Horde_Imap_Client_Fetch_Query::FLAGS:
                 if (is_null($overview)) {
                     $overview = @imap_fetch_overview($this->_stream, $seq, empty($options['sequence']) ? FT_UID : 0);
                     if (!$overview) {
@@ -1177,7 +1160,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_DATE:
+            case Horde_Imap_Client_Fetch_Query::IMAPDATE:
                 if (is_null($hdrinfo)) {
                     $hdrinfo = array();
                     foreach ($options['ids'] as $id) {
@@ -1194,7 +1177,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_SIZE:
+            case Horde_Imap_Client_Fetch_Query::SIZE:
                 if (!is_null($hdrinfo)) {
                     foreach ($options['ids'] as $id) {
                         $ret[$id]['size'] = $hdrinfo[$id]->Size;
@@ -1213,7 +1196,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_UID:
+            case Horde_Imap_Client_Fetch_Query::UID:
                 if (empty($options['sequence'])) {
                     foreach ($options['ids'] as $id) {
                         $ret[$id]['uid'] = $id;
@@ -1232,7 +1215,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_SEQ:
+            case Horde_Imap_Client_Getch_Query::SEQ:
                 if (!empty($options['sequence'])) {
                     foreach ($options['ids'] as $id) {
                         $ret[$id]['seq'] = $id;
@@ -1257,6 +1240,25 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         }
 
         return $ret;
+    }
+
+    /**
+     * Return a partial string based on criteria options.
+     *
+     * @param string $str  The original string.
+     * @param array $opts  The criteria options.
+     *
+     * @return string  A string.
+     */
+    protected function _partialString($str, $opts)
+    {
+        if (!empty($opts['length'])) {
+            return substr($str, empty($opts['start']) ? 0 : $opts['start'], $opts['length']);
+        }
+
+        return empty($opts['start'])
+            ? $str
+            : substr($str, $opts['start']);
     }
 
     /**

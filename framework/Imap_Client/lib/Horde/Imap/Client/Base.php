@@ -132,12 +132,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $params['cache'] = array('fields' => array());
         } elseif (empty($params['cache']['fields'])) {
             $params['cache']['fields'] = array(
-                Horde_Imap_Client::FETCH_STRUCTURE => 1,
-                Horde_Imap_Client::FETCH_ENVELOPE => 1,
-                Horde_Imap_Client::FETCH_FLAGS => 1,
-                Horde_Imap_Client::FETCH_DATE => 1,
-                Horde_Imap_Client::FETCH_SIZE => 1,
-                Horde_Imap_Client::FETCH_HEADERS => 1
+                Horde_Imap_Client_Fetch_Query::STRUCTURE => 1,
+                Horde_Imap_Client_Fetch_Query::ENVELOPE => 1,
+                Horde_Imap_Client_Fetch_Query::FLAGS => 1,
+                Horde_Imap_Client_Fetch_Query::IMAPDATE => 1,
+                Horde_Imap_Client_Fetch_Query::SIZE => 1,
+                Horde_Imap_Client_Fetch_Query::HEADERS => 1
             );
         } else {
             $params['cache']['fields'] = array_flip($params['cache']['fields']);
@@ -566,9 +566,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
 
             /* Check for ability to cache flags here. */
-            if (isset($this->_params['cache']['fields'][Horde_Imap_Client::FETCH_FLAGS]) &&
-                !isset($this->_init['enabled']['CONDSTORE'])) {
-                unset($this->_params['cache']['fields'][Horde_Imap_Client::FETCH_FLAGS]);
+            if (!isset($this->_init['enabled']['CONDSTORE'])) {
+                unset($this->_params['cache']['fields'][Horde_Imap_Client_Fetch_Query::FLAGS]);
             }
         }
 
@@ -1784,293 +1783,30 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Fetch message data (see RFC 3501 [6.4.5]).
      *
-     * @param string $mailbox  The mailbox to fetch messages from. Either in
-     *                         UTF7-IMAP or UTF-8.
-     * @param array $criteria  The fetch criteria. Contains the following:
-     * <pre>
-     * Key: Horde_Imap_Client::FETCH_FULLMSG
-     *   Desc: Returns the full text of the message.
-     *         ONLY ONE of these entries should be defined.
-     *   Value: (array) The following options are available:
-     *     'length' - (integer) If 'start' is defined, the length of the
-     *                substring to return.
-     *                DEFAULT: The entire text is returned.
-     *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
-     *              message.
-     *              DEFAULT: The seen flag is set.
-     *     'start' - (integer) If a portion of the full text is desired to be
-     *               returned, the starting position is identified here.
-     *               DEFAULT: The entire text is returned.
-     *     'stream' - (boolean) If true, returns a stream resource with the
-     *                message data instead of a string.
-     *   Return key: 'fullmsg'
-     *   Return format: (mixed) The full text of the entire message (or the
-     *                  portion of the text delineated by the 'start'/'length'
-     *                  parameters). If the 'stream' parameter is set, returns
-     *                  a stream resource.
-     *
-     * Key: Horde_Imap_Client::FETCH_HEADERTEXT
-     *   Desc: Returns the header text. Header text is defined only for the
-     *         base RFC 2822 message or message/rfc822 parts. Attempting to
-     *         retrieve the body text from other parts will result in a
-     *         thrown exception.
-     *         MORE THAN ONE of these entries can be defined. Each entry will
-     *         be a separate array contained in the value field.
-     *         Each entry should have a unique 'id' value.
-     *   Value: (array) One array for each request. Each array may contain
-     *          the following options:
-     *     'id' - (string) The MIME ID to obtain the header text for.
-     *            DEFAULT: The header text for the entire message (MIME ID: 0)
-     *            will be returned.
-     *     'length' - (integer) If 'start' is defined, the length of the
-     *                substring to return.
-     *                DEFAULT: The entire text is returned.
-     *     'parse' - (boolean) If true, parse the header text into a
-     *               Horde_Mime_Headers object.
-     *               DEFAULT: The full header text is returned.
-     *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
-     *              message.
-     *              DEFAULT: The seen flag is set.
-     *     'start' - (integer) If a portion of the full text is desired to be
-     *               returned, the starting position is identified here.
-     *               DEFAULT: The entire text is returned.
-     *   Return key: 'headertext'
-     *   Return format: (array) An array of header text entries. Keys are
-     *                  the 'id'. If 'parse' is true, values are
-     *                  Horde_Mime_Headers objects. Otherwise, values are the
-     *                  raw text of the header (or the portion of the text
-     *                  delineated by the 'start' & 'length' parameters).
-     *
-     * Key: Horde_Imap_Client::FETCH_BODYTEXT
-     *   Desc: Returns the body text. Body text is defined only for the
-     *         base RFC 2822 message or message/rfc822 parts. Attempting to
-     *         retrieve the body text from other parts will result in a
-     *         thrown exception.
-     *         MORE THAN ONE of these entries can be defined. Each entry will
-     *         be a separate array contained in the value field.
-     *         Each entry should have a unique 'id' value.
-     *   Value: (array) One array for each request. Each array may contain
-     *          the following options:
-     *     'id' - (string) The MIME ID to obtain the body text for.
-     *            DEFAULT: The body text for the entire message (MIME ID: 0)
-     *            will be returned.
-     *     'length' - (integer) If 'start' is defined, the length of the
-     *                substring to return.
-     *                DEFAULT: The entire text is returned.
-     *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
-     *              message.
-     *              DEFAULT: The seen flag is set.
-     *     'start' - (integer) If a portion of the full text is desired to be
-     *               returned, the starting position is identified here.
-     *               DEFAULT: The entire text is returned.
-     *     'stream' - (boolean) If true, returns a stream resource with the
-     *                message data instead of a string.
-     *   Return key: 'bodytext'
-     *   Return format: (array) An array of body text entries. Keys are the
-     *                  the 'id', values are the message body text strings
-     *                  (or the portion of the text delineated by the
-     *                  'start'/'length' parameters). If the 'stream'
-     *                  parameter is set, returns a stream resource.
-     *
-     * Key: Horde_Imap_Client::FETCH_MIMEHEADER
-     *   Desc: Returns the MIME header text. MIME header text is defined only
-     *         for non RFC 2822 messages and non message/rfc822 parts.
-     *         Attempting to retrieve the MIME header from other parts will
-     *         result in a thrown exception.
-     *         MORE THAN ONE of these entries can be defined. Each entry will
-     *         be a separate array contained in the value field.
-     *         Each entry should have a unique 'id' value.
-     *   Value: (array) One array for each request. Each array may contain
-     *          the following options:
-     *     'id' - (string) The MIME ID to obtain the MIME header text for.
-     *            DEFAULT: NONE
-     *     'length' - (integer) If 'start' is defined, the length of the
-     *                substring to return.
-     *                DEFAULT: The entire text is returned.
-     *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
-     *              message.
-     *              DEFAULT: The seen flag is set.
-     *     'start' - (integer) If a portion of the full text is desired to be
-     *               returned, the starting position is identified here.
-     *               DEFAULT: The entire text is returned.
-     *   Return key: 'mimeheader'
-     *   Return format: (array) An array of MIME header text entries. Keys are
-     *                  the 'id', values are the MIME header text strings
-     *                  (or the portion of the text delineated by the
-     *                  'start'/'length' parameters).
-     *
-     * Key: Horde_Imap_Client::FETCH_BODYPART
-     *   Desc: Returns the body part data for a given MIME ID.
-     *         MORE THAN ONE of these entries can be defined. Each entry will
-     *         be a separate array contained in the value field.
-     *         Each entry should have a unique 'id' value.
-     *   Value: (array) One array for each request. Each array may contain
-     *          the following options:
-     *     'decode' - (boolean) Attempt to server-side decode the bodypart
-     *                data if it is MIME transfer encoded. If it can be done,
-     *                the 'bodypartdecode' key will be set with one of two
-     *                values: '8bit' or 'binary'.
-     *                DEFAULT: The raw data.
-     *     'id' - (string) The MIME ID to obtain the body part text for.
-     *            DEFAULT: NONE
-     *     'length' - (integer) If 'start' is defined, the length of the
-     *                substring to return.
-     *                DEFAULT: The entire data is returned.
-     *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
-     *              message.
-     *              DEFAULT: The seen flag is set.
-     *     'start' - (integer) If a portion of the full data is desired to be
-     *               returned, the starting position is identified here.
-     *               DEFAULT: The entire data is returned.
-     *     'stream' - (boolean) If true, returns a stream resource with the
-     *                message data instead of a string.
-     *   Return key: 'bodypart' (and possibly 'bodypartdecode')
-     *   Return format: (array) An array of body part data entries. Keys are
-     *                  the 'id', values are the body part data (or the
-     *                  portion of the data delineated by the 'start'/'length'
-     *                  parameters). If the 'stream' parameter is set, returns
-     *                  a stream resource.
-     *
-     * Key: Horde_Imap_Client::FETCH_BODYPARTSIZE
-     *   Desc: Returns the decoded body part size for a given MIME ID.
-     *         MORE THAN ONE of these entries can be defined. Each entry will
-     *         be a separate array contained in the value field.
-     *         Each entry should have a unique 'id' value.
-     *   Value: (array) One array for each request. Each array may contain
-     *          the following options:
-     *     'id' - (string) The MIME ID to obtain the body part size for.
-     *            DEFAULT: NONE
-     *   Return key: 'bodypartsize' (if supported by server)
-     *   Return format: (integer) The body part size in bytes. If the server
-     *                  does not support the functionality, 'bodypartsize'
-     *                  will not be set.
-     *
-     * Key: Horde_Imap_Client::FETCH_HEADERS
-     *   Desc: Returns RFC 2822 header text that matches a search string.
-     *         This header search work only with the base RFC 2822 message or
-     *         message/rfc822 parts.
-     *         MORE THAN ONE of these entries can be defined. Each entry will
-     *         be a separate array contained in the value field.
-     *         Each entry should have a unique 'label' value.
-     *   Value: (array) One array for each request. Each array may contain
-     *          the following options:
-     *     'cache' - (boolean) If true, and 'peek' is also true, will cache
-     *               the result of this call.
-     *               DEFAULT: false
-     *     'headers' - (array) The headers to search for (case-insensitive).
-     *                 DEFAULT: NONE (MANDATORY)
-     *     'id' - (string) The MIME ID to search.
-     *            DEFAULT: The base message part (MIME ID: 0)
-     *     'label' - (string) A unique label associated with this particular
-     *               search. This is how the results are stored.
-     *               DEFAULT: NONE (MANDATORY entry or exception will be
-     *               thrown)
-     *     'length' - (integer) If 'start' is defined, the length of the
-     *                substring to return.
-     *                DEFAULT: The entire text is returned.
-     *     'notsearch' - (boolean) Do a 'NOT' search on the headers.
-     *                   DEFAULT: false
-     *     'parse' - (boolean) If true, parse the returned headers into a
-     *               Horde_Mime_Headers object.
-     *               DEFAULT: The full header text is returned.
-     *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
-     *              message.
-     *              DEFAULT: The seen flag is set.
-     *     'start' - (integer) If a portion of the full text is desired to be
-     *               returned, the starting position is identified here.
-     *               DEFAULT: The entire text is returned.
-     *   Return key: 'headers'
-     *   Return format: (array) Keys are the 'label'. If 'parse' is false,
-     *                  values are the matched header text. If 'parse' is true,
-     *                  values are Horde_Mime_Headers objects. Both returns
-     *                  are subject to the search result being truncated due
-     *                  to the 'start'/'length' parameters.
-     *
-     * Key: Horde_Imap_Client::FETCH_STRUCTURE
-     *   Desc: Returns MIME structure information
-     *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: NONE
-     *   Return key: 'structure' [CACHEABLE]
-     *   Return format: (Horde_Mime_Part) A MIME part object.
-     *
-     * Key: Horde_Imap_Client::FETCH_ENVELOPE
-     *   Desc: Envelope header data
-     *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: NONE
-     *   Return key: 'envelope' [CACHEABLE]
-     *   Return format: (Horde_Imap_Client_Data_Envelope) An envelope object.
-     *
-     * Key: Horde_Imap_Client::FETCH_FLAGS
-     *   Desc: Flags set for the message
-     *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: NONE
-     *   Return key: 'flags' [CACHEABLE - if CONSTORE IMAP extension is
-     *                        supported on the server]
-     *   Return format: (array) Each flag will be in a separate array entry.
-     *     The flags will be entirely in lowercase.
-     *
-     * Key: Horde_Imap_Client::FETCH_DATE
-     *   Desc: The internal (IMAP) date of the message
-     *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: NONE
-     *   Return key: 'date' [CACHEABLE]
-     *   Return format: (DateTime object) Returns a PHP DateTime object.
-     *
-     * Key: Horde_Imap_Client::FETCH_SIZE
-     *   Desc: The size (in bytes) of the message
-     *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: NONE
-     *   Return key: 'size' [CACHEABLE]
-     *   Return format: (integer) The size of the message.
-     *
-     * Key: Horde_Imap_Client::FETCH_UID
-     *   Desc: The Unique ID of the message.
-     *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: NONE
-     *   Returned key: 'uid'
-     *   Return format: (integer) The unique ID of the message.
-     *
-     * Key: Horde_Imap_Client::FETCH_SEQ
-     *   Desc: The sequence number of the message.
-     *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: NONE
-     *   Return key: 'seq'
-     *   Return format: (integer) The sequence number of the message.
-     *
-     * Key: Horde_Imap_Client::FETCH_MODSEQ
-     *   Desc: The mod-sequence value for the message.
-     *         The server must support the CONDSTORE IMAP extension to use
-     *         this criteria. Additionally, the mailbox must support mod-
-     *         sequences or an exception will be thrown.
-     *         ONLY ONE of these entries should be defined per fetch request.
-     *   Value: NONE
-     *   Returned key: 'modseq'
-     *   Return format: (integer) The mod-sequence value of the message, or
-     *                  undefined if the server does not support CONDSTORE.
-     * </pre>
-     * @param array $options    Additional options:
-     * <pre>
-     * 'changedsince' - (integer) Only return messages that have a
-     *                  mod-sequence larger than this value. This option
-     *                  requires the CONDSTORE IMAP extension (if not present,
-     *                  this value is ignored). Additionally, the mailbox
-     *                  must support mod-sequences or an exception will be
-     *                  thrown. If valid, this option implicity adds the
-     *                  Horde_Imap_Client::FETCH_MODSEQ fetch criteria to
-     *                  the fetch command.
-     *                  DEFAULT: Mod-sequence values are ignored.
-     * 'ids' - (array) A list of messages to fetch data from.
-     *         DEFAULT: All messages in $mailbox will be fetched.
-     * 'sequence' - (boolean) If true, 'ids' is an array of sequence numbers.
-     *              DEFAULT: 'ids' is an array of UIDs.
-     * 'vanished' - (boolean) Only return messages from the UID set parameter
-     *              that have been expunged and whose associated mod-sequence
-     *              is larger than the specified mod-sequence. This option
-     *              requires the QRESYNC IMAP extension, requires
-     *              'changedsince' to be set, and requires 'sequence' to
-     *              be false.
-     *              DEFAULT: Vanished search ignored.
-     * </pre>
+     * @param string $mailbox                      The mailbox to fetch
+     *                                             messages from. Either in
+     *                                             UTF7-IMAP or UTF-8.
+     * @param Horde_Imap_Query_Fetch_Query $query  Fetch query object.
+     * @param array $options                       Additional options:
+     *   - changedsince: (integer) Only return messages that have a
+     *                   mod-sequence larger than this value. This option
+     *                   requires the CONDSTORE IMAP extension (if not present,
+     *                   this value is ignored). Additionally, the mailbox
+     *                   must support mod-sequences or an exception will be
+     *                   thrown. If valid, this option implicity adds the
+     *                   mod-sequence fetch criteria to the fetch command.
+     *                   DEFAULT: Mod-sequence values are ignored.
+     *   - ids: (array) A list of messages to fetch data from.
+     *          DEFAULT: All messages in $mailbox will be fetched.
+     *   - sequence: (boolean) If true, 'ids' is an array of sequence numbers.
+     *               DEFAULT: 'ids' is an array of UIDs.
+     *   - vanished: (boolean) Only return messages from the UID set parameter
+     *               that have been expunged and whose associated mod-sequence
+     *               is larger than the specified mod-sequence. This option
+     *               requires the QRESYNC IMAP extension, requires
+     *               'changedsince' to be set, and requires 'sequence' to
+     *               be false.
+     *               DEFAULT: Vanished search ignored.
      *
      * @return array  An array of fetch results. The array consists of
      *                keys that correspond to 'ids', and values that
@@ -2078,11 +1814,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                in criteria.
      * @throws Horde_Imap_Client_Exception
      */
-    public function fetch($mailbox, $criteria, $options = array())
+    public function fetch($mailbox, $query, $options = array())
     {
-        $cache_array = $get_fields = $header_cache = $new_criteria = $ret = array();
-        $headerpeek = false;
-        $headertext = null;
+        $query = clone $query;
+
+        $cache_array = $get_fields = $header_cache = $new_query = $ret = array();
+        $headerpeek = $headertext = false;
         $qresync = isset($this->_init['enabled']['QRESYNC']);
         $seq = !empty($options['sequence']);
 
@@ -2109,7 +1846,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* The 'changedsince' modifier implicitly adds the MODSEQ FETCH item.
          * (RFC 4551 [3.3.1]). A UID SEARCH will always return UID
-         * information (RFC 3501 [6.4.8]). Don't add to criteria because it
+         * information (RFC 3501 [6.4.8]). Don't add to query because it
          * simply creates a longer FETCH command. */
         if (!empty($cf)) {
             /* We need the UIDVALIDITY for the current mailbox. */
@@ -2117,37 +1854,36 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             /* If using cache, we store by UID so we need to return UIDs. */
             if ($seq) {
-                $criteria[Horde_Imap_Client::FETCH_UID] = true;
+                $query->uid();
             }
         }
 
-        /* Determine if caching is available and if anything in $criteria is
-         * cacheable. Do some sanity checking on criteria also. */
-        foreach ($criteria as $k => $v) {
+        if ($query->contains(Horde_Imap_Client_Fetch_Query::MODSEQ) &&
+            !isset($this->_init['enabled']['CONDSTORE'])) {
+            unset($query[$k]);
+        }
+
+        /* Determine if caching is available and if anything in $query is
+         * cacheable. */
+        foreach ($query as $k => $v) {
             $cache_field = null;
 
             switch ($k) {
-            case Horde_Imap_Client::FETCH_STRUCTURE:
+            case Horde_Imap_Client_Fetch_Query::STRUCTURE:
                 if (isset($cf[$k])) {
                     $cache_field = 'HICstruct';
                     $fetch_field = 'structure';
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_BODYPARTSIZE:
-                if (!$this->queryCapability('BINARY')) {
-                    unset($criteria[$k]);
-                }
-                break;
-
-            case Horde_Imap_Client::FETCH_ENVELOPE:
+            case Horde_Imap_Client_Fetch_Query::ENVELOPE:
                 if (isset($cf[$k])) {
                     $cache_field = 'HICenv';
                     $fetch_field = 'envelope';
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_FLAGS:
+            case Horde_Imap_Client_Fetch_Query::FLAGS:
                 if (isset($cf[$k])) {
                     /* QRESYNC would have already done syncing on mailbox
                      * open, so no need to do again. */
@@ -2159,7 +1895,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                             ($metadata['HICmodseq'] != $status_res['highestmodseq'])) {
                             $uids = $this->cache->get($this->_selected, array(), array(), $status_res['uidvalidity']);
                             if (!empty($uids)) {
-                                $this->_fetch(array(Horde_Imap_Client::FETCH_FLAGS => true), array('changedsince' => $metadata['HICmodseq'], 'ids' => $uids));
+                                $flag_query = new Horde_Imap_Client_Fetch_Query();
+                                $flag_query->flags();
+
+                                $this->_fetch($flag_query, array('changedsince' => $metadata['HICmodseq'], 'ids' => $uids));
                             }
                             $this->_updateMetaData($this->_selected, array('HICmodseq' => $status_res['highestmodseq']), $status_res['uidvalidity']);
                         }
@@ -2170,41 +1909,30 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_DATE:
+            case Horde_Imap_Client_Fetch_Query::IMAPDATE:
                 if (isset($cf[$k])) {
                     $cache_field = 'HICdate';
                     $fetch_field = 'date';
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_SIZE:
+            case Horde_Imap_Client_Fetch_Query::SIZE:
                 if (isset($cf[$k])) {
                     $cache_field = 'HICsize';
                     $fetch_field = 'size';
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_MODSEQ:
-                if (!isset($this->_init['enabled']['CONDSTORE'])) {
-                    unset($criteria[$k]);
-                }
-                break;
-
-            case Horde_Imap_Client::FETCH_HEADERTEXT:
+            case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
                 // Caching for this access only - and only base header is
                 // cached.
-                foreach ($v as $k2 => $v2) {
-                    if (!empty($v['peek'])) {
-                        $headerpeek = true;
-                        if (!isset($v2['id']) || ($v2['id'] === 0)) {
-                            $headertext = $k2;
-                            break;
-                        }
-                    }
+                if (!empty($v['peek'])) {
+                    $headerpeek = true;
+                    $headertext = isset($v[0]);
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_HEADERS:
+            case Horde_Imap_Client_Fetch_Query::HEADERS:
                 $this->_temp['headers_caching'] = array();
 
                 /* Only cache if directly requested. */
@@ -2212,15 +1940,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     $fetch_field = 'headers';
 
                     foreach ($v as $key => $val) {
-                        if (!empty($val['cache']) &&
-                            !empty($val['peek'])) {
+                        /* Iterate through headers requests to ensure at least
+                         * one can be cached. */
+                        if (!empty($val['cache']) && !empty($val['peek'])) {
                             $cache_field = 'HIChdrs';
                             ksort($val);
-                            $header_cache[] = array(
-                                'f' => hash('md5', serialize($val)),
-                                'k' => $key,
-                                'l' => $val['label']
-                            );
+                            $header_cache[$key] = hash('md5', serialize($val));
                         }
                     }
                 }
@@ -2238,7 +1963,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* If nothing is cacheable, we can do a straight search. */
         if (empty($cache_array) && $headerpeek) {
-            return $this->_fetch($criteria, $options);
+            return $this->_fetch($query, $options);
         }
 
         /* If given sequence numbers, we need to switch to UIDs for caching
@@ -2247,7 +1972,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
          * do that component of the search first to determine exactly what
          * UIDs we need to fetch. */
         if (!empty($options['changedsince'])) {
-            if (!($res = $this->_fetch(array(Horde_Imap_Client::FETCH_UID => 1), $options))) {
+            $queryuid_ob = new Horde_Imap_Client_Fetch_Query();
+            $queryuid_ob->uid();
+
+            if (!($res = $this->_fetch($queryuid_ob, $options))) {
                 return array();
             }
             $options['ids'] = array_keys($res);
@@ -2267,29 +1995,28 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         // Build a list of what we still need.
         foreach ($uids as $val) {
-            $crit = $criteria;
+            $crit = clone $query;
             $id = $seq ? $res_seq['lookup'][$val] : $val;
             $ret[$id] = array('uid' => $id);
 
             foreach ($cache_array as $key => $cval) {
                 switch ($key) {
-                case Horde_Imap_Client::FETCH_HEADERS:
+                case Horde_Imap_Client_Fetch_Query::HEADERS:
                     /* HEADERS caching. */
-                    foreach ($header_cache as $hval) {
-                        if (isset($data[$val][$cval['c']][$hval['f']])) {
-                            $ret[$id][$cval['f']][$hval['l']] = $data[$val][$cval['c']][$hval['f']];
-                            unset($crit[$key][$hval['k']]);
-                            if (empty($crit[$key])) {
-                                unset($crit[$key]);
-                            }
+                    foreach ($header_cache as $hkey => $hval) {
+                        if (isset($data[$val][$cval['c']][$hval])) {
+                            /* We have found a cached entry with the same MD5
+                             * sum. */
+                            $ret[$id][$cval['f']][$hkey] = $data[$val][$cval['c']][$hval];
+                            $crit->remove($key, $hkey);
                         } else {
-                            $this->_temp['headers_caching'][$hval['l']] = $hval['f'];
+                            $this->_temp['headers_caching'][$hkey] = $hval;
                         }
                     }
                     break;
 
-                case Horde_Imap_Client::FETCH_ENVELOPE:
-                case Horde_Imap_Client::FETCH_STRUCTURE:
+                case Horde_Imap_Client_Fetch_Query::ENVELOPE:
+                case Horde_Imap_Client_Fetch_Query::STRUCTURE:
                     /* Retrieved from cache so store in return array.
                      * Sanity checking that returned data is an object. */
                     if (isset($data[$val][$cval['c']]) &&
@@ -2310,63 +2037,53 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
 
             /* HEADERTEXT caching for this access only. */
-            if (!is_null($headertext) &&
+            if ($headertext &&
                 isset($this->_temp['headertext'][$val])) {
-                $ret[$id]['headertext'][0] = empty($crit[Horde_Imap_Client::FETCH_HEADERTEXT][$headertext]['parse'])
+                $ret[$id]['headertext'][0] = empty($crit[Horde_Imap_Client_Fetch_Query::HEADERTEXT][0]['parse'])
                     ? $this->_temp['headertext'][$val]
                     : Horde_Mime_Headers::parseHeaders($this->_temp['headertext'][$val]);
 
-                if (count($crit[Horde_Imap_Client::FETCH_HEADERTEXT]) == 1) {
-                    unset($crit[Horde_Imap_Client::FETCH_HEADERTEXT]);
-                } else {
-                    unset($crit[Horde_Imap_Client::FETCH_HEADERTEXT][$headertext]);
-                }
+                $crit->remove(Horde_Imap_Client_Fetch_Query::HEADERTEXT, 0);
             }
 
             if (!$seq) {
-                unset($crit[Horde_Imap_Client::FETCH_UID]);
+                unset($crit[Horde_Imap_Client_Fetch_Query::UID]);
             }
 
             if (!empty($crit)) {
-                $sig = hash('md5', serialize(array_values($crit)));
-                if (isset($new_criteria[$sig])) {
-                    $new_criteria[$sig]['i'][] = $id;
+                $sig = $crit->hash();
+                if (isset($new_query[$sig])) {
+                    $new_query[$sig]['i'][] = $id;
                 } else {
-                    $new_criteria[$sig] = array('c' => $crit, 'i' => array($id));
+                    $new_query[$sig] = array('c' => $crit, 'i' => array($id));
                 }
             }
         }
 
-        if (!empty($new_criteria)) {
-            $opts = $options;
-            foreach ($new_criteria as $val) {
-                $opts['ids'] = $val['i'];
-                $fetch_res = $this->_fetch($val['c'], $opts);
+        foreach ($new_query as $val) {
+            $fetch_res = $this->_fetch($val['c'], array_merge($opts, array('ids' => $val['i'])));
 
-                reset($fetch_res);
-                while (list($k, $v) = each($fetch_res)) {
-                    reset($v);
-                    while (list($k2, $v2) = each($v)) {
-                        switch ($k2) {
-                        case 'headertext':
-                            foreach ($val['c'][Horde_Imap_Client::FETCH_HEADERTEXT] as $hkey => $hval) {
-                                if (!is_null($headertext) &&
-                                    ($headertext == $hkey)) {
-                                    /* Store headertext internally as the raw
-                                     * text; can convert to parsed format later
-                                     * if needed. */
-                                    $this->_temp['headertext'][$k] = $v2[$hkey];
-                                }
+            reset($fetch_res);
+            while (list($k, $v) = each($fetch_res)) {
+                reset($v);
+                while (list($k2, $v2) = each($v)) {
+                    switch ($k2) {
+                    case 'headertext':
+                        foreach ($val['c'][Horde_Imap_Client_Fetch_Query::HEADERTEXT] as $hkey => $hval) {
+                            if ($headertext && ($hkey == 0)) {
+                                /* Store headertext internally as the raw
+                                 * text; can convert to parsed format later
+                                 * if needed. */
+                                $this->_temp['headertext'][$k] = $v2[0];
+                            }
 
-                                if (!empty($hval['parse'])) {
-                                    $id = isset($hval['id']) ? $hval['id'] : 0;
-                                    $v2[$id] = Horde_Mime_Headers::parseHeaders($v2[$id]);
-                                }
+                            if (!empty($hval['parse'])) {
+                                $v2[$hkey] = Horde_Mime_Headers::parseHeaders($v2[$hkey]);
                             }
                         }
-
-                        $ret[$k][$k2] = $v2;
                     }
+
+                    $ret[$k][$k2] = $v2;
                 }
             }
         }
@@ -2377,14 +2094,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Fetch message data.
      *
-     * @param array $criteria  The fetch criteria. Function must not handle
-     *                         'parse' param to FETCH_HEADERTEXT.
-     * @param array $options   Additional options.
+     * @param Horde_Imap_Client_Fetch_Query $query  Fetch query object. Must
+     *                                              not handle 'parse' param
+     *                                              to headertext criteria.
+     * @param array $options                        Additional options.
      *
      * @return array  See self::fetch().
      * @throws Horde_Imap_Client_Exception
      */
-    abstract protected function _fetch($criteria, $options);
+    abstract protected function _fetch($query, $options);
 
     /**
      * Store message flag data (see RFC 3501 [6.4.6]).
@@ -2975,12 +2693,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         // BODY[]
         if (!strlen($section)) {
-            $fetch = $this->fetch($mailbox, array(
-                Horde_Imap_Client::FETCH_FULLMSG => array(
-                    'peek' => true,
-                    'stream' => true
-                )
-            ), array('ids' => array($uid)));
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->fullText(array(
+                'peek' => true,
+                'stream' => true
+            ));
+
+            $fetch = $this->fetch($mailbox, $query, array('ids' => array($uid)));
             return $fetch[$uid]['fullmsg'];
         }
 
@@ -2989,17 +2708,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $hdr_pos = strpos($section, '(');
             $cmd = substr($section, 0, $hdr_pos);
 
-            $fetch = $this->fetch($mailbox, array(
-                Horde_Imap_Client::FETCH_HEADERS => array(
-                    array(
-                        'headers' => explode(' ', substr($section, $hdr_pos + 1, strrpos($section, ')') - $hdr_pos)),
-                        'id' => ($pos ? substr($section, 0, $pos - 1) : 0),
-                        'label' => 'section',
-                        'notsearch' => (stripos($cmd, '.NOT') !== false),
-                        'peek' => true
-                    )
-                )
-            ), array('ids' => array($uid)));
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->headers('section', explode(' ', substr($section, $hdr_pos + 1, strrpos($section, ')') - $hdr_pos)), array(
+                'id' => ($pos ? substr($section, 0, $pos - 1) : 0),
+                'notsearch' => (stripos($cmd, '.NOT') !== false),
+                'peek' => true
+            ));
+
+            $fetch = $this->fetch($mailbox, $query, array('ids' => array($uid)));
 
             $stream = fopen('php://temp', 'w+');
             fwrite($stream, $fetch[$uid]['headers']['section']);
@@ -3008,29 +2724,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         // BODY[#]
         if (is_numeric(substr($section, -1))) {
-            $fetch = $this->fetch($mailbox, array(
-                Horde_Imap_Client::FETCH_BODYPART => array(
-                    array(
-                        'id' => $section,
-                        'peek' => true,
-                        'stream' => true
-                    )
-                )
-            ), array('ids' => array($uid)));
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->bodyPart($id, array(
+                'peek' => true,
+                'stream' => true
+            ));
+
+            $fetch = $this->fetch($mailbox, $query, array('ids' => array($uid)));
             return $fetch[$uid]['bodypart'][$section];
         }
 
         // BODY[<#.>HEADER]
         if (($pos = stripos($section, 'HEADER')) !== false) {
-            $id = ($pos ? substr($section, 0, $pos - 1) : 0);
-            $fetch = $this->fetch($mailbox, array(
-                Horde_Imap_Client::FETCH_HEADERTEXT => array(
-                    array(
-                        'id' => $id,
-                        'peek' => true
-                    )
-                )
-            ), array('ids' => array($uid)));
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->headerText(array(
+                'id' => ($pos ? substr($section, 0, $pos - 1) : 0),
+                'peek' => true
+            ));
+
+            $fetch = $this->fetch($mailbox, $query, array('ids' => array($uid)));
 
             $stream = fopen('php://temp', 'w+');
             fwrite($stream, $fetch[$uid]['headertext'][$id]);
@@ -3039,30 +2751,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         // BODY[<#.>TEXT]
         if (($pos = stripos($section, 'TEXT')) !== false) {
-            $id = ($pos ? substr($section, 0, $pos - 1) : 0);
-            $fetch = $this->fetch($mailbox, array(
-                Horde_Imap_Client::FETCH_BODYTEXT => array(
-                    array(
-                        'id' => $id,
-                        'peek' => true,
-                        'stream' => true
-                    )
-                )
-            ), array('ids' => array($uid)));
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->bodyText(array(
+                'id' => ($pos ? substr($section, 0, $pos - 1) : 0),
+                'peek' => true,
+                'stream' => true
+            ));
+
+            $fetch = $this->fetch($mailbox, $query, array('ids' => array($uid)));
             return $fetch[$uid]['bodytext'][$id];
         }
 
         // BODY[<#.>MIMEHEADER]
         if (($pos = stripos($section, 'MIME')) !== false) {
-            $id = ($pos ? substr($section, 0, $pos - 1) : 0);
-            $fetch = $this->fetch($mailbox, array(
-                Horde_Imap_Client::FETCH_MIMEHEADER => array(
-                    array(
-                        'id' => $id,
-                        'peek' => true
-                    )
-                )
-            ), array('ids' => array($uid)));
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->bodyText($pos ? substr($section, 0, $pos - 1) : 0, array(
+                'peek' => true
+            ));
+
+            $fetch = $this->fetch($mailbox, $query, array('ids' => array($uid)));
 
             $stream = fopen('php://temp', 'w+');
             fwrite($stream, $fetch[$uid]['mimeheader'][$id]);
@@ -3223,19 +2930,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
             while (list($label, $val) = each($v)) {
                 switch ($label) {
                 case 'structure':
-                    if (isset($cf[Horde_Imap_Client::FETCH_STRUCTURE])) {
+                    if (isset($cf[Horde_Imap_Client_Fetch_Query::STRUCTURE])) {
                         $tmp['HICstruct'] = clone $val;
                     }
                     break;
 
                 case 'envelope':
-                    if (isset($cf[Horde_Imap_Client::FETCH_ENVELOPE])) {
+                    if (isset($cf[Horde_Imap_Client_Fetch_Query::ENVELOPE])) {
                         $tmp['HICenv'] = $val;
                     }
                     break;
 
                 case 'flags':
-                    if (isset($cf[Horde_Imap_Client::FETCH_FLAGS])) {
+                    if (isset($cf[Horde_Imap_Client_Fetch_Query::FLAGS])) {
                         /* A FLAGS FETCH can only occur if we are in the
                          * mailbox. So either HIGHESTMODSEQ has already been
                          * updated or the flag FETCHs will provide the new
@@ -3253,13 +2960,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     break;
 
                 case 'date':
-                    if (isset($cf[Horde_Imap_Client::FETCH_DATE])) {
+                    if (isset($cf[Horde_Imap_Client_Fetch_Query::IMAPDATE])) {
                         $tmp['HICdate'] = $val;
                     }
                     break;
 
                 case 'size':
-                    if (isset($cf[Horde_Imap_Client::FETCH_SIZE])) {
+                    if (isset($cf[Horde_Imap_Client_Fetch_Query::SIZE])) {
                         $tmp['HICsize'] = $val;
                     }
                     break;

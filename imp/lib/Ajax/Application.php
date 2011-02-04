@@ -1498,10 +1498,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         list($mbox, $uid) = $indices->getSingle();
 
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->headerText(array(
+            'parse' => true,
+            'peek' => false
+        ));
+
         try {
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, array(
-                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
-            ), array('ids' => array($uid)));
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array('ids' => array($uid)));
         } catch (Horde_Imap_Client_Exception $e) {
             $GLOBALS['notification']->push(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage(), 'horde.error');
             return false;

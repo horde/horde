@@ -44,7 +44,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         fwrite($this->_debug_log, $message . "\n");
     }
-        
+
     /**
      * Destructor.
      */
@@ -546,13 +546,10 @@ extends Horde_Kolab_Storage_Driver_Base
     function getMessageHeader($mailbox, $uid, $peek_for_body = true)
     {
         $options = array('ids' => array($uid));
-        $criteria = array(
-            Horde_Imap_Client::FETCH_HEADERTEXT => array(
-                array(
-                )
-            )
-        );
-        $result = $this->getBackend()->fetch($mailbox, $criteria, $options);
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->headerText();
+
+        $result = $this->getBackend()->fetch($mailbox, $query, $options);
         return $result[$uid]['headertext'][0];
     }
 
@@ -568,13 +565,11 @@ extends Horde_Kolab_Storage_Driver_Base
     function getMessageBody($mailbox, $uid)
     {
         $options = array('ids' => array($uid));
-        $criteria = array(
-            Horde_Imap_Client::FETCH_BODYTEXT => array(
-                array(
-                )
-            )
-        );
-        $result = $this->getBackend()->fetch($mailbox, $criteria, $options);
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->bodyText();
+
+        $result = $this->getBackend()->fetch($mailbox, $query, $options);
         return $result[$uid]['bodytext'][0];
     }
+
 }

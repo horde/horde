@@ -236,8 +236,11 @@ class IMP_Views_ListMessages
                         $parsed = $imp_imap->parseCacheId($args['cacheid']);
                     }
                     if (!empty($parsed['highestmodseq'])) {
+                        $query = new Horde_Imap_Client_Fetch_Query();
+                        $query->uid();
+
                         try {
-                            $res = $imp_imap->fetch($mbox, array(Horde_Imap_Client::FETCH_UID => 1), array('changedsince' => $parsed['highestmodseq']));
+                            $res = $imp_imap->fetch($mbox, $query, array('changedsince' => $parsed['highestmodseq']));
                             if (!empty($res)) {
                                 $changed = array_flip(array_keys($res));
                             }

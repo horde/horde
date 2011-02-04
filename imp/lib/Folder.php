@@ -343,15 +343,20 @@ class IMP_Folder
             } catch (Horde_Imap_Client_Exception $e) {
                 continue;
             }
+
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
+            $query->imapDate();
+            $query->fullText(array(
+                'peek' => true,
+                'stream' => true
+            ));
+
             for ($i = 1; $i <= $status['messages']; ++$i) {
                 /* Download one message at a time to save on memory
                  * overhead. */
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($folder, array(
-                        Horde_Imap_Client::FETCH_FULLMSG => array('peek' => true, 'stream' => true),
-                        Horde_Imap_Client::FETCH_ENVELOPE => true,
-                        Horde_Imap_Client::FETCH_DATE => true,
-                    ), array('ids' => array($i), 'sequence' => true));
+                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($folder, $query, array('ids' => array($i), 'sequence' => true));
                     $ptr = reset($res);
                 } catch (Horde_Imap_Client_Exception $e) {
                     continue;

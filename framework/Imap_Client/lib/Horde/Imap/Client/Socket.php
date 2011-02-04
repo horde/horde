@@ -1950,34 +1950,35 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         /* Generate the FETCH command needed. */
-        $criteria = array();
+        $query = new Horde_Imap_Client_Fetch_Query();
+
         foreach ($opts['sort'] as $val) {
             switch ($val) {
             case Horde_Imap_Client::SORT_ARRIVAL:
-                $criteria[Horde_Imap_Client::FETCH_DATE] = true;
+                $query->imapDate();
                 break;
 
             case Horde_Imap_Client::SORT_DATE:
-                $criteria[Horde_Imap_Client::FETCH_DATE] = true;
-                $criteria[Horde_Imap_Client::FETCH_ENVELOPE] = true;
+                $query->imapDate();
+                $query->envelope();
                 break;
 
             case Horde_Imap_Client::SORT_CC:
             case Horde_Imap_Client::SORT_FROM:
             case Horde_Imap_Client::SORT_SUBJECT:
             case Horde_Imap_Client::SORT_TO:
-                $criteria[Horde_Imap_Client::FETCH_ENVELOPE] = true;
+                $query->envelope();
                 break;
 
             case Horde_Imap_Client::SORT_SIZE:
-                $criteria[Horde_Imap_Client::FETCH_SIZE] = true;
+                $query->size();
                 break;
             }
         }
 
         /* Get the FETCH results now. */
-        if (!empty($criteria)) {
-            $fetch_res = $this->fetch($this->_selected, $criteria, array('ids' => $res, 'sequence' => $opts['sequence']));
+        if (count($query)) {
+            $fetch_res = $this->fetch($this->_selected, $query, array('ids' => $res, 'sequence' => $opts['sequence']));
         }
 
         /* The initial sort is on the entire set. */
@@ -2211,7 +2212,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
 
                 /* Do client-side ORDEREDSUBJECT threading. */
-                $fetch_res = $this->fetch($this->_selected, array(Horde_Imap_Client::FETCH_ENVELOPE => true, Horde_Imap_Client::FETCH_DATE => true), array('ids' => $ids, 'sequence' => !empty($options['sequence'])));
+                $query = new Horde_Imap_Client_Fetch_Query();
+                $query->envelope();
+                $query->imapDate();
+
+                $fetch_res = $this->fetch($this->_selected, $query, array('ids' => $ids, 'sequence' => !empty($options['sequence'])));
                 return $this->_clientThreadOrderedsubject($fetch_res);
 
             case 'REFERENCES':
@@ -2340,13 +2345,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @todo Provide a function that would allow streaming of large data
      *       items like bodytext.
      *
-     * @param array $criteria  The fetch criteria.
-     * @param array $options   Additional options.
+     * @param Horde_Imap_Client_Fetch_Query $query  The fetch query object.
+     * @param array $options                        Additional options.
      *
      * @return array  See self::fetch().
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _fetch($criteria, $options)
+    protected function _fetch($query, $options)
     {
         $t = &$this->_temp;
         $t['fetchparams'] = array();
@@ -2381,18 +2386,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          *   RFC822.HEADER => BODY[HEADER]
          *   RFC822.TEXT => BODY[TEXT]
          */
-        reset($criteria);
-        while (list($type, $c_val) = each($criteria)) {
-            if (!is_array($c_val)) {
-                $c_val = array();
-            }
 
+        foreach ($query as $type => $c_val) {
             switch ($type) {
-            case Horde_Imap_Client::FETCH_STRUCTURE:
+            case Horde_Imap_Client_Fetch_Query::STRUCTURE:
                 $fetch[] = 'BODYSTRUCTURE';
                 break;
 
-            case Horde_Imap_Client::FETCH_FULLMSG:
+            case Horde_Imap_Client_Fetch_Query::FULLMSG:
                 if (!empty($c_val['stream'])) {
                     $this->_temp['literalstream'][] = 'BODY[]';
                 }
@@ -2403,46 +2404,39 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $fetch[] = 'BODY' .
                     (!empty($c_val['peek']) ? '.PEEK' : '') .
                     '[]' .
-                    (isset($c_val['start']) && !empty($c_val['length']) ? ('<' . $c_val['start'] . '.' . $c_val['length'] . '>') : '');
+                    $this->_partialAtom($c_val);
                 break;
 
-            case Horde_Imap_Client::FETCH_HEADERTEXT:
-            case Horde_Imap_Client::FETCH_BODYTEXT:
-            case Horde_Imap_Client::FETCH_MIMEHEADER:
-            case Horde_Imap_Client::FETCH_BODYPART:
-            case Horde_Imap_Client::FETCH_HEADERS:
-                foreach ($c_val as $val) {
-                    $base_id = $cmd = empty($val['id'])
+            case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
+            case Horde_Imap_Client_Fetch_Query::BODYTEXT:
+            case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
+            case Horde_Imap_Client_Fetch_Query::BODYPART:
+            case Horde_Imap_Client_Fetch_Query::HEADERS:
+                foreach ($c_val as $key => $val) {
+                    $base_id = $cmd = ($key == 0)
                         ? ''
-                        : $val['id'] . '.';
+                        : $key . '.';
                     $main_cmd = 'BODY';
 
                     switch ($type) {
-                    case Horde_Imap_Client::FETCH_HEADERTEXT:
+                    case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
                         $cmd .= 'HEADER';
                         break;
 
-                    case Horde_Imap_Client::FETCH_BODYTEXT:
+                    case Horde_Imap_Client_Fetch_Query::BODYTEXT:
                         if (!empty($val['stream'])) {
                             $this->_temp['literalstream'][] = $main_cmd . '[' . $base_id . 'TEXT]';
                         }
                         $cmd .= 'TEXT';
                         break;
 
-                    case Horde_Imap_Client::FETCH_MIMEHEADER:
-                        if (empty($val['id'])) {
-                            $this->_exception('Need a non-zero MIME ID when retrieving a MIME header.');
-                        }
+                    case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
                         $cmd .= 'MIME';
                         break;
 
-                    case Horde_Imap_Client::FETCH_BODYPART:
-                        if (empty($val['id'])) {
-                            $this->_exception('Need a non-zero MIME ID when retrieving a MIME body part.');
-                        }
-
+                    case Horde_Imap_Client_Fetch_Query::BODYPART:
                         if (!empty($val['stream'])) {
-                            $this->_temp['literalstream'][] = $main_cmd . '[' . $val['id'] . ']';
+                            $this->_temp['literalstream'][] = $main_cmd . '[' . $key . ']';
                         }
 
                         // Remove the last dot from the string.
@@ -2454,12 +2448,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         }
                         break;
 
-                    case Horde_Imap_Client::FETCH_HEADERS:
-                        if (empty($val['label'])) {
-                            $this->_exception('Need a unique label when doing a headers field search.');
-                        } elseif (empty($val['headers'])) {
-                            $this->_exception('Need headers to query when doing a headers field search.');
-                        }
+                    case Horde_Imap_Client_Fetch_Query::HEADERS:
                         $fp['parseheaders'] = !empty($val['parse']);
 
                         $cmd .= 'HEADER.FIELDS';
@@ -2473,7 +2462,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         if (!isset($fp['hdrfields'])) {
                             $fp['hdrfields'] = array();
                         }
-                        $fp['hdrfields'][$cmd] = $val['label'];
+                        $fp['hdrfields'][$cmd] = $key;
                     }
 
                     if (empty($val['peek'])) {
@@ -2483,48 +2472,47 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $fetch[] = $main_cmd .
                         (!empty($val['peek']) ? '.PEEK' : '') .
                         '[' . $cmd . ']' .
-                        (isset($val['start']) && !empty($val['length']) ? ('<' . $val['start'] . '.' . $val['length'] . '>') : '');
+                        $this->_partialAtom($val);
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_BODYPARTSIZE:
-                foreach ($c_val as $val) {
-                    if (empty($val['id'])) {
-                        $this->_exception('Need a non-zero MIME ID when retrieving unencoded MIME body part size.');
+            case Horde_Imap_Client_Fetch_Query::BODYPARTSIZE:
+                if ($this->queryCapability('BINARY')) {
+                    foreach ($c_val as $val) {
+                        $fetch[] = 'BINARY.SIZE[' . $key . ']';
                     }
-                    $fetch[] = 'BINARY.SIZE[' . $val['id'] . ']';
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_ENVELOPE:
+            case Horde_Imap_Client_Fetch_Query::ENVELOPE:
                 $fetch[] = 'ENVELOPE';
                 break;
 
-            case Horde_Imap_Client::FETCH_FLAGS:
+            case Horde_Imap_Client_Fetch_Query::FLAGS:
                 $fetch[] = 'FLAGS';
                 break;
 
-            case Horde_Imap_Client::FETCH_DATE:
+            case Horde_Imap_Client_Fetch_Query::IMAPDATE:
                 $fetch[] = 'INTERNALDATE';
                 break;
 
-            case Horde_Imap_Client::FETCH_SIZE:
+            case Horde_Imap_Client_Fetch_Query::SIZE:
                 $fetch[] = 'RFC822.SIZE';
                 break;
 
-            case Horde_Imap_Client::FETCH_UID:
+            case Horde_Imap_Client_Fetch_Query::UID:
                 $fetch[] = 'UID';
                 break;
 
-            case Horde_Imap_Client::FETCH_SEQ:
-                // Nothing we need to add to fetch criteria unless sequence
+            case Horde_Imap_Client_Fetch_Query::SEQ:
+                // Nothing we need to add to fetch request unless sequence
                 // is the only criteria.
-                if (count($criteria) == 1) {
+                if (count($query) == 1) {
                     $fetch[] = 'UID';
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_MODSEQ:
+            case Horde_Imap_Client_Fetch_Query::MODSEQ:
                 /* RFC 4551 [3.1] - trying to do a FETCH of MODSEQ on a
                  * mailbox that doesn't support it will return BAD. Catch that
                  * here and throw an exception. */
@@ -2565,6 +2553,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t['literalstream'] = array();
 
         return $t['fetchresp'][$use_seq ? 'seq' : 'uid'];
+    }
+
+    /**
+     * Add a partial atom to an IMAP command based on the criteria options.
+     *
+     * @param array $opts  Criteria options.
+     *
+     * @return string  The partial atom.
+     */
+    protected function _partialAtom($opts)
+    {
+        if (!empty($opts['length'])) {
+            return '<' . (empty($opts['start']) ? 0 : intval($opts['start'])) . '.' . intval($opts['length']) . '>';
+        }
+
+        return empty($opts['start'])
+            ? ''
+            : ('<' . intval($opts['start']) . '>');
     }
 
     /**

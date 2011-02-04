@@ -135,12 +135,11 @@ class IMP_Mailbox_List implements Countable, Serializable
             }
         }
 
-        $fetch_criteria = array(
-            Horde_Imap_Client::FETCH_ENVELOPE => true,
-            Horde_Imap_Client::FETCH_FLAGS => true,
-            Horde_Imap_Client::FETCH_SIZE => true,
-            Horde_Imap_Client::FETCH_UID => true,
-        );
+        $fetch_query = new Horde_Imap_Client_Fetch_Query();
+        $fetch_query->envelope();
+        $fetch_query->flags();
+        $fetch_query->size();
+        $fetch_query->uid();
 
         if (!empty($options['headers'])) {
             $headers = array_merge($headers, array(
@@ -155,10 +154,8 @@ class IMP_Mailbox_List implements Countable, Serializable
         }
 
         if (!empty($headers)) {
-            $fetch_criteria[Horde_Imap_Client::FETCH_HEADERS] = array(array(
+            $fetch_query->headers('imp', $headers, array(
                 'cache' => true,
-                'headers' => $headers,
-                'label' => 'imp',
                 'parse' => true,
                 'peek' => true
             ));
@@ -176,7 +173,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         /* Retrieve information from each mailbox. */
         foreach ($to_process as $mbox => $ids) {
             try {
-                $fetch_res = $imp_imap->fetch($mbox, $fetch_criteria, array('ids' => array_keys($ids)));
+                $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array('ids' => array_keys($ids)));
 
                 if ($options['preview']) {
                     $preview_info = $tostore = array();

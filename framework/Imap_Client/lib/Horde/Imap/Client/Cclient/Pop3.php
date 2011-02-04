@@ -330,25 +330,20 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     /**
      * Fetch message data.
      *
-     * @param array $criteria  The fetch criteria.
-     * @param array $options   Additional options.
+     * @param Horde_Imap_Client_Fetch_Query $query  The fetch criteria.
+     * @param array $options                        Additional options.
      *
      * @return array  See self::fetch().
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _fetch($criteria, $options)
+    protected function _fetch($query, $options)
     {
-        // No support for FETCH_MIMEHEADER or FETCH_HEADERS
-        $nosupport = array(Horde_Imap_Client::FETCH_MIMEHEADER, Horde_Imap_Client::FETCH_HEADERS);
-
-        reset($criteria);
-        while (list($val,) = each($criteria)) {
-            if (in_array($val, $nosupport)) {
-                $this->_exception('Fetch criteria provided not supported on POP3 servers.', 'POP3_NOTSUPPORTED');
-            }
+        if ($query->contains(Horde_Imap_Client_Fetch_Query::MIMEHEADER) ||
+            $query->contains(Horde_Imap_Client_Fetch_Query::HEADERS)) {
+            $this->_exception('Fetch criteria provided not supported on POP3 servers.', 'POP3_NOTSUPPORTED');
         }
 
-        return parent::_fetch($criteria, $options);
+        return parent::_fetch($query, $options);
     }
 
     /**

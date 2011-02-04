@@ -54,12 +54,11 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
     public function fetchEnvelope($indices)
     {
         if ($GLOBALS['registry']->hasMethod('mail/imapOb')) {
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
+
             try {
-                return $GLOBALS['registry']->call('mail/imapOb')->fetch($this->_params['mailbox'], array(
-                    Horde_Imap_Client::FETCH_ENVELOPE => true
-                ), array(
-                    'ids' => $indices
-                ));
+                return $GLOBALS['registry']->call('mail/imapOb')->fetch($this->_params['mailbox'], $query, array('ids' => $indices));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

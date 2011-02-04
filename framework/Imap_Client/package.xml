@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-01</date>
- <time>16:18:41</time>
+ <date>2011-02-03</date>
+ <time>17:28:38</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -64,6 +64,9 @@
         <file name="Envelope.php" role="php" />
         <file name="Thread.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Data -->
+       <dir name="Fetch">
+        <file name="Query.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Fetch -->
        <dir name="Search">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
@@ -152,7 +155,9 @@
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
    <install as="Horde/Imap/Client/Data/Envelope.php" name="lib/Horde/Imap/Client/Data/Envelope.php" />
+   <install as="Horde/Imap/Client/Data/Fetch.php" name="lib/Horde/Imap/Client/Data/Fetch.php" />
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
+   <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/test_client.php" name="test/Horde/Imap/test_client.php" />
@@ -170,7 +175,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-02-01</date>
+   <date>2011-02-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Horde_Imap_Client_Data_Envelope data object.

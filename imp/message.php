@@ -223,13 +223,17 @@ try {
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
-    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, array(
-        Horde_Imap_Client::FETCH_FLAGS => true,
-    ), array('ids' => array($uid)));
-    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, array(
-        Horde_Imap_Client::FETCH_ENVELOPE => true,
-        Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $peek))
-    ), array('ids' => array($uid)));
+    $query = new Horde_Imap_Client_Fetch_Query();
+    $query->flags();
+    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, $query, array('ids' => array($uid)));
+
+    $query = new Horde_Imap_Client_Fetch_Query();
+    $query->envelope();
+    $query->headerText(array(
+        'parse' => true,
+        'peek' => $peek
+    ));
+    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, $query, array('ids' => array($uid)));
 } catch (Horde_Imap_Client_Exception $e) {
     $fetch_ret = null;
 }

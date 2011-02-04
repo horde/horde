@@ -580,15 +580,14 @@ try {
     print "Thread search: FAILED\n";
 }
 
-$simple_fetch = array(
-    Horde_Imap_Client::FETCH_STRUCTURE => true,
-    Horde_Imap_Client::FETCH_ENVELOPE => true,
-    Horde_Imap_Client::FETCH_DATE => true,
-    Horde_Imap_Client::FETCH_SIZE => true
-);
+$simple_fetch = new Horde_Imap_Client_Fetch_Query();
+$simple_fetch->structure();
+$simple_fetch->envelope();
+$simple_fetch->imapDate();
+$simple_fetch->size();
 
 if (!$pop3) {
-    $simple_fetch[Horde_Imap_Client::FETCH_FLAGS] = true;
+    $simple_fetch->flags();
 }
 
 print "\nSimple fetch example:\n";
@@ -613,116 +612,78 @@ if ($horde_cache) {
 
 print "\nFetching message information from complex MIME message:\n";
 try {
-    $fetch_res = $imap_client->fetch($test_mbox, array(
-        Horde_Imap_Client::FETCH_FULLMSG => array(
-            'length' => 100,
-            'peek' => true,
-            'start' => 0
-        ),
+    $complex_fetch = new Horde_Imap_Client_Fetch_Query();
+    $complex_fetch->fullText(array(
+        'length' => 100,
+        'peek' => true
+    ));
+    // Header of entire message
+    $complex_fetch->headerText(array(
+        'length' => 100,
+        'peek' => true
+    ));
+    // Header of message/rfc822 part
+    $complex_fetch->headerText(array(
+        'id' => 2,
+        'length' => 100,
+        'peek' => true
+    ));
+    // Body text of entire message
+    $complex_fetch->bodyText(array(
+        'length' => 100,
+        'peek' => true
+    ));
+    // Body text of message/rfc822 part
+    $complex_fetch->bodyText(array(
+        'id' => 2,
+        'length' => 100,
+        'peek' => true
+    ));
+    // MIME Header of multipart/alternative part
+    $complex_fetch->mimeHeader('1', array(
+        'length' => 100,
+        'peek' => true
+    ));
+    // MIME Header of text/plain part embedded in message/rfc822 part
+    $complex_fetch->mimeHeader('2.1', array(
+        'length' => 100,
+        'peek' => true
+    ));
+    // Body text of multipart/alternative part
+    $complex_fetch->bodyPart('1', array(
+        'length' => 100,
+        'peek' => true
+    ));
+    // Body text of image/png part embedded in message/rfc822 part
+    // Try to do server-side decoding, if available
+    $complex_fetch->mimeHeader('2.2', array(
+        'decode' => true,
+        'length' => 100,
+        'peek' => true
+    ));
+    // If supported, return decoded body part size
+    $complex_fetch->bodyPartSize('2.2');
+    // Select message-id header from base message header
+    $complex_fetch->headers('headersearch1', array('message-id'), array(
+        'length' => 100,
+        'peek' => true
+    ));
+    // Select everything but message-id header from message/rfc822 header
+    $complex_fetch->headers('headersearch2', array('message-id'), array(
+        'id' => '2',
+        'length' => 100,
+        'notsearch' => true,
+        'peek' => true
+    ));
+    $complex_fetch->structure();
+    $complex_fetch->envelope();
+    $complex_fetch->flags();
+    $complex_fetch->imapDate();
+    $complex_fetch->size();
+    $complex_fetch->uid();
+    $complex_fetch->modseq();
 
-        Horde_Imap_Client::FETCH_HEADERTEXT => array(
-            // Header of entire message
-            array(
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            ),
-            // Header of message/rfc822 part
-            array(
-                'id' => 2,
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            )
-        ),
-
-        Horde_Imap_Client::FETCH_BODYTEXT => array(
-            // Body text of entire message
-            array(
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            ),
-            // Body text of message/rfc822 part
-            array(
-                'id' => 2,
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            )
-        ),
-
-        Horde_Imap_Client::FETCH_MIMEHEADER => array(
-            // MIME Header of multipart/alternative part
-            array(
-                'id' => 1,
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            ),
-            // MIME Header of text/plain part embedded in message/rfc822 part
-            array(
-                'id' => '2.1',
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            )
-        ),
-
-        Horde_Imap_Client::FETCH_BODYPART => array(
-            // Body text of multipart/alternative part
-            array(
-                'id' => 1,
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            ),
-            // Body text of image/png part embedded in message/rfc822 part
-            // Try to do server-side decoding, if available
-            array(
-                'decode' => true,
-                'id' => '2.2',
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            )
-        ),
-
-        // If supported, return decoded body part size
-        Horde_Imap_Client::FETCH_BODYPARTSIZE => array(
-            array('id' => '2.2')
-        ),
-
-        Horde_Imap_Client::FETCH_HEADERS => array(
-            // Select message-id header from base message header
-            array(
-                'headers' => array('message-id'),
-                'label' => 'headersearch1',
-                'length' => 100,
-                'peek' => true,
-                'start' => 0
-            ),
-            // Select everything but message-id header from message/rfc822
-            // header
-            array(
-                'id' => 2,
-                'headers' => array('message-id'),
-                'label' => 'headersearch2',
-                'length' => 100,
-                'notsearch' => true,
-                'peek' => true,
-                'start' => 0
-            )
-        ),
-
-        Horde_Imap_Client::FETCH_STRUCTURE => true,
-        Horde_Imap_Client::FETCH_ENVELOPE => true,
-        Horde_Imap_Client::FETCH_FLAGS => true,
-        Horde_Imap_Client::FETCH_DATE => true,
-        Horde_Imap_Client::FETCH_SIZE => true,
-        Horde_Imap_Client::FETCH_UID => true,
-        Horde_Imap_Client::FETCH_MODSEQ => true
-    ), array('ids' => array($uid3)));
+    $fetch_res = $imap_client->fetch($test_mbox, $complex_fetch, array('ids' => array($uid3)));
     print_r($fetch_res);
     print "Fetch: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
@@ -731,13 +692,14 @@ try {
 
     // If POP3, try easier fetch criteria
     if ($pop3) {
+        $pop3_fetch = new Horde_Imap_Client_Fetch_Query();
+        $pop3_fetch->fullText(array(
+            'length' => 100,
+            'peek' => true
+        ));
+
         try {
-            print_r($imap_client->fetch('INBOX', array(
-                Horde_Imap_Client::FETCH_FULLMSG => array(
-                    'length' => 100,
-                    'peek' => true,
-                    'start' => 0)
-                ), array('ids' => array(1))));
+            print_r($imap_client->fetch('INBOX', $pop3_fetch, array('ids' => array(1))));
             print "Fetch: OK\n";
         } catch (Horde_Imap_Client_Exception $e) {
             print 'ERROR: ' . $e->getMessage() . "\n";
@@ -747,16 +709,15 @@ try {
 }
 
 print "\nFetching parsed header information (requires Horde MIME library):\n";
+
+$hdr_fetch = new Horde_Imap_Client_Fetch_Query();
+$hdr_fetch->headers('headersearch1', array('message-id'), array(
+    'parse' => true,
+    'peek' => true
+));
+
 try {
-    print_r($imap_client->fetch($test_mbox, array(
-        Horde_Imap_Client::FETCH_HEADERS => array(
-            array(
-                'headers' => array('message-id'),
-                'label' => 'headersearch1',
-                'parse' => true,
-                'peek' => true)
-            )
-        ), array('ids' => array($uid3))));
+    print_r($imap_client->fetch($test_mbox, $hdr_fetch, array('ids' => array($uid3))));
     print "Fetch: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
     print 'ERROR: ' . $e->getMessage() . "\n";

@@ -708,13 +708,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     /**
      * Fetch message data.
      *
-     * @param array $criteria  The fetch criteria.
-     * @param array $options   Additional options.
+     * @param Horde_Imap_Client_Fetch_Query $query  The fetch object.
+     * @param array $options                        Additional options.
      *
      * @return array  See self::fetch().
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _fetch($criteria, $options)
+    protected function _fetch($query, $options)
     {
         // Already guaranteed to be logged in here
 
@@ -734,18 +734,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         $ret = array_combine($seq_ids, array_fill(0, count($seq_ids), array()));
 
-        foreach ($criteria as $type => $c_val) {
-            if (!is_array($c_val)) {
-                $c_val = array();
-            }
-
+        foreach ($query as $type => $c_val) {
             switch ($type) {
-            case Horde_Imap_Client::FETCH_FULLMSG:
+            case Horde_Imap_Client_Fetch_Query::FULLMSG:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('msg', $id);
-                    if (isset($c_val['start']) && !empty($c_val['length'])) {
+                    if (!empty($c_val['start']) || !empty($c_val['length'])) {
                         $tmp2 = fopen('php://temp', 'r+');
-                        stream_copy_to_stream($tmp, $tmp2, $c_val['length'], $c_val['start']);
+                        stream_copy_to_stream($tmp, $tmp2, empty($c_val['length']) ? -1 : $c_val['length'], empty($c_val['start']) ? 0 : $c_val['start']);
                         if (empty($c_val['stream'])) {
                             rewind($tmp2);
                             $ret[$id]['fullmsg'] = stream_get_contents($tmp2);
@@ -761,48 +757,32 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_HEADERTEXT:
-            case Horde_Imap_Client::FETCH_BODYTEXT:
-            case Horde_Imap_Client::FETCH_MIMEHEADER:
-            case Horde_Imap_Client::FETCH_BODYPART:
-                foreach ($c_val as $val) {
+            case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
+            case Horde_Imap_Client_Fetch_Query::BODYTEXT:
+            case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
+            case Horde_Imap_Client_Fetch_Query::BODYPART:
+                foreach ($c_val as $key => $val) {
                     switch ($type) {
-                    case Horde_Imap_Client::FETCH_HEADERTEXT:
+                    case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
                         // Ignore 'peek' option
                         $label = 'headertext';
                         $rawtype = 'header';
-
-                        if (empty($val['id'])) {
-                            $val['id'] = 0;
-                        }
                         break;
 
-                    case Horde_Imap_Client::FETCH_BODYTEXT:
+                    case Horde_Imap_Client_Fetch_Query::BODYTEXT:
                         $label = 'bodytext';
                         $rawtype = 'body';
-
-                        if (empty($val['id'])) {
-                            $val['id'] = 0;
-                        }
                         break;
 
-                    case Horde_Imap_Client::FETCH_MIMEHEADER:
+                    case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
                         $label = 'mimeheader';
                         $rawtype = 'header';
-
-                        if (empty($val['id'])) {
-                            $this->_exception('Need a non-zero MIME ID when retrieving a MIME header.');
-                        }
                         break;
 
-                    case Horde_Imap_Client::FETCH_BODYPART:
+                    case Horde_Imap_Client_Fetch_Query::BODYPART:
                         // Ignore 'decode' parameter
                         $label = 'bodypart';
                         $rawtype = 'body';
-
-                        if (empty($val['id'])) {
-                            $this->_exception('Need a non-zero MIME ID when retrieving a MIME body part.');
-                        }
                         break;
                     }
 
@@ -814,16 +794,17 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                         try {
                             /* Special case: Message header can be retrieved
                              * via TOP, if the command is available. */
-                            if (($val['id'] == 0) &&
-                                ($type == Horde_Imap_Client::FETCH_HEADERTEXT)) {
+                            if (($key == 0) &&
+                                ($type == Horde_Imap_Client_Fetch_Query::HEADERTEXT)) {
                                 $tmp = $this->_pop3Cache('hdr', $id);
                             } else {
-                                $tmp = Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), $rawtype, $val['id']);
+                                $tmp = Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), $rawtype, $key);
                             }
 
-                            if (isset($val['start']) &&
-                                !empty($val['length'])) {
-                                $tmp = substr($tmp, $val['start'], $val['length']);
+                            if (!empty($val['length'])) {
+                                $tmp = substr($tmp, empty($val['start']) ? 0 : $val['start'], $val['length']);
+                            } elseif (!empty($val['start'])) {
+                                $tmp = substr($tmp, $val['start']);
                             }
 
                             if (($rawtype == 'body') &&
@@ -836,23 +817,17 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                             $tmp = false;
                         }
 
-                        $ret[$id][$label][$val['id']] = $tmp;
+                        $ret[$id][$label][$key] = $tmp;
                     }
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_HEADERS:
+            case Horde_Imap_Client_Fetch_Query::HEADERS:
                 // Ignore 'length', 'peek'
                 foreach ($seq_ids as $id) {
                     $ob = $this->_pop3Cache('hdrob', $id);
-                    foreach ($c_val as $val) {
+                    foreach ($c_val as $key => $val) {
                         $tmp = $ob;
-
-                        if (empty($val['label'])) {
-                            $this->_exception('Need a unique label when doing a headers field search.');
-                        } elseif (empty($val['headers'])) {
-                            $this->_exception('Need headers to query when doing a headers field search.');
-                        }
 
                         if (empty($val['notsearch'])) {
                             $tmp2 = $tmp->toArray(array('nowrap' => true));
@@ -867,14 +842,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                             }
                         }
 
-                        $ret[$id]['headers'][$val['label']] = empty($val['parse'])
+                        $ret[$id]['headers'][$key] = empty($val['parse'])
                             ? $tmp->toString(array('nowrap' => true))
                             : $tmp;
                     }
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_STRUCTURE:
+            case Horde_Imap_Client_Fetch_Query::STRUCTURE:
                 foreach ($seq_ids as $id) {
                     $tmp = false;
                     if ($ptr = $this->_pop3Cache('msg', $id)) {
@@ -886,7 +861,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_ENVELOPE:
+            case Horde_Imap_Client_Fetch_Query::ENVELOPE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
                     $ret[$id]['envelope'] = new Horde_Imap_Client_Data_Envelope(array(
@@ -904,33 +879,33 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_FLAGS:
+            case Horde_Imap_Client_Fetch_Query::FLAGS:
                 foreach ($seq_ids as $id) {
                     $ret[$id]['flags'] = array();
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_DATE:
+            case Horde_Imap_Client_Fetch_Query::IMAPDATE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
                     $ret[$id]['date'] = new Horde_Imap_Client_DateTime($tmp->getValue('date'));
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_SIZE:
+            case Horde_Imap_Client_Fetch_Query::SIZE:
                 $sizelist = $this->_pop3Cache('size');
                 foreach ($seq_ids as $id) {
                     $ret[$id]['size'] = $sizelist[$id];
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_SEQ:
+            case Horde_Imap_Client_Fetch_Query::SEQ:
                 foreach ($seq_ids as $id) {
                     $ret[$id]['seq'] = $id;
                 }
                 break;
 
-            case Horde_Imap_Client::FETCH_UID:
+            case Horde_Imap_Client_Fetch_Query::UID:
                 $uidllist = $this->_pop3Cache('uidl');
                 foreach ($seq_ids as $id) {
                     $ret[$id]['uid'] = isset($uidllist[$id])

@@ -246,8 +246,11 @@ class IMP_Message
                  * maillogging. */
                 $fetch = null;
                 if ($maillog_update) {
+                    $query = new Horde_Imap_Client_Fetch_Query();
+                    $query->envelope();
+
                     try {
-                        $fetch = $imp_imap->fetch($mbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $msgIndices));
+                        $fetch = $imp_imap->fetch($mbox, $query, array('ids' => $msgIndices));
                     } catch (Horde_Imap_Client_Exception $e) {}
                 }
 
@@ -548,11 +551,12 @@ class IMP_Message
         );
 
         /* Get the headers for the message. */
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->imapDate();
+        $query->flags();
+
         try {
-            $res = $imp_imap->fetch($mbox, array(
-                Horde_Imap_Client::FETCH_DATE => true,
-                Horde_Imap_Client::FETCH_FLAGS => true
-            ), array('ids' => array($uid)));
+            $res = $imp_imap->fetch($mbox, $query, array('ids' => array($uid)));
             $res = reset($res);
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
@@ -813,8 +817,11 @@ class IMP_Message
      */
     public function sizeMailbox($mbox, $formatted = true)
     {
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->size();
+
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, array(Horde_Imap_Client::FETCH_SIZE => true), array('sequence' => true));
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array('sequence' => true));
 
             $size = 0;
             reset($res);

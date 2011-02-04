@@ -85,10 +85,11 @@ if ($mode == 'thread') {
 $charset = 'UTF-8';
 $imp_ui = new IMP_Ui_Message();
 
+$query = new Horde_Imap_Client_Fetch_Query();
+$query->envelope();
+
 foreach ($imp_indices->indices() as $mbox => $idxlist) {
-    $fetch_res = $imp_imap->fetch($mbox, array(
-        Horde_Imap_Client::FETCH_ENVELOPE => true
-    ), array('ids' => $idxlist));
+    $fetch_res = $imp_imap->fetch($mbox, $query, array('ids' => $idxlist));
 
     foreach ($idxlist as $idx) {
         $envelope = $fetch_res[$idx]['envelope'];

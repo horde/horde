@@ -94,9 +94,11 @@ class IMP_Ui_Message
             if (in_array('\\*', $status['permflags']) ||
                 in_array('$mdnsent', $status['permflags'])) {
                 $mdn_flag = true;
-                $res = $imp_imap->fetch($mailbox, array(
-                        Horde_Imap_Client::FETCH_FLAGS => true
-                    ), array('ids' => array($uid)));
+
+                $query = new Horde_Imap_Client_Fetch_Query();
+                $query->flags();
+
+                $res = $imp_imap->fetch($mailbox, $query, array('ids' => array($uid)));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]['flags']);
             }
         } catch (Horde_Imap_Client_Exception $e) {}
