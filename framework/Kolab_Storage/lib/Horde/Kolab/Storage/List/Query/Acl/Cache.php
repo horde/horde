@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles a list of folder acls.
+ * Handles a cached list of folder acls.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Handles a list of folder acls.
+ * Handles a cached list of folder acls.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -25,22 +25,38 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_List_Query_Acl_Base
-implements Horde_Kolab_Storage_List_Query_Acl
+class Horde_Kolab_Storage_List_Query_Acl_Cache
+extends Horde_Kolab_Storage_List_Query_Acl_Base
 {
-    /**
-     * The queriable list.
-     *
-     * @var Horde_Kolab_Storage_List
-     */
-    private $_list;
+    /** The acl support */
+    const CAPABILITY = 'ACL';
+
+    /** The ACL query data */
+    const ACL = 'ACL';
+
+    /** The ACL query data */
+    const MYRIGHTS = 'MYRIGHTS';
 
     /**
-     * The driver for accessing the Kolab storage system.
+     * The list cache.
      *
-     * @var Horde_Kolab_Storage_Driver
+     * @var Horde_Kolab_Storage_Cache_List
      */
-    private $_driver;
+    private $_list_cache;
+
+    /**
+     * The cached ACL data.
+     *
+     * @var array
+     */
+    private $_acl;
+
+    /**
+     * The cached user rights.
+     *
+     * @var array
+     */
+    private $_my_rights;
 
     /**
      * Constructor.
@@ -52,8 +68,18 @@ implements Horde_Kolab_Storage_List_Query_Acl
         Horde_Kolab_Storage_List $list,
         $params
     ) {
-        $this->_list = $list;
-        $this->_driver = $this->_list->getDriver();
+        parent::__construct($list, $params);
+        $this->_list_cache = $params['cache'];
+        if ($this->_list_cache->hasQuery(self::ACL)) {
+            $this->_acl = $this->_list_cache->getQuery(self::ACL);
+        } else {
+            $this->_acl = array();
+        }
+        if ($this->_list_cache->hasQuery(self::MYRIGHTS)) {
+            $this->_my_rights = $this->_list_cache->getQuery(self::MYRIGHTS);
+        } else {
+            $this->_my_rights = array();
+        }
     }
 
     /**
@@ -63,7 +89,14 @@ implements Horde_Kolab_Storage_List_Query_Acl
      */
     public function hasAclSupport()
     {
-        return $this->_driver->hasAclSupport();
+        if (!$this->_list_cache->issetSupport(self::CAPABILITY)) {
+             $this->_list_cache->setSupport(
+                 self::CAPABILITY,
+                 parent::hasAclSupport()
+             );
+             $this->_list_cache->save();
+        }
+        return $this->_list_cache->hasSupport(self::CAPABILITY);
     }
 
     /**
@@ -75,30 +108,12 @@ implements Horde_Kolab_Storage_List_Query_Acl
      */
     public function getAcl($folder)
     {
-        if (!$this->hasAclSupport()) {
-            return array($this->_driver->getAuth() => 'lrid');
+        if (!isset($this->_acl[$folder])) {
+            $this->_acl[$folder] = parent::getAcl($folder);
+            $this->_list_cache->setQuery(self::ACL, $this->_acl);
+            $this->_list_cache->save();
         }
-        if ($this->_list->getNamespace()->matchNamespace($folder)->getType()
-            == Horde_Kolab_Storage_Folder_Namespace::PERSONAL) {
-            try {
-                return $this->_driver->getAcl($folder);
-            } catch (Horde_Kolab_Storage_Exception $e) {
-                /**
-                 * Assume we didn't have admin rights on the folder and fall
-                 * back to my ACL.
-                 */
-                return array($this->_driver->getAuth() => $this->getMyAcl($folder));
-            }
-        } else {
-            $acl = $this->getMyAcl($folder);
-            if (strpos($acl, 'a')) {
-                try {
-                    return $this->_driver->getAcl($folder);
-                } catch (Horde_Kolab_Storage_Exception $e) {
-                }
-            }
-            return array($this->_driver->getAuth() => $acl);
-        }
+        return $this->_acl[$folder];
     }
 
     /**
@@ -110,10 +125,12 @@ implements Horde_Kolab_Storage_List_Query_Acl
      */
     public function getMyAcl($folder)
     {
-        if (!$this->hasAclSupport()) {
-            return 'lrid';
+        if (!isset($this->_my_rights[$folder])) {
+            $this->_my_rights[$folder] = parent::getMyAcl($folder);
+            $this->_list_cache->setQuery(self::MYRIGHTS, $this->_acl);
+            $this->_list_cache->save();
         }
-        return $this->_driver->getMyAcl($folder);
+        return $this->_my_rights[$folder];
     }
 
     /**
@@ -127,8 +144,8 @@ implements Horde_Kolab_Storage_List_Query_Acl
      */
     public function setAcl($folder, $user, $acl)
     {
-        $this->_failOnMissingAcl();
-        return $this->_driver->setAcl($folder, $user, $acl);
+        parent::setAcl($folder, $user, $acl);
+        $this->_purgeFolder($folder);
     }
 
     /**
@@ -141,15 +158,8 @@ implements Horde_Kolab_Storage_List_Query_Acl
      */
     public function deleteAcl($folder, $user)
     {
-        $this->_failOnMissingAcl();
-        return $this->_driver->deleteAcl($folder, $user);
-    }
-
-    private function _failOnMissingAcl()
-    {
-        if (!$this->hasAclSupport()) {
-            throw new Horde_Kolab_Storage_Exception('The backend does not support ACL.');
-        }
+        parent::deleteAcl($folder, $user);
+        $this->_purgeFolder($folder);
     }
 
     /**
@@ -173,6 +183,7 @@ implements Horde_Kolab_Storage_List_Query_Acl
      */
     public function deleteFolder($folder)
     {
+        $this->_purgeFolder($folder);
     }
 
     /**
@@ -185,6 +196,7 @@ implements Horde_Kolab_Storage_List_Query_Acl
      */
     public function renameFolder($old, $new)
     {
+        $this->_purgeFolder($old);
     }
 
     /**
@@ -194,5 +206,21 @@ implements Horde_Kolab_Storage_List_Query_Acl
      */
     public function synchronize()
     {
+    }
+
+    /**
+     * Remove outdated folder data from the cache.
+     *
+     * @param string $folder The folder name.
+     *
+     * @return NULL
+     */
+    private function _purgeFolder($folder)
+    {
+        unset($this->_acl[$folder]);
+        unset($this->_my_rights[$folder]);
+        $this->_list_cache->setQuery(self::ACL, $this->_acl);
+        $this->_list_cache->setQuery(self::MYRIGHTS, $this->_acl);
+        $this->_list_cache->save();
     }
 }

@@ -32,7 +32,7 @@
   <active>yes</active>
  </lead>
  <date>2011-02-04</date>
- <time>15:40:23</time>
+ <time>22:52:37</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -126,6 +126,7 @@
         <dir name="Query">
          <dir name="Acl">
           <file name="Base.php" role="php" />
+          <file name="Cache.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Storage/List/Query/Acl -->
          <dir name="List">
           <file name="Base.php" role="php" />
@@ -456,6 +457,7 @@
          <dir name="Query">
           <dir name="Acl">
            <file name="BaseTest.php" role="test" />
+           <file name="CacheTest.php" role="test" />
           </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query/Acl -->
           <dir name="List">
            <file name="BaseTest.php" role="test" />
@@ -475,7 +477,6 @@
        <file name="DataTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="Scenario.php" role="test" />
-       <file name="StorageTest.php" role="test" />
        <file name="TestCase.php" role="test" />
        <file name="TriggerTest.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Storage -->
@@ -607,6 +608,7 @@
    <install as="Horde/Kolab/Storage/List/Query/Acl.php" name="lib/Horde/Kolab/Storage/List/Query/Acl.php" />
    <install as="Horde/Kolab/Storage/List/Query/List.php" name="lib/Horde/Kolab/Storage/List/Query/List.php" />
    <install as="Horde/Kolab/Storage/List/Query/Acl/Base.php" name="lib/Horde/Kolab/Storage/List/Query/Acl/Base.php" />
+   <install as="Horde/Kolab/Storage/List/Query/Acl/Cache.php" name="lib/Horde/Kolab/Storage/List/Query/Acl/Cache.php" />
    <install as="Horde/Kolab/Storage/List/Query/List/Base.php" name="lib/Horde/Kolab/Storage/List/Query/List/Base.php" />
    <install as="Horde/Kolab/Storage/List/Query/List/Cache.php" name="lib/Horde/Kolab/Storage/List/Query/List/Cache.php" />
    <install as="locale/Horde_Kolab_Storage.pot" name="locale/Horde_Kolab_Storage.pot" />
@@ -703,7 +705,6 @@
    <install as="Horde/Kolab/Storage/DataTest.php" name="test/Horde/Kolab/Storage/DataTest.php" />
    <install as="Horde/Kolab/Storage/phpunit.xml" name="test/Horde/Kolab/Storage/phpunit.xml" />
    <install as="Horde/Kolab/Storage/Scenario.php" name="test/Horde/Kolab/Storage/Scenario.php" />
-   <install as="Horde/Kolab/Storage/StorageTest.php" name="test/Horde/Kolab/Storage/StorageTest.php" />
    <install as="Horde/Kolab/Storage/TestCase.php" name="test/Horde/Kolab/Storage/TestCase.php" />
    <install as="Horde/Kolab/Storage/TriggerTest.php" name="test/Horde/Kolab/Storage/TriggerTest.php" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
@@ -727,6 +728,7 @@
    <install as="Horde/Kolab/Storage/Unit/List/Decorator/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Decorator/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/List/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Acl/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Acl/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Query/Acl/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Acl/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/List/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/List/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/CacheTest.php" />
    <install as="TODO" name="TODO" />

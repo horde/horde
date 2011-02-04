@@ -267,6 +267,19 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
+     * Is the specified query data available in the cache?
+     *
+     * @param string $key The query key.
+     *
+     * @return boolean True in case cached data is available.
+     */
+    public function hasQuery($key)
+    {
+        $this->_load();
+        return isset($this->_data[self::QUERIES][$key]);
+    }
+
+    /**
      * Return query information.
      *
      * @param string $key The query key.
@@ -275,8 +288,7 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function getQuery($key)
     {
-        $this->_load();
-        if (isset($this->_data[self::QUERIES][$key])) {
+        if ($this->hasQuery($key)) {
             return $this->_data[self::QUERIES][$key];
         } else {
             throw new Horde_Kolab_Storage_Exception(

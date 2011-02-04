@@ -43,6 +43,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
+        $this->driver->expects($this->once())
             ->method('getAcl')
             ->with('INBOX')
             ->will($this->returnValue(array('user' => 'lra')));
@@ -64,6 +67,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
+        $this->driver->expects($this->once())
             ->method('getAcl')
             ->with('INBOX')
             ->will($this->throwException(new Horde_Kolab_Storage_Exception()));
@@ -81,6 +87,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
+        $this->driver->expects($this->once())
             ->method('getMyAcl')
             ->with('user/example/Notes')
             ->will($this->returnValue('lr'));
@@ -93,6 +102,9 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetAclForeignFolderWithAdmin()
     {
         $acl = $this->_getAcl();
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
         $this->driver->expects($this->once())
             ->method('getMyAcl')
             ->with('user/example/Notes')
@@ -188,13 +200,16 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getAcl($has_support = true)
     {
-        $this->list = $this->getNamespaceQueriableList();
         $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $this->list = new Horde_Kolab_Storage_List_Base(
+            $this->driver,
+            new Horde_Kolab_Storage_Factory()
+        );
         $this->driver->expects($this->any())
             ->method('hasAclSupport')
             ->will($this->returnValue($has_support));
         return new Horde_Kolab_Storage_List_Query_Acl_Base(
-            $this->list, array('driver' => $this->driver)
+            $this->list, array()
         );
     }
 

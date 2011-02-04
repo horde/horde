@@ -35,6 +35,13 @@ extends Horde_Kolab_Storage_Queriable
     const QUERY_ACL  = 'Acl';
 
     /**
+     * Return the list driver.
+     *
+     * @return Horde_Kolab_Storage_Driver The driver.
+     */
+    public function getDriver();
+
+    /**
      * Return the ID of the underlying connection.
      *
      * @return string The connection ID.

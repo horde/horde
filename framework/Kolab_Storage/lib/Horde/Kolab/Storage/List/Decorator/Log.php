@@ -58,6 +58,16 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Return the list driver.
+     *
+     * @return Horde_Kolab_Storage_Driver The driver.
+     */
+    public function getDriver()
+    {
+        return $this->_list->getDriver();
+    }
+
+    /**
      * Return the ID of the underlying connection.
      *
      * @return string The connection ID.

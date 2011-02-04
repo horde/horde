@@ -89,6 +89,14 @@ implements Horde_Kolab_Storage
                 array('cache' => $list_cache)
             )
         );
+        $list->registerQuery(
+            Horde_Kolab_Storage_List::QUERY_ACL,
+            $this->_factory->createListQuery(
+                'Horde_Kolab_Storage_List_Query_Acl_Cache',
+                $list,
+                array('cache' => $list_cache)
+            )
+        );
         return $list;
     }
 

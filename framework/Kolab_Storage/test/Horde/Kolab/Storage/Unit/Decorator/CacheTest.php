@@ -43,7 +43,7 @@ extends Horde_Kolab_Storage_TestCase
                 $this->getNullMock($factory),
                 $factory
             ),
-            new Horde_Kolab_Storage_Cache(null),
+            $this->getMockCache(),
             $factory
         );
         $this->assertInstanceOf(
