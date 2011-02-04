@@ -90,6 +90,33 @@ extends Horde_Kolab_Storage_TestCase
         $cache->getNamespace();
     }
 
+    public function testUnsetSupport()
+    {
+        $cache = $this->_getTestCache();
+        $this->assertFalse($cache->issetSupport('ACL'));
+    }
+
+    public function testSetSupport()
+    {
+        $cache = $this->_getTestCache();
+        $cache->setSupport('ACL', true);
+        $this->assertTrue($cache->issetSupport('ACL'));
+    }
+
+    public function testSupport()
+    {
+        $cache = $this->_getTestCache();
+        $cache->setSupport('ACL', true);
+        $this->assertTrue($cache->hasSupport('ACL'));
+    }
+
+    public function testNoSupport()
+    {
+        $cache = $this->_getTestCache();
+        $cache->setSupport('ACL', false);
+        $this->assertFalse($cache->hasSupport('ACL'));
+    }
+
     private function _getTestCache($cache = null)
     {
         if ($cache === null) {

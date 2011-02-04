@@ -36,6 +36,9 @@ class Horde_Kolab_Storage_Cache_List
     /** Key for the namespace data. */
     const NAME_SPACE = 'N';
 
+    /** Key for the backend capabilities. */
+    const SUPPORT = 'C';
+
     /** Holds query cache results. */
     const QUERIES = 'Q';
 
@@ -208,6 +211,62 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
+     * Set namespace information.
+     *
+     * @param mixed $data The namespace data.
+     *
+     * @return NULL
+     */
+    public function setNamespace($data)
+    {
+        $this->_load();
+        $this->_data[self::NAME_SPACE] = $data;
+    }
+
+    /**
+     * Has the capability support already been cached?
+     *
+     * @return boolean True if the value is already in the cache.
+     */
+    public function issetSupport($capability)
+    {
+        $this->_load();
+        return isset($this->_data[self::SUPPORT][$capability]);
+    }
+
+    /**
+     * Has the list support for the requested capability?
+     *
+     * @param string $capability The name of the requested capability.
+     *
+     * @return boolean True if the backend supports the requested capability.
+     */
+    public function hasSupport($capability)
+    {
+        if ($this->issetSupport($capability)) {
+            return $this->_data[self::SUPPORT][$capability];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                'Missing support data. Synchronize first!'
+            );
+        }
+    }
+
+    /**
+     * Set if the list supports the given capability.
+     *
+     * @param string  $capability The name of the requested capability.
+     * @param boolean $flag       True if the capability is supported.
+     *
+     * @return NULL
+     */
+    public function setSupport($capability, $flag)
+    {
+        $this->_load();
+        $this->_data[self::SUPPORT][$capability] = $flag;
+    }
+
+    /**
      * Return query information.
      *
      * @param string $key The query key.
@@ -224,19 +283,6 @@ class Horde_Kolab_Storage_Cache_List
                 sprintf('Missing query cache data (Key: %s). Synchronize first!', $key)
             );
         }
-    }
-
-    /**
-     * Set namespace information.
-     *
-     * @param mixed $data The namespace data.
-     *
-     * @return NULL
-     */
-    public function setNamespace($data)
-    {
-        $this->_load();
-        $this->_data[self::NAME_SPACE] = $data;
     }
 
     /**
