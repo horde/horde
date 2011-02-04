@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Decorator_Cache
-implements Horde_Kolab_Storage_List
+implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
 {
     /**
      * Decorated list handler.
@@ -93,6 +93,7 @@ implements Horde_Kolab_Storage_List
     private function _init()
     {
         if (!$this->_isInitialized()) {
+            //@todo: Reconsider if we really want an automatic synchronization.
             $this->synchronize();
         }
     }
@@ -107,7 +108,6 @@ implements Horde_Kolab_Storage_List
      */
     public function createFolder($folder, $type = null)
     {
-        $result = $this->_list->createFolder($folder, $type);
         if ($this->_isInitialized()) {
             $folders = $this->listFolders();
             $types = $this->listFolderTypes();
@@ -115,8 +115,10 @@ implements Horde_Kolab_Storage_List
             if (!empty($type)) {
                 $types[$folder] = $type;
             }
-            $this->_store($folders, $types);
+            $this->_list_cache->store($folders, $types);
         }
+        $result = $this->_list->createFolder($folder, $type);
+        $this->_list_cache->save();
         return $result;
     }
 
@@ -129,7 +131,6 @@ implements Horde_Kolab_Storage_List
      */
     public function deleteFolder($folder)
     {
-        $result = $this->_list->deleteFolder($folder);
         if ($this->_isInitialized()) {
             $folders = $this->listFolders();
             $types = $this->listFolderTypes();
@@ -137,8 +138,10 @@ implements Horde_Kolab_Storage_List
             if (isset($types[$folder])) {
                 unset($types[$folder]);
             }
-            $this->_store($folders, $types);
+            $this->_list_cache->store($folders, $types);
         }
+        $result = $this->_list->deleteFolder($folder);
+        $this->_list_cache->save();
         return $result;
     }
 
@@ -152,7 +155,6 @@ implements Horde_Kolab_Storage_List
      */
     public function renameFolder($old, $new)
     {
-        $result = $this->_list->renameFolder($old, $new);
         if ($this->_isInitialized()) {
             $folders = $this->listFolders();
             $types = $this->listFolderTypes();
@@ -162,8 +164,10 @@ implements Horde_Kolab_Storage_List
                 $types[$new] = $types[$old];
                 unset($types[$old]);
             }
-            $this->_store($folders, $types);
+            $this->_list_cache->store($folders, $types);
         }
+        $result = $this->_list->renameFolder($old, $new);
+        $this->_list_cache->save();
         return $result;
     }
 
@@ -260,7 +264,7 @@ implements Horde_Kolab_Storage_List
      *
      * @return NULL
      */
-    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
+    public function registerQuery($name, Horde_Kolab_Storage_List_Query $query)
     {
         $this->_list->registerQuery($name, $query);
     }

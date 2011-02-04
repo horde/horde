@@ -184,8 +184,8 @@ extends Horde_Kolab_Storage_TestCase
         );
         $factory = new Horde_Kolab_Storage_Factory();
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Query',
-            $factory->createListQuery('Horde_Kolab_Storage_List_Query_Base', $list)
+            'Horde_Kolab_Storage_List_Query',
+            $factory->createListQuery('Horde_Kolab_Storage_List_Query_List_Base', $list)
         );
     }
 
@@ -197,7 +197,7 @@ extends Horde_Kolab_Storage_TestCase
         );
         $factory = new Horde_Kolab_Storage_Factory();
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Query',
+            'Horde_Kolab_Storage_List_Query',
             $factory->createListQuery(
                 'Horde_Kolab_Storage_Stub_FactoryQuery',
                 $list

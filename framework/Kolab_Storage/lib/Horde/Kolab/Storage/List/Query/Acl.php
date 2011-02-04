@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles a list of folder acls.
+ * Defines the ACL query.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Handles a list of folder acls.
+ * Defines the ACL query.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -25,31 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Folder_Acl
+interface Horde_Kolab_Storage_List_Query_Acl
+extends Horde_Kolab_Storage_List_Query
 {
-    /**
-     * The driver for accessing the Kolab storage system.
-     *
-     * @var Horde_Kolab_Storage_Driver
-     */
-    private $_driver;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Kolab_Storage_Driver $driver The primary connection driver.
-     */
-    public function __construct(Horde_Kolab_Storage_Driver $driver)
-    {
-        $this->_driver  = $driver;
-    }
-
-    /**
-     * Synchronize the ACL information with the information from the backend.
-     *
-     * @return NULL
-     */
-    public function synchronize()
-    {
-    }
 }

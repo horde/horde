@@ -208,18 +208,6 @@ class Horde_Kolab_Storage_Factory
     }
 
     /**
-     * Create an ACL handler.
-     *
-     * @param Horde_Kolab_Storage_Driver $driver The backend driver.
-     *
-     * @return Horde_Kolab_Storage_Folder_Acl The ACL handler.
-     */
-    public function createAcl(Horde_Kolab_Storage_Driver $driver)
-    {
-        return new Horde_Kolab_Storage_Folder_Acl($driver);
-    }
-
-    /**
      * Create a namespace handler.
      *
      * @param string $type   The namespace type.

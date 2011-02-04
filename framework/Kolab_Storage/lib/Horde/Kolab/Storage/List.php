@@ -29,7 +29,10 @@ interface Horde_Kolab_Storage_List
 extends Horde_Kolab_Storage_Queriable
 {
     /** Identifies the basic list query */
-    const QUERY_BASE = 'Base';
+    const QUERY_BASE = 'List';
+
+    /** Identifies the ACL query */
+    const QUERY_ACL  = 'Acl';
 
     /**
      * Return the ID of the underlying connection.
@@ -37,35 +40,6 @@ extends Horde_Kolab_Storage_Queriable
      * @return string The connection ID.
      */
     public function getConnectionId();
-
-    /**
-     * Create a new folder.
-     *
-     * @param string $folder The path of the folder to create.
-     * @param string $type   An optional type for the folder.
-     *
-     * @return NULL
-     */
-    public function createFolder($folder, $type = null);
-
-    /**
-     * Delete a folder.
-     *
-     * @param string $folder The path of the folder to delete.
-     *
-     * @return NULL
-     */
-    public function deleteFolder($folder);
-
-    /**
-     * Rename a folder.
-     *
-     * @param string $old The old path of the folder.
-     * @param string $new The new path of the folder.
-     *
-     * @return NULL
-     */
-    public function renameFolder($old, $new);
 
     /**
      * Returns a representation for the requested folder.
@@ -97,11 +71,4 @@ extends Horde_Kolab_Storage_Queriable
      * @return Horde_Kolab_Storage_Folder_Namespace The namespace handler.
      */
     public function getNamespace();
-
-    /**
-     * Synchronize the list information with the information from the backend.
-     *
-     * @return NULL
-     */
-    public function synchronize();
 }

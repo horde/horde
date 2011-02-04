@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Base
-implements Horde_Kolab_Storage_List
+implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
 {
     /** The folder type annotation */
     const ANNOTATION_FOLDER_TYPE = '/shared/vendor/kolab/folder-type';
@@ -44,13 +44,6 @@ implements Horde_Kolab_Storage_List
      * @var Horde_Kolab_Storage_Factory
      */
     private $_factory;
-
-    /**
-     * The ACL handler.
-     *
-     * @var Horde_Kolab_Storage_Folder_Acl
-     */
-    private $_acl;
 
     /**
      * The list of registered queries.
@@ -84,19 +77,6 @@ implements Horde_Kolab_Storage_List
     }
 
     /**
-     * Return the ACL handler.
-     *
-     * @return Horde_Kolab_Storage_Folder_Acl The ACL handler.
-     */
-    public function acl()
-    {
-        if ($this->_acl === null) {
-            $this->_acl = $this->_factory->createAcl($this->_driver);
-        }
-        return $this->_acl;
-    }
-
-    /**
      * Create a new folder.
      *
      * @param string $folder The path of the folder to create.
@@ -112,6 +92,9 @@ implements Horde_Kolab_Storage_List
                 $folder, self::ANNOTATION_FOLDER_TYPE, $type
             );
         }
+        foreach ($this->_queries as $name => $query) {
+            $query->createFolder($folder, $type);
+        }
     }
 
     /**
@@ -124,6 +107,9 @@ implements Horde_Kolab_Storage_List
     public function deleteFolder($folder)
     {
         $this->_driver->delete($folder);
+        foreach ($this->_queries as $name => $query) {
+            $query->deleteFolder($folder);
+        }
     }
 
     /**
@@ -137,6 +123,9 @@ implements Horde_Kolab_Storage_List
     public function renameFolder($old, $new)
     {
         $this->_driver->rename($old, $new);
+        foreach ($this->_queries as $name => $query) {
+            $query->renameFolder($old, $new);
+        }
     }
 
     /**
@@ -198,7 +187,6 @@ implements Horde_Kolab_Storage_List
         foreach ($this->_queries as $name => $query) {
             $query->synchronize();
         }
-        $this->acl()->synchronize();
     }
 
     /**
@@ -209,7 +197,7 @@ implements Horde_Kolab_Storage_List
      *
      * @return NULL
      */
-    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
+    public function registerQuery($name, Horde_Kolab_Storage_List_Query $query)
     {
         $this->_queries[$name] = $query;
     }

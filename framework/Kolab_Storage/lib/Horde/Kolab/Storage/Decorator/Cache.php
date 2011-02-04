@@ -84,7 +84,7 @@ implements Horde_Kolab_Storage
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE,
             $this->_factory->createListQuery(
-                'Horde_Kolab_Storage_List_Query_Cache',
+                'Horde_Kolab_Storage_List_Query_List_Cache',
                 $list,
                 array('cache' => $list_cache)
             )

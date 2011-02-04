@@ -335,14 +335,4 @@ extends Horde_Kolab_Storage_TestCase
             $list->listFolders()
         );
     }
-
-    public function testAcls()
-    {
-        $list = $this->getAnnotatedQueriableList();
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Folder_Acl',
-            $list->acl()
-        );
-    }
-
 }

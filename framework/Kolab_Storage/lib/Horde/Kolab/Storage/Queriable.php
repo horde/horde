@@ -35,7 +35,7 @@ interface Horde_Kolab_Storage_Queriable
      *
      * @return NULL
      */
-    public function registerQuery($name, Horde_Kolab_Storage_Query $query);
+    public function registerQuery($name, Horde_Kolab_Storage_List_Query $query);
 
     /**
      * Return a registered query.

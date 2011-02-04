@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../../Autoload.php';
 
 /**
  * Test the basic list query.
@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_List_Query_BaseTest
+class Horde_Kolab_Storage_Unit_List_Query_List_BaseTest
 extends Horde_Kolab_Storage_TestCase
 {
     public function testByTypeReturnsArray()

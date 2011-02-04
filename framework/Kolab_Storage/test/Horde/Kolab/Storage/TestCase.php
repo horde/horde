@@ -59,7 +59,7 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return $factory->createListQuery(
-            'Horde_Kolab_Storage_List_Query_Base', $this->getNullList($factory)
+            'Horde_Kolab_Storage_List_Query_List_Base', $this->getNullList($factory)
         );
     }
 
@@ -164,7 +164,7 @@ extends PHPUnit_Framework_TestCase
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE,
             $factory->createListQuery(
-                'Horde_Kolab_Storage_List_Query_Base',
+                'Horde_Kolab_Storage_List_Query_List_Base',
                 $list
             )
         );
@@ -182,7 +182,7 @@ extends PHPUnit_Framework_TestCase
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE,
             $factory->createListQuery(
-                'Horde_Kolab_Storage_List_Query_Base',
+                'Horde_Kolab_Storage_List_Query_List_Base',
                 $list
             )
         );
@@ -193,7 +193,7 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return $factory->createListQuery(
-            'Horde_Kolab_Storage_List_Query_Base', $this->getAnnotatedList($factory)
+            'Horde_Kolab_Storage_List_Query_List_Base', $this->getAnnotatedList($factory)
         );
     }
 
@@ -319,7 +319,7 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return $factory->createListQuery(
-            'Horde_Kolab_Storage_List_Query_Base', $this->getNamespaceList($factory)
+            'Horde_Kolab_Storage_List_Query_List_Base', $this->getNamespaceList($factory)
         );
     }
 
@@ -365,7 +365,7 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return $factory->createListQuery(
-            'Horde_Kolab_Storage_List_Query_Base', $this->getForeignDefaultList($factory)
+            'Horde_Kolab_Storage_List_Query_List_Base', $this->getForeignDefaultList($factory)
         );
     }
 
@@ -431,7 +431,7 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return $factory->createListQuery(
-            'Horde_Kolab_Storage_List_Query_Base', $this->getEventList($factory)
+            'Horde_Kolab_Storage_List_Query_List_Base', $this->getEventList($factory)
         );
     }
 
@@ -487,7 +487,7 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return $factory->createListQuery(
-            'Horde_Kolab_Storage_List_Query_Base', $this->getDoubleEventList($factory)
+            'Horde_Kolab_Storage_List_Query_List_Base', $this->getDoubleEventList($factory)
         );
     }
 
@@ -498,7 +498,7 @@ extends PHPUnit_Framework_TestCase
             $bare_list,
             $list_cache
         );
-        $query = new Horde_Kolab_Storage_List_Query_Cache(
+        $query = new Horde_Kolab_Storage_List_Query_List_Cache(
             $list,
             array(
                 'factory' => $factory,

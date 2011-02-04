@@ -196,7 +196,7 @@ extends Horde_Kolab_Storage_TestCase
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE,
             $factory->createListQuery(
-                'Horde_Kolab_Storage_List_Query_Base',
+                'Horde_Kolab_Storage_List_Query_List_Base',
                 $list
             )
         );

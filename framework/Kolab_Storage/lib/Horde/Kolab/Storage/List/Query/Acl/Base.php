@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents a list query.
+ * Handles a list of folder acls.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * Represents a list query.
+ * Handles a list of folder acls.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,8 +25,37 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-interface Horde_Kolab_Storage_List_Query
+class Horde_Kolab_Storage_List_Query_Acl_Base
+implements Horde_Kolab_Storage_List_Query_Acl
 {
+    /**
+     * The queriable list.
+     *
+     * @var Horde_Kolab_Storage_List
+     */
+    private $_list;
+
+    /**
+     * The driver for accessing the Kolab storage system.
+     *
+     * @var Horde_Kolab_Storage_Driver
+     */
+    private $_driver;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_Storage_List $list   The queriable list.
+     * @param array                    $params Additional parameters.
+     */
+    public function __construct(
+        Horde_Kolab_Storage_List $list,
+        $params
+    ) {
+        $this->_list = $list;
+        $this->_driver = $params['driver'];
+    }
+
     /**
      * Create a new folder.
      *
@@ -35,7 +64,9 @@ interface Horde_Kolab_Storage_List_Query
      *
      * @return NULL
      */
-    public function createFolder($folder, $type = null);
+    public function createFolder($folder, $type = null)
+    {
+    }
 
     /**
      * Delete a folder.
@@ -44,7 +75,9 @@ interface Horde_Kolab_Storage_List_Query
      *
      * @return NULL
      */
-    public function deleteFolder($folder);
+    public function deleteFolder($folder)
+    {
+    }
 
     /**
      * Rename a folder.
@@ -54,13 +87,16 @@ interface Horde_Kolab_Storage_List_Query
      *
      * @return NULL
      */
-    public function renameFolder($old, $new);
+    public function renameFolder($old, $new)
+    {
+    }
 
     /**
-     * Synchronize the query data with the information from the backend.
+     * Synchronize the ACL information with the information from the backend.
      *
      * @return NULL
      */
-    public function synchronize();
+    public function synchronize()
+    {
+    }
 }
-

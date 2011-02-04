@@ -72,7 +72,15 @@ implements Horde_Kolab_Storage
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE,
             $this->_factory->createListQuery(
-                'Horde_Kolab_Storage_List_Query_Base', $list
+                'Horde_Kolab_Storage_List_Query_List_Base', $list
+            )
+        );
+        $list->registerQuery(
+            Horde_Kolab_Storage_List::QUERY_ACL,
+            $this->_factory->createListQuery(
+                'Horde_Kolab_Storage_List_Query_Acl_Base',
+                $list,
+                array('driver' => $this->_master)
             )
         );
         return $list;

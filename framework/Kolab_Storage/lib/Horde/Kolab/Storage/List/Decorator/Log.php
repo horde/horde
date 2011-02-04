@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Decorator_Log
-implements Horde_Kolab_Storage_List
+implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
 {
     /**
      * Decorated list handler.
@@ -212,7 +212,7 @@ implements Horde_Kolab_Storage_List
      *
      * @return NULL
      */
-    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
+    public function registerQuery($name, Horde_Kolab_Storage_List_Query $query)
     {
         $this->_list->registerQuery($name, $query);
     }

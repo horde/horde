@@ -25,8 +25,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_List_Query_Cache
-implements Horde_Kolab_Storage_List_Query
+class Horde_Kolab_Storage_List_Query_List_Cache
+implements Horde_Kolab_Storage_List_Query_List
 {
     /** The folder type list */
     const TYPES = 'TYPES';
@@ -229,6 +229,44 @@ implements Horde_Kolab_Storage_List_Query
         } else {
             return false;
         }
+    }
+
+    /**
+     * Create a new folder.
+     *
+     * @param string $folder The path of the folder to create.
+     * @param string $type   An optional type for the folder.
+     *
+     * @return NULL
+     */
+    public function createFolder($folder, $type = null)
+    {
+        $this->synchronize();
+    }
+
+    /**
+     * Delete a folder.
+     *
+     * @param string $folder The path of the folder to delete.
+     *
+     * @return NULL
+     */
+    public function deleteFolder($folder)
+    {
+        $this->synchronize();
+    }
+
+    /**
+     * Rename a folder.
+     *
+     * @param string $old The old path of the folder.
+     * @param string $new The new path of the folder.
+     *
+     * @return NULL
+     */
+    public function renameFolder($old, $new)
+    {
+        $this->synchronize();
     }
 
     /**
