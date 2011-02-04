@@ -46,6 +46,13 @@ implements Horde_Kolab_Storage_List
     private $_factory;
 
     /**
+     * The ACL handler.
+     *
+     * @var Horde_Kolab_Storage_Folder_Acls
+     */
+    private $_acls;
+
+    /**
      * The list of registered queries.
      *
      * @var array
@@ -55,8 +62,8 @@ implements Horde_Kolab_Storage_List
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Driver  $driver  The primary connection driver.
-     * @param Horde_Kolab_Storage_Factory $factory The factory.
+     * @param Horde_Kolab_Storage_Driver      $driver  The primary connection driver.
+     * @param Horde_Kolab_Storage_Factory     $factory The factory.
      */
     public function __construct(
         Horde_Kolab_Storage_Driver $driver,
@@ -74,6 +81,19 @@ implements Horde_Kolab_Storage_List
     public function getConnectionId()
     {
         return $this->_driver->getId();
+    }
+
+    /**
+     * Return the ACL handler.
+     *
+     * @return Horde_Kolab_Storage_Folder_Acls The ACL handler.
+     */
+    public function acls()
+    {
+        if ($this->_acls === null) {
+            $this->_acls = $this->_factory->createAcls($this->_driver);
+        }
+        return $this->_acls;
     }
 
     /**
@@ -178,6 +198,7 @@ implements Horde_Kolab_Storage_List
         foreach ($this->_queries as $name => $query) {
             $query->synchronize();
         }
+        $this->acls()->synchronize();
     }
 
     /**

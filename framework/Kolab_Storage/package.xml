@@ -32,7 +32,7 @@
   <active>yes</active>
  </lead>
  <date>2011-02-04</date>
- <time>09:45:47</time>
+ <time>13:53:39</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -114,6 +114,7 @@
          <file name="Fixed.php" role="php" />
          <file name="Imap.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Namespace -->
+        <file name="Acls.php" role="php" />
         <file name="Base.php" role="php" />
         <file name="Namespace.php" role="php" />
         <file name="Type.php" role="php" />
@@ -578,6 +579,7 @@
    <install as="Horde/Kolab/Storage/Driver/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/Driver/Decorator/Timer.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Timer.php" />
    <install as="Horde/Kolab/Storage/Exception/Pear.php" name="lib/Horde/Kolab/Storage/Exception/Pear.php" />
+   <install as="Horde/Kolab/Storage/Folder/Acls.php" name="lib/Horde/Kolab/Storage/Folder/Acls.php" />
    <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace.php" name="lib/Horde/Kolab/Storage/Folder/Namespace.php" />
    <install as="Horde/Kolab/Storage/Folder/Type.php" name="lib/Horde/Kolab/Storage/Folder/Type.php" />
