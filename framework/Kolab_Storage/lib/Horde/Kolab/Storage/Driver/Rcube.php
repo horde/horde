@@ -177,7 +177,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function hasAclSupport()
     {
-        return true;
+        return $this->getBackend()->getCapability('ACL');
     }
 
     /**

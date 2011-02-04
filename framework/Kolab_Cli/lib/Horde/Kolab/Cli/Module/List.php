@@ -42,6 +42,7 @@ implements Horde_Kolab_Cli_Module
   - type TYPE        : Display the folders of type TYPE.
   - owners           : List all folders and their owners.
   - defaults         : List the default folders for all users.
+  - aclsupport       : Display if the server supports ACL.
   - namespace        : Display the server namespace information.
   - sync             : Synchronize the cache.
 
@@ -184,6 +185,15 @@ implements Horde_Kolab_Cli_Module
                     }
                     $cli->writeln();
                 }
+            }
+            break;
+        case 'aclsupport':
+            if ($world['storage']->getList()
+                ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
+                ->hasAclSupport()) {
+                echo "The remote server supports ACL.\n";
+            } else {
+                echo "The remote server does not support ACL.\n";
             }
             break;
         case 'namespaces':

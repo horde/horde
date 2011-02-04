@@ -49,6 +49,9 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function createBackend()
     {
+        if (!function_exists('imap_open')) {
+            throw new Horde_Kolab_Storage_Exception('The IMAP extension is not available!');
+        }
         $result = @imap_open(
             $this->_getBaseMbox(),
             $this->getParam('username'),
@@ -62,7 +65,7 @@ extends Horde_Kolab_Storage_Driver_Base
                         "Connecting to server %s failed. Error: %s"
                     ),
                     $this->_getHost(),
-                    @imap_last_error()
+                    imap_last_error()
                 )
             );
         }
@@ -141,7 +144,7 @@ extends Horde_Kolab_Storage_Driver_Base
                         "Listing folders for %s failed. Error: %s"
                     ),
                     $this->_getBaseMbox(),
-                    @imap_last_error()
+                    imap_last_error()
                 )
             );
         }
@@ -178,7 +181,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     ),
                     $this->_getBaseMbox(),
                     $folder,
-                    @imap_last_error()
+                    imap_last_error()
                 )
             );
         }
@@ -205,7 +208,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     ),
                     $this->_getBaseMbox(),
                     $folder,
-                    @imap_last_error()
+                    imap_last_error()
                 )
             );
         }
@@ -236,7 +239,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     $old,
                     $this->_getBaseMbox(),
                     $new,
-                    @imap_last_error()
+                    imap_last_error()
                 )
             );
         }
@@ -249,7 +252,15 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function hasAclSupport()
     {
-        return true;
+        @imap_getacl(
+                $this->getBackend(),
+                $this->_getBaseMbox()
+        );
+        if (imap_last_error()  == 'ACL not available on this IMAP server') {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
