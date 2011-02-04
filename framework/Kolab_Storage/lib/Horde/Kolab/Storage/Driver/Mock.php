@@ -228,6 +228,11 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAcl($folder)
     {
+        $folder = $this->_convertToInternal($folder);
+        if (isset($this->_data[$folder]['permissions'])) {
+            return $this->_data[$folder]['permissions'];
+        }
+        return array();
     }
     
     /**

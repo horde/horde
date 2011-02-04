@@ -78,7 +78,7 @@ implements Horde_Kolab_Storage_List_Query_Acl
         if (!$this->hasAclSupport()) {
             return array($this->_driver->getAuth() => 'lrid');
         }
-        if ($this->_list->getFolder($folder)->getNamespace()
+        if ($this->_list->getNamespace()->matchNamespace($folder)->getType()
             == Horde_Kolab_Storage_Folder_Namespace::PERSONAL) {
             try {
                 return $this->_driver->getAcl($folder);

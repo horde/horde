@@ -138,6 +138,14 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAcl($folder)
     {
+        $result = Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->getACL($this->encodePath($folder))
+        );
+        $acl = array();
+        foreach ($result as $user) {
+            $acl[$user['USER']] = $user['RIGHTS'];
+        }
+        return $acl;
     }
     
     /**

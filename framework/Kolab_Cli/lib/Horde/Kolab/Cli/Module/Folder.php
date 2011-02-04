@@ -152,6 +152,17 @@ implements Horde_Kolab_Cli_Module
             $folder = $world['storage']->getList()
                 ->deleteFolder($folder_name);
             break;
+        case 'getacl':
+            $acl = $world['storage']->getList()
+                ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
+                ->getAcl($folder_name);
+            $cli->writeln($folder_name);
+            $cli->writeln(str_repeat('=', strlen($folder_name)));
+            $pad = max(array_map('strlen', array_keys($acl))) + 2;
+            foreach ($acl as $user => $rights) {
+                $cli->writeln(Horde_String::pad($user . ':', $pad) . $rights);
+            }
+            break;
         case 'getmyacl':
             $acl = $world['storage']->getList()
                 ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)

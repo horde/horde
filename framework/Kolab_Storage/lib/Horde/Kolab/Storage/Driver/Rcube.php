@@ -189,6 +189,23 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAcl($folder)
     {
+        $acl = $this->getBackend()->getACL($this->encodePath($folder));
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed reading ACL on folder %s. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+        $result = array();
+        foreach ($acl as $user => $rights) {
+            $result[$user] = join('', $rights);
+        }
+        return $result;
     }
     
     /**

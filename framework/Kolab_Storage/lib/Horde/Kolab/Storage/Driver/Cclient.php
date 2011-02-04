@@ -272,6 +272,19 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAcl($folder)
     {
+        $result = imap_getacl($this->getBackend(), $this->encodePath($folder));
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed reading ACL on folder %s. Error: %s"
+                    ),
+                    $folder,
+                    imap_last_error()
+                )
+            );
+        }
+        return $result;
     }
     
     /**
