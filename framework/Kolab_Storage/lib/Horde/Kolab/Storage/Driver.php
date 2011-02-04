@@ -79,10 +79,28 @@ interface Horde_Kolab_Storage_Driver
      *
      * @param string $folder The folder to create.
      *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
+     * @return NULL
      */
     public function create($folder);
+
+    /**
+     * Delete the specified folder.
+     *
+     * @param string $folder  The folder to delete.
+     *
+     * @return NULL
+     */
+    public function delete($folder);
+
+    /**
+     * Rename the specified folder.
+     *
+     * @param string $old  The folder to rename.
+     * @param string $new  The new name of the folder.
+     *
+     * @return NULL
+     */
+    public function rename($old, $new);
 
     /**
      * Retrieves the specified annotation for the complete list of mailboxes.
@@ -163,27 +181,6 @@ interface Horde_Kolab_Storage_Driver
     public function getUids($folder);
 
     /**
-     * Delete the specified folder.
-     *
-     * @param string $folder  The folder to delete.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function delete($folder);
-
-    /**
-     * Rename the specified folder.
-     *
-     * @param string $old  The folder to rename.
-     * @param string $new  The new name of the folder.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function rename($old, $new);
-
-    /**
      * Appends a message to the current folder.
      *
      * @param string $mailbox The mailbox to append the message(s) to. Either
@@ -253,7 +250,7 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return An array of rights.
      */
-    public function getAcl(Horde_Kolab_Storage_Folder $folder);
+    public function getAcl($folder);
 
     /**
      * Set the access rights for a folder.

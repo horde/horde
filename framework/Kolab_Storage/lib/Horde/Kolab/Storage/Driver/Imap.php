@@ -67,8 +67,7 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder The folder to create.
      *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
+     * @return NULL
      */
     public function create($folder)
     {

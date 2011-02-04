@@ -162,8 +162,7 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder The folder to create.
      *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
+     * @return NULL
      */
     public function create($folder)
     {
@@ -190,8 +189,7 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder  The folder to delete.
      *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
+     * @return NULL
      */
     public function delete($folder)
     {
@@ -219,8 +217,7 @@ extends Horde_Kolab_Storage_Driver_Base
      * @param string $old  The folder to rename.
      * @param string $new  The new name of the folder.
      *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
+     * @return NULL
      */
     public function rename($old, $new)
     {
