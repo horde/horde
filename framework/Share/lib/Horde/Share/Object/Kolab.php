@@ -3,11 +3,33 @@
  * Extension of the Horde_Share_Object class for handling Kolab share
  * information.
  *
- * @author  Stuart Binge <omicron@mighty.co.za>
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Horde_Share
+ * PHP version 5
+ *
+ * @category Horde
+ * @package  Share
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Share
  */
-class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializable
+
+/**
+ * Extension of the Horde_Share_Object class for handling Kolab share
+ * information.
+ *
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Horde
+ * @package  Share
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Share
+ */
+class Horde_Share_Object_Kolab
+extends Horde_Share_Object
+implements Serializable, Horde_Perms_Permission_Kolab_Storage
 {
     /**
      * Serializable version.
@@ -22,6 +44,13 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     private $_id;
 
     /**
+     * The Horde_Group driver
+     *
+     * @var Horde_Group
+     */
+    private $_groups;
+
+    /**
      * The share attributes.
      *
      * @var array
@@ -31,13 +60,15 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     /**
      * Constructor.
      *
-     * @param string $id    The share id.
-     * @param array  $data  The share data.
+     * @param string      $id      The share id.
+     * @param Horde_Group $groups  The Horde_Group object
+     * @param array       $data    The share data.
      */
-    public function __construct($id, array $data = array())
+    public function __construct($id, Horde_Group $groups, array $data = array())
     {
-        $this->_id   = $id;
-        $this->_data = $data;
+        $this->_id     = $id;
+        $this->_groups = $groups;
+        $this->_data   = $data;
     }
 
     /**
@@ -89,6 +120,16 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     }
 
     /**
+     * Returns the permission ID of this share.
+     *
+     * @return string  The share's permission ID.
+     */
+    public function getPermissionId()
+    {
+        return $this->_id;
+    }
+
+    /**
      * Returns the name of this share.
      *
      * @return string  The share's name.
@@ -96,6 +137,16 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     public function getName()
     {
         return $this->_id;
+    }
+
+    /**
+     * Returns the owner of this share.
+     *
+     * @return string  The share's owner.
+     */
+    public function getOwner()
+    {
+        return $this->get('owner');
     }
 
     /**
@@ -126,6 +177,67 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
     }
 
     /**
+     * Return a count of the number of children this share has
+     *
+     * @param string $user        The user to use for checking perms
+     * @param integer $perm       A Horde_Perms::* constant
+     * @param boolean $allLevels  Count grandchildren or just children
+     *
+     * @return integer  The number of child shares
+     */
+    public function countChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
+    {
+        return 0;
+    }
+
+    /**
+     * Get all children of this share.
+     *
+     * @param string $user        The user to use for checking perms
+     * @param integer $perm       Horde_Perms::* constant. If NULL will return
+     *                            all shares regardless of permissions.
+     * @param boolean $allLevels  Return all levels.
+     *
+     * @return array  An array of Horde_Share_Object objects
+     */
+    public function getChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
+    {
+        return array();
+    }
+
+    /**
+     * Returns a child's direct parent.
+     *
+     * @return Horde_Share_Object|NULL The direct parent Horde_Share_Object or
+     *                                 NULL in case the share has no parent.
+     */
+    public function getParent()
+    {
+        return;
+    }
+
+    /**
+     * Get all of this share's parents.
+     *
+     * @return array()  An array of Horde_Share_Objects
+     */
+    public function getParents()
+    {
+        return array();
+    }
+
+    /**
+     * Set the parent object for this share.
+     *
+     * @param mixed $parent A Horde_Share object or share id for the parent.
+     *
+     * @return NULL
+     */
+    public function setParent($parent)
+    {
+    }
+
+    /**
      * Saves the current attribute values.
      */
     protected function _save()
@@ -140,43 +252,73 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
      * @param integer $permission  A Horde_Perms::* constant to test for.
      * @param string $creator      The creator of the shared object.
      *
-     * @return boolean|PEAR_Error  Whether or not $userid has $permission.
+     * @return boolean  Whether or not $userid has $permission.
      */
     public function hasPermission($userid, $permission, $creator = null)
     {
-        if (!isset($this->_folder)) {
-            return $this->_folderError();
-        }
-        return $this->_folder->hasPermission($userid, $permission, $creator);
+        return $this->getShareOb()->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
 
     /**
      * Returns the permissions from this storage object.
      *
-     * @return Horde_Perms_Permission_Kolab|PEAR_Error  The permissions on the share.
+     * @return Horde_Perms_Permission_Kolab The permissions on the share.
      */
     public function getPermission()
     {
-        if (!isset($this->_folder)) {
-            return $this->_folderError();
-        }
-        return $this->_folder->getPermission();
+        return new Horde_Perms_Permission_Kolab($this, $this->_groups);
     }
 
     /**
      * Sets the permissions on the share.
      *
-     * @param Horde_Perms_Permission_Kolab $perms Permission object to folder on the
-     *                                     object.
-     * @param boolean $update              Save the updated information?
+     * @param Horde_Perms_Permission_Kolab $perms  Permission object to folder on the
+     *                                             object.
+     * @param boolean                      $update Save the updated information?
      *
-     * @return boolean|PEAR_Error  True on success.
+     * @return NULL
      */
     public function setPermission($perms, $update = true)
     {
-        if (!isset($this->_folder)) {
-            return $this->_folderError();
+        $permission = $this->getPermission();
+        $permission->setData($perms->getData());
+        if ($update) {
+            $permission->save();
         }
-        return $this->_folder->setPermission($perms, $update);
+    }
+
+    /**
+     * Retrieve the Kolab specific access rights for this share.
+     *
+     * @return An array of rights.
+     */
+    public function getAcl()
+    {
+        return $this->getShareOb()->getAcl($this->_id);
+    }
+
+    /**
+     * Set the Kolab specific access rights for this share.
+     *
+     * @param string $user The user to set the ACL for.
+     * @param string $acl  The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($user, $acl)
+    {
+        return $this->getShareOb()->setAcl($this->_id, $user, $acl);
+    }
+
+    /**
+     * Delete Kolab specific access rights for this share.
+     *
+     * @param string $user The user to delete the ACL for.
+     *
+     * @return NULL
+     */
+    public function deleteAcl($user)
+    {
+        return $this->getShareOb()->deleteAcl($this->_id, $user);
     }
 }

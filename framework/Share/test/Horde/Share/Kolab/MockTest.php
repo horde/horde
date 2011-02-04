@@ -36,8 +36,22 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
 {
     public static function setUpBeforeClass()
     {
-        $group = new Horde_Group_Test();
+        $group = new Horde_Group_Mock();
         self::$share = new Horde_Share_Kolab('mnemo', 'john', new Horde_Perms(), $group);
+        $factory = new Horde_Kolab_Storage_Factory();
+        $storage = $factory->createFromParams(
+            array(
+                'driver' => 'mock',
+                'params' => array(
+                    'data'   => array('user/john' => array()),
+                ),
+                'cache'  => new Horde_Cache(
+                    new Horde_Cache_Storage_Mock()
+                ),
+            )
+        );
+        $storage->getList()->synchronize();
+        self::$share->setStorage($storage);
     }
 
     public function setUp()
@@ -51,4 +65,11 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     {
         $this->getApp('mnemo');
     }
+
+    public function testAddShare()
+    {
+        $share = parent::addShare();
+        $this->assertInstanceOf('Horde_Share_Object_Kolab', $share);
+    }
+
 }

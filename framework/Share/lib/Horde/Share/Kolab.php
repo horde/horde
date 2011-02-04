@@ -1,19 +1,31 @@
 <?php
 /**
- * @package Horde_Share
+ * Horde_Share_Kolab:: provides the Kolab backend for the horde share driver.
+ *
+ * PHP version 5
+ *
+ * @category Horde
+ * @package  Share
+ * @author   Stuart Binge <omicron@mighty.co.za>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Share
  */
 
 /**
- * Horde_Share_kolab:: provides the kolab backend for the horde share driver.
+ * Horde_Share_Kolab:: provides the Kolab backend for the horde share driver.
  *
  * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Stuart Binge <omicron@mighty.co.za>
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Horde_Share
+ * @category Horde
+ * @package  Share
+ * @author   Stuart Binge <omicron@mighty.co.za>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Share
  */
 class Horde_Share_Kolab extends Horde_Share_Base
 {
@@ -138,7 +150,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     private function _createObject($name, array $data = array())
     {
-        $object = new Horde_Share_Object_Kolab($name, $data);
+        $object = new Horde_Share_Object_Kolab($name, $this->_groups, $data);
         $this->initShareObject($object);
         return $object;
     }
@@ -157,7 +169,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     {
         $data = $this->getStorage()
             ->getList()
-            ->getQuery('Base')
+            ->getQuery()
             ->dataByType($this->_type);
 
         if (!isset($data[$this->_idDecode($name)])) {
@@ -212,7 +224,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $this->_idDecode($share),
             $this->getStorage()
             ->getList()
-            ->getQuery('Base')
+            ->getQuery()
             ->listByType($this->_type)
         );
     }
@@ -243,7 +255,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
             array($this, '_idEncode'),
             $this->getStorage()
             ->getList()
-            ->getQuery('Base')
+            ->getQuery()
             ->listByType($this->_type)
         );
 
@@ -343,6 +355,60 @@ class Horde_Share_Kolab extends Horde_Share_Base
     protected function _removeShare(Horde_Share_Object $share)
     {
         $this->getStorage()->getList()->deleteFolder($this->_idDecode($share->getId()));
+    }
+
+    /**
+     * Retrieve the Kolab specific access rights for a share.
+     *
+     * @param string $id The share ID.
+     *
+     * @return An array of rights.
+     */
+    public function getAcl($id)
+    {
+        return $this->getStorage()
+            ->getList()
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
+            ->getAcl(
+                $this->_idDecode($id)
+            );
+    }
+
+    /**
+     * Set the Kolab specific access rights for a share.
+     *
+     * @param string $id   The share ID.
+     * @param string $user The user to set the ACL for.
+     * @param string $acl  The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($id, $user, $acl)
+    {
+        $this->getStorage()
+            ->getList()
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
+            ->setAcl(
+                $this->_idDecode($id), $user, $acl
+            );
+    }
+
+    /**
+     * Delete Kolab specific access rights for a share.
+     *
+     * @param string $id   The share ID.
+     * @param string $user The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($id, $user)
+    {
+        $this->getStorage()
+            ->getList()
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
+            ->deleteAcl(
+                $this->_idDecode($id), $user
+            );
     }
 
     /**

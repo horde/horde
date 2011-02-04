@@ -129,13 +129,13 @@ extends PHPUnit_Framework_TestCase
 
     public function testObjectId()
     {
-        $object = new Horde_Share_Object_Kolab('test');
+        $object = new Horde_Share_Object_Kolab('test', new Horde_Group_Mock());
         $this->assertEquals('test', $object->getId());
     }
 
     public function testObjectName()
     {
-        $object = new Horde_Share_Object_Kolab('test');
+        $object = new Horde_Share_Object_Kolab('test', new Horde_Group_Mock());
         $this->assertEquals('test', $object->getName());
     }
 
