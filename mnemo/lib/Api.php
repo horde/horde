@@ -5,7 +5,7 @@
  * This file defines Mnemo's external API interface.  Other applications can
  * interact with Mnemo through this API.
  *
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.

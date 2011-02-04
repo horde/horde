@@ -1,11 +1,12 @@
 <?php
 /**
- * $Horde: mnemo/note/pdf.php,v 1.10 2009/12/23 16:56:27 jan Exp $
  *
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @package Mnemo
  */
 
 @define('MNEMO_BASE', dirname(dirname(__FILE__)));

@@ -6,7 +6,7 @@
  *
  * $Horde: mnemo/scripts/upgrades/convert_to_utf8.php,v 1.4 2009/06/10 19:58:01 slusarz Exp $
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.

@@ -6,7 +6,6 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Mnemo 1.0
  * @package Mnemo
  */
 

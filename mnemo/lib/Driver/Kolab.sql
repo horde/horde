@@ -7,7 +7,7 @@ require_once 'Horde/Kolab.php';
  *
  * $Horde: mnemo/lib/Driver/kolab.php,v 1.25 2009/07/14 00:25:35 mrubinsk Exp $
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -188,7 +188,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver {
  *
  * $Horde: mnemo/lib/Driver/kolab.php,v 1.25 2009/07/14 00:25:35 mrubinsk Exp $
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -298,7 +298,7 @@ class Mnemo_Driver_kolab_wrapper {
  *
  * $Horde: mnemo/lib/Driver/kolab.php,v 1.25 2009/07/14 00:25:35 mrubinsk Exp $
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -465,7 +465,7 @@ class Mnemo_Driver_kolab_wrapper_old extends Mnemo_Driver_kolab_wrapper {
  *
  * $Horde: mnemo/lib/Driver/kolab.php,v 1.25 2009/07/14 00:25:35 mrubinsk Exp $
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.

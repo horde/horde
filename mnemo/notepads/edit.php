@@ -1,11 +1,12 @@
 <?php
 /**
- * $Horde: mnemo/notepads/edit.php,v 1.7 2009/12/03 00:01:11 jan Exp $
  *
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @package @Mnemo
  */
 
 @define('MNEMO_BASE', dirname(dirname(__FILE__)));

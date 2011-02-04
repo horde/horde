@@ -7,7 +7,7 @@
  *
  * $Horde: mnemo/scripts/import_text_note.php,v 1.5 2009/07/09 06:08:55 slusarz Exp $
  *
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.

@@ -1,11 +1,11 @@
 <?php
 /**
- * $Horde: mnemo/list.php,v 1.58 2009/11/29 18:37:52 chuck Exp $
- *
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @package Mnemo
  */
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
