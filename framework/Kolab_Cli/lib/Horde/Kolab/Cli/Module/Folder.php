@@ -169,6 +169,16 @@ implements Horde_Kolab_Cli_Module
                 ->getMyAcl($folder_name);
             $cli->writeln('Your rights on ' . $folder_name . ': ' . $acl);
             break;
+        case 'setacl':
+            $acl = $world['storage']->getList()
+                ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
+                ->setAcl($folder_name, $arguments[3], $arguments[4]);
+            break;
+        case 'deleteacl':
+            $acl = $world['storage']->getList()
+                ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
+                ->deleteAcl($folder_name, $arguments[3]);
+            break;
         case 'show':
             $this->_showFolder($folder_name, $world, $cli);
             break;

@@ -326,6 +326,21 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAcl($folder, $user, $acl)
     {
+        $result = imap_setacl($this->getBackend(), $this->encodePath($folder), $user, $acl);
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed setting ACL on folder %s for user %s to %acl. Error: %s"
+                    ),
+                    $folder,
+                    $user,
+                    $acl,
+                    imap_last_error()
+                )
+            );
+        }
+        return $result;
     }
 
     /**
@@ -338,6 +353,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteAcl($folder, $user)
     {
+        $this->setAcl($folder, $user, '');
     }
 
     /**

@@ -173,6 +173,9 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAcl($folder, $user, $acl)
     {
+        Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->setACL($this->encodePath($folder), $user, $acl)
+        );
     }
 
     /**
@@ -185,6 +188,9 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteAcl($folder, $user)
     {
+        Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->deleteACL($this->encodePath($folder), $user)
+        );
     }
 
     /**

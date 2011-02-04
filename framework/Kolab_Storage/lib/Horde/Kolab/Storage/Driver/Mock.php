@@ -262,6 +262,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAcl($folder, $user, $acl)
     {
+        $this->_data[$this->_convertToInternal($folder)]['permissions'][$user] = $acl;
     }
 
     /**
@@ -274,6 +275,9 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteAcl($folder, $user)
     {
+        if (isset($this->_data[$this->_convertToInternal($folder)]['permissions'][$user])) {
+            unset($this->_data[$this->_convertToInternal($folder)]['permissions'][$user]);
+        }
     }
 
     /**

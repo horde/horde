@@ -243,6 +243,20 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAcl($folder, $user, $acl)
     {
+        $this->getBackend()->setACL($this->encodePath($folder), $user, $acl);
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed setting ACL on folder %s for user %s to %s. Error: %s"
+                    ),
+                    $folder,
+                    $user,
+                    $acl,
+                    $this->getBackend()->error
+                )
+            );
+        }
     }
 
     /**
@@ -255,6 +269,19 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteAcl($folder, $user)
     {
+        $this->getBackend()->deleteACL($this->encodePath($folder), $user);
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed deleting ACL on folder %s for user %s. Error: %s"
+                    ),
+                    $folder,
+                    $user,
+                    $this->getBackend()->error
+                )
+            );
+        }
     }
 
     /**
