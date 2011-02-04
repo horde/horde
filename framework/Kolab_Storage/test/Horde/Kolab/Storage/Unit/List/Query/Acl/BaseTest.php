@@ -156,6 +156,36 @@ extends Horde_Kolab_Storage_TestCase
         $acl->deleteAcl('INBOX', 'user');
     }
 
+    public function testAclWithNewFolder()
+    {
+        $acl = $this->_getMockAcl();
+        $this->list->createFolder('INBOX/Test');
+        $this->assertEquals('lrswipkxtecda', $acl->getMyAcl('INBOX/Test'));
+    }
+
+    public function testSetGetAcl()
+    {
+        $acl = $this->_getMockAcl();
+        $this->list->createFolder('INBOX/Test');
+        $acl->setAcl('INBOX/Test', 'other', 'lrid');
+        $this->assertEquals(
+            array('test@example.com' => 'lrswipkxtecda', 'other' => 'lrid'),
+            $acl->getAcl('INBOX/Test')
+        );
+    }
+
+    public function testSetDeleteAcl()
+    {
+        $acl = $this->_getMockAcl();
+        $this->list->createFolder('INBOX/Test');
+        $acl->setAcl('INBOX/Test', 'other', 'lrid');
+        $acl->deleteAcl('INBOX/Test', 'test@example.com');
+        $this->assertEquals(
+            array('other' => 'lrid'),
+            $acl->getAcl('INBOX/Test')
+        );
+    }
+
     private function _getAcl($has_support = true)
     {
         $this->list = $this->getNamespaceQueriableList();
@@ -165,6 +195,16 @@ extends Horde_Kolab_Storage_TestCase
             ->will($this->returnValue($has_support));
         return new Horde_Kolab_Storage_List_Query_Acl_Base(
             $this->list, array('driver' => $this->driver)
+        );
+    }
+
+    private function _getMockAcl()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $driver = $this->getNamespaceMock($factory);
+        $this->list = new Horde_Kolab_Storage_List_Base($driver, $factory);
+        return new Horde_Kolab_Storage_List_Query_Acl_Base(
+            $this->list, array('driver' => $driver)
         );
     }
 }
