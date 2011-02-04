@@ -119,27 +119,12 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAcl($folder)
     {
-        //@todo: Separate driver class
-        if ($this->getBackend()->queryCapability('ACL') === true) {
-            if ($folder->getOwner() == $this->getAuth()) {
-                try {
-                    return $this->_getAcl($folder->getPath());
-                } catch (Exception $e) {
-                    return array($this->getAuth() => $this->_getMyAcl($folder->getPath()));
-                }
-            } else {
-                $acl = $this->_getMyAcl($folder->getPath());
-                if (strpos($acl, 'a')) {
-                    try {
-                        return $this->_getAcl($folder->getPath());
-                    } catch (Exception $e) {
-                    }
-                }
-                return array($this->getAuth() => $acl);
-            }
-        } else {
-            return array($this->getAuth() => 'lrid');
+        $acl = $this->getBackend()->getACL($folder);
+        $result = array();
+        foreach ($acl as $user => $rights) {
+            $result[$user] = join('', $rights);
         }
+        return $result;
     }
 
     /**
@@ -150,34 +135,6 @@ extends Horde_Kolab_Storage_Driver_Base
      * @return string The user rights.
      */
     public function getMyAcl($folder)
-    {
-    }
-
-    /**
-     * Retrieve the access rights for a folder.
-     *
-     * @param string $folder The folder to retrieve the ACL for.
-     *
-     * @return An array of rights.
-     */
-    private function _getAcl($folder)
-    {
-        $acl = $this->getBackend()->getACL($folder);
-        $result = array();
-        foreach ($acl as $user => $rights) {
-            $result[$user] = join('', $rights);
-        }
-        return $result;
-    }
-    
-    /**
-     * Retrieve the access rights on a folder for the current user.
-     *
-     * @param string $folder The folder to retrieve the ACL for.
-     *
-     * @return An array of rights.
-     */
-    private function _getMyAcl($folder)
     {
         return $this->getBackend()->getMyACLRights($folder);
     }
@@ -193,10 +150,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAcl($folder, $user, $acl)
     {
-        //@todo: Separate driver class
-        if ($this->getBackend()->queryCapability('ACL') === true) {
-            $this->getBackend()->setACL($folder, $user, array('rights' => $acl));
-        }
+        $this->getBackend()->setACL($folder, $user, array('rights' => $acl));
     }
 
     /**
@@ -209,10 +163,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteAcl($folder, $user)
     {
-        //@todo: Separate driver class
-        if ($this->getBackend()->queryCapability('ACL') === true) {
-            $this->getBackend()->setACL($folder, $user, array('remove' => true));
-        }
+        $this->getBackend()->setACL($folder, $user, array('remove' => true));
     }
 
     /**

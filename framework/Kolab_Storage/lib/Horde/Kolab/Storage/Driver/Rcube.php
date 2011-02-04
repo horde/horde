@@ -200,6 +200,19 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMyAcl($folder)
     {
+        $result = $this->getBackend()->myRights($this->encodePath($folder));
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed reading user rights on folder %s. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+        return join('', $result);
     }
 
     /**

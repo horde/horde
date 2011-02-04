@@ -253,8 +253,8 @@ extends Horde_Kolab_Storage_Driver_Base
     public function hasAclSupport()
     {
         @imap_getacl(
-                $this->getBackend(),
-                $this->_getBaseMbox()
+            $this->getBackend(),
+            $this->_getBaseMbox()
         );
         if (imap_last_error()  == 'ACL not available on this IMAP server') {
             return false;
@@ -283,6 +283,23 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMyAcl($folder)
     {
+        if (!function_exists('imap_myrights')) {
+            throw new Horde_Kolab_Storage_Exception('PHP does not support imap_myrights.');
+        }
+
+        $result = imap_myrights($this->getBackend(), $this->encodePath($folder));
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed reading user rights on folder %s. Error: %s"
+                    ),
+                    $folder,
+                    imap_last_error()
+                )
+            );
+        }
+        return $result;
     }
 
     /**
@@ -381,7 +398,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     $this->_getBaseMbox(),
                     $mailbox,
                     $value,
-                    @imap_last_error()
+                    imap_last_error()
                 )
             );
         }

@@ -149,6 +149,9 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMyAcl($folder)
     {
+        return Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->getMyRights($this->encodePath($folder))
+        );
     }
 
     /**

@@ -152,6 +152,12 @@ implements Horde_Kolab_Cli_Module
             $folder = $world['storage']->getList()
                 ->deleteFolder($folder_name);
             break;
+        case 'getmyacl':
+            $acl = $world['storage']->getList()
+                ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
+                ->getMyAcl($folder_name);
+            $cli->writeln('Your rights on ' . $folder_name . ': ' . $acl);
+            break;
         case 'show':
             $this->_showFolder($folder_name, $world, $cli);
             break;

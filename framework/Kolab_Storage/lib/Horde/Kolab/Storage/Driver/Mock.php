@@ -160,7 +160,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 'uidvalidity' => time(),
                 'uidnext' => 1),
             'mails' => array(),
-            'permissions' => array(),
+            'permissions' => array($this->getAuth() => 'lrswipkxtecda'),
             'annotations' => array(),
         );
     }
@@ -239,6 +239,11 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMyAcl($folder)
     {
+        $folder = $this->_convertToInternal($folder);
+        if (isset($this->_data[$folder]['permissions'][$this->getAuth()])) {
+            return $this->_data[$folder]['permissions'][$this->getAuth()];
+        }
+        return '';
     }
 
     /**
