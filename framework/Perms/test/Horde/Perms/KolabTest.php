@@ -36,119 +36,101 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->markTestIncomplete();
-        $this->folder = $this->getMock('Horde_Kolab_Storage_Folder_Base', array(), array(), '', false, false);
+        $this->storage = $this->getMock('Horde_Perms_Permission_Kolab_Storage');
+        $this->storage->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue('test'));
         $this->groups = $this->getMock('Horde_Group', array(), array(), '', false, false);
         $this->perms = new Horde_Perms();
     }
 
     public function testConstruct()
     {
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('test' => 'l')));
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertEquals('matrix', $permission->get('type'));
     }
 
     public function testImapListAclResultsInShowPermission()
     {
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('test' => 'l')));
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertTrue((bool) $this->perms->hasPermission($permission, 'test', Horde_Perms::SHOW));
     }
 
     public function testImapReadAclResultsInReadPermission()
     {
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('test' => 'r')));
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertTrue((bool) $this->perms->hasPermission($permission, 'test', Horde_Perms::READ));
     }
 
     public function testImapEditAclResultsInEditPermission()
     {
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('test' => 'i')));
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertTrue((bool) $this->perms->hasPermission($permission, 'test', Horde_Perms::EDIT));
     }
 
     public function testImapDeleteAclResultsInDeletePermission() 
     {
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('test' => 'd')));
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertTrue((bool) $this->perms->hasPermission($permission, 'test', Horde_Perms::DELETE));
     }
 
     public function testImapAnonymousUserMapsToGuestUsers()
     {
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('anonymous' => 'lrid')));
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertEquals(Horde_Perms::ALL, $permission->getGuestPermissions());
     }
 
     public function testImapAnyoneUserMapsToDefaultUsers()
     {
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('anyone' => 'lrid')));
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertEquals(Horde_Perms::ALL, $permission->getDefaultPermissions());
     }
 
     public function testImapOwnerUserMapsToCreator()
     {
-        $storage = $this->getMock('Horde_Kolab_Storage', array(), array(), '', false, false);
-        $connection = $this->getMock('Horde_Kolab_Storage_Driver');
-        $connection->expects($this->any())
-            ->method('getNamespace')
-            ->will(
-                $this->returnValue(
-                    new Horde_Kolab_Storage_Folder_Namespace_Imap(
-                        'test',
-                        array(
-                            array(
-                                'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
-                                'name' => 'INBOX/',
-                                'delimiter' => '/',
-                                'add' => true,
-                            )
-                        )
-                    )
-                )
-            );
-        $connection->expects($this->any())
-            ->method('getAuth')
+        $this->storage->expects($this->any())
+            ->method('getOwner')
             ->will($this->returnValue('test'));
-        $connection->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('test' => 'lrid')));
-        $folder = new Horde_Kolab_Storage_Folder_Base($storage, $connection, 'INBOX/test');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertEquals(Horde_Perms::ALL, $permission->getCreatorPermissions());
     }
@@ -159,132 +141,112 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
             ->method('getGroupId')
             ->with('test')
             ->will($this->returnValue('horde_test'));
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('group:test' => 'lrid')));
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $this->assertEquals(array('horde_test' => Horde_Perms::ALL), $permission->getGroupPermissions());
     }
 
     public function testShowPermissionResultsInImapListAcl()
     {
-        $this->folder->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(3))
             ->method('getAcl')
             ->will($this->returnValue(array()));
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('setAcl')
             ->with('test', 'l');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $permission->addUserPermission('test', Horde_Perms::SHOW, true);
     }
 
     public function testReadPermissionResultsInImapReadAcl()
     {
-        $this->folder->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(3))
             ->method('getAcl')
             ->will($this->returnValue(array()));
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('setAcl')
             ->with('test', 'r');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $permission->addUserPermission('test', Horde_Perms::READ, true);
     }
 
     public function testEditPermissionResultsInImapEditAcl()
     {
-        $this->folder->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(3))
             ->method('getAcl')
             ->will($this->returnValue(array()));
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('setAcl')
             ->with('test', 'iswc');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $permission->addUserPermission('test', Horde_Perms::EDIT, true);
     }
 
     public function testDeletePermissionResultsInImapDeleteAcl() 
     {
-        $this->folder->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(3))
             ->method('getAcl')
             ->will($this->returnValue(array()));
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('setAcl')
             ->with('test', 'd');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $permission->addUserPermission('test', Horde_Perms::DELETE, true);
     }
 
     public function testGuestUsersMapsToImapAnonymousUser()
     {
-        $this->folder->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(3))
             ->method('getAcl')
             ->will($this->returnValue(array()));
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('setAcl')
             ->with('anonymous', 'lriswcd');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $permission->addGuestPermission(Horde_Perms::ALL, true);
     }
 
     public function testDefaultUsersMapsToImapAnyoneUser()
     {
-        $this->folder->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(3))
             ->method('getAcl')
             ->will($this->returnValue(array()));
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('setAcl')
             ->with('anyone', 'lriswcd');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $permission->addDefaultPermission(Horde_Perms::ALL, true);
     }
 
     public function testCreatorMapsToImapOwnerUser()
     {
-        $storage = $this->getMock('Horde_Kolab_Storage', array(), array(), '', false, false);
-        $connection = $this->getMock('Horde_Kolab_Storage_Driver');
-        $connection->expects($this->any())
-            ->method('getNamespace')
-            ->will(
-                $this->returnValue(
-                    new Horde_Kolab_Storage_Folder_Namespace_Imap(
-                        'test',
-                        array(
-                            array(
-                                'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
-                                'name' => 'INBOX/',
-                                'delimiter' => '/',
-                                'add' => true,
-                            )
-                        )
-                    )
-                )
-            );
-        $connection->expects($this->any())
-            ->method('getAuth')
+        $this->storage->expects($this->any())
+            ->method('getOwner')
             ->will($this->returnValue('test'));
-        $connection->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(3))
             ->method('getAcl')
             ->will($this->returnValue(array()));
-        $connection->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('setAcl')
-            ->with('INBOX/test', 'test', 'alriswcd');
-        $folder = new Horde_Kolab_Storage_Folder_Base($storage, $connection, 'INBOX/test');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $folder, $this->groups
+            ->with('test', 'alriswcd');
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $permission->addCreatorPermission(Horde_Perms::ALL, true);
     }
@@ -295,14 +257,14 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
             ->method('getGroupName')
             ->with('horde_test')
             ->will($this->returnValue('test'));
-        $this->folder->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(3))
             ->method('getAcl')
             ->will($this->returnValue(array()));
-        $this->folder->expects($this->once())
+        $this->storage->expects($this->once())
             ->method('setAcl')
             ->with('group:test', 'lriswcd');
-        $permission = new Horde_Kolab_Storage_Folder_Permission(
-            'test', $this->folder, $this->groups
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
         );
         $permission->addGroupPermission('horde_test', Horde_Perms::ALL, true);
     }
@@ -328,7 +290,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
             ),
             'wrobel'
         );
-        $perms = new Horde_Kolab_Storage_Folder_Permissions_Default($folder);
+        $perms = new Horde_Perms_Permission_Kolabs_Default($folder);
         $data = $perms->getData();
         unset($data['guest']);
         unset($data['default']);
@@ -357,7 +319,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $folder = new DummyFolder(array(), 'wrobel');
         $hperms = new Horde_Perms_Permission('test');
         $hperms->addUserPermission('wrobel', Horde_Perms::SHOW, false);
-        $perms = new Horde_Kolab_Storage_Folder_Permissions_Default($folder, $hperms->data);
+        $perms = new Horde_Perms_Permission_Kolabs_Default($folder, $hperms->data);
         $perms->save();
         $this->assertEquals('al', join('', $folder->acl['wrobel']));
     }
