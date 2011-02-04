@@ -16,7 +16,7 @@ if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_tasklist')) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$form = new Nag_CreateTaskListForm($vars);
+$form = new Nag_Form_CreateTaskList($vars);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
