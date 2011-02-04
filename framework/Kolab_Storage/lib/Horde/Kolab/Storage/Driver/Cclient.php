@@ -487,7 +487,7 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @return An array of rights.
      */
-    public function getAcl(Horde_Kolab_Storage_Folder $folder)
+    public function getAcl($folder)
     {
         //@todo: Separate driver class
         if ($this->_imap->queryCapability('ACL') === true) {

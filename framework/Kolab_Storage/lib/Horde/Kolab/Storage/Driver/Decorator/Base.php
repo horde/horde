@@ -297,7 +297,7 @@ implements Horde_Kolab_Storage_Driver
      *
      * @return An array of rights.
      */
-    public function getAcl(Horde_Kolab_Storage_Folder $folder)
+    public function getAcl($folder)
     {
     }
 

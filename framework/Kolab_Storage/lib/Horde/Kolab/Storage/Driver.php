@@ -103,6 +103,36 @@ interface Horde_Kolab_Storage_Driver
     public function rename($old, $new);
 
     /**
+     * Retrieve the access rights for a folder.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @return An array of rights.
+     */
+    public function getAcl($folder);
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl);
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user);
+
+    /**
      * Retrieves the specified annotation for the complete list of mailboxes.
      *
      * @param string $annotation The name of the annotation to retrieve.
@@ -242,34 +272,4 @@ interface Horde_Kolab_Storage_Driver
      * @return mixed  The message body or a PEAR error in case of an error.
      */
     public function getMessageBody($mailbox, $uid);
-
-    /**
-     * Retrieve the access rights for a folder.
-     *
-     * @param Horde_Kolab_Storage_Folder $folder The folder to retrieve the ACL for.
-     *
-     * @return An array of rights.
-     */
-    public function getAcl($folder);
-
-    /**
-     * Set the access rights for a folder.
-     *
-     * @param string $folder  The folder to act upon.
-     * @param string $user    The user to set the ACL for.
-     * @param string $acl     The ACL.
-     *
-     * @return NULL
-     */
-    public function setAcl($folder, $user, $acl);
-
-    /**
-     * Delete the access rights for user on a folder.
-     *
-     * @param string $folder  The folder to act upon.
-     * @param string $user    The user to delete the ACL for
-     *
-     * @return NULL
-     */
-    public function deleteAcl($folder, $user);
 }
