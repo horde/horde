@@ -210,6 +210,63 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Does the backend support ACL?
+     *
+     * @return boolean True if the backend supports ACLs.
+     */
+    public function hasAclSupport()
+    {
+        return true;
+    }
+
+    /**
+     * Retrieve the access rights for a folder.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @return array An array of rights.
+     */
+    public function getAcl($folder)
+    {
+    }
+    
+    /**
+     * Retrieve the access rights the current user has on a folder.
+     *
+     * @param string $folder The folder to retrieve the user ACL for.
+     *
+     * @return string The user rights.
+     */
+    public function getMyAcl($folder)
+    {
+    }
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl)
+    {
+    }
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user)
+    {
+    }
+
+    /**
      * Retrieves the specified annotation for the complete list of mailboxes.
      *
      * @param string $annotation The name of the annotation to retrieve.
@@ -442,98 +499,5 @@ extends Horde_Kolab_Storage_Driver_Base
         return $result[$uid]['bodytext'][0];
     }
 
-    /**
-     * Retrieve the access rights for a folder.
-     *
-     * @param Horde_Kolab_Storage_Folder $folder The folder to retrieve the ACL for.
-     *
-     * @return An array of rights.
-     */
-    public function getAcl($folder)
-    {
-        //@todo: Separate driver class
-        if ($this->_imap->queryCapability('ACL') === true) {
-            if ($folder->getOwner() == $this->getAuth()) {
-                try {
-                    return $this->_getAcl($folder->getName());
-                } catch (Exception $e) {
-                    return array($this->getAuth() => $this->_getMyAcl($folder->getName()));
-                }
-            } else {
-                $acl = $this->_getMyAcl($folder->getName());
-                if (strpos($acl, 'a')) {
-                    try {
-                        return $this->_getAcl($folder->getName());
-                    } catch (Exception $e) {
-                    }
-                }
-                return array($this->getAuth() => $acl);
-            }
-        } else {
-            return array($this->getAuth() => 'lrid');
-        }
-    }
-
-    /**
-     * Retrieve the access rights for a folder.
-     *
-     * @param string $folder The folder to retrieve the ACL for.
-     *
-     * @return An array of rights.
-     */
-    private function _getAcl($folder)
-    {
-        $acl = $this->_imap->getACL($folder);
-        $result = array();
-        foreach ($acl as $user => $rights) {
-            $result[$user] = join('', $rights);
-        }
-        return $result;
-    }
-    
-    /**
-     * Retrieve the access rights on a folder for the current user.
-     *
-     * @param string $folder The folder to retrieve the ACL for.
-     *
-     * @return An array of rights.
-     */
-    private function _getMyAcl($folder)
-    {
-        return $this->_imap->getMyACLRights($folder);
-    }
-
-    /**
-     * Set the access rights for a folder.
-     *
-     * @param string $folder  The folder to act upon.
-     * @param string $user    The user to set the ACL for.
-     * @param string $acl     The ACL.
-     *
-     * @return NULL
-     */
-    public function setAcl($folder, $user, $acl)
-    {
-        //@todo: Separate driver class
-        if ($this->_imap->queryCapability('ACL') === true) {
-            $this->_imap->setACL($folder, $user, array('rights' => $acl));
-        }
-    }
-
-    /**
-     * Delete the access rights for user on a folder.
-     *
-     * @param string $folder  The folder to act upon.
-     * @param string $user    The user to delete the ACL for
-     *
-     * @return NULL
-     */
-    public function deleteAcl($folder, $user)
-    {
-        //@todo: Separate driver class
-        if ($this->_imap->queryCapability('ACL') === true) {
-            $this->_imap->setACL($folder, $user, array('remove' => true));
-        }
-    }
 
 }

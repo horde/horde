@@ -315,6 +315,20 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getNamespaceQueriableList($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        $list = $this->getNamespaceList($factory);
+        $list->registerQuery(
+            Horde_Kolab_Storage_List::QUERY_BASE,
+            $factory->createListQuery(
+                'Horde_Kolab_Storage_List_Query_List_Base',
+                $list
+            )
+        );
+        return $list;
+    }
+
     protected function getNamespaceQuery($factory = null)
     {
         $factory = $this->completeFactory($factory);

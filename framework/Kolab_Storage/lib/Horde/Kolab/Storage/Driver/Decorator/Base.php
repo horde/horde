@@ -121,6 +121,97 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return NULL
+     */
+    public function create($folder)
+    {
+    }
+
+    /**
+     * Delete the specified folder.
+     *
+     * @param string $folder  The folder to delete.
+     *
+     * @return NULL
+     */
+    public function delete($folder)
+    {
+    }
+
+    /**
+     * Rename the specified folder.
+     *
+     * @param string $old  The folder to rename.
+     * @param string $new  The new name of the folder.
+     *
+     * @return NULL
+     */
+    public function rename($old, $new)
+    {
+    }
+
+    /**
+     * Does the backend support ACL?
+     *
+     * @return boolean True if the backend supports ACLs.
+     */
+    public function hasAclSupport()
+    {
+        return true;
+    }
+
+    /**
+     * Retrieve the access rights for a folder.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @return array An array of rights.
+     */
+    public function getAcl($folder)
+    {
+    }
+    
+    /**
+     * Retrieve the access rights the current user has on a folder.
+     *
+     * @param string $folder The folder to retrieve the user ACL for.
+     *
+     * @return string The user rights.
+     */
+    public function getMyAcl($folder)
+    {
+    }
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl)
+    {
+    }
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user)
+    {
+    }
+
+    /**
      * Retrieves the specified annotation for the complete list of mailboxes.
      *
      * @param string $annotation The name of the annotation to retrieve.
@@ -131,6 +222,41 @@ implements Horde_Kolab_Storage_Driver
     public function listAnnotation($annotation)
     {
         return $this->_driver->listAnnotation($annotation);
+    }
+
+    /**
+     * Fetches the annotation on a folder.
+     *
+     * @param string $entry  The entry to fetch.
+     * @param string $folder The name of the folder.
+     *
+     * @return string The annotation value.
+     */
+    public function getAnnotation($entry, $folder)
+    {
+    }
+
+    /**
+     * Sets the annotation on a folder.
+     *
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to set.
+     * @param array  $value      The values to set
+     *
+     * @return NULL
+     */
+    public function setAnnotation($mailbox, $annotation, $value)
+    {
+    }
+
+    /**
+     * Retrieve the namespace information for this connection.
+     *
+     * @return Horde_Kolab_Storage_Driver_Namespace The initialized namespace handler.
+     */
+    public function getNamespace()
+    {
+        return $this->_driver->getNamespace();
     }
 
     /**
@@ -175,43 +301,6 @@ implements Horde_Kolab_Storage_Driver
      * @return array  The message ids.
      */
     public function getUids($folder)
-    {
-    }
-
-    /**
-     * Create the specified folder.
-     *
-     * @param string $folder The folder to create.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function create($folder)
-    {
-    }
-
-    /**
-     * Delete the specified folder.
-     *
-     * @param string $folder  The folder to delete.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function delete($folder)
-    {
-    }
-
-    /**
-     * Rename the specified folder.
-     *
-     * @param string $old  The folder to rename.
-     * @param string $new  The new name of the folder.
-     *
-     * @return mixed True in case the operation was successfull, a
-     *               PEAR error otherwise.
-     */
-    public function rename($old, $new)
     {
     }
 
@@ -288,77 +377,6 @@ implements Horde_Kolab_Storage_Driver
      */
     public function getMessageBody($mailbox, $uid)
     {
-    }
-
-    /**
-     * Retrieve the access rights for a folder.
-     *
-     * @param Horde_Kolab_Storage_Folder $folder The folder to retrieve the ACL for.
-     *
-     * @return An array of rights.
-     */
-    public function getAcl($folder)
-    {
-    }
-
-    /**
-     * Set the access rights for a folder.
-     *
-     * @param string $folder  The folder to act upon.
-     * @param string $user    The user to set the ACL for.
-     * @param string $acl     The ACL.
-     *
-     * @return NULL
-     */
-    public function setAcl($folder, $user, $acl)
-    {
-    }
-
-    /**
-     * Delete the access rights for user on a folder.
-     *
-     * @param string $folder  The folder to act upon.
-     * @param string $user    The user to delete the ACL for
-     *
-     * @return NULL
-     */
-    public function deleteAcl($folder, $user)
-    {
-    }
-
-    /**
-     * Fetches the annotation on a folder.
-     *
-     * @param string $entry  The entry to fetch.
-     * @param string $folder The name of the folder.
-     *
-     * @return string The annotation value.
-     */
-    public function getAnnotation($entry, $folder)
-    {
-    }
-
-    /**
-     * Sets the annotation on a folder.
-     *
-     * @param string $entry  The entry to set.
-     * @param array  $value  The values to set
-     * @param string $folder The name of the folder.
-     *
-     * @return NULL
-     */
-    public function setAnnotation($entry, $value, $folder)
-    {
-    }
-
-    /**
-     * Retrieve the namespace information for this connection.
-     *
-     * @return Horde_Kolab_Storage_Driver_Namespace The initialized namespace handler.
-     */
-    public function getNamespace()
-    {
-        return $this->_driver->getNamespace();
     }
 
     /**

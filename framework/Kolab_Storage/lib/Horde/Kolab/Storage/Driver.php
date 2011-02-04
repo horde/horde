@@ -103,13 +103,29 @@ interface Horde_Kolab_Storage_Driver
     public function rename($old, $new);
 
     /**
+     * Does the backend support ACL?
+     *
+     * @return boolean True if the backend supports ACLs.
+     */
+    public function hasAclSupport();
+
+    /**
      * Retrieve the access rights for a folder.
      *
      * @param string $folder The folder to retrieve the ACL for.
      *
-     * @return An array of rights.
+     * @return array An array of rights.
      */
     public function getAcl($folder);
+
+    /**
+     * Retrieve the access rights the current user has on a folder.
+     *
+     * @param string $folder The folder to retrieve the user ACL for.
+     *
+     * @return string The user rights.
+     */
+    public function getMyAcl($folder);
 
     /**
      * Set the access rights for a folder.

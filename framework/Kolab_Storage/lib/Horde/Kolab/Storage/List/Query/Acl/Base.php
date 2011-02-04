@@ -57,6 +57,102 @@ implements Horde_Kolab_Storage_List_Query_Acl
     }
 
     /**
+     * Does the backend support ACL?
+     *
+     * @return boolean True if the backend supports ACLs.
+     */
+    public function hasAclSupport()
+    {
+        return $this->_driver->hasAclSupport();
+    }
+
+    /**
+     * Retrieve the access rights for a folder.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @return array An array of rights.
+     */
+    public function getAcl($folder)
+    {
+        if (!$this->hasAclSupport()) {
+            return array($this->_driver->getAuth() => 'lrid');
+        }
+        if ($this->_list->getFolder($folder)->getNamespace()
+            == Horde_Kolab_Storage_Folder_Namespace::PERSONAL) {
+            try {
+                return $this->_driver->getAcl($folder);
+            } catch (Horde_Kolab_Storage_Exception $e) {
+                /**
+                 * Assume we didn't have admin rights on the folder and fall
+                 * back to my ACL.
+                 */
+                return array($this->_driver->getAuth() => $this->getMyAcl($folder));
+            }
+        } else {
+            $acl = $this->getMyAcl($folder);
+            if (strpos($acl, 'a')) {
+                try {
+                    return $this->_driver->getAcl($folder);
+                } catch (Horde_Kolab_Storage_Exception $e) {
+                }
+            }
+            return array($this->_driver->getAuth() => $acl);
+        }
+    }
+
+    /**
+     * Retrieve the access rights the current user has on a folder.
+     *
+     * @param string $folder The folder to retrieve the user ACL for.
+     *
+     * @return string The user rights.
+     */
+    public function getMyAcl($folder)
+    {
+        if (!$this->hasAclSupport()) {
+            return 'lrid';
+        }
+        return $this->_driver->getMyAcl($folder);
+    }
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl)
+    {
+        $this->_failOnMissingAcl();
+        return $this->_driver->setAcl($folder, $user, $acl);
+    }
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user)
+    {
+        $this->_failOnMissingAcl();
+        return $this->_driver->deleteAcl($folder, $user);
+    }
+
+    private function _failOnMissingAcl()
+    {
+        if (!$this->hasAclSupport()) {
+            throw new Horde_Kolab_Storage_Exception('The backend does not support ACL.');
+        }
+    }
+
+    /**
      * Create a new folder.
      *
      * @param string $folder The path of the folder to create.
