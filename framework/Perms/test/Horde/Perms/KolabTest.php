@@ -38,7 +38,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
     {
         $this->storage = $this->getMock('Horde_Perms_Permission_Kolab_Storage');
         $this->storage->expects($this->once())
-            ->method('getId')
+            ->method('getPermissionId')
             ->will($this->returnValue('test'));
         $this->groups = $this->getMock('Horde_Group', array(), array(), '', false, false);
         $this->perms = new Horde_Perms();

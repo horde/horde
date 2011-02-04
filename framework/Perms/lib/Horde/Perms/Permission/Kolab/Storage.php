@@ -32,14 +32,7 @@ interface Horde_Perms_Permission_Kolab_Storage
      *
      * @return string The ID.
      */
-    public function getId();
-
-    /**
-     * Retrieve the Kolab specific access rights for this storage object.
-     *
-     * @return An array of rights.
-     */
-    public function getAcl();
+    public function getPermissionId();
 
     /**
      * Return the owner of this storage object.
@@ -47,6 +40,13 @@ interface Horde_Perms_Permission_Kolab_Storage
      * @return string The owner.
      */
     public function getOwner();
+
+    /**
+     * Retrieve the Kolab specific access rights for this storage object.
+     *
+     * @return An array of rights.
+     */
+    public function getAcl();
 
     /**
      * Set the Kolab specific access rights for this storage object.
@@ -66,5 +66,4 @@ interface Horde_Perms_Permission_Kolab_Storage
      * @return NULL
      */
     public function deleteAcl($user);
-
 }

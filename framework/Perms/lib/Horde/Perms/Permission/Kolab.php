@@ -63,7 +63,7 @@ extends Horde_Perms_Permission
         Horde_Perms_Permission_Kolab_Storage $storage,
         Horde_Group $groups
     ) {
-        parent::__construct(__CLASS__ . '::' . $storage->getId());
+        parent::__construct(__CLASS__ . '::' . $storage->getPermissionId());
         $this->_storage = $storage;
         $this->_groups  = $groups;
         $this->data     = $this->getCurrentPermissions();
