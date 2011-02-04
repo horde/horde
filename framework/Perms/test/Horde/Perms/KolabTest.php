@@ -269,58 +269,47 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $permission->addGroupPermission('horde_test', Horde_Perms::ALL, true);
     }
 
-    /**
-     * Test saving permissions
-     */
-    public function testSave()
+    public function testGetType()
     {
-        $this->markTestIncomplete('Currently broken');
-        $GLOBALS['conf']['auth']['driver'] = 'auto';
-        $GLOBALS['conf']['group']['driver'] = 'mock';
-
-        $folder = new DummyFolder(
-            array(
-                'wrobel' => array('l', 'r', 'i', 'd'),
-                'reader' => array('l', 'r'),
-                'viewer' => array('l'),
-                'editor' => array('l', 'r', 'e'),
-                'anyone' => array('l'),
-                'anonymous' => array(''),
-                'group:editors' => array('l', 'r', 'e')
-            ),
-            'wrobel'
+        $this->assertEquals(
+            'matrix', $this->_getComplexPermissions()->get('type')
         );
-        $perms = new Horde_Perms_Permission_Kolabs_Default($folder);
-        $data = $perms->getData();
-        unset($data['guest']);
-        unset($data['default']);
-        unset($data['users']['viewer']);
-        $data['users']['editor'] = Horde_Perms::ALL;
-        $data['users']['test'] = Horde_Perms::SHOW | Horde_Perms::READ;
-        $data['groups']['group'] = Horde_Perms::SHOW | Horde_Perms::READ;
-        $perms->setData($data);
-        $perms->save();
-        $this->assertNotContains('anyone', array_keys($folder->acl));
-        $this->assertNotContains('anonymous', array_keys($folder->acl));
-        $this->assertEquals('lr', join('', $folder->acl['test']));
-        $this->assertEquals('lriswcd', join('', $folder->acl['editor']));
-        $this->assertEquals('alriswcd', join('', $folder->acl['wrobel']));
     }
 
-    /**
-     * Test using Horde permissions.
-     */
-    public function testHordePermissions()
+    public function testGetName()
     {
-        $this->markTestIncomplete('Currently broken');
-        $GLOBALS['conf']['auth']['driver'] = 'auto';
-        $GLOBALS['conf']['group']['driver'] = 'mock';
+        $this->assertEquals(
+            'Horde_Perms_Permission_Kolab::test',
+            $this->_getComplexPermissions()->getName()
+        );
+    }
 
-        $folder = new DummyFolder(array(), 'wrobel');
-        $hperms = new Horde_Perms_Permission('test');
-        $hperms->addUserPermission('wrobel', Horde_Perms::SHOW, false);
-        $perms = new Horde_Perms_Permission_Kolabs_Default($folder, $hperms->data);
-        $perms->save();
-        $this->assertEquals('al', join('', $folder->acl['wrobel']));
+    public function testSetName()
+    {
+        $permission = $this->_getComplexPermissions();
+        $permission->setName('DUMMY');
+        $this->assertEquals('DUMMY', $permission->getName());
+    }
+
+    private function _getComplexPermissions()
+    {
+        $this->storage->expects($this->any())
+            ->method('getAcl')
+            ->will(
+                $this->returnValue(
+                    array(
+                        'wrobel' => 'lrid',
+                        'reader' => 'lr',
+                        'viewer' => 'l',
+                        'editor' => 'l', 'r', 'e',
+                        'anyone' => 'l',
+                        'anonymous' => '',
+                        'group:editors' => 'l', 'r', 'e'
+                    )
+                )
+            );
+        return new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
+        );
     }
 }
