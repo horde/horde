@@ -81,6 +81,20 @@ class Ansel_Style
         return !empty($this->_properties[$property]) ? $this->_properties[$property] : null;
     }
 
+    public function __set($property, $value)
+    {
+        switch ($property) {
+        case 'thumbstyle':
+        case 'background':
+        case 'width':
+        case 'height':
+            $this->_properties[$property] = $value;
+            break;
+        default:
+            throw new Ansel_Exception('Invalid property');
+        }
+    }
+
     public function __isset($property)
     {
         return !empty($property);
