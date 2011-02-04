@@ -340,8 +340,8 @@ extends Horde_Kolab_Storage_TestCase
     {
         $list = $this->getAnnotatedQueriableList();
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Folder_Acls',
-            $list->acls()
+            'Horde_Kolab_Storage_Folder_Acl',
+            $list->acl()
         );
     }
 

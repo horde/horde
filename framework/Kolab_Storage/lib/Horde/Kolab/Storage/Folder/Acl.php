@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Folder_Acls
+class Horde_Kolab_Storage_Folder_Acl
 {
     /**
      * The driver for accessing the Kolab storage system.
