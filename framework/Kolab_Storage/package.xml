@@ -31,8 +31,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-04</date>
- <time>22:52:37</time>
+ <date>2011-02-05</date>
+ <time>21:12:25</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -132,8 +132,12 @@
           <file name="Base.php" role="php" />
           <file name="Cache.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Storage/List/Query/List -->
+         <dir name="Share">
+          <file name="Base.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/List/Query/Share -->
          <file name="Acl.php" role="php" />
          <file name="List.php" role="php" />
+         <file name="Share.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/List/Query -->
         <file name="Base.php" role="php" />
         <file name="Query.php" role="php" />
@@ -607,10 +611,12 @@
    <install as="Horde/Kolab/Storage/List/Decorator/Log.php" name="lib/Horde/Kolab/Storage/List/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/List/Query/Acl.php" name="lib/Horde/Kolab/Storage/List/Query/Acl.php" />
    <install as="Horde/Kolab/Storage/List/Query/List.php" name="lib/Horde/Kolab/Storage/List/Query/List.php" />
+   <install as="Horde/Kolab/Storage/List/Query/Share.php" name="lib/Horde/Kolab/Storage/List/Query/Share.php" />
    <install as="Horde/Kolab/Storage/List/Query/Acl/Base.php" name="lib/Horde/Kolab/Storage/List/Query/Acl/Base.php" />
    <install as="Horde/Kolab/Storage/List/Query/Acl/Cache.php" name="lib/Horde/Kolab/Storage/List/Query/Acl/Cache.php" />
    <install as="Horde/Kolab/Storage/List/Query/List/Base.php" name="lib/Horde/Kolab/Storage/List/Query/List/Base.php" />
    <install as="Horde/Kolab/Storage/List/Query/List/Cache.php" name="lib/Horde/Kolab/Storage/List/Query/List/Cache.php" />
+   <install as="Horde/Kolab/Storage/List/Query/Share/Base.php" name="lib/Horde/Kolab/Storage/List/Query/Share/Base.php" />
    <install as="locale/Horde_Kolab_Storage.pot" name="locale/Horde_Kolab_Storage.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" />
@@ -802,7 +808,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-02-04</date>
+   <date>2011-02-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added namespace support (Bug #6691).

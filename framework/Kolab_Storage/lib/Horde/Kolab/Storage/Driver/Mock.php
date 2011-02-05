@@ -354,33 +354,21 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Fetches the annotation on a folder.
+     * Fetches the annotation from a folder.
      *
-     * @param string $entry         The entry to fetch.
-     * @param string $mailbox_name  The name of the folder.
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to get.
      *
-     * @return mixed  The annotation value or a PEAR error in case of an error.
+     * @return string The annotation value.
      */
-    public function getAnnotation($entry, $mailbox_name)
+    public function getAnnotation($mailbox, $annotation)
     {
-        $mailbox_name = $this->_convertToInternal($mailbox_name);
-        $old_mbox = null;
-        if ($mailbox_name != $this->_mboxname) {
-            $old_mbox = $this->_mboxname;
-            $result = $this->select($mailbox_name);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+        $mailbox = $this->_convertToInternal($mailbox);
+        $this->_failOnMissingFolder($mailbox);
+        if (isset($this->_data[$mailbox]['annotations'][$annotation])) {
+            return $this->_data[$mailbox]['annotations'][$annotation];
         }
-        if (!isset($this->_mbox['annotations'][$entries])
-            || !isset($this->_mbox['annotations'][$entries][$value])) {
-            return false;
-        }
-        $annotation = $this->_mbox['annotations'][$entries][$value];
-        if ($old_mbox) {
-            $this->select($old_mbox);
-        }
-        return $annotation;
+        return false;
     }
 
     /**
