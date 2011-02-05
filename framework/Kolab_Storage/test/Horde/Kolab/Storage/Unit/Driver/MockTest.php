@@ -87,12 +87,29 @@ extends Horde_Kolab_Storage_TestCase
         $mock = $this->getNullMock();
         $mock->create('INBOX/Test');
         $mock->setAcl('INBOX/Test', $mock->getAuth(), 'lr');
-        $mock->rename('INBOX/Test', 'user/other/test');
         try {
-            $mock->getAcl('user/other/test');
+            $mock->getAcl('INBOX/Test');
         } catch (Horde_Kolab_Storage_Exception $e) {
             $this->assertEquals('Permission denied!', $e->getMessage());
         }
+    }
+
+    public function testGetAclWithAnyone()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'anyone', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $this->assertEquals(array('anyone' => 'a'), $mock->getAcl('INBOX/Test'));
+    }
+
+    public function testGetAclWithAnonymous()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'anonymous', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $this->assertEquals(array('anonymous' => 'a'), $mock->getAcl('INBOX/Test'));
     }
 
     /**
@@ -110,8 +127,26 @@ extends Horde_Kolab_Storage_TestCase
     {
         $mock = $this->getNullMock();
         $mock->create('INBOX/Test');
-        $mock->setAcl('INBOX/Test', $mock->getAuth(), '');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
         $mock->getMyAcl('INBOX/Test');
+    }
+
+    public function testGetMyAclWithAnyone()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'anyone', 'l');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $this->assertEquals('l', $mock->getMyAcl('INBOX/Test'));
+    }
+
+    public function testGetMyAclWithAnonymous()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'anonymous', 'l');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $this->assertEquals('l', $mock->getMyAcl('INBOX/Test'));
     }
 
     /**
@@ -129,7 +164,37 @@ extends Horde_Kolab_Storage_TestCase
     {
         $mock = $this->getNullMock();
         $mock->create('INBOX/Test');
-        $mock->setAcl('INBOX/Test', $mock->getAuth(), '');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $mock->setAcl('INBOX/Test', 'a', 'b');
+    }
+
+    public function testSetAclOnNoAdmin()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', $mock->getAuth(), 'lr');
+        try {
+            $mock->setAcl('INBOX/Test', 'a', 'b');
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            $this->assertEquals('Permission denied!', $e->getMessage());
+        }
+    }
+
+    public function testSetAclWithAnyone()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'anyone', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $mock->setAcl('INBOX/Test', 'a', 'b');
+    }
+
+    public function testSetAclWithAnonymous()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'anonymous', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
         $mock->setAcl('INBOX/Test', 'a', 'b');
     }
 
@@ -150,6 +215,36 @@ extends Horde_Kolab_Storage_TestCase
         $mock->create('INBOX/Test');
         $mock->setAcl('INBOX/Test', $mock->getAuth(), '');
         $mock->deleteAcl('INBOX/Test', 'a');
+    }
+
+    public function testDeleteAclOnNoAdmin()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', $mock->getAuth(), 'lr');
+        try {
+            $mock->deleteAcl('INBOX/Test', 'a');
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            $this->assertEquals('Permission denied!', $e->getMessage());
+        }
+    }
+
+    public function testDeleteAclWithAnyone()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'anyone', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $mock->deleteAcl('INBOX/Test', 'anyone');
+    }
+
+    public function testDeleteAclWithAnonymous()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'anonymous', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $mock->deleteAcl('INBOX/Test', 'anonymous');
     }
 
     /**

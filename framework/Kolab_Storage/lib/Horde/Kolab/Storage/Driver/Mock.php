@@ -230,13 +230,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
-        if (!isset($this->_data[$folder]['permissions'][$this->getAuth()])
-            || strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'l') === false) {
-            $this->_failOnMissingFolder($folder, true);
-        }
-        if (strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'a') === false) {
-            $this->_permissionDenied();
-        }
+        $this->_failOnNoAdmin($folder);
         if (isset($this->_data[$folder]['permissions'])) {
             return $this->_data[$folder]['permissions'];
         }
@@ -254,11 +248,14 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
-        if (isset($this->_data[$folder]['permissions'][$this->getAuth()])
-            && strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'l') !== false) {
-            return $this->_data[$folder]['permissions'][$this->getAuth()];
+        $myacl = array();
+        $users = array($this->getAuth(), 'anyone', 'anonymous');
+        foreach ($users as $user) {
+            if (isset($this->_data[$folder]['permissions'][$user])) {
+                $myacl = array_merge($myacl, str_split($this->_data[$folder]['permissions'][$user]));
+            }
         }
-        $this->_failOnMissingFolder($folder, true);
+        return join('', $myacl);
     }
 
     /**
@@ -274,13 +271,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
-        if (!isset($this->_data[$folder]['permissions'][$this->getAuth()])
-            || strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'l') === false) {
-            $this->_failOnMissingFolder($folder, true);
-        }
-        if (strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'a') === false) {
-            $this->_permissionDenied();
-        }
+        $this->_failOnNoAdmin($folder);
         $this->_data[$folder]['permissions'][$user] = $acl;
     }
 
@@ -296,13 +287,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
-        if (!isset($this->_data[$folder]['permissions'][$this->getAuth()])
-            || strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'l') === false) {
-            $this->_failOnMissingFolder($folder, true);
-        }
-        if (strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'a') === false) {
-            $this->_permissionDenied();
-        }
+        $this->_failOnNoAdmin($folder);
         if (isset($this->_data[$folder]['permissions'][$user])) {
             unset($this->_data[$folder]['permissions'][$user]);
         }
@@ -377,20 +362,118 @@ extends Horde_Kolab_Storage_Driver_Base
      * Error out in case the provided folder is missing.
      *
      * @param string  $folder The folder.
-     * @param boolean $fail   Indicate a missing folder even if it exists
-     *                        (permission problem)
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Storage_Exception In case the folder is missing.
      */
-    private function _failOnMissingFolder($folder, $fail = false)
+    private function _failOnMissingFolder($folder)
     {
-        if ($fail === true || !isset($this->_data[$folder])) {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf('The folder %s does not exist!', $folder)
-            );
+        if (!isset($this->_data[$folder])
+            || !$this->_folderVisible($folder, $this->getAuth())) {
+            $this->_folderMissing($folder);
         }
+    }
+
+    /**
+     * Is the folder visible to the specified user (or a global group)?
+     *
+     * @param string $folder The folder.
+     * @param string $user   The user.
+     *
+     * @return boolean True if the folder is visible.
+     */
+    private function _folderVisible($folder, $user)
+    {
+        return $this->_folderVisibleToUnique($folder, $user)
+            || $this->_folderVisibleToUnique($folder, 'anyone')
+            || $this->_folderVisibleToUnique($folder, 'anonymous');
+    }
+
+    /**
+     * Is the folder visible to exactly the specified user?
+     *
+     * @param string $folder The folder.
+     * @param string $user   The user.
+     *
+     * @return boolean True if the folder is visible.
+     */
+    private function _folderVisibleToUnique($folder, $user)
+    {
+        if (isset($this->_data[$folder]['permissions'][$user])) {
+            if (strpos($this->_data[$folder]['permissions'][$user], 'l') !== false
+                || strpos($this->_data[$folder]['permissions'][$user], 'r') !== false
+                || strpos($this->_data[$folder]['permissions'][$user], 'a') !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Error out indicating that the user does not have the required
+     * permissions.
+     *
+     * @param string  $folder The folder.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the folder is missing.
+     */
+    private function _folderMissing($folder)
+    {
+        throw new Horde_Kolab_Storage_Exception(
+            sprintf('The folder %s does not exist!', $folder)
+        );
+    }
+
+    /**
+     * Error out in case the user is no admin of the specified folder.
+     *
+     * @param string  $folder The folder.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the user has no admin rights.
+     */
+    private function _failOnNoAdmin($folder)
+    {
+        if (!isset($this->_data[$folder])
+            || !$this->_folderAdmin($folder, $this->getAuth())) {
+            $this->_permissionDenied();
+        }
+    }
+
+    /**
+     * Is the user a folder admin (or one of the global groups)?
+     *
+     * @param string $folder The folder.
+     * @param string $user   The user.
+     *
+     * @return boolean True if the user has admin rights on the folder.
+     */
+    private function _folderAdmin($folder, $user)
+    {
+        return $this->_folderAdminForUnique($folder, $user)
+            || $this->_folderAdminForUnique($folder, 'anyone')
+            || $this->_folderAdminForUnique($folder, 'anonymous');
+    }
+
+    /**
+     * Is the exact specified user an admin for the folder?
+     *
+     * @param string $folder The folder.
+     * @param string $user   The user.
+     *
+     * @return boolean True if the user has admin rights on the folder.
+     */
+    private function _folderAdminForUnique($folder, $user)
+    {
+        if (isset($this->_data[$folder]['permissions'][$user])
+            && strpos($this->_data[$folder]['permissions'][$user], 'a') !== false) {
+            return true;
+        }
+        return false;
     }
 
     /**
