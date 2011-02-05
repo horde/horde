@@ -275,6 +275,7 @@ a random string.
     protected function _save()
     {
         $this->getShareOb()->save($this->getId(), $this->_old_id, $this->_data, $this->_permission_cache);
+        $this->_old_id = $this->_id;
     }
 
     /**
@@ -329,7 +330,8 @@ a random string.
      */
     public function getAcl()
     {
-        if ($this->_id === null) {
+        if ($this->_old_id === null) {
+            // The share has not been created yet.
             return array(
                 $this->get('owner') => Horde_Perms_Permission_Kolab::ALL
             );
