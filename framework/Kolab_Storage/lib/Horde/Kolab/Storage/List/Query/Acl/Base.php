@@ -91,7 +91,7 @@ implements Horde_Kolab_Storage_List_Query_Acl
             }
         } else {
             $acl = $this->getMyAcl($folder);
-            if (strpos($acl, 'a')) {
+            if (strpos($acl, 'a') !== false) {
                 try {
                     return $this->_driver->getAcl($folder);
                 } catch (Horde_Kolab_Storage_Exception $e) {
