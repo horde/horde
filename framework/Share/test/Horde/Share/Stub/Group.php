@@ -9,6 +9,16 @@ class Horde_Group_Test extends Horde_Group {
     {
     }
 
+    public function getGroupName($gid)
+    {
+        return 'mygroup';
+    }
+
+    public function getGroupId($group)
+    {
+        return 'mygroup';
+    }
+
     public function userIsInGroup($user, $gid, $subgroups = true)
     {
         return $user == 'john' && $gid == 'mygroup';
