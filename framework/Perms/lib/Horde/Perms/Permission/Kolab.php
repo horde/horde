@@ -28,6 +28,9 @@
 class Horde_Perms_Permission_Kolab
 extends Horde_Perms_Permission
 {
+    /** Kolab ACL speak for all permissions on a shared object. */
+    const ALL = 'lrid';
+
     /**
      * The Kolab Folder these permissions belong to.
      *

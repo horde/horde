@@ -428,18 +428,33 @@ class Horde_Share_Kolab extends Horde_Share_Base
     /**
      * Save share data to the storage backend.
      *
-     * @param string $id     The share id.
-     * @param string $old_id The old share id.
-     * @param array  $data   The share data.
+     * @param string $id          The share id.
+     * @param string $old_id      The old share id.
+     * @param array  $data        The share data.
+     * @param array  $permissions Any permission changes
      *
      * @return NULL
      */
-    public function save($id, $old_id, $data)
+    public function save($id, $old_id, $data, $permissions)
     {
         if ($old_id === null) {
             $this->getStorage()->getList()->createFolder(
                 $this->_idDecode($id), $this->_type
             );
+        } else if ($id != $old_id) {
+            $this->getStorage()->getList()->renameFolder(
+                $this->_idDecode($old_id), $this->_idDecode($id), $this->_type
+            );
+        }
+        if (isset($permissions['set'])) {
+            foreach ($permissions['set'] as $set) {
+                $this->setAcl($id, $set[0], $set[1]);
+            }
+        }
+        if (isset($permissions['delete'])) {
+            foreach ($permissions['delete'] as $user) {
+                $this->deleteAcl($id, $user);
+            }
         }
     }
 }

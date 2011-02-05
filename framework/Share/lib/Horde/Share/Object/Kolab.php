@@ -65,6 +65,14 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     protected $_data;
 
     /**
+     * The permission cache holds any permission changes that will be executed
+     * on saving.
+     *
+     * @var array
+     */
+    private $_permission_cache;
+
+    /**
      * Constructor.
      *
      * @param string      $id      The share id.
@@ -139,7 +147,15 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function getPermissionId()
     {
-        return $this->getId();
+        if ($this->_id === null) {
+            /**
+             * We only get here if permissions are being set before the name has
+been set. For the Kolab permission instance it should not matter if the name is
+a random string.
+            */
+            return md5(pack('I', mt_rand()));
+        }
+        return $this->_id;
     }
 
     /**
@@ -258,7 +274,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     protected function _save()
     {
-        $this->getShareOb()->save($this->getId(), $this->_old_id, $this->_data);
+        $this->getShareOb()->save($this->getId(), $this->_old_id, $this->_data, $this->_permission_cache);
     }
 
     /**
@@ -296,10 +312,13 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function setPermission($perms, $update = true)
     {
-        $permission = $this->getPermission();
-        $permission->setData($perms->getData());
+        if (!$perms instanceOf Horde_Perms_Permission_Kolab) {
+            $permission = $this->getPermission();
+            $permission->setData($perms->getData());
+            $perms = $permission;
+        }
         if ($update) {
-            $permission->save();
+            $perms->save();
         }
     }
 
@@ -310,6 +329,11 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function getAcl()
     {
+        if ($this->_id === null) {
+            return array(
+                $this->get('owner') => Horde_Perms_Permission_Kolab::ALL
+            );
+        }
         return $this->getShareOb()->getAcl($this->_id);
     }
 
@@ -323,7 +347,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function setAcl($user, $acl)
     {
-        return $this->getShareOb()->setAcl($this->_id, $user, $acl);
+        $this->_permission_cache['set'][] = array($user, $acl);
     }
 
     /**
@@ -335,6 +359,6 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function deleteAcl($user)
     {
-        return $this->getShareOb()->deleteAcl($this->_id, $user);
+        $this->_permission_cache['delete'][] = $user;
     }
 }

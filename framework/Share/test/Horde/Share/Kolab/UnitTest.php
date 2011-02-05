@@ -145,19 +145,19 @@ extends PHPUnit_Framework_TestCase
         $object->getName();
     }
 
-    /**
-     * @expectedException Horde_Share_Exception
-     */
     public function testUndefinedPermissionId()
     {
         $object = new Horde_Share_Object_Kolab(null, new Horde_Group_Mock());
-        $object->getPermissionId();
+        $this->assertType(
+            'string',
+            $object->getPermissionId()
+        );
     }
 
     public function testIdFromName()
     {
         $share = $this->_getCompleteDriver();
-        $object = $share->newShare('0123456789');
+        $object = $share->newShare('john', 'IGNORED');
         $object->set('name', 'test');
         $this->assertEquals('INBOX%2Ftest', $object->getId());
     }
@@ -264,14 +264,14 @@ extends PHPUnit_Framework_TestCase
     public function testAddShareWithoutName()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare(null, 'IGNORE');
+        $object = $share->newShare(null, 'IGNORED');
         $share->addShare($object);
     }
 
     public function testAddShare()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORE');
+        $object = $share->newShare('john', 'IGNORED');
         $object->set('name', 'Test');
         $share->addShare($object);
         $this->assertEquals(
@@ -283,7 +283,7 @@ extends PHPUnit_Framework_TestCase
     public function testShareAddedToList()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORE');
+        $object = $share->newShare('john', 'IGNORED');
         $object->set('name', 'Test');
         $share->addShare($object);
         $this->assertContains(
@@ -295,13 +295,38 @@ extends PHPUnit_Framework_TestCase
     public function testDeleteShare()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORE');
+        $object = $share->newShare('john', 'IGNORED');
         $object->set('name', 'Test');
         $share->addShare($object);
         $share->removeShare($object);
         $this->assertNotContains(
             'INBOX%2FTest',
             array_keys($share->listShares('john'))
+        );
+    }
+
+    public function testGetPermission()
+    {
+        $share = $this->_getPrefilledDriver();
+        $object = $share->newShare('john', 'IGNORED');
+        $object->set('name', 'Test');
+        $share->addShare($object);
+        $this->assertEquals(
+            30,
+            $share->getShare('INBOX%2FTest')->getPermission()->getCreatorPermissions()
+        );
+    }
+
+    public function testSetPermission()
+    {
+        $share = $this->_getPrefilledDriver();
+        $object = $share->newShare('john', 'IGNORED');
+        $object->addUserPermission('tina', Horde_Perms::SHOW);
+        $object->set('name', 'Test');
+        $share->addShare($object);
+        $this->assertTrue(
+            $share->getShare('INBOX%2FTest')
+            ->hasPermission('tina', Horde_Perms::SHOW)
         );
     }
 
