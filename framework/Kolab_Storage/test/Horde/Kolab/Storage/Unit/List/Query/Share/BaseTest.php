@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_List_Query_Cache_BaseTest
+class Horde_Kolab_Storage_Unit_List_Query_Share_BaseTest
 extends Horde_Kolab_Storage_TestCase
 {
     public function testGetDescription()
@@ -49,7 +49,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->driver->expects($this->once())
             ->method('getAnnotation')
             ->with('INBOX', '/shared/vendor/horde/share-params')
-            ->will($this->returnValue(serialize(array('params'))));
+            ->will($this->returnValue(base64_encode(serialize(array('params')))));
         $this->assertEquals(array('params'), $share->getParameters('INBOX'));
     }
 
@@ -70,7 +70,7 @@ extends Horde_Kolab_Storage_TestCase
             ->with(
                 'INBOX',
                 '/shared/vendor/horde/share-params',
-                serialize(array('params'))
+                base64_encode(serialize(array('params')))
             );
         $share->setParameters('INBOX', array('params'));
     }

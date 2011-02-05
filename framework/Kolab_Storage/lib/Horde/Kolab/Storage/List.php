@@ -29,10 +29,13 @@ interface Horde_Kolab_Storage_List
 extends Horde_Kolab_Storage_Queriable
 {
     /** Identifies the basic list query */
-    const QUERY_BASE = 'List';
+    const QUERY_BASE  = 'List';
 
     /** Identifies the ACL query */
-    const QUERY_ACL  = 'Acl';
+    const QUERY_ACL   = 'Acl';
+
+    /** Identifies the share query */
+    const QUERY_SHARE = 'Share';
 
     /**
      * Return the list driver.

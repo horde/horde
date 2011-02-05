@@ -81,41 +81,41 @@ implements Horde_Kolab_Storage_List_Query_Share
                 $folder, self::ANNOTATION_SHARE_PARAMETERS
         );
         if (!empty($parameters)) {
-            return unserialize($parameters);
+            return unserialize(base64_decode($parameters));
         } else {
             return array();
         }
     }
 
     /**
-     * Returns the share description.
+     * Set the share description.
      *
      * @param string $folder      The folder name.
      * @param string $description The share description.
      *
-     * @return string The folder/share description.
+     * @return NULL
      */
     public function setDescription($folder, $description)
     {
-        return $this->_driver->setAnnotation(
+        $this->_driver->setAnnotation(
             $folder, self::ANNOTATION_DESCRIPTION, $description
         );
     }
 
     /**
-     * Returns the share parameters.
+     * Set the share parameters.
      *
      * @param string $folder     The folder name.
      * @param array  $parameters The share parameters.
      *
-     * @return string The folder/share parameters.
+     * @return string The encoded share parameters.
      */
     public function setParameters($folder, array $parameters)
     {
-        return $this->_driver->setAnnotation(
+        $this->_driver->setAnnotation(
             $folder,
             self::ANNOTATION_SHARE_PARAMETERS,
-            serialize($parameters)
+            base64_encode(serialize($parameters))
         );
     }
 
