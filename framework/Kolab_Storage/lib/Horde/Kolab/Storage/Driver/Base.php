@@ -132,6 +132,19 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Set a parameter setting for this connection.
+     *
+     * @param string $key    The parameter key.
+     * @param mixed  $value  The parameter value.
+     *
+     * @return NULL
+     */
+    public function setParam($key, $value)
+    {
+        $this->_params[$key] = $value;
+    }
+
+    /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the IMAP connection.
