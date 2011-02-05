@@ -159,14 +159,14 @@ interface Horde_Kolab_Storage_Driver
     public function listAnnotation($annotation);
 
     /**
-     * Fetches the annotation on a folder.
+     * Fetches the annotation from a folder.
      *
-     * @param string $entry  The entry to fetch.
-     * @param string $folder The name of the folder.
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to get.
      *
      * @return string The annotation value.
      */
-    public function getAnnotation($entry, $folder);
+    public function getAnnotation($mailbox, $annotation);
 
     /**
      * Sets the annotation on a folder.

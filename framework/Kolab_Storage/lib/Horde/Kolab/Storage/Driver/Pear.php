@@ -217,21 +217,27 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Fetches the annotation on a folder.
+     * Fetches the annotation from a folder.
      *
-     * @param string $entry         The entry to fetch.
-     * @param string $mailbox_name  The name of the folder.
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to get.
      *
-     * @return mixed  The annotation value.
+     * @return string The annotation value.
      */
-    public function getAnnotation($entry, $mailbox_name)
+    public function getAnnotation($mailbox, $annotation)
     {
-        try {
-            $result = $this->getBackend()->getMetadata($mailbox_name, $entry);
-        } catch (Exception $e) {
-            return '';
+        list($entry, $type) = $this->_getAnnotateMoreEntry($annotation);
+        $result = Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->getAnnotation(
+                $entry, $type, $this->encodePath($mailbox)
+            )
+        );var_dump($result);
+        foreach ($result as $element) {
+            if (isset($element['ATTRIBUTES'][$type])) {
+                return $element['ATTRIBUTES'][$type];
+            }
         }
-        return isset($result[$mailbox_name][$entry]) ? $result[$mailbox_name][$entry] : '';
+        return '';
     }
 
     /**

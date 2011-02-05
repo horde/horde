@@ -368,7 +368,7 @@ extends Horde_Kolab_Storage_Driver_Base
         if (isset($this->_data[$mailbox]['annotations'][$annotation])) {
             return $this->_data[$mailbox]['annotations'][$annotation];
         }
-        return false;
+        return '';
     }
 
     /**

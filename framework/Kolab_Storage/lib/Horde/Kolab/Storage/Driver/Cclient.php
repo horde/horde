@@ -382,23 +382,35 @@ extends Horde_Kolab_Storage_Driver_Base
         return $this->decodeListKeys($list);
     }
 
-
     /**
-     * Fetches the annotation on a folder.
+     * Fetches the annotation from a folder.
      *
-     * @param string $entry         The entry to fetch.
-     * @param string $mailbox_name  The name of the folder.
+     * @param string $mailbox    The name of the folder.
+     * @param string $annotation The annotation to get.
      *
-     * @return mixed  The annotation value or a PEAR error in case of an error.
+     * @return string The annotation value.
      */
-    public function getAnnotation($entry, $mailbox_name)
+    public function getAnnotation($mailbox, $annotation)
     {
-        try {
-            $result = $this->_imap->getMetadata($mailbox_name, $entry);
-        } catch (Exception $e) {
-            return '';
+        list($entry, $key) = $this->_getAnnotateMoreEntry($annotation);
+        $result = imap_getannotation(
+            $this->getBackend(), $this->encodePath($mailbox), $entry, $key
+        );
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Retrieving annotation %s[%s] on folder %s%s failed. Error: %s"
+                    ),
+                    $entry,
+                    $key,
+                    $this->_getBaseMbox(),
+                    $mailbox,
+                    imap_last_error()
+                )
+            );
         }
-        return isset($result[$mailbox_name][$entry]) ? $result[$mailbox_name][$entry] : '';
+        return $result[$key];
     }
 
     /**
