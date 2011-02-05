@@ -127,6 +127,41 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Share_Exception
+     */
+    public function testUndefinedId()
+    {
+        $object = new Horde_Share_Object_Kolab(null, new Horde_Group_Mock());
+        $object->getId();
+    }
+
+    /**
+     * @expectedException Horde_Share_Exception
+     */
+    public function testUndefinedName()
+    {
+        $object = new Horde_Share_Object_Kolab(null, new Horde_Group_Mock());
+        $object->getName();
+    }
+
+    /**
+     * @expectedException Horde_Share_Exception
+     */
+    public function testUndefinedPermissionId()
+    {
+        $object = new Horde_Share_Object_Kolab(null, new Horde_Group_Mock());
+        $object->getPermissionId();
+    }
+
+    public function testIdFromName()
+    {
+        $share = $this->_getCompleteDriver();
+        $object = $share->newShare('0123456789');
+        $object->set('name', 'test');
+        $this->assertEquals('INBOX%2Ftest', $object->getId());
+    }
+
     public function testObjectId()
     {
         $object = new Horde_Share_Object_Kolab('test', new Horde_Group_Mock());
@@ -229,7 +264,7 @@ extends PHPUnit_Framework_TestCase
     public function testAddShareWithoutName()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORE');
+        $object = $share->newShare(null, 'IGNORE');
         $share->addShare($object);
     }
 

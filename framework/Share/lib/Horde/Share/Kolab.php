@@ -412,26 +412,34 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
-     * Save share data to the storage backend.
+     * Generate the Kolab share ID based on the share name attribute.
      *
-     * @param string $id   The share id.
-     * @param array  $data The share data.
+     * @param string $name The share name.
      *
      * @return string The (new) share id.
      */
-    public function save($id, $data)
+    public function generateId($name)
     {
-        if ($id === null) {
-            if (!isset($data['name'])) {
-                throw new Horde_Share_Exception(
-                    'A Kolab share requires a set("name", ...) call before saving.'
-                );
-            }
-            $path = $this->getStorage()->getList()->getNamespace()->setTitle(
-                $data['name']
+        return $this->_idEncode(
+            $this->getStorage()->getList()->getNamespace()->setTitle($name)
+        );
+    }
+
+    /**
+     * Save share data to the storage backend.
+     *
+     * @param string $id     The share id.
+     * @param string $old_id The old share id.
+     * @param array  $data   The share data.
+     *
+     * @return NULL
+     */
+    public function save($id, $old_id, $data)
+    {
+        if ($old_id === null) {
+            $this->getStorage()->getList()->createFolder(
+                $this->_idDecode($id), $this->_type
             );
-            $this->getStorage()->getList()->createFolder($path, $this->_type);
-            return $this->_idEncode($path);
         }
     }
 }

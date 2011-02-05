@@ -37,6 +37,13 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     const VERSION = 2;
 
     /**
+     * The old share id.
+     *
+     * @var string
+     */
+    private $_old_id;
+
+    /**
      * The share id.
      *
      * @var string
@@ -66,6 +73,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function __construct($id, Horde_Group $groups, array $data = array())
     {
+        $this->_old_id = $id;
         $this->_id     = $id;
         $this->_groups = $groups;
         $this->_data   = $data;
@@ -116,6 +124,11 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function getId()
     {
+        if ($this->_id === null) {
+            throw new Horde_Share_Exception(
+                'A new Kolab share requires a set("name", ...) call before the ID is available.'
+            );
+        }
         return $this->_id;
     }
 
@@ -126,7 +139,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function getPermissionId()
     {
-        return $this->_id;
+        return $this->getId();
     }
 
     /**
@@ -136,7 +149,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function getName()
     {
-        return $this->_id;
+        return $this->getId();
     }
 
     /**
@@ -173,6 +186,9 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function set($attribute, $value)
     {
+        if ($attribute == 'name') {
+            $this->_id = $this->getShareOb()->generateId($value);
+        }
         $this->_data[$attribute] = $value;
     }
 
@@ -242,7 +258,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     protected function _save()
     {
-        $this->_id = $this->getShareOb()->save($this->_id, $this->_data);
+        $this->getShareOb()->save($this->getId(), $this->_old_id, $this->_data);
     }
 
     /**
