@@ -53,12 +53,46 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testPersonalFolder()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $this->assertEquals(
+            'lrswipkxtecda',
+            $mock->getMyAcl('INBOX/Test')
+        );
+    }
+
     /**
      * @expectedException Horde_Kolab_Storage_Exception
      */
     public function testGetAclFailsOnMissing()
     {
         $this->getNullMock()->getAcl('INBOX/test');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetAclOnHidden()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', $mock->getAuth(), '');
+        $mock->getAcl('INBOX/Test');
+    }
+
+    public function testGetAclOnNoAdmin()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', $mock->getAuth(), 'lr');
+        $mock->rename('INBOX/Test', 'user/other/test');
+        try {
+            $mock->getAcl('user/other/test');
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            $this->assertEquals('Permission denied!', $e->getMessage());
+        }
     }
 
     /**
@@ -72,6 +106,17 @@ extends Horde_Kolab_Storage_TestCase
     /**
      * @expectedException Horde_Kolab_Storage_Exception
      */
+    public function testGetMyAclOnHidden()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', $mock->getAuth(), '');
+        $mock->getMyAcl('INBOX/Test');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
     public function testSetAclFailsOnMissing()
     {
         $this->getNullMock()->setAcl('INBOX/test', 'a', 'b');
@@ -80,9 +125,31 @@ extends Horde_Kolab_Storage_TestCase
     /**
      * @expectedException Horde_Kolab_Storage_Exception
      */
+    public function testSetAclOnHidden()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', $mock->getAuth(), '');
+        $mock->setAcl('INBOX/Test', 'a', 'b');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
     public function testDeleteAclFailsOnMissing()
     {
         $this->getNullMock()->deleteAcl('INBOX/test', 'a');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testDeleteAclOnHidden()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', $mock->getAuth(), '');
+        $mock->deleteAcl('INBOX/Test', 'a');
     }
 
     /**

@@ -149,6 +149,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function create($folder)
     {
+        $personal = substr($folder, 0, 5) == 'INBOX';
         $folder = $this->_convertToInternal($folder);
         if (isset($this->_data[$folder])) {
             throw new Horde_Kolab_Storage_Exception(
@@ -160,9 +161,11 @@ extends Horde_Kolab_Storage_Driver_Base
                 'uidvalidity' => time(),
                 'uidnext' => 1),
             'mails' => array(),
-            'permissions' => array($this->getAuth() => 'lrswipkxtecda'),
             'annotations' => array(),
         );
+        if ($personal) {
+            $this->_data[$folder]['permissions'][$this->getAuth()] = 'lrswipkxtecda';
+        }
     }
 
     /**
@@ -230,6 +233,13 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
+        if (!isset($this->_data[$folder]['permissions'][$this->getAuth()])
+            || strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'l') === false) {
+            $this->_failOnMissingFolder($folder, true);
+        }
+        if (strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'a') === false) {
+            $this->_permissionDenied();
+        }
         if (isset($this->_data[$folder]['permissions'])) {
             return $this->_data[$folder]['permissions'];
         }
@@ -247,10 +257,11 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
-        if (isset($this->_data[$folder]['permissions'][$this->getAuth()])) {
+        if (isset($this->_data[$folder]['permissions'][$this->getAuth()])
+            && strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'l') !== false) {
             return $this->_data[$folder]['permissions'][$this->getAuth()];
         }
-        return '';
+        $this->_failOnMissingFolder($folder, true);
     }
 
     /**
@@ -266,6 +277,13 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
+        if (!isset($this->_data[$folder]['permissions'][$this->getAuth()])
+            || strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'l') === false) {
+            $this->_failOnMissingFolder($folder, true);
+        }
+        if (strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'a') === false) {
+            $this->_permissionDenied();
+        }
         $this->_data[$folder]['permissions'][$user] = $acl;
     }
 
@@ -281,6 +299,13 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
+        if (!isset($this->_data[$folder]['permissions'][$this->getAuth()])
+            || strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'l') === false) {
+            $this->_failOnMissingFolder($folder, true);
+        }
+        if (strpos($this->_data[$folder]['permissions'][$this->getAuth()], 'a') === false) {
+            $this->_permissionDenied();
+        }
         if (isset($this->_data[$folder]['permissions'][$user])) {
             unset($this->_data[$folder]['permissions'][$user]);
         }
@@ -354,19 +379,34 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Error out in case the provided folder is missing.
      *
-     * @param string $folder The folder.
+     * @param string  $folder The folder.
+     * @param boolean $fail   Indicate a missing folder even if it exists
+     *                        (permission problem)
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Storage_Exception In case the folder is missing.
      */
-    private function _failOnMissingFolder($folder)
+    private function _failOnMissingFolder($folder, $fail = false)
     {
-        if (!isset($this->_data[$folder])) {
+        if ($fail === true || !isset($this->_data[$folder])) {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf('The folder %s does not exist!', $folder)
             );
         }
+    }
+
+    /**
+     * Error out indicating that the user does not have the required
+     * permissions.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the folder is missing.
+     */
+    private function _permissionDenied()
+    {
+        throw new Horde_Kolab_Storage_Exception('Permission denied!');
     }
     
 

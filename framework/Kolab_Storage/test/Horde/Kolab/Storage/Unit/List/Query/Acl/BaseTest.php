@@ -191,9 +191,13 @@ extends Horde_Kolab_Storage_TestCase
         $acl = $this->_getMockAcl();
         $this->list->createFolder('INBOX/Test');
         $acl->setAcl('INBOX/Test', 'other', 'lrid');
-        $acl->deleteAcl('INBOX/Test', 'test@example.com');
+        $acl->setAcl('INBOX/Test', 'two', 'lrid');
+        $acl->deleteAcl('INBOX/Test', 'two');
         $this->assertEquals(
-            array('other' => 'lrid'),
+            array(
+                'other' => 'lrid',
+                'test@example.com' => 'lrswipkxtecda'
+            ),
             $acl->getAcl('INBOX/Test')
         );
     }
