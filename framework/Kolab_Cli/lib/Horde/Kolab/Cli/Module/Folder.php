@@ -37,10 +37,17 @@ implements Horde_Kolab_Cli_Module
     {
         return Horde_Kolab_Cli_Translation::t("  folder - Handle a single folder (the default action is \"show\")
 
-  - show   PATH        : Display information about the folder at PATH.
-  - create PATH [TYPE] : Create the folder PATH (with the optional type TYPE).
-  - delete PATH        : Delete the folder PATH.
-  - rename OLD NEW     : Rename the folder from OLD to NEW.
+  - show      PATH         : Display information about the folder at PATH.
+  - create    PATH [TYPE]  : Create the folder PATH (with the optional type TYPE).
+  - delete    PATH         : Delete the folder PATH.
+  - rename    OLD NEW      : Rename the folder from OLD to NEW.
+  - getacl    PATH         : Get all ACL on the specified folder.
+  - getmyacl  PATH         : Get your ACL on the specified folder.
+  - setacl    PATH USER ACL: Set the ACL for the specified user on the folder.
+  - deleteacl PATH USER ACL: Delete the ACL for the specified user on the folder.
+  - getdesc   PATH         : Return the share description of the specified folder.
+  - setdesc   PATH DESC    : Set the share description of the specified folder to DESC.
+  - getshare  PATH         : Return the share parameters of the specified folder.
 
 
 ");
@@ -178,6 +185,39 @@ implements Horde_Kolab_Cli_Module
             $acl = $world['storage']->getList()
                 ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
                 ->deleteAcl($folder_name, $arguments[3]);
+            break;
+        case 'getdesc':
+            $list = $world['storage']->getList();
+            $world['storage']->addListQuery(
+                $list,
+                Horde_Kolab_Storage_List::QUERY_SHARE
+            );
+            $cli->writeln(
+                $list->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+                ->getDescription($folder_name)
+            );
+            break;
+        case 'setdesc':
+            $list = $world['storage']->getList();
+            $world['storage']->addListQuery(
+                $list,
+                Horde_Kolab_Storage_List::QUERY_SHARE
+            );
+            $list->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+                ->setDescription($folder_name, $arguments[3]);
+            break;
+        case 'getshare':
+            $list = $world['storage']->getList();
+            $world['storage']->addListQuery(
+                $list,
+                Horde_Kolab_Storage_List::QUERY_SHARE
+            );
+            $parameters = $list->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+                ->getParameters($folder_name);
+            $pad = max(array_map('strlen', array_keys($parameters))) + 2;
+            foreach ($parameters as $key => $value) {
+                $cli->writeln(Horde_String::pad($key . ':', $pad) . $value);
+            }
             break;
         case 'show':
             $this->_showFolder($folder_name, $world, $cli);
