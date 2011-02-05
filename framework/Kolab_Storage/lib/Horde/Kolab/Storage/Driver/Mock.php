@@ -229,12 +229,13 @@ extends Horde_Kolab_Storage_Driver_Base
     public function getAcl($folder)
     {
         $folder = $this->_convertToInternal($folder);
+        $this->_failOnMissingFolder($folder);
         if (isset($this->_data[$folder]['permissions'])) {
             return $this->_data[$folder]['permissions'];
         }
         return array();
     }
-    
+
     /**
      * Retrieve the access rights the current user has on a folder.
      *
@@ -245,6 +246,7 @@ extends Horde_Kolab_Storage_Driver_Base
     public function getMyAcl($folder)
     {
         $folder = $this->_convertToInternal($folder);
+        $this->_failOnMissingFolder($folder);
         if (isset($this->_data[$folder]['permissions'][$this->getAuth()])) {
             return $this->_data[$folder]['permissions'][$this->getAuth()];
         }
@@ -262,7 +264,9 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAcl($folder, $user, $acl)
     {
-        $this->_data[$this->_convertToInternal($folder)]['permissions'][$user] = $acl;
+        $folder = $this->_convertToInternal($folder);
+        $this->_failOnMissingFolder($folder);
+        $this->_data[$folder]['permissions'][$user] = $acl;
     }
 
     /**
@@ -275,8 +279,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteAcl($folder, $user)
     {
-        if (isset($this->_data[$this->_convertToInternal($folder)]['permissions'][$user])) {
-            unset($this->_data[$this->_convertToInternal($folder)]['permissions'][$user]);
+        $folder = $this->_convertToInternal($folder);
+        $this->_failOnMissingFolder($folder);
+        if (isset($this->_data[$folder]['permissions'][$user])) {
+            unset($this->_data[$folder]['permissions'][$user]);
         }
     }
 
@@ -341,9 +347,28 @@ extends Horde_Kolab_Storage_Driver_Base
     public function setAnnotation($mailbox, $annotation, $value)
     {
         $mailbox = $this->_convertToInternal($mailbox);
+        $this->_failOnMissingFolder($mailbox);
         $this->_data[$mailbox]['annotations'][$annotation] = $value;
     }
 
+    /**
+     * Error out in case the provided folder is missing.
+     *
+     * @param string $folder The folder.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the folder is missing.
+     */
+    private function _failOnMissingFolder($folder)
+    {
+        if (!isset($this->_data[$folder])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('The folder %s does not exist!', $folder)
+            );
+        }
+    }
+    
 
 
     /**

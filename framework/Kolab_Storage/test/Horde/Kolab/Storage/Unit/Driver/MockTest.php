@@ -53,6 +53,46 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetAclFailsOnMissing()
+    {
+        $this->getNullMock()->getAcl('INBOX/test');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetMyAclFailsOnMissing()
+    {
+        $this->getNullMock()->getMyAcl('INBOX/test');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testSetAclFailsOnMissing()
+    {
+        $this->getNullMock()->setAcl('INBOX/test', 'a', 'b');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testDeleteAclFailsOnMissing()
+    {
+        $this->getNullMock()->deleteAcl('INBOX/test', 'a');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testSetAnnotationFailsOnMissing()
+    {
+        $this->getNullMock()->setAnnotation('INBOX/test', 'a', 'b');
+    }
+
     public function testListAnnotationReturnsArray()
     {
         $this->assertType(
