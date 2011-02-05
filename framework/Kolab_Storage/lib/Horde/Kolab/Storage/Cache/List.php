@@ -39,8 +39,11 @@ class Horde_Kolab_Storage_Cache_List
     /** Key for the backend capabilities. */
     const SUPPORT = 'C';
 
-    /** Holds query cache results. */
+    /** Holds query results. */
     const QUERIES = 'Q';
+
+    /** Holds long term cache data. */
+    const LONG_TERM = 'L';
 
     /** Key for the last time the list was synchronized. */
     const SYNC = 'S';
@@ -309,6 +312,51 @@ class Horde_Kolab_Storage_Cache_List
     {
         $this->_load();
         $this->_data[self::QUERIES][$key] = $data;
+    }
+
+    /**
+     * Is the specified long term data available in the cache?
+     *
+     * @param string $key The long term key.
+     *
+     * @return boolean True in case cached data is available.
+     */
+    public function hasLongTerm($key)
+    {
+        $this->_load();
+        return isset($this->_data[self::LONG_TERM][$key]);
+    }
+
+    /**
+     * Return long term information.
+     *
+     * @param string $key The long term key.
+     *
+     * @return mixed The long term data.
+     */
+    public function getLongTerm($key)
+    {
+        if ($this->hasLongTerm($key)) {
+            return $this->_data[self::LONG_TERM][$key];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Missing long term cache data (Key: %s). Synchronize first!', $key)
+            );
+        }
+    }
+
+    /**
+     * Set long term information.
+     *
+     * @param string $key  The long term key.
+     * @param mixed  $data The long term data.
+     *
+     * @return NULL
+     */
+    public function setLongTerm($key, $data)
+    {
+        $this->_load();
+        $this->_data[self::LONG_TERM][$key] = $data;
     }
 
     /**

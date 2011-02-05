@@ -96,6 +96,22 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertFalse($cache->issetSupport('ACL'));
     }
 
+    public function testLongterm()
+    {
+        $cache = $this->_getTestCache();
+        $cache->setLongTerm('DUMMY', 'dummy');
+        $this->assertEquals('dummy', $cache->getLongTerm('DUMMY'));
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingLongterm()
+    {
+        $cache = $this->_getTestCache();
+        $cache->getLongTerm('DUMMY');
+    }
+
     public function testSetSupport()
     {
         $cache = $this->_getTestCache();
