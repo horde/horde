@@ -149,7 +149,6 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function create($folder)
     {
-        $personal = substr($folder, 0, 5) == 'INBOX';
         $folder = $this->_convertToInternal($folder);
         if (isset($this->_data[$folder])) {
             throw new Horde_Kolab_Storage_Exception(
@@ -161,11 +160,9 @@ extends Horde_Kolab_Storage_Driver_Base
                 'uidvalidity' => time(),
                 'uidnext' => 1),
             'mails' => array(),
+            'permissions' => array($this->getAuth() => 'lrswipkxtecda'),
             'annotations' => array(),
         );
-        if ($personal) {
-            $this->_data[$folder]['permissions'][$this->getAuth()] = 'lrswipkxtecda';
-        }
     }
 
     /**
