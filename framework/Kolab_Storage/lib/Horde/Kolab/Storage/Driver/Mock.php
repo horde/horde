@@ -57,6 +57,14 @@ extends Horde_Kolab_Storage_Driver_Base
     private $_mboxname = null;
 
     /**
+     * A list of groups (associates users [key] with an array of group names
+     * [value]).
+     *
+     * @var array
+     */
+    private $_groups = array();
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
@@ -117,6 +125,20 @@ extends Horde_Kolab_Storage_Driver_Base
     public function setAuth($username)
     {
         $this->setParam('username', $username);
+        $this->_conversion_pattern = null;
+    }
+
+    /**
+     * Set a group list.
+     *
+     * @param array $groups A list of groups. User names are the keys, an array
+     *                      of group names are the values.
+     *
+     * @return NULL
+     */
+    public function setGroups($groups)
+    {
+        $this->_groups = $groups;
     }
 
     /**
@@ -147,7 +169,9 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $result = array();
         foreach (array_keys($this->_data) as $mbox) {
-            $result[] = $this->_convertToExternal($mbox);
+            if ($this->_folderVisible($mbox, $this->getAuth())) {
+                $result[] = $this->_convertToExternal($mbox);
+            }
         }
         return $result;
     }
@@ -262,6 +286,11 @@ extends Horde_Kolab_Storage_Driver_Base
         $this->_failOnMissingFolder($folder);
         $myacl = array();
         $users = array($this->getAuth(), 'anyone', 'anonymous');
+        if (isset($this->_groups[$this->getAuth()])) {
+            foreach ($this->_groups[$this->getAuth()] as $group) {
+                $users[] = 'group:' . $group;
+            }
+        }
         foreach ($users as $user) {
             if (isset($this->_data[$folder]['permissions'][$user])) {
                 $myacl = array_merge($myacl, str_split($this->_data[$folder]['permissions'][$user]));
@@ -398,8 +427,29 @@ extends Horde_Kolab_Storage_Driver_Base
     private function _folderVisible($folder, $user)
     {
         return $this->_folderVisibleToUnique($folder, $user)
+            || $this->_folderVisibleToGroup($folder, $user)
             || $this->_folderVisibleToUnique($folder, 'anyone')
             || $this->_folderVisibleToUnique($folder, 'anonymous');
+    }
+
+    /**
+     * Is the folder visible to a group the user belongs to?
+     *
+     * @param string $folder The folder.
+     * @param string $user   The user.
+     *
+     * @return boolean True if the folder is visible.
+     */
+    private function _folderVisibleToGroup($folder, $user)
+    {
+        if (isset($this->_groups[$user])) {
+            foreach ($this->_groups[$user] as $group) {
+                if ($this->_folderVisibleToUnique($folder, 'group:' . $group)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -467,8 +517,29 @@ extends Horde_Kolab_Storage_Driver_Base
     private function _folderAdmin($folder, $user)
     {
         return $this->_folderAdminForUnique($folder, $user)
+            || $this->_folderAdminForGroup($folder, $user)
             || $this->_folderAdminForUnique($folder, 'anyone')
             || $this->_folderAdminForUnique($folder, 'anonymous');
+    }
+
+    /**
+     * Is the folder visible to a group the user belongs to?
+     *
+     * @param string $folder The folder.
+     * @param string $user   The user.
+     *
+     * @return boolean True if the folder is visible.
+     */
+    private function _folderAdminForGroup($folder, $user)
+    {
+        if (isset($this->_groups[$user])) {
+            foreach ($this->_groups[$user] as $group) {
+                if ($this->_folderAdminForUnique($folder, 'group:' . $group)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

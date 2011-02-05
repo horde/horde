@@ -83,9 +83,11 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
-            'data' => array(
-                'user/test' => null,
-                'user/test/a' => null
+            'data' => $this->getMockData(
+                array(
+                    'user/test' => null,
+                    'user/test/a' => null
+                )
             )
         );
     }
@@ -112,29 +114,15 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
-            'data' => array(
-                'user/test' => null,
-                'user/test/a' => null,
-                'user/test/Calendar' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/test/Contacts' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'contact.default',
-                    )
-                ),
-                'user/test/Notes' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'note.default',
-                    )
-                ),
-                'user/test/Tasks' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'task.default',
-                    )
-                ),
+            'data' => $this->getMockData(
+                array(
+                    'user/test' => null,
+                    'user/test/a' => null,
+                    'user/test/Calendar' => array('t' => 'event.default'),
+                    'user/test/Contacts' => array('t' => 'contact.default'),
+                    'user/test/Notes' => array('t' => 'note.default'),
+                    'user/test/Tasks' => array('t' => 'task.default'),
+                )
             )
         );
     }
@@ -201,29 +189,15 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
-            'data' => array(
-                'user/test' => null,
-                'user/test/Test' => null,
-                'user/test/Kalender' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/test/Kontakte' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'contact.default',
-                    )
-                ),
-                'user/test/Notizen' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'note.default',
-                    )
-                ),
-                'user/test/Aufgaben' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'task.default',
-                    )
-                ),
+            'data' => $this->getMockData(
+                array(
+                    'user/test' => null,
+                    'user/test/Test' => null,
+                    'user/test/Kalender' => array('t' => 'event.default'),
+                    'user/test/Kontakte' => array('t' => 'contact.default'),
+                    'user/test/Notizen' => array('t' => 'note.default'),
+                    'user/test/Aufgaben' => array('t' => 'task.default'),
+                )
             )
         );
     }
@@ -240,59 +214,21 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
-            'data' => array(
-                'user/test' => null,
-                'user/test/a' => null,
-                'user/test/Calendar' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/test/Contacts' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'contact.default',
-                    )
-                ),
-                'user/test/Notes' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'note.default',
-                    )
-                ),
-                'user/test/Tasks' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'task.default',
-                    )
-                ),
-                'user/example/Notes' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'note.default',
-                    )
-                ),
-                'user/example/Calendar' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/someone/Calendars/Events' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/someone/Calendars/Party' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event',
-                    )
-                ),
-                'shared.Calendars/All' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event',
-                    )
-                ),
-                'shared.Calendars/Others' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event',
-                    )
-                ),
+            'data' => $this->getMockData(
+                array(
+                    'user/test' => null,
+                    'user/test/a' => null,
+                    'user/test/Calendar' => array('t' => 'event.default'),
+                    'user/test/Contacts' => array('t' => 'contact.default'),
+                    'user/test/Notes' => array('t' => 'note.default'),
+                    'user/test/Tasks' => array('t' => 'task.default'),
+                    'user/example/Notes' => array('t' => 'note.default'),
+                    'user/example/Calendar' => array('t' => 'event.default'),
+                    'user/someone/Calendars/Events' => array('t' => 'event.default'),
+                    'user/someone/Calendars/Party' => array('t' => 'event'),
+                    'shared.Calendars/All' => array('t' => 'event'),
+                    'shared.Calendars/Others' => array('t' => 'event'),
+                )
             )
         );
     }
@@ -341,18 +277,12 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
-            'data' => array(
-                'user/test' => null,
-                'user/example/Calendar' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/someone/Calendars/Events' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
+            'data' => $this->getMockData(
+                array(
+                    'user/test' => null,
+                    'user/example/Calendar' => array('t' => 'event.default'),
+                    'user/someone/Calendars/Events' => array('t' => 'event.default'),
+                )
             )
         );
     }
@@ -387,38 +317,16 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
-            'data' => array(
-                'user/test' => null,
-                'user/test/Calendar' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event',
-                    )
-                ),
-                'user/test/Events' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/test/Notes' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'note.default',
-                    )
-                ),
-                'user/someone/Calendar' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/someone/Events' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event',
-                    )
-                ),
-                'user/someone/Notes' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'note.default',
-                    )
-                ),
+            'data' => $this->getMockData(
+                array(
+                    'user/test' => null,
+                    'user/test/Calendar' => array('t' => 'event'),
+                    'user/test/Events' => array('t' => 'event.default'),
+                    'user/test/Notes' => array('t' => 'note.default'),
+                    'user/someone/Calendar' => array('t' => 'event.default'),
+                    'user/someone/Events' => array('t' => 'event'),
+                    'user/someone/Notes' => array('t' => 'note.default'),
+                )
             )
         );
     }
@@ -453,28 +361,14 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
-            'data' => array(
-                'user/test' => null,
-                'user/test/Calendar' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/test/Events' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/someone/Calendar' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
-                'user/someone/Events' => array(
-                    'annotations' => array(
-                        '/shared/vendor/kolab/folder-type' => 'event.default',
-                    )
-                ),
+            'data' => $this->getMockData(
+                array(
+                    'user/test' => null,
+                    'user/test/Calendar' => array('t' => 'event.default'),
+                    'user/test/Events' => array('t' => 'event.default'),
+                    'user/someone/Calendar' => array('t' => 'event.default'),
+                    'user/someone/Events' => array('t' => 'event.default'),
+                )
             )
         );
     }
@@ -581,5 +475,24 @@ extends PHPUnit_Framework_TestCase
             }
         }
         $this->assertTrue($found);
+    }
+
+    protected function getMockData($elements)
+    {
+        $result = array();
+        foreach ($elements as $path => $element) {
+            if (!isset($element['p'])) {
+                $folder = array('permissions' => array('anyone' => 'alrid'));
+            } else {
+                $folder = array('permissions' => $element['p']);
+            }
+            if (isset($element['t'])) {
+                $folder['annotations'] = array(
+                    '/shared/vendor/kolab/folder-type' => $element['t'],
+                );
+            }
+            $result[$path] = $folder;
+        }
+        return $result;
     }
 }

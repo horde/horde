@@ -112,6 +112,16 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals(array('anonymous' => 'a'), $mock->getAcl('INBOX/Test'));
     }
 
+    public function testGetAclWithGroup()
+    {
+        $mock = $this->getNullMock();
+        $mock->setGroups(array($mock->getAuth() => array('group')));
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'group:group', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $this->assertEquals(array('group:group' => 'a'), $mock->getAcl('INBOX/Test'));
+    }
+
     /**
      * @expectedException Horde_Kolab_Storage_Exception
      */
@@ -145,6 +155,16 @@ extends Horde_Kolab_Storage_TestCase
         $mock = $this->getNullMock();
         $mock->create('INBOX/Test');
         $mock->setAcl('INBOX/Test', 'anonymous', 'l');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $this->assertEquals('l', $mock->getMyAcl('INBOX/Test'));
+    }
+
+    public function testGetMyAclWithGroup()
+    {
+        $mock = $this->getNullMock();
+        $mock->setGroups(array($mock->getAuth() => array('group')));
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'group:group', 'l');
         $mock->deleteAcl('INBOX/Test', $mock->getAuth());
         $this->assertEquals('l', $mock->getMyAcl('INBOX/Test'));
     }
@@ -198,6 +218,16 @@ extends Horde_Kolab_Storage_TestCase
         $mock->setAcl('INBOX/Test', 'a', 'b');
     }
 
+    public function testSetAclWithGroup()
+    {
+        $mock = $this->getNullMock();
+        $mock->setGroups(array($mock->getAuth() => array('group')));
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'group:group', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $mock->setAcl('INBOX/Test', 'a', 'b');
+    }
+
     /**
      * @expectedException Horde_Kolab_Storage_Exception
      */
@@ -245,6 +275,16 @@ extends Horde_Kolab_Storage_TestCase
         $mock->setAcl('INBOX/Test', 'anonymous', 'a');
         $mock->deleteAcl('INBOX/Test', $mock->getAuth());
         $mock->deleteAcl('INBOX/Test', 'anonymous');
+    }
+
+    public function testDeleteAclWithGroup()
+    {
+        $mock = $this->getNullMock();
+        $mock->setGroups(array($mock->getAuth() => array('group')));
+        $mock->create('INBOX/Test');
+        $mock->setAcl('INBOX/Test', 'group:group', 'a');
+        $mock->deleteAcl('INBOX/Test', $mock->getAuth());
+        $mock->deleteAcl('INBOX/Test', 'group:group');
     }
 
     /**
