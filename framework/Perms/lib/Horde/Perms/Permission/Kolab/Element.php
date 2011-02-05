@@ -68,10 +68,7 @@ abstract class Horde_Perms_Permission_Kolab_Element
      *
      * @return NULL
      */
-    public function unsetInCurrent(&$current)
-    {
-        unset($current[$this->getId()]);
-    }
+    abstract public function unsetInCurrent(&$current);
 
     /**
      * Convert the a Horde_Perms:: mask to a Acl string.

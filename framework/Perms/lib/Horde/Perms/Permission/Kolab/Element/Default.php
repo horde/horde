@@ -37,4 +37,16 @@ extends Horde_Perms_Permission_Kolab_Element
     {
         return 'anyone';
     }
+
+    /**
+     * Unset the element in the provided permission array.
+     *
+     * @param array &$current The current permission array.
+     *
+     * @return NULL
+     */
+    public function unsetInCurrent(&$current)
+    {
+        unset($current['default']);
+    }
 }

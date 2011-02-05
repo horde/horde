@@ -161,7 +161,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $permission = new Horde_Perms_Permission_Kolab(
             $this->storage, $this->groups
         );
-        $permission->addUserPermission('test', Horde_Perms::SHOW, true);
+        $permission->addUserPermission('test', Horde_Perms::SHOW);
     }
 
     public function testReadPermissionResultsInImapReadAcl()
@@ -289,6 +289,71 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $permission = $this->_getComplexPermissions();
         $permission->setName('DUMMY');
         $this->assertEquals('DUMMY', $permission->getName());
+    }
+
+    public function testRemoveCreatorPermissions()
+    {
+        $this->storage->expects($this->any())
+            ->method('getOwner')
+            ->will($this->returnValue('test'));
+        $this->storage->expects($this->exactly(3))
+            ->method('getAcl')
+            ->will($this->returnValue(array('test' => 'lrid')));
+        $this->storage->expects($this->once())
+            ->method('deleteAcl')
+            ->with('test');
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
+        );
+        $permission->removeCreatorPermission();
+    }
+
+    public function testDoNotRemoveCreatorPermissions()
+    {
+        $this->storage->expects($this->any())
+            ->method('getOwner')
+            ->will($this->returnValue('test'));
+        $this->storage->expects($this->exactly(3))
+            ->method('getAcl')
+            ->will($this->returnValue(array('test' => 'lrid')));
+        $this->storage->expects($this->never())
+            ->method('deleteAcl');
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
+        );
+        $permission->addGuestPermission(Horde_Perms::SHOW);
+    }
+
+    public function testDoNotRemoveGuestPermissions()
+    {
+        $this->storage->expects($this->any())
+            ->method('getOwner')
+            ->will($this->returnValue('test'));
+        $this->storage->expects($this->exactly(3))
+            ->method('getAcl')
+            ->will($this->returnValue(array('anonymous' => 'lrid')));
+        $this->storage->expects($this->never())
+            ->method('deleteAcl');
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
+        );
+        $permission->addCreatorPermission(Horde_Perms::SHOW);
+    }
+
+    public function testDoNotRemoveDefaulttPermissions()
+    {
+        $this->storage->expects($this->any())
+            ->method('getOwner')
+            ->will($this->returnValue('test'));
+        $this->storage->expects($this->exactly(3))
+            ->method('getAcl')
+            ->will($this->returnValue(array('anyone' => 'lrid')));
+        $this->storage->expects($this->never())
+            ->method('deleteAcl');
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
+        );
+        $permission->addCreatorPermission(Horde_Perms::SHOW);
     }
 
     private function _getComplexPermissions()
