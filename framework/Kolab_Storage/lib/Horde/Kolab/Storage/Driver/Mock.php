@@ -108,6 +108,18 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Set the authentication of this driver.
+     *
+     * @param string $username The new username to use.
+     *
+     * @return NULL
+     */
+    public function setAuth($username)
+    {
+        $this->setParam('username', $username);
+    }
+
+    /**
      * Create the backend driver.
      *
      * @return mixed The backend driver.
