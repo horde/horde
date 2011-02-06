@@ -47,6 +47,15 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function permissions()
     {
+        $this->permissionsSystemShare();
+        $this->permissionsChildShare();
+        $this->permissionsJaneShare();
+        $this->permissionsGroupShare();
+        $this->permissionsNoShare();
+    }
+
+    protected function permissionsSystemShare()
+    {
         // System share.
         $share = self::$share->newShare(null, 'systemshare');
         $share->set('name', 'System Share');
@@ -58,10 +67,16 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertTrue($share->hasPermission('john', Horde_Perms::READ));
         $this->assertFalse($share->hasPermission('john', Horde_Perms::EDIT));
         $this->assertFalse($share->hasPermission('john', Horde_Perms::DELETE));
+    }
 
+    protected function permissionsChildShare()
+    {
         // Child share
         $childshare = self::$share->getShare('mychildshare');
+    }
 
+    protected function permissionsJaneShare()
+    {
         // Foreign share with user permissions.
         $janeshare = self::$share->newShare('jane', 'janeshare');
         $janeshare->set('name', 'Jane\'s Share');
@@ -71,7 +86,10 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::READ));
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
         $this->assertFalse($janeshare->hasPermission('john', Horde_Perms::DELETE));
+    }
 
+    protected function permissionsGroupShare()
+    {
         // Foreign share with group permissions.
         $groupshare = self::$share->newShare('jane', 'groupshare');
         $groupshare->set('name', 'Group Share');
@@ -81,7 +99,10 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertTrue($groupshare->hasPermission('john', Horde_Perms::READ));
         $this->assertFalse($groupshare->hasPermission('john', Horde_Perms::EDIT));
         $this->assertTrue($groupshare->hasPermission('john', Horde_Perms::DELETE));
+    }
 
+    protected function permissionsNoShare()
+    {
         // Foreign share without permissions.
         $fshare = self::$share->newShare('jane', 'noshare');
         $fshare->save();
