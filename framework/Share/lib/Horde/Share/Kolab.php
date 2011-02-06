@@ -298,6 +298,19 @@ class Horde_Share_Kolab extends Horde_Share_Base
                     }
                 }
             }
+            if (isset($params['parent'])) {
+                foreach ($shares as $share) {
+                    $object = $this->getShareById($share);
+                    if ($params['parent'] instanceOf Horde_Share_Object) {
+                        $parent = $params['parent'];
+                    } else {
+                        $parent = $this->getShare($params['parent']);
+                    }
+                    if (!$object->getParent() ||  $object->getParent()->getId() != $parent->getId()) {
+                        $remove[] = $share;
+                    }
+                }
+            }
             if (isset($params['all_levels']) && empty($params['all_levels'])) {
                 foreach ($shares as $share) {
                     $object = $this->getShareById($share);
@@ -307,29 +320,56 @@ class Horde_Share_Kolab extends Horde_Share_Base
                     }
                 }
             }
+            if (isset($params['attributes'])) {
+                if (!is_array($params['attributes'])) {
+                    $attributes = array('owner' => $params['attributes']);
+                } else {
+                    $attributes = $params['attributes'];
+                }
+                foreach ($shares as $share) {
+                    $object = $this->getShareById($share);
+                    $parent = $object->get('parent');
+                    foreach ($attributes as $key => $value) {
+                        if ($object->get($key) != $value) {
+                            $remove[] = $share;
+                        }
+                    }
+                }
+            }
             if (!empty($remove)) {
                 $shares = array_diff($shares, $remove);
+            }
+            if (isset($params['sort_by'])) {
+                if ($params['sort_by'] == 'id') {
+                    sort($shares);
+                } else {
+                    $sorted = array();
+                    foreach ($shares as $share) {
+                        $object = $this->getShareById($share);
+                        $key = $object->get($params['sort_by']);
+                        $sorted[$key] = $object->getId();
+                    }
+                    ksort($sorted);
+                    $shares = array_values($sorted);
+                }
+            }
+            if (!empty($params['direction'])) {
+                $shares = array_reverse($shares);
+            }
+            if (isset($params['from']) && !empty($params['from'])) {
+                $shares = array_slice($shares, $params['from']);
+            }
+            if (isset($params['count']) && !empty($params['count'])) {
+                $shares = array_slice($shares, 0, $params['count']);
             }
             $this->_listcache[$key] = $shares;
         }
         return $this->_listcache[$key];
 
-        /*     $shares = array(); */
+        /*     $shares = array();
         /*     foreach ($sharelist as $folder) { */
         /*         $id = $folder->getShareId(); */
         /*         $share = $this->getShare($id); */
-        /*         if (isset($params['attributes']) && $keep) { */
-        /*             if (is_array($params['attributes'])) { */
-        /*                 foreach ($params['attributes'] as $key => $value) { */
-        /*                     if (!$share->get($key) == $value) { */
-        /*                         $keep = false; */
-        /*                         break; */
-        /*                     } */
-        /*                 } */
-        /*             } elseif (!$share->get('owner') == $params['attributes']) { */
-        /*                 $keep = false; */
-        /*             } */
-        /*         } */
         /*         if ($keep) { */
         /*             $shares[] = $id; */
         /*         } */
@@ -529,11 +569,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
         if (isset($data['desc'])) {
             $query->setDescription($this->_idDecode($id), $data['desc']);
         }
-        unset($data['desc']);
-        unset($data['owner']);
-        unset($data['name']);
-        unset($data['default']);
-        unset($data['parent']);
+        unset(
+            $data['desc'],
+            $data['owner'],
+            $data['name'],
+            $data['default'],
+            $data['parent']
+        );
         $query->setParameters($this->_idDecode($id), $data);
     }
 }
