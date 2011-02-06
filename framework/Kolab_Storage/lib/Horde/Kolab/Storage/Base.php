@@ -43,6 +43,13 @@ implements Horde_Kolab_Storage
     private $_factory;
 
     /**
+     * List instances.
+     *
+     * @var array
+     */
+    private $_lists;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Driver  $master  The primary connection driver.
@@ -65,13 +72,16 @@ implements Horde_Kolab_Storage
      */
     public function getList()
     {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->_master,
-            $this->_factory
-        );
-        $this->addListQuery($list, Horde_Kolab_Storage_List::QUERY_BASE);
-        $this->addListQuery($list, Horde_Kolab_Storage_List::QUERY_ACL);
-        return $list;
+        if (!isset($this->_lists[$this->_master->getId()])) {
+            $list = new Horde_Kolab_Storage_List_Base(
+                $this->_master,
+                $this->_factory
+            );
+            $this->addListQuery($list, Horde_Kolab_Storage_List::QUERY_BASE);
+            $this->addListQuery($list, Horde_Kolab_Storage_List::QUERY_ACL);
+            $this->_lists[$this->_master->getId()] = $list;
+        }
+        return $this->_lists[$this->_master->getId()];
     }
 
     /**
