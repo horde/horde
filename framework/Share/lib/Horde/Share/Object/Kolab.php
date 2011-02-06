@@ -68,9 +68,9 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      * The permission cache holds any permission changes that will be executed
      * on saving.
      *
-     * @var array
+     * @var Horde_Perm_Permission_Kolab
      */
-    private $_permission_cache;
+    private $_permission;
 
     /**
      * Constructor.
@@ -203,7 +203,9 @@ a random string.
     public function set($attribute, $value)
     {
         if ($attribute == 'name') {
-            $this->_id = $this->getShareOb()->generateId($value);
+            $this->_id = $this->getShareOb()->generateId(
+                $value, $this->get('owner')
+            );
         }
         $this->_data[$attribute] = $value;
     }
@@ -274,8 +276,9 @@ a random string.
      */
     protected function _save()
     {
-        $this->getShareOb()->save($this->getId(), $this->_old_id, $this->_data, $this->_permission_cache);
+        $this->getShareOb()->save($this->getId(), $this->_old_id, $this->_data);
         $this->_old_id = $this->_id;
+        $this->getPermission()->save();
     }
 
     /**
@@ -299,7 +302,10 @@ a random string.
      */
     public function getPermission()
     {
-        return new Horde_Perms_Permission_Kolab($this, $this->_groups);
+        if ($this->_permission === null) {
+            $this->_permission = new Horde_Perms_Permission_Kolab($this, $this->_groups);
+        }
+        return $this->_permission;
     }
 
     /**
@@ -314,12 +320,12 @@ a random string.
     public function setPermission($perms, $update = true)
     {
         if (!$perms instanceOf Horde_Perms_Permission_Kolab) {
-            $permission = $this->getPermission();
-            $permission->setData($perms->getData());
-            $perms = $permission;
+            $this->getPermission()->setData($perms->getData());
+        } else {
+            $this->_permission = $perms;
         }
         if ($update) {
-            $perms->save();
+            $this->save();
         }
     }
 
@@ -349,7 +355,7 @@ a random string.
      */
     public function setAcl($user, $acl)
     {
-        $this->_permission_cache['set'][] = array($user, $acl);
+        return $this->getShareOb()->setAcl($this->_id, $user, $acl);
     }
 
     /**
@@ -361,6 +367,6 @@ a random string.
      */
     public function deleteAcl($user)
     {
-        $this->_permission_cache['delete'][] = $user;
+        return $this->getShareOb()->deleteAcl($this->_id, $user);
     }
 }

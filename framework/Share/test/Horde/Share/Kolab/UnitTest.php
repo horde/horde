@@ -321,8 +321,8 @@ extends PHPUnit_Framework_TestCase
     {
         $share = $this->_getPrefilledDriver();
         $object = $share->newShare('john', 'IGNORED');
-        $object->addUserPermission('tina', Horde_Perms::SHOW);
         $object->set('name', 'Test');
+        $object->addUserPermission('tina', Horde_Perms::SHOW);
         $share->addShare($object);
         $this->assertTrue(
             $share->getShare('INBOX%2FTest')
@@ -343,6 +343,9 @@ extends PHPUnit_Framework_TestCase
                         'user/john/Calendar' => array(
                             'annotations' => array(
                                 '/shared/vendor/kolab/folder-type' => 'event.default',
+                            ),
+                            'permissions' => array(
+                                'john' => 'alrid'
                             )
                         ),
                     ),
@@ -357,6 +360,14 @@ extends PHPUnit_Framework_TestCase
         return $driver;
     }
 
+    public function testNewShareName()
+    {
+        $share = $this->_getCompleteDriver();
+        $object = $share->newShare('john', 'NAME');
+        $object->set('name', 'test');
+        $this->assertEquals('NAME', $object->get('share_name'));
+    }
+
     private function _getCompleteDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();
@@ -365,7 +376,14 @@ extends PHPUnit_Framework_TestCase
             array(
                 'driver' => 'mock',
                 'params' => array(
-                    'data'   => array('user/john' => array()),
+                    'username' => 'john',
+                    'data'   => array(
+                        'user/john' => array(
+                            'permissions' => array(
+                                'john' => 'alrid'
+                            )
+                        )
+                    ),
                 ),
                 'cache'  => new Horde_Cache(
                     new Horde_Cache_Storage_Mock()

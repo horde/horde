@@ -329,8 +329,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _newShare($name)
     {
-        //@todo: The Kolab driver requires a folder name
-        return $this->_createObject(null, array('type' => $this->_type));
+        return $this->_createObject(
+            null,
+            array(
+                'type' => $this->_type,
+                'share_name' => $name
+            )
+        );
     }
 
     /**
@@ -414,15 +419,22 @@ class Horde_Share_Kolab extends Horde_Share_Base
     /**
      * Generate the Kolab share ID based on the share name attribute.
      *
-     * @param string $name The share name.
+     * @param string $name  The share name.
+     * @param string $owner The owner of the share.
      *
      * @return string The (new) share id.
      */
-    public function generateId($name)
+    public function generateId($name, $owner)
     {
-        return $this->_idEncode(
-            $this->getStorage()->getList()->getNamespace()->setTitle($name)
-        );
+        if ($owner == $this->_user) {
+            return $this->_idEncode(
+                $this->getStorage()->getList()->getNamespace()->setTitle($name)
+            );
+        } else {
+            return $this->_idEncode(
+                $this->getStorage()->getList()->getNamespace()->setTitleInOther($name, $owner)
+            );
+        }
     }
 
     /**
@@ -431,11 +443,10 @@ class Horde_Share_Kolab extends Horde_Share_Base
      * @param string $id          The share id.
      * @param string $old_id      The old share id.
      * @param array  $data        The share data.
-     * @param array  $permissions Any permission changes
      *
      * @return NULL
      */
-    public function save($id, $old_id, $data, $permissions)
+    public function save($id, $old_id, $data)
     {
         if ($old_id === null) {
             $this->getStorage()->getList()->createFolder(
@@ -445,16 +456,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $this->getStorage()->getList()->renameFolder(
                 $this->_idDecode($old_id), $this->_idDecode($id), $this->_type
             );
-        }
-        if (isset($permissions['set'])) {
-            foreach ($permissions['set'] as $set) {
-                $this->setAcl($id, $set[0], $set[1]);
-            }
-        }
-        if (isset($permissions['delete'])) {
-            foreach ($permissions['delete'] as $user) {
-                $this->deleteAcl($id, $user);
-            }
         }
     }
 }
