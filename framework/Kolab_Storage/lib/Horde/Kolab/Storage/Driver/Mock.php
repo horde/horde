@@ -109,10 +109,23 @@ extends Horde_Kolab_Storage_Driver_Base
     private function _convertToExternal($mbox)
     {
         if ($this->_conversion_pattern === null) {
-            $user = explode('@', $this->getAuth());
-            $this->_conversion_pattern = '#^user/' . $user[0] . '#';
+            if ($this->getAuth() != '') {
+                $user = explode('@', $this->getAuth());
+                $this->_conversion_pattern = '#^user/' . $user[0] . '#';
+            } else {
+                /**
+                 * @todo: FIXME, this is a hack for the current state of the
+                 * Kolab share driver which does not yet know how to properly
+                 * deal with system shares.
+                 */
+                if ($mbox == 'user/') {
+                    return 'INBOX';
+                } else {
+                    return preg_replace('#^user//#', 'INBOX/', $mbox);
+                }
+            }
         }
-        return preg_replace($this->_conversion_pattern, 'INBOX', $mbox);;
+        return preg_replace($this->_conversion_pattern, 'INBOX', $mbox);
     }
 
     /**

@@ -343,16 +343,48 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetAnnotationReturnsAnnotationValue()
     {
-        $this->markTestIncomplete();
-
-        $data = array();
-        $data['INBOX/Contacts']['annotations']['/vendor/kolab/folder-type']['value.shared'] = 'contact.default';
+        $data = array(
+            'username' => 'test',
+            'data' => array(
+                'user/test/Contacts' => array(
+                    'annotations' => array(
+                        '/shared/vendor/kolab/folder-type' => 'contact.default',
+                    ),
+                    'permissions' => array('anyone' => 'lrid'),
+                ),
+            ),
+        );
         $driver = new Horde_Kolab_Storage_Driver_Mock(
-            $data
+            new Horde_Kolab_Storage_Factory(), $data
         );
         $this->assertEquals(
             'contact.default',
-            $driver->getAnnotation('/vendor/kolab/folder-type', 'value.shared', 'INBOX/Contacts')
+            $driver->getAnnotation('INBOX/Contacts', '/shared/vendor/kolab/folder-type')
+        );
+    }
+
+    public function testNullAuth()
+    {
+        $data = array(
+            'username' => '',
+            'data' => array(
+                'user/test/Contacts' => array(
+                    'permissions' => array('test' => 'lrid'),
+                ),
+                'user/' => array(
+                    'permissions' => array('anyone' => 'lrid'),
+                ),
+                'user//Null' => array(
+                    'permissions' => array('anyone' => 'lrid'),
+                ),
+            ),
+        );
+        $driver = new Horde_Kolab_Storage_Driver_Mock(
+            new Horde_Kolab_Storage_Factory(), $data
+        );
+        $this->assertEquals(
+            array('INBOX', 'INBOX/Null'),
+            $driver->getMailboxes()
         );
     }
 
