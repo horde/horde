@@ -430,17 +430,16 @@ extends PHPUnit_Framework_TestCase
                 'driver' => 'mock',
                 'params' => array(
                     'username' => 'john',
-                    'data'   => array(
-                        'user/john/Calendar' => array(
-                            'annotations' => array(
-                                '/shared/vendor/kolab/folder-type' => 'event.default',
-                                '/shared/comment' => 'DESCRIPTION',
-                                '/shared/vendor/horde/share-params' => base64_encode(serialize(array('share_name' => 'internal_id'))),
+                    'data'   => $this->_getMockData(
+                        array(
+                            'user/john/Calendar' => array(
+                                'a' => array(
+                                    '/shared/vendor/kolab/folder-type' => 'event.default',
+                                    '/shared/comment' => 'DESCRIPTION',
+                                    '/shared/vendor/horde/share-params' => base64_encode(serialize(array('share_name' => 'internal_id'))),
+                                ),
                             ),
-                            'permissions' => array(
-                                'john' => 'alrid'
-                            )
-                        ),
+                        )
                     ),
                 ),
                 'cache'  => new Horde_Cache(
@@ -464,11 +463,9 @@ extends PHPUnit_Framework_TestCase
                 'driver' => 'mock',
                 'params' => array(
                     'username' => 'john',
-                    'data'   => array(
-                        'user/john' => array(
-                            'permissions' => array(
-                                'john' => 'alrid'
-                            )
+                    'data'   => $this->_getMockData(
+                        array(
+                            'user/john' => null,
                         )
                     ),
                 ),
@@ -489,5 +486,27 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Share_Kolab(
             $app, 'john', new Horde_Perms(), new Horde_Group_Test()
         );
+    }
+
+    private function _getMockData($elements)
+    {
+        $result = array();
+        foreach ($elements as $path => $element) {
+            if (!isset($element['p'])) {
+                $folder = array('permissions' => array('anyone' => 'alrid'));
+            } else {
+                $folder = array('permissions' => $element['p']);
+            }
+            if (isset($element['a'])) {
+                $folder['annotations'] = $element['a'];
+            }
+            if (isset($element['t'])) {
+                $folder['annotations'] = array(
+                    '/shared/vendor/kolab/folder-type' => $element['t'],
+                );
+            }
+            $result[$path] = $folder;
+        }
+        return $result;
     }
 }

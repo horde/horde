@@ -486,6 +486,9 @@ extends PHPUnit_Framework_TestCase
             } else {
                 $folder = array('permissions' => $element['p']);
             }
+            if (isset($element['a'])) {
+                $folder['annotations'] = $element['a'];
+            }
             if (isset($element['t'])) {
                 $folder['annotations'] = array(
                     '/shared/vendor/kolab/folder-type' => $element['t'],

@@ -279,20 +279,15 @@ class Horde_Share_Kolab extends Horde_Share_Base
         $key = md5(serialize(array($userid, $params)));
 
         if (!isset($this->_listcache[$key])) {
-            $this->_listcache[$key] = array_map(
+            $shares = array_map(
                 array($this, '_idEncode'),
                 $this->getStorage()
                 ->getQuery()
                 ->listByType($this->_type)
             );
+            $this->_listcache[$key] = $shares;
         }
         return $this->_listcache[$key];
-
-        /*     || $this->_list->validity != $this->_listCacheValidity) { */
-        /*     $sharelist = $this->_storage->getByType($this->_type); */
-        /*     if ($sharelist instanceof PEAR_Error) { */
-        /*         throw new Horde_Share_Exception($sharelist->getMessage()); */
-        /*     } */
 
         /*     $shares = array(); */
         /*     foreach ($sharelist as $folder) { */
