@@ -44,7 +44,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testGetStorage()
     {
-        $storage = $this->getMock('Horde_Kolab_Storage');
+        $storage = $this->getMock('Horde_Kolab_Storage_List');
         $driver = $this->_getDriver();
         $driver->setStorage($storage);
         $this->assertSame($storage, $driver->getStorage());
@@ -248,6 +248,16 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testShareDescription()
+    {
+        $this->assertEquals(
+            'DESCRIPTION',
+            $this->_getPrefilledDriver()
+            ->getShare('INBOX%2FCalendar')
+            ->get('desc')
+        );
+    }
+
     public function testNewShare()
     {
         $this->assertEquals(
@@ -330,11 +340,19 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testNewShareName()
+    {
+        $share = $this->_getCompleteDriver();
+        $object = $share->newShare('john', 'NAME');
+        $object->set('name', 'test');
+        $this->assertEquals('NAME', $object->get('share_name'));
+    }
+
     private function _getPrefilledDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $driver = $this->_getDriver('kronolith');
-        $storage = $factory->createFromParams(
+        $this->storage = $factory->createFromParams(
             array(
                 'driver' => 'mock',
                 'params' => array(
@@ -343,6 +361,7 @@ extends PHPUnit_Framework_TestCase
                         'user/john/Calendar' => array(
                             'annotations' => array(
                                 '/shared/vendor/kolab/folder-type' => 'event.default',
+                                '/shared/comment' => 'DESCRIPTION',
                             ),
                             'permissions' => array(
                                 'john' => 'alrid'
@@ -355,24 +374,18 @@ extends PHPUnit_Framework_TestCase
                 ),
             )
         );
-        $storage->getList()->synchronize();
-        $driver->setStorage($storage);
+        $list = $this->storage->getList();
+        $this->storage->addListQuery($list, Horde_Kolab_Storage_List::QUERY_SHARE);
+        $list->synchronize();
+        $driver->setStorage($list);
         return $driver;
-    }
-
-    public function testNewShareName()
-    {
-        $share = $this->_getCompleteDriver();
-        $object = $share->newShare('john', 'NAME');
-        $object->set('name', 'test');
-        $this->assertEquals('NAME', $object->get('share_name'));
     }
 
     private function _getCompleteDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $driver = $this->_getDriver();
-        $storage = $factory->createFromParams(
+        $this->storage = $factory->createFromParams(
             array(
                 'driver' => 'mock',
                 'params' => array(
@@ -390,8 +403,10 @@ extends PHPUnit_Framework_TestCase
                 ),
             )
         );
-        $storage->getList()->synchronize();
-        $driver->setStorage($storage);
+        $list = $this->storage->getList();
+        $this->storage->addListQuery($list, Horde_Kolab_Storage_List::QUERY_SHARE);
+        $list->synchronize();
+        $driver->setStorage($list);
         return $driver;
     }
 

@@ -34,7 +34,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     /**
      * The Kolab storage handler
      *
-     * @var Horde_Kolab_Storage
+     * @var Horde_Kolab_Storage_List
      */
     private $_storage;
 
@@ -78,11 +78,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
     /**
      * Set the Kolab storage backend.
      *
-     * @param Horde_Kolab_Storage $driver The Kolab storage driver.
+     * @param Horde_Kolab_Storage_List $driver The Kolab storage driver.
      *
      * @return NULL
      */
-    public function setStorage(Horde_Kolab_Storage $driver)
+    public function setStorage(Horde_Kolab_Storage_List $driver)
     {
         $this->_storage = $driver;
     }
@@ -90,7 +90,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     /**
      * Return the Kolab storage backend associated with this driver.
      *
-     * @return Horde_Kolab_Storage The Kolab storage driver.
+     * @return Horde_Kolab_Storage_List The Kolab storage driver.
      */
     public function getStorage()
     {
@@ -167,16 +167,21 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _getShare($name)
     {
-        $data = $this->getStorage()
-            ->getList()
+        $list = $this->getStorage()
             ->getQuery()
             ->dataByType($this->_type);
 
-        if (!isset($data[$this->_idDecode($name)])) {
+        if (!isset($list[$this->_idDecode($name)])) {
             $this->_logger->err(sprintf('Share name %s not found', $name));
             throw new Horde_Exception_NotFound();
         }
-        return $this->_createObject($name, $data[$this->_idDecode($name)]);
+
+        $query = $this->getStorage()
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE);
+
+        $data = $list[$this->_idDecode($name)];
+        $data['desc'] = $query->getDescription($this->_idDecode($name));
+        return $this->_createObject($name, $data);
     }
 
     /**
@@ -223,7 +228,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
         return in_array(
             $this->_idDecode($share),
             $this->getStorage()
-            ->getList()
             ->getQuery()
             ->listByType($this->_type)
         );
@@ -254,7 +258,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
         return array_map(
             array($this, '_idEncode'),
             $this->getStorage()
-            ->getList()
             ->getQuery()
             ->listByType($this->_type)
         );
@@ -359,7 +362,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _removeShare(Horde_Share_Object $share)
     {
-        $this->getStorage()->getList()->deleteFolder($this->_idDecode($share->getId()));
+        $this->getStorage()->deleteFolder($this->_idDecode($share->getId()));
     }
 
     /**
@@ -372,7 +375,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     public function getAcl($id)
     {
         return $this->getStorage()
-            ->getList()
             ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
             ->getAcl(
                 $this->_idDecode($id)
@@ -391,7 +393,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     public function setAcl($id, $user, $acl)
     {
         $this->getStorage()
-            ->getList()
             ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
             ->setAcl(
                 $this->_idDecode($id), $user, $acl
@@ -409,7 +410,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     public function deleteAcl($id, $user)
     {
         $this->getStorage()
-            ->getList()
             ->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
             ->deleteAcl(
                 $this->_idDecode($id), $user
@@ -428,11 +428,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
     {
         if ($owner == $this->_user) {
             return $this->_idEncode(
-                $this->getStorage()->getList()->getNamespace()->setTitle($name)
+                $this->getStorage()->getNamespace()->setTitle($name)
             );
         } else {
             return $this->_idEncode(
-                $this->getStorage()->getList()->getNamespace()->setTitleInOther($name, $owner)
+                $this->getStorage()->getNamespace()->setTitleInOther($name, $owner)
             );
         }
     }
@@ -449,11 +449,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
     public function save($id, $old_id, $data)
     {
         if ($old_id === null) {
-            $this->getStorage()->getList()->createFolder(
+            $this->getStorage()->createFolder(
                 $this->_idDecode($id), $this->_type
             );
         } else if ($id != $old_id) {
-            $this->getStorage()->getList()->renameFolder(
+            $this->getStorage()->renameFolder(
                 $this->_idDecode($old_id), $this->_idDecode($id), $this->_type
             );
         }
