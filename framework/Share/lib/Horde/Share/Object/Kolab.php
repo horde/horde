@@ -280,6 +280,9 @@ a random string.
      */
     protected function _save()
     {
+        if (!isset($this->_data['share_name'])) {
+            $this->_data['share_name'] = $this->getName();
+        }
         $this->getShareOb()->save($this->getId(), $this->_old_id, $this->_data);
         $this->_old_id = $this->_id;
         $this->getPermission()->save();
