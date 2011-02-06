@@ -178,7 +178,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'INBOX%2FCalendar',
-            $this->_getPrefilledDriver()->getShare('INBOX%2FCalendar')->getId()
+            $this->_getPrefilledDriver()->getShareById('INBOX%2FCalendar')->getId()
         );
     }
 
@@ -225,7 +225,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testMissingShare()
     {
-        $this->_getPrefilledDriver()->getShare('DOES_NOT_EXIST');
+        $this->_getPrefilledDriver()->getShareById('DOES_NOT_EXIST');
     }
 
     public function testShareOwner()
@@ -233,7 +233,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'john',
             $this->_getPrefilledDriver()
-            ->getShare('INBOX%2FCalendar')
+            ->getShareById('INBOX%2FCalendar')
             ->get('owner')
         );
     }
@@ -243,7 +243,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'Calendar',
             $this->_getPrefilledDriver()
-            ->getShare('INBOX%2FCalendar')
+            ->getShareById('INBOX%2FCalendar')
             ->get('name')
         );
     }
@@ -253,7 +253,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'DESCRIPTION',
             $this->_getPrefilledDriver()
-            ->getShare('INBOX%2FCalendar')
+            ->getShareById('INBOX%2FCalendar')
             ->get('desc')
         );
     }
@@ -263,7 +263,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'internal_id',
             $this->_getPrefilledDriver()
-            ->getShare('INBOX%2FCalendar')
+            ->getShareById('INBOX%2FCalendar')
             ->get('share_name')
         );
     }
@@ -296,7 +296,7 @@ extends PHPUnit_Framework_TestCase
         $share->addShare($object);
         $this->assertEquals(
             'INBOX%2FTest',
-            $share->getShare('INBOX%2FTest')->getId()
+            $share->getShareById('INBOX%2FTest')->getId()
         );
     }
 
@@ -333,7 +333,7 @@ extends PHPUnit_Framework_TestCase
         $share->addShare($object);
         $this->assertEquals(
             30,
-            $share->getShare('INBOX%2FTest')->getPermission()->getCreatorPermissions()
+            $share->getShareById('INBOX%2FTest')->getPermission()->getCreatorPermissions()
         );
     }
 
@@ -345,7 +345,7 @@ extends PHPUnit_Framework_TestCase
         $object->addUserPermission('tina', Horde_Perms::SHOW);
         $share->addShare($object);
         $this->assertTrue(
-            $share->getShare('INBOX%2FTest')
+            $share->getShareById('INBOX%2FTest')
             ->hasPermission('tina', Horde_Perms::SHOW)
         );
     }
