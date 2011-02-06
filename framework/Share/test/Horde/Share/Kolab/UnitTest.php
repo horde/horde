@@ -388,6 +388,23 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSetData()
+    {
+        $share = $this->_getPrefilledDriver()
+            ->getShareById('INBOX%2FCalendar');
+        $share->set('other', 'OTHER');
+        $share->save();
+        $query = 
+        $this->assertEquals(
+            array(
+                'other' => 'OTHER', 'share_name' => 'internal_id'
+            ),
+            $this->list
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getParameters('INBOX/Calendar')
+        );
+    }
+
     private function _getPrefilledDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();

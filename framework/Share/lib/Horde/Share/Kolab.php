@@ -484,6 +484,9 @@ class Horde_Share_Kolab extends Horde_Share_Base
         if (isset($data['desc'])) {
             $query->setDescription($this->_idDecode($id), $data['desc']);
         }
-
+        unset($data['desc']);
+        unset($data['owner']);
+        unset($data['name']);
+        $query->setParameters($this->_idDecode($id), $data);
     }
 }
