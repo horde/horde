@@ -292,7 +292,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $remove = array();
             if ($params['perm'] != Horde_Perms::SHOW) {
                 foreach ($shares as $share) {
-                    $object = $this->getShare($share);
+                    $object = $this->getShareById($share);
                     if (!$object->hasPermission($userid, $params['perm'], $object->get('owner'))) {
                         $remove[] = $share;
                     }
@@ -300,7 +300,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
             }
             if (isset($params['all_levels']) && empty($params['all_levels'])) {
                 foreach ($shares as $share) {
-                    $object = $this->getShare($share);
+                    $object = $this->getShareById($share);
                     $parent = $object->get('parent');
                     if (!empty($parent) && in_array($parent, $shares)) {
                         $remove[] = $share;
@@ -318,10 +318,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
         /*     foreach ($sharelist as $folder) { */
         /*         $id = $folder->getShareId(); */
         /*         $share = $this->getShare($id); */
-        /*         $keep = true; */
-        /*         if (!$share->hasPermission($userid, $params['perm'])) { */
-        /*             $keep = false; */
-        /*         } */
         /*         if (isset($params['attributes']) && $keep) { */
         /*             if (is_array($params['attributes'])) { */
         /*                 foreach ($params['attributes'] as $key => $value) { */
@@ -338,8 +334,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
         /*             $shares[] = $id; */
         /*         } */
         /*     } */
-        /*     $this->_listcache[$key] = $shares; */
-        /*     $this->_listCacheValidity = $this->_storage->validity; */
         /* } */
     }
 
