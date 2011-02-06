@@ -421,6 +421,17 @@ extends PHPUnit_Framework_TestCase
         $driver->listShares('test');
     }
 
+    public function testEditableShares()
+    {
+        $this->assertEquals(
+            1,
+            count(
+                $this->_getPermissionDriver()
+                ->listShares('john', array('perm' => Horde_Perms::EDIT))
+            )
+        );
+    }
+
     private function _getPrefilledDriver()
     {
         return $this->_getDriverWithData($this->_getPrefilledData());
@@ -429,6 +440,11 @@ extends PHPUnit_Framework_TestCase
     private function _getCompleteDriver()
     {
         return $this->_getDriverWithData($this->_getCompleteData());
+    }
+
+    private function _getPermissionDriver()
+    {
+        return $this->_getDriverWithData($this->_getPermissionData());
     }
 
     private function _getDriverWithData($data)
@@ -476,6 +492,25 @@ extends PHPUnit_Framework_TestCase
             'data'   => $this->_getMockData(
                 array(
                     'user/john' => null,
+                )
+            ),
+        );
+    }
+
+    private function _getPermissionData()
+    {
+        return array(
+            'username' => 'john',
+            'data'   => $this->_getMockData(
+                array(
+                    'user/john/Calendar' => array(
+                        't' => 'event.default',
+                        'p' => array('john' => 'alrid'),
+                    ),
+                    'user/john/Listable' => array(
+                        't' => 'event',
+                        'p' => array('john' => 'l'),
+                    ),
                 )
             ),
         );
