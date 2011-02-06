@@ -1833,17 +1833,13 @@ class Horde_Registry
             $options['reason'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->getError();
         }
 
+        $params = array('url' => Horde::selfUrl(true, true, true));
+
         if (empty($options['app']) ||
             ($options['app'] == 'horde') ||
             ($options['reason'] == Horde_Auth::REASON_LOGOUT)) {
-            $params = array(
-                'horde_logout_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('horde.logout'),
-            );
-        } else {
-            $params = array(
-                'url' => Horde::selfUrl(true, true, true)
-            );
-        }
+            $params['horde_logout_token'] = $GLOBALS['injector']->getInstance('Horde_Token')->get('horde.logout');
+       }
 
         if (isset($options['app'])) {
             $params['app'] = $options['app'];
