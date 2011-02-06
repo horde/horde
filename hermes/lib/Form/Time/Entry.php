@@ -25,7 +25,7 @@ class Hermes_Form_Time_Entry extends Hermes_Form_Time
 
         if ($vars->exists('id')) {
             parent::__construct($vars, _("Update Time"));
-            $delete_link = Horde::url(time.php)->add('delete', $vars->get('id'))->link(array('title' => _("Delete Entry"))) . _("Delete");
+            $delete_link = Horde::url('time.php')->add('delete', $vars->get('id'))->link(array('title' => _("Delete Entry"))) . _("Delete");
             $this->setExtra('<span class="smallheader">' . $delete_link . '</a></span>');
         } else {
             parent::__construct($vars, _("New Time"));
