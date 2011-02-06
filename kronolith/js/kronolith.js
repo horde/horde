@@ -1486,7 +1486,7 @@ KronolithCore = {
         delete this.eventsLoading[r.response.cal];
 
         // Check if the calendar is still visible.
-        var calendar = r.response.cal.split('|');            
+        var calendar = r.response.cal.split('|');
         if (!Kronolith.conf.calendars[calendar[0]][calendar[1]].show) {
             return;
         }
