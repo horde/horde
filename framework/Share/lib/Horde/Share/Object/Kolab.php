@@ -165,7 +165,11 @@ a random string.
      */
     public function getName()
     {
-        return $this->getId();
+        if (isset($this->_data['share_name'])) {
+            return $this->_data['share_name'];
+        } else {
+            return $this->getId();
+        }
     }
 
     /**

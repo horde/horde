@@ -182,6 +182,14 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetShareName()
+    {
+        $this->assertEquals(
+            'internal_id',
+            $this->_getPrefilledDriver()->getShare('internal_id')->getName()
+        );
+    }
+
     public function testExistsById()
     {
         $this->assertTrue(
@@ -310,11 +318,11 @@ extends PHPUnit_Framework_TestCase
     public function testShareAddedToList()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORED');
+        $object = $share->newShare('john', 'SHARE_NAME');
         $object->set('name', 'Test');
         $share->addShare($object);
         $this->assertContains(
-            'INBOX%2FTest',
+            'SHARE_NAME',
             array_keys($share->listShares('john'))
         );
     }

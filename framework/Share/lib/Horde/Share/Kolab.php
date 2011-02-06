@@ -258,7 +258,12 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _idExists($id)
     {
-        return $this->_exists($id);
+        return in_array(
+            $this->_idDecode($id),
+            $this->getStorage()
+            ->getQuery()
+            ->listByType($this->_type)
+        );
     }
 
     /**
