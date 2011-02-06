@@ -478,5 +478,12 @@ class Horde_Share_Kolab extends Horde_Share_Base
                 $this->_idDecode($old_id), $this->_idDecode($id), $this->_type
             );
         }
+
+        $query = $this->getStorage()
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE);
+        if (isset($data['desc'])) {
+            $query->setDescription($this->_idDecode($id), $data['desc']);
+        }
+
     }
 }

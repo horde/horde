@@ -373,6 +373,21 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('NAME', $object->get('share_name'));
     }
 
+    public function testSetDescription()
+    {
+        $share = $this->_getPrefilledDriver()
+            ->getShareById('INBOX%2FCalendar');
+        $share->set('desc', 'NEW');
+        $share->save();
+        $query = 
+        $this->assertEquals(
+            'NEW',
+            $this->list
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getDescription('INBOX/Calendar')
+        );
+    }
+
     private function _getPrefilledDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();
@@ -400,10 +415,10 @@ extends PHPUnit_Framework_TestCase
                 ),
             )
         );
-        $list = $this->storage->getList();
-        $this->storage->addListQuery($list, Horde_Kolab_Storage_List::QUERY_SHARE);
-        $list->synchronize();
-        $driver->setStorage($list);
+        $this->list = $this->storage->getList();
+        $this->storage->addListQuery($this->list, Horde_Kolab_Storage_List::QUERY_SHARE);
+        $this->list->synchronize();
+        $driver->setStorage($this->list);
         return $driver;
     }
 
@@ -429,10 +444,10 @@ extends PHPUnit_Framework_TestCase
                 ),
             )
         );
-        $list = $this->storage->getList();
-        $this->storage->addListQuery($list, Horde_Kolab_Storage_List::QUERY_SHARE);
-        $list->synchronize();
-        $driver->setStorage($list);
+        $this->list = $this->storage->getList();
+        $this->storage->addListQuery($this->list, Horde_Kolab_Storage_List::QUERY_SHARE);
+        $this->list->synchronize();
+        $driver->setStorage($this->list);
         return $driver;
     }
 
