@@ -423,35 +423,25 @@ extends PHPUnit_Framework_TestCase
 
     private function _getPrefilledDriver()
     {
+        return $this->_getDriverWithData($this->_getPrefilledData());
+    }
+
+    private function _getCompleteDriver()
+    {
+        return $this->_getDriverWithData($this->_getCompleteData());
+    }
+
+    private function _getDriverWithData($data)
+    {
         $factory = new Horde_Kolab_Storage_Factory();
         $driver = $this->_getDriver('kronolith');
         $this->storage = $factory->createFromParams(
             array(
                 'driver' => 'mock',
-                'params' => $this->_getPrefilledData(),
+                'params' => $data,
                 'cache'  => new Horde_Cache(
                     new Horde_Cache_Storage_Mock()
                 ),
-            )
-        );
-        $this->list = $this->storage->getList();
-        $this->storage->addListQuery($this->list, Horde_Kolab_Storage_List::QUERY_SHARE);
-        $this->list->synchronize();
-        $driver->setStorage($this->list);
-        return $driver;
-    }
-
-    private function _getCompleteDriver()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $driver = $this->_getDriver();
-        $this->storage = $factory->createFromParams(
-            array(
-                'driver' => 'mock',
-                'params' => $this->_getCompleteData(),
-                'cache'  => new Horde_Cache(
-                    new Horde_Cache_Storage_Mock()
-                )
             )
         );
         $this->list = $this->storage->getList();
