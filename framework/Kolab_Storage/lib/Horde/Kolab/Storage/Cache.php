@@ -120,6 +120,13 @@ class Horde_Kolab_Storage_Cache
     protected $horde_cache;
 
     /**
+     * List cache instances.
+     *
+     * @var array
+     */
+    private $_list_caches;
+
+    /**
      * Constructor.
      *
      * @param Horde_Cache $cache The global cache for temporary data storage.
@@ -171,6 +178,24 @@ class Horde_Kolab_Storage_Cache
             $this->objects  = $data['objects'];
             $this->uids     = $data['uids'];
         }
+    }
+
+    /**
+     * Return a list cache.
+     *
+     * @param string $connection_id ID of the connection matching the list.
+     *
+     * @return Horde_Kolab_Storage_Cache_List The list cache.
+     */
+    public function getListCache($connection_id)
+    {
+        if (!isset($this->_list_caches[$connection_id])) {
+            $this->_list_caches[$connection_id] = new Horde_Kolab_Storage_Cache_List(
+                $this
+            );
+            $this->_list_caches[$connection_id]->setListId($connection_id);
+        }
+        return $this->_list_caches[$connection_id];
     }
 
     /**

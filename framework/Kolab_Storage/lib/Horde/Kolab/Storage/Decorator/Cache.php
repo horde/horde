@@ -74,8 +74,9 @@ implements Horde_Kolab_Storage
      */
     public function getList()
     {
-        $list_cache = new Horde_Kolab_Storage_Cache_List(
-            $this->_cache
+        $decorated_list = $this->_storage->getList();
+        $list_cache = $this->_cache->getListCache(
+            $decorated_list->getConnectionId()
         );
         $list = new Horde_Kolab_Storage_List_Decorator_Cache(
             $this->_storage->getList(),
@@ -111,11 +112,14 @@ implements Horde_Kolab_Storage
             $this->_storage->addListQuery($list, $type, $params);
             return;
         }
-        $list_cache = new Horde_Kolab_Storage_Cache_List(
-            $this->_cache
+        $params = array_merge(
+            $params,
+            array(
+                'cache' => $this->_cache->getListCache(
+                    $list->getConnectionId()
+                )
+            )
         );
-        $list_cache->setListId($list->getConnectionId());
-        $params = array_merge($params, array('cache' => $list_cache));
         $list->registerQuery(
             $type, $this->_factory->createListQuery($class, $list, $params)
         );
