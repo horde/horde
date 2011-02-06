@@ -384,3 +384,97 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     border: solid 1px #999999;
     margin: 3px;
 }
+
+/* Horizontal Carousel */
+#horizontal_carousel {
+  float:left;
+  width: 575px;
+  height: 200px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+#horizontal_carousel .container {
+  position: absolute;
+  top: 5px;
+  left: 37px;
+  width: 504px;
+  height: 144px;
+  overflow:hidden;
+  background: #3F3F3F;
+}
+
+#horizontal_carousel .previous_button {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 27px;
+  height: 144px;
+  background: url("graphics/carousel/left.gif");
+  z-index: 100;
+  cursor:pointer;
+}
+
+#horizontal_carousel .previous_button_disabled {
+  background: url("graphics/carousel/left-disabled.gif");
+  cursor:default;
+}
+
+#horizontal_carousel .next_button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 27px;
+  height: 144px;
+  background: url("graphics/carousel/right.gif");
+  z-index: 100;
+  cursor:pointer;
+}
+
+#horizontal_carousel .next_button_disabled {
+  background: url("graphics/carousel/right-disabled.gif");
+  cursor:default;
+}
+
+#horizontal_carousel ul {
+  margin: 0;
+  padding:0;
+  width: 100000px;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 144px;
+}
+
+#horizontal_carousel ul li img {
+  border:1px solid #999999;
+  display:block;
+  background:#E3EDFA;
+}
+
+#horizontal_carousel ul li {
+  font-family:verdana,arial,sans-serif;
+  font-size:10px;
+}
+
+#horizontal_carousel ul li {
+  border:0px solid green;
+  color:#E3EDFA;
+  margin:0pt;
+  padding:15px 10px 10px;
+
+  list-style:none;
+  float:left;
+}
+
+#spinner {
+    position: absolute;
+    top: 0px;
+    left: 50px;
+    width: 100%;
+    background: #FFF;
+    z-index: 10;
+    text-align: center;
+    font-size: 150%;
+    opacity: 0;
+}

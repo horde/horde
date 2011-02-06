@@ -57,11 +57,12 @@ class Ansel_View_Upload
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('carousel.js', 'ansel', true);
 
-        $startText = _("Upload");
-        $addText = _("Add Image");
+        $startText = _("Start");
+        $addText = _("Add Images");
         $header = _("Upload to gallery");
         $returnText =_("View Gallery");
         $subText = _("Add files to the upload queue and click the start button.");
+        $previewUrl = Horde::url('img/upload_preview.php')->add('gallery', $this->_gallery->id);
 
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
 
@@ -84,9 +85,41 @@ class Ansel_View_Upload
             return_target: '{$this->_params['return_target']}'
         });
         uploader.init();
+
+        Ajax.Response.prototype._getHeaderJSON = function() {
+            var nbElements = {$this->_gallery->countImages()};
+            var from = this.request.parameters.from;
+            var to   = Math.min(nbElements, this.request.parameters.to);
+            return {html: this.responseText, from: from, to: to, more: to != nbElements};
+        }
+
+        function runCarousel() {
+            updateCarouselSize();
+            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl}", elementSize: 115 })
+                .observe("request:started", function() {
+                    $('spinner').show().morph("opacity:0.8", {duration:0.5});
+                })
+                .observe("request:ended", function() {
+                    $('spinner').morph("opacity:0", {duration:0.5, afterFinish: function(obj) { obj.element.hide(); }});
+                });
+        }
+        function resized() {
+            updateCarouselSize();
+            if (carousel) {
+                carousel.updateSize();
+            }
+        }
+        function updateCarouselSize() {
+            var dim = $('anseluploader').getDimensions();
+            $("horizontal_carousel").style.width = dim.width + "px";
+            $$("#horizontal_carousel .container").first().style.width =  (dim.width - 50) + "px";
+        }
+        Event.observe(window, 'resize', resized);
+        carousel = null;
+        runCarousel();
 EOT;
 
-        Horde::addInlineScript($js, 'dom');
+        Horde::addInlineScript($js, 'load');
     }
 
     /**

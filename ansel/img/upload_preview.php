@@ -21,15 +21,18 @@ if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
     throw new Horde_Exception_PermissionDenied();
 }
 
+$style = Ansel::getStyleDefinition('ansel_default');
+$style->thumbstyle = 'SquareThumb';
+$style->width = 115;
+$style->height = 115;
 $from = (int)Horde_Util::getFormData('from');
 $to = (int)Horde_Util::getFormData('to');
 $count = $to - $from + 1;
-
 $images = $gallery->getImages($from, $count);
 foreach ($images as $image) {
-    echo  '<li class="small">';
-    echo '<div style="width:90px;">';
+    echo  '<li>';
+    echo '<div>';
     $alt = htmlspecialchars($image->filename);
-    echo '<img onclick="ansel_lb.start(' . $image->id . ')" src="' . Ansel::getImageUrl($image->id, 'mini') . '" alt="' . $alt . '" title="' . $alt . '" />';
+    echo '<img onclick="ansel_lb.start(' . $image->id . ')" src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style) . '" alt="' . $alt . '" title="' . $alt . '" />';
     echo '</div></li>' . "\n";
 }
