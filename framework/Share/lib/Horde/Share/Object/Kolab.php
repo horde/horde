@@ -254,7 +254,7 @@ a random string.
         $parent_id = $this->get('parent');
         if (!empty($parent_id)) {
             try {
-                return $this->getShareOb()->getShareById();
+                return $this->getShareOb()->getShareById($parent_id);
             } catch (Horde_Exception_NotFound $e) {
                 return null;
             }
