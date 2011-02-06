@@ -148,7 +148,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('INBOX/a/b', $namespace);
-            $this->assertEquals('a', $folder->getParent());
+            $this->assertEquals('INBOX/a', $folder->getParent());
         }
     }
 
@@ -156,7 +156,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('INBOX/a', $namespace);
-            $this->assertEquals('', $folder->getParent());
+            $this->assertEquals('INBOX', $folder->getParent());
         }
     }
 
@@ -164,7 +164,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('user/test/mine/a', $namespace);
-            $this->assertEquals('mine', $folder->getParent());
+            $this->assertEquals('user/test/mine', $folder->getParent());
         }
     }
 
@@ -172,7 +172,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('user/test/mine', $namespace);
-            $this->assertEquals('', $folder->getParent());
+            $this->assertEquals('user/test', $folder->getParent());
         }
     }
 

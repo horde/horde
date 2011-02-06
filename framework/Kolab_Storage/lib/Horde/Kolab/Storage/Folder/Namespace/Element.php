@@ -146,15 +146,9 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
      */
     public function getParent($name)
     {
-        $subpath = $this->_subpath($name);
-        if (empty($subpath)) {
-            return '';
-        }
-        array_pop($subpath);
-        if (empty($subpath)) {
-            return '';
-        }
-        return join($subpath, $this->_delimiter);
+        $path = explode($this->_delimiter, $name);
+        array_pop($path);
+        return join($path, $this->_delimiter);
     }
 
     /**
