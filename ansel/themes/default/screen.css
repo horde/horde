@@ -374,9 +374,13 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     background: gray;
     color: #fff;
 }
+
+/* Pluploader */
 #anseluploader {
     width: auto;
+    padding: 2px;
 }
 .uploaderContainer {
     border: solid 1px #999999;
+    margin: 3px;
 }

@@ -1390,17 +1390,52 @@ div.GrowlerNoticeExit:hover {
 .hordeSmNew {
     color: red;
 }
-ul.hordeTwitter
 
 /* Uploader */
+.hordeUploaderHeaderContent {
+    font-size: 18px;
+    background: url("graphics/uploader/backgrounds.gif") no-repeat scroll 0 -317px transparent;
+    min-height: 56px;
+    padding-left: 60px;
+    color: white;
+}
 .hordeUploaderHeader {
+  background: url("graphics/uploader/backgrounds.gif") repeat-x scroll 0 0 #2A2C2E;
+}
+.hordeUploaderFilelistHeader {
+    background: none repeat scroll 0 0 #DFDFDF;
+    color: #42454A;
+    padding: 8px;
+    height: 20px;
 }
 .hordeUploaderSubHeader {
-    border-bottom: thin solid #000;
+    font-size: 12px;
 }
+.hordeUploaderFooter {
+  border-top: 1px solid #FFFFFF;
+  height: 22px;
+  line-height: 20px;
+  vertical-align: middle;
+  background: none repeat scroll 0 0 #DFDFDF;
+  color: #42454A;
+  padding: 8px;
+}
+
 .hordeUploaderFilelist {
     height: 350px;
     overflow: auto;
+}
+.hordeUploaderFilelistItem {
+    background: url("graphics/uploader/backgrounds.gif") repeat-x scroll 0 -156px #F5F5F5;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 10px 8px;
+}
+.hordeUploaderFilelistItemDone {
+    color: #aaaaaa;
+}
+.hordeUploaderFilelistItemError {
+    color: red;
+    font-weight: bold;
 }
 .hordeUploaderFilename {
     float: left;
@@ -1434,7 +1469,6 @@ ul.hordeTwitter
 {
     background-image: url("graphics/delete.png");
 }
-
 /* For in place editing */
 form.inplaceeditor-form {
     background: none;

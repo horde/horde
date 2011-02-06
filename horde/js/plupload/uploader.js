@@ -82,12 +82,12 @@ var Horde_Uploader = Class.create({
                 if (result.status != 200) {
                     up.unbind('UploadProgress', this.handlers.progress);
                     $(file.id).select('.hordeUploaderFilestatus').each(function(p) { $(p).update(result.error.message); });
-                    $(file.id).setStyle({'fontWeight': 'bold', 'color': 'red'});
+                    $(file.id).addClassName(this._params['filelistitemerror_class']);
                     $(file.id).select('.hordeUploaderFileaction').each(function(p) {
                         $(p).select('.hordeUploaderRemove').each(function(r) { r.remove(); });
                         $(p).addClassName(this._params['error_class']) }.bind(this));
                 } else {
-                    $(file.id).setStyle({'fontWeight': 'bold', 'color': 'green'});
+                    $(file.id).addClassName(this._params['filelistitemdone_class']);
                     $(file.id).select('.hordeUploaderFileaction').each(function(p) {
                         $(p).select('.hordeUploaderRemove').each(function(r) { r.remove(); });
                         $(p).update('&nbsp;').addClassName(this._params['success_class']);
@@ -117,17 +117,21 @@ var Horde_Uploader = Class.create({
             browsebutton_class: 'button',
             uploadbutton_class: 'button',
             header_class: 'hordeUploaderHeader',
+            headercontent_class: 'hordeUploaderHeaderContent',
             subheader_class: 'hordeUploaderSubHeader',
             container_class: 'hordeUploaderContainer',
             filelist_class: 'hordeUploaderFilelist',
             filelistitem_class: 'hordeUploaderFilelistItem',
+            filelistitemdone_class: 'hordeUploaderFilelistItemDone',
+            filelistitemerror_class: 'hordeUploaderFilelistItemError',
             browse_button: 'browseimages',
             drop_target: 'filelist',
             upload_button: 'uploadimages',
             return_button: 'return',
             returnbutton_class: 'button',
             success_class: 'hordeUploaderSuccess',
-            error_class: 'hordeUploaderError'
+            error_class: 'hordeUploaderError',
+            footer_class: 'hordeUploaderFooter'
         }, params);
 
         this._build();
@@ -187,11 +191,16 @@ var Horde_Uploader = Class.create({
         var returnButton = new Element('a', { 'id': this._params['return_button'], 'class': this._params['returnbutton_class'] }).update(this._params.text.returnButton);
 
         /* Header section */
-        var header = new Element('div', { 'class': this._params['header_class'] }).update(this._params.text.header);
         var subheader = new Element('div', { 'class': this._params['subheader_class'] }).update(this._params.text.subheader);
+        var headercontent = new Element('div', { 'class': this._params['headercontent_class'] }).update(this._params.text.header);
+        headercontent.insert(subheader);
+        var header = new Element('div', { 'class': this._params['header_class'] }).update(headercontent);
+
+        /* Footer */
+        var footer = new Element('div', { 'class': this._params['footer_class'] });
 
         /* filelist header rows */
-        var fileheader = new Element('div')
+        var fileheader = new Element('div', { 'class': 'hordeUploaderFilelistHeader'})
             .insert(new Element('div', { 'class': 'hordeUploaderFilename' }).update('Filename'))
             .insert(new Element('div', { 'class': 'hordeUploaderFileaction'}).update('&nbsp;'))
             .insert(new Element('div', { 'class': 'hordeUploaderFilestatus'}).update('Status'))
@@ -202,13 +211,11 @@ var Horde_Uploader = Class.create({
         $(this._params['container']).insert(
             new Element('div', {'class': this._params['container_class'] })
                 .insert(header)
-                .insert(subheader)
                 .insert(fileheader)
                 .insert(new Element('div', { 'class': 'clear' }))
                 .insert(filelist)
-                .insert(browse)
-                .insert(upload)
-                .insert(returnButton));
+                .insert(footer.insert(browse).insert(upload).insert(returnButton))
+        );
     }
 
 });

@@ -61,6 +61,7 @@ class Ansel_View_Upload
         $addText = _("Add Image");
         $header = _("Upload to gallery");
         $returnText =_("View Gallery");
+        $subText = _("Add files to the upload queue and click the start button.");
 
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
 
@@ -75,9 +76,10 @@ class Ansel_View_Upload
             text: { start: '{$startText}',
                     add: '{$addText}',
                     header: '{$header}',
-                    returnButton: '{$returnText}'
+                    returnButton: '{$returnText}',
+                    subheader: '{$subText}'
             },
-            header_class: 'control header hordeUploaderHeader',
+            header_class: 'hordeUploaderHeader',
             container_class: 'uploaderContainer',
             return_target: '{$this->_params['return_target']}'
         });
