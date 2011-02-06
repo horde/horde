@@ -179,7 +179,10 @@ class Horde_Share_Kolab extends Horde_Share_Base
         $query = $this->getStorage()
             ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE);
 
-        $data = $list[$this->_idDecode($name)];
+        $data = array_merge(
+            $query->getParameters($this->_idDecode($name)),
+            $list[$this->_idDecode($name)]
+        );
         $data['desc'] = $query->getDescription($this->_idDecode($name));
         return $this->_createObject($name, $data);
     }

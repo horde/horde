@@ -258,6 +258,16 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testShareShareName()
+    {
+        $this->assertEquals(
+            'internal_id',
+            $this->_getPrefilledDriver()
+            ->getShare('INBOX%2FCalendar')
+            ->get('share_name')
+        );
+    }
+
     public function testNewShare()
     {
         $this->assertEquals(
@@ -362,6 +372,7 @@ extends PHPUnit_Framework_TestCase
                             'annotations' => array(
                                 '/shared/vendor/kolab/folder-type' => 'event.default',
                                 '/shared/comment' => 'DESCRIPTION',
+                                '/shared/vendor/horde/share-params' => base64_encode(serialize(array('share_name' => 'internal_id'))),
                             ),
                             'permissions' => array(
                                 'john' => 'alrid'
