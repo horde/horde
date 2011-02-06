@@ -142,6 +142,18 @@ implements Iterator, Serializable
     }
 
     /**
+     * Get the parent for the given folder name.
+     *
+     * @param string $name The parent folder name.
+     *
+     * @return string The parent.
+     */
+    public function getParent($name)
+    {
+        return $this->matchNamespace($name)->getParent($name);
+    }
+
+    /**
      * Return the title of a folder.
      *
      * @param string $name The name of the folder.

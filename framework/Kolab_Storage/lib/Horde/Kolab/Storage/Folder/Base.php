@@ -129,6 +129,19 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
+     * Returns the folder parent.
+     *
+     * @return string The parent of this folder.
+     */
+    public function getParent()
+    {
+        if (isset($this->_data['parent'])) {
+            return $this->_data['parent'];
+        }
+        throw new Horde_Kolab_Storage_Exception('No "parent" information available!');
+    }
+
+    /**
      * Is this a default folder?
      *
      * @return boolean Boolean that indicates the default status.

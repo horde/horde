@@ -115,11 +115,13 @@ implements Horde_Kolab_Storage_List_Query_List
     {
         $result = array();
         $namespace = $this->_list->getNamespace();
-        foreach ($this->listTypes() as $folder => $folder_type) {
-            if ($folder_type == $type) {
+        foreach ($this->listFolderTypeAnnotations() as $folder => $folder_type) {
+            if ($folder_type->getType() == $type) {
                 $result[$folder] = array(
+                    'default' => $folder_type->isDefault(),
                     'owner' => $namespace->getOwner($folder),
                     'name' => $namespace->getTitle($folder),
+                    'parent' => $namespace->getParent($folder),
                 );
             }
         }
@@ -155,6 +157,7 @@ implements Horde_Kolab_Storage_List_Query_List
             'owner' => $namespace->getOwner($folder),
             'name' => $namespace->getTitle($folder),
             'subpath' => $namespace->getSubpath($folder),
+            'parent' => $namespace->getParent($folder),
         );
     }
 

@@ -304,12 +304,15 @@ implements Horde_Kolab_Storage_List_Query_List
                 'owner' => $owner,
                 'name' => $namespace->getTitle($folder),
                 'subpath' => $namespace->getSubpath($folder),
+                'parent' => $namespace->getParent($folder),
             );
 
             $types[$folder] = $folders[$folder]['type'];
             $by_type[$folder_type][$folder] = array(
+                'default' => $folders[$folder]['parent'],
                 'owner' => $folders[$folder]['owner'],
-                'name' => $folders[$folder]['name']
+                'name' => $folders[$folder]['name'],
+                'parent' => $folders[$folder]['parent'],
             );
 
             if ($folders[$folder]['default']) {

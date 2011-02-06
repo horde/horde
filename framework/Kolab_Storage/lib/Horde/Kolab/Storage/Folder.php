@@ -67,6 +67,13 @@ interface Horde_Kolab_Storage_Folder
     public function getSubpath();
 
     /**
+     * Returns the folder parent.
+     *
+     * @return string The parent of this folder.
+     */
+    public function getParent();
+
+    /**
      * Is this a default folder?
      *
      * @return boolean Boolean that indicates the default status.

@@ -138,6 +138,26 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
     }
 
     /**
+     * Get the parent for the given folder name.
+     *
+     * @param string $name The parent folder name.
+     *
+     * @return string The parent.
+     */
+    public function getParent($name)
+    {
+        $subpath = $this->_subpath($name);
+        if (empty($subpath)) {
+            return '';
+        }
+        array_pop($subpath);
+        if (empty($subpath)) {
+            return '';
+        }
+        return join($subpath, $this->_delimiter);
+    }
+
+    /**
      * Return an array describing the path elements of the folder.
      *
      * @param string $name The name of the folder.

@@ -241,6 +241,7 @@ implements Horde_Kolab_Cli_Module
         $cli->writeln('Title:     ' . $folder->getTitle());
         $cli->writeln('Owner:     ' . $folder->getOwner());
         $cli->writeln('Type:      ' . $folder->getType());
+        $cli->writeln('Parent:    ' . $folder->getParent());
         $cli->writeln('Namespace: ' . $folder->getNamespace());
     }
 }

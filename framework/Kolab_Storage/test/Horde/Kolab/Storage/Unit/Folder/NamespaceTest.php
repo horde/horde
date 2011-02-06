@@ -144,6 +144,54 @@ extends Horde_Kolab_Storage_TestCase
         }
     }
 
+    public function testParent()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $folder = $this->_getFolder('INBOX/a/b', $namespace);
+            $this->assertEquals('a', $folder->getParent());
+        }
+    }
+
+    public function testRoot()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $folder = $this->_getFolder('INBOX/a', $namespace);
+            $this->assertEquals('', $folder->getParent());
+        }
+    }
+
+    public function testParentInOther()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $folder = $this->_getFolder('user/test/mine/a', $namespace);
+            $this->assertEquals('mine', $folder->getParent());
+        }
+    }
+
+    public function testRootInOther()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $folder = $this->_getFolder('user/test/mine', $namespace);
+            $this->assertEquals('', $folder->getParent());
+        }
+    }
+
+    public function testParentInShared()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $folder = $this->_getFolder('shared.a/b', $namespace);
+            $this->assertEquals('shared.a', $folder->getParent());
+        }
+    }
+
+    public function testRootInShared()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $folder = $this->_getFolder('shared.a', $namespace);
+            $this->assertEquals('', $folder->getParent());
+        }
+    }
+
     public function testSubpathWithoutSharedPrefix()
     {
         foreach ($this->_getNamespaces() as $namespace) {
