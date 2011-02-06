@@ -251,7 +251,15 @@ a random string.
      */
     public function getParent()
     {
-        return;
+        $parent_id = $this->get('parent');
+        if (!empty($parent_id)) {
+            try {
+                return $this->getShareOb()->getShareById();
+            } catch (Horde_Exception_NotFound $e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     /**
@@ -261,7 +269,14 @@ a random string.
      */
     public function getParents()
     {
-        return array();
+        $parents = array();
+        $share = $this->getParent();
+        while ($share instanceof Horde_Share_Object) {
+            $parents[] = $share;
+            $share = $share->getParent();
+        }
+
+        return array_reverse($parents);
     }
 
     /**
@@ -273,6 +288,10 @@ a random string.
      */
     public function setParent($parent)
     {
+        if (!$parent instanceof Horde_Share_Object) {
+            $parent = $this->getShareOb()->getShareById($parent);
+        }
+        $this->set('name', $parent->get('name') . ':' . $this->get('name'));
     }
 
     /**

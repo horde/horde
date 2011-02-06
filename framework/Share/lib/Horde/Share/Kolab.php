@@ -211,6 +211,9 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $list[$this->_idDecode($id)]
         );
         $data['desc'] = $query->getDescription($this->_idDecode($id));
+        if (isset($data['parent'])) {
+            $data['parent'] = $this->_idEncode($data['parent']);
+        }
         return $this->_createObject($id, $data);
     }
 
@@ -226,7 +229,8 @@ class Horde_Share_Kolab extends Horde_Share_Base
     {
         $objects = array();
         foreach ($ids as $id) {
-            $objects[$id] = $this->_getShareById($id);
+            $share = $this->_getShareById($id);
+            $objects[$share->getName()] = $share;
         }
         return $objects;
     }
@@ -285,17 +289,26 @@ class Horde_Share_Kolab extends Horde_Share_Base
                 ->getQuery()
                 ->listByType($this->_type)
             );
+            $remove = array();
             if ($params['perm'] != Horde_Perms::SHOW) {
-                $remove = array();
                 foreach ($shares as $share) {
                     $object = $this->getShare($share);
                     if (!$object->hasPermission($userid, $params['perm'], $object->get('owner'))) {
                         $remove[] = $share;
                     }
                 }
-                if (!empty($remove)) {
-                    $shares = array_diff($shares, $remove);
+            }
+            if (isset($params['all_levels']) && empty($params['all_levels'])) {
+                foreach ($shares as $share) {
+                    $object = $this->getShare($share);
+                    $parent = $object->get('parent');
+                    if (!empty($parent) && in_array($parent, $shares)) {
+                        $remove[] = $share;
+                    }
                 }
+            }
+            if (!empty($remove)) {
+                $shares = array_diff($shares, $remove);
             }
             $this->_listcache[$key] = $shares;
         }
@@ -525,6 +538,8 @@ class Horde_Share_Kolab extends Horde_Share_Base
         unset($data['desc']);
         unset($data['owner']);
         unset($data['name']);
+        unset($data['default']);
+        unset($data['parent']);
         $query->setParameters($this->_idDecode($id), $data);
     }
 }

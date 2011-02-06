@@ -42,6 +42,17 @@ extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testRootLevel()
+    {
+        $this->assertEquals(
+            3,
+            count(
+                $this->_getHierarchyDriver()
+                ->listShares('john', array('all_levels' => false))
+            )
+        );
+    }
+
     public function testGetStorage()
     {
         $storage = $this->getMock('Horde_Kolab_Storage_List');
@@ -120,7 +131,7 @@ extends PHPUnit_Framework_TestCase
     public function testListIds()
     {
         $this->assertEquals(
-            array('INBOX%2FCalendar'),
+            array('internal_id'),
             array_keys(
                 $this->_getPrefilledDriver()->listShares('john')
             )
@@ -447,6 +458,11 @@ extends PHPUnit_Framework_TestCase
         return $this->_getDriverWithData($this->_getPermissionData());
     }
 
+    private function _getHierarchyDriver()
+    {
+        return $this->_getDriverWithData($this->_getHierarchyData());
+    }
+
     private function _getDriverWithData($data)
     {
         $factory = new Horde_Kolab_Storage_Factory();
@@ -511,6 +527,23 @@ extends PHPUnit_Framework_TestCase
                         't' => 'event',
                         'p' => array('john' => 'l'),
                     ),
+                )
+            ),
+        );
+    }
+
+    private function _getHierarchyData()
+    {
+        return array(
+            'username' => 'john',
+            'data'   => $this->_getMockData(
+                array(
+                    'user/john/Calendar' => array('t' => 'event.default'),
+                    'user/john/Calendar/Private' => null,
+                    'user/john/Calendar/Private/Family' => array('t' => 'event'),
+                    'user/john/Calendar/Private/Family/Cooking' => array('t' => 'event'),
+                    'user/john/Calendar/Private/Family/Party' => array('t' => 'event'),
+                    'user/john/Work' => array('t' => 'event'),
                 )
             ),
         );
