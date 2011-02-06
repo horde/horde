@@ -11,7 +11,7 @@ class Turba_Form_AddContact extends Turba_Form_Contact
         // @TODO: $addSources should be injected
         global $addSources, $notification;
 
-        parent::__construct($vars, $contact, true, _("Add Contact"));
+        Horde_Form::__construct($vars, $contact, true);
         $this->_contact = $contact;
 
         $this->setButtons(_("Add"));
