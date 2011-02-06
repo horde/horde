@@ -405,6 +405,22 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testListShareCache()
+    {
+        $storage = $this->getMock('Horde_Kolab_Storage_List');
+        $query = $this->getMock('Horde_Kolab_Storage_List_Query_List');
+        $query->expects($this->once())
+            ->method('listByType')
+            ->will($this->returnValue(array()));
+        $storage->expects($this->once())
+            ->method('getQuery')
+            ->will($this->returnValue($query));
+        $driver = $this->_getDriver();
+        $driver->setStorage($storage);
+        $driver->listShares('test');
+        $driver->listShares('test');
+    }
+
     private function _getPrefilledDriver()
     {
         $factory = new Horde_Kolab_Storage_Factory();
