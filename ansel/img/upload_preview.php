@@ -33,6 +33,6 @@ foreach ($images as $image) {
     echo  '<li>';
     echo '<div>';
     $alt = htmlspecialchars($image->filename);
-    echo '<img onclick="ansel_lb.start(' . $image->id . ')" src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style) . '" alt="' . $alt . '" title="' . $alt . '" />';
+    echo '<img src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style) . '" alt="' . $alt . '" title="' . $alt . '" />';
     echo '</div></li>' . "\n";
 }
