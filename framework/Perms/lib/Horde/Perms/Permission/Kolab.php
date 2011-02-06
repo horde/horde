@@ -89,6 +89,7 @@ extends Horde_Perms_Permission
         foreach ($acl as $element) {
             $element->toHorde($data);
         }
+        $data['type'] = 'matrix';
         return $data;
     }
 
