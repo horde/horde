@@ -178,14 +178,21 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'INBOX%2FCalendar',
-            $this->_getPrefilledDriver()->getShareById('INBOX%2FCalendar')->getId()
+            $this->_getPrefilledDriver()->getShare('internal_id')->getId()
         );
     }
 
-    public function testExists()
+    public function testExistsById()
     {
         $this->assertTrue(
             $this->_getPrefilledDriver()->exists('INBOX%2FCalendar')
+        );
+    }
+
+    public function testExistsByName()
+    {
+        $this->assertTrue(
+            $this->_getPrefilledDriver()->exists('internal_id')
         );
     }
 

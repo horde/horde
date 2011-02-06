@@ -171,20 +171,16 @@ class Horde_Share_Kolab extends Horde_Share_Base
             ->getQuery()
             ->dataByType($this->_type);
 
-        if (!isset($list[$this->_idDecode($name)])) {
-            $this->_logger->err(sprintf('Share name %s not found', $name));
-            throw new Horde_Exception_NotFound();
-        }
-
         $query = $this->getStorage()
             ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE);
 
-        $data = array_merge(
-            $query->getParameters($this->_idDecode($name)),
-            $list[$this->_idDecode($name)]
-        );
-        $data['desc'] = $query->getDescription($this->_idDecode($name));
-        return $this->_createObject($name, $data);
+        foreach (array_keys($list) as $folder) {
+            $data = $query->getParameters($folder);
+            if (isset($data['share_name']) && $data['share_name'] == $name) {
+                return $this->getShareById($this->_idEncode($folder));
+            }
+        }
+        return $this->getShareById($name);
     }
 
     /**
@@ -198,7 +194,24 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _getShareById($id)
     {
-        return $this->_getShare($id);
+        $list = $this->getStorage()
+            ->getQuery()
+            ->dataByType($this->_type);
+
+        if (!isset($list[$this->_idDecode($id)])) {
+            $this->_logger->err(sprintf('Share id %s not found', $id));
+            throw new Horde_Exception_NotFound();
+        }
+
+        $query = $this->getStorage()
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE);
+
+        $data = array_merge(
+            $query->getParameters($this->_idDecode($id)),
+            $list[$this->_idDecode($id)]
+        );
+        $data['desc'] = $query->getDescription($this->_idDecode($id));
+        return $this->_createObject($id, $data);
     }
 
     /**
@@ -213,7 +226,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     {
         $objects = array();
         foreach ($ids as $id) {
-            $objects[$id] = $this->_getShare($id);
+            $objects[$id] = $this->_getShareById($id);
         }
         return $objects;
     }
@@ -228,12 +241,12 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _exists($share)
     {
-        return in_array(
-            $this->_idDecode($share),
-            $this->getStorage()
-            ->getQuery()
-            ->listByType($this->_type)
-        );
+        try {
+            $this->getShare($share);
+            return true;
+        } catch (Horde_Exception_NotFound $e) {
+            return false;
+        }
     }
 
     /**
