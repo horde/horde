@@ -428,20 +428,7 @@ extends PHPUnit_Framework_TestCase
         $this->storage = $factory->createFromParams(
             array(
                 'driver' => 'mock',
-                'params' => array(
-                    'username' => 'john',
-                    'data'   => $this->_getMockData(
-                        array(
-                            'user/john/Calendar' => array(
-                                'a' => array(
-                                    '/shared/vendor/kolab/folder-type' => 'event.default',
-                                    '/shared/comment' => 'DESCRIPTION',
-                                    '/shared/vendor/horde/share-params' => base64_encode(serialize(array('share_name' => 'internal_id'))),
-                                ),
-                            ),
-                        )
-                    ),
-                ),
+                'params' => $this->_getPrefilledData(),
                 'cache'  => new Horde_Cache(
                     new Horde_Cache_Storage_Mock()
                 ),
@@ -461,17 +448,10 @@ extends PHPUnit_Framework_TestCase
         $this->storage = $factory->createFromParams(
             array(
                 'driver' => 'mock',
-                'params' => array(
-                    'username' => 'john',
-                    'data'   => $this->_getMockData(
-                        array(
-                            'user/john' => null,
-                        )
-                    ),
-                ),
+                'params' => $this->_getCompleteData(),
                 'cache'  => new Horde_Cache(
                     new Horde_Cache_Storage_Mock()
-                ),
+                )
             )
         );
         $this->list = $this->storage->getList();
@@ -479,6 +459,36 @@ extends PHPUnit_Framework_TestCase
         $this->list->synchronize();
         $driver->setStorage($this->list);
         return $driver;
+    }
+
+    private function _getPrefilledData()
+    {
+        return array(
+            'username' => 'john',
+            'data'   => $this->_getMockData(
+                array(
+                    'user/john/Calendar' => array(
+                        'a' => array(
+                            '/shared/vendor/kolab/folder-type' => 'event.default',
+                            '/shared/comment' => 'DESCRIPTION',
+                            '/shared/vendor/horde/share-params' => base64_encode(serialize(array('share_name' => 'internal_id'))),
+                        ),
+                    ),
+                )
+            ),
+        );
+    }
+
+    private function _getCompleteData()
+    {
+        return array(
+            'username' => 'john',
+            'data'   => $this->_getMockData(
+                array(
+                    'user/john' => null,
+                )
+            ),
+        );
     }
 
     private function _getDriver($app = 'mnemo')
