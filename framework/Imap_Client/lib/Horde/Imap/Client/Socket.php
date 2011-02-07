@@ -3465,22 +3465,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _setMetadata($mailbox, $data)
     {
-        $data_elements = array();
-
         if ($this->queryCapability('METADATA') ||
             ((strlen($mailbox) == 0) &&
              $this->queryCapability('METADATA-SERVER'))) {
+            $data_elts = array();
+
             foreach ($data as $key => $value) {
-                $data_elements[] = array(
-                    array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $key),
-                    array('t' => Horde_Imap_Client::DATA_NSTRING, 'v' => $value)
+                $data_elts[] = array(
+                    't' => Horde_Imap_Client::DATA_ASTRING,
+                    'v' => $key
+                );
+                $data_elts[] = array(
+                    't' => Horde_Imap_Client::DATA_NSTRING,
+                    'v' => $value
                 );
             }
 
             $this->_sendLine(
                 'SETMETADATA',
                 array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox),
-                $data_elements
+                $data_elts
             );
 
             return;
@@ -3493,7 +3497,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         foreach ($data as $md_entry => $value) {
             list($entry, $type) = $this->_getAnnotateMoreEntry($md_entry);
-            $data_elements[] = array(
+
+            $this->_sendLine(
+                'SETANNOTATION',
+                array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox),
                 array('t' => Horde_Imap_Client::DATA_STRING, 'v' => $entry),
                 array(
                     array('t' => Horde_Imap_Client::DATA_STRING, 'v' => $type),
@@ -3501,14 +3508,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 )
             );
         }
-
-        $this->_sendLine(
-            array(
-                'SETANNOTATION',
-                array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox),
-                $data_elements[0]
-            )
-        );
     }
 
     /**
