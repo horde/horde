@@ -254,41 +254,6 @@ implements Horde_Kolab_Storage_Folder
 
 
 
-    /**
-     * Get the permissions for this folder.
-     *
-     * @return Horde_Kolab_Storage_Folder_Permission The permission handler.
-     */
-    public function getPermission()
-    {
-        if ($this->_perms === null) {
-            $this->_perms = new Horde_Kolab_Storage_Folder_Permission(
-                $this->getPath(),
-                $this,
-                $this->_driver->getGroupHandler()
-            );
-        }
-        return $this->_perms;
-    }
-
-    /**
-     * Sets the permissions on this folder.
-     *
-     * @param Horde_Kolab_Storage_Folder_Permission $perms  Permission object.
-     * @param boolean                               $update Save the updated
-     *                                                      information?
-     *
-     * @return NULL
-     */
-    public function setPermission(
-        Horde_Kolab_Storage_Folder_Permission $perms,
-        $update = true
-    ) {
-        $this->_perms = $perms;
-        if ($update) {
-            $this->save();
-        }
-    }
 
     /**
      * Saves the folder.
@@ -943,48 +908,6 @@ implements Horde_Kolab_Storage_Folder
         $status = $this->_driver->status($this->_path);
         $uids   = $this->_driver->getUids($this->_path);
         return array($status['uidvalidity'], $status['uidnext'], $uids);
-    }
-
-    /**
-     * Return the ACL of this folder.
-     *
-     * @return array An array with ACL.
-     */
-    public function getAcl()
-    {
-        if (!$this->exists()) {
-            array($this->getDriver()->getAuth() => 'lrid');
-        }
-        return $this->getDriver()->getAcl($this);
-    }
-
-    /**
-     * Set the ACL of this folder.
-     *
-     * @param $user The user for whom the ACL should be set.
-     * @param $acl  The new ACL value.
-     *
-     * @return NULL
-     */
-    public function setAcl($user, $acl)
-    {
-        $this->getDriver()->setAcl(
-            $this->getPath(), $user, $acl
-        );
-    }
-
-    /**
-     * Delete the ACL for a user on this folder.
-     *
-     * @param $user The user for whom the ACL should be deleted.
-     *
-     * @return NULL
-     */
-    public function deleteAcl($user)
-    {
-        $this->getDriver()->deleteAcl(
-            $this->getPath(), $user
-        );
     }
 
     /**

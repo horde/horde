@@ -89,27 +89,6 @@ interface Horde_Kolab_Storage_Folder
 
 
     /**
-     * Get the permissions for this folder.
-     *
-     * @return Horde_Kolab_Storage_Folder_Permission The permission handler.
-     */
-    public function getPermission();
-
-    /**
-     * Sets the permissions on this folder.
-     *
-     * @param Horde_Kolab_Storage_Folder_Permission $perms  Permission object.
-     * @param boolean                               $update Save the updated
-     *                                                      information?
-     *
-     * @return NULL
-     */
-    public function setPermission(
-        Horde_Kolab_Storage_Folder_Permission $perms,
-        $update = true
-    );
-
-    /**
      * Saves the folder.
      *
      * @param array $attributes An array of folder attributes. You can
@@ -166,31 +145,5 @@ interface Horde_Kolab_Storage_Folder
      */
     public function saveObject(&$object, $data_version, $object_type, $id = null,
                                &$old_object = null);
-
-    /**
-     * Return the ACL of this folder.
-     *
-     * @return array An array with ACL.
-     */
-    public function getAcl();
-
-    /**
-     * Set the ACL of this folder.
-     *
-     * @param $user The user for whom the ACL should be set.
-     * @param $acl  The new ACL value.
-     *
-     * @return NULL
-     */
-    public function setAcl($user, $acl);
-
-    /**
-     * Delete the ACL for a user on this folder.
-     *
-     * @param $user The user for whom the ACL should be deleted.
-     *
-     * @return NULL
-     */
-    public function deleteAcl($user);
 
 }
