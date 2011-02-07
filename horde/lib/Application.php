@@ -82,6 +82,16 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
+     * Determine active prefs when displaying a group.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsGroup($ui)
+    {
+        $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsGroup($ui);
+    }
+
+    /**
      * Generate code used to display a special preference.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
