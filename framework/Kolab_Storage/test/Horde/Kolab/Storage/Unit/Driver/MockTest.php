@@ -434,4 +434,39 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertType('string', $this->getNullMock()->getId());
     }
+
+    public function testSelect()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('test');
+        $mock->select('test');
+    }
+
+    public function testSelected()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('test');
+        $mock->select('test');
+        $status = $mock->status('test');
+        $this->assertEquals(1, $status['uidnext']);
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissing()
+    {
+        $mock = $this->getNullMock();
+        $mock->select('test');
+    }
+
+    public function testUmlaut()
+    {
+        $mock = $this->getNullMock();
+        $mock->create('testÄ');
+        $mock->select('testÄ');
+        $status = $mock->status('testÄ');
+        $this->assertEquals(1, $status['uidnext']);
+    }
+
 }

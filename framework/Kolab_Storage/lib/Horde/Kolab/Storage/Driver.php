@@ -27,6 +27,8 @@
  */
 interface Horde_Kolab_Storage_Driver
 {
+    /** Generic functionality */
+
     /**
      * Create the backend driver.
      *
@@ -66,6 +68,10 @@ interface Horde_Kolab_Storage_Driver
      * @return string The connection id.
      */
     public function getId();
+
+
+
+    /** List functionality */
 
     /**
      * Retrieves a list of mailboxes from the server.
@@ -188,23 +194,14 @@ interface Horde_Kolab_Storage_Driver
 
 
 
-
-    /**
-     * Does the given folder exist?
-     *
-     * @param string $folder The folder to check.
-     *
-     * @return boolean True in case the folder exists, false otherwise.
-     */
-    public function exists($folder);
+    /** Data functionality */
 
     /**
      * Opens the given folder.
      *
-     * @param string $folder  The folder to open
+     * @param string $folder The folder to open
      *
-     * @return mixed  True in case the folder was opened successfully, a PEAR
-     *                error otherwise.
+     * @return NULL
      */
     public function select($folder);
 
@@ -225,6 +222,8 @@ interface Horde_Kolab_Storage_Driver
      * @return array  The message ids.
      */
     public function getUids($folder);
+
+
 
     /**
      * Appends a message to the current folder.

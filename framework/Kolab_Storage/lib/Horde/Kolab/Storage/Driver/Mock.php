@@ -65,6 +65,13 @@ extends Horde_Kolab_Storage_Driver_Base
     private $_groups = array();
 
     /**
+     * The currently selected mailbox.
+     *
+     * @var string
+     */
+    private $_selected;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
@@ -573,42 +580,25 @@ extends Horde_Kolab_Storage_Driver_Base
         throw new Horde_Kolab_Storage_Exception('Permission denied!');
     }
     
-
-
     /**
      * Opens the given folder.
      *
      * @param string $folder  The folder to open
      *
-     * @return mixed  True in case the folder was opened successfully, a PEAR
-     *                error otherwise.
+     * @return NULL
      */
     public function select($folder)
     {
         $folder = $this->_convertToInternal($folder);
-        if (!isset($GLOBALS['KOLAB_TESTING'][$folder])) {
-            throw new Horde_Kolab_Storage_Exception(sprintf("IMAP folder %s does not exist!", $folder));
+        if (!isset($this->_data[$folder])
+            || $this->_selected !== $this->_data[$folder]) {
+            if (!isset($this->_data[$folder])) {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf('Mailbox %s does not exist!', $folder)
+                );
+            }
+            $this->_selected = &$this->_data[$folder];
         }
-        $this->_mbox = &$GLOBALS['KOLAB_TESTING'][$folder];
-        $this->_mboxname = $folder;
-        return true;
-    }
-
-    /**
-     * Does the given folder exist?
-     *
-     * @param string $folder The folder to check.
-     *
-     * @return boolean True in case the folder exists, false otherwise.
-     */
-    public function exists($folder)
-    {
-        //@todo: make faster by directly accessing the _data array.
-        $folders = $this->getMailboxes();
-        if (in_array($folder, $folders)) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -620,9 +610,8 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function status($folder)
     {
-        return $this->_imap->status($folder,
-                                    Horde_Imap_Client::STATUS_UIDNEXT
-                                    | Horde_Imap_Client::STATUS_UIDVALIDITY);
+        $this->select($folder);
+        return $this->_selected['status'];
     }
 
     /**

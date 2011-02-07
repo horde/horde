@@ -30,5 +30,8 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 interface Horde_Kolab_Storage_Data
+extends Horde_Kolab_Storage_Queriable
 {
+    /** Identifies the basic list query */
+    const QUERY_BASE  = 'Data';
 }

@@ -398,29 +398,22 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder  The folder to open
      *
-     * @return mixed  True in case the folder was opened successfully, a PEAR
-     *                error otherwise.
+     * @return NULL
      */
     public function select($folder)
     {
-        $this->getBackend()->openMailbox($folder, Horde_Imap_Client::OPEN_AUTO);
-        return true;
-    }
-
-    /**
-     * Does the given folder exist?
-     *
-     * @param string $folder The folder to check.
-     *
-     * @return boolean True in case the folder exists, false otherwise.
-     */
-    public function exists($folder)
-    {
-        $folders = $this->getMailboxes();
-        if (in_array($folder, $folders)) {
-            return true;
+        $this->getBackend()->select($this->encodePath($folder));
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Selecting folder %s failed. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
         }
-        return false;
     }
 
     /**
@@ -432,9 +425,25 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function status($folder)
     {
-        return $this->getBackend()->status($folder,
-                                    Horde_Imap_Client::STATUS_UIDNEXT
-                                    | Horde_Imap_Client::STATUS_UIDVALIDITY);
+        $result = $this->getBackend()->status(
+            $this->encodePath($folder),
+            array('UIDVALIDITY', 'UIDNEXT')
+        );
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Retrieving the status for folder %s failed. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+        return array(
+            'uidvalidity' => $result['UIDVALIDITY'],
+            'uidnext' => $result['UIDNEXT']
+        );
     }
 
     /**

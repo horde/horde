@@ -55,7 +55,7 @@ extends Horde_Kolab_Storage_Driver_Base
             }
         }
         Horde_Kolab_Storage_Exception_Pear::catchError(
-            $client->login($config['username'], $config['password'])
+            $client->login($config['username'], $config['password'], true, false)
         );
         return $client;
     }
@@ -291,35 +291,18 @@ extends Horde_Kolab_Storage_Driver_Base
         return parent::getNamespace();
     }
 
-
     /**
      * Opens the given folder.
      *
      * @param string $folder  The folder to open
      *
-     * @return mixed  True in case the folder was opened successfully, a PEAR
-     *                error otherwise.
+     * @return NULL
      */
     public function select($folder)
     {
-        $this->getBackend()->openMailbox($folder, Horde_Imap_Client::OPEN_AUTO);
-        return true;
-    }
-
-    /**
-     * Does the given folder exist?
-     *
-     * @param string $folder The folder to check.
-     *
-     * @return boolean True in case the folder exists, false otherwise.
-     */
-    public function exists($folder)
-    {
-        $folders = $this->getMailboxes();
-        if (in_array($folder, $folders)) {
-            return true;
-        }
-        return false;
+        Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->selectMailbox($this->encodePath($folder))
+        );
     }
 
     /**
@@ -331,9 +314,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function status($folder)
     {
-        return $this->getBackend()->status($folder,
-                                    Horde_Imap_Client::STATUS_UIDNEXT
-                                    | Horde_Imap_Client::STATUS_UIDVALIDITY);
+        $result = Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->getStatus($this->encodePath($folder))
+        );
+        return array(
+            'uidvalidity' => $result['UIDVALIDITY'],
+            'uidnext' => $result['UIDNEXT']
+        );
     }
 
     /**
@@ -351,6 +338,7 @@ extends Horde_Kolab_Storage_Driver_Base
         $uids = $uidsearch['match'];
         return $uids;
     }
+
 
     /**
      * Appends a message to the current folder.

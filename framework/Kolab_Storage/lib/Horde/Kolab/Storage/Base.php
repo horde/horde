@@ -141,6 +141,7 @@ implements Horde_Kolab_Storage
      * @param string $folder       The name of the folder.
      * @param string $object_type  The type of data we want to
      *                             access in the folder.
+     * @param int    $data_version Format version of the object data.
      *
      * @return Horde_Kolab_Data The data object.
      */
@@ -157,8 +158,7 @@ implements Horde_Kolab_Storage
         );
         if (!isset($this->_data[$key])) {
             $this->_data[$key] = new Horde_Kolab_Storage_Data_Base(
-                $folder,
-                $this->getList()->getFolder($folder)->getType(),
+                $this->getList()->getFolder($folder),
                 $this->_master,
                 $this->_factory,
                 $object_type,

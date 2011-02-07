@@ -30,7 +30,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Data
+class Horde_Kolab_Storage_Data_Old
 {
     /**
      * The link to the parent folder object.

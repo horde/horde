@@ -59,6 +59,17 @@ interface Horde_Kolab_Storage
     public function getList();
 
     /**
+     * Add a list query.
+     *
+     * @param Horde_Kolab_Storage_List $list   The list.
+     * @param string                   $type   The query type.
+     * @param array                    $params Additional query parameters.
+     *
+     * @return NULL
+     */
+    public function addListQuery(Horde_Kolab_Storage_List $list, $type, $params = array());
+
+    /**
      * Get a folder representation.
      *
      * @param string $folder The folder name.
@@ -71,13 +82,13 @@ interface Horde_Kolab_Storage
      * Return a data handler for accessing data in the specified
      * folder.
      *
-     * @param string $folder The name of the folder.
-     * @param string $type   The type of data we want to
-     *                       access in the folder.
+     * @param string $folder       The name of the folder.
+     * @param string $object_type  The type of data we want to
+     *                             access in the folder.
+     * @param int    $data_version Format version of the object data.
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function getData($folder, $type);
-
+    public function getData($folder, $object_type = null, $data_version = 1);
 }
 

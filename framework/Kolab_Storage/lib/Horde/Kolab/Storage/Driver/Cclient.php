@@ -43,6 +43,13 @@ extends Horde_Kolab_Storage_Driver_Base
     private $_base_mbox;
 
     /**
+     * The currently selected mailbox.
+     *
+     * @var string
+     */
+    private $_selected;
+
+    /**
      * Create the backend driver.
      *
      * @return mixed The backend driver.
@@ -450,29 +457,26 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder  The folder to open
      *
-     * @return mixed  True in case the folder was opened successfully, a PEAR
-     *                error otherwise.
+     * @return NULL
      */
     public function select($folder)
     {
-        $this->_imap->openMailbox($folder, Horde_Imap_Client::OPEN_AUTO);
-        return true;
-    }
-
-    /**
-     * Does the given folder exist?
-     *
-     * @param string $folder The folder to check.
-     *
-     * @return boolean True in case the folder exists, false otherwise.
-     */
-    public function exists($folder)
-    {
-        $folders = $this->getMailboxes();
-        if (in_array($folder, $folders)) {
-            return true;
+        $selection = $this->_base_mbox . $this->encodePath($folder);
+        if ($this->_selected != $selection) {
+            $result = imap_reopen($this->getBackend(), $selection);
+            if (!$result) {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        Horde_Kolab_Storage_Translation::t(
+                            "Failed opening folder %s%s. Error: %s"
+                        ),
+                        $this->_getBaseMbox(),
+                        $mailbox,
+                        imap_last_error()
+                    )
+                );
+            }
         }
-        return false;
     }
 
     /**
@@ -484,9 +488,24 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function status($folder)
     {
-        return $this->_imap->status($folder,
-                                    Horde_Imap_Client::STATUS_UIDNEXT
-                                    | Horde_Imap_Client::STATUS_UIDVALIDITY);
+        $this->select($folder);
+        $status = imap_status_current($this->getBackend(), SA_MESSAGES | SA_UIDVALIDITY | SA_UIDNEXT);
+        if (!$status) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed retrieving status information for folder %s. Error: %s"
+                    ),
+                    $this->_getBaseMbox(),
+                    $mailbox,
+                    imap_last_error()
+                )
+            );
+        }
+        return array(
+            'uidvalidity' => $status->uidvalidity,
+            'uidnext' => $status->uidnext
+        );
     }
 
     /**
@@ -504,6 +523,7 @@ extends Horde_Kolab_Storage_Driver_Base
         $uids = $uidsearch['match'];
         return $uids;
     }
+
 
     /**
      * Appends a message to the current folder.
