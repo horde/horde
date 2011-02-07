@@ -58,7 +58,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             'message/rfc822',
             $part_2->getType()
         );
-        $part_2_2 = $part->getPart(2.2);
+        $part_2_2 = $part->getPart('2.2');
         $this->assertEquals(
             'text/plain',
             $part_2_2->getType()
