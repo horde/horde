@@ -88,9 +88,9 @@
  *   'desc' - (string) The description text to use on the preferences page.
  *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
  *               DEFAULT: false
- *   'enum' - (array) The enumeration list. Keys will be used as the
- *            prefernce value; values are the text that will be displayed in
- *            the selection list.
+ *   'enum' - (array) [REQUIRED] The enumeration list. Keys will be used as
+ *            the preference value; values are the text that will be displayed
+ *            in the selection list.
  *   'value' - (mixed) The value of the preference. Will be used to
  *             auto-select the entry in the selection list.
  *
@@ -128,9 +128,9 @@
  *   'desc' - (string) The description text to use on the preferences page.
  *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
  *               DEFAULT: false
- *   'enum' - (array) The enumeration list. Keys will be used as the
- *            prefernce value; values are the text that will be displayed in
- *            the selection list.
+ *   'enum' - (array) [REQUIRED] The enumeration list. Keys will be used as
+ *            the preference value; values are the text that will be displayed
+ *            in the selection list.
  *   'value' - (string) A serialized value containing the key(s) selected. All
  *             keys will be auto-selected in the selection area.
  *
@@ -315,10 +315,11 @@ $prefGroups['language'] = array(
 );
 
 // user language
-// Language list is dynamically built when prefs screen is displayed
 $_prefs['language'] = array(
     'value' => '',
     'type' => 'enum',
+    // Language list is dynamically built when prefs screen is displayed
+    'enum' => array(),
     'escaped' => true,
     'desc' => _("Select your preferred language:")
 );
@@ -336,10 +337,11 @@ $_prefs['sending_charset'] = array(
 );
 
 // user time zone
-// Timezone list is dynamically built when prefs screen is displayed
 $_prefs['timezone'] = array(
     'value' => '',
     'type' => 'enum',
+    // Timezone list is dynamically built when prefs screen is displayed
+    'enum' => array(),
     'desc' => _("Your current time zone:")
 );
 
@@ -426,11 +428,11 @@ $_prefs['time_format'] = array(
 $_prefs['first_week_day'] = array(
     'value' => '0',
     'type' => 'enum',
-    'desc' => _("Which day would you like to be displayed as the first day of the week?"),
     'enum' => array(
         '0' => _("Sunday"),
         '1' => _("Monday")
-    )
+    ),
+    'desc' => _("Which day would you like to be displayed as the first day of the week?")
 );
 
 
@@ -475,10 +477,11 @@ $prefGroups['display'] = array(
 );
 
 // what application should we go to after login?
-// Application list is dynamically built when prefs screen is displayed
 $_prefs['initial_application'] = array(
     'value' => 'horde',
     'type' => 'enum',
+    // Application list is dynamically built when prefs screen is displayed
+    'enum' => array(),
     'desc' => sprintf(_("What application should %s display after login?"), $GLOBALS['registry']->get('name'))
 );
 
@@ -498,10 +501,11 @@ $_prefs['last_login'] = array(
 );
 
 // UI theme
-// Theme list is dynamically built when prefs screen is displayed
 $_prefs['theme'] = array(
     'value' => 'silver',
     'type' => 'enum',
+    // Theme list is dynamically built when prefs screen is displayed
+    'enum' => array(),
     'desc' => _("Select your color scheme.")
 );
 

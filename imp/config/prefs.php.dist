@@ -1295,14 +1295,15 @@ $_prefs['search_fields'] = array(
     'value' => ''
 );
 
-// address book to use for adding addresses
-// put $cfgSources array element name in the value field.
+// Address book to use for adding addresses.
+// Put $cfgSources array element name in the value field.
 // Setting value to localsql would allow you to add contacts to MySQL database
 // See turba/config/sources.php for more info
 $_prefs['add_source'] = array(
 //  'value' => 'localsql',
     'value' => '',
     'type' => 'enum',
+    'enum' => array(),
     'desc' => _("Choose the address book to use when adding addresses.")
 );
 
