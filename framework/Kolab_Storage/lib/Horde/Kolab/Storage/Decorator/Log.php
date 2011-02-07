@@ -92,22 +92,22 @@ implements Horde_Kolab_Storage
      */
     public function getFolder($folder)
     {
-        return $this->_storage->getFolder();
+        return $this->getList()->getFolder($folder);
     }
 
     /**
      * Return a data handler for accessing data in the specified
      * folder.
      *
-     * @param string $folder The name of the folder.
-     * @param string $type   The type of data we want to
-     *                       access in the folder.
+     * @param string $folder       The name of the folder.
+     * @param string $object_type  The type of data we want to
+     *                             access in the folder.
+     * @param int    $data_version Format version of the object data.
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function getData($folder, $type)
+    public function getData($folder, $object_type = null, $data_version = 1)
     {
-        return $this->_storage->getData();
+        return $this->_storage->getData($folder, $object_type, $data_version);
     }
-
 }

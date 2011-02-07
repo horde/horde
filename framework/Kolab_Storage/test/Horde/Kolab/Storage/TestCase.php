@@ -399,6 +399,44 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getMessageAccount()
+    {
+        return array(
+            'username' => 'test@example.com',
+            'data' => $this->getMockData(
+                array(
+                    'user/test' => null,
+                    'user/test/a' => null,
+                    'user/test/Test' => array('m' => array()),
+                    'user/test/Empty' => array('m' => array()),
+                    'user/test/ÄÖÜ' => array('m' => array()),
+                    'user/test/Pretend' => array('m' => array(1 => array())),
+                    'user/test/WithDeleted' => array(
+                        'm' => array(
+                            1 => array(
+                                'flags' => Horde_Kolab_Storage_Driver_Mock::FLAG_DELETED
+                            ),
+                            4 => array()
+                        )
+                    ),
+                    'user/test/Calendar' => array('t' => 'event.default'),
+                    'user/test/Contacts' => array('t' => 'contact.default'),
+                    'user/test/Notes' => array('t' => 'note.default'),
+                    'user/test/Tasks' => array('t' => 'task.default'),
+                )
+            )
+        );
+    }
+
+    protected function getMessageMock($factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        return new Horde_Kolab_Storage_Driver_Mock(
+            $factory,
+            $this->getMessageAccount()
+        );
+    }
+
     protected function getCachedQueryForList($bare_list, $factory)
     {
         $list_cache = $this->getMockListCache();
@@ -492,6 +530,19 @@ extends PHPUnit_Framework_TestCase
             if (isset($element['t'])) {
                 $folder['annotations'] = array(
                     '/shared/vendor/kolab/folder-type' => $element['t'],
+                );
+            }
+            if (isset($element['m'])) {
+                $keys = array_keys($element['m']);
+                $folder['status'] = array(
+                    'uidvalidity' => time(),
+                    'uidnext' => empty($keys) ? 1 : max($keys) + 1
+                );
+                $folder['mails'] = $element['m'];
+            } else {
+                $folder['status'] = array(
+                    'uidvalidity' => time(),
+                    'uidnext' => 1
                 );
             }
             $result[$path] = $folder;

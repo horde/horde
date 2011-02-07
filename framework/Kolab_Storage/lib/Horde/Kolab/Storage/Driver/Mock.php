@@ -28,6 +28,9 @@
 class Horde_Kolab_Storage_Driver_Mock
 extends Horde_Kolab_Storage_Driver_Base
 {
+    /** Flag to indicated a deleted message*/
+    const FLAG_DELETED = 1;
+
     /**
      * The data of the mailboxes.
      *
@@ -214,7 +217,8 @@ extends Horde_Kolab_Storage_Driver_Base
         $this->_data[$folder] = array(
             'status' => array(
                 'uidvalidity' => time(),
-                'uidnext' => 1),
+                'uidnext' => 1
+            ),
             'mails' => array(),
             'permissions' => array($this->getAuth() => 'lrswipkxtecda'),
             'annotations' => array(),
@@ -623,11 +627,23 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getUids($folder)
     {
-        $search_query = new Horde_Imap_Client_Search_Query();
-        $search_query->flag('DELETED', false);
-        $uidsearch = $this->_imap->search($folder, $search_query);
-        $uids = $uidsearch['match'];
-        return $uids;
+        $this->select($folder);
+        return array_keys(
+            array_filter($this->_selected['mails'], array($this, '_notDeleted'))
+        );
+    }
+
+    /**
+     * Indicates if a message is considered deleted.
+     *
+     * @param array $message The message information.
+     *
+     * @return boolean True if the message has not been marked as deleted.
+     */
+    public function _notDeleted($message)
+    {
+        return !isset($message['flags'])
+            || !($message['flags'] & self::FLAG_DELETED);
     }
 
     /**

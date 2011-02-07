@@ -332,10 +332,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getUids($folder)
     {
-        $search_query = new Horde_Imap_Client_Search_Query();
-        $search_query->flag('DELETED', false);
-        $uidsearch = $this->getBackend()->search($folder, $search_query);
-        $uids = $uidsearch['match'];
+        $this->select($folder);
+        $uids = Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->search('UNDELETED', true)
+        );
+        if (!is_array($uids)) {
+            $uids = array();
+        }
         return $uids;
     }
 

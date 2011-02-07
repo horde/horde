@@ -461,7 +461,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function select($folder)
     {
-        $selection = $this->_base_mbox . $this->encodePath($folder);
+        $selection = $this->_getBaseMbox() . $this->encodePath($folder);
         if ($this->_selected != $selection) {
             $result = imap_reopen($this->getBackend(), $selection);
             if (!$result) {
@@ -491,6 +491,10 @@ extends Horde_Kolab_Storage_Driver_Base
         $this->select($folder);
         $status = imap_status_current($this->getBackend(), SA_MESSAGES | SA_UIDVALIDITY | SA_UIDNEXT);
         if (!$status) {
+            /**
+             * @todo: The cclient method seems pretty much unable to detect
+             * missing folders. It always returns "true"
+             */
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
@@ -517,10 +521,14 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getUids($folder)
     {
-        $search_query = new Horde_Imap_Client_Search_Query();
-        $search_query->flag('DELETED', false);
-        $uidsearch = $this->_imap->search($folder, $search_query);
-        $uids = $uidsearch['match'];
+        $this->select($folder);
+        $uids = imap_search($this->getBackend(), 'UNDELETED', SE_UID);
+        /**
+         * @todo Error recognition? Nada... :(
+         */
+        if (!is_array($uids)) {
+            $uids = array();
+        }
         return $uids;
     }
 

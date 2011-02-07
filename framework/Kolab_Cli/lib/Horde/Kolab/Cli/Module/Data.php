@@ -141,6 +141,13 @@ implements Horde_Kolab_Cli_Module
                 $cli->writeln(Horde_String::pad($key . ':', $pad) . $value);
             }
             break;
+        case 'uids':
+            $data = $world['storage']->getData($folder_name);
+            $uids = $data->getUids();
+            foreach ($uids as $uid) {
+                $cli->writeln($uid);
+            }
+            break;
         default:
             $cli->message(
                 sprintf(

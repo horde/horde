@@ -455,10 +455,25 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getUids($folder)
     {
-        $search_query = new Horde_Imap_Client_Search_Query();
-        $search_query->flag('DELETED', false);
-        $uidsearch = $this->getBackend()->search($folder, $search_query);
-        $uids = $uidsearch['match'];
+        $uids = $this->getBackend()->search(
+            $this->encodePath($folder),
+            'UNDELETED',
+            true
+        );
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed retrieving UIDs for folder %s. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+        if (!is_array($uids)) {
+            $uids = array();
+        }
         return $uids;
     }
 

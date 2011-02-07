@@ -437,17 +437,15 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testSelect()
     {
-        $mock = $this->getNullMock();
-        $mock->create('test');
-        $mock->select('test');
+        $mock = $this->getMessageMock();
+        $mock->select('INBOX/Test');
     }
 
     public function testSelected()
     {
-        $mock = $this->getNullMock();
-        $mock->create('test');
-        $mock->select('test');
-        $status = $mock->status('test');
+        $mock = $this->getMessageMock();
+        $mock->select('INBOX/Test');
+        $status = $mock->status('INBOX/Test');
         $this->assertEquals(1, $status['uidnext']);
     }
 
@@ -457,16 +455,48 @@ extends Horde_Kolab_Storage_TestCase
     public function testMissing()
     {
         $mock = $this->getNullMock();
-        $mock->select('test');
+        $mock->select('INBOX/Test');
     }
 
-    public function testUmlaut()
+    public function testSelectUmlaut()
     {
-        $mock = $this->getNullMock();
-        $mock->create('testÄ');
-        $mock->select('testÄ');
-        $status = $mock->status('testÄ');
+        $mock = $this->getMessageMock();
+        $mock->select('INBOX/ÄÖÜ');
+        $status = $mock->status('INBOX/ÄÖÜ');
         $this->assertEquals(1, $status['uidnext']);
+    }
+
+    public function testGetUids()
+    {
+        $mock = $this->getMessageMock();
+        $mock->getUids('INBOX/Test');
+    }
+
+    public function testGetUidList()
+    {
+        $mock = $this->getMessageMock();
+        $this->assertEquals(
+            array(),
+            $mock->getUids('INBOX/Test')
+        );
+    }
+
+    public function testGetUidListSelected()
+    {
+        $mock = $this->getMessageMock();
+        $this->assertEquals(
+            array(1),
+            $mock->getUids('INBOX/Pretend')
+        );
+    }
+
+    public function testGetUidWithoutDeleted()
+    {
+        $mock = $this->getMessageMock();
+        $this->assertEquals(
+            array(4),
+            $mock->getUids('INBOX/WithDeleted')
+        );
     }
 
 }
