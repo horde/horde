@@ -35,31 +35,21 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testConstructor()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            ''
-        );
+        $this->_getFolderMock();
     }
 
     public function testGetPath()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path'
-        );
-        $this->assertEquals('path', $folder->getPath());
+        $this->assertEquals('path', $this->_getFolderMock()->getPath());
     }
 
     public function testGetNamespace()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path',
-            array(
-                'namespace' => 'personal'
-            )
+        $this->assertEquals(
+            'personal',
+            $this->_getFolderMock(array('namespace' => 'personal'))
+            ->getNamespace()
         );
-        $this->assertEquals('personal', $folder->getNamespace());
     }
 
     /**
@@ -67,23 +57,15 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingNamespace()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path'
-        );
-        $folder->getNamespace();
+        $this->_getFolderMock()->getNamespace();
     }
 
     public function testGetTitle()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path',
-            array(
-                'name' => 'title'
-            )
+        $this->assertEquals(
+            'title',
+            $this->_getFolderMock(array('name' => 'title'))->getTitle()
         );
-        $this->assertEquals('title', $folder->getTitle());
     }
 
     /**
@@ -91,23 +73,15 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingTitle()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path'
-        );
-        $folder->getTitle();
+        $this->_getFolderMock()->getTitle();
     }
 
     public function testGetOwner()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path',
-            array(
-                'owner' => 'owner'
-            )
+        $this->assertEquals(
+            'owner',
+            $this->_getFolderMock(array('owner' => 'owner'))->getOwner()
         );
-        $this->assertEquals('owner', $folder->getOwner());
     }
 
     /**
@@ -115,23 +89,15 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingOwner()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path'
-        );
-        $folder->getOwner();
+        $this->_getFolderMock()->getOwner();
     }
 
     public function testGetSubpath()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path',
-            array(
-                'subpath' => 'subpath'
-            )
+        $this->assertEquals(
+            'subpath',
+            $this->_getFolderMock(array('subpath' => 'subpath'))->getSubpath()
         );
-        $this->assertEquals('subpath', $folder->getSubpath());
     }
 
     /**
@@ -139,23 +105,14 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingSubpath()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path'
-        );
-        $folder->getSubpath();
+        $this->_getFolderMock()->getSubpath();
     }
 
     public function testGetDefault()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path',
-            array(
-                'default' => true
-            )
+        $this->assertTrue(
+            $this->_getFolderMock(array('default' => true))->isDefault()
         );
-        $this->assertTrue($folder->isDefault());
     }
 
     /**
@@ -163,23 +120,15 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingDefault()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path'
-        );
-        $folder->isDefault();
+        $this->_getFolderMock()->isDefault();
     }
 
     public function testGetType()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path',
-            array(
-                'type' => 'type'
-            )
+        $this->assertEquals(
+            'type',
+            $this->_getFolderMock(array('type' => 'type'))->getType()
         );
-        $this->assertEquals('type', $folder->getType());
     }
 
     /**
@@ -187,15 +136,29 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingType()
     {
-        $folder = new Horde_Kolab_Storage_Folder_Base(
-            $this->getMock('Horde_Kolab_Storage_List'),
-            'path'
-        );
-        $folder->getType();
+        $this->_getFolderMock()->getType();
     }
 
+    private function _getFolderMock($data = array())
+    {
+        return new Horde_Kolab_Storage_Folder_Base(
+            $this->_getListMock($data),
+            'path'
+        );
+    }
 
-
+    private function _getListMock($data = array())
+    {
+        $list = $this->getMock('Horde_Kolab_Storage_List');
+        $query = $this->getMock('Horde_Kolab_Storage_List_Query_List');
+        $query->expects($this->any())
+            ->method('folderData')
+            ->will($this->returnValue($data));
+        $list->expects($this->any())
+            ->method('getQuery')
+            ->will($this->returnValue($query));
+        return $list;
+    }
 
 
 

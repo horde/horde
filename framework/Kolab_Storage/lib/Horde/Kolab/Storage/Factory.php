@@ -168,17 +168,15 @@ class Horde_Kolab_Storage_Factory
      *
      * @param Horde_Kolab_Storage_List $list   The folder list handler.
      * @param string                   $folder The path of the folder to return.
-     * @param array                    $data   Folder data.
      *
      * @return Horde_Kolab_Storage_Folder The folder representation.
      */
     public function createFolder(
         Horde_Kolab_Storage_List $list,
-        $folder,
-        array $data = array()
+        $folder
     ) {
         return new Horde_Kolab_Storage_Folder_Base(
-            $list, $folder, $data
+            $list, $folder
         );
     }
 

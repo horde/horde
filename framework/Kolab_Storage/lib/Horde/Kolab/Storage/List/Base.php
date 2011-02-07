@@ -149,8 +149,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     {
         return $this->_factory->createFolder(
             $this,
-            $folder,
-            $this->getQuery()->folderData($folder)
+            $folder
         );
     }
 

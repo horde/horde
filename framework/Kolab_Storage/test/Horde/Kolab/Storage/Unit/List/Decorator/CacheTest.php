@@ -369,7 +369,7 @@ extends Horde_Kolab_Storage_TestCase
         $list = $this->getCachedAnnotatedQueriableList();
         $list->listFolders();
         $list->deleteFolder('INBOX/Calendar');
-        $list->getFolder('INBOX/Calendar');
+        $list->getFolder('INBOX/Calendar')->getType();
     }
 
     public function testRenameFolder()
@@ -400,7 +400,7 @@ extends Horde_Kolab_Storage_TestCase
         $list = $this->getCachedAnnotatedQueriableList();
         $list->listFolders();
         $list->renameFolder('INBOX/Calendar', 'INBOX/Ä');
-        $list->getFolder('INBOX/Calendar');
+        $list->getFolder('INBOX/Calendar')->getType();
     }
 
 

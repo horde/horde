@@ -56,14 +56,42 @@ implements Horde_Kolab_Storage_Folder
      * @param Horde_Kolab_Storage_List $list The handler for the list of
      *                                       folders.
      * @param string                   $path Path of the folder.
-     * @param array                    $data Additional folder information.
      */
     public function __construct(
-        Horde_Kolab_Storage_List $list, $path, array $data = array()
+        Horde_Kolab_Storage_List $list, $path
     ) {
         $this->_list = $list;
         $this->_path = $path;
-        $this->_data = $data;
+    }
+
+    /**
+     * Fetch the data array.
+     *
+     * @return NULL
+     */
+    private function _init()
+    {
+        if ($this->_data === null) {
+            $this->_data = $this->_list->getQuery()->folderData($this->_path);
+        }
+    }
+
+    /**
+     * Fetch a data value.
+     *
+     * @param string $key The name of the data value to fetch.
+     *
+     * @return mixed The data value
+     */
+    public function get($key)
+    {
+        $this->_init();
+        if (isset($this->_data[$key])) {
+            return $this->_data[$key];
+        }
+        throw new Horde_Kolab_Storage_Exception(
+            sprintf('No "%s" information available!', $key)
+        );
     }
 
     /**
@@ -83,10 +111,7 @@ implements Horde_Kolab_Storage_Folder
      */
     public function getNamespace()
     {
-        if (isset($this->_data['namespace'])) {
-            return $this->_data['namespace'];
-        }
-        throw new Horde_Kolab_Storage_Exception('No "namespace" information available!');
+        return $this->get('namespace');
     }
 
     /**
@@ -96,10 +121,7 @@ implements Horde_Kolab_Storage_Folder
      */
     public function getTitle()
     {
-        if (isset($this->_data['name'])) {
-            return $this->_data['name'];
-        }
-        throw new Horde_Kolab_Storage_Exception('No "name" information available!');
+        return $this->get('name');
     }
 
     /**
@@ -109,10 +131,7 @@ implements Horde_Kolab_Storage_Folder
      */
     public function getOwner()
     {
-        if (isset($this->_data['owner'])) {
-            return $this->_data['owner'];
-        }
-        throw new Horde_Kolab_Storage_Exception('No "owner" information available!');
+        return $this->get('owner');
     }
 
     /**
@@ -122,10 +141,7 @@ implements Horde_Kolab_Storage_Folder
      */
     public function getSubpath()
     {
-        if (isset($this->_data['subpath'])) {
-            return $this->_data['subpath'];
-        }
-        throw new Horde_Kolab_Storage_Exception('No "subpath" information available!');
+        return $this->get('subpath');
     }
 
     /**
@@ -135,10 +151,7 @@ implements Horde_Kolab_Storage_Folder
      */
     public function getParent()
     {
-        if (isset($this->_data['parent'])) {
-            return $this->_data['parent'];
-        }
-        throw new Horde_Kolab_Storage_Exception('No "parent" information available!');
+        return $this->get('parent');
     }
 
     /**
@@ -148,10 +161,7 @@ implements Horde_Kolab_Storage_Folder
      */
     public function isDefault()
     {
-        if (isset($this->_data['default'])) {
-            return $this->_data['default'];
-        }
-        throw new Horde_Kolab_Storage_Exception('No "default" information available!');
+        return $this->get('default');
     }
 
     /**
@@ -161,10 +171,7 @@ implements Horde_Kolab_Storage_Folder
      */
     function getType()
     {
-        if (isset($this->_data['type'])) {
-            return $this->_data['type'];
-        }
-        throw new Horde_Kolab_Storage_Exception('No "type" information available!');
+        return $this->get('type');
     }
 
 
@@ -892,22 +899,6 @@ implements Horde_Kolab_Storage_Folder
         $part->setTransferEncoding('quoted-printable');
         $mime_message->addPart($part);
         return $mime_message;
-    }
-
-    /**
-     * Report the status of this folder.
-     *
-     * @return array|PEAR_Error An array listing the validity ID, the
-     *                          next IMAP ID and an array of IMAP IDs.
-     */
-    function getStatus()
-    {
-        // Select the folder to update uidnext
-        $this->_driver->select($this->_path);
-
-        $status = $this->_driver->status($this->_path);
-        $uids   = $this->_driver->getUids($this->_path);
-        return array($status['uidvalidity'], $status['uidnext'], $uids);
     }
 
     /**
