@@ -247,6 +247,18 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Fetches the objects for the specified UIDs.
+     *
+     * @param string $folder The folder to access.
+     *
+     * @return array The parsed objects.
+     */
+    public function fetch($folder, $uids, $options = array())
+    {
+        return $this->getParser()->fetch($folder, $uids, $options);
+    }
+
+    /**
      * Opens the given folder.
      *
      * @param string $folder The folder to open
@@ -290,6 +302,53 @@ extends Horde_Kolab_Storage_Driver_Base
         return $uids;
     }
 
+    /**
+     * Retrieves the messages for the given message ids.
+     *
+     * @param string $mailbox The mailbox to fetch the messages from.
+     * @param array  $uids                The message UIDs.
+     *
+     * @return Horde_Mime_Part The message structure parsed into a
+     *                         Horde_Mime_Part instance.
+     */
+    public function fetchStructure($mailbox, $uids)
+    {
+        return $this->getBackend()->fetch(
+            $mailbox,
+            array(
+                Horde_Imap_Client::FETCH_STRUCTURE => array(
+                    'noext' => true,
+                    'parse' => false,
+                )
+            ),
+            array('ids' => $uids)
+        );
+    }
+
+    /**
+     * Retrieves a bodypart for the given message ID and mime part ID.
+     *
+     * @param string $mailbox The mailbox to fetch the messages from.
+     * @param array  $uid                 The message UID.
+     * @param array  $id                  The mime part ID.
+     *
+     * @return @TODO
+     */
+    public function fetchBodypart($mailbox, $uid, $id)
+    {
+        return $this->getBackend()->fetch(
+            $mailbox,
+            array(
+                Horde_Imap_Client::FETCH_BODYPART => array(
+                    array(
+                        'id' => $id,
+                        'stream' => true,
+                    )
+                )
+            ),
+            array('ids' => array($uid))
+        );
+    }
 
     /**
      * Appends a message to the current folder.
