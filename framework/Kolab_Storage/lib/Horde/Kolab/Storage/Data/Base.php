@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Kolab data handler.
+ * The basic handler for data objects in a Kolab storage folder.
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
  */
 
 /**
- * Defines the Kolab data handler.
+ * The basic handler for data objects in a Kolab storage folder.
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
@@ -29,6 +29,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-interface Horde_Kolab_Storage_Data
+class Horde_Kolab_Storage_Data_Base
+implements Horde_Kolab_Storage_Data
 {
 }

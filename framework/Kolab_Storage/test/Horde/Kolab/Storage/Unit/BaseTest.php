@@ -43,4 +43,72 @@ extends Horde_Kolab_Storage_TestCase
             $factory
         );
     }
+
+    public function testGetList()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $base = new Horde_Kolab_Storage_Base(
+            new Horde_Kolab_Storage_Driver_Mock($factory),
+            $factory
+        );
+        $this->assertInstanceOf('Horde_Kolab_Storage_List', $base->getList());
+    }
+
+    public function testSameList()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $base = new Horde_Kolab_Storage_Base(
+            new Horde_Kolab_Storage_Driver_Mock($factory),
+            $factory
+        );
+        $this->assertSame($base->getList(), $base->getList());
+    }
+
+   public function testGetFolder()
+   {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $base = new Horde_Kolab_Storage_Base(
+            $this->getAnnotatedMock(),
+            $factory
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder', $base->getFolder('INBOX')
+        );
+    }
+
+   public function testGetData()
+   {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $base = new Horde_Kolab_Storage_Base(
+            $this->getAnnotatedMock(),
+            $factory
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Data', $base->getData('INBOX')
+        );
+    }
+
+   public function testSameData()
+   {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $base = new Horde_Kolab_Storage_Base(
+            $this->getAnnotatedMock(),
+            $factory
+        );
+        $this->assertSame(
+            $base->getData('INBOX'), $base->getData('INBOX')
+        );
+    }
+
+   public function testDifferentFolders()
+   {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $base = new Horde_Kolab_Storage_Base(
+            $this->getAnnotatedMock(),
+            $factory
+        );
+        $this->assertNotSame(
+            $base->getData('INBOX'), $base->getData('INBOX/a')
+        );
+    }
 }

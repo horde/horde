@@ -50,6 +50,13 @@ implements Horde_Kolab_Storage
     private $_lists;
 
     /**
+     * Data instances.
+     *
+     * @var array
+     */
+    private $_data;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Driver  $master  The primary connection driver.
@@ -124,23 +131,41 @@ implements Horde_Kolab_Storage
      */
     public function getFolder($folder)
     {
-        return new Horde_Kolab_Storage_Folder_Base(
-            $this, $this->_master, $folder
-        );
+        return $this->getList()->getFolder($folder);
     }
 
     /**
      * Return a data handler for accessing data in the specified
      * folder.
      *
-     * @param string $folder The name of the folder.
-     * @param string $type   The type of data we want to
-     *                       access in the folder.
+     * @param string $folder       The name of the folder.
+     * @param string $object_type  The type of data we want to
+     *                             access in the folder.
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function getData($folder, $type)
+    public function getData($folder, $object_type = null, $data_version = 1)
     {
+        $key = join(
+            '@',
+            array(
+                $data_version,
+                $object_type,
+                $folder,
+                $this->_master->getId()
+            )
+        );
+        if (!isset($this->_data[$key])) {
+            $this->_data[$key] = new Horde_Kolab_Storage_Data_Base(
+                $folder,
+                $this->getList()->getFolder($folder)->getType(),
+                $this->_master,
+                $this->_factory,
+                $object_type,
+                $data_version
+            );
+        }
+        return $this->_data[$key];
     }
 
 }
