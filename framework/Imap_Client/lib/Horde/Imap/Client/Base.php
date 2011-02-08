@@ -14,18 +14,13 @@
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
+ *
+ * @property Horde_Imap_Client_Utils $utils  A Utils object.
  */
 abstract class Horde_Imap_Client_Base implements Serializable
 {
     /* Serialized version. */
     const VERSION = 1;
-
-    /**
-     * The Horde_Imap_Client_Utils object
-     *
-     * @var Horde_Imap_Client_Utils
-     */
-    public $utils;
 
     /**
      * The Horde_Imap_Client_Cache object.
@@ -87,7 +82,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected $_debug = null;
 
-
     /**
      * The list of variables to serialize.
      *
@@ -101,6 +95,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @var array
      */
     protected $_temp = array();
+
+    /**
+     * The Horde_Imap_Client_Utils object
+     *
+     * @var Horde_Imap_Client_Utils
+     */
+    protected $_utils;
 
     /**
      * Constructs a new Horde_Imap_Client_Base object.
@@ -201,8 +202,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _init()
     {
-        $this->utils = new Horde_Imap_Client_Utils();
-
         if (!empty($this->_params['debug'])) {
             if (is_resource($this->_params['debug'])) {
                 $this->_debug = $this->_params['debug'];
@@ -267,6 +266,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $this->_init();
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'utils':
+            if (!isset($this->_utils)) {
+                $this->_utils = new Horde_Imap_Client_Utils();
+            }
+            return $this->_utils;
+        }
     }
 
     /**
