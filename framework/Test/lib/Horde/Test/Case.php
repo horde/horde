@@ -27,19 +27,23 @@ class Horde_Test_Case extends PHPUnit_Framework_TestCase
      */
     static public function getConfig($env, $default = array())
     {
-        $conf = null;
         $config = getenv($env);
-        if ($config && !is_dir(dirname($config))) {
-            $conf = Horde_Array::replaceRecursive($default,
-                                                  json_decode($config, true));
-        } elseif ($config === false) {
+        if ($config) {
+            $json = json_decode($config, true);
+            if ($json) {
+                return Horde_Array::replaceRecursive($default, $json);
+            }
+        } else {
             $backtrace = new Horde_Support_Backtrace();
             $caller = $backtrace->getCurrentContext();
             $config = dirname($caller['file']) . '/conf.php';
         }
+
         if (file_exists($config)) {
             require $config;
+            return $conf;
         }
-        return $conf;
+
+        return null;
     }
 }
