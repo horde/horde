@@ -260,7 +260,7 @@ class IMP_Views_ShowMessage
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
-            $result['msgtext'] .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'sendMDN\',{folder:\'' . $mailbox . '\',uid:' . $uid . '}); return false;', '', '') . _("HERE") . '</a>')))));
+            $result['msgtext'] .= $imp_ui->formatStatusMsg(array(array('id' => 'sendMdnMessage', 'text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')))));
         }
 
         /* Build body text. This needs to be done before we build the

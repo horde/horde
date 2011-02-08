@@ -1480,31 +1480,44 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      * <pre>
-     * 'uid' - (string) Indices of the messages to send MDN for (IMAP sequence
-     *         string).
-     * 'view' - (string) The current full mailbox.
+     * 'uid' - (string) Index of the messages to preview (IMAP sequence
+     *         string) - must be single index.
      * </pre>
      *
-     * @return boolean  True on success, false on failure.
+     * @return mixed  False on failure, or an object with these properties:
+     * <pre>
+     * 'mbox' - (string) Mailbox of message.
+     * 'uid' - (integer) UID of message.
+     * </pre>
      */
     public function sendMDN()
     {
-        if (!$this->_vars->folder || !$this->_vars->uid) {
+        $indices = new IMP_Indices($this->_vars->uid);
+        if (count($indices) != 1) {
             return false;
         }
 
+        list($mbox, $uid) = $indices->getSingle();
+
         try {
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_vars->folder, array(
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
-            ), array('ids' => array($this->_vars->uid)));
+            ), array('ids' => array($uid)));
         } catch (Horde_Imap_Client_Exception $e) {
+            $GLOBALS['notification']->push(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage(), 'horde.error');
             return false;
         }
 
         $imp_ui = new IMP_Ui_Message();
-        $imp_ui->MDNCheck($this->_vars->folder, $this->_vars->uid, reset($fetch_ret[$this->_vars->uid]['headertext']), true);
+        $imp_ui->MDNCheck($mbox, $uid, reset($fetch_ret[$uid]['headertext']), true);
 
-        return true;
+        $GLOBALS['notification']->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
+
+        $result = new stdClass;
+        $result->mbox = $mbox;
+        $result->uid = $uid;
+
+        return $result;
     }
 
     /**

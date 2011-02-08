@@ -86,7 +86,7 @@ var DimpMessage = {
             return;
         }
 
-        var elt = orig = e.element(), id;
+        var elt = orig = e.element(), id, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -148,6 +148,21 @@ var DimpMessage = {
                     DimpCompose.confirmCancel();
                 }
                 break;
+
+            case 'send_mdn_link':
+                tmp = {};
+                tmp[this.mailbox] = [ this.uid ];
+                DimpCore.doAction('sendMDN', {
+                    uid: DimpCore.toRangeString(tmp)
+                }, {
+                    callback: function(r) {
+                        if (r.response) {
+                            $('sendMdnMessage').up(1).fade({ duration: 0.2 });
+                        }
+                    }
+                });
+                e.stop();
+                return;
 
             default:
                 if (elt.hasClassName('printAtc')) {

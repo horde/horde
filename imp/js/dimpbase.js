@@ -1429,6 +1429,20 @@ var DimpBase = {
         this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
     },
 
+    _sendMdnCallback: function(r)
+    {
+        if (r.response) {
+            this._expirePPCache([ this._getPPId(r.response.uid, r.response.mbox) ]);
+
+            if (this.pp &&
+                this.pp.imapuid == r.response.uid &&
+                this.pp.view == r.response.mbox) {
+                this.loadingImg('msg', false);
+                $('sendMdnMessage').up(1).fade({ duration: 0.2 });
+            }
+        }
+    },
+
     // opts = mailbox, uid
     updateMsgLog: function(log, opts)
     {
@@ -2277,6 +2291,18 @@ var DimpBase = {
 
             case 'helptext_close':
                 this.toggleHelp();
+                e.stop();
+                return;
+
+            case 'send_mdn_link':
+                this.loadingImg('msg', true);
+                tmp = {};
+                tmp[this.pp.view] = [ this.pp.imapuid ];
+                DimpCore.doAction('sendMDN', {
+                    uid: DimpCore.toRangeString(tmp)
+                }, {
+                    callback: this._sendMdnCallback.bind(this)
+                });
                 e.stop();
                 return;
 
