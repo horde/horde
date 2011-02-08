@@ -131,6 +131,54 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Returns the database character set that query results are in
+     *
+     * @return string
+     */
+    public function getCharset()
+    {
+        return $this->showVariable('character_set_results');
+    }
+
+    /**
+     * Set the client and result charset.
+     *
+     * @param string $charset  The character set to use for client queries and results.
+     */
+    public function setCharset($charset)
+    {
+        $charset = $this->_mysqlCharsetName($charset);
+        $this->execute('SET NAMES ' . $this->quoteString($charset));
+    }
+
+    /**
+     * Get the MySQL name of a given character set.
+     *
+     * @param string $charset
+     * @return string MySQL-normalized charset.
+     */
+    public function _mysqlCharsetName($charset)
+    {
+        $charset = strtolower(preg_replace(array('/[^a-zA-Z0-9]/', '/iso8859(\d)/'), array('', 'latin$1'), $charset));
+        $validCharsets = $this->selectValues('SHOW CHARACTER SET');
+        if (!in_array($charset, $validCharsets)) {
+            throw new Horde_Db_Exception($charset . ' is not supported by MySQL (' . implode(', ', $validCharsets) . ')');
+        }
+
+        return $charset;
+    }
+
+    /**
+     * Returns the database collation strategy
+     *
+     * @return string
+     */
+    public function getCollation()
+    {
+        return $this->showVariable('collation_database');
+    }
+
+    /**
      * List of tables for the db
      *
      * @param   string  $name
@@ -225,10 +273,10 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function endTable($name, $options = array())
     {
-        $opts = 'ENGINE=InnoDB';
-        if (!empty($options['charset'])) {
-            $opts .= ' DEFAULT CHARSET=' . $options['charset'];
+        if (empty($options['charset'])) {
+            $options['charset'] = $this->getCharset();
         }
+        $opts = 'ENGINE=InnoDB DEFAULT CHARSET=' . $options['charset'];
         return parent::endTable($name, array_merge(array('options' => $opts), $options));
     }
 
