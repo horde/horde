@@ -59,11 +59,13 @@ class Horde_Db_Adapter_Pdo_SqliteSuite extends PHPUnit_Framework_TestSuite
         return $suite;
     }
 
-    public function getConnection()
+    public function getConnection($overrides = array())
     {
-        $conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
+        $config = array(
             'dbname' => ':memory:',
-        ));
+        );
+        $config = array_merge($config, $overrides);
+        $conn = new Horde_Db_Adapter_Pdo_Sqlite($config);
 
         $cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
         $conn->setCache($cache);

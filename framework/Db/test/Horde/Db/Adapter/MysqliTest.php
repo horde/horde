@@ -127,6 +127,11 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->_conn->supportsCountDistinct());
     }
 
+    public function testGetCharset()
+    {
+        $this->assertEquals('utf8', strtolower($this->_conn->getCharset()));
+    }
+
 
     /*##########################################################################
     # Database Statements
@@ -1196,6 +1201,34 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("SELECT * FROM documents ORDER BY name DESC", $result);
     }
 
+    public function testInsertAndReadInCp1257()
+    {
+        list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'cp1257'));
+        $table = $conn->createTable('charset_cp1257');
+            $table->column('text', 'string');
+        $table->end();
+
+        $input = file_get_contents(dirname(__FILE__) . '/../fixtures/charsets/cp1257.txt');
+        $conn->insert("INSERT INTO charset_cp1257 (text) VALUES (?)", array($input));
+        $output = $conn->selectValue('SELECT text FROM charset_cp1257');
+
+        $this->assertEquals($input, $output);
+    }
+
+    public function testInsertAndReadInUtf8()
+    {
+        list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'utf8'));
+        $table = $conn->createTable('charset_utf8');
+            $table->column('text', 'string');
+        $table->end();
+
+        $input = file_get_contents(dirname(__FILE__) . '/../fixtures/charsets/utf8.txt');
+        $conn->insert("INSERT INTO charset_utf8 (text) VALUES (?)", array($input));
+        $output = $conn->selectValue('SELECT text FROM charset_utf8');
+
+        $this->assertEquals($input, $output);
+    }
+
 
     /*##########################################################################
     # Table cache
@@ -1271,6 +1304,8 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $tables = array(
             'binary_testings',
             'cache_table',
+            'charset_cp1257',
+            'charset_utf8',
             'my_sports',
             'octopi',
             'schema_info',

@@ -59,7 +59,7 @@ class Horde_Db_Adapter_MysqliSuite extends PHPUnit_Framework_TestSuite
         return $suite;
     }
 
-    public function getConnection()
+    public function getConnection($overrides = array())
     {
         $config = Horde_Test_Case::getConfig('DB_ADAPTER_MYSQLI_TEST_CONFIG',
                                              array('host' => 'localhost',
@@ -72,6 +72,7 @@ class Horde_Db_Adapter_MysqliSuite extends PHPUnit_Framework_TestSuite
         if (!is_array($config)) {
             throw new Exception('No configuration for mysql test');
         }
+        $config = array_merge($config, $overrides);
 
         $conn = new Horde_Db_Adapter_Mysqli($config);
 
