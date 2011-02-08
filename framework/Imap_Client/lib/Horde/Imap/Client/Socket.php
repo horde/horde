@@ -3481,11 +3481,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 );
             }
 
-            $this->_sendLine(
+            $this->_sendLine(array(
                 'SETMETADATA',
                 array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox),
                 $data_elts
-            );
+            ));
 
             return;
         }
@@ -3498,7 +3498,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         foreach ($data as $md_entry => $value) {
             list($entry, $type) = $this->_getAnnotateMoreEntry($md_entry);
 
-            $this->_sendLine(
+            $this->_sendLine(array(
                 'SETANNOTATION',
                 array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox),
                 array('t' => Horde_Imap_Client::DATA_STRING, 'v' => $entry),
@@ -3506,7 +3506,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     array('t' => Horde_Imap_Client::DATA_STRING, 'v' => $type),
                     array('t' => Horde_Imap_Client::DATA_NSTRING, 'v' => $value)
                 )
-            );
+            ));
         }
     }
 
