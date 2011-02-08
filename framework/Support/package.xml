@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-03</date>
- <time>00:05:10</time>
+ <date>2011-02-08</date>
+ <time>15:05:17</time>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -43,6 +43,7 @@
       <file name="ConsistentHash.php" role="php" />
       <file name="Guid.php" role="php" />
       <file name="Inflector.php" role="php" />
+      <file name="Memory.php" role="php" />
       <file name="Numerizer.php" role="php" />
       <file name="Randomid.php" role="php" />
       <file name="Stack.php" role="php" />
@@ -70,6 +71,7 @@
       <file name="ConsistentHashTest.php" role="test" />
       <file name="GuidTest.php" role="test" />
       <file name="InflectorTest.php" role="test" />
+      <file name="MemoryTest.php" role="test" />
       <file name="RandomidTest.php" role="test" />
       <file name="StackTest.php" role="test" />
       <file name="StringStreamTest.php" role="test" />
@@ -103,6 +105,7 @@
    <install as="Horde/Support/ConsistentHash.php" name="lib/Horde/Support/ConsistentHash.php" />
    <install as="Horde/Support/Guid.php" name="lib/Horde/Support/Guid.php" />
    <install as="Horde/Support/Inflector.php" name="lib/Horde/Support/Inflector.php" />
+   <install as="Horde/Support/Memory.php" name="lib/Horde/Support/Memory.php" />
    <install as="Horde/Support/Numerizer.php" name="lib/Horde/Support/Numerizer.php" />
    <install as="Horde/Support/Randomid.php" name="lib/Horde/Support/Randomid.php" />
    <install as="Horde/Support/Stack.php" name="lib/Horde/Support/Stack.php" />
@@ -121,6 +124,7 @@
    <install as="Horde/Support/ConsistentHashTest.php" name="test/Horde/Support/ConsistentHashTest.php" />
    <install as="Horde/Support/GuidTest.php" name="test/Horde/Support/GuidTest.php" />
    <install as="Horde/Support/InflectorTest.php" name="test/Horde/Support/InflectorTest.php" />
+   <install as="Horde/Support/MemoryTest.php" name="test/Horde/Support/MemoryTest.php" />
    <install as="Horde/Support/RandomidTest.php" name="test/Horde/Support/RandomidTest.php" />
    <install as="Horde/Support/StackTest.php" name="test/Horde/Support/StackTest.php" />
    <install as="Horde/Support/StringStreamTest.php" name="test/Horde/Support/StringStreamTest.php" />
@@ -167,7 +171,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-01-03</date>
+   <date>2011-02-08</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * Add Horde_Support_Randomid::.
