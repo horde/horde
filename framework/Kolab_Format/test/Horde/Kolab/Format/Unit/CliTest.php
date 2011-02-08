@@ -45,7 +45,8 @@ extends PHPUnit_Framework_TestCase
         Horde_Kolab_Format_Cli::main(
             array(
                 'output' => new Horde_Test_Stub_Cli(),
-                'parser' => array('class' => 'Horde_Test_Stub_Parser')
+                'parser' => array('class' => 'Horde_Test_Stub_Parser'),
+                'nolog' => true
             )
         );
         $output = ob_get_contents();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Determines how much time is spent while loading/saving the Kolab objects.
+ * Determines some memory parameters while loading/saving the Kolab objects.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * Determines how much time is spent while loading/saving the Kolab objects.
+ * Determines some memory parameters while loading/saving the Kolab objects.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -26,15 +26,15 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_Decorator_Timed
+class Horde_Kolab_Format_Decorator_Memory
 extends Horde_Kolab_Format_Decorator_Base
 {
     /**
-     * The timer used for recording the amount of time spent.
+     * The memory tracker used for recording the memory parameters.
      *
-     * @var Horde_Support_Timer
+     * @var Horde_Support_Memory
      */
-    private $_timer;
+    private $_memory;
 
     /**
      * An optional logger.
@@ -44,27 +44,20 @@ extends Horde_Kolab_Format_Decorator_Base
     private $_logger;
 
     /**
-     * Time spent handling objects.
-     *
-     * @var float
-     */
-    static private $_spent = 0.0;
-
-    /**
      * Constructor.
      *
-     * @param Horde_Kolab_Format  $handler The handler to be decorated.
-     * @param Horde_Support_Timer $timer   The timer.
-     * @param mixed               $logger  The optional logger. If set this
-     *                                     needs to provide a debug() method.
+     * @param Horde_Kolab_Format   $handler The handler to be decorated.
+     * @param Horde_Support_Memory $memory  The memory tracker.
+     * @param mixed                $logger  The logger. This must provide
+     *                                      a debug() method.
      */
     public function __construct(
         Horde_Kolab_Format $handler,
-        Horde_Support_Timer $timer,
+        Horde_Support_Memory $memory,
         $logger = null
     ) {
         parent::__construct($handler);
-        $this->_timer = $timer;
+        $this->_memory = $memory;
         $this->_logger = $logger;
     }
 
@@ -79,13 +72,14 @@ extends Horde_Kolab_Format_Decorator_Base
      */
     public function load(&$xmltext)
     {
-        $this->_timer->push();
+        $this->_memory->push();
         $result = $this->getHandler()->load($xmltext);
-        $spent = $this->_timer->pop();
-        if (is_object($this->_logger)) {
-            $this->_logger->debug(sprintf('Kolab Format data parsing complete. Time spent: %s ms', floor($spent * 1000)));
-        }
-        self::$_spent += $spent;
+        $this->_logger->debug(
+            sprintf(
+                'Kolab Format data parsing complete. Memory usage: %s',
+                $this->_formatUsage($this->_memory->pop())
+            )
+        );
         return $result;
     }
 
@@ -100,23 +94,25 @@ extends Horde_Kolab_Format_Decorator_Base
      */
     public function save($object)
     {
-        $this->_timer->push();
+        $this->_memory->push();
         $result = $this->getHandler()->save($object);
-        $spent = $this->_timer->pop();
-        if (is_object($this->_logger)) {
-            $this->_logger->debug(sprintf('Kolab Format data generation complete. Time spent: %s ms', floor($spent * 1000)));
-        }
-        self::$_spent += $spent;
+        $this->_logger->debug(
+            sprintf(
+                'Kolab Format data generation complete. Memory usage: %s',
+                $this->_formatUsage($this->_memory->pop())
+            )
+        );
         return $result;
     }
 
-    /**
-     * Report the time spent for loading/saving objects.
-     *
-     * @return float The amount of time.
-     */
-    public function timeSpent()
+    private function _formatUsage($usage)
     {
-        return self::$_spent;
+        return sprintf(
+            '%.3f MB / %.3f MB / %.3f MB / %.3f MB [change in current usage (emalloc) / change in peak usage (emalloc) / change in current usage (real) / change in peak usage (real)]',
+            $usage[0] / 1048576,
+            $usage[1] / 1048576,
+            $usage[2] / 1048576,
+            $usage[3] / 1048576
+        );
     }
 }

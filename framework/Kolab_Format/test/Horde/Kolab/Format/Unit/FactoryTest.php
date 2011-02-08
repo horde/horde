@@ -40,7 +40,52 @@ extends PHPUnit_Framework_TestCase
         $factory = new Horde_Kolab_Format_Factory();
         $this->assertInstanceOf(
             'Horde_Kolab_Format_Xml_Contact',
-            $factory->create('XML', 'contact')
+            $factory->create('Xml', 'Contact')
+        );
+    }
+
+    public function testFactoryUcfirst()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Xml_Contact',
+            $factory->create('xml', 'Contact')
+        );
+    }
+
+    public function testFactoryStrtolower()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Xml_Contact',
+            $factory->create('XML', 'Contact')
+        );
+    }
+
+    public function testTypeUcfirst()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Xml_Contact',
+            $factory->create('Xml', 'contact')
+        );
+    }
+
+    public function testTypeStrtolower()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Xml_Contact',
+            $factory->create('Xml', 'CONTACT')
+        );
+    }
+
+    public function testTypeDashes()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Xml_Contact',
+            $factory->create('Xml', 'CON--TACT')
         );
     }
 
@@ -51,5 +96,29 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = new Horde_Kolab_Format_Factory();
         $factory->create('UNKNOWN', 'contact');
+    }
+
+    public function testTimeLog()
+    {
+        if (!class_exists('Horde_Support_Timer')) {
+            $this->markTestSkipped('Horde_Support package missing!');
+        }
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Decorator_Timed',
+            $factory->create('Xml', 'contact', array('timelog' => true))
+        );
+    }
+
+    public function testMemoryLog()
+    {
+        if (!class_exists('Horde_Support_Memory')) {
+            $this->markTestSkipped('Horde_Support package missing!');
+        }
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Decorator_Memory',
+            $factory->create('Xml', 'contact', array('memlog' => true))
+        );
     }
 }

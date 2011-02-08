@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the decorator for time measurements.
+ * Test the decorator for memory measurements.
  *
  * PHP version 5
  *
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
- * Test the decorator for time measurements.
+ * Test the decorator for memory measurements.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,13 +32,13 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_Unit_Decorator_TimedTest
+class Horde_Kolab_Format_Unit_Decorator_MemoryTest
 extends Horde_Kolab_Format_TestCase
 {
     public function testConstructor()
     {
         $this->getFactory()->create(
-            'XML', 'contact', array('timelog' => true)
+            'XML', 'contact', array('memlog' => true)
         );
     }
 
@@ -47,7 +47,7 @@ extends Horde_Kolab_Format_TestCase
         $this->assertEquals(
             'kolab.xml',
             $this->getFactory()
-            ->create('XML', 'contact', array('timelog' => true))
+            ->create('XML', 'contact', array('memlog' => true))
             ->getName()
         );
     }
@@ -57,7 +57,7 @@ extends Horde_Kolab_Format_TestCase
         $this->assertEquals(
             'application/x-vnd.kolab.contact',
             $this->getFactory()
-            ->create('XML', 'contact', array('timelog' => true))
+            ->create('XML', 'contact', array('memlog' => true))
             ->getMimeType()
         );
     }
@@ -67,73 +67,39 @@ extends Horde_Kolab_Format_TestCase
         $this->assertEquals(
             'attachment',
             $this->getFactory()
-            ->create('XML', 'contact', array('timelog' => true))
+            ->create('XML', 'contact', array('memlog' => true))
             ->getDisposition()
-        );
-    }
-
-    public function testTimeSpent()
-    {
-        $timed = $this->_getTimedMock();
-        $a = '';
-        $timed->load($a);
-        $this->assertType(
-            'float',
-            $timed->timeSpent()
-        );
-    }
-
-    public function testTimeSpentIncreases()
-    {
-        $timed = $this->_getTimedMock();
-        $a = '';
-        $timed->load($a);
-        $t_one = $timed->timeSpent();
-        $timed->save(array());
-        $this->assertTrue(
-            $t_one < $timed->timeSpent()
         );
     }
 
     public function testLogLoad()
     {
-        $timed = $this->_getTimedMock();
+        $timed = $this->_getMemoryMock();
         $a = '';
         $timed->load($a);
         $this->assertContains(
-            'Kolab Format data parsing complete. Time spent:',
+            'Kolab Format data parsing complete. Memory usage:',
             array_pop($this->logger->log)
         );
     }
 
     public function testLogSave()
     {
-        $timed = $this->_getTimedMock();
+        $timed = $this->_getMemoryMock();
         $a = array();
         $timed->save($a);
         $this->assertContains(
-            'Kolab Format data generation complete. Time spent:',
+            'Kolab Format data generation complete. Memory usage:',
             array_pop($this->logger->log)
         );
     }
 
-    public function testNoLog()
-    {
-        $timed = new Horde_Kolab_Format_Decorator_Timed(
-            $this->getMock('Horde_Kolab_Format'),
-            new Horde_Support_Timer(),
-            true
-        );
-        $a = array();
-        $timed->save($a);
-    }
-
-    private function _getTimedMock()
+    private function _getMemoryMock()
     {
         $this->logger = new Stub_Log();
-        return new Horde_Kolab_Format_Decorator_Timed(
+        return new Horde_Kolab_Format_Decorator_Memory(
             $this->getMock('Horde_Kolab_Format'),
-            new Horde_Support_Timer(),
+            new Horde_Support_Memory(),
             $this->logger
         );
     }

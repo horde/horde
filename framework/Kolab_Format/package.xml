@@ -29,8 +29,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-11</date>
- <time>21:25:25</time>
+ <date>2011-02-08</date>
+ <time>16:08:04</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -77,6 +77,7 @@
       <dir name="Format">
        <dir name="Decorator">
         <file name="Base.php" role="php" />
+        <file name="Memory.php" role="php" />
         <file name="Timed.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Decorator -->
        <dir name="Exception">
@@ -396,8 +397,12 @@
         <file name="TaskTest.php" role="test" />
         <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/Integration -->
+       <dir name="Stub">
+        <file name="Log.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Format/Stub -->
        <dir name="Unit">
         <dir name="Decorator">
+         <file name="MemoryTest.php" role="test" />
          <file name="TimedTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Format/Unit/Decorator -->
         <file name="CliTest.php" role="test" />
@@ -468,6 +473,7 @@
    <install as="Horde/Kolab/Format/Translation.php" name="lib/Horde/Kolab/Format/Translation.php" />
    <install as="Horde/Kolab/Format/Xml.php" name="lib/Horde/Kolab/Format/Xml.php" />
    <install as="Horde/Kolab/Format/Decorator/Base.php" name="lib/Horde/Kolab/Format/Decorator/Base.php" />
+   <install as="Horde/Kolab/Format/Decorator/Memory.php" name="lib/Horde/Kolab/Format/Decorator/Memory.php" />
    <install as="Horde/Kolab/Format/Decorator/Timed.php" name="lib/Horde/Kolab/Format/Decorator/Timed.php" />
    <install as="Horde/Kolab/Format/Exception/ParseError.php" name="lib/Horde/Kolab/Format/Exception/ParseError.php" />
    <install as="Horde/Kolab/Format/Xml/Annotation.php" name="lib/Horde/Kolab/Format/Xml/Annotation.php" />
@@ -587,8 +593,10 @@
    <install as="Horde/Kolab/Format/Integration/fixtures/preferences_write_old.xml" name="test/Horde/Kolab/Format/Integration/fixtures/preferences_write_old.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/recur.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" />
+   <install as="Horde/Kolab/Format/Stub/Log.php" name="test/Horde/Kolab/Format/Stub/Log.php" />
    <install as="Horde/Kolab/Format/Unit/CliTest.php" name="test/Horde/Kolab/Format/Unit/CliTest.php" />
    <install as="Horde/Kolab/Format/Unit/FactoryTest.php" name="test/Horde/Kolab/Format/Unit/FactoryTest.php" />
+   <install as="Horde/Kolab/Format/Unit/Decorator/MemoryTest.php" name="test/Horde/Kolab/Format/Unit/Decorator/MemoryTest.php" />
    <install as="Horde/Kolab/Format/Unit/Decorator/TimedTest.php" name="test/Horde/Kolab/Format/Unit/Decorator/TimedTest.php" />
    <install as="COPYING" name="COPYING" />
    <install as="TODO" name="TODO" />
@@ -727,7 +735,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-01-11</date>
+   <date>2011-02-08</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Removed dependency on the Kolab package within the task handler.

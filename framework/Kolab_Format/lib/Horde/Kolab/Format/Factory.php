@@ -32,7 +32,7 @@ class Horde_Kolab_Format_Factory
      * Generates a handler for a specific Kolab object type.
      *
      * @param string $format The format that the handler should work with.
-     * @param string $object The object type that should be handled.
+     * @param string $type   The object type that should be handled.
      * @param array  $params Additional parameters.
      * <pre>
      * 'version' - The format version.
@@ -43,18 +43,18 @@ class Horde_Kolab_Format_Factory
      * @throws Horde_Kolab_Format_Exception If the specified handler does not
      *                                      exist.
      */
-    public function create($format = 'Xml', $object = '', $params = null)
+    public function create($format = 'Xml', $type = '', $params = null)
     {
         $parser = ucfirst(strtolower($format));
         $class = basename(
             'Horde_Kolab_Format_' . $parser . '_'
-            . ucfirst(strtolower(str_replace('-', '', $object)))
+            . ucfirst(strtolower(str_replace('-', '', $type)))
         );
 
         if (class_exists($class)) {
             switch ($parser) {
             case 'Xml':
-                return new $class(
+                $instance = new $class(
                     new Horde_Kolab_Format_Xml_Parser(
                         new DOMDocument('1.0', 'UTF-8')
                     ),
@@ -77,37 +77,26 @@ class Horde_Kolab_Format_Factory
                 )
             );
         }
-    }
-
-    /**
-     * Generates a Kolab object handler with a timer wrapped around it..
-     *
-     * @param string $format The format that the handler should work with.
-     * @param string $object The object type that should be handled.
-     * @param array  $params Additional parameters.
-     * <pre>
-     * 'version' - The format version.
-     * </pre>
-     *
-     * @return Horde_Kolab_Format The wrapped handler.
-     *
-     * @throws Horde_Kolab_Format_Exception If the specified handler does not
-     *                                      exist.
-     */
-    public function createTimed($format = 'Xml', $object = '', $params = null)
-    {
-        if (isset($params['handler'])) {
-            $handler = $params['handler'];
-        } else {
-            $handler = $this->create($format, $object, $params);
+        if (!empty($params['memlog'])) {
+            if (!class_exists('Horde_Support_Memory')) {
+                throw new Horde_Kolab_Format_Exception('The Horde_Support package seems to be missing (Class Horde_Support_Memory is missing)!');
+            }
+            $instance = new Horde_Kolab_Format_Decorator_Memory(
+                $instance,
+                new Horde_Support_Memory(),
+                $params['memlog']
+            );
         }
-        if (!class_exists('Horde_Support_Timer')) {
-            throw new Horde_Kolab_Format_Exception('The Horde_Support package seems to be missing (Class Horde_Support_Timer is missing)!');
+        if (!empty($params['timelog'])) {
+            if (!class_exists('Horde_Support_Timer')) {
+                throw new Horde_Kolab_Format_Exception('The Horde_Support package seems to be missing (Class Horde_Support_Timer is missing)!');
+            }
+            $instance = new Horde_Kolab_Format_Decorator_Timed(
+                $instance,
+                new Horde_Support_Timer(),
+                $params['timelog']
+            );
         }
-        return new Horde_Kolab_Format_Decorator_Timed(
-            $handler,
-            new Horde_Support_Timer(),
-            isset($params['logger']) ? $params['logger'] : null
-        );
+        return $instance;
     }
 }

@@ -51,7 +51,13 @@ class Horde_Kolab_Format_Cli
         }
         list($options, $arguments) = $parser->parseArgs();
         $factory = new Horde_Kolab_Format_Factory();
-        $timed = $factory->createTimed('xml', 'task');
+        if (empty($parameters['nolog'])) {
+            $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
+            $factory_params = array('timelog' => $logger, 'memlog' => $logger);
+        } else {
+            $factory_params = array('timelog' => true);
+        }
+        $timed = $factory->create('xml', 'task', $factory_params);
         $content = file_get_contents($arguments[0]);
         $timed->load($content);
         $cli->message(floor($timed->timeSpent() * 1000) . ' ms');
