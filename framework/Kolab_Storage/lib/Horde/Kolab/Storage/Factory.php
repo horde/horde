@@ -28,11 +28,49 @@
 class Horde_Kolab_Storage_Factory
 {
     /**
+     * A set of parameters for this factory.
+     *
+     * @var array
+     */
+    private $_params;
+
+    /**
      * Folder type instances.
      *
      * @var array
      */
     private $_folder_types;
+
+    /**
+     * Format parser instances.
+     *
+     * @var array
+     */
+    private $_formats;
+
+    /**
+     * The format parser factory.
+     *
+     * @var Horde_Kolab_Format_Factory
+     */
+    private $_format_factory;
+
+    /**
+     * Constructor.
+     *
+     * @param array $params A set of optional parameters.
+     *<pre>
+     *</pre>
+     */
+    public function __construct($params = array())
+    {
+        $this->_params = $params;
+        if (isset($params['format']['factory'])) {
+            $this->_format_factory = $params['format']['factory'];
+        } else {
+            $this->_format_factory = new Horde_Kolab_Format_Factory();
+        }
+    }
 
     /**
      * Create the storage handler.
@@ -267,5 +305,31 @@ class Horde_Kolab_Storage_Factory
         return new Horde_Kolab_Storage_Cache(
             $cache
         );
+    }
+
+    /**
+     * Create a Kolab format handler.
+     *
+     * @param string $format  The format that the handler should work with.
+     * @param string $type    The object type that should be handled.
+     * @param string $version The format version.
+     *
+     * @return Horde_Kolab_Format The format parser.
+     */
+    public function createFormat($format, $type, $version)
+    {
+        $key = md5(serialize(array($format, $type, $version)));
+        if (!isset($this->_formats[$key])) {
+            if (isset($this->_params['format'])) {
+                $params = $this->_params['format'];
+            } else {
+                $params = array();
+            }
+            $params['version'] = $version;
+            $this->_formats[$key] = $this->_format_factory->create(
+                $format, $type, $params
+            );
+        }
+        return $this->_formats[$key];
     }
 }

@@ -233,4 +233,34 @@ extends Horde_Kolab_Storage_TestCase
             )
         );
     }
+
+    public function testFormat()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format',
+            $factory->createFormat('Xml', 'contact', 1)
+        );
+    }
+
+    public function testSameFormat()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertSame(
+            $factory->createFormat('Xml', 'contact', 1),
+            $factory->createFormat('Xml', 'contact', 1)
+        );
+    }
+
+    public function testFormatParameters()
+    {
+        $factory = new Horde_Kolab_Storage_Factory(
+            array('format' => array('timelog' => true))
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Decorator_Timed',
+            $factory->createFormat('Xml', 'contact', 1)
+        );
+    }
+
 }
