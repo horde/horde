@@ -91,8 +91,8 @@ foreach ($opts as $opt) {
 /* Sanity checks */
 if (!empty($username) && !empty($password)) {
     $rpc_auth = array(
-        'username' => $username,
-        'password' => $password);
+        'request.username' => $username,
+        'request.password' => $password);
 } else {
     $cli->fatal(_("You must specify a valid username and password."));
 }

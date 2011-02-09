@@ -17,8 +17,8 @@ if (!isset($argv) || count($argv) < 2) {
 array_shift($argv);
 $testno = array_shift($argv);
 $rpc_params = array(
-    'username' => @array_shift($argv),
-    'password' => @array_shift($argv)
+    'request.username' => @array_shift($argv),
+    'request.password' => @array_shift($argv)
 );
 $language = isset($GLOBALS['language']) ?
     $GLOBALS['language'] :

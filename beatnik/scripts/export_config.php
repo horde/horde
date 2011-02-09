@@ -83,8 +83,8 @@ foreach ($opts as $opt) {
 if (!empty($rpc)) {
     // We will fetch data from RPC
     $http_params = array(
-        'username' => $username,
-        'password' => $password
+        'request.username' => $username,
+        'request.password' => $password
     );
     $language = isset($GLOBALS['language']) ? $GLOBALS['language'] :
             (isset($_SERVER['LANG']) ? $_SERVER['LANG'] : '');
