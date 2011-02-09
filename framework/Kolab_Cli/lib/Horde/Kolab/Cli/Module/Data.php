@@ -148,6 +148,36 @@ implements Horde_Kolab_Cli_Module
                 $cli->writeln($uid);
             }
             break;
+        case 'structure':
+            $data = $world['storage']->getData($folder_name);
+            $messages = $data->fetchStructure(explode(',', $arguments[3]));
+            foreach ($messages as $message) {
+                $this->_messageOutput(
+                    $cli, $message['uid'], $message['structure']->toString()
+                );
+            }
+            break;
+        case 'part':
+            $data = $world['storage']->getData($folder_name);
+            $part = $data->fetchBodypart($arguments[3], $arguments[4]);
+            rewind($part[$arguments[3]]['bodypart'][$arguments[4]]);
+            $cli->writeln(
+                stream_get_contents(
+                    $part[$arguments[3]]['bodypart'][$arguments[4]]
+                )
+            );
+            break;
+        case 'fetch':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $objects = $data->fetch(explode(',', $arguments[4]));
+            foreach ($objects as $uid => $message) {
+                if (class_exists('Horde_Yaml')) {
+                    $this->_messageOutput($cli, $uid, Horde_Yaml::dump($message));
+                } else {
+                    $this->_messageOutput($cli, $uid, print_r($message, true));
+                }
+            }
+            break;
         default:
             $cli->message(
                 sprintf(
@@ -158,5 +188,16 @@ implements Horde_Kolab_Cli_Module
             );
             break;
         }
+    }
+
+    private function _messageOutput($cli, $uid, $output)
+    {
+        $cli->writeln('Message UID [' . $uid . ']');
+        $cli->writeln('================================================================================');
+        $cli->writeln();
+        $cli->writeln($output);
+        $cli->writeln();
+        $cli->writeln('================================================================================');
+        $cli->writeln();
     }
 }

@@ -6,8 +6,6 @@
  *
  * @category Kolab
  * @package  Kolab_Storage
- * @author   Stuart Binge <omicron@mighty.co.za>
- * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
@@ -16,15 +14,13 @@
 /**
  * The basic handler for data objects in a Kolab storage folder.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Kolab
  * @package  Kolab_Storage
- * @author   Stuart Binge <omicron@mighty.co.za>
- * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
@@ -118,8 +114,13 @@ implements Horde_Kolab_Storage_Data
      *
      * @return array An array listing the validity ID and the next IMAP ID.
      */
-    function getStatus()
+    public function getStatus()
     {
+        if (!method_exists($this->_driver, 'status')) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The backend does not support the "status" method!'
+            );
+        }
         return $this->_driver->status($this->_folder->getPath());
     }
 
@@ -128,11 +129,70 @@ implements Horde_Kolab_Storage_Data
      *
      * @return array An array of UIDs.
      */
-    function getUids()
+    public function getUids()
     {
+        if (!method_exists($this->_driver, 'getUids')) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The backend does not support the "getUids" method!'
+            );
+        }
         return $this->_driver->getUids($this->_folder->getPath());
     }
 
+    /**
+     * Retrieves the message structure for the given UIDs.
+     *
+     * @param array $uids The message UIDs.
+     *
+     * @return @TODO
+     */
+    public function fetchStructure($uids)
+    {
+        if (!method_exists($this->_driver, 'fetchStructure')) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The backend does not support the "fetchStructure" method!'
+            );
+        }
+        return $this->_driver->fetchStructure(
+            $this->_folder->getPath(), $uids
+        );
+    }
+
+    /**
+     * Retrieves the body part for the given UID and mime part ID.
+     *
+     * @param string $uid The message UID.
+     * @param string $id  The mime part ID.
+     *
+     * @return @TODO
+     */
+    public function fetchBodypart($uid, $id)
+    {
+        if (!method_exists($this->_driver, 'fetchBodypart')) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The backend does not support the "fetchBodypart" method!'
+            );
+        }
+        return $this->_driver->fetchBodypart(
+            $this->_folder->getPath(), $uid, $id
+        );
+    }
+
+    /**
+     * Retrieves the objects for the given UIDs.
+     *
+     * @param array $uids The message UIDs.
+     *
+     * @return array An array of objects.
+     */
+    public function fetch($uids)
+    {
+        return $this->_driver->fetch(
+            $this->_folder->getPath(),
+            $uids,
+            array('type' => $this->_type, 'version' => $this->_version)
+        );
+    }
 
     /**
      * Register a query to be updated if the underlying data changes.
