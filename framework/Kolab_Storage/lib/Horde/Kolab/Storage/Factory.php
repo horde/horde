@@ -168,6 +168,10 @@ class Horde_Kolab_Storage_Factory
         case 'horde':
         case 'horde-php':
             $driver = new Horde_Kolab_Storage_Driver_Imap($this, $config);
+            $parser = new Horde_Kolab_Storage_Data_Parser_Structure($driver);
+            $format = new Horde_Kolab_Storage_Data_Format_Mime($this, $parser);
+            $parser->setFormat($format);
+            $driver->setParser($parser);
             break;
         case 'php':
             $driver = new Horde_Kolab_Storage_Driver_Cclient($this, $config);
