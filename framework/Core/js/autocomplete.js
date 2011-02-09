@@ -58,43 +58,42 @@ Autocompleter.Base = Class.create({
 
     _onKeyDown: function(e)
     {
-        var a = document.activeElement;
-
-        if (Object.isUndefined(a) || a == this.elt) {
-            switch (e.keyCode) {
-            case 0:
-                if (!Prototype.Browser.WebKit) {
-                    break;
-                }
-                // Fall-through
-
-            // Ignore events caught by KevNavList
-            case Event.KEY_DOWN:
-            case Event.KEY_ESC:
-            case Event.KEY_RETURN:
-            case Event.KEY_TAB:
-            case Event.KEY_UP:
-                return;
-            }
-
-            this.changed = true;
-
-            if (this.observer) {
-                clearTimeout(this.observer);
-            }
-
-            this.observer = this.onObserverEvent.bind(this).delay(this.opts.frequency);
+        if (!this._checkActiveElt()) {
+            return;
         }
+
+        switch (e.keyCode) {
+        case 0:
+            if (!Prototype.Browser.WebKit) {
+                break;
+            }
+            // Fall-through
+
+        // Ignore events caught by KevNavList
+        case Event.KEY_DOWN:
+        case Event.KEY_ESC:
+        case Event.KEY_RETURN:
+        case Event.KEY_TAB:
+        case Event.KEY_UP:
+            return;
+        }
+
+        this.changed = true;
+
+        if (this.observer) {
+            clearTimeout(this.observer);
+        }
+
+        this.observer = this.onObserverEvent.bind(this).delay(this.opts.frequency);
     },
 
     updateChoices: function(choices)
     {
-        var a = document.activeElement, c = [], re;
-
-        if (this.changed ||
-            (Object.isUndefined(a) || a != this.elt)) {
+        if (this.changed || !this._checkActiveElt()) {
             return;
         }
+
+        var c = [], re;
 
         if (this.opts.indicator) {
             $(this.opts.indicator).hide();
@@ -148,6 +147,10 @@ Autocompleter.Base = Class.create({
     {
         this.changed = false;
 
+        if (!this._checkActiveElt()) {
+            return;
+        }
+
         var entry = this.getToken();
 
         if (entry.length >= this.opts.minChars) {
@@ -163,6 +166,23 @@ Autocompleter.Base = Class.create({
         } else if (this.knl) {
             this.knl.hide();
         }
+    },
+
+    _checkActiveElt: function()
+    {
+        if (document.activeElement == this.elt) {
+            return true;
+        }
+
+        if (this.opts.indicator) {
+            $(this.opts.indicator).hide();
+        }
+
+        if (this.knl) {
+            this.knl.hide();
+        }
+
+        return false;
     },
 
     getToken: function()
