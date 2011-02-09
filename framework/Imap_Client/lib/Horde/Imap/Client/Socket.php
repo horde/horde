@@ -3611,7 +3611,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($options['debug'])) {
                 $this->_temp['sendnodebug'] = true;
             }
-            $out = rtrim($this->parseCommandArray($data, $out, array($this, 'parseCommandArrayCallback')));
+            $out = rtrim($this->parseCommandArray($data, array($this, 'parseCommandArrayCallback'), $out));
             unset($this->_temp['sendnodebug']);
         } elseif (is_string($data)) {
             $out .= $data;
