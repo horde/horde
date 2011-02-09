@@ -1562,10 +1562,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $msg_post = '';
         }
 
+        $force_html = false;
         if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
             $compose_html = false;
         } elseif (!empty($opts['format'])) {
-            $compose_html = ($opts['format'] == 'html');
+            $compose_html = $force_html = ($opts['format'] == 'html');
         } else {
             $compose_html = ($prefs->getValue('compose_html') || $prefs->getValue('reply_format'));
         }
@@ -1577,8 +1578,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         ));
 
         if (!empty($msg_text) &&
-            ($prefs->getValue('compose_html') ||
-             ($msg_text['mode'] == 'html'))) {
+            (($msg_text['mode'] == 'html') || $force_html)) {
             $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
                    '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">' .
                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
@@ -1715,10 +1715,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             " -----\n" . $this->_getMsgHeaders($h) . "\n";
         $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
 
+        $force_html = false;
         if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
             $compose_html = false;
         } elseif (!empty($opts['format'])) {
-            $compose_html = ($opts['format'] == 'html');
+            $compose_html = $force_html = ($opts['format'] == 'html');
         } else {
             $compose_html = ($prefs->getValue('compose_html') || $prefs->getValue('forward_format'));
         }
@@ -1728,8 +1729,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         ));
 
         if (!empty($msg_text) &&
-            ($prefs->getValue('compose_html') ||
-             ($msg_text['mode'] == 'html'))) {
+            (($msg_text['mode'] == 'html') || $force_html)) {
             $msg = $this->text2html($msg_pre) .
                 (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
                 $this->text2html($msg_post);
