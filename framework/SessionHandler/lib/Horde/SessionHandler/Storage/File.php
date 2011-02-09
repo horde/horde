@@ -74,7 +74,7 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
     public function close()
     {
         if (!empty($this->_fp)) {
-            //flock($this->_fp, LOCK_UN);
+            flock($this->_fp, LOCK_UN);
             fclose($this->_fp);
             unset($this->_fp);
         }
