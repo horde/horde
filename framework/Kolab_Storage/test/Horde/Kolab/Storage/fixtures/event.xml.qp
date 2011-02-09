@@ -1,0 +1,11 @@
+<?xml version=3D"1.0" encoding=3D"UTF-8"?>=0A<event version=3D"1.0" >=0A <p=
+roduct-id>KOrganizer 3.3 (proko2 branch after 2.1.5), Kolab resource</produ=
+ct-id>=0A <uid>libkcal-543769073.139</uid>=0A <creation-date>2006-03-16T15:=
+00:53Z</creation-date>=0A <last-modification-date>2007-01-25T11:36:40Z</las=
+t-modification-date>=0A <sensitivity>public</sensitivity>=0A <pilot-sync-st=
+atus>1</pilot-sync-status>=0A <start-date>2006-03-15T18:30:00Z</start-date>=
+=0A <summary>Summary</summary>=0A <organizer>=0A  <display-name>Orga Nizer<=
+/display-name>=0A  <smtp-address>orga.nizer@example.com</smtp-address>=0A <=
+/organizer>=0A <body>...=C3=BCbbe...</body>=0A <revision>0</revision>=0A <s=
+how-time-as>busy</show-time-as>=0A <end-date>2007-03-15T20:00:00Z</end-date=
+>=0A</event>=0A

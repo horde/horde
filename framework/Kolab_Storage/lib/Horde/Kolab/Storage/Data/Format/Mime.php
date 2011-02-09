@@ -79,13 +79,15 @@ implements Horde_Kolab_Storage_Data_Format
                 )
             );
         }
-        $part = $this->_structure->fetchId(
-                    $folder,
-                    $obid,
-                    $this->matchMimeId($options['type'], $data->contentTypeMap())
+        $mime_id = $this->matchMimeId($options['type'], $data->contentTypeMap());
+                                      
+        $mime_part = $data->getPart($mime_id);
+        $mime_part->setContents(
+            $this->_structure->fetchId($folder, $obid, $mime_id)
         );
+        $content = $mime_part->getContents(array('stream' => true));
         return $this->_factory->createFormat('Xml', $options['type'], $options['version'])
-            ->load($part);
+            ->load($content);
     }
 
     public function matchMimeId($type, $types)

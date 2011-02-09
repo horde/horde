@@ -59,7 +59,7 @@ extends Horde_Kolab_Storage_TestCase
         $mime = $this->_getMime();
 
         $event = fopen(
-            dirname(__FILE__) . '/../../../fixtures/event_umlaut.xml',
+            dirname(__FILE__) . '/../../../fixtures/event.xml.qp',
             'r'
         );
         $this->parser->expects($this->once())
