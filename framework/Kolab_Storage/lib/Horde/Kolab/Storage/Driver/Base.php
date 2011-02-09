@@ -57,6 +57,13 @@ implements Horde_Kolab_Storage_Driver
     private $_backend;
 
     /**
+     * The parser used for reading data objects.
+     *
+     * @var Horde_Kolab_Storage_Data_Parser
+     */
+    private $_parser;
+
+    /**
      * Charset used by this driver.
      *
      * @var string
@@ -106,6 +113,33 @@ implements Horde_Kolab_Storage_Driver
     public function setBackend($backend)
     {
         $this->_backend = $backend;
+    }
+
+    /**
+     * Returns the parser for data objects.
+     *
+     * @return Horde_Kolab_Storage_Data_Parser The parser.
+     */
+    public function getParser()
+    {
+        if ($this->_parser === null) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The parser has been left undefined!'
+            );
+        }
+        return $this->_parser;
+    }
+
+    /**
+     * Set the data parser.
+     *
+     * @param mixed $parser The parser that should be used.
+     *
+     * @return NULL
+     */ 
+    public function setParser(Horde_Kolab_Storage_Data_Parser $parser)
+    {
+        $this->_parser = $parser;
     }
 
     /**

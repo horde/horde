@@ -91,6 +91,28 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Returns the parser for data objects.
+     *
+     * @return Horde_Kolab_Storage_Data_Parser The parser.
+     */
+    public function getParser()
+    {
+        return $this->_driver->getParser();
+    }
+
+    /**
+     * Set the data parser.
+     *
+     * @param mixed $parser The parser that should be used.
+     *
+     * @return NULL
+     */ 
+    public function setParser(Horde_Kolab_Storage_Data_Parser $parser)
+    {
+        $this->_driver->setParser($parser);
+    }
+
+    /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the connection.

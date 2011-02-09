@@ -499,4 +499,19 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetParser()
+    {
+        $this->getNullMock()->getParser();
+    }
+
+    public function testSetParser()
+    {
+        $mock = $this->getNullMock();
+        $parser = $this->getMock('Horde_Kolab_Storage_Data_Parser');
+        $mock->setParser($parser);
+        $this->assertSame($parser, $mock->getParser());
+    }
 }

@@ -318,7 +318,7 @@ extends Horde_Kolab_Storage_Driver_Base
             array(
                 Horde_Imap_Client::FETCH_STRUCTURE => array(
                     'noext' => true,
-                    'parse' => false,
+                    'parse' => true,
                 )
             ),
             array('ids' => $uids)
@@ -336,7 +336,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function fetchBodypart($mailbox, $uid, $id)
     {
-        return $this->getBackend()->fetch(
+        $part = $this->getBackend()->fetch(
             $mailbox,
             array(
                 Horde_Imap_Client::FETCH_BODYPART => array(
@@ -348,6 +348,7 @@ extends Horde_Kolab_Storage_Driver_Base
             ),
             array('ids' => array($uid))
         );
+        return $part[$uid]['bodypart'][$id];
     }
 
     /**

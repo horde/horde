@@ -56,6 +56,22 @@ interface Horde_Kolab_Storage_Driver
     public function setBackend($backend);
 
     /**
+     * Returns the parser for data objects.
+     *
+     * @return Horde_Kolab_Storage_Data_Parser The parser.
+     */
+    public function getParser();
+
+    /**
+     * Set the data parser.
+     *
+     * @param mixed $parser The parser that should be used.
+     *
+     * @return NULL
+     */
+    public function setParser(Horde_Kolab_Storage_Data_Parser $parser);
+
+    /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the connection.
@@ -196,32 +212,7 @@ interface Horde_Kolab_Storage_Driver
 
     /** Data functionality */
 
-    /**
-     * Opens the given folder.
-     *
-     * @param string $folder The folder to open
-     *
-     * @return NULL
-     */
-    public function select($folder);
 
-    /**
-     * Returns the status of the current folder.
-     *
-     * @param string $folder Check the status of this folder.
-     *
-     * @return array  An array that contains 'uidvalidity' and 'uidnext'.
-     */
-    public function status($folder);
-
-    /**
-     * Returns the message ids of the messages in this folder.
-     *
-     * @param string $folder Check the status of this folder.
-     *
-     * @return array  The message ids.
-     */
-    public function getUids($folder);
 
 
 
