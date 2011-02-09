@@ -98,7 +98,7 @@ class Horde_Kolab_Format_Xml_Parser
      */
     private function _parseXml($input)
     {
-        @$this->_document->loadXML($input);
+        $this->_document->loadXML($input);
         if (empty($this->_document->documentElement) || !$this->_document->documentElement->hasChildNodes()) {
             throw new Horde_Kolab_Format_Exception_ParseError($input);
         }
