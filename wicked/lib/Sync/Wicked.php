@@ -28,8 +28,8 @@ class Wicked_Sync_Wicked extends Wicked_Sync
         parent::__construct($params);
         $this->_client = $GLOBALS['injector']->
             getInstance('Horde_Core_Factory_HttpClient')->
-            create(array('user' => $this->_params['user'],
-                         'pass' => $this->_params['password'])
+            create(array('username' => $this->_params['user'],
+                         'password' => $this->_params['password'])
         );
     }
 

@@ -42,8 +42,8 @@ class Horde_Release_Whups
     public function __construct($params)
     {
         $this->_params = $params;
-        $options = array('user' => $this->_params['user'],
-                         'pass' => $this->_params['pass']);
+        $options = array('username' => $this->_params['user'],
+                         'password' => $this->_params['pass']);
         $this->_http = new Horde_Http_Client($options);
     }
 

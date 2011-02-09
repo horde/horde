@@ -17,8 +17,8 @@ if (!isset($argv) || count($argv) < 2) {
 array_shift($argv);
 $testno = array_shift($argv);
 $rpc_params = array(
-    $user => @array_shift($argv),
-    $pass => @array_shift($argv)
+    'username' => @array_shift($argv),
+    'password' => @array_shift($argv)
 );
 $language = isset($GLOBALS['language']) ?
     $GLOBALS['language'] :
@@ -56,8 +56,8 @@ try {
     case 4:
         // @TODO: Need to instantiate a soap client.
         // array('namespace' => 'urn:horde',
-        //  'user' => $user,
-        //  'pass' => $pass)
+        //  'username' => $user,
+        //  'password' => $pass)
         // $soap = new SOAP_Client
         $response = Horde_Rpc_Soap::request(Horde::url('rpc.php', true, -1),
                                             'tasks.listTasks', $soap, array());
