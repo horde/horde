@@ -145,7 +145,7 @@ implements  Horde_Kolab_Storage_Data_Parser
      *
      * @return resource A stream for the specified body part.
      */
-    public function fetchPart($folder, $obid, $mime_id)
+    public function fetchId($folder, $obid, $mime_id)
     {
         return $this->_driver->fetchBodypart($folder, $obid, $mime_id);
     }
