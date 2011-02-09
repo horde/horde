@@ -39,7 +39,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertType(
             'array',
-            $this->_getParser()->fetch('test', array(1))
+            $this->_getParser()->fetch(
+                'test', array(1), array('type' => 'event')
+            )
         );
     }
 
@@ -48,14 +50,18 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals(
             array(1, 2, 4),
             array_keys(
-                $this->_getParser()->fetch('test', array(1,2,4))
+                $this->_getParser()->fetch(
+                    'test', array(1,2,4), array('type' => 'event')
+                )
             )
         );
     }
 
     public function testFetchArrayValues()
     {
-        $objects = $this->_getParser()->fetch('test', array(1,2,4));
+        $objects = $this->_getParser()->fetch(
+            'test', array(1,2,4), array('type' => 'event')
+        );
         foreach ($objects as $object) {
             $this->assertType('array', $object);
         }
@@ -78,8 +84,10 @@ extends Horde_Kolab_Storage_TestCase
         $this->format->expects($this->exactly(3))
             ->method('parse')
             ->will($this->returnValue(array()));
-        return new Horde_Kolab_Storage_Data_Parser_Structure(
-            $this->driver, $this->format
+        $structure = new Horde_Kolab_Storage_Data_Parser_Structure(
+            $this->driver
         );
+        $structure->setFormat($this->format);
+        return $structure;
     }
 }

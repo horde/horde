@@ -46,16 +46,41 @@ implements  Horde_Kolab_Storage_Data_Parser
     /**
      * Constructor
      *
-     * @param Horde_Kolab_Storage_Driver      $driver The backend driver.
-     * @param Horde_Kolab_Storage_Data_Format $format The data object <-> format
-     *                                                bridge.
+     * @param Horde_Kolab_Storage_Driver $driver The backend driver.
      */
     public function __construct(
-        Horde_Kolab_Storage_Driver $driver,
-        Horde_Kolab_Storage_Data_Format $format
+        Horde_Kolab_Storage_Driver $driver
     ) {
         $this->_driver = $driver;
+    }
+
+    /**
+     * Set the format handler.
+     *
+     * @param Horde_Kolab_Storage_Data_Format $format The data object <-> format
+     *                                                bridge.
+     *
+     * @return NULL
+     */
+    public function setFormat(Horde_Kolab_Storage_Data_Format $format)
+    {
         $this->_format = $format;
+    }
+
+    /**
+     * Return the format handler.
+     *
+     * @return Horde_Kolab_Storage_Data_Format The data object <-> format
+     *                                         bridge.
+     */
+    public function getFormat()
+    {
+        if ($this->_format === null) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The format handler has been left undefined!'
+            );
+        }
+        return $this->_format;
     }
 
     /**
@@ -91,7 +116,7 @@ implements  Horde_Kolab_Storage_Data_Parser
                     'Backend returned a structure without the expected "structure" element.'
                 );
             }
-            $objects[$obid] = $this->_format->parse($folder, $obid, $structure['structure'], $options);
+            $objects[$obid] = $this->getFormat()->parse($folder, $obid, $structure['structure'], $options);
             $this->_fetchAttachments($objects[$obid], $folder, $obid, $options);
         }
         return $objects;
