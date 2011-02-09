@@ -3653,11 +3653,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             rewind($data);
             stream_copy_to_stream($data, $this->_stream);
         } else {
-            fwrite($this->_stream, $out . "\r\n");
+            fwrite($this->_stream, $out);
         }
 
         if ($literalplus || !empty($options['literaldata'])) {
             return;
+        }
+
+        if (!is_resource($data)) {
+            fwrite($this->_stream, "\r\n");
         }
 
         if (!empty($options['literal'])) {
