@@ -32,7 +32,7 @@
   <active>yes</active>
  </lead>
  <date>2011-02-09</date>
- <time>09:58:17</time>
+ <time>14:46:59</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -439,6 +439,7 @@
       <dir name="Storage">
        <dir name="fixtures">
         <file name="bodystructure.ser" role="test" />
+        <file name="event_umlaut.xml" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/fixtures -->
        <dir name="Server">
         <file name="DriverTest.php" role="test" />
@@ -451,6 +452,9 @@
          <file name="ListTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Cache -->
         <dir name="Data">
+         <dir name="Format">
+          <file name="MimeTest.php" role="test" />
+         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Format -->
          <dir name="Parser">
           <file name="StructureTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Parser -->
@@ -746,12 +750,14 @@
    <install as="Horde/Kolab/Storage/TestCase.php" name="test/Horde/Kolab/Storage/TestCase.php" />
    <install as="Horde/Kolab/Storage/TriggerTest.php" name="test/Horde/Kolab/Storage/TriggerTest.php" />
    <install as="Horde/Kolab/Storage/fixtures/bodystructure.ser" name="test/Horde/Kolab/Storage/fixtures/bodystructure.ser" />
+   <install as="Horde/Kolab/Storage/fixtures/event_umlaut.xml" name="test/Horde/Kolab/Storage/fixtures/event_umlaut.xml" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
    <install as="Horde/Kolab/Storage/Stub/FactoryQuery.php" name="test/Horde/Kolab/Storage/Stub/FactoryQuery.php" />
    <install as="Horde/Kolab/Storage/Unit/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/FactoryTest.php" name="test/Horde/Kolab/Storage/Unit/FactoryTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Cache/ListTest.php" name="test/Horde/Kolab/Storage/Unit/Cache/ListTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Data/Format/MimeTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Format/MimeTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/Parser/StructureTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Parser/StructureTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Decorator/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/LogTest.php" />

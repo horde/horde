@@ -29,6 +29,37 @@ class Horde_Kolab_Storage_Data_Format_Mime
 implements Horde_Kolab_Storage_Data_Format
 {
     /**
+     * Factory for generating helper objects.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    private $_factory;
+
+    /**
+     * The MIME based object provider.
+     *
+     * @var Horde_Kolab_Storage_Data_Parser_Structure
+     */
+    private $_structure;
+
+    /**
+     * Constructor
+     *
+     * @param Horde_Kolab_Storage_Factory               $factory   Factory for
+     *                                                             helper tools.
+     * @param Horde_Kolab_Storage_Data_Parser_Structure $structure The MIME based
+     *                                                             object handler.
+     */
+    public function __construct(
+        Horde_Kolab_Storage_Factory $factory,
+        Horde_Kolab_Storage_Data_Parser_Structure $structure
+    ) {
+        $this->_factory = $factory;
+        $this->_structure = $structure;
+    }
+    
+
+    /**
      * Parses the objects for the specified backend IDs.
      *
      * @param string $folder  The folder to access.
@@ -38,7 +69,36 @@ implements Horde_Kolab_Storage_Data_Format
      *
      * @return array The parsed object.
      */
-    public function parse($folder, $obid, $data, $options = array())
+    public function parse($folder, $obid, $data, array $options)
     {
+        if (!$data instanceOf Horde_Mime_Part) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'The provided data is not of type Horde_Mime_Part but %s instead!',
+                    get_class($data)
+                )
+            );
+        }
+        $part = $this->_structure->fetchId(
+                    $folder,
+                    $obid,
+                    $this->matchMimeId($options['type'], $data->contentTypeMap())
+        );
+        return $this->_factory->createFormat('Xml', $options['type'], $options['version'])
+            ->load($part);
     }
+
+    public function matchMimeId($type, $types)
+    {
+        switch ($type) {
+        case 'event':
+            return array_search('application/x-vnd.kolab.event', $types);;
+            break;
+        default:
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Unsupported object type %s!', $type)
+            );
+        }
+    }
+
 }

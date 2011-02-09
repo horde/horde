@@ -64,12 +64,26 @@ implements  Horde_Kolab_Storage_Data_Parser
      * @param string $folder  The folder to access.
      * @param array  $obids   The object backend IDs to fetch.
      * @param array  $options Additional options for fetching.
+     * <pre>
+     *  'type'    - Required argument specifying the object type that should be
+     *              parsed.
+     *  'version' - Optional argument specifying the version of the object
+     *              format.
+     * </pre>
      *
      * @return array The parsed objects.
      */
     public function fetch($folder, $obids, $options = array())
     {
         $objects = array();
+        if (!isset($options['type'])) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The object type must be specified!'
+            );
+        }
+        if (!isset($options['version'])) {
+            $options['version'] = 1;
+        }
         $structures = $this->_driver->fetchStructure($folder, $obids);
         foreach ($structures as $obid => $structure) {
             if (!isset($structure['structure'])) {

@@ -39,5 +39,5 @@ interface Horde_Kolab_Storage_Data_Format
      *
      * @return array The parsed object.
      */
-    public function parse($folder, $obid, $data, $options = array());
+    public function parse($folder, $obid, $data, array $options);
 }
