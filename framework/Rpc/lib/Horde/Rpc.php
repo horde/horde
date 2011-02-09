@@ -224,7 +224,7 @@ class Horde_Rpc
         $driver = Horde_String::ucfirst(basename($driver));
         $class = 'Horde_Rpc_' . $driver;
         if (class_exists($class)) {
-            return call_user_func(array($class, 'request'), $url, $method, $params, $client);
+            return call_user_func(array($class, 'request'), $url, $method, $client, $params);
         } else {
             throw new Horde_Rpc_Exception('Class definition of ' . $class . ' not found.');
         }
