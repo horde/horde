@@ -62,6 +62,10 @@ class Horde_Kolab_Format_Xml_Parser
      */
     public function parse($input)
     {
+        if (is_resource($input)) {
+            rewind($input);
+            $input = stream_get_contents($input);
+        }
         try {
             return $this->_parseXml($input);
         } catch (Horde_Kolab_Format_Exception_ParseError $e) {
