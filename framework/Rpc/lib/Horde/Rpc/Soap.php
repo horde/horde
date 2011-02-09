@@ -128,30 +128,9 @@ class Horde_Rpc_Soap extends Horde_Rpc
      * @return mixed  The returned result from the method
      * @throws Horde_Rpc_Exception
      */
-    public static function request($url, $method, $params = null, $options = array())
+    public static function request($url, $method, $params = null, $soap)
     {
-        if (!isset($options['timeout'])) {
-            $options['timeout'] = 5;
-        }
-        if (!isset($options['allowRedirects'])) {
-            $options['allowRedirects'] = true;
-            $options['maxRedirects']   = 3;
-        }
-        if (isset($options['user'])) {
-            $options['login'] = $options['user'];
-            unset($options['user']);
-        }
-        if (isset($options['pass'])) {
-            $options['password'] = $options['pass'];
-            unset($options['pass']);
-        }
-        $options['location'] = (string)$url;
-        $options['uri'] = $options['namespace'];
-        $options['exceptions'] = true;
-
-        $options['trace'] = true;
         try {
-            $soap = new SoapClient(null, $options);
             return $soap->__soapCall($method, $params);
         } catch (Exception $e) {
             throw new Horde_Rpc_Exception($e);

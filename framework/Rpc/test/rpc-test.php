@@ -28,7 +28,7 @@ if (!empty($language)) {
 }
 $http = $GLOBALS['injector']->
     getInstance('Horde_Core_Facotory_HttpClient')->
-    create($rpc_parmams);
+    create($rpc_params);
 try {
     switch ($testno) {
 
@@ -55,23 +55,41 @@ try {
 
     case 4:
         // @TODO: Need to instantiate a soap client.
-        // array('namespace' => 'urn:horde',
-        //  'username' => $user,
-        //  'password' => $pass)
-        // $soap = new SOAP_Client
+        $rpc_options = array(
+            'login' => $rpc_params['username'],
+            'password' => $rpc_params['password'],
+            'namespace' => 'urn:horde',
+            'timeout' => 5,
+            'allowRedirects' => true,
+            'maxRedirects' => 3,
+            'location' => Horde::url(rpc.php, true, -1),
+            'uri' => 'urn:horde',
+            'exceptions' => true,
+            'trace' => true,
+        );
+        $soap = new SOAP_Client(null, $rpc_options);
         $response = Horde_Rpc_Soap::request(Horde::url('rpc.php', true, -1),
                                             'tasks.listTasks', $soap, array());
         break;
 
     case 5:
 
-        // @TODO
-        // $soap = new SOAP_Client
+        $rpc_options = array(
+            'login' => $rpc_params['username'],
+            'password' => $rpc_params['password'],
+            'namespace' => 'urn:horde',
+            'timeout' => 5,
+            'allowRedirects' => true,
+            'maxRedirects' => 3,
+            'location' => Horde::url(rpc.php, true, -1),
+            'uri' => 'urn:horde',
+            'exceptions' => true,
+            'trace' => true,
+        );
+        $soap = new SOAP_Client(null, $rpc_options);
         $response = Horde_Rpc_Soap::request(Horde::url('rpc.php', true, -1),
                                             array_shift($argv), $soap, $argv);
-        //                                    array('namespace' => 'urn:horde',
-        //                                          'user' => $user,
-        //                                          'pass' => $pass));
+
         break;
 
     case 6:
