@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Release focus. A Horde_Release::FOCUS_* constant or an array of them
