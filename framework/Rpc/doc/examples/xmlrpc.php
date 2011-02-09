@@ -19,11 +19,12 @@ $rpc_options = array(
     'pass' => '',
 );
 
+$http_client = new Horde_Http_Client($rpc_options);
 $result = Horde_RPC::request(
     'xmlrpc',
     $GLOBALS['rpc_endpoint'],
     $GLOBALS['rpc_method'],
-    array(),
-    $GLOBALS['rpc_options']);
+    $GLOBALS['http_client'],
+    array());
 
 var_dump($result);

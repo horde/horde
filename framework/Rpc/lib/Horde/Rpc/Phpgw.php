@@ -107,59 +107,33 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
      *
      * This statically called method is actually the XMLRPC client.
      *
-     * @param string|Horde_Url $url  The path to the XMLRPC server on the
-     *                               called host.
-     * @param string $method         The method to call.
-     * @param array $params          A hash containing any necessary parameters
-     *                               for the method call.
-     * @param $options  Optional associative array of parameters which can be:
-     *                  - user:           Basic Auth username
-     *                  - pass:           Basic Auth password
-     *                  - proxy_host:     Proxy server host
-     *                  - proxy_port:     Proxy server port
-     *                  - proxy_user:     Proxy auth username
-     *                  - proxy_pass:     Proxy auth password
-     *                  - timeout:        Connection timeout in seconds.
-     *                  - allowRedirects: Whether to follow redirects or not
-     *                  - maxRedirects:   Max number of redirects to follow
+     * @param string|Horde_Url $url     The path to the XMLRPC server on the
+     *                                  called host.
+     * @param string $method             The method to call.
+     * @param Horde_Http_Client $client  The transport client
+     * @param array $params              A hash containing any necessary
+     *                                   parameters for the method call.
      *
      * @return mixed  The returned result from the method.
      * @throws Horde_Rpc_Exception
      */
-    public static function request($url, $method, $params = null, $options = array())
+    public static function request($url, $method, $client, $params = null)
     {
         $options['method'] = 'POST';
-        $language = isset($GLOBALS['language']) ? $GLOBALS['language'] :
-            (isset($_SERVER['LANG']) ? $_SERVER['LANG'] : '');
-
-        if (!isset($options['timeout'])) {
-            $options['timeout'] = 5;
-        }
-        if (!isset($options['allowRedirects'])) {
-            $options['allowRedirects'] = true;
-            $options['maxRedirects'] = 3;
-        }
-        if (!isset($options['proxy_host']) && !empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-            $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
-        }
-
-        $http = new HTTP_Request((string)$url, $options);
-        if (!empty($language)) {
-            $http->addHeader('Accept-Language', $language);
-        }
-        $http->addHeader('User-Agent', 'Horde RPC client');
-        $http->addHeader('Content-Type', 'text/xml');
-        $http->addRawPostData(xmlrpc_encode_request($method, $params));
-
-        $result = $http->sendRequest();
-        if (is_a($result, 'PEAR_Error')) {
+        $headers = array(
+            'User-Agent' => 'Horde RPC client',
+            'Content-Type', 'text/xml');
+        try {
+            $result = $client->post($url, xmlrpc_encode_request($method, $params), $headers);
+        } catch (Horde_Http_Client_Exception $e) {
             throw new Horde_Rpc_Exception($result);
-        } elseif ($http->getResponseCode() != 200) {
-            throw new Horde_Rpc_Exception(Horde_Rpc_Translation::t("Request couldn't be answered. Returned errorcode: ") . $http->getResponseCode());
-        } elseif (strpos($http->getResponseBody(), '<?xml') === false) {
-            throw new Horde_Rpc_Exception(Horde_Rpc_Translation::t("No valid XML data returned:") . "\n" . $http->getResponseBody());
+        }
+        if ($result->code != 200) {
+            throw new Horde_Rpc_Exception(Horde_Rpc_Translation::t("Request couldn't be answered. Returned errorcode: ") . $result->code);
+        } elseif (strpos($result->getBody(), '<?xml') === false) {
+            throw new Horde_Rpc_Exception(Horde_Rpc_Translation::t("No valid XML data returned:") . "\n" . $result->getBody());
         } else {
-            $response = @xmlrpc_decode(substr($http->getResponseBody(), strpos($http->getResponseBody(), '<?xml')));
+            $response = @xmlrpc_decode(substr($result->getBody(), strpos($result->getBody(), '<?xml')));
             if (is_array($response) && isset($response['faultString'])) {
                 throw new Horde_Rpc_Exception($response['faultString']);
             } elseif (is_array($response) && isset($response[0]) &&

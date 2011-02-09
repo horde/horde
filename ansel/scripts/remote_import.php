@@ -91,8 +91,8 @@ foreach ($opts as $opt) {
 /* Sanity checks */
 if (!empty($username) && !empty($password)) {
     $rpc_auth = array(
-        'user' => $username,
-        'pass' => $password);
+        'username' => $username,
+        'password' => $password);
 } else {
     $cli->fatal(_("You must specify a valid username and password."));
 }
@@ -154,7 +154,13 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
     if (!is_dir($dir)) {
         $cli->fatal(sprintf(_("\"%s\" is not a directory."), $dir));
     }
-
+    $rpc_params = $rpc_auth;
+    $language = isset($GLOBALS['language']) ? $GLOBALS['language'] :
+            (isset($_SERVER['LANG']) ? $_SERVER['LANG'] : '');
+    if (!empty($language)) {
+        $rpc_params['request.headers'] = array('Accept-Language' => $language);
+    }
+    $http = $GLOBALS['injector']->createInstance('Horde_Core_Factory_Http_Client')->create($rpc_params);
     /* Create a gallery or use an existing one? */
     if (!empty($gallery_id) || !empty($slug)) {
         /* Start with an existing gallery */
@@ -164,7 +170,7 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
             null,
             is_null($slug) ? null : array($slug),
         );
-        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
+        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
         $result = $result->result;
         if (empty($result)) {
             $cli->fatal(sprintf(_("Gallery %s not found."), (empty($slug) ? $gallery_id : $slug)));
@@ -184,7 +190,7 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
         $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
         $method = 'images.createGallery';
         $params = array(null, array('name' => $name), null, $parent);
-        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
+        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
         $gallery_id = $result->result;
         $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
     }
@@ -222,7 +228,7 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
             $cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
             $method = 'images.saveImage';
             $params = array(null, $gallery_id, $image, false, null, 'binhex', $slug, $compress);
-            $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
+            $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
             if (!($result instanceof stdClass)) {
                 $cli->fatal(sprintf(_("There was an unspecified error. The server returned: %s"), print_r($result, true)));
             }

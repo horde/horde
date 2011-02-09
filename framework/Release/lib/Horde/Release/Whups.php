@@ -27,6 +27,14 @@ class Horde_Release_Whups
     protected $_params;
 
     /**
+     * Http client
+     *
+     * @TODO: inject this
+     * @var Horde_Http_Client
+     */
+    protected $_http;
+
+    /**
      * Constructor.
      *
      * @param array $params  TODO
@@ -34,6 +42,9 @@ class Horde_Release_Whups
     public function __construct($params)
     {
         $this->_params = $params;
+        $options = array('user' => $this->_params['user'],
+                         'pass' => $this->_params['pass']);
+        $this->_http = new Horde_Http_Client($options);
     }
 
     /**
@@ -54,12 +65,10 @@ class Horde_Release_Whups
 
         $method = 'tickets.addVersion';
         $params = array($id, $version, $desc);
-        $options = array('user' => $this->_params['user'],
-                         'pass' => $this->_params['pass']);
-
-        $res = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $params, $options);
-        if ($res instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($res);
+        try {
+            $res = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $this->_http, $params);
+        } catch (Horde_Http_Client_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
     }
 
@@ -98,10 +107,8 @@ class Horde_Release_Whups
         return Horde_Rpc::request('jsonrpc',
                                   $this->_params['url'],
                                   'tickets.listQueues',
-                                  null,
-                                  array('user' => $this->_params['user'],
-                                        'pass' => $this->_params['pass']))
-            ->result;
+                                  $this->_http,
+                                  null)->result;
     }
 
 }

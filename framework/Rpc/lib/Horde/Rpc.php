@@ -11,10 +11,9 @@
  * $response = Horde_Rpc::request('xmlrpc',
  *                                'http://localhost:80/horde/rpc.php',
  *                                'contacts.search',
+ *                                $transport_client,
  *                                array(array('jan'), array('localsql'),
- *                                      array('name', 'email')),
- *                                array('user' => $GLOBALS['registry']->getAuth(),
- *                                      'pass' => $GLOBALS['registry']->getAuthCredential('password')));
+ *                                      array('name', 'email')));
  * </code>
  *
  * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
@@ -211,20 +210,21 @@ class Horde_Rpc
      * @param string|Horde_Url $url  The path to the RPC server on the called
      *                               host.
      * @param string $method         The method to call.
+     * @param mixed $client          An appropriate request client for the type
+     *                               of request. (Horde_Http_Request, SoapClient
+     *                               etc..)
      * @param array $params          A hash containing any necessary parameters
      *                               for the method call.
-     * @param $options               Associative array of parameters depending
-     *                               on the selected protocol driver.
      *
      * @return mixed  The returned result from the method
      * @throws Horde_Rpc_Exception
      */
-    public static function request($driver, $url, $method, $params = null, $options = array())
+    public static function request($driver, $url, $method, $client, $params = null)
     {
         $driver = Horde_String::ucfirst(basename($driver));
         $class = 'Horde_Rpc_' . $driver;
         if (class_exists($class)) {
-            return call_user_func(array($class, 'request'), $url, $method, $params, $options);
+            return call_user_func(array($class, 'request'), $url, $method, $params, $client);
         } else {
             throw new Horde_Rpc_Exception('Class definition of ' . $class . ' not found.');
         }

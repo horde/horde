@@ -107,15 +107,16 @@ function find_tickets($log_message) {
 }
 
 function post_comment($ticket, $log_message) {
-    $result = Horde_RPC::request(
-        'xmlrpc',
-        $GLOBALS['rpc_endpoint'],
-        $GLOBALS['rpc_method'],
-        array((int)$ticket, $log_message),
-        $GLOBALS['rpc_options']);
-
-    if (is_a($result, 'PEAR_Error')) {
-        abort($result->getMessage());
+    $http = new Horde_Http_Client($GLOBALS['rpc_options']);
+    try {
+        $result = Horde_RPC::request(
+            'xmlrpc',
+            $GLOBALS['rpc_endpoint'],
+            $GLOBALS['rpc_method'],
+            $http,
+            array((int)$ticket, $log_message));
+    } catch (Horde_Http_Client_Exception $e) {
+        abort($e->getMessage());
     }
 
     return true;

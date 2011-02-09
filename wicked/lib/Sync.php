@@ -57,7 +57,7 @@ abstract class Wicked_Sync {
      *
      * @param array $params  A hash containing connection parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
     }

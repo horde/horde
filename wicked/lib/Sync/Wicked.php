@@ -15,14 +15,23 @@
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
-class Wicked_Sync_Wicked extends Wicked_Sync {
-
+class Wicked_Sync_Wicked extends Wicked_Sync
+{
     /**
-     * Returns a list of available pages.
      *
-     * @return array  An array of all available pages.
+     * @var Horde_Http_Client
      */
     protected $_client;
+
+    public function __construct(array $params = array())
+    {
+        parent::__construct($params);
+        $this->_client = $GLOBALS['injector']->
+            getInstance('Horde_Core_Factory_HttpClient')->
+            create(array('user' => $this->_params['user'],
+                         'pass' => $this->_params['password'])
+        );
+    }
 
     /**
      * Returns a list of available pages.
@@ -110,18 +119,18 @@ class Wicked_Sync_Wicked extends Wicked_Sync {
      * @return mixed
      * @throws Wicked_Exception
      */
-    protected function _getData($method, $params = array())
+    protected function _getData($method, array $params = array())
     {
         try {
             return Horde_Rpc::request(
                 'xmlrpc',
                 $this->_params['url'],
                 $this->_params['prefix'] . '.' . $method,
-                $params,
-                array('user' => $this->_params['user'],
-                      'pass' => $this->_params['password']));
-        } catch (Horde_Exception $e) {
+                $this->_client,
+                $params);
+        } catch (Horde_Http_Client_Exception $e) {
             throw new Wicked_Exception($e);
         }
     }
+
 }

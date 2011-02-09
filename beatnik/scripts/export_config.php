@@ -5,7 +5,7 @@
  * NOTE You should change the creation section to swit your needs
  *
  * USE:
- *  php ./export_config.php --type=TYPE --username=USR --password=PASS --url=URL > hosts
+ *  php ./export_config.php --type=TYPE --username=USR --password=PASS --rpc=URL > hosts
  *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
@@ -80,12 +80,20 @@ foreach ($opts as $opt) {
     }
 }
 
-// We will fetch data from RPC
 if (!empty($rpc)) {
+    // We will fetch data from RPC
+    $http_params = array(
+        'user' => $username,
+        'pass' => $password
+    );
+    $language = isset($GLOBALS['language']) ? $GLOBALS['language'] :
+            (isset($_SERVER['LANG']) ? $_SERVER['LANG'] : '');
+    if (!empty($language)) {
+        $http_params['request.headers'] = array('Accept-Language' => $language);
+    }
+    $http = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create($http_params);
     try {
-        $domains = Horde_RPC::request('xmlrpc', $rpc, 'dns.getDomains', array(),
-                                      array('user' => $username,
-                                            'pass' => $password));
+        $domains = Horde_RPC::request('xmlrpc', $rpc, 'dns.getDomains', $http, array());
     } catch (Exception $e) {
         $cli->fatal($e);
     }
@@ -148,9 +156,8 @@ function _getRecords($domain)
         try {
         $result = Horde_RPC::request('xmlrpc', $GLOBALS['rpc'],
                                      'dns.getRecords',
-                                     array($domain),
-                                     array('user' => $GLOBALS['username'],
-                                     'pass' => $GLOBALS['password']));
+                                     $GLOBALS['http'],
+                                     array($domain));
         } catch (Exception $e) {
             $GLOBALS['cli']->fatal($e);
         }

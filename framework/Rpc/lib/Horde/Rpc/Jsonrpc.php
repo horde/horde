@@ -127,63 +127,32 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
      * @param string|Horde_Url $url  The path to the JSON-RPC server on the
      *                               called host.
      * @param string $method         The method to call.
+     * @param Horde_Http_Client $client
      * @param array $params          A hash containing any necessary parameters
      *                               for the method call.
-     * @param $options        Optional associative array of parameters which
-     *                        can be:
-     *                        - user:           Basic Auth username
-     *                        - pass:           Basic Auth password
-     *                        - proxy_host:     Proxy server host
-     *                        - proxy_port:     Proxy server port
-     *                        - proxy_user:     Proxy auth username
-     *                        - proxy_pass:     Proxy auth password
-     *                        - timeout:        Connection timeout in seconds.
-     *                        - allowRedirects: Whether to follow redirects or
-     *                                          not
-     *                        - maxRedirects:   Max number of redirects to
-     *                                          follow
      *
      * @return mixed  The returned result from the method.
      * @throws Horde_Rpc_Exception
      */
-    public static function request($url, $method, $params = null, $options = array())
+    public static function request($url, $method, $client, $params = null)
     {
-        $options['method'] = 'POST';
-        $language = isset($GLOBALS['language']) ? $GLOBALS['language'] :
-                    (isset($_SERVER['LANG']) ? $_SERVER['LANG'] : '');
-
-        if (!isset($options['timeout'])) {
-            $options['timeout'] = 5;
-        }
-        if (!isset($options['allowRedirects'])) {
-            $options['allowRedirects'] = true;
-            $options['maxRedirects'] = 3;
-        }
-        if (!isset($options['proxy_host']) &&
-            !empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-            $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
-        }
-
-        /*@TODO Use Horde_Http_Request */
-        $http = new HTTP_Request((string)$url, $options);
-        if (!empty($language)) {
-            $http->addHeader('Accept-Language', $language);
-        }
-        $http->addHeader('User-Agent', 'Horde RPC client');
-        $http->addHeader('Accept', 'application/json');
-        $http->addHeader('Content-Type', 'application/json');
+        $headers = array(
+            'User-Agent' => 'Horde RPC client',
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json');
 
         $data = array('version' => '1.1', 'method' => $method);
         if (!empty($params)) {
             $data['params'] = $params;
         }
-        $http->addRawPostData(Horde_Serialize::serialize($data, Horde_Serialize::JSON));
-
-        $result = $http->sendRequest();
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Rpc_Exception($result);
-        } elseif ($http->getResponseCode() == 500) {
-            $response = Horde_Serialize::unserialize($http->getResponseBody(), Horde_Serialize::JSON);
+        $data = Horde_Serialize::serialize($data, Horde_Serialize::JSON);
+        try {
+            $result = $client->post($url, $data, $headers);
+        } catch (Horde_Http_Client_Exception $e) {
+            throw new Horde_Rpc_Exception($e->getMessage());
+        }
+        if ($result->code == 500) {
+            $response = Horde_Serialize::unserialize($reult->getBody(), Horde_Serialize::JSON);
             if (is_a($response, 'stdClass') &&
                 isset($response->error) &&
                 is_a($response->error, 'stdClass') &&
@@ -198,11 +167,11 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
                 */
             }
             throw new Horde_Rpc_Exception($http->getResponseBody());
-        } elseif ($http->getResponseCode() != 200) {
-            throw new Horde_Rpc_Exception('Request couldn\'t be answered. Returned errorcode: "' . $http->getResponseCode());
+        } elseif ($result->code != 200) {
+            throw new Horde_Rpc_Exception('Request couldn\'t be answered. Returned errorcode: "' . $result->code);
         }
 
-        return Horde_Serialize::unserialize($http->getResponseBody(), Horde_Serialize::JSON);
+        return Horde_Serialize::unserialize($result->getBody(), Horde_Serialize::JSON);
     }
 
     /**
