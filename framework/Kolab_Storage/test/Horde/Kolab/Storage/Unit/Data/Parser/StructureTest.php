@@ -53,6 +53,14 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testFetchArrayValues()
+    {
+        $objects = $this->_getParser()->fetch('test', array(1,2,4));
+        foreach ($objects as $object) {
+            $this->assertType('array', $object);
+        }
+    }
+
     private function _getParser()
     {
         $fixture = dirname(__FILE__) . '/../../../fixtures/bodystructure.ser';
@@ -66,8 +74,12 @@ extends Horde_Kolab_Storage_TestCase
         $this->driver->expects($this->once())
             ->method('fetchStructure')
             ->will($this->returnValue($structures));
+        $this->format = $this->getMock('Horde_Kolab_Storage_Data_Format');
+        $this->format->expects($this->exactly(3))
+            ->method('parse')
+            ->will($this->returnValue(array()));
         return new Horde_Kolab_Storage_Data_Parser_Structure(
-            $this->driver
+            $this->driver, $this->format
         );
     }
 }

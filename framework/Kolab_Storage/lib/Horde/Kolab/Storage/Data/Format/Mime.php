@@ -1,7 +1,6 @@
 <?php
 /**
- * Defines a parser interface for converters that turn Kolab data objects into
- * arrays.
+ * Bridges a MIME message with Kolab format data parsing.
  *
  * PHP version 5
  *
@@ -13,9 +12,7 @@
  */
 
 /**
- * Defines a parser interface for converters that turn Kolab data objects into
- * arrays.
-er.
+ * Bridges a MIME message with Kolab format data parsing.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -28,16 +25,20 @@ er.
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-interface Horde_Kolab_Storage_Data_Parser
+class Horde_Kolab_Storage_Data_Format_Mime
+implements Horde_Kolab_Storage_Data_Format
 {
     /**
-     * Fetches the objects for the specified backend IDs.
+     * Parses the objects for the specified backend IDs.
      *
      * @param string $folder  The folder to access.
-     * @param array  $obids   The object backend IDs to fetch.
+     * @param array  $uid     The object backend ID.
+     * @param mixed  $data    The data that should get parsed.
      * @param array  $options Additional options for fetching.
      *
-     * @return array The parsed objects.
+     * @return array The parsed object.
      */
-    public function fetch($folder, $obids, $options = array());
+    public function parse($folder, $obid, $data, $options = array())
+    {
+    }
 }

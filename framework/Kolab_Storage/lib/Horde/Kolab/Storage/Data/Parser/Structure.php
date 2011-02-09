@@ -37,25 +37,77 @@ implements  Horde_Kolab_Storage_Data_Parser
     private $_driver;
 
     /**
+     * The bridge between the backend object and the format parser.
+     *
+     * @param Horde_Kolab_Storage_Data_Format
+     */
+    private $_format;
+
+    /**
      * Constructor
      *
-     * @param Horde_Kolab_Storage_Driver $driver The backend driver.
+     * @param Horde_Kolab_Storage_Driver      $driver The backend driver.
+     * @param Horde_Kolab_Storage_Data_Format $format The data object <-> format
+     *                                                bridge.
      */
     public function __construct(
-        Horde_Kolab_Storage_Driver $driver
+        Horde_Kolab_Storage_Driver $driver,
+        Horde_Kolab_Storage_Data_Format $format
     ) {
         $this->_driver = $driver;
+        $this->_format = $format;
     }
 
     /**
-     * Fetches the objects for the specified UIDs.
+     * Fetches the objects for the specified backend IDs.
      *
-     * @param string $folder The folder to access.
+     * @param string $folder  The folder to access.
+     * @param array  $obids   The object backend IDs to fetch.
+     * @param array  $options Additional options for fetching.
      *
      * @return array The parsed objects.
      */
-    public function fetch($folder, $uids, $options = array())
+    public function fetch($folder, $obids, $options = array())
     {
-        return $this->_driver->fetchStructure($folder, $uids);
+        $objects = array();
+        $structures = $this->_driver->fetchStructure($folder, $obids);
+        foreach ($structures as $obid => $structure) {
+            if (!isset($structure['structure'])) {
+                throw new Horde_Kolab_Storage_Exception(
+                    'Backend returned a structure without the expected "structure" element.'
+                );
+            }
+            $objects[$obid] = $this->_format->parse($folder, $obid, $structure['structure'], $options);
+            $this->_fetchAttachments($objects[$obid], $folder, $obid, $options);
+        }
+        return $objects;
+    }
+
+    /**
+     * Completes the given object with any required attachments.
+     *
+     * @param array  $object  The object to fetch attachments for.
+     * @param string $folder  The folder to access.
+     * @param array  $obid    The object backend ID.
+     * @param array  $options Additional options for fetching.
+     *
+     * @return NULL
+     */
+    private function _fetchAttachments(array &$object, $folder, $obid, $options = array())
+    {
+    }
+
+    /**
+     * Fetch the specified mime part.
+     *
+     * @param string $folder  The folder to access.
+     * @param string $obid    The backend ID to parse from.
+     * @param string $mime_id The ID of the part that should be fetched.
+     *
+     * @return resource A stream for the specified body part.
+     */
+    public function fetchPart($folder, $obid, $mime_id)
+    {
+        return $this->_driver->fetchBodypart($folder, $obid, $mime_id);
     }
 }
