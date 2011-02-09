@@ -4174,7 +4174,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 case 'FETCH':
                     // FETCH response - RFC 3501 [7.4.2]
-                    $this->_parseFetch($ob['token'][0], reset(array_slice($ob['token'], 2)));
+                    $rest = array_slice($ob['token'], 2);
+                    $this->_parseFetch($ob['token'][0], reset($rest));
                     break;
                 }
                 break;
