@@ -292,7 +292,7 @@
      </configsection>
     </case>
 
-    <case name="ipmap" desc="IP based authentication">
+    <case name="ipbasic" desc="IP based authentication">
      <configsection name="params">
       <configlist name="blocks" desc="A list of CIDR masks which are allowed
       access"/>
