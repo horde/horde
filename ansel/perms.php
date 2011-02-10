@@ -27,7 +27,7 @@ $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
     try {
-        $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('cid'));
+        $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('cid', 0));
         $form = 'edit.inc';
         $perm = $share->getPermission();
     } catch (Horde_Exception_NotFound $e) {
