@@ -34,7 +34,6 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * <pre>
      * 'imp_img_view' - (string) One of the following:
      *   'data' - Output the image directly.
-     *   'load_convert' - TODO
      *   'view_convert' - TODO
      *   'view_thumbnail' - TODO
      * </pre>
@@ -59,15 +58,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             /* Create the thumbnail and display. */
             return $this->_viewConvert(true);
 
-        case 'load_convert':
-            /* The browser can display the image type directly - output the JS
-             * code to render the auto resize popup image window. */
-            return $this->_popupImageWindow();
-
         default:
-            return $GLOBALS['browser']->getFeature('dom')
-                ? $this->_popupImageWindow()
-                : parent::_render();
+            return parent::_render();
         }
     }
 
@@ -113,7 +105,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             $img = $this->_getHordeImageOb(false);
             if ($img &&
                 $GLOBALS['browser']->isViewable($img->getContentType())) {
-                $convert_link = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'load_convert')));
+                $convert_link = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'view_convert')));
                 $status[] = sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link);
             }
         }
@@ -177,47 +169,6 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     protected function _renderRaw()
     {
         return parent::_render();
-    }
-
-    /**
-     * Generate the HTML output for the JS auto-resize view window.
-     *
-     * @return string  The HTML output.
-     */
-    protected function _popupImageWindow()
-    {
-        $loading = _("Loading...");
-        $self_url = IMP::selfUrl()->add(array('actionID' => 'view_attach', 'imp_img_view' => ((Horde_Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
-        $title = $this->_mimepart->getName(true);
-
-        $str = <<<EOD
-<html>
-<head>
-<title>$title</title>
-<style type="text/css"><!-- body { margin:0px; padding:0px; } --></style>
-<script type="text/javascript">
-function resizeWindow()
-{
-    var h, img = document.getElementById('disp_image'), w;
-    document.getElementById('splash').style.display = 'none';
-    img.style.display = 'block';
-    window.moveTo(0, 0);
-    h = img.height - (self.innerHeight ? self.innerHeight : (document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight));
-    w = img.width - (self.innerWidth ? self.innerWidth : (document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth));
-    window.resizeBy(w, h);
-    self.focus();
-}
-</script></head>
-<body onload="resizeWindow();"><span id="splash" style="color:gray;font-family:sans-serif;padding:2px;">$loading</span><img id="disp_image" style="display:none;" src="$self_url" /></body></html>
-EOD;
-
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $str,
-                'status' => array(),
-                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
-            )
-        );
     }
 
     /**
