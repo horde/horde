@@ -27,10 +27,12 @@ $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
-    $share = &$trean_shares->getFolder(Horde_Util::getFormData('cid'));
-    if (is_a($share, 'PEAR_Error')) {
+    try {
+        $share = &$trean_shares->getFolder(Horde_Util::getFormData('cid', 0));
+    } catch (Horde_Share_Exception $e) {
         $notification->push($share, 'horde.error');
-    } elseif (Horde_Auth::getAuth() != $share->get('owner')) {
+    }
+    if (Horde_Auth::getAuth() != $share->get('owner')) {
         exit('permission denied');
     }
     $form = 'edit.inc';

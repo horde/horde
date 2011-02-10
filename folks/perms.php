@@ -20,7 +20,7 @@ $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
     try {
-        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
+        $share = $shares->getShareById(Horde_Util::getFormData('cid', 0));
         $perm = $share->getPermission();
     } catch (Horde_Exception_NotFound $e) {
         if (($category = Horde_Util::getFormData('share')) !== null) {
