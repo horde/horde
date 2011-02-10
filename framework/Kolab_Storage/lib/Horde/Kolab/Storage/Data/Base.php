@@ -112,50 +112,12 @@ implements Horde_Kolab_Storage_Data
     /**
      * Report the status of this folder.
      *
-     * @return array An array listing the validity ID and the next IMAP ID.
+     * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
+     *                                          detecting folder changes.
      */
-    public function getStatus()
+    public function getStamp()
     {
-        if (!method_exists($this->_driver, 'status')) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The backend does not support the "status" method!'
-            );
-        }
-        return $this->_driver->status($this->_folder->getPath());
-    }
-
-    /**
-     * Return the UIDs of the messages present in this folder.
-     *
-     * @return array An array of UIDs.
-     */
-    public function getUids()
-    {
-        if (!method_exists($this->_driver, 'getUids')) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The backend does not support the "getUids" method!'
-            );
-        }
-        return $this->_driver->getUids($this->_folder->getPath());
-    }
-
-    /**
-     * Retrieves the message structure for the given UIDs.
-     *
-     * @param array $uids The message UIDs.
-     *
-     * @return @TODO
-     */
-    public function fetchStructure($uids)
-    {
-        if (!method_exists($this->_driver, 'fetchStructure')) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The backend does not support the "fetchStructure" method!'
-            );
-        }
-        return $this->_driver->fetchStructure(
-            $this->_folder->getPath(), $uids
-        );
+        return $this->_driver->getStamp($this->_folder->getPath());
     }
 
     /**
@@ -166,7 +128,7 @@ implements Horde_Kolab_Storage_Data
      *
      * @return @TODO
      */
-    public function fetchBodypart($uid, $id)
+    public function fetchPart($uid, $id)
     {
         if (!method_exists($this->_driver, 'fetchBodypart')) {
             throw new Horde_Kolab_Storage_Exception(

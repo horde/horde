@@ -212,6 +212,16 @@ interface Horde_Kolab_Storage_Driver
 
     /** Data functionality */
 
+    /**
+     * Returns a stamp for the current folder status. This stamp can be used to
+     * identify changes in the folder data.
+     *
+     * @param string $folder Return the stamp for this folder.
+     *
+     * @return Horde_Kolab_Storage_Folder_Stamp A stamp indicating the current
+     *                                          folder status.
+     */
+    public function getStamp($folder);
 
 
 

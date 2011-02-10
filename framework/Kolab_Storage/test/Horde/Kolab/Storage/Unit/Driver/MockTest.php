@@ -514,4 +514,12 @@ extends Horde_Kolab_Storage_TestCase
         $mock->setParser($parser);
         $this->assertSame($parser, $mock->getParser());
     }
+
+    public function testGetStamp()
+    {
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Folder_Stamp',
+            $this->getMessageMock()->getStamp('INBOX/WithDeleted')
+        );
+    }
 }

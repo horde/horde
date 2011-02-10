@@ -32,7 +32,7 @@
   <active>yes</active>
  </lead>
  <date>2011-02-09</date>
- <time>14:46:59</time>
+ <time>22:38:42</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -126,8 +126,12 @@
          <file name="Fixed.php" role="php" />
          <file name="Imap.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Namespace -->
+        <dir name="Stamp">
+         <file name="Uids.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Stamp -->
         <file name="Base.php" role="php" />
         <file name="Namespace.php" role="php" />
+        <file name="Stamp.php" role="php" />
         <file name="Type.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
        <dir name="List">
@@ -439,7 +443,7 @@
       <dir name="Storage">
        <dir name="fixtures">
         <file name="bodystructure.ser" role="test" />
-        <file name="event_umlaut.xml" role="test" />
+        <file name="event.xml.qp" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/fixtures -->
        <dir name="Server">
         <file name="DriverTest.php" role="test" />
@@ -629,6 +633,7 @@
    <install as="Horde/Kolab/Storage/Exception/Pear.php" name="lib/Horde/Kolab/Storage/Exception/Pear.php" />
    <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace.php" name="lib/Horde/Kolab/Storage/Folder/Namespace.php" />
+   <install as="Horde/Kolab/Storage/Folder/Stamp.php" name="lib/Horde/Kolab/Storage/Folder/Stamp.php" />
    <install as="Horde/Kolab/Storage/Folder/Type.php" name="lib/Horde/Kolab/Storage/Folder/Type.php" />
    <install as="Horde/Kolab/Storage/Folder/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Base.php" />
    <install as="Horde/Kolab/Storage/Folder/Decorator/Trigger.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php" />
@@ -640,6 +645,7 @@
    <install as="Horde/Kolab/Storage/Folder/Namespace/Element/Personal.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/Personal.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/Shared.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/SharedWithPrefix.php" />
+   <install as="Horde/Kolab/Storage/Folder/Stamp/Uids.php" name="lib/Horde/Kolab/Storage/Folder/Stamp/Uids.php" />
    <install as="Horde/Kolab/Storage/List/Base.php" name="lib/Horde/Kolab/Storage/List/Base.php" />
    <install as="Horde/Kolab/Storage/List/Query.php" name="lib/Horde/Kolab/Storage/List/Query.php" />
    <install as="Horde/Kolab/Storage/List/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/List/Decorator/Cache.php" />
@@ -750,7 +756,7 @@
    <install as="Horde/Kolab/Storage/TestCase.php" name="test/Horde/Kolab/Storage/TestCase.php" />
    <install as="Horde/Kolab/Storage/TriggerTest.php" name="test/Horde/Kolab/Storage/TriggerTest.php" />
    <install as="Horde/Kolab/Storage/fixtures/bodystructure.ser" name="test/Horde/Kolab/Storage/fixtures/bodystructure.ser" />
-   <install as="Horde/Kolab/Storage/fixtures/event_umlaut.xml" name="test/Horde/Kolab/Storage/fixtures/event_umlaut.xml" />
+   <install as="Horde/Kolab/Storage/fixtures/event.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.xml.qp" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
    <install as="Horde/Kolab/Storage/Stub/FactoryQuery.php" name="test/Horde/Kolab/Storage/Stub/FactoryQuery.php" />
    <install as="Horde/Kolab/Storage/Unit/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/BaseTest.php" />

@@ -38,7 +38,7 @@ implements Horde_Kolab_Cli_Module
         return Horde_Kolab_Cli_Translation::t("  data - Handle Kolab data (the default action is \"info\"). PATH refers to the path of the folder that holds the data and the optional TYPE argument indicates which data type should be read. This is usually already defined by the folder setting.
 
   - info      PATH  : Display general information.
-  - status    PATH  : Display the folder status.
+  - stamp     PATH  : Display the folder status information.
 
 
 ");
@@ -133,33 +133,14 @@ implements Horde_Kolab_Cli_Module
         switch ($action) {
         case 'info':
             break;
-        case 'status':
-            $data = $world['storage']->getData($folder_name);
-            $status = $data->getStatus();
-            $pad = max(array_map('strlen', array_keys($status))) + 2;
-            foreach ($status as $key => $value) {
-                $cli->writeln(Horde_String::pad($key . ':', $pad) . $value);
-            }
-            break;
-        case 'uids':
-            $data = $world['storage']->getData($folder_name);
-            $uids = $data->getUids();
-            foreach ($uids as $uid) {
-                $cli->writeln($uid);
-            }
-            break;
-        case 'structure':
-            $data = $world['storage']->getData($folder_name);
-            $messages = $data->fetchStructure(explode(',', $arguments[3]));
-            foreach ($messages as $message) {
-                $this->_messageOutput(
-                    $cli, $message['uid'], $message['structure']->toString()
-                );
-            }
+        case 'stamp':
+            $cli->writeln(
+                (string) $world['storage']->getData($folder_name)->getStamp()
+            );
             break;
         case 'part':
             $data = $world['storage']->getData($folder_name);
-            $part = $data->fetchBodypart($arguments[3], $arguments[4]);
+            $part = $data->fetchPart($arguments[3], $arguments[4]);
             rewind($part[$arguments[3]]['bodypart'][$arguments[4]]);
             $cli->writeln(
                 stream_get_contents(

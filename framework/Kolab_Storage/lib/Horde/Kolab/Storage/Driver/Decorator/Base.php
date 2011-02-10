@@ -282,48 +282,17 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
-     * Does the given folder exist?
+     * Returns a stamp for the current folder status. This stamp can be used to
+     * identify changes in the folder data.
      *
-     * @param string $folder The folder to check.
+     * @param string $folder Return the stamp for this folder.
      *
-     * @return boolean True in case the folder exists, false otherwise.
+     * @return Horde_Kolab_Storage_Folder_Stamp A stamp indicating the current
+     *                                          folder status.
      */
-    public function exists($folder)
+    public function getStamp($folder)
     {
-    }
-
-    /**
-     * Opens the given folder.
-     *
-     * @param string $folder  The folder to open
-     *
-     * @return mixed  True in case the folder was opened successfully, a PEAR
-     *                error otherwise.
-     */
-    public function select($folder)
-    {
-    }
-
-    /**
-     * Returns the status of the current folder.
-     *
-     * @param string $folder Check the status of this folder.
-     *
-     * @return array  An array that contains 'uidvalidity' and 'uidnext'.
-     */
-    public function status($folder)
-    {
-    }
-
-    /**
-     * Returns the message ids of the messages in this folder.
-     *
-     * @param string $folder Check the status of this folder.
-     *
-     * @return array  The message ids.
-     */
-    public function getUids($folder)
-    {
+        return $this->_driver->getStamp();
     }
 
     /**

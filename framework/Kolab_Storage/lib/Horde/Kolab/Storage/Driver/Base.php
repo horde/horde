@@ -286,6 +286,23 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Returns a stamp for the current folder status. This stamp can be used to
+     * identify changes in the folder data.
+     *
+     * @param string $folder Return the stamp for this folder.
+     *
+     * @return Horde_Kolab_Storage_Folder_Stamp A stamp indicating the current
+     *                                          folder status.
+     */
+    public function getStamp($folder)
+    {
+        return new Horde_Kolab_Storage_Folder_Stamp_Uids(
+            $this->status($folder),
+            $this->getUids($folder)
+        );
+    }
+
+    /**
      * Split a name for the METADATA extension into the correct syntax for the
      * older ANNOTATEMORE version.
      *

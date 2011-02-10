@@ -265,9 +265,9 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @return NULL
      */
-    public function select($folder)
+    public function select($folder, $mode = Horde_Imap_Client::OPEN_AUTO)
     {
-        $this->getBackend()->openMailbox($folder, Horde_Imap_Client::OPEN_AUTO);
+        $this->getBackend()->openMailbox($folder, $mode);
     }
 
     /**
