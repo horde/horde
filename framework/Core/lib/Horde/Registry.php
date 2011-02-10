@@ -1833,7 +1833,10 @@ class Horde_Registry
             $options['reason'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->getError();
         }
 
-        $params = array('url' => Horde::selfUrl(true, true, true));
+        $params = array();
+        if ($options['reason'] != Horde_Auth::REASON_LOGOUT) {
+            $params['url'] = Horde::selfUrl(true, true, true);
+        }
 
         if (empty($options['app']) ||
             ($options['app'] == 'horde') ||
