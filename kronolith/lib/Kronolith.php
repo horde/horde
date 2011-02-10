@@ -3021,7 +3021,8 @@ class Kronolith
      */
     static public function hasApiPermission($api, $perm = Horde_Perms::READ)
     {
-        return $GLOBALS['registry']->hasInterface($api) &&
-            $GLOBALS['registry']->hasPermission($api, $perm);
+        $app = $GLOBALS['registry']->hasInterface($api);
+        return ($app && $GLOBALS['registry']->hasPermission($app, $perm));
     }
+
 }
