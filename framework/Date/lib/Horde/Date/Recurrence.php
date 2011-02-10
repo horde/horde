@@ -337,7 +337,7 @@ class Horde_Date_Recurrence
     /**
      * Finds the next recurrence of this event that's after $afterDate.
      *
-     * @param Horde_Date $after  Return events after this date.
+     * @param Horde_Date|string $after  Return events after this date.
      *
      * @return Horde_Date|boolean  The date of the next recurrence or false
      *                             if the event does not recur after
@@ -345,10 +345,14 @@ class Horde_Date_Recurrence
      */
     public function nextRecurrence($after)
     {
-        if (! $after instanceof Horde_Date) {
+        if (!($after instanceof Horde_Date)) {
             $after = new Horde_Date($after);
+        } else {
+            $after = clone($after);
         }
 
+        // Make sure $after and $this->start are in the same TZ
+        $after->setTimeZone($this->start->timezone);
         if ($this->start->compareDateTime($after) >= 0) {
             return clone $this->start;
         }
