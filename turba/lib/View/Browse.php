@@ -461,7 +461,7 @@ class Turba_View_Browse
                     // Show List Members.
                     try {
                         $results = $list->listMembers($sortorder);
-                        if (count($results) != count($list)) {
+                        if (count($results) != $list->count()) {
                             $count = count($list) - count($results);
                             $notification->push(
                                 sprintf(ngettext("There is %d contact in this list that is not viewable to you",
