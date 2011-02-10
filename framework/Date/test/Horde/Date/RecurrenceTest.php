@@ -977,7 +977,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
     public function testNextRecurrenceDifferentTimezones()
     {
         // Every 2 week recurring event that starts at 1am localtime
-        date_default_timezone_set($this->_oldTimezone);
+        date_default_timezone_set('America/New_York');
         $rrule = new Horde_Date_Recurrence('2009-12-30 00:00:00');
         $rrule->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
         $rrule->setRecurOnDay(Horde_Date::MASK_WEDNESDAY);
