@@ -14,8 +14,8 @@
  */
 class IMP_Block_Newmail extends Horde_Block
 {
-    protected $_app = 'imp';
-
+    /**
+     */
     protected function _content()
     {
         /* Filter on INBOX display, if requested. */

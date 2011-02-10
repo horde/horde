@@ -63,7 +63,7 @@ class Horde_Block_Collection
      */
     public function __construct($apps = array())
     {
-        global $session;
+        global $registry, $session;
 
         sort($apps);
         $signature = hash('md5', serialize($apps));
@@ -72,53 +72,19 @@ class Horde_Block_Collection
             return;
         }
 
-        foreach ($GLOBALS['registry']->listApps() as $app) {
-            if (count($apps) && !in_array($app, $apps)) {
-                continue;
-            }
+        foreach (array_diff($registry->listApps(), $apps) as $app) {
+            $drivers = $registry->getAppDrivers($app, 'Block');
 
-            $blockdir = $GLOBALS['registry']->get('fileroot', $app) . '/lib/Block';
-            if (file_exists($blockdir)) {
-                try {
-                    $pushed = $GLOBALS['registry']->pushApp($app);
-                } catch (Horde_Exception $e) {
-                    continue;
-                }
+            foreach ($drivers as $val) {
+                $tmp = new $val();
 
-                $d = dir($blockdir);
-                while (($file = $d->read()) !== false) {
-                    if (substr($file, -4) != '.php') {
-                        continue;
-                    }
-
-                    $block_name = null;
-
-                    if (is_readable($blockdir . '/' . $file)) {
-                        include_once $blockdir . '/' . $file;
-                    }
-
-                    if (!empty($block_name)) {
-                        $this->_blocks[$app][substr($file, 0, -4)]['name'] = $block_name;
-                    }
-                }
-                $d->close();
-
-                if ($pushed) {
-                    $GLOBALS['registry']->popApp($app);
+                if ($name = $tmp->getName()) {
+                    $this->_blocks[$app][$val]['name'] = $name;
                 }
             }
         }
 
-        uksort($this->_blocks, array($this, 'sortBlockCollection'));
         $session->set('horde', 'blocks/' . $signature, $this->_blocks);
-    }
-
-    /**
-     * Block sorting helper
-     */
-    public function sortBlockCollection($a, $b)
-    {
-        return strcasecmp($GLOBALS['registry']->get('name', $a), $GLOBALS['registry']->get('name', $b));
     }
 
     /**
@@ -136,17 +102,18 @@ class Horde_Block_Collection
              !$registry->isAdmin())) {
             throw new Horde_Exception(sprintf('%s is not activated.', $GLOBALS['registry']->get('name', $app)));
         }
-        $path = $registry->get('fileroot', $app) . '/lib/Block/' . $name . '.php';
-        if (is_readable($path)) {
-            include_once $path;
-        }
-        $class = 'Horde_Block_' . $app . '_' . $name;
+
+        $pushed = $registry->pushApp($app);
+
+        $class = $app . '_Block_' . $name;
         if (!class_exists($class)) {
+            if ($pushed) {
+                $registry->popApp($app);
+            }
             throw new Horde_Exception(sprintf('%s not found.', $class));
         }
 
-        $pushed = $registry->pushApp($app);
-        $ob = new $class($params, $row, $col);
+        $ob = new $class($app, $params, $row, $col);
         if ($pushed) {
             $registry->popApp($app);
         }

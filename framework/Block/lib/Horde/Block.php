@@ -53,13 +53,17 @@ class Horde_Block
     /**
      * Constructor.
      *
+     * @param string $app            The application name.
      * @param array|boolean $params  Any parameters the block needs. If false,
      *                               the default parameter will be used.
      * @param integer $row           The block row.
      * @param integer $col           The block column.
      */
-    public function __construct($params = array(), $row = null, $col = null)
+    public function __construct($app, $params = array(), $row = null,
+                                $col = null)
     {
+        $this->_app = $app;
+
         // @todo: we can't simply merge the default values and stored values
         // because empty parameter values are not stored at all, so they would
         // always be overwritten by the defaults.
@@ -83,6 +87,16 @@ class Horde_Block
     public function getApp()
     {
         return $this->_app;
+    }
+
+    /**
+     * Return the block name.
+     *
+     * @return string  The block name.
+     */
+    public function getName()
+    {
+        return '';
     }
 
     /**

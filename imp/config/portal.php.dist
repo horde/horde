@@ -23,20 +23,20 @@ $dimp_block_list = array();
 
 // Show a folder summary of the mailbox.  All polled folders are displayed.
 $dimp_block_list[_("Folder Summary")] = array(
-    'ob' => new IMP_Block_Foldersummary(array())
+    'ob' => new IMP_Block_Foldersummary('imp', array())
 );
 
 // Alternate DIMP block - shows details of 'msgs_shown' number of the most
 // recent unseen messages.
 //$dimp_block_list[_("Newest Unseen Messages")] = array(
-//    'ob' => new IMP_Block_Newmail(array('msgs_shown' => 3))
+//    'ob' => new IMP_Block_Newmail('imp', array('msgs_shown' => 3))
 //);
 
 // Show a contact search box.
 // Must include 'turba' in $conf['menu']['apps']
 try {
     $dimp_block_list[$collection->getName('turba', 'minisearch')] = array(
-        'ob' => $collection->getBlock('turba', 'minisearch', array())
+        'ob' => $collection->getBlock('turba', 'Minisearch', array())
     );
 } catch (Horde_Exception $e) {}
 
@@ -44,6 +44,6 @@ try {
     // Display calendar events
     // Must include 'kronolith' in $conf['menu']['apps']
     $dimp_block_list[$collection->getName('kronolith', 'summary')] = array(
-        'ob' => $collection->getBlock('kronolith', 'summary', array())
+        'ob' => $collection->getBlock('kronolith', 'Summary', array())
     );
 } catch (Horde_Exception $e) {}

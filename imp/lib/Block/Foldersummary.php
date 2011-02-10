@@ -15,8 +15,8 @@
 
 class IMP_Block_Foldersummary extends Horde_Block
 {
-    protected $_app = 'imp';
-
+    /**
+     */
     protected function _content()
     {
         $imp_ui = new IMP_Ui_Block();
