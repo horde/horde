@@ -171,8 +171,9 @@ var PrettyAutocompleter = Class.create({
     {
         var value = $F(this.p.trigger).replace(/^,/, '').strip();
         if (value.length) {
-            this.addNewItemNode(value);
-            this.p.onAdd(value);
+            if (this.addNewItemNode(value)) {
+                this.p.onAdd(value);
+            }
         }
     },
 
