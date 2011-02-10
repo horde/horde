@@ -2173,7 +2173,7 @@ class Horde_Registry
         $errApps = array();
 
         foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
-            if ($this->hasMethod('removeUserData', $app)) {
+            if (!$this->hasMethod('removeUserData', $app)) {
                 continue;
             }
             try {
