@@ -53,9 +53,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
+     *
+     * @param Horde_Date $date    The date to list alarms for
+     * @param boolean $fullevent  Return the full event objects?
+     *
+     * @return array  An array of event ids, or Kronolith_Event objects
      * @throws Kronolith_Exception
      */
-    public function listAlarms($date, $fullevent = false)
+    public function listAlarms(Horde_Date $date, $fullevent = false)
     {
         $allevents = $this->listEvents($date, null, false, true);
         $events = array();
@@ -216,7 +221,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * Lists all events in the time range, optionally restricting results to
      * only events with alarms.
      *
-     * @param Horde_Date $startDate     Start of range date object.
+     * @param Horde_Date $startDate      Start of range date object.
      * @param Horde_Date $endDate        End of range data object.
      * @param boolean $showRecurrence    Return every instance of a recurring
      *                                   event? If false, will only return
@@ -234,7 +239,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @return array  Events in the given time range.
      * @throws Kronolith_Exception
      */
-    public function listEvents($startDate = null, $endDate = null,
+    public function listEvents(Horde_Date $startDate = null,
+                               Horde_Date $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
                                $json = false, $coverDates = true,
                                $hideExceptions = false, $fetchTags = false)
@@ -286,10 +292,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @return array  Events in the given time range satisfying the given
      *                conditions.
+     * @throws Kronolith_Exception
      */
-    private function _listEventsConditional($startInterval = null,
-                                            $endInterval = null,
-                                            $conditions = '', $vals = array())
+    private function _listEventsConditional(Horde_Date $startInterval = null,
+                                            Horde_Date $endInterval = null,
+                                            $conditions = '', array $vals = array())
     {
         if ($this->getParam('utc')) {
             if (!is_null($startInterval)) {
@@ -436,16 +443,17 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     /**
      * Get an event or events with the given UID value.
      *
-     * @param string $uid The UID to match
-     * @param array $calendars A restricted array of calendar ids to search
-     * @param boolean $getAll Return all matching events? If this is false,
-     * an error will be returned if more than one event is found.
+     * @param string $uid       The UID to match
+     * @param array $calendars  A restricted array of calendar ids to search
+     * @param boolean $getAll   Return all matching events? If this is false,
+     *                          an error will be returned if more than one event
+     *                          is found.
      *
      * @return Kronolith_Event
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function getByUID($uid, $calendars = null, $getAll = false)
+    public function getByUID($uid, array $calendars = null, $getAll = false)
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
@@ -642,7 +650,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @param Kronolith_Event $event  The event to update
      */
-    protected function _updateTags($event)
+    protected function _updateTags(Kronolith_Event $event)
     {
         /* Update tags */
         Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
@@ -661,7 +669,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @param Kronolith_Event $event  The event to save tags to storage for.
      */
-    protected function _addTags($event)
+    protected function _addTags(Kronolith_Event $event)
     {
         /* Deal with any tags */
         $tagger = Kronolith::getTagger();
@@ -681,8 +689,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     /**
      * Wrapper for sending notifications, so that we can overwrite this action
      * in Kronolith_Driver_Resource.
+     *
+     * @param Kronolith_Event $event
+     * @param string $action
      */
-    protected function _handleNotifications($event, $action)
+    protected function _handleNotifications(Kronolith_Event $event, $action)
     {
         Kronolith::sendNotification($event, $action);
     }
@@ -836,7 +847,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @return array  Event UIDs filtered by calendar IDs.
      * @throws Kronolith_Exception
      */
-    public function filterEventsByCalendar($uids, $calendar)
+    public function filterEventsByCalendar(array $uids, array $calendar)
     {
         $sql = 'SELECT event_uid FROM kronolith_events WHERE calendar_id IN (' . str_repeat('?, ', count($calendar) - 1) . '?) '
             . 'AND event_uid IN (' . str_repeat('?,', count($uids) - 1) . '?)';
