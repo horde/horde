@@ -273,16 +273,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         if ($allapps) {
-            foreach ($registry->listAllApps() as $app) {
-                if ($registry->hasAppMethod($app, 'removeUserData')) {
-                    try {
-                        $registry->callAppMethod($app, 'removeUserData', array('args' => array($user)));
-                    } catch (Horde_Exception $e) {
-                        Horde::logMessage($e, 'ERR');
-                        $errors[] = $app;
-                    }
-                }
-            }
+            $registry->removeUserData($user);
         }
 
         if ($haveError) {

@@ -19,9 +19,7 @@ $prefs->setValue('language', $session->get('horde', 'language'));
 
 /* Update apps language */
 foreach ($registry->listApps() as $app) {
-    if ($registry->hasAppMethod($app, 'changeLanguage')) {
-        $registry->callAppMethod($app, 'changeLanguage');
-    }
+    $registry->callAppMethod($app, 'changeLanguage');
 }
 
 /* Redirect to the url or login page if none given. */

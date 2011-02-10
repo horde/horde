@@ -20,16 +20,10 @@ require_once dirname(__FILE__) . '/core.php';
 class Horde_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = '4.0-git';
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  TODO
      */
     public function perms()
     {
@@ -42,13 +36,6 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns the specified permission for the given app permission.
-     *
-     * @param string $permission  The permission to check.
-     * @param mixed $allowed      The allowed permissions.
-     * @param array $opts         Additional options (NONE).
-     *
-     * @return mixed  The value of the specified permission.
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
@@ -62,9 +49,6 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -72,9 +56,6 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsInit($ui)
     {
@@ -82,9 +63,6 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsGroup($ui)
     {
@@ -92,12 +70,6 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the options page.
      */
     public function prefsSpecial($ui, $item)
     {
@@ -105,12 +77,6 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
      */
     public function prefsSpecialUpdate($ui, $item)
     {
@@ -118,9 +84,6 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
-     * Called when preferences are changed.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsCallback($ui)
     {

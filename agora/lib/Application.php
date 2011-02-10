@@ -37,16 +37,10 @@ require_once HORDE_BASE . '/lib/core.php';
 class Agora_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (1.0-git)';
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -78,9 +72,6 @@ class Agora_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -118,9 +109,6 @@ class Agora_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsInit($ui)
     {
@@ -131,9 +119,6 @@ class Agora_Application extends Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsGroup($ui)
     {
@@ -154,12 +139,6 @@ class Agora_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the prefs page.
      */
     public function prefsSpecial($ui, $item)
     {

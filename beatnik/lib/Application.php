@@ -79,9 +79,6 @@ class Beatnik_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -102,9 +99,6 @@ class Beatnik_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {

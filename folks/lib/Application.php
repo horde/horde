@@ -9,11 +9,23 @@
  */
 class Folks_Application extends Horde_Registry_Application
 {
+    /**
+     */
+    public $auth = array(
+        'add',
+        'authenticate',
+        'exists',
+        'list',
+        'remove',
+        'resetpassword',
+        'transparent'
+    );
+
+    /**
+     */
     public $version = 'H4 (0.1-git)';
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      * - $linkTags: <link> tags for common-header.inc.
      */
@@ -33,9 +45,6 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -43,12 +52,7 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Authenticate a givern user
-     *
-     * @param string $userID       Username
-     * @param array  $credentials  Array of criedentials (password requied)
-     *
-     * @return boolean  Whether Folks authentication was successful.
+     * @param array $credentials  Array of criedentials (password requied)
      */
     public function authAuthenticate($userID, $credentials)
     {
@@ -61,12 +65,6 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Tries to transparently authenticate
-     *
-     * @param Horde_Auth_Application $auth_ob  The authentication object.
-     *
-     * @return boolean  Whether transparent login is supported.
-     * @throws Horde_Auth_Exception
      */
     public function authTransparent($auth_ob)
     {
@@ -88,11 +86,6 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Check if a user exists
-     *
-     * @param string $userID       Username
-     *
-     * @return boolean  True if user exists
      */
     public function authUserExists($userId)
     {
@@ -102,9 +95,6 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Lists all users in the system.
-     *
-     * @return array  The array of userIds, or a PEAR_Error object on failure.
      */
     public function authUserList()
     {
@@ -119,12 +109,6 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Adds a set of authentication credentials.
-     *
-     * @param string $userId  The userId to add.
-     * @param array $credentials  The credentials to use.
-     *
-     * @throws Horde_Exception
      */
     public function authAddUser($userId, $credentials)
     {
@@ -137,13 +121,6 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Reset a user's password. Used for example when the user does not
-     * remember the existing password.
-     *
-     * @param string $userId  The user id for which to reset the password.
-     *
-     * @return string  The new password on success.
-     * @throws Horde_Auth_Exception
      */
     public function authResetPassword($userId)
     {
@@ -161,11 +138,6 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Deletes a set of authentication credentials.
-     *
-     * @param string $userId  The userId to delete.
-     *
-     * @return boolean  True on success or a PEAR_Error object on failure.
      */
     public function authRemoveUser($userId)
     {
@@ -175,11 +147,6 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * Deletes a user and its data
-     *
-     * @param string $userId  The userId to delete.
-     *
-     * @return boolean  True on success or a PEAR_Error object on failure.
      */
     public function removeUserData($user = null)
     {

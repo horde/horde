@@ -36,9 +36,6 @@ require_once HORDE_BASE . '/lib/core.php';
 class Shout_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (1.0-git)';
 
@@ -68,9 +65,6 @@ class Shout_Application extends Horde_Registry_Application
     public $vfs = null;
 
     /**
-     * Initialization function.
-     *
-     * Global variables defined:
      */
     protected function _init()
     {
@@ -116,7 +110,6 @@ class Shout_Application extends Horde_Registry_Application
     }
 
     /**
-     * TODO
      */
     public function perms()
     {

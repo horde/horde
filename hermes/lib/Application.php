@@ -38,16 +38,10 @@ require_once HORDE_BASE . '/lib/core.php';
 class Hermes_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Initialization function.
-     *
-     * Global variables defined:
      */
     protected function _init()
     {
@@ -55,7 +49,6 @@ class Hermes_Application extends Horde_Registry_Application
     }
 
     /**
-     * Interface to define settable permissions within Horde
      */
     public function perms()
     {
@@ -75,13 +68,6 @@ class Hermes_Application extends Horde_Registry_Application
     /* Sidebar method. */
 
     /**
-     * Add node(s) to the sidebar tree.
-     *
-     * @param Horde_Tree_Base $tree  Tree object.
-     * @param string $parent         The current parent element.
-     * @param array $params          Additional parameters.
-     *
-     * @throws Horde_Exception
      */
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())

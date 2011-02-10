@@ -32,15 +32,10 @@ require_once HORDE_BASE . '/lib/core.php';
 class Trean_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (1.0-git)';
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      * - $trean_db:     TODO
      * - $trean_shares: TODO
@@ -73,9 +68,6 @@ class Trean_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -92,9 +84,6 @@ class Trean_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -111,13 +100,6 @@ class Trean_Application extends Horde_Registry_Application
     /* Sidebar method. */
 
     /**
-     * Add node(s) to the sidebar tree.
-     *
-     * @param Horde_Tree_Base $tree  Tree object.
-     * @param string $parent         The current parent element.
-     * @param array $params          Additional parameters.
-     *
-     * @throws Horde_Exception
      */
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())

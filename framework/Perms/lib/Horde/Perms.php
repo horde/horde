@@ -115,15 +115,12 @@ class Horde_Perms
         /* First level is always app. */
         $app = $levels[0];
 
-        /* Return empty if no app defined API method for providing
-         * permission information. */
-        if (!$GLOBALS['registry']->hasAppMethod($app, 'perms')) {
-            return false;
-        }
-
         /* Call the app's permission function to return the permissions
          * specific to this app. */
         $perms = $this->getApplicationPermissions($app);
+        if (!count($perms)) {
+            return false;
+        }
 
         /* Get the part of the app's permissions based on the permission
          * name requested. */
@@ -185,12 +182,6 @@ class Horde_Perms
         /* First level is always app. */
         $app = $levels[0];
 
-        /* Return empty if no app defined API method for providing permission
-         * information. */
-        if (!$GLOBALS['registry']->hasAppMethod($app, 'perms')) {
-            return $this->getShortName($name);
-        }
-
         $app_perms = $this->getApplicationPermissions($app);
 
         return isset($app_perms['title'][$name])
@@ -209,6 +200,14 @@ class Horde_Perms
     {
         if (!isset($this->_appPerms[$app])) {
             try {
+                $app_perms = $GLOBALS['registry']->callAppMethod($app, 'perms');
+            } catch (Horde_Exception $e) {
+                $app_perms = array();
+            }
+
+            if (empty($app_perms)) {
+                $perms = array();
+            } else {
                 $perms = array(
                     'title' => array(),
                     'tree' => array(
@@ -217,7 +216,7 @@ class Horde_Perms
                     'type' => array()
                 );
 
-                foreach ($GLOBALS['registry']->callAppMethod($app, 'perms') as $key => $val) {
+                foreach ($app_perms as $key => $val) {
                     $ptr = &$perms['tree'][$app];
 
                     foreach (explode(':', $key) as $kval) {
@@ -231,8 +230,6 @@ class Horde_Perms
                         $perms['type'][$app . ':' . $key] = $val['type'];
                     }
                 }
-            } catch (Horde_Exception $e) {
-                $perms = array();
             }
 
             $this->_appPerms[$app] = $perms;

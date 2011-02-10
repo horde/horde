@@ -28,8 +28,6 @@ class Jonah_Application extends Horde_Registry_Application
     public $version = 'H4 (1.0-git)';
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      * - $linkTags: <link> tags for common-header.inc.
      */
@@ -48,9 +46,6 @@ class Jonah_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array
      */
     public function perms()
     {
@@ -80,9 +75,6 @@ class Jonah_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -121,13 +113,6 @@ class Jonah_Application extends Horde_Registry_Application
     /* Sidebar method. */
 
     /**
-     * Add node(s) to the sidebar tree.
-     *
-     * @param Horde_Tree_Base $tree  Tree object.
-     * @param string $parent         The current parent element.
-     * @param array $params          Additional parameters.
-     *
-     * @throws Horde_Exception
      */
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())

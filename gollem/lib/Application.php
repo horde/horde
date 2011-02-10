@@ -40,15 +40,10 @@ require_once HORDE_BASE . '/lib/core.php';
 class Gollem_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Gollem initialization.
-     *
      * Global variables defined:
      *   $gollem_backends - A link to the current list of available backends
      *   $gollem_be - A link to the current backend parameters in the session
@@ -68,9 +63,6 @@ class Gollem_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -92,9 +84,6 @@ class Gollem_Application extends Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsGroup($ui)
     {
@@ -108,12 +97,6 @@ class Gollem_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the prefs page.
      */
     public function prefsSpecial($ui, $item)
     {
@@ -154,9 +137,6 @@ class Gollem_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -179,13 +159,6 @@ class Gollem_Application extends Horde_Registry_Application
     /* Sidebar method. */
 
     /**
-     * Add node(s) to the sidebar tree.
-     *
-     * @param Horde_Tree_Base $tree  Tree object.
-     * @param string $parent         The current parent element.
-     * @param array $params          Additional parameters.
-     *
-     * @throws Horde_Exception
      */
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())

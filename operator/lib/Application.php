@@ -1,6 +1,6 @@
 <?php
 /**
- * Shout application interface.
+ * Operator application interface.
  *
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Operator through this API.
@@ -36,9 +36,6 @@ require_once HORDE_BASE . '/lib/core.php';
 class Operator_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (1.0-git)';
 
@@ -48,8 +45,6 @@ class Operator_Application extends Horde_Registry_Application
     public $driver = null;
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      *   $cache - TODO
      */
@@ -63,7 +58,6 @@ class Operator_Application extends Horde_Registry_Application
     }
 
     /**
-     * TODO
      */
     public function perms()
     {

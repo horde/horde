@@ -35,12 +35,11 @@ require_once HORDE_BASE . '/lib/core.php';
 class Pastie_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (0.1-git)';
 
+    /**
+     */
     protected function _init()
     {
         try {
@@ -51,9 +50,6 @@ class Pastie_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {

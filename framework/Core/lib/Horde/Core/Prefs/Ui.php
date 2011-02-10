@@ -120,13 +120,10 @@ class Horde_Core_Prefs_Ui
         $this->_loadPrefs($this->app);
 
         /* Run app-specific init code. */
-        if ($registry->hasAppMethod($this->app, 'prefsInit')) {
-            $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
-        }
+        $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
 
         if ($this->group &&
-            !in_array($this->group, $this->suppressGroups) &&
-            $registry->hasAppMethod($this->app, 'prefsGroup')) {
+            !in_array($this->group, $this->suppressGroups)) {
             $registry->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
         }
     }
@@ -253,10 +250,8 @@ class Horde_Core_Prefs_Ui
             break;
         }
 
-        if ($GLOBALS['registry']->hasAppMethod($this->app, 'prefsGroup')) {
-            $this->suppress = array();
-            $GLOBALS['registry']->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
-        }
+        $this->suppress = array();
+        $GLOBALS['registry']->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
     }
 
     /*
@@ -332,9 +327,7 @@ class Horde_Core_Prefs_Ui
             case 'special':
                 /* Code for special elements written specifically for each
                  * application. */
-                if ($registry->hasAppMethod($this->app, 'prefsSpecialUpdate')) {
-                    $updated = $updated | (bool)$registry->callAppMethod($this->app, 'prefsSpecialUpdate', array('args' => array($this, $pref)));
-                }
+                $updated = $updated | (bool)$registry->callAppMethod($this->app, 'prefsSpecialUpdate', array('args' => array($this, $pref)));
                 break;
             }
         }
@@ -349,9 +342,7 @@ class Horde_Core_Prefs_Ui
                 $save->verify();
             }
 
-            if ($registry->hasAppMethod($this->app, 'prefsCallback')) {
-                $registry->callAppMethod($this->app, 'prefsCallback', array('args' => array($this)));
-            }
+            $registry->callAppMethod($this->app, 'prefsCallback', array('args' => array($this)));
 
             if ($prefs instanceof Horde_Prefs_Session) {
                 $notification->push(Horde_Core_Translation::t("Your preferences have been updated for the duration of this session."), 'horde.success');
@@ -451,10 +442,7 @@ class Horde_Core_Prefs_Ui
 
             foreach ($pref_list as $pref) {
                 if ($this->prefs[$pref]['type'] == 'special') {
-                    if ($registry->hasAppMethod($this->app, 'prefsSpecial')) {
-                        echo $registry->callAppMethod($this->app, 'prefsSpecial', array('args' => array($this, $pref)));
-                    }
-
+                    echo $registry->callAppMethod($this->app, 'prefsSpecial', array('args' => array($this, $pref)));
                     continue;
                 }
 

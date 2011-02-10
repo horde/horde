@@ -35,29 +35,18 @@ require_once HORDE_BASE . '/lib/core.php';
 class Kronolith_Application extends Horde_Registry_Application
 {
     /**
-     * Does this application support an ajax view?
-     *
-     * @var boolean
      */
     public $ajaxView = true;
 
     /**
-     * Does this application support a mobile view?
-     *
-     * @var boolean
      */
     public $mobileView = true;
 
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (3.0-git)';
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      * - $kronolith_shares: TODO
      * - $linkTags: <link> tags for common-header.inc.
@@ -89,9 +78,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -104,9 +90,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -150,13 +133,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns the specified permission for the given app permission.
-     *
-     * @param string $permission  The permission to check.
-     * @param mixed $allowed      The allowed permissions.
-     * @param array $opts         Additional options (NONE).
-     *
-     * @return mixed  The value of the specified permission.
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
@@ -170,9 +146,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsInit($ui)
     {
@@ -189,9 +162,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsGroup($ui)
     {
@@ -241,12 +211,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the prefs page.
      */
     public function prefsSpecial($ui, $item)
     {
@@ -272,12 +236,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
      */
     public function prefsSpecialUpdate($ui, $item)
     {
@@ -305,9 +263,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Called when preferences are changed.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsCallback($ui)
     {
@@ -445,13 +400,6 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Removes user data.
-     *
-     * @param string $user  Name of user to remove data for.
-     *
-     * @throws Kronolith_Exception
-     * @throws Horde_History_Exception
-     * @throws InvalidArgumentException
      */
     public function removeUserData($user)
     {
@@ -483,13 +431,6 @@ class Kronolith_Application extends Horde_Registry_Application
     /* Sidebar method. */
 
     /**
-     * Add node(s) to the sidebar tree.
-     *
-     * @param Horde_Tree_Base $tree  Tree object.
-     * @param string $parent         The current parent element.
-     * @param array $params          Additional parameters.
-     *
-     * @throws Horde_Exception
      */
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())

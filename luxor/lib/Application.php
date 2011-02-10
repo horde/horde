@@ -32,15 +32,10 @@ require_once HORDE_BASE . '/lib/core.php';
 class Luxor_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (1.0-git)';
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      *   $luxor_shares - TODO
      */
@@ -51,9 +46,6 @@ class Luxor_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu(Horde_Menu $menu)
     {

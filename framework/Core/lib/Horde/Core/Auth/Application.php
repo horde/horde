@@ -1,7 +1,7 @@
 <?php
 /**
  * The Horde_Core_Auth_Application class provides application-specific
- * authentication built on top of the Horde_Auth:: API.
+ * authentication built on top of the horde/Auth API.
  *
  * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
@@ -28,13 +28,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     const REASON_SESSIONIP = 101;
 
     /**
-     * The base auth driver, used for horde authentication.
-     *
-     * @var Horde_Auth_Base
-     */
-    protected $_base;
-
-    /**
      * Application for authentication.
      *
      * @var string
@@ -42,28 +35,33 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     protected $_app = 'horde';
 
     /**
-     * Cache for hasCapability().
+     * The list of application capabilities.
      *
      * @var array
      */
-    protected $_loaded = array();
+    protected $_appCapabilities;
 
     /**
-     * Equivalent methods in application's API.
+     * The base auth driver, used for Horde authentication.
+     *
+     * @var Horde_Auth_Base
+     */
+    protected $_base;
+
+    /**
+     * Available capabilities.
      *
      * @var array
      */
-    protected $_apiMethods = array(
-        'add' => 'authAddUser',
-        'authenticate' => 'authAuthenticate',
-        'authenticatecallback' => 'authAuthenticateCallback',
-        'exists' => 'authUserExists',
-        'list' => 'authUserList',
-        'loginparams' => 'authLoginParams',
-        'remove' => 'authRemoveUser',
-        'resetpassword' => 'authResetPassword',
-        'transparent' => 'authTransparent',
-        'update' => 'authUpdateUser'
+    protected $_capabilities = array(
+        'add',
+        'authenticate',
+        'exists',
+        'list',
+        'remove',
+        'resetpassword',
+        'transparent',
+        'update'
     );
 
     /**
@@ -146,7 +144,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         $credentials['auth_ob'] = $this;
 
-        $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['authenticate'], array('args' => array($userId, $credentials), 'noperms' => true));
+        $GLOBALS['registry']->callAppMethod($this->_app, 'authAuthenticate', array('args' => array($userId, $credentials), 'noperms' => true));
     }
 
     /**
@@ -178,7 +176,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('add')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['add'], array('args' => array($userId, $credentials)));
+            $GLOBALS['registry']->callAppMethod($this->_app, 'authAddUser', array('args' => array($userId, $credentials)));
         } else {
             parent::addUser($userId, $credentials);
         }
@@ -201,7 +199,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('update')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['update'], array('args' => array($oldID, $newID, $credentials)));
+            $GLOBALS['registry']->callAppMethod($this->_app, 'authUpdateUser', array('args' => array($oldID, $newID, $credentials)));
         } else {
             parent::updateUser($userId, $credentials);
         }
@@ -220,7 +218,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             $this->_base->removeUser($userId);
         } else {
             if ($this->hasCapability('remove')) {
-                $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['remove'], array('args' => array($userId)));
+                $GLOBALS['registry']->callAppMethod($this->_app, 'authRemoveUser', array('args' => array($userId)));
             } else {
                 parent::removeUser($userId);
             }
@@ -240,7 +238,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         return $this->hasCapability('list')
-            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['list'])
+            ? $GLOBALS['registry']->callAppMethod($this->_app, 'authUserList')
             : parent::listUsers();
     }
 
@@ -258,7 +256,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         return $this->hasCapability('exists')
-            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['exists'], array('args' => array($userId)))
+            ? $GLOBALS['registry']->callAppMethod($this->_app, 'authUserExists', array('args' => array($userId)))
             : parent::exists($userId);
     }
 
@@ -289,7 +287,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if ($this->_base) {
             $result = $this->_base->transparent();
         } elseif ($this->hasCapability('transparent')) {
-            $result = $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true));
+            $result = $registry->callAppMethod($this->_app, 'authTransparent', array('args' => array($this), 'noperms' => true));
         } else {
             /* If this application contains neither transparent nor
              * authenticate capabilities, it does not require any
@@ -316,7 +314,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         return $this->hasCapability('resetpassword')
-            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['resetpassword'], array('args' => array($userId)))
+            ? $GLOBALS['registry']->callAppMethod($this->_app, 'authResetPassword', array('args' => array($userId)))
             : parent::resetPassword();
     }
 
@@ -334,15 +332,11 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             return $this->_base->hasCapability($capability);
         }
 
-        $capability = strtolower($capability);
-
-        if (!in_array($capability, $this->_loaded) &&
-            isset($this->_apiMethods[$capability])) {
-            $this->_capabilities[$capability] = $GLOBALS['registry']->hasAppMethod($this->_app, $this->_apiMethods[$capability]);
-            $this->_loaded[] = $capability;
+        if (!isset($this->_appCapabilities)) {
+            $this->_appCapabilities = $GLOBALS['registry']->getApiInstance($this->_app, 'application')->auth;
         }
 
-        return parent::hasCapability($capability);
+        return in_array(strtolower($capability), $this->_appCapabilities);
     }
 
     /**
@@ -457,17 +451,9 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function getLoginParams()
     {
-        if ($this->hasCapability('loginparams')) {
-            return $this->_base
-                ? $this->_base->getLoginParams()
-                : $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['loginparams'], array('noperms' => true));
-        }
-
-        return array(
-            'js_code' => array(),
-            'js_files' => array(),
-            'params' => array()
-        );
+        return $this->_base
+            ? $this->_base->getLoginParams()
+            : $GLOBALS['registry']->callAppMethod($this->_app, 'authLoginParams', array('noperms' => true));
     }
 
     /**
@@ -587,9 +573,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
         }
 
-        if ($this->hasCapability('authenticatecallback')) {
-            $registry->callAppMethod($this->_app, $this->_apiMethods['authenticatecallback'], array('noperms' => true));
-        }
+        $registry->callAppMethod($this->_app, 'authAuthenticateCallback', array('noperms' => true));
 
         return true;
     }

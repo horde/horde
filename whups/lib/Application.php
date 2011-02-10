@@ -35,15 +35,10 @@ require_once HORDE_BASE . '/lib/core.php';
 class Whups_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Whups initialization.
-     *
      * Global variables defined:
      * - $whups_driver: The global Whups driver object.
      * - $linkTags:     <link> tags for common-header.inc.
@@ -61,9 +56,6 @@ class Whups_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -117,9 +109,6 @@ class Whups_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsInit($ui)
     {
@@ -129,9 +118,6 @@ class Whups_Application extends Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsGroup($ui)
     {
@@ -145,12 +131,6 @@ class Whups_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the prefs page.
      */
     public function prefsSpecial($ui, $item)
     {
@@ -167,12 +147,6 @@ class Whups_Application extends Horde_Registry_Application
     }
 
     /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
      */
     public function prefsSpecialUpdate($ui, $item)
     {
@@ -200,13 +174,6 @@ class Whups_Application extends Horde_Registry_Application
     /* Sidebar method. */
 
     /**
-     * Add node(s) to the sidebar tree.
-     *
-     * @param Horde_Tree_Base $tree  Tree object.
-     * @param string $parent         The current parent element.
-     * @param array $params          Additional parameters.
-     *
-     * @throws Horde_Exception
      */
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())

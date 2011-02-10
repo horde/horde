@@ -676,7 +676,7 @@ class Horde_Registry
                 try {
                     $api = $this->getApiInstance($app, 'api');
                     $this->_apis[$app] = array(
-                        'api' => array_diff(get_class_methods($api), array('__construct'), $api->disabled),
+                        'api' => array_diff(get_class_methods($api), array('__construct')),
                         'links' => $api->links,
                         'noperms' => $api->noPerms
                     );
@@ -882,26 +882,6 @@ class Horde_Registry
     }
 
     /**
-     * Determine if an application method exists for a given application.
-     *
-     * @param string $app     The application name.
-     * @param string $method  The full name of the method to check for.
-     *
-     * @return boolean  Existence of the method.
-     */
-    public function hasAppMethod($app, $method)
-    {
-        try {
-            $appob = $this->getApiInstance($app, 'application');
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
-        return (method_exists($appob, $method) &&
-                !in_array($method, $appob->disabled));
-    }
-
-    /**
      * Return the hook corresponding to the default package that provides the
      * functionality requested by the $method parameter.
      * $method is a string consisting of "packagetype/methodname".
@@ -997,17 +977,12 @@ class Horde_Registry
      * 'noperms' - (boolean) If true, don't check the perms.
      * </pre>
      *
-     * @return mixed  Various. Returns null if the method doesn't exist.
+     * @return mixed  Various.
      * @throws Horde_Exception  Application methods should throw this if there
      *                          is a fatal error.
      */
     public function callAppMethod($app, $call, $options = array())
     {
-        /* Make sure that the method actually exists. */
-        if (!$this->hasAppMethod($app, $call)) {
-            return null;
-        }
-
         /* Load the API now. */
         $api = $this->getApiInstance($app, 'application');
 
@@ -2176,9 +2151,6 @@ class Horde_Registry
         $errApps = array();
 
         foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
-            if (!$this->hasMethod('removeUserData', $app)) {
-                continue;
-            }
             try {
                 $this->callByPackage($app, 'removeUserData', array($userId));
             } catch (Exception $e) {

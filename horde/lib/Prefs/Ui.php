@@ -179,8 +179,7 @@ class Horde_Prefs_Ui
         if ($prefs->isDirty('language')) {
             $registry->setLanguageEnvironment($prefs->getValue('language'));
             foreach ($registry->listApps() as $app) {
-                if ($registry->hasAppMethod($app, 'changeLanguage') &&
-                    $registry->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
+                if ($registry->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
                     $registry->callAppMethod($app, 'changeLanguage');
                 }
             }

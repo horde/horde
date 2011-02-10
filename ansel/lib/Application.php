@@ -37,19 +37,12 @@ require_once HORDE_BASE . '/lib/core.php';
 class Ansel_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      *   $ansel_db - TODO
-     *
-     * @throws Horde_Exception
      */
     protected function _init()
     {
@@ -90,9 +83,6 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -104,9 +94,6 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -167,9 +154,6 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsGroup($ui)
     {
@@ -189,12 +173,6 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the prefs page.
      */
     public function prefsSpecial($ui, $item)
     {
@@ -209,12 +187,6 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
      */
     public function prefsSpecialUpdate($ui, $item)
     {

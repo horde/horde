@@ -33,22 +33,14 @@ require_once HORDE_BASE . '/lib/core.php';
 class Nag_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (3.0-git)';
 
     /**
-     * Indicate this app has a mobile view available.
-     *
-     * @var boolean
      */
     public $mobileView = true;
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      *   $nag_shares - TODO
      */
@@ -66,9 +58,6 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -81,9 +70,6 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -111,13 +97,6 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns the specified permission for the given app permission.
-     *
-     * @param string $permission  The permission to check.
-     * @param mixed $allowed      The allowed permissions.
-     * @param array $opts         Additional options (NONE).
-     *
-     * @return mixed  The value of the specified permission.
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
@@ -131,9 +110,6 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsGroup($ui)
     {
@@ -197,12 +173,6 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the prefs page.
      */
     public function prefsSpecial($ui, $item)
     {
@@ -218,12 +188,6 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
      */
     public function prefsSpecialUpdate($ui, $item)
     {
@@ -241,11 +205,6 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Removes user data.
-     *
-     * @param string $user  Name of user to remove data for.
-     *
-     * @throws Nag_Exception
      */
     public function removeUserData($user)
     {
@@ -295,13 +254,6 @@ class Nag_Application extends Horde_Registry_Application
     /* Sidebar method. */
 
     /**
-     * Add node(s) to the sidebar tree.
-     *
-     * @param Horde_Tree_Base $tree  Tree object.
-     * @param string $parent         The current parent element.
-     * @param array $params          Additional parameters.
-     *
-     * @throws Horde_Exception
      */
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())

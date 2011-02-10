@@ -38,23 +38,24 @@ require_once HORDE_BASE . '/lib/core.php';
 class IMP_Application extends Horde_Registry_Application
 {
     /**
-     * Does this application support an ajax view?
-     *
-     * @var boolean
      */
     public $ajaxView = true;
 
     /**
-     * Does this application support a mobile view?
-     *
-     * @var boolean
+     */
+    public $auth = array(
+        'add',
+        'authenticate',
+        'list',
+        'remove',
+        'transparent'
+    );
+
+    /**
      */
     public $mobileView = true;
 
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (5.0-git)';
 
@@ -81,14 +82,11 @@ class IMP_Application extends Horde_Registry_Application
          * server/login. */
         if (!isset($GLOBALS['session']) ||
             !$GLOBALS['session']->get('imp', 'imap_admin')) {
-            $this->disabled = array_merge($this->disabled, array('authAddUser', 'authRemoveUser', 'authUserList'));
+            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
         }
     }
 
     /**
-     * Application-specific code to run if application auth fails.
-     *
-     * @param Horde_Exception $e  The exception object.
      */
     public function appInitFailure($e)
     {
@@ -99,7 +97,6 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Initialization function.
      */
     protected function _init()
     {
@@ -164,7 +161,6 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Tasks to perform at logout.
      */
     public function logout()
     {
@@ -187,9 +183,6 @@ class IMP_Application extends Horde_Registry_Application
     /* Horde permissions. */
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -214,15 +207,9 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns the specified permission for the given app permission.
-     *
-     * @param string $permission  The permission to check.
-     * @param mixed $allowed      The allowed permissions.
      * @param array $opts         Additional options:
      *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
      *     recipients in the current message.
-     *
-     * @return boolean  Does the user has permission?
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
@@ -266,9 +253,6 @@ class IMP_Application extends Horde_Registry_Application
     /* Menu methods. */
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -350,9 +334,6 @@ class IMP_Application extends Horde_Registry_Application
     /* Horde_Core_Auth_Application methods. */
 
     /**
-     * Return login parameters used on the login page.
-     *
-     * @return array  TODO
      */
     public function authLoginParams()
     {
@@ -429,14 +410,9 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Tries to authenticate with the mail server.
-     *
-     * @param string $userId      The username of the user.
      * @param array $credentials  Credentials of the user. Allowed keys:
      *                            'imp_select_view', 'imp_server_key',
      *                            'password'.
-     *
-     * @throws Horde_Auth_Exception
      */
     public function authAuthenticate($userId, $credentials)
     {
@@ -456,12 +432,6 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Tries to transparently authenticate with the mail server and create a
-     * mail session.
-     *
-     * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
-     *
-     * @return boolean  Whether transparent login is supported.
      */
     public function authTransparent($auth_ob)
     {
@@ -476,9 +446,6 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Does necessary authentication tasks reliant on a full IMP environment.
-     *
-     * @throws Horde_Auth_Exception
      */
     public function authAuthenticateCallback()
     {
@@ -495,56 +462,36 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Adds a user defined by authentication credentials.
-     *
-     * @param string $userId      The userId to add.
-     * @param array $credentials  An array of login credentials. For IMAP,
+     * @param array $credentials  An array of login credentials. For IMP,
      *                            this must contain a password entry.
-     *
-     * @throws Horde_Auth_Exception
      */
     public function authAddUser($userId, $credentials)
     {
         try {
             $GLOBALS['injector']->getInstance('IMP_AuthImap')->addUser($userId, $credentials);
-        } catch (Horde_Exception $e) {
-            throw new Horde_Auth_Exception($e);
-        } catch (IMP_Exception $e) {
+        } catch (Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
     }
 
     /**
-     * Deletes a user defined by authentication credentials.
-     *
-     * @param string $userId  The userId to delete.
-     *
-     * @throws Horde_Auth_Exception
      */
     public function authRemoveUser($userId)
     {
         try {
             $GLOBALS['injector']->getInstance('IMP_AuthImap')->removeUser($userId);
-        } catch (Horde_Exception $e) {
-            throw new Horde_Auth_Exception($e);
-        } catch (IMP_Exception $e) {
+        } catch (Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
     }
 
     /**
-     * Lists all users in the system.
-     *
-     * @return array  The array of userIds.
-     * @throws Horde_Auth_Exception
      */
     public function authUserList()
     {
         try {
             return $GLOBALS['injector']->getInstance('IMP_AuthImap')->listUsers();
-        } catch (Horde_Exception $e) {
-            throw new Horde_Auth_Exception($e);
-        } catch (IMP_Exception $e) {
+        } catch (Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
     }
@@ -553,9 +500,6 @@ class IMP_Application extends Horde_Registry_Application
      * IMP_Prefs_Ui so it doesn't have to be loaded on every page load. */
 
     /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsInit($ui)
     {
@@ -563,9 +507,6 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsGroup($ui)
     {
@@ -573,12 +514,6 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the options page.
      */
     public function prefsSpecial($ui, $item)
     {
@@ -586,12 +521,6 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
      */
     public function prefsSpecialUpdate($ui, $item)
     {
@@ -599,9 +528,6 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Called when preferences are changed.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsCallback($ui)
     {
@@ -611,13 +537,6 @@ class IMP_Application extends Horde_Registry_Application
     /* Sidebar method. */
 
     /**
-     * Add node(s) to the sidebar tree.
-     *
-     * @param Horde_Tree_Base $tree  Tree object.
-     * @param string $parent         The current parent element.
-     * @param array $params          Additional parameters.
-     *
-     * @throws Horde_Exception
      */
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
@@ -700,8 +619,6 @@ class IMP_Application extends Horde_Registry_Application
     /* Language change callback. */
 
     /**
-     * Performs tasks necessary when the language is changed during the
-     * session.
      */
     public function changeLanguage()
     {
@@ -736,4 +653,5 @@ class IMP_Application extends Horde_Registry_Application
            });'
         );
     }
+
 }

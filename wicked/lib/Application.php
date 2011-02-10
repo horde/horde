@@ -35,15 +35,10 @@ require_once HORDE_BASE . '/lib/core.php';
 class Wicked_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Wicked initialization.
-     *
      * Global variables defined:
      * - $wicked:   The Wicked_Driver object.
      * - $linkTags: <link> tags for common-header.inc.
@@ -55,9 +50,6 @@ class Wicked_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {

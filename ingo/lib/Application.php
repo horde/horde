@@ -39,15 +39,10 @@ require_once HORDE_BASE . '/lib/core.php';
 class Ingo_Application extends Horde_Registry_Application
 {
     /**
-     * The application's version.
-     *
-     * @var string
      */
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Initialization function.
-     *
      * Global variables defined:
      *   $all_rulesets - TODO
      *   $ingo_shares - TODO
@@ -94,9 +89,6 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
      */
     public function perms()
     {
@@ -113,9 +105,6 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the menu.
-     *
-     * @param Horde_Menu $menu  The menu object.
      */
     public function menu($menu)
     {
@@ -153,13 +142,6 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns the specified permission for the given app permission.
-     *
-     * @param string $permission  The permission to check.
-     * @param mixed $allowed      The allowed permissions.
-     * @param array $opts         Additional options (NONE).
-     *
-     * @return mixed  The value of the specified permission.
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
@@ -177,11 +159,6 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
-     * Removes user data.
-     *
-     * @param string $user  Name of user to remove data for.
-     *
-     * @throws Ingo_Exception.
      */
     public function removeUserData($user)
     {
@@ -232,9 +209,6 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     public function prefsInit($ui)
     {
