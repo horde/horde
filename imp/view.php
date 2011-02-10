@@ -113,9 +113,7 @@ case 'download_render':
             $mime->setContents($render[key($render)]['data'], array('encoding' => 'binary'));
         }
 
-        if (!$name = $mime->getName(true)) {
-            $name = _("unnamed");
-        }
+        $name = $contents->getPartName($mime->getName(true));
 
         /* Compress output? */
         if ($vars->zip) {
@@ -135,8 +133,8 @@ case 'download_render':
         $key = key($render);
         $body = $render[$key]['data'];
         $type = $render[$key]['type'];
-        if (!$name = $render[$key]['name']) {
-            $name = _("unnamed");
+        if (strlen($render[$key]['name'])) {
+            $name = $render[$key]['name'];
         }
         break;
     }

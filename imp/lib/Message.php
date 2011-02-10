@@ -519,9 +519,8 @@ class IMP_Message
                 $newPart->setType('text/plain');
 
                 /* Need to make sure all text is in the correct charset. */
-                $part_name = $part->getName(true);
                 $newPart->setCharset('UTF-8');
-                $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $part->getType(), $part_name ? $part_name : _("unnamed")));
+                $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $part->getType(), $contents->getPartName($part->getName(true))));
 
                 $parts[] = array(
                     't' => 'text',

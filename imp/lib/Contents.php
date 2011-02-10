@@ -648,10 +648,7 @@ class IMP_Contents
         $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img($GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type), '', array('title' => $mime_type), '') : null;
 
         /* Get part's description. */
-        $description = $mime_part->getDescription(true);
-        if (empty($description)) {
-            $description = _("unnamed");
-        }
+        $description = $this->getPartName($mime_part->getDescription(true));
 
         if ($mask & self::SUMMARY_DESCRIP_LINK) {
             $part['description'] = $this->canDisplay($mime_part, self::RENDER_FULL)
@@ -1060,6 +1057,20 @@ class IMP_Contents
         }
 
         return null;
+    }
+
+    /**
+     * Return the descriptive part label, making sure it is not empty.
+     *
+     * @param string $name  The part label.
+     *
+     * @return string  The part label (non-empty).
+     */
+    public function getPartName($name)
+    {
+        return $name
+            ? $name
+            : _("Unnamed Message Part");
     }
 
 }

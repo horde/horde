@@ -83,10 +83,7 @@ class IMP_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Base
         $applefile_part = $this->_mimepart->getPart($applefile_id);
         $data_part = $this->_mimepart->getPart($data_id);
 
-        $data_name = $data_part->getName(true);
-        if (empty($data_name)) {
-            $data_name = _("unnamed");
-        }
+        $data_name = $this->getConfigParam('imp_contents')->getPartName($data_part->getName(true));
 
         $status = array(
             'icon' => Horde::img('mime/apple.png', _("Macintosh File")),
