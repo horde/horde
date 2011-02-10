@@ -8,8 +8,8 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
     {
         $this->addHidden('', 'objectkeys', 'text', false);
         $this->addHidden('', 'original_source', 'text', false);
-        $this->addHidden('', 'actionID', 'text', false);
-
+        $action = $this->addHidden('', 'actionID', 'text', false);
+        $action->setDefault('groupedit');
         Horde_Form::__construct($vars, $contact);
         $vars->set('actionID', 'groupedit');
 

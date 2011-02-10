@@ -1,10 +1,15 @@
 <?php
 /**
+ * Form for editing/updating a contact.
+ *
  * @package Turba
  */
-class Turba_Form_EditContact extends Turba_Form_Contact
+class Turba_Form_EditContact extends Turba_Form_ContactBase
 {
-    protected $_source;
+    /**
+     *
+     * @var Turba_Object
+     */
     protected $_contact;
 
     /**
@@ -15,7 +20,7 @@ class Turba_Form_EditContact extends Turba_Form_Contact
     {
         global $conf;
 
-        Horde_Form::__construct($vars, $contact, true, 'Turba_View_EditContact');
+        parent::__construct($vars, $contact, true, 'Turba_View_EditContact');
         $this->_contact = $contact;
 
         $this->setButtons(_("Save"));
@@ -38,11 +43,6 @@ class Turba_Form_EditContact extends Turba_Form_Contact
         }
         $vars->set('object', $object_values);
         $vars->set('source', $contact->getSource());
-    }
-
-    public function getSource()
-    {
-        return $this->_source;
     }
 
     public function execute()
