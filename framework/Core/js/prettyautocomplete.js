@@ -187,17 +187,23 @@ var PrettyAutocompleter = Class.create({
     // Used as the updateElement callback.
     _updateElement: function(item)
     {
-        this.addNewItemNode(item);
-        this.p.onAdd(item);
+        if (this.addNewItemNode(item)) {
+            this.p.onAdd(item);
+        }
     },
 
+    /**
+     * Adds a new element to the UI, ignoring duplicates.
+     *
+     * @return boolean True on success, false on failure/duplicate.
+     */
     addNewItemNode: function(value)
     {
         // Don't add if it's already present.
         for (var x = 0, len = this.selectedItems.length; x < len; x++) {
             if (this.selectedItems[x].rawValue == value) {
                 $(this.p.trigger).value = '';
-                return;
+                return false;
             }
         }
 
@@ -218,6 +224,8 @@ var PrettyAutocompleter = Class.create({
 
         // ...and keep the selectedItems array up to date.
         this.selectedItems.push({ rawValue: value, displayValue: displayValue });
+
+        return true;
     },
 
     removeItemNode: function(item)
