@@ -1,6 +1,6 @@
 <?php
 /**
- * All tests for the Kolab_Storage:: package.
+ * All tests for the Perms:: package.
  *
  * PHP version 5
  *
