@@ -1,5 +1,5 @@
 <?php
-class Horde_Kolab_Storage_Stub_FactoryQuery
+class Horde_Kolab_Storage_Stub_ListQuery
 implements Horde_Kolab_Storage_List_Query
 {
     public $called = false;

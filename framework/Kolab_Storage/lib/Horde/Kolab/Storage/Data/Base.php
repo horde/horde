@@ -164,8 +164,13 @@ implements Horde_Kolab_Storage_Data
      *
      * @return NULL
      */
-    public function registerQuery($name, Horde_Kolab_Storage_List_Query $query)
+    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
+        if (!$query instanceOf Horde_Kolab_Storage_Data_Query) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The provided query is no data query.'
+            );
+        }
         $this->_queries[$name] = $query;
     }
 

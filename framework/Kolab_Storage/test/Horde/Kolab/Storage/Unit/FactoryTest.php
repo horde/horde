@@ -199,7 +199,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_List_Query',
             $factory->createListQuery(
-                'Horde_Kolab_Storage_Stub_FactoryQuery',
+                'Horde_Kolab_Storage_Stub_ListQuery',
                 $list
             )
         );

@@ -1,6 +1,6 @@
 <?php
 /**
- * Marks a queriable class.
+ * Represents a query.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Marks a queriable class.
+ * Represents a query.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -25,28 +25,13 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-interface Horde_Kolab_Storage_Queriable
+interface Horde_Kolab_Storage_Query
 {
     /**
-     * Register a query to be updated if the underlying data changes.
-     *
-     * @param string                    $name  The query name.
-     * @param Horde_Kolab_Storage_Query $query The query to register.
+     * Synchronize the query data with the information from the backend.
      *
      * @return NULL
      */
-    public function registerQuery($name, Horde_Kolab_Storage_Query $query);
-
-    /**
-     * Return a registered query.
-     *
-     * @param string $name The query name.
-     *
-     * @return Horde_Kolab_Storage_Query The requested query.
-     *
-     * @throws Horde_Kolab_Storage_Exception In case the requested query does
-     *                                       not exist.
-     */
-    public function getQuery($name = null);
+    public function synchronize();
 }
 

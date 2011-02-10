@@ -91,7 +91,7 @@ extends Horde_Kolab_Storage_TestCase
             $factory
         );
         $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_Stub_FactoryQuery',
+            'Horde_Kolab_Storage_Stub_ListQuery',
             $list
         );
         $list->registerQuery('stub', $query);
@@ -107,13 +107,13 @@ extends Horde_Kolab_Storage_TestCase
             $factory
         );
         $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_Stub_FactoryQuery',
+            'Horde_Kolab_Storage_Stub_ListQuery',
             $list
         );
-        $list->registerQuery('Horde_Kolab_Storage_Stub_FactoryQuery', $query);
+        $list->registerQuery('Horde_Kolab_Storage_Stub_ListQuery', $query);
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Stub_FactoryQuery',
-            $list->getQuery('Horde_Kolab_Storage_Stub_FactoryQuery')
+            'Horde_Kolab_Storage_Stub_ListQuery',
+            $list->getQuery('Horde_Kolab_Storage_Stub_ListQuery')
         );
     }
 
@@ -125,15 +125,34 @@ extends Horde_Kolab_Storage_TestCase
             $factory
         );
         $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_Stub_FactoryQuery',
+            'Horde_Kolab_Storage_Stub_ListQuery',
             $list
         );
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE, $query
         );
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Stub_FactoryQuery',
+            'Horde_Kolab_Storage_Stub_ListQuery',
             $list->getQuery()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testRegisterInvalid()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->getNullMock(),
+            $factory
+        );
+        $query = $factory->createListQuery(
+            'Horde_Kolab_Storage_Stub_DataQuery',
+            $list
+        );
+        $list->registerQuery(
+            Horde_Kolab_Storage_List::QUERY_BASE, $query
         );
     }
 

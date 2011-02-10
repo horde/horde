@@ -26,6 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 interface Horde_Kolab_Storage_List_Query
+extends Horde_Kolab_Storage_Query
 {
     /**
      * Create a new folder.
@@ -55,12 +56,5 @@ interface Horde_Kolab_Storage_List_Query
      * @return NULL
      */
     public function renameFolder($old, $new);
-
-    /**
-     * Synchronize the query data with the information from the backend.
-     *
-     * @return NULL
-     */
-    public function synchronize();
 }
 
