@@ -229,7 +229,7 @@ class Horde_Api extends Horde_Registry_Api
             'user' => $user
         ));
         try {
-            $prefs->clear();
+            $prefs->remove();
         } catch (Horde_Exception $e) {
             $haveError = true;
         }
