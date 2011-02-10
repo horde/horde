@@ -277,8 +277,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
-
-        Horde_Auth::removeUserData($userId);
     }
 
     /**

@@ -865,15 +865,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
 
         /* Always remove test user first. */
         if ($auth->exists($user)) {
-            /* We need to be logged in to call removeUserData, otherwise we
-             * run into permission issues. */
-            Horde_Auth::setAuth($user, array());
-            try {
-                Horde_Auth::removeUserData($user);
-            } catch (Horde_Exception $e) {
-                // TODO
-            }
-            $auth->removeUser($user);
+            $GLOBALS['registry']->removeUser($user);
         }
 
         $auth->addUser($user, array('password' => $pwd));
@@ -914,8 +906,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         Horde_Auth::setAuth($this->_user, array());
 
         print "\nCleaning up: removing test user data and test user...";
-        Horde_Auth::removeUserData($this->_user);
-        $auth->removeUser($this->_user);
+        $registry->removeUser($this->_user);
 
         print "OK\n";
     }

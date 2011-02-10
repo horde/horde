@@ -126,8 +126,6 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
-
-        Horde_Auth::removeUserData($userId);
     }
 
     /**

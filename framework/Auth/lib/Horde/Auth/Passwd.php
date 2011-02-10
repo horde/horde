@@ -401,8 +401,6 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         unset($this->_users[$userId]);
-
-        Horde_Auth::removeUserData($userId);
     }
 
 

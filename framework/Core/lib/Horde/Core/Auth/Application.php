@@ -224,12 +224,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             } else {
                 parent::removeUser($userId);
             }
-
-            try {
-                $GLOBALS['registry']->callByPackage('horde', 'removeUserData', array($userId, !empty($this->_base)));
-            } catch (Horde_Exception $e) {
-                throw new Horde_Auth_Exception($e);
-            }
         }
     }
 

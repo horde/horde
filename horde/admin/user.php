@@ -114,7 +114,7 @@ case 'remove':
         $notification->push(_("You must specify a username to remove."), 'horde.message');
     } elseif (Horde_Util::getFormData('submit') !== _("Cancel")) {
         try {
-            $auth->removeUser($f_user_name);
+            $registry->removeUser($f_user_name);
             $notification->push(sprintf(_("Successfully removed \"%s\" from the system."), $f_user_name), 'horde.success');
         } catch (Horde_Auth_Exception $e) {
             $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
@@ -134,7 +134,7 @@ case 'clear':
         $notification->push(_("You must specify a username to clear out."), 'horde.message');
     } elseif (Horde_Util::getFormData('submit') !== _("Cancel")) {
         try {
-            $auth->removeUserData($f_user_name);
+            $registry->removeUserData($f_user_name);
             $notification->push(sprintf(_("Successfully cleared data for user \"%s\" from the system."), $f_user_name), 'horde.success');
         } catch (Horde_Auth_Exception $e) {
             $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');

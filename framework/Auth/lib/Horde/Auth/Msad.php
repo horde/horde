@@ -136,9 +136,6 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
             throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to remove user "%s"', $accountName));
         }
         @ldap_close($this->_ds);
-
-        /* Remove user data */
-        Horde_Auth::removeUserData($accountName);
     }
 
     /**

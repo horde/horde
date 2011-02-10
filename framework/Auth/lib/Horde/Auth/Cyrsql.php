@@ -322,8 +322,6 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
-
-        Horde_Auth::removeUserData($userId);
     }
 
     /**

@@ -303,8 +303,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         } catch (Horde_Ldap_Exception $e) {
            throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to remove user "%s"', $userId));
         }
-
-        Horde_Auth::removeUserData($userId);
     }
 
     /**

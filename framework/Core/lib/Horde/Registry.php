@@ -2144,6 +2144,48 @@ class Horde_Registry
         return false;
     }
 
+    /**
+     * Removes a user from the authentication backend and calls all
+     * applications' removeUserData API methods.
+     *
+     * @param string $userId  The userId to delete.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function removeUser($userId)
+    {
+        $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Auth')
+            ->create()
+            ->removeUser($userId);
+        $this->removeUserData($userId);
+    }
+
+    /**
+     * Calls all applications' removeUserData API methods.
+     *
+     * @param string $userId  The userId to delete.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function removeUserData($userId)
+    {
+        $errApps = array();
+
+        foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
+            try {
+                $this->callByPackage($app, 'removeUserData', array($userId));
+            } catch (Horde_Auth_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                $errApps[] = $app;
+            }
+        }
+
+        if (count($errApps)) {
+            throw new Horde_Auth_Exception(sprintf(_("The following applications encountered errors removing user data: %s"), implode(', ', $errApps)));
+        }
+    }
+
     /* NLS functions. */
 
     /**
