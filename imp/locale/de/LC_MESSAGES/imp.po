@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP 4.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-02-02 19:09+0100\n"
+"PO-Revision-Date: 2011-02-10 16:04+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -1114,7 +1114,7 @@ msgstr "Dieses Fenster schließen"
 #: folders.php:404 templates/dimp/index.inc:299 templates/dimp/index.inc:318
 #: templates/dimp/index.inc:329
 msgid "Collapse All"
-msgstr "Alle s_chließen"
+msgstr "Alle schließen"
 
 #: folders.php:404
 msgid "Collapse All Folders"
@@ -1973,7 +1973,7 @@ msgstr "Suche beenden"
 #: folders.php:403 templates/dimp/index.inc:298 templates/dimp/index.inc:317
 #: templates/dimp/index.inc:328
 msgid "Expand All"
-msgstr "Alle ö_ffnen"
+msgstr "Alle öffnen"
 
 #: folders.php:403
 msgid "Expand All Folders"
@@ -3775,7 +3775,7 @@ msgstr ""
 
 #: templates/dimp/index.inc:331
 msgid "Rebuild Folder List"
-msgstr "Ordnerliste neu aufbauen"
+msgstr "Liste neu aufbauen"
 
 #: templates/imp/folders/actions.html:42
 msgid "Rebuild Folder Tree"
@@ -4484,7 +4484,7 @@ msgstr "Eingeblendete Ordner anzeigen"
 
 #: folders.php:397 templates/dimp/index.inc:326
 msgid "Show Unsubscribed"
-msgstr "Ausge_blendete Ordner anzeigen"
+msgstr "Ausgeblendete anzeigen"
 
 #: config/prefs.php.dist:809
 msgid "Show all attachments"
