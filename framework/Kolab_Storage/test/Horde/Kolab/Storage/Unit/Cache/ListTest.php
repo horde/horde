@@ -133,6 +133,23 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertFalse($cache->hasSupport('ACL'));
     }
 
+    public function testID()
+    {
+        $cache = $this->getMockCache();
+        $list_cache = new Horde_Kolab_Storage_Cache_List(
+            $cache,
+            array('host' => 'test', 'port' => '0', 'user' => 'test')
+        );
+        $list_cache->setListId('test');
+        $list_cache->store(array(), array());
+        $list_cache->save();
+        $data = unserialize($cache->loadList($list_cache->getListId()));
+        $this->assertEquals(
+            'a:3:{s:4:"host";s:4:"test";s:4:"port";s:1:"0";s:4:"user";s:4:"test";}',
+            $data['I']
+        );
+    }
+
     private function _getTestCache($cache = null)
     {
         if ($cache === null) {

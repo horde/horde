@@ -51,6 +51,9 @@ class Horde_Kolab_Storage_Cache_List
     /** Key for the cache format version. */
     const VERSION = 'V';
 
+    /** Key for the connection ID associated with this list cache. */
+    const ID = 'I';
+
     /** Holds the version number of the cache format. */
     const FORMAT_VERSION = '1';
 
@@ -60,6 +63,13 @@ class Horde_Kolab_Storage_Cache_List
      * @var Horde_Kolab_Storage_Cache
      */
     private $_cache;
+
+    /**
+     * List parameters that will be recorded in the cache..
+     *
+     * @var array
+     */
+    private $_parameters;
 
     /**
      * List ID.
@@ -78,11 +88,18 @@ class Horde_Kolab_Storage_Cache_List
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Cache $cache   The core cache driver.
+     * @param Horde_Kolab_Storage_Cache $cache      The core cache driver.
+
+     * @param array                     $parameters Connection parameters that
+     *                                              are only recorded and have
+     *                                              no further impact.
      */
-    public function __construct(Horde_Kolab_Storage_Cache $cache)
-    {
+    public function __construct(
+        Horde_Kolab_Storage_Cache $cache,
+        $parameters = null
+    ) {
         $this->_cache = $cache;
+        $this->_parameters = $parameters;
     }
 
     /**
@@ -371,6 +388,7 @@ class Horde_Kolab_Storage_Cache_List
         $this->_data[self::FOLDERS] = $folders;
         $this->_data[self::TYPES] = $types;
         $this->_data[self::VERSION] = self::FORMAT_VERSION;
+        $this->_data[self::ID] = serialize($this->_parameters);
         $this->_data[self::SYNC] = time();
     }
 }
