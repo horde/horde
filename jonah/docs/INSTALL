@@ -115,21 +115,6 @@ $this->applications['jonah'] = array(
 
 2. Configuring Jonah
 
-   To configure Jonah, change to the config/ directory of the
-   installed distribution, and make copies of all of the configuration
-   "dist" files without the "dist" suffix.  An example of how to copy
-   the files on a unix based system is:
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Documentation on the format and purpose of those files can be found in
-   each file.   You may edit these files if you wish to customize Jonah's
-   appearance and behavior.  The default values, while reasonable, may not
-   be appropriate for your site, so it is best to check them and make any
-   desired changes before proceeding.  Some important files and their
-   contents are:
-
    You must then login to Horde as a Horde Administrator to finish the
    configuration of Jonah.  Use the Horde "Administration" menu item to get
    the the Administration page, and then on the click on the "Configuration"

@@ -144,6 +144,7 @@ Configuring Skeleton
 
 3. Configuring Skeleton
 
+   [
    To configure Skeleton, change to the ``config/`` directory of the installed
    distribution, and make copies of all of the configuration ``dist`` files
    without the ``dist`` suffix::
@@ -159,6 +160,7 @@ Configuring Skeleton
    file. You may edit these files if you wish to customize Skeleton's
    appearance and behavior. With one exception (``foo.php``) the defaults will
    be correct for most sites.
+   ]
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Skeleton. Use the Horde ``Administration`` menu item to

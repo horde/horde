@@ -156,18 +156,6 @@ Configuring Kronolith
 
 3. Configuring Kronolith
 
-   To configure Kronolith, change to the ``config/`` directory of the
-   installed distribution, and make copies of all of the configuration
-   ``dist`` files without the ``dist`` suffix::
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Documentation on the format of those files can be found in each file; open
-   each in an editor and make changes as suggested within.  The default values
-   are reasonable, but may not be appropriate for your site, so it is best to
-   check them before preceeding.
-
    You must login to Horde as a Horde Administrator to finish the
    configuration of Kronolith.  Use the Horde ``Administration`` menu item to
    get to the administration page, and then click on the ``Configuration``

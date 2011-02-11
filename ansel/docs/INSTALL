@@ -197,21 +197,6 @@ Configuring Ansel
 
 3. Configuring Ansel
 
-   To configure Ansel, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file. You may edit these files if you wish to customize Ansel's appearance
-   and behavior.
-
    You must login to Horde as a Horde Administrator to finish the
    configuration of Ansel. Use the Horde ``Administration`` menu item to get
    to the administration page, and then click on the ``Configuration`` icon to

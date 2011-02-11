@@ -118,20 +118,11 @@ Configuring Beatnik
 2. Configuring Beatnik
 
    To configure Beatnik, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
+   distribution, and copy the ``autogenerate.php.dist`` configuration file to
+   ``autogenerate.php`` and edit it to your needs.
 
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file.  You may edit these files if you wish to customize Beatnik's
-   appearance and behavior.  With one exception (``foo.php``) the defaults
-   will be correct for most sites.
+   Documentation on the format and purpose of this file can be found in the
+   file.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Beatnik.  Use the Horde ``Administration`` menu item to

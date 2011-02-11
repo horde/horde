@@ -104,18 +104,6 @@ Configuring Agora
 
 2. Configuring Agora
 
-   To configure Agora, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Documentation on the format of those files can be found in each file.  With
-   the exception of the ``conf.*`` files (see below), the other files in
-   ``config/`` need only be modified if you wish to customize Agora's
-   appearance or behavior, as the defaults will be correct for most sites.
-
    You must login to Horde as a Horde Administrator to finish the
    configuration of Agora.  Use the Horde ``Administration`` menu item to get
    to the administration page, and then click on the ``Configuration`` icon to
