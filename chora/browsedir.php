@@ -11,11 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-try {
-    Horde_Registry::appInit('chora');
-} catch (Exception $e) {
-    Chora::fatal($e);
-}
+Horde_Registry::appInit('chora');
 
 if (!$atdir) {
     require CHORA_BASE . '/browsefile.php';

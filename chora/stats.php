@@ -12,17 +12,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-try {
-    Horde_Registry::appInit('chora');
-} catch (Exception $e) {
-    Chora::fatal($e);
-}
-
-try {
-    $fl = $VC->getFileObject($where);
-} catch (Horde_Vcs_Exception $e) {
-    Chora::fatal($e);
-}
+Horde_Registry::appInit('chora');
 
 $extraLink = Chora::getFileViews($where, 'stats');
 

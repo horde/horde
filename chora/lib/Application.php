@@ -44,6 +44,15 @@ class Chora_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        // If chora isn't fully/properly setup, _init() will throw fatal
+        // errors. Don't want that if this class is being loaded simply to
+        // obtain basic chora application information.
+        // TODO: Fix by moving repository initialization code out if _init();
+        // should be loaded on-demand, for example.
+        if ($GLOBALS['regstry']->initialApp != 'chora') {
+            return;
+        }
+
         global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 
         try {
@@ -102,13 +111,13 @@ class Chora_Application extends Horde_Registry_Application
                 }
 
                 if (is_null($acts['rt'])) {
-                    throw new Chora_Exception(_("No repositories found."));
+                    Chora::fatal(new Chora_Exception(_("No repositories found.")));
                 }
             }
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
-            throw new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt']));
+            Chora::fatal(new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt'])));
         }
 
         $sourcerootopts = $sourceroots[$acts['rt']];
@@ -155,11 +164,11 @@ class Chora_Application extends Horde_Registry_Application
 
         if (($sourcerootopts['type'] == 'cvs') &&
             !@is_dir($sourcerootopts['location'])) {
-            throw new Chora_Exception(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later."));
+            Chora::fatal(new Chora_Exception(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later.")));
         }
 
         if (Chora::isRestricted($where)) {
-            throw new Chora_Exception(sprintf(_("%s: Forbidden by server configuration"), $where));
+            Chora::fatal(new Chora_Exception(sprintf(_("%s: Forbidden by server configuration"), $where)));
         }
     }
 

@@ -14,11 +14,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-try {
-    Horde_Registry::appInit('chora');
-} catch (Exception $e) {
-    Chora::fatal($e);
-}
+Horde_Registry::appInit('chora');
 
 // Exit if patchset feature is not available.
 if (!$GLOBALS['VC']->hasFeature('patchsets')) {
