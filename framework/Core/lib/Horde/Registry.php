@@ -532,6 +532,9 @@ class Horde_Registry
         }
 
         require HORDE_BASE . '/config/registry.php';
+        if (file_exists(HORDE_BASE . '/config/registry.local.php')) {
+            include HORDE_BASE . '/config/registry.local.php';
+        }
         $files = glob(HORDE_BASE . '/config/registry.d/*.php');
         foreach ($files as $r) {
             include $r;
