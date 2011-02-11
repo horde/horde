@@ -6,15 +6,14 @@ class Horde_Block_Cloud extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Tag Cloud");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Tag Cloud");
     }
 
     /**
-     * The content to go in this block.
-     *
-     * @return string   The content.
      */
     protected function _content()
     {

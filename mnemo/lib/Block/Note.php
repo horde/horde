@@ -9,9 +9,11 @@ class Mnemo_Block_Note extends Horde_Core_Block
 
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("View note");
+        parent::__construct($app, $params);
+
+        $this->_name = _("View note");
     }
 
     /**

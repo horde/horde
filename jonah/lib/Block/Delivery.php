@@ -13,11 +13,15 @@ class Jonah_Block_Delivery extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Feeds");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Feeds");
     }
 
+    /**
+     */
     protected function _content()
     {
         try {

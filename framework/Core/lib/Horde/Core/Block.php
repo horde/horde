@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
-class Horde_Core_Block
+abstract class Horde_Core_Block
 {
     /**
      * Is this block enabled?
@@ -36,6 +36,13 @@ class Horde_Core_Block
      * @var string
      */
     protected $_app;
+
+    /**
+     * Block name. Should be set in the constructor.
+     *
+     * @var string
+     */
+    protected $_name = '';
 
     /**
      * Block specific parameters.
@@ -84,7 +91,7 @@ class Horde_Core_Block
      */
     public function getName()
     {
-        return '';
+        return $this->_name;
     }
 
     /**
@@ -96,110 +103,7 @@ class Horde_Core_Block
      */
     public function getParams()
     {
-        /* Switch application contexts, if necessary. Return an error
-         * immediately if pushApp() fails. */
-        try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
-        } catch (Horde_Exception $e) {
-            return $e->getMessage();
-        }
-
-        $params = $this->_params();
-
-        /* If we changed application context in the course of this
-         * call, undo that change now. */
-        if ($app_pushed) {
-            $GLOBALS['registry']->popApp();
-        }
-
-        return $params;
-    }
-
-    /**
-     * Returns the text to go in the title of this block.
-     *
-     * This function handles the changing of current application as
-     * needed so code is executed in the scope of the application the
-     * block originated from.
-     *
-     * @return string  The block's title.
-     */
-    public function getTitle()
-    {
-        /* Switch application contexts, if necessary. Return an error
-         * immediately if pushApp() fails. */
-        try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
-        } catch (Horde_Exception $e) {
-            return $e->getMessage();
-        }
-
-        try {
-            $title = $this->_title();
-        } catch (Horde_Exception $e) {
-            $title = $e->getMessage();
-        }
-        /* If we changed application context in the course of this
-         * call, undo that change now. */
-        if ($app_pushed) {
-            $GLOBALS['registry']->popApp();
-        }
-
-        return $title;
-    }
-
-    /**
-     * Returns a hash of block parameters and their configured values.
-     *
-     * @return array  Parameter values.
-     */
-    public function getParamValues()
-    {
-        return $this->_params;
-    }
-
-    /**
-     * Returns the content for this block.
-     *
-     * This function handles the changing of current application as
-     * needed so code is executed in the scope of the application the
-     * block originated from.
-     *
-     * @return string  The block's content.
-     */
-    public function getContent()
-    {
-        /* Switch application contexts, if necessary. Return an error
-         * immediately if pushApp() fails. */
-        try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
-        } catch (Horde_Exception $e) {
-            return $e->getMessage();
-        }
-
-        try {
-            $content = $this->_content();
-        } catch (Horde_Exception $e) {
-            $content = $e->getMessage();
-        }
-
-        /* If we changed application context in the course of this
-         * call, undo that change now. */
-        if ($app_pushed) {
-            $GLOBALS['registry']->popApp();
-        }
-
-        return $content;
-    }
-
-    /**
-     * Returns the title to go in this block.
-     *
-     * @return string  The block title.
-     */
-    protected function _title()
-    {
-        return $this->getName();
+        return $this->_call('_params', array());
     }
 
     /**
@@ -213,17 +117,88 @@ class Horde_Core_Block
     }
 
     /**
+     * Returns a hash of block parameters and their configured values.
+     *
+     * @return array  Parameter values.
+     */
+    public function getParamValues()
+    {
+        return $this->_params;
+    }
+
+    /**
+     * Returns the text to go in the title of this block.
+     *
+     * This function handles the changing of current application as
+     * needed so code is executed in the scope of the application the
+     * block originated from.
+     *
+     * @return string  The block's title.
+     */
+    public function getTitle()
+    {
+        return $this->_call('_title', '');
+    }
+
+    /**
+     * Returns the title to go in this block.
+     *
+     * @return string  The block title.
+     */
+    protected function _title()
+    {
+        return $this->_name;
+    }
+
+    /**
+     * Returns the content for this block.
+     *
+     * This function handles the changing of current application as
+     * needed so code is executed in the scope of the application the
+     * block originated from.
+     *
+     * @return string  The block's content.
+     */
+    public function getContent()
+    {
+        return $this->_call('_content', '');
+    }
+
+    /**
      * Returns this block's content.
      *
      * @return string  The block's content.
      */
-    protected function _content()
+    abstract protected function _content();
+
+    /**
+     * The data to send on an AJAX update request.
+     *
+     * @param Horde_Variables $vars  The form variables for the request.
+     *
+     * @return string  Update data.
+     */
+    public function getAjaxUpdate(Horde_Variables $vars)
+    {
+        return $this->_call('_ajaxUpdate', '', $vars);
+    }
+
+    /**
+     * Returns this block's content for AJAX updates.
+     *
+     * @param Horde_Variables $vars  The form variables for the request.
+     *
+     * @return string  The update content.
+     */
+    protected function _ajaxUpdate(Horde_Variables $vars)
     {
         return '';
     }
 
     /**
-     * @return Horde_Url
+     * Return the URL to use for AJAX update requests.
+     *
+     * @return Horde_Url  The update URL.
      */
     protected function _ajaxUpdateUrl()
     {
@@ -235,30 +210,38 @@ class Horde_Core_Block
     }
 
     /**
+     * Calls the application driver in the proper context.
+     *
+     * @param string $name string
+     * @param mixed $default
+     * @param mixed $args
+     *
+     * @return mixed
      */
-    public function getAjaxUpdate($vars)
+    protected function _call($name, $default, $args = null)
     {
-        /* Switch application contexts, if necessary. Return an error
-         * immediately if pushApp() fails. */
         try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
+            $pushed = $GLOBALS['registry']->pushApp($this->getApp(), array(
+                'check_perms' => true,
+                'logintasks' => false
+            ));
         } catch (Horde_Exception $e) {
-            return $e->getMessage();
+            return $default;
         }
 
         try {
-            $content = $this->_ajaxUpdate($vars);
+            $ret = is_null($args)
+                ? $this->$name()
+                : call_user_func($name, $args);
         } catch (Horde_Exception $e) {
-            $content = $e->getMessage();
+            $ret = $default;
         }
 
-        /* If we changed application context in the course of this
-         * call, undo that change now. */
-        if ($app_pushed) {
+        if ($pushed) {
             $GLOBALS['registry']->popApp();
         }
 
-        return $content;
+        return $ret;
     }
 
 }

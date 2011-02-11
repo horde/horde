@@ -17,9 +17,11 @@ class Jonah_Block_Story extends Horde_Core_Block
 
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Story");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Story");
     }
 
     /**

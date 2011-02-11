@@ -22,13 +22,14 @@ class Agora_Block_Threads extends Horde_Core_Block
 
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Threads");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Threads");
     }
 
     /**
-     * @return array
      */
     protected function _params()
     {
@@ -55,7 +56,6 @@ class Agora_Block_Threads extends Horde_Core_Block
     }
 
     /**
-     * @return string
      */
     protected function _title()
     {

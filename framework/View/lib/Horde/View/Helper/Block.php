@@ -28,72 +28,59 @@ class Horde_View_Helper_Block extends Horde_View_Helper_Base
     /**
      * Return the title of the specified block.
      *
-     * @param string $app   The application the block is from.
-     * @param string $block The name of the block to get the title for.
-     * @param mixed $arg1   (optional) The first argument to the Block constructor.
-     * @param mixed $arg2   (optional) The first argument to the Block constructor.
-     * @param mixed $arg3   (optional) The first argument to the Block constructor.
+     * @param string $block  The name of the block to get the title for.
+     * @param mixed $arg1    (optional) The first argument to the Block
+     *                       constructor.
      *
-     * ...
-     *
-     * @return string The requested Block's title.
+     * @return string  The requested Block's title.
      *
      * @throws Horde_View_Exception, InvalidArgumentException
      */
     public function blockTitle()
     {
-        $args = func_get_args();
-        list($app, $block, $params) = $this->_args($args);
+        list($block, $params) = $this->_args(func_get_args());
 
-        return $this->_block($app, $block, $params)->getTitle();
+        return $this->_block($block, $params)->getTitle();
     }
 
     /**
      * Return the content of the specified block.
      *
-     * @param string $app   The application the block is from.
-     * @param string $block The name of the block to get the content for.
-     * @param mixed $arg1   (optional) The first argument to the Block constructor.
-     * @param mixed $arg2   (optional) The first argument to the Block constructor.
-     * @param mixed $arg3   (optional) The first argument to the Block constructor.
+     * @param string $block  The name of the block to get the content for.
+     * @param mixed $arg1    (optional) The first argument to the Block
+     *                       constructor.
      *
-     * ...
-     *
-     * @return string The requested Block's content.
+     * @return string  The requested Block's content.
      *
      * @throws Horde_View_Exception, InvalidArgumentException
      */
     public function blockContent()
     {
-        $args = func_get_args();
-        list($app, $block, $params) = $this->_args($args);
+        list($block, $params) = $this->_args(func_get_args());
 
-        return $this->_block($app, $block, $params)->getContent();
+        return $this->_block($block, $params)->getContent();
     }
 
     /**
      * Instantiate and cache Block objects
      *
-     * @param string $app   The application the block is from.
-     * @param string $block The name of the block to fetch.
-     * @param array $params (option) Any arguments to the Block constructor.
-     *
-     * ...
+     * @param string $block  The name of the block to fetch.
+     * @param array $params  (option) Any arguments to the Block constructor.
      *
      * @return Horde_Core_Block  The requested Block object
      *
      * @throws Horde_View_Exception, InvalidArgumentException
      */
-    protected function _block($app, $block, $params)
+    protected function _block($block, $params)
     {
-        $hash = sha1(serialize(array($app, $block, $params)));
-        if (!isset($this->_blockCache[$hash])) {
-            $block = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($app, $block, $params);
-            if (!$block instanceof Horde_Core_Block) {
-                throw new Horde_View_Exception($block);
-            }
+        $hash = sha1(serialize(array($block, $params)));
 
-            $this->_blockCache[$hash] = $block;
+        if (!isset($this->_blockCache[$hash])) {
+            try {
+                $this->_blockCache[$hash] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($block, $params);
+            } catch (Exception $e) {
+                throw new Horde_View_Exception($e);
+            }
         }
 
         return $this->_blockCache[$hash];

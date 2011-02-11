@@ -10,13 +10,7 @@ class Horde_Block_Google extends Horde_Core_Block
         parent::__construct($app, $params);
 
         $this->enabled = isset($GLOBALS['conf']['api']['googlesearch']);
-    }
-
-    /**
-     */
-    public function getName()
-    {
-        return _("Google Search");
+        $this->_name = _("Google Search");
     }
 
     /**

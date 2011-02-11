@@ -18,13 +18,7 @@ class Ansel_Block_RecentFaces extends Horde_Core_Block
         parent::__construct($app, $params);
 
         $this->enabled = !empty($GLOBALS['conf']['faces']['driver']);
-    }
-
-    /**
-     */
-    public function getName()
-    {
-        return _("Recent faces");
+        $this->_name = _("Recent faces");
     }
 
     /**

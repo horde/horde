@@ -13,13 +13,8 @@ class Kronolith_Block_Summary extends Horde_Core_Block
         if (!isset($this->_params['days'])) {
             $this->_params['days'] = 7;
         }
-    }
 
-    /**
-     */
-    public function getName()
-    {
-        return _("Calendar Summary");
+        $this->_name = _("Calendar Summary");
     }
 
     /**

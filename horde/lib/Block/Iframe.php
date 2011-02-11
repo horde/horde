@@ -5,9 +5,11 @@ class Horde_Block_Iframe extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("View an external web page");
+        parent::__construct($app, $params);
+
+        $this->_name = _("View an external web page");
     }
 
     /**

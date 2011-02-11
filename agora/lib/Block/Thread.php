@@ -14,9 +14,11 @@ class Agora_Block_Thread extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Single Thread");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Single Thread");
     }
 
     /**

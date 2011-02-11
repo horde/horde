@@ -5,9 +5,11 @@ class Horde_Block_Sunrise extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Sunrise/Sunset");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Sunrise/Sunset");
     }
 
     /**

@@ -6,9 +6,11 @@ class Whups_Block_Queuecontents extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Queue Contents");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Queue Contents");
     }
 
     /**

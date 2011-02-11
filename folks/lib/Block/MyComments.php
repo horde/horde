@@ -6,9 +6,11 @@ class Folks_Block_MyComments extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Last comments on my profile");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Last comments on my profile");
     }
 
     /**

@@ -7,9 +7,11 @@ class Folks_Block_Know extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("People you might know");
+        parent::__construct($app, $params);
+
+        $this->_name = _("People you might know");
     }
 
     /**

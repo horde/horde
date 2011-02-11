@@ -7,9 +7,11 @@ class Folks_Block_Random extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Random users");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Random users");
     }
 
     /**

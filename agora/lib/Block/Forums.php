@@ -14,11 +14,15 @@ class Agora_Block_Forums extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Forums");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Forums");
     }
 
+    /**
+     */
     protected function _title()
     {
         return Horde::url('forums.php', true)->link() . $this->getName() . '</a>';

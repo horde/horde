@@ -14,13 +14,7 @@ class Horde_Block_Fortune extends Horde_Core_Block
         parent::__construct($app, $params);
 
         $this->enabled = (isset($GLOBALS['conf']['fortune']['exec_path']) && is_executable($GLOBALS['conf']['fortune']['exec_path']));
-    }
-
-    /**
-     */
-    public function getName()
-    {
-        return _("Random Fortune");
+        $this->_name = _("Random Fortune");
     }
 
     /**

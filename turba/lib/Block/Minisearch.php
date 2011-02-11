@@ -6,9 +6,11 @@ class Turba_Block_Minisearch extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Contact Search");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Contact Search");
     }
 
     /**

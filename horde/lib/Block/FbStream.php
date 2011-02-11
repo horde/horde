@@ -21,7 +21,6 @@ class Horde_Block_FbStream extends Horde_Core_Block
     private $_fbp;
 
     /**
-     * Const'r - instantiate the facebook client.
      */
     public function __construct($app, $params = array())
     {
@@ -39,13 +38,8 @@ class Horde_Block_FbStream extends Horde_Core_Block
         }
 
         parent::__construct($app, $params);
-    }
 
-    /**
-     */
-    public function getName()
-    {
-        return _("My Facebook Stream");
+        $this->_name = _("My Facebook Stream");
     }
 
     /**

@@ -37,13 +37,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
         parent::__construct($app, $params);
 
         $this->enabled = !empty($GLOBALS['conf']['twitter']['enabled']);
-    }
-
-    /**
-     */
-    public function getName()
-    {
-        return _("Twitter Timeline");
+        $this->_name = _("Twitter Timeline");
     }
 
     /**

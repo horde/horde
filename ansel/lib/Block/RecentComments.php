@@ -12,16 +12,6 @@
 class Ansel_Block_Comments extends Horde_Core_Block
 {
     /**
-     */
-    public function __construct($app, $params = array())
-    {
-        parent::__construct($app, $params);
-
-        $this->enabled = ($GLOBALS['registry']->images->hasComments() &&
-                          $GLOBALS['registry']->hasMethod('forums/getThreadsBatch'));
-    }
-
-    /**
      * TODO
      *
      * @var Ansel_Gallery
@@ -30,9 +20,13 @@ class Ansel_Block_Comments extends Horde_Core_Block
 
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Recent Photo Comments");
+        parent::__construct($app, $params);
+
+        $this->enabled = ($GLOBALS['registry']->images->hasComments() &&
+                          $GLOBALS['registry']->hasMethod('forums/getThreadsBatch'));
+        $this->_name = _("Recent Photo Comments");
     }
 
     /**

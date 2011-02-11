@@ -5,16 +5,11 @@ class Horde_Scribd_Block_Scribd extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return Horde_Service_Scribd_Translation::t("Scribd Documents");
-    }
+        parent::__construct($app, $params);
 
-    /**
-     */
-    public function _title()
-    {
-        return $this->getName();
+        $this->_name = Horde_Service_Scribd_Translation::t("Scribd Documents");
     }
 
     /**

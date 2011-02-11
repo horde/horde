@@ -12,9 +12,11 @@ class Horde_Block_Account extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Account Information");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Account Information");
     }
 
     /**

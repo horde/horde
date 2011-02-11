@@ -14,13 +14,7 @@ class Horde_Block_Feed extends Horde_Core_Block
         parent::__construct($app, $params);
 
         $this->enabled = class_exists('Horde_Feed');
-    }
-
-    /**
-     */
-    public function getName()
-    {
-        return _("Syndicated Feed");
+        $this->_name = _("Syndicated Feed");
     }
 
     /**

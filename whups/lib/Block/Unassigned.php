@@ -6,9 +6,11 @@ class Whups_Block_Unassigned extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Unassigned Tickets");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Unassigned Tickets");
     }
 
     /**

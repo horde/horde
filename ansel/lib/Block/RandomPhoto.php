@@ -18,9 +18,11 @@ class Ansel_Block_RandomPhoto extends Horde_Core_Block
 
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Random photo");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Random photo");
     }
 
     /**

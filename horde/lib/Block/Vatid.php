@@ -10,13 +10,7 @@ class Horde_Block_Vatid extends Horde_Core_Block
         parent::__construct($app, $params);
 
         $this->enabled = class_exists('SOAP_Client');
-    }
-
-    /**
-     */
-    public function getName()
-    {
-        return _("EU VAT identification");
+        $this->_name = _("EU VAT identification");
     }
 
     /**

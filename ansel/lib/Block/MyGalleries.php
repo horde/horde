@@ -11,11 +11,13 @@
  */
 class Ansel_Block_MyGalleries extends Horde_Core_Block
 {
-   /**
-    */
-   public function getName()
-   {
-        return _("My Galleries");
+    /**
+     */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->_name = _("My Galleries");
    }
 
     /**

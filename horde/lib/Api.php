@@ -119,16 +119,15 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns a Horde_Block's title.
      *
-     * @param string $app    Block application.
      * @param string $name   Block name.
      * @param array $params  Block parameters.
      *
      * @return string  The block title.
      */
-    public function blockTitle($app, $name, $params = array())
+    public function blockTitle($name, $params = array())
     {
         try {
-            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($app, $name, $params)->getTitle();
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($name, $params)->getTitle();
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
@@ -146,7 +145,7 @@ class Horde_Api extends Horde_Registry_Api
     public function blockContent($app, $name, $params = array())
     {
         try {
-            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($app, $name, $params)->getContent();
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($name, $params)->getContent();
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }

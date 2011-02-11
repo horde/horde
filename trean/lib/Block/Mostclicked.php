@@ -13,9 +13,11 @@ class Trean_Block_Mostclicked extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Most-clicked Bookmarks");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Most-clicked Bookmarks");
     }
 
     /**

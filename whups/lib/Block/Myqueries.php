@@ -6,9 +6,11 @@ class Whups_Block_Myqueries extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("My Queries");
+        parent::__construct($app, $params);
+
+        $this->_name = _("My Queries");
     }
 
     /**

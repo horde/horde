@@ -9,9 +9,11 @@ class Horde_Block_Time extends Horde_Core_Block
 
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Current Time");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Current Time");
     }
 
     /**

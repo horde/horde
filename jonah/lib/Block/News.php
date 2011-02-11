@@ -13,9 +13,11 @@ class Jonah_Block_News extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Feed");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Feed");
     }
 
     /**

@@ -10,9 +10,11 @@ class Kronolith_Block_Month extends Horde_Core_Block
 
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("This Month");
+        parent::__construct($app, $params);
+
+        $this->_name = _("This Month");
     }
 
     /**

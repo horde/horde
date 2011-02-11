@@ -28,13 +28,8 @@ class Horde_Block_Weatherdotcom extends Horde_Core_Block
                 $this->enabled = true;
             }
         }
-    }
 
-    /**
-     */
-    public function getName()
-    {
-        return _("weather.com");
+        $this->_name = _("weather.com");
     }
 
     /**

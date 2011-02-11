@@ -6,9 +6,11 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Upcoming Events");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Upcoming Events");
     }
 
     /**

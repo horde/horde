@@ -5,9 +5,11 @@ class Horde_Block_Moon extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Moon Phases");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Moon Phases");
     }
 
     /**

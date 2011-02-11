@@ -34,7 +34,7 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
                 return $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
-                    ->getBlock('horde', $this->_vars->blockid)
+                    ->getBlock($this->_vars->blockid)
                     ->getContent();
             } catch (Exception $e) {
                 return $e->getMessage();
@@ -53,7 +53,7 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
                 return $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
-                    ->getBlock('horde', $this->_vars->blockid)
+                    ->getBlock($this->_vars->blockid)
                     ->getAjaxUpdate($this->_vars);
             } catch (Exception $e) {
                 return $e->getMessage();

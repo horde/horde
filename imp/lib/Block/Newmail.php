@@ -16,9 +16,11 @@ class IMP_Block_Newmail extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Newest Unseen Messages");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Newest Unseen Messages");
     }
 
     /**

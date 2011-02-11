@@ -17,13 +17,7 @@ class Horde_Block_Metar extends Horde_Core_Block
 
         $this->enabled = (isset($GLOBALS['conf']['sql']) &&
                           class_exists('Services_Weather'));
-    }
-
-    /**
-     */
-    public function getName()
-    {
-        return _("Metar Weather");
+        $this->_name = _("Metar Weather");
     }
 
     /**

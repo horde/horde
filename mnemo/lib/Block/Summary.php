@@ -5,13 +5,11 @@ class Mnemo_Block_Summary extends Horde_Core_Block
 {
     /**
      */
-    protected $_app = 'mnemo';
-
-    /**
-     */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Notes Summary");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Notes Summary");
     }
 
     /**

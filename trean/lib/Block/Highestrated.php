@@ -13,9 +13,11 @@ class Trean_Block_Highestrated extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Highest-rated Bookmarks");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Highest-rated Bookmarks");
     }
 
     /**

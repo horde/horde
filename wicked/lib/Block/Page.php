@@ -13,9 +13,11 @@ class Wicked_Block_Page extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Wiki page");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Wiki page");
     }
 
     /**

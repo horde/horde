@@ -7,9 +7,11 @@ class Folks_Block_Friends extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Friends");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Friends");
     }
 
     /**

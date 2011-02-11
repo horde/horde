@@ -15,12 +15,13 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
      */
     private $_folder = null;
 
-
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Bookmarks");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Bookmarks");
     }
 
     /**

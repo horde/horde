@@ -12,18 +12,20 @@
 class Ansel_Block_Recentlyadded extends Horde_Core_Block
 {
     /**
-     */
-    public function getName()
-    {
-        return _("Recently Added Photos");
-    }
-
-    /**
      * TODO
      *
      * @var Ansel_Gallery
      */
     private $_gallery = null;
+
+    /**
+     */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->_name = _("Recently Added Photos");
+    }
 
     /**
      */

@@ -11,11 +11,13 @@
  */
 class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
 {
-   /**
-    */
-    public function getName()
+    /**
+     */
+    public function __construct($app, $params = array())
     {
-        return _("Recently Geotagged Photos");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Recently Geotagged Photos");
     }
 
     /**

@@ -13,9 +13,11 @@ class Jonah_Block_Cloud extends Horde_Core_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return _("Tag Cloud");
+        parent::__construct($app, $params);
+
+        $this->_name = _("Tag Cloud");
     }
 
     /**
