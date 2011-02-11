@@ -84,6 +84,31 @@ class Horde_Kolab_Storage_Cache
     }
 
     /**
+     * Retrieve data set.
+     *
+     * @param string $data_id ID of the data sed.
+     *
+     * @return string The cached data set.
+     */
+    public function loadData($data_id)
+    {
+        return $this->horde_cache->get($data_id, 0);
+    }
+
+    /**
+     * Cache data set.
+     *
+     * @param string $data_id ID of the data set.
+     * @param string $data    The data to be cached.
+     *
+     * @return NULL
+     */
+    public function storeData($data_id, $data)
+    {
+        $this->horde_cache->set($data_id, $data);
+    }
+
+    /**
      * Return a list cache.
      *
      * @param array $connection_params Return the list cache for a connection
@@ -108,7 +133,7 @@ class Horde_Kolab_Storage_Cache
      *
      * @param string $list_id ID of the connection matching the list.
      *
-     * @return mixed The data of the object.
+     * @return string The data of the object.
      */
     public function loadList($list_id)
     {
@@ -121,7 +146,7 @@ class Horde_Kolab_Storage_Cache
      * @param string $list_id ID of the connection matching the list.
      * @param string $data          The data to be cached.
      *
-     * @return boolean True if successfull.
+     * @return NULL
      */
     public function storeList($list_id, $data)
     {

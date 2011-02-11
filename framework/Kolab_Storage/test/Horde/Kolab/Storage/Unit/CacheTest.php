@@ -172,6 +172,21 @@ extends Horde_Kolab_Storage_TestCase
         $this->cache->getDataCache($params);
     }
 
+    public function testLoadData()
+    {
+        $this->assertFalse(
+            $this->cache->loadData('test')
+        );
+    }
+
+    public function testStoreData()
+    {
+        $this->cache->storeData('test', true);
+        $this->assertTrue(
+            $this->cache->loadData('test')
+        );
+    }
+
     public function testGetListCache()
     {
         $this->assertInstanceOf(
