@@ -66,6 +66,7 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
         }
         $config['cache'] = $this->_injector->getInstance('Horde_Cache');
 
+        $e = null;
         try {
             $this->_instances[$sig] = new Horde_Ldap($config);
             if (isset($config['bindas']) && $config['bindas'] == 'user') {
@@ -73,15 +74,14 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
                     $this->_instances[$sig]->findUserDN($GLOBALS['registry']->getAuth()),
                     $GLOBALS['registry']->getAuthCredential('password'));
             }
-        } catch (Horde_Exception $e) {
-            if ($pushed) {
-                $GLOBALS['registry']->popApp();
-            }
-            throw $e;
-        }
+        } catch (Horde_Exception $e) {}
 
         if ($pushed) {
             $GLOBALS['registry']->popApp();
+        }
+
+        if ($e) {
+            throw $e;
         }
 
         return $this->_instances[$sig];

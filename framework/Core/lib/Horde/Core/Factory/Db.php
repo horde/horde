@@ -83,17 +83,17 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
         }
         unset($config['umask']);
 
+        $e = null;
         try {
             $this->_instances[$sig] = $this->_createDb($config);
-        } catch (Horde_Exception $e) {
-            if ($pushed) {
-                $GLOBALS['registry']->popApp();
-            }
-            throw $e;
-        }
+        } catch (Horde_Exception $e) {}
 
         if ($pushed) {
             $GLOBALS['registry']->popApp();
+        }
+
+        if ($e) {
+            throw $e;
         }
 
         return $this->_instances[$sig];
