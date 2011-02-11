@@ -14,13 +14,13 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 // Instantiate the blocks objects.
-$blocks = Horde_Block_Collection::singleton();
+$blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create();
 $layout_pref = @unserialize($prefs->getValue('portal_layout'));
 if (!is_array($layout_pref)) {
     $layout_pref = array();
 }
 if (!count($layout_pref)) {
-    $layout_pref = Horde_Block_Collection::getFixedBlocks();
+    $layout_pref = $blocks->getFixedBlocks();
 }
 
 $layout = Horde_Block_Layout_Manager::singleton('portal', $blocks, $layout_pref);

@@ -13,7 +13,6 @@
  */
 class Jonah_Block_NewsPopular extends Horde_Block
 {
-
     /**
      */
     public function getName()

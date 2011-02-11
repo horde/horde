@@ -23,9 +23,9 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
     static protected $_instances = array();
 
     /**
-     * Our Horde_Block_Collection instance.
+     * Our Horde_Core_Block_Collection instance.
      *
-     * @var Horde_Block_Collection
+     * @var Horde_Core_Block_Collection
      */
     protected $_collection;
 
@@ -82,7 +82,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
      * Returns a single instance of the Horde_Block_Layout_Manager class.
      *
      * @param string $name                        TODO
-     * @param Horde_Block_Collection $collection  TODO
+     * @param Horde_Core_Block_Collection $collection  TODO
      * @param array $data                        TODO
      *
      * @return Horde_Block_Layout_Manager  The requested instance.
@@ -98,7 +98,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
     /**
      * Constructor.
      *
-     * @param Horde_Block_Collection $collection  TODO
+     * @param Horde_Core_Block_Collection $collection  TODO
      * @param array $layout                       TODO
      */
     function __construct($collection, $layout = array())
@@ -330,7 +330,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
     {
         if (!isset($this->_blocks[$row][$col])) {
             $field = $this->_layout[$row][$col];
-            $this->_blocks[$row][$col] = Horde_Block_Collection::getBlock($field['app'], $field['params']['type'], $field['params']['params']);
+            $this->_blocks[$row][$col] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($field['app'], $field['params']['type'], $field['params']['params']);
         }
 
         return $this->_blocks[$row][$col];

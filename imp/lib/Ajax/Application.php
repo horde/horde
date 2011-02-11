@@ -1372,7 +1372,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $blocks = $linkTags = array();
         $css_load = array('imp' => true);
 
-        foreach ($dimp_block_list as $title => $block) {
+        foreach ($dimp_block_list as $block) {
             if ($block['ob'] instanceof Horde_Block) {
                 $app = $block['ob']->getApp();
                 // TODO: Fix CSS.

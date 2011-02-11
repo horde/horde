@@ -22,8 +22,11 @@ $layout_pref = @unserialize($prefs->getValue('portal_layout'));
 if (!is_array($layout_pref)) {
     $layout_pref = array();
 }
+
+$bc = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create();
+
 if (!count($layout_pref)) {
-    $layout_pref = Horde_Block_Collection::getFixedBlocks();
+    $layout_pref = $bc->getFixedBlocks();
 }
 
 // If we're serving a request to the JS update client, just return the blocks
@@ -34,7 +37,7 @@ if (Horde_Util::getFormData('httpclient')) {
     $col = Horde_Util::getFormData('col');
     if (!is_null($row) && !is_null($col) && !empty($layout_pref[$row][$col])) {
         $item = $layout_pref[$row][$col];
-        $block = Horde_Block_Collection::getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row, $col);
+        $block = $bc->getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row, $col);
         $content = $block->getContent();
         if ($content instanceof PEAR_Error) {
             $content = $content->getMessage();

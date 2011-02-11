@@ -88,7 +88,7 @@ class Horde_View_Helper_Block extends Horde_View_Helper_Base
     {
         $hash = sha1(serialize(array($app, $block, $params)));
         if (!isset($this->_blockCache[$hash])) {
-            $block = Horde_Block_Collection::getBlock($app, $block, $params);
+            $block = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($app, $block, $params);
             if (!$block instanceof Horde_Block) {
                 if (is_callable(array($block, 'getMessage'))) {
                     throw new Horde_View_Exception($block->getMessage());

@@ -58,7 +58,9 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
 
         $html = '<table class="nopadding" cellspacing="8" width="100%">';
 
+        $bc = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create();
         $covered = array();
+
         foreach ($this->_layout as $row_num => $row) {
             $width = floor(100 / count($row));
             $html .= '<tr>';
@@ -70,7 +72,7 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                     $this->_applications[$item['app']] = $item['app'];
                     $rowspan = $colspan = 1;
                     try {
-                        $block = Horde_Block_Collection::getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row_num, $col_num);
+                        $block = $bc->getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row_num, $col_num);
                         $rowspan = $item['height'];
                         $colspan = $item['width'];
                         for ($i = 0; $i < $item['height']; $i++) {

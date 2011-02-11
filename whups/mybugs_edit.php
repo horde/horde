@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // Instantiate the blocks objects.
-$blocks = Horde_Block_Collection::singleton(array('whups'));
+$blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('whups'));
 $layout = Horde_Block_Layout_Manager::singleton('mybugs', $blocks, @unserialize($prefs->getValue('mybugs_layout')));
 
 // Handle requested actions.

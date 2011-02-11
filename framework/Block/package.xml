@@ -18,8 +18,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:03:04</time>
+ <date>2011-02-11</date>
+ <time>11:44:19</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -42,7 +42,6 @@
        <file name="Manager.php" role="php" />
        <file name="View.php" role="php" />
       </dir> <!-- /lib/Horde/Block/Layout -->
-      <file name="Collection.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Layout.php" role="php" />
       <file name="Translation.php" role="php">
@@ -328,7 +327,6 @@
  <phprelease>
   <filelist>
    <install as="Horde/Block.php" name="lib/Horde/Block.php" />
-   <install as="Horde/Block/Collection.php" name="lib/Horde/Block/Collection.php" />
    <install as="Horde/Block/Exception.php" name="lib/Horde/Block/Exception.php" />
    <install as="Horde/Block/Layout.php" name="lib/Horde/Block/Layout.php" />
    <install as="Horde/Block/Translation.php" name="lib/Horde/Block/Translation.php" />
@@ -452,7 +450,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-02-11</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Removed sidebar-specifc code.

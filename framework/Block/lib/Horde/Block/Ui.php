@@ -16,13 +16,6 @@ class Horde_Block_UI
     /**
      * TODO
      *
-     * @var array
-     */
-    protected $_blocks = array();
-
-    /**
-     * TODO
-     *
      * @var Horde_Form
      */
     protected $_form = null;
@@ -33,14 +26,6 @@ class Horde_Block_UI
      * @var Horde_Variables
      */
     protected $_vars = null;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->_blocks = Horde_Block_Collection::singleton();
-    }
 
     /**
      * TODO
@@ -76,8 +61,10 @@ class Horde_Block_UI
         /* Get the current value of the block selection. */
         $value = $this->_vars->get($field);
 
+        $blocks = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create();
+
         /* Field to select apps. */
-        $apps = $this->_blocks->getBlocksList();
+        $apps = $blocks->getBlocksList();
         $v = $this->_form->addVariable(Horde_Block_Translation::t("Application"), $field . '[app]', 'enum', true, false, null, array($apps));
         $v->setOption('trackchange', true);
 
@@ -89,15 +76,15 @@ class Horde_Block_UI
         list($app, $block) = explode(':', $value['app']);
 
         /* Get the options for the requested block. */
-        $options = $this->_blocks->getParams($app, $block);
+        $options = $blocks->getParams($app, $block);
 
         /* Go through the options for this block and set up any required
          * extra input. */
         foreach ($options as $option) {
-            $name = $this->_blocks->getParamName($app, $block, $option);
-            $type = $this->_blocks->getOptionType($app, $block, $option);
-            $required = $this->_blocks->getOptionRequired($app, $block, $option);
-            $values = $this->_blocks->getOptionValues($app, $block, $option);
+            $name = $blocks->getParamName($app, $block, $option);
+            $type = $blocks->getOptionType($app, $block, $option);
+            $required = $blocks->getOptionRequired($app, $block, $option);
+            $values = $blocks->getOptionValues($app, $block, $option);
             /* TODO: the setting 'string' should be changed in all blocks
              * to 'text' so that it conforms with Horde_Form syntax. */
             if ($type == 'string') {

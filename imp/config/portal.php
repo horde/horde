@@ -20,7 +20,7 @@
  *                     the use of <if:block.tag> in custom template files.
  */
 
-$collection = new Horde_Block_Collection();
+$collection = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create();
 $dimp_block_list = array();
 
 // Show a folder summary of the mailbox.  All polled folders are displayed.

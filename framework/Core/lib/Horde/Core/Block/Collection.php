@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Block_Collection:: class provides an API to the blocks
- * (applets) framework.
+ * This class provides an API to the blocks (applets) framework.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -10,18 +9,12 @@
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Block
+ * @package  Horde
  */
-class Horde_Block_Collection
+class Horde_Core_Block_Collection
 {
-    /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
     /**
      * Cache for getBlocksList().
      *
@@ -36,25 +29,6 @@ class Horde_Block_Collection
      * @var array
      */
     protected $_blocks = array();
-
-    /**
-     * Returns a single instance of the Horde_Blocks class.
-     *
-     * @param array $apps  The applications whose blocks to list.
-     *
-     * @return Horde_Block_Collection  The Horde_Block_Collection instance.
-     */
-    static public function singleton($apps = array())
-    {
-        sort($apps);
-        $signature = hash('md5', serialize($apps));
-
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = new self($apps);
-        }
-
-        return self::$_instances[$signature];
-    }
 
     /**
      * Constructor.
