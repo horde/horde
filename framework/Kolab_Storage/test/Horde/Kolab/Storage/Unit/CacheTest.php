@@ -35,129 +35,114 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
-        $this->cache = new Horde_Cache_Storage_Mock();
+        $this->cache = new Horde_Kolab_Storage_Cache(
+            new Horde_Cache(
+                new Horde_Cache_Storage_Mock()
+            )
+        );
+    }
+
+    public function testGetDataCache()
+    {
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Cache_Data',
+            $this->cache->getDataCache($this->_getDataParameters())
+        );
+    }
+
+
+    public function testGetListCache()
+    {
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Cache_List',
+            $this->cache->getListCache($this->_getConnectionParameters())
+        );
+    }
+
+    public function testCachedListCache()
+    {
+        $this->assertSame(
+            $this->cache->getListCache($this->_getConnectionParameters()),
+            $this->cache->getListCache($this->_getConnectionParameters())
+        );
+    }
+
+    public function testNewHost()
+    {
+        $this->assertNotSame(
+            $this->cache->getListCache(
+                array('host' => 'b', 'port' => 1, 'user' => 'x')
+            ),
+            $this->cache->getListCache($this->_getConnectionParameters())
+        );
+    }
+
+    public function testNewPort()
+    {
+        $this->assertNotSame(
+            $this->cache->getListCache(
+                array('host' => 'a', 'port' => 2, 'user' => 'x')
+            ),
+            $this->cache->getListCache($this->_getConnectionParameters())
+        );
+    }
+
+    public function testNewUser()
+    {
+        $this->assertNotSame(
+            $this->cache->getListCache(
+                array('host' => 'a', 'port' => 1, 'user' => 'y')
+            ),
+            $this->cache->getListCache($this->_getConnectionParameters())
+        );
     }
 
     /**
-     * Test cleaning the cache.
-     *
-     * @return NULL
+     * @expectedException Horde_Kolab_Storage_Exception
      */
-    public function testReset()
+    public function testMissingHost()
     {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->reset();
-        $this->assertEquals(-1, $cache->validity);
-        $this->assertEquals(-1, $cache->nextid);
-        $this->assertTrue(empty($cache->objects));
-        $this->assertTrue(empty($cache->uids));
+        $this->cache->getListCache(array('port' => 1, 'user' => 'x'));
     }
 
     /**
-     * Test storing data.
-     *
-     * @return NULL
+     * @expectedException Horde_Kolab_Storage_Exception
      */
-    public function testStore()
+    public function testMissingPort()
     {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->reset();
-        $item = array(1);
-        $cache->store(10, 1, $item);
-        $this->assertTrue(isset($cache->objects[1]));
-        $this->assertTrue(isset($cache->uids[10]));
-        $this->assertEquals(1, $cache->uids[10]);
-        $this->assertSame($item, $cache->objects[1]);
+        $this->cache->getListCache(array('host' => 'a', 'user' => 'x'));
     }
 
     /**
-     * Test ignoring objects.
-     *
-     * @return NULL
+     * @expectedException Horde_Kolab_Storage_Exception
      */
-    public function testIgnore()
+    public function testMissingUser()
     {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->reset();
-        $cache->ignore(11);
-        $this->assertEquals(false, $cache->uids[11]);
+        $this->cache->getListCache(array('host' => 'a', 'port' => 1));
     }
 
-    public function testLoadAttachment()
+    public function testLoadList()
     {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeAttachment('a', 'attachment');
-        $this->assertEquals('attachment', $cache->loadAttachment('a'));
+        $this->assertFalse(
+            $this->cache->loadList('test')
+        );
     }
 
-    public function testLoadSecondAttachment()
+    public function testStoreList()
     {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeAttachment('a', 'attachment');
-        $cache->storeAttachment('b', 'b');
-        $this->assertEquals('b', $cache->loadAttachment('b'));
+        $this->cache->storeList('test', true);
+        $this->assertTrue(
+            $this->cache->loadList('test')
+        );
     }
 
-    public function testOverrideAttachment()
+    private function _getConnectionParameters()
     {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeAttachment('a', 'attachment');
-        $cache->storeAttachment('a', 'a');
-        $this->assertEquals('a', $cache->loadAttachment('a'));
+        return array('host' => 'a', 'port' => 1, 'user' => 'x');
     }
 
-    public function testCachingListData()
+    private function _getDataParameters()
     {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeListData('user@example.com:143', array('folders' => array('a', 'b')));
-        $this->assertEquals(array('folders' => array('a', 'b')), $cache->loadListData('user@example.com:143'));
+        return array();
     }
-
-    /**
-     * Test loading/saving the cache.
-     *
-     * @return NULL
-     */
-    public function testLoadSave()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->load('test', 1);
-        /**
-         * Loading a second time should return immediately (see code
-         * coverage)
-         */
-        $cache->load('test', 1);
-        $cache->expire();
-        $this->assertEquals(-1, $cache->validity);
-        $this->assertEquals(-1, $cache->nextid);
-        $this->assertTrue(empty($cache->objects));
-        $this->assertTrue(empty($cache->uids));
-        $item1 = array(1);
-        $item2 = array(2);
-        $cache->store(10, 1, $item1);
-        $cache->store(12, 2, $item2);
-        $cache->ignore(11);
-        $this->assertTrue(isset($cache->objects[1]));
-        $this->assertTrue(isset($cache->uids[10]));
-        $this->assertEquals(1, $cache->uids[10]);
-        $this->assertEquals($item1, $cache->objects[1]);
-        $cache->save();
-        $this->assertEquals(false, $cache->uids[11]);
-        $cache->ignore(10);
-        $cache->ignore(12);
-        $this->assertEquals(false, $cache->uids[10]);
-        $this->assertEquals(false, $cache->uids[12]);
-        /** Allow us to reload the cache */
-        $cache->load('test', 1, true);
-        $this->assertTrue(isset($cache->objects[1]));
-        $this->assertTrue(isset($cache->uids[10]));
-        $this->assertEquals(1, $cache->uids[10]);
-        $this->assertEquals($item1, $cache->objects[1]);
-        $cache->expire();
-        $this->assertEquals(-1, $cache->validity);
-        $this->assertEquals(-1, $cache->nextid);
-        $this->assertTrue(empty($cache->objects));
-        $this->assertTrue(empty($cache->uids));
-    }
-
 }
