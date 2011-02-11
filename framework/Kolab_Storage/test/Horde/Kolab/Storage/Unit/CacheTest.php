@@ -148,6 +148,20 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testKeyCollision()
+    {
+        $params2 = $this->_getDataParameters();
+        $params2['folder'] = 'I';
+        $params2['type'] = 'e/';
+        $params = $this->_getDataParameters();
+        $params['folder'] = 'I/e';
+        $params['type'] = '';
+        $this->assertNotSame(
+            $this->cache->getDataCache($params),
+            $this->cache->getDataCache($params2)
+        );
+    }
+
     /**
      * @expectedException Horde_Kolab_Storage_Exception
      */

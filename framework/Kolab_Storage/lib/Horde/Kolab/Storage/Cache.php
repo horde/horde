@@ -141,12 +141,8 @@ class Horde_Kolab_Storage_Cache
         foreach (array('host', 'port', 'user') as $key) {
             $this->_requireParameter($connection_params, 'list', $key);
         }
-        return sprintf(
-            '%s@%s:%s:LIST',
-            $connection_params['user'],
-            $connection_params['host'],
-            $connection_params['port']
-        );
+        ksort($connection_params);
+        return md5(serialize($connection_params));
     }
 
     /**
@@ -162,14 +158,8 @@ class Horde_Kolab_Storage_Cache
         foreach (array('host', 'port', 'folder', 'type', 'owner') as $key) {
             $this->_requireParameter($data_params, 'data', $key);
         }
-        return sprintf(
-            '{%s}%s/%s@%s:%s:DATA',
-            $data_params['owner'],
-            $data_params['folder'],
-            $data_params['type'],
-            $data_params['host'],
-            $data_params['port']
-        );
+        ksort($data_params);
+        return md5(serialize($data_params));
     }
 
     /**
