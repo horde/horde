@@ -7,6 +7,8 @@
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @package Ingo
  */
 class Ingo_Api extends Horde_Registry_Api
 {
