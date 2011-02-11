@@ -49,7 +49,7 @@ class Chora_Application extends Horde_Registry_Application
         // obtain basic chora application information.
         // TODO: Fix by moving repository initialization code out if _init();
         // should be loaded on-demand, for example.
-        if ($GLOBALS['regstry']->initialApp != 'chora') {
+        if ($GLOBALS['registry']->initialApp != 'chora') {
             return;
         }
 
