@@ -164,6 +164,10 @@ class Horde_Kolab_Storage_Factory
                 $config['data'] = array('user/test' => array());
             }
             $driver = new Horde_Kolab_Storage_Driver_Mock($this, $config);
+            $parser = new Horde_Kolab_Storage_Data_Parser_Structure($driver);
+            $format = new Horde_Kolab_Storage_Data_Format_Mime($this, $parser);
+            $parser->setFormat($format);
+            $driver->setParser($parser);
             break;
         case 'horde':
         case 'horde-php':
@@ -228,7 +232,7 @@ class Horde_Kolab_Storage_Factory
      * @param string                   $name   The query name.
      * @param Horde_Kolab_Storage_List $list   The list that should be queried.
      * @param array                    $params Additional parameters provided
-     *                                        to the query constructor.
+     *                                         to the query constructor.
      *
      * @return Horde_Kolab_Storage_Query A query handler.
      *
@@ -236,11 +240,45 @@ class Horde_Kolab_Storage_Factory
      */
     public function createListQuery($name, Horde_Kolab_Storage_List $list, $params = array())
     {
+        return $this->_createQuery($name, $list, $params);
+    }
+
+    /**
+     * Create the specified data query type.
+     *
+     * @param string                   $name   The query name.
+     * @param Horde_Kolab_Storage_Data $data   The data that should be queried.
+     * @param array                    $params Additional parameters provided
+     *                                         to the query constructor.
+     *
+     * @return Horde_Kolab_Storage_Query A query handler.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query is not supported.
+     */
+    public function createDataQuery($name, Horde_Kolab_Storage_Data $data, $params = array())
+    {
+        return $this->_createQuery($name, $data, $params);
+    }
+
+    /**
+     * Create the specified query type.
+     *
+     * @param string $name   The query name.
+     * @param mixed  $data   The data that should be queried.
+     * @param array  $params Additional parameters provided
+     *                       to the query constructor.
+     *
+     * @return Horde_Kolab_Storage_Query A query handler.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query is not supported.
+     */
+    private function _createQuery($name, $data, $params = array())
+    {
         if (class_exists($name)) {
             $constructor_params = array_merge(
                 array('factory' => $this), $params
             );
-            $query = new $name($list, $constructor_params);
+            $query = new $name($data, $constructor_params);
         } else {
             throw new Horde_Kolab_Storage_Exception(sprintf('No such query "%s"!', $name));
         }
