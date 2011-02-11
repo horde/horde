@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[jan] Provide default configuration files instead of .dist versions.
 [jan] Add a new Share SQL driver with better performance.
 [cjh] Drop Log SQL driver.
 [mms] Update prototypejs to v1.7.

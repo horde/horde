@@ -140,7 +140,7 @@ Configuring Whups
 
    The ``create_email.txt`` and ``notify_email.txt`` files define how outgoing
    email notifications about new respectively updated tickets look like. If
-   using non-ascii character in this file, it has to saved with UTF-8
+   using non-ascii character in these files, they have to saved with UTF-8
    encoding. The following placeholders are available:
 
       :@@ticket_url@@: The link to the ticket page.

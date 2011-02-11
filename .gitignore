@@ -58,12 +58,12 @@ framework/Share/test/Horde/Share/Sqlng/Pdo/conf.php
 # Ignore locally defined config
 */config/*.d/*.php
 */config/*.old
-*/config/*.php
-*/config/*.txt
+*/config/conf.php
+*/config/conf.bak.php
+*/config/hooks.php
+*/config/*.local.php
 framework/bin/*.conf
-!horde/config/nls.php
 !horde/admin/config/
-horde/config/registry.d/*.php
 
 # Application specific excludes
 ApertureToAnselExportPlugin/build/

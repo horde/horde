@@ -65,5 +65,5 @@
 
 <?php
 try {
-    Horde::loadConfiguration('motd.php', null, null, true);
+    echo Horde::loadConfiguration('motd.php', 'motd', null, true);
 } catch (Horde_Exception $e) {}

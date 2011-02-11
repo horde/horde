@@ -387,7 +387,9 @@ class Horde_Registry
         /* Get modified time of registry files. */
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
                                filemtime(HORDE_BASE . '/config/registry.d'));
-
+        if (file_exists(HORDE_BASE . '/config/registry.local.php')) {
+            $this->_regmtime = max($this->_regmtime, filemtime(HORDE_BASE . '/config/registry.local.php'));
+        }
         if (!empty($conf['vhosts'])) {
             $this->_vhost = HORDE_BASE . '/config/registry-' . $conf['server']['name'] . '.php';
             if (file_exists($this->_vhost)) {

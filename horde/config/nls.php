@@ -2,9 +2,9 @@
 /**
  * NLS (National Language Support) configuration file.
  *
- * Local overrides should be placed in config/nls.local.php.
- *
- * $Id$
+ * IMPORTANT: Local overrides should be placed in nls.local.php, or
+ * nls-servername.php if the 'vhosts' setting has been enabled in Horde's
+ * configuration.
  */
 
 $horde_nls_config = array(
