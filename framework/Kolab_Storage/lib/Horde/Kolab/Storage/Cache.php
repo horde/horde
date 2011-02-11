@@ -76,29 +76,7 @@ class Horde_Kolab_Storage_Cache
      */
     public function getDataCache($data_params)
     {
-        if (!isset($data_params['host'])) {
-            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "host" parameter is missing!');
-        }
-        if (!isset($data_params['port'])) {
-            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "port" parameter is missing!');
-        }
-        if (!isset($data_params['folder'])) {
-            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "folder" parameter is missing!');
-        }
-        if (!isset($data_params['type'])) {
-            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "type" parameter is missing!');
-        }
-        if (!isset($data_params['owner'])) {
-            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "owner" parameter is missing!');
-        }
-        $data_id = sprintf(
-            '{%s}%s/%s@%s:%s:DATA',
-            $data_params['owner'],
-            $data_params['folder'],
-            $data_params['type'],
-            $data_params['host'],
-            $data_params['port']
-        );
+        $data_id = $this->_getDataId($data_params);
         if (!isset($this->_data_caches[$data_id])) {
             $this->_data_caches[$data_id] = new Horde_Kolab_Storage_Cache_Data($this);
         }
@@ -153,21 +131,15 @@ class Horde_Kolab_Storage_Cache
     /**
      * Compose the list key.
      *
-     * @param array $connection_params Return the list cache for a connection
-     *                                 with these parameters.
+     * @param array $connection_params Return the list ID for a connection with
+     *                                 these parameters.
      *
-     * @return mixed The data of the object.
+     * @return string The list cache ID.
      */
     private function _getListId($connection_params)
     {
-        if (!isset($connection_params['host'])) {
-            throw new Horde_Kolab_Storage_Exception('Unable to determine the list cache key: The "host" parameter is missing!');
-        }
-        if (!isset($connection_params['port'])) {
-            throw new Horde_Kolab_Storage_Exception('Unable to determine the list cache key: The "port" parameter is missing!');
-        }
-        if (!isset($connection_params['user'])) {
-            throw new Horde_Kolab_Storage_Exception('Unable to determine the list cache key: The "user" parameter is missing!');
+        foreach (array('host', 'port', 'user') as $key) {
+            $this->_requireParameter($connection_params, 'list', $key);
         }
         return sprintf(
             '%s@%s:%s:LIST',
@@ -175,5 +147,49 @@ class Horde_Kolab_Storage_Cache
             $connection_params['host'],
             $connection_params['port']
         );
+    }
+
+    /**
+     * Compose the data key.
+     *
+     * @param array $data_params Return the data ID for a data set with these
+     *                           parameters.
+     *
+     * @return string The data cache ID.
+     */
+    private function _getDataId($data_params)
+    {
+        foreach (array('host', 'port', 'folder', 'type', 'owner') as $key) {
+            $this->_requireParameter($data_params, 'data', $key);
+        }
+        return sprintf(
+            '{%s}%s/%s@%s:%s:DATA',
+            $data_params['owner'],
+            $data_params['folder'],
+            $data_params['type'],
+            $data_params['host'],
+            $data_params['port']
+        );
+    }
+
+    /**
+     * Determine if a necessary parameter is set.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the parameter is missing.
+     */
+    private function _requireParameter($parameters, $type, $key)
+    {
+        if (!isset($parameters[$key])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'Unable to determine the %s cache key: The "%s" parameter is missing!',
+                    $type,
+                    $key
+                )
+            );
+        }
+
     }
 }
