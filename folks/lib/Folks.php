@@ -2,8 +2,6 @@
 /**
  * Folks Base Class.
  *
- * $Id: Folks.php 1247 2009-01-30 15:01:34Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: approve.php 947 2008-09-29 12:21:47Z duck $
- *
  * Copyright 2007 Obala d.o.o. (http://www.obala.si/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

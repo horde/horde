@@ -2,8 +2,6 @@
 /**
  * Folks Notification Class.
  *
- * $Id: facebook.php 1469 2009-03-12 10:51:11Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

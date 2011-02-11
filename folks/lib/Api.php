@@ -7,8 +7,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/folks/LICENSE.
  *
- * $Id: api.php 1235 2009-01-28 19:25:04Z duck $
- *
  * @author Duck <duck@obala.net>
  * @package Folks
  */

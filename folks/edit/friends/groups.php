@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: blacklist.php 1234 2009-01-28 18:44:02Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

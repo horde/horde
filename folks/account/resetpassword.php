@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: resetpassword.php 935 2008-09-27 09:37:38Z duck $
- *
  * Copyright 2007 Obala d.o.o. (http://www.obala.si/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

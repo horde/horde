@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: activity.php 975 2008-10-07 20:33:50Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

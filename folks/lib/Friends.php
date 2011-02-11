@@ -3,8 +3,6 @@
  * Folks_Friends:: defines an API for implementing storage backends for
  * Friends.
  *
- * $Id: Friends.php 1248 2009-01-30 15:04:49Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

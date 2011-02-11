@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: privacy.php 984 2008-10-09 09:38:16Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

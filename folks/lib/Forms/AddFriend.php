@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: AddFriend.php 795 2008-08-25 12:00:21Z duck $
- *
  * Copyright 2007 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

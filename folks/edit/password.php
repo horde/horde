@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: password.php 880 2008-09-22 12:33:57Z duck $
- *
  * Copyright 2007 Obala d.o.o. (http://www.obala.si/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

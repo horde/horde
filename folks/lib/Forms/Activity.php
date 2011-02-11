@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: Activity.php 1247 2009-01-30 15:01:34Z duck $
- *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

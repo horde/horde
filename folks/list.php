@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: list.php 1019 2008-10-31 08:18:10Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

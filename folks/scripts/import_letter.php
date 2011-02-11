@@ -2,8 +2,6 @@
 /**
  * Script to import Letter friend list
  *
- * $Id: import_letter.php 1008 2008-10-24 09:07:35Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -1,5 +1,3 @@
---  $Id$
-
 CREATE TABLE IF NOT EXISTS folks_attributes (
   user_uid VARCHAR(32) NOT NULL,
   attributes_group VARCHAR(32) NOT NULL,

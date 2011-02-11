@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: reject.php 974 2008-10-07 19:46:00Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

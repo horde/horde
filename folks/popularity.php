@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: popularity.php 891 2008-09-23 18:14:32Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

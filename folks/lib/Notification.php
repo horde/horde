@@ -2,8 +2,6 @@
 /**
  * Folks Notification Class.
  *
- * $Id: Driver.php 1400 2009-03-09 09:58:40Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

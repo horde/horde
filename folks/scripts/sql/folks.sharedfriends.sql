@@ -1,5 +1,3 @@
---  $Id$
-
 CREATE TABLE IF NOT EXISTS `folks_friends` (
   `user_uid` VARCHAR(32) NOT NULL,
   `group_id` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',

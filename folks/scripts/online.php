@@ -7,8 +7,6 @@
  *
  * mysql -u USER -h localhost --password=P DB < /pato/to/folks/scripts/online.sql
  *
- * $Id: online.php 920 2008-09-25 08:16:34Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

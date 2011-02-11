@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: search.php 940 2008-09-28 09:11:22Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: friends.php 983 2008-10-09 09:06:53Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

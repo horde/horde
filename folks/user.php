@@ -1,7 +1,5 @@
 <?php
  /**
- * $Id: user.php 1076 2008-11-29 09:33:19Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -2,8 +2,6 @@
 /**
  * Script calculate user acrivity. Please modify it for your needs.
  *
- * $Id: activity.php 1009 2008-10-24 09:30:41Z duck $
- *
  * Copyright Obala d.o.o. (www.obala.si)
  *
  * See the enclosed file COPYING for license information (GPL). If you

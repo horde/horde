@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: renew.php 918 2008-09-25 02:18:59Z duck $
- *
  * Copyright 2007 Obala d.o.o. (http://www.obala.si/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
