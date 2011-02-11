@@ -76,10 +76,21 @@ class Horde_Kolab_Storage_Cache
      */
     public function getDataCache($data_params)
     {
-        if (!isset($this->_data_caches)) {
-            $this->_data_caches = new Horde_Kolab_Storage_Cache_Data($this);
+        if (!isset($data_params['host'])) {
+            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "host" parameter is missing!');
         }
-        return $this->_data_caches;
+        if (!isset($data_params['port'])) {
+            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "port" parameter is missing!');
+        }
+        $data_id = sprintf(
+            '%s:%s',
+            $data_params['host'],
+            $data_params['port']
+        );
+        if (!isset($this->_data_caches[$data_id])) {
+            $this->_data_caches[$data_id] = new Horde_Kolab_Storage_Cache_Data($this);
+        }
+        return $this->_data_caches[$data_id];
     }
 
     /**

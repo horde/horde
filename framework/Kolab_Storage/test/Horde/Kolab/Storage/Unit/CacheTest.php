@@ -58,6 +58,45 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testNewHostNewData()
+    {
+        $params = $this->_getDataParameters();
+        $params['host'] = 'b';
+        $this->assertNotSame(
+            $this->cache->getDataCache($params),
+            $this->cache->getDataCache($this->_getDataParameters())
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testDataMissingHost()
+    {
+        $params = $this->_getDataParameters();
+        unset($params['host']);
+        $this->cache->getDataCache($params);
+    }
+
+    public function testNewPortNewData()
+    {
+        $params = $this->_getDataParameters();
+        $params['port'] = 2;
+        $this->assertNotSame(
+            $this->cache->getDataCache($params),
+            $this->cache->getDataCache($this->_getDataParameters())
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testDataMissingPort()
+    {
+        $params = $this->_getDataParameters();
+        unset($params['port']);
+        $this->cache->getDataCache($params);
+    }
 
     public function testGetListCache()
     {
@@ -151,6 +190,6 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getDataParameters()
     {
-        return array();
+        return array('host' => 'a', 'port' => 1);
     }
 }
