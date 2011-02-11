@@ -53,20 +53,21 @@ class Ingo_Transport_Sivtest extends Ingo_Transport
             return;
         }
 
-        $this->sivtestSocket($this->_params['username'],
-        $this->_params['password'], $this->_params['hostspec']);
+        $this->sivtestSocket(
+            $this->_params['username'],
+            $this->_params['password'],
+            $this->_params['hostspec']);
         $domain_socket = 'unix://' . $this->_params['socket'];
-
-        $this->_sieve = new Net_Sieve($this->_params['username'],
-                                      $this->_params['password'],
-                                      $domain_socket,
-                                      0,
-                                      null,
-                                      null,
-                                      false,
-                                      true,
-                                      $this->_params['usetls']);
-
+        $this->_sieve = new Net_Sieve(
+            $this->_params['username'],
+            $this->_params['password'],
+            $domain_socket,
+            0,
+            null,
+            null,
+            false,
+            true,
+            $this->_params['usetls']);
         $res = $this->_sieve->getError();
         if ($res instanceof PEAR_Error) {
             unset($this->_sieve);
