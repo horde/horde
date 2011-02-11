@@ -308,7 +308,7 @@ class Horde_Menu
 
         if (isset($conf['menu']['apps']) && is_array($conf['menu']['apps'])) {
             foreach ($conf['menu']['apps'] as $app) {
-                if (($registry->get('status', $app) != 'inactive') &&
+                if (!$registry->isInactive($app) &&
                     $registry->hasPermission($app, Horde_Perms::SHOW)) {
                     $out[] = $app;
                 }

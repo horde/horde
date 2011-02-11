@@ -98,7 +98,7 @@ class Horde_Block_Account extends Horde_Core_Block
         }
         $output .= "</table>\n";
 
-        if ($registry->get('status', 'forwards') != 'inactive' &&
+        if (!$registry->isInactive('forwards') &&
             $registry->hasMethod('summary', 'forwards')) {
             try {
                 $summary = $registry->callByPackage('forwards', 'summary');
@@ -106,7 +106,7 @@ class Horde_Block_Account extends Horde_Core_Block
             } catch (Exception $e) {}
         }
 
-        if ($registry->get('status', 'vacation') != 'inactive' &&
+        if (!$registry->isInactive('vacation') &&
             $registry->hasMethod('summary', 'vacation')) {
             try {
                 $summary = $registry->callByPackage('vacation', 'summary');

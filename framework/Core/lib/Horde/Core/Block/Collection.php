@@ -62,9 +62,7 @@ class Horde_Core_Block_Collection
     {
         global $registry;
 
-        if (($registry->get('status', $app) == 'inactive') ||
-            (($registry->get('status', $app) == 'admin') &&
-             !$registry->isAdmin())) {
+        if ($registry->isInactive($app)) {
             throw new Horde_Exception(sprintf('%s is not activated.', $GLOBALS['registry']->get('name', $app)));
         }
 

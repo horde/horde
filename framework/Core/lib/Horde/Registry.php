@@ -780,6 +780,21 @@ class Horde_Registry
     }
 
     /**
+     * Is the given application inactive?
+     *
+     * @param string $app  The application to check.
+     *
+     * @return boolean  True if inactive.
+     */
+    public function isInactive($app)
+    {
+        return (!isset($this->applications[$app]) ||
+                ($this->applications[$app]['status'] == 'inactive') ||
+                (($this->applications[$app]['status'] == 'admin') &&
+                 !$this->isAdmin()));
+    }
+
+    /**
      * Returns all available registry APIs.
      *
      * @return array  The API list.
@@ -1181,9 +1196,7 @@ class Horde_Registry
         }
 
         /* Bail out if application is not present or inactive. */
-        if (!isset($this->applications[$app]) ||
-            $this->applications[$app]['status'] == 'inactive' ||
-            ($this->applications[$app]['status'] == 'admin' && !$this->isAdmin())) {
+        if (!isset($this->applications[$app]) || $this->isInactive($app)) {
             throw new Horde_Exception($app . ' is not activated.', self::NOT_ACTIVE);
         }
 
