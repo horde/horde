@@ -66,8 +66,7 @@ class Horde_Core_Block_Collection
      *
      * @throws Horde_Exception
      */
-    public function getBlock($app, $name, $params = null, $row = null,
-                             $col = null)
+    public function getBlock($app, $name, $params = null)
     {
         global $registry;
 
@@ -79,15 +78,14 @@ class Horde_Core_Block_Collection
 
         $pushed = $registry->pushApp($app);
 
-        $class = $app . '_Block_' . $name;
-        if (!class_exists($class)) {
+        if (!class_exists($name)) {
             if ($pushed) {
                 $registry->popApp($app);
             }
-            throw new Horde_Exception(sprintf('%s not found.', $class));
+            throw new Horde_Exception(sprintf('%s not found.', $name));
         }
 
-        $ob = new $class($app, $params, $row, $col);
+        $ob = new $name($app, $params, $row, $col);
         if ($pushed) {
             $registry->popApp($app);
         }

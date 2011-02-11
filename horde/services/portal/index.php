@@ -29,24 +29,6 @@ if (!count($layout_pref)) {
     $layout_pref = $bc->getFixedBlocks();
 }
 
-// If we're serving a request to the JS update client, just return the blocks
-// updated HTML content.
-if (Horde_Util::getFormData('httpclient')) {
-    header('Content-Type: text/html; charset=UTF-8');
-    $row = Horde_Util::getFormData('row');
-    $col = Horde_Util::getFormData('col');
-    if (!is_null($row) && !is_null($col) && !empty($layout_pref[$row][$col])) {
-        $item = $layout_pref[$row][$col];
-        $block = $bc->getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row, $col);
-        $content = $block->getContent();
-        if ($content instanceof PEAR_Error) {
-            $content = $content->getMessage();
-        }
-        echo $content;
-    }
-    exit;
-}
-
 // Render layout.
 $view = new Horde_Block_Layout_View(
     $layout_pref,

@@ -5,19 +5,7 @@
   </span>
   <h1 class="header"><?php echo $header ?></h1>
  </div>
- <div id="block_<?php echo $row_num . '_' . $col_num ?>">
+ <div id="<?php echo $block_id ?>">
   <?php echo $content ?>
  </div>
-<?php if (!empty($block->updateable) && !empty($refresh_time)): ?>
- <script type="text/javascript">
- setTimeout(function() {
-     new Ajax.PeriodicalUpdater('block_<?php echo (int)$row_num ?>_<?php echo (int)$col_num ?>',
-                                '<?php echo Horde::url('services/portal/index.php') ?>',
-             { parameters: { httpclient: 1, row: <?php echo (int)$row_num ?>, col: <?php echo (int)$col_num ?> },
-               method: 'get',
-               evalScripts: true,
-               frequency: <?php echo (int)$refresh_time ?> });
- }, <?php echo (int)$refresh_time * 1000 ?>);
- </script>
-<?php endif; ?>
 </td>

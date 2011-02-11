@@ -64,15 +64,18 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
         foreach ($this->_layout as $row_num => $row) {
             $width = floor(100 / count($row));
             $html .= '<tr>';
+
             foreach ($row as $col_num => $item) {
-                if (isset($covered[$row_num]) && isset($covered[$row_num][$col_num])) {
+                if (isset($covered[$row_num]) &&
+                    isset($covered[$row_num][$col_num])) {
                     continue;
                 }
+
                 if (is_array($item)) {
                     $this->_applications[$item['app']] = $item['app'];
                     $rowspan = $colspan = 1;
                     try {
-                        $block = $bc->getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row_num, $col_num);
+                        $block = $bc->getBlock($item['app'], $item['params']['type'], $item['params']['params']);
                         $rowspan = $item['height'];
                         $colspan = $item['width'];
                         for ($i = 0; $i < $item['height']; $i++) {
@@ -83,15 +86,37 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                                 $covered[$row_num + $i][$col_num + $j] = true;
                             }
                         }
+
                         if ($block instanceof Horde_Block) {
-                            $header = $block->getTitle();
+                            $block_id = 'block_' . $row_num . '_' . $col_num;
                             $content = $block->getContent();
-                            if ($GLOBALS['browser']->hasFeature('xmlhttpreq')) {
-                                $refresh_time = isset($item['params']['params']['_refresh_time']) ? $item['params']['params']['_refresh_time'] : $interval;
-                            }
+                            $header = $block->getTitle();
+
                             ob_start();
                             include $tplDir . '/portal/block.inc';
                             $html .= ob_get_clean();
+
+                            if ($block->updateable &&
+                                $GLOBALS['browser']->hasFeature('xmlhttpreq')) {
+                                $refresh_time = isset($item['params']['params']['_refresh_time'])
+                                    ? $item['params']['params']['_refresh_time']
+                                    : $interval;
+
+                                $updateurl = Horde::getServiceLink('ajax', 'horde');
+                                $updateurl->pathInfo = 'blockAutoUpdate';
+                                $updateurl->add('blockid', get_class($block));
+
+                                Horde::addInlineScript(
+                                    'setTimeout(function() {' .
+                                      'new Ajax.PeriodicalUpdater(' .
+                                        '"' . $block_id . '",' .
+                                        '"' . strval($updateurl) . '",' .
+                                        '{ method: "get", evalScripts: true, frequency: ' . intval($refresh_time) . ' }' .
+                                      ');' .
+                                    '}, ' . intval($refresh_time * 1000) . ')',
+                                    'dom'
+                                );
+                            }
                         } else {
                             $html .= '<td width="' . ($width * $colspan) . '%">&nbsp;</td>';
                         }

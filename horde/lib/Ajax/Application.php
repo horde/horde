@@ -24,4 +24,43 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
         return $GLOBALS['injector']->getInstance('Horde_Core_Sidebar')->getTree()->renderNodeDefinitions();
     }
 
+    /**
+     * AJAX action: Auto-update portal block.
+     */
+    public function blockAutoUpdate()
+    {
+        if (isset($this->_vars->blockid)) {
+            try {
+                return $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_BlockCollection')
+                    ->create()
+                    ->getBlock('horde', $this->_vars->blockid)
+                    ->getContent();
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+        }
+
+        return '';
+    }
+    /**
+     * AJAX action: Update portal block.
+     */
+    public function blockUpdate()
+    {
+        if (isset($this->_vars->blockid)) {
+            try {
+                return $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_BlockCollection')
+                    ->create()
+                    ->getBlock('horde', $this->_vars->blockid)
+                    ->getAjaxUpdate($this->_vars);
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+        }
+
+        return '';
+    }
+
 }

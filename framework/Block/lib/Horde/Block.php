@@ -23,27 +23,6 @@ class Horde_Block
     public $updateable = false;
 
     /**
-     * Block specific parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
-     * The Block row.
-     *
-     * @var integer
-     */
-    protected $_row;
-
-    /**
-     * The Block column.
-     *
-     * @var integer
-     */
-    protected $_col;
-
-    /**
      * Application that this block originated from.
      *
      * @var string
@@ -51,16 +30,20 @@ class Horde_Block
     protected $_app;
 
     /**
+     * Block specific parameters.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
      * Constructor.
      *
      * @param string $app            The application name.
      * @param array|boolean $params  Any parameters the block needs. If false,
      *                               the default parameter will be used.
-     * @param integer $row           The block row.
-     * @param integer $col           The block column.
      */
-    public function __construct($app, $params = array(), $row = null,
-                                $col = null)
+    public function __construct($app, $params = array())
     {
         $this->_app = $app;
 
@@ -68,15 +51,12 @@ class Horde_Block
         // because empty parameter values are not stored at all, so they would
         // always be overwritten by the defaults.
         if ($params === false) {
-            $params = $this->getParams();
-            foreach ($params as $name => $param) {
+            foreach ($this->getParams() as $name => $param) {
                 $this->_params[$name] = $param['default'];
             }
         } else {
             $this->_params = $params;
         }
-        $this->_row = $row;
-        $this->_col = $col;
     }
 
     /**
@@ -232,6 +212,45 @@ class Horde_Block
     protected function _content()
     {
         return '';
+    }
+
+    /**
+     * @return Horde_Url
+     */
+    protected function _ajaxUpdateUrl()
+    {
+        $ajax_url = Horde::getServiceLink('ajax', 'horde');
+        $ajax_url->pathInfo = 'blockUpdate';
+        $ajax_url->add('blockid', get_class($this));
+
+        return $ajax_url;
+    }
+
+    /**
+     */
+    public function getAjaxUpdate($vars)
+    {
+        /* Switch application contexts, if necessary. Return an error
+         * immediately if pushApp() fails. */
+        try {
+            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
+        } catch (Horde_Exception $e) {
+            return $e->getMessage();
+        }
+
+        try {
+            $content = $this->_ajaxUpdate($vars);
+        } catch (Horde_Block_Exception $e) {
+            $content = $e->getMessage();
+        }
+
+        /* If we changed application context in the course of this
+         * call, undo that change now. */
+        if ($app_pushed) {
+            $GLOBALS['registry']->popApp();
+        }
+
+        return $content;
     }
 
 }
