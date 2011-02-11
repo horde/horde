@@ -14,7 +14,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
