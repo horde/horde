@@ -187,6 +187,35 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testLoadAttachment()
+    {
+        $this->assertFalse(
+            $this->cache->loadAttachment('test', '1', '1')
+        );
+    }
+
+    public function testStoreAttachment()
+    {
+        
+        $this->cache->storeAttachment('test', '1', '1', $this->_getResource());
+        $this->assertEquals(
+            'test',
+            stream_get_contents(
+                $this->cache->loadData('test', '1', '1')
+            )
+        );
+    }
+
+    public function testStoreSameAttachment()
+    {
+        $resource = $this->_getResource();
+        $resource2 = $this->_getResource();
+        $this->cache->storeAttachment('test', '1', '1', $resource);
+        $this->cache->storeAttachment('test', '1', '1', $resource2);
+        $this->assertSame($resource2, $this->cache->loadData('test', '1', '1'));
+        $this->assertNotSame($resource, $this->cache->loadData('test', '1', '1'));
+    }
+
     public function testGetListCache()
     {
         $this->assertInstanceOf(
@@ -286,5 +315,13 @@ extends Horde_Kolab_Storage_TestCase
             'type' => 'e',
             'owner' => 'x',
         );
+    }
+
+    private function _getResource()
+    {
+        $resource = fopen('php://temp', 'r+');
+        fwrite($resource, 'test');
+        rewind($resource);
+        return $resource;
     }
 }

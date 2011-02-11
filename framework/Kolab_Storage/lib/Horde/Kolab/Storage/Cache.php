@@ -86,7 +86,7 @@ class Horde_Kolab_Storage_Cache
     /**
      * Retrieve data set.
      *
-     * @param string $data_id ID of the data sed.
+     * @param string $data_id ID of the data set.
      *
      * @return string The cached data set.
      */
@@ -104,6 +104,35 @@ class Horde_Kolab_Storage_Cache
      * @return NULL
      */
     public function storeData($data_id, $data)
+    {
+        $this->horde_cache->set($data_id, $data);
+    }
+
+    /**
+     * Retrieve an attachment.
+     *
+     * @param string $data_id       ID of the data set.
+     * @param string $obid          Object backend id.
+     * @param string $attachment_id Attachment ID.
+     *
+     * @return resource A stream opened to the attachement data.
+     */
+    public function loadAttachment($data_id, $obid, $attachment_id)
+    {
+        return $this->horde_cache->get($data_id, 0);
+    }
+
+    /**
+     * Store an attachment.
+     *
+     * @param string   $data_id       ID of the data set.
+     * @param string   $obid          Object backend id.
+     * @param string   $attachment_id Attachment ID.
+     * @param resource $data          A stream opened to the attachement data.
+     *
+     * @return NULL
+     */
+    public function storeAttachment($data_id, $obid, $attachment_id, $data)
     {
         $this->horde_cache->set($data_id, $data);
     }
