@@ -201,7 +201,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals(
             'test',
             stream_get_contents(
-                $this->cache->loadData('test', '1', '1')
+                $this->cache->loadAttachment('test', '1', '1')
             )
         );
     }
@@ -212,8 +212,40 @@ extends Horde_Kolab_Storage_TestCase
         $resource2 = $this->_getResource();
         $this->cache->storeAttachment('test', '1', '1', $resource);
         $this->cache->storeAttachment('test', '1', '1', $resource2);
-        $this->assertSame($resource2, $this->cache->loadData('test', '1', '1'));
-        $this->assertNotSame($resource, $this->cache->loadData('test', '1', '1'));
+        $this->assertSame(
+            $resource2, $this->cache->loadAttachment('test', '1', '1')
+        );
+        $this->assertNotSame(
+            $resource, $this->cache->loadAttachment('test', '1', '1')
+        );
+    }
+
+    public function testStoreDifferentUidAttachment()
+    {
+        $resource = $this->_getResource();
+        $resource2 = $this->_getResource();
+        $this->cache->storeAttachment('test', '1', '1', $resource);
+        $this->cache->storeAttachment('test', '2', '1', $resource2);
+        $this->assertSame(
+            $resource, $this->cache->loadAttachment('test', '1', '1')
+        );
+        $this->assertSame(
+            $resource2, $this->cache->loadAttachment('test', '2', '1')
+        );
+    }
+
+    public function testStoreDifferentAttachmentId()
+    {
+        $resource = $this->_getResource();
+        $resource2 = $this->_getResource();
+        $this->cache->storeAttachment('test', '1', '1', $resource);
+        $this->cache->storeAttachment('test', '1', '2', $resource2);
+        $this->assertSame(
+            $resource, $this->cache->loadAttachment('test', '1', '1')
+        );
+        $this->assertSame(
+            $resource2, $this->cache->loadAttachment('test', '1', '2')
+        );
     }
 
     public function testGetListCache()

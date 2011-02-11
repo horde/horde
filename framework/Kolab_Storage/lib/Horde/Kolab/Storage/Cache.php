@@ -119,7 +119,10 @@ class Horde_Kolab_Storage_Cache
      */
     public function loadAttachment($data_id, $obid, $attachment_id)
     {
-        return $this->horde_cache->get($data_id, 0);
+        return $this->horde_cache->get(
+            $this->_getAttachmentId($data_id, $obid, $attachment_id),
+            0
+        );
     }
 
     /**
@@ -134,7 +137,10 @@ class Horde_Kolab_Storage_Cache
      */
     public function storeAttachment($data_id, $obid, $attachment_id, $data)
     {
-        $this->horde_cache->set($data_id, $data);
+        $this->horde_cache->set(
+            $this->_getAttachmentId($data_id, $obid, $attachment_id),
+            $data
+        );
     }
 
     /**
@@ -214,6 +220,22 @@ class Horde_Kolab_Storage_Cache
         }
         ksort($data_params);
         return md5(serialize($data_params));
+    }
+
+    /**
+     * Compose the attachment key.
+     *
+     * @param string $data_id       ID of the data set.
+     * @param string $obid          Object backend id.
+     * @param string $attachment_id Attachment ID.
+     *
+     * @return string The attachment cache ID.
+     */
+    private function _getAttachmentId($data_id, $obid, $attachment_id)
+    {
+        return md5(
+            serialize(array('d' => $data_id, 'o' => $obid, 'p' => $attachment_id))
+        );
     }
 
     /**
