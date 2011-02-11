@@ -52,8 +52,8 @@ class Horde_Core_Block_Collection
             foreach ($drivers as $val) {
                 $tmp = new $val();
 
-                if ($name = $tmp->getName()) {
-                    $this->_blocks[$app][$val]['name'] = $name;
+                if ($tmp->enabled) {
+                    $this->_blocks[$app][$val]['name'] = $name->getName();
                 }
             }
         }

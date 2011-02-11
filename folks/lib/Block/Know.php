@@ -14,13 +14,6 @@ class Folks_Block_Know extends Horde_Block
 
     /**
      */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
-    /**
-     */
     protected function _content()
     {
         require_once dirname(__FILE__) . '/../base.php';

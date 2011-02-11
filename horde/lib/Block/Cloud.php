@@ -12,13 +12,6 @@ class Horde_Block_Cloud extends Horde_Block
     }
 
     /**
-     */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
-    /**
      * The content to go in this block.
      *
      * @return string   The content.

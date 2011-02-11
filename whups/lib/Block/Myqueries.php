@@ -13,13 +13,6 @@ class Whups_Block_Myqueries extends Horde_Block
 
     /**
      */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
-    /**
-     */
     protected function _content()
     {
         require_once WHUPS_BASE . '/lib/Query.php';

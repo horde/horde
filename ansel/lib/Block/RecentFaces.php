@@ -13,11 +13,18 @@ class Ansel_Block_RecentFaces extends Horde_Block
 {
     /**
      */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->enabled = !empty($GLOBALS['conf']['faces']['driver']);
+    }
+
+    /**
+     */
     public function getName()
     {
-        return empty($GLOBALS['conf']['faces']['driver'])
-            ? parent::getName()
-            : $this->_title();
+        return _("Recent faces");
     }
 
     /**
@@ -31,13 +38,6 @@ class Ansel_Block_RecentFaces extends Horde_Block
                 'default' => 10
             )
         );
-    }
-
-    /**
-     */
-    protected function _title()
-    {
-        return _("Recent faces");
     }
 
     /**

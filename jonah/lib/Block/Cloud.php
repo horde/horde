@@ -31,11 +31,6 @@ class Jonah_Block_Cloud extends Horde_Block
         );
     }
 
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
     protected function _content()
     {
         /* Get the tags */

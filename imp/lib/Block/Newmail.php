@@ -16,6 +16,13 @@ class IMP_Block_Newmail extends Horde_Block
 {
     /**
      */
+    public function getName()
+    {
+        return _("Newest Unseen Messages");
+    }
+
+    /**
+     */
     protected function _content()
     {
         /* Filter on INBOX display, if requested. */

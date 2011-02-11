@@ -5,16 +5,16 @@ class Horde_Block_Google extends Horde_Block
 {
     /**
      */
-    public function getName()
+    public function __construct($app, $params = array())
     {
-        return isset($GLOBALS['conf']['api']['googlesearch'])
-            ? $this->_title()
-            : '';
+        parent::__construct($app, $params);
+
+        $this->enabled = isset($GLOBALS['conf']['api']['googlesearch']);
     }
 
     /**
      */
-    protected function _title()
+    public function getName()
     {
         return _("Google Search");
     }
@@ -23,10 +23,6 @@ class Horde_Block_Google extends Horde_Block
      */
     protected function _content()
     {
-        if (empty($GLOBALS['conf']['api']['googlesearch'])) {
-            return '<p><em>' . _("Google search is not enabled.") . '</em></p>';
-        }
-
         Horde::startBuffer();
 ?>
 <link href="http://www.google.com/uds/css/gsearch.css" type="text/css" rel="stylesheet"/>

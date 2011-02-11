@@ -11,11 +11,6 @@
 class Horde_Block_FbStream extends Horde_Block
 {
     /**
-     * Set this to false, since we handle the updates via AJAX on our own.
-     */
-    public $updateable = false;
-
-    /**
      * @var Horde_Service_Facebook
      */
     private $_facebook;
@@ -28,12 +23,13 @@ class Horde_Block_FbStream extends Horde_Block
     /**
      * Const'r - instantiate the facebook client.
      */
-    public function __construct($params = array(), $row = null, $col = null)
+    public function __construct($app, $params = array())
     {
         try {
             $this->_facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         } catch (Horde_Exception $e) {
-            return $e->getMessage();
+            $this->enabled = false;
+            return;
         }
 
         /* Authenticate the client */
@@ -41,16 +37,15 @@ class Horde_Block_FbStream extends Horde_Block
         if (!empty($this->_fbp['sid'])) {
             $this->_facebook->auth->setUser($this->_fbp['uid'], $this->_fbp['sid'], 0);
         }
-        parent::__construct($params, $row, $col);
+
+        parent::__construct($app, $params);
     }
 
     /**
      */
     public function getName()
     {
-        return empty($GLOBALS['conf']['facebook']['enabled'])
-            ? ''
-            : _("My Facebook Stream");
+        return _("My Facebook Stream");
     }
 
     /**

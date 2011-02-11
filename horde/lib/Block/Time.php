@@ -3,6 +3,8 @@
  */
 class Horde_Block_Time extends Horde_Block
 {
+    /**
+     */
     public $updateable = true;
 
     /**
@@ -27,13 +29,6 @@ class Horde_Block_Time extends Horde_Block
                 )
             )
         );
-    }
-
-    /**
-     */
-    protected function _title()
-    {
-        return $this->getName();
     }
 
     /**

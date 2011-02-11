@@ -48,13 +48,6 @@ class Agora_Block_Thread extends Horde_Block
 
     /**
      */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
-    /**
-     */
     protected function _content()
     {
         /* Return empty if we don't have a thread set. */

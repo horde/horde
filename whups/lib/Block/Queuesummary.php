@@ -13,13 +13,6 @@ class Whups_Block_Queuesummary extends Horde_Block
 
     /**
      */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
-    /**
-     */
     protected function _content()
     {
         global $whups_driver;

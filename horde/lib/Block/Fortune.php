@@ -3,16 +3,24 @@
  */
 class Horde_Block_Fortune extends Horde_Block
 {
+    /**
+     */
     public $updateable = true;
+
+    /**
+     */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->enabled = (isset($GLOBALS['conf']['fortune']['exec_path']) && is_executable($GLOBALS['conf']['fortune']['exec_path']));
+    }
 
     /**
      */
     public function getName()
     {
-        /* Disable block if not configured. */
-        return (isset($GLOBALS['conf']['fortune']['exec_path']) && is_executable($GLOBALS['conf']['fortune']['exec_path']))
-            ? _("Random Fortune")
-            : '';
+        return _("Random Fortune");
     }
 
     /**
@@ -70,24 +78,22 @@ class Horde_Block_Fortune extends Horde_Block
             'zippy' => _("Zippy")
         );
 
-        $values = null;
-        if (isset($conf['fortune']['exec_path']) &&
-            is_executable($conf['fortune']['exec_path'])) {
-            exec($conf['fortune']['exec_path'] . ' -f 2>&1', $output, $status);
-            if (!$status) {
-                for ($i = 1; $i < count($output); $i++) {
-                    $fortune = substr($output[$i], strrpos($output[$i], ' ') + 1);
-                    if (isset($descriptions[$fortune])) {
-                        $values[$fortune] = $descriptions[$fortune];
-                    } else {
-                        $values[$fortune] = $fortune;
-                    }
-                }
+        $values = array();
+
+        exec($conf['fortune']['exec_path'] . ' -f 2>&1', $output, $status);
+        if (!$status) {
+            for ($i = 1, $ocnt = count($output); $i < $ocnt; ++$i) {
+                $fortune = substr($output[$i], strrpos($output[$i], ' ') + 1);
+                $values[$fortune] = isset($descriptions[$fortune])
+                    ? $descriptions[$fortune]
+                    : $fortune;
             }
         }
-        if (is_null($values)) {
+
+        if (empty($values)) {
             $values = $descriptions;
         }
+
         asort($values);
         $values = array_merge(array('' => _("All")), $values);
 
@@ -117,17 +123,13 @@ class Horde_Block_Fortune extends Horde_Block
     {
         global $conf;
 
-        if (isset($conf['fortune']['exec_path']) &&
-            is_executable($conf['fortune']['exec_path'])) {
-            $cmdLine = $conf['fortune']['exec_path']
-                . $this->_params['offend']
-                . ' ' . implode(' ', $this->_params['fortune']);
-            return '<span class="fixed"><small>'
-                . nl2br($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(shell_exec($cmdLine), array('space2html'), array(array('encode' => true))))
-                . '</small></span>';
-        } else {
-            return '';
-        }
+        $cmdLine = $conf['fortune']['exec_path']
+            . $this->_params['offend']
+            . ' ' . implode(' ', $this->_params['fortune']);
+
+        return '<span class="fixed"><small>'
+            . nl2br($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(shell_exec($cmdLine), array('space2html'), array(array('encode' => true))))
+            . '</small></span>';
     }
 
 }

@@ -6,9 +6,10 @@ class Kronolith_Block_Summary extends Horde_Block
 {
     /**
      */
-    public function __construct($params = array(), $row = null, $col = null)
+    public function __construct($app, $params = array())
     {
-        parent::__construct($params, $row, $col);
+        parent::__construct($app, $params);
+
         if (!isset($this->_params['days'])) {
             $this->_params['days'] = 7;
         }

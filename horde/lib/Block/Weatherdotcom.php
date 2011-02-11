@@ -6,18 +6,36 @@
  */
 class Horde_Block_Weatherdotcom extends Horde_Block
 {
+    /**
+     */
     public $updateable = true;
+
+    /**
+     */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->enabled = false;
+
+        if (!empty($GLOBALS['conf']['weatherdotcom']['partner_id']) &&
+            !empty($GLOBALS['conf']['weatherdotcom']['license_key'])) {
+            if (!class_exists('Services_Weather') ||
+                !class_exists('Cache') ||
+                !class_exists('XML_Serializer') ||
+                !ini_get('allow_url_fopen')) {
+                Horde::logMessage('The weather.com block will not work without PEAR\'s Services_Weather, Cache, and XML_ Serializer packages, and allow_url_fopen enabled. Run `pear install Services_Weather Cache XML_Serializer´ and ensure that allow_url_fopen is enabled in php.ini.', 'DEBUG');
+            } else {
+                $this->enabled = true;
+            }
+        }
+    }
 
     /**
      */
     public function getName()
     {
-        if (!empty($GLOBALS['conf']['weatherdotcom']['partner_id']) &&
-            !empty($GLOBALS['conf']['weatherdotcom']['license_key'])) {
-            return _("weather.com");
-        }
-
-        return '';
+        return _("weather.com");
     }
 
     /**
@@ -31,70 +49,47 @@ class Horde_Block_Weatherdotcom extends Horde_Block
      */
     protected function _params()
     {
-        if (!class_exists('Services_Weather') ||
-            !class_exists('Cache') ||
-            !class_exists('XML_Serializer') ||
-            !ini_get('allow_url_fopen')) {
-            Horde::logMessage('The weather.com block will not work without PEAR\'s Services_Weather, Cache, and XML_ Serializer packages, and allow_url_fopen enabled. Run `pear install Services_Weather Cache XML_Serializer´ and ensure that allow_url_fopen is enabled in php.ini.', 'ERR');
-            $params = array(
-                'error' => array(
-                    'type' => 'error',
-                    'name' => _("Error"),
-                    'default' => _("The weather.com block is not available.")
+        return array(
+            'location' => array(
+                // 'type' => 'weatherdotcom',
+                'type' => 'text',
+                'name' => _("Location"),
+                'default' => 'Boston, MA'
+            ),
+            'units' => array(
+                'type' => 'enum',
+                'name' => _("Units"),
+                'default' => 'standard',
+                '0' => 'none',
+                'values' => array(
+                    'standard' => _("Standard"),
+                    'metric' => _("Metric")
                 )
-            );
-        } else {
-            $params = array(
-                'location' => array(
-                    // 'type' => 'weatherdotcom',
-                    'type' => 'text',
-                    'name' => _("Location"),
-                    'default' => 'Boston, MA'
-                ),
-                'units' => array(
-                    'type' => 'enum',
-                    'name' => _("Units"),
-                    'default' => 'standard',
-                    '0' => 'none',
-                    'values' => array(
-                        'standard' => _("Standard"),
-                        'metric' => _("Metric")
-                    )
-                ),
-                'days' => array(
-                    'type' => 'enum',
-                    'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block)"),
-                    'default' => 3,
-                    'values' => array(
-                        '1' => 1,
-                        '2' => 2,
-                        '3' => 3,
-                        '4' => 4,
-                        '5' => 5,
-                    )
-                ),
-                'detailedForecast' => array(
-                    'type' => 'checkbox',
-                    'name' => _("Display detailed forecast"),
-                    'default' => 0
+            ),
+            'days' => array(
+                'type' => 'enum',
+                'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block)"),
+                'default' => 3,
+                'values' => array(
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
                 )
-            );
-        }
-
-        return $params;
+            ),
+            'detailedForecast' => array(
+                'type' => 'checkbox',
+                'name' => _("Display detailed forecast"),
+                'default' => 0
+            )
+        );
     }
 
     /**
      */
     protected function _content()
     {
-        if (!class_exists('Services_Weather') ||
-            !class_exists('Cache') ||
-            !ini_get('allow_url_fopen')) {
-            Horde::logMessage('The weather.com block will not work without the PEARServices_Weather and Cache packages, and allow_url_fopen enabled. Run pear install Services_Weather Cache, and ensure that allow_url_fopen_wrappers is enabled in php.ini.', 'ERR');
-            throw new Horde_Block_Exception(_("The weather.com block is not available."));
-        }
-
         global $conf, $prefs;
 
         $options = array(
@@ -129,7 +124,7 @@ class Horde_Block_Weatherdotcom extends Horde_Block
 
         $cacheDir = Horde::getTempDir();
         if (!$cacheDir) {
-            return PEAR::raiseError(_("No temporary directory available for cache."), 'horde.error');
+            throw new Horde_Block_Exception(_("No temporary directory available for cache."));
         } else {
             $weatherDotCom->setCache('file', array('cache_dir' => ($cacheDir . '/')));
         }
@@ -143,7 +138,7 @@ class Horde_Block_Weatherdotcom extends Horde_Block
             $this->_params['location'], $matches) ?
             $matches[0] :
             $weatherDotCom->searchLocation($this->_params['location']));
-        if (is_a($search, 'PEAR_Error')) {
+        if ($search instanceof PEAR_Error) {
             switch ($search->getCode()) {
             case SERVICES_WEATHER_ERROR_SERVICE_NOT_FOUND:
                 return _("Requested service could not be found.");
@@ -187,15 +182,15 @@ class Horde_Block_Weatherdotcom extends Horde_Block
         }
 
         $location = $weatherDotCom->getLocation($search);
-        if (is_a($location, 'PEAR_Error')) {
+        if ($location instanceof PEAR_Error) {
             return $location->getMessage();
         }
         $weather = $weatherDotCom->getWeather($search);
-        if (is_a($weather, 'PEAR_Error')) {
+        if ($weather instanceof PEAR_Error) {
             return $weather->getMessage();
         }
         $forecast = $weatherDotCom->getForecast($search, (integer)$this->_params['days']);
-        if (is_a($forecast, 'PEAR_Error')) {
+        if ($forecast instanceof PEAR_Error) {
             return $forecast->getMessage();
         }
 

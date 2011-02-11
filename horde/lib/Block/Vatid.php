@@ -5,11 +5,18 @@ class Horde_Block_Vatid extends Horde_Block
 {
     /**
      */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->enabled = class_exists('SOAP_Client');
+    }
+
+    /**
+     */
     public function getName()
     {
-        return class_exists('SOAP_Client')
-            ? _("EU VAT identification")
-            : '';
+        return _("EU VAT identification");
     }
 
     /**
@@ -57,10 +64,6 @@ class Horde_Block_Vatid extends Horde_Block
 
         if (empty($matches)) {
             return;
-        }
-
-        if (!class_exists('SOAP_Client')) {
-            return $this->_error(sprintf(_("%s not found."), '<a href="http://pear.php.net/SOAP" target="_blank">SOAP</a>'));
         }
 
         $client = new SOAP_Client('http://ec.europa.eu/taxation_customs/vies/api/checkVatPort?wsdl', true, false, array(), Horde::getTempDir());

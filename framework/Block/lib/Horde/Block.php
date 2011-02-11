@@ -16,6 +16,13 @@
 class Horde_Block
 {
     /**
+     * Is this block enabled?
+     *
+     * @var boolean
+     */
+    public $enabled = true;
+
+    /**
      * Whether this block has changing content.
      *
      * @var boolean
@@ -191,7 +198,7 @@ class Horde_Block
      */
     protected function _title()
     {
-        return '';
+        return $this->getName();
     }
 
     /**

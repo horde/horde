@@ -12,9 +12,15 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-
 class IMP_Block_Foldersummary extends Horde_Block
 {
+    /**
+     */
+    public function getName()
+    {
+        return _("Folder Summary");
+    }
+
     /**
      */
     protected function _content()

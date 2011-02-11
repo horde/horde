@@ -13,8 +13,6 @@
 class Ansel_Block_RandomPhoto extends Horde_Block
 {
     /**
-     *
-     * @var boolean
      */
     public $updateable = true;
 
@@ -23,13 +21,6 @@ class Ansel_Block_RandomPhoto extends Horde_Block
     public function getName()
     {
         return _("Random photo");
-    }
-
-    /**
-     */
-    protected function _title()
-    {
-        return $this->getName();
     }
 
     /**

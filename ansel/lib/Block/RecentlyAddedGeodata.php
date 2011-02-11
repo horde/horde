@@ -38,13 +38,6 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Block
 
     /**
      */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
-    /**
-     */
     protected function _content()
     {
         try {

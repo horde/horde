@@ -14,13 +14,6 @@ class Folks_Block_Random extends Horde_Block
 
     /**
      */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
-    /**
-     */
     protected function _params()
     {
         return array(

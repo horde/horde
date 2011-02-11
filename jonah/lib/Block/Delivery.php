@@ -18,13 +18,6 @@ class Jonah_Block_Delivery extends Horde_Block
         return _("Feeds");
     }
 
-    /**
-     */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
     protected function _content()
     {
         try {

@@ -27,13 +27,6 @@ class Folks_Block_MyComments extends Horde_Block
 
     /**
      */
-    protected function _title()
-    {
-        return $this->getName();
-    }
-
-    /**
-     */
     protected function _content()
     {
         if (!$GLOBALS['registry']->isAuthenticated()) {

@@ -5,15 +5,25 @@
  */
 class Horde_Block_Metar extends Horde_Block
 {
+    /**
+     */
     public $updateable = true;
+
+    /**
+     */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->enabled = (isset($GLOBALS['conf']['sql']) &&
+                          class_exists('Services_Weather'));
+    }
 
     /**
      */
     public function getName()
     {
-        return (class_exists('Services_Weather') && !empty($GLOBALS['conf']['sql']['phptype']))
-            ? _("Metar Weather")
-            : '';
+        return _("Metar Weather");
     }
 
     /**
@@ -27,59 +37,45 @@ class Horde_Block_Metar extends Horde_Block
      */
     protected function _params()
     {
-        if (!class_exists('Services_Weather')) {
-            Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.', 'ERR');
-            return array(
-                'error' => array(
-                    'type' => 'error',
-                    'name' => _("Error"),
-                    'default' => _("Metar block not available.")
-                )
-            );
-        } else {
-            global $conf;
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
 
-            // Get locations from the database.
-            $db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
-
-            $result = $db->query('SELECT icao, name, country FROM metarAirports ORDER BY country');
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            $locations = array();
-            while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
-                $locations[$row['country']][$row['icao']] = $row['name'];
-            }
-
-            return array(
-                'location' => array(
-                    'type' => 'mlenum',
-                    'name' => _("Location"),
-                    'default' => 'KSFB',
-                    'values' => $locations,
-                ),
-                'units' => array(
-                    'type' => 'enum',
-                    'name' => _("Units"),
-                    'default' => 's',
-                    'values' => array(
-                        's' => _("Standard"),
-                        'm' => _("Metric")
-                    )
-                ),
-                'knots' => array(
-                    'type' => 'checkbox',
-                    'name' => _("Wind speed in knots"),
-                    'default' => 0
-                ),
-                'taf' => array(
-                    'type' => 'checkbox',
-                    'name' => _("Display forecast (TAF)"),
-                    'default' => 0
-                )
-            );
+        $result = $db->query('SELECT icao, name, country FROM metarAirports ORDER BY country');
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Block_Exception($result);
         }
+
+        $locations = array();
+        while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+            $locations[$row['country']][$row['icao']] = $row['name'];
+        }
+
+        return array(
+            'location' => array(
+                'type' => 'mlenum',
+                'name' => _("Location"),
+                'default' => 'KSFB',
+                'values' => $locations,
+            ),
+            'units' => array(
+                'type' => 'enum',
+                'name' => _("Units"),
+                'default' => 's',
+                'values' => array(
+                    's' => _("Standard"),
+                    'm' => _("Metric")
+                )
+            ),
+            'knots' => array(
+                'type' => 'checkbox',
+                'name' => _("Wind speed in knots"),
+                'default' => 0
+            ),
+            'taf' => array(
+                'type' => 'checkbox',
+                'name' => _("Display forecast (TAF)"),
+                'default' => 0
+            )
+        );
     }
 
     /**
@@ -100,17 +96,8 @@ class Horde_Block_Metar extends Horde_Block
      */
     protected function _content()
     {
-        if (!class_exists('Services_Weather')) {
-            Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.', 'ERR');
-            throw new Horde_Block_Exception(_("Metar block not available. Details have been logged for the administrator."));
-        }
-
         global $conf;
         static $metarLocs;
-
-        if (!isset($conf['sql'])) {
-            throw new Horde_Block_Exception(_("A database backend is required for this block."));
-        }
 
         if (empty($this->_params['location'])) {
             throw new Horde_Block_Exception(_("No location is set."));

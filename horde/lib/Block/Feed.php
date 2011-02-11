@@ -9,11 +9,18 @@ class Horde_Block_Feed extends Horde_Block
 
     /**
      */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->enabled = class_exists('Horde_Feed');
+    }
+
+    /**
+     */
     public function getName()
     {
-        return class_exists('Horde_Feed')
-            ? _("Syndicated Feed")
-            : '';
+        return _("Syndicated Feed");
     }
 
     /**

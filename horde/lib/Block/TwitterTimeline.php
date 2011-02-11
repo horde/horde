@@ -20,12 +20,7 @@
 class Horde_Block_TwitterTimeline extends Horde_Block
 {
     /**
-     * Set this to false since we handle the updates via AJAX on our own.
-     */
-    public $updateable = false;
-
-    /**
-     * @ Horde_Service_Twitter
+     * @var Horde_Service_Twitter
      */
     private $_twitter;
 
@@ -38,11 +33,18 @@ class Horde_Block_TwitterTimeline extends Horde_Block
 
     /**
      */
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->enabled = !empty($GLOBALS['conf']['twitter']['enabled']);
+    }
+
+    /**
+     */
     public function getName()
     {
-        return empty($GLOBALS['conf']['twitter']['enabled'])
-            ? ''
-            : _("Twitter Timeline");
+        return _("Twitter Timeline");
     }
 
     /**
