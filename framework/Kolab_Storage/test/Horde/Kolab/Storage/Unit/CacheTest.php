@@ -118,6 +118,26 @@ extends Horde_Kolab_Storage_TestCase
         $this->cache->getDataCache($params);
     }
 
+    public function testNewTypeNewData()
+    {
+        $params = $this->_getDataParameters();
+        $params['type'] = 'f';
+        $this->assertNotSame(
+            $this->cache->getDataCache($params),
+            $this->cache->getDataCache($this->_getDataParameters())
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testDataMissingType()
+    {
+        $params = $this->_getDataParameters();
+        unset($params['type']);
+        $this->cache->getDataCache($params);
+    }
+
     public function testGetListCache()
     {
         $this->assertInstanceOf(
@@ -210,6 +230,8 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getDataParameters()
     {
-        return array('host' => 'a', 'port' => 1, 'folder' => 'I');
+        return array(
+            'host' => 'a', 'port' => 1, 'folder' => 'I', 'type' => 'e'
+        );
     }
 }
