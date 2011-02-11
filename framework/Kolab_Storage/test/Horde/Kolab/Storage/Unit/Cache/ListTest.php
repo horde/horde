@@ -57,7 +57,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testInvalidVersion()
     {
         $cache = $this->getMockCache();
-        $cache->storeListData(
+        $cache->storeList(
             'test', serialize(array('S' => time(), 'V' => '0'))
         );
         $this->assertFalse($this->_getTestCache($cache)->isInitialized());
@@ -66,7 +66,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testMissingSync()
     {
         $cache = $this->getMockCache();
-        $cache->storeListData(
+        $cache->storeList(
             'test', serialize(
                 array('V' => Horde_Kolab_Storage_Cache_List::VERSION)
             )
