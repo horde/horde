@@ -520,6 +520,19 @@ extends PHPUnit_Framework_TestCase
         return $cache;
     }
 
+    protected function getMockDataCache()
+    {
+        return $this->getMockCache()->getDataCache(
+            array(
+                'host' => 'localhost',
+                'port' => '143',
+                'owner' => 'test',
+                'folder' => 'Calendar',
+                'type' => 'event',
+            )
+        );
+    }
+
     protected function assertLogCount($count)
     {
         $this->assertEquals(count($this->logHandler->events), $count);
