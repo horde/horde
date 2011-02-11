@@ -65,7 +65,7 @@ class Horde_Kolab_Storage_Cache_List
     private $_cache;
 
     /**
-     * List parameters that will be recorded in the cache..
+     * List parameters that will be recorded in the cache.
      *
      * @var array
      */
