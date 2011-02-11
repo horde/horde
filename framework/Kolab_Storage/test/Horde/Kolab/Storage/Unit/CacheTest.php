@@ -50,6 +50,14 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testCachedDataCache()
+    {
+        $this->assertSame(
+            $this->cache->getDataCache($this->_getDataParameters()),
+            $this->cache->getDataCache($this->_getDataParameters())
+        );
+    }
+
 
     public function testGetListCache()
     {

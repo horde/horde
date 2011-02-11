@@ -50,6 +50,13 @@ class Horde_Kolab_Storage_Cache
     private $_list_caches;
 
     /**
+     * Data cache instances.
+     *
+     * @var array
+     */
+    private $_data_caches;
+
+    /**
      * Constructor.
      *
      * @param Horde_Cache $cache The global cache for temporary data storage.
@@ -69,7 +76,10 @@ class Horde_Kolab_Storage_Cache
      */
     public function getDataCache($data_params)
     {
-        return new Horde_Kolab_Storage_Cache_Data($this);
+        if (!isset($this->_data_caches)) {
+            $this->_data_caches = new Horde_Kolab_Storage_Cache_Data($this);
+        }
+        return $this->_data_caches;
     }
 
     /**
