@@ -647,6 +647,68 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Fetches the objects for the specified UIDs.
+     *
+     * @param string $folder The folder to access.
+     *
+     * @return array The parsed objects.
+     */
+    public function fetch($folder, $uids, $options = array())
+    {
+        return $this->getParser()->fetch($folder, $uids, $options);
+    }
+
+    /**
+     * Retrieves the messages for the given message ids.
+     *
+     * @param string $mailbox The mailbox to fetch the messages from.
+     * @param array  $uids                The message UIDs.
+     *
+     * @return Horde_Mime_Part The message structure parsed into a
+     *                         Horde_Mime_Part instance.
+     */
+    public function fetchStructure($folder, $uids)
+    {
+        $this->select($folder);
+        $result = array();
+        foreach ($uids as $uid) {
+            $result[$uid]['structure'] = $this->_selected['mails'][$uid]['structure'];
+        }
+        return $result;
+    }
+
+    /**
+     * Retrieves a bodypart for the given message ID and mime part ID.
+     *
+     * @param string $mailbox The mailbox to fetch the messages from.
+     * @param array  $uid                 The message UID.
+     * @param array  $id                  The mime part ID.
+     *
+     * @return @TODO
+     */
+    public function fetchBodypart($folder, $uid, $id)
+    {
+        $this->select($folder);
+        if (isset($this->_selected['mails'][$uid]['parts'][$id])) {
+            if (isset($this->_selected['mails'][$uid]['parts'][$id]['file'])) {
+                return fopen(
+                    $this->_selected['mails'][$uid]['parts'][$id]['file'],
+                    'r'
+                );
+            }
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'No such part %s for message uid %s in folder %s!',
+                    $id,
+                    $uid,
+                    $mailbox
+                )
+            );
+        }
+    }
+
+    /**
      * Appends a message to the current folder.
      *
      * @param string $mailbox The mailbox to append the message(s) to. Either
