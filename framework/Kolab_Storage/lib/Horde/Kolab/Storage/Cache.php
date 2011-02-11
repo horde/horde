@@ -88,8 +88,12 @@ class Horde_Kolab_Storage_Cache
         if (!isset($data_params['type'])) {
             throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "type" parameter is missing!');
         }
+        if (!isset($data_params['owner'])) {
+            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "owner" parameter is missing!');
+        }
         $data_id = sprintf(
-            '%s/%s@%s:%s:DATA',
+            '{%s}%s/%s@%s:%s:DATA',
+            $data_params['owner'],
             $data_params['folder'],
             $data_params['type'],
             $data_params['host'],
