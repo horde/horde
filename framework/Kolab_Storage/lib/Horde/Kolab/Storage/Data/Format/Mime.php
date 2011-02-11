@@ -86,6 +86,7 @@ implements Horde_Kolab_Storage_Data_Format
             $this->_structure->fetchId($folder, $obid, $mime_id)
         );
         $content = $mime_part->getContents(array('stream' => true));
+        //@todo: deal with exceptions
         return $this->_factory->createFormat('Xml', $options['type'], $options['version'])
             ->load($content);
     }

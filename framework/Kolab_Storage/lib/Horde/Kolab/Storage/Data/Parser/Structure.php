@@ -116,6 +116,7 @@ implements  Horde_Kolab_Storage_Data_Parser
                     'Backend returned a structure without the expected "structure" element.'
                 );
             }
+            //@todo: deal with exceptions
             $objects[$obid] = $this->getFormat()->parse($folder, $obid, $structure['structure'], $options);
             $this->_fetchAttachments($objects[$obid], $folder, $obid, $options);
         }
