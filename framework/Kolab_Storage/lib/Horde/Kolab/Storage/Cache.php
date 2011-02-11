@@ -82,8 +82,12 @@ class Horde_Kolab_Storage_Cache
         if (!isset($data_params['port'])) {
             throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "port" parameter is missing!');
         }
+        if (!isset($data_params['folder'])) {
+            throw new Horde_Kolab_Storage_Exception('Unable to determine the data cache key: The "folder" parameter is missing!');
+        }
         $data_id = sprintf(
-            '%s:%s',
+            '%s@%s:%s',
+            $data_params['folder'],
             $data_params['host'],
             $data_params['port']
         );

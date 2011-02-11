@@ -98,6 +98,26 @@ extends Horde_Kolab_Storage_TestCase
         $this->cache->getDataCache($params);
     }
 
+    public function testNewFolderNewData()
+    {
+        $params = $this->_getDataParameters();
+        $params['folder'] = 'J';
+        $this->assertNotSame(
+            $this->cache->getDataCache($params),
+            $this->cache->getDataCache($this->_getDataParameters())
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testDataMissingFolder()
+    {
+        $params = $this->_getDataParameters();
+        unset($params['folder']);
+        $this->cache->getDataCache($params);
+    }
+
     public function testGetListCache()
     {
         $this->assertInstanceOf(
@@ -190,6 +210,6 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getDataParameters()
     {
-        return array('host' => 'a', 'port' => 1);
+        return array('host' => 'a', 'port' => 1, 'folder' => 'I');
     }
 }
