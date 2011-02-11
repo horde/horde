@@ -540,14 +540,18 @@ class Horde_Registry
         }
 
         if (!isset($this->applications['horde']['fileroot'])) {
-            $this->applications['horde']['fileroot'] = HORDE_BASE;
+            $this->applications['horde']['fileroot'] = isset($app_fileroot)
+                ? $app_fileroot
+                : HORDE_BASE;
         }
         if (!isset($app_fileroot)) {
             $app_fileroot = $this->applications['horde']['fileroot'];
         }
 
         if (!isset($this->applications['horde']['webroot'])) {
-            $this->applications['horde']['webroot'] = $this->_detectWebroot();
+            $this->applications['horde']['webroot'] = isset($app_webroot)
+                ? $app_webroot
+                : $this->_detectWebroot();
         }
         if (!isset($app_webroot)) {
             $app_webroot = $this->applications['horde']['webroot'];
