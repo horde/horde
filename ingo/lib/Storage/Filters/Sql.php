@@ -14,19 +14,9 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
     protected $_db;
-
-    /**
-     * Handle for the current database connection, used for writing.
-     *
-     * Defaults to the same handle as $_db if a separate write database is not
-     * required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
 
     /**
      * Driver specific parameters.
@@ -38,15 +28,12 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
     /**
      * Constructor.
      *
-     * @param DB $db         Handle for the database connection.
-     * @param DB $write_db   Handle for the database connection, used for
-     *                       writing.
-     * @param array $params  Driver specific parameters.
+     * @param Horde_Db_Adapter $db   Handle for the database connection.
+     * @param array $params          Driver specific parameters.
      */
-    public function __construct($db, $write_db, $params)
+    public function __construct(Horde_Db_Adapter $db, $params)
     {
         $this->_db = $db;
-        $this->_write_db = $write_db;
         $this->_params = $params;
     }
 
@@ -60,13 +47,13 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         $query = sprintf('SELECT * FROM %s WHERE rule_owner = ? ORDER BY rule_order',
                          $this->_params['table_rules']);
         $values = array(Ingo::getUser());
-        Horde::logMessage('Ingo_Storage_Filters_Sql(): ' . $query, 'DEBUG');
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ingo_Exception($e);
         }
         $data = array();
-        while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+        foreach ($result as $row) {
             $data[$row['rule_order']] = array(
                 'id' => (int)$row['rule_id'],
                 'name' => Horde_String::convertCharset($row['rule_name'], $this->_params['charset'], 'UTF-8'),
@@ -121,7 +108,7 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
      *
      * @return array  Rule hash in DB's format.
      */
-    protected function _ruleToBackend($rule)
+    protected function _ruleToBackend(array $rule)
     {
         return array(Horde_String::convertCharset($rule['name'], 'UTF-8', $this->_params['charset']),
                      (int)$rule['action'],
@@ -140,7 +127,7 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
      * @param boolean $default  If true merge the rule hash with default rule
      *                          values.
      */
-    public function addRule($rule, $default = true)
+    public function addRule(array $rule, $default = true)
     {
         if ($default) {
             $rule = array_merge($this->getDefaultRule(), $rule);
@@ -148,22 +135,17 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
 
         $query = sprintf('INSERT INTO %s (rule_id, rule_owner, rule_name, rule_action, rule_value, rule_flags, rule_conditions, rule_combine, rule_stop, rule_active, rule_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                          $this->_params['table_rules']);
-        $id = $this->_write_db->nextId($this->_params['table_rules']);
-        if (is_a($id, 'PEAR_Error')) {
-            return $id;
-        }
+
         $order = key(array_reverse($this->_filters, true)) + 1;
         $values = array_merge(array($id, Ingo::getUser()),
                               $this->_ruleToBackend($rule),
                               array($order));
-        Horde::logMessage('Ingo_Storage_Filters_Sql::addRule(): ' . $query, 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ingo_Exception($e);
         }
-
-        $rule['id'] = $id;
+        $rule['id'] = $result;
         $this->_filters[$order] = $rule;
     }
 
@@ -179,11 +161,10 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
                          $this->_params['table_rules']);
         $values = array_merge($this->_ruleToBackend($rule),
                               array($id, $rule['id'], Ingo::getUser()));
-        Horde::logMessage('Ingo_Storage_Filters_Sql::updateRule(): ' . $query, 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->update($query, $values);
+        }catch (Horde_Db_Exception $e) {
+            throw new Ingo_Exception($e);
         }
 
         $this->_filters[$id] = $rule;
@@ -205,22 +186,20 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         $query = sprintf('DELETE FROM %s WHERE rule_id = ? AND rule_owner = ?',
                          $this->_params['table_rules']);
         $values = array($this->_filters[$id]['id'], Ingo::getUser());
-        Horde::logMessage('Ingo_Storage_Filters_Sql::deleteRule(): ' . $query, 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ingo_Exception($e);
         }
         unset($this->_filters[$id]);
 
         $query = sprintf('UPDATE %s SET rule_order = rule_order - 1 WHERE rule_owner = ? AND rule_order > ?',
                          $this->_params['table_rules']);
         $values = array(Ingo::getUser(), $id);
-        Horde::logMessage('Ingo_Storage_Filters_Sql::deleteRule(): ' . $query, 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ingo_Exception($e);
         }
 
         return true;
@@ -293,22 +272,21 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
             $values[] = (int)$id;
             $values[] = (int)($id + $steps);
         }
-        Horde::logMessage('Ingo_Storage_Filters_Sql::ruleUp(): ' . $query, 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ingo_Exception($e);
         }
         $query = sprintf('UPDATE %s SET rule_order = ? WHERE rule_owner = ? AND rule_id = ?',
                          $this->_params['table_rules']);
         $values = array((int)($id + $steps),
                         Ingo::getUser(),
                         $this->_filters[$id]['id']);
-        Horde::logMessage('Ingo_Storage_Filters_Sql::ruleUp(): ' . $query, 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_write_db->query($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ingo_Exception($e);
         }
 
         $this->init();
