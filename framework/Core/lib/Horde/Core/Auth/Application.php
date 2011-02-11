@@ -451,7 +451,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function getLoginParams()
     {
-        return $this->_base
+        return ($this->_base && method_exists($this->_base, 'getLoginParams'))
             ? $this->_base->getLoginParams()
             : $GLOBALS['registry']->callAppMethod($this->_app, 'authLoginParams', array('noperms' => true));
     }
