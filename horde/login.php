@@ -138,12 +138,10 @@ if ($logout_reason) {
     );
 
     try {
-        /*
         $result = $auth->getLoginParams();
         foreach (array_keys($result['params']) as $val) {
             $auth_params[$val] = Horde_Util::getPost($val);
         }
-        */
     } catch (Horde_Exception $e) {}
 
     if ($vars->ie_version) {
@@ -206,12 +204,10 @@ $js_files = array(
 );
 
 try {
-    /*
     $result = $auth->getLoginParams();
     $loginparams = array_filter(array_merge($loginparams, $result['params']));
     $js_code = array_merge($js_code, $result['js_code']);
     $js_files = array_merge($js_files, $result['js_files']);
-    */
 } catch (Horde_Exception $e) {}
 
 /* If we currently are authenticated, and are not trying to authenticate to
