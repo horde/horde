@@ -147,9 +147,9 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             $factory
         );
-        $query = $factory->createListQuery(
+        $query = $factory->createDataQuery(
             'Horde_Kolab_Storage_Stub_DataQuery',
-            $list
+            $this->getMock('Horde_Kolab_Storage_Data')
         );
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE, $query

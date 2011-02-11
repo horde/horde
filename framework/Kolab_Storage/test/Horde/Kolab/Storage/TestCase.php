@@ -417,9 +417,28 @@ extends PHPUnit_Framework_TestCase
                                 'flags' => Horde_Kolab_Storage_Driver_Mock::FLAG_DELETED
                             ),
                             4 => array()
+                        ),
+                        's' => array(
+                            'uidvalidity' => '12346789',
+                            'uidnext' => 5
                         )
                     ),
-                    'user/test/Calendar' => array('t' => 'event.default'),
+                    'user/test/Calendar' => array(
+                        't' => 'event.default',
+                        'm' => array(
+                            1 => $this->getDefaultEventData(),
+                            2 => $this->getDefaultEventData(),
+                            3 => array(
+                                'flags' => Horde_Kolab_Storage_Driver_Mock::FLAG_DELETED
+                            ),
+                            4 => $this->getDefaultEventData(),
+                        ),
+                        's' => array(
+                            'uidvalidity' => '12346789',
+                            'uidnext' => 5
+                        )
+
+                    ),
                     'user/test/Contacts' => array('t' => 'contact.default'),
                     'user/test/Notes' => array('t' => 'note.default'),
                     'user/test/Tasks' => array('t' => 'task.default'),
@@ -435,6 +454,21 @@ extends PHPUnit_Framework_TestCase
             $factory,
             $this->getMessageAccount()
         );
+    }
+
+    protected function getMessageStorage(
+        $factory = null, $params = array()
+    ) {
+        return $this->completeFactory($factory)
+            ->createFromParams(
+                array_merge(
+                    array(
+                        'driver' => 'mock',
+                        'params' => $this->getMessageAccount()
+                    ),
+                    $params
+                )
+            );
     }
 
     protected function getCachedQueryForList($bare_list, $factory)
@@ -539,14 +573,39 @@ extends PHPUnit_Framework_TestCase
                     'uidnext' => empty($keys) ? 1 : max($keys) + 1
                 );
                 $folder['mails'] = $element['m'];
+                foreach ($element['m'] as $uid => $mail) {
+                    if (isset($mail['structure'])) {
+                        $folder['mails'][$uid]['structure'] = Horde_Mime_Part::parseStructure(
+                            unserialize(file_get_contents($mail['structure']))
+                        );
+                    }
+                    if (isset($mail['parts'])) {
+                        $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];
+                    }
+                }
             } else {
                 $folder['status'] = array(
                     'uidvalidity' => time(),
                     'uidnext' => 1
                 );
             }
+            if (isset($element['s'])) {
+                $folder['status'] = $element['s'];
+            }
             $result[$path] = $folder;
         }
         return $result;
+    }
+
+    protected function getDefaultEventData()
+    {
+        return array(
+            'structure' => dirname(__FILE__) . '/fixtures/event.struct',
+            'parts' => array(
+                '2' => array(
+                    'file' => dirname(__FILE__) . '/fixtures/event.xml.qp',
+                )
+            )
+        );
     }
 }

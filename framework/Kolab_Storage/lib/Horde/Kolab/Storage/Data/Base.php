@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Data_Base
-implements Horde_Kolab_Storage_Data
+implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 {
     /**
      * The link to the parent folder object.
@@ -152,7 +152,7 @@ implements Horde_Kolab_Storage_Data
         return $this->_driver->fetch(
             $this->_folder->getPath(),
             $uids,
-            array('type' => $this->_type, 'version' => $this->_version)
+            array('type' => $this->getType(), 'version' => $this->_version)
         );
     }
 
@@ -172,6 +172,18 @@ implements Horde_Kolab_Storage_Data
             );
         }
         $this->_queries[$name] = $query;
+    }
+
+    /**
+     * Synchronize the data information with the information from the backend.
+     *
+     * @return NULL
+     */
+    public function synchronize()
+    {
+        foreach ($this->_queries as $name => $query) {
+            $query->synchronize();
+        }
     }
 
     /**

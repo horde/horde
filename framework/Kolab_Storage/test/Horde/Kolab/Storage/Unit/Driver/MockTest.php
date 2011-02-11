@@ -522,4 +522,27 @@ extends Horde_Kolab_Storage_TestCase
             $this->getMessageMock()->getStamp('INBOX/WithDeleted')
         );
     }
+
+    public function testStructureArray()
+    {
+        $structure = $this->getMessageMock()
+            ->fetchStructure(
+                'INBOX/Calendar', array(1)
+            );
+        $this->assertInstanceOf(
+            'Horde_Mime_Part',
+            $structure[1]['structure']
+        );
+    }
+
+    public function testBodypartResource()
+    {
+        $this->assertType(
+            'resource',
+            $this->getMessageMock()
+            ->fetchBodypart(
+                'INBOX/Calendar', 4, '2'
+            )
+        );
+    }
 }
