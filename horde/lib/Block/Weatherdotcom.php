@@ -1,10 +1,9 @@
 <?php
 /**
- * The Horde_Block_weatherdotcom class provides an applet for the
- * portal screen to display weather and forecast data from weather.com
- * for a specified location.
+ * An applet for the portal screen to display weather and forecast data from
+ * weather.com for a specified location.
  */
-class Horde_Block_Weatherdotcom extends Horde_Block
+class Horde_Block_Weatherdotcom extends Horde_Core_Block
 {
     /**
      */
@@ -124,7 +123,7 @@ class Horde_Block_Weatherdotcom extends Horde_Block
 
         $cacheDir = Horde::getTempDir();
         if (!$cacheDir) {
-            throw new Horde_Block_Exception(_("No temporary directory available for cache."));
+            throw new Horde_Exception(_("No temporary directory available for cache."));
         } else {
             $weatherDotCom->setCache('file', array('cache_dir' => ($cacheDir . '/')));
         }

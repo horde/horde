@@ -1,7 +1,7 @@
 <?php
 /**
  */
-class Nag_Block_Summary extends Horde_Block
+class Nag_Block_Summary extends Horde_Core_Block
 {
     /**
      */

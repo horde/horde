@@ -15,7 +15,7 @@ Horde_Registry::appInit('whups');
 
 // Instantiate the blocks objects.
 $blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('whups'));
-$layout = Horde_Block_Layout_Manager::singleton('mybugs', $blocks, @unserialize($prefs->getValue('mybugs_layout')));
+$layout = new Horde_Core_Block_Layout_Manager($blocks, @unserialize($prefs->getValue('mybugs_layout')));
 
 // Handle requested actions.
 $layout->handle(Horde_Util::getFormData('action'),

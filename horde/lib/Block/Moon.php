@@ -1,7 +1,7 @@
 <?php
 /**
  */
-class Horde_Block_Moon extends Horde_Block
+class Horde_Block_Moon extends Horde_Core_Block
 {
     /**
      */

@@ -30,10 +30,11 @@ if (!count($layout_pref)) {
 }
 
 // Render layout.
-$view = new Horde_Block_Layout_View(
+$view = new Horde_Core_Block_Layout_View(
     $layout_pref,
     Horde::url('services/portal/edit.php'),
-    Horde::url('services/portal/index.php', true));
+    Horde::url('services/portal/index.php', true)
+);
 $layout_html = $view->toHtml();
 
 $css = $injector->getInstance('Horde_Themes_Css');

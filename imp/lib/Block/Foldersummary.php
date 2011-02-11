@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Block_Foldersummary extends Horde_Block
+class IMP_Block_Foldersummary extends Horde_Core_Block
 {
     /**
      */

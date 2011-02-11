@@ -2,7 +2,7 @@
 /**
  * Display a mini month view of calendar items.
  */
-class Kronolith_Block_Month extends Horde_Block
+class Kronolith_Block_Month extends Horde_Core_Block
 {
     /**
      */

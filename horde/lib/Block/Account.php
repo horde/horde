@@ -8,7 +8,7 @@
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
  * @author  Jan Schneider <jan@horde.org>
  */
-class Horde_Block_Account extends Horde_Block
+class Horde_Block_Account extends Horde_Core_Block
 {
     /**
      */

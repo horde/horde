@@ -2,7 +2,7 @@
 /**
  * Display the results of a saved Query in a block.
  */
-class Whups_Block_Query extends Horde_Block
+class Whups_Block_Query extends Horde_Core_Block
 {
     /**
      */

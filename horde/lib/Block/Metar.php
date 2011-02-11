@@ -1,9 +1,9 @@
 <?php
 /**
- * Provides an applet for the portal screen to display METAR weather data for
- * a specified location (currently airports).
+ * An applet for the portal screen to display METAR weather data for a
+ * specified location (currently airports).
  */
-class Horde_Block_Metar extends Horde_Block
+class Horde_Block_Metar extends Horde_Core_Block
 {
     /**
      */
@@ -41,7 +41,7 @@ class Horde_Block_Metar extends Horde_Block
 
         $result = $db->query('SELECT icao, name, country FROM metarAirports ORDER BY country');
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Block_Exception($result);
+            throw new Horde_Exception($result);
         }
 
         $locations = array();
@@ -100,7 +100,7 @@ class Horde_Block_Metar extends Horde_Block
         static $metarLocs;
 
         if (empty($this->_params['location'])) {
-            throw new Horde_Block_Exception(_("No location is set."));
+            throw new Horde_Exception(_("No location is set."));
         }
 
         if (!is_array($metarLocs)) {

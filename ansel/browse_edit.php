@@ -11,7 +11,7 @@ Horde_Registry::appInit('ansel');
 
 // Instantiate the blocks objects.
 $blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('ansel'));
-$layout = Horde_Block_Layout_Manager::singleton('myphotos', $blocks, @unserialize($prefs->getValue('myansel_layout')));
+$layout = new Horde_Core_Block_Layout_Manager($blocks, @unserialize($prefs->getValue('myansel_layout')));
 
 // Handle requested actions.
 $layout->handle(Horde_Util::getFormData('action'),

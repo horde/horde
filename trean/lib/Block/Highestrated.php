@@ -9,7 +9,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  */
-class Trean_Block_Highestrated extends Horde_Block
+class Trean_Block_Highestrated extends Horde_Core_Block
 {
     /**
      */

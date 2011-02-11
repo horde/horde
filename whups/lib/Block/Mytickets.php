@@ -2,7 +2,7 @@
 /**
  * Display a summary of the current user's assigned tickets.
  */
-class Whups_Block_Mytickets extends Horde_Block
+class Whups_Block_Mytickets extends Horde_Core_Block
 {
     /**
      */

@@ -10,7 +10,7 @@
  *
  * @author  Marko Djukic <marko@oblo.com>
  */
-class Agora_Block_Thread extends Horde_Block
+class Agora_Block_Thread extends Horde_Core_Block
 {
     /**
      */
@@ -61,7 +61,7 @@ class Agora_Block_Thread extends Horde_Block
 
         /* Check if valid thread, otherwise show forum list. */
         if ($messages instanceof PEAR_Error || empty($messages)) {
-            throw new Horde_Block_Exception(_("Unable to fetch selected thread."));
+            throw new Horde_Exception(_("Unable to fetch selected thread."));
         }
 
         /* Get the sorting. */

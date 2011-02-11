@@ -23,7 +23,7 @@ if (!count($layout_pref)) {
     $layout_pref = $blocks->getFixedBlocks();
 }
 
-$layout = Horde_Block_Layout_Manager::singleton('portal', $blocks, $layout_pref);
+$layout = new Horde_Core_Block_Layout_Manager($blocks, $layout_pref);
 
 // Handle requested actions.
 $layout->handle(Horde_Util::getFormData('action'),

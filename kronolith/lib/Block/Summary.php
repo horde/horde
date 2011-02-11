@@ -2,7 +2,7 @@
 /**
  * Block to display a summary of calendar items.
  */
-class Kronolith_Block_Summary extends Horde_Block
+class Kronolith_Block_Summary extends Horde_Core_Block
 {
     /**
      */

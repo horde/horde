@@ -2,7 +2,7 @@
 /**
  * Display a summary of unassigned tickets.
  */
-class Whups_Block_Unassigned extends Horde_Block
+class Whups_Block_Unassigned extends Horde_Core_Block
 {
     /**
      */

@@ -16,7 +16,7 @@ $compose_page = in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php
 if (!$compose_page) {
     include IMP_BASE . '/config/portal.php';
     foreach ($dimp_block_list as $block) {
-        if ($block['ob'] instanceof Horde_Block) {
+        if ($block['ob'] instanceof Horde_Core_Block) {
             $app = $block['ob']->getApp();
             if (empty($portal_urls[$app])) {
                 $portal_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true));

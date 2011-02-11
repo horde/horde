@@ -1,7 +1,7 @@
 <?php
 /**
  */
-class Mnemo_Block_Summary extends Horde_Block
+class Mnemo_Block_Summary extends Horde_Core_Block
 {
     /**
      */

@@ -2,7 +2,7 @@
 /**
  * Show the current user's queries.
  */
-class Whups_Block_Myqueries extends Horde_Block
+class Whups_Block_Myqueries extends Horde_Core_Block
 {
     /**
      */

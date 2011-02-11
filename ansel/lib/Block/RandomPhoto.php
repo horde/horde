@@ -10,7 +10,7 @@
  * @author  Duck <Duck@obla.net>
  * @author  Ben Chavet <ben@horde.org>
  */
-class Ansel_Block_RandomPhoto extends Horde_Block
+class Ansel_Block_RandomPhoto extends Horde_Core_Block
 {
     /**
      */

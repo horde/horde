@@ -9,7 +9,7 @@
  *
  * @author  Roel Gloudemans <roel@gloudemans.info>
  */
-class Jonah_Block_Story extends Horde_Block
+class Jonah_Block_Story extends Horde_Core_Block
 {
     /**
      */

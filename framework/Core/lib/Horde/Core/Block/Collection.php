@@ -11,17 +11,11 @@
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
 class Horde_Core_Block_Collection
 {
-    /**
-     * Cache for getBlocksList().
-     *
-     * @var array
-     */
-    static protected $_blocksCache = array();
-
     /**
      * A hash storing the information about all available blocks from
      * all applications.
@@ -86,9 +80,14 @@ class Horde_Core_Block_Collection
             throw new Horde_Exception(sprintf(_("Block %s not found in %s."), $name, $app));
         }
 
-        $ob = new $class($app, $params, $row, $col);
+        $ob = new $class($app, $params);
+
         if ($pushed) {
             $registry->popApp($app);
+        }
+
+        if (is_null($ob)) {
+            throw new Horde_Exception(sprintf('%s not found.', $name));
         }
 
         return $ob;
@@ -102,18 +101,18 @@ class Horde_Core_Block_Collection
      */
     public function getBlocksList()
     {
-        if (empty(self::$_blocksCache)) {
-            /* Get available blocks from all apps. */
-            foreach ($this->_blocks as $app => $app_blocks) {
-                foreach ($app_blocks as $block_id => $block) {
-                    if (isset($block['name'])) {
-                        self::$_blocksCache[$app . ':' . $block_id] = $GLOBALS['registry']->get('name', $app) . ': ' . $block['name'];
-                    }
-                }
+        $blocks = array();
+
+        /* Get available blocks from all apps. */
+        foreach ($this->_blocks as $app => $app_blocks) {
+            $app_name = $GLOBALS['registry']->get('name', $app);
+
+            foreach ($app_blocks as $block_id => $block) {
+                $blocks[$app . ':' . $block_id] = $app_name . ': ' . $block['name'];
             }
         }
 
-        return self::$_blocksCache;
+        return $blocks;
     }
 
     /**
@@ -124,14 +123,21 @@ class Horde_Core_Block_Collection
     public function getFixedBlocks()
     {
         $layout = array();
+
         if (isset($GLOBALS['conf']['portal']['fixed_blocks'])) {
             foreach ($GLOBALS['conf']['portal']['fixed_blocks'] as $block) {
                 list($app, $type) = explode(':', $block, 2);
-                $layout[] = array(array('app' => $app,
-                                        'params' => array('type' => $type,
-                                                          'params' => false),
-                                        'height' => 1,
-                                        'width' => 1));
+                $layout[] = array(
+                    array(
+                        'app' => $app,
+                        'params' => array(
+                            'type' => $type,
+                            'params' => false
+                        ),
+                        'height' => 1,
+                        'width' => 1
+                    )
+                );
             }
         }
 
@@ -152,19 +158,24 @@ class Horde_Core_Block_Collection
                                     $onchange = false, $readonly = false)
     {
         $widget = '<select name="app"';
+
         if ($onchange) {
             $widget .= ' onchange="document.blockform.action.value=\'save-resume\';document.blockform.submit()"';
         }
+
         if ($readonly) {
             $widget .= ' disabled="disabled"';
         }
+
         $widget .= ">\n";
 
         foreach ($this->getBlocksList() as $id => $name) {
-            $widget .= sprintf("<option value=\"%s\"%s>%s</option>\n",
-                                   $id,
-                                   ($id == $cur_app . ':' . $cur_block) ? ' selected="selected"' : '',
-                                   $name);
+            $widget .= sprintf(
+                "<option value=\"%s\"%s>%s</option>\n",
+                $id,
+                ($id == $cur_app . ':' . $cur_block) ? ' selected="selected"' : '',
+                $name
+            );
         }
 
         return $widget . "</select>\n";
@@ -335,7 +346,7 @@ class Horde_Core_Block_Collection
     {
         return isset($this->_blocks[$app][$block])
             ? $this->_blocks[$app][$block]['name']
-            : sprintf(Horde_Block_Translation::t("Block \"%s\" of application \"%s\" not found."), $block, $app);
+            : sprintf(Horde_Core_Translation::t("Block \"%s\" of application \"%s\" not found."), $block, $app);
     }
 
     /**

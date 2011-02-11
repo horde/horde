@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Block_twitter_timeline class provides a bare-bones twitter client
- * as a horde block.
+ * A bare-bones twitter client in a Horde block.
  *
  * Still @TODO:
  *  - configure block to show friendTimeline, specific user, public timeline,
@@ -17,7 +16,7 @@
  * @author Ben Klang <ben@alkaloid.net>
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Horde_Block_TwitterTimeline extends Horde_Block
+class Horde_Block_TwitterTimeline extends Horde_Core_Block
 {
     /**
      * @var Horde_Service_Twitter
@@ -95,7 +94,7 @@ class Horde_Block_TwitterTimeline extends Horde_Block
         try {
             $twitter = $this->_getTwitterObject();
         }  catch (Horde_Exception $e) {
-            throw new Horde_Block_Exception(sprintf(_("There was an error contacting Twitter: %s"), $e->getMessage()));
+            throw new Horde_Exception(sprintf(_("There was an error contacting Twitter: %s"), $e->getMessage()));
         }
 
         /* Get a unique ID in case we have multiple Twitter blocks. */

@@ -2,7 +2,7 @@
 /**
  * Allow searching of address books from the portal.
  */
-class Turba_Block_Minisearch extends Horde_Block
+class Turba_Block_Minisearch extends Horde_Core_Block
 {
     /**
      */

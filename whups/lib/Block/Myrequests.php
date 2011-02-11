@@ -2,7 +2,7 @@
 /**
  * Display a summary of the current user's requested tickets.
  */
-class Whups_Block_Myrequests extends Horde_Block
+class Whups_Block_Myrequests extends Horde_Core_Block
 {
     /**
      */

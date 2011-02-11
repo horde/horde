@@ -10,7 +10,7 @@
  * @author  Roel Gloudemans <roel@gloudemans.info>
  * @package Jonah
  */
-class Jonah_Block_Latest extends Horde_Block
+class Jonah_Block_Latest extends Horde_Core_Block
 {
     /**
      */

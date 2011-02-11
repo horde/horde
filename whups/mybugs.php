@@ -44,10 +44,11 @@ if (!$mybugs_layout) {
         $mybugs_layout = array();
     }
 }
-$layout = new Horde_Block_Layout_View(
+$layout = new Horde_Core_Block_Layout_View(
     $mybugs_layout,
     Horde::url('mybugs_edit.php'),
-    Horde::url('mybugs.php', true));
+    Horde::url('mybugs.php', true)
+);
 $layout_html = $layout->toHtml();
 
 $title = sprintf(_("My %s"), $registry->get('name'));

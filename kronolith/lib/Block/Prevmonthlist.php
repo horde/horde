@@ -1,9 +1,8 @@
 <?php
 /**
- * Horde_Block_Kronolith_Monthlist:: Implementation of the Horde_Block
- * API to display a list of previous calendar items grouped by month.
+ * Display a list of previous calendar items grouped by month.
  */
-class Kronolith_Block_Prevmonthlist extends Horde_Block
+class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
 {
     /**
      */

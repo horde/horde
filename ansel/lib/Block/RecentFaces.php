@@ -9,7 +9,7 @@
  *
  * @author Duck <Duck@obala.net>
  */
-class Ansel_Block_RecentFaces extends Horde_Block
+class Ansel_Block_RecentFaces extends Horde_Core_Block
 {
     /**
      */

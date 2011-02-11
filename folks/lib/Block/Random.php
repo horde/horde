@@ -3,7 +3,7 @@
  * @author  Duck <duck@obala.net>
  * @package Folks
  */
-class Folks_Block_Random extends Horde_Block
+class Folks_Block_Random extends Horde_Core_Block
 {
     /**
      */

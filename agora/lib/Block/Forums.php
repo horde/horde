@@ -10,7 +10,7 @@
  * @author  Marko Djukic <marko@oblo.com>
  * @author  Jan Schneider <jan@horde.org>
  */
-class Agora_Block_Forums extends Horde_Block
+class Agora_Block_Forums extends Horde_Core_Block
 {
     /**
      */

@@ -1,9 +1,8 @@
 <?php
 /**
- * Horde_Block_folks_my_comments:: Implementation of the Horde_Block API to
- * display last comments on users videos.
+ * Display last comments on users videos.
  */
-class Folks_Block_MyComments extends Horde_Block
+class Folks_Block_MyComments extends Horde_Core_Block
 {
     /**
      */

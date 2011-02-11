@@ -9,7 +9,7 @@
  *
  * @author Jason Felice <jason.m.felice@gmail.com>
  */
-class Wicked_Block_Page extends Horde_Block
+class Wicked_Block_Page extends Horde_Core_Block
 {
     /**
      */

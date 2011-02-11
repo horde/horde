@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Block_Layout_View class represents the user defined portal layout.
+ * This object represents the user defined portal layout.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -10,23 +10,24 @@
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package  Horde_Block
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Block_Layout_View extends Horde_Block_Layout
+class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
 {
-    /**
-     * The current block layout.
-     *
-     * @var array
-     */
-    protected $_layout = array();
-
     /**
      * All applications used in this layout.
      *
      * @var array
      */
     protected $_applications = array();
+
+    /**
+     * The current block layout.
+     *
+     * @var array
+     */
+    protected $_layout = array();
 
     /**
      * CSS link tags pulled out of block content.
@@ -37,9 +38,12 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
 
     /**
      * Constructor.
+     *
+     * @param array $layout
+     * @param Horde_Url $editUrl
+     * @param Horde_Url $viewUrl
      */
-    public function __construct($layout = array(), $editUrl = '',
-                                $viewUrl = '')
+    public function __construct($layout = array(), $editUrl, $viewUrl)
     {
         $this->_layout = $layout;
         $this->_editUrl = $editUrl;
@@ -87,7 +91,7 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                             }
                         }
 
-                        if ($block instanceof Horde_Block) {
+                        if ($block instanceof Horde_Core_Block) {
                             $block_id = 'block_' . $row_num . '_' . $col_num;
                             $content = $block->getContent();
                             $header = $block->getTitle();
@@ -121,7 +125,7 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                             $html .= '<td width="' . ($width * $colspan) . '%">&nbsp;</td>';
                         }
                     } catch (Horde_Exception $e) {
-                        $header = Horde_Block_Translation::t("Error");
+                        $header = Horde_Core_Translation::t("Error");
                         $content = $e->getMessage();
                         ob_start();
                         include $tplDir . '/portal/block.inc';

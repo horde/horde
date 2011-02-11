@@ -9,7 +9,7 @@
  *
  * @author  Roel Gloudemans <roel@gloudemans.info>
  */
-class Jonah_Block_Delivery extends Horde_Block
+class Jonah_Block_Delivery extends Horde_Core_Block
 {
     /**
      */

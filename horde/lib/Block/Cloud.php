@@ -2,7 +2,7 @@
 /**
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Horde_Block_Cloud extends Horde_Block
+class Horde_Block_Cloud extends Horde_Core_Block
 {
     /**
      */

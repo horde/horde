@@ -9,7 +9,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  */
-class Jonah_Block_News extends Horde_Block
+class Jonah_Block_News extends Horde_Core_Block
 {
     /**
      */

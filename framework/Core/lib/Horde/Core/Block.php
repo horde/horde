@@ -1,7 +1,6 @@
 <?php
 /**
- * The abstract Horde_Block:: class represents a single block within
- * the Blocks framework.
+ * An abstract class representing a single block in the portal/block display.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -10,10 +9,12 @@
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Block
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Block
+class Horde_Core_Block
 {
     /**
      * Is this block enabled?
@@ -135,7 +136,7 @@ class Horde_Block
 
         try {
             $title = $this->_title();
-        } catch (Horde_Block_Exception $e) {
+        } catch (Horde_Exception $e) {
             $title = $e->getMessage();
         }
         /* If we changed application context in the course of this
@@ -178,7 +179,7 @@ class Horde_Block
 
         try {
             $content = $this->_content();
-        } catch (Horde_Block_Exception $e) {
+        } catch (Horde_Exception $e) {
             $content = $e->getMessage();
         }
 
@@ -247,7 +248,7 @@ class Horde_Block
 
         try {
             $content = $this->_ajaxUpdate($vars);
-        } catch (Horde_Block_Exception $e) {
+        } catch (Horde_Exception $e) {
             $content = $e->getMessage();
         }
 

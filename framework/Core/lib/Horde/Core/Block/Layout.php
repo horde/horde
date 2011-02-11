@@ -1,8 +1,6 @@
 <?php
 /**
- * The Horde_Block_Layout class provides basic functionality for both managing
- * and displaying blocks through Horde_Block_Layout_Manager and
- * Horde_Block_Layout_View.
+ * Provides basic functionality for both managing and displaying blocks.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -11,20 +9,22 @@
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Block
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Block_Layout
+class Horde_Core_Block_Layout
 {
     /**
-     * TODO
+     * Edit URL.
      *
      * @var string
      */
     protected $_editUrl;
 
     /**
-     * TODO
+     * View URL.
      *
      * @var string
      */
@@ -60,9 +60,8 @@ class Horde_Block_Layout
                     $cur_col['params']['type'] == $type) {
                     if ($found) {
                         return true;
-                    } else {
-                        $found = true;
                     }
+                    $found = true;
                 }
             }
         }
@@ -102,21 +101,24 @@ class Horde_Block_Layout
     public function getHeaderIcons($row, $col, $edit, $url = null)
     {
         $icons = '';
+
         if ($edit) {
             $icons .= Horde::link($this->getActionUrl('edit', $row, $col),
-                                  Horde_Block_Translation::t("Edit"))
-                . Horde::img('edit.png', Horde_Block_Translation::t("Edit"))
+                                  Horde_Core_Translation::t("Edit"))
+                . Horde::img('edit.png', Horde_Core_Translation::t("Edit"))
                 . '</a>';
         }
+
         if ($this->isRemovable($row, $col)) {
             $icons .= Horde::link(
-                $this->getActionUrl('removeBlock', $row, $col), Horde_Block_Translation::t("Remove"),
+                $this->getActionUrl('removeBlock', $row, $col), Horde_Core_Translation::t("Remove"),
                 '', '',
                 'return window.confirm(\''
-                . addslashes(Horde_Block_Translation::t("Really delete this block?")) . '\')')
-                . Horde::img('delete.png', Horde_Block_Translation::t("Remove"))
+                . addslashes(Horde_Core_Translation::t("Really delete this block?")) . '\')')
+                . Horde::img('delete.png', Horde_Core_Translation::t("Remove"))
                 . '</a>';
         }
+
         return $icons;
     }
 

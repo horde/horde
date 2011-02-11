@@ -2,7 +2,7 @@
 /**
  * Show a summary of all available queues and their number of open tickets.
  */
-class Whups_Block_Queuesummary extends Horde_Block
+class Whups_Block_Queuesummary extends Horde_Core_Block
 {
     /**
      */

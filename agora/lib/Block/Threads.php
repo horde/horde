@@ -11,7 +11,7 @@
  * @author  Marko Djukic <marko@oblo.com>
  * @author  Jan Schneider <jan@horde.org>
  */
-class Agora_Block_Threads extends Horde_Block
+class Agora_Block_Threads extends Horde_Core_Block
 {
     /**
      * TODO
@@ -85,13 +85,13 @@ class Agora_Block_Threads extends Horde_Block
     protected function _content()
     {
         if (!isset($this->_params['forum_id'])) {
-            throw new Horde_Block_Exception(_("No forum selected"));
+            throw new Horde_Exception(_("No forum selected"));
         }
 
         if (empty($this->_threads)) {
             $this->_threads = &Agora_Messages::singleton('agora', $this->_params['forum_id']);
             if ($this->_threads instanceof PEAR_Error) {
-                throw new Horde_Block_Exception(_("Unable to fetch threads for selected forum."));
+                throw new Horde_Exception(_("Unable to fetch threads for selected forum."));
             }
         }
 

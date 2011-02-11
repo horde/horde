@@ -9,7 +9,7 @@
  */
 
 /**
- * View helper for displaying Horde_Block objects
+ * View helper for displaying Horde block objects
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
@@ -80,7 +80,7 @@ class Horde_View_Helper_Block extends Horde_View_Helper_Base
      *
      * ...
      *
-     * @return Horde_Block The requested Block object
+     * @return Horde_Core_Block  The requested Block object
      *
      * @throws Horde_View_Exception, InvalidArgumentException
      */
@@ -89,12 +89,8 @@ class Horde_View_Helper_Block extends Horde_View_Helper_Base
         $hash = sha1(serialize(array($app, $block, $params)));
         if (!isset($this->_blockCache[$hash])) {
             $block = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($app, $block, $params);
-            if (!$block instanceof Horde_Block) {
-                if (is_callable(array($block, 'getMessage'))) {
-                    throw new Horde_View_Exception($block->getMessage());
-                } else {
-                    throw new Horde_View_Exception('Unknown error instantiating Block object');
-                }
+            if (!$block instanceof Horde_Core_Block) {
+                throw new Horde_View_Exception($block);
             }
 
             $this->_blockCache[$hash] = $block;

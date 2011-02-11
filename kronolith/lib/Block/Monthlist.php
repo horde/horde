@@ -2,7 +2,7 @@
 /**
  * Display a list of calendar items grouped by month.
  */
-class Kronolith_Block_Monthlist extends Horde_Block
+class Kronolith_Block_Monthlist extends Horde_Core_Block
 {
     /**
      */

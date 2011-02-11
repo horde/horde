@@ -9,10 +9,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-$layout = new Horde_Block_Layout_View(
+$layout = new Horde_Core_Block_Layout_View(
     @unserialize($prefs->getValue('myansel_layout')),
     Horde::url('browse_edit.php'),
-    Horde::url('browse.php', true));
+    Horde::url('browse.php', true)
+);
 
 $layout_html = $layout->toHtml();
 $title = _("Photo Galleries");

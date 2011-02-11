@@ -9,7 +9,7 @@
  *
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  */
-class Ansel_Block_Recentlyadded extends Horde_Block
+class Ansel_Block_Recentlyadded extends Horde_Core_Block
 {
     /**
      */

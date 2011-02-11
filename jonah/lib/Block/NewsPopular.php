@@ -11,7 +11,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  */
-class Jonah_Block_NewsPopular extends Horde_Block
+class Jonah_Block_NewsPopular extends Horde_Core_Block
 {
     /**
      */

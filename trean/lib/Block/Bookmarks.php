@@ -9,7 +9,7 @@
  *
  * @author  Joel Vandal <joel@scopserv.com>
  */
-class Trean_Block_Bookmarks extends Horde_Block
+class Trean_Block_Bookmarks extends Horde_Core_Block
 {
     /**
      */

@@ -10,7 +10,7 @@
  * @author  Duck <Duck@obla.net>
  * @author  Marcus Ryan <marcus@horde.org>
  */
-class Ansel_Block_Gallery extends Horde_Block
+class Ansel_Block_Gallery extends Horde_Core_Block
 {
     /**
      * @var Ansel_Gallery

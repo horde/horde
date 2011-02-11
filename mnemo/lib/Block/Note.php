@@ -1,7 +1,7 @@
 <?php
 /**
  */
-class Mnemo_Block_Note extends Horde_Block
+class Mnemo_Block_Note extends Horde_Core_Block
 {
     /**
      */
@@ -66,7 +66,7 @@ class Mnemo_Block_Note extends Horde_Block
     private function _getNote()
     {
         if (!isset($this->_params['note_uid'])) {
-            throw new Horde_Block_Exception(_("No note loaded"));
+            throw new Horde_Exception(_("No note loaded"));
         }
 
         $uid = $this->_params['note_uid'];
@@ -79,7 +79,7 @@ class Mnemo_Block_Note extends Horde_Block
             } else {
                 $msg = _("An error occurred displaying the note");
             }
-            throw new Horde_Block_Exception($msg);
+            throw new Horde_Exception($msg);
         }
 
         return $memo;

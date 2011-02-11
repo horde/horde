@@ -1,7 +1,7 @@
 <?php
 /**
  */
-class Horde_Scribd_Block_Scribd extends Horde_Block
+class Horde_Scribd_Block_Scribd extends Horde_Core_Block
 {
     /**
      */

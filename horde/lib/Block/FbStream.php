@@ -8,7 +8,7 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Horde_Block_FbStream extends Horde_Block
+class Horde_Block_FbStream extends Horde_Core_Block
 {
     /**
      * @var Horde_Service_Facebook

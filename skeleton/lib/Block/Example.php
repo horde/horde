@@ -2,7 +2,7 @@
 /**
  * @package Skeleton
  */
-class Skeleton_Block_Example extends Horde_Block
+class Skeleton_Block_Example extends Horde_Core_Block
 {
     /**
      */

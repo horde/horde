@@ -1366,14 +1366,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function showPortal()
     {
         // Load the block list. Blocks are located in $dimp_block_list.
-        // KEY: Block label; VALUE: Horde_Block object
         require IMP_BASE . '/config/portal.php';
 
         $blocks = $linkTags = array();
         $css_load = array('imp' => true);
 
         foreach ($dimp_block_list as $block) {
-            if ($block['ob'] instanceof Horde_Block) {
+            if ($block['ob'] instanceof Horde_Core_Block) {
                 $app = $block['ob']->getApp();
                 // TODO: Fix CSS.
                 $content = $block['ob']->getContent();

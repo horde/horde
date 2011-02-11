@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Block_Layout_Manager class allows manipulation of Horde_Block
- * layouts.
+ * Provides manipulation of block layouts.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -11,30 +10,17 @@
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package  Horde_Block
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Block_Layout_Manager extends Horde_Block_Layout
+class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements Countable
 {
-    /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
     /**
      * Our Horde_Core_Block_Collection instance.
      *
      * @var Horde_Core_Block_Collection
      */
     protected $_collection;
-
-    /**
-     * The current block layout.
-     *
-     * @var array
-     */
-    protected $_layout = array();
 
     /**
      * A cache for the block objects.
@@ -49,6 +35,13 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
      * @var integer
      */
     protected $_columns = 0;
+
+    /**
+     * The current block layout.
+     *
+     * @var array
+     */
+    protected $_layout = array();
 
     /**
      * Has the layout been updated since it was instantiated.
@@ -69,39 +62,22 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
      *
      * @var integer
      */
-    protected $_changed_row = null;
+    protected $_changedRow = null;
 
     /**
      * The new column of the last changed block.
      *
      * @var integer
      */
-    protected $_changed_col = null;
-
-    /**
-     * Returns a single instance of the Horde_Block_Layout_Manager class.
-     *
-     * @param string $name                        TODO
-     * @param Horde_Core_Block_Collection $collection  TODO
-     * @param array $data                        TODO
-     *
-     * @return Horde_Block_Layout_Manager  The requested instance.
-     */
-    static public function &singleton($name, $collection, $data = array())
-    {
-        if (!isset(self::$_instances[$name])) {
-            self::$_instances[$name] = new Horde_Block_Layout_Manager($collection, $data);
-        }
-        return self::$_instances[$name];
-    }
+    protected $_changedCol = null;
 
     /**
      * Constructor.
      *
      * @param Horde_Core_Block_Collection $collection  TODO
-     * @param array $layout                       TODO
+     * @param array $layout                            TODO
      */
-    function __construct($collection, $layout = array())
+    public function __construct($collection, $layout = array())
     {
         $this->_collection = $collection;
         $this->_layout = $layout;
@@ -109,21 +85,22 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
 
         // Fill the _covered caches and empty rows.
         $rows = count($this->_layout);
-        $empty = array();
+        $emptyrows = array();
+
         for ($row = 0; $row < $rows; $row++) {
             $cols = count($this->_layout[$row]);
-            if (!isset($empty[$row])) {
-                $empty[$row] = true;
+            if (!isset($emptyrows[$row])) {
+                $emptyrows[$row] = true;
             }
-            for ($col = 0; $col < $cols; $col++) {
-                if (!isset($this->_layout[$row][$col])) {
-                    $this->_blocks[$row][$col] = PEAR::raiseError(Horde_Block_Translation::t("No block exists at the requested position"), 'horde.error');
-                } elseif (is_array($this->_layout[$row][$col])) {
+
+            for ($col = 0; $col < $cols; ++$col) {
+                if (isset($this->_layout[$row][$col]) &&
+                    is_array($this->_layout[$row][$col])) {
                     $field = $this->_layout[$row][$col];
 
-                    $empty[$row] = false;
+                    $emptyrows[$row] = false;
                     if (isset($field['width'])) {
-                        for ($i = 1; $i < $field['width']; $i++) {
+                        for ($i = 1; $i < $field['width']; ++$i) {
                             $this->_layout[$row][$col + $i] = 'covered';
                         }
                     }
@@ -131,25 +108,25 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                         if (!isset($field['width'])) {
                             $field['width'] = 1;
                         }
-                        for ($i = 1; $i < $field['height']; $i++) {
+
+                        for ($i = 1; $i < $field['height']; ++$i) {
                             $this->_layout[$row + $i][$col] = 'covered';
                             for ($j = 1; $j < $field['width']; $j++) {
                                 $this->_layout[$row + $i][$col + $j] = 'covered';
                             }
-                            $empty[$row + $i] = false;
+                            $emptyrows[$row + $i] = false;
                         }
                     }
                 }
             }
 
             // Strip empty blocks from the end of the rows.
-            for ($col = $cols - 1; $col >= 0; $col--) {
-                if (!isset($this->_layout[$row][$col]) ||
-                    $this->_layout[$row][$col] == 'empty') {
-                    unset($this->_layout[$row][$col]);
-                } else {
+            for ($col = $cols - 1; $col >= 0; --$col) {
+                if (isset($this->_layout[$row][$col]) &&
+                    $this->_layout[$row][$col] != 'empty') {
                     break;
                 }
+                unset($this->_layout[$row][$col]);
             }
 
             $this->_columns = max($this->_columns, count($this->_layout[$row]));
@@ -157,10 +134,10 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
 
         // Fill all rows up to the same length.
         $layout = array();
-        for ($row = 0; $row < $rows; $row++) {
+        for ($row = 0; $row < $rows; ++$row) {
             $cols = count($this->_layout[$row]);
             if ($cols < $this->_columns) {
-                for ($col = $cols; $col < $this->_columns; $col++) {
+                for ($col = $cols; $col < $this->_columns; ++$col) {
                     $this->_layout[$row][$col] = 'empty';
                 }
             }
@@ -237,11 +214,11 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                 // Check permissions.
                 $max_blocks = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_blocks');
                 if (($max_blocks !== true) &&
-                    ($max_blocks <= $this->count())) {
+                    ($max_blocks <= count($this))) {
                     Horde::permissionDeniedError(
                         'horde',
                         'max_blocks',
-                        sprintf(Horde_Block_Translation::ngettext("You are not allowed to create more than %d block.", "You are not allowed to create more than %d blocks.", $max_blocks), $max_blocks)
+                        sprintf(Horde_Core_Translation::ngettext("You are not allowed to create more than %d block.", "You are not allowed to create more than %d blocks.", $max_blocks), $max_blocks)
                     );
                     break;
                 }
@@ -319,12 +296,12 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
     }
 
     /**
-     * Returns the Horde_Block at the specified position.
+     * Returns the block object at the specified position.
      *
      * @param integer $row  A layout row.
      * @param integer $col  A layout column.
      *
-     * @return Horde_Block  The block from that position.
+     * @return Horde_Core_Block  The block from that position.
      */
     public function getBlock($row, $col)
     {
@@ -432,31 +409,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             $this->_layout[$row][$col]['params']['params'] = $info['params'];
         }
 
-        $this->_changed_row = $row;
-        $this->_changed_col = $col;
-    }
-
-    /**
-     * Returns the number of blocks in the current layout.
-     *
-     * @return integer  The number of blocks.
-     */
-    public function count()
-    {
-        $rows = $this->rows();
-        $count = 0;
-
-        for ($row = 0; $row < $rows; $row++) {
-            $cols = $this->columns($row);
-            for ($col = 0; $col < $cols; $col++) {
-                if (!$this->isEmpty($row, $col) &&
-                    !$this->isCovered($row, $col)) {
-                    ++$count;
-                }
-            }
-        }
-
-        return $count;
+        $this->_changedRow = $row;
+        $this->_changedCol = $col;
     }
 
     /**
@@ -545,8 +499,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
      */
     public function isChanged($row, $col)
     {
-        return (($this->_changed_row === $row) &&
-                ($this->_changed_col === $col));
+        return (($this->_changedRow === $row) &&
+                ($this->_changedCol === $col));
     }
 
     /**
@@ -571,12 +525,12 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
 
         switch ($type[0]) {
         case 'expand':
-            $title = Horde_Block_Translation::t("Expand");
+            $title = Horde_Core_Translation::t("Expand");
             $img = 'large_' . $type[1];
             break;
 
         case 'shrink':
-            $title = Horde_Block_Translation::t("Shrink");
+            $title = Horde_Core_Translation::t("Shrink");
             $img = 'large_';
 
             switch ($type[1]) {
@@ -601,19 +555,19 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         case 'move':
             switch ($type[1]) {
             case 'up':
-                $title = Horde_Block_Translation::t("Move Up");
+                $title = Horde_Core_Translation::t("Move Up");
                 break;
 
             case 'down':
-                $title = Horde_Block_Translation::t("Move Down");
+                $title = Horde_Core_Translation::t("Move Down");
                 break;
 
             case 'left':
-                $title = Horde_Block_Translation::t("Move Left");
+                $title = Horde_Core_Translation::t("Move Left");
                 break;
 
             case 'right':
-                $title = Horde_Block_Translation::t("Move Right");
+                $title = Horde_Core_Translation::t("Move Right");
                 break;
             }
 
@@ -762,8 +716,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             }
         }
 
-        $this->_changed_row = $row;
-        $this->_changed_col = $col;
+        $this->_changedRow = $row;
+        $this->_changedCol = $col;
 
         if (!$this->rowExists($row)) {
             do {
@@ -864,8 +818,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                                 $this->_layout[$in_way[0] + count($rec1) + $j][$in_way[1] + $k] = $rec2[$j][$k];
                             }
                         }
-                        $this->_changed_row = $in_way[0];
-                        $this->_changed_col = $in_way[1];
+                        $this->_changedRow = $in_way[0];
+                        $this->_changedCol = $in_way[1];
                         return;
                     }
                     // Nowhere to go.
@@ -889,8 +843,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             }
         }
 
-        $this->_changed_row = $row - 1;
-        $this->_changed_col = $col;
+        $this->_changedRow = $row - 1;
+        $this->_changedCol = $col;
     }
 
     /**
@@ -928,8 +882,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                                 $this->_layout[$row + count($rec2) + $j][$col + $k] = $rec1[$j][$k];
                             }
                         }
-                        $this->_changed_row = $in_way[0];
-                        $this->_changed_col = $in_way[1];
+                        $this->_changedRow = $in_way[0];
+                        $this->_changedCol = $in_way[1];
                         return;
                     }
                     // No where to go
@@ -953,8 +907,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             $this->_layout[$row][$col + $i] = 'empty';
         }
 
-        $this->_changed_row = $row + 1;
-        $this->_changed_col = $col;
+        $this->_changedRow = $row + 1;
+        $this->_changedCol = $col;
     }
 
     /**
@@ -1021,8 +975,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                                 $this->_layout[$in_way[0] + $j][$in_way[1] + count($rec1[$j]) + $k] = $rec2[$j][$k];
                             }
                         }
-                        $this->_changed_row = $in_way[0];
-                        $this->_changed_col = $in_way[1];
+                        $this->_changedRow = $in_way[0];
+                        $this->_changedCol = $in_way[1];
                         return;
                     }
                     // No where to go
@@ -1048,8 +1002,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                 $this->removeColIfEmpty($lastcol);
             }
 
-            $this->_changed_row = $row;
-            $this->_changed_col = $col - 1;
+            $this->_changedRow = $row;
+            $this->_changedCol = $col - 1;
         }
     }
 
@@ -1088,8 +1042,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                                 $this->_layout[$row + $j][$col + count($rec2[$j]) + $k] = $rec1[$j][$k];
                             }
                         }
-                        $this->_changed_row = $in_way[0];
-                        $this->_changed_col = $in_way[1];
+                        $this->_changedRow = $in_way[0];
+                        $this->_changedCol = $in_way[1];
                         return;
                     }
                     // No where to go
@@ -1113,8 +1067,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             $this->_layout[$row + $i][$col] = 'empty';
         }
 
-        $this->_changed_row = $row;
-        $this->_changed_col = $col + 1;
+        $this->_changedRow = $row;
+        $this->_changedCol = $col + 1;
     }
 
     /**
@@ -1175,8 +1129,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             }
             $this->_layout[$row - 1][$col]['height'] = $this->getHeight($row - 1, $col) + 1;
 
-            $this->_changed_row = $row - 1;
-            $this->_changed_col = $col;
+            $this->_changedRow = $row - 1;
+            $this->_changedCol = $col;
         }
     }
 
@@ -1215,8 +1169,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             $this->_layout[$row][$col]['height'] = $this->getHeight($row, $col) + 1;
         }
 
-        $this->_changed_row = $row;
-        $this->_changed_col = $col;
+        $this->_changedRow = $row;
+        $this->_changedCol = $col;
     }
 
     /**
@@ -1248,8 +1202,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             }
             $this->_layout[$row][$col - 1]['width'] = $this->getWidth($row, $col - 1) + 1;
 
-            $this->_changed_row = $row;
-            $this->_changed_col = $col - 1;
+            $this->_changedRow = $row;
+            $this->_changedCol = $col - 1;
         }
     }
 
@@ -1288,8 +1242,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             $this->_layout[$row][$col]['width'] = $this->getWidth($row, $col) + 1;
         }
 
-        $this->_changed_row = $row;
-        $this->_changed_col = $col;
+        $this->_changedRow = $row;
+        $this->_changedCol = $col;
     }
 
     /**
@@ -1308,8 +1262,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             }
             $this->_layout[$row + 1][$col]['height'] = $this->getHeight($row + 1, $col) - 1;
 
-            $this->_changed_row = $row + 1;
-            $this->_changed_col = $col;
+            $this->_changedRow = $row + 1;
+            $this->_changedCol = $col;
         }
     }
 
@@ -1333,8 +1287,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                 $this->removeRowIfEmpty($lastrow);
             }
 
-            $this->_changed_row = $row;
-            $this->_changed_col = $col;
+            $this->_changedRow = $row;
+            $this->_changedCol = $col;
         }
     }
 
@@ -1354,8 +1308,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             }
             $this->_layout[$row][$col + 1]['width'] = $this->getWidth($row, $col + 1) - 1;
 
-            $this->_changed_row = $row;
-            $this->_changed_col = $col + 1;
+            $this->_changedRow = $row;
+            $this->_changedCol = $col + 1;
         }
     }
 
@@ -1376,9 +1330,34 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             $this->_layout[$row][$col]['width'] = $this->getWidth($row, $col) - 1;
             $this->removeColIfEmpty($lastcol);
 
-            $this->_changed_row = $row;
-            $this->_changed_col = $col;
+            $this->_changedRow = $row;
+            $this->_changedCol = $col;
         }
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the number of blocks in the current layout.
+     *
+     * @return integer  The number of blocks.
+     */
+    public function count()
+    {
+        $rows = $this->rows();
+        $count = 0;
+
+        for ($row = 0; $row < $rows; $row++) {
+            $cols = $this->columns($row);
+            for ($col = 0; $col < $cols; $col++) {
+                if (!$this->isEmpty($row, $col) &&
+                    !$this->isCovered($row, $col)) {
+                    ++$count;
+                }
+            }
+        }
+
+        return $count;
     }
 
 }

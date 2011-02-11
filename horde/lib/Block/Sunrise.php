@@ -1,7 +1,7 @@
 <?php
 /**
  */
-class Horde_Block_Sunrise extends Horde_Block
+class Horde_Block_Sunrise extends Horde_Core_Block
 {
     /**
      */
@@ -39,7 +39,7 @@ class Horde_Block_Sunrise extends Horde_Block
     protected function _content()
     {
         if (empty($this->_params['location'])) {
-            throw new Horde_Block_Exception(_("No location is set."));
+            throw new Horde_Exception(_("No location is set."));
         }
 
         // Set the timezone variable, if available.

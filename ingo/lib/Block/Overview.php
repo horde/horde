@@ -7,7 +7,7 @@
  *
  * @author  Oliver Kuhl <okuhl@netcologne.de>
  */
-class Ingo_Block_Overview extends Horde_Block
+class Ingo_Block_Overview extends Horde_Core_Block
 {
     /**
      */

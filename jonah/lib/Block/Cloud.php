@@ -9,7 +9,7 @@
  *
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  */
-class Jonah_Block_Cloud extends Horde_Block
+class Jonah_Block_Cloud extends Horde_Core_Block
 {
     /**
      */

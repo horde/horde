@@ -2,7 +2,7 @@
 /**
  * Show the open tickets in a queue.
  */
-class Whups_Block_Queuecontents extends Horde_Block
+class Whups_Block_Queuecontents extends Horde_Core_Block
 {
     /**
      */
