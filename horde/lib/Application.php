@@ -90,4 +90,21 @@ class Horde_Application extends Horde_Registry_Application
         $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsCallback($ui);
     }
 
+    /**
+     */
+    public function configSpecialValues($what)
+    {
+        switch ($what) {
+        case 'apps':
+            $apps = Horde_Array::valuesToKeys($GLOBALS['registry']->listApps(array('active')));
+            asort($apps);
+            return $apps;
+
+        case 'languages':
+            return array_map(create_function('$val', 'return preg_replace(array("/&#x([0-9a-f]{4});/ie", "/(&[^;]+;)/e"), array("Horde_String::convertCharset(pack(\"H*\", \"$1\"), \"ucs-2\", \"UTF-8\")", "Horde_String::convertCharset(html_entity_decode(\"$1\", ENT_COMPAT, \"iso-8859-1\"), \"iso-8859-1\", \"UTF-8\")"), $val);'), $GLOBALS['registry']->nlsconfig->languages);
+
+        case 'blocks':
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlocksList();
+        }
+    }
 }

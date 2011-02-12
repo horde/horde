@@ -360,6 +360,36 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
+    public function configSpecialValues($what)
+    {
+        switch ($what) {
+        case 'client-fields':
+            try {
+                $fields = $GLOBALS['registry']->call('clients/clientFields');
+            } catch (Horde_Exception $e) {
+                return array();
+            }
+            $f = array();
+            foreach ($fields as $field) {
+                $f[$field['name']] = $field['label'];
+            }
+            return $f;
+
+        case 'sources':
+            try {
+                $addressbooks = Turba::getAddressBooks(Horde_Perms::READ);
+            } catch (Horde_Exception $e) {
+                return array();
+            }
+            foreach ($addressbooks as &$addressbook) {
+                $addressbook = $addressbook['title'];
+            }
+            return $addressbooks;
+        }
+    }
+
+    /**
+     */
     public function removeUserData($user)
     {
         /* We need a clean copy of the $cfgSources array here.*/

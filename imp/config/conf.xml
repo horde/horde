@@ -250,7 +250,7 @@
    <configmultienum name="apps" desc="Select any applications that should be
    linked in IMP's menu" required="false">
     <values>
-     <configspecial name="list-horde-apps" />
+     <configspecial application="horde" name="apps" />
     </values>
    </configmultienum>
   </configsection>

@@ -27,8 +27,12 @@
 
  <configsection name="client">
   <configheader>Clients</configheader>
-  <configstring name="field" desc="Field name from the client address book to
-  display in the client list">name</configstring>
+  <configenum name="field" desc="Field name from the client address book to
+  display in the client list">name
+   <values>
+    <configspecial application="contacts" name="client-fields"/>
+   </values>
+  </configenum>
  </configsection>
 
  <configsection name="invoices">
@@ -57,7 +61,7 @@
   <configmultienum name="apps" desc="Select any applications that should be
   linked in Hermes' menu">
    <values>
-    <configspecial name="list-horde-apps" />
+    <configspecial application="horde" name="apps" />
    </values>
   </configmultienum>
  </configsection>

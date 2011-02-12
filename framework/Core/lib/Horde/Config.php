@@ -1588,48 +1588,11 @@ class Horde_Config
      */
     protected function _handleSpecials($node)
     {
-        switch ($node->getAttribute('name')) {
-        case 'list-horde-apps':
-            $apps = Horde_Array::valuesToKeys($GLOBALS['registry']->listApps(array('active')));
-            asort($apps);
-            return $apps;
-
-        case 'list-horde-languages':
-            return array_map(create_function('$val', 'return preg_replace(array("/&#x([0-9a-f]{4});/ie", "/(&[^;]+;)/e"), array("Horde_String::convertCharset(pack(\"H*\", \"$1\"), \"ucs-2\", \"UTF-8\")", "Horde_String::convertCharset(html_entity_decode(\"$1\", ENT_COMPAT, \"iso-8859-1\"), \"iso-8859-1\", \"UTF-8\")"), $val);'), $GLOBALS['registry']->nlsconfig->languages);
-
-        case 'list-blocks':
-            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlocksList();
-
-        case 'list-client-fields':
-            global $registry;
-            $f = array();
-            if ($GLOBALS['registry']->hasMethod('clients/getClientSource')) {
-                $addressbook = $GLOBALS['registry']->call('clients/getClientSource');
-                try {
-                    $fields = $GLOBALS['registry']->call('clients/clientFields', array($addressbook));
-                } catch (Horde_Exception $e) {
-                    try {
-                        $fields = $GLOBALS['registry']->call('clients/fields', array($addressbook));
-                    } catch (Horde_Exception $e) {
-                        $fields = array();
-                    }
-                }
-
-                foreach ($fields as $field) {
-                    $f[$field['name']] = $field['label'];
-                }
-            }
-            return $f;
-
-        case 'list-contact-sources':
-            try {
-                return $GLOBALS['registry']->call('contacts/sources');
-            } catch (Horde_Exception $e) {
-            }
-            break;
+        $app = $GLOBALS['registry']->hasInterface($node->getAttribute('application'));
+        if (!$app) {
+            return array();
         }
-
-        return array();
+        return $GLOBALS['registry']->callAppMethod($app, 'configSpecialValues', array('args' => array($node->getAttribute('name'))));
     }
 
     /**

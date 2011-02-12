@@ -22,7 +22,7 @@
   <configmultienum name="apps" desc="Select any applications that should be
   linked in Nag's menu">
    <values>
-    <configspecial name="list-horde-apps" />
+    <configspecial application="horde" name="apps" />
    </values>
   </configmultienum>
  </configsection>

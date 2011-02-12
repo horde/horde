@@ -201,7 +201,7 @@
       <configenum name="app" desc="The application which is providing
       authentication">imp
        <values>
-        <configspecial name="list-horde-apps"/>
+        <configspecial application="horde" name="apps" />
        </values>
       </configenum>
      </configsection>
@@ -1524,7 +1524,7 @@
    <configmultienum name="apps" desc="Select any applications that should be
    linked in Horde's menu" required="false">
     <values>
-     <configspecial name="list-horde-apps" />
+     <configspecial application="horde" name="apps" />
     </values>
    </configmultienum>
 
@@ -1603,7 +1603,7 @@
    <configmultienum name="fixed_blocks" muldesc="Which blocks should always be
     displayed in the portal?">
     <values>
-     <configspecial name="list-blocks" />
+     <configspecial application="horde" name="blocks" />
     </values>
    </configmultienum>
   </configsection>

@@ -8,7 +8,7 @@
   <configmultienum name="apps" desc="Select any applications that should be
   linked in Turba's menu">
    <values>
-    <configspecial name="list-horde-apps"/>
+    <configspecial application="horde" name="apps"/>
    </values>
   </configmultienum>
  </configsection>
@@ -17,7 +17,7 @@
    <configheader>Clients</configheader>
    <configenum name="addressbook" desc="Name of client addressbook" required="false">
      <values>
-       <configspecial name="list-contact-sources"/>
+       <configspecial application="contacts" name="sources"/>
      </values>
    </configenum>
  </configsection>
@@ -29,7 +29,7 @@
    name of the addressbook that should act as the GAL. This is normally a
    globally accessable, readonly addressbook." required="false">
      <values>
-       <configspecial name="list-contact-sources"/>
+       <configspecial application="contacts" name="sources"/>
      </values>
    </configenum>
  </configsection>

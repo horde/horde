@@ -339,6 +339,21 @@ class Horde_Registry_Application
     }
 
 
+    // Horde_Config functions.
+
+    /**
+     * Returns values for <configspecial> configuration settings.
+     *
+     * @param string $what  The configuration setting to return.
+     *
+     * @return array  The values for the requested configuration setting.
+     */
+    public function configSpecialValues($what)
+    {
+        return array();
+    }
+
+
     // Horde_Core_Sidebar method.
 
     /**

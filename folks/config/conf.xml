@@ -47,7 +47,7 @@
             <configsection name="params">
                 <configenum name="app" desc="The application which is providing friends">letter
                 <values>
-                    <configspecial name="list-horde-apps"/>
+                 <configspecial application="horde" name="apps" />
                 </values>
                 </configenum>
             </configsection>
@@ -90,7 +90,7 @@
      <configmultienum name="ignore" desc="Select applications that should be
                       ignored in services">
        <values>
-         <configspecial name="list-horde-apps" />
+        <configspecial application="horde" name="apps" />
        </values>
      </configmultienum>
  </configsection>
@@ -180,7 +180,7 @@
    <configsection name="menu">
      <configmultienum name="apps" desc="Select any applications that should be linked in Folks's menu">
        <values>
-         <configspecial name="list-horde-apps" />
+        <configspecial application="horde" name="apps" />
        </values>
      </configmultienum>
    </configsection>
