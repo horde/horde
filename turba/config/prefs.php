@@ -69,7 +69,7 @@ $_prefs['columnselect'] = array(
 // currently always displayed first and so cannot be modified here.
 // Double quotes MUST be used as in the example.
 $_prefs['columns'] = array(
-    'value' => "netcenter\temail\nverisign\temail\nlocalsql\temail"
+    'value' => "localsql\temail"
 );
 
 // user preferred sorting column
