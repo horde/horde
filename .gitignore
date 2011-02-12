@@ -61,6 +61,7 @@ framework/Share/test/Horde/Share/Sqlng/Pdo/conf.php
 */config/conf.php
 */config/conf.bak.php
 */config/hooks.php
+*/config/menu.php
 */config/*.local.php
 */config/*-*.php
 /chora/config/backends.php
