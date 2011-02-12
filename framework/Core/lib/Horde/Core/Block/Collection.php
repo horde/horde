@@ -48,12 +48,10 @@ class Horde_Core_Block_Collection
 
         foreach (array_diff($registry->listApps(), $apps) as $app) {
             $drivers = $registry->getAppDrivers($app, 'Block');
-
             foreach ($drivers as $val) {
                 $tmp = new $val();
-
                 if ($tmp->enabled) {
-                    $this->_blocks[$app][$val]['name'] = $name->getName();
+                    $this->_blocks[$app][$val]['name'] = $tmp->getName();
                 }
             }
         }
