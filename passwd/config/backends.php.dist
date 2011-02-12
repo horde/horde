@@ -103,13 +103,8 @@ $backends['hordesql'] = array (
     'name' => 'Horde Authentication',
     'preferred' => '',
     'password policy' => array(
-        'minLength' => 3,
-        'maxLength' => 8,
-        'maxSpace' => 0,
-        'minUpper' => 1,
-        'minLower' => 1,
+        'minLength' => 6,
         'minNumeric' => 1,
-        'minSymbol' => 1
     ),
     'driver' => 'sql',
     'params' => array_merge($conf['sql'],
@@ -120,9 +115,12 @@ $backends['hordesql'] = array (
 );
 
 $backends['poppassd'] = array(
-    'name' => 'Example Poppassd Server',
+    'name' => 'Poppassd Server',
     'preferred' => '',
-    'password policy' => array(),
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
     'driver' => 'poppassd',
     'params' => array(
         'host' => 'localhost',
@@ -131,9 +129,12 @@ $backends['poppassd'] = array(
 );
 
 $backends['servuftp'] = array(
-    'name' => 'Example Serv-U FTP Server',
+    'name' => 'Serv-U FTP Server',
     'preferred' => '',
-    'password policy' => array(),
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
     'driver' => 'servuftp',
     'params' => array(
         'host' => 'localhost',
@@ -143,9 +144,12 @@ $backends['servuftp'] = array(
 );
 
 $backends['expect'] = array(
-    'name' => 'Example Expect Script',
+    'name' => 'Expect Script',
     'preferred' => '',
-    'password policy' => array(),
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
     'driver' => 'expect',
     'params' => array(
         'program' => '/usr/bin/expect',
@@ -155,9 +159,12 @@ $backends['expect'] = array(
 );
 
 $backends['sudo_expect'] = array(
-    'name' => 'Example Expect with Sudo Script',
+    'name' => 'Expect with Sudo Script',
     'preferred' => '',
-    'password policy' => array(),
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
     'driver' => 'procopen',
     'params' => array(
         'program' => '/usr/bin/expect ' . dirname(__FILE__) . '/../scripts/passwd_expect -sudo'
@@ -165,9 +172,12 @@ $backends['sudo_expect'] = array(
 );
 
 $backends['smbpasswd'] = array(
-    'name' => 'Example Samba Server',
+    'name' => 'Samba Server',
     'preferred' => '',
-    'password policy' => array(),
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
     'driver' => 'smbpasswd',
     'params' => array(
         'program' => '/usr/bin/smbpasswd',
@@ -177,11 +187,11 @@ $backends['smbpasswd'] = array(
 
 // NOTE: to set the ldap userdn, see horde/config/hooks.php
 $backends['ldap'] = array(
-    'name' => 'Example LDAP Server',
-    'preferred' => 'www.example.com',
+    'name' => 'LDAP Server',
+    'preferred' => '',
     'password policy' => array(
-        'minLength' => 3,
-        'maxLength' => 8
+        'minLength' => 6,
+        'minNumeric' => 1,
     ),
     'driver' => 'ldap',
     'params' => array(
@@ -202,11 +212,11 @@ $backends['ldap'] = array(
 
 // NOTE: to set the ldap userdn, see horde/config/hooks.php
 $backends['ldapadmin'] = array(
-    'name' => 'Example LDAP Server with Admin Bindings',
-    'preferred' => 'www.example.com',
+    'name' => 'LDAP Server with Admin Bindings',
+    'preferred' => '',
     'password policy' => array(
-        'minLength' => 3,
-        'maxLength' => 8
+        'minLength' => 6,
+        'minNumeric' => 1,
     ),
     'driver' => 'ldap',
     'params' => array(
@@ -215,30 +225,22 @@ $backends['ldapadmin'] = array(
         'basedn' => 'o=example.com',
         'admindn' => 'cn=admin,o=example.com',
         'adminpw' => 'somepassword',
-
         // LDAP object key attribute
         'uid' => 'uid',
-
         // these attributes will enable shadow password policies.
         // 'shadowlastchange' => 'shadowlastchange',
         // 'shadowmin' => 'shadowmin',
         'attribute' => 'clearPassword',
-
-        // this will be appended to the username when looking for the userdn.
+        // This will be appended to the username when looking for the userdn.
         'realm' => '',
-
         // Use this filter when searching for the user's DN.
         'filter' => '',
-
         // Hash method to use when storing the password
         'encryption' => 'crypt',
-    
         // Only applies to LDAP servers. If set, should be 0 or 1. See the LDAP 
         // documentation about the corresponding parameter REFERRALS.
         // Windows 2003 Server require to set this parameter to 0
-        //'referrals' => 0,
-        
-
+        // 'referrals' => 0,
         // Whether to enable TLS for this LDAP connection
         // Note: make sure the host matches cn in the server certificate
         'tls' => false
@@ -249,11 +251,11 @@ $backends['ldapadmin'] = array(
 // NOTE: to make work with samba 2.x schema you must change lm_attribute and
 // nt_attribute
 $backends['smbldap'] = array(
-    'name' => 'Example Samba/LDAP Server',
-    'preferred' => 'www.example.com',
+    'name' => 'Samba/LDAP Server',
+    'preferred' => '',
     'password policy' => array(
-        'minLength' => 3,
-        'maxLength' => 8
+        'minLength' => 6,
+        'minNumeric' => 1,
     ),
     'driver' => 'smbldap',
     'params' => array(
@@ -282,13 +284,8 @@ $backends['sql'] = array (
     'name' => 'Exampe SQL Server',
     'preferred' => '',
     'password policy' => array(
-        'minLength' => 3,
-        'maxLength' => 8,
-        'maxSpace' => 0,
-        'minUpper' => 1,
-        'minLower' => 1,
+        'minLength' => 6,
         'minNumeric' => 1,
-        'minSymbol' => 1
     ),
     'driver' => 'sql',
     'params' => array(
@@ -318,7 +315,7 @@ $backends['sql'] = array (
 );
 
 $backends['vmailmgr'] = array(
-    'name' => 'Example VMailMgr Server',
+    'name' => 'VMailMgr Server',
     'preferred' => '',
     'password policy' => array(),
     'driver' => 'vmailmgr',
@@ -328,15 +325,11 @@ $backends['vmailmgr'] = array(
 );
 
 $backends['vpopmail'] = array (
-    'name' => 'Example Vpopmail Server',
+    'name' => 'Vpopmail Server',
     'preferred' => '',
     'password policy' => array(
-        'minLength' => 3,
-        'maxLength' => 8,
-        'maxSpace' => 0,
-        'minUpper' => 0,
-        'minLower' => 0,
-        'minNumeric' => 0
+        'minLength' => 6,
+        'minNumeric' => 1,
     ),
     'driver' => 'vpopmail',
     'params' => array(
@@ -357,9 +350,12 @@ $backends['vpopmail'] = array (
 );
 
 $backends['pine'] = array(
-    'name' => 'Example Pine Password File',
+    'name' => 'Pine Password File',
     'preferred' => '',
-    'password policy' => array(),
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
     'driver' => 'pine',
     'no_reset' => true,
     'params' => array(
@@ -379,17 +375,20 @@ $backends['kolab'] = array(
     'name' => 'Local Kolab Server',
     'preferred' => '',
     'password policy' => array(
-        'minLength' => 3,
-        'maxLength' => 8
+        'minLength' => 6,
+        'minNumeric' => 1,
     ),
     'driver' => 'kolab',
     'params' => array()
 );
 
 $backends['myscript'] = array(
-    'name' => 'example.com',
-    'preferred' => 'localhost',
-    'password policy' => array(),
+    'name' => 'Custom script',
+    'preferred' => '',
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
     'driver' => 'procopen',
     'params' => array(
         'program' => '/path/to/my/script + myargs'
@@ -408,37 +407,35 @@ $backends['http'] = array (
     'name' => 'Email password on IMAP server',
     'preferred' => '',
     'password policy' => array(
-        'minLength' => 3,
-        'maxLength' => 8,
-        'maxSpace' => 0,
-        'minUpper' => 0,
-        'minLower' => 1,
+        'minLength' => 6,
         'minNumeric' => 1,
-        'minSymbol' => 0
     ),
     'driver' => 'http',
     'params' => array(
-         'url' => 'http://www.example.com/psoft/servlet/psoft.hsphere.CP',
-         'username' => 'mbox',
-         'oldPasswd' => 'old_password',
-         'passwd1'   => 'password',
-         'passwd2'   => 'password2',
-         'fields' => array(
+        'url' => 'http://www.example.com/psoft/servlet/psoft.hsphere.CP',
+        'username' => 'mbox',
+        'oldPasswd' => 'old_password',
+        'passwd1'   => 'password',
+        'passwd2'   => 'password2',
+        'fields' => array(
             'action'    => 'change_mbox_password',
-            'ftemplate'  => 'design/mail_passw.html'
-            ),
-         'eval_results' => array(
+            'ftemplate' => 'design/mail_passw.html'
+        ),
+        'eval_results' => array(
             'success' => 'Password successfully changed',
             'badPass' => 'Bad old password',
             'badUser' => 'Mailbox not found'
-            )
+        )
     )
 );
 
 $backends['soap'] = array(
-    'name' => 'Example SOAP Server',
+    'name' => 'SOAP Server',
     'preferred' => '',
-    'password policy' => array(),
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
     'driver' => 'soap',
     'params' => array(
         // If this service doesn't have a WSDL, the 'location' and 'uri'
@@ -463,15 +460,11 @@ $backends['soap'] = array(
 // hostspec and /or  password fields.
 $backends['postfixadmin'] = array (
     'name' => 'Postfix Admin server',
-    'preferred' => 'true',
+    'preferred' => '',
     'password policy' => array(
         'minLength' => 6,
         'maxLength' => 20,
-        'maxSpace' => 0,
-        'minUpper' => 1,
-        'minLower' => 1,
         'minNumeric' => 1,
-        'minSymbol' => 0
     ),
     'driver' => 'sql',
     'params' => array(
@@ -508,13 +501,12 @@ $backends['postfixadmin'] = array (
 // that, when set to true, will cause the rest of the drivers be skipped if a
 // particular one fails.
 $backends['composite'] = array(
-   'name' => 'Example All Services',
+   'name' => 'All Services',
    'preferred' => '',
-   'password policy' => array(
-       'minLength' => 3,
-       'maxLength' => 8,
-       'minClasses' => 2,
-   ),
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
    'driver' => 'composite',
    'params' => array('drivers' => array(
        'sql' => array(

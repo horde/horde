@@ -46,7 +46,6 @@
 /* IMAP Example */
 $backends['imap'] = array(
     'transport' => 'null',
-    'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(),
     'script' => 'imap',
@@ -57,11 +56,10 @@ $backends['imap'] = array(
 /* Maildrop Example */
 $backends['maildrop'] = array(
     'transport' => 'vfs',
-    'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(
         // Hostname of the VFS server
-        'hostspec' => 'ftp.example.com',
+        'hostspec' => 'localhost',
         // Name of the maildrop config file to write
         'filename' => '.mailfilter',
         // The VFS username to use, defaults to current user. If you want to
@@ -115,11 +113,10 @@ $backends['maildrop'] = array(
 /* Procmail Example */
 $backends['procmail'] = array(
     'transport' => 'vfs',
-    'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(
         // Hostname of the VFS server
-        'hostspec' => 'ftp.example.com',
+        'hostspec' => 'localhost',
         // Name of the procmail config file to write
         'filename' => '.procmailrc',
         // The VFS username to use, defaults to current user. If you want to
@@ -188,11 +185,10 @@ $backends['procmail'] = array(
 /* Sieve Example */
 $backends['sieve'] = array(
     'transport' => 'timsieved',
-    'preferred' => 'example.com',
-    'hordeauth' => true,
+    'hordeauth' => 'full',
     'params' => array(
         // Hostname of the timsieved server
-        'hostspec' => 'mail.example.com',
+        'hostspec' => 'localhost',
         // Login type of the server
         'logintype' => 'PLAIN',
         // Enable/disable TLS encryption
@@ -224,11 +220,10 @@ $backends['sieve'] = array(
 /* sivtest Example */
 $backends['sivtest'] = array(
     'transport' => 'sivtest',
-    'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(
         // Hostname of the timsieved server
-        'hostspec' => 'mail.example.com',
+        'hostspec' => 'localhost',
         // Login type of the server
         'logintype' => 'GSSAPI',
         // Enable/disable TLS encryption
@@ -251,22 +246,14 @@ $backends['sivtest'] = array(
 /* Sun ONE/JES Example (LDAP/Sieve) */
 $backends['ldapsieve'] = array(
     'transport' => 'ldap',
-    'preferred' => 'example.com',
     'hordeauth' => false,
     'params' => array(
-        //
         // Hostname of the ldap server
-        //
-        'hostspec' => 'ldap.example.com',
-        //
+        'hostspec' => 'localhost',
         // Port number of the timsieved server
-        //
         'port' => 389,
-        //
         // LDAP Protocol Version (default = 2).  3 is required for TLS.
-        //
         'version' => 3,
-        //
         // Whether or not to use TLS.  If using TLS, you MUST configure
         // OpenLDAP (either /etc/ldap.conf or /etc/ldap/ldap.conf) with the CA
         // certificate which signed the certificate of the server to which you
@@ -281,27 +268,18 @@ $backends['ldapsieve'] = array(
         // putting the following directive in the ldap.conf:
         //
         // TLS_REQCERT never
-        //
         'tls' => true,
-        //
         // Bind DN (for bind and script distinguished names, %u is replaced
         // with username, and %d is replaced with the internet domain
         // components (e.g. "dc=example, dc=com") if available).
-        //
         'bind_dn' => 'cn=ingo, ou=applications, dc=example, dc=com',
-        //
         // Bind password.  If not provided, user's password is used (useful
         // when bind_dn contains %u).
-        //
         'bind_password' => 'secret',
-        //
         // How to find user object.
-        //
         'script_base' => 'ou=People, dc=example, dc=com',
         'script_filter' => '(uid=%u)',
-        //
         // Attribute script is stored in.  Will not touch non-Ingo scripts.
-        //
         'script_attribute' => 'mailSieveRuleSource'
     ),
     'script' => 'sieve',
@@ -310,20 +288,11 @@ $backends['ldapsieve'] = array(
 
 /* Kolab Example (using Sieve) */
 if ($GLOBALS['conf']['kolab']['enabled']) {
-    require_once 'Horde/Kolab.php';
-
-    if (!is_callable('Kolab', 'getServer')) {
-        $server = $GLOBALS['conf']['kolab']['imap']['server'];
-    } else {
-        $server = Kolab::getServer('imap');
-    }
-
     $backends['kolab'] = array(
         'transport' => 'timsieved',
-        'preferred' => '',
         'hordeauth' => 'full',
         'params' => array(
-            'hostspec' => $server,
+            'hostspec' => Kolab::getServer('imap'),
             'logintype' => 'PLAIN',
             'usetls' => false,
             'port' => $GLOBALS['conf']['kolab']['imap']['sieveport'],

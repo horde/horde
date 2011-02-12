@@ -300,34 +300,34 @@ $servers['_prompt'] = array(
 
 $servers['imap'] = array(
     'name' => 'IMAP Server',
-    'hostspec' => 'imap.example.com',
+    'hostspec' => 'localhost',
     'hordeauth' => false,
     'protocol' => 'imap',
     'port' => 143,
     'secure' => false,
-    'maildomain' => 'example.com',
-    'smtphost' => 'smtp.example.com',
-    'smtpport' => 25,
+    'maildomain' => '',
+    // 'smtphost' => 'smtp.example.com',
+    // 'smtpport' => 25,
     'cache' => false,
 );
 
-$servers['cyrus'] = array(
-    'name' => 'Cyrus IMAP Server',
-    'hostspec' => 'cyrus.example.com',
+$servers['advanced'] = array(
+    'name' => 'Advanced IMAP Server',
+    'hostspec' => 'localhost',
     'hordeauth' => false,
     'protocol' => 'imap',
     'port' => 143,
     'secure' => false,
-    'maildomain' => 'example.com',
-    'smtphost' => 'smtp.example.com',
-    'smtpport' => 25,
-    'admin' => array(
-        'params' => array(
-            'admin_user' => 'cyrus',
-            'admin_password' => 'cyrus_pass',
-            'userhierarchy' => 'user.'
-        ),
-    ),
+    'maildomain' => '',
+    // 'smtphost' => 'smtp.example.com',
+    // 'smtpport' => 25,
+    // 'admin' => array(
+    //     'params' => array(
+    //         'admin_user' => 'cyrus',
+    //         'admin_password' => 'cyrus_pass',
+    //         'userhierarchy' => 'user.'
+    //     ),
+    // ),
     'quota' => array(
         'driver' => 'imap',
         'params' => array(
@@ -341,27 +341,27 @@ $servers['cyrus'] = array(
 
 $servers['pop'] = array(
     'name' => 'POP3 Server',
-    'hostspec' => 'pop.example.com',
+    'hostspec' => 'localhost',
     'hordeauth' => false,
     'protocol' => 'pop3',
     'port' => 110,
     'secure' => false,
-    'maildomain' => 'example.com',
-    'smtphost' => 'smtp.example.com',
-    'smtpport' => 25,
+    'maildomain' => '',
+    // 'smtphost' => 'smtp.example.com',
+    // 'smtpport' => 25,
     'cache' => false,
 );
 
 $servers['secure-imap'] = array(
     'name' => 'Secure IMAP Server',
-    'hostspec' => 'imap.example.com',
+    'hostspec' => 'localhost',
     'hordeauth' => false,
     'protocol' => 'imap',
     'port' => 143,
     'secure' => 'tls',
-    'maildomain' => 'example.com',
-    'smtphost' => 'smtp.example.com',
-    'smtpport' => 25,
+    'maildomain' => '',
+    // 'smtphost' => 'smtp.example.com',
+    // 'smtpport' => 25,
     'acl' => false,
     'cache' => false,
 );

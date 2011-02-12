@@ -323,105 +323,105 @@ $cfgSources['localsql'] = array(
  * To store freebusy information in the LDAP directory, you'll need to include
  * turba/scripts/ldap/rfc2739.schema in your LDAP configuration.
  */
-// $cfgSources['localldap'] = array(
-//     'title' => _("Shared Directory"),
-//     'type' => 'ldap',
-//     'params' => array(
-//         'server' => 'ldap.example.com',
-//         'port' => 389,
-//         'tls' => false,
-//         'root' => 'dc=example,dc=com',
-//         'bind_dn' => 'cn=admin,ou=users,dc=example,dc=com',
-//         // For Active Directory:
-//         // 'bind_dn' => 'username@example.com',
-//         'bind_password' => '********',
-//         'sizelimit' => 200,
-//         // For Active Directory:
-//         // 'sizelimit' => 0,
-//         'dn' => array('cn'),
-//         'objectclass' => array('top',
-//                                'person',
-//                                'organizationalPerson',
-//                                'inetOrgPerson'),
-//                                // Add 'turbaContact' to this array if using
-//                                // 'turbaType' attribute below, and 'calEntry'
-//                                // if using 'freebusyUrl'.
-//         // For Active Directory:
-//         // 'objectclass' => array('organizationalPerson',
-//         //                        'user',
-//         //                        'group',
-//         //                        'contact'),
-//         'scope' => 'one',
-//         // For Active Directory:
-//         // 'scope' => 'sub',
-//         'charset' => 'utf-8',
-//         // Consult the LDAP schema to verify that all required attributes for
-//         // an entry are set and add them if needed.
-//         'checkrequired' => false,
-//         // Value used to fill in missing required attributes.
-//         'checkrequired_string' => ' ',
-//         // Check LDAP schema for valid syntax. If this is false an address
-//         // field is assumed to have postalAddress syntax; otherwise the schema
-//         // is consulted for the syntax to use.
-//         'checksyntax' => false,
-//         'version' => 3,
-//
-//         // For Active Directory you probably want to also set the following
-//         // parameters:
-//         // 'deref' => LDAP_DEREF_ALWAYS,
-//         // 'filter' => '&(SAMAccountName=*)(mail=*)',
-//         // 'referrals' => 0,
-//     ),
-//     'map' => array(
-//         '__key' => 'dn',
-//
-//         // Remove this mapping if using Active Directory server:
-//         '__uid' => 'uid',
-//
-//         // From horde.schema.  Make sure you have 'turbaContact' objectClass
-//         // included above:
-//         // '__type' => 'turbaType',
-//         // '__members' => 'turbaMembers',
-//
-//         'name' => 'cn',
-//         'email' => 'mail',
-//         'homePhone' => 'homephone',
-//         'workPhone' => 'telephonenumber',
-//         'cellPhone' => 'mobiletelephonenumber',
-//         'homeAddress' => 'homepostaladdress',
-//
-//         // From rfc2739.schema:
-//         // 'freebusyUrl' => 'calFBURL',
-//
-//         // For Active Directory servers:
-//         // 'name' => 'displayname',
-//         // 'title' => 'title',
-//         // 'cellPhone' => 'mobile',
-//         // 'department' => 'department',
-//         // 'company' => 'company',
-//     ),
-//     'search' => array(
-//         'name',
-//         'email',
-//         'homePhone',
-//         'workPhone',
-//         'cellPhone',
-//         'homeAddress'
-//     ),
-//     'strict' => array(
-//         'dn',
-//     ),
-//     'approximate' => array(
-//         'cn',
-//     ),
-//     // For Active Directory servers:
-//     // 'approximate' => array(
-//     //     'displayname',
-//     //     'samaccountname',
-//     // ),
-//     'export' => true,
-//     'browse' => true,
-// );
+$cfgSources['localldap'] = array(
+    'title' => _("Shared Directory"),
+    'type' => 'ldap',
+    'params' => array(
+        'server' => 'ldap.example.com',
+        'port' => 389,
+        'tls' => false,
+        'root' => 'dc=example,dc=com',
+        'bind_dn' => 'cn=admin,ou=users,dc=example,dc=com',
+        // For Active Directory:
+        // 'bind_dn' => 'username@example.com',
+        'bind_password' => '********',
+        'sizelimit' => 200,
+        // For Active Directory:
+        // 'sizelimit' => 0,
+        'dn' => array('cn'),
+        'objectclass' => array('top',
+                               'person',
+                               'organizationalPerson',
+                               'inetOrgPerson'),
+                               // Add 'turbaContact' to this array if using
+                               // 'turbaType' attribute below, and 'calEntry'
+                               // if using 'freebusyUrl'.
+        // For Active Directory:
+        // 'objectclass' => array('organizationalPerson',
+        //                        'user',
+        //                        'group',
+        //                        'contact'),
+        'scope' => 'one',
+        // For Active Directory:
+        // 'scope' => 'sub',
+        'charset' => 'utf-8',
+        // Consult the LDAP schema to verify that all required attributes for
+        // an entry are set and add them if needed.
+        'checkrequired' => false,
+        // Value used to fill in missing required attributes.
+        'checkrequired_string' => ' ',
+        // Check LDAP schema for valid syntax. If this is false an address
+        // field is assumed to have postalAddress syntax; otherwise the schema
+        // is consulted for the syntax to use.
+        'checksyntax' => false,
+        'version' => 3,
+
+        // For Active Directory you probably want to also set the following
+        // parameters:
+        // 'deref' => LDAP_DEREF_ALWAYS,
+        // 'filter' => '&(SAMAccountName=*)(mail=*)',
+        // 'referrals' => 0,
+    ),
+    'map' => array(
+        '__key' => 'dn',
+
+        // Remove this mapping if using Active Directory server:
+        '__uid' => 'uid',
+
+        // From horde.schema.  Make sure you have 'turbaContact' objectClass
+        // included above:
+        // '__type' => 'turbaType',
+        // '__members' => 'turbaMembers',
+
+        'name' => 'cn',
+        'email' => 'mail',
+        'homePhone' => 'homephone',
+        'workPhone' => 'telephonenumber',
+        'cellPhone' => 'mobiletelephonenumber',
+        'homeAddress' => 'homepostaladdress',
+
+        // From rfc2739.schema:
+        // 'freebusyUrl' => 'calFBURL',
+
+        // For Active Directory servers:
+        // 'name' => 'displayname',
+        // 'title' => 'title',
+        // 'cellPhone' => 'mobile',
+        // 'department' => 'department',
+        // 'company' => 'company',
+    ),
+    'search' => array(
+        'name',
+        'email',
+        'homePhone',
+        'workPhone',
+        'cellPhone',
+        'homeAddress'
+    ),
+    'strict' => array(
+        'dn',
+    ),
+    'approximate' => array(
+        'cn',
+    ),
+    // For Active Directory servers:
+    // 'approximate' => array(
+    //     'displayname',
+    //     'samaccountname',
+    // ),
+    'export' => true,
+    'browse' => true,
+);
 
 /**
  * A personal LDAP address book. This assumes that the login is
@@ -437,84 +437,84 @@ $cfgSources['localsql'] = array(
  * turba/scripts/ldap/rfc2739.schema in your LDAP configuration.
  */
 /* First we need to get the uid. */
-// $_ldap_uid = $GLOBALS['registry']->getAuth('bare');
-// $_ldap_basedn = 'dc=example,dc=com';
-// $cfgSources['personal_ldap'] = array(
-//     'title' => _("My Address Book"),
-//     'type' => 'ldap',
-//     'params' => array(
-//         'server' => 'localhost',
-//         'tls' => false,
-//         'root' => 'ou=' . $_ldap_uid . ',ou=personal_addressbook,' . $_ldap_basedn,
-//         'bind_dn' => 'uid=' . $_ldap_uid . ',ou=People,' . $_ldap_basedn,
-//         'bind_password' => $GLOBALS['registry']->getAuthCredential('password'),
-//         'dn' => array('uid'),
-//         'objectclass' => array('top',
-//                                'person',
-//                                // 'turbaContact',
-//                                'inetOrgPerson',
-//                                // 'calEntry',
-//                                'organizationalPerson'),
-//         'scope' => 'one',
-//         'charset' => 'utf-8',
-//         'version' => 3
-//     ),
-//     'map' => array(
-//         '__key' => 'dn',
-//         '__uid' => 'uid',
-//
-//         // From horde.schema:
-//         // '__type' => 'turbaType',
-//         // '__members' => 'turbaMembers',
-//
-//         'name' => 'cn',
-//         'email' => 'mail',
-//         'lastname' => 'sn',
-//         'title' => 'title',
-//         'company' => 'organizationname',
-//         'businessCategory' => 'businesscategory',
-//         'workAddress' => 'postaladdress',
-//         'workPostalCode' => 'postalcode',
-//         'workPhone' => 'telephonenumber',
-//         'fax' => 'facsimiletelephonenumber',
-//         'homeAddress' => 'homepostaladdress',
-//         'homePhone' => 'homephone',
-//         'cellPhone' => 'mobile',
-//         'notes' => 'description',
-//
-//         // Evolution interopt attributes: (those that do not require the
-//         // evolution.schema)
-//         'office' => 'roomNumber',
-//         'department' => 'ou',
-//         'nickname' => 'displayName',
-//         'website' => 'labeledURI',
-//
-//         // These are not stored on the LDAP server.
-//         'pgpPublicKey' => 'object_pgppublickey',
-//         'smimePublicKey' => 'object_smimepublickey',
-//
-//         // From rfc2739.schema:
-//         // 'freebusyUrl' => 'calFBURL',
-//     ),
-//     'search' => array(
-//         'name',
-//         'email',
-//         'businessCategory',
-//         'title',
-//         'homePhone',
-//         'workPhone',
-//         'cellPhone',
-//         'homeAddress'
-//     ),
-//     'strict' => array(
-//         'dn',
-//     ),
-//     'approximate' => array(
-//         'cn',
-//     ),
-//     'export' => true,
-//     'browse' => true,
-// );
+$_ldap_uid = $GLOBALS['registry']->getAuth('bare');
+$_ldap_basedn = 'dc=example,dc=com';
+$cfgSources['personal_ldap'] = array(
+    'title' => _("My Address Book"),
+    'type' => 'ldap',
+    'params' => array(
+        'server' => 'localhost',
+        'tls' => false,
+        'root' => 'ou=' . $_ldap_uid . ',ou=personal_addressbook,' . $_ldap_basedn,
+        'bind_dn' => 'uid=' . $_ldap_uid . ',ou=People,' . $_ldap_basedn,
+        'bind_password' => $GLOBALS['registry']->getAuthCredential('password'),
+        'dn' => array('uid'),
+        'objectclass' => array('top',
+                               'person',
+                               // 'turbaContact',
+                               'inetOrgPerson',
+                               // 'calEntry',
+                               'organizationalPerson'),
+        'scope' => 'one',
+        'charset' => 'utf-8',
+        'version' => 3
+    ),
+    'map' => array(
+        '__key' => 'dn',
+        '__uid' => 'uid',
+
+        // From horde.schema:
+        // '__type' => 'turbaType',
+        // '__members' => 'turbaMembers',
+
+        'name' => 'cn',
+        'email' => 'mail',
+        'lastname' => 'sn',
+        'title' => 'title',
+        'company' => 'organizationname',
+        'businessCategory' => 'businesscategory',
+        'workAddress' => 'postaladdress',
+        'workPostalCode' => 'postalcode',
+        'workPhone' => 'telephonenumber',
+        'fax' => 'facsimiletelephonenumber',
+        'homeAddress' => 'homepostaladdress',
+        'homePhone' => 'homephone',
+        'cellPhone' => 'mobile',
+        'notes' => 'description',
+
+        // Evolution interopt attributes: (those that do not require the
+        // evolution.schema)
+        'office' => 'roomNumber',
+        'department' => 'ou',
+        'nickname' => 'displayName',
+        'website' => 'labeledURI',
+
+        // These are not stored on the LDAP server.
+        'pgpPublicKey' => 'object_pgppublickey',
+        'smimePublicKey' => 'object_smimepublickey',
+
+        // From rfc2739.schema:
+        // 'freebusyUrl' => 'calFBURL',
+    ),
+    'search' => array(
+        'name',
+        'email',
+        'businessCategory',
+        'title',
+        'homePhone',
+        'workPhone',
+        'cellPhone',
+        'homeAddress'
+    ),
+    'strict' => array(
+        'dn',
+    ),
+    'approximate' => array(
+        'cn',
+    ),
+    'export' => true,
+    'browse' => true,
+);
 
 /**
  * A preferences-based address book. This will always be private. You can add
@@ -526,34 +526,34 @@ $cfgSources['localsql'] = array(
  * that it is not searchable, though - searches will simply return the whole
  * address book.
  */
-// $cfgSources['prefs'] = array(
-//     'title' => _("Private Address Book"),
-//     'type' => 'prefs',
-//     'params' => array(
-//         'name' => 'prefs',
-//         'charset' => 'UTF-8'
-//     ),
-//     'map' => array(
-//         '__key' => 'id',
-//         '__type' => '_type',
-//         '__members' => '_members',
-//         '__uid' => 'uid',
-//         'name' => 'name',
-//         'email' => 'mail',
-//         'alias' => 'alias'
-//     ),
-//     'search' => array(
-//         'name',
-//         'email',
-//         'alias'
-//     ),
-//     'strict' => array(
-//         'id',
-//         '_type',
-//     ),
-//     'export' => true,
-//     'browse' => true,
-// );
+$cfgSources['prefs'] = array(
+    'title' => _("Private Address Book"),
+    'type' => 'prefs',
+    'params' => array(
+        'name' => 'prefs',
+        'charset' => 'UTF-8'
+    ),
+    'map' => array(
+        '__key' => 'id',
+        '__type' => '_type',
+        '__members' => '_members',
+        '__uid' => 'uid',
+        'name' => 'name',
+        'email' => 'mail',
+        'alias' => 'alias'
+    ),
+    'search' => array(
+        'name',
+        'email',
+        'alias'
+    ),
+    'strict' => array(
+        'id',
+        '_type',
+    ),
+    'export' => true,
+    'browse' => true,
+);
 
 /**
  * An address book based on message recipients. This will always be private and
@@ -590,31 +590,31 @@ $cfgSources['favourites'] = array(
  * birthdays (which will show up via the listTimeObjects API) may still be
  * useful to some
  */
-//$cfgSources['facebook'] = array(
-//    'title' => _("Facebook Friends"),
-//    'type' => 'facebook',
-//    'params' => array(
-//        'limit' => 10
-//    ),
-//   'map' => array(
-//        '__key' => 'uid',
-//        'name' => 'name',
-//        'lastname' => 'last_name',
-//        'firstname' => 'first_name',
-//        'email' => 'proxied_email',
-//        'birthday' => 'birthday',
-//        'homeCity' => 'current_location.city',
-//        'homeProvince' => 'current_location.state',
-//        'homePostalCode' => 'current_location.zip',
-//        'homeCountry' => 'current_location.country',
-//   ),
-//    'search' => array(
-//        'name',
-//        'email',
-//    ),
-//    'export' => true,
-//    'browse' => true,
-//);
+$cfgSources['facebook'] = array(
+    'title' => _("Facebook Friends"),
+    'type' => 'facebook',
+    'params' => array(
+        'limit' => 10
+    ),
+   'map' => array(
+        '__key' => 'uid',
+        'name' => 'name',
+        'lastname' => 'last_name',
+        'firstname' => 'first_name',
+        'email' => 'proxied_email',
+        'birthday' => 'birthday',
+        'homeCity' => 'current_location.city',
+        'homeProvince' => 'current_location.state',
+        'homePostalCode' => 'current_location.zip',
+        'homeCountry' => 'current_location.country',
+   ),
+    'search' => array(
+        'name',
+        'email',
+    ),
+    'export' => true,
+    'browse' => true,
+);
 
 /**
  * This source creates an address book for each group the current user is a
