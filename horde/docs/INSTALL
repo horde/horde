@@ -576,26 +576,21 @@ Configuring Horde
 3. Configuring Horde
 
    To configure Horde, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``.dist`` files
-   without the ``.dist`` suffix::
+   distribution, and copy the ``conf.php.dist`` configuration file to
+   ``conf.php``.
 
-      cd config/
-      for f in *.dist; do cp $f `basename $f .dist`; done
-
-   Or if you are installing Horde an a Windows system::
-
-      cd config
-      copy *.dist *.
-
-   Documentation on the format of those files can be found in each file.
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize Horde's appearance and behavior.  The defaults
+   will be correct for most sites.
 
    .. Warning:: All configuration files in Horde are PHP scripts that are
                 executed by the web server. If you make an error in one of
-                these files, Horde might stop working. Thus it is always a
-                good idea to test the configuration files after you edited
-                them. If you want to test mime_drivers.php for example run::
+                these files, Horde might stop working. Thus it is always a good
+                idea to test the configuration files after you edited them. If
+                you want to test mime_drivers.local.php for example run::
 
-                   php -l mime_drivers.php
+                   php -l mime_drivers.local.php
 
 4. Setting up alarm emails
 

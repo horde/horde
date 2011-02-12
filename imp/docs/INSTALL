@@ -268,32 +268,16 @@ Configuring IMP
 
    Creating the IMP database table(s) can be accomplished with horde's
    ``db_migrate`` utility.  If your database is properly setup in the Horde
-   configuration, just run the following:
+   configuration, just run the following::
 
       horde/bin/db_migrate imp
 
 3. Configuring IMP
 
-   To configure IMP, change to the ``imp/config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file.  You may edit these files if you wish to customize IMP's appearance
-   and behavior.  With the following exception, the defaults will be correct
-   for most sites.
-
-   a. backends.php
-
-      You must be sure to list your IMAP/POP3 server names and configuration
-      information in ``backends.php``.
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize IMP's appearance and behavior.  The defaults will
+   be correct for most sites.
 
    You must login to Horde as a Horde Administrator to finish the configuration
    of IMP.  Use the Horde ``Administration`` menu item to get to the
@@ -316,9 +300,12 @@ Configuring IMP
    IMP Configuration Pointers
 
    * By default, IMP is configured to NOT display text/html message parts
-     inline.  This is done for various security reasons.  If you would like
-     to see text/html parts inline, you must make this change in
-     ``imp/config/mime_drivers.php``.
+     inline.  This is done for various security reasons.  If you would like to
+     see text/html parts inline, you must create a
+     ``imp/config/mime_drivers.local.php`` file with the following content::
+
+        <?php
+        $mime_drivers['html']['inline'] = true;
 
 4. Securing IMP
 

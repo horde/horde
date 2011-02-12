@@ -3,6 +3,10 @@
  * Ingo works purely on a preferred mechanism for server selection. There are
  * a number of properties that you can set for each backend:
  *
+ * IMPORTANT: Local overrides should be placed in backends.local.php, or
+ * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
+ * configuration.
+ *
  * transport: (string) The Ingo_Transport driver to use to store the script on
  *            the backend server. Valid options:
  *            - 'ldap':      LDAP server
@@ -39,8 +43,6 @@
  *         users. Users can then configure filters for each other if they
  *         give them permissions to do so. If you want to enable this feature,
  *         you need to set this parameter to true.
- *
- * $Id$
  */
 
 /* IMAP Example */
@@ -302,4 +304,9 @@ if ($GLOBALS['conf']['kolab']['enabled']) {
         'scriptparams' => array(),
         'shares' => false
     );
+}
+
+/* Local overrides. */
+if (file_exists(dirname(__FILE__) . '/backends.local.php')) {
+    include dirname(__FILE__) . '/backends.local.php';
 }

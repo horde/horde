@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[jan] Provide default configuration files instead of .dist versions.
 [mjr] Mobile view added.
 [mjr] Square image and smart square image generators added.
 [mjr] Gallery style properties are now directly editable per-gallery by the

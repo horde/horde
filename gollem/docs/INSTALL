@@ -125,22 +125,14 @@ Configuring Gollem
 2. Configuring Gollem
 
    To configure Gollem, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
+   distribution, and copy the ``backends.php.dist`` configuration file to
+   ``backends.php`` and edit it to your needs. You must be sure to configure an
+   appropriate backend in ``backends.php``.
 
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file.  You may edit these files if you wish to customize Gollem's
-   appearance and behavior.  With one exceptions (``backends.php``) the
-   defaults will be correct for most sites.
-
-   You must be sure to configure an appropriate backend in ``backends.php``.
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize Gollem's appearance and behavior.  The defaults
+   will be correct for most sites.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Gollem.  Use the Horde ``Administration`` menu item to get

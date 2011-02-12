@@ -2,6 +2,7 @@
 v0.1
 ----
 
+[jan] Provide default configuration files instead of .dist versions.
 [jan] Rename sources.php to backends.php.
 [ben] Better support for MS-SQL.
 [cjh] Support mod_rewrite style URLs in addition to GET.

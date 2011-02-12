@@ -534,6 +534,23 @@ class IMP_Application extends Horde_Registry_Application
         $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsCallback($ui);
     }
 
+    /**
+     */
+    public function configSpecialValues($what)
+    {
+        switch ($what) {
+        case 'backends':
+            $servers = Horde::loadConfiguration('backends.php', 'servers', 'imp');
+            $result = array();
+            foreach ($servers as $key => $server) {
+                if ($key[0] != '_') {
+                    $result[$key] = $server['name'];
+                }
+            }
+            return $result;
+        }
+    }
+
     /* Sidebar method. */
 
     /**

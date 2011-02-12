@@ -150,20 +150,13 @@ Configuring Passwd
 2. Configuring Passwd
 
    To configure Passwd, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
+   distribution, and copy the ``backends.php.dist`` configuration file to
+   ``backends.php`` and edit it to your needs.
 
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file.  You may edit these files if you wish to customize Passwd's
-   appearance and behavior.  With one exception (``backends.php``) the
-   defaults will be correct for most sites.
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize Passwd's appearance and behavior.  The defaults
+   will be correct for most sites.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Passwd.  Use the Horde ``Administration`` menu item to get

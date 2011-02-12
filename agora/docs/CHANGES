@@ -2,6 +2,7 @@
 v2.0-cvs
 --------
 
+[jan] Provide default configuration files instead of .dist versions.
 [] Horde_Template to Horde_View (Duck <duck@obala.net>)
 [] DB to MDB2 (Duck <duck@obala.net>)
 [] Requires PHP5 (Duck <duck@obala.net>)

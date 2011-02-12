@@ -2,6 +2,7 @@
 v0.1
 ----
 
+[jan] Provide default configuration files instead of .dist versions.
 [jan] Enable output compression (horde@albasoft.com, Bug #8649).
 [cjh] Check folder name as well as id for the pre-selected folder
       (Duck <duck@obala.net>, Bug #7627).

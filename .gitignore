@@ -62,8 +62,13 @@ framework/Share/test/Horde/Share/Sqlng/Pdo/conf.php
 */config/conf.bak.php
 */config/hooks.php
 */config/*.local.php
+*/config/*-*.php
+/chora/config/backends.php
+/gollem/config/backends.php
+/luxor/config/backends.php
+/passwd/config/backends.php
 framework/bin/*.conf
-!horde/admin/config/
+!/horde/admin/config/
 
 # Application specific excludes
 ApertureToAnselExportPlugin/build/

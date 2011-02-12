@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Provide default configuration files instead of .dist versions.
 [jan] Send alarm notifications with HTML part and convert to Horde_View.
 [jan] Default task lists no longer have the user name as the ID.
 [jan] Create a default task list if the user doesn't own any yet.

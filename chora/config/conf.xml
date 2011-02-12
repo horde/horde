@@ -20,8 +20,9 @@
    <configstring name="cvsgraph" required="false" desc="If you have CvsGraph
    installed, we can generate repository graphs. Path to the cvsgraph
    executable, e.g. /usr/bin/cvsgraph"/>
-   <configphp name="cvsgraph_conf" desc="CvsGraph configuration
-   file">dirname(__FILE__) . '/cvsgraph.conf'</configphp>
+   <configphp name="cvsgraph_conf" desc="CvsGraph configuration file. An
+   example file can be found at
+   config/cvsgraph.conf.dist">dirname(__FILE__) . '/cvsgraph.conf'</configphp>
 
    <configheader>Paths for use with Subversion</configheader>
    <configstring name="svn" desc="svn">/usr/bin/svn</configstring>

@@ -281,6 +281,10 @@ class Ingo
 
         $backend = null;
         foreach ($backends as $name => $temp) {
+            if (!empty($GLOBALS['conf']['backends']['available']) &&
+                !in_array($name, $GLOBALS['conf']['backends']['available'])) {
+                continue;
+            }
             if (!isset($backend)) {
                 $backend = $name;
             } elseif (!empty($temp['preferred'])) {

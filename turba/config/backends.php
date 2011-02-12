@@ -5,6 +5,10 @@
  * remove or comment out those examples that YOU DON'T NEED. There are a
  * number of properties that you can set for each server, including:
  *
+ * IMPORTANT: Local overrides should be placed in backends.local.php, or
+ * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
+ * configuration.
+ *
  * title:       This is the common (user-visible) name that you want displayed
  *              in the contact source drop-down box.
  *
@@ -180,8 +184,6 @@
  *                   empty.
  *
  * Here are some example configurations:
- *
- * $Id$
  */
 
 /**
@@ -194,7 +196,7 @@
  * schema in turba/scripts/db/turba.sql if you use this source.
  */
 $cfgSources['localsql'] = array(
-    'title' => _("My Address Book"),
+    'title' => _("Shared Address Books"),
     'type' => 'sql',
     'params' => array(
         // The default connection details are pulled from the Horde-wide SQL
@@ -1042,3 +1044,8 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
     );
 }
 /* End Kolab sources. */
+
+/* Local overrides. */
+if (file_exists(dirname(__FILE__) . '/backends.local.php')) {
+    include dirname(__FILE__) . '/backends.local.php';
+}

@@ -57,6 +57,11 @@
     <case name="shown" desc="Shown" />
     <case name="hidden" desc="Hidden" />
    </configswitch>
+   <configmultienum name="available" desc="Which servers from the configuration in config/backends.php should be used at all?">imap
+    <values>
+     <configspecial application="mail" name="backends"/>
+    </values>
+   </configmultienum>
    <configlist name="fixed_folders" required="false" desc="A comma separated
    list of folders that can't be modified (deleted, renamed, etc) by the user,
    e.g.: &quot;Drafts, Trash&quot;. (The mailbox value must be encoded in the
@@ -69,8 +74,8 @@
   <configsection name="msgsettings">
    <configsection name="filtering">
     <configstring name="words" desc="If filtering of message content is turned
-    on, where should we find the list of words to filter
-    out?">./config/filter.txt</configstring>
+    on, where should we find the list of words to filter out? An example file
+    can be found at config/filter.txt.dist">./config/filter.txt</configstring>
     <configstring name="replacement" desc="What should we replace filtered
     words with?">****</configstring>
    </configsection>

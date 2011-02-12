@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Provide default configuration files instead of .dist versions.
 [jan] Send a subscription link with the notification about shared
       calendars if necessary.
 [jan] Default calendars no longer have the user name as the ID.

@@ -130,26 +130,14 @@ Configuring Turba
 
 3. Configuring Turba.
 
-   To configure Turba, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file.  You may edit these files if you wish to customize Turba's appearance
-   and behaviour.  With the exception of the ``backends.php`` file the defaults
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize Turba's appearance and behavior.  The defaults
    will be correct for most sites.
 
-   You must configure ``backends.php`` to list your data sources (both SQL and
-   LDAP if necessary).  This configuration file contains a large number of
-   **examples**.  Please remove or comment out those examples that **you don't
-   need**.
+   You must create and configure a ``backends.local.php`` unless you only want
+   to use the default SQL backend. Any LDAP or custom address book requires
+   manual configuration.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Turba.  Use the Horde ``Administration`` menu item to get

@@ -145,20 +145,9 @@ Configuring Folks
 
 3. Configuring Folks
 
-   To configure Folks, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file. You may edit these files if you wish to customize Folks's
-   appearance and behavior. With one exception (``foo.php``) the defaults will
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize Folks' appearance and behavior.  The defaults will
    be correct for most sites.
 
    You must login to Horde as a Horde Administrator to finish the

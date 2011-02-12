@@ -149,7 +149,7 @@ class Turba_KolabTestBase extends Horde_Kolab_Test_Storage
 
         // Turba source and attribute configuration.
         include TURBA_BASE . '/config/attributes.php';
-        include TURBA_BASE . '/config/backends.php';
+        $cfgSources = Turba::availableSources();
         unset($cfgSources['kolab_global']);
 
         $this->prepareNewFolder($world['storage'], 'Contacts', 'contact', true);

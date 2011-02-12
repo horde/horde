@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Provide default configuration files instead of .dist versions.
 [jan] Rename sourceroots.php to backends.php.
 [mms] Patchset page supports viewing a single patchset.
 [mms] Add configuration option to disable caching.

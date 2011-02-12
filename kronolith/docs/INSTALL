@@ -156,6 +156,11 @@ Configuring Kronolith
 
 3. Configuring Kronolith
 
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize Kronolith's appearance and behavior.  The defaults
+   will be correct for most sites.
+
    You must login to Horde as a Horde Administrator to finish the
    configuration of Kronolith.  Use the Horde ``Administration`` menu item to
    get to the administration page, and then click on the ``Configuration``
@@ -168,7 +173,7 @@ Configuring Kronolith
    of the other methods to create the configuration file
    ``kronolith/config/conf.php``.
 
-   Note for international users: Nag uses GNU gettext to provide local
+   Note for international users: Kronolith uses GNU gettext to provide local
    translations of text displayed by applications; the translations are found
    in the po/ directory.  If a translation is not yet available for your
    locale (and you wish to create one), see the ``horde/po/README`` file, or

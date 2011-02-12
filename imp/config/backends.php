@@ -3,6 +3,10 @@
  * This file specifies which mail servers people using your installation of
  * IMP can login to.
  *
+ * IMPORTANT: Local overrides should be placed in backends.local.php, or
+ * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
+ * configuration.
+ *
  * Properties that can be set for each server:
  *
  * name: (string) This is the name displayed in the server list on the login
@@ -283,9 +287,6 @@
  *         fall back to ORDEREDSUBJECT sorting done on the local server.
  *
  * timeout: (integer) Set the server timeout (in seconds).
- *
- *
- * $Id$
  */
 
 /* Any entries whose key value ('foo' in $servers['foo']) begin with '_'
@@ -385,4 +386,9 @@ if ($GLOBALS['conf']['kolab']['enabled']) {
         'acl' => true,
         'cache' => false,
     );
+}
+
+/* Local overrides. */
+if (file_exists(dirname(__FILE__) . '/backends.local.php')) {
+    include dirname(__FILE__) . '/backends.local.php';
 }

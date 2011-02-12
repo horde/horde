@@ -2,6 +2,7 @@
 v1.0-cvs
 --------
 
+[jan] Provide default configuration files instead of .dist versions.
 [jan] Require delete permissions for merging/renaming pages.
 [jan] Don't use WikiWords in menus (Request #7021).
 [jan] Drop support for coWiki markup.

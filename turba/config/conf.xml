@@ -13,6 +13,16 @@
   </configmultienum>
  </configsection>
 
+ <configsection name="backends">
+  <configheader>Address Books</configheader>
+  <configmultienum name="available" desc="Which address books from the
+   configuration in config/backends.php should be used?">localsql,favourites
+   <values>
+    <configspecial application="contacts" name="backends"/>
+   </values>
+  </configmultienum>
+ </configsection>
+
  <configsection name="client">
    <configheader>Clients</configheader>
    <configenum name="addressbook" desc="Name of client addressbook" required="false">

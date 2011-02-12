@@ -115,6 +115,11 @@ $this->applications['jonah'] = array(
 
 2. Configuring Jonah
 
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize Jonah's appearance and behavior.  The defaults
+   will be correct for most sites.
+
    You must then login to Horde as a Horde Administrator to finish the
    configuration of Jonah.  Use the Horde "Administration" menu item to get
    the the Administration page, and then on the click on the "Configuration"

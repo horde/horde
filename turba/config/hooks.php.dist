@@ -29,7 +29,7 @@ class Turba_Hooks
 //             return;
 //         }
 //
-//         require TURBA_BASE . '/config/backends.php';
+//         $cfgSources = Turba::availableSources();
 //         $shares = Turba::listShares(true);
 //
 //         foreach ($shares as $uid => $share) {

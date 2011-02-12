@@ -94,6 +94,24 @@ class Turba
     }
 
     /**
+     * Returns the source entries from config/backends.php that have been
+     * configured as available sources in the main Turba configuration.
+     *
+     * @return array  List of available sources.
+     */
+    static public function availableSources()
+    {
+        include TURBA_BASE . '/config/backends.php';
+        $sources = array();
+        foreach ($cfgSources as $key => $source) {
+            if (in_array($key, $GLOBALS['conf']['backends']['available'])) {
+                $sources[$key] = $source;
+            }
+        }
+        return $sources;
+    }
+
+    /**
      * Get all the address books the user has the requested permissions to and
      * return them in the user's preferred order.
      *
@@ -517,7 +535,7 @@ class Turba
     static public function getSourceFromShare(Horde_Share $share)
     {
         // Require a fresh config file.
-        require TURBA_BASE . '/config/backends.php';
+        $cfgSources = Turba::availableSources();
 
         $params = @unserialize($share->get('params'));
         $newConfig = $cfgSources[$params['source']];

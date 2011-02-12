@@ -197,6 +197,11 @@ Configuring Ansel
 
 3. Configuring Ansel
 
+   Documentation on the format and purpose of the configuration files in the
+   ``config/`` directory can be found in each file.  You may edit these files
+   if you wish to customize Ansel's appearance and behavior.  The defaults will
+   be correct for most sites.
+
    You must login to Horde as a Horde Administrator to finish the
    configuration of Ansel. Use the Horde ``Administration`` menu item to get
    to the administration page, and then click on the ``Configuration`` icon to

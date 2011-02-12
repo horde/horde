@@ -1,6 +1,0 @@
-<p>This is a web interface to the project repository.  You can browse the file
-hierarchy by picking directories.  If you pick a file, you will see the
-revision history for that file.  Selecting a revision number will download
-that revision of the file.  There is a link at each revision to display diffs
-between that revision and the previous one, and a form at the bottom of the
-page that allows you to display diffs between arbitrary revisions.</p>

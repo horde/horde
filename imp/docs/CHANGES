@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[jan] Provide default configuration files instead of .dist versions.
 [mms] Add priority and request read receipt information to saved drafts
       (Request #9457).
 [mms] Added example in pre_sent hook to do forgotten attachment checking at

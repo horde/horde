@@ -373,6 +373,12 @@ class IMP_Imap implements Serializable
                 return false;
             }
 
+            foreach (array_keys($servers) as $key) {
+                if ($key[0] != '_' &&
+                    !in_array($key, $GLOBALS['conf']['server']['available'])) {
+                    unset($servers[$key]);
+                }
+            }
             self::$_config = $servers;
         }
 
