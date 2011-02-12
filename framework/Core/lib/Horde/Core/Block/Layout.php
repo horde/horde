@@ -43,7 +43,7 @@ class Horde_Core_Block_Layout
         global $conf;
 
         $app = $this->_layout[$row][$col]['app'];
-        $type = $this->_layout[$row][$col]['params']['type'];
+        $type = $this->_layout[$row][$col]['params']['type2'];
         $block = $app . ':' . $type;
 
         /* Check if the block is a fixed block. */
@@ -57,7 +57,7 @@ class Horde_Core_Block_Layout
             foreach ($cur_row as $cur_col) {
                 if (isset($cur_col['app']) &&
                     $cur_col['app'] == $app &&
-                    $cur_col['params']['type'] == $type) {
+                    $cur_col['params']['type2'] == $type) {
                     if ($found) {
                         return true;
                     }

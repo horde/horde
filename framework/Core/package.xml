@@ -120,6 +120,7 @@ Application Framework.</description>
        </dir> <!-- /lib/Horde/Core/Block/Layout -->
        <file name="Collection.php" role="php" />
        <file name="Layout.php" role="php" />
+       <file name="Upgrade.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Block -->
       <dir name="Controller">
        <file name="NotFound.php" role="php" />
@@ -801,6 +802,7 @@ Application Framework.</description>
    <install as="Horde/Core/Autoloader/Callback/Nls.php" name="lib/Horde/Core/Autoloader/Callback/Nls.php" />
    <install as="Horde/Core/Block/Collection.php" name="lib/Horde/Core/Block/Collection.php" />
    <install as="Horde/Core/Block/Layout.php" name="lib/Horde/Core/Block/Layout.php" />
+   <install as="Horde/Core/Block/Upgrade.php" name="lib/Horde/Core/Block/Upgrade.php" />
    <install as="Horde/Core/Block/Layout/Manager.php" name="lib/Horde/Core/Block/Layout/Manager.php" />
    <install as="Horde/Core/Block/Layout/View.php" name="lib/Horde/Core/Block/Layout/View.php" />
    <install as="Horde/Core/Controller/NotFound.php" name="lib/Horde/Core/Controller/NotFound.php" />

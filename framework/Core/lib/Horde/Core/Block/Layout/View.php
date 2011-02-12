@@ -79,7 +79,7 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                     $this->_applications[$item['app']] = $item['app'];
                     $rowspan = $colspan = 1;
                     try {
-                        $block = $bc->getBlock($item['app'], $item['params']['type'], $item['params']['params']);
+                        $block = $bc->getBlock($item['app'], $item['params']['type2'], $item['params']['params']);
                         $rowspan = $item['height'];
                         $colspan = $item['width'];
                         for ($i = 0; $i < $item['height']; $i++) {

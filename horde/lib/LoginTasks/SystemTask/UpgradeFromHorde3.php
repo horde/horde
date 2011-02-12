@@ -26,7 +26,17 @@ class Horde_LoginTasks_SystemTask_UpgradeFromHorde3 extends Horde_LoginTasks_Sys
      */
     public function execute()
     {
+        $this->_upgradePortal();
         $this->_upgradePrefs();
+    }
+
+    /**
+     * Upgrade portal preferences.
+     */
+    protected function _upgradePortal()
+    {
+        $bu = new Horde_Core_Block_Upgrade();
+        $bu->upgrade('portal_layout');
     }
 
     /**

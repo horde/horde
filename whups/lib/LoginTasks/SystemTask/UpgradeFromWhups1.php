@@ -25,6 +25,7 @@ class Whups_LoginTasks_SystemTask_UpgradeFromWhups1 extends Horde_LoginTasks_Sys
     public function execute()
     {
         $this->_upgradeAbookPrefs();
+        $this->_upgradeLayout();
     }
 
     /**
@@ -58,6 +59,15 @@ class Whups_LoginTasks_SystemTask_UpgradeFromWhups1 extends Horde_LoginTasks_Sys
                 $prefs->setValue('search_fields', $fields);
             }
         }
+    }
+
+    /**
+     * Upgrade mybugs_layout preference.
+     */
+    protected function _upgradeLayout()
+    {
+        $bu = new Horde_Core_Block_Upgrade();
+        $bu->upgrade('mybugs_layout');
     }
 
 }

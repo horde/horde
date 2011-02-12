@@ -129,7 +129,7 @@ class Horde_Core_Block_Collection
                     array(
                         'app' => $app,
                         'params' => array(
-                            'type' => $type,
+                            'type2' => $type,
                             'params' => false
                         ),
                         'height' => 1,
@@ -191,7 +191,7 @@ class Horde_Core_Block_Collection
     public function getOptionType($app, $block, $param_id)
     {
         $this->getParams($app, $block);
-        return $this->_blocks[$app][$block]['params'][$param_id]['type'];
+        return $this->_blocks[$app][$block]['params'][$param_id]['type2'];
     }
 
     /**

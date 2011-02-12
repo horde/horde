@@ -307,7 +307,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
     {
         if (!isset($this->_blocks[$row][$col])) {
             $field = $this->_layout[$row][$col];
-            $this->_blocks[$row][$col] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($field['app'], $field['params']['type'], $field['params']['params']);
+            $this->_blocks[$row][$col] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($field['app'], $field['params']['type2'], $field['params']['params']);
         }
 
         return $this->_blocks[$row][$col];
@@ -375,7 +375,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
 
         return array(
             'app' => $this->_layout[$row][$col]['app'],
-            'block' => $this->_layout[$row][$col]['params']['type'],
+            'block' => $this->_layout[$row][$col]['params']['type2'],
             'params' => $this->_layout[$row][$col]['params']['params']
         );
     }
@@ -403,7 +403,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
             $this->_layout[$row][$col]['app'] = $info['app'];
         }
         if (isset($info['block'])) {
-            $this->_layout[$row][$col]['params']['type'] = $info['block'];
+            $this->_layout[$row][$col]['params']['type2'] = $info['block'];
         }
         if (isset($info['params'])) {
             $this->_layout[$row][$col]['params']['params'] = $info['params'];
@@ -665,7 +665,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
         $this->_layout[$row][$col] = array('app' => null,
                                            'height' => 1,
                                            'width' => 1,
-                                           'params' => array('type' => null,
+                                           'params' => array('type2' => null,
                                                              'params' => array()));
     }
 
