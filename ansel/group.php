@@ -30,12 +30,12 @@ switch ($groupby) {
 case 'owner':
     try {
         if ($num_groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->countOwners(Horde_Perms::SHOW, null, false)) {
-
-            $groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->listOwners(Horde_Perms::SHOW,
-                                                         null,
-                                                         false,
-                                                         $gbpage * $groups_perpage,
-                                                         $groups_perpage);
+            $groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->listOwners(
+                Horde_Perms::SHOW,
+                null,
+                false,
+                $gbpage * $groups_perpage,
+                $groups_perpage);
         } else {
             $groups = array();
         }
