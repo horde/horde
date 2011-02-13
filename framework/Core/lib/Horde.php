@@ -1284,7 +1284,7 @@ HTML;
         }
 
         /* If no directory has been specified, get it from the registry. */
-        if (!($src instanceof Horde_Themes_Image) && ($src[0] != '/')) {
+        if (!($src instanceof Horde_Themes_Image) && (substr($src, 0, 1) != '/')) {
             $src = Horde_Themes::img($src);
         }
 
@@ -1323,7 +1323,7 @@ HTML;
         }
 
         /* If no directory has been specified, get it from the registry. */
-        if (!($src instanceof Horde_Themes_Image) && ($src[0] != '/')) {
+        if (!($src instanceof Horde_Themes_Image) && (substr($src, 0, 1) != '/')) {
             $src = Horde_Themes::img($src, $options);
         }
 
