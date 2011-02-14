@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-02-11</date>
- <time>11:45:02</time>
+ <date>2011-02-14</date>
+ <time>15:21:44</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -123,6 +123,9 @@ Application Framework.</description>
        <file name="RequestMapper.php" role="php" />
        <file name="SettingsFinder.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Controller -->
+      <dir name="Db">
+       <file name="Migration.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Db -->
       <dir name="Factory">
        <file name="ActiveSyncBackend.php" role="php" />
        <file name="ActiveSyncServer.php" role="php" />
@@ -795,6 +798,7 @@ Application Framework.</description>
    <install as="Horde/Core/Controller/RequestConfiguration.php" name="lib/Horde/Core/Controller/RequestConfiguration.php" />
    <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
    <install as="Horde/Core/Controller/SettingsFinder.php" name="lib/Horde/Core/Controller/SettingsFinder.php" />
+   <install as="Horde/Core/Db/Migration.php" name="lib/Horde/Core/Db/Migration.php" />
    <install as="Horde/Core/Factory/ActiveSyncBackend.php" name="lib/Horde/Core/Factory/ActiveSyncBackend.php" />
    <install as="Horde/Core/Factory/ActiveSyncServer.php" name="lib/Horde/Core/Factory/ActiveSyncServer.php" />
    <install as="Horde/Core/Factory/ActiveSyncState.php" name="lib/Horde/Core/Factory/ActiveSyncState.php" />
@@ -1018,7 +1022,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-02-11</date>
+   <date>2011-02-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add cache support for themes.

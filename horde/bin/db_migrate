@@ -24,39 +24,19 @@ Horde_Registry::appInit('horde', array(
 array_shift($_SERVER['argv']);
 $args = $_SERVER['argv'];
 
+$migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../..');
 if (empty($args[0])) {
     // Run all migrations.
-    $apps = $dirs = array();
-    // Loop through all applications.
-    foreach ($registry->listApps(array('hidden', 'notoolbar', 'admin', 'active'), false, null) as $app) {
-        $dir = $registry->get('fileroot', $app) . '/migration';
-        if (is_dir($dir)) {
-            $apps[] = $app;
-            $dirs[] = $dir;
-        }
-    }
-    // Loop through local framework checkout.
-    foreach (glob(dirname(__FILE__) . '/../../framework/*/migration') as $dir) {
-        $apps[] = 'horde_' . Horde_String::lower(basename(dirname($dir)));
-        $dirs[] = $dir;
-    }
-    // Loop through installed PEAR packages.
-    $pear = new PEAR_Config();
-    foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
-        $app = 'horde_' . Horde_String::lower(basename(dirname($dir)));;
-        if (!in_array($app, $apps)) {
-            $apps[] = $app;
-            $dirs[] = $dir;
-        }
-    }
+    $apps = $migration->apps;
+    $dirs = $migration->dirs;
 } else {
     // Run a specific migration.
     $app = $args[0];
-    if (in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null))) {
-        $dir = $registry->get('fileroot', $app) . '/migration';
-    } elseif (is_dir($app)) {
+    if (($key = array_search($app, $migration->apps)) !== false) {
+        $dir = $migration->dirs[$key];
+    } elseif (($key = array_search($app, $migration->dirs)) !== false) {
         $dir = $app;
-        $app = 'horde_' . Horde_String::lower(basename(dirname($dir)));
+        $app = $migration->apps[$key];
     } else {
         $cli->fatal("$app is neither a configured Horde application nor a migration directory");
     }
@@ -100,8 +80,8 @@ case 'migrate':
     break;
 }
 
-foreach ($apps as $key => $app) {
-    $migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dirs[$key], 'schemaTableName' => $app . '_schema_info'));
+foreach ($apps as $app) {
+    $migrator = $migration->getMigrator($app, $logger);
 
     $cli->message("Current $app schema version: " . $migrator->getCurrentVersion());
 
