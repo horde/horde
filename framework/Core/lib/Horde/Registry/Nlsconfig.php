@@ -64,22 +64,22 @@ class Horde_Registry_Nlsconfig
 
         case 'curr_charset':
             /* Return charset for the current language. */
-            $ret = isset($this->_config->charsets[$GLOBALS['language']])
-                ? $this->_config->charsets[$GLOBALS['language']]
+            $ret = isset($this->_config['charsets'][$GLOBALS['language']])
+                ? $this->_config['charsets'][$GLOBALS['language']]
                 : null;
             break;
 
         case 'curr_default':
             /* The default langauge, as specified by the config file. */
-            $ret = isset($this->_config->defaults['language'])
-                ? $this->_config->defaults['language']
+            $ret = isset($this->_config['defaults']['language'])
+                ? $this->_config['defaults']['language']
                 : null;
             break;
 
         case 'curr_emails':
             /* Return e-mail charset for the current language. */
-            $ret = isset($this->_config->emails[$GLOBALS['language']])
-                ? $this->_config->emails[$GLOBALS['language']]
+            $ret = isset($this->_config['emails'][$GLOBALS['language']])
+                ? $this->_config['emails'][$GLOBALS['language']]
                 : null;
             break;
 
