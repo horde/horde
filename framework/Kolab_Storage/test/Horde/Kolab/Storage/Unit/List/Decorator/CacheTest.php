@@ -222,7 +222,7 @@ extends Horde_Kolab_Storage_TestCase
                 $cache
             )
         );
-        $cache->storeListData($list->getConnectionId(), serialize(array('S' => time(), 'V' => '1')));
+        $cache->storeList($list->getConnectionId(), serialize(array('S' => time(), 'V' => '1')));
         $this->mockDriver->expects($this->never())
             ->method('getMailboxes') 
             ->will($this->returnValue(array('INBOX')));
@@ -234,7 +234,7 @@ extends Horde_Kolab_Storage_TestCase
         $cache = $this->getMockCache();
         $list_cache = new Horde_Kolab_Storage_Cache_List($cache);
         $list = $this->_setupMockList($list_cache);
-        $cache->storeListData($list->getConnectionId(), serialize(array('S' => time(), 'V' => '2')));
+        $cache->storeList($list->getConnectionId(), serialize(array('S' => time(), 'V' => '2')));
         $this->mockDriver->expects($this->once())
             ->method('listAnnotation')
             ->will($this->returnValue(array('INBOX' => 'mail.default')));
@@ -247,7 +247,7 @@ extends Horde_Kolab_Storage_TestCase
         $list_cache = new Horde_Kolab_Storage_Cache_List($cache);
         $list = $this->_setupMockList($list_cache);
         $list->listFolders();
-        $cache->storeListData($list->getConnectionId(), 'V', '2');
+        $cache->storeList($list->getConnectionId(), 'V', '2');
         $list->listFolders();
     }
 

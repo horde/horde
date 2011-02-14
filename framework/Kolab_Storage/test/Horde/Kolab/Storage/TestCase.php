@@ -42,7 +42,8 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_Driver_Mock(
-            $factory
+            $factory,
+            array('username' => 'test', 'host' => 'localhost', 'port' => 143)
         );
     }
 

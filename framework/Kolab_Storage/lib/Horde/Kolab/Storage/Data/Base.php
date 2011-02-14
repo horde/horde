@@ -110,6 +110,16 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Return the data version.
+     *
+     * @return string The data version.
+     */
+    public function getVersion()
+    {
+        return $this->_version;
+    }
+
+    /**
      * Report the status of this folder.
      *
      * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
