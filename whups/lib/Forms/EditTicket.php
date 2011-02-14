@@ -117,32 +117,23 @@ class EditTicketForm extends Horde_Form {
 
                         if (count($f_users)) {
                             asort($f_users);
-                            $owners = &$this->addVariable(_("Owners"),
-                                                          'owners',
-                                                          'multienum',
-                                                          false, false, null,
-                                                          array($f_users));
-                            $ticketOwners = array();
-                            $ticketGroups = array();
-                            foreach($whups_driver->getOwners($vars->get('id')) as $owner) {
-                                if (strpos($owner, 'user:') !== false) {
-                                    $ticketOwners[] = $owner;
-                                } else {
-                                    $ticketGroups[] = $owner;
-                                }
-                            }
-                            $owners->setDefault($ticketOwners);
+                            $this->addVariable(
+                                _("Owners"),
+                               'owners',
+                               'multienum',
+                               false, false, null,
+                               array($f_users));
                         }
 
                         if (count($f_groups)) {
                             asort($f_groups);
-                            $group_owners = &$this->addVariable(_("Group Owners"),
-                                                                'group_owners',
-                                                                'multienum',
-                                                                false, false,
-                                                                null,
-                                                                array($f_groups));
-                            $group_owners->setDefault($ticketGroups);
+                            $this->addVariable(
+                                _("Group Owners"),
+                                'group_owners',
+                                'multienum',
+                                false, false,
+                                null,
+                                array($f_groups));
                         }
                     }
                     break;
