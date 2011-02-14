@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-02-14</date>
- <time>14:26:40</time>
+ <time>15:01:31</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -284,14 +284,6 @@
    <dir name="notes">
     <file name="index.php" role="horde" />
    </dir> <!-- /notes -->
-   <dir name="packaging">
-    <dir name="redhat">
-     <file name="mnemo.conf" role="data" />
-     <file name="mnemo.README" role="data" />
-     <file name="mnemo.spec" role="data" />
-     <file name="rh9-mnemo.spec" role="data" />
-    </dir> <!-- /packaging/redhat -->
-   </dir> <!-- /packaging -->
    <dir name="scripts">
     <dir name="upgrades">
      <file name="convert_datatree_shares_to_sql.php" role="data" />
@@ -512,10 +504,6 @@
    <install as="mnemo/notepads/edit.php" name="notepads/edit.php" />
    <install as="mnemo/notepads/index.php" name="notepads/index.php" />
    <install as="mnemo/notes/index.php" name="notes/index.php" />
-   <install as="packaging/redhat/mnemo.conf" name="packaging/redhat/mnemo.conf" />
-   <install as="packaging/redhat/mnemo.README" name="packaging/redhat/mnemo.README" />
-   <install as="packaging/redhat/mnemo.spec" name="packaging/redhat/mnemo.spec" />
-   <install as="packaging/redhat/rh9-mnemo.spec" name="packaging/redhat/rh9-mnemo.spec" />
    <install as="scripts/import_text_note.php" name="scripts/import_text_note.php" />
    <install as="scripts/import_vnotes.php" name="scripts/import_vnotes.php" />
    <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />

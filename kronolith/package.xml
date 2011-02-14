@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-02-14</date>
- <time>14:30:26</time>
+ <time>15:01:28</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -441,13 +441,6 @@
     <file name="16_kronolith_upgrade_sqlhierarchical.php" role="horde" />
     <file name="17_kronolith_upgrade_sqlnghierarchical.php" role="horde" />
    </dir> <!-- /migration -->
-   <dir name="packaging">
-    <dir name="redhat">
-     <file name="kronolith.conf" role="data" />
-     <file name="kronolith.README" role="data" />
-     <file name="kronolith.spec" role="data" />
-    </dir> <!-- /packaging/redhat -->
-   </dir> <!-- /packaging -->
    <dir name="resources">
     <dir name="groups">
      <file name="create.php" role="horde" />
@@ -1058,9 +1051,6 @@
    <install as="kronolith/migration/15_kronolith_upgrade_sqlng.php" name="migration/15_kronolith_upgrade_sqlng.php" />
    <install as="kronolith/migration/16_kronolith_upgrade_sqlhierarchical.php" name="migration/16_kronolith_upgrade_sqlhierarchical.php" />
    <install as="kronolith/migration/17_kronolith_upgrade_sqlnghierarchical.php" name="migration/17_kronolith_upgrade_sqlnghierarchical.php" />
-   <install as="packaging/redhat/kronolith.conf" name="packaging/redhat/kronolith.conf" />
-   <install as="packaging/redhat/kronolith.README" name="packaging/redhat/kronolith.README" />
-   <install as="packaging/redhat/kronolith.spec" name="packaging/redhat/kronolith.spec" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
