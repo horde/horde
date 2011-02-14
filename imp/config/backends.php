@@ -291,14 +291,6 @@
  * timeout: (integer) Set the server timeout (in seconds).
  */
 
-/* Any entries whose key value ('foo' in $servers['foo']) begin with '_'
- * (an underscore character) will be treated as prompts, and you won't be
- * able to log in to them. The only property these entries need is 'name'.
- * This lets you put labels in the list, like this example: */
-$servers['_prompt'] = array(
-    'name' => _("Choose a mail server:")
-);
-
 /* Example configurations: */
 
 $servers['imap'] = array(

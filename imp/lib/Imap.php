@@ -374,8 +374,7 @@ class IMP_Imap implements Serializable
             }
 
             foreach (array_keys($servers) as $key) {
-                if ($key[0] != '_' &&
-                    !empty($servers[$key]['disabled'])) {
+                if (!empty($servers[$key]['disabled'])) {
                     unset($servers[$key]);
                 }
             }
@@ -383,12 +382,6 @@ class IMP_Imap implements Serializable
         }
 
         if (is_null($server)) {
-            /* Remove any prompt entries (underscores in front of key). */
-            foreach (array_keys($servers) as $key) {
-                if ($key[0] == '_') {
-                    unset($servers[$key]);
-                }
-            }
             return $servers;
         }
 
