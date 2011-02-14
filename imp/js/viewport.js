@@ -946,7 +946,9 @@ var ViewPort = Class.create({
                 }
             }, this);
 
-            vr.pluck('id').diff(rows.get('domid')).each($).compact().each(this.opts.content.fire.bind(this.opts.content, 'ViewPort:clear'));
+            if (vr.size()) {
+                vr.pluck('id').diff(rows.get('domid')).each($).compact().each(this.opts.content.fire.bind(this.opts.content, 'ViewPort:clear'));
+            }
 
             c.childElements().invoke('remove');
 
