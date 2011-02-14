@@ -29,29 +29,29 @@
  */
 class Horde_Kolab_Storage_Cache_Data
 {
-    /** Key for the folder list. */
-    const FOLDERS = 'F';
+    /** Key for the backend ID to object ID mapping. */
+    const B2O = 'M';
 
-    /** Key for the type list. */
-    const TYPES = 'T';
+    /** Key for the object ID to backend ID mapping. */
+    const O2B = 'B';
 
-    /** Key for the namespace data. */
-    const NAME_SPACE = 'N';
+    /** Key for the objects. */
+    const OBJECTS = 'O';
 
-    /** Key for the backend capabilities. */
-    const SUPPORT = 'C';
+    /** Key for the stamp. */
+    const STAMP = 'P';
 
-    /** Holds query results. */
-    const QUERIES = 'Q';
+    /** Key for the data format version. */
+    const DATA_VERSION = 'D';
 
-    /** Holds long term cache data. */
-    const LONG_TERM = 'L';
-
-    /** Key for the last time the list was synchronized. */
+    /** Key for the last time the data was synchronized. */
     const SYNC = 'S';
 
     /** Key for the cache format version. */
     const VERSION = 'V';
+
+    /** Key for the data set parameters associated with this cache. */
+    const ID = 'I';
 
     /** Holds the version number of the cache format. */
     const FORMAT_VERSION = '1';
@@ -62,6 +62,13 @@ class Horde_Kolab_Storage_Cache_Data
      * @var Horde_Kolab_Storage_Cache
      */
     private $_cache;
+
+    /**
+     * Data parameters that will be recorded in the cache.
+     *
+     * @var array
+     */
+    private $_parameters;
 
     /**
      * Data ID.
@@ -80,11 +87,18 @@ class Horde_Kolab_Storage_Cache_Data
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Cache $cache   The core cache driver.
+     * @param Horde_Kolab_Storage_Cache $cache      The core cache driver.
+
+     * @param array                     $parameters Data set parameters that
+     *                                              are only recorded and have
+     *                                              no further impact.
      */
-    public function __construct(Horde_Kolab_Storage_Cache $cache)
-    {
+    public function __construct(
+        Horde_Kolab_Storage_Cache $cache,
+        $parameters = null
+    ) {
         $this->_cache = $cache;
+        $this->_parameters = $parameters;
     }
 
     /**
@@ -122,7 +136,7 @@ class Horde_Kolab_Storage_Cache_Data
     private function _load()
     {
         if ($this->_data === false) {
-            $this->_data = unserialize($this->_cache->loadListData($this->getListId()));
+            $this->_data = unserialize($this->_cache->loadData($this->getDataId()));
             if (!is_array($this->_data)
                 || !isset($this->_data[self::SYNC])
                 || !isset($this->_data[self::VERSION])
@@ -133,13 +147,13 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Cache the list data.
+     * Cache the data.
      *
      * @return NULL
      */
     public function save()
     {
-        $this->_cache->storeListData($this->getListId(), serialize($this->_data));
+        $this->_cache->storeData($this->getDataId(), serialize($this->_data));
     }
 
     /**
@@ -154,133 +168,249 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
-     * Is the specified query data available in the cache?
+     * Retrieve the object list from the cache.
      *
-     * @param string $key The query key.
-     *
-     * @return boolean True in case cached data is available.
+     * @return array The list of objects.
      */
-    public function hasQuery($key)
+    public function getObjects()
     {
-        $this->_load();
-        return isset($this->_data[self::QUERIES][$key]);
+        return $this->_fetchCacheEntry(self::OBJECTS);
     }
 
     /**
-     * Return query information.
+     * Retrieve the specified object from the cache.
      *
-     * @param string $key The query key.
+     * @param string $obid The object ID to fetch.
      *
-     * @return mixed The query data.
+     * @return array The list of objects.
      */
-    public function getQuery($key)
+    public function getObjectByBackendId($obid)
     {
-        if ($this->hasQuery($key)) {
-            return $this->_data[self::QUERIES][$key];
+        $obids = $this->getBackendToObject();
+        if (isset($obids[$obid])) {
+            $objects = $this->getObjects();
+            return $objects[$obids[$obid]];
         } else {
             throw new Horde_Kolab_Storage_Exception(
-                sprintf('Missing query cache data (Key: %s). Synchronize first!', $key)
+                sprintf ('No such object %s!', $obid)
             );
         }
     }
 
     /**
-     * Set query information.
+     * Return the object ID to backend ID mapping.
      *
-     * @param string $key  The query key.
-     * @param mixed  $data The query data.
-     *
-     * @return NULL
+     * @return array The mapping.
      */
-    public function setQuery($key, $data)
+    public function getObjectToBackend()
     {
-        $this->_load();
-        $this->_data[self::QUERIES][$key] = $data;
+        return $this->_fetchCacheEntry(self::O2B);
     }
 
     /**
-     * Store the folder list and folder type annotations in the cache.
+     * Return the backend ID to object ID mapping.
      *
-     * @return NULL
+     * @return array The mapping.
      */
-    public function store(array $folders = null, array $types = null)
+    public function getBackendToObject()
     {
-        $this->_load();
-        $this->_data[self::QUERIES] = array();
-        $this->_data[self::FOLDERS] = $folders;
-        $this->_data[self::TYPES] = $types;
-        $this->_data[self::VERSION] = self::FORMAT_VERSION;
-        $this->_data[self::SYNC] = time();
+        return $this->_fetchCacheEntry(self::B2O);
     }
 
     /**
-     * Load the cached share data identified by $key.
+     * Retrieve the last stamp.
      *
-     * @param string $key          Access key to the cached data.
-     * @param int    $data_version A version identifier provided by
-     *                             the storage manager.
-     * @param bool   $force        Force loading the cache.
-     *
-     * @return NULL
+     * @return Horde_Kolab_Storage_Folder_Stamp The last recorded stamp.
      */
-    public function load($key, $data_version, $force = false)
+    public function getStamp()
     {
-        if (!$force && $this->key == $key
-            && $this->data_version == $data_version) {
-            return;
+        $this->_checkInit(self::STAMP);
+        return $this->_data[self::STAMP];
+    }
+
+    /**
+     * Retrieve the data version.
+     *
+     * @return string The version of the stored data.
+     */
+    public function getVersion()
+    {
+        $this->_checkInit(self::DATA_VERSION);
+        return $this->_data[self::DATA_VERSION];
+    }
+
+    /**
+     * Retrieve an attachment.
+     *
+     * @param string $obid          Object backend id.
+     * @param string $attachment_id Attachment ID.
+     *
+     * @return resource A stream opened to the attachement data.
+     */
+    public function getAttachment($obid, $attachment_id)
+    {
+        return $this->_cache->loadAttachment(
+            $this->getDataId(), $obid, $attachment_id
+        );
+    }
+
+    /**
+     * Retrieve an attachment by name.
+     *
+     * @param string $obid          Object backend id.
+     * @param string $attachment_id Attachment ID.
+     *
+     * @return array An array of attachment resources.
+     */
+    public function getAttachmentByName($obid, $name)
+    {
+        $object = $this->getObjectByBackendId($obid);
+        if (!isset($object['_attachments']['name'][$name])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'No attachment named "%s" for object id %s!',
+                    $name,
+                    $obid
+                )
+            );
         }
-
-        $this->key           = $key;
-        $this->data_version  = $data_version;
-        $this->cache_version = ($data_version << 8) | $this->base_version;
-
-        $this->reset();
-
-        $cache = $this->horde_cache->get($this->key, 0);
-
-        if (!$cache) {
-            return;
+        $result = array();
+        foreach ($object['_attachments']['name'][$name] as $attachment_id) {
+            $result[$attachment_id] = $this->_cache->loadAttachment(
+                $this->getDataId(), $obid, $attachment_id
+            );
         }
+        return $result;
+    }
 
-        $data = unserialize($cache);
+    /**
+     * Retrieve an attachment by name.
+     *
+     * @param string $obid          Object backend id.
+     * @param string $attachment_id Attachment ID.
+     *
+     * @return array An array of attachment resources.
+     */
+    public function getAttachmentByType($obid, $type)
+    {
+        $object = $this->getObjectByBackendId($obid);
+        if (!isset($object['_attachments']['type'][$type])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'No attachment with type "%s" for object id %s!',
+                    $type,
+                    $obid
+                )
+            );
+        }
+        $result = array();
+        foreach ($object['_attachments']['type'][$type] as $attachment_id) {
+            $result[$attachment_id] = $this->_cache->loadAttachment(
+                $this->getDataId(), $obid, $attachment_id
+            );
+        }
+        return $result;
+    }
 
-        // Delete disc cache if it's from an old version
-        if ($data['version'] != $this->cache_version) {
-            $this->horde_cache->expire($this->key);
-            $this->reset();
+    /**
+     * Fetch the specified cache entry in case it is present. Returns an empty
+     * array otherwise.
+     *
+     * @param string $key The key in the cached data array.
+     *
+     * @return array The cache entry.
+     */
+    private function _fetchCacheEntry($key)
+    {
+        $this->_checkInit($key);
+        if (isset($this->_data[$key])) {
+            return $this->_data[$key];
         } else {
-            $this->version  = $data['version'];
-            $this->validity = $data['uidvalidity'];
-            $this->nextid   = $data['uidnext'];
-            $this->objects  = $data['objects'];
-            $this->uids     = $data['uids'];
+            return array();
         }
     }
 
     /**
-     * Load a cached attachment.
+     * Verify that the data cache is initialized.
      *
-     * @param string $key Access key to the cached data.
+     * @param string $key The key in the cached data array.
      *
-     * @return mixed The data of the object.
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the cache has not been
+     *                                       initialized.
      */
-    public function loadAttachment($key)
+    private function _checkInit($key)
     {
-        return $this->horde_cache->get($key, 0);
+        if (!$this->isInitialized()) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Missing cache data (Key: %s). Synchronize first!', $key)
+            );
+        }
     }
 
     /**
-     * Cache an attachment.
+     * Store the objects list in the cache.
      *
-     * @param string $key  Access key to the cached data.
-     * @param string $data The data to be cached.
+     * @param array                            $object  The object data to store.
+     * @param Horde_Kolab_Storage_Folder_Stamp $stamp   The current stamp.
+     * @param string                           $version The format version of
+     *                                                  the provided data.
+     * @param array                            $delete  Object IDs that were removed.
      *
-     * @return boolean True if successfull.
+     * @return NULL
      */
-    public function storeAttachment($key, $data)
-    {
-        $this->horde_cache->set($key, $data);
-        return true;
+    public function store(
+        array $objects,
+        Horde_Kolab_Storage_Folder_Stamp $stamp,
+        $version,
+        array $delete = array()
+    ) {
+        $this->_load();
+        foreach ($objects as $obid => $object) {
+            if (!empty($object) && isset($object['uid'])) {
+                $this->_data[self::B2O][$obid] = $object['uid'];
+                $this->_data[self::O2B][$object['uid']] = $obid;
+                if (isset($object['_attachments'])) {
+                    $attachments = array();
+                    foreach ($object['_attachments'] as $id => $attachment) {
+                        $attachments['id'][] = $id;
+                        if (isset($attachment['name'])) {
+                            $attachments['name'][$attachment['name']][] = $id;
+                        }
+                        if (isset($attachment['type'])) {
+                            $attachments['type'][$attachment['type']][] = $id;
+                        }
+                        $this->_cache->storeAttachment($this->getDataId(), $obid, $id, $attachment['content']);
+                    }
+                    $object['_attachments'] = $attachments;
+                }
+                $this->_data[self::OBJECTS][$object['uid']] = $object;
+            } else {
+                $this->_data[self::B2O][$obid] = false;
+            }
+        }
+        if (!empty($delete)) {
+            foreach ($delete as $item) {
+                $object_id = $this->_data[self::B2O][$item];
+                $object = $this->_data[self::OBJECTS][$object_id];
+                if (isset($object['_attachments'])) {
+                    foreach ($object['_attachments']['id'] as $id) {
+                        $this->_cache->deleteAttachment(
+                            $this->getDataId(), $item, $id
+                        );
+                    }
+                }
+                unset($this->_data[self::O2B][$object_id]);
+                unset($this->_data[self::OBJECTS][$object_id]);
+                unset($this->_data[self::B2O][$item]);
+            }
+        }
+        $this->_data[self::STAMP] = serialize($stamp);
+        $this->_data[self::DATA_VERSION] = $version;
+        $this->_data[self::VERSION] = self::FORMAT_VERSION;
+        $this->_data[self::ID] = serialize($this->_parameters);
+        $this->_data[self::SYNC] = time();
     }
 
     /**
@@ -290,142 +420,6 @@ class Horde_Kolab_Storage_Cache_Data
      */
     public function reset()
     {
-        $this->version  = $this->cache_version;
-        $this->validity = -1;
-        $this->nextid   = -1;
-        $this->objects  = array();
-        $this->uids     = array();
+        $this->_data = array();
     }
-
-    /**
-     * Save the share data in the cache.
-     *
-     * @return boolean True on success.
-     */
-    public function _save()
-    {
-        $data = array('version' => $this->version,
-                      'uidvalidity' =>  $this->validity,
-                      'uidnext' =>  $this->nextid,
-                      'objects' =>  $this->objects,
-                      'uids' =>  $this->uids);
-
-        return $this->horde_cache->set($this->key,
-                                       serialize($data));
-    }
-
-    /**
-     * Store an object in the cache.
-     *
-     * @param int    $id        The storage ID.
-     * @param string $object_id The object ID.
-     * @param array  &$object   The object data.
-     *
-     * @return NULL
-     */
-    public function _store($id, $object_id, &$object)
-    {
-        $this->uids[$id]           = $object_id;
-        $this->objects[$object_id] = $object;
-    }
-
-    /**
-     * Mark the ID as invalid (cannot be correctly parsed).
-     *
-     * @param int $id The ID of the storage item to ignore.
-     *
-     * @return NULL
-     */
-    public function ignore($id)
-    {
-        $this->uids[$id] = false;
-    }
-
-    /**
-     * Deliberately expire a cache.
-     *
-     * @return NULL
-     */
-    public function expire()
-    {
-        $this->version = -1;
-        $this->save();
-        $this->load($this->key, $this->data_version, true);
-    }
-
-    /**
-     * The version of the cache we loaded.
-     *
-     * @var int
-     */
-    protected $version;
-
-    /**
-     * The internal version of the cache format represented by the
-     * code.
-     *
-     * @var int
-     */
-    protected $base_version = 1;
-
-    /**
-     * The version of the data format provided by the storage handler.
-     *
-     * @var int
-     */
-    protected $data_version;
-
-    /**
-     * The version of the cache format that includes the data version.
-     *
-     * @var int
-     */
-    protected $cache_version = -1;
-
-    /**
-     * A validity marker for a share in the cache. This allows the
-     * storage handler to invalidate the cache for this share.
-     *
-     * @var int
-     */
-    public $validity;
-
-    /**
-     * A nextid marker for a share in the cache. This allows the
-     * storage handler to invalidate the cache for this share.
-     *
-     * @var int
-     */
-    public $nextid;
-
-    /**
-     * The objects of the current share.
-     *
-     *   | objects: key is uid (GUID)
-     *   | ----------- hashed object data
-     *                 |----------- uid: object id (GUID)
-     *   |             |----------- all fields from kolab specification
-     *
-     * @var array
-     */
-    public $objects;
-
-    /**
-     * The uid<->object mapping of the current share.
-     *
-     *   | uids   Mapping between imap uid and object uids: imap uid -> object uid
-     *            Special: A value of "false" means we've seen the uid
-     *                     but we deciced to ignore it in the future
-     *
-     * @var array
-     */
-    public $uids;
-
-    /**
-     * The unique key for the currently loaded data.
-     *
-     * @var string
-     */
-    protected $key;
-
 }

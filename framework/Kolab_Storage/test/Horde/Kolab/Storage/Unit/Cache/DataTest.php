@@ -37,7 +37,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testDataId()
     {
-        $this->assertEquals('test', $this->_getTestCache()->getDataId());
+        $this->assertEquals('test', $this->getMockDataCache()->getDataId());
     }
 
     /**
@@ -49,226 +49,533 @@ extends Horde_Kolab_Storage_TestCase
         $cache->getDataId();
     }
 
-
-
-
-    /**
-     * Test cleaning the cache.
-     *
-     * @return NULL
-     */
-    public function testReset()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->reset();
-        $this->assertEquals(-1, $cache->validity);
-        $this->assertEquals(-1, $cache->nextid);
-        $this->assertTrue(empty($cache->objects));
-        $this->assertTrue(empty($cache->uids));
-    }
-
-    /**
-     * Test storing data.
-     *
-     * @return NULL
-     */
-    public function testStore()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->reset();
-        $item = array(1);
-        $cache->store(10, 1, $item);
-        $this->assertTrue(isset($cache->objects[1]));
-        $this->assertTrue(isset($cache->uids[10]));
-        $this->assertEquals(1, $cache->uids[10]);
-        $this->assertSame($item, $cache->objects[1]);
-    }
-
-    /**
-     * Test ignoring objects.
-     *
-     * @return NULL
-     */
-    public function testIgnore()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->reset();
-        $cache->ignore(11);
-        $this->assertEquals(false, $cache->uids[11]);
-    }
-
-    public function testLoadAttachment()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeAttachment('a', 'attachment');
-        $this->assertEquals('attachment', $cache->loadAttachment('a'));
-    }
-
-    public function testLoadSecondAttachment()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeAttachment('a', 'attachment');
-        $cache->storeAttachment('b', 'b');
-        $this->assertEquals('b', $cache->loadAttachment('b'));
-    }
-
-    public function testOverrideAttachment()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeAttachment('a', 'attachment');
-        $cache->storeAttachment('a', 'a');
-        $this->assertEquals('a', $cache->loadAttachment('a'));
-    }
-
-    public function testCachingListData()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->storeListData('user@example.com:143', array('folders' => array('a', 'b')));
-        $this->assertEquals(array('folders' => array('a', 'b')), $cache->loadListData('user@example.com:143'));
-    }
-
-    /**
-     * Test loading/saving the cache.
-     *
-     * @return NULL
-     */
-    public function testLoadSave()
-    {
-        $cache = new Horde_Kolab_Storage_Cache($this->cache);
-        $cache->load('test', 1);
-        /**
-         * Loading a second time should return immediately (see code
-         * coverage)
-         */
-        $cache->load('test', 1);
-        $cache->expire();
-        $this->assertEquals(-1, $cache->validity);
-        $this->assertEquals(-1, $cache->nextid);
-        $this->assertTrue(empty($cache->objects));
-        $this->assertTrue(empty($cache->uids));
-        $item1 = array(1);
-        $item2 = array(2);
-        $cache->store(10, 1, $item1);
-        $cache->store(12, 2, $item2);
-        $cache->ignore(11);
-        $this->assertTrue(isset($cache->objects[1]));
-        $this->assertTrue(isset($cache->uids[10]));
-        $this->assertEquals(1, $cache->uids[10]);
-        $this->assertEquals($item1, $cache->objects[1]);
-        $cache->save();
-        $this->assertEquals(false, $cache->uids[11]);
-        $cache->ignore(10);
-        $cache->ignore(12);
-        $this->assertEquals(false, $cache->uids[10]);
-        $this->assertEquals(false, $cache->uids[12]);
-        /** Allow us to reload the cache */
-        $cache->load('test', 1, true);
-        $this->assertTrue(isset($cache->objects[1]));
-        $this->assertTrue(isset($cache->uids[10]));
-        $this->assertEquals(1, $cache->uids[10]);
-        $this->assertEquals($item1, $cache->objects[1]);
-        $cache->expire();
-        $this->assertEquals(-1, $cache->validity);
-        $this->assertEquals(-1, $cache->nextid);
-        $this->assertTrue(empty($cache->objects));
-        $this->assertTrue(empty($cache->uids));
-    }
-
-
-
-
-
     public function testNotInitialized()
     {
-        $this->assertFalse($this->_getTestCache()->isInitialized());
+        $this->assertFalse($this->getMockDataCache()->isInitialized());
     }
 
     public function testInvalidVersion()
     {
         $cache = $this->getMockCache();
-        $cache->storeListData(
+        $cache->storeData(
             'test', serialize(array('S' => time(), 'V' => '0'))
         );
-        $this->assertFalse($this->_getTestCache($cache)->isInitialized());
+        $this->assertFalse($this->getMockDataCache($cache)->isInitialized());
     }
 
     public function testMissingSync()
     {
         $cache = $this->getMockCache();
-        $cache->storeListData(
+        $cache->storeData(
             'test', serialize(
-                array('V' => Horde_Kolab_Storage_Cache_List::VERSION)
+                array('V' => Horde_Kolab_Storage_Cache_Data::VERSION)
             )
         );
-        $this->assertFalse($this->_getTestCache($cache)->isInitialized());
+        $this->assertFalse($this->getMockDataCache($cache)->isInitialized());
     }
 
-    public function testNamespace()
+    public function testGetObjects()
     {
-        $cache = $this->_getTestCache();
-        $cache->setNamespace('DUMMY');
-        $this->assertEquals('DUMMY', $cache->getNamespace());
+        $this->_getSyncedCache()->getObjects();
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testMissingNamespace()
+    public function testGetObjectsEmpty()
     {
-        $cache = $this->_getTestCache();
-        $cache->getNamespace();
-    }
-
-    public function testUnsetSupport()
-    {
-        $cache = $this->_getTestCache();
-        $this->assertFalse($cache->issetSupport('ACL'));
-    }
-
-    public function testLongterm()
-    {
-        $cache = $this->_getTestCache();
-        $cache->setLongTerm('DUMMY', 'dummy');
-        $this->assertEquals('dummy', $cache->getLongTerm('DUMMY'));
+        $this->assertEquals(
+            array(),
+            $this->_getSyncedCache()->getObjects()
+        );
     }
 
     /**
      * @expectedException Horde_Kolab_Storage_Exception
      */
-    public function testMissingLongterm()
+    public function testGetMissingObjects()
     {
-        $cache = $this->_getTestCache();
-        $cache->getLongTerm('DUMMY');
+        $this->getMockDataCache()->getObjects();
     }
 
-    public function testSetSupport()
+    public function testGetObjectsOne()
     {
-        $cache = $this->_getTestCache();
-        $cache->setSupport('ACL', true);
-        $this->assertTrue($cache->issetSupport('ACL'));
+        $this->assertEquals(
+            array('test' => array('uid' => 'test')),
+            $this->_getSyncedCacheWithData()->getObjects()
+        );
     }
 
-    public function testSupport()
+    public function testGetObjectsTwo()
     {
-        $cache = $this->_getTestCache();
-        $cache->setSupport('ACL', true);
-        $this->assertTrue($cache->hasSupport('ACL'));
+        $this->assertEquals(
+            array('test', 'test2'),
+            array_keys($this->_getSyncedCacheWithMoreData()->getObjects())
+        );
     }
 
-    public function testNoSupport()
+    public function testGetObjectToBackend()
     {
-        $cache = $this->_getTestCache();
-        $cache->setSupport('ACL', false);
-        $this->assertFalse($cache->hasSupport('ACL'));
+        $this->_getSyncedCache()->getObjectToBackend();
     }
 
-    private function _getTestCache($cache = null)
+    public function testGetObjectToBackendEmpty()
     {
-        if ($cache === null) {
-            $cache = $this->getMockCache();
-        }
-        $list_cache = new Horde_Kolab_Storage_Cache_List($cache);
-        $list_cache->setListId('test');
-        return $list_cache;
+        $this->assertEquals(
+            array(),
+            $this->_getSyncedCache()->getObjectToBackend()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetMissingObjectToBackend()
+    {
+        $this->getMockDataCache()->getObjectToBackend();
+    }
+
+    public function testGetObjectToBackendOne()
+    {
+        $this->assertEquals(
+            array('test' => '1'),
+            $this->_getSyncedCacheWithData()->getObjectToBackend()
+        );
+    }
+
+    public function testGetObjectToBackendTwo()
+    {
+        $this->assertEquals(
+            array('test' => '1', 'test2' => '2'),
+            $this->_getSyncedCacheWithMoreData()->getObjectToBackend()
+        );
+    }
+
+    public function testGetBackendToObject()
+    {
+        $this->_getSyncedCache()->getBackendToObject();
+    }
+
+    public function testGetBackendToObjectEmpty()
+    {
+        $this->assertEquals(
+            array(),
+            $this->_getSyncedCache()->getBackendToObject()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetMissingBackendToObject()
+    {
+        $this->getMockDataCache()->getBackendToObject();
+    }
+
+    public function testGetBackendToObjectOne()
+    {
+        $this->assertEquals(
+            array('1' => 'test'),
+            $this->_getSyncedCacheWithData()->getBackendToObject()
+        );
+    }
+
+    public function testGetBackendToObjectTwo()
+    {
+        $this->assertEquals(
+            array('1'=> 'test', '2' => 'test2'),
+            $this->_getSyncedCacheWithMoreData()->getBackendToObject()
+        );
+    }
+
+    public function testGetStamp()
+    {
+        $this->_getSyncedCache()->getStamp();
+    }
+
+    public function testGetStampEmpty()
+    {
+        $this->assertType(
+            'string',
+            $this->_getSyncedCache()->getStamp()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetMissingStamp()
+    {
+        $this->getMockDataCache()->getStamp();
+    }
+
+    public function testGetStampOne()
+    {
+        $this->assertEquals(
+            'C:37:"Horde_Kolab_Storage_Folder_Stamp_Uids":30:{a:2:{i:0;s:1:"a";i:1;s:1:"b";}}',
+            $this->_getSyncedCacheWithData()->getStamp()
+        );
+    }
+
+    public function testGetStampTwo()
+    {
+        $this->assertEquals(
+            'C:37:"Horde_Kolab_Storage_Folder_Stamp_Uids":30:{a:2:{i:0;s:1:"c";i:1;s:1:"d";}}',
+            $this->_getSyncedCacheWithMoreData()->getStamp()
+        );
+    }
+
+    public function testGetVersion()
+    {
+        $this->_getSyncedCache()->getVersion();
+    }
+
+    public function testGetVersionEmpty()
+    {
+        $this->assertType(
+            'string',
+            $this->_getSyncedCache()->getVersion()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetMissingVersion()
+    {
+        $this->getMockDataCache()->getVersion();
+    }
+
+    public function testGetVersionOne()
+    {
+        $this->assertEquals(
+            '1',
+            $this->_getSyncedCacheWithData()->getVersion()
+        );
+    }
+
+    public function testGetVersionTwo()
+    {
+        $this->assertEquals(
+            '2',
+            $this->_getSyncedCacheWithMoreData()->getVersion()
+        );
+    }
+
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testReset()
+    {
+        $cache = $this->_getSyncedCache();
+        $cache->reset();
+        $cache->getStamp();
+    }
+
+    public function testStoreBackendMapping()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array('1000' => array('uid' => 'OBJECTID')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(
+            array('1000' => 'OBJECTID'), $cache->getBackendToObject()
+        );
+    }
+    
+    public function testStoreObjectMapping()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array('1000' => array('uid' => 'OBJECTID')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(
+            array('OBJECTID' => '1000'), $cache->getObjectToBackend()
+        );
+    }
+    
+    public function testStoreObjects()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array('1000' => array('uid' => 'OBJECTID')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(
+            array('OBJECTID' => array('uid' => 'OBJECTID')),
+            $cache->getObjects()
+        );     
+    }
+    
+    public function testIgnoreNoUid()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array('1000' => array('test' => 'test')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(
+            array('1000' => false), $cache->getBackendToObject()
+        );
+    }
+    
+    public function testIgnoreFalse()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array('1000' => false),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(
+            array('1000' => false), $cache->getBackendToObject()
+        );
+    }
+    
+    public function testLoadSave()
+    {
+        $cache = new Horde_Kolab_Storage_Cache(new Horde_Cache(new Horde_Cache_Storage_Mock()));
+        $data_cache = new Horde_Kolab_Storage_Cache_Data(
+            $cache
+        );
+        $data_cache->setDataId('test');
+        $data_cache->store(
+            array('1000' => array('uid' => 'OBJECTID')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $data_cache->save();
+        $data_cache = new Horde_Kolab_Storage_Cache_Data(
+            $cache
+        );
+        $data_cache->setDataId('test');
+        $data_cache->store(
+            array('1001' => false),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'c'),
+            '1'
+        );
+        $data_cache->save();
+        $data_cache = new Horde_Kolab_Storage_Cache_Data(
+            $cache
+        );
+        $data_cache->setDataId('test');
+        $this->assertEquals(
+            array('OBJECTID' => array('uid' => 'OBJECTID')),
+            $data_cache->getObjects()
+        );     
+    }
+
+    public function testDeletion()
+    {
+        $this->assertEquals(
+            array(),
+            $this->_getWithDeletion()->getObjects()
+        );     
+    }
+    
+    public function testDeletionInObjectMapping()
+    {
+        $this->assertEquals(
+            array(),
+            $this->_getWithDeletion()->getObjectToBackend()
+        );     
+    }
+
+    public function testDeletionInBackendMapping()
+    {
+        $this->assertEquals(
+            array('1001' => false),
+            $this->_getWithDeletion()->getBackendToObject()
+        );     
+    }
+
+    public function testGetMissingAttachment()
+    {
+        $this->assertFalse($this->getMockDataCache()->getAttachment('100', '1'));
+    }
+
+    public function testGetAttachment()
+    {
+        $resource = fopen('php://temp', 'r+');
+        $this->horde_cache = $this->getMockCache();
+        $cache = $this->horde_cache->getDataCache(
+            array(
+                'host' => 'localhost',
+                'port' => '143',
+                'folder' => 'test',
+                'type' => 'event',
+                'owner' => 'someuser',
+            )
+        );
+        $this->horde_cache->storeAttachment(
+            $cache->getDataId(), '100', '1', $resource
+        );
+        $this->assertSame(
+            $resource,
+            $cache->getAttachment('100', '1')
+        );
+    }
+
+    public function testGetStoredAttachment()
+    {
+        $resource = fopen('php://temp', 'r+');
+        $this->assertSame(
+            $resource,
+            $this->_getSyncedCacheWithAttachment($resource)
+            ->getAttachment('100', '1')
+        );
+    }
+
+    public function testDeletedAttachment()
+    {
+        $resource = fopen('php://temp', 'r+');
+        $cache = $this->_getSyncedCacheWithAttachment($resource);
+        $cache->store(
+            array(),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('c', 'd'),
+            '2',
+            array('100')
+        );
+        $this->assertFalse(
+            $cache->getAttachment('100', '1')
+        );
+    }
+
+    public function testGetAttachmentByName()
+    {
+        $this->assertEquals(
+            array('1', '3'),
+            array_keys(
+                $this->_getSyncedCacheWithAttachment('Y')
+                ->getAttachmentByName('100', 'test.txt')
+            )
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetMissingAttachmentByName()
+    {
+        $this->_getSyncedCacheWithAttachment('Y')
+            ->getAttachmentByName('100', 'dubidu.txt');
+    }
+
+    public function testGetAttachmentByType()
+    {
+        $this->assertEquals(
+            array('1', '2', '3'),
+            array_keys(
+                $this->_getSyncedCacheWithAttachment('Y')
+                ->getAttachmentByType('100', 'application/x-vnd.kolab.event')
+            )
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingAttachmentType()
+    {
+        $this->_getSyncedCacheWithAttachment('Y')
+            ->getAttachmentByType('100', 'application/x-vnd.kolab.contact');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetMissingAttachmentByType()
+    {
+        $this->_getSyncedCacheWithAttachment('Y')
+            ->getAttachmentByType('200', 'application/x-vnd.kolab.event');
+    }
+
+    private function _getSyncedCache()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array(), new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'), '1'
+        );
+        return $cache;
+    }
+
+    private function _getSyncedCacheWithData()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array('1' => array('uid' => 'test')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        return $cache;
+    }
+
+    private function _getSyncedCacheWithMoreData()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array(
+                '1' => array('uid' => 'test'),
+                '2' => array('uid' => 'test2')
+            ),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('c', 'd'),
+            '2'
+        );
+        return $cache;
+    }
+
+    private function _getSyncedCacheWithAttachment($resource)
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array(
+                '100' => array(
+                    'uid' => 'test',
+                    '_attachments' => array(
+                        '1' => array(
+                            'name' => 'test.txt',
+                            'type' => 'application/x-vnd.kolab.event',
+                            'content' => $resource
+                        ),
+                        '2' => array(
+                            'type' => 'application/x-vnd.kolab.event',
+                            'content' => $resource
+                        ),
+                        '3' => array(
+                            'name' => 'test.txt',
+                            'type' => 'application/x-vnd.kolab.event',
+                            'content' => $resource
+                        ),
+                        '4' => array(
+                            'content' => $resource
+                        )
+                    )
+                ),
+            ),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('c', 'd'),
+            '2'
+        );
+        return $cache;
+    }
+
+    private function _getWithDeletion()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->store(
+            array('1000' => array('uid' => 'OBJECTID'), '1001' => false),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $cache->store(
+            array(),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1',
+            array('1000')
+        );
+        return $cache;
     }
 }

@@ -81,6 +81,7 @@ class Horde_Kolab_Storage_Cache
             $this->_data_caches[$data_id] = new Horde_Kolab_Storage_Cache_Data(
                 $this, $data_params
             );
+            $this->_data_caches[$data_id]->setDataId($data_id);
         }
         return $this->_data_caches[$data_id];
     }
@@ -142,6 +143,22 @@ class Horde_Kolab_Storage_Cache
         $this->horde_cache->set(
             $this->_getAttachmentId($data_id, $obid, $attachment_id),
             $data
+        );
+    }
+
+    /**
+     * Delete a cached attachment.
+     *
+     * @param string $data_id       ID of the data set.
+     * @param string $obid          Object backend id.
+     * @param string $attachment_id Attachment ID.
+     *
+     * @return NULL
+     */
+    public function deleteAttachment($data_id, $obid, $attachment_id)
+    {
+        return $this->horde_cache->expire(
+            $this->_getAttachmentId($data_id, $obid, $attachment_id)
         );
     }
 
@@ -236,7 +253,7 @@ class Horde_Kolab_Storage_Cache
     private function _getAttachmentId($data_id, $obid, $attachment_id)
     {
         return md5(
-            serialize(array('d' => $data_id, 'o' => $obid, 'p' => $attachment_id))
+            serialize(array('d' => $data_id, 'o' => (string) $obid, 'p' => (string) $attachment_id))
         );
     }
 

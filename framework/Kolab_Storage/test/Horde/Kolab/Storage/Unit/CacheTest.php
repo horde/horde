@@ -35,11 +35,10 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
-        $this->cache = new Horde_Kolab_Storage_Cache(
-            new Horde_Cache(
-                new Horde_Cache_Storage_Mock()
-            )
+        $this->horde_cache = new Horde_Cache(
+            new Horde_Cache_Storage_Mock()
         );
+        $this->cache = new Horde_Kolab_Storage_Cache($this->horde_cache);
     }
 
     public function testGetDataCache()
@@ -331,6 +330,12 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertTrue(
             $this->cache->loadList('test')
         );
+    }
+
+    public function testCachingListData()
+    {
+        $this->cache->storeList('user@example.com:143', array('folders' => array('a', 'b')));
+        $this->assertEquals(array('folders' => array('a', 'b')), $this->cache->loadList('user@example.com:143'));
     }
 
     private function _getConnectionParameters()

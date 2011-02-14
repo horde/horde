@@ -522,7 +522,7 @@ extends PHPUnit_Framework_TestCase
 
     protected function getMockDataCache()
     {
-        return $this->getMockCache()->getDataCache(
+        $cache = $this->getMockCache()->getDataCache(
             array(
                 'host' => 'localhost',
                 'port' => '143',
@@ -531,6 +531,8 @@ extends PHPUnit_Framework_TestCase
                 'type' => 'event',
             )
         );
+        $cache->setDataId('test');
+        return $cache;
     }
 
     protected function assertLogCount($count)
