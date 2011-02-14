@@ -201,6 +201,20 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Return the connection parameters.
+     *
+     * @return array The connection parameters.
+     */
+    public function getParameters()
+    {
+        return array(
+            'user' => $this->getAuth(),
+            'host' => $this->getParam('host'),
+            'port' => $this->getParam('port')
+        );
+    }
+
+    /**
      * Return the factory.
      *
      * @return Horde_Kolab_Storage_Factory The factory.

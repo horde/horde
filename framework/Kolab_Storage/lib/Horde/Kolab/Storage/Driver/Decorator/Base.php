@@ -133,6 +133,16 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Return the connection parameters.
+     *
+     * @return array The connection parameters.
+     */
+    public function getParameters()
+    {
+        return $this->_driver->getParameters();
+    }
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.

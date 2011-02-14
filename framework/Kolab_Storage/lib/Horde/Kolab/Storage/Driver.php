@@ -85,6 +85,12 @@ interface Horde_Kolab_Storage_Driver
      */
     public function getId();
 
+    /**
+     * Return the connection parameters.
+     *
+     * @return array The connection parameters.
+     */
+    public function getParameters();
 
 
     /** List functionality */
