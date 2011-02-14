@@ -55,7 +55,6 @@ class Kronolith_Test extends Horde_Test
      */
     protected $_fileList = array(
         'config/conf.php' => null,
-        'config/prefs.php' => null
     );
 
     /**

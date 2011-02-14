@@ -322,10 +322,6 @@ class Horde_Test
      */
     protected $_fileList = array(
         'config/conf.php' => null,
-        'config/mime_drivers.php' => null,
-        'config/nls.php' => null,
-        'config/prefs.php' => null,
-        'config/registry.php' => null
     );
 
     /**

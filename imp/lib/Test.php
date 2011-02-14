@@ -51,9 +51,6 @@ class IMP_Test extends Horde_Test
      */
     protected $_fileList = array(
         'config/conf.php' => 'The file <code>./config/conf.php</code> appears to be missing. You must generate this file as an administrator via Horde.  See horde/docs/INSTALL.',
-        'config/mime_drivers.php' => null,
-        'config/prefs.php' => null,
-        'config/backends.php' => null
     );
 
     /**
