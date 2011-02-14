@@ -86,6 +86,16 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Return the connection parameters.
+     *
+     * @return array The connection parameters.
+     */
+    public function getConnectionParameters()
+    {
+        return $this->_list->getConnectionParameters();
+    }
+
+    /**
      * Check if the cache has been initialized.
      *
      * @return NULL

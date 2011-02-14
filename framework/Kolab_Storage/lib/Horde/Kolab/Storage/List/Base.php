@@ -87,6 +87,16 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Return the connection parameters.
+     *
+     * @return array The connection parameters.
+     */
+    public function getConnectionParameters()
+    {
+        return $this->_driver->getParameters();
+    }
+
+    /**
      * Create a new folder.
      *
      * @param string $folder The path of the folder to create.

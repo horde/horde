@@ -52,6 +52,13 @@ extends Horde_Kolab_Storage_Queriable
     public function getConnectionId();
 
     /**
+     * Return the connection parameters.
+     *
+     * @return array The connection parameters.
+     */
+    public function getConnectionParameters();
+
+    /**
      * Returns a representation for the requested folder.
      *
      * @param string $folder The path of the folder to return.
