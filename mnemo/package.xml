@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-25</date>
- <time>09:41:19</time>
+ <date>2011-02-14</date>
+ <time>14:26:40</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -33,351 +33,356 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
-    <file baseinstalldir="/" name="conf.xml" role="horde" />
-    <file baseinstalldir="/" name="hooks.php.dist" role="horde" />
-    <file baseinstalldir="/" name="prefs.php.dist" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
-    <file baseinstalldir="/" name="CHANGES" role="doc" />
-    <file baseinstalldir="/" name="CREDITS" role="doc" />
-    <file baseinstalldir="/" name="INSTALL" role="doc" />
-    <file baseinstalldir="/" name="RELEASE_NOTES" role="doc" />
-    <file baseinstalldir="/" name="TODO" role="doc" />
-    <file baseinstalldir="/" name="UPGRADING" role="doc" />
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Imple">
-      <file baseinstalldir="/" name="EditNote.php" role="horde" />
+      <file name="EditNote.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
-     <file baseinstalldir="/" name="note.php" role="horde" />
-     <file baseinstalldir="/" name="summary.php" role="horde" />
+     <file name="Note.php" role="horde" />
+     <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Driver">
-     <file baseinstalldir="/" name="kolab.php" role="horde" />
-     <file baseinstalldir="/" name="sql.php" role="horde" />
+     <file name="Kolab.sql" role="data" />
+     <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
-    <dir name="Forms">
-     <file baseinstalldir="/" name="CreateNotepad.php" role="horde" />
-     <file baseinstalldir="/" name="DeleteNotepad.php" role="horde" />
-     <file baseinstalldir="/" name="EditNotepad.php" role="horde" />
-    </dir> <!-- /lib/Forms -->
-    <file baseinstalldir="/" name="Api.php" role="horde" />
-    <file baseinstalldir="/" name="Application.php" role="horde" />
-    <file baseinstalldir="/" name="Driver.php" role="horde" />
-    <file baseinstalldir="/" name="Exception.php" role="horde" />
-    <file baseinstalldir="/" name="Mnemo.php" role="horde" />
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Form">
+     <file name="CreateNotepad.php" role="horde" />
+     <file name="DeleteNotepad.php" role="horde" />
+     <file name="EditNotepad.php" role="horde" />
+    </dir> <!-- /lib/Form -->
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Mnemo.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="bg">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/bg/LC_MESSAGES -->
     </dir> <!-- /locale/bg -->
     <dir name="cs">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/cs/LC_MESSAGES -->
     </dir> <!-- /locale/cs -->
     <dir name="da">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/da/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/de -->
     <dir name="el">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
     <dir name="en">
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/es -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fi -->
     <dir name="fr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
     <dir name="hr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/hr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/hr -->
     <dir name="hu">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/hu/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/hu -->
     <dir name="it">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/it/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/it -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
     <dir name="lt">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="nb">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/nb/LC_MESSAGES -->
     </dir> <!-- /locale/nb -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/nl/LC_MESSAGES -->
     </dir> <!-- /locale/nl -->
     <dir name="nn">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/nn/LC_MESSAGES -->
     </dir> <!-- /locale/nn -->
     <dir name="pl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/pl/LC_MESSAGES -->
     </dir> <!-- /locale/pl -->
     <dir name="pt">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/pt/LC_MESSAGES -->
     </dir> <!-- /locale/pt -->
     <dir name="pt_BR">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
     </dir> <!-- /locale/pt_BR -->
     <dir name="ro">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/ro/LC_MESSAGES -->
     </dir> <!-- /locale/ro -->
     <dir name="ru">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/ru/LC_MESSAGES -->
     </dir> <!-- /locale/ru -->
     <dir name="sk">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/sk/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/sk -->
     <dir name="sl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/sl/LC_MESSAGES -->
     </dir> <!-- /locale/sl -->
     <dir name="sv">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/sv/LC_MESSAGES -->
     </dir> <!-- /locale/sv -->
     <dir name="tr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/tr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/tr -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
     </dir> <!-- /locale/zh_CN -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="mnemo.mo" role="horde" />
-      <file baseinstalldir="/" name="mnemo.po" role="horde" />
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
-    <file baseinstalldir="/" name="mnemo.pot" role="horde" />
+    <file name="mnemo.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
-    <file baseinstalldir="/" name="1_mnemo_base_tables.php" role="horde" />
-    <file baseinstalldir="/" name="2_mnemo_upgrade_autoincrement.php" role="horde" />
-    <file baseinstalldir="/" name="3_mnemo_upgrade_sqlng.php" role="horde" />
+    <file name="1_mnemo_base_tables.php" role="horde" />
+    <file name="2_mnemo_upgrade_autoincrement.php" role="horde" />
+    <file name="3_mnemo_upgrade_sqlng.php" role="horde" />
+    <file name="4_mnemo_upgrade_sqlhierarchical.php" role="horde" />
+    <file name="5_mnemo_upgrade_sqlnghierarchical.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="note">
-    <file baseinstalldir="/" name="index.php" role="horde" />
-    <file baseinstalldir="/" name="pdf.php" role="horde" />
+    <file name="index.php" role="horde" />
+    <file name="pdf.php" role="horde" />
    </dir> <!-- /note -->
    <dir name="notepads">
-    <file baseinstalldir="/" name="create.php" role="horde" />
-    <file baseinstalldir="/" name="delete.php" role="horde" />
-    <file baseinstalldir="/" name="edit.php" role="horde" />
-    <file baseinstalldir="/" name="index.php" role="horde" />
+    <file name="create.php" role="horde" />
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="index.php" role="horde" />
    </dir> <!-- /notepads -->
    <dir name="notes">
-    <file baseinstalldir="/" name="index.php" role="horde" />
+    <file name="index.php" role="horde" />
    </dir> <!-- /notes -->
    <dir name="packaging">
     <dir name="redhat">
-     <file baseinstalldir="/" name="mnemo.conf" role="data" />
-     <file baseinstalldir="/" name="mnemo.README" role="data" />
-     <file baseinstalldir="/" name="mnemo.spec" role="data" />
-     <file baseinstalldir="/" name="rh9-mnemo.spec" role="data" />
+     <file name="mnemo.conf" role="data" />
+     <file name="mnemo.README" role="data" />
+     <file name="mnemo.spec" role="data" />
+     <file name="rh9-mnemo.spec" role="data" />
     </dir> <!-- /packaging/redhat -->
    </dir> <!-- /packaging -->
    <dir name="scripts">
     <dir name="upgrades">
-     <file baseinstalldir="/" name="convert_datatree_shares_to_sql.php" role="data" />
-     <file baseinstalldir="/" name="convert_sql_shares_to_sqlng.php" role="data" />
-     <file baseinstalldir="/" name="convert_to_utf8.php" role="data" />
+     <file name="convert_datatree_shares_to_sql.php" role="data" />
+     <file name="convert_sql_shares_to_sqlng.php" role="data" />
+     <file name="convert_to_utf8.php" role="data" />
     </dir> <!-- /scripts/upgrades -->
-    <file baseinstalldir="/" name="import_text_note.php" role="data" />
-    <file baseinstalldir="/" name="import_vnotes.php" role="data" />
+    <file name="import_text_note.php" role="data" />
+    <file name="import_vnotes.php" role="data" />
    </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="data">
-     <file baseinstalldir="/" name="export.inc" role="horde" />
-     <file baseinstalldir="/" name="import.inc" role="horde" />
+     <file name="export.inc" role="horde" />
+     <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
     <dir name="list">
-     <file baseinstalldir="/" name="empty.inc" role="horde" />
-     <file baseinstalldir="/" name="header.inc" role="horde" />
-     <file baseinstalldir="/" name="memo_footers.inc" role="horde" />
-     <file baseinstalldir="/" name="memo_headers.inc" role="horde" />
-     <file baseinstalldir="/" name="memo_summaries.inc" role="horde" />
+     <file name="empty.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="memo_footers.inc" role="horde" />
+     <file name="memo_headers.inc" role="horde" />
+     <file name="memo_summaries.inc" role="horde" />
     </dir> <!-- /templates/list -->
     <dir name="memo">
-     <file baseinstalldir="/" name="memo.inc" role="horde" />
+     <file name="memo.inc" role="horde" />
     </dir> <!-- /templates/memo -->
     <dir name="search">
-     <file baseinstalldir="/" name="search.inc" role="horde" />
+     <file name="search.inc" role="horde" />
     </dir> <!-- /templates/search -->
     <dir name="view">
-     <file baseinstalldir="/" name="memo.inc" role="horde" />
+     <file name="memo.inc" role="horde" />
     </dir> <!-- /templates/view -->
-    <file baseinstalldir="/" name="notepad_list.php" role="horde" />
-    <file baseinstalldir="/" name="panel.inc" role="horde" />
-    <file baseinstalldir="/" name="stickies.html.php" role="horde" />
+    <file name="notepad_list.php" role="horde" />
+    <file name="panel.inc" role="horde" />
+    <file name="stickies.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="bluewhite">
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/bluewhite -->
     <dir name="default">
      <dir name="graphics">
-      <file baseinstalldir="/" name="add.png" role="horde" />
-      <file baseinstalldir="/" name="az.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="minus.png" role="horde" />
-      <file baseinstalldir="/" name="mnemo.png" role="horde" />
-      <file baseinstalldir="/" name="notepads.png" role="horde" />
-      <file baseinstalldir="/" name="plus.png" role="horde" />
-      <file baseinstalldir="/" name="search.png" role="horde" />
-      <file baseinstalldir="/" name="za.png" role="horde" />
+      <file name="add.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="minus.png" role="horde" />
+      <file name="mnemo.png" role="horde" />
+      <file name="notepads.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file baseinstalldir="/" name="categoryCSS.php" role="horde" />
-     <file baseinstalldir="/" name="rtl.css" role="horde" />
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="categoryCSS.php" role="horde" />
+     <file name="rtl.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="fadetogreen">
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/fadetogreen -->
     <dir name="silver">
      <dir name="graphics">
-      <file baseinstalldir="/" name="add.png" role="horde" />
-      <file baseinstalldir="/" name="az.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="minus.png" role="horde" />
-      <file baseinstalldir="/" name="mnemo.png" role="horde" />
-      <file baseinstalldir="/" name="notepads.png" role="horde" />
-      <file baseinstalldir="/" name="plus.png" role="horde" />
-      <file baseinstalldir="/" name="search.png" role="horde" />
-      <file baseinstalldir="/" name="za.png" role="horde" />
+      <file name="add.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="minus.png" role="horde" />
+      <file name="mnemo.png" role="horde" />
+      <file name="notepads.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="za.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="tango-blue">
      <dir name="graphics">
-      <file baseinstalldir="/" name="add.png" role="horde" />
-      <file baseinstalldir="/" name="az.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="mnemo.png" role="horde" />
-      <file baseinstalldir="/" name="notepads.png" role="horde" />
-      <file baseinstalldir="/" name="za.png" role="horde" />
+      <file name="add.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="mnemo.png" role="horde" />
+      <file name="notepads.png" role="horde" />
+      <file name="za.png" role="horde" />
      </dir> <!-- /themes/tango-blue/graphics -->
     </dir> <!-- /themes/tango-blue -->
    </dir> <!-- /themes -->
-   <file baseinstalldir="/" name="data.php" role="horde" />
-   <file baseinstalldir="/" name="index.php" role="horde" />
-   <file baseinstalldir="/" name="LICENSE" role="data" />
-   <file baseinstalldir="/" name="list.php" role="horde" />
-   <file baseinstalldir="/" name="memo.php" role="horde" />
-   <file baseinstalldir="/" name="README" role="data" />
-   <file baseinstalldir="/" name="search.php" role="horde" />
-   <file baseinstalldir="/" name="stickies.php" role="horde" />
-   <file baseinstalldir="/" name="view.php" role="horde" />
+   <file name="data.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="LICENSE" role="data" />
+   <file name="list.php" role="horde" />
+   <file name="memo.php" role="horde" />
+   <file name="README" role="data" />
+   <file name="search.php" role="horde" />
+   <file name="stickies.php" role="horde" />
+   <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -403,7 +408,7 @@
   <filelist>
    <install as="mnemo/config/conf.xml" name="config/conf.xml" />
    <install as="mnemo/config/hooks.php.dist" name="config/hooks.php.dist" />
-   <install as="mnemo/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="mnemo/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -416,13 +421,14 @@
    <install as="mnemo/lib/Exception.php" name="lib/Exception.php" />
    <install as="mnemo/lib/Mnemo.php" name="lib/Mnemo.php" />
    <install as="mnemo/lib/Ajax/Imple/EditNote.php" name="lib/Ajax/Imple/EditNote.php" />
-   <install as="mnemo/lib/Block/note.php" name="lib/Block/note.php" />
-   <install as="mnemo/lib/Block/summary.php" name="lib/Block/summary.php" />
-   <install as="mnemo/lib/Driver/kolab.php" name="lib/Driver/kolab.php" />
-   <install as="mnemo/lib/Driver/sql.php" name="lib/Driver/sql.php" />
-   <install as="mnemo/lib/Forms/CreateNotepad.php" name="lib/Forms/CreateNotepad.php" />
-   <install as="mnemo/lib/Forms/DeleteNotepad.php" name="lib/Forms/DeleteNotepad.php" />
-   <install as="mnemo/lib/Forms/EditNotepad.php" name="lib/Forms/EditNotepad.php" />
+   <install as="mnemo/lib/Block/Note.php" name="lib/Block/Note.php" />
+   <install as="mnemo/lib/Block/Summary.php" name="lib/Block/Summary.php" />
+   <install as="Driver/Kolab.sql" name="lib/Driver/Kolab.sql" />
+   <install as="mnemo/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="mnemo/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
+   <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
+   <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.po" name="locale/bg/LC_MESSAGES/mnemo.po" />
@@ -497,6 +503,8 @@
    <install as="mnemo/migration/1_mnemo_base_tables.php" name="migration/1_mnemo_base_tables.php" />
    <install as="mnemo/migration/2_mnemo_upgrade_autoincrement.php" name="migration/2_mnemo_upgrade_autoincrement.php" />
    <install as="mnemo/migration/3_mnemo_upgrade_sqlng.php" name="migration/3_mnemo_upgrade_sqlng.php" />
+   <install as="mnemo/migration/4_mnemo_upgrade_sqlhierarchical.php" name="migration/4_mnemo_upgrade_sqlhierarchical.php" />
+   <install as="mnemo/migration/5_mnemo_upgrade_sqlnghierarchical.php" name="migration/5_mnemo_upgrade_sqlnghierarchical.php" />
    <install as="mnemo/note/index.php" name="note/index.php" />
    <install as="mnemo/note/pdf.php" name="note/pdf.php" />
    <install as="mnemo/notepads/create.php" name="notepads/create.php" />
@@ -577,7 +585,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-25</date>
+   <date>2011-02-14</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * Initial release.

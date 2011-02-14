@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-28</date>
- <time>09:11:50</time>
+ <date>2011-02-14</date>
+ <time>14:30:08</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -36,7 +36,7 @@
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
-    <file name="prefs.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
     <dir name="vtodo">
@@ -57,7 +57,7 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
-     <file name="summary.php" role="horde" />
+     <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Driver">
      <file name="Kolab.php" role="horde" />
@@ -468,7 +468,7 @@
    <install as="nag/config/conf.xml" name="config/conf.xml" />
    <install as="nag/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="nag/config/menu.php.dist" name="config/menu.php.dist" />
-   <install as="nag/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="nag/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -485,7 +485,7 @@
    <install as="nag/lib/QuickParser.php" name="lib/QuickParser.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
-   <install as="nag/lib/Block/summary.php" name="lib/Block/summary.php" />
+   <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="nag/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="nag/lib/Form/CreateTaskList.php" name="lib/Form/CreateTaskList.php" />
@@ -681,7 +681,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-28</date>
+   <date>2011-02-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.

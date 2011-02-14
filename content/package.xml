@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-26</date>
- <time>11:05:46</time>
+ <date>2011-02-14</date>
+ <time>14:35:47</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -52,6 +52,9 @@
     <file name="tag_delete.php" role="script" />
     <file name="untag.php" role="script" />
    </dir> <!-- /bin -->
+   <dir name="config">
+    <file name="routes.php" role="horde" />
+   </dir> <!-- /config -->
    <dir name="doc">
     <file name="TODO.txt" role="data" />
    </dir> <!-- /doc -->
@@ -128,6 +131,7 @@
    <install as="tag_add" name="bin/tag_add.php" />
    <install as="tag_delete" name="bin/tag_delete.php" />
    <install as="untag" name="bin/untag.php" />
+   <install as="content/config/routes.php" name="config/routes.php" />
    <install as="doc/TODO.txt" name="doc/TODO.txt" />
    <install as="content/lib/Exception.php" name="lib/Exception.php" />
    <install as="content/lib/Tagger.php" name="lib/Tagger.php" />
@@ -161,7 +165,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-26</date>
+   <date>2011-02-14</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * Initial release.

@@ -19,8 +19,8 @@ applications.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-28</date>
- <time>23:26:39</time>
+ <date>2011-02-14</date>
+ <time>14:34:00</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -102,12 +102,12 @@ applications.</description>
     <file name="conf.php.dist" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
-    <file name="mime_drivers.php.dist" role="horde" />
-    <file name="motd.php.dist" role="horde" />
+    <file name="mime_drivers.php" role="horde" />
+    <file name="motd.php" role="horde" />
     <file name="nls.php" role="horde" />
-    <file name="prefs.php.dist" role="horde" />
-    <file name="registry.php.dist" role="horde" />
-    <file name="spelling.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
+    <file name="registry.php" role="horde" />
+    <file name="spelling.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
     <file name="CHANGES" role="doc" />
@@ -354,27 +354,28 @@ applications.</description>
     <file name="textarearesize.js" role="horde" />
     <file name="twitterclient.js" role="horde" />
     <file name="userupdate.js" role="horde" />
+    <file name="vatid.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
-     <file name="account.php" role="horde" />
-     <file name="cloud.php" role="horde" />
-     <file name="fb_stream.php" role="horde" />
-     <file name="feed.php" role="horde" />
-     <file name="fortune.php" role="horde" />
-     <file name="google.php" role="horde" />
-     <file name="iframe.php" role="horde" />
-     <file name="metar.php" role="horde" />
-     <file name="moon.php" role="horde" />
-     <file name="sunrise.php" role="horde" />
-     <file name="time.php" role="horde" />
-     <file name="twitter_timeline.php" role="horde" />
-     <file name="vatid.php" role="horde" />
-     <file name="weatherdotcom.php" role="horde" />
-     <file name="weatherdotcom_strings.php" role="horde" />
+     <file name="Account.php" role="horde" />
+     <file name="Cloud.php" role="horde" />
+     <file name="FbStream.php" role="horde" />
+     <file name="Feed.php" role="horde" />
+     <file name="Fortune.php" role="horde" />
+     <file name="Google.php" role="horde" />
+     <file name="Iframe.php" role="horde" />
+     <file name="Metar.php" role="horde" />
+     <file name="Moon.php" role="horde" />
+     <file name="Sunrise.php" role="horde" />
+     <file name="Time.php" role="horde" />
+     <file name="TwitterTimeline.php" role="horde" />
+     <file name="Vatid.php" role="horde" />
+     <file name="Weatherdotcom.php" role="horde" />
+     <file name="WeatherdotcomStrings.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
@@ -2135,12 +2136,12 @@ applications.</description>
    <install as="config/conf.php.dist" name="config/conf.php.dist" />
    <install as="config/conf.xml" name="config/conf.xml" />
    <install as="config/hooks.php.dist" name="config/hooks.php.dist" />
-   <install as="config/mime_drivers.php.dist" name="config/mime_drivers.php.dist" />
-   <install as="config/motd.php.dist" name="config/motd.php.dist" />
+   <install as="config/mime_drivers.php" name="config/mime_drivers.php" />
+   <install as="config/motd.php" name="config/motd.php" />
    <install as="config/nls.php" name="config/nls.php" />
-   <install as="config/prefs.php.dist" name="config/prefs.php.dist" />
-   <install as="config/registry.php.dist" name="config/registry.php.dist" />
-   <install as="config/spelling.php.dist" name="config/spelling.php.dist" />
+   <install as="config/prefs.php" name="config/prefs.php" />
+   <install as="config/registry.php" name="config/registry.php" />
+   <install as="config/spelling.php" name="config/spelling.php" />
    <install as="config/registry.d/README" name="config/registry.d/README" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CODING_STANDARDS" name="docs/CODING_STANDARDS" />
@@ -2198,6 +2199,7 @@ applications.</description>
    <install as="js/textarearesize.js" name="js/textarearesize.js" />
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
+   <install as="js/vatid.js" name="js/vatid.js" />
    <install as="js/date/ar-SY.js" name="js/date/ar-SY.js" />
    <install as="js/date/bg-BG.js" name="js/date/bg-BG.js" />
    <install as="js/date/bs-BA.js" name="js/date/bs-BA.js" />
@@ -2367,21 +2369,21 @@ applications.</description>
    <install as="lib/core.php" name="lib/core.php" />
    <install as="lib/Test.php" name="lib/Test.php" />
    <install as="lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
-   <install as="lib/Block/account.php" name="lib/Block/account.php" />
-   <install as="lib/Block/cloud.php" name="lib/Block/cloud.php" />
-   <install as="lib/Block/fb_stream.php" name="lib/Block/fb_stream.php" />
-   <install as="lib/Block/feed.php" name="lib/Block/feed.php" />
-   <install as="lib/Block/fortune.php" name="lib/Block/fortune.php" />
-   <install as="lib/Block/google.php" name="lib/Block/google.php" />
-   <install as="lib/Block/iframe.php" name="lib/Block/iframe.php" />
-   <install as="lib/Block/metar.php" name="lib/Block/metar.php" />
-   <install as="lib/Block/moon.php" name="lib/Block/moon.php" />
-   <install as="lib/Block/sunrise.php" name="lib/Block/sunrise.php" />
-   <install as="lib/Block/time.php" name="lib/Block/time.php" />
-   <install as="lib/Block/twitter_timeline.php" name="lib/Block/twitter_timeline.php" />
-   <install as="lib/Block/vatid.php" name="lib/Block/vatid.php" />
-   <install as="lib/Block/weatherdotcom.php" name="lib/Block/weatherdotcom.php" />
-   <install as="lib/Block/weatherdotcom_strings.php" name="lib/Block/weatherdotcom_strings.php" />
+   <install as="lib/Block/Account.php" name="lib/Block/Account.php" />
+   <install as="lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
+   <install as="lib/Block/FbStream.php" name="lib/Block/FbStream.php" />
+   <install as="lib/Block/Feed.php" name="lib/Block/Feed.php" />
+   <install as="lib/Block/Fortune.php" name="lib/Block/Fortune.php" />
+   <install as="lib/Block/Google.php" name="lib/Block/Google.php" />
+   <install as="lib/Block/Iframe.php" name="lib/Block/Iframe.php" />
+   <install as="lib/Block/Metar.php" name="lib/Block/Metar.php" />
+   <install as="lib/Block/Moon.php" name="lib/Block/Moon.php" />
+   <install as="lib/Block/Sunrise.php" name="lib/Block/Sunrise.php" />
+   <install as="lib/Block/Time.php" name="lib/Block/Time.php" />
+   <install as="lib/Block/TwitterTimeline.php" name="lib/Block/TwitterTimeline.php" />
+   <install as="lib/Block/Vatid.php" name="lib/Block/Vatid.php" />
+   <install as="lib/Block/Weatherdotcom.php" name="lib/Block/Weatherdotcom.php" />
+   <install as="lib/Block/WeatherdotcomStrings.php" name="lib/Block/WeatherdotcomStrings.php" />
    <install as="lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" name="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" />
    <install as="lib/LoginTasks/Task/AdminCheck.php" name="lib/LoginTasks/Task/AdminCheck.php" />
@@ -3662,7 +3664,7 @@ applications.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-28</date>
+   <date>2011-02-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial package.xml.

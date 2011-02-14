@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-25</date>
- <time>10:00:09</time>
+ <date>2011-02-14</date>
+ <time>14:32:02</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -39,432 +39,433 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
-    <file baseinstalldir="/" name="backends.php.dist" role="horde" />
-    <file baseinstalldir="/" name="conf.xml" role="horde" />
-    <file baseinstalldir="/" name="fields.php.dist" role="horde" />
-    <file baseinstalldir="/" name="hooks.php.dist" role="horde" />
-    <file baseinstalldir="/" name="prefs.php.dist" role="horde" />
+    <file name="backends.php" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="fields.php" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
-    <file baseinstalldir="/" name="CHANGES" role="doc" />
-    <file baseinstalldir="/" name="CREDITS" role="doc" />
-    <file baseinstalldir="/" name="INSTALL" role="doc" />
-    <file baseinstalldir="/" name="RELEASE_NOTES" role="doc" />
-    <file baseinstalldir="/" name="TODO" role="doc" />
-    <file baseinstalldir="/" name="UPGRADING" role="doc" />
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
-    <file baseinstalldir="/" name="filters.js" role="horde" />
-    <file baseinstalldir="/" name="new_folder.js" role="horde" />
-    <file baseinstalldir="/" name="rule.js" role="horde" />
+    <file name="filters.js" role="horde" />
+    <file name="new_folder.js" role="horde" />
+    <file name="rule.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Block">
-     <file baseinstalldir="/" name="overview.php" role="horde" />
+     <file name="Overview.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
-      <file baseinstalldir="/" name="UpgradeFromIngo1.php" role="horde" />
+      <file name="UpgradeFromIngo1.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Script">
      <dir name="Imap">
-      <file baseinstalldir="/" name="Api.php" role="horde" />
-      <file baseinstalldir="/" name="Live.php" role="horde" />
-      <file baseinstalldir="/" name="Mock.php" role="horde" />
+      <file name="Api.php" role="horde" />
+      <file name="Live.php" role="horde" />
+      <file name="Mock.php" role="horde" />
      </dir> <!-- /lib/Script/Imap -->
      <dir name="Maildrop">
-      <file baseinstalldir="/" name="Comment.php" role="horde" />
-      <file baseinstalldir="/" name="Recipe.php" role="horde" />
-      <file baseinstalldir="/" name="Variable.php" role="horde" />
+      <file name="Comment.php" role="horde" />
+      <file name="Recipe.php" role="horde" />
+      <file name="Variable.php" role="horde" />
      </dir> <!-- /lib/Script/Maildrop -->
      <dir name="Procmail">
-      <file baseinstalldir="/" name="Comment.php" role="horde" />
-      <file baseinstalldir="/" name="Recipe.php" role="horde" />
-      <file baseinstalldir="/" name="Variable.php" role="horde" />
+      <file name="Comment.php" role="horde" />
+      <file name="Recipe.php" role="horde" />
+      <file name="Variable.php" role="horde" />
      </dir> <!-- /lib/Script/Procmail -->
      <dir name="Sieve">
       <dir name="Action">
-       <file baseinstalldir="/" name="Addflag.php" role="horde" />
-       <file baseinstalldir="/" name="Discard.php" role="horde" />
-       <file baseinstalldir="/" name="Fileinto.php" role="horde" />
-       <file baseinstalldir="/" name="Flag.php" role="horde" />
-       <file baseinstalldir="/" name="Keep.php" role="horde" />
-       <file baseinstalldir="/" name="Notify.php" role="horde" />
-       <file baseinstalldir="/" name="Redirect.php" role="horde" />
-       <file baseinstalldir="/" name="Reject.php" role="horde" />
-       <file baseinstalldir="/" name="Removeflag.php" role="horde" />
-       <file baseinstalldir="/" name="Stop.php" role="horde" />
-       <file baseinstalldir="/" name="Vacation.php" role="horde" />
+       <file name="Addflag.php" role="horde" />
+       <file name="Discard.php" role="horde" />
+       <file name="Fileinto.php" role="horde" />
+       <file name="Flag.php" role="horde" />
+       <file name="Keep.php" role="horde" />
+       <file name="Notify.php" role="horde" />
+       <file name="Redirect.php" role="horde" />
+       <file name="Reject.php" role="horde" />
+       <file name="Removeflag.php" role="horde" />
+       <file name="Stop.php" role="horde" />
+       <file name="Vacation.php" role="horde" />
       </dir> <!-- /lib/Script/Sieve/Action -->
       <dir name="Test">
-       <file baseinstalldir="/" name="Address.php" role="horde" />
-       <file baseinstalldir="/" name="Allof.php" role="horde" />
-       <file baseinstalldir="/" name="Anyof.php" role="horde" />
-       <file baseinstalldir="/" name="Body.php" role="horde" />
-       <file baseinstalldir="/" name="Exists.php" role="horde" />
-       <file baseinstalldir="/" name="False.php" role="horde" />
-       <file baseinstalldir="/" name="Header.php" role="horde" />
-       <file baseinstalldir="/" name="Not.php" role="horde" />
-       <file baseinstalldir="/" name="Relational.php" role="horde" />
-       <file baseinstalldir="/" name="Size.php" role="horde" />
-       <file baseinstalldir="/" name="True.php" role="horde" />
+       <file name="Address.php" role="horde" />
+       <file name="Allof.php" role="horde" />
+       <file name="Anyof.php" role="horde" />
+       <file name="Body.php" role="horde" />
+       <file name="Exists.php" role="horde" />
+       <file name="False.php" role="horde" />
+       <file name="Header.php" role="horde" />
+       <file name="Not.php" role="horde" />
+       <file name="Relational.php" role="horde" />
+       <file name="Size.php" role="horde" />
+       <file name="True.php" role="horde" />
       </dir> <!-- /lib/Script/Sieve/Test -->
-      <file baseinstalldir="/" name="Action.php" role="horde" />
-      <file baseinstalldir="/" name="Comment.php" role="horde" />
-      <file baseinstalldir="/" name="Else.php" role="horde" />
-      <file baseinstalldir="/" name="Elsif.php" role="horde" />
-      <file baseinstalldir="/" name="If.php" role="horde" />
-      <file baseinstalldir="/" name="Sieve.php" role="horde" />
-      <file baseinstalldir="/" name="Test.php" role="horde" />
+      <file name="Action.php" role="horde" />
+      <file name="Comment.php" role="horde" />
+      <file name="Else.php" role="horde" />
+      <file name="Elsif.php" role="horde" />
+      <file name="If.php" role="horde" />
+      <file name="Test.php" role="horde" />
      </dir> <!-- /lib/Script/Sieve -->
-     <file baseinstalldir="/" name="Imap.php" role="horde" />
-     <file baseinstalldir="/" name="Maildrop.php" role="horde" />
-     <file baseinstalldir="/" name="Procmail.php" role="horde" />
-     <file baseinstalldir="/" name="Sieve.php" role="horde" />
+     <file name="Imap.php" role="horde" />
+     <file name="Maildrop.php" role="horde" />
+     <file name="Procmail.php" role="horde" />
+     <file name="Sieve.php" role="horde" />
     </dir> <!-- /lib/Script -->
     <dir name="Storage">
      <dir name="Filters">
-      <file baseinstalldir="/" name="Sql.php" role="horde" />
+      <file name="Sql.php" role="horde" />
      </dir> <!-- /lib/Storage/Filters -->
-     <file baseinstalldir="/" name="Blacklist.php" role="horde" />
-     <file baseinstalldir="/" name="Filters.php" role="horde" />
-     <file baseinstalldir="/" name="Forward.php" role="horde" />
-     <file baseinstalldir="/" name="Mock.php" role="horde" />
-     <file baseinstalldir="/" name="Prefs.php" role="horde" />
-     <file baseinstalldir="/" name="Rule.php" role="horde" />
-     <file baseinstalldir="/" name="Spam.php" role="horde" />
-     <file baseinstalldir="/" name="Sql.php" role="horde" />
-     <file baseinstalldir="/" name="Vacation.php" role="horde" />
-     <file baseinstalldir="/" name="VacationTest.php" role="horde" />
-     <file baseinstalldir="/" name="Whitelist.php" role="horde" />
+     <file name="Blacklist.php" role="horde" />
+     <file name="Filters.php" role="horde" />
+     <file name="Forward.php" role="horde" />
+     <file name="Mock.php" role="horde" />
+     <file name="Prefs.php" role="horde" />
+     <file name="Rule.php" role="horde" />
+     <file name="Spam.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+     <file name="Vacation.php" role="horde" />
+     <file name="VacationTest.php" role="horde" />
+     <file name="Whitelist.php" role="horde" />
     </dir> <!-- /lib/Storage -->
     <dir name="tests">
      <dir name="_data">
-      <file baseinstalldir="/" name="from_spammer" role="data" />
-      <file baseinstalldir="/" name="not_from_spammer" role="data" />
+      <file name="from_spammer" role="data" />
+      <file name="not_from_spammer" role="data" />
      </dir> <!-- /lib/tests/_data -->
-     <file baseinstalldir="/" name="AllTests.php" role="horde" />
-     <file baseinstalldir="/" name="MaildropTest.php" role="horde" />
-     <file baseinstalldir="/" name="ProcmailTest.php" role="horde" />
-     <file baseinstalldir="/" name="ScriptTest.php" role="horde" />
-     <file baseinstalldir="/" name="SieveTest.php" role="horde" />
-     <file baseinstalldir="/" name="TestBase.php" role="horde" />
+     <file name="AllTests.php" role="horde" />
+     <file name="MaildropTest.php" role="horde" />
+     <file name="ProcmailTest.php" role="horde" />
+     <file name="ScriptTest.php" role="horde" />
+     <file name="SieveTest.php" role="horde" />
+     <file name="TestBase.php" role="horde" />
     </dir> <!-- /lib/tests -->
     <dir name="Transport">
-     <file baseinstalldir="/" name="Ldap.php" role="horde" />
-     <file baseinstalldir="/" name="Null.php" role="horde" />
-     <file baseinstalldir="/" name="Sivtest.php" role="horde" />
-     <file baseinstalldir="/" name="Timsieved.php" role="horde" />
-     <file baseinstalldir="/" name="Vfs.php" role="horde" />
+     <file name="Ldap.php" role="horde" />
+     <file name="Null.php" role="horde" />
+     <file name="Sivtest.php" role="horde" />
+     <file name="Timsieved.php" role="horde" />
+     <file name="Vfs.php" role="horde" />
     </dir> <!-- /lib/Transport -->
     <dir name="Ui">
      <dir name="VarRenderer">
-      <file baseinstalldir="/" name="Ingo.php" role="horde" />
+      <file name="Ingo.php" role="horde" />
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
-    <file baseinstalldir="/" name="Api.php" role="horde" />
-    <file baseinstalldir="/" name="Application.php" role="horde" />
-    <file baseinstalldir="/" name="Exception.php" role="horde" />
-    <file baseinstalldir="/" name="Ingo.php" role="horde" />
-    <file baseinstalldir="/" name="Script.php" role="horde" />
-    <file baseinstalldir="/" name="Storage.php" role="horde" />
-    <file baseinstalldir="/" name="Test.php" role="horde" />
-    <file baseinstalldir="/" name="Transport.php" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Ingo.php" role="horde" />
+    <file name="Script.php" role="horde" />
+    <file name="Storage.php" role="horde" />
+    <file name="Test.php" role="horde" />
+    <file name="Transport.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ca">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/ca/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/ca -->
     <dir name="cs">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/cs/LC_MESSAGES -->
     </dir> <!-- /locale/cs -->
     <dir name="da">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/da/LC_MESSAGES -->
     </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/de -->
     <dir name="el">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
     <dir name="en">
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/es -->
     <dir name="et">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fi -->
     <dir name="fr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fr -->
     <dir name="hr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/hr/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/hr -->
     <dir name="hu">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/hu/LC_MESSAGES -->
     </dir> <!-- /locale/hu -->
     <dir name="it">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/it/LC_MESSAGES -->
     </dir> <!-- /locale/it -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
     <dir name="ko">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/ko/LC_MESSAGES -->
     </dir> <!-- /locale/ko -->
     <dir name="lt">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
-     <file baseinstalldir="/" name="help.xml" role="horde" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="nb">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/nb/LC_MESSAGES -->
     </dir> <!-- /locale/nb -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/nl/LC_MESSAGES -->
     </dir> <!-- /locale/nl -->
     <dir name="pl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/pl/LC_MESSAGES -->
     </dir> <!-- /locale/pl -->
     <dir name="pt">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/pt/LC_MESSAGES -->
     </dir> <!-- /locale/pt -->
     <dir name="pt_BR">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
     </dir> <!-- /locale/pt_BR -->
     <dir name="ro">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/ro/LC_MESSAGES -->
     </dir> <!-- /locale/ro -->
     <dir name="ru">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/ru/LC_MESSAGES -->
     </dir> <!-- /locale/ru -->
     <dir name="sk">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/sk/LC_MESSAGES -->
     </dir> <!-- /locale/sk -->
     <dir name="sl">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/sl/LC_MESSAGES -->
     </dir> <!-- /locale/sl -->
     <dir name="sv">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/sv/LC_MESSAGES -->
     </dir> <!-- /locale/sv -->
     <dir name="tr">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/tr/LC_MESSAGES -->
     </dir> <!-- /locale/tr -->
     <dir name="uk">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/uk/LC_MESSAGES -->
     </dir> <!-- /locale/uk -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
     </dir> <!-- /locale/zh_CN -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
-      <file baseinstalldir="/" name="ingo.mo" role="horde" />
-      <file baseinstalldir="/" name="ingo.po" role="horde" />
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
-    <file baseinstalldir="/" name="ingo.pot" role="horde" />
+    <file name="ingo.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
-    <file baseinstalldir="/" name="1_ingo_base_tables.php" role="horde" />
-    <file baseinstalldir="/" name="2_ingo_upgrade_autoincrement.php" role="horde" />
-    <file baseinstalldir="/" name="3_ingo_upgrade_sqlng.php" role="horde" />
+    <file name="1_ingo_base_tables.php" role="horde" />
+    <file name="2_ingo_upgrade_autoincrement.php" role="horde" />
+    <file name="3_ingo_upgrade_sqlng.php" role="horde" />
+    <file name="4_ingo_upgrade_sqlhierarchical.php" role="horde" />
+    <file name="5_ingo_upgrade_sqlnghierarchical.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="upgrades">
-     <file baseinstalldir="/" name="convert_datatree_shares_to_sql.php" role="data" />
-     <file baseinstalldir="/" name="convert_prefs_to_sql.php" role="data" />
-     <file baseinstalldir="/" name="convert_sql_shares_to_sqlng.php" role="data" />
+     <file name="convert_datatree_shares_to_sql.php" role="data" />
+     <file name="convert_prefs_to_sql.php" role="data" />
+     <file name="convert_sql_shares_to_sqlng.php" role="data" />
     </dir> <!-- /scripts/upgrades -->
-    <file baseinstalldir="/" name="ingo-postfix-policyd" role="data" />
+    <file name="ingo-postfix-policyd" role="data" />
    </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="blacklist">
-     <file baseinstalldir="/" name="blacklist.inc" role="horde" />
+     <file name="blacklist.inc" role="horde" />
     </dir> <!-- /templates/blacklist -->
     <dir name="filters">
-     <file baseinstalldir="/" name="filter-none.inc" role="horde" />
-     <file baseinstalldir="/" name="filter.html" role="horde" />
-     <file baseinstalldir="/" name="footer.inc" role="horde" />
-     <file baseinstalldir="/" name="header.inc" role="horde" />
-     <file baseinstalldir="/" name="settings.inc" role="horde" />
+     <file name="filter-none.inc" role="horde" />
+     <file name="filter.html" role="horde" />
+     <file name="footer.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="settings.inc" role="horde" />
     </dir> <!-- /templates/filters -->
     <dir name="menu">
-     <file baseinstalldir="/" name="menu.html" role="horde" />
+     <file name="menu.html" role="horde" />
     </dir> <!-- /templates/menu -->
     <dir name="rule">
-     <file baseinstalldir="/" name="filter.inc" role="horde" />
-     <file baseinstalldir="/" name="footer.inc" role="horde" />
-     <file baseinstalldir="/" name="header.inc" role="horde" />
+     <file name="filter.inc" role="horde" />
+     <file name="footer.inc" role="horde" />
+     <file name="header.inc" role="horde" />
     </dir> <!-- /templates/rule -->
     <dir name="script">
-     <file baseinstalldir="/" name="activate.inc" role="horde" />
-     <file baseinstalldir="/" name="footer.inc" role="horde" />
-     <file baseinstalldir="/" name="header.inc" role="horde" />
-     <file baseinstalldir="/" name="script.inc" role="horde" />
+     <file name="activate.inc" role="horde" />
+     <file name="footer.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="script.inc" role="horde" />
     </dir> <!-- /templates/script -->
     <dir name="whitelist">
-     <file baseinstalldir="/" name="whitelist.inc" role="horde" />
+     <file name="whitelist.inc" role="horde" />
     </dir> <!-- /templates/whitelist -->
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
-      <file baseinstalldir="/" name="blacklist.png" role="horde" />
-      <file baseinstalldir="/" name="copy.png" role="horde" />
-      <file baseinstalldir="/" name="disable.png" role="horde" />
-      <file baseinstalldir="/" name="enable.png" role="horde" />
-      <file baseinstalldir="/" name="favicon.ico" role="horde" />
-      <file baseinstalldir="/" name="forward.png" role="horde" />
-      <file baseinstalldir="/" name="ingo.png" role="horde" />
-      <file baseinstalldir="/" name="script.png" role="horde" />
-      <file baseinstalldir="/" name="spam.png" role="horde" />
-      <file baseinstalldir="/" name="vacation.png" role="horde" />
-      <file baseinstalldir="/" name="whitelist.png" role="horde" />
+      <file name="blacklist.png" role="horde" />
+      <file name="copy.png" role="horde" />
+      <file name="disable.png" role="horde" />
+      <file name="enable.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="forward.png" role="horde" />
+      <file name="ingo.png" role="horde" />
+      <file name="script.png" role="horde" />
+      <file name="spam.png" role="horde" />
+      <file name="vacation.png" role="horde" />
+      <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file baseinstalldir="/" name="screen.css" role="horde" />
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="silver">
      <dir name="graphics">
-      <file baseinstalldir="/" name="blacklist.png" role="horde" />
-      <file baseinstalldir="/" name="copy.png" role="horde" />
-      <file baseinstalldir="/" name="disable.png" role="horde" />
-      <file baseinstalldir="/" name="enable.png" role="horde" />
-      <file baseinstalldir="/" name="forward.png" role="horde" />
-      <file baseinstalldir="/" name="ingo.png" role="horde" />
-      <file baseinstalldir="/" name="script.png" role="horde" />
-      <file baseinstalldir="/" name="spam.png" role="horde" />
-      <file baseinstalldir="/" name="vacation.png" role="horde" />
-      <file baseinstalldir="/" name="whitelist.png" role="horde" />
+      <file name="blacklist.png" role="horde" />
+      <file name="copy.png" role="horde" />
+      <file name="disable.png" role="horde" />
+      <file name="enable.png" role="horde" />
+      <file name="forward.png" role="horde" />
+      <file name="ingo.png" role="horde" />
+      <file name="script.png" role="horde" />
+      <file name="spam.png" role="horde" />
+      <file name="vacation.png" role="horde" />
+      <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
     </dir> <!-- /themes/silver -->
     <dir name="tango-blue">
      <dir name="graphics">
-      <file baseinstalldir="/" name="copy.png" role="horde" />
-      <file baseinstalldir="/" name="forward.png" role="horde" />
-      <file baseinstalldir="/" name="ingo.png" role="horde" />
-      <file baseinstalldir="/" name="spam.png" role="horde" />
+      <file name="copy.png" role="horde" />
+      <file name="forward.png" role="horde" />
+      <file name="ingo.png" role="horde" />
+      <file name="spam.png" role="horde" />
      </dir> <!-- /themes/tango-blue/graphics -->
     </dir> <!-- /themes/tango-blue -->
    </dir> <!-- /themes -->
-   <file baseinstalldir="/" name="blacklist.php" role="horde" />
-   <file baseinstalldir="/" name="filters.php" role="horde" />
-   <file baseinstalldir="/" name="forward.php" role="horde" />
-   <file baseinstalldir="/" name="index.php" role="horde" />
-   <file baseinstalldir="/" name="LICENSE" role="data" />
-   <file baseinstalldir="/" name="README" role="data" />
-   <file baseinstalldir="/" name="rule.php" role="horde" />
-   <file baseinstalldir="/" name="script.php" role="horde" />
-   <file baseinstalldir="/" name="spam.php" role="horde" />
-   <file baseinstalldir="/" name="vacation.php" role="horde" />
-   <file baseinstalldir="/" name="whitelist.php" role="horde" />
+   <file name="blacklist.php" role="horde" />
+   <file name="filters.php" role="horde" />
+   <file name="forward.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="LICENSE" role="data" />
+   <file name="README" role="data" />
+   <file name="rule.php" role="horde" />
+   <file name="script.php" role="horde" />
+   <file name="spam.php" role="horde" />
+   <file name="vacation.php" role="horde" />
+   <file name="whitelist.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -488,11 +489,11 @@
  </usesrole>
  <phprelease>
   <filelist>
-   <install as="ingo/config/backends.php.dist" name="config/backends.php.dist" />
+   <install as="ingo/config/backends.php" name="config/backends.php" />
    <install as="ingo/config/conf.xml" name="config/conf.xml" />
-   <install as="ingo/config/fields.php.dist" name="config/fields.php.dist" />
+   <install as="ingo/config/fields.php" name="config/fields.php" />
    <install as="ingo/config/hooks.php.dist" name="config/hooks.php.dist" />
-   <install as="ingo/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="ingo/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -510,7 +511,7 @@
    <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
    <install as="ingo/lib/Test.php" name="lib/Test.php" />
    <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
-   <install as="ingo/lib/Block/overview.php" name="lib/Block/overview.php" />
+   <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/UpgradeFromIngo1.php" name="lib/LoginTasks/SystemTask/UpgradeFromIngo1.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
@@ -530,7 +531,6 @@
    <install as="ingo/lib/Script/Sieve/Else.php" name="lib/Script/Sieve/Else.php" />
    <install as="ingo/lib/Script/Sieve/Elsif.php" name="lib/Script/Sieve/Elsif.php" />
    <install as="ingo/lib/Script/Sieve/If.php" name="lib/Script/Sieve/If.php" />
-   <install as="ingo/lib/Script/Sieve/Sieve.php" name="lib/Script/Sieve/Sieve.php" />
    <install as="ingo/lib/Script/Sieve/Test.php" name="lib/Script/Sieve/Test.php" />
    <install as="ingo/lib/Script/Sieve/Action/Addflag.php" name="lib/Script/Sieve/Action/Addflag.php" />
    <install as="ingo/lib/Script/Sieve/Action/Discard.php" name="lib/Script/Sieve/Action/Discard.php" />
@@ -655,6 +655,8 @@
    <install as="ingo/migration/1_ingo_base_tables.php" name="migration/1_ingo_base_tables.php" />
    <install as="ingo/migration/2_ingo_upgrade_autoincrement.php" name="migration/2_ingo_upgrade_autoincrement.php" />
    <install as="ingo/migration/3_ingo_upgrade_sqlng.php" name="migration/3_ingo_upgrade_sqlng.php" />
+   <install as="ingo/migration/4_ingo_upgrade_sqlhierarchical.php" name="migration/4_ingo_upgrade_sqlhierarchical.php" />
+   <install as="ingo/migration/5_ingo_upgrade_sqlnghierarchical.php" name="migration/5_ingo_upgrade_sqlnghierarchical.php" />
    <install as="scripts/ingo-postfix-policyd" name="scripts/ingo-postfix-policyd" />
    <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />
    <install as="scripts/upgrades/convert_prefs_to_sql.php" name="scripts/upgrades/convert_prefs_to_sql.php" />
@@ -723,7 +725,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-25</date>
+   <date>2011-02-14</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * Initial release.

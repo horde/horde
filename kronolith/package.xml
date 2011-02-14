@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-27</date>
- <time>22:04:12</time>
+ <date>2011-02-14</date>
+ <time>14:30:26</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -47,7 +47,7 @@
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
-    <file name="prefs.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
     <file name="CHANGES" role="doc" />
@@ -82,10 +82,10 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
-     <file name="month.php" role="horde" />
-     <file name="monthlist.php" role="horde" />
-     <file name="prevmonthlist.php" role="horde" />
-     <file name="summary.php" role="horde" />
+     <file name="Month.php" role="horde" />
+     <file name="Monthlist.php" role="horde" />
+     <file name="Prevmonthlist.php" role="horde" />
+     <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Calendar">
      <dir name="External">
@@ -857,7 +857,7 @@
    <install as="kronolith/config/conf.xml" name="config/conf.xml" />
    <install as="kronolith/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="kronolith/config/menu.php.dist" name="config/menu.php.dist" />
-   <install as="kronolith/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="kronolith/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -892,10 +892,10 @@
    <install as="kronolith/lib/Ajax/Imple/Embed.php" name="lib/Ajax/Imple/Embed.php" />
    <install as="kronolith/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
    <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
-   <install as="kronolith/lib/Block/month.php" name="lib/Block/month.php" />
-   <install as="kronolith/lib/Block/monthlist.php" name="lib/Block/monthlist.php" />
-   <install as="kronolith/lib/Block/prevmonthlist.php" name="lib/Block/prevmonthlist.php" />
-   <install as="kronolith/lib/Block/summary.php" name="lib/Block/summary.php" />
+   <install as="kronolith/lib/Block/Month.php" name="lib/Block/Month.php" />
+   <install as="kronolith/lib/Block/Monthlist.php" name="lib/Block/Monthlist.php" />
+   <install as="kronolith/lib/Block/Prevmonthlist.php" name="lib/Block/Prevmonthlist.php" />
+   <install as="kronolith/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="kronolith/lib/Calendar/External.php" name="lib/Calendar/External.php" />
    <install as="kronolith/lib/Calendar/Holiday.php" name="lib/Calendar/Holiday.php" />
    <install as="kronolith/lib/Calendar/Internal.php" name="lib/Calendar/Internal.php" />
@@ -1349,7 +1349,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-27</date>
+   <date>2011-02-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.

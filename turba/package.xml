@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-27</date>
- <time>17:28:51</time>
+ <date>2011-02-14</date>
+ <time>14:29:30</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -39,13 +39,13 @@
     <file name="index.php" role="horde" />
    </dir> <!-- /addressbooks -->
    <dir name="config">
-    <file name="attributes.php.dist" role="horde" />
-    <file name="backends.php.dist" role="horde" />
+    <file name="attributes.php" role="horde" />
+    <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
-    <file name="mime_drivers.php.dist" role="horde" />
-    <file name="prefs.php.dist" role="horde" />
+    <file name="mime_drivers.php" role="horde" />
+    <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
     <dir name="vcf">
@@ -75,7 +75,7 @@
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Block">
-     <file name="minisearch.php" role="horde" />
+     <file name="Minisearch.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Data">
      <file name="Ldif.php" role="horde" />
@@ -105,6 +105,7 @@
     <dir name="Form">
      <file name="AddContact.php" role="horde" />
      <file name="Contact.php" role="horde" />
+     <file name="ContactBase.php" role="horde" />
      <file name="CreateAddressBook.php" role="horde" />
      <file name="DeleteAddressBook.php" role="horde" />
      <file name="EditAddressBook.php" role="horde" />
@@ -578,13 +579,13 @@
    <install as="turba/addressbooks/delete.php" name="addressbooks/delete.php" />
    <install as="turba/addressbooks/edit.php" name="addressbooks/edit.php" />
    <install as="turba/addressbooks/index.php" name="addressbooks/index.php" />
-   <install as="turba/config/attributes.php.dist" name="config/attributes.php.dist" />
-   <install as="turba/config/backends.php.dist" name="config/backends.php.dist" />
+   <install as="turba/config/attributes.php" name="config/attributes.php" />
+   <install as="turba/config/backends.php" name="config/backends.php" />
    <install as="turba/config/conf.xml" name="config/conf.xml" />
    <install as="turba/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="turba/config/menu.php.dist" name="config/menu.php.dist" />
-   <install as="turba/config/mime_drivers.php.dist" name="config/mime_drivers.php.dist" />
-   <install as="turba/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="turba/config/mime_drivers.php" name="config/mime_drivers.php" />
+   <install as="turba/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -613,7 +614,7 @@
    <install as="turba/lib/Object.php" name="lib/Object.php" />
    <install as="turba/lib/Test.php" name="lib/Test.php" />
    <install as="turba/lib/Turba.php" name="lib/Turba.php" />
-   <install as="turba/lib/Block/minisearch.php" name="lib/Block/minisearch.php" />
+   <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
    <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
    <install as="turba/lib/Driver/Favourites.php" name="lib/Driver/Favourites.php" />
@@ -631,6 +632,7 @@
    <install as="turba/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="turba/lib/Form/AddContact.php" name="lib/Form/AddContact.php" />
    <install as="turba/lib/Form/Contact.php" name="lib/Form/Contact.php" />
+   <install as="turba/lib/Form/ContactBase.php" name="lib/Form/ContactBase.php" />
    <install as="turba/lib/Form/CreateAddressBook.php" name="lib/Form/CreateAddressBook.php" />
    <install as="turba/lib/Form/DeleteAddressBook.php" name="lib/Form/DeleteAddressBook.php" />
    <install as="turba/lib/Form/EditAddressBook.php" name="lib/Form/EditAddressBook.php" />
@@ -861,7 +863,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-27</date>
+   <date>2011-02-14</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * Initial release.

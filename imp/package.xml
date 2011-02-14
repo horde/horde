@@ -28,8 +28,8 @@ multiple folders, and multiple-language support.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-27</date>
- <time>17:27:58</time>
+ <date>2011-02-14</date>
+ <time>14:33:33</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -49,14 +49,14 @@ multiple folders, and multiple-language support.</description>
     <file name="query_imap_cache" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
-    <file name="backends.php.dist" role="horde" />
+    <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="filter.txt.dist" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
-    <file name="mime_drivers.php.dist" role="horde" />
-    <file name="portal.php.dist" role="horde" />
-    <file name="prefs.php.dist" role="horde" />
+    <file name="mime_drivers.php" role="horde" />
+    <file name="portal.php" role="horde" />
+    <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
     <file name="CHANGES" role="horde" />
@@ -102,7 +102,7 @@ multiple folders, and multiple-language support.</description>
     <dir name="Block">
      <file name="Foldersummary.php" role="horde" />
      <file name="Newmail.php" role="horde" />
-     <file name="summary.php" role="horde" />
+     <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Compose">
      <file name="Exception.php" role="horde" />
@@ -1141,14 +1141,14 @@ multiple folders, and multiple-language support.</description>
   <filelist>
    <install as="bounce_spam" name="bin/bounce_spam" />
    <install as="query_imap_cache" name="bin/query_imap_cache" />
-   <install as="imp/config/backends.php.dist" name="config/backends.php.dist" />
+   <install as="imp/config/backends.php" name="config/backends.php" />
    <install as="imp/config/conf.xml" name="config/conf.xml" />
    <install as="imp/config/filter.txt.dist" name="config/filter.txt.dist" />
    <install as="imp/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="imp/config/menu.php.dist" name="config/menu.php.dist" />
-   <install as="imp/config/mime_drivers.php.dist" name="config/mime_drivers.php.dist" />
-   <install as="imp/config/portal.php.dist" name="config/portal.php.dist" />
-   <install as="imp/config/prefs.php.dist" name="config/prefs.php.dist" />
+   <install as="imp/config/mime_drivers.php" name="config/mime_drivers.php" />
+   <install as="imp/config/portal.php" name="config/portal.php" />
+   <install as="imp/config/prefs.php" name="config/prefs.php" />
    <install as="imp/docs/CHANGES" name="docs/CHANGES" />
    <install as="imp/docs/CREDITS" name="docs/CREDITS" />
    <install as="imp/docs/INSTALL" name="docs/INSTALL" />
@@ -1204,7 +1204,7 @@ multiple folders, and multiple-language support.</description>
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
    <install as="imp/lib/Block/Foldersummary.php" name="lib/Block/Foldersummary.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
-   <install as="imp/lib/Block/summary.php" name="lib/Block/summary.php" />
+   <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
    <install as="imp/lib/Compose/Stationery.php" name="lib/Compose/Stationery.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
@@ -1803,7 +1803,7 @@ multiple folders, and multiple-language support.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-27</date>
+   <date>2011-02-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.
