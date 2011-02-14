@@ -46,7 +46,7 @@ Horde_Alarm is using UTC dates now.
 
 Crypt_Blowfish is required.
 
-Removed support for dBase, Frontbase, and mSQL database servers.
+Removed support for Firebird/InterBase, Informix, MS-SQL/Sybase, Oracle, ODBC, dBase, Frontbase, and mSQL database servers.
 
 Removed support for krb5 authentication driver.
 

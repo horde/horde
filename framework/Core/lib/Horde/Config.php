@@ -1045,66 +1045,6 @@ class Horde_Config
                     'desc' => '[None]',
                     'fields' => array()
                 ),
-                'ibase' => array(
-                    'desc' => 'Firebird/InterBase',
-                    'fields' => array(
-                        'dbsyntax' => array(
-                            '_type' => 'enum',
-                            'desc' => 'The database syntax variant to use',
-                            'required' => false,
-                            'values' => array(
-                                'ibase' => 'InterBase',
-                                'firebird' => 'Firebird'
-                            ),
-                            'default' => $this->_default($ctx . '|dbsyntax', 'firebird')
-                        ),
-                        'persistent' => $persistent,
-                        'hostspec' => $hostspec,
-                        'username' => $username,
-                        'password' => $password,
-                        'database' => $database,
-                        'buffers' => array(
-                            '_type' => 'int',
-                            'desc' => 'The number of database buffers to allocate',
-                            'required' => false,
-                            'default' => $this->_default($ctx . '|buffers', null)
-                        ),
-                        'dialect' => array(
-                            '_type' => 'int',
-                            'desc' => 'The default SQL dialect for any statement executed within a connection.',
-                            'required' => false,
-                            'default' => $this->_default($ctx . '|dialect', null)
-                        ),
-                        'role' => array(
-                            '_type' => 'text',
-                            'desc' => 'Role',
-                            'required' => false,
-                            'default' => $this->_default($ctx . '|role', null)),
-                        'charset' => $charset
-                    )
-                ),
-                'ifx' => array(
-                    'desc' => 'Informix',
-                    'fields' => array(
-                        'persistent' => $persistent,
-                        'username' => $username,
-                        'password' => $password,
-                        'database' => $database,
-                        'charset' => $charset
-                    )
-                ),
-                'mssql' => array(
-                    'desc' => 'MS SQL/Sybase Server',
-                    'fields' => array(
-                        'persistent' => $persistent,
-                        'hostspec' => $hostspec,
-                        'username' => $username,
-                        'password' => $password,
-                        'port' => $port,
-                        'database' => $database,
-                        'charset' => $charset
-                    )
-                ),
                 'mysql' => array(
                     'desc' => 'MySQL',
                     'fields' => array(
@@ -1130,54 +1070,6 @@ class Horde_Config
                         'splitread' => $splitread,
                         'ssl' => $ssl,
                         'ca' => $ca
-                )),
-                'oci8' => array(
-                    'desc' => 'Oracle',
-                    'fields' => $oci8_fields
-                ),
-                'odbc' => array(
-                    'desc' => 'ODBC',
-                    'fields' => array(
-                        'persistent' => $persistent,
-                        'username' => $username,
-                        'password' => $password,
-                        'hostspec' => array(
-                            '_type' => 'text',
-                            'desc' => 'DSN',
-                            'default' => $this->_default($ctx . '|hostspec', '')
-                        ),
-                        'dbsyntax' => array(
-                            '_type' => 'enum',
-                            'desc' => 'The database syntax variant to use',
-                            'required' => false,
-                            'values' => array(
-                                'sql92' => 'SQL92',
-                                'access' => 'Access',
-                                'db2' => 'DB2',
-                                'solid' => 'Solid',
-                                'navision' => 'Navision',
-                                'mssql' => 'MS SQL Server',
-                                'sybase' => 'Sybase',
-                                'mysql' => 'MySQL',
-                                'mysqli' => 'MySQL (mysqli)',
-                            ),
-                            'default' => $this->_default($ctx . '|dbsyntax', 'sql92')
-                        ),
-                        'cursor' => array(
-                            '_type' => 'enum',
-                            'desc' => 'Cursor type',
-                            'quote' => false,
-                            'required' => false,
-                            'values' => array(
-                                'null' => 'None',
-                                'SQL_CUR_DEFAULT' => 'Default',
-                                'SQL_CUR_USE_DRIVER' => 'Use Driver',
-                                'SQL_CUR_USE_ODBC' => 'Use ODBC',
-                                'SQL_CUR_USE_IF_NEEDED' => 'Use If Needed'
-                            ),
-                            'default' => $this->_default($ctx . '|cursor', null)
-                        ),
-                        'charset' => $charset
                     )
                 ),
                 'pgsql' => array(
