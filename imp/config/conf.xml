@@ -57,6 +57,11 @@
     <case name="shown" desc="Shown" />
     <case name="hidden" desc="Hidden" />
    </configswitch>
+   <configmultienum name="available" desc="Which servers from the configuration in config/backends.php should be used at all?">imap
+    <values>
+     <configspecial application="mail" name="backends"/>
+    </values>
+   </configmultienum>
    <configlist name="fixed_folders" required="false" desc="A comma separated
    list of folders that can't be modified (deleted, renamed, etc) by the user,
    e.g.: &quot;Drafts, Trash&quot;. (The mailbox value must be encoded in the
