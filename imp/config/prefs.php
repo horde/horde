@@ -96,7 +96,7 @@ $_prefs['sent_mail_folder'] = array(
     // If the mailbox value contains non-ASCII characters, it must be encoded
     // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
     // necessary conversion.
-    // 'value' => Horde_String::convertCharset('Sent', 'UFT-8', 'UTF7-IMAP'),
+    // 'value' => Horde_String::convertCharset('Sent', 'UTF-8', 'UTF7-IMAP'),
     // Exchange servers use this default value instead.
     // 'value' => 'Sent Items'
 );
