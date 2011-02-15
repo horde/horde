@@ -175,7 +175,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         if (!$indexes) {
             $indexes = array();
             foreach ($this->select('PRAGMA index_list(' . $this->quoteTableName($tableName) . ')') as $row) {
-                if (strpos($row['name'], 'sqlite_')) {
+                if (strpos($row['name'], 'sqlite_') !== false) {
                     // ignore internal sqlite_* index tables
                     continue;
                 }
