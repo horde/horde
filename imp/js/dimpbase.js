@@ -246,7 +246,7 @@ var DimpBase = {
 
         case 'search':
             if (!data) {
-                data = { search_mailbox: f };
+                data = { search_mailbox: this.folder };
             }
             this.highlightSidebar();
             DimpCore.setTitle(DIMP.text.search);
