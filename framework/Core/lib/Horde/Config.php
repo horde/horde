@@ -1039,7 +1039,7 @@ class Horde_Config
         $custom_fields = array(
             'required' => true,
             'desc' => 'What database backend should we use?',
-            'default' => $this->_default($ctx . '|phptype', 'false'),
+            'default' => $this->_default($ctx . '|phptype'),
             'switch' => array(
                 'false' => array(
                     'desc' => '[None]',

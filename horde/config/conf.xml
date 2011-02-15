@@ -833,7 +833,7 @@
   <configsection name="alarms">
    <configheader>Alarm System Settings</configheader>
    <configswitch name="driver" desc="What alarm storage driver should we
-   use?">sql
+   use?">Sql
      <case name="false" desc="None"/>
      <case name="Sql" desc="SQL Database">
       <configsection name="params">
@@ -1197,7 +1197,7 @@
   <configsection name="lock">
    <configheader>Lock System Settings</configheader>
    <configswitch name="driver" desc="If you want to enable resource locking
-   you must choose a driver here.">Null
+   you must choose a driver here.">Sql
     <case name="Null" desc="Disable Horde Locks"/>
     <case name="Sql" desc="SQL-based locking">
      <configsection name="params">
@@ -1218,7 +1218,7 @@
    seconds) after which an id is purged"/>
    <configswitch name="driver" desc="If you want to enable Form Tokens, select
    a driver here. This is used by the Horde::Form:: API and some other parts
-   of Horde to ensure that a form can only be submitted once.">none
+   of Horde to ensure that a form can only be submitted once.">Sql
     <case name="Null" desc="Disable Form Tokens"/>
     <case name="File" desc="Local filesystem token storage">
      <configsection name="params">
@@ -1297,7 +1297,7 @@
  <configtab name="vfs" desc="Virtual File Storage">
   <configsection name="vfs">
    <configheader>Virtual File Storage Settings</configheader>
-   <configvfs baseconfig="true" switchname="type"/>
+   <configvfs baseconfig="true" switchname="type" default="sql"/>
   </configsection>
  </configtab>
 
