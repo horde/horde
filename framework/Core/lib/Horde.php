@@ -515,10 +515,15 @@ HTML;
     }
 
     /**
-     * Returns a stdClass response object with added notification information.
+     * Returns a response object with added notification information.
      *
      * @param mixed $data      The 'response' data.
      * @param boolean $notify  If true, adds notification info to object.
+     *
+     * @return object  The Horde JSON response.  It has the following
+     *                 properties:
+     *   - msgs: (array) [OPTIONAL] List of notification messages.
+     *   - response: (mixed) The response data for the request.
      */
     static public function prepareResponse($data = null, $notify = false)
     {
