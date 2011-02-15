@@ -120,6 +120,9 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
         }
 
         if (!isset($config['adapter'])) {
+            if (empty($config['phptype'])) {
+                throw new Horde_Exception('The database configuration is missing.');
+            }
             if ($config['phptype'] == 'oci8') {
                 $config['phptype'] = 'oci';
             }
