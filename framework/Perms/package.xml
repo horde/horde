@@ -378,7 +378,7 @@
   </required>
   <optional>
    <package>
-    <name>Horde_DataTree</name>
+    <name>DataTree</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
