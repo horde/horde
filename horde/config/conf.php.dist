@@ -71,7 +71,7 @@ $conf['session']['timeout'] = 0;
 $conf['auth']['admins'] = array('Administrator');
 $conf['auth']['driver'] = 'auto';
 $conf['auth']['params'] = array('username' => 'Administrator');
-$conf['prefs']['driver'] = 'session';
+$conf['prefs']['driver'] = 'Sql';
 $conf['menu']['always'] = false;
 $conf['portal']['fixed_blocks'] = array();
 $conf['imsp']['enabled'] = false;

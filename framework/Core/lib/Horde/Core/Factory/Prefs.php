@@ -87,19 +87,25 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
         if (isset($this->_instances[$sig])) {
             $this->_instances[$sig]->retrieve($scope);
         } else {
-            switch ($driver) {
-            case 'Horde_Prefs_Storage_Ldap':
-                $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'ldap');
-                break;
+            try {
+                switch ($driver) {
+                case 'Horde_Prefs_Storage_Ldap':
+                    $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'ldap');
+                    break;
 
-            case 'Horde_Prefs_Storage_Session':
+                case 'Horde_Prefs_Storage_Session':
+                    $driver = 'Horde_Prefs_Storage_Null';
+                    $opts['cache'] = false;
+                    break;
+
+                case 'Horde_Prefs_Storage_Sql':
+                    $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+                    break;
+                }
+            } catch (Horde_Exception $e) {
+                $this->_notifyError($e);
                 $driver = 'Horde_Prefs_Storage_Null';
                 $opts['cache'] = false;
-                break;
-
-            case 'Horde_Prefs_Storage_Sql':
-                $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
-                break;
             }
 
             $config_driver = new Horde_Core_Prefs_Storage_Configuration($opts['user']);
@@ -125,12 +131,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             try {
                 $this->_instances[$sig] = new Horde_Prefs($scope, $drivers, $opts);
             } catch (Horde_Prefs_Exception $e) {
-                if (!$GLOBALS['session']->get('horde', 'no_prefs')) {
-                    $GLOBALS['session']->set('horde', 'no_prefs', true);
-                    if (isset($GLOBALS['notification'])) {
-                        $GLOBALS['notification']->push(Horde_Core_Translation::t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
-                    }
-                }
+                $this->_notifyError($e);
 
                 /* Store data in the cached session object. */
                 $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
@@ -139,6 +140,23 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
         }
 
         return $this->_instances[$sig];
+    }
+
+    /**
+     * Notifies (once) if one of the preference backends is not available and
+     * logs details for the administrator.
+     *
+     * @param mixed $e  Error to log.
+     */
+    protected function _notifyError($e)
+    {
+        if (!$GLOBALS['session']->get('horde', 'no_prefs')) {
+            $GLOBALS['session']->set('horde', 'no_prefs', true);
+            if (isset($GLOBALS['notification'])) {
+                $GLOBALS['notification']->push(Horde_Core_Translation::t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
+                Horde::logMessage($e);
+            }
+        }
     }
 
     /**
