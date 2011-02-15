@@ -977,10 +977,10 @@
      system. The default driver is the SQL-NG driver.
    </configdescription>
    <configswitch name="driver" desc="What backend should we use for Horde
-   Shares?">sqlng
-     <case name="kolab" desc="Kolab"/>
-     <case name="sqlng" desc="Next-Generation SQL"/>
-     <case name="sql" desc="SQL"/>
+   Shares?">Sqlng
+     <case name="Kolab" desc="Kolab"/>
+     <case name="Sqlng" desc="Next-Generation SQL"/>
+     <case name="Sql" desc="SQL"/>
    </configswitch>
   </configsection>
  </configtab>
@@ -992,7 +992,7 @@
    data be cached by default?">86400</configinteger>
    <configswitch name="driver" desc="If you want to enable the Horde Cache,
    select a driver here. This is used to speed up portions of Horde by storing
-   commonly processed objects.">file
+   commonly processed objects.">File
     <case name="Null" desc="Don't cache any data"/>
     <case name="Apc" desc="Use the APC cache">
      <configsection name="params">
