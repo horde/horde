@@ -207,6 +207,15 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(in_array('last_name', $columns));
     }
 
+    public function testAutoincrement()
+    {
+        $t = $this->_conn->createTable('imp_sentmail', array('primaryKey' => false));
+        $t->column('sentmail_id', 'bigint', array('null' => false));
+        $t->primaryKey(array('sentmail_id'));
+        $t->end();
+        $migration = new Horde_Db_Migration_Base($this->_conn, $this->_logger);
+        $migration->changeColumn('imp_sentmail', 'sentmail_id', 'integer', array('autoincrement' => true, 'default' => null));
+    }
 
     protected function _columnNames($tableName)
     {
