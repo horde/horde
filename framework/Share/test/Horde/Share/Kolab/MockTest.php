@@ -165,9 +165,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         $this->assertEquals(array('jane'), $janeshare->listUsers(Horde_Perms::DELETE));
         $this->assertEquals('Jane\'s Share', $janeshare->get('name'));
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
-        //@todo: INTERFACE!!!
-        //$this->assertTrue($janeshare->hasPermission('jane', 99999));
-
         $groupshare = self::$share->getShareById(self::$shares['groupshare']->getId());
         //@todo: INTERFACE!!!
         $groupshare->getPermission();

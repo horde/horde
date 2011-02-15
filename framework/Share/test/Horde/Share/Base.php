@@ -195,7 +195,6 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals(array('jane'), $janeshare->listUsers(Horde_Perms::DELETE));
         $this->assertEquals('Jane\'s Share', $janeshare->get('name'));
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
-        $this->assertTrue($janeshare->hasPermission('jane', 99999));
 
         $groupshare = self::$share->getShareById(self::$shares['groupshare']->getId());
         $this->assertInstanceOf('Horde_Share_Object', $groupshare);
