@@ -38,11 +38,12 @@ class Horde_Core_Db_Migration
      * Searches all installed applications and libraries for migration
      * directories and builds lists of migrateable modules and directories.
      *
-     * @param string $basedir  Base directory of a Git checkout. If provided
-     *                         a framework/ sub directory is searched for
-     *                         migration scripts too.
+     * @param string $basedir   Base directory of a Git checkout. If provided
+     *                          a framework/ sub directory is searched for
+     *                          migration scripts too.
+     * @param string $pearconf  Path to a PEAR configuration file.
      */
-    public function __construct($basedir = null)
+    public function __construct($basedir = null, $pearconf = null)
     {
         // Loop through all applications.
         foreach ($GLOBALS['registry']->listApps(array('hidden', 'notoolbar', 'admin', 'active'), false, null) as $app) {
@@ -62,7 +63,7 @@ class Horde_Core_Db_Migration
         }
 
         // Loop through installed PEAR packages.
-        $pear = new PEAR_Config();
+        $pear = new PEAR_Config($pearconf);
         foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
             $app = 'horde_' . Horde_String::lower(basename(dirname($dir)));;
             if (!in_array($app, $apps)) {

@@ -26,19 +26,27 @@ $parser = new Horde_Argv_Parser(
         'usage' => '%prog [(application|directory) [(up|down|version) [debug]]]',
         'optionList' => array(
             new Horde_Argv_Option(
+                '-c',
+                '--config',
+                array(
+                      //'action' => 'store_true',
+                    'help'   => 'Path to PEAR configuration file.'
+                )
+            ),
+            new Horde_Argv_Option(
                 '-d',
                 '--debug',
                 array(
                     'action' => 'store_true',
                     'help'   => 'Provide full debugging output.'
                 )
-            )
+            ),
         )
     )
 );
 list($options, $args) = $parser->parseArgs();
 
-$migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../..');
+$migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../..', $options['config']);
 if (empty($args[0])) {
     // Run all migrations.
     $apps = $migration->apps;
