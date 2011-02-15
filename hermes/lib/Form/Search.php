@@ -40,7 +40,7 @@ class Hermes_Form_Search extends Horde_Form
 
         $this->addVariable(_("Cost Objects"), 'costobjects', 'multienum',
                            false, false, null,
-                           array($this->getCostObjectType($vars)));
+                           array(Hermes::getCostObjectType($vars)));
 
         $this->addVariable(_("Do not include entries before"), 'start',
                            'monthdayyear', false, false, null,
@@ -176,15 +176,15 @@ class Hermes_Form_Search extends Horde_Form
             $criteria['costobject'] = $info['costobjects'];
         }
         if (!empty($info['start'])) {
-            $dt = new Date($info['start']);
-            $criteria['start'] = $dt->getDate(DATE_FORMAT_UNIXTIME);
+            $dt = new Horde_Date($info['start']);
+            $criteria['start'] = $dt->timestamp();
         }
         if (!empty($info['end'])) {
-            $dt = new Date($info['end']);
+            $dt = new Horde_Date($info['end']);
             $dt->setHour(23);
             $dt->setMinute(59);
             $dt->setSecond(59);
-            $criteria['end'] = $dt->getDate(DATE_FORMAT_UNIXTIME);
+            $criteria['end'] = $dt->timestamp();
         }
         if (isset($info['submitted']) && $info['submitted'] != '') {
             $criteria['submitted'] = $info['submitted'];

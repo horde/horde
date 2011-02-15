@@ -60,23 +60,21 @@ case 'rule_update':
     if (($folder == Ingo::BLACKLIST_MARKER) && !$have_mark) {
         $notification->push("Not supported by this script generator.", 'horde.error');
     } else {
-        $ret = $blacklist->setBlacklist($vars->blacklist);
-        if (is_a($ret, 'PEAR_Error')) {
-            $notification->push($ret, $ret->getCode());
-        } else {
+        try {
+            $blacklist->setBlacklist($vars->blacklist);
             $blacklist->setBlacklistFolder($folder);
             if (!$ingo_storage->store($blacklist)) {
                 $notification->push(_("Error saving changes."), 'horde.error');
             } else {
                 $notification->push(_("Changes saved."), 'horde.success');
             }
-
             if ($prefs->getValue('auto_update')) {
                 /* This does its own $notification->push() on error: */
                 Ingo::updateScript();
             }
+        } catch (Ingo_Exception $e) {
+            $notification->push($e->getMessage(), $e->getCode());
         }
-
         /* Update the timestamp for the rules. */
         $session->set('ingo', 'change', time());
     }

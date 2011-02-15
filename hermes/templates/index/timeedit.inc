@@ -1,0 +1,83 @@
+<div id="hermesViewTime" style="display:none">
+  <div id="hermesLoadingTime" class="hermesLoading"></div>
+  <div id="hermesViewTimeContainer">
+<h1 class="header"><?php echo _("Time Entry")?></h1>
+   <div id="hermesTimeEntry">
+    <form id="hermesTimeForm" action="">
+        <div id="hermesTimeFormInputs">
+          <div class="hermesTimeFormGeneral">
+            <label for="hermesTimeFormClient">
+              <?php echo _("Client")?>
+              <?php echo Hermes::getClientSelect();?>
+            </label><span class="hermesSeparator">|</span>
+            <label for="hermesTimeFormCostobject">
+              <?php echo _("Costobject")?>
+              <select type="text" id="hermesTimeFormCostobject" name="costobject"></select>
+            </label>
+          </div>
+          <div class="hermesTimeFormTime">
+            <label for="HermesTimeFormStartDate">
+              <?php echo _("Date") ?>
+              <input class="input" type="text" name="start_date" id="hermesTimeFormStartDate" size="10" />
+              <?php echo Horde::img('picker.png', _("Set start date"), 'id="hermesTimeFormStartPicker" class="hermesDatePicker"') ?>
+            </label><span class="hermesSeparator">|</span>
+             <label for="hermesTimeFormHours">
+              <?php echo _("Hours")?>
+              <input class="input" type="text" id="hermesTimeFormHours" name="hours" />
+            </label><span class="hermesSeparator">|</span>
+            <label for="hermesTimeFormType">
+              <?php echo _("Job Type")?>
+              <?php echo Hermes::getJobTypeSelect();?>
+            </label><br />
+          </div>
+          <div class="hermesTimeFormDetails">
+              <label for="hermesTimeFormDesc"><?php echo _("Description")?>:<br />
+                <textarea  name="description" id="hermesTimeFormDesc" rows="2" cols="60"class="hermesLongField"></textarea>
+              </label><br />
+              <label for="hermesTimeFormNotes"><?php echo _("Additional Notes")?>:<br />
+                <textarea  name="notes" id="hermesTimeFormNotes" rows="3" cols="60" class="hermesLongField"></textarea>
+              </label>
+          </div>
+         </div>
+         <div class="hermesFormActions">
+          <input id="hermesTimeSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
+          <input id="hermesTimeSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" />
+          <input id="hermesTimeDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+          <span class="hermesSeparator"><?php echo _("or") ?></span> <a class="hermesFormCancel"><?php echo _("Cancel") ?></a>
+        </div>
+    </form>
+   </div>
+
+   <h1 class="header"><?php echo _("My Unsubmitted Time");?></h1>
+   <div id="hermesTimeList">
+     <div class="hermesTimeList">
+       <div id="hermesTimeListHeader">
+          <div class="smallheader" style="height: 15px;">
+            <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
+            <div class="hermesTimeListDate"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>
+            <div class="hermesTimeListHours"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
+            <div class="hermesTimeListClient"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
+            <div class="hermesTimeListCostObject"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
+            <div class="hermesTimeListType"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
+            <div class="hermesTimeListTotal"><?php echo _("Total")?></div>
+          </div>
+       </div>
+       <div id="hermesTimeListBody">
+        <div id="hermesTimeListTemplate" style="display:none;">
+          <div class="hermesUnselectedSlice hermesTimeListSelect"></div>
+          <div class="hermesTimeListDate"></div>
+          <div class="hermesTimeListHours"></div>
+          <div class="hermesTimeListClient"></div>
+          <div class="hermesTimeListCostObject"></div>
+          <div class="hermesTimeListType"></div>
+          <div class="hermesTimeListTotal"></div>
+          <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded">x</a></div>
+        </div>
+       </div>
+     </div>
+   </div>
+   <div class="hermesTimeListControls">
+     <a class="button"><?php echo _("Submit Time") ?></a>
+   </div>
+  </div>
+</div>

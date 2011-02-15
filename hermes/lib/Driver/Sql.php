@@ -57,7 +57,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
      * @return integer  The new timeslice_id of the newly entered slice
      * @throws Hermes_Exception
      */
-    public function enterTime($employee, array $info)
+    public function enterTime($employee, $info)
     {
         /* Get job rate */
         $sql = 'SELECT jobtype_rate FROM hermes_jobtypes WHERE jobtype_id = ?';
@@ -66,20 +66,20 @@ class Hermes_Driver_Sql extends Hermes_Driver
         } catch (Horde_Db_Exception $e) {
             throw new Hermes_Exception($e);
         }
-        $dt = new Date($info['date']);
+        $dt = new Horde_Date($info['date']);
         $sql = 'INSERT INTO hermes_timeslices (' .
                'clientjob_id, employee_id, jobtype_id, ' .
                'timeslice_hours, timeslice_isbillable, ' .
                'timeslice_date, timeslice_description, ' .
                'timeslice_note, timeslice_rate, costobject_id) ' .
                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        
+
         $values = array($info['client'],
                         $employee,
                         $info['type'],
                         $info['hours'],
                         isset($info['billable']) ? (int)$info['billable'] : 0,
-                        (int)$dt->getTime(DATE_FORMAT_UNIXTIME) + 1,
+                        $dt->timestamp() + 1,
                         $info['description'],
                         $info['note'],
                         (float)$job_rate,
@@ -134,7 +134,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
                 } else {
                     $employee_cl = '';
                 }
-                $dt = new Date($info['date']);
+                $dt = new Horde_Date($info['date']);
                 $sql = 'UPDATE hermes_timeslices SET' . $employee_cl .
                        ' clientjob_id = ?, jobtype_id = ?,' .
                        ' timeslice_hours = ?, timeslice_isbillable = ?,' .
@@ -145,7 +145,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
                                 $info['type'],
                                 $info['hours'],
                                 (isset($info['billable']) ? (int)$info['billable'] : 0),
-                                (int)$dt->getTime(DATE_FORMAT_UNIXTIME) + 1,
+                                $dt->timestamp(),
                                 $info['description'],
                                 $info['note'],
                                 (empty($info['costobject']) ? null : $info['costobject']),
@@ -160,33 +160,34 @@ class Hermes_Driver_Sql extends Hermes_Driver
     }
 
     /**
-     * @TODO
+     * Fetch time slices
      *
-     * @global <type> $conf
-     * @param <type> $filters
-     * @param <type> $fields
-     * @return <type> 
+     * @param array $filters
+     * @param array $fields
+     *
+     * @return array  Array of timeslice objects
      */
     function getHours(array $filters = array(), array $fields = array())
     {
         global $conf;
 
         $fieldlist = array(
-            'id' => 'b.timeslice_id as id',
-            'client' => ' b.clientjob_id as client',
-            'employee' => ' b.employee_id as employee',
-            'type' => ' b.jobtype_id as type',
-            '_type_name' => ' j.jobtype_name as "_type_name"',
-            'hours' => ' b.timeslice_hours as hours',
-            'rate' => ' b.timeslice_rate as rate',
-            'billable' => empty($conf['time']['choose_ifbillable'])
+            'id'          => 'b.timeslice_id as id',
+            'client'      => ' b.clientjob_id as client',
+            'employee'    => ' b.employee_id as employee',
+            'type'        => ' b.jobtype_id as type',
+            '_type_name'  => ' j.jobtype_name as "_type_name"',
+            'hours'       => ' b.timeslice_hours as hours',
+            'rate'        => ' b.timeslice_rate as rate',
+            'billable'    => empty($conf['time']['choose_ifbillable'])
                 ? ' j.jobtype_billable as billable'
                 : ' b.timeslice_isbillable as billable',
-            'date' => ' b.timeslice_date as "date"',
+            'date'        => ' b.timeslice_date as "date"',
             'description' => ' b.timeslice_description as description',
             'note' => ' b.timeslice_note as note',
-            'submitted' => ' b.timeslice_submitted as submitted',
-            'costobject' => ' b.costobject_id as costobject');
+            'submitted'   => ' b.timeslice_submitted as submitted',
+            'costobject'  => ' b.costobject_id as costobject');
+
         if (!empty($fields)) {
             $fieldlist = array_keys(array_intersect(array_flip($fieldlist), $fields));
         }
@@ -198,14 +199,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
             foreach ($filters as $field => $filter) {
                 switch ($field) {
                 case 'client':
-                    $where .= $glue . $this->_equalClause('b.clientjob_id',
-                                                          $filter);
+                    $where .= $glue . $this->_equalClause('b.clientjob_id', $filter);
                     $glue = ' AND';
                     break;
 
                 case 'jobtype':
-                    $where .= $glue . $this->_equalClause('b.jobtype_id',
-                                                          $filter);
+                    $where .= $glue . $this->_equalClause('b.jobtype_id', $filter);
                     $glue = ' AND';
                     break;
 
@@ -239,20 +238,17 @@ class Hermes_Driver_Sql extends Hermes_Driver
                     break;
 
                 case 'employee':
-                    $where .= $glue . $this->_equalClause('employee_id',
-                                                          $filter);
+                    $where .= $glue . $this->_equalClause('employee_id', $filter);
                     $glue = ' AND';
                     break;
 
                 case 'id':
-                    $where .= $glue . $this->_equalClause('timeslice_id',
-                                                          (int)$filter, false);
+                    $where .= $glue . $this->_equalClause('timeslice_id', (int)$filter, false);
                     $glue = ' AND';
                     break;
 
                 case 'costobject':
-                    $where .= $glue . $this->_equalClause('costobject_id',
-                                                          $filter);
+                    $where .= $glue . $this->_equalClause('costobject_id', $filter);
                     $glue = ' AND';
                     break;
                 }
@@ -263,13 +259,13 @@ class Hermes_Driver_Sql extends Hermes_Driver
             $sql .= ' WHERE ' . $where;
         }
         $sql .= ' ORDER BY timeslice_date DESC, clientjob_id';
-        
+
         try {
             $hours = $this->_db->selectAll($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Hermes_Exception($e);
         }
-
+        $slices = array();
         // Do per-record processing
         foreach (array_keys($hours) as $hkey) {
             // Convert timestamps to Horde_Date objects
@@ -288,9 +284,11 @@ class Hermes_Driver_Sql extends Hermes_Driver
                     $hours[$hkey]['_costobject_name'] = $costobject['name'];
                 }
             }
+
+            $slices[$hkey] = new Hermes_Slice($hours[$hkey]);
         }
 
-        return $hours;
+        return $slices;
     }
 
     /**
@@ -607,7 +605,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
         foreach ($rows as $row) {
             $clientJob[$row['clientjob_id']] = array($row['clientjob_enterdescription'], $row['clientjob_exportid']);
         }
-        
+
         if (isset($clientJob[$clientID])) {
             $settings = array('id' => $clientID,
                               'enterdescription' => $clientJob[$clientID][0],
@@ -655,7 +653,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
                    ' clientjob_exportid = ?, clientjob_enterdescription = ?' .
                    ' WHERE clientjob_id = ?';
             $values = array($exportid, (int)$enterdescription, $clientID);
-            
+
             try {
                 return $this->_db->update($sql, $values);
             } catch (Horde_Db_Exception $e) {
@@ -679,5 +677,5 @@ class Hermes_Driver_Sql extends Hermes_Driver
                                   date('j') - $conf['time']['days_to_keep']));
         return $this->_db->delete($query, $values);
     }
-    
+
 }

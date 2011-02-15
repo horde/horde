@@ -84,7 +84,7 @@ class Hermes_Form_Time_Entry extends Hermes_Form_Time
 
     function setCostObjects($vars)
     {
-        $this->_costObjects->type->setValues($this->getCostObjectType($vars->get('client')));
+        $this->_costObjects->type->setValues(Hermes::getCostObjectType($vars->get('client')));
     }
 
 }

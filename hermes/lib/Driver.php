@@ -12,6 +12,9 @@
  */
 abstract class Hermes_Driver
 {
+    const SORT_ORDER_ASC = 'ASC';
+    const SORT_ORDER_DESC = 'DESC';
+
     /**
      * Parameters
      *
@@ -54,7 +57,7 @@ abstract class Hermes_Driver
      * @return array Hash of deliverable's properties.
      * @throws Horde_Exception_NotFound
      */
-    function getDeliverableByID($deliverableID)
+    public function getDeliverableByID($deliverableID)
     {
         $deliverables = $this->listDeliverables(array('id' => $deliverableID));
         if (!isset($deliverables[$deliverableID])) {
@@ -160,6 +163,50 @@ abstract class Hermes_Driver
      * @TODO
      */
     abstract public function purge();
+
+    /**
+     * Save a row of billing information.
+     *
+     * @param string $employee  The Horde ID of the person who worked the
+     *                          hours.
+     * @param array $entries    The billing information to enter. Each array
+     *                          row must contain the following entries:
+     *             'date'         The day the hours were worked (ISO format)
+     *             'client'       The id of the client the work was done for.
+     *             'type'         The type of work done.
+     *             'hours'        The number of hours worked
+     *             'rate'         The hourly rate the work was done at.
+     *             'billable'     (optional) Whether or not the work is
+     *                            billable hours.
+     *             'description'  A short description of the work.
+     *
+     * @return integer  The new timeslice_id of the newly entered slice
+     * @throws Hermes_Exception
+     */
+    abstract public function enterTime($employee, $info);
+
+    /**
+     * Update a set of billing information.
+     *
+     * @param array $entries  The billing information to enter. Each array row
+     *                        must contain the following entries:
+     *              'id'           The id of this time entry.
+     *              'date'         The day the hours were worked (ISO format)
+     *              'client'       The id of the client the work was done for.
+     *              'type'         The type of work done.
+     *              'hours'        The number of hours worked
+     *              'rate'         The hourly rate the work was done at.
+     *              'billable'     Whether or not the work is billable hours.
+     *              'description'  A short description of the work.
+     *
+     *                        If any rows contain a 'delete' entry, those rows
+     *                        will be deleted instead of updated.
+     *
+     * @return mixed  boolean
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Hermes_Exception
+     */
+    abstract public function updateTime($entries);
 
     /**
      * Attempts to return a concrete Hermes_Driver instance based on $driver.
