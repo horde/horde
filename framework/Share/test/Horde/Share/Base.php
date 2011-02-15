@@ -188,6 +188,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals('行事曆', $myshare->get('desc'));
 
         $janeshare = self::$share->getShareById(self::$shares['janeshare']->getId());
+        $janeshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $janeshare);
         $this->assertEquals(self::$shares['janeshare'], $janeshare);
         $this->assertEquals(array('john', 'jane'), $janeshare->listUsers());
@@ -197,6 +198,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
 
         $groupshare = self::$share->getShareById(self::$shares['groupshare']->getId());
+        $groupshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $groupshare);
         $this->assertEquals(self::$shares['groupshare'], $groupshare);
         $this->assertEquals(array('mygroup'), $groupshare->listGroups());
@@ -225,7 +227,9 @@ class Horde_Share_Test_Base extends Horde_Test_Case
             array_keys($newshares));
         $this->assertInstanceOf('Horde_Share_Object', $newshares['myshare']);
         $this->assertEquals(self::$shares['myshare'], $newshares['myshare']);
+        $newshares['janeshare']->getPermission();
         $this->assertEquals(self::$shares['janeshare'], $newshares['janeshare']);
+        $newshares['groupshare']->getPermission();
         $this->assertEquals(self::$shares['groupshare'], $newshares['groupshare']);
     }
 

@@ -148,57 +148,12 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         $this->getShareById();
     }
 
-    protected function _getShareById()
-    {
-        $myshare = self::$share->getShareById(self::$shares['myshare']->getId());
-        $this->assertInstanceOf('Horde_Share_Object', $myshare);
-        $this->assertEquals(self::$shares['myshare'], $myshare);
-        $this->assertEquals('行事曆', $myshare->get('desc'));
-
-        $janeshare = self::$share->getShareById(self::$shares['janeshare']->getId());
-        //@todo: INTERFACE!!!
-        $janeshare->getPermission();
-        $this->assertInstanceOf('Horde_Share_Object', $janeshare);
-        $this->assertEquals(self::$shares['janeshare'], $janeshare);
-        $this->assertEquals(array('john', 'jane'), $janeshare->listUsers());
-        $this->assertEquals(array('john', 'jane'), $janeshare->listUsers(Horde_Perms::EDIT));
-        $this->assertEquals(array('jane'), $janeshare->listUsers(Horde_Perms::DELETE));
-        $this->assertEquals('Jane\'s Share', $janeshare->get('name'));
-        $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
-        $groupshare = self::$share->getShareById(self::$shares['groupshare']->getId());
-        //@todo: INTERFACE!!!
-        $groupshare->getPermission();
-        $this->assertInstanceOf('Horde_Share_Object', $groupshare);
-        $this->assertEquals(self::$shares['groupshare'], $groupshare);
-        $this->assertEquals(array('mygroup'), $groupshare->listGroups());
-        $this->assertEquals(array(), $groupshare->listGroups(Horde_Perms::EDIT));
-        $this->assertEquals(array('mygroup'), $groupshare->listGroups(Horde_Perms::DELETE));
-        $this->assertEquals('Group Share', $groupshare->get('name'));
-    }
-
-
     /**
      * @depends testGetShare
      */
     public function testGetShares()
     {
         $this->getShares();
-    }
-
-    protected function _getShares()
-    {
-        $newshares = self::$share->getShares(array(self::$shares['myshare']->getId(), self::$shares['janeshare']->getId(), self::$shares['groupshare']->getId()));
-        $this->assertEquals(
-            array('myshare', 'janeshare', 'groupshare'),
-            array_keys($newshares));
-        $this->assertInstanceOf('Horde_Share_Object', $newshares['myshare']);
-        $this->assertEquals(self::$shares['myshare'], $newshares['myshare']);
-        //@todo: INTERFACE!!!
-        $newshares['janeshare']->getPermission();
-        $this->assertEquals(self::$shares['janeshare'], $newshares['janeshare']);
-        //@todo: INTERFACE!!!
-        $newshares['groupshare']->getPermission();
-        $this->assertEquals(self::$shares['groupshare'], $newshares['groupshare']);
     }
 
     /**
@@ -445,10 +400,8 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
  - listAllShares() does not really work as expected as we need manager access for that.
  - The share_id is different for each users
  - Permissions are always enforced.
- - Permissions are lazy loaded.
  - Kolab_Shares require a set('name')
  - listSystemShares not supported yet
- - The creator gets specific rights on a share
  - The returned permission representation is Horde_Perms_Permission_Kolab not Horde_Perms_Permission
  - Unset permissions won't be represented in the permission object.
  - Why can shares be removed twice?
