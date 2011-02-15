@@ -2059,6 +2059,10 @@ applications.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Form</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Template</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -2072,6 +2076,10 @@ applications.</description>
    </package>
    <package>
     <name>View</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>VFS</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
