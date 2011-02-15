@@ -440,6 +440,11 @@ Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlig
    </package>
   </required>
  </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
  <phprelease>
   <filelist>
    <install as="js/syntaxhighlighter/LGPL-LICENSE" name="js/syntaxhighlighter/LGPL-LICENSE" />
