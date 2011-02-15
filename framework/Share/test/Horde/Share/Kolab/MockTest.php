@@ -244,8 +244,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     public function _listSharesSystem()
     {
         // Guest shares.
-        //@todo: TYPO!!!
-        //$share = self::$share->getShareById(2);
         $shares = self::$share->listShares(false, array('perm' => Horde_Perms::SHOW, 'sort_by' => 'id'));
         //@todo: INTERFACE!!!
         $this->assertEquals(

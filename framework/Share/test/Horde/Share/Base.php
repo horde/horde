@@ -298,7 +298,6 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     public function _listSharesSystem()
     {
         // Guest shares.
-        $share = self::$share->getShareById(2);
         $shares = self::$share->listShares(false, array('perm' => Horde_Perms::SHOW, 'sort_by' => 'id'));
         $this->assertEquals(
             array('systemshare'),
