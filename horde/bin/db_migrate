@@ -21,8 +21,22 @@ Horde_Registry::appInit('horde', array(
 ));
 
 // Parse command line arguments.
-array_shift($_SERVER['argv']);
-$args = $_SERVER['argv'];
+$parser = new Horde_Argv_Parser(
+    array(
+        'usage' => '%prog [(application|directory) [(up|down|version) [debug]]]',
+        'optionList' => array(
+            new Horde_Argv_Option(
+                '-d',
+                '--debug',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Provide full debugging output.'
+                )
+            )
+        )
+    )
+);
+list($options, $args) = $parser->parseArgs();
 
 $migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../..');
 if (empty($args[0])) {
@@ -62,7 +76,7 @@ if (!empty($args[1])) {
 // Run
 $db = $injector->getInstance('Horde_Db_Adapter');
 $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
-if (!empty($args[2]) && strpos($args[2], 'debug') !== false) {
+if (!empty($options['debug'])) {
     $db->setLogger($logger);
 }
 
