@@ -1433,7 +1433,7 @@
   <configsection name="image">
    <configheader>Image Manipulation Settings</configheader>
    <configswitch name="driver" description="What driver should we use for
-   manipulating images?">Im
+   manipulating images?">false
    <case name="false" desc="None"></case>
    <case name="Imagick" desc="The PECL Imagick Library (recommended)"></case>
    <case name="Im" desc="Imagemagick">
@@ -1874,11 +1874,9 @@
   <configsection name="activesync">
    <configdescription>To enable ActiveSync support, you must create an alias on
    your webserver to redirect /Microsoft-Servers-ActiveSync to /horde/rpc.php.
-   You will also need to create a webserver-writable directory to store the
-   state files in. See http://wiki.horde.org/Project/ActiveSync for more
-   information.
+   See http://wiki.horde.org/Project/ActiveSync for more information.
    </configdescription>
-   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
+   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
      <configsection name="state">
