@@ -42,6 +42,7 @@ var DimpCompose = {
     {
         if (this.is_popup &&
             DimpCore.base &&
+            DimpCore.base.DimpBase &&
             DimpCore.base.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
             DimpCore.base.DimpBase.poll();
         }
@@ -269,6 +270,7 @@ var DimpCompose = {
                 if (d.action == 'saveDraft') {
                     if (this.is_popup &&
                         DimpCore.base &&
+                        DimpCore.base.DimpCore &&
                         !DIMP.conf_compose.qreply) {
                         DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
@@ -280,7 +282,9 @@ var DimpCompose = {
                 break;
 
             case 'sendMessage':
-                if (this.is_popup && DimpCore.base) {
+                if (this.is_popup &&
+                    DimpCore.base &&
+                    DimpCore.base.DimpBase) {
                     if (d.flag) {
                         DimpCore.base.DimpBase.flagCallback(d);
                     }
@@ -305,7 +309,9 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (this.is_popup && DimpCore.base) {
+                if (this.is_popup &&
+                    DimpCore.base &&
+                    DimpCore.base.DimpBase) {
                     if (d.log) {
                         DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                     }
