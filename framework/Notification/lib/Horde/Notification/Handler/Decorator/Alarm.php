@@ -49,11 +49,17 @@ extends Horde_Notification_Handler_Decorator_Base
      * @param array $options  An array containing display options for the
      *                        listeners (see Horde_Notification_Handler for
      *                        details).
+     *
+     * @throws Horde_Notification_Exception
      */
     public function notify($options)
     {
         if (in_array('status', $options['listeners'])) {
-            $this->_alarm->notify($this->_user);
+            try {
+                $this->_alarm->notify($this->_user);
+            } catch (Horde_Alarm_Exception $e) {
+                throw new Horde_Notification_Exception($e);
+            }
         }
     }
 

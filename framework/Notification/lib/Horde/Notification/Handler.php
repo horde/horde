@@ -283,7 +283,11 @@ class Horde_Notification_Handler
         $options['listeners'] = array_map(array('Horde_String', 'lower'), $options['listeners']);
 
         foreach ($this->_decorators as $decorator) {
-            $decorator->notify($options);
+            try {
+                $decorator->notify($options);
+            } catch (Horde_Notification_Exception $e) {
+                $this->push($e);
+            }
         }
 
         /* Pass the message stack to all listeners and asks them to handle

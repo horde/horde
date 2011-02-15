@@ -33,6 +33,8 @@ class Horde_Notification_Handler_Decorator_Base
      * @param array $options  An array containing display options for the
      *                        listeners (see Horde_Notification_Handler for
      *                        details).
+     *
+     * @throws Horde_Notification_Exception
      */
     public function notify($options)
     {
