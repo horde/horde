@@ -328,7 +328,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
                 }
                 foreach ($shares as $share) {
                     $object = $this->getShareById($share);
-                    $parent = $object->get('parent');
                     foreach ($attributes as $key => $value) {
                         if ($object->get($key) != $value) {
                             $remove[] = $share;

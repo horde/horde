@@ -288,15 +288,15 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
         // Getting back the correct shares?
         $shares = self::$share->listShares('john', array('all_levels' => false, 'sort_by' => 'id'));
-        $this->assertEquals(
+        $this->assertSortedById(
             array('myshare', 'systemshare', 'janeshare', 'groupshare'),
-            array_keys($shares));
+            $shares);
 
         // Shares of a certain owner.
         $shares = self::$share->listShares('john', array('attributes' => 'jane', 'sort_by' => 'id'));
-        $this->assertEquals(
+        $this->assertSortedById(
             array('janeshare', 'groupshare'),
-            array_keys($shares));
+            $shares);
     }
 
     public function _listSharesSystem()
@@ -329,23 +329,31 @@ class Horde_Share_Test_Base extends Horde_Test_Case
             array_keys($shares));
 
         $shares = self::$share->listShares('john', array('perm' => Horde_Perms::EDIT | Horde_Perms::DELETE, 'sort_by' => 'id'));
-        $this->assertEquals(
+        $this->assertSortedById(
             array('myshare', 'mychildshare', 'janeshare', 'groupshare'),
-            array_keys($shares));
+            $shares);
         $shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL));
         $this->assertInternalType('array', $shares);
         $this->assertEquals(5, count($shares));
 
         // Paging.
+        $all_shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL, 'sort_by' => 'id'));
+        $this->assertSortedById(
+            array('janeshare', 'groupshare', 'myshare', 'mychildshare', 'systemshare'),
+            $all_shares);
         $shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL, 'sort_by' => 'id', 'from' => 2, 'count' => 2));
         $this->assertEquals(
-            array('systemshare', 'janeshare'),
+            array_slice(array_keys($all_shares), 2, 2),
             array_keys($shares));
 
         // Paging with top level only
+        $all_top_shares = self::$share->listShares('john', array('all_levels' => false, 'perm' => Horde_Perms::ALL, 'sort_by' => 'id'));
+        $this->assertSortedById(
+            array('janeshare', 'groupshare', 'myshare', 'systemshare'),
+            $all_top_shares);
         $shares = self::$share->listShares('john', array('all_levels' => false, 'perm' => Horde_Perms::ALL, 'sort_by' => 'id', 'from' => 2, 'count' => 2));
         $this->assertEquals(
-            array('janeshare', 'groupshare'),
+            array_slice(array_keys($all_top_shares), 2, 2),
             array_keys($shares));
 
         // Restrict to children of a share only
@@ -356,9 +364,9 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
         // Sort order and direction.
         $shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL, 'sort_by' => 'id', 'direction' => 1));
-        $this->assertEquals(
+        $this->assertSortedById(
             array('groupshare', 'janeshare', 'systemshare', 'mychildshare', 'myshare'),
-            array_keys($shares));
+            array_reverse($shares));
 
         // Attribute searching.
         $shares = self::$share->listShares('john', array('attributes' => array('name' => 'Jane\'s Share')));
@@ -542,5 +550,20 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     {
         $share->setShareOb(new Horde_Support_Stub());
         $this->assertEquals($share, unserialize(serialize($share)));
+    }
+
+
+    protected function assertSortedById($expected, $shares)
+    {
+        $sort = array();
+        foreach ($shares as $key => $share) {
+            $sort[$share->getId()] = $key;
+        }
+        ksort($sort);
+        $keys = array_keys($shares);
+        $this->assertEquals($keys, array_values($sort));
+        sort($expected);
+        sort($keys);
+        $this->assertEquals($expected, $keys);
     }
 }

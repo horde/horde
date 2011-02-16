@@ -171,31 +171,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         $this->_listSharesJohnTwo();
     }
 
-    public function _listSharesJohn()
-    {
-        // Default listing.
-        $shares = self::$share->listShares('john');
-        $this->assertInternalType('array', $shares);
-        $this->assertEquals(5, count($shares));
-
-        // Test arguments for default listing.
-        $this->assertEquals($shares, self::$share->listShares('john', array('perm' => Horde_Perms::SHOW, 'attributes' => null, 'from' => 0, 'count' => 0, 'sort_by' => null, 'direction' => 0)));
-
-        // Getting back the correct shares?
-        $shares = self::$share->listShares('john', array('all_levels' => false, 'sort_by' => 'id'));
-        //@todo: INTERFACE!!!
-        $this->assertEquals(
-            array('myshare', 'systemshare', 'groupshare', 'janeshare'),
-            array_keys($shares));
-
-        // Shares of a certain owner.
-        $shares = self::$share->listShares('john', array('attributes' => 'jane', 'sort_by' => 'id'));
-        //@todo: INTERFACE!!!
-        $this->assertEquals(
-            array('groupshare', 'janeshare'),
-            array_keys($shares));
-    }
-
     public function _listSharesSystem()
     {
         // Guest shares.
@@ -205,74 +180,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
             array('systemshare', 'myshare'),
             array_keys($shares));
     }
-
-    public function _listSharesJohnTwo()
-    {
-        // Shares with certain permissions.
-        $this->assertEquals(5, count(self::$share->listShares('john', array('perm' => Horde_Perms::READ))));
-        $shares = self::$share->listShares('john', array('perm' => Horde_Perms::EDIT, 'sort_by' => 'id'));
-        $this->assertEquals(
-            array('myshare', 'mychildshare', 'janeshare'),
-            array_keys($shares));
-
-        // Again with only toplevel
-        $shares = self::$share->listShares('john', array('all_levels' => false, 'perm' => Horde_Perms::EDIT, 'sort_by' => 'id'));
-        $this->assertEquals(
-            array('myshare', 'janeshare'),
-            array_keys($shares));
-
-        $shares = self::$share->listShares('john', array('perm' => Horde_Perms::DELETE, 'sort_by' => 'id'));
-        $this->assertEquals(
-            array('myshare', 'mychildshare', 'groupshare'),
-            array_keys($shares));
-
-        $shares = self::$share->listShares('john', array('perm' => Horde_Perms::EDIT | Horde_Perms::DELETE, 'sort_by' => 'id'));
-        //@todo: INTERFACE!!!
-        $this->assertEquals(
-            array('myshare', 'mychildshare', 'groupshare', 'janeshare'),
-            array_keys($shares));
-        $shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL));
-        $this->assertInternalType('array', $shares);
-        $this->assertEquals(5, count($shares));
-
-        // Paging.
-        $shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL, 'sort_by' => 'id', 'from' => 2, 'count' => 2));
-        //@todo: INTERFACE!!!
-        $this->assertEquals(
-            array('systemshare', 'groupshare'),
-            array_keys($shares));
-
-        // Paging with top level only
-        $shares = self::$share->listShares('john', array('all_levels' => false, 'perm' => Horde_Perms::ALL, 'sort_by' => 'id', 'from' => 2, 'count' => 2));
-        //@todo: INTERFACE!!!
-        $this->assertEquals(
-            array('groupshare', 'janeshare'),
-            array_keys($shares));
-
-        // Restrict to children of a share only
-        $shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL, 'parent' => self::$shares['myshare']));
-        $this->assertEquals(
-            array('mychildshare'),
-            array_keys($shares));
-
-        // Sort order and direction.
-        $shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL, 'sort_by' => 'id', 'direction' => 1));
-        //@todo: INTERFACE!!!
-        $this->assertEquals(
-            array('janeshare', 'groupshare', 'systemshare', 'mychildshare', 'myshare'),
-            array_keys($shares));
-
-        // Attribute searching.
-        $shares = self::$share->listShares('john', array('attributes' => array('name' => 'Jane\'s Share')));
-        $this->assertEquals(
-            array('janeshare'),
-            array_keys($shares));
-        $shares = self::$share->listShares('john', array('attributes' => array('desc' => '行事曆')));
-        $this->assertEquals(
-            array('myshare'),
-            array_keys($shares));
-    }
-
 
     /**
      * @depends testPermissions
@@ -406,5 +313,4 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
  - Unset permissions won't be represented in the permission object.
  - Why can shares be removed twice?
  - Why wouldn't the system user see shares from other users?
- - The test assumes an the internal IDs in the sort order.
 */
