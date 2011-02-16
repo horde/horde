@@ -131,13 +131,13 @@
     '<label><input type="radio" name="recur_weekly" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_weekly" value="0" />', '</label>
     <label><input type="text" size="3" name="recur_weekly_interval" value="" class="kronolithEventValue" />', '</label><br />',
-    '<label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_MONDAY . '" /> ' . substr(_("Monday"), 0, 3) . '</label>
-    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_TUESDAY . '" /> ' . substr(_("Tuesday"), 0, 3) . '</label>
-    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_WEDNESDAY . '" /> ' . substr(_("Wednesday"), 0, 3) . '</label>
-    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_THURSDAY . '" /> ' . substr(_("Thursday"), 0, 3) . '</label>
-    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_FRIDAY . '" /> ' . substr(_("Friday"), 0, 3) . '</label>
-    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SATURDAY . '" /> ' . substr(_("Saturday"), 0, 3) . '</label>
-    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SUNDAY . '" /> ' . substr(_("Sunday"), 0, 3) . '</label>') ?>
+    '<label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_MONDAY . '" /> ' . Horde_String::substr(_("Monday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_TUESDAY . '" /> ' . Horde_String::substr(_("Tuesday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_WEDNESDAY . '" /> ' . Horde_String::substr(_("Wednesday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_THURSDAY . '" /> ' . Horde_String::substr(_("Thursday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_FRIDAY . '" /> ' . Horde_String::substr(_("Friday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SATURDAY . '" /> ' . Horde_String::substr(_("Saturday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SUNDAY . '" /> ' . Horde_String::substr(_("Sunday"), 0, 3) . '</label>') ?>
   </div>
   <div id="kronolithEventRepeatMonthly" style="display:none">
     <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s or %s weekday %s"),
