@@ -513,8 +513,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
-        $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>' .
-            '<select name="itip_action[' . $id . ']">';
+        $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>'
+            . '<select name="itip_action[' . $id . ']"><option value="">'
+            . _("-- select --") . '</option>';
 
         switch ($method) {
         case 'PUBLISH':
@@ -796,11 +797,13 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         if ($options) {
-            $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>' .
-                '<label for="action_' . $id . '" class="hidden">' . _("Actions") . '</label>' .
-                '<select id="action_' . $id . '" name="itip_action[' . $id . ']">' .
-                implode("\n", $options) .
-                '</select> <input type="submit" class="button" value="' . _("Go") . '" />';
+            $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>'
+                . '<label for="action_' . $id . '" class="hidden">'
+                . _("Actions") . '</label>' . '<select id="action_' . $id
+                . '" name="itip_action[' . $id . ']"><option value="">'
+                . _("-- select --") . '</option>' . implode("\n", $options)
+                . '</select> <input type="submit" class="button" value="'
+                . _("Go") . '" />';
         }
 
         return $html;
@@ -925,10 +928,11 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         if ($options) {
-            $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>' .
-                '<select name="itip_action[' . $id . ']">' .
-                implode("\n", $options) .
-                '</select> <input type="submit" class="button" value="' . _("Go") . '" />';
+            $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>'
+                . '<select name="itip_action[' . $id . ']"><option value="">'
+                . _("-- select --") . '</option>' . implode("\n", $options)
+                . '</select> <input type="submit" class="button" value="'
+                . _("Go") . '" />';
         }
 
         return $html;

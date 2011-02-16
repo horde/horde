@@ -216,7 +216,8 @@ v5.0-git
 v4.3.10-cvs
 -----------
 
-
+[jan] Don't submit the action form when reloading messages with iTip
+      attachments (Bug #9502).
 
 
 ------
