@@ -15,3 +15,6 @@
  - KEP2
 
  - Remove translations or should we keep them for Cli?
+
+ - Look at XML parsing alternatives (stream-based)
+   http://www.ibm.com/developerworks/xml/library/x-xmlphp2.html
