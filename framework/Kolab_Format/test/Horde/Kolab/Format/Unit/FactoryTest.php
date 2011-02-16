@@ -121,4 +121,17 @@ extends PHPUnit_Framework_TestCase
             $factory->create('Xml', 'contact', array('memlog' => true))
         );
     }
+
+    public function testConstructorParams()
+    {
+        if (!class_exists('Horde_Support_Timer')) {
+            $this->markTestSkipped('Horde_Support package missing!');
+        }
+        $factory = new Horde_Kolab_Format_Factory(array('timelog' => true));
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Decorator_Timed',
+            $factory->create('Xml', 'contact')
+        );
+    }
+
 }

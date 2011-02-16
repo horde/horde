@@ -29,6 +29,23 @@
 class Horde_Kolab_Format_Factory
 {
     /**
+     * Parameters for the parser construction.
+     *
+     * @var array
+     */
+    private $_params;
+
+    /**
+     * Constructor.
+     *
+     * @param array $params Additional parameters for the creation of parsers.
+     */   
+    public function __construct(array $params = array())
+    {
+        $this->_params = $params;
+    }
+
+    /**
      * Generates a handler for a specific Kolab object type.
      *
      * @param string $format The format that the handler should work with.
@@ -43,13 +60,15 @@ class Horde_Kolab_Format_Factory
      * @throws Horde_Kolab_Format_Exception If the specified handler does not
      *                                      exist.
      */
-    public function create($format = 'Xml', $type = '', $params = null)
+    public function create($format = 'Xml', $type = '', array $params = array())
     {
         $parser = ucfirst(strtolower($format));
         $class = basename(
             'Horde_Kolab_Format_' . $parser . '_'
             . ucfirst(strtolower(str_replace('-', '', $type)))
         );
+
+        $params = array_merge($this->_params, $params);
 
         if (class_exists($class)) {
             switch ($parser) {
