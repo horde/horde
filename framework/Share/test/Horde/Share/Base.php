@@ -401,41 +401,44 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function getPermission()
     {
-        $permission = new Horde_Perms_Permission('myshare');
-        $permission->addDefaultPermission(Horde_Perms::SHOW);
-        $permission->addGuestPermission(0);
-        $permission->addCreatorPermission(0);
-        $permission->addUserPermission('jane', Horde_Perms::SHOW);
-        $permission->addGroupPermission('mygroup', Horde_Perms::SHOW);
-        $this->assertEquals($permission, self::$shares['myshare']->getPermission());
+        $permission = self::$shares['myshare']->getPermission();
+        $this->assertEquals(Horde_Perms::SHOW, $permission->getDefaultPermissions());
+        $this->assertFalse((bool) $permission->getGuestPermissions());
+        $this->assertEquals(array('jane' => Horde_Perms::SHOW), $permission->getUserPermissions());
+        $this->assertEquals(array('mygroup' => Horde_Perms::SHOW), $permission->getGroupPermissions());
         self::$share->resetCache();
-        $this->assertEquals($permission, self::$share->getShare('myshare')->getPermission());
+
+        $permission = self::$share->getShare('myshare')->getPermission();
+        $this->assertEquals(Horde_Perms::SHOW, $permission->getDefaultPermissions());
+        $this->assertFalse((bool) $permission->getGuestPermissions());
+        $this->assertEquals(array('jane' => Horde_Perms::SHOW), $permission->getUserPermissions());
+        $this->assertEquals(array('mygroup' => Horde_Perms::SHOW), $permission->getGroupPermissions());
         self::$share->resetCache();
+
         $shares = self::$share->getShares(array(self::$shares['myshare']->getId()));
-        $this->assertEquals($permission, $shares['myshare']->getPermission());
+        $permission = $shares['myshare']->getPermission();
+        $this->assertEquals(Horde_Perms::SHOW, $permission->getDefaultPermissions());
+        $this->assertFalse((bool) $permission->getGuestPermissions());
+        $this->assertEquals(array('jane' => Horde_Perms::SHOW), $permission->getUserPermissions());
+        $this->assertEquals(array('mygroup' => Horde_Perms::SHOW), $permission->getGroupPermissions());
         self::$share->resetCache();
+
         $shares = self::$share->listShares('john');
-        $this->assertEquals($permission, $shares['myshare']->getPermission());
+        $permission = $shares['myshare']->getPermission();
+        $this->assertEquals(Horde_Perms::SHOW, $permission->getDefaultPermissions());
+        $this->assertFalse((bool) $permission->getGuestPermissions());
+        $this->assertEquals(array('jane' => Horde_Perms::SHOW), $permission->getUserPermissions());
+        $this->assertEquals(array('mygroup' => Horde_Perms::SHOW), $permission->getGroupPermissions());
 
-        $permission = new Horde_Perms_Permission('systemshare');
-        $permission->addDefaultPermission(Horde_Perms::SHOW | Horde_Perms::READ);
-        $permission->addGuestPermission(Horde_Perms::SHOW);
-        $permission->addCreatorPermission(0);
-        $this->assertEquals($permission, self::$shares['systemshare']->getPermission());
+        $permission = self::$shares['systemshare']->getPermission();
+        $this->assertEquals(Horde_Perms::SHOW  | Horde_Perms::READ, $permission->getDefaultPermissions());
+        $this->assertEquals(Horde_Perms::SHOW, $permission->getGuestPermissions());
 
-        $permission = new Horde_Perms_Permission('janeshare');
-        $permission->addDefaultPermission(0);
-        $permission->addGuestPermission(0);
-        $permission->addCreatorPermission(0);
-        $permission->addUserPermission('john', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT);
-        $this->assertEquals($permission, self::$shares['janeshare']->getPermission());
+        $permission = self::$shares['janeshare']->getPermission();
+        $this->assertEquals(array('john' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT), $permission->getUserPermissions());
 
-        $permission = new Horde_Perms_Permission('groupshare');
-        $permission->addDefaultPermission(0);
-        $permission->addGuestPermission(0);
-        $permission->addCreatorPermission(0);
-        $permission->addGroupPermission('mygroup', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::DELETE);
-        $this->assertEquals($permission, self::$shares['groupshare']->getPermission());
+        $permission = self::$shares['groupshare']->getPermission();
+        $this->assertEquals(array('mygroup' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::DELETE), $permission->getGroupPermissions());
     }
 
     public function removeUserPermissions()

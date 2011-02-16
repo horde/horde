@@ -189,59 +189,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         return $this->getPermission();
     }
 
-    public function getPermission()
-    {
-        $permission = new Horde_Perms_Permission('myshare');
-        $permission->addDefaultPermission(Horde_Perms::SHOW);
-        //@todo: INTERFACE!!!
-        //$permission->addGuestPermission(0);
-        //@todo: INTERFACE!!!
-        $permission->addCreatorPermission(30);
-        $permission->addUserPermission('jane', Horde_Perms::SHOW);
-        $permission->addGroupPermission('mygroup', Horde_Perms::SHOW);
-        //@todo: INTERFACE!!!
-        $this->assertEquals($permission->data, self::$shares['myshare']->getPermission()->data);
-        self::$share->resetCache();
-        //@todo: INTERFACE!!!
-        $this->assertEquals($permission->data, self::$share->getShare('myshare')->getPermission()->data);
-        self::$share->resetCache();
-        $shares = self::$share->getShares(array(self::$shares['myshare']->getId()));
-        //@todo: INTERFACE!!!
-        $this->assertEquals($permission->data, $shares['myshare']->getPermission()->data);
-        self::$share->resetCache();
-        $shares = self::$share->listShares('john');
-        //@todo: INTERFACE!!!
-        $this->assertEquals($permission->data, $shares['myshare']->getPermission()->data);
-
-        $permission = new Horde_Perms_Permission('systemshare');
-        $permission->addDefaultPermission(Horde_Perms::SHOW | Horde_Perms::READ);
-        $permission->addGuestPermission(Horde_Perms::SHOW);
-        //@todo: INTERFACE!!!
-        $permission->addCreatorPermission(30);
-        //@todo: INTERFACE!!!
-        $this->assertEquals($permission->data, self::$shares['systemshare']->getPermission()->data);
-
-        $permission = new Horde_Perms_Permission('janeshare');
-        //@todo: INTERFACE!!!
-        //$permission->addDefaultPermission(0);
-        //$permission->addGuestPermission(0);
-        //@todo: INTERFACE!!!
-        $permission->addCreatorPermission(30);
-        $permission->addUserPermission('john', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT);
-        //@todo: INTERFACE!!!
-        $this->assertEquals($permission->data, self::$shares['janeshare']->getPermission()->data);
-
-        $permission = new Horde_Perms_Permission('groupshare');
-        //@todo: INTERFACE!!!
-        //$permission->addDefaultPermission(0);
-        //$permission->addGuestPermission(0);
-        //@todo: INTERFACE!!!
-        $permission->addCreatorPermission(30);
-        $permission->addGroupPermission('mygroup', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::DELETE);
-        //@todo: INTERFACE!!!
-        $this->assertEquals($permission->data, self::$shares['groupshare']->getPermission()->data);
-    }
-
     /**
      * @depends testPermissions
      */
@@ -309,8 +256,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
  - Permissions are always enforced.
  - Kolab_Shares require a set('name')
  - listSystemShares not supported yet
- - The returned permission representation is Horde_Perms_Permission_Kolab not Horde_Perms_Permission
- - Unset permissions won't be represented in the permission object.
  - Why can shares be removed twice?
  - Why wouldn't the system user see shares from other users?
 */
