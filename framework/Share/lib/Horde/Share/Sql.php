@@ -130,7 +130,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         foreach ($rows as $row) {
-            $share['perm']['users'] = $this->_buildPermsFromRow($row, 'user_uid');
+            $share['perm']['users'][$row['user_uid']] = $this->_buildPermsFromRow($row);
         }
     }
 
@@ -154,7 +154,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         foreach ($rows as $row) {
-            $share['perm']['groups'] = $this->_buildPermsFromRow($row, 'group_uid');
+            $share['perm']['groups'][$row['group_uid']] = $this->_buildPermsFromRow($row);
         }
     }
 
@@ -309,7 +309,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e);
         }
         foreach ($rows as $row) {
-            $shares[$row['share_id']]['perm']['users'] = $this->_buildPermsFromRow($row, 'user_uid');
+            $shares[$row['share_id']]['perm']['users'][$row['user_uid']] = $this->_buildPermsFromRow($row);
         }
 
         // Get groups permissions
@@ -319,7 +319,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e->getMessage());
         }
         foreach ($rows as $row) {
-            $shares[$row['share_id']]['perm']['groups'] = $this->_buildPermsFromRow($row, 'group_uid');
+            $shares[$row['share_id']]['perm']['groups'][$row['group_uid']] = $this->_buildPermsFromRow($row);
         }
 
         $sharelist = array();
@@ -856,17 +856,15 @@ class Horde_Share_Sql extends Horde_Share_Base
     }
 
     /**
-     * Builds a list of permission bit masks from the "perm" column.
+     * Builds a permission bit mask from the "perm" column.
      *
      * @param array $row     A data row including permission columns.
-     * @param string $index  Name of the column that should be used as the key
-     *                       for the permissions list.
      *
-     * @return array  A permission hash.
+     * @return integer  A permission mask.
      */
-    protected function _buildPermsFromRow($row, $index)
+    protected function _buildPermsFromRow($row)
     {
-        return array($row[$index] => (int)$row['perm']);
+        return (int)$row['perm'];
     }
 
     /**

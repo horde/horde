@@ -81,11 +81,13 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $janeshare = self::$share->newShare('jane', 'janeshare');
         $janeshare->set('name', 'Jane\'s Share');
         $janeshare->addUserPermission('john', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT);
+        $janeshare->addUserPermission('peter', Horde_Perms::SHOW);
         $janeshare->save();
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::SHOW));
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::READ));
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
         $this->assertFalse($janeshare->hasPermission('john', Horde_Perms::DELETE));
+        $this->assertTrue($janeshare->hasPermission('peter', Horde_Perms::SHOW));
     }
 
     protected function permissionsGroupShare()
@@ -191,7 +193,9 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $janeshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $janeshare);
         $this->assertEquals(self::$shares['janeshare'], $janeshare);
-        $this->assertEquals(array('john', 'jane'), $janeshare->listUsers());
+        $users = $janeshare->listUsers();
+        sort($users);
+        $this->assertEquals(array('jane', 'john', 'peter'), $users);
         $this->assertEquals(array('john', 'jane'), $janeshare->listUsers(Horde_Perms::EDIT));
         $this->assertEquals(array('jane'), $janeshare->listUsers(Horde_Perms::DELETE));
         $this->assertEquals('Jane\'s Share', $janeshare->get('name'));
@@ -435,7 +439,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals(Horde_Perms::SHOW, $permission->getGuestPermissions());
 
         $permission = self::$shares['janeshare']->getPermission();
-        $this->assertEquals(array('john' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT), $permission->getUserPermissions());
+        $this->assertEquals(array('john' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT, 'peter' => Horde_Perms::SHOW), $permission->getUserPermissions());
 
         $permission = self::$shares['groupshare']->getPermission();
         $this->assertEquals(array('mygroup' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::DELETE), $permission->getGroupPermissions());

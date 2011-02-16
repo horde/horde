@@ -193,29 +193,24 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
     }
 
     /**
-     * Builds a list of permission bit masks from all columns in a data row
-     * prefixed with "perm_".
+     * Builds a permission bit mask from all columns in a data row prefixed
+     * with "perm_".
      *
      * @param array $row     A data row including permission columns.
-     * @param string $index  Name of the column that should be used as the key
-     *                       for the permissions list.
      *
-     * @return array  A permission hash.
+     * @return integer  A permission mask.
      */
-    protected function _buildPermsFromRow($row, $index)
+    protected function _buildPermsFromRow($row)
     {
-        $perms = array();
+        $perms = 0;
         foreach ($row as $column => $value) {
             if (substr($column, 0, 5) != 'perm_') {
                 continue;
             }
-            if (!isset($perms[$row[$index]])) {
-                $perms[$row[$index]] = 0;
-            }
             $perm = (int)substr($column, 5);
             $this->_availablePermissions[$perm] = true;
             if ($value) {
-                $perms[$row[$index]] |= $perm;
+                $perms |= $perm;
             }
         }
         return $perms;
