@@ -140,7 +140,7 @@ implements Horde_Kolab_Cli_Module
             break;
         case 'types':
             $types = $world['storage']->getList()
-                ->getQuery('Base')
+                ->getQuery()
                 ->listTypes();
             if (!empty($types)) {
                 $pad = max(array_map('strlen', array_keys($types))) + 2;
@@ -155,7 +155,7 @@ implements Horde_Kolab_Cli_Module
             }
             $type = $arguments[2];
             $folders = $world['storage']->getList()
-                ->getQuery('Base')
+                ->getQuery()
                 ->listByType($type);
             foreach ($folders as $folder) {
                 $cli->writeln($folder);
@@ -163,7 +163,7 @@ implements Horde_Kolab_Cli_Module
             break;
         case 'owners':
             $owners = $world['storage']->getList()
-                ->getQuery('Base')
+                ->getQuery()
                 ->listOwners();
             if (!empty($owners)) {
                 $pad = max(array_map('strlen', array_keys($owners))) + 2;
@@ -174,7 +174,7 @@ implements Horde_Kolab_Cli_Module
             break;
         case 'defaults':
             $defaults = $world['storage']->getList()
-                ->getQuery('Base')
+                ->getQuery()
                 ->listDefaults();
             if (!empty($defaults)) {
                 foreach ($defaults as $owner => $folders) {

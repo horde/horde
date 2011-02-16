@@ -115,7 +115,15 @@ Choices are:
                 '--timed',
                 array(
                     'action' => 'store_true',
-                    'help'   => Horde_Kolab_Cli_Translation::t('Produce time measurements to indicate how long the processing takes.')
+                    'help'   => Horde_Kolab_Cli_Translation::t('Produce time measurements to indicate how long the processing takes. You *must* activate logging for this as well.')
+                )
+            ),
+            new Horde_Argv_Option(
+                '-m',
+                '--memory',
+                array(
+                    'action' => 'store_true',
+                    'help'   => Horde_Kolab_Cli_Translation::t('Report memory consumption statistics. You *must* activate logging for this as well.')
                 )
             ),
             new Horde_Argv_Option(
@@ -131,7 +139,7 @@ Choices are:
                 '--log',
                 array(
                     'action' => 'store',
-                    'help'   => Horde_Kolab_Cli_Translation::t('Write a log file in the provided LOG location.')
+                    'help'   => Horde_Kolab_Cli_Translation::t('Write a log file in the provided LOG location. Use "STDOUT" here to direct the log output to the screen.')
                 )
             ),
             new Horde_Argv_Option(
@@ -208,7 +216,7 @@ Choices are:
             if (class_exists('Horde_Log_Logger')) {
                 $options['log'] = new Horde_Log_Logger(
                     new Horde_Log_Handler_Stream(
-                        $options['log']
+                        ($options['log'] == 'STDOUT') ? STDOUT : $options['log']
                     )
                 );
             } else {
@@ -216,6 +224,7 @@ Choices are:
             }
         }
         $world['storage'] = $this->_getStorage($options);
+        $world['format'] = $this->_getFormat($options);
     }
 
 
@@ -242,5 +251,22 @@ Choices are:
             $params['cache'] = array('prefix' => 'kolab_cache_', 'dir' => '/tmp/kolab', 'lifetime' => 0);
         }
         return $factory->createFromParams($params);
+    }
+
+    /**
+     * Return the factory for the Kolab format parsers.
+     *
+     * @param mixed     $options   An array of options.
+     *
+     * @return Horde_Kolab_Format_Factory The format parser factory.
+     */
+    private function _getFormat($options)
+    {
+        return new Horde_Kolab_Format_Factory(
+            array(
+                'timelog' => isset($options['log']) && isset($options['timed']) ? $options['log'] : null,
+                'memlog' => isset($options['log']) && isset($options['memory']) ? $options['log'] : null,
+            )
+        );
     }
 }
