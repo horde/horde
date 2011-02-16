@@ -66,18 +66,18 @@
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 {
     /**
-     * The socket connection to the POP3 server.
-     *
-     * @var resource
-     */
-    protected $_stream = null;
-
-    /**
      * The list of deleted messages.
      *
      * @var array
      */
     protected $_deleted = array();
+
+    /**
+     * The socket connection to the POP3 server.
+     *
+     * @var resource
+     */
+    protected $_stream = null;
 
     /**
      * Constructs a new object.
@@ -87,25 +87,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     public function __construct(array $params = array())
     {
         if (empty($params['port'])) {
-            $params['port'] = ($params['secure'] == 'ssl') ? 995 : 110;
+            $params['port'] = (isset($params['secure']) && ($params['secure'] == 'ssl'))
+                ? 995
+                : 110;
         }
 
         parent::__construct($params);
-
-        // Disable caching.
-        $this->_params['cache'] = array('fields' => array());
-    }
-
-    /**
-     * Unserialize.
-     *
-     * @param string $data  Serialized data.
-     *
-     * @throws Exception
-     */
-    public function unserialize($data)
-    {
-        parent::unserialize($data);
 
         // Disable caching.
         $this->_params['cache'] = array('fields' => array());
@@ -577,14 +564,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Append a message to the mailbox.
-     *
-     * @param array $mailbox   The mailboxes to append the messages to
-     *                         (UTF7-IMAP).
-     * @param array $data      The message data.
-     * @param array $options   Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _append($mailbox, $data, $options)
     {
@@ -617,20 +596,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Expunge all deleted messages from the given mailbox.
-     *
-     * @param array $options  Additional options. 'ids' and 'sequence' have
-     *                        no effect in this driver.
-     *
-     * @return array  If 'count' option is true, returns the list of
-     *                expunged messages.
-     * @throws Horde_Imap_Client_Exception
+     * @param array $options  Additional options. 'ids' has no effect in this
+     *                        driver.
      */
     protected function _expunge($options)
     {
         $msg_list = $this->_deleted();
         $this->logout();
-        return empty($options['list']) ? null : $msg_list;
+        return empty($options['list'])
+            ? null
+            : $msg_list;
     }
 
     /**
@@ -1052,11 +1027,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Store message flag data.
-     *
-     * @param array $options  Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
+     * @param array $options  Additional options. This driver does not support
+     *                        'unchangedsince'.
      */
     protected function _store($options)
     {
@@ -1089,12 +1061,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Copy messages to another mailbox.
-     *
-     * @param string $dest    The destination mailbox (UTF7-IMAP).
-     * @param array $options  Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _copy($dest, $options)
     {
