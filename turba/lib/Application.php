@@ -185,7 +185,7 @@ class Turba_Application extends Horde_Registry_Application
         $source_init = false;
 
         foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val->group) {
+            switch ($val) {
             case 'columnselect':
                 Horde::addScriptFile('effects.js', 'horde');
                 Horde::addScriptFile('dragdrop.js', 'horde');
