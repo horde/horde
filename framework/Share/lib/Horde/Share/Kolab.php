@@ -364,16 +364,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $this->_listcache[$key] = $shares;
         }
         return $this->_listcache[$key];
-
-        /*     $shares = array();
-        /*     foreach ($sharelist as $folder) { */
-        /*         $id = $folder->getShareId(); */
-        /*         $share = $this->getShare($id); */
-        /*         if ($keep) { */
-        /*             $shares[] = $id; */
-        /*         } */
-        /*     } */
-        /* } */
     }
 
     /**
