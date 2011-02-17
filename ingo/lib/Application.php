@@ -70,8 +70,7 @@ class Ingo_Application extends Horde_Registry_Application
                 if (trim($name) == '') {
                     $name = $GLOBALS['registry']->getAuth('original');
                 }
-                $share = $GLOBALS['ingo_shares']->newShare($GLOBALS['registry']->getAuth(), $signature);
-                $share->set('name', $name);
+                $share = $GLOBALS['ingo_shares']->newShare($GLOBALS['registry']->getAuth(), $signature, $name);
                 $GLOBALS['ingo_shares']->addShare($share);
                 $GLOBALS['all_rulesets'][$signature] = $share;
             }

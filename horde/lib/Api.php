@@ -471,9 +471,8 @@ class Horde_Api extends Horde_Registry_Api
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
         try {
-            $share = $shares->newShare($GLOBALS['registry']->getAuth(), $shareName);
+            $share = $shares->newShare($GLOBALS['registry']->getAuth(), $shareName, $shareTitle);
             $share->set('owner', $userName);
-            $share->set('name', $shareTitle);
             $shares->addShare($share);
         } catch (Horde_Share_Exception $e) {
             throw new Horde_Exception($e);

@@ -106,15 +106,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         self::$storage->synchronize();
     }
 
-    protected function permissionsNoShare()
-    {
-        // Foreign share without permissions.
-        $fshare = self::$share->newShare('jane', 'noshare');
-        //@todo: INTERFACE!!!
-        $fshare->set('name', 'No Share');
-        $fshare->save();
-    }
-
     /**
      * @depends testAddShare
      */

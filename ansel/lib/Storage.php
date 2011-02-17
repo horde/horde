@@ -121,7 +121,8 @@ class Ansel_Storage
 
         /* Create the gallery */
         try {
-            $gallery = $this->_shares->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
+            $gallery = $this->_shares->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $attributes['name']);
+            
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage, 'ERR');
             throw new Ansel_Exception($e);
@@ -140,7 +141,9 @@ class Ansel_Storage
 
         /* Fill up the new gallery */
         foreach ($attributes as $key => $value) {
-            $gallery->set($key, $value);
+            if ($key != 'name') {
+                $gallery->set($key, $value);
+            }
         }
 
         /* Save it to storage */

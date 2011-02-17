@@ -1027,8 +1027,7 @@ class Whups_QueryManager {
             }
         } else {
             // Create a new share for the query.
-            $share = $this->_shareManager->newShare($GLOBALS['registry']->getAuth(), (string)new Horde_Support_Uuid());
-            $share->set('name', $query->name);
+            $share = $this->_shareManager->newShare($GLOBALS['registry']->getAuth(), (string)new Horde_Support_Uuid(), $query->name);
             $share->set('slug', $query->slug);
             try {
                 $this->_shareManager->addShare($share);

@@ -158,9 +158,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
 
         $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
-        $share = $GLOBALS['folks_shares']->newShare(strval(new Horde_Support_Uuid()));
-
-        $share->set('name', $name);
+        $share = $GLOBALS['folks_shares']->newShare(strval(new Horde_Support_Uuid()), $name);
         $result = $GLOBALS['folks_shares']->addShare($share);
 
         return $share->getId();

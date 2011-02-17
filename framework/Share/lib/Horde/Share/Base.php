@@ -401,16 +401,18 @@ abstract class Horde_Share_Base
     /**
      * Returns a new share object.
      *
-     * @param string $owner The share owner name.
-     * @param string $name  The share's name.
+     * @param string $owner           The share owner name.
+     * @param string $share_name      The share's name.
+     * @param string $name_attribute  The name displayed to the user.
      *
      * @return Horde_Share_Object  A new share object.
      * @throws Horde_Share_Exception
      */
-    public function newShare($owner, $name = '')
+    public function newShare($owner, $share_name = '', $name_attribute = '')
     {
-        $share = $this->_newShare($name);
+        $share = $this->_newShare($share_name);
         $share->set('owner', $owner);
+        $share->set('name', $name_attribute);
         return $share;
     }
 

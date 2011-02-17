@@ -448,8 +448,7 @@ class Nag
     public static function addTasklist(array $info)
     {
         try {
-            $tasklist = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
-            $tasklist->set('name', $info['name']);
+            $tasklist = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $info['name']);
             $tasklist->set('color', $info['color']);
             $tasklist->set('desc', $info['description']);
             if (!empty($info['system'])) {
@@ -728,8 +727,11 @@ class Nag
             $GLOBALS['registry']->getAuth() &&
             !count(self::listTasklists(true))) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
-            $share->set('name', sprintf(_("Task list of %s"), $identity->getName()));
+            $share = $GLOBALS['nag_shares']->newShare(
+                $GLOBALS['registry']->getAuth(),
+                strval(new Horde_Support_Randomid()),
+                sprintf(_("Task list of %s"), $identity->getName())
+            );
             $GLOBALS['nag_shares']->addShare($share);
             $GLOBALS['display_tasklists'][] = $share->getName();
         }

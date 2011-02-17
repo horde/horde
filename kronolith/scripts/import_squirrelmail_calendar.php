@@ -44,8 +44,7 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     $user = $row['owner_name'];
     Horde_Auth::setAuth($user, array());
     $cli->message('Creating calendar ' . $row['name']);
-    $share = $kronolith_shares->newShare($GLOBALS['registry']->getAuth(), $row['id']);
-    $share->set('name', $row['name']);
+    $share = $kronolith_shares->newShare($GLOBALS['registry']->getAuth(), $row['id'], $row['name']);
     $kronolith_shares->addShare($share);
 
     // Add permissions.

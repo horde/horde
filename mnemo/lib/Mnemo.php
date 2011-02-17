@@ -436,8 +436,11 @@ class Mnemo
             $GLOBALS['registry']->getAuth() &&
             !count(Mnemo::listNotepads(true))) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
-            $share->set('name', sprintf(_("Notepad of %s"), $identity->getName()));
+            $share = $GLOBALS['mnemo_shares']->newShare(
+                $GLOBALS['registry']->getAuth(),
+                strval(new Horde_Support_Randomid()),
+                sprintf(_("Notepad of %s"), $identity->getName())
+            );
             $GLOBALS['mnemo_shares']->addShare($share);
             $GLOBALS['display_notepads'][] = $share->getName();
         }

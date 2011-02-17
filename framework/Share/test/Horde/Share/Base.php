@@ -25,9 +25,8 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function addShare()
     {
-        $share = self::$share->newShare('john', 'myshare');
+        $share = self::$share->newShare('john', 'myshare', 'My Share');
         $this->assertInstanceOf('Horde_Share_Object', $share);
-        $share->set('name', 'My Share');
         $share->set('desc', '行事曆');
         $share->addDefaultPermission(Horde_Perms::SHOW);
         $share->addUserPermission('jane', Horde_Perms::SHOW);
@@ -35,8 +34,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         self::$share->addShare($share);
 
         // Add a child to the share to test hierarchical functions
-        $child = self::$share->newShare('john', 'mychildshare');
-        $child->set('name', 'My Child Share');
+        $child = self::$share->newShare('john', 'mychildshare', 'My Child Share');
         $child->set('desc', 'description');
         $this->assertInstanceOf('Horde_Share_Object', $child);
         $child->setParent($share);
@@ -57,8 +55,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     protected function permissionsSystemShare()
     {
         // System share.
-        $share = self::$share->newShare(null, 'systemshare');
-        $share->set('name', 'System Share');
+        $share = self::$share->newShare(null, 'systemshare', 'System Share');
         $this->assertInstanceOf('Horde_Perms_Permission', $share->getPermission());
         $share->addDefaultPermission(Horde_Perms::SHOW | Horde_Perms::READ);
         $share->addGuestPermission(Horde_Perms::SHOW);
@@ -78,8 +75,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     protected function permissionsJaneShare()
     {
         // Foreign share with user permissions.
-        $janeshare = self::$share->newShare('jane', 'janeshare');
-        $janeshare->set('name', 'Jane\'s Share');
+        $janeshare = self::$share->newShare('jane', 'janeshare', 'Jane\'s Share');
         $janeshare->addUserPermission('john', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT);
         $janeshare->addUserPermission('peter', Horde_Perms::SHOW);
         $janeshare->save();
@@ -93,8 +89,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     protected function permissionsGroupShare()
     {
         // Foreign share with group permissions.
-        $groupshare = self::$share->newShare('jane', 'groupshare');
-        $groupshare->set('name', 'Group Share');
+        $groupshare = self::$share->newShare('jane', 'groupshare', 'Group Share');
         $groupshare->addGroupPermission('mygroup', Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::DELETE);
         $groupshare->save();
         $this->assertTrue($groupshare->hasPermission('john', Horde_Perms::SHOW));
@@ -106,7 +101,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     protected function permissionsNoShare()
     {
         // Foreign share without permissions.
-        $fshare = self::$share->newShare('jane', 'noshare');
+        $fshare = self::$share->newShare('jane', 'noshare', 'No Share');
         $fshare->save();
     }
 

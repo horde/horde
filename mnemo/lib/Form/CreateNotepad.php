@@ -29,12 +29,11 @@ class Mnemo_Form_CreateNotepad extends Horde_Form
     {
         // Create new share.
         try {
-            $notepad = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Uuid()));
+            $notepad = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Uuid()), $this->_vars->get('name'));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Mnemo_Exception($e);
         }
-        $notepad->set('name', $this->_vars->get('name'));
         $notepad->set('desc', $this->_vars->get('description'));
         return $GLOBALS['mnemo_shares']->addShare($notepad);
     }

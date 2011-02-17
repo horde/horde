@@ -603,10 +603,7 @@ class Turba
 
         /* Generate the new share. */
         try {
-            $share = $GLOBALS['turba_shares']->newShare($GLOBALS['registry']->getAuth(), $share_name);
-
-            /* Set the display name for this share. */
-            $share->set('name', $name);
+            $share = $GLOBALS['turba_shares']->newShare($GLOBALS['registry']->getAuth(), $share_name, $name);
 
             /* Now any other params. */
             foreach ($params as $key => $value) {

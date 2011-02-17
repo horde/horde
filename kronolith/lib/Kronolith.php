@@ -1123,8 +1123,11 @@ class Kronolith
             $GLOBALS['registry']->getAuth() &&
             !count(Kronolith::listInternalCalendars(true))) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
-            $share->set('name', sprintf(_("Calendar of %s"), $identity->getName()));
+            $share = $GLOBALS['kronolith_shares']->newShare(
+                $GLOBALS['registry']->getAuth(),
+                strval(new Horde_Support_Randomid()),
+                sprintf(_("Calendar of %s"), $identity->getName())
+            );
             $GLOBALS['kronolith_shares']->addShare($share);
             $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $GLOBALS['display_calendars'][] = $share->getName();
@@ -1593,12 +1596,11 @@ class Kronolith
     public static function addShare($info)
     {
         try {
-            $calendar = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
+            $calendar = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $info['name']);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
 
-        $calendar->set('name', $info['name']);
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
         if (!empty($info['system'])) {

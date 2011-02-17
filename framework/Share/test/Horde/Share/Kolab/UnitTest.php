@@ -55,10 +55,14 @@ extends PHPUnit_Framework_TestCase
 
     public function testGetStorage()
     {
-        $storage = $this->getMock('Horde_Kolab_Storage_List');
+        $storage = $this->getMock('Horde_Kolab_Storage');
+        $list = $this->getMock('Horde_Kolab_Storage_List');
+        $storage->expects($this->once())
+            ->method('getList')
+            ->will($this->returnValue($list));
         $driver = $this->_getDriver();
         $driver->setStorage($storage);
-        $this->assertSame($storage, $driver->getStorage());
+        $this->assertSame($list, $driver->getStorage());
     }
 
     /**
@@ -168,8 +172,7 @@ extends PHPUnit_Framework_TestCase
     public function testIdFromName()
     {
         $share = $this->_getCompleteDriver();
-        $object = $share->newShare('john', 'IGNORED');
-        $object->set('name', 'test');
+        $object = $share->newShare('john', 'IGNORED', 'test');
         $this->assertEquals('INBOX%2Ftest', $object->getId());
     }
 
@@ -299,26 +302,15 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'john',
             $this->_getPrefilledDriver()
-            ->newShare('john', 'IGNORE')
+            ->newShare('john', 'IGNORE', 'test')
             ->get('owner')
         );
-    }
-
-    /**
-     * @expectedException Horde_Share_Exception
-     */
-    public function testAddShareWithoutName()
-    {
-        $share = $this->_getPrefilledDriver();
-        $object = $share->newShare(null, 'IGNORED');
-        $share->addShare($object);
     }
 
     public function testAddShare()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORED');
-        $object->set('name', 'Test');
+        $object = $share->newShare('john', 'IGNORED', 'Test');
         $share->addShare($object);
         $this->assertEquals(
             'INBOX%2FTest',
@@ -329,8 +321,7 @@ extends PHPUnit_Framework_TestCase
     public function testShareAddedToList()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'SHARE_NAME');
-        $object->set('name', 'Test');
+        $object = $share->newShare('john', 'SHARE_NAME', 'Test');
         $share->addShare($object);
         $this->assertContains(
             'SHARE_NAME',
@@ -341,8 +332,7 @@ extends PHPUnit_Framework_TestCase
     public function testDeleteShare()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORED');
-        $object->set('name', 'Test');
+        $object = $share->newShare('john', 'IGNORED', 'Test');
         $share->addShare($object);
         $share->removeShare($object);
         $this->assertNotContains(
@@ -354,8 +344,7 @@ extends PHPUnit_Framework_TestCase
     public function testGetPermission()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORED');
-        $object->set('name', 'Test');
+        $object = $share->newShare('john', 'IGNORED', 'Test');
         $share->addShare($object);
         $this->assertEquals(
             30,
@@ -366,8 +355,7 @@ extends PHPUnit_Framework_TestCase
     public function testSetPermission()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORED');
-        $object->set('name', 'Test');
+        $object = $share->newShare('john', 'IGNORED', 'Test');
         $object->addUserPermission('tina', Horde_Perms::SHOW);
         $share->addShare($object);
         $this->assertTrue(
@@ -379,8 +367,7 @@ extends PHPUnit_Framework_TestCase
     public function testNewShareName()
     {
         $share = $this->_getCompleteDriver();
-        $object = $share->newShare('john', 'NAME');
-        $object->set('name', 'test');
+        $object = $share->newShare('john', 'NAME', 'test');
         $this->assertEquals('NAME', $object->get('share_name'));
     }
 
@@ -418,14 +405,18 @@ extends PHPUnit_Framework_TestCase
 
     public function testListShareCache()
     {
-        $storage = $this->getMock('Horde_Kolab_Storage_List');
+        $storage = $this->getMock('Horde_Kolab_Storage');
+        $list = $this->getMock('Horde_Kolab_Storage_List');
         $query = $this->getMock('Horde_Kolab_Storage_List_Query_List');
         $query->expects($this->once())
             ->method('listByType')
             ->will($this->returnValue(array()));
-        $storage->expects($this->once())
+        $list->expects($this->once())
             ->method('getQuery')
             ->will($this->returnValue($query));
+        $storage->expects($this->once())
+            ->method('getList')
+            ->will($this->returnValue($list));
         $driver = $this->_getDriver();
         $driver->setStorage($storage);
         $driver->listShares('test');
@@ -479,7 +470,7 @@ extends PHPUnit_Framework_TestCase
         $this->list = $this->storage->getList();
         $this->storage->addListQuery($this->list, Horde_Kolab_Storage_List::QUERY_SHARE);
         $this->list->synchronize();
-        $driver->setStorage($this->list);
+        $driver->setStorage($this->storage);
         return $driver;
     }
 
