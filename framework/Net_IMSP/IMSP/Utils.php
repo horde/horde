@@ -245,12 +245,11 @@ class Net_IMSP_Utils {
      */
     function _createShare($share_obj, $params, $shareparams)
     {
-        $share = $share_obj->newShare($GLOBALS['registry']->getAuth(), $params['uid']);
+        $share = $share_obj->newShare($GLOBALS['registry']->getAuth(), $params['uid'], $params['name']);
         if (is_a($share, 'PEAR_Error')) {
             return $share;
         }
         $share->set('params', serialize($shareparams));
-        $share->set('name', $params['name']);
         Net_IMSP_Utils::_setPerms($share, $params['acl']);
         $share->save();
         return true;
