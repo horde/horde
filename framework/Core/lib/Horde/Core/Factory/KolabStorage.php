@@ -98,8 +98,12 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         );
 
         $factory = new Horde_Kolab_Storage_Factory();
-        return $factory->createFromParams(
+        $storage = $factory->createFromParams(
             $params
         );
+        $storage->addListQuery(
+            $storage->getList(), Horde_Kolab_Storage_List::QUERY_SHARE
+        );
+        return $storage;
     }
 }
