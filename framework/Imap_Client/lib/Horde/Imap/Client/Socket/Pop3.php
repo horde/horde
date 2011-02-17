@@ -80,9 +80,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected $_stream = null;
 
     /**
-     * Constructs a new object.
-     *
-     * @param array $params  A hash containing configuration parameters.
      */
     public function __construct(array $params = array())
     {
@@ -99,10 +96,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get CAPABILITY info from the server.
-     *
-     * @return array  The capability array.
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _capability()
     {
@@ -142,9 +135,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Send a NOOP command.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _noop()
     {
@@ -152,9 +142,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get the NAMESPACE information from the server.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getNamespaces()
     {
@@ -162,9 +149,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Return a list of alerts that MUST be presented to the user.
-     *
-     * @return array  An array of alert messages.
      */
     public function alerts()
     {
@@ -172,10 +156,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Login to the server.
-     *
-     * @return boolean  Return true if global login tasks should be run.
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _login()
     {
@@ -285,9 +265,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Authenticate to the IMAP server.
+     * Authenticate to the POP3 server.
      *
-     * @param string $method  IMAP login method.
+     * @param string $method  POP3 login method.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -353,7 +333,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Logout from the server.
      */
     protected function _logout()
     {
@@ -368,11 +347,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Send ID information to the IMAP server (RFC 2971).
-     *
-     * @param array $info  The information to send to the server.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _sendID($info)
     {
@@ -380,10 +354,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Return ID information from the POP3 server (RFC 2449[6.9]).
-     *
-     * @return array  An array of information returned, with the keys as the
-     *                'field' and the values as the 'value'.
+     * Return implementation information from the POP3 server (RFC 2449 [6.9]).
      */
     protected function _getID()
     {
@@ -394,13 +365,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Sets the preferred language for server response messages (RFC 5255).
-     *
-     * @param array $info  The preferred list of languages.
-     *
-     * @return string  The language accepted by the server, or null if the
-     *                 default language is used.
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _setLanguage($langs)
     {
@@ -408,11 +372,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Gets the preferred language for server response messages (RFC 5255).
-     *
-     * @param array $list  If true, return the list of available languages.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getLanguage($list)
     {
@@ -420,12 +379,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Open a mailbox.
-     *
-     * @param string $mailbox  The mailbox to open (UTF7-IMAP).
-     * @param integer $mode    The access mode.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _openMailbox($mailbox, $mode)
     {
@@ -437,12 +390,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Create a mailbox.
-     *
-     * @param string $mailbox  The mailbox to create (UTF7-IMAP).
-     * @param array $opts      Additional options. See self::createMailbox().
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _createMailbox($mailbox, $opts)
     {
@@ -450,11 +397,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Delete a mailbox.
-     *
-     * @param string $mailbox  The mailbox to delete (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _deleteMailbox($mailbox)
     {
@@ -462,12 +404,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Rename a mailbox.
-     *
-     * @param string $old     The old mailbox name (UTF7-IMAP).
-     * @param string $new     The new mailbox name (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _renameMailbox($old, $new)
     {
@@ -475,12 +411,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Manage subscription status for a mailbox.
-     *
-     * @param string $mailbox     The mailbox to [un]subscribe to (UTF7-IMAP).
-     * @param boolean $subscribe  True to subscribe, false to unsubscribe.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _subscribeMailbox($mailbox, $subscribe)
     {
@@ -488,14 +418,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Obtain a list of mailboxes matching a pattern.
-     *
-     * @param string $pattern  The mailbox search pattern.
-     * @param integer $mode    Which mailboxes to return.
-     * @param array $options   Additional options.
-     *
-     * @return array  See Horde_Imap_Client_Base::listMailboxes().
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _listMailboxes($pattern, $mode, $options)
     {
@@ -512,15 +434,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Obtain status information for a mailbox.
-     *
-     * @param string $mailbox  The mailbox to query (UTF7-IMAP).
-     * @param integer $flags   A bitmask of information requested from the
-     *                         server. This driver only supports the options
-     *                         listed under Horde_Imap_Client::STATUS_ALL.
-     *
-     * @return array  See Horde_Imap_Client_Base::status().
-     * @throws Horde_Imap_Client_Exception
+     * @param integer $flags   This driver only supports the options listed
+     *                         under Horde_Imap_Client::STATUS_ALL.
      */
     protected function _status($mailbox, $flags)
     {
@@ -571,9 +486,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Request a checkpoint of the currently selected mailbox.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _check()
     {
@@ -581,12 +493,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Close the connection to the currently selected mailbox, optionally
-     * expunging all deleted messages.
-     *
-     * @param array $options  Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _close($options)
     {
@@ -669,13 +575,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Set the comparator to use for searching/sorting (RFC 5255).
-     *
-     * @param string $comparator  The comparator string (see RFC 4790 [3.1] -
-     *                            "collation-id" - for format). The reserved
-     *                            string 'default' can be used to select
-     *                            the default comparator.
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _setComparator($comparator)
     {
@@ -683,9 +582,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get the comparator used for searching/sorting (RFC 5255).
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getComparator()
     {
@@ -693,12 +589,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Thread sort a given list of messages (RFC 5256).
-     *
-     * @param array $options  Additional options.
-     *
-     * @return array  See Horde_Imap_Client_Base::thread().
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _thread($options)
     {
@@ -726,10 +616,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         // Ignore 'sequence' - IDs will always be the message number.
-        $use_seq = !empty($options['sequence']);
-        $seq_ids = $this->_getSeqIds(empty($options['ids']) ? array() : $options['ids'], $use_seq);
+        $seq_ids = $this->_getSeqIds($options['ids']);
         if (empty($seq_ids)) {
-            return array();
+            return $results;
         }
 
         $ret = array_combine($seq_ids, array_fill(0, count($seq_ids), array()));
@@ -1027,8 +916,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         if ($reset) {
             $this->_sendLine('RSET');
         } elseif ($delete) {
-            $seq_ids = $this->_getSeqIds(empty($options['ids']) ? array() : $options['ids'], !empty($options['sequence']));
-            foreach ($seq_ids as $id) {
+            foreach ($this->_getSeqIds($options['ids']) as $id) {
                 try {
                     $this->_sendLine('DELE ' . $id);
                 } catch (Horde_Imap_Client_Exception $e) {}
@@ -1044,12 +932,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Set quota limits.
-     *
-     * @param string $root    The quota root (UTF7-IMAP).
-     * @param array $options  Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _setQuota($root, $options)
     {
@@ -1057,11 +939,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get quota limits.
-     *
-     * @param string $root  The quota root (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getQuota($root)
     {
@@ -1069,11 +946,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get quota limits for a mailbox.
-     *
-     * @param string $mailbox  A mailbox (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getQuotaRoot($mailbox)
     {
@@ -1081,13 +953,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Set ACL rights for a given mailbox/identifier.
-     *
-     * @param string $mailbox     A mailbox (UTF7-IMAP).
-     * @param string $identifier  The identifier to alter (UTF7-IMAP).
-     * @param array $options      Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _setACL($mailbox, $identifier, $options)
     {
@@ -1095,11 +960,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get ACL rights for a given mailbox.
-     *
-     * @param string $mailbox  A mailbox (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getACL($mailbox)
     {
@@ -1107,12 +967,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get ACL rights for a given mailbox/identifier.
-     *
-     * @param string $mailbox     A mailbox (UTF7-IMAP).
-     * @param string $identifier  The identifier to query (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _listACLRights($mailbox, $identifier)
     {
@@ -1120,11 +974,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get the ACL rights for the current user for a given mailbox.
-     *
-     * @param string $mailbox  A mailbox (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getMyACLRights($mailbox)
     {
@@ -1132,15 +981,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Get metadata for a given mailbox.
-     *
-     * @param string $mailbox  A mailbox (UTF7-IMAP).
-     * @param array $entries   The entries to fetch.
-     * @param array $options   Additional options.
-     *
-     * @return array  An array with identifiers as the keys and the
-     *                metadata as the values.
-     * @throws Horde_Imap_Client_Exception
      */
      protected function _getMetadata($mailbox, $entries, $options)
      {
@@ -1148,14 +988,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      }
 
     /**
-     * Set metadata for a given mailbox/identifier.
-     *
-     * @param string $mailbox  A mailbox (UTF7-IMAP).
-     * @param array $data      A set of data values. The metadata values
-     *                         corresponding to the keys of the array will
-     *                         be set to the values in the array.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _setMetadata($mailbox, $data)
     {
@@ -1280,21 +1112,20 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     /**
      * Returns a list of sequence IDs.
      *
-     * @param array $ids    The ID list.
-     * @param boolean $seq  Are the IDs sequence IDs?
+     * @param Horde_Imap_Client_Ids $ids  The ID list.
      *
      * @return array  A list of sequence IDs.
      */
-    protected function _getSeqIds($ids, $seq)
+    protected function _getSeqIds(Horde_Imap_Client_Ids $ids)
     {
-        if (empty($ids)) {
+        if (!count($ids)) {
             $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES);
             return range(1, $status['messages']);
-        } elseif ($seq) {
-            return $ids;
-        } else {
-            return array_keys(array_intersect($this->_pop3Cache('uidl'), $ids));
+        } elseif ($ids->sequence) {
+            return $ids->ids;
         }
+
+        return array_keys(array_intersect($this->_pop3Cache('uidl'), $ids->ids));
     }
 
 }
