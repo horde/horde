@@ -219,20 +219,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         $this->removeShare();
     }
 
-    public function removeShare()
-    {
-        // Getting shares from cache.
-        $this->_removeShare();
-
-        // Reset cache.
-        self::$share->resetCache();
-
-        // Getting shares from backend.
-        //@todo: INTERFACE!!!
-        //$this->_removeShare();
-    }
-
-
     public function testCallback()
     {
         $this->callback(new Horde_Share_Object_Sql(array()));
@@ -245,8 +231,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
  - listAllShares() does not really work as expected as we need manager access for that.
  - The share_id is different for each users
  - Permissions are always enforced.
- - Kolab_Shares require a set('name')
  - listSystemShares not supported yet
- - Why can shares be removed twice?
  - Why wouldn't the system user see shares from other users?
 */

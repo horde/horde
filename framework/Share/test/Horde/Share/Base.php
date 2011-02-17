@@ -528,18 +528,6 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function removeShare()
     {
-        // Getting shares from cache.
-        $this->_removeShare();
-
-        // Reset cache.
-        self::$share->resetCache();
-
-        // Getting shares from backend.
-        $this->_removeShare();
-    }
-
-    public function _removeShare()
-    {
         self::$share->removeShare(self::$shares['myshare']);
         try {
             self::$share->getShareById(self::$shares['myshare']->getId());
