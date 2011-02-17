@@ -61,7 +61,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
                 'john' => array('mygroup'),
             )
         );
-        self::$share->setStorage(self::$storage);
+        self::$share->setStorage($storage);
 
         // FIXME
         $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());

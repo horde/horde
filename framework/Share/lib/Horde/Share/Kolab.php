@@ -78,13 +78,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
     /**
      * Set the Kolab storage backend.
      *
-     * @param Horde_Kolab_Storage_List $driver The Kolab storage driver.
+     * @param Horde_Kolab_Storage $storage The Kolab storage handler.
      *
      * @return NULL
      */
-    public function setStorage(Horde_Kolab_Storage_List $driver)
+    public function setStorage(Horde_Kolab_Storage $storage)
     {
-        $this->_storage = $driver;
+        $this->_storage = $storage->getList();
     }
 
     /**
@@ -531,6 +531,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function generateId($name, $owner)
     {
+        //@todo: Namespace-less ID (using owner + subpath as ID)
         if ($owner == $this->_user) {
             return $this->_idEncode(
                 $this->getStorage()->getNamespace()->setTitle($name)
