@@ -84,22 +84,21 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         }
 
         $params = array(
-            'hostspec' => $session->getImapServer(),
-            'username' => $GLOBALS['registry']->getAuth(),
-            'password' => $GLOBALS['registry']->getAuthCredential('password'),
-            'secure'   => true
+            'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
+            'timelog' => $this->_injector->getInstance('Horde_Log_Logger'),
+            'cache' => $this->_injector->getInstance('Horde_Cache'),
+            'driver' => 'horde',
+            'params' => array(
+                'host' => $session->getImapServer(),
+                'username' => $GLOBALS['registry']->getAuth(),
+                'password' => $GLOBALS['registry']->getAuthCredential('password'),
+                'port'     => $configuration['port'],
+                'secure'   => true
+            )
         );
 
-        $imap = Horde_Imap_Client::factory('socket', $params);
-
-        $master = new Horde_Kolab_Storage_Driver_Imap(
-            $imap,
-            $this->_injector->getInstance('Horde_Group')
-        );
-
-        return new Horde_Kolab_Storage(
-            $master,
-            $this->_injector->getInstance('Horde_Cache'),
+        $factory = new Horde_Kolab_Storage_Factory();
+        return $factory->createFromParams(
             $params
         );
     }
