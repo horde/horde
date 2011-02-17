@@ -32,6 +32,13 @@ extends Horde_Kolab_Storage_Queriable
     const QUERY_BASE  = 'Data';
 
     /**
+     * Return the ID of this data handler.
+     *
+     * @return string The ID.
+     */
+    public function getId();
+
+    /**
      * Retrieves the objects for the given UIDs.
      *
      * @param array $uids The message UIDs.

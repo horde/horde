@@ -55,6 +55,16 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testId()
+    {
+        $this->assertEquals(
+            'ee3789eaff8cd95b3bff9b52dc36ebc1',
+            $this->getMessageStorage()
+            ->getData('INBOX/WithDeleted')
+            ->getId()
+        );
+    }
+
     public function testStamp()
     {
         $this->assertEquals(

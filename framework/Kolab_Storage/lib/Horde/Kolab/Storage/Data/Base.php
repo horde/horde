@@ -97,6 +97,22 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Return the ID of this data handler.
+     *
+     * @return string The ID.
+     */
+    public function getId()
+    {
+        $id = $this->_driver->getParameters();
+        unset($id['user']);
+        $id['owner'] = $this->_folder->getOwner();
+        $id['folder'] = $this->_folder->getSubpath();
+        $id['type'] = $this->_type;
+        ksort($id);
+        return md5(serialize($id));
+    }
+
+    /**
      * Return the data type represented by this object.
      *
      * @return string The type of data this instance handles.

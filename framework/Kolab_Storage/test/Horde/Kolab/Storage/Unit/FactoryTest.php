@@ -52,7 +52,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $this->assertType(
-            'Horde_Kolab_Storage_Base',
+            'Horde_Kolab_Storage',
             $factory->createFromParams(array('driver' => 'mock'))
         );
     }

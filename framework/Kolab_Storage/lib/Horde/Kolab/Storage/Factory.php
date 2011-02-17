@@ -105,6 +105,9 @@ class Horde_Kolab_Storage_Factory
             $this->createDriverFromParams($params),
             $this
         );
+        $storage = new Horde_Kolab_Storage_Decorator_Synchronization(
+            $storage, new Horde_Kolab_Storage_Synchronization()
+        );
         if (!empty($params['cache'])) {
             $storage = new Horde_Kolab_Storage_Decorator_Cache(
                 $storage,
