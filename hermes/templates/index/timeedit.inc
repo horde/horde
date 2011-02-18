@@ -1,8 +1,8 @@
 <div id="hermesViewTime" style="display:none">
   <div id="hermesLoadingTime" class="hermesLoading"></div>
   <div id="hermesViewTimeContainer">
-   <h1 class="header"><?php echo _("Time Entry")?></h1>
    <div id="hermesTimeEntry">
+    <h2><?php echo _("Time Entry")?></h2>
     <form id="hermesTimeForm" action="">
         <div id="hermesTimeFormInputs">
           <div class="hermesTimeFormGeneral">
@@ -47,34 +47,32 @@
         </div>
     </form>
    </div>
-
-   <h1 class="header"><?php echo _("My Unsubmitted Time");?></h1>
    <div id="hermesTimeList">
+       <h3><?php echo _("Unsubmitted Time");?></h1>
        <div id="hermesTimeListHeader">
         <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
-        <div class="hermesTimeListDate"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>
-        <div class="hermesTimeListHours"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
-        <div class="hermesTimeListClient"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
-        <div class="hermesTimeListCostObject"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
-        <div class="hermesTimeListType"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
-        <div class="hermesTimeListTotal"><a class="widget"><?php echo _("Total")?></a></div>
-        <div class="hermesTimeSliceOptions">&nbsp;</div>
+        <div class="hermesTimeListDate hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>
+        <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
+        <div class="hermesTimeListClient hermesBorderLeft"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
+        <div class="hermesTimeListCostObject hermesBorderLeft"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
+        <div class="hermesTimeListType hermesBorderLeft"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
+        <div class="hermesTimeListTotal hermesBorderLeft"><a class="widget"><?php echo _("Total")?></a></div>
+        <div class="hermesTimeSliceOptions hermesBorderLeft">&nbsp;</div>
        </div>
        <div id="hermesTimeListBody">
         <div id="hermesTimeListTemplate" style="display:none;">
           <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
-          <div class="hermesTimeListDate"></div>
-          <div class="hermesTimeListHours"></div>
-          <div class="hermesTimeListClient"></div>
-          <div class="hermesTimeListCostObject"></div>
-          <div class="hermesTimeListType"></div>
-          <div class="hermesTimeListTotal"></div>
-          <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded">x</a></div>
+          <div class="hermesTimeListDate hermesBorderLeft"></div>
+          <div class="hermesTimeListHours hermesBorderLeft"></div>
+          <div class="hermesTimeListClient hermesBorderLeft"></div>
+          <div class="hermesTimeListCostObject hermesBorderLeft"></div>
+          <div class="hermesTimeListType hermesBorderLeft"></div>
+          <div class="hermesTimeListTotal hermesBorderLeft"></div>
+          <div class="hermesTimeSliceOptions hermesBorderLeft"><a href="#" class="sliceEdit rounded"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded">x</a></div>
         </div>
        </div>
-
    </div>
-   <div class="hermesTimeListControls">
+   <div class="hermesTimeListControls" style="margin-top:20px;">
      <a class="button"><?php echo _("Submit Time") ?></a>
    </div>
   </div>

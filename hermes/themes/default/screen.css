@@ -267,10 +267,12 @@ body.hermesAjax {
 }
 
 /* Full timelist container */
-div.hermesTimeList {
-    width: 100%;
+#hermesTimeList {
+    margin: 0 25px 0 25px;
 }
-
+#hermesTimeList h3 {
+margin: 6px;
+}
 /* Timelist fields */
 .hermesTimeListSelect {
     float: left;
@@ -295,13 +297,11 @@ div.hermesTimeList {
     height: 14px;
     text-indent: 2px;
     font-weight: bold;
-    border-left: 1px solid #eee;
     padding-top: 1px;
     padding-bottom: 1px;
 }
 #hermesTimeListBody div {
     text-indent: 2px;
-    border-left: 1px solid #eee;
 }
 #hermesTimeListHeader div.sortup, #hermesTimeListHeader div.sortdown {
   background-position: 2px 50%;
@@ -332,19 +332,20 @@ div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType {
 div.hermesTimeSliceOptions {
     width: 10%;
 }
-
 /* Body of timelist */
 #hermesTimeListBody {
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
 }
-
 /* Each entry */
 .hermesTimeListRow {
     font-size: 100%;
     line-height: 26px;
     overflow: hidden;
+}
+.hermesBorderLeft {
+    border-left: 1px solid #eee;
 }
 .rounded {
   background: -moz-linear-gradient(-90deg, #F0F0F0, #DBDBDB);
