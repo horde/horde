@@ -22,6 +22,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /* Serialized version. */
     const VERSION = 1;
 
+    /* Cache names for miscellaneous data. */
+    const CACHE_MODSEQ = 'HICmodseq';
+    const CACHE_SEARCH = 'HICsearch';
+
     /**
      * The Horde_Imap_Client_Cache object.
      *
@@ -30,17 +34,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public $cache = null;
 
     /**
-     * The list of fetch fields that can be cached.
+     * The list of fetch fields that can be cached, and their cache names.
      *
      * @var array
      */
     public $cacheFields = array(
-        Horde_Imap_Client::FETCH_ENVELOPE,
-        Horde_Imap_Client::FETCH_FLAGS,
-        Horde_Imap_Client::FETCH_HEADERS,
-        Horde_Imap_Client::FETCH_IMAPDATE,
-        Horde_Imap_Client::FETCH_SIZE,
-        Horde_Imap_Client::FETCH_STRUCTURE
+        Horde_Imap_Client::FETCH_ENVELOPE => 'HICenv',
+        Horde_Imap_Client::FETCH_FLAGS => 'HICflags',
+        Horde_Imap_Client::FETCH_HEADERS => 'HIChdrs',
+        Horde_Imap_Client::FETCH_IMAPDATE => 'HICdate',
+        Horde_Imap_Client::FETCH_SIZE => 'HICsize',
+        Horde_Imap_Client::FETCH_STRUCTURE => 'HICstruct'
     );
 
     /**
@@ -1835,8 +1839,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
-        $cache_avail = $this->_initCache(true);
-        $cf = $cache_avail
+        $cf = $this->_initCache(true)
             ? $this->_params['cache']['fields']
             : array();
 
@@ -1860,11 +1863,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Determine if caching is available and if anything in $query is
          * cacheable.
          * TODO: Re-add base headertext caching. */
-        foreach ($query as $k => $v) {
-            if (isset($cf[$k])) {
+        foreach ($cf as $k => $v) {
+            if (isset($query[$k])) {
                 switch ($k) {
                 case Horde_Imap_Client::FETCH_ENVELOPE:
-                    $cache_array[$k] = 'HICenv';
+                case Horde_Imap_Client::FETCH_IMAPDATE:
+                case Horde_Imap_Client::FETCH_SIZE:
+                case Horde_Imap_Client::FETCH_STRUCTURE:
+                    $cache_array[$k] = $v;
                     break;
 
                 case Horde_Imap_Client::FETCH_FLAGS:
@@ -1873,9 +1879,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     if (!$qresync) {
                         /* Grab all flags updated since the cached modseq
                          * val. */
-                        $metadata = $this->cache->getMetaData($this->_selected, $status_res['uidvalidity'], array('HICmodseq'));
-                        if (isset($metadata['HICmodseq']) &&
-                            ($metadata['HICmodseq'] != $status_res['highestmodseq'])) {
+                        $metadata = $this->cache->getMetaData($this->_selected, $status_res['uidvalidity'], array(self::CACHE_MODSEQ));
+                        if (isset($metadata[self::CACHE_MODSEQ]) &&
+                            ($metadata[self::CACHE_MODSEQ] != $status_res['highestmodseq'])) {
                             $uids = $this->cache->get($this->_selected, array(), array(), $status_res['uidvalidity']);
                             if (!empty($uids)) {
                                 $flag_query = new Horde_Imap_Client_Fetch_Query();
@@ -1883,44 +1889,29 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
                                 /* Update flags in cache. */
                                 $this->_fetch($flag_query, array(
-                                    'changedsince' => $metadata['HICmodseq'],
+                                    'changedsince' => $metadata[self::CACHE_MODSEQ],
                                     'ids' => new Horde_Imap_Client_Ids($uids)
                                 ));
                             }
-                            $this->_updateMetaData($this->_selected, array('HICmodseq' => $status_res['highestmodseq']), $status_res['uidvalidity']);
+                            $this->_updateMetaData($this->_selected, array(self::CACHE_MODSEQ => $status_res['highestmodseq']), $status_res['uidvalidity']);
                         }
                     }
 
-                    $cache_array[$k] = 'HICflags';
+                    $cache_array[$k] = $v;
                     break;
 
                 case Horde_Imap_Client::FETCH_HEADERS:
                     $this->_temp['headers_caching'] = array();
 
-                    /* Only cache if directly requested. */
-                    if ($cache_avail) {
-                        foreach ($v as $key => $val) {
-                            /* Iterate through headers requests to ensure at
-                             * least one can be cached. */
-                            if (!empty($val['cache']) && !empty($val['peek'])) {
-                                $cache_array[$k] = 'HIChdrs';
-                                ksort($val);
-                                $header_cache[$key] = hash('md5', serialize($val));
-                            }
+                    foreach ($query[$k] as $key => $val) {
+                        /* Only cache if directly requested.  Iterate through
+                         * requests to ensure at least one can be cached. */
+                        if (!empty($val['cache']) && !empty($val['peek'])) {
+                            $cache_array[$k] = $v;
+                            ksort($val);
+                            $header_cache[$key] = hash('md5', serialize($val));
                         }
                     }
-                    break;
-
-                case Horde_Imap_Client::FETCH_IMAPDATE:
-                    $cache_array[$k] = 'HICdate';
-                    break;
-
-                case Horde_Imap_Client::FETCH_SIZE:
-                    $cache_array[$k] = 'HICsize';
-                    break;
-
-                case Horde_Imap_Client::FETCH_STRUCTURE:
-                    $cache_array[$k] = 'HICstruct';
                     break;
                 }
             }
@@ -2890,8 +2881,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             : $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(array_keys($data), true));
 
         $cf = empty($options['fields'])
-            ? array_keys($this->_params['cache']['fields'])
-            : $options['fields'];
+            ? $this->_params['cache']['fields']
+            : array_intersect_key($this->_params['cache']['fields'], array_flip($options['fields']));
         $tocache = array();
 
         $status_flags = 0;
@@ -2915,11 +2906,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
         while (list($k, $v) = each($data)) {
             $tmp = array();
 
-            foreach ($cf as $val) {
-                if ($v->exists($val)) {
-                    switch ($val) {
+            foreach ($cf as $key => $val) {
+                if ($v->exists($key)) {
+                    switch ($key) {
                     case Horde_Imap_Client::FETCH_ENVELOPE:
-                        $tmp['HICenv'] = $v->getEnvelope();
+                        $tmp[$val] = $v->getEnvelope();
                         break;
 
                     case Horde_Imap_Client::FETCH_FLAGS:
@@ -2935,27 +2926,27 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         if ($modseq = $v->getModSeq()) {
                             $highestmodseq[] = $modseq;
                         }
-                        $tmp['HICflags'] = $v->getFlags();
+                        $tmp[$val] = $v->getFlags();
                         break;
 
                     case Horde_Imap_Client::FETCH_HEADERS:
                         foreach ($this->_temp['headers_caching'] as $label => $hash) {
                             if ($hdr = $v->getHeaders($label)) {
-                                $tmp['HIChdrs'][$hash] = $hdr;
+                                $tmp[$val][$hash] = $hdr;
                             }
                         }
                         break;
 
                     case Horde_Imap_Client::FETCH_IMAPDATE:
-                        $tmp['HICdate'] = $v->getImapDate();
+                        $tmp[$val] = $v->getImapDate();
                         break;
 
                     case Horde_Imap_Client::FETCH_SIZE:
-                        $tmp['HICsize'] = $v->getSize();
+                        $tmp[$val] = $v->getSize();
                         break;
 
                     case Horde_Imap_Client::FETCH_STRUCTURE:
-                        $tmp['HICstruct'] = clone $v->getStructure();
+                        $tmp[$val] = clone $v->getStructure();
                         break;
                     }
                 }
@@ -2970,16 +2961,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (!empty($highestmodseq)) {
             $modseq = max($highestmodseq);
-            $metadata = $this->cache->getMetaData($mailbox, $uidvalid, array('HICmodseq'));
-            if (!isset($metadata['HICmodseq']) ||
-                ($metadata['HICmodseq'] != $modseq)) {
-                    $this->_temp['lastmodseq'][$mailbox] = isset($metadata['HICmodseq'])
-                        ? $metadata['HICmodseq']
+            $metadata = $this->cache->getMetaData($mailbox, $uidvalid, array(self::CACHE_MODSEQ));
+            if (!isset($metadata[self::CACHE_MODSEQ]) ||
+                ($metadata[self::CACHE_MODSEQ] != $modseq)) {
+                    $this->_temp['lastmodseq'][$mailbox] = isset($metadata[self::CACHE_MODSEQ])
+                        ? $metadata[self::CACHE_MODSEQ]
                         : 0;
                 if (count($tocache)) {
                     $this->_temp['lastmodsequids'][$mailbox] = $this->utils->toSequenceString(array_keys($tocache), array('nosort' => true));
                 }
-                $this->_updateMetaData($mailbox, array('HICmodseq' => $modseq), $uidvalid);
+                $this->_updateMetaData($mailbox, array(self::CACHE_MODSEQ => $modseq), $uidvalid);
             }
         }
     }
@@ -3000,25 +2991,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $cache = hash('md5', $type . serialize($options));
 
         $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-        $metadata = $this->cache->getMetaData($mailbox, $status['uidvalidity'], array('HICsearch'));
+        $metadata = $this->cache->getMetaData($mailbox, $status['uidvalidity'], array(self::CACHE_SEARCH));
 
         $cacheid = $this->getCacheId($mailbox);
-        if (isset($metadata['HICsearch']['cacheid']) &&
-            ($metadata['HICsearch']['cacheid'] != $cacheid)) {
-            $metadata['HICsearch'] = array();
+        if (isset($metadata[self::CACHE_SEARCH]['cacheid']) &&
+            ($metadata[self::CACHE_SEARCH]['cacheid'] != $cacheid)) {
+            $metadata[self::CACHE_SEARCH] = array();
             if ($this->_debug) {
                 fwrite($this->_debug, sprintf("Horde_Imap_Client: Expired search results from cache (mailbox: %s)\n", $mailbox));
             }
         }
 
-        if (isset($metadata['HICsearch'][$cache])) {
+        if (isset($metadata[self::CACHE_SEARCH][$cache])) {
             if ($this->_debug) {
                 fwrite($this->_debug, sprintf("Horde_Imap_Client: Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache));
             }
-            return array('data' => unserialize($metadata['HICsearch'][$cache]));
+            return array('data' => unserialize($metadata[self::CACHE_SEARCH][$cache]));
         }
 
-        $metadata['HICsearch']['cacheid'] = $cacheid;
+        $metadata[self::CACHE_SEARCH]['cacheid'] = $cacheid;
 
         return array(
             'id' => $cache,
@@ -3037,7 +3028,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _setSearchCache($data, $cache)
     {
-        $cache['metadata']['HICsearch'][$cache['id']] = serialize($data);
+        $cache['metadata'][self::CACHE_SEARCH][$cache['id']] = serialize($data);
 
         $this->_updateMetaData($cache['mailbox'], $cache['metadata']);
 
