@@ -1849,10 +1849,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             ? $this->_params['cache']['fields']
             : array();
 
-        /* The 'changedsince' modifier implicitly adds the MODSEQ FETCH item.
-         * (RFC 4551 [3.3.1]). A UID SEARCH will always return UID
-         * information (RFC 3501 [6.4.8]). Don't add to query because it
-         * simply creates a longer FETCH command. */
         if (!empty($cf)) {
             /* We need the UIDVALIDITY for the current mailbox. */
             $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDVALIDITY);

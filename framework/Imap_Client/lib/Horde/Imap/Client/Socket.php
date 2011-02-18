@@ -2351,7 +2351,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::FETCH_UID:
-                $fetch[] = 'UID';
+                /* A UID FETCH will always return UID information (RFC 3501
+                 * [6.4.8]). Don't add to query as it just creates a longer
+                 * FETCH command. */
+                if ($options['ids']->sequence) {
+                    $fetch[] = 'UID';
+                }
                 break;
 
             case Horde_Imap_Client::FETCH_SEQ:
@@ -2363,13 +2368,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::FETCH_MODSEQ:
-                /* RFC 4551 [3.1] - trying to do a FETCH of MODSEQ on a
-                 * mailbox that doesn't support it will return BAD. Catch that
-                 * here and throw an exception. */
-                if (empty($this->_temp['mailbox']['highestmodseq'])) {
-                    $this->_exception('Mailbox does not support mod-sequences.', 'MBOXNOMODSEQ');
+                /* The 'changedsince' modifier implicitly adds the MODSEQ
+                 * FETCH item (RFC 4551 [3.3.1]). Don't add to query as it
+                 * just creates a longer FETCH command. */
+                if (empty($options['changedsince'])) {
+                    /* RFC 4551 [3.1] - trying to do a FETCH of MODSEQ on a
+                     * mailbox that doesn't support it will return BAD. Catch
+                     * that here and throw an exception. */
+                    if (empty($this->_temp['mailbox']['highestmodseq'])) {
+                        $this->_exception('Mailbox does not support mod-sequences.', 'MBOXNOMODSEQ');
+                    }
+                    $fetch[] = 'MODSEQ';
                 }
-                $fetch[] = 'MODSEQ';
                 break;
             }
         }
