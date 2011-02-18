@@ -282,15 +282,22 @@ div.hermesTimeList {
     height: 26px;
 }
 
-div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListTotal {
-    float: left;
-    width: 10%;
-    white-space: pre;
-}
+div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListTotal,
 div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType {
     float: left;
-    width: 20%;
     white-space: pre;
+}
+div.hermesTimeListHours, div.hermesTimeListTotal {
+    width: 10%;
+}
+div.hermesTimeListDate {
+    width: 10%;
+}
+div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType {
+    width: 20%;
+}
+div.hermesTimeSliceOptions {
+    float: right;
 }
 
 /* Body of timelist */
