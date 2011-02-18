@@ -308,7 +308,7 @@ HermesCore = {
     {
         var s;
         if (r.response) {
-            elt.remove();
+            new Effect.Fade(elt);
         }
 
         s = this.slices.length;
