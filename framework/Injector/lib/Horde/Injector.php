@@ -234,7 +234,7 @@ class Horde_Injector implements Horde_Injector_Scope
     public function getInstance($interface)
     {
         // Do we have an instance?
-        if (!isset($this->_instances[$interface])) {
+        if (!$this->hasInstance($interface)) {
             // Do we have a binding for this interface? If so then we don't
             // ask our parent
             if (!isset($this->_bindings[$interface])) {
@@ -249,6 +249,18 @@ class Horde_Injector implements Horde_Injector_Scope
         }
 
         return $this->_instances[$interface];
+    }
+
+    /**
+     * Has the interface for the specified object/interface been created yet?
+     *
+     * @param string $interface  The interface name or object class.
+     *
+     * @return boolean  True if the instance already has been created.
+     */
+    public function hasInstance($interface)
+    {
+        return isset($this->_instances[$interface]);
     }
 
 }

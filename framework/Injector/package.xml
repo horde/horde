@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* Add Horde_Injector#hasInstance().
 * Initial release, contributed by Blue State Digital
  </notes>
  <contents>
