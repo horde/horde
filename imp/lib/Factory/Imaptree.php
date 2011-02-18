@@ -56,6 +56,10 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
             }
         } else {
             $session->set('imp', 'treeob', strval(new Horde_Support_Randomid()));
+            /* Set up search information for the session. Need to manually do
+             * first init() here since there is a cyclic IMP_Imap_Tree
+             * dependency otherwise. */
+            $injector->getInstance('IMP_Search')->init();
         }
 
         if (!($instance instanceof IMP_Imap_Tree)) {

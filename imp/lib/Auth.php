@@ -475,11 +475,6 @@ class IMP_Auth
             );
         }
 
-        /* Set up search information for the session. Need to manually do
-         * first init() here since there is a cyclic IMP_Imap_Tree dependency
-         * otherwise. */
-        $injector->getInstance('IMP_Search')->init();
-
         /* If the user wants to run filters on login, make sure they get
            run. */
         if ($prefs->getValue('filter_on_login')) {
