@@ -2998,13 +2998,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
             ($metadata[self::CACHE_SEARCH]['cacheid'] != $cacheid)) {
             $metadata[self::CACHE_SEARCH] = array();
             if ($this->_debug) {
-                fwrite($this->_debug, sprintf("Horde_Imap_Client: Expired search results from cache (mailbox: %s)\n", $mailbox));
+                fwrite($this->_debug, sprintf(">>> Expired search results from cache (mailbox: %s)\n", $mailbox));
             }
         }
 
         if (isset($metadata[self::CACHE_SEARCH][$cache])) {
             if ($this->_debug) {
-                fwrite($this->_debug, sprintf("Horde_Imap_Client: Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache));
+                fwrite($this->_debug, sprintf(">>> Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache));
             }
             return array('data' => unserialize($metadata[self::CACHE_SEARCH][$cache]));
         }
@@ -3033,7 +3033,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_updateMetaData($cache['mailbox'], $cache['metadata']);
 
         if ($this->_debug) {
-            fwrite($this->_debug, sprintf("Horde_Imap_Client: Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']));
+            fwrite($this->_debug, sprintf(">>> Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']));
         }
     }
 
