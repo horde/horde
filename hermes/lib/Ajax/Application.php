@@ -79,10 +79,16 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * Fetch client name values from keys.
+     * Remove a slice
      */
-    public function getClientNames()
+    public function deleteSlice()
     {
+        $sid = array('id' => $this->_vars->id, 'delete' => true);
+        try {
+            return $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($sid));
+        } catch (Hermes_Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
+        }
 
     }
 

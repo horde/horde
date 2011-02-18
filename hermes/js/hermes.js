@@ -290,13 +290,35 @@ HermesCore = {
                 elt.toggleClassName('hermesSelectedSlice');
                 elt.toggleClassName('hermesUnselectedSlice');
                 e.stop();
-                return;                 
+                return;
+            }
+            if (elt.hasClassName('sliceDelete')) {
+                var slice = elt.up().up();
+                var sid = slice.retrieve('sid');
+                this.doAction('deleteSlice', { 'id': sid }, this.deletesliceCallback.curry(slice, sid).bind(this));
             }
             elt = elt.up();
         }
 
         // Workaround Firebug bug.
         Prototype.emptyFunction();
+    },
+
+    deletesliceCallback: function(elt, sid, r)
+    {
+        var s;
+        if (r.response) {
+            elt.remove();
+        }
+
+        s = this.slices.length;
+        for (var i = 0; i <= (s - 1); i++) {
+            if (this.slices[i].i == sid) {
+                this.slices.splice(i, 1);
+                break;
+            }
+        }
+
     },
 
     /**
@@ -437,7 +459,9 @@ HermesCore = {
             HermesCore.clientIdMap[slice.c] = slice.cn;
         }
         row = $('hermesTimeListTemplate').clone(true);
+        row.addClassName('hermesTimeListRow');
         row.removeAttribute('id');
+        row.store('sid', slice.i);
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
@@ -446,7 +470,6 @@ HermesCore = {
         cell = cell.next().update((slice.con) ? slice.con : ' ');
         cell = cell.next().update((slice.tn) ? slice.tn : ' ');
         cell = cell.next().update((slice.h * slice.r) + 0);
-        row.addClassName('hermesTimeListRow');
         return row;
     },
 
@@ -461,6 +484,7 @@ HermesCore = {
         this.updateView(this.view);
         this.buildTimeTable();
     },
+
     /**
      * Loads an external page into the iframe view.
      *
@@ -662,7 +686,7 @@ HermesCore = {
             }
         }, this);
     },
-    
+
     debug: function(label, e)
     {
         if (!this.is_logout && window.console && window.console.error) {
@@ -691,7 +715,7 @@ HermesCore = {
 
     onResize: function(event)
     {
-        $('hermesTimeListBody').setStyle({ height: document.height - 450 + 'px' });
+        $('hermesTimeListBody').setStyle({ height: document.height - 460 + 'px' });
     },
 
     /* Onload function. */
