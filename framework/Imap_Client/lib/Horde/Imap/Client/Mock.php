@@ -433,7 +433,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
 
         foreach ($query as $type => $c_val) {
             switch ($type) {
-            case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
+            case Horde_Imap_Client::FETCH_HEADERTEXT:
                 if (!isset($this->_mbox['mails'][$uid])) {
                     $this->_exception(sprintf("No IMAP message %s!", $uid));
                 }
@@ -441,7 +441,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
                 $results[$uid]->setHeaderText(0, $this->_mbox['mails'][$uid]['header']);
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::BODYTEXT:
+            case Horde_Imap_Client::FETCH_BODYTEXT:
                 if (!isset($this->_mbox['mails'][$uid])) {
                     $this->_exception(sprintf("No IMAP message %s!", $uid));
                 }

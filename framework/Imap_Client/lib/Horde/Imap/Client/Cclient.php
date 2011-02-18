@@ -811,7 +811,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         foreach ($query as $type => $c_val) {
             switch ($type) {
-            case Horde_Imap_Client_Fetch_Query::STRUCTURE:
+            case Horde_Imap_Client::FETCH_STRUCTURE:
                 foreach (array_keys($results) as $id) {
                     $structure = @imap_fetchstructure($this->_stream, $id, $uid_mask);
                     if ($structure) {
@@ -824,7 +824,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::FULLMSG:
+            case Horde_Imap_Client::FETCH_FULLMSG:
                 foreach (array_keys($results) as $id) {
                     $tmp = @imap_fetchheader($this->_stream, $id, $uid_mask | FT_PREFETCHTEXT) .
                            @imap_body($this->_stream, $id, $uid_mask | (empty($c_val['peek']) ? 0 : FT_PEEK));
@@ -832,7 +832,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
+            case Horde_Imap_Client::FETCH_HEADERTEXT:
                 foreach ($c_val as $key => $val) {
                     foreach (array_keys($results) as $id) {
                         $results[$id]->setHeaderText(
@@ -846,7 +846,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::BODYPART:
+            case Horde_Imap_Client::FETCH_BODYPART:
                 foreach ($c_val as $key => $val) {
                     foreach (array_keys($results) as $id) {
                         $results[$id]->setBodyPart(
@@ -857,7 +857,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::BODYTEXT:
+            case Horde_Imap_Client::FETCH_BODYTEXT:
                 foreach ($c_val as $key => $val) {
                     foreach (array_keys($results) as $id) {
                         if ($key == 0) {
@@ -880,9 +880,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
-            case Horde_Imap_Client_Fetch_Query::HEADERS:
-            case Horde_Imap_Client_Fetch_Query::MODSEQ:
+            case Horde_Imap_Client::FETCH_MIMEHEADER:
+            case Horde_Imap_Client::FETCH_HEADERS:
+            case Horde_Imap_Client::FETCH_MODSEQ:
                 // Can't do it. Nope. Nada. Without heavy duty parsing of the
                 // full imap_body() object, it is impossible to retrieve the
                 // MIME headers for each individual part. Ship it off to
@@ -892,19 +892,19 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 $tmp_query = new Horde_Imap_Client_Fetch_Query();
 
                 switch ($type) {
-                case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
+                case Horde_Imap_Client::FETCH_MIMEHEADER:
                     foreach ($c_val as $key => $val) {
                         $tmp_query->mimeHeader($key, $val);
                     }
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::HEADERS:
+                case Horde_Imap_Client::FETCH_HEADERS:
                     foreach ($c_val as $key => $val) {
                         $tmp_query->headers($key, $val['headers'], $val);
                     }
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::MODSEQ:
+                case Horde_Imap_Client::FETCH_MODSEQ:
                     $tmp_query->modseq();
                     break;
                 }
@@ -912,7 +912,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 $results = $this->_getSocket()->fetch($this->_selected, $tmp_query, array_merge($options, array('fetch_res' => $results)));
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::ENVELOPE:
+            case Horde_Imap_Client::FETCH_ENVELOPE:
                 $env_data = array(
                     'date', 'subject', 'from', 'sender', 'reply_to', 'to',
                     'cc', 'bcc', 'in_reply_to', 'message_id'
@@ -940,7 +940,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::FLAGS:
+            case Horde_Imap_Client::FETCH_FLAGS:
                 if (is_null($overview)) {
                     $overview = @imap_fetch_overview($this->_stream, $seq, $uid_mask);
                     if (!$overview) {
@@ -960,7 +960,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::IMAPDATE:
+            case Horde_Imap_Client::FETCH_IMAPDATE:
                 foreach (array_keys($results) as $id) {
                     if (!isset($hdrinfo[$id])) {
                         $hdrinfo[$id] = @imap_headerinfo($this->_stream, $options['ids']->sequence ? $id : @imap_msgno($this->_stream, $id));
@@ -974,7 +974,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::SIZE:
+            case Horde_Imap_Client::FETCH_SIZE:
                 foreach (array_keys($results) as $id) {
                     if (isset($hdrinfo[$id])) {
                         $results[$id]->setSize($hdrinfo[$id]->Size);
@@ -992,7 +992,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::UID:
+            case Horde_Imap_Client::FETCH_UID:
                 foreach (array_keys($results) as $id) {
                     if ($options['ids']->sequence) {
                         if (is_null($overview)) {

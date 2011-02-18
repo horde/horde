@@ -35,12 +35,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @var array
      */
     public $cacheFields = array(
-        Horde_Imap_Client_Fetch_Query::ENVELOPE,
-        Horde_Imap_Client_Fetch_Query::FLAGS,
-        Horde_Imap_Client_Fetch_Query::HEADERS,
-        Horde_Imap_Client_Fetch_Query::IMAPDATE,
-        Horde_Imap_Client_Fetch_Query::SIZE,
-        Horde_Imap_Client_Fetch_Query::STRUCTURE
+        Horde_Imap_Client::FETCH_ENVELOPE,
+        Horde_Imap_Client::FETCH_FLAGS,
+        Horde_Imap_Client::FETCH_HEADERS,
+        Horde_Imap_Client::FETCH_IMAPDATE,
+        Horde_Imap_Client::FETCH_SIZE,
+        Horde_Imap_Client::FETCH_STRUCTURE
     );
 
     /**
@@ -580,7 +580,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             /* Check for ability to cache flags here. */
             if (!isset($this->_init['enabled']['CONDSTORE'])) {
-                unset($this->_params['cache']['fields'][Horde_Imap_Client_Fetch_Query::FLAGS]);
+                unset($this->_params['cache']['fields'][Horde_Imap_Client::FETCH_FLAGS]);
             }
         }
 
@@ -1779,11 +1779,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Fetch message data (see RFC 3501 [6.4.5]).
      *
-     * @param string $mailbox                      The mailbox to fetch
-     *                                             messages from. Either in
-     *                                             UTF7-IMAP or UTF-8.
-     * @param Horde_Imap_Query_Fetch_Query $query  Fetch query object.
-     * @param array $options                       Additional options:
+     * @param string $mailbox                       The mailbox to fetch
+     *                                              messages from. Either in
+     *                                              UTF7-IMAP or UTF-8.
+     * @param Horde_Imap_Client_Fetch_Query $query  Fetch query object.
+     * @param array $options                        Additional options:
      *   - changedsince: (integer) Only return messages that have a
      *                   mod-sequence larger than this value. This option
      *                   requires the CONDSTORE IMAP extension (if not present,
@@ -1852,7 +1852,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $query->uid();
         }
 
-        if ($query->contains(Horde_Imap_Client_Fetch_Query::MODSEQ) &&
+        if ($query->contains(Horde_Imap_Client::FETCH_MODSEQ) &&
             !isset($this->_init['enabled']['CONDSTORE'])) {
             unset($query[$k]);
         }
@@ -1863,11 +1863,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
         foreach ($query as $k => $v) {
             if (isset($cf[$k])) {
                 switch ($k) {
-                case Horde_Imap_Client_Fetch_Query::ENVELOPE:
+                case Horde_Imap_Client::FETCH_ENVELOPE:
                     $cache_array[$k] = 'HICenv';
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::FLAGS:
+                case Horde_Imap_Client::FETCH_FLAGS:
                     /* QRESYNC would have already done syncing on mailbox
                      * open, so no need to do again. */
                     if (!$qresync) {
@@ -1894,7 +1894,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     $cache_array[$k] = 'HICflags';
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::HEADERS:
+                case Horde_Imap_Client::FETCH_HEADERS:
                     $this->_temp['headers_caching'] = array();
 
                     /* Only cache if directly requested. */
@@ -1911,15 +1911,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     }
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::IMAPDATE:
+                case Horde_Imap_Client::FETCH_IMAPDATE:
                     $cache_array[$k] = 'HICdate';
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::SIZE:
+                case Horde_Imap_Client::FETCH_SIZE:
                     $cache_array[$k] = 'HICsize';
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::STRUCTURE:
+                case Horde_Imap_Client::FETCH_STRUCTURE:
                     $cache_array[$k] = 'HICstruct';
                     break;
                 }
@@ -1963,17 +1963,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if ($options['ids']->sequence) {
                 $id = $res_seq['lookup'][$val];
                 $ret[$id]->setSequence($id);
-                unset($crit[Horde_Imap_Client_Fetch_Query::SEQ]);
+                unset($crit[Horde_Imap_Client::FETCH_SEQ]);
             } else {
                 $id = $val;
             }
 
             $ret[$id]->setUid($val);
-            unset($crit[Horde_Imap_Client_Fetch_Query::UID]);
+            unset($crit[Horde_Imap_Client::FETCH_UID]);
 
             foreach ($cache_array as $key => $cid) {
                 switch ($key) {
-                case Horde_Imap_Client_Fetch_Query::ENVELOPE:
+                case Horde_Imap_Client::FETCH_ENVELOPE:
                     if (isset($data[$val][$cid]) &&
                         ($data[$val][$cid] instanceof Horde_Imap_Client_Data_Envelope)) {
                         $ret[$id]->setEnvelope($data[$val][$cid]);
@@ -1981,7 +1981,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     }
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::FLAGS:
+                case Horde_Imap_Client::FETCH_FLAGS:
                     if (isset($data[$val][$cid]) &&
                         is_array($data[$val][$cid])) {
                         $ret[$id]->setFlags($data[$val][$cid]);
@@ -1989,7 +1989,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     }
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::HEADERS:
+                case Horde_Imap_Client::FETCH_HEADERS:
                     /* HEADERS caching. */
                     foreach ($header_cache as $hkey => $hval) {
                         if (isset($data[$val][$cid][$hval])) {
@@ -2003,7 +2003,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     }
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::IMAPDATE:
+                case Horde_Imap_Client::FETCH_IMAPDATE:
                     if (isset($data[$val][$cid]) &&
                         ($data[$val][$cid] instanceof Horde_Imap_Client_DateTime)) {
                         $ret[$id]->setImapDate($data[$val][$cid]);
@@ -2011,14 +2011,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     }
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::SIZE:
+                case Horde_Imap_Client::FETCH_SIZE:
                     if (isset($data[$val][$cid])) {
                         $ret[$id]->setSize($data[$val][$cid]);
                         unset($crit[$key]);
                     }
                     break;
 
-                case Horde_Imap_Client_Fetch_Query::STRUCTURE:
+                case Horde_Imap_Client::FETCH_STRUCTURE:
                     if (isset($data[$val][$cid]) &&
                         ($data[$val][$cid] instanceof Horde_Mime_Part)) {
                         $ret[$id]->setStructure($data[$val][$cid]);
@@ -2918,11 +2918,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             foreach ($cf as $val) {
                 if ($v->exists($val)) {
                     switch ($val) {
-                    case Horde_Imap_Client_Fetch_Query::ENVELOPE:
+                    case Horde_Imap_Client::FETCH_ENVELOPE:
                         $tmp['HICenv'] = $v->getEnvelope();
                         break;
 
-                    case Horde_Imap_Client_Fetch_Query::FLAGS:
+                    case Horde_Imap_Client::FETCH_FLAGS:
                         /* A FLAGS FETCH can only occur if we are in the
                          * mailbox. So either HIGHESTMODSEQ has already been
                          * updated or the flag FETCHs will provide the new
@@ -2938,7 +2938,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         $tmp['HICflags'] = $v->getFlags();
                         break;
 
-                    case Horde_Imap_Client_Fetch_Query::HEADERS:
+                    case Horde_Imap_Client::FETCH_HEADERS:
                         foreach ($this->_temp['headers_caching'] as $label => $hash) {
                             if ($hdr = $v->getHeaders($label)) {
                                 $tmp['HIChdrs'][$hash] = $hdr;
@@ -2946,15 +2946,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         }
                         break;
 
-                    case Horde_Imap_Client_Fetch_Query::IMAPDATE:
+                    case Horde_Imap_Client::FETCH_IMAPDATE:
                         $tmp['HICdate'] = $v->getImapDate();
                         break;
 
-                    case Horde_Imap_Client_Fetch_Query::SIZE:
+                    case Horde_Imap_Client::FETCH_SIZE:
                         $tmp['HICsize'] = $v->getSize();
                         break;
 
-                    case Horde_Imap_Client_Fetch_Query::STRUCTURE:
+                    case Horde_Imap_Client::FETCH_STRUCTURE:
                         $tmp['HICstruct'] = clone $v->getStructure();
                         break;
                     }

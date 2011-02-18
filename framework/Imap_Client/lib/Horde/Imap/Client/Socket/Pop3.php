@@ -612,7 +612,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         foreach ($query as $type => $c_val) {
             switch ($type) {
-            case Horde_Imap_Client_Fetch_Query::FULLMSG:
+            case Horde_Imap_Client::FETCH_FULLMSG:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('msg', $id);
 
@@ -626,7 +626,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
+            case Horde_Imap_Client::FETCH_HEADERTEXT:
                 // Ignore 'peek' option
                 foreach ($c_val as $key => $val) {
                     foreach ($seq_ids as $id) {
@@ -642,7 +642,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::BODYTEXT:
+            case Horde_Imap_Client::FETCH_BODYTEXT:
                 foreach ($seq_ids as $id) {
                     try {
                         $results[$lookup[$id]]->setBodyText($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $c_val));
@@ -650,7 +650,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::MIMEHEADER:
+            case Horde_Imap_Client::FETCH_MIMEHEADER:
                 foreach ($seq_ids as $id) {
                     try {
                         $results[$lookup[$id]]->setMimeHeader($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'header', $key), $c_val));
@@ -658,7 +658,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::BODYPART:
+            case Horde_Imap_Client::FETCH_BODYPART:
                 // Ignore 'decode'
                 foreach ($seq_ids as $id) {
                     try {
@@ -667,7 +667,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::HEADERS:
+            case Horde_Imap_Client::FETCH_HEADERS:
                 // Ignore 'length', 'peek'
                 foreach ($seq_ids as $id) {
                     $ob = $this->_pop3Cache('hdrob', $id);
@@ -692,7 +692,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::STRUCTURE:
+            case Horde_Imap_Client::FETCH_STRUCTURE:
                 foreach ($seq_ids as $id) {
                     if ($ptr = $this->_pop3Cache('msg', $id)) {
                         try {
@@ -702,7 +702,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::ENVELOPE:
+            case Horde_Imap_Client::FETCH_ENVELOPE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
                     $results[$lookup[$id]]->setEnvelope(array(
@@ -720,27 +720,27 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::IMAPDATE:
+            case Horde_Imap_Client::FETCH_IMAPDATE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
                     $results[$lookup[$id]]->setImapDate($tmp->getValue('date'));
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::SIZE:
+            case Horde_Imap_Client::FETCH_SIZE:
                 $sizelist = $this->_pop3Cache('size');
                 foreach ($seq_ids as $id) {
                     $results[$lookup[$id]]->setSize($sizelist[$id]);
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::SEQ:
+            case Horde_Imap_Client::FETCH_SEQ:
                 foreach ($seq_ids as $id) {
                     $results[$lookup[$id]]->setSeq($id);
                 }
                 break;
 
-            case Horde_Imap_Client_Fetch_Query::UID:
+            case Horde_Imap_Client::FETCH_UID:
                 $uidllist = $this->_pop3Cache('uidl');
                 foreach ($seq_ids as $id) {
                     if (isset($uidllist[$id])) {

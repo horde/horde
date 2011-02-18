@@ -71,6 +71,23 @@ class Horde_Imap_Client
     const THREAD_REFERENCES = 2;
     const THREAD_REFS = 3;
 
+    /* Fetch criteria constants. */
+    const FETCH_STRUCTURE = 1;
+    const FETCH_FULLMSG = 2;
+    const FETCH_HEADERTEXT = 3;
+    const FETCH_BODYTEXT = 4;
+    const FETCH_MIMEHEADER = 5;
+    const FETCH_BODYPART = 6;
+    const FETCH_BODYPARTSIZE = 7;
+    const FETCH_HEADERS = 8;
+    const FETCH_ENVELOPE = 9;
+    const FETCH_FLAGS = 10;
+    const FETCH_IMAPDATE = 11;
+    const FETCH_SIZE = 12;
+    const FETCH_UID = 13;
+    const FETCH_SEQ = 14;
+    const FETCH_MODSEQ = 15;
+
     /* IMAP data types (RFC 3501 [4]) */
     const DATA_ASTRING = 1;
     const DATA_ATOM = 2;
@@ -103,14 +120,14 @@ class Horde_Imap_Client
      *   fields - [OPTIONAL] (array) The fetch criteria to cache. If not
      *            defined, all cacheable data is cached. The following is a
      *            list of criteria that can be cached:
-     *              + Horde_Imap_Client_Query_Fetch::ENVELOPE
-     *              + Horde_Imap_Client_Query_Fetch::FLAGS
+     *              + Horde_Imap_Client::FETCH_ENVELOPE
+     *              + Horde_Imap_Client::FETCH_FLAGS
      *                Only if server supports CONDSTORE extension
-     *              + Horde_Imap_Client_Query_Fetch::HEADERS
+     *              + Horde_Imap_Client::FETCH_HEADERS
      *                Only for queries that specifically request caching
-     *              + Horde_Imap_Client_Query_Fetch::IMAPDATE
-     *              + Horde_Imap_Client_Query_Fetch::SIZE
-     *              + Horde_Imap_Client_Query_Fetch::STRUCTURE
+     *              + Horde_Imap_Client::FETCH_IMAPDATE
+     *              + Horde_Imap_Client::FETCH_SIZE
+     *              + Horde_Imap_Client::FETCH_STRUCTURE
      *   lifetime - [OPTIONAL] (integer) The lifetime of the cache data (in
      *              seconds).
      *   slicesize - [OPTIONAL] (integer) The slicesize to use.

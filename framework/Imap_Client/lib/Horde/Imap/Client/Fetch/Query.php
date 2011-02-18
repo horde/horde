@@ -14,23 +14,6 @@
  */
 class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
 {
-    /* Fetch criteria constants. */
-    const STRUCTURE = 1;
-    const FULLMSG = 2;
-    const HEADERTEXT = 3;
-    const BODYTEXT = 4;
-    const MIMEHEADER = 5;
-    const BODYPART = 6;
-    const BODYPARTSIZE = 7;
-    const HEADERS = 8;
-    const ENVELOPE = 9;
-    const FLAGS = 10;
-    const IMAPDATE = 11;
-    const SIZE = 12;
-    const UID = 13;
-    const SEQ = 14;
-    const MODSEQ = 15;
-
     /**
      * Internal data array.
      *
@@ -53,7 +36,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function fullText(array $opts = array())
     {
-        $this->_data[self::FULLMSG] = $opts;
+        $this->_data[Horde_Imap_Client::FETCH_FULLMSG] = $opts;
     }
 
     /**
@@ -80,7 +63,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
         $id = isset($opts['id'])
             ? $opts['id']
             : 0;
-        $this->_data[self::HEADERTEXT][$id] = $opts;
+        $this->_data[Horde_Imap_Client::FETCH_HEADERTEXT][$id] = $opts;
     }
 
     /**
@@ -107,7 +90,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
         $id = isset($opts['id'])
             ? $opts['id']
             : 0;
-        $this->_data[self::BODYTEXT][$id] = $opts;
+        $this->_data[Horde_Imap_Client::FETCH_BODYTEXT][$id] = $opts;
     }
 
     /**
@@ -129,7 +112,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function mimeHeader($id, array $opts = array())
     {
-        $this->_data[self::MIMEHEADER][$id] = $opts;
+        $this->_data[Horde_Imap_Client::FETCH_MIMEHEADER][$id] = $opts;
     }
 
     /**
@@ -151,7 +134,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function bodyPart($id, array $opts = array())
     {
-        $this->_data[self::BODYPART][$id] = $opts;
+        $this->_data[Horde_Imap_Client::FETCH_BODYPART][$id] = $opts;
     }
 
     /**
@@ -162,7 +145,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function bodyPartSize($id)
     {
-        $this->_data[self::BODYPARTSIZE][$id] = true;
+        $this->_data[Horde_Imap_Client::FETCH_BODYPARTSIZE][$id] = true;
     }
 
     /**
@@ -193,7 +176,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function headers($label, $search, array $opts = array())
     {
-        $this->_data[self::HEADERS][$label] = array_merge($opts, array(
+        $this->_data[Horde_Imap_Client::FETCH_HEADERS][$label] = array_merge($opts, array(
             'headers' => $search
         ));
     }
@@ -203,7 +186,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function structure()
     {
-        $this->_data[self::STRUCTURE] = true;
+        $this->_data[Horde_Imap_Client::FETCH_STRUCTURE] = true;
     }
 
     /**
@@ -211,7 +194,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function envelope()
     {
-        $this->_data[self::ENVELOPE] = true;
+        $this->_data[Horde_Imap_Client::FETCH_ENVELOPE] = true;
     }
 
     /**
@@ -219,7 +202,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function flags()
     {
-        $this->_data[self::FLAGS] = true;
+        $this->_data[Horde_Imap_Client::FETCH_FLAGS] = true;
     }
 
     /**
@@ -227,7 +210,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function imapDate()
     {
-        $this->_data[self::IMAPDATE] = true;
+        $this->_data[Horde_Imap_Client::FETCH_IMAPDATE] = true;
     }
 
     /**
@@ -235,7 +218,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function size()
     {
-        $this->_data[self::SIZE] = true;
+        $this->_data[Horde_Imap_Client::FETCH_SIZE] = true;
     }
 
     /**
@@ -243,7 +226,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function uid()
     {
-        $this->_data[self::UID] = true;
+        $this->_data[Horde_Imap_Client::FETCH_UID] = true;
     }
 
     /**
@@ -251,7 +234,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function seq()
     {
-        $this->_data[self::SEQ] = true;
+        $this->_data[Horde_Imap_Client::FETCH_SEQ] = true;
     }
 
     /**
@@ -262,7 +245,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function modseq()
     {
-        $this->_data[self::MODSEQ] = true;
+        $this->_data[Horde_Imap_Client::FETCH_MODSEQ] = true;
     }
 
     /**
@@ -353,7 +336,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
     {
         $opts = current($this->_data);
 
-        return (!empty($opts) && ($this->key() == self::BODYPARTSIZE))
+        return (!empty($opts) && ($this->key() == Horde_Imap_Client::FETCH_BODYPARTSIZE))
             ? array_keys($opts)
             : $opts;
     }
