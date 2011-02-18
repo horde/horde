@@ -13,7 +13,7 @@
             <label for="hermesTimeFormCostobject">
               <?php echo _("Costobject")?>
               <select type="text" id="hermesTimeFormCostobject" name="costobject"></select>
-            </label> <label for="HermesTimeFormStartDate">
+            </label><span class="hermesSeparator">|</span> <label for="HermesTimeFormStartDate">
               <?php echo _("Date") ?>
               <input class="input" type="text" name="start_date" id="hermesTimeFormStartDate" size="10" />
               <?php echo Horde::img('picker.png', _("Set start date"), 'id="hermesTimeFormStartPicker" class="hermesDatePicker"') ?>
