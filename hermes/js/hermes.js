@@ -1,5 +1,4 @@
 HermesCore = {
-
     view: '',
     viewLoading: [],
     inPrefs: false,
@@ -377,7 +376,7 @@ HermesCore = {
     loadSlices: function()
     {
         this.slices = [];
-        this.doAction('getTimeSlices', { "e": "mike", "s": false }, this.loadSlicesCallback.bind(this));
+        this.doAction('getTimeSlices', { "e": Hermes.conf.user, "s": false }, this.loadSlicesCallback.bind(this));
     },
 
     /**
