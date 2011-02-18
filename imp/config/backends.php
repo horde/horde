@@ -9,6 +9,8 @@
  *
  * Properties that can be set for each server:
  *
+ * disabled: (boolean) If true, the config entry is disabled.
+ *
  * name: (string) This is the name displayed in the server list on the login
  *       screen.
  *
@@ -292,6 +294,8 @@
 /* Example configurations: */
 
 $servers['imap'] = array(
+    // ENABLED by default
+    //'disabled' => true,
     'name' => 'IMAP Server',
     'hostspec' => 'localhost',
     'hordeauth' => false,
@@ -305,6 +309,8 @@ $servers['imap'] = array(
 );
 
 $servers['advanced'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'Advanced IMAP Server',
     'hostspec' => 'localhost',
     'hordeauth' => false,
@@ -333,6 +339,8 @@ $servers['advanced'] = array(
 );
 
 $servers['pop'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'POP3 Server',
     'hostspec' => 'localhost',
     'hordeauth' => false,
@@ -346,6 +354,8 @@ $servers['pop'] = array(
 );
 
 $servers['secure-imap'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'Secure IMAP Server',
     'hostspec' => 'localhost',
     'hordeauth' => false,
@@ -361,6 +371,8 @@ $servers['secure-imap'] = array(
 
 if ($GLOBALS['conf']['kolab']['enabled']) {
     $servers['kolab'] = array(
+        // Disabled by default
+        'disabled' => true,
         'name' => 'Kolab Cyrus IMAP Server',
         'hostspec' => 'localhost',
         'hordeauth' => 'full',

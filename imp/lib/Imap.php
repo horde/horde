@@ -374,8 +374,7 @@ class IMP_Imap implements Serializable
             }
 
             foreach (array_keys($servers) as $key) {
-                if (!empty($GLOBALS['conf']['server']['available']) &&
-                    !in_array($key, $GLOBALS['conf']['server']['available'])) {
+                if (!empty($servers[$key]['disabled'])) {
                     unset($servers[$key]);
                 }
             }
