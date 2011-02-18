@@ -264,40 +264,73 @@ body.hermesAjax {
     bottom: 0;
     left: 0;
     border: 1px solid black;
-    /*height: 590px;*/
 }
 
 /* Full timelist container */
 div.hermesTimeList {
     width: 100%;
-    border-spacing: 0;
 }
 
 /* Timelist fields */
 .hermesTimeListSelect {
     float: left;
     width: 18px;
-}
-#hermesTimeListBody div.hermesTimeListSelect {
-    height: 26px;
-}
-
-div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListTotal,
-div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType {
-    float: left;
     white-space: pre-wrap;
 }
-div.hermesTimeListHours, div.hermesTimeListTotal {
-    width: 10%;
+.hermesTimeListSelect:hover {
+    background: url("graphics/checkbox_over.png") no-repeat center;
 }
-div.hermesTimeListDate {
+
+/* Header */
+#hermesTimeListHeader {
+    width: 100%;
+    display: inline-block;
+    background-color: #ddd;
+    border-color: -moz-use-text-color silver silver;
+    border-right: 1px solid silver;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+}
+#hermesTimeListHeader div {
+    height: 14px;
+    text-indent: 2px;
+    font-weight: bold;
+    border-left: 1px solid #eee;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+#hermesTimeListBody div {
+    text-indent: 2px;
+    border-left: 1px solid #eee;
+}
+#hermesTimeListHeader div.sortup, #hermesTimeListHeader div.sortdown {
+  background-position: 2px 50%;
+  padding-left: 0;
+}
+#hermesTimeListHeader div.sortup a, #hermesTimeListHeader div.sortdown a {
+    padding-left: 14px;
+}
+div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListTotal,
+div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType,
+div.hermesTimeSliceOptions, div.hermesTimeListSelect {
+    float: left;
+    white-space: pre;
+    overflow: hidden;
+}
+div.hermesTimeListSelect {
+    width: 3%;
+}
+div.hermesTimeListHours {
+    width: 5%;
+}
+div.hermesTimeListDate,  div.hermesTimeListTotal {
     width: 10%;
 }
 div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType {
     width: 20%;
 }
 div.hermesTimeSliceOptions {
-    float: right;
+    width: 10%;
 }
 
 /* Body of timelist */
@@ -309,12 +342,9 @@ div.hermesTimeSliceOptions {
 
 /* Each entry */
 .hermesTimeListRow {
-    padding: 3px;
-    border-bottom: 1px #eeeeee solid;
-    vertical-align: top;
-    overflow: hidden;
-    font-size: 14px;
+    font-size: 100%;
     line-height: 26px;
+    overflow: hidden;
 }
 .rounded {
   background: -moz-linear-gradient(-90deg, #F0F0F0, #DBDBDB);
@@ -349,11 +379,8 @@ a.rounded {
 .hermesUnselectedSlice {
     background: url("graphics/checkbox_off.png") no-repeat center;
 }
-.hermesTimeListSelect:hover {
-    background: url("graphics/checkbox_over.png") no-repeat center;
-}
 .hermesSelectedSlice {
-    background: url("graphics/checkbox_on.png") no-repeat center;   
+    background: url("graphics/checkbox_on.png") no-repeat center;
 }
 .hermesSelectedRow {
     background: #eeeeee;
