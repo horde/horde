@@ -19,11 +19,11 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.</descriptio
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-26</date>
- <time>21:38:11</time>
+ <date>2011-02-18</date>
+ <time>11:40:20</time>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>0.2.1</release>
+  <api>0.2.1</api>
  </version>
  <stability>
   <release>beta</release>
@@ -31,13 +31,7 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.</descriptio
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Abstracted storage-specific code into &apos;Storage&apos; drivers.
- * Add option to transparently compress cache data using lzf.
- * Added Horde_Cache_Session::.
- * Horde_Cache::set() no longer returns a boolean result.
- * Added Horde_Cache_Exception::.
- * Removed dependency on Horde Core.
- * Initial Horde 4 package.
+* Added Horde_Cache#clear()
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -188,6 +182,21 @@ Initial packaging.
  * Added Horde_Cache_Exception::.
  * Removed dependency on Horde Core.
  * Initial Horde 4 package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-02-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Added Horde_Cache#clear()
    </notes>
   </release>
  </changelog>

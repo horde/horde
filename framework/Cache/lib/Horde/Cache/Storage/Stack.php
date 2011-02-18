@@ -114,4 +114,28 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
         return $success;
     }
 
+    /**
+     */
+    public function clear()
+    {
+        /* Only report errors from master. */
+        $exception = null;
+        $master = true;
+
+        foreach (array_reverse($this->_stack) as $val) {
+            try {
+                $val->clear();
+            } catch (Horde_Cache_Exception $e) {
+                if ($master) {
+                    $exception = $e;
+                }
+            }
+            $master = false;
+        }
+
+        if ($exception) {
+            throw $exception;
+        }
+    }
+
 }

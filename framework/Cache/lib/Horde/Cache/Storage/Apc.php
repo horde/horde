@@ -68,6 +68,15 @@ class Horde_Cache_Storage_Apc extends Horde_Cache_Storage_Base
     }
 
     /**
+     */
+    public function clear()
+    {
+        if (!apc_clear_cache('user')) {
+            throw new Horde_Cache_Exception('Clearing APC cache failed');
+        }
+    }
+
+    /**
      * Set expire time on each call since APC sets it on cache creation.
      *
      * @param string $key        Cache key to expire.

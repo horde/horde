@@ -120,6 +120,13 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
         return $this->_memcache->delete($key);
     }
 
+    /**
+     */
+    public function clear()
+    {
+        $this->_memcache->flush();
+    }
+
     /* Serializable methods. */
 
     /**

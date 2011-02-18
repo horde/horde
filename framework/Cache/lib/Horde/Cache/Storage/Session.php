@@ -92,4 +92,11 @@ class Horde_Cache_Storage_Session extends Horde_Cache_Storage_Base
         return false;
     }
 
+    /**
+     */
+    public function clear()
+    {
+        $this->_sess = array();
+    }
+
 }

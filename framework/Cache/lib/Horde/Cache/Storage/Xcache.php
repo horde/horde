@@ -72,6 +72,14 @@ class Horde_Cache_Storage_Xcache extends Horde_Cache_Storage_Base
     }
 
     /**
+     */
+    public function clear()
+    {
+        // xcache_clear_cache() won't work because it requires HTTP Auth.
+        throw new Horde_Cache_Exception('Not supported');
+    }
+
+    /**
      * Set expire time on each call since memcache sets it on cache creation.
      *
      * @param string $key        Cache key to expire.

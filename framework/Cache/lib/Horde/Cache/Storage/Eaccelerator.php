@@ -74,6 +74,13 @@ class Horde_Cache_Storage_Eaccelerator extends Horde_Cache_Storage_Base
     }
 
     /**
+     */
+    public function clear()
+    {
+        eaccelerator_clear();
+    }
+
+    /**
      * Set expire time on each call since eAccelerator sets it on
      * cache creation.
      *

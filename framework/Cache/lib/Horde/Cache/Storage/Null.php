@@ -41,4 +41,10 @@ class Horde_Cache_Storage_Null extends Horde_Cache_Storage_Base
         return false;
     }
 
+    /**
+     */
+    public function clear()
+    {
+    }
+
 }

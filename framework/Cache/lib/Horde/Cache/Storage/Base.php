@@ -90,4 +90,11 @@ abstract class Horde_Cache_Storage_Base
      */
     abstract public function expire($key);
 
+    /**
+     * Clears all data from the cache.
+     *
+     * @throws Horde_Cache_Exception
+     */
+    abstract public function clear();
+
 }

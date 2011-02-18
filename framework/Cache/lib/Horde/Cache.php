@@ -157,4 +157,14 @@ class Horde_Cache
         return $this->_storage->expire($key);
     }
 
+    /**
+     * Clears all data from the cache.
+     *
+     * @throws Horde_Cache_Exception
+     */
+    public function clear()
+    {
+        return $this->_storage->clear();
+    }
+
 }

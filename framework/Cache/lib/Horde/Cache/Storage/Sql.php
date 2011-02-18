@@ -221,4 +221,17 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
         return true;
     }
 
+    /**
+     */
+    public function clear()
+    {
+        $query = 'DELETE FROM ' . $this->_params['table'];
+
+        try {
+            $this->_db->delete($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Cache_Exception($e);
+        }
+    }
+
 }

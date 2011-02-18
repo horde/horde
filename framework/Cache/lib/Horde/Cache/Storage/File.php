@@ -84,29 +84,17 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
             }
         }
 
-        try {
-            $it = empty($this->_params['sub'])
-                ? new DirectoryIterator($this->_dir)
-                : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_dir), RecursiveIteratorIterator::CHILD_FIRST);
-        } catch (UnexpectedValueException $e) {
-            return;
-        }
-
         $c_time = time();
 
-        foreach ($it as $val) {
-            if (!$val->isDir() &&
-                ($fname = $val->getFilename()) &&
-                (strpos($fname, $this->_params['prefix']) === 0)) {
-                $d_time = isset($excepts[$fname])
-                    ? $excepts[$fname]
-                    : $this->_params['lifetime'];
+        foreach ($this->_getCacheFiles() as $fname => $pname) {
+            $d_time = isset($excepts[$fname])
+                ? $excepts[$fname]
+                : $this->_params['lifetime'];
 
-                if (!empty($d_time) &&
-                    (($c_time - $d_time) > filemtime($val->getPathname()))) {
-                    @unlink($val->getPathname());
-                    unset($excepts[$fname]);
-                }
+            if (!empty($d_time) &&
+                (($c_time - $d_time) > filemtime($pname))) {
+                @unlink($pname);
+                unset($excepts[$fname]);
             }
         }
 
@@ -152,8 +140,8 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         @rename($tmp_file, $filename);
 
         if (($lifetime != $this->_params['lifetime']) &&
-            ($fp = @fopen($this->_dir . '/horde_cache_gc', 'a'))) {
-            // This may result in duplicate entries in horde_cache_gc, but we
+            ($fp = @fopen($this->_dir . '/' . self::GC_FILE, 'a'))) {
+            // This may result in duplicate entries in GC_FILE, but we
             // will take care of these whenever we do GC and this is quicker
             // than having to check every time we access the file.
             fwrite($fp, $filename . "\t" . (empty($lifetime) ? 0 : time() + $lifetime) . "\n");
@@ -189,6 +177,44 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
     {
         $filename = $this->_keyToFile($key);
         return @unlink($filename);
+    }
+
+    /**
+     */
+    public function clear()
+    {
+        foreach ($this->_getCacheFiles() as $val) {
+            @unlink($val);
+        }
+        @unlink($this->_dir . '/' . self::GC_FILE);
+    }
+
+    /**
+     * Return a list of cache files.
+     *
+     * @return array  Pathnames to cache files.
+     */
+    protected function _getCacheFiles()
+    {
+        $paths = array();
+
+        try {
+            $it = empty($this->_params['sub'])
+                ? new DirectoryIterator($this->_dir)
+                : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_dir), RecursiveIteratorIterator::CHILD_FIRST);
+        } catch (UnexpectedValueException $e) {
+            return $paths;
+        }
+
+        foreach ($it as $val) {
+            if (!$val->isDir() &&
+                ($fname = $val->getFilename()) &&
+                (strpos($fname, $this->_params['prefix']) === 0)) {
+                $paths[$fname] = $val->getPathname();
+            }
+        }
+
+        return $paths;
     }
 
     /**

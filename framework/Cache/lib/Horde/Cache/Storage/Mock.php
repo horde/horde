@@ -54,4 +54,11 @@ class Horde_Cache_Storage_Mock extends Horde_Cache_Storage_Base
         unset($this->_cache[$key]);
     }
 
+    /**
+     */
+    public function clear()
+    {
+        $this->_cache = array();
+    }
+
 }
