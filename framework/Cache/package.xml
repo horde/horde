@@ -109,9 +109,11 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.</descriptio
    </package>
    <extension>
     <name>apc</name>
+    <min>2.0.0</min>
    </extension>
    <extension>
     <name>eaccelerator</name>
+    <min>0.9.5</min>
    </extension>
   </optional>
  </dependencies>
