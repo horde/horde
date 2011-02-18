@@ -2,23 +2,26 @@
 /**
  * Horde backend. Provides the communication between horde data and
  * ActiveSync server.  Some code based on an implementation found on Z-Push's
- * fourm. Original header appears below. All other changes are:
+ * fourm.
+ *
+ * Original header:
+ *
+ * File      :   horde.php
+ * Project   :   Z-Push
+ * Descr     :   Horde backend
+ * Created   :   09.03.2009
+ *
+ * � Holger de Carne holger@carne.de
+ * This file is distributed under GPL v2.
+ * Consult LICENSE file for details
+ *
+ * All other changes are:
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_ActiveSync
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Core
  */
-/***********************************************
-* File      :   horde.php
-* Project   :   Z-Push
-* Descr     :   Horde backend
-* Created   :   09.03.2009
-*
-* � Holger de Carne holger@carne.de
-* This file is distributed under GPL v2.
-* Consult LICENSE file for details
-************************************************/
 class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 {
     /** Constants **/

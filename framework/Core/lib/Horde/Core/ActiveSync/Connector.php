@@ -8,8 +8,8 @@
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_ActiveSync
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Core
  */
 class Horde_Core_ActiveSync_Connector
 {

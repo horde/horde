@@ -11,7 +11,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @package  Mime_Viewer
+ * @package  Core
  */
 class Horde_Core_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Syntaxhighlighter
 {

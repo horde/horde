@@ -4,7 +4,7 @@
  * create.
  *
  * @category Horde
- * @package  Horde_Core
+ * @package  Core
  */
 class Horde_Core_Controller_RequestConfiguration implements Horde_Controller_RequestConfiguration
 {

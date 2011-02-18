@@ -3,8 +3,6 @@
  * Horde_Imap_Client_Base:: provides an abstracted API interface to various
  * IMAP backends supporting the IMAP4rev1 protocol (RFC 3501).
  *
- * Required/Optional Parameters: See Horde_Imap_Client::.
- *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -123,6 +121,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
     /**
      * Constructs a new Horde_Imap_Client_Base object.
+     *
+     * @see Horde_Imap_Client::factory()
      *
      * @param array $params  A hash containing configuration parameters.
      *                       See Horde_Imap_Client::factory().

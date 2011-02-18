@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package Core
+ */
+
 class Horde_Core_Ui_Layout
 {
     protected $_view;
