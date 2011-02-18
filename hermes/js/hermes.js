@@ -469,7 +469,7 @@ HermesCore = {
         cell = cell.next().update((slice.cn.name) ? slice.cn.name : ' ');
         cell = cell.next().update((slice.con) ? slice.con : ' ');
         cell = cell.next().update((slice.tn) ? slice.tn : ' ');
-        cell = cell.next().update((slice.h * slice.r) + 0);
+        cell = cell.next().update((slice.desc) ? slice.desc : ' ');
         return row;
     },
 

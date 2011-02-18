@@ -310,7 +310,7 @@ margin: 6px;
 #hermesTimeListHeader div.sortup a, #hermesTimeListHeader div.sortdown a {
     padding-left: 14px;
 }
-div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListTotal,
+div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListDesc,
 div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType,
 div.hermesTimeSliceOptions, div.hermesTimeListSelect {
     float: left;
@@ -323,14 +323,15 @@ div.hermesTimeListSelect {
 div.hermesTimeListHours {
     width: 5%;
 }
-div.hermesTimeListDate,  div.hermesTimeListTotal {
+div.hermesTimeListDate, div.hermesTimeListType, div.hermesTimeListClient {
     width: 10%;
 }
-div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType {
-    width: 20%;
+div.hermesTimeListCostObject, div.hermesTimeListDesc {
+    width: 25%;
 }
 div.hermesTimeSliceOptions {
     width: 10%;
+    text-align: right;
 }
 /* Body of timelist */
 #hermesTimeListBody {
