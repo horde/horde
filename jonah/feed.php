@@ -16,7 +16,7 @@ $jonah = Horde_Registry::appInit('jonah', array(
     'session_control' => 'readonly'
 ));
 $jonah = Horde_Registry::appInit('jonah');
-$templates = Horde::loadConfiguratino('templates.php', 'templates', 'jonah');
+$templates = Horde::loadConfiguration('templates.php', 'templates', 'jonah');
 
 /* Get the id and format of the feed to display. */
 $criteria = Horde_Util::nonInputVar('criteria');

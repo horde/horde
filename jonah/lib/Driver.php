@@ -278,7 +278,7 @@ class Jonah_Driver
     {
         $channel = $this->getChannel($channel_id);
 
-        $templates = Horde::loadConfiguratino('templates.php', 'templates', 'jonah');
+        $templates = Horde::loadConfiguration('templates.php', 'templates', 'jonah');
         $escape = !isset($templates[$tpl]['escape']) || !empty($templates[$tpl]['escape']);
         $template = new Horde_Template();
 
