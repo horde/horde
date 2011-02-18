@@ -60,17 +60,22 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
         }
 
         if (!isset($this->_instances[$id])) {
-            if (!($ob = $session->get('imp', 'imap_ob/' . $id))) {
+            if (empty($this->_instances)) {
+                register_shutdown_function(array($this, 'shutdown'));
+            }
+
+            if ($ob = $session->get('imp', 'imap_ob/' . $id)) {
+                /* If retrieved from session, we know $save should implcitly
+                 * be true. */
+                $save = true;
+            } else {
                 $ob = new IMP_Imap();
             }
 
             $this->_instances[$id] = $ob;
         }
 
-        if ($save && !$session->exists('imp', 'imap_ob/' . $id)) {
-            if (empty($this->_save)) {
-                register_shutdown_function(array($this, 'shutdown'));
-            }
+        if ($save) {
             $this->_save[] = $id;
         }
 
@@ -83,7 +88,9 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
     public function shutdown()
     {
         foreach (array_unique($this->_save) as $id) {
-            $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+            if ($this->_instances[$id]->ob->changed) {
+                $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+            }
         }
     }
 

@@ -24,12 +24,13 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
      */
     public function __construct($params)
     {
-        $this->_service = 'pop3';
         if (empty($params['port'])) {
             $params['port'] = ($params['secure'] == 'ssl') ? 995 : 110;
         }
 
         parent::__construct($params);
+
+        $this->_setInit('service', 'pop3');
 
         // Disable caching.
         $this->_params['cache'] = array('fields' => array());

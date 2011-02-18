@@ -101,7 +101,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     {
         $this->_connect();
 
-        $this->_init['capability'] = array();
+        $capability = array();
 
         try {
             $this->_sendLine('CAPA');
@@ -109,27 +109,29 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             foreach ($this->_getMultiline(true) as $val) {
                 $prefix = explode(' ', $val);
 
-                $this->_init['capability'][strtoupper($prefix[0])] = (count($prefix) > 1)
+                $capability[strtoupper($prefix[0])] = (count($prefix) > 1)
                     ? array_slice($prefix, 1)
                     : true;
             }
         } catch (Horde_Imap_Client_Exception $e) {
             /* Need to probe for capabilities if CAPA command is not
              * available. */
-            $this->_init['capability'] = array('USER', 'SASL');
+            $capability = array('USER', 'SASL');
 
             try {
                 $this->_sendLine('UIDL');
                 fclose($this->_getMultiline());
-                $this->_init['capability'][] = 'UIDL';
+                $capability[] = 'UIDL';
             } catch (Horde_Imap_Client_Exception $e) {}
 
             try {
                 $this->_sendLine('TOP 1 0');
                 fclose($this->_getMultiline());
-                $this->_init['capability'][] = 'TOP';
+                $capability[] = 'TOP';
             } catch (Horde_Imap_Client_Exception $e) {}
         }
+
+        $this->_setInit('capability', $capability);
 
         return $this->_init['capability'];
     }
@@ -179,7 +181,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
 
             // Expire cached CAPABILITY information
-            unset($this->_init['capability']);
+            $this->_setInit('capability');
 
             $this->_isSecure = true;
         }
@@ -201,11 +203,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         foreach ($auth_mech as $method) {
             try {
                 $this->_tryLogin($method);
-                $this->_init['authmethod'] = $method;
+                $this->_setInit('authmethod', $method);
                 return true;
             } catch (Horde_Imap_Client_Exception $e) {
                 if (!empty($this->_init['authmethod'])) {
-                    unset($this->_init['authmethod']);
+                    $this->_setInit('authmethod');
                     return $this->login();
                 }
             }

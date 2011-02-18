@@ -131,10 +131,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        $c = &$this->_init['capability'];
         if (empty($this->_temp['in_login'])) {
             $c = array();
         } else {
+            $c = $this->_init['capability'];
             $this->_temp['logincapset'] = true;
         }
 
@@ -156,6 +156,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (isset($c['QRESYNC'])) {
             $c['CONDSTORE'] = true;
         }
+
+        $this->_setInit('capability', $c);
     }
 
     /**
@@ -263,10 +265,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
-            unset($this->_init['capability']);
+            $this->_setInit('capability');
 
             // Reset language (RFC 5255 [3.1])
-            unset($this->_init['lang']);
+            $this->_setInit('lang');
 
             // Set language if not using imapproxy
             if ($this->_init['imapproxy']) {
@@ -328,12 +330,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             try {
                 $this->_tryLogin($method);
                 $success = true;
-                $this->_init['authmethod'] = $method;
+                $this->_setInit('authmethod', $method);
                 unset($t['referralcount']);
             } catch (Horde_Imap_Client_Exception $e) {
                 $success = false;
                 if (!empty($this->_init['authmethod'])) {
-                    unset($this->_init['authmethod']);
+                    $this->_setInit('authmethod');
                     return $this->login();
                 }
             }
@@ -350,7 +352,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
 
                 if (isset($t['referral']['auth'])) {
-                    $this->_init['authmethod'] = $t['referral']['auth'];
+                    $this->_setInit('authmethod', $t['referral']['auth']);
                 }
 
                 if (!isset($t['referralcount'])) {
@@ -361,8 +363,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 // without consulting the user.
                 if (++$t['referralcount'] < 10) {
                     $this->logout();
-                    unset($this->_init['capability']);
-                    $this->_init['namespace'] = array();
+                    $this->_setInit('capability');
+                    $this->_setInit('namespace', array());
                     return $this->login();
                 }
 
@@ -452,7 +454,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // Set language if not using imapproxy
         if (empty($this->_init['imapproxy'])) {
-            $this->_init['imapproxy'] = $this->queryCapability('XIMAPPROXY');
+            $this->_setInit('imapproxy', $this->queryCapability('XIMAPPROXY'));
             if (!$this->_init['imapproxy']) {
                 $this->setLanguage();
             }
@@ -573,12 +575,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return false;
         }
 
-        $this->_init['enabled'] = array();
+        $this->_setInit('enabled', array());
 
         /* If we logged in for first time, and server did not return
          * capability information, we need to grab it now. */
         if ($firstlogin && empty($this->_temp['logincapset'])) {
-            unset($this->_init['capability']);
+            $this->_setInit('capability');
         }
         $this->setLanguage();
 
@@ -588,7 +590,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* QRESYNC requires ENABLE, so we just need to send one ENABLE
                  * QRESYNC call to enable both QRESYNC && CONDSTORE. */
                 $this->_enable(array('QRESYNC'));
-                $this->_init['enabled']['CONDSTORE'] = true;
+                $this->_setInit('enabled', array_merge($this->_init['enabled'], array('CONDSTORE' => true)));
             } elseif ($this->queryCapability('CONDSTORE') &&
                       $this->queryCapability('ENABLE')) {
                 /* CONDSTORE may be available, but ENABLE may not be. */
@@ -674,7 +676,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         try {
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
-            $this->_init['lang'] = null;
+            $this->_setInit('lang', false);
             return null;
         }
 
@@ -686,14 +688,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _getLanguage($list)
     {
         if (!$list) {
-            return empty($this->_init['lang']) ? null : $this->_init['lang'];
+            return empty($this->_init['lang'])
+                ? null
+                : $this->_init['lang'];
         }
 
         if (!isset($this->_init['langavail'])) {
             try {
                 $this->_sendLine('LANGUAGE');
             } catch (Horde_Imap_Client_Exception $e) {
-                $this->_init['langavail'] = array();
+                $this->_setInit('langavail', array());
             }
         }
 
@@ -710,10 +714,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Store data in $_params because it mustbe saved across page accesses
         if (count($data[0]) == 1) {
             // This is the language that was set.
-            $this->_init['lang'] = reset($data[0]);
+            $this->_setInit('lang', reset($data[0]));
         } else {
             // These are the languages that are available.
-            $this->_init['langavail'] = $data[0];
+            $this->_setInit('langavail', $data[0]);
         }
     }
 
@@ -740,7 +744,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseEnabled($data)
     {
-        $this->_init['enabled'] = array_merge($this->_init['enabled'], array_flip($data));
+        $this->_setInit('enabled', array_merge($this->_init['enabled'], array_flip($data)));
     }
 
     /**
@@ -818,7 +822,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($condstore) {
-            $this->_init['enabled']['CONDSTORE'] = true;
+            $this->_setInit('enabled', array_merge($this->_init['enabled'], array('CONDSTORE' => true)));
         }
 
         /* MODSEQ should be set if CONDSTORE is active. Some servers won't

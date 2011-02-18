@@ -32,20 +32,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     protected $_stream = null;
 
     /**
-     * The IMAP c-client connection string.
-     *
-     * @var string
-     */
-    protected $_cstring;
-
-    /**
-     * The service to connect to via c-client
-     *
-     * @var string
-     */
-    protected $_service = 'imap';
-
-    /**
      * The IMAP flags supported in this driver.
      *
      * @var array
@@ -108,10 +94,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             $params['retries'] = 3;
         }
 
-        $this->_storeVars[] = '_cstring';
-        $this->_storeVars[] = '_service';
-
         parent::__construct($params);
+
+        $this->_setInit('service', 'imap');
     }
 
     /**
@@ -165,7 +150,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             $this->_exception('Secure connections require the PHP openssl extension: http://php.net/openssl.');
         }
 
-        $mask = ($this->_service == 'pop3') ? 0 : OP_HALFOPEN;
+        $mask = ($this->_init['service'] == 'pop3') ? 0 : OP_HALFOPEN;
 
         if (version_compare(PHP_VERSION, '5.2.1') != -1) {
             $res = @imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask, $this->_params['retries']);
@@ -1348,34 +1333,33 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _connString($mailbox = '')
     {
-        if (isset($this->_cstring)) {
-            return $this->_cstring . $mailbox;
+        if (!isset($this->_init['cstring'])) {
+            $conn = '{' . $this->_params['hostspec'] . ':' . $this->_params['port'] . '/service=' . $this->_init['service'];
+
+            switch ($this->_params['secure']) {
+            case 'ssl':
+                $conn .= '/ssl';
+                if (empty($this->_params['validate_cert'])) {
+                    $conn .= '/novalidate-cert';
+                }
+                break;
+
+            case 'tls':
+                $conn .= '/tls';
+                if (empty($this->_params['validate_cert'])) {
+                    $conn .= '/novalidate-cert';
+                }
+                break;
+
+            default:
+                $conn .= '/notls';
+                break;
+            }
+
+            $this->_setInit('cstring', $conn . '}');
         }
 
-        $conn = '{' . $this->_params['hostspec'] . ':' . $this->_params['port'] . '/service=' . $this->_service;
-
-        switch ($this->_params['secure']) {
-        case 'ssl':
-            $conn .= '/ssl';
-            if (empty($this->_params['validate_cert'])) {
-                $conn .= '/novalidate-cert';
-            }
-            break;
-
-        case 'tls':
-            $conn .= '/tls';
-            if (empty($this->_params['validate_cert'])) {
-                $conn .= '/novalidate-cert';
-            }
-            break;
-
-        default:
-            $conn .= '/notls';
-            break;
-        }
-        $this->_cstring = $conn . '}';
-
-        return $this->_cstring . $mailbox;
+        return $this->_init['cstring'] . $mailbox;
     }
 
     /**

@@ -46,7 +46,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
     );
 
     /**
+     * Has the internal configuration changed?
+     *
+     * @var boolean
+     */
+    public $changed = false;
+
+    /**
      * Hash containing connection parameters.
+     * This hash never changes.
      *
      * @var array
      */
@@ -81,7 +89,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_mode = 0;
 
     /**
-     * Server data that will be cached when serialized.
+     * Cached server data.
      *
      * @var array
      */
@@ -97,13 +105,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @var resource
      */
     protected $_debug = null;
-
-    /**
-     * The list of variables to serialize.
-     *
-     * @var array
-     */
-    protected $_storeVars = array('_init', '_params');
 
     /**
      * Temp array (destroyed at end of process).
@@ -148,10 +149,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (empty($params['cache'])) {
             $params['cache'] = array('fields' => array());
+        } elseif (empty($params['cache']['fields'])) {
+            $params['cache']['fields'] = $this->cacheFields;
         } else {
-            if (empty($params['cache']['fields'])) {
-                $params['cache']['fields'] = $this->cacheFields;
-            }
             $params['cache']['fields'] = array_flip($params['cache']['fields']);
         }
 
@@ -167,7 +167,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         } catch (Horde_Imap_Client_Exception $e) {}
 
-        $this->_init();
+        $this->changed = true;
+
+        $this->_initOb();
     }
 
     /**
@@ -217,7 +219,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Do initialization tasks.
      */
-    protected function _init()
+    protected function _initOb()
     {
         if (!empty($this->_params['debug'])) {
             if (is_resource($this->_params['debug'])) {
@@ -244,45 +246,31 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
-     * Serialize.
-     *
-     * @return string  Serialized representation of this object.
      */
     public function serialize()
     {
-        $store = array(
-            '__version' => self::VERSION
-        );
-
-        foreach ($this->_storeVars as $val) {
-            $store[$val] = $this->$val;
-        }
-
-        return serialize($store);
+        return serialize(array(
+            'i' => $this->_init,
+            'p' => $this->_params,
+            'v' => self::VERSION
+        ));
     }
 
     /**
-     * Unserialize.
-     *
-     * @param string $data  Serialized data.
-     *
-     * @throws Exception
      */
     public function unserialize($data)
     {
         $data = @unserialize($data);
         if (!is_array($data) ||
-            !isset($data['__version']) ||
-            ($data['__version'] != self::VERSION)) {
+            !isset($data['v']) ||
+            ($data['v'] != self::VERSION)) {
             throw new Exception('Cache version change');
         }
-        unset($data['__version']);
 
-        foreach ($data as $key => $val) {
-            $this->$key = $val;
-        }
+        $this->_init = $data['i'];
+        $this->_params = $data['p'];
 
-        $this->_init();
+        $this->_initOb();
     }
 
     /**
@@ -296,6 +284,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
             return $this->_utils;
         }
+    }
+
+    /**
+     * Set an initialization value.
+     *
+     * @param string $key  The initialization key.
+     * @param mixed $val   The cached value. If null, removes the key.
+     */
+    public function _setInit($key, $val = null)
+    {
+        if (is_null($val)) {
+            unset($this->_init[$key]);
+        } else {
+            $this->_init[$key] = $val;
+        }
+        $this->changed = true;
     }
 
     /**
@@ -408,11 +412,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function capability()
     {
         if (!isset($this->_init['capability'])) {
-            $this->_init['capability'] = $this->_capability();
+            $capability = $this->_capability();
 
             if (!empty($this->_params['capability_ignore'])) {
-                $this->_init['capability'] = array_diff_key($this->_init['capability'], array_flip($this->_params['capability_ignore']));
+                $capability = array_diff_key($capability, array_flip($this->_params['capability_ignore']));
             }
+
+            $this->_setInit('capability', $capability);
         }
 
         return $this->_init['capability'];
@@ -517,7 +523,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             );
         }
 
-        $this->_init['namespace'][$sig] = $ns;
+        $this->_setInit('namespace', array_merge($this->_init['namespace'], array($sig => $ns)));
 
         return $ns;
     }
@@ -2794,7 +2800,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 }
             }
 
-            $this->_init['enabled']['s_charset'][$charset] = $support;
+            $enabled = $this->_init['enabled'];
+            $enabled['s_charset'][$charset] = $support;
+            $this->_setInit('enabled', $enabled);
         }
 
         return $this->_init['enabled']['s_charset'][$charset];
