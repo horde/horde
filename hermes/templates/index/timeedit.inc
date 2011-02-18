@@ -1,7 +1,7 @@
 <div id="hermesViewTime" style="display:none">
   <div id="hermesLoadingTime" class="hermesLoading"></div>
   <div id="hermesViewTimeContainer">
-<h1 class="header"><?php echo _("Time Entry")?></h1>
+   <h1 class="header"><?php echo _("Time Entry")?></h1>
    <div id="hermesTimeEntry">
     <form id="hermesTimeForm" action="">
         <div id="hermesTimeFormInputs">
@@ -60,6 +60,7 @@
             <div class="hermesTimeListCostObject"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
             <div class="hermesTimeListType"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
             <div class="hermesTimeListTotal"><?php echo _("Total")?></div>
+            <div class="hermesTimeSliceOptions">&nbsp;</div>
           </div>
        </div>
        <div id="hermesTimeListBody">

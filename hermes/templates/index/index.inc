@@ -93,7 +93,6 @@
 <div id="hermesLoading" style="display:none"></div>
 <?php
 require dirname(__FILE__) . '/timeedit.inc';
-require dirname(__FILE__) . '/timelist.inc';
 ?>
 <div id="hermesViewIframe" style="display:none"></div>
 </div>
