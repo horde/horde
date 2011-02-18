@@ -295,7 +295,7 @@
 
 $servers['imap'] = array(
     // ENABLED by default
-    //'disabled' => true,
+    'disabled' => false,
     'name' => 'IMAP Server',
     'hostspec' => 'localhost',
     'hordeauth' => false,

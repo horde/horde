@@ -7,6 +7,8 @@
  * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *
+ * disabled: (boolean) If true, the config entry is disabled.
+ *
  * transport: (string) The Ingo_Transport driver to use to store the script on
  *            the backend server. Valid options:
  *            - 'ldap':      LDAP server
@@ -47,6 +49,8 @@
 
 /* IMAP Example */
 $backends['imap'] = array(
+    // ENABLED by default
+    'disabled' => false,
     'transport' => 'null',
     'hordeauth' => true,
     'params' => array(),
@@ -57,6 +61,8 @@ $backends['imap'] = array(
 
 /* Maildrop Example */
 $backends['maildrop'] = array(
+    // Disabled by default
+    'disabled' => true,
     'transport' => 'vfs',
     'hordeauth' => true,
     'params' => array(
@@ -114,6 +120,8 @@ $backends['maildrop'] = array(
 
 /* Procmail Example */
 $backends['procmail'] = array(
+    // Disabled by default
+    'disabled' => true,
     'transport' => 'vfs',
     'hordeauth' => true,
     'params' => array(
@@ -186,6 +194,8 @@ $backends['procmail'] = array(
 
 /* Sieve Example */
 $backends['sieve'] = array(
+    // Disabled by default
+    'disabled' => true,
     'transport' => 'timsieved',
     'hordeauth' => 'full',
     'params' => array(
@@ -221,6 +231,8 @@ $backends['sieve'] = array(
 
 /* sivtest Example */
 $backends['sivtest'] = array(
+    // Disabled by default
+    'disabled' => true,
     'transport' => 'sivtest',
     'hordeauth' => true,
     'params' => array(
@@ -247,6 +259,8 @@ $backends['sivtest'] = array(
 
 /* Sun ONE/JES Example (LDAP/Sieve) */
 $backends['ldapsieve'] = array(
+    // Disabled by default
+    'disabled' => true,
     'transport' => 'ldap',
     'hordeauth' => false,
     'params' => array(
@@ -291,6 +305,8 @@ $backends['ldapsieve'] = array(
 /* Kolab Example (using Sieve) */
 if ($GLOBALS['conf']['kolab']['enabled']) {
     $backends['kolab'] = array(
+        // Disabled by default
+        'disabled' => true,
         'transport' => 'timsieved',
         'hordeauth' => 'full',
         'params' => array(

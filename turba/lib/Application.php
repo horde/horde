@@ -385,13 +385,6 @@ class Turba_Application extends Horde_Registry_Application
                 $addressbook = $addressbook['title'];
             }
             return $addressbooks;
-
-        case 'backends':
-            $sources = Horde::loadConfiguration('backends.php', 'cfgSources', 'turba');
-            foreach ($sources as &$source) {
-                $source = $source['title'];
-            }
-            return $sources;
         }
     }
 

@@ -104,7 +104,7 @@ class Turba
         include TURBA_BASE . '/config/backends.php';
         $sources = array();
         foreach ($cfgSources as $key => $source) {
-            if (in_array($key, $GLOBALS['conf']['backends']['available'])) {
+            if (empty($source['disabled'])) {
                 $sources[$key] = $source;
             }
         }

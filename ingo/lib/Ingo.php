@@ -281,8 +281,7 @@ class Ingo
 
         $backend = null;
         foreach ($backends as $name => $temp) {
-            if (!empty($GLOBALS['conf']['backends']['available']) &&
-                !in_array($name, $GLOBALS['conf']['backends']['available'])) {
+            if (!empty($temp['disabled'])) {
                 continue;
             }
             if (!isset($backend)) {

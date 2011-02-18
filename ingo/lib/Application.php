@@ -216,15 +216,4 @@ class Ingo_Application extends Horde_Registry_Application
             $ui->suppressGroups[] = 'script';
         }
     }
-
-    /**
-     */
-    public function configSpecialValues($what)
-    {
-        switch ($what) {
-        case 'backends':
-            $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
-            return array_combine(array_keys($backends), array_keys($backends));
-        }
-    }
 }

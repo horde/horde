@@ -9,6 +9,8 @@
  * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *
+ * disabled: (boolean) If true, the config entry is disabled.
+ *
  * title:       This is the common (user-visible) name that you want displayed
  *              in the contact source drop-down box.
  *
@@ -196,6 +198,8 @@
  * schema in turba/scripts/db/turba.sql if you use this source.
  */
 $cfgSources['localsql'] = array(
+    // ENABLED by default
+    'disabled' => false,
     'title' => _("Shared Address Books"),
     'type' => 'sql',
     'params' => array(
@@ -326,6 +330,8 @@ $cfgSources['localsql'] = array(
  * turba/scripts/ldap/rfc2739.schema in your LDAP configuration.
  */
 $cfgSources['localldap'] = array(
+    // Disabled by default
+    'disabled' => true,
     'title' => _("Shared Directory"),
     'type' => 'ldap',
     'params' => array(
@@ -442,6 +448,8 @@ $cfgSources['localldap'] = array(
 $_ldap_uid = $GLOBALS['registry']->getAuth('bare');
 $_ldap_basedn = 'dc=example,dc=com';
 $cfgSources['personal_ldap'] = array(
+    // Disabled by default
+    'disabled' => true,
     'title' => _("My Address Book"),
     'type' => 'ldap',
     'params' => array(
@@ -529,6 +537,8 @@ $cfgSources['personal_ldap'] = array(
  * address book.
  */
 $cfgSources['prefs'] = array(
+    // Disabled by default
+    'disabled' => true,
     'title' => _("Private Address Book"),
     'type' => 'prefs',
     'params' => array(
@@ -565,6 +575,8 @@ $cfgSources['prefs'] = array(
  * 4.2.
  */
 $cfgSources['favourites'] = array(
+    // ENABLED by default
+    'disabled' => false,
     'title' => _("Favourite Recipients"),
     'type' => 'favourites',
     'params' => array(
@@ -593,6 +605,8 @@ $cfgSources['favourites'] = array(
  * useful to some
  */
 $cfgSources['facebook'] = array(
+    // Disabled by default
+    'disabled' => true,
     'title' => _("Facebook Friends"),
     'type' => 'facebook',
     'params' => array(
@@ -701,8 +715,7 @@ $cfgSources['facebook'] = array(
  */
 // Check that IMSP is configured in Horde but fall through if there is no
 // configuration at all.
-if (!empty($GLOBALS['conf']['imsp']['enabled']) ||
-    !isset($GLOBALS['conf']['imsp']['enabled'])) {
+if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
     // First, get the user name to login to IMSP server with.
     $_imsp_auth_user = $GLOBALS['prefs']->getValue('imsp_auth_user');
     $_imsp_auth_pass = $GLOBALS['prefs']->getValue('imsp_auth_pass');
@@ -711,6 +724,8 @@ if (!empty($GLOBALS['conf']['imsp']['enabled']) ||
         $_imsp_auth_pass = $GLOBALS['registry']->getAuthCredential('password');
     }
     $cfgSources['imsp'] = array(
+        // ENABLED by default
+        'disabled' => false,
         'title' => _("IMSP"),
         'type' => 'imsp',
         'params' => array(
@@ -819,6 +834,8 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
          * The user accessing this should have read permissions to the shared
          * directory in LDAP. */
         $cfgSources['kolab_global'] = array(
+            // ENABLED by default
+            'disabled' => false,
             'title' => _("Global Address Book"),
             'type' => 'ldap',
             'params' => array(
@@ -896,6 +913,8 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
      */
 
     $cfgSources['kolab'] = array(
+        // ENABLED by default
+        'disabled' => false,
         'title' => _("Contacts"),
         'type' => 'kolab',
         'params' => array(
