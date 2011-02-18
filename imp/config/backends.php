@@ -301,7 +301,9 @@ $servers['imap'] = array(
     'hordeauth' => false,
     'protocol' => 'imap',
     'port' => 143,
-    'secure' => false,
+    // Plaintext logins are disabled by default on IMAP servers (see RFC 3501
+    // [6.2.3])
+    'secure' => 'tls',
     'maildomain' => '',
     // 'smtphost' => 'smtp.example.com',
     // 'smtpport' => 25,
