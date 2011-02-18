@@ -692,9 +692,3 @@ $_prefs['last_logintasks'] = array(
     // value = serialize(array())
     'value' => 'a:0:{}'
 );
-
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

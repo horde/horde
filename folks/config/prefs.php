@@ -117,8 +117,3 @@ $_prefs['log_scope_comments'] = array(
     'enum' => $apps,
     'desc' => _("Application you would like NOT to log activitiy when you post a new PUBLIC COMMENT")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

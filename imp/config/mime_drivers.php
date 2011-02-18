@@ -243,8 +243,3 @@ $mime_drivers = array(
         )
     )
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/mime_drivers.local.php')) {
-    include dirname(__FILE__) . '/mime_drivers.local.php';
-}

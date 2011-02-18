@@ -28,8 +28,3 @@ $_prefs['columns'] = array(
     'enum' => Operator::getColumns(),
     'desc' => _("The columns to be displayed on the Call Detail Review screen")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

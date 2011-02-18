@@ -16,8 +16,3 @@ ob_start();
 
 <?php
 $motd = ob_get_clean();
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/motd.local.php')) {
-    include dirname(__FILE__) . '/motd.local.php';
-}

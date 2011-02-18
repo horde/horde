@@ -24,8 +24,7 @@ class Jonah_Block_News extends Horde_Core_Block
      */
     protected function _params()
     {
-        require JONAH_BASE . '/config/templates.php';
-
+        $templates = Horde::loadConfiguratino('templates.php', 'templates', 'jonah');
         $params['source'] = array('name' => _("Feed"),
                                   'type' => 'enum',
                                   'values' => array());

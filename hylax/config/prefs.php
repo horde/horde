@@ -24,8 +24,3 @@ $_prefs['hylax_default_view'] = array(
                     'compose' => _("Compose")),
     'desc' => _("Select the view to display after login:")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

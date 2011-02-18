@@ -97,8 +97,3 @@ $_prefs['recursive_deletes'] = array(
     ),
     'desc' => _("Delete folders recursively?")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

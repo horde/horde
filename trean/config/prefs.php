@@ -62,8 +62,3 @@ $_prefs['expand_tree'] = array(
                     'all' => _("Completely expanded")),
     'desc' => _("Should your list of bookmark folders be open when you log in?")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

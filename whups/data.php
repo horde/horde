@@ -11,14 +11,12 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require WHUPS_BASE . '/config/templates.php';
-
 if (!$GLOBALS['registry']->getAuth()) {
     Horde::url('search.php', true)->redirect();
 }
 
+$_templates = Horde::loadConfiguration('templates.php', '_templates', 'whups');
 $tpl = Horde_Util::getFormData('template');
-
 if (empty($_templates[$tpl])) {
     throw new Horde_Exception(_("The requested template does not exist."));
 }

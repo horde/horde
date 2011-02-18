@@ -321,8 +321,3 @@ if ($GLOBALS['conf']['kolab']['enabled']) {
         'shares' => false
     );
 }
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/backends.local.php')) {
-    include dirname(__FILE__) . '/backends.local.php';
-}

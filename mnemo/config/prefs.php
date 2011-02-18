@@ -94,8 +94,3 @@ $_prefs['delete_opt'] = array(
     'type' => 'checkbox',
     'desc' => _("Do you want to confirm deleting entries?")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

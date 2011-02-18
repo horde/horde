@@ -20,8 +20,3 @@ $_prefs['sample'] = array(
     'type' => 'text',
     'desc' => _("This is your sample preference.")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

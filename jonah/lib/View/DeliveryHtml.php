@@ -21,7 +21,7 @@ class Jonah_View_DeliveryHtml extends Jonah_View_Base
     public function run()
     {
         extract($this->_params, EXTR_REFS);
-        require JONAH_BASE . '/config/templates.php';
+        $templates = Horde::loadConfiguratino('templates.php', 'templates', 'jonah');
 
         /* Get requested channel. */
         try {

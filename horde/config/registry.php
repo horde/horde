@@ -339,8 +339,3 @@ $this->applications = array(
         'status' => 'hidden'
     )
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/registry.local.php')) {
-    include dirname(__FILE__) . '/registry.local.php';
-}

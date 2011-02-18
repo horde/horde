@@ -21,9 +21,3 @@ $m->connect('Default', '/feeds/:feed/:filter/:value', array(
 //$m->connect('/feeds/:feed/-/posts/count', array(
 //    'controller' => 'api',
 //    'action' => 'count'));
-
-
-// Local route overrides
-if (file_exists(dirname(__FILE__) . '/routes.local.php')) {
-    include dirname(__FILE__) . '/routes.local.php';
-}

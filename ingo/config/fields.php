@@ -110,8 +110,3 @@ $ingo_fields = array(
         )
     )
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/fields.local.php')) {
-    include dirname(__FILE__) . '/fields.local.php';
-}

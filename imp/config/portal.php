@@ -49,8 +49,3 @@ try {
         'ob' => $collection->getBlock('kronolith', 'Summary', array())
     );
 } catch (Horde_Exception $e) {}
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/portal.local.php')) {
-    include dirname(__FILE__) . '/portal.local.php';
-}

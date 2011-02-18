@@ -17,7 +17,10 @@ $jonah = Horde_Registry::appInit('jonah', array(
 $m = new Horde_Routes_Mapper();
 
 require JONAH_BASE . '/config/routes.php';
-require JONAH_BASE . '/config/templates.php';
+if (file_exists(JONAH_BASE . '/config/routes.local.php')) {
+    include JONAH_BASE . '/config/routes.local.php';
+}
+$templates = Horde::loadConfiguration('templates.php', 'templates', 'jonah');
 
 // Grab, and hopefully match, the URL
 $request = new Horde_Controller_Request_Http();

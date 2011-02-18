@@ -169,8 +169,3 @@ $_prefs['search_sources'] = array(
 $_prefs['search_fields'] = array(
     'value' => ''
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

@@ -99,8 +99,3 @@ $_prefs['spam'] = array(
     'locked' => false,
     'type' => 'implicit'
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

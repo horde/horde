@@ -245,7 +245,7 @@ class Whups {
     {
         $templates = array();
 
-        require WHUPS_BASE . '/config/templates.php';
+        $_templates = Horde::loadConfiguration('templates.php', '_templates', 'whups');
         foreach ($_templates as $name => $info) {
             if ($info['type'] == $type) {
                 $templates[$name] = $info['name'];

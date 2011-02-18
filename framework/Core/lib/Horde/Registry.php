@@ -536,7 +536,9 @@ class Horde_Registry
         foreach ($files as $r) {
             include $r;
         }
-
+        if (file_exists(HORDE_BASE . '/config/registry.local.php')) {
+            include HORDE_BASE . '/config/registry.local.php';
+        }
         if ($this->_vhost) {
             include $this->_vhost;
         }

@@ -16,8 +16,3 @@ $_prefs['last_file'] = array(
 $_prefs['last_sourceroot'] = array(
     'value' => 0
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

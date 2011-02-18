@@ -101,7 +101,7 @@ class Turba
      */
     static public function availableSources()
     {
-        include TURBA_BASE . '/config/backends.php';
+        $cfgSources = Horde::loadConfiguration('backends.php', 'cfgSources', 'turba');
         $sources = array();
         foreach ($cfgSources as $key => $source) {
             if (empty($source['disabled'])) {

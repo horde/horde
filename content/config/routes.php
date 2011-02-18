@@ -39,9 +39,3 @@ $mapper->connect('tag', array('controller' => 'tag', 'action' => 'tag',
 // and objectId. userId is inferred from the authenticated user:
 $mapper->connect('untag', array('controller' => 'tag', 'action' => 'untag',
                                 'conditions' => array('method' => array('POST', 'DELETE'))));
-
-
-// Local route overrides
-if (file_exists(dirname(__FILE__) . '/routes.local.php')) {
-    include dirname(__FILE__) . '/routes.local.php';
-}

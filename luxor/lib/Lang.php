@@ -49,7 +49,7 @@ class Luxor_Lang
     function builder($files, $pathname)
     {
         global $languages;
-        include LUXOR_BASE . '/config/languages.php';
+        $languages = Horde::loadConfiguration('languages.php', 'languages', 'luxor');
 
         /* First, check the 'filetype' hash for a matching file extension. */
         foreach ($languages['filetype'] as $type) {

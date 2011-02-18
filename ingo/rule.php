@@ -36,7 +36,7 @@ if (empty($availActions)) {
 }
 
 /* This provides the $ingo_fields array. */
-require INGO_BASE . '/config/fields.php';
+$ingo_fields = Horde::loadConfiguration('fields.php', 'ingo_fields', 'ingo');
 
 /* Get the current rules. */
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);

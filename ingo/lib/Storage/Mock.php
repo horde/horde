@@ -27,7 +27,7 @@ class Ingo_Storage_Mock extends Ingo_Storage
 
             case self::ACTION_FILTERS:
                 $ob = new Ingo_Storage_Filters();
-                include INGO_BASE . '/config/prefs.php.dist';
+                include INGO_BASE . '/config/prefs.php';
                 $ob->setFilterList(unserialize($_prefs['rules']['value']));
                 return $ob;
 

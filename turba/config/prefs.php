@@ -145,8 +145,3 @@ $_prefs['own_contact'] = array(
     // The format is 'source_name;contact_id'.
     'value' => ''
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

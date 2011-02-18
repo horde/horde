@@ -243,8 +243,3 @@ $_prefs['exif_title'] = array(
     'type' => 'enum',
     'desc' => _("Should we automatically set the image title on upload if able? If so, choose the field to obtain the title from.")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

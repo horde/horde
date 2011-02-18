@@ -375,8 +375,3 @@ $_prefs['purge_events_keep'] = array(
 );
 
 // End Login Tasks preferences
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

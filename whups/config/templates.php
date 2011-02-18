@@ -59,8 +59,3 @@ if (!function_exists('_csvQuote')) {
         }
     }
 }
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/templates.local.php')) {
-    include dirname(__FILE__) . '/templates.local.php';
-}

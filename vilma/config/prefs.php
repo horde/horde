@@ -19,8 +19,3 @@ $_prefs['addresses_perpage'] = array(
      'locked' => false,
      'type' => 'number',
      'desc' => _("How many domain to display per page."));
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

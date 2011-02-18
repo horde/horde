@@ -53,6 +53,9 @@ class Horde_Core_Controller_RequestMapper
         // Load application routes.
         $mapper = $this->_mapper;
         include $routeFile;
+        if (file_exists($fileroot . '/config/routes.local.php')) {
+            include $fileroot . '/config/routes.local.php';
+        }
 
         // Match
         // @TODO Cache routes

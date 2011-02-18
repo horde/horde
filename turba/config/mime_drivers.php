@@ -13,8 +13,3 @@
 
 /* By default, Turba uses the default Horde-wide settings contained in
  * horde/config/mime_drivers.php. */
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/mime_drivers.local.php')) {
-    include dirname(__FILE__) . '/mime_drivers.local.php';
-}

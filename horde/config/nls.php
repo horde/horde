@@ -236,8 +236,3 @@ if (version_compare(PHP_VERSION, '6', 'ge')) {
     $horde_nls_config['languages']['tr_TR'] = 'T&#xfc;rk&#xe7;e';
     $horde_nls_config['spelling']['tr_TR'] = '-d tr';
 }
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/nls.local.php')) {
-    include dirname(__FILE__) . '/nls.local.php';
-}

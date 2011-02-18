@@ -49,7 +49,7 @@ class Luxor_Lang_Generic extends Luxor_Lang
         global $conf, $index;
 
         $typemap = $this->_langmap['typemap'];
-        include LUXOR_BASE . '/config/languages.php';
+        $languages = Horde::loadConfiguration('languages.php', 'languages', 'luxor');
 
         if (isset($languages['eclangnamemapping'][$this->_language])) {
             $langforce = $languages['eclangnamemapping'][$this->_language];

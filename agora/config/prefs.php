@@ -283,8 +283,3 @@ $_prefs['comments_per_page'] = array(
     ),
     'desc' => _("Number of messages to display on each page")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

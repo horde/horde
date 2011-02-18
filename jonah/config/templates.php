@@ -59,8 +59,3 @@ $templates['ultracompact'] = array('name' => _("Ultracompact"),
 :: <a target="blank" href="<tag:stories.permalink />"><tag:stories.title /></a>
 </loop:stories>
 </if:stories>');
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/templates.local.php')) {
-    include dirname(__FILE__) . '/templates.local.php';
-}

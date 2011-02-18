@@ -505,8 +505,3 @@ $mime_drivers = array(
         'location' => '/usr/bin/wpd2html'
     )
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/mime_drivers.local.php')) {
-    include dirname(__FILE__) . '/mime_drivers.local.php';
-}

@@ -13,8 +13,3 @@ $ignore_list = array(
     'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct',
     'nov', 'dec', 'fwd', 'http', 'https', 'html', 'email', 'bcc', 'jpg', 'gif'
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/spelling.local.php')) {
-    include dirname(__FILE__) . '/spelling.local.php';
-}

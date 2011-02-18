@@ -1063,8 +1063,3 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
     );
 }
 /* End Kolab sources. */
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/backends.local.php')) {
-    include dirname(__FILE__) . '/backends.local.php';
-}

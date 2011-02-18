@@ -274,7 +274,7 @@ class Ingo
      */
     static public function getBackend()
     {
-        include INGO_BASE . '/config/backends.php';
+        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
         if (!isset($backends) || !is_array($backends)) {
             throw new Ingo_Exception(_("No backends configured in backends.php"));
         }

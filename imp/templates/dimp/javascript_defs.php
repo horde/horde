@@ -14,7 +14,7 @@ $compose_page = in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php
 
 /* Add portal links - base page only. */
 if (!$compose_page) {
-    include IMP_BASE . '/config/portal.php';
+    $dimp_block_list = Horde::loadConfiguration('portal.php', 'dimp_block_list', 'imp');
     foreach ($dimp_block_list as $block) {
         if ($block['ob'] instanceof Horde_Core_Block) {
             $app = $block['ob']->getApp();

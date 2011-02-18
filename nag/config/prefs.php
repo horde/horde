@@ -212,8 +212,3 @@ $_prefs['default_tasklist'] = array(
 $_prefs['display_tasklists'] = array(
     'value' => 'a:0:{}'
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

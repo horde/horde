@@ -716,6 +716,28 @@ HTML;
             }
         }
 
+        // Load local version of configuration file
+        $file = substr($file, 0, strrpos($file, '.')) . '.local'
+            . substr($file, strrpos($file, '.'));
+        if (file_exists($file)) {
+            $filelist[$file] = 0;
+        }
+
+        // Load vhost configuration file.
+        if (!empty($GLOBALS['conf']['vhosts']) ||
+            (($app == 'horde') &&
+             ($config_file == 'conf.php') &&
+             !empty($conf['vhosts']))) {
+            $server_name = isset($GLOBALS['conf'])
+                ? $GLOBALS['conf']['server']['name']
+                : $conf['server']['name'];
+            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
+
+            if (file_exists($file)) {
+                $filelist[$file] = 0;
+            }
+        }
+
         foreach ($filelist as $file => $log_check) {
             /* If we are not exporting variables located in the configuration
              * file, or we are not capturing the output, then there is no
@@ -744,33 +766,6 @@ HTML;
             }
 
             $was_included = true;
-        }
-
-        // Load vhost configuration file.
-        if (!empty($GLOBALS['conf']['vhosts']) ||
-            (($app == 'horde') &&
-             ($config_file == 'conf.php') &&
-             !empty($conf['vhosts']))) {
-            $server_name = isset($GLOBALS['conf'])
-                ? $GLOBALS['conf']['server']['name']
-                : $conf['server']['name'];
-            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
-
-            if (file_exists($file)) {
-                self::startBuffer();
-                $success = (is_null($var_names) && !$show_output)
-                    ? include_once $file
-                    : include $file;
-                $output = self::endBuffer();
-
-                if (!$success) {
-                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
-                } elseif (!empty($output) && !$show_output) {
-                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
-                }
-
-                $was_included = true;
-            }
         }
 
         // Return an error if neither main or vhosted versions of the config

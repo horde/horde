@@ -46,8 +46,3 @@ $reminders[] = array('frequency' => '* 0 5 1-31&Mon *',
                      'queue' => 1,
                      'unassigned' => false,
                      'category' => array('unconfirmed', 'new', 'assigned'));
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/reminders.local.php')) {
-    include dirname(__FILE__) . '/reminders.local.php';
-}

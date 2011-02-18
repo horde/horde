@@ -42,8 +42,3 @@ $_prefs['default_ttl'] = array(
     'type' => 'number',
     'desc' => _("Default Time-To-Live for new records.")
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/prefs.local.php')) {
-    include dirname(__FILE__) . '/prefs.local.php';
-}

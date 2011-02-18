@@ -573,8 +573,3 @@ $attributes['homeLongitude'] = array(
     'type' => 'number',
     'required' => false,
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/attributes.local.php')) {
-    include dirname(__FILE__) . '/attributes.local.php';
-}

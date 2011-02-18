@@ -172,8 +172,3 @@ $styles['ansel_mobile'] = array(
     'width' => 75,
     'height' => 75,
 );
-
-/* Local overrides. */
-if (file_exists(dirname(__FILE__) . '/styles.local.php')) {
-    include dirname(__FILE__) . '/styles.local.php';
-}
