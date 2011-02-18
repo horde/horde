@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script clears cache data from a backend.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
+ */
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
+
+try {
+    $cache = $injector->getInstance('Horde_Cache');
+} catch (Exception $e) {
+    $cli->fatal($e);
+}
+
+if ($cli->prompt($cli->red('Are you sure you want to expire all cached data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+    try {
+        $cache->clear();
+        $cli->message('Cache data cleared.', 'cli.success');
+    } catch (Horde_Exception $e) {
+        $cli->fatal($e);
+    }
+}
