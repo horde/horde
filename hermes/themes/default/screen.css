@@ -285,7 +285,7 @@ div.hermesTimeList {
 div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListTotal,
 div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType {
     float: left;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 div.hermesTimeListHours, div.hermesTimeListTotal {
     width: 10%;
