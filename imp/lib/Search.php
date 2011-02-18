@@ -110,7 +110,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                 $query->andSearch(array($ob));
             }
             $results = $this->imapSearch($mbox, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
-            $sorted->add($mbox, $results['sort']);
+            $sorted->add($mbox, $results['match']);
         }
 
         return $sorted;
@@ -133,8 +133,11 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                              $sortdir = null)
     {
         try {
-            $results = $this->imapSearch($mailbox, $query, array('reverse' => $sortdir, 'sort' => is_null($sortby) ? null : array($sortby)));
-            return new IMP_Indices($mailbox, is_null($sortby) ? $results['match'] : $results['sort']);
+            $results = $this->imapSearch($mailbox, $query, array('sort' => is_null($sortby) ? null : array($sortby)));
+            if ($sortdir) {
+                $results['match']->reverse();
+            }
+            return new IMP_Indices($mailbox, $results['match']);
         } catch (Horde_Imap_Client_Exception $e) {
             return new IMP_Indices();
         }

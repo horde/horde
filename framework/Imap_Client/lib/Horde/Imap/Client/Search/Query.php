@@ -186,16 +186,18 @@ class Horde_Imap_Client_Search_Query implements Serializable
             }
         }
 
-        if (isset($ptr['sequence'])) {
-            if ($ptr['sequence']['not']) {
+        if (isset($ptr['ids'])) {
+            if ($ptr['ids']['not']) {
                 $cmds[] = 'NOT';
             }
-            if (!$ptr['sequence']['sequence']) {
+            if (!$ptr['ids']->sequence) {
                 $cmds[] = 'UID';
             }
-            $cmds[] = $ptr['sequence']['ids'];
+            $cmds[] = $ptr['ids']->all
+                ? '1:*'
+                : strval($ptr['ids']);
 
-            // sequence searches were not in IMAP2
+            // ID searches were not in IMAP2
             $imap4 = true;
         }
 
@@ -431,27 +433,18 @@ class Horde_Imap_Client_Search_Query implements Serializable
     }
 
     /**
-     * Search for messages within a given message range. Only one message
+     * Search for messages within a given ID sequence range. Only one message
      * range can be specified per query.
      *
-     * @param array $ids         The list of messages to search.
-     * @param boolean $sequence  By default, $ids is assumed to be UIDs. If
-     *                           this param is true, $ids are taken to be
-     *                           message sequence numbers instead.
-     * @param boolean $not       If true, do a 'NOT' search of the sequence.
+     * @param Horde_Imap_Client_Ids $ids  The list of IDs to search.
+     * @param boolean $not                If true, do a 'NOT' search of the
+     *                                    IDs.
      */
-    public function sequence($ids, $sequence = false, $not = false)
+    public function ids(Horde_Imap_Client_Ids $ids, $not = false)
     {
-        if (empty($ids)) {
-            $ids = '1:*';
-        } else {
-            $utils = new Horde_Imap_Client_Utils();
-            $ids = $utils->toSequenceString($ids);
-        }
-        $this->_search['sequence'] = array(
+        $this->_search['ids'] = array(
             'ids' => $ids,
-            'not' => $not,
-            'sequence' => $sequence
+            'not' => $not
         );
     }
 

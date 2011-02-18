@@ -159,14 +159,6 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     }
 
     /**
-     * Search a mailbox.
-     *
-     * @param object $query   The search string.
-     * @param array $options  Additional options.
-     *
-     * @return array  An array of UIDs (default) or an array of message
-     *                sequence numbers (if 'sequence' is true).
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _search($query, $options)
     {
@@ -218,14 +210,6 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     }
 
     /**
-     * Append a message to the mailbox.
-     *
-     * @param array $mailbox   The mailboxes to append the messages to
-     *                         (UTF7-IMAP).
-     * @param array $data      The message data.
-     * @param array $options   Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _append($mailbox, $data, $options)
     {
@@ -233,30 +217,18 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     }
 
     /**
-     * Fetch message data.
-     *
-     * @param Horde_Imap_Client_Fetch_Query $query  The fetch criteria.
-     * @param array $options                        Additional options.
-     *
-     * @return array  See self::fetch().
-     * @throws Horde_Imap_Client_Exception
      */
-    protected function _fetch($query, $options)
+    protected function _fetch($query, $results, $options)
     {
         if ($query->contains(Horde_Imap_Client_Fetch_Query::MIMEHEADER) ||
             $query->contains(Horde_Imap_Client_Fetch_Query::HEADERS)) {
             $this->_exception('Fetch criteria provided not supported on POP3 servers.', 'POP3_NOTSUPPORTED');
         }
 
-        return parent::_fetch($query, $options);
+        return parent::_fetch($query, $results, $options);
     }
 
     /**
-     * Store message flag data.
-     *
-     * @param array $options  Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _store($options)
     {
@@ -285,12 +257,6 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     }
 
     /**
-     * Copy messages to another mailbox.
-     *
-     * @param string $dest    The destination mailbox (UTF7-IMAP).
-     * @param array $options  Additional options.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _copy($dest, $options)
     {

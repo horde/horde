@@ -24,7 +24,8 @@ class Horde_Imap_Client_Utils
      * Index Format: range_start:range_end,uid,uid2,...
      * Mailbox Format: {mbox_length}[mailbox]range_start:range_end,uid,uid2,...
      *
-     * @param array $in  An array of indices. See 'mailbox' below.
+     * @param mixed $in       An array of indices (or a single index). See
+     *                        'mailbox' below.
      * @param array $options  Additional options:
      * <pre>
      * 'mailbox' - (boolean) If true, store mailbox information with the
@@ -56,7 +57,9 @@ class Horde_Imap_Client_Utils
         }
 
         // Make sure IDs are unique
-        $in = array_keys(array_flip($in));
+        $in = is_array($in)
+            ? array_keys(array_flip($in))
+            : array($in);
 
         if (empty($options['nosort'])) {
             sort($in, SORT_NUMERIC);

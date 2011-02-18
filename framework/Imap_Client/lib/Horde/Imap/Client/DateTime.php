@@ -16,8 +16,12 @@
  */
 class Horde_Imap_Client_DateTime implements Serializable
 {
-    /* Serialized version. */
-    const VERSION = 1;
+    /**
+     * The DateTime object to use for function calls.
+     *
+     * @var DateTime
+     */
+    private $_datetime = null;
 
     /**
      * The datetime string.
@@ -27,31 +31,15 @@ class Horde_Imap_Client_DateTime implements Serializable
     private $_string;
 
     /**
-     * The timezone string.
-     *
-     * @var string
-     */
-    private $_tz = null;
-
-    /**
-     * The DateTime object to use for function calls.
-     *
-     * @var DateTime
-     */
-    private $_datetime = null;
-
-    /**
      * Constructor.
      *
-     * @param string $time      String in a format accepted by strtotime().
-     * @param DateTimeZone $tz  Time zone of the time.
+     * @param string $time  String in a format accepted by strtotime().
      */
-    public function __construct($time, $tz = null)
+    public function __construct($time = null)
     {
-        $this->_string = $time;
-        if (!is_null($tz)) {
-            $this->_tz = $tz->getName();
-        }
+        $this->_string = is_null($time)
+            ? '@0'
+            : $time;
     }
 
     /**
@@ -69,11 +57,7 @@ class Horde_Imap_Client_DateTime implements Serializable
      */
     public function serialize()
     {
-        return serialize(array(
-            self::VERSION,
-            $this->_string,
-            $this->_tz
-        ));
+        return $this->_string;
     }
 
     /**
@@ -85,15 +69,7 @@ class Horde_Imap_Client_DateTime implements Serializable
      */
     public function unserialize($data)
     {
-        $data = @unserialize($data);
-        if (!is_array($data) ||
-            !isset($data[0]) ||
-            ($data[0] != self::VERSION)) {
-            throw new Exception('Cache version change');
-        }
-
-        $this->_string = $data[1];
-        $this->_tz = $data[2];
+        $this->_string = $data;
     }
 
     /**
@@ -104,15 +80,17 @@ class Horde_Imap_Client_DateTime implements Serializable
     public function __call($name, $arguments)
     {
         if (is_null($this->_datetime)) {
+            $tz = new DateTimeZone('UTC');
+
             try {
-                $this->_datetime = new DateTime($this->_string, $this->_tz);
+                $this->_datetime = new DateTime($this->_string, $tz);
             } catch (Exception $e) {
                 /* Bug #5717 - Check for UT vs. UTC. */
                 if (substr(rtrim($date), -3) != ' UT') {
                     throw $e;
                 }
 
-                $this->_datetime = new DateTime($this->_string . 'C', $this->_tz);
+                $this->_datetime = new DateTime($this->_string . 'C', $tz);
             }
         }
 

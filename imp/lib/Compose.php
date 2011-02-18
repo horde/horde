@@ -293,7 +293,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
             }
 
-            $this->_metadata['draft_uid'] = new IMP_Indices($drafts_mbox, reset($ids));
+            $this->_metadata['draft_uid'] = new IMP_Indices($drafts_mbox, $ids);
             $this->changed = 'changed';
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {

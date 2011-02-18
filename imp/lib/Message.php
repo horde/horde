@@ -126,7 +126,10 @@ class IMP_Message
             /* Attempt to copy/move messages to new mailbox. */
             if (!$error) {
                 try {
-                    $imp_imap->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
+                    $imp_imap->copy($mbox, $targetMbox, array(
+                        'ids' => new Horde_Imap_Client_Ids($msgIndices),
+                        'move' => $imap_move
+                    ));
 
                     if (($action == 'move') &&
                         !empty($opts['mailboxob']) &&
@@ -231,7 +234,10 @@ class IMP_Message
             /* Trash is only valid for IMAP mailboxes. */
             if ($use_trash_folder && ($mbox != $trash)) {
                 try {
-                    $imp_imap->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
+                    $imp_imap->copy($mbox, $trash, array(
+                        'ids' => new Horde_Imap_Client_Ids($msgIndices),
+                        'move' => true
+                    ));
 
                     if (!empty($options['mailboxob']) &&
                         $options['mailboxob']->isBuilt()) {
@@ -250,7 +256,9 @@ class IMP_Message
                     $query->envelope();
 
                     try {
-                        $fetch = $imp_imap->fetch($mbox, $query, array('ids' => $msgIndices));
+                        $fetch = $imp_imap->fetch($mbox, $query, array(
+                            'ids' => new Horde_Imap_Client_Ids($msgIndices)
+                        ));
                     } catch (Horde_Imap_Client_Exception $e) {}
                 }
 
@@ -272,7 +280,10 @@ class IMP_Message
                 }
 
                 try {
-                    $imp_imap->store($mbox, array('add' => $del_flags, 'ids' => $msgIndices));
+                    $imp_imap->store($mbox, array(
+                        'add' => $del_flags,
+                        'ids' => new Horde_Imap_Client_Ids($msgIndices)
+                    ));
                     if ($expunge_now) {
                         $this->expungeMailbox(
                             $imp_indices->indices(),
@@ -289,8 +300,8 @@ class IMP_Message
                     $msg_ids = array();
                     reset($fetch);
                     while (list(,$v) = each($fetch)) {
-                        if (!empty($v['envelope']->message_id)) {
-                            $msg_ids[] = $v['envelope']->message_id;
+                        if ($msg_id = $v->getEnvelope()->message_id) {
+                            $msg_ids[] = $msg_id;
                         }
                     }
 
@@ -556,24 +567,27 @@ class IMP_Message
         $query->flags();
 
         try {
-            $res = $imp_imap->fetch($mbox, $query, array('ids' => array($uid)));
+            $res = $imp_imap->fetch($mbox, $query, array(
+                'ids' => new Horde_Imap_Client_Ids($uid)
+            ));
             $res = reset($res);
+            $flags = $res->getFlags();
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
              * appears again in the mailbox list. */
             if ($GLOBALS['injector']->getInstance('IMP_Search')->isVinbox($mbox) &&
-                ($pos = array_search('\\seen', $res['flags']))) {
-                unset($res['flags'][$pos]);
+                ($pos = array_search('\\seen', $flags))) {
+                unset($flags[$pos]);
             }
 
             $new_uid = $imp_imap->append($mbox, array(
                 array(
                     'data' => $parts,
-                    'flags' => $res['flags'],
-                    'internaldate' => $res['date']
+                    'flags' => $flags,
+                    'internaldate' => $res->getImapDate()
                 )
             ));
-            $new_uid = reset($new_uid);
+            $new_uid = reset($new_uid->ids);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
@@ -638,7 +652,9 @@ class IMP_Message
             if (!$error) {
                 /* Flag/unflag the messages now. */
                 try {
-                    $imp_imap->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
+                    $imp_imap->store($mbox, array_merge($action_array, array(
+                        'ids' => new Horde_Imap_Client_Ids($msgIndices)
+                    )));
                 } catch (Horde_Imap_Client_Exception $e) {
                     $error = $e->getMessage();
                 }
@@ -741,7 +757,10 @@ class IMP_Message
             }
 
             try {
-                $update_list[$key] = $imp_imap->expunge($key, array('ids' => is_array($val) ? $val : array(), 'list' => $msg_list));
+                $update_list[$key] = $imp_imap->expunge($key, array(
+                    'ids' => (is_array($val) ? new Horde_Imap_Client_Ids($val) : null),
+                    'list' => $msg_list
+                ));
 
                 if (!empty($opts['mailboxob']) &&
                     $opts['mailboxob']->isBuilt()) {
@@ -821,12 +840,14 @@ class IMP_Message
         $query->size();
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array('sequence' => true));
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array(
+                'ids' => new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true)
+            ));
 
             $size = 0;
             reset($res);
             while (list(,$v) = each($res)) {
-                $size += $v['size'];
+                $size += $v->getSize();
             }
             return ($formatted)
                 ? sprintf(_("%.2fMB"), $size / (1024 * 1024))

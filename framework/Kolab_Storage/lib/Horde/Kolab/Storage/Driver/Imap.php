@@ -299,7 +299,7 @@ extends Horde_Kolab_Storage_Driver_Base
         $search_query->flag('DELETED', false);
         $uidsearch = $this->getBackend()->search($folder, $search_query);
         $uids = $uidsearch['match'];
-        return $uids;
+        return $uids->ids;
     }
 
     /**
@@ -313,16 +313,21 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function fetchStructure($mailbox, $uids)
     {
-        return $this->getBackend()->fetch(
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->structure();
+
+        $ret = $this->getBackend()->fetch(
             $mailbox,
-            array(
-                Horde_Imap_Client::FETCH_STRUCTURE => array(
-                    'noext' => true,
-                    'parse' => true,
-                )
-            ),
-            array('ids' => $uids)
+            $query,
+            array('ids' => new Horde_Imap_Client_Ids($uids))
         );
+
+        $out = array();
+        foreach (array_keys($ret) as $key) {
+            $out[$key]['structure'] = $ret[$key]->getStructure();
+        }
+
+        return $out;
     }
 
     /**
@@ -332,23 +337,20 @@ extends Horde_Kolab_Storage_Driver_Base
      * @param array  $uid                 The message UID.
      * @param array  $id                  The mime part ID.
      *
-     * @return @TODO
+     * @return resource  The body part, in a stream resource.
      */
     public function fetchBodypart($mailbox, $uid, $id)
     {
-        $part = $this->getBackend()->fetch(
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->bodyPart($id);
+
+        $ret = $this->getBackend()->fetch(
             $mailbox,
-            array(
-                Horde_Imap_Client::FETCH_BODYPART => array(
-                    array(
-                        'id' => $id,
-                        'stream' => true,
-                    )
-                )
-            ),
-            array('ids' => array($uid))
+            $query,
+            array('ids' => new Horde_Imap_Client_Ids($uid))
         );
-        return $part[$uid]['bodypart'][$id];
+
+        return $ret[$uid]->getBodyPart($id, true);
     }
 
     /**
@@ -374,10 +376,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteMessages($mailbox, $uids)
     {
-        if (!is_array($uids)) {
-            $uids = array($uids);
-        }
-        return $this->getBackend()->store($mailbox, array('add' => array('\\deleted'), 'ids' => $uids));
+        return $this->getBackend()->store($mailbox, array(
+            'add' => array('\\deleted'),
+            'ids' => new Horde_Imap_Client_Ids($uids)
+        ));
     }
 
     /**
@@ -390,7 +392,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function moveMessage($old_folder, $uid, $new_folder)
     {
-        $options = array('ids' => array($uid), 'move' => true);
+        $options = array('ids' => new Horde_Imap_Client_Ids($uid), 'move' => true);
         return $this->getBackend()->copy($old_folder, $new_folder, $options);
     }
 
@@ -419,12 +421,14 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMessageHeader($mailbox, $uid, $peek_for_body = true)
     {
-        $options = array('ids' => array($uid));
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->headerText();
 
-        $result = $this->getBackend()->fetch($mailbox, $query, $options);
-        return $result[$uid]['headertext'][0];
+        $result = $this->getBackend()->fetch($mailbox, $query, array(
+            'ids' => new Horde_Imap_Client_Ids($uid)
+        ));
+
+        return $result[$uid]->getHeaderText();
     }
 
     /**
@@ -438,12 +442,14 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMessageBody($mailbox, $uid)
     {
-        $options = array('ids' => array($uid));
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->bodyText();
 
-        $result = $this->getBackend()->fetch($mailbox, $query, $options);
-        return $result[$uid]['bodytext'][0];
+        $result = $this->getBackend()->fetch($mailbox, $query, array(
+            'ids' => new Horde_Imap_Client_Ids($uid)
+        ));
+
+        return $result[$uid]->getBodyText();
     }
 
 }

@@ -102,22 +102,25 @@ try {
      * before we can grab it. */
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
-    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, $query, array('ids' => array($uid)));
+    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, $query, array(
+        'ids' => new Horde_Imap_Client_Ids($uid)
+    ));
 
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->envelope();
     $query->headerText(array(
-        'parse' => true,
         'peek' => $readonly
     ));
-    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, $query, array('ids' => array($uid)));
+    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, $query, array(
+        'ids' => new Horde_Imap_Client_Ids($uid)
+    ));
 } catch (Horde_Imap_Client_Exception $e) {
     IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->add('a', 'm')->redirect();
 }
 
-$envelope = $fetch_ret[$uid]['envelope'];
-$flags = $flags_ret[$uid]['flags'];
-$mime_headers = reset($fetch_ret[$uid]['headertext']);
+$envelope = $fetch_ret[$uid]->getEnvelope();
+$flags = $flags_ret[$uid]->getFlags();
+$mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
 $use_pop = ($session->get('imp', 'protocol') == 'pop');
 
 /* Parse the message. */

@@ -60,7 +60,8 @@ class IMP_Indices implements Countable, Iterator
      * 2 arguments:
      * ------------
      * 1st argument: Mailbox name
-     * 2nd argument: Either a single UID or an array of UIDs.
+     * 2nd argument: Either a single UID, array of UIDs, or a
+     *               Horde_Imap_Client_Ids object.
      * </pre>
      */
     public function add()
@@ -102,9 +103,14 @@ class IMP_Indices implements Countable, Iterator
 
         case 2:
             $secondarg = func_get_arg(1);
-            $secondarg = is_array($secondarg)
-                ? array_keys(array_flip($secondarg))
-                : array($secondarg);
+            if (is_array($secondarg)) {
+                $secondarg = array_keys(array_flip($secondarg));
+            } elseif ($secondarg instanceof Horde_Imap_Client_Ids) {
+                $secondarg = $secondarg->ids;
+            } else {
+                $secondarg = array($secondarg);
+            }
+
             if (!empty($secondarg)) {
                 $indices = array(
                     func_get_arg(0) => $secondarg

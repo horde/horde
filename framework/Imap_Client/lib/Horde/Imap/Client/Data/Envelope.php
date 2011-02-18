@@ -73,7 +73,8 @@ class Horde_Imap_Client_Data_Envelope
             return array();
 
         case 'date':
-            return new Horde_Imap_Client_DateTime('@0', new DateTimeZone('UTC'));
+            return new Horde_Imap_Client_DateTime();
+
         case 'in_reply_to':
         case 'message_id':
         case 'subject':
@@ -126,7 +127,7 @@ class Horde_Imap_Client_Data_Envelope
             break;
 
         case 'date':
-            $this->_data['date'] = new Horde_Imap_Client_DateTime($value, new DateTimeZone('UTC'));
+            $this->_data['date'] = new Horde_Imap_Client_DateTime($value);
             break;
 
         case 'in_reply_to':

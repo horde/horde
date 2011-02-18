@@ -50,8 +50,6 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      *   - start: (integer) If a portion of the full text is desired to be
      *            returned, the starting position is identified here.
      *            DEFAULT: The entire text is returned.
-     *   - stream: (boolean) If true, returns a stream resource with the
-     *             message data instead of a string.
      */
     public function fullText(array $opts = array())
     {
@@ -70,9 +68,6 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      *         returned.
      *   - length: (integer) The length of the substring to return.
      *             DEFAULT: The entire text is returned.
-     *   - parse: (boolean) If true, parse the header text into a
-     *            Horde_Mime_Headers object.
-     *            DEFAULT: The full header text is returned.
      *   - peek: (boolean) If set, does not set the '\Seen' flag on the
      *           message.
      *           DEFAULT: The seen flag is set.
@@ -106,9 +101,6 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      *   - start: (integer) If a portion of the full text is desired to be
      *            returned, the starting position is identified here.
      *            DEFAULT: The entire text is returned.
-     *   - stream: (boolean) If true, returns a stream resource with the
-     *             message data instead of a string.
-     *             DEFAULT: false
      */
     public function bodyText(array $opts = array())
     {
@@ -156,9 +148,6 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      *   - start: (integer) If a portion of the full text is desired to be
      *            returned, the starting position is identified here.
      *            DEFAULT: The entire text is returned.
-     *   - stream: (boolean) If true, returns a stream resource with the
-     *             message data instead of a string.
-     *             DEFAULT: false
      */
     public function bodyPart($id, array $opts = array())
     {
@@ -198,9 +187,6 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      *   - peek: (boolean) If set, does not set the '\Seen' flag on the
      *           message.
      *           DEFAULT: The seen flag is set.
-     *   - parse: (boolean) If true, parse the returned headers into a
-     *            Horde_Mime_Headers object.
-     *            DEFAULT: The full header text is returned.
      *   - start: (integer) If a portion of the full text is desired to be
      *            returned, the starting position is identified here.
      *            DEFAULT: The entire text is returned.
@@ -347,7 +333,7 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function offsetUnset($offset)
     {
-        unset($this->_data[$criteria]);
+        unset($this->_data[$offset]);
     }
 
     /* Countable methods. */

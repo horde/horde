@@ -98,8 +98,10 @@ class IMP_Ui_Message
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
 
-                $res = $imp_imap->fetch($mailbox, $query, array('ids' => array($uid)));
-                $mdn_sent = in_array('$mdnsent', $res[$uid]['flags']);
+                $res = $imp_imap->fetch($mailbox, $query, array(
+                    'ids' => new Horde_Imap_Client_Ids($uid)
+                ));
+                $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
             }
         } catch (Horde_Imap_Client_Exception $e) {}
 

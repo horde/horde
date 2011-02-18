@@ -1,5 +1,7 @@
 <?php
 /**
+ * Single message display for the dynamic view (dimp).
+ *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -113,16 +113,13 @@ class IMP_Views_ShowMessage
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
             $query->headerText(array(
-                'parse' => true,
                 'peek' => false
             ));
 
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array('ids' => array($uid)));
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array('ids' => new Horde_Imap_Client_Ids($uid)));
 
-            if (isset($fetch_ret[$uid]['headertext'])) {
-                /* Parse MIME info and create the body of the message. */
-                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mailbox, $uid));
-            }
+            /* Parse MIME info and create the body of the message. */
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mailbox, $uid));
         } catch (Horde_Imap_Client_Exception $e) {
         } catch (IMP_Exception $e) {}
 
@@ -132,8 +129,8 @@ class IMP_Views_ShowMessage
             return $result;
         }
 
-        $envelope = $fetch_ret[$uid]['envelope'];
-        $mime_headers = reset($fetch_ret[$uid]['headertext']);
+        $envelope = $fetch_ret[$uid]->getEnvelope();
+        $mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
         $headers = array();
 
         /* Initialize variables. */

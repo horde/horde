@@ -102,16 +102,14 @@ class IMP_Contents
             $query->structure();
 
             try {
-                $ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
+                $ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
+                    'ids' => new Horde_Imap_Client_Ids($this->_uid)
+                ));
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new IMP_Exception('Error displaying message.');
             }
 
-            if (!isset($ret[$this->_uid]['structure'])) {
-                throw new IMP_Exception('Error displaying message.');
-            }
-
-            $this->_message = $ret[$this->_uid]['structure'];
+            $this->_message = $ret[$this->_uid]->getStructure();
         }
     }
 
@@ -150,18 +148,22 @@ class IMP_Contents
     public function getBody($options = array())
     {
         if (is_null($this->_mailbox)) {
-            return $this->_message->toString(array('headers' => true, 'stream' => !empty($options['stream'])));
+            return $this->_message->toString(array(
+                'headers' => true,
+                'stream' => !empty($options['stream'])
+            ));
         }
 
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->bodytext(array(
-            'peek' => true,
-            'stream' => !empty($options['stream'])
+            'peek' => true
         ));
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
-            return $res[$this->_uid]['bodytext'][0];
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
+                'ids' => new Horde_Imap_Client_Ids($this->_uid)
+            ));
+            return $res[$this->_uid]->getBodyText(0, !empty($options['stream']));
         } catch (Horde_Imap_Client_Exception $e) {
             return '';
         }
@@ -207,8 +209,7 @@ class IMP_Contents
 
         $bodypart_params = array(
             'decode' => !empty($options['decode']),
-            'peek' => true,
-            'stream' => !empty($options['stream'])
+            'peek' => true
         );
 
         if (!empty($options['length'])) {
@@ -226,16 +227,17 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
+                'ids' => new Horde_Imap_Client_Ids($this->_uid)
+            ));
+
             if (empty($options['mimeheaders'])) {
-                if (!empty($res[$this->_uid]['bodypartdecode'][$id])) {
-                    $this->lastBodyPartDecode = $res[$this->_uid]['bodypartdecode'][$id];
-                }
-                return $res[$this->_uid]['bodypart'][$id];
+                $this->lastBodyPartDecode = $res[$this->_uid]->getBodyPartDecode($id);
+                return $res[$this->_uid]->getBodyPart($id);
             } elseif (empty($options['stream'])) {
-                return $res[$this->_uid]['mimeheader'][$id] . $res[$this->_uid]['bodypart'][$id];
+                return $res[$this->_uid]->getMimeHeader($id) . $res[$this->_uid]->getBodyPart($id);
             } else {
-                $swrapper = new Horde_Support_CombineStream(array($res[$this->_uid]['mimeheader'][$id], $res[$this->_uid]['bodypart'][$id]));
+                $swrapper = new Horde_Support_CombineStream(array($res[$this->_uid]->getMimeHeader($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM), $res[$this->_uid]->getBodyPart($id, true)));
                 return $swrapper->fopen();
             }
         } catch (Horde_Imap_Client_Exception $e) {
@@ -265,21 +267,22 @@ class IMP_Contents
 
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->bodyText(array(
-            'peek' => true,
-            'stream' => !empty($options['stream'])
+            'peek' => true
         ));
         $query->headerText(array(
             'peek' => true,
         ));
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
+                'ids' => new Horde_Imap_Client_Ids($this->_uid)
+            ));
 
             if (empty($options['stream'])) {
-                return $res[$this->_uid]['headertext'][0] . $res[$this->_uid]['bodytext'][0];
+                return $res[$this->_uid]->getHeaderText(0) . $res[$this->_uid]->getBodyText(0);
             }
 
-            $swrapper = new Horde_Support_CombineStream(array($res[$this->_uid]['headertext'][0], $res[$this->_uid]['bodytext'][0]));
+            $swrapper = new Horde_Support_CombineStream(array($res[$this->_uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_STREAM), $res[$this->_uid]->getBodyText(0, true)));
             return $swrapper->fopen();
         } catch (Horde_Imap_Client_Exception $e) {
             return empty($options['stream'])
@@ -305,13 +308,14 @@ class IMP_Contents
 
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->headerText(array(
-            'parse' => $parse,
             'peek' => true
         ));
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
-            return $res[$this->_uid]['headertext'][0];
+            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
+                'ids' => new Horde_Imap_Client_Ids($this->_uid)
+            ));
+            return $res[$this->_uid]->getHeaderText(0, $parse ? Horde_Imap_Client_Data_Fetch::HEADER_PARSE : 0);
         } catch (Horde_Imap_Client_Exception $e) {
             return $parse
                 ? new Horde_Mime_Headers()

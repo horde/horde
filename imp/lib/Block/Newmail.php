@@ -51,16 +51,20 @@ class IMP_Block_Newmail extends Horde_Core_Block
             $query->envelope();
 
             try {
-                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch('INBOX', $query, array('ids' => array_slice($indices, 0, $shown)));
-                reset($fetch_ret);
+                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch('INBOX', $query, array(
+                    'ids' => new Horde_Imap_Client_Ids(array_slice($indices, 0, $shown))
+                ));
             } catch (Horde_Imap_Client_Exception $e) {
                 $fetch_ret = array();
             }
 
+            reset($fetch_ret);
             while (list($uid, $ob) = each($fetch_ret)) {
-                $date = $imp_ui->getDate($ob['envelope']->date);
-                $from = $imp_ui->getFrom($ob['envelope'], array('specialchars' => $charset));
-                $subject = $imp_ui->getSubject($ob['envelope']->subject, true);
+                $envelope = $ob->getEnvelope();
+
+                $date = $imp_ui->getDate($envelope->date);
+                $from = $imp_ui->getFrom($envelope, array('specialchars' => $charset));
+                $subject = $imp_ui->getSubject($envelope->subject, true);
 
                 $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg\', \'{5}INBOX' . $uid . '\');return false;"><td>' .
                     '<strong>' . $from['from'] . '</strong><br />' .

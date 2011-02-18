@@ -89,10 +89,12 @@ $query = new Horde_Imap_Client_Fetch_Query();
 $query->envelope();
 
 foreach ($imp_indices->indices() as $mbox => $idxlist) {
-    $fetch_res = $imp_imap->fetch($mbox, $query, array('ids' => $idxlist));
+    $fetch_res = $imp_imap->fetch($mbox, $query, array(
+        'ids' => new Horde_Imap_Client_Ids($idxlist)
+    ));
 
     foreach ($idxlist as $idx) {
-        $envelope = $fetch_res[$idx]['envelope'];
+        $envelope = $fetch_res[$idx]->getEnvelope();
 
         /* Get the body of the message. */
         $curr_msg = $curr_tree = array();

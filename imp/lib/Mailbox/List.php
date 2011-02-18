@@ -103,10 +103,9 @@ class IMP_Mailbox_List implements Countable, Serializable
      *     envelope - (Horde_Imap_Client_Data_Envelope) Envelope information
      *                returned from the IMAP server.
      *     flags - (array) The list of IMAP flags returned from the server.
-     *             See Horde_Imap_Client::fetch() for the format.
      *     headers - (array) Horde_Mime_Headers objects containing header data
      *               if either $options['headers'] or $options['type'] are
-     *               true. See Horde_Imap_Client::fetch() for the format.
+     *               true.
      *     mailbox - (string) The mailbox containing the message.
      *     preview - (string) If requested in $options['preview'], the preview
      *               text.
@@ -156,7 +155,6 @@ class IMP_Mailbox_List implements Countable, Serializable
         if (!empty($headers)) {
             $fetch_query->headers('imp', $headers, array(
                 'cache' => true,
-                'parse' => true,
                 'peek' => true
             ));
         }
@@ -173,7 +171,9 @@ class IMP_Mailbox_List implements Countable, Serializable
         /* Retrieve information from each mailbox. */
         foreach ($to_process as $mbox => $ids) {
             try {
-                $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array('ids' => array_keys($ids)));
+                $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array(
+                    'ids' => new Horde_Imap_Client_Ids(array_keys($ids))
+                ));
 
                 if ($options['preview']) {
                     $preview_info = $tostore = array();
@@ -184,13 +184,16 @@ class IMP_Mailbox_List implements Countable, Serializable
                     }
                 }
 
-                foreach (array_keys($ids) as $k) {
-                    $v = $fetch_res[$k];
-
-                    $v['mailbox'] = $mbox;
-                    if (isset($v['headers']['imp'])) {
-                        $v['headers'] = $v['headers']['imp'];
-                    }
+                reset($fetch_res);
+                while (list($k, $f) = each($fetch_res)) {
+                    $v = array(
+                        'envelope' => $f->getEnvelope(),
+                        'flags' => $f->getFlags(),
+                        'headers' => $f->getHeaders('imp', Horde_Imap_Client_Data_Fetch::HEADER_PARSE),
+                        'mailbox' => $mbox,
+                        'size' => $f->getSize(),
+                        'uid' => $f->getUid()
+                    );
 
                     if (($options['preview'] === 2) ||
                         (($options['preview'] === 1) &&
@@ -281,8 +284,11 @@ class IMP_Mailbox_List implements Countable, Serializable
                     $query->flag('\\deleted', false);
                 }
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Search')->imapSearch($this->_mailbox, $query, array('sort' => array($sortpref['by']), 'reverse' => (bool)$sortpref['dir']));
-                    $this->_sorted = $res['sort'];
+                    $res = $GLOBALS['injector']->getInstance('IMP_Search')->imapSearch($this->_mailbox, $query, array('sort' => array($sortpref['by'])));
+                    if ($sortpref['dir']) {
+                        $res['match']->reverse();
+                    }
+                    $this->_sorted = $res['match']->ids;
                 } catch (Horde_Imap_Client_Exception $e) {
                     $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
                 }

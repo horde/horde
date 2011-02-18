@@ -317,23 +317,16 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     }
 
     /**
-     * Append message(s) to a mailbox.
-     *
-     * @param string $mailbox The mailbox to append the message(s) to
-     *                        (UTF7-IMAP).
-     * @param array  $data    The message data.
-     * @param array  $options Additional options.
-     *
-     * @return mixed  An array of the UIDs of the appended messages (if server
-     *                supports UIDPLUS extension) or true.
-     * @throws Horde_Imap_Client_Exception
+     * @return boolean  True.
      */
     protected function _append($mailbox, $data, $options)
     {
         foreach ($data as $element) {
             $split = strpos($element['data'], "\r\n\r\n");
-            $mail  = array('header' => substr($element['data'], 0, $split + 2),
-                           'body' => substr($element['data'], $split + 3));
+            $mail  = array(
+                'body' => substr($element['data'], $split + 3),
+                'header' => substr($element['data'], 0, $split + 2)
+            );
             $this->_appendMessage($mailbox, $mail);
         }
     }
@@ -341,11 +334,9 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     /**
      * Appends a message to the current folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to
-     *                        (UTF7-IMAP).
-     * @param array  $msg     The message to append.
-     *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @param string $mailbox  The mailbox to append the message(s) to
+     *                         (UTF7-IMAP).
+     * @param array  $msg      The message to append.
      */
     private function _appendMessage($mailbox, $msg)
     {
@@ -373,13 +364,8 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     }
 
     /**
-     * Expunge all deleted messages from the given mailbox.
-     *
-     * @param array $options Additional options.
-     *
-     * @return array  If 'list' option is true, returns the list of
-     *                expunged messages.
-     * @throws Horde_Imap_Client_Exception
+     * @param array $options  Additional options. 'ids' and 'list' have no
+     *                        effect in this driver.
      */
     protected function _expunge($options)
     {
@@ -390,20 +376,9 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
             }
         }
         $this->_mbox['mails'] = $remaining;
-        return true;
     }
 
     /**
-     * Search a mailbox.
-     *
-     * @param object $query   The search query.
-     * @param array  $options Additional options. The '_query' key contains
-     *                        the value of $query->build(). 'reverse' should
-     *                        be ignored (handled in search()).
-     *
-     * @return array  An array of UIDs (default) or an array of message
-     *                sequence numbers (if 'sequence' is true).
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _search($query, $options)
     {
@@ -425,6 +400,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
                 $this->_exception(sprintf('Search command %s not implemented!', $cmd));
             }
         }
+
         return array('match' => $uids, 'count' => count($uids));
     }
 
@@ -450,34 +426,27 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     }
 
     /**
-     * Fetch message data.
-     *
-     * @param Horde_Imap_Client_Fetch_Query $query  The fetch query object.
-     * @param array $options                        Additional options.
-     *
-     * @return array  See self::fetch().
-     * @throws Horde_Imap_Client_Exception
      */
-    protected function _fetch($query, $options)
+    protected function _fetch($query, $results, $options)
     {
-        $fetch = $result = array();
+        $uid = $options['ids']->ids[0];
 
         foreach ($query as $type => $c_val) {
-            $uid = $options['ids'][0];
-
             switch ($type) {
             case Horde_Imap_Client_Fetch_Query::HEADERTEXT:
                 if (!isset($this->_mbox['mails'][$uid])) {
                     $this->_exception(sprintf("No IMAP message %s!", $uid));
                 }
-                $result['headertext'][$uid] = $this->_mbox['mails'][$uid]['header'];
+
+                $results[$uid]->setHeaderText(0, $this->_mbox['mails'][$uid]['header']);
                 break;
 
             case Horde_Imap_Client_Fetch_Query::BODYTEXT:
                 if (!isset($this->_mbox['mails'][$uid])) {
                     $this->_exception(sprintf("No IMAP message %s!", $uid));
                 }
-                $result['bodytext'][$uid] = $this->_mbox['mails'][$uid]['body'];
+
+                $results[$uid]->setBodyText(0, $this->_mbox['mails'][$uid]['body']);
                 break;
 
             default:
@@ -485,55 +454,43 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
             }
         }
 
-        return $result;
+        return $results;
     }
 
     /**
-     * Store message flag data.
-     *
-     * @param array $options Additional options.
-     *
-     * @return array  See self::store().
-     * @throws Horde_Imap_Client_Exception
+     * @param array $options  Additional options. This driver does not support
+     *                        'unchangedsince'.
      */
     protected function _store($options)
     {
-
-        foreach ($options['ids'] as $uid) {
-
+        foreach ($options['ids']->ids as $uid) {
             if (!isset($this->_mbox['mails'][$uid])) {
                 $this->_exception(sprintf("No IMAP message %s!", $uid));
             }
+
             foreach ($options['add'] as $flag) {
                 $flag = strtoupper($flag);
                 switch ($flag) {
                 case '\\DELETED':
                     $this->_mbox['mails'][$uid]['flags'] |= self::FLAG_DELETED;
                     break;
+
                 default:
                     $this->_exception(sprintf('Flag %s not implemented!', $flag));
                 }
             }
         }
-        return true;
+
+        return new Horde_Imap_Client_Ids();
     }
 
     /**
-     * Copy messages to another mailbox.
-     *
-     * @param string $dest    The destination mailbox (UTF7-IMAP).
-     * @param array  $options Additional options.
-     *
-     * @return mixed  An array mapping old UIDs (keys) to new UIDs (values) on
-     *                success (if the IMAP server and/or driver support the
-     *                UIDPLUS extension) or true.
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _copy($dest, $options)
     {
         $new_folder = $this->_parseFolder($dest);
 
-        foreach ($options['ids'] as $uid) {
+        foreach ($options['ids']->ids as $uid) {
             if (!isset($this->_mbox['mails'][$uid])) {
                 $this->_exception(sprintf("No IMAP message %s!", $uid));
             }

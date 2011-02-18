@@ -15,9 +15,6 @@
  */
 class Horde_Imap_Client
 {
-    /* Global constants. */
-    const USE_SEARCHRES = '*SEARCHRES*';
-
     /* Constants for openMailbox() */
     const OPEN_READONLY = 1;
     const OPEN_READWRITE = 2;

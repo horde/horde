@@ -378,10 +378,10 @@ try {
         array('data' => $handle2, 'messageid' => '2008yhnujm@foo.example.com'),
         array('data' => $test_email2, 'internaldate' => new DateTime('17 August 2003'), 'messageid' => '98761234@test1.example.com')
     ));
-    if ($uid === true) {
+    if (!($uid instanceof Horde_Imap_Client_Ids)) {
         throw new Horde_Imap_Client_Exception('Append successful but UIDs not properly returned.');
     }
-    list($uid1, $uid2, $uid3, $uid4) = $uid;
+    list($uid1, $uid2, $uid3, $uid4) = $uid->ids;
     print "Append test-email 1 OK [UID: $uid1]\n";
     print "Append test-email 2 OK [UID: $uid2]\n";
     print "Append test-email 3 OK [UID: $uid3]\n";
@@ -396,7 +396,7 @@ fclose($handle2);
 if (!is_null($uid1)) {
     print "\nCopying test e-mail 1 to " . $test_mbox_utf8 . ".\n";
     try {
-        $uid5 = $imap_client->copy($test_mbox, $test_mbox_utf8, array('ids' => array($uid1)));
+        $uid5 = $imap_client->copy($test_mbox, $test_mbox_utf8, array('ids' => new Horde_Imap_Client_Ids($uid1)));
         if ($uid5 === true) {
             print "Copy: OK\n";
             $uid5 = null;
@@ -417,7 +417,7 @@ if (!is_null($uid1)) {
 if (!is_null($uid2)) {
     print "\nFlagging test e-mail 2 with the Deleted flag.\n";
     try {
-        $imap_client->store($test_mbox, array('add' => array('\\deleted'), 'ids' => array($uid2)));
+        $imap_client->store($test_mbox, array('add' => array('\\deleted'), 'ids' => new Horde_Imap_Client_Ids($uid2)));
         print "Flagging: OK\n";
     } catch (Horde_Imap_Client_Exception $e) {
         print 'ERROR: ' . $e->getMessage() . "\n";
@@ -460,7 +460,7 @@ print_r($imap_client->status($test_mbox, Horde_Imap_Client::STATUS_ALL));
 if (!is_null($uid5)) {
     print "\nMove test e-mail 1 from " . $test_mbox_utf8 . " to " . $test_mbox . ".\n";
     try {
-        $uid6 = $imap_client->copy($test_mbox_utf8, $test_mbox, array('ids' => array(current($uid5)), 'move' => true));
+        $uid6 = $imap_client->copy($test_mbox_utf8, $test_mbox, array('ids' => new Horde_Imap_Client_Ids(current($uid5)), 'move' => true));
         if ($uid6 === true) {
             print "Move: OK\n";
         } elseif (is_array($uid6)) {
@@ -486,7 +486,7 @@ try {
 print "\nFlagging test e-mail 3 with the Deleted flag.\n";
 if (!is_null($uid3)) {
     try {
-        $imap_client->store($test_mbox, array('add' => array('\\deleted'), 'ids' => array($uid3)));
+        $imap_client->store($test_mbox, array('add' => array('\\deleted'), 'ids' => new Horde_Imap_Client_Ids($uid3)));
         print "Flagging: OK\n";
     } catch (Horde_Imap_Client_Exception $e) {
         print 'ERROR: ' . $e->getMessage() . "\n";
@@ -563,7 +563,7 @@ try {
 print "\nSort 1st 5 messages in " . $test_mbox . " by thread - references algorithm (UIDs).\n";
 try {
     $ten_query = new Horde_Imap_Client_Search_Query();
-    $ten_query->sequence($imap_utils->fromSequenceString('1:5'), true);
+    $ten_query->ids(new Horde_Imap_Client_Ids($imap_utils->fromSequenceString('1:5'), true));
     print_r($imap_client->thread($test_mbox, array('search' => $ten_query, 'criteria' => Horde_Imap_Client::THREAD_REFERENCES)));
     print "Thread search: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
@@ -683,7 +683,7 @@ try {
     $complex_fetch->uid();
     $complex_fetch->modseq();
 
-    $fetch_res = $imap_client->fetch($test_mbox, $complex_fetch, array('ids' => array($uid3)));
+    $fetch_res = $imap_client->fetch($test_mbox, $complex_fetch, array('ids' => new Horde_Imap_Client_Ids($uid3)));
     print_r($fetch_res);
     print "Fetch: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
@@ -699,7 +699,7 @@ try {
         ));
 
         try {
-            print_r($imap_client->fetch('INBOX', $pop3_fetch, array('ids' => array(1))));
+            print_r($imap_client->fetch('INBOX', $pop3_fetch, array('ids' => new Horde_Imap_Client_Ids(1))));
             print "Fetch: OK\n";
         } catch (Horde_Imap_Client_Exception $e) {
             print 'ERROR: ' . $e->getMessage() . "\n";
@@ -717,7 +717,7 @@ $hdr_fetch->headers('headersearch1', array('message-id'), array(
 ));
 
 try {
-    print_r($imap_client->fetch($test_mbox, $hdr_fetch, array('ids' => array($uid3))));
+    print_r($imap_client->fetch($test_mbox, $hdr_fetch, array('ids' => new Horde_Imap_Client_Ids($uid3))));
     print "Fetch: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
     print 'ERROR: ' . $e->getMessage() . "\n";
@@ -791,7 +791,7 @@ $query->text('Test1');
 $query->text('Test2', false);
 $query->size('1024', true);
 $query->size('4096', false);
-$query->sequence(array(1, 5, 50, 51, 52, 55, 54, 53, 55, 55, 100, 500, 501));
+$query->ids(new Horde_Imap_Client_Ids(array(1, 5, 50, 51, 52, 55, 54, 53, 55, 55, 100, 500, 501)));
 $date = new DateTime('2008-06-15');
 $query->dateSearch($date, Horde_Imap_Client_Search_Query::DATE_BEFORE, true, true);
 $date = new DateTime('2008-06-20');

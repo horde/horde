@@ -1500,19 +1500,20 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->headerText(array(
-            'parse' => true,
             'peek' => false
         ));
 
         try {
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array('ids' => array($uid)));
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array(
+                'ids' => new Horde_Imap_Client_Ids($uid)
+            ));
         } catch (Horde_Imap_Client_Exception $e) {
             $GLOBALS['notification']->push(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage(), 'horde.error');
             return false;
         }
 
         $imp_ui = new IMP_Ui_Message();
-        $imp_ui->MDNCheck($mbox, $uid, reset($fetch_ret[$uid]['headertext']), true);
+        $imp_ui->MDNCheck($mbox, $uid, $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE), true);
 
         $GLOBALS['notification']->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
 

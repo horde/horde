@@ -348,23 +348,24 @@ class IMP_Folder
             $query->envelope();
             $query->imapDate();
             $query->fullText(array(
-                'peek' => true,
-                'stream' => true
+                'peek' => true
             ));
 
             for ($i = 1; $i <= $status['messages']; ++$i) {
                 /* Download one message at a time to save on memory
                  * overhead. */
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($folder, $query, array('ids' => array($i), 'sequence' => true));
+                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($folder, $query, array(
+                        'ids' => new Horde_Imap_Client_Ids($i, true)
+                    ));
                     $ptr = reset($res);
                 } catch (Horde_Imap_Client_Exception $e) {
                     continue;
                 }
 
                 $from = '<>';
-                if (!empty($ptr['envelope']->from)) {
-                    $ptr2 = reset($ptr['envelope']->from);
+                if ($from_env = $ptr->getEnvelope()->from) {
+                    $ptr2 = reset($from_env);
                     if (!empty($ptr2['mailbox']) && !empty($ptr2['host'])) {
                         $from = $ptr2['mailbox']. '@' . $ptr2['host'];
                     }
@@ -372,11 +373,10 @@ class IMP_Folder
 
                 /* We need this long command since some MUAs (e.g. pine)
                  * require a space in front of single digit days. */
-                $date = sprintf('%s %2s %s', $ptr['date']->format('D M'), $ptr['date']->format('j'), $ptr['date']->format('H:i:s Y'));
+                $imap_date = $ptr->getImapDate();
+                $date = sprintf('%s %2s %s', $imap_date->format('D M'), $imap_date->format('j'), $imap_date->format('H:i:s Y'));
                 fwrite($body, 'From ' . $from . ' ' . $date . "\r\n");
-                rewind($ptr['fullmsg']);
-                stream_copy_to_stream($ptr['fullmsg'], $body);
-                fclose($ptr['fullmsg']);
+                stream_copy_to_stream($ptr->getFullMsg(true), $body);
                 fwrite($body, "\r\n");
             }
         }
