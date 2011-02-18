@@ -475,15 +475,6 @@ class IMP_Auth
             );
         }
 
-        /* If the user wants to run filters on login, make sure they get
-           run. */
-        if ($prefs->getValue('filter_on_login')) {
-            $injector->getInstance('IMP_Filter')->filter('INBOX');
-        }
-
-        /* Check for drafts due to session timeouts. */
-        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create()->recoverSessionExpireDraft();
-
         self::_logMessage(true, $imp_imap);
     }
 
