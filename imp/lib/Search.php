@@ -71,6 +71,14 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     );
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->init();
+    }
+
+    /**
      * Initialize session search data.
      */
     public function init()
@@ -413,11 +421,18 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function setVFolders($vfolders, $save = true)
     {
+        global $injector, $prefs;
+
         if ($save) {
             $GLOBALS['prefs']->setValue('vfolder', serialize(array_values($vfolders)));
         }
 
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->updateVFolders($vfolders);
+        /* Only update if IMP_Imap_Tree is already initialized; otherwise,
+         * we have a cyclic dependency. */
+        if ($injector->hasInstance('IMP_Imap_Tree')) {
+            $injector->getInstance('IMP_Imap_Tree')->updateVFolders($vfolders);
+        }
+
         $this->_search['vfolders'] = $vfolders;
         $this->changed = true;
     }
