@@ -13,10 +13,7 @@
             <label for="hermesTimeFormCostobject">
               <?php echo _("Costobject")?>
               <select type="text" id="hermesTimeFormCostobject" name="costobject"></select>
-            </label>
-          </div>
-          <div class="hermesTimeFormTime">
-            <label for="HermesTimeFormStartDate">
+            </label> <label for="HermesTimeFormStartDate">
               <?php echo _("Date") ?>
               <input class="input" type="text" name="start_date" id="hermesTimeFormStartDate" size="10" />
               <?php echo Horde::img('picker.png', _("Set start date"), 'id="hermesTimeFormStartPicker" class="hermesDatePicker"') ?>
@@ -28,14 +25,14 @@
             <label for="hermesTimeFormType">
               <?php echo _("Job Type")?>
               <?php echo Hermes::getJobTypeSelect();?>
-            </label><br />
+            </label>
           </div>
           <div class="hermesTimeFormDetails">
               <label for="hermesTimeFormDesc"><?php echo _("Description")?>:<br />
-                <textarea  name="description" id="hermesTimeFormDesc" rows="2" cols="60"class="hermesLongField"></textarea>
+                <textarea  name="description" id="hermesTimeFormDesc" rows="2" class="hermesLongField"></textarea>
               </label><br />
               <label for="hermesTimeFormNotes"><?php echo _("Additional Notes")?>:<br />
-                <textarea  name="notes" id="hermesTimeFormNotes" rows="3" cols="60" class="hermesLongField"></textarea>
+                <textarea  name="notes" id="hermesTimeFormNotes" rows="3" class="hermesLongField"></textarea>
               </label>
           </div>
          </div>

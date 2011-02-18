@@ -408,6 +408,7 @@ a.rounded {
 }
 #hermesTimeFormInputs label {
     font-weight: bold;
+    white-space: nowrap;
 }
 #hermesTimeFormInputs .input {
   border: medium none;
@@ -419,8 +420,10 @@ a.rounded {
 #hermesTimeFormInputs .hermesLongField {
   border: medium none;
   /*font-size: 18px;*/
-  margin: 0 0 7px 0;
+  margin: 0  7px 0;
   padding: 6px 5px 4px;
+  width: 98%;
+  
 }
 .hermesTimeFormDetails {
     padding-top: 7px;
