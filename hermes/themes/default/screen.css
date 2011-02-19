@@ -41,6 +41,7 @@ html, body {
     height: 100%;
 }
 body.hermesAjax {
+    /*font-family: "American Typewriter","Constantia","Verdana",monospace;*/
     overflow: hidden;
 }
 /* Main views */
@@ -270,9 +271,17 @@ body.hermesAjax {
 #hermesTimeList {
     margin: 0 25px 0 25px;
 }
-#hermesTimeList h3 {
+#hermesBody h2 {
 margin: 6px;
+font-weight: normal;
+font-family: "American Typewriter","Constantia","Verdana",monospace;
 }
+
+#hermesBody h1 {
+    font-family: "American Typewriter","Constantia","Verdana",monospace;
+    font-weight: normal;
+}
+
 /* Timelist fields */
 .hermesTimeListSelect {
     float: left;

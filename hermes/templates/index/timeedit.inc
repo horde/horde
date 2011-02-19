@@ -2,8 +2,9 @@
   <div id="hermesLoadingTime" class="hermesLoading"></div>
   <div id="hermesViewTimeContainer">
    <div id="hermesTimeEntry">
-    <h2><?php echo _("Time Entry")?></h2>
+    <h1><?php echo _("Time Entry")?></h1>
     <form id="hermesTimeForm" action="">
+        <input type="hidden" name="id" id="hermesTimeFormId" value="" />
         <div id="hermesTimeFormInputs">
           <div class="hermesTimeFormGeneral">
             <label for="hermesTimeFormClient">
@@ -38,14 +39,13 @@
          </div>
          <div class="hermesFormActions">
           <input id="hermesTimeSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
-          <input id="hermesTimeSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" />
-          <input id="hermesTimeDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+          <input id="hermesTimeSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" style="display: none;" />
           <span class="hermesSeparator"><?php echo _("or") ?></span> <a class="hermesFormCancel"><?php echo _("Cancel") ?></a>
         </div>
     </form>
    </div>
+   <h2><?php echo _("Unsubmitted Time");?></h2>
    <div id="hermesTimeList">
-       <h3><?php echo _("Unsubmitted Time");?></h1>
        <div id="hermesTimeListHeader">
         <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
         <div class="hermesTimeListDate hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>

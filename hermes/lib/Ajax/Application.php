@@ -92,6 +92,22 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
 
     }
 
+    /**
+     * Update a slice
+     */
+    public function updateSlice()
+    {
+        $slice = new Hermes_Slice();
+        $slice->readForm();
+        try {
+            $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($slice));
+        } catch (Hermes_Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
+        }
+        $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
+        return current($new)->toJson();
+    }
+
     public function poll()
     {
         // keepalive
