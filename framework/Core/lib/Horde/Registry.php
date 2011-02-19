@@ -1542,13 +1542,24 @@ class Horde_Registry
         $fileprefix = strtr($prefix, '_', '/');
         $fileroot = $this->get('fileroot', $app);
 
-        if (!is_null($fileroot) &&
-            is_dir($fileroot . '/lib/' . $fileprefix)) {
-            foreach (scandir($fileroot . '/lib/' . $fileprefix) as $file) {
-                $classname = $app . '_' . $prefix . '_' . basename($file, '.php');
-                if (class_exists($classname)) {
-                    $classes[] = $classname;
+        if (!is_null($fileroot)) {
+            $pushed = $this->pushApp($app);
+
+            try {
+                $di = new DirectoryIterator($fileroot . '/lib/' . $fileprefix);
+
+                foreach ($di as $val) {
+                    if (!$val->isDir() && !$di->isDot()) {
+                        $class = $app . '_' . $prefix . '_' . basename($val, '.php');
+                        if (class_exists($class)) {
+                            $classes[] = $class;
+                        }
+                    }
                 }
+            } catch (UnexpectedValueException $e) {}
+
+            if ($pushed) {
+                $this->popApp();
             }
         }
 
