@@ -258,7 +258,7 @@ body.hermesAjax {
 
 /* Main view time */
 #hermesViewTimeContainer {
-    position: absolute;
+    position: relative;
     top: 1px;
     right: 0;
     bottom: 0;
@@ -349,16 +349,37 @@ div.hermesTimeSliceOptions {
     border-left: 1px solid #eee;
 }
 .rounded {
-  background: -moz-linear-gradient(-90deg, #F0F0F0, #DBDBDB);
-  background: -webkit-gradient(linear, left bottom, left top, #f0f0f0, #dbdbdb);
   -moz-border-radius: 7px 7px 7px 7px;
   border: 1px solid #DBDBDB;
-  color: #444444;
   font-size: 11px;
   font-weight: bold;
   line-height: 1.2;
   padding: 2px 7px;
   text-decoration: none;
+}
+.rounded.sliceEdit {
+  background: -moz-linear-gradient(-90deg, #F0F0F0, #DBDBDB);
+  background: -webkit-gradient(linear, left bottom, left top, #f0f0f0, #dbdbdb);
+  color: #444444;
+}
+.rounded.sliceEdit:hover {
+  background: -moz-linear-gradient(-90deg, #E0E0E0, #BAB5B5);
+  background: -webkit-gradient(linear, left bottom, left top, #e0e0e0, #bab5b5);
+  border: 1px solid #BAB5B5;
+  color: #333333;
+}
+.rounded.sliceDelete {
+  background: -moz-linear-gradient(-90deg, #F5B5B5, #ED8080) repeat scroll 0 0 transparent;
+  border: 1px solid #ED8080;
+  color: #8A1111;
+}
+.rounded.sliceDelete:hover {
+  background: -moz-linear-gradient(-90deg, #DCA0A0, #D47272) repeat scroll 0 0 transparent;
+  border: 1px solid #D47272;
+  color: #8A1111;
+}
+a.rounded {
+    text-decoration: none;
 }
 #hermesTimeListBody .hermesTimeListRow .hermesTimeSliceOptions .rounded {
     visibility: hidden;
@@ -368,15 +389,6 @@ div.hermesTimeSliceOptions {
 }
 #hermesTimeListBody .hermesTimeListRow:hover {
     font-weight: bold;
-}
-.rounded:hover {
-  background: -moz-linear-gradient(-90deg, #E0E0E0, #BAB5B5);
-  background: -webkit-gradient(linear, left bottom, left top, #e0e0e0, #bab5b5);
-  border: 1px solid #BAB5B5;
-  color: #333333;
-}
-a.rounded {
-    text-decoration: none;
 }
 .hermesUnselectedSlice {
     background: url("graphics/checkbox_off.png") no-repeat center;
@@ -391,10 +403,12 @@ a.rounded {
 
 /* Timelist submission controls */
 .hermesTimeListControls {
-    margin-top: 7px;
+    width: 100%;
+    height: 18px;
     padding: 7px;
     background-color: #eeeeee;
-    border-top: 1px solid black;
+    border: 1px solid black;
+    border-top: 0 none;
 }
 /* Time Entry Form */
 #hermesTimeEntry {
@@ -404,8 +418,6 @@ a.rounded {
 #hermesTimeFormInputs {
     margin-left: 7px;
     margin-right: 7px;
-    /*font-size: 14px;
-    font-weight: bold;*/
 }
 #hermesTimeFormInputs label {
     font-weight: bold;
@@ -413,8 +425,6 @@ a.rounded {
 }
 #hermesTimeFormInputs .input {
   border: medium none;
-  /*font-size: 18px;
-  height: 20px;*/
   margin: 7px 7px 0 0;
   padding: 6px 5px 4px;
 }
@@ -424,7 +434,7 @@ a.rounded {
   margin: 0  7px 0;
   padding: 6px 5px 4px;
   width: 98%;
-  
+
 }
 .hermesTimeFormDetails {
     padding-top: 7px;
