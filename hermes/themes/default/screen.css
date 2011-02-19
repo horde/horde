@@ -403,12 +403,7 @@ a.rounded {
 
 /* Timelist submission controls */
 .hermesTimeListControls {
-    width: 100%;
-    height: 18px;
     padding: 7px;
-    background-color: #eeeeee;
-    border: 1px solid black;
-    border-top: 0 none;
 }
 /* Time Entry Form */
 #hermesTimeEntry {

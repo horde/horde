@@ -56,21 +56,21 @@
         <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget"><?php echo _("Description")?></a></div>
         <div class="hermesTimeSliceOptions">&nbsp;</div>
        </div>
-       <div id="hermesTimeListBody">
-        <div id="hermesTimeListTemplate" style="display:none;">
-          <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
-          <div class="hermesTimeListDate hermesBorderLeft"></div>
-          <div class="hermesTimeListHours hermesBorderLeft"></div>
-          <div class="hermesTimeListClient hermesBorderLeft"></div>
-          <div class="hermesTimeListCostObject hermesBorderLeft"></div>
-          <div class="hermesTimeListType hermesBorderLeft"></div>
-          <div class="hermesTimeListDesc hermesBorderLeft"></div>
-          <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded">x</a></div>
+       <div>
+        <div id="hermesTimeListBody">
+         <div id="hermesTimeListTemplate" style="display:none;">
+           <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
+           <div class="hermesTimeListDate hermesBorderLeft"></div>
+           <div class="hermesTimeListHours hermesBorderLeft"></div>
+           <div class="hermesTimeListClient hermesBorderLeft"></div>
+           <div class="hermesTimeListCostObject hermesBorderLeft"></div>
+           <div class="hermesTimeListType hermesBorderLeft"></div>
+           <div class="hermesTimeListDesc hermesBorderLeft"></div>
+           <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded">x</a></div>
+         </div>
         </div>
+        <div class="hermesTimeListControls"><a class="button"><?php echo _("Submit Time") ?></a></div>
        </div>
-   </div>
-   <div class="hermesTimeListControls" style="margin-top:20px;">
-     <a class="button"><?php echo _("Submit Time") ?></a>
    </div>
   </div>
 </div>
