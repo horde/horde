@@ -446,7 +446,7 @@ class Horde_Mime
             $output = array_merge(array($name => self::encode($val, $charset)), $output);
         }
 
-        /* Escape certain characters in params (See RFC 2045 [Appendix A]. */
+        /* Escape certain characters in params (See RFC 2045 [Appendix A]). */
         if (!empty($opts['escape'])) {
             foreach (array_keys($output) as $key) {
                 if (strcspn($output[$key], "\11\40\"(),/:;<=>?@[\\]") != strlen($output[$key])) {
