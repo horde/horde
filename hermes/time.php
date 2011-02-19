@@ -40,7 +40,7 @@ case 'submittimeform':
             $notification->push(_("Your time was successfully submitted."), 'horde.success');
             $vars = new Horde_Variables();
         } catch (Horde_Exception $e) {
-            $notification->push(sprintf(_("There was an error submitting your time: %s"), $result->getMessage()), 'horde.error');
+            $notification->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
         }
     }
     break;
