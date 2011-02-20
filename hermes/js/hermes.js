@@ -12,6 +12,7 @@ HermesCore = {
     sortbyfield: 'sortDate',
     reverseSort: false,
     sortDir: 'up',
+    selectedSlices: [],
 
     doActionOpts: {
 
@@ -260,14 +261,18 @@ HermesCore = {
             case 'hermesTimeSave':
                 this.saveTime();
                 e.stop();
-                break;
+                return;
+            case 'hermesTimeListSubmit':
+                this.submitSlices();
+                e.stop();
+                return;
             case 'hermesTimeListHeader':
                 var el = e.element().identify();
                 if (el == 'sortDate' || el == 'sortClient' || el == 'sortCostObject' || el == 'sortType') {
                     this.handleSort(e.element());
                     e.stop();
                 }
-                break;
+                return;
              case 'hermesOptions':
                 this.go('prefs');
                 e.stop();
@@ -300,9 +305,7 @@ HermesCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('sliceDelete')) {
-                slice = elt.up().up();
-                sid = slice.retrieve('sid');
-                this.doAction('deleteSlice', {'id': sid}, this.deletesliceCallback.curry(slice, sid).bind(this));
+                this.deleteSlice(elt.up().up());
                 e.stop();
                 return;
             } else if (elt.hasClassName('sliceEdit')) {
@@ -346,11 +349,24 @@ HermesCore = {
         $('hermesTimeFormId').setValue(slice.i);
     },
 
+    deleteSlice: function(slice)
+    {
+        sid = slice.retrieve('sid');
+        this.doAction('deleteSlice', {'id': sid}, this.deletesliceCallback.curry(slice, sid).bind(this));
+    },
+
     deletesliceCallback: function(elt, sid, r)
     {
         if (r.response) {
-            new Effect.Fade(elt);
+            this.removeSliceFromUI(elt, sid);
+        } else {
+            // Error?
         }
+    },
+
+    removeSliceFromUI: function(elt, sid)
+    {
+        new Effect.Fade(elt);
         this.removeSliceFromCache(sid);
     },
 
@@ -377,7 +393,7 @@ HermesCore = {
         s = this.slices.length;
         for (var i = 0; i <= (s - 1); i++) {
             if (this.slices[i].i == sid) {
-                this.slices.splice(i, 1);
+                this.slices = this.slices.splice(i, 1);
                 break;
             }
         }
@@ -449,6 +465,24 @@ HermesCore = {
         this.buildTimeTable();
         $('hermesTimeForm').reset();
         $('hermesTimeSaveAsNew').hide();
+    },
+
+    submitSlices: function()
+    {
+        var sliceIds = [];
+        var slices = [];
+        $('hermesTimeListBody').select('.hermesSelectedSlice').each(function(s) {
+            sliceIds.push(s.up().retrieve('sid'));
+            slices.push(s.up());
+        }.bind(this));
+        this.doAction('submitSlices',
+                      { 'items': sliceIds.join(':') },
+                      this.submitSlicesCallback.curry(slices).bind(this));
+    },
+
+    submitSlicesCallback: function(ids, r)
+    {
+        ids.each(function(i) { this.removeSliceFromUI(i, i.retrieve('sid'), null); }.bind(this));
     },
 
     /**

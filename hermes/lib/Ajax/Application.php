@@ -89,7 +89,6 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }
-
     }
 
     /**
@@ -106,6 +105,26 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         }
         $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
         return current($new)->toJson();
+    }
+
+    /**
+     * Mark slices as submitted.
+     *
+     */
+    public function submitSlices()
+    {
+        $time = array();
+        $items = explode(':', $this->_vars->items);
+        foreach ($items as $id) {
+            $time[] = array('id' => $id);
+        }
+        try {
+            $GLOBALS['injector']->getInstance('Hermes_Driver')->markAs('submitted', $time);
+        } catch (Horde_Exception $e) {
+            $notification->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
+        }
+
+        return true;
     }
 
     public function poll()
