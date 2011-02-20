@@ -106,14 +106,11 @@ class Components_Pear_Package_Contents
      */
     public function update()
     {
-        $taskfiles = $this->_tasks->denote($this->getPackage());
-
         $generator = $this->_contents_factory->create($this->getPackage());
         $this->getPackage()->clearContents('/');
         $this->getPackage()->_struc = $generator->getFileList();
         $this->getPackage()->_getSimpleDirTag($this->getPackage()->_struc);
 
-        $this->_tasks->annotate($this->getPackage(), $taskfiles);
         // Workaround for [#9364] Components notices and fatal error
         if (empty($this->getPackage()->_packageInfo['changelog'])) {
             unset($this->getPackage()->_packageInfo['changelog']);

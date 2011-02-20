@@ -289,17 +289,21 @@ class Components_Pear_Factory
             );
         }
 
-        return Components_Exception_Pear::catchError(
+        $old_dir = getcwd();
+        chdir(dirname($package_xml_path));
+        $result = Components_Exception_Pear::catchError(
             PEAR_PackageFileManager2::importOptions(
-                $package_xml_path,
+                basename($package_xml_path),
                 array(
-                    'packagedirectory' => dirname($package_xml_path),
+                    'packagedirectory' => '.',
                     'clearcontents' => false,
                     'clearchangelog' => false,
                     'simpleoutput' => true,
                 )
             )
         );
+        chdir($old_dir);
+        return $result;
     }
 
     /**
