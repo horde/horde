@@ -441,6 +441,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
               AND def.adsrc ~* 'nextval'";
 
             $result = $this->selectOne($sql, 'PK and custom sequence');
+            $result['relname'] = null;
         }
 
         // [primary_key, sequence]
