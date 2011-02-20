@@ -77,7 +77,10 @@ document.observe('dom:loaded', function() {
 
     IMP.iframeInject = function(id, data)
     {
-        id = $(id);
+        if (!(id = $(id))) {
+            return;
+        }
+
         var d = id.contentWindow.document;
 
         id.observe('load', function() { IMP.iframeResize.bind(IMP, id).defer(0.3); } );
