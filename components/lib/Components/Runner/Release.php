@@ -83,6 +83,8 @@ class Components_Runner_Release
             );
         }
 
-        $package->generateRelease();
+        $path = $package->generateRelease();
+        print system('scp ' . $path . ' ' . $options['releaseserver'] . ':~/');
+        print system('ssh '. $options['releaseserver'] . ' "pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
     }
 }

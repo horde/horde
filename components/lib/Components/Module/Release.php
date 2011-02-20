@@ -49,6 +49,22 @@ extends Components_Module_Base
                     'help'   => 'Release the next version of the package.'
                 )
             ),
+            new Horde_Argv_Option(
+                '-M',
+                '--releaseserver',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The remote server SSH connection string. The release package will be copied here via "scp".'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-U',
+                '--releasedir',
+                array(
+                    'action' => 'store',
+                    'help'   => 'PEAR server target directory on the remote machine.'
+                )
+            ),
         );
     }
 
