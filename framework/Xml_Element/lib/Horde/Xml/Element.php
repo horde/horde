@@ -225,11 +225,12 @@ class Horde_Xml_Element implements ArrayAccess
      *
      * @return string
      */
-    public function saveXml()
+    public function saveXml($formatted = false)
     {
         // Return a complete document including XML prologue.
         $doc = new DOMDocument($this->_element->ownerDocument->version,
                                $this->_element->ownerDocument->actualEncoding);
+        $doc->formatOutput = $formatted;
         $doc->appendChild($doc->importNode($this->_element, true));
         return $doc->saveXML();
     }
@@ -241,9 +242,13 @@ class Horde_Xml_Element implements ArrayAccess
      *
      * @return string
      */
-    public function saveXmlFragment()
+    public function saveXmlFragment($formatted = false)
     {
-        return $this->_element->ownerDocument->saveXML($this->_element);
+        $oldFormatted = $this->_element->ownerDocument->formatOutput;
+        $this->_element->ownerDocument->formatOutput = $formatted;
+        $xml = $this->_element->ownerDocument->saveXML($this->_element);
+        $this->_element->ownerDocument->formatOutput = $oldFormatted;
+        return $xml;
     }
 
     /**
