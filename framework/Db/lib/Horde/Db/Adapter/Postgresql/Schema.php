@@ -384,8 +384,8 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                 $sql = sprintf('SELECT setval(%s, (SELECT COALESCE(MAX(%s) + (SELECT increment_by FROM %s), (SELECT min_value FROM %s)) FROM %s), false)',
                                $quotedSequence,
                                $quotedPk,
-                               $quotedSequence,
-                               $quotedSequence,
+                               $sequence,
+                               $sequence,
                                $quotedTable);
                 $this->selectValue($sql, 'Reset sequence');
             } else {
@@ -582,6 +582,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                 $this->execute('DROP SEQUENCE ' . $seq_name . ' CASCADE');
             } catch (Horde_Db_Exception $e) {}
             $this->execute('CREATE SEQUENCE ' . $seq_name);
+            $this->resetPkSequence($tableName, $columnName, $seq_name);
 
             /* Can't use changeColumnDefault() since it quotes the
              * default value (NEXTVAL is a postgres keyword, not a text
