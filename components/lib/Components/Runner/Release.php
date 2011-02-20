@@ -1,6 +1,6 @@
 <?php
 /**
- * Components_Runner_DevPackage:: packages a snapshot.
+ * Components_Runner_Release:: releases a new version for a package.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * Components_Runner_DevPackage:: packages a snapshot.
+ * Components_Runner_Release:: releases a new version for a package.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Runner_DevPackage
+class Components_Runner_Release
 {
     /**
      * The configuration for the current job.
@@ -83,14 +83,6 @@ class Components_Runner_DevPackage
             );
         }
 
-        if ($options['archivedir']) {
-            $archivedir = $options['archivedir'];
-        } else {
-            $archivedir = getcwd();
-        }
-        $package->generateSnapshot(
-            $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M'),
-            $archivedir
-        );
+        $package->generateRelease();
     }
 }

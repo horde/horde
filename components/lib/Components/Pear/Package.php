@@ -442,4 +442,38 @@ class Components_Pear_Package
         return $result;
     }
 
+    /**
+     * Generate a package package release.
+     *
+     * @return string The path to the release package.
+     */
+    public function generateRelease()
+    {
+        $pkg = $this->_getPackageFile();
+        $pkg->setLogger($this->_output);
+        $errors = array();
+        ob_start();
+        try {
+            $result = Components_Exception_Pear::catchError(
+                $pkg->getDefaultGenerator()->toTgz(new PEAR_Common())
+            );
+        } catch (Components_Exception_Pear $e) {
+            $errors[] = $e->getMessage();
+            $errors[] = '';
+            $result = false;
+            foreach ($pkg->getValidationWarnings() as $error) {
+                $errors[] = isset($error['message']) ? $error['message'] : 'Unknown Error';
+            }
+        }
+        $this->_output->pear(ob_get_clean());
+        if ($result) {
+            $this->_output->ok('Generated release package ' . $result);
+        } else {
+            $this->_output->fail(
+                'Generating release package failed with:'. "\n\n" . join("\n", $errors)
+            );
+        }
+        return $result;
+    }
+
 }

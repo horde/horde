@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-14</date>
- <time>16:08:10</time>
+ <date>2011-02-20</date>
+ <time>18:25:52</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -87,11 +87,12 @@
       <file name="Base.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
-      <file name="DevPackage.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Document.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
+      <file name="Release.php" role="php" />
+      <file name="Snapshot.php" role="php" />
      </dir> <!-- /lib/Components/Module -->
      <dir name="Pear">
       <dir name="Package">
@@ -118,11 +119,12 @@
       <file name="CiPrebuild.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
-      <file name="DevPackage.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Document.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
+      <file name="Release.php" role="php" />
+      <file name="Snapshot.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
      <file name="Config.php" role="php" />
      <file name="Configs.php" role="php" />
@@ -241,11 +243,12 @@
        <dir name="Module">
         <file name="CiSetupTest.php" role="test" />
         <file name="DependenciesTest.php" role="test" />
-        <file name="DevPackageTest.php" role="test" />
         <file name="DistributeTest.php" role="test" />
         <file name="DocumentTest.php" role="test" />
         <file name="InstallerTest.php" role="test" />
         <file name="PearPackageXmlTest.php" role="test" />
+        <file name="ReleaseTest.php" role="test" />
+        <file name="SnapshotTest.php" role="test" />
        </dir> <!-- /test/Components/Integration/Components/Module -->
       </dir> <!-- /test/Components/Integration/Components -->
       <file name="ComponentsTest.php" role="test" />
@@ -317,6 +320,10 @@
     <name>Test</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Text_Diff</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -351,11 +358,12 @@
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
-   <install as="Components/Module/DevPackage.php" name="lib/Components/Module/DevPackage.php" />
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
    <install as="Components/Module/Document.php" name="lib/Components/Module/Document.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
+   <install as="Components/Module/Release.php" name="lib/Components/Module/Release.php" />
+   <install as="Components/Module/Snapshot.php" name="lib/Components/Module/Snapshot.php" />
    <install as="Components/Pear/Dependencies.php" name="lib/Components/Pear/Dependencies.php" />
    <install as="Components/Pear/Dependency.php" name="lib/Components/Pear/Dependency.php" />
    <install as="Components/Pear/Factory.php" name="lib/Components/Pear/Factory.php" />
@@ -372,11 +380,12 @@
    <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
    <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
-   <install as="Components/Runner/DevPackage.php" name="lib/Components/Runner/DevPackage.php" />
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
    <install as="Components/Runner/Document.php" name="lib/Components/Runner/Document.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="Components/Runner/PearPackageXml.php" name="lib/Components/Runner/PearPackageXml.php" />
+   <install as="Components/Runner/Release.php" name="lib/Components/Runner/Release.php" />
+   <install as="Components/Runner/Snapshot.php" name="lib/Components/Runner/Snapshot.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
    <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
@@ -421,11 +430,12 @@
    <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
    <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
    <install as="Components/Integration/Components/Module/DependenciesTest.php" name="test/Components/Integration/Components/Module/DependenciesTest.php" />
-   <install as="Components/Integration/Components/Module/DevPackageTest.php" name="test/Components/Integration/Components/Module/DevPackageTest.php" />
    <install as="Components/Integration/Components/Module/DistributeTest.php" name="test/Components/Integration/Components/Module/DistributeTest.php" />
    <install as="Components/Integration/Components/Module/DocumentTest.php" name="test/Components/Integration/Components/Module/DocumentTest.php" />
    <install as="Components/Integration/Components/Module/InstallerTest.php" name="test/Components/Integration/Components/Module/InstallerTest.php" />
    <install as="Components/Integration/Components/Module/PearPackageXmlTest.php" name="test/Components/Integration/Components/Module/PearPackageXmlTest.php" />
+   <install as="Components/Integration/Components/Module/ReleaseTest.php" name="test/Components/Integration/Components/Module/ReleaseTest.php" />
+   <install as="Components/Integration/Components/Module/SnapshotTest.php" name="test/Components/Integration/Components/Module/SnapshotTest.php" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
    <install as="COPYING" name="COPYING" />
@@ -442,7 +452,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-14</date>
+   <date>2011-02-20</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

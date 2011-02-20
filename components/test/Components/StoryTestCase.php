@@ -295,6 +295,35 @@ extends PHPUnit_Extensions_Story_TestCase
             }
             chdir($cwd);
             break;
+        case 'calling the package with the release option and a path to a component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--verbose',
+                '--release',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $olddir = getcwd();
+            chdir($this->_getTemporaryDirectory());
+            $world['output'] = $this->_callUnstrictComponents();
+            chdir($olddir);
+            break;
+        case 'calling the package with the release option and an invalid path':
+            $this->_setPearGlobals();
+            $cwd = getcwd();
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--verbose',
+                '--release',
+                dirname(__FILE__) . '/fixture/simple'
+            );
+            try {
+                $world['output'] = $this->_callUnstrictComponents();
+            } catch (Components_Exception_Pear $e) {
+                ob_end_clean();
+                $world['output'] = (string) $e;
+            }
+            chdir($cwd);
+            break;
         case 'calling the package with the distribute option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
@@ -615,6 +644,15 @@ extends PHPUnit_Extensions_Story_TestCase
             $found = false;
             foreach (new DirectoryIterator($this->_temp_dir) as $file) {
                 if (preg_match('/Install-[0-9]+(\.[0-9]+)+([a-z0-9]+)?/', $file->getBasename('.tgz'), $matches)) {
+                    $found = true;
+                }
+            }
+            $this->assertTrue($found);
+            break;
+        case 'a package release will be generated in the current directory':
+            $found = false;
+            foreach (new DirectoryIterator($this->_temp_dir) as $file) {
+                if (preg_match('/Install-0.0.1/', $file->getBasename('.tgz'), $matches)) {
                     $found = true;
                 }
             }

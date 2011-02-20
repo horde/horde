@@ -96,13 +96,23 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the release handler for a package.
+     *
+     * @return Components_Runner_Release The release handler.
+     */
+    public function getRunnerRelease()
+    {
+        return $this->getInstance('Components_Runner_Release');
+    }
+
+    /**
      * Returns the snapshot packaging handler for a package.
      *
-     * @return Components_Runner_DevPackage The snapshot handler.
+     * @return Components_Runner_Snapshot The snapshot handler.
      */
-    public function getRunnerDevPackage()
+    public function getRunnerSnapshot()
     {
-        return $this->getInstance('Components_Runner_DevPackage');
+        return $this->getInstance('Components_Runner_Snapshot');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the DevPackage module.
+ * Test the Snapshot module.
  *
  * PHP version 5
  *
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../../../Autoload.php';
 
 /**
- * Test the DevPackage module.
+ * Test the Snapshot module.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Components
  */
-class Components_Integration_Components_Module_DevPackageTest
+class Components_Integration_Components_Module_SnapshotTest
 extends Components_StoryTestCase
 {
     /**
@@ -42,7 +42,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
-            ->then('the help will contain the option', '-d,\s*--devpackage');
+            ->then('the help will contain the option', '-z,\s*--snapshot');
     }
 
     /**
@@ -51,7 +51,7 @@ extends Components_StoryTestCase
     public function testSnapshotGeneration()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the devpackage option, the archive directory option and a path to a Horde framework component')
+            ->when('calling the package with the snapshot option, the archive directory option and a path to a Horde framework component')
             ->then('a package snapshot will be generated at the indicated archive directory');
     }
 
@@ -61,7 +61,7 @@ extends Components_StoryTestCase
     public function testErrorHandling()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the devpackage option, the archive directory option and a path to an invalid Horde framework component')
+            ->when('calling the package with the snapshot option, the archive directory option and a path to an invalid Horde framework component')
             ->then('the output should indicate an invalid package.xml')
             ->and('indicate the specific problem of the package.xml');
     }
