@@ -2,7 +2,19 @@
  Components TODO List
 ======================
 
+ - Allow to "phingify" components.
+
+ - Add validations (+ before release)
+   - COPYING
+   - Tests
+   - phpDocumentor
+   - Code style
+
  - Add a release helper module.
+   - Validate that the release does not exist before releasing.
+   - Error handling.
+
+ - Support a configuration file.
 
  - Document usage
 
@@ -52,12 +64,5 @@
 
  - Allow absolute/relative paths as arguments
 
- - Allow to "phingify" components.
-
  - Allow preparing a PHAR install package
 
- - Add validations (+ before release)
-   - COPYING
-   - Tests
-   - phpDocumentor
-   - Code style
