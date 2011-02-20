@@ -43,7 +43,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
-            ->then('the help will contain the "p" option.');
+            ->then('the help will contain the "A" option.');
     }
 
     /**
@@ -62,7 +62,7 @@ extends Components_StoryTestCase
     public function thePOptionFailsWithoutAValidPackagePath()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and the path', '')
+            ->when('calling the package with the updatexml option and the path', '')
             ->then('the call will fail with', 'Please specify the path of the PEAR package!');
     }
 
@@ -83,7 +83,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when(
-                'calling the package with the packagexml option and the path',
+                'calling the package with the updatexml option and the path',
                 dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/DOESNOTEXIST'
             )
             ->then('the call will fail with', 'specifies no directory');
@@ -95,7 +95,7 @@ extends Components_StoryTestCase
     public function thePOptionProvidesAnUpdatedPackageXml()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and a Horde component')
+            ->when('calling the package with the updatexml option with action "print" and a Horde component')
             ->then('the new package.xml of the Horde element will be printed.');
     }
 
@@ -105,7 +105,7 @@ extends Components_StoryTestCase
     public function thePOptionWithThePearrcOptionProvidesAnUpdatedPackageXml()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the pearrc, the packagexml option, and a Horde component')
+            ->when('calling the package with the pearrc, the updatexml option with action "print", and a Horde component')
             ->then('the new package.xml of the Horde element will be printed.');
     }
 
@@ -115,7 +115,7 @@ extends Components_StoryTestCase
     public function thePOptionProvidesAnUpdatedPackageXmlWhichRetainsReplaceTasks()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and a Horde component')
+            ->when('calling the package with the updatexml option with action "print" and a Horde component')
             ->then('the new package.xml of the Horde component will retain all "replace" tasks.');
     }
 
@@ -125,7 +125,7 @@ extends Components_StoryTestCase
     public function thePOptionProvidesAnUpdatedPackageXmlWithDefaultInstallLocations()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and a Horde component')
+            ->when('calling the package with the updatexml option with action "print" and a Horde component')
             ->then('the new package.xml will install java script files in a default location')
             ->and('the new package.xml will install migration files in a default location')
             ->and('the new package.xml will install script files in a default location');
@@ -137,7 +137,7 @@ extends Components_StoryTestCase
     public function thePOptionHeedsTheGitIgnoreFile()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and a Horde component')
+            ->when('calling the package with the updatexml option with action "print" and a Horde component')
             ->then('the new package.xml of the Horde component will not contain the file', 'IGNORE.txt')
             ->and('the new package.xml of the Horde component will not contain the file', 'test1')
             ->and('the new package.xml of the Horde component will contain the file', 'test2');
@@ -149,19 +149,15 @@ extends Components_StoryTestCase
     public function testEmptyChangelog()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and a component with empty changelog')
+            ->when('calling the package with the updatexml option with action "print" and a component with empty changelog')
             ->then('the new package.xml of the Horde component will have a changelog entry');
     }
 
 
     /**
-     * @todo Test (and fix) the reactions to three more scenarios:
+     * @todo Test (and possibly fix) three more scenarios:
      *  - invalid XML in the package.xml (e.g. tag missing)
      *  - empty file list
      *  - file list with just one entry.
-     *
-     * All three scenarios yield errors which are still hard to
-     * understand.
      */
-
 }

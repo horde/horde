@@ -76,10 +76,11 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callStrictComponents();
             break;
-        case 'calling the package with the packagexml option and a Horde component':
+        case 'calling the package with the updatexml option with action "print" and a Horde component':
             $_SERVER['argv'] = array(
                 'horde-components',
-                '--packagexml',
+                '--updatexml',
+                '--action=print',
                 dirname(__FILE__) . '/fixture/simple'
             );
             $world['output'] = $this->_callUnstrictComponents();
@@ -98,28 +99,30 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the pearrc, the packagexml option, and a Horde component':
+        case 'calling the package with the pearrc, the updatexml option with action "print", and a Horde component':
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--pearrc=' . $this->_getTemporaryDirectory() . DIRECTORY_SEPARATOR . '.pearrc',
-                '--packagexml',
+                '--updatexml',
+                '--action=print',
                 dirname(__FILE__) . '/fixture/simple'
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the packagexml option and a component with empty changelog':
+        case 'calling the package with the updatexml option with action "print" and a component with empty changelog':
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--pearrc=' . $this->_getTemporaryDirectory() . DIRECTORY_SEPARATOR . '.pearrc',
-                '--packagexml',
+                '--updatexml',
+                '--action=print',
                 dirname(__FILE__) . '/fixture/changelog'
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the packagexml option and the path':
+        case 'calling the package with the updatexml option and the path':
             $_SERVER['argv'] = array(
                 'horde-components',
-                '--packagexml',
+                '--updatexml',
                 $arguments[0]
             );
             $world['output'] = $this->_callStrictComponents();
@@ -264,23 +267,23 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the devpackage option, the archive directory option and a path to a Horde framework component':
+        case 'calling the package with the snapshot option, the archive directory option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--verbose',
-                '--devpackage',
+                '--snapshot',
                 '--archivedir=' . $this->_getTemporaryDirectory(),
                 dirname(__FILE__) . '/fixture/framework/Install'
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the devpackage option, the archive directory option and a path to an invalid Horde framework component':
+        case 'calling the package with the snapshot option, the archive directory option and a path to an invalid Horde framework component':
             $this->_setPearGlobals();
             $cwd = getcwd();
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--verbose',
-                '--devpackage',
+                '--snapshot',
                 '--archivedir=' . $this->_getTemporaryDirectory(),
                 dirname(__FILE__) . '/fixture/simple'
             );
@@ -333,9 +336,9 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['output']
             );
             break;
-        case 'the help will contain the "p" option.':
+        case 'the help will contain the "A" option.':
             $this->assertRegExp(
-                '/-p,\s*--packagexml/m',
+                '/-A ACTION,\s*--action=ACTION/m',
                 $world['output']
             );
             break;
@@ -345,9 +348,9 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['output']
             );
             break;
-        case 'the help will contain the "d" option.':
+        case 'the help will contain the "z" option.':
             $this->assertRegExp(
-                '/-d,\s*--devpackage/',
+                '/-z,\s*--snapshot/',
                 $world['output']
             );
             break;

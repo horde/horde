@@ -48,15 +48,18 @@ extends Components_Module_Base
                 '--updatexml',
                 array(
                     'action' => 'store_true',
-                    'help'   => 'update the package.xml for the package'
+                    'help'   => 'Update the package.xml for the package'
                 )
             ),
             new Horde_Argv_Option(
-                '-p',
-                '--packagexml',
+                '-A',
+                '--action',
                 array(
-                    'action' => 'store_true',
-                    'help'   => 'display an up-to-date package.xml for the package'
+                    'action'  => 'store',
+                    'type'    => 'choice',
+                    'choices' => array('update', 'diff', 'print'),
+                    'default' => 'update',
+                    'help'    => 'An optional argument to "--updatexml" that allows choosing the action that should be performed. The default is "update" which will rewrite the package.xml. "diff" allows you to produce a diffed output of the changes that would be applied with "update" - the "Text_Diff" package needs to be installed for that. "print" will output the new package.xml to the screen rather than rewriting it.'
                 )
             )
 
@@ -66,8 +69,7 @@ extends Components_Module_Base
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
-        if (!empty($options['packagexml']) ||
-            !empty($options['updatexml'])) {
+        if (!empty($options['updatexml'])) {
             $this->_dependencies->getRunnerPearPackageXml()->run();
         }
     }

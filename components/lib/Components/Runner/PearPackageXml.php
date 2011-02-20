@@ -78,11 +78,8 @@ class Components_Runner_PearPackageXml
             );
         }
 
-        if (!empty($options['packagexml'])) {
-            $package->printUpdatedPackageFile();
-        }
         if (!empty($options['updatexml'])) {
-            $package->writeUpdatedPackageFile();
+            $package->updatePackageFile($options['action']);
         }
 
     }

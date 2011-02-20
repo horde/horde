@@ -332,24 +332,50 @@ class Components_Pear_Package
     }
 
     /**
-     * Output the updated package.xml file.
+     * Return the updated package.xml file.
      *
      * @return NULL
      */
-    public function printUpdatedPackageFile()
+    public function _printUpdatedPackageFile()
     {
+        ob_start();
         $this->_getUpdatedPackageFile()->debugPackageFile();
+        $new = ob_get_contents();
+        ob_end_clean();
+        return $new;
     }    
 
     /**
-     * Write the updated package.xml file to disk.
+     * Update the package.xml file.
+     *
+     * @param string $action The action to perform. Either "update", "diff", or "print".
      *
      * @return NULL
      */
-    public function writeUpdatedPackageFile()
+    public function updatePackageFile($action)
     {
-        $this->_getUpdatedPackageFile()->writePackageFile();
-        $this->_output->ok('Successfully updated ' . $this->_package_xml_path);
+        switch($action) {
+        case 'print':
+            print $this->_printUpdatedPackageFile();
+            break;
+        case 'diff':
+            if (!class_exists('Text_Diff')) {
+                throw new Components_Exception('The "Text_Diff" package is missing!');
+            }
+            $new = $this->_printUpdatedPackageFile();
+            $old = file_get_contents($this->_package_xml_path);
+            $renderer = new Text_Diff_Renderer_unified();
+            print $renderer->render(
+                new Text_Diff(
+                    'auto', array(explode("\n", $old), explode("\n", $new))
+                )
+            );
+            break;
+        default:
+            $this->_getUpdatedPackageFile()->writePackageFile();
+            $this->_output->ok('Successfully updated ' . $this->_package_xml_path);
+            break;
+        }
     }    
 
     /**
