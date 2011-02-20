@@ -2,6 +2,10 @@
  Components TODO List
 ======================
 
+ - Fix double file task entry bug.
+
+ - Add a release helper module.
+
  - Document usage
 
  - Add module for generating component documentation.
@@ -40,10 +44,6 @@
 
  - WWW frontend
 
- - The package descriptions need to be escaped when writing them into
-   the Hudson config.xml file (probably means that the templating
-   should be switched to PHP based templates)
-
  - Allow channel dependency detection with external/local package
    dependencies.
 
@@ -52,8 +52,14 @@
  - Add a commit module that automatically adds a changelog entry in
    the notes section of the package.xml
 
- - Add a release helper module.
-
  - Allow absolute/relative paths as arguments
 
- - Fix double file task entry bug.
+ - Allow to "phingify" components.
+
+ - Allow preparing a PHAR install package
+
+ - Add validations (+ before release)
+   - COPYING
+   - Tests
+   - phpDocumentor
+   - Code style
