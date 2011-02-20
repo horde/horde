@@ -294,7 +294,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         $this->_logger->debug("Horde_ActiveSync_Driver_Horde::getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)");
 
-        $changes = array();
+        $changes = array(
+            'add' => array(),
+            'delete' => array(),
+            'modify' => array()
+        );
+
         ob_start();
         switch ($folderId) {
         case self::APPOINTMENTS_FOLDER:
@@ -388,7 +393,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'type' => 'delete');
         }
         $this->_endBuffer();
-        
+
         return $results;
     }
 
