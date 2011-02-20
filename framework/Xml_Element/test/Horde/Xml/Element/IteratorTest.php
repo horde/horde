@@ -38,7 +38,7 @@ class Horde_Xml_Element_IteratorTest extends PHPUnit_Framework_TestCase
     public function testCurrent()
     {
         foreach ($this->list as $i) {
-            $this->assertType('Horde_Xml_Element', $i, 'Each list item should be an instance of Horde_Xml_Element');
+            $this->assertInstanceOf('Horde_Xml_Element', $i, 'Each list item should be an instance of Horde_Xml_Element');
             break;
         }
     }
