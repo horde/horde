@@ -267,14 +267,32 @@ class Horde_Xml_Element implements ArrayAccess
         }
 
         if (is_string($this->_element)) {
-            $doc = new DOMDocument;
+            $doc = new DOMDocument();
             $doc->preserveWhiteSpace = false;
+
+            $extract = false;
+            if (substr($this->_element, 0, 5) != '<?xml') {
+                $extract = true;
+                $preamble = '<?xml version="1.0" encoding="UTF-8" ?><root ';
+                foreach (self::$_namespaces as $prefix => $nsUri) {
+                    $preamble .= " xmlns:$prefix=\"$nsUri\"";
+                }
+                $preamble .= '>';
+                $this->_element = $preamble . $this->_element . '</root>';
+            }
+
             $loaded = @$doc->loadXML($this->_element);
             if (!$loaded) {
                 throw new Horde_Xml_Element_Exception('DOMDocument cannot parse XML: ', error_get_last());
             }
 
-            $this->_element = $doc->documentElement;
+            if ($extract) {
+                $newDoc = new DOMDocument();
+                $this->_element = $newDoc->importNode($doc->documentElement->childNodes->item(0), true);
+            } else {
+                $this->_element = $doc->documentElement;
+            }
+
             return true;
         }
 
