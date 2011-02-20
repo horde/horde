@@ -1399,7 +1399,11 @@ var DimpBase = {
         // Toggle resume link
         [ $('msg_resume_draft').up() ].invoke(vs.get('dataob').first().draft ? 'show' : 'hide');
 
-        $('messageBody').update(r.msgtext);
+        $('messageBody').update(
+            (r.msgtext === null)
+                ? $('messageBodyError').down().clone(true).show().writeAttribute('id', 'ppane_view_error')
+                : r.msgtext
+        );
         this.loadingImg('msg', false);
         $('previewInfo').hide();
         $('previewPane').scrollTop = 0;
@@ -2242,6 +2246,7 @@ var DimpBase = {
 
             case 'msg_newwin':
             case 'msg_newwin_options':
+            case 'ppane_view_error':
                 this.msgWindow(this.viewport.getSelection().search({ imapuid: { equal: [ this.pp.imapuid ] } , view: { equal: [ this.pp.view ] } }).get('dataob').first());
                 e.stop();
                 return;

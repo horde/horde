@@ -503,3 +503,14 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <span class="kbd"><?php echo _("Ctrl") ?></span> + <span class="kbd"><?php echo 'A' ?></span> : <?php echo _("Select all messages in the current mailbox.") ?>
  </div>
 </div>
+
+<div id="messageBodyError">
+ <table class="mimeStatusMessageTable" style="display:none">
+  <tr>
+   <td><?php echo _("Unable to view message in preview pane.") ?></td>
+  </tr>
+  <tr>
+   <td><a href="#" class="messageBodyErrorLink"><?php echo _("Click HERE to view the message in a new window.") ?></a></td>
+  </tr>
+ </table>
+</div>
