@@ -138,27 +138,37 @@ implements Horde_Kolab_Storage
      * Return a data handler for accessing data in the specified
      * folder.
      *
-     * @param string $folder       The name of the folder.
-     * @param string $object_type  The type of data we want to
-     *                             access in the folder.
+     * @param mixed  $folder       The name of the folder or an instance
+     *                             representing the folder.
+
+     * @param string $object_type  The type of data we want to access in the
+     *                             folder.
      * @param int    $data_version Format version of the object data.
      *
      * @return Horde_Kolab_Data The data object.
      */
     public function getData($folder, $object_type = null, $data_version = 1)
     {
+        if ($folder instanceOf Horde_Kolab_Storage_Folder) {
+            $folder_key = $folder->getPath();
+        } else {
+            $folder_key = $folder;
+        }
         $key = join(
             '@',
             array(
                 $data_version,
                 $object_type,
-                $folder,
+                $folder_key,
                 $this->_master->getId()
             )
         );
         if (!isset($this->_data[$key])) {
+            if (!$folder instanceOf Horde_Kolab_Storage_Folder) {
+                $folder = $this->getList()->getFolder($folder);
+            }
             $this->_data[$key] = new Horde_Kolab_Storage_Data_Base(
-                $this->getList()->getFolder($folder),
+                $folder,
                 $this->_master,
                 $this->_factory,
                 $object_type,
