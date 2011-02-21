@@ -1,63 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Text_Textile</name>
  <channel>pear.horde.org</channel>
  <summary>Textile formatting library</summary>
- <description>
-_____________
-T E X T I L E
-
-A Humane Web Text Generator
-
-Version 2.0
-
-Copyright (c) 2003-2004, Dean Allen &lt;dean@textism.com&gt;
-All rights reserved.
-
-Thanks to Carlo Zottmann &lt;carlo@g-blog.net&gt; for refactoring
-Textile's procedural code into a class framework
-
-Additions and fixes Copyright (c) 2006 Alex Shiels http://thresholdstate.com/
-
-_____________
-L I C E N S E
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice,
-  this list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name Textile nor the names of its contributors may be used to
-  endorse or promote products derived from this software without specific
-  prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
- </description>
+ <description>A Humane Web Text Generator.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2007-05-12</date>
+ <date>2011-02-21</date>
+ <time>23:42:53</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -72,7 +26,7 @@ POSSIBILITY OF SUCH DAMAGE.
 * Add return links to footnotes
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Text">
@@ -80,6 +34,25 @@ POSSIBILITY OF SUCH DAMAGE.
      </dir> <!-- /lib/Horde/Text -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Textile">
+       <file name="AllTests.php" role="test" />
+       <file name="AttributesTest.php" role="test" />
+       <file name="BlockModifiersTest.php" role="test" />
+       <file name="ExternalReferencesTest.php" role="test" />
+       <file name="ListsTest.php" role="test" />
+       <file name="PhraseModifiersTest.php" role="test" />
+       <file name="TablesTest.php" role="test" />
+       <file name="TestCase.php" role="test" />
+       <file name="WritingTest.php" role="test" />
+      </dir> <!-- /test/Horde/Text/Textile -->
+     </dir> <!-- /test/Horde/Text -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+   <file name="LICENSE" role="data" />
+   <file name="README" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -94,7 +67,36 @@ POSSIBILITY OF SUCH DAMAGE.
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Text/Textile.php" as="Horde/Text/Textile.php" />
+   <install as="Horde/Text/Textile.php" name="lib/Horde/Text/Textile.php" />
+   <install as="Horde/Text/Textile/AllTests.php" name="test/Horde/Text/Textile/AllTests.php" />
+   <install as="Horde/Text/Textile/AttributesTest.php" name="test/Horde/Text/Textile/AttributesTest.php" />
+   <install as="Horde/Text/Textile/BlockModifiersTest.php" name="test/Horde/Text/Textile/BlockModifiersTest.php" />
+   <install as="Horde/Text/Textile/ExternalReferencesTest.php" name="test/Horde/Text/Textile/ExternalReferencesTest.php" />
+   <install as="Horde/Text/Textile/ListsTest.php" name="test/Horde/Text/Textile/ListsTest.php" />
+   <install as="Horde/Text/Textile/PhraseModifiersTest.php" name="test/Horde/Text/Textile/PhraseModifiersTest.php" />
+   <install as="Horde/Text/Textile/TablesTest.php" name="test/Horde/Text/Textile/TablesTest.php" />
+   <install as="Horde/Text/Textile/TestCase.php" name="test/Horde/Text/Textile/TestCase.php" />
+   <install as="Horde/Text/Textile/WritingTest.php" name="test/Horde/Text/Textile/WritingTest.php" />
+   <install as="LICENSE" name="LICENSE" />
+   <install as="README" name="README" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-02-21</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Initial release.
+* Add return links to footnotes
+   </notes>
+  </release>
+ </changelog>
 </package>
