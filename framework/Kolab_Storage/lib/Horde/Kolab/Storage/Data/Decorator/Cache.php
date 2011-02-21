@@ -68,6 +68,16 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Return the ID parameters for this data handler.
+     *
+     * @return array The ID parameters.
+     */
+    public function getIdParameters()
+    {
+        return $this->_data->getIdParameters();
+    }
+
+    /**
      * Return the data type represented by this object.
      *
      * @return string The type of data this instance handles.
@@ -263,6 +273,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             $stamp,
             $this->_data->getVersion()
         );
+        $this->_data_cache->save();
     }
 
     /**

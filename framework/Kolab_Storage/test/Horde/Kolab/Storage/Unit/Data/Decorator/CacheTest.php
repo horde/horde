@@ -75,6 +75,17 @@ extends Horde_Kolab_Storage_TestCase
         $this->_getDataCache()->synchronize();
     }
 
+    public function testSaveAfterCompleteSync()
+    {
+        $mock = $this->getMock('Horde_Kolab_Storage_Cache_Data', array(), array(), '', false, false);
+        $mock->expects($this->once())
+            ->method('isInitialized')
+            ->will($this->returnValue(false));
+        $mock->expects($this->once())
+            ->method('save');
+        $this->_getCacheDecorator($mock);
+    }
+
     public function testFetch()
     {
         $objects = $this->_getDataCache()
@@ -126,7 +137,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testBackendId()
     {
         $this->assertEquals(
-            '1',
+            '4',
             $this->_getDataCache()
             ->getBackendId('libkcal-543769073.139')
         );
@@ -178,11 +189,17 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getDataCache()
     {
+        return $this->_getCacheDecorator(
+            $this->data_cache = $this->getMockDataCache()
+        );
+    }
+
+    private function _getCacheDecorator(Horde_Kolab_Storage_Cache_Data $cache)
+    {
         $this->storage = $this->getMessageStorage();
-        $this->data_cache = $this->getMockDataCache();
         $cache = new Horde_Kolab_Storage_Data_Decorator_Cache(
             $this->storage->getData('INBOX/Calendar'),
-            $this->data_cache
+            $cache
         );
         $cache->synchronize();
         return $cache;

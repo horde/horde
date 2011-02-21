@@ -251,15 +251,15 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Cache_List',
-            $this->cache->getListCache($this->_getConnectionParameters())
+            $this->cache->getListCache($this->_getIdParameters())
         );
     }
 
     public function testCachedListCache()
     {
         $this->assertSame(
-            $this->cache->getListCache($this->_getConnectionParameters()),
-            $this->cache->getListCache($this->_getConnectionParameters())
+            $this->cache->getListCache($this->_getIdParameters()),
+            $this->cache->getListCache($this->_getIdParameters())
         );
     }
 
@@ -269,7 +269,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->cache->getListCache(
                 array('host' => 'b', 'port' => 1, 'user' => 'x')
             ),
-            $this->cache->getListCache($this->_getConnectionParameters())
+            $this->cache->getListCache($this->_getIdParameters())
         );
     }
 
@@ -279,7 +279,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->cache->getListCache(
                 array('host' => 'a', 'port' => 2, 'user' => 'x')
             ),
-            $this->cache->getListCache($this->_getConnectionParameters())
+            $this->cache->getListCache($this->_getIdParameters())
         );
     }
 
@@ -289,7 +289,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->cache->getListCache(
                 array('host' => 'a', 'port' => 1, 'user' => 'y')
             ),
-            $this->cache->getListCache($this->_getConnectionParameters())
+            $this->cache->getListCache($this->_getIdParameters())
         );
     }
 
@@ -338,7 +338,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals(array('folders' => array('a', 'b')), $this->cache->loadList('user@example.com:143'));
     }
 
-    private function _getConnectionParameters()
+    private function _getIdParameters()
     {
         return array('host' => 'a', 'port' => 1, 'user' => 'x');
     }

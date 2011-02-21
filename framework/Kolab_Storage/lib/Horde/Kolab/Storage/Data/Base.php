@@ -107,9 +107,24 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         unset($id['user']);
         $id['owner'] = $this->_folder->getOwner();
         $id['folder'] = $this->_folder->getSubpath();
-        $id['type'] = $this->_type;
+        $id['type'] = $this->getType();
         ksort($id);
         return md5(serialize($id));
+    }
+
+    /**
+     * Return the ID parameters for this data handler.
+     *
+     * @return array The ID parameters.
+     */
+    public function getIdParameters()
+    {
+        $id = $this->_driver->getParameters();
+        unset($id['user']);
+        $id['owner'] = $this->_folder->getOwner();
+        $id['folder'] = $this->_folder->getSubpath();
+        $id['type'] = $this->getType();
+        return $id;
     }
 
     /**
