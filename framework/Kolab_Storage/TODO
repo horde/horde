@@ -2,7 +2,7 @@
  Kolab_Storage Development TODO List
 =====================================
 
- - Handle TLS/SSL accross all drivers (see also the Storage factor in Core).
+ - Handle TLS/SSL accross all drivers (see also the Storage factory in Core).
 
  - Handle Format parsing exceptions
 
