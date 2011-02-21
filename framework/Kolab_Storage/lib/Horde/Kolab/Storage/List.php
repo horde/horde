@@ -49,14 +49,14 @@ extends Horde_Kolab_Storage_Queriable
      *
      * @return string The connection ID.
      */
-    public function getConnectionId();
+    public function getId();
 
     /**
      * Return the connection parameters.
      *
      * @return array The connection parameters.
      */
-    public function getConnectionParameters();
+    public function getIdParameters();
 
     /**
      * Returns a representation for the requested folder.
@@ -66,6 +66,15 @@ extends Horde_Kolab_Storage_Queriable
      * @return Horde_Kolab_Storage_Folder The folder representation.
      */
     public function getFolder($folder);
+
+    /**
+     * Mark the specified folder as the default folder of this type.
+     *
+     * @param string $folder The path of the folder to mark as default.
+     *
+     * @return NULL
+     */
+    public function setDefault($folder);
 
     /**
      * Returns the list of folders visible to the current user.

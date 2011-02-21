@@ -81,7 +81,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *
      * @return string The connection ID.
      */
-    public function getConnectionId()
+    public function getId()
     {
         return $this->_driver->getId();
     }
@@ -91,7 +91,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *
      * @return array The connection parameters.
      */
-    public function getConnectionParameters()
+    public function getIdParameters()
     {
         return $this->_driver->getParameters();
     }
@@ -161,6 +161,45 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
             $this,
             $folder
         );
+    }
+
+    /**
+     * Mark the specified folder as the default folder of this type.
+     *
+     * @param string $folder The path of the folder to mark as default.
+     *
+     * @return NULL
+     */
+    public function setDefault($folder)
+    {
+        /* $result = array(); */
+        /* $namespace = $this->getNamespace(); */
+        /* $list = $this->listFolderTypes(); */
+        /* foreach ($list as $name => $annotation) { */
+        /*     $result[$name] = $this->_factory->createFolderType($annotation); */
+        /* } */
+        /* if (!isset($result[$folder])) { */
+        /*     $type = 'mail'; */
+        /* } else { */
+        /*     $type = $result[$folder]->getType(); */
+        /* } */
+        /* foreach ($result as $name => $annotation) { */
+        /*     if ($annotation->getType() == $type */
+        /*         && $annotation->isDefault() */
+        /*         && ($namespace->matchNamespace($name)->getType() */
+        /*             == Horde_Kolab_Storage_Folder_Namespace::PERSONAL)) { */
+        /*         $this->_driver->setAnnotation( */
+        /*             $name, */
+        /*             self::ANNOTATION_FOLDER_TYPE, */
+        /*             $type */
+        /*         ); */
+        /*     } */
+        /* } */
+        /* $this->_driver->setAnnotation( */
+        /*     $folder, */
+        /*     self::ANNOTATION_FOLDER_TYPE, */
+        /*     $type . '.default' */
+        /* ); */
     }
 
     /**

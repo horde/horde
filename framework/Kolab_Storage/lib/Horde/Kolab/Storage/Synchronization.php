@@ -37,7 +37,7 @@ class Horde_Kolab_Storage_Synchronization
      */
     public function synchronizeList(Horde_Kolab_Storage_List $list)
     {
-        $list_id = $list->getConnectionId();
+        $list_id = $list->getId();
         if (empty($_SESSION['kolab_storage']['synchronization']['list'][$list_id])) {
             $list->synchronize();
             $_SESSION['kolab_storage']['synchronization']['list'][$list_id] = true;

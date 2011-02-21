@@ -62,7 +62,7 @@ extends Horde_Kolab_Storage_TestCase
             'Horde_Kolab_Storage_List_Base', array(), array(), '', false, false
         );
         $list->expects($this->once())
-            ->method('getConnectionId')
+            ->method('getId')
             ->will($this->returnValue('test'));
         $synchronization->synchronizeList($list);
         $this->assertTrue($_SESSION['kolab_storage']['synchronization']['list']['test']);

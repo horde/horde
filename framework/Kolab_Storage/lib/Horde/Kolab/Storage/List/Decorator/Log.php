@@ -72,9 +72,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *
      * @return string The connection ID.
      */
-    public function getConnectionId()
+    public function getId()
     {
-        return $this->_list->getConnectionId();
+        return $this->_list->getId();
     }
 
     /**
@@ -82,9 +82,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *
      * @return array The connection parameters.
      */
-    public function getConnectionParameters()
+    public function getIdParameters()
     {
-        return $this->_list->getConnectionParameters();
+        return $this->_list->getIdParameters();
     }
 
     /**
@@ -150,6 +150,18 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Mark the specified folder as the default folder of this type.
+     *
+     * @param string $folder The path of the folder to mark as default.
+     *
+     * @return NULL
+     */
+    public function setDefault($folder)
+    {
+        $this->_list->setDefault($folder);
+    }
+
+    /**
      * Returns the list of folders visible to the current user.
      *
      * @return array The list of folders, represented as a list of strings.
@@ -159,14 +171,14 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
         $this->_logger->info(
             sprintf(
                 'Listing folders for %s.',
-                $this->getConnectionId()
+                $this->getId()
             )
         );
         $result = $this->_list->listFolders();
         $this->_logger->info(
             sprintf(
                 'List for %s contained %s folders.',
-                $this->getConnectionId(),
+                $this->getId(),
                 count($result)
             )
         );
@@ -184,14 +196,14 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
         $this->_logger->info(
             sprintf(
                 'Listing folder type annotations for %s.',
-                $this->getConnectionId()
+                $this->getId()
             )
         );
         $result = $this->_list->listFolderTypes();
         $this->_logger->info(
             sprintf(
                 'List for %s contained %s folders and annotations.',
-                $this->getConnectionId(),
+                $this->getId(),
                 count($result)
             )
         );
@@ -219,7 +231,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
         $this->_logger->info(
             sprintf(
                 'Synchronized folder list for %s.',
-                $this->getConnectionId()
+                $this->getId()
             )
         );
     }

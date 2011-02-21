@@ -76,7 +76,7 @@ implements Horde_Kolab_Storage
     {
         $decorated_list = $this->_storage->getList();
         $list_cache = $this->_cache->getListCache(
-            $decorated_list->getConnectionParameters()
+            $decorated_list->getIdParameters()
         );
         $list = new Horde_Kolab_Storage_List_Decorator_Cache(
             $this->_storage->getList(),
@@ -116,7 +116,7 @@ implements Horde_Kolab_Storage
             $params,
             array(
                 'cache' => $this->_cache->getListCache(
-                    $list->getConnectionParameters()
+                    $list->getIdParameters()
                 )
             )
         );

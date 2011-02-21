@@ -78,41 +78,91 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    public function testTwoCachedLists()
+    private function _twoListCaches($cache, $n1, $n2)
     {
+        $lc1 = new Horde_Kolab_Storage_Cache_List($cache);
+        $lc1->setListId($n1);
+        $lc2 = new Horde_Kolab_Storage_Cache_List($cache);
+        $lc2->setListId($n2);
+        return array($lc1, $lc2);
+    }
+
+    public function testTwoDifferentCachedLists()
+    {
+        $cache = $this->getMockCache();
+        list($lc1, $lc2) = $this->_twoListCaches($cache, 'lc1', 'lc2');
+
         $decorated = $this->getMockDriverList();
         $this->mockDriver->expects($this->once())
             ->method('getMailboxes') 
             ->will($this->returnValue(array('INBOX')));
-        $this->mockDriver->expects($this->once())
-            ->method('getId') 
-            ->will($this->returnValue('A'));
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $decorated,
-            $this->getMockListCache()
-        );
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache($decorated, $lc1);
 
         $mockDriver2 = $this->getMock('Horde_Kolab_Storage_Driver');
         $mockDriver2->expects($this->once())
             ->method('getMailboxes') 
             ->will($this->returnValue(array('NOTHING')));
-        $mockDriver2->expects($this->once())
-            ->method('getId') 
-            ->will($this->returnValue('B'));
         $list2 = new Horde_Kolab_Storage_List_Decorator_Cache(
             new Horde_Kolab_Storage_List_Base(
                 $mockDriver2,
                 new Horde_Kolab_Storage_Factory()
             ),
-            $this->getMockListCache()
+            $lc2
         );
-
         $list->listFolders();
         $list2->listFolders();
-        $this->assertEquals(
-            array('NOTHING'),
-            $list2->listFolders()
+
+        list($lc1, $lc2) = $this->_twoListCaches($cache, 'lc1', 'lc2');
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache($decorated, $lc1);
+        $list2 = new Horde_Kolab_Storage_List_Decorator_Cache(
+            new Horde_Kolab_Storage_List_Base(
+                $mockDriver2,
+                new Horde_Kolab_Storage_Factory()
+            ),
+            $lc2
         );
+
+        $this->assertEquals(array('INBOX'), $list->listFolders());
+        $this->assertEquals(array('NOTHING'), $list2->listFolders());
+    }
+
+    public function testTwoEqualCachedLists()
+    {
+        $cache = $this->getMockCache();
+        list($lc1, $lc2) = $this->_twoListCaches($cache, 'lc1', 'lc1');
+
+        $decorated = $this->getMockDriverList();
+        $this->mockDriver->expects($this->once())
+            ->method('getMailboxes') 
+            ->will($this->returnValue(array('INBOX')));
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache($decorated, $lc1);
+
+        $mockDriver2 = $this->getMock('Horde_Kolab_Storage_Driver');
+        $mockDriver2->expects($this->never())
+            ->method('getMailboxes') 
+            ->will($this->returnValue(array('NOTHING')));
+        $list2 = new Horde_Kolab_Storage_List_Decorator_Cache(
+            new Horde_Kolab_Storage_List_Base(
+                $mockDriver2,
+                new Horde_Kolab_Storage_Factory()
+            ),
+            $lc2
+        );
+        $list->listFolders();
+        $list2->listFolders();
+
+        list($lc1, $lc2) = $this->_twoListCaches($cache, 'lc1', 'lc1');
+        $list = new Horde_Kolab_Storage_List_Decorator_Cache($decorated, $lc1);
+        $list2 = new Horde_Kolab_Storage_List_Decorator_Cache(
+            new Horde_Kolab_Storage_List_Base(
+                $mockDriver2,
+                new Horde_Kolab_Storage_Factory()
+            ),
+            $lc2
+        );
+
+        $this->assertEquals(array('INBOX'), $list->listFolders());
+        $this->assertEquals(array('INBOX'), $list2->listFolders());
     }
 
     public function testSynchronizeFolders()
@@ -222,7 +272,7 @@ extends Horde_Kolab_Storage_TestCase
                 $cache
             )
         );
-        $cache->storeList($list->getConnectionId(), serialize(array('S' => time(), 'V' => '1')));
+        $cache->storeList($list->getId(), serialize(array('S' => time(), 'V' => '1')));
         $this->mockDriver->expects($this->never())
             ->method('getMailboxes') 
             ->will($this->returnValue(array('INBOX')));
@@ -233,8 +283,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $cache = $this->getMockCache();
         $list_cache = new Horde_Kolab_Storage_Cache_List($cache);
+        $list_cache->setListId('test');
         $list = $this->_setupMockList($list_cache);
-        $cache->storeList($list->getConnectionId(), serialize(array('S' => time(), 'V' => '2')));
+        $cache->storeList($list->getId(), serialize(array('S' => time(), 'V' => '2')));
         $this->mockDriver->expects($this->once())
             ->method('listAnnotation')
             ->will($this->returnValue(array('INBOX' => 'mail.default')));
@@ -245,9 +296,10 @@ extends Horde_Kolab_Storage_TestCase
     {
         $cache = $this->getMockCache();
         $list_cache = new Horde_Kolab_Storage_Cache_List($cache);
+        $list_cache->setListId('test');
         $list = $this->_setupMockList($list_cache);
         $list->listFolders();
-        $cache->storeList($list->getConnectionId(), 'V', '2');
+        $cache->storeList($list->getId(), 'V', '2');
         $list->listFolders();
     }
 
@@ -281,11 +333,10 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $cache = $this->getMockCache();
+        $list_cache = new Horde_Kolab_Storage_Cache_List($cache);
+        $list_cache->setListId('test');
         $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $this->getMockDriverList($factory),
-            new Horde_Kolab_Storage_Cache_List(
-                $cache
-            )
+            $this->getMockDriverList($factory), $list_cache
         );
         $query = $factory->createListQuery(
             'Horde_Kolab_Storage_List_Query_List_Base', $list
