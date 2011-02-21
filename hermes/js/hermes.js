@@ -259,6 +259,8 @@ HermesCore = {
                 this.go('time');
                 e.stop();
                 return;
+            case 'hermesTimeSaveAsNew':
+                $('hermesTimeFormId').value = null;
             case 'hermesTimeSave':
                 this.saveTime();
                 e.stop();
@@ -445,6 +447,7 @@ HermesCore = {
         } else {
             this.doAction('enterTime', params, this.saveTimeCallback.bind(this));
         }
+        $('hermesTimeSaveAsNew').hide();
     },
 
     saveTimeCallback: function(r)
