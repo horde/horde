@@ -1606,9 +1606,9 @@ class Turba_Driver implements Countable
                 }
                 if ($fields &&
                     (!isset($fields[$name]) ||
-                     !isset($params['TYPE'])) ||
-                     (isset($fields[$name]->Params['TYPE']) &&
-                      !isset($fields[$name]->Params['TYPE']->ValEnum[$params['TYPE']]))) {
+                     (isset($params['TYPE']) &&
+                      isset($fields[$name]->Params['TYPE']) &&
+                      !isset($fields[$name]->Params['TYPE']->ValEnum[$params['TYPE']])))) {
                     break;
                 }
                 $vcard->setAttribute($name,

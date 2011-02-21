@@ -17,6 +17,7 @@ v3.0-git
 v2.3.6-cvs
 ----------
 
+[jan] Allow to export photo/logo fields to vCard without MIME type.
 [jan] Support X-EPOCSECONDNAME fields of Nokia phones.
 [jan] Add upgrade scripts for next-generation SQL share driver.
 [jan] Fix splitting up names when exporting to N properties of vCards.
