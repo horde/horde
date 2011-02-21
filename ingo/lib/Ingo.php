@@ -107,10 +107,11 @@ class Ingo
     {
         global $conf, $registry;
 
-        if (!empty($conf['rules']['usefolderapi'])) {
+        if ($registry->hasMethod('mail/folderlist')) {
+            $createfolder = $registry->hasMethod('mail/createFolder');
+
             try {
                 $mailboxes = $registry->call('mail/folderlist');
-                $createfolder = $registry->hasMethod('mail/createFolder');
 
                 $text = '<select id="' . $tagname . '" name="' . $tagname . '"';
                 if ($createfolder || $onchange) {
@@ -124,9 +125,10 @@ class Ingo
                     }
                     $text .= '"';
                 }
+
                 $text .= "\n<option value=\"\">" . _("Select target folder:") . "</option>\n";
 
-                if ($registry->hasMethod('mail/createFolder')) {
+                if ($createfolder) {
                     $text .= '<option value="">' . _("Create new folder") . "</option>\n";
                 }
 

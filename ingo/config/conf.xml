@@ -21,11 +21,6 @@
   <configheader>Rules Options</configheader>
   <configboolean name="userheader" desc="Allow users to manually enter Header
   fields to search by in the Rule edit screen?">true</configboolean>
-  <configboolean name="usefolderapi" desc="Use the Horde 'mail/folderlist' API
-  call to obtain the list of mail folders to use for various filtering rules?
-  If IMP is installed it will provide the API call, so you should say true. If
-  false, the user must manually enter the name of the folder (NOT
-  RECOMMENDED).">true</configboolean>
  </configsection>
 
  <configsection name="spam">
