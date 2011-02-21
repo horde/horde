@@ -985,11 +985,13 @@ class Turba_Driver implements Countable
 
             case 'nickname':
             case 'alias':
-                if ($fields && !isset($fields['NICKNAME'])) {
-                    break;
+                $params = Horde_Mime::is8bit($val) ? $charset : array();
+                if (!$fields || isset($fields['NICKNAME'])) {
+                    $vcard->setAttribute('NICKNAME', $val, $params);
                 }
-                $vcard->setAttribute('NICKNAME', $val,
-                                     Horde_Mime::is8bit($val) ? $charset : array());
+                if (!$fields || isset($fields['X-EPOCSECONDNAME'])) {
+                    $vcard->setAttribute('X-EPOCSECONDNAME', $val, $params);
+                }
                 break;
 
             case 'homeAddress':
@@ -1875,6 +1877,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'NICKNAME':
+            case 'X-EPOCSECONDNAME':
                 $hash['nickname'] = $item['value'];
                 $hash['alias'] = $item['value'];
                 break;
