@@ -76,6 +76,14 @@ body.hermesAjax {
     position: absolute;
     left: 0;
 }
+#hermesLoading {
+    float: right;
+    background: transparent url("graphics/loading.gif") no-repeat center;
+    padding: 2px;
+    width: 16px;
+    height: 16px;
+    border: 1px #999 solid;
+}
 /* User data and options */
 #hermesApplications {
     display: inline;

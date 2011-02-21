@@ -16,7 +16,6 @@ HermesCore = {
     today: null,
 
     doActionOpts: {
-
         onException: function(parentfunc, r, e)
         {
             /* Make sure loading images are closed. */
@@ -354,12 +353,14 @@ HermesCore = {
 
     deleteSlice: function(slice)
     {
+        $('hermesLoading').show();
         sid = slice.retrieve('sid');
         this.doAction('deleteSlice', {'id': sid}, this.deletesliceCallback.curry(slice, sid).bind(this));
     },
 
     deletesliceCallback: function(elt, sid, r)
     {
+        $('hermesLoading').hide();
         if (r.response) {
             this.removeSliceFromUI(elt, sid);
         } else {
@@ -417,6 +418,7 @@ HermesCore = {
      */
     clientChangeHandler: function(e)
     {
+        $('hermesLoading').show();
         this.doAction('listDeliverables',
                       {'c': $F('hermesTimeFormClient')},
                       this.listDeliverablesCallback.bind(this)
@@ -428,6 +430,7 @@ HermesCore = {
      */
     listDeliverablesCallback: function(r)
     {
+        $('hermesLoading').hide();
         $('hermesTimeFormCostobject').childElements().each(function(el) {
             el.remove();
         });
@@ -440,6 +443,7 @@ HermesCore = {
 
     saveTime: function()
     {
+        $('hermesLoading').show();
         params = $H($('hermesTimeForm').serialize({ hash: true }));
         // New or Edit?
         if ($F('hermesTimeFormId') > 0) {
@@ -452,6 +456,7 @@ HermesCore = {
 
     saveTimeCallback: function(r)
     {
+        $('hermesLoading').hide();
         // Just push the new slice on the stack, and rerender the view.
         this.slices.push(r.response);
         this.reverseSort = false;
@@ -463,6 +468,7 @@ HermesCore = {
     // TODO: Need to probably optimise this and saveTimeCallback()
     editTimeCallback: function(sid, r)
     {
+        $('hermesLoading').hide();
         this.replaceSliceInCache(sid, r.response);
         this.reverseSort = false;
         this.updateView(this.view);
@@ -473,6 +479,7 @@ HermesCore = {
 
     submitSlices: function()
     {
+        $('hermesLoading').show();
         var sliceIds = [];
         var slices = [];
         $('hermesTimeListBody').select('.hermesSelectedSlice').each(function(s) {
@@ -486,6 +493,7 @@ HermesCore = {
 
     submitSlicesCallback: function(ids, r)
     {
+        $('hermesLoading').hide();
         ids.each(function(i) { this.removeSliceFromUI(i, i.retrieve('sid'), null); }.bind(this));
     },
 
@@ -514,6 +522,7 @@ HermesCore = {
      */
     loadSlices: function()
     {
+        $('hermesLoading').show();
         this.slices = [];
         this.doAction('getTimeSlices', { "e": Hermes.conf.user, "s": false }, this.loadSlicesCallback.bind(this));
     },
@@ -523,6 +532,7 @@ HermesCore = {
      */
     loadSlicesCallback: function(r)
     {
+        $('hermesLoading').hide();
         this.slices = r.response;
         this.buildTimeTable();
         this.onResize(null);

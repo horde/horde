@@ -32,6 +32,7 @@
   <!-- end services -->
  <!-- begin top bar -->
  <div id="hermesBar">
+  <div id="hermesLoading" style="display:none"></div>
   <div id="hermesNav">
     <ul>
       <li><a href="#" id="hermesNavTime"><?php echo _("Log")?></a></li>
@@ -89,7 +90,6 @@
 
 <!-- begin body -->
 <div id="hermesBody">
-<div id="hermesLoading" style="display:none"></div>
 <?php
 require dirname(__FILE__) . '/timeedit.inc';
 ?>
