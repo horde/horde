@@ -427,7 +427,7 @@ class Ansel_View_GalleryProperties
         $files = scandir($dir);
         $views = array();
         foreach ($files as $file) {
-            if ($file != 'Base.php' && $file != '.' && $file != '..') {
+            if ($file != 'Base.php' && strpos($file, '.') !== 0) {
                 $class = 'Ansel_View_GalleryRenderer_' . substr($file, 0, -4);
                 $view = new $class(null);
                 $views[substr($file, 0, -4)] = $view->title;
