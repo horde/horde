@@ -327,7 +327,7 @@ HermesCore = {
 
     populateSliceForm: function(sid)
     {
-        var d,slice;
+        var d, slice;
         if (!$('hermesTimeSaveAsNew').visible()) {
             $('hermesTimeSaveAsNew').toggle();
         }
@@ -515,7 +515,7 @@ HermesCore = {
     loadSlices: function()
     {
         this.slices = [];
-        this.doAction('getTimeSlices', {"e": Hermes.conf.user, "s": false}, this.loadSlicesCallback.bind(this));
+        this.doAction('getTimeSlices', { "e": Hermes.conf.user, "s": false }, this.loadSlicesCallback.bind(this));
     },
 
     /**
@@ -560,20 +560,20 @@ HermesCore = {
                slices = this.slices.sortBy(function(s) { return s.cn.name });
                break;
             case 'sortCostObject':
-                slices = this.slices.sortBy(function(s) {return s.con});
+                slices = this.slices.sortBy(function(s) { return s.con });
                 break;
             case 'sortType':
-                slices = this.slices.sortBy(function(s) {return s.tn});
+                slices = this.slices.sortBy(function(s) { return s.tn });
                 break;
             case 'sortHours':
-                slices = this.slices.sortBy(function(s) {return s.h * 1});
+                slices = this.slices.sortBy(function(s) { return s.h * 1 });
             default:
                 slices = this.slices;
                 break;
             }
         }
         this.slices = slices;
-        t = new Element('div', {'style': 'display: none;' });
+        t = new Element('div', { 'style': 'display: none;' });
 
         slices.each(function(slice) {
             t.insert(this.buildTimeRow(slice).toggle());
