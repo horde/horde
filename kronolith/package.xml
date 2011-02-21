@@ -829,6 +829,10 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <usesrole>

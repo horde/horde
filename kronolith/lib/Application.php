@@ -58,7 +58,7 @@ class Kronolith_Application extends Horde_Registry_Application
          * the fileroot entry. */
         $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
-            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
+            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
         }
 
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');
