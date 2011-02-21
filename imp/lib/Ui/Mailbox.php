@@ -174,9 +174,14 @@ class IMP_Ui_Mailbox
             $this->_cache['today_end'] = new DateTime('today + 1 day');
         }
 
-        try {
-            $udate = $date->format('U');
-        } catch (Exception $e) {
+        $udate = null;
+        if (!$date->error()) {
+            try {
+                $udate = $date->format('U');
+            } catch (Exception $e) {}
+        }
+
+        if (is_null($udate)) {
             return _("Unknown Date");
         }
 

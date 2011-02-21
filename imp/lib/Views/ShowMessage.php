@@ -206,11 +206,7 @@ class IMP_Views_ShowMessage
         if ($preview) {
             /* Get minidate. */
             $imp_mailbox_ui = new IMP_Ui_Mailbox();
-            $localdate = $imp_mailbox_ui->getDate($envelope->date);
-            if (empty($localdate)) {
-                $localdate = _("Unknown Date");
-            }
-            $result['localdate'] = htmlspecialchars($localdate);
+            $result['localdate'] = htmlspecialchars($imp_mailbox_ui->getDate($envelope->date));
         } else {
             /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();

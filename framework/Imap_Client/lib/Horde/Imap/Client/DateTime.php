@@ -24,6 +24,13 @@ class Horde_Imap_Client_DateTime implements Serializable
     private $_datetime = null;
 
     /**
+     * Indicate an unparseable time.
+     *
+     * @var boolean
+     */
+    private $_error = false;
+
+    /**
      * The datetime string.
      *
      * @var string
@@ -73,28 +80,55 @@ class Horde_Imap_Client_DateTime implements Serializable
     }
 
     /**
+     * Was this an unparseable date?
+     *
+     * @return boolean  True if unparseable.
+     */
+    public function error()
+    {
+        $this->_init();
+
+        return $this->_error;
+    }
+
+    /**
      * Called on a function call.
      *
      * @throws Exception
      */
     public function __call($name, $arguments)
     {
-        if (is_null($this->_datetime)) {
-            $tz = new DateTimeZone('UTC');
+        $this->_init();
 
-            try {
-                $this->_datetime = new DateTime($this->_string, $tz);
-            } catch (Exception $e) {
-                /* Bug #5717 - Check for UT vs. UTC. */
-                if (substr(rtrim($date), -3) != ' UT') {
-                    throw $e;
-                }
+        return call_user_func_array(array($this->_datetime, $name), $arguments);
+    }
 
-                $this->_datetime = new DateTime($this->_string . 'C', $tz);
+    /**
+     * Init the DateTime object.
+     */
+    private function _init()
+    {
+        if (!is_null($this->_datetime)) {
+            return;
+        }
+
+        $tz = new DateTimeZone('UTC');
+
+        try {
+            $this->_datetime = new DateTime($this->_string, $tz);
+        } catch (Exception $e) {
+            /* Bug #5717 - Check for UT vs. UTC. */
+            if (substr(rtrim($date), -3) == ' UT') {
+                try {
+                    $this->_datetime = new DateTime($this->_string . 'C', $tz);
+                } catch (Exception $e) {}
             }
         }
 
-        return call_user_func_array(array($this->_datetime, $name), $arguments);
+        if (is_null($this->_datetime)) {
+            $this->_datetime = new DateTime('@0', $tz);
+            $this->_error = true;
+        }
     }
 
 }
