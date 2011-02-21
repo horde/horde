@@ -141,12 +141,8 @@ implements Horde_Kolab_Cli_Module
         case 'part':
             $data = $world['storage']->getData($folder_name);
             $part = $data->fetchPart($arguments[3], $arguments[4]);
-            rewind($part[$arguments[3]]['bodypart'][$arguments[4]]);
-            $cli->writeln(
-                stream_get_contents(
-                    $part[$arguments[3]]['bodypart'][$arguments[4]]
-                )
-            );
+            rewind($part);
+            $cli->writeln(quoted_printable_decode(stream_get_contents($part)));
             break;
         case 'fetch':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
