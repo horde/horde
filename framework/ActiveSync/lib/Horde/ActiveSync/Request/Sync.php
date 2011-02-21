@@ -336,7 +336,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (!$this->_decoder->getElementEndTag()) {
                         // end change/delete/move
                         $this->_statusCode = self::STATUS_PROTERROR;
-                        $this->_handleSyncError($collection);
+                        $this->_handleError($collection);
                         exit;
                     }
                 }
