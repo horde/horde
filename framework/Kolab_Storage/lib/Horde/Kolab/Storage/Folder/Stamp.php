@@ -47,6 +47,13 @@ extends Serializable
     public function isReset(Horde_Kolab_Storage_Folder_Stamp $stamp);
 
     /**
+     * Return the backend object IDs in the folder.
+     *
+     * @return array The list of backend IDs.
+     */
+    public function ids();
+
+    /**
      * What changed between this old stamp and the new provided stamp?
      *
      * @param Horde_Kolab_Storage_Folder_Stamp_Uids The new stamp to compare against.
