@@ -71,14 +71,24 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Returns the list of folders.
      *
-     * @return array  The list of IMAP folders.
+     * @return array  The list of IMAP folders.  Keys are the IMAP mailbox
+     *                name (UTF7-IMAP).  Values have the following keys:
+     * - label: (string) Human readable label.
+     * - level: (integer) The child level of this element.
      */
     public function folderlist()
     {
         $folders = array();
-        foreach ($GLOBALS['injector']->getInstance('IMP_Imap_Tree') as $folder) {
-            $folders[] = array('val' => $folder->value, 'abbrev' => $folder->label);
+        $imap_tree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+
+        $imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
+        foreach ($imap_tree as $val) {
+            $folders[$val->value] = array(
+                'label' => $val->label,
+                'level' => $val->level
+            );
         }
+
         return $folders;
     }
 
