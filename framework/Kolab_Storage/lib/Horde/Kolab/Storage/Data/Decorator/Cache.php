@@ -1,6 +1,6 @@
 <?php
 /**
- * The cached data query.
+ * The cache decorator for Kolab storage data handlers.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * The cached data query.
+ * The cache decorator for Kolab storage data handlers.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,11 +25,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Data_Query_Data_Cache
-implements Horde_Kolab_Storage_Data_Query_Data
+class Horde_Kolab_Storage_Data_Decorator_Cache
+implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 {
     /**
-     * The queriable data.
+     * Decorated data handler.
      *
      * @var Horde_Kolab_Storage_Data
      */
@@ -43,25 +43,84 @@ implements Horde_Kolab_Storage_Data_Query_Data
     private $_data_cache;
 
     /**
-     * The factory for generating additional resources.
-     *
-     * @var Horde_Kolab_Storage_Factory
-     */
-    private $_factory;
-
-    /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Data $data   The queriable data.
-     * @param array                    $params Additional parameters.
+     * @param Horde_Kolab_Storage_Data       $data  The original data handler.
+     * @param Horde_Kolab_Storage_Cache_Data $cache The cache storing data for
+     *                                              this decorator.
      */
     public function __construct(
         Horde_Kolab_Storage_Data $data,
-        $params
+        Horde_Kolab_Storage_Cache_Data $cache
     ) {
         $this->_data = $data;
-        $this->_data_cache = $params['cache'];
-        $this->_factory = $params['factory'];
+        $this->_data_cache = $cache;
+    }
+
+    /**
+     * Return the ID of this data handler.
+     *
+     * @return string The ID.
+     */
+    public function getId()
+    {
+        return $this->_data->getId();
+    }
+
+    /**
+     * Return the data type represented by this object.
+     *
+     * @return string The type of data this instance handles.
+     */
+    public function getType()
+    {
+        return $this->_data->getType();
+    }
+
+    /**
+     * Return the data version.
+     *
+     * @return string The data version.
+     */
+    public function getVersion()
+    {
+        return $this->_data->getVersion();
+    }
+
+    /**
+     * Report the status of this folder.
+     *
+     * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
+     *                                          detecting folder changes.
+     */
+    public function getStamp()
+    {
+        return $this->_data->getStamp();
+    }
+
+    /**
+     * Retrieves the body part for the given UID and mime part ID.
+     *
+     * @param string $uid The message UID.
+     * @param string $id  The mime part ID.
+     *
+     * @return @TODO
+     */
+    public function fetchPart($uid, $id)
+    {
+        return $this->_data->fetchPart($uid, $id);
+    }
+
+    /**
+     * Retrieves the objects for the given UIDs.
+     *
+     * @param array $uids The message UIDs.
+     *
+     * @return array An array of objects.
+     */
+    public function fetch($uids)
+    {
+        return $this->_data->fetch($uids);
     }
 
     /**
@@ -78,10 +137,7 @@ implements Horde_Kolab_Storage_Data_Query_Data
             return $mapping[$object_id];
         } else {
             throw new Horde_Kolab_Storage_Exception(
-                sprintf(
-                    'Kolab cache: Object ID %s does not exist in the cache!',
-                    $object_id
-                )
+                sprintf('Object ID %s does not exist!', $object_id)
             );
         }
     }
@@ -123,10 +179,7 @@ implements Horde_Kolab_Storage_Data_Query_Data
             return $objects[$object_id];
         } else {
             throw new Horde_Kolab_Storage_Exception(
-                sprintf(
-                    'Kolab cache: Object ID %s does not exist in the cache!',
-                    $object_id
-                )
+                sprintf('Object ID %s does not exist!', $object_id)
             );
         }
     }
@@ -169,6 +222,7 @@ implements Horde_Kolab_Storage_Data_Query_Data
      */
     public function synchronize()
     {
+        $this->_data->synchronize();
         $current = $this->_data->getStamp();
         if (!$this->_data_cache->isInitialized()) {
             $this->_completeSynchronization($current);
@@ -209,5 +263,33 @@ implements Horde_Kolab_Storage_Data_Query_Data
             $stamp,
             $this->_data->getVersion()
         );
+    }
+
+    /**
+     * Register a query to be updated if the underlying data changes.
+     *
+     * @param string                    $name  The query name.
+     * @param Horde_Kolab_Storage_Query $query The query to register.
+     *
+     * @return NULL
+     */
+    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
+    {
+        $this->_data->registerQuery($name, $query);
+    }
+
+    /**
+     * Return a registered query.
+     *
+     * @param string $name The query name.
+     *
+     * @return Horde_Kolab_Storage_Query The requested query.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the requested query does
+     *                                       not exist.
+     */
+    public function getQuery($name = null)
+    {
+        return $this->_data->getQuery($name);
     }
 }
