@@ -4,7 +4,7 @@
    <div id="hermesTimeEntry">
     <h1><?php echo _("Time Entry")?></h1>
     <form id="hermesTimeForm" action="">
-        <input type="hidden" name="id" id="hermesTimeFormId" value="" />
+        <input type="hidden" name="id" id="hermesTimeFormId" value="0" />
         <div id="hermesTimeFormInputs">
           <div class="hermesTimeFormGeneral">
             <label for="hermesTimeFormClient">
