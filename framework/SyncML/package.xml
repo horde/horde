@@ -5,15 +5,15 @@
  <summary>SyncML provides an API for processing SyncML requests.</summary>
  <description>This package provides classes for implementing a SyncML server.</description>
  <lead>
-  <name>Karsten Fourmont</name>
-  <user>karsten</user>
-  <email>karsten@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
  <date>2011-01-28</date>

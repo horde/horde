@@ -16,13 +16,13 @@
 Reading, writing and listing of files are all supported, and there are both object-based and array-based interfaces to directory listings.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
-  <user>chagenbu</user>
+  <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
  <lead>
   <name>Jan Schneider</name>
-  <user>yunosh</user>
+  <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>

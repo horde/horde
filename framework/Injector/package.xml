@@ -5,18 +5,6 @@
  <summary>Horde dependency injection container</summary>
  <description>A depedency injection container for Horde.</description>
  <lead>
-  <name>Bob McKee</name>
-  <user>bob</user>
-  <email>bmckee@bywires.com</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>James Pepin</name>
-  <user>james</user>
-  <email>james@jamespepin.com</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>

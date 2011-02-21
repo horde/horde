@@ -14,12 +14,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <lead>
-  <name>James Pepin</name>
-  <user>james</user>
-  <email>james@jamespepin</email>
-  <active>yes</active>
- </lead>
  <date>2009-09-25</date>
  <version>
   <release>0.1.0</release>

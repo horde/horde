@@ -8,20 +8,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <summary>PDF generation using only PHP.</summary>
  <description>This package provides PDF generation using only PHP, without requiring any external libraries.</description>
  <lead>
-  <name>Marko Djukic</name>
-  <user>mdjukic</user>
-  <email>mdjukic@horde.org</email>
-  <active>no</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
-  <user>yunosh</user>
+  <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
  <lead>
   <name>Chuck Hagenbuch</name>
-  <user>chagenbu</user>
+  <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
