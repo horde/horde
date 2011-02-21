@@ -2067,6 +2067,10 @@ applications.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Text_Diff</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Token</name>
     <channel>pear.horde.org</channel>
    </package>
