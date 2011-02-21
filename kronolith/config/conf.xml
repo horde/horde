@@ -50,9 +50,9 @@
  <configsection name="reminder">
   <configheader>Reminder Settings</configheader>
   <configstring name="server_name" desc="Server name from which reminder
-   emails should be sent"/>
+   emails should be sent" required="false"/>
   <configstring name="from_addr" desc="Email address from which reminder
-   emails should be sent"/>
+   emails should be sent" required="false"/>
  </configsection>
 
  <configsection name="autoshare">

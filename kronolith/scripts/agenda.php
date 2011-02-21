@@ -31,9 +31,12 @@ function send_agendas()
         return;
     }
 
-    if (!empty($GLOBALS['conf']['reminder']['server_name'])) {
-        $_SERVER['SERVER_NAME'] = $GLOBALS['conf']['server']['name'] = $GLOBALS['conf']['reminder']['server_name'];
+    if (empty($GLOBALS['conf']['reminder']['server_name']) ||
+        empty($GLOBALS['conf']['reminder']['from_addr'])) {
+        die('You must configure the server_name and from_addr settings for reminders in the calendar configuration.');
     }
+
+    $_SERVER['SERVER_NAME'] = $GLOBALS['conf']['server']['name'] = $GLOBALS['conf']['reminder']['server_name'];
 
     // Retrieve a list of users associated with each calendar, and
     // thus a list of users who have used kronolith and
@@ -164,6 +167,8 @@ function send_agendas()
         Horde::logMessage(sprintf('Sending daily agenda to %s', $email), 'DEBUG');
         try {
             $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), false, false);
-        } catch (Horde_Mime_Exception $e) {}
+        } catch (Horde_Mime_Exception $e) {
+            die($e);
+        }
     }
 }
