@@ -366,7 +366,7 @@ HermesCore = {
 
     removeSliceFromUI: function(elt, sid)
     {
-        new Effect.Fade(elt);
+        elt.fade({ duration: this.effectDur, queue: 'end' });
         this.removeSliceFromCache(sid);
     },
 
@@ -526,7 +526,7 @@ HermesCore = {
 
     buildTimeTable: function()
     {
-        var slices;
+        var slices, t;
         if (this.reverseSort) {
             slices = this.slices.reverse();
             this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
@@ -555,11 +555,15 @@ HermesCore = {
             }
         }
         this.slices = slices;
+        t = new Element('div', {'style': 'display: none;' });
+
         slices.each(function(slice) {
-            $('hermesTimeListTemplate').up().insert(this.buildTimeRow(slice).toggle());
+            t.insert(this.buildTimeRow(slice).toggle());
         }.bind(this));
+        $('hermesTimeListTemplate').up().insert(t);
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
         this.onResize();
+        t.appear({ duration: this.effectDur, queue: 'end' });
     },
 
     buildTimeRow: function(slice)
@@ -581,7 +585,7 @@ HermesCore = {
         cell = cell.next().update((slice.con) ? slice.con : ' ');
         cell = cell.next().update((slice.tn) ? slice.tn : ' ');
         cell = cell.next().update((slice.desc) ? slice.desc : ' ');
-                cell = cell.next().update(slice.h);
+        cell = cell.next().update(slice.h);
         return row;
     },
 
