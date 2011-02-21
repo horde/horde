@@ -549,7 +549,7 @@ HermesCore = {
             }
         });
         $('hermesMenuSummaryUnsubmitted').update(total);
-        $('hermesMenuSummaryToday').update(total);
+        $('hermesMenuSummaryToday').update(today);
     },
 
     buildTimeTable: function()
