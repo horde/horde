@@ -42,6 +42,16 @@ class Horde_LoginTasks_Task_AdminCheck extends Horde_LoginTasks_Task
      */
     public function execute()
     {
+        /* Check for outdated DB schemas. */
+        $migration = new Horde_Core_Db_Migration();
+        foreach ($migration->apps as $app) {
+            $migrator = $migration->getMigrator($app);
+            if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
+                Horde::url('admin/config', true, array('app' => 'horde'))
+                    ->redirect();
+            }
+        }
+
         /* Check if test script is active. */
         if (empty($GLOBALS['conf']['testdisable'])) {
             $GLOBALS['notification']->push(_("The test script is currently enabled. For security reasons, disable test scripts when you are done testing (see horde/docs/INSTALL)."), 'horde.warning');

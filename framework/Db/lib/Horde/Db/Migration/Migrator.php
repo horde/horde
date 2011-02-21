@@ -121,6 +121,18 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
+     * @return integer
+     */
+    public function getTargetVersion()
+    {
+        $direction = $this->_direction;
+        $this->_direction = 'up';
+        $migration = array_pop($this->_getMigrationClasses());
+        $this->_direction = $direction;
+        return $migration->version;
+    }
+
+    /**
      * @param string $migrationsPath  Path to migration files.
      */
     public function setMigrationsPath($migrationsPath)

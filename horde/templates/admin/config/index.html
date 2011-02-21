@@ -1,8 +1,16 @@
 <form action="<tag:version_action />" style="margin:8px">
 <tag:version_input />
-<input type="hidden" name="check_versions" value="1" />
+<input type="hidden" value="1" name="check_versions" />
 <input type="submit" value="<gettext>Check for newer versions</gettext>" class="button" />
 </form>
+
+<if:schema_outdated>
+<form action="<tag:version_action />" style="margin:8px">
+<tag:version_input />
+<input type="hidden" value="schema" name="action" />
+<input type="submit" value="<gettext>Update all DB schemas</gettext>" class="button" />
+</form>
+</if:schema_outdated>
 
 <table class="striped" cellspacing="0" width="100%">
  <thead>
@@ -14,14 +22,20 @@
       &nbsp;
     </th>
     <th class="header leftAlign">
+      <gettext>Database</gettext>
+    </th>
+    <th class="header">
+      &nbsp;
+    </th>
+    <th class="header leftAlign">
       <gettext>Status</gettext>
     </th>
     <if:versions>
     <th class="header">
       &nbsp;
     </th>
-    <th class="header">
-      &nbsp;
+    <th class="header leftAlign">
+      <gettext>Version Check</gettext>
     </th>
     </if:versions>
   </tr>
@@ -33,6 +47,12 @@
       <tag:apps.icon />
       <tag:apps.name />
       <tag:apps.version />
+    </td>
+    <td align="center">
+      <tag:apps.db />
+    </td>
+    <td>
+      <tag:apps.dbstatus />
     </td>
     <td align="center">
       <tag:apps.conf />

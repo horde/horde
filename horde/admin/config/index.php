@@ -58,14 +58,33 @@ function _uploadFTP($params)
 }
 
 $hconfig = new Horde_Config();
+$migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../../..');
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Check for versions if requested. */
 $versions = array();
-if (Horde_Util::getFormData('check_versions')) {
+if ($vars->check_versions) {
     try {
         $versions = $hconfig->checkVersions();
     } catch (Horde_Exception $e) {
         $notification->push(_("Could not contact server. Try again later."), 'horde.error');
+    }
+}
+
+/* Update schema if requested. */
+if ($vars->action == 'schema') {
+    $apps = isset($vars->app) ? array($vars->app) : $migration->apps;
+    foreach ($apps as $app) {
+        $migrator = $migration->getMigrator($app);
+        if ($migrator->getTargetVersion() <= $migrator->getCurrentVersion()) {
+            continue;
+        }
+        try {
+            $migrator->up();
+            $notification->push(sprintf(_("Updated schema for %s."), $app), 'horde.success');
+        } catch (Exception $e) {
+            $notification->push($e);
+        }
     }
 }
 
@@ -74,10 +93,12 @@ $success = Horde::img('alerts/success.png');
 $warning = Horde::img('alerts/warning.png');
 $error = Horde::img('alerts/error.png');
 
+$self_url = Horde::url('admin/config/');
 $conf_url = Horde::url('admin/config/config.php');
 $a = $registry->listAllApps();
-$apps = array();
+$apps = $libraries = array();
 $i = -1;
+$schema_outdated = false;
 if (file_exists(HORDE_BASE . '/lib/bundle.php')) {
     include HORDE_BASE . '/lib/bundle.php';
     $apps[0] = array('sort' => '00',
@@ -110,7 +131,12 @@ foreach ($a as $app) {
     $i++;
     $path = $registry->get('fileroot', $app) . '/config';
 
-    $conf_link = Horde::link($conf_url->copy()->add('app', $app), sprintf(_("Configure %s"), $app));
+    $conf_link = $conf_url
+        ->add('app', $app)
+        ->link(array('title' => sprintf(_("Configure %s"), $app)));
+    $db_link = $self_url
+        ->add(array('app' => $app, 'action' => 'schema'))
+        ->link(array('title' => sprintf(_("Update %s schema"), $app)));
     $apps[$i]['sort'] = $registry->get('name', $app) . ' (' . $app . ')';
     $apps[$i]['name'] = $conf_link . $apps[$i]['sort'] . '</a>';
     $apps[$i]['icon'] = Horde::img($registry->get('icon', $app), $registry->get('name', $app), '', '');
@@ -144,8 +170,8 @@ foreach ($a as $app) {
         }
         /* Get the generated php version. */
         if (($php_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.php'))) === false) {
-            /* No version found in generated php, suggest regenarating
-             * just in case. */
+            /* No version found in generated php, suggest regenerating just in
+             * case. */
             $apps[$i]['conf'] = $conf_link . $warning . '</a>';
             $apps[$i]['status'] = _("No version found in your configuration. Regenerate configuration.");
             continue;
@@ -155,12 +181,57 @@ foreach ($a as $app) {
             /* Versions are not the same, configuration is out of date. */
             $apps[$i]['conf'] = $conf_link . $error . '</a>';
             $apps[$i]['status'] = _("Configuration is out of date.");
-            continue;
         } else {
             /* Configuration is ok. */
             $apps[$i]['conf'] = $conf_link . $success . '</a>';
             $apps[$i]['status'] = _("Application is ready.");
         }
+    }
+
+    if (in_array($app, $migration->apps)) {
+        $migrator = $migration->getMigrator($app);
+        if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
+            /* Schema is out of date. */
+            $apps[$i]['db'] = $db_link . $error . '</a>';
+            $apps[$i]['dbstatus'] = $db_link . _("DB schema is out of date.") . '</a>';
+            $schema_outdated = true;
+        } else {
+            /* Schema is ok. */
+            $apps[$i]['db'] = $success;
+            $apps[$i]['dbstatus'] = _("DB schema is ready.");
+        }
+    } else {
+        /* No schema required. */
+        $apps[$i]['db'] = $success;
+        $apps[$i]['dbstatus'] = _("DB schema is not used.");
+    }
+}
+
+/* Search for outdated library schemas. */
+foreach ($migration->apps as $app) {
+    if (in_array($app, $a)) {
+        continue;
+    }
+    $i++;
+
+    $conf_link = $self_url
+        ->add(array('app' => $app, 'action' => 'schema'))
+        ->link(array('title' => sprintf(_("Update %s schema"), $app)));
+    $migrator = $migration->getMigrator($app);
+
+    $apps[$i]['sort'] = 'ZZZ' . $app;
+    $apps[$i]['name'] = implode('_', array_map(array('Horde_String', 'ucfirst'), explode('_', $app)));
+    $apps[$i]['version'] = '';
+
+    if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
+        /* Schema is out of date. */
+        $apps[$i]['db'] = $db_link . $error . '</a>';
+        $apps[$i]['dbstatus'] = $db_link . _("DB schema is out of date.") . '</a>';
+        $schema_outdated = true;
+    } else {
+        /* Schema is ok. */
+        $apps[$i]['db'] = $success;
+        $apps[$i]['dbstatus'] = _("DB schema is ready.");
     }
 }
 
@@ -221,6 +292,7 @@ $template->setOption('gettext', true);
 $template->set('versions', !empty($versions), true);
 $template->set('version_action', Horde::url('admin/config/index.php'));
 $template->set('version_input', Horde_Util::formInput());
+$template->set('schema_outdated', $schema_outdated);
 $template->set('apps', $apps);
 $template->set('actions', $actions, true);
 $template->set('ftpform', $ftpform, true);
