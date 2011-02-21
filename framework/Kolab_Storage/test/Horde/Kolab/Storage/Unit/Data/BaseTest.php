@@ -169,5 +169,100 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testGetObjects()
+    {
+        $this->assertType(
+            'array',
+            $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->getObjects()
+        );
+    }
+
+    public function testObjects()
+    {
+        $objects = $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->getObjects();
+        $this->assertEquals(
+            'libkcal-543769073.139',
+            $objects['libkcal-543769073.139']['uid']
+        );
+    }
+
+    public function testGetObjectIds()
+    {
+        $this->assertType(
+            'array',
+            $this->getMessageStorage()->getData('INBOX/Calendar')->getObjectIds()
+        );
+    }
+
+    public function testObjectIds()
+    {
+        $this->assertEquals(
+            array('libkcal-543769073.139'),
+            $this->getMessageStorage()->getData('INBOX/Calendar')->getObjectIds()
+        );
+    }
+
+    public function testBackendId()
+    {
+        $this->assertEquals(
+            '1',
+            $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->getBackendId('libkcal-543769073.139')
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingBackendId()
+    {
+        $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->getBackendId('NOSUCHOBJECT');
+    }
+
+    public function testExists()
+    {
+        $this->assertTrue(
+            $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->objectIdExists('libkcal-543769073.139')
+        );
+    }
+
+    public function testDoesNotExist()
+    {
+        $this->assertFalse(
+            $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->objectIdExists('NOSUCHOBJECT')
+        );
+    }
+
+    public function testGetObject()
+    {
+        $object = $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->getObject('libkcal-543769073.139');
+        $this->assertEquals(
+            'libkcal-543769073.139',
+            $object['uid']
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testGetMissingObject()
+    {
+        $object = $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->getObject('NOSUCHOBJECT');
+    }
 
 }
