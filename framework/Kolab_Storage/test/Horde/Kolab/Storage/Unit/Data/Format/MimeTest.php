@@ -85,8 +85,7 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getStructure()
     {
-        $fixture = dirname(__FILE__) . '/../../../fixtures/bodystructure.ser';
-        $structures = unserialize(file_get_contents($fixture));
-        return Horde_Mime_Part::parseStructure($structures[4]['structure']);
+        $fixture = dirname(__FILE__) . '/../../../fixtures/event.struct';
+        return unserialize(base64_decode(file_get_contents($fixture)));
     }
 }

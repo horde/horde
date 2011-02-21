@@ -591,8 +591,8 @@ extends PHPUnit_Framework_TestCase
                 $folder['mails'] = $element['m'];
                 foreach ($element['m'] as $uid => $mail) {
                     if (isset($mail['structure'])) {
-                        $folder['mails'][$uid]['structure'] = Horde_Mime_Part::parseStructure(
-                            unserialize(file_get_contents($mail['structure']))
+                        $folder['mails'][$uid]['structure'] = unserialize(
+                            base64_decode(file_get_contents($mail['structure']))
                         );
                     }
                     if (isset($mail['parts'])) {

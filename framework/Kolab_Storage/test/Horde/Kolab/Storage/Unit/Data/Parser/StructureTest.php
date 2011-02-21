@@ -69,13 +69,13 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getParser()
     {
-        $fixture = dirname(__FILE__) . '/../../../fixtures/bodystructure.ser';
-        $structures = unserialize(file_get_contents($fixture));
-        foreach ($structures as $structure) {
-            $structure['structure'] = Horde_Mime_Part::parseStructure(
-                $structure['structure']
-            );
-        }
+        $fixture = dirname(__FILE__) . '/../../../fixtures/event.struct';
+        $structure = unserialize(base64_decode(file_get_contents($fixture)));
+        $structures = array(
+            1 => array('structure' => $structure),
+            2 => array('structure' => $structure),
+            4 => array('structure' => $structure),
+        );
         $this->driver = $this->getMock('Horde_Kolab_Storage_Driver_Imap', array(), array(), '', false, false);
         $this->driver->expects($this->once())
             ->method('fetchStructure')
