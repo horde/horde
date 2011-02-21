@@ -133,6 +133,9 @@ implements Horde_Kolab_Cli_Module
         switch ($action) {
         case 'info':
             break;
+        case 'synchronize':
+            $world['storage']->getData($folder_name, $arguments[3])->synchronize();
+            break;
         case 'stamp':
             $cli->writeln(
                 (string) $world['storage']->getData($folder_name)->getStamp()
@@ -154,6 +157,35 @@ implements Horde_Kolab_Cli_Module
                     $this->_messageOutput($cli, $uid, print_r($message, true));
                 }
             }
+            break;
+        case 'ids':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            foreach ($data->getObjectIds() as $id) {
+                $cli->writeln((string) $id);
+            }
+            break;
+        case 'objects':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            foreach ($data->getObjects() as $id => $object) {
+                if (class_exists('Horde_Yaml')) {
+                    $this->_messageOutput($cli, $id, Horde_Yaml::dump($object));
+                } else {
+                    $this->_messageOutput($cli, $id, print_r($object, true));
+                }
+            }
+            break;
+        case 'object':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $object = $data->getObject($arguments[4]);
+            if (class_exists('Horde_Yaml')) {
+                $this->_messageOutput($cli, $arguments[4], Horde_Yaml::dump($object));
+            } else {
+                $this->_messageOutput($cli, $arguments[4], print_r($object, true));
+            }
+            break;
+        case 'backendid':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $cli->writeln((string) $data->getBackendId($arguments[4]));
             break;
         default:
             $cli->message(
