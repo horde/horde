@@ -404,6 +404,8 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
+            'host' => 'localhost',
+            'port' => 143,
             'data' => $this->getMockData(
                 array(
                     'user/test' => null,

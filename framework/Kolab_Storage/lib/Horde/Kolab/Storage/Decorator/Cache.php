@@ -150,6 +150,11 @@ implements Horde_Kolab_Storage
      */
     public function getData($folder, $object_type = null, $data_version = 1)
     {
-        return $this->_storage->getData($folder, $object_type, $data_version);
+        $data = $this->_storage->getData(
+            $this->getList()->getFolder($folder), $object_type, $data_version
+        );
+        return new Horde_Kolab_Storage_Data_Decorator_Cache(
+            $data, $this->_cache->getDataCache($data->getIdParameters())
+        );
     }
 }

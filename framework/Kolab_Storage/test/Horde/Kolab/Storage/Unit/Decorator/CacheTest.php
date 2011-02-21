@@ -68,4 +68,21 @@ extends Horde_Kolab_Storage_TestCase
             $storage->getFolder('test')
         );
     }
+
+    public function testData()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $storage = new Horde_Kolab_Storage_Decorator_Cache(
+            new Horde_Kolab_Storage_Base(
+                $this->getMessageMock($factory),
+                $factory
+            ),
+            $this->getMockCache(),
+            $factory
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Data_Decorator_Cache',
+            $storage->getData('INBOX/Calendar')
+        );
+    }
 }
