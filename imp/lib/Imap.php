@@ -79,6 +79,7 @@ class IMP_Imap implements Serializable
             'capability_ignore' => empty($server['capability_ignore']) ? array() : $server['capability_ignore'],
             'comparator' => empty($server['comparator']) ? false : $server['comparator'],
             'debug' => isset($server['debug']) ? $server['debug'] : null,
+            'debug_literal' => !empty($server['debug_raw']),
             'encryptKey' => array(__CLASS__, 'getEncryptKey'),
             'hostspec' => isset($server['hostspec']) ? $server['hostspec'] : null,
             'id' => empty($server['id']) ? false : $server['id'],

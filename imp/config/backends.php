@@ -107,20 +107,26 @@
  *                        cache slice.  The default should be fine for most
  *                        installations.
  *
- * 'debug' - (string) If set, will output debug information from the IMAP
- *           library. The value can be any PHP supported wrapper that can be
- *           opened via fopen(). This setting should not be enabled by default
- *           on production servers, since the log file will quickly grow very
- *           large.
+ * debug - (string) If set, will output debug information from the IMAP
+ *         library. The value can be any PHP supported wrapper that can be
+ *         opened via fopen(). This setting should not be enabled by default
+ *         on production servers, since the log file will quickly grow very
+ *         large.
  *
- *           For example, to output to a file, provide the full path to the
- *           file (a bare string is interpreted by PHP to be a filename). This
- *           file must be writable by the PHP process.
+ *         For example, to output to a file, provide the full path to the
+ *         file (a bare string is interpreted by PHP to be a filename). This
+ *         file must be writable by the PHP process.
  *
- *           To restrict logging to a certain user ('foo'), and to log this
- *           output to the file '/tmp/imaplog', the following can be used:
+ *         To restrict logging to a certain user ('foo'), and to log this
+ *         output to the file '/tmp/imaplog', the following can be used:
  *
- *             (($GLOBALS['registry']->getAuth() == 'foo') ? '/tmp/imaplog' : false)
+ *           (($GLOBALS['registry']->getAuth() == 'foo') ? '/tmp/imaplog' : false)
+ *
+ * debug_raw - (boolean) By default, IMAP debugging (see 'debug' above) will
+ *             only output a short summary of the message text sent to and
+ *             received from the server. If you want the debug stream to
+ *             output the full, raw data of the client/server communication,
+ *             set this option to true.
  *
  * quota: (array) Use this if you want to display a user's quota status on
  *        various IMP pages. Set to an empty value to disable quota status
