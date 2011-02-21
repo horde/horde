@@ -27,7 +27,8 @@
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add workaround for Horde Bug #8747.
+ <notes>* Add RFC 3282 language support to Horde_Mime_Part.
+ * Add workaround for Horde Bug #8747.
  * Honor the Content-Disposition 'size' parameter (RFC 2183 [2.7]).
  * Converted tests to PHPUnit.
  * Moved viewer code to horde/Mime_Viewer package.

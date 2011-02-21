@@ -43,13 +43,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     static public $defaultCharset = 'us-ascii';
 
     /**
-     * The memory limit for use with the PHP temp stream.
-     *
-     * @var integer
-     */
-    static public $memoryLimit = 2097152;
-
-    /**
      * Valid encoding types.
      *
      * @var array
@@ -57,6 +50,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     static public $encodingTypes = array(
         '7bit', '8bit', 'base64', 'binary', 'quoted-printable'
     );
+
+    /**
+     * The memory limit for use with the PHP temp stream.
+     *
+     * @var integer
+     */
+    static public $memoryLimit = 2097152;
 
     /**
      * Valid MIME types.
@@ -97,6 +97,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      * @var string
      */
     protected $_transferEncoding = self::DEFAULT_ENCODING;
+
+    /**
+     * The language(s) of this part.
+     *
+     * @var array
+     */
+    protected $_language = array();
 
     /**
      * The description of this part.
@@ -189,7 +196,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     protected $_contentid = null;
 
     /**
-     * Do we need to reindex the current part.
+     * Do we need to reindex the current part?
      *
      * @var boolean
      */
@@ -687,6 +694,29 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     }
 
     /**
+     * Set the language(s) of this part.
+     *
+     * @param mixed $lang  A language string, or an array of language
+     *                     strings.
+     */
+    public function setLanguage($lang)
+    {
+        $this->_language = is_array($lang)
+            ? $lang
+            : array($lang);
+    }
+
+    /**
+     * Get the language(s) of this part.
+     *
+     * @param array  The list of languages.
+     */
+    public function getLanguage()
+    {
+        return $this->_language;
+    }
+
+    /**
      * Set the description of this part.
      *
      * @param string $description  The description of this part.
@@ -960,6 +990,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable
             unset($c_params['charset']);
         }
         $headers->replaceHeader('Content-Type', $this->getType(), array('params' => $c_params));
+
+        /* Add the language(s), if set. (RFC 3282 [2]) */
+        if ($langs = $this->getLanguage()) {
+            $headers->replaceHeader('Content-Language', implode(',', $langs));
+        }
 
         /* Get the description, if any. */
         if (($descrip = $this->getDescription())) {
