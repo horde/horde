@@ -279,6 +279,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function status($folder)
     {
+        // @todo: Condstore
         return $this->getBackend()->status(
             $folder,
             Horde_Imap_Client::STATUS_UIDNEXT

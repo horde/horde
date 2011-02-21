@@ -135,6 +135,7 @@ implements  Horde_Kolab_Storage_Data_Parser
      */
     private function _fetchAttachments(array &$object, $folder, $obid, $options = array())
     {
+        //@todo: implement
     }
 
     /**
