@@ -104,6 +104,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected $_stream = null;
 
     /**
+     * @param array $params  A hash containing configuration parameters.
+     *                       Additional parameters:
+     * <pre>
+     * debug_literal - (boolean) If true, will output the raw text of literal
+     *                 responses to the debug stream. Otherwise, outputs a
+     *                 summary of the literal response.
+     * </pre>
+     */
+    public function __construct(array $params = array())
+    {
+        $params = array_merge(array(
+            'debug_literal' => false
+        ), $params);
+
+        parent::__construct($params);
+    }
+
+    /**
      */
     protected function _capability()
     {
@@ -3417,9 +3435,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if ($this->_debug && empty($this->_temp['sendnodebug'])) {
             fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') C: ');
             if (is_resource($data)) {
-                rewind($data);
-                while ($in = fread($data, 8192)) {
-                    fwrite($this->_debug, $in);
+                if ($this->_params['debug_literal']) {
+                    rewind($data);
+                    while ($in = fread($data, 8192)) {
+                        fwrite($this->_debug, $in);
+                    }
+                } else {
+                    fseek($data, 0, SEEK_END);
+                    fwrite($this->_debug, '[LITERAL DATA - ' . ftell($data) . ' bytes]' . "\n");
                 }
             } else {
                 fwrite($this->_debug, (empty($options['debug']) ? $out : $options['debug']) . "\n");
@@ -3684,11 +3707,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($this->_debug) {
-            if ($stream) {
+            fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') S: ');
+            if ($binary) {
+                fwrite($this->_debug, '[BINARY DATA - ' . $old_len . ' bytes]' . "\n");
+            } elseif (!is_null($len) && !$this->_params['debug_literal']) {
+                fwrite($this->_debug, '[LITERAL DATA - ' . $old_len . ' bytes]' . "\n");
+            } elseif ($stream) {
                 rewind($data);
+                fwrite($this->_debug, rtrim(stream_get_contents($data)) . "\n");
+            } else {
+                fwrite($this->_debug, rtrim($data) . "\n");
             }
-
-            fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') S: ' . ($binary ? '[BINARY DATA - ' . $old_len . ' bytes]' : rtrim($stream ? stream_get_contents($data): $data)) . "\n");
         }
 
         return is_null($len) ? rtrim($data) : $data;
