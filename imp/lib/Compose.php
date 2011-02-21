@@ -1565,14 +1565,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $msg_post = '';
         }
 
-        $force_html = false;
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
-            $compose_html = false;
-        } elseif (!empty($opts['format'])) {
-            $compose_html = $force_html = ($opts['format'] == 'html');
-        } else {
-            $compose_html = ($prefs->getValue('compose_html') || $prefs->getValue('reply_format'));
-        }
+        list($compose_html, $force_html) = $this->_msgTextFormat($opts, 'reply_format');
 
         $msg_text = $this->_getMessageText($contents, array(
             'html' => $compose_html,
@@ -1600,6 +1593,30 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             'charset' => $msg_text['charset'],
             'format' => $msg_text['mode']
         );
+    }
+
+    /**
+     * Determine text editor format.
+     *
+     * @param array $opts        Options (contains 'format' param).
+     * @param string $pref_name  The pref name that controls formatting.
+     *
+     * @return array  Use HTML? and Force HTML?
+     */
+    protected function _msgTextFormat($opts, $pref_name)
+    {
+        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+            $compose_html = $force_html = false;
+        } elseif (!empty($opts['format'])) {
+            $compose_html = $force_html = ($opts['format'] == 'html');
+        } elseif ($GLOBALS['prefs']->getValue('compose_html')) {
+            $compose_html = $force_html = true;
+        } else {
+            $compose_html = $GLOBALS['prefs']->getValue($pref_name);
+            $force_html = false;
+        }
+
+        return array($compose_html, $force_html);
     }
 
     /**
@@ -1718,14 +1735,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             " -----\n" . $this->_getMsgHeaders($h) . "\n";
         $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
 
-        $force_html = false;
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
-            $compose_html = false;
-        } elseif (!empty($opts['format'])) {
-            $compose_html = $force_html = ($opts['format'] == 'html');
-        } else {
-            $compose_html = ($prefs->getValue('compose_html') || $prefs->getValue('forward_format'));
-        }
+        list($compose_html, $force_html) = $this->_msgTextFormat($opts, 'forward_format');
 
         $msg_text = $this->_getMessageText($contents, array(
             'html' => $compose_html

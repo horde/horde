@@ -53,7 +53,7 @@ $msg = '';
 
 $js = array();
 if ($vars->popup) {
-    $js[] = 'DIMP.conf_compose.popup = 1';
+    $js['DIMP.conf_compose.popup'] = 1;
 }
 
 $identity = $injector->getInstance('IMP_Identity');
@@ -220,7 +220,7 @@ if ($vars->type == 'redirect') {
     }
 
     if ($show_editor) {
-        $js[] = 'DIMP.conf_compose.show_editor = 1';
+        $js['DIMP.conf_compose.show_editor'] = 1;
     }
 }
 
@@ -235,7 +235,8 @@ $compose_result = IMP_Views_Compose::showCompose(array(
 
 $t->set('compose_html', $compose_result['html']);
 
-Horde::addInlineScript(array_merge($compose_result['js'], $js));
+Horde::addInlineJsVars($js);
+Horde::addInlineScript($compose_result['js']);
 
 $fillform_opts['focus'] = in_array($vars->type, array('forward', 'new', 'redirect')) ? 'to' : 'composeMessage';
 if ($vars->type != 'redirect') {
