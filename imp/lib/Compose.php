@@ -653,6 +653,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     $replace_part = new Horde_Mime_Part();
                     $replace_part->setType('text/plain');
                     $replace_part->setCharset($this->charset);
+                    $replace_part->setLanguage($GLOBALS['language']);
                     $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
                     $mime_message->alterPart($i, $replace_part);
                 }
@@ -1106,6 +1107,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $textBody = new Horde_Mime_Part();
         $textBody->setType('text/plain');
         $textBody->setCharset($this->charset);
+        $textBody->setLanguage($GLOBALS['language']);
         $textBody->setDisposition('inline');
 
         /* Send in flowed format. */
@@ -1121,6 +1123,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $htmlBody = new Horde_Mime_Part();
             $htmlBody->setType('text/html');
             $htmlBody->setCharset($this->charset);
+            $htmlBody->setLanguage($GLOBALS['language']);
             $htmlBody->setDisposition('inline');
             $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Message"), 'UTF-8', $this->charset));
 
@@ -2426,6 +2429,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $link_part = new Horde_Mime_Part();
             $link_part->setType('text/plain');
             $link_part->setCharset($charset);
+            $link_part->setLanguage($GLOBALS['language']);
             $link_part->setDisposition('inline');
             $link_part->setContents($trailer);
             $link_part->setDescription(_("Attachment Information"));

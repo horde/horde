@@ -141,6 +141,9 @@ RFC 2633
 RFC 3156
     - MIME Security with OpenPGP
 
+RFC 3282
+    - Content Language Headers
+
 RFC 3464
     - An Extensible Message Format for Delivery Status Notifications
 
