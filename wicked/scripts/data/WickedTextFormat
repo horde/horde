@@ -63,8 +63,7 @@ This //text// gets **parsed**.
 ++ Headings
 
 You can make various levels of heading by putting \
-equals-signs before and after the text (all on its \
-own line):
+plus-signs before the text (all on its own line):
 
 <code>
 +++ Level 3 Heading
