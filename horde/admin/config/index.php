@@ -160,7 +160,7 @@ foreach ($a as $app) {
     if (!file_exists($path . '/conf.php')) {
         /* No conf.php exists. */
         $apps[$i]['conf'] = $conf_link . $error . '</a>';
-        $apps[$i]['status'] = _("Missing configuration. You must generate it before using this application.");
+        $apps[$i]['status'] = _("Missing configuration.");
     } else {
         /* A conf.php exists, get the xml version. */
         if (($xml_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.xml'))) === false) {
