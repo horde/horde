@@ -159,7 +159,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             }
         } elseif (!empty($this->_params['objectclass'])) {
             /* Filter on objectclass. */
-            $filter = Horde_Ldap_Filter::build($this->_params['objectclass'], 'or');
+            $filter = Horde_Ldap_Filter::build(array('objectclass' => $this->_params['objectclass']), 'or');
         }
 
         /* Add source-wide filters, which are _always_ AND-ed. */
@@ -221,7 +221,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         if (empty($this->_params['objectclass'])) {
             $filter = null;
         } else {
-            $filter = (string)Horde_Ldap_Filter::build($this->_params['objectclass'], 'or');
+            $filter = (string)Horde_Ldap_Filter::build(array('objectclass' => $this->_params['objectclass']), 'or');
         }
 
         /* Four11 (at least) doesn't seem to return 'cn' if you don't
@@ -353,7 +353,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         if (empty($this->_params['objectclass'])) {
             $filter = null;
         } else {
-            $filter = (string)Horde_Ldap_Filter::build($this->_params['objectclass'], 'or');
+            $filter = (string)Horde_Ldap_Filter::build(array('objectclass' => $this->_params['objectclass']), 'or');
         }
         $oldres = @ldap_read($this->_ds, Horde_String::convertCharset($object_id, 'UTF-8', $this->_params['charset']), $filter, array_merge(array_keys($attributes), array('objectclass')));
         $info = ldap_get_attributes($this->_ds, ldap_first_entry($this->_ds, $oldres));
