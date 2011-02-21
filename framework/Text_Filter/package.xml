@@ -352,7 +352,6 @@
      <dir name="Text">
       <dir name="Filter">
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="test" />
        <file name="EmailsTest.php" role="test" />
        <file name="EnvironmentTest.php" role="test" />
        <file name="Html2textTest.php" role="test" />
@@ -510,7 +509,6 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.po" name="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.po" />
    <install as="Horde/Text/Filter/AllTests.php" name="test/Horde/Text/Filter/AllTests.php" />
-   <install as="Horde/Text/Filter/Autoload.php" name="test/Horde/Text/Filter/Autoload.php" />
    <install as="Horde/Text/Filter/EmailsTest.php" name="test/Horde/Text/Filter/EmailsTest.php" />
    <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
    <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
