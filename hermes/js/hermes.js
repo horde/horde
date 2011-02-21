@@ -393,7 +393,7 @@ HermesCore = {
         s = this.slices.length;
         for (var i = 0; i <= (s - 1); i++) {
             if (this.slices[i].i == sid) {
-                this.slices = this.slices.splice(i, 1);
+                this.slices.splice(i, 1);
                 break;
             }
         }
