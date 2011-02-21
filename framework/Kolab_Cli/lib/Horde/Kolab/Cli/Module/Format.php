@@ -147,8 +147,10 @@ implements Horde_Kolab_Cli_Module
                 }
             } else {
                 $ks_data = $world['storage']->getData($arguments[3]);
-                $part = $data->fetchPart($arguments[4], $arguments[5]);
-                $data = $parser->load($part);
+                $part = $ks_data->fetchPart($arguments[4], $arguments[5]);
+                rewind($part);
+                $xml = quoted_printable_decode(stream_get_contents($part));
+                $data = $parser->load($xml);
                 $id = $arguments[3] . ':' . $arguments[4] . '[' . $arguments[5] . ']';
             }
             if (class_exists('Horde_Yaml')) {
