@@ -173,6 +173,8 @@ Configuring Kronolith
    of the other methods to create the configuration file
    ``kronolith/config/conf.php``.
 
+   TODO: Configure maps
+
    Note for international users: Kronolith uses GNU gettext to provide local
    translations of text displayed by applications; the translations are found
    in the po/ directory.  If a translation is not yet available for your
