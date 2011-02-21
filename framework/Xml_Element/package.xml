@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Xml_Element</name>
+ <name>Horde_Xml_Element</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Xml Element object</summary>
  <description>This package provides an element object that can be used
@@ -60,7 +60,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

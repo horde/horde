@@ -1111,23 +1111,23 @@ multiple folders, and multiple-language support.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Editor</name>
+    <name>Horde_Editor</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Form</name>
+    <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Image</name>
+    <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Imap_Client</name>
+    <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Mime_Viewer</name>
+    <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

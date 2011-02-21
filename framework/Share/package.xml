@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Share</name>
+ <name>Horde_Share</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Shared Permissions System</summary>
  <description>Horde_Share provides an interface to all shared resources a user
@@ -367,25 +367,25 @@ owns or has access to.</description>
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Perms</name>
+    <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>SQL</name>
+    <name>Horde_SQL</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Translation</name>
+    <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Test</name>
+    <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Kolab_Storage</name>
+    <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>

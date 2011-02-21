@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Rpc</name>
+ <name>Horde_Rpc</name>
  <channel>pear.horde.org</channel>
  <summary>Horde RPC API</summary>
  <description>The Horde_Rpc:: class provides a common abstracted interface to
@@ -337,15 +337,15 @@ Converted to package.xml 2.0 for pear.horde.org
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Support</name>
+    <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Translation</name>
+    <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>

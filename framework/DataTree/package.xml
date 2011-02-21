@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>DataTree</name>
+ <name>Horde_DataTree</name>
  <channel>pear.horde.org</channel>
  <summary>DataTree API</summary>
  <description>TODO
@@ -45,19 +45,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Serialize</name>
+    <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>SQL</name>
+    <name>Horde_SQL</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

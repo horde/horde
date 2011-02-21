@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Release</name>
+ <name>Horde_Release</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Release generation library</summary>
  <description>This package provides the tools necessary to create the Horde distribution packages.
@@ -59,15 +59,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Mime</name>
+    <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Rpc</name>
+    <name>Horde_Rpc</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

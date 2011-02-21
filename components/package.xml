@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Components</name>
+ <name>components</name>
  <channel>pear.horde.org</channel>
  <summary>A package for handling Horde components.</summary>
  <description>The package provides utility methods required
@@ -291,37 +291,37 @@
     <channel>pear.php.net</channel>
    </package>
    <package>
-    <name>Autoloader</name>
+    <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Argv</name>
+    <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Cli</name>
+    <name>Horde_Cli</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Role</name>
+    <name>Horde_Role</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Injector</name>
+    <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Test</name>
+    <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Text_Diff</name>
+    <name>Horde_Text_Diff</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>

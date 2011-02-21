@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Browser</name>
+ <name>Horde_Browser</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Browser API</summary>
  <description>The Horde_Browser class provides an API for getting information
@@ -51,11 +51,11 @@ about the current user&apos;s browser and its capabilities.
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

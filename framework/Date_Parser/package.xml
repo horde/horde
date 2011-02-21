@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Date_Parser</name>
+ <name>Horde_Date_Parser</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Date Parser</summary>
  <description>Library for natural-language date parsing, with support for multiple languages and locales
@@ -75,7 +75,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Date</name>
+    <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

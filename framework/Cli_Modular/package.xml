@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
- <name>Cli_Modular</name>
+ <name>Horde_Cli_Modular</name>
  <channel>pear.horde.org</channel>
  <summary>A toolset for CLI interfaces that are modular.</summary>
  <description>Command line interfaces can often be composed of different modules responsible for distinct actions. This package provides tools to support such a modular CLI.</description>
@@ -86,13 +86,13 @@
     <min>1.9.0</min>
    </pearinstaller>
    <package>
-    <name>Argv</name>
+    <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Test</name>
+    <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>

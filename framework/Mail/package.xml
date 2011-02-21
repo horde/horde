@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Mail</name>
+ <name>Horde_Mail</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Mail Library</summary>
  <description>The Horde_Mail:: library is a fork of the PEAR Mail library that provides additional functionality, including (but not limited to):
@@ -72,7 +72,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

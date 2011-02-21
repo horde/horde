@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Role</name>
+ <name>Horde_Role</name>
  <channel>pear.horde.org</channel>
  <summary>PEAR Installer role used to install Horde components</summary>
  <description>This package provides a method for PEAR to install Horde

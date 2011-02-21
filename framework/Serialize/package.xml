@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Serialize</name>
+ <name>Horde_Serialize</name>
  <channel>pear.horde.org</channel>
  <summary>Data Encapulation API</summary>
  <description>The Horde_Serialize:: class provides various methods of
@@ -76,11 +76,11 @@
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
@@ -90,11 +90,11 @@
     <channel>pear.php.net</channel>
    </package>
    <package>
-    <name>Imap_Client</name>
+    <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Mime</name>
+    <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Alarm</name>
+ <name>Horde_Alarm</name>
  <channel>pear.horde.org</channel>
  <summary>Horde alarm libraries</summary>
  <description>This package provides an interface to deal with reminders,
@@ -340,45 +340,45 @@
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Date</name>
+    <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Translation</name>
+    <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Db</name>
+    <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Log</name>
+    <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Mail</name>
+    <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Mime</name>
+    <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Notification</name>
+    <name>Horde_Notification</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Prefs</name>
+    <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>

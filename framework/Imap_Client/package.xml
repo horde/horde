@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Imap_Client</name>
+ <name>Horde_Imap_Client</name>
  <channel>pear.horde.org</channel>
  <summary>Horde IMAP abstraction interface</summary>
  <description>This package provides an abstracted API interface to various
@@ -86,11 +86,11 @@
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Mime</name>
+    <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>
@@ -103,15 +103,15 @@
     <channel>pear.php.net</channel>
    </package>
    <package>
-    <name>Cache</name>
+    <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Secret</name>
+    <name>Horde_Secret</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Stream_Filter</name>
+    <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>

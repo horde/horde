@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Constraint</name>
+ <name>Horde_Constraint</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Constraint library</summary>
  <description>This package provides a programmatic way of building constraints that evaluate to true or false

@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Log</name>
+ <name>Horde_Log</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Logging library</summary>
  <description>Horde Logging package with configurable handlers, filters, and formatting.
@@ -76,13 +76,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Constraint</name>
+    <name>Horde_Constraint</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Scribe</name>
+    <name>Horde_Scribe</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>

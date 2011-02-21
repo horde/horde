@@ -2055,49 +2055,49 @@ applications.</description>
     <min>1.9.0</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Form</name>
+    <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Template</name>
+    <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Text_Diff</name>
+    <name>Horde_Text_Diff</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Token</name>
+    <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Tree</name>
+    <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>View</name>
+    <name>Horde_View</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>VFS</name>
+    <name>Horde_VFS</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Feed</name>
+    <name>Horde_Feed</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Service_Facebook</name>
+    <name>Horde_Service_Facebook</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Service_Twitter</name>
+    <name>Horde_Service_Twitter</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Auth</name>
+ <name>Horde_Auth</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Authentication API</summary>
  <description>The Horde_Auth:: package provides a common interface into the various backends for the Horde authentication system.</description>
@@ -107,34 +107,34 @@
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Db</name>
+    <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Imap_Client</name>
+    <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Kolab_Server</name>
+    <name>Horde_Kolab_Server</name>
     <channel>pear.horde.org</channel>
     <min>0.2.0</min>
    </package>
    <package>
-    <name>Ldap</name>
+    <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Net_IMSP</name>
+    <name>Horde_Net_IMSP</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Itip</name>
+ <name>Horde_Itip</name>
  <channel>pear.horde.org</channel>
  <summary>iTip invitation response handling.</summary>
  <description>This package allows to generate MIME encapsuled
@@ -373,12 +373,12 @@
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Icalendar</name>
+    <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
     <min>0.2.0</min>
    </package>
    <package>
-    <name>Mime</name>
+    <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
     <min>0.1.0</min>
    </package>

@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Text_Filter_Csstidy</name>
+ <name>Horde_Text_Filter_Csstidy</name>
  <channel>pear.horde.org</channel>
  <extends>Text_Filter</extends>
  <summary>Horde Text Filter API</summary>
@@ -55,7 +55,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Text_Filter</name>
+    <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

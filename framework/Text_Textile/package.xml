@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Text_Textile</name>
+ <name>Horde_Text_Textile</name>
  <channel>pear.horde.org</channel>
  <summary>Textile formatting library</summary>
  <description>

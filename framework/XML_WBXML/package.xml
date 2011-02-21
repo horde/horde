@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>XML_WBXML</name>
+ <name>Horde_XML_WBXML</name>
  <channel>pear.horde.org</channel>
  <summary>XML_WBXML:: provides an API for encoding and decoding WBXML documents used in SyncML and other wireless applications.</summary>
  <description>This package provides encoding and decoding of WBXML (Wireless Binary XML) documents. WBXML is used in SyncML for transferring smaller amounts of data with wireless devices.
@@ -77,7 +77,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

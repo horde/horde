@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>File_PDF</name>
+ <name>Horde_File_PDF</name>
  <channel>pear.horde.org</channel>
  <summary>PDF generation using only PHP.</summary>
  <description>This package provides PDF generation using only PHP, without requiring any external libraries.</description>

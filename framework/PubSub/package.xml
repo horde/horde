@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>PubSub</name>
+ <name>Horde_PubSub</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Publish/Subscribe library</summary>
  <description>Horde Publish/Subscribe package that can act as an inter-app messaging hub

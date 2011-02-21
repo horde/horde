@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>History</name>
+ <name>Horde_History</name>
  <channel>pear.horde.org</channel>
  <summary>API for tracking the history of an object.</summary>
  <description>The Horde_History API provides a way to track changes on arbitrary pieces of data in Horde applications.</description>
@@ -62,15 +62,15 @@
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>DB</name>
-    <channel>pear.php.net</channel>
-   </package>
-   <package>
-    <name>Exception</name>
+    <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Injector</name>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

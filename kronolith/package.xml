@@ -818,11 +818,11 @@
     <min>1.9.0</min>
    </pearinstaller>
    <package>
-    <name>Data</name>
+    <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Date_Parser</name>
+    <name>Horde_Date_Parser</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

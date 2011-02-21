@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Feed</name>
+ <name>Horde_Feed</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Feed libraries</summary>
  <description>This package provides support for working with feed formats such as RSS and Atom.
@@ -62,12 +62,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Xml_Element</name>
+    <name>Horde_Xml_Element</name>
     <channel>pear.horde.org</channel>
     <min>0.4.0</min>
    </package>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

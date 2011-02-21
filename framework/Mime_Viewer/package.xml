@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Mime_Viewer</name>
+ <name>Horde_Mime_Viewer</name>
  <channel>pear.horde.org</channel>
  <summary>Horde MIME Viewer Library</summary>
  <description>Provides rendering drivers for MIME data.</description>
@@ -407,35 +407,35 @@ Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlig
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Browser</name>
+    <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Compress</name>
+    <name>Horde_Compress</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Mime</name>
+    <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Text_Filter</name>
+    <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Text_Flowed</name>
+    <name>Horde_Text_Flowed</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Translation</name>
+    <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

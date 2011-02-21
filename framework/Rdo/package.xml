@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Rdo</name>
+ <name>Horde_Rdo</name>
  <channel>pear.horde.org</channel>
  <summary>Rampage Data Objects</summary>
  <description>Lightweight ORM layer

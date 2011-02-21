@@ -51,16 +51,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>VFS</name>
-    <channel>pear.php.net</channel>
+    <name>Horde_VFS</name>
+    <channel>pear.horde.org</channel>
    </package>
   </required>
  </dependencies>

@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Rampage</name>
+ <name>Horde_Horde_Rampage</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Rampage Application Server</summary>
  <description>PHP 5 application framework for Horde

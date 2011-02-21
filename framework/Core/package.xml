@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Core</name>
+ <name>Horde_Core</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Core Framework libraries</summary>
  <description>These classes provide the core functionality of the Horde
@@ -573,31 +573,31 @@ Application Framework.</description>
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>ActiveSync</name>
+    <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Alarm</name>
+    <name>Horde_Alarm</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Auth</name>
+    <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Autoloader</name>
+    <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Browser</name>
+    <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Cache</name>
+    <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Cli</name>
+    <name>Horde_Cli</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -605,137 +605,137 @@ Application Framework.</description>
     <channel>pear.php.net</channel>
    </package>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>History</name>
+    <name>Horde_History</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Injector</name>
+    <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Lock</name>
+    <name>Horde_Lock</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Log</name>
+    <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>LoginTasks</name>
+    <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Mime</name>
+    <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Mime_Viewer</name>
+    <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Notification</name>
+    <name>Horde_Notification</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Perms</name>
+    <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Prefs</name>
+    <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Secret</name>
+    <name>Horde_Secret</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>SessionHandler</name>
+    <name>Horde_SessionHandler</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Share</name>
+    <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Support</name>
+    <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Translation</name>
+    <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Url</name>
+    <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Browser</name>
+    <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Crypt</name>
+    <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Db</name>
+    <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Editor</name>
+    <name>Horde_Editor</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Form</name>
+    <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Http</name>
+    <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Icalendar</name>
+    <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Kolab_Server</name>
+    <name>Horde_Kolab_Server</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Kolab_Session</name>
+    <name>Horde_Kolab_Session</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Kolab_Storage</name>
+    <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Nls</name>
+    <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Service_Twitter</name>
+    <name>Horde_Service_Twitter</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Text_Filter</name>
+    <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Tree</name>
+    <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>VFS</name>
+    <name>Horde_VFS</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

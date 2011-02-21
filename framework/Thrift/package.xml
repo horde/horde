@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Thrift</name>
+ <name>Horde_Thrift</name>
  <channel>pear.horde.org</channel>
  <summary>Thrift</summary>
  <description>Packaged version of the PHP Thrift client

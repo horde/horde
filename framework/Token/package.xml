@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Token</name>
+ <name>Horde_Token</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Token API</summary>
  <description>The Horde_Token:: class provides a common abstracted interface
@@ -344,29 +344,29 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Translation</name>
+    <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Url</name>
+    <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Util</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Db</name>
+    <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Log</name>
+    <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>

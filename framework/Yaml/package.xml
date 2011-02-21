@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Yaml</name>
+ <name>Horde_Yaml</name>
  <channel>pear.horde.org</channel>
  <summary>Horde YAML parsing and dumping routines</summary>
  <description>This package provides classes for parsing YAML files
@@ -61,7 +61,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Exception</name>
+    <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
