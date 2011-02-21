@@ -91,7 +91,7 @@ class Ingo
     /**
      * Generates a folder widget.
      * If an application is available that provides a folderlist method
-     * then a &lt;select&gt; input is created else a simple text field
+     * then a &lt;select&gt; input is created. Otherwise a simple text field
      * is returned.
      *
      * @param string $value    The current value for the field.
@@ -126,20 +126,21 @@ class Ingo
                     $text .= '"';
                 }
 
-                $text .= "\n<option value=\"\">" . _("Select target folder:") . "</option>\n";
+                $text .= '<option value="">' . _("Select target folder:") . '</option>' .
+                    '<option value="" disabled="disabled">- - - - - - - - - -</option>';
 
                 if ($createfolder) {
-                    $text .= '<option value="">' . _("Create new folder") . "</option>\n";
+                    $text .= '<option value="">' . _("Create new folder") . '</option>' .
+                        '<option value="" disabled="disabled">- - - - - - - - - -</option>';
                 }
 
-                foreach ($mailboxes as $mbox) {
-                    $sel = ($mbox['val'] && ($mbox['val'] === $value)) ? ' selected="selected"' : '';
-                    $disabled = empty($mbox['val']) ? ' disabled="disabled"' : '';
-                    $val = htmlspecialchars($mbox['val']);
-                    $label = $mbox['abbrev'];
-                    $text .= sprintf('<option%s value="%s"%s>%s</option>%s',
-                                     $disabled, $val, $sel,
-                                     $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($label, 'space2html', array('encode' => true)), "\n");
+                foreach ($mailboxes as $key => $val) {
+                    $text .= sprintf(
+                        "<option value=\"%s\"%s>%s</option>\n",
+                        htmlspecialchars($key),
+                        ($key === $value) ? ' selected="selected"' : '',
+                        str_repeat('&nbsp;', $val['level'] * 2) . htmlspecialchars($val['label'])
+                    );
                 }
 
                 return $text . '</select>';
