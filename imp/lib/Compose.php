@@ -1107,7 +1107,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $textBody = new Horde_Mime_Part();
         $textBody->setType('text/plain');
         $textBody->setCharset($this->charset);
-        $textBody->setLanguage($GLOBALS['language']);
         $textBody->setDisposition('inline');
 
         /* Send in flowed format. */
@@ -1123,7 +1122,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $htmlBody = new Horde_Mime_Part();
             $htmlBody->setType('text/html');
             $htmlBody->setCharset($this->charset);
-            $htmlBody->setLanguage($GLOBALS['language']);
             $htmlBody->setDisposition('inline');
             $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Message"), 'UTF-8', $this->charset));
 
