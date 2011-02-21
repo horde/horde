@@ -405,7 +405,7 @@ a.rounded {
     visibility: visible;
 }
 #hermesTimeListBody .hermesTimeListRow:hover {
-    font-weight: bold;
+   /* background-color: #f0f0f0; */
 }
 .hermesUnselectedSlice {
     background: url("graphics/checkbox_off.png") no-repeat center;

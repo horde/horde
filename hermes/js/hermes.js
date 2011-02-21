@@ -372,6 +372,7 @@ HermesCore = {
     {
         elt.fade({ duration: this.effectDur, queue: 'end' });
         this.removeSliceFromCache(sid);
+        this.updateTimeSummary();
     },
 
     getSliceFromCache: function(sid)
@@ -535,8 +536,6 @@ HermesCore = {
         $('hermesLoading').hide();
         this.slices = r.response;
         this.buildTimeTable();
-        this.onResize(null);
-        this.updateTimeSummary();
     },
 
     updateTimeSummary: function()
@@ -590,8 +589,9 @@ HermesCore = {
         }.bind(this));
         $('hermesTimeListTemplate').up().insert(t);
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
-        this.onResize();
         t.appear({ duration: this.effectDur, queue: 'end' });
+        this.onResize();
+        this.updateTimeSummary();
     },
 
     buildTimeRow: function(slice)
