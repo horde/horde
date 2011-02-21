@@ -577,11 +577,11 @@ HermesCore = {
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
-        cell = cell.next().update(slice.h);
         cell = cell.next().update((slice.cn.name) ? slice.cn.name : ' ');
         cell = cell.next().update((slice.con) ? slice.con : ' ');
         cell = cell.next().update((slice.tn) ? slice.tn : ' ');
         cell = cell.next().update((slice.desc) ? slice.desc : ' ');
+                cell = cell.next().update(slice.h);
         return row;
     },
 

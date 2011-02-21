@@ -49,11 +49,11 @@
        <div id="hermesTimeListHeader">
         <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
         <div class="hermesTimeListDate hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>
-        <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
         <div class="hermesTimeListClient hermesBorderLeft"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
         <div class="hermesTimeListCostObject hermesBorderLeft"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
         <div class="hermesTimeListType hermesBorderLeft"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
         <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget"><?php echo _("Description")?></a></div>
+        <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
         <div class="hermesTimeSliceOptions">&nbsp;</div>
        </div>
        <div>
@@ -61,11 +61,11 @@
          <div id="hermesTimeListTemplate" style="display:none;">
            <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
            <div class="hermesTimeListDate hermesBorderLeft"></div>
-           <div class="hermesTimeListHours hermesBorderLeft"></div>
            <div class="hermesTimeListClient hermesBorderLeft"></div>
            <div class="hermesTimeListCostObject hermesBorderLeft"></div>
            <div class="hermesTimeListType hermesBorderLeft"></div>
            <div class="hermesTimeListDesc hermesBorderLeft"></div>
+           <div class="hermesTimeListHours hermesBorderLeft"></div>
            <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded">x</a></div>
          </div>
         </div>
