@@ -328,12 +328,12 @@ font-family: "American Typewriter","Constantia","Verdana",monospace;
 }
 div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListDesc,
 div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType,
-div.hermesTimeSliceOptions, div.hermesTimeListSelect {
+div.hermesTimeSliceOptions, div.hermesTimeListSelect, div.hermesTimeListBill {
     float: left;
     white-space: pre-wrap;
     overflow: hidden;
 }
-div.hermesTimeListSelect {
+div.hermesTimeListSelect, div.hermesTimeListBill {
     width: 3%;
 }
 div.hermesTimeListHours {
@@ -343,7 +343,7 @@ div.hermesTimeListDate, div.hermesTimeListType, div.hermesTimeListClient {
     width: 10%;
 }
 div.hermesTimeListCostObject, div.hermesTimeListDesc {
-    width: 25%;
+    width: 22%;
 }
 div.hermesTimeSliceOptions {
     width: 10%;
