@@ -2,10 +2,8 @@
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Components</name>
  <channel>pear.horde.org</channel>
- <summary>A package for handling Horde components.</summary>
- <description>The package provides utility methods required
- when preparing a new component release for Horde. It also includes
- quality control checks.</description>
+ <summary>A package for dealing with Horde components</summary>
+ <description>The package provides utility methods required when preparing a new component release for Horde. It also includes quality control checks.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -27,8 +25,8 @@
  <date>2011-02-20</date>
  <time>18:25:52</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>0.99.1</release>
+  <api>1.0</api>
  </version>
  <stability>
   <release>alpha</release>

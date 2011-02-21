@@ -2,8 +2,8 @@
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>Mnemo</name>
  <channel>pear.horde.org</channel>
- <summary>REPLACE</summary>
- <description>REPLACE</description>
+ <summary>A web based notes manager</summary>
+ <description>Mnemo is the Horde notes and memos application.  It lets users keep free-text notes and other bits of information which doesn't fit as a contact, a todo item, an event, etc.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -19,14 +19,14 @@
  <date>2011-02-14</date>
  <time>15:01:31</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>2.99.1</release>
+  <api>3.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="REPLACE">REPLACE</license>
+ <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
 * Initial release.
  </notes>

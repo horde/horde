@@ -2,7 +2,7 @@
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>Kronolith</name>
  <channel>pear.horde.org</channel>
- <summary>A web based calendar.</summary>
+ <summary>A web based calendar</summary>
  <description>The Kronolith calendar provides a robust web-based calendar for any number of users or groups, with the ability to show any number of calendars in a single overlaid view. Users can create any number of calendars and grant read, edit, or full permissions to any user, group, or any combination thereof.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -19,8 +19,8 @@
  <date>2011-02-14</date>
  <time>15:01:28</time>
  <version>
-  <release>3.0.0</release>
-  <api>3.0.0</api>
+  <release>2.99.1</release>
+  <api>3.0</api>
  </version>
  <stability>
   <release>alpha</release>

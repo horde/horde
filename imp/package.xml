@@ -2,14 +2,9 @@
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>IMP</name>
  <channel>pear.horde.org</channel>
- <summary>IMP is the Internet Messaging Program, a PHP-based webmail system</summary>
- <description>IMP, once installed, accesses mail over IMAP
-thus requiring little to no special preparations on the server on which mail
-is stored.
-
-IMP offers most of the features users have come to expect from their
-conventional mail programs, including attachments, spell-check, address books,
-multiple folders, and multiple-language support.</description>
+ <summary>A web based webmail system</summary>
+ <description>IMP, once installed, accesses mail over IMAP thus requiring little to no special preparations on the server on which mail is stored.
+IMP offers most of the features users have come to expect from their conventional mail programs, including attachments, spell-check, address books, multiple folders, and multiple-language support.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -31,8 +26,8 @@ multiple folders, and multiple-language support.</description>
  <date>2011-02-14</date>
  <time>14:33:33</time>
  <version>
-  <release>5.0.0</release>
-  <api>5.0.0</api>
+  <release>4.99.1</release>
+  <api>5.0</api>
  </version>
  <stability>
   <release>alpha</release>

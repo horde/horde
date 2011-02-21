@@ -5,10 +5,9 @@ http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Koward</name>
  <channel>pear.horde.org</channel>
- <summary>An administration frontend for the Kolab server.</summary>
+ <summary>An administration frontend for the Kolab server</summary>
  <description>This package provides a web based frontend for the
- administration of the Kolab server.
- </description>
+ administration of the Kolab server.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -29,8 +28,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </lead>
  <date>2009-04-30</date>
  <version>
-  <release>0.0.3</release>
-  <api>0.0.1</api>
+  <release>0.99.1</release>
+  <api>1.0</api>
  </version>
  <stability>
   <release>alpha</release>

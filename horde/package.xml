@@ -3,10 +3,7 @@
  <name>Horde</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Application Framework</summary>
- <description>The Horde Application Framework is a modular, general-purpose web application
-framework written in PHP.  It provides an extensive array of classes that are
-targeted at the common problems and tasks involved in developing modern web
-applications.</description>
+ <description>The Horde Application Framework is a modular, general-purpose web application framework written in PHP.  It provides an extensive array of classes that are targeted at the common problems and tasks involved in developing modern web applications.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -22,8 +19,8 @@ applications.</description>
  <date>2011-02-14</date>
  <time>14:34:00</time>
  <version>
-  <release>4.0.0</release>
-  <api>4.0.0</api>
+  <release>3.99.1</release>
+  <api>4.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,7 +28,7 @@ applications.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Initial package.xml.
+* Initial release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

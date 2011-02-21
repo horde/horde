@@ -3,7 +3,7 @@
  <name>Ingo</name>
  <channel>pear.horde.org</channel>
  <summary>An email filter rules manager</summary>
- <description>Ingo is an email filter rules manager. It can generate Sieve, procmail and IMAP scripts and upload them to or execute them on the server (using a timsieved or VFS FTP driver, or the PHP IMAP extension, respectively).</description>
+ <description>Ingo is an email filter rules manager. It can generate Sieve, Maildrop, Procmail and IMAP scripts and upload them to or execute them on the server (using a timsieved or VFS FTP driver, or the PHP IMAP extension, respectively).</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -25,8 +25,8 @@
  <date>2011-02-14</date>
  <time>14:32:02</time>
  <version>
-  <release>2.0.0</release>
-  <api>2.0.0</api>
+  <release>1.99.1</release>
+  <api>2.0</api>
  </version>
  <stability>
   <release>alpha</release>
