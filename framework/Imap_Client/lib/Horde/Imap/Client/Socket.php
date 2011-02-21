@@ -2656,7 +2656,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
 
-            // Ignore: language, location
+            // This is language information. It is either a single value or
+            // a list of values.
+            if (isset($data[++$i])) {
+                $ob->setLanguage($data[$i]);
+            }
+
+            // Ignore: location (RFC 2557)
             // There can be further information returned in the future, but
             // for now we are done.
         } else {
@@ -2720,7 +2726,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
 
-            // Ignore: language, location
+            // This is language information. It is either a single value or
+            // a list of values.
+            if (isset($data[++$i])) {
+                $ob->setLanguage($data[$i]);
+            }
+
+            // Ignore: location (RFC 2557)
         }
 
         return $ob;
