@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>koward</name>
+ <name>Koward</name>
  <channel>pear.horde.org</channel>
  <summary>An administration frontend for the Kolab server.</summary>
  <description>This package provides a web based frontend for the
