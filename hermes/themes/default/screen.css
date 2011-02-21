@@ -434,7 +434,6 @@ a.rounded {
 }
 #hermesTimeFormInputs .hermesLongField {
   border: medium none;
-  /*font-size: 18px;*/
   margin: 0  7px 0;
   padding: 6px 5px 4px;
   width: 98%;
@@ -464,6 +463,17 @@ a.rounded {
     left: 10px;
     width: 153px;
 }
+#hermesMenu .hermesMenuItem {
+    margin: 0 0 4px 4px;
+    background: -moz-linear-gradient(-90deg, #F0F0F0, #DBDBDB);
+    background: -webkit-gradient(linear, left bottom, left top, #f0f0f0, #dbdbdb);
+    color: #444444;
+}
+/* Time summary */
+#hermesMenuSummaryUnsubmitted, #hermesMenuSummaryToday {
+    font-weight: bold;
+    float:right;
+}
 #hermesMenu a.hermesAdd {
   background: url("graphics/plus.png") no-repeat scroll right center transparent;
   cursor: pointer;
@@ -478,12 +488,10 @@ a.rounded {
   overflow-x: hidden;
   overflow-y: auto;
   position: absolute;
-  top: 245px;
+  top: 46px;
   width: 100%;
 }
 .hermesTimerOn {
-    background-color: rgb(221, 221, 221);
-    margin-bottom: 7px;
 }
 .hermesMenuRecent {
     margin-bottom: 7px;
@@ -501,7 +509,7 @@ a.rounded {
   cursor: default;
   font-size: 100%;
   font-weight: bold;
-  margin-bottom: 2px;
+  margin: 4px 0 2px 0;
   position: relative;
 }
 #hermesViewIframe iframe {

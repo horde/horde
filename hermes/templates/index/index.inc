@@ -51,25 +51,24 @@
 
 <!-- begin left menu -->
 <div id="hermesMenu">
-    <div class="hermesMenuSummary">
-      <h3 style="margin-top:46px;">Time Summary:</h3>
-      <span class="hermesMenuSummaryToday">Today:</span> 10 hours<br />
-      <span class="hermesMenuSummaryToday">Week:</span> 45 hours<br />
-    </div>
-    <br />
+    <div id="hermesMenuBlocks">
     <h3>Mini-Cal Here, with days containing hours worked highlighted</h3>
     <p> Dates will link to a search-by-date view for the selected date?</p>
-    <br />
-    <div id="hermesMenuBlocks">
+    <div class="hermesMenuSummary">
+      <h3><?php echo _("Time Summary") ?>:</h3>
+      <div class="hermesMenuItem rounded"><?php echo _("Today") ?>:<span id="hermesMenuSummaryToday"></span></div>
+      <!--<div class="hermesMenuItem rounded"><?php echo _("Week") ?>:<span id="hermesMenuSummaryWeek"></span></div>-->
+      <div class="hermesMenuItem rounded"><?php echo _("Total") ?>:<span id="hermesMenuSummaryUnsubmitted"></span></div>
+    </div>
       <a href="#" class="hermesAdd">+</a>
       <h3>Timers</h3>
       <span class="hermesTimerStop">x</span>
-      <div class="hermesTimerOn rounded">
+      <div class="hermesMenuItem hermesTimerOn rounded">
          Big Project Timer
          <div class="hermesTimerTime">2:32</div>
       </div>
       <span class="hermesTimerStop">x</span>
-      <div class="hermesTimerOn rounded">
+      <div class="hermesMenuItem hermesTimerOn rounded">
          Big Project Timer
          <div class="hermesTimerTime">2:32</div>
       </div>

@@ -13,6 +13,7 @@ HermesCore = {
     reverseSort: false,
     sortDir: 'up',
     selectedSlices: [],
+    today: null,
 
     doActionOpts: {
 
@@ -522,6 +523,20 @@ HermesCore = {
         this.slices = r.response;
         this.buildTimeTable();
         this.onResize(null);
+        this.updateTimeSummary();
+    },
+
+    updateTimeSummary: function()
+    {
+        var total = 0, today = 0;
+        this.slices.each(function(i) {
+            total = total + parseFloat(i.h);
+            if (i.d == this.today) {
+                today = today + parseFloat(i.h);
+            }
+        });
+        $('hermesMenuSummaryUnsubmitted').update(total);
+        $('hermesMenuSummaryToday').update(total);
     },
 
     buildTimeTable: function()
@@ -842,6 +857,7 @@ HermesCore = {
 
         // @TODO: Minical that have dates with hours highlighted?
         //this.updateMinical(this.date);
+        this.today = new Date().toString('yyyyMMdd');
 
         /* Initialize the starting page. */
         var tmp = location.hash;

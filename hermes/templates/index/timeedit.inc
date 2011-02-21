@@ -69,7 +69,8 @@
            <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded">x</a></div>
          </div>
         </div>
-        <div class="hermesTimeListControls"><a id="hermesTimeListSubmit" class="button"><?php echo _("Submit Time") ?></a></div>
+        <div class="hermesTimeListControls">
+            <a id="hermesTimeListSubmit" class="button"><?php echo _("Submit Time") ?></a></div>
        </div>
    </div>
   </div>
