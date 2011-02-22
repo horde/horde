@@ -12,10 +12,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  *
- * @property boolean $all  TODO
- * @property array $ids  TODO
- * @property boolean $search_res  TODO
- * @property boolean $sequence  TODO
+ * @property boolean $all  Does this represent an ALL message set?
+ * @property array $ids  The list of IDs.
+ * @property boolean $search_res  Does this represent a search result?
+ * @property boolean $sequence  Are these sequence IDs? If false, these are
+ *                              UIDs.
  */
 class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 {

@@ -2817,7 +2817,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * <pre>
      * 'lookup' - (array) The mapping of UIDs [keys] to sequence numbers
      *            [values]. Only calculated if $ids contain sequence numbers.
-     * 'uids' - (array) The list of UIDs.
+     * 'uids' - (Horde_Imap_Client_Ids) The list of UIDs.
      * </pre>
      */
     protected function _getSeqUidLookup(Horde_Imap_Client_Ids $ids)
