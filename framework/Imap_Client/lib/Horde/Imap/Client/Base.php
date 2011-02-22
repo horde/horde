@@ -2514,7 +2514,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $this->_temp['nocache'] = true;
                 $search_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids($status['messages'], true));
                 unset($this->_temp['nocache']);
-                $status['uidnext'] = intval(reset($search_res['uids'])) + 1;
+                $uids = $search_res['uids']->ids;
+                $status['uidnext'] = intval(end($uids)) + 1;
             }
 
             $parts = array(
