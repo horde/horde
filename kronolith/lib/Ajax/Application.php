@@ -162,9 +162,13 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             return $result;
         }
 
-        $event->readForm();
-
-        $result = $this->_saveEvent($event);
+        try {
+            $event->readForm();
+            $result = $this->_saveEvent($event);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return $result;
+        }
         if (($result !== true) && $this->_vars->sendupdates) {
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
         }
