@@ -284,8 +284,7 @@ if ($origin_host) {
 }
 
 if (empty($from_img) && !empty($envelope->from)) {
-    $from_ob = reset($envelope->from);
-    $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($from_ob['host']) . ' ';
+    $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($envelope->from[0]['host']) . ' ';
 }
 
 if (!empty($from_img)) {
@@ -334,8 +333,8 @@ case 'low':
 
 /* Build Reply-To address link. */
 if (!empty($envelope->reply_to) &&
-    (Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String(reset($envelope->from), array('charset' => 'UTF-8'))) !=
-     Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String(reset($envelope->reply_to), array('charset' => 'UTF-8')))) &&
+    (Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String($envelope->from[0], array('charset' => 'UTF-8'))) !=
+     Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String($envelope->reply_to[0], array('charset' => 'UTF-8')))) &&
     ($reply_to = $imp_ui->buildAddressLinks($envelope->reply_to, $self_link))) {
     $display_headers['reply-to'] = $reply_to;
 }
