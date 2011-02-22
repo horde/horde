@@ -2509,11 +2509,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
         } else {
             if (empty($status['uidnext'])) {
                 /* UIDNEXT is not strictly required on mailbox open. If it is
-                 * not available, use the last UID in the mailbox instead. */
+                 * not available, use the last UID + 1 in the mailbox
+                 * instead. */
                 $this->_temp['nocache'] = true;
                 $search_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids($status['messages'], true));
                 unset($this->_temp['nocache']);
-                $status['uidnext'] = reset($search_res['uids']);
+                $status['uidnext'] = intval(reset($search_res['uids'])) + 1;
             }
 
             $parts = array(
@@ -2814,7 +2815,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @return array  An array with 2 possible entries:
      * <pre>
-     * 'lookup' - (array) The mapping of sequence numbers [keys] to UIDs
+     * 'lookup' - (array) The mapping of UIDs [keys] to sequence numbers
      *            [values]. Only calculated if $ids contain sequence numbers.
      * 'uids' - (array) The list of UIDs.
      * </pre>
@@ -2842,12 +2843,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $ret['uids'] = $res['match'];
 
         if ($ids->sequence && $res['count']) {
-            if (empty($ids)) {
-                $ids = range(1, $res['count']);
+            if ($ids->all) {
+                $seq = range(1, $res['count']);
             } else {
-                sort($ids, SORT_NUMERIC);
+                $seq = $ids->ids;
+                sort($seq, SORT_NUMERIC);
             }
-            $ret['lookup'] = array_combine($ret['uids']->ids, $ids);
+            $ret['lookup'] = array_combine($ret['uids']->ids, $seq);
         }
 
         return $ret;

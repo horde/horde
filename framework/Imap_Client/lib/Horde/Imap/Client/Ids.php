@@ -66,7 +66,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             return ($this->_ids === self::SEARCH_RES);
 
         case 'sequence':
-            return ($this->_ids === self::SEARCH_RES);
+            return (bool)$this->_sequence;
         }
     }
 
