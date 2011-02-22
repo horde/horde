@@ -189,7 +189,16 @@ foreach ($a as $app) {
     }
 
     if (in_array($app, $migration->apps)) {
-        $migrator = $migration->getMigrator($app);
+        /* If a DB backend hasn't been configured (yet), an exception will be
+         * thrown. This is fine if this is the intial configuration, or if no
+         * DB will be used. */
+        try {
+            $migrator = $migration->getMigrator($app);
+        } catch (Horde_Exception $e) {
+            $apps[$i]['db'] = $warning;
+            $apps[$i]['dbstatus'] = _("DB access is not configured.");
+            continue;
+        }
         if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
             /* Schema is out of date. */
             $apps[$i]['db'] = $db_link . $error . '</a>';
@@ -217,11 +226,21 @@ foreach ($migration->apps as $app) {
     $conf_link = $self_url
         ->add(array('app' => $app, 'action' => 'schema'))
         ->link(array('title' => sprintf(_("Update %s schema"), $app)));
-    $migrator = $migration->getMigrator($app);
 
     $apps[$i]['sort'] = 'ZZZ' . $app;
     $apps[$i]['name'] = implode('_', array_map(array('Horde_String', 'ucfirst'), explode('_', $app)));
     $apps[$i]['version'] = '';
+
+    /* If a DB backend hasn't been configured (yet), an exception will be
+     * thrown. This is fine if this is the intial configuration, or if no DB
+     * will be used. */
+    try {
+        $migrator = $migration->getMigrator($app);
+    } catch (Horde_Exception $e) {
+        $apps[$i]['db'] = $warning;
+        $apps[$i]['dbstatus'] = _("DB access is not configured.");
+        continue;
+    }
 
     if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
         /* Schema is out of date. */
