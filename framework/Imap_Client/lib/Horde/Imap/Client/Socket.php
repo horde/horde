@@ -3447,14 +3447,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if ($this->_debug && empty($this->_temp['sendnodebug'])) {
             fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') C: ');
             if (is_resource($data)) {
-                if ($this->_params['debug_literal']) {
+                if (empty($this->_params['debug_literal'])) {
+                    fseek($data, 0, SEEK_END);
+                    fwrite($this->_debug, '[LITERAL DATA - ' . ftell($data) . ' bytes]' . "\n");
+                } else {
                     rewind($data);
                     while ($in = fread($data, 8192)) {
                         fwrite($this->_debug, $in);
                     }
-                } else {
-                    fseek($data, 0, SEEK_END);
-                    fwrite($this->_debug, '[LITERAL DATA - ' . ftell($data) . ' bytes]' . "\n");
                 }
             } else {
                 fwrite($this->_debug, (empty($options['debug']) ? $out : $options['debug']) . "\n");
@@ -3722,7 +3722,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') S: ');
             if ($binary) {
                 fwrite($this->_debug, '[BINARY DATA - ' . $old_len . ' bytes]' . "\n");
-            } elseif (!is_null($len) && !$this->_params['debug_literal']) {
+            } elseif (!is_null($len) &&
+                      empty($this->_params['debug_literal'])) {
                 fwrite($this->_debug, '[LITERAL DATA - ' . $old_len . ' bytes]' . "\n");
             } elseif ($stream) {
                 rewind($data);
