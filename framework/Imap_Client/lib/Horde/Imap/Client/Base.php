@@ -3049,7 +3049,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $metadata[self::CACHE_SEARCH] = array();
             if ($this->_debug &&
                 !isset($this->_temp['searchcacheexpire'][$mailbox])) {
-                fwrite($this->_debug, sprintf(">>> Expired search results from cache (mailbox: %s)\n"));
+                fwrite($this->_debug, sprintf(">>> Expired search results from cache (mailbox: %s)\n", $mailbox));
                 $this->_temp['searchcacheexpire'][$mailbox] = true;
             }
         } elseif (isset($metadata[self::CACHE_SEARCH][$cache])) {
