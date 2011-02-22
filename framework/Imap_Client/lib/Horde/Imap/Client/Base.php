@@ -1,7 +1,7 @@
 <?php
 /**
- * Horde_Imap_Client_Base:: provides an abstracted API interface to various
- * IMAP backends supporting the IMAP4rev1 protocol (RFC 3501).
+ * This class provides an abstracted API interface to IMAP backends supporting
+ * the IMAP4rev1 protocol (RFC 3501).
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
@@ -743,12 +743,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Open a mailbox.
      *
-     * @param string $mailbox  The mailbox to open. Either in UTF7-IMAP or
-     *                         UTF-8.
-     * @param integer $mode    The access mode. Either
-     *                         Horde_Imap_Client::OPEN_READONLY,
-     *                         Horde_Imap_Client::OPEN_READWRITE, or
-     *                         Horde_Imap_Client::OPEN_AUTO.
+     * @param mixed $mailbox  The mailbox to open. Either in UTF7-IMAP or
+     *                        UTF-8 (can be object with __toString() method).
+     * @param integer $mode   The access mode. Either
+     *                        Horde_Imap_Client::OPEN_READONLY,
+     *                        Horde_Imap_Client::OPEN_READWRITE, or
+     *                        Horde_Imap_Client::OPEN_AUTO.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -813,9 +813,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Create a mailbox.
      *
-     * @param string $mailbox  The mailbox to create. Either in UTF7-IMAP or
-     *                         UTF-8.
-     * @param array $opts      Additional options:
+     * @param mixed $mailbox  The mailbox to create. Either in UTF7-IMAP or
+     *                        UTF-8 (can be object with __toString() method).
+     * @param array $opts     Additional options:
      * <pre>
      * 'special_use' - (array) An array of special-use flags to mark the
      *                 mailbox with.  The server must support broadcast the
@@ -846,8 +846,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Delete a mailbox.
      *
-     * @param string $mailbox  The mailbox to delete. Either in UTF7-IMAP or
-     *                         UTF-8.
+     * @param mixed $mailbox  The mailbox to delete. Either in UTF7-IMAP or
+     *                        UTF-8 (can be object with __toString() method).
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -883,8 +883,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Rename a mailbox.
      *
-     * @param string $old  The old mailbox name. Either in UTF7-IMAP or UTF-8.
-     * @param string $new  The new mailbox name. Either in UTF7-IMAP or UTF-8.
+     * @param mixed $old  The old mailbox name. Either in UTF7-IMAP or UTF-8
+     *                    (can be object with __toString() method).
+     * @param mixed $new  The new mailbox name. Either in UTF7-IMAP or UTF-8.
+     *                    (can be object with __toString() method).
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -928,8 +930,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Manage subscription status for a mailbox.
      *
-     * @param string $mailbox     The mailbox to [un]subscribe to. Either in
-     *                            UTF7-IMAP or UTF-8.
+     * @param mixed $mailbox      The mailbox to [un]subscribe to. Either in
+     *                            UTF7-IMAP or UTF-8 (can be object with
+     *                            __toString() method).
      * @param boolean $subscribe  True to subscribe, false to unsubscribe.
      *
      * @throws Horde_Imap_Client_Exception
@@ -1059,10 +1062,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Obtain status information for a mailbox.
      *
-     * @param string $mailbox  The mailbox to query. Either in UTF7-IMAP or
-     *                         or UTF-8.
-     * @param integer $flags   A bitmask of information requested from the
-     *                         server. Allowed flags:
+     * @param mixed $mailbox  The mailbox to query. Either in UTF7-IMAP or
+     *                        or UTF-8 (can be object with __toString()
+     *                        method).
+     * @param integer $flags  A bitmask of information requested from the
+     *                        server. Allowed flags:
      * <pre>
      * Flag: Horde_Imap_Client::STATUS_MESSAGES
      *   Return key: 'messages'
@@ -1253,7 +1257,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * the IMAP server to improve the efficiency of this operation.
      *
      * @param array $mailboxes  The mailboxes to query. Either in UTF7-IMAP
-     *                          or UTF-8.
+     *                          or UTF-8 (can be objects with __toString()
+     *                          method).
      * @param integer $flags    See self::status().
      *
      * @return array  An array with the keys as the mailbox names and the
@@ -1293,12 +1298,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Append message(s) to a mailbox.
      *
-     * @param string $mailbox  The mailbox to append the message(s) to. Either
-     *                         in UTF7-IMAP or UTF-8.
-     * @param array $data      The message data to append, along with
-     *                         additional options. An array of arrays with
-     *                         each embedded array having the following
-     *                         entries:
+     * @param mixed $mailbox  The mailbox to append the message(s) to. Either
+     *                        in UTF7-IMAP or UTF-8 (can be object with
+     *                        __toString() method).
+     * @param array $data     The message data to append, along with
+     *                        additional options. An array of arrays with
+     *                        each embedded array having the following
+     *                        entries:
      * <pre>
      * 'data' - (mixed) The data to append. If a string or a stream resource,
      *          this will be used as the entire contents of a single message.
@@ -1455,9 +1461,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Expunge deleted messages from the given mailbox.
      *
-     * @param string $mailbox  The mailbox to expunge. Either in UTF7-IMAP
-     *                         or UTF-8.
-     * @param array $options   Additional options:
+     * @param mixed $mailbox  The mailbox to expunge. Either in UTF7-IMAP
+     *                        or UTF-8 (can be object with __toString()
+     *                        method).
+     * @param array $options  Additional options:
      * <pre>
      * 'ids' - (Horde_Imap_Client_Ids) A list of messages to expunge, but only
      *         if they are also flagged as deleted.
@@ -1495,12 +1502,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Search a mailbox.
      *
-     * @param string $mailbox  The mailbox to search. Either in UTF7-IMAP
-     *                         or UTF-8.
-     * @param object $query    The search query (a
-     *                         Horde_Imap_Client_Search_Query object).
-     *                         Defaults to an ALL search.
-     * @param array $options   Additional options:
+     * @param mixed $mailbox                         The mailbox to search.
+     *                                               Either in UTF7-IMAP or
+     *                                               UTF-8 (can be object with
+     *                                               __toString() method).
+     * @param Horde_Imap_Client_Search_Query $query  The search query.
+     *                                               Defaults to an ALL
+     *                                               search.
+     * @param array $options                         Additional options:
      * <pre>
      * 'nocache' - (boolean) Don't cache the results.
      *             DEFAULT: false (results cached, if possible)
@@ -1610,7 +1619,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $this->_initCache(true) &&
             (isset($this->_init['enabled']['CONDSTORE']) ||
              !$query->flagSearch())) {
-            $cache = $this->_getSearchCache('search', $mailbox, $options);
+            $cache = $this->_getSearchCache('search', $this->_selected, $options);
             if (is_array($cache)) {
                 if (isset($cache['data']['match'])) {
                     $cache['data']['match'] = new Horde_Imap_Client_Ids($cache['data']['match']);
@@ -1710,9 +1719,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Thread sort a given list of messages (RFC 5256).
      *
-     * @param string $mailbox  The mailbox to search. Either in UTF7-IMAP
-     *                         or UTF-8.
-     * @param array $options   Additional options:
+     * @param mixed $mailbox  The mailbox to search. Either in UTF7-IMAP
+     *                        or UTF-8 (can be object with __toString()
+     *                        method).
+     * @param array $options  Additional options:
      * <pre>
      * 'criteria' - (mixed) The following thread criteria are available:
      *              Horde_Imap_Client::THREAD_ORDEREDSUBJECT,
@@ -1721,8 +1731,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *              algorithms can be explicitly specified by passing the IMAP
      *              thread algorithm in as a string.
      *              DEFAULT: Horde_Imap_Client::THREAD_ORDEREDSUBJECT
-     * 'search' - (object) The search query (a
-     *            Horde_Imap_Client_Search_Query object).
+     * 'search' - (Horde_Imap_Client_Search_Query) The search query.
      *            DEFAULT: All messages in mailbox included in thread sort.
      * 'sequence' - (boolean) If true, each message is stored and referred to
      *              by its message sequence number.
@@ -1745,7 +1754,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             (isset($this->_init['enabled']['CONDSTORE']) ||
              empty($options['search']) ||
              !$options['search']->flagSearch())) {
-            $cache = $this->_getSearchCache('thread', $mailbox, $options);
+            $cache = $this->_getSearchCache('thread', $this->_selected, $options);
             if (is_array($cache)) {
                 if ($cache['data'] instanceof Horde_Imap_Client_Data_Thread) {
                     return $cache['data'];
@@ -1790,9 +1799,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Fetch message data (see RFC 3501 [6.4.5]).
      *
-     * @param string $mailbox                       The mailbox to fetch
+     * @param mixed $mailbox                        The mailbox to fetch
      *                                              messages from. Either in
-     *                                              UTF7-IMAP or UTF-8.
+     *                                              UTF7-IMAP or UTF-8 (can
+     *                                              be object with
+     *                                              __toString() method).
      * @param Horde_Imap_Client_Fetch_Query $query  Fetch query object.
      * @param array $options                        Additional options:
      *   - changedsince: (integer) Only return messages that have a
@@ -2061,9 +2072,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Store message flag data (see RFC 3501 [6.4.6]).
      *
-     * @param string $mailbox  The mailbox containing the messages to modify.
-     *                         Either in UTF7-IMAP or UTF-8.
-     * @param array $options   Additional options:
+     * @param mixed $mailbox  The mailbox containing the messages to modify.
+     *                        Either in UTF7-IMAP or UTF-8 (can be object with
+     *                        __toString() method).
+     * @param array $options  Additional options:
      * <pre>
      * 'add' - (array) An array of flags to add.
      *         DEFAULT: No flags added.
@@ -2124,11 +2136,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Copy messages to another mailbox.
      *
-     * @param string $source   The source mailbox. Either in UTF7-IMAP
-     *                         or UTF-8.
-     * @param string $dest     The destination mailbox. Either in UTF7-IMAP
-     *                         or UTF-8.
-     * @param array $options   Additional options:
+     * @param mixed $source   The source mailbox. Either in UTF7-IMAP
+     *                        or UTF-8 (can be object with __toString()
+     *                        method).
+     * @param mixed $dest     The destination mailbox. Either in UTF7-IMAP
+     *                        or UTF-8 (can be object with __toString()
+     *                        method).
+     * @param array $options  Additional options:
      * <pre>
      * 'create' - (boolean) Try to create $dest if it does not exist?
      *            DEFAULT: No.
@@ -2175,7 +2189,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Set quota limits. The server must support the IMAP QUOTA extension
      * (RFC 2087).
      *
-     * @param string $root    The quota root. Either in UTF7-IMAP or UTF-8.
+     * @param mixed $root     The quota root. Either in UTF7-IMAP or UTF-8
+     *                        (can be object with __toString() method).
      * @param array $options  Additional options:
      * <pre>
      * 'messages' - (integer) The limit to set on the number of messages
@@ -2214,7 +2229,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Get quota limits. The server must support the IMAP QUOTA extension
      * (RFC 2087).
      *
-     * @param string $root  The quota root. Either in UTF7-IMAP or UTF-8.
+     * @param mixed $root  The quota root. Either in UTF7-IMAP or UTF-8 (can
+     *                     be object with __toString() method).
      *
      * @return mixed  An array with these possible keys: 'messages' and
      *                'storage'; each key holds an array with 2 values:
@@ -2246,7 +2262,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Get quota limits for a mailbox. The server must support the IMAP QUOTA
      * extension (RFC 2087).
      *
-     * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8.
+     * @param mixed $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8 (can be
+     *                        object with __toString() method).
      *
      * @return mixed  An array with the keys being the quota roots. Each key
      *                holds an array with two possible keys: 'messages' and
@@ -2280,7 +2297,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Get the ACL rights for a given mailbox. The server must support the
      * IMAP ACL extension (RFC 2086/4314).
      *
-     * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8.
+     * @param mixed $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8 (can be
+     *                        object with __toString() method).
      *
      * @return array  An array with identifiers as the keys and an array of
      *                rights as the values.
@@ -2305,10 +2323,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Set ACL rights for a given mailbox/identifier.
      *
-     * @param string $mailbox     A mailbox. Either in UTF7-IMAP or UTF-8.
-     * @param string $identifier  The identifier to alter. Either in UTF7-IMAP
-     *                            or UTF-8.
-     * @param array $options      Additional options:
+     * @param mixed $mailbox     A mailbox. Either in UTF7-IMAP or UTF-8 (can
+     *                           be object with __toString() method).
+     * @param mixed $identifier  The identifier to alter. Either in UTF7-IMAP
+     *                           or UTF-8 (can be object with __toString()
+     *                           method).
+     * @param array $options     Additional options:
      * <pre>
      * 'remove' - (boolean) If true, removes all rights for $identifier.
      *            DEFAULT: Rights in 'rights' are added.
@@ -2342,9 +2362,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * List the ACL rights for a given mailbox/identifier. The server must
      * support the IMAP ACL extension (RFC 2086/4314).
      *
-     * @param string $mailbox     A mailbox. Either in UTF7-IMAP or UTF-8.
-     * @param string $identifier  The identifier to query. Either in UTF7-IMAP
-     *                            or UTF-8.
+     * @param mixed $mailbox     A mailbox. Either in UTF7-IMAP or UTF-8 (can
+     *                           be object with __toString() method).
+     * @param mixed $identifier  The identifier to query. Either in UTF7-IMAP
+     *                           or UTF-8 (can be object with __toString()
+     *                           method).
      *
      * @return array  An array with two elements: 'required' (a list of
      *                required rights) and 'optional' (a list of rights the
@@ -2377,7 +2399,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Get the ACL rights for the current user for a given mailbox. The
      * server must support the IMAP ACL extension (RFC 2086/4314).
      *
-     * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8.
+     * @param mixed $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8 (can be
+     *                        object with __toString() method).
      *
      * @return array  An array of rights.
      * @throws Horde_Imap_Client_Exception
@@ -2406,9 +2429,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * IMAP METADATA extension (RFC 5464) or the ANNOTATEMORE extension
      * (http://ietfreport.isoc.org/idref/draft-daboo-imap-annotatemore/).
      *
-     * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8.
-     * @param array $entries   The entries to fetch.
-     * @param array $options   Additional options:
+     * @param mixed $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8 (can be
+     *                        object with __toString() method).
+     * @param array $entries  The entries to fetch.
+     * @param array $options  Additional options:
      * <pre>
      * 'depth' - (string) Either "0", "1" or "infinity". Returns only the
      *           given value ("0"), only values one level below the specified
@@ -2448,11 +2472,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Set metadata for a given mailbox/identifier.
      *
-     * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8. If
-     *                         empty, sets a server annotation.
-     * @param array $data      A set of data values. The metadata values
-     *                         corresponding to the keys of the array will
-     *                         be set to the values in the array.
+     * @param mixed $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8 (can be
+     *                        object with __toString() method). If empty, sets
+     *                        a server annotation.
+     * @param array $data     A set of data values. The metadata values
+     *                        corresponding to the keys of the array will
+     *                        be set to the values in the array.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -2478,9 +2503,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Returns a unique identifier for the current mailbox status.
      *
-     * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8.
-     * @param array $addl      Additional cache info to add to the cache ID
-     *                         string.
+     * @param mixed $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8 (can be
+     *                        object with __toString() method).
+     * @param array $addl     Additional cache info to add to the cache ID
+     *                        string.
      *
      * @return string  The cache ID string, which will change when the
      *                 composition of the mailbox changes. The uidvalidity
@@ -2651,7 +2677,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Given an IMAP body section string, fetches the corresponding part.
      *
-     * @param string $mailbox  The IMAP mailbox name.
+     * @param mixed $mailbox   A mailbox. Either in UTF7-IMAP or UTF-8 (can be
+     *                         object with __toString() method).
      * @param integer $uid     The IMAP UID.
      * @param string $section  The IMAP section string.
      *

@@ -63,13 +63,16 @@ class Horde_Imap_Client_Utf7imap
     /**
      * Convert a string from UTF7-IMAP to UTF-8.
      *
-     * @param string  The UTF7-IMAP string.
+     * @param mixed  The UTF7-IMAP string (or an object with a __toString()
+     *               method).
      *
      * @return string  The converted UTF-8 string.
      * @throws Horde_Imap_Client_Exception
      */
     public static function Utf7ImapToUtf8($str)
     {
+        $str = strval($str);
+
         /* Try mbstring, if available, which should be faster. Don't use the
          * IMAP utf7_* functions because they are known to be buggy. */
         if (is_null(self::$_mbstring)) {
@@ -79,7 +82,6 @@ class Horde_Imap_Client_Utf7imap
             return @mb_convert_encoding($str, 'UTF-8', 'UTF7-IMAP');
         }
 
-        $str = strval($str);
         $p = '';
         $ptr = &self::$_index64;
 
@@ -156,16 +158,19 @@ class Horde_Imap_Client_Utf7imap
     /**
      * Convert a string from UTF-8 to UTF7-IMAP.
      *
-     * @param string  The UTF-8 string.
+     * @param mixed  The UTF-8 string (or an object with a __toString()
+     *               method).
      *
      * @return string  The converted UTF7-IMAP string.
      * @throws Horde_Imap_Client_Exception
      */
     public static function Utf8ToUtf7Imap($str)
     {
+        $str = strval($str);
+
         /* No need to do conversion if all chars are in US-ASCII range. */
         if (!preg_match('/[\x80-\xff]/', $str)) {
-            return strval($str);
+            return $str;
         }
 
         /* Try mbstring, if available, which should be faster. Don't use the
