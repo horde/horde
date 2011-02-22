@@ -231,7 +231,7 @@ class Horde_SessionHandler
      */
     public function gc($maxlifetime = 300)
     {
-        return $this->_storage->gc($id);
+        return $this->_storage->gc($maxlifetime);
     }
 
     /**
