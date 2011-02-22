@@ -111,28 +111,35 @@ extends Horde_Kolab_Storage_TestCase
     public function testLogDecoration()
     {
         $factory = new Horde_Kolab_Storage_Factory();
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Decorator_Log',
-            $factory->createFromParams(
-                array(
-                    'driver' => 'mock',
-                    'logger' => $this->getMockLogger()
-                )
+        $storage = $factory->createFromParams(
+            array(
+                'driver' => 'mock',
+                'logger' => $this->getMockLogger()
             )
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List_Decorator_Log',
+            $storage->getList()
         );
     }
 
     public function testCacheDecoration()
     {
         $factory = new Horde_Kolab_Storage_Factory();
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Decorator_Cache',
-            $factory->createFromParams(
-                array(
-                    'driver' => 'mock',
-                    'cache' => array('')
-                )
+        $storage = $factory->createFromParams(
+            array(
+                'driver' => 'mock',
+                'params' => array(
+                    'username' => 'test',
+                    'host' => 'localhost',
+                    'port' => 143,
+                ),
+                'cache' => new Horde_Cache(new Horde_Cache_Storage_Mock())
             )
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List_Decorator_Cache',
+            $storage->getList()
         );
     }
 
