@@ -26,8 +26,19 @@ class Horde_LoginTasks_SystemTask_UpgradeFromHorde3 extends Horde_LoginTasks_Sys
      */
     public function execute()
     {
+        $this->_clearCache();
         $this->_upgradePortal();
         $this->_upgradePrefs();
+    }
+
+    /**
+     * Clear the existing cache.
+     */
+    protected function _clearCache()
+    {
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Cache')->clear();
+        } catch (Exception $e) {}
     }
 
     /**
