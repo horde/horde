@@ -3063,7 +3063,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if ($this->_debug) {
             fwrite($this->_debug, sprintf(">>> Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']));
-            unset($this->_temp['searchcacheexpire'][$mailbox]);
+            unset($this->_temp['searchcacheexpire'][$cache['mailbox']]);
         }
     }
 
