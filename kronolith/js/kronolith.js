@@ -5015,6 +5015,7 @@ KronolithCore = {
         this.eventTagAc.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();
+        $('kronolithEventDelete').disable();
         this.startLoading(target, params.get('sig'));
         this.doAction('saveEvent',
                       params,
@@ -5030,6 +5031,7 @@ KronolithCore = {
                           } else {
                               $('kronolithEventSave').enable();
                               $('kronolithEventSaveAsNew').enable();
+                              $('kronolithEventDelete').enable();
                           }
                       }.bind(this));
     },
