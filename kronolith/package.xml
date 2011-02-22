@@ -826,11 +826,11 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>horde</name>
+    <name>Horde</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>content</name>
+    <name>Content</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
