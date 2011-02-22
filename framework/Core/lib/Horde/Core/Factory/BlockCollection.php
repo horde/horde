@@ -47,7 +47,7 @@ class Horde_Core_Factory_BlockCollection extends Horde_Core_Factory_Base
     public function create(array $apps = array())
     {
         sort($apps);
-        $sig = hash('md5', serialize($app));
+        $sig = hash('md5', serialize($apps));
 
         if (!isset($this->_instances[$sig])) {
             $this->_instances[$sig] = new Horde_Core_Block_Collection($apps);
