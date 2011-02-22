@@ -38,7 +38,7 @@
   <tbody id="kronolithViewDayBody">
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
-      <td class="kronolithFirstCol"><span><?php echo $i ?>:00</span></td>
+      <td class="kronolithFirstCol"><span><?php echo $ampm ? ($i % 12 ? ($i % 12): 12) : $i ?>:00</span></td>
       <td>&nbsp;</td>
     </tr>
     <?php endfor; ?>

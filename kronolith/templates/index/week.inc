@@ -53,7 +53,7 @@
   <tbody id="kronolithViewWeekBody">
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
-      <td class="kronolithFirstCol"><span><?php echo $i ?>:00</span></td>
+      <td class="kronolithFirstCol"><span><?php echo $ampm ? ($i % 12 ? ($i % 12): 12) : $i ?>:00</span></td>
       <td<?php if ($w == 6 || $w == 0) echo ' class="kronolithWeekend"' ?>>&nbsp;</td>
       <td<?php if ($w == 5 || $w == 6) echo ' class="kronolithWeekend"' ?>>&nbsp;</td>
       <td<?php if ($w == 4 || $w == 5) echo ' class="kronolithWeekend"' ?>>&nbsp;</td>

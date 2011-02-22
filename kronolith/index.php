@@ -29,6 +29,7 @@ if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
 }
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
+$ampm = !$prefs->getValue('twentyFour');
 
 /* Suppress menus in prefs screen and indicate that notifications should use
  * the ajax mode. */
