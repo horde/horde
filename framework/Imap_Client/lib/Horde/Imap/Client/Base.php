@@ -1611,7 +1611,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             (isset($this->_init['enabled']['CONDSTORE']) ||
              !$query->flagSearch())) {
             $cache = $this->_getSearchCache('search', $mailbox, $options);
-            if (isset($cache['data'])) {
+            if (is_array($cache)) {
                 if (isset($cache['data']['match'])) {
                     $cache['data']['match'] = new Horde_Imap_Client_Ids($cache['data']['match']);
                 }
@@ -1746,11 +1746,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
              empty($options['search']) ||
              !$options['search']->flagSearch())) {
             $cache = $this->_getSearchCache('thread', $mailbox, $options);
-            if (isset($cache['data']) &&
-                ($cache['data'] instanceof Horde_Imap_Client_Data_Thread)) {
-                return $cache['data'];
+            if (is_array($cache)) {
+                if ($cache['data'] instanceof Horde_Imap_Client_Data_Thread) {
+                    return $cache['data'];
+                }
+                $cache = $cache['id'];
             }
-            unset($cache['data']);
         }
 
         $ob = new Horde_Imap_Client_Data_Thread($this->_thread($options), empty($options['sequence']) ? 'uid' : 'sequence');
@@ -2986,14 +2987,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param string $mailbox  The mailbox to update.
      * @param array $options   The options array of the calling function.
      *
-     * @return array  If retrieved, data will be in key 'data'.  If not, array
-     *                will contain state needed for self::_setSearchCache().
+     * @return mixed  If retrieved, array is returned with data in key 'data'
+     *                and the search ID in key 'id'.
+     *                Otherwise, returns cacheid.
      */
     protected function _getSearchCache($type, $mailbox, $options)
     {
         ksort($options);
         $cache = hash('md5', $type . serialize($options));
 
+        $search_id = $mailbox . $cache;
         $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
         $metadata = $this->cache->getMetaData($mailbox, $status['uidvalidity'], array(self::CACHE_SEARCH));
 
@@ -3001,43 +3004,50 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (isset($metadata[self::CACHE_SEARCH]['cacheid']) &&
             ($metadata[self::CACHE_SEARCH]['cacheid'] != $cacheid)) {
             $metadata[self::CACHE_SEARCH] = array();
-            if ($this->_debug) {
-                fwrite($this->_debug, sprintf(">>> Expired search results from cache (mailbox: %s)\n", $mailbox));
+            if ($this->_debug &&
+                !isset($this->_temp['searchcacheexpire'][$mailbox])) {
+                fwrite($this->_debug, sprintf(">>> Expired search results from cache (mailbox: %s)\n"));
+                $this->_temp['searchcacheexpire'][$mailbox] = true;
             }
-        }
-
-        if (isset($metadata[self::CACHE_SEARCH][$cache])) {
+        } elseif (isset($metadata[self::CACHE_SEARCH][$cache])) {
             if ($this->_debug) {
                 fwrite($this->_debug, sprintf(">>> Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache));
             }
-            return array('data' => unserialize($metadata[self::CACHE_SEARCH][$cache]));
+
+            return array(
+                'data' => unserialize($metadata[self::CACHE_SEARCH][$cache]),
+                'id' => $search_id
+            );
         }
 
         $metadata[self::CACHE_SEARCH]['cacheid'] = $cacheid;
 
-        return array(
+        $this->_temp['searchcache'][$search_id] = array(
             'id' => $cache,
             'mailbox' => $mailbox,
             'metadata' => $metadata,
             'type' => $type
         );
+
+        return $search_id;
     }
 
     /**
      * Set data in the search cache.
      *
-     * @param mixed $data   The cache data to store.
-     * @param array $cache  The data object returned from
-     *                      self::_getSearchCache().
+     * @param mixed $data  The cache data to store.
+     * @param string $sid  The search ID returned from _getSearchCache().
      */
-    protected function _setSearchCache($data, $cache)
+    protected function _setSearchCache($data, $sid)
     {
+        $cache = &$this->_temp['searchcache'][$sid];
         $cache['metadata'][self::CACHE_SEARCH][$cache['id']] = serialize($data);
 
         $this->_updateMetaData($cache['mailbox'], $cache['metadata']);
 
         if ($this->_debug) {
             fwrite($this->_debug, sprintf(">>> Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']));
+            unset($this->_temp['searchcacheexpire'][$mailbox]);
         }
     }
 
