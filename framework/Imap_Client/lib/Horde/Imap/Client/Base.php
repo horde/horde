@@ -2846,7 +2846,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             } else {
                 sort($ids, SORT_NUMERIC);
             }
-            $ret['lookup'] = array_combine($ret['uids'], $ids);
+            $ret['lookup'] = array_combine($ret['uids']->ids, $ids);
         }
 
         return $ret;
