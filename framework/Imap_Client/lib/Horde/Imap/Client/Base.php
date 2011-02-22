@@ -1438,7 +1438,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_mode = 0;
 
         if (!is_null($search_res)) {
-            $this->cache->deleteMsgs($mbox, $search_res['match']->ids);
+            $this->_deleteMsgs($mbox, $search_res['match']->ids);
         }
     }
 
@@ -2978,6 +2978,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $this->_updateMetaData($mailbox, array(self::CACHE_MODSEQ => $modseq), $uidvalid);
             }
         }
+    }
+
+    /**
+     * Delete messages in the cache.
+     *
+     * @param string $mailbox  An IMAP mailbox string.
+     * @param array $uids      The list of message UIDs to delete.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _deleteMsgs($mailbox, $uids)
+    {
+        $this->cache->deleteMsgs($mailbox, $uids);
     }
 
     /**

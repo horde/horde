@@ -1530,7 +1530,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             if (!empty($expunged)) {
                 if ($use_cache) {
-                    $this->cache->deleteMsgs($mailbox, $expunged);
+                    $this->_deleteMsgs($mailbox, $expunged);
                 }
                 $tmp['mailbox']['messages'] -= $i;
 
@@ -1586,7 +1586,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (strtoupper(reset($data[0])) == 'EARLIER') {
                 /* Caching is guaranteed to be active if we are using
                  * QRESYNC. */
-                $this->cache->deleteMsgs($this->_temp['mailbox']['name'], $this->utils->fromSequenceString($data[1]));
+                $this->_deleteMsgs($this->_temp['mailbox']['name'], $this->utils->fromSequenceString($data[1]));
             }
         } else {
             /* The second form is just VANISHED. This is returned from an
