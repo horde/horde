@@ -563,7 +563,7 @@
     <min>1.9.0</min>
    </pearinstaller>
    <package>
-    <name>horde</name>
+    <name>Horde</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
