@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:03:09</time>
+ <date>2011-02-22</date>
+ <time>17:44:58</time>
  <version>
   <release>0.3.0</release>
   <api>0.3.0</api>
@@ -54,6 +54,7 @@
        <file name="Weekend.php" role="php" />
        <file name="Year.php" role="php" />
       </dir> <!-- /lib/Horde/Date/Repeater -->
+      <file name="Exception.php" role="php" />
       <file name="Recurrence.php" role="php" />
       <file name="Repeater.php" role="php" />
       <file name="Span.php" role="php" />
@@ -371,6 +372,7 @@
  <phprelease>
   <filelist>
    <install as="Horde/Date.php" name="lib/Horde/Date.php" />
+   <install as="Horde/Date/Exception.php" name="lib/Horde/Date/Exception.php" />
    <install as="Horde/Date/Recurrence.php" name="lib/Horde/Date/Recurrence.php" />
    <install as="Horde/Date/Repeater.php" name="lib/Horde/Date/Repeater.php" />
    <install as="Horde/Date/Span.php" name="lib/Horde/Date/Span.php" />
@@ -493,7 +495,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-02-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Horde_Date_Repeater

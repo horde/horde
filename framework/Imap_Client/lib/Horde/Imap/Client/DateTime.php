@@ -116,14 +116,14 @@ class Horde_Imap_Client_DateTime implements Serializable
 
         /* DateTime in PHP 5.2 returns false, not a thrown Exception. */
         try {
-            $this->_datetime = new DateTime($this->_string, $tz);
+            $this->_datetime = date_create($this->_string, $tz);
         } catch (Exception $e) {}
 
         if (!$this->_datetime) {
             /* Bug #5717 - Check for UT vs. UTC. */
             if (substr(rtrim($date), -3) == ' UT') {
                 try {
-                    $this->_datetime = new DateTime($this->_string . 'C', $tz);
+                    $this->_datetime = date_create($this->_string . 'C', $tz);
                 } catch (Exception $e) {}
             }
 

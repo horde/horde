@@ -183,6 +183,9 @@ class Horde_Date
      * - yyyymmdd (might conflict with unix timestamps between 31 Oct 1966 and
      *   03 Mar 1973)
      * - unix timestamps
+     * - anything parsed by strtotime()/DateTime.
+     *
+     * @throws Horde_Date_Exception
      */
     public function __construct($date = null, $timezone = null)
     {
@@ -244,7 +247,12 @@ class Horde_Date
             }
         } else {
             try {
-                $date = new DateTime($date);
+                // Use date_create() so we can catch errors with PHP 5.2. Use
+                // "new DateTime() once we require 5.3.
+                $date = date_create($date);
+                if (!$date) {
+                    throw new Horde_Date_Exception('Failed to parse time string');
+                }
                 $date->setTimezone(new DateTimeZone(date_default_timezone_get()));
                 $this->_year  = (int)$date->format('Y');
                 $this->_month = (int)$date->format('m');
@@ -252,7 +260,9 @@ class Horde_Date
                 $this->_hour  = (int)$date->format('H');
                 $this->_min   = (int)$date->format('i');
                 $this->_sec   = (int)$date->format('s');
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                throw new Horde_Date_Exception($e);
+            }
         }
     }
 
