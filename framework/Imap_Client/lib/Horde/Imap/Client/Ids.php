@@ -191,7 +191,11 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
      */
     public function serialize()
     {
-        $save = array('s' => $this->_sequence);
+        $save = array();
+
+        if ($this->_sequence) {
+            $save['s'] = 1;
+        }
 
         switch ($this->_ids) {
         case self::ALL:
