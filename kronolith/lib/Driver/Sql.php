@@ -683,7 +683,10 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Kronolith_Exception($e);
         }
-        $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+
+        if ($cal->get('owner') != $event->creator) {
+            $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+        }
     }
 
     /**
