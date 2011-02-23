@@ -1574,7 +1574,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $new_indices_list = $new_indices->getSingle();
         $result->newuid = $new_indices_list[1];
         $old_indices_list = $indices->getSingle();
-        $result->oldmbox = $old_indices_list[0];
+        $result->oldmbox = strval($old_indices_list[0]);
         $result->olduid = $old_indices_list[1];
         $result->ViewPort = $this->_viewPortData(true);
 

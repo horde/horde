@@ -84,7 +84,7 @@ case 'm':
 // 'e' = expunge mailbox
 case 'e':
     if (!$readonly) {
-        $injector->getInstance('IMP_Message')->expungeMailbox(array(IMP::$mailbox => 1));
+        $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::$mailbox) => 1));
     }
     break;
 

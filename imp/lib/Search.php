@@ -528,7 +528,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     {
         return $this->isSearchMbox($id)
             ? substr($id, strlen(self::MBOX_PREFIX))
-            : $id;
+            : strval($id);
     }
 
     /**

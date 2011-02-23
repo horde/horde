@@ -721,11 +721,11 @@ class IMP_Message
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $process_list = $update_list = array();
 
-        foreach (array_keys($mbox_list) as $key) {
+        foreach ($mbox_list as $key => $val) {
             $key = IMP_Mailbox::get($key);
 
             if (!$key->readonly) {
-                $ids = new Horde_Imap_Client_Ids(is_array($mbox_list[$key]) ? $mbox_list[$key] : Horde_Imap_Client_Ids::ALL);
+                $ids = new Horde_Imap_Client_Ids(is_array($val) ? $val : Horde_Imap_Client_Ids::ALL);
 
                 if ($key->search) {
                     foreach ($key->getSearchOb()->mboxes as $skey) {

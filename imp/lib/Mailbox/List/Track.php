@@ -74,7 +74,7 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
      *
      * @return array  Array with the following entries:
      * <pre>
-     * 'mailbox' - (string) The mailbox.
+     * 'mailbox' - (IMP_Mailbox) The mailbox.
      * 'uid' - (integer) The message UID.
      * </pre>
      */
@@ -84,7 +84,7 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
 
         return isset($this->_sorted[$index])
             ? array(
-                  'mailbox' => ($this->_searchmbox ? $this->_sortedMbox[$index] : $this->_mailbox),
+                  'mailbox' => isset($this->_sortedMbox[$index]) ? IMP_Mailbox::get($this->_sortedMbox[$index]) : $this->_mailbox,
                   'uid' => $this->_sorted[$index]
               )
             : array();
@@ -98,7 +98,7 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
     {
         $ret = parent::buildMailboxPage($page, $start, $opts);
 
-        if (!$this->_searchmbox) {
+        if (!$this->_mailbox->search) {
             $ret['index'] = $this->_index;
         }
 

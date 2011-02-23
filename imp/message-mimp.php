@@ -93,7 +93,7 @@ if (!$imp_mailbox->isValidIndex() ||
 /* Now that we are done processing the messages, get the index and
  * array index of the current message. */
 $index_ob = $imp_mailbox->getIMAPIndex();
-$mailbox_name = $index_ob['mailbox'];
+$mailbox = $index_ob['mailbox'];
 $uid = $index_ob['uid'];
 
 /* Get envelope/flag/header information. */
@@ -102,7 +102,7 @@ try {
      * before we can grab it. */
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
-    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, $query, array(
+    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
 
@@ -111,11 +111,11 @@ try {
     $query->headerText(array(
         'peek' => $readonly
     ));
-    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox_name, $query, array(
+    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
 } catch (Horde_Imap_Client_Exception $e) {
-    IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->add('a', 'm')->redirect();
+    IMP::generateIMPUrl('mailbox-mimp.php', $mailbox)->add('a', 'm')->redirect();
 }
 
 $envelope = $fetch_ret[$uid]->getEnvelope();
@@ -127,7 +127,7 @@ $use_pop = ($session->get('imp', 'protocol') == 'pop');
 try {
     $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
 } catch (IMP_Exception $e) {
-    IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->add('a', 'm')->redirect();
+    IMP::generateIMPUrl('mailbox-mimp.php', $mailbox)->add('a', 'm')->redirect();
 }
 
 /* Get the starting index for the current message and the message count. */
@@ -136,7 +136,7 @@ $msgcount = count($imp_mailbox);
 
 /* Generate the mailbox link. */
 $mailbox_link = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('s', $msgindex);
-$self_link = IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $uid, $mailbox_name);
+$self_link = IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $uid, $mailbox);
 
 /* Initialize Horde_Template. */
 $t = $injector->createInstance('Horde_Template');
@@ -258,7 +258,7 @@ $t->set('msg', nl2br($injector->getInstance('Horde_Core_Factory_TextFilter')->fi
 
 $compose_params = array(
     'identity' => $identity,
-    'thismailbox' => $mailbox_name,
+    'thismailbox' => $mailbox,
     'uid' => $uid,
 );
 
@@ -297,13 +297,13 @@ $menu[] = array(sprintf(_("To %s"), IMP::$mailbox->label), $mailbox_link);
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] ||
-     ($mailbox_name != IMP_Mailbox::getPref('spam_folder')))) {
+     ($mailbox != IMP_Mailbox::getPref('spam_folder')))) {
     $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 
 if ($conf['notspam']['reporting'] &&
     (!$conf['notspam']['spamfolder'] ||
-     ($mailbox_name == IMP_Mailbox::getPref('spam_folder')))) {
+     ($mailbox == IMP_Mailbox::getPref('spam_folder')))) {
     $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 

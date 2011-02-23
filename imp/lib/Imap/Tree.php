@@ -1531,8 +1531,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             switch ($opts['render_type']) {
             case 'IMP_Tree_Flist':
                 $is_open = true;
-                $label = htmlspecialchars($val->abbrev_label);
-                $params['orig_label'] = $val->label;
+                $params['orig_label'] = $val->abbrev_label;
+                $label = htmlspecialchars($params['orig_label']);
                 break;
 
             case 'Javascript':
@@ -1545,7 +1545,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
             case 'Simplehtml':
                 $is_open = $val->is_open;
-                $label = htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
+                $label = htmlspecialchars(Horde_String::abbreviate($val->display, 30 - ($val->level * 2)));
                 break;
 
             case 'Jquerymobile':

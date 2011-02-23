@@ -258,9 +258,9 @@ class IMP_Mailbox_List implements Countable, Serializable
             }
 
             try {
-                foreach ($GLOBALS['injector']->getInstance('IMP_Search')->runSearch($query, $this->_mailbox) as $mbox => $idx) {
-                    $this->_sorted[] = $idx;
-                    $this->_sortedMbox[] = $mbox;
+                foreach ($GLOBALS['injector']->getInstance('IMP_Search')->runSearch($query, $this->_mailbox) as $ob) {
+                    $this->_sorted[] = array_merge($this->_sorted, $ob->uids);
+                    $this->_sortedMbox[] = strval($ob->mbox);
                 }
             } catch (Horde_Imap_Client_Exception $e) {
                 $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
