@@ -18,7 +18,7 @@
 class Horde_Imap_Client_Search_Query implements Serializable
 {
     /* Serialized version. */
-    const VERSION = 1;
+    const VERSION = 2;
 
     /* Constants for dateSearch() */
     const DATE_BEFORE = 'BEFORE';
@@ -186,16 +186,17 @@ class Horde_Imap_Client_Search_Query implements Serializable
             }
         }
 
-        if (isset($ptr['ids'])) {
+        if (isset($ptr['ids']) &&
+            (count($ptr['ids']['ids']) || $ptr['ids']['ids']->all)) {
             if ($ptr['ids']['not']) {
                 $cmds[] = 'NOT';
             }
-            if (!$ptr['ids']->sequence) {
+            if (!$ptr['ids']['ids']->sequence) {
                 $cmds[] = 'UID';
             }
-            $cmds[] = $ptr['ids']->all
+            $cmds[] = $ptr['ids']['ids']->all
                 ? '1:*'
-                : strval($ptr['ids']);
+                : strval($ptr['ids']['ids']);
 
             // ID searches were not in IMAP2
             $imap4 = true;
