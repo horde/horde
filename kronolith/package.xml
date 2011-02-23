@@ -818,6 +818,14 @@
     <min>1.9.0</min>
    </pearinstaller>
    <package>
+    <name>Content</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Date</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -827,10 +835,6 @@
    </package>
    <package>
     <name>Horde</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Content</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

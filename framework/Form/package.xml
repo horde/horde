@@ -313,6 +313,10 @@ Converted to package.xml 2.0 for pear.horde.org
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Date</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
    </package>
