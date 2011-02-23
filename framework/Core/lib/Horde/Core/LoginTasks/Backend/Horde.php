@@ -16,6 +16,13 @@
 class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
 {
     /**
+     * Have Horde tasks been added to an app's tasklist?
+     *
+     * @var boolean
+     */
+    static private $_addHorde = false;
+
+    /**
      * The Horde application that is currently active.
      *
      * @var string
@@ -79,17 +86,21 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
 
         switch ($this->_app) {
         case 'horde':
-            if ($session->exists('horde', 'logintasks/horde')) {
+            if (self::$_addHorde ||
+                $session->exists('horde', 'logintasks/horde')) {
                 return $tasks;
             }
             break;
 
         default:
-            if (!$session->exists('horde', 'logintasks/horde')) {
+            if (!self::$_addHorde &&
+                !$session->exists('horde', 'logintasks/horde')) {
                 array_unshift($app_list, 'horde');
             }
             break;
         }
+
+        self::$_addHorde = true;
 
         foreach ($app_list as $app) {
             foreach (array_merge($GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_SystemTask'), $GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_Task')) as $val) {
