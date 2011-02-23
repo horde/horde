@@ -2,7 +2,13 @@
  Components TODO List
 ======================
 
- - Allow to "phingify" components.
+ - Provide a bootstrapping script that provides a development
+   environment from a pure git checkout (should only require the git
+   checkout + PHP + basic PEAR). Maybe other environment types as well
+   (full install for example)?
+
+ - Allow the component script to be context-sensitive and provide easy
+   commands when whithin a component directory
 
  - Add validations (+ before release)
    - COPYING
@@ -26,6 +32,8 @@
    - http://components.symfony-project.org/
    - http://incubator.apache.org/zetacomponents/documentation/trunk/Mail/tutorial.html
    - http://qafoo.com/blog/011_apache_zeta_components_doing_mail_right.html
+   - https://github.com/Behat/Behat-documentation/blob/master/en/Makefile [Behat docs]
+   - http://sphinx.pocoo.org/intro.html
 
    Elements:
 
