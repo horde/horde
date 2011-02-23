@@ -1543,7 +1543,14 @@ class Horde_Registry
         $fileroot = $this->get('fileroot', $app);
 
         if (!is_null($fileroot)) {
-            $pushed = $this->pushApp($app);
+            try {
+                $pushed = $this->pushApp($app);
+            } catch (Horde_Exception $e) {
+                if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
+                    return array();
+                }
+                throw $e;
+            }
 
             try {
                 $di = new DirectoryIterator($fileroot . '/lib/' . $fileprefix);
