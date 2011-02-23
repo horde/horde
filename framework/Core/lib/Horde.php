@@ -106,33 +106,37 @@ class Horde
     static public function fatal($error, $file = null, $line = null,
                                  $log = true)
     {
-        $admin = $GLOBALS['registry']->isAdmin();
-        $cli = Horde_Cli::runningFromCLI();
+        try {
+            $admin = $GLOBALS['registry']->isAdmin();
+            $cli = Horde_Cli::runningFromCLI();
 
-        $errortext = '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
+            $errortext = '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
 
-        if (($error instanceof PEAR_Error) ||
-            (is_object($error) && method_exists($error, 'getMessage'))) {
-            $errortext .= '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
-        } elseif (is_string($error)) {
-            $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
-        }
-
-        if ($admin || $cli) {
-            if ($error instanceof Exception) {
-                $trace = $error;
-            } else {
-                $trace = debug_backtrace();
+            if (($error instanceof PEAR_Error) ||
+                (is_object($error) && method_exists($error, 'getMessage'))) {
+                $errortext .= '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
+            } elseif (is_string($error)) {
+                $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
             }
-            $backtrace = new Horde_Support_Backtrace($trace);
-            $errortext .= '<div id="backtrace"><pre>' . (string)$backtrace . '</pre></div>';
-            if (is_object($error)) {
-                $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
-                $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
-                $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
+
+            if ($admin || $cli) {
+                if ($error instanceof Exception) {
+                    $trace = $error;
+                } else {
+                    $trace = debug_backtrace();
+                }
+                $backtrace = new Horde_Support_Backtrace($trace);
+                $errortext .= '<div id="backtrace"><pre>' . (string)$backtrace . '</pre></div>';
+                if (is_object($error)) {
+                    $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
+                    $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
+                    $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
+                }
+            } elseif ($log) {
+                $errortext .= '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
             }
-        } elseif ($log) {
-            $errortext .= '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
+        } catch (Exception $e) {
+            die($e);
         }
 
         // Log the error via logMessage() if requested.
