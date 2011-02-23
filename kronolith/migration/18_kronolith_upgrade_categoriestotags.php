@@ -19,7 +19,6 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
     {
         $GLOBALS['registry']->pushApp('kronolith');
 
-        /* Gallery tags */
         $t = $this->_connection->table('kronolith_events');
         $cols = $t->getColumns();
         if (in_array('event_category', array_keys($cols))) {
@@ -53,7 +52,14 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
-        // One way migration
+        // This is a one-way data migration. No way to know which tags were
+        // from categories. Just put back the column.
+        $GLOBALS['registry']->pushApp('kronolith');
+        $t = $this->_connection->table('kronolith_events');
+        $cols = $t->getColumns();
+        if (!in_array('event_category', array_keys($cols))) {
+            $this->addColumn('kronolith_events', 'event_category', 'string', array('limit' => 80));
+        }
     }
 
 }
