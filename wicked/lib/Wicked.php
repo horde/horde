@@ -151,10 +151,7 @@ class Wicked
         } else {
             $prefix = 'guest [' . $_SERVER['REMOTE_ADDR'] . ']';
         }
-
-        $lc_time = setlocale(LC_TIME, 'C');
         $message = $prefix . '  ' . date('r') . "\n\n" . $message;
-        setlocale(LC_TIME, $lc_time);
 
         /* In case we don't get a user's email address to send the
          * notification from, what should we fall back to for the From:
