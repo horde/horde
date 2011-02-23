@@ -260,12 +260,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $this->_connect();
 
+        $first_login = empty($this->_init['authmethod']);
         $t = &$this->_temp;
 
         // Switch to secure channel if using TLS.
         if (!$this->_isSecure &&
             ($this->_params['secure'] == 'tls')) {
-            if (!$this->queryCapability('STARTTLS')) {
+            if ($first_login && !$this->queryCapability('STARTTLS')) {
                 // We should never hit this - STARTTLS is required pursuant
                 // to RFC 3501 [6.2.1].
                 $this->_exception('Server does not support TLS connections.', 'NOSUPPORTIMAPEXT');
@@ -282,11 +283,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_exception('Could not open secure TLS connection to the IMAP server.', 'LOGIN_TLSFAILURE');
             }
 
-            // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
-            $this->_setInit('capability');
+            if ($first_login) {
+                // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
+                $this->_setInit('capability');
 
-            // Reset language (RFC 5255 [3.1])
-            $this->_setInit('lang');
+                // Reset language (RFC 5255 [3.1])
+                $this->_setInit('lang');
+            }
 
             // Set language if not using imapproxy
             if ($this->_init['imapproxy']) {
@@ -296,8 +299,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_isSecure = true;
         }
 
-        if (empty($this->_init['authmethod'])) {
-            $first_login = true;
+        if ($first_login) {
             $imap_auth_mech = array();
 
             $auth_methods = $this->queryCapability('AUTH');
@@ -327,7 +329,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $imap_auth_mech = array_reverse($imap_auth_mech);
             }
         } else {
-            $first_login = false;
             $imap_auth_mech = array($this->_init['authmethod']);
         }
 
