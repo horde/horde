@@ -117,10 +117,10 @@ class VFS_musql extends VFS_sql
                 $sql = sprintf('SELECT vfs_owner, vfs_perms FROM %s
                                 WHERE vfs_path = ? AND vfs_name= ?',
                                $this->_params['table']);
-                $this->log($sql, PEAR_LOG_DEBUG);
+                $this->_logger->debug($sql);
                 $results = $this->_db->getAll($sql, array($previous, $thispath));
                 if ($results instanceof PEAR_Error) {
-                    $this->log($results, PEAR_LOG_ERR);
+                    $this->_logger->err($results);
                     throw new VFS_Exception($results->getMessage());
                 }
                 if (!is_array($results) || count($results) < 1) {
@@ -162,11 +162,11 @@ class VFS_musql extends VFS_sql
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ? AND vfs_type = ?',
                        $this->_params['table']);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $fileList = $this->_db->getAll($sql, array($path, $name, self::FILE));
 
         if ($fileList instanceof PEAR_Error) {
-            $this->log($fileList, PEAR_LOG_ERR);
+            $this->_logger->err($fileList);
             throw new VFS_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
@@ -181,11 +181,11 @@ class VFS_musql extends VFS_sql
                 $file[2] & self::FLAG_WRITE) {
                 $sql = sprintf('DELETE FROM %s WHERE vfs_id = ?',
                                $this->_params['table']);
-                $this->log($sql, PEAR_LOG_DEBUG);
+                $this->_logger->debug($sql);
                 $result = $this->_db->query($sql, array($file[0]));
 
                 if ($result instanceof PEAR_Error) {
-                    $this->log($result, PEAR_LOG_ERR);
+                    $this->_logger->err($result);
                     throw new VFS_Exception($result->getMessage());
                 }
                 if ($this->_db->affectedRows() == 0) {
@@ -216,11 +216,11 @@ class VFS_musql extends VFS_sql
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ?',
                        $this->_params['table']);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $fileList = $this->_db->getAll($sql, array($oldpath, $oldname));
 
         if ($fileList instanceof PEAR_Error) {
-            $this->log($fileList, PEAR_LOG_ERR);
+            $this->_logger->err($fileList);
             throw new VFS_Exception($fileList);
         }
         if (!is_array($fileList) || count($fileList) < 1) {
@@ -246,12 +246,12 @@ class VFS_musql extends VFS_sql
                 $sql = sprintf('UPDATE %s SET vfs_path = ?, vfs_name = ?, vfs_modified = ?
                                 WHERE vfs_id = ?',
                                $this->_params['table']);
-                $this->log($sql, PEAR_LOG_DEBUG);
+                $this->_logger->debug($sql);
                 $result = $this->_db->query(
                     $sql,
                     array($newpath, $newname, time(), $file[0]));
                 if ($result instanceof PEAR_Error) {
-                    $this->log($result, PEAR_LOG_ERR);
+                    $this->_logger->err($result);
                     throw new VFS_Exception($result->getMessage());
                 }
                 return $result;
@@ -282,10 +282,10 @@ class VFS_musql extends VFS_sql
                 $sql = sprintf('SELECT vfs_owner, vfs_perms FROM %s
                                 WHERE vfs_path = ? AND vfs_name= ?',
                                $this->_params['table']);
-                $this->log($sql, PEAR_LOG_DEBUG);
+                $this->_logger->debug($sql);
                 $results = $this->_db->getAll($sql, array($previous, $thispath));
                 if ($results instanceof PEAR_Error) {
-                    $this->log($results, PEAR_LOG_ERR);
+                    $this->_logger->err($results);
                     throw new VFS_Exception($results->getMessage());
                 }
                 if (!is_array($results) || count($results) < 1) {
@@ -314,12 +314,12 @@ class VFS_musql extends VFS_sql
                         (vfs_id, vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner, vfs_perms)
                         VALUES (?, ?, ?, ?, ?, ?, ?)',
                        $this->_params['table']);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $result = $this->_db->query(
             $sql,
             array($id, VFS_FOLDER, $path, $name, time(), $this->_params['user'], 0));
         if ($result instanceof PEAR_Error) {
-            $this->log($result, PEAR_LOG_ERR);
+            $this->_logger->err($result);
             throw new VFS_Exception($result->getMessage());
         }
 
@@ -351,11 +351,11 @@ class VFS_musql extends VFS_sql
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ? AND vfs_type = ?',
                        $this->_params['table']);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $fileList = $this->_db->getAll($sql, array($path, $name, VFS_FOLDER));
 
         if ($fileList instanceof PEAR_Error) {
-            $this->log($fileList, PEAR_LOG_ERR);
+            $this->_logger->err($fileList);
             throw new VFS_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
@@ -370,11 +370,11 @@ class VFS_musql extends VFS_sql
                 $file[2] & self::FLAG_WRITE) {
                 $sql = sprintf('DELETE FROM %s WHERE vfs_id = ?',
                                $this->_params['table']);
-                $this->log($sql, PEAR_LOG_DEBUG);
+                $this->_logger->debug($sql);
                 $result = $this->_db->query($sql, array($file[0]));
 
                 if ($result instanceof PEAR_Error) {
-                    $this->log($result, PEAR_LOG_ERR);
+                    $this->_logger->err($result);
                     throw new VFS_Exception($result->getMessage());
                 }
                 if ($this->_db->affectedRows() == 0) {
@@ -409,12 +409,12 @@ class VFS_musql extends VFS_sql
         $sql = sprintf('SELECT vfs_name, vfs_type, vfs_modified, vfs_owner, vfs_perms, %s(vfs_data) FROM %s
                         WHERE vfs_path = ? AND (vfs_owner = ? OR vfs_perms \&\& ?)',
                        $length_op, $this->_params['table']);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $fileList = $this->_db->getAll(
             $sql,
             array($path, $this->_params['user'], self::FLAG_READ));
         if ($fileList instanceof PEAR_Error) {
-            $this->log($fileList, PEAR_LOG_ERR);
+            $this->_logger->err($fileList);
             throw new VFS_Exception($fileList->getMessage());
         }
 
@@ -490,11 +490,11 @@ class VFS_musql extends VFS_sql
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ?',
                        $this->_params['table']);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $fileList = $this->_db->getAll($sql, array($path, $name));
 
         if ($fileList instanceof PEAR_Error) {
-            $this->log($fileList, PEAR_LOG_ERR);
+            $this->_logger->err($fileList);
             throw new VFS_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
@@ -510,7 +510,7 @@ class VFS_musql extends VFS_sql
                 $sql = sprintf('UPDATE %s SET vfs_perms = ?
                                 WHERE vfs_id = ?',
                                $this->_params['table']);
-                $this->log($sql, PEAR_LOG_DEBUG);
+                $this->_logger->debug($sql);
                 $result = $this->_db->query($sql, array($perm, $file[0]));
                 if ($result instanceof PEAR_Error) {
                     throw new VFS_Exception($result->getMessage());

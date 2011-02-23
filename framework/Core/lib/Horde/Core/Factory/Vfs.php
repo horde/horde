@@ -42,6 +42,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
         if (empty($this->_instances[$scope])) {
             $params = $this->getConfig($scope);
             $this->_instances[$scope] = VFS::factory($params['type'], $params['params']);
+            $this->_instances[$scope]->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
         }
 
         return $this->_instances[$scope];

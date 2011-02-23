@@ -92,7 +92,7 @@ class VFS_sql extends VFS
             $this->_params['table']
         );
         $values = array($this->_convertPath($path), $name);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $size = $this->_db->getOne($sql, $values);
 
         if (is_null($size)) {
@@ -125,7 +125,7 @@ class VFS_sql extends VFS
             $this->_params['table'],
             $where
         );
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $size = $this->_db->getOne($sql);
 
         return is_null($size) ? $size : 0;
@@ -239,11 +239,11 @@ class VFS_sql extends VFS
                        $this->_params['table'],
                        (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
         $values = array($name);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $id = $this->_db->getOne($sql, $values);
 
         if ($id instanceof PEAR_Error) {
-            $this->log($id, PEAR_LOG_ERR);
+            $this->_logger->err($id);
             throw new VFS_Exception($id->getMessage());
         }
 
@@ -266,7 +266,7 @@ class VFS_sql extends VFS
 
             $id = $this->_write_db->nextId($this->_params['table']);
             if ($id instanceof PEAR_Error) {
-                $this->log($id, PEAR_LOG_ERR);
+                $this->_logger->err($id);
                 throw new VFS_Exception($id->getMessage());
             }
 
@@ -300,7 +300,7 @@ class VFS_sql extends VFS
                        $this->_params['table'],
                        (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
         $values = array(self::FILE, $name);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $result = $this->_write_db->query($sql, $values);
 
         if ($this->_db->affectedRows() == 0) {
@@ -340,7 +340,7 @@ class VFS_sql extends VFS
 
         $sql  = 'UPDATE ' . $this->_params['table'];
         $sql .= ' SET vfs_path = ?, vfs_name = ?, vfs_modified = ? WHERE vfs_path = ? AND vfs_name = ?';
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
 
         $values = array($newpath, $newname, time(), $oldpath, $oldname);
 
@@ -352,7 +352,7 @@ class VFS_sql extends VFS
 
         $rename = $this->_recursiveRename($oldpath, $oldname, $newpath, $newname);
         if ($rename instanceof PEAR_Error) {
-            $this->log($rename, PEAR_LOG_ERR);
+            $this->_logger->err($rename);
             throw new VFS_Exception(sprintf('Unable to rename VFS directory: %s.', $rename->getMessage()));
         }
 
@@ -373,13 +373,13 @@ class VFS_sql extends VFS
 
         $id = $this->_write_db->nextId($this->_params['table']);
         if ($id instanceof PEAR_Error) {
-            $this->log($id, PEAR_LOG_ERR);
+            $this->_logger->err($id);
             throw new VFS_Exception($id->getMessage());
         }
 
         $sql = 'INSERT INTO ' . $this->_params['table'] .
                ' (vfs_id, vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner) VALUES (?, ?, ?, ?, ?, ?)';
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
 
         $values = array($id, self::FOLDER, $this->_convertPath($path), $name, time(), $this->_params['user']);
 
@@ -415,10 +415,10 @@ class VFS_sql extends VFS
         $sql = sprintf('DELETE FROM %s WHERE vfs_path %s',
                        $this->_params['table'],
                        (!strlen($folderPath) && $this->_write_db->dbsyntax == 'oci8') ? ' IS NULL' : ' LIKE ' . $this->_write_db->quote($this->_getNativePath($folderPath, '%')));
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $deleteContents = $this->_write_db->query($sql);
         if ($deleteContents instanceof PEAR_Error) {
-            $this->log($deleteContents, PEAR_LOG_ERR);
+            $this->_logger->err($deleteContents);
             throw new VFS_Exception(sprintf('Unable to delete VFS recursively: %s.', $deleteContents->getMessage()));
         }
 
@@ -426,10 +426,10 @@ class VFS_sql extends VFS
         $sql = sprintf('DELETE FROM %s WHERE vfs_path %s',
                        $this->_params['table'],
                        (!strlen($path) && $this->_write_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_write_db->quote($folderPath));
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $delete = $this->_write_db->query($sql);
         if ($delete instanceof PEAR_Error) {
-            $this->log($delete, PEAR_LOG_ERR);
+            $this->_logger->err($delete);
             throw new VFS_Exception(sprintf('Unable to delete VFS directory: %s.', $delete->getMessage()));
         }
 
@@ -438,10 +438,10 @@ class VFS_sql extends VFS
                        $this->_params['table'],
                        (!strlen($path) && $this->_write_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_write_db->quote($path));
         $values = array($name);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $delete = $this->_write_db->query($sql, $values);
         if ($delete instanceof PEAR_Error) {
-            $this->log($delete, PEAR_LOG_ERR);
+            $this->_logger->err($delete);
             throw new VFS_Exception(sprintf('Unable to delete VFS directory: %s.', $delete->getMessage()));
         }
     }
@@ -477,7 +477,7 @@ class VFS_sql extends VFS
                        $length_op,
                        $this->_params['table'],
                        $where);
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
         $fileList = $this->_db->getAll($sql);
         if ($fileList instanceof PEAR_Error) {
             throw new VFS_Exception($fileList->getMessage());
@@ -550,7 +550,7 @@ class VFS_sql extends VFS
 
         $sql  = 'SELECT vfs_name, vfs_path FROM ' . $this->_params['table'];
         $sql .= ' WHERE vfs_path = ? AND vfs_type = ?';
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
 
         $values = array($path, self::FOLDER);
 
@@ -617,7 +617,7 @@ class VFS_sql extends VFS
 
         $sql = 'DELETE FROM ' . $this->_params['table']
             . ' WHERE vfs_type = ? AND vfs_modified < ? AND (vfs_path = ? OR vfs_path LIKE ?)';
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
 
         $values = array(
             self::FILE,
@@ -644,7 +644,7 @@ class VFS_sql extends VFS
 
         $sql  = 'SELECT vfs_name FROM ' . $this->_params['table'];
         $sql .= ' WHERE vfs_type = ? AND vfs_path = ?';
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
 
         $values = array(self::FOLDER, $this->_getNativePath($oldpath, $oldname));
 
@@ -655,7 +655,7 @@ class VFS_sql extends VFS
         }
 
         $sql = 'UPDATE ' . $this->_params['table'] . ' SET vfs_path = ? WHERE vfs_path = ?';
-        $this->log($sql, PEAR_LOG_DEBUG);
+        $this->_logger->debug($sql);
 
         $values = array($this->_getNativePath($newpath, $newname), $this->_getNativePath($oldpath, $oldname));
 
@@ -769,7 +769,7 @@ class VFS_sql extends VFS
 
             $sql = sprintf('SELECT %s FROM %s WHERE %s',
                            $field, $table, $where);
-            $this->log($sql, PEAR_LOG_DEBUG);
+            $this->_logger->debug($sql);
             $result = $this->_db->getOne($sql);
 
             if (is_null($result)) {
@@ -854,7 +854,7 @@ class VFS_sql extends VFS
         }
 
         /* Execute the query. */
-        $this->log($query, PEAR_LOG_DEBUG);
+        $this->_logger->debug($query);
         return $this->_write_db->query($query, $values);
     }
 
@@ -936,7 +936,7 @@ class VFS_sql extends VFS
         }
 
         /* Execute the query. */
-        $this->log($query, PEAR_LOG_DEBUG);
+        $this->_logger->debug($query);
         return $this->_write_db->query($query, $values);
     }
 

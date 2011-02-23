@@ -61,20 +61,10 @@ class VFS
     );
 
     /**
-     * A PEAR Log object. If present, will be used to log errors and
-     * informational messages about VFS activity.
      *
-     * @var Log
+     * @var Horde_Log_Logger
      */
     protected $_logger = null;
-
-    /**
-     * The log level to use - messages with a higher log level than configured
-     * here will not be logged. Defaults to only logging errors or higher.
-     *
-     * @var integer
-     */
-    protected $_logLevel = PEAR_LOG_ERR;
 
     /**
      * The current size, in bytes, of the VFS item.
@@ -134,6 +124,16 @@ class VFS
     }
 
     /**
+     * Setter for the log object.
+     * 
+     * @param Horde_Log_Logger $logger 
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
+    }
+    
+    /**
      * TODO
      *
      * @throws VFS_Exception
@@ -165,55 +165,6 @@ class VFS
         return isset($this->_params[$name])
             ? $this->_params[$name]
             : null;
-    }
-
-    /**
-     * Logs a message if a PEAR Log object is available, and the message's
-     * priority is lower than or equal to the configured log level.
-     *
-     * @param mixed   $message   The message to be logged.
-     * @param integer $priority  The message's priority.
-     */
-    public function log($message, $priority = PEAR_LOG_ERR)
-    {
-        if (!isset($this->_logger) || ($priority > $this->_logLevel)) {
-            return;
-        }
-
-        if ($message instanceof PEAR_Error) {
-            $userinfo = $message->getUserInfo();
-            $message = $message->getMessage();
-            if ($userinfo) {
-                if (is_array($userinfo)) {
-                    $userinfo = implode(', ', $userinfo);
-                }
-                $message .= ': ' . $userinfo;
-            }
-        }
-
-        /* Make sure to log in the system's locale. */
-        $locale = setlocale(LC_TIME, 0);
-        setlocale(LC_TIME, 'C');
-
-        $this->_logger->log($message, $priority);
-
-        /* Restore original locale. */
-        setlocale(LC_TIME, $locale);
-    }
-
-    /**
-     * Sets the PEAR Log object used to log informational or error messages.
-     *
-     * @param Log $logger  The Log object to use.
-     */
-    public function setLogger($logger, $logLevel = null)
-    {
-        if (is_callable(array($logger, 'log'))) {
-            $this->_logger = $logger;
-            if (!is_null($logLevel)) {
-                $this->_logLevel = $logLevel;
-            }
-        }
     }
 
     /**
