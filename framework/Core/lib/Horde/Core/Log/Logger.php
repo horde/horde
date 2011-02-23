@@ -137,7 +137,6 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
         }
 
         /* Restore original locale and timezone. */
-        // TODO: Needed?
         setlocale(LC_TIME, $locale);
         if ($tz) {
             @putenv('TZ=' . $tz);
