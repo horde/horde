@@ -313,6 +313,7 @@ implements Horde_Kolab_Storage_List_Query_List
                 'owner' => $folders[$folder]['owner'],
                 'name' => $folders[$folder]['name'],
                 'parent' => $folders[$folder]['parent'],
+                'folder' => $folder,
             );
 
             if ($folders[$folder]['default']) {

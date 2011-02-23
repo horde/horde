@@ -122,6 +122,7 @@ implements Horde_Kolab_Storage_List_Query_List
                     'owner' => $namespace->getOwner($folder),
                     'name' => $namespace->getTitle($folder),
                     'parent' => $namespace->getParent($folder),
+                    'folder' => $folder,
                 );
             }
         }
