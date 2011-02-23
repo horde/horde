@@ -86,6 +86,17 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testMockParser()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertType(
+            'Horde_Kolab_Storage_Data_Parser',
+            $factory->createDriverFromParams(
+                array('driver' => 'mock')
+            )->getParser()
+        );
+    }
+
     /**
      * @expectedException Horde_Kolab_Storage_Exception
      */
