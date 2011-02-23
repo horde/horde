@@ -104,7 +104,11 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         // Connect to the Kolab backend
-        $this->_store = $this->_kolab->getShareData($this->calendar, 'event');
+        $this->_store = $this->_kolab->getData(
+            $GLOBALS['all_calendars'][$this->calendar]->share()->get('folder'),
+            'event'
+        );
+
 
         // build internal event cache
         $this->_events_cache = array();
