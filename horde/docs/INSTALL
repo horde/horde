@@ -501,6 +501,27 @@ your PHP configuration::
 
    pear install -a horde/horde
 
+If you want to create a separate PEAR installation for installing Horde,
+independent from the system-wide PEAR installation, this can be done with the
+following commands. The paths are only examples of course::
+
+   mkdir /var/www/horde
+   pear config-create /var/www/horde /var/www/horde/pear.conf
+   pear -c /var/www/horde/pear.conf install pear
+
+Then follow the regular installation steps, but use the ``pear`` command from
+the PEAR installation you just created, e.g.::
+
+   /var/www/horde/pear/pear -c /var/www/horde/pear.conf channel-discover pear.horde.org
+
+Finally create a .htaccess file in ``/var/www/horde/`` or configure your web
+server in some other way to point PHP's ``include_path`` setting to the PEAR
+installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the web
+root::
+
+   php_value include_path /var/www/horde/pear/php
+   SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde
+
 
 Installing from Release Tarballs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
