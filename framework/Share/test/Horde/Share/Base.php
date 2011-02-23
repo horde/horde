@@ -312,25 +312,29 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         // Shares with certain permissions.
         $this->assertEquals(5, count(self::$share->listShares('john', array('perm' => Horde_Perms::READ))));
         $shares = self::$share->listShares('john', array('perm' => Horde_Perms::EDIT, 'sort_by' => 'id'));
-        $this->assertEquals(
+        $this->assertSortedById(
             array('myshare', 'mychildshare', 'janeshare'),
-            array_keys($shares));
+            $shares
+        );
 
         // Again with only toplevel
         $shares = self::$share->listShares('john', array('all_levels' => false, 'perm' => Horde_Perms::EDIT, 'sort_by' => 'id'));
-        $this->assertEquals(
+        $this->assertSortedById(
             array('myshare', 'janeshare'),
-            array_keys($shares));
+            $shares
+        );
 
         $shares = self::$share->listShares('john', array('perm' => Horde_Perms::DELETE, 'sort_by' => 'id'));
-        $this->assertEquals(
+        $this->assertSortedById(
             array('myshare', 'mychildshare', 'groupshare'),
-            array_keys($shares));
+            $shares
+        );
 
         $shares = self::$share->listShares('john', array('perm' => Horde_Perms::EDIT | Horde_Perms::DELETE, 'sort_by' => 'id'));
         $this->assertSortedById(
             array('myshare', 'mychildshare', 'janeshare', 'groupshare'),
-            $shares);
+            $shares
+        );
         $shares = self::$share->listShares('john', array('perm' => Horde_Perms::ALL));
         $this->assertInternalType('array', $shares);
         $this->assertEquals(5, count($shares));
