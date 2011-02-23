@@ -249,21 +249,21 @@ var DimpBase = {
                 data = { search_mailbox: this.folder };
             }
             this.highlightSidebar();
-            DimpCore.setTitle(DIMP.text.search);
+            this.setTitle(DIMP.text.search);
             this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, data));
             break;
 
         case 'portal':
             this.highlightSidebar('appportal');
             this.setHash(type);
-            DimpCore.setTitle(DIMP.text.portal);
+            this.setTitle(DIMP.text.portal);
             DimpCore.doAction('showPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
 
         case 'prefs':
             this.highlightSidebar('appprefs');
             this.setHash(type);
-            DimpCore.setTitle(DIMP.text.prefs);
+            this.setTitle(DIMP.text.prefs);
             this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_PREFS_IMP, data));
             break;
         }
@@ -297,6 +297,11 @@ var DimpBase = {
         } else {
             this.setHash('mbox', view);
         }
+    },
+
+    setTitle: function(title)
+    {
+        document.title = DIMP.conf.name + ' :: ' + title;
     },
 
     highlightSidebar: function(id)
@@ -1176,6 +1181,10 @@ var DimpBase = {
     //           does not exist.
     updateTitle: function(nodefer)
     {
+        if (!$('dimpmain_folder').visible()) {
+            return;
+        }
+
         var elt, unseen,
             // Label is HTML encoded - but this is not HTML code so unescape.
             label = this.viewport.getMetaData('label').unescapeHTML();
@@ -1196,7 +1205,7 @@ var DimpBase = {
             }
         }
 
-        DimpCore.setTitle(label);
+        this.setTitle(label);
     },
 
     sort: function(sortby)

@@ -210,11 +210,6 @@ var DimpCore = {
         this.inAjaxCallback = false;
     },
 
-    setTitle: function(title)
-    {
-        document.title = DIMP.conf.name + ' :: ' + title;
-    },
-
     showNotifications: function(msgs)
     {
         if (!msgs.size() || this.is_logout) {
