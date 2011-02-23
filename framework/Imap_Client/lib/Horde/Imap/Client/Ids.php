@@ -90,29 +90,22 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         if (!is_null($ids)) {
             $add = array();
 
-            switch ($ids) {
-            case self::ALL:
-            case self::SEARCH_RES:
+            if (($ids === self::ALL) || ($ids === self::SEARCH_RES)) {
                 $this->_ids = $ids;
                 return;
+            }
 
-            case ($ids instanceof Horde_Imap_Client_Ids):
+            if ($ids instanceof Horde_Imap_Client_Ids) {
                 $add = $ids->ids;
-                break;
-
-            case is_array($ids):
+            } elseif (is_array($ids)) {
                 $add = $ids;
-                break;
-
-            case is_string($ids):
-            case is_integer($ids):
+            } elseif (is_string($ids) || is_integer($ids)) {
                 if (is_numeric($ids)) {
                     $add = array($ids);
                 } else {
                     $utils = new Horde_Imap_Client_Utils();
                     $add = $utils->fromSequenceString($ids);
                 }
-                break;
             }
 
             $this->_ids = is_array($this->_ids)
