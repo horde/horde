@@ -209,7 +209,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function listFolders()
     {
-        return $this->_driver->getMailboxes();
+        return $this->_driver->listFolders();
     }
 
     /**
