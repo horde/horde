@@ -96,7 +96,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
             } elseif ($data instanceof IMP_Mailbox_List_Track) {
                 $idx = $data->getIMAPIndex();
                 $indices = array(
-                    $idx['mailbox'] => array($idx['uid'])
+                    strval($idx['mailbox']) => array($idx['uid'])
                 );
             }
             break;
