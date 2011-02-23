@@ -33,6 +33,9 @@ class Horde_Core_Block_Collection
     {
         global $registry, $session;
 
+        if (empty($apps)) {
+            $apps = $registry->listApps();
+        }
         sort($apps);
         $signature = hash('md5', serialize($apps));
 
@@ -40,7 +43,7 @@ class Horde_Core_Block_Collection
             return;
         }
 
-        foreach (array_diff($registry->listApps(), $apps) as $app) {
+        foreach (array_intersect($registry->listApps(), $apps) as $app) {
             $drivers = $registry->getAppDrivers($app, 'Block');
             foreach ($drivers as $val) {
                 $tmp = new $val($app);
