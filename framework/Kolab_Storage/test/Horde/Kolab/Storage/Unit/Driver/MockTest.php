@@ -37,19 +37,19 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testGetMailboxesReturnsArray()
     {
-        $this->assertType('array', $this->getNullMock()->getMailboxes());
+        $this->assertType('array', $this->getNullMock()->listFolders());
     }
 
     public function testGetMailboxesEmpty()
     {
-        $this->assertEquals(array(), $this->getEmptyMock()->getMailboxes());
+        $this->assertEquals(array(), $this->getEmptyMock()->listFolders());
     }
 
     public function testGetMailboxesReturnsMailboxes()
     {
         $this->assertEquals(
             array('INBOX', 'INBOX/a'),
-            $this->getTwoFolderMock()->getMailboxes()
+            $this->getTwoFolderMock()->listFolders()
         );
     }
 
@@ -384,7 +384,7 @@ extends Horde_Kolab_Storage_TestCase
         );
         $this->assertEquals(
             array('INBOX', 'INBOX/Null'),
-            $driver->getMailboxes()
+            $driver->listFolders()
         );
     }
 

@@ -94,13 +94,13 @@ extends Horde_Kolab_Storage_TestCase
 
         $decorated = $this->getMockDriverList();
         $this->mockDriver->expects($this->once())
-            ->method('getMailboxes') 
+            ->method('listFolders') 
             ->will($this->returnValue(array('INBOX')));
         $list = new Horde_Kolab_Storage_List_Decorator_Cache($decorated, $lc1);
 
         $mockDriver2 = $this->getMock('Horde_Kolab_Storage_Driver');
         $mockDriver2->expects($this->once())
-            ->method('getMailboxes') 
+            ->method('listFolders') 
             ->will($this->returnValue(array('NOTHING')));
         $list2 = new Horde_Kolab_Storage_List_Decorator_Cache(
             new Horde_Kolab_Storage_List_Base(
@@ -133,13 +133,13 @@ extends Horde_Kolab_Storage_TestCase
 
         $decorated = $this->getMockDriverList();
         $this->mockDriver->expects($this->once())
-            ->method('getMailboxes') 
+            ->method('listFolders') 
             ->will($this->returnValue(array('INBOX')));
         $list = new Horde_Kolab_Storage_List_Decorator_Cache($decorated, $lc1);
 
         $mockDriver2 = $this->getMock('Horde_Kolab_Storage_Driver');
         $mockDriver2->expects($this->never())
-            ->method('getMailboxes') 
+            ->method('listFolders') 
             ->will($this->returnValue(array('NOTHING')));
         $list2 = new Horde_Kolab_Storage_List_Decorator_Cache(
             new Horde_Kolab_Storage_List_Base(
@@ -274,7 +274,7 @@ extends Horde_Kolab_Storage_TestCase
         );
         $cache->storeList($list->getId(), serialize(array('S' => time(), 'V' => '1')));
         $this->mockDriver->expects($this->never())
-            ->method('getMailboxes') 
+            ->method('listFolders') 
             ->will($this->returnValue(array('INBOX')));
         $list->listFolders();
     }
@@ -459,7 +459,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $list = $this->_setupBareMockList($cache);
         $this->mockDriver->expects($this->once())
-            ->method('getMailboxes') 
+            ->method('listFolders') 
             ->will($this->returnValue(array('INBOX')));
         return $list;
     }

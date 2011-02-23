@@ -87,11 +87,11 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Retrieves a list of mailboxes on the server.
+     * Retrieves a list of folders on the server.
      *
-     * @return array The list of mailboxes.
+     * @return array The list of folders.
      */
-    public function getMailboxes()
+    public function listFolders()
     {
         return $this->decodeList($this->getBackend()->listMailboxes('', '*'));
     }
@@ -285,7 +285,7 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Retrieves the specified annotation for the complete list of mailboxes.
+     * Retrieves the specified annotation for the complete list of folders.
      *
      * @param string $annotation The name of the annotation to retrieve.
      *
@@ -311,16 +311,16 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Fetches the annotation from a folder.
      *
-     * @param string $mailbox    The name of the folder.
+     * @param string $folder    The name of the folder.
      * @param string $annotation The annotation to get.
      *
      * @return string The annotation value.
      */
-    public function getAnnotation($mailbox, $annotation)
+    public function getAnnotation($folder, $annotation)
     {
         list($attr, $type) = $this->_getAnnotateMoreEntry($annotation);
         $result = $this->getBackend()->getAnnotation(
-            $this->encodePath($mailbox), $attr, $type
+            $this->encodePath($folder), $attr, $type
         );
         if ($this->getBackend()->errornum != 0) {
             throw new Horde_Kolab_Storage_Exception(
@@ -330,28 +330,28 @@ extends Horde_Kolab_Storage_Driver_Base
                     ),
                     $attr,
                     $type,
-                    $mailbox,
+                    $folder,
                     $this->getBackend()->error
                 )
             );
         }
-        return $result[$mailbox][$annotation];
+        return $result[$folder][$annotation];
     }
 
     /**
      * Sets the annotation on a folder.
      *
-     * @param string $mailbox    The name of the folder.
+     * @param string $folder    The name of the folder.
      * @param string $annotation The annotation to set.
      * @param array  $value      The values to set
      *
      * @return NULL
      */
-    public function setAnnotation($mailbox, $annotation, $value)
+    public function setAnnotation($folder, $annotation, $value)
     {
         list($attr, $type) = $this->_getAnnotateMoreEntry($annotation);
         $this->getBackend()->setAnnotation(
-            $this->encodePath($mailbox), array(array($attr, $type, $value))
+            $this->encodePath($folder), array(array($attr, $type, $value))
         );
         if ($this->getBackend()->errornum != 0) {
             throw new Horde_Kolab_Storage_Exception(
@@ -361,7 +361,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     ),
                     $attr,
                     $type,
-                    $mailbox,
+                    $folder,
                     $value,
                     $this->getBackend()->error
                 )
@@ -478,17 +478,82 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Retrieves the messages for the given message ids.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uids                The message UIDs.
+     *
+     * @return array An array of message structures parsed into Horde_Mime_Part
+     *               instances.
+     */
+    public function fetchStructure($folder, $uids)
+    {
+        $result = array();
+        foreach ($uids as $uid) {
+            $structure = $this->getBackend()->tokenizeResponse(
+                $this->getBackend()->fetchStructureString($folder, $uid, true)
+            );
+            if ($this->getBackend()->errornum != 0) {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        Horde_Kolab_Storage_Translation::t(
+                            "Failed retrieving structure of message %s in folder %s. Error: %s"
+                        ),
+                        $uid,
+                        $folder,
+                        $this->getBackend()->error
+                    )
+                );
+            }
+            $ob = $this->_parseStructure($structure[0]);
+            $ob->buildMimeIds();
+            $result[$uid]['structure'] = $ob;
+        }
+        return $result;
+    }
+
+    /**
+     * Retrieves a bodypart for the given message ID and mime part ID.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid                 The message UID.
+     * @param array  $id                  The mime part ID.
+     *
+     * @return resource|string The body part, as a stream resource or string.
+     */
+    public function fetchBodypart($folder, $uid, $id)
+    {
+        $this->select($folder);
+        $resource = fopen('php://temp', 'r+');
+        $this->getBackend()->handlePartBody($folder, $uid, true, $id, null, false, $resource);
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed retrieving mime part %s of message %s in folder %s. Error: %s"
+                    ),
+                    $id,
+                    $uid,
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+        return $resource;
+    }
+
+    /**
      * Appends a message to the current folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
+     * @param string $folder The folder to append the message(s) to. Either
      *                        in UTF7-IMAP or UTF-8.
      * @param string $msg     The message to append.
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function appendMessage($mailbox, $msg)
+    public function appendMessage($folder, $msg)
     {
-        return $this->getBackend()->append($mailbox, array(array('data' => $msg)));
+        return $this->getBackend()->append($folder, array(array('data' => $msg)));
     }
 
     /**
@@ -498,12 +563,12 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function deleteMessages($mailbox, $uids)
+    public function deleteMessages($folder, $uids)
     {
         if (!is_array($uids)) {
             $uids = array($uids);
         }
-        return $this->getBackend()->store($mailbox, array('add' => array('\\deleted'), 'ids' => $uids));
+        return $this->getBackend()->store($folder, array('add' => array('\\deleted'), 'ids' => $uids));
     }
 
     /**
@@ -523,53 +588,170 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
+     * @param string $folder The folder to append the message(s) to. Either
      *                        in UTF7-IMAP or UTF-8.
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function expunge($mailbox)
+    public function expunge($folder)
     {
-        return $this->getBackend()->expunge($mailbox);
+        return $this->getBackend()->expunge($folder);
     }
 
     /**
-     * Retrieves the message headers for a given message id.
+     * Parse the output from imap_fetchstructure() into a MIME Part object.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param int $uid                The message id.
-     * @param boolean $peek_for_body  Prefetch the body.
+     * @param object $data  Data from imap_fetchstructure().
      *
-     * @return mixed  The message header or a PEAR error in case of an error.
+     * @return Horde_Mime_Part  A MIME Part object.
      */
-    function getMessageHeader($mailbox, $uid, $peek_for_body = true)
+    /**
+     * Recursively parse BODYSTRUCTURE data from a FETCH return (see
+     * RFC 3501 [7.4.2]).
+     *
+     * @param array $data  The tokenized information from the server.
+     *
+     * @return array  The array of bodystructure information.
+     */
+    protected function _parseStructure($data)
     {
-        $options = array('ids' => array($uid));
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->headerText();
+        $ob = new Horde_Mime_Part();
 
-        $result = $this->getBackend()->fetch($mailbox, $query, $options);
-        return $result[$uid]['headertext'][0];
+        // If index 0 is an array, this is a multipart part.
+        if (is_array($data[0])) {
+            // Keep going through array values until we find a non-array.
+            for ($i = 0, $cnt = count($data); $i < $cnt; ++$i) {
+                if (!is_array($data[$i])) {
+                    break;
+                }
+                $ob->addPart($this->_parseStructure($data[$i]));
+            }
+
+            // The first string entry after an array entry gives us the
+            // subpart type.
+            $ob->setType('multipart/' . $data[$i]);
+
+            // After the subtype is further extension information. This
+            // information MAY not appear for BODYSTRUCTURE requests.
+
+            // This is parameter information.
+            if (isset($data[++$i]) && is_array($data[$i])) {
+                foreach ($this->_parseStructureParams($data[$i], 'content-type') as $key => $val) {
+                    $ob->setContentTypeParameter($key, $val);
+                }
+            }
+
+            // This is disposition information.
+            if (isset($data[++$i]) && is_array($data[$i])) {
+                $ob->setDisposition($data[$i][0]);
+
+                foreach ($this->_parseStructureParams($data[$i][1], 'content-disposition') as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
+                }
+            }
+
+            // This is language information. It is either a single value or
+            // a list of values.
+            if (isset($data[++$i])) {
+                $ob->setLanguage($data[$i]);
+            }
+
+            // Ignore: location (RFC 2557)
+            // There can be further information returned in the future, but
+            // for now we are done.
+        } else {
+            $ob->setType($data[0] . '/' . $data[1]);
+
+            foreach ($this->_parseStructureParams($data[2], 'content-type') as $key => $val) {
+                $ob->setContentTypeParameter($key, $val);
+            }
+
+            if ($data[3] !== null) {
+                $ob->setContentId($data[3]);
+            }
+
+            if ($data[4] !== null) {
+                $ob->setDescription(Horde_Mime::decode($data[4], 'UTF-8'));
+            }
+
+            if ($data[5] !== null) {
+                $ob->setTransferEncoding($data[5]);
+            }
+
+            if ($data[6] !== null) {
+                $ob->setBytes($data[6]);
+            }
+
+            // If the type is 'message/rfc822' or 'text/*', several extra
+            // fields are included
+            switch ($ob->getPrimaryType()) {
+            case 'message':
+                if ($ob->getSubType() == 'rfc822') {
+                    // Ignore: envelope
+                    $ob->addPart($this->_parseStructure($data[8]));
+                    // Ignore: lines
+                    $i = 10;
+                } else {
+                    $i = 7;
+                }
+                break;
+
+            case 'text':
+                // Ignore: lines
+                $i = 8;
+                break;
+
+            default:
+                $i = 7;
+                break;
+            }
+
+            // After the subtype is further extension information. This
+            // information MAY appear for BODYSTRUCTURE requests.
+
+            // Ignore: MD5
+
+            // This is disposition information
+            if (isset($data[++$i]) && is_array($data[$i])) {
+                $ob->setDisposition($data[$i][0]);
+
+                foreach ($this->_parseStructureParams($data[$i][1], 'content-disposition') as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
+                }
+            }
+
+            // This is language information. It is either a single value or
+            // a list of values.
+            if (isset($data[++$i])) {
+                $ob->setLanguage($data[$i]);
+            }
+
+            // Ignore: location (RFC 2557)
+        }
+
+        return $ob;
     }
 
     /**
-     * Retrieves the message body for a given message id.
+     * Helper function to parse a parameters-like tokenized array.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param integet $uid  The message id.
+     * @param array $data   The tokenized data.
+     * @param string $type  The header name.
      *
-     * @return mixed  The message body or a PEAR error in case of an error.
+     * @return array  The parameter array.
      */
-    function getMessageBody($mailbox, $uid)
+    protected function _parseStructureParams($data, $type)
     {
-        $options = array('ids' => array($uid));
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->bodyText();
+        $params = array();
 
-        $result = $this->getBackend()->fetch($mailbox, $query, $options);
-        return $result[$uid]['bodytext'][0];
+        if (is_array($data)) {
+            for ($i = 0, $cnt = count($data); $i < $cnt; ++$i) {
+                $params[strtolower($data[$i])] = $data[++$i];
+            }
+        }
+
+        $ret = Horde_Mime::decodeParam($type, $params);
+
+        return $ret['params'];
     }
-
 }

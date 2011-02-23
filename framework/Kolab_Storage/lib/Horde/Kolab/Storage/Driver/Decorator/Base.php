@@ -147,9 +147,9 @@ implements Horde_Kolab_Storage_Driver
      *
      * @return array The list of mailboxes.
      */
-    public function getMailboxes()
+    public function listFolders()
     {
-        return $this->_driver->getMailboxes();
+        return $this->_driver->listFolders();
     }
 
     /**
@@ -302,7 +302,71 @@ implements Horde_Kolab_Storage_Driver
      */
     public function getStamp($folder)
     {
-        return $this->_driver->getStamp();
+        return $this->_driver->getStamp($folder);
+    }
+
+    /**
+     * Returns the status of the current folder.
+     *
+     * @param string $folder Check the status of this folder.
+     *
+     * @return array An array that contains 'uidvalidity' and 'uidnext'.
+     */
+    public function status($folder)
+    {
+        return $this->_driver->status($folder);
+    }
+
+    /**
+     * Returns the message ids of the messages in this folder.
+     *
+     * @param string $folder Check the status of this folder.
+     *
+     * @return array The message ids.
+     */
+    public function getUids($folder)
+    {
+        return $this->_driver->getUids($folder);
+    }
+
+    /**
+     * Fetches the objects for the specified UIDs.
+     *
+     * @param string $folder The folder to access.
+     *
+     * @return array The parsed objects.
+     */
+    public function fetch($folder, $uids, $options = array())
+    {
+        return $this->_driver->fetch($folder, $uids, $options);
+    }
+
+    /**
+     * Retrieves the messages for the given message ids.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uids   The message UIDs.
+     *
+     * @return array An array of message structures parsed into Horde_Mime_Part
+     *               instances.
+     */
+    public function fetchStructure($folder, $uids)
+    {
+        return $this->_driver->fetchStructure($folder, $uids);
+    }
+
+    /**
+     * Retrieves a bodypart for the given message ID and mime part ID.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     * @param array  $id     The mime part ID.
+     *
+     * @return resource|string The body part, as a stream resource or string.
+     */
+    public function fetchBodypart($folder, $uid, $id)
+    {
+        return $this->_driver->fetchBodypart($folder, $uid, $id);
     }
 
     /**
@@ -350,42 +414,6 @@ implements Horde_Kolab_Storage_Driver
      * @return mixed  True or a PEAR error in case of an error.
      */
     public function expunge($mailbox)
-    {
-    }
-
-    /**
-     * Retrieves the message headers for a given message id.
-     *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param int $uid                The message id.
-     * @param boolean $peek_for_body  Prefetch the body.
-     *
-     * @return mixed  The message header or a PEAR error in case of an error.
-     */
-    public function getMessageHeader($mailbox, $uid, $peek_for_body = true)
-    {
-    }
-
-    /**
-     * Retrieves the message body for a given message id.
-     *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param integet $uid  The message id.
-     *
-     * @return mixed  The message body or a PEAR error in case of an error.
-     */
-    public function getMessageBody($mailbox, $uid)
-    {
-    }
-
-    /**
-     * Get the group handler for this connection.
-     *
-     * @return Horde_Group The group handler.
-     */
-    public function getGroupHandler()
     {
     }
 }

@@ -29,6 +29,37 @@ class Horde_Kolab_Storage_Driver_Cclient
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
+     * The c-client code -> MIME type conversion table.
+     *
+     * @var array
+     */
+    protected $_mimeTypes = array(
+        TYPETEXT => 'text',
+        TYPEMULTIPART => 'multipart',
+        TYPEMESSAGE => 'message',
+        TYPEAPPLICATION => 'application',
+        TYPEAUDIO => 'audio',
+        TYPEIMAGE => 'image',
+        TYPEVIDEO => 'video',
+        TYPEMODEL => 'model',
+        TYPEOTHER => 'other'
+    );
+
+    /**
+     * The c-client code -> MIME encodings conversion table.
+     *
+     * @var array
+     */
+    protected $_mimeEncodings = array(
+        ENC7BIT => '7bit',
+        ENC8BIT => '8bit',
+        ENCBINARY => 'binary',
+        ENCBASE64 => 'base64',
+        ENCQUOTEDPRINTABLE => 'quoted-printable',
+        ENCOTHER => 'unknown'
+    );
+
+    /**
      * Server name.
      *
      * @var string
@@ -43,7 +74,7 @@ extends Horde_Kolab_Storage_Driver_Base
     private $_base_mbox;
 
     /**
-     * The currently selected mailbox.
+     * The currently selected folder.
      *
      * @var string
      */
@@ -80,7 +111,7 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Return the root mailbox of the current user.
+     * Return the root folder of the current user.
      *
      * @return string The id of the user that opened the IMAP connection.
      */
@@ -101,7 +132,7 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Return the root mailbox of the current user.
+     * Return the root folder of the current user.
      *
      * @return string The id of the user that opened the IMAP connection.
      */
@@ -121,25 +152,25 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Retrieves a list of mailboxes on the server.
+     * Retrieves a list of folders on the server.
      *
-     * @return array The list of mailboxes.
+     * @return array The list of folders.
      *
      * @throws Horde_Kolab_Storage_Exception In case listing the folders failed.
      */
-    public function getMailboxes()
+    public function listFolders()
     {
-        return $this->decodeList($this->_getMailboxes());
+        return $this->decodeList($this->_listFolders());
     }
 
     /**
-     * Retrieves a UTF7-IMAP encoded list of mailboxes on the server.
+     * Retrieves a UTF7-IMAP encoded list of folders on the server.
      *
-     * @return array The list of mailboxes.
+     * @return array The list of folders.
      *
      * @throws Horde_Kolab_Storage_Exception In case listing the folders failed.
      */
-    private function _getMailboxes()
+    private function _listFolders()
     {
         $folders = array();
 
@@ -364,7 +395,7 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Retrieves the specified annotation for the complete list of mailboxes.
+     * Retrieves the specified annotation for the complete list of folders.
      *
      * @param string $annotation The name of the annotation to retrieve.
      *
@@ -380,10 +411,10 @@ extends Horde_Kolab_Storage_Driver_Base
         }
         list($entry, $value) = $this->_getAnnotateMoreEntry($annotation);
         $list = array();
-        foreach ($this->_getMailboxes() as $mailbox) {
-            $result = imap_getannotation($this->getBackend(), $mailbox, $entry, $value);
+        foreach ($this->_listFolders() as $folder) {
+            $result = imap_getannotation($this->getBackend(), $folder, $entry, $value);
             if (isset($result[$value])) {
-                $list[$mailbox] = $result[$value];
+                $list[$folder] = $result[$value];
             }
         }
         return $this->decodeListKeys($list);
@@ -392,16 +423,16 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Fetches the annotation from a folder.
      *
-     * @param string $mailbox    The name of the folder.
+     * @param string $folder    The name of the folder.
      * @param string $annotation The annotation to get.
      *
      * @return string The annotation value.
      */
-    public function getAnnotation($mailbox, $annotation)
+    public function getAnnotation($folder, $annotation)
     {
         list($entry, $key) = $this->_getAnnotateMoreEntry($annotation);
         $result = imap_getannotation(
-            $this->getBackend(), $this->encodePath($mailbox), $entry, $key
+            $this->getBackend(), $this->encodePath($folder), $entry, $key
         );
         if (!$result) {
             throw new Horde_Kolab_Storage_Exception(
@@ -412,7 +443,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     $entry,
                     $key,
                     $this->_getBaseMbox(),
-                    $mailbox,
+                    $folder,
                     imap_last_error()
                 )
             );
@@ -423,17 +454,17 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Sets the annotation on a folder.
      *
-     * @param string $mailbox    The name of the folder.
+     * @param string $folder    The name of the folder.
      * @param string $annotation The annotation to set.
      * @param array  $value      The values to set
      *
      * @return NULL
      */
-    public function setAnnotation($mailbox, $annotation, $value)
+    public function setAnnotation($folder, $annotation, $value)
     {
         list($entry, $key) = $this->_getAnnotateMoreEntry($annotation);
         $result = imap_setannotation(
-            $this->getBackend(), $this->encodePath($mailbox), $entry, $key, $value
+            $this->getBackend(), $this->encodePath($folder), $entry, $key, $value
         );
         if (!$result) {
             throw new Horde_Kolab_Storage_Exception(
@@ -444,7 +475,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     $entry,
                     $key,
                     $this->_getBaseMbox(),
-                    $mailbox,
+                    $folder,
                     $value,
                     imap_last_error()
                 )
@@ -471,7 +502,7 @@ extends Horde_Kolab_Storage_Driver_Base
                             "Failed opening folder %s%s. Error: %s"
                         ),
                         $this->_getBaseMbox(),
-                        $mailbox,
+                        $folder,
                         imap_last_error()
                     )
                 );
@@ -501,7 +532,7 @@ extends Horde_Kolab_Storage_Driver_Base
                         "Failed retrieving status information for folder %s. Error: %s"
                     ),
                     $this->_getBaseMbox(),
-                    $mailbox,
+                    $folder,
                     imap_last_error()
                 )
             );
@@ -532,19 +563,94 @@ extends Horde_Kolab_Storage_Driver_Base
         return $uids;
     }
 
+    /**
+     * Fetches the objects for the specified UIDs.
+     *
+     * @param string $folder The folder to access.
+     *
+     * @return array The parsed objects.
+     */
+    /**
+     * Retrieves the messages for the given message ids.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uids   The message UIDs.
+     *
+     * @return array An array of message structures parsed into Horde_Mime_Part
+     *               instances.
+     */
+    public function fetchStructure($folder, $uids)
+    {
+        $result = array();
+
+        $this->select($folder);
+        foreach ($uids as $uid) {
+            $structure = @imap_fetchstructure($this->getBackend(), $uid, FT_UID);
+            if ($structure) {
+                $ob = $this->_parseStructure($structure);
+                $ob->buildMimeIds();
+                $result[$uid]['structure'] = $ob;
+            } else {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        Horde_Kolab_Storage_Translation::t(
+                            "Failed fetching structure information for messages %s in folder %s. Error: %s"
+                        ),
+                        $this->_getBaseMbox(),
+                        join(',', $uids),
+                        $folder,
+                        imap_last_error()
+                    )
+                );
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Retrieves a bodypart for the given message ID and mime part ID.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     * @param array  $id     The mime part ID.
+     *
+     * @return resource|string The body part, as a stream resource or string.
+     */
+    public function fetchBodypart($folder, $uid, $id)
+    {
+        $this->select($folder);
+
+        $result = @imap_fetchbody($this->getBackend(), $uid, $id, FT_UID);
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed fetching body part %s for message %s in folder %s. Error: %s"
+                    ),
+                    $this->_getBaseMbox(),
+                    $id,
+                    $uid,
+                    $folder,
+                    imap_last_error()
+                )
+            );
+        }
+        return $result;
+    }
 
     /**
      * Appends a message to the current folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
+     * @param string $folder The folder to append the message(s) to. Either
      *                        in UTF7-IMAP or UTF-8.
      * @param string $msg     The message to append.
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function appendMessage($mailbox, $msg)
+    public function appendMessage($folder, $msg)
     {
-        return $this->_imap->append($mailbox, array(array('data' => $msg)));
+        return $this->_imap->append($folder, array(array('data' => $msg)));
     }
 
     /**
@@ -554,12 +660,12 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function deleteMessages($mailbox, $uids)
+    public function deleteMessages($folder, $uids)
     {
         if (!is_array($uids)) {
             $uids = array($uids);
         }
-        return $this->_imap->store($mailbox, array('add' => array('\\deleted'), 'ids' => $uids));
+        return $this->_imap->store($folder, array('add' => array('\\deleted'), 'ids' => $uids));
     }
 
     /**
@@ -579,53 +685,80 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
+     * @param string $folder The folder to append the message(s) to. Either
      *                        in UTF7-IMAP or UTF-8.
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function expunge($mailbox)
+    public function expunge($folder)
     {
-        return $this->_imap->expunge($mailbox);
+        return $this->_imap->expunge($folder);
     }
 
     /**
-     * Retrieves the message headers for a given message id.
+     * Parse the output from imap_fetchstructure() into a MIME Part object.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param int $uid                The message id.
-     * @param boolean $peek_for_body  Prefetch the body.
+     * @param object $data  Data from imap_fetchstructure().
      *
-     * @return mixed  The message header or a PEAR error in case of an error.
+     * @return Horde_Mime_Part  A MIME Part object.
      */
-    public function getMessageHeader($mailbox, $uid, $peek_for_body = true)
+    protected function _parseStructure($data)
     {
-        $options = array('ids' => array($uid));
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->headerText();
+        $ob = new Horde_Mime_Part();
 
-        $result = $this->_imap->fetch($mailbox, $query, $options);
-        return $result[$uid]['headertext'][0];
+        $ob->setType($this->_mimeTypes[$data->type] . '/' . ($data->ifsubtype ? strtolower($data->subtype) : Horde_Mime_Part::UNKNOWN));
+
+        // Optional for multipart-parts, required for all others
+        if ($data->ifparameters) {
+            $params = array();
+            foreach ($data->parameters as $val) {
+                $params[$val->attribute] = $val->value;
+            }
+
+            $params = Horde_Mime::decodeParam('content-type', $params, 'UTF-8');
+            foreach ($params['params'] as $key => $val) {
+                $ob->setContentTypeParameter($key, $val);
+            }
+        }
+
+        // Optional entries. 'location' and 'language' not supported
+        if ($data->ifdisposition) {
+            $ob->setDisposition($data->disposition);
+            if ($data->ifdparameters) {
+                $dparams = array();
+                foreach ($data->dparameters as $val) {
+                    $dparams[$val->attribute] = $val->value;
+                }
+
+                $dparams = Horde_Mime::decodeParam('content-disposition', $dparams, 'UTF-8');
+                foreach ($dparams['params'] as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
+                }
+            }
+        }
+
+        if ($ob->getPrimaryType() == 'multipart') {
+            // multipart/* specific entries
+            foreach ($data->parts as $val) {
+                $ob->addPart($this->_parseStructure($val));
+            }
+        } else {
+            // Required options
+            if ($data->ifid) {
+                $ob->setContentId($data->id);
+            }
+            if ($data->ifdescription) {
+                $ob->setDescription(Horde_Mime::decode($data->description, 'UTF-8'));
+            }
+
+            $ob->setTransferEncoding($this->_mimeEncodings[$data->encoding]);
+            $ob->setBytes($data->bytes);
+
+            if ($ob->getType() == 'message/rfc822') {
+                $ob->addPart($this->_parseStructure(reset($data->parts)));
+            }
+        }
+
+        return $ob;
     }
-
-    /**
-     * Retrieves the message body for a given message id.
-     *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param integet $uid  The message id.
-     *
-     * @return mixed  The message body or a PEAR error in case of an error.
-     */
-    public function getMessageBody($mailbox, $uid)
-    {
-        $options = array('ids' => array($uid));
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->bodyText();
-
-        $result = $this->_imap->fetch($mailbox, $query, $options);
-        return $result[$uid]['bodytext'][0];
-    }
-
 }

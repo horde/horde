@@ -72,12 +72,12 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      *
      * @return array The list of mailboxes.
      */
-    public function getMailboxes()
+    public function listFolders()
     {
         $this->_logger->info(
             sprintf('Driver "%s": Listing folders.', $this->getDriverName())
         );
-        $result = parent::getMailboxes();
+        $result = parent::listFolders();
         $this->_logger->info(
             sprintf(
                 'Driver "%s": List contained %s folders.',

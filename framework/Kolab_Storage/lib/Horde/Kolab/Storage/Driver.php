@@ -96,11 +96,11 @@ interface Horde_Kolab_Storage_Driver
     /** List functionality */
 
     /**
-     * Retrieves a list of mailboxes from the server.
+     * Retrieves a list of folders from the server.
      *
-     * @return array The list of mailboxes.
+     * @return array The list of folders.
      */
-    public function getMailboxes();
+    public function listFolders();
 
     /**
      * Create the specified folder.
@@ -177,7 +177,7 @@ interface Horde_Kolab_Storage_Driver
     public function deleteAcl($folder, $user);
 
     /**
-     * Retrieves the specified annotation for the complete list of mailboxes.
+     * Retrieves the specified annotation for the complete list of folders.
      *
      * @param string $annotation The name of the annotation to retrieve.
      *
@@ -189,23 +189,23 @@ interface Horde_Kolab_Storage_Driver
     /**
      * Fetches the annotation from a folder.
      *
-     * @param string $mailbox    The name of the folder.
+     * @param string $folder     The name of the folder.
      * @param string $annotation The annotation to get.
      *
      * @return string The annotation value.
      */
-    public function getAnnotation($mailbox, $annotation);
+    public function getAnnotation($folder, $annotation);
 
     /**
      * Sets the annotation on a folder.
      *
-     * @param string $mailbox    The name of the folder.
+     * @param string $folder     The name of the folder.
      * @param string $annotation The annotation to set.
      * @param array  $value      The values to set
      *
      * @return NULL
      */
-    public function setAnnotation($mailbox, $annotation, $value);
+    public function setAnnotation($folder, $annotation, $value);
 
     /**
      * Retrieve the namespace information for this connection.
@@ -229,19 +229,65 @@ interface Horde_Kolab_Storage_Driver
      */
     public function getStamp($folder);
 
+    /**
+     * Returns the status of the current folder.
+     *
+     * @param string $folder Check the status of this folder.
+     *
+     * @return array An array that contains 'uidvalidity' and 'uidnext'.
+     */
+    public function status($folder);
 
+    /**
+     * Returns the message ids of the messages in this folder.
+     *
+     * @param string $folder Check the status of this folder.
+     *
+     * @return array The message ids.
+     */
+    public function getUids($folder);
 
+    /**
+     * Fetches the objects for the specified UIDs.
+     *
+     * @param string $folder The folder to access.
+     *
+     * @return array The parsed objects.
+     */
+    public function fetch($folder, $uids, $options = array());
+
+    /**
+     * Retrieves the messages for the given message ids.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uids   The message UIDs.
+     *
+     * @return array An array of message structures parsed into Horde_Mime_Part
+     *               instances.
+     */
+    public function fetchStructure($folder, $uids);
+
+    /**
+     * Retrieves a bodypart for the given message ID and mime part ID.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     * @param array  $id     The mime part ID.
+     *
+     * @return resource|string The body part, as a stream resource or string.
+     */
+    public function fetchBodypart($folder, $uid, $id);
 
     /**
      * Appends a message to the current folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param string $msg     The message to append.
+     * @param string $folder The folder to append the message(s) to. Either
+     *                       in UTF7-IMAP or UTF-8.
+     * @param string $msg    The message to append.
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function appendMessage($mailbox, $msg);
+    public function appendMessage($folder, $msg);
 
     /**
      * Deletes messages from the current folder.
@@ -250,7 +296,7 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function deleteMessages($mailbox, $uids);
+    public function deleteMessages($folder, $uids);
 
     /**
      * Moves a message to a new folder.
@@ -265,33 +311,10 @@ interface Horde_Kolab_Storage_Driver
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
+     * @param string $folder The folder to append the message(s) to. Either
+     *                       in UTF7-IMAP or UTF-8.
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function expunge($mailbox);
-
-    /**
-     * Retrieves the message headers for a given message id.
-     *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param int $uid                The message id.
-     * @param boolean $peek_for_body  Prefetch the body.
-     *
-     * @return mixed  The message header or a PEAR error in case of an error.
-     */
-    public function getMessageHeader($mailbox, $uid, $peek_for_body = true);
-
-    /**
-     * Retrieves the message body for a given message id.
-     *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param integet $uid  The message id.
-     *
-     * @return mixed  The message body or a PEAR error in case of an error.
-     */
-    public function getMessageBody($mailbox, $uid);
+    public function expunge($folder);
 }

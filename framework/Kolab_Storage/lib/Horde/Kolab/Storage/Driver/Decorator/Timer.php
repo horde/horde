@@ -83,13 +83,13 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      *
      * @return array The list of mailboxes.
      */
-    public function getMailboxes()
+    public function listFolders()
     {
         $this->_timer->push();
-        $result = parent::getMailboxes();
+        $result = parent::listFolders();
         $this->_logger->info(
             sprintf(
-                'REQUEST OUT IMAP: %s ms [getMailboxes]',
+                'REQUEST OUT IMAP: %s ms [listFolders]',
                 floor($this->_timer->pop() * 1000)
             )
         );

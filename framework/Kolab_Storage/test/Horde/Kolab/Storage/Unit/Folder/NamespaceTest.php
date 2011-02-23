@@ -232,7 +232,7 @@ extends Horde_Kolab_Storage_TestCase
             ->method('getNamespace')
             ->will($this->returnValue($namespace));
         $this->_connection->expects($this->any())
-            ->method('getMailboxes')
+            ->method('listFolders')
             ->will($this->returnValue(array($name)));
         $this->_connection->expects($this->any())
             ->method('listAnnotation')

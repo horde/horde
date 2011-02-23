@@ -41,7 +41,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             $this->getMockLogger()
         );
-        $driver->getMailboxes();
+        $driver->listFolders();
         $this->assertLogCount(2);
     }
 
@@ -51,7 +51,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getTwoFolderMock(),
             $this->getMockLogger()
         );
-        $driver->getMailboxes();
+        $driver->listFolders();
         $this->assertLogContains('Driver "Horde_Kolab_Storage_Driver_Mock": List contained 2 folders.');
     }
 

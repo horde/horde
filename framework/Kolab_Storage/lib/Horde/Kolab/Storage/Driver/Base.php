@@ -317,6 +317,46 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Fetches the objects for the specified UIDs.
+     *
+     * @param string $folder The folder to access.
+     *
+     * @return array The parsed objects.
+     */
+    public function fetch($folder, $uids, $options = array())
+    {
+        return $this->getParser()->fetch($folder, $uids, $options);
+    }
+
+    /**
+     * Retrieves the messages for the given message ids.
+     *
+     * @param string $mailbox The mailbox to fetch the messages from.
+     * @param array  $uids                The message UIDs.
+     *
+     * @return Horde_Mime_Part The message structure parsed into a
+     *                         Horde_Mime_Part instance.
+     */
+    public function fetchStructure($mailbox, $uids)
+    {
+        throw new Horde_Kolab_Storage_Exception('"fetchStructure() not supported by this driver!');
+    }
+
+    /**
+     * Retrieves a bodypart for the given message ID and mime part ID.
+     *
+     * @param string $mailbox The mailbox to fetch the messages from.
+     * @param array  $uid                 The message UID.
+     * @param array  $id                  The mime part ID.
+     *
+     * @return resource  The body part, in a stream resource.
+     */
+    public function fetchBodypart($mailbox, $uid, $id)
+    {
+        throw new Horde_Kolab_Storage_Exception('"fetchBodypart() not supported by this driver!');
+    }
+
+    /**
      * Split a name for the METADATA extension into the correct syntax for the
      * older ANNOTATEMORE version.
      *

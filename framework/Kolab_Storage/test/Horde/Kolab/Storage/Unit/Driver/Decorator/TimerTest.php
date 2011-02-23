@@ -49,7 +49,7 @@ extends Horde_Kolab_Storage_TestCase
             new Horde_Support_Timer(),
             $this->getMockLogger()
         );
-        $driver->getMailboxes();
+        $driver->listFolders();
         $this->assertLogCount(1);
     }
 
@@ -60,8 +60,8 @@ extends Horde_Kolab_Storage_TestCase
             new Horde_Support_Timer(),
             $this->getMockLogger()
         );
-        $driver->getMailboxes();
-        $this->assertLogRegExp('/REQUEST OUT IMAP:.*getMailboxes.*/');
+        $driver->listFolders();
+        $this->assertLogRegExp('/REQUEST OUT IMAP:.*listFolders.*/');
     }
 
     public function testListAnnotationLogsEntry()
