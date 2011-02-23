@@ -369,11 +369,14 @@ div.hermesTimeSliceOptions {
   -moz-border-radius: 7px 7px 7px 7px;
   border: 1px solid #DBDBDB;
   font-size: 11px;
-  font-weight: bold;
   line-height: 1.2;
   padding: 2px 7px;
   text-decoration: none;
 }
+.rounded .bold {
+    font-weight: bold;
+}
+
 .rounded.sliceEdit {
   background: -moz-linear-gradient(-90deg, #F0F0F0, #DBDBDB);
   background: -webkit-gradient(linear, left bottom, left top, #f0f0f0, #dbdbdb);
@@ -478,9 +481,17 @@ a.rounded {
     color: #444444;
 }
 /* Time summary */
-#hermesMenuSummaryUnsubmitted, #hermesMenuSummaryToday {
+.hermesMenuItem .rounded {
+    margin-top: 7px;
+}
+.hermesMenuItem h4 {
+    font-size: 125%;
+}
+.hermesSummaryItem {
+    margin-left: 7px;
+}
+.hermesHours {
     font-weight: bold;
-    float:right;
 }
 #hermesMenu a.hermesAdd {
   background: url("graphics/plus.png") no-repeat scroll right center transparent;

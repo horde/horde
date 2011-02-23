@@ -540,15 +540,21 @@ HermesCore = {
 
     updateTimeSummary: function()
     {
-        var total = 0, today = 0;
+        var total = 0, totalb = 0, today = 0, todayb = 0;
         this.slices.each(function(i) {
-            total = total + parseFloat(i.h);
+            var h = parseFloat(i.h);
+            total = total + h;
+            if (i.b) { totalb = totalb + h }
             if (i.d == this.today) {
-                today = today + parseFloat(i.h);
+                today = today + h;
+                if (i.b) { todayb = todayb + h }
             }
-        });
-        $('hermesMenuSummaryUnsubmitted').update(total);
-        $('hermesMenuSummaryToday').update(today);
+        }.bind(this));
+
+        $('hermesSummaryTodayBillable').down().update(todayb);
+        $('hermesSummaryTodayNonBillable').down().update(today - todayb);
+        $('hermesSummaryTotalBillable').down().update(totalb);
+        $('hermesSummaryTotalNonBillable').down().update(total - totalb);
     },
 
     buildTimeTable: function()

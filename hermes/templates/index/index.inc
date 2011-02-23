@@ -44,7 +44,7 @@
   </div>
  </div>
  <!-- end top bar -->
- 
+
 </div>
 <!-- end header -->
 <!-- begin main area -->
@@ -57,9 +57,16 @@
     <p> Dates will link to a search-by-date view for the selected date?</p>
     <div class="hermesMenuSummary">
       <h3><?php echo _("Time Summary") ?>:</h3>
-      <div class="hermesMenuItem rounded"><?php echo _("Today") ?>:<span id="hermesMenuSummaryToday"></span></div>
-      <!--<div class="hermesMenuItem rounded"><?php echo _("Week") ?>:<span id="hermesMenuSummaryWeek"></span></div>-->
-      <div class="hermesMenuItem rounded"><?php echo _("Total") ?>:<span id="hermesMenuSummaryUnsubmitted"></span></div>
+        <div class="hermesMenuItem rounded">
+          <h4><?php echo _("Today") ?></h4>
+          <div id="hermesSummaryTodayBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Billable")?></div>
+          <div id="hermesSummaryTodayNonBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Non-Billable")?></div>
+        </div>
+        <div class="hermesMenuItem rounded">
+          <h4><?php echo _("Total") ?></h4>
+          <div id="hermesSummaryTotalBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Billable")?></div>
+          <div id="hermesSummaryTotalNonBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Non-Billable")?></div>
+        </div>
     </div>
       <a href="#" class="hermesAdd">+</a>
       <h3>Timers</h3>
@@ -84,7 +91,7 @@
              <div class="hermesTimerTime">30 HOurs (20%)</div>
           </div>
         </div>
-    </div>    
+    </div>
 </div>
 <!-- end left menu -->
 
