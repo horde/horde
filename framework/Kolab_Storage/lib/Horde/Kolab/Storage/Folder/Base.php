@@ -504,20 +504,6 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
-     * Returns whether the folder is accessible.
-     *
-     * @return boolean|PEAR_Error   True if the folder can be accessed.
-     */
-    function accessible()
-    {
-        try {
-            return $this->_driver->select($this->_path);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return false;
-        }
-    }
-
-    /**
      * Retrieve a handler for the data in this folder.
      *
      * @param Kolab_List $list  The handler for the list of folders.
