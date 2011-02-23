@@ -80,8 +80,28 @@ implements Horde_Kolab_Storage_Data_Format
             );
         }
         $mime_id = $this->matchMimeId($options['type'], $data->contentTypeMap());
-                                      
+        if (empty($mime_id)) {
+            //@todo: deal with exceptions
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'Unable to identify Kolab mime part in message %s in folder %s!',
+                    $obid,
+                    $folder
+                )
+            );
+        }
+
         $mime_part = $data->getPart($mime_id);
+        if (empty($mime_part)) {
+            //@todo: deal with exceptions
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'Unable to identify Kolab mime part in message %s in folder %s!',
+                    $obid,
+                    $folder
+                )
+            );
+        }
         $mime_part->setContents(
             $this->_structure->fetchId($folder, $obid, $mime_id)
         );
@@ -95,7 +115,7 @@ implements Horde_Kolab_Storage_Data_Format
     {
         switch ($type) {
         case 'event':
-            return array_search('application/x-vnd.kolab.event', $types);;
+            return array_search('application/x-vnd.kolab.event', $types);
             break;
         default:
             throw new Horde_Kolab_Storage_Exception(
