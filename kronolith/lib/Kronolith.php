@@ -2601,6 +2601,46 @@ class Kronolith
     }
 
     /**
+     * Parses a complete date-time string into a Horde_Date object.
+     *
+     * @param string $date  The date-time string to parse.
+     *
+     * @return Horde_Date  The parsed date.
+     * @throws Horde_Date_Exception
+     */
+    public static function parseDate($date)
+    {
+        // strptime() is locale dependent, i.e. %p is not always matching
+        // AM/PM. Set the locale to C to workaround this, but grab the
+        // locale's D_FMT before that.
+        $format = Horde_Nls::getLangInfo(D_FMT) . ' '
+            . ($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
+        $old_locale = setlocale(LC_TIME, 0);
+        setlocale(LC_TIME, 'C');
+
+        // Try exact format match first.
+        $date_arr = strptime($date, $format);
+        setlocale(LC_TIME, $old_locale);
+
+        if (!$date_arr) {
+            // Try with locale dependent parsing next.
+            $date_arr = strptime($date, $format);
+            if (!$date_arr) {
+                // Try throwing at Horde_Date finally.
+                return new Horde_Date($start);
+            }
+        }
+
+        return new Horde_Date(
+            array('year'  => $date_arr['tm_year'] + 1900,
+                  'month' => $date_arr['tm_mon'] + 1,
+                  'mday'  => $date_arr['tm_mday'],
+                  'hour'  => $date_arr['tm_hour'],
+                  'min'   => $date_arr['tm_min'],
+                  'sec'   => $date_arr['tm_sec']));
+    }
+
+    /**
      * @param string $tabname
      */
     public static function tabs($tabname = null)

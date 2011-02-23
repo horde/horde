@@ -423,31 +423,17 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         $id = $this->_vars->task_id;
         $list = $this->_vars->old_tasklist;
         $task = $this->_vars->task;
+        $result = $this->_signedResponse('tasklists|tasks/' . $task['tasklist']);
 
         $due = trim($task['due_date'] . ' ' . $task['due_time']);
         if (!empty($due)) {
-            // strptime() is locale dependent, i.e. %p is not always matching
-            // AM/PM. Set the locale to C to workaround this, but grab the
-            // locale's D_FMT before that.
-            $date_format = Horde_Nls::getLangInfo(D_FMT);
-            $old_locale = setlocale(LC_TIME, 0);
-            setlocale(LC_TIME, 'C');
-            $format = $date_format . ' ' . ($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
-
-            // Try exact format match first.
-            if ($date_arr = strptime($due, $format)) {
-                $due = new Horde_Date(
-                    array('year'  => $date_arr['tm_year'] + 1900,
-                          'month' => $date_arr['tm_mon'] + 1,
-                          'mday'  => $date_arr['tm_mday'],
-                          'hour'  => $date_arr['tm_hour'],
-                          'min'   => $date_arr['tm_min'],
-                          'sec'   => $date_arr['tm_sec']));
-            } else {
-                $due = new Horde_Date($due);
+            try {
+                $due = Kronolith::parseDate($due);
+                $task['due'] = $due->timestamp();
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+                return $result;
             }
-            setlocale(LC_TIME, $old_locale);
-            $task['due'] = $due->timestamp();
         }
 
         if ($task['alarm']['on']) {
@@ -477,7 +463,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
         unset($task['alarm_methods']);
 
-        $result = $this->_signedResponse('tasklists|tasks/' . $task['tasklist']);
         try {
             $ids = ($id && $list)
                 ? $GLOBALS['registry']->tasks->updateTask($list, $id, $task)

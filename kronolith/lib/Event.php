@@ -2087,37 +2087,13 @@ abstract class Kronolith_Event
         // Resources
         $this->_resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
 
-        // strptime() is locale dependent, i.e. %p is not always matching
-        // AM/PM. Set the locale to C to workaround this, but grab the
-        // locale's D_FMT before that.
-        $date_format = Horde_Nls::getLangInfo(D_FMT);
-        $old_locale = setlocale(LC_TIME, 0);
-        setlocale(LC_TIME, 'C');
-
         // Event start.
         $allDay = Horde_Util::getFormData('whole_day');
         if ($start_date = Horde_Util::getFormData('start_date')) {
             // From ajax interface.
-            $start_time = Horde_Util::getFormData('start_time');
-            $start = $start_date . ' ' . $start_time;
-            $format = $date_format . ' '
-                . ($prefs->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
-            // Try exact format match first.
-            if ($date_arr = strptime($start, $format)) {
-                $this->start = new Horde_Date(
-                    array('year'  => $date_arr['tm_year'] + 1900,
-                          'month' => $date_arr['tm_mon'] + 1,
-                          'mday'  => $date_arr['tm_mday'],
-                          'hour'  => $allDay ? 0 : $date_arr['tm_hour'],
-                          'min'   => $allDay ? 0 : $date_arr['tm_min'],
-                          'sec'   => $allDay ? 0 : $date_arr['tm_sec']));
-            } else {
-                try {
-                    $this->start = new Horde_Date($start);
-                } catch (Horde_Date_Exception $e) {
-                    setlocale(LC_TIME, $old_locale);
-                    throw $e;
-                }
+            $this->start = Kronolith::parseDate($start_date . ' ' . Horde_Util::getFormData('start_time'));
+            if ($allDay) {
+                $this->start->hour = $this->start->min = $this->start->sec = 0;
             }
         } else {
             // From traditional interface.
@@ -2163,26 +2139,10 @@ abstract class Kronolith_Event
         // Event end.
         if ($end_date = Horde_Util::getFormData('end_date')) {
             // From ajax interface.
-            $end_time = Horde_Util::getFormData('end_time');
-            $end = $end_date . ' ' . $end_time;
-            $format = $date_format . ' '
-                . ($prefs->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
-            // Try exact format match first.
-            if ($date_arr = strptime($end, $format)) {
-                $this->end = new Horde_Date(
-                    array('year'  => $date_arr['tm_year'] + 1900,
-                          'month' => $date_arr['tm_mon'] + 1,
-                          'mday'  => $date_arr['tm_mday'],
-                          'hour'  => $allDay ? 23 : $date_arr['tm_hour'],
-                          'min'   => $allDay ? 59 : $date_arr['tm_min'],
-                          'sec'   => $allDay ? 59 : $date_arr['tm_sec']));
-            } else {
-                try {
-                    $this->end = new Horde_Date($end);
-                } catch (Horde_Date_Exception $e) {
-                    setlocale(LC_TIME, $old_locale);
-                    throw $e;
-                }
+            $this->end = Kronolith::parseDate($end_date . ' ' . Horde_Util::getFormData('end_time'));
+            if ($allDay) {
+                $this->end->hour = 23;
+                $this->end->min = $this->end->sec = 59;
             }
         } elseif (Horde_Util::getFormData('end_or_dur') == 1) {
             // Event duration from traditional interface.
@@ -2222,8 +2182,6 @@ abstract class Kronolith_Event
         }
 
         $this->allday = false;
-
-        setlocale(LC_TIME, $old_locale);
 
         // Alarm.
         if (!is_null($alarm = Horde_Util::getFormData('alarm'))) {
