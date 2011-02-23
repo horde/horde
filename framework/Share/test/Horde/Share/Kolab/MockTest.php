@@ -103,6 +103,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
      */
     public function testPermissions()
     {
+        //@todo: switch the auth in the base driver and implement empty by default.
         self::$storage->getDriver()->setAuth('');
         $this->permissionsSystemShare();
         self::$storage->getDriver()->setAuth('john');
