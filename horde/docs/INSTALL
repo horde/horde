@@ -28,41 +28,6 @@ README_ in the top-level directory of the Horde distribution.
 .. _Kronolith: http://www.horde.org/kronolith/
 
 
-Obtaining Horde
-===============
-
-The Horde Framework can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/horde/
-
-   ftp://ftp.horde.org/pub/horde/
-
-Or, better yet, use a mirror that is closer to you.  The mirror list can be
-found at:
-
-   http://www.horde.org/mirrors.php
-
-The FTP directory contains the Horde PHP files which can be unpacked using
-``tar`` and ``gunzip`` (see `Installing Horde`_, below).
-
-Bleeding-edge development versions of Horde and its applications are available
-via Git; see the file `docs/HACKING`_, or visit the website
-http://www.horde.org/source/, for information on accessing the Horde Git
-repository.
-
-You will probably also want one or more Horde applications, since Horde
-doesn't do much by itself; a list of available applications, with links to
-descriptions and downloads, can be found at
-
-   http://www.horde.org/projects.php
-
-While previous versions of Horde were numbered to correspond with a particular
-version of the IMP webmail application, that is no longer true as of Horde
-version 2.0. The current version of Horde will work with the current version
-of Horde applications. For more information about which versions are
-compatible see http://www.horde.org/source/versions.php.
-
-
 Quick Install
 =============
 
@@ -84,41 +49,46 @@ below at Prerequisites_.
 
 2. Restart Apache.
 
-3. Install PEAR/PECL packages::
+3. Register Horde PEAR channel::
 
-     pear install -o Crypt_Blowfish Date DB File Net_DNS2 Services_Weather
-     pear -d preferred_state=beta install -a HTTP_WebDAV_Server
-     pecl install -o fileinfo idn lzf [memcache]
+     pear channel-discover pear.horde.org
 
-4. Extract tarball::
+4. Set Horde installation directory::
 
-     cd /usr/local/apache/htdocs
-     tar zxvf /path/to/horde-x.y.z.tar.gz
-     mv horde-x.y.z horde
+     pear install horde/role
+
+5. Install Horde::
+
+     pear install horde/horde
 
 5. Configure Horde::
 
      cd config/
-     for f in *.dist; do cp $f `basename $f .dist`; done
+     cp conf.php.dist conf.php
 
-6. Create database tables::
-
-     cd ../scripts/sql
-     vi create.mysql.sql
-     mysql -u root -p < create.mysql.sql
-
-7. Test Horde::
-
-     [edit horde/config/conf.php and set 'testdisable' to false]
-     http://your-server/horde/test.php
-     [SECURITY: edit horde/config/conf.php and set 'testdisable' to true]
-
-8. Finish configuration::
+6. Finish configuration::
 
      http://your-server/horde/
 
    Go to Administration => Configuration => Horde
    (Or navigate to http://your-server/horde/admin/config)
+
+7. Create database tables::
+
+     cd ..
+     ./bin/db_migrate
+
+8. Test Horde
+
+   Enable the test script in the Horde configuration at the ``General`` in the
+   ``PHP Settings`` section, or edit ``horde/config/conf.php`` and set
+   ``'testdisable'`` to false.
+
+   Go to::
+
+     http://your-server/horde/test.php
+
+   .. Important:: Disable the test script again after you are done.
 
 
 Prerequisites
@@ -137,7 +107,11 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 2. PHP 5.2.0 or above.
 
    PHP is the interpreted language in which Horde is written.
-   You can obtain PHP at
+
+   If possible, you should install PHP with your operating system's package
+   manager. Alternatively you build PHP yourself.
+
+   To build PHP from sources, you can obtain it at
 
       http://www.php.net/
 
@@ -151,9 +125,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    options to ``./configure``, and not as a standalone executable.
 
-   The following PHP options are **REQUIRED** by Horde (listed with their own
-   prerequisites and configure options). In many cases, the required libraries
-   and tools can be obtained as packages from your operating system vendor.
+   The following PHP extensions respective options are **REQUIRED** by Horde
+   (listed with their own prerequisites and configure options). In many cases,
+   the required libraries and tools can be obtained as packages from your
+   operating system vendor.
 
    a. Gettext support. ``--with-gettext``
 
@@ -314,6 +289,11 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    find the ``include_path`` and make sure that ``/usr/share/php`` is part of
    the list.  If you had to change that value, restart the web server after
    saving ``php.ini``.
+
+   If you are going to install Horde the recommended way, i.e. using the PEAR
+   installer, you can skip the remainder of this section. Installing Horde
+   through PEAR will automatically download and install all required PEAR
+   modules.
 
    These PEAR modules are **REQUIRED** to be installed for complete Horde
    functionality:
@@ -485,14 +465,79 @@ if you use a specific Horde application (as noted in [brackets]):
 Installing Horde
 ================
 
-Horde is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system. If
-you have no idea where you should be installing Horde, install it directly
-under the root of your webserver's document tree.
+There are several ways to install Horde. The recommended way to install Horde
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Horde from Git.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First you need to register the Horde PEAR channel server to your local PEAR
+system. This has to be done only **once** ever on a single PEAR system::
+
+   pear channel-discover pear.horde.org
+
+Next install a so-called "role" for Horde. This role defines where Horde is
+supposed to be installed. This should be a directory in your web server's web
+root, e.g. ``/var/www/horde``. Again this has to be done only **once** ever on
+a single PEAR system::
+
+   pear install horde/role
+
+When installing Horde through PEAR now, the installer will automatically
+install any dependencies of Horde too. By default, only the required
+dependencies will be installed::
+
+   pear install horde/horde
+
+If you want to install Horde even with all optional dependencies, you need to
+specify the ``-a`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/horde
 
 
 Installing from Release Tarballs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Horde Framework can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/horde/
+
+   ftp://ftp.horde.org/pub/horde/
+
+Or, better yet, use a mirror that is closer to you.  The mirror list can be
+found at:
+
+   http://www.horde.org/mirrors.php
+
+The FTP directory contains the Horde PHP files which can be unpacked using
+``tar`` and ``gunzip`` (see `Installing Horde`_, below).
+
+Bleeding-edge development versions of Horde and its applications are available
+via Git; see the file `docs/HACKING`_, or visit the website
+http://www.horde.org/source/, for information on accessing the Horde Git
+repository.
+
+You will probably also want one or more Horde applications, since Horde
+doesn't do much by itself; a list of available applications, with links to
+descriptions and downloads, can be found at
+
+   http://www.horde.org/projects.php
+
+While previous versions of Horde were numbered to correspond with a particular
+version of the IMP webmail application, that is no longer true as of Horde
+version 2.0. The current version of Horde will work with the current version
+of Horde applications. For more information about which versions are
+compatible see http://www.horde.org/source/versions.php.
+
+Horde is written in PHP, and must be installed in a web-accessible directory.
+The precise location of this directory will differ from system to system. If
+you have no idea where you should be installing Horde, install it directly
+under the root of your webserver's document tree.
 
 Since Horde is written in PHP, there is no compilation necessary; simply
 expand the distribution where you want it to reside and rename the root
@@ -508,8 +553,6 @@ default document root of ``/usr/local/apache/htdocs``, you would type::
 You would then find Horde at the URL::
 
    http://your-server/horde/
-
-Skip the next paragraph if you installed Horde from a release tarball.
 
 
 Installing from Git
@@ -543,46 +586,25 @@ Configuring Horde
 
          DirectoryIndex index.php
 
-2. Creating databases
-
-   The specific steps to create a preferences storage container depend on
-   which database you've chosen to use.
-
-   First, look in ``scripts/sql/`` to see if a ``create.`` script already
-   exists for your database.  If so, you should be able to simply execute that
-   script as superuser in your database.  Consult the ``scripts/sql/README``
-   file for more information.
-
-   Be sure to change the default password, ``horde``, to something else before
-   creating the tables! (Remember to use this password when you configure
-   Horde in the next step.)
-
-   If such a script does not exist, you'll need to build your own, using the
-   files ``horde_users.sql``, ``horde_prefs.sql``, and ``horde_datatree.sql``
-   as a starting point.  If you need assistance in creating databases for a
-   database for which no ``create.`` script exists, you may wish to let us
-   know on the `Horde mailing list`_.
-
-   If you make any changes to the user that will access the database,
-   you **MUST** ensure that that user can still create
-   tables. Otherwise Horde will be unable to create sequence tables
-   for tracking primary keys.
-
-   If you are going to use database based sessions, create a table using the
-   files ``scripts/sql/horde_sessionhandler*.sql`` as a starting point.
-
-   .. _`Horde mailing list`: horde@lists.horde.org
-
-3. Configuring Horde
+2. Configuring Horde
 
    To configure Horde, change to the ``config/`` directory of the installed
    distribution, and copy the ``conf.php.dist`` configuration file to
    ``conf.php``.
 
    Documentation on the format and purpose of the configuration files in the
-   ``config/`` directory can be found in each file.  You may edit these files
-   if you wish to customize Horde's appearance and behavior.  The defaults
-   will be correct for most sites.
+   ``config/`` directory can be found in each file. The defaults will be
+   correct for most sites. If you wish to customize Horde's appearance and
+   behavior, create "local" files for the configuration file you want to
+   change. For example if you want to change the default value and lock a
+   preference, create a ``config/prefs.local.php` file with the following
+   content::
+
+      <?php
+      $_prefs['prefname']['value'] = 'somedefault';
+      $_prefs['prefname']['locked'] = true;
+
+   This works analogous with any other configuration file.
 
    .. Warning:: All configuration files in Horde are PHP scripts that are
                 executed by the web server. If you make an error in one of
@@ -592,45 +614,7 @@ Configuring Horde
 
                    php -l mime_drivers.local.php
 
-4. Setting up alarm emails
-
-   If you want your users to be able to receive emails from the Horde_Alarm
-   system, you must set up a cron entry for ``horde/bin/alarms.php``, you
-   must have at least one administrator specified in the Horde configuration,
-   and you must have the PHP CLI installed (a CGI binary is not supported -
-   ``php -v`` will report what kind of PHP binary you have).
-
-   Running the job every 5 minutes is recommended::
-
-      # Horde Alarms
-      */5 * * * * /usr/bin/php /var/www/horde/bin/alarms.php
-
-   (replace ``/usr/bin/php`` with the path to your PHP CLI and
-   ``/var/www/horde/`` with the path to your Horde installation)
-
-5. Testing Horde
-
-   Once you have configured your webserver, PHP, and Horde, bring up the
-   included test page in your Web browser to ensure that all necessary
-   prerequisites have been met. If you installed Horde as described above, the
-   URL to the test page would be::
-
-      http://your-server/horde/test.php
-
-   The test script is disabled by default for security reasons. To enable
-   set the 'testdisable' configuration option to false. After testing is
-   completed, the testdisable option should be reset to true.
-
-   Check that your PHP and PEAR versions are acceptably recent, that all
-   required module capabilities are present, and that ``magic_quotes_runtime``
-   is set to ``Off``. Then note the ``Session counter: 1`` line under ``PHP
-   Sessions``, and reload the page. The session counter should increment.
-
-   If you get a warning like ``Failed opening '/path/to/test.php' for
-   inclusion``, make sure that the web server has the permission to read the
-   ``test.php`` file.
-
-6. Completing Configuration
+3. Completing Configuration
 
    You can now access Horde without a password, and you will be logged in as
    an administrator.
@@ -671,6 +655,12 @@ Configuring Horde
    defines the database configuration that is used, by default, for several
    different Horde sub-systems.
 
+   .. Important:: By default Horde will be using database backends for most
+                  sub-systems. If you do not plan to use a database with Horde,
+                  you need to go through all tabs of the configuration screen
+                  and change the configuration for those systems from ``SQL``
+                  to a suitable alternative.
+
    Configuration of applications in ``registry.php`` is documented in the
    ``INSTALL`` file of each application.  Most applications require you to
    configure them with a "Horde administrator" account.  A Horde administrator
@@ -680,6 +670,60 @@ Configuring Horde
    The other files in that directory need only be modified if you wish to
    customize Horde's appearance or behaviour -- the defaults will work at most
    sites.
+
+4. Creating databases
+
+   Once you created the database configuration in the previous step, you can
+   create all database tables by hitting the ``Update all DB schemas`` button
+   in the configuration screen.
+
+   Please note that this requires the database that you entered in the database
+   configuration to already exist, and the configured database user to have
+   sufficient permissions to create new tables in this database.
+
+   Alternatively you can run the ``bin/db_migrate`` script in the Horde
+   directory from the command line.
+
+   TODO: Update documentation once db_migrate takes (super-) user credentials
+   as command line flags.
+
+5. Setting up alarm emails
+
+   If you want your users to be able to receive emails from the Horde_Alarm
+   system, you must set up a cron entry for ``horde/bin/alarms.php``, you
+   must have at least one administrator specified in the Horde configuration,
+   and you must have the PHP CLI installed (a CGI binary is not supported -
+   ``php -v`` will report what kind of PHP binary you have).
+
+   Running the job every 5 minutes is recommended::
+
+      # Horde Alarms
+      */5 * * * * /usr/bin/php /var/www/horde/bin/alarms.php
+
+   (replace ``/usr/bin/php`` with the path to your PHP CLI and
+   ``/var/www/horde/`` with the path to your Horde installation)
+
+6. Testing Horde
+
+   Once you have configured your webserver, PHP, and Horde, bring up the
+   included test page in your Web browser to ensure that all necessary
+   prerequisites have been met. If you installed Horde as described above, the
+   URL to the test page would be::
+
+      http://your-server/horde/test.php
+
+   The test script is disabled by default for security reasons. To enable
+   set the 'testdisable' configuration option to false. After testing is
+   completed, the testdisable option should be reset to true.
+
+   Check that your PHP and PEAR versions are acceptably recent, that all
+   required module capabilities are present, and that ``magic_quotes_runtime``
+   is set to ``Off``. Then note the ``Session counter: 1`` line under ``PHP
+   Sessions``, and reload the page. The session counter should increment.
+
+   If you get a warning like ``Failed opening '/path/to/test.php' for
+   inclusion``, make sure that the web server has the permission to read the
+   ``test.php`` file.
 
 7. Securing Horde
 
