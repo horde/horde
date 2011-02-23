@@ -224,7 +224,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
                              $this->_params['table'],
                              $this->_params['username_field'],
                              $this->_params['domain_field'],
-                             -$this->_params['password_field']);
+                             $this->_params['password_field']);
             $values = array(
                 $name,
                 $domain,
