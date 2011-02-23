@@ -42,17 +42,6 @@ extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testRootLevel()
-    {
-        $this->assertEquals(
-            3,
-            count(
-                $this->_getHierarchyDriver()
-                ->listShares('john', array('all_levels' => false))
-            )
-        );
-    }
-
     public function testGetStorage()
     {
         $storage = $this->getMock('Horde_Kolab_Storage');
@@ -173,7 +162,9 @@ extends PHPUnit_Framework_TestCase
     {
         $share = $this->_getCompleteDriver();
         $object = $share->newShare('john', 'IGNORED', 'test');
-        $this->assertEquals('INBOX%2Ftest', $object->getId());
+        $this->assertEquals(
+            array('john', 'test'), $this->_decodeId($object->getId())
+        );
     }
 
     public function testObjectId()
@@ -191,8 +182,10 @@ extends PHPUnit_Framework_TestCase
     public function testGetShare()
     {
         $this->assertEquals(
-            'INBOX%2FCalendar',
-            $this->_getPrefilledDriver()->getShare('internal_id')->getId()
+            array('john', 'Calendar'),
+            $this->_decodeId(
+                $this->_getPrefilledDriver()->getShare('internal_id')->getId()
+            )
         );
     }
 
@@ -207,7 +200,7 @@ extends PHPUnit_Framework_TestCase
     public function testExistsById()
     {
         $this->assertTrue(
-            $this->_getPrefilledDriver()->exists('INBOX%2FCalendar')
+            $this->_getPrefilledDriver()->exists($this->_getId('john', 'Calendar'))
         );
     }
 
@@ -221,31 +214,33 @@ extends PHPUnit_Framework_TestCase
     public function testDoesNotExists()
     {
         $this->assertFalse(
-            $this->_getPrefilledDriver()->exists('DOES_NOT_EXIST')
+            $this->_getPrefilledDriver()->exists($this->_getId('john', 'DOES_NOT_EXIST'))
         );
     }
 
     public function testIdExists()
     {
         $this->assertTrue(
-            $this->_getPrefilledDriver()->idExists('INBOX%2FCalendar')
+            $this->_getPrefilledDriver()->idExists($this->_getId('john', 'Calendar'))
         );
     }
 
     public function testIdDoesNotExists()
     {
         $this->assertFalse(
-            $this->_getPrefilledDriver()->idExists('DOES_NOT_EXIST')
+            $this->_getPrefilledDriver()->idExists($this->_getId('john', 'DOES_NOT_EXIST'))
         );
     }
 
     public function testGetShareById()
     {
         $this->assertEquals(
-            'INBOX%2FCalendar',
-            $this->_getPrefilledDriver()
-            ->getShareById('INBOX%2FCalendar')
-            ->getId()
+            array('john', 'Calendar'),
+            $this->_decodeId(
+                $this->_getPrefilledDriver()
+                ->getShareById($this->_getId('john', 'Calendar'))
+                ->getId()
+            )
         );
     }
 
@@ -262,7 +257,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'john',
             $this->_getPrefilledDriver()
-            ->getShareById('INBOX%2FCalendar')
+            ->getShareById($this->_getId('john', 'Calendar'))
             ->get('owner')
         );
     }
@@ -272,7 +267,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'Calendar',
             $this->_getPrefilledDriver()
-            ->getShareById('INBOX%2FCalendar')
+            ->getShareById($this->_getId('john', 'Calendar'))
             ->get('name')
         );
     }
@@ -282,7 +277,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'DESCRIPTION',
             $this->_getPrefilledDriver()
-            ->getShareById('INBOX%2FCalendar')
+            ->getShareById($this->_getId('john', 'Calendar'))
             ->get('desc')
         );
     }
@@ -292,8 +287,18 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'internal_id',
             $this->_getPrefilledDriver()
-            ->getShareById('INBOX%2FCalendar')
+            ->getShareById($this->_getId('john', 'Calendar'))
             ->get('share_name')
+        );
+    }
+
+    public function testShareFolder()
+    {
+        $this->assertEquals(
+            'INBOX/Calendar',
+            $this->_getPrefilledDriver()
+            ->getShareById($this->_getId('john', 'Calendar'))
+            ->get('folder')
         );
     }
 
@@ -313,8 +318,10 @@ extends PHPUnit_Framework_TestCase
         $object = $share->newShare('john', 'IGNORED', 'Test');
         $share->addShare($object);
         $this->assertEquals(
-            'INBOX%2FTest',
-            $share->getShareById('INBOX%2FTest')->getId()
+            array('john', 'Test'),
+            $this->_decodeId(
+                $share->getShareById($this->_getId('john', 'Test'))->getId()
+            )
         );
     }
 
@@ -332,11 +339,11 @@ extends PHPUnit_Framework_TestCase
     public function testDeleteShare()
     {
         $share = $this->_getPrefilledDriver();
-        $object = $share->newShare('john', 'IGNORED', 'Test');
+        $object = $share->newShare('john', 'NAME', 'Test');
         $share->addShare($object);
         $share->removeShare($object);
         $this->assertNotContains(
-            'INBOX%2FTest',
+            'NAME',
             array_keys($share->listShares('john'))
         );
     }
@@ -348,7 +355,7 @@ extends PHPUnit_Framework_TestCase
         $share->addShare($object);
         $this->assertEquals(
             30,
-            $share->getShareById('INBOX%2FTest')->getPermission()->getCreatorPermissions()
+            $share->getShareById($this->_getId('john', 'Test'))->getPermission()->getCreatorPermissions()
         );
     }
 
@@ -359,7 +366,7 @@ extends PHPUnit_Framework_TestCase
         $object->addUserPermission('tina', Horde_Perms::SHOW);
         $share->addShare($object);
         $this->assertTrue(
-            $share->getShareById('INBOX%2FTest')
+            $share->getShareById($this->_getId('john', 'Test'))
             ->hasPermission('tina', Horde_Perms::SHOW)
         );
     }
@@ -374,7 +381,7 @@ extends PHPUnit_Framework_TestCase
     public function testSetDescription()
     {
         $share = $this->_getPrefilledDriver()
-            ->getShareById('INBOX%2FCalendar');
+            ->getShareById($this->_getId('john', 'Calendar'));
         $share->set('desc', 'NEW');
         $share->save();
         $query = 
@@ -389,13 +396,15 @@ extends PHPUnit_Framework_TestCase
     public function testSetData()
     {
         $share = $this->_getPrefilledDriver()
-            ->getShareById('INBOX%2FCalendar');
+            ->getShareById($this->_getId('john', 'Calendar'));
         $share->set('other', 'OTHER');
         $share->save();
         $query = 
         $this->assertEquals(
             array(
-                'other' => 'OTHER', 'share_name' => 'internal_id'
+                'folder' => 'INBOX/Calendar',
+                'other' => 'OTHER',
+                'share_name' => 'internal_id'
             ),
             $this->list
             ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
@@ -430,6 +439,17 @@ extends PHPUnit_Framework_TestCase
             count(
                 $this->_getPermissionDriver()
                 ->listShares('john', array('perm' => Horde_Perms::EDIT))
+            )
+        );
+    }
+
+    public function testRootLevel()
+    {
+        $this->assertEquals(
+            3,
+            count(
+                $this->_getHierarchyDriver()
+                ->listShares('john', array('all_levels' => false))
             )
         );
     }
@@ -480,6 +500,7 @@ extends PHPUnit_Framework_TestCase
             'username' => 'john',
             'data'   => $this->_getMockData(
                 array(
+                    'user/john' => array(),
                     'user/john/Calendar' => array(
                         'a' => array(
                             '/shared/vendor/kolab/folder-type' => 'event.default',
@@ -510,6 +531,7 @@ extends PHPUnit_Framework_TestCase
             'username' => 'john',
             'data'   => $this->_getMockData(
                 array(
+                    'user/john' => array(),
                     'user/john/Calendar' => array(
                         't' => 'event.default',
                         'p' => array('john' => 'alrid'),
@@ -529,6 +551,7 @@ extends PHPUnit_Framework_TestCase
             'username' => 'john',
             'data'   => $this->_getMockData(
                 array(
+                    'user/john' => array(),
                     'user/john/Calendar' => array('t' => 'event.default'),
                     'user/john/Calendar/Private' => null,
                     'user/john/Calendar/Private/Family' => array('t' => 'event'),
@@ -567,5 +590,15 @@ extends PHPUnit_Framework_TestCase
             $result[$path] = $folder;
         }
         return $result;
+    }
+
+    private function _getId($owner, $name)
+    {
+        return base64_encode(serialize(array($owner, $name)));
+    }
+
+    private function _decodeId($id)
+    {
+        return unserialize(base64_decode($id));
     }
 }

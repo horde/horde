@@ -46,6 +46,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
     private $_type;
 
     /**
+     * A map of IDs to folder names.
+     *
+     * @var array
+     */
+    private $_id_map = array();
+
+    /**
      * Constructor.
      *
      * @param string $app          The application that the shares belong to
@@ -116,7 +123,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      *
      * @todo: In Horde3 share IDs were not properly escaped everywhere and it
      * made sense to escape them here just in case they are placed in a
-     * URL. Needs checking, fixing and removal in Horde4.
+     * URL. Needs checking in Horde4.
      *
      * @param string $id The ID to be encoded.
      *
@@ -124,7 +131,39 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     private function _idEncode($id)
     {
-        return rawurlencode($id);
+        $folder = $this->_storage->getFolder($id);
+        return $this->constructId($folder->getOwner(), $folder->getSubpath());
+    }
+
+    /**
+     * Construct the ID from the owner name and the folder subpath.
+     *
+     * @param string $owner The share owner.
+     * @param string $name  The name of the folder without the namespace part.
+     *
+     * @return string The encoded ID.
+     */
+    public function constructId($owner, $name)
+    {
+        return base64_encode(serialize(array($owner, $name)));
+    }
+
+    /**
+     * Construct the Kolab storage folder name based on the share name and owner
+     * attributes.
+     *
+     * @param string $name  The share name.
+     * @param string $owner The owner of the share.
+     *
+     * @return string The folder name for the Kolab backend.
+     */
+    public function constructFolderName($owner, $name)
+    {
+        if ($owner == $this->_user) {
+            return $this->getStorage()->getNamespace()->setTitle($name);
+        } else {
+            return $this->getStorage()->getNamespace()->setTitleInOther($name, $owner);
+        }
     }
 
     /**
@@ -136,21 +175,46 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     private function _idDecode($id)
     {
-        return rawurldecode($id);
+        if (!isset($this->_id_map[$id])) {
+            list($owner, $name) = $this->_idDeconstruct($id);
+            $this->_id_map[$id] = $this->constructFolderName($owner, $name);
+        }
+        return $this->_id_map[$id];
     }
+
+    /**
+     * Deconstruct the ID elements from the ID string
+     *
+     * @param string $id The ID to be deconstructed.
+     *
+     * @return array A tuple of (owner, folder subpath).
+     */
+    private function _idDeconstruct($id)
+    {
+        if (!$id = base64_decode($id)) {
+            $this->_logger->err(sprintf('Share id %s is invalid.', $id));
+            throw new Horde_Exception_NotFound();
+        }
+        if (!$id = @unserialize($id)) {
+            $this->_logger->err(sprintf('Share id %s is invalid.', $id));
+            throw new Horde_Exception_NotFound();
+        }
+        return $id;
+    }
+
 
     /**
      * Returns a Horde_Share_Object_Kolab object corresponding to the given
      * share name, with the details retrieved appropriately.
      *
-     * @param string $name  The name of the share to retrieve.
+     * @param string $id    The id of the share to retrieve.
      * @param array  $data  The share data.
      *
      * @return Horde_Share_Object  The requested share.
      */
-    private function _createObject($name, array $data = array())
+    private function _createObject($id, array $data = array())
     {
-        $object = new Horde_Share_Object_Kolab($name, $this->_groups, $data);
+        $object = new Horde_Share_Object_Kolab($id, $this->_groups, $data);
         $this->initShareObject($object);
         return $object;
     }
@@ -174,10 +238,14 @@ class Horde_Share_Kolab extends Horde_Share_Base
         $query = $this->getStorage()
             ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE);
 
-        foreach (array_keys($list) as $folder) {
+        foreach ($list as $folder => $folder_data) {
             $data = $query->getParameters($folder);
             if (isset($data['share_name']) && $data['share_name'] == $name) {
-                return $this->getShareById($this->_idEncode($folder));
+                return $this->getShareById(
+                    $this->constructId(
+                        $folder_data['owner'], $folder_data['name']
+                    )
+                );
             }
         }
         return $this->getShareById($name);
@@ -512,28 +580,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
-     * Generate the Kolab share ID based on the share name attribute.
-     *
-     * @param string $name  The share name.
-     * @param string $owner The owner of the share.
-     *
-     * @return string The (new) share id.
-     */
-    public function generateId($name, $owner)
-    {
-        //@todo: Namespace-less ID (using owner + subpath as ID)
-        if ($owner == $this->_user) {
-            return $this->_idEncode(
-                $this->getStorage()->getNamespace()->setTitle($name)
-            );
-        } else {
-            return $this->_idEncode(
-                $this->getStorage()->getNamespace()->setTitleInOther($name, $owner)
-            );
-        }
-    }
-
-    /**
      * Save share data to the storage backend.
      *
      * @param string $id          The share id.
@@ -564,7 +610,8 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $data['owner'],
             $data['name'],
             $data['default'],
-            $data['parent']
+            $data['parent'],
+            $data['folder']
         );
         $query->setParameters($this->_idDecode($id), $data);
     }

@@ -134,7 +134,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     {
         if ($this->_id === null) {
             throw new Horde_Share_Exception(
-                'A new Kolab share requires a set("name", ...) call before the ID is available.'
+                'A new Kolab share requires a set("name", ...) and set("owner", ...) call before the ID is available.'
             );
         }
         return $this->_id;
@@ -206,9 +206,20 @@ a random string.
      */
     public function set($attribute, $value)
     {
+        if ($attribute == 'owner') {
+            $this->_id = $this->getShareOb()->constructId(
+                $value, $this->get('name')
+            );
+            $this->_data['folder'] = $this->getShareOb()->constructFolderName(
+                $value, $this->get('name')
+            );
+        }
         if ($attribute == 'name') {
-            $this->_id = $this->getShareOb()->generateId(
-                $value, $this->get('owner')
+            $this->_id = $this->getShareOb()->constructId(
+                $this->get('owner'), $value
+            );
+            $this->_data['folder'] = $this->getShareOb()->constructFolderName(
+                $this->get('owner'), $value
             );
         }
         $this->_data[$attribute] = $value;
@@ -225,6 +236,7 @@ a random string.
      */
     public function countChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
+        //@todo: implement
         return 0;
     }
 
@@ -240,6 +252,7 @@ a random string.
      */
     public function getChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
+        //@todo: implement
         return array();
     }
 

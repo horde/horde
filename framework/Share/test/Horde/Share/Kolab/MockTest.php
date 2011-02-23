@@ -45,7 +45,17 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
             array(
                 'driver' => 'mock',
                 'params' => array(
-                    'data'   => array('user/john' => array()),
+                    'data'   => array(
+                        'user/' => array(
+                            'permissions' => array('anyone' => 'alrid')
+                        ),
+                        'user/john' => array(
+                            'permissions' => array('anyone' => 'alrid')
+                        ),
+                        'user/jane' => array(
+                            'permissions' => array('anyone' => 'alrid')
+                        ),
+                    ),
                     'username' => 'john'
                 ),
                 'cache'  => new Horde_Cache(
@@ -168,7 +178,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         $shares = self::$share->listShares(false, array('perm' => Horde_Perms::SHOW, 'sort_by' => 'id'));
         //@todo: INTERFACE!!!
         $this->assertEquals(
-            array('systemshare', 'myshare'),
+            array('myshare', 'systemshare'),
             array_keys($shares));
     }
 
@@ -229,7 +239,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
  NOTES
 
  - listAllShares() does not really work as expected as we need manager access for that.
- - The share_id is different for each users
  - Permissions are always enforced.
  - listSystemShares not supported yet
  - Why wouldn't the system user see shares from other users?
