@@ -553,7 +553,7 @@ class Whups_Driver {
             }
             return new $class($params);
         } else {
-            return PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver));
+            throw new Whups_Exception(sprintf('No such backend "%s" found', $driver));
         }
     }
 
