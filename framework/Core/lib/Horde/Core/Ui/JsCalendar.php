@@ -60,7 +60,7 @@ class Horde_Core_Ui_JsCalendar
         $weekdays = self::weekdays();
         if ($params['short_weekdays']) {
             foreach ($weekdays as &$day) {
-                $day = substr($day, 0, 1);
+                $day = Horde_String::substr($day, 0, 1);
             }
         }
 
