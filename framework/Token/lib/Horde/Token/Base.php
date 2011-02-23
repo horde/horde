@@ -186,13 +186,16 @@ abstract class Horde_Token_Base
      *
      * @return NULL
      *
-     * @throws Horde_Token_Exception If the token was invalid or has been used
-     * before.
+     * @throws Horde_Token_Exception  If the token was invalid or has been
+     *                                used before.
      */
     public function validateUnique($token, $seed = '')
     {
-        list($nonce, $hash) = $this->isValid($token, $seed);
-        if (!$this->verify($nonce)) {
+        if (!$this->isValid($token, $seed)) {
+            throw new Horde_Token_Exception_Used(Horde_Token_Translation::t('This token is invalid!'));
+        }
+
+        if (!$this->verify($token)) {
             throw new Horde_Token_Exception_Used(Horde_Token_Translation::t('This token has been used before!'));
         }
     }
