@@ -264,7 +264,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
 
         }
         if (!file_put_contents($this->_stateDir . '/' . $this->_backend->getUser() . '/compat-' . $devId, serialize($unique_folders))) {
-            $this->logError('_saveFolderData: Data could not be saved!');
+            $this->_logError('_saveFolderData: Data could not be saved!');
             throw new Horde_ActiveSync_Exception('Folder data could not be saved');
         }
     }
