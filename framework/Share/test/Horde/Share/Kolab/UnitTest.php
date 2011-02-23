@@ -399,10 +399,8 @@ extends PHPUnit_Framework_TestCase
             ->getShareById($this->_getId('john', 'Calendar'));
         $share->set('other', 'OTHER');
         $share->save();
-        $query = 
         $this->assertEquals(
             array(
-                'folder' => 'INBOX/Calendar',
                 'other' => 'OTHER',
                 'share_name' => 'internal_id'
             ),
