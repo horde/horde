@@ -2112,7 +2112,12 @@ abstract class Kronolith_Event
                           'min'   => $allDay ? 0 : $date_arr['tm_min'],
                           'sec'   => $allDay ? 0 : $date_arr['tm_sec']));
             } else {
-                $this->start = new Horde_Date($start);
+                try {
+                    $this->start = new Horde_Date($start);
+                } catch (Horde_Date_Exception $e) {
+                    setlocale(LC_TIME, $old_locale);
+                    throw $e;
+                }
             }
         } else {
             // From traditional interface.
@@ -2172,7 +2177,12 @@ abstract class Kronolith_Event
                           'min'   => $allDay ? 59 : $date_arr['tm_min'],
                           'sec'   => $allDay ? 59 : $date_arr['tm_sec']));
             } else {
-                $this->end = new Horde_Date($end);
+                try {
+                    $this->end = new Horde_Date($end);
+                } catch (Horde_Date_Exception $e) {
+                    setlocale(LC_TIME, $old_locale);
+                    throw $e;
+                }
             }
         } elseif (Horde_Util::getFormData('end_or_dur') == 1) {
             // Event duration from traditional interface.
