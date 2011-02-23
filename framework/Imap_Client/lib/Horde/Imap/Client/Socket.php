@@ -2894,7 +2894,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Update the flags in the cache. Only update if store was successful
          * and flag information was not returned. */
-        if ($condstore && !empty($this->_temp['fetchresp'])) {
+        if ($condstore && !empty($this->_temp['fetchresp']['seq'])) {
             $fr = $this->_temp['fetchresp'];
             $tocache = $uids = array();
 
