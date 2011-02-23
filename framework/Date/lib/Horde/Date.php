@@ -246,23 +246,19 @@ class Horde_Date
                 $this->_sec   = $parts['seconds'];
             }
         } else {
-            try {
-                // Use date_create() so we can catch errors with PHP 5.2. Use
-                // "new DateTime() once we require 5.3.
-                $date = date_create($date);
-                if (!$date) {
-                    throw new Horde_Date_Exception('Failed to parse time string');
-                }
-                $date->setTimezone(new DateTimeZone(date_default_timezone_get()));
-                $this->_year  = (int)$date->format('Y');
-                $this->_month = (int)$date->format('m');
-                $this->_mday  = (int)$date->format('d');
-                $this->_hour  = (int)$date->format('H');
-                $this->_min   = (int)$date->format('i');
-                $this->_sec   = (int)$date->format('s');
-            } catch (Exception $e) {
-                throw new Horde_Date_Exception($e);
+            // Use date_create() so we can catch errors with PHP 5.2. Use
+            // "new DateTime() once we require 5.3.
+            $parsed = date_create($date);
+            if (!$parsed) {
+                throw new Horde_Date_Exception(sprintf(_("Failed to parse time string (%s)"), $date));
             }
+            $parsed->setTimezone(new DateTimeZone(date_default_timezone_get()));
+            $this->_year  = (int)$parsed->format('Y');
+            $this->_month = (int)$parsed->format('m');
+            $this->_mday  = (int)$parsed->format('d');
+            $this->_hour  = (int)$parsed->format('H');
+            $this->_min   = (int)$parsed->format('i');
+            $this->_sec   = (int)$parsed->format('s');
         }
     }
 
