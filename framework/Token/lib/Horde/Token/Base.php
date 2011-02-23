@@ -134,9 +134,10 @@ abstract class Horde_Token_Base
      *                          Values below zero represent no timeout.
      * @param boolean $unique   Should validation of the token succeed only once?
      *
-     * @return boolean True if the token was valid.
+     * @return boolean  True if the token was valid.
      */
-    public function isValid($token, $seed = '', $timeout = null, $unique = false)
+    public function isValid($token, $seed = '', $timeout = null,
+                            $unique = false)
     {
         list($nonce, $hash) = $this->_decode($token);
         if ($hash != $this->_hash($nonce . $seed)) {

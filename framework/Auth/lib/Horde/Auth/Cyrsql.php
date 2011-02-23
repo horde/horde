@@ -224,7 +224,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
                              $this->_params['table'],
                              $this->_params['username_field'],
                              $this->_params['domain_field'],
-                             $this->_params['password_field']);
+                             -$this->_params['password_field']);
             $values = array(
                 $name,
                 $domain,
@@ -251,32 +251,19 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
             $this->_imap->createMailbox($mailbox);
             $this->_imap->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
+            if (isset($this->_params['quota']) &&
+                ($this->_params['quota'] >= 0)) {
+                $this->_imap->setQuota($mailbox, array('storage' => $this->_params['quota']));
+            }
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
 
-        foreach ($this->_params['folders'] as $folders) {
-            if (!empty($this->_params['domain_field']) &&
-                ($this->_params['domain_field'] != 'none')) {
-                list($userName, $domain) = explode('@', $userName);
-                $tmp = $userName . $this->_separator . $value . '@' . $domain;
-Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $domain, $this->_params['charset'], 'utf7-imap');
-            } else {
-                $tmp = $userName . $this->_separator . $value;
-            }
-
-            $tmp = Horde_String::convertCharset($tmp, $this->_params['charset'], 'utf7-imap');
-            $this->_imap->createMailbox($tmp);
-            $this->_oimap>setACL($tmp, $this->_params['cyradm'], 'lrswipcda');
-        }
-
-        if (isset($this->_params['quota']) &&
-            ($this->_params['quota'] >= 0)) {
+        foreach ($this->_params['folders'] as $val) {
             try {
-                $this->_imap->setQuota($mailbox, array('storage' => $this->_params['quota']));
-            } catch (Horde_Imap_Client_Exception $e) {
-                throw new Horde_Auth_Exception($e);
-            }
+                $this->_imap->createMailbox($val);
+                $this->_imap->setACL($val, $this->_params['cyradm'], 'lrswipcda');
+            } catch (Horde_Imap_Client_Exception $e) {}
         }
     }
 
@@ -378,7 +365,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
      * Update a set of authentication credentials.
      *
      * @param string $oldID       The old userId.
-     * @param string $newID       The new userId.
+     * @param string $newID       The new userId. [NOT SUPPORTED]
      * @param array $credentials  The new credentials
      *
      * @throws Horde_Auth_Exception
@@ -389,27 +376,30 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
             ($this->_params['domain_field'] != 'none')) {
             list($name, $domain) = explode('@', $oldID);
             /* Build the SQL query with domain. */
-            $query = sprintf('UPDATE %s SET %s = ? WHERE %s = ? and %s = ?',
-                             $this->_params['table'],
-                             $this->_params['password_field'],
-                             $this->_params['username_field'],
-                             $this->_params['domain_field']);
-            $values = array(Horde_Auth::getCryptedPassword($credentials['password'],
-                                                      '',
-                                                      $this->_params['encryption'],
-                                                      $this->_params['show_encryption']),
-                            $name, $domain);
+            $query = sprintf(
+                'UPDATE %s SET %s = ? WHERE %s = ? and %s = ?',
+                $this->_params['table'],
+                $this->_params['password_field'],
+                $this->_params['username_field'],
+                $this->_params['domain_field']
+            );
+            $values = array(
+                Horde_Auth::getCryptedPassword($credentials['password'], '', $this->_params['encryption'], $this->_params['show_encryption']),
+                $name,
+                $domain
+            );
         } else {
             /* Build the SQL query. */
-            $query = sprintf('UPDATE %s SET %s = ? WHERE %s = ?',
-                             $this->_params['table'],
-                             $this->_params['password_field'],
-                             $this->_params['username_field']);
-            $values = array(Horde_Auth::getCryptedPassword($credentials['password'],
-                                                      '',
-                                                      $this->_params['encryption'],
-                                                      $this->_params['show_encryption']),
-                            $oldID);
+            $query = sprintf(
+                'UPDATE %s SET %s = ? WHERE %s = ?',
+                $this->_params['table'],
+                $this->_params['password_field'],
+                $this->_params['username_field']
+            );
+            $values = array(
+                Horde_Auth::getCryptedPassword($credentials['password'], '', $this->_params['encryption'], $this->_params['show_encryption']),
+                $oldID
+            );
         }
 
         try {

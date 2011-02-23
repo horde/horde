@@ -128,7 +128,7 @@ class Horde_LoginTasks_Tasklist
         $previous = null;
 
         reset($this->_tasks);
-        while (list($k, $v) = each($this->_tasks)) {
+        while (list(, $v) = each($this->_tasks)) {
             if (!$v->needsDisplay() ||
                 (!is_null($previous) && !$v->joinDisplayWith($previous))) {
                 break;

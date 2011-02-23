@@ -70,7 +70,7 @@ class Horde_Secret
      */
     public function write($key, $message)
     {
-        $message = (string) $message;
+        $message = (string)$message;
         if (strlen($key) && strlen($message)) {
             return $this->_getCipherOb($key)->encrypt($message);
         } else {
@@ -89,7 +89,7 @@ class Horde_Secret
      */
     public function read($key, $ciphertext)
     {
-        $ciphertext = (string) $ciphertext;
+        $ciphertext = (string)$ciphertext;
         if (strlen($key) && strlen($ciphertext)) {
             return rtrim($this->_getCipherOb($key)->decrypt($ciphertext), "\0");
         } else {

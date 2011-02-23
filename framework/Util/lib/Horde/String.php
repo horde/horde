@@ -283,7 +283,7 @@ class Horde_String
     {
         $words = preg_split('/(\s+)/', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
         for ($i = 0, $c = count($words); $i < $c; $i += 2) {
-            $words[$i] = Horde_String::ucfirst($words[$i], $locale, $charset);
+            $words[$i] = self::ucfirst($words[$i], $locale, $charset);
         }
         return implode('', $words);
     }

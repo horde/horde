@@ -235,17 +235,17 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
 
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($body, $textHeaders);
-		list(,$args) = $this->_smtp->getResponse();
+        list(,$args) = $this->_smtp->getResponse();
 
-		if (preg_match("/Ok: queued as (.*)/", $args, $queued)) {
-			$this->queuedAs = $queued[1];
-		}
+        if (preg_match("/Ok: queued as (.*)/", $args, $queued)) {
+            $this->queuedAs = $queued[1];
+        }
 
         /* We need the greeting; from it we can extract the authorative name
          * of the mail server we've really connected to. Ideal if we're
          * connecting to a round-robin of relay servers and need to track
          * which exact one took the email */
-		$this->greeting = $this->_smtp->getGreeting();
+        $this->greeting = $this->_smtp->getGreeting();
 
         if ($res instanceof PEAR_Error) {
             $this->_smtp->rset();

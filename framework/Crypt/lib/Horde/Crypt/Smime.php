@@ -152,7 +152,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
     public function verify($text, $certs)
     {
         /* Check for availability of OpenSSL PHP extension. */
-        $openssl = $this->checkForOpenSSL();
+        $this->checkForOpenSSL();
 
         /* Create temp files for input/output. */
         $input = $this->_createTempFile('horde-smime');
@@ -714,7 +714,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             } else {
                 $seconds = substr($val, 10, 2);
                 if (($val[11] == '-') || ($val[9] == '+')) {
-                    // handle time zone offset here
+                    // TODO: handle time zone offset here
                 }
             }
             $cert_details['certificate']['validity'][$key] = mktime ($hour, $minute, $seconds, $month, $day, $year);

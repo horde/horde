@@ -111,7 +111,7 @@ class Horde_Text_Flowed
      */
     public function setDelSp($delsp)
     {
-        $this->_delsp = (bool) $delsp;
+        $this->_delsp = (bool)$delsp;
     }
 
     /**

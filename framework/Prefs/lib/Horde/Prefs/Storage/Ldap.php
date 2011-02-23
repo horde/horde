@@ -69,7 +69,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
             $params['port'] = 389;
         }
 
-        parent::__construct($params);
+        parent::__construct($user, $params);
     }
 
     /**

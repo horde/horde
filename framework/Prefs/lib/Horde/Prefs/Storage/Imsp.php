@@ -90,7 +90,7 @@ class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage_Base
         $this->_params['password'] = $this->_opts['password'];
 
         if (isset($this->_params['socket'])) {
-            $this->_params['socket'] = $params['socket'] . 'imsp_' . $this->_params['username'] . '.sck';
+            $this->_params['socket'] = $this->_params['socket'] . 'imsp_' . $this->_params['username'] . '.sck';
         }
 
         $this->_imsp = Net_IMSP::factory('Options', $this->_params);

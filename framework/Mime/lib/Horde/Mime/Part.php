@@ -398,7 +398,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function appendContents($contents, $options = array())
     {
         if (empty($this->_contents)) {
-            $this->setContents($contents, $encoding);
+            $this->setContents($contents, $options);
         } else {
             $fp = (empty($options['usestream']) || !is_resource($contents))
                 ? $this->_writeStream($contents)

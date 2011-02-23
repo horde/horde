@@ -511,7 +511,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function pgpPacketSignature($pgpdata, $email)
     {
         $data = $this->pgpPacketInformation($pgpdata);
-        $key_type = null;
         $return_array = array();
 
         /* Check that [signature] key exists. */
@@ -556,7 +555,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function pgpPacketSignatureByUidIndex($pgpdata, $uid_idx)
     {
         $data = $this->pgpPacketInformation($pgpdata);
-        $key_type = null;
         $return_array = array();
 
         /* Search for the UID index. */
@@ -1234,8 +1232,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     protected function _decryptMessage($text, $params)
     {
-        $good_sig_flag = false;
-
         /* Check for required parameters. */
         if (!isset($params['passphrase']) && empty($params['no_passphrase'])) {
             throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("A passphrase is required to decrypt a message."));
@@ -1253,7 +1249,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--armor',
             '--batch'
         );
-        if (empty($param['no_passphrase'])) {
+        if (empty($params['no_passphrase'])) {
             $cmdline[] = '--passphrase-fd 0';
         }
         if (!empty($params['pubkey']) && !empty($params['privkey'])) {
@@ -1311,8 +1307,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             !isset($params['signature'])) {
             throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("The detached PGP signature block is required to verify the signed message."));
         }
-
-        $good_sig_flag = 0;
 
         /* Create temp files for input. */
         $input = $this->_createTempFile('horde-pgp');

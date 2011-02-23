@@ -185,7 +185,7 @@ class Horde_Mime
     static public function quotedPrintableEncode($text, $eol = self::EOL,
                                                  $wrap = 76)
     {
-        $line = $output = '';
+        $output = '';
         $curr_length = 0;
 
         /* We need to go character by character through the data. */
@@ -517,7 +517,7 @@ class Horde_Mime
                     $p_name = trim(substr($tmp[$i], 0, $pos), "'\";\t\\ ");
                     $p_val = trim(str_replace('\;', ';', substr($tmp[$i], $pos + 1)), "'\";\t\\ ");
                     if ($p_val[0] == '"') {
-                        $p_val = substr($param_value, 1, -1);
+                        $p_val = substr($p_val, 1, -1);
                     }
 
                     $params[$p_name] = $p_val;
