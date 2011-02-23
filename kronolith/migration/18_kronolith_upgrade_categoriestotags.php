@@ -34,9 +34,8 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                 // Do we need to tag the event again, but as the share owner?
                 try {
                     $cal = $GLOBALS['kronolith_shares']->getShare($row['calendar_id']);
-                } catch (Horde_Share_Exception $e) {
-                    Horde::logMessage($e->getMessage(), 'ERR');
-                    throw new Kronolith_Exception($e);
+                } catch (Exception $e) {
+                    $this->announce('Unable to find Share: ' . $row['calendar_id'] . ' Skipping.');
                 }
 
                 if ($cal->get('owner') != $row['event_creator_id']) {
