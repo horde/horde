@@ -53,8 +53,26 @@
 <!-- begin left menu -->
 <div id="hermesMenu">
     <div id="hermesMenuBlocks">
-    <h3>Mini-Cal Here, with days containing hours worked highlighted</h3>
-    <p> Dates will link to a search-by-date view for the selected date?</p>
+  <div id="hermesMinical" class="hermesMinical">
+    <table>
+    <caption>
+      <a id="hermesMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a>
+      <a id="hermesMinicalNext" title="<?php echo _("Next month") ?>">&gt;</a>
+      <span id="hermesMinicalDate"><?php echo $today->format('F Y') ?></span>
+    </caption>
+
+    <thead>
+      <tr>
+        <th class="hermesMinicalEmpty">&nbsp;</th>
+        <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
+        <th title="<?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo Horde_String::substr(Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
+        <?php endfor; ?>
+      </tr>
+    </thead>
+
+    <tbody><tr><td></td></tr></tbody>
+    </table>
+  </div>
     <div class="hermesMenuSummary">
       <h3><?php echo _("Time Summary") ?>:</h3>
         <div class="hermesMenuItem rounded">

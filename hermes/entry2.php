@@ -17,7 +17,7 @@ if ($help_link) {
 }
 
 $clients = Hermes::listClients();
-
+$today = new Horde_Date();
 Hermes::header();
 echo "<body class=\"hermesAjax\">\n";
 require HERMES_TEMPLATES . '/index/index.inc';

@@ -557,3 +557,73 @@ a.rounded {
     margin: 6px;
     float: left;
 }
+ /* Mini calendar */
+.hermesMinical {
+    position: relative;
+}
+#hermesMinical {
+/*    top: 15px;*/
+}
+.hermesMinical table {
+    width: 100%;
+    border-spacing: 1px;
+}
+.hermesMinical caption, #hermesBody .hermesMinical caption {
+    position: relative;
+    margin: 0 1px 1px 1px;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    font-size: 100%;
+    border-bottom: 1px #999 dotted;
+    text-align: left;
+}
+.hermesMinical caption span {
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+}
+#hermesMinicalPrev, #hermesMinicalNext {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    text-indent: -10000px;
+    cursor: pointer;
+    background: transparent url("graphics/right.png") no-repeat right center;
+}
+#hermesMinicalPrev {
+    background-image: url("graphics/left.png");
+    right: 15px;
+}
+
+.hermesMinical th, .hermesMinical td {
+    font-size: 90%;
+}
+.hermesMinical th, .hermesMinical td.hermesMinicalWeek {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #d6d6d6;
+    color: #202020;
+    border: 1px #999 solid !important;
+}
+.hermesMinical tbody td {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border: 1px #999 solid;
+    text-align: center;
+    color: #808080;
+    empty-cells: show;
+    cursor: pointer;
+}
+.hermesMinical .hermesMinicalEmpty {
+    background: none;
+    border-color: #e2e2e2;
+    color: silver;
+}
+.hermesMinical .hermesSelected {
+    background-color: #ffc;
+}
