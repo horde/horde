@@ -308,6 +308,11 @@ HermesCore = {
                 return;
             }
             if (elt.hasClassName('hermesTimeListSelect')) {
+                if (elt.up().identify() == 'hermesTimeListHeader') {
+                    this.toggleAllRows(elt);
+                    e.stop();
+                    return;
+                }
                 elt.up().toggleClassName('hermesSelectedRow');
                 elt.toggleClassName('hermesSelectedSlice');
                 elt.toggleClassName('hermesUnselectedSlice');
@@ -329,6 +334,27 @@ HermesCore = {
 
         // Workaround Firebug bug.
         Prototype.emptyFunction();
+    },
+
+    // elt Element for the checkall checkbox
+    toggleAllRows: function(elt)
+    {
+        var select = false;
+        if (elt.hasClassName('hermesUnselectedSlice')) {
+           select = true;
+        }
+        $('hermesTimeListBody').select('.hermesTimeListRow').each(function(e) {
+            var c = e.down();
+            if (select) {
+                c.addClassName('hermesSelectedSlice');
+                c.removeClassName('hermesUnselectedSlice');
+            } else {
+                c.removeClassName('hermesSelectedSlice');
+                c.addClassName('hermesUnselectedSlice');
+            }
+        });
+        elt.toggleClassName('hermesUnselectedSlice');
+        elt.toggleClassName('hermesSelectedSlice');
     },
 
     populateSliceForm: function(sid)

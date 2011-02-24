@@ -62,7 +62,6 @@
         <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
         <div class="hermesTimeSliceOptions">&nbsp;</div>
        </div>
-       <div>
         <div id="hermesTimeListBody">
          <div id="hermesTimeListTemplate" style="display:none;">
            <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
@@ -77,8 +76,9 @@
          </div>
         </div>
         <div class="hermesTimeListControls">
-            <a id="hermesTimeListSubmit" class="button"><?php echo _("Submit Time") ?></a></div>
-       </div>
+            <a id="hermesTimeListSubmit" class="button"><?php echo _("Submit Time") ?></a>
+        </div>
+
    </div>
   </div>
 </div>
