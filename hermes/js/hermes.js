@@ -885,6 +885,9 @@ HermesCore = {
         //this.updateMinical(this.date);
         this.today = new Date().toString('yyyyMMdd');
 
+        // Default the date field to today
+        $('hermesTimeFormStartDate').setValue(new Date().toString(Hermes.conf.date_format));
+
         /* Initialize the starting page. */
         var tmp = location.hash;
 
