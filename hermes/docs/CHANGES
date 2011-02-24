@@ -2,6 +2,7 @@
 v2.0-cvs
 --------
 
+[mjr] Add ajax view.
 [jan] Provide default configuration files instead of .dist versions.
 
 
