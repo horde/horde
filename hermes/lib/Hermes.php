@@ -359,10 +359,11 @@ class Hermes
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('horde.js', 'horde');
         Horde::addScriptFile('growler.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
+        //Horde::addScriptFile('redbox.js', 'horde');
         Horde::addScriptFile('tooltips.js', 'horde');
         Horde::addScriptFile('date/' . $datejs, 'horde');
         Horde::addScriptFile('date/date.js', 'horde');
+        Horde::addScriptFile('quickfinder.js', 'horde');
         Horde::addScriptFile('hermes.js', 'hermes');
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 

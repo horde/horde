@@ -481,6 +481,9 @@ a.rounded {
     color: #444444;
 }
 /* Time summary */
+#hermesViewTimeContainer h2 {
+    float: left;
+}
 .hermesMenuItem .rounded {
     margin-top: 7px;
 }
@@ -540,4 +543,17 @@ a.rounded {
     border: none;
     width: 100%;
     height: 100%;
+}
+
+#hermesTimeListEmpty {
+    text-align: center;
+    font-style: italic;
+    font-size: 125%;
+}
+.QuickFinderNoMatch {
+    display: none;
+}
+.QuickFinderWrapper {
+    margin: 6px;
+    float: left;
 }

@@ -343,7 +343,7 @@ HermesCore = {
         if (elt.hasClassName('hermesUnselectedSlice')) {
            select = true;
         }
-        $('hermesTimeListBody').select('.hermesTimeListRow').each(function(e) {
+        $('hermesTimeListInternal').select('.hermesTimeListRow').each(function(e) {
             var c = e.down();
             if (select) {
                 c.addClassName('hermesSelectedSlice');
@@ -400,7 +400,7 @@ HermesCore = {
         } else {
             // Error?
         }
-        this.upateTimeSummary();
+        this.updateTimeSummary();
     },
 
     removeSliceFromUI: function(elt, sid)
@@ -525,7 +525,7 @@ HermesCore = {
         $('hermesLoading').show();
         var sliceIds = [];
         var slices = [];
-        $('hermesTimeListBody').select('.hermesSelectedSlice').each(function(s) {
+        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
             sliceIds.push(s.up().retrieve('sid'));
             slices.push(s.up());
         }.bind(this));
@@ -545,12 +545,11 @@ HermesCore = {
      */
     updateView: function(view)
     {
-        var tbody = $('hermesTimeListBody');
+        var tbody = $('hermesTimeListInternal');
+        // TODO: Probably more effecient way
         tbody.childElements().each(function(row) {
-            if (row.identify() != 'hermesTimeListTemplate') {
-                row.purge();
-                row.remove();
-            }
+            row.purge();
+            row.remove();
         });
         if ($('hermesTimeListHeader')) {
             $('hermesTimeListHeader').select('div').each(function(d) {
@@ -638,17 +637,17 @@ HermesCore = {
             }
         }
         this.slices = slices;
-        t = new Element('div', { 'style': 'display: none;' });
-
+        t = $('hermesTimeListInternal');
+        t.hide();
         slices.each(function(slice) {
             t.insert(this.buildTimeRow(slice).toggle());
         }.bind(this));
-        $('hermesTimeListTemplate').up().insert(t);
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
-
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.onResize();
         this.updateTimeSummary();
+                // Init the quickfinder now that we have a list of children.
+        $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
     buildTimeRow: function(slice)

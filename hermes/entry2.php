@@ -15,12 +15,7 @@ $help_link = Horde::getServiceLink('help', 'hermes');
 if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
 }
-//$injector->getInstance('Horde_Core_Factory_Imple')->create(
-//    array('hermes', 'ClientAutoCompleter'),
-//    array(
-//        'triggerId' => 'hermesTimeFormClient'
-//    )
-//);
+
 $clients = Hermes::listClients();
 
 Hermes::header();

@@ -49,7 +49,7 @@
         </div>
     </form>
    </div>
-   <h2><?php echo _("Unsubmitted Time");?></h2>
+   <h2><?php echo _("Unsubmitted Time");?></h2><span class="QuickFinderWrapper"><input type="text" name="quicksearchT" id="quicksearchT" for="hermesTimeListInternal" empty="hermesTimeListEmpty" /></span>
    <div id="hermesTimeList">
        <div id="hermesTimeListHeader">
         <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
@@ -74,6 +74,8 @@
            <div class="hermesTimeListHours hermesBorderLeft"></div>
            <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded bold"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded bold">x</a></div>
          </div>
+         <div id="hermesTimeListInternal"></div>
+         <div id="hermesTimeListEmpty" style="display:none;"><?php echo _("No TimeSlices")?></div>
         </div>
         <div class="hermesTimeListControls">
             <a id="hermesTimeListSubmit" class="button"><?php echo _("Submit Time") ?></a>
