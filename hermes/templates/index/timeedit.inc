@@ -49,7 +49,7 @@
         </div>
     </form>
    </div>
-   <h2><?php echo _("Unsubmitted Time");?></h2><span class="QuickFinderWrapper"><input type="text" name="quicksearchT" id="quicksearchT" for="hermesTimeListInternal" empty="hermesTimeListEmpty" /></span>
+   <h2><?php echo _("Unsubmitted Time");?></h2><span class="QuickFinderWrapper"><?php echo Horde::img('search.png', _("Search")) ?><input type="text" name="quicksearchT" id="quicksearchT" for="hermesTimeListInternal" empty="hermesTimeListEmpty" /></span>
    <div id="hermesTimeList">
        <div id="hermesTimeListHeader">
         <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
