@@ -60,6 +60,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $this->_properties['hours'] = Horde_Util::getPost('hours');
         $this->_properties['description'] = Horde_Util::getPost('description');
         $this->_properties['id'] = Horde_Util::getPost('id', 0);
+        $this->_properties['billable'] = Horde_Util::getPost('billable') ? 1 : 0;
     }
 
     /**

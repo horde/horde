@@ -544,10 +544,10 @@ HermesCore = {
         this.slices.each(function(i) {
             var h = parseFloat(i.h);
             total = total + h;
-            if (i.b) { totalb = totalb + h }
+            if (i.b == 1) { totalb = totalb + h }
             if (i.d == this.today) {
                 today = today + h;
-                if (i.b) { todayb = todayb + h }
+                if (i.b == 1) { todayb = todayb + h }
             }
         }.bind(this));
 
@@ -595,6 +595,7 @@ HermesCore = {
         }.bind(this));
         $('hermesTimeListTemplate').up().insert(t);
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
+
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.onResize();
         this.updateTimeSummary();
@@ -619,9 +620,14 @@ HermesCore = {
         cell = cell.next().update((slice.con) ? slice.con : ' ');
         cell = cell.next().update((slice.tn) ? slice.tn : ' ');
         cell = cell.next().update((slice.desc) ? slice.desc : ' ');
-        cell = cell.next().update((slice.b) ? 'Y' : 'N');
+        cell = cell.next().update((slice.b == 1) ? 'Y' : 'N');
         cell = cell.next().update(slice.h);
         return row;
+    },
+
+    insertSlice: function(slice)
+    {
+
     },
 
     handleSort: function(e)

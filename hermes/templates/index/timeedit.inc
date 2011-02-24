@@ -23,6 +23,11 @@
               <?php echo _("Hours")?>
               <input class="input" type="text" id="hermesTimeFormHours" name="hours" />
             </label><span class="hermesSeparator">|</span>
+            <label for="hermesTimeFormBillable">
+                <?php echo _("Billable")?>
+                <input type="checkbox" name="billable" id="hermesTimeFormBillable" />
+                 <span class="hermesSeparator">|</span>
+            </label>
             <label for="hermesTimeFormType">
               <?php echo _("Job Type")?>
               <?php echo Hermes::getJobTypeSelect();?>
@@ -68,7 +73,7 @@
            <div class="hermesTimeListDesc hermesBorderLeft"></div>
            <div class="hermesTimeListBill hermesBorderLeft"></div>
            <div class="hermesTimeListHours hermesBorderLeft"></div>
-           <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded">x</a></div>
+           <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded bold"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded bold">x</a></div>
          </div>
         </div>
         <div class="hermesTimeListControls">
