@@ -23,7 +23,7 @@ HermesCore = {
             if (!this.loading) {
                 $('hermesLoading').hide();
             }
-            //this.closeRedBox();
+
             this.showNotifications([ {type: 'horde.error', message: Hermes.text.ajax_error} ]);
             this.debug('onException', e);
         }.bind(this),
@@ -444,6 +444,13 @@ HermesCore = {
 
     saveTime: function()
     {
+        if (!$F('hermesTimeFormDesc') ||
+            !$F('hermesTimeFormClient') ||
+            !$F('hermesTimeFormHours')) {
+
+            alert(Hermes.text.fix_form_values);
+            return;
+        }
         $('hermesLoading').show();
         params = $H($('hermesTimeForm').serialize({ hash: true }));
         // New or Edit?

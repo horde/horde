@@ -8,19 +8,19 @@
         <div id="hermesTimeFormInputs">
           <div class="hermesTimeFormGeneral">
             <label for="hermesTimeFormClient">
-              <?php echo _("Client")?>
+              <?php echo _("Client")?>*
               <?php echo Hermes::getClientSelect();?>
             </label><span class="hermesSeparator">|</span>
             <label for="hermesTimeFormCostobject">
               <?php echo _("Costobject")?>
               <select type="text" id="hermesTimeFormCostobject" name="costobject"></select>
             </label><span class="hermesSeparator">|</span> <label for="HermesTimeFormStartDate">
-              <?php echo _("Date") ?>
+              <?php echo _("Date") ?>*
               <input class="input" type="text" name="start_date" id="hermesTimeFormStartDate" size="10" />
               <?php echo Horde::img('picker.png', _("Set start date"), 'id="hermesTimeFormStartPicker" class="hermesDatePicker"') ?>
             </label><span class="hermesSeparator">|</span>
              <label for="hermesTimeFormHours">
-              <?php echo _("Hours")?>
+              <?php echo _("Hours")?>*
               <input class="input" type="text" id="hermesTimeFormHours" name="hours" />
             </label><span class="hermesSeparator">|</span>
             <label for="hermesTimeFormBillable">
@@ -34,10 +34,10 @@
             </label>
           </div>
           <div class="hermesTimeFormDetails">
-              <label for="hermesTimeFormDesc"><?php echo _("Description")?>:<br />
+              <label for="hermesTimeFormDesc"><?php echo _("Description")?>*<br />
                 <textarea  name="description" id="hermesTimeFormDesc" rows="2" class="hermesLongField"></textarea>
               </label><br />
-              <label for="hermesTimeFormNotes"><?php echo _("Additional Notes")?>:<br />
+              <label for="hermesTimeFormNotes"><?php echo _("Additional Notes")?><br />
                 <textarea  name="notes" id="hermesTimeFormNotes" rows="3" class="hermesLongField"></textarea>
               </label>
           </div>
