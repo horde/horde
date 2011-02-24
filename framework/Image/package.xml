@@ -391,7 +391,7 @@ Initial Horde 4 package
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.0</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>Horde_Translation</name>

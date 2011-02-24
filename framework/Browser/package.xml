@@ -48,7 +48,7 @@ about the current user&apos;s browser and its capabilities.
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.0</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>Horde_Exception</name>

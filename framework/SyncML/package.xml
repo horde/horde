@@ -567,10 +567,10 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
  <dependencies>
   <required>
    <php>
-    <min>4.3.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>Horde_Support</name>

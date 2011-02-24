@@ -404,7 +404,7 @@ Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlig
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.4</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>Horde_Browser</name>

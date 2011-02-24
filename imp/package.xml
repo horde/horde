@@ -1099,7 +1099,7 @@ IMP offers most of the features users have come to expect from their conventiona
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.9.0</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>horde</name>

@@ -365,10 +365,10 @@ Reading, writing and listing of files are all supported, and there are both obje
  <dependencies>
   <required>
    <php>
-    <min>5.0.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>Log</name>
