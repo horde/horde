@@ -84,8 +84,6 @@ class IMP_Views_Compose
             /* Create list for sent-mail selection. */
             if (!empty($conf['user']['select_sentmail_folder']) &&
                 !$prefs->isLocked('sent_mail_folder')) {
-                $imp_folder = $injector->getInstance('IMP_Folder');
-
                 /* Check to make sure the sent-mail folders are created - they
                  * need to exist to show up in drop-down list. */
                 foreach (array_keys($identity->getAll('id')) as $ident) {
@@ -98,7 +96,7 @@ class IMP_Views_Compose
                 foreach ($imaptree as $val) {
                     $tmp = array(
                         'f' => $val->display,
-                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->label, 30),
+                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->abbrev_label, 30),
                         'v' => $val->container ? '' : $val->value
                     );
                     if ($tmp['f'] == $tmp['v']) {

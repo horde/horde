@@ -268,6 +268,8 @@ class IMP_Ui_Compose
         $html_sigs = $identity->getAllSignatures('html');
 
         foreach ($identity->getAllSignatures() as $ident => $sig) {
+            $smf = $identity->getValue('sent_mail_folder', $ident);
+
             $identities[] = array(
                 // Plain text signature
                 'sig' => $sig,
@@ -276,11 +278,11 @@ class IMP_Ui_Compose
                 // Signature location
                 'sig_loc' => (bool)$identity->getValue('sig_first', $ident),
                 // Sent mail folder name
-                'smf_name' => $identity->getValue('sent_mail_folder', $ident),
+                'smf_name' => strval($smf),
                 // Save in sent mail folder by default?
                 'smf_save' => (bool)$identity->saveSentmail($ident),
                 // Sent mail display name
-                'smf_display' => IMP_Mailbox::get($identity->getValue('sent_mail_folder', $ident))->display,
+                'smf_display' => $smf->display,
                 // Bcc addresses to add
                 'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident), array('charset' => 'UTF-8'))
             );
