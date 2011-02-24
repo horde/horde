@@ -366,6 +366,7 @@ HermesCore = {
         } else {
             // Error?
         }
+        this.upateTimeSummary();
     },
 
     removeSliceFromUI: function(elt, sid)
