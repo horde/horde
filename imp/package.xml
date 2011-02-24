@@ -1102,7 +1102,7 @@ IMP offers most of the features users have come to expect from their conventiona
     <min>1.9.0</min>
    </pearinstaller>
    <package>
-    <name>Horde</name>
+    <name>horde</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
