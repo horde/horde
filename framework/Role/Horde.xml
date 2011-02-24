@@ -10,7 +10,7 @@
  <config_vars>
   <horde_dir>
    <type>directory</type>
-   <default></default>
+   <default><www_dir/><text>/horde</text></default>
    <doc>Filesystem directory where the base Horde application is installed</doc>
    <prompt>Base Horde directory</prompt>
    <group>File Locations</group>
