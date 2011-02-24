@@ -57,8 +57,8 @@
         <div class="hermesTimeListClient hermesBorderLeft"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
         <div class="hermesTimeListCostObject hermesBorderLeft"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
         <div class="hermesTimeListType hermesBorderLeft"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
-        <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget"><?php echo _("Description")?></a></div>
-        <div class="hermesTimeListBill hermesBorderLeft"><a class="widget"><?php echo _("Bill") ?></a></div>
+        <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget" id="sortDesc"><?php echo _("Description")?></a></div>
+        <div class="hermesTimeListBill hermesBorderLeft"><a class="widget" id="sortBill"><?php echo _("Bill") ?></a></div>
         <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
         <div class="hermesTimeSliceOptions">&nbsp;</div>
        </div>

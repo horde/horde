@@ -270,7 +270,14 @@ HermesCore = {
                 return;
             case 'hermesTimeListHeader':
                 var el = e.element().identify();
-                if (el == 'sortDate' || el == 'sortClient' || el == 'sortCostObject' || el == 'sortType') {
+                if (el == 'sortDate' ||
+                    el == 'sortClient' ||
+                    el == 'sortCostObject' ||
+                    el == 'sortType' ||
+                    el == 'sortHours' ||
+                    el == 'sortBill' ||
+                    el == 'sortDesc') {
+
                     this.handleSort(e.element());
                     e.stop();
                 }
@@ -573,24 +580,32 @@ HermesCore = {
             slices = this.slices.reverse();
             this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
         } else {
-            this.sortDir = 'up';
+            this.sortDir = 'down';
             switch (this.sortbyfield) {
             case 'sortDate':
                 // Date defaults to reverse
                 this.sortDir = 'up';
-                slices = this.slices.sortBy(function(s) { return s.d }).reverse();
+                slices = this.slices.sort(this.sortDate).reverse();
                 break;
             case 'sortClient':
-               slices = this.slices.sortBy(function(s) { return s.cn.name });
+               slices = this.slices.sort(this.sortClient);
                break;
             case 'sortCostObject':
-                slices = this.slices.sortBy(function(s) { return s.con });
+                slices = this.slices.sort(this.sortCostObject);
                 break;
             case 'sortType':
-                slices = this.slices.sortBy(function(s) { return s.tn });
+                slices = this.slices.sort(this.sortType);
                 break;
             case 'sortHours':
-                slices = this.slices.sortBy(function(s) { return s.h * 1 });
+                this.sortDir = 'up';
+                slices = this.slices.sort(this.sortHours).reverse();
+                break;
+            case 'sortBill':
+                slices = this.slices.sort(this.sortBill);
+                break;
+            case 'sortDesc':
+                slices = this.slices.sort(this.sortDesc);
+                break;
             default:
                 slices = this.slices;
                 break;
@@ -882,6 +897,41 @@ HermesCore = {
     onResize: function(event)
     {
         $('hermesTimeListBody').setStyle({height: document.height - 440 + 'px'});
+    },
+
+    sortDate: function(a, b)
+    {
+       return (a.d < b.d) ? -1 : (a.d > b.d) ? 1 : 0;
+    },
+
+    sortClient: function(a, b)
+    {
+        return (a.cn.name < b.cn.name) ? -1 : (a.cn.name > b.cn.name) ? 1 : 0;
+    },
+
+    sortCostObject: function(a, b)
+    {
+        return (a.con < b.con) ? -1 : (a.con > b.con) ? 1 : 0;
+    },
+
+    sortType: function(a, b)
+    {
+        return (a.tn < b.tn) ? -1 : (a.tn > b.tn) ? 1 : 0;
+    },
+
+    sortHours: function(a, b)
+    {
+        return (parseFloat(a.h) < parseFloat(b.h)) ? -1 : (parseFloat(a.h) > parseFloat(b.h)) ? 1 : 0;
+    },
+
+    sortBill: function(a, b)
+    {
+        return (a.b < b.b) ? -1 : (a.b > b.b) ? 1 : 0;
+    },
+
+    sortDesc: function(a, b)
+    {
+        return (a.desc < b.desc) ? -1 : (a.desc > b.desc) ? 1 : 0;
     },
 
     /* Onload function. */
