@@ -349,6 +349,7 @@ HermesCore = {
         $('hermesTimeFormDesc').setValue(slice.desc);
         $('hermesTimeFormNotes').setValue(slice.n);
         $('hermesTimeFormId').setValue(slice.i);
+        $('hermesTimeFormBillable').setValue(slice.b == 1);
     },
 
     deleteSlice: function(slice)
