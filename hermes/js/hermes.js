@@ -345,7 +345,7 @@ HermesCore = {
         }
         $('hermesTimeListInternal').select('.hermesTimeListRow').each(function(e) {
             var c = e.down();
-            if (select) {
+            if (select && !e.hasClassName('QuickFinderNoMatch')) {
                 c.addClassName('hermesSelectedSlice');
                 c.removeClassName('hermesUnselectedSlice');
             } else {
