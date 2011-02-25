@@ -192,12 +192,14 @@ class Horde_Share_Kolab extends Horde_Share_Base
     private function _idDeconstruct($id)
     {
         if (!$id = base64_decode($id)) {
-            $this->_logger->err(sprintf('Share id %s is invalid.', $id));
-            throw new Horde_Exception_NotFound();
+            $msg = sprintf('Share id %s is invalid.', $id);
+            $this->_logger->err($msg);
+            throw new Horde_Exception_NotFound($msg);
         }
         if (!$id = @unserialize($id)) {
-            $this->_logger->err(sprintf('Share id %s is invalid.', $id));
-            throw new Horde_Exception_NotFound();
+            $msg = sprintf('Share id %s is invalid.', $id);
+            $this->_logger->err($msg);
+            throw new Horde_Exception_NotFound($msg);
         }
         return $id;
     }
@@ -267,8 +269,9 @@ class Horde_Share_Kolab extends Horde_Share_Base
             ->dataByType($this->_type);
 
         if (!isset($list[$this->_idDecode($id)])) {
-            $this->_logger->err(sprintf('Share id %s not found', $id));
-            throw new Horde_Exception_NotFound();
+            $msg = sprintf('Share id %s not found', $id);
+            $this->_logger->err($msg);
+            throw new Horde_Exception_NotFound($msg);
         }
 
         $query = $this->getStorage()
