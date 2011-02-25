@@ -1,6 +1,6 @@
 <?php
 /**
- * The basic handler for accessing data from Kolab storage.
+ * The basis for Kolab storage access.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * The basic handler for accessing data from Kolab storage.
+ * The basis for Kolab storage access.
  *
  * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Base
+abstract class Horde_Kolab_Storage_Base
 implements Horde_Kolab_Storage
 {
     /**
@@ -91,15 +91,26 @@ implements Horde_Kolab_Storage
     public function getList()
     {
         if (!isset($this->_lists[$this->_master->getId()])) {
-            $list = new Horde_Kolab_Storage_List_Base(
-                $this->_master,
-                $this->_factory
-            );
+            $list = $this->_createList($this->_master, $this->_factory);
             $this->_query_set->addListQuerySet($list);
             $this->_lists[$this->_master->getId()] = $list;
         }
         return $this->_lists[$this->_master->getId()];
     }
+
+    /**
+     * Create the folder list object.
+     *
+     * @param Horde_Kolab_Storage_Driver  $master  The primary connection driver.
+     * @param Horde_Kolab_Storage_Factory $factory The factory.
+     *
+     * @return Horde_Kolab_Storage_List The handler for the list of folders
+     *                                  present in the Kolab backend.
+     */
+    abstract protected function _createList(
+        Horde_Kolab_Storage_Driver $master,
+        Horde_Kolab_Storage_Factory $factory
+    );
 
     /**
      * Get a Folder object.
@@ -114,12 +125,10 @@ implements Horde_Kolab_Storage
     }
 
     /**
-     * Return a data handler for accessing data in the specified
-     * folder.
+     * Return a data handler for accessing data in the specified folder.
      *
      * @param mixed  $folder       The name of the folder or an instance
      *                             representing the folder.
-
      * @param string $object_type  The type of data we want to access in the
      *                             folder.
      * @param int    $data_version Format version of the object data.
@@ -146,7 +155,7 @@ implements Horde_Kolab_Storage
             if (!$folder instanceOf Horde_Kolab_Storage_Folder) {
                 $folder = $this->getList()->getFolder($folder);
             }
-            $this->_data[$key] = new Horde_Kolab_Storage_Data_Base(
+            $this->_data[$key] = $this->_createData(
                 $folder,
                 $this->_master,
                 $this->_factory,
@@ -157,4 +166,28 @@ implements Horde_Kolab_Storage
         return $this->_data[$key];
     }
 
+    /**
+     * Return a data handler for accessing data in the specified folder.
+     *
+     * @param mixed                       $folder       The name of the folder or
+     *                                                  an instance representing
+     *                                                  the folder.
+     * @param Horde_Kolab_Storage_Driver  $master       The primary connection
+     *                                                  driver.
+     * @param Horde_Kolab_Storage_Factory $factory      The factory.
+     * @param string                      $object_type  The type of data we want
+     *                                                  to access in the folder.
+     * @param int                         $data_version Format version of the
+     *                                                  object data.
+     *
+     * @return Horde_Kolab_Data The data object.
+     */
+    abstract protected function _createData(
+        $folder,
+        Horde_Kolab_Storage_Driver $master,
+        Horde_Kolab_Storage_Factory $factory,
+        $object_type = null,
+        $data_version = 1
+    );
 }
+

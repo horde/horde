@@ -44,10 +44,27 @@ extends PHPUnit_Framework_TestCase
         if ($driver === null) {
             $driver = new Horde_Kolab_Storage_Driver_Mock($factory);
         }
-        return new Horde_Kolab_Storage_Base(
+        return new Horde_Kolab_Storage_Uncached(
             $driver,
             new Horde_Kolab_Storage_QuerySet_Base($factory),
             $factory
+        );
+    }
+
+    protected function createCachedStorage($driver = null, $factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        if ($driver === null) {
+            $driver = new Horde_Kolab_Storage_Driver_Mock(
+                $factory,
+                array('username' => 'test', 'host' => 'localhost', 'port' => 143)
+            );
+        }
+        return new Horde_Kolab_Storage_Cached(
+            $driver,
+            new Horde_Kolab_Storage_QuerySet_Base($factory),
+            $factory,
+            $this->getMockCache()
         );
     }
 
@@ -128,6 +145,8 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             'username' => 'test@example.com',
+            'host' => 'localhost',
+            'port' => 143,
             'data' => $this->getMockData(
                 array(
                     'user/test' => null,

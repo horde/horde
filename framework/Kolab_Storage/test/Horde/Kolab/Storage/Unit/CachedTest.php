@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
  * Test the cache decorator for the storage handler.
@@ -32,48 +32,57 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_Decorator_CacheTest
+class Horde_Kolab_Storage_Unit_CachedTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function testDecoratedList()
+    public function testConstruction()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $storage = new Horde_Kolab_Storage_Decorator_Cache(
-            $this->createStorage($this->getNullMock($factory), $factory),
-            $this->getMockCache(),
-            $factory
-        );
+        $this->createCachedStorage();
+    }
+
+    public function testGetList()
+    {
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_List_Decorator_Cache',
-            $storage->getList()
+            $this->createCachedStorage()->getList()
         );
     }
 
-    public function testFolder()
+    public function testSameList()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $storage = new Horde_Kolab_Storage_Decorator_Cache(
-            $this->createStorage($this->getNullMock($factory), $factory),
-            $this->getMockCache(),
-            $factory
-        );
+        $base = $this->createCachedStorage();
+        $this->assertSame($base->getList(), $base->getList());
+    }
+
+    public function testGetFolder()
+    {
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder',
-            $storage->getFolder('test')
+            $this->createCachedStorage($this->getAnnotatedMock())->getFolder('INBOX')
         );
     }
 
-    public function testData()
+    public function testGetData()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $storage = new Horde_Kolab_Storage_Decorator_Cache(
-            $this->createStorage($this->getMessageMock($factory), $factory),
-            $this->getMockCache(),
-            $factory
-        );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Data_Decorator_Cache',
-            $storage->getData('INBOX/Calendar')
+            $this->createCachedStorage($this->getAnnotatedMock())->getData('INBOX')
+        );
+    }
+
+    public function testSameData()
+    {
+        $base = $this->createCachedStorage($this->getAnnotatedMock());
+        $this->assertSame(
+            $base->getData('INBOX'), $base->getData('INBOX')
+        );
+    }
+
+    public function testDifferentFolders()
+    {
+        $base = $this->createCachedStorage($this->getAnnotatedMock());
+        $this->assertNotSame(
+            $base->getData('INBOX'), $base->getData('INBOX/a')
         );
     }
 }
