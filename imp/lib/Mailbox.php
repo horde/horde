@@ -21,7 +21,7 @@
  * @property string $display  Display version of mailbox. Special mailboxes
  *                            are replaced with localized strings and
  *                            namespace information is removed.
- * @property boolean $editvfolder'  Can this virtual folder be edited?
+ * @property boolean $editvfolder  Can this virtual folder be edited?
  * @property boolean $exists  Does this mailbox exist on the IMAP server?
  * @property boolean $fixed  Is this mailbox fixed (i.e. unchangable)?
  * @property string $form_to  Converts this mailbox to a form representation.
@@ -58,7 +58,9 @@
  *                                      with outgoing messages?
  * @property boolean $specialvfolder  Is this a "special" virtual folder?
  * @property boolean $sub  Is this mailbox subscribed to?
- * @property boolean $threadsort' Is thread sort available?
+ * @property array $subfolders  Returns the list of subfolders (including the
+ *                              current mailbox).
+ * @property boolean $threadsort Is thread sort available?
  * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                             IMP_Exception on error.
  * @property string $value  The value of this element (i.e. IMAP mailbox
@@ -314,6 +316,11 @@ class IMP_Mailbox implements Serializable
 
         case 'sub':
             return $injector->getInstance('IMP_Imap_Tree')->isSubscribed($this->_mbox);
+
+        case 'subfolders':
+            $imaptree = $injector->getInstance('IMP_Imap_Tree');
+            $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER | IMP_Imap_Tree::FLIST_UNSUB | IMP_Imap_Tree::FLIST_NOBASE, $this->_mbox);
+            return array_merge($this, iterator_to_array($imaptree));
 
         case 'threadsort':
             /* Thread sort is always available for IMAP servers, since

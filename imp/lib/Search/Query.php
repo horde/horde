@@ -11,6 +11,22 @@
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
+ *
+ * @property boolean $canEdit  Can this query be edited?
+ * @property string $id  The query ID.
+ * @property string $label  The query label.
+ * @property array $mboxes  The list of mailboxes to query. This list
+ *                          automatically expands subfolder searches.
+ * @property array $mbox_list  The list of individual mailboxes to query (no
+ *                             subfolder mailboxes).
+ * @property string $mid  The query ID with the search mailbox prefix.
+ * @property array $query  The list of IMAP queries that comprise this search.
+ *                         Keys are mailbox names, values are
+ *                         Horde_Imap_Client_Search_Query objects.
+ * @property string $querytext  The textual representation of the query.
+ * @property array $subfolder_list  The list of mailboxes to do subfolder
+ *                                  queries for. The subfolders are not
+ *                                  expanded.
  */
 class IMP_Search_Query implements Serializable
 {
@@ -127,27 +143,6 @@ class IMP_Search_Query implements Serializable
     }
 
     /**
-     * Get object properties.
-     *
-     * @param string $name  Available properties:
-     * <pre>
-     * 'canEdit' - (boolean) Can this query be edited?
-     * 'id' - (string) The query ID.
-     * 'label' - (string) The query label.
-     * 'mboxes' - (array) The list of mailboxes to query. This list
-     *            automatically expands subfolder searches.
-     * 'mbox_list' - (array) The list of individual mailboxes to query (no
-     *               subfolder mailboxes).
-     * 'mid' - (string) The query ID with the search mailbox prefix.
-     * 'query' - (array) The list of IMAP queries that comprise this search.
-     *           Keys are mailbox names, values are
-     *           Horde_Imap_Client_Search_Query objects.
-     * 'querytext' - (string) The textual representation of the query.
-     * 'subfolder_list' - (array) The list of mailboxes to do subfolder
-     *                    queries for. The subfolders are not expanded.
-     * </pre>
-     *
-     * @return mixed  Property value.
      */
     public function __get($name)
     {
@@ -178,11 +173,12 @@ class IMP_Search_Query implements Serializable
                 if ($s_list = $this->subfolder_list) {
                     $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
                     foreach ($s_list as $val) {
-                        $out = array_merge($out, $imp_folder->getAllSubfolders($val));
+                        $out = array_merge($out, $val->subfolders);
                     }
                 }
 
-                $this->_cache['mboxes'] = IMP_Mailbox::get(array_keys(array_flip($out)));
+                // TODO: array_unique() for objects (requires 5.2.9)
+                $this->_cache['mboxes'] = $out;
             }
 
             return $this->_cache['mboxes'];
@@ -194,9 +190,9 @@ class IMP_Search_Query implements Serializable
 
                 foreach ($this->_mboxes as $val) {
                     if (strpos($val, self::SUBFOLDER) === 0) {
-                        $subfolder[] = substr($val, strlen(self::SUBFOLDER));
+                        $subfolder[] = IMP_Mailbox::get(substr($val, strlen(self::SUBFOLDER)));
                     } else {
-                        $mbox[] = $val;
+                        $mbox[] = IMP_Mailbox::get($val);
                     }
                 }
 
@@ -217,7 +213,7 @@ class IMP_Search_Query implements Serializable
                 foreach ($this->_criteria as $elt) {
                     $query = $elt->createQuery($mbox, $query);
                 }
-                $qout[$mbox] = $query;
+                $qout[strval($mbox)] = $query;
             }
 
             return $qout;

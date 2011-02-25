@@ -386,8 +386,8 @@ if ($edit_query && $edit_query->search) {
 
     $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
     $js_vars['ImpSearch.i_folders'] = array(
-        'm' => $q_ob->mbox_list,
-        's' => $q_ob->subfolder_list
+        'm' => array_map('strval', $q_ob->mbox_list),
+        's' => array_map('strval', $q_ob->subfolder_list)
     );
 } else {
     /* Process list of recent searches. */
@@ -397,8 +397,8 @@ if ($edit_query && $edit_query->search) {
         $rs[$val->id] = array(
             'c' => $val->criteria,
             'f' => array(
-                'm' => $val->mbox_list,
-                's' => $val->subfolder_list
+                'm' => array_map('strval', $val->mbox_list),
+                's' => array_map('strval', $val->subfolder_list)
             ),
             'l' => Horde_String::truncate($val->querytext)
         );

@@ -190,7 +190,7 @@ class IMP_Folder
         $deleted = array($old);
         $inserted = array($new);
 
-        $all_folders = $this->getAllSubfolders($old);
+        $all_folders = $old->subfolders;
 
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->renameMailbox($old, $new);
@@ -404,27 +404,6 @@ class IMP_Folder
         }
 
         return $msgcount ? $msgcount : false;
-    }
-
-    /**
-     * Get list of all folders under a given mailbox.
-     *
-     * @param string $mbox           The base mailbox.
-     * @param boolean $include_base  Include the base mailbox in results?
-     *
-     * @return array  All mailboxes under the base mailbox.
-     */
-    public function getAllSubfolders($mbox, $include_base = true)
-    {
-        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER | IMP_Imap_Tree::FLIST_UNSUB | IMP_Imap_Tree::FLIST_NOBASE, $mbox);
-
-        $out = array_keys(iterator_to_array($imaptree));
-        if ($include_base && $this->exists($mbox)) {
-            $out = array_merge(array($mbox), $out);
-        }
-
-        return $out;
     }
 
 }
