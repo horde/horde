@@ -12,8 +12,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-28</date>
- <time>23:49:13</time>
+ <date>2011-02-25</date>
+ <time>08:56:22</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -327,9 +327,11 @@
      <dir name="Token">
       <dir name="Unit">
        <file name="FileTest.php" role="test" />
+       <file name="SqlTest.php" role="test" />
       </dir> <!-- /test/Horde/Token/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="BackendTestCase.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Token -->
     </dir> <!-- /test/Horde -->
@@ -364,10 +366,6 @@
   <optional>
    <package>
     <name>Horde_Db</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
@@ -474,8 +472,10 @@
    <install as="migration/1_horde_token_base_tables.php" name="migration/Horde/Token/1_horde_token_base_tables.php" />
    <install as="Horde/Token/AllTests.php" name="test/Horde/Token/AllTests.php" />
    <install as="Horde/Token/Autoload.php" name="test/Horde/Token/Autoload.php" />
+   <install as="Horde/Token/BackendTestCase.php" name="test/Horde/Token/BackendTestCase.php" />
    <install as="Horde/Token/phpunit.xml" name="test/Horde/Token/phpunit.xml" />
    <install as="Horde/Token/Unit/FileTest.php" name="test/Horde/Token/Unit/FileTest.php" />
+   <install as="Horde/Token/Unit/SqlTest.php" name="test/Horde/Token/Unit/SqlTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -549,10 +549,11 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-01-28</date>
+   <date>2011-02-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Add translation support.
+* Remove Horde_Token::factory().
+ * Add translation support.
  * Add support for timestamped tokens.
  * Add Horde_Token_Exception::.
  * Move driver code into sub-classes.
