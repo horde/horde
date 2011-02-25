@@ -273,7 +273,7 @@ if ($vars->criteria_form) {
 
         case 'flag':
             /* Flag search. */
-            $formdata = $imp_flags->parseFormId($val->v);
+            $formdata = $imp_flags->parseFormId(rawurldecode($val->v));
             $c_list[] = new IMP_Search_Element_Flag(
                 $formdata['flag'],
                 ($formdata['set'] && !$val->n)
