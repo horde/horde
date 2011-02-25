@@ -50,13 +50,15 @@ extends Horde_Kolab_Storage_QuerySet_Base
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Factory $factory The factory.
+     * @param array                       $params  Optional parameters.
      * @param Horde_Kolab_Storage_Cache   $cache   The cache.
      */
     public function __construct(
         Horde_Kolab_Storage_Factory $factory,
+        array $params = array(),
         Horde_Kolab_Storage_Cache $cache
     ) {
-        parent::__construct($factory);
+        parent::__construct($factory, $params);
         $this->_cache = $cache;
     }
 

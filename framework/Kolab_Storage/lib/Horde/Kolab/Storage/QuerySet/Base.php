@@ -28,6 +28,10 @@
 abstract class Horde_Kolab_Storage_QuerySet_Base
 implements Horde_Kolab_Storage_QuerySet
 {
+    /** Query set identifiers */
+    const BASIC = 'basic';
+    const HORDE = 'horde';
+
     /**
      * The factory for generating additional resources.
      *
@@ -36,13 +40,69 @@ implements Horde_Kolab_Storage_QuerySet
     private $_factory;
 
     /**
+     * The list of query types to add to lists.
+     *
+     * @var array
+     */
+    private $_list_queries = array();
+    
+    /**
+     * Predefined query sets.
+     *
+     * @var array
+     */
+    private $_query_sets = array(
+        self::BASIC => array(
+            Horde_Kolab_Storage_List::QUERY_BASE,
+            Horde_Kolab_Storage_List::QUERY_ACL
+        ),
+        self::HORDE => array(
+            Horde_Kolab_Storage_List::QUERY_BASE,
+            Horde_Kolab_Storage_List::QUERY_ACL,
+            Horde_Kolab_Storage_List::QUERY_SHARE
+        )
+    );
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Factory $factory The factory.
+     * @param array                       $params  Optional parameters.
+     * <pre>
+     * - list: Array of list query settings
+     *   - queryset [string]: One of the predefined query set
+     *                        ("basic" or "horde")
+     *   - myset    [string]: A list of query types that should be selected.
+     *   - classmap [array] : An array of "type" => "class" mappings.
+     * </pre>
      */
-    public function __construct(Horde_Kolab_Storage_Factory $factory)
-    {
+    public function __construct(
+        Horde_Kolab_Storage_Factory $factory, array $params = array()
+    ) {
         $this->_factory = $factory;
+        if (isset($params['list']['classmap'])) {
+            $this->_class_map = array_merge(
+                $this->_class_map, $params['list']['classmap']
+            );
+        }
+        if (isset($params['list']['queryset'])) {
+            if (isset($this->_query_sets[$params['list']['queryset']])) {
+                $this->_list_queries = $this->_query_sets[$params['list']['queryset']];
+            } else {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        'Query set %s not supported!',
+                        $params['list']['queryset']
+                    )
+                );
+            }
+        }
+        if (isset($params['list']['myset'])) {
+            $this->_list_queries = array_merge($this->_list_queries, $params['list']['myset']);
+        }
+        if (empty($this->_list_queries)) {
+            $this->_list_queries = $this->_query_sets[self::BASIC];
+        }
     }
 
     /**
@@ -55,8 +115,9 @@ implements Horde_Kolab_Storage_QuerySet
      */
     public function addListQuerySet(Horde_Kolab_Storage_List $list, $params = array())
     {
-        $this->_addListQuery($list, Horde_Kolab_Storage_List::QUERY_BASE);
-        $this->_addListQuery($list, Horde_Kolab_Storage_List::QUERY_ACL);
+        foreach ($this->_list_queries as $type) {
+            $this->_addListQuery($list, $type, $params);
+        }
     }
 
     /**
@@ -72,8 +133,8 @@ implements Horde_Kolab_Storage_QuerySet
     {
         if (isset($this->_class_map[$type])) {
             $params = array_merge(
-                $params,
-                $this->_getListQueryParameters($list)
+                $this->_getListQueryParameters($list),
+                $params
             );
             $list->registerQuery(
                 $type,

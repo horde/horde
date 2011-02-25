@@ -63,7 +63,7 @@ extends PHPUnit_Framework_TestCase
         $cache = $this->getMockCache();
         return new Horde_Kolab_Storage_Cached(
             $driver,
-            new Horde_Kolab_Storage_QuerySet_Cached($factory, $cache),
+            new Horde_Kolab_Storage_QuerySet_Cached($factory, array(), $cache),
             $factory,
             $cache
         );

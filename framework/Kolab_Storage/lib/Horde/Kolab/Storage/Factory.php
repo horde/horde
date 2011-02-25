@@ -86,18 +86,23 @@ class Horde_Kolab_Storage_Factory
      */
     public function create()
     {
+        if (isset($this->_params['queryset'])) {
+            $queryset = $this->_params['queryset'];
+        } else {
+            $queryset = array();
+        }
         if (!empty($this->_params['cache'])) {
             $cache = $this->createCache();
             $storage = new Horde_Kolab_Storage_Cached(
                 $this->createDriver(),
-                new Horde_Kolab_Storage_QuerySet_Cached($this, $cache),
+                new Horde_Kolab_Storage_QuerySet_Cached($this, $queryset, $cache),
                 $this,
                 $cache
             );
         } else {
             $storage = new Horde_Kolab_Storage_Uncached(
                 $this->createDriver(),
-                new Horde_Kolab_Storage_QuerySet_Uncached($this),
+                new Horde_Kolab_Storage_QuerySet_Uncached($this, $queryset),
                 $this
             );
         }
