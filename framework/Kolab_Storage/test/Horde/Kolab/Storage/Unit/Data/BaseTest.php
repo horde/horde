@@ -107,9 +107,8 @@ extends Horde_Kolab_Storage_TestCase
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
-        $query = $factory->createDataQuery(
-            'Horde_Kolab_Storage_Stub_DataQuery',
-            $data
+        $query = new Horde_Kolab_Storage_Stub_DataQuery(
+            $data, array('factory' => $factory)
         );
         $data->registerQuery('stub', $query);
         $data->synchronize();
@@ -121,9 +120,8 @@ extends Horde_Kolab_Storage_TestCase
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
-        $query = $factory->createDataQuery(
-            'Horde_Kolab_Storage_Stub_DataQuery',
-            $data
+        $query = new Horde_Kolab_Storage_Stub_DataQuery(
+            $data, array('factory' => $factory)
         );
         $data->registerQuery('Horde_Kolab_Storage_Stub_DataQuery', $query);
         $this->assertInstanceOf(
@@ -137,9 +135,8 @@ extends Horde_Kolab_Storage_TestCase
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
-        $query = $factory->createDataQuery(
-            'Horde_Kolab_Storage_Stub_DataQuery',
-            $data
+        $query = new Horde_Kolab_Storage_Stub_DataQuery(
+            $data, array('factory' => $factory)
         );
         $data->registerQuery(
             Horde_Kolab_Storage_Data::QUERY_BASE, $query
@@ -160,10 +157,10 @@ extends Horde_Kolab_Storage_TestCase
             ->getData('INBOX/Calendar');
         $data->registerQuery(
             Horde_Kolab_Storage_Data::QUERY_BASE,
-            $factory->createListQuery(
-                'Horde_Kolab_Storage_Stub_ListQuery',
+            new Horde_Kolab_Storage_Stub_ListQuery(
                 $this->getMessageStorage()
-                ->getList()
+                ->getList(),
+                array('factory' => $factory)
             )
         );
     }

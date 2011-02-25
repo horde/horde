@@ -84,8 +84,8 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullList($factory),
             $this->getMockLogger()
         );
-        $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_List_Query_List_Base', $list
+        $query = new Horde_Kolab_Storage_List_Query_List_Base(
+            $list, array('factory' => $factory)
         );
         $list->registerQuery('Base', $query);
         $this->assertInstanceOf(
@@ -103,9 +103,8 @@ extends Horde_Kolab_Storage_TestCase
         );
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE,
-            $factory->createListQuery(
-                'Horde_Kolab_Storage_List_Query_List_Base',
-                $list
+            new Horde_Kolab_Storage_List_Query_List_Base(
+                $list, array('factory' => $factory)
             )
         );
         $this->assertInstanceOf(

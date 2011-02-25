@@ -90,9 +90,8 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             $factory
         );
-        $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_Stub_ListQuery',
-            $list
+        $query = new Horde_Kolab_Storage_Stub_ListQuery(
+            $list, $factory
         );
         $list->registerQuery('stub', $query);
         $list->synchronize();
@@ -106,9 +105,8 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             $factory
         );
-        $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_Stub_ListQuery',
-            $list
+        $query = new Horde_Kolab_Storage_Stub_ListQuery(
+            $list, $factory
         );
         $list->registerQuery('Horde_Kolab_Storage_Stub_ListQuery', $query);
         $this->assertInstanceOf(
@@ -124,9 +122,8 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             $factory
         );
-        $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_Stub_ListQuery',
-            $list
+        $query = new Horde_Kolab_Storage_Stub_ListQuery(
+            $list, $factory
         );
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE, $query
@@ -147,9 +144,9 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             $factory
         );
-        $query = $factory->createDataQuery(
-            'Horde_Kolab_Storage_Stub_DataQuery',
-            $this->getMock('Horde_Kolab_Storage_Data')
+        $query = new Horde_Kolab_Storage_Stub_DataQuery(
+            $this->getMock('Horde_Kolab_Storage_Data'),
+            $factory
         );
         $list->registerQuery(
             Horde_Kolab_Storage_List::QUERY_BASE, $query

@@ -170,48 +170,6 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testCreateQueryForUnsupported()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $factory->createListQuery('NO_SUCH_QUERY', $list);
-    }
-
-    public function testQueryReturnsQuery()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query',
-            $factory->createListQuery('Horde_Kolab_Storage_List_Query_List_Base', $list)
-        );
-    }
-
-    public function testQueryStub()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query',
-            $factory->createListQuery(
-                'Horde_Kolab_Storage_Stub_ListQuery',
-                $list
-            )
-        );
-    }
-
     public function testCacheInstance()
     {
         $factory = new Horde_Kolab_Storage_Factory();

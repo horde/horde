@@ -338,8 +338,8 @@ extends Horde_Kolab_Storage_TestCase
         $list = new Horde_Kolab_Storage_List_Decorator_Cache(
             $this->getMockDriverList($factory), $list_cache
         );
-        $query = $factory->createListQuery(
-            'Horde_Kolab_Storage_List_Query_List_Base', $list
+        $query = new Horde_Kolab_Storage_List_Query_List_Base(
+            $list, array('factory' => $factory)
         );
         $list->registerQuery('Base', $query);
         $this->assertInstanceOf(
