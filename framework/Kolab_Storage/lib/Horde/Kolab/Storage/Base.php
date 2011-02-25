@@ -95,42 +95,10 @@ implements Horde_Kolab_Storage
                 $this->_master,
                 $this->_factory
             );
-            $this->addListQuery($list, Horde_Kolab_Storage_List::QUERY_BASE);
-            $this->addListQuery($list, Horde_Kolab_Storage_List::QUERY_ACL);
+            $this->_query_set->addListQuerySet($list);
             $this->_lists[$this->_master->getId()] = $list;
         }
         return $this->_lists[$this->_master->getId()];
-    }
-
-    /**
-     * Add a list query.
-     *
-     * @param Horde_Kolab_Storage_List $list   The list.
-     * @param string                   $type   The query type.
-     * @param array                    $params Additional query parameters.
-     *
-     * @return NULL
-     */
-    public function addListQuery(Horde_Kolab_Storage_List $list, $type, $params = array())
-    {
-        switch ($type) {
-        case Horde_Kolab_Storage_List::QUERY_SHARE:
-            $class = 'Horde_Kolab_Storage_List_Query_Share_Base';
-            break;
-        case Horde_Kolab_Storage_List::QUERY_BASE:
-            $class = 'Horde_Kolab_Storage_List_Query_List_Base';
-            break;
-        case Horde_Kolab_Storage_List::QUERY_ACL:
-            $class = 'Horde_Kolab_Storage_List_Query_Acl_Base';
-            break;
-        default:
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf('Query type %s not supported!', $type)
-            );
-        }
-        $list->registerQuery(
-            $type, $this->_factory->createListQuery($class, $list, $params)
-        );
     }
 
     /**
