@@ -70,20 +70,6 @@ implements Horde_Kolab_Storage
     }
 
     /**
-     * Add a list query.
-     *
-     * @param Horde_Kolab_Storage_List $list   The list.
-     * @param string                   $type   The query type.
-     * @param array                    $params Additional query parameters.
-     *
-     * @return NULL
-     */
-    public function addListQuery(Horde_Kolab_Storage_List $list, $type, $params = array())
-    {
-        $this->_storage->addListQuery($list, $type, $params);
-    }
-
-    /**
      * Get a Folder object.
      *
      * @param string $folder The folder name.
