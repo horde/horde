@@ -134,6 +134,13 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals(3, self::$share->countShares('john', Horde_Perms::EDIT));
     }
 
+    public function getParent()
+    {
+        $share = self::$share->getShare('myshare');
+        $child = self::$share->getShare('mychildshare');
+        $this->assertEquals($share->getId(), $child->getParent()->getId());
+    }
+
     public function getShare()
     {
         // Getting shares from cache.

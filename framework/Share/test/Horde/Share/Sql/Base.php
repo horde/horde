@@ -75,12 +75,11 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
     }
 
     /**
+     * @depends testAddShare
      */
     public function testGetParent()
     {
-        $share = self::$share->getShare('myshare');
-        $child = self::$share->getShare('mychildshare');
-        $this->assertEquals($share->getId(), $child->getParent()->getId());
+        $this->getParent();
     }
 
     /**
