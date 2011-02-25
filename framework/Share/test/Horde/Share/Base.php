@@ -271,7 +271,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     public function _listShares()
     {
         $this->_listSharesJohn();
-        $this->_listSharesSystem();
+        $this->_listSharesGuest();
         $this->_listSharesJohnTwo();
     }
 
@@ -298,7 +298,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
             $shares);
     }
 
-    public function _listSharesSystem()
+    public function _listSharesGuest()
     {
         // Guest shares.
         $shares = self::$share->listShares(false, array('perm' => Horde_Perms::SHOW, 'sort_by' => 'id'));

@@ -361,7 +361,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
                 ->listByType($this->_type)
             );
             $remove = array();
-            if ($params['perm'] != Horde_Perms::SHOW) {
+            if ($params['perm'] != Horde_Perms::SHOW || empty($userid)) {
                 foreach ($shares as $share) {
                     $object = $this->getShareById($share);
                     if (!$object->hasPermission($userid, $params['perm'], $object->get('owner'))) {

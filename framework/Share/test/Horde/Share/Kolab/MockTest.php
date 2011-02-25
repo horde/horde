@@ -163,24 +163,22 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
      */
     public function testListShares()
     {
+        $this->listShares();
+    }
+
+    /**
+     * @depends testPermissions
+     */
+    public function _listShares()
+    {
         $this->_listSharesJohn();
         self::$storage->getDriver()->setAuth('');
         self::$storage->synchronize();
-        $this->_listSharesSystem();
+        $this->_listSharesGuest();
         self::$storage->getDriver()->setAuth('john');
         self::$storage->synchronize();
         self::$share->resetCache();
         $this->_listSharesJohnTwo();
-    }
-
-    public function _listSharesSystem()
-    {
-        // Guest shares.
-        $shares = self::$share->listShares(false, array('perm' => Horde_Perms::SHOW, 'sort_by' => 'id'));
-        //@todo: INTERFACE!!!
-        $this->assertEquals(
-            array('myshare', 'systemshare'),
-            array_keys($shares));
     }
 
     /**

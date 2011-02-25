@@ -317,7 +317,9 @@ abstract class Horde_Share_Base
     /**
      * Returns an array of all shares that $userid has access to.
      *
-     * @param string $userid  The userid of the user to check access for.
+     * @param string $userid  The userid of the user to check access for. An
+     *                        empty value for the userid will only return shares
+     *                        with guest access.
      * @param array $params   Additional parameters for the search.
      *<pre>
      *  'perm'        Require this level of permissions. Horde_Perms constant.
