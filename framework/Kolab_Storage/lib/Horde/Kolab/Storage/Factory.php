@@ -116,7 +116,7 @@ class Horde_Kolab_Storage_Factory
      */
     public function createQuerySet()
     {
-        return new Horde_Kolab_Storage_QuerySet($this);
+        return new Horde_Kolab_Storage_QuerySet_Base($this);
     }
 
     /**
