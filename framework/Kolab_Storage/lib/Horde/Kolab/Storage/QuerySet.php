@@ -27,5 +27,22 @@
  */
 class Horde_Kolab_Storage_QuerySet
 {
+    /**
+     * The factory for generating additional resources.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    private $_factory;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_Storage_Factory $factory The factory.
+     */
+    public function __construct(Horde_Kolab_Storage_Factory $factory)
+    {
+        $this->_factory   = $factory;
+    }
+
 }
 

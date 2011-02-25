@@ -46,7 +46,7 @@ extends PHPUnit_Framework_TestCase
         }
         return new Horde_Kolab_Storage_Base(
             $driver,
-            new Horde_Kolab_Storage_QuerySet(),
+            new Horde_Kolab_Storage_QuerySet($factory),
             $factory
         );
     }
