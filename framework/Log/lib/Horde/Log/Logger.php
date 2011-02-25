@@ -179,6 +179,7 @@ class Horde_Log_Logger implements Serializable
         $event['levelName'] = $this->_levels[$event['level']];
 
         if (!isset($event['timestamp'])) {
+            if(function_exists("date_default_timezone_set") and function_exists("date_default_timezone_get")) @date_default_timezone_set(@date_default_timezone_get());
             $event['timestamp'] = date('c');
         }
 
