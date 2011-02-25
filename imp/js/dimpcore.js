@@ -178,6 +178,7 @@ var DimpCore = {
             if (++this.server_error == 3) {
                 this.showNotifications([ { type: 'horde.error', message: DIMP.text.ajax_timeout } ]);
             }
+            request.request.options.onFailure(request, {});
             this.inAjaxCallback = false;
             return;
         }
