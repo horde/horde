@@ -87,13 +87,14 @@ class Horde_Kolab_Storage_Factory
     public function create()
     {
         $storage = new Horde_Kolab_Storage_Base(
-            $this->createDriver($this->_params),
+            $this->createDriver(),
+            $this->createQuerySet(),
             $this
         );
         if (!empty($this->_params['cache'])) {
             $storage = new Horde_Kolab_Storage_Decorator_Cache(
                 $storage,
-                $this->createCache($this->_params['cache']),
+                $this->createCache(),
                 $this
             );
         }
@@ -106,6 +107,16 @@ class Horde_Kolab_Storage_Factory
             $storage, new Horde_Kolab_Storage_Synchronization()
         );
         return $storage;
+    }
+
+    /**
+     * Create the query handler.
+     *
+     * @return Horde_Kolab_Storage_QuerySet The query handler.
+     */
+    public function createQuerySet()
+    {
+        return new Horde_Kolab_Storage_QuerySet();
     }
 
     /**

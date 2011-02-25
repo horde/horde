@@ -37,76 +37,50 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testConstruction()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        new Horde_Kolab_Storage_Base(
-            new Horde_Kolab_Storage_Driver_Mock($factory),
-            $factory
-        );
+        $this->createStorage();
     }
 
     public function testGetList()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $base = new Horde_Kolab_Storage_Base(
-            new Horde_Kolab_Storage_Driver_Mock($factory),
-            $factory
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List',
+            $this->createStorage()->getList()
         );
-        $this->assertInstanceOf('Horde_Kolab_Storage_List', $base->getList());
     }
 
     public function testSameList()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $base = new Horde_Kolab_Storage_Base(
-            new Horde_Kolab_Storage_Driver_Mock($factory),
-            $factory
-        );
+        $base = $this->createStorage();
         $this->assertSame($base->getList(), $base->getList());
     }
 
-   public function testGetFolder()
-   {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $base = new Horde_Kolab_Storage_Base(
-            $this->getAnnotatedMock(),
-            $factory
-        );
+    public function testGetFolder()
+    {
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Folder', $base->getFolder('INBOX')
+            'Horde_Kolab_Storage_Folder',
+            $this->createStorage($this->getAnnotatedMock())->getFolder('INBOX')
         );
     }
 
-   public function testGetData()
-   {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $base = new Horde_Kolab_Storage_Base(
-            $this->getAnnotatedMock(),
-            $factory
-        );
+    public function testGetData()
+    {
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Data', $base->getData('INBOX')
+            'Horde_Kolab_Storage_Data',
+            $this->createStorage($this->getAnnotatedMock())->getData('INBOX')
         );
     }
 
-   public function testSameData()
-   {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $base = new Horde_Kolab_Storage_Base(
-            $this->getAnnotatedMock(),
-            $factory
-        );
+    public function testSameData()
+    {
+        $base = $this->createStorage($this->getAnnotatedMock());
         $this->assertSame(
             $base->getData('INBOX'), $base->getData('INBOX')
         );
     }
 
-   public function testDifferentFolders()
-   {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $base = new Horde_Kolab_Storage_Base(
-            $this->getAnnotatedMock(),
-            $factory
-        );
+    public function testDifferentFolders()
+    {
+        $base = $this->createStorage($this->getAnnotatedMock());
         $this->assertNotSame(
             $base->getData('INBOX'), $base->getData('INBOX/a')
         );

@@ -38,6 +38,19 @@ extends PHPUnit_Framework_TestCase
         return $factory;
     }
 
+    protected function createStorage($driver = null, $factory = null)
+    {
+        $factory = $this->completeFactory($factory);
+        if ($driver === null) {
+            $driver = new Horde_Kolab_Storage_Driver_Mock($factory);
+        }
+        return new Horde_Kolab_Storage_Base(
+            $driver,
+            new Horde_Kolab_Storage_QuerySet(),
+            $factory
+        );
+    }
+
     protected function getNullMock($factory = null)
     {
         $factory = $this->completeFactory($factory);

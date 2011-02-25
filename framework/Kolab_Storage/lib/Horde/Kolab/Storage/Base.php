@@ -36,6 +36,13 @@ implements Horde_Kolab_Storage
     private $_master;
 
     /**
+     * The query handler.
+     *
+     * @var Horde_Kolab_Storage_QuerySet
+     */
+    private $_query_set;
+
+    /**
      * The factory for generating additional resources.
      *
      * @var Horde_Kolab_Storage_Factory
@@ -59,16 +66,20 @@ implements Horde_Kolab_Storage
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Driver  $master  The primary connection driver.
-     * @param Horde_Kolab_Storage_Factory $factory The factory.
+     * @param Horde_Kolab_Storage_Driver   $master     The primary connection
+     *                                                 driver.
+     * @param Horde_Kolab_Storage_QuerySet $query_set  The query handler.
+     * @param Horde_Kolab_Storage_Factory  $factory    The factory.
 .
      */
     public function __construct(
         Horde_Kolab_Storage_Driver $master,
+        Horde_Kolab_Storage_QuerySet $query_set,
         Horde_Kolab_Storage_Factory $factory
     ) {
-        $this->_master  = $master;
-        $this->_factory = $factory;
+        $this->_master    = $master;
+        $this->_query_set = $query_set;
+        $this->_factory   = $factory;
     }
 
     /**

@@ -39,10 +39,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $storage = new Horde_Kolab_Storage_Decorator_Cache(
-            new Horde_Kolab_Storage_Base(
-                $this->getNullMock($factory),
-                $factory
-            ),
+            $this->createStorage($this->getNullMock($factory), $factory),
             $this->getMockCache(),
             $factory
         );
@@ -56,10 +53,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $storage = new Horde_Kolab_Storage_Decorator_Cache(
-            new Horde_Kolab_Storage_Base(
-                $this->getNullMock($factory),
-                $factory
-            ),
+            $this->createStorage($this->getNullMock($factory), $factory),
             $this->getMockCache(),
             $factory
         );
@@ -73,10 +67,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $storage = new Horde_Kolab_Storage_Decorator_Cache(
-            new Horde_Kolab_Storage_Base(
-                $this->getMessageMock($factory),
-                $factory
-            ),
+            $this->createStorage($this->getMessageMock($factory), $factory),
             $this->getMockCache(),
             $factory
         );

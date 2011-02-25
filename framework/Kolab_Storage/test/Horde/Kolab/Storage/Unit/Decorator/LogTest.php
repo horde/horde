@@ -38,10 +38,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testDecoratedList()
     {
         $storage = new Horde_Kolab_Storage_Decorator_Log(
-            new Horde_Kolab_Storage_Base(
-                $this->getNullMock(),
-                new Horde_Kolab_Storage_Factory()
-            ),
+            $this->createStorage($this->getNullMock()),
             $this->getMockLogger()
         );
         $this->assertInstanceOf(
