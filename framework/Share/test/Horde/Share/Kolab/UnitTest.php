@@ -474,9 +474,7 @@ extends PHPUnit_Framework_TestCase
 
     private function _getDriverWithData($data)
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $driver = $this->_getDriver('kronolith');
-        $this->storage = $factory->createFromParams(
+        $factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
                 'params' => $data,
@@ -485,6 +483,8 @@ extends PHPUnit_Framework_TestCase
                 ),
             )
         );
+        $driver = $this->_getDriver('kronolith');
+        $this->storage = $factory->create();
         $this->list = $this->storage->getList();
         $this->storage->addListQuery($this->list, Horde_Kolab_Storage_List::QUERY_SHARE);
         $this->list->synchronize();

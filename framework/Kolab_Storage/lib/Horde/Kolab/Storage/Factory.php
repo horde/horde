@@ -58,9 +58,16 @@ class Horde_Kolab_Storage_Factory
     /**
      * Constructor.
      *
-     * @param array $params A set of optional parameters.
-     *<pre>
-     *</pre>
+     * @param array $params A set of parameters.
+     * <pre>
+     *  - driver : The type of backend driver. One of "mock", "php", "pear",
+     *             "horde", "horde-socket", and "roundcube".
+     *  - params : Backend specific connection parameters.
+     *  - logger : An optional log handler.
+     *  - timelog : An optional time keeping log handler.
+     *  - format : Array
+     *     - factory: Name of the format parser factory class.
+     * </pre>
      */
     public function __construct($params = array())
     {
@@ -75,46 +82,24 @@ class Horde_Kolab_Storage_Factory
     /**
      * Create the storage handler.
      *
-     * @param Horde_Kolab_Storage_Driver $driver The required driver for access
-     *                                           to the storage backend.
-     *
      * @return Horde_Kolab_Storage The storage handler.
      */
-    public function create(Horde_Kolab_Storage_Driver $driver)
-    {
-        return new Horde_Kolab_Storage_Base($driver, $this);
-    }
-
-    /**
-     * Create the storage handler based on a set of configuration parameters.
-     *
-     * @param array $params The parameters for the backend access. See create().
-     * <pre>
-     *  - driver : The type of backend driver. One of "mock", "php", "pear",
-     *             "horde", "horde-socket", and "roundcube".
-     *  - params : Backend specific connection parameters.
-     *  - logger : An optional log handler.
-     *    
-     * </pre>
-     *
-     * @return Horde_Kolab_Storage The storage handler.
-     */
-    public function createFromParams(array $params)
+    public function create()
     {
         $storage = new Horde_Kolab_Storage_Base(
-            $this->createDriverFromParams($params),
+            $this->createDriver($this->_params),
             $this
         );
-        if (!empty($params['cache'])) {
+        if (!empty($this->_params['cache'])) {
             $storage = new Horde_Kolab_Storage_Decorator_Cache(
                 $storage,
-                $this->createCache($params['cache']),
+                $this->createCache($this->_params['cache']),
                 $this
             );
         }
-        if (!empty($params['logger'])) {
+        if (!empty($this->_params['logger'])) {
             $storage = new Horde_Kolab_Storage_Decorator_Log(
-                $storage, $params['logger']
+                $storage, $this->_params['logger']
             );
         }
         $storage = new Horde_Kolab_Storage_Decorator_Synchronization(
@@ -124,30 +109,21 @@ class Horde_Kolab_Storage_Factory
     }
 
     /**
-     * Create the storage backend driver based on a set of parameters.
-     *
-     * @param array $params The parameters for the backend access. See create().
-     * <pre>
-     *  - driver  : The type of backend driver. One of "mock", "php", "pear",
-     *              "horde", "horde-socket", and "roundcube".
-     *  - params  : Backend specific connection parameters.
-     *  - logger  : An optional log handler.
-     *  - timelog : An optional time keeping log handler.
-     * </pre>
+     * Create the storage backend driver.
      *
      * @return Horde_Kolab_Storage_Driver The storage handler.
      */
-    public function createDriverFromParams(array $params)
+    public function createDriver()
     {
-        if (!isset($params['driver'])) {
+        if (!isset($this->_params['driver'])) {
             throw new Horde_Kolab_Storage_Exception(
                 Horde_Kolab_Storage_Translation::t(
                     'Missing "driver" parameter!'
                 )
             );
         }
-        if (isset($params['params'])) {
-            $config = (array) $params['params'];
+        if (isset($this->_params['params'])) {
+            $config = (array) $this->_params['params'];
         } else {
             $config = array();
         }
@@ -157,11 +133,11 @@ class Horde_Kolab_Storage_Factory
         if (empty($config['port'])) {
             $config['port'] = 143;
         }
-        if (!empty($params['timelog'])) {
+        if (!empty($this->_params['timelog'])) {
             $timer = new Horde_Support_Timer();
             $timer->push();
         }
-        switch ($params['driver']) {
+        switch ($this->_params['driver']) {
         case 'mock':
             if (!isset($config['data'])) {
                 $config['data'] = array('user/test' => array());
@@ -187,7 +163,7 @@ class Horde_Kolab_Storage_Factory
                     Horde_Kolab_Storage_Translation::t(
                         'Invalid "driver" parameter "%s". Please use one of "mock", "php", "pear", "horde", "horde-php", and "roundcube"!'
                     ),
-                    $params['driver']
+                    $this->_params['driver']
                 )
             );
         }
@@ -197,14 +173,14 @@ class Horde_Kolab_Storage_Factory
         $parser->setFormat($format);
         $driver->setParser($parser);
 
-        if (!empty($params['logger'])) {
+        if (!empty($this->_params['logger'])) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
-                $driver, $params['logger']
+                $driver, $this->_params['logger']
             );
         }
-        if (!empty($params['timelog'])) {
+        if (!empty($this->_params['timelog'])) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
-                $driver, $timer, $params['timelog']
+                $driver, $timer, $this->_params['timelog']
             );
         }
         return $driver;
@@ -329,19 +305,20 @@ class Horde_Kolab_Storage_Factory
     /**
      * Create the cache handler.
      *
-     * @param mixed $params The cache configuration or a Horde cache object
-     *
      * @return Horde_Kolab_Storage_Cache The cache handler.
      */
-    public function createCache($params)
+    public function createCache()
     {
+        if (isset($this->_params['cache'])) {
+            $params = $this->_params['cache'];
+        } else {
+            $params = array();
+        }
         if ($params instanceOf Horde_Cache) {
             return new Horde_Kolab_Storage_Cache($params);
         } else {
             $cache = new Horde_Cache(
-                new Horde_Cache_Storage_File(
-                    $params
-                ),
+                new Horde_Cache_Storage_File($params),
                 array('lifetime' => 0)
             );
         }

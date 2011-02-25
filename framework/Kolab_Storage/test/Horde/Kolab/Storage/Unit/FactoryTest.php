@@ -35,25 +35,12 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_Storage_Unit_FactoryTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function testCreation()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $this->assertType(
-            'Horde_Kolab_Storage_Base',
-            $factory->create(
-                new Horde_Kolab_Storage_Driver_Mock(
-                    new Horde_Kolab_Storage_Factory()
-                )
-            )
-        );
-    }
-
     public function testCreationFromParams()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
+        $factory = new Horde_Kolab_Storage_Factory(array('driver' => 'mock'));
         $this->assertType(
             'Horde_Kolab_Storage',
-            $factory->createFromParams(array('driver' => 'mock'))
+            $factory->create()
         );
     }
 
@@ -62,8 +49,10 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingDriver()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $factory->createDriverFromParams(array());
+        $factory = new Horde_Kolab_Storage_Factory(
+            array()
+        );
+        $factory->createDriver();
     }
 
     /**
@@ -71,29 +60,31 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testInvalidDriver()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $factory->createDriverFromParams(array('driver' => 'something'));
+        $factory = new Horde_Kolab_Storage_Factory(
+            array('driver' => 'something')
+        );
+        $factory->createDriver();
     }
 
     public function testMockDriver()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
+        $factory = new Horde_Kolab_Storage_Factory(
+            array('driver' => 'mock')
+        );
         $this->assertType(
             'Horde_Kolab_Storage_Driver_Mock',
-            $factory->createDriverFromParams(
-                array('driver' => 'mock')
-            )
+            $factory->createDriver()
         );
     }
 
     public function testMockParser()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
+        $factory = new Horde_Kolab_Storage_Factory(
+            array('driver' => 'mock')
+        );
         $this->assertType(
             'Horde_Kolab_Storage_Data_Parser',
-            $factory->createDriverFromParams(
-                array('driver' => 'mock')
-            )->getParser()
+            $factory->createDriver()->getParser()
         );
     }
 
@@ -121,8 +112,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testLogDecoration()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $storage = $factory->createFromParams(
+        $factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
                 'logger' => $this->getMockLogger()
@@ -130,14 +120,13 @@ extends Horde_Kolab_Storage_TestCase
         );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_List_Decorator_Log',
-            $storage->getList()
+            $factory->create()->getList()
         );
     }
 
     public function testCacheDecoration()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $storage = $factory->createFromParams(
+        $factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
                 'params' => array(
@@ -150,23 +139,23 @@ extends Horde_Kolab_Storage_TestCase
         );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_List_Decorator_Cache',
-            $storage->getList()
+            $factory->create()->getList()
         );
     }
 
     public function testTimerDecoration()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
         $logger = $this->getMockLogger();
+        $factory = new Horde_Kolab_Storage_Factory(
+            array(
+                'driver' => 'mock',
+                'logger' => $logger,
+                'timelog' => $logger,
+            )
+        );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Driver_Decorator_Timer',
-            $factory->createDriverFromParams(
-                array(
-                    'driver' => 'mock',
-                    'logger' => $logger,
-                    'timelog' => $logger,
-                )
-            )
+            $factory->createDriver()
         );
     }
 

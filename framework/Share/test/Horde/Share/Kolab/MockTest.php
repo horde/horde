@@ -40,8 +40,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     {
         $group = new Horde_Group_Test();
         self::$share = new Horde_Share_Kolab('mnemo', 'john', new Horde_Perms(), $group);
-        $factory = new Horde_Kolab_Storage_Factory();
-        $storage = $factory->createFromParams(
+        $factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
                 'params' => array(
@@ -63,6 +62,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
                 ),
             )
         );
+        $storage = $factory->create();
         self::$storage = $storage->getList();
         $storage->addListQuery(self::$storage, Horde_Kolab_Storage_List::QUERY_SHARE);
         self::$storage->synchronize();

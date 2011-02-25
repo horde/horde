@@ -240,7 +240,6 @@ Choices are:
         if (empty($options['driver'])) {
             return;
         }
-        $factory = new Horde_Kolab_Storage_Factory();
         $params = array(
             'driver' => $options['driver'],
             'params' => $options,
@@ -250,7 +249,8 @@ Choices are:
         if (empty($options['nocache'])) {
             $params['cache'] = array('prefix' => 'kolab_cache_', 'dir' => '/tmp/kolab', 'lifetime' => 0);
         }
-        return $factory->createFromParams($params);
+        $factory = new Horde_Kolab_Storage_Factory($params);
+        return $factory->create();
     }
 
     /**

@@ -97,8 +97,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testDataQueriable()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getMessageStorage($factory)
+        $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
         $this->assertTrue($data instanceOf Horde_Kolab_Storage_Queriable);
     }
@@ -106,7 +105,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testQuerySynchronization()
     {
         $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getMessageStorage($factory)
+        $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
         $query = $factory->createDataQuery(
             'Horde_Kolab_Storage_Stub_DataQuery',
@@ -120,7 +119,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetQuery()
     {
         $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getMessageStorage($factory)
+        $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
         $query = $factory->createDataQuery(
             'Horde_Kolab_Storage_Stub_DataQuery',
@@ -136,7 +135,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetBaseQuery()
     {
         $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getMessageStorage($factory)
+        $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
         $query = $factory->createDataQuery(
             'Horde_Kolab_Storage_Stub_DataQuery',
@@ -157,13 +156,13 @@ extends Horde_Kolab_Storage_TestCase
     public function testRegisterInvalid()
     {
         $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getMessageStorage($factory)
+        $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
         $data->registerQuery(
             Horde_Kolab_Storage_Data::QUERY_BASE,
             $factory->createListQuery(
                 'Horde_Kolab_Storage_Stub_ListQuery',
-                $this->getMessageStorage($factory)
+                $this->getMessageStorage()
                 ->getList()
             )
         );
