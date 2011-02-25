@@ -77,9 +77,9 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
     /**
      * @depends testAddShare
      */
-    public function testGetParent()
+    public function testHierarchy()
     {
-        $this->getParent();
+        $this->hierarchy();
     }
 
     /**

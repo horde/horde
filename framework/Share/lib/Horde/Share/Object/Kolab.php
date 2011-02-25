@@ -236,8 +236,7 @@ a random string.
      */
     public function countChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        //@todo: implement
-        return 0;
+        return $this->getShareOb()->countShares($user, $perm, null, $this, $allLevels);
     }
 
     /**
@@ -252,8 +251,11 @@ a random string.
      */
     public function getChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        //@todo: implement
-        return array();
+        return $this->getShareOb()->listShares(
+            $user, array('perm' => $perm,
+                         'direction' => 1,
+                         'parent' => $this,
+                         'all_levels' => $allLevels));
     }
 
     /**

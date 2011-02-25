@@ -136,9 +136,9 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     /**
      * @depends testAddShare
      */
-    public function testGetParent()
+    public function testHierarchy()
     {
-        $this->getParent();
+        $this->hierarchy();
     }
 
     /**
