@@ -233,11 +233,11 @@ Configuring IMP
 
    a. Register the application
 
-      In ``horde/config/registry.php``, find the ``applications['imp']``
-      stanza.  The default settings here should be okay, but you can change
-      them if desired.  If you have changed the location of IMP relative to
-      Horde, either in the URL, in the filesystem or both, you must update the
-      ``fileroot`` and ``webroot`` settings to their correct values.
+      In ``horde/config/registry.php``, find the 'imp' stanza.  The default
+      settings here should be okay, but you can change them if desired.  If you
+      have changed the location of IMP relative to Horde, either in the URL, in
+      the filesystem or both, you must update the ``fileroot`` and ``webroot``
+      settings to their correct values.
 
    b. Enable IMP authentication [OPTIONAL]
 
