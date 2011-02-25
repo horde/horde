@@ -16,13 +16,6 @@
 abstract class Horde_Token_Base
 {
     /**
-     * Logger.
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $_logger;
-
-    /**
      * Hash of parameters necessary to use the chosen backend.
      *
      * @var array
@@ -40,7 +33,6 @@ abstract class Horde_Token_Base
      *                             timeout". The default is "-1".
      * - timeout (integer): The period (in seconds) after which an id is purged.
      *                      DEFAULT: 86400 (24 hours)
-     * - logger (Horde_Log_Logger): A logger object.
      */
     public function __construct($params)
     {
@@ -52,11 +44,6 @@ abstract class Horde_Token_Base
             'token_lifetime' => -1,
             'timeout' => 86400
         ), $params);
-
-        if (isset($params['logger'])) {
-            $this->_logger = $params['logger'];
-            unset($params['logger']);
-        }
 
         $this->_params = $params;
     }
