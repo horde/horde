@@ -150,6 +150,8 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function getShare()
     {
+        $this->switchAuth('john');
+
         // Getting shares from cache.
         $share = self::$share->getShare('myshare');
         $this->assertInstanceOf('Horde_Share_Object', $share);
@@ -169,7 +171,14 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         self::$shares['myshare'] = $share;
         self::$shares['systemshare'] = self::$share->getShare('systemshare');
         self::$shares['janeshare'] = self::$share->getShare('janeshare');
+        self::$shares['janeshare']->getPermission();
         self::$shares['groupshare'] = self::$share->getShare('groupshare');
+        self::$shares['groupshare']->getPermission();
+
+        $this->switchAuth('jane');
+        self::$shares['jane']['systemshare'] = self::$share->getShare('systemshare');
+        self::$shares['jane']['janeshare'] = self::$share->getShare('janeshare');
+        $this->switchAuth('john');
 
         return $share;
     }
@@ -198,10 +207,11 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals(self::$shares['myshare'], $myshare);
         $this->assertEquals('行事曆', $myshare->get('desc'));
 
+        $this->switchAuth('jane');
         $janeshare = self::$share->getShareById(self::$shares['janeshare']->getId());
         $janeshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $janeshare);
-        $this->assertEquals(self::$shares['janeshare'], $janeshare);
+        $this->assertEquals(self::$shares['jane']['janeshare'], $janeshare);
         $users = $janeshare->listUsers();
         sort($users);
         $this->assertEquals(array('jane', 'john', 'peter'), $users);
@@ -213,11 +223,13 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $groupshare = self::$share->getShareById(self::$shares['groupshare']->getId());
         $groupshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $groupshare);
-        $this->assertEquals(self::$shares['groupshare'], $groupshare);
+        $this->assertEquals(self::$shares['jane']['groupshare'], $groupshare);
         $this->assertEquals(array('mygroup'), $groupshare->listGroups());
         $this->assertEquals(array(), $groupshare->listGroups(Horde_Perms::EDIT));
         $this->assertEquals(array('mygroup'), $groupshare->listGroups(Horde_Perms::DELETE));
         $this->assertEquals('Group Share', $groupshare->get('name'));
+
+        $this->switchAuth('john');
     }
 
     public function getShares()
