@@ -150,6 +150,26 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingStamp()
+    {
+        $cache = $this->_getTestCache();
+        $cache->getStamp();
+    }
+
+    public function testStamp()
+    {
+        $list_cache = $this->_getTestCache();
+        $list_cache->store(array(), array());
+        $list_cache->save();
+        $this->assertEquals(
+            6,
+            strlen($list_cache->getStamp())
+        );
+    }
+
     private function _getTestCache($cache = null)
     {
         if ($cache === null) {
@@ -159,4 +179,5 @@ extends Horde_Kolab_Storage_TestCase
         $list_cache->setListId('test');
         return $list_cache;
     }
+
 }

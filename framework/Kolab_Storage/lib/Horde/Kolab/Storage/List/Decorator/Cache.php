@@ -250,6 +250,17 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     }
 
     /**
+     * Return the last sync stamp.
+     *
+     * @return string The stamp.
+     */
+    public function getStamp()
+    {
+        $this->_init();
+        return $this->_list_cache->getStamp();
+    }
+
+    /**
      * Synchronize the list information with the information from the backend.
      *
      * @return NULL

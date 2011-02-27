@@ -56,5 +56,12 @@ extends Horde_Kolab_Storage_Query
      * @return NULL
      */
     public function renameFolder($old, $new);
+
+    /**
+     * Return the last sync stamp.
+     *
+     * @return string The stamp.
+     */
+    public function getStamp();
 }
 

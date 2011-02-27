@@ -169,6 +169,23 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
+     * Returns the last sync stamp.
+     *
+     * @return string The last sync stamp.
+     */
+    public function getStamp()
+    {
+        $this->_load();
+        if (isset($this->_data[self::SYNC])) {
+            return $this->_data[self::SYNC];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Missing cache data (Key: %s). Synchronize first!', self::SYNC)
+            );
+        }
+    }
+
+    /**
      * Returns the list of folders from the cache.
      *
      * @return array The list of folders, represented as a list of strings.
@@ -389,6 +406,6 @@ class Horde_Kolab_Storage_Cache_List
         $this->_data[self::TYPES] = $types;
         $this->_data[self::VERSION] = self::FORMAT_VERSION;
         $this->_data[self::ID] = serialize($this->_parameters);
-        $this->_data[self::SYNC] = time();
+        $this->_data[self::SYNC] = pack('Nn', time(), mt_rand());
     }
 }
