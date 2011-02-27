@@ -38,8 +38,11 @@ extends PHPUnit_Framework_TestCase
         return $factory;
     }
 
-    protected function createStorage($driver = null, $factory = null)
-    {
+    protected function createStorage(
+        $driver = null,
+        $factory = null,
+        $params = array()
+    ) {
         $factory = $this->completeFactory($factory);
         if ($driver === null) {
             $driver = new Horde_Kolab_Storage_Driver_Mock($factory);
@@ -47,7 +50,8 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Kolab_Storage_Uncached(
             $driver,
             new Horde_Kolab_Storage_QuerySet_Uncached($factory),
-            $factory
+            $factory,
+            $params
         );
     }
 

@@ -120,19 +120,23 @@ class Horde_Kolab_Storage_Factory
     /**
      * Create the storage backend driver.
      *
+     * @param array $params Any parameters that should overwrite the default
+     *                      parameters provided in the factory constructor.
+     *
      * @return Horde_Kolab_Storage_Driver The storage handler.
      */
-    public function createDriver()
+    public function createDriver($params = array())
     {
-        if (!isset($this->_params['driver'])) {
+        $params = array_merge($this->_params, $params);
+        if (!isset($params['driver'])) {
             throw new Horde_Kolab_Storage_Exception(
                 Horde_Kolab_Storage_Translation::t(
                     'Missing "driver" parameter!'
                 )
             );
         }
-        if (isset($this->_params['params'])) {
-            $config = (array) $this->_params['params'];
+        if (isset($params['params'])) {
+            $config = (array) $params['params'];
         } else {
             $config = array();
         }
@@ -142,11 +146,11 @@ class Horde_Kolab_Storage_Factory
         if (empty($config['port'])) {
             $config['port'] = 143;
         }
-        if (!empty($this->_params['timelog'])) {
+        if (!empty($params['timelog'])) {
             $timer = new Horde_Support_Timer();
             $timer->push();
         }
-        switch ($this->_params['driver']) {
+        switch ($params['driver']) {
         case 'mock':
             if (!isset($config['data'])) {
                 $config['data'] = array('user/test' => array());
@@ -172,7 +176,7 @@ class Horde_Kolab_Storage_Factory
                     Horde_Kolab_Storage_Translation::t(
                         'Invalid "driver" parameter "%s". Please use one of "mock", "php", "pear", "horde", "horde-php", and "roundcube"!'
                     ),
-                    $this->_params['driver']
+                    $params['driver']
                 )
             );
         }
@@ -182,14 +186,14 @@ class Horde_Kolab_Storage_Factory
         $parser->setFormat($format);
         $driver->setParser($parser);
 
-        if (!empty($this->_params['logger'])) {
+        if (!empty($params['logger'])) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
-                $driver, $this->_params['logger']
+                $driver, $params['logger']
             );
         }
-        if (!empty($this->_params['timelog'])) {
+        if (!empty($params['timelog'])) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
-                $driver, $timer, $this->_params['timelog']
+                $driver, $timer, $params['timelog']
             );
         }
         return $driver;

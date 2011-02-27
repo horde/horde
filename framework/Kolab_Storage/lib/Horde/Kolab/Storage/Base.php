@@ -50,6 +50,13 @@ implements Horde_Kolab_Storage
     private $_factory;
 
     /**
+     * Additional parameters.
+     *
+     * @var array
+     */
+    private $_params;
+
+    /**
      * List instances.
      *
      * @var array
@@ -70,32 +77,74 @@ implements Horde_Kolab_Storage
      *                                                 driver.
      * @param Horde_Kolab_Storage_QuerySet $query_set  The query handler.
      * @param Horde_Kolab_Storage_Factory  $factory    The factory.
-.
+     * @param array                        $params     Additional parameters.
+     * <pre>
+     *  - system [array]: A list of credentials for system users.
+     *                    Each entry has the system user type as key and
+     *                    another array as value. The latter needs to provide
+     *                    both 'username' and 'password' for the system user.
+     *                    A key of '' indicates the default system user.
+     * </pre>
      */
     public function __construct(
         Horde_Kolab_Storage_Driver $master,
         Horde_Kolab_Storage_QuerySet $query_set,
-        Horde_Kolab_Storage_Factory $factory
+        Horde_Kolab_Storage_Factory $factory,
+        array $params = array()
     ) {
         $this->_master    = $master;
         $this->_query_set = $query_set;
         $this->_factory   = $factory;
+        $this->_params    = $params;
+    }
+
+    /**
+     * Get a folder list object for a "system" user.
+     *
+     * @param string $type The type of system user.
+     *
+     * @return Horde_Kolab_Storage_List The handler for the list of folders
+     *                                  present in the Kolab backend.
+     */
+    public function getSystemList($type)
+    {
+        if (!isset($this->_params['system'][$type])) {
+            if (!isset($this->_params['system'][''])) {
+                throw new Horde_Kolab_Storage_Exception(
+                    'No system users are available!'
+                );
+            } else {
+                $params = $this->_params['system'][''];
+            }
+        } else {
+            $params = $this->_params['system'][$type];
+        }
+        
+        return $this->getList(
+            $this->_factory->createDriver(array('params' => $params))
+        );
     }
 
     /**
      * Get the folder list object.
      *
+     * @params Horde_Kolab_Storage_Driver $driver Optional driver as backend
+     *                                            for the list.
+     *
      * @return Horde_Kolab_Storage_List The handler for the list of folders
      *                                  present in the Kolab backend.
      */
-    public function getList()
+    public function getList(Horde_Kolab_Storage_Driver $driver = null)
     {
-        if (!isset($this->_lists[$this->_master->getId()])) {
-            $list = $this->_createList($this->_master, $this->_factory);
-            $this->_query_set->addListQuerySet($list);
-            $this->_lists[$this->_master->getId()] = $list;
+        if ($driver === null) {
+            $driver = $this->_master;
         }
-        return $this->_lists[$this->_master->getId()];
+        if (!isset($this->_lists[$driver->getId()])) {
+            $list = $this->_createList($driver, $this->_factory);
+            $this->_query_set->addListQuerySet($list);
+            $this->_lists[$driver->getId()] = $list;
+        }
+        return $this->_lists[$driver->getId()];
     }
 
     /**

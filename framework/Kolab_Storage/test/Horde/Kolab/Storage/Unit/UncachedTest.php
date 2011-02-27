@@ -85,4 +85,50 @@ extends Horde_Kolab_Storage_TestCase
             $base->getData('INBOX'), $base->getData('INBOX/a')
         );
     }
+
+    public function testGetSystemList()
+    {
+        $params = array('system' => array('' => array('username' => 'system', 'password' => '')));
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List',
+            $this->_getSystemStorage($params)->getSystemList('test')
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testNoSystemUser()
+    {
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List',
+            $this->createStorage()->getSystemList('test')
+        );
+    }
+
+    public function testSystemList()
+    {
+        $params = array('system' => array('test' => array('username' => 'system', 'password' => '')));
+        $this->assertEquals(
+            'system@mock:0',
+            $this->_getSystemStorage($params)->getSystemList('test')->getId()
+        );
+    }
+
+    private function _getSystemStorage($params)
+    {
+        $factory = new Horde_Kolab_Storage_Factory(
+            array(
+                'driver' => 'mock',
+                'params' => array(
+                    'username' => 'test@example.com',
+                    'host' => 'localhost',
+                    'port' => 143,
+                    'data' => array()
+                )
+            )
+        );
+        return $this->createStorage(null, $factory, $params);
+    }
+
 }

@@ -44,14 +44,16 @@ extends Horde_Kolab_Storage_Base
      * @param Horde_Kolab_Storage_Factory  $factory    The factory.
 .
      * @param Horde_Kolab_Storage_Cache    $cache      The cache.
+     * @param array                        $params     Additional parameters.
      */
     public function __construct(
         Horde_Kolab_Storage_Driver $master,
         Horde_Kolab_Storage_QuerySet $query_set,
         Horde_Kolab_Storage_Factory $factory,
-        Horde_Kolab_Storage_Cache $cache
+        Horde_Kolab_Storage_Cache $cache,
+        array $params = array()
     ) {
-        parent::__construct($master, $query_set, $factory);
+        parent::__construct($master, $query_set, $factory, $params);
         $this->_cache = $cache;
     }
 
