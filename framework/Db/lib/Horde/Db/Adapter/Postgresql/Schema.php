@@ -431,7 +431,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                   substr(split_part(def.adsrc, '''', 2),
                          strpos(split_part(def.adsrc, '''', 2), '.')+1)
                 ELSE split_part(def.adsrc, '''', 2)
-              END
+              END AS relname
             FROM pg_class       t
             JOIN pg_attribute   attr ON (t.oid = attrelid)
             JOIN pg_attrdef     def  ON (adrelid = attrelid AND adnum = attnum)
@@ -441,7 +441,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
               AND def.adsrc ~* 'nextval'";
 
             $result = $this->selectOne($sql, 'PK and custom sequence');
-            $result['relname'] = null;
         }
 
         // [primary_key, sequence]
