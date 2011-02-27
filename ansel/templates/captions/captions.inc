@@ -28,7 +28,7 @@ if ($gallery->countImages()) {
     $style = $gallery->getStyle();
 
     foreach ($images as $image) {
-        $thumb_url = Ansel::getImageUrl($image->id, $style['thumbstyle'], false, $style['name']);
+        $thumb_url = Ansel::getImageUrl($image->id, $style->thumbstyle, false, $style);
 
         echo '<td width="10%" align="right" valign="top">';
         echo '<img src="' . $thumb_url . '" alt="' . htmlspecialchars($image->filename) . '" />' .
