@@ -167,7 +167,7 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
     public function stringToBinary($value)
     {
         /* MUST escape zero octet(0), single quote (39), and backslash (92).
-         * MAY escape non-pritnable octets, but they are required in some
+         * MAY escape non-printable octets, but they are required in some
          * instances so it is best to escape all. */
         return preg_replace_callback("/[^\\x20-\\x26\\x28-\\x5b\\x5d-\\x73]/", array($this, 'stringToBinaryCallback'), $value);
     }
