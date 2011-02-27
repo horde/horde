@@ -45,11 +45,16 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function permissions()
     {
+        //@todo: the switch to '' need to be removed again
+        $this->switchAuth('');
         $this->permissionsSystemShare();
+        $this->switchAuth('john');
         $this->permissionsChildShare();
+        $this->switchAuth('jane');
         $this->permissionsJaneShare();
         $this->permissionsGroupShare();
         $this->permissionsNoShare();
+        $this->switchAuth('john');
     }
 
     protected function permissionsSystemShare()
@@ -280,7 +285,11 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     public function _listShares()
     {
         $this->_listSharesJohn();
+        //@todo: the switch to '' need to be removed again
+        $this->switchAuth('');
         $this->_listSharesGuest();
+        //@todo: can be remove if the above switch vanishes
+        $this->switchAuth('john');
         $this->_listSharesJohnTwo();
     }
 
@@ -455,7 +464,9 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function removeUserPermissions()
     {
+        $this->switchAuth('jane');
         $this->removeUserPermissionsJane();
+        $this->switchAuth('john');
         $this->removeUserPermissionsJohn();
     }
 
@@ -495,9 +506,13 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     public function removeGroupPermissions()
     {
         $groupshare = self::$shares['groupshare'];
+        $this->switchAuth('jane');
         $this->removeGroupPermissionsJane($groupshare);
+        $this->switchAuth('john');
         $this->removeGroupPermissionsJohn();
+        $this->switchAuth('jane');
         $this->removeGroupPermissionsJaneTwo($groupshare);
+        $this->switchAuth('john');
         $this->removeGroupPermissionsJohnTwo();
     }
 
@@ -568,5 +583,9 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         sort($expected);
         sort($keys);
         $this->assertEquals($expected, $keys);
+    }
+
+    protected function switchAuth($user)
+    {
     }
 }
