@@ -21,3 +21,5 @@
  - Multi-Host support
 
  - Decide on private share annotation data.
+
+ - Support remapping the "anonymous" user
