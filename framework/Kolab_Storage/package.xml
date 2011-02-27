@@ -25,8 +25,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-25</date>
- <time>21:17:59</time>
+ <date>2011-02-27</date>
+ <time>09:41:22</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -98,6 +98,9 @@
          <file name="Log.php" role="php" />
          <file name="Timer.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Decorator -->
+        <dir name="Mock">
+         <file name="Data.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Mock -->
         <file name="Base.php" role="php" />
         <file name="Cclient.php" role="php" />
         <file name="Imap.php" role="php" />
@@ -521,6 +524,9 @@
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query -->
          <file name="BaseTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/List -->
+        <dir name="QuerySet">
+         <file name="UncachedTest.php" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Storage/Unit/QuerySet -->
         <file name="CachedTest.php" role="test" />
         <file name="CacheTest.php" role="test" />
         <file name="FactoryTest.php" role="test" />
@@ -636,6 +642,7 @@
    <install as="Horde/Kolab/Storage/Driver/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Base.php" />
    <install as="Horde/Kolab/Storage/Driver/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/Driver/Decorator/Timer.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Timer.php" />
+   <install as="Horde/Kolab/Storage/Driver/Mock/Data.php" name="lib/Horde/Kolab/Storage/Driver/Mock/Data.php" />
    <install as="Horde/Kolab/Storage/Exception/Pear.php" name="lib/Horde/Kolab/Storage/Exception/Pear.php" />
    <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace.php" name="lib/Horde/Kolab/Storage/Folder/Namespace.php" />
@@ -800,6 +807,7 @@
    <install as="Horde/Kolab/Storage/Unit/List/Query/List/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Share/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Share/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Share/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Share/CacheTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/QuerySet/UncachedTest.php" name="test/Horde/Kolab/Storage/Unit/QuerySet/UncachedTest.php" />
    <install as="TODO" name="TODO" />
   </filelist>
  </phprelease>
@@ -871,7 +879,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-02-25</date>
+   <date>2011-02-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added namespace support (Bug #6691).

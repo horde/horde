@@ -34,7 +34,7 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * The data of the folders.
      *
-     * @var array
+     * @var Horde_Kolab_Storage_Driver_Mock_Data
      */
     private $_data;
 
@@ -85,10 +85,15 @@ extends Horde_Kolab_Storage_Driver_Base
         $params = array()
     ) {
         if (isset($params['data'])) {
+            if (is_array($params['data'])) {
+                $params['data'] = new Horde_Kolab_Storage_Driver_Mock_Data(
+                    $params['data']
+                );
+            }
             $this->_data = $params['data'];
             unset($params['data']);
         } else {
-            $this->_data = array();
+            $this->_data = new Horde_Kolab_Storage_Driver_Mock_Data(array());
         }
         parent::__construct($factory, $params);
     }
@@ -139,19 +144,6 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Set the authentication of this driver.
-     *
-     * @param string $username The new username to use.
-     *
-     * @return NULL
-     */
-    public function setAuth($username)
-    {
-        $this->setParam('username', $username);
-        $this->_conversion_pattern = null;
-    }
-
-    /**
      * Set a group list.
      *
      * @param array $groups A list of groups. User names are the keys, an array
@@ -191,7 +183,7 @@ extends Horde_Kolab_Storage_Driver_Base
     public function listFolders()
     {
         $result = array();
-        foreach (array_keys($this->_data) as $mbox) {
+        foreach ($this->_data->arrayKeys() as $mbox) {
             if ($this->_folderVisible($mbox, $this->getAuth())) {
                 $result[] = $this->_convertToExternal($mbox);
             }
@@ -291,8 +283,8 @@ extends Horde_Kolab_Storage_Driver_Base
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
         $this->_failOnNoAdmin($folder);
-        if (isset($this->_data[$folder]['permissions'])) {
-            return $this->_data[$folder]['permissions'];
+        if ($this->_data->hasPermissions($folder)) {
+            return $this->_data->getPermissions($folder);
         }
         return array();
     }
@@ -316,8 +308,8 @@ extends Horde_Kolab_Storage_Driver_Base
             }
         }
         foreach ($users as $user) {
-            if (isset($this->_data[$folder]['permissions'][$user])) {
-                $myacl = array_merge($myacl, str_split($this->_data[$folder]['permissions'][$user]));
+            if ($this->_data->hasUserPermissions($folder, $user)) {
+                $myacl = array_merge($myacl, str_split($this->_data->getUserPermissions($folder, $user)));
             }
         }
         return join('', $myacl);
@@ -337,7 +329,7 @@ extends Horde_Kolab_Storage_Driver_Base
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
         $this->_failOnNoAdmin($folder);
-        $this->_data[$folder]['permissions'][$user] = $acl;
+        $this->_data->setUserPermissions($folder, $user, $acl);
     }
 
     /**
@@ -353,8 +345,8 @@ extends Horde_Kolab_Storage_Driver_Base
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
         $this->_failOnNoAdmin($folder);
-        if (isset($this->_data[$folder]['permissions'][$user])) {
-            unset($this->_data[$folder]['permissions'][$user]);
+        if ($this->_data->hasUserPermissions($folder, $user)) {
+            $this->_data->deleteUserPermissions($folder, $user);
         }
     }
 
@@ -369,9 +361,9 @@ extends Horde_Kolab_Storage_Driver_Base
     public function listAnnotation($annotation)
     {
         $result = array();
-        foreach (array_keys($this->_data) as $mbox) {
-            if (isset($this->_data[$mbox]['annotations'][$annotation])) {
-                $result[$this->_convertToExternal($mbox)] = $this->_data[$mbox]['annotations'][$annotation];
+        foreach ($this->_data->arrayKeys() as $folder) {
+            if ($this->_data->hasAnnotation($folder, $annotation)) {
+                $result[$this->_convertToExternal($folder)] = $this->_data->getAnnotation($folder, $annotation);
             }
         }
         return $result;
@@ -389,8 +381,8 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
-        if (isset($this->_data[$folder]['annotations'][$annotation])) {
-            return $this->_data[$folder]['annotations'][$annotation];
+        if ($this->_data->hasAnnotation($folder, $annotation)) {
+            return $this->_data->getAnnotation($folder, $annotation);
         }
         return '';
     }
@@ -408,7 +400,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $folder = $this->_convertToInternal($folder);
         $this->_failOnMissingFolder($folder);
-        $this->_data[$folder]['annotations'][$annotation] = $value;
+        $this->_data->setAnnotation($folder, $annotation, $value);
     }
 
     /**
@@ -474,10 +466,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     private function _folderVisibleToUnique($folder, $user)
     {
-        if (isset($this->_data[$folder]['permissions'][$user])) {
-            if (strpos($this->_data[$folder]['permissions'][$user], 'l') !== false
-                || strpos($this->_data[$folder]['permissions'][$user], 'r') !== false
-                || strpos($this->_data[$folder]['permissions'][$user], 'a') !== false) {
+        if ($this->_data->hasUserPermissions($folder, $user)) {
+            if (strpos($this->_data->getUserPermissions($folder, $user), 'l') !== false
+                || strpos($this->_data->getUserPermissions($folder, $user), 'r') !== false
+                || strpos($this->_data->getUserPermissions($folder, $user), 'a') !== false) {
                 return true;
             }
         }
@@ -564,8 +556,8 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     private function _folderAdminForUnique($folder, $user)
     {
-        if (isset($this->_data[$folder]['permissions'][$user])
-            && strpos($this->_data[$folder]['permissions'][$user], 'a') !== false) {
+        if ($this->_data->hasUserPermissions($folder, $user)
+            && strpos($this->_data->getUserPermissions($folder, $user), 'a') !== false) {
             return true;
         }
         return false;
@@ -601,7 +593,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     sprintf('Folder %s does not exist!', $folder)
                 );
             }
-            $this->_selected = &$this->_data[$folder];
+            $this->_selected = $this->_data[$folder];
         }
     }
 
