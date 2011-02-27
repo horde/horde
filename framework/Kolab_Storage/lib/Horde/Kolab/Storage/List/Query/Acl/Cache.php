@@ -206,6 +206,8 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
      */
     public function synchronize()
     {
+        $this->_acl = array();
+        $this->_my_rights = array();
     }
 
     /**
