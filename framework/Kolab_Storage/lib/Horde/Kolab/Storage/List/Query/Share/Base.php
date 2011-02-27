@@ -32,6 +32,7 @@ implements Horde_Kolab_Storage_List_Query_Share
     const ANNOTATION_DESCRIPTION = '/shared/comment';
 
     /** The share parameters */
+    /** @todo Shouldn't this be private data? */
     const ANNOTATION_SHARE_PARAMETERS = '/shared/vendor/horde/share-params';
 
     /**

@@ -107,6 +107,7 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
     {
         if (!isset($this->_parameters[$folder])) {
             $this->_parameters[$folder] = parent::getParameters($folder);
+            //@todo: This would only be long term data in case it is made private.
             $this->_list_cache->setLongTerm(self::PARAMETERS, $this->_parameters);
             $this->_list_cache->save();
         }
@@ -203,5 +204,6 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
      */
     public function synchronize()
     {
+        $this->_descriptions = array();
     }
 }
