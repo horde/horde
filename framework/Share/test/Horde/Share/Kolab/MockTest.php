@@ -34,48 +34,49 @@ require_once dirname(__FILE__) . '/../Base.php';
  */
 class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
 {
-    protected static $storage;
+    private static $_data;
+
+    private static $_shares = array();
+
+    protected static $cache;
 
     public static function setUpBeforeClass()
     {
-        $group = new Horde_Group_Test();
-        self::$share = new Horde_Share_Kolab('mnemo', 'john', new Horde_Perms(), $group);
-        $factory = new Horde_Kolab_Storage_Factory(
+        self::$_data = new Horde_Kolab_Storage_Driver_Mock_Data(
             array(
-                'driver' => 'mock',
-                'params' => array(
-                    'data'   => array(
-                        'user/' => array(
-                            'permissions' => array('anyone' => 'alrid')
-                        ),
-                        'user/john' => array(
-                            'permissions' => array('anyone' => 'alrid')
-                        ),
-                        'user/jane' => array(
-                            'permissions' => array('anyone' => 'alrid')
-                        ),
-                    ),
-                    'username' => 'john'
-                ),
-                'cache'  => new Horde_Cache(
-                    new Horde_Cache_Storage_Mock()
-                ),
+                'user/' => array('permissions' => array('anyone' => 'alrid')),
+                'user/john' => array('permissions' => array('anyone' => 'alrid')),
+                'user/jane' => array('permissions' => array('anyone' => 'alrid')),
             )
         );
-        $storage = $factory->create();
-        self::$storage = $storage->getList();
-        $storage->addListQuery(self::$storage, Horde_Kolab_Storage_List::QUERY_SHARE);
-        self::$storage->synchronize();
-        self::$storage->getDriver()->setGroups(
-            array(
-                'john' => array('mygroup'),
-            )
-        );
-        self::$share->setStorage($storage);
+        self::$cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
 
+        $group = new Horde_Group_Test();
         // FIXME
         $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
         $GLOBALS['injector']->setInstance('Horde_Group', $group);
+
+        foreach (array('john', 'jane', '') as $user) {
+            self::$_shares[$user] = new Horde_Share_Kolab(
+                'mnemo', $user, new Horde_Perms(), $group
+            );
+            $factory = new Horde_Kolab_Storage_Factory(
+                array(
+                    'driver' => 'mock',
+                    'params' => array(
+                        'data'   => self::$_data,
+                        'username' => $user
+                    ),
+                    'queryset' => array('list' => array('queryset' => 'horde')),
+                    'cache'  => self::$cache,
+                )
+            );
+            $storage = $factory->create();
+            $storage->getList()->getDriver()->setGroups(
+                array('john' => array('mygroup'))
+            );
+            self::$_shares[$user]->setStorage($storage);
+        }
     }
 
     public function setUp()
@@ -83,8 +84,8 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         if (!interface_exists('Horde_Kolab_Storage')) {
             $this->markTestSkipped('The Kolab_Storage package seems to be unavailable.');
         }
-        self::$storage->getDriver()->setAuth('john');
-        self::$storage->synchronize();
+        self::$share = self::$_shares['john'];
+        self::$share->getStorage()->getList()->synchronize();
     }
 
     public function testGetApp()
@@ -103,18 +104,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
      */
     public function testPermissions()
     {
-        //@todo: switch the auth in the base driver and implement empty by default.
-        self::$storage->getDriver()->setAuth('');
-        $this->permissionsSystemShare();
-        self::$storage->getDriver()->setAuth('john');
-        $this->permissionsChildShare();
-        self::$storage->getDriver()->setAuth('jane');
-        $this->permissionsJaneShare();
-        $this->permissionsGroupShare();
-        $this->permissionsNoShare();
-
-        self::$storage->getDriver()->setAuth('john');
-        self::$storage->synchronize();
+        $this->permissions();
     }
 
     /**
@@ -177,21 +167,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
-    public function _listShares()
-    {
-        $this->_listSharesJohn();
-        self::$storage->getDriver()->setAuth('');
-        self::$storage->synchronize();
-        $this->_listSharesGuest();
-        self::$storage->getDriver()->setAuth('john');
-        self::$storage->synchronize();
-        self::$share->resetCache();
-        $this->_listSharesJohnTwo();
-    }
-
-    /**
-     * @depends testPermissions
-     */
     public function testGetPermission()
     {
         return $this->getPermission();
@@ -202,11 +177,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
      */
     public function testRemoveUserPermissions()
     {
-        self::$storage->getDriver()->setAuth('jane');
-        $this->removeUserPermissionsJane();
-        self::$storage->getDriver()->setAuth('john');
-        self::$storage->synchronize();
-        $this->removeUserPermissionsJohn();
+        $this->removeUserPermissions();
     }
 
     /**
@@ -214,18 +185,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
      */
     public function testRemoveGroupPermissions()
     {
-        $groupshare = self::$shares['groupshare'];
-        self::$storage->getDriver()->setAuth('jane');
-        $this->removeGroupPermissionsJane($groupshare);
-        self::$storage->getDriver()->setAuth('john');
-        self::$storage->synchronize();
-        self::$share->resetCache();
-        $this->removeGroupPermissionsJohn();
-        self::$storage->getDriver()->setAuth('jane');
-        $this->removeGroupPermissionsJaneTwo($groupshare);
-        self::$storage->getDriver()->setAuth('john');
-        self::$storage->synchronize();
-        $this->removeGroupPermissionsJohnTwo();
+        $this->removeGroupPermissions();
     }
 
     /**
@@ -240,13 +200,22 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     {
         $this->callback(new Horde_Share_Object_Sql(array()));
     }
+
+    protected function switchAuth($user)
+    {
+        self::$share = self::$_shares[$user];
+        self::$share->getStorage()->getList()->synchronize();
+    }
+
+    protected function getCache()
+    {
+        return self::$cache;
+    }
 }
 
 /**
  NOTES
 
  - listAllShares() does not really work as expected as we need manager access for that.
- - Permissions are always enforced.
  - listSystemShares not supported yet
- - Why wouldn't the system user see shares from other users?
 */

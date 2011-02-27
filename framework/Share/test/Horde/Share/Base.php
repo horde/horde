@@ -176,8 +176,11 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         self::$shares['groupshare']->getPermission();
 
         $this->switchAuth('jane');
-        self::$shares['jane']['systemshare'] = self::$share->getShare('systemshare');
         self::$shares['jane']['janeshare'] = self::$share->getShare('janeshare');
+        self::$shares['jane']['groupshare'] = self::$share->getShare('groupshare');
+
+        $this->switchAuth('');
+        self::$shares['system']['systemshare'] = self::$share->getShare('systemshare');
         $this->switchAuth('john');
 
         return $share;
@@ -463,20 +466,21 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals(array('jane' => Horde_Perms::SHOW), $permission->getUserPermissions());
         $this->assertEquals(array('mygroup' => Horde_Perms::SHOW), $permission->getGroupPermissions());
 
-        $permission = self::$shares['systemshare']->getPermission();
+        $permission = self::$shares['system']['systemshare']->getPermission();
         $this->assertEquals(Horde_Perms::SHOW  | Horde_Perms::READ, $permission->getDefaultPermissions());
         $this->assertEquals(Horde_Perms::SHOW, $permission->getGuestPermissions());
 
-        $permission = self::$shares['janeshare']->getPermission();
+        $permission = self::$shares['jane']['janeshare']->getPermission();
         $this->assertEquals(array('john' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT, 'peter' => Horde_Perms::SHOW), $permission->getUserPermissions());
 
-        $permission = self::$shares['groupshare']->getPermission();
+        $permission = self::$shares['jane']['groupshare']->getPermission();
         $this->assertEquals(array('mygroup' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::DELETE), $permission->getGroupPermissions());
+
+        $this->switchAuth('john');
     }
 
     public function removeUserPermissions()
     {
-        $this->switchAuth('jane');
         $this->removeUserPermissionsJane();
         $this->switchAuth('john');
         $this->removeUserPermissionsJohn();
@@ -484,10 +488,11 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     protected function removeUserPermissionsJane()
     {
-        $janeshare = self::$shares['janeshare'];
+        $janeshare = self::$shares['jane']['janeshare'];
         $janeshare->removeUserPermission('john', Horde_Perms::EDIT);
         $janeshare->save();
 
+        $this->switchAuth('john');
         // Getting shares from cache.
         $this->assertEquals(5, count(self::$share->listShares('john', array('perm' => Horde_Perms::READ))));
         $this->assertEquals(2, count(self::$share->listShares('john', array('perm' => Horde_Perms::EDIT))));
@@ -517,14 +522,10 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function removeGroupPermissions()
     {
-        $groupshare = self::$shares['groupshare'];
-        $this->switchAuth('jane');
+        $groupshare = self::$shares['jane']['groupshare'];
         $this->removeGroupPermissionsJane($groupshare);
-        $this->switchAuth('john');
         $this->removeGroupPermissionsJohn();
-        $this->switchAuth('jane');
         $this->removeGroupPermissionsJaneTwo($groupshare);
-        $this->switchAuth('john');
         $this->removeGroupPermissionsJohnTwo();
     }
 
@@ -536,6 +537,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function removeGroupPermissionsJohn()
     {
+        $this->switchAuth('john');
         // Getting shares from cache.
         $this->assertEquals(4, count(self::$share->listShares('john', array('perm' => Horde_Perms::READ))));
         $this->assertEquals(2, count(self::$share->listShares('john', array('perm' => Horde_Perms::DELETE))));
@@ -556,6 +558,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function removeGroupPermissionsJohnTwo()
     {
+        $this->switchAuth('john');
         // Getting shares from cache.
         $this->assertEquals(3, count(self::$share->listShares('john', array('perm' => Horde_Perms::READ))));
 

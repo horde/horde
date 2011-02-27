@@ -51,7 +51,7 @@ extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($list));
         $driver = $this->_getDriver();
         $driver->setStorage($storage);
-        $this->assertSame($list, $driver->getStorage());
+        $this->assertSame($list, $driver->getList());
     }
 
     /**
@@ -418,10 +418,10 @@ extends PHPUnit_Framework_TestCase
         $query->expects($this->once())
             ->method('listByType')
             ->will($this->returnValue(array()));
-        $list->expects($this->once())
+        $list->expects($this->exactly(3))
             ->method('getQuery')
             ->will($this->returnValue($query));
-        $storage->expects($this->once())
+        $storage->expects($this->exactly(3))
             ->method('getList')
             ->will($this->returnValue($list));
         $driver = $this->_getDriver();
@@ -477,6 +477,7 @@ extends PHPUnit_Framework_TestCase
         $factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
+                'queryset' => array('list' => array('queryset' => 'horde')),
                 'params' => $data,
                 'cache'  => new Horde_Cache(
                     new Horde_Cache_Storage_Mock()
@@ -486,7 +487,6 @@ extends PHPUnit_Framework_TestCase
         $driver = $this->_getDriver('kronolith');
         $this->storage = $factory->create();
         $this->list = $this->storage->getList();
-        $this->storage->addListQuery($this->list, Horde_Kolab_Storage_List::QUERY_SHARE);
         $this->list->synchronize();
         $driver->setStorage($this->storage);
         return $driver;
