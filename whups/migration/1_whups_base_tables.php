@@ -71,8 +71,8 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
             $t->column('queue_name', 'string', array('limit' => 64, 'null' => false));
             $t->column('queue_description', 'string', array('limit' => 255));
             $t->column('queue_versioned', 'smallint', array('default' => 0, 'null' => false));
-            $t->column('queue_slug', 'text', array('limit' => 64));
-            $t->column('queue_email', 'text', array('limit' => 64));
+            $t->column('queue_slug', 'string', array('limit' => 64));
+            $t->column('queue_email', 'string', array('limit' => 64));
             $t->primaryKey(array('queue_id'));
             $t->end();
         }
