@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
- <name>IMP</name>
+ <name>imp</name>
  <channel>pear.horde.org</channel>
  <summary>A web based webmail system</summary>
  <description>IMP, once installed, accesses mail over IMAP thus requiring little to no special preparations on the server on which mail is stored.
@@ -23,8 +23,8 @@ IMP offers most of the features users have come to expect from their conventiona
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-14</date>
- <time>14:33:33</time>
+ <date>2011-02-28</date>
+ <time>23:23:45</time>
  <version>
   <release>4.99.1</release>
   <api>5.0</api>
@@ -116,6 +116,7 @@ IMP offers most of the features users have come to expect from their conventiona
      <file name="Imap.php" role="horde" />
      <file name="Imaptree.php" role="horde" />
      <file name="Mail.php" role="horde" />
+     <file name="Mailbox.php" role="horde" />
      <file name="MailboxList.php" role="horde" />
      <file name="MimeViewer.php" role="horde" />
      <file name="Pgp.php" role="horde" />
@@ -148,9 +149,6 @@ IMP offers most of the features users have come to expect from their conventiona
      <file name="User.php" role="horde" />
     </dir> <!-- /lib/Flag -->
     <dir name="Imap">
-     <dir name="Tree">
-      <file name="Element.php" role="horde" />
-     </dir> <!-- /lib/Imap/Tree -->
      <file name="Acl.php" role="horde" />
      <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
@@ -164,9 +162,11 @@ IMP offers most of the features users have come to expect from their conventiona
      <dir name="Task">
       <file name="DeleteAttachmentsMonthly.php" role="horde" />
       <file name="DeleteSentmailMonthly.php" role="horde" />
+      <file name="FilterOnLogin.php" role="horde" />
       <file name="PurgeSentmail.php" role="horde" />
       <file name="PurgeSpam.php" role="horde" />
       <file name="PurgeTrash.php" role="horde" />
+      <file name="RecoverDraft.php" role="horde" />
       <file name="RenameSentmailMonthly.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/Task -->
     </dir> <!-- /lib/LoginTasks -->
@@ -320,6 +320,7 @@ IMP offers most of the features users have come to expect from their conventiona
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
     <file name="Indices.php" role="horde" />
+    <file name="Mailbox.php" role="horde" />
     <file name="Maillog.php" role="horde" />
     <file name="Message.php" role="horde" />
     <file name="Quota.php" role="horde" />
@@ -1187,6 +1188,7 @@ IMP offers most of the features users have come to expect from their conventiona
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
    <install as="imp/lib/Indices.php" name="lib/Indices.php" />
+   <install as="imp/lib/Mailbox.php" name="lib/Mailbox.php" />
    <install as="imp/lib/Maillog.php" name="lib/Maillog.php" />
    <install as="imp/lib/Message.php" name="lib/Message.php" />
    <install as="imp/lib/Quota.php" name="lib/Quota.php" />
@@ -1212,6 +1214,7 @@ IMP offers most of the features users have come to expect from their conventiona
    <install as="imp/lib/Factory/Imap.php" name="lib/Factory/Imap.php" />
    <install as="imp/lib/Factory/Imaptree.php" name="lib/Factory/Imaptree.php" />
    <install as="imp/lib/Factory/Mail.php" name="lib/Factory/Mail.php" />
+   <install as="imp/lib/Factory/Mailbox.php" name="lib/Factory/Mailbox.php" />
    <install as="imp/lib/Factory/MailboxList.php" name="lib/Factory/MailboxList.php" />
    <install as="imp/lib/Factory/MimeViewer.php" name="lib/Factory/MimeViewer.php" />
    <install as="imp/lib/Factory/Pgp.php" name="lib/Factory/Pgp.php" />
@@ -1239,15 +1242,16 @@ IMP offers most of the features users have come to expect from their conventiona
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
-   <install as="imp/lib/Imap/Tree/Element.php" name="lib/Imap/Tree/Element.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeFromImp4.php" name="lib/LoginTasks/SystemTask/UpgradeFromImp4.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeFromImp4Auth.php" name="lib/LoginTasks/SystemTask/UpgradeFromImp4Auth.php" />
    <install as="imp/lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" name="lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" />
    <install as="imp/lib/LoginTasks/Task/DeleteSentmailMonthly.php" name="lib/LoginTasks/Task/DeleteSentmailMonthly.php" />
+   <install as="imp/lib/LoginTasks/Task/FilterOnLogin.php" name="lib/LoginTasks/Task/FilterOnLogin.php" />
    <install as="imp/lib/LoginTasks/Task/PurgeSentmail.php" name="lib/LoginTasks/Task/PurgeSentmail.php" />
    <install as="imp/lib/LoginTasks/Task/PurgeSpam.php" name="lib/LoginTasks/Task/PurgeSpam.php" />
    <install as="imp/lib/LoginTasks/Task/PurgeTrash.php" name="lib/LoginTasks/Task/PurgeTrash.php" />
+   <install as="imp/lib/LoginTasks/Task/RecoverDraft.php" name="lib/LoginTasks/Task/RecoverDraft.php" />
    <install as="imp/lib/LoginTasks/Task/RenameSentmailMonthly.php" name="lib/LoginTasks/Task/RenameSentmailMonthly.php" />
    <install as="imp/lib/Mailbox/List.php" name="lib/Mailbox/List.php" />
    <install as="imp/lib/Mailbox/List/Track.php" name="lib/Mailbox/List/Track.php" />
@@ -1799,6 +1803,21 @@ IMP offers most of the features users have come to expect from their conventiona
     <api>alpha</api>
    </stability>
    <date>2011-02-14</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.99.1</release>
+    <api>5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-02-28</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * Initial release.
