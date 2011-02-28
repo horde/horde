@@ -70,6 +70,21 @@ implements Horde_Kolab_Storage
     }
 
     /**
+     * Get a folder list object for a "system" user.
+     *
+     * @param string $type The type of system user.
+     *
+     * @return Horde_Kolab_Storage_List The handler for the list of folders
+     *                                  present in the Kolab backend.
+     */
+    public function getSystemList($type)
+    {
+        $list = $this->_storage->getSystemList($type);
+        $this->_synchronization->synchronizeList($list);
+        return $list;
+    }
+
+    /**
      * Get a Folder object.
      *
      * @param string $folder The folder name.

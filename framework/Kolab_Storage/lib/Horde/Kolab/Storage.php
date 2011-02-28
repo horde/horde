@@ -59,6 +59,16 @@ interface Horde_Kolab_Storage
     public function getList();
 
     /**
+     * Get a folder list object for a "system" user.
+     *
+     * @param string $type The type of system user.
+     *
+     * @return Horde_Kolab_Storage_List The handler for the list of folders
+     *                                  present in the Kolab backend.
+     */
+    public function getSystemList($type);
+
+    /**
      * Get a folder representation.
      *
      * @param string $folder The folder name.
