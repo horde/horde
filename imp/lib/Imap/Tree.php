@@ -1708,6 +1708,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                 !$curr->nonimap &&
                 ($this->_tree[$curr->parent] && self::ELT_NOSHOW)) {
                 $this->next();
+                return;
             }
         } else {
             /* Else, increment within the current subfolder. */
