@@ -81,7 +81,7 @@ class Hermes_Application extends Horde_Registry_Application
                 1,
                 false,
                 array(
-                    'icon' => 'hermes.png',
+                    'icon' => Horde_Themes::img('hermes.png'),
                     'url' => Horde::url('entry.php')
                 )
             );
@@ -93,7 +93,7 @@ class Hermes_Application extends Horde_Registry_Application
                 1,
                 false,
                 array(
-                    'icon' => 'search.png',
+                    'icon' => Horde_Themes::img('search.png'),
                     'url' => Horde::url('search.php')
                 )
             );
@@ -110,7 +110,7 @@ class Hermes_Application extends Horde_Registry_Application
                 1,
                 false,
                 array(
-                    'icon' => 'timer-start.png',
+                    'icon' => Horde_Themes::img('timer-start.png'),
                     'onclick' => "popup('" . Horde::url('start.php') . "', 400, 100); return false;",
                     'url' => '#'
                 )
@@ -126,7 +126,7 @@ class Hermes_Application extends Horde_Registry_Application
                         1,
                         false,
                         array(
-                            'icon' => 'timer-stop.png',
+                            'icon' => Horde_Themes::img('timer-stop.png'),
                             'url' => $entry->add('timer', $i)
                         )
                     );
