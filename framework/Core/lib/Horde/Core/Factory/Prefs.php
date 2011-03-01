@@ -90,7 +90,9 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             try {
                 switch ($driver) {
                 case 'Horde_Prefs_Storage_Ldap':
-                    $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'ldap');
+                    $params['ldap'] = $this->_injector
+                        ->getInstance('Horde_Core_Factory_Ldap')
+                        ->create('horde', 'ldap');
                     break;
 
                 case 'Horde_Prefs_Storage_Session':
@@ -99,7 +101,8 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                     break;
 
                 case 'Horde_Prefs_Storage_Sql':
-                    $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+                    $params['db'] = $this->_injector
+                        ->getInstance('Horde_Db_Adapter');
                     break;
                 }
             } catch (Horde_Exception $e) {
