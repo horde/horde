@@ -102,7 +102,7 @@ class IMP_Mailbox implements Serializable
     static public function get($mbox)
     {
         if (is_array($mbox)) {
-            return array_filter(array_map(array(self, 'get'), $mbox));
+            return array_filter(array_map(array(__CLASS__, 'get'), $mbox));
         }
 
         try {
