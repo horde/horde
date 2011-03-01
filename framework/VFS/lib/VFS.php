@@ -125,14 +125,14 @@ class VFS
 
     /**
      * Setter for the log object.
-     * 
-     * @param Horde_Log_Logger $logger 
+     *
+     * @param Horde_Log_Logger $logger
      */
     public function setLogger(Horde_Log_Logger $logger)
     {
         $this->_logger = $logger;
     }
-    
+
     /**
      * TODO
      *

@@ -51,7 +51,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
     /**
      * Returns the VFS driver parameters for the specified backend.
      *
-     * @param string $name  The VFS system name  being used.
+     * @param string $name  The VFS system name being used.
      *
      * @return array  A hash with the VFS parameters; the VFS driver in 'type'
      *                and the connection parameters in 'params'.

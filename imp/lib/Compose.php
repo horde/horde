@@ -626,7 +626,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             ((!$prefs->isLocked('save_sent_mail') && !empty($opts['save_sent'])) ||
              ($prefs->isLocked('save_sent_mail') &&
               $prefs->getValue('save_sent_mail')))) {
-
             $mime_message = $save_msg['msg'];
 
             /* Keep Bcc: headers on saved messages. */
