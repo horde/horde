@@ -146,7 +146,7 @@ class IMP_Mailbox implements Serializable
      */
     public function __toString()
     {
-        return $this->_mbox;
+        return strval($this->_mbox);
     }
 
     /**
