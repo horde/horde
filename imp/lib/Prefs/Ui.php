@@ -685,8 +685,8 @@ class IMP_Prefs_Ui
             $GLOBALS['notification']->push($e);
             $curr_acl = array();
         }
+
         $canEdit = $acl->canEdit($folder, $GLOBALS['registry']->getAuth());
-        $canEdit = false;
 
         if (!$canEdit) {
             $GLOBALS['notification']->push(_("You do not have permission to change access to this folder."), 'horde.warning');
