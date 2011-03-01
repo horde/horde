@@ -33,7 +33,7 @@
        <tasks:id>first</tasks:id>
        <tasks:param>
         <tasks:name>horde_dir</tasks:name>
-        <tasks:prompt>Filesystem location where the Horde application is installed.</tasks:prompt>
+        <tasks:prompt>Filesystem location for the base Horde application</tasks:prompt>
         <tasks:type>string</tasks:type>
        </tasks:param>
       </tasks:paramgroup>
