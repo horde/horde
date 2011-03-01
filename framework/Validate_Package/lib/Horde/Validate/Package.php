@@ -39,7 +39,7 @@ class Horde_Validate_Package extends PEAR_Validate
      *
      * @var string
      */
-    protected $_versionregex = '/^(h\d-)?(\d+)\.(\d+)(.\d+)?(-(alpha|beta|rc\d+))?$/';
+    protected $_versionregex = '/^(\d+)\.(\d+)(.\d+)?(-(alpha|beta|rc\d+))?$/';
 
     /**
      * Determines whether a version is a properly formatted version number that
@@ -81,17 +81,7 @@ class Horde_Validate_Package extends PEAR_Validate
 
         /* Validate applications. */
         if (!$framework) {
-            if ($name == 'horde' && !empty($match[1])) {
-                $this->_addFailure('version',
-                                   'Horde releases must not have a hN- prefix.');
-                return false;
-            }
-            if ($name != 'horde' && empty($match[1])) {
-                $this->_addFailure('version',
-                                   'Application releases must have a hN- prefix.');
-                return false;
-            }
-            if (!empty($match[4]) && $match[4] === '.0') {
+            if (!empty($match[3]) && $match[3] === '.0') {
                 $this->_addFailure('version',
                                    'An initial minor version number should have 2 decimals (x.0)');
                 return false;
@@ -101,37 +91,37 @@ class Horde_Validate_Package extends PEAR_Validate
         /* Version checks based on state. */
         $state = $this->_packagexml->getState();
 
-        if (!empty($match[6]) && $match[6] == 'alpha' && $state != 'alpha') {
+        if (!empty($match[5]) && $match[5] == 'alpha' && $state != 'alpha') {
             $this->_addFailure('version',
                                'Alpha versions must have the state alpha');
             return false;
         }
         if (!$framework && $state == 'alpha' &&
-            (empty($match[6]) || $match[6] != 'alpha')) {
+            (empty($match[5]) || $match[5] != 'alpha')) {
             $this->_addFailure('version',
                                'Application releases with alpha state must have an -alpha suffix');
             return false;
         }
-        if (!empty($match[6]) &&
-            ($match[6] == 'beta' || substr($match[6], 0, 2) == 'rc') &&
+        if (!empty($match[5]) &&
+            ($match[5] == 'beta' || substr($match[5], 0, 2) == 'rc') &&
             $state != 'beta') {
             $this->_addFailure('version',
                                'Beta versions and release candidates must have the state beta');
             return false;
         }
         if (!$framework && $state == 'beta' &&
-            (empty($match[6]) ||
-             ($match[6] != 'beta' && substr($match[6], 0, 2) != 'rc'))) {
+            (empty($match[5]) ||
+             ($match[5] != 'beta' && substr($match[5], 0, 2) != 'rc'))) {
             $this->_addFailure('version',
                                'Application releases with beta state must have an -beta or -rcN suffix');
             return false;
         }
-        if ($state == 'stable' && !empty($match[5])) {
+        if ($state == 'stable' && !empty($match[4])) {
             $this->_addFailure('version',
                                'Stables releases must not have a suffix');
             return false;
         }
-        if ($state == 'stable' && $match[2] == 0) {
+        if ($state == 'stable' && $match[1] == 0) {
             $this->_addFailure('version',
                                'Stables releases must have a version number of at least 1.0');
             return false;
