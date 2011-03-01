@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+ * Horde_Imap_Client_Base#getNamespaces() now returns integer constants for the 'type' parameter.
  * Add Horde_Imap_Client_Data_Fetch data object.
  * Add Horde_Imap_Client_Ids data object.
  * Add Horde_Imap_Client_Fetch_Query data object.

@@ -98,6 +98,11 @@ class Horde_Imap_Client
     const DATA_NUMBER = 7;
     const DATA_STRING = 8;
 
+    /* Namespace constants. */
+    const NS_PERSONAL = 1;
+    const NS_OTHER = 2;
+    const NS_SHARED = 3;
+
     /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.

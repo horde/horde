@@ -471,8 +471,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                 server supports RFC 5255 and the language has previous
      *                 been set via setLanguage(). The translation will be in
      *                 UTF7-IMAP.
-     * 'type' - (string) The namespace type (either 'personal', 'other' or
-     *          'shared').
+     * 'type' - (integer) The namespace type (either
+     *          Horde_Imap_Client::NS_PERSONAL, Horde_Imap_Client::NS_OTHER,
+     *          or Horde_Imap_Client::NS_SHARED).
      * </pre>
      * @throws Horde_Imap_Client_Exception
      */
@@ -503,7 +504,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $ns[$val] = array(
                     'name' => $val,
                     'delimiter' => $first['delimiter'],
-                    'type' => 'shared',
+                    'type' => Horde_Imap_Client::NS_SHARED,
                     'hidden' => true
                 );
             }
@@ -518,7 +519,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $ns[''] = array(
                 'name' => '',
                 'delimiter' => $first['delimiter'],
-                'type' => 'personal',
+                'type' => Horde_Imap_Client::NS_PERSONAL,
                 'hidden' => false
             );
         }

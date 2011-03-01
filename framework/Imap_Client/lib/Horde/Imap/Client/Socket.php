@@ -208,9 +208,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseNamespace($data)
     {
         $namespace_array = array(
-            0 => 'personal',
-            1 => 'other',
-            2 => 'shared'
+            Horde_Imap_Client::NS_PERSONAL,
+            Horde_Imap_Client::NS_OTHER,
+            Horde_Imap_Client::NS_SHARED
         );
 
         $c = &$this->_temp['namespace'];
