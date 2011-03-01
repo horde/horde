@@ -44,7 +44,7 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
      * @throws Horde_Exception
      * @throws Horde_Ldap_Exception
      */
-    public function getLdap($app = 'horde', $type = null)
+    public function create($app = 'horde', $type = null)
     {
         $sig = $app . '|' . $type;
 

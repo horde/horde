@@ -121,20 +121,27 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 break;
 
             case 'kolab':
-                $params['kolab'] = $this->_injector->getInstance('Horde_Kolab_Session');
+                $params['kolab'] = $this->_injector
+                    ->getInstance('Horde_Kolab_Session');
                 break;
 
             case 'horde_core_auth_ldap':
             case 'horde_core_auth_msad':
-                $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'auth');
+                $params['ldap'] = $this->_injector
+                ->getInstance('Horde_Core_Factory_Ldap')
+                ->create('horde', 'auth');
                 break;
 
             case 'customsql':
             case 'sql':
-                if (!empty($params['driverconfig']) && $params['driverconfig'] == 'horde') {
-                    $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+                if (!empty($params['driverconfig']) &&
+                    $params['driverconfig'] == 'horde') {
+                    $params['db'] = $this->_injector
+                        ->getInstance('Horde_Db_Adapter');
                 } else {
-                    $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'auth');
+                    $params['db'] = $this->_injector
+                        ->getInstance('Horde_Core_Factory_Db')
+                        ->create('horde', 'auth');
                 }
                 break;
             }
