@@ -52,7 +52,7 @@ abstract class Horde_Token_Base
      * Checks if the given token has been previously used. First
      * purges all expired tokens. Then retrieves current tokens for
      * the given ip address. If the specified token was not found,
-     * it is being stored as used in the backend.
+     * adds it.
      *
      * @param string $token  The value of the token to check.
      *
@@ -63,12 +63,11 @@ abstract class Horde_Token_Base
     {
         $this->purge();
 
-        $nonce = $this->_decodeNonce($token);
-        if ($this->exists($nonce)) {
+        if ($this->exists($token)) {
             return false;
         }
 
-        $this->add($nonce);
+        $this->add($token);
         return true;
     }
 
@@ -138,7 +137,7 @@ abstract class Horde_Token_Base
             return false;
         }
         if ($unique) {
-            return $this->verify($token);
+            return $this->verify($nonce);
         }
         return true;
     }
@@ -199,19 +198,6 @@ abstract class Horde_Token_Base
     {
         $b = Horde_Url::uriB64Decode($token);
         return array(substr($b, 0, 6), substr($b, 6));
-    }
-
-    /**
-     * Extract the nonce from the token.
-     *
-     * @param string $token The token to be decomposed.
-     *
-     * @return string The nonce.
-     */
-    private function _decodeNonce($token)
-    {
-        $b = Horde_Url::uriB64Decode($token);
-        return substr($b, 0, 6);
     }
 
     /**
