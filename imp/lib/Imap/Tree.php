@@ -1846,7 +1846,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      * Is the given element an "active" element (i.e. an element that should
      * be worked with given the current viewing parameters).
      *
-     * @param IMP_Mailbox $elt  A mailbox element.
+     * @param IMP_Mailbox $elt      A mailbox element.
+     * @param boolean $child_check  Check children?
      *
      * @return boolean  True if it is an active element.
      */
