@@ -27,7 +27,7 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
     public function execute()
     {
         /* Purge non-existent nav_poll entries. */
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(true, true);
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->prunePollList();
 
         /* Do garbage collection on sentmail entries. */
         $GLOBALS['injector']->getInstance('IMP_Sentmail')->gc();

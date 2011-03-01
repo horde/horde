@@ -191,8 +191,7 @@ class IMP_Mailbox implements Serializable
             }
 
             try {
-                $ret = $injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox, array('flat' => true));
-                return !empty($ret);
+                return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox, array('flat' => true));
             } catch (Horde_Imap_Client_Exception $e) {
                 return false;
             }

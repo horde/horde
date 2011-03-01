@@ -977,22 +977,22 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Initializes and returns the list of mailboxes to poll.
      *
-     * @param boolean $sort   Sort the directory list?
-     * @param boolean $prune  Prune non-existent folders from list?
+     * @param boolean $sort  Sort the directory list?
      *
      * @return array  The list of mailboxes to poll (IMP_Mailbox objects).
      */
-    public function getPollList($sort = false, $prune = false)
+    public function getPollList($sort = false)
     {
         $this->_initPollList();
 
-        $plist = $prune
-            ? array_values(array_intersect(array_keys($this->_cache['poll']), array_keys($this->_tree)))
-            : array_keys($this->_cache['poll']);
+        $plist = array_keys($this->_cache['poll']);
 
         if ($sort) {
             $ns_new = $this->_getNamespace(null);
-            Horde_Imap_Client_Sort::sortMailboxes($plist, array('delimiter' => $ns_new['delimiter'], 'inbox' => true));
+            Horde_Imap_Client_Sort::sortMailboxes($plist, array(
+                'delimiter' => $ns_new['delimiter'],
+                'inbox' => true
+            ));
         }
 
         return IMP_Mailbox::get(array_filter($plist));
@@ -1098,6 +1098,27 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     {
         $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_cache['poll']));
         $this->changed = true;
+    }
+
+    /**
+     * Prune non-existent folders from poll list.
+     */
+    public function prunePollList()
+    {
+        $this->_initPollList();
+
+        $update = false;
+
+        foreach (array_keys($this->_cache['poll']) as $key) {
+            if (!IMP_Mailbox::get($key)->exists) {
+                unset($this->_cache['poll'][$key]);
+                $update = true;
+            }
+        }
+
+        if ($update) {
+            $this->_updatePollList();
+        }
     }
 
     /**
