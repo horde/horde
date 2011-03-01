@@ -18,6 +18,83 @@ class Horde_Group_Test_Sql extends Horde_Group_Test_Base
 
     protected static $reason;
 
+    public function testCreate()
+    {
+        $this->_create();
+    }
+
+    /**
+     * @depends testCreate
+     */
+    public function testExists()
+    {
+        $this->_exists();
+    }
+
+    /**
+     * @depends testExists
+     */
+    public function testGetName()
+    {
+        $this->_getName();
+    }
+
+    /**
+     * @depends testExists
+     */
+    public function testSearch()
+    {
+        $this->_search();
+    }
+
+    /**
+     * @depends testExists
+     */
+    public function testAddUser()
+    {
+        $this->_addUser();
+    }
+
+    /**
+     * @depends testAddUser
+     */
+    public function testListUsers()
+    {
+        $this->_listUsers();
+    }
+
+    /**
+     * @depends testAddUser
+     */
+    public function testListGroups()
+    {
+        $this->_listGroups();
+    }
+
+    /**
+     * @depends testListUsers
+     */
+    public function testRemoveUser()
+    {
+        $this->_removeUser();
+    }
+
+    /**
+     * @depends testExists
+     */
+    public function testRename()
+    {
+        $this->_rename();
+    }
+
+    /**
+     * @depends testExists
+     */
+    public function testRemove()
+    {
+        $this->_remove();
+    }
+
     public static function setUpBeforeClass()
     {
         // FIXME: get migration directory if not running from Git checkout.
