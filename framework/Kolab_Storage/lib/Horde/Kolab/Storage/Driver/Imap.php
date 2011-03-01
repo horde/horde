@@ -238,6 +238,21 @@ extends Horde_Kolab_Storage_Driver_Base
                     if (in_array($namespace['name'], array_keys($configuration))) {
                         $namespace = array_merge($namespace, $configuration[$namespace['name']]);
                     }
+
+                    switch ($namespace['type']) {
+                    case Horde_Imap_Client::NS_PERSONAL:
+                        $namespace['type'] = Horde_Kolab_Storage_Folder_Namespace::PERSONAL;
+                        break;
+
+                    case Horde_Imap_Client::NS_OTHER:
+                        $namespace['type'] = Horde_Kolab_Storage_Folder_Namespace::OTHER;
+                        break;
+
+                    case Horde_Imap_Client::NS_SHARED:
+                        $namespace['type'] = Horde_Kolab_Storage_Folder_Namespace::SHARED;
+                        break;
+                    }
+
                     $c[] = $namespace;
                 }
                 $this->_namespace = $this->getFactory()->createNamespace('imap', $this->getAuth(), $c);

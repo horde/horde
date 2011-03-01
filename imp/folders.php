@@ -176,9 +176,8 @@ case 'rename_folder':
             $new = trim($new_names[$i], $old_ns['delimiter']);
 
             /* If this is a personal namespace, then anything goes as far as
-             * the input. Just append the personal namespace to it. For
-             * others, add the  */
-            if (($old_ns['type'] == 'personal') ||
+             * the input. Just append the personal namespace to it. */
+            if (($old_ns['type'] == Horde_Imap_Client::NS_PERSONAL) ||
                 ($old_ns['name'] &&
                  (stripos($new_names[$i], $old_ns['name']) !== 0))) {
                 $new = $old_ns['name'] . $new;

@@ -213,12 +213,13 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         /* Add namespace elements. */
         foreach ($this->_namespaces as $key => $val) {
-            if (($val['type'] != 'personal') && $prefs->getValue('tree_view')) {
+            if (($val['type'] != Horde_Imap_Client::NS_PERSONAL) &&
+                $prefs->getValue('tree_view')) {
                 $elt = $this->_makeElt(
-                    ($val['type'] == 'other') ? self::OTHER_KEY : self::SHARED_KEY,
+                    ($val['type'] == Horde_Imap_Client::NS_OTHER) ? self::OTHER_KEY : self::SHARED_KEY,
                     self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP | self::ELT_NOSHOW
                 );
-                $elt['l'] = ($val['type'] == 'other')
+                $elt['l'] = ($val['type'] == Horde_Imap_Client::NS_OTHER)
                     ? _("Other Users' Folders")
                     : _("Shared Folders");
 
@@ -348,7 +349,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
             if (!is_null($ns_info)) {
                 switch ($ns_info['type']) {
-                case 'personal':
+                case Horde_Imap_Client::NS_PERSONAL:
                     /* Strip personal namespace. */
                     if (!empty($ns_info['name']) && ($elt['c'] != 0)) {
                         --$elt['c'];
@@ -360,14 +361,16 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                     }
                     break;
 
-                case 'other':
-                case 'shared':
+                case Horde_Imap_Client::NS_OTHER:
+                case Horde_Imap_Client::NS_SHARED:
                     if (substr($ns_info['name'], 0, -1 * strlen($ns_info['delimiter'])) == $elt['v']) {
                         $elt['a'] = self::ELT_NOSELECT | self::ELT_NAMESPACE;
                     }
 
                     if ($GLOBALS['prefs']->getValue('tree_view')) {
-                        $name = ($ns_info['type'] == 'other') ? self::OTHER_KEY : self::SHARED_KEY;
+                        $name = ($ns_info['type'] == Horde_Imap_Client::NS_OTHER)
+                            ? self::OTHER_KEY
+                            : self::SHARED_KEY;
                         if ($elt['c'] == 0) {
                             $elt['p'] = $name;
                             ++$elt['c'];
@@ -1458,7 +1461,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         if (is_null($ns_info)) {
             if ($this->isNamespace($this->_tree[$parent])) {
                 $ns_info = $this->_getNamespace($new);
-                if (in_array($ns_info['type'], array('other', 'shared'))) {
+                if (in_array($ns_info['type'], array(Horde_Imap_Client::NS_OTHER, Horde_Imap_Client::NS_SHARED))) {
                     return $new;
                 }
             }

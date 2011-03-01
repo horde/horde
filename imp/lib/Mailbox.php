@@ -678,7 +678,7 @@ class IMP_Mailbox implements Serializable
         /* Strip namespace information. */
         if (!is_null($ns_info) &&
             !empty($ns_info['name']) &&
-            ($ns_info['type'] == 'personal') &&
+            ($ns_info['type'] == Horde_Imap_Client::NS_PERSONAL) &&
             substr($this->_mbox, 0, strlen($ns_info['name'])) == $ns_info['name']) {
             $out = substr($this->_mbox, strlen($ns_info['name']));
         } else {

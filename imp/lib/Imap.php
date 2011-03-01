@@ -232,7 +232,7 @@ class IMP_Imap implements Serializable
     /**
      * Get the namespace list.
      *
-     * @return array  An array of namespace information.
+     * @return array  See Horde_Imap_Client_Base#getNamespaces().
      */
     public function getNamespaceList()
     {
@@ -274,7 +274,7 @@ class IMP_Imap implements Serializable
             }
         }
 
-        return (isset($ns['']) && (!$personal || ($val['type'] == 'personal')))
+        return (isset($ns['']) && (!$personal || ($val['type'] == Horde_Imap_Client::NS_PERSONAL)))
             ? $ns['']
             : null;
     }
@@ -293,7 +293,7 @@ class IMP_Imap implements Serializable
         if (!isset($this->_nsdefault)) {
             $this->_nsdefault = null;
             foreach ($this->getNamespaceList() as $val) {
-                if ($val['type'] == 'personal') {
+                if ($val['type'] == Horde_Imap_Client::NS_PERSONAL) {
                     $this->_nsdefault = $val;
                     break;
                 }

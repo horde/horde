@@ -298,7 +298,7 @@ if (IMP::$mailbox == 'INBOX') {
     $ns_info = $imp_imap->getNamespace(IMP::$mailbox);
     if ($ns_info !== null) {
         if (!empty($ns_info['name']) &&
-            $ns_info['type'] == 'personal' &&
+            ($ns_info['type'] == Horde_Imap_Client::NS_PERSONAL) &&
             substr(IMP::$mailbox, 0, strlen($ns_info['name'])) == $ns_info['name']) {
             $rss_box = substr(IMP::$mailbox, strlen($ns_info['name']));
         }
