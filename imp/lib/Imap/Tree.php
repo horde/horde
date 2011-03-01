@@ -980,7 +980,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      * @param boolean $sort   Sort the directory list?
      * @param boolean $prune  Prune non-existent folders from list?
      *
-     * @return array  The list of mailboxes to poll.
+     * @return array  The list of mailboxes to poll (IMP_Mailbox objects).
      */
     public function getPollList($sort = false, $prune = false)
     {
@@ -995,7 +995,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             Horde_Imap_Client_Sort::sortMailboxes($plist, array('delimiter' => $ns_new['delimiter'], 'inbox' => true));
         }
 
-        return array_filter($plist);
+        return IMP_Mailbox::get(array_filter($plist));
     }
 
     /**
@@ -1008,11 +1008,9 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             $this->_cache['poll'] = array('INBOX' => 1);
 
             /* Add the list of polled mailboxes from the prefs. */
-            if ($GLOBALS['prefs']->getValue('nav_poll_all')) {
-                $navPollList = array_flip(array_keys($this->_getList(true)));
-            } else {
-                $navPollList = @unserialize($GLOBALS['prefs']->getValue('nav_poll'));
-            }
+            $navPollList = $GLOBALS['prefs']->getValue('nav_poll_all')
+                ? array_flip(array_keys($this->_getList(true)))
+                : @unserialize($GLOBALS['prefs']->getValue('nav_poll'));
 
             if ($navPollList) {
                 $this->_cache['poll'] += $navPollList;
@@ -1040,13 +1038,15 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         $this->_initPollList();
 
-        foreach ($id as $val) {
-            if (!$this->isSubscribed($this->_tree[$val])) {
+        foreach (IMP_Mailbox::get($id) as $val) {
+            $mbox_str = strval($val);
+
+            if (!$this->isSubscribed($this->_tree[$mbox_str])) {
                 $imp_folder->subscribe(array($val));
             }
-            $this->_setPolled($this->_tree[$val], true);
-            if (empty($this->_cache['poll'][$val])) {
-                $this->_cache['poll'][$val] = true;
+            $this->_setPolled($this->_tree[$mbox_str], true);
+            if (empty($this->_cache['poll'][$mbox_str])) {
+                $this->_cache['poll'][$mbox_str] = true;
                 $changed = true;
             }
         }
@@ -1059,8 +1059,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     /**
      * Remove element from the poll list.
      *
-     * @param string $id  The folder/mailbox or a list of folders/mailboxes
-     *                    to remove.
+     * @param mixed $id  The folder/mailbox or a list of folders/mailboxes to
+     *                   remove.
      */
     public function removePollList($id)
     {
@@ -1076,11 +1076,11 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         $this->_initPollList();
 
-        foreach ($id as $val) {
-            if ($val != 'INBOX') {
-                unset($this->_cache['poll'][$val]);
-                if (isset($this->_tree[$val])) {
-                    $this->_setPolled($this->_tree[$val], false);
+        foreach (IMP_Mailbox::get($id) as $val) {
+            if (!$val->inbox) {
+                unset($this->_cache['poll'][strval($val)]);
+                if (isset($this->_tree[strval($val)])) {
+                    $this->_setPolled($this->_tree[strval($val)], false);
                 }
                 $removed = true;
             }

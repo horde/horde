@@ -46,38 +46,42 @@ class IMP_Ui_Block
             ? Horde::url('mailbox.php')
             : Horde::url('#')->setAnchor('folder');
 
-        foreach ($poll as $folder) {
-            if (isset($status[$folder]) &&
-                (($folder == 'INBOX') ||
+        foreach ($poll as $mbox) {
+            $mbox_str = strval($mbox);
+
+            if (isset($status[$mbox_str]) &&
+                (($mbox_str == 'INBOX') ||
                  ($GLOBALS['session']->get('imp', 'protocol') != 'pop')) &&
                 (empty($this->_params['show_unread']) ||
-                 !empty($status[$folder]['unseen']))) {
-                if (!empty($status[$folder]['recent'])) {
-                    $newmsgs[$folder] = $status[$folder]['recent'];
+                 !empty($status[$mbox_str]['unseen']))) {
+                 $mbox_status = $status[$mbox_str];
+
+                if (!empty($mbox_status['recent'])) {
+                    $newmsgs[$mbox_str] = $mbox_status['recent'];
                 }
 
                 if ($mode != 'imp') {
-                    $onclick = ' onclick="try{DimpBase.go(\'mbox\', \'' . htmlspecialchars($folder) . '\');}catch(e){window.location=\'' . htmlspecialchars($mbox_url . rawurlencode(':' . $folder)) . '\';}return false;"';
+                    $onclick = ' onclick="try{DimpBase.go(\'mbox\', \'' . htmlspecialchars($mbox_str) . '\');}catch(e){window.location=\'' . htmlspecialchars($mbox_url . rawurlencode(':' . $mbox_str)) . '\';}return false;"';
                 }
 
                 $html .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
 
-                if (!empty($status[$folder]['unseen'])) {
+                if (!empty($mbox_status['unseen'])) {
                     $html .= '<strong>';
                     $anyUnseen = true;
                 }
 
                 $html .= ($mode == 'imp'
-                          ? Horde::link($mbox_url->add('mailbox', $folder))
+                          ? Horde::link($mbox_url->add('mailbox', $mbox_str))
                           : '<a>')
-                    . IMP_Mailbox::get($folder)->display . '</a>';
+                    . $mbox->display . '</a>';
 
-                if (!empty($status[$folder]['unseen'])) {
+                if (!empty($mbox_status['unseen'])) {
                     $html .= '</strong>';
                 }
                 $html .= '</td><td>' .
-                    (!empty($status[$folder]['unseen']) ? '<strong>' . $status[$folder]['unseen'] . '</strong>' : '0') .
-                    (!empty($this->_params['show_total']) ? '</td><td>(' . $status[$folder]['messages'] . ')' : '') .
+                    (!empty($mbox_status['unseen']) ? '<strong>' . $mbox_status['unseen'] . '</strong>' : '0') .
+                    (!empty($this->_params['show_total']) ? '</td><td>(' . $mbox_status['messages'] . ')' : '') .
                     '</td></tr>';
             }
         }
