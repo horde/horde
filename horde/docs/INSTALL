@@ -485,7 +485,7 @@ supposed to be installed. This should be a directory in your web server's web
 root, e.g. ``/var/www/horde``. Again this has to be done only **once** ever on
 a single PEAR system::
 
-   pear install horde/role
+   pear install horde/horde_role
    pear run-scripts horde/horde_role
 
 When installing Horde through PEAR now, the installer will automatically
