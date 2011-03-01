@@ -518,7 +518,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     {
         $val = parent::getValue($key, $identity);
         return (($key == 'sent_mail_folder') && strlen($val))
-            ? IMP_Mailbox::get($val)
+            ? IMP_Mailbox::get(IMP_Mailbox::prefFrom($val))
             : $val;
     }
 
