@@ -49,13 +49,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     protected $_filter = 0;
 
     /**
-     * Iterator pointer.
-     *
-     * @var array
-     */
-    protected $_iteratorPtr;
-
-    /**
      * Search queries.
      *
      * Each subarray contains:
