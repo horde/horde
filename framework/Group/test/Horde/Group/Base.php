@@ -28,16 +28,12 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _exists()
     {
-        $this->markTestIncomplete();
-
-        $this->assertTrue(self::$group->exists(self::$groupids));
+        $this->assertTrue(self::$group->exists(self::$groupids[0]));
         $this->assertFalse(self::$group->exists('some_non_existing_id'));
     }
 
     protected function _getName()
     {
-        $this->markTestIncomplete();
-
         $this->assertEquals('My Group',
                             self::$group->getName(self::$groupids[0]));
         $this->assertEquals('My Other Group',
@@ -48,8 +44,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _listAll()
     {
-        $this->markTestIncomplete();
-
         $groups = self::$group->list();
         $this->assertEquals(3, count($groups));
         $this->assertEquals('My Group',       $groups[self::$groupids[0]]);
@@ -59,8 +53,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _search()
     {
-        $this->markTestIncomplete();
-
         $groups = self::$group->search('My Group');
         $this->assertEquals(2, count($groups));
         $this->assertEquals('My Group',     $groups[self::$groupids[0]]);
@@ -69,8 +61,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _addUser()
     {
-        $this->markTestIncomplete();
-
         $this->assertNull(self::$group->addUser(self::$groupids[0], 'joe'));
         self::$group->addUser(self::$groupids[1], 'joe');
         self::$group->addUser(self::$groupids[1], 'jane');
@@ -78,8 +68,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _listUsers()
     {
-        $this->markTestIncomplete();
-
         $users = self::$group->listUsers(self::$groupids[0]);
         $this->assertEquals(1, count($users));
         $this->assertTrue(in_array('joe', $users));
@@ -91,8 +79,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _listGroups()
     {
-        $this->markTestIncomplete();
-
         $groups = self::$group->listGroups('joe');
         $this->assertEquals(2, count($groups));
         $this->assertEquals('My Group',       $groups[self::$groupids[0]]);
@@ -104,8 +90,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _removeUser()
     {
-        $this->markTestIncomplete();
-
         $this->assertNull(self::$group->removeUser(self::$groupids[1], 'joe'));
         $groups = self::$group->listGroups('joe');
         $this->assertEquals(1, count($groups));
@@ -117,8 +101,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _rename()
     {
-        $this->markTestIncomplete();
-
         self::$group->rename(self::$groupids[1], 'My Second Group');
         $this->assertEquals('My Second Group',
                             self::$group->getName(self::$groupids[1]));
@@ -126,8 +108,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _remove()
     {
-        $this->markTestIncomplete();
-
         self::$group->remove(self::$groupids[0]);
         $this->assertFalse(self::$group->exists(self::$groupids[0]));
     }

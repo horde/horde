@@ -45,7 +45,6 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function create($name, $email = null)
     {
-        //var_dump($this->_db->selectAll('PRAGMA table_info(horde_groups)'));
         try {
             return $this->_db->insert(
                 'INSERT INTO horde_groups (group_name, group_email) VALUES (?, ?)',
@@ -63,6 +62,13 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function rename($gid, $name)
     {
+        try {
+            return $this->_db->update(
+                'UPDATE horde_groups SET group_name = ? WHERE group_uid = ?',
+                array($name, $gid));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -72,6 +78,18 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function remove($gid)
     {
+        try {
+            $this->_db->beginDbTransaction();
+            $this->_db->delete(
+                'DELETE FROM horde_groups_members WHERE group_uid = ?',
+                array($gid));
+            $this->_db->delete(
+                'DELETE FROM horde_groups WHERE group_uid = ?',
+                array($gid));
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -83,6 +101,13 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function exists($gid)
     {
+        try {
+            return (bool)$this->_db->selectValue(
+                'SELECT 1 FROM horde_groups WHERE group_uid = ?',
+                array($gid));
+        } catch (Horde_Db_Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -94,6 +119,13 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function getName($gid)
     {
+        try {
+            return $this->_db->selectValue(
+                'SELECT group_name FROM horde_groups WHERE group_uid = ?',
+                array($gid));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -103,6 +135,11 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function listAll()
     {
+        try {
+            return $this->_db->selectAssoc('SELECT group_uid, group_name FROM horde_groups');
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -114,6 +151,13 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function listUsers($gid)
     {
+        try {
+            return $this->_db->selectValues(
+                'SELECT user_uid FROM horde_groups_members WHERE group_uid = ? ORDER BY user_uid ASC',
+                array($gid));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -125,6 +169,13 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function listGroups($user)
     {
+        try {
+            return $this->_db->selectAssoc(
+                'SELECT g.group_uid AS group_uid, g.group_name AS group_name FROM horde_groups g, horde_groups_members m WHERE m.user_uid = ? AND g.group_uid = m.group_uid ORDER BY g.group_name',
+                array($user));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -135,6 +186,12 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function addUser($gid, $user)
     {
+        try {
+            $this->_db->insert(
+                'INSERT INTO horde_groups_members (group_uid, user_uid) VALUES (?, ?)', array($gid, $user));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -145,6 +202,13 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function removeUser($gid, $user)
     {
+        try {
+            $this->_db->delete(
+                'DELETE FROM horde_groups_members WHERE group_uid = ? AND user_uid = ?',
+                array($gid, $user));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -157,6 +221,13 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function search($name)
     {
+        try {
+            return $this->_db->selectAssoc(
+                'SELECT group_uid, group_name FROM horde_groups WHERE group_name LIKE ?',
+                array('%' . $name . '%'));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
 //    /**
