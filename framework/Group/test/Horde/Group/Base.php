@@ -21,7 +21,7 @@ class Horde_Group_Test_Base extends Horde_Test_Case
     protected function _create()
     {
         self::$groupids[] = self::$group->create('My Group');
-        $this->assertNotNull(self::$groupid);
+        $this->assertNotNull(self::$groupids);
         self::$groupids[] = self::$group->create('My Other Group');
         self::$groupids[] = self::$group->create('Not My Group');
     }
@@ -30,7 +30,7 @@ class Horde_Group_Test_Base extends Horde_Test_Case
     {
         $this->markTestIncomplete();
 
-        $this->assertTrue(self::$group->exists(self::$groupid));
+        $this->assertTrue(self::$group->exists(self::$groupids));
         $this->assertFalse(self::$group->exists('some_non_existing_id'));
     }
 
