@@ -33,4 +33,13 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
-class Passwd_Application extends Horde_Registry_Application {}
+class Passwd_Application extends Horde_Registry_Application {
+    /**
+     * The version of passwd as shown in the admin view
+     */
+    public $version = 'H4 (3.1.4-git)';
+
+
+
+
+}
