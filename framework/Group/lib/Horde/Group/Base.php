@@ -31,6 +31,8 @@ abstract class Horde_Group_Base
      *
      * @param mixed $gid    A group ID.
      * @param string $name  The new name.
+     *
+     * @throws Horde_Group_Exception
      */
     abstract public function rename($gid, $name);
 
@@ -38,6 +40,8 @@ abstract class Horde_Group_Base
      * Removes a group.
      *
      * @param mixed $gid  A group ID.
+     *
+     * @throws Horde_Group_Exception
      */
     abstract public function remove($gid);
 
@@ -47,6 +51,7 @@ abstract class Horde_Group_Base
      * @param mixed $gid  A group ID.
      *
      * @return boolean  True if the group exists.
+     * @throws Horde_Group_Exception
      */
     abstract public function exists($gid);
 
@@ -56,6 +61,7 @@ abstract class Horde_Group_Base
      * @param mixed $gid  A group ID.
      *
      * @return string  The group's name.
+     * @throws Horde_Group_Exception
      */
     abstract public function getName($gid);
 
@@ -63,6 +69,7 @@ abstract class Horde_Group_Base
      * Returns a list of all groups, with IDs as keys and names as values.
      *
      * @return array  All existing groups.
+     * @throws Horde_Group_Exception
      */
     abstract public function listAll();
 
@@ -72,6 +79,7 @@ abstract class Horde_Group_Base
      * @param mixed $gid  A group ID.
      *
      * @return array  List of group users.
+     * @throws Horde_Group_Exception
      */
     abstract public function listUsers($gid);
 
@@ -81,6 +89,7 @@ abstract class Horde_Group_Base
      * @param string $user  A user name.
      *
      * @return array  A list of groups, with IDs as keys and names as values.
+     * @throws Horde_Group_Exception
      */
     abstract public function listGroups($user);
 
@@ -89,6 +98,8 @@ abstract class Horde_Group_Base
      *
      * @param mixed $gid    A group ID.
      * @param string $user  A user name.
+     *
+     * @throws Horde_Group_Exception
      */
     abstract public function addUser($gid, $user);
 
@@ -97,6 +108,8 @@ abstract class Horde_Group_Base
      *
      * @param mixed $gid    A group ID.
      * @param string $user  A user name.
+     *
+     * @throws Horde_Group_Exception
      */
     abstract public function removeUser($gid, $user);
 
@@ -107,6 +120,7 @@ abstract class Horde_Group_Base
      *
      * @return array  A list of matching groups, with IDs as keys and names as
      *                values.
+     * @throws Horde_Group_Exception
      */
     abstract public function search($name);
 }

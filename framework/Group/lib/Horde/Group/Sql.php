@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Group_Sql class implements an SQL driver for the Horde group
- * system.
+ * This class provides an SQL driver for the Horde group system.
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
@@ -59,6 +58,8 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @param mixed $gid    A group ID.
      * @param string $name  The new name.
+     *
+     * @throws Horde_Group_Exception
      */
     public function rename($gid, $name)
     {
@@ -75,6 +76,8 @@ class Horde_Group_Sql extends Horde_Group_Base
      * Removes a group.
      *
      * @param mixed $gid  A group ID.
+     *
+     * @throws Horde_Group_Exception
      */
     public function remove($gid)
     {
@@ -98,6 +101,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @param mixed $gid  A group ID.
      *
      * @return boolean  True if the group exists.
+     * @throws Horde_Group_Exception
      */
     public function exists($gid)
     {
@@ -106,7 +110,7 @@ class Horde_Group_Sql extends Horde_Group_Base
                 'SELECT 1 FROM horde_groups WHERE group_uid = ?',
                 array($gid));
         } catch (Horde_Db_Exception $e) {
-            return false;
+            throw new Horde_Group_Exception($e);
         }
     }
 
@@ -116,6 +120,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @param mixed $gid  A group ID.
      *
      * @return string  The group's name.
+     * @throws Horde_Group_Exception
      */
     public function getName($gid)
     {
@@ -132,6 +137,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * Returns a list of all groups, with IDs as keys and names as values.
      *
      * @return array  All existing groups.
+     * @throws Horde_Group_Exception
      */
     public function listAll()
     {
@@ -148,6 +154,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @param mixed $gid  A group ID.
      *
      * @return array  List of group users.
+     * @throws Horde_Group_Exception
      */
     public function listUsers($gid)
     {
@@ -166,6 +173,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @param string $user  A user name.
      *
      * @return array  A list of groups, with IDs as keys and names as values.
+     * @throws Horde_Group_Exception
      */
     public function listGroups($user)
     {
@@ -183,6 +191,8 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @param mixed $gid    A group ID.
      * @param string $user  A user name.
+     *
+     * @throws Horde_Group_Exception
      */
     public function addUser($gid, $user)
     {
@@ -199,6 +209,8 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @param mixed $gid    A group ID.
      * @param string $user  A user name.
+     *
+     * @throws Horde_Group_Exception
      */
     public function removeUser($gid, $user)
     {
@@ -218,6 +230,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @return array  A list of matching groups, with IDs as keys and names as
      *                values.
+     * @throws Horde_Group_Exception
      */
     public function search($name)
     {
