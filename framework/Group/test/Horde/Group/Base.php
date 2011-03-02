@@ -20,8 +20,6 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _create()
     {
-        $this->markTestIncomplete();
-
         self::$groupids[] = self::$group->create('My Group');
         $this->assertNotNull(self::$groupid);
         self::$groupids[] = self::$group->create('My Other Group');
