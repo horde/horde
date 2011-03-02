@@ -246,7 +246,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
                 'uidvalidity' => time(),
                 'uidnext' => 1),
             'mails' => array(),
-            'permissions' => array(),
+            'permissions' => new Horde_Imap_Client_Data_Acl(),
             'annotations' => array(),
         );
         return true;
@@ -300,8 +300,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
         foreach ($mboxes as $mbox) {
             if (preg_match($pattern, $mbox)) {
                 $result[] = preg_replace($pattern, 'INBOX', $mbox);
-            } elseif (!empty(self::$storage[$mbox]['permissions'][$this->_user])
-                      && strpos(self::$storage[$mbox]['permissions'][$this->_user], 'l') !== false) {
+            } elseif (strpos(self::$storage[$mbox]['permissions'][$this->_user], 'l') !== false) {
                 $result[] = $mbox;
             }
         }
@@ -529,11 +528,10 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     protected function _getACL($mailbox)
     {
         $folder = $this->_getMailbox($mailbox);
-        $acl    = '';
-        if (isset(self::$storage[$folder]['permissions'])) {
-            $acl = self::$storage[$folder]['permissions'];
-        }
-        return $acl;
+
+        return empty(self::$storage[$folder]['permissions'])
+            ? array()
+            : self::$storage[$folder]['permissions'];
     }
 
     /**
@@ -560,11 +558,10 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     protected function _getMyACLRights($mailbox)
     {
         $folder = $this->_getMailbox($mailbox);
-        $acl    = '';
-        if (isset(self::$storage[$folder]['permissions'][$this->_user])) {
-            $acl = self::$storage[$folder]['permissions'][$this->_user];
-        }
-        return $acl;
+
+        return isset(self::$storage[$folder]['permissions'][$this->_user])
+            ? self::$storage[$folder]['permissions'][$this->_user]
+            : new Horde_Imap_Client_Data_Acl();
     }
 
     /**

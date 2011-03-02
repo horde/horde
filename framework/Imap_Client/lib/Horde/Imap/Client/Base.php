@@ -2301,8 +2301,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param mixed $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8 (can be
      *                        object with __toString() method).
      *
-     * @return array  An array with identifiers as the keys and an array of
-     *                rights as the values.
+     * @return array  An array with identifiers as the keys and
+     *                Horde_Imap_Client_Data_Acl objects as the values.
      * @throws Horde_Imap_Client_Exception
      */
     public function getACL($mailbox)
@@ -2315,8 +2315,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param string $mailbox  A mailbox (UTF7-IMAP).
      *
-     * @return array  An array with identifiers as the keys and an array of
-     *                rights as the values.
+     * @return array  An array with identifiers as the keys and
+     *                Horde_Imap_Client_Data_Acl objects as the values.
      * @throws Horde_Imap_Client_Exception
      */
     abstract protected function _getACL($mailbox);
@@ -2331,7 +2331,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                           method).
      * @param array $options     Additional options:
      * <pre>
-     * 'remove' - (boolean) If true, removes all rights for $identifier.
+     * 'remove' - (boolean) If true, removes rights for $identifier.
      *            DEFAULT: Rights in 'rights' are added.
      * 'rights' - (string) The rights to alter.
      *            DEFAULT: No rights are altered.
@@ -2369,11 +2369,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                           or UTF-8 (can be object with __toString()
      *                           method).
      *
-     * @return array  An array with two elements: 'required' (a list of
-     *                required rights) and 'optional' (a list of rights the
-     *                identifier can be granted in the mailbox; these rights
-     *                may be grouped together to indicate that they are tied
-     *                to each other).
+     * @return Horde_Imap_Client_Data_AclRights  An ACL data rights object.
      * @throws Horde_Imap_Client_Exception
      */
     public function listACLRights($mailbox, $identifier)
@@ -2391,7 +2387,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param string $mailbox     A mailbox (UTF7-IMAP).
      * @param string $identifier  The identifier to query (UTF7-IMAP).
      *
-     * @return array  An array of rights (keys: 'required' and 'optional').
+     * @return Horde_Imap_Client_Data_AclRights  An ACL data rights object.
      * @throws Horde_Imap_Client_Exception
      */
     abstract protected function _listACLRights($mailbox, $identifier);
@@ -2403,7 +2399,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param mixed $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8 (can be
      *                        object with __toString() method).
      *
-     * @return array  An array of rights.
+     * @return Horde_Imap_Client_Data_Acl  An ACL data object.
      * @throws Horde_Imap_Client_Exception
      */
     public function getMyACLRights($mailbox)
@@ -2420,10 +2416,39 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param string $mailbox  A mailbox (UTF7-IMAP).
      *
-     * @return array  An array of rights.
+     * @return Horde_Imap_Client_Data_Acl  An ACL data object.
      * @throws Horde_Imap_Client_Exception
      */
     abstract protected function _getMyACLRights($mailbox);
+
+    /**
+     * Return master list of ACL rights available on the server.
+     *
+     * @return array  A list of ACL rights.
+     */
+    public function allAclRights()
+    {
+        $rights = array(
+            Horde_Imap_Client::ACL_LOOKUP,
+            Horde_Imap_Client::ACL_READ,
+            Horde_Imap_Client::ACL_SEEN,
+            Horde_Imap_Client::ACL_WRITE,
+            Horde_Imap_Client::ACL_INSERT,
+            Horde_Imap_Client::ACL_POST,
+            Horde_Imap_Client::ACL_ADMINISTER
+        );
+
+        if ($capability = $this->queryCapability('RIGHTS')) {
+            // Add rights defined in CAPABILITY string (RFC 4314).
+            return array_merge($rights, str_split(reset($capability)));
+        }
+
+        // Add RFC 2086 rights (DEPRECATED)
+        return array_merge($rights, array(
+            Horde_Imap_Client::ACL_CREATE,
+            Horde_Imap_Client::ACL_DELETE
+        ));
+    }
 
     /**
      * Get metadata for a given mailbox. The server must support either the

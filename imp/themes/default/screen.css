@@ -474,6 +474,10 @@ table.searchesmanagement .vfolderenabled {
     padding-bottom: 8px;
     width: 100%;
 }
+.prefsAclHeader {
+    border-bottom: 1px dashed #999;
+    cursor: help;
+}
 
 /* Quota styles. */
 .quotawarn {

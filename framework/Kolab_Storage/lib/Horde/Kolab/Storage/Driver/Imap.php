@@ -120,10 +120,12 @@ extends Horde_Kolab_Storage_Driver_Base
     public function getAcl($folder)
     {
         $acl = $this->getBackend()->getACL($folder);
+
         $result = array();
         foreach ($acl as $user => $rights) {
-            $result[$user] = join('', $rights);
+            $result[$user] = strval($rights);
         }
+
         return $result;
     }
 
@@ -136,7 +138,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMyAcl($folder)
     {
-        return $this->getBackend()->getMyACLRights($folder);
+        return strval($this->getBackend()->getMyACLRights($folder));
     }
 
     /**

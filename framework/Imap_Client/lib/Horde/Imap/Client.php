@@ -103,6 +103,22 @@ class Horde_Imap_Client
     const NS_OTHER = 2;
     const NS_SHARED = 3;
 
+    /* ACL constants (RFC 4314 [2.1]). */
+    const ACL_LOOKUP = 'l';
+    const ACL_READ = 'r';
+    const ACL_SEEN = 's';
+    const ACL_WRITE = 'w';
+    const ACL_INSERT = 'i';
+    const ACL_POST = 'p';
+    const ACL_CREATEMBOX = 'k';
+    const ACL_DELETEMBOX = 'x';
+    const ACL_DELETEMSGS = 't';
+    const ACL_EXPUNGE = 'e';
+    const ACL_ADMINISTER = 'a';
+    // Deprecated constants (RFC 2086 [3]; RFC 4314 [2.1.1])
+    const ACL_CREATE = 'c';
+    const ACL_DELETE = 'd';
+
     /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.

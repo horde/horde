@@ -1265,10 +1265,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         }
 
         foreach ($res as $id => $rights) {
-            $acl[$id] = array();
-            for ($i = 0, $iMax = strlen($rights); $i < $iMax; ++$i) {
-                $acl[$id][] = $rights[$i];
-            }
+            $acl[$id] = new Horde_Imap_Client_Data_Acl($rights);
         }
 
         return $acl;
@@ -1278,20 +1275,23 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _listACLRights($mailbox, $identifier)
     {
-        $retval = array('optional' => array(), 'required' => array());
-        $acl = $this->getACL($mailbox);
-        if (isset($acl[$identifier])) {
-            $retval['optional'] = $acl[$identifier];
-        }
-        return $retval;
+        // No way of determining available ACL rights with c-client; return
+        // list of all rights instead.
+        return new Horde_Imap_Client_Data_AclRights(
+            array(),
+            $this->allAclRights()
+        );
     }
 
     /**
      */
     protected function _getMyACLRights($mailbox)
     {
-        // No support in c-client for MYRIGHTS - need to call Socket driver
-        return $this->_getSocket()->getMyACLRights($mailbox);
+        $ret = $this->getACL($mailbox);
+
+        return isset($ret[$this->_params['username']])
+            ? $ret[$this->_params['username']]
+            : new Horde_Imap_Client_Data_Acl();
     }
 
     /**

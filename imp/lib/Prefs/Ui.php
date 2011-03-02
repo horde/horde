@@ -672,8 +672,6 @@ class IMP_Prefs_Ui
     protected function _aclManagement($ui)
     {
         $acl = $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
-        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
-        $rights = $acl->getRights();
 
         $folder = isset($ui->vars->folder)
             ? IMP_Mailbox::formFrom($ui->vars->folder)
@@ -686,15 +684,11 @@ class IMP_Prefs_Ui
             $curr_acl = array();
         }
 
-        $canEdit = $acl->canEdit($folder, $GLOBALS['registry']->getAuth());
-
-        if (!$canEdit) {
+        if (!($canEdit = $acl->canEdit($folder))) {
             $GLOBALS['notification']->push(_("You do not have permission to change access to this folder."), 'horde.warning');
         }
 
-        if (!count($curr_acl)) {
-            $GLOBALS['notification']->push(_("The current list of users with access to this folder could not be retrieved."), 'horde.warning');
-        }
+        $rightslist = $acl->getRights();
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
@@ -704,25 +698,23 @@ class IMP_Prefs_Ui
         $t->set('folder', $folder->form_to);
         $t->set('hasacl', count($curr_acl));
 
-        if (!$t->get('hasacl')) {
-            $i = 0;
+        if ($t->get('hasacl')) {
             $cval = array();
-            $protected = $acl->getProtected();
 
             foreach ($curr_acl as $index => $rule) {
                 $entry = array(
-                    'i' => ++$i,
-                    'num_val' => ($i - 1),
-                    'disabled' => in_array($index, $protected) || !$canEdit,
-                    'index' => $index
+                    'index' => htmlspecialchars($index),
+                    'rule' => array()
                 );
 
                 /* Create table of each ACL option for each user granted
                  * permissions; enabled indicates the right has been given to
-                 * the user */
-                foreach (array_keys($rights) as $val) {
+                 * the user. */
+                $rightsmbox = $acl->getRightsMbox($folder, $index);
+                foreach ($rightslist as $val) {
                     $entry['rule'][] = array(
-                        'enabled' => in_array($val, $rule),
+                        'disable' => !$canEdit || !$rightsmbox[$val],
+                        'on' => $rule[$val],
                         'val' => $val
                     );
                  }
@@ -739,27 +731,116 @@ class IMP_Prefs_Ui
             $new_user = array();
 
             foreach (array('anyone') + $GLOBALS['registry']->callAppMethod('imp', 'authUserList') as $user) {
-                if (in_array($user, $current_users)) {
-                    continue;
+                if (!in_array($user, $current_users)) {
+                    $new_user[] = htmlspecialchars($user);
                 }
-                $new_user[] = htmlspecialchars($user);
             }
             $t->set('new_user', $new_user);
         } else {
             $t->set('noadmin', true);
         }
 
-        $rightsval = array();
-        foreach ($rights as $right => $val) {
-            $rightsval[] = array(
-                'right' => $right,
-                'desc' => $val['desc'],
-                'title' => $val['title']
-            );
-        }
+        $rights = array();
+        foreach ($rightslist as $val) {
+            switch ($val) {
+            case Horde_Imap_Client::ACL_LOOKUP:
+               $entry = array(
+                   'desc' => _("User can see the mailbox"),
+                   'title' => _("List")
+               );
+               break;
 
-        $t->set('rights', $rightsval);
-        $t->set('width', round(100 / (count($rightsval) + 1)) . '%');
+            case Horde_Imap_Client::ACL_READ:
+               $entry = array(
+                   'desc' => _("Read messages"),
+                   'title' => _("Read")
+               );
+               break;
+
+            case Horde_Imap_Client::ACL_SEEN:
+               $entry = array(
+                   'desc' => _("Mark with Seen/Unseen flags"),
+                   'title' => _("Mark (Seen)")
+               );
+               break;
+
+            case Horde_Imap_Client::ACL_WRITE:
+               $entry = array(
+                   'desc' => _("Mark with other flags (e.g. Important/Answered)"),
+                   'title' => _("Mark (Other)")
+               );
+               break;
+
+            case Horde_Imap_Client::ACL_INSERT:
+                $entry = array(
+                    'desc' => _("Insert messages"),
+                    'title' => _("Insert")
+                );
+                break;
+
+            case Horde_Imap_Client::ACL_POST:
+                $entry = array(
+                    'desc' => _("Post to this mailbox (not enforced by IMAP)"),
+                    'title' => _("Post")
+                );
+                break;
+
+            case Horde_Imap_Client::ACL_ADMINISTER:
+                $entry = array(
+                    'desc' => _("Set permissions for other users"),
+                    'title' => _("Administer")
+                );
+                break;
+
+            case Horde_Imap_Client::ACL_CREATEMBOX:
+                $entry = array(
+                    'desc' => _("Create subfolders"),
+                    'title' => _("Create Folders")
+                );
+                break;
+
+            case Horde_Imap_Client::ACL_DELETEMBOX:
+                $entry = array(
+                    'desc' => _("Delete subfolders"),
+                    'title' => _("Delete Folders")
+                );
+                break;
+
+            case Horde_Imap_Client::ACL_DELETEMSGS:
+                $entry = array(
+                    'desc' => _("Delete messages"),
+                    'title' => _("Delete")
+                );
+                break;
+
+            case Horde_Imap_Client::ACL_EXPUNGE:
+                $entry = array(
+                    'desc' => _("Purge messages"),
+                    'title' => _("Purge")
+                );
+                break;
+
+            case Horde_Imap_Client::ACL_CREATE:
+                $entry = array(
+                    'desc' =>_("Create subfolders"),
+                    'title' => _("Create Folder")
+                );
+                break;
+
+            case Horde_Imap_Client::ACL_DELETE:
+                $entry = array(
+                    'desc' => _("Delete and purge messages"),
+                    'title' => _("Delete/Purge")
+                );
+                break;
+            }
+
+            $entry['val'] = $val;
+            $rights[] = $entry;
+        }
+        $t->set('rights', $rights);
+
+        $t->set('width', round(100 / (count($rights) + 1)) . '%');
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/acl.html');
     }
@@ -771,92 +852,72 @@ class IMP_Prefs_Ui
      */
     protected function _updateAclManagement($ui)
     {
+        global $injector, $notification;
+
         if ($ui->vars->change_acl_folder) {
             return;
         }
 
-        $acl = $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
+        $acl = $injector->getInstance('IMP_Imap_Acl');
         $folder = IMP_Mailbox::formFrom($ui->vars->folder);
-        $rights = array_keys($acl->getRights());
 
-        $acl_list = $ui->vars->acl;
-        if (!$acl_list) {
+        try {
+            $curr_acl = $acl->getACL($folder);
+        } catch (IMP_Exception $e) {
+            $notification->notify($e);
+            return;
+        }
+
+        if (!($acl_list = $ui->vars->acl)) {
             $acl_list = array();
         }
         $new_user = $ui->vars->new_user;
 
-        /* Check to see if $new_user already has an acl on the folder. */
         if (strlen($new_user) && $ui->vars->new_acl) {
             if (isset($acl_list[$new_user])) {
                 $acl_list[$new_user] = $ui->vars->new_acl;
             } else {
                 try {
-                    $acl->editACL($folder, $new_user, $ui->vars->new_acl);
-                    if (count($ui->vars->new_acl)) {
-                        $GLOBALS['notification']->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $new_user, $folder->label), 'horde.success');
-                    } else {
-                        $GLOBALS['notification']->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder->label, $new_user), 'horde.success');
+                    $acl->addRights($folder, $new_user, implode('', $ui->vars->new_acl));
+                    $notification->push(sprintf(_("ACL for \"%s\" successfully created for the mailbox \"%s\"."), $new_user, $folder->label), 'horde.success');
+                } catch (IMP_Exception $e) {
+                    $notification->notify($e);
+                }
+            }
+        }
+
+        foreach ($curr_acl as $index => $rule) {
+            if (isset($acl_list[$index])) {
+                /* Check to see if ACL changed, but only compare rights we
+                 * understand. */
+                $acldiff = $rule->diff(implode('', $acl_list[$index]));
+                $update = false;
+
+                try {
+                    if ($acldiff['added']) {
+                        $acl->addRights($folder, $index, $acldiff['added']);
+                        $update = true;
+                    }
+                    if ($acldiff['removed']) {
+                        $acl->removeRights($folder, $index, $acldiff['removed']);
+                        $update = true;
+                    }
+
+                    if ($update) {
+                        $notification->push(sprintf(_("ACL rights for \"%s\" updated for the mailbox \"%s\"."), $index, $folder->label), 'horde.success');
                     }
                 } catch (IMP_Exception $e) {
-                    $GLOBALS['notification']->push($e);
-                    return;
+                    $notification->push($e);
                 }
-            }
-        }
-
-        try {
-            $curr_acl = $acl->getACL($folder);
-        } catch (IMP_Exception $e) {
-            $GLOBALS['notification']->notify($e);
-            return;
-        }
-        $protected = $acl->getProtected();
-
-        foreach ($acl_list as $user => $val) {
-            if ($val) {
-                /* We had to have an empty value submitted to make sure all
-                 * users with acls were sent back, so we can remove those
-                 * without checkmarks. */
-                unset($val[0]);
             } else {
-                $val = array();
-            }
-
-            if (!$user) {
-                $GLOBALS['notification']->push(_("No user specified."), 'horde.error');
-                continue;
-            }
-
-            if (in_array($user, $protected)) {
-                continue;
-            }
-
-            /* Check to see if ACL changed, but only compare rights we
-             * understand. */
-            if (isset($curr_acl[$user])) {
-                $knownRights = array_intersect($curr_acl[$user], $rights);
-                sort($knownRights);
-                sort($val);
-                if ($knownRights == $val) {
-                    continue;
+                /* If we dont see ANY form params, the user deleted all
+                 * rights. */
+                try {
+                    $acl->removeRights($folder, $index, null);
+                    $notification->push(sprintf(_("All rights on mailbox \"%s\" successfully removed for \"%s\"."), $folder->label, $index), 'horde.success');
+                } catch (IMP_Exception $e) {
+                    $notification->push($e);
                 }
-            }
-
-            try {
-                /* Only set or delete rights that we know (RFC 4314 [5.1.2])
-                 * but ignore c and d rights that are sent for BC reasons (RFC
-                 * 4314 [2.1.1]. */
-                $val = array_merge($val, array_diff($curr_acl[$user], array_merge($rights, array('c', 'd'))));
-                $acl->editACL($folder, $user, $val);
-                if (!count($val)) {
-                    if (isset($curr_acl[$user])) {
-                        $GLOBALS['notification']->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder->label, $user), 'horde.success');
-                    }
-                } else {
-                    $GLOBALS['notification']->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, $folder->label), 'horde.success');
-                }
-            } catch (IMP_Exception $e) {
-                $GLOBALS['notification']->push($e);
             }
         }
     }

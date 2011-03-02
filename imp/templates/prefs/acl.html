@@ -6,32 +6,36 @@
 </div>
 
 <table class="prefsAclTable">
-<tr>
- <th class="item" width="<tag:width />">
-  <h4><strong><gettext>User</gettext></strong></h4>
- </th>
+ <tr>
+  <th class="item" width="<tag:width />">
+   <h4>
+    <strong><gettext>User</gettext></strong>
+   </h4>
+  </th>
 <loop:rights>
- <th class="item" width="<tag:width />">
-  <h4><strong><span title="<tag:rights.desc />"><tag:rights.title /></span></strong></h4>
- </th>
+  <th class="item" width="<tag:width />">
+   <h4>
+    <span class="prefsAclHeader" title="<tag:rights.desc />"><tag:rights.title /></span>
+   </h4>
+  </th>
 </loop:rights>
-</tr>
+ </tr>
 <loop:curr_acl>
-<tr>
- <td class="item"><tag:curr_acl.index /><input id="<tag:curr_acl.index />" type="hidden" name="acl[<tag:curr_acl.index />][]" value="" /></td>
+ <tr>
+  <td class="item">
+   <tag:curr_acl.index />
+  </td>
 <loop:curr_acl.rule>
- <td class="item" align="center">
-  <label class="hidden" for="<tag:curr_acl.index />:<tag:curr_acl.rule.val />">Rule <tag:curr_acl.rule.val /> for user <tag:curr_acl.index /></label>
-  <input type="checkbox" class="checkbox" id="<tag:curr_acl.index />:<tag:curr_acl.rule.val />"
-  <if:curr_acl.disabled> disabled="disabled"<else:curr_acl.disabled><if:canedit> name="acl[<tag:curr_acl.index />][]" value="<tag:curr_acl.rule.val />"<else:canedit> disabled="disabled"</else:canedit></if:canedit></else:curr_acl.disabled></if:curr_acl.disabled><if:curr_acl.rule.enabled> checked="checked"</if:curr_acl.rule.enabled> />
- </td>
+  <td class="item" align="center">
+   <input type="checkbox" class="checkbox" name="acl[<tag:curr_acl.index />][]" value="<tag:curr_acl.rule.val />"<if:curr_acl.rule.on> checked="checked"</if:curr_acl.rule.on><if:curr_acl.rule.disable> disabled="disabled"</if:curr_acl.rule.disable> />
+  </td>
 </loop:curr_acl.rule>
-</tr>
+ </tr>
 </loop:curr_acl>
 
 <if:canedit>
-<tr>
- <td class="item">
+ <tr>
+  <td class="item">
    <label for="new_user" class="hidden">New User</label>
 <if:noadmin>
    <input id="new_user" type="text" name="new_user" />
@@ -42,13 +46,13 @@
 </loop:new_user>
    </select>
 </else:noadmin></if:noadmin>
- </td>
+  </td>
 <loop:rights>
- <td class="item" align="center">
-  <label class="hidden" for="new_user:<tag:rights.right />">Rule <tag:rights.right /> for the new user</label><input id="new_user:<tag:rights.right />" type="checkbox" name="new_acl[]" value="<tag:rights.right />" class="checkbox" />
+  <td class="item" align="center">
+   <input type="checkbox" name="new_acl[]" class="checkbox" value="<tag:rights.val />" />
  </td>
 </loop:rights>
-</tr>
+ </tr>
 </if:canedit>
 </table>
 </if:hasacl>

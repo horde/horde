@@ -3106,6 +3106,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'GETACL',
             array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox)
         ));
+
         return $this->_temp['getacl'];
     }
 
@@ -3120,7 +3121,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // Ignore mailbox argument -> index 1
         for ($i = 1, $len = count($data); $i < $len; $i += 2) {
-            $acl[$data[$i]] = str_split($data[$i + 1]);
+            $acl[$data[$i]] = new Horde_Imap_Client_Data_Acl($data[$i + 1]);
         }
     }
 
@@ -3130,13 +3131,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        $this->_temp['listaclrights'] = array();
+        unset($this->_temp['listaclrights']);
         $this->_sendLine(array(
             'LISTRIGHTS',
             array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox),
             array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $identifier)
         ));
-        return $this->_temp['listaclrights'];
+
+        return isset($this->_temp['listaclrights'])
+            ? $this->_temp['listaclrights']
+            : new Horde_Imap_Client_Data_AclRights();
     }
 
     /**
@@ -3147,9 +3151,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseListRights($data)
     {
         // Ignore mailbox and identifier arguments
-        $this->_temp['listaclrights'] = array(
-            'required' => str_split($data[2]),
-            'optional' => array_slice($data, 3)
+        $this->_temp['listaclrights'] = new Horde_Imap_Client_Data_AclRights(
+            str_split($data[2]),
+            array_slice($data, 3)
         );
     }
 
@@ -3159,12 +3163,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        $this->_temp['myrights'] = array();
+        unset($this->_temp['myrights']);
         $this->_sendLine(array(
             'MYRIGHTS',
             array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox)
         ));
-        return $this->_temp['myrights'];
+
+        return isset($this->_temp['myrights'])
+            ? $this->_temp['myrights']
+            : new Horde_Imap_Client_Data_Acl();
     }
 
     /**
@@ -3174,7 +3181,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseMyRights($data)
     {
-        $this->_temp['myrights'] = $data[1];
+        $this->_temp['myrights'] = new Horde_Imap_Client_Data_Acl($data[1]);
     }
 
     /**
