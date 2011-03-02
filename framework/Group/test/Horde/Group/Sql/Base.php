@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../Base.php';
  * @copyright  2011 The Horde Project (http://www.horde.org/)
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  */
-class Horde_Group_Test_Sql extends Horde_Group_Test_Base
+class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
 {
     protected static $db;
 
@@ -101,7 +101,7 @@ class Horde_Group_Test_Sql extends Horde_Group_Test_Base
         $migrator = new Horde_Db_Migration_Migrator(self::$db, null, array('migrationsPath' => dirname(__FILE__) . '/../../../../migration'));
         $migrator->up();
 
-        self::$group = Horde_Group::factory('Mock');
+        self::$group = new Horde_Group_Sql(array('db' => self::$db));
     }
 
     public static function tearDownAfterClass()

@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../Base.php';
  * @copyright  2011 The Horde Project (http://www.horde.org/)
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  */
-class Horde_Group_Sql_Pdo_SqliteTest extends Horde_Group_Test_Sql
+class Horde_Group_Sql_Pdo_SqliteTest extends Horde_Group_Test_Sql_Base
 {
     public static function setUpBeforeClass()
     {
