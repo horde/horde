@@ -16,6 +16,8 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
 {
     protected static $db;
 
+    protected static $migrator;
+
     protected static $reason;
 
     public function testCreate()
@@ -97,21 +99,25 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
 
     public static function setUpBeforeClass()
     {
+        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
+        //self::$db->setLogger($logger);
         // FIXME: get migration directory if not running from Git checkout.
-        $migrator = new Horde_Db_Migration_Migrator(self::$db, null, array('migrationsPath' => dirname(__FILE__) . '/../../../../migration'));
-        $migrator->up();
+        self::$migrator = new Horde_Db_Migration_Migrator(
+            self::$db,
+            null,//$logger,
+            array('migrationsPath' => dirname(__FILE__) . '/../../../../migration',
+                  'schemaTableName' => 'horde_group_test_schema'));
+        self::$migrator->up();
 
         self::$group = new Horde_Group_Sql(array('db' => self::$db));
     }
 
     public static function tearDownAfterClass()
     {
-        if (self::$db) {
-            $migration = new Horde_Db_Migration_Base(self::$db);
-            $migration->dropTable('horde_groups');
-            $migration->dropTable('horde_groups_members');
-            self::$db = null;
+        if (self::$migrator) {
+            self::$migrator->down();
         }
+        self::$db = null;
     }
 
     public function setUp()
