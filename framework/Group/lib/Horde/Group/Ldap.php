@@ -157,24 +157,10 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @param string $name  The new name.
      *
      * @throws Horde_Group_Exception
-     * @throws Horde_Exception_NotFound
      */
     public function rename($gid, $name)
     {
-        if ($this->readOnly()) {
-            throw new Horde_Group_Exception('This group backend is read-only.');
-        }
-
-        $dn = Horde_Ldap::quoteDN(array(array($this->_params['gid'], $name))) . ',' . $this->_params['basedn'];
-        try {
-            $entry = $this->_ldap->getEntry($gid);
-            $entry->dn($dn);
-            $this->_rebind(true);
-            $entry->update();
-            $this->_rebind(false);
-        } catch (Horde_Ldap_Exception $e) {
-            throw new Horde_Group_Exception($e);
-        }
+        throw new Horde_Group_Exception('Renaming groups is not supported with the LDAP driver.');
     }
 
     /**
