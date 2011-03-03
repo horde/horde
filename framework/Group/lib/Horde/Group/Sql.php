@@ -34,6 +34,16 @@ class Horde_Group_Sql extends Horde_Group_Base
     }
 
     /**
+     * Returns whether the group backend is read-only.
+     *
+     * @return boolean
+     */
+    public function readOnly()
+    {
+        return false;
+    }
+
+    /**
      * Creates a new group.
      *
      * @param string $name   A group name.

@@ -16,6 +16,16 @@
 abstract class Horde_Group_Base
 {
     /**
+     * Returns whether the group backend is read-only.
+     *
+     * @return boolean
+     */
+    public function readOnly()
+    {
+        return true;
+    }
+
+    /**
      * Creates a new group.
      *
      * @param string $name   A group name.
