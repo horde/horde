@@ -44,7 +44,7 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _listAll()
     {
-        $groups = self::$group->list();
+        $groups = self::$group->listAll();
         $this->assertEquals(3, count($groups));
         $this->assertEquals('My Group',       $groups[self::$groupids[0]]);
         $this->assertEquals('My Other Group', $groups[self::$groupids[1]]);
