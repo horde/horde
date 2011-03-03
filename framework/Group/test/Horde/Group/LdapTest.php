@@ -109,16 +109,18 @@ class Horde_Group_LdapTest extends Horde_Group_Test_Base
     public static function tearDownAfterClass()
     {
         $config = self::getConfig('GROUP_LDAP_TEST_CONFIG');
-        $possibleids = array('My Group', 'My Other Group', 'My Second Group', 'Not My Group');
-        self::$ldap->bind($config['group']['ldap']['writedn'],
-                          $config['group']['ldap']['writepw']);
-        foreach ($possibleids as $id) {
-            try {
-                self::$ldap->delete('cn=' . $id . ',' . $config['group']['ldap']['basedn']);
-            } catch (Horde_Ldap_Exception $e) {
+        if ($config && !empty($config['group']['ldap'])) {
+            $possibleids = array('My Group', 'My Other Group', 'My Second Group', 'Not My Group');
+            self::$ldap->bind($config['group']['ldap']['writedn'],
+                              $config['group']['ldap']['writepw']);
+            foreach ($possibleids as $id) {
+                try {
+                    self::$ldap->delete('cn=' . $id . ',' . $config['group']['ldap']['basedn']);
+                } catch (Horde_Ldap_Exception $e) {
+                }
             }
+            self::$ldap = null;
         }
-        self::$ldap = null;
         parent::tearDownAfterClass();
     }
 
