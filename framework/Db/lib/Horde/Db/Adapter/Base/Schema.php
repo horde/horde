@@ -346,71 +346,68 @@ abstract class Horde_Db_Adapter_Base_Schema
     abstract public function columns($tableName, $name = null);
 
     /**
-     * Creates a new table
-     * There are two ways to work with #create_table.  You can use the block
-     * form or the regular form, like this:
+     * Creates a new table.
      *
-     * === Block form
-     *  # create_table() yields a TableDefinition instance
-     *  create_table(:suppliers) do |t|
-     *    t.column :name, :string, :limit => 60
-     *    # Other fields here
-     *  end
-     *
-     * === Regular form
-     *  create_table(:suppliers)
-     *  add_column(:suppliers, :name, :string, {:limit => 60})
-     *
-     * The +options+ hash can include the following keys:
-     * [<tt>:id</tt>]
-     *   Set to true or false to add/not add a primary key column
-     *   automatically.  Defaults to true.
-     * [<tt>:primary_key</tt>]
+     * The $options hash can include the following keys:
+     * - primaryKey (string|array):
      *   The name of the primary key, if one is to be added automatically.
-     *   Defaults to +id+.
-     * [<tt>:options</tt>]
+     *   Defaults to "id".
+     * - options (array):
      *   Any extra options you want appended to the table definition.
-     * [<tt>:temporary</tt>]
+     * - temporary (boolean):
      *   Make a temporary table.
-     * [<tt>:force</tt>]
+     * - force (boolean):
      *   Set to true or false to drop the table before creating it.
      *   Defaults to false.
      *
-     * ===== Examples
-     * ====== Add a backend specific option to the generated SQL (MySQL)
-     *  create_table(:suppliers, :options => 'ENGINE=InnoDB DEFAULT CHARSET=utf8')
+     * Examples:
+     * <code>
+     * // Add a backend specific option to the generated SQL (MySQL)
+     * $schema->createTable('suppliers', array('options' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8')));
+     * </code>
      * generates:
+     * <pre>
      *  CREATE TABLE suppliers (
      *    id int(11) DEFAULT NULL auto_increment PRIMARY KEY
      *  ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+     * </pre>
      *
-     * ====== Rename the primary key column
-     *  create_table(:objects, :primary_key => 'guid') do |t|
-     *    t.column :name, :string, :limit => 80
-     *  end
+     * <code>
+     * // Rename the primary key column
+     * $table = $schema->createTable('objects', array('primaryKey' => 'guid'));
+     * $table->column('name', 'string', array('limit' => 80));
+     * $table->end();
+     * </code>
      * generates:
+     * <pre>
      *  CREATE TABLE objects (
      *    guid int(11) DEFAULT NULL auto_increment PRIMARY KEY,
      *    name varchar(80)
      *  )
+     * </pre>
      *
-     * ====== Do not add a primary key column
-     *  create_table(:categories_suppliers, :id => false) do |t|
-     *    t.column :category_id, :integer
-     *    t.column :supplier_id, :integer
-     *  end
+     * <code>
+     * // Do not add a primary key column
+     * $table = $schema->createTable('categories_suppliers', array('primaryKey' => false));
+     * $table->column('category_id', 'integer');
+     * $table->column('supplier_id', 'integer');
+     * $table->end();
+     * </code>
      * generates:
-     *  CREATE TABLE categories_suppliers_join (
+     * <pre>
+     *  CREATE TABLE categories_suppliers (
      *    category_id int,
      *    supplier_id int
      *  )
+     * </pre>
      *
-     * See also TableDefinition#column for details on how to create columns.
+     * See also Horde_Db_Adapter_Base_TableDefinition::column() for details on
+     * how to create columns.
      *
      * @param   string  $name
      * @param   array   $options
      */
-    public function createTable($name, $options=array())
+    public function createTable($name, $options = array())
     {
         $tableDefinition = $this->makeTableDefinition($name, $this, $options);
 
