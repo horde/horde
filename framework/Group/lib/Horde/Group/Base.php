@@ -26,6 +26,16 @@ abstract class Horde_Group_Base
     }
 
     /**
+     * Returns whether groups can be renamed.
+     *
+     * @return boolean
+     */
+    public function renameSupported()
+    {
+        return true;
+    }
+
+    /**
      * Creates a new group.
      *
      * @param string $name   A group name.
