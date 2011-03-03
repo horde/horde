@@ -71,17 +71,14 @@ class Horde_Core_Block_Collection
 
         $pushed = $registry->pushApp($app);
 
-        $class = ($app == 'imp' ? 'IMP' : Horde_String::ucfirst($app))
-            . '_Block_'
-            . implode('', array_map(array('Horde_String', 'ucfirst'), explode('_', $name)));
-        if (!class_exists($class)) {
+        if (!class_exists($name)) {
             if ($pushed) {
                 $registry->popApp($app);
             }
-            throw new Horde_Exception(sprintf(_("Block %s not found in %s."), $name, $app));
+            throw new Horde_Exception(sprintf('%s not found.', $name));
         }
 
-        $ob = new $class($app, $params);
+        $ob = new $name($app, $params);
 
         if ($pushed) {
             $registry->popApp($app);
