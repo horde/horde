@@ -967,12 +967,17 @@ class Horde_Ldap
          * object inside PHP??  Additionally, this is not always
          * reproducable... */
         if (!$force) {
-            $rootDSE = $this->rootDSE();
-            $supported_versions = $rootDSE->getValue('supportedLDAPVersion');
-            if (is_string($supported_versions)) {
-                $supported_versions = array($supported_versions);
+            try {
+                $rootDSE = $this->rootDSE();
+                $supported_versions = $rootDSE->getValue('supportedLDAPVersion');
+                if (is_string($supported_versions)) {
+                    $supported_versions = array($supported_versions);
+                }
+                $check_ok = in_array($version, $supported_versions);
+            } catch (Horde_Ldap_Exception $e) {
+                /* If we don't get a root DSE, this is probably a v2 server. */
+                $check_ok = $version < 3;
             }
-            $check_ok = in_array($version, $supported_versions);
         }
         $check_ok = true;
 
