@@ -13,6 +13,9 @@
  */
 class Horde_Token_File extends Horde_Token_Base
 {
+    /* File prefix constant. */
+    const FILE_PREFIX = 'conn_';
+
     /**
      * Handle for the open file descriptor.
      *
@@ -65,19 +68,21 @@ class Horde_Token_File extends Horde_Token_Base
         $this->_disconnect();
 
         /* Build stub file list. */
-        if (!($dir = opendir($this->_params['token_dir']))) {
+        try {
+            $di = new DirectoryIterator($this->_params['token_dir']);
+        } catch (UnexpectedValueException $e) {
             throw new Horde_Token_Exception('Unable to open token directory');
         }
 
         /* Find expired stub files */
-        while (($dirEntry = readdir($dir)) != '') {
-            if (preg_match('|^conn_\w{8}$|', $dirEntry) && (time() - filemtime($this->_params['token_dir'] . '/' . $dirEntry) >= $this->_params['timeout']) &&
-                !@unlink($this->_params['token_dir'] . '/' . $dirEntry)) {
+        foreach ($di as $val) {
+            if ($val->isFile() &&
+                (strpos($val, self::FILE_PREFIX) === 0) &&
+                (time() - $val->getMTime() >= $this->_params['timeout']) &&
+                !@unlink($val->getPathname())) {
                 throw new Horde_Token_Exception('Unable to purge token file.');
             }
         }
-
-        closedir($dir);
     }
 
     /**
@@ -94,12 +99,9 @@ class Horde_Token_File extends Horde_Token_Base
 
         /* Find already used IDs. */
         $token = base64_encode($tokenID);
-        $fileContents = file($this->_params['token_dir'] . '/conn_' . $this->_encodeRemoteAddress());
-        if ($fileContents) {
-            for ($i = 0, $iMax = count($fileContents); $i < $iMax; ++$i) {
-                if (chop($fileContents[$i]) == $token) {
-                    return true;
-                }
+        foreach (file($this->_params['token_dir'] . '/' . self::FILE_PREFIX . $this->_encodeRemoteAddress()) as $val) {
+            if (rtrim($val) == $token) {
+                return true;
             }
         }
 
@@ -136,7 +138,7 @@ class Horde_Token_File extends Horde_Token_Base
         }
 
         // Open a file descriptor to the token stub file.
-        $this->_fd = @fopen($this->_params['token_dir'] . '/conn_' . $this->_encodeRemoteAddress(), 'a');
+        $this->_fd = @fopen($this->_params['token_dir'] . '/' . self::FILE_PREFIX . $this->_encodeRemoteAddress(), 'a');
         if (!$this->_fd) {
             throw new Horde_Token_Exception('Failed to open token file.');
         }
