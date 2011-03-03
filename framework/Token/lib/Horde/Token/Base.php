@@ -182,7 +182,8 @@ abstract class Horde_Token_Base
             throw new Horde_Token_Exception_Used(Horde_Token_Translation::t('This token is invalid!'));
         }
 
-        if (!$this->verify($token)) {
+        list($nonce,) = $this->_decode($token);
+        if (!$this->verify($nonce)) {
             throw new Horde_Token_Exception_Used(Horde_Token_Translation::t('This token has been used before!'));
         }
     }
