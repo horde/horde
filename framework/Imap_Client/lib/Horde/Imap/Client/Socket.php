@@ -2792,15 +2792,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $ret = new Horde_Imap_Client_Data_Envelope();
 
         foreach ($env_data as $key => $val) {
-            if (isset($data[$key]) &&
-                (strcasecmp($data[$key], 'NIL') !== 0)) {
-                $ret->$val = $data[$key];
+            if (isset($data[$key])) {
+                if (is_resource($data[$key])) {
+                    $ret->$val = stream_get_contents($data[$key], -1, 0);
+                } elseif (strcasecmp($data[$key], 'NIL') !== 0) {
+                    $ret->$val = $data[$key];
+                }
             }
         }
 
         // These entries are address structures.
         foreach ($env_data_array as $key => $val) {
-            // Check for 'NIL' value here.
             if (is_array($data[$key])) {
                 $tmp = array();
                 reset($data[$key]);
