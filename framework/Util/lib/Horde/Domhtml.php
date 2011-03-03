@@ -59,6 +59,11 @@ class Horde_Domhtml
             throw new Exception('DOM extension is not available.');
         }
 
+        // Bug #9616: Make sure we have valid HTML input.
+        if (!strlen($text)) {
+            $text = '<html></html>';
+        }
+
         $this->_forced = null;
         $this->_origCharset = $charset;
 
