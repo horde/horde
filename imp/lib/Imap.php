@@ -168,8 +168,8 @@ class IMP_Imap implements Serializable
                 $res = Horde::callHook('mbox_readonly', array($mailbox), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
 
-            /* This check can only be done for regular IMAP mailboxes. */
-            // TODO: POP3 also?
+            /* This check can only be done for regular IMAP mailboxes
+             * UIDNOTSTICKY not valid for POP3). */
             if (!$res &&
                 ($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
                 !$mailbox->search) {
@@ -209,7 +209,7 @@ class IMP_Imap implements Serializable
     {
         global $session;
 
-        // TODO: POP3 also?
+        // POP3 does not support UIDVALIDITY.
         if ($session->get('imp', 'protocol') == 'pop') {
             return;
         }
