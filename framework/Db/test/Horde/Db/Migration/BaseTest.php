@@ -149,13 +149,15 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
     {
         $t = $this->_conn->createTable('imp_sentmail', array('primaryKey' => array('sentmail_id')));
         $t->column('sentmail_id', 'bigint', array('null' => false));
+        $t->column('sentmail_foo', 'string');
         $t->end();
         $migration = new Horde_Db_Migration_Base($this->_conn, null);
         $migration->changeColumn('imp_sentmail', 'sentmail_id', 'integer', array('autoincrement' => true, 'default' => null));
         $columns = $this->_conn->columns('imp_sentmail');
-        $this->assertEquals(1, count($columns));
-        $this->assertEquals('sentmail_id', key($columns));
+        $this->assertEquals(2, count($columns));
+        $this->assertTrue(isset($columns['sentmail_id']));
         $this->assertEquals(array('sentmail_id'),
                             $this->_conn->primaryKey('imp_sentmail')->columns);
+        $this->_conn->insert('INSERT INTO imp_sentmail (sentmail_foo) VALUES (?)', array('bar'));
     }
 }
