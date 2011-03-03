@@ -26,8 +26,6 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
-
         try {
             $this->_conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
                 'dbname' => ':memory:',
@@ -52,7 +50,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     public function testInitializeSchemaInformation()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
 
         $sql = "SELECT version FROM schema_info";
         $this->assertEquals(0, $this->_conn->selectValue($sql));
@@ -70,7 +68,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
         $migrator->up();
         $this->assertEquals(3, $migrator->getCurrentVersion());
 
@@ -82,7 +80,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('hello world', $reminder->content);
 
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
         $migrator->down();
         $this->assertEquals(0, $migrator->getCurrentVersion());
 
@@ -105,7 +103,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Horde_Db_Exception', $e);
 
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
         $migrator->up(1);
         $this->assertEquals(1, $migrator->getCurrentVersion());
 
@@ -129,7 +127,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     public function testOneDown()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
 
         $migrator->up();
         $migrator->down(1);
@@ -141,7 +139,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     public function testOneUpOneDown()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
 
         $migrator->up(1);
         $migrator->down(0);
@@ -153,7 +151,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     public function testMigratorGoingDownDueToVersionTarget()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
 
         $migrator->up(1);
         $migrator->down(0);
@@ -181,7 +179,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     {
         try {
             $dir = dirname(dirname(__FILE__)).'/fixtures/migrations_with_duplicate/';
-            $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+            $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
             $migrator->up();
         } catch (Exception $e) { return; }
         $this->fail('Expected exception wasn\'t raised');
@@ -190,7 +188,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     public function testWithMissingVersionNumbers()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations_with_missing_versions/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
         $migrator->migrate(500);
         $this->assertEquals(4, $migrator->getCurrentVersion());
 
@@ -205,16 +203,6 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
 
         $columns = $this->_columnNames('users');
         $this->assertTrue(in_array('last_name', $columns));
-    }
-
-    public function testAutoincrement()
-    {
-        $t = $this->_conn->createTable('imp_sentmail', array('primaryKey' => false));
-        $t->column('sentmail_id', 'bigint', array('null' => false));
-        $t->primaryKey(array('sentmail_id'));
-        $t->end();
-        $migration = new Horde_Db_Migration_Base($this->_conn, $this->_logger);
-        $migration->changeColumn('imp_sentmail', 'sentmail_id', 'integer', array('autoincrement' => true, 'default' => null));
     }
 
     protected function _columnNames($tableName)
