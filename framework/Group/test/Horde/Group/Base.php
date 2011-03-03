@@ -9,7 +9,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @category   Horde
  * @package    Group
  * @subpackage UnitTests
- * @copyright  2010 The Horde Project (http://www.horde.org/)
+ * @copyright  2011 The Horde Project (http://www.horde.org/)
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  */
 class Horde_Group_Test_Base extends Horde_Test_Case
@@ -29,7 +29,7 @@ class Horde_Group_Test_Base extends Horde_Test_Case
     protected function _exists()
     {
         $this->assertTrue(self::$group->exists(self::$groupids[0]));
-        $this->assertFalse(self::$group->exists('some_non_existing_id'));
+        $this->assertFalse(self::$group->exists('some=none_existing_id'));
     }
 
     protected function _getName()
