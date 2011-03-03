@@ -630,7 +630,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         /* Remove the current entry and recalculate the range. */
         foreach ($indices as $ob) {
             foreach ($ob->uids as $uid) {
-                $val = $this->getArrayIndex($uid, $mbox);
+                $val = $this->getArrayIndex($uid, $ob->mbox);
                 unset($this->_sorted[$val]);
                 if ($this->_mailbox->search) {
                     unset($this->_sortedMbox[$val]);
