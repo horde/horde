@@ -802,6 +802,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     protected function _prepSendMessage($email, $headers = null,
                                         $message = null)
     {
+        $recipients = 0;
+
         foreach (Horde_Mime_Address::parseAddressList($email) as $address) {
             $recipients += isset($address['grounpname'])
                 ? count($address['addresses'])
