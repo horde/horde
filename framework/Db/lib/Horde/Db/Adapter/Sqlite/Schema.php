@@ -398,7 +398,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     protected function _copyTable($from, $to, $options = array(), $callback = null)
     {
         $fromColumns = $this->columns($from);
-        $options = array_merge($options, array('id' => false));
+        $options = array_merge($options, array('primaryKey' => false));
 
         $definition = $this->createTable($to, $options);
         foreach ($fromColumns as $column) {
