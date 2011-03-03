@@ -23,7 +23,12 @@
 <loop:curr_acl>
  <tr>
   <td class="item">
+<if:curr_acl.negative>
+   <span class="prefsAclNegative"><tag:curr_acl.negative /></span>
+   <span class="prefsAclNegativeLabel"><gettext>Negative Right</gettext></span>
+<else:curr_acl.negative>
    <tag:curr_acl.index />
+</else:curr_acl.negative></if:curr_acl.negative>
   </td>
 <loop:curr_acl.rule>
   <td class="item" align="center">

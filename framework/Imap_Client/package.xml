@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-03</date>
- <time>12:01:02</time>
+ <time>12:15:25</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Add Horde_Imap_Client_Data_AclNegative object.
 * Add Horde_Imap_Client_Base#allAclRights().
 * Add Horde_Imap_Client_Data_Acl and Horde_Imap_Client_Data_AclRights objects.
 * Horde_Imap_Client_Base#getNamespaces() now returns integer constants for the &apos;type&apos; parameter.
@@ -42,6 +43,7 @@
        </dir> <!-- /lib/Horde/Imap/Client/Cclient -->
        <dir name="Data">
         <file name="Acl.php" role="php" />
+        <file name="AclNegative.php" role="php" />
         <file name="AclRights.php" role="php" />
         <file name="Envelope.php" role="php" />
         <file name="Fetch.php" role="php" />
@@ -144,6 +146,7 @@
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
+   <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
    <install as="Horde/Imap/Client/Data/AclRights.php" name="lib/Horde/Imap/Client/Data/AclRights.php" />
    <install as="Horde/Imap/Client/Data/Envelope.php" name="lib/Horde/Imap/Client/Data/Envelope.php" />
    <install as="Horde/Imap/Client/Data/Fetch.php" name="lib/Horde/Imap/Client/Data/Fetch.php" />
@@ -203,6 +206,7 @@
    <date>2011-03-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Add Horde_Imap_Client_Data_AclNegative object.
 * Add Horde_Imap_Client_Base#allAclRights().
 * Add Horde_Imap_Client_Data_Acl and Horde_Imap_Client_Data_AclRights objects.
 * Horde_Imap_Client_Base#getNamespaces() now returns integer constants for the &apos;type&apos; parameter.

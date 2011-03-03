@@ -3121,7 +3121,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // Ignore mailbox argument -> index 1
         for ($i = 1, $len = count($data); $i < $len; $i += 2) {
-            $acl[$data[$i]] = new Horde_Imap_Client_Data_Acl($data[$i + 1]);
+            $acl[$data[$i]] = ($data[$i][0] == '-')
+                ? new Horde_Imap_Client_Data_AclNegative($data[$i + 1])
+                : new Horde_Imap_Client_Data_Acl($data[$i + 1]);
         }
     }
 

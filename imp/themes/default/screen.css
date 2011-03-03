@@ -478,6 +478,14 @@ table.searchesmanagement .vfolderenabled {
     border-bottom: 1px dashed #999;
     cursor: help;
 }
+.prefsAclNegative {
+    text-decoration: line-through;
+}
+.prefsAclNegativeLabel {
+    border: 1px dotted red;
+    color: red;
+    padding: 1px;
+}
 
 /* Quota styles. */
 .quotawarn {

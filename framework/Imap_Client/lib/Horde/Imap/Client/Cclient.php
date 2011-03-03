@@ -1265,7 +1265,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         }
 
         foreach ($res as $id => $rights) {
-            $acl[$id] = new Horde_Imap_Client_Data_Acl($rights);
+            $acl[$id] = ($id[0] == '-')
+                ? new Horde_Imap_Client_Data_AclNegative($rights)
+                : new Horde_Imap_Client_Data_Acl($rights);
         }
 
         return $acl;

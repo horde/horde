@@ -707,6 +707,10 @@ class IMP_Prefs_Ui
                     'rule' => array()
                 );
 
+                if ($rule instanceof Horde_Imap_Client_Data_AclNegative) {
+                    $entry['negative'] = htmlspecialchars(substr($index, 1));
+                }
+
                 /* Create table of each ACL option for each user granted
                  * permissions; enabled indicates the right has been given to
                  * the user. */
