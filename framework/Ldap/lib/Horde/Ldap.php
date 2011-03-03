@@ -232,7 +232,7 @@ class Horde_Ldap
         }
 
         /* Do the requested bind as we are asked to bind manually. */
-        if (is_null($dn)) {
+        if (empty($dn)) {
             /* Anonymous bind. */
             $msg = @ldap_bind($this->_link);
         } else {
