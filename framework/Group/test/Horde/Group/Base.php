@@ -111,4 +111,10 @@ class Horde_Group_Test_Base extends Horde_Test_Case
         self::$group->remove(self::$groupids[0]);
         $this->assertFalse(self::$group->exists(self::$groupids[0]));
     }
+
+    public static function tearDownAfterClass()
+    {
+        self::$group = null;
+        self::$groupids = array();
+    }
 }
