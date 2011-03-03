@@ -144,4 +144,14 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {}
         $this->assertInstanceOf('Horde_Db_Exception', $e);
     }
+
+    public function testAutoincrement()
+    {
+        $t = $this->_conn->createTable('imp_sentmail', array('primaryKey' => false));
+        $t->column('sentmail_id', 'bigint', array('null' => false));
+        $t->primaryKey(array('sentmail_id'));
+        $t->end();
+        $migration = new Horde_Db_Migration_Base($this->_conn, null);
+        $migration->changeColumn('imp_sentmail', 'sentmail_id', 'integer', array('autoincrement' => true, 'default' => null));
+    }
 }
