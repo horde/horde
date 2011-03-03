@@ -18,6 +18,7 @@ class Horde_Group_Sql_Pdo_MysqlTest extends Horde_Group_Test_Sql_Base
     {
         if (!extension_loaded('pdo') ||
             !in_array('mysql', PDO::getAvailableDrivers())) {
+            self::$reason = 'No mysql extension or no mysql PDO driver';
             return;
         }
         $config = self::getConfig('GROUP_SQL_PDO_MYSQL_TEST_CONFIG');
