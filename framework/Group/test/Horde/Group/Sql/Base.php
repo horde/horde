@@ -82,7 +82,7 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
     }
 
     /**
-     * @depends testListUsers
+     * @depends testListGroups
      */
     public function testRemoveUser()
     {
