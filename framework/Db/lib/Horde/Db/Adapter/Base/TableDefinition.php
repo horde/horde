@@ -63,7 +63,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
         return $this->_options;
     }
 
-    /**v
+    /**
      * @param   string  $name
      */
     public function primaryKey($name)
@@ -202,13 +202,17 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     public function toSql()
     {
         $cols = array();
-        foreach ($this->_columns as $col) { $cols[] = $col->toSql(); }
+        foreach ($this->_columns as $col) {
+            $cols[] = $col->toSql();
+        }
         $sql = '  ' . implode(", \n  ", $cols);
 
         // Specify composite primary keys as well
         if (is_array($this->_primaryKey)) {
             $pk = array();
-            foreach ($this->_primaryKey as $pkColumn) { $pk[] = $this->_base->quoteColumnName($pkColumn); }
+            foreach ($this->_primaryKey as $pkColumn) {
+                $pk[] = $this->_base->quoteColumnName($pkColumn);
+            }
             $sql .= ", \n  PRIMARY KEY(" . implode(', ', $pk) . ')';
         }
 
