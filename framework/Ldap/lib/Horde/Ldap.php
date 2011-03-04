@@ -1036,6 +1036,7 @@ class Horde_Ldap
      *
      * @return Horde_Ldap_Entry  A Horde_Ldap_Entry object.
      * @throws Horde_Ldap_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getEntry($dn, $attributes = array())
     {
