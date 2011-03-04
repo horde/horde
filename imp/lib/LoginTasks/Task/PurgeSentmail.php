@@ -20,12 +20,12 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        $this->active = $GLOBALS['prefs']->getValue('purge_sentmail');
-        if ($this->active) {
-            $this->interval = $GLOBALS['prefs']->getValue('purge_sentmail_interval');
-            if ($GLOBALS['prefs']->isLocked('purge_sentmail')) {
+        if ($this->interval = $GLOBALS['prefs']->getValue('purge_sentmail_interval')) {
+            if ($GLOBALS['prefs']->isLocked('purge_sentmail_interval')) {
                 $this->display = Horde_LoginTasks::DISPLAY_NONE;
             }
+        } else {
+            $this->active = false;
         }
     }
 

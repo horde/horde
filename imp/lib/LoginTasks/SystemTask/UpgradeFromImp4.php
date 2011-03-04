@@ -29,9 +29,11 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         $this->_upgradeAbookPrefs();
         $this->_upgradeComposePrefs();
         $this->_upgradeDeleteAttachmentsMonthlyPrefs();
+        $this->_upgradeDeleteSentmailMonthlyPrefs();
         $this->_upgradeForwardPrefs();
         $this->_upgradeLoginTasksPrefs();
         $this->_upgradeMsgDisplayPrefs();
+        $this->_upgradePurgeSentmailPrefs();
         $this->_upgradePurgeSpamPrefs();
         $this->_upgradePurgeTrashPrefs();
         $this->_upgradeSortPrefs();
@@ -104,6 +106,24 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     }
 
     /**
+     * 'delete_sentmail_monthly' no longer exists -> use
+     * 'delete_sentmail_monthly_keep' instead.
+     */
+    protected function _upgradeDeleteSentmailMonthlyPrefs()
+    {
+        global $prefs;
+
+        if (!$prefs->getValue('delete_sentmail_monthly') &&
+            ($prefs->getDefault('delete_sentmail_monthly') !== null)) {
+            $prefs->setValue('delete_sentmail_monthly_keep', 0);
+        }
+
+        // Need to remove old pref or else there can be no way of determining
+        // whether upgrade has previously occurred.
+        $prefs->remove('delete_sentmail_monthly');
+    }
+
+    /**
      * Upgrade to the new forward preferences.
      */
     protected function _upgradeForwardPrefs()
@@ -173,6 +193,24 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             $prefs->getValue('disposition_send_mdn')) {
             $prefs->setValue('send_mdn', 1);
         }
+    }
+
+    /**
+     * 'purge_sentmail' no longer exists -> use 'purge_sentmail_interval'
+     * instead.
+     */
+    protected function _upgradePurgeSentmailPrefs()
+    {
+        global $prefs;
+
+        if (!$prefs->getValue('purge_sentmail') &&
+            ($prefs->getDefault('purge_sentmail') !== null)) {
+            $prefs->remove('purge_sentmail_interval');
+        }
+
+        // Need to remove old pref or else there can be no way of determining
+        // whether upgrade has previously occurred.
+        $prefs->remove('purge_sentmail');
     }
 
     /**

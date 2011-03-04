@@ -19,9 +19,8 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        $this->active = $GLOBALS['prefs']->getValue('delete_sentmail_monthly');
-        if ($this->active &&
-            $GLOBALS['prefs']->isLocked('delete_sentmail_monthly')) {
+        if (($this->active = $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep')) &&
+            $GLOBALS['prefs']->isLocked('delete_sentmail_monthly_keep')) {
             $this->display = Horde_LoginTasks::DISPLAY_NONE;
         }
     }

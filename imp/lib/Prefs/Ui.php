@@ -122,14 +122,12 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'delete_sentmail_monthly':
             case 'delete_sentmail_monthly_keep':
             case 'empty_spam_menu':
             case 'initialpageselect':
             case 'move_ham_after_report':
             case 'nav_expanded':
             case 'nav_poll_all':
-            case 'purge_sentmail':
             case 'purge_sentmail_interval':
             case 'purge_sentmail_keep':
             case 'purge_spam_interval':

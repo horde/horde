@@ -194,7 +194,7 @@
 <entry id="compose-save-attachments">
     <title>Message Composition: Save Attachments</title>
     <para>
-    Determines whether the attachments in your composition are saved with the message when stored in the sent-mail folder. If &quot;Yes&quot;, the attachment data will be saved. If &quot;No&quot;, the attachment data will be stripped from the message after it is sent to all recipients. Choosing &quot;No&quot; will help conserve disk space by removing (potentially large) attachment information from the saved messages.
+    Determines whether the attachments in your composition are saved with the message when stored in the sent mail folder. If &quot;Yes&quot;, the attachment data will be saved. If &quot;No&quot;, the attachment data will be stripped from the message after it is sent to all recipients. Choosing &quot;No&quot; will help conserve disk space by removing (potentially large) attachment information from the saved messages.
     </para>
 </entry>
 
@@ -635,49 +635,35 @@
 </entry>
 
 <entry id="prefs-rename_sentmail_monthly">
-    <title>Preferences: Maintenance: Rename Sent-mail Folder Monthly</title>
+    <title>Preferences: Rename Sent Mail Folder Monthly</title>
     <para>
-    Turn this preference on if you would like to rename your sent-mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent-mail folder will be created.
-    </para>
-</entry>
-
-<entry id="prefs-delete_sentmail_monthly">
-    <title>Preferences: Maintenance: Delete Sent-mail Folder Monthly</title>
-    <para>
-    Turn this preference on if you would like to delete old sent-mail folders at the beginning of every month. This may be useful if you have a quota, for example.
+    Turn this preference on if you would like to rename your sent mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent mail folder will be created.
     </para>
 </entry>
 
 <entry id="prefs-delete_sentmail_monthly_keep">
-    <title>Preferences: Maintenance: Delete Sent-mail Folder Monthly - # of Folders to Keep</title>
+    <title>Preferences: Delete Sent Mail Folder Monthly</title>
     <para>
-    If you are deleting old sent-mail folders every month, how many months of old folders do you  want to keep?  Any folders older than this many months will be deleted.
-    </para>
-</entry>
-
-<entry id="prefs-purge_sentmail">
-    <title>Preferences: Maintenance: Purge Sent-Mail</title>
-    <para>
-    Do you want to purge your sent-mail folder(s) every so often.
+    This option will purge old sent mail folders after a given number of months.  Any folders older than this value will be deleted.  This may be useful if you have a quota, for example.
     </para>
 </entry>
 
 <entry id="prefs-purge_sentmail_interval">
-    <title>Preferences: Maintenance: Purge Sent-Mail Interval</title>
+    <title>Preferences: Purge Sent Mail</title>
     <para>
-    If you are purging your sent-mail folder(s), how often should it be purged?
+    How often should your sent mail folder(s) be purged?
     </para>
 </entry>
 
 <entry id="prefs-purge_sentmail_keep">
-    <title>Preferences: Maintenance: Purge Sent-Mail Keep</title>
+    <title>Preferences: Purge Sent Mail Keep</title>
     <para>
-    If you are purging your sent-mail folder(s), message older than how many days should be purged?
+    If you are purging your sent mail folder(s), message older than how many days should be purged?
     </para>
 </entry>
 
 <entry id="prefs-delete_attachments_monthly_keep">
-    <title>Preferences: Maintenance: Delete Linked Attachments Monthly - # of Months to Keep</title>
+    <title>Preferences: Delete Linked Attachments Monthly</title>
     <para>
     If your local account is configured to allow sending linked attachments in outgoing compose messages, this option will purge old linked attachments after a given number of months.  Any attachments older than this value will be deleted.  This may be useful if you have a quota, for example.
     </para>
@@ -808,7 +794,7 @@
 <entry id="prefs-save_attachments">
     <title>Preferences: Save Attachments on Sent Messages</title>
     <para>
-    If saving a composed message in a sent-mail folder, determine if all attachment data is saved. The following options are available:
+    If saving a composed message in a sent mail folder, determine if all attachment data is saved. The following options are available:
     </para>
 
     <para>* &quot;Always save attachments&quot; - NEVER prompt to save attachments in compose screen; the attachments are ALWAYS saved with the message.</para>

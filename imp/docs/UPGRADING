@@ -76,6 +76,7 @@ your ``config/prefs.php`` file::
    attachment_display
    auto_delete_drafts
    delete_attachments_monthly
+   delete_sentmail_monthly
    disposition_request_read
    disposition_send_mdn
    fckeditor_buttons
@@ -86,6 +87,7 @@ your ``config/prefs.php`` file::
    image_addrbook
    image_replacement
    nav_expanded_sidebar
+   purge_sentmail
    purge_spam
    purge_trash
    use_vinbox
