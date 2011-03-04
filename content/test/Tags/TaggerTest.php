@@ -69,15 +69,26 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(1, 2), $this->tagger->ensureTags(array('work', 'play')));
     }
 
+    public function testDuplicateTags()
+    {
+        var_dump($this->tagger->tag('mike', 1, 'TYÖ'));
+        $this->tagger->tag('mike', 1, 'TYÖ');
+
+        $this->tagger->tag('mike', 1, 'työ');
+        $this->tagger->tag('mike', 1, 'työ');
+
+
+    }
+
     public function testFullTagCloudSimple()
     {
         $this->assertEquals(array(), $this->tagger->getTagCloud());
 
-        $this->tagger->tag(1, 1, 1);
+        $this->tagger->tag(1, 1, 'work');
         $cloud = $this->tagger->getTagCloud();
-        $this->assertEquals(1, $cloud[0]['tag_id']);
-        $this->assertEquals('work', $cloud[0]['tag_name']);
-        $this->assertEquals(1, $cloud[0]['count']);
+        $this->assertEquals(1, $cloud[1]['tag_id']);
+        $this->assertEquals('work', $cloud[1]['tag_name']);
+        $this->assertEquals(1, $cloud[1]['count']);
     }
 
     public function testGetRecentTags()
