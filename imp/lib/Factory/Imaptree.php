@@ -32,7 +32,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
      *
      * @var boolean
      */
-    private $_isInit = false;
+    static private $_isInit = false;
 
     /**
      * Return the IMP_Imap_Tree object.
@@ -66,9 +66,9 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
         }
 
         if (!($instance instanceof IMP_Imap_Tree)) {
-            $this->_isInit = true;
+            self::$_isInit = true;
             $instance = new IMP_Imap_Tree();
-            $this->_isInit = false;
+            self::$_isInit = false;
         }
 
         register_shutdown_function(array($this, 'shutdown'), $instance, $injector);
@@ -105,7 +105,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
      */
     static public function initialized()
     {
-        return (!$this->_isInit &&
+        return (!self::$_isInit &&
                 $GLOBALS['session']->exists('imp', 'treeob'));
     }
 
