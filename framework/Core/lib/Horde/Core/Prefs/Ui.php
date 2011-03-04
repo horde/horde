@@ -211,7 +211,9 @@ class Horde_Core_Prefs_Ui
             $GLOBALS['session']->set('horde', 'prefs_advanced', !empty($this->vars->show_advanced));
         }
 
-        if (!$this->group || !$this->groupIsEditable($this->group)) {
+        if (!$this->vars->actionID ||
+            !$this->group ||
+            !$this->groupIsEditable($this->group)) {
             return;
         }
 
@@ -220,13 +222,11 @@ class Horde_Core_Prefs_Ui
             return;
         }
 
-        if ($this->vars->actionID) {
-            try {
-                $GLOBALS['injector']->getInstance('Horde_Token')->validate($this->vars->horde_prefs_token, 'horde.prefs');
-            } catch (Horde_Token_Exception $e) {
-                $GLOBALS['notification']->push($e);
-                return;
-            }
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Token')->validate($this->vars->horde_prefs_token, 'horde.prefs');
+        } catch (Horde_Token_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return;
         }
 
         switch ($this->vars->actionID) {
