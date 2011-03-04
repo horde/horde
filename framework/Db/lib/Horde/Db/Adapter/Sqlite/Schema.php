@@ -279,7 +279,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        $defs = array(sprintf('$definition["%s"]->setType("%s");', $columnName, $type));
+        $defs = array(sprintf('$definition["%s"]->setType("%s"); if ("%s" == "primaryKey") $definition->primaryKey(false);', $columnName, $type, $type));
         if (isset($options['limit'])) {
             $defs[] = sprintf('$definition["%s"]->setLimit("%s");', $columnName, $options['limit']);
         }
