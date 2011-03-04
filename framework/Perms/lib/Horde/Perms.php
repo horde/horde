@@ -361,12 +361,14 @@ class Horde_Perms
         if (isset($permission->data['groups']) &&
             is_array($permission->data['groups']) &&
             count($permission->data['groups'])) {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+            $groups = $GLOBALS['injector']
+                ->getInstance('Horde_Group')
+                ->listGroups($user);;
 
             $composite_perm = null;
             $type = $permission->get('type');
             foreach ($permission->data['groups'] as $group => $perm) {
-                if ($groups->userIsInGroup($user, $group)) {
+                if (isset($groups[$group])) {
                     if (is_null($composite_perm)) {
                         $composite_perm = ($type == 'matrix') ? 0 : array();
                     }

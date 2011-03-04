@@ -269,7 +269,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         // Get groups permissions.
         $groups = array();
         try {
-            $groupNames = $this->_groups->getGroupMemberships($userid, true);
+            $groupNames = $this->_groups->listGroups($userid);
             if ($groupNames) {
                 $group_ids = array();
                 foreach (array_keys($groupNames) as $id) {

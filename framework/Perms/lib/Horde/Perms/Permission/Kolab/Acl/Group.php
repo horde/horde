@@ -66,6 +66,6 @@ extends Horde_Perms_Permission_Kolab_Acl
      */
     public function toHorde(array &$data)
     {
-        $data['groups'][$this->_groups->getGroupId($this->_id)] = $this->convertAclToMask();
+        $data['groups'][$this->_id] = $this->convertAclToMask();
     }
 }

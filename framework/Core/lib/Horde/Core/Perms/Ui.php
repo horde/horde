@@ -349,8 +349,9 @@ class Horde_Core_Perms_Ui
         $perm_val = $permission->getGroupPermissions();
         $this->_form->setSection('groups', Horde_Core_Translation::t("Groups"), Horde::img('group.png'), false);
         try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $group_list = $groups->listGroups();
+            $group_list = $GLOBALS['injector']
+                ->getInstance('Horde_Group')
+                ->listAll();
         } catch (Horde_Group_Exception $e) {
             $GLOBALS['notification']->push($e);
             $group_list = array();

@@ -837,7 +837,7 @@ class Horde_Share_Sql extends Horde_Share_Base
 
             // If the user has any group memberships, check for those also.
             try {
-                $groups = $this->_groups->getGroupMemberships($userid, true);
+                $groups = $this->_groups->listGroups($userid);
                 if ($groups) {
                     // (name == perm_groups and key in ($groups) and val & $perm)
                     $ids = array_keys($groups);

@@ -143,8 +143,8 @@ abstract class Horde_Core_Ajax_Application
         try {
             $horde_groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $groups = empty($GLOBALS['conf']['share']['any_group'])
-                ? $horde_groups->getGroupMemberships($GLOBALS['registry']->getAuth(), true)
-                : $horde_groups->listGroups();
+                ? $horde_groups->listGroups($GLOBALS['registry']->getAuth())
+                : $horde_groups->listAll();
             if ($groups) {
                 asort($groups);
                 $result->groups = $groups;

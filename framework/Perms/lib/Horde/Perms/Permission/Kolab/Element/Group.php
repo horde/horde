@@ -52,7 +52,7 @@ extends Horde_Perms_Permission_Kolab_Element
     public function __construct($permission, $id, Horde_Group $groups)
     {
         $this->_horde_id = $id;
-        $this->_kolab_id = 'group:' . $groups->getGroupName($id);
+        $this->_kolab_id = 'group:' . $groups->getName($id);
         parent::__construct($permission);
     }
 
