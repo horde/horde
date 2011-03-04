@@ -422,7 +422,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         /* Only update if IMP_Imap_Tree is already initialized; otherwise,
          * we have a cyclic dependency. */
-        if ($injector->hasInstance('IMP_Imap_Tree')) {
+        if (IMP_Factory_Imaptree::initialized()) {
             $injector->getInstance('IMP_Imap_Tree')->updateVFolders($vfolders);
         }
 

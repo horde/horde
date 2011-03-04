@@ -1439,7 +1439,7 @@ class IMP_Prefs_Ui
 
                 /* Only change enabled status for virtual folders displayed
                  * on the preferences screen. */
-                if (isset($ui->vars->$form_key)) {
+                if ($val->prefDisplay) {
                     $val->enabled = !empty($ui->vars->$form_key);
                     $vfolders[$key] = $val;
                 }

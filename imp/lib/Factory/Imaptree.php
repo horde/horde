@@ -88,4 +88,16 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
         }
     }
 
+    /**
+     * Static method: determines if IMP_Imap_Tree has already been initialized
+     * in this session.
+     *
+     * @return boolean  True if the tree object has been initialized.
+     */
+    static public function initialized()
+    {
+        return ($GLOBALS['session']->exists('imp', 'treeob') ||
+                $GLOBALS['injector']->hasInstance('IMP_Imap_Tree'));
+    }
+
 }
