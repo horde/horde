@@ -698,7 +698,7 @@ class Content_Tagger
             foreach ($this->_db->selectAll('SELECT tag_id, tag_name FROM ' . $this->_t('tags') . ' WHERE tag_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($tagText))).')') as $row) {
                 $tagTextCopy = $tagText;
                 foreach ($tagTextCopy as $tag => $tagIndex) {
-                    if (strtolower($row['tag_name']) == strtolower($tag)) {
+                    if (strtolower(Horde_String::convertCharset($row['tag_name'], $this->_db->getOption('charset'), 'UTF-8')) == strtolower($tag)) {
                         unset($tagText[$tag]);
                         break;
                     }
