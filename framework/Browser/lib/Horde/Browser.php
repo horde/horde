@@ -391,7 +391,11 @@ class Horde_Browser
                 $this->setMobile(true);
             }
 
+            $this->setFeature('xmlhttpreq');
+
             switch ($this->_majorVersion) {
+            default:
+            case 9:
             case 8:
                 $this->setFeature('javascript', 1.4);
                 $this->setFeature('dom');
@@ -401,7 +405,6 @@ class Horde_Browser
                 $this->setFeature('homepage');
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
-                $this->setFeature('xmlhttpreq');
                 $this->setFeature('dataurl', 32768);
                 break;
 
@@ -414,7 +417,6 @@ class Horde_Browser
                 $this->setFeature('homepage');
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
-                $this->setFeature('xmlhttpreq');
                 break;
 
             case 6:
@@ -426,7 +428,6 @@ class Horde_Browser
                 $this->setFeature('homepage');
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
-                $this->setFeature('xmlhttpreq');
                 $this->setQuirk('scrollbar_in_way');
                 $this->setQuirk('broken_multipart_form');
                 $this->setQuirk('windowed_controls');
@@ -436,11 +437,11 @@ class Horde_Browser
                 if ($this->getPlatform() == 'mac') {
                     $this->setFeature('javascript', 1.2);
                     $this->setFeature('optgroup');
+                    $this->setFeature('xmlhttpreq', false);
                 } else {
                     // MSIE 5 for Windows.
                     $this->setFeature('javascript', 1.4);
                     $this->setFeature('dom');
-                    $this->setFeature('xmlhttpreq');
                     if ($this->_minorVersion >= 5) {
                         $this->setFeature('rte');
                         $this->setQuirk('windowed_controls');
@@ -459,6 +460,7 @@ class Horde_Browser
             case 4:
                 $this->setFeature('javascript', 1.2);
                 $this->setFeature('accesskey');
+                $this->setFeature('xmlhttpreq', false);
                 if ($this->_minorVersion > 0) {
                     $this->setFeature('utf');
                 }
@@ -467,6 +469,7 @@ class Horde_Browser
             case 3:
                 $this->setFeature('javascript', 1.1);
                 $this->setQuirk('avoid_popup_windows');
+                $this->setFeature('xmlhttpreq', false);
                 break;
             }
         } elseif (preg_match('|ANTFresco/([0-9]+)|', $agent, $version)) {
