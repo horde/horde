@@ -1745,4 +1745,31 @@ class Turba_Api extends Horde_Registry_Api
         }
     }
 
+    /**
+     * Obtain an array of $cfgSource entries matching the filter criteria.
+     *
+     * @param type $filter  A single key -> value hash to filter the sources.
+     *
+     * @return array
+     */
+    public function getSourcesConfig($filter = array())
+    {
+         // Get a list of all available Turba sources
+        $turba_sources = Horde::loadConfiguration('backends.php',
+                                                  'cfgSources', 'turba');
+        $results = array();
+        foreach ($turba_sources as $key => $source) {
+            if (!empty($filter)) {
+                if(!empty($source[current(array_keys($filter))]) &&
+                   $source[current(array_keys($filter))] == current($filter)) {
+
+                    $results[$key] = $source;
+
+                }
+            }
+        }
+
+        return $results;
+    }
+
 }
