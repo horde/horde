@@ -205,28 +205,6 @@ $_prefs['purge_sentmail_keep'] = array(
 
 
 
-// *** Additional Accounts Preferences ***
-
-$prefGroups['accounts'] = array(
-    'column' => _("General"),
-    'label' => _("Additional Accounts"),
-    'desc' => _("Configure additional mail accounts to display."),
-    'members' => array('accountsmanagement')
-);
-
-// UI for flag management.
-$_prefs['accountsmanagement'] = array(
-    'type' => 'special'
-);
-
-// Internal accounts storage value
-$_prefs['accounts'] = array(
-    // 'value' = json_encode(array())
-    'value' => '[]'
-);
-
-
-
 // *** Saved Searches Preferences ***
 
 $prefGroups['searches'] = array(

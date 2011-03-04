@@ -415,27 +415,6 @@ div.msgflags.flagDeleted, span.iconImg.flagDeleted {
 }
 
 /* Prefs management styles. */
-table.accountsmanagement, table.flagmanagement, table.searchesmanagement {
-    padding-bottom: 10px;
-}
-table.accountsmanagement td, table.flagmanagement td, table.searchesmanagement td {
-    padding-right: 12px;
-}
-table.accountsmanagement thead td, table.flagmanagement thead td, table.searchesmanagement thead td {
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-table.accountsmanagement td.required, .accountsNotSecure {
-    color: red;
-}
-table.accountsmanagement td.noneconfigured {
-    font-style: italic;
-}
-.accountsSecure {
-    color: green;
-}
-
 table.flagmanagement div.flagUser {
     border: 1px solid gray;
     margin-right: 2px;

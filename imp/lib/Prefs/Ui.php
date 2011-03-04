@@ -48,10 +48,6 @@ class IMP_Prefs_Ui
             $ui->suppressGroups[] = 'acl';
         }
 
-        if (empty($conf['user']['allow_accounts'])) {
-            $ui->suppressGroups[] = 'accounts';
-        }
-
         $contacts_app = $registry->hasInterface('contacts');
         if (!$contacts_app || !$registry->hasPermission($contacts_app)) {
             $ui->suppressGroups[] = 'addressbooks';
@@ -69,10 +65,6 @@ class IMP_Prefs_Ui
         if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
             $ui->suppressGroups[] = 'searches';
         }
-
-        // TODO: For now, disable this group since accounts code has not
-        // yet been fully written.
-        $ui->suppressGroups[] = 'accounts';
     }
 
     /**
@@ -99,12 +91,6 @@ class IMP_Prefs_Ui
 
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
-            case 'accountsmanagement':
-                if (empty($conf['user']['allow_accounts'])) {
-                    $ui->suppress[] = 'accountsmanagement';
-                }
-                break;
-
             case 'add_source':
                 try {
                     $ui->override['add_source'] = $registry->call('contacts/sources', array(true));
@@ -320,10 +306,6 @@ class IMP_Prefs_Ui
     public function prefsSpecial($ui, $item)
     {
         switch ($item) {
-        case 'accountsmanagement':
-            Horde::addScriptFile('accountsprefs.js', 'imp');
-            return $this->_accountsManagement($ui);
-
         case 'aclmanagement':
             Horde::addScriptFile('acl.js', 'imp');
             return $this->_aclManagement($ui);
@@ -424,10 +406,6 @@ class IMP_Prefs_Ui
         global $prefs;
 
         switch ($item) {
-        case 'accountsmanagement':
-            $this->_updateAccountsManagement($ui);
-            return false;
-
         case 'aclmanagement':
             $this->_updateAclManagement($ui);
             return false;
@@ -540,109 +518,6 @@ class IMP_Prefs_Ui
                 $registry->getApiInstance('imp', 'application')->mailboxesChanged();
             }
             break;
-        }
-    }
-
-    /* Accounts management handling. */
-
-    /**
-     * Create code for accounts management.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return string  HTML UI code.
-     */
-    protected function _accountsManagement($ui)
-    {
-        $ui->nobuttons = true;
-
-        Horde::addInlineJsVars(array(
-            'ImpAccountsPrefs.confirm_delete' => _("Are you sure you want to delete this account?")
-        ));
-
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-
-        if ($ui->vars->accounts_action == 'new') {
-            $t->set('new', true);
-        } else {
-            $accounts_list = $GLOBALS['injector']->getInstance('IMP_Accounts')->getList();
-            if (!empty($accounts_list)) {
-                $t->set('delete_img', Horde::img('delete.png'));
-
-                $out = array();
-                foreach ($accounts_list as $key => $val) {
-                    $out[] = array(
-                        'id' => $key,
-                        'label' => htmlspecialchars($val['label']),
-                        'port' => htmlspecialchars($val['port']),
-                        'secure' => ($val['secure'] == 'yes'),
-                        'secure_auto' => ($val['secure'] == 'auto'),
-                        'server' => htmlspecialchars($val['server']),
-                        'type' => htmlspecialchars($val['type']),
-                    );
-                }
-                $t->set('accounts', $out);
-            }
-        }
-
-        return $t->fetch(IMP_TEMPLATES . '/prefs/accounts.html');
-    }
-
-    /**
-     * Update accounts related preferences.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    protected function _updateAccountsManagement($ui)
-    {
-        $success = false;
-
-        switch ($ui->vars->accounts_action) {
-        case 'add':
-            if (!$ui->vars->accounts_server ||
-                !$ui->vars->accounts_username) {
-                    $GLOBALS['notification']->push(_("Missing required values."), 'horde.error');
-                } else {
-                    /* Port is not required. */
-                    $port = $ui->vars->accounts_port;
-                    if (!$port) {
-                        $port = ($ui->vars->accounts_type == 'imap') ? 143 : 110;
-                    }
-
-                    /* Label is not required. */
-                    $label = $ui->vars->accounts_label;
-                    if (!strlen($label)) {
-                        $label = $ui->vars->accounts_server . ':' . $port . ' [' . $ui->vars->accounts_type . ']';
-                    }
-
-                    $imp_accounts = $GLOBALS['injector']->getInstance('IMP_Accounts');
-                    $imp_accounts->addAccount(array(
-                        'label' => $label,
-                        'port' => $port,
-                        'secure' => $ui->vars->accounts_secure,
-                        'server' => $ui->vars->accounts_server,
-                        'type' => $ui->vars->accounts_type,
-                        'username' => $ui->vars->accounts_username
-                    ));
-                    $GLOBALS['notification']->push(sprintf(_("Account \"%s\" added."), $ui->vars->accounts_server), 'horde.success');
-
-                    $success = true;
-                }
-            break;
-
-        case 'delete':
-            $imp_accounts = $GLOBALS['injector']->getInstance('IMP_Accounts');
-            $tmp = $imp_accounts->getAccount($ui->vars->accounts_data);
-            if ($imp_accounts->deleteAccount($ui->vars->accounts_data)) {
-                $GLOBALS['notification']->push(sprintf(_("Account \"%s\" deleted."), $tmp['server']), 'horde.success');
-                $success = true;
-            }
-            break;
-        }
-
-        if ($success) {
-            $GLOBALS['registry']->getApiInstance('imp', 'application')->mailboxesChanged();
         }
     }
 

@@ -3,8 +3,6 @@
 <configuration>
  <configtab name="user" desc="User Capabilities and Constraints">
   <configsection name="user">
-   <configboolean name="allow_accounts" desc="Should we allow users to add
-   remote accounts?">false</configboolean>
    <configswitch name="allow_folders" desc="Should we allow users to use
    folders at all? NOTE: setting this to false will mean there is no place to
    save sent-mail or postponed messages, along with the obvious effects of
