@@ -985,18 +985,23 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->preview = (object)$show_msg->showMessage($args);
             if (isset($result->preview->error)) {
                 $result = $this->_checkUidvalidity($result);
-            } elseif (!$change) {
-                /* Only update cacheid info if it changed. */
-                $cacheid = IMP_Mailbox::get($this->_vars->view)->cacheid;
-                if ($cacheid != $this->_vars->cacheid) {
-                    $result->ViewPort = new stdClass;
-                    $result->ViewPort->updatecacheid = $cacheid;
-                    $result->ViewPort->view = $this->_vars->view;
+            } else {
+                if ($change) {
+                    $result->ViewPort = $this->_viewPortData(true);
+                } else {
+                    /* Cache ID has changed due to viewing this message. So
+                     * update the cacheid in the ViewPort. */
+                    $cacheid = IMP_Mailbox::get($this->_vars->view)->cacheid;
+                    if ($cacheid != $this->_vars->cacheid) {
+                        $result->ViewPort = new stdClass;
+                        $result->ViewPort->updatecacheid = $cacheid;
+                        $result->ViewPort->view = $this->_vars->view;
+                    }
                 }
-            }
 
-            if ($poll = $this->pollEntry($this->_vars->view)) {
-                $result->poll = $poll;
+                if ($poll = $this->pollEntry($this->_vars->view)) {
+                    $result->poll = $poll;
+                }
             }
 
             /* Add changed flag information. */
