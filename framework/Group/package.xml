@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-02</date>
- <time>09:53:31</time>
+ <date>2011-03-04</date>
+ <time>22:36:07</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -39,24 +39,19 @@
       <file name="Base.php" role="php" />
       <file name="ContactListObject.php" role="php" />
       <file name="Contactlists.php" role="php" />
-      <file name="DataTreeObject.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="Hooks.php" role="php" />
       <file name="Kolab.php" role="php" />
-      <file name="KolabObject.php" role="php" />
       <file name="Ldap.php" role="php" />
-      <file name="LdapObject.php" role="php" />
       <file name="Mock.php" role="php" />
       <file name="Sql.php" role="php" />
-      <file name="SqlObject.php" role="php" />
      </dir> <!-- /lib/Horde/Group -->
-     <file name="Group.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="migration">
     <dir name="Horde_Group">
      <file name="1_horde_group_base_tables.php" role="data" />
      <file name="2_horde_group_upgrade_autoincrement.php" role="data" />
+     <file name="3_horde_group_upgrade_drop_parents.php" role="data" />
     </dir> <!-- /migration/Horde_Group -->
    </dir> <!-- /migration -->
    <dir name="test">
@@ -65,6 +60,7 @@
       <dir name="Sql">
        <dir name="Pdo">
         <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
         <file name="SqliteTest.php" role="test" />
        </dir> <!-- /test/Horde/Group/Sql/Pdo -->
        <file name="Base.php" role="test" />
@@ -72,6 +68,8 @@
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="Base.php" role="test" />
+      <file name="LdapTest.php" role="test" />
+      <file name="MockTest.php" role="test" />
      </dir> <!-- /test/Horde/Group -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -119,27 +117,25 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Group.php" name="lib/Horde/Group.php" />
    <install as="Horde/Group/Base.php" name="lib/Horde/Group/Base.php" />
    <install as="Horde/Group/ContactListObject.php" name="lib/Horde/Group/ContactListObject.php" />
    <install as="Horde/Group/Contactlists.php" name="lib/Horde/Group/Contactlists.php" />
-   <install as="Horde/Group/DataTreeObject.php" name="lib/Horde/Group/DataTreeObject.php" />
    <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
-   <install as="Horde/Group/Hooks.php" name="lib/Horde/Group/Hooks.php" />
    <install as="Horde/Group/Kolab.php" name="lib/Horde/Group/Kolab.php" />
-   <install as="Horde/Group/KolabObject.php" name="lib/Horde/Group/KolabObject.php" />
    <install as="Horde/Group/Ldap.php" name="lib/Horde/Group/Ldap.php" />
-   <install as="Horde/Group/LdapObject.php" name="lib/Horde/Group/LdapObject.php" />
    <install as="Horde/Group/Mock.php" name="lib/Horde/Group/Mock.php" />
    <install as="Horde/Group/Sql.php" name="lib/Horde/Group/Sql.php" />
-   <install as="Horde/Group/SqlObject.php" name="lib/Horde/Group/SqlObject.php" />
    <install as="migration/1_horde_group_base_tables.php" name="migration/Horde_Group/1_horde_group_base_tables.php" />
    <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde_Group/2_horde_group_upgrade_autoincrement.php" />
+   <install as="migration/3_horde_group_upgrade_drop_parents.php" name="migration/Horde_Group/3_horde_group_upgrade_drop_parents.php" />
    <install as="Horde/Group/AllTests.php" name="test/Horde/Group/AllTests.php" />
    <install as="Horde/Group/Autoload.php" name="test/Horde/Group/Autoload.php" />
    <install as="Horde/Group/Base.php" name="test/Horde/Group/Base.php" />
+   <install as="Horde/Group/LdapTest.php" name="test/Horde/Group/LdapTest.php" />
+   <install as="Horde/Group/MockTest.php" name="test/Horde/Group/MockTest.php" />
    <install as="Horde/Group/Sql/Base.php" name="test/Horde/Group/Sql/Base.php" />
    <install as="Horde/Group/Sql/Pdo/MysqlTest.php" name="test/Horde/Group/Sql/Pdo/MysqlTest.php" />
+   <install as="Horde/Group/Sql/Pdo/PgsqlTest.php" name="test/Horde/Group/Sql/Pdo/PgsqlTest.php" />
    <install as="Horde/Group/Sql/Pdo/SqliteTest.php" name="test/Horde/Group/Sql/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
@@ -213,7 +209,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-02</date>
+   <date>2011-03-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Throw exceptions, not PEAR_Errors.
