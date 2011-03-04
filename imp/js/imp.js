@@ -100,10 +100,10 @@ document.observe('dom:loaded', function() {
 
         id.stopObserving('load');
 
-        var lc = id.contentWindow.document.lastChild;
-        if (!lc.scrollHeight) {
-            lc = id.contentWindow.document.body;
-        }
+        var lc = id.contentWindow.document.lastChild,
+            body = id.contentWindow.document.body;
+
+        lc = (lc.scrollHeight > body.scrollHeight) ? lc : body;
 
         // Try expanding IFRAME if we detect a scroll.
         if (lc.clientHeight != lc.scrollHeight ||
