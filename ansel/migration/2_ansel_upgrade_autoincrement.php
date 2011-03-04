@@ -16,10 +16,26 @@ class AnselUpgradeAutoIncrement extends Horde_Db_Migration_Base
 {
     public function up()
     {
-        $this->changeColumn('ansel_images', 'image_id', 'integer', array('null' => false, 'autoincrement' => true, 'default' => null));
-        $this->changeColumn('ansel_faces', 'face_id', 'integer', array('null' => false, 'autoincrement' => true, 'default' => null));
-        $this->changeColumn('ansel_shares', 'share_id', 'integer', array('null' => false, 'autoincrement' => true, 'default' => null));
-        $this->changeColumn('ansel_tags', 'tag_id', 'integer', array('null' => false, 'autoincrement' => true, 'default' => null));
+        $this->changeColumn('ansel_images', 'image_id', 'primaryKey');
+        try {
+            $this->dropTable('ansel_images_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
+        $this->changeColumn('ansel_faces', 'face_id', 'primaryKey');
+        try {
+            $this->dropTable('ansel_faces_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
+        $this->changeColumn('ansel_shares', 'share_id', 'primaryKey');
+        try {
+            $this->dropTable('ansel_shares_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
+        $this->changeColumn('ansel_tags', 'tag_id', 'primaryKey');
+        try {
+            $this->dropTable('ansel_tags_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
     }
 
     public function down()

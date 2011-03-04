@@ -152,7 +152,7 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
         $t->column('sentmail_foo', 'string');
         $t->end();
         $migration = new Horde_Db_Migration_Base($this->_conn, null);
-        $migration->changeColumn('imp_sentmail', 'sentmail_id', 'integer', array('autoincrement' => true, 'default' => null));
+        $migration->changeColumn('imp_sentmail', 'sentmail_id', 'primaryKey');
         $columns = $this->_conn->columns('imp_sentmail');
         $this->assertEquals(2, count($columns));
         $this->assertTrue(isset($columns['sentmail_id']));
