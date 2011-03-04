@@ -263,7 +263,7 @@ Drag = Class.create({
         // that if possible because it will prevent any event handlers further
         // up the DOM tree from firing.
         if (Prototype.Browser.IE) {
-            this.element.observe('selectstart', Event.stop);
+            document.observe('selectstart', Event.stop);
         } else if (Prototype.Browser.Gecko) {
             this.element.setStyle({ MozUserSelect: 'none' });
         }
