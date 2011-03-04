@@ -7,13 +7,6 @@
  * @package    Content
  * @subpackage UnitTests
  */
-
-/**
- * @author     Chuck Hagenbuch <chuck@horde.org>
- * @category   Horde
- * @package    Content
- * @subpackage UnitTests
- */
 class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
@@ -22,7 +15,7 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
 
         $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
         $injector->setInstance('Horde_Db_Adapter', $db);
-
+        //$this->_migrate($db);
         $this->tagger = $injector->getInstance('Content_Tagger');
 
         // Read sql schema file
@@ -273,6 +266,61 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
 
         $recent = $this->tagger->getRecentUsers(array('typeId' => 2));
         $this->assertEquals(0, count($recent));
+    }
+
+    private function _migrate(Horde_Db_Adapter_Base $db)
+    {
+        $migration = new Horde_Db_Migrator($db);
+
+            // rampage_types
+        $t = $migration->createTable('rampage_types', array('primaryKey' => 'type_id'));
+        $t->column('type_name', 'string', array('limit' => 255, 'null' => false));
+        $t->end();
+        $migration->addIndex('rampage_types', array('type_name'), array('name' => 'rampage_objects_type_name', 'unique' => true));
+
+        // rampage_objects
+        $t = $migration->createTable('rampage_objects', array('primaryKey' => 'object_id'));
+        $t->column('object_name', 'string',  array('limit' => 255, 'null' => false));
+        $t->column('type_id',     'integer', array('null' => false, 'unsigned' => true));
+        $t->end();
+        $migration->addIndex('rampage_objects', array('type_id', 'object_name'), array('name' => 'rampage_objects_type_object_name', 'unique' => true));
+
+        // rampage_users
+        $t = $migration->createTable('rampage_users', array('primaryKey' => 'user_id'));
+        $t->column('user_name', 'string', array('limit' => 255, 'null' => false));
+        $t->end();
+        $migration->addIndex('rampage_users', array('user_name'), array('name' => 'rampage_users_user_name', 'unique' => true));
+
+        // rampage_tags
+        $t = $migration->createTable('rampage_tags', array('primaryKey' => 'tag_id'));
+        $t->column('tag_name', 'string', array('limit' => 255, 'null' => false));
+        $t->end();
+        $migration->addIndex('rampage_tags', array('tag_name'), array('name' => 'rampage_tags_tag_name', 'unique' => true));
+
+        // rampage_tagged
+        $t = $migration->createTable('rampage_tagged', array('primaryKey' => array('user_id', 'object_id', 'tag_id')));
+        $t->column('user_id',   'integer', array('null' => false, 'unsigned' => true));
+        $t->column('object_id', 'integer', array('null' => false, 'unsigned' => true));
+        $t->column('tag_id',    'integer', array('null' => false, 'unsigned' => true));
+        $t->column('created',   'datetime');
+        $t->end();
+        $migration->addIndex('rampage_tagged', array('object_id'), array('name' => 'rampage_tagged_object_id'));
+        $migration->addIndex('rampage_tagged', array('tag_id'), array('name' => 'rampage_tagged_tag_id'));
+        $migration->addIndex('rampage_tagged', array('created'), array('name' => 'rampage_tagged_created'));
+
+        // rampage_tag_stats
+        $t = $migration->createTable('rampage_tag_stats', array('primaryKey' => 'tag_id'));
+        $t->column('count', 'integer', array('unsigned' => true));
+        $t->end();
+
+
+        // rampage_user_tag_stats
+        $t = $migration->createTable('rampage_user_tag_stats', array('primaryKey' => array('user_id', 'tag_id')));
+        $t->column('user_id', 'integer', array('null' => false, 'unsigned' => true));
+        $t->column('tag_id',  'integer', array('null' => false, 'unsigned' => true));
+        $t->column('count',   'integer', array('unsigned' => true));
+        $t->end();
+        $migration->addIndex('rampage_user_tag_stats', array('tag_id'), array('name' => 'rampage_user_tag_stats_tag_id'));
     }
 
 }

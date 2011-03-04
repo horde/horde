@@ -8,8 +8,6 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Content_AllTests::main');
 }
 
-require 'Horde/Autoloader.php';
-
 require dirname(__FILE__) . '/../lib/Types/Manager.php';
 require dirname(__FILE__) . '/../lib/Users/Manager.php';
 require dirname(__FILE__) . '/../lib/Objects/Manager.php';
