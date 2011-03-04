@@ -137,21 +137,10 @@ $prefGroups['logintasks'] = array(
     'label' => _("Login Tasks"),
     'desc' => sprintf(_("Configure tasks to run upon logon to %s."), $GLOBALS['registry']->get('name')),
     'members' => array(
-        'initialpageselect', 'rename_sentmail_monthly',
+        'rename_sentmail_monthly',
         'delete_sentmail_monthly', 'delete_sentmail_monthly_keep',
         'purge_sentmail', 'purge_sentmail_interval', 'purge_sentmail_keep'
     )
-);
-
-// select widget for the initial_page preference
-$_prefs['initialpageselect'] = array(
-    'type' => 'special'
-);
-
-// the page to display. Either a filename like 'folders.php'
-// or a mailbox name.
-$_prefs['initial_page'] = array(
-    'value' => 'INBOX'
 );
 
 // rename sent-mail folder every month?
@@ -962,9 +951,20 @@ $prefGroups['mboxdisplay'] = array(
     'label' => _("Mailbox Display"),
     'desc' => _("Change display preferences such as how many messages you see on each page and how messages are sorted."),
     'members' => array(
-        'mailbox_start', 'sortby', 'sortdir', 'sortdate', 'max_msgs',
-        'from_link', 'atc_flag'
+        'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
+        'max_msgs', 'from_link', 'atc_flag'
     )
+);
+
+// select widget for the initial_page preference
+$_prefs['initialpageselect'] = array(
+    'type' => 'special'
+);
+
+// the initial page to display. Either a filename like 'folders.php'
+// or a mailbox name.
+$_prefs['initial_page'] = array(
+    'value' => 'INBOX'
 );
 
 // Where to start when opening mailbox?
