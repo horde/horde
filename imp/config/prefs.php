@@ -140,9 +140,7 @@ $prefGroups['logintasks'] = array(
         'delete_attachments_monthly', 'delete_attachments_monthly_keep',
         'initialpageselect', 'rename_sentmail_monthly',
         'delete_sentmail_monthly', 'delete_sentmail_monthly_keep',
-        'purge_sentmail', 'purge_sentmail_interval', 'purge_sentmail_keep',
-        'purge_trash', 'purge_trash_interval', 'purge_trash_keep',
-        'purge_spam', 'purge_spam_interval', 'purge_spam_keep'
+        'purge_sentmail', 'purge_sentmail_interval', 'purge_sentmail_keep'
     )
 );
 
@@ -220,56 +218,6 @@ $_prefs['purge_sentmail_keep'] = array(
     'type' => 'number',
     'desc' => _("Purge messages in sent-mail folder(s) older than this amount of days."),
     'help' => 'prefs-purge_sentmail_keep'
-);
-
-// purge Trash folder?
-$_prefs['purge_trash'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Purge old messages in the Trash folder?"),
-    'help' => 'prefs-purge_trash'
-);
-
-// how often to purge the Trash folder?
-$_prefs['purge_trash_interval'] = array(
-    'value' => Horde_LoginTasks::MONTHLY,
-    'type' => 'enum',
-    'enum' => Horde_LoginTasks::getLabels(),
-    'desc' => _("Purge Trash how often:"),
-    'help' => 'prefs-purge_trash_interval'
-);
-
-// when purging Trash folder, purge messages older than how many days?
-$_prefs['purge_trash_keep'] = array(
-    'value' => 30,
-    'type' => 'number',
-    'desc' => _("Purge messages in Trash folder older than this amount of days."),
-    'help' => 'prefs-purge_trash_keep'
-);
-
-// purge Spam folder?
-$_prefs['purge_spam'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Purge old messages in the Spam folder?"),
-    'help' => 'prefs-purge_spam'
-);
-
-// how often to purge the Spam folder?
-$_prefs['purge_spam_interval'] = array(
-    'value' => Horde_LoginTasks::MONTHLY,
-    'type' => 'enum',
-    'enum' => Horde_LoginTasks::getLabels(),
-    'desc' => _("Purge Spam how often:"),
-    'help' => 'prefs-purge_spam_interval'
-);
-
-// when purging Spam folder, purge messages older than how many days?
-$_prefs['purge_spam_keep'] = array(
-    'value' => 30,
-    'type' => 'number',
-    'desc' => _("Purge messages in Spam folder older than this amount of days."),
-    'help' => 'prefs-purge_spam_keep'
 );
 
 
@@ -809,7 +757,8 @@ $prefGroups['delmove'] = array(
     'label' => _("Deleting and Moving Messages"),
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
-        'mailbox_return', 'use_trash', 'trashselect', 'empty_trash_menu'
+        'mailbox_return', 'use_trash', 'trashselect', 'empty_trash_menu',
+        'purge_trash_interval', 'purge_trash_keep'
     )
 );
 
@@ -854,6 +803,24 @@ $_prefs['empty_trash_menu'] = array(
     'desc' => _("Display the \"Empty Trash\" link in the menubar?")
 );
 
+// how often to purge the Trash folder?
+$_prefs['purge_trash_interval'] = array(
+    'value' => 0,
+    'type' => 'enum',
+    'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
+    'desc' => _("Purge Trash how often:"),
+    'help' => 'prefs-purge_trash_interval'
+);
+
+// when purging Trash folder, purge messages older than how many days?
+$_prefs['purge_trash_keep'] = array(
+    'value' => 30,
+    'type' => 'number',
+    'desc' => _("Purge messages in Trash folder older than this amount of days."),
+    'help' => 'prefs-purge_trash_keep'
+);
+
+
 // hide deleted
 $_prefs['delhide'] = array(
     'value' => 0
@@ -863,13 +830,13 @@ $_prefs['delhide'] = array(
 
 // *** Spam Preferences ***
 
-$prefGroups['delmove'] = array(
+$prefGroups['spamreport'] = array(
     'column' => _("Message"),
     'label' => _("Spam Reporting"),
     'desc' => _("Configure spam reporting."),
     'members' => array(
         'spamselect', 'delete_spam_after_report', 'move_ham_after_report',
-        'empty_spam_menu'
+        'empty_spam_menu', 'purge_spam_interval', 'purge_spam_keep'
     )
 );
 
@@ -920,6 +887,23 @@ $_prefs['empty_spam_menu'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Display the \"Empty Spam\" link in the menubar?")
+);
+
+// how often to purge the Spam folder?
+$_prefs['purge_spam_interval'] = array(
+    'value' => 0,
+    'type' => 'enum',
+    'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
+    'desc' => _("Purge Spam how often:"),
+    'help' => 'prefs-purge_spam_interval'
+);
+
+// when purging Spam folder, purge messages older than how many days?
+$_prefs['purge_spam_keep'] = array(
+    'value' => 30,
+    'type' => 'number',
+    'desc' => _("Purge messages in Spam folder older than this amount of days."),
+    'help' => 'prefs-purge_spam_keep'
 );
 
 

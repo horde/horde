@@ -31,6 +31,8 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         $this->_upgradeForwardPrefs();
         $this->_upgradeLoginTasksPrefs();
         $this->_upgradeMsgDisplayPrefs();
+        $this->_upgradePurgeSpamPrefs();
+        $this->_upgradePurgeTrashPrefs();
         $this->_upgradeSortPrefs();
         $this->_upgradeStationery();
         $this->_upgradeVirtualFolders();
@@ -152,6 +154,40 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             $prefs->getValue('disposition_send_mdn')) {
             $prefs->setValue('send_mdn', 1);
         }
+    }
+
+    /**
+     * 'purge_spam' no longer exists -> use 'purge_spam_interval' instead.
+     */
+    protected function _upgradePurgeSpamPrefs()
+    {
+        global $prefs;
+
+        if (!$prefs->getValue('purge_spam') &&
+            ($prefs->getDefault('purge_spam') !== null)) {
+            $prefs->remove('purge_spam_interval');
+        }
+
+        // Need to remove old pref or else there can be no way of determining
+        // whether upgrade has previously occurred.
+        $prefs->remove('purge_spam');
+    }
+
+    /**
+     * 'purge_trash' no longer exists -> use 'purge_trash_interval' instead.
+     */
+    protected function _upgradePurgeTrashPrefs()
+    {
+        global $prefs;
+
+        if (!$prefs->getValue('purge_trash') &&
+            ($prefs->getDefault('purge_trash') !== null)) {
+            $prefs->remove('purge_trash_interval');
+        }
+
+        // Need to remove old pref or else there can be no way of determining
+        // whether upgrade has previously occurred.
+        $prefs->remove('purge_trash');
     }
 
     /**

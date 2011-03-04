@@ -690,17 +690,10 @@
     </para>
 </entry>
 
-<entry id="prefs-purge_trash">
+<entry id="prefs-purge_trash_interval">
     <title>Preferences: Maintenance: Purge Trash</title>
     <para>
-    Do you want to purge your trash folder every so often.
-    </para>
-</entry>
-
-<entry id="prefs-purge_trash_interval">
-    <title>Preferences: Maintenance: Purge Trash Interval</title>
-    <para>
-    If you are purging your trash folder, how often should it be purged?
+    How often should your trash folder be purged?
     </para>
 </entry>
 
@@ -711,17 +704,10 @@
     </para>
 </entry>
 
-<entry id="prefs-purge_spam">
+<entry id="prefs-purge_spam_interval">
     <title>Preferences: Maintenance: Purge Spam</title>
     <para>
-    Do you want to purge your spam folder every so often.
-    </para>
-</entry>
-
-<entry id="prefs-purge_spam_interval">
-    <title>Preferences: Maintenance: Purge Spam Interval</title>
-    <para>
-    If you are purging your spam folder, how often should it be purged?
+    How often should your spam folder be purged?
     </para>
 </entry>
 

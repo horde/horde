@@ -85,6 +85,8 @@ your ``config/prefs.php`` file and your preferences backend::
    image_addrbook
    image_replacement
    nav_expanded_sidebar
+   purge_spam
+   purge_trash
    use_vinbox
    use_vtrash
    vinbox_id

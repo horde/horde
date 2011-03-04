@@ -153,10 +153,8 @@ class IMP_Prefs_Ui
             case 'purge_sentmail':
             case 'purge_sentmail_interval':
             case 'purge_sentmail_keep':
-            case 'purge_spam':
             case 'purge_spam_interval':
             case 'purge_spam_keep':
-            case 'purge_trash':
             case 'purge_trash_interval':
             case 'purge_trash_keep':
             case 'rename_sentmail_monthly':
