@@ -398,22 +398,44 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     protected function _copyTable($from, $to, $options = array(), $callback = null)
     {
         $fromColumns = $this->columns($from);
+        $pk = $this->primaryKey($from);
+        if ($pk && count($pk->columns) == 1) {
+            /* A primary key is not necessarily what matches the pseudo type
+             * "primaryKey". We need to parse the table definition to find out
+             * if the column is AUTOINCREMENT too. */
+            $tableDefinition = $this->selectValue('SELECT sql FROM sqlite_master WHERE name = ? UNION ALL SELECT sql FROM sqlite_temp_master WHERE name = ?',
+                                                  array($from, $from));
+            if (strpos($tableDefinition, $this->quoteColumnName($pk->columns[0]) . ' INTEGER PRIMARY KEY AUTOINCREMENT')) {
+                $pkColumn = $pk->columns[0];
+            } else {
+                $pkColumn = null;
+            }
+        } else {
+            $pkColumn = null;
+        }
         $options = array_merge($options, array('primaryKey' => false));
 
+        $copyPk = true;
         $definition = $this->createTable($to, $options);
         foreach ($fromColumns as $column) {
             $columnName = isset($options['rename'][$column->getName()])
                 ? $options['rename'][$column->getName()]
                 : $column->getName();
+            $columnType = $column->getName() == $pkColumn
+                ? 'primaryKey'
+                : $column->getType();
 
-            $definition->column($columnName, $column->getType(), array(
-                'limit' => $column->getLimit(),
-                'default' => $column->getDefault(),
-                'null' => $column->isNull()));
+            if ($columnType == 'primaryKey') {
+                $copyPk = false;
+            }
+            $definition->column($columnName, $columnType,
+                                array('limit' => $column->getLimit(),
+                                      'default' => $column->getDefault(),
+                                      'null' => $column->isNull()));
         }
 
         $primaryKey = $this->primaryKey($from);
-        if ($primaryKey) {
+        if ($primaryKey && $copyPk) {
             $definition->primaryKey($primaryKey->columns);
         }
 

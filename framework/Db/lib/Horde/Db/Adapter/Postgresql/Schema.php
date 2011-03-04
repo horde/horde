@@ -520,11 +520,22 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
         $quotedTableName = $this->quoteTableName($tableName);
 
-        try {
-            $sql = sprintf('ALTER TABLE %s ALTER COLUMN %s TYPE %s',
+        $primaryKey = $type == 'primaryKey';
+        if ($primaryKey) {
+            $type = 'integer';
+            $autoincrement = true;
+            $limit = $precision = $scale = null;
+            $sql = sprintf('ALTER TABLE %s DROP CONSTRAINT %s CASCADE',
                            $quotedTableName,
-                           $this->quoteColumnName($columnName),
-                           $this->typeToSql($type, $limit, $precision, $scale));
+                           $this->quoteColumnName($tableName . '_pkey'));
+            $this->execute($sql);
+        }
+
+        $sql = sprintf('ALTER TABLE %s ALTER COLUMN %s TYPE %s',
+                       $quotedTableName,
+                       $this->quoteColumnName($columnName),
+                       $this->typeToSql($type, $limit, $precision, $scale));
+        try {
             $this->execute($sql);
         } catch (Horde_Db_Exception $e) {
             // This is PostgreSQL 7.x, or the old type could not be coerced to
@@ -592,8 +603,20 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                            $this->quoteColumnName($columnName),
                            $this->quoteSequenceName($seq_name));
             $this->execute($sql);
+            $sql = sprintf('ALTER SEQUENCE %s OWNED BY %s.%s',
+                           $seq_name,
+                           $this->quoteTableName($tableName),
+                           $this->quoteColumnName($columnName));
+            $this->execute($sql);
         } elseif (array_key_exists('default', $options)) {
             $this->changeColumnDefault($tableName, $columnName, $default);
+        }
+
+        if ($primaryKey) {
+            $sql = sprintf('ALTER TABLE %s ADD PRIMARY KEY (%s)',
+                           $this->quoteTableName($tableName),
+                           $this->quoteColumnName($columnName));
+            $this->execute($sql);
         }
 
         if (array_key_exists('null', $options)) {
