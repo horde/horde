@@ -56,8 +56,8 @@ class Horde_Group_Sql extends Horde_Group_Base
     {
         try {
             return $this->_db->insert(
-                'INSERT INTO horde_groups (group_name, group_email) VALUES (?, ?)',
-                array($name, $email));
+                'INSERT INTO horde_groups (group_name, group_email, group_parents) VALUES (?, ?, ?)',
+                array($name, $email, ''));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
