@@ -10,7 +10,7 @@
 // *** Personal Information Preferences ***
 
 $prefGroups['identities'] = array(
-    'column' => _("General Preferences"),
+    'column' => _("General"),
     'label' => _("Personal Information"),
     'desc' => _("Change the name, address, and signature that people see when they read and reply to your email."),
     'members' => array(
@@ -111,7 +111,7 @@ $_prefs['sentmailselect'] = array(
 // *** Server and Folder Preferences ***
 
 $prefGroups['server'] = array(
-    'column' => _("General Preferences"),
+    'column' => _("General"),
     'label' => _("Server and Folder Information"),
     'desc' => _("Change mail server and folder settings."),
     'members' => array(
@@ -184,7 +184,7 @@ $_prefs['spam_folder'] = array(
 // *** ACL Preferences ***
 
 $prefGroups['acl'] = array(
-    'column' => _("General Preferences"),
+    'column' => _("General"),
     'label' => _("Share Folders"),
     'desc' => _("Share your mail folders with other users."),
     'members' => array('aclmanagement')
@@ -206,7 +206,7 @@ $_prefs['acl'] = array(
 // *** Login Tasks Preferences ***
 
 $prefGroups['logintasks'] = array(
-    'column' => _("General Preferences"),
+    'column' => _("General"),
     'label' => _("Login Tasks"),
     'desc' => sprintf(_("Configure tasks to run upon logon to %s."), $GLOBALS['registry']->get('name')),
     'members' => array(
@@ -350,7 +350,7 @@ $_prefs['purge_spam_keep'] = array(
 // *** Additional Accounts Preferences ***
 
 $prefGroups['accounts'] = array(
-    'column' => _("General Preferences"),
+    'column' => _("General"),
     'label' => _("Additional Accounts"),
     'desc' => _("Configure additional mail accounts to display."),
     'members' => array('accountsmanagement')
@@ -372,7 +372,7 @@ $_prefs['accounts'] = array(
 // *** Saved Searches Preferences ***
 
 $prefGroups['searches'] = array(
-    'column' => _("General Preferences"),
+    'column' => _("General"),
     'label' => _("Saved Searches"),
     'desc' => _("Manage your saved searches"),
     'members' => array(
@@ -402,7 +402,7 @@ $_prefs['filter'] = array(
 // *** Compose Preferences ***
 
 $prefGroups['compose'] = array(
-    'column' => _("Compose Preferences"),
+    'column' => _("Compose"),
     'label' => _("Message Composition"),
     'desc' => _("Configure how you send mail."),
     'members' => array(
@@ -559,7 +559,7 @@ $_prefs['ckeditor_buttons'] = array(
 // *** Stationery Preferences ***
 
 $prefGroups['stationery'] = array(
-    'column' => _("Compose Preferences"),
+    'column' => _("Compose"),
     'label' => _("Stationery"),
     'desc' => _("Edit stationery and form responses."),
     'members' => array('stationerymanagement')
@@ -581,7 +581,7 @@ $_prefs['stationery'] = array(
 // *** Compose Reply Preferences ***
 
 $prefGroups['reply'] = array(
-    'column' => _("Compose Preferences"),
+    'column' => _("Compose"),
     'label' => _("Message Replies"),
     'desc' => _("Configure how you reply to mail."),
     'members' => array(
@@ -626,7 +626,7 @@ $_prefs['attrib_text'] = array(
 // *** Compose Forward Preferences ***
 
 $prefGroups['forward'] = array(
-    'column' => _("Compose Preferences"),
+    'column' => _("Compose"),
     'label' => _("Message Forwards"),
     'desc' => _("Configure how you forward mail."),
     'members' => array('forward_default', 'forward_format')
@@ -661,7 +661,7 @@ $_prefs['forward_format'] = array(
 // *** Message Drafts Preferences ***
 
 $prefGroups['drafts'] = array(
-    'column' => _("Compose Preferences"),
+    'column' => _("Compose"),
     'label' => _("Message Drafts"),
     'desc' => _("Configure how to deal with message drafts."),
     'members' => array(
@@ -702,7 +702,7 @@ $_prefs['auto_save_drafts'] = array(
 // *** Message Viewing Preferences ***
 
 $prefGroups['viewing'] = array(
-    'column' => _("Message Preferences"),
+    'column' => _("Message"),
     'label' => _("Message Viewing"),
     'desc' => _("Configure how messages are displayed."),
     'members' => array(
@@ -861,7 +861,7 @@ $_prefs['send_mdn'] = array(
 // *** Delete/Move Messages Preferences ***
 
 $prefGroups['delmove'] = array(
-    'column' => _("Message Preferences"),
+    'column' => _("Message"),
     'label' => _("Deleting and Moving Messages"),
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
@@ -934,7 +934,7 @@ $_prefs['delhide'] = array(
 // *** New Mail Notification Preferences ***
 
 $prefGroups['newmail'] = array(
-    'column' => _("Message Preferences"),
+    'column' => _("Message"),
     'label' => _("New Mail"),
     'desc' => _("Control when new mail will be checked for, and whether or not to notify you when it arrives."),
     'members' => array(
@@ -979,7 +979,7 @@ $_prefs['soundselect'] = array(
 // *** IMAP Flag Preferences ***
 
 $prefGroups['flags'] = array(
-    'column' => _("Message Preferences"),
+    'column' => _("Message"),
     'label' => _("Message Flags"),
     'desc' => _("Configure flag highlighting."),
     'members' => array('flagmanagement', 'show_all_flags')
@@ -1010,8 +1010,8 @@ $_prefs['show_all_flags'] = array(
 // *** Mailbox Display Preferences ***
 
 $prefGroups['mboxdisplay'] = array(
-    'column' => _("Other Preferences"),
-    'label' => _("Mailbox Display Preferences"),
+    'column' => _("Other"),
+    'label' => _("Mailbox Display"),
     'desc' => _("Change display preferences such as how many messages you see on each page and how messages are sorted."),
     'members' => array(
         'mailbox_start', 'sortby', 'sortdir', 'sortdate', 'max_msgs',
@@ -1118,8 +1118,8 @@ $_prefs['atc_flag'] = array(
 // *** Folder Display Preferences ***
 
 $prefGroups['folderdisplay'] = array(
-    'column' => _("Other Preferences"),
-    'label' => _("Folder Display Preferences"),
+    'column' => _("Other"),
+    'label' => _("Folder Display"),
     'desc' => _("Change folder navigation display preferences."),
     'members' => array(
         'nav_expanded', 'tree_view', 'nav_poll_all'
@@ -1172,7 +1172,7 @@ $_prefs['nav_poll'] = array(
 // *** Filter Preferences ***
 
 $prefGroups['filters'] = array(
-    'column' => _("Other Preferences"),
+    'column' => _("Other"),
     'label' => _("Filters"),
     'desc' => _("Create filtering rules to organize your incoming mail, sort it into folders, and delete spam."),
     'members' => array(
@@ -1243,7 +1243,7 @@ $_prefs['filter_menuitem'] = array(
 // *** Addressbook Preferences ***
 
 $prefGroups['addressbooks'] = array(
-    'column' => _("Other Preferences"),
+    'column' => _("Other"),
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding and searching for addresses."),
    'members' => array(
@@ -1314,7 +1314,7 @@ $_prefs['add_source'] = array(
 // *** Event Request Preferences ***
 
 $prefGroups['events'] = array(
-    'column' => _("Other Preferences"),
+    'column' => _("Other"),
     'label' => _("Event Requests"),
     'desc' => _("Configure how event or meeting requests should be handled."),
     'members' => array('conflict_interval')
@@ -1332,8 +1332,8 @@ $_prefs['conflict_interval'] = array(
 // *** PGP Preferences ***
 
 $prefGroups['pgp'] = array(
-    'column' => _("Other Preferences"),
-    'label' => _("PGP Preferences"),
+    'column' => _("Other"),
+    'label' => _("PGP"),
     'desc' => sprintf(_("Control PGP support for %s."), $GLOBALS['registry']->get('name')),
     'members' => array(
         'pgpmanagement'
@@ -1412,8 +1412,8 @@ $_prefs['pgp_private_key'] = array(
 // *** S/MIME Preferences ***
 
 $prefGroups['smime'] = array(
-    'column' => _("Other Preferences"),
-    'label' => _("S/MIME Preferences"),
+    'column' => _("Other"),
+    'label' => _("S/MIME"),
     'desc' => sprintf(_("Control S/MIME support for %s."), $GLOBALS['registry']->get('name')),
     'members' => array(
         'smimemanagement'
@@ -1476,8 +1476,8 @@ $_prefs['smime_additional_cert'] = array(
 // *** Mobile View (MIMP) Preferences ***
 
 $prefGroups['mimp'] = array(
-    'column' => _("Other Preferences"),
-    'label' => _("Mobile View Preferences"),
+    'column' => _("Other"),
+    'label' => _("Mobile View"),
     'desc' => _("Configure preferences for the mobile view."),
     'members' => array(
         'mimp_preview_msg', 'mimp_download_confirm', 'mimp_inline_all'
@@ -1510,8 +1510,8 @@ $_prefs['mimp_inline_all'] = array(
 // *** Standard View (IMP) Preferences ***
 
 $prefGroups['standard'] = array(
-    'column' => _("Other Preferences"),
-    'label' => _("Standard View Preferences"),
+    'column' => _("Other"),
+    'label' => _("Standard View"),
     'desc' => _("Configure preferences for the standard view."),
     'members' => array(
         'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
@@ -1568,8 +1568,8 @@ $_prefs['preview_show_tooltip'] = array(
 // *** Dynamic View (DIMP) Preferences ***
 
 $prefGroups['dimp'] = array(
-    'column' => _("Other Preferences"),
-    'label' => _("Dynamic View Preferences"),
+    'column' => _("Other"),
+    'label' => _("Dynamic View"),
     'desc' => _("Configure preferences for the dynamic view."),
     'members' => array('dynamic_view', 'dimp_login_view')
 );
