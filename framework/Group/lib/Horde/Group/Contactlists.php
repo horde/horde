@@ -51,12 +51,12 @@ class Horde_Group_Contactlists extends Horde_Group_Base
      */
     public function __construct(array $params = array())
     {
-        // Get a list of all available Turba sources
-        $turba_sources = Horde::loadConfiguration('backends.php',
-                                                  'cfgSources', 'turba');
+        $sources = $GLOBALS['registry']
+            ->contacts
+            ->getSourcesConfig(array('type' => 'sql'));
 
         // We only support sql type sources.
-        foreach ($turba_sources as $key => $source) {
+        foreach ($sources as $key => $source) {
             if ($source['type'] == 'sql' &&
                 isset($source['map']['__key']) &&
                 isset($source['list_name_field']) &&
@@ -346,7 +346,7 @@ class Horde_Group_Contactlists extends Horde_Group_Base
                 if (empty($contact_shares)) {
                     $scope = $GLOBALS['registry']->hasInterface('contacts');
                     $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-                    $this->_contact_shares = $shares->listShares($GLOBALS['registry']->getAuth(), 
+                    $this->_contact_shares = $shares->listShares($GLOBALS['registry']->getAuth(),
                                                                  array('perm' => Horde_Perms::SHOW, 'attributes' => $GLOBALS['registry']->getAuth()));
                 }
                 // Contruct a list of owner ids to use
