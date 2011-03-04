@@ -352,28 +352,28 @@ class Horde_Db_Adapter_Base_Column
     protected function _simplifiedType($fieldType)
     {
         switch (true) {
-            case preg_match('/int/i', $fieldType):
-                return 'integer';
-            case preg_match('/float|double/i', $fieldType):
-                return 'float';
-            case preg_match('/decimal|numeric|number/i', $fieldType):
-                return $this->_scale == 0 ? 'integer' : 'decimal';
-            case preg_match('/datetime/i', $fieldType):
-                return 'datetime';
-            case preg_match('/timestamp/i', $fieldType):
-                return 'timestamp';
-            case preg_match('/time/i', $fieldType):
-                return 'time';
-            case preg_match('/date/i', $fieldType):
-                return 'date';
-            case preg_match('/clob|text/i', $fieldType):
-                return 'text';
-            case preg_match('/blob|binary/i', $fieldType):
-                return 'binary';
-            case preg_match('/char|string/i', $fieldType):
-                return 'string';
-            case preg_match('/boolean/i', $fieldType):
-                return 'boolean';
+        case preg_match('/int/i', $fieldType):
+            return 'integer';
+        case preg_match('/float|double/i', $fieldType):
+            return 'float';
+        case preg_match('/decimal|numeric|number/i', $fieldType):
+            return $this->_scale == 0 ? 'integer' : 'decimal';
+        case preg_match('/datetime/i', $fieldType):
+            return 'datetime';
+        case preg_match('/timestamp/i', $fieldType):
+            return 'timestamp';
+        case preg_match('/time/i', $fieldType):
+            return 'time';
+        case preg_match('/date/i', $fieldType):
+            return 'date';
+        case preg_match('/clob|text/i', $fieldType):
+            return 'text';
+        case preg_match('/blob|binary/i', $fieldType):
+            return 'binary';
+        case preg_match('/char|string/i', $fieldType):
+            return 'string';
+        case preg_match('/boolean/i', $fieldType):
+            return 'boolean';
         }
     }
 }
