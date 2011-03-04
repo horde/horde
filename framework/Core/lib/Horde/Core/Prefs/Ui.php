@@ -250,6 +250,7 @@ class Horde_Core_Prefs_Ui
             break;
         }
 
+        $this->nobuttons = false;
         $this->suppress = array();
         $GLOBALS['registry']->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
     }
