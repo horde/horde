@@ -42,16 +42,6 @@ class Horde_Group_Kolab extends Horde_Group_Ldap
     */
 
     /**
-     * Returns whether the group backend is read-only.
-     *
-     * @return boolean
-     */
-    public function readOnly()
-    {
-        return true;
-    }
-
-    /**
      * Returns a list of groups a user belongs to.
      *
      * @param string $user  A user name.
