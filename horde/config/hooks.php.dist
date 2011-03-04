@@ -635,37 +635,6 @@ class Horde_Hooks
 
 
     /**
-     * Group hook driver. To use it you must set the group driver to hooks in
-     * conf.php. You can add users to groups as normal, and in addition this
-     * function will be called to dynamically include users in the group.
-     *
-     * @param string $groupName  TODO
-     * @param string $userName   TODO
-     *
-     * @return TODO
-     */
-//    public function group_driver($groupName, $userName)
-//    {
-//        // Example #1: Look up whether or not this user is part of the
-//        // "IT_department" group using an external database.
-//        global $conf;
-//
-//        switch ($groupName) {
-//        case 'IT_department':
-//            $dept = 'IT';
-//            $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
-//            $query = 'SELECT COUNT(*) FROM departments WHERE user_name = ? AND department = ?';
-//            $values = array($userName, $dept);
-//            $result = $db->getOne($query, $values);
-//            return (!($result instanceof PEAR_Error) && $result > 0);
-//
-//        default:
-//            return false;
-//        }
-//    }
-
-
-    /**
      * IMSP share init. TODO
      *
      * @param TODO $share_obj TODO
