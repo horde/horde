@@ -33,7 +33,7 @@ if ($form->validate($vars)) {
     $prefs->setValue('running_timers', serialize($timers));
 
     echo Horde::wrapInlineScript(array(
-        'alert(\'' . addslashes(sprintf(_("The stop watch \"%s\" has been started and will appear in the sidebar at the next refresh."), $vars->get('description'))),
+        'alert(\'' . addslashes(sprintf(_("The stop watch \"%s\" has been started and will appear in the sidebar at the next refresh."), $vars->get('description'))) . '\');',
         'window.close();'
     ));
     exit;
