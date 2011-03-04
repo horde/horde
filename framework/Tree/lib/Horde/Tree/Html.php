@@ -45,7 +45,6 @@ class Horde_Tree_Html extends Horde_Tree_Base
         'icon',
         'iconalt',
         'iconopen',
-        'onclick',
         'url',
         'urlclass',
         'title',
@@ -136,7 +135,6 @@ class Horde_Tree_Html extends Horde_Tree_Base
      * icon - Icon to display next node
      * iconalt - Alt text to use for the icon
      * iconopen - Icon to indicate this node as expanded
-     * onclick - Onclick event attached to this node
      * url - URL to link the node to
      * urlclass - CSS class for the node's URL
      * target - Target for the 'url' link
@@ -318,11 +316,7 @@ class Horde_Tree_Html extends Horde_Tree_Base
     {
         $n = $this->_nodes[$node_id];
 
-        $output = '<span';
-        if (!empty($n['onclick'])) {
-            $output .= ' onclick="' . $n['onclick'] . '"';
-        }
-        $output .= '>';
+        $output = '<span>';
 
         $label = $n['label'];
         if (!empty($n['url'])) {

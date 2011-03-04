@@ -186,10 +186,6 @@ var Horde_Tree = Class.create({
                 label.writeAttribute('target', this.opts.options.target);
             }
 
-            //if (node.onclick) {
-            //    label.push(' onclick="' + node.onclick + '"');
-            //}
-
             label = label.wrap('SPAN');
         } else {
             label = new Element('SPAN').addClassName('toggle').insert(
