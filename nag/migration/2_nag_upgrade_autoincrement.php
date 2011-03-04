@@ -19,7 +19,11 @@ class NagUpgradeAutoIncrement extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('nag_shares', 'share_id', 'integer', array('null' => false, 'autoincrement' => true));
+        $this->changeColumn('nag_shares', 'share_id', 'primaryKey');
+        try {
+            $this->dropTable('nag_shares_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
     }
 
     /**

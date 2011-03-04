@@ -19,9 +19,21 @@ class JonahUpgradeAutoIncrement extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('jonah_channels', 'channel_id', 'integer', array('default' => null, 'null' => false, 'autoincrement' => true));
-        $this->changeColumn('jonah_stories', 'story_id', 'integer', array('default' => null, 'null' => false, 'autoincrement' => true));
-        $this->changeColumn('jonah_tags', 'tag_id', 'integer', array('default' => null, 'null' => false, 'autoincrement' => true));
+        $this->changeColumn('jonah_channels', 'channel_id', 'primaryKey');
+        try {
+            $this->dropTable('jonah_channels_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
+        $this->changeColumn('jonah_stories', 'story_id', 'primaryKey');
+        try {
+            $this->dropTable('jonah_stories_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
+        $this->changeColumn('jonah_tags', 'tag_id', 'primaryKey');
+        try {
+            $this->dropTable('jonah_tags_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
     }
 
     /**

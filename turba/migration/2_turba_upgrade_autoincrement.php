@@ -19,7 +19,11 @@ class TurbaUpgradeAutoIncrement extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('turba_shares', 'share_id', 'integer', array('autoincrement' => true));
+        $this->changeColumn('turba_shares', 'share_id', 'primaryKey');
+        try {
+            $this->dropTable('turba_shares_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
     }
 
     /**

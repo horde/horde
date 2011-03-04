@@ -19,7 +19,11 @@ class MnemoUpgradeAutoIncrement extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('mnemo_shares', 'share_id', 'integer', array('null' => false, 'autoincrement' => true));
+        $this->changeColumn('mnemo_shares', 'share_id', 'primaryKey');
+        try {
+            $this->dropTable('mnemo_shares_seq');
+        } catch (Horde_Db_Exception $e) {
+        }
     }
 
     /**

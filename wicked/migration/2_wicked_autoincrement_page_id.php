@@ -19,7 +19,7 @@ class WickedAutoIncrementPageId extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('wicked_pages', 'page_id', 'integer', array('autoincrement' => true, 'default' => null));
+        $this->changeColumn('wicked_pages', 'page_id', 'primaryKey');
         try {
             $this->dropTable('wicked_pages_seq');
         } catch (Horde_Db_Exception $e) {
