@@ -37,9 +37,9 @@
  *   RFC 5464 - METADATA
  *   RFC 5530 - IMAP Response Codes
  *   RFC 5819 - LIST-STATUS
+ *   RFC 5957 - SORT=DISPLAY
  *
  *   draft-ietf-morg-list-specialuse-02  CREATE-SPECIAL-USE
- *   draft-ietf-morg-sortdisplay-02      SORT=DISPLAY
  *   draft-ietf-morg-inthread-01         THREAD=REFS
  *
  *   [NO RFC] - XIMAPPROXY

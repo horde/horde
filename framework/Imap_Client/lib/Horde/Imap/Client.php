@@ -53,7 +53,7 @@ class Horde_Imap_Client
     /* SORT_THREAD provided for completeness - it is not a valid sort criteria
      * for search() (use thread() instead). */
     const SORT_THREAD = 9;
-    /* Sort criteria defined in draft-ietf-morg-sortdisplay-02 */
+    /* Sort criteria defined in RFC 5957 */
     const SORT_DISPLAYFROM = 10;
     const SORT_DISPLAYTO = 11;
     /* SORT_SEQUENCE does a simple numerical sort on the returned
