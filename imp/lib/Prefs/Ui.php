@@ -88,34 +88,21 @@ class IMP_Prefs_Ui
         case 'identities':
             if ($prefs->isLocked('sent_mail_folder')) {
                 $ui->suppress[] = 'sentmailselect';
-            } else {
-                Horde::addScriptFile('folderprefs.js', 'imp');
             }
 
             if ($prefs->isLocked('signature_html') ||
                 !$session->get('imp', 'rteavail')) {
                 $ui->suppress[] = 'signature_html_select';
-            } else {
-                Horde::addScriptFile('signaturehtml.js', 'imp');
-                IMP_Ui_Editor::init(false, 'signature_html');
             }
             break;
         }
-
-        $folder_code = array();
 
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
             case 'accountsmanagement':
                 if (empty($conf['user']['allow_accounts'])) {
                     $ui->suppress[] = 'accountsmanagement';
-                } else {
-                    Horde::addScriptFile('accountsprefs.js', 'imp');
                 }
-                break;
-
-            case 'aclmanagement':
-                Horde::addScriptFile('acl.js', 'imp');
                 break;
 
             case 'add_source':
@@ -171,10 +158,6 @@ class IMP_Prefs_Ui
                     unset($tmp[2]);
                     $ui->override['delete_spam_after_report'] = $tmp;
                 }
-                break;
-
-            case 'drafts_folder':
-                $folder_code['drafts'] = _("Enter the name for your new drafts folder.");
                 break;
 
             case 'draftsselect':
@@ -234,9 +217,6 @@ class IMP_Prefs_Ui
                 if ($prefs->isLocked('msgflags') &&
                     $prefs->isLocked('msgflags_user')) {
                     $ui->nobuttons = true;
-                } else {
-                    Horde::addScriptFile('colorpicker.js', 'horde');
-                    Horde::addScriptFile('flagprefs.js', 'imp');
                 }
                 break;
 
@@ -258,11 +238,6 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'pgpmanagement':
-            case 'smimemanagement':
-                Horde::addScriptFile('imp.js', 'imp');
-                break;
-
             case 'preview_maxlen':
             case 'preview_show_unread':
             case 'preview_show_tooltip':
@@ -270,10 +245,6 @@ class IMP_Prefs_Ui
                 if (!$prefs->getValue('preview_enabled')) {
                     $ui->suppress[] = $val;
                 }
-                break;
-
-            case 'searchesmanagement':
-                Horde::addScriptFile('searchesprefs.js', 'imp');
                 break;
 
             case 'send_mdn':
@@ -301,10 +272,6 @@ class IMP_Prefs_Ui
                 Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
                 break;
 
-            case 'spam_folder':
-                $folder_code['spam'] = _("Enter the name for your new spam folder.");
-                break;
-
             case 'spamselect':
                 if ($prefs->isLocked('spam_folder')) {
                     $ui->suppress[] = 'spamselect';
@@ -327,23 +294,12 @@ class IMP_Prefs_Ui
                 $registry->setTimeZone();
                 break;
 
-            case 'trash_folder':
-                $folder_code['trash'] = _("Enter the name for your new trash folder.");
-                break;
-
             case 'trashselect':
                 if ($prefs->isLocked('trash_folder')) {
                     $ui->suppress[] = 'trashselect';
                 }
                 break;
             }
-        }
-
-        if (!empty($folder_code)) {
-            Horde::addScriptFile('folderprefs.js', 'imp');
-            Horde::addInlineJsVars(array(
-                'ImpFolderPrefs.folders' => $folder_code
-            ));
         }
     }
 
@@ -359,18 +315,28 @@ class IMP_Prefs_Ui
     {
         switch ($item) {
         case 'accountsmanagement':
+            Horde::addScriptFile('accountsprefs.js', 'imp');
             return $this->_accountsManagement($ui);
 
         case 'aclmanagement':
+            Horde::addScriptFile('acl.js', 'imp');
             return $this->_aclManagement($ui);
 
         case 'draftsselect':
+            Horde::addScriptFile('folderprefs.js', 'imp');
+            Horde::addInlineJsVars(array(
+                'ImpFolderPrefs.folders.drafts' => _("Enter the name for your new drafts folder.")
+            ));
             return $this->_drafts();
 
         case 'encryptselect':
             return $this->_encrypt();
 
         case 'flagmanagement':
+            if (!$ui->nobuttons) {
+                Horde::addScriptFile('colorpicker.js', 'horde');
+                Horde::addScriptFile('flagprefs.js', 'imp');
+            }
             return $this->_flagManagement();
 
         case 'initialpageselect':
@@ -380,24 +346,32 @@ class IMP_Prefs_Ui
             return $this->_mailtoHandler();
 
         case 'pgpprivatekey':
+            Horde::addScriptFile('imp.js', 'imp');
             return $this->_pgpPrivateKey($ui);
 
         case 'pgppublickey':
+            Horde::addScriptFile('imp.js', 'imp');
             return $this->_pgpPublicKey($ui);
 
         case 'searchesmanagement':
+            Horde::addScriptFile('searchesprefs.js', 'imp');
             return $this->_searchesManagement();
 
         case 'sentmailselect':
+            Horde::addScriptFile('folderprefs.js', 'imp');
             return $this->_sentmail();
 
         case 'smimeprivatekey':
+            Horde::addScriptFile('imp.js', 'imp');
             return $this->_smimePrivateKey($ui);
 
         case 'smimepublickey':
+            Horde::addScriptFile('imp.js', 'imp');
             return $this->_smimePublicKey($ui);
 
         case 'signature_html_select':
+            Horde::addScriptFile('signaturehtml.js', 'imp');
+            IMP_Ui_Editor::init(false, 'signature_html');
             return $this->_signatureHtml();
 
         case 'soundselect':
@@ -411,12 +385,20 @@ class IMP_Prefs_Ui
             ));
 
         case 'spamselect':
+            Horde::addScriptFile('folderprefs.js', 'imp');
+            Horde::addInlineJsVars(array(
+                'ImpFolderPrefs.folders.spam' => _("Enter the name for your new spam folder.")
+            ));
             return $this->_spam();
 
         case 'stationerymanagement':
             return $this->_stationeryManagement($ui);
 
         case 'trashselect':
+            Horde::addScriptFile('folderprefs.js', 'imp');
+            Horde::addInlineJsVars(array(
+                'ImpFolderPrefs.folders.trash' => _("Enter the name for your new trash folder.")
+            ));
             return $this->_trash();
         }
 
