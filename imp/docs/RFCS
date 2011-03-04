@@ -53,7 +53,7 @@ RFC 5819        LIST-STATUS
 
 draft-ietf-morg-list-specialuse-02  CREATE-SPECIAL-USE
 draft-ietf-morg-sortdisplay-02      SORT=DISPLAY
-draft-ietf-morg-inthread-00         THREAD=REFS
+draft-ietf-morg-inthread-01         THREAD=REFS
 
 
 POP3

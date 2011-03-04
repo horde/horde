@@ -40,7 +40,7 @@
  *
  *   draft-ietf-morg-list-specialuse-02  CREATE-SPECIAL-USE
  *   draft-ietf-morg-sortdisplay-02      SORT=DISPLAY
- *   draft-ietf-morg-inthread-00         THREAD=REFS
+ *   draft-ietf-morg-inthread-01         THREAD=REFS
  *
  *   [NO RFC] - XIMAPPROXY
  *       + Requires imapproxy v1.2.7-rc1 or later
@@ -61,7 +61,7 @@
  *   RFC 5466 - FILTERS
  *   RFC 5738 - UTF8
  *
- *   draft-ietf-morg-inthread-00 - SEARCH=INTHREAD
+ *   draft-ietf-morg-inthread-01 - SEARCH=INTHREAD
  *
  *   [NO RFC] - XLIST
  *       + See http://markmail.org/message/vxbqgt5omnph3hnt
