@@ -44,7 +44,10 @@ abstract class Horde_Group_Base
      * @return mixed  The ID of the created group.
      * @throws Horde_Group_Exception
      */
-    abstract public function create($name, $email = null);
+    public function create($name, $email = null)
+    {
+        throw new Horde_Group_Exception('This group backend is read-only.');
+    }
 
     /**
      * Renames a group.
@@ -54,7 +57,10 @@ abstract class Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    abstract public function rename($gid, $name);
+    public function rename($gid, $name)
+    {
+        throw new Horde_Group_Exception('This group backend is read-only.');
+    }
 
     /**
      * Removes a group.
@@ -63,7 +69,10 @@ abstract class Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    abstract public function remove($gid);
+    public function remove($gid)
+    {
+        throw new Horde_Group_Exception('This group backend is read-only.');
+    }
 
     /**
      * Checks if a group exists.
@@ -121,7 +130,10 @@ abstract class Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    abstract public function addUser($gid, $user);
+    public function addUser($gid, $user)
+    {
+        throw new Horde_Group_Exception('This group backend is read-only.');
+    }
 
     /**
      * Removes a user from a group.
@@ -131,7 +143,10 @@ abstract class Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    abstract public function removeUser($gid, $user);
+    public function removeUser($gid, $user)
+    {
+        throw new Horde_Group_Exception('This group backend is read-only.');
+    }
 
     /**
      * Searches for group names.
