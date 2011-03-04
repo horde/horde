@@ -92,11 +92,10 @@ $_prefs['sent_mail_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    'value' => 'Sent',
     // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
-    // necessary conversion.
-    // 'value' => Horde_String::convertCharset('Sent', 'UTF-8', 'UTF7-IMAP'),
+    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
+    // will do the necessary conversion.
+    'value' => Horde_String::convertCharset('Sent', 'UTF-8', 'UTF7-IMAP')
     // Exchange servers use this default value instead.
     // 'value' => 'Sent Items'
 );
@@ -450,11 +449,10 @@ $_prefs['drafts_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    'value' => 'Drafts',
     // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
-    // necessary conversion.
-    // 'value' => Horde_String::convertCharset('Drafts', 'UTF-8', 'UTF7-IMAP')
+    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
+    // will do the necessary conversion.
+    'value' => Horde_String::convertCharset('Drafts', 'UTF-8', 'UTF7-IMAP')
 );
 
 // closing window after saving a draft?
@@ -730,11 +728,10 @@ $_prefs['trash_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    'value' => 'Trash',
     // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
-    // necessary conversion.
-    // 'value' => Horde_String::convertCharset('Trash', 'UTF-8', 'UTF7-IMAP'),
+    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
+    // will do the necessary conversion.
+    'value' => Horde_String::convertCharset('Trash', 'UTF-8', 'UTF7-IMAP')
     // Exchange servers use this default value instead.
     // 'value' => 'Deleted Items'
 );
@@ -793,11 +790,10 @@ $_prefs['spam_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    'value' => 'Spam'
     // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
-    // necessary conversion.
-    // 'value' => Horde_String::convertCharset('Spam', 'UTF-8', 'UTF7-IMAP')
+    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
+    // will do the necessary conversion.
+    'value' => Horde_String::convertCharset('Spam', 'UTF-8', 'UTF7-IMAP')
 );
 
 // What should we do with spam messages after reporting them?
