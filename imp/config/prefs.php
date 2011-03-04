@@ -130,70 +130,6 @@ $_prefs['acl'] = array(
 
 
 
-// *** Login Tasks Preferences ***
-
-$prefGroups['logintasks'] = array(
-    'column' => _("General"),
-    'label' => _("Login Tasks"),
-    'desc' => sprintf(_("Configure tasks to run upon logon to %s."), $GLOBALS['registry']->get('name')),
-    'members' => array(
-        'rename_sentmail_monthly',
-        'delete_sentmail_monthly', 'delete_sentmail_monthly_keep',
-        'purge_sentmail', 'purge_sentmail_interval', 'purge_sentmail_keep'
-    )
-);
-
-// rename sent-mail folder every month?
-$_prefs['rename_sentmail_monthly'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Rename sent-mail folder at beginning of month?"),
-    'help' => 'prefs-rename_sentmail_monthly'
-);
-
-// delete sent-mail folders every month?
-$_prefs['delete_sentmail_monthly'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Delete old sent-mail folders at beginning of month?"),
-    'help' => 'prefs-delete_sentmail_monthly'
-);
-
-// how many old sent-mail folders to keep every month?
-$_prefs['delete_sentmail_monthly_keep'] = array(
-    'value' => 12,
-    'type' => 'number',
-    'desc' => _("Number of old sent-mail folders to keep if deleting monthly."),
-    'help' => 'prefs-delete_sentmail_monthly_keep'
-);
-
-// purge sent-mail folder?
-$_prefs['purge_sentmail'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Purge old messages in the sent-mail folder(s)?"),
-    'help' => 'prefs-purge_sentmail'
-);
-
-// how often to purge the Sent-Mail folder?
-$_prefs['purge_sentmail_interval'] = array(
-    'value' => Horde_LoginTasks::MONTHLY,
-    'type' => 'enum',
-    'enum' => Horde_LoginTasks::getLabels(),
-    'desc' => _("Purge sent-mail how often:"),
-    'help' => 'prefs-purge_sentmail_interval'
-);
-
-// when purging sent-mail folder, purge messages older than how many days?
-$_prefs['purge_sentmail_keep'] = array(
-    'value' => 30,
-    'type' => 'number',
-    'desc' => _("Purge messages in sent-mail folder(s) older than this amount of days."),
-    'help' => 'prefs-purge_sentmail_keep'
-);
-
-
-
 // *** Saved Searches Preferences ***
 
 $prefGroups['searches'] = array(
@@ -343,7 +279,7 @@ $_prefs['default_encrypt'] = array(
     'value' => IMP::ENCRYPT_NONE
 );
 
-// Save attachments when saving in sent-mail folder?
+// Save attachments when saving in sent mail folder?
 $_prefs['save_attachments'] = array(
     'value' => 'prompt_no',
     'type' => 'enum',
@@ -353,7 +289,7 @@ $_prefs['save_attachments'] = array(
         'prompt_no' => _("Prompt every time an attachment is sent; default to NO"),
         'never' => _("Never save attachments")
     ),
-    'desc' => _("When saving sent-mail, should we save attachment data?"),
+    'desc' => _("When saving sent mail, should we save attachment data?"),
     'help' => 'prefs-save_attachments'
 );
 
@@ -547,6 +483,70 @@ $_prefs['auto_save_drafts'] = array(
         5 => _("Every 5 minutes")
     ),
     'desc' => _("Save drafts automatically while composing?"),
+);
+
+
+
+// *** Sent Mail Preferences ***
+
+$prefGroups['sentmail'] = array(
+    'column' => _("Compose"),
+    'label' => _("Sent Mail"),
+    'desc' => _("Configure how to manage sent mail folders."),
+    'members' => array(
+        'rename_sentmail_monthly',
+        'delete_sentmail_monthly', 'delete_sentmail_monthly_keep',
+        'purge_sentmail', 'purge_sentmail_interval', 'purge_sentmail_keep'
+    )
+);
+
+// rename sent mail folder every month?
+$_prefs['rename_sentmail_monthly'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Rename sent mail folder at beginning of month?"),
+    'help' => 'prefs-rename_sentmail_monthly'
+);
+
+// delete sent-mail folders every month?
+$_prefs['delete_sentmail_monthly'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Delete old sent-mail folders at beginning of month?"),
+    'help' => 'prefs-delete_sentmail_monthly'
+);
+
+// how many old sent mail folders to keep every month?
+$_prefs['delete_sentmail_monthly_keep'] = array(
+    'value' => 12,
+    'type' => 'number',
+    'desc' => _("Number of old sent mail folders to keep if deleting monthly."),
+    'help' => 'prefs-delete_sentmail_monthly_keep'
+);
+
+// purge sent mail folder?
+$_prefs['purge_sentmail'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Purge old messages in the sent mail folder(s)?"),
+    'help' => 'prefs-purge_sentmail'
+);
+
+// how often to purge the Sent-Mail folder?
+$_prefs['purge_sentmail_interval'] = array(
+    'value' => 0,
+    'type' => 'enum',
+    'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
+    'desc' => _("Purge sent mail how often:"),
+    'help' => 'prefs-purge_sentmail_interval'
+);
+
+// when purging sent mail folder, purge messages older than how many days?
+$_prefs['purge_sentmail_keep'] = array(
+    'value' => 30,
+    'type' => 'number',
+    'desc' => _("Purge messages in sent mail folder(s) older than this amount of days."),
+    'help' => 'prefs-purge_sentmail_keep'
 );
 
 
