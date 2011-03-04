@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-04</date>
- <time>22:36:07</time>
+ <time>22:42:14</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -51,7 +51,6 @@
     <dir name="Horde_Group">
      <file name="1_horde_group_base_tables.php" role="data" />
      <file name="2_horde_group_upgrade_autoincrement.php" role="data" />
-     <file name="3_horde_group_upgrade_drop_parents.php" role="data" />
     </dir> <!-- /migration/Horde_Group -->
    </dir> <!-- /migration -->
    <dir name="test">
@@ -84,14 +83,6 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Horde_DataTree</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -101,10 +92,6 @@
    </package>
   </required>
   <optional>
-   <package>
-    <name>Horde_Auth</name>
-    <channel>pear.horde.org</channel>
-   </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
@@ -127,7 +114,6 @@
    <install as="Horde/Group/Sql.php" name="lib/Horde/Group/Sql.php" />
    <install as="migration/1_horde_group_base_tables.php" name="migration/Horde_Group/1_horde_group_base_tables.php" />
    <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde_Group/2_horde_group_upgrade_autoincrement.php" />
-   <install as="migration/3_horde_group_upgrade_drop_parents.php" name="migration/Horde_Group/3_horde_group_upgrade_drop_parents.php" />
    <install as="Horde/Group/AllTests.php" name="test/Horde/Group/AllTests.php" />
    <install as="Horde/Group/Autoload.php" name="test/Horde/Group/Autoload.php" />
    <install as="Horde/Group/Base.php" name="test/Horde/Group/Base.php" />
