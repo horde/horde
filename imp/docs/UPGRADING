@@ -75,6 +75,7 @@ your ``config/prefs.php`` file::
    alternative_display
    attachment_display
    auto_delete_drafts
+   delete_attachments_monthly
    disposition_request_read
    disposition_send_mdn
    fckeditor_buttons

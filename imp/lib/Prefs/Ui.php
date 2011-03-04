@@ -130,6 +130,12 @@ class IMP_Prefs_Ui
                 }
                 break;
 
+            case 'delete_attachments_monthly_keep':
+                if (empty($conf['compose']['link_attachments'])) {
+                    $ui->suppress[] = $val;
+                }
+                break;
+
             case 'delete_sentmail_monthly':
             case 'delete_sentmail_monthly_keep':
             case 'empty_spam_menu':

@@ -137,27 +137,10 @@ $prefGroups['logintasks'] = array(
     'label' => _("Login Tasks"),
     'desc' => sprintf(_("Configure tasks to run upon logon to %s."), $GLOBALS['registry']->get('name')),
     'members' => array(
-        'delete_attachments_monthly', 'delete_attachments_monthly_keep',
         'initialpageselect', 'rename_sentmail_monthly',
         'delete_sentmail_monthly', 'delete_sentmail_monthly_keep',
         'purge_sentmail', 'purge_sentmail_interval', 'purge_sentmail_keep'
     )
-);
-
-// purge old attachments every month?
-$_prefs['delete_attachments_monthly'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Delete old linked attachments at beginning of month?"),
-    'help' => 'prefs-delete_attachments_monthly'
-);
-
-// how many old months of attachments to keep?
-$_prefs['delete_attachments_monthly_keep'] = array(
-    'value' => 6,
-    'type' => 'number',
-    'desc' => _("Number of months to keep old linked attachments if deleting monthly."),
-    'help' => 'prefs-delete_attachments_monthly_keep'
 );
 
 // select widget for the initial_page preference
@@ -285,7 +268,7 @@ $prefGroups['compose'] = array(
         'compose_confirm', 'set_priority', 'compose_popup', 'compose_html',
         'compose_html_font_family', 'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'save_attachments',
-        'request_mdn'
+        'delete_attachments_monthly_keep', 'request_mdn'
     )
 );
 
@@ -406,6 +389,16 @@ $_prefs['save_attachments'] = array(
     'desc' => _("When saving sent-mail, should we save attachment data?"),
     'help' => 'prefs-save_attachments'
 );
+
+// how many old months of linked attachments to keep?
+$_prefs['delete_attachments_monthly_keep'] = array(
+    'value' => 6,
+    'advanced' => true,
+    'type' => 'number',
+    'desc' => _("Delete old linked attachments after this many months (0 to never delete)?"),
+    'help' => 'prefs-delete_attachments_monthly_keep'
+);
+
 
 // Disposition Notification Preferences
 $_prefs['request_mdn'] = array(

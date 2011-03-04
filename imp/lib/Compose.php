@@ -2399,11 +2399,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
 
-        if ($prefs->getValue('delete_attachments_monthly')) {
+        if ($damk = $prefs->getValue('delete_attachments_monthly_keep')) {
             /* Determine the first day of the month in which the current
              * attachments will be ripe for deletion, then subtract 1 second
              * to obtain the last day of the previous month. */
-            $del_time = mktime(0, 0, 0, date('n') + $prefs->getValue('delete_attachments_monthly_keep') + 1, 1, date('Y')) - 1;
+            $del_time = mktime(0, 0, 0, date('n') + $damk + 1, 1, date('Y')) - 1;
             $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', 'UTF-8', $charset);
         }
 

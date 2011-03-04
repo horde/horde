@@ -28,6 +28,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     {
         $this->_upgradeAbookPrefs();
         $this->_upgradeComposePrefs();
+        $this->_upgradeDeleteAttachmentsMonthlyPrefs();
         $this->_upgradeForwardPrefs();
         $this->_upgradeLoginTasksPrefs();
         $this->_upgradeMsgDisplayPrefs();
@@ -82,6 +83,24 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             ($val = $prefs->getValue('disposition_request_read'))) {
             $prefs->setValue('request_mdn', $val);
         }
+    }
+
+    /**
+     * 'delete_attachments_monthly' no longer exists -> use
+     * 'delete_attachments_monthly_keep' instead.
+     */
+    protected function _upgradeDeleteAttachmentsMonthlyPrefs()
+    {
+        global $prefs;
+
+        if (!$prefs->getValue('delete_attachments_monthly') &&
+            ($prefs->getDefault('delete_attachments_monthly') !== null)) {
+            $prefs->setValue('delete_attachments_monthly_keep', 0);
+        }
+
+        // Need to remove old pref or else there can be no way of determining
+        // whether upgrade has previously occurred.
+        $prefs->remove('delete_attachments_monthly');
     }
 
     /**

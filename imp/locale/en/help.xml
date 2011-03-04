@@ -676,17 +676,10 @@
     </para>
 </entry>
 
-<entry id="prefs-delete_attachments_monthly">
-    <title>Preferences: Maintenance: Delete Linked Attachments Monthly</title>
-    <para>
-    Turn this preference on if you would like to delete old linked attachments at the beginning of every month. This may be useful if you have a quota, for example.
-    </para>
-</entry>
-
 <entry id="prefs-delete_attachments_monthly_keep">
     <title>Preferences: Maintenance: Delete Linked Attachments Monthly - # of Months to Keep</title>
     <para>
-    If you are deleting old linked attachments every month, how many months of old attachments do you  want to keep?  Any attachments older than this many months will be deleted.
+    If your local account is configured to allow sending linked attachments in outgoing compose messages, this option will purge old linked attachments after a given number of months.  Any attachments older than this value will be deleted.  This may be useful if you have a quota, for example.
     </para>
 </entry>
 
