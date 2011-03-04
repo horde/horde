@@ -349,9 +349,11 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $unsigned  = !empty($options['unsigned'])  ? $options['unsigned']  : null;
 
         $typeSql = $this->typeToSql($type, $limit, $precision, $scale, $unsigned);
+        $dropPk = $type == 'primaryKey' ? 'DROP PRIMARY KEY,' : '';
 
-        $sql = sprintf('ALTER TABLE %s CHANGE %s %s %s',
+        $sql = sprintf('ALTER TABLE %s %s CHANGE %s %s %s',
                        $quotedTableName,
+                       $dropPk,
                        $quotedColumnName,
                        $quotedColumnName,
                        $typeSql);
