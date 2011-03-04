@@ -113,6 +113,16 @@ class Horde_Group_Test_Base extends Horde_Test_Case
                             self::$group->getName(self::$groupids[1]));
     }
 
+    protected function _setData()
+    {
+        self::$group->setData(self::$groupids[0], 'email', 'you@example.com');
+        $group = self::$group->getData(self::$groupids[0]);
+        $this->assertEquals('you@example.com', $group['email']);
+        self::$group->setData(self::$groupids[0], array('email' => 'me@example.com'));
+        $group = self::$group->getData(self::$groupids[0]);
+        $this->assertEquals('me@example.com', $group['email']);
+    }
+
     protected function _remove()
     {
         self::$group->remove(self::$groupids[0]);

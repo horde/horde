@@ -114,6 +114,30 @@ class Horde_Group_Mock extends Horde_Group_Base
     }
 
     /**
+     * Sets one or more attributes of a group.
+     *
+     * @param mixed $gid               A group ID.
+     * @param array|string $attribute  An attribute name or a hash of
+     *                                 attributes.
+     * @param string $value            An attribute value if $attribute is a
+     *                                 string.
+     *
+     * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    public function setData($gid, $attribute, $value = null)
+    {
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
+        }
+        if (is_array($attribute)) {
+            $this->_groups[$gid] = array_merge($this->_groups[$gid], $attribute);
+        } else {
+            $this->_groups[$gid][$attribute] = $value;
+        }
+    }
+
+    /**
      * Returns a list of all groups, with IDs as keys and names as values.
      *
      * @return array  All existing groups.

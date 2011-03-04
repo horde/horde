@@ -168,6 +168,35 @@ class Horde_Group_Sql extends Horde_Group_Base
     }
 
     /**
+     * Sets one or more attributes of a group.
+     *
+     * @param mixed $gid               A group ID.
+     * @param array|string $attribute  An attribute name or a hash of
+     *                                 attributes.
+     * @param string $value            An attribute value if $attribute is a
+     *                                 string.
+     *
+     * @throws Horde_Group_Exception
+     */
+    public function setData($gid, $attribute, $value = null)
+    {
+        $attributes = is_array($attribute)
+            ? $attribute
+            : array($attribute => $value);
+        $updates = array();
+        foreach ($attributes as $attribute => $value) {
+            $updates[] = $this->_db->quoteColumnName('group_' . $attribute)
+                . ' = ' . $this->_db->quote($value);
+        }
+        try {
+            $this->_db->execute('UPDATE horde_groups SET ' . implode(', ', $updates) . ' WHERE group_uid = ?',
+                                array($gid));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+    }
+
+    /**
      * Returns a list of all groups, with IDs as keys and names as values.
      *
      * @return array  All existing groups.

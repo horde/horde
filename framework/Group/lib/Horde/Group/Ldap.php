@@ -254,6 +254,42 @@ class Horde_Group_Ldap extends Horde_Group_Base
     }
 
     /**
+     * Sets one or more attributes of a group.
+     *
+     * @param mixed $gid               A group ID.
+     * @param array|string $attribute  An attribute name or a hash of
+     *                                 attributes.
+     * @param string $value            An attribute value if $attribute is a
+     *                                 string.
+     *
+     * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    public function setData($gid, $attribute, $value = null)
+    {
+        $attributes = is_array($attribute)
+            ? $attribute
+            : array($attribute => $value);
+        try {
+            $entry = $this->_ldap->getEntry($gid);
+            foreach ($attributes as $attribute => $value) {
+                switch ($attribute) {
+                case 'name':
+                    $attribute = $this->_params['gid'];
+                    break;
+                case 'email':
+                    $attribute = 'mail';
+                    break;
+                }
+                $entry->replace(array($attribute => $value));
+            }
+            $entry->update();
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+    }
+
+    /**
      * Returns a list of all groups, with IDs as keys and names as values.
      *
      * @return array  All existing groups.

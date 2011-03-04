@@ -102,6 +102,14 @@ class Horde_Group_MockTest extends Horde_Group_Test_Base
     /**
      * @depends testExists
      */
+    public function testSetData()
+    {
+        $this->_setData();
+    }
+
+    /**
+     * @depends testExists
+     */
     public function testRemove()
     {
         $this->_remove();

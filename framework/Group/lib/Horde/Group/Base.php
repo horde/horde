@@ -108,6 +108,20 @@ abstract class Horde_Group_Base
     abstract public function getData($gid);
 
     /**
+     * Sets one or more attributes of a group.
+     *
+     * @param mixed $gid               A group ID.
+     * @param array|string $attribute  An attribute name or a hash of
+     *                                 attributes.
+     * @param string $value            An attribute value if $attribute is a
+     *                                 string.
+     *
+     * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    abstract public function setData($gid, $attribute, $value = null);
+
+    /**
      * Returns a list of all groups, with IDs as keys and names as values.
      *
      * @return array  All existing groups.
