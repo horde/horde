@@ -26,7 +26,7 @@ class Horde_Group_LdapTest extends Horde_Group_Test_Base
      */
     public function testExists()
     {
-        $this->_exists();
+        $this->_exists('cn=some_none_existing_id');
     }
 
     /**

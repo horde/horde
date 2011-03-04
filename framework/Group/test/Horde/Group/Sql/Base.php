@@ -30,7 +30,7 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
      */
     public function testExists()
     {
-        $this->_exists();
+        $this->_exists(99999);
     }
 
     /**

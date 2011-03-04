@@ -26,10 +26,10 @@ class Horde_Group_Test_Base extends Horde_Test_Case
         self::$groupids[] = self::$group->create('Not My Group');
     }
 
-    protected function _exists()
+    protected function _exists($nonexistant)
     {
         $this->assertTrue(self::$group->exists(self::$groupids[0]));
-        $this->assertFalse(self::$group->exists('some=none_existing_id'));
+        $this->assertFalse(self::$group->exists($nonexistant));
     }
 
     protected function _getName()
