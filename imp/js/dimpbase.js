@@ -1568,15 +1568,24 @@ var DimpBase = {
 
     setMessageListTitle: function()
     {
-        var range,
+        var range, text,
             rows = this.viewport.getMetaData('total_rows');
 
         if (rows) {
             range = this.viewport.currentViewableRange();
-            $('msgHeader').update(DIMP.text.messagetitle.sub('%d', range.first).sub('%d', range.last).sub('%d', rows));
+
+            if (range.first == 1 && rows == range.last) {
+                text = (rows == 1)
+                    ? 1 + ' ' + DIMP.text.message
+                    : rows + ' ' + DIMP.text.messages;
+            } else {
+                text = DIMP.text.messagetitle.sub('%d', range.first).sub('%d', range.last).sub('%d', rows);
+            }
         } else {
-            $('msgHeader').update(DIMP.text.nomessages);
+            text = DIMP.text.nomessages;
         }
+
+        $('msgHeader').update(text);
     },
 
     // f = (string|Element)
