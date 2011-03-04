@@ -144,6 +144,30 @@ class Horde_Group_Sql extends Horde_Group_Base
     }
 
     /**
+     * Returns all available attributes of a group.
+     *
+     * @param mixed $gid  A group ID.
+     *
+     * @return array  The group's date.
+     * @throws Horde_Group_Exception
+     */
+    public function getData($gid)
+    {
+        try {
+            $result = $this->_db->selectOne(
+                'SELECT * FROM horde_groups WHERE group_uid = ?',
+                array($gid));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+        $data = array();
+        foreach ($result as $attribute => $value) {
+            $data[preg_replace('/^group_/', '', $attribute)] = $value;
+        }
+        return $data;
+    }
+
+    /**
      * Returns a list of all groups, with IDs as keys and names as values.
      *
      * @return array  All existing groups.

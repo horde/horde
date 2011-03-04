@@ -44,6 +44,14 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
     /**
      * @depends testExists
      */
+    public function testGetData()
+    {
+        $this->_getData();
+    }
+
+    /**
+     * @depends testExists
+     */
     public function testListAll()
     {
         $this->_listAll();

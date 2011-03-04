@@ -97,6 +97,23 @@ class Horde_Group_Mock extends Horde_Group_Base
     }
 
     /**
+     * Returns all available attributes of a group.
+     *
+     * @param mixed $gid  A group ID.
+     *
+     * @return array  The group's date.
+     * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    public function getData($gid)
+    {
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
+        }
+        return $this->_groups[$gid];
+    }
+
+    /**
      * Returns a list of all groups, with IDs as keys and names as values.
      *
      * @return array  All existing groups.

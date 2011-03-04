@@ -20,7 +20,7 @@ class Horde_Group_Test_Base extends Horde_Test_Case
 
     protected function _create()
     {
-        self::$groupids[] = self::$group->create('My Group');
+        self::$groupids[] = self::$group->create('My Group', 'me@example.com');
         $this->assertNotNull(self::$groupids);
         self::$groupids[] = self::$group->create('My Other Group');
         self::$groupids[] = self::$group->create('Not My Group');
@@ -40,6 +40,13 @@ class Horde_Group_Test_Base extends Horde_Test_Case
                             self::$group->getName(self::$groupids[1]));
         $this->assertEquals('Not My Group',
                             self::$group->getName(self::$groupids[2]));
+    }
+
+    protected function _getData()
+    {
+        $group = self::$group->getData(self::$groupids[0]);
+        $this->assertEquals('My Group', $group['name']);
+        $this->assertEquals('me@example.com', $group['email']);
     }
 
     protected function _listAll()

@@ -1,7 +1,7 @@
 <?php
 /**
- * The Group_contactlists class provides a groups system based on Turba
- * contact lists. Only SQL sources are supported.
+ * This class provides a driver for the Horde group system based on Turba
+ * contact lists.
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
@@ -9,11 +9,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Group
  */
-class Horde_Group_Contactlists extends Horde_Group
+class Horde_Group_Contactlists extends Horde_Group_Base
 {
     /**
      * A cache object

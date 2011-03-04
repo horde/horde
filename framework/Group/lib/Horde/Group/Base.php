@@ -56,6 +56,7 @@ abstract class Horde_Group_Base
      * @param string $name  The new name.
      *
      * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function rename($gid, $name)
     {
@@ -91,8 +92,20 @@ abstract class Horde_Group_Base
      *
      * @return string  The group's name.
      * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
     abstract public function getName($gid);
+
+    /**
+     * Returns all available attributes of a group.
+     *
+     * @param mixed $gid  A group ID.
+     *
+     * @return array  The group's date.
+     * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    abstract public function getData($gid);
 
     /**
      * Returns a list of all groups, with IDs as keys and names as values.
@@ -109,6 +122,7 @@ abstract class Horde_Group_Base
      *
      * @return array  List of group users.
      * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
     abstract public function listUsers($gid);
 
@@ -129,6 +143,7 @@ abstract class Horde_Group_Base
      * @param string $user  A user name.
      *
      * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function addUser($gid, $user)
     {
@@ -142,6 +157,7 @@ abstract class Horde_Group_Base
      * @param string $user  A user name.
      *
      * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function removeUser($gid, $user)
     {
