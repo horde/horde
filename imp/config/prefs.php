@@ -108,79 +108,6 @@ $_prefs['sentmailselect'] = array(
 
 
 
-// *** Server and Folder Preferences ***
-
-$prefGroups['server'] = array(
-    'column' => _("General"),
-    'label' => _("Server and Folder Information"),
-    'desc' => _("Change mail server and folder settings."),
-    'members' => array(
-        'subscribe', 'draftsselect', 'trashselect', 'spamselect'
-    )
-);
-
-// use IMAP subscribe?
-$_prefs['subscribe'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Use IMAP folder subscriptions?")
-);
-
-// drafts folder selection widget.
-$_prefs['draftsselect'] = array(
-    'type' => 'special'
-);
-
-// drafts folder
-$_prefs['drafts_folder'] = array(
-    // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
-    'value' => 'Drafts',
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
-    // necessary conversion.
-    // 'value' => Horde_String::convertCharset('Drafts', 'UTF-8', 'UTF7-IMAP')
-);
-
-// trash folder selection widget.
-$_prefs['trashselect'] = array(
-    'type' => 'special'
-);
-
-// trash folder
-$_prefs['trash_folder'] = array(
-    // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
-    'value' => 'Trash',
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
-    // necessary conversion.
-    // 'value' => Horde_String::convertCharset('Trash', 'UTF-8', 'UTF7-IMAP'),
-    // Exchange servers use this default value instead.
-    // 'value' => 'Deleted Items'
-);
-
-// spam folder selection widget.
-$_prefs['spamselect'] = array(
-    'type' => 'special'
-);
-
-// spam folder
-$_prefs['spam_folder'] = array(
-    // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
-    'value' => 'Spam'
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
-    // necessary conversion.
-    // 'value' => Horde_String::convertCharset('Spam', 'UTF-8', 'UTF7-IMAP')
-);
-
-
-
 // *** ACL Preferences ***
 
 $prefGroups['acl'] = array(
@@ -669,6 +596,23 @@ $prefGroups['drafts'] = array(
     )
 );
 
+// drafts folder selection widget.
+$_prefs['draftsselect'] = array(
+    'type' => 'special'
+);
+
+// drafts folder
+$_prefs['drafts_folder'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
+    'value' => 'Drafts',
+    // If the mailbox value contains non-ASCII characters, it must be encoded
+    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
+    // necessary conversion.
+    // 'value' => Horde_String::convertCharset('Drafts', 'UTF-8', 'UTF7-IMAP')
+);
+
 // closing window after saving a draft?
 $_prefs['close_draft'] = array(
     'value' => 1,
@@ -865,8 +809,7 @@ $prefGroups['delmove'] = array(
     'label' => _("Deleting and Moving Messages"),
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
-        'mailbox_return', 'delete_spam_after_report', 'move_ham_after_report',
-        'empty_spam_menu', 'use_trash', 'trashselect', 'empty_trash_menu'
+        'mailbox_return', 'use_trash', 'trashselect', 'empty_trash_menu'
     )
 );
 
@@ -875,6 +818,76 @@ $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?")
+);
+
+// should we move messages to a trash folder instead of just marking
+// them as deleted?
+$_prefs['use_trash'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("When deleting messages, move them to your Trash folder instead of marking them as deleted?")
+);
+
+// trash folder selection widget.
+$_prefs['trashselect'] = array(
+    'type' => 'special'
+);
+
+// trash folder
+$_prefs['trash_folder'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
+    'value' => 'Trash',
+    // If the mailbox value contains non-ASCII characters, it must be encoded
+    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
+    // necessary conversion.
+    // 'value' => Horde_String::convertCharset('Trash', 'UTF-8', 'UTF7-IMAP'),
+    // Exchange servers use this default value instead.
+    // 'value' => 'Deleted Items'
+);
+
+// display the 'Empty Trash' link in the menubar?
+$_prefs['empty_trash_menu'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Display the \"Empty Trash\" link in the menubar?")
+);
+
+// hide deleted
+$_prefs['delhide'] = array(
+    'value' => 0
+);
+
+
+
+// *** Spam Preferences ***
+
+$prefGroups['delmove'] = array(
+    'column' => _("Message"),
+    'label' => _("Spam Reporting"),
+    'desc' => _("Configure spam reporting."),
+    'members' => array(
+        'spamselect', 'delete_spam_after_report', 'move_ham_after_report',
+        'empty_spam_menu'
+    )
+);
+
+// spam folder selection widget.
+$_prefs['spamselect'] = array(
+    'type' => 'special'
+);
+
+// spam folder
+$_prefs['spam_folder'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
+    'value' => 'Spam'
+    // If the mailbox value contains non-ASCII characters, it must be encoded
+    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
+    // necessary conversion.
+    // 'value' => Horde_String::convertCharset('Spam', 'UTF-8', 'UTF7-IMAP')
 );
 
 // What should we do with spam messages after reporting them?
@@ -902,31 +915,11 @@ $_prefs['move_ham_after_report'] = array(
     'help' => 'prefs-move_ham_after_report'
 );
 
-// should we move messages to a trash folder instead of just marking
-// them as deleted?
-$_prefs['use_trash'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("When deleting messages, move them to your Trash folder instead of marking them as deleted?")
-);
-
-// display the 'Empty Trash' link in the menubar?
-$_prefs['empty_trash_menu'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Display the \"Empty Trash\" link in the menubar?")
-);
-
 // display the 'Empty Spam' link in the menubar?
 $_prefs['empty_spam_menu'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Display the \"Empty Spam\" link in the menubar?")
-);
-
-// hide deleted
-$_prefs['delhide'] = array(
-    'value' => 0
 );
 
 
@@ -1122,8 +1115,15 @@ $prefGroups['folderdisplay'] = array(
     'label' => _("Folder Display"),
     'desc' => _("Change folder navigation display preferences."),
     'members' => array(
-        'nav_expanded', 'tree_view', 'nav_poll_all'
+        'subscribe', 'nav_expanded', 'tree_view', 'nav_poll_all'
     )
+);
+
+// use IMAP subscribe?
+$_prefs['subscribe'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Use IMAP folder subscriptions?")
 );
 
 // expand folder tree by default
