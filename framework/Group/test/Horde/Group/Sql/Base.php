@@ -114,7 +114,7 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
             self::$db,
             null,//$logger,
             array('migrationsPath' => dirname(__FILE__) . '/../../../../migration',
-                  'schemaTableName' => 'horde_group_test_schema'));
+                  'schemaTableName' => 'horde_groups_test_schema'));
         self::$migrator->up();
 
         self::$group = new Horde_Group_Sql(array('db' => self::$db));
