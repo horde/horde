@@ -59,7 +59,7 @@ v5.0-git
       #8092).
 [mms] Add preference to show flags created by other MUAs (Request #8882).
 [mms] Added HTML signature support (Request #1406).
-[mms] Simplified date sorting display (Ticket #8936).
+[mms] Simplified date sorting display (Request #8936).
 [mms] Properly redirect messages pursuant to RFC 5322 [3.6.6].
 [mms] Add redirect message capability to DIMP.
 [mms] Add ability to add attachments to composed messages for advanced mobile
@@ -236,7 +236,7 @@ v4.3.8
 [mms] Fix updating POP3 indices when using mailbox caching (Bug #8035).
 [jan] Include "anyone" user when listing users in the ACL screen (Bug #9135).
 [mms] Turn DNS prefetching off when displaying untrusted message content
-      (Ticket #8836).
+      (Request #8836).
 
 
 ------
@@ -2529,7 +2529,7 @@ v1.1.5
 [jan] Fix notices with certain output buffer configurations
       (Valentin.Vidic@CARNet.hr, Bug #7851).
 [mms] Turn DNS prefetching off when displaying untrusted message content
-      (Ticket #8836).
+      (Request #8836).
 
 
 ------
