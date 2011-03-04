@@ -434,7 +434,7 @@ $_prefs['forward_format'] = array(
 $prefGroups['drafts'] = array(
     'column' => _("Compose"),
     'label' => _("Message Drafts"),
-    'desc' => _("Configure how to deal with message drafts."),
+    'desc' => _("Manage message drafts."),
     'members' => array(
         'draftsselect', 'close_draft', 'unseen_drafts', 'auto_save_drafts'
     )
@@ -492,7 +492,7 @@ $_prefs['auto_save_drafts'] = array(
 $prefGroups['sentmail'] = array(
     'column' => _("Compose"),
     'label' => _("Sent Mail"),
-    'desc' => _("Configure how to manage sent mail folders."),
+    'desc' => _("Manage sent mail folders."),
     'members' => array(
         'rename_sentmail_monthly', 'delete_sentmail_monthly_keep',
         'purge_sentmail_interval', 'purge_sentmail_keep'
