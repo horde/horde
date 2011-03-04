@@ -83,13 +83,18 @@ document.observe('dom:loaded', function() {
 
         var d = id.contentWindow.document;
 
-        id.observe('load', function() { IMP.iframeResize.bind(IMP, id).defer(0.3); } );
+        id.observe('load', function(i) {
+            i.stopObserving('load');
+            this.iframeResize.bind(IMP, i).defer(0.3);
+        }.bind(this, id));
 
         d.open();
         d.write(data);
         d.close();
 
         id.show().previous().remove();
+
+        this.iframeResize(id);
     };
 
     IMP.iframeResize = function(id)
@@ -97,8 +102,6 @@ document.observe('dom:loaded', function() {
         if (!(id = $(id))) {
             return;
         }
-
-        id.stopObserving('load');
 
         var lc = id.contentWindow.document.lastChild,
             body = id.contentWindow.document.body;
