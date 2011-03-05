@@ -1,6 +1,4 @@
 <?php
-// IMPORTANT: the conf.php version of this file must be both in this  and any
-// subdirectory. A symlink is fine too.
 $conf['share']['sql']['mysql']['adapter'] = 'mysql';
 $conf['share']['sql']['mysql']['host'] = 'localhost';
 $conf['share']['sql']['mysql']['username'] = '';

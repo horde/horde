@@ -25,7 +25,7 @@ class Horde_Test_Case extends PHPUnit_Framework_TestCase
      * @return mixed  The value of the configuration file's $conf variable, or
      *                null.
      */
-    static public function getConfig($env, $default = array())
+    static public function getConfig($env, $path = null, $default = array())
     {
         $config = getenv($env);
         if ($config) {
@@ -34,9 +34,12 @@ class Horde_Test_Case extends PHPUnit_Framework_TestCase
                 return Horde_Array::replaceRecursive($default, $json);
             }
         } else {
-            $backtrace = new Horde_Support_Backtrace();
-            $caller = $backtrace->getCurrentContext();
-            $config = dirname($caller['file']) . '/conf.php';
+            if (!$path) {
+                $backtrace = new Horde_Support_Backtrace();
+                $caller = $backtrace->getCurrentContext();
+                $path = dirname($caller['file']);
+            }
+            $config = $path . '/conf.php';
         }
 
         if (file_exists($config)) {

@@ -20,7 +20,8 @@ class Horde_Share_Sqlng_Pdo_PgsqlTest extends Horde_Share_Test_Sqlng_Base
             !in_array('pgsql', PDO::getAvailableDrivers())) {
             return;
         }
-        $config = self::getConfig('SHARE_SQL_PDO_PGSQL_TEST_CONFIG');
+        $config = self::getConfig('SHARE_SQL_PDO_PGSQL_TEST_CONFIG',
+                                  dirname(__FILE__) . '/../..');
         if ($config && !empty($config['share']['sql']['pdo_pgsql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Pgsql($config['share']['sql']['pdo_pgsql']);
             parent::setUpBeforeClass();

@@ -19,7 +19,8 @@ class Horde_Share_Sqlng_MysqliTest extends Horde_Share_Test_Sqlng_Base
         if (!extension_loaded('mysqli')) {
             return;
         }
-        $config = self::getConfig('SHARE_SQL_MYSQLI_TEST_CONFIG');
+        $config = self::getConfig('SHARE_SQL_MYSQLI_TEST_CONFIG',
+                                  dirname(__FILE__) . '/..');
         if ($config && !empty($config['share']['sql']['mysqli'])) {
             self::$db = new Horde_Db_Adapter_Mysqli($config['share']['sql']['mysqli']);
             parent::setUpBeforeClass();
