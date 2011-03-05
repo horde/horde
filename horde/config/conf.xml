@@ -873,15 +873,10 @@
  <configtab name="group" desc="Groups">
   <configsection name="group">
    <configheader>Groups Settings</configheader>
-   <configdescription>
-    The Hooks backend allows hooks to extend a group to dynamically include
-    members into a group.  See hooks.php.dist for an example.
-   </configdescription>
    <configswitch name="driver" desc="What backend should we use for Horde
-   Groups?">sql
-    <case name="hooks" desc="Hooks"/>
-    <case name="kolab" desc="Kolab"/>
-    <case name="ldap" desc="LDAP">
+   Groups?">Sql
+    <case name="Kolab" desc="Kolab"/>
+    <case name="Ldap" desc="LDAP">
      <configsection name="params">
       <configldap switchname="driverconfig">
        <configstring name="gid" desc="The group search key">cn</configstring>
@@ -911,8 +906,8 @@
       </configldap>
      </configsection>
     </case>
-    <case name="mock" desc="No Groups"/>
-    <case name="sql" desc="SQL">
+    <case name="Mock" desc="No Groups"/>
+    <case name="Sql" desc="SQL">
      <configsql switchname="driverconfig" />
     </case>
    </configswitch>

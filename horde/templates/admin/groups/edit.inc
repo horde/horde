@@ -1,15 +1,15 @@
 <form name="edit_group" method="post" action="groups.php">
 <input type="hidden" name="actionID" value="editform" />
-<input type="hidden" name="cid" value="<?php echo $group->getId() ?>" />
+<input type="hidden" name="gid" value="<?php echo $gid ?>" />
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header">
- <?php echo Horde::img('user.png') . ' ' . htmlspecialchars($group->getShortName()) ?>
+ <?php echo Horde::img('user.png') . ' ' . htmlspecialchars($group['name']) ?>
 </h1>
 
 <p class="control">
  <?php echo Horde::label('email', _("Email Address")) ?>
- <input type="text" name="email" id="email" size="50" value="<?php echo htmlspecialchars($group->get('email')) ?>" />
+ <input type="text" name="email" id="email" size="50" value="<?php echo htmlspecialchars($group['email']) ?>" />
 </p>
 <br />
 
@@ -52,7 +52,7 @@
 <p class="control">
 <label for="new_user" class="hidden"><?php echo _("Users") ?></label>
 <select id="new_user" name="new_user[]" multiple="multiple">
-<?php foreach ($user_list as $user) { if (!in_array($user, $all_users)) { ?>
+<?php foreach ($user_list as $user) { if (!in_array($user, $users)) { ?>
  <option value="<?php echo $user ?>"><?php echo $user ?></option>
 <?php } } ?>
 </select>
@@ -60,7 +60,7 @@
 <label for="new_user" class="hidden"><?php echo _("User") ?></label>
 <input type="text" id="new_user" name="new_user" />
 <?php endif; ?>
-<input type="submit" class="button" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $group->getShortName())) ?>" />
+<input type="submit" class="button" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $group['name'])) ?>" />
 </p>
 <br />
 

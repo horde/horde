@@ -37,15 +37,10 @@ framework/*/test/*/*/*/*.out
 framework/Alarm/test/Horde/Alarm/conf.php
 framework/Db/test/Horde/Db/Adapter/conf.php
 framework/Db/test/Horde/Db/Adapter/Pdo/conf.php
+framework/Group/test/Horde/Group/conf.php
 framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
 framework/Ldap/test/Horde/Ldap/conf.php
 framework/Share/test/Horde/Share/conf.php
-framework/Share/test/Horde/Share/Sql/conf.php
-framework/Share/test/Horde/Share/Sql/Pdo/conf.php
-framework/Share/test/Horde/Share/SqlHierarchical/conf.php
-framework/Share/test/Horde/Share/SqlHierarchical/Pdo/conf.php
-framework/Share/test/Horde/Share/Sqlng/conf.php
-framework/Share/test/Horde/Share/Sqlng/Pdo/conf.php
 
 # Dynamically generated content that may live in the repo directories
 /lib/

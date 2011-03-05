@@ -25,5 +25,6 @@ class HordeGroupBaseTables extends Horde_Db_Migration_Base
     public function down()
     {
         $this->dropTable('horde_groups');
+        $this->dropTable('horde_groups_members');
     }
 }

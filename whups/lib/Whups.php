@@ -504,8 +504,9 @@ class Whups {
     function getOwnerCriteria($user)
     {
         $criteria = array('user:' . $user);
-        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-        $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
+        $mygroups = $GLOBALS['injector']
+            ->getInstance('Horde_Group')
+            ->getGroups($GLOBALS['registry']->getAuth());
         foreach ($mygroups as $id => $group) {
             $criteria[] = 'group:' . $id;
         }
@@ -580,12 +581,12 @@ class Whups {
                 }
             } elseif ($type == 'group') {
                 try {
-                    $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-                    $group = $groups->getGroupById($user);
-
-                    $results[$user]['user'] = $group->getShortName();
-                    $results[$user]['name'] = $group->getShortName();
-                    $results[$user]['email'] = $group->get('email');
+                    $group = $GLOBALS['injector']
+                        ->getInstance('Horde_Group')
+                        ->getData($user);
+                    $results[$user]['user'] = $group['name'];
+                    $results[$user]['name'] = $group['name'];
+                    $results[$user]['email'] = $group['email'];
                 } catch (Horde_Group_Exception $e) {
                     $results['user']['name'] = '';
                     $results['user']['email'] = '';

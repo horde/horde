@@ -1,5 +1,7 @@
 <?php
 /**
+ * This class provides a mock driver for the Horde group system.
+ *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -10,284 +12,236 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Group
  */
-class Horde_Group_Mock extends Horde_Group {
-
+class Horde_Group_Mock extends Horde_Group_Base
+{
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Initializes the object.
-     */
-    public function __wakeup()
-    {
-    }
-
-    /**
-     * Returns a new group object.
+     * List of groups.
      *
-     * @param string $name    The group's name.
-     * @param string $parent  The group's parent's name.
+     * @var array
+     */
+    protected $_groups;
+
+    /**
+     * Creates a new group.
      *
-     * @return DataTreeObject_Group  A new group object.
+     * @param string $name   A group name.
+     * @param string $email  The group's email address.
+     *
+     * @return mixed  The ID of the created group.
      * @throws Horde_Group_Exception
      */
-    public function newGroup($name, $parent = GROUP_ROOT)
+    public function create($name, $email = null)
     {
-        throw new Horde_Group_Exception('Unsupported.');
+        $id = 'group_' . count($this->_groups);
+        $this->_groups[$id] = array('name'  => $name,
+                                    'email' => $email,
+                                    'users' => array());
+        return $id;
     }
 
     /**
-     * Returns a DataTreeObject_Group object corresponding to the named group,
-     * with the users and other data retrieved appropriately.
+     * Renames a group.
      *
-     * @param string $name The name of the group to retrieve.
+     * @param mixed $gid    A group ID.
+     * @param string $name  The new name.
      *
      * @throws Horde_Group_Exception
      */
-    public function getGroup($name)
+    public function rename($gid, $name)
     {
-        throw new Horde_Group_Exception('Unsupported.');
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group "' . $gid . '" not found');
+        }
+        $this->_groups[$gid]['name'] = $name;
     }
 
     /**
-     * Returns a group object corresponding to the given unique
-     * ID, with the users and other data retrieved appropriately.
+     * Removes a group.
      *
-     * @param integer $cid  The unique ID of the group to retrieve.
+     * @param mixed $gid  A group ID.
      *
      * @throws Horde_Group_Exception
      */
-    public function getGroupById($cid)
+    public function remove($gid)
     {
-        throw new Horde_Group_Exception('Unsupported.');
+        unset($this->_groups[$gid]);
     }
 
     /**
-     * Adds a group to the groups system. The group must first be created with
-     * newGroup(), and have any initial users added to it, before this
-     * function is called.
+     * Checks if a group exists.
      *
-     * @param Horde_Group_DataTreeObject $group  The new group object.
+     * @param mixed $gid  A group ID.
      *
+     * @return boolean  True if the group exists.
      * @throws Horde_Group_Exception
      */
-    public function addGroup(Horde_Group_DataTreeObject $group)
+    public function exists($gid)
     {
-        throw new Horde_Group_Exception('Unsupported.');
+        return isset($this->_groups[$gid]);
     }
 
     /**
-     * Stores updated data - users, etc. - of a group to the backend system.
+     * Returns a group name.
      *
-     * @param Horde_Group_DataTreeObject $group  The group to update.
-     *
-     * @throws Horde_Group_Exception
-     */
-    public function updateGroup(Horde_Group_DataTreeObject $group)
-    {
-        throw new Horde_Group_Exception('Unsupported.');
-    }
-
-    /**
-     * Removes a group from the groups system permanently.
-     *
-     * @param Horde_Group_DataTreeObject $group  The group to remove.
-     * @param boolean $force               Force to remove every child.
-     *
-     * @throws Horde_Group_Exception
-     */
-    public function removeGroup(Horde_Group_DataTreeObject $group,
-                                $force = false)
-    {
-        throw new Horde_Group_Exception('Unsupported.');
-    }
-
-    /**
-     * Retrieves the name of a group.
-     *
-     * @param integer|Horde_Group_DataTreeObject $gid  The id of the group or the
-     *                                           group object to retrieve the
-     *                                           name for.
+     * @param mixed $gid  A group ID.
      *
      * @return string  The group's name.
+     * @throws Horde_Group_Exception
      */
-    public function getGroupName($gid)
+    public function getName($gid)
     {
-        return '';
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
+        }
+        return $this->_groups[$gid]['name'];
     }
 
     /**
-     * Strips all parent references off of the given group name.
+     * Returns all available attributes of a group.
      *
-     * @param string $group  Name of the group.
+     * @param mixed $gid  A group ID.
      *
-     * @return The name of the group without parents.
+     * @return array  The group's date.
+     * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
-    public function getGroupShortName($group)
+    public function getData($gid)
     {
-        return '';
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
+        }
+        return $this->_groups[$gid];
     }
 
     /**
-     * Retrieves the ID of a group.
+     * Sets one or more attributes of a group.
      *
-     * @param string|Horde_Group_DataTreeObject $group  The group name or object to
-     *                                            retrieve the ID for.
+     * @param mixed $gid               A group ID.
+     * @param array|string $attribute  An attribute name or a hash of
+     *                                 attributes.
+     * @param string $value            An attribute value if $attribute is a
+     *                                 string.
      *
-     * @return integer  The group's ID.
+     * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
-    public function getGroupId($group)
+    public function setData($gid, $attribute, $value = null)
     {
-        return '';
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
+        }
+        if (is_array($attribute)) {
+            $this->_groups[$gid] = array_merge($this->_groups[$gid], $attribute);
+        } else {
+            $this->_groups[$gid][$attribute] = $value;
+        }
     }
 
     /**
-     * Check if a group exists in the system.
+     * Returns a list of all groups, with IDs as keys and names as values.
      *
-     * @param string $group  The group to check.
-     *
-     * @return boolean  True if the group exists, false otherwise.
+     * @return array  All existing groups.
+     * @throws Horde_Group_Exception
      */
-    public function exists($group)
+    public function listAll()
     {
-        return false;
+        $groups = array();
+        foreach ($this->_groups as $gid => $group) {
+            $groups[$gid] = $group['name'];
+        }
+        asort($groups);
+        return $groups;
     }
 
     /**
-     * Returns a tree of the parents of a child group.
+     * Returns a list of users in a group.
      *
-     * @param integer $gid  The id of the child group.
+     * @param mixed $gid  A group ID.
      *
-     * @return array  The group parents tree, with groupnames as the keys.
-     */
-    public function getGroupParents($gid)
-    {
-        return array();
-    }
-
-    /**
-     * Returns the single parent ID of the given group.
-     *
-     * @param integer $gid  The DataTree ID of the child group.
-     *
-     * @return integer  The parent of the given group.
-     */
-    public function getGroupParent($gid)
-    {
-        return null;
-    }
-
-    /**
-     * Returns a flat list of the parents of a child group
-     *
-     * @param integer $gid  The id of the group.
-     *
-     * @return array  A flat list of all of the parents of $group, hashed in
-     *                $id => $name format.
-     */
-    public function getGroupParentList($gid)
-    {
-        return array();
-    }
-
-    /**
-     * Returns a list of all groups, in the format id => groupname.
-     *
-     * @param boolean $refresh  If true, the cached value is ignored and the
-     *                          group list is refreshed from the group backend.
-     *
-     * @return array  ID => groupname hash.
-     */
-    public function listGroups($refresh = false)
-    {
-        return array();
-    }
-
-    /**
-     * Get a list of every user that is a part of this group ONLY.
-     *
-     * @param integer $gid  The ID of the group.
-     *
-     * @return array  The user list.
+     * @return array  List of group users.
+     * @throws Horde_Group_Exception
      */
     public function listUsers($gid)
     {
-        return array();
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
+        }
+        return $this->_groups[$gid]['users'];
     }
 
     /**
-     * Get a list of every user that is part of the specified group
-     * and any of its subgroups.
+     * Returns a list of groups a user belongs to.
      *
-     * @param integer $group  The ID of the parent group.
+     * @param string $user  A user name.
      *
-     * @return array  The complete user list.
+     * @return array  A list of groups, with IDs as keys and names as values.
+     * @throws Horde_Group_Exception
      */
-    public function listAllUsers($gid)
+    public function listGroups($user)
     {
-        return array();
+        $groups = array();
+        foreach ($this->_groups as $gid => $group) {
+            if (in_array($user, $group['users'])) {
+                $groups[$gid] = $group['name'];
+            }
+        }
+        asort($groups);
+        return $groups;
     }
 
     /**
-     * Get a list of every group that $user is in.
+     * Add a user to a group.
      *
-     * @param string  $user          The user to get groups for.
-     * @param boolean $parentGroups  Also return the parents of any groups?
+     * @param mixed $gid    A group ID.
+     * @param string $user  A user name.
      *
-     * @return array  An array of all groups the user is in.
+     * @throws Horde_Group_Exception
      */
-    public function getGroupMemberships($user, $parentGroups = false)
+    public function addUser($gid, $user)
     {
-        return array();
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
+        }
+        $this->_groups[$gid]['users'][] = $user;
     }
 
     /**
-     * Say if a user is a member of a group or not.
+     * Removes a user from a group.
      *
-     * @param string $user        The name of the user.
-     * @param integer $gid        The ID of the group.
-     * @param boolean $subgroups  Return true if the user is in any subgroups
-     *                            of group with ID $gid, also.
+     * @param mixed $gid    A group ID.
+     * @param string $user  A user name.
      *
-     * @return boolean
+     * @throws Horde_Group_Exception
      */
-    public function userIsInGroup($user, $gid, $subgroups = true)
+    public function removeUser($gid, $user)
     {
-        return false;
+        if (!isset($this->_groups[$gid])) {
+            throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
+        }
+        $key = array_search($user, $this->_groups[$gid]['users']);
+        if ($key !== false) {
+            unset($this->_groups[$gid]['users'][$key]);
+        }
     }
 
     /**
-     * Returns the nesting level of the given group. 0 is returned for any
-     * object directly below GROUP_ROOT.
+     * Searches for group names.
      *
-     * @param integer $gid  The ID of the group.
+     * @param string $name  A search string.
      *
-     * @return The nesting level of the group.
+     * @return array  A list of matching groups, with IDs as keys and names as
+     *                values.
+     * @throws Horde_Group_Exception
      */
-    public function getLevel($gid)
+    public function search($name)
     {
-        return 0;
+        $groups = array();
+        foreach ($this->_groups as $gid => $group) {
+            if (strpos($group['name'], $name) !== false) {
+                $groups[$gid] = $group['name'];
+            }
+        }
+        asort($groups);
+        return $groups;
     }
-
-    /**
-     * Stores the object in the session cache.
-     */
-    public function shutdown()
-    {
-    }
-
-    /**
-     * Returns the properties that need to be serialized.
-     *
-     * @return array  List of serializable properties.
-     */
-    public function __sleep()
-    {
-        return array();
-    }
-
 }

@@ -210,8 +210,7 @@ class Horde_Ldap_Search implements Iterator
      * @return array Sorted entries.
      * @throws Horde_Ldap_Exception
      */
-    public function sortedAsArray(array $attrs = array('cn'),
-                                     $order = SORT_ASC)
+    public function sortedAsArray(array $attrs = array('cn'), $order = SORT_ASC)
     {
         /* Old Code, suitable and fast for single valued sorting. This code
          * should be used if we know that single valued sorting is desired, but

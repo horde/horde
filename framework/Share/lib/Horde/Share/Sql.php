@@ -52,7 +52,8 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @see Horde_Share_Base::__construct()
      */
-    public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
+    public function __construct($app, $user, Horde_Perms $perms,
+                                Horde_Group_Base $groups)
     {
         parent::__construct($app, $user, $perms, $groups);
         $this->_table = $this->_app . '_shares';
@@ -837,7 +838,7 @@ class Horde_Share_Sql extends Horde_Share_Base
 
             // If the user has any group memberships, check for those also.
             try {
-                $groups = $this->_groups->getGroupMemberships($userid, true);
+                $groups = $this->_groups->listGroups($userid);
                 if ($groups) {
                     // (name == perm_groups and key in ($groups) and val & $perm)
                     $ids = array_keys($groups);

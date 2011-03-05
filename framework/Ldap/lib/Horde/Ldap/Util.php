@@ -362,6 +362,9 @@ class Horde_Ldap_Util
                 } else {
                     // No multivalued RDN. Split at first unescaped "=".
                     $dn_comp = preg_split('/(?<=[^\\\\])=/', $rdns[0], 2);
+                    if (count($dn_comp) != 2) {
+                        throw new Horde_Ldap_Exception('Invalid RDN: ' . $rdns[0]);
+                    }
                     // Trim left whitespaces because of "cn=foo, l=bar" syntax
                     // (whitespace after comma).
                     $ocl = ltrim($dn_comp[0]);
@@ -563,7 +566,7 @@ class Horde_Ldap_Util
      * @return array Corrected array.
      */
     protected static function _correctDNSplitting($dn = array(),
-                                                    $separator = ',')
+                                                  $separator = ',')
     {
         foreach ($dn as $key => $dn_value) {
             // Refresh value (foreach caches!)
@@ -580,9 +583,11 @@ class Horde_Ldap_Util
                 if (array_key_exists($key - 1, $dn)) {
                     // Append to previous attribute value.
                     $dn[$key - 1] = $dn[$key - 1] . $separator . $dn_value;
-                } else {
+                } elseif (array_key_exists($key + 1, $dn)) {
                     // First element: prepend to next attribute name.
                     $dn[$key + 1] = $dn_value . $separator . $dn[$key + 1];
+                } else {
+                    $dn[$key] = $dn_value;
                 }
             }
         }

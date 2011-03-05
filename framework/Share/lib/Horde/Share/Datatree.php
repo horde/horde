@@ -315,8 +315,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
             // If the user has any group memberships, check for those also.
             // @TODO: inject
             try {
-                $group = $GLOBALS['injector']->getInstance('Horde_Group');
-                $groups = $group->getGroupMemberships($userid, true);
+                $groups = $this->_groups->listGroups($userid);
                 if ($groups) {
                     // (name == perm_groups and key in ($groups) and val & $perm)
                     $criteria['OR'][] = array(

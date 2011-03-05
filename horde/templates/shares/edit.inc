@@ -271,9 +271,9 @@ foreach ($userList as $user) {
   <td class="header" align="center"><?php echo _("Delete") ?></td>
   <td class="header rightAlign">&nbsp;</td>
 </tr>
-<?php $groupperms = $perm->getGroupPermissions(); foreach ($groupperms as $group => $gperm): if (!$groups->exists($groups->getGroupName($group))) continue; ?>
+<?php $groupperms = $perm->getGroupPermissions(); foreach ($groupperms as $group => $gperm): if (!$groups->exists($group)) continue; ?>
 <tr>
-  <td class="light"><?php echo htmlspecialchars($groups->getGroupName($group)) ?><input type="hidden" name="g_names[<?php echo htmlspecialchars($group) ?>]" value="<?php echo htmlspecialchars($group) ?>" /></td>
+  <td class="light"><?php echo htmlspecialchars($groups->getName($group)) ?><input type="hidden" name="g_names[<?php echo htmlspecialchars($group) ?>]" value="<?php echo htmlspecialchars($group) ?>" /></td>
   <td align="center">
     <input type="checkbox" id="g_show_<?php echo htmlspecialchars($group) ?>" name="g_show[<?php echo htmlspecialchars($group) ?>]"<?php echo ($gperm & Horde_Perms::SHOW) ? ' checked="checked"' : '' ?> />
     <label for="g_show_<?php echo htmlspecialchars($group) ?>" class="hidden"><?php echo _("Show") ?></label>

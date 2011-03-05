@@ -1790,6 +1790,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  A hash of all visible groups in the form of
      *                group_id => group_name
+     * @throws Horde_Exception
      */
     public function listUserGroupObjects()
     {
@@ -1835,7 +1836,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$key]->selectAssoc($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Group_Exception($e);
+                throw new Horde_Exception_Prior($e);
             }
             foreach ($results as $id => $name) {
                 $groups[$key . ':' . $id] = $name;
@@ -1846,17 +1847,20 @@ class Turba_Api extends Horde_Registry_Api
     }
 
     /**
-     * Obtains hash of ALL available lists able to act as Horde_Group objects
+     * Returns all contact groups.
      *
-     *
-     * @return array  An array of group object definitions
-     *
+     * @return array  A list of group hashes.
+     * @throws Horde_Exception
      */
     public function getGroupObjects()
     {
         $listEntries = array();
         $sources = $this->getSourcesConfig(array('type' => 'sql'));
         foreach ($sources as $key => $source) {
+            if (empty($source['map']['__type'])) {
+                continue;
+            }
+
             $db[$key] =  empty($source['params']['sql'])
                     ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
                     : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $source['params']['sql']);
@@ -1872,7 +1876,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$key]->selectAll($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Group_Exception($e);
+                throw new Horde_Exception_Prior($e);
             }
 
             foreach ($results as $row) {
@@ -1884,7 +1888,7 @@ class Turba_Api extends Horde_Registry_Api
     }
 
     /**
-     * GroupObject API - Get all lists that the specified user is a member of.
+     * Returns all contact groups that the specified user is a member of.
      *
      * @param string $user           The user
      * @param boolean $parentGroups  Include user as a member of the any
@@ -1892,36 +1896,35 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  An array of group identifiers that the specified user is a
      *                member of.
+     * @throws Horde_Exception
      */
-    public function getGroupObjectMemberships($user, $parentGroups = false)
+    public function getGroupMemberships($user, $parentGroups = false)
     {
-        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-        if (($memberships = $cache->get('TurbaGroupObject_memberships' . $user)) !== false) {
-            return unserialize($memberships);
-        }
         $lists = $this->getGroupObjects();
         $memberships = array();
-        foreach (array_keys($lists) as $list) {
-            $members = $this->getGroupMembers($list, $parentGroups);
-            if (!empty($members[$user])) {
-                $memberships[] = $list;
+        foreach ($lists as $id => $list) {
+            $members = $this->getGroupMembers($id, $parentGroups);
+            if (in_array($user, $members)) {
+                $memberships[$id] = $list['name'];
             }
         }
-
-        $cache->set('TurbaGroupObject_memberships' . $user, serialize($memberships));
-
         return $memberships;
     }
 
     /**
-     * Get the specified group object definition.
+     * Returns a contact group hash.
      *
-     * @param string $gid  The group identifier
+     * @param string $gid  The group identifier.
      *
      * @return array  A hash defining the group.
+     * @throws Horde_Exception
      */
     public function getGroupObject($gid)
     {
+        if (empty($gid) || strpos($gid, ':') === false) {
+            throw new Horde_Exception(sprintf('Unsupported group id: %s', $gid));
+        }
+
         $sources = $this->getSourcesConfig(array('type' => 'sql'));
         list($source, $id) = explode(':', $gid);
         if (empty($sources[$source])) {
@@ -1937,34 +1940,32 @@ class Turba_Api extends Horde_Registry_Api
             . $sources[$source]['map']['__key'] . ' = ' . $db->quoteString($id);
 
         try {
-            $results = $db->selectOne($sql);
+            return $db->selectOne($sql);
         } catch (Horde_Db_Exception $e) {
             Horde::logMessage($e);
-            throw new Horde_Group_Exception($e);
+            throw new Horde_Exception_Prior($e);
         }
-
-        return $results;
     }
 
     /**
-     * Return a list of all members belonging to the specified group, and
-     * possibly any subgroups.
+     * Returns a list of all members belonging to a contact group.
      *
      * @param string $gid         The group identifier
      * @param boolean $subGroups  Also include members of any subgroups?
      *
      * @return array An array of group members (identified by email address).
+     * @throws Horde_Exception
      */
     public function getGroupMembers($gid, $subGroups = false)
     {
-        if (empty($gid) || strpos($gid, ':') === false) {
-            throw new Turba_Exception(sprintf('Unsupported group id: %s', $gid));
-        }
         $contact_shares = $this->listShares(Horde_Perms::SHOW);
         $sources = $this->getSourcesConfig(array('type' => 'sql'));
 
-        list($source, $id) = explode(':', $gid);
         $entry = $this->getGroupObject($gid);
+        if (!$entry) {
+            return array();
+        }
+        list($source, $id) = explode(':', $gid);
         $members = @unserialize($entry['members']);
         if (!is_array($members)) {
             return array();
@@ -1979,7 +1980,7 @@ class Turba_Api extends Horde_Registry_Api
             // Is this member from the same source or a different one?
             if (strpos($member, ':') !== false) {
                 list($newSource, $uid) = explode(':', $member);
-                if (!empty($this->_contact_shares[$newSource])) {
+                if (!empty($contact_shares[$newSource])) {
                     $params = @unserialize($contact_shares[$newSource]->get('params'));
                     $newSource = $params['source'];
                     $member = $uid;
@@ -2007,7 +2008,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$newSource]->selectOne($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Turba_Exception($e);
+                throw new Horde_Exception_Prior($e);
             }
 
             // Sub-Lists are treated as sub groups the best that we can...
@@ -2016,11 +2017,12 @@ class Turba_Api extends Horde_Registry_Api
             }
             if (strlen($results[$email])) {
                 // use a key to dump dups
-                $users[$results[$email]] = $results[$email];
+                $users[$results[$email]] = true;
             }
         }
 
-        return $users;
+        ksort($users);
+        return array_keys($users);
     }
 
 }

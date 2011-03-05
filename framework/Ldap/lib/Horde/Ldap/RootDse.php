@@ -43,9 +43,17 @@ class Horde_Ldap_RootDse
                                 'supportedLDAPVersion',
                                 'subschemaSubentry');
         }
-        $result = $ldap->search('', '(objectClass=*)',
-                                array('attributes' => $attributes,
-                                      'scope' => 'base'));
+        $referral = $ldap->getOption('LDAP_OPT_REFERRALS');
+        $ldap->setOption('LDAP_OPT_REFERRALS', false);
+        try {
+            $result = $ldap->search('', '(objectClass=*)',
+                                    array('attributes' => $attributes,
+                                          'scope' => 'base'));
+        } catch (Horde_Ldap_Exception $e) {
+            $ldap->setOption('LDAP_OPT_REFERRALS', $referral);
+            throw $e;
+        }
+        $ldap->setOption('LDAP_OPT_REFERRALS', $referral);
         $entry = $result->shiftEntry();
         if (!$entry) {
             throw new Horde_Ldap_Exception('Could not fetch RootDSE entry');

@@ -53,7 +53,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     /**
      * The Horde_Group driver
      *
-     * @var Horde_Group
+     * @var Horde_Group_Base
      */
     private $_groups;
 
@@ -75,11 +75,12 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     /**
      * Constructor.
      *
-     * @param string      $id      The share id.
-     * @param Horde_Group $groups  The Horde_Group object
-     * @param array       $data    The share data.
+     * @param string $id                The share id.
+     * @param Horde_Group_Base $groups  The Horde_Group driver
+     * @param array $data               The share data.
      */
-    public function __construct($id, Horde_Group $groups, array $data = array())
+    public function __construct($id, Horde_Group_Base $groups,
+                                array $data = array())
     {
         $this->_old_id = $id;
         $this->_id     = $id;

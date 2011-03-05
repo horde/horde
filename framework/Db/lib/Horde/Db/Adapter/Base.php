@@ -742,7 +742,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      * @return string  Modified SQL statement.
      * @throws Horde_Db_Exception
      */
-    protected function _replaceParameters($sql, $args)
+    protected function _replaceParameters($sql, array $args)
     {
         $paramCount = substr_count($sql, '?');
         if (count($args) != $paramCount) {

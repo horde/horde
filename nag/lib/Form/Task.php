@@ -54,7 +54,7 @@ class Nag_Form_Task extends Horde_Form
             $horde_group = $GLOBALS['injector']->getInstance('Horde_Group');
             foreach ($groups as $group) {
                 $users = array_merge($users,
-                                     $horde_group->listAllUsers($group));
+                                     $horde_group->listUsers($group));
             }
         }
         $users = array_flip($users);

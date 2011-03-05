@@ -39,9 +39,9 @@ extends Horde_Perms_Permission
     private $_storage;
 
     /**
-     * The Horde_Group:: handler.
+     * The group handler.
      *
-     * @var Horde_Group
+     * @var Horde_Group_Base
      */
     private $_groups;
 
@@ -60,12 +60,11 @@ extends Horde_Perms_Permission
      *                                                      represented by this
      *                                                      permission instance.
      *
-     * @param Horde_Group                          $groups  The group handler.
+     * @param Horde_Group_Base $groups                      The group handler.
      */
-    public function __construct(
-        Horde_Perms_Permission_Kolab_Storage $storage,
-        Horde_Group $groups
-    ) {
+    public function __construct(Horde_Perms_Permission_Kolab_Storage $storage,
+                                Horde_Group_Base $groups)
+    {
         parent::__construct(__CLASS__ . '::' . $storage->getPermissionId());
         $this->_storage = $storage;
         $this->_groups  = $groups;

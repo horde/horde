@@ -136,7 +136,7 @@ class Turba_Driver_Group extends Turba_Driver
     protected function _getAddressBook()
     {
         $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-        $members = $groups->listAllUsers($this->_gid);
+        $members = $groups->listUsers($this->_gid);
         $addressbook = array();
         foreach ($members as $member) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($member);
