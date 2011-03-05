@@ -1876,7 +1876,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             foreach ($results as $row) {
-                $listEntries[$key . ':' . $row[$source['map']['__key']]] = $row;
+                $listEntries[$key . ':' . $row['id']] = $row;
             }
         }
 
