@@ -40,7 +40,7 @@ class Hermes_Form_Search extends Horde_Form
 
         $this->addVariable(_("Cost Objects"), 'costobjects', 'multienum',
                            false, false, null,
-                           array(Hermes::getCostObjectType($vars)));
+                           array(Hermes::getCostObjectType($vars->get('client'))));
 
         $this->addVariable(_("Do not include entries before"), 'start',
                            'monthdayyear', false, false, null,
