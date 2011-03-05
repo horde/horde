@@ -45,8 +45,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function permissions()
     {
-        //@todo: the switch to '' need to be removed again
-        $this->switchAuth('');
+        $this->switchAuth(null);
         $this->permissionsSystemShare();
         $this->switchAuth('john');
         $this->permissionsChildShare();
@@ -150,8 +149,6 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function getShare()
     {
-        $this->switchAuth('john');
-
         // Getting shares from cache.
         $share = self::$share->getShare('myshare');
         $this->assertInstanceOf('Horde_Share_Object', $share);
@@ -179,7 +176,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         self::$shares['jane']['janeshare'] = self::$share->getShare('janeshare');
         self::$shares['jane']['groupshare'] = self::$share->getShare('groupshare');
 
-        $this->switchAuth('');
+        $this->switchAuth(null);
         self::$shares['system']['systemshare'] = self::$share->getShare('systemshare');
         $this->switchAuth('john');
 
@@ -275,6 +272,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     protected function _listAllShares()
     {
+        $this->switchAuth(null);
         $shares = self::$share->listAllShares();
         $this->assertInternalType('array', $shares);
         $this->assertEquals(6, count($shares));
@@ -283,6 +281,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertArrayHasKey('janeshare', $shares);
         $this->assertArrayHasKey('groupshare', $shares);
         $this->assertArrayHasKey('noshare', $shares);
+        $this->switchAuth('john');
     }
 
     public function listShares()
@@ -300,11 +299,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     public function _listShares()
     {
         $this->_listSharesJohn();
-        //@todo: the switch to '' need to be removed again
-        $this->switchAuth('');
         $this->_listSharesGuest();
-        //@todo: can be remove if the above switch vanishes
-        $this->switchAuth('john');
         $this->_listSharesJohnTwo();
     }
 
@@ -333,11 +328,15 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function _listSharesGuest()
     {
+        $this->switchAuth(null);
+
         // Guest shares.
         $shares = self::$share->listShares(false, array('perm' => Horde_Perms::SHOW, 'sort_by' => 'id'));
         $this->assertEquals(
             array('systemshare'),
             array_keys($shares));
+
+        $this->switchAuth('john');
     }
 
     public function _listSharesJohnTwo()
@@ -429,10 +428,12 @@ class Horde_Share_Test_Base extends Horde_Test_Case
 
     public function _listSystemShares()
     {
+        $this->switchAuth(null);
         $shares = self::$share->listSystemShares();
         $this->assertInternalType('array', $shares);
         $this->assertEquals(1, count($shares));
         $this->assertArrayHasKey('systemshare', $shares);
+        $this->switchAuth('john');
     }
 
     public function getPermission()

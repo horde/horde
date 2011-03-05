@@ -171,11 +171,9 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function constructFolderName($owner, $name)
     {
-        if ($owner == $this->_user) {
-            return $this->getList()->getNamespace()->setTitle($name);
-        } else {
-            return $this->getList()->getNamespace()->setTitleInOther($name, $owner);
-        }
+        return $this->getList()
+            ->getNamespace()
+            ->constructFolderName($owner, $name);
     }
 
     /**
@@ -390,7 +388,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
                     } else {
                         $parent = $this->getShare($params['parent']);
                     }
-                    if (!$object->getParent() ||  $object->getParent()->getId() != $parent->getId()) {
+                    if (!$object->getParent() || $object->getParent()->getId() != $parent->getId()) {
                         $remove[] = $share;
                     }
                 }
@@ -484,6 +482,29 @@ class Horde_Share_Kolab extends Horde_Share_Base
     }
 
     /**
+     * Returns an array of all system shares.
+     *
+     * @return array  All system shares.
+     */
+    public function listSystemShares()
+    {
+        $shares = array_map(
+            array($this, '_idEncode'),
+            $this->getList()
+            ->getQuery()
+            ->listByType($this->_type)
+        );
+        $result = array();
+        foreach ($shares as $share) {
+            $object = $this->_getShareById($share);
+            if ($object->get('owner') === null) {
+                $result[$object->getName()] = $object;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Lists *all* shares for the current app/share, regardless of
      * permissions.
      *
@@ -499,7 +520,18 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _listAllShares()
     {
-        return array();
+        $shares = array_map(
+            array($this, '_idEncode'),
+            $this->getList()
+            ->getQuery()
+            ->listByType($this->_type)
+        );
+        $result = array();
+        foreach ($shares as $share) {
+            $object = $this->_getShareById($share);
+            $result[$object->getName()] = $object;
+        }
+        return $result;
     }
 
     /**

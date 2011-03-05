@@ -44,7 +44,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     {
         self::$_data = new Horde_Kolab_Storage_Driver_Mock_Data(
             array(
-                'user/' => array('permissions' => array('anyone' => 'alrid')),
+                '' => array('permissions' => array('anyone' => 'alrid')),
                 'user/john' => array('permissions' => array('anyone' => 'alrid')),
                 'user/jane' => array('permissions' => array('anyone' => 'alrid')),
             )
@@ -124,20 +124,20 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     }
 
     /**
-     * @depends testAddShare
-     */
-    public function testHierarchy()
-    {
-        $this->hierarchy();
-    }
-
-    /**
      * @depends testPermissions
      */
     public function testGetShare()
     {
         $share = $this->getShare();
         $this->assertInstanceOf('Horde_Share_Object_Kolab', $share);
+    }
+
+    /**
+     * @depends testAddShare
+     */
+    public function testHierarchy()
+    {
+        $this->hierarchy();
     }
 
     /**
@@ -159,9 +159,25 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
+    public function testListAllShares()
+    {
+        $this->listAllShares();
+    }
+
+    /**
+     * @depends testPermissions
+     */
     public function testListShares()
     {
         $this->listShares();
+    }
+
+    /**
+     * @depends testPermissions
+     */
+    public function testListSystemShares()
+    {
+        $this->listSystemShares();
     }
 
     /**
@@ -216,6 +232,6 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
 /**
  NOTES
 
- - listAllShares() does not really work as expected as we need manager access for that.
- - listSystemShares not supported yet
+ - Check extra API calls in SQL driver
+ - add server test
 */
