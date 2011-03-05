@@ -37,6 +37,7 @@ framework/*/test/*/*/*/*.out
 framework/Alarm/test/Horde/Alarm/conf.php
 framework/Db/test/Horde/Db/Adapter/conf.php
 framework/Db/test/Horde/Db/Adapter/Pdo/conf.php
+framework/Group/test/Horde/Group/conf.php
 framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
 framework/Ldap/test/Horde/Ldap/conf.php
 framework/Share/test/Horde/Share/conf.php

@@ -20,7 +20,8 @@ class Horde_Group_Sql_MysqliTest extends Horde_Group_Test_Sql_Base
             self::$reason = 'No mysqli extension';
             return;
         }
-        $config = self::getConfig('GROUP_SQL_MYSQLI_TEST_CONFIG');
+        $config = self::getConfig('GROUP_SQL_MYSQLI_TEST_CONFIG',
+                                  dirname(__FILE__) . '/..');
         if ($config && !empty($config['group']['sql']['mysqli'])) {
             self::$db = new Horde_Db_Adapter_Mysqli($config['group']['sql']['mysqli']);
             parent::setUpBeforeClass();
