@@ -45,11 +45,12 @@ extends Horde_Perms_Permission_Kolab_Acl
     /**
      * Constructor.
      *
-     * @param string $acl          The folder ACL element as provided by the driver.
-     * @param string $id           The group id.
-     * @param Horde_Group $groups  The horde group handler.
+     * @param string $acl               The folder ACL element as provided by
+     *                                  the driver.
+     * @param string $id                The group id.
+     * @param Horde_Group_Base $groups  The horde group handler.
      */
-    public function __construct($acl, $id, Horde_Group $groups)
+    public function __construct($acl, $id, Horde_Group_Base $groups)
     {
         $this->_id     = $id;
         $this->_groups = $groups;

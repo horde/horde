@@ -41,7 +41,8 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
      *
      * @see Horde_Share_Base::__construct()
      */
-    public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
+    public function __construct($app, $user, Horde_Perms $perms,
+                                Horde_Group_Base $groups)
     {
         parent::__construct($app, $user, $perms, $groups);
         $this->_table = $this->_app . '_sharesng';

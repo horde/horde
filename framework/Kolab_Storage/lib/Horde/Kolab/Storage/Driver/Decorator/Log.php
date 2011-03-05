@@ -352,7 +352,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     /**
      * Get the group handler for this connection.
      *
-     * @return Horde_Group The group handler.
+     * @return Horde_Group_Base The group handler.
      */
     public function getGroupHandler()
     {

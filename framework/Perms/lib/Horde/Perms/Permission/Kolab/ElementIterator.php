@@ -38,11 +38,13 @@ implements IteratorAggregate
     /**
      * Constructor.
      *
-     * @param array       $permissions The folder permissions as provided by Horde.
-     * @param Horde_Group $groups      The group handler.
-     * @param string      $creator     The ID of the folder creator.
+     * @param array $permissions        The folder permissions as provided by
+     *                                  Horde.
+     * @param Horde_Group_Base $groups  The group handler.
+     * @param string $creator           The ID of the folder creator.
      */
-    public function __construct(array $permissions, Horde_Group $groups, $creator)
+    public function __construct(array $permissions, Horde_Group_Base $groups,
+                                $creator)
     {
         foreach ($permissions as $user => $user_perms) {
             if ($user == 'default') {

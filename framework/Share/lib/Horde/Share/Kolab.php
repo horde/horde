@@ -55,13 +55,15 @@ class Horde_Share_Kolab extends Horde_Share_Base
     /**
      * Constructor.
      *
-     * @param string $app          The application that the shares belong to
-     * @param string $user         The current user
-     * @param Horde_Perms $perms   The permissions object
-     * @param Horde_Group $groups  The Horde_Group object
+     * @param string $app               The application that the shares belong
+     *                                  to
+     * @param string $user              The current user
+     * @param Horde_Perms $perms        The permissions object
+     * @param Horde_Group_Base $groups  The Horde_Group driver.
      *
      */
-    public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
+    public function __construct($app, $user, Horde_Perms $perms,
+                                Horde_Group_Base $groups)
     {
         switch ($app) {
         case 'mnemo':
