@@ -61,7 +61,7 @@ extends Horde_Kolab_Storage_Folder_Namespace_Element_Shared
     protected function _subpath($name)
     {
         $path = parent::_subpath($name);
-        if (strpos($path[0], $this->_prefix) === 0) {
+        if (!empty($path) && strpos($path[0], $this->_prefix) === 0) {
             $path[0] = substr($path[0], strlen($this->_prefix));
         }
         return $path;
