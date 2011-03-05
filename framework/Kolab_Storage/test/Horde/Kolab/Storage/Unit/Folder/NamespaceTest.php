@@ -108,7 +108,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('shared.test', $namespace);
-            $this->assertEquals('anonymous', $folder->getOwner());
+            $this->assertNull($folder->getOwner());
         }
     }
 
@@ -197,6 +197,27 @@ extends Horde_Kolab_Storage_TestCase
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('shared.a/b', $namespace);
             $this->assertEquals('a/b', $folder->getSubpath());
+        }
+    }
+
+    public function testConstructFolderNamePersonal()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $this->assertEquals('INBOX/b', $namespace->constructFolderName('test', 'b'));
+        }
+    }
+
+    public function testConstructFolderNameOther()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $this->assertEquals('user/other/c', $namespace->constructFolderName('other', 'c'));
+        }
+    }
+
+    public function testConstructFolderNameShared()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $this->assertEquals('shared.c', $namespace->constructFolderName(null, 'c'));
         }
     }
 
@@ -293,18 +314,10 @@ extends Horde_Kolab_Storage_TestCase
                         'name'      => '',
                         'type'      =>  Horde_Kolab_Storage_Folder_Namespace::SHARED,
                         'delimiter' => '/',
-                    ),
-                ),
-                array(
-                    'INBOX/' => array(
-                        'add' => true,
-                    ),
-                    '' => array(
-                        'prefix' => 'shared.',
+                        'prefix' => 'shared.'
                     ),
                 )
-            ),
-            
+            )
         );
     }
 }

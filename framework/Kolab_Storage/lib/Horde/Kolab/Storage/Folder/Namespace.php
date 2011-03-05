@@ -166,6 +166,26 @@ implements Iterator, Serializable
     }
 
     /**
+     * Construct the Kolab storage folder name based on the folder
+     * title and the owner.
+     *
+     * @param string $name  The folder title.
+     * @param string $owner The owner of the share.
+     *
+     * @return string The folder name for the backend.
+     */
+    public function constructFolderName($owner, $name)
+    {
+        if (empty($owner)) {
+            return $this->setTitleInShared($name);
+        } else if ($owner == $this->user) {
+            return $this->setTitle($name);
+        } else {
+            return $this->setTitleInOther($name, $owner);
+        }
+    }
+
+    /**
      * Generate an IMAP folder name in the personal namespace.
      *
      * @param string $title The new folder title.
