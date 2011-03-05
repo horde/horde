@@ -24,25 +24,9 @@ class Horde_Group_Contactlists extends Horde_Group_Base
     protected $_cache = null;
 
     /**
-     * Handles for the database connections. Need one for each possible
-     * source.
+     * Local cache of retreived group entries from the contacts API.
      *
      * @var array
-     */
-    protected $_db = array();
-
-    /**
-     * Local copy of available address book sources that the group driver can
-     * use.
-     *
-     * @var array of Turba's cfgSource style entries.
-     */
-    protected $_sources = array();
-
-    /**
-     * Local cache of retreived group entries from Turba storage.
-     *
-     * @var unknown_type
      */
     protected $_listEntries = array();
 
@@ -51,21 +35,6 @@ class Horde_Group_Contactlists extends Horde_Group_Base
      */
     public function __construct(array $params = array())
     {
-        $sources = $GLOBALS['registry']
-            ->contacts
-            ->getSourcesConfig(array('type' => 'sql'));
-
-        // We only support sql type sources.
-        foreach ($sources as $key => $source) {
-            if ($source['type'] == 'sql' &&
-                isset($source['map']['__key']) &&
-                isset($source['list_name_field']) &&
-                isset($source['map']['__type']) &&
-                isset($source['map']['__owner'])) {
-                $this->_sources[$key] = $source;
-            }
-        }
-
         $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
@@ -134,22 +103,14 @@ class Horde_Group_Contactlists extends Horde_Group_Base
         if (!empty($this->_groupCache[$gid])) {
             return $this->_groupCache[$gid];
         }
-
-        list($source, $id) = explode(':', $gid);
         $entry = $this->_retrieveListEntry($gid);
-        if (empty($entry)) {
-            throw new Horde_Group_Exception($gid . ' does not exist');
-        }
-
         $users = $this->_getAllMembers($gid);
-
-        $group = new Horde_Group_ContactListObject($entry[$this->_sources[$source]['map'][$this->_sources[$source]['list_name_field']]]);
+        $group = new Horde_Group_ContactListObject($entry['name']);
         $group->id = $gid;
-        $group->data['email'] = $entry[$this->_sources[$source]['map']['email']];
+        $group->data['email'] = $entry['email'];
         if (!empty($users)) {
             $group->data['users'] = array_flip($users);
         }
-
         $group->setGroupOb($this);
         $this->_groupCache[$gid] = $group;
 
@@ -207,32 +168,15 @@ class Horde_Group_Contactlists extends Horde_Group_Base
      */
     public function getGroupName($gid)
     {
-        static $beenHere;
-
         if (strpos($gid, ':') === false) {
             throw new Horde_Group_Exception(sprintf('Group %s not found.', $gid));
         }
-
         if ($gid instanceof Horde_Group_ContactListObject) {
             $gid = $gid->getId();
         }
+        $entry = $this->_retrieveListEntry($gid);
 
-        if (!empty($this->_listEntries[$gid])) {
-            list($source, $id) = explode(':', $gid);
-            $beenHere = false;
-            return $this->_listEntries[$gid][$this->_sources[$source]['map'][$this->_sources[$source]['list_name_field']]];
-        }
-
-        $this->_retrieveListEntry($gid);
-
-        // We should have the information cached now, try again..but protect
-        // against anything nasty...
-        if (!$beenHere) {
-            $beenHere = true;
-            return $this->getGroupName($gid);
-        }
-
-        throw new Horde_Group_Exception(sprintf('Group %s not found.', $gid));
+        return $entry['name'];
     }
 
     /**
@@ -335,53 +279,7 @@ class Horde_Group_Contactlists extends Horde_Group_Base
         if (isset($this->_groupList) && !$refresh) {
             return $this->_groupList;
         }
-
-        // First, make sure we are connected to all sources
-        $this->_connect();
-
-        $groups = $owners = array();
-
-        foreach ($this->_sources as $key => $source) {
-            if ($source['use_shares']) {
-                if (empty($contact_shares)) {
-                    $scope = $GLOBALS['registry']->hasInterface('contacts');
-                    $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-                    $this->_contact_shares = $shares->listShares($GLOBALS['registry']->getAuth(),
-                                                                 array('perm' => Horde_Perms::SHOW, 'attributes' => $GLOBALS['registry']->getAuth()));
-                }
-                // Contruct a list of owner ids to use
-                foreach ($this->_contact_shares as $id => $share) {
-                    $params = @unserialize($share->get('params'));
-                    if ($params['source'] == $key) {
-                        $owners[] = $params['name'];
-                    }
-                }
-                if (!$owners) {
-                    return array();
-                }
-            } else {
-                $owners = array($GLOBALS['registry']->getAuth());
-            }
-            $owner_ids = array();
-            foreach ($owners as $owner) {
-                $owner_ids[] = $this->_db[$key]->quoteString($owner);
-            }
-            $sql = 'SELECT ' . $source['map']['__key'] . ', ' . $source['map'][$source['list_name_field']]
-                . '  FROM ' . $source['params']['table'] . ' WHERE '
-                . $source['map']['__type'] . ' = \'Group\' AND '
-                . $source['map']['__owner'] . ' IN (' . implode(',', $owner_ids ) . ')';
-
-            try {
-                $results = $this->_db[$key]->selectAssoc($sql);
-            } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e);
-                throw new Horde_Group_Exception($e);
-            }
-            foreach ($results as $id => $name) {
-                $groups[$key . ':' . $id] = $name;
-            }
-        }
-        $this->_groupList = $groups;
+        $this->_groupList = $GLOBALS['registry']->contacts->listUserGroupObjects();
 
         return $this->_groupList;
     }
@@ -411,31 +309,11 @@ class Horde_Group_Contactlists extends Horde_Group_Base
      */
     protected function _retrieveListEntry($gid)
     {
-        if (!empty($this->_listEntries[$gid])) {
-            return $this->_listEntries[$gid];
+        if (empty($this->_listEntries[$gid])) {
+            $this->_listEntries[$gid] = $GLOBALS['registry']->contacts->getGroupObject($gid);
         }
 
-        list($source, $id) = explode(':', $gid);
-        if (empty($this->_sources[$source])) {
-            return array();
-        }
-
-        $this->_connect($source);
-        $sql = 'SELECT ' . $this->_sources[$source]['map']['__members'] . ','
-            . $this->_sources[$source]['map']['email'] . ','
-            . $this->_sources[$source]['map'][$this->_sources[$source]['list_name_field']]
-            . ' from ' . $this->_sources[$source]['params']['table'] . ' WHERE '
-            . $this->_sources[$source]['map']['__key'] . ' = ' . $this->_db[$source]->quoteString($id);
-
-        try {
-            $results = $this->_db[$source]->selectOne($sql);
-        } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e);
-            throw new Horde_Group_Exception($e);
-        }
-        $this->_listEntries[$gid] = $results;
-
-        return $results;
+        return $this->_listEntries[$gid];
     }
 
     /**
@@ -445,97 +323,18 @@ class Horde_Group_Contactlists extends Horde_Group_Base
      */
     protected function _getAllMembers($gid, $subGroups = false)
     {
-        if (empty($gid) || strpos($gid, ':') === false) {
-            throw new Horde_Group_Exception(sprintf('Unsupported group id: %s', $gid));
-        }
-
-        list($source, $id) = explode(':', $gid);
-        $entry = $this->_retrieveListEntry($gid);
-        $members = @unserialize($entry[$this->_sources[$source]['map']['__members']]);
-        if (!is_array($members)) {
-            return array();
-        }
-
-        $users = array();
-
-        // TODO: optimize this to only query each table once
-        foreach ($members as $member) {
-            // Is this member from the same source or a different one?
-            if (strpos($member, ':') !== false) {
-                list($newSource, $uid) = explode(':', $member);
-                if (!empty($this->_contact_shares[$newSource])) {
-                    $params = @unserialize($this->_contact_shares[$newSource]->get('params'));
-                    $newSource = $params['source'];
-                    $member = $uid;
-                    $this->_connect($newSource);
-                } elseif (empty($this->_sources[$newSource])) {
-                    // Last chance, it's not in one of our non-share sources
-                    continue;
-                }
-            } else {
-                // Same source
-                $newSource = $source;
-            }
-
-            $type = $this->_sources[$newSource]['map']['__type'];
-            $email = $this->_sources[$newSource]['map']['email'];
-            $sql = 'SELECT ' . $email . ', ' . $type
-                . ' FROM ' . $this->_sources[$newSource]['params']['table']
-                . ' WHERE ' . $this->_sources[$newSource]['map']['__key']
-                . ' = ' . $this->_db[$newSource]->quoteString($member);
-
-            try {
-                $results = $this->_db[$newSource]->selectOne($sql);
-            } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e);
-                throw new Horde_Group_Exception($e);
-            }
-
-            // Sub-Lists are treated as sub groups the best that we can...
-            if ($subGroups && $results[$type] == 'Group') {
-                $this->_subGroups[$gid] = $newSource . ':' . $member;
-                $users = array_merge($users, $this->_getAllMembers($newSource . ':' . $member));
-            }
-            if (strlen($results[$email])) {
-                // use a key to dump dups
-                $users[$results[$email]] = $results[$email];
-            }
-        }
-
-        return $users;
+        return $GLOBALS['registry']->contacts->getGroupMembers($gid, $subGroups);
     }
 
     /**
      * Returns ALL contact lists present in ALL sources that this driver knows
      * about.
      *
-     * @throws Horde_Group_Exception
+     * @return array
      */
     protected function _listAllLists()
     {
-        // Clear the cache - we will rebuild it.
-        $this->_listEntries = array();
-
-        foreach ($this->_sources as $key => $source) {
-            $this->_connect($key);
-            $sql = 'SELECT ' . $source['map']['__key'] . ','
-                . $source['map']['__members'] . ','
-                . $source['map']['email'] . ','
-                . $source['map'][$source['list_name_field']]
-                . ' FROM ' . $source['params']['table'] . ' WHERE '
-                . $source['map']['__type'] . ' = \'Group\'';
-
-            try {
-                $results = $this->_db[$key]->select($sql);
-            } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e);
-                throw new Horde_Group_Exception($e);
-            }
-
-            foreach ($results as $row) {
-                $this->_listEntries[$key . ':' . $row[$source['map']['__key']]] = $row;
-            }
-        }
+        $this->_listEntries = $GLOBALS['registry']->contacts->getGroupObjects();
 
         return $this->_listEntries;
     }
@@ -596,31 +395,4 @@ class Horde_Group_Contactlists extends Horde_Group_Base
         return $result;
     }
 
-    /**
-     * Attempts to open a persistent connection to the sql server.
-     *
-     * @throws Horde_Group_Exception
-     */
-    protected function _connect($source = null)
-    {
-        if (!is_null($source) && !empty($this->_db[$source])) {
-            return;
-        }
-
-        $sources = is_null($source)
-            ? array_keys($this->_sources)
-            : array($source);
-
-        foreach ($sources as $source) {
-            if (empty($this->_db[$source])) {
-                try {
-                    $this->_db[$source] = empty($this->_sources[$source]['params']['sql'])
-                        ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create()
-                        : $this->_sources[$source]['params']['sql'];
-                } catch (Horde_Db_Exception $e) {
-                    throw new Horde_Group_Exception($e);
-                }
-            }
-        }
-    }
 }

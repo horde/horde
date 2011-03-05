@@ -1745,4 +1745,282 @@ class Turba_Api extends Horde_Registry_Api
         }
     }
 
+    /**
+     * Obtain an array of $cfgSource entries matching the filter criteria.
+     *
+     * @param type $filter  A single key -> value hash to filter the sources.
+     *
+     * @return array
+     */
+    public function getSourcesConfig($filter = array())
+    {
+         // Get a list of all available Turba sources
+        $turba_sources = Horde::loadConfiguration('backends.php',
+                                                  'cfgSources', 'turba');
+        $results = array();
+        foreach ($turba_sources as $key => $source) {
+            if (!empty($filter)) {
+                if(!empty($source[current(array_keys($filter))]) &&
+                   $source[current(array_keys($filter))] == current($filter)) {
+
+                    $results[$key] = $source;
+
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Lists all shares the current user has access to.
+     *
+     * @param integer $perms
+     *
+     * @return  array of Turba_Share objects.
+     */
+    public function listShares($perms = Horde_Perms::READ)
+    {
+        return Turba::listShares(true, $perms);
+    }
+
+    /**
+     * GroupObject API - Lists all turba lists for the current user that can be
+     * treated as Horde_Group objects.
+     *
+     * @return array  A hash of all visible groups in the form of
+     *                group_id => group_name
+     */
+    public function listUserGroupObjects()
+    {
+        $groups = $owners = array();
+
+        // Only turba's SQL based sources can act as Horde_Groups
+        $sources = $this->getSourcesConfig(array('type' => 'sql'));
+
+        foreach ($sources as $key => $source) {
+            // Each source could have a different database connection
+            $db[$key] = empty($source['params']['sql'])
+                    ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
+                    : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $source['params']['sql']);
+
+            if ($source['use_shares']) {
+                if (empty($contact_shares)) {
+                    $contact_shares = $this->listShares(Horde_Perms::SHOW);
+                }
+                foreach ($contact_shares as $id => $share) {
+                    $params = @unserialize($share->get('params'));
+                    if ($params['source'] == $key) {
+                        $owners[] = $params['name'];
+                    }
+                }
+                if (!$owners) {
+                    return array();
+                }
+            } else {
+                $owners = array($GLOBALS['registry']->getAuth());
+            }
+
+            $owner_ids = array();
+            foreach ($owners as $owner) {
+                $owner_ids[] = $db[$key]->quoteString($owner);
+            }
+
+            $sql = 'SELECT ' . $source['map']['__key'] . ', ' . $source['map'][$source['list_name_field']]
+                . '  FROM ' . $source['params']['table'] . ' WHERE '
+                . $source['map']['__type'] . ' = \'Group\' AND '
+                . $source['map']['__owner'] . ' IN (' . implode(',', $owner_ids ) . ')';
+
+            try {
+                $results = $db[$key]->selectAssoc($sql);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e);
+                throw new Horde_Group_Exception($e);
+            }
+            foreach ($results as $id => $name) {
+                $groups[$key . ':' . $id] = $name;
+            }
+        }
+
+        return $groups;
+    }
+
+    /**
+     * Obtains hash of ALL available lists able to act as Horde_Group objects
+     *
+     *
+     * @return array  An array of group object definitions
+     *
+     */
+    public function getGroupObjects()
+    {
+        $listEntries = array();
+        $sources = $this->getSourcesConfig(array('type' => 'sql'));
+        foreach ($sources as $key => $source) {
+            $db[$key] =  empty($source['params']['sql'])
+                    ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
+                    : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $source['params']['sql']);
+
+            $sql = 'SELECT ' . $source['map']['__key'] . ' id,'
+                . $source['map']['__members'] . ' members,'
+                . $source['map']['email'] . ' email,'
+                . $source['map'][$source['list_name_field']]
+                . ' name FROM ' . $source['params']['table'] . ' WHERE '
+                . $source['map']['__type'] . ' = \'Group\'';
+
+            try {
+                $results = $db[$key]->selectAll($sql);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e);
+                throw new Horde_Group_Exception($e);
+            }
+
+            foreach ($results as $row) {
+                $listEntries[$key . ':' . $row[$source['map']['__key']]] = $row;
+            }
+        }
+
+        return $listEntries;
+    }
+
+    /**
+     * GroupObject API - Get all lists that the specified user is a member of.
+     *
+     * @param string $user           The user
+     * @param boolean $parentGroups  Include user as a member of the any
+     *                               parent group as well.
+     *
+     * @return array  An array of group identifiers that the specified user is a
+     *                member of.
+     */
+    public function getGroupObjectMemberships($user, $parentGroups = false)
+    {
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        if (($memberships = $cache->get('TurbaGroupObject_memberships' . $user)) !== false) {
+            return unserialize($memberships);
+        }
+        $lists = $this->getGroupObjects();
+        $memberships = array();
+        foreach (array_keys($lists) as $list) {
+            $members = $this->getGroupMembers($list, $parentGroups);
+            if (!empty($members[$user])) {
+                $memberships[] = $list;
+            }
+        }
+
+        $cache->set('TurbaGroupObject_memberships' . $user, serialize($memberships));
+
+        return $memberships;
+    }
+
+    /**
+     * Get the specified group object definition.
+     *
+     * @param string $gid  The group identifier
+     *
+     * @return array  A hash defining the group.
+     */
+    public function getGroupObject($gid)
+    {
+        $sources = $this->getSourcesConfig(array('type' => 'sql'));
+        list($source, $id) = explode(':', $gid);
+        if (empty($sources[$source])) {
+            return array();
+        }
+        $db = empty($sources[$source]['params']['sql'])
+            ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
+            : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $sources[$source]['params']['sql']);
+        $sql = 'SELECT ' . $sources[$source]['map']['__members'] . ' members,'
+            . $sources[$source]['map']['email'] . ' email,'
+            . $sources[$source]['map'][$sources[$source]['list_name_field']]
+            . ' name FROM ' . $sources[$source]['params']['table'] . ' WHERE '
+            . $sources[$source]['map']['__key'] . ' = ' . $db->quoteString($id);
+
+        try {
+            $results = $db->selectOne($sql);
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e);
+            throw new Horde_Group_Exception($e);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Return a list of all members belonging to the specified group, and
+     * possibly any subgroups.
+     *
+     * @param string $gid         The group identifier
+     * @param boolean $subGroups  Also include members of any subgroups?
+     *
+     * @return array An array of group members (identified by email address).
+     */
+    public function getGroupMembers($gid, $subGroups = false)
+    {
+        if (empty($gid) || strpos($gid, ':') === false) {
+            throw new Turba_Exception(sprintf('Unsupported group id: %s', $gid));
+        }
+        $contact_shares = $this->listShares(Horde_Perms::SHOW);
+        $sources = $this->getSourcesConfig(array('type' => 'sql'));
+
+        list($source, $id) = explode(':', $gid);
+        $entry = $this->getGroupObject($gid);
+        $members = @unserialize($entry[$sources[$source]['map']['__members']]);
+        if (!is_array($members)) {
+            return array();
+        }
+
+        $db[$source] = empty($sources[$source]['params']['sql'])
+            ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
+            : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $sources[$source]['params']['sql']);
+
+        $users = array();
+        foreach ($members as $member) {
+            // Is this member from the same source or a different one?
+            if (strpos($member, ':') !== false) {
+                list($newSource, $uid) = explode(':', $member);
+                if (!empty($this->_contact_shares[$newSource])) {
+                    $params = @unserialize($contact_shares[$newSource]->get('params'));
+                    $newSource = $params['source'];
+                    $member = $uid;
+                    $db[$newSource] = empty($sources[$newSource]['params']['sql'])
+                        ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
+                        : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $sources[$newSource]['params']['sql']);
+
+                } elseif (empty($sources[$newSource])) {
+                    // Last chance, it's not in one of our non-share sources
+                    continue;
+                }
+            } else {
+                // Same source
+                $newSource = $source;
+            }
+
+            $type = $sources[$newSource]['map']['__type'];
+            $email = $sources[$newSource]['map']['email'];
+            $sql = 'SELECT ' . $email . ', ' . $type
+                . ' FROM ' . $sources[$newSource]['params']['table']
+                . ' WHERE ' . $sources[$newSource]['map']['__key']
+                . ' = ' . $db[$newSource]->quoteString($member);
+
+            try {
+                $results = $db[$newSource]->selectOne($sql);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e);
+                throw new Turba_Exception($e);
+            }
+
+            // Sub-Lists are treated as sub groups the best that we can...
+            if ($subGroups && $results[$type] == 'Group') {
+                $users = array_merge($users, $this->getGroupMembers($newSource . ':' . $member));
+            }
+            if (strlen($results[$email])) {
+                // use a key to dump dups
+                $users[$results[$email]] = $results[$email];
+            }
+        }
+
+        return $users;
+    }
+
 }
