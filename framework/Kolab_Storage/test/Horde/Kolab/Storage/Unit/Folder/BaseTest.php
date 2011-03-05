@@ -84,12 +84,9 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
     public function testMissingOwner()
     {
-        $this->_getFolderMock()->getOwner();
+        $this->assertNull($this->_getFolderMock()->getOwner());
     }
 
     public function testGetSubpath()

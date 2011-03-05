@@ -95,6 +95,21 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
+     * Fetch a data value and accept a missing value (represented by the return value NULL).
+     *
+     * @param string $key The name of the data value to fetch.
+     *
+     * @return mixed The data value
+     */
+    public function getWithNull($key)
+    {
+        $this->_init();
+        if (isset($this->_data[$key])) {
+            return $this->_data[$key];
+        }
+    }
+
+    /**
      * Return the storage path of the folder.
      *
      * @return string The storage path of the folder.
@@ -131,7 +146,7 @@ implements Horde_Kolab_Storage_Folder
      */
     public function getOwner()
     {
-        return $this->get('owner');
+        return $this->getWithNull('owner');
     }
 
     /**
