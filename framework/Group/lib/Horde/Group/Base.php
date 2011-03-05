@@ -119,7 +119,10 @@ abstract class Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    abstract public function setData($gid, $attribute, $value = null);
+    public function setData($gid, $attribute, $value = null)
+    {
+        throw new Horde_Group_Exception('This group backend is read-only.');
+    }
 
     /**
      * Returns a list of all groups, with IDs as keys and names as values.
