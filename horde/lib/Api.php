@@ -234,10 +234,9 @@ class Horde_Api extends Horde_Registry_Api
         /* Remove user from all groups */
         $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         try {
-            $allGroups = $groups->getGroupMemberships($user);
+            $allGroups = $groups->getGroups($user);
             foreach (array_keys($allGroups) as $id) {
-                $group = $groups->getGroupById($id);
-                $group->removeUser($user, true);
+                $groups->removeUser($id, $user);
             }
         } catch (Horde_Group_Exception $e) {
             Horde::logMessage($e, 'ERR');
@@ -284,8 +283,9 @@ class Horde_Api extends Horde_Registry_Api
      * Adds a group to the groups system.
      *
      * @param string $name    The group's name.
-     * @param string $parent  The group's parent's name.
+     * @param string $parent  The group's parent's ID.
      *
+     * @return mixed  The group's ID.
      * @throws Horde_Exception
      */
     public function addGroup($name, $parent = null)
@@ -294,14 +294,10 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to add groups."));
         }
 
-        if (empty($parent)) {
-            $parent = Horde_Group::ROOT;
-        }
-
         try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $group = $groups->newGroup($name, $parent);
-            $groups->addGroup($group);
+            return $GLOBALS['injector']
+                ->getInstance('Horde_Group')
+                ->create($name);
         } catch (Horde_Group_Exception $e) {
             throw new Horde_Exception($e);
         }
@@ -310,20 +306,18 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Removes a group from the groups system.
      *
-     * @param string $name  The group's name.
+     * @param mixed $group  The group ID.
      *
      * @throws Horde_Exception
      */
-    public function removeGroup($name)
+    public function removeGroup($group)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception(_("You are not allowed to delete groups."));
         }
 
         try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $group = $groups->getGroup($name);
-            $groups->removeGroup($group, true);
+            $GLOBALS['injector']->getInstance('Horde_Group')->remove($group);
         } catch (Horde_Group_Exception $e) {
             throw new Horde_Exception($e);
         }
@@ -332,47 +326,21 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Adds a user to a group.
      *
-     * @param string $name  The group's name.
+     * @param mixed $group  The group ID.
      * @param string $user  The user to add.
      *
      * @throws Horde_Exception
      */
-    public function addUserToGroup($name, $user)
+    public function addUserToGroup($group, $user)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
         try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $group = $groups->getGroup($name);
-            $group->addUser($user);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
-        }
-    }
-
-    /**
-     * Adds multiple users to a group.
-     *
-     * @param string $name  The group's name.
-     * @param array $users  The users to add.
-     *
-     * @throws Horde_Exception
-     */
-    public function addUsersToGroup($name, $users)
-    {
-        if (!$GLOBALS['registry']->isAdmin()) {
-            throw new Horde_Exception(_("You are not allowed to change groups."));
-        }
-
-        try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $group = $groups->getGroup($name);
-            foreach ($users as $user) {
-                $group->addUser($user, false);
-            }
-            $group->save();
+            $GLOBALS['injector']
+                ->getInstance('Horde_Group')
+                ->addUser($group, $user);
         } catch (Horde_Group_Exception $e) {
             throw new Horde_Exception($e);
         }
@@ -381,47 +349,21 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Removes a user from a group.
      *
-     * @param string $name  The group's name.
+     * @param mixed $group  The group ID.
      * @param string $user  The user to add.
      *
      * @throws Horde_Exception
      */
-    public function removeUserFromGroup($name, $user)
+    public function removeUserFromGroup($group, $user)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
         try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $group = $groups->getGroup($name);
-            $group->removeUser($user);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
-        }
-    }
-
-    /**
-     * Removes multiple users from a group.
-     *
-     * @param string $name  The group's name.
-     * @param array $users  The users to add.
-     *
-     * @throws Horde_Exception
-     */
-    public function removeUsersFromGroup($name, $users)
-    {
-        if (!$GLOBALS['registry']->isAdmin()) {
-            throw new Horde_Exception(_("You are not allowed to change groups."));
-        }
-
-        try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $group = $groups->getGroup($name);
-            foreach ($users as $user) {
-                $group->removeUser($user, false);
-            }
-            $group->save();
+            $GLOBALS['injector']
+                ->getInstance('Horde_Group')
+                ->removeUser($group, $user);
         } catch (Horde_Group_Exception $e) {
             throw new Horde_Exception($e);
         }
@@ -430,21 +372,21 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns a list of users that are part of this group (and only this group)
      *
-     * @param string $name  The group's name.
+     * @param mixed $group  The group ID.
      *
      * @return array  The user list.
      * @throws Horde_Exception
      */
-    public function listUsersOfGroup($name)
+    public function listUsersOfGroup($group)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception(_("You are not allowed to list users of groups."));
         }
 
         try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $group = $groups->getGroup($name);
-            return $group->listUsers();
+            return $GLOBALS['injector']
+                ->getInstance('Horde_Group')
+                ->listUsers($group);
         } catch (Horde_Group_Exception $e) {
             throw new Horde_Exception($e);
         }
@@ -574,23 +516,17 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $scope       The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
-     * @param string $groupName   The group's name.
-     * @param array $permissions  A list of permissions (show, read, edit, delete).
+     * @param mixed $groupId      The group ID.
+     * @param array $permissions  A list of permissions (show, read, edit,
+     *                            delete).
      *
      * @throws Horde_Exception
      */
-    public function addGroupPermissions($scope, $shareName, $groupName,
+    public function addGroupPermissions($scope, $shareName, $groupId,
                                         $permissions)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception(_("You are not allowed to change shares."));
-        }
-
-        try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $groupId = $groups->getGroupId($groupName);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
         }
 
         try {
@@ -639,14 +575,14 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Removes a group from a share.
      *
-     * @param string $scope   The name of the share root, e.g. the
-     *                            application that the share belongs to.
-     * @param string $shareName   The share's name.
-     * @param string $groupName   The group's name.
+     * @param string $scope      The name of the share root, e.g. the
+     *                           application that the share belongs to.
+     * @param string $shareName  The share's name.
+     * @param mixed $groupId     The group ID.
      *
      * @throws Horde_Exception
      */
-    public function removeGroupPermissions($scope, $shareName, $groupName)
+    public function removeGroupPermissions($scope, $shareName, $groupId)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception(_("You are not allowed to change shares."));
@@ -654,12 +590,6 @@ class Horde_Api extends Horde_Registry_Api
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
         $share = $shares->getShare($shareName);
-        try {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $groupId = $groups->getGroupId($groupName);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
-        }
         try {
             $share->removeGroup($groupId);
         } catch (Horde_Share_Exception $e) {
@@ -670,10 +600,10 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns an array of all user permissions on a share.
      *
-     * @param string $scope  The name of the share root, e.g. the
-     *                            application that the share belongs to.
-     * @param string $shareName   The share's name.
-     * @param string $userName    The user's name.
+     * @param string $scope      The name of the share root, e.g. the
+     *                           application that the share belongs to.
+     * @param string $shareName  The share's name.
+     * @param string $userName   The user's name.
      *
      * @return array  All user permissions for this share.
      * @throws Horde_Exception

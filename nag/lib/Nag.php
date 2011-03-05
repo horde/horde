@@ -834,8 +834,7 @@ class Nag
         }
         foreach ($share->listGroups(Horde_Perms::READ) as $group) {
             try {
-                $group = $groups->getGroupById($group);
-                $group_users = $group->listAllUsers();
+                $group_users = $groups->listUsers($group);
             } catch (Horde_Group_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 continue;

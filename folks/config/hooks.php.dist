@@ -214,7 +214,7 @@ class Folks_Hooks
 
         case 'gollem':
             if ($GLOBALS['registry']->isAdmin() ||
-                $group->userIsInGroup($user_uid, 1, false)) {
+                in_array($user_uid, $group->listUsers(1))) {
                 $_GET['backend_key'] = 'kjbnzi78';
                 require $GLOBALS['registry']->get('fileroot', 'gollem') .  '/redirect.php';
                 exit;
@@ -226,9 +226,9 @@ class Folks_Hooks
             break;
 
         case 'imp':
-            if ($GLOBALS['registry']->isAdmin()
-                || $group->userIsInGroup($user_uid, 1, false)
-                || $group->userIsInGroup($user_uid, 2, false)) {
+            if ($GLOBALS['registry']->isAdmin() ||
+                in_array($user_uid, $group->listUsers(1)) ||
+                in_array($user_uid, $group->listUsers(2))) {
 
                 $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
                 $password = $db->selectValue('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@' . $_SERVER['SERVER_NAME']));

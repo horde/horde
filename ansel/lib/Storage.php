@@ -207,8 +207,9 @@ class Ansel_Storage
             }
 
             if ($perms) {
-                $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-                $group_list = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
+                $group_list = $GLOBALS['injector']
+                    ->getInstance('Horde_Group')
+                    ->getGroups($GLOBALS['registry']->getAuth());
                 if (count($group_list)) {
                     foreach ($group_list as $group_id => $group_name) {
                         $perm->addGroupPermission($group_id, $perms, false);

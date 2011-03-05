@@ -1148,8 +1148,9 @@ class Kronolith
                 }
 
                 try {
-                    $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-                    $group_list = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
+                    $group_list = $GLOBALS['injector']
+                        ->getInstance('Horde_Group')
+                        ->getGroups($GLOBALS['registry']->getAuth());
                     if (count($group_list)) {
                         $perm = $share->getPermission();
                         // Add the default perm, not added otherwise
@@ -1935,9 +1936,11 @@ class Kronolith
             // Notify users that have been added.
             if ($GLOBALS['conf']['share']['notify'] &&
                 !isset($current[$group]) && $has_perms) {
-                $groupOb = $GLOBALS['injector']->getInstance('Horde_Group')->getGroupById($group);
-                if (!empty($groupOb->data['email'])) {
-                    $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>', 'UTF-8');
+                $groupOb = $GLOBALS['injector']
+                    ->getInstance('Horde_Group')
+                    ->getData($group);
+                if (!empty($groupOb['email'])) {
+                    $mail->addHeader('To', $groupOb['name'] . ' <' . $groupOb['email'] . '>', 'UTF-8');
                     $mail->setBasePart($multipart);
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
@@ -2363,8 +2366,7 @@ class Kronolith
 
         foreach ($share->listGroups(Horde_Perms::READ) as $group) {
             try {
-                $group = $groups->getGroupById($group);
-                $group_users = $group->listAllUsers();
+                $group_users = $groups->listUsers($group);
             } catch (Horde_Group_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 continue;
