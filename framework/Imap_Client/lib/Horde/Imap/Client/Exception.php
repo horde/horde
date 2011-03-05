@@ -64,34 +64,37 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Prior
     // Thrown on CATENATE if the message was too big.
     const CATENATE_TOOBIG = 14;
 
+    // Thrown on CREATE if special-use attribute is not supported.
+    const USEATTR = 15;
+
 
     // Login failures
 
     // Could not start mandatory TLS connection.
-    const LOGIN_TLSFAILURE = 15;
+    const LOGIN_TLSFAILURE = 100;
 
     // Could not find an available authentication method.
-    const LOGIN_NOAUTHMETHOD = 16;
+    const LOGIN_NOAUTHMETHOD = 101;
 
     // Generic authentication failure.
-    const LOGIN_AUTHENTICATIONFAILED = 17;
+    const LOGIN_AUTHENTICATIONFAILED = 102;
 
     // Remote server is unavailable.
-    const LOGIN_UNAVAILABLE = 18;
+    const LOGIN_UNAVAILABLE = 103;
 
     // Authentication succeeded, but authorization failed.
-    const LOGIN_AUTHORIZATIONFAILED = 19;
+    const LOGIN_AUTHORIZATIONFAILED = 104;
 
     // Authentication is no longer permitted with this passphrase.
-    const LOGIN_EXPIRED = 20;
+    const LOGIN_EXPIRED = 105;
 
     // Login requires privacy.
-    const LOGIN_PRIVACYREQUIRED = 21;
+    const LOGIN_PRIVACYREQUIRED = 106;
 
 
     // Mailbox access failures
 
     // Could not open/access mailbox
-    const MAILBOX_NOOPEN = 22;
+    const MAILBOX_NOOPEN = 200;
 
 }

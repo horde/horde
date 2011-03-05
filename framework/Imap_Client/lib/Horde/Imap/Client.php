@@ -119,6 +119,15 @@ class Horde_Imap_Client
     const ACL_CREATE = 'c';
     const ACL_DELETE = 'd';
 
+    /* Special-use mailbox attributes (RFC 6154 [2]). */
+    const SPECIALUSE_ALL = '\\All';
+    const SPECIALUSE_ARCHIVE = '\\Archive';
+    const SPECIALUSE_DRAFTS = '\\Drafts';
+    const SPECIALUSE_FLAGGED = '\\Flagged';
+    const SPECIALUSE_JUNK = '\\Junk';
+    const SPECIALUSE_SENT = '\\Sent';
+    const SPECIALUSE_TRASH = '\\Trash';
+
     /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.

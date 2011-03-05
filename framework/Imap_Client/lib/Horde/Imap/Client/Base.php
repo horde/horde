@@ -819,8 +819,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param array $opts     Additional options:
      * <pre>
      * 'special_use' - (array) An array of special-use flags to mark the
-     *                 mailbox with.  The server must support broadcast the
-     *                 CREATE-SPECIAL-USE capability string.
+     *                 mailbox with.  The server must support RFC 6154.
      * </pre>
      *
      * @throws Horde_Imap_Client_Exception
@@ -999,8 +998,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                 \All, \Archive)). Server must support the SPECIAL-USE
      *                 return option for this setting to have any effect.
      *                 Server MAY return this attribute without this option.
-     *                 Aidditionaly, server SHOULD return this information if
-     *                 this option is given, but it is not guaranteed.
      *                 DEFAULT: false
      * 'status' - (integer) Tell server to return status information. The
      *            value is a bitmask that may contain the following:
@@ -1038,6 +1035,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $pattern = is_array($pattern)
             ? array_map(array('Horde_Imap_Client_Utf7imap', 'Utf8ToUtf7Imap'), $pattern)
             : Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($pattern);
+
+        if (isset($options['special_use']) &&
+            !$this->queryCapability('SPECIAL-USE')) {
+            unset($options['special_use']);
+        }
 
         $ret = $this->_listMailboxes($pattern, $mode, $options);
 

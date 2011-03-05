@@ -20,18 +20,6 @@
 class IMP_Folder
 {
     /**
-     * Mapping of special-use keys to their IMP equivalents.
-     *
-     * @var array
-     */
-    static public $specialUse = array(
-        'drafts' => '\\drafts',
-        'sent' => '\\sent',
-        'spam' => '\\junk',
-        'trash' => '\\trash'
-    );
-
-    /**
      * Deletes one or more folders.
      *
      * @param array $folders  Folders to be deleted (UTF7-IMAP).
@@ -90,14 +78,9 @@ class IMP_Folder
      * @param boolean $subscribe  Subscribe to folder?
      * @param array $opts         Additional options:
      * <pre>
-     * 'drafts' - (boolean) Is this a drafts mailbox?
-     *            DEFAULT: false
-     * 'spam' - (boolean) Is this a spam mailbox?
-     *          DEFAULT: false
-     * 'sent' - (boolean) Is this a sent-mail mailbox?
-     *          DEFAULT: false
-     * 'trash' - (boolean) Is this a trash mailbox?
-     *          DEFAULT: false
+     * 'special_use' - (array) An array of special-use attributes to attempt
+     *                 to add to the mailbox.
+     *                 DEFAULT: NONE
      * </pre>
      *
      * @return boolean  Whether or not the folder was successfully created.
@@ -134,17 +117,18 @@ class IMP_Folder
         }
 
         /* Special use flags. */
-        $special_use = array();
-        foreach (self::$specialUse as $key => $val) {
-            if (!empty($opts[$key])) {
-                $special_use[] = $val;
-            }
-        }
+        $special_use = isset($opts['special_use'])
+            ? $opts['special_use']
+            : array();
 
         /* Attempt to create the mailbox. */
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->createMailbox($folder, array('special_use' => $special_use));
         } catch (Horde_Imap_Client_Exception $e) {
+            if ($e->getCode() == Horde_Imap_Client_Exception::USEATTR) {
+                return $this->create($folder, $subscribe);
+            }
+
             $notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
             return false;
         }

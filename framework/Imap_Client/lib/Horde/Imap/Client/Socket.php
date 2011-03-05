@@ -38,9 +38,9 @@
  *   RFC 5530 - IMAP Response Codes
  *   RFC 5819 - LIST-STATUS
  *   RFC 5957 - SORT=DISPLAY
+ *   RFC 6154 - SPECIAL-USE/CREATE-SPECIAL-USE
  *
- *   draft-ietf-morg-list-specialuse-02  CREATE-SPECIAL-USE
- *   draft-ietf-morg-inthread-01         THREAD=REFS
+ *   draft-ietf-morg-inthread-01 - THREAD=REFS
  *
  *   [NO RFC] - XIMAPPROXY
  *       + Requires imapproxy v1.2.7-rc1 or later
@@ -62,9 +62,6 @@
  *   RFC 5738 - UTF8
  *
  *   draft-ietf-morg-inthread-01 - SEARCH=INTHREAD
- *
- *   [NO RFC] - XLIST
- *       + See http://markmail.org/message/vxbqgt5omnph3hnt
  *
  * [See: http://www.iana.org/assignments/imap4-capabilities]
  * </pre>
@@ -1035,8 +1032,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $return_opts[] = 'CHILDREN';
             }
 
-            if (!empty($options['special_use']) &&
-                $this->queryCapability('CREATE-SPECIAL-USE')) {
+            if (!empty($options['special_use'])) {
                 $return_opts[] = 'SPECIAL-USE';
             }
 
@@ -4258,6 +4254,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'NONEXISTENT':
             // Defined by RFC 5530 [3]
+            break;
+
+        case 'USEATTR':
+            // Defined by RFC 6154 [3]
+            $this->_temp['parsestatuserr'] = array(
+                'USEATTR',
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'XPROXYREUSE':

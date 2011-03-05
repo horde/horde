@@ -22,26 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First alpha release for Horde 4.
-* Remove static logCallback variable in Horde_Imap_Client_Exception.
-* Improved login error reporting (Request #9211).
-* Add support for special-use mailboxes (draft-ietf-morg-list-specialuse-02).
-* Add Horde_Imap_Client_Base::validSearchCharset().
-* Add Horde_Imap_Client_Base::fetchFromSectionString().
-* Add support for RFC 4469 (CATENATE).
-* Correctly output 8-bit strings (RFC 3501 [4.3]).
-* Add Horde_Imap_Client_Utils::stripNonAtomChars().
-* Add sequence sort (numeric sort by UID/sequence number).
-* Add ability to disable server capabilities.
-* Add Horde_Imap_Client_Base::parseCacheId().
-* Added STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS status() entries.
-* Add support for LIST-STATUS (draft-ietf-morg-status-in-list-01).
-* Add support for THREAD=REFS (draft-ietf-morg-inthread-00).
-* Add support for RFC 5258 (LIST-EXTENDED).
-* Add Horde_Imap_Client_Utils::createUrl().
-* Support SORT=DISPLAY extension.
-* Added search and thread (message list) caching.
-* Added PHP socket based POP3 driver.
+* Supported finalized SPECIAL-USE capability (RFC 6154).
 * Add Horde_Imap_Client_Data_AclNegative object.
 * Add Horde_Imap_Client_Base#allAclRights().
 * Add Horde_Imap_Client_Data_Acl and Horde_Imap_Client_Data_AclRights objects.
