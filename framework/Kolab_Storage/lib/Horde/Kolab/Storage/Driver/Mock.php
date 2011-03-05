@@ -430,7 +430,8 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     private function _folderVisible($folder, $user)
     {
-        return $this->_folderVisibleToUnique($folder, $user)
+        return empty($user) 
+            || $this->_folderVisibleToUnique($folder, $user)
             || $this->_folderVisibleToGroup($folder, $user)
             || $this->_folderVisibleToUnique($folder, 'anyone')
             || $this->_folderVisibleToUnique($folder, 'anonymous');
@@ -520,7 +521,8 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     private function _folderAdmin($folder, $user)
     {
-        return $this->_folderAdminForUnique($folder, $user)
+        return empty($user)
+            || $this->_folderAdminForUnique($folder, $user)
             || $this->_folderAdminForGroup($folder, $user)
             || $this->_folderAdminForUnique($folder, 'anyone')
             || $this->_folderAdminForUnique($folder, 'anonymous');

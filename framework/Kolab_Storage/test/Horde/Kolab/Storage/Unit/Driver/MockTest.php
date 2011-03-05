@@ -371,10 +371,10 @@ extends Horde_Kolab_Storage_TestCase
                 'user/test/Contacts' => array(
                     'permissions' => array('test' => 'lrid'),
                 ),
-                'user/' => array(
+                'user/a' => array(
                     'permissions' => array('anyone' => 'lrid'),
                 ),
-                'user//Null' => array(
+                'shared.Something' => array(
                     'permissions' => array('anyone' => 'lrid'),
                 ),
             ),
@@ -383,7 +383,7 @@ extends Horde_Kolab_Storage_TestCase
             new Horde_Kolab_Storage_Factory(), $data
         );
         $this->assertEquals(
-            array('INBOX', 'INBOX/Null'),
+            array('user/test/Contacts', 'user/a', 'shared.Something'),
             $driver->listFolders()
         );
     }
