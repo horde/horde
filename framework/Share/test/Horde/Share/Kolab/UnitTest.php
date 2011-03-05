@@ -152,7 +152,7 @@ extends PHPUnit_Framework_TestCase
     public function testUndefinedPermissionId()
     {
         $object = new Horde_Share_Object_Kolab(null, new Horde_Group_Mock());
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $object->getPermissionId()
         );
