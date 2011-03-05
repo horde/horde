@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-04</date>
- <time>22:42:14</time>
+ <date>2011-03-05</date>
+ <time>20:54:55</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -37,7 +37,6 @@
     <dir name="Horde">
      <dir name="Group">
       <file name="Base.php" role="php" />
-      <file name="ContactListObject.php" role="php" />
       <file name="Contactlists.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Kolab.php" role="php" />
@@ -63,10 +62,17 @@
         <file name="SqliteTest.php" role="test" />
        </dir> <!-- /test/Horde/Group/Sql/Pdo -->
        <file name="Base.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
       </dir> <!-- /test/Horde/Group/Sql -->
+      <dir name="Stub">
+       <file name="Api.php" role="test" />
+      </dir> <!-- /test/Horde/Group/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="Base.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+      <file name="ContactlistTest.php" role="test" />
       <file name="LdapTest.php" role="test" />
       <file name="MockTest.php" role="test" />
      </dir> <!-- /test/Horde/Group -->
@@ -105,7 +111,6 @@
  <phprelease>
   <filelist>
    <install as="Horde/Group/Base.php" name="lib/Horde/Group/Base.php" />
-   <install as="Horde/Group/ContactListObject.php" name="lib/Horde/Group/ContactListObject.php" />
    <install as="Horde/Group/Contactlists.php" name="lib/Horde/Group/Contactlists.php" />
    <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
    <install as="Horde/Group/Kolab.php" name="lib/Horde/Group/Kolab.php" />
@@ -117,12 +122,17 @@
    <install as="Horde/Group/AllTests.php" name="test/Horde/Group/AllTests.php" />
    <install as="Horde/Group/Autoload.php" name="test/Horde/Group/Autoload.php" />
    <install as="Horde/Group/Base.php" name="test/Horde/Group/Base.php" />
+   <install as="Horde/Group/conf.php.dist" name="test/Horde/Group/conf.php.dist" />
+   <install as="Horde/Group/ContactlistTest.php" name="test/Horde/Group/ContactlistTest.php" />
    <install as="Horde/Group/LdapTest.php" name="test/Horde/Group/LdapTest.php" />
    <install as="Horde/Group/MockTest.php" name="test/Horde/Group/MockTest.php" />
    <install as="Horde/Group/Sql/Base.php" name="test/Horde/Group/Sql/Base.php" />
+   <install as="Horde/Group/Sql/MysqliTest.php" name="test/Horde/Group/Sql/MysqliTest.php" />
+   <install as="Horde/Group/Sql/MysqlTest.php" name="test/Horde/Group/Sql/MysqlTest.php" />
    <install as="Horde/Group/Sql/Pdo/MysqlTest.php" name="test/Horde/Group/Sql/Pdo/MysqlTest.php" />
    <install as="Horde/Group/Sql/Pdo/PgsqlTest.php" name="test/Horde/Group/Sql/Pdo/PgsqlTest.php" />
    <install as="Horde/Group/Sql/Pdo/SqliteTest.php" name="test/Horde/Group/Sql/Pdo/SqliteTest.php" />
+   <install as="Horde/Group/Stub/Api.php" name="test/Horde/Group/Stub/Api.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -195,7 +205,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-04</date>
+   <date>2011-03-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Throw exceptions, not PEAR_Errors.
