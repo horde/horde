@@ -1965,7 +1965,7 @@ class Turba_Api extends Horde_Registry_Api
 
         list($source, $id) = explode(':', $gid);
         $entry = $this->getGroupObject($gid);
-        $members = @unserialize($entry[$sources[$source]['map']['__members']]);
+        $members = @unserialize($entry['members']);
         if (!is_array($members)) {
             return array();
         }
