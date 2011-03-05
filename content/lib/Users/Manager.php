@@ -67,7 +67,11 @@ class Content_Users_Manager
         // Get the ids for any users that already exist.
         try {
             if (count($userName)) {
-                foreach ($this->_db->selectAll('SELECT user_id, user_name FROM ' . $this->_t('users') . ' WHERE user_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($userName))).')') as $row) {
+                $userName;
+                $sql = 'SELECT user_id, user_name FROM ' . $this->_t('users')
+                    . ' WHERE user_name IN (' . implode(',', array_map(array($this, 'toDriver'), array_keys($userName))) . ')';
+
+                foreach ($this->_db->selectAll($sql) as $row) {
                     $userIndex = $userName[$row['user_name']];
                     unset($userName[$row['user_name']]);
                     $userIds[$userIndex] = $row['user_id'];
@@ -76,7 +80,7 @@ class Content_Users_Manager
 
             // Create any users that didn't already exist
             foreach ($userName as $user => $userIndex) {
-                $userIds[$userIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('users') . ' (user_name) VALUES (' . $this->_db->quote($user) . ')');
+                $userIds[$userIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('users') . ' (user_name) VALUES (' . $this->toDriver($user) . ')');
             }
         } catch (Horde_Db_Exception $e) {
             throw new Content_Exception($e);
@@ -95,6 +99,11 @@ class Content_Users_Manager
     protected function _t($tableType)
     {
         return $this->_db->quoteTableName($this->_tables[$tableType]);
+    }
+
+    public function toDriver($value)
+    {
+        return $this->_db->quoteString(Horde_String::convertCharset($value, 'UTF-8', $this->_db->getOption('charset')));
     }
 
 }

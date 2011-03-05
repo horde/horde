@@ -3,6 +3,7 @@
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
  * @package  Horde_Content
@@ -10,6 +11,7 @@
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
  * @package  Horde_Content
@@ -695,12 +697,13 @@ class Content_Tagger
 
         // Get the ids for any tags that already exist.
         if (count($tagText)) {
-            foreach ($this->_db->selectAll('SELECT tag_id, tag_name FROM ' . $this->_t('tags') . ' WHERE tag_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($tagText))).')') as $row) {
+            $sql = 'SELECT tag_id, tag_name FROM ' . $this->_t('tags')
+                . ' WHERE tag_name IN (' . implode(',', array_map(array($this, 'toDriver'), array_keys($tagText))) . ')';
+            foreach ($this->_db->selectAll($sql) as $row) {
                 $tagTextCopy = $tagText;
                 foreach ($tagTextCopy as $tag => $tagIndex) {
                     if (strtolower(Horde_String::convertCharset($row['tag_name'], $this->_db->getOption('charset'), 'UTF-8')) == strtolower($tag)) {
                         unset($tagText[$tag]);
-                        break;
                     }
                 }
                 $tagIds[$tagIndex] = $row['tag_id'];
@@ -710,7 +713,7 @@ class Content_Tagger
         if ($create) {
             // Create any tags that didn't already exist
             foreach ($tagText as $tag => $tagIndex) {
-                $tagIds[$tagIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->_db->quote($tag) . ')');
+                $tagIds[$tagIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
             }
         }
 
@@ -795,6 +798,9 @@ class Content_Tagger
 
         /* Note that we don't convertCharset here, it's done in listTagInfo */
         $tags = $this->_db->selectAssoc($sql);
+        foreach ($tags as $key => &$value) {
+            $value = Horde_String::convertCharset($value, $this->_db->getOption('charset'), 'UTF-8');
+        }
 
         return $tags;
     }
@@ -824,6 +830,11 @@ class Content_Tagger
     protected function _t($tableType)
     {
         return $this->_db->quoteTableName($this->_tables[$tableType]);
+    }
+
+    public function toDriver($value)
+    {
+        return $this->_db->quoteString(Horde_String::convertCharset($value, 'UTF-8', $this->_db->getOption('charset')));
     }
 
 }
