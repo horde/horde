@@ -71,10 +71,12 @@ class Horde_Session
      * @param boolean $start         Initiate the session?
      * @param string $cache_limiter  Override for the session cache limiter
      *                               value.
+     * @param string $session_id     The session ID to use.
      *
      * @throws Horde_Exception
      */
-    public function setup($start = true, $cache_limiter = null)
+    public function setup($start = true, $cache_limiter = null,
+                          $session_id = null)
     {
         global $conf;
 
@@ -97,6 +99,9 @@ class Horde_Session
         );
         session_cache_limiter(is_null($cache_limiter) ? $conf['session']['cache_limiter'] : $cache_limiter);
         session_name(urlencode($conf['session']['name']));
+        if ($session_id) {
+            session_id($session_id);
+        }
 
         /* We want to create an instance here, not get, since we may be
          * destroying the previous instances in the page. */

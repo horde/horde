@@ -66,17 +66,17 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         /* Only the server needs to start a session. */
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
             /* Reload the Horde SessionHandler if necessary. */
-            $GLOBALS['session']->setup(false);
+            $GLOBALS['session']->setup(true, null, md5($syncDeviceID . $sessionId));
             $this->state = $GLOBALS['session']->get('horde', 'syncml');
-            register_shutdown_function(array($this, 'sessionShutdown'));
         }
     }
 
-    public function sessionShutdown()
+    public function close()
     {
         if ($this->state) {
             $GLOBALS['session']->set('horde', 'syncml', $this->state);
         }
+        parent::close();
     }
 
     /**
