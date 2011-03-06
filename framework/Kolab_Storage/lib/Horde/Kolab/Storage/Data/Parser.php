@@ -40,4 +40,12 @@ interface Horde_Kolab_Storage_Data_Parser
      * @return array The parsed objects.
      */
     public function fetch($folder, $obids, $options = array());
+
+    /**
+     * Return the format handler.
+     *
+     * @return Horde_Kolab_Storage_Data_Format The data object <-> format
+     *                                         bridge.
+     */
+    public function getFormat();
 }
