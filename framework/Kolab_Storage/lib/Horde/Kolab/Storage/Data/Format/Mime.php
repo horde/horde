@@ -126,6 +126,22 @@ implements Horde_Kolab_Storage_Data_Format
         }
     }
 
+    public function getMimeType($type)
+    {
+        switch ($type) {
+        case 'event':
+            return 'application/x-vnd.kolab.event';
+            break;
+        case 'note':
+            return 'application/x-vnd.kolab.note';
+            break;
+        default:
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Unsupported object type %s!', $type)
+            );
+        }
+    }
+
     /**
      * Generate a new MIME envelope for a Kolab groupware object.
      *
@@ -157,5 +173,26 @@ implements Horde_Kolab_Storage_Data_Format
         $envelope->addPart($description);
         $envelope->buildMimeIds();
         return $envelope;
+    }
+
+    /**
+     * Generate the headers for the MIME envelope of a Kolab groupware object.
+     *
+     * @param string $uid The object uid.
+     *
+     * @return Horde_Mime_Headers The headers for the MIME envelope.
+     */
+    public function createEnvelopeHeaders($uid, $user, $type)
+    {
+        $headers = new Horde_Mime_Headers();
+        $headers->setEOL("\r\n");
+        $headers->addHeader('Date', date('r'));
+        $headers->addHeader('User-Agent', 'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION);
+        $headers->addHeader('MIME-Version', '1.0');
+        $headers->addHeader('Subject', $uid);
+        $headers->addHeader('From', $user);
+        $headers->addHeader('To', $user);
+        $headers->addHeader('X-Kolab-Type', $this->getMimeType($type));
+        return $headers;
     }
 }

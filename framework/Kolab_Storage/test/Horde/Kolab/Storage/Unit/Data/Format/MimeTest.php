@@ -148,6 +148,78 @@ clients please visit http://www.kolab.org/kolab2-clients.html",
         );
     }
 
+    public function testEnvelopeHeaders()
+    {
+        $this->assertInstanceOf(
+            'Horde_Mime_Headers',
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')
+        );
+    }
+
+    public function testEnvelopeHeaderEol()
+    {
+        $this->assertEquals(
+            "\r\n",
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')->getEol()
+        );
+    }
+
+    public function testEnvelopeHeaderDate()
+    {
+        $this->assertNotEquals(
+            '',
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')->getValue('Date')
+        );
+    }
+
+    public function testEnvelopeHeaderAgent()
+    {
+        $this->assertEquals(
+            'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION,
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')->getValue('User-Agent')
+        );
+    }
+
+    public function testEnvelopeHeaderMimeVersion()
+    {
+        $this->assertEquals(
+            '1.0',
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')->getValue('MIME-Version')
+        );
+    }
+
+    public function testEnvelopeHeaderSubject()
+    {
+        $this->assertEquals(
+            'UID',
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')->getValue('Subject')
+        );
+    }
+
+    public function testEnvelopeHeaderFrom()
+    {
+        $this->assertEquals(
+            'user',
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')->getValue('From')
+        );
+    }
+
+    public function testEnvelopeHeaderTo()
+    {
+        $this->assertEquals(
+            'user',
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')->getValue('To')
+        );
+    }
+
+    public function testEnvelopeHeaderType()
+    {
+        $this->assertEquals(
+            'application/x-vnd.kolab.note',
+            $this->_getMime()->createEnvelopeHeaders('UID', 'user', 'note')->getValue('X-Kolab-Type')
+        );
+    }
+
     private function _getMime()
     {
         $this->parser = $this->getMock('Horde_Kolab_Storage_Data_Parser_Structure', array('fetchId'), array(), '', false, false);
