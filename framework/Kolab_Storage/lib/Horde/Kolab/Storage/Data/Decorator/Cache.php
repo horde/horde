@@ -268,8 +268,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         Horde_Kolab_Storage_Folder_Stamp $stamp
     ) {
         $this->_data_cache->reset();
+        $ids = $stamp->ids();
         $this->_data_cache->store(
-            $this->_data->fetch($stamp->ids()),
+            empty($ids) ? array() : $this->_data->fetch($ids),
             $stamp,
             $this->_data->getVersion()
         );

@@ -307,6 +307,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function fetchStructure($folder, $uids)
     {
+        if (empty($uids)) {
+            return array();
+        }
+
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->structure();
 

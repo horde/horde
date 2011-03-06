@@ -190,11 +190,15 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function fetch($uids)
     {
-        return $this->_driver->fetch(
-            $this->_folder->getPath(),
-            $uids,
-            array('type' => $this->getType(), 'version' => $this->_version)
-        );
+        if (!empty($uids)) {
+            return $this->_driver->fetch(
+                $this->_folder->getPath(),
+                $uids,
+                array('type' => $this->getType(), 'version' => $this->_version)
+            );
+        } else {
+            return array();
+        }
     }
 
     /**
