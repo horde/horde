@@ -157,8 +157,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *
      * @return string  The unique ID.
      */
-    public function generateUID()
+    public function generateUid()
     {
+        //@todo
     }
 
     /**
@@ -203,6 +204,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function getAttachment($attachment_id)
     {
+        //@todo
     }
 
     /**
