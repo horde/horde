@@ -18,10 +18,21 @@ if (!empty($autoloaders)) {
     $autoloaders = array_diff($autoloaders, array('phpunit_autoload'));
 }
 if (empty($autoloaders)) {
+    $mapping = '';
+    if (!empty($mappings)) {
+        foreach ($mappings as $prefix => $path) {
+            $mapping .= 'if (substr($filename, 0, ' . strlen($prefix) . ') == "' . $prefix . '") {'
+                . '  $filename = substr($filename, ' . strlen($prefix) . ');'
+                . '  $filename = "' . $path . '$filename";'
+                . '}';
+        }
+        unset($mappings);
+    }
     spl_autoload_register(
         create_function(
             '$class',
             '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
+            . $mapping
             . '$err_mask = error_reporting() & ~E_WARNING;'
             . '$oldErrorReporting = error_reporting($err_mask);'
             . 'include "$filename.php";'
@@ -29,3 +40,5 @@ if (empty($autoloaders)) {
         )
     );
 }
+
+unset($autoloaders, $mapping);
