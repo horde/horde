@@ -25,3 +25,5 @@
  - Support remapping the "anonymous" user
 
  - Support creating "system" folders in the shared namespace
+
+ - The cache decorators are no decorators but alternative implementations.
