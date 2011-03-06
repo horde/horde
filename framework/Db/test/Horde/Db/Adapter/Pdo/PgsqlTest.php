@@ -300,6 +300,8 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
     public function testQuoteBinary()
     {
+        $this->markTestIncomplete('Bug #9153 needs to be fixed for this test to run.');
+
         // Test string is foo\0bar - should be 7 bytes long
         $original = base64_decode('Zm9vAGJhcg==');
 
