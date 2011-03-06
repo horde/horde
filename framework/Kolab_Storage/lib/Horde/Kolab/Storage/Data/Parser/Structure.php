@@ -101,14 +101,7 @@ implements  Horde_Kolab_Storage_Data_Parser
     public function fetch($folder, $obids, $options = array())
     {
         $objects = array();
-        if (!isset($options['type'])) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The object type must be specified!'
-            );
-        }
-        if (!isset($options['version'])) {
-            $options['version'] = 1;
-        }
+        $this->_completeOptions($options);
         $structures = $this->_driver->fetchStructure($folder, $obids);
         foreach ($structures as $obid => $structure) {
             if (!isset($structure['structure'])) {
@@ -150,5 +143,61 @@ implements  Horde_Kolab_Storage_Data_Parser
     public function fetchId($folder, $obid, $mime_id)
     {
         return $this->_driver->fetchBodypart($folder, $obid, $mime_id);
+    }
+
+    /**
+     * Complete the options.
+     *
+     * @param array  $options Options.
+     * <pre>
+     *  'type'    - Required argument specifying the object type.
+     *  'version' - Optional argument specifying the version of the object
+     *              format.
+     * </pre>
+     *
+     * @return NULL
+     */
+    private function _completeOptions(&$options)
+    {
+        if (!isset($options['type'])) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The object type must be specified!'
+            );
+        }
+        if (!isset($options['version'])) {
+            $options['version'] = 1;
+        }
+    }
+
+    /**
+     * Create a new MIME representation for the object.
+     *
+     * @param array  $object  The object.
+     * @param array  $options Additional options for storing.
+     * <pre>
+     *  'type'    - Required argument specifying the object type that should be
+     *              stored.
+     *  'version' - Optional argument specifying the version of the object
+     *              format.
+     * </pre>
+     *
+     * @return resource The MIME message representing the object.
+     */
+    public function createObject($object, $options = array())
+    {
+        $this->_completeOptions($options);
+        $envelope = $this->_format->createEnvelope();
+        $envelope->addPart($this->_format->createKolabPart($object, $options));
+        return $envelope->toString(
+            array(
+                'canonical' => true,
+                'stream' => true,
+                'headers' => $this->_format->createEnvelopeHeaders(
+                    $object['uid'],
+                    $this->_driver->getAuth(),
+                    $options['type']
+                )
+            )
+        );
     }
 }

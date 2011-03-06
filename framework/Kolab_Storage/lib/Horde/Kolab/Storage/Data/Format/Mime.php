@@ -153,13 +153,13 @@ implements Horde_Kolab_Storage_Data_Format
     {
         $headers = new Horde_Mime_Headers();
         $headers->setEOL("\r\n");
-        $headers->addHeader('Date', date('r'));
-        $headers->addHeader('User-Agent', 'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION);
-        $headers->addHeader('MIME-Version', '1.0');
-        $headers->addHeader('Subject', $uid);
         $headers->addHeader('From', $user);
         $headers->addHeader('To', $user);
+        $headers->addHeader('Date', date('r'));
         $headers->addHeader('X-Kolab-Type', $this->getMimeType($type));
+        $headers->addHeader('Subject', $uid);
+        $headers->addHeader('User-Agent', 'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION);
+        $headers->addHeader('MIME-Version', '1.0');
         return $headers;
     }
 
@@ -188,9 +188,9 @@ implements Horde_Kolab_Storage_Data_Format
                 ),
                 76,
                 "\r\n"
-            )
+            ),
+            array('encoding' => 'quoted-printable')
         );
-        $description->setTransferEncoding('quoted-printable');
         $envelope->addPart($description);
         $envelope->buildMimeIds();
         return $envelope;
@@ -211,10 +211,10 @@ implements Horde_Kolab_Storage_Data_Format
         $kolab->setContents(
             $this->_factory
             ->createFormat('Xml', $options['type'], $options['version'])
-            ->save($object)
+            ->save($object),
+            array('encoding' => 'quoted-printable')
         );
         $kolab->setCharset('utf-8');
-        $kolab->setTransferEncoding('quoted-printable');
         $kolab->setDisposition('inline');
         $kolab->setDispositionParameter('x-kolab-type', 'xml');
         $kolab->setName('kolab.xml');
