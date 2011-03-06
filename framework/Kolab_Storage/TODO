@@ -27,3 +27,7 @@
  - Support creating "system" folders in the shared namespace
 
  - The cache decorators are no decorators but alternative implementations.
+
+ - Support multiple-formats when writing the objects.
+
+ - Support a descriptive text of the groupware object in the primary MIME part.
