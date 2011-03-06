@@ -117,6 +117,9 @@ implements Horde_Kolab_Storage_Data_Format
         case 'event':
             return array_search('application/x-vnd.kolab.event', $types);
             break;
+        case 'note':
+            return array_search('application/x-vnd.kolab.note', $types);
+            break;
         default:
             throw new Horde_Kolab_Storage_Exception(
                 sprintf('Unsupported object type %s!', $type)
