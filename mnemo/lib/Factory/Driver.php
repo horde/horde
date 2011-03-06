@@ -63,7 +63,9 @@ class Mnemo_Factory_Driver
                 );
                 break;
             case 'Mnemo_Driver_Kolab':
-                throw new Mnemo_Exception('Kolab drivers not yet refactored.');
+                $params = array(
+                    'storage' => $this->_injector->getInstance('Horde_Kolab_Storage')
+                );
             }
             $driver = new $class($name, $params);
             $this->_instances[$name] = $driver;
