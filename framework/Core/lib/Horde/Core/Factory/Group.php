@@ -11,7 +11,8 @@ class Horde_Core_Factory_Group extends Horde_Core_Factory_Injector
         $params = Horde::getDriverConfig('group', $driver);
         switch ($driver) {
         case 'Ldap':
-            $class = 'Horde_Core_Group_Ldap';
+        case 'Kolab':
+            $class = 'Horde_Core_Group_' . $driver;
             $params['ldap'] = $injector
                 ->getInstance('Horde_Core_Factory_Ldap')
                 ->create('horde', 'group');
@@ -21,6 +22,9 @@ class Horde_Core_Factory_Group extends Horde_Core_Factory_Injector
             $params['db'] = $injector
                 ->getInstance('Horde_Core_Factory_Db')
                 ->create('horde', 'group');
+            break;
+        default:
+            $class = 'Horde_Group_' . $driver;
             break;
         }
         return new $class($params);
