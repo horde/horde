@@ -261,4 +261,12 @@ extends Horde_Kolab_Storage_TestCase
             ->getObject('NOSUCHOBJECT');
     }
 
+    public function testCreateReturnsNull()
+    {
+        $this->assertNull(
+            $this->getMessageStorage()
+            ->getData('INBOX/Notes')
+            ->create(array())
+        );
+    }
 }

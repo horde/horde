@@ -162,6 +162,20 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Create a new object.
+     *
+     * @param array  $object        The array that holds the object data.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case an error occured while
+     *                                       saving the data.
+     */
+    public function create($object)
+    {
+    }
+
+    /**
      * Retrieves the body part for the given UID and mime part ID.
      *
      * @param string $uid The message UID.
