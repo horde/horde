@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Xml_Wbxml</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde_Xml_Wbxml provides an API for encoding and decoding WBXML documents used in SyncML and other wireless applications.</summary>
+ <description>This package provides encoding and decoding of WBXML (Wireless Binary XML) documents. WBXML is used in SyncML for transferring smaller amounts of data with wireless devices.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-03-06</date>
+ <time>19:39:46</time>
+ <version>
+  <release>0.5.1</release>
+  <api>0.5.1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+Converted to package.xml 2.0 for pear.horde.org
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="docs">
+    <dir name="examples">
+     <file baseinstalldir="/" name="devinf.wbxml" role="doc" />
+     <file baseinstalldir="/" name="k500i_client_0.wbxml" role="doc" />
+     <file baseinstalldir="/" name="k700i_syncml_client_0.wbxml" role="doc" />
+     <file baseinstalldir="/" name="MotorolaA780.wbxml" role="data" />
+     <file baseinstalldir="/" name="syncml_client_packet_1.xml" role="doc" />
+     <file baseinstalldir="/" name="syncml_client_packet_2.xml" role="doc" />
+     <file baseinstalldir="/" name="syncml_client_packet_3.wbxml" role="doc" />
+     <file baseinstalldir="/" name="syncml_client_packet_4.wbxml" role="doc" />
+     <file baseinstalldir="/" name="syncml_client_packet_5.wbxml" role="doc" />
+     <file baseinstalldir="/" name="syncml_server_packet_1.wbxml" role="doc" />
+     <file baseinstalldir="/" name="syncml_server_packet_1.xml" role="doc" />
+     <file baseinstalldir="/" name="z600_client_0.wbxml" role="doc" />
+    </dir> <!-- /docs/examples -->
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Xml">
+      <dir name="Wbxml">
+       <dir name="Dtd">
+        <file baseinstalldir="/" name="SyncMl.php" role="php" />
+        <file baseinstalldir="/" name="SyncMlDevInf.php" role="php" />
+        <file baseinstalldir="/" name="SyncMlMetInf.php" role="php" />
+       </dir> <!-- /lib/Horde/Xml/Wbxml/Dtd -->
+       <file baseinstalldir="/" name="ContentHandler.php" role="php" />
+       <file baseinstalldir="/" name="Decoder.php" role="php" />
+       <file baseinstalldir="/" name="Dtd.php" role="php" />
+       <file baseinstalldir="/" name="DtdManager.php" role="php" />
+       <file baseinstalldir="/" name="Encoder.php" role="php" />
+       <file baseinstalldir="/" name="HashTable.php" role="php" />
+       <file baseinstalldir="/" name="LifoQueue.php" role="php" />
+      </dir> <!-- /lib/Horde/Xml/Wbxml -->
+      <file baseinstalldir="/" name="Wbxml.php" role="php" />
+     </dir> <!-- /lib/Horde/Xml -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="tests">
+    <dir name="Horde">
+     <dir name="Xml">
+      <dir name="Wbxml">
+       <file baseinstalldir="/" name="decode.php" role="php" />
+      </dir> <!-- /tests/Horde/Xml/Wbxml -->
+     </dir> <!-- /tests/Horde/Xml -->
+    </dir> <!-- /tests/Horde -->
+   </dir> <!-- /tests -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="examples/devinf.wbxml" name="docs/examples/devinf.wbxml" />
+   <install as="examples/k500i_client_0.wbxml" name="docs/examples/k500i_client_0.wbxml" />
+   <install as="examples/k700i_syncml_client_0.wbxml" name="docs/examples/k700i_syncml_client_0.wbxml" />
+   <install as="docs/examples/MotorolaA780.wbxml" name="docs/examples/MotorolaA780.wbxml" />
+   <install as="examples/syncml_client_packet_1.xml" name="docs/examples/syncml_client_packet_1.xml" />
+   <install as="examples/syncml_client_packet_2.xml" name="docs/examples/syncml_client_packet_2.xml" />
+   <install as="examples/syncml_client_packet_3.wbxml" name="docs/examples/syncml_client_packet_3.wbxml" />
+   <install as="examples/syncml_client_packet_4.wbxml" name="docs/examples/syncml_client_packet_4.wbxml" />
+   <install as="examples/syncml_client_packet_5.wbxml" name="docs/examples/syncml_client_packet_5.wbxml" />
+   <install as="examples/syncml_server_packet_1.wbxml" name="docs/examples/syncml_server_packet_1.wbxml" />
+   <install as="examples/syncml_server_packet_1.xml" name="docs/examples/syncml_server_packet_1.xml" />
+   <install as="examples/z600_client_0.wbxml" name="docs/examples/z600_client_0.wbxml" />
+   <install as="Horde/Xml/Wbxml.php" name="lib/Horde/Xml/Wbxml.php" />
+   <install as="Horde/Xml/Wbxml/ContentHandler.php" name="lib/Horde/Xml/Wbxml/ContentHandler.php" />
+   <install as="Horde/Xml/Wbxml/Decoder.php" name="lib/Horde/Xml/Wbxml/Decoder.php" />
+   <install as="Horde/Xml/Wbxml/Dtd.php" name="lib/Horde/Xml/Wbxml/Dtd.php" />
+   <install as="Horde/Xml/Wbxml/DtdManager.php" name="lib/Horde/Xml/Wbxml/DtdManager.php" />
+   <install as="Horde/Xml/Wbxml/Encoder.php" name="lib/Horde/Xml/Wbxml/Encoder.php" />
+   <install as="Horde/Xml/Wbxml/HashTable.php" name="lib/Horde/Xml/Wbxml/HashTable.php" />
+   <install as="Horde/Xml/Wbxml/LifoQueue.php" name="lib/Horde/Xml/Wbxml/LifoQueue.php" />
+   <install as="Horde/Xml/Wbxml/Dtd/SyncMl.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMl.php" />
+   <install as="Horde/Xml/Wbxml/Dtd/SyncMlDevInf.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMlDevInf.php" />
+   <install as="Horde/Xml/Wbxml/Dtd/SyncMlMetInf.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMlMetInf.php" />
+   <install as="tests/Horde/Xml/Wbxml/decode.php" name="tests/Horde/Xml/Wbxml/decode.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-11-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a package
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5</release>
+    <api>0.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-09-21</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release working without external libwbxml support.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+ </changelog>
+</package>

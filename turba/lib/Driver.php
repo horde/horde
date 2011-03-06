@@ -953,8 +953,9 @@ class Turba_Driver implements Countable
      *
      * @param Turba_Object $object  Turba_Object.
      * @param string $version       The vcard version to produce.
-     * @param array $fields         Hash of field names and SyncML_Property
-     *                              properties with the requested fields.
+     * @param array $fields         Hash of field names and
+     *                              Horde_SyncMl_Property properties with the
+     *                              requested fields.
      * @param boolean $skipEmpty    Whether to skip empty fields.
      *
      * @return Horde_Icalendar_Vcard  A vcard object.

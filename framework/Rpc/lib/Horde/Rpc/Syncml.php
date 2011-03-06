@@ -1,8 +1,4 @@
 <?php
-
-require_once 'SyncML.php';
-require_once 'SyncML/Backend.php';
-
 /**
  * The Horde_Rpc_Syncml class provides a SyncML implementation of the Horde
  * RPC system.
@@ -46,10 +42,10 @@ class Horde_Rpc_Syncml extends Horde_Rpc
             'log_level' => 'DEBUG');
 
         /* Create the backend. */
-        $GLOBALS['backend'] = SyncML_Backend::factory('Horde', $backendparms);
+        $GLOBALS['backend'] = Horde_SyncMl_Backend::factory('Horde', $backendparms);
 
         /* Handle request. */
-        $h = new SyncML_ContentHandler();
+        $h = new Horde_SyncMl_ContentHandler();
         $response = $h->process(
             $request, $this->getResponseContentType(),
             Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/rpc.php',

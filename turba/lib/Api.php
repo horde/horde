@@ -731,8 +731,9 @@ class Turba_Api extends Horde_Registry_Api
      *                               array
      * @param string|array $sources The source(s) from which the contact will
      *                               be exported.
-     * @param array $fields          Hash of field names and SyncML_Property
-     *                               properties with the requested fields.
+     * @param array $fields          Hash of field names and
+     *                               Horde_SyncMl_Property properties with the
+     *                               requested fields.
      *
      * @return mixed  The requested data.
      * @throws Turba_Exception

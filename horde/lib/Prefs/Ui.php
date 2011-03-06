@@ -314,7 +314,7 @@ class Horde_Prefs_Ui
     protected function _syncmlManagement($ui)
     {
         Horde::addScriptFile('syncmlprefs.js', 'horde');
-        $devices = SyncML_Backend::factory('Horde')->getUserAnchors($GLOBALS['registry']->getAuth());
+        $devices = Horde_SyncMl_Backend::factory('Horde')->getUserAnchors($GLOBALS['registry']->getAuth());
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
@@ -680,7 +680,7 @@ class Horde_Prefs_Ui
      */
     protected function _updateSyncmlManagement($ui)
     {
-        $backend = SyncML_Backend::factory('Horde');
+        $backend = Horde_SyncMl_Backend::factory('Horde');
 
         if ($ui->vars->removedb && $ui->vars->removedevice) {
             $res = $backend->removeAnchor($GLOBALS['registry']->getAuth(), $ui->vars->removedevice, $ui->vars->removedb);
