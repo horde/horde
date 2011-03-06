@@ -133,6 +133,29 @@ implements Horde_Kolab_Storage_Data_Format
      */
     public function createEnvelope()
     {
-        return new Horde_Mime_Part();
+        $envelope = new Horde_Mime_Part();
+        $envelope->setName('Kolab Groupware Data');
+        $envelope->setType('multipart/mixed');
+        $description = new Horde_Mime_Part();
+        $description->setName('Kolab Groupware Information');
+        $description->setType('text/plain');
+        $description->setDisposition('inline');
+        $description->setCharset('utf-8');
+        $description->setContents(
+            Horde_String::wrap(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit %s"
+                    ),
+                    'http://www.kolab.org/kolab2-clients.html'
+                ),
+                76,
+                "\r\n"
+            )
+        );
+        $description->setTransferEncoding('quoted-printable');
+        $envelope->addPart($description);
+        $envelope->buildMimeIds();
+        return $envelope;
     }
 }

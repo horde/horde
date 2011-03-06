@@ -82,6 +82,72 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testEnvelopeName()
+    {
+        $this->assertEquals(
+            'Kolab Groupware Data',
+            $this->_getMime()->createEnvelope()->getName()
+        );
+    }
+
+    public function testEnvelopeType()
+    {
+        $this->assertEquals(
+            'multipart/mixed',
+            $this->_getMime()->createEnvelope()->getType()
+        );
+    }
+
+    public function testEnvelopeDescription()
+    {
+        $this->assertInstanceOf(
+            'Horde_Mime_Part',
+            $this->_getMime()->createEnvelope()->getPart('1')
+        );
+    }
+
+    public function testEnvelopeDescriptionType()
+    {
+        $this->assertEquals(
+            'text/plain',
+            $this->_getMime()->createEnvelope()->getPart('1')->getType()
+        );
+    }
+
+    public function testEnvelopeDescriptionName()
+    {
+        $this->assertEquals(
+            'Kolab Groupware Information',
+            $this->_getMime()->createEnvelope()->getPart('1')->getName()
+        );
+    }
+
+    public function testEnvelopeDescriptionCharset()
+    {
+        $this->assertEquals(
+            'utf-8',
+            $this->_getMime()->createEnvelope()->getPart('1')->getCharset()
+        );
+    }
+
+    public function testEnvelopeDescriptionDisposition()
+    {
+        $this->assertEquals(
+            'inline',
+            $this->_getMime()->createEnvelope()->getPart('1')->getDisposition()
+        );
+    }
+
+    public function testEnvelopeDescriptionContent()
+    {
+        $this->assertEquals(
+            "This is a Kolab Groupware object. To view this object you will need an email\r
+client that understands the Kolab Groupware format. For a list of such email\r
+clients please visit http://www.kolab.org/kolab2-clients.html",
+            $this->_getMime()->createEnvelope()->getPart('1')->getContents()
+        );
+    }
+
     private function _getMime()
     {
         $this->parser = $this->getMock('Horde_Kolab_Storage_Data_Parser_Structure', array('fetchId'), array(), '', false, false);

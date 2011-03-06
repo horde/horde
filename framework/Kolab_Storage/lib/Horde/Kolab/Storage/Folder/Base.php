@@ -880,29 +880,6 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
-     * Prepares a new kolab Groupeware message.
-     *
-     * @return string The Mime message
-     */
-    function _prepareNewMessage()
-    {
-        $mime_message = new Horde_Mime_Part();
-        $mime_message->setName('Kolab Groupware Data');
-        $mime_message->setType('multipart/mixed');
-        $kolab_text = sprintf(_("This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit %s"),
-                              'http://www.kolab.org/kolab2-clients.html');
-        $part = new Horde_Mime_Part();
-        $part->setType('text/plain');
-        $part->setName('Kolab Groupware Information');
-        $part->setContents(Horde_String::wrap($kolab_text, 76, "\r\n"));
-        $part->setCharset('UTF-8');
-
-        $part->setTransferEncoding('quoted-printable');
-        $mime_message->addPart($part);
-        return $mime_message;
-    }
-
-    /**
      * Get annotation values on IMAP servers that do not support
      * METADATA.
      *
