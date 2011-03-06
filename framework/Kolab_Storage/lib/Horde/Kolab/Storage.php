@@ -50,6 +50,9 @@
  */
 interface Horde_Kolab_Storage
 {
+    /** The package version */
+    const VERSION = '@version@';
+
     /**
      * Get the folder list object.
      *

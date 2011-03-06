@@ -178,7 +178,9 @@
        </file>
        <file name="Uncached.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Storage -->
-      <file name="Storage.php" role="php" />
+      <file name="Storage.php" role="php">
+       <tasks:replace from="@version@" to="version" type="package-info" />
+      </file>
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
