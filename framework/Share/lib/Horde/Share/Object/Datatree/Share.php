@@ -1,4 +1,7 @@
 <?php
+
+require_once 'Horde/DataTree.php';
+
 /**
  * Extension of the DataTreeObject class for storing Share information in the
  * DataTree driver. If you want to store specialized Share information, you
