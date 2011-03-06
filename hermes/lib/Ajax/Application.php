@@ -57,6 +57,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $id = $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($employee, $slice);
             $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $id));
+            $GLOBALS['notification']->push(_("Your time was successfully entered."), 'horde.success');
             return current($new)->toJson();
 
         } catch (Hermes_Exception $e) {
@@ -85,7 +86,9 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $sid = array('id' => $this->_vars->id, 'delete' => true);
         try {
-            return $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($sid));
+            $result = $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($sid));
+            $GLOBALS['notification']->push(_("Your time entry was successfully deleted."), 'horde.success');
+            return $result;
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }
@@ -104,6 +107,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
             $GLOBALS['notification']->push($e, 'horde.error');
         }
         $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
+        $GLOBALS['notification']->push(_("Your time was successfully updated."), 'horde.success');
         return current($new)->toJson();
     }
 
@@ -123,7 +127,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
         }
-
+        $GLOBALS['notification']->push(_("Your time was successfully sumbmitted."), 'horde.success');
         return true;
     }
 
