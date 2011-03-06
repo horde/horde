@@ -143,6 +143,27 @@ implements Horde_Kolab_Storage_Data_Format
     }
 
     /**
+     * Generate the headers for the MIME envelope of a Kolab groupware object.
+     *
+     * @param string $uid The object uid.
+     *
+     * @return Horde_Mime_Headers The headers for the MIME envelope.
+     */
+    public function createEnvelopeHeaders($uid, $user, $type)
+    {
+        $headers = new Horde_Mime_Headers();
+        $headers->setEOL("\r\n");
+        $headers->addHeader('Date', date('r'));
+        $headers->addHeader('User-Agent', 'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION);
+        $headers->addHeader('MIME-Version', '1.0');
+        $headers->addHeader('Subject', $uid);
+        $headers->addHeader('From', $user);
+        $headers->addHeader('To', $user);
+        $headers->addHeader('X-Kolab-Type', $this->getMimeType($type));
+        return $headers;
+    }
+
+    /**
      * Generate a new MIME envelope for a Kolab groupware object.
      *
      * @return Horde_Mime_Part The new MIME envelope.
@@ -176,23 +197,28 @@ implements Horde_Kolab_Storage_Data_Format
     }
 
     /**
-     * Generate the headers for the MIME envelope of a Kolab groupware object.
+     * Generate a new MIME part for a Kolab groupware object.
      *
-     * @param string $uid The object uid.
+     * @param array $object  The data that should be saved.
+     * @param array $options Additional options for saving the data.
      *
-     * @return Horde_Mime_Headers The headers for the MIME envelope.
+     * @return Horde_Mime_Part The new MIME envelope.
      */
-    public function createEnvelopeHeaders($uid, $user, $type)
+    public function createKolabPart($object, array $options)
     {
-        $headers = new Horde_Mime_Headers();
-        $headers->setEOL("\r\n");
-        $headers->addHeader('Date', date('r'));
-        $headers->addHeader('User-Agent', 'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION);
-        $headers->addHeader('MIME-Version', '1.0');
-        $headers->addHeader('Subject', $uid);
-        $headers->addHeader('From', $user);
-        $headers->addHeader('To', $user);
-        $headers->addHeader('X-Kolab-Type', $this->getMimeType($type));
-        return $headers;
+        $kolab = new Horde_Mime_Part();
+        $kolab->setType($this->getMimeType($options['type']));
+        $kolab->setContents(
+            $this->_factory
+            ->createFormat('Xml', $options['type'], $options['version'])
+            ->save($object)
+        );
+        $kolab->setCharset('utf-8');
+        $kolab->setTransferEncoding('quoted-printable');
+        $kolab->setDisposition('inline');
+        $kolab->setDispositionParameter('x-kolab-type', 'xml');
+        $kolab->setName('kolab.xml');
+        return $kolab;
     }
+
 }

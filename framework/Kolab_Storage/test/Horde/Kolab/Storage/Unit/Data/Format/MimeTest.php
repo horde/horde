@@ -220,6 +220,61 @@ clients please visit http://www.kolab.org/kolab2-clients.html",
         );
     }
 
+    public function testKolabType()
+    {
+        $this->assertEquals(
+            'application/x-vnd.kolab.note',
+            $this->_getMime()->createKolabPart(
+                array('uid' => 'A', 'desc' => 'SUMMARY'),
+                array('type' => 'note', 'version' => '1')
+            )->getType()
+        );
+    }
+
+    public function testKolabCharset()
+    {
+        $this->assertEquals(
+            'utf-8',
+            $this->_getMime()->createKolabPart(
+                array('uid' => 'A', 'desc' => 'SUMMARY'),
+                array('type' => 'note', 'version' => '1')
+            )->getCharset()
+        );
+    }
+
+    public function testKolabDisposition()
+    {
+        $this->assertEquals(
+            'inline',
+            $this->_getMime()->createKolabPart(
+                array('uid' => 'A', 'desc' => 'SUMMARY'),
+                array('type' => 'note', 'version' => '1')
+            )->getDisposition()
+        );
+    }
+
+    public function testKolabName()
+    {
+        $this->assertEquals(
+            'kolab.xml',
+            $this->_getMime()->createKolabPart(
+                array('uid' => 'A', 'desc' => 'SUMMARY'),
+                array('type' => 'note', 'version' => '1')
+            )->getName()
+        );
+    }
+
+    public function testKolabContent()
+    {
+        $this->assertContains(
+            '<uid>A</uid>',
+            $this->_getMime()->createKolabPart(
+                array('uid' => 'A', 'desc' => 'SUMMARY'),
+                array('type' => 'note', 'version' => '1')
+            )->getContents()
+        );
+    }
+
     private function _getMime()
     {
         $this->parser = $this->getMock('Horde_Kolab_Storage_Data_Parser_Structure', array('fetchId'), array(), '', false, false);
