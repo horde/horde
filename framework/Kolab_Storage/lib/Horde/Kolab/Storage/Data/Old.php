@@ -131,80 +131,6 @@ class Horde_Kolab_Storage_Data_Old
     }
 
     /**
-     * Returns the properties that need to be serialized.
-     *
-     * @return array List of serializable properties.
-     */
-    public function __sleep()
-    {
-        $properties = get_object_vars($this);
-        unset($properties['_cache'], $properties['_folder']);
-        $properties = array_keys($properties);
-        return $properties;
-    }
-
-    /**
-     * Set the folder handler for this data instance.
-     *
-     * @param Kolab_Folder $folder The handler for the folder.
-     *
-     * @return NULL
-     */
-    public function setFolder($folder)
-    {
-        $this->_folder    = $folder;
-        $this->_cache_key = $this->getCacheKey();
-    }
-
-    /**
-     * Set the folder handler for this data instance.
-     *
-     * @param Kolab_Folder &$folder The handler for the folder.
-     *
-     * @return NULL
-     */
-    public function setCache($cache)
-    {
-        $this->_cache = $cache;
-    }
-
-    /**
-     * Expire the cache.
-     *
-     * @return NULL
-     */
-    public function expireCache()
-    {
-        $this->_cache->load($this->_cache_key, $this->_data_version);
-        $this->_cache->expire();
-    }
-
-    /**
-     * Return a unique key for the current folder.
-     *
-     * @return string A key that represents the current folder.
-     */
-    public function getCacheKey()
-    {
-        if ($this->_cache_cyrus_optimize) {
-            $search_prefix = 'INBOX/';
-
-            $pos = strpos($this->_folder->name, $search_prefix);
-            if ($pos !== false && $pos == 0) {
-                $key = 'user/' . $GLOBALS['registry']->getAuth('bare') . '/'
-                           . substr($this->_folder->name,
-                                    strlen($search_prefix))
-                           . $this->_type_key;
-            } else {
-                $key = $this->_folder->name;
-            }
-        } else {
-            $key = $this->_folder->getOwner() . '/' . $this->_folder->name;
-        }
-        return $key;
-    }
-
-    /**
      * Delete the specified message from this folder.
      *
      * @param string $object_uid Id of the message to be deleted.
@@ -498,82 +424,6 @@ class Horde_Kolab_Storage_Data_Old
 
 
     /**
-     * Check if the folder has changed and the cache needs to be updated.
-     *
-     * @param string $validity ID validity of the folder.
-     * @param string $nextid   next ID for the folder.
-     * @param array  &$old_ids Old list of IDs in the folder.
-     * @param array  &$new_ids New list of IDs in the folder.
-     *
-     * @return mixed True or an array of deleted IDs if the
-     *               folder changed and false otherwise.
-     */
-    private function _folderChanged($validity, $nextid, &$old_ids, &$new_ids)
-    {
-        $changed    = false;
-        $reset_done = false;
-
-        // uidvalidity changed?
-        if ($validity != $this->_cache->validity) {
-            $this->_cache->reset();
-            $reset_done = true;
-        }
-
-        // nextid changed?
-        if ($nextid != $this->_cache->nextid) {
-            $changed = true;
-        }
-
-        $this->_cache->validity = $validity;
-        $this->_cache->nextid   = $nextid;
-
-        if ($reset_done) {
-            return true;
-        }
-
-        // Speed optimization: if nextid and validity didn't change
-        // and count(old_ids) == count(new_ids), the folder didn't change.
-        if ($changed || count($old_ids) != count($new_ids)) {
-            // remove deleted messages from cache
-            $delete_ids   = array_diff($old_ids, $new_ids);
-            $deleted_oids = array();
-            foreach ($delete_ids as $delete_id) {
-                $object_id = $this->_cache->uids[$delete_id];
-                if ($object_id !== false) {
-                    unset($this->_cache->objects[$object_id]);
-                    $deleted_oids[] = $object_id;
-                }
-                unset($this->_cache->uids[$delete_id]);
-            }
-            if (!empty($deleted_oids)) {
-                $changed = $deleted_oids;
-            } else {
-                $changed = true;
-            }
-        }
-        return $changed;
-    }
-
-    /**
-     * Return the IMAP ID for the given object ID.
-     *
-     * @param string $object_uid The object ID.
-     *
-     * @return int The IMAP ID.
-     */
-    public function getStorageId($object_uid)
-    {
-        $this->_cache->load($this->_cache_key, $this->_data_version);
-
-        $id = array_search($object_uid, $this->_cache->uids);
-        if ($id === false) {
-            return false;
-        }
-
-        return $id;
-    }
-
-    /**
      * Test if the storage ID exists.
      *
      * @param int $uid The storage ID.
@@ -602,37 +452,6 @@ class Horde_Kolab_Storage_Data_Old
     }
 
     /**
-     * Check if the given id exists.
-     *
-     * @param string $uid The object id.
-     *
-     * @return boolean True if the id was found, false otherwise.
-     */
-    public function objectUidExists($uid)
-    {
-        $this->_cache->load($this->_cache_key, $this->_data_version);
-
-        return array_key_exists($uid, $this->_cache->objects);
-    }
-
-    /**
-     * Return the specified object.
-     *
-     * @param string $object_id The object id.
-     *
-     * @return array|PEAR_Error The object data as an array.
-     */
-    public function getObject($object_id)
-    {
-        $this->_cache->load($this->_cache_key, $this->_data_version);
-
-        if (!isset($this->_cache->objects[$object_id])) {
-            throw new Horde_Kolab_Storage_Exception(sprintf(Horde_Kolab_Storage_Translation::t("Kolab cache: Object uid %s does not exist in the cache!"), $object_id));
-        }
-        return $this->_cache->objects[$object_id];
-    }
-
-    /**
      * Return the specified attachment.
      *
      * @param string $attachment_id The attachment id.
@@ -644,30 +463,6 @@ class Horde_Kolab_Storage_Data_Old
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
         return $this->_cache->loadAttachment($attachment_id);
-    }
-
-    /**
-     * Retrieve all object ids in the current folder.
-     *
-     * @return array  The object ids.
-     */
-    public function getObjectIds()
-    {
-        $this->_cache->load($this->_cache_key, $this->_data_version);
-
-        return array_keys($this->_cache->objects);
-    }
-
-    /**
-     * Retrieve all objects in the current folder.
-     *
-     * @return array  All object data arrays.
-     */
-    public function getObjects()
-    {
-        $this->_cache->load($this->_cache_key, $this->_data_version);
-
-        return array_values($this->_cache->objects);
     }
 
     /**
