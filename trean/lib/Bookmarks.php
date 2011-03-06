@@ -631,7 +631,7 @@ class Trean_Bookmarks
             // If the user has any group memberships, check for those also.
             $groups = $GLOBALS['injector']
                 ->getInstance('Horde_Group')
-                ->getGroups($userid);
+                ->listGroups($userid);
             if (is_array($groups) && count($groups)) {
                 // (name == perm_groups and key in ($groups) and val & $perm)
                 $criteria['OR'][] = array(
