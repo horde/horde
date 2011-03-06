@@ -75,6 +75,13 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals('libkcal-543769073.139', $object['uid']);
     }
 
+    public function testMimeEnvelope()
+    {
+        $this->assertInstanceOf(
+            'Horde_Mime_Part', $this->_getMime()->createEnvelope()
+        );
+    }
+
     private function _getMime()
     {
         $this->parser = $this->getMock('Horde_Kolab_Storage_Data_Parser_Structure', array('fetchId'), array(), '', false, false);

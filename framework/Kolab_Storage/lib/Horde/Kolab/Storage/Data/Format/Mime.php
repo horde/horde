@@ -58,7 +58,6 @@ implements Horde_Kolab_Storage_Data_Format
         $this->_structure = $structure;
     }
     
-
     /**
      * Parses the objects for the specified backend IDs.
      *
@@ -127,4 +126,13 @@ implements Horde_Kolab_Storage_Data_Format
         }
     }
 
+    /**
+     * Generate a new MIME envelope for a Kolab groupware object.
+     *
+     * @return Horde_Mime_Part The new MIME envelope.
+     */
+    public function createEnvelope()
+    {
+        return new Horde_Mime_Part();
+    }
 }
