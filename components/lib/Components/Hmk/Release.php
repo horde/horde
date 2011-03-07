@@ -30,16 +30,24 @@ extends Components_Hmk_Base
 {
     public function getUsage()
     {
-        return "
+        return '
 
-DO";
+Action "release"
+
+  Release this module on pear.horde.org.
+
+Action "testrelease"
+
+  Test the module release on peartest.horde.org.
+';
     }
 
     public function handle(Components_Config $config)
     {
-        $options = $config->getOptions();
-        if (!empty($options['release'])) {
-            $this->requirePackageXml($config->getPackageDirectory());
+        $arguments = $config->getArguments();
+        if ($arguments[1] == 'release') {
+            $config->setOption('releaseserver', '');
+            $config->setOption('releasedir', '');
             $this->_dependencies->getRunnerRelease()->run();
         }
     }
