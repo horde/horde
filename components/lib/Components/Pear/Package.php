@@ -161,6 +161,18 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the package.xml handler.
+     *
+     * @return Horde_Pear_Package_Xml
+     */
+    private function _getPackageXml()
+    {
+        return $this->_factory->getPackageXml(
+            $this->_package_xml_path
+        );
+    }
+
+    /**
      * Return the PEAR Package representation.
      *
      * @return PEAR_PackageFile
@@ -352,7 +364,7 @@ class Components_Pear_Package
      *
      * @return NULL
      */
-    public function updatePackageFile($action)
+    public function updatePackageFile($action = 'update')
     {
         switch($action) {
         case 'print':
@@ -449,6 +461,8 @@ class Components_Pear_Package
      */
     public function generateRelease()
     {
+        $pkg = $this->updatePackageFile();
+
         $pkg = $this->_getPackageFile();
         $pkg->setLogger($this->_output);
         $errors = array();

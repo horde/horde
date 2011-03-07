@@ -200,6 +200,18 @@ class Components_Pear_Factory
     }
 
     /**
+     * Return the package.xml handler.
+     *
+     * @param string                          $package_xml_path Path to the package.xml file.
+     *
+     * @return Horde_Pear_Package_Xml
+     */
+    public function getPackageXml($package_xml_path)
+    {
+        return new Horde_Pear_Package_Xml(fopen($package_xml_path, 'r'));
+    }
+
+    /**
      * Return the PEAR Package representation based on a local *.tgz archive.
      *
      * @param string                          $package_tgz_path Path to the *.tgz file.
