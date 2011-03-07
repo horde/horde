@@ -863,40 +863,6 @@ foreach ($subject_lines as $val) {
     print "  BASE: \"" . $imap_utils->getBaseSubject($val) . "\"\n\n";
 }
 
-$urls = array(
-    'NOT A VALID URL',
-    'test.example.com/',
-    'test.example.com:143/',
-    'testuser@test.example.com/',
-    'testuser@test.example.com:143/',
-    ';AUTH=PLAIN@test.example.com/',
-    ';AUTH=PLAIN@test.example.com:143/',
-    ';AUTH=*@test.example.com:143/',
-    'testuser;AUTH=*@test.example.com:143/',
-    'testuser;AUTH=PLAIN@test.example.com:143/'
-);
-
-$url_types = array(
-    'pop' => 'RFC 2384 URL parsing',
-    'imap' => 'RFC 5092 URL parsing'
-);
-
-foreach ($url_types as $type => $label) {
-    print "\n" . $label . ":\n";
-    foreach ($urls as $val) {
-        $val = $type . '://' . $val;
-        print "URL: " . $val . "\n";
-        print "PARSED:\n";
-        $parseurl = $imap_utils->parseUrl($val);
-        if ($parseurl === false) {
-            print "INVALID URL\n";
-        } else {
-            print_r($parseurl);
-        }
-        print "\n";
-    }
-}
-
 if (isset($fetch_res)) {
     print "\nTesting Horde_Mime_Part::parseMessage() on complex MIME message:\n";
     $parse_text_res = Horde_Mime_Part::parseMessage(file_get_contents($currdir . '/test_email2.txt'));
