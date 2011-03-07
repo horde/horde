@@ -83,7 +83,7 @@
  *    20070101203040xxa@mypc.org has id 768 in the client device is valid for
  *    the database "tasks", not for "tasks?somesillyoptions". So what you
  *    normally do is calling some kind of <code>$database =
- *    $this->_normalize($databaseURI)</cod> in every backend method that deals
+ *    $this->normalize($databaseURI)</cod> in every backend method that deals
  *    with databaseURIs and use $database afterwards. However actual usage of
  *    options is up to the backend implementation. SyncML works fine without.
  *
@@ -444,7 +444,7 @@ class Horde_SyncMl_Backend
      */
     public function isValidDatabaseURI($databaseURI)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         switch($database) {
         case 'tasks':
@@ -999,7 +999,7 @@ class Horde_SyncMl_Backend
      *
      * @return string  The normalized database name.
      */
-    protected function _normalize($databaseURI)
+    public function normalize($databaseURI)
     {
         $database = Horde_String::lower(
             basename(preg_replace('|\?.*$|', '', $databaseURI)));

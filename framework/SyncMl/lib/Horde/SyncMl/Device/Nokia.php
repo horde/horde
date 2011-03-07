@@ -62,7 +62,7 @@ class Horde_SyncMl_Device_Nokia extends Horde_SyncMl_Device
      */
     public function convertServer2Client($content, $contentType, $database)
     {
-        $database = $GLOBALS['backend']->_normalize($database);
+        $database = $GLOBALS['backend']->normalize($database);
 
         list($content, $contentType, $encodingType) =
             parent::convertServer2Client($content, $contentType, $database);

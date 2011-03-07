@@ -242,13 +242,13 @@ class Horde_SyncMl_Sync
 
         if (($item->contentType == 'text/calendar' ||
              $item->contentType == 'text/x-vcalendar') &&
-            $backend->_normalize($database) == 'calendar' &&
+            $backend->normalize($database) == 'calendar' &&
             $device->handleTasksInCalendar()) {
             $tasksincalendar = true;
             /* Check if the client sends us a vtodo in a calendar sync. */
             if (preg_match('/(\r\n|\r|\n)BEGIN[^:]*:VTODO/',
                            "\n" . $content)) {
-                $hordedatabase = $this->_taskToCalendar($backend->_normalize($database));
+                $hordedatabase = $this->_taskToCalendar($backend->normalize($database));
              }
         } else {
             $tasksincalendar = false;
@@ -291,7 +291,7 @@ class Horde_SyncMl_Sync
             if (!$ok && $tasksincalendar) {
                 $backend->logMessage(
                     'Task ' . $cuid . ' deletion sent with calendar request', 'DEBUG');
-                $ok = $backend->deleteEntry($this->_taskToCalendar($backend->_normalize($database)), $cuid);
+                $ok = $backend->deleteEntry($this->_taskToCalendar($backend->normalize($database)), $cuid);
             }
 
             if ($ok) {
@@ -401,7 +401,7 @@ class Horde_SyncMl_Sync
 
             /* If tasks are handled inside calendar, do the same again for
              * tasks. Merge resulting arrays. */
-            if ($backend->_normalize($this->_targetLocURI) == 'calendar' &&
+            if ($backend->normalize($this->_targetLocURI) == 'calendar' &&
                 $device->handleTasksInCalendar()) {
                 $this->_server_task_adds = $deletes2 = $replaces2 = array();
                 $result = $this->_retrieveChanges('tasks',
@@ -744,10 +744,10 @@ class Horde_SyncMl_Sync
     {
         $device = $GLOBALS['backend']->state->getDevice();
 
-        if ($GLOBALS['backend']->_normalize($databaseURI) == 'calendar' &&
+        if ($GLOBALS['backend']->normalize($databaseURI) == 'calendar' &&
             $device->handleTasksInCalendar() &&
             isset($this->_server_task_adds[$suid])) {
-            $db = $this->_taskToCalendar($GLOBALS['backend']->_normalize($databaseURI));
+            $db = $this->_taskToCalendar($GLOBALS['backend']->normalize($databaseURI));
         } else {
             $db = $databaseURI;
         }

@@ -17,7 +17,7 @@ getResponse:
 
 First, XML_WBXML_ContentHandler is installed as an output content handler:
 
-$this->_output = new XML_WBXML_ContentHandler();
+$this->output = new XML_WBXML_ContentHandler();
 
 Despite the name, this class has (almost) nothing to do with WBXML.
 It's a helper to produce xml. To do this, it has 4 main methods:
@@ -37,7 +37,7 @@ $this->_parse($request);
 
 do do the actual parsing and output creation and then finally
 
-$xmlinput = $this->_output->getOutput();
+$xmlinput = $this->output->getOutput();
 
 to retrieve the created output from the content handler.
 The name $xmlinput is misleading, it should be called xmloutput instead.
@@ -55,7 +55,7 @@ the input as well as for creation of the output.
 This can be somewhat confusing. As a rule of thumb, code that produces xml
 output contains reference to an output var and looks like this:
 
-$this->_output->startElement(...);
+$this->output->startElement(...);
 
 After the XML parser is istalled, it is fired and the execution takes place
 in the element handler functions.

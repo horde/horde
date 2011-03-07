@@ -102,7 +102,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         global $registry;
 
         $adds = $mods = $dels = array();
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
         $slowsync = $from_ts == 0;
 
         // Handle additions:
@@ -299,7 +299,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     public function retrieveEntry($databaseURI, $suid, $contentType, $fields)
     {
         return $GLOBALS['registry']->call(
-            $this->_normalize($databaseURI) . '/export',
+            $this->normalize($databaseURI) . '/export',
             array('guid' => $suid, 'contentType' => $contentType, 'dummy' => null, 'fields' => $fields));
     }
 
@@ -320,7 +320,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     {
         global $registry;
 
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $suid = $registry->call(
             $database . '/import',
@@ -378,7 +378,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     {
         global $registry;
 
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         // Only server needs to do a cuid<->suid map
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
@@ -427,7 +427,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     {
         global $registry;
 
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
         // Find server ID for this entry:
         // Only server needs to do a cuid<->suid map
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
@@ -512,7 +512,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     public function writeSyncAnchors($databaseURI, $clientAnchorNext,
                               $serverAnchorNext)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         if (!$this->readSyncAnchors($databaseURI)) {
             $query = 'INSERT INTO horde_syncml_anchors '
@@ -549,7 +549,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     public function readSyncAnchors($databaseURI)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $query = 'SELECT syncml_clientanchor, syncml_serveranchor '
             . 'FROM horde_syncml_anchors '
@@ -654,7 +654,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     public function createUidMap($databaseURI, $cuid, $suid, $timestamp = 0)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         // Check if entry exists. If not insert, otherwise update.
         if (!$this->_getSuid($databaseURI, $cuid)) {
@@ -695,7 +695,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     protected function _getSuid($databaseURI, $cuid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $query = 'SELECT syncml_suid FROM horde_syncml_map '
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
@@ -725,7 +725,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     protected function _getCuid($databaseURI, $suid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $query = 'SELECT syncml_cuid FROM horde_syncml_map '
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
@@ -765,7 +765,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     protected function _getChangeTS($databaseURI, $suid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $query = 'SELECT syncml_timestamp FROM horde_syncml_map '
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
@@ -795,7 +795,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     public function eraseMap($databaseURI)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $query = 'DELETE FROM horde_syncml_map '
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '

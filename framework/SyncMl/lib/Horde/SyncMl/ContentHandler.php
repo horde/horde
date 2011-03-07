@@ -354,8 +354,8 @@ class Horde_SyncMl_ContentHandler
         if (is_object($this->_wbxmlparser)) {
             /* The WBXML parser only knows about the charset once parsing is
              * started. So setup charset now. */
-            $this->_xmlWriter->_output->setVersion($this->_wbxmlparser->getVersion());
-            $this->_xmlWriter->_output->setCharset($this->_wbxmlparser->getCharsetStr());
+            $this->_xmlWriter->output->setVersion($this->_wbxmlparser->getVersion());
+            $this->_xmlWriter->output->setCharset($this->_wbxmlparser->getCharsetStr());
             $GLOBALS['backend']->setCharset($this->_wbxmlparser->getCharsetStr());
         }
 

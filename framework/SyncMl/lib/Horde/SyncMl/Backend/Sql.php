@@ -90,7 +90,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
     {
         parent::__construct($params);
 
-        $this ->_db = &MDB2::connect($params['dsn']);
+        $this->_db = &MDB2::connect($params['dsn']);
         if (is_a($this->_db, 'PEAR_Error')) {
             $this->logMessage($this->_db, 'ERR');
         }
@@ -108,7 +108,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function isValidDatabaseURI($databaseURI)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         switch($database) {
         case 'tasks';
@@ -146,7 +146,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
     public function getServerChanges($databaseURI, $from_ts, $to_ts, &$adds, &$mods,
                               &$dels)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
         $adds = $mods = $dels = array();
 
         // Handle additions:
@@ -272,7 +272,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function retrieveEntry($databaseURI, $suid, $contentType, $fields)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         return $this->_db->queryOne(
             'SELECT syncml_data from syncml_data '
@@ -299,7 +299,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function addEntry($databaseURI, $content, $contentType, $cuid = null)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         // Generate an id (suid). It's also possible to use a database
         // generated primary key here.
@@ -343,7 +343,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function replaceEntry($databaseURI, $content, $contentType, $cuid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
             $suid = $this->_getSuid($databaseURI, $cuid);
@@ -396,7 +396,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function deleteEntry($databaseURI, $cuid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         // Find ID for this entry:
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
@@ -507,7 +507,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
     public function writeSyncAnchors($databaseURI, $clientAnchorNext,
                               $serverAnchorNext)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         // Check if entry exists. If not insert, otherwise update.
         if (!$this->readSyncAnchors($databaseURI)) {
@@ -556,7 +556,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function readSyncAnchors($databaseURI)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $r = $this->_db->queryRow(
             'SELECT syncml_clientanchor, syncml_serveranchor '
@@ -596,7 +596,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function createUidMap($databaseURI, $cuid, $suid, $timestamp = 0)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         // Check if entry exists. If not insert, otherwise update.
         if (!$this->_getSuid($databaseURI, $cuid)) {
@@ -646,7 +646,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     protected function _getSuid($databaseURI, $cuid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $r = $this->_db->queryOne(
             'SELECT syncml_suid FROM syncml_map '
@@ -680,7 +680,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     protected function _getCuid($databaseURI, $suid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $r = $this->_db->queryOne(
             'SELECT syncml_cuid FROM syncml_map '
@@ -725,7 +725,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     protected function _getChangeTS($databaseURI, $suid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $r = $this->_db->queryOne(
             'SELECT syncml_timestamp FROM syncml_map '
@@ -759,7 +759,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function eraseMap($databaseURI)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $r = $this->_db->exec(
             'DELETE FROM syncml_map '
@@ -842,7 +842,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     protected function _trackDeletes($databaseURI, $currentSuids)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
         if (!is_array($currentSuids)) {
             $currentSuids = array();
         }
@@ -922,7 +922,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     protected function _removeFromSuidList($databaseURI, $suid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $this->logMessage('_removeFromSuidList(): item ' . $suid, 'DEBUG');
         $r = $this->_db->queryCol(
@@ -1015,7 +1015,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function addEntry_backend($user, $databaseURI, $content, $contentType)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         // Generate an id (suid). It's also possible to use a database
         // generated primary key here. */
@@ -1061,7 +1061,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
     public function replaceEntry_backend($user, $databaseURI, $content, $contentType,
                                   $suid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
         $modified_ts = $this->getCurrentTimeStamp();
 
         // Entry exists: replace current one.
@@ -1103,7 +1103,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      */
     public function deleteEntry_backend($user, $databaseURI, $suid)
     {
-        $database = $this->_normalize($databaseURI);
+        $database = $this->normalize($databaseURI);
 
         $r = $this->_db->queryOne(
             'DELETE FROM syncml_data '

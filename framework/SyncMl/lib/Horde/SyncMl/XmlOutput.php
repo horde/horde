@@ -30,7 +30,7 @@ class Horde_SyncMl_XmlOutput
      *  The outputhandler to whom the XML is passed: like
      *  Horde_Xml_Wbxml_Encoder
      */
-    protected $_output;
+    public $output;
 
     protected $_uri;
 
@@ -40,7 +40,7 @@ class Horde_SyncMl_XmlOutput
      */
     public function getOutput()
     {
-        return $this->_output->getOutput();
+        return $this->output->getOutput();
     }
 
     /**
@@ -49,7 +49,7 @@ class Horde_SyncMl_XmlOutput
      */
     public function getOutputSize()
     {
-        return $this->_output->getOutputSize();
+        return $this->output->getOutputSize();
     }
 
     /**
@@ -57,7 +57,7 @@ class Horde_SyncMl_XmlOutput
      */
     public function isWBXML()
     {
-        return is_a($this->_output, 'Horde_Xml_Wbxml_Encoder');
+        return is_a($this->output, 'Horde_Xml_Wbxml_Encoder');
     }
 
     public function &singleton()
@@ -71,7 +71,7 @@ class Horde_SyncMl_XmlOutput
 
     public function init(&$theoutputhandler)
     {
-        $this->_output = $theoutputhandler;
+        $this->output = $theoutputhandler;
         $this->_msg_CmdID = 1;
 
     }
@@ -89,95 +89,95 @@ class Horde_SyncMl_XmlOutput
 
         $this->_uriMeta = $state->uriMeta;
 
-        $this->_output->startElement($this->_uri, 'SyncHdr');
+        $this->output->startElement($this->_uri, 'SyncHdr');
 
-        $this->_output->startElement($this->_uri, 'VerDTD');
+        $this->output->startElement($this->_uri, 'VerDTD');
         $chars = $state->getVerDTD();
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uri, 'VerDTD');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uri, 'VerDTD');
 
-        $this->_output->startElement($this->_uri, 'VerProto');
+        $this->output->startElement($this->_uri, 'VerProto');
         $chars = $state->getProtocolName();
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uri, 'VerProto');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uri, 'VerProto');
 
-        $this->_output->startElement($this->_uri, 'SessionID');
-        $this->_output->characters($state->sessionID);
-        $this->_output->endElement($this->_uri, 'SessionID');
+        $this->output->startElement($this->_uri, 'SessionID');
+        $this->output->characters($state->sessionID);
+        $this->output->endElement($this->_uri, 'SessionID');
 
-        $this->_output->startElement($this->_uri, 'MsgID');
-        $this->_output->characters($state->messageID);
-        $this->_output->endElement($this->_uri, 'MsgID');
+        $this->output->startElement($this->_uri, 'MsgID');
+        $this->output->characters($state->messageID);
+        $this->output->endElement($this->_uri, 'MsgID');
 
-        $this->_output->startElement($this->_uri, 'Target');
-        $this->_output->startElement($this->_uri, 'LocURI');
+        $this->output->startElement($this->_uri, 'Target');
+        $this->output->startElement($this->_uri, 'LocURI');
         // Source URI sent from client is Target for the server
-        $this->_output->characters($state->sourceURI);
-        $this->_output->endElement($this->_uri, 'LocURI');
+        $this->output->characters($state->sourceURI);
+        $this->output->endElement($this->_uri, 'LocURI');
         if ($state->user) {
-            $this->_output->startElement($this->_uri, 'LocName');
-            $this->_output->characters($state->user);
-            $this->_output->endElement($this->_uri, 'LocName');
+            $this->output->startElement($this->_uri, 'LocName');
+            $this->output->characters($state->user);
+            $this->output->endElement($this->_uri, 'LocName');
         }
-        $this->_output->endElement($this->_uri, 'Target');
+        $this->output->endElement($this->_uri, 'Target');
 
-        $this->_output->startElement($this->_uri, 'Source');
-        $this->_output->startElement($this->_uri, 'LocURI');
+        $this->output->startElement($this->_uri, 'Source');
+        $this->output->startElement($this->_uri, 'LocURI');
         // Target URI sent from client is Source for the server
-        $this->_output->characters($state->targetURI);
-        $this->_output->endElement($this->_uri, 'LocURI');
-        $this->_output->endElement($this->_uri, 'Source');
+        $this->output->characters($state->targetURI);
+        $this->output->endElement($this->_uri, 'LocURI');
+        $this->output->endElement($this->_uri, 'Source');
 
         if ($respURI) {
-            $this->_output->startElement($this->_uri, 'RespURI');
-            $this->_output->characters($respURI);
-            $this->_output->endElement($this->_uri, 'RespURI');
+            $this->output->startElement($this->_uri, 'RespURI');
+            $this->output->characters($respURI);
+            $this->output->endElement($this->_uri, 'RespURI');
         }
 
         // @Todo: omit this in SyncML1.0?
-        $this->_output->startElement($this->_uri, 'Meta');
+        $this->output->startElement($this->_uri, 'Meta');
 
         // Dummy Max MsqSize, this is just put in to make the packet
         // work, it is not a real value.
-        $this->_output->startElement($this->_uriMeta, 'MaxMsgSize');
+        $this->output->startElement($this->_uriMeta, 'MaxMsgSize');
         $chars = Horde_SycnMl::SERVER_MAXMSGSIZE; // 1Meg
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uriMeta, 'MaxMsgSize');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uriMeta, 'MaxMsgSize');
 
 
         // MaxObjSize, required by protocol for SyncML1.1 and higher.
         if ($state->version > 0) {
-            $this->_output->startElement($this->_uriMeta, 'MaxObjSize');
-            $this->_output->characters(Horde_SycnMl::SERVER_MAXOBJSIZE);
-            $this->_output->endElement($this->_uriMeta, 'MaxObjSize');
+            $this->output->startElement($this->_uriMeta, 'MaxObjSize');
+            $this->output->characters(Horde_SycnMl::SERVER_MAXOBJSIZE);
+            $this->output->endElement($this->_uriMeta, 'MaxObjSize');
         }
-        $this->_output->endElement($this->_uri, 'Meta');
+        $this->output->endElement($this->_uri, 'Meta');
 
-        $this->_output->endElement($this->_uri, 'SyncHdr');
+        $this->output->endElement($this->_uri, 'SyncHdr');
     }
 
     public function outputInit()
     {
         $this->_uri = $GLOBALS['backend']->state->getURI();
 
-        $this->_output->startElement($this->_uri, 'SyncML', array());
+        $this->output->startElement($this->_uri, 'SyncML', array());
     }
 
     public function outputBodyStart()
     {
-        $this->_output->startElement($this->_uri, 'SyncBody', array());
+        $this->output->startElement($this->_uri, 'SyncBody', array());
     }
 
     public function outputFinal()
     {
-        $this->_output->startElement($this->_uri, 'Final', array());
-        $this->_output->endElement($this->_uri, 'Final');
+        $this->output->startElement($this->_uri, 'Final', array());
+        $this->output->endElement($this->_uri, 'Final');
     }
 
     public function outputEnd()
     {
-        $this->_output->endElement($this->_uri, 'SyncBody', array());
-        $this->_output->endElement($this->_uri, 'SyncML', array());
+        $this->output->endElement($this->_uri, 'SyncBody', array());
+        $this->output->endElement($this->_uri, 'SyncML', array());
     }
 
 
@@ -189,34 +189,34 @@ class Horde_SyncMl_XmlOutput
         $state = $GLOBALS['backend']->state;
         $uriMeta = $state->uriMeta;
 
-        $this->_output->startElement($this->_uri, 'Status');
-        $this->_outputCmdID();
+        $this->output->startElement($this->_uri, 'Status');
+        $this->outputCmdID();
 
-        $this->_output->startElement($this->_uri, 'MsgRef');
+        $this->output->startElement($this->_uri, 'MsgRef');
         $chars = $state->messageID;
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uri, 'MsgRef');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uri, 'MsgRef');
 
-        $this->_output->startElement($this->_uri, 'CmdRef');
+        $this->output->startElement($this->_uri, 'CmdRef');
         $chars = $cmdRef;
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uri, 'CmdRef');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uri, 'CmdRef');
 
-        $this->_output->startElement($this->_uri, 'Cmd');
+        $this->output->startElement($this->_uri, 'Cmd');
         $chars = $cmd;
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uri, 'Cmd');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uri, 'Cmd');
 
         if (!empty($targetRef)) {
-            $this->_output->startElement($this->_uri, 'TargetRef');
-            $this->_output->characters($targetRef);
-            $this->_output->endElement($this->_uri, 'TargetRef');
+            $this->output->startElement($this->_uri, 'TargetRef');
+            $this->output->characters($targetRef);
+            $this->output->endElement($this->_uri, 'TargetRef');
         }
 
         if (!empty($sourceRef)) {
-            $this->_output->startElement($this->_uri, 'SourceRef');
-            $this->_output->characters($sourceRef);
-            $this->_output->endElement($this->_uri, 'SourceRef');
+            $this->output->startElement($this->_uri, 'SourceRef');
+            $this->output->characters($sourceRef);
+            $this->output->endElement($this->_uri, 'SourceRef');
         }
 
         // If we are responding to the SyncHdr and we are not
@@ -228,51 +228,51 @@ class Horde_SyncMl_XmlOutput
                 ? Horde_SycnMl::RESPONSE_CREDENTIALS_MISSING
                 : Horde_SycnMl::RESPONSE_INVALID_CREDENTIALS;
 
-            $this->_output->startElement($this->_uri, 'Chal');
-            $this->_output->startElement($this->_uri, 'Meta');
+            $this->output->startElement($this->_uri, 'Chal');
+            $this->output->startElement($this->_uri, 'Meta');
 
-            $this->_output->startElement($uriMeta, 'Type');
-            $this->_output->characters('syncml:auth-basic');
-            $this->_output->endElement($uriMeta, 'Type');
+            $this->output->startElement($uriMeta, 'Type');
+            $this->output->characters('syncml:auth-basic');
+            $this->output->endElement($uriMeta, 'Type');
 
-            $this->_output->startElement($uriMeta, 'Format');
-            $this->_output->characters('b64');
-            $this->_output->endElement($uriMeta, 'Format');
+            $this->output->startElement($uriMeta, 'Format');
+            $this->output->characters('b64');
+            $this->output->endElement($uriMeta, 'Format');
 
-            $this->_output->endElement($this->_uri, 'Meta');
-            $this->_output->endElement($this->_uri, 'Chal');
+            $this->output->endElement($this->_uri, 'Meta');
+            $this->output->endElement($this->_uri, 'Chal');
 
         }
 
-        $this->_output->startElement($this->_uri, 'Data');
-        $this->_output->characters($data);
-        $this->_output->endElement($this->_uri, 'Data');
+        $this->output->startElement($this->_uri, 'Data');
+        $this->output->characters($data);
+        $this->output->endElement($this->_uri, 'Data');
 
         if (!empty($syncAnchorNext) || !empty($syncAnchorNLast)) {
-            $this->_output->startElement($this->_uri, 'Item');
-            $this->_output->startElement($this->_uri, 'Data');
+            $this->output->startElement($this->_uri, 'Item');
+            $this->output->startElement($this->_uri, 'Data');
 
-            $this->_output->startElement($uriMeta, 'Anchor');
+            $this->output->startElement($uriMeta, 'Anchor');
 
             if (!empty($syncAnchorLast)) {
-              $this->_output->startElement($uriMeta, 'Last');
-              $this->_output->characters($syncAnchorLast);
-              $this->_output->endElement($uriMeta, 'Last');
+              $this->output->startElement($uriMeta, 'Last');
+              $this->output->characters($syncAnchorLast);
+              $this->output->endElement($uriMeta, 'Last');
             }
 
             if (!empty($syncAnchorNext)) {
-              $this->_output->startElement($uriMeta, 'Next');
-              $this->_output->characters($syncAnchorNext);
-              $this->_output->endElement($uriMeta, 'Next');
+              $this->output->startElement($uriMeta, 'Next');
+              $this->output->characters($syncAnchorNext);
+              $this->output->endElement($uriMeta, 'Next');
             }
 
-            $this->_output->endElement($uriMeta, 'Anchor');
+            $this->output->endElement($uriMeta, 'Anchor');
 
-            $this->_output->endElement($this->_uri, 'Data');
-            $this->_output->endElement($this->_uri, 'Item');
+            $this->output->endElement($this->_uri, 'Data');
+            $this->output->endElement($this->_uri, 'Item');
         }
 
-        $this->_output->endElement($this->_uri, 'Status');
+        $this->output->endElement($this->_uri, 'Status');
 
     }
 
@@ -282,43 +282,43 @@ class Horde_SyncMl_XmlOutput
         $uriMeta = $state->uriMeta;
         $uriDevInf = $state->uriDevInf;
 
-        $this->_output->startElement($this->_uri, 'Results');
-        $this->_outputCmdID();
+        $this->output->startElement($this->_uri, 'Results');
+        $this->outputCmdID();
 
-        $this->_output->startElement($this->_uri, 'MsgRef');
+        $this->output->startElement($this->_uri, 'MsgRef');
         $chars = $state->messageID;
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uri, 'MsgRef');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uri, 'MsgRef');
 
-        $this->_output->startElement($this->_uri, 'CmdRef');
+        $this->output->startElement($this->_uri, 'CmdRef');
         $chars = $cmdRef;
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uri, 'CmdRef');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uri, 'CmdRef');
 
-        $this->_output->startElement($this->_uri, 'Meta');
-        $this->_output->startElement($uriMeta, 'Type');
+        $this->output->startElement($this->_uri, 'Meta');
+        $this->output->startElement($uriMeta, 'Type');
         if ($state->wbxml) {
-            $this->_output->characters(Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_WBXML);
+            $this->output->characters(Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_WBXML);
         } else {
-            $this->_output->characters(Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_XML);
+            $this->output->characters(Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_XML);
         }
 
-        $this->_output->endElement($uriMeta, 'Type');
-        $this->_output->endElement($this->_uri, 'Meta');
+        $this->output->endElement($uriMeta, 'Type');
+        $this->output->endElement($this->_uri, 'Meta');
 
-        $this->_output->startElement($this->_uri, 'Item');
-        $this->_output->startElement($this->_uri, 'Source');
-        $this->_output->startElement($this->_uri, 'LocURI');
-        $this->_output->characters($state->getDevInfURI());
-        $this->_output->endElement($this->_uri, 'LocURI');
-        $this->_output->endElement($this->_uri, 'Source');
+        $this->output->startElement($this->_uri, 'Item');
+        $this->output->startElement($this->_uri, 'Source');
+        $this->output->startElement($this->_uri, 'LocURI');
+        $this->output->characters($state->getDevInfURI());
+        $this->output->endElement($this->_uri, 'LocURI');
+        $this->output->endElement($this->_uri, 'Source');
 
-        $this->_output->startElement($this->_uri, 'Data');
+        $this->output->startElement($this->_uri, 'Data');
 
         /* DevInf data is stored in wbxml not as a seperate codepage but
          * rather as a complete wbxml stream as opaque data.  So we need a
          * new Handler. */
-        $devinfoutput = $this->_output->createSubHandler();
+        $devinfoutput = $this->output->createSubHandler();
 
         $devinfoutput->startElement($uriDevInf , 'DevInf');
         $devinfoutput->startElement($uriDevInf , 'VerDTD');
@@ -351,10 +351,10 @@ class Horde_SyncMl_XmlOutput
                                array('text/x-vcalendar' => '1.0'));
         $devinfoutput->endElement($uriDevInf , 'DevInf');
 
-        $this->_output->opaque($devinfoutput->getOutput());
-        $this->_output->endElement($this->_uri, 'Data');
-        $this->_output->endElement($this->_uri, 'Item');
-        $this->_output->endElement($this->_uri, 'Results');
+        $this->output->opaque($devinfoutput->getOutput());
+        $this->output->endElement($this->_uri, 'Data');
+        $this->output->endElement($this->_uri, 'Item');
+        $this->output->endElement($this->_uri, 'Results');
     }
 
     /**
@@ -437,57 +437,57 @@ class Horde_SyncMl_XmlOutput
     {
         $uriMeta = $GLOBALS['backend']->state->uriMeta;
 
-        $this->_output->startElement($this->_uri, 'Alert');
-        $this->_outputCmdID();
+        $this->output->startElement($this->_uri, 'Alert');
+        $this->outputCmdID();
 
-        $this->_output->startElement($this->_uri, 'Data');
+        $this->output->startElement($this->_uri, 'Data');
         $chars = $alertCode;
-        $this->_output->characters($chars);
-        $this->_output->endElement($this->_uri, 'Data');
+        $this->output->characters($chars);
+        $this->output->endElement($this->_uri, 'Data');
 
-        $this->_output->startElement($this->_uri, 'Item');
+        $this->output->startElement($this->_uri, 'Item');
 
         if (!empty($clientDB)) {
-            $this->_output->startElement($this->_uri, 'Target');
-            $this->_output->startElement($this->_uri, 'LocURI');
-            $this->_output->characters($clientDB);
-            $this->_output->endElement($this->_uri, 'LocURI');
-            $this->_output->endElement($this->_uri, 'Target');
+            $this->output->startElement($this->_uri, 'Target');
+            $this->output->startElement($this->_uri, 'LocURI');
+            $this->output->characters($clientDB);
+            $this->output->endElement($this->_uri, 'LocURI');
+            $this->output->endElement($this->_uri, 'Target');
         }
 
         if (!empty($serverDB)) {
-            $this->_output->startElement($this->_uri, 'Source');
-            $this->_output->startElement($this->_uri, 'LocURI');
-            $this->_output->characters($serverDB);
-            $this->_output->endElement($this->_uri, 'LocURI');
-            $this->_output->endElement($this->_uri, 'Source');
+            $this->output->startElement($this->_uri, 'Source');
+            $this->output->startElement($this->_uri, 'LocURI');
+            $this->output->characters($serverDB);
+            $this->output->endElement($this->_uri, 'LocURI');
+            $this->output->endElement($this->_uri, 'Source');
         }
 
-        $this->_output->startElement($this->_uri, 'Meta');
+        $this->output->startElement($this->_uri, 'Meta');
 
-        $this->_output->startElement($uriMeta, 'Anchor');
+        $this->output->startElement($uriMeta, 'Anchor');
 
-        $this->_output->startElement($uriMeta, 'Last');
-        $this->_output->characters($lastAnchor);
-        $this->_output->endElement($uriMeta, 'Last');
+        $this->output->startElement($uriMeta, 'Last');
+        $this->output->characters($lastAnchor);
+        $this->output->endElement($uriMeta, 'Last');
 
-        $this->_output->startElement($uriMeta, 'Next');
-        $this->_output->characters($nextAnchor);
-        $this->_output->endElement($uriMeta, 'Next');
+        $this->output->startElement($uriMeta, 'Next');
+        $this->output->characters($nextAnchor);
+        $this->output->endElement($uriMeta, 'Next');
 
-        $this->_output->endElement($uriMeta, 'Anchor');
+        $this->output->endElement($uriMeta, 'Anchor');
 
 
         // MaxObjSize, required by protocol for SyncML1.1 and higher.
         if ($GLOBALS['backend']->state->version > 0) {
-            $this->_output->startElement($uriMeta, 'MaxObjSize');
-            $this->_output->characters(Horde_SycnMl::SERVER_MAXOBJSIZE);
-            $this->_output->endElement($uriMeta, 'MaxObjSize');
+            $this->output->startElement($uriMeta, 'MaxObjSize');
+            $this->output->characters(Horde_SycnMl::SERVER_MAXOBJSIZE);
+            $this->output->endElement($uriMeta, 'MaxObjSize');
         }
-        $this->_output->endElement($this->_uri, 'Meta');
+        $this->output->endElement($this->_uri, 'Meta');
 
-                $this->_output->endElement($this->_uri, 'Item');
-        $this->_output->endElement($this->_uri, 'Alert');
+                $this->output->endElement($this->_uri, 'Item');
+        $this->output->endElement($this->_uri, 'Alert');
 
     }
 
@@ -497,29 +497,29 @@ class Horde_SyncMl_XmlOutput
         $state = $GLOBALS['backend']->state;
         $uriMeta = $state->uriMeta;
 
-        $this->_output->startElement($this->_uri, 'Get');
-        $this->_outputCmdID();
+        $this->output->startElement($this->_uri, 'Get');
+        $this->outputCmdID();
 
-        $this->_output->startElement($this->_uri, 'Meta');
-        $this->_output->startElement($uriMeta, 'Type');
+        $this->output->startElement($this->_uri, 'Meta');
+        $this->output->startElement($uriMeta, 'Type');
         if ($state->wbxml) {
             $chars = Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_WBXML;
         } else {
             $chars = Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_XML;
         }
-        $this->_output->characters($chars);
-        $this->_output->endElement($uriMeta, 'Type');
-        $this->_output->endElement($this->_uri, 'Meta');
+        $this->output->characters($chars);
+        $this->output->endElement($uriMeta, 'Type');
+        $this->output->endElement($this->_uri, 'Meta');
 
-        $this->_output->startElement($this->_uri, 'Item');
-        $this->_output->startElement($this->_uri, 'Target');
-        $this->_output->startElement($this->_uri, 'LocURI');
-        $this->_output->characters($state->getDevInfURI());
-        $this->_output->endElement($this->_uri, 'LocURI');
-        $this->_output->endElement($this->_uri, 'Target');
-        $this->_output->endElement($this->_uri, 'Item');
+        $this->output->startElement($this->_uri, 'Item');
+        $this->output->startElement($this->_uri, 'Target');
+        $this->output->startElement($this->_uri, 'LocURI');
+        $this->output->characters($state->getDevInfURI());
+        $this->output->endElement($this->_uri, 'LocURI');
+        $this->output->endElement($this->_uri, 'Target');
+        $this->output->endElement($this->_uri, 'Item');
 
-        $this->_output->endElement($this->_uri, 'Get');
+        $this->output->endElement($this->_uri, 'Get');
     }
 
     /**
@@ -539,94 +539,94 @@ class Horde_SyncMl_XmlOutput
     {
         $uriMeta = $GLOBALS['backend']->state->uriMeta;
 
-        $this->_output->startElement($this->_uri, $command);
-        $this->_outputCmdID();
+        $this->output->startElement($this->_uri, $command);
+        $this->outputCmdID();
 
         if (isset($contentType)) {
-            $this->_output->startElement($this->_uri, 'Meta');
-            $this->_output->startElement($uriMeta, 'Type');
-            $this->_output->characters($contentType);
-            $this->_output->endElement($uriMeta, 'Type');
-            $this->_output->endElement($this->_uri, 'Meta');
+            $this->output->startElement($this->_uri, 'Meta');
+            $this->output->startElement($uriMeta, 'Type');
+            $this->output->characters($contentType);
+            $this->output->endElement($uriMeta, 'Type');
+            $this->output->endElement($this->_uri, 'Meta');
         }
 
         if (isset($content) || isset($cuid) || isset($suid)) {
-            $this->_output->startElement($this->_uri, 'Item');
+            $this->output->startElement($this->_uri, 'Item');
             if ($suid != null) {
-                $this->_output->startElement($this->_uri, 'Source');
-                $this->_output->startElement($this->_uri, 'LocURI');
-                $this->_output->characters($suid);
-                $this->_output->endElement($this->_uri, 'LocURI');
-                $this->_output->endElement($this->_uri, 'Source');
+                $this->output->startElement($this->_uri, 'Source');
+                $this->output->startElement($this->_uri, 'LocURI');
+                $this->output->characters($suid);
+                $this->output->endElement($this->_uri, 'LocURI');
+                $this->output->endElement($this->_uri, 'Source');
             }
 
             if ($cuid != null) {
-                $this->_output->startElement($this->_uri, 'Target');
-                $this->_output->startElement($this->_uri, 'LocURI');
-                $this->_output->characters($cuid);
-                $this->_output->endElement($this->_uri, 'LocURI');
-                $this->_output->endElement($this->_uri, 'Target');
+                $this->output->startElement($this->_uri, 'Target');
+                $this->output->startElement($this->_uri, 'LocURI');
+                $this->output->characters($cuid);
+                $this->output->endElement($this->_uri, 'LocURI');
+                $this->output->endElement($this->_uri, 'Target');
             }
 
             if (!empty($encodingType)) {
-                $this->_output->startElement($this->_uri, 'Meta');
-                $this->_output->startElement($uriMeta, 'Format');
-                $this->_output->characters($encodingType);
-                $this->_output->endElement($uriMeta, 'Format');
-                $this->_output->endElement($this->_uri, 'Meta');
+                $this->output->startElement($this->_uri, 'Meta');
+                $this->output->startElement($uriMeta, 'Format');
+                $this->output->characters($encodingType);
+                $this->output->endElement($uriMeta, 'Format');
+                $this->output->endElement($this->_uri, 'Meta');
             }
             if (isset($content)) {
-                $this->_output->startElement($this->_uri, 'Data');
+                $this->output->startElement($this->_uri, 'Data');
                 if($this->isWBXML()) {
-                    $this->_output->characters($content);
+                    $this->output->characters($content);
                 } else {
                     $device = $GLOBALS['backend']->state->getDevice();
                     if ($device->useCdataTag()) {
                         /* Enclose data in CDATA if possible to avoid */
                         /* problems with &,< and >. */
-                        $this->_output->characters('<![CDATA[' . $content . ']]>');
+                        $this->output->characters('<![CDATA[' . $content . ']]>');
                     } else {
-                        $this->_output->characters($content);
+                        $this->output->characters($content);
                     }
                 }
-                $this->_output->endElement($this->_uri, 'Data');
+                $this->output->endElement($this->_uri, 'Data');
             }
-            $this->_output->endElement($this->_uri, 'Item');
+            $this->output->endElement($this->_uri, 'Item');
         }
 
-        $this->_output->endElement($this->_uri, $command);
+        $this->output->endElement($this->_uri, $command);
 
         return $this->_msg_CmdID - 1;
     }
 
     public function outputSyncStart($clientLocURI, $serverLocURI, $numberOfChanges = null)
     {
-        $this->_output->startElement($this->_uri, 'Sync');
-        $this->_outputCmdID();
+        $this->output->startElement($this->_uri, 'Sync');
+        $this->outputCmdID();
 
-        $this->_output->startElement($this->_uri, 'Target');
-        $this->_output->startElement($this->_uri, 'LocURI');
-        $this->_output->characters($clientLocURI);
-        $this->_output->endElement($this->_uri, 'LocURI');
-        $this->_output->endElement($this->_uri, 'Target');
+        $this->output->startElement($this->_uri, 'Target');
+        $this->output->startElement($this->_uri, 'LocURI');
+        $this->output->characters($clientLocURI);
+        $this->output->endElement($this->_uri, 'LocURI');
+        $this->output->endElement($this->_uri, 'Target');
 
-        $this->_output->startElement($this->_uri, 'Source');
-        $this->_output->startElement($this->_uri, 'LocURI');
-        $this->_output->characters($serverLocURI);
-        $this->_output->endElement($this->_uri, 'LocURI');
-        $this->_output->endElement($this->_uri, 'Source');
+        $this->output->startElement($this->_uri, 'Source');
+        $this->output->startElement($this->_uri, 'LocURI');
+        $this->output->characters($serverLocURI);
+        $this->output->endElement($this->_uri, 'LocURI');
+        $this->output->endElement($this->_uri, 'Source');
 
         if (is_int($numberOfChanges)) {
-            $this->_output->startElement($this->_uri, 'NumberOfChanges');
-            $this->_output->characters($numberOfChanges);
-            $this->_output->endElement($this->_uri, 'NumberOfChanges');
+            $this->output->startElement($this->_uri, 'NumberOfChanges');
+            $this->output->characters($numberOfChanges);
+            $this->output->endElement($this->_uri, 'NumberOfChanges');
         }
 
     }
 
     public function outputSyncEnd()
     {
-        $this->_output->endElement($this->_uri, 'Sync');
+        $this->output->endElement($this->_uri, 'Sync');
     }
 
 
@@ -634,10 +634,10 @@ class Horde_SyncMl_XmlOutput
 
     protected function _outputCmdID()
     {
-        $this->_output->startElement($this->_uri, 'CmdID');
-        $this->_output->characters($this->_msg_CmdID);
+        $this->output->startElement($this->_uri, 'CmdID');
+        $this->output->characters($this->_msg_CmdID);
         $this->_msg_CmdID++;
-        $this->_output->endElement($this->_uri, 'CmdID');
+        $this->output->endElement($this->_uri, 'CmdID');
     }
 
     /**
@@ -648,8 +648,8 @@ class Horde_SyncMl_XmlOutput
         if (empty($uri)) {
             $uri = $this->_uri;
         }
-        $this->_output->startElement($uri, $tag);
-        $this->_output->characters($str);
-        $this->_output->endElement($uri, $tag);
+        $this->output->startElement($uri, $tag);
+        $this->output->characters($str);
+        $this->output->endElement($uri, $tag);
     }
 }

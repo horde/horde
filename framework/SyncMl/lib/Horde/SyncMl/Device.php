@@ -70,7 +70,7 @@ class Horde_SyncMl_Device
      */
     public function getPreferredContentType($database)
     {
-        $database = $GLOBALS['backend']->_normalize($database);
+        $database = $GLOBALS['backend']->normalize($database);
 
         /* Use some wild guessings. */
         if (strpos($database, 'contact') !== false ||
@@ -122,7 +122,7 @@ class Horde_SyncMl_Device
             }
         }
 
-        $database = $GLOBALS['backend']->_normalize($serverSyncURI);
+        $database = $GLOBALS['backend']->normalize($serverSyncURI);
 
         /* No information in DevInf, use some wild guessings. */
         if (strpos($database, 'contact') !== false ||
