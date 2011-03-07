@@ -251,6 +251,9 @@
      <configspecial application="horde" name="apps" />
     </values>
    </configmultienum>
+   <configboolean name="apps_iframe" desc="Should linked applications be loaded
+   in an IFRAME within the Ajax interface?"
+   required="false">false</configboolean>
   </configsection>
  </configtab>
 </configuration>

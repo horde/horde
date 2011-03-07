@@ -44,10 +44,17 @@ class IMP_Menu_Dimp extends Horde_Menu
         foreach ($this->_menu as $k => $m) {
             switch ($type) {
             case 'sidebar':
+                // FIXME: solve the ajax view detection properly.
+                if (empty($GLOBALS['conf']['menu']['apps_iframe']) ||
+                    $GLOBALS['registry']->hasAjaxView($m['icon']->app)) {
+                    $href = ' href="' . htmlspecialchars($m['url']) . '"';
+                } else {
+                    $href = '';
+                }
                 $out .= '<li class="custom">' .
-                    Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path']) .
-                    '<a id="sidebarapp_' . htmlspecialchars($k) . '">' . htmlspecialchars($m['text']) .
-                    '</a></li>';
+                    Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path'])
+                    . '<a id="sidebarapp_' . htmlspecialchars($k) . '"'
+                    . $href . '>' . htmlspecialchars($m['text']) . '</a></li>';
                 break;
 
             case 'tabs':

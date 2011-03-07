@@ -2282,7 +2282,7 @@ var DimpBase = {
                 if (!tmp.hasClassName('custom')) {
                     tmp = tmp.up('LI.custom');
                 }
-                if (tmp) {
+                if (tmp && !tmp.down('A').readAttribute('href')) {
                     // Prefix is 'sidebarapp_'
                     this.go('menu', tmp.down('A').identify().substring(11));
                     e.stop();

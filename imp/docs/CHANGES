@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[jan] Add configuration whether to load other applications in an IFRAME.
 [mms] Indicate negative rights in ACL display (Request #4488).
 [jan] Provide default configuration files instead of .dist versions.
 [mms] Add priority and request read receipt information to saved drafts
