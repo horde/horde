@@ -1237,7 +1237,7 @@ class Horde_Registry
 
             if (!$this->hasPermission($app, Horde_Perms::READ, array('notransparent' => !empty($options['notransparent'])))) {
                 if (!$this->isAuthenticated(array('app' => $app))) {
-                    throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
+                    throw new Horde_Exception('User is not authorized for ' . $app, self::AUTH_FAILURE);
                 }
 
                 Horde::logMessage(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
