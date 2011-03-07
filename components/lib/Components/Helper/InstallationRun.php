@@ -234,7 +234,7 @@ class Components_Helper_InstallationRun
                 
             if (empty($this->_options['pretend'])) {
                 $this->_environment->addPackageFromPackage(
-                    $dependency, $reason
+                    $dependency, $reason, $this->_options
                 );
             } else {
                 $this->_output->ok(
