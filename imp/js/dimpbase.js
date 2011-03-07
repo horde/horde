@@ -823,7 +823,7 @@ var DimpBase = {
         case 'ctx_folder_unseen':
             DimpCore.doAction('flagAll', {
                 add: Number(id == 'ctx_folder_seen'),
-                flags: Object.toJSON([ '\\seen' ]),
+                flags: Object.toJSON([ DIMP.conf.FLAG_SEEN ]),
                 mbox: e.findElement('LI').retrieve('mbox')
             });
             break;
@@ -940,7 +940,7 @@ var DimpBase = {
 
         case 'ctx_message_undeleted':
         case 'oa_undeleted':
-            this.flag('\\deleted', false);
+            this.flag(DIMP.conf.FLAG_DELETED, false);
             break;
 
         case 'oa_purge_deleted':
@@ -1820,7 +1820,7 @@ var DimpBase = {
                     DimpCore.doAction('copyMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
-                    this.updateFlag(uids, '\\deleted', true);
+                    this.updateFlag(uids, DIMP.conf.FLAG_DELETED, true);
                     DimpCore.doAction('moveMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
                 }
             }
@@ -2053,7 +2053,7 @@ var DimpBase = {
                 cnt = this.getUnseenCount(this.folder);
                 if (Object.isUndefined(cnt) || cnt) {
                     vsel = this.viewport.getSelection();
-                    row = vsel.search({ flag: { include: '\\seen' } }).get('rownum');
+                    row = vsel.search({ flag: { include: DIMP.conf.FLAG_SEEN } }).get('rownum');
                     all = (vsel.size() == this.viewport.getMetaData('total_rows'));
 
                     if (all ||
@@ -3040,7 +3040,7 @@ var DimpBase = {
         opts.vs = this._getFlagSelection(opts);
 
         this._doMsgAction('deleteMessages', opts, {});
-        this.updateFlag(opts.vs, '\\deleted', true);
+        this.updateFlag(opts.vs, DIMP.conf.FLAG_DELETED, true);
     },
 
     // flag = (string) IMAP flag name

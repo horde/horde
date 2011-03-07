@@ -62,6 +62,9 @@ $code['conf'] = array_filter(array(
     'URI_SEARCH' => strval(Horde::url('search.php')),
     'URI_VIEW' => strval(Horde::url('view.php')),
 
+    'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
+    'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
+
     'IDX_SEP' => IMP_Dimp::IDX_SEP,
     'SESSION_ID' => defined('SID') ? SID : '',
 
