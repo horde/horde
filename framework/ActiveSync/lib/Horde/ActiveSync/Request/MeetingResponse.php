@@ -100,4 +100,5 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
         $this->_encoder->endTag();
 
         return true;
+    }
 }
