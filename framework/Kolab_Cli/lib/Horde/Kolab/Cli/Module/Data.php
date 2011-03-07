@@ -183,6 +183,20 @@ implements Horde_Kolab_Cli_Module
                 $this->_messageOutput($cli, $arguments[4], print_r($object, true));
             }
             break;
+        case 'create':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            switch (strtolower($arguments[4])) {
+            case 'yaml':
+                if (class_exists('Horde_Yaml')) {
+                    $object = Horde_Yaml::loadFile($arguments[5]);
+                } else {
+                    throw new Horde_Kolab_Cli_Exception(
+                        'The Horde_Yaml package is missing!'
+                    );
+                }
+            }
+            $data->create($object);
+            break;
         case 'backendid':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             $cli->writeln((string) $data->getBackendId($arguments[4]));
