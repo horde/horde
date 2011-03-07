@@ -43,7 +43,11 @@
    </pearinstaller>
   </required>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="Horde/Sql.php" name="lib/Horde/Sql.php" />
+  </filelist>
+ </phprelease>
  <changelog>
   <release>
    <version>
