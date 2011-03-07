@@ -32,13 +32,13 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         $ids = new Horde_Imap_Client_Ids(array(1, 3, 5));
 
         $this->assertEquals(
-            count($ids),
-            3
+            3,
+            count($ids)
         );
 
         $this->assertEquals(
-            strval($ids),
-            '1,3,5'
+            '1,3,5',
+            strval($ids)
         );
 
         $this->assertFalse($ids->isEmpty());
@@ -49,13 +49,13 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         $ids = new Horde_Imap_Client_Ids(array());
 
         $this->assertEquals(
-            count($ids),
-            0
+            0,
+            count($ids)
         );
 
         $this->assertEquals(
-            strval($ids),
-            ''
+            '',
+            strval($ids)
         );
 
         $this->assertTrue($ids->isEmpty());
