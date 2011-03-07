@@ -117,7 +117,8 @@ abstract class Horde_Http_Response_Base
      */
     public function getStream()
     {
-        $body = new Horde_Support_StringStream($this->getBody());
+        $string_body = $this->getBody();
+        $body = new Horde_Support_StringStream($string_body);
         return $body->fopen();
     }
 
