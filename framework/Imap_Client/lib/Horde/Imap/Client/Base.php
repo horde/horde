@@ -1435,7 +1435,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (!empty($options['expunge']) &&
             $this->_initCache(true)) {
             $search_query = new Horde_Imap_Client_Search_Query();
-            $search_query->flag('\\deleted', true);
+            $search_query->flag(Horde_Imap_Client::FLAG_DELETED, true);
             $search_res = $this->search($this->_selected, $search_query);
             $mbox = $this->_selected;
         } else {

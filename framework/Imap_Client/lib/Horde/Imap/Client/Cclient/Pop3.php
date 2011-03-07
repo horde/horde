@@ -235,22 +235,22 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     {
         /* Only support deleting/undeleting messages. */
         if (isset($options['replace'])) {
-            if (count(array_intersect($options['replace'], array('\\deleted')))) {
-                $options['add'] = array('\\deleted');
+            if (count(array_intersect($options['replace'], array(Horde_Imap_Client::FLAG_DELETED)))) {
+                $options['add'] = array(Horde_Imap_Client::FLAG_DELETED);
             } else {
-                $options['remove'] = array('\\deleted');
+                $options['remove'] = array(Horde_Imap_Client::FLAG_DELETED);
             }
             unset($options['replace']);
         } else {
             if (!empty($options['add']) &&
-                count(array_intersect($options['add'], array('\\deleted')))) {
-                $options['add'] = array('\\deleted');
+                count(array_intersect($options['add'], array(Horde_Imap_Client::FLAG_DELETED)))) {
+                $options['add'] = array(Horde_Imap_Client::FLAG_DELETED);
             }
 
             if (!empty($options['remove']) &&
-                !count(array_intersect($options['remove'], array('\\deleted')))) {
+                !count(array_intersect($options['remove'], array(Horde_Imap_Client::FLAG_DELETED)))) {
                 $options['add'] = array();
-                $options['remove'] = array('\\deleted');
+                $options['remove'] = array(Horde_Imap_Client::FLAG_DELETED);
             }
         }
 

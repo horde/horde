@@ -900,7 +900,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 throw $e;
             }
 
-            $this->store($mailbox, array('add' => array('\\deleted')));
+            $this->store($mailbox, array('add' => array(Horde_Imap_Client::FLAG_DELETED)));
             $this->expunge($mailbox);
 
             $this->_temp['deleteretry'] = true;
@@ -1229,7 +1229,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                                  * also requires a search. */
                                 if (is_null($search)) {
                                     $search_query = new Horde_Imap_Client_Search_Query();
-                                    $search_query->flag('\\seen', false);
+                                    $search_query->flag(Horde_Imap_Client::FLAG_SEEN, false);
                                     $search = $this->search($mailbox, $search_query, array('results' => array(($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? Horde_Imap_Client::SORT_RESULTS_MIN : Horde_Imap_Client::SORT_RESULTS_COUNT), 'sequence' => true));
                                 }
 
@@ -1314,7 +1314,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $tmp = array();
                 foreach ($data[$key]['flags'] as $val) {
                     /* Ignore recent flag. RFC 3501 [9]: flag definition */
-                    if (strcasecmp($val, '\\recent') !== 0) {
+                    if (strcasecmp($val, Horde_Imap_Client::FLAG_RECENT) !== 0) {
                         $tmp[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
                     }
                 }
@@ -1448,7 +1448,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * as deleted but not a part of requested IDs to delete. Use NOT
              * searches to accomplish this goal. */
             $search_query = new Horde_Imap_Client_Search_Query();
-            $search_query->flag('\\deleted', true);
+            $search_query->flag(Horde_Imap_Client::FLAG_DELETED, true);
             if ($options['ids']->search_res) {
                 $search_query->previousSearch(true);
             } else {
@@ -1459,7 +1459,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $this->store($mailbox, array(
                 'ids' => $res['match'],
-                'remove' => array('\\deleted')
+                'remove' => array(Horde_Imap_Client::FLAG_DELETED)
             ));
 
             $unflag = $res['match'];
@@ -1494,7 +1494,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (!empty($unflag)) {
             $this->store($mailbox, array(
-                'add' => array('\\deleted'),
+                'add' => array(Horde_Imap_Client::FLAG_DELETED),
                 'ids' => $unflag
             ));
         }
@@ -2979,7 +2979,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // If moving, delete the old messages now.
         if (!empty($options['move'])) {
             $opts = array('ids' => $options['ids']);
-            $this->store($this->_selected, array_merge(array('add' => array('\\deleted')), $opts));
+            $this->store($this->_selected, array_merge(array(
+                'add' => array(Horde_Imap_Client::FLAG_DELETED)
+            ), $opts));
             $this->expunge($this->_selected, $opts);
         }
 

@@ -368,13 +368,13 @@ EOE;
 
 $uid1 = $uid2 = $uid3 = $uid4 = null;
 
-print "\nAppending test e-mail 1 (with \\Flagged), 2 via a stream (with \\Seen), 3 via a stream, and 4 (with internaldate):\n";
+print "\nAppending test e-mail 1 (with Flagged), 2 via a stream (with Seen), 3 via a stream, and 4 (with internaldate):\n";
 try {
     $handle = fopen($currdir . '/test_email.txt', 'r');
     $handle2 = fopen($currdir . '/test_email2.txt', 'r');
     $uid = $imap_client->append($test_mbox, array(
-        array('data' => $test_email, 'flags' => array('\\flagged'), 'messageid' => 'abcd1234efgh5678@test1.example.com'),
-        array('data' => $handle, 'flags' => array('\\seen'), 'messageid' => 'aaabbbcccddd111222333444@test1.example.com'),
+        array('data' => $test_email, 'flags' => array(Horde_Imap_Client::FLAG_FLAGGED), 'messageid' => 'abcd1234efgh5678@test1.example.com'),
+        array('data' => $handle, 'flags' => array(Horde_Imap_Client::FLAG_SEEN), 'messageid' => 'aaabbbcccddd111222333444@test1.example.com'),
         array('data' => $handle2, 'messageid' => '2008yhnujm@foo.example.com'),
         array('data' => $test_email2, 'internaldate' => new DateTime('17 August 2003'), 'messageid' => '98761234@test1.example.com')
     ));
@@ -417,7 +417,7 @@ if (!is_null($uid1)) {
 if (!is_null($uid2)) {
     print "\nFlagging test e-mail 2 with the Deleted flag.\n";
     try {
-        $imap_client->store($test_mbox, array('add' => array('\\deleted'), 'ids' => new Horde_Imap_Client_Ids($uid2)));
+        $imap_client->store($test_mbox, array('add' => array(Horde_Imap_Client::FLAG_DELETED), 'ids' => new Horde_Imap_Client_Ids($uid2)));
         print "Flagging: OK\n";
     } catch (Horde_Imap_Client_Exception $e) {
         print 'ERROR: ' . $e->getMessage() . "\n";
@@ -486,7 +486,7 @@ try {
 print "\nFlagging test e-mail 3 with the Deleted flag.\n";
 if (!is_null($uid3)) {
     try {
-        $imap_client->store($test_mbox, array('add' => array('\\deleted'), 'ids' => new Horde_Imap_Client_Ids($uid3)));
+        $imap_client->store($test_mbox, array('add' => array(Horde_Imap_Client::FLAG_DELETED), 'ids' => new Horde_Imap_Client_Ids($uid3)));
         print "Flagging: OK\n";
     } catch (Horde_Imap_Client_Exception $e) {
         print 'ERROR: ' . $e->getMessage() . "\n";
@@ -531,9 +531,9 @@ print "\nSearching " . $test_mbox . " (should be optimized by using internal sta
 try {
     $query1 = $query2 = $all_query;
     print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
-    $query1->flag('\\recent');
+    $query1->flag(Horde_Imap_Client::FLAG_RECENT);
     print_r($imap_client->search($test_mbox, $query1, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
-    $query2->flag('\\seen', false);
+    $query2->flag(Horde_Imap_Client::FLAG_SEEN, false);
     print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
     print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SORT_RESULTS_MIN))));
     print "Search: OK\n";
@@ -774,14 +774,14 @@ try {
 
 print "\nTesting a complex search query built using Horde_Imap_Client_Search_Query:\n";
 $query = new Horde_Imap_Client_Search_Query();
-$query->flag('\\Answered');
-$query->flag('\\Deleted', true);
-$query->flag('\\Recent');
-$query->flag('\\Unseen');
+$query->flag(Horde_Imap_Client::FLAG_ANSWERED);
+$query->flag(Horde_Imap_Client::FLAG_DELETED, true);
+$query->flag(Horde_Imap_Client::FLAG_RECENT);
+$query->flag(Horde_Imap_Client::FLAG_SEEN, true);
 $query->flag('TestKeyword');
-// This second flag request for '\Answered' should overrule the first request
-$query->flag('\\Answered', true);
-// Querying for new should clear both '\Recent' and '\Unseen'
+// This second flag request for Answered should overrule the first request
+$query->flag(Horde_Imap_Client::FLAG_ANSWERED, true);
+// Querying for new should clear both Recent and Seen flag
 $query->newMsgs();
 $query->headerText('cc', 'Testing');
 $query->headerText('message-id', 'abcdefg1234567', true);

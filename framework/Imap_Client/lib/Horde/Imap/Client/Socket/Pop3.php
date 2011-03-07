@@ -858,15 +858,21 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         /* Only support deleting/undeleting messages. */
         if (isset($options['replace'])) {
-            $delete = (bool)(count(array_intersect($options['replace'], array('\\deleted'))));
+            $delete = (bool)(count(array_intersect($options['replace'], array(
+                Horde_Imap_Client::FLAG_DELETED
+            ))));
             $reset = !$delete;
         } else {
             if (!empty($options['add'])) {
-                $delete = (bool)(count(array_intersect($options['add'], array('\\deleted'))));
+                $delete = (bool)(count(array_intersect($options['add'], array(
+                    Horde_Imap_Client::FLAG_DELETED
+                ))));
             }
 
             if (!empty($options['remove'])) {
-                $reset = !(bool)(count(array_intersect($options['remove'], array('\\deleted'))));
+                $reset = !(bool)(count(array_intersect($options['remove'], array(
+                    Horde_Imap_Client::FLAG_DELETED
+                ))));
             }
         }
 

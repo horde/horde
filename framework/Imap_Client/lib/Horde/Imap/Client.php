@@ -119,6 +119,19 @@ class Horde_Imap_Client
     const ACL_CREATE = 'c';
     const ACL_DELETE = 'd';
 
+    /* System flags. */
+    // RFC 3501 [2.3.2]
+    const FLAG_ANSWERED = '\\answered';
+    const FLAG_DELETED = '\\deleted';
+    const FLAG_DRAFT = '\\draft';
+    const FLAG_FLAGGED = '\\flagged';
+    const FLAG_RECENT = '\\recent';
+    const FLAG_SEEN = '\\seen';
+    // RFC 3503 [3.3]
+    const FLAG_MDNSENT = '$mdnsent';
+    // RFC 5550 [2.8]
+    const FLAG_FORWARDED = '$forwarded';
+
     /* Special-use mailbox attributes (RFC 6154 [2]). */
     const SPECIALUSE_ALL = '\\All';
     const SPECIALUSE_ARCHIVE = '\\Archive';

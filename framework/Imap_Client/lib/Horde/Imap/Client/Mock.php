@@ -470,7 +470,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
             foreach ($options['add'] as $flag) {
                 $flag = strtoupper($flag);
                 switch ($flag) {
-                case '\\DELETED':
+                case Horde_Imap_Client::FLAG_DELETED:
                     $this->_mbox['mails'][$uid]['flags'] |= self::FLAG_DELETED;
                     break;
 

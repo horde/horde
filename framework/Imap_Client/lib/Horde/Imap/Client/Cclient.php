@@ -470,7 +470,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         if ($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) {
             $search_query = new Horde_Imap_Client_Search_Query();
-            $search_query->flag('\\seen', false);
+            $search_query->flag(Horde_Imap_Client::FLAG_SEEN, false);
             $search = $this->search($mailbox, $search_query, array('results' => array(Horde_Imap_Client::SORT_RESULTS_MIN), 'sequence' => true));
 
             if (is_null($res)) {
@@ -557,7 +557,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         if (!$options['ids']->all || $msg_list) {
             $search_query = new Horde_Imap_Client_Search_Query();
-            $search_query->flag('\\deleted');
+            $search_query->flag(Horde_Imap_Client::FLAG_DELETED);
             $ids = $this->search($this->_selected, $search_query, array('sequence' => $options['ids']->sequence));
 
             // Need to temporarily unflag all messages marked as deleted but not
@@ -568,7 +568,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                     $unflag = new Horde_Imap_Client_Ids($unflag, $options['ids']->sequence);
                     $this->store($this->_selected, array(
                         'ids' => $unflag,
-                        'remove' => array('\\deleted')
+                        'remove' => array(Horde_Imap_Client::FLAG_DELETED)
                     ));
                 }
 
@@ -593,7 +593,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         if (!empty($unflag)) {
             $this->store($this->_selected, array(
-                'add' => array('\\deleted'),
+                'add' => array(Horde_Imap_Client::FLAG_DELETED),
                 'ids' => $unflag
             ));
         }
