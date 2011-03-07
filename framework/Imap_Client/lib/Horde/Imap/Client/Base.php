@@ -1486,6 +1486,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (empty($options['ids'])) {
             $options['ids'] = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+        } elseif ($options['ids']->isEmpty()) {
+            return array();
         }
 
         return $this->_expunge($options);
@@ -1843,6 +1845,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (empty($options['ids'])) {
             $options['ids'] = new Horde_Imap_Client_Ids(empty($options['fetch_res']) ? Horde_Imap_Client_Ids::ALL : array_keys($options['fetch_res']));
+        } elseif ($options['ids']->isEmpty()) {
+            return array();
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
             /* SEARCHRES requires server support. */
@@ -2109,6 +2113,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* SEARCHRES requires server support. */
         if (empty($options['ids'])) {
             $options['ids'] = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+        } elseif ($options['ids']->isEmpty()) {
+            return new Horde_Imap_Client_Ids();
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
             $this->_exception('Server does not support saved searches.');
@@ -2165,6 +2171,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* SEARCHRES requires server support. */
         if (empty($options['ids'])) {
             $options['ids'] = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+        } elseif ($options['ids']->isEmpty()) {
+            return array();
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
             $this->_exception('Server does not support saved searches.');

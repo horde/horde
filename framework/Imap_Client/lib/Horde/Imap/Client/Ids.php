@@ -115,6 +115,16 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     }
 
     /**
+     * Is this object empty (i.e. does not contain IDs)?
+     *
+     * @return boolean  True if object is empty.
+     */
+    public function isEmpty()
+    {
+        return (is_array($this->_ids) && !count($this->_ids));
+    }
+
+    /**
      */
     public function reverse()
     {
