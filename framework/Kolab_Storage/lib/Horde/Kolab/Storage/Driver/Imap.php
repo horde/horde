@@ -358,7 +358,8 @@ extends Horde_Kolab_Storage_Driver_Base
      *                        in UTF7-IMAP or UTF-8.
      * @param string $msg     The message to append.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return mixed True or the UID of the new message in case the backend
+     *               supports UIDPLUS.
      */
     public function appendMessage($folder, $msg)
     {
