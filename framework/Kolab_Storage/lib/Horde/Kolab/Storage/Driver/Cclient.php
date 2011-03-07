@@ -660,7 +660,7 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed appending new to folder %s%s. Error: %s"
+                        "Failed appending new message to folder %s%s. Error: %s"
                     ),
                     $this->_getBaseMbox(),
                     $folder,
