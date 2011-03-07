@@ -10,7 +10,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Anthony Mills <amills@pyramid6.com>
- * @package Horde_Rpc
+ * @package Rpc
  */
 class Horde_Rpc_Syncml extends Horde_Rpc
 {

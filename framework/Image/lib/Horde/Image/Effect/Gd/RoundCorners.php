@@ -9,7 +9,7 @@
  * coding standards.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Effect_Gd_RoundCorners extends Horde_Image_Effect
 {

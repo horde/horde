@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Svg extends Horde_Image_Base
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Image
+ * @package Image
  */
 
 require_once dirname(__FILE__) . '/../Image/swf.php';

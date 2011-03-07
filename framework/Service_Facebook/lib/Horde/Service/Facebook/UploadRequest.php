@@ -6,7 +6,7 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @package Horde_Service_Facebook
+ * @package Service_Facebook
  */
 class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Request
 {

@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package Horde_Rdo
+ * @package Rdo
  */
 
 /**
@@ -9,7 +9,7 @@
  * classes extend this baseline.
  *
  * @category Horde
- * @package Horde_Rdo
+ * @package Rdo
  */
 abstract class Horde_Rdo_Base implements IteratorAggregate
 {

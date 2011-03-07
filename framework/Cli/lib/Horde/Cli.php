@@ -9,7 +9,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Cli
+ * @package Cli
  */
 class Horde_Cli
 {

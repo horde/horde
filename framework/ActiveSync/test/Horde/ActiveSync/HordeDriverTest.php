@@ -4,7 +4,7 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @package Horde_ActiveSync
+ * @package ActiveSync
  */
 class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 {

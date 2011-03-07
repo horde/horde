@@ -4,7 +4,7 @@
  * refactored to use XML_WBXML, or the H4 equivelant when it is written...
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_ActiveSync
+ * @package ActiveSync
  */
 
 /**

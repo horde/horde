@@ -2,7 +2,7 @@
 /**
  * Example of deleting Atom posts with Horde_Feed.
  *
- * @package Horde_Feed
+ * @package Feed
  */
 
 /* Get a Horde framework include_path set up. */

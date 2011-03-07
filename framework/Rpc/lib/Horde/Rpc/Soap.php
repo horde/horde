@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Rpc
+ * @package Rpc
  */
 class Horde_Rpc_Soap extends Horde_Rpc
 {

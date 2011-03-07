@@ -3,7 +3,7 @@
  * Horde_Vcs_Log_Svn class.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_Vcs
+ * @package Vcs
  */
 class Horde_Vcs_Log_Svn extends Horde_Vcs_Log
 {

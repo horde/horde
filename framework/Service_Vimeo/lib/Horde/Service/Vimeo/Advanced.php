@@ -8,7 +8,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package Horde_Service_Vimeo
+ * @package Service_Vimeo
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {

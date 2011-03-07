@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Alarm
+ * @package Alarm
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +13,7 @@
  * notifies of active alarms over the Horde_Notification system.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Alarm
+ * @package Alarm
  */
 class Horde_Alarm_Handler_Notify extends Horde_Alarm_Handler
 {

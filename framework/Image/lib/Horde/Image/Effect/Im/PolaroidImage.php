@@ -5,7 +5,7 @@
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Effect_Im_PolaroidImage extends Horde_Image_Effect
 {

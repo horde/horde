@@ -4,7 +4,7 @@
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * @category Horde
- * @package Horde_Feed
+ * @package Feed
  */
 
 /**
@@ -12,7 +12,7 @@
  * feed.
  *
  * @category Horde
- * @package Horde_Feed
+ * @package Feed
  */
 abstract class Horde_Feed_Entry_Base extends Horde_Xml_Element
 {

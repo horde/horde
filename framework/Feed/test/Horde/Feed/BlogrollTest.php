@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package Horde_Feed
+ * @package Feed
  * @subpackage UnitTests
  */
 

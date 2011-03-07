@@ -11,7 +11,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Exif
 {

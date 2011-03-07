@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_Type_tableset extends Horde_Form_Type {
 

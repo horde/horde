@@ -37,7 +37,7 @@
  *
  * @author  Ryan Flynn <ryan@ryanflynn.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Scheduler
+ * @package Scheduler
  */
 class Horde_Scheduler_Cron extends Horde_Scheduler
 {

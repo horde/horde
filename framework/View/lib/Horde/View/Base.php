@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package Horde_View
+ * @package View
  */
 
 /**
@@ -9,7 +9,7 @@
  * template scope.
  *
  * @category Horde
- * @package Horde_View
+ * @package View
  */
 abstract class Horde_View_Base
 {

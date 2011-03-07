@@ -47,7 +47,7 @@
  * @author  Ben Klang <ben@alkaloid.net>
  * @author  Hartmut Holzgraefe
  * @author  Christian Stocker
- * @package Horde_Rpc
+ * @package Rpc
  */
 class Horde_Rpc_Webdav extends Horde_Rpc
 {

@@ -8,7 +8,7 @@
  * credited to Mikko Koppanen and is documented at http://valokuva.org
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
 {

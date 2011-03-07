@@ -1,12 +1,12 @@
 <?php
 /**
  * @category Horde
- * @package Horde_View
+ * @package View
  */
 
 /**
  * @category Horde
- * @package Horde_View
+ * @package View
  */
 class Horde_View_Exception extends Exception
 {

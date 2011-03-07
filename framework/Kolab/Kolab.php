@@ -21,7 +21,7 @@ require_once 'Horde/Kolab/Format/Date.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Stuart Binge <omicron@mighty.co.za>
- * @package Horde_Kolab
+ * @package Kolab
  */
 class Kolab {
 

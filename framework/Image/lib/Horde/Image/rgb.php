@@ -2,7 +2,7 @@
 /**
  * RGB color names/values.
  *
- * @package Horde_Image
+ * @package Image
  */
 $GLOBALS['horde_image_rgb_colors'] = array(
     'aqua' => array(0, 255, 255),

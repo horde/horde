@@ -9,7 +9,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_SpellChecker
+ * @package SpellChecker
  */
 abstract class Horde_SpellChecker
 {

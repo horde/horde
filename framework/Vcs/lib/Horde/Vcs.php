@@ -11,7 +11,7 @@ define('VC_WINDOWS', !strncasecmp(PHP_OS, 'WIN', 3));
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @package Horde_Vcs
+ * @package Vcs
  */
 class Horde_Vcs
 {

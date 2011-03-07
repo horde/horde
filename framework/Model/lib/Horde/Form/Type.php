@@ -3,7 +3,7 @@
  * Horde_Form_Type Class
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @package Horde_Form
+ * @package Form
  */
 abstract class Horde_Form_Type
 {

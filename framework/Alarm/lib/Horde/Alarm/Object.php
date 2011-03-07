@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Alarm
+ * @package Alarm
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +13,7 @@
  * an object instance.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Alarm
+ * @package Alarm
  */
 class Horde_Alarm_Object extends Horde_Alarm
 {

@@ -1,7 +1,7 @@
 #!@php_bin@
 <?php
 /**
- * @package Horde_Feed
+ * @package Feed
  */
 
 /* Get a Horde framework include_path set up. */

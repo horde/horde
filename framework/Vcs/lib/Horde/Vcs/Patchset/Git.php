@@ -9,7 +9,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Vcs
+ * @package Vcs
  */
 class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
 {

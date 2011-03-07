@@ -20,7 +20,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Template
+ * @package Template
  */
 class Horde_Template
 {

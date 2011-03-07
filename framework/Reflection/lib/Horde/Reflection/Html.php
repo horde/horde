@@ -15,7 +15,7 @@
  * @author  Sergio Carvalho <sergio.carvalho@portugalmail.com>
  * @author  Duck <duck@obala.net>
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Reflection
+ * @package Reflection
  */
 class Horde_Reflection_Html extends Horde_Reflection {
 

@@ -13,7 +13,7 @@
  *
  * @author  Sergio Carvalho <sergio.carvalho@portugalmail.com>
  * @author  Duck <duck@obala.net>
- * @package Horde_Reflection
+ * @package Reflection
  */
 class Horde_Reflection_CLI extends Horde_Reflection {
 

@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Compress
+ * @package Compress
  */
 class Horde_Compress
 {

@@ -2,7 +2,7 @@
 /**
  * The list of international license plate codes.
  *
- * @package Horde_Nls
+ * @package Nls
  */
 $carsigns = array(
     'at' => 'A',

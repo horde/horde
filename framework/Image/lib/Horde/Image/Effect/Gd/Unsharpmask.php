@@ -5,7 +5,7 @@
  * Unsharp mask algorithm by Torstein Hønsi 2003 <thoensi_at_netcom_dot_no>
  * From: http://www.vikjavev.com/hovudsida/umtestside.php
  *
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
 {

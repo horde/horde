@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Alarm
+ * @package Alarm
  *
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
@@ -16,7 +16,7 @@
  * horde/scripts/sql/horde_alarm.sql script.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Alarm
+ * @package Alarm
  */
 class Horde_Alarm_Sql extends Horde_Alarm
 {

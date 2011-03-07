@@ -6,7 +6,7 @@
  * @copyright 2010-2011 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_ActiveSync
+ * @package ActiveSync
  */
 class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appointment
 {

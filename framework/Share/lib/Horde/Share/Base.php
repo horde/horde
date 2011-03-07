@@ -14,7 +14,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Share
+ * @package Share
  */
 abstract class Horde_Share_Base
 {

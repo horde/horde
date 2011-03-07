@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Release
+ * @package Release
  */
 class Horde_Release_Whups
 {

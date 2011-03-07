@@ -9,11 +9,11 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Share
+ * @package Share
  */
 
 /**
- * @package Horde_Share
+ * @package Share
  */
 class Horde_Share_Sqlng extends Horde_Share_Sql
 {

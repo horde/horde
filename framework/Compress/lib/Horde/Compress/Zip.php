@@ -20,7 +20,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Cochrane <mike@graftonhall.co.nz>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Compress
+ * @package Compress
  */
 class Horde_Compress_Zip extends Horde_Compress
 {

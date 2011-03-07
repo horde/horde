@@ -10,7 +10,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Gd extends Horde_Image_Base
 {

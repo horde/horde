@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package Horde_Rdo
+ * @package Rdo
  */
 
 /**
@@ -9,7 +9,7 @@
  * decorated objects to be handled gracefully.
  *
  * @category Horde
- * @package Horde_Rdo
+ * @package Rdo
  */
 class Horde_Rdo_Iterator implements Iterator {
 

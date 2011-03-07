@@ -9,14 +9,14 @@
  * @author  Maintainable Software, LLC. (http://www.maintainable.com)
  * @author  Mike Naberezny <mike@maintainable.com>
  * @license http://opensource.org/licenses/bsd-license.php BSD
- * @package Horde_Routes
+ * @package Routes
  */
 
 /**
  * Exception class for the Horde_Routes package.  All exceptions thrown
  * from the package will be of this type.
  * 
- * @package Horde_Routes
+ * @package Routes
  */
 class Horde_Routes_Exception extends Horde_Exception_Prior
 {

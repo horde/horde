@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Rdo
+ * @package Rdo
  */
 
 require_once 'Horde/Autoloader.php';

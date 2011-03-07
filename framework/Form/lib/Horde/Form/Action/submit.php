@@ -10,7 +10,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_Action_submit extends Horde_Form_Action {
 

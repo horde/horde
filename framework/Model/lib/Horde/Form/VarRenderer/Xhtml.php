@@ -8,7 +8,7 @@
  * See the enclosed file LICENSE for license information (LGPL).
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
 {

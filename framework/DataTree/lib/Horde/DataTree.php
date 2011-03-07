@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_DataTree
+ * @package DataTree
  */
 
 /** List every object in an array, similar to PEAR/html/menu.php. */

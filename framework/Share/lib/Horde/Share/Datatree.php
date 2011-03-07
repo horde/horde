@@ -14,7 +14,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Horde_Share
+ * @package Share
  */
 class Horde_Share_Datatree extends Horde_Share_Base
 {

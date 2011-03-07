@@ -10,7 +10,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_Action_reload extends Horde_Form_Action {
 

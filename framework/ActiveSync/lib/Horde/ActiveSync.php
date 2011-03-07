@@ -6,7 +6,7 @@
  * Copyright 2009 - 2010 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_ActiveSync
+ * @package ActiveSync
  */
 /**
  * File      :   diffbackend.php

@@ -16,7 +16,7 @@
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Vcs
+ * @package Vcs
  */
 class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 {

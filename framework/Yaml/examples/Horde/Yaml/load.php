@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Yaml
+ * @package Yaml
  */
 
 require_once dirname(dirname(dirname(__FILE__))) . '/Yaml/__autoload.php';

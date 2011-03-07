@@ -2,7 +2,7 @@
 /**
  * Test the content filter class within the Kolab filter implementation.
  *
- * @package Horde_Kolab_Filter
+ * @package Kolab_Filter
  */
 
 /**
@@ -22,7 +22,7 @@ require_once 'Horde/Kolab/Filter/Content.php';
  * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Horde_Kolab_Filter
+ * @package Kolab_Filter
  */
 class Horde_Kolab_Filter_ContentTest extends Horde_Kolab_Test_Filter
 {

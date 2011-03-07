@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * @package Horde_Rpc
+ * @package Rpc
  */
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/horde/lib/Application.php';

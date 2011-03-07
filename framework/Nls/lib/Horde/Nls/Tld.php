@@ -7,7 +7,7 @@
  * Format:
  *   $tld['countrycode'] = 'countryname';
  *
- * @package Horde_Nls
+ * @package Nls
  */
 $tld = array(
     'ac' => Horde_Nls_Translation::t("Ascension Island"),

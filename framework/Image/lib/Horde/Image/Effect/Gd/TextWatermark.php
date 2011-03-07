@@ -3,7 +3,7 @@
  * Image effect for watermarking images with text for the GD driver..
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
 {

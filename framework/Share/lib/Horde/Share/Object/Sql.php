@@ -5,7 +5,7 @@
  *
  * @author  Duck <duck@obala.net>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Share
+ * @package Share
  */
 class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
 {

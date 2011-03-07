@@ -3,7 +3,7 @@
  * ActiveSync specific WBXML decoder.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_ActiveSync
+ * @package ActiveSync
  */
 
 /**

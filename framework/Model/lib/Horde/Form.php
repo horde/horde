@@ -13,7 +13,7 @@
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form {
 
@@ -568,7 +568,7 @@ class Horde_Form {
  * Horde_Form_Type Class
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_Type
 {
@@ -3132,7 +3132,7 @@ class Horde_Form_Type_invalid extends Horde_Form_Type {
  * more form fields.
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_Variable {
 

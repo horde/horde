@@ -2,7 +2,7 @@
 /**
  * The ISO-3166 country list.
  *
- * @package Horde_Nls
+ * @package Nls
  */
 $countries = array(
     'AF' => Horde_Nls_Translation::t("Afghanistan"),

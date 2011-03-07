@@ -10,7 +10,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Png extends Horde_Image_Base {
 

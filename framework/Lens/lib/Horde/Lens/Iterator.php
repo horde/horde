@@ -4,7 +4,7 @@
  * (http://en.wikipedia.org/wiki/Flyweight_pattern). Refactor/rename
  * some based on this fact?
  *
- * @package Horde_Lens
+ * @package Lens
  */
 
 /**

@@ -10,7 +10,7 @@
  *
  * @author  Mike Hardy
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Release
+ * @package Release
  */
 class Horde_Release
 {

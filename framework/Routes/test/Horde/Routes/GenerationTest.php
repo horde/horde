@@ -9,11 +9,11 @@
  * @author  Maintainable Software, LLC. (http://www.maintainable.com)
  * @author  Mike Naberezny <mike@maintainable.com>
  * @license http://opensource.org/licenses/bsd-license.php BSD
- * @package Horde_Routes
+ * @package Routes
  */
 
 /**
- * @package Horde_Routes
+ * @package Routes
  */
 class Horde_Routes_GenerationTest extends PHPUnit_Framework_TestCase
 {

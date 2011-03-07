@@ -2,7 +2,7 @@
 /**
  * Horde_Scheduler
  *
- * @package Horde_Scheduler
+ * @package Scheduler
  */
 class Horde_Scheduler
 {

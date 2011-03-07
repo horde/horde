@@ -12,7 +12,7 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @package Horde_Service_Facebook
+ * @package Service_Facebook
  */
 
 /**

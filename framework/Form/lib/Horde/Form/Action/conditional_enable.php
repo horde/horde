@@ -22,7 +22,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Matt Kynaston <matt@kynx.org>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_Action_conditional_enable extends Horde_Form_Action {
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Form
+ * @package Form
  */
 
 /**
@@ -15,7 +15,7 @@
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @author  Matt Warden <mwarden@gmail.com>
- * @package Horde_Form
+ * @package Form
  */
 abstract class Horde_Form_Renderer {
 

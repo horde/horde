@@ -5,7 +5,7 @@
  * cases below.
  *  <img src="imtest.php?driver=im&test=polaroid" />
  *
- * @package Horde_Image
+ * @package Image
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';

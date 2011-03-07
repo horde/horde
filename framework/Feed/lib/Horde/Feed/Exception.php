@@ -1,12 +1,12 @@
 <?php
 /**
  * @category Horde
- * @package Horde_Feed
+ * @package Feed
  */
 
 /**
  * @category Horde
- * @package Horde_Feed
+ * @package Feed
  */
 class Horde_Feed_Exception extends Horde_Exception_LastError
 {

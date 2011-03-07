@@ -4,7 +4,7 @@
  * more form fields.
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_Variable {
 

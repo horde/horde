@@ -9,7 +9,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_SQL
+ * @package SQL
  */
 class Horde_SQL {
 

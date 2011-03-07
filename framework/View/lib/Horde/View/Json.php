@@ -1,14 +1,14 @@
 <?php
 /**
  * @category Horde
- * @package Horde_View
+ * @package View
  */
 
 /**
  * Concrete class for handling views.
  *
  * @category Horde
- * @package Horde_View
+ * @package View
  */
 class Horde_View_Json extends Horde_View_Base
 {

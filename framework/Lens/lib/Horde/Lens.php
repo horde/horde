@@ -4,11 +4,11 @@
  * (http://en.wikipedia.org/wiki/Flyweight_pattern). Refactor/rename
  * some based on this fact?
  *
- * @package Horde_Lens
+ * @package Lens
  */
 
 /**
- * @package Horde_Lens
+ * @package Lens
  */
 class Horde_Lens implements Horde_Lens_Interface {
 

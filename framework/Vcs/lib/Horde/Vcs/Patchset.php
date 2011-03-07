@@ -2,7 +2,7 @@
 /**
  * Horde_Vcs patchset class.
  *
- * @package Horde_Vcs
+ * @package Vcs
  */
 abstract class Horde_Vcs_Patchset
 {

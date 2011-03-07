@@ -7,7 +7,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Horde_Share
+ * @package Share
  */
 abstract class Horde_Share_Object implements Serializable
 {

@@ -3,7 +3,7 @@
  * Image border decorator for the Horde_Image package.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Effect_Border extends Horde_Image_Effect {
 

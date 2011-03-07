@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_Serialize
+ * @package Serialize
  */
 
 require_once 'Horde/Serialize.php';

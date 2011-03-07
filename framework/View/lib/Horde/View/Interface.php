@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package Horde_View
+ * @package View
  */
 
 /**
@@ -10,7 +10,7 @@
  * enforce the interface.
  *
  * @category Horde
- * @package Horde_View
+ * @package View
  */
 interface Horde_View_Interface
 {

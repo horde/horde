@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Rpc
+ * @package Rpc
  */
 class Horde_Rpc_Xmlrpc extends Horde_Rpc
 {

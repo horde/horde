@@ -10,7 +10,7 @@
  *
  * @author  Duck <duck@obala.net>
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Reflection
+ * @package Reflection
  */
 class Horde_Reflection_Wiki extends Horde_Reflection {
 

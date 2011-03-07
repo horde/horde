@@ -7,7 +7,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @package Horde_Vcs
+ * @package Vcs
  */
 abstract class Horde_Vcs_Directory
 {

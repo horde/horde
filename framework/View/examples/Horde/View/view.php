@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Horde_View
+ * @package View
  */
 
 require 'Horde/Autoloader.php';

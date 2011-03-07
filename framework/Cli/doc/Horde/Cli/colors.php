@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * @package Horde_Cli
+ * @package Cli
  */
 
 require 'Horde/Cli.php';

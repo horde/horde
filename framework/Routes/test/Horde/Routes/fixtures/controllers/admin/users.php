@@ -1,4 +1,4 @@
 <?php
 /**
- * @package Horde_Routes
+ * @package Routes
  */

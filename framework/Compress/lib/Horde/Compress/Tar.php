@@ -9,7 +9,7 @@
  *
  * @author  Michael Cochrane <mike@graftonhall.co.nz>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Compress
+ * @package Compress
  */
 class Horde_Compress_Tar extends Horde_Compress
 {

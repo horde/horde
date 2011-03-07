@@ -6,7 +6,7 @@
  *
  * @author  Jeff Schwentner <jeffrey.schwentner@lmco.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Vcs
+ * @package Vcs
  */
 class Horde_Vcs_Rcs extends Horde_Vcs
 {

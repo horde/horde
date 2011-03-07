@@ -4,7 +4,7 @@
  * the Sqlng driver.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Share
+ * @package Share
  */
 class Horde_Share_Object_Sqlng extends Horde_Share_Object_Sql
 {

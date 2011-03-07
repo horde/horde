@@ -13,7 +13,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Compress
+ * @package Compress
  */
 class Horde_Compress_Dbx extends Horde_Compress
 {

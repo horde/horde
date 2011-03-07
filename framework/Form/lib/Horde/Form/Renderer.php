@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form_Renderer {
 

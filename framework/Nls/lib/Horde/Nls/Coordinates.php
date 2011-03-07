@@ -7,7 +7,7 @@
  *
  * Latitude and longitude are decimals (south and west are negative).
  *
- * @package Horde_Nls
+ * @package Nls
  */
 
 $coordinates['Afghanistan']['31.000:61.850'] = 'Zaranj';

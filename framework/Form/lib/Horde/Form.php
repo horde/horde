@@ -13,7 +13,7 @@
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Form
+ * @package Form
  */
 class Horde_Form {
 

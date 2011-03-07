@@ -4,7 +4,7 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @package Horde_ActiveSync
+ * @package ActiveSync
  */
 //FIXME: This can be removed once all the constants are class-constants
 require_once dirname(__FILE__) . '/../../../lib/Horde/ActiveSync.php';

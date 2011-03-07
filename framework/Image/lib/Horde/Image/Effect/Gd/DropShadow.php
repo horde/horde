@@ -8,7 +8,7 @@
  * to fit it within the Horde framework and to adjust for our coding standards.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image_Effect_Gd_DropShadow extends Horde_Image_Effect
 {

@@ -14,7 +14,7 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Compress
+ * @package Compress
  */
 class Horde_Compress_Tnef extends Horde_Compress
 {

@@ -6,7 +6,7 @@
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Share
+ * @package Share
  */
 class Horde_Share_Object_DataTree_Share extends Horde_DataTreeObject
 {
