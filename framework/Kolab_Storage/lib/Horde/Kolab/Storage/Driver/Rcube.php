@@ -491,7 +491,9 @@ extends Horde_Kolab_Storage_Driver_Base
         $result = array();
         foreach ($uids as $uid) {
             $structure = $this->getBackend()->tokenizeResponse(
-                $this->getBackend()->fetchStructureString($folder, $uid, true)
+                $this->getBackend()->fetchStructureString(
+                    $this->encodePath($folder), $uid, true
+                )
             );
             if ($this->getBackend()->errornum != 0) {
                 throw new Horde_Kolab_Storage_Exception(
@@ -523,9 +525,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function fetchBodypart($folder, $uid, $id)
     {
-        $this->select($folder);
         $resource = fopen('php://temp', 'r+');
-        $this->getBackend()->handlePartBody($folder, $uid, true, $id, null, false, $resource);
+        $this->getBackend()->handlePartBody(
+            $this->encodePath($folder), $uid, true, $id, null, false, $resource
+        );
         if ($this->getBackend()->errornum != 0) {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
@@ -543,17 +546,32 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Appends a message to the current folder.
+     * Appends a message to the given folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param string $msg     The message to append.
+     * @param string   $folder  The folder to append the message(s) to.
+     * @param resource $msg     The message to append.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return mixed True or the UID of the new message in case the backend
+     *               supports UIDPLUS.
      */
     public function appendMessage($folder, $msg)
     {
-        return $this->getBackend()->append($folder, array(array('data' => $msg)));
+        rewind($msg);
+        $this->getBackend()->append(
+            $this->encodePath($folder), stream_get_contents($msg)
+        );
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed appending new message to folder %s. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+        return true;
     }
 
     /**
