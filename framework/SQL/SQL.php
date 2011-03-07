@@ -176,33 +176,6 @@ class Horde_SQL {
     }
 
     /**
-     * Build appropriate INTERVAL clause for the database in use
-     *
-     * @param mixed $dbh
-     * @param string $interval
-     * @param string $precision
-     *
-     * @return string
-     */
-    static public function buildIntervalClause($dbh, $interval, $precision)
-    {
-        $type = $dbh instanceof Horde_Db_Adapter ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
-        switch ($type) {
-        case 'pgsql':
-        case 'pdo_postgresql':
-            $clause = 'INTERVAL \'' . $interval . ' ' . $precision . '\'';
-            break;
-        case 'oci8':
-            $clause = 'INTERVAL ' . $interval . '(' . $precision . ')';
-            break;
-        default:
-            $clause = 'INTERVAL ' . $precision . ' ' . $interval;
-        }
-
-        return $clause;
-    }
-
-    /**
      * Escapes all characters in a string that are placeholders for the
      * prepare/execute methods of the DB package.
      *
@@ -398,64 +371,6 @@ class Horde_SQL {
 
         /* Execute the query. */
         return $dbh->query($query, $values);
-    }
-
-    /**
-     * Build an SQL SET clause.
-     *
-     * This function takes an array in the form column => value and returns
-     * an SQL SET clause (without the SET keyword) with the values properly
-     * quoted.  For example, the following:
-     *
-     *      array('foo' => 1,
-     *            'bar' => 'hello')
-     *
-     * would result in the fragment:
-     *
-     *      foo = 1, bar = 'hello'
-     *
-     * @param DB $dbh        The PEAR::DB database object.
-     * @param array $values  The array of column => value pairs.
-     *
-     * @return string  The SQL SET fragment.
-     */
-    static public function updateValues($dbh, $values)
-    {
-        $ret = array();
-        foreach ($values as $key => $value) {
-            $ret[] = $key . ' = ' . ($value === null ? 'NULL' : $dbh->quote($value));
-        }
-        return implode(', ', $ret);
-    }
-
-    /**
-     * Build an SQL INSERT/VALUES clause.
-     *
-     * This function takes an array in the form column => value and returns
-     * an SQL fragment specifying the column names and insert values, with
-     * the values properly quoted.  For example, the following:
-     *
-     *      array('foo' => 1,
-     *            'bar' => 'hello')
-     *
-     * would result in the fragment:
-     *
-     *      ( foo, bar ) VALUES ( 1, 'hello' )
-     *
-     * @param DB $dbh        The PEAR::DB database object.
-     * @param array $values  The array of column => value pairs.
-     *
-     * @return string  The SQL fragment.
-     */
-    static public function insertValues($dbh, $values)
-    {
-        $columns = array();
-        $vals = array();
-        foreach ($values as $key => $value) {
-            $columns[] = $key;
-            $vals[] = $value === null ? 'NULL' : $dbh->quote($value);
-        }
-        return '( ' . implode(', ', $columns) . ' ) VALUES ( ' . implode(', ', $vals) . ' )';
     }
 
 }

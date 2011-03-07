@@ -812,6 +812,19 @@ abstract class Horde_Db_Adapter_Base_Schema
         return $sql . 'ORDER BY ' . $options['order'];
     }
 
+    /**
+     * Build appropriate INTERVAL clause.
+     *
+     * @param string $interval
+     * @param string $precision
+     *
+     * @return string
+     */
+    public function interval($interval, $precision)
+    {
+        return 'INTERVAL ' . $precision . ' ' . $interval;
+    }
+
 
     /*##########################################################################
     # Protected

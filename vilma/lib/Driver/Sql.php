@@ -86,18 +86,21 @@ class Vilma_Driver_Sql extends Vilma_Driver
 
         if (empty($info['domain_id'])) {
             $record['domain_id'] = $this->_db->nextId($this->_params['tables']['domains']);
-            $sql = 'INSERT INTO ' . $this->_params['tables']['domains'] . ' '
-                . Horde_SQL::insertValues($this->_db, $this->_prepareRecord('domains', $record));
-            $values = array();
+            $values = $this->_prepareRecord('domains', $record);
+            $sql = sprintf('INSERT INTO %s (%s) VALUES (%s)',
+                           $this->_params['tables']['domains'],
+                           implode(', ', array_keys($values)),
+                           implode(', ', array_fill(0, count($values), '?')));
+            $this->_db->insert($sql, $values);
         } else {
-            $sql = 'UPDATE ' . $this->_params['tables']['domains']
-                . ' SET ' . Horde_SQL::updateValues($this->_db, $this->_prepareRecord('domains', $record))
-                . ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?';
-            $values = array($info['domain_id']);
+            $values = $this->_prepareRecord('domains', $record);
+            $sql = sprintf('UPDATE %s SET %s WHERE %s = ?',
+                           $this->_params['tables']['domains'],
+                           implode(' = ?, ', array_keys($values)) . ' = ?',
+                           $this->_getTableField('domains', 'domain_id'));
+            $values[] = (int)$info['domain_id'];
+            $this->_db->update($sql, $values);
         }
-
-        Horde::logMessage($sql, 'DEBUG');
-        return $this->_db->query($sql, $values);
     }
 
     /**
@@ -252,18 +255,21 @@ class Vilma_Driver_Sql extends Vilma_Driver
             throw new Vilma_Exception(_("Password must be supplied when creating a new user."));
         }
 
+        $values = $this->_prepareRecord('users', $tuple);
         if ($create) {
-            $sql = 'INSERT INTO ' . $this->_params['tables']['users'] . ' '
-                . Horde_SQL::insertValues($this->_db, $this->_prepareRecord('users', $tuple));
-        } else {
-            $sql = sprintf('UPDATE %s SET %s WHERE ' . $this->_getTableField('users', 'user_id') . ' = %d',
+            $sql = sprintf('INSERT INTO %s (%s) VALUES (%s)',
                            $this->_params['tables']['users'],
-                           Horde_SQL::updateValues($this->_db, $this->_prepareRecord('users', $tuple)),
-                           (int)$info['user_id']);
+                           implode(', ', array_keys($values)),
+                           implode(', ', array_fill(0, count($values), '?')));
+            $this->_db->insert($sql, $values);
+        } else {
+            $sql = sprintf('UPDATE %s SET %s WHERE %s = ?',
+                           $this->_params['tables']['users'],
+                           implode(' = ?, ', array_keys($values)) . ' = ?',
+                           $this->_getTableField('users', 'user_id'));
+            $values[] = (int)$info['user_id'];
+            $this->_db->update($sql, $values);
         }
-
-        Horde::logMessage($sql, 'DEBUG');
-        Horde_Exception_Pear::catchError($this->_db->query($sql));
 
         return $info['user_id'];
     }

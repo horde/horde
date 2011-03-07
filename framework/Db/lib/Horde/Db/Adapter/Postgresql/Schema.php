@@ -760,6 +760,19 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Build appropriate INTERVAL clause.
+     *
+     * @param string $interval
+     * @param string $precision
+     *
+     * @return string
+     */
+    public function interval($interval, $precision)
+    {
+        return 'INTERVAL \'' . $interval . ' ' . $precision . '\'';
+    }
+
+    /**
      * Returns the list of a table's column names, data types, and default values.
      *
      * The underlying query is roughly:

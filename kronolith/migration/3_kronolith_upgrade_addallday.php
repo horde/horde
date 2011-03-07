@@ -17,11 +17,11 @@ class KronolithUpgradeAddAllDay extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $t = $this->_connection->table('kronolith_events');
+        $t = $this->table('kronolith_events');
         $cols = $t->getColumns();
         if (!in_array('event_allday', array_keys($cols))) {
             $this->addColumn('kronolith_events', 'event_allday', 'integer', array('default' => 0));
-            $this->_connection->execute('UPDATE kronolith_events SET event_allday = 1 WHERE event_start + ' . Horde_SQL::buildIntervalClause($this->_connection, 'DAY', 1) . ' = event_end');
+            $this->execute('UPDATE kronolith_events SET event_allday = 1 WHERE event_start + ' . $this->interval('DAY', 1) . ' = event_end');
         }
     }
 
@@ -32,5 +32,4 @@ class KronolithUpgradeAddAllDay extends Horde_Db_Migration_Base
     {
         $this->removeColumn('kronolith_events', 'event_allday');
     }
-
 }
