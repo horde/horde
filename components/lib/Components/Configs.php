@@ -30,6 +30,12 @@
 class Components_Configs
 implements Components_Config
 {
+    /**
+     * Additional options.
+     *
+     * @var array
+     */
+    private $_options = array();
 
     /**
      * The different configuration handlers.
@@ -52,7 +58,8 @@ implements Components_Config
      *
      * @return NULL
      */
-    public function addConfigurationType(Components_Config $type) {
+    public function addConfigurationType(Components_Config $type)
+    {
         $this->_configs[] = $type;
     }
 
@@ -67,6 +74,19 @@ implements Components_Config
         foreach ($this->_configs as $config) {
             $config->handleModules($modules);
         }
+    }
+
+    /**
+     * Set an additional option value.
+     *
+     * @param string $key   The option to set.
+     * @param string $value The value of the option.
+     *
+     * @return NULL
+     */
+    public function setOption($key, $value)
+    {
+        $this->_options[$key] = $value;
     }
 
     /**
@@ -86,6 +106,7 @@ implements Components_Config
                 $options = array_merge($options, $config_options);
             }
         }
+        $options = array_merge($options, $this->_options);
         return $options;
     }
 

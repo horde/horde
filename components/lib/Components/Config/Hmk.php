@@ -105,6 +105,19 @@ implements Components_Config
     }
 
     /**
+     * Set an additional option value.
+     *
+     * @param string $key   The option to set.
+     * @param string $value The value of the option.
+     *
+     * @return NULL
+     */
+    public function setOption($key, $value)
+    {
+        $this->_options[$key] = $value;
+    }
+
+    /**
      * Return the options parsed from the command line.
      *
      * @return Horde_Argv_Values The option values.
