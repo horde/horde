@@ -383,28 +383,44 @@
    <package>
     <name>Horde_Kolab_Format</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.1</min>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Server</name>
     <channel>pear.horde.org</channel>
-    <min>0.5.0</min>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Horde_Date</name>
+    <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </required>
  </dependencies>

@@ -20,7 +20,7 @@
  <time>14:08:27</time>
  <version>
   <release>3.0.0alpha1</release>
-  <api>3.0</api>
+  <api>3.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -455,6 +455,9 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
+    <min>4.0.0alpha1</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
    </package>
   </required>
  </dependencies>

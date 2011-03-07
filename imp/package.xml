@@ -27,7 +27,7 @@ IMP offers most of the features users have come to expect from their conventiona
  <time>14:13:07</time>
  <version>
   <release>5.0.0alpha1</release>
-  <api>5.0</api>
+  <api>5.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -1102,26 +1102,44 @@ IMP offers most of the features users have come to expect from their conventiona
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
+    <min>4.0.0alpha1</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>Horde_Editor</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </required>
  </dependencies>

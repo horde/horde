@@ -362,26 +362,44 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </required>
   <optional>
@@ -392,6 +410,9 @@
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </optional>
  </dependencies>

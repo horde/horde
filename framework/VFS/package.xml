@@ -374,10 +374,16 @@ Reading, writing and listing of files are all supported, and there are both obje
    <package>
     <name>Log</name>
     <channel>pear.php.net</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </required>
  </dependencies>

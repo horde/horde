@@ -20,7 +20,7 @@
  <time>14:10:11</time>
  <version>
   <release>3.0.0alpha1</release>
-  <api>3.0</api>
+  <api>3.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -821,22 +821,37 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
+    <min>4.0.0alpha1</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>Date</name>
     <channel>pear.php.net</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Date_Parser</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </required>
  </dependencies>
