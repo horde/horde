@@ -116,7 +116,6 @@ class Horde_SyncMl_ContentHandler
             $this->_xmlWriter = &Horde_SyncMl_XmlOutput::singleton();
             /* Horde_Xml_Wbxml_ContentHandler Is a class that produces plain XML
              * output. */
-            require_once 'XML/WBXML/ContentHandler.php';
             $this->_xmlWriter->init(new Horde_Xml_Wbxml_ContentHandler());
 
             /* Create the XML parser and set method references. */
@@ -141,10 +140,6 @@ class Horde_SyncMl_ContentHandler
             xml_parser_free($parser);
 
         } else {
-            /* WBXML code. */
-            require_once 'XML/WBXML/Decoder.php';
-            require_once 'XML/WBXML/Encoder.php';
-
             /* The decoder works like the parser in the XML code above: It
              * parses the input and calls the callback functions of $this. */
             $this->_wbxmlparser = new Horde_Xml_Wbxml_Decoder();
