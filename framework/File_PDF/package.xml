@@ -32,7 +32,7 @@
 * First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir baseinstalldir="/" name="/">
+  <dir baseinstalldir="/File" name="/">
    <dir name="PDF">
     <dir name="fonts">
      <file name="courier.php" role="php" />
@@ -81,31 +81,6 @@
   </optional>
  </dependencies>
  <phprelease>
-  <filelist>
-   <install as="PDF/fonts/courier.php" name="PDF/fonts/courier.php" />
-   <install as="PDF/fonts/helvetica.php" name="PDF/fonts/helvetica.php" />
-   <install as="PDF/fonts/helveticab.php" name="PDF/fonts/helveticab.php" />
-   <install as="PDF/fonts/helveticabi.php" name="PDF/fonts/helveticabi.php" />
-   <install as="PDF/fonts/helveticai.php" name="PDF/fonts/helveticai.php" />
-   <install as="PDF/fonts/symbol.php" name="PDF/fonts/symbol.php" />
-   <install as="PDF/fonts/times.php" name="PDF/fonts/times.php" />
-   <install as="PDF/fonts/timesb.php" name="PDF/fonts/timesb.php" />
-   <install as="PDF/fonts/timesbi.php" name="PDF/fonts/timesbi.php" />
-   <install as="PDF/fonts/timesi.php" name="PDF/fonts/timesi.php" />
-   <install as="PDF/fonts/zapfdingbats.php" name="PDF/fonts/zapfdingbats.php" />
-   <install as="tests/20k_c1.txt" name="tests/20k_c1.txt" />
-   <install as="tests/20k_c2.txt" name="tests/20k_c2.txt" />
-   <install as="auto_break.phpt" name="tests/auto_break.phpt" />
-   <install as="factory.phpt" name="tests/factory.phpt" />
-   <install as="hello_world.phpt" name="tests/hello_world.phpt" />
-   <install as="horde-power1.png" name="tests/horde-power1.png" />
-   <install as="links.phpt" name="tests/links.phpt" />
-   <install as="locale_floats.phpt" name="tests/locale_floats.phpt" />
-   <install as="pear12310.phpt" name="tests/pear12310.phpt" />
-   <install as="text_color.phpt" name="tests/text_color.phpt" />
-   <install as="tests/underline.phpt" name="tests/underline.phpt" />
-   <install as="PDF.php" name="PDF.php" />
-  </filelist>
  </phprelease>
  <changelog>
   <release>

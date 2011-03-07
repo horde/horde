@@ -26,7 +26,7 @@
 * First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir baseinstalldir="/" name="/">
+  <dir baseinstalldir="/Net" name="/">
    <dir name="IMSP">
     <dir name="Auth">
      <file name="cram_md5.php" role="php" />
@@ -323,104 +323,6 @@
   </required>
  </dependencies>
  <phprelease>
-  <filelist>
-   <install as="IMSP/Auth.php" name="IMSP/Auth.php" />
-   <install as="IMSP/Book.php" name="IMSP/Book.php" />
-   <install as="IMSP/Options.php" name="IMSP/Options.php" />
-   <install as="IMSP/Translation.php" name="IMSP/Translation.php" />
-   <install as="IMSP/Utils.php" name="IMSP/Utils.php" />
-   <install as="IMSP/Auth/cram_md5.php" name="IMSP/Auth/cram_md5.php" />
-   <install as="IMSP/Auth/imtest.php" name="IMSP/Auth/imtest.php" />
-   <install as="IMSP/Auth/plaintext.php" name="IMSP/Auth/plaintext.php" />
-   <install as="locale/Horde_Net_IMSP.pot" name="locale/Horde_Net_IMSP.pot" />
-   <install as="locale/ar/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/ar/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/ar/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/ar/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/bg/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/bg/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/bg/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/bg/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/bs/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/bs/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/bs/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/bs/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/ca/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/ca/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/ca/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/ca/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/cs/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/cs/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/cs/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/cs/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/da/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/da/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/da/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/da/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/de/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/de/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/de/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/de/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/el/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/el/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/el/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/el/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/en/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/en/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/es/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/es/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/es/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/es/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/et/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/et/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/et/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/et/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/eu/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/eu/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/eu/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/eu/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/fa/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/fa/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/fa/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/fa/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/fi/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/fi/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/fi/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/fi/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/fr/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/fr/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/fr/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/fr/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/gl/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/gl/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/gl/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/gl/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/he/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/he/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/he/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/he/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/hr/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/hr/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/hr/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/hr/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/hu/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/hu/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/hu/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/hu/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/id/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/id/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/id/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/id/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/is/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/is/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/is/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/is/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/it/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/it/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/it/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/it/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/ja/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/ja/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/ja/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/ja/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/km/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/km/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/km/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/km/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/ko/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/ko/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/ko/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/ko/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/lt/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/lt/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/lt/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/lt/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/lv/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/lv/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/lv/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/lv/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/mk/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/mk/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/mk/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/mk/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/nb/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/nb/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/nb/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/nb/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/nl/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/nl/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/nl/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/nl/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/nn/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/nn/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/nn/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/nn/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/pl/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/pl/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/pl/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/pl/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/pt/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/pt/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/pt/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/pt/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/pt_BR/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/pt_BR/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/pt_BR/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/ro/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/ro/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/ro/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/ro/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/ru/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/ru/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/ru/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/ru/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/sk/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/sk/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/sk/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/sk/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/sl/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/sl/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/sl/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/sl/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/sv/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/sv/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/sv/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/sv/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/tr/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/tr/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/tr/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/tr/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/uk/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/uk/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/uk/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/uk/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/zh_CN/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/zh_CN/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/zh_CN/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="locale/zh_TW/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Net_IMSP.mo" />
-   <install as="locale/zh_TW/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/zh_TW/LC_MESSAGES/Horde_Net_IMSP.po" />
-   <install as="IMSP.php" name="IMSP.php" />
-  </filelist>
  </phprelease>
  <changelog>
   <release>

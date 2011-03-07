@@ -32,7 +32,7 @@
 * First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir baseinstalldir="/" name="/">
+  <dir baseinstalldir="/Text" name="/">
    <dir name="Diff">
     <dir name="Engine">
      <file name="native.php" role="php" />
@@ -104,47 +104,6 @@
   </optional>
  </dependencies>
  <phprelease>
-  <filelist>
-   <install as="Diff/Mapped.php" name="Diff/Mapped.php" />
-   <install as="Diff/Renderer.php" name="Diff/Renderer.php" />
-   <install as="Diff/ThreeWay.php" name="Diff/ThreeWay.php" />
-   <install as="Diff/Engine/native.php" name="Diff/Engine/native.php" />
-   <install as="Diff/Engine/shell.php" name="Diff/Engine/shell.php" />
-   <install as="Diff/Engine/string.php" name="Diff/Engine/string.php" />
-   <install as="Diff/Engine/xdiff.php" name="Diff/Engine/xdiff.php" />
-   <install as="Diff/Renderer/context.php" name="Diff/Renderer/context.php" />
-   <install as="Diff/Renderer/inline.php" name="Diff/Renderer/inline.php" />
-   <install as="Diff/Renderer/unified.php" name="Diff/Renderer/unified.php" />
-   <install as="examples/1.txt" name="docs/examples/1.txt" />
-   <install as="examples/2.txt" name="docs/examples/2.txt" />
-   <install as="examples/diff.php" name="docs/examples/diff.php" />
-   <install as="1.txt" name="tests/1.txt" />
-   <install as="2.txt" name="tests/2.txt" />
-   <install as="3.txt" name="tests/3.txt" />
-   <install as="4.txt" name="tests/4.txt" />
-   <install as="5.txt" name="tests/5.txt" />
-   <install as="6.txt" name="tests/6.txt" />
-   <install as="context.patch" name="tests/context.patch" />
-   <install as="context.phpt" name="tests/context.phpt" />
-   <install as="context2.phpt" name="tests/context2.phpt" />
-   <install as="diff.phpt" name="tests/diff.phpt" />
-   <install as="tests/diff_shell.phpt" name="tests/diff_shell.phpt" />
-   <install as="inline.phpt" name="tests/inline.phpt" />
-   <install as="inline2.phpt" name="tests/inline2.phpt" />
-   <install as="pear_bug4879.phpt" name="tests/pear_bug4879.phpt" />
-   <install as="tests/pear_bug4982.phpt" name="tests/pear_bug4982.phpt" />
-   <install as="pear_bug6251.phpt" name="tests/pear_bug6251.phpt" />
-   <install as="pear_bug6428.phpt" name="tests/pear_bug6428.phpt" />
-   <install as="pear_bug7839.phpt" name="tests/pear_bug7839.phpt" />
-   <install as="pear_bug12740.phpt" name="tests/pear_bug12740.phpt" />
-   <install as="string.phpt" name="tests/string.phpt" />
-   <install as="unified.patch" name="tests/unified.patch" />
-   <install as="unified.phpt" name="tests/unified.phpt" />
-   <install as="unified2.patch" name="tests/unified2.patch" />
-   <install as="unified2.phpt" name="tests/unified2.phpt" />
-   <install as="xdiff.phpt" name="tests/xdiff.phpt" />
-   <install as="Diff.php" name="Diff.php" />
-  </filelist>
  </phprelease>
  <changelog>
   <release>
