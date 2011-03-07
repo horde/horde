@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-07</date>
- <time>00:37:55</time>
+ <time>01:12:39</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -83,9 +83,11 @@
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="IdsTest.php" role="test" />
+       <file name="SubjectParseTest.php" role="test" />
        <file name="test_client.php" role="test" />
        <file name="test_email.txt" role="test" />
        <file name="test_email2.txt" role="test" />
+       <file name="UrlParseTest.php" role="test" />
       </dir> <!-- /test/Horde/Imap/Client -->
      </dir> <!-- /test/Horde/Imap -->
     </dir> <!-- /test/Horde -->
@@ -164,9 +166,11 @@
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
+   <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/test_client.php" name="test/Horde/Imap/Client/test_client.php" />
    <install as="Horde/Imap/Client/test_email.txt" name="test/Horde/Imap/Client/test_email.txt" />
    <install as="Horde/Imap/Client/test_email2.txt" name="test/Horde/Imap/Client/test_email2.txt" />
+   <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
   </filelist>
  </phprelease>
  <changelog>

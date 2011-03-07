@@ -847,22 +847,6 @@ if ($use_imapproxy) {
     print "\nLogging out: OK\n";
 }
 
-$subject_lines = array(
-    'Re: Test',
-    're: Test',
-    'Fwd: Test',
-    'fwd: Test',
-    'Fwd: Re: Test',
-    'Fwd: Re: Test (fwd)',
-    "Re: re:re: fwd:[fwd: \t  Test]  (fwd)  (fwd)(fwd) "
-);
-
-print "\nBase subject parsing:\n";
-foreach ($subject_lines as $val) {
-    print "  ORIGINAL: \"" . $val . "\"\n";
-    print "  BASE: \"" . $imap_utils->getBaseSubject($val) . "\"\n\n";
-}
-
 if (isset($fetch_res)) {
     print "\nTesting Horde_Mime_Part::parseMessage() on complex MIME message:\n";
     $parse_text_res = Horde_Mime_Part::parseMessage(file_get_contents($currdir . '/test_email2.txt'));
