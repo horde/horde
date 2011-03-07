@@ -95,7 +95,7 @@ class IMP_Prefs_Ui
                 try {
                     $ui->override['add_source'] = $registry->call('contacts/sources', array(true));
                 } catch (Horde_Exception $e) {
-                    $ui->suppress[] = 'add_source';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -105,7 +105,7 @@ class IMP_Prefs_Ui
                 $v = $injector->getInstance('IMP_Factory_MimeViewer')->create($mock_part);
 
                 if (!$v->canRender('inline')) {
-                    $ui->suppress[] = 'alternative_display';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -152,13 +152,13 @@ class IMP_Prefs_Ui
 
             case 'draftsselect':
                 if ($prefs->isLocked('drafts_folder')) {
-                    $ui->suppress[] = 'draftsselect';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
             case 'dynamic_view':
                 if (!empty($conf['user']['force_view'])) {
-                    $ui->suppress[] = 'dynamic_view';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -173,7 +173,7 @@ class IMP_Prefs_Ui
 
             case 'encryptselect':
                 if ($prefs->isLocked('default_encrypt')) {
-                    $ui->suppress[] = 'encryptselect';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -187,19 +187,19 @@ class IMP_Prefs_Ui
 
             case 'filters_blacklist_link':
                 if (!$registry->hasMethod('mail/showBlacklist')) {
-                    $ui->suppress[] = 'filters_blacklist_link';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
             case 'filters_link':
                 if (!$registry->hasMethod('mail/showFilters')) {
-                    $ui->suppress[] = 'filters_link';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
             case 'filters_whitelist_link':
                 if (!$registry->hasMethod('mail/showWhitelist')) {
-                    $ui->suppress[] = 'filters_whitelist_link';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -212,7 +212,7 @@ class IMP_Prefs_Ui
 
             case 'initialpageselect':
                 if ($prefs->isLocked('initial_page')) {
-                    $ui->suppress[] = 'initialpageselect';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -239,7 +239,7 @@ class IMP_Prefs_Ui
 
             case 'send_mdn':
                 if (empty($conf['maillog']['use_maillog'])) {
-                    $ui->suppress[] = 'send_mdn';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -254,7 +254,7 @@ class IMP_Prefs_Ui
 
             case 'soundselect':
                 if ($prefs->isLocked('nav_audio')) {
-                    $ui->suppress[] = 'soundselect';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -264,7 +264,7 @@ class IMP_Prefs_Ui
 
             case 'spamselect':
                 if ($prefs->isLocked('spam_folder')) {
-                    $ui->suppress[] = 'spamselect';
+                    $ui->suppress[] = $val;
                 }
                 break;
 
@@ -286,7 +286,7 @@ class IMP_Prefs_Ui
 
             case 'trashselect':
                 if ($prefs->isLocked('trash_folder')) {
-                    $ui->suppress[] = 'trashselect';
+                    $ui->suppress[] = $val;
                 }
                 break;
             }
