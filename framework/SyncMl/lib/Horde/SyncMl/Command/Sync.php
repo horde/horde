@@ -269,13 +269,13 @@ class Horde_SyncMl_Command_Sync extends Horde_SyncMl_Command
         // Handle unauthenticated first.
         if (!$state->authenticated) {
             $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
-                                                Horde_SycnMl::RESPONSE_INVALID_CREDENTIALS);
+                                                Horde_SyncMl::RESPONSE_INVALID_CREDENTIALS);
             return;
         }
 
         if ($debug) {
             $sync = &$state->getSync($this->_targetURI);
-            $sync = new Horde_SyncMl_Sync(Horde_SycnMl::ALERT_TWO_WAY,
+            $sync = new Horde_SyncMl_Sync(Horde_SyncMl::ALERT_TWO_WAY,
                                     $this->_targetURI,
                                     $this->_sourceURI,
                                     0, 0, 0);
@@ -295,7 +295,7 @@ class Horde_SyncMl_Command_Sync extends Horde_SyncMl_Command
          * SE K750 expects Status response to be sent before Sync output
          * by server is produced. */
         $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
-                                            Horde_SycnMl::RESPONSE_OK,
+                                            Horde_SyncMl::RESPONSE_OK,
                                             $this->_targetURI,
                                             $this->_sourceURI);
 
@@ -314,7 +314,7 @@ class Horde_SyncMl_Command_Sync extends Horde_SyncMl_Command
             $this->_outputHandler->outputStatus(
                 $state->curSyncItem->cmdID,
                 $state->curSyncItem->elementType,
-                Horde_SycnMl::RESPONSE_CHUNKED_ITEM_ACCEPTED_AND_BUFFERED,
+                Horde_SyncMl::RESPONSE_CHUNKED_ITEM_ACCEPTED_AND_BUFFERED,
                 '',
                 $state->curSyncItem->cuid);
             // @todo: check if we have to send Alert NEXT_MESSAGE here!

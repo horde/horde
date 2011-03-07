@@ -5,7 +5,7 @@
  *    Backend to handle the communication with the datastore.
  *
  * @todo: Main Todos:
- * - ensure that no server data is written for Horde_SycnMl::ALERT_ONE_WAY_FROM_SERVER
+ * - ensure that no server data is written for Horde_SyncMl::ALERT_ONE_WAY_FROM_SERVER
  *   even when client sends data (security!)
  * - consinstant naming of clientSyncDB (currently called targetLocURI, db
  *   or synctype)
@@ -370,19 +370,19 @@ class Horde_SyncMl_ContentHandler
                 $hdr->user, $hdr->credData, $hdr->credFormat, $hdr->credType);
             if ($auth !== false) {
                 $state->authenticated = true;
-                $statuscode = Horde_SycnMl::RESPONSE_AUTHENTICATION_ACCEPTED;
+                $statuscode = Horde_SyncMl::RESPONSE_AUTHENTICATION_ACCEPTED;
                 $state->user = $auth;
                 $GLOBALS['backend']->setUser($auth);
             } else {
                 if (!$hdr->credData) {
-                    $statuscode = Horde_SycnMl::RESPONSE_CREDENTIALS_MISSING;
+                    $statuscode = Horde_SyncMl::RESPONSE_CREDENTIALS_MISSING;
                 } else {
-                    $statuscode = Horde_SycnMl::RESPONSE_INVALID_CREDENTIALS;
+                    $statuscode = Horde_SyncMl::RESPONSE_INVALID_CREDENTIALS;
                 }
                 $GLOBALS['backend']->logMessage('Invalid authentication', 'DEBUG');
             }
         } else {
-            $statuscode = Horde_SycnMl::RESPONSE_OK;
+            $statuscode = Horde_SyncMl::RESPONSE_OK;
             $GLOBALS['backend']->setUser($state->user);
         }
 
@@ -465,7 +465,7 @@ class Horde_SyncMl_ContentHandler
 
         if (isset($state->curSyncItem)) {
             $this->_xmlWriter->outputAlert(
-                Horde_SycnMl::ALERT_NO_END_OF_DATA,
+                Horde_SyncMl::ALERT_NO_END_OF_DATA,
                 $state->curSyncItem->sync->getClientLocURI(),
                 $state->curSyncItem->sync->getServerLocURI(),
                 $state->curSyncItem->sync->getServerAnchorLast(),

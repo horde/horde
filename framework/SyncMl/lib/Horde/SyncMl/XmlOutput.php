@@ -140,7 +140,7 @@ class Horde_SyncMl_XmlOutput
         // Dummy Max MsqSize, this is just put in to make the packet
         // work, it is not a real value.
         $this->output->startElement($this->_uriMeta, 'MaxMsgSize');
-        $chars = Horde_SycnMl::SERVER_MAXMSGSIZE; // 1Meg
+        $chars = Horde_SyncMl::SERVER_MAXMSGSIZE; // 1Meg
         $this->output->characters($chars);
         $this->output->endElement($this->_uriMeta, 'MaxMsgSize');
 
@@ -148,7 +148,7 @@ class Horde_SyncMl_XmlOutput
         // MaxObjSize, required by protocol for SyncML1.1 and higher.
         if ($state->version > 0) {
             $this->output->startElement($this->_uriMeta, 'MaxObjSize');
-            $this->output->characters(Horde_SycnMl::SERVER_MAXOBJSIZE);
+            $this->output->characters(Horde_SyncMl::SERVER_MAXOBJSIZE);
             $this->output->endElement($this->_uriMeta, 'MaxObjSize');
         }
         $this->output->endElement($this->_uri, 'Meta');
@@ -222,11 +222,11 @@ class Horde_SyncMl_XmlOutput
         // If we are responding to the SyncHdr and we are not
         // authenticated then request basic authorization.
         if ($cmd == 'SyncHdr' && !$state->authenticated) {
-            // Keep Horde_SycnMl::RESPONSE_CREDENTIALS_MISSING, otherwise set to
-            // Horde_SycnMl::RESPONSE_INVALID_CREDENTIALS.
-            $data = $data == Horde_SycnMl::RESPONSE_CREDENTIALS_MISSING
-                ? Horde_SycnMl::RESPONSE_CREDENTIALS_MISSING
-                : Horde_SycnMl::RESPONSE_INVALID_CREDENTIALS;
+            // Keep Horde_SyncMl::RESPONSE_CREDENTIALS_MISSING, otherwise set to
+            // Horde_SyncMl::RESPONSE_INVALID_CREDENTIALS.
+            $data = $data == Horde_SyncMl::RESPONSE_CREDENTIALS_MISSING
+                ? Horde_SyncMl::RESPONSE_CREDENTIALS_MISSING
+                : Horde_SyncMl::RESPONSE_INVALID_CREDENTIALS;
 
             $this->output->startElement($this->_uri, 'Chal');
             $this->output->startElement($this->_uri, 'Meta');
@@ -298,9 +298,9 @@ class Horde_SyncMl_XmlOutput
         $this->output->startElement($this->_uri, 'Meta');
         $this->output->startElement($uriMeta, 'Type');
         if ($state->wbxml) {
-            $this->output->characters(Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_WBXML);
+            $this->output->characters(Horde_SyncMl::MIME_SYNCML_DEVICE_INFO_WBXML);
         } else {
-            $this->output->characters(Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_XML);
+            $this->output->characters(Horde_SyncMl::MIME_SYNCML_DEVICE_INFO_XML);
         }
 
         $this->output->endElement($uriMeta, 'Type');
@@ -481,7 +481,7 @@ class Horde_SyncMl_XmlOutput
         // MaxObjSize, required by protocol for SyncML1.1 and higher.
         if ($GLOBALS['backend']->state->version > 0) {
             $this->output->startElement($uriMeta, 'MaxObjSize');
-            $this->output->characters(Horde_SycnMl::SERVER_MAXOBJSIZE);
+            $this->output->characters(Horde_SyncMl::SERVER_MAXOBJSIZE);
             $this->output->endElement($uriMeta, 'MaxObjSize');
         }
         $this->output->endElement($this->_uri, 'Meta');
@@ -503,9 +503,9 @@ class Horde_SyncMl_XmlOutput
         $this->output->startElement($this->_uri, 'Meta');
         $this->output->startElement($uriMeta, 'Type');
         if ($state->wbxml) {
-            $chars = Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_WBXML;
+            $chars = Horde_SyncMl::MIME_SYNCML_DEVICE_INFO_WBXML;
         } else {
-            $chars = Horde_SycnMl::MIME_SYNCML_DEVICE_INFO_XML;
+            $chars = Horde_SyncMl::MIME_SYNCML_DEVICE_INFO_XML;
         }
         $this->output->characters($chars);
         $this->output->endElement($uriMeta, 'Type');

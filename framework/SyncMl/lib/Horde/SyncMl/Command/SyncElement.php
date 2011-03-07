@@ -70,7 +70,7 @@ class Horde_SyncMl_SyncElement
 
     /**
      * The code to be sent as status response in a <Status> element, one of
-     * the Horde_SycnMl::RESPONSE_* constants.
+     * the Horde_SyncMl::RESPONSE_* constants.
      *
      * This is set in Horde_SyncMl_Sync::handleClientSyncItem() when "processing"
      * the item.

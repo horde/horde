@@ -29,7 +29,7 @@ class Horde_SyncMl_Command_Alert extends Horde_SyncMl_Command
     protected $_cmdName = 'Alert';
 
     /**
-     * The alert type. Should be one of the Horde_SycnMl::ALERT_* constants.
+     * The alert type. Should be one of the Horde_SyncMl::ALERT_* constants.
      *
      * @var integer
      */
@@ -119,16 +119,16 @@ class Horde_SyncMl_Command_Alert extends Horde_SyncMl_Command
         // Handle unauthenticated first.
         if (!$state->authenticated) {
             $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
-                                                Horde_SycnMl::RESPONSE_INVALID_CREDENTIALS);
+                                                Horde_SyncMl::RESPONSE_INVALID_CREDENTIALS);
             return;
         }
 
         // Handle NEXT_MESSAGE Alert by doing nothing, except OK status
         // response.  Exception for Funambol: here we produce the output only
-        // after an explicit Horde_SycnMl::ALERT_NEXT_MESSAGE.
-        if ($this->_alert == Horde_SycnMl::ALERT_NEXT_MESSAGE) {
+        // after an explicit Horde_SyncMl::ALERT_NEXT_MESSAGE.
+        if ($this->_alert == Horde_SyncMl::ALERT_NEXT_MESSAGE) {
             $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
-                                                Horde_SycnMl::RESPONSE_OK);
+                                                Horde_SyncMl::RESPONSE_OK);
             // @TODO: create a getDevice()->sentyncDataLate() method instead
             // of this:
             if (is_a($state->getDevice(), 'Horde_SyncMl_Device_sync4j')) {
@@ -145,20 +145,20 @@ class Horde_SyncMl_Command_Alert extends Horde_SyncMl_Command
         $database = $this->_targetLocURI;
         if (!$GLOBALS['backend']->isValidDatabaseURI($database)) {
             $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
-                                                Horde_SycnMl::RESPONSE_NOT_FOUND);
+                                                Horde_SyncMl::RESPONSE_NOT_FOUND);
             return;
         }
         if ($database == 'configuration') {
             $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
-                                                Horde_SycnMl::RESPONSE_OK);
+                                                Horde_SyncMl::RESPONSE_OK);
         }
 
         $clientAnchorNext = $this->_metaAnchorNext;
 
         if (!$debug &&
-            ($this->_alert == Horde_SycnMl::ALERT_TWO_WAY ||
-             $this->_alert == Horde_SycnMl::ALERT_ONE_WAY_FROM_CLIENT ||
-             $this->_alert == Horde_SycnMl::ALERT_ONE_WAY_FROM_SERVER)) {
+            ($this->_alert == Horde_SyncMl::ALERT_TWO_WAY ||
+             $this->_alert == Horde_SyncMl::ALERT_ONE_WAY_FROM_CLIENT ||
+             $this->_alert == Horde_SyncMl::ALERT_ONE_WAY_FROM_SERVER)) {
             // Check if we have information about previous sync.
             $r = $GLOBALS['backend']->readSyncAnchors($this->_targetLocURI);
             if (is_array($r)) {
@@ -203,55 +203,55 @@ class Horde_SyncMl_Command_Alert extends Horde_SyncMl_Command
 
         // Determine sync type and status response code.
         switch ($this->_alert) {
-        case Horde_SycnMl::ALERT_TWO_WAY:
+        case Horde_SyncMl::ALERT_TWO_WAY:
             if ($anchormatch) {
-                $synctype = Horde_SycnMl::ALERT_TWO_WAY;
-                $response = Horde_SycnMl::RESPONSE_OK;
+                $synctype = Horde_SyncMl::ALERT_TWO_WAY;
+                $response = Horde_SyncMl::RESPONSE_OK;
             } else {
-                $synctype = Horde_SycnMl::ALERT_SLOW_SYNC;
-                $response = Horde_SycnMl::RESPONSE_REFRESH_REQUIRED;
+                $synctype = Horde_SyncMl::ALERT_SLOW_SYNC;
+                $response = Horde_SyncMl::RESPONSE_REFRESH_REQUIRED;
             }
             break;
 
-        case Horde_SycnMl::ALERT_SLOW_SYNC:
-            $synctype = Horde_SycnMl::ALERT_SLOW_SYNC;
-            $response = $anchormatch ? Horde_SycnMl::RESPONSE_OK : Horde_SycnMl::RESPONSE_REFRESH_REQUIRED;
+        case Horde_SyncMl::ALERT_SLOW_SYNC:
+            $synctype = Horde_SyncMl::ALERT_SLOW_SYNC;
+            $response = $anchormatch ? Horde_SyncMl::RESPONSE_OK : Horde_SyncMl::RESPONSE_REFRESH_REQUIRED;
             break;
 
-        case Horde_SycnMl::ALERT_ONE_WAY_FROM_CLIENT:
+        case Horde_SyncMl::ALERT_ONE_WAY_FROM_CLIENT:
             if ($anchormatch) {
-                $synctype = Horde_SycnMl::ALERT_ONE_WAY_FROM_CLIENT;
-                $response = Horde_SycnMl::RESPONSE_OK;
+                $synctype = Horde_SyncMl::ALERT_ONE_WAY_FROM_CLIENT;
+                $response = Horde_SyncMl::RESPONSE_OK;
             } else {
-                $synctype = Horde_SycnMl::ALERT_REFRESH_FROM_CLIENT;
-                $response = Horde_SycnMl::RESPONSE_REFRESH_REQUIRED;
+                $synctype = Horde_SyncMl::ALERT_REFRESH_FROM_CLIENT;
+                $response = Horde_SyncMl::RESPONSE_REFRESH_REQUIRED;
             }
             break;
 
-        case Horde_SycnMl::ALERT_REFRESH_FROM_CLIENT:
-            $synctype = Horde_SycnMl::ALERT_REFRESH_FROM_CLIENT;
-            $response = $anchormatch ? Horde_SycnMl::RESPONSE_OK : Horde_SycnMl::RESPONSE_REFRESH_REQUIRED;
+        case Horde_SyncMl::ALERT_REFRESH_FROM_CLIENT:
+            $synctype = Horde_SyncMl::ALERT_REFRESH_FROM_CLIENT;
+            $response = $anchormatch ? Horde_SyncMl::RESPONSE_OK : Horde_SyncMl::RESPONSE_REFRESH_REQUIRED;
             break;
 
-        case Horde_SycnMl::ALERT_ONE_WAY_FROM_SERVER:
+        case Horde_SyncMl::ALERT_ONE_WAY_FROM_SERVER:
             if ($anchormatch) {
-                $synctype = Horde_SycnMl::ALERT_ONE_WAY_FROM_SERVER;
-                $response = Horde_SycnMl::RESPONSE_OK;
+                $synctype = Horde_SyncMl::ALERT_ONE_WAY_FROM_SERVER;
+                $response = Horde_SyncMl::RESPONSE_OK;
             } else {
-                $synctype = Horde_SycnMl::ALERT_REFRESH_FROM_SERVER;
-                $response = Horde_SycnMl::RESPONSE_REFRESH_REQUIRED;
+                $synctype = Horde_SyncMl::ALERT_REFRESH_FROM_SERVER;
+                $response = Horde_SyncMl::RESPONSE_REFRESH_REQUIRED;
             }
             break;
 
-        case Horde_SycnMl::ALERT_REFRESH_FROM_SERVER:
-            $synctype = Horde_SycnMl::ALERT_REFRESH_FROM_SERVER;
-            $response = $anchormatch ? Horde_SycnMl::RESPONSE_OK : Horde_SycnMl::RESPONSE_REFRESH_REQUIRED;
+        case Horde_SyncMl::ALERT_REFRESH_FROM_SERVER:
+            $synctype = Horde_SyncMl::ALERT_REFRESH_FROM_SERVER;
+            $response = $anchormatch ? Horde_SyncMl::RESPONSE_OK : Horde_SyncMl::RESPONSE_REFRESH_REQUIRED;
             break;
 
-        case Horde_SycnMl::ALERT_RESUME:
+        case Horde_SyncMl::ALERT_RESUME:
             // @TODO: Suspend and Resume is not supported yet
-            $synctype = Horde_SycnMl::ALERT_SLOW_SYNC;
-            $response = Horde_SycnMl::RESPONSE_REFRESH_REQUIRED;
+            $synctype = Horde_SyncMl::ALERT_SLOW_SYNC;
+            $response = Horde_SyncMl::RESPONSE_REFRESH_REQUIRED;
             break;
 
         default:
@@ -262,16 +262,16 @@ class Horde_SyncMl_Command_Alert extends Horde_SyncMl_Command
 
         // Now set interval to retrieve server changes from, defined by
         // ServerAnchor [Last,Next]
-        if ($synctype != Horde_SycnMl::ALERT_TWO_WAY &&
-            $synctype != Horde_SycnMl::ALERT_ONE_WAY_FROM_CLIENT &&
-            $synctype != Horde_SycnMl::ALERT_ONE_WAY_FROM_SERVER) {
+        if ($synctype != Horde_SyncMl::ALERT_TWO_WAY &&
+            $synctype != Horde_SyncMl::ALERT_ONE_WAY_FROM_CLIENT &&
+            $synctype != Horde_SyncMl::ALERT_ONE_WAY_FROM_SERVER) {
             $serverAnchorLast = 0;
             // Erase existing map:
             if (!$debug &&
                 (($anchormatch &&
-                  Horde_SycnMl::CONFIG_DELETE_MAP_ON_REQUESTED_SLOWSYNC) ||
+                  Horde_SyncMl::CONFIG_DELETE_MAP_ON_REQUESTED_SLOWSYNC) ||
                  (!$anchormatch &&
-                  Horde_SycnMl::CONFIG_DELETE_MAP_ON_ANCHOR_MISMATCH_SLOWSYNC))) {
+                  Horde_SyncMl::CONFIG_DELETE_MAP_ON_ANCHOR_MISMATCH_SLOWSYNC))) {
                 $GLOBALS['backend']->eraseMap($this->_targetLocURI);
             }
         }

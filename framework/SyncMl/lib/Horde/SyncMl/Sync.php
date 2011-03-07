@@ -33,7 +33,7 @@ class Horde_SyncMl_Sync
     protected $_sourceLocURI;
 
     /**
-     * The synchronization method, one of the Horde_SycnMl::ALERT_* constants.
+     * The synchronization method, one of the Horde_SyncMl::ALERT_* constants.
      *
      * @var integer
      */
@@ -224,7 +224,7 @@ class Horde_SyncMl_Sync
                  * the accept it. Happens in test 1301.  So ignore this to be
                  * conformant (and wrong). */
                 strlen($item->content) + 1 != $item->size) {
-                $item->responseCode = Horde_SycnMl::RESPONSE_SIZE_MISMATCH;
+                $item->responseCode = Horde_SyncMl::RESPONSE_SIZE_MISMATCH;
                 $backend->logMessage(
                     'Item size mismatch. Size reported as ' . $item->size
                     . ' but actual size is ' . strlen($item->content), 'ERR');
@@ -277,12 +277,12 @@ class Horde_SyncMl_Sync
             $suid = $backend->addEntry($hordedatabase, $content, $contentType, $cuid);
             if (!is_a($suid, 'PEAR_Error')) {
                 $this->_client_add_count++;
-                $item->responseCode = Horde_SycnMl::RESPONSE_ITEM_ADDED;
+                $item->responseCode = Horde_SyncMl::RESPONSE_ITEM_ADDED;
                 $backend->logMessage('Added client entry as ' . $suid, 'DEBUG');
             } else {
                 $this->_errors++;
                 /* @todo: better response code. */
-                $item->responseCode = Horde_SycnMl::RESPONSE_NO_EXECUTED;
+                $item->responseCode = Horde_SyncMl::RESPONSE_NO_EXECUTED;
                 $backend->logMessage('Error in adding client entry: ' . $suid->message, 'ERR');
             }
         } elseif ($item->elementType == 'Delete') {
@@ -296,11 +296,11 @@ class Horde_SyncMl_Sync
 
             if ($ok) {
                 $this->_client_delete_count++;
-                $item->responseCode = Horde_SycnMl::RESPONSE_OK;
+                $item->responseCode = Horde_SyncMl::RESPONSE_OK;
                 $backend->logMessage('Deleted entry ' . $suid . ' due to client request', 'DEBUG');
             } else {
                 $this->_errors++;
-                $item->responseCode = Horde_SycnMl::RESPONSE_ITEM_NO_DELETED;
+                $item->responseCode = Horde_SyncMl::RESPONSE_ITEM_NO_DELETED;
                 $backend->logMessage('Failure deleting client entry, maybe already disappeared from server', 'DEBUG');
             }
 
@@ -311,7 +311,7 @@ class Horde_SyncMl_Sync
 
             if (!is_a($suid, 'PEAR_Error')) {
                 $this->_client_replace_count++;
-                $item->responseCode = Horde_SycnMl::RESPONSE_OK;
+                $item->responseCode = Horde_SyncMl::RESPONSE_OK;
                 $backend->logMessage('Replaced entry ' . $suid . ' due to client request', 'DEBUG');
             } else {
                 $backend->logMessage($suid->message, 'DEBUG');
@@ -321,13 +321,13 @@ class Horde_SyncMl_Sync
                                            $contentType, $cuid);
                 if (!is_a($suid, 'PEAR_Error')) {
                     $this->_client_addreplaces++;
-                    $item->responseCode = Horde_SycnMl::RESPONSE_ITEM_ADDED;
+                    $item->responseCode = Horde_SyncMl::RESPONSE_ITEM_ADDED;
                     $backend->logMessage(
                         'Added instead of replaced entry ' . $suid, 'DEBUG');
                 } else {
                     $this->_errors++;
                     /* @todo: better response code. */
-                    $item->responseCode = Horde_SycnMl::RESPONSE_NO_EXECUTED;
+                    $item->responseCode = Horde_SyncMl::RESPONSE_NO_EXECUTED;
                     $backend->logMessage(
                         'Error in adding client entry due to replace request: '
                         . $suid->message, 'ERR');
@@ -355,8 +355,8 @@ class Horde_SyncMl_Sync
             . $this->_targetLocURI, 'DEBUG');
 
         /* If sync data from client only, nothing to be done here. */
-        if($this->_syncType == Horde_SycnMl::ALERT_ONE_WAY_FROM_CLIENT ||
-           $this->_syncType == Horde_SycnMl::ALERT_REFRESH_FROM_CLIENT) {
+        if($this->_syncType == Horde_SyncMl::ALERT_ONE_WAY_FROM_CLIENT ||
+           $this->_syncType == Horde_SyncMl::ALERT_REFRESH_FROM_CLIENT) {
             return;
         }
 
@@ -451,7 +451,7 @@ class Horde_SyncMl_Sync
         $deletes = $this->_server_deletes;
         foreach ($deletes as $suid => $cuid) {
             /* Check if we have space left in the message. */
-            if ($state->maxMsgSize - $output->getOutputSize() < Horde_SycnMl::MSG_TRAILER_LEN) {
+            if ($state->maxMsgSize - $output->getOutputSize() < Horde_SyncMl::MSG_TRAILER_LEN) {
                 $backend->logMessage(
                     'Maximum message size ' . $state->maxMsgSize
                     . ' approached during delete; current size: '
@@ -489,12 +489,12 @@ class Horde_SyncMl_Sync
                 list($clientContent, $clientContentType, $clientEncodingType) =
                     $device->convertServer2Client($c, $contentType, $syncDB);
                 /* Check if we have space left in the message. */
-                if (($state->maxMsgSize - $output->getOutputSize() - strlen($clientContent)) < Horde_SycnMl::MSG_TRAILER_LEN) {
+                if (($state->maxMsgSize - $output->getOutputSize() - strlen($clientContent)) < Horde_SyncMl::MSG_TRAILER_LEN) {
                     $backend->logMessage(
                         'Maximum message size ' . $state->maxMsgSize
                         . ' approached during add; current size: '
                         . $output->getOutputSize(), 'DEBUG');
-                    if (strlen($clientContent) + Horde_SycnMl::MSG_DEFAULT_LEN > $state->maxMsgSize) {
+                    if (strlen($clientContent) + Horde_SyncMl::MSG_DEFAULT_LEN > $state->maxMsgSize) {
                         $backend->logMessage(
                             'Data item won\'t fit into a single message. Partial sending not implemented yet. Item will not be sent!', 'WARN');
                         /* @todo: implement partial sending instead of
@@ -541,12 +541,12 @@ class Horde_SyncMl_Sync
             list($clientContent, $clientContentType, $clientEncodingType) =
                 $device->convertServer2Client($c, $contentType, $syncDB);
             /* Check if we have space left in the message. */
-            if (($state->maxMsgSize - $output->getOutputSize() - strlen($clientContent)) < Horde_SycnMl::MSG_TRAILER_LEN) {
+            if (($state->maxMsgSize - $output->getOutputSize() - strlen($clientContent)) < Horde_SyncMl::MSG_TRAILER_LEN) {
                 $backend->logMessage(
                     'Maximum message size ' . $state->maxMsgSize
                     . ' approached during replace; current size: '
                     . $output->getOutputSize(), 'DEBUG');
-                if (strlen($clientContent) + Horde_SycnMl::MSG_DEFAULT_LEN > $state->maxMsgSize) {
+                if (strlen($clientContent) + Horde_SyncMl::MSG_DEFAULT_LEN > $state->maxMsgSize) {
                     $backend->logMessage(
                         'Data item won\'t fit into a single message. Partial sending not implemented yet. Item will not be sent!', 'WARNING');
                     /* @todo: implement partial sending instead of
@@ -642,8 +642,8 @@ class Horde_SyncMl_Sync
             }
 
             // FROM_CLIENT_SYNC doeesn't require a MAP package:
-            if ($this->_syncType == Horde_SycnMl::ALERT_ONE_WAY_FROM_CLIENT ||
-                $this->_syncType == Horde_SycnMl::ALERT_REFRESH_FROM_CLIENT ||
+            if ($this->_syncType == Horde_SyncMl::ALERT_ONE_WAY_FROM_CLIENT ||
+                $this->_syncType == Horde_SyncMl::ALERT_REFRESH_FROM_CLIENT ||
                 !$this->_expectingMapData) {
                 $this->_state = Horde_SyncMl_Sync::STATE_COMPLETED;
             } else {

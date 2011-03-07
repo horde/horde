@@ -42,7 +42,7 @@ class Horde_SyncMl_Command_Status extends Horde_SyncMl_Command
     protected $_MsgRef;
 
     /**
-     * The status response code, one of the Horde_SycnMl::RESPONSE_* constants.
+     * The status response code, one of the Horde_SyncMl::RESPONSE_* constants.
      *
      * @var integer
      */
@@ -134,7 +134,7 @@ class Horde_SyncMl_Command_Status extends Horde_SyncMl_Command
                              * wasn't found on the client. Try an Add
                              * instead. */
                             if ($this->_Cmd == 'Replace' &&
-                                $this->_Status == Horde_SycnMl::RESPONSE_NOT_FOUND) {
+                                $this->_Status == Horde_SyncMl::RESPONSE_NOT_FOUND) {
                                 $sync->setServerChange('add', $id[0], $id[1]);
                             }
                             if (isset($this->_SourceRef) || isset($this->_TargetRef)) {

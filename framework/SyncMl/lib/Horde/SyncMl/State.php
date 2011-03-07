@@ -224,19 +224,19 @@ class Horde_SyncMl_State
     {
         switch ($version) {
         case 1:
-            $this->_uri = Horde_SycnMl::NAME_SPACE_URI_SYNCML_1_1;
-            $this->uriMeta = Horde_SycnMl::NAME_SPACE_URI_METINF_1_1;
-            $this->uriDevInf = Horde_SycnMl::NAME_SPACE_URI_DEVINF_1_1;
+            $this->_uri = Horde_SyncMl::NAME_SPACE_URI_SYNCML_1_1;
+            $this->uriMeta = Horde_SyncMl::NAME_SPACE_URI_METINF_1_1;
+            $this->uriDevInf = Horde_SyncMl::NAME_SPACE_URI_DEVINF_1_1;
             break;
         case 2:
-            $this->_uri = Horde_SycnMl::NAME_SPACE_URI_SYNCML_1_2;
-            $this->uriMeta = Horde_SycnMl::NAME_SPACE_URI_METINF_1_2;
-            $this->uriDevInf = Horde_SycnMl::NAME_SPACE_URI_DEVINF_1_2;
+            $this->_uri = Horde_SyncMl::NAME_SPACE_URI_SYNCML_1_2;
+            $this->uriMeta = Horde_SyncMl::NAME_SPACE_URI_METINF_1_2;
+            $this->uriDevInf = Horde_SyncMl::NAME_SPACE_URI_DEVINF_1_2;
             break;
         default:
-            $this->_uri = Horde_SycnMl::NAME_SPACE_URI_SYNCML;
-            $this->uriMeta = Horde_SycnMl::NAME_SPACE_URI_METINF;
-            $this->uriDevInf = Horde_SycnMl::NAME_SPACE_URI_DEVINF;
+            $this->_uri = Horde_SyncMl::NAME_SPACE_URI_SYNCML;
+            $this->uriMeta = Horde_SyncMl::NAME_SPACE_URI_METINF;
+            $this->uriDevInf = Horde_SyncMl::NAME_SPACE_URI_DEVINF;
             break;
         }
 

@@ -35,7 +35,7 @@ class Horde_SyncMl_Command_Get extends Horde_SyncMl_Command
 
         // Create status response.
         $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
-                                            Horde_SycnMl::RESPONSE_OK,
+                                            Horde_SyncMl::RESPONSE_OK,
                                             $state->getDevInfURI());
         if (!$state->authenticated) {
             return;
