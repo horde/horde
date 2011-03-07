@@ -1474,7 +1474,7 @@ class Net_IMSP_Book {
                         $entry[$key] = substr($entry[$key], 0,
                                               strlen($entry[$key]) - 2);
                     }
-                } elseif ((@substr($parts[$i + 1], 0, 1) == '"') && 
+                } elseif ((@substr($parts[$i + 1], 0, 1) == '"') &&
                           (substr($parts[$i + 1], -1, 1) == '"')) {
                     // Remove the quotes sent back to us from the server.
                     if (substr($entry[$key], 0, 1) == '"') {

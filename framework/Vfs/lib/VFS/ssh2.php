@@ -602,7 +602,7 @@ class VFS_ssh2 extends VFS
      * @return boolean  True if it exists, false otherwise.
      */
     function exists($path, $name)
-    { 
+    {
         $conn = $this->_connect();
         if (is_a($conn, 'PEAR_Error')) {
             return $conn;
