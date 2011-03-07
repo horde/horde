@@ -129,7 +129,7 @@ class Horde_Db_SearchParser
     {
         if ($tokens[0] == '!NOT') {
             array_shift($tokens);
-            $lhs = Horde_SQL_Keywords::_parseKeywords4($column, $tokens);
+            $lhs = self::_parseKeywords4($column, $tokens);
             if (is_a($lhs, 'PEAR_Error')) {
                 return $lhs;
             }
