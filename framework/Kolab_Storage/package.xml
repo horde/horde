@@ -573,6 +573,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -585,10 +589,6 @@
    </package>
    <package>
     <name>Horde_Imap_Client</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>
