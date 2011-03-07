@@ -529,7 +529,7 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed retrieving status information for folder %s. Error: %s"
+                        "Failed retrieving status information for folder %s%s. Error: %s"
                     ),
                     $this->_getBaseMbox(),
                     $folder,
@@ -594,7 +594,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf(
                         Horde_Kolab_Storage_Translation::t(
-                            "Failed fetching structure information for messages %s in folder %s. Error: %s"
+                            "Failed fetching structure information for messages %s in folder %s%s. Error: %s"
                         ),
                         $this->_getBaseMbox(),
                         join(',', $uids),
@@ -626,7 +626,7 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed fetching body part %s for message %s in folder %s. Error: %s"
+                        "Failed fetching body part %s for message %s in folder %s%s. Error: %s"
                     ),
                     $this->_getBaseMbox(),
                     $id,
@@ -640,17 +640,35 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Appends a message to the current folder.
+     * Appends a message to the given folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param string $msg     The message to append.
+     * @param string   $folder  The folder to append the message(s) to.
+     * @param resource $msg     The message to append.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return mixed True or the UID of the new message in case the backend
+     *               supports UIDPLUS.
      */
     public function appendMessage($folder, $msg)
     {
-        return $this->_imap->append($folder, array(array('data' => $msg)));
+        rewind($msg);
+        $result = @imap_append(
+            $this->getBackend(), 
+            $this->_getBaseMbox() . $this->encodePath($folder), 
+            stream_get_contents($msg)
+        );
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed appending new to folder %s%s. Error: %s"
+                    ),
+                    $this->_getBaseMbox(),
+                    $folder,
+                    imap_last_error()
+                )
+            );
+        }
+        return $result;
     }
 
     /**
