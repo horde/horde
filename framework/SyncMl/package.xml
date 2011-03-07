@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-06</date>
- <time>23:44:08</time>
+ <date>2011-03-07</date>
+ <time>19:36:53</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -56,7 +56,6 @@
        <file name="Results.php" role="php" />
        <file name="Status.php" role="php" />
        <file name="Sync.php" role="php" />
-       <file name="SyncElement.php" role="php" />
        <file name="SyncHdr.php" role="php" />
       </dir> <!-- /lib/Horde/SyncMl/Command -->
       <dir name="Device">
@@ -76,6 +75,7 @@
       <file name="PropertyParameter.php" role="php" />
       <file name="State.php" role="php" />
       <file name="Sync.php" role="php" />
+      <file name="SyncElement.php" role="php" />
       <file name="Translation.php" role="php" />
       <file name="XmlOutput.php" role="php" />
      </dir> <!-- /lib/Horde/SyncMl -->
@@ -622,6 +622,7 @@
    <install as="Horde/SyncMl/PropertyParameter.php" name="lib/Horde/SyncMl/PropertyParameter.php" />
    <install as="Horde/SyncMl/State.php" name="lib/Horde/SyncMl/State.php" />
    <install as="Horde/SyncMl/Sync.php" name="lib/Horde/SyncMl/Sync.php" />
+   <install as="Horde/SyncMl/SyncElement.php" name="lib/Horde/SyncMl/SyncElement.php" />
    <install as="Horde/SyncMl/Translation.php" name="lib/Horde/SyncMl/Translation.php" />
    <install as="Horde/SyncMl/XmlOutput.php" name="lib/Horde/SyncMl/XmlOutput.php" />
    <install as="Horde/SyncMl/Backend/Horde.php" name="lib/Horde/SyncMl/Backend/Horde.php" />
@@ -635,7 +636,6 @@
    <install as="Horde/SyncMl/Command/Results.php" name="lib/Horde/SyncMl/Command/Results.php" />
    <install as="Horde/SyncMl/Command/Status.php" name="lib/Horde/SyncMl/Command/Status.php" />
    <install as="Horde/SyncMl/Command/Sync.php" name="lib/Horde/SyncMl/Command/Sync.php" />
-   <install as="Horde/SyncMl/Command/SyncElement.php" name="lib/Horde/SyncMl/Command/SyncElement.php" />
    <install as="Horde/SyncMl/Command/SyncHdr.php" name="lib/Horde/SyncMl/Command/SyncHdr.php" />
    <install as="Horde/SyncMl/Device/Nokia.php" name="lib/Horde/SyncMl/Device/Nokia.php" />
    <install as="Horde/SyncMl/Device/P800.php" name="lib/Horde/SyncMl/Device/P800.php" />
@@ -1006,7 +1006,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-06</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
