@@ -641,18 +641,6 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Fetches the objects for the specified UIDs.
-     *
-     * @param string $folder The folder to access.
-     *
-     * @return array The parsed objects.
-     */
-    public function fetch($folder, $uids, $options = array())
-    {
-        return $this->getParser()->fetch($folder, $uids, $options);
-    }
-
-    /**
      * Retrieves the messages for the given message ids.
      *
      * @param string $folder The folder to fetch the messages from.
@@ -713,7 +701,9 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function appendMessage($folder, $msg)
     {
-        return $this->_imap->append($folder, array(array('data' => $msg)));
+        rewind($msg);
+        $this->select($folder);
+        //@todo: implement saving
     }
 
     /**

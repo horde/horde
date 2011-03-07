@@ -266,7 +266,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertNull(
             $this->getMessageStorage()
             ->getData('INBOX/Notes')
-            ->create(array())
+            ->create(array('desc' => 'test'))
         );
     }
 }
