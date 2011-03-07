@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Stream_Filter</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Stream filters</summary>
- <description>This package provides various stream filters.
- </description>
+ <description>This package provides various stream filters.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -26,20 +22,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-07-08</date>
+ <date>2011-03-06</date>
+ <time>23:48:30</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial release.
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Stream">
@@ -49,6 +47,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Stream -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Stream">
+      <dir name="Filter">
+       <file name="AllTests.php" role="test" />
+       <file name="EolTest.php" role="test" />
+      </dir> <!-- /test/Horde/Stream/Filter -->
+     </dir> <!-- /test/Horde/Stream -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -63,7 +71,26 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Stream/Filter/Eol.php" as="Horde/Stream/Filter/Eol.php" />
+   <install as="Horde/Stream/Filter/Eol.php" name="lib/Horde/Stream/Filter/Eol.php" />
+   <install as="Horde/Stream/Filter/AllTests.php" name="test/Horde/Stream/Filter/AllTests.php" />
+   <install as="Horde/Stream/Filter/EolTest.php" name="test/Horde/Stream/Filter/EolTest.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

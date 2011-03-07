@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_VFS</name>
  <channel>pear.horde.org</channel>
+ <extends>VFS</extends>
  <summary>Virtual File System API</summary>
  <description>This package provides a Virtual File System API, with backends for:
 
@@ -26,19 +27,19 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-28</date>
- <time>23:48:38</time>
+ <date>2011-03-06</date>
+ <time>23:10:41</time>
  <version>
-  <release>0.4.0</release>
-  <api>0.4.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Now throws exceptions instead of returning PEAR_Errors. Package now requires PHP 5.
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -677,17 +678,17 @@ Added a class for providing garbage collection; removed all Horde dependancies.
   </release>
   <release>
    <version>
-    <release>0.4.0</release>
-    <api>0.4.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-01-28</date>
+   <date>2011-03-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Now throws exceptions instead of returning PEAR_Errors. Package now requires PHP 5.
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Routes</name>
  <channel>pear.horde.org</channel>
+ <extends>Routes</extends>
  <summary>Horde Routes URL mapping system</summary>
- <description>This package provides classes for mapping URLs into
- the controllers and actions of an MVC system.  It is a port of a
- Python library, Routes, by Ben Bangert (http://routes.groovie.org).
- </description>
+ <description>This package provides classes for mapping URLs into the controllers and actions of an MVC system. It is a port of a Python library, Routes, by Ben Bangert (http://routes.groovie.org).</description>
  <lead>
   <name>Mike Naberezny</name>
   <user>mnaberez</user>
@@ -22,19 +17,30 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-03-04</date>
+ <date>2011-03-07</date>
+ <time>00:11:40</time>
  <version>
-  <release>0.4.0</release>
-  <api>0.4.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>* Added ability to pretty-print routes with Horde_Routes_Printer.</notes>
+ <notes>
+* First alpha release for Horde 4.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Routes">
+      <file name="integration.txt" role="doc" />
+      <file name="manual.txt" role="doc" />
+     </dir> <!-- /doc/Horde/Routes -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Routes">
@@ -46,6 +52,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Routes -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Routes">
+      <dir name="fixtures">
+       <dir name="controllers">
+        <dir name="admin">
+         <file name="users.php" role="test" />
+        </dir> <!-- /test/Horde/Routes/fixtures/controllers/admin -->
+        <file name="content.php" role="test" />
+        <file name="users.php" role="test" />
+       </dir> <!-- /test/Horde/Routes/fixtures/controllers -->
+      </dir> <!-- /test/Horde/Routes/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="GenerationTest.php" role="test" />
+      <file name="RecognitionTest.php" role="test" />
+      <file name="TestHelper.php" role="test" />
+      <file name="UtilTest.php" role="test" />
+      <file name="UtilWithExplicitTest.php" role="test" />
+     </dir> <!-- /test/Horde/Routes -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -60,11 +87,39 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Routes/Exception.php" as="Horde/Routes/Exception.php" />
-   <install name="lib/Horde/Routes/Mapper.php" as="Horde/Routes/Mapper.php" />
-   <install name="lib/Horde/Routes/Printer.php" as="Horde/Routes/Printer.php" />
-   <install name="lib/Horde/Routes/Route.php" as="Horde/Routes/Route.php" />
-   <install name="lib/Horde/Routes/Utils.php" as="Horde/Routes/Utils.php" />
+   <install as="Horde/Routes/integration.txt" name="doc/Horde/Routes/integration.txt" />
+   <install as="Horde/Routes/manual.txt" name="doc/Horde/Routes/manual.txt" />
+   <install as="Horde/Routes/Exception.php" name="lib/Horde/Routes/Exception.php" />
+   <install as="Horde/Routes/Mapper.php" name="lib/Horde/Routes/Mapper.php" />
+   <install as="Horde/Routes/Printer.php" name="lib/Horde/Routes/Printer.php" />
+   <install as="Horde/Routes/Route.php" name="lib/Horde/Routes/Route.php" />
+   <install as="Horde/Routes/Utils.php" name="lib/Horde/Routes/Utils.php" />
+   <install as="Horde/Routes/AllTests.php" name="test/Horde/Routes/AllTests.php" />
+   <install as="Horde/Routes/GenerationTest.php" name="test/Horde/Routes/GenerationTest.php" />
+   <install as="Horde/Routes/RecognitionTest.php" name="test/Horde/Routes/RecognitionTest.php" />
+   <install as="Horde/Routes/TestHelper.php" name="test/Horde/Routes/TestHelper.php" />
+   <install as="Horde/Routes/UtilTest.php" name="test/Horde/Routes/UtilTest.php" />
+   <install as="Horde/Routes/UtilWithExplicitTest.php" name="test/Horde/Routes/UtilWithExplicitTest.php" />
+   <install as="Horde/Routes/fixtures/controllers/content.php" name="test/Horde/Routes/fixtures/controllers/content.php" />
+   <install as="Horde/Routes/fixtures/controllers/users.php" name="test/Horde/Routes/fixtures/controllers/users.php" />
+   <install as="Horde/Routes/fixtures/controllers/admin/users.php" name="test/Horde/Routes/fixtures/controllers/admin/users.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-03-04</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Added ability to pretty-print routes with Horde_Routes_Printer.
+   </notes>
+  </release>
+ </changelog>
 </package>

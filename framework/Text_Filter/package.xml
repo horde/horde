@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Text_Filter</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Text Filter API</summary>
- <description>The Horde_Text_Filter:: class provides common methods for
- fitering and converting text.</description>
+ <description>The Horde_Text_Filter library provides common methods for fitering and converting text.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -23,32 +22,32 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-10-22</date>
- <time>19:03:03</time>
+ <date>2011-03-06</date>
+ <time>23:34:36</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First alpha release for Horde 4.
 * Html2text filter will use horde/Text_Filter, if available, to wrap text.
- * Add callback parameter to the Html2text filter.
- * XSS filter now uses PHP DOM parser to process incoming text.
- * Remove Horde/Core dependency.
- * Add Horde_Text_Filter_Exception::.
- * Html2text converter now uses XML parser to generate output.
- * Add ability to define filters to use with preg_replace_callback().
- * Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
- * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
- * Add support for Google Closure Compiler in javascript minfiy filter.
- * Fix dimming signatures when mixed with quoted text (Bug #4299).
- * Added javscript minify filter.
- * Add support for using the tidy extension when filtering HTML data.
- * Initial Horde 4 package.
+* Add callback parameter to the Html2text filter.
+* XSS filter now uses PHP DOM parser to process incoming text.
+* Remove Horde/Core dependency.
+* Add Horde_Text_Filter_Exception::.
+* Html2text converter now uses XML parser to generate output.
+* Add ability to define filters to use with preg_replace_callback().
+* Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
+* Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
+* Add support for Google Closure Compiler in javascript minfiy filter.
+* Fix dimming signatures when mixed with quoted text (Bug #4299).
+* Added javscript minify filter.
+* Add support for using the tidy extension when filtering HTML data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -355,6 +354,7 @@
        <file name="EmailsTest.php" role="test" />
        <file name="EnvironmentTest.php" role="test" />
        <file name="Html2textTest.php" role="test" />
+       <file name="LinkurlsTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="Space2htmlTest.php" role="test" />
        <file name="Text2htmlTest.php" role="test" />
@@ -512,6 +512,7 @@
    <install as="Horde/Text/Filter/EmailsTest.php" name="test/Horde/Text/Filter/EmailsTest.php" />
    <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
    <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
+   <install as="Horde/Text/Filter/LinkurlsTest.php" name="test/Horde/Text/Filter/LinkurlsTest.php" />
    <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
    <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
    <install as="Horde/Text/Filter/Text2htmlTest.php" name="test/Horde/Text/Filter/Text2htmlTest.php" />
@@ -548,39 +549,39 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Don&apos;t strip BASE tags when &apos;strip_styles&apos; is false.
-   * Added ability to link &lt;test@example.com&gt; e-mail addresses in plain text.
-   * Removed dependency on external javascript file when toggling quoted lines.
-   * Converted to package.xml 2.0 for pear.horde.org
-   * Allow the bad words filter to leave the first character of a matching word and replace the rest with &apos;*&apos; (duck@obala.net).
-   * Improved efficiency of the linkurls filter when searching long lines
+* Added ability to link &lt;test@example.com&gt; e-mail addresses in plain text.
+* Removed dependency on external javascript file when toggling quoted lines.
+* Converted to package.xml 2.0 for pear.horde.org
+* Allow the bad words filter to leave the first character of a matching word and replace the rest with &apos;*&apos; (duck@obala.net).
+* Improved efficiency of the linkurls filter when searching long lines
    </notes>
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-03-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* First alpha release for Horde 4.
 * Html2text filter will use horde/Text_Filter, if available, to wrap text.
- * Add callback parameter to the Html2text filter.
- * XSS filter now uses PHP DOM parser to process incoming text.
- * Remove Horde/Core dependency.
- * Add Horde_Text_Filter_Exception::.
- * Html2text converter now uses XML parser to generate output.
- * Add ability to define filters to use with preg_replace_callback().
- * Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
- * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
- * Add support for Google Closure Compiler in javascript minfiy filter.
- * Fix dimming signatures when mixed with quoted text (Bug #4299).
- * Added javscript minify filter.
- * Add support for using the tidy extension when filtering HTML data.
- * Initial Horde 4 package.
+* Add callback parameter to the Html2text filter.
+* XSS filter now uses PHP DOM parser to process incoming text.
+* Remove Horde/Core dependency.
+* Add Horde_Text_Filter_Exception::.
+* Html2text converter now uses XML parser to generate output.
+* Add ability to define filters to use with preg_replace_callback().
+* Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
+* Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
+* Add support for Google Closure Compiler in javascript minfiy filter.
+* Fix dimming signatures when mixed with quoted text (Bug #4299).
+* Added javscript minify filter.
+* Add support for using the tidy extension when filtering HTML data.
    </notes>
   </release>
  </changelog>

@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Scheduler</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Scheduler System</summary>
- <description>TODO
- </description>
+ <description>TODO</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-03-09</date>
+ <date>2011-03-07</date>
+ <time>00:05:21</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed Horde-specific command line script.
- * Initial Horde 4 package.
+ <notes>
+* First alpha release for Horde 4.
+* Removed Horde-specific command line script.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Scheduler">
-      <file name="Cron.php" role="php" />
       <dir name="Cron">
        <file name="Date.php" role="php" />
-      </dir> <!-- /lib/Horde/Scheduler/Cron -->
-     </dir> <!-- /lib/Horde/Scheduler -->
+      </dir> <!-- //lib/Horde/Scheduler/Cron -->
+      <file name="Cron.php" role="php" />
+     </dir> <!-- //lib/Horde/Scheduler -->
      <file name="Scheduler.php" role="php" />
-    </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib -->
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -66,12 +64,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Scheduler/Cron/Date.php" as="Horde/Scheduler/Cron/Date.php" />
-   <install name="lib/Horde/Scheduler/Cron.php" as="Horde/Scheduler/Cron.php" />
-   <install name="lib/Horde/Scheduler.php" as="Horde/Scheduler.php" />
+   <install as="Horde/Scheduler.php" name="lib/Horde/Scheduler.php" />
+   <install as="Horde/Scheduler/Cron.php" name="lib/Horde/Scheduler/Cron.php" />
+   <install as="Horde/Scheduler/Cron/Date.php" name="lib/Horde/Scheduler/Cron/Date.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>23:07:47</time>
@@ -84,21 +97,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2003-07-05</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* First alpha release for Horde 4.
+* Removed Horde-specific command line script.
    </notes>
   </release>
  </changelog>

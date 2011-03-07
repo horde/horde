@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Text_Diff</name>
  <channel>pear.horde.org</channel>
+ <extends>Text_Diff</extends>
  <summary>Engine for performing and rendering text diffs</summary>
  <description>This package provides a text-based diff engine and renderers for multiple diff output formats.</description>
  <lead>
@@ -19,70 +17,73 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-09-10</date>
+ <date>2011-03-06</date>
+ <time>23:39:26</time>
  <version>
-  <release>1.1.0</release>
-  <api>1.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
- <notes>* Add countAddedLines() and countDeletedLines() methods (Christian King, PEAR Request #13183).
-* Improve string engine if patch data has no header (PEAR Bug #14533).
-* Fix autodetection of diff type in string engine (PEAR Bug #14625).</notes>
+ <notes>
+* First alpha release for Horde 4.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="Diff">
     <dir name="Engine">
-     <file baseinstalldir="/Text" name="native.php" role="php" />
-     <file baseinstalldir="/Text" name="shell.php" role="php" />
-     <file baseinstalldir="/Text" name="string.php" role="php" />
-     <file baseinstalldir="/Text" name="xdiff.php" role="php" />
+     <file name="native.php" role="php" />
+     <file name="shell.php" role="php" />
+     <file name="string.php" role="php" />
+     <file name="xdiff.php" role="php" />
     </dir> <!-- /Diff/Engine -->
     <dir name="Renderer">
-     <file baseinstalldir="/Text" name="context.php" role="php" />
-     <file baseinstalldir="/Text" name="inline.php" role="php" />
-     <file baseinstalldir="/Text" name="unified.php" role="php" />
+     <file name="context.php" role="php" />
+     <file name="inline.php" role="php" />
+     <file name="unified.php" role="php" />
     </dir> <!-- /Diff/Renderer -->
-    <file baseinstalldir="/Text" name="Mapped.php" role="php" />
-    <file baseinstalldir="/Text" name="Renderer.php" role="php" />
-    <file baseinstalldir="/Text" name="ThreeWay.php" role="php" />
+    <file name="Mapped.php" role="php" />
+    <file name="Renderer.php" role="php" />
+    <file name="ThreeWay.php" role="php" />
    </dir> <!-- /Diff -->
    <dir name="docs">
     <dir name="examples">
-     <file baseinstalldir="/Text" name="1.txt" role="doc" />
-     <file baseinstalldir="/Text" name="2.txt" role="doc" />
-     <file baseinstalldir="/Text" name="diff.php" role="doc" />
+     <file name="1.txt" role="doc" />
+     <file name="2.txt" role="doc" />
+     <file name="diff.php" role="doc" />
     </dir> <!-- /docs/examples -->
    </dir> <!-- /docs -->
    <dir name="tests">
-    <file baseinstalldir="/Text" name="1.txt" role="test" />
-    <file baseinstalldir="/Text" name="2.txt" role="test" />
-    <file baseinstalldir="/Text" name="3.txt" role="test" />
-    <file baseinstalldir="/Text" name="4.txt" role="test" />
-    <file baseinstalldir="/Text" name="5.txt" role="test" />
-    <file baseinstalldir="/Text" name="6.txt" role="test" />
-    <file baseinstalldir="/Text" name="context.patch" role="test" />
-    <file baseinstalldir="/Text" name="context.phpt" role="test" />
-    <file baseinstalldir="/Text" name="context2.phpt" role="test" />
-    <file baseinstalldir="/Text" name="diff.phpt" role="test" />
-    <file baseinstalldir="/Text" name="inline.phpt" role="test" />
-    <file baseinstalldir="/Text" name="inline2.phpt" role="test" />
-    <file baseinstalldir="/Text" name="pear_bug12740.phpt" role="test" />
-    <file baseinstalldir="/Text" name="pear_bug4879.phpt" role="test" />
-    <file baseinstalldir="/Text" name="pear_bug6251.phpt" role="test" />
-    <file baseinstalldir="/Text" name="pear_bug6428.phpt" role="test" />
-    <file baseinstalldir="/Text" name="pear_bug7839.phpt" role="test" />
-    <file baseinstalldir="/Text" name="string.phpt" role="test" />
-    <file baseinstalldir="/Text" name="unified.patch" role="test" />
-    <file baseinstalldir="/Text" name="unified.phpt" role="test" />
-    <file baseinstalldir="/Text" name="unified2.patch" role="test" />
-    <file baseinstalldir="/Text" name="unified2.phpt" role="test" />
-    <file baseinstalldir="/Text" name="xdiff.phpt" role="test" />
+    <file name="1.txt" role="test" />
+    <file name="2.txt" role="test" />
+    <file name="3.txt" role="test" />
+    <file name="4.txt" role="test" />
+    <file name="5.txt" role="test" />
+    <file name="6.txt" role="test" />
+    <file name="context.patch" role="test" />
+    <file name="context.phpt" role="test" />
+    <file name="context2.phpt" role="test" />
+    <file name="diff.phpt" role="test" />
+    <file name="diff_shell.phpt" role="data" />
+    <file name="inline.phpt" role="test" />
+    <file name="inline2.phpt" role="test" />
+    <file name="pear_bug4879.phpt" role="test" />
+    <file name="pear_bug4982.phpt" role="data" />
+    <file name="pear_bug6251.phpt" role="test" />
+    <file name="pear_bug6428.phpt" role="test" />
+    <file name="pear_bug7839.phpt" role="test" />
+    <file name="pear_bug12740.phpt" role="test" />
+    <file name="string.phpt" role="test" />
+    <file name="unified.patch" role="test" />
+    <file name="unified.phpt" role="test" />
+    <file name="unified2.patch" role="test" />
+    <file name="unified2.phpt" role="test" />
+    <file name="xdiff.phpt" role="test" />
    </dir> <!-- /tests -->
-   <file baseinstalldir="/Text" name="Diff.php" role="php" />
+   <file name="Diff.php" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -102,200 +103,63 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
   </optional>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="Diff/Mapped.php" name="Diff/Mapped.php" />
+   <install as="Diff/Renderer.php" name="Diff/Renderer.php" />
+   <install as="Diff/ThreeWay.php" name="Diff/ThreeWay.php" />
+   <install as="Diff/Engine/native.php" name="Diff/Engine/native.php" />
+   <install as="Diff/Engine/shell.php" name="Diff/Engine/shell.php" />
+   <install as="Diff/Engine/string.php" name="Diff/Engine/string.php" />
+   <install as="Diff/Engine/xdiff.php" name="Diff/Engine/xdiff.php" />
+   <install as="Diff/Renderer/context.php" name="Diff/Renderer/context.php" />
+   <install as="Diff/Renderer/inline.php" name="Diff/Renderer/inline.php" />
+   <install as="Diff/Renderer/unified.php" name="Diff/Renderer/unified.php" />
+   <install as="examples/1.txt" name="docs/examples/1.txt" />
+   <install as="examples/2.txt" name="docs/examples/2.txt" />
+   <install as="examples/diff.php" name="docs/examples/diff.php" />
+   <install as="1.txt" name="tests/1.txt" />
+   <install as="2.txt" name="tests/2.txt" />
+   <install as="3.txt" name="tests/3.txt" />
+   <install as="4.txt" name="tests/4.txt" />
+   <install as="5.txt" name="tests/5.txt" />
+   <install as="6.txt" name="tests/6.txt" />
+   <install as="context.patch" name="tests/context.patch" />
+   <install as="context.phpt" name="tests/context.phpt" />
+   <install as="context2.phpt" name="tests/context2.phpt" />
+   <install as="diff.phpt" name="tests/diff.phpt" />
+   <install as="tests/diff_shell.phpt" name="tests/diff_shell.phpt" />
+   <install as="inline.phpt" name="tests/inline.phpt" />
+   <install as="inline2.phpt" name="tests/inline2.phpt" />
+   <install as="pear_bug4879.phpt" name="tests/pear_bug4879.phpt" />
+   <install as="tests/pear_bug4982.phpt" name="tests/pear_bug4982.phpt" />
+   <install as="pear_bug6251.phpt" name="tests/pear_bug6251.phpt" />
+   <install as="pear_bug6428.phpt" name="tests/pear_bug6428.phpt" />
+   <install as="pear_bug7839.phpt" name="tests/pear_bug7839.phpt" />
+   <install as="pear_bug12740.phpt" name="tests/pear_bug12740.phpt" />
+   <install as="string.phpt" name="tests/string.phpt" />
+   <install as="unified.patch" name="tests/unified.patch" />
+   <install as="unified.phpt" name="tests/unified.phpt" />
+   <install as="unified2.patch" name="tests/unified2.patch" />
+   <install as="unified2.phpt" name="tests/unified2.phpt" />
+   <install as="xdiff.phpt" name="tests/xdiff.phpt" />
+   <install as="Diff.php" name="Diff.php" />
+  </filelist>
+ </phprelease>
  <changelog>
   <release>
-    <version>
-     <release>1.0.0</release>
-     <api>1.0.0</api>
-    </version>
-    <stability>
-     <release>stable</release>
-     <api>stable</api>
-    </stability>
-    <date>2008-01-31</date>
-    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-    <notes>* Stable release; final non-bugfix PHP 4 release.</notes>
-  </release>
-  <release>
    <version>
-    <release>0.3.2</release>
-    <api>0.3.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2007-01-04</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Fixed assertion in the native engine with PHP 5 (PEAR Bug #12740).</notes>
-  </release>
-  <release>
-   <version>
-    <release>0.3.1</release>
-    <api>0.3.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2007-10-28</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Fixed off-by-one errors with line numbers in default renderer output (Milian Wolff, PEAR Bugs #7839, #12111).
-* Restore compatibility with PHP 4 in the shell diff engine.</notes>
-  </release>
-  <release>
-   <version>
-    <release>0.3.0</release>
-    <api>0.3.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2007-09-20</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Converted to package.xml 2.0.
-* Added context diff renderer.
-* Stripped nul characters to avoid infinite loops (PEAR Bug #7921).
-* Fix assertion with PHP 5 (PEAR Bug #10423).
-* Add shell diff engine (Milian Wolff, PEAR Request #12051).</notes>
-  </release>
-  <release>
-   <version>
-    <release>0.2.1</release>
-    <api>0.2.1</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2006-02-06</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Fix Text_Diff::reverse() method with PHP 5 (PEAR Bug #6699).
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.2.0</release>
-    <api>0.2.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2006-01-06</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Fix reference warnings with PHP 4.4 and PHP 5.1.
-* Fix too many trailing context lines for the last diff chunk. (PEAR Bug #6251).
-* Add diff engine for existing diffs/patches (Örjan Persson, PEAR Request #5373).
-* Fix problems with numbers, whitespace-only changes and the inline renderer (PEAR Bug #6428.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.1.1</release>
-    <api>0.1.1</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2005-08-19</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Restore compatibility with PHP 4.2.0 (PEAR Bug #5152).
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2005-08-16</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Fix Renderer::getParams() (PEAR Bug #4549)
-* Encode HTML entities in the inline renderer (Horde Bug #2181)
-* Fix endless loop in inline renderer with certain whitespaces (PEAR Bug #4879)
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.5</release>
-    <api>0.0.5</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2005-05-04</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Fixed variable name in Text_MappedDiff.
-* Removed output buffering code.
-* Fixed additional empty lines being added with the inline renderer (Bug 3730).
-* Fixed multiple calls to _endBlock per block (Bug 4065).
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.4</release>
-    <api>0.0.4</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2004-10-13</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>* Generalized Diff Renderer parameter handling.
-* Added an inline renderer contributed by Ciprian Popovici (ciprian@zuavra.net).
-* Fixed PHPDoc.
-* Fixed a PHP 5 incompatibility.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.3</release>
-    <api>0.0.3</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2004-05-13</date>
+   <date>2011-03-06</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>Renamed final() and orig() methods to avoid conflict with final keyword in PHP5
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.2</release>
-    <api>0.0.2</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2004-03-16</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>Added optional xdiff support
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2004-01-09</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
-   <notes>Initial package release
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

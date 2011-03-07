@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Kolab</name>
  <channel>pear.horde.org</channel>
+ <extends>Kolab</extends>
  <summary>Glue package for accessing a Kolab server from Horde</summary>
- <description>This package contains a number of helper functions that
- make communication between a Horde client and a Kolab server
- smoother. It is now deprecated in favor of the various Kolab_*
- packages.</description>
+ <description>This package contains a number of helper functions that make communication between a Horde client and a Kolab server smoother. It is now deprecated in favor of the various Kolab_* packages.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -19,11 +17,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:03:01</time>
+ <date>2011-03-07</date>
+ <time>01:04:19</time>
  <version>
-  <release>0.0.6</release>
-  <api>0.0.6</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,20 +29,14 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Moved all functionality into separate Kolab_* modules.
-* Converted to package.xml 2.0 for pear.horde.org
-* Allow using either c-client or Net_IMAP for Kolab IMAP functionality
-  (Request #5124, wrobel@pardus.de)
-* Splitted Kolab date handling funktions into Date.php
-  (thomas.jarosch@intra2net.com)
-* Added XML handlers for the new Kolab framework.
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="Kolab">
-     <file name="Translation.php" role="php">
-       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
-     </file>
+    <file name="Translation.php" role="php">
+     <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    </file>
    </dir> <!-- /Kolab -->
    <dir name="locale">
     <dir name="ar">
@@ -326,6 +318,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="Kolab/Translation.php" name="Kolab/Translation.php" />
    <install as="locale/Horde_Kolab.pot" name="locale/Horde_Kolab.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab.po" name="locale/ar/LC_MESSAGES/Horde_Kolab.po" />
@@ -413,6 +406,7 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Kolab.po" name="locale/zh_CN/LC_MESSAGES/Horde_Kolab.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab.po" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab.po" />
+   <install as="Kolab.php" name="Kolab.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -526,6 +520,21 @@ Kolab server has been dropped - Kolab 2 is now the supported backend.
 * Splitted Kolab date handling funktions into Date.php
   (thomas.jarosch@intra2net.com)
 * Added XML handlers for the new Kolab framework.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

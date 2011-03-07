@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Auth</name>
  <channel>pear.horde.org</channel>
+ <extends>Auth</extends>
  <summary>Horde Authentication API</summary>
- <description>The Horde_Auth:: package provides a common interface into the various backends for the Horde authentication system.</description>
+ <description>The Horde_Auth package provides a common interface into the various backends for the Horde authentication system.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -16,24 +17,24 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-28</date>
- <time>23:49:18</time>
+ <date>2011-03-07</date>
+ <time>01:54:55</time>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
+* First alpha release for Horde 4.
 * Remove dependency on horde/Core.
- * Remove all non-authentication backend related code.
- * Removed Krb5 driver.
- * Moved signup code to horde/Core.
- * Split Horde_Auth:: into Horde_Auth:: and Horde_Auth_Base:: components.
- * Initial Horde 4 package.
+* Remove all non-authentication backend related code.
+* Removed Krb5 driver.
+* Moved signup code to horde/Core.
+* Split Horde_Auth into Horde_Auth and Horde_Auth_Base components.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -237,31 +238,31 @@
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
-  * Add signup drivers to package.xml (Bug #7345).
-  * Fix the &quot;overwriting realm info from application auth drivers&quot; (Bug #6749)
-  * Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
-  * Added &quot;add user&quot; capability to the Kolab driver.
-  * Adapted the Kolab auth driver to the changes in Kolab_Server.
+* Add signup drivers to package.xml (Bug #7345).
+* Fix the &quot;overwriting realm info from application auth drivers&quot; (Bug #6749)
+* Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
+* Added &quot;add user&quot; capability to the Kolab driver.
+* Adapted the Kolab auth driver to the changes in Kolab_Server.
    </notes>
   </release>
   <release>
    <version>
-    <release>0.2.0</release>
-    <api>0.2.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-01-28</date>
+   <date>2011-03-07</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
+* First alpha release for Horde 4.
 * Remove dependency on horde/Core.
- * Remove all non-authentication backend related code.
- * Removed Krb5 driver.
- * Moved signup code to horde/Core.
- * Split Horde_Auth:: into Horde_Auth:: and Horde_Auth_Base:: components.
- * Initial Horde 4 package.
+* Remove all non-authentication backend related code.
+* Removed Krb5 driver.
+* Moved signup code to horde/Core.
+* Split Horde_Auth into Horde_Auth and Horde_Auth_Base components.
    </notes>
   </release>
  </changelog>

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_File_PDF</name>
  <channel>pear.horde.org</channel>
+ <extends>File_PDF</extends>
  <summary>PDF generation using only PHP.</summary>
  <description>This package provides PDF generation using only PHP, without requiring any external libraries.</description>
  <lead>
@@ -19,47 +17,51 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-02-26</date>
+ <date>2011-03-07</date>
+ <time>01:24:45</time>
  <version>
-  <release>0.3.2</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Automatically restore font styles after adding headers and footers (PEAR Request #12310).
-* Pass $params to the class constructor to allow subclasses to receive and handle additional parameters (PEAR Request #12441).
-* Fix creating linked images (Horde Bug #5964).</notes>
+ <notes>
+* First alpha release for Horde 4.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="PDF">
     <dir name="fonts">
-     <file baseinstalldir="/File" name="courier.php" role="php" />
-     <file baseinstalldir="/File" name="helvetica.php" role="php" />
-     <file baseinstalldir="/File" name="helveticab.php" role="php" />
-     <file baseinstalldir="/File" name="helveticabi.php" role="php" />
-     <file baseinstalldir="/File" name="helveticai.php" role="php" />
-     <file baseinstalldir="/File" name="symbol.php" role="php" />
-     <file baseinstalldir="/File" name="times.php" role="php" />
-     <file baseinstalldir="/File" name="timesb.php" role="php" />
-     <file baseinstalldir="/File" name="timesbi.php" role="php" />
-     <file baseinstalldir="/File" name="timesi.php" role="php" />
-     <file baseinstalldir="/File" name="zapfdingbats.php" role="php" />
+     <file name="courier.php" role="php" />
+     <file name="helvetica.php" role="php" />
+     <file name="helveticab.php" role="php" />
+     <file name="helveticabi.php" role="php" />
+     <file name="helveticai.php" role="php" />
+     <file name="symbol.php" role="php" />
+     <file name="times.php" role="php" />
+     <file name="timesb.php" role="php" />
+     <file name="timesbi.php" role="php" />
+     <file name="timesi.php" role="php" />
+     <file name="zapfdingbats.php" role="php" />
     </dir> <!-- /PDF/fonts -->
    </dir> <!-- /PDF -->
    <dir name="tests">
-    <file baseinstalldir="/File" name="auto_break.phpt" role="test" />
-    <file baseinstalldir="/File" name="factory.phpt" role="test" />
-    <file baseinstalldir="/File" name="hello_world.phpt" role="test" />
-    <file baseinstalldir="/File" name="horde-power1.png" role="test" />
-    <file baseinstalldir="/File" name="links.phpt" role="test" />
-    <file baseinstalldir="/File" name="locale_floats.phpt" role="test" />
-    <file baseinstalldir="/File" name="pear12310.phpt" role="test" />
-    <file baseinstalldir="/File" name="text_color.phpt" role="test" />
+    <file name="20k_c1.txt" role="data" />
+    <file name="20k_c2.txt" role="data" />
+    <file name="auto_break.phpt" role="test" />
+    <file name="factory.phpt" role="test" />
+    <file name="hello_world.phpt" role="test" />
+    <file name="horde-power1.png" role="test" />
+    <file name="links.phpt" role="test" />
+    <file name="locale_floats.phpt" role="test" />
+    <file name="pear12310.phpt" role="test" />
+    <file name="text_color.phpt" role="test" />
+    <file name="underline.phpt" role="data" />
    </dir> <!-- /tests -->
-   <file baseinstalldir="/File" name="PDF.php" role="php" />
+   <file name="PDF.php" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -78,68 +80,48 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
   </optional>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="PDF/fonts/courier.php" name="PDF/fonts/courier.php" />
+   <install as="PDF/fonts/helvetica.php" name="PDF/fonts/helvetica.php" />
+   <install as="PDF/fonts/helveticab.php" name="PDF/fonts/helveticab.php" />
+   <install as="PDF/fonts/helveticabi.php" name="PDF/fonts/helveticabi.php" />
+   <install as="PDF/fonts/helveticai.php" name="PDF/fonts/helveticai.php" />
+   <install as="PDF/fonts/symbol.php" name="PDF/fonts/symbol.php" />
+   <install as="PDF/fonts/times.php" name="PDF/fonts/times.php" />
+   <install as="PDF/fonts/timesb.php" name="PDF/fonts/timesb.php" />
+   <install as="PDF/fonts/timesbi.php" name="PDF/fonts/timesbi.php" />
+   <install as="PDF/fonts/timesi.php" name="PDF/fonts/timesi.php" />
+   <install as="PDF/fonts/zapfdingbats.php" name="PDF/fonts/zapfdingbats.php" />
+   <install as="tests/20k_c1.txt" name="tests/20k_c1.txt" />
+   <install as="tests/20k_c2.txt" name="tests/20k_c2.txt" />
+   <install as="auto_break.phpt" name="tests/auto_break.phpt" />
+   <install as="factory.phpt" name="tests/factory.phpt" />
+   <install as="hello_world.phpt" name="tests/hello_world.phpt" />
+   <install as="horde-power1.png" name="tests/horde-power1.png" />
+   <install as="links.phpt" name="tests/links.phpt" />
+   <install as="locale_floats.phpt" name="tests/locale_floats.phpt" />
+   <install as="pear12310.phpt" name="tests/pear12310.phpt" />
+   <install as="text_color.phpt" name="tests/text_color.phpt" />
+   <install as="tests/underline.phpt" name="tests/underline.phpt" />
+   <install as="PDF.php" name="PDF.php" />
+  </filelist>
+ </phprelease>
  <changelog>
   <release>
    <version>
-    <release>0.3.1</release>
-    <api>0.1.0</api>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2007-11-07</date>
+   <date>2004-06-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Fixed escaping of parenthesis in PDF documents (PEAR Bug #12092).
-* Always reset position to the left margin before starting footers.
-* Fixed fill color overwriting text color (PEAR Bug #12310).</notes>
-  </release>
-  <release>
-   <version>
-    <release>0.3.0</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2007-09-14</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Add flush() method to allow processing of very large PDF files (Request #10077).
-* Fix underlined fonts (Bug #11447).
-* Workaround BC break in PHP 4.3.10 with some locales (Horde Bug #4094).</notes>
-  </release>
-  <release>
-   <version>
-    <release>0.2.0</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2007-01-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Catch errors from parsing images (Bug #8856).
-* Fix font width calculation of comma character (Andrew Teixeira, Bug #9595).
-* Add getPageWidth() and getPageHeight() methods (Request #9267).</notes>
-  </release>
-  <release>
-   <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2006-08-28</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Preserve font settings when adding new pages (Bug #2682).
-* Add setFontStyle() method (d.baechtold@unico.ch, Request #5230).
-* Allow all coordinates to be specified as negative values from the right or bottom edges (Request #5230).
-* Add setTextColor() to specify text colors different from fill colors (Request #1767).</notes>
+   <notes>
+Initial release as a PEAR package
+   </notes>
   </release>
   <release>
    <version>
@@ -152,7 +134,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2005-04-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Fixed loading of font metrics in setFont().
+   <notes>
+* Fixed loading of font metrics in setFont().
 * Fixed typo preventing setFillColor() and setDrawColor() from accepting any other colorspace than &apos;rgb&apos; (Horde Bug 1276).
 * Allow to use factory() method with custom class extended from File_PDF (Bug 1543).
 * Fixed typo in link() (Bug 1737).
@@ -161,16 +144,103 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2004-06-04</date>
+   <date>2006-08-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Preserve font settings when adding new pages (Bug #2682).
+* Add setFontStyle() method (d.baechtold@unico.ch, Request #5230).
+* Allow all coordinates to be specified as negative values from the right or bottom edges (Request #5230).
+* Add setTextColor() to specify text colors different from fill colors (Request #1767).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-01-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Catch errors from parsing images (Bug #8856).
+* Fix font width calculation of comma character (Andrew Teixeira, Bug #9595).
+* Add getPageWidth() and getPageHeight() methods (Request #9267).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-09-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Add flush() method to allow processing of very large PDF files (Request #10077).
+* Fix underlined fonts (Bug #11447).
+* Workaround BC break in PHP 4.3.10 with some locales (Horde Bug #4094).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-11-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Fixed escaping of parenthesis in PDF documents (PEAR Bug #12092).
+* Always reset position to the left margin before starting footers.
+* Fixed fill color overwriting text color (PEAR Bug #12310).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.2</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-02-26</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Automatically restore font styles after adding headers and footers (PEAR Request #12310).
+* Pass $params to the class constructor to allow subclasses to receive and handle additional parameters (PEAR Request #12441).
+* Fix creating linked images (Horde Bug #5964).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

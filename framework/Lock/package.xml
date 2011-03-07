@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Lock</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Resource Locking System</summary>
- <description>The Lock:: class provides the Horde resource locking system.</description>
+ <description>The Horde_Lock library provides the Horde resource locking system.</description>
  <lead>
   <name>Ben Klang</name>
   <user>bklang</user>
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2011-01-28</date>
- <time>23:49:31</time>
+ <date>2011-03-07</date>
+ <time>00:48:27</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -22,8 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First alpha release for Horde 4.
 * Add Null driver.
-* Initial release
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -95,18 +95,18 @@
  <changelog>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-01-28</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* First alpha release for Horde 4.
 * Add Null driver.
-* Initial release
    </notes>
   </release>
  </changelog>

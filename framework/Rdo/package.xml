@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Rdo</name>
  <channel>pear.horde.org</channel>
+ <extends>Rdo</extends>
  <summary>Rampage Data Objects</summary>
- <description>Lightweight ORM layer
- </description>
+ <description>Lightweight ORM layer</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-03-15</date>
- <time>16:46:00</time>
+ <date>2011-03-07</date>
+ <time>00:21:20</time>
  <version>
-  <release>0.3.0</release>
-  <api>0.3.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Major improvements including inflection, eager or lazy loading of relationships and fields, and more.
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <file name="TODO.txt" role="doc" />
+   </dir> <!-- /doc -->
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Rdo">
+      <file name="clotho.data.php" role="php" />
+      <file name="clotho.mysql.sql" role="data" />
+      <file name="Clotho.php" role="php" />
+      <file name="conf.php.dist" role="data" />
+      <file name="CountTest.php" role="php" />
+      <file name="DumpXmlTest.php" role="php" />
+      <file name="RelationshipTest.php" role="php" />
+      <file name="Task.php" role="php" />
+      <file name="User.php" role="php" />
+      <file name="users.mysql.sql" role="data" />
+      <file name="users.pgsql.sql" role="data" />
+      <file name="users.sqlite.sql" role="data" />
+     </dir> <!-- /examples/Horde/Rdo -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Rdo">
@@ -45,6 +64,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Rdo.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Rdo">
+      <file name="AllTests.php" role="test" />
+     </dir> <!-- /test/Horde/Rdo -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -59,14 +85,60 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Rdo/Query/Literal.php" as="Horde/Rdo/Query/Literal.php" />
-   <install name="lib/Horde/Rdo/Base.php" as="Horde/Rdo/Base.php" />
-   <install name="lib/Horde/Rdo/Exception.php" as="Horde/Rdo/Exception.php" />
-   <install name="lib/Horde/Rdo/Iterator.php" as="Horde/Rdo/Iterator.php" />
-   <install name="lib/Horde/Rdo/List.php" as="Horde/Rdo/List.php" />
-   <install name="lib/Horde/Rdo/Mapper.php" as="Horde/Rdo/Mapper.php" />
-   <install name="lib/Horde/Rdo/Query.php" as="Horde/Rdo/Query.php" />
-   <install name="lib/Horde/Rdo.php" as="Horde/Rdo.php" />
+   <install as="TODO.txt" name="doc/TODO.txt" />
+   <install as="examples/Horde/Rdo/clotho.data.php" name="examples/Horde/Rdo/clotho.data.php" />
+   <install as="examples/Horde/Rdo/clotho.mysql.sql" name="examples/Horde/Rdo/clotho.mysql.sql" />
+   <install as="examples/Horde/Rdo/Clotho.php" name="examples/Horde/Rdo/Clotho.php" />
+   <install as="examples/Horde/Rdo/conf.php.dist" name="examples/Horde/Rdo/conf.php.dist" />
+   <install as="examples/Horde/Rdo/CountTest.php" name="examples/Horde/Rdo/CountTest.php" />
+   <install as="examples/Horde/Rdo/DumpXmlTest.php" name="examples/Horde/Rdo/DumpXmlTest.php" />
+   <install as="examples/Horde/Rdo/RelationshipTest.php" name="examples/Horde/Rdo/RelationshipTest.php" />
+   <install as="examples/Horde/Rdo/Task.php" name="examples/Horde/Rdo/Task.php" />
+   <install as="examples/Horde/Rdo/User.php" name="examples/Horde/Rdo/User.php" />
+   <install as="examples/Horde/Rdo/users.mysql.sql" name="examples/Horde/Rdo/users.mysql.sql" />
+   <install as="examples/Horde/Rdo/users.pgsql.sql" name="examples/Horde/Rdo/users.pgsql.sql" />
+   <install as="examples/Horde/Rdo/users.sqlite.sql" name="examples/Horde/Rdo/users.sqlite.sql" />
+   <install as="Horde/Rdo.php" name="lib/Horde/Rdo.php" />
+   <install as="Horde/Rdo/Base.php" name="lib/Horde/Rdo/Base.php" />
+   <install as="Horde/Rdo/Exception.php" name="lib/Horde/Rdo/Exception.php" />
+   <install as="Horde/Rdo/Iterator.php" name="lib/Horde/Rdo/Iterator.php" />
+   <install as="Horde/Rdo/List.php" name="lib/Horde/Rdo/List.php" />
+   <install as="Horde/Rdo/Mapper.php" name="lib/Horde/Rdo/Mapper.php" />
+   <install as="Horde/Rdo/Query.php" name="lib/Horde/Rdo/Query.php" />
+   <install as="Horde/Rdo/Query/Literal.php" name="lib/Horde/Rdo/Query/Literal.php" />
+   <install as="Horde/Rdo/AllTests.php" name="test/Horde/Rdo/AllTests.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Major improvements including inflection, eager or lazy loading of relationships and fields, and more.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

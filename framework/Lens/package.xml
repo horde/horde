@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Lens</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Lens decorating iterator/flyweight implementation</summary>
- <description>This package provides a way of wrapping iterators to
- avoid looping over them multiple times, using a single decorator
- object (the &quot;lens&quot;) instead of creating one decorator for
- every element.
- </description>
+ <description>This package provides a way of wrapping iterators to avoid looping over them multiple times, using a single decorator object (the &quot;lens&quot;) instead of creating one decorator for every element.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2007-03-23</date>
+ <date>2011-03-07</date>
+ <time>00:49:27</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial release.</notes>
+ <notes>
+* First alpha release for Horde 4.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Lens">
       <file name="Interface.php" role="php" />
       <file name="Iterator.php" role="php" />
-     </dir> <!-- /lib/Horde/Lens -->
+     </dir> <!-- //lib/Horde/Lens -->
      <file name="Lens.php" role="php" />
-    </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib -->
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -53,9 +49,26 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Lens/Interface.php" as="Horde/Lens/Interface.php" />
-   <install name="lib/Horde/Lens/Iterator.php" as="Horde/Lens/Iterator.php" />
-   <install name="lib/Horde/Lens.php" as="Horde/Lens.php" />
+   <install as="Horde/Lens.php" name="lib/Horde/Lens.php" />
+   <install as="Horde/Lens/Interface.php" name="lib/Horde/Lens/Interface.php" />
+   <install as="Horde/Lens/Iterator.php" name="lib/Horde/Lens/Iterator.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

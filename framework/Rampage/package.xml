@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Horde_Rampage</name>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Rampage</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Rampage Application Server</summary>
- <description>PHP 5 application framework for Horde
- </description>
+ <description>PHP 5 application framework for Horde</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2007-03-08</date>
- <time>11:00:00</time>
+ <date>2011-03-07</date>
+ <time>00:22:58</time>
  <version>
-  <release>0.1.3</release>
-  <api>0.1.3</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Horde_Rampage_Loader is now Horde_Loader
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/" baseinstalldir="/Horde">
-   <dir name="scripts">
-    <dir name="Horde">
-     <dir name="Rampage">
-      <file name="rampage.php" role="script">
-       <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-      </file>
-     </dir> <!-- /scripts/Horde/Rampage -->
-    </dir> <!-- /scripts/Horde -->
-   </dir> <!-- /scripts -->
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Rampage">
@@ -45,6 +33,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Rampage -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="scripts">
+    <dir name="Horde">
+     <dir name="Rampage">
+      <file name="rampage.php" role="script">
+       <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+      </file>
+     </dir> <!-- /scripts/Horde/Rampage -->
+    </dir> <!-- /scripts/Horde -->
+   </dir> <!-- /scripts -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -59,8 +56,40 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Rampage/Environment.php" as="Horde/Rampage/Environment.php" />
-   <install name="scripts/Horde/Rampage/rampage.php" as="horde-rampage" />
+   <install as="Horde/Rampage/Environment.php" name="lib/Horde/Rampage/Environment.php" />
+   <install as="rampage" name="scripts/Horde/Rampage/rampage.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.3</release>
+    <api>0.1.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-03-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Horde_Rampage_Loader is now Horde_Loader
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

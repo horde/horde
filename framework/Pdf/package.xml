@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Pdf</name>
  <channel>pear.horde.org</channel>
+ <extends>File_PDF</extends>
  <summary>Horde PDF library</summary>
- <description>Horde PDF package
- </description>
+ <description>Horde PDF package</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,21 +17,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2007-10-21</date>
- <time>23:26:00</time>
+ <date>2011-03-07</date>
+ <time>00:29:53</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
- <notes>Initial Horde/Pdf release
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Pdf">
@@ -56,7 +54,28 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Pdf -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
-  </dir>
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Pdf">
+      <dir name="fixtures">
+       <file name="20k_c1.txt" role="test" />
+       <file name="20k_c2.txt" role="test" />
+       <file name="auto_break.pdf" role="test" />
+       <file name="change_page.pdf" role="test" />
+       <file name="header_footer_styles.pdf" role="test" />
+       <file name="hello_world_compressed.pdf" role="test" />
+       <file name="hello_world_uncompressed.pdf" role="test" />
+       <file name="horde-power1.png" role="test" />
+       <file name="links.pdf" role="test" />
+       <file name="text_color.pdf" role="test" />
+       <file name="underline.pdf" role="test" />
+      </dir> <!-- /test/Horde/Pdf/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="WriterTest.php" role="test" />
+     </dir> <!-- /test/Horde/Pdf -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
@@ -70,19 +89,49 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Pdf/Exception.php" as="Horde/Pdf/Exception.php" />
-   <install name="lib/Horde/Pdf/Writer.php" as="Horde/Pdf/Writer.php" />
-   <install name="lib/Horde/Pdf/Font/Courier.php" as="Horde/Pdf/Font/Courier.php" />
-   <install name="lib/Horde/Pdf/Font/Helvetica.php" as="Horde/Pdf/Font/Helvetica.php" />
-   <install name="lib/Horde/Pdf/Font/Helveticab.php" as="Horde/Pdf/Font/Helveticab.php" />
-   <install name="lib/Horde/Pdf/Font/Helveticabi.php" as="Horde/Pdf/Font/Helveticabi.php" />
-   <install name="lib/Horde/Pdf/Font/Helveticai.php" as="Horde/Pdf/Font/Helveticai.php" />
-   <install name="lib/Horde/Pdf/Font/Symbol.php" as="Horde/Pdf/Font/Symbol.php" />
-   <install name="lib/Horde/Pdf/Font/Times.php" as="Horde/Pdf/Font/Times.php" />
-   <install name="lib/Horde/Pdf/Font/Timesb.php" as="Horde/Pdf/Font/Timesb.php" />
-   <install name="lib/Horde/Pdf/Font/Timesbi.php" as="Horde/Pdf/Font/Timesbi.php" />
-   <install name="lib/Horde/Pdf/Font/Timesi.php" as="Horde/Pdf/Font/Timesi.php" />
-   <install name="lib/Horde/Pdf/Font/Zapfdingbats.php" as="Horde/Pdf/Font/Zapfdingbats.php" />
+   <install as="Horde/Pdf/Exception.php" name="lib/Horde/Pdf/Exception.php" />
+   <install as="Horde/Pdf/Writer.php" name="lib/Horde/Pdf/Writer.php" />
+   <install as="Horde/Pdf/Font/Courier.php" name="lib/Horde/Pdf/Font/Courier.php" />
+   <install as="Horde/Pdf/Font/Helvetica.php" name="lib/Horde/Pdf/Font/Helvetica.php" />
+   <install as="Horde/Pdf/Font/Helveticab.php" name="lib/Horde/Pdf/Font/Helveticab.php" />
+   <install as="Horde/Pdf/Font/Helveticabi.php" name="lib/Horde/Pdf/Font/Helveticabi.php" />
+   <install as="Horde/Pdf/Font/Helveticai.php" name="lib/Horde/Pdf/Font/Helveticai.php" />
+   <install as="Horde/Pdf/Font/Symbol.php" name="lib/Horde/Pdf/Font/Symbol.php" />
+   <install as="Horde/Pdf/Font/Times.php" name="lib/Horde/Pdf/Font/Times.php" />
+   <install as="Horde/Pdf/Font/Timesb.php" name="lib/Horde/Pdf/Font/Timesb.php" />
+   <install as="Horde/Pdf/Font/Timesbi.php" name="lib/Horde/Pdf/Font/Timesbi.php" />
+   <install as="Horde/Pdf/Font/Timesi.php" name="lib/Horde/Pdf/Font/Timesi.php" />
+   <install as="Horde/Pdf/Font/Zapfdingbats.php" name="lib/Horde/Pdf/Font/Zapfdingbats.php" />
+   <install as="Horde/Pdf/AllTests.php" name="test/Horde/Pdf/AllTests.php" />
+   <install as="Horde/Pdf/WriterTest.php" name="test/Horde/Pdf/WriterTest.php" />
+   <install as="Horde/Pdf/fixtures/20k_c1.txt" name="test/Horde/Pdf/fixtures/20k_c1.txt" />
+   <install as="Horde/Pdf/fixtures/20k_c2.txt" name="test/Horde/Pdf/fixtures/20k_c2.txt" />
+   <install as="Horde/Pdf/fixtures/auto_break.pdf" name="test/Horde/Pdf/fixtures/auto_break.pdf" />
+   <install as="Horde/Pdf/fixtures/change_page.pdf" name="test/Horde/Pdf/fixtures/change_page.pdf" />
+   <install as="Horde/Pdf/fixtures/header_footer_styles.pdf" name="test/Horde/Pdf/fixtures/header_footer_styles.pdf" />
+   <install as="Horde/Pdf/fixtures/hello_world_compressed.pdf" name="test/Horde/Pdf/fixtures/hello_world_compressed.pdf" />
+   <install as="Horde/Pdf/fixtures/hello_world_uncompressed.pdf" name="test/Horde/Pdf/fixtures/hello_world_uncompressed.pdf" />
+   <install as="Horde/Pdf/fixtures/horde-power1.png" name="test/Horde/Pdf/fixtures/horde-power1.png" />
+   <install as="Horde/Pdf/fixtures/links.pdf" name="test/Horde/Pdf/fixtures/links.pdf" />
+   <install as="Horde/Pdf/fixtures/text_color.pdf" name="test/Horde/Pdf/fixtures/text_color.pdf" />
+   <install as="Horde/Pdf/fixtures/underline.pdf" name="test/Horde/Pdf/fixtures/underline.pdf" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

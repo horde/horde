@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_SpellChecker</name>
  <channel>pear.horde.org</channel>
  <summary>Spellcheck API</summary>
- <description>Unified spellchecking API.
- </description>
+ <description>Unified spellchecking API.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,19 +16,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-02-21</date>
+ <date>2011-03-06</date>
+ <time>23:51:02</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>
+* First alpha release for Horde 4.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="SpellChecker">
@@ -44,6 +43,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="test">
     <dir name="Horde">
      <dir name="SpellChecker">
+      <file name="basic-aspell.phpt" role="test" />
      </dir> <!-- /test/Horde/SpellChecker -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -69,11 +69,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/SpellChecker/Aspell.php" as="Horde/SpellChecker/Aspell.php" />
-   <install name="lib/Horde/SpellChecker.php" as="Horde/SpellChecker.php" />
+   <install as="Horde/SpellChecker.php" name="lib/Horde/SpellChecker.php" />
+   <install as="Horde/SpellChecker/Aspell.php" name="lib/Horde/SpellChecker/Aspell.php" />
+   <install as="Horde/SpellChecker/basic-aspell.phpt" name="test/Horde/SpellChecker/basic-aspell.phpt" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-01-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial Release.
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>23:24:34</time>
@@ -86,7 +102,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Work around an issue with proc_close and --enable-sigchild (Bug #6625)
+   <notes>
+* Work around an issue with proc_close and --enable-sigchild (Bug #6625)
 * Make sure charset is correctly reported to aspell
 * Remove pspell driver
 * Converted to package.xml 2.0 for pear.horde.org
@@ -94,16 +111,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2004-01-01</date>
+   <date>2011-03-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial Release.
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

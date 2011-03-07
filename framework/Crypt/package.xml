@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Crypt</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Cryptography API</summary>
- <description>The Horde_Crypt:: class provides an API for various cryptographic systems</description>
+ <description>The Horde_Crypt package class provides an API for various cryptographic systems.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-03</date>
- <time>10:28:18</time>
+ <date>2011-03-07</date>
+ <time>01:41:06</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -22,9 +22,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Add Horde_Crypt_Exception::.
- * Better error handling for gnupg and openssl command line binaries.
- * Initial Horde 4 package.
+* First alpha release for Horde 4.
+* Add Horde_Crypt_Exception.
+* Better error handling for gnupg and openssl command line binaries.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -504,19 +504,19 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-02-03</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Add Horde_Crypt_Exception::.
- * Better error handling for gnupg and openssl command line binaries.
- * Initial Horde 4 package.
+* First alpha release for Horde 4.
+* Add Horde_Crypt_Exception.
+* Better error handling for gnupg and openssl command line binaries.
    </notes>
   </release>
  </changelog>

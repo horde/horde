@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Text_Flowed</name>
  <channel>pear.horde.org</channel>
+ <extends>Text_Flowed</extends>
  <summary>Horde API for flowed text as per RFC 3676</summary>
- <description>The Horde_Text_Flowed:: class provides common methods for
- manipulating text using the encoding described in RFC 3676
- (&apos;flowed&apos; text).
- </description>
+ <description>The Horde_Text_Flowed:: class provides common methods for manipulating text using the encoding described in RFC 3676 (&apos;flowed&apos; text).</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-02-22</date>
+ <date>2011-03-06</date>
+ <time>23:31:39</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Text">
+      <file name="Flowed.php" role="php" />
+     </dir> <!-- /lib/Horde/Text -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Text">
@@ -42,13 +46,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /test/Horde/Text -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <dir name="lib">
-    <dir name="Horde">
-     <dir name="Text">
-      <file name="Flowed.php" role="php" />
-     </dir> <!-- /lib/Horde/Text -->
-    </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -67,14 +64,29 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Text/Flowed.php" as="Horde/Text/Flowed.php" />
-   <install name="test/Horde/Text/Flowed/AllTests.php" as="Horde/Text/Flowed/AllTests.php" />
-   <install name="test/Horde/Text/Flowed/Autoload.php" as="Horde/Text/Flowed/Autoload.php" />
-   <install name="test/Horde/Text/Flowed/FlowedTest.php" as="Horde/Text/Flowed/FlowedTest.php" />
-   <install name="test/Horde/Text/Flowed/phpunit.xml" as="Horde/Text/Flowed/phpunit.xml" />
+   <install as="Horde/Text/Flowed.php" name="lib/Horde/Text/Flowed.php" />
+   <install as="Horde/Text/Flowed/AllTests.php" name="test/Horde/Text/Flowed/AllTests.php" />
+   <install as="Horde/Text/Flowed/Autoload.php" name="test/Horde/Text/Flowed/Autoload.php" />
+   <install as="Horde/Text/Flowed/FlowedTest.php" name="test/Horde/Text/Flowed/FlowedTest.php" />
+   <install as="Horde/Text/Flowed/phpunit.xml" name="test/Horde/Text/Flowed/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-10-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>23:41:38</time>
@@ -87,21 +99,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2004-10-15</date>
+   <date>2011-03-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

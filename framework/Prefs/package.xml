@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Prefs</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Preferances API</summary>
@@ -10,26 +10,26 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-28</date>
- <time>23:49:00</time>
+ <date>2011-03-07</date>
+ <time>00:26:36</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First alpha release for Horde 4.
 * Abstract caching code into Horde_Prefs_Cache.
- * Removed Horde_Prefs_Storage_Kolab driver.
- * Abstract storage code into Horde_Prefs_Storage.
- * Add array access API to Horde_Prefs.
- * Remove dependency on horde/Core.
- * Use Horde_Db as backend for Sql driver.
- * Moved UI code to horde/Core.
- * Initial Horde 4 package.
+* Removed Horde_Prefs_Storage_Kolab driver.
+* Abstract storage code into Horde_Prefs_Storage.
+* Add array access API to Horde_Prefs.
+* Remove dependency on horde/Core.
+* Use Horde_Db as backend for Sql driver.
+* Moved UI code to horde/Core.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -541,24 +541,24 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-01-28</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* First alpha release for Horde 4.
 * Abstract caching code into Horde_Prefs_Cache.
- * Removed Horde_Prefs_Storage_Kolab driver.
- * Abstract storage code into Horde_Prefs_Storage.
- * Add array access API to Horde_Prefs.
- * Remove dependency on horde/Core.
- * Use Horde_Db as backend for Sql driver.
- * Moved UI code to horde/Core.
- * Initial Horde 4 package.
+* Removed Horde_Prefs_Storage_Kolab driver.
+* Abstract storage code into Horde_Prefs_Storage.
+* Add array access API to Horde_Prefs.
+* Remove dependency on horde/Core.
+* Use Horde_Db as backend for Sql driver.
+* Moved UI code to horde/Core.
    </notes>
   </release>
  </changelog>

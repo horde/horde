@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Http</name>
  <channel>pear.horde.org</channel>
+ <extends>Http_Client</extends>
  <summary>Horde HTTP libraries</summary>
- <description>This package provides a set of classes for making HTTP requests.
- </description>
+ <description>This package provides a set of classes for making HTTP requests.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-09-04</date>
+ <date>2011-03-07</date>
+ <time>01:17:45</time>
  <version>
-  <release>0.5.0</release>
-  <api>0.5.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>* Refactor to support multiple request transports, including Curl and the PECL http extension.</notes>
+ <notes>
+* First alpha release for Horde 4.
+* Refactor to support multiple request transports, including Curl and the PECL http extension.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Http">
+      <file name="get-example-dot-com.php" role="php" />
+     </dir> <!-- /examples/Horde/Http -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Http">
-      <file name="Exception.php" role="php" />
-      <file name="Client.php" role="php" />
       <dir name="Request">
        <file name="Base.php" role="php" />
        <file name="Curl.php" role="php" />
@@ -47,12 +53,20 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Mock.php" role="php" />
        <file name="Peclhttp.php" role="php" />
       </dir> <!-- /lib/Horde/Http/Response -->
-      <dir name="Response">
-      </dir> <!-- /lib/Horde/Http/Response -->
+      <file name="Client.php" role="php" />
+      <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/Http -->
      <file name="Http.php" role="php" />
     </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib/ -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Http">
+      <file name="AllTests.php" role="test" />
+      <file name="FopenTest.php" role="test" />
+     </dir> <!-- /test/Horde/Http -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -75,20 +89,41 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Http/Client.php" as="Horde/Http/Client.php" />
-   <install name="lib/Horde/Http/Exception.php" as="Horde/Http/Exception.php" />
-   <install name="lib/Horde/Http/Request/Base.php" as="Horde/Http/Request/Base.php" />
-   <install name="lib/Horde/Http/Request/Curl.php" as="Horde/Http/Request/Curl.php" />
-   <install name="lib/Horde/Http/Request/Factory.php" as="Horde/Http/Request/Factory.php" />
-   <install name="lib/Horde/Http/Request/Fopen.php" as="Horde/Http/Request/Fopen.php" />
-   <install name="lib/Horde/Http/Request/Mock.php" as="Horde/Http/Request/Mock.php" />
-   <install name="lib/Horde/Http/Request/Peclhttp.php" as="Horde/Http/Request/Peclhttp.php" />
-   <install name="lib/Horde/Http/Response/Base.php" as="Horde/Http/Response/Base.php" />
-   <install name="lib/Horde/Http/Response/Curl.php" as="Horde/Http/Response/Curl.php" />
-   <install name="lib/Horde/Http/Response/Fopen.php" as="Horde/Http/Response/Fopen.php" />
-   <install name="lib/Horde/Http/Response/Mock.php" as="Horde/Http/Response/Mock.php" />
-   <install name="lib/Horde/Http/Response/Peclhttp.php" as="Horde/Http/Response/Peclhttp.php" />
-   <install name="lib/Horde/Http.php" as="Horde/Http.php" />
+   <install as="examples/Horde/Http/get-example-dot-com.php" name="examples/Horde/Http/get-example-dot-com.php" />
+   <install as="Horde/Http.php" name="lib/Horde/Http.php" />
+   <install as="Horde/Http/Client.php" name="lib/Horde/Http/Client.php" />
+   <install as="Horde/Http/Exception.php" name="lib/Horde/Http/Exception.php" />
+   <install as="Horde/Http/Request/Base.php" name="lib/Horde/Http/Request/Base.php" />
+   <install as="Horde/Http/Request/Curl.php" name="lib/Horde/Http/Request/Curl.php" />
+   <install as="Horde/Http/Request/Factory.php" name="lib/Horde/Http/Request/Factory.php" />
+   <install as="Horde/Http/Request/Fopen.php" name="lib/Horde/Http/Request/Fopen.php" />
+   <install as="Horde/Http/Request/Mock.php" name="lib/Horde/Http/Request/Mock.php" />
+   <install as="Horde/Http/Request/Peclhttp.php" name="lib/Horde/Http/Request/Peclhttp.php" />
+   <install as="Horde/Http/Response/Base.php" name="lib/Horde/Http/Response/Base.php" />
+   <install as="Horde/Http/Response/Curl.php" name="lib/Horde/Http/Response/Curl.php" />
+   <install as="Horde/Http/Response/Fopen.php" name="lib/Horde/Http/Response/Fopen.php" />
+   <install as="Horde/Http/Response/Mock.php" name="lib/Horde/Http/Response/Mock.php" />
+   <install as="Horde/Http/Response/Peclhttp.php" name="lib/Horde/Http/Response/Peclhttp.php" />
+   <install as="Horde/Http/AllTests.php" name="test/Horde/Http/AllTests.php" />
+   <install as="Horde/Http/FopenTest.php" name="test/Horde/Http/FopenTest.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First alpha release for Horde 4.
+* Refactor to support multiple request transports, including Curl and the PECL http extension.
+   </notes>
+  </release>
+ </changelog>
 </package>

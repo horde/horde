@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_DataTree</name>
  <channel>pear.horde.org</channel>
  <summary>DataTree API</summary>
- <description>TODO
- </description>
+ <description>TODO</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2006-05-08</date>
- <time>21:17:43</time>
+ <date>2011-03-07</date>
+ <time>01:37:55</time>
  <version>
-  <release>0.0.3</release>
-  <api>0.0.3</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Converted to package.xml 2.0 for pear.horde.org
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="DataTree">
-    <file baseinstalldir="/Horde" name="null.php" role="php" />
-    <file baseinstalldir="/Horde" name="sql.php" role="php" />
-   </dir> <!-- //DataTree -->
-   <file baseinstalldir="/Horde" name="DataTree.php" role="php" />
+    <file name="null.php" role="php" />
+    <file name="sql.php" role="php" />
+   </dir> <!-- /DataTree -->
+   <dir name="docs">
+    <file name="find-datatree-attribute-orphans.sql" role="data" />
+   </dir> <!-- /docs -->
+   <file name="DataTree.php" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -67,23 +67,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </extension>
   </optional>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="DataTree/null.php" name="DataTree/null.php" />
+   <install as="DataTree/sql.php" name="DataTree/sql.php" />
+   <install as="docs/find-datatree-attribute-orphans.sql" name="docs/find-datatree-attribute-orphans.sql" />
+   <install as="DataTree.php" name="DataTree.php" />
+  </filelist>
+ </phprelease>
  <changelog>
-  <release>
-   <version>
-    <release>0.0.2</release>
-    <api>0.0.2</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2004-01-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Add failover functionality, if the sql driver is not available will fall back to null driver.
-* Add support for separate read and write DB servers for the sql driver.
-   </notes>
-  </release>
   <release>
    <version>
     <release>0.0.1</release>
@@ -95,7 +87,54 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2003-02-11</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial packaging.
+   <notes>
+Initial packaging.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-01-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Add failover functionality, if the sql driver is not available will fall back to null driver.
+* Add support for separate read and write DB servers for the sql driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

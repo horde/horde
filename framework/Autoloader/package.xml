@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Autoloader</name>
  <channel>pear.horde.org</channel>
+ <extends>Autoloader</extends>
  <summary>Horde Autoloader</summary>
- <description>Autoload implementation and class loading manager for Horde.
- </description>
+ <description>Autoload implementation and class loading manager for Horde.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,37 +17,52 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-09-02</date>
- <time>14:00:00</time>
+ <date>2011-03-07</date>
+ <time>01:52:46</time>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add ability to define callback to run when class is loaded.
- * Bug #7856: Allow underscores in pathname.
- * Rename to Horde_Autoloader.
+ <notes>
+* First alpha release for Horde 4.
+* Add ability to define callback to run when class is loaded.
+* Bug #7856: Allow underscores in pathname.
+* Rename to Horde_Autoloader.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
-     <file name="Autoloader.php" role="php" />
      <dir name="Autoloader">
-      <file name="ClassPathMapper.php" role="php" />
       <dir name="ClassPathMapper">
        <file name="Application.php" role="php" />
        <file name="Default.php" role="php" />
        <file name="Prefix.php" role="php" />
       </dir> <!-- /lib/Horde/Autoloader/ClassPathMapper -->
+      <file name="ClassPathMapper.php" role="php" />
       <file name="Default.php" role="php" />
      </dir> <!-- /lib/Horde/Autoloader -->
+     <file name="Autoloader.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Autoloader">
+      <dir name="ClassPathMapper">
+       <file name="ApplicationTest.php" role="test" />
+       <file name="DefaultTest.php" role="test" />
+       <file name="PrefixTest.php" role="test" />
+      </dir> <!-- /test/Horde/Autoloader/ClassPathMapper -->
+      <file name="AllTests.php" role="test" />
+      <file name="AutoloaderTest.php" role="test" />
+     </dir> <!-- /test/Horde/Autoloader -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -65,13 +77,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Autoloader/ClassPathMapper/Application.php" as="Horde/Autoloader/ClassPathMapper/Application.php" />
-   <install name="lib/Horde/Autoloader/ClassPathMapper/Default.php" as="Horde/Autoloader/ClassPathMapper/Default.php" />
-   <install name="lib/Horde/Autoloader/ClassPathMapper/Prefix.php" as="Horde/Autoloader/ClassPathMapper/Prefix.php" />
-   <install name="lib/Horde/Autoloader/ClassPathMapper.php" as="Horde/Autoloader/ClassPathMapper.php" />
-   <install name="lib/Horde/Autoloader/Default.php" as="Horde/Autoloader/Default.php" />
-   <install name="lib/Horde/Autoloader.php" as="Horde/Autoloader.php" />
+   <install as="Horde/Autoloader.php" name="lib/Horde/Autoloader.php" />
+   <install as="Horde/Autoloader/ClassPathMapper.php" name="lib/Horde/Autoloader/ClassPathMapper.php" />
+   <install as="Horde/Autoloader/Default.php" name="lib/Horde/Autoloader/Default.php" />
+   <install as="Horde/Autoloader/ClassPathMapper/Application.php" name="lib/Horde/Autoloader/ClassPathMapper/Application.php" />
+   <install as="Horde/Autoloader/ClassPathMapper/Default.php" name="lib/Horde/Autoloader/ClassPathMapper/Default.php" />
+   <install as="Horde/Autoloader/ClassPathMapper/Prefix.php" name="lib/Horde/Autoloader/ClassPathMapper/Prefix.php" />
+   <install as="Horde/Autoloader/AllTests.php" name="test/Horde/Autoloader/AllTests.php" />
+   <install as="Horde/Autoloader/AutoloaderTest.php" name="test/Horde/Autoloader/AutoloaderTest.php" />
+   <install as="Horde/Autoloader/ClassPathMapper/ApplicationTest.php" name="test/Horde/Autoloader/ClassPathMapper/ApplicationTest.php" />
+   <install as="Horde/Autoloader/ClassPathMapper/DefaultTest.php" name="test/Horde/Autoloader/ClassPathMapper/DefaultTest.php" />
+   <install as="Horde/Autoloader/ClassPathMapper/PrefixTest.php" name="test/Horde/Autoloader/ClassPathMapper/PrefixTest.php" />
   </filelist>
  </phprelease>
- <changelog/>
+ <changelog>
+ </changelog>
 </package>

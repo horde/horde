@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Data</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Data API</summary>
@@ -22,19 +22,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-10-28</date>
- <time>12:12:33</time>
+ <date>2011-03-07</date>
+ <time>01:39:40</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Initial Horde 4 package.
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -382,6 +382,15 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="docs/examples/Eudora.txt" name="docs/examples/Eudora.txt" />
+   <install as="docs/examples/Gmail.csv" name="docs/examples/Gmail.csv" />
+   <install as="docs/examples/KMail.csv" name="docs/examples/KMail.csv" />
+   <install as="docs/examples/Outlook.csv" name="docs/examples/Outlook.csv" />
+   <install as="docs/examples/Palm.csv" name="docs/examples/Palm.csv" />
+   <install as="docs/examples/Thunderbird.csv" name="docs/examples/Thunderbird.csv" />
+   <install as="docs/examples/WAB-selectable.csv" name="docs/examples/WAB-selectable.csv" />
+   <install as="docs/examples/WAB.csv" name="docs/examples/WAB.csv" />
+   <install as="docs/examples/Yahoo.csv" name="docs/examples/Yahoo.csv" />
    <install as="Horde/Data.php" name="lib/Horde/Data.php" />
    <install as="Horde/Data/Base.php" name="lib/Horde/Data/Base.php" />
    <install as="Horde/Data/Csv.php" name="lib/Horde/Data/Csv.php" />
@@ -536,17 +545,17 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2010-10-28</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Initial Horde 4 package.
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

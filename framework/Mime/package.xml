@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Mime</name>
  <channel>pear.horde.org</channel>
+ <extends>Horde_MIME</extends>
  <summary>Horde MIME Library</summary>
  <description>Provides methods for dealing with MIME (RFC 2045) and related e-mail (RFC 822/2822/5322) standards.</description>
  <lead>
@@ -16,36 +17,36 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:02:57</time>
+ <date>2011-03-07</date>
+ <time>00:39:30</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add RFC 3282 language support to Horde_Mime_Part.
- * Add workaround for Horde Bug #8747.
- * Honor the Content-Disposition 'size' parameter (RFC 2183 [2.7]).
- * Converted tests to PHPUnit.
- * Moved viewer code to horde/Mime_Viewer package.
- * Removed Webcpp and Enscript viewers. Source code highlighting is now
- exclusively handled by the Srchighlight driver.
- * No need to generate Content-Transfer-Encoding header if part data is 7bit.
- * Default disposition should be empty by default, not inline (RFC 2183 [2]).
- * Request #8556: Allow specifying a header charset for a part.
- * Add &apos;raw&apos; render view to Horde_Mime_Viewer.
- * Horde_Mime_Part::parseMessage() correctly parses non-MIME parts.
- * Remove dependence on PEAR&apos;s Mail_mimeDecode::.
- * Added Horde_Mime::uudecode().
- * Remove support for deprecated mime_magic module.
- * Use Gnumeric to display MS Excel documents.
- * Use AbiWord to display MS Word documents (Request #8011).
- * Add support for decoding IDN (RFC 3490) names (Request #5836).
- * Initial package.
+ <notes>
+* First alpha release for Horde 4.
+* Add RFC 3282 language support to Horde_Mime_Part.
+* Add workaround for Horde Bug #8747.
+* Honor the Content-Disposition &apos;size&apos; parameter (RFC 2183 [2.7]).
+* Converted tests to PHPUnit.
+* Moved viewer code to horde/Mime_Viewer package.
+* Removed Webcpp and Enscript viewers. Source code highlighting is now exclusively handled by the Srchighlight driver.
+* No need to generate Content-Transfer-Encoding header if part data is 7bit.
+* Default disposition should be empty by default, not inline (RFC 2183 [2]).
+* Request #8556: Allow specifying a header charset for a part.
+* Add &apos;raw&apos; render view to Horde_Mime_Viewer.
+* Horde_Mime_Part::parseMessage() correctly parses non-MIME parts.
+* Remove dependence on PEAR&apos;s Mail_mimeDecode::.
+* Added Horde_Mime::uudecode().
+* Remove support for deprecated mime_magic module.
+* Use Gnumeric to display MS Excel documents.
+* Use AbiWord to display MS Word documents (Request #8011).
+* Add support for decoding IDN (RFC 3490) names (Request #5836).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -339,6 +340,7 @@
       </dir> <!-- /test/Horde/Mime/fixtures -->
       <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="HeadersTest.php" role="test" />
       <file name="MagicTest.php" role="test" />
       <file name="MailTest.php" role="test" />
@@ -494,6 +496,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" />
    <install as="Horde/Mime/AddressTest.php" name="test/Horde/Mime/AddressTest.php" />
    <install as="Horde/Mime/AllTests.php" name="test/Horde/Mime/AllTests.php" />
+   <install as="Horde/Mime/Autoload.php" name="test/Horde/Mime/Autoload.php" />
    <install as="Horde/Mime/HeadersTest.php" name="test/Horde/Mime/HeadersTest.php" />
    <install as="Horde/Mime/MagicTest.php" name="test/Horde/Mime/MagicTest.php" />
    <install as="Horde/Mime/MailTest.php" name="test/Horde/Mime/MailTest.php" />
@@ -508,32 +511,34 @@
  <changelog>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* First alpha release for Horde 4.
+* Add RFC 3282 language support to Horde_Mime_Part.
+* Add workaround for Horde Bug #8747.
+* Honor the Content-Disposition &apos;size&apos; parameter (RFC 2183 [2.7]).
 * Converted tests to PHPUnit.
- * Moved viewer code to horde/Mime_Viewer package.
- * Removed Webcpp and Enscript viewers. Source code highlighting is now
- exclusively handled by the Srchighlight driver.
- * No need to generate Content-Transfer-Encoding header if part data is 7bit.
- * Default disposition should be empty by default, not inline (RFC 2183 [2]).
- * Request #8556: Allow specifying a header charset for a part.
- * Add &apos;raw&apos; render view to Horde_Mime_Viewer.
- * Horde_Mime_Part::parseMessage() correctly parses non-MIME parts.
- * Remove dependence on PEAR&apos;s Mail_mimeDecode::.
- * Added Horde_Mime::uudecode().
- * Remove support for deprecated mime_magic module.
- * Use Gnumeric to display MS Excel documents.
- * Use AbiWord to display MS Word documents (Request #8011).
- * Add support for decoding IDN (RFC 3490) names (Request #5836).
- * Initial package.
+* Moved viewer code to horde/Mime_Viewer package.
+* Removed Webcpp and Enscript viewers. Source code highlighting is now exclusively handled by the Srchighlight driver.
+* No need to generate Content-Transfer-Encoding header if part data is 7bit.
+* Default disposition should be empty by default, not inline (RFC 2183 [2]).
+* Request #8556: Allow specifying a header charset for a part.
+* Add &apos;raw&apos; render view to Horde_Mime_Viewer.
+* Horde_Mime_Part::parseMessage() correctly parses non-MIME parts.
+* Remove dependence on PEAR&apos;s Mail_mimeDecode::.
+* Added Horde_Mime::uudecode().
+* Remove support for deprecated mime_magic module.
+* Use Gnumeric to display MS Excel documents.
+* Use AbiWord to display MS Word documents (Request #8011).
+* Add support for decoding IDN (RFC 3490) names (Request #5836).
    </notes>
   </release>
  </changelog>

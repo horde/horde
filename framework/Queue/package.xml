@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Queue</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Queue</summary>
- <description>Queue layer with various storage backends and runners
- </description>
+ <description>Queue layer with various storage backends and runners</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-03-15</date>
- <time>21:00:00</time>
+ <date>2011-03-07</date>
+ <time>00:24:21</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Initial Horde_Queue implementation
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Queue">
+      <file name="shutdown_runner.php" role="php" />
+     </dir> <!-- /examples/Horde/Queue -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Queue">
@@ -38,7 +42,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /lib/Horde/Queue/Runner -->
       <dir name="Storage">
        <file name="Base.php" role="php" />
+       <file name="Db.php" role="php" />
        <file name="RequestOnly.php" role="php" />
+       <file name="Sqs.php" role="php" />
       </dir> <!-- /lib/Horde/Queue/Storage -->
       <dir name="Task">
        <file name="Base.php" role="php" />
@@ -60,11 +66,31 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Queue/Runner/Base.php" as="Horde/Queue/Runner/Base.php" />
-   <install name="lib/Horde/Queue/Runner/RequestShutdown.php" as="Horde/Queue/Runner/RequestShutdown.php" />
-   <install name="lib/Horde/Queue/Storage/Base.php" as="Horde/Queue/Storage/Base.php" />
-   <install name="lib/Horde/Queue/Storage/RequestOnly.php" as="Horde/Queue/Storage/RequestOnly.php" />
-   <install name="lib/Horde/Queue/Task/Base.php" as="Horde/Queue/Task/Base.php" />
+   <install as="examples/Horde/Queue/shutdown_runner.php" name="examples/Horde/Queue/shutdown_runner.php" />
+   <install as="Horde/Queue/Runner/Base.php" name="lib/Horde/Queue/Runner/Base.php" />
+   <install as="Horde/Queue/Runner/RequestShutdown.php" name="lib/Horde/Queue/Runner/RequestShutdown.php" />
+   <install as="Horde/Queue/Storage/Base.php" name="lib/Horde/Queue/Storage/Base.php" />
+   <install as="Horde/Queue/Storage/Db.php" name="lib/Horde/Queue/Storage/Db.php" />
+   <install as="Horde/Queue/Storage/RequestOnly.php" name="lib/Horde/Queue/Storage/RequestOnly.php" />
+   <install as="Horde/Queue/Storage/Sqs.php" name="lib/Horde/Queue/Storage/Sqs.php" />
+   <install as="Horde/Queue/Task/Base.php" name="lib/Horde/Queue/Task/Base.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

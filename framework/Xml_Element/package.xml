@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Xml_Element</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Xml Element object</summary>
- <description>This package provides an element object that can be used
- to provide SimpleXML-like functionality over a DOM object. The main
- advantage over using SimpleXML is the ability to add multiple levels
- of new elements in a single call, without introducing &quot;ghost&quot; objects.
- </description>
+ <description>This package provides an element object that can be used to provide SimpleXML-like functionality over a DOM object. The main advantage over using SimpleXML is the ability to add multiple levels of new elements in a single call, without introducing &quot;ghost&quot; objects.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -23,21 +16,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-09-25</date>
+ <date>2011-03-06</date>
+ <time>22:59:55</time>
  <version>
-  <release>0.4.2</release>
-  <api>0.4.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* Avoid errors when a child node doesn't exist.
-</notes>
+* First alpha release for Horde 4.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Xml">
@@ -49,6 +43,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Xml -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Xml">
+      <dir name="Element">
+       <dir name="fixtures">
+        <file name="NamespacedSample.xml" role="test" />
+        <file name="Sample.xml" role="test" />
+       </dir> <!-- /test/Horde/Xml/Element/fixtures -->
+       <file name="AllTests.php" role="test" />
+       <file name="CountTest.php" role="test" />
+       <file name="ElementTest.php" role="test" />
+       <file name="IteratorTest.php" role="test" />
+      </dir> <!-- /test/Horde/Xml/Element -->
+     </dir> <!-- /test/Horde/Xml -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -67,9 +77,47 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Xml/Element/Exception.php" as="Horde/Xml/Element/Exception.php" />
-   <install name="lib/Horde/Xml/Element/List.php" as="Horde/Xml/Element/List.php" />
-   <install name="lib/Horde/Xml/Element.php" as="Horde/Xml/Element.php" />
+   <install as="Horde/Xml/Element.php" name="lib/Horde/Xml/Element.php" />
+   <install as="Horde/Xml/Element/Exception.php" name="lib/Horde/Xml/Element/Exception.php" />
+   <install as="Horde/Xml/Element/List.php" name="lib/Horde/Xml/Element/List.php" />
+   <install as="Horde/Xml/Element/AllTests.php" name="test/Horde/Xml/Element/AllTests.php" />
+   <install as="Horde/Xml/Element/CountTest.php" name="test/Horde/Xml/Element/CountTest.php" />
+   <install as="Horde/Xml/Element/ElementTest.php" name="test/Horde/Xml/Element/ElementTest.php" />
+   <install as="Horde/Xml/Element/IteratorTest.php" name="test/Horde/Xml/Element/IteratorTest.php" />
+   <install as="Horde/Xml/Element/fixtures/NamespacedSample.xml" name="test/Horde/Xml/Element/fixtures/NamespacedSample.xml" />
+   <install as="Horde/Xml/Element/fixtures/Sample.xml" name="test/Horde/Xml/Element/fixtures/Sample.xml" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.4.2</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Avoid errors when a child node doesn&apos;t exist.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Editor</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Editor API</summary>
- <description>The Horde_Editor:: package provides an API to generate the code necessary for embedding javascript RTE editors in a web page.</description>
+ <description>The Horde_Editor package provides an API to generate the code necessary for embedding javascript RTE editors in a web page.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -16,22 +16,22 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-29</date>
- <time>23:14:33</time>
+ <date>2011-03-07</date>
+ <time>01:29:27</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First alpha release for Horde 4.
 * Removed Xinha driver.
- * Added CKEditor driver.
- * Removed FCKEditor driver
- * Initial Horde 4 package.
+* Added CKEditor driver.
+* Removed FCKEditor driver
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -676,25 +676,25 @@ Initial packaging
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Removed TinyMCE driver.
-   * Converted to package.xml 2.0 for pear.horde.org
+* Converted to package.xml 2.0 for pear.horde.org
    </notes>
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-01-29</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* First alpha release for Horde 4.
 * Removed Xinha driver.
- * Added CKEditor driver.
- * Removed FCKEditor driver
- * Initial Horde 4 package.
+* Added CKEditor driver.
+* Removed FCKEditor driver
    </notes>
   </release>
  </changelog>

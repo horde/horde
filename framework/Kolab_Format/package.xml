@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Kolab_Format</name>
  <channel>pear.horde.org</channel>
+ <extends>Kolab_Formar</extends>
  <summary>A package for reading/writing Kolab data formats.</summary>
- <description>This package allows to convert Kolab data objects from
- XML to hashes.</description>
+ <description>This package allows to convert Kolab data objects from XML to hashes.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -23,21 +23,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-17</date>
- <time>14:37:05</time>
+ <date>2011-03-07</date>
+ <time>01:00:55</time>
  <version>
-  <release>1.1.0</release>
-  <api>1.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* Removed dependency on the Kolab package within the task handler.
-* Converted to Horde4/PHP5
-* Removed Horde_DOM dependency.
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -731,6 +729,21 @@
 * Removed dependency on the Kolab package within the task handler.
 * Converted to Horde4/PHP5
 * Removed Horde_DOM dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

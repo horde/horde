@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Db</name>
  <channel>pear.horde.org</channel>
+ <extends>Db</extends>
  <summary>Horde Database Libraries</summary>
- <description>Horde Database/SQL abstraction layer</description>
+ <description>Horde database/SQL abstraction layer</description>
  <lead>
   <name>Mike Naberezny</name>
   <user>mnaberez</user>
@@ -16,20 +17,20 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-01</date>
- <time>15:51:20</time>
+ <date>2011-03-07</date>
+ <time>01:32:29</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* First alpha release for Horde 4.
 * Add support for adding autoincrement to a column.
- * Initial release
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -126,6 +127,10 @@
        <file name="MysqlTest.php" role="test" />
       </dir> <!-- /test/Horde/Db/Adapter -->
       <dir name="fixtures">
+       <dir name="charsets">
+        <file name="cp1257.txt" role="test" />
+        <file name="utf8.txt" role="test" />
+       </dir> <!-- /test/Horde/Db/fixtures/charsets -->
        <dir name="migrations">
         <file name="1_users_have_last_names1.php" role="test" />
         <file name="2_we_need_reminders1.php" role="test" />
@@ -247,6 +252,8 @@
    <install as="Horde/Db/Adapter/Sqlite/TableDefinitionTest.php" name="test/Horde/Db/Adapter/Sqlite/TableDefinitionTest.php" />
    <install as="Horde/Db/fixtures/drop_create_table.sql" name="test/Horde/Db/fixtures/drop_create_table.sql" />
    <install as="Horde/Db/fixtures/unit_tests.sql" name="test/Horde/Db/fixtures/unit_tests.sql" />
+   <install as="Horde/Db/fixtures/charsets/cp1257.txt" name="test/Horde/Db/fixtures/charsets/cp1257.txt" />
+   <install as="Horde/Db/fixtures/charsets/utf8.txt" name="test/Horde/Db/fixtures/charsets/utf8.txt" />
    <install as="Horde/Db/fixtures/migrations/1_users_have_last_names1.php" name="test/Horde/Db/fixtures/migrations/1_users_have_last_names1.php" />
    <install as="Horde/Db/fixtures/migrations/2_we_need_reminders1.php" name="test/Horde/Db/fixtures/migrations/2_we_need_reminders1.php" />
    <install as="Horde/Db/fixtures/migrations/3_innocent_jointable1.php" name="test/Horde/Db/fixtures/migrations/3_innocent_jointable1.php" />
@@ -276,8 +283,23 @@
    <date>2011-02-01</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* Initial release
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First alpha release for Horde 4.
 * Add support for adding autoincrement to a column.
- * Initial release
    </notes>
   </release>
  </changelog>

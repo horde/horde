@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Yaml</name>
  <channel>pear.horde.org</channel>
+ <extends>Yaml</extends>
  <summary>Horde YAML parsing and dumping routines</summary>
- <description>This package provides classes for parsing YAML files
- into PHP arrays, and dumping PHP arrays into YAML encoding.
- </description>
+ <description>This package provides classes for parsing YAML files into PHP arrays, and dumping PHP arrays into YAML encoding.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -21,24 +17,31 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2008-01-06</date>
+ <date>2011-03-06</date>
+ <time>18:49:13</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.0alpha1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-   * Fix extra spaces at the end of lines that have been unfolded.
-   * Support dumping and loading PHP classes that implement Serializable
-   * Support loading serialized ArrayObject and other !php constructs
-     supported by pecl/syck
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Yaml">
+      <file name="dump.php" role="php" />
+      <file name="example.yaml" role="data" />
+      <file name="load.php" role="php" />
+     </dir> <!-- /examples/Horde/Yaml -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Yaml">
@@ -50,6 +53,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Yaml.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Yaml">
+      <dir name="fixtures">
+       <file name="basic.yml" role="test" />
+       <file name="references.yml" role="test" />
+      </dir> <!-- /test/Horde/Yaml/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="DumperTest.php" role="test" />
+      <file name="Helpers.php" role="test" />
+      <file name="LoaderTest.php" role="test" />
+      <file name="NodeTest.php" role="test" />
+     </dir> <!-- /test/Horde/Yaml -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -68,11 +86,38 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Yaml/Dumper.php" as="Horde/Yaml/Dumper.php" />
-   <install name="lib/Horde/Yaml/Exception.php" as="Horde/Yaml/Exception.php" />
-   <install name="lib/Horde/Yaml/Loader.php" as="Horde/Yaml/Loader.php" />
-   <install name="lib/Horde/Yaml/Node.php" as="Horde/Yaml/Node.php" />
-   <install name="lib/Horde/Yaml.php" as="Horde/Yaml.php" />
+   <install as="examples/Horde/Yaml/dump.php" name="examples/Horde/Yaml/dump.php" />
+   <install as="examples/Horde/Yaml/example.yaml" name="examples/Horde/Yaml/example.yaml" />
+   <install as="examples/Horde/Yaml/load.php" name="examples/Horde/Yaml/load.php" />
+   <install as="Horde/Yaml.php" name="lib/Horde/Yaml.php" />
+   <install as="Horde/Yaml/Dumper.php" name="lib/Horde/Yaml/Dumper.php" />
+   <install as="Horde/Yaml/Exception.php" name="lib/Horde/Yaml/Exception.php" />
+   <install as="Horde/Yaml/Loader.php" name="lib/Horde/Yaml/Loader.php" />
+   <install as="Horde/Yaml/Node.php" name="lib/Horde/Yaml/Node.php" />
+   <install as="Horde/Yaml/AllTests.php" name="test/Horde/Yaml/AllTests.php" />
+   <install as="Horde/Yaml/DumperTest.php" name="test/Horde/Yaml/DumperTest.php" />
+   <install as="Horde/Yaml/Helpers.php" name="test/Horde/Yaml/Helpers.php" />
+   <install as="Horde/Yaml/LoaderTest.php" name="test/Horde/Yaml/LoaderTest.php" />
+   <install as="Horde/Yaml/NodeTest.php" name="test/Horde/Yaml/NodeTest.php" />
+   <install as="Horde/Yaml/fixtures/basic.yml" name="test/Horde/Yaml/fixtures/basic.yml" />
+   <install as="Horde/Yaml/fixtures/references.yml" name="test/Horde/Yaml/fixtures/references.yml" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

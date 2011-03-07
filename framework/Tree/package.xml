@@ -22,18 +22,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-04</date>
- <time>11:13:09</time>
+ <date>2011-03-06</date>
+ <time>23:18:34</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
  <notes>
+* First alpha release for Horde 4.
 * Remove ability to set HTML &apos;onclick&apos; parameter.
 * Add jQuery Mobile list view renderer.
 * Split driver code from main class into Base class.
@@ -41,7 +42,6 @@
 * Remove dependency on horde/Core.
 * Move javascript renderer to horde/Core.
 * Add Horde_Tree_Exception::.
-* Initial Horde 4 package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -128,16 +128,17 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-03-04</date>
+   <date>2011-03-06</date>
    <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
    <notes>
+* First alpha release for Horde 4.
 * Remove ability to set HTML &apos;onclick&apos; parameter.
 * Add jQuery Mobile list view renderer.
 * Split driver code from main class into Base class.
@@ -145,7 +146,6 @@ Converted to package.xml 2.0 for pear.horde.org
 * Remove dependency on horde/Core.
 * Move javascript renderer to horde/Core.
 * Add Horde_Tree_Exception::.
-* Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

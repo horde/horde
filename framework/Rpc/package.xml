@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Rpc</name>
  <channel>pear.horde.org</channel>
  <summary>Horde RPC API</summary>
- <description>The Horde_Rpc:: class provides a common abstracted interface to
-various remote methods of accessing Horde functionality.</description>
+ <description>The Horde_Rpc library provides a common abstracted interface to various remote methods of accessing Horde functionality.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -17,19 +16,19 @@ various remote methods of accessing Horde functionality.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:02:57</time>
+ <date>2011-03-07</date>
+ <time>00:10:24</time>
  <version>
-  <release>0.0.2</release>
-  <api>0.0.2</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-Converted to package.xml 2.0 for pear.horde.org
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -57,6 +56,7 @@ Converted to package.xml 2.0 for pear.horde.org
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
       <file name="Webdav.php" role="php" />
+      <file name="Webdav2.php" role="php" />
       <file name="Xmlrpc.php" role="php" />
      </dir> <!-- /lib/Horde/Rpc -->
      <file name="Rpc.php" role="php" />
@@ -368,6 +368,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <install as="Horde/Rpc/Syncml.php" name="lib/Horde/Rpc/Syncml.php" />
    <install as="Horde/Rpc/Translation.php" name="lib/Horde/Rpc/Translation.php" />
    <install as="Horde/Rpc/Webdav.php" name="lib/Horde/Rpc/Webdav.php" />
+   <install as="Horde/Rpc/Webdav2.php" name="lib/Horde/Rpc/Webdav2.php" />
    <install as="Horde/Rpc/Xmlrpc.php" name="lib/Horde/Rpc/Xmlrpc.php" />
    <install as="Horde/Rpc/Syncml/Wbxml.php" name="lib/Horde/Rpc/Syncml/Wbxml.php" />
    <install as="locale/Horde_Rpc.pot" name="locale/Horde_Rpc.pot" />
@@ -474,6 +475,21 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

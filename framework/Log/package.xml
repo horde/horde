@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Log</name>
  <channel>pear.horde.org</channel>
+ <extends>Log</extends>
  <summary>Horde Logging library</summary>
- <description>Horde Logging package with configurable handlers, filters, and formatting.
- </description>
+ <description>Horde Logging package with configurable handlers, filters, and formatting.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,21 +17,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2009-09-25</date>
- <time>23:00:00</time>
+ <date>2011-03-07</date>
+ <time>00:47:05</time>
  <version>
-  <release>0.3.0</release>
-  <api>0.2.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>* Added Horde_Log_Filter_Constraint, for flexible filtering per-field by the Horde_Constraint package
+ <notes>
+* First alpha release for Horde 4.
+* Added Horde_Log_Filter_Constraint, for flexible filtering per-field by the Horde_Constraint package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Log">
@@ -65,7 +64,31 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Log.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
-  </dir>
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Log">
+      <dir name="Filter">
+       <file name="ChainingTest.php" role="test" />
+       <file name="ConstraintTest.php" role="test" />
+       <file name="LevelTest.php" role="test" />
+       <file name="MessageTest.php" role="test" />
+       <file name="SuppressTest.php" role="test" />
+      </dir> <!-- /test/Horde/Log/Filter -->
+      <dir name="Formatter">
+       <file name="SimpleTest.php" role="test" />
+       <file name="XmlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Log/Formatter -->
+      <dir name="Handler">
+       <file name="FirebugTest.php" role="test" />
+       <file name="NullTest.php" role="test" />
+       <file name="StreamTest.php" role="test" />
+      </dir> <!-- /test/Horde/Log/Handler -->
+      <file name="AllTests.php" role="test" />
+      <file name="LogTest.php" role="test" />
+     </dir> <!-- /test/Horde/Log -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
@@ -89,24 +112,54 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Log/Exception.php" as="Horde/Log/Exception.php" />
-   <install name="lib/Horde/Log/Filter/Constraint.php" as="Horde/Log/Filter/Constraint.php" />
-   <install name="lib/Horde/Log/Filter/Level.php" as="Horde/Log/Filter/Level.php" />
-   <install name="lib/Horde/Log/Filter/Message.php" as="Horde/Log/Filter/Message.php" />
-   <install name="lib/Horde/Log/Filter/Suppress.php" as="Horde/Log/Filter/Suppress.php" />
-   <install name="lib/Horde/Log/Filter.php" as="Horde/Log/Filter.php" />
-   <install name="lib/Horde/Log/Formatter/Simple.php" as="Horde/Log/Formatter/Simple.php" />
-   <install name="lib/Horde/Log/Formatter/Xml.php" as="Horde/Log/Formatter/Xml.php" />
-   <install name="lib/Horde/Log/Formatter.php" as="Horde/Log/Formatter.php" />
-   <install name="lib/Horde/Log/Handler/Base.php" as="Horde/Log/Handler/Base.php" />
-   <install name="lib/Horde/Log/Handler/Firebug.php" as="Horde/Log/Handler/Firebug.php" />
-   <install name="lib/Horde/Log/Handler/Mock.php" as="Horde/Log/Handler/Mock.php" />
-   <install name="lib/Horde/Log/Handler/Null.php" as="Horde/Log/Handler/Null.php" />
-   <install name="lib/Horde/Log/Handler/Scribe.php" as="Horde/Log/Handler/Scribe.php" />
-   <install name="lib/Horde/Log/Handler/Stream.php" as="Horde/Log/Handler/Stream.php" />
-   <install name="lib/Horde/Log/Handler/Syslog.php" as="Horde/Log/Handler/Syslog.php" />
-   <install name="lib/Horde/Log/Logger.php" as="Horde/Log/Logger.php" />
-   <install name="lib/Horde/Log.php" as="Horde/Log.php" />
+   <install as="Horde/Log.php" name="lib/Horde/Log.php" />
+   <install as="Horde/Log/Exception.php" name="lib/Horde/Log/Exception.php" />
+   <install as="Horde/Log/Filter.php" name="lib/Horde/Log/Filter.php" />
+   <install as="Horde/Log/Formatter.php" name="lib/Horde/Log/Formatter.php" />
+   <install as="Horde/Log/Logger.php" name="lib/Horde/Log/Logger.php" />
+   <install as="Horde/Log/Filter/Constraint.php" name="lib/Horde/Log/Filter/Constraint.php" />
+   <install as="Horde/Log/Filter/Level.php" name="lib/Horde/Log/Filter/Level.php" />
+   <install as="Horde/Log/Filter/Message.php" name="lib/Horde/Log/Filter/Message.php" />
+   <install as="Horde/Log/Filter/Suppress.php" name="lib/Horde/Log/Filter/Suppress.php" />
+   <install as="Horde/Log/Formatter/Simple.php" name="lib/Horde/Log/Formatter/Simple.php" />
+   <install as="Horde/Log/Formatter/Xml.php" name="lib/Horde/Log/Formatter/Xml.php" />
+   <install as="Horde/Log/Handler/Base.php" name="lib/Horde/Log/Handler/Base.php" />
+   <install as="Horde/Log/Handler/Firebug.php" name="lib/Horde/Log/Handler/Firebug.php" />
+   <install as="Horde/Log/Handler/Mock.php" name="lib/Horde/Log/Handler/Mock.php" />
+   <install as="Horde/Log/Handler/Null.php" name="lib/Horde/Log/Handler/Null.php" />
+   <install as="Horde/Log/Handler/Scribe.php" name="lib/Horde/Log/Handler/Scribe.php" />
+   <install as="Horde/Log/Handler/Stream.php" name="lib/Horde/Log/Handler/Stream.php" />
+   <install as="Horde/Log/Handler/Syslog.php" name="lib/Horde/Log/Handler/Syslog.php" />
+   <install as="Horde/Log/AllTests.php" name="test/Horde/Log/AllTests.php" />
+   <install as="Horde/Log/LogTest.php" name="test/Horde/Log/LogTest.php" />
+   <install as="Horde/Log/Filter/ChainingTest.php" name="test/Horde/Log/Filter/ChainingTest.php" />
+   <install as="Horde/Log/Filter/ConstraintTest.php" name="test/Horde/Log/Filter/ConstraintTest.php" />
+   <install as="Horde/Log/Filter/LevelTest.php" name="test/Horde/Log/Filter/LevelTest.php" />
+   <install as="Horde/Log/Filter/MessageTest.php" name="test/Horde/Log/Filter/MessageTest.php" />
+   <install as="Horde/Log/Filter/SuppressTest.php" name="test/Horde/Log/Filter/SuppressTest.php" />
+   <install as="Horde/Log/Formatter/SimpleTest.php" name="test/Horde/Log/Formatter/SimpleTest.php" />
+   <install as="Horde/Log/Formatter/XmlTest.php" name="test/Horde/Log/Formatter/XmlTest.php" />
+   <install as="Horde/Log/Handler/FirebugTest.php" name="test/Horde/Log/Handler/FirebugTest.php" />
+   <install as="Horde/Log/Handler/NullTest.php" name="test/Horde/Log/Handler/NullTest.php" />
+   <install as="Horde/Log/Handler/StreamTest.php" name="test/Horde/Log/Handler/StreamTest.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First alpha release for Horde 4.
+* Added Horde_Log_Filter_Constraint, for flexible filtering per-field by the Horde_Constraint package.
+   </notes>
+  </release>
+ </changelog>
 </package>

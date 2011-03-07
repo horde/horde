@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Feed</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Feed libraries</summary>
- <description>This package provides support for working with feed formats such as RSS and Atom.
- </description>
+ <description>This package provides support for working with feed formats such as RSS and Atom.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-09-28</date>
+ <date>2011-03-07</date>
+ <time>01:26:24</time>
  <version>
-  <release>0.4.0</release>
-  <api>0.4.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* First alpha release for Horde 4.
 * More robust parsing (recover from XML errors, fall back to HTML parsing)
 * Return content:encoded when the content element is requested from an RSS entry
 * Find &lt;item&gt; elements outside the &lt;channel&gt; element (i.e., RSS 1.0)
@@ -32,7 +30,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
 * Support redirects in DELETE requests
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Feed">
+      <file name="blogroll.php" role="php" />
+      <file name="delete.php" role="php" />
+      <file name="edit.php" role="php" />
+      <file name="post.php" role="php" />
+      <file name="read.php" role="php" />
+      <file name="reader.php" role="php" />
+     </dir> <!-- /examples/Horde/Feed -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Feed">
@@ -44,13 +54,218 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /lib/Horde/Feed/Entry -->
       <file name="Atom.php" role="php" />
       <file name="Base.php" role="php" />
-      <file name="Exception.php" role="php" />
       <file name="Blogroll.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Rss.php" role="php" />
      </dir> <!-- /lib/Horde/Feed -->
      <file name="Feed.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Feed">
+      <dir name="fixtures">
+       <dir name="lexicon">
+        <file name="bbmaintenance_rss.xml" role="test" />
+        <file name="http-andigutmans.blogspot.com-atom.xml" role="test" />
+        <file name="http-arstechnica.com-etc-rdf-ars.rdf" role="test" />
+        <file name="http-blog.casey-sweat.us-%2Ffeed=rss2" role="test" />
+        <file name="http-blog.coggeshall.org-rss.php%2Fversion=1.0" role="test" />
+        <file name="http-blog.joshuaeichorn.com-feed-" role="test" />
+        <file name="http-blog.phpdeveloper.org-%2Ffeed=rss2" role="test" />
+        <file name="http-blogs.it-0100198-rss.xml" role="test" />
+        <file name="http-blogs.law.harvard.edu-philg-xml-rss.xml" role="test" />
+        <file name="http-blogs.msdn.com-joestagner-rss.aspx" role="test" />
+        <file name="http-blogs.salon.com-0000014-rss.xml" role="test" />
+        <file name="http-boingboing.net-rss.xml" role="test" />
+        <file name="http-chris.pirillo.com-index.rdf" role="test" />
+        <file name="http-creativecommons.org-weblog-rss" role="test" />
+        <file name="http-cyberlaw.stanford.edu-lessig-blog-index.rdf" role="test" />
+        <file name="http-daringfireball.net-index.xml" role="test" />
+        <file name="http-derickrethans.nl-rss.xml" role="test" />
+        <file name="http-dictionary.reference.com-wordoftheday-wotd.rss" role="test" />
+        <file name="http-doc.weblogs.com-xml-rss.xml" role="test" />
+        <file name="http-dot.kde.org-rdf" role="test" />
+        <file name="http-dwlt.net-tapestry-dilbert.rdf" role="test" />
+        <file name="http-earthobservatory.nasa.gov-eo.rss" role="test" />
+        <file name="http-efilmcritic.com-fo.rdf" role="test" />
+        <file name="http-feeds.feedburner.com-shiflett" role="test" />
+        <file name="http-feeds.feedburner.com-SixApartNews" role="test" />
+        <file name="http-freshmeat.net-backend-fm.rdf" role="test" />
+        <file name="http-google.blogspace.com-index.xml" role="test" />
+        <file name="http-happypenguin.org-html-news.rdf" role="test" />
+        <file name="http-headlines.internet.com-internetnews-top-news-news.rss" role="test" />
+        <file name="http-ilia.ws-feeds-index.rss2" role="test" />
+        <file name="http-inessential.com-xml-rss.xml" role="test" />
+        <file name="http-intertwingly.net-blog-index.atom" role="test" />
+        <file name="http-jeremy.zawodny.com-blog-rss2.xml" role="test" />
+        <file name="http-joi.ito.com-index.xml" role="test" />
+        <file name="http-jrobb.mindplex.org-rss.xml" role="test" />
+        <file name="http-laurat.blogs.com-random_ramblings-rss.xml" role="test" />
+        <file name="http-lwn.net-headlines-rss" role="test" />
+        <file name="http-netevil.org-feeds-rss.xml" role="test" />
+        <file name="http-news.com.com-2547-1_3-0-5.xml" role="test" />
+        <file name="http-p.moreover.com-cgi-local-page%2Findex_topstories+rss" role="test" />
+        <file name="http-p.moreover.com-cgi-local-page%2Fo=rss&s=Newsweek" role="test" />
+        <file name="http-partners.userland.com-nytRss-nytHomepage.xml" role="test" />
+        <file name="http-partners.userland.com-nytRss-technology.xml" role="test" />
+        <file name="http-pear.php.net-rss" role="test" />
+        <file name="http-phplens.com-phpeverywhere-%2Fq=node-feed-1" role="test" />
+        <file name="http-pixelated-dreams.com-feeds-index.rss2" role="test" />
+        <file name="http-politicalwire.com-headlines.xml" role="test" />
+        <file name="http-radio.weblogs.com-0001011-rss.xml" role="test" />
+        <file name="http-radio.weblogs.com-0110772-rss.xml" role="test" />
+        <file name="http-radio.weblogs.com-0113297-rss.xml" role="test" />
+        <file name="http-ranchero.com-xml-rss.xml" role="test" />
+        <file name="http-ross.typepad.com-blog-index.rdf" role="test" />
+        <file name="http-rss.com.com-2547-1_3-0-5.xml" role="test" />
+        <file name="http-rss.macworld.com-macworld-news" role="test" />
+        <file name="http-rss.news.yahoo.com-rss-tech" role="test" />
+        <file name="http-rss.news.yahoo.com-rss-topstories" role="test" />
+        <file name="http-rssnewsapps.ziffdavis.com-msw.xml" role="test" />
+        <file name="http-rssnewsapps.ziffdavis.com-tech.xml" role="test" />
+        <file name="http-schlitt.info-applications-blog-index.php%2F-feeds-index.rss2" role="test" />
+        <file name="http-shirky.com-writings-rss.cgi" role="test" />
+        <file name="http-slashdot.org-index.rss" role="test" />
+        <file name="http-slashdot.org-slashdot.rdf" role="test" />
+        <file name="http-slashdot.org-slashdot.rss" role="test" />
+        <file name="http-software.ericsink.com-rss.xml" role="test" />
+        <file name="http-sourceforge.net-export-rss2_sfnews.php%2Ffeed" role="test" />
+        <file name="http-static.userland.com-tomalak-links2.xml" role="test" />
+        <file name="http-suraski.net-blog-index.php%2F-feeds-index.rss2" role="test" />
+        <file name="http-trainedmonkey.com-news-rss.php%2Fs=31" role="test" />
+        <file name="http-w3future.com-weblog-rss.xml" role="test" />
+        <file name="http-weblog.infoworld.com-udell-rss.xml" role="test" />
+        <file name="http-weblogs.mozillazine.org-hyatt-blogger_rss.xml" role="test" />
+        <file name="http-www.25hoursaday.com-weblog-SyndicationService.asmx-GetRss" role="test" />
+        <file name="http-www.aaronsw.com-weblog-index.xml" role="test" />
+        <file name="http-www.advogato.org-rss-articles.xml" role="test" />
+        <file name="http-www.alistapart.com-rss.xml" role="test" />
+        <file name="http-www.amiga-news.de-en-backends-news-index.rss" role="test" />
+        <file name="http-www.apple.com-main-rss-hotnews-hotnews.rss" role="test" />
+        <file name="http-www.bbc.co.uk-syndication-feeds-news-ukfs_news-front_page-rss091.xml" role="test" />
+        <file name="http-www.benhammersley.com-index.rdf" role="test" />
+        <file name="http-www.bloglines.com-rss-about-news" role="test" />
+        <file name="http-www.coffeecode.net-feeds-index.rss2" role="test" />
+        <file name="http-www.corante.com-many-index.xml" role="test" />
+        <file name="http-www.csmonitor.com-rss-top.rss" role="test" />
+        <file name="http-www.dashes.com-anil-index.rdf" role="test" />
+        <file name="http-www.digitalsandwich.com-feeds-index.rss2" role="test" />
+        <file name="http-www.docuverse.com-blog-donpark-rss.xml" role="test" />
+        <file name="http-www.dominopower.com-shares-userland-rss-channeldata.xml" role="test" />
+        <file name="http-www.dpreview.com-news-dpr.rdf" role="test" />
+        <file name="http-www.ecommercetimes.com-perl-syndication-rssfull.pl" role="test" />
+        <file name="http-www.fool.com-xml-foolnews_rss091.xml" role="test" />
+        <file name="http-www.freebsddiary.org-news" role="test" />
+        <file name="http-www.garshol.priv.no-download-xmltools-tools-rss.rdf" role="test" />
+        <file name="http-www.gildot.org-gildot.rdf" role="test" />
+        <file name="http-www.gizmodo.net-index.xml" role="test" />
+        <file name="http-www.gravitonic.com-blog-archives-rss2.xml" role="test" />
+        <file name="http-www.hauser-wenz.de-s9y-index.php%2F-feeds-index.rss2" role="test" />
+        <file name="http-www.heise.de-newsticker-heise.rdf" role="test" />
+        <file name="http-www.hutteman.com-weblog-rss.xml" role="test" />
+        <file name="http-www.hyperorg.com-blogger-index.rdf" role="test" />
+        <file name="http-www.infoworld.com-rss-news.rdf" role="test" />
+        <file name="http-www.joelonsoftware.com-rss.xml" role="test" />
+        <file name="http-www.kk.org-cooltools-index.xml" role="test" />
+        <file name="http-www.kottke.org-index.rdf" role="test" />
+        <file name="http-www.kottke.org-index.xml" role="test" />
+        <file name="http-www.kottke.org-remainder-index.rdf" role="test" />
+        <file name="http-www.kuro5hin.org-backend.rdf" role="test" />
+        <file name="http-www.lastcraft.com-blog-wp-rss2.xml" role="test" />
+        <file name="http-www.lessig.org-blog-index.rdf" role="test" />
+        <file name="http-www.linuxplanet.com-rss-" role="test" />
+        <file name="http-www.lockergnome.com-lockergnome.xml" role="test" />
+        <file name="http-www.macmerc.com-index.rss" role="test" />
+        <file name="http-www.macminute.com-headlines.xml" role="test" />
+        <file name="http-www.macosxhints.com-backend-geeklog.rdf" role="test" />
+        <file name="http-www.macrumors.com-macrumors.xml" role="test" />
+        <file name="http-www.mail-archive.com-linux-kernel@vger.kernel.org-maillist.rdf" role="test" />
+        <file name="http-www.marcuswhitney.com-%2Ffeed=rss2" role="test" />
+        <file name="http-www.megnut.com-index.xml" role="test" />
+        <file name="http-www.mezzoblue.com-rss-index.xml" role="test" />
+        <file name="http-www.microsoft.com-feeds-msdn-en-us-rss.xml" role="test" />
+        <file name="http-www.modsecurity.org-blog-index.xml" role="test" />
+        <file name="http-www.mozilla.org-news.rdf" role="test" />
+        <file name="http-www.mozillazine.org-contents.rdf" role="test" />
+        <file name="http-www.newsgator.com-news-rss.aspx" role="test" />
+        <file name="http-www.pclinuxonline.com-backend" role="test" />
+        <file name="http-www.phpclasses.org-channels.xml" role="test" />
+        <file name="http-www.phpindex.com-rss-phpindex_news.rss" role="test" />
+        <file name="http-www.phppatterns.com-feed.xml" role="test" />
+        <file name="http-www.pl-forum.de-backend-pro-linux.rdf" role="test" />
+        <file name="http-www.preinheimer.com-index.php%2F-feeds-index.rss2" role="test" />
+        <file name="http-www.procata.com-blog-feed-" role="test" />
+        <file name="http-www.python.org-channews.rdf" role="test" />
+        <file name="http-www.quotationspage.com-data-mqotd.rss" role="test" />
+        <file name="http-www.radwin.org-michael-blog-index.xml" role="test" />
+        <file name="http-www.researchbuzz.com-researchbuzz.rss" role="test" />
+        <file name="http-www.rootprompt.org-rss-" role="test" />
+        <file name="http-www.russellbeattie.com-notebook-rss.jsp" role="test" />
+        <file name="http-www.salon.com-feed-RDF-salon_use.rdf" role="test" />
+        <file name="http-www.scripting.com-rss.xml" role="test" />
+        <file name="http-www.simplebits.com-xml-rss.xml" role="test" />
+        <file name="http-www.simplegeek.com-blogxbrowsing.asmx-GetRss" role="test" />
+        <file name="http-www.smartmobs.com-index.rdf" role="test" />
+        <file name="http-www.tbray.org-ongoing-ongoing.rss" role="test" />
+        <file name="http-www.techdirt.com-techdirt_rss.xml" role="test" />
+        <file name="http-www.telepolis.de-news.rdf" role="test" />
+        <file name="http-www.theklaibers.com-feed-" role="test" />
+        <file name="http-www.theregister.co.uk-tonys-slashdot.rdf" role="test" />
+        <file name="http-www.theshiftedlibrarian.com-rss.xml" role="test" />
+        <file name="http-www.tidbits.com-channels-tidbits.rss" role="test" />
+        <file name="http-www.twst.com-mynetscape-main.rdf" role="test" />
+        <file name="http-www.undeadly.org-cgi%2Faction=rss" role="test" />
+        <file name="http-www.w3.org-2000-08-w3c-synd-home.rss" role="test" />
+        <file name="http-www.wilwheaton.net-mt-index.xml" role="test" />
+        <file name="http-www.windley.com-rss.xml" role="test" />
+        <file name="http-www.wired.com-news_drop-netcenter-netcenter.rdf" role="test" />
+        <file name="http-www.zeldman.com-feed-zeldman.xml" role="test" />
+        <file name="http-xml.metafilter.com-rss.xml" role="test" />
+        <file name="http-xml.newsisfree.com-feeds-06-1806.xml" role="test" />
+       </dir> <!-- /test/Horde/Feed/fixtures/lexicon -->
+       <file name="AtomPublishingTest-before-update.xml" role="test" />
+       <file name="AtomPublishingTest-created-entry.xml" role="test" />
+       <file name="AtomPublishingTest-expected-update.xml" role="test" />
+       <file name="AtomPublishingTest-updated-entry.xml" role="test" />
+       <file name="AtomTestGoogle.xml" role="test" />
+       <file name="AtomTestMozillazine.xml" role="test" />
+       <file name="AtomTestOReilly.xml" role="test" />
+       <file name="AtomTestPlanetPHP.xml" role="test" />
+       <file name="AtomTestSample1.xml" role="test" />
+       <file name="AtomTestSample2.xml" role="test" />
+       <file name="AtomTestSample3.xml" role="test" />
+       <file name="AtomTestSample4.xml" role="test" />
+       <file name="BlogRollTestSample1.xml" role="test" />
+       <file name="BlogRollTestSample2.xml" role="test" />
+       <file name="MySubscriptions.opml" role="test" />
+       <file name="MySubscriptionsGrouped.opml" role="test" />
+       <file name="NotAFeed.xml" role="test" />
+       <file name="RssTest091Sample1.xml" role="test" />
+       <file name="RssTest092Sample1.xml" role="test" />
+       <file name="RssTest100Sample1.xml" role="test" />
+       <file name="RssTest100Sample2.xml" role="test" />
+       <file name="RssTest200Sample1.xml" role="test" />
+       <file name="RssTestCNN.xml" role="test" />
+       <file name="RssTestHarvardLaw.xml" role="test" />
+       <file name="RssTestPlanetPHP.xml" role="test" />
+       <file name="RssTestSlashdot.xml" role="test" />
+       <file name="TestAtomFeed.xml" role="test" />
+       <file name="TestAtomFeedEntryOnly.xml" role="test" />
+       <file name="TestAtomFeedNamespaced.xml" role="test" />
+      </dir> <!-- /test/Horde/Feed/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="AtomEntryOnlyTest.php" role="test" />
+      <file name="AtomPublishingTest.php" role="test" />
+      <file name="BlogrollTest.php" role="test" />
+      <file name="CountTest.php" role="test" />
+      <file name="IteratorTest.php" role="test" />
+      <file name="LexiconTest.php" role="test" />
+      <file name="ReadTest.php" role="test" />
+      <file name="TestCase.php" role="test" />
+     </dir> <!-- /test/Horde/Feed -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -74,16 +289,239 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Feed/Atom.php" as="Horde/Feed/Atom.php" />
-   <install name="lib/Horde/Feed/Base.php" as="Horde/Feed/Base.php" />
-   <install name="lib/Horde/Feed/Blogroll.php" as="Horde/Feed/Blogroll.php" />
-   <install name="lib/Horde/Feed/Entry/Atom.php" as="Horde/Feed/Entry/Atom.php" />
-   <install name="lib/Horde/Feed/Entry/Base.php" as="Horde/Feed/Entry/Base.php" />
-   <install name="lib/Horde/Feed/Entry/Blogroll.php" as="Horde/Feed/Entry/Blogroll.php" />
-   <install name="lib/Horde/Feed/Entry/Rss.php" as="Horde/Feed/Entry/Rss.php" />
-   <install name="lib/Horde/Feed/Exception.php" as="Horde/Feed/Exception.php" />
-   <install name="lib/Horde/Feed/Rss.php" as="Horde/Feed/Rss.php" />
-   <install name="lib/Horde/Feed.php" as="Horde/Feed.php" />
+   <install as="examples/Horde/Feed/blogroll.php" name="examples/Horde/Feed/blogroll.php" />
+   <install as="examples/Horde/Feed/delete.php" name="examples/Horde/Feed/delete.php" />
+   <install as="examples/Horde/Feed/edit.php" name="examples/Horde/Feed/edit.php" />
+   <install as="examples/Horde/Feed/post.php" name="examples/Horde/Feed/post.php" />
+   <install as="examples/Horde/Feed/read.php" name="examples/Horde/Feed/read.php" />
+   <install as="examples/Horde/Feed/reader.php" name="examples/Horde/Feed/reader.php" />
+   <install as="Horde/Feed.php" name="lib/Horde/Feed.php" />
+   <install as="Horde/Feed/Atom.php" name="lib/Horde/Feed/Atom.php" />
+   <install as="Horde/Feed/Base.php" name="lib/Horde/Feed/Base.php" />
+   <install as="Horde/Feed/Blogroll.php" name="lib/Horde/Feed/Blogroll.php" />
+   <install as="Horde/Feed/Exception.php" name="lib/Horde/Feed/Exception.php" />
+   <install as="Horde/Feed/Rss.php" name="lib/Horde/Feed/Rss.php" />
+   <install as="Horde/Feed/Entry/Atom.php" name="lib/Horde/Feed/Entry/Atom.php" />
+   <install as="Horde/Feed/Entry/Base.php" name="lib/Horde/Feed/Entry/Base.php" />
+   <install as="Horde/Feed/Entry/Blogroll.php" name="lib/Horde/Feed/Entry/Blogroll.php" />
+   <install as="Horde/Feed/Entry/Rss.php" name="lib/Horde/Feed/Entry/Rss.php" />
+   <install as="Horde/Feed/AllTests.php" name="test/Horde/Feed/AllTests.php" />
+   <install as="Horde/Feed/AtomEntryOnlyTest.php" name="test/Horde/Feed/AtomEntryOnlyTest.php" />
+   <install as="Horde/Feed/AtomPublishingTest.php" name="test/Horde/Feed/AtomPublishingTest.php" />
+   <install as="Horde/Feed/BlogrollTest.php" name="test/Horde/Feed/BlogrollTest.php" />
+   <install as="Horde/Feed/CountTest.php" name="test/Horde/Feed/CountTest.php" />
+   <install as="Horde/Feed/IteratorTest.php" name="test/Horde/Feed/IteratorTest.php" />
+   <install as="Horde/Feed/LexiconTest.php" name="test/Horde/Feed/LexiconTest.php" />
+   <install as="Horde/Feed/ReadTest.php" name="test/Horde/Feed/ReadTest.php" />
+   <install as="Horde/Feed/TestCase.php" name="test/Horde/Feed/TestCase.php" />
+   <install as="Horde/Feed/fixtures/AtomPublishingTest-before-update.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-before-update.xml" />
+   <install as="Horde/Feed/fixtures/AtomPublishingTest-created-entry.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-created-entry.xml" />
+   <install as="Horde/Feed/fixtures/AtomPublishingTest-expected-update.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-expected-update.xml" />
+   <install as="Horde/Feed/fixtures/AtomPublishingTest-updated-entry.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-updated-entry.xml" />
+   <install as="Horde/Feed/fixtures/AtomTestGoogle.xml" name="test/Horde/Feed/fixtures/AtomTestGoogle.xml" />
+   <install as="Horde/Feed/fixtures/AtomTestMozillazine.xml" name="test/Horde/Feed/fixtures/AtomTestMozillazine.xml" />
+   <install as="Horde/Feed/fixtures/AtomTestOReilly.xml" name="test/Horde/Feed/fixtures/AtomTestOReilly.xml" />
+   <install as="Horde/Feed/fixtures/AtomTestPlanetPHP.xml" name="test/Horde/Feed/fixtures/AtomTestPlanetPHP.xml" />
+   <install as="Horde/Feed/fixtures/AtomTestSample1.xml" name="test/Horde/Feed/fixtures/AtomTestSample1.xml" />
+   <install as="Horde/Feed/fixtures/AtomTestSample2.xml" name="test/Horde/Feed/fixtures/AtomTestSample2.xml" />
+   <install as="Horde/Feed/fixtures/AtomTestSample3.xml" name="test/Horde/Feed/fixtures/AtomTestSample3.xml" />
+   <install as="Horde/Feed/fixtures/AtomTestSample4.xml" name="test/Horde/Feed/fixtures/AtomTestSample4.xml" />
+   <install as="Horde/Feed/fixtures/BlogRollTestSample1.xml" name="test/Horde/Feed/fixtures/BlogRollTestSample1.xml" />
+   <install as="Horde/Feed/fixtures/BlogRollTestSample2.xml" name="test/Horde/Feed/fixtures/BlogRollTestSample2.xml" />
+   <install as="Horde/Feed/fixtures/MySubscriptions.opml" name="test/Horde/Feed/fixtures/MySubscriptions.opml" />
+   <install as="Horde/Feed/fixtures/MySubscriptionsGrouped.opml" name="test/Horde/Feed/fixtures/MySubscriptionsGrouped.opml" />
+   <install as="Horde/Feed/fixtures/NotAFeed.xml" name="test/Horde/Feed/fixtures/NotAFeed.xml" />
+   <install as="Horde/Feed/fixtures/RssTest091Sample1.xml" name="test/Horde/Feed/fixtures/RssTest091Sample1.xml" />
+   <install as="Horde/Feed/fixtures/RssTest092Sample1.xml" name="test/Horde/Feed/fixtures/RssTest092Sample1.xml" />
+   <install as="Horde/Feed/fixtures/RssTest100Sample1.xml" name="test/Horde/Feed/fixtures/RssTest100Sample1.xml" />
+   <install as="Horde/Feed/fixtures/RssTest100Sample2.xml" name="test/Horde/Feed/fixtures/RssTest100Sample2.xml" />
+   <install as="Horde/Feed/fixtures/RssTest200Sample1.xml" name="test/Horde/Feed/fixtures/RssTest200Sample1.xml" />
+   <install as="Horde/Feed/fixtures/RssTestCNN.xml" name="test/Horde/Feed/fixtures/RssTestCNN.xml" />
+   <install as="Horde/Feed/fixtures/RssTestHarvardLaw.xml" name="test/Horde/Feed/fixtures/RssTestHarvardLaw.xml" />
+   <install as="Horde/Feed/fixtures/RssTestPlanetPHP.xml" name="test/Horde/Feed/fixtures/RssTestPlanetPHP.xml" />
+   <install as="Horde/Feed/fixtures/RssTestSlashdot.xml" name="test/Horde/Feed/fixtures/RssTestSlashdot.xml" />
+   <install as="Horde/Feed/fixtures/TestAtomFeed.xml" name="test/Horde/Feed/fixtures/TestAtomFeed.xml" />
+   <install as="Horde/Feed/fixtures/TestAtomFeedEntryOnly.xml" name="test/Horde/Feed/fixtures/TestAtomFeedEntryOnly.xml" />
+   <install as="Horde/Feed/fixtures/TestAtomFeedNamespaced.xml" name="test/Horde/Feed/fixtures/TestAtomFeedNamespaced.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/bbmaintenance_rss.xml" name="test/Horde/Feed/fixtures/lexicon/bbmaintenance_rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-andigutmans.blogspot.com-atom.xml" name="test/Horde/Feed/fixtures/lexicon/http-andigutmans.blogspot.com-atom.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-arstechnica.com-etc-rdf-ars.rdf" name="test/Horde/Feed/fixtures/lexicon/http-arstechnica.com-etc-rdf-ars.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-blog.casey-sweat.us-%2Ffeed=rss2" name="test/Horde/Feed/fixtures/lexicon/http-blog.casey-sweat.us-%2Ffeed=rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-blog.coggeshall.org-rss.php%2Fversion=1.0" name="test/Horde/Feed/fixtures/lexicon/http-blog.coggeshall.org-rss.php%2Fversion=1.0" />
+   <install as="Horde/Feed/fixtures/lexicon/http-blog.joshuaeichorn.com-feed-" name="test/Horde/Feed/fixtures/lexicon/http-blog.joshuaeichorn.com-feed-" />
+   <install as="Horde/Feed/fixtures/lexicon/http-blog.phpdeveloper.org-%2Ffeed=rss2" name="test/Horde/Feed/fixtures/lexicon/http-blog.phpdeveloper.org-%2Ffeed=rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-blogs.it-0100198-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-blogs.it-0100198-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-blogs.law.harvard.edu-philg-xml-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-blogs.law.harvard.edu-philg-xml-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-blogs.msdn.com-joestagner-rss.aspx" name="test/Horde/Feed/fixtures/lexicon/http-blogs.msdn.com-joestagner-rss.aspx" />
+   <install as="Horde/Feed/fixtures/lexicon/http-blogs.salon.com-0000014-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-blogs.salon.com-0000014-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-boingboing.net-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-boingboing.net-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-chris.pirillo.com-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-chris.pirillo.com-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-creativecommons.org-weblog-rss" name="test/Horde/Feed/fixtures/lexicon/http-creativecommons.org-weblog-rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-cyberlaw.stanford.edu-lessig-blog-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-cyberlaw.stanford.edu-lessig-blog-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-daringfireball.net-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-daringfireball.net-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-derickrethans.nl-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-derickrethans.nl-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-dictionary.reference.com-wordoftheday-wotd.rss" name="test/Horde/Feed/fixtures/lexicon/http-dictionary.reference.com-wordoftheday-wotd.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-doc.weblogs.com-xml-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-doc.weblogs.com-xml-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-dot.kde.org-rdf" name="test/Horde/Feed/fixtures/lexicon/http-dot.kde.org-rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-dwlt.net-tapestry-dilbert.rdf" name="test/Horde/Feed/fixtures/lexicon/http-dwlt.net-tapestry-dilbert.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-earthobservatory.nasa.gov-eo.rss" name="test/Horde/Feed/fixtures/lexicon/http-earthobservatory.nasa.gov-eo.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-efilmcritic.com-fo.rdf" name="test/Horde/Feed/fixtures/lexicon/http-efilmcritic.com-fo.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-feeds.feedburner.com-shiflett" name="test/Horde/Feed/fixtures/lexicon/http-feeds.feedburner.com-shiflett" />
+   <install as="Horde/Feed/fixtures/lexicon/http-feeds.feedburner.com-SixApartNews" name="test/Horde/Feed/fixtures/lexicon/http-feeds.feedburner.com-SixApartNews" />
+   <install as="Horde/Feed/fixtures/lexicon/http-freshmeat.net-backend-fm.rdf" name="test/Horde/Feed/fixtures/lexicon/http-freshmeat.net-backend-fm.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-google.blogspace.com-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-google.blogspace.com-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-happypenguin.org-html-news.rdf" name="test/Horde/Feed/fixtures/lexicon/http-happypenguin.org-html-news.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-headlines.internet.com-internetnews-top-news-news.rss" name="test/Horde/Feed/fixtures/lexicon/http-headlines.internet.com-internetnews-top-news-news.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-ilia.ws-feeds-index.rss2" name="test/Horde/Feed/fixtures/lexicon/http-ilia.ws-feeds-index.rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-inessential.com-xml-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-inessential.com-xml-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-intertwingly.net-blog-index.atom" name="test/Horde/Feed/fixtures/lexicon/http-intertwingly.net-blog-index.atom" />
+   <install as="Horde/Feed/fixtures/lexicon/http-jeremy.zawodny.com-blog-rss2.xml" name="test/Horde/Feed/fixtures/lexicon/http-jeremy.zawodny.com-blog-rss2.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-joi.ito.com-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-joi.ito.com-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-jrobb.mindplex.org-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-jrobb.mindplex.org-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-laurat.blogs.com-random_ramblings-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-laurat.blogs.com-random_ramblings-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-lwn.net-headlines-rss" name="test/Horde/Feed/fixtures/lexicon/http-lwn.net-headlines-rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-netevil.org-feeds-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-netevil.org-feeds-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-news.com.com-2547-1_3-0-5.xml" name="test/Horde/Feed/fixtures/lexicon/http-news.com.com-2547-1_3-0-5.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Findex_topstories+rss" name="test/Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Findex_topstories+rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Fo=rss&s=Newsweek" name="test/Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Fo=rss&s=Newsweek" />
+   <install as="Horde/Feed/fixtures/lexicon/http-partners.userland.com-nytRss-nytHomepage.xml" name="test/Horde/Feed/fixtures/lexicon/http-partners.userland.com-nytRss-nytHomepage.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-partners.userland.com-nytRss-technology.xml" name="test/Horde/Feed/fixtures/lexicon/http-partners.userland.com-nytRss-technology.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-pear.php.net-rss" name="test/Horde/Feed/fixtures/lexicon/http-pear.php.net-rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-phplens.com-phpeverywhere-%2Fq=node-feed-1" name="test/Horde/Feed/fixtures/lexicon/http-phplens.com-phpeverywhere-%2Fq=node-feed-1" />
+   <install as="Horde/Feed/fixtures/lexicon/http-pixelated-dreams.com-feeds-index.rss2" name="test/Horde/Feed/fixtures/lexicon/http-pixelated-dreams.com-feeds-index.rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-politicalwire.com-headlines.xml" name="test/Horde/Feed/fixtures/lexicon/http-politicalwire.com-headlines.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-radio.weblogs.com-0001011-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-radio.weblogs.com-0001011-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-radio.weblogs.com-0110772-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-radio.weblogs.com-0110772-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-radio.weblogs.com-0113297-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-radio.weblogs.com-0113297-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-ranchero.com-xml-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-ranchero.com-xml-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-ross.typepad.com-blog-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-ross.typepad.com-blog-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-rss.com.com-2547-1_3-0-5.xml" name="test/Horde/Feed/fixtures/lexicon/http-rss.com.com-2547-1_3-0-5.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-rss.macworld.com-macworld-news" name="test/Horde/Feed/fixtures/lexicon/http-rss.macworld.com-macworld-news" />
+   <install as="Horde/Feed/fixtures/lexicon/http-rss.news.yahoo.com-rss-tech" name="test/Horde/Feed/fixtures/lexicon/http-rss.news.yahoo.com-rss-tech" />
+   <install as="Horde/Feed/fixtures/lexicon/http-rss.news.yahoo.com-rss-topstories" name="test/Horde/Feed/fixtures/lexicon/http-rss.news.yahoo.com-rss-topstories" />
+   <install as="Horde/Feed/fixtures/lexicon/http-rssnewsapps.ziffdavis.com-msw.xml" name="test/Horde/Feed/fixtures/lexicon/http-rssnewsapps.ziffdavis.com-msw.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-rssnewsapps.ziffdavis.com-tech.xml" name="test/Horde/Feed/fixtures/lexicon/http-rssnewsapps.ziffdavis.com-tech.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-schlitt.info-applications-blog-index.php%2F-feeds-index.rss2" name="test/Horde/Feed/fixtures/lexicon/http-schlitt.info-applications-blog-index.php%2F-feeds-index.rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-shirky.com-writings-rss.cgi" name="test/Horde/Feed/fixtures/lexicon/http-shirky.com-writings-rss.cgi" />
+   <install as="Horde/Feed/fixtures/lexicon/http-slashdot.org-index.rss" name="test/Horde/Feed/fixtures/lexicon/http-slashdot.org-index.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-slashdot.org-slashdot.rdf" name="test/Horde/Feed/fixtures/lexicon/http-slashdot.org-slashdot.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-slashdot.org-slashdot.rss" name="test/Horde/Feed/fixtures/lexicon/http-slashdot.org-slashdot.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-software.ericsink.com-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-software.ericsink.com-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-sourceforge.net-export-rss2_sfnews.php%2Ffeed" name="test/Horde/Feed/fixtures/lexicon/http-sourceforge.net-export-rss2_sfnews.php%2Ffeed" />
+   <install as="Horde/Feed/fixtures/lexicon/http-static.userland.com-tomalak-links2.xml" name="test/Horde/Feed/fixtures/lexicon/http-static.userland.com-tomalak-links2.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-suraski.net-blog-index.php%2F-feeds-index.rss2" name="test/Horde/Feed/fixtures/lexicon/http-suraski.net-blog-index.php%2F-feeds-index.rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-trainedmonkey.com-news-rss.php%2Fs=31" name="test/Horde/Feed/fixtures/lexicon/http-trainedmonkey.com-news-rss.php%2Fs=31" />
+   <install as="Horde/Feed/fixtures/lexicon/http-w3future.com-weblog-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-w3future.com-weblog-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-weblog.infoworld.com-udell-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-weblog.infoworld.com-udell-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-weblogs.mozillazine.org-hyatt-blogger_rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-weblogs.mozillazine.org-hyatt-blogger_rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.25hoursaday.com-weblog-SyndicationService.asmx-GetRss" name="test/Horde/Feed/fixtures/lexicon/http-www.25hoursaday.com-weblog-SyndicationService.asmx-GetRss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.aaronsw.com-weblog-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.aaronsw.com-weblog-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.advogato.org-rss-articles.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.advogato.org-rss-articles.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.alistapart.com-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.alistapart.com-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.amiga-news.de-en-backends-news-index.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.amiga-news.de-en-backends-news-index.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.apple.com-main-rss-hotnews-hotnews.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.apple.com-main-rss-hotnews-hotnews.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.bbc.co.uk-syndication-feeds-news-ukfs_news-front_page-rss091.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.bbc.co.uk-syndication-feeds-news-ukfs_news-front_page-rss091.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.benhammersley.com-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.benhammersley.com-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.bloglines.com-rss-about-news" name="test/Horde/Feed/fixtures/lexicon/http-www.bloglines.com-rss-about-news" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.coffeecode.net-feeds-index.rss2" name="test/Horde/Feed/fixtures/lexicon/http-www.coffeecode.net-feeds-index.rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.corante.com-many-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.corante.com-many-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.csmonitor.com-rss-top.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.csmonitor.com-rss-top.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.dashes.com-anil-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.dashes.com-anil-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.digitalsandwich.com-feeds-index.rss2" name="test/Horde/Feed/fixtures/lexicon/http-www.digitalsandwich.com-feeds-index.rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.docuverse.com-blog-donpark-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.docuverse.com-blog-donpark-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.dominopower.com-shares-userland-rss-channeldata.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.dominopower.com-shares-userland-rss-channeldata.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.dpreview.com-news-dpr.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.dpreview.com-news-dpr.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.ecommercetimes.com-perl-syndication-rssfull.pl" name="test/Horde/Feed/fixtures/lexicon/http-www.ecommercetimes.com-perl-syndication-rssfull.pl" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.fool.com-xml-foolnews_rss091.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.fool.com-xml-foolnews_rss091.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.freebsddiary.org-news" name="test/Horde/Feed/fixtures/lexicon/http-www.freebsddiary.org-news" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.garshol.priv.no-download-xmltools-tools-rss.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.garshol.priv.no-download-xmltools-tools-rss.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.gildot.org-gildot.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.gildot.org-gildot.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.gizmodo.net-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.gizmodo.net-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.gravitonic.com-blog-archives-rss2.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.gravitonic.com-blog-archives-rss2.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.hauser-wenz.de-s9y-index.php%2F-feeds-index.rss2" name="test/Horde/Feed/fixtures/lexicon/http-www.hauser-wenz.de-s9y-index.php%2F-feeds-index.rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.heise.de-newsticker-heise.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.heise.de-newsticker-heise.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.hutteman.com-weblog-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.hutteman.com-weblog-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.hyperorg.com-blogger-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.hyperorg.com-blogger-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.infoworld.com-rss-news.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.infoworld.com-rss-news.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.joelonsoftware.com-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.joelonsoftware.com-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.kk.org-cooltools-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.kk.org-cooltools-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.kottke.org-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.kottke.org-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.kottke.org-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.kottke.org-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.kottke.org-remainder-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.kottke.org-remainder-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.kuro5hin.org-backend.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.kuro5hin.org-backend.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.lastcraft.com-blog-wp-rss2.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.lastcraft.com-blog-wp-rss2.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.lessig.org-blog-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.lessig.org-blog-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.linuxplanet.com-rss-" name="test/Horde/Feed/fixtures/lexicon/http-www.linuxplanet.com-rss-" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.lockergnome.com-lockergnome.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.lockergnome.com-lockergnome.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.macmerc.com-index.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.macmerc.com-index.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.macminute.com-headlines.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.macminute.com-headlines.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.macosxhints.com-backend-geeklog.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.macosxhints.com-backend-geeklog.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.macrumors.com-macrumors.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.macrumors.com-macrumors.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.mail-archive.com-linux-kernel@vger.kernel.org-maillist.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.mail-archive.com-linux-kernel@vger.kernel.org-maillist.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.marcuswhitney.com-%2Ffeed=rss2" name="test/Horde/Feed/fixtures/lexicon/http-www.marcuswhitney.com-%2Ffeed=rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.megnut.com-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.megnut.com-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.mezzoblue.com-rss-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.mezzoblue.com-rss-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.microsoft.com-feeds-msdn-en-us-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.microsoft.com-feeds-msdn-en-us-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.modsecurity.org-blog-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.modsecurity.org-blog-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.mozilla.org-news.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.mozilla.org-news.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.mozillazine.org-contents.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.mozillazine.org-contents.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.newsgator.com-news-rss.aspx" name="test/Horde/Feed/fixtures/lexicon/http-www.newsgator.com-news-rss.aspx" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.pclinuxonline.com-backend" name="test/Horde/Feed/fixtures/lexicon/http-www.pclinuxonline.com-backend" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.phpclasses.org-channels.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.phpclasses.org-channels.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.phpindex.com-rss-phpindex_news.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.phpindex.com-rss-phpindex_news.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.phppatterns.com-feed.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.phppatterns.com-feed.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.pl-forum.de-backend-pro-linux.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.pl-forum.de-backend-pro-linux.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.preinheimer.com-index.php%2F-feeds-index.rss2" name="test/Horde/Feed/fixtures/lexicon/http-www.preinheimer.com-index.php%2F-feeds-index.rss2" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.procata.com-blog-feed-" name="test/Horde/Feed/fixtures/lexicon/http-www.procata.com-blog-feed-" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.python.org-channews.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.python.org-channews.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.quotationspage.com-data-mqotd.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.quotationspage.com-data-mqotd.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.radwin.org-michael-blog-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.radwin.org-michael-blog-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.researchbuzz.com-researchbuzz.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.researchbuzz.com-researchbuzz.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.rootprompt.org-rss-" name="test/Horde/Feed/fixtures/lexicon/http-www.rootprompt.org-rss-" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.russellbeattie.com-notebook-rss.jsp" name="test/Horde/Feed/fixtures/lexicon/http-www.russellbeattie.com-notebook-rss.jsp" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.salon.com-feed-RDF-salon_use.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.salon.com-feed-RDF-salon_use.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.scripting.com-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.scripting.com-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.simplebits.com-xml-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.simplebits.com-xml-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.simplegeek.com-blogxbrowsing.asmx-GetRss" name="test/Horde/Feed/fixtures/lexicon/http-www.simplegeek.com-blogxbrowsing.asmx-GetRss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.smartmobs.com-index.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.smartmobs.com-index.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.tbray.org-ongoing-ongoing.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.tbray.org-ongoing-ongoing.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.techdirt.com-techdirt_rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.techdirt.com-techdirt_rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.telepolis.de-news.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.telepolis.de-news.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.theklaibers.com-feed-" name="test/Horde/Feed/fixtures/lexicon/http-www.theklaibers.com-feed-" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.theregister.co.uk-tonys-slashdot.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.theregister.co.uk-tonys-slashdot.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.theshiftedlibrarian.com-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.theshiftedlibrarian.com-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.tidbits.com-channels-tidbits.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.tidbits.com-channels-tidbits.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.twst.com-mynetscape-main.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.twst.com-mynetscape-main.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.undeadly.org-cgi%2Faction=rss" name="test/Horde/Feed/fixtures/lexicon/http-www.undeadly.org-cgi%2Faction=rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.w3.org-2000-08-w3c-synd-home.rss" name="test/Horde/Feed/fixtures/lexicon/http-www.w3.org-2000-08-w3c-synd-home.rss" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.wilwheaton.net-mt-index.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.wilwheaton.net-mt-index.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.windley.com-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.windley.com-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.wired.com-news_drop-netcenter-netcenter.rdf" name="test/Horde/Feed/fixtures/lexicon/http-www.wired.com-news_drop-netcenter-netcenter.rdf" />
+   <install as="Horde/Feed/fixtures/lexicon/http-www.zeldman.com-feed-zeldman.xml" name="test/Horde/Feed/fixtures/lexicon/http-www.zeldman.com-feed-zeldman.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-xml.metafilter.com-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-xml.metafilter.com-rss.xml" />
+   <install as="Horde/Feed/fixtures/lexicon/http-xml.newsisfree.com-feeds-06-1806.xml" name="test/Horde/Feed/fixtures/lexicon/http-xml.newsisfree.com-feeds-06-1806.xml" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First alpha release for Horde 4.
+* More robust parsing (recover from XML errors, fall back to HTML parsing)
+* Return content:encoded when the content element is requested from an RSS entry
+* Find &lt;item&gt; elements outside the &lt;channel&gt; element (i.e., RSS 1.0)
+* Optionally send PUT and DELETE requests as POST (HTTP-Method-Override)
+* Support redirects in DELETE requests
+   </notes>
+  </release>
+ </changelog>
 </package>

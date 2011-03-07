@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Share</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Shared Permissions System</summary>
@@ -11,19 +11,19 @@ owns or has access to.</description>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-14</date>
- <time>22:44:18</time>
+ <date>2011-03-06</date>
+ <time>23:52:32</time>
  <version>
-  <release>0.0.4</release>
-  <api>0.0.4</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Converted to Horde 4 coding standards
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -571,26 +571,26 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Converted to package.xml 2.0 for pear.horde.org.
-    * Split into a driver pattern.
-    * Simplified the API greatly, removing unused functions.
-    * Add a method for counting the number of shares at a certain access level.
-    * Add native SQL driver (duck@obala.net, Request #6109).
-    * Implemented extended free/busy access concept in the Kolab driver.
+* Split into a driver pattern.
+* Simplified the API greatly, removing unused functions.
+* Add a method for counting the number of shares at a certain access level.
+* Add native SQL driver (duck@obala.net, Request #6109).
+* Implemented extended free/busy access concept in the Kolab driver.
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.4</release>
-    <api>0.0.4</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-01-14</date>
+   <date>2011-03-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Converted to Horde 4 coding standards
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

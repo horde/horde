@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_PubSub</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Publish/Subscribe library</summary>
- <description>Horde Publish/Subscribe package that can act as an inter-app messaging hub
- </description>
+ <description>Horde Publish/Subscribe package that can act as an inter-app messaging hub.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-01-23</date>
- <time>22:00:00</time>
+ <date>2011-03-07</date>
+ <time>00:25:16</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>* Initial packaging
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="PubSub">
@@ -38,7 +35,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="PubSub.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
-  </dir>
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="PubSub">
+      <file name="AllTests.php" role="test" />
+      <file name="HandleTest.php" role="test" />
+      <file name="ProviderTest.php" role="test" />
+      <file name="PubSubTest.php" role="test" />
+     </dir> <!-- /test/Horde/PubSub -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
@@ -52,9 +59,30 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/PubSub/Handle.php" as="Horde/PubSub/Handle.php" />
-   <install name="lib/Horde/PubSub/Provider.php" as="Horde/PubSub/Provider.php" />
-   <install name="lib/Horde/PubSub.php" as="Horde/PubSub.php" />
+   <install as="Horde/PubSub.php" name="lib/Horde/PubSub.php" />
+   <install as="Horde/PubSub/Handle.php" name="lib/Horde/PubSub/Handle.php" />
+   <install as="Horde/PubSub/Provider.php" name="lib/Horde/PubSub/Provider.php" />
+   <install as="Horde/PubSub/AllTests.php" name="test/Horde/PubSub/AllTests.php" />
+   <install as="Horde/PubSub/HandleTest.php" name="test/Horde/PubSub/HandleTest.php" />
+   <install as="Horde/PubSub/ProviderTest.php" name="test/Horde/PubSub/ProviderTest.php" />
+   <install as="Horde/PubSub/PubSubTest.php" name="test/Horde/PubSub/PubSubTest.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
 </package>

@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_SQL</name>
  <channel>pear.horde.org</channel>
  <summary>SQL Utility Class</summary>
- <description>Horde_SQL:: contains some utility functions for dealing with SQL.
- </description>
+ <description>Horde_SQL:: contains some utility functions for dealing with SQL.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2006-05-08</date>
- <time>23:26:59</time>
+ <date>2011-03-07</date>
+ <time>00:09:01</time>
  <version>
-  <release>0.0.2</release>
-  <api>0.0.2</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Converted to package.xml 2.0 for pear.horde.org
+ <notes>
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="SQL">
-    <file baseinstalldir="/Horde" name="Keywords.php" role="php" />
+    <file name="Keywords.php" role="php" />
    </dir> <!-- //SQL -->
-   <file baseinstalldir="/Horde" name="SQL.php" role="php" />
+   <file name="SQL.php" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -45,7 +42,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </pearinstaller>
   </required>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="SQL/Keywords.php" name="SQL/Keywords.php" />
+   <install as="SQL.php" name="SQL.php" />
+  </filelist>
+ </phprelease>
  <changelog>
   <release>
    <version>
@@ -58,7 +60,38 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2003-07-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

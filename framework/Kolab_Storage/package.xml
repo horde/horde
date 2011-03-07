@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Kolab_Storage</name>
  <channel>pear.horde.org</channel>
+ <extends>Kolab_Storage</extends>
  <summary>A package for handling Kolab data stored on an IMAP server.</summary>
- <description>Storing user data in an IMAP account belonging to the
- user is one of the Kolab server core concepts. This package provides
- all the necessary means to deal with this type of data storage
- effectively.</description>
+ <description>Storing user data in an IMAP account belonging to the user is one of the Kolab server core concepts. This package provides all the necessary means to deal with this type of data storage effectively.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -25,11 +23,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-27</date>
- <time>09:41:22</time>
+ <date>2011-03-07</date>
+ <time>00:53:37</time>
  <version>
-  <release>0.4.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -37,11 +35,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Added namespace support (Bug #6691).
-* Converted the package to Horde 4 / PHP 5.
-* Fixed list driver to prevent overwriting folder data when
-  authenticating twice (relevant for testing).
-* Allow to supress triggering (relevant for testing).
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -887,6 +881,21 @@
 * Fixed list driver to prevent overwriting folder data when
   authenticating twice (relevant for testing).
 * Allow to supress triggering (relevant for testing).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

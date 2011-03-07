@@ -2,6 +2,7 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Group</name>
  <channel>pear.horde.org</channel>
+ <extends>Group</extends>
  <summary>Horde User Groups System</summary>
  <description>Package for managing and accessing the Horde groups system.</description>
  <lead>
@@ -16,20 +17,20 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-05</date>
- <time>20:54:55</time>
+ <date>2011-03-07</date>
+ <time>01:21:13</time>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First alpha release for Horde 4.
 * Throw exceptions, not PEAR_Errors.
- * Initial Horde 4 release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -181,35 +182,35 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added a mock driver for installations that don&apos;t need groups (Request #6157).
-   * Added a beta SQL Group driver (Request #6175).
-   * Removed unused renameGroup() function.
-   * Fixed loading subclasses before unserializing session objects (Bug #4650)
-   * Added caching.
-   * Fixed getGroupParents().
-   * Fixed listAllUsers().
-   * Switched from hook functions for every group to a single hook function for all groups (Request #4324).
-   * Added a Group driver for the Kolab groupware server.
-   * Allow group members to be stored as DNs in LDAP driver (Bug #4131).
-   * Significant changes to the LDAP Group driver (Bug #4135).
-   * Fixed chicken and egg problem for creating the first LDAP group (Bug #4668).
-   * Fixed nextgid calculation in the LDAP driver (Bug #4699).
-   * UTF-8-encoded DNs in the LDAP Groups driver (Bugs #4692 and #4918).
+* Added a beta SQL Group driver (Request #6175).
+* Removed unused renameGroup() function.
+* Fixed loading subclasses before unserializing session objects (Bug #4650)
+* Added caching.
+* Fixed getGroupParents().
+* Fixed listAllUsers().
+* Switched from hook functions for every group to a single hook function for all groups (Request #4324).
+* Added a Group driver for the Kolab groupware server.
+* Allow group members to be stored as DNs in LDAP driver (Bug #4131).
+* Significant changes to the LDAP Group driver (Bug #4135).
+* Fixed chicken and egg problem for creating the first LDAP group (Bug #4668).
+* Fixed nextgid calculation in the LDAP driver (Bug #4699).
+* UTF-8-encoded DNs in the LDAP Groups driver (Bugs #4692 and #4918).
    </notes>
   </release>
   <release>
    <version>
-    <release>0.2.0</release>
-    <api>0.2.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-03-05</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* First alpha release for Horde 4.
 * Throw exceptions, not PEAR_Errors.
- * Initial Horde 4 release.
    </notes>
   </release>
  </changelog>

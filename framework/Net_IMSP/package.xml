@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Net_IMSP</name>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Net_Imsp</name>
  <channel>pear.horde.org</channel>
+ <extends>Net_IMSP</extends>
  <summary>IMSP API</summary>
- <description>Provides an API into an IMSP server for Addressbooks and Options</description>
+ <description>Provides an API into an IMSP server for address books and options.</description>
  <lead>
   <name>Michael Rubinsky</name>
   <user>mrubinsk</user>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:03:05</time>
+ <date>2011-03-07</date>
+ <time>00:35:34</time>
  <version>
-  <release>0.0.6</release>
-  <api>0.0.6</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-Converted to package.xml 2.0 for pear.horde.org
+* First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir baseinstalldir="/Net" name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="IMSP">
     <dir name="Auth">
      <file name="cram_md5.php" role="php" />
@@ -36,7 +37,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <file name="Book.php" role="php" />
     <file name="Options.php" role="php" />
     <file name="Translation.php" role="php">
-      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+     <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
     </file>
     <file name="Utils.php" role="php" />
    </dir> <!-- /IMSP -->
@@ -320,6 +321,14 @@ Converted to package.xml 2.0 for pear.horde.org
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="IMSP/Auth.php" name="IMSP/Auth.php" />
+   <install as="IMSP/Book.php" name="IMSP/Book.php" />
+   <install as="IMSP/Options.php" name="IMSP/Options.php" />
+   <install as="IMSP/Translation.php" name="IMSP/Translation.php" />
+   <install as="IMSP/Utils.php" name="IMSP/Utils.php" />
+   <install as="IMSP/Auth/cram_md5.php" name="IMSP/Auth/cram_md5.php" />
+   <install as="IMSP/Auth/imtest.php" name="IMSP/Auth/imtest.php" />
+   <install as="IMSP/Auth/plaintext.php" name="IMSP/Auth/plaintext.php" />
    <install as="locale/Horde_Net_IMSP.pot" name="locale/Horde_Net_IMSP.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/ar/LC_MESSAGES/Horde_Net_IMSP.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/ar/LC_MESSAGES/Horde_Net_IMSP.po" />
@@ -407,6 +416,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/zh_CN/LC_MESSAGES/Horde_Net_IMSP.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Net_IMSP.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Net_IMSP.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Net_IMSP.po" name="locale/zh_TW/LC_MESSAGES/Horde_Net_IMSP.po" />
+   <install as="IMSP.php" name="IMSP.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -500,6 +510,21 @@ Suport for using Horde_Share added.
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

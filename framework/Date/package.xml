@@ -19,17 +19,18 @@
  <date>2011-02-22</date>
  <time>17:44:58</time>
  <version>
-  <release>0.3.0</release>
-  <api>0.3.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Add Horde_Date_Repeater
-* Add Horde_Date_Span
+* First alpha release for Horde 4.
+* Add Horde_Date_Repeater.
+* Add Horde_Date_Span.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -486,21 +487,5 @@
   </filelist>
  </phprelease>
  <changelog>
-  <release>
-   <version>
-    <release>0.3.0</release>
-    <api>0.3.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2011-02-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>
-* Add Horde_Date_Repeater
-* Add Horde_Date_Span
-   </notes>
-  </release>
  </changelog>
 </package>

@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Token</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Token API</summary>
- <description>The Horde_Token:: class provides a common abstracted interface
- into the various token generation mediums. It also includes all of the
- functions for retrieving, storing, and checking tokens.</description>
+ <description>The Horde_Token:: class provides a common abstracted interface into the various token generation mediums. It also includes all of the functions for retrieving, storing, and checking tokens.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-25</date>
- <time>08:56:22</time>
+ <date>2011-03-06</date>
+ <time>23:22:35</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First alpha release for Horde 4.
 * Remove Horde_Token::factory().
- * Add translation support.
- * Add support for timestamped tokens.
- * Add Horde_Token_Exception::.
- * Move driver code into sub-classes.
- * Use exceptions, not PEAR_Errors.
- * Initial Horde 4 package.
+* Add translation support.
+* Add support for timestamped tokens.
+* Add Horde_Token_Exception::.
+* Move driver code into sub-classes.
+* Use exceptions, not PEAR_Errors.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -542,23 +540,23 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-02-25</date>
+   <date>2011-03-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* First alpha release for Horde 4.
 * Remove Horde_Token::factory().
- * Add translation support.
- * Add support for timestamped tokens.
- * Add Horde_Token_Exception::.
- * Move driver code into sub-classes.
- * Use exceptions, not PEAR_Errors.
- * Initial Horde 4 package.
+* Add translation support.
+* Add support for timestamped tokens.
+* Add Horde_Token_Exception::.
+* Move driver code into sub-classes.
+* Use exceptions, not PEAR_Errors.
    </notes>
   </release>
  </changelog>

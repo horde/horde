@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Sabre</name>
  <channel>pear.horde.org</channel>
  <summary>Backend implementations for SabreDAV</summary>
- <description>This package contains all Horde-specific backend implementations for Sabre's abstract classes.</description>
+ <description>This package contains all Horde-specific backend implementations for Sabre&apos;s abstract classes.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-12-31</date>
+ <date>2011-03-07</date>
+ <time>00:07:00</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>
+* First alpha release for Horde 4.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Sabre">
      <dir name="CalDAV">
       <dir name="Backend">
        <file name="Horde.php" role="php" />
-      </dir> <!-- /lib/Sabre/CalDAV/Backend -->
-     </dir> <!-- /lib/Sabre/CalDAV -->
+      </dir> <!-- //lib/Sabre/CalDAV/Backend -->
+     </dir> <!-- //lib/Sabre/CalDAV -->
      <dir name="DAV">
       <dir name="Auth">
        <dir name="Backend">
         <file name="Horde.php" role="php" />
-       </dir> <!-- /lib/Sabre/DAV/Auth/Backend -->
-      </dir> <!-- /lib/Sabre/DAV/Auth -->
-     </dir> <!-- /lib/Sabre/DAV -->
-    </dir> <!-- /lib/Sabre -->
-   </dir> <!-- /lib -->
+       </dir> <!-- //lib/Sabre/DAV/Auth/Backend -->
+      </dir> <!-- //lib/Sabre/DAV/Auth -->
+     </dir> <!-- //lib/Sabre/DAV -->
+    </dir> <!-- //lib/Sabre -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -64,10 +64,25 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Sabre/DAV/Auth/Backend/Horde.php" as="Sabre/DAV/Auth/Backend/Horde.php" />
-   <install name="lib/Sabre/CalDAV/Backend/Horde.php" as="Sabre/CalDAV/Backend/Horde.php" />
+   <install as="Sabre/CalDAV/Backend/Horde.php" name="lib/Sabre/CalDAV/Backend/Horde.php" />
+   <install as="Sabre/DAV/Auth/Backend/Horde.php" name="lib/Sabre/DAV/Auth/Backend/Horde.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
  </changelog>
 </package>

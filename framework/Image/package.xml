@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Image</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Image API</summary>
@@ -23,11 +23,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-10-22</date>
- <time>19:03:09</time>
+ <date>2011-03-07</date>
+ <time>01:12:55</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-Initial Horde 4 package
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -549,6 +549,16 @@ Initial Horde 4 package
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Image.po" name="locale/zh_CN/LC_MESSAGES/Horde_Image.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.po" name="locale/zh_TW/LC_MESSAGES/Horde_Image.po" />
+   <install as="gd.php" name="tests/gd.php" />
+   <install as="im.php" name="tests/im.php" />
+   <install as="img1.jpg" name="tests/img1.jpg" />
+   <install as="img2.jpg" name="tests/img2.jpg" />
+   <install as="img3.jpg" name="tests/img3.jpg" />
+   <install as="img4.jpg" name="tests/img4.jpg" />
+   <install as="runtest.php" name="tests/runtest.php" />
+   <install as="svg.php" name="tests/svg.php" />
+   <install as="swf.php" name="tests/swf.php" />
+   <install as="two_page.tif.tiff" name="tests/two_page.tif.tiff" />
   </filelist>
  </phprelease>
  <changelog>
@@ -569,17 +579,17 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-Initial Horde 4 package
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>
