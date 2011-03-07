@@ -191,7 +191,7 @@ class Turba_TestBase extends PHPUnit_Framework_TestCase {
         require_once 'Horde/SQL.php';
         $db = $this->getDb();
         $sql = "INSERT INTO hordetest_turba_objects " .
-               Horde_SQL::insertValues($db, $object) .
+               Horde_Sql::insertValues($db, $object) .
                ";";
         $result = $db->query($sql);
         $this->assertOk($result);

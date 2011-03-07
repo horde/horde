@@ -130,7 +130,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         foreach (array('title', 'location', 'url', 'description') as $field) {
             if (!empty($query->$field)) {
-                $binds = Horde_SQL::buildClause($this->_db, 'event_' . $field, 'LIKE', $this->convertToDriver($query->$field), true);
+                $binds = Horde_Sql::buildClause($this->_db, 'event_' . $field, 'LIKE', $this->convertToDriver($query->$field), true);
                 if (is_array($binds)) {
                     $cond .= $binds[0] . ' AND ';
                     $values = array_merge($values, $binds[1]);
@@ -141,7 +141,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         if (!empty($query->baseid)) {
-            $binds = Horde_SQL::buildClause($this->_db, 'event_baseid', '=', $query->baseid, true);
+            $binds = Horde_Sql::buildClause($this->_db, 'event_baseid', '=', $query->baseid, true);
             if (is_array($binds)) {
                 $cond .= $binds[0] . ' AND ';
                 $values = array_merge($values, $binds[1]);
@@ -151,7 +151,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         if (isset($query->status)) {
-            $binds = Horde_SQL::buildClause($this->_db, 'event_status', '=', $query->status, true);
+            $binds = Horde_Sql::buildClause($this->_db, 'event_status', '=', $query->status, true);
             if (is_array($binds)) {
                 $cond .= $binds[0] . ' AND ';
                 $values = array_merge($values, $binds[1]);
@@ -160,7 +160,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             }
         }
         if (!empty($query->creator)) {
-            $binds = Horde_SQL::buildClause($this->_db, 'event_creator_id', '=', $query->creator, true);
+            $binds = Horde_Sql::buildClause($this->_db, 'event_creator_id', '=', $query->creator, true);
             if (is_array($binds)) {
                 $cond .= $binds[0] . ' AND ';
                 $values = array_merge($values, $binds[1]);

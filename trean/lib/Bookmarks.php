@@ -99,7 +99,7 @@ class Trean_Bookmarks
         $clauses = array();
         $values = array();
         foreach ($search_criteria as $criterion) {
-            $clause = Horde_SQL::buildClause($GLOBALS['trean_db'],
+            $clause = Horde_Sql::buildClause($GLOBALS['trean_db'],
                                              'bookmark_' . $criterion[0],
                                              $criterion[1],
                                              Horde_String::convertCharset($criterion[2],

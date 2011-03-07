@@ -11,7 +11,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package SQL
  */
-class Horde_SQL {
+class Horde_Sql {
 
     /**
      * Returns a boolean expression using the specified operator. Uses
@@ -42,10 +42,10 @@ class Horde_SQL {
                 // ~ for greater backwards compatibility.
                 $query = 'CASE WHEN CAST(%s AS VARCHAR) ~ \'^-?[0-9]+$\' THEN (CAST(%s AS INTEGER) %s %s) <> 0 ELSE FALSE END';
                 if ($bind) {
-                    return array(sprintf(Horde_SQL::escapePrepare($query),
-                                         Horde_SQL::escapePrepare($lhs),
-                                         Horde_SQL::escapePrepare($lhs),
-                                         Horde_SQL::escapePrepare($op),
+                    return array(sprintf(self::escapePrepare($query),
+                                         self::escapePrepare($lhs),
+                                         self::escapePrepare($lhs),
+                                         self::escapePrepare($op),
                                          '?'),
                                  array((int)$rhs));
                 } else {
@@ -57,8 +57,8 @@ class Horde_SQL {
                 // function that is available, but may be unsupported.
                 $query = 'bitand(%s, %s) = %s';
                 if ($bind) {
-                    return array(sprintf(Horde_SQL::escapePrepare($query),
-                                         Horde_SQL::escapePrepare($lhs), '?', '?'),
+                    return array(sprintf(self::escapePrepare($query),
+                                         self::escapePrepare($lhs), '?', '?'),
                                  array((int)$rhs, (int)$rhs));
                 } else {
                     return sprintf($query, $lhs, (int)$rhs, (int)$rhs);
@@ -68,9 +68,9 @@ class Horde_SQL {
                 // MSSQL must have a valid boolean expression
                 $query = '(CASE WHEN ISNUMERIC(%s) = 1 THEN (%s & %s) ELSE %s END) = %s';
                 if ($bind) {
-                    return array(sprintf(Horde_SQL::escapePrepare($query),
-                                         Horde_SQL::escapePrepare($lhs),
-                                         Horde_SQL::escapePrepare($lhs), '?', '?', '?'),
+                    return array(sprintf(self::escapePrepare($query),
+                                         self::escapePrepare($lhs),
+                                         self::escapePrepare($lhs), '?', '?', '?'),
                                  array((int)$rhs, (int)$rhs - 1, (int)$rhs));
                 } else {
                     return sprintf($query, $lhs, $lhs, (int)$rhs, (int)$rhs - 1, (int)$rhs);
@@ -80,8 +80,8 @@ class Horde_SQL {
                 // ODBC must have a valid boolean expression
                 $query = '(%s & %s) = %s';
                 if ($bind) {
-                    return array(sprintf(Horde_SQL::escapePrepare($query),
-                                         Horde_SQL::escapePrepare($lhs), '?', '?'),
+                    return array(sprintf(self::escapePrepare($query),
+                                         self::escapePrepare($lhs), '?', '?'),
                                  array((int)$rhs, (int)$rhs));
                 } else {
                     return sprintf($query, $lhs, (int)$rhs, (int)$rhs);
@@ -89,7 +89,7 @@ class Horde_SQL {
 
             default:
                 if ($bind) {
-                    return array($lhs . ' ' . Horde_SQL::escapePrepare($op) . ' ?',
+                    return array($lhs . ' ' . self::escapePrepare($op) . ' ?',
                                  array((int)$rhs));
                 } else {
                     return $lhs . ' ' . $op . ' ' . (int)$rhs;
@@ -141,14 +141,14 @@ class Horde_SQL {
             if ($bind) {
                 if (empty($params['begin'])) {
                     return array(sprintf($query,
-                                         Horde_SQL::escapePrepare($lhs),
+                                         self::escapePrepare($lhs),
                                          '?'),
                                  array('%' . $rhs . '%'));
                 } else {
                     return array(sprintf('(' . $query . ' OR ' . $query . ')',
-                                         Horde_SQL::escapePrepare($lhs),
+                                         self::escapePrepare($lhs),
                                          '?',
-                                         Horde_SQL::escapePrepare($lhs),
+                                         self::escapePrepare($lhs),
                                          '?'),
                                  array($rhs . '%', '% ' . $rhs . '%'));
                 }
@@ -168,7 +168,7 @@ class Horde_SQL {
 
         default:
             if ($bind) {
-                return array($lhs . ' ' . Horde_SQL::escapePrepare($op) . ' ?', array($rhs));
+                return array($lhs . ' ' . self::escapePrepare($op) . ' ?', array($rhs));
             } else {
                 return $lhs . ' ' . $op . ' ' . $dbh->quote($rhs);
             }
@@ -297,7 +297,7 @@ class Horde_SQL {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SQL::insertBlob(): query = "%s"', $query), 'DEBUG');
+        Horde::logMessage(sprintf('SQL Query by Horde_Sql::insertBlob(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         return $dbh->query($query, $values);
@@ -367,7 +367,7 @@ class Horde_SQL {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SQL::updateBlob(): query = "%s"', $query), 'DEBUG');
+        Horde::logMessage(sprintf('SQL Query by Horde_Sql::updateBlob(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         return $dbh->query($query, $values);

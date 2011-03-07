@@ -269,13 +269,13 @@ class Hylax_SQL_Attributes {
                     if (!empty($clause)) {
                         $clause .= ' ' . $glue . ' ';
                     }
-                    $clause .= Horde_SQL::buildClause($this->_db, $alias . '.attribute_' . $vals['field'], $vals['op'], $vals['test']);
+                    $clause .= Horde_Sql::buildClause($this->_db, $alias . '.attribute_' . $vals['field'], $vals['op'], $vals['test']);
                 } else {
                     foreach ($vals as $test) {
                         if (!empty($clause)) {
                             $clause .= ' ' . $key . ' ';
                         }
-                        $clause .= Horde_SQL::buildClause($this->_db, $alias . '.attribute_' . $test['field'], $test['op'], $test['test']);
+                        $clause .= Horde_Sql::buildClause($this->_db, $alias . '.attribute_' . $test['field'], $test['op'], $test['test']);
                     }
                 }
             }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_SQL</name>
+ <name>Horde_Sql</name>
  <channel>pear.horde.org</channel>
  <summary>SQL Utility Class</summary>
- <description>Horde_SQL:: contains some utility functions for dealing with SQL.</description>
+ <description>Horde_Sql:: contains some utility functions for dealing with SQL.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-07</date>
- <time>00:09:01</time>
+ <time>22:12:34</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -26,10 +26,11 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="SQL">
-    <file name="Keywords.php" role="php" />
-   </dir> <!-- //SQL -->
-   <file name="SQL.php" role="php" />
+   <dir name="lib">
+    <dir name="Horde">
+     <file name="Sql.php" role="php" />
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -42,12 +43,7 @@
    </pearinstaller>
   </required>
  </dependencies>
- <phprelease>
-  <filelist>
-  <install as="Horde/SQL/Keywords.php" name="SQL/Keywords.php" />
-  <install as="Horde/SQL.php" name="SQL.php" />
-  </filelist>
- </phprelease>
+ <phprelease />
  <changelog>
   <release>
    <version>

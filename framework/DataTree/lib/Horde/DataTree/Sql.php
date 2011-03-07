@@ -1713,7 +1713,7 @@ class Horde_DataTree_Sql extends Horde_DataTree {
                         $vals['test'] = (string)$vals['test'];
                     }
 
-                    $binds = Horde_SQL::buildClause($this->_db, $alias . '.attribute_' . $vals['field'], $vals['op'], $vals['test'], true);
+                    $binds = Horde_Sql::buildClause($this->_db, $alias . '.attribute_' . $vals['field'], $vals['op'], $vals['test'], true);
                     $clause .= $binds[0];
                     $values = array_merge($values, $binds[1]);
                 } else {

@@ -806,7 +806,7 @@ class Horde_Share_Sql extends Horde_Share_Base
     /**
      * Returns criteria statement fragments for querying shares.
      *
-     * @todo: Horde_SQL:: stuff should be refactored/removed when it's ported
+     * @todo: Horde_Sql:: stuff should be refactored/removed when it's ported
      *        to Horde_Db
      *
      * @param string  $userid  The userid of the user to check access for.
@@ -820,21 +820,21 @@ class Horde_Share_Sql extends Horde_Share_Base
         $query = $where = '';
 
         if (empty($userid)) {
-            $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';
+            $where = '(' . Horde_Sql::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';
         } else {
             // (owner == $userid)
             $where .= 's.share_owner = ' . $this->_db->quote($userid);
 
             // (name == perm_creator and val & $perm)
-            $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_creator', '&', $perm) . ')';
+            $where .= ' OR (' . Horde_Sql::buildClause($this->_db, 's.perm_creator', '&', $perm) . ')';
 
             // (name == perm_creator and val & $perm)
-            $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_default', '&', $perm) . ')';
+            $where .= ' OR (' . Horde_Sql::buildClause($this->_db, 's.perm_default', '&', $perm) . ')';
 
             // (name == perm_users and key == $userid and val & $perm)
             $query .= ' LEFT JOIN ' . $this->_table . '_users u ON u.share_id = s.share_id';
             $where .= ' OR ( u.user_uid = ' .  $this->_db->quote($userid)
-            . ' AND (' . Horde_SQL::buildClause($this->_db, 'u.perm', '&', $perm) . '))';
+            . ' AND (' . Horde_Sql::buildClause($this->_db, 'u.perm', '&', $perm) . '))';
 
             // If the user has any group memberships, check for those also.
             try {
@@ -848,7 +848,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                     }
                     $query .= ' LEFT JOIN ' . $this->_table . '_groups g ON g.share_id = s.share_id';
                     $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids)
-                        . ') AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
+                        . ') AND (' . Horde_Sql::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                 }
             } catch (Horde_Group_Exception $e) {
                 $this->_logger->err($e);

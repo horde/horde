@@ -64,7 +64,7 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_SQL</name>
+    <name>Horde_Sql</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0alpha1</min>
     <max>2.0.0</max>

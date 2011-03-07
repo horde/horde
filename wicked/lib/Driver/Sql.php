@@ -143,7 +143,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
     {
         require_once 'Horde/SQL.php';
         $searchtext = $this->_convertToDriver($searchtext);
-        $where = Horde_SQL::buildClause($this->_db, 'page_name', 'LIKE', $searchtext);
+        $where = Horde_Sql::buildClause($this->_db, 'page_name', 'LIKE', $searchtext);
         return $this->_retrieve($this->_params['table'], $where);
     }
 
@@ -272,9 +272,9 @@ class Wicked_Driver_Sql extends Wicked_Driver {
 
         require_once 'Horde/SQL.php';
 
-        $where = Horde_SQL::buildClause($this->_db, 'page_name', 'LIKE', $firstword);
+        $where = Horde_Sql::buildClause($this->_db, 'page_name', 'LIKE', $firstword);
         if (!empty($lastword) && $lastword != $firstword) {
-            $where .= ' OR ' . Horde_SQL::buildClause($this->_db, 'page_name', 'LIKE', $lastword);
+            $where .= ' OR ' . Horde_Sql::buildClause($this->_db, 'page_name', 'LIKE', $lastword);
         }
 
         return $this->_retrieve($this->_params['table'], $where);
