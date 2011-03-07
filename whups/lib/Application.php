@@ -45,10 +45,6 @@ class Whups_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        // TODO: Remove once they can be autoloaded
-        require_once 'Horde/Form.php';
-        require_once 'Horde/Form/Renderer.php';
-
         $GLOBALS['whups_driver'] = Whups_Driver::factory();
         $GLOBALS['whups_driver']->initialise();
 

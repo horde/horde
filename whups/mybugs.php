@@ -11,8 +11,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once 'Horde/Block/Layout/View.php';
-
 // @TODO: remove this when there are blocks useful to guests
 // available.
 if (!$GLOBALS['registry']->getAuth()) {
