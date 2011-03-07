@@ -106,7 +106,7 @@
         <file name="http-netevil.org-feeds-rss.xml" role="test" />
         <file name="http-news.com.com-2547-1_3-0-5.xml" role="test" />
         <file name="http-p.moreover.com-cgi-local-page%2Findex_topstories+rss" role="test" />
-        <file name="http-p.moreover.com-cgi-local-page%2Fo=rss&s=Newsweek" role="test" />
+        <file name="http-p.moreover.com-cgi-local-page%2Fo=rss&amp;s=Newsweek" role="test" />
         <file name="http-partners.userland.com-nytRss-nytHomepage.xml" role="test" />
         <file name="http-partners.userland.com-nytRss-technology.xml" role="test" />
         <file name="http-pear.php.net-rss" role="test" />
@@ -383,7 +383,7 @@
    <install as="Horde/Feed/fixtures/lexicon/http-netevil.org-feeds-rss.xml" name="test/Horde/Feed/fixtures/lexicon/http-netevil.org-feeds-rss.xml" />
    <install as="Horde/Feed/fixtures/lexicon/http-news.com.com-2547-1_3-0-5.xml" name="test/Horde/Feed/fixtures/lexicon/http-news.com.com-2547-1_3-0-5.xml" />
    <install as="Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Findex_topstories+rss" name="test/Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Findex_topstories+rss" />
-   <install as="Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Fo=rss&s=Newsweek" name="test/Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Fo=rss&s=Newsweek" />
+   <install as="Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Fo=rss&amp;s=Newsweek" name="test/Horde/Feed/fixtures/lexicon/http-p.moreover.com-cgi-local-page%2Fo=rss&amp;s=Newsweek" />
    <install as="Horde/Feed/fixtures/lexicon/http-partners.userland.com-nytRss-nytHomepage.xml" name="test/Horde/Feed/fixtures/lexicon/http-partners.userland.com-nytRss-nytHomepage.xml" />
    <install as="Horde/Feed/fixtures/lexicon/http-partners.userland.com-nytRss-technology.xml" name="test/Horde/Feed/fixtures/lexicon/http-partners.userland.com-nytRss-technology.xml" />
    <install as="Horde/Feed/fixtures/lexicon/http-pear.php.net-rss" name="test/Horde/Feed/fixtures/lexicon/http-pear.php.net-rss" />
