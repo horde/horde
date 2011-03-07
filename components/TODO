@@ -2,13 +2,19 @@
  Components TODO List
 ======================
 
- - Provide a bootstrapping script that provides a development
-   environment from a pure git checkout (should only require the git
-   checkout + PHP + basic PEAR). Maybe other environment types as well
-   (full install for example)?
+ - The bootstrapping script (or one of the installed tools) must be
+   able to update the bootstrapped environment.
+
+ - The bootstrapping script (or one of the installed tools) should
+   support different installation targets.
+
+ - The bootstrapping script should support a network-less installation.
 
  - Allow the component script to be context-sensitive and provide easy
    commands when whithin a component directory
+
+ - Allow channel dependency detection with external/local package
+   dependencies.
 
  - Add validations (+ before release)
    - COPYING
@@ -61,9 +67,6 @@
  - Allow downloading documentation from the wiki.
 
  - WWW frontend
-
- - Allow channel dependency detection with external/local package
-   dependencies.
 
  - Fix dependency listing with the --optional=yes/no flag
 
