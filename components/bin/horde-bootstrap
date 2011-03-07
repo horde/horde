@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+/**
+ * We are heavily relying on the PEAR libraries which are not clean with regard
+ * to E_STRICT.
+ */
+if (defined('E_DEPRECATED')) {
+    error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
+} else {
+    error_reporting(E_ALL & ~E_STRICT);
+}
+
+require_once 'PEAR/Config.php';
+require_once 'PEAR/Command/Channels.php';
+require_once 'PEAR/Command/Install.php';
+require_once 'PEAR/Frontend/CLI.php';
+
+$framework = dirname(__FILE__) . '/../../framework';
+require_once $framework . '/Exception/lib/Horde/Exception.php';
+require_once $framework . '/Exception/lib/Horde/Exception/Pear.php';
+
+$base = dirname(__FILE__) .'/../lib';
+require_once $base . '/Components/Exception/Pear.php';
+require_once $base . '/Components/Dependencies.php';
+require_once $base . '/Components/Dependencies/Bootstrap.php';
+require_once $base . '/Components/Helper/Tree.php';
+require_once $base . '/Components/Helper/InstallationRun.php';
+require_once $base . '/Components/Helper/Tree.php';
+require_once $base . '/Components/Helper/Root.php';
+require_once $base . '/Components/Pear/InstallLocation.php';
+require_once $base . '/Components/Pear/Dependencies.php';
+require_once $base . '/Components/Pear/Dependency.php';
+require_once $base . '/Components/Pear/Package.php';
+
+$path = dirname(__FILE__) . '/../../lib';
+if (!file_exists($path)) {
+    mkdir($path, 0777, true);
+}
+$environment = realpath($path) . '/pearrc';
+
+$dependencies = new Components_Dependencies_Bootstrap();
+$factory = $dependencies->getInstance('Components_Pear_Factory');
+
+$tree = $factory->createTreeHelper(
+    $environment,
+    realpath(dirname($path)),
+    $dependencies->getInstance('Components_Config')->getOptions()
+);
+$tree->getEnvironment()->provideChannel('pear.horde.org');
+$tree->getEnvironment()->getPearConfig()->setChannels(array('pear.horde.org', true));
+$tree->getEnvironment()->getPearConfig()->set('horde_dir', $base . '/horde', 'user', 'pear.horde.org');
+Components_Exception_Pear::catchError($tree->getEnvironment()->getPearConfig()->store());
+$tree->installTreeInEnvironment(
+    dirname($base) . '/package.xml',
+    $dependencies->getInstance('Components_Output'),
+    $dependencies->getInstance('Components_Config')->getOptions()
+);
