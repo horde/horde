@@ -160,18 +160,19 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      */
     public function searchText($searchtext, $title = true)
     {
-        require_once 'Horde/SQL/Keywords.php';
         $searchtext = $this->_convertToDriver($searchtext);
 
-        $textClause = Horde_SQL_Keywords::parse('page_text', $searchtext);
-        if (is_a($textClause, 'PEAR_Error')) {
-            throw new Wicked_Exception($textClause);
+        try {
+            $textClause = Horde_Db_SearchParser::parse('page_text', $searchtext);
+        } catch (Horde_Db_Exception $e) {
+            throw new Wicked_Exception($e);
         }
 
         if ($title) {
-            $nameClause = Horde_SQL_Keywords::parse('page_name', $searchtext);
-            if (is_a($nameClause, 'PEAR_Error')) {
-                throw new Wicked_Exception($nameClause);
+            try {
+                $nameClause = Horde_Db_SearchParser::parse('page_name', $searchtext);
+            } catch (Horde_Db_Exception $e) {
+                throw new Wicked_Exception($e);
             }
 
             $where = '(' . $nameClause . ') OR (' . $textClause . ')';
