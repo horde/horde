@@ -860,7 +860,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox)
         );
 
-        if (isset($opts['special_use'])) {
+        if (!empty($opts['special_use'])) {
             $cmd[] = 'USE';
 
             $flags = array();
