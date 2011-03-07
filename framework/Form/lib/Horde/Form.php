@@ -141,7 +141,6 @@ class Horde_Form {
      */
     function getRenderer($params = array())
     {
-        require_once 'Horde/Form/Renderer.php';
         $renderer = new Horde_Form_Renderer($params);
         return $renderer;
     }
@@ -732,7 +731,6 @@ class Horde_Form {
                     }
                 }
             } else {
-                require_once 'Horde/Array.php';
                 if (Horde_Array::getArrayParts($var->getVarName(), $base, $keys)) {
                     if (!isset($info[$base])) {
                         $info[$base] = array();

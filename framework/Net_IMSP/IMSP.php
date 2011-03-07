@@ -1,7 +1,4 @@
 <?php
-
-include_once 'Log.php';
-
 // Constant Definitions
 define('IMSP_OCTET_COUNT', "/({)([0-9]{1,})(\}$)/");
 define('IMSP_MUST_USE_LITERAL', "/[\x80-\xFF\\r\\n\"\\\\]/");

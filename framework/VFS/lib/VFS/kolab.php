@@ -1,8 +1,4 @@
 <?php
-
-/** We need the Kolab Storage library for accessing the server. */
-require_once 'Horde/Kolab/Storage/List.php';
-
 /**
  * VFS implementation for a Kolab IMAP server.
  *

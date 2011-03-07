@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/Form.php';
-
 /**
  * @package Horde_Form
  */

@@ -73,7 +73,6 @@ class Horde_Service_Vimeo {
 
         $driver = basename($driver);
 
-        include_once dirname(__FILE__) . '/Vimeo/' . $driver . '.php';
         $class = 'Horde_Service_Vimeo_' . $driver;
         if (class_exists($class)) {
             return new $class($params['http_client'], $params);

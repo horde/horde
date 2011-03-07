@@ -2540,7 +2540,7 @@ class File_PDF {
         }
 
         /* If HTTP_Download is not available return a PEAR_Error. */
-        if (!include_once 'HTTP/Download.php') {
+        if (!class_exists('HTTP_Download')) {
             return $this->raiseError('Missing PEAR package HTTP_Download');
         }
 

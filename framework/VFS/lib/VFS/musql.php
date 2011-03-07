@@ -1,7 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/sql.php';
-
 /**
  * Multi User VFS implementation for PHP's PEAR database
  * abstraction layer.

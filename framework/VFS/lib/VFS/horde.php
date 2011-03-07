@@ -134,8 +134,6 @@ class VFS_horde extends VFS
             throw new VFS_Exception('Unknown error');
         }
 
-        @include_once 'Horde/Mime/Magic.php';
-
         foreach ($items as $sub_path => $i) {
             if ($dironly && !$i['browseable']) {
                 continue;

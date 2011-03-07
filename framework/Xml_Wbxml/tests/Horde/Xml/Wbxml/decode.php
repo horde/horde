@@ -17,7 +17,6 @@ if (!is_executable('/usr/bin/wbxml2xml')) {
     die("/usr/bin/wbxml2xml is required for comparison tests.\n");
 }
 
-include_once dirname(__FILE__) . '/../WBXML/Decoder.php';
 $decoder = new Horde_Xml_Wbxml_Decoder();
 
 $files = array();

@@ -523,7 +523,6 @@ class Horde_DataTree_Sql extends Horde_DataTree {
                  * attribute rows. */
                 $attributes = true;
             } else {
-                require_once 'Horde/Serialize.php';
                 $ser = Horde_Serialize::UTF7_BASIC;
                 $data = Horde_Serialize::serialize($object->getData(), $ser, 'UTF-8');
             }
@@ -995,8 +994,6 @@ class Horde_DataTree_Sql extends Horde_DataTree {
      */
     function getData($cid)
     {
-        require_once 'Horde/Serialize.php';
-
         if (is_array($cid)) {
             if (!count($cid)) {
                 return array();
@@ -1685,8 +1682,6 @@ class Horde_DataTree_Sql extends Horde_DataTree {
      */
     function _buildAttributeQuery($glue, $criteria, $join = false)
     {
-        require_once 'Horde/SQL.php';
-
         // Initialize the clause that we're building.
         $clause = '';
         $values = array();
@@ -1829,7 +1824,6 @@ class Horde_DataTree_Sql extends Horde_DataTree {
             return is_a($result, 'PEAR_Error') ? $result : true;
         } else {
             /* Write to the datatree_data field. */
-            require_once 'Horde/Serialize.php';
             $ser = Horde_Serialize::UTF7_BASIC;
             $data = Horde_Serialize::serialize($object->getData(), $ser, 'UTF-8');
 

@@ -1110,7 +1110,6 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             $this->_img['img']['type'] = $this->getUploadedFileType($varname . '[new]');
 
             /* Get the other parts of the upload. */
-            require_once 'Horde/Array.php';
             Horde_Array::getArrayParts($varname . '[new]', $base, $keys);
 
             /* Get the temporary file name. */
@@ -2479,7 +2478,6 @@ class Horde_Form_Type_date extends Horde_Form_Type {
                           'year'  => date('Y', $date));
         }
 
-        require_once 'Date/Calc.php';
         $diffdays = Date_Calc::dateDiff((int)$date['day'],
                                         (int)$date['month'],
                                         (int)$date['year'],
@@ -2611,8 +2609,6 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type {
      */
     function getTimeOb($time_in)
     {
-        require_once 'Horde/Date.php';
-
         if (is_array($time_in)) {
             if (!$this->emptyTimeArray($time_in)) {
                 $time_in = sprintf('1970-01-01 %02d:%02d:%02d', $time_in['hour'], $time_in['minute'], $this->_show_seconds ? $time_in['second'] : 0);
@@ -2860,8 +2856,6 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
      */
     function getDateOb($date_in)
     {
-        require_once 'Horde/Date.php';
-
         if (is_array($date_in)) {
             /* If passed an array change it to the ISO format. */
             if ($this->emptyDateArray($date_in) == 0) {

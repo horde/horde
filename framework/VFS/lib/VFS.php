@@ -1,8 +1,4 @@
 <?php
-
-require_once 'Log.php';
-require_once dirname(__FILE__) . '/VFS/Exception.php';
-
 /**
  * VFS API for abstracted file storage and access.
  *

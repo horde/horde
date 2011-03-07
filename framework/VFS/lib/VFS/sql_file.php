@@ -1,14 +1,5 @@
 <?php
 /**
- * @package VFS
- */
-
-/**
- * VFS_file parent class.
- */
-include_once 'VFS/file.php';
-
-/**
  * VFS:: implementation using PHP's PEAR database abstraction
  * layer and local file system for file storage.
  *

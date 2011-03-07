@@ -86,8 +86,6 @@ class Horde_Form_Action {
         if (!class_exists($class)) {
             if (!empty($app)) {
                 include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Form/Action/' . $action . '.php';
-            } else {
-                include_once 'Horde/Form/Action/' . $action . '.php';
             }
         }
 
