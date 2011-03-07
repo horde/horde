@@ -183,6 +183,9 @@ class Components
     static private function _validateArguments(Components_Config $config)
     {
         $arguments = $config->getArguments();
+        if (!isset($arguments[0])) {
+            throw new Components_Exception('Please specify the path of the PEAR package!');
+        }
         self::_requireDirectory($arguments[0]);
     }
 
