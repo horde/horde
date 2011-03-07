@@ -95,6 +95,18 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testCreate()
+    {
+        $structure = $this->_getStructure();
+        $this->_driver->expects($this->once())
+            ->method('appendMessage');
+        $structure->create(
+            'test',
+            array('uid' => 'A', 'desc' => 'SUMMARY'),
+            array('type' => 'note', 'version' => '1')
+        );
+    }
+
     private function _getNewObject()
     {
         $res = $this->_getStructure()->createObject(
@@ -107,7 +119,8 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getStructure()
     {
-        $parser = new Horde_Kolab_Storage_Data_Parser_Structure($this->getMock('Horde_Kolab_Storage_Driver'));
+        $this->_driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $parser = new Horde_Kolab_Storage_Data_Parser_Structure($this->_driver);
         $format = new Horde_Kolab_Storage_Data_Format_Mime(
             new Horde_Kolab_Storage_Factory(), $parser
         );

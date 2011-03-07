@@ -170,6 +170,29 @@ implements  Horde_Kolab_Storage_Data_Parser
     }
 
     /**
+     * Create a new object in the specified folder.
+     *
+     * @param string $folder  The folder to use.
+     * @param array  $object  The object.
+     * @param array  $options Additional options for storing.
+     * <pre>
+     *  'type'    - Required argument specifying the object type that should be
+     *              stored.
+     *  'version' - Optional argument specifying the version of the object
+     *              format.
+     * </pre>
+     *
+     * @return NULL
+     */
+    public function create($folder, $object, $options = array())
+    {
+        $this->_driver->appendMessage(
+            $folder,
+            $this->createObject($object, $options)
+        );
+    }
+
+    /**
      * Create a new MIME representation for the object.
      *
      * @param array  $object  The object.
