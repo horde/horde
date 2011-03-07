@@ -65,6 +65,14 @@ extends Components_Module_Base
                     'help'   => 'PEAR server target directory on the remote machine.'
                 )
             ),
+            new Horde_Argv_Option(
+                '-G',
+                '--nogit',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Avoid any git operations during the release.'
+                )
+            ),
         );
     }
 

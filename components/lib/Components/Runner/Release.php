@@ -72,13 +72,14 @@ class Components_Runner_Release
         $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
 
+        $package_xml = $arguments[0] . '/package.xml';
         if (!isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForDefaultLocation(
-                $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
+                $package_xml
             );
         } else {
             $package = $this->_factory->createPackageForInstallLocation(
-                $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml',
+                $package_xml,
                 $options['pearrc']
             );
         }
@@ -86,6 +87,14 @@ class Components_Runner_Release
         $path = $package->generateRelease();
         print system('scp ' . $path . ' ' . $options['releaseserver'] . ':~/');
         print system('ssh '. $options['releaseserver'] . ' "pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
+
+        $release = strtr(basename($path), array('.tgz' => ''));
+
+        if (empty($options['nogit'])) {
+            system('git commit -m "Released ' . $release . '." ' . $package_xml);
+            system('git tag -m "Released ' . $release . '." ' . $release);
+        }
+
         unlink($path);
     }
 }
