@@ -301,6 +301,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Horde_Cli_Modular</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Horde_Role</name>
     <channel>pear.horde.org</channel>
    </package>
