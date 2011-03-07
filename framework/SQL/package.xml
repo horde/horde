@@ -44,8 +44,8 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="SQL/Keywords.php" name="SQL/Keywords.php" />
-   <install as="SQL.php" name="SQL.php" />
+  <install as="Horde/SQL/Keywords.php" name="SQL/Keywords.php" />
+  <install as="Horde/SQL.php" name="SQL.php" />
   </filelist>
  </phprelease>
  <changelog>
