@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>imp</name>
  <channel>pear.horde.org</channel>
  <summary>A web based webmail system</summary>
@@ -23,10 +23,10 @@ IMP offers most of the features users have come to expect from their conventiona
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-28</date>
- <time>23:23:45</time>
+ <date>2011-03-07</date>
+ <time>14:13:07</time>
  <version>
-  <release>4.99.1</release>
+  <release>5.0.0alpha1</release>
   <api>5.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@ IMP offers most of the features users have come to expect from their conventiona
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* Initial release.
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -62,7 +62,6 @@ IMP offers most of the features users have come to expect from their conventiona
     <file name="UPGRADING" role="horde" />
    </dir> <!-- /docs -->
    <dir name="js">
-    <file name="accountsprefs.js" role="horde" />
     <file name="acl.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
@@ -306,7 +305,6 @@ IMP offers most of the features users have come to expect from their conventiona
      <file name="ListMessages.php" role="horde" />
      <file name="ShowMessage.php" role="horde" />
     </dir> <!-- /lib/Views -->
-    <file name="Accounts.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -724,7 +722,6 @@ IMP offers most of the features users have come to expect from their conventiona
      <file name="import_key.html" role="horde" />
     </dir> <!-- /templates/pgp -->
     <dir name="prefs">
-     <file name="accounts.html" role="horde" />
      <file name="acl.html" role="horde" />
      <file name="drafts.html" role="horde" />
      <file name="encrypt.html" role="horde" />
@@ -1151,7 +1148,6 @@ IMP offers most of the features users have come to expect from their conventiona
    <install as="imp/docs/RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="imp/docs/RFCS" name="docs/RFCS" />
    <install as="imp/docs/UPGRADING" name="docs/UPGRADING" />
-   <install as="imp/js/accountsprefs.js" name="js/accountsprefs.js" />
    <install as="imp/js/acl.js" name="js/acl.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
@@ -1174,7 +1170,6 @@ IMP offers most of the features users have come to expect from their conventiona
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
-   <install as="imp/lib/Accounts.php" name="lib/Accounts.php" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
@@ -1503,7 +1498,6 @@ IMP offers most of the features users have come to expect from their conventiona
    <install as="imp/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
    <install as="imp/templates/newmsg/alert.html" name="templates/newmsg/alert.html" />
    <install as="imp/templates/pgp/import_key.html" name="templates/pgp/import_key.html" />
-   <install as="imp/templates/prefs/accounts.html" name="templates/prefs/accounts.html" />
    <install as="imp/templates/prefs/acl.html" name="templates/prefs/acl.html" />
    <install as="imp/templates/prefs/drafts.html" name="templates/prefs/drafts.html" />
    <install as="imp/templates/prefs/encrypt.html" name="templates/prefs/encrypt.html" />
@@ -1795,32 +1789,17 @@ IMP offers most of the features users have come to expect from their conventiona
  <changelog>
   <release>
    <version>
-    <release>5.0.0</release>
-    <api>5.0.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2011-02-14</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
-   <notes>
-* Initial release.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>4.99.1</release>
+    <release>5.0.0alpha1</release>
     <api>5.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-02-28</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* Initial release.
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

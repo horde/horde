@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>horde</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Application Framework</summary>
@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-14</date>
- <time>14:34:00</time>
+ <date>2011-03-07</date>
+ <time>14:14:16</time>
  <version>
-  <release>3.99.1</release>
+  <release>4.0.0alpha1</release>
   <api>4.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Initial release.
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -84,6 +84,7 @@
     <file name="active_sessions" role="horde" />
     <file name="alarms" role="horde" />
     <file name="check_logger" role="horde" />
+    <file name="clear_cache" role="script" />
     <file name="crond" role="horde" />
     <file name="db_migrate" role="horde" />
     <file name="memcache_stats" role="horde" />
@@ -1559,6 +1560,9 @@
        <file name="rev-plusonly.png" role="horde" />
        <file name="rev-plustop.png" role="horde" />
       </dir> <!-- /themes/default/graphics/tree -->
+      <dir name="uploader">
+       <file name="backgrounds.gif" role="horde" />
+      </dir> <!-- /themes/default/graphics/uploader -->
       <file name="about.png" role="horde" />
       <file name="add_group.png" role="horde" />
       <file name="add_perm.png" role="horde" />
@@ -2134,6 +2138,7 @@
    <install as="bin/active_sessions" name="bin/active_sessions" />
    <install as="bin/alarms" name="bin/alarms" />
    <install as="bin/check_logger" name="bin/check_logger" />
+   <install as="clear_cache" name="bin/clear_cache" />
    <install as="bin/crond" name="bin/crond" />
    <install as="bin/db_migrate" name="bin/db_migrate" />
    <install as="bin/memcache_stats" name="bin/memcache_stats" />
@@ -3356,6 +3361,7 @@
    <install as="themes/default/graphics/tree/rev-plusbottom.png" name="themes/default/graphics/tree/rev-plusbottom.png" />
    <install as="themes/default/graphics/tree/rev-plusonly.png" name="themes/default/graphics/tree/rev-plusonly.png" />
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
+   <install as="themes/default/graphics/uploader/backgrounds.gif" name="themes/default/graphics/uploader/backgrounds.gif" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
@@ -3666,17 +3672,17 @@
  <changelog>
   <release>
    <version>
-    <release>4.0.0</release>
-    <api>4.0.0</api>
+    <release>4.0.0alpha1</release>
+    <api>4.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-02-14</date>
+   <date>2011-03-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Initial package.xml.
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

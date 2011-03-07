@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>mnemo</name>
  <channel>pear.horde.org</channel>
  <summary>A web based notes manager</summary>
- <description>Mnemo is the Horde notes and memos application.  It lets users keep free-text notes and other bits of information which doesn't fit as a contact, a todo item, an event, etc.</description>
+ <description>Mnemo is the Horde notes and memos application.  It lets users keep free-text notes and other bits of information which doesn&apos;t fit as a contact, a todo item, an event, etc.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-14</date>
- <time>15:01:31</time>
+ <date>2011-03-07</date>
+ <time>14:09:02</time>
  <version>
-  <release>2.99.1</release>
+  <release>3.0.0alpha1</release>
   <api>3.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
-* Initial release.
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -56,7 +56,7 @@
      <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Driver">
-     <file name="Kolab.sql" role="data" />
+     <file name="Kolab.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
@@ -67,6 +67,19 @@
      <file name="DeleteNotepad.php" role="horde" />
      <file name="EditNotepad.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="tests">
+     <dir name="Mnemo">
+      <dir name="Unit">
+       <dir name="Factory">
+        <file name="DriverTest.php" role="horde" />
+       </dir> <!-- /lib/tests/Mnemo/Unit/Factory -->
+      </dir> <!-- /lib/tests/Mnemo/Unit -->
+      <file name="AllTests.php" role="horde" />
+      <file name="Autoload.php" role="horde" />
+      <file name="phpunit.xml" role="data" />
+      <file name="TestCase.php" role="horde" />
+     </dir> <!-- /lib/tests/Mnemo -->
+    </dir> <!-- /lib/tests -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -415,12 +428,17 @@
    <install as="mnemo/lib/Ajax/Imple/EditNote.php" name="lib/Ajax/Imple/EditNote.php" />
    <install as="mnemo/lib/Block/Note.php" name="lib/Block/Note.php" />
    <install as="mnemo/lib/Block/Summary.php" name="lib/Block/Summary.php" />
-   <install as="Driver/Kolab.sql" name="lib/Driver/Kolab.sql" />
+   <install as="mnemo/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="mnemo/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="mnemo/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
    <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
    <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
+   <install as="mnemo/lib/tests/Mnemo/AllTests.php" name="lib/tests/Mnemo/AllTests.php" />
+   <install as="mnemo/lib/tests/Mnemo/Autoload.php" name="lib/tests/Mnemo/Autoload.php" />
+   <install as="tests/Mnemo/phpunit.xml" name="lib/tests/Mnemo/phpunit.xml" />
+   <install as="mnemo/lib/tests/Mnemo/TestCase.php" name="lib/tests/Mnemo/TestCase.php" />
+   <install as="mnemo/lib/tests/Mnemo/Unit/Factory/DriverTest.php" name="lib/tests/Mnemo/Unit/Factory/DriverTest.php" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.po" name="locale/bg/LC_MESSAGES/mnemo.po" />
@@ -566,17 +584,17 @@
  <changelog>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>3.0.0alpha1</release>
+    <api>3.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-02-14</date>
-   <license uri="REPLACE">REPLACE</license>
+   <date>2011-03-07</date>
+   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
-* Initial release.
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>
