@@ -44,25 +44,4 @@ extends Components_StoryTestCase
             ->when('calling the package with the help option')
             ->then('the help will contain the option', '-r,\s*--release');
     }
-
-    /**
-     * @scenario
-     */
-    public function testReleaseGeneration()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the release option and a path to a component')
-            ->then('a package release will be generated in the current directory');
-    }
-
-    /**
-     * @scenario
-     */
-    public function testErrorHandling()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the release option and an invalid path')
-            ->then('the output should indicate an invalid package.xml')
-            ->and('indicate the specific problem of the package.xml');
-    }
 }
