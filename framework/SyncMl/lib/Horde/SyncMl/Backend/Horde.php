@@ -20,6 +20,13 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     protected $_db;
 
     /**
+     * The session ID used in the Horde session.
+     *
+     * @var string
+     */
+    protected $_sessionId;
+
+    /**
      * Constructor.
      *
      * Initializes the logger.
@@ -58,15 +65,16 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      *                              Horde_SyncMl_Backend::MODE_* constants.
      */
     public function sessionStart($syncDeviceID, $sessionId,
-                          $backendMode = Horde_SyncMl_Backend::MODE_SERVER)
+                                 $backendMode = Horde_SyncMl_Backend::MODE_SERVER)
     {
         $this->_backendMode = $backendMode;
         $this->_syncDeviceID = $syncDeviceID;
+        $this->_sessionId = md5($syncDeviceID . $sessionId);
 
         /* Only the server needs to start a session. */
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
             /* Reload the Horde SessionHandler if necessary. */
-            $GLOBALS['session']->setup(true, null, md5($syncDeviceID . $sessionId));
+            $GLOBALS['session']->setup(true, null, $this->_sessionId);
             $this->state = $GLOBALS['session']->get('horde', 'syncml');
         }
     }
@@ -469,10 +477,18 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     protected function _checkAuthentication($username, $password)
     {
-        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
-        return $auth->authenticate($username, array('password' => $password))
+        $auth = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Auth')
+            ->create()
+            ->authenticate($username, array('password' => $password))
             ? $GLOBALS['registry']->getAuth()
             : false;
+
+        /* Horde is regenerating the session id at login, but we need to keep
+         * our own, predictable session to not lose state. */
+        session_id($this->_sessionId);
+
+        return $auth;
     }
 
     /**
