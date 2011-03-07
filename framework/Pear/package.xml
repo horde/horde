@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-02</date>
- <time>21:11:58</time>
+ <date>2011-03-07</date>
+ <time>23:08:39</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -35,6 +35,9 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Pear">
+      <dir name="Package">
+       <file name="Xml.php" role="php" />
+      </dir> <!-- /lib/Horde/Pear/Package -->
       <file name="Registry.php" role="php" />
       <file name="Remote.php" role="php" />
       <file name="Rest.php" role="php" />
@@ -44,13 +47,23 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Pear">
+      <dir name="fixture">
+       <dir name="simple">
+        <dir name="lib">
+         <file name="Old.php" role="test" />
+         <file name="Stays.php" role="test" />
+        </dir> <!-- /test/Horde/Pear/fixture/simple/lib -->
+       </dir> <!-- /test/Horde/Pear/fixture/simple -->
+      </dir> <!-- /test/Horde/Pear/fixture -->
       <dir name="Server">
        <file name="conf.php.dist" role="test" />
+       <file name="RegistryTest.php" role="test" />
        <file name="RestTest.php" role="test" />
       </dir> <!-- /test/Horde/Pear/Server -->
       <dir name="Unit">
        <dir name="Package">
         <file name="ContentsTest.php" role="test" />
+        <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Pear/Unit/Package -->
        <file name="RegistryTest.php" role="test" />
        <file name="RemoteTest.php" role="test" />
@@ -81,16 +94,21 @@
    <install as="Horde/Pear/Registry.php" name="lib/Horde/Pear/Registry.php" />
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
    <install as="Horde/Pear/Rest.php" name="lib/Horde/Pear/Rest.php" />
+   <install as="Horde/Pear/Package/Xml.php" name="lib/Horde/Pear/Package/Xml.php" />
    <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
    <install as="Horde/Pear/TestCase.php" name="test/Horde/Pear/TestCase.php" />
+   <install as="Horde/Pear/fixture/simple/lib/Old.php" name="test/Horde/Pear/fixture/simple/lib/Old.php" />
+   <install as="Horde/Pear/fixture/simple/lib/Stays.php" name="test/Horde/Pear/fixture/simple/lib/Stays.php" />
    <install as="Horde/Pear/Server/conf.php.dist" name="test/Horde/Pear/Server/conf.php.dist" />
+   <install as="Horde/Pear/Server/RegistryTest.php" name="test/Horde/Pear/Server/RegistryTest.php" />
    <install as="Horde/Pear/Server/RestTest.php" name="test/Horde/Pear/Server/RestTest.php" />
    <install as="Horde/Pear/Unit/RegistryTest.php" name="test/Horde/Pear/Unit/RegistryTest.php" />
    <install as="Horde/Pear/Unit/RemoteTest.php" name="test/Horde/Pear/Unit/RemoteTest.php" />
    <install as="Horde/Pear/Unit/RestTest.php" name="test/Horde/Pear/Unit/RestTest.php" />
    <install as="Horde/Pear/Unit/Package/ContentsTest.php" name="test/Horde/Pear/Unit/Package/ContentsTest.php" />
+   <install as="Horde/Pear/Unit/Package/XmlTest.php" name="test/Horde/Pear/Unit/Package/XmlTest.php" />
    <install as="COPYING" name="COPYING" />
   </filelist>
  </phprelease>
@@ -104,7 +122,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-02</date>
+   <date>2011-03-07</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * Initial release.
