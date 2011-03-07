@@ -1,3 +1,4 @@
+<?php
 /**
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
