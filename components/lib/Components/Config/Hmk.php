@@ -1,7 +1,7 @@
 <?php
 /**
- * Components_Config_Cli:: class provides central options for the command line
- * configuration of the components tool.
+ * Components_Config_Hmk:: class provides central options for the command line
+ * interface of the hmk tool.
  *
  * PHP version 5
  *
@@ -13,10 +13,10 @@
  */
 
 /**
- * Components_Config_Cli:: class provides central options for the command line
- * configuration of the components tool.
+ * Components_Config_Hmk:: class provides central options for the command line
+ * interface of the hmk tool.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -27,7 +27,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Config_Cli
+class Components_Config_Hmk
 implements Components_Config
 {
     /**
@@ -87,16 +87,6 @@ implements Components_Config
                 array(
                     'action' => 'store_true',
                     'help'   => 'Avoid colors in the output'
-                )
-            )
-        );
-        $parser->addOption(
-            new Horde_Argv_Option(
-                '-t',
-                '--templatedir',
-                array(
-                    'action' => 'store',
-                    'help'   => 'Location of a template directory that contains template definitions (see the data directory of this package to get an impression of which templates are available).'
                 )
             )
         );
