@@ -237,7 +237,7 @@ class IMP_Ui_Mailbox
      */
     public function isDraft($flags = array())
     {
-        return in_array('\\draft', $flags) ||
+        return in_array(Horde_Imap_Client::FLAG_DRAFT, $flags) ||
                !empty($GLOBALS['conf']['user']['allow_resume_all']) ||
                ($this->_mailbox == IMP_Mailbox::getPref('drafts_folder'));
     }

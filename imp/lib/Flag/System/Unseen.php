@@ -57,7 +57,7 @@ class IMP_Flag_System_Unseen extends IMP_Flag_System
      */
     public function match($data)
     {
-        return !in_array('\\seen', $data);
+        return !in_array(Horde_Imap_Client::FLAG_SEEN, $data);
     }
 
 }

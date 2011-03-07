@@ -57,7 +57,7 @@ $unseen_num = $mailbox->vinbox
 
 $query = new Horde_Imap_Client_Search_Query();
 if ($new_mail) {
-    $query->flag('\\seen', false);
+    $query->flag(Horde_Imap_Client::FLAG_SEEN, false);
 }
 $ids = $injector->getInstance('IMP_Search')->runQuery($query, $mailbox, Horde_Imap_Client::SORT_ARRIVAL, 1);
 

@@ -33,7 +33,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
         }
 
         $query = new Horde_Imap_Client_Search_Query();
-        $query->flag('\\seen', false);
+        $query->flag(Horde_Imap_Client::FLAG_SEEN, false);
         $ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, 'INBOX', Horde_Imap_Client::SORT_SEQUENCE, 1);
         $indices = $ids['INBOX'];
 

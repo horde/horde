@@ -88,7 +88,7 @@ class IMP_Ui_Message
         $mdn_flag = $mdn_sent = false;
 
         /* See if we have already processed this message. */
-        /* 1st test: $MDNSent keyword (RFC 3503 [3.1]). */
+        /* 1st test: MDNSent keyword (RFC 3503 [3.1]). */
         try {
             $status = $imp_imap->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array('\\*', $status['permflags']) ||
@@ -144,7 +144,7 @@ class IMP_Ui_Message
             $success = true;
 
             if ($mdn_flag) {
-                $GLOBALS['injector']->getInstance('IMP_Message')->flag(array('$MDNSent'), new IMP_Indices($mailbox, $uid), true);
+                $GLOBALS['injector']->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_MDNSENT), new IMP_Indices($mailbox, $uid), true);
             }
         } catch (Exception $e) {
             $success = false;

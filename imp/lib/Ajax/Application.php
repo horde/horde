@@ -732,7 +732,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->flag = $this->flagEntry($flags, $this->_vars->add, $indices);
 
         list($mbox,) = $indices->getSingle();
-        if (in_array('\\seen', $flags) && ($poll = $this->pollEntry($mbox))) {
+        if (in_array(Horde_Imap_Client::FLAG_SEEN, $flags) && ($poll = $this->pollEntry($mbox))) {
             $result->poll = $poll;
         }
 
@@ -1005,7 +1005,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
 
             /* Add changed flag information. */
-            $result->flag = $this->flagEntry(array('\\seen'), true, $indices);
+            $result->flag = $this->flagEntry(array(Horde_Imap_Client::FLAG_SEEN), true, $indices);
         } catch (Horde_Imap_Client_Exception $e) {
             $result->preview->error = $e->getMessage();
             $result->preview->errortype = 'horde.error';
@@ -1768,13 +1768,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($imp_compose->getMetadata('reply_type')) {
         case 'forward':
-            $result->flag = $this->flagEntry(array('$forwarded'), true, new IMP_Indices($result->mbox, $result->uid));
+            $result->flag = $this->flagEntry(array(Horde_Imap_Client::FLAG_FORWARDED), true, new IMP_Indices($result->mbox, $result->uid));
             break;
 
         case 'reply':
         case 'reply_all':
         case 'reply_list':
-            $result->flag = $this->flagEntry(array('\\answered'), true, new IMP_Indices($result->mbox, $result->uid));
+            $result->flag = $this->flagEntry(array(Horde_Imap_Client::FLAG_ANSWERED), true, new IMP_Indices($result->mbox, $result->uid));
             break;
         }
 
@@ -2098,7 +2098,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if (!$del->remove) {
-            $result->flag = $this->flagEntry(array('\\deleted'), true, $indices);
+            $result->flag = $this->flagEntry(array(Horde_Imap_Client::FLAG_DELETED), true, $indices);
         }
 
         if ($poll = $this->pollEntry($this->_vars->view)) {

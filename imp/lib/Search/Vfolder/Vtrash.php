@@ -30,7 +30,7 @@ class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder_Builtin
         $this->_label = _("Virtual Trash");
 
         $this->add(new IMP_Search_Element_Flag(
-            '\\deleted',
+            Horde_Imap_Client::FLAG_DELETED,
             true
         ));
     }

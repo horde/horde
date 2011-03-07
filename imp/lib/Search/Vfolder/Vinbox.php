@@ -23,11 +23,11 @@ class IMP_Search_Vfolder_Vinbox extends IMP_Search_Vfolder_Builtin
         $this->_label = _("Virtual Inbox");
 
         $this->add(new IMP_Search_Element_Flag(
-            '\\seen',
+            Horde_Imap_Client::FLAG_SEEN,
             false
         ));
         $this->add(new IMP_Search_Element_Flag(
-            '\\deleted',
+            Horde_Imap_Client::FLAG_DELETED,
             false
         ));
     }

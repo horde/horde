@@ -28,7 +28,7 @@ class IMP_Flag_Imap_Draft extends IMP_Flag_Imap
 
     /**
      */
-    protected $_imapflag = '\\draft';
+    protected $_imapflag = Horde_Imap_Client::FLAG_DRAFT;
 
     /**
      */

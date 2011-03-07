@@ -269,13 +269,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts folder."));
         }
 
-        $append_flags = array('\\draft');
+        $append_flags = array(Horde_Imap_Client::FLAG_DRAFT);
         if (!$GLOBALS['prefs']->getValue('unseen_drafts')) {
-            $append_flags[] = '\\seen';
+            $append_flags[] = Horde_Imap_Client::FLAG_SEEN;
         }
 
         /* RFC 3503 [3.4] states that when saving a draft, the client MUST
-         * set the $MDNSent keyword. However, IMP doesn't write MDN headers
+         * set the MDNSent keyword. However, IMP doesn't write MDN headers
          * until send time so no need to set the flag here. */
 
         $old_uid = $this->getMetadata('draft_uid');
@@ -603,17 +603,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             switch ($reply_type) {
             case 'forward':
-                /* Set the '$Forwarded' flag, if possible, in the mailbox.
+                /* Set the Forwarded flag, if possible, in the mailbox.
                  * See RFC 5550 [5.9] */
-                $imp_message->flag(array('$Forwarded'), $reply_uid);
+                $imp_message->flag(array(Horde_Imap_Client::FLAG_FORWARDED), $reply_uid);
                 break;
 
             // 'reply', 'reply_all', 'reply_list'
             default:
                 /* Make sure to set the IMAP reply flag and unset any
                  * 'flagged' flag. */
-                $imp_message->flag(array('\\answered'), $reply_uid);
-                $imp_message->flag(array('\\flagged'), $reply_uid, false);
+                $imp_message->flag(array(Horde_Imap_Client::FLAG_ANSWERED), $reply_uid);
+                $imp_message->flag(array(Horde_Imap_Client::FLAG_FLAGGED), $reply_uid, false);
                 break;
             }
         }
@@ -660,13 +660,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $sent_folder = IMP_Mailbox::get($opts['sent_folder']);
             $sent_folder->create();
 
-            $flags = array('\\seen');
+            $flags = array(Horde_Imap_Client::FLAG_SEEN);
 
-            /* RFC 3503 [3.3] - set $MDNSent flag on sent message. */
+            /* RFC 3503 [3.3] - set MDNSent flag on sent message. */
             if ($prefs->getValue('request_mdn') != 'never') {
                 $mdn = new Horde_Mime_Mdn($headers);
                 if ($mdn->getMdnReturnAddr()) {
-                    $flags[] = array('$MDNSent');
+                    $flags[] = array(Horde_Imap_Client::FLAG_MDNSENT);
                 }
             }
 

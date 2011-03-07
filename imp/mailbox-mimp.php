@@ -197,7 +197,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         : str_replace(' ', '&nbsp;', $threadtree[$ob['uid']]);
 
     /* Generate the target link. */
-    $msg['target'] = in_array('\\draft', $ob['flags'])
+    $msg['target'] = in_array(Horde_Imap_Client::FLAG_DRAFT, $ob['flags'])
         ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => IMP::$mailbox, 'uid' => $ob['uid'], 'bodypart' => 1))
         : IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $ob['uid'], $ob['mailbox']);
 

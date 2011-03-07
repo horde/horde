@@ -25,7 +25,7 @@ class IMP_Flag_Imap_Seen extends IMP_Flag_Imap
 
     /**
      */
-    protected $_imapflag = '\\seen';
+    protected $_imapflag = Horde_Imap_Client::FLAG_SEEN;
 
     /**
      */

@@ -28,7 +28,7 @@ class IMP_Flag_Imap_Deleted extends IMP_Flag_Imap
 
     /**
      */
-    protected $_imapflag = '\\deleted';
+    protected $_imapflag = Horde_Imap_Client::FLAG_DELETED;
 
     /**
      */

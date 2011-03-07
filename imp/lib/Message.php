@@ -256,7 +256,7 @@ class IMP_Message
 
                 /* Delete the messages. */
                 $expunge_now = false;
-                $del_flags = array('\\deleted');
+                $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
 
                 if ($this->_usepop ||
                     !empty($options['nuke']) ||
@@ -268,7 +268,7 @@ class IMP_Message
                     /* If we are using virtual trash, we must mark the message
                      * as seen or else it will appear as an 'unseen' message
                      * for purposes of new message counts. */
-                    $del_flags[] = '\\seen';
+                    $del_flags[] = Horde_Imap_Client::FLAG_SEEN;
                 }
 
                 try {
@@ -316,7 +316,7 @@ class IMP_Message
      */
     public function undelete($indices)
     {
-        return $this->flag(array('\\deleted'), $indices, false);
+        return $this->flag(array(Horde_Imap_Client::FLAG_DELETED), $indices, false);
     }
 
     /**
@@ -572,9 +572,8 @@ class IMP_Message
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
              * appears again in the mailbox list. */
-            if ($mbox->vinbox &&
-                ($pos = array_search('\\seen', $flags))) {
-                unset($flags[$pos]);
+            if ($mbox->vinbox) {
+                $flags = array_values(array_diff($flags, array(Horde_Imap_Client::FLAG_SEEN)));
             }
 
             $new_uid = $imp_imap->append($mbox, array(
@@ -803,7 +802,7 @@ class IMP_Message
                 }
 
                 if (!$trash_folder || ($trash_folder == $mbox)) {
-                    $this->flagAllInMailbox(array('\\deleted'), array($mbox), true);
+                    $this->flagAllInMailbox(array(Horde_Imap_Client::FLAG_DELETED), array($mbox), true);
                     $this->expungeMailbox(array(strval($mbox) => 1));
                 } else {
                     $ret = $imp_imap->search($mbox);

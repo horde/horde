@@ -508,7 +508,7 @@ if (!$prefs->getValue('compose_popup')) {
 }
 
 if (!$readonly) {
-    if (in_array('\\deleted', $flags)) {
+    if (in_array(Horde_Imap_Client::FLAG_DELETED, $flags)) {
         $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'undelete_message'), _("Undelete"), 'widget', '', '', _("Undelete"), true));
     } else {
         $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'delete_message'), _("Delete"), 'widget', '', '', _("_Delete"), true));

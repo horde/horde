@@ -264,7 +264,7 @@ $compose_params = array(
 
 $menu = array();
 if (!$readonly) {
-    $menu[] = in_array('\\deleted', $flags)
+    $menu[] = in_array(Horde_Imap_Client::FLAG_DELETED, $flags)
         ? array(_("Undelete"), $self_link->copy()->add('a', 'u'))
         : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }

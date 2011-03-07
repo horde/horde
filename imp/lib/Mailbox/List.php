@@ -192,7 +192,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                     if (($options['preview'] === 2) ||
                         (($options['preview'] === 1) &&
                          (!$GLOBALS['prefs']->getValue('preview_show_unread') ||
-                          !in_array('\\seen', $v['flags'])))) {
+                          !in_array(Horde_Imap_Client::FLAG_SEEN, $v['flags'])))) {
                         if (empty($preview_info[$k])) {
                             try {
                                 $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $k));
@@ -254,7 +254,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         if ($this->_mailbox->search) {
             if ($this->_mailbox->hideDeletedMsgs()) {
                 $query = new Horde_Imap_Client_Search_Query();
-                $query->flag('\\deleted', false);
+                $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
             }
 
             try {
@@ -275,7 +275,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                 if (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
                     $this->_mailbox->hideDeletedMsgs()) {
                     $query = new Horde_Imap_Client_Search_Query();
-                    $query->flag('\\deleted', false);
+                    $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
                 }
                 try {
                     $res = $GLOBALS['injector']->getInstance('IMP_Search')->imapSearch($this->_mailbox, $query, array('sort' => array($sortpref['by'])));
@@ -351,7 +351,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         if ($this->_mailbox->hideDeletedMsgs()) {
-            $criteria->flag('\\deleted', false);
+            $criteria->flag(Horde_Imap_Client::FLAG_DELETED, false);
         } elseif ($count) {
             try {
                 $status_res = $imp_imap->status($this->_mailbox, $type == 'recent' ? Horde_Imap_Client::STATUS_RECENT : Horde_Imap_Client::STATUS_UNSEEN);
@@ -362,9 +362,9 @@ class IMP_Mailbox_List implements Countable, Serializable
         }
 
         if ($type == 'recent') {
-            $criteria->flag('\\recent', true);
+            $criteria->flag(Horde_Imap_Client::FLAG_RECENT, true);
         } else {
-            $criteria->flag('\\seen', false);
+            $criteria->flag(Horde_Imap_Client::FLAG_SEEN, false);
         }
 
         try {

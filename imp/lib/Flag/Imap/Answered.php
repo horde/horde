@@ -24,7 +24,7 @@ class IMP_Flag_Imap_Answered extends IMP_Flag_Imap
 
     /**
      */
-    protected $_imapflag = '\\answered';
+    protected $_imapflag = Horde_Imap_Client::FLAG_ANSWERED;
 
     /**
      */

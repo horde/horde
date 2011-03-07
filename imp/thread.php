@@ -144,7 +144,7 @@ foreach ($imp_indices as $ob) {
 }
 
 /* Flag messages as seen. */
-$injector->getInstance('IMP_Message')->flag(array('\\seen'), $imp_indices);
+$injector->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_SEEN), $imp_indices);
 
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
