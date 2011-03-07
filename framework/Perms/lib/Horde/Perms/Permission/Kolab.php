@@ -82,7 +82,6 @@ extends Horde_Perms_Permission
         $data = array();
         $acl = new Horde_Perms_Permission_Kolab_AclIterator(
             $this->_storage->getAcl(),
-            $this->_groups,
             $this->_storage->getOwner()
         );
         foreach ($acl as $element) {

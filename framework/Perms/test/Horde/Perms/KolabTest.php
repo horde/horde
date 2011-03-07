@@ -40,7 +40,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $this->storage->expects($this->once())
             ->method('getPermissionId')
             ->will($this->returnValue('test'));
-        $this->groups = $this->getMock('Horde_Group', array(), array(), '', false, false);
+        $this->groups = $this->getMock('Horde_Group_Base', array(), array(), '', false, false);
         $this->perms = new Horde_Perms();
     }
 
@@ -137,17 +137,13 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
 
     public function testImapGroupMapsToHordeGroup()
     {
-        $this->groups->expects($this->once())
-            ->method('getGroupId')
-            ->with('test')
-            ->will($this->returnValue('horde_test'));
         $this->storage->expects($this->once())
             ->method('getAcl')
             ->will($this->returnValue(array('group:test' => 'lrid')));
         $permission = new Horde_Perms_Permission_Kolab(
             $this->storage, $this->groups
         );
-        $this->assertEquals(array('horde_test' => Horde_Perms::ALL), $permission->getGroupPermissions());
+        $this->assertEquals(array('test' => Horde_Perms::ALL), $permission->getGroupPermissions());
     }
 
     public function testShowPermissionResultsInImapListAcl()
@@ -254,7 +250,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
     public function testHordeGroupMapsToImapGroup()
     {
         $this->groups->expects($this->once())
-            ->method('getGroupName')
+            ->method('getName')
             ->with('horde_test')
             ->will($this->returnValue('test'));
         $this->storage->expects($this->exactly(3))

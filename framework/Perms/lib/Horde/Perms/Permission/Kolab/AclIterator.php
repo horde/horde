@@ -38,12 +38,10 @@ implements IteratorAggregate
     /**
      * Constructor.
      *
-     * @param array $acl                The folder ACL as provided by the
-     *                                  driver.
-     * @param Horde_Group_Base $groups  The group handler.
-     * @param string $creator           The ID of the folder creator.
+     * @param array  $acl     The folder ACL as provided by the driver.
+     * @param string $creator The ID of the folder creator.
      */
-    public function __construct(array $acl, Horde_Group_Base $groups, $creator)
+    public function __construct(array $acl, $creator)
     {
         foreach ($acl as $user => $rights) {
             if ($user == $creator) {
@@ -52,7 +50,7 @@ implements IteratorAggregate
                 );
             } else if (substr($user, 0, 6) == 'group:') {
                 $this->_acl[] = new Horde_Perms_Permission_Kolab_Acl_Group(
-                    $rights, substr($user, 6), $groups
+                    $rights, substr($user, 6)
                 );
             } else if ($user == 'anyone' || $user == 'anonymous'){
                 $class = 'Horde_Perms_Permission_Kolab_Acl_' . ucfirst($user);
