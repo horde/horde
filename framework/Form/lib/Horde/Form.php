@@ -1,4 +1,7 @@
 <?php
+
+require_once 'Horde/Form/Type.php';
+
 /**
  * Horde_Form Master Class.
  *
