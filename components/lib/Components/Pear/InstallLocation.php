@@ -476,14 +476,18 @@ class Components_Pear_InstallLocation
      * Add an external dependency based on a package name or package tarball.
      *
      * @param Components_Pear_Dependency $dependency The package dependency.
-     * @param string $package The name of the package of the path of the tarball.
      * @param string $reason  Optional reason for adding the package.
+     * @param array  $options Additional options.
+     * <pre>
+     *  - force (boolean): True if the installation should be forced.
+     * </pre>
      *
      * @return NULL
      */
     public function addPackageFromPackage(
         Components_Pear_Dependency $dependency,
-        $reason = ''
+        $reason = '',
+        $options = array()
     ) {
         $installer = $this->getInstallationHandler();
         $this->_output->ok(
@@ -520,6 +524,7 @@ class Components_Pear_InstallLocation
                     'install',
                     array(
                         'channel' => $dependency->channel(),
+                        'force' => !empty($options['force'])
                     ),
                     array($dependency->name())
                 )
