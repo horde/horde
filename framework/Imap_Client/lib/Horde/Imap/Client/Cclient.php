@@ -470,7 +470,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         if ($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) {
             $search_query = new Horde_Imap_Client_Search_Query();
-            $search_query->flag('\\unseen', false);
+            $search_query->flag('\\seen', false);
             $search = $this->search($mailbox, $search_query, array('results' => array(Horde_Imap_Client::SORT_RESULTS_MIN), 'sequence' => true));
 
             if (is_null($res)) {
