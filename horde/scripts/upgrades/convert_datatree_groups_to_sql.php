@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
 /**
- * A script to migrate groups from the DataTree backend to the new
+ * A script to migrate groups from the Horde_DataTree backend to the new
  * (Horde 3.2+) native SQL Group backend.
  */
 
-die("The DataTree driver for the groups system is gone. This script needs to be upated to work directly on the datatree table.\n");
+die("The Horde_DataTree driver for the groups system is gone. This script needs to be upated to work directly on the datatree table.\n");
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('cli' => true));

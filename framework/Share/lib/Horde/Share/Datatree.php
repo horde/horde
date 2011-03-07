@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Share_datatree:: provides the datatree backend for the horde share
+ * Horde_Share_Datatree provides the datatree backend for the horde share
  * driver.
  *
  * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
@@ -26,9 +26,9 @@ class Horde_Share_Datatree extends Horde_Share_Base
     protected $_shareObject = 'Horde_Share_Object_Datatree';
 
     /**
-     * Pointer to a DataTree instance to manage/store shares
+     * Pointer to a Horde_DataTree instance to manage/store shares
      *
-     * @var DataTree
+     * @var Horde_DataTree
      */
     protected $_datatree;
 
@@ -41,11 +41,11 @@ class Horde_Share_Datatree extends Horde_Share_Base
     {
         // TODO: Remove GLOBAL config access
         if (empty($GLOBALS['conf']['datatree']['driver'])) {
-            throw new Horde_Exception('You must configure a DataTree backend to use Shares.');
+            throw new Horde_Exception('You must configure a Horde_DataTree backend to use Shares.');
         }
 
         $driver = $GLOBALS['conf']['datatree']['driver'];
-        $this->_datatree = &DataTree::singleton(
+        $this->_datatree = &Horde_DataTree::singleton(
             $driver,
             array_merge(Horde::getDriverConfig('datatree', $driver),
                         array('group' => 'horde.shares.' . $this->_app))
@@ -72,7 +72,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
      */
     public function _getShare($name)
     {
-        $datatreeObject = $this->_datatree->getObject($name, 'DataTreeObject_Share');
+        $datatreeObject = $this->_datatree->getObject($name, 'Horde_Share_Object_DataTree_Share');
         if ($datatreeObject instanceof PEAR_Error) {
             throw new Horde_Share_Exception($datatreeObject->getMessage());
         }
@@ -92,7 +92,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
      */
     protected function _getShareById($id)
     {
-        $datatreeObject = $this->_datatree->getObjectById($id, 'DataTreeObject_Share');
+        $datatreeObject = $this->_datatree->getObjectById($id, 'Horde_Share_Object_DataTree_Share');
         if (is_a($datatreeObject, 'PEAR_Error')) {
             throw new Horde_Share_Exception($datatreeObject->getMessage());
         }
@@ -114,7 +114,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
     protected function _getShares(array $ids)
     {
         $shares = array();
-        $objects = $this->_datatree->getObjects($ids, 'DataTreeObject_Share');
+        $objects = $this->_datatree->getObjects($ids, 'Horde_Share_Object_DataTree_Share');
         if (is_a($objects, 'PEAR_Error')) {
             throw new Horde_Share_Exception($objects->getMessage());
         }

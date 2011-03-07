@@ -1,14 +1,5 @@
 <?php
 /**
- * $Horde: trean/lib/Bookmarks.php,v 1.104 2009-12-10 19:24:09 mrubinsk Exp $
- *
- * @package Trean
- */
-
-/** DataTree */
-require_once 'Horde/DataTree.php';
-
-/**
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
@@ -20,9 +11,9 @@ require_once 'Horde/DataTree.php';
 class Trean_Bookmarks
 {
     /**
-     * Pointer to a DataTree instance to manage/store shares
+     * Pointer to a Horde_DataTree instance to manage/store shares
      *
-     * @var DataTree
+     * @var Horde_DataTree
      */
     var $_datatree;
 
@@ -72,11 +63,11 @@ class Trean_Bookmarks
         global $conf, $registry;
 
         if (empty($conf['datatree']['driver'])) {
-            throw new Horde_Exception('You must configure a DataTree backend to use Trean.');
+            throw new Horde_Exception('You must configure a Horde_DataTree backend to use Trean.');
         }
 
         $driver = $conf['datatree']['driver'];
-        $this->_datatree = DataTree::singleton(
+        $this->_datatree = Horde_DataTree::singleton(
             $driver,
             array_merge(Horde::getDriverConfig('datatree', $driver), array('group' => 'horde.shares.trean'))
         );
@@ -653,12 +644,12 @@ class Trean_Bookmarks
 }
 
 /**
- * Extension of the DataTreeObject class for storing bookmark folders.
+ * Extension of the Horde_DataTreeObject class for storing bookmark folders.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Trean
  */
-class DataTreeObject_Folder extends DataTreeObject {
+class DataTreeObject_Folder extends Horde_DataTreeObject {
 
     /**
      * The Trean_Bookmarks object which this share came from - needed
@@ -676,7 +667,7 @@ class DataTreeObject_Folder extends DataTreeObject {
      */
     function DataTreeObject_Folder($id)
     {
-        parent::DataTreeObject($id);
+        parent::__construct($id);
         if (is_null($this->data)) {
             $this->data = array();
         }

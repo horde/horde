@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-07</date>
- <time>01:37:55</time>
+ <time>11:55:38</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -26,14 +26,19 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="DataTree">
-    <file name="null.php" role="php" />
-    <file name="sql.php" role="php" />
-   </dir> <!-- /DataTree -->
    <dir name="docs">
     <file name="find-datatree-attribute-orphans.sql" role="data" />
    </dir> <!-- /docs -->
-   <file name="DataTree.php" role="php" />
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="DataTree">
+      <file name="Null.php" role="php" />
+      <file name="Sql.php" role="php" />
+     </dir> <!-- /lib/Horde/DataTree -->
+     <file name="DataTree.php" role="php" />
+     <file name="DataTreeObject.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -69,10 +74,11 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="DataTree/null.php" name="DataTree/null.php" />
-   <install as="DataTree/sql.php" name="DataTree/sql.php" />
    <install as="docs/find-datatree-attribute-orphans.sql" name="docs/find-datatree-attribute-orphans.sql" />
-   <install as="DataTree.php" name="DataTree.php" />
+   <install as="Horde/DataTree.php" name="lib/Horde/DataTree.php" />
+   <install as="Horde/DataTreeObject.php" name="lib/Horde/DataTreeObject.php" />
+   <install as="Horde/DataTree/Null.php" name="lib/Horde/DataTree/Null.php" />
+   <install as="Horde/DataTree/Sql.php" name="lib/Horde/DataTree/Sql.php" />
   </filelist>
  </phprelease>
  <changelog>

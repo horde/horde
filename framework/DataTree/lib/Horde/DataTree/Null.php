@@ -1,7 +1,7 @@
 <?php
 /**
- * The DataTree_null:: class provides a dummy implementation of the
- * DataTree:: API; no data will last beyond a single page request.
+ * The Horde_DataTree_null class provides a dummy implementation of the
+ * Horde_DataTree API; no data will last beyond a single page request.
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
@@ -10,9 +10,9 @@
  *
  * @author  Stephane Huther <shuther1@free.fr>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_DataTree
+ * @package DataTree
  */
-class DataTree_null extends DataTree {
+class Horde_DataTree_Null extends Horde_DataTree {
 
     /**
      * Cache of attributes for any objects created during this page request.
@@ -30,7 +30,7 @@ class DataTree_null extends DataTree {
 
     /**
      * Load (a subset of) the datatree into the $_data array. Part of the
-     * DataTree API that must be overridden by subclasses.
+     * Horde_DataTree API that must be overridden by subclasses.
      *
      * @param string  $root    Which portion of the tree to load. Defaults to
      *                         all of it.
@@ -75,7 +75,7 @@ class DataTree_null extends DataTree {
      *
      * @param string $name
      *
-     * @return integer DataTree id
+     * @return integer Horde_DataTree id
      */
     function _getId($name)
     {
@@ -87,7 +87,7 @@ class DataTree_null extends DataTree {
      *
      * @param integer $id
      *
-     * @return string DataTree name
+     * @return string Horde_DataTree name
      */
     function _getName($id)
     {
@@ -116,14 +116,14 @@ class DataTree_null extends DataTree {
     }
 
     /**
-     * Add an object. Part of the DataTree API that must be
+     * Add an object. Part of the Horde_DataTree API that must be
      * overridden by subclasses.
      *
-     * @param mixed $fullname  The object to add (string or DataTreeObject).
+     * @param mixed $fullname  The object to add (string or Horde_DataTreeObject).
      */
     function add($object)
     {
-        if (is_a($object, 'DataTreeObject')) {
+        if (is_a($object, 'Horde_DataTreeObject')) {
             $fullname = $object->getName();
             $order = $object->order;
         } else {
@@ -379,7 +379,7 @@ class DataTree_null extends DataTree {
      */
     function updateData($object)
     {
-        if (!is_a($object, 'DataTreeObject')) {
+        if (!is_a($object, 'Horde_DataTreeObject')) {
             return true;
         }
 

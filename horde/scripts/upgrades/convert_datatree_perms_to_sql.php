@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * A script to migrate permissions from the DataTree backend to the
+ * A script to migrate permissions from the Horde_DataTree backend to the
  * new (Horde 3.2+) native SQL Perms backend.
  */
 

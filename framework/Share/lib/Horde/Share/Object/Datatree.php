@@ -1,7 +1,7 @@
 <?php
 /**
  * Extension of the Horde_Share_Object class for storing share information in
- * the DataTree driver.
+ * the Horde_DataTree driver.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
@@ -25,7 +25,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
     /**
      * Constructor.
      *
-     * @param DataTreeObject_Share $datatreeObject  A DataTreeObject_Share
+     * @param Horde_Share_Object_DataTree_Share $datatreeObject  A Horde_Share_Object_DataTree_Share
      *                                              instance.
      */
     public function __construct(Horde_Share_Object_Datatree_Share $datatreeObject)

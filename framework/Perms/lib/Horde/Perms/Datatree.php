@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Perms_Datatree:: class provides a DataTree driver for the Horde
+ * The Horde_Perms_Datatree class provides a Horde_DataTree driver for the Horde
  * permissions system.
  *
  * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
@@ -16,9 +16,9 @@
 class Horde_Perms_Datatree extends Horde_Perms
 {
     /**
-     * Pointer to a DataTree instance to manage the different permissions.
+     * Pointer to a Horde_DataTree instance to manage the different permissions.
      *
-     * @var DataTree
+     * @var Horde_DataTree
      */
     protected $_datatree;
 
@@ -42,7 +42,7 @@ class Horde_Perms_Datatree extends Horde_Perms
      * @param array $params  Configuration parameters (in addition to base
      *                       Horde_Perms parameters):
      * <pre>
-     * 'datatree' - (DataTree) A datatree object. [REQUIRED]
+     * 'datatree' - (Horde_DataTree) A datatree object. [REQUIRED]
      * </pre>
      *
      * @throws Horde_Perms_Exception
@@ -50,7 +50,7 @@ class Horde_Perms_Datatree extends Horde_Perms
     public function __construct($params = array())
     {
         if (empty($params['datatree'])) {
-            throw new Horde_Perms_Exception('You must configure a DataTree backend.');
+            throw new Horde_Perms_Exception('You must configure a Horde_DataTree backend.');
         }
 
         $this->_datatree = $params['datatree'];
@@ -63,7 +63,7 @@ class Horde_Perms_Datatree extends Horde_Perms
      *
      * @param string $name  The permission's name.
      *
-     * @return DataTreeObject_Permissions  A new permissions object.
+     * @return Horde_DataTreeObject_Permissions  A new permissions object.
      */
     public function newPermission($name)
     {

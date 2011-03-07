@@ -1,20 +1,20 @@
 <?php
 /**
- * Extension of the DataTreeObject class for storing Permission information in
- * the DataTree driver. If you want to store specialized Permission
+ * Extension of the Horde_DataTreeObject class for storing Permission information in
+ * the Horde_DataTree driver. If you want to store specialized Permission
  * information, you should extend this class instead of extending
- * DataTreeObject directly.
+ * Horde_DataTreeObject directly.
  *
  * @TODO This class duplicates most of the functionality of the
  * Horde_Permission class. However, because for BC/DataTree reasons it
- * must extend DataTreeObject, we can't remove these methods yet.
+ * must extend Horde_DataTreeObject, we can't remove these methods yet.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @package  Horde_Perms
  */
-class Horde_Perms_Permission_DataTreeObject extends DataTreeObject
+class Horde_Perms_Permission_DataTreeObject extends Horde_DataTreeObject
 {
     /**
      * Cache object.
@@ -34,7 +34,7 @@ class Horde_Perms_Permission_DataTreeObject extends DataTreeObject
      */
     public function __construct($name, $type = 'matrix', $params = null)
     {
-        parent::DataTreeObject($name);
+        parent::__construct($name);
 
         $this->data['type'] = $type;
         if (is_array($params)) {

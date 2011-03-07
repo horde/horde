@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-07</date>
- <time>01:22:20</time>
+ <time>11:58:22</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -26,29 +26,32 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="Form">
-    <dir name="Action">
-     <file name="ConditionalEnable.php" role="php" />
-     <file name="ConditionalSetValue.php" role="php" />
-     <file name="conditional_enable.php" role="php" />
-     <file name="conditional_setvalue.php" role="php" />
-     <file name="reload.php" role="php" />
-     <file name="setcursorpos.php" role="php" />
-     <file name="submit.php" role="php" />
-     <file name="sum_fields.php" role="php" />
-     <file name="updatefield.php" role="php" />
-    </dir> <!-- /Form/Action -->
-    <dir name="Type">
-     <file name="tableset.php" role="php" />
-    </dir> <!-- /Form/Type -->
-    <file name="Action.php" role="php" />
-    <file name="Renderer.php" role="php" />
-    <file name="Translation.php" role="php">
-     <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
-    </file>
-    <file name="Type.php" role="php" />
-    <file name="Variable.php" role="php" />
-   </dir> <!-- /Form -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Form">
+      <dir name="Action">
+       <file name="ConditionalEnable.php" role="php" />
+       <file name="ConditionalSetValue.php" role="php" />
+       <file name="conditional_enable.php" role="php" />
+       <file name="conditional_setvalue.php" role="php" />
+       <file name="reload.php" role="php" />
+       <file name="setcursorpos.php" role="php" />
+       <file name="submit.php" role="php" />
+       <file name="sum_fields.php" role="php" />
+       <file name="updatefield.php" role="php" />
+      </dir> <!-- /lib/Horde/Form/Action -->
+      <dir name="Type">
+       <file name="tableset.php" role="php" />
+      </dir> <!-- /lib/Horde/Form/Type -->
+      <file name="Action.php" role="php" />
+      <file name="Renderer.php" role="php" />
+      <file name="Translation.php" role="php" />
+      <file name="Type.php" role="php" />
+      <file name="Variable.php" role="php" />
+     </dir> <!-- /lib/Horde/Form -->
+     <file name="Form.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ar">
      <dir name="LC_MESSAGES">
@@ -301,7 +304,6 @@
     <file name="Horde_Form_Type_address.phpt" role="data" />
     <file name="Horde_Form_Type_email.phpt" role="data" />
    </dir> <!-- /tests -->
-   <file name="Form.php" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -336,21 +338,22 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Form/Action.php" name="Form/Action.php" />
-   <install as="Form/Renderer.php" name="Form/Renderer.php" />
-   <install as="Form/Translation.php" name="Form/Translation.php" />
-   <install as="Form/Type.php" name="Form/Type.php" />
-   <install as="Form/Variable.php" name="Form/Variable.php" />
-   <install as="Form/Action/ConditionalEnable.php" name="Form/Action/ConditionalEnable.php" />
-   <install as="Form/Action/ConditionalSetValue.php" name="Form/Action/ConditionalSetValue.php" />
-   <install as="Form/Action/conditional_enable.php" name="Form/Action/conditional_enable.php" />
-   <install as="Form/Action/conditional_setvalue.php" name="Form/Action/conditional_setvalue.php" />
-   <install as="Form/Action/reload.php" name="Form/Action/reload.php" />
-   <install as="Form/Action/setcursorpos.php" name="Form/Action/setcursorpos.php" />
-   <install as="Form/Action/submit.php" name="Form/Action/submit.php" />
-   <install as="Form/Action/sum_fields.php" name="Form/Action/sum_fields.php" />
-   <install as="Form/Action/updatefield.php" name="Form/Action/updatefield.php" />
-   <install as="Form/Type/tableset.php" name="Form/Type/tableset.php" />
+   <install as="Horde/Form.php" name="lib/Horde/Form.php" />
+   <install as="Horde/Form/Action.php" name="lib/Horde/Form/Action.php" />
+   <install as="Horde/Form/Renderer.php" name="lib/Horde/Form/Renderer.php" />
+   <install as="Horde/Form/Translation.php" name="lib/Horde/Form/Translation.php" />
+   <install as="Horde/Form/Type.php" name="lib/Horde/Form/Type.php" />
+   <install as="Horde/Form/Variable.php" name="lib/Horde/Form/Variable.php" />
+   <install as="Horde/Form/Action/ConditionalEnable.php" name="lib/Horde/Form/Action/ConditionalEnable.php" />
+   <install as="Horde/Form/Action/ConditionalSetValue.php" name="lib/Horde/Form/Action/ConditionalSetValue.php" />
+   <install as="Horde/Form/Action/conditional_enable.php" name="lib/Horde/Form/Action/conditional_enable.php" />
+   <install as="Horde/Form/Action/conditional_setvalue.php" name="lib/Horde/Form/Action/conditional_setvalue.php" />
+   <install as="Horde/Form/Action/reload.php" name="lib/Horde/Form/Action/reload.php" />
+   <install as="Horde/Form/Action/setcursorpos.php" name="lib/Horde/Form/Action/setcursorpos.php" />
+   <install as="Horde/Form/Action/submit.php" name="lib/Horde/Form/Action/submit.php" />
+   <install as="Horde/Form/Action/sum_fields.php" name="lib/Horde/Form/Action/sum_fields.php" />
+   <install as="Horde/Form/Action/updatefield.php" name="lib/Horde/Form/Action/updatefield.php" />
+   <install as="Horde/Form/Type/tableset.php" name="lib/Horde/Form/Type/tableset.php" />
    <install as="locale/Horde_Form.pot" name="locale/Horde_Form.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Form.po" name="locale/ar/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/bg/LC_MESSAGES/Horde_Form.po" name="locale/bg/LC_MESSAGES/Horde_Form.po" />
@@ -427,7 +430,6 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Form.po" name="locale/zh_TW/LC_MESSAGES/Horde_Form.po" />
    <install as="tests/Horde_Form_Type_address.phpt" name="tests/Horde_Form_Type_address.phpt" />
    <install as="tests/Horde_Form_Type_email.phpt" name="tests/Horde_Form_Type_email.phpt" />
-   <install as="Form.php" name="Form.php" />
   </filelist>
  </phprelease>
  <changelog>

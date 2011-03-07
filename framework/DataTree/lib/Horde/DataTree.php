@@ -24,7 +24,7 @@ define('DATATREE_BUILD_VALUES', 2);
 define('DATATREE_BUILD_VALUES_COUNT', 3);
 
 /**
- * The DataTree:: class provides a common abstracted interface into the
+ * The Horde_DataTree class provides a common abstracted interface into the
  * various backends for the Horde DataTree system.
  *
  * A piece of data is just a title that is saved in the page for the null
@@ -41,9 +41,9 @@ define('DATATREE_BUILD_VALUES_COUNT', 3);
  *
  * @author  Stephane Huther <shuther1@free.fr>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_DataTree
+ * @package DataTree
  */
-class DataTree {
+class Horde_DataTree {
 
     /**
      * Array of all data: indexed by id. The format is:
@@ -83,13 +83,13 @@ class DataTree {
      *                       We always need 'group', a string that defines the
      *                       prefix for each set of hierarchical data.
      */
-    function DataTree($params = array())
+    function __construct($params = array())
     {
         $this->_params = $params;
     }
 
     /**
-     * Returns a parameter of this DataTree instance.
+     * Returns a parameter of this Horde_DataTree instance.
      *
      * @param string $param  The parameter to return.
      *
@@ -110,7 +110,7 @@ class DataTree {
      */
     function remove($object, $force = false)
     {
-        if (is_a($object, 'DataTreeObject')) {
+        if (is_a($object, 'Horde_DataTreeObject')) {
             $object = $object->getName();
         }
 
@@ -136,7 +136,7 @@ class DataTree {
     }
 
     /**
-     * Removes all DataTree objects owned by a certain user.
+     * Removes all Horde_DataTree objects owned by a certain user.
      *
      * @abstract
      *
@@ -271,11 +271,11 @@ class DataTree {
     }
 
     /**
-     * Explicitly set the order for a datatree object.
+     * Explicitly set the order for a Horde_DataTree object.
      *
      * @abstract
      *
-     * @param integer $id     The datatree object id to change.
+     * @param integer $id     The Horde_DataTree object id to change.
      * @param integer $order  The new order.
      *
      * @return TODO
@@ -289,13 +289,13 @@ class DataTree {
      * Dynamically determines the object class.
      *
      * @param array $attributes  The set of attributes that contain the class
-     *                           information. Defaults to DataTreeObject.
+     *                           information. Defaults to Horde_DataTreeObject.
      *
      * @return TODO
      */
     function _defineObjectClass($attributes)
     {
-        $class = 'DataTreeObject';
+        $class = 'Horde_DataTreeObject';
         if (!is_array($attributes)) {
             return $class;
         }
@@ -319,19 +319,19 @@ class DataTree {
     }
 
     /**
-     * Returns a DataTreeObject (or subclass) object of the data in the
+     * Returns a Horde_DataTreeObject (or subclass) object of the data in the
      * object defined by $object.
      *
      * @param string $object  The object to fetch: 'parent:sub-parent:name'.
-     * @param string $class   Subclass of DataTreeObject to use. Defaults to
-     *                        DataTreeObject. Null forces the driver to look
+     * @param string $class   Subclass of Horde_DataTreeObject to use. Defaults to
+     *                        Horde_DataTreeObject. Null forces the driver to look
      *                        into the attributes table to determine the
      *                        subclass to use. If none is found it uses
-     *                        DataTreeObject.
+     *                        Horde_DataTreeObject.
      *
      * @return TODO
      */
-    function &getObject($object, $class = 'DataTreeObject')
+    function &getObject($object, $class = 'Horde_DataTreeObject')
     {
         if (empty($object)) {
             $error = PEAR::raiseError('No object requested.');
@@ -348,19 +348,19 @@ class DataTree {
     }
 
     /**
-     * Returns a DataTreeObject (or subclass) object of the data in the
+     * Returns a Horde_DataTreeObject (or subclass) object of the data in the
      * object with the ID $id.
      *
      * @param integer $id    An object id.
-     * @param string $class  Subclass of DataTreeObject to use. Defaults to
-     *                       DataTreeObject. Null forces the driver to look
+     * @param string $class  Subclass of Horde_DataTreeObject to use. Defaults to
+     *                       Horde_DataTreeObject. Null forces the driver to look
      *                       into the attributes table to determine the
      *                       subclass to use. If none is found it uses
-     *                       DataTreeObject.
+     *                       Horde_DataTreeObject.
      *
      * @return TODO
      */
-    function &getObjectById($id, $class = 'DataTreeObject')
+    function &getObjectById($id, $class = 'Horde_DataTreeObject')
     {
         if (empty($id)) {
             $object = PEAR::raiseError('No id requested.');
@@ -416,20 +416,20 @@ class DataTree {
     }
 
     /**
-     * Returns an array of DataTreeObject (or subclass) objects
+     * Returns an array of Horde_DataTreeObject (or subclass) objects
      * corresponding to the objects in $ids, with the object
      * names as the keys of the array.
      *
      * @param array $ids     An array of object ids.
-     * @param string $class  Subclass of DataTreeObject to use. Defaults to
-     *                       DataTreeObject. Null forces the driver to look
+     * @param string $class  Subclass of Horde_DataTreeObject to use. Defaults to
+     *                       Horde_DataTreeObject. Null forces the driver to look
      *                       into the attributes table to determine the
      *                       subclass to use. If none is found it uses
-     *                       DataTreeObject.
+     *                       Horde_DataTreeObject.
      *
      * @return TODO
      */
-    function &getObjects($ids, $class = 'DataTreeObject')
+    function &getObjects($ids, $class = 'Horde_DataTreeObject')
     {
         $result = $this->_loadById($ids);
         if (is_a($result, 'PEAR_Error')) {
@@ -504,7 +504,7 @@ class DataTree {
 
         /* Set sorting hash */
         if (!is_null($sortby_name)) {
-            $this->_sortHash = DataTree::sortHash($startleaf, $sortby_name, $sortby_key, $direction);
+            $this->_sortHash = Horde_DataTree::sortHash($startleaf, $sortby_name, $sortby_key, $direction);
         }
 
         $this->_load($startleaf, $loadTree, $reload, $sortby_name, $sortby_key, $direction);
@@ -806,7 +806,7 @@ class DataTree {
      */
     function getParent($child)
     {
-        if (is_a($child, 'DataTreeObject')) {
+        if (is_a($child, 'Horde_DataTreeObject')) {
             $child = $child->getName();
         }
         $id = $this->getId($child);
@@ -922,7 +922,7 @@ class DataTree {
      */
     function getNumberOfChildren($parent = DATATREE_ROOT)
     {
-        if (is_a($parent, 'DataTreeObject')) {
+        if (is_a($parent, 'Horde_DataTreeObject')) {
             $parent = $parent->getName();
         }
         $this->_load($parent);
@@ -945,7 +945,7 @@ class DataTree {
             return false;
         }
 
-        if (is_a($object, 'DataTreeObject')) {
+        if (is_a($object, 'Horde_DataTreeObject')) {
             $object = $object->getName();
         } elseif (is_array($object)) {
             $object = implode(':', $object);
@@ -1003,8 +1003,8 @@ class DataTree {
     function getId($name)
     {
         /* Check if $name is not a string. */
-        if (is_a($name, 'DataTreeObject')) {
-            /* DataTreeObject, get the string name. */
+        if (is_a($name, 'Horde_DataTreeObject')) {
+            /* Horde_DataTreeObject, get the string name. */
             $name = $name->getName();
         } elseif (is_array($name)) {
             /* Path array, implode to get the string name. */
@@ -1038,7 +1038,7 @@ class DataTree {
      */
     function getOrder($child)
     {
-        if (is_a($child, 'DataTreeObject')) {
+        if (is_a($child, 'Horde_DataTreeObject')) {
             $child = $child->getName();
         }
         $id = $this->getId($child);
@@ -1115,7 +1115,7 @@ class DataTree {
      * @abstract
      *
      * @param mixed $object        The object to add (string or
-     *                             DataTreeObject).
+     *                             Horde_DataTreeObject).
      * @param boolean $id_as_name  True or false to indicate if object ID is to
      *                             be used as object name. Used in situations
      *                             where there is no available unique input for
@@ -1252,7 +1252,7 @@ class DataTree {
      *
      * @abstract
      *
-     * @param DataTree $object  A DataTree object.
+     * @param Horde_DataTree $object  A Horde_DataTree object.
      *
      * @return TODO
      */
@@ -1309,9 +1309,9 @@ class DataTree {
     }
 
     /**
-     * Attempts to return a concrete DataTree instance based on $driver.
+     * Attempts to return a concrete Horde_DataTree instance based on $driver.
      *
-     * @param mixed $driver  The type of concrete DataTree subclass to return.
+     * @param mixed $driver  The type of concrete Horde_DataTree subclass to return.
      *                       This is based on the storage driver ($driver). The
      *                       code is dynamically included. If $driver is an array,
      *                       then we will look in $driver[0]/lib/DataTree/ for
@@ -1321,29 +1321,27 @@ class DataTree {
      *                       Here, we need 'group' = a string that defines
      *                       top-level groups of objects.
      *
-     * @return DataTree  The newly created concrete DataTree instance, or false
+     * @return Horde_DataTree  The newly created concrete Horde_DataTree instance, or false
      *                   on an error.
      */
     function &factory($driver, $params = null)
     {
-        $driver = basename($driver);
+        $driver = Horde_String::ucfirst(basename($driver));
 
         if (is_null($params)) {
             $params = Horde::getDriverConfig('datatree', $driver);
         }
 
         if (empty($driver)) {
-            $driver = 'null';
+            $driver = 'Null';
         }
 
-        include_once 'Horde/DataTree/' . $driver . '.php';
-        $class = 'DataTree_' . $driver;
+        $class = 'Horde_DataTree_' . $driver;
         if (class_exists($class)) {
             $dt = new $class($params);
             $result = $dt->_init();
             if (is_a($result, 'PEAR_Error')) {
-                include_once 'Horde/DataTree/null.php';
-                $dt = new DataTree_null($params);
+                $dt = new Horde_DataTree_Null($params);
             }
         } else {
             $dt = PEAR::raiseError('Class definition of ' . $class . ' not found.');
@@ -1353,18 +1351,18 @@ class DataTree {
     }
 
     /**
-     * Attempts to return a reference to a concrete DataTree instance based on
+     * Attempts to return a reference to a concrete Horde_DataTree instance based on
      * $driver.
      *
-     * It will only create a new instance if no DataTree instance with the same
+     * It will only create a new instance if no Horde_DataTree instance with the same
      * parameters currently exists.
      *
-     * This should be used if multiple DataTree sources (and, thus, multiple
-     * DataTree instances) are required.
+     * This should be used if multiple Horde_DataTree sources (and, thus, multiple
+     * Horde_DataTree instances) are required.
      *
-     * This method must be invoked as: $var = &DataTree::singleton();
+     * This method must be invoked as: $var = &Horde_DataTree::singleton();
      *
-     * @param mixed $driver  Type of concrete DataTree subclass to return,
+     * @param mixed $driver  Type of concrete Horde_DataTree subclass to return,
      *                       based on storage driver ($driver). The code is
      *                       dynamically included. If $driver is an array, then
      *                       look in $driver[0]/lib/DataTree/ for subclass
@@ -1372,7 +1370,7 @@ class DataTree {
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return DataTree  The concrete DataTree reference, or false on an error.
+     * @return Horde_DataTree  The concrete Horde_DataTree reference, or false on an error.
      */
     function &singleton($driver, $params = null)
     {
@@ -1384,243 +1382,10 @@ class DataTree {
 
         $signature = serialize(array($driver, $params));
         if (!isset($instances[$signature])) {
-            $instances[$signature] = &DataTree::factory($driver, $params);
+            $instances[$signature] = &Horde_DataTree::factory($driver, $params);
         }
 
         return $instances[$signature];
-    }
-
-}
-
-/**
- * Class that can be extended to save arbitrary information as part of a stored
- * object.
- *
- * @author  Stephane Huther <shuther1@free.fr>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_DataTree
- */
-class DataTreeObject {
-
-    /**
-     * This object's DataTree instance.
-     *
-     * @var DataTree
-     */
-    var $datatree;
-
-    /**
-     * Key-value hash that will be serialized.
-     *
-     * @see getData()
-     * @var array
-     */
-    var $data = array();
-
-    /**
-     * The unique name of this object.
-     * These names have the same requirements as other object names - they must
-     * be unique, etc.
-     *
-     * @var string
-     */
-    var $name;
-
-    /**
-     * If this object has ordering data, store it here.
-     *
-     * @var integer
-     */
-    var $order = null;
-
-    /**
-     * DataTreeObject constructor.
-     * Just sets the $name parameter.
-     *
-     * @param string $name  The object name.
-     */
-    function DataTreeObject($name)
-    {
-        $this->setName($name);
-    }
-
-    /**
-     * Sets the {@link DataTree} instance used to retrieve this object.
-     *
-     * @param DataTree $datatree  A {@link DataTree} instance.
-     */
-    function setDataTree(&$datatree)
-    {
-        $this->datatree = &$datatree;
-    }
-
-    /**
-     * Gets the name of this object.
-     *
-     * @return string The object name.
-     */
-    function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Sets the name of this object.
-     *
-     * NOTE: Use with caution. This may throw out of sync the cached datatree
-     * tables if not used properly.
-     *
-     * @param string $name  The name to set this object's name to.
-     */
-    function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Gets the short name of this object.
-     * For display purposes only.
-     *
-     * @return string  The object's short name.
-     */
-    function getShortName()
-    {
-        return DataTree::getShortName($this->name);
-    }
-
-    /**
-     * Gets the ID of this object.
-     *
-     * @return string  The object's ID.
-     */
-    function getId()
-    {
-        return $this->datatree->getId($this);
-    }
-
-    /**
-     * Gets the data array.
-     *
-     * @return array  The internal data array.
-     */
-    function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * Sets the data array.
-     *
-     * @param array  The data array to store internally.
-     */
-    function setData($data)
-    {
-        $this->data = $data;
-    }
-
-    /**
-     * Sets the order of this object in its object collection.
-     *
-     * @param integer $order
-     */
-    function setOrder($order)
-    {
-        $this->order = $order;
-    }
-
-    /**
-     * Returns this object's parent.
-     *
-     * @param string $class   Subclass of DataTreeObject to use. Defaults to
-     *                        DataTreeObject. Null forces the driver to look
-     *                        into the attributes table to determine the
-     *                        subclass to use. If none is found it uses
-     *                        DataTreeObject.
-     *
-     * @return DataTreeObject  This object's parent
-     */
-    function &getParent($class = 'DataTreeObject')
-    {
-        $id = $this->datatree->getParent($this);
-        if (is_a($id, 'PEAR_Error')) {
-            return $id;
-        }
-        return $this->datatree->getObjectById($id, $class);
-    }
-
-    /**
-     * Returns a child of this object.
-     *
-     * @param string $name         The child's name.
-     * @param boolean $autocreate  If true and no child with the given name
-     *                             exists, one gets created.
-     */
-    function &getChild($name, $autocreate = true)
-    {
-        $name = $this->getShortName() . ':' . $name;
-
-        /* If the child shouldn't get created, we don't check for its
-         * existance to return the "not found" error of
-         * getObject(). */
-        if (!$autocreate || $this->datatree->exists($name)) {
-            $child = &$this->datatree->getObject($name);
-        } else {
-            $child = new DataTreeObject($name);
-            $child->setDataTree($this->datatree);
-            $this->datatree->add($child);
-        }
-
-        return $child;
-    }
-
-    /**
-     * Saves any changes to this object to the backend permanently. New objects
-     * are added instead.
-     *
-     * @return boolean|PEAR_Error  PEAR_Error on failure.
-     */
-    function save()
-    {
-        if ($this->datatree->exists($this)) {
-            return $this->datatree->updateData($this);
-        } else {
-            return $this->datatree->add($this);
-        }
-    }
-
-    /**
-     * Delete this object from the backend permanently.
-     *
-     * @return boolean|PEAR_Error  PEAR_Error on failure.
-     */
-    function delete()
-    {
-        return $this->datatree->remove($this);
-    }
-
-    /**
-     * Gets one of the attributes of the object, or null if it isn't defined.
-     *
-     * @param string $attribute  The attribute to get.
-     *
-     * @return mixed  The value of the attribute, or null.
-     */
-    function get($attribute)
-    {
-        return isset($this->data[$attribute])
-            ? $this->data[$attribute]
-            : null;
-    }
-
-    /**
-     * Sets one of the attributes of the object.
-     *
-     * @param string $attribute  The attribute to set.
-     * @param mixed $value       The value for $attribute.
-     */
-    function set($attribute, $value)
-    {
-        $this->data[$attribute] = $value;
     }
 
 }

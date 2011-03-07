@@ -1,17 +1,14 @@
 <?php
-
-require_once 'Horde/DataTree.php';
-
 /**
- * Extension of the DataTreeObject class for storing Share information in the
- * DataTree driver. If you want to store specialized Share information, you
- * should extend this class instead of extending DataTreeObject directly.
+ * Extension of the Horde_DataTreeObject class for storing Share information in the
+ * Horde_DataTree driver. If you want to store specialized Share information, you
+ * should extend this class instead of extending Horde_DataTreeObject directly.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Share
  */
-class Horde_Share_Object_DataTree_Share extends DataTreeObject
+class Horde_Share_Object_DataTree_Share extends Horde_DataTreeObject
 {
     /**
      * Returns the properties that need to be serialized.

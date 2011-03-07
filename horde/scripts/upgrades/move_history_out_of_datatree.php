@@ -11,8 +11,7 @@ Horde_Registry::appInit('horde', array('cli' => true));
 $cli->writeln($cli->yellow("Beginning migration. This may take a very long time to complete."));
 $cli->writeln();
 
-require_once 'Horde/DataTree.php';
-$datatree = DataTree::factory('sql', array_merge(Horde::getDriverConfig('datatree', 'sql'),
+$datatree = Horde_DataTree::factory('sql', array_merge(Horde::getDriverConfig('datatree', 'sql'),
                                                  array('group' => 'horde.history')));
 $db = $datatree->_db;
 
