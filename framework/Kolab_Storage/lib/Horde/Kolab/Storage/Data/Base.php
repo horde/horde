@@ -164,7 +164,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Create a new object.
      *
-     * @param array  $object        The array that holds the object data.
+     * @param array $object The array that holds the object data.
      *
      * @return NULL
      *
@@ -173,6 +173,15 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function create($object)
     {
+        if (!isset($object['uid'])) {
+            $object['uid'] = $this->generateUid();
+        }
+        $this->_driver->getParser()
+            ->create(
+                $this->_folder->getPath(),
+                $object,
+                array('type' => $this->getType(), 'version' => $this->_version)
+            );
     }
 
     /**
@@ -242,7 +251,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function generateUid()
     {
-        //@todo: implement
+        return strval(new Horde_Support_Uuid());
     }
 
     /**
