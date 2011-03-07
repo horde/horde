@@ -190,7 +190,7 @@ class Horde_SyncMl_XmlOutput
         $uriMeta = $state->uriMeta;
 
         $this->output->startElement($this->_uri, 'Status');
-        $this->outputCmdID();
+        $this->_outputCmdID();
 
         $this->output->startElement($this->_uri, 'MsgRef');
         $chars = $state->messageID;
@@ -283,7 +283,7 @@ class Horde_SyncMl_XmlOutput
         $uriDevInf = $state->uriDevInf;
 
         $this->output->startElement($this->_uri, 'Results');
-        $this->outputCmdID();
+        $this->_outputCmdID();
 
         $this->output->startElement($this->_uri, 'MsgRef');
         $chars = $state->messageID;
@@ -438,7 +438,7 @@ class Horde_SyncMl_XmlOutput
         $uriMeta = $GLOBALS['backend']->state->uriMeta;
 
         $this->output->startElement($this->_uri, 'Alert');
-        $this->outputCmdID();
+        $this->_outputCmdID();
 
         $this->output->startElement($this->_uri, 'Data');
         $chars = $alertCode;
@@ -498,7 +498,7 @@ class Horde_SyncMl_XmlOutput
         $uriMeta = $state->uriMeta;
 
         $this->output->startElement($this->_uri, 'Get');
-        $this->outputCmdID();
+        $this->_outputCmdID();
 
         $this->output->startElement($this->_uri, 'Meta');
         $this->output->startElement($uriMeta, 'Type');
@@ -540,7 +540,7 @@ class Horde_SyncMl_XmlOutput
         $uriMeta = $GLOBALS['backend']->state->uriMeta;
 
         $this->output->startElement($this->_uri, $command);
-        $this->outputCmdID();
+        $this->_outputCmdID();
 
         if (isset($contentType)) {
             $this->output->startElement($this->_uri, 'Meta');
@@ -602,7 +602,7 @@ class Horde_SyncMl_XmlOutput
     public function outputSyncStart($clientLocURI, $serverLocURI, $numberOfChanges = null)
     {
         $this->output->startElement($this->_uri, 'Sync');
-        $this->outputCmdID();
+        $this->_outputCmdID();
 
         $this->output->startElement($this->_uri, 'Target');
         $this->output->startElement($this->_uri, 'LocURI');
