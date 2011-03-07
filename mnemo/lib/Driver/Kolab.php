@@ -152,20 +152,78 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Retrieves all of the notes from $this->_notepad from the database.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @return NULL
+     *
+     * @throws Mnemo_Exception
      */
     function retrieve()
     {
         $this->_memos = array();
 
-        $memos = $this->_wrapper->retrieve();
-        if (is_a($memos, 'PEAR_Error')) {
-            return $memos;
+        $note_list = $this->_store->getObjects();
+        if (empty($note_list)) {
+            return;
         }
 
-        $this->_memos = $memos;
+        foreach ($note_list as $note) {
+            $nuid = $this->_uniqueId($note['uid']);
+            $this->_memos[$nuid] = $this->_buildNote($note);
+        }
+    }
 
-        return true;
+    /**
+     * Append the notepad name to the id. We use this to make ids
+     * unique across folders.
+     *
+     * @param string $id The ID of the note
+     *
+     * @return string  The note id appended with the notepad
+     *                 name.
+     */
+    function _uniqueId($id)
+    {
+        return $id . '@' . $this->_notepad;
+    }
+
+    /**
+     * Build a note based on data array
+     *
+     * @param array  $note     The data for the note
+     * @param string $passphrase A passphrase for decrypting a note
+     *
+     * @return array  The converted data array representing the note
+     */
+    function _buildNote($note, $passphrase = null)
+    {
+        $note['memolist_id'] = $this->_notepad;
+        $note['memo_id'] = $this->_uniqueId($note['uid']);
+
+        $note['category'] = $note['categories'];
+        unset($note['categories']);
+
+        $note['encrypted'] = false;
+        $body = $note['body'];
+
+        if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
+            $note['encrypted'] = true;
+            if (empty($passphrase)) {
+                $passphrase = Mnemo::getPassphrase($note['uid']);
+            }
+            if (empty($passphrase)) {
+                $body = PEAR::raiseError(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
+            } else {
+                $body = $this->_decrypt($body, $passphrase);
+                if (is_a($body, 'PEAR_Error')) {
+                    $body->code = Mnemo::ERR_DECRYPT;
+                } else {
+                    $body = $body->message;
+                    Mnemo::storePassphrase($note['memo_id'], $passphrase);
+                }
+            }
+        }
+        $note['body'] = $body;
+
+        return $note;
     }
 }
 
@@ -414,35 +472,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
 /*         return $this->_kolab->removeAllObjects(); */
 /*     } */
 
-/*     /\** */
-/*      * Retrieves all of the notes from $this->_notepad from the database. */
-/*      * */
-/*      * @return mixed  True on success, PEAR_Error on failure. */
-/*      *\/ */
-/*     function retrieve() */
-/*     { */
-/*         $memos = array(); */
-
-/*         $msg_list = $this->_kolab->listObjects(); */
-/*         if (is_a($msg_list, 'PEAR_Error')) { */
-/*             return $msg_list; */
-/*         } */
-
-/*         if (empty($msg_list)) { */
-/*             return $memos; */
-/*         } */
-
-/*         foreach ($msg_list as $msg) { */
-/*             $xml = &$this->_kolab->loadObject($msg, true); */
-/*             if (is_a($xml, 'PEAR_Error')) { */
-/*                 return $xml; */
-/*             } */
-
-/*             $memos[$this->_kolab->getUID()] = $this->_buildNote($xml); */
-/*         } */
-
-/*         return $memos; */
-/*     } */
 
 /* } */
 
@@ -508,23 +537,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
 /*             $notepad = $GLOBALS['registry']->getAuth(); */
 /*         } */
 /*         return array($id, $notepad); */
-/*     } */
-
-/*     /\** */
-/*      * Append the notepad name to the id. We use this to make ids */
-/*      * unique across folders. */
-/*      * */
-/*      * @param string $id The ID of the note */
-/*      * */
-/*      * @return string  The note id appended with the notepad */
-/*      *                 name. */
-/*      *\/ */
-/*     function _uniqueId($id) */
-/*     { */
-/*         if ($this->_notepad == $GLOBALS['registry']->getAuth()) { */
-/*             return $id; */
-/*         } */
-/*         return $id . '@' . $this->_notepad; */
 /*     } */
 
 /*     /\** */
@@ -703,70 +715,5 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
 /*         return $this->_store->deleteAll(); */
 /*     } */
 
-/*     /\** */
-/*      * Retrieves all of the notes from $this->_notepad from the database. */
-/*      * */
-/*      * @return mixed  True on success, PEAR_Error on failure. */
-/*      *\/ */
-/*     function retrieve() */
-/*     { */
-/*         $memos = array(); */
 
-/*         $note_list = $this->_store->getObjects(); */
-/*         if (is_a($note_list, 'PEAR_Error')) { */
-/*             return $note_list; */
-/*         } */
-
-/*         if (empty($note_list)) { */
-/*             return $memos; */
-/*         } */
-
-/*         foreach ($note_list as $note) { */
-/*             $nuid = $this->_uniqueId($note['uid']); */
-/*             $memos[$nuid] = $this->_buildNote($note); */
-/*         } */
-
-/*         return $memos; */
-/*     } */
-
-/*     /\** */
-/*      * Build a note based on data array */
-/*      * */
-/*      * @param array  $note     The data for the note */
-/*      * @param string $passphrase A passphrase for decrypting a note */
-/*      * */
-/*      * @return array  The converted data array representing the note */
-/*      *\/ */
-/*     function _buildNote($note, $passphrase = null) */
-/*     { */
-/*         $note['memolist_id'] = $this->_notepad; */
-/*         $note['memo_id'] = $this->_uniqueId($note['uid']); */
-
-/*         $note['category'] = $note['categories']; */
-/*         unset($note['categories']); */
-
-/*         $note['encrypted'] = false; */
-/*         $body = $note['body']; */
-
-/*         if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) { */
-/*             $note['encrypted'] = true; */
-/*             if (empty($passphrase)) { */
-/*                 $passphrase = Mnemo::getPassphrase($note['uid']); */
-/*             } */
-/*             if (empty($passphrase)) { */
-/*                 $body = PEAR::raiseError(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE); */
-/*             } else { */
-/*                 $body = $this->_decrypt($body, $passphrase); */
-/*                 if (is_a($body, 'PEAR_Error')) { */
-/*                     $body->code = Mnemo::ERR_DECRYPT; */
-/*                 } else { */
-/*                     $body = $body->message; */
-/*                     Mnemo::storePassphrase($note['memo_id'], $passphrase); */
-/*                 } */
-/*             } */
-/*         } */
-/*         $note['body'] = $body; */
-
-/*         return $note; */
-/*     } */
 /* } */
