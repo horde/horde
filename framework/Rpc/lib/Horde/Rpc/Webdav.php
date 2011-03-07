@@ -896,24 +896,28 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         // default uri is the complete request uri
+        $script_name = preg_replace('/index.php$/', '', $this->_SERVER["SCRIPT_NAME"]);
         $uri = "http";
         if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] === "on") {
           $uri = "https";
         }
-        $uri.= "://".$this->_SERVER["HTTP_HOST"].$this->_SERVER["SCRIPT_NAME"];
+        $uri.= "://".$this->_SERVER["HTTP_HOST"].$script_name;
 
         // WebDAV has no concept of a query string and clients (including cadaver)
         // seem to pass '?' unencoded, so we need to extract the path info out
         // of the request URI ourselves
-        $path_info = substr($this->_SERVER["REQUEST_URI"], strlen(preg_replace('/index.php$/', '', $this->_SERVER["SCRIPT_NAME"])));
+        $path_info = substr($this->_SERVER["REQUEST_URI"], strlen($script_name));
 
         // just in case the path came in empty ...
         if (empty($path_info)) {
             $path_info = "/";
         }
 
-        $this->base_uri = $uri;
-        $this->uri      = $uri . $path_info;
+        $this->uri = $this->base_uri = $uri;
+        if (substr($uri, -1) == '/') {
+            $this->uri = substr($this->uri, 0, -1);
+        }
+        $this->uri .= $path_info;
 
         // set path
         $this->path = $this->_urldecode($path_info);
@@ -1459,7 +1463,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             /* TODO right now the user implementation has to make sure
              collections end in a slash, this should be done in here
              by checking the resource attribute */
-            $href = $this->_mergePaths($this->_SERVER['SCRIPT_NAME'], $path);
+            $href = $this->_mergePaths($this->base_uri, $path);
 
             /* minimal urlencoding is needed for the resource path */
             $xmldata['D:response']['D:href'] = $this->_urlencode($href);
