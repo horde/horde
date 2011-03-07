@@ -47,6 +47,15 @@ interface Components_Config
     public function getOptions();
 
     /**
+     * Unshift an element to the argument list.
+     *
+     * @param string $element The element to unshift.
+     *
+     * @return NULL
+     */
+    public function unshiftArgument($element);
+
+    /**
      * Return the arguments provided by the configuration handlers.
      *
      * @return array An array of arguments.

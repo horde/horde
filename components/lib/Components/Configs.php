@@ -38,6 +38,13 @@ implements Components_Config
     private $_options = array();
 
     /**
+     * Additional arguments.
+     *
+     * @var array
+     */
+    private $_arguments = array();
+
+    /**
      * The different configuration handlers.
      *
      * @var array
@@ -47,7 +54,8 @@ implements Components_Config
     /**
      * Constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_configs = array();
     }
 
@@ -111,13 +119,25 @@ implements Components_Config
     }
 
     /**
+     * Unshift an element to the argument list.
+     *
+     * @param string $element The element to unshift.
+     *
+     * @return NULL
+     */
+    public function unshiftArgument($element)
+    {
+        array_unshift($this->_arguments, $element);
+    }
+
+    /**
      * Return the arguments provided by the configuration handlers.
      *
      * @return array An array of arguments.
      */
     public function getArguments()
     {
-        $arguments = array();
+        $arguments = $this->_arguments;
         foreach ($this->_configs as $config) {
             $config_arguments = $config->getArguments();
             if (!empty($config_arguments)) {

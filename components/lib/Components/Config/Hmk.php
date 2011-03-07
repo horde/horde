@@ -128,6 +128,18 @@ implements Components_Config
     }
 
     /**
+     * Unshift an element to the argument list.
+     *
+     * @param string $element The element to unshift.
+     *
+     * @return NULL
+     */
+    public function unshiftArgument($element)
+    {
+        array_unshift($this->_arguments, $element);
+    }
+
+    /**
      * Return the arguments parsed from the command line.
      *
      * @return array An array of arguments.

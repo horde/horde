@@ -35,7 +35,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Components_Unit_Components_ConfigsTest
 extends Components_TestCase
 {
-    public function testSetConfig()
+    public function testSetOption()
     {
         $configs = new Components_Configs();
         $configs->setOption('key', 'value');
@@ -43,6 +43,17 @@ extends Components_TestCase
         $this->assertEquals(
             'value',
             $options['key']
+        );
+    }
+
+    public function testUnshiftArgument()
+    {
+        $configs = new Components_Configs();
+        $configs->unshiftArgument('test');
+        $arguments = $configs->getArguments();
+        $this->assertEquals(
+            'test',
+            $arguments[0]
         );
     }
 }

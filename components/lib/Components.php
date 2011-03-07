@@ -88,6 +88,15 @@ class Components
             );
             return;
         }
+        $config->unshiftArgument($cwd);
+        try {
+            foreach ($modular->getModules() as $module) {
+                $modular->getProvider()->getModule($module)->handle($config);
+            }
+        } catch (Components_Exception $e) {
+            $dependencies->getOutput()->fail($e);
+            return;
+        }
     }
 
     static private function _prepareModular(
