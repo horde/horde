@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Pear</name>
+ <channel>pear.horde.org</channel>
+ <summary>REPLACE</summary>
+ <description>REPLACE</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-03-02</date>
+ <time>21:11:58</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="REPLACE">REPLACE</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Pear">
+      <file name="Registry.php" role="php" />
+      <file name="Remote.php" role="php" />
+      <file name="Rest.php" role="php" />
+     </dir> <!-- /lib/Horde/Pear -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Pear">
+      <dir name="Server">
+       <file name="conf.php.dist" role="test" />
+       <file name="RestTest.php" role="test" />
+      </dir> <!-- /test/Horde/Pear/Server -->
+      <dir name="Unit">
+       <dir name="Package">
+        <file name="ContentsTest.php" role="test" />
+       </dir> <!-- /test/Horde/Pear/Unit/Package -->
+       <file name="RegistryTest.php" role="test" />
+       <file name="RemoteTest.php" role="test" />
+       <file name="RestTest.php" role="test" />
+      </dir> <!-- /test/Horde/Pear/Unit -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="TestCase.php" role="test" />
+     </dir> <!-- /test/Horde/Pear -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+   <file name="COPYING" role="data" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Horde/Pear/Registry.php" name="lib/Horde/Pear/Registry.php" />
+   <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
+   <install as="Horde/Pear/Rest.php" name="lib/Horde/Pear/Rest.php" />
+   <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
+   <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
+   <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
+   <install as="Horde/Pear/TestCase.php" name="test/Horde/Pear/TestCase.php" />
+   <install as="Horde/Pear/Server/conf.php.dist" name="test/Horde/Pear/Server/conf.php.dist" />
+   <install as="Horde/Pear/Server/RestTest.php" name="test/Horde/Pear/Server/RestTest.php" />
+   <install as="Horde/Pear/Unit/RegistryTest.php" name="test/Horde/Pear/Unit/RegistryTest.php" />
+   <install as="Horde/Pear/Unit/RemoteTest.php" name="test/Horde/Pear/Unit/RemoteTest.php" />
+   <install as="Horde/Pear/Unit/RestTest.php" name="test/Horde/Pear/Unit/RestTest.php" />
+   <install as="Horde/Pear/Unit/Package/ContentsTest.php" name="test/Horde/Pear/Unit/Package/ContentsTest.php" />
+   <install as="COPYING" name="COPYING" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-02</date>
+   <license uri="REPLACE">REPLACE</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
