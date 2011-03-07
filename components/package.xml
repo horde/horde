@@ -42,6 +42,9 @@
     <file name="horde-components" role="script">
      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
     </file>
+    <file name="hmk" role="script">
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="data">
     <dir name="distribute">
@@ -331,6 +334,7 @@
  <phprelease>
   <filelist>
    <install as="horde-components" name="bin/horde-components" />
+   <install as="hmk" name="bin/hmk" />
    <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
    <install as="hudson-component-config.xml.template" name="data/hudson-component-config.xml.template" />
    <install as="hudson-component-phpunit.xml.template" name="data/hudson-component-phpunit.xml.template" />

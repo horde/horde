@@ -41,12 +41,7 @@ class Components
      */
     static public function main(array $parameters = array())
     {
-        if (isset($parameters['dependencies'])
-            && $parameters['dependencies'] instanceOf Components_Dependencies) {
-            $dependencies = $parameters['dependencies'];
-        } else {
-            $dependencies = new Components_Dependencies_Injector();
-        }
+        $dependencies = self::_prepareDependencies($parameters);
         $modular = self::_prepareModular($dependencies, $parameters);
         $parser = $modular->createParser();
         $config = self::_prepareConfig($parser);
@@ -63,6 +58,34 @@ class Components
             }
         } catch (Components_Exception $e) {
             $dependencies->getOutput()->fail($e);
+            return;
+        }
+    }
+
+    /**
+     * The main entry point for the hmk script.
+     *
+     * @param array $parameters A list of named configuration parameters. See main().
+     */
+    static public function hmk(array $parameters = array())
+    {
+        $dependencies = self::_prepareDependencies($parameters);
+        $modular = self::_prepareModular($dependencies, $parameters);
+        $parser = $modular->createParser();
+        $config = self::_prepareConfig($parser);
+        $dependencies->initConfig($config);
+
+        $cwd = getcwd();
+        try {
+            self::_requireDirectory($cwd);
+            self::_requirePackageXml($cwd);
+        } catch (Components_Exception $e) {
+            $dependencies->getOutput()->fail(
+                sprintf(
+                    'You are not in a component directory: %s',
+                    $e->getMessage()
+                )
+            );
             return;
         }
     }
@@ -88,6 +111,23 @@ class Components
         );
     }
 
+    /**
+     * The main entry point for the application.
+     *
+     * @param array $parameters A list of named configuration parameters.
+     *
+     * @return Components_Dependencies The dependency handler.
+     */
+    static private function _prepareDependencies($parameters)
+    {
+        if (isset($parameters['dependencies'])
+            && $parameters['dependencies'] instanceOf Components_Dependencies) {
+            return $parameters['dependencies'];
+        } else {
+            return new Components_Dependencies_Injector();
+        }
+    }
+
     static private function _prepareConfig(Horde_Argv_Parser $parser)
     {
         $config = new Components_Configs();
@@ -102,12 +142,38 @@ class Components
     static private function _validateArguments(Components_Config $config)
     {
         $arguments = $config->getArguments();
-        if (empty($arguments[0])) {
+        self::_requireDirectory($arguments[0]);
+    }
+
+    /**
+     * Checks that the provided directory is a directory.
+     *
+     * @param string $path The path to the directory.
+     *
+     * @return NULL
+     */
+    static private function _requireDirectory($path)
+    {
+        if (empty($path)) {
             throw new Components_Exception('Please specify the path of the PEAR package!');
         }
 
-        if (!is_dir($arguments[0])) {
-            throw new Components_Exception(sprintf('%s specifies no directory!', $arguments[0]));
+        if (!is_dir($path)) {
+            throw new Components_Exception(sprintf('%s specifies no directory!', $path));
+        }
+    }
+
+    /**
+     * Checks that the provided directory is a directory.
+     *
+     * @param string $path The path to the directory.
+     *
+     * @return NULL
+     */
+    static private function _requirePackageXml($path)
+    {
+        if (!file_exists($path . '/package.xml')) {
+            throw new Components_Exception(sprintf('%s contains no package.xml file!', $path));
         }
     }
 }

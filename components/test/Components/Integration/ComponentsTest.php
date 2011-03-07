@@ -44,6 +44,27 @@ extends Components_StoryTestCase
             ->when('calling the package with the help option')
             ->then('the help will be displayed');
     }
+
+    /**
+     * @scenario
+     */
+    public function hmkFailsInDirectoryWithNoPackageXml()
+    {
+        $this->given('the default Components setup')
+            ->when('calling hmk in a directory without package xml')
+            ->then('the call will fail with', 'You are not in a component directory:');
+    }
+
+    /**
+     * @scenario
+     */
+    public function hmkSucceedsInDirectoryWithPackageXml()
+    {
+        $this->given('the default Components setup')
+            ->when('calling hmk in a directory with package xml')
+            ->then('the call will succeed');
+    }
+
     /**
      * @scenario
      */
