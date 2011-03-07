@@ -750,13 +750,13 @@ class IMP_Message
 
             try {
                 $update_list[strval($val[0])] = $imp_imap->expunge($val[0], array(
-                    'ids' => $ids,
+                    'ids' => $val[1],
                     'list' => $msg_list
                 ));
 
                 if (!empty($opts['mailboxob']) &&
                     $opts['mailboxob']->isBuilt()) {
-                    $opts['mailboxob']->removeMsgs($val[1]->all ? true : new IMP_Indices($key, $val[1]));
+                    $opts['mailboxob']->removeMsgs($val[1]->all ? true : new IMP_Indices($val[0], $val[1]));
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
