@@ -7,7 +7,8 @@
 
 var ImpFolderPrefs = {
 
-    // Variables defined by other code: folders, origtext, sentmail
+    // Variables defined by other code: origtext, sentmail
+    folders: {},
 
     newFolderName: function(e)
     {
@@ -20,7 +21,7 @@ var ImpFolderPrefs = {
 
         if (sel.hasClassName('flistCreate') && !newfolder) {
             folder = window.prompt(txt, '');
-            if (!folder.empty()) {
+            if (folder && !folder.empty()) {
                 if (!newfolder) {
                     newfolder = new Element('INPUT', { id: id + '_new', name: id + '_new', type: 'hidden' });
                     f.insert({ after: newfolder });
