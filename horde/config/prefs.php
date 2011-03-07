@@ -13,6 +13,16 @@
  * prefs-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *
+ * Example configuration file that locks a preference, sets a different default
+ * value for another, and enables a preference hook for a third one:
+ *
+ * <code>
+ * <?php
+ * $_prefs['theme']['locked'] = true;
+ * $_prefs['initial_application']['value'] = 'imp';
+ * $_prefs['from_addr']['hook'] = true;
+ * </code>
+ *
  * $prefGroups
  * ===========
  * $prefGroups defines the preferences page in which a preference value will

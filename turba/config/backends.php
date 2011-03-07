@@ -9,6 +9,22 @@
  * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *
+ * Example configuration file that enables the LDAP address book and adds a
+ * composite field to the SQL address book:
+ *
+ * <code>
+ * <?php
+ * $cfgSources['localldap']['disabled'] = false;
+ * $cfgSources['localldap']['server'] = 'localhost';
+ * $cfgSources['localldap']['root'] = 'cn=contacts,dc=horde,dc=org';
+ * $cfgSources['localldap']['bind_dn'] = 'cn=admin,ou=users,dc=horde,dc=org';
+ * $cfgSources['localldap']['bind_password'] = 'somesecret';
+ * $cfgSources['localsql']['map']['homeAddress'] = array(
+ *     'fields' => array('homeStreet', 'homePostalCode',
+ *                       'homeCity', 'homeCountry'),
+ *     'format' => "%s\n%s %s\n%s");
+ * </code>
+ *
  * disabled: (boolean) If true, the config entry is disabled.
  *
  * title:       This is the common (user-visible) name that you want displayed

@@ -7,6 +7,15 @@
  * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *
+ * Example configuration file that enables the Sieve backend in favor of the
+ * IMAP backend:
+ *
+ * <code>
+ * <?php
+ * $backends['imap']['disabled'] = true;
+ * $backends['sieve']['disabled'] = false;
+ * </code>
+ *
  * disabled: (boolean) If true, the config entry is disabled.
  *
  * transport: (string) The Ingo_Transport driver to use to store the script on

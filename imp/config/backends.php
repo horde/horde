@@ -7,6 +7,16 @@
  * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *
+ * Example configuration file that enables the advanced IMAP server in favor of
+ * the simple server and enables 'hordeauth':
+ *
+ * <code>
+ * <?php
+ * $servers['imap']['disabled'] = true;
+ * $servers['advanced']['disabled'] = false;
+ * $servers['advanced']['hordeauth'] = true;
+ * </code>
+ *
  * Properties that can be set for each server:
  *
  * disabled: (boolean) If true, the config entry is disabled.
