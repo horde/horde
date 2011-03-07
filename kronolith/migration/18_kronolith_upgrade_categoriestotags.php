@@ -28,7 +28,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             foreach ($rows as $row) {
                 $GLOBALS['injector']
                     ->getInstance('Kronolith_Tagger')
-                    ->tag($row['event_uid'], Horde_String::convertCharset($row['event_category'], $this->_db->getOption('charset'), 'UTF-8'), $row['event_creator_id']);
+                    ->tag($row['event_uid'], Horde_String::convertCharset($row['event_category'], $this->_connection->getOption('charset'), 'UTF-8'), $row['event_creator_id']);
 
                 // Do we need to tag the event again, but as the share owner?
                 try {
@@ -40,7 +40,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                 if ($cal->get('owner') != $row['event_creator_id']) {
                     $GLOBALS['injector']
                         ->getInstance('Kronolith_Tagger')
-                        ->tag($row['event_uid'], Horde_String::convertCharset($row['event_category'], $this->_db->getOption('charset'), 'UTF-8'), $cal->get('owner'));
+                        ->tag($row['event_uid'], Horde_String::convertCharset($row['event_category'], $this->_connection->getOption('charset'), 'UTF-8'), $cal->get('owner'));
                 }
             }
             $this->announce('Event categories successfully migrated.');
