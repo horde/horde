@@ -68,7 +68,7 @@ class Kronolith
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('sound.js', 'horde');
         Horde::addScriptFile('horde.js', 'horde');
-        Horde::addScriptFile('dragdrop2.js', 'horde');
+        Horde::addScriptFile('dragdrop2.js', 'kronolith');
         Horde::addScriptFile('growler.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
         Horde::addScriptFile('tooltips.js', 'horde');

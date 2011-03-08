@@ -1432,8 +1432,7 @@ div.kronolithEvent {
 }
 #kronolithViewMonth div.kronolithEvent,
 #kronolithViewDay .kronolithViewHead div.kronolithEvent,
-#kronolithViewWeek .kronolithViewHead div.kronolithEvent,
-div.kronolithEventDrag {
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent {
     position: relative;
     width: auto;
     line-height: 15px;
