@@ -27,6 +27,7 @@
    - Update sentinel in CHANGES before and after the release.
    - Update package.xml to bump version and empty notes after the release.
    - Send release announcements if releasing applications.
+   - Update bugs.horde.org.
    - Notify freshmeat.
    - Error handling.
 
