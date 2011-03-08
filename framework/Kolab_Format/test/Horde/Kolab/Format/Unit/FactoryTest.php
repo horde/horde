@@ -92,6 +92,15 @@ extends PHPUnit_Framework_TestCase
     /**
      * @expectedException Horde_Kolab_Format_Exception
      */
+    public function testParserException()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $factory->create('Decorator', 'Memory');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception
+     */
     public function testFactoryException()
     {
         $factory = new Horde_Kolab_Format_Factory();
@@ -134,4 +143,12 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testXmlStream()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Xmlstream_Raw',
+            $factory->create('Xmlstream', 'Raw')
+        );
+    }
 }

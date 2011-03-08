@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Kolab_Format</name>
  <channel>pear.horde.org</channel>
  <extends>Kolab_Format</extends>
@@ -85,6 +85,9 @@
         <file name="Parser.php" role="php" />
         <file name="Task.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Xml -->
+       <dir name="Xmlstream">
+        <file name="Raw.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Format/Xmlstream -->
        <file name="Date.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Factory.php" role="php" />
@@ -92,6 +95,7 @@
         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
        </file>
        <file name="Xml.php" role="php" />
+       <file name="Xmlstream.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Format -->
       <file name="Format.php" role="php">
        <tasks:replace from="@version@" to="version" type="package-info" />
@@ -382,7 +386,6 @@
         </dir> <!-- /test/Horde/Kolab/Format/Integration/fixtures -->
         <file name="ContactTest.php" role="test" />
         <file name="EventTest.php" role="test" />
-        <file name="MimeAttrTest.php" role="test" />
         <file name="PreferencesTest.php" role="test" />
         <file name="RecurrenceTest.php" role="test" />
         <file name="TaskTest.php" role="test" />
@@ -475,6 +478,7 @@
    <install as="Horde/Kolab/Format/Factory.php" name="lib/Horde/Kolab/Format/Factory.php" />
    <install as="Horde/Kolab/Format/Translation.php" name="lib/Horde/Kolab/Format/Translation.php" />
    <install as="Horde/Kolab/Format/Xml.php" name="lib/Horde/Kolab/Format/Xml.php" />
+   <install as="Horde/Kolab/Format/Xmlstream.php" name="lib/Horde/Kolab/Format/Xmlstream.php" />
    <install as="Horde/Kolab/Format/Decorator/Base.php" name="lib/Horde/Kolab/Format/Decorator/Base.php" />
    <install as="Horde/Kolab/Format/Decorator/Memory.php" name="lib/Horde/Kolab/Format/Decorator/Memory.php" />
    <install as="Horde/Kolab/Format/Decorator/Timed.php" name="lib/Horde/Kolab/Format/Decorator/Timed.php" />
@@ -487,6 +491,7 @@
    <install as="Horde/Kolab/Format/Xml/Note.php" name="lib/Horde/Kolab/Format/Xml/Note.php" />
    <install as="Horde/Kolab/Format/Xml/Parser.php" name="lib/Horde/Kolab/Format/Xml/Parser.php" />
    <install as="Horde/Kolab/Format/Xml/Task.php" name="lib/Horde/Kolab/Format/Xml/Task.php" />
+   <install as="Horde/Kolab/Format/Xmlstream/Raw.php" name="lib/Horde/Kolab/Format/Xmlstream/Raw.php" />
    <install as="locale/Horde_Kolab_Format.pot" name="locale/Horde_Kolab_Format.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab_Format.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/ar/LC_MESSAGES/Horde_Kolab_Format.po" />
@@ -581,7 +586,6 @@
    <install as="Horde/Kolab/Format/fixtures/task.xml" name="test/Horde/Kolab/Format/fixtures/task.xml" />
    <install as="Horde/Kolab/Format/Integration/ContactTest.php" name="test/Horde/Kolab/Format/Integration/ContactTest.php" />
    <install as="Horde/Kolab/Format/Integration/EventTest.php" name="test/Horde/Kolab/Format/Integration/EventTest.php" />
-   <install as="Horde/Kolab/Format/Integration/MimeAttrTest.php" name="test/Horde/Kolab/Format/Integration/MimeAttrTest.php" />
    <install as="Horde/Kolab/Format/Integration/PreferencesTest.php" name="test/Horde/Kolab/Format/Integration/PreferencesTest.php" />
    <install as="Horde/Kolab/Format/Integration/RecurrenceTest.php" name="test/Horde/Kolab/Format/Integration/RecurrenceTest.php" />
    <install as="Horde/Kolab/Format/Integration/TaskTest.php" name="test/Horde/Kolab/Format/Integration/TaskTest.php" />
