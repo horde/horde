@@ -59,6 +59,9 @@ class Components_Pear_Package_Filelist_Default
 
         $contents = $this->_package->getContents();
         $files = $contents['dir']['file'];
+        if (isset($files['attribs'])) {
+            $files = array($files);
+        }
         $horde_role = false;
 
         foreach ($files as $file) {
