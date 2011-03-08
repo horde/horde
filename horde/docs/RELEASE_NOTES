@@ -35,7 +35,7 @@ is not supported.
 
 We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.  Installation
+might still change before the release candidates are prepared.
 
 The installation method for Horde 4 has been changed to use the PEAR
 installer. To prepare your local PEAR installation to install software from

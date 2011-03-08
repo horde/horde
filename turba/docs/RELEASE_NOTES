@@ -34,6 +34,15 @@ We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated translations are very welcome, though some strings
 might still change before the release candidates are prepared.
 
+To install Turba, you need to install Horde first. See
+https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
+Horde is installed, you can install Turba with the following command:
+
+  pear install horde/turba-alpha
+
+Then log in to Horde with your adminstrator account to configure the
+application and install the database schema from the configuration interface.
+
 The major changes compared to the Turba version H3 (2.3) are:
 
     * Updated for Horde 4
