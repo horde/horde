@@ -192,7 +192,7 @@
    including who has sent, when, to which recipients. This information might
    be used to configure message limits or create favourite recipients
    lists. Enable this feature only if it doesn't violate privacy rules or laws
-   in your country. What storage driver should we use?">sql
+   in your country. What storage driver should we use?">Sql
     <case name="Null" desc="None"/>
     <case name="Sql" desc="SQL">
      <configsection name="params">
