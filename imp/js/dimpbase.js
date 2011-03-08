@@ -2539,14 +2539,13 @@ var DimpBase = {
 
     flagCallback: function(r)
     {
-        if (!r.flag ||
-            r.flag.mbox != this.folder) {
+        if (!r.flag) {
             return;
         }
 
         var f = r.flag,
             sb = f.uids
-                ? this.viewport.createSelection('uid', DimpCore.parseRangeString(f.uids)[f.mbox])
+                ? this.viewport.getSelection().search({ imapuid: { equal: DimpCore.parseRangeString(f.uids)[f.mbox] }, view: { equal: f.mbox } })
                 : this.viewport.createSelectionBuffer();
 
         if (f.add) {
