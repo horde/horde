@@ -100,7 +100,8 @@ span#kronolithQuickEvent {
 }
 
 span#kronolithNewEvent, #kronolithApplications a {
-    background: url("graphics/menu.png") repeat-x;
+    background-image: url("graphics/menu.png");
+    background-repeat: repeat-x;
 }
 #kronolithBar .kronolithDateChoice, #kronolithApplications a:hover {
     background: url("graphics/menu-active.png") repeat-x;

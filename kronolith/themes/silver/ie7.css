@@ -1,0 +1,24 @@
+span#kronolithNewEvent, #kronolithApplications a {
+    background-image: none;
+}
+#kronolithQuickEvent {
+    background-image: url("graphics/new.png");
+}
+#kronolithNavTasks, #kronolithNavTasks:hover, #kronolithNavTasks.on {
+    background-image: url("graphics/tasks.png");
+}
+#kronolithNavAgenda, #kronolithNavAgenda:hover, #kronolithNavAgenda.on {
+    background-image: url("graphics/agenda.png");
+}
+#kronolithNavDay, #kronolithNavDay:hover, #kronolithNavDay.on {
+    background-image: url("graphics/dayview.png");
+}
+#kronolithNavWeek, #kronolithNavWeek:hover, #kronolithNavWeek.on {
+    background-image: url("graphics/weekview.png");
+}
+#kronolithNavMonth, #kronolithNavMonth:hover, #kronolithNavMonth.on {
+    background-image: url("graphics/monthview.png");
+}
+#kronolithNavYear, #kronolithNavYear:hover, #kronolithNavYear.on {
+    background-image: url("graphics/yearview.png");
+}
