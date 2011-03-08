@@ -25,8 +25,16 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_Exception_ParseError extends Horde_Kolab_Format_Exception
+class Horde_Kolab_Format_Exception_ParseError
+extends Horde_Kolab_Format_Exception
 {
+    /**
+     * The input that failed to parse.
+     *
+     * @var resource
+     */
+    private $_input;
+
     /**
      * Constructor.
      *
@@ -35,15 +43,27 @@ class Horde_Kolab_Format_Exception_ParseError extends Horde_Kolab_Format_Excepti
     public function __construct($input)
     {
         if (strlen((string) $input) > 50) {
-            $output = substr((string) $input, 50) . '... [shortened to 50 characters]';
+            $output = substr((string) $input, 0, 50)
+                . '... [shortened to 50 characters]';
         } else {
             $output = (string) $input;
         }
+        $this->_input = $input;
         parent::__construct(
             sprintf(
                 "Failed parsing Kolab object input data of type %s! Input was:\n%s",
                 gettype($input), $output
             )
         );
+    }
+
+    /**
+     * Return the complete input.
+     *
+     * @return resource The input that failed to parse.
+     */
+    public function getInput()
+    {
+        return $this->_input;
     }
 }
