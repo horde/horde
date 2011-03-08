@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>01:33:44</time>
+ <date>2011-03-08</date>
+ <time>23:44:46</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -26,6 +26,251 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="datejs">
+    <dir name="src">
+     <dir name="globalization">
+      <file name="af-ZA.js" role="data" />
+      <file name="ar-AE.js" role="data" />
+      <file name="ar-BH.js" role="data" />
+      <file name="ar-DZ.js" role="data" />
+      <file name="ar-EG.js" role="data" />
+      <file name="ar-IQ.js" role="data" />
+      <file name="ar-JO.js" role="data" />
+      <file name="ar-KW.js" role="data" />
+      <file name="ar-LB.js" role="data" />
+      <file name="ar-LY.js" role="data" />
+      <file name="ar-MA.js" role="data" />
+      <file name="ar-OM.js" role="data" />
+      <file name="ar-QA.js" role="data" />
+      <file name="ar-SA.js" role="data" />
+      <file name="ar-SY.js" role="data" />
+      <file name="ar-TN.js" role="data" />
+      <file name="ar-YE.js" role="data" />
+      <file name="az-Cyrl-AZ.js" role="data" />
+      <file name="az-Latn-AZ.js" role="data" />
+      <file name="be-BY.js" role="data" />
+      <file name="bg-BG.js" role="data" />
+      <file name="bs-Latn-BA.js" role="data" />
+      <file name="ca-ES.js" role="data" />
+      <file name="cs-CZ.js" role="data" />
+      <file name="cy-GB.js" role="data" />
+      <file name="da-DK.js" role="data" />
+      <file name="de-AT.js" role="data" />
+      <file name="de-CH.js" role="data" />
+      <file name="de-DE.js" role="data" />
+      <file name="de-LI.js" role="data" />
+      <file name="de-LU.js" role="data" />
+      <file name="dv-MV.js" role="data" />
+      <file name="el-GR.js" role="data" />
+      <file name="en-029.js" role="data" />
+      <file name="en-AU.js" role="data" />
+      <file name="en-BZ.js" role="data" />
+      <file name="en-CA.js" role="data" />
+      <file name="en-GB.js" role="data" />
+      <file name="en-IE.js" role="data" />
+      <file name="en-JM.js" role="data" />
+      <file name="en-NZ.js" role="data" />
+      <file name="en-PH.js" role="data" />
+      <file name="en-TT.js" role="data" />
+      <file name="en-US.js" role="data" />
+      <file name="en-ZA.js" role="data" />
+      <file name="en-ZW.js" role="data" />
+      <file name="es-AR.js" role="data" />
+      <file name="es-BO.js" role="data" />
+      <file name="es-CL.js" role="data" />
+      <file name="es-CO.js" role="data" />
+      <file name="es-CR.js" role="data" />
+      <file name="es-DO.js" role="data" />
+      <file name="es-EC.js" role="data" />
+      <file name="es-ES.js" role="data" />
+      <file name="es-GT.js" role="data" />
+      <file name="es-HN.js" role="data" />
+      <file name="es-MX.js" role="data" />
+      <file name="es-NI.js" role="data" />
+      <file name="es-PA.js" role="data" />
+      <file name="es-PE.js" role="data" />
+      <file name="es-PR.js" role="data" />
+      <file name="es-PY.js" role="data" />
+      <file name="es-SV.js" role="data" />
+      <file name="es-UY.js" role="data" />
+      <file name="es-VE.js" role="data" />
+      <file name="et-EE.js" role="data" />
+      <file name="eu-ES.js" role="data" />
+      <file name="fa-IR.js" role="data" />
+      <file name="fi-FI.js" role="data" />
+      <file name="fo-FO.js" role="data" />
+      <file name="fr-BE.js" role="data" />
+      <file name="fr-CA.js" role="data" />
+      <file name="fr-CH.js" role="data" />
+      <file name="fr-FR.js" role="data" />
+      <file name="fr-LU.js" role="data" />
+      <file name="fr-MC.js" role="data" />
+      <file name="gl-ES.js" role="data" />
+      <file name="gu-IN.js" role="data" />
+      <file name="he-IL.js" role="data" />
+      <file name="hi-IN.js" role="data" />
+      <file name="hr-BA.js" role="data" />
+      <file name="hr-HR.js" role="data" />
+      <file name="hu-HU.js" role="data" />
+      <file name="hy-AM.js" role="data" />
+      <file name="id-ID.js" role="data" />
+      <file name="is-IS.js" role="data" />
+      <file name="it-CH.js" role="data" />
+      <file name="it-IT.js" role="data" />
+      <file name="ja-JP.js" role="data" />
+      <file name="ka-GE.js" role="data" />
+      <file name="kk-KZ.js" role="data" />
+      <file name="kn-IN.js" role="data" />
+      <file name="ko-KR.js" role="data" />
+      <file name="kok-IN.js" role="data" />
+      <file name="ky-KG.js" role="data" />
+      <file name="lt-LT.js" role="data" />
+      <file name="lv-LV.js" role="data" />
+      <file name="mi-NZ.js" role="data" />
+      <file name="mk-MK.js" role="data" />
+      <file name="mn-MN.js" role="data" />
+      <file name="mr-IN.js" role="data" />
+      <file name="ms-BN.js" role="data" />
+      <file name="ms-MY.js" role="data" />
+      <file name="mt-MT.js" role="data" />
+      <file name="nb-NO.js" role="data" />
+      <file name="nl-BE.js" role="data" />
+      <file name="nl-NL.js" role="data" />
+      <file name="nn-NO.js" role="data" />
+      <file name="ns-ZA.js" role="data" />
+      <file name="pa-IN.js" role="data" />
+      <file name="pl-PL.js" role="data" />
+      <file name="pt-BR.js" role="data" />
+      <file name="pt-PT.js" role="data" />
+      <file name="quz-BO.js" role="data" />
+      <file name="quz-EC.js" role="data" />
+      <file name="quz-PE.js" role="data" />
+      <file name="ro-RO.js" role="data" />
+      <file name="ru-RU.js" role="data" />
+      <file name="sa-IN.js" role="data" />
+      <file name="se-FI.js" role="data" />
+      <file name="se-NO.js" role="data" />
+      <file name="se-SE.js" role="data" />
+      <file name="sk-SK.js" role="data" />
+      <file name="sl-SI.js" role="data" />
+      <file name="sma-NO.js" role="data" />
+      <file name="sma-SE.js" role="data" />
+      <file name="smj-NO.js" role="data" />
+      <file name="smj-SE.js" role="data" />
+      <file name="smn-FI.js" role="data" />
+      <file name="sms-FI.js" role="data" />
+      <file name="sq-AL.js" role="data" />
+      <file name="sr-Cyrl-BA.js" role="data" />
+      <file name="sr-Cyrl-CS.js" role="data" />
+      <file name="sr-Latn-BA.js" role="data" />
+      <file name="sr-Latn-CS.js" role="data" />
+      <file name="sv-FI.js" role="data" />
+      <file name="sv-SE.js" role="data" />
+      <file name="sw-KE.js" role="data" />
+      <file name="syr-SY.js" role="data" />
+      <file name="ta-IN.js" role="data" />
+      <file name="te-IN.js" role="data" />
+      <file name="th-TH.js" role="data" />
+      <file name="tn-ZA.js" role="data" />
+      <file name="tr-TR.js" role="data" />
+      <file name="tt-RU.js" role="data" />
+      <file name="uk-UA.js" role="data" />
+      <file name="ur-PK.js" role="data" />
+      <file name="uz-Cyrl-UZ.js" role="data" />
+      <file name="uz-Latn-UZ.js" role="data" />
+      <file name="vi-VN.js" role="data" />
+      <file name="xh-ZA.js" role="data" />
+      <file name="zh-CN.js" role="data" />
+      <file name="zh-HK.js" role="data" />
+      <file name="zh-MO.js" role="data" />
+      <file name="zh-SG.js" role="data" />
+      <file name="zh-TW.js" role="data" />
+      <file name="zu-ZA.js" role="data" />
+     </dir> <!-- /datejs/src/globalization -->
+     <file name="core-debug.js" role="data" />
+     <file name="core.js" role="data" />
+     <file name="date.js" role="data" />
+     <file name="license.txt" role="data" />
+     <file name="parser-debug.js" role="data" />
+     <file name="parser.js" role="data" />
+     <file name="sugarpak-debug.js" role="data" />
+     <file name="sugarpak.js" role="data" />
+     <file name="time-debug.js" role="data" />
+     <file name="time.js" role="data" />
+    </dir> <!-- /datejs/src -->
+    <dir name="test">
+     <dir name="core">
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/core -->
+     <dir name="culture_info">
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/culture_info -->
+     <dir name="date">
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/date -->
+     <dir name="date2">
+      <file name="date2.js" role="data" />
+      <file name="index.html" role="doc" />
+     </dir> <!-- /datejs/test/date2 -->
+     <dir name="date_and_time">
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/date_and_time -->
+     <dir name="images">
+      <file name="accept.png" role="data" />
+      <file name="exclamation.png" role="data" />
+      <file name="information.png" role="data" />
+     </dir> <!-- /datejs/test/images -->
+     <dir name="parseExact">
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/parseExact -->
+     <dir name="partial">
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/partial -->
+     <dir name="performance">
+      <file name="bulk.css" role="data" />
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/performance -->
+     <dir name="relative">
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/relative -->
+     <dir name="scripts">
+      <dir name="firebug">
+       <file name="errorIcon.png" role="data" />
+       <file name="firebug.css" role="data" />
+       <file name="firebug.html" role="doc" />
+       <file name="firebug.js" role="data" />
+       <file name="firebugx.js" role="data" />
+       <file name="infoIcon.png" role="data" />
+       <file name="warningIcon.png" role="data" />
+      </dir> <!-- /datejs/test/scripts/firebug -->
+      <file name="cruiser.js" role="data" />
+      <file name="date-functions.js" role="data" />
+      <file name="Date_Ext.js" role="data" />
+      <file name="debugging.js" role="data" />
+      <file name="enumerable.js" role="data" />
+      <file name="jquery-1.2.1.pack.js" role="data" />
+      <file name="specifications.js" role="data" />
+      <file name="specifications_original.js" role="data" />
+     </dir> <!-- /datejs/test/scripts -->
+     <dir name="styles">
+      <file name="chart.css" role="data" />
+      <file name="specifications.css" role="data" />
+     </dir> <!-- /datejs/test/styles -->
+     <dir name="time">
+      <file name="index.html" role="doc" />
+      <file name="index.js" role="data" />
+     </dir> <!-- /datejs/test/time -->
+     <file name="index.html" role="doc" />
+    </dir> <!-- /datejs/test -->
+   </dir> <!-- /datejs -->
    <dir name="doc">
     <file name="TODO.txt" role="doc" />
    </dir> <!-- /doc -->
@@ -121,6 +366,215 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="datejs/src/core-debug.js" name="datejs/src/core-debug.js" />
+   <install as="datejs/src/core.js" name="datejs/src/core.js" />
+   <install as="datejs/src/date.js" name="datejs/src/date.js" />
+   <install as="datejs/src/license.txt" name="datejs/src/license.txt" />
+   <install as="datejs/src/parser-debug.js" name="datejs/src/parser-debug.js" />
+   <install as="datejs/src/parser.js" name="datejs/src/parser.js" />
+   <install as="datejs/src/sugarpak-debug.js" name="datejs/src/sugarpak-debug.js" />
+   <install as="datejs/src/sugarpak.js" name="datejs/src/sugarpak.js" />
+   <install as="datejs/src/time-debug.js" name="datejs/src/time-debug.js" />
+   <install as="datejs/src/time.js" name="datejs/src/time.js" />
+   <install as="datejs/src/globalization/af-ZA.js" name="datejs/src/globalization/af-ZA.js" />
+   <install as="datejs/src/globalization/ar-AE.js" name="datejs/src/globalization/ar-AE.js" />
+   <install as="datejs/src/globalization/ar-BH.js" name="datejs/src/globalization/ar-BH.js" />
+   <install as="datejs/src/globalization/ar-DZ.js" name="datejs/src/globalization/ar-DZ.js" />
+   <install as="datejs/src/globalization/ar-EG.js" name="datejs/src/globalization/ar-EG.js" />
+   <install as="datejs/src/globalization/ar-IQ.js" name="datejs/src/globalization/ar-IQ.js" />
+   <install as="datejs/src/globalization/ar-JO.js" name="datejs/src/globalization/ar-JO.js" />
+   <install as="datejs/src/globalization/ar-KW.js" name="datejs/src/globalization/ar-KW.js" />
+   <install as="datejs/src/globalization/ar-LB.js" name="datejs/src/globalization/ar-LB.js" />
+   <install as="datejs/src/globalization/ar-LY.js" name="datejs/src/globalization/ar-LY.js" />
+   <install as="datejs/src/globalization/ar-MA.js" name="datejs/src/globalization/ar-MA.js" />
+   <install as="datejs/src/globalization/ar-OM.js" name="datejs/src/globalization/ar-OM.js" />
+   <install as="datejs/src/globalization/ar-QA.js" name="datejs/src/globalization/ar-QA.js" />
+   <install as="datejs/src/globalization/ar-SA.js" name="datejs/src/globalization/ar-SA.js" />
+   <install as="datejs/src/globalization/ar-SY.js" name="datejs/src/globalization/ar-SY.js" />
+   <install as="datejs/src/globalization/ar-TN.js" name="datejs/src/globalization/ar-TN.js" />
+   <install as="datejs/src/globalization/ar-YE.js" name="datejs/src/globalization/ar-YE.js" />
+   <install as="datejs/src/globalization/az-Cyrl-AZ.js" name="datejs/src/globalization/az-Cyrl-AZ.js" />
+   <install as="datejs/src/globalization/az-Latn-AZ.js" name="datejs/src/globalization/az-Latn-AZ.js" />
+   <install as="datejs/src/globalization/be-BY.js" name="datejs/src/globalization/be-BY.js" />
+   <install as="datejs/src/globalization/bg-BG.js" name="datejs/src/globalization/bg-BG.js" />
+   <install as="datejs/src/globalization/bs-Latn-BA.js" name="datejs/src/globalization/bs-Latn-BA.js" />
+   <install as="datejs/src/globalization/ca-ES.js" name="datejs/src/globalization/ca-ES.js" />
+   <install as="datejs/src/globalization/cs-CZ.js" name="datejs/src/globalization/cs-CZ.js" />
+   <install as="datejs/src/globalization/cy-GB.js" name="datejs/src/globalization/cy-GB.js" />
+   <install as="datejs/src/globalization/da-DK.js" name="datejs/src/globalization/da-DK.js" />
+   <install as="datejs/src/globalization/de-AT.js" name="datejs/src/globalization/de-AT.js" />
+   <install as="datejs/src/globalization/de-CH.js" name="datejs/src/globalization/de-CH.js" />
+   <install as="datejs/src/globalization/de-DE.js" name="datejs/src/globalization/de-DE.js" />
+   <install as="datejs/src/globalization/de-LI.js" name="datejs/src/globalization/de-LI.js" />
+   <install as="datejs/src/globalization/de-LU.js" name="datejs/src/globalization/de-LU.js" />
+   <install as="datejs/src/globalization/dv-MV.js" name="datejs/src/globalization/dv-MV.js" />
+   <install as="datejs/src/globalization/el-GR.js" name="datejs/src/globalization/el-GR.js" />
+   <install as="datejs/src/globalization/en-029.js" name="datejs/src/globalization/en-029.js" />
+   <install as="datejs/src/globalization/en-AU.js" name="datejs/src/globalization/en-AU.js" />
+   <install as="datejs/src/globalization/en-BZ.js" name="datejs/src/globalization/en-BZ.js" />
+   <install as="datejs/src/globalization/en-CA.js" name="datejs/src/globalization/en-CA.js" />
+   <install as="datejs/src/globalization/en-GB.js" name="datejs/src/globalization/en-GB.js" />
+   <install as="datejs/src/globalization/en-IE.js" name="datejs/src/globalization/en-IE.js" />
+   <install as="datejs/src/globalization/en-JM.js" name="datejs/src/globalization/en-JM.js" />
+   <install as="datejs/src/globalization/en-NZ.js" name="datejs/src/globalization/en-NZ.js" />
+   <install as="datejs/src/globalization/en-PH.js" name="datejs/src/globalization/en-PH.js" />
+   <install as="datejs/src/globalization/en-TT.js" name="datejs/src/globalization/en-TT.js" />
+   <install as="datejs/src/globalization/en-US.js" name="datejs/src/globalization/en-US.js" />
+   <install as="datejs/src/globalization/en-ZA.js" name="datejs/src/globalization/en-ZA.js" />
+   <install as="datejs/src/globalization/en-ZW.js" name="datejs/src/globalization/en-ZW.js" />
+   <install as="datejs/src/globalization/es-AR.js" name="datejs/src/globalization/es-AR.js" />
+   <install as="datejs/src/globalization/es-BO.js" name="datejs/src/globalization/es-BO.js" />
+   <install as="datejs/src/globalization/es-CL.js" name="datejs/src/globalization/es-CL.js" />
+   <install as="datejs/src/globalization/es-CO.js" name="datejs/src/globalization/es-CO.js" />
+   <install as="datejs/src/globalization/es-CR.js" name="datejs/src/globalization/es-CR.js" />
+   <install as="datejs/src/globalization/es-DO.js" name="datejs/src/globalization/es-DO.js" />
+   <install as="datejs/src/globalization/es-EC.js" name="datejs/src/globalization/es-EC.js" />
+   <install as="datejs/src/globalization/es-ES.js" name="datejs/src/globalization/es-ES.js" />
+   <install as="datejs/src/globalization/es-GT.js" name="datejs/src/globalization/es-GT.js" />
+   <install as="datejs/src/globalization/es-HN.js" name="datejs/src/globalization/es-HN.js" />
+   <install as="datejs/src/globalization/es-MX.js" name="datejs/src/globalization/es-MX.js" />
+   <install as="datejs/src/globalization/es-NI.js" name="datejs/src/globalization/es-NI.js" />
+   <install as="datejs/src/globalization/es-PA.js" name="datejs/src/globalization/es-PA.js" />
+   <install as="datejs/src/globalization/es-PE.js" name="datejs/src/globalization/es-PE.js" />
+   <install as="datejs/src/globalization/es-PR.js" name="datejs/src/globalization/es-PR.js" />
+   <install as="datejs/src/globalization/es-PY.js" name="datejs/src/globalization/es-PY.js" />
+   <install as="datejs/src/globalization/es-SV.js" name="datejs/src/globalization/es-SV.js" />
+   <install as="datejs/src/globalization/es-UY.js" name="datejs/src/globalization/es-UY.js" />
+   <install as="datejs/src/globalization/es-VE.js" name="datejs/src/globalization/es-VE.js" />
+   <install as="datejs/src/globalization/et-EE.js" name="datejs/src/globalization/et-EE.js" />
+   <install as="datejs/src/globalization/eu-ES.js" name="datejs/src/globalization/eu-ES.js" />
+   <install as="datejs/src/globalization/fa-IR.js" name="datejs/src/globalization/fa-IR.js" />
+   <install as="datejs/src/globalization/fi-FI.js" name="datejs/src/globalization/fi-FI.js" />
+   <install as="datejs/src/globalization/fo-FO.js" name="datejs/src/globalization/fo-FO.js" />
+   <install as="datejs/src/globalization/fr-BE.js" name="datejs/src/globalization/fr-BE.js" />
+   <install as="datejs/src/globalization/fr-CA.js" name="datejs/src/globalization/fr-CA.js" />
+   <install as="datejs/src/globalization/fr-CH.js" name="datejs/src/globalization/fr-CH.js" />
+   <install as="datejs/src/globalization/fr-FR.js" name="datejs/src/globalization/fr-FR.js" />
+   <install as="datejs/src/globalization/fr-LU.js" name="datejs/src/globalization/fr-LU.js" />
+   <install as="datejs/src/globalization/fr-MC.js" name="datejs/src/globalization/fr-MC.js" />
+   <install as="datejs/src/globalization/gl-ES.js" name="datejs/src/globalization/gl-ES.js" />
+   <install as="datejs/src/globalization/gu-IN.js" name="datejs/src/globalization/gu-IN.js" />
+   <install as="datejs/src/globalization/he-IL.js" name="datejs/src/globalization/he-IL.js" />
+   <install as="datejs/src/globalization/hi-IN.js" name="datejs/src/globalization/hi-IN.js" />
+   <install as="datejs/src/globalization/hr-BA.js" name="datejs/src/globalization/hr-BA.js" />
+   <install as="datejs/src/globalization/hr-HR.js" name="datejs/src/globalization/hr-HR.js" />
+   <install as="datejs/src/globalization/hu-HU.js" name="datejs/src/globalization/hu-HU.js" />
+   <install as="datejs/src/globalization/hy-AM.js" name="datejs/src/globalization/hy-AM.js" />
+   <install as="datejs/src/globalization/id-ID.js" name="datejs/src/globalization/id-ID.js" />
+   <install as="datejs/src/globalization/is-IS.js" name="datejs/src/globalization/is-IS.js" />
+   <install as="datejs/src/globalization/it-CH.js" name="datejs/src/globalization/it-CH.js" />
+   <install as="datejs/src/globalization/it-IT.js" name="datejs/src/globalization/it-IT.js" />
+   <install as="datejs/src/globalization/ja-JP.js" name="datejs/src/globalization/ja-JP.js" />
+   <install as="datejs/src/globalization/ka-GE.js" name="datejs/src/globalization/ka-GE.js" />
+   <install as="datejs/src/globalization/kk-KZ.js" name="datejs/src/globalization/kk-KZ.js" />
+   <install as="datejs/src/globalization/kn-IN.js" name="datejs/src/globalization/kn-IN.js" />
+   <install as="datejs/src/globalization/ko-KR.js" name="datejs/src/globalization/ko-KR.js" />
+   <install as="datejs/src/globalization/kok-IN.js" name="datejs/src/globalization/kok-IN.js" />
+   <install as="datejs/src/globalization/ky-KG.js" name="datejs/src/globalization/ky-KG.js" />
+   <install as="datejs/src/globalization/lt-LT.js" name="datejs/src/globalization/lt-LT.js" />
+   <install as="datejs/src/globalization/lv-LV.js" name="datejs/src/globalization/lv-LV.js" />
+   <install as="datejs/src/globalization/mi-NZ.js" name="datejs/src/globalization/mi-NZ.js" />
+   <install as="datejs/src/globalization/mk-MK.js" name="datejs/src/globalization/mk-MK.js" />
+   <install as="datejs/src/globalization/mn-MN.js" name="datejs/src/globalization/mn-MN.js" />
+   <install as="datejs/src/globalization/mr-IN.js" name="datejs/src/globalization/mr-IN.js" />
+   <install as="datejs/src/globalization/ms-BN.js" name="datejs/src/globalization/ms-BN.js" />
+   <install as="datejs/src/globalization/ms-MY.js" name="datejs/src/globalization/ms-MY.js" />
+   <install as="datejs/src/globalization/mt-MT.js" name="datejs/src/globalization/mt-MT.js" />
+   <install as="datejs/src/globalization/nb-NO.js" name="datejs/src/globalization/nb-NO.js" />
+   <install as="datejs/src/globalization/nl-BE.js" name="datejs/src/globalization/nl-BE.js" />
+   <install as="datejs/src/globalization/nl-NL.js" name="datejs/src/globalization/nl-NL.js" />
+   <install as="datejs/src/globalization/nn-NO.js" name="datejs/src/globalization/nn-NO.js" />
+   <install as="datejs/src/globalization/ns-ZA.js" name="datejs/src/globalization/ns-ZA.js" />
+   <install as="datejs/src/globalization/pa-IN.js" name="datejs/src/globalization/pa-IN.js" />
+   <install as="datejs/src/globalization/pl-PL.js" name="datejs/src/globalization/pl-PL.js" />
+   <install as="datejs/src/globalization/pt-BR.js" name="datejs/src/globalization/pt-BR.js" />
+   <install as="datejs/src/globalization/pt-PT.js" name="datejs/src/globalization/pt-PT.js" />
+   <install as="datejs/src/globalization/quz-BO.js" name="datejs/src/globalization/quz-BO.js" />
+   <install as="datejs/src/globalization/quz-EC.js" name="datejs/src/globalization/quz-EC.js" />
+   <install as="datejs/src/globalization/quz-PE.js" name="datejs/src/globalization/quz-PE.js" />
+   <install as="datejs/src/globalization/ro-RO.js" name="datejs/src/globalization/ro-RO.js" />
+   <install as="datejs/src/globalization/ru-RU.js" name="datejs/src/globalization/ru-RU.js" />
+   <install as="datejs/src/globalization/sa-IN.js" name="datejs/src/globalization/sa-IN.js" />
+   <install as="datejs/src/globalization/se-FI.js" name="datejs/src/globalization/se-FI.js" />
+   <install as="datejs/src/globalization/se-NO.js" name="datejs/src/globalization/se-NO.js" />
+   <install as="datejs/src/globalization/se-SE.js" name="datejs/src/globalization/se-SE.js" />
+   <install as="datejs/src/globalization/sk-SK.js" name="datejs/src/globalization/sk-SK.js" />
+   <install as="datejs/src/globalization/sl-SI.js" name="datejs/src/globalization/sl-SI.js" />
+   <install as="datejs/src/globalization/sma-NO.js" name="datejs/src/globalization/sma-NO.js" />
+   <install as="datejs/src/globalization/sma-SE.js" name="datejs/src/globalization/sma-SE.js" />
+   <install as="datejs/src/globalization/smj-NO.js" name="datejs/src/globalization/smj-NO.js" />
+   <install as="datejs/src/globalization/smj-SE.js" name="datejs/src/globalization/smj-SE.js" />
+   <install as="datejs/src/globalization/smn-FI.js" name="datejs/src/globalization/smn-FI.js" />
+   <install as="datejs/src/globalization/sms-FI.js" name="datejs/src/globalization/sms-FI.js" />
+   <install as="datejs/src/globalization/sq-AL.js" name="datejs/src/globalization/sq-AL.js" />
+   <install as="datejs/src/globalization/sr-Cyrl-BA.js" name="datejs/src/globalization/sr-Cyrl-BA.js" />
+   <install as="datejs/src/globalization/sr-Cyrl-CS.js" name="datejs/src/globalization/sr-Cyrl-CS.js" />
+   <install as="datejs/src/globalization/sr-Latn-BA.js" name="datejs/src/globalization/sr-Latn-BA.js" />
+   <install as="datejs/src/globalization/sr-Latn-CS.js" name="datejs/src/globalization/sr-Latn-CS.js" />
+   <install as="datejs/src/globalization/sv-FI.js" name="datejs/src/globalization/sv-FI.js" />
+   <install as="datejs/src/globalization/sv-SE.js" name="datejs/src/globalization/sv-SE.js" />
+   <install as="datejs/src/globalization/sw-KE.js" name="datejs/src/globalization/sw-KE.js" />
+   <install as="datejs/src/globalization/syr-SY.js" name="datejs/src/globalization/syr-SY.js" />
+   <install as="datejs/src/globalization/ta-IN.js" name="datejs/src/globalization/ta-IN.js" />
+   <install as="datejs/src/globalization/te-IN.js" name="datejs/src/globalization/te-IN.js" />
+   <install as="datejs/src/globalization/th-TH.js" name="datejs/src/globalization/th-TH.js" />
+   <install as="datejs/src/globalization/tn-ZA.js" name="datejs/src/globalization/tn-ZA.js" />
+   <install as="datejs/src/globalization/tr-TR.js" name="datejs/src/globalization/tr-TR.js" />
+   <install as="datejs/src/globalization/tt-RU.js" name="datejs/src/globalization/tt-RU.js" />
+   <install as="datejs/src/globalization/uk-UA.js" name="datejs/src/globalization/uk-UA.js" />
+   <install as="datejs/src/globalization/ur-PK.js" name="datejs/src/globalization/ur-PK.js" />
+   <install as="datejs/src/globalization/uz-Cyrl-UZ.js" name="datejs/src/globalization/uz-Cyrl-UZ.js" />
+   <install as="datejs/src/globalization/uz-Latn-UZ.js" name="datejs/src/globalization/uz-Latn-UZ.js" />
+   <install as="datejs/src/globalization/vi-VN.js" name="datejs/src/globalization/vi-VN.js" />
+   <install as="datejs/src/globalization/xh-ZA.js" name="datejs/src/globalization/xh-ZA.js" />
+   <install as="datejs/src/globalization/zh-CN.js" name="datejs/src/globalization/zh-CN.js" />
+   <install as="datejs/src/globalization/zh-HK.js" name="datejs/src/globalization/zh-HK.js" />
+   <install as="datejs/src/globalization/zh-MO.js" name="datejs/src/globalization/zh-MO.js" />
+   <install as="datejs/src/globalization/zh-SG.js" name="datejs/src/globalization/zh-SG.js" />
+   <install as="datejs/src/globalization/zh-TW.js" name="datejs/src/globalization/zh-TW.js" />
+   <install as="datejs/src/globalization/zu-ZA.js" name="datejs/src/globalization/zu-ZA.js" />
+   <install as="test/index.html" name="datejs/test/index.html" />
+   <install as="test/core/index.html" name="datejs/test/core/index.html" />
+   <install as="datejs/test/core/index.js" name="datejs/test/core/index.js" />
+   <install as="test/culture_info/index.html" name="datejs/test/culture_info/index.html" />
+   <install as="datejs/test/culture_info/index.js" name="datejs/test/culture_info/index.js" />
+   <install as="test/date/index.html" name="datejs/test/date/index.html" />
+   <install as="datejs/test/date/index.js" name="datejs/test/date/index.js" />
+   <install as="datejs/test/date2/date2.js" name="datejs/test/date2/date2.js" />
+   <install as="test/date2/index.html" name="datejs/test/date2/index.html" />
+   <install as="test/date_and_time/index.html" name="datejs/test/date_and_time/index.html" />
+   <install as="datejs/test/date_and_time/index.js" name="datejs/test/date_and_time/index.js" />
+   <install as="datejs/test/images/accept.png" name="datejs/test/images/accept.png" />
+   <install as="datejs/test/images/exclamation.png" name="datejs/test/images/exclamation.png" />
+   <install as="datejs/test/images/information.png" name="datejs/test/images/information.png" />
+   <install as="test/parseExact/index.html" name="datejs/test/parseExact/index.html" />
+   <install as="datejs/test/parseExact/index.js" name="datejs/test/parseExact/index.js" />
+   <install as="test/partial/index.html" name="datejs/test/partial/index.html" />
+   <install as="datejs/test/partial/index.js" name="datejs/test/partial/index.js" />
+   <install as="datejs/test/performance/bulk.css" name="datejs/test/performance/bulk.css" />
+   <install as="test/performance/index.html" name="datejs/test/performance/index.html" />
+   <install as="datejs/test/performance/index.js" name="datejs/test/performance/index.js" />
+   <install as="test/relative/index.html" name="datejs/test/relative/index.html" />
+   <install as="datejs/test/relative/index.js" name="datejs/test/relative/index.js" />
+   <install as="datejs/test/scripts/cruiser.js" name="datejs/test/scripts/cruiser.js" />
+   <install as="datejs/test/scripts/date-functions.js" name="datejs/test/scripts/date-functions.js" />
+   <install as="datejs/test/scripts/Date_Ext.js" name="datejs/test/scripts/Date_Ext.js" />
+   <install as="datejs/test/scripts/debugging.js" name="datejs/test/scripts/debugging.js" />
+   <install as="datejs/test/scripts/enumerable.js" name="datejs/test/scripts/enumerable.js" />
+   <install as="datejs/test/scripts/jquery-1.2.1.pack.js" name="datejs/test/scripts/jquery-1.2.1.pack.js" />
+   <install as="datejs/test/scripts/specifications.js" name="datejs/test/scripts/specifications.js" />
+   <install as="datejs/test/scripts/specifications_original.js" name="datejs/test/scripts/specifications_original.js" />
+   <install as="datejs/test/scripts/firebug/errorIcon.png" name="datejs/test/scripts/firebug/errorIcon.png" />
+   <install as="datejs/test/scripts/firebug/firebug.css" name="datejs/test/scripts/firebug/firebug.css" />
+   <install as="test/scripts/firebug/firebug.html" name="datejs/test/scripts/firebug/firebug.html" />
+   <install as="datejs/test/scripts/firebug/firebug.js" name="datejs/test/scripts/firebug/firebug.js" />
+   <install as="datejs/test/scripts/firebug/firebugx.js" name="datejs/test/scripts/firebug/firebugx.js" />
+   <install as="datejs/test/scripts/firebug/infoIcon.png" name="datejs/test/scripts/firebug/infoIcon.png" />
+   <install as="datejs/test/scripts/firebug/warningIcon.png" name="datejs/test/scripts/firebug/warningIcon.png" />
+   <install as="datejs/test/styles/chart.css" name="datejs/test/styles/chart.css" />
+   <install as="datejs/test/styles/specifications.css" name="datejs/test/styles/specifications.css" />
+   <install as="test/time/index.html" name="datejs/test/time/index.html" />
+   <install as="datejs/test/time/index.js" name="datejs/test/time/index.js" />
    <install as="TODO.txt" name="doc/TODO.txt" />
    <install as="examples/Horde/Date/Parser/parse.php" name="examples/Horde/Date/Parser/parse.php" />
    <install as="Horde/Date/Parser.php" name="lib/Horde/Date/Parser.php" />
@@ -171,7 +625,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-03-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
