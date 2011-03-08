@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>19:56:08</time>
+ <date>2011-03-08</date>
+ <time>23:44:56</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -309,7 +309,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-03-08</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First alpha release for Horde 4.
