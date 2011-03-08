@@ -15,7 +15,7 @@
  *
  * @property string $abbrev_label  Abbreviated version of $label - displays
  *                                 only the bare mailbox name (no parents).
- * @property string $basename  TODO
+ * @property string $basename  The basename of the mailbox (UTF-8).
  * @property string $cacheid  Cache ID for the mailbox.
  * @property boolean $children  Does the element have children?
  * @property boolean $container  Is this a container element?
