@@ -1310,7 +1310,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * Determines the reply text and headers for a message.
      *
      * @param string $type            The reply type (reply, reply_all,
-     *                                reply_auto, reply_list, or *).
+     *                                reply_auto, or reply_list).
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param string $to              The recipient of the reply. Overrides
      *                                the automatically determined value.
@@ -1366,21 +1366,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
 
         $force = false;
-        if (in_array($type, array('reply', 'reply_auto', '*'))) {
+        if (in_array($type, array('reply', 'reply_auto'))) {
             if (($header['to'] = $to) ||
                 ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
                 $force = true;
             } else {
                 $header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from'));
             }
-
-            if ($type == '*') {
-                $all_headers['reply'] = $header;
-            }
         }
 
         /* We might need $list_info in the reply_all section. */
-        if (in_array($type, array('reply_auto', 'reply_list', '*'))) {
+        if (in_array($type, array('reply_auto', 'reply_list'))) {
             $imp_ui = new IMP_Ui_Message();
             $list_info = $imp_ui->getListInformation($h);
         } else {
@@ -1394,11 +1390,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $header['to'] = $list_info['reply_list'];
                 $reply_type = 'reply_list';
             }
-
-            if ($type == '*') {
-                $all_headers['reply_list'] = $header;
-            }
-        } elseif (in_array($type, array('reply_all', 'reply_auto', '*'))) {
+        } elseif (in_array($type, array('reply_all', 'reply_auto'))) {
             /* Clear the To field if we are auto-determining addresses. */
             if ($type == 'reply_auto') {
                 $header['to'] = '';
@@ -1480,13 +1472,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             /* Build the Bcc: header. */
             $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('filter' => $all_addrs));
-            if ($type == '*') {
-                $all_headers['reply_all'] = $header;
-            }
-        }
-
-        if ($type == '*') {
-            $header = $all_headers;
         }
 
         if (!isset($this->_metadata['reply_type']) ||
