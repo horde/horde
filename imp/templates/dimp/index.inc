@@ -58,7 +58,14 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <div class="sepfull"></div>
    <ul id="serviceActions">
 <?php if (($registry->get('status', 'horde') != 'hidden') && ($registry->get('status', 'horde') != 'notoolbar')): ?>
+<?php if (empty($GLOBALS['conf']['menu']['apps_iframe'])): $ak = Horde::getAccessKey(_("_Portal"), true); ?>
+    <li class="servicelink"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>
+     <span class="iconImgSidebar hordeIcon"></span>
+     <a href="<?php echo Horde::url('services/portal/', false, array('app' => 'horde')) ?>"><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
+    </li>
+<?php else: ?>
     <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
+<?php endif; ?>
 <?php endif; ?>
 <?php if (Horde_Menu::showService('prefs')): ?>
     <?php echo _simpleButton('appprefs', _("Preferences"), 'prefsIcon') ?>
