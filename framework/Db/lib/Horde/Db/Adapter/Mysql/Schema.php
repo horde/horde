@@ -357,7 +357,10 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
                        $quotedColumnName,
                        $quotedColumnName,
                        $typeSql);
-        $sql = $this->addColumnOptions($sql, $options);
+        if ($type != 'primaryKey') {
+            $sql = $this->addColumnOptions($sql, $options);
+        }
+
         $this->execute($sql);
     }
 
