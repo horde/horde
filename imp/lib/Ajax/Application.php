@@ -1897,6 +1897,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return $result;
         }
 
+        $mbox = strval($mbox);
+
         return $imaptree[$mbox]->polled
             ? array($mbox => $imaptree[$mbox]->poll_info->unseen)
             : array();
