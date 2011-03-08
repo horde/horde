@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:51:18</time>
+ <date>2011-03-06</date>
+ <time>23:39:26</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -32,58 +32,58 @@
 * First alpha release for Horde 4.
  </notes>
  <contents>
-  <dir baseinstalldir="/" name="/">
+  <dir baseinstalldir="/Text" name="/">
    <dir name="Diff">
     <dir name="Engine">
-     <file baseinstalldir="/" name="native.php" role="php" />
-     <file baseinstalldir="/" name="shell.php" role="php" />
-     <file baseinstalldir="/" name="string.php" role="php" />
-     <file baseinstalldir="/" name="xdiff.php" role="php" />
+     <file name="native.php" role="php" />
+     <file name="shell.php" role="php" />
+     <file name="string.php" role="php" />
+     <file name="xdiff.php" role="php" />
     </dir> <!-- /Diff/Engine -->
     <dir name="Renderer">
-     <file baseinstalldir="/" name="context.php" role="php" />
-     <file baseinstalldir="/" name="inline.php" role="php" />
-     <file baseinstalldir="/" name="unified.php" role="php" />
+     <file name="context.php" role="php" />
+     <file name="inline.php" role="php" />
+     <file name="unified.php" role="php" />
     </dir> <!-- /Diff/Renderer -->
-    <file baseinstalldir="/" name="Mapped.php" role="php" />
-    <file baseinstalldir="/" name="Renderer.php" role="php" />
-    <file baseinstalldir="/" name="ThreeWay.php" role="php" />
+    <file name="Mapped.php" role="php" />
+    <file name="Renderer.php" role="php" />
+    <file name="ThreeWay.php" role="php" />
    </dir> <!-- /Diff -->
    <dir name="docs">
     <dir name="examples">
-     <file baseinstalldir="/" name="1.txt" role="doc" />
-     <file baseinstalldir="/" name="2.txt" role="doc" />
-     <file baseinstalldir="/" name="diff.php" role="doc" />
+     <file name="1.txt" role="doc" />
+     <file name="2.txt" role="doc" />
+     <file name="diff.php" role="doc" />
     </dir> <!-- /docs/examples -->
    </dir> <!-- /docs -->
    <dir name="tests">
-    <file baseinstalldir="/" name="1.txt" role="test" />
-    <file baseinstalldir="/" name="2.txt" role="test" />
-    <file baseinstalldir="/" name="3.txt" role="test" />
-    <file baseinstalldir="/" name="4.txt" role="test" />
-    <file baseinstalldir="/" name="5.txt" role="test" />
-    <file baseinstalldir="/" name="6.txt" role="test" />
-    <file baseinstalldir="/" name="context.patch" role="test" />
-    <file baseinstalldir="/" name="context.phpt" role="test" />
-    <file baseinstalldir="/" name="context2.phpt" role="test" />
-    <file baseinstalldir="/" name="diff.phpt" role="test" />
-    <file baseinstalldir="/" name="diff_shell.phpt" role="data" />
-    <file baseinstalldir="/" name="inline.phpt" role="test" />
-    <file baseinstalldir="/" name="inline2.phpt" role="test" />
-    <file baseinstalldir="/" name="pear_bug4879.phpt" role="test" />
-    <file baseinstalldir="/" name="pear_bug4982.phpt" role="data" />
-    <file baseinstalldir="/" name="pear_bug6251.phpt" role="test" />
-    <file baseinstalldir="/" name="pear_bug6428.phpt" role="test" />
-    <file baseinstalldir="/" name="pear_bug7839.phpt" role="test" />
-    <file baseinstalldir="/" name="pear_bug12740.phpt" role="test" />
-    <file baseinstalldir="/" name="string.phpt" role="test" />
-    <file baseinstalldir="/" name="unified.patch" role="test" />
-    <file baseinstalldir="/" name="unified.phpt" role="test" />
-    <file baseinstalldir="/" name="unified2.patch" role="test" />
-    <file baseinstalldir="/" name="unified2.phpt" role="test" />
-    <file baseinstalldir="/" name="xdiff.phpt" role="test" />
+    <file name="1.txt" role="test" />
+    <file name="2.txt" role="test" />
+    <file name="3.txt" role="test" />
+    <file name="4.txt" role="test" />
+    <file name="5.txt" role="test" />
+    <file name="6.txt" role="test" />
+    <file name="context.patch" role="test" />
+    <file name="context.phpt" role="test" />
+    <file name="context2.phpt" role="test" />
+    <file name="diff.phpt" role="test" />
+    <file name="diff_shell.phpt" role="data" />
+    <file name="inline.phpt" role="test" />
+    <file name="inline2.phpt" role="test" />
+    <file name="pear_bug4879.phpt" role="test" />
+    <file name="pear_bug4982.phpt" role="data" />
+    <file name="pear_bug6251.phpt" role="test" />
+    <file name="pear_bug6428.phpt" role="test" />
+    <file name="pear_bug7839.phpt" role="test" />
+    <file name="pear_bug12740.phpt" role="test" />
+    <file name="string.phpt" role="test" />
+    <file name="unified.patch" role="test" />
+    <file name="unified.phpt" role="test" />
+    <file name="unified2.patch" role="test" />
+    <file name="unified2.phpt" role="test" />
+    <file name="xdiff.phpt" role="test" />
    </dir> <!-- /tests -->
-   <file baseinstalldir="/" name="Diff.php" role="php" />
+   <file name="Diff.php" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -104,47 +104,6 @@
   </optional>
  </dependencies>
  <phprelease>
-  <filelist>
-   <install as="Diff/Mapped.php" name="Diff/Mapped.php" />
-   <install as="Diff/Renderer.php" name="Diff/Renderer.php" />
-   <install as="Diff/ThreeWay.php" name="Diff/ThreeWay.php" />
-   <install as="Diff/Engine/native.php" name="Diff/Engine/native.php" />
-   <install as="Diff/Engine/shell.php" name="Diff/Engine/shell.php" />
-   <install as="Diff/Engine/string.php" name="Diff/Engine/string.php" />
-   <install as="Diff/Engine/xdiff.php" name="Diff/Engine/xdiff.php" />
-   <install as="Diff/Renderer/context.php" name="Diff/Renderer/context.php" />
-   <install as="Diff/Renderer/inline.php" name="Diff/Renderer/inline.php" />
-   <install as="Diff/Renderer/unified.php" name="Diff/Renderer/unified.php" />
-   <install as="examples/1.txt" name="docs/examples/1.txt" />
-   <install as="examples/2.txt" name="docs/examples/2.txt" />
-   <install as="examples/diff.php" name="docs/examples/diff.php" />
-   <install as="1.txt" name="tests/1.txt" />
-   <install as="2.txt" name="tests/2.txt" />
-   <install as="3.txt" name="tests/3.txt" />
-   <install as="4.txt" name="tests/4.txt" />
-   <install as="5.txt" name="tests/5.txt" />
-   <install as="6.txt" name="tests/6.txt" />
-   <install as="context.patch" name="tests/context.patch" />
-   <install as="context.phpt" name="tests/context.phpt" />
-   <install as="context2.phpt" name="tests/context2.phpt" />
-   <install as="diff.phpt" name="tests/diff.phpt" />
-   <install as="tests/diff_shell.phpt" name="tests/diff_shell.phpt" />
-   <install as="inline.phpt" name="tests/inline.phpt" />
-   <install as="inline2.phpt" name="tests/inline2.phpt" />
-   <install as="pear_bug4879.phpt" name="tests/pear_bug4879.phpt" />
-   <install as="tests/pear_bug4982.phpt" name="tests/pear_bug4982.phpt" />
-   <install as="pear_bug6251.phpt" name="tests/pear_bug6251.phpt" />
-   <install as="pear_bug6428.phpt" name="tests/pear_bug6428.phpt" />
-   <install as="pear_bug7839.phpt" name="tests/pear_bug7839.phpt" />
-   <install as="pear_bug12740.phpt" name="tests/pear_bug12740.phpt" />
-   <install as="string.phpt" name="tests/string.phpt" />
-   <install as="unified.patch" name="tests/unified.patch" />
-   <install as="unified.phpt" name="tests/unified.phpt" />
-   <install as="unified2.patch" name="tests/unified2.patch" />
-   <install as="unified2.phpt" name="tests/unified2.phpt" />
-   <install as="xdiff.phpt" name="tests/xdiff.phpt" />
-   <install as="Diff.php" name="Diff.php" />
-  </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -156,7 +115,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-08</date>
+   <date>2011-03-06</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
