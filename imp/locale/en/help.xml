@@ -627,13 +627,6 @@
     </para>
 </entry>
 
-<entry id="alternative-msg">
-    <title>Multipart/Alternative Messages</title>
-    <para>
-    Some message have been sent as a &quot;multipart/alternative&quot; type by the sender. These messages have several parts, all displaying the SAME CONTENT but in DIFFERENT FORMATS. The mail agent will display the last part in the list that can be successfully displayed inline in the browser, if any. All other formats will appear under the heading &quot;Alternative parts for this section&quot; and can be viewed or downloaded separately. It is important to note that these alternative parts contain the SAME CONTENTS as the part that is shown - they are simply in a different media format (e.g. text vs. HTML output).
-    </para>
-</entry>
-
 <entry id="prefs-rename_sentmail_monthly">
     <title>Preferences: Rename Sent Mail Folder Monthly</title>
     <para>
