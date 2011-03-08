@@ -1,18 +1,31 @@
 <?php
 /**
- * @package Kolab_Format
+ * Horde_Kolab_Format_Translation is the translation wrapper class for
+ * Horde_Kolab_Format.
+
+ * PHP version 5
+ *
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ */
+
+/**
+ * Horde_Kolab_Format_Translation is the translation wrapper class for
+ * Horde_Kolab_Format.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- */
-
-/**
- * Horde_Kolab_Format_Translation is the translation wrapper class for Horde_Kolab_Format.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Translation extends Horde_Translation
 {

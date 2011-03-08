@@ -62,18 +62,18 @@ extends Horde_Kolab_Format_Decorator_Base
     }
 
     /**
-     * Load an object based on the given XML string.
+     * Load an object based on the given XML stream.
      *
-     * @param string &$xmltext The XML of the message as string.
+     * @param resource $xml The XML stream of the message.
      *
      * @return array The data array representing the object.
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function load(&$xmltext)
+    public function load($xml)
     {
         $this->_memory->push();
-        $result = $this->getHandler()->load($xmltext);
+        $result = $this->getHandler()->load($xml);
         $this->_logger->debug(
             sprintf(
                 'Kolab Format data parsing complete. Memory usage: %s',
@@ -84,11 +84,11 @@ extends Horde_Kolab_Format_Decorator_Base
     }
 
     /**
-     * Convert the data to a XML string.
+     * Convert the data to a XML stream.
      *
-     * @param array &$object The data array representing the note.
+     * @param array $object The data array representing the object.
      *
-     * @return string The data as XML string.
+     * @return resource The data as XML stream.
      *
      * @throws Horde_Kolab_Format_Exception
      */

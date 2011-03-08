@@ -42,36 +42,6 @@ extends Horde_Kolab_Format_TestCase
         );
     }
 
-    public function testGetName()
-    {
-        $this->assertEquals(
-            'kolab.xml',
-            $this->getFactory()
-            ->create('XML', 'contact', array('memlog' => true))
-            ->getName()
-        );
-    }
-
-    public function testGetMimeType()
-    {
-        $this->assertEquals(
-            'application/x-vnd.kolab.contact',
-            $this->getFactory()
-            ->create('XML', 'contact', array('memlog' => true))
-            ->getMimeType()
-        );
-    }
-
-    public function testGetDisposition()
-    {
-        $this->assertEquals(
-            'attachment',
-            $this->getFactory()
-            ->create('XML', 'contact', array('memlog' => true))
-            ->getDisposition()
-        );
-    }
-
     public function testLogLoad()
     {
         $timed = $this->_getMemoryMock();

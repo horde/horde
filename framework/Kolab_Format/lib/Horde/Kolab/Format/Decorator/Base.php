@@ -57,55 +57,25 @@ implements Horde_Kolab_Format
     }
 
     /**
-     * Return the name of the resulting document.
+     * Load an object based on the given XML stream.
      *
-     * @return string The name that may be used as filename.
-     */
-    public function getName()
-    {
-        return $this->_handler->getName();
-    }
-
-    /**
-     * Return the mime type of the resulting document.
-     *
-     * @return string The mime type of the result.
-     */
-    public function getMimeType()
-    {
-        return $this->_handler->getMimeType();
-    }
-
-    /**
-     * Return the disposition of the resulting document.
-     *
-     * @return string The disportion of this document.
-     */
-    public function getDisposition()
-    {
-        return $this->_handler->getDisposition();
-    }
-
-    /**
-     * Load an object based on the given XML string.
-     *
-     * @param string &$xmltext The XML of the message as string.
+     * @param resource $xml The XML stream of the message.
      *
      * @return array The data array representing the object.
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function load(&$xmltext)
+    public function load($xml)
     {
-        return $this->_handler->load($xmltext);
+        return $this->_handler->load($xml);
     }
 
     /**
-     * Convert the data to a XML string.
+     * Convert the data to a XML stream.
      *
-     * @param array &$object The data array representing the note.
+     * @param array $object The data array representing the object.
      *
-     * @return string The data as XML string.
+     * @return resource The data as XML stream.
      *
      * @throws Horde_Kolab_Format_Exception
      */

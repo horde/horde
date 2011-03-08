@@ -70,17 +70,17 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
     }
 
     /**
-     * Load an object based on the given XML string.
+     * Load an object based on the given XML stream.
      *
-     * @param string &$xmltext The XML of the message as string.
+     * @param resource $xml The XML stream of the message.
      *
      * @return array The data array representing the object.
      *
      * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
-    public function load(&$xmltext)
+    public function load($xml)
     {
-        $object = parent::load($xmltext);
+        $object = parent::load($xml);
 
         if (empty($object['application'])) {
             if (!empty($object['categories'])) {
@@ -95,11 +95,11 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
     }
 
     /**
-     * Convert the data to a XML string.
+     * Convert the data to a XML stream.
      *
-     * @param array $object The data array representing the note.
+     * @param array $object The data array representing the object.
      *
-     * @return string The data as XML string.
+     * @return resource The data as XML stream.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
