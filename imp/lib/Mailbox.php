@@ -40,6 +40,7 @@
  * @property string $namespace  Is this a namespace element?
  * @property string $namespace_append  The mailbox with necessary namespace
  *                                     information appended.
+ * @property string $namespace_delimiter  The delimiter for this namespace.
  * @property array $namespace_info  TODO
  * @property boolean $nonimap  Is this a non-IMAP element?
  * @property array $parent  The parent element value.
@@ -157,10 +158,10 @@ class IMP_Mailbox implements Serializable
 
         switch ($key) {
         case 'abbrev_label':
-            $elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox);
-            return $elt
-                ? $elt['l']
-                : $this->label;
+            $label = $this->label;
+            return (($pos = strrpos($label, $this->namespace_delimiter)) === false)
+                ? $label
+                : substr($label, $pos + 1);
 
         case 'cacheid':
             return $this->_getCacheID();
@@ -246,6 +247,12 @@ class IMP_Mailbox implements Serializable
 
         case 'namespace_append':
             return self::get($injector->getInstance('IMP_Factory_Imap')->create()->appendNamespace($this->_mbox));
+
+        case 'namespace_delimiter':
+            $ns_info = $this->namespace_info;
+            return is_null($ns_info)
+                ? ''
+                : $ns_info['delimiter'];
 
         case 'namespace_info':
             return $injector->getInstance('IMP_Factory_Imap')->create()->getNamespace($this->_mbox);

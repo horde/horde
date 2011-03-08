@@ -333,10 +333,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         $elt['c'] = count($tmp) - 1;
 
         /* Get the mailbox label. */
-        $label = IMP_Mailbox::get($name)->label;
-        $elt['l'] = (($pos = strrpos($label, $delimiter)) === false)
-            ? $label
-            : substr($label, $pos + 1);
+        $elt['l'] = IMP_Mailbox::get($name)->abbrev_label;
 
         if ($GLOBALS['session']->get('imp', 'protocol') != 'pop') {
             try {
