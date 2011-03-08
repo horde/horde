@@ -24,7 +24,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-08</date>
- <time>23:46:58</time>
+ <time>23:27:31</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -73,6 +73,8 @@
         <file name="Timed.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Decorator -->
        <dir name="Exception">
+        <file name="MissingUid.php" role="php" />
+        <file name="MissingValue.php" role="php" />
         <file name="ParseError.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Exception -->
        <dir name="Xml">
@@ -403,6 +405,7 @@
          <file name="ParserTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Format/Unit/Xml -->
         <file name="FactoryTest.php" role="test" />
+        <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
@@ -482,6 +485,8 @@
    <install as="Horde/Kolab/Format/Decorator/Base.php" name="lib/Horde/Kolab/Format/Decorator/Base.php" />
    <install as="Horde/Kolab/Format/Decorator/Memory.php" name="lib/Horde/Kolab/Format/Decorator/Memory.php" />
    <install as="Horde/Kolab/Format/Decorator/Timed.php" name="lib/Horde/Kolab/Format/Decorator/Timed.php" />
+   <install as="Horde/Kolab/Format/Exception/MissingUid.php" name="lib/Horde/Kolab/Format/Exception/MissingUid.php" />
+   <install as="Horde/Kolab/Format/Exception/MissingValue.php" name="lib/Horde/Kolab/Format/Exception/MissingValue.php" />
    <install as="Horde/Kolab/Format/Exception/ParseError.php" name="lib/Horde/Kolab/Format/Exception/ParseError.php" />
    <install as="Horde/Kolab/Format/Xml/Annotation.php" name="lib/Horde/Kolab/Format/Xml/Annotation.php" />
    <install as="Horde/Kolab/Format/Xml/Contact.php" name="lib/Horde/Kolab/Format/Xml/Contact.php" />
@@ -602,6 +607,7 @@
    <install as="Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" />
    <install as="Horde/Kolab/Format/Stub/Log.php" name="test/Horde/Kolab/Format/Stub/Log.php" />
    <install as="Horde/Kolab/Format/Unit/FactoryTest.php" name="test/Horde/Kolab/Format/Unit/FactoryTest.php" />
+   <install as="Horde/Kolab/Format/Unit/XmlTest.php" name="test/Horde/Kolab/Format/Unit/XmlTest.php" />
    <install as="Horde/Kolab/Format/Unit/Decorator/MemoryTest.php" name="test/Horde/Kolab/Format/Unit/Decorator/MemoryTest.php" />
    <install as="Horde/Kolab/Format/Unit/Decorator/TimedTest.php" name="test/Horde/Kolab/Format/Unit/Decorator/TimedTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/ParserTest.php" name="test/Horde/Kolab/Format/Unit/Xml/ParserTest.php" />
