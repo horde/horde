@@ -164,14 +164,16 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Create a new object.
      *
-     * @param array $object The array that holds the object data.
+     * @param array   $object The array that holds the object data.
+     * @param boolean $raw    True if the raw format should be returned rather
+     *                        than the parsed data.
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Storage_Exception In case an error occured while
      *                                       saving the data.
      */
-    public function create($object)
+    public function create($object, $raw = false)
     {
         if (!isset($object['uid'])) {
             $object['uid'] = $this->generateUid();
@@ -180,7 +182,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             ->create(
                 $this->_folder->getPath(),
                 $object,
-                array('type' => $this->getType(), 'version' => $this->_version)
+                array(
+                    'type' => $this->getType(),
+                    'version' => $this->_version,
+                    'raw' => $raw
+                )
             );
     }
 
@@ -207,17 +213,23 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Retrieves the objects for the given UIDs.
      *
-     * @param array $uids The message UIDs.
+     * @param array   $uids The message UIDs.
+     * @param boolean $raw  True if the raw format should be returned rather than
+     *                      the parsed data.
      *
      * @return array An array of objects.
      */
-    public function fetch($uids)
+    public function fetch($uids, $raw = false)
     {
         if (!empty($uids)) {
             return $this->_driver->fetch(
                 $this->_folder->getPath(),
                 $uids,
-                array('type' => $this->getType(), 'version' => $this->_version)
+                array(
+                    'type' => $this->getType(),
+                    'version' => $this->_version,
+                    'raw' => $raw
+                )
             );
         } else {
             return array();

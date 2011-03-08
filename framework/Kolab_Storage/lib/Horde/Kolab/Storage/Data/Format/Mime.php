@@ -66,7 +66,7 @@ implements Horde_Kolab_Storage_Data_Format
      * @param mixed  $data    The data that should get parsed.
      * @param array  $options Additional options for fetching.
      *
-     * @return array The parsed object.
+     * @return array The parsed object or a raw stream.
      */
     public function parse($folder, $obid, $data, array $options)
     {
@@ -105,9 +105,13 @@ implements Horde_Kolab_Storage_Data_Format
             $this->_structure->fetchId($folder, $obid, $mime_id)
         );
         $content = $mime_part->getContents(array('stream' => true));
-        //@todo: deal with exceptions
-        return $this->_factory->createFormat('Xml', $options['type'], $options['version'])
-            ->load($content);
+        if (empty($options['raw'])) {
+            //@todo: deal with exceptions
+            return $this->_factory->createFormat('Xml', $options['type'], $options['version'])
+                ->load($content);
+        } else {
+            return array('content' => $content);
+        }
     }
 
     public function matchMimeId($type, $types)
@@ -208,12 +212,19 @@ implements Horde_Kolab_Storage_Data_Format
     {
         $kolab = new Horde_Mime_Part();
         $kolab->setType($this->getMimeType($options['type']));
-        $kolab->setContents(
-            $this->_factory
-            ->createFormat('Xml', $options['type'], $options['version'])
-            ->save($object),
-            array('encoding' => 'quoted-printable')
-        );
+        if (empty($options['raw'])) {
+            $kolab->setContents(
+                $this->_factory
+                ->createFormat('Xml', $options['type'], $options['version'])
+                ->save($object),
+                array('encoding' => 'quoted-printable')
+            );
+        } else {
+            $kolab->setContents(
+                $object['content'],
+                array('encoding' => 'quoted-printable')
+            );
+        }
         $kolab->setCharset('utf-8');
         $kolab->setDisposition('inline');
         $kolab->setDispositionParameter('x-kolab-type', 'xml');

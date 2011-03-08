@@ -250,9 +250,16 @@ interface Horde_Kolab_Storage_Driver
     /**
      * Fetches the objects for the specified UIDs.
      *
-     * @param string $folder The folder to access.
+     * @param string  $folder  The folder to access.
+     * @param array   $uids    The message UIDs.
+     * @param array   $options Additional options.
+     * <pre>
+     *  - type    - (string) The data type.
+     *  - version - (int)    The format version.
+     *  - raw     - (bool)   Should the raw data be returned? 
+     * </pre>
      *
-     * @return array The parsed objects.
+     * @return array The objects.
      */
     public function fetch($folder, $uids, $options = array());
 

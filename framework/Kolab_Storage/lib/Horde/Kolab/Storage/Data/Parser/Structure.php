@@ -96,7 +96,7 @@ implements  Horde_Kolab_Storage_Data_Parser
      *              format.
      * </pre>
      *
-     * @return array The parsed objects.
+     * @return array The objects.
      */
     public function fetch($folder, $obids, $options = array())
     {

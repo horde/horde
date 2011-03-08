@@ -269,4 +269,26 @@ extends Horde_Kolab_Storage_TestCase
             ->create(array('desc' => 'test'))
         );
     }
+
+    public function testFetchRaw()
+    {
+        $objects = $this->getMessageStorage()
+            ->getData('INBOX/Calendar')
+            ->fetch(array(1, 2, 4), true);
+        $part = $objects[4]['content'];
+        rewind($part);
+        $this->assertContains('<uid>libkcal-543769073.139</uid>', stream_get_contents($part));
+    }
+
+    public function testCreateRaw()
+    {
+        $test = fopen('php://temp', 'r+');
+        fputs($test, 'test');
+        rewind($test);
+        $this->assertNull(
+            $this->getMessageStorage()
+            ->getData('INBOX/Notes')
+            ->create(array('content' => $test), true)
+        );
+    }
 }
