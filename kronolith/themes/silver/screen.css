@@ -99,6 +99,7 @@ span#kronolithQuickEvent {
     background-image: url('graphics/new_task.png');
 }
 
+/* Navigation bar. */
 span#kronolithNewEvent, #kronolithApplications a {
     background-image: url("graphics/menu.png");
     background-repeat: repeat-x;
@@ -148,4 +149,17 @@ span#kronolithNewEvent, #kronolithApplications a {
 }
 #kronolithNavYear:hover, #kronolithNavYear.on {
     background-image: url("graphics/yearview.png"), url("graphics/menu-active.png");
+}
+
+/* Misc */
+.kronolithMinical td, .kronolithMinical .kronolithMinicalEmpty,
+.kronolithFirstCol {
+    background-color: #efefef;
+}
+.kronolithViewHead thead .kronolithFirstCol {
+    background-color: transparent;
+}
+
+.kronolithWeekDay {
+    background: transparent url("graphics/menu.png") repeat-x;
 }
