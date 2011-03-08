@@ -552,7 +552,10 @@ class IMP_Prefs_Ui
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        $t->set('options', IMP::flistSelect(array('selected' => $folder)));
+        $t->set('options', IMP::flistSelect(array(
+            'basename' => true,
+            'selected' => $folder
+        )));
         $t->set('current', sprintf(_("Current access to %s"), $folder->display));
         $t->set('folder', $folder->form_to);
         $t->set('hasacl', count($curr_acl));
@@ -800,6 +803,7 @@ class IMP_Prefs_Ui
         $t->set('label', Horde::label('drafts', _("Drafts folder:")));
         $t->set('nofolder', IMP_Mailbox::formTo(self::PREF_NO_FOLDER));
         $t->set('flist', IMP::flistSelect(array(
+            'basename' => true,
             'filter' => array('INBOX'),
             'new_folder' => true,
             'selected' => IMP_Mailbox::getPref('drafts_folder')
@@ -951,6 +955,7 @@ class IMP_Prefs_Ui
             $t->set('folder_page', IMP_Mailbox::formTo(self::PREF_FOLDER_PAGE));
             $t->set('folder_sel', $mailbox_selected == self::PREF_FOLDER_PAGE);
             $t->set('flist', IMP::flistSelect(array(
+                'basename' => true,
                 'inc_vfolder' => true,
                 'selected' => $mailbox_selected
             )));
@@ -1346,6 +1351,7 @@ class IMP_Prefs_Ui
         $t->set('default', IMP_Mailbox::formTo(self::PREF_DEFAULT));
         $t->set('label', Horde::label('sent_mail_folder', _("Sent mail folder:")));
         $t->set('flist', IMP::flistSelect(array(
+            'basename' => true,
             'filter' => array('INBOX'),
             'new_folder' => true
         )));
@@ -1634,6 +1640,7 @@ class IMP_Prefs_Ui
         $t->set('label', Horde::label('spam', _("Spam folder:")));
         $t->set('nofolder', IMP_Mailbox::formTo(self::PREF_NO_FOLDER));
         $t->set('flist', IMP::flistSelect(array(
+            'basename' => true,
             'filter' => array('INBOX'),
             'new_folder' => true,
             'selected' => IMP_Mailbox::getPref('spam_folder')
@@ -1799,6 +1806,7 @@ class IMP_Prefs_Ui
         $t->set('label', Horde::label('trash', _("Trash folder:")));
         $t->set('nofolder', IMP_Mailbox::formTo(self::PREF_NO_FOLDER));
         $t->set('flist', IMP::flistSelect(array(
+            'basename' => true,
             'filter' => array('INBOX'),
             'new_folder' => true,
             'selected' => $trash_folder

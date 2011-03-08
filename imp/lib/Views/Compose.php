@@ -96,7 +96,7 @@ class IMP_Views_Compose
                 foreach ($imaptree as $val) {
                     $tmp = array(
                         'f' => $val->display,
-                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->abbrev_label, 30),
+                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->basename, 30),
                         'v' => $val->container ? '' : $val->value
                     );
                     if ($tmp['f'] == $tmp['v']) {

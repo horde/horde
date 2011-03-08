@@ -15,6 +15,7 @@
  *
  * @property string $abbrev_label  Abbreviated version of $label - displays
  *                                 only the bare mailbox name (no parents).
+ * @property string $basename  TODO
  * @property string $cacheid  Cache ID for the mailbox.
  * @property boolean $children  Does the element have children?
  * @property boolean $container  Is this a container element?
@@ -162,6 +163,17 @@ class IMP_Mailbox implements Serializable
             return (($pos = strrpos($label, $this->namespace_delimiter)) === false)
                 ? $label
                 : substr($label, $pos + 1);
+
+        case 'basename':
+            if ($this->nonimap) {
+                return $this->label;
+            }
+
+            $basename = (($pos = strrpos($this->_mbox, $this->namespace_delimiter)) === false)
+                ? $this->_mbox
+                : substr($this->_mbox, $pos + 1);
+
+            return Horde_String::convertCharset($basename, 'UTF7-IMAP', 'UTF-8');
 
         case 'cacheid':
             return $this->_getCacheID();

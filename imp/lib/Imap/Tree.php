@@ -1504,6 +1504,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      *                                 object to add nodes to.
      * @param array $opts              Additional options:
      * <pre>
+     * 'basename' - (boolean) Use raw basename instead of abbreviated label?
+     *              DEFAULT: false
      * 'checkbox' - (boolean) Display checkboxes?
      *              DEFAULT: false
      * 'editvfolder' - (boolean) Display vfolder edit links?
@@ -1556,13 +1558,17 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             switch ($opts['render_type']) {
             case 'IMP_Tree_Flist':
                 $is_open = true;
-                $params['orig_label'] = $val->abbrev_label;
+                $params['orig_label'] = empty($opts['basename'])
+                    ? $val->abbrev_label
+                    : $val->basename;
                 $label = htmlspecialchars($params['orig_label']);
                 break;
 
             case 'Javascript':
                 $is_open = $val->is_open;
-                $label = htmlspecialchars($val->abbrev_label);
+                $label = empty($opts['basename'])
+                    ? htmlspecialchars($val->abbrev_label)
+                    : htmlspecialchars($val->basename);
                 $icon = $val->icon;
                 $params['icon'] = $icon->icon;
                 $params['iconopen'] = $icon->iconopen;

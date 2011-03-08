@@ -231,7 +231,12 @@ if ($do_filter) {
 
 /* Generate folder options list. */
 if ($imp_imap->allowFolders()) {
-    $folder_options = IMP::flistSelect(array('heading' => _("Messages to"), 'new_folder' => true, 'inc_tasklists' => true, 'inc_notepads' => true));
+    $folder_options = IMP::flistSelect(array(
+        'heading' => _("Messages to"),
+        'inc_notepads' => true,
+        'inc_tasklists' => true,
+        'new_folder' => true
+    ));
 }
 
 /* Build the list of messages in the mailbox. */

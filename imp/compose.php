@@ -874,6 +874,7 @@ if ($redirect) {
             !$prefs->isLocked('sent_mail_folder')) {
             $ssm_folder_options = array(
                 'abbrev' => false,
+                'basename' => true,
                 'filter' => array('INBOX'),
                 'selected' => $sent_mail_folder
             );

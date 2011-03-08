@@ -111,6 +111,8 @@ class IMP
      * 'abbrev' - (boolean) Abbreviate long mailbox names by replacing the
      *            middle of the name with '...'?
      *            DEFAULT: Yes
+     * 'basename' - (boolean)  Use raw basename instead of abbreviated label?
+     *              DEFAULT: false
      * 'filter' - (array) An array of mailboxes to ignore.
      *            DEFAULT: Display all
      * 'heading' - (string) The label for an empty-value option at the top of
@@ -131,11 +133,12 @@ class IMP
      * @return string  A string containing <option> elements for each mailbox
      *                 in the list.
      */
-    static public function flistSelect($options = array())
+    static public function flistSelect(array $options = array())
     {
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imaptree->setIteratorFilter();
         $tree = $imaptree->createTree(strval(new Horde_Support_Randomid()), array(
+            'basename' => !empty($options['basename']),
             'render_type' => 'IMP_Tree_Flist'
         ));
         if (!empty($options['selected'])) {
@@ -325,7 +328,10 @@ class IMP
                 : '';
 
             $t->set('ak', $ak);
-            $t->set('flist', self::flistSelect(array('selected' => self::$mailbox, 'inc_vfolder' => true)));
+            $t->set('flist', self::flistSelect(array(
+                'inc_vfolder' => true,
+                'selected' => self::$mailbox
+            )));
             $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
         $t->set('menu_string', Horde::menu(array('app' => 'imp', 'menu_ob' => true))->render());

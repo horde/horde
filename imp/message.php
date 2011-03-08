@@ -478,7 +478,12 @@ if (!$use_pop) {
     if ($injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
         $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
         $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
-        $n_template->set('options', IMP::flistSelect(array('heading' => _("This message to"), 'new_folder' => true, 'inc_tasklists' => true, 'inc_notepads' => true)));
+        $n_template->set('options', IMP::flistSelect(array(
+            'heading' => _("This message to"),
+            'inc_tasklists' => true,
+            'inc_notepads' => true,
+            'new_folder' => true
+        )));
     }
 }
 
