@@ -12,35 +12,35 @@
  * 8 - Minor security fixes
  * 9 - Major security fixes
  */
-$this->notes['fm']['focus'] = 4;
+$this->notes['fm']['focus'] = 5;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Ingo
-Email Filter Rules Manager version H3 (1.2).
+The Horde Team is pleased to announce the first alpha release of the Ingo Email
+Filter Rules Manager version H4 (2.0).
 
 Ingo is an email-filter management application. It is fully internationalized,
-integrated with Horde and the IMP Webmail client, and supports both
-server-side (Sieve, procmail) and client-side (IMAP) rule creation.
+integrated with Horde and the IMP Webmail client, and supports both server-side
+(Sieve, procmail) and client-side (IMAP) message filtering.
 
-This is a preview version that should not be used on production systems. This
-version is considered feature complete but a few bugs may still exist in the
-code.
+IMPORTANT! This is a preview version that should not be used on production
+systems. This version is considered feature complete but there are likely to be
+bugs. You should not use this preview version with existing production
+data. Migration of data from earlier versions has not been fully tested yet and
+is not supported.
 
 We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system.  Updated translations are very welcome, though some strings
-might still change before the final release.
+tracking system. Updated translations are very welcome, though some strings
+might still change before the release candidates are prepared.
 
-The major changes compared to the Ingo version H3 (1.2-ALPHA) are:
-    * Added a Postfix policy daemon for blacklists and whitelists.
-    * Several improvements to the IMAP, Sieve, and Maildrop drivers.
-    * Added Japanese translation.
-    * Further bugfixes and improvements.
+The major changes compared to the Ingo version H3 (1.2) are:
+
+    * Updated for Horde 4
+    * Using IMP API for IMAP filtering
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-A Postfix policy daemon for blacklists and whitelists has been added. Several improvements have been made to the IMAP, Sieve, and Maildrop drivers. A Japanese translation has been added. Further bugfixes and improvements have been made.
 FM;
 
 $this->notes['name'] = 'Ingo';

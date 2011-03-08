@@ -1,6 +1,6 @@
---------
-v4.0-cvs
---------
+-----------
+v4.0-ALPHA1
+-----------
 
 [jan] Provide default configuration files instead of .dist versions.
 [jan] Add a new Share SQL driver with better performance.
@@ -55,16 +55,6 @@ v4.0-cvs
 [cjh] Add a Horde_Routes dispatcher for Rampage applications.
 [mjr] Fix a possible infinite loop with certain recurring events in Horde_Date.
 [jan] Use DateTime internally in Horde_Date.
-
-
------------
-v3.3.12-cvs
------------
-
-[jan] Add an experimental new Share SQL driver with better performance.
-[jan] Fix integer overflow in ASN.1 parser for S/MIME messages.
-[jan] Fix splitread database usage in VFS (Bug #9467).
-[jan] Fix invalidating permission cache in SQL driver (Bug #9392).
 
 
 -------

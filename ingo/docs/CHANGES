@@ -1,20 +1,12 @@
---------
-v2.0-git
---------
+-----------
+v2.0-ALPHA1
+-----------
 
 [jan] Provide default configuration files instead of .dist versions.
 [jan] Rename 'driver' configuration and classes to 'transport' to avoid
       confusion with script and storage drivers.
 [mms] Use IMP API for IMAP actions.
 [mms] Convert to Horde 4 standards.
-
-
-----------
-v1.2.6-cvs
-----------
-
-[mms] Fix encoding of vacation message in maildrop driver (Bug #9532).
-[jan] Add upgrade scripts for next-generation SQL share driver.
 
 
 ------

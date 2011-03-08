@@ -1,6 +1,6 @@
---------
-v5.0-git
---------
+-----------
+v5.0-ALPHA1
+-----------
 
 [jan] Add configuration whether to load other applications in an IFRAME.
 [mms] Indicate negative rights in ACL display (Request #4488).
@@ -212,14 +212,6 @@ v5.0-git
 [mms] Added readonly mailbox and disable compose hooks.
 [mms] Saving draft on session expiration now handled via VFS.
 [mms] Add preference to delete draft on resume & send.
-
-
------------
-v4.3.10-cvs
------------
-
-[jan] Don't submit the action form when reloading messages with iTip
-      attachments (Bug #9502).
 
 
 ------

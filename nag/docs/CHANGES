@@ -1,6 +1,6 @@
---------
-v3.0-git
---------
+-----------
+v3.0-ALPHA1
+-----------
 
 [jan] Provide default configuration files instead of .dist versions.
 [jan] Send alarm notifications with HTML part and convert to Horde_View.
@@ -15,13 +15,6 @@ v3.0-git
       functionality.
 [jan] Add individual notification methods for single tasks (Alfonso Marín
       Marín <almarin@um.es>).
-
-
-----------
-v2.3.7-cvs
-----------
-
-[jan] Add upgrade scripts for next-generation SQL share driver.
 
 
 ------

@@ -1,6 +1,6 @@
---------
-v3.0-git
---------
+-----------
+v3.0-ALPHA1
+-----------
 
 [jan] Provide default configuration files instead of .dist versions.
 [jan] Create a default address book if the user doesn't own any yet.
@@ -11,25 +11,6 @@ v3.0-git
 [mjr] The listTimeObjects API now returns categories for each source
       individually instead of returning only the categories available
       (Request #8504).
-
-
-----------
-v2.3.6-cvs
-----------
-
-[jan] Allow to export photo/logo fields to vCard without MIME type.
-[jan] Support X-EPOCSECONDNAME fields of Nokia phones.
-[jan] Add upgrade scripts for next-generation SQL share driver.
-[jan] Fix splitting up names when exporting to N properties of vCards.
-[jan] Only set the encoding parameter for binary data in vCards, if data is not
-      empty (Bug #9413).
-[jan] Fix searching for fields matching an email address if using 'emails'
-      attribute instead of 'email' (Bug #9472).
-[jan] Use personal address books first if determining the default one (Valentin
-      Vidic, Request #9367).
-[jan] Use name format preference not only for paging, but for sorting too
-      (Request #8806).
-[jan] Fix photo corruption when exporting to vCard 3.0 (Bug #9100).
 
 
 ------

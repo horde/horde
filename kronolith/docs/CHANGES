@@ -1,6 +1,6 @@
---------
-v3.0-git
---------
+-----------
+v3.0-ALPHA1
+-----------
 
 [jan] Add configuration whether to load other applications in an IFRAME.
 [jan] Provide default configuration files instead of .dist versions.
@@ -43,14 +43,6 @@ v3.0-git
 [jan] Remove alarm reminder code.
 [jan] Change listEvents API method to return keys as dates instead of
       timestamps.
-
-
-----------
-v2.3.6-cvs
-----------
-
-[jan] Add upgrade scripts for next-generation SQL share driver.
-[jan] Export recurrence exceptions in a more portable way.
 
 
 ------
