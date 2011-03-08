@@ -24,6 +24,10 @@
 
  - Add a release helper module.
    - Validate that the release does not exist before releasing.
+   - Update sentinel in CHANGES before and after the release.
+   - Update package.xml to bump version and empty notes after the release.
+   - Send release announcements if releasing applications.
+   - Notify freshmeat.
    - Error handling.
 
  - Support a configuration file.
