@@ -9,7 +9,7 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package  Horde_Date
+ * @package  Date
  */
 class Horde_Date_Exception extends Horde_Exception_Prior
 {

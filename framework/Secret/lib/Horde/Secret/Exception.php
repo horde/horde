@@ -9,7 +9,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Secret
+ * @package  Secret
  */
 class Horde_Secret_Exception extends Horde_Exception_Prior
 {

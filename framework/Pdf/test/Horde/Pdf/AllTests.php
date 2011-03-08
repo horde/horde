@@ -4,7 +4,7 @@
  *
  * @license    http://opensource.org/licenses/lgpl-license.php
  * @category   Horde
- * @package    Horde_Pdf
+ * @package    Pdf
  * @subpackage UnitTests
  */
 
@@ -21,7 +21,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Pdf
+ * @package    Pdf
  * @subpackage UnitTests
  */
 class Horde_Pdf_AllTests extends Horde_Test_AllTests

@@ -11,7 +11,7 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Yaml
+ * @package  Yaml
  */
 
 /**
@@ -23,7 +23,7 @@
  * that will be used for parsing.
  *
  * @category Horde
- * @package  Horde_Yaml
+ * @package  Yaml
  */
 class Horde_Yaml
 {

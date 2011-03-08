@@ -6,7 +6,7 @@
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package  Horde_Autoloader
+ * @package  Autoloader
  */
 class Horde_Autoloader_ClassPathMapper_Application implements Horde_Autoloader_ClassPathMapper
 {

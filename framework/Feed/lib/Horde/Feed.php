@@ -6,14 +6,14 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Feed
+ * @package  Feed
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Feed
+ * @package  Feed
  */
 class Horde_Feed
 {

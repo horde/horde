@@ -4,7 +4,7 @@
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage Helper
  */
 
@@ -13,7 +13,7 @@
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage Helper
  */
 class Horde_View_Helper_Block extends Horde_View_Helper_Base

@@ -8,7 +8,7 @@
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package  Horde_Autoloader
+ * @package  Autoloader
  */
 require_once 'Horde/Autoloader.php';
 require_once 'Horde/Autoloader/ClassPathMapper.php';

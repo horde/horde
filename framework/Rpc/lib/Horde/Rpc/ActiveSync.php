@@ -8,7 +8,7 @@
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  *
  * @category Horde
- * @package  Horde_Rpc
+ * @package  Rpc
  */
 class Horde_Rpc_ActiveSync extends Horde_Rpc
 {

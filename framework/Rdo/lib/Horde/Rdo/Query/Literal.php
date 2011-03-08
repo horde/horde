@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 
 /**
@@ -17,7 +17,7 @@
  *   $literal = new Horde_Rdo_Query_Literal('MAX(column_name)');
  *
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 class Horde_Rdo_Query_Literal
 {

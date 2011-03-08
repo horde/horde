@@ -9,7 +9,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Alarm
+ * @package  Alarm
  */
 class Horde_Alarm_Exception extends Horde_Exception_Prior
 {

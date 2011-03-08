@@ -8,7 +8,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage UnitTests
  */
 
@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/Adapter/MissingTest.php';
 date_default_timezone_set('America/New_York');
 
 /**
- * @package    Horde_Db
+ * @package    Db
  * @subpackage UnitTests
  */
 class Horde_Db_AllTests extends Horde_Test_AllTests

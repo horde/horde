@@ -9,7 +9,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Serialize
+ * @package  Serialize
  */
 class Horde_Serialize_Exception extends Horde_Exception_Prior
 {

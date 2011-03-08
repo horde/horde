@@ -5,7 +5,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Oauth
+ * @package  Oauth
  */
 
 /**
@@ -14,7 +14,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Oauth
+ * @package  Oauth
  */
 abstract class Horde_Oauth_SignatureMethod
 {

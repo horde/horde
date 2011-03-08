@@ -10,7 +10,7 @@
  *
  * @author   Duck <duck@obala.net>
  * @category Horde
- * @package  Horde_Perms
+ * @package  Perms
  */
 class Horde_Perms_Sql extends Horde_Perms
 {

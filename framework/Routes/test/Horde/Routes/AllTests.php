@@ -25,7 +25,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Routes
+ * @package    Routes
  * @subpackage UnitTests
  */
 class Horde_Routes_AllTests extends Horde_Test_AllTests

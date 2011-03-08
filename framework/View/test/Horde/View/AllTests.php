@@ -4,7 +4,7 @@
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage UnitTests
  */
 
@@ -24,7 +24,7 @@ require_once 'Horde/Test/AllTests.php';
 date_default_timezone_set('America/New_York');
 
 /**
- * @package    Horde_View
+ * @package    View
  * @subpackage UnitTests
  */
 class Horde_View_AllTests extends Horde_Test_AllTests

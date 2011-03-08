@@ -8,7 +8,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Controller
+ * @package    Controller
  */
 
 /**
@@ -17,7 +17,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Controller
+ * @package    Controller
  */
 class Horde_Controller_Exception extends Horde_Exception_Prior
 {

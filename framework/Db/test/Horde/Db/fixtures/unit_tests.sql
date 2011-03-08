@@ -7,7 +7,7 @@
 -- @author     Chuck Hagenbuch <chuck@horde.org>
 -- @license    http://opensource.org/licenses/bsd-license.php
 -- @category   Horde
--- @package    Horde_Db
+-- @package    Db
 -- @subpackage UnitTests
 --
 INSERT INTO unit_tests (id, integer_value, string_value, text_value, float_value, decimal_value, datetime_value, date_value, time_value, blob_value, boolean_value, email_value) VALUES ('1', '1', 'name a', 'string a', '1.2', '1.2', '2005-12-23 12:34:23', '2005-12-23', '12:34:23', 'some blob data', '1', 'foo@example.com');

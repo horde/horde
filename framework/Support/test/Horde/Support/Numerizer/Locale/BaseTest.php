@@ -1,13 +1,13 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Support
+ * @package    Support
  * @subpackage UnitTests
  */
 
 /**
  * @category   Horde
- * @package    Horde_Support
+ * @package    Support
  * @subpackage UnitTests
  */
 class Horde_Support_Numerizer_Locale_BaseTest extends PHPUnit_Framework_TestCase

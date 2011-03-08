@@ -8,7 +8,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage Adapter
  */
 
@@ -18,7 +18,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage Adapter
  */
 class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema

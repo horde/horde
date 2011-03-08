@@ -9,7 +9,7 @@
  *
  * @author   Michael Braun <mi.braun@onlinehome.de>
  * @category Horde
- * @package  Horde_Rpc
+ * @package  Rpc
  */
 class Horde_Rpc_Phpgw extends Horde_Rpc
 {

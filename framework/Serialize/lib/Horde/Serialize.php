@@ -9,7 +9,7 @@
  *
  * @author   Stephane Huther <shuther1@free.fr>
  * @author   Michael Slusarz <slusarz@horde.org>
- * @package  Horde_Serialize
+ * @package  Serialize
  * @category Horde
  */
 class Horde_Serialize

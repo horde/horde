@@ -12,7 +12,7 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
      * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
      *
      * @category Horde
-     * @package  Horde_Exception
+     * @package  Exception
      */
     class Horde_Exception extends Exception
     {
@@ -74,7 +74,7 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
      * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
      *
      * @category Horde
-     * @package  Horde_Exception
+     * @package  Exception
      */
     class Horde_Exception extends Exception
     {

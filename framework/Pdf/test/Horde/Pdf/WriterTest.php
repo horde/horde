@@ -4,7 +4,7 @@
  *
  * @license    http://opensource.org/licenses/lgpl-license.php
  * @category   Horde
- * @package    Horde_Pdf
+ * @package    Pdf
  * @subpackage UnitTests
  */
 
@@ -12,7 +12,7 @@
  * Horde_Pdf_test suite
  *
  * @category   Horde
- * @package    Horde_Pdf
+ * @package    Pdf
  * @subpackage UnitTests
  */
 class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase

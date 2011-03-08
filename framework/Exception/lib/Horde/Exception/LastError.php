@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Horde_Exception
+ * @package  Exception
  */
 class Horde_Exception_LastError extends Horde_Exception
 {

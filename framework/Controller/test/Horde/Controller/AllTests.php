@@ -8,7 +8,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Controller
+ * @package    Controller
  * @subpackage UnitTests
  */
 
@@ -25,7 +25,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Controller
+ * @package    Controller
  * @subpackage UnitTests
  */
 class Horde_Controller_AllTests extends Horde_Test_AllTests

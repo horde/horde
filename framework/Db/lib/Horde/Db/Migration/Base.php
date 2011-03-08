@@ -8,7 +8,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage Migration
  */
 
@@ -18,7 +18,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage Migration
  */
 class Horde_Db_Migration_Base

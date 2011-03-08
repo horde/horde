@@ -1,12 +1,12 @@
 <?php
 /**
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 
 /**
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 class Horde_Rdo_Exception extends Exception
 {

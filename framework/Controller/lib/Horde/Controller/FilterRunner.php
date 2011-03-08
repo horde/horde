@@ -3,7 +3,7 @@
  * Collects filters and executes them around a controller
  *
  * @category Horde
- * @package  Horde_Controller
+ * @package  Controller
  * @author   Bob McKee <bob@bluestatedigital.com>
  * @author   James Pepin <james@bluestatedigital.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD

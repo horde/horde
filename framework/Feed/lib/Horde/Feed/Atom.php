@@ -4,7 +4,7 @@
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * @category Horde
- * @package  Horde_Feed
+ * @package  Feed
  */
 
 /**
@@ -17,7 +17,7 @@
  * what kind of feed object they have been passed.
  *
  * @category Horde
- * @package  Horde_Feed
+ * @package  Feed
  */
 class Horde_Feed_Atom extends Horde_Feed_Base
 {

@@ -3,7 +3,7 @@
  * Rdo Mapper base class.
  *
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 
 /**
@@ -20,7 +20,7 @@
  *   the main table of this entity.
  *
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 abstract class Horde_Rdo_Mapper implements Countable
 {

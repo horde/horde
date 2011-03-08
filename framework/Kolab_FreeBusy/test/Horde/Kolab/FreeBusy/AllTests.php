@@ -25,7 +25,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Kolab_FreeBusy
+ * @package    Kolab_FreeBusy
  * @subpackage UnitTests
  */
 class Horde_Kolab_FreeBusy_AllTests extends Horde_Test_AllTests

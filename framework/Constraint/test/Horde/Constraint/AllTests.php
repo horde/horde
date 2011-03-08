@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    Horde_Constraint
+ * @package    Constraint
  * @subpackage UnitTests
  */
 
@@ -18,7 +18,7 @@ require_once 'Horde/Test/AllTests.php';
 set_include_path(dirname(__FILE__) . '/../../' . PATH_SEPARATOR . get_include_path());
 
 /**
- * @package    Horde_Constraint
+ * @package    Constraint
  * @subpackage UnitTests
  */
 class Horde_Constraint_AllTests extends Horde_Test_AllTests

@@ -1,7 +1,7 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Text_Textile
+ * @package    Text_Textile
  * @subpackage UnitTests
  */
 
@@ -18,7 +18,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Text_Textile
+ * @package    Text_Textile
  * @subpackage UnitTests
  */
 class Horde_Text_Textile_AllTests extends Horde_Test_AllTests

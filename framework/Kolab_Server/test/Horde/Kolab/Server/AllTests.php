@@ -24,7 +24,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Kolab_Server
+ * @package    Kolab_Server
  * @subpackage UnitTests
  */
 class Horde_Kolab_Server_AllTests extends Horde_Test_AllTests

@@ -9,7 +9,7 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package  Horde_Rpc
+ * @package  Rpc
  */
 class Horde_Rpc_Exception extends Horde_Exception_Prior
 {

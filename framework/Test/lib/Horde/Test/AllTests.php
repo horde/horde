@@ -5,7 +5,7 @@
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
- * @package    Horde_Test
+ * @package    Test
  * @subpackage UnitTests
  */
 
@@ -16,7 +16,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'PHPUnit/Autoload.php';
 
 /**
- * @package    Horde_Test
+ * @package    Test
  * @subpackage UnitTests
  */
 class Horde_Test_AllTests

@@ -4,14 +4,14 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Argv
+ * @package  Argv
  */
 
 /**
  * Format help with indented section bodies.
  *
  * @category Horde
- * @package  Horde_Argv
+ * @package  Argv
  */
 class Horde_Argv_IndentedHelpFormatter extends Horde_Argv_HelpFormatter
 {

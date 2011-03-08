@@ -6,7 +6,7 @@
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
- * @package    Horde_Test
+ * @package    Test
  * @subpackage UnitTests
  */
 $autoloaders = spl_autoload_functions();

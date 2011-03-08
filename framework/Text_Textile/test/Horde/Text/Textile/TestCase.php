@@ -1,7 +1,7 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Text_Textile
+ * @package    Text_Textile
  * @subpackage UnitTests
  */
 
@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/../../../../lib/Horde/Text/Textile.php';
 
 /**
  * @category   Horde
- * @package    Horde_Text_Textile
+ * @package    Text_Textile
  * @subpackage UnitTests
  */
 class Horde_Text_Textile_TestCase extends PHPUnit_Framework_TestCase {

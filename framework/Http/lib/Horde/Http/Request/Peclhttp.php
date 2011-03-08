@@ -5,14 +5,14 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http
+ * @package  Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http
+ * @package  Http
  */
 class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
 {

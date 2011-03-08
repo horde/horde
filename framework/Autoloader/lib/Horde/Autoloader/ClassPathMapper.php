@@ -6,7 +6,7 @@
  *
  * @author   Bob Mckee <bmckee@bywires.com>
  * @category Horde
- * @package  Horde_Autoloader
+ * @package  Autoloader
  */
 interface Horde_Autoloader_ClassPathMapper
 {

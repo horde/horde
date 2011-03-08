@@ -1,7 +1,7 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage Helper
  */
 
@@ -14,7 +14,7 @@
  * allowing any helper to call any other.
  *
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage Helper
  */
 abstract class Horde_View_Helper_Base

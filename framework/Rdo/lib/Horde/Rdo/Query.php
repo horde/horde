@@ -3,12 +3,12 @@
  * Represent a single query or a tree of many query elements uniformly to clients.
  *
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 
 /**
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 class Horde_Rdo_Query
 {

@@ -4,14 +4,14 @@
  *
  * @license  http://opensource.org/licenses/lgpl-license.php
  * @category Horde
- * @package  Horde_Pdf
+ * @package  Pdf
  */
 
 /**
  * Font width definition
  *
  * @category Horde
- * @package  Horde_Pdf
+ * @package  Pdf
  */
 class Horde_Pdf_Font_Zapfdingbats
 {

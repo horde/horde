@@ -7,7 +7,7 @@
  *
  * @author   Ben Klang <bklang@horde.org>
  * @category Horde
- * @package  Horde_Rpc
+ * @package  Rpc
  */
 
 class Horde_Rpc_Webdav2 extends Horde_Rpc

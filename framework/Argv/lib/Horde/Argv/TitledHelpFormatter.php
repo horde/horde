@@ -4,14 +4,14 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Argv
+ * @package  Argv
  */
 
 /**
  * Format help with underlined section headers.
  *
  * @category Horde
- * @package  Horde_Argv
+ * @package  Argv
  */
 class Horde_Argv_TitledHelpFormatter extends Horde_Argv_HelpFormatter
 {

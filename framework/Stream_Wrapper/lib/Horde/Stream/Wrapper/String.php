@@ -5,14 +5,14 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Stream_Wrapper
+ * @package  Stream_Wrapper
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Stream_Wrapper
+ * @package  Stream_Wrapper
  */
 class Horde_Stream_Wrapper_String
 {

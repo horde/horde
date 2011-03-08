@@ -3,7 +3,7 @@
  * Horde_Stream_Filter test suite
  *
  * @category   Horde
- * @package    Horde_Stream_Filter
+ * @package    Stream_Filter
  * @subpackage UnitTests
  */
 
@@ -20,7 +20,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Stream_Filter
+ * @package    Stream_Filter
  * @subpackage UnitTests
  */
 class Horde_Stream_Filter_AllTests extends Horde_Test_AllTests

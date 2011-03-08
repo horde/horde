@@ -8,7 +8,7 @@
  * @author   Joey Hewitt <joey@joeyhewitt.com>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package  Horde_Rpc
+ * @package  Rpc
  */
 
 /**

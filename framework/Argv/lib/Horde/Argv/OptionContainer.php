@@ -4,7 +4,7 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Argv
+ * @package  Argv
  */
 
 /**
@@ -36,7 +36,7 @@
  *      controlling Horde_Argv_Parser, where they are initially created.
  *
  * @category Horde
- * @package  Horde_Argv
+ * @package  Argv
  */
 class Horde_Argv_OptionContainer
 {

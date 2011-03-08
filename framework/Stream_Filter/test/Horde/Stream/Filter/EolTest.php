@@ -1,13 +1,13 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Stream_Filter
+ * @package    Stream_Filter
  * @subpackage UnitTests
  */
 
 /**
  * @category   Horde
- * @package    Horde_Stream_Filter
+ * @package    Stream_Filter
  * @subpackage UnitTests
  */
 class Horde_Stream_Filter_EolTest extends Horde_Test_Case

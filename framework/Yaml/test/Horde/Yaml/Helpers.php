@@ -5,13 +5,13 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @category   Horde
- * @package    Horde_Yaml
+ * @package    Yaml
  * @subpackage UnitTests
  */
 
 /**
  * @category   Horde
- * @package    Horde_Yaml
+ * @package    Yaml
  * @subpackage UnitTests
  */
 class Horde_Yaml_Test_Serializable implements Serializable

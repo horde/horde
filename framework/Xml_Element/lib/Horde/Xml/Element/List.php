@@ -3,14 +3,14 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Xml_Element
+ * @package  Xml_Element
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Xml_Element
+ * @package  Xml_Element
  */
 abstract class Horde_Xml_Element_List extends Horde_Xml_Element implements Countable, Iterator
 {

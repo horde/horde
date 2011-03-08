@@ -9,7 +9,7 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Argv
+ * @package  Argv
  */
 
 /**
@@ -53,7 +53,7 @@
  *      or "%s=%s" ("--file=FILE").
  *
  * @category Horde
- * @package  Horde_Argv
+ * @package  Argv
  */
 abstract class Horde_Argv_HelpFormatter
 {

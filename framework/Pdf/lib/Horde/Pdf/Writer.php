@@ -16,7 +16,7 @@
  * @author   Jan Schneider <jan@horde.org>
  * @license  http://opensource.org/licenses/lgpl-license.php
  * @category Horde
- * @package  Horde_Pdf
+ * @package  Pdf
  */
 
 /**
@@ -24,7 +24,7 @@
  * library. No external libs or PHP extensions are required.
  *
  * @category Horde
- * @package  Horde_Pdf
+ * @package  Pdf
  */
 class Horde_Pdf_Writer
 {

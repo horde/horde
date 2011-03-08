@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package  Horde_Text_Textile
+ * @package  Text_Textile
  */
 
 /**
@@ -18,7 +18,7 @@
  *   echo $textile->toHtml($string);
  *
  * @category Horde
- * @package  Horde_Text_Textile
+ * @package  Text_Textile
  */
 class Horde_Text_Textile {
 

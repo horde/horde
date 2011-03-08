@@ -7,7 +7,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http
+ * @package  Http
  */
 
 require 'Horde/Autoloader.php';

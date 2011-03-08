@@ -1,13 +1,13 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Date
+ * @package    Date
  * @subpackage UnitTests
  */
 
 /**
  * @category   Horde
- * @package    Horde_Date
+ * @package    Date
  * @subpackage UnitTests
  */
 class Horde_Date_Parser_HandlerTest extends Horde_Test_Case

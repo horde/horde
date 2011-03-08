@@ -1,7 +1,7 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Http
+ * @package    Http
  * @subpackage UnitTests
  * @copyright  2008-2009 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
@@ -20,7 +20,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Http
+ * @package    Http
  * @subpackage UnitTests
  */
 class Horde_Http_AllTests extends Horde_Test_AllTests

@@ -9,7 +9,7 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package  Horde_History
+ * @package  History
  */
 class Horde_History_Exception extends Horde_Exception_Prior
 {

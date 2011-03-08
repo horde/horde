@@ -8,7 +8,7 @@
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package  Horde_Autoloader
+ * @package  Autoloader
  */
 class Horde_Autoloader
 {

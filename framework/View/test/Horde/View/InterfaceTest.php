@@ -4,7 +4,7 @@
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage UnitTests
  */
 
@@ -12,7 +12,7 @@
  * @group      view
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage UnitTests
  */
 class Horde_View_InterfaceTest extends PHPUnit_Framework_TestCase {

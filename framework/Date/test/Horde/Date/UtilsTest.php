@@ -1,7 +1,7 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Date
+ * @package    Date
  * @subpackage UnitTests
  */
 
@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Utils.php';
 
 /**
  * @category   Horde
- * @package    Horde_Date
+ * @package    Date
  * @subpackage UnitTests
  */
 class Horde_Date_UtilsTest extends PHPUnit_Framework_TestCase

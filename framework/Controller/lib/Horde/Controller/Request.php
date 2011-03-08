@@ -3,7 +3,7 @@
  * Interface for a request object
  *
  * @category Horde
- * @package  Horde_Controller
+ * @package  Controller
  * @author   James Pepin <james@bluestatedigital.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  */

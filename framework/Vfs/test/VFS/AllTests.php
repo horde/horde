@@ -25,7 +25,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Feed
+ * @package    Feed
  * @subpackage UnitTests
  */
 class VFS_AllTests extends Horde_Test_AllTests

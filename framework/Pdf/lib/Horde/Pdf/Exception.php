@@ -4,7 +4,7 @@
  *
  * @license  http://opensource.org/licenses/lgpl-license.php
  * @category Horde
- * @package  Horde_Pdf
+ * @package  Pdf
  */
 
 /**
@@ -12,7 +12,7 @@
  * from the package will be of this type.
  *
  * @category Horde
- * @package  Horde_Pdf
+ * @package  Pdf
  */
 class Horde_Pdf_Exception extends Horde_Exception_Prior
 {

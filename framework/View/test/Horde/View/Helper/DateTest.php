@@ -8,7 +8,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage UnitTests
  */
 
@@ -19,7 +19,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage UnitTests
  */
 class Horde_View_Helper_DateTest extends Horde_Test_Case

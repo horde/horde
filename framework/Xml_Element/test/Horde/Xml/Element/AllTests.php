@@ -3,7 +3,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @category   Horde
- * @package    Horde_Xml_Element
+ * @package    Xml_Element
  * @subpackage UnitTests
  */
 
@@ -14,7 +14,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Url
+ * @package    Url
  * @subpackage UnitTests
  */
 class Horde_Xml_Element_AllTests extends Horde_Test_AllTests

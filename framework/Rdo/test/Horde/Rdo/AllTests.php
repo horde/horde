@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    Horde_Rdo
+ * @package    Rdo
  * @subpackage UnitTests
  */
 
@@ -17,7 +17,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Rdo
+ * @package    Rdo
  * @subpackage UnitTests
  */
 class Horde_Rdo_AllTests extends Horde_Test_AllTests

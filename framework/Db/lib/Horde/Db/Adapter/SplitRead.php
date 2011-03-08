@@ -9,7 +9,7 @@
  * @author     Michael J. Rubinsky <mrubinsk@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage Adapter
  */
 
@@ -23,7 +23,7 @@
  * @author     Michael J. Rubinsky <mrubinsk@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage Adapter
  */
 class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter

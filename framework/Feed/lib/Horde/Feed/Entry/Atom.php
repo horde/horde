@@ -4,14 +4,14 @@
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * @category Horde
- * @package  Horde_Feed
+ * @package  Feed
  */
 
 /**
  * Concrete class for working with Atom entries.
  *
  * @category Horde
- * @package  Horde_Feed
+ * @package  Feed
  */
 class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base
 {

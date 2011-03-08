@@ -3,7 +3,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @category   Horde
- * @package    Horde_Xml_Element
+ * @package    Xml_Element
  * @subpackage UnitTests
  */
 
@@ -14,7 +14,7 @@ require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/lib/Horde
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @category   Horde
- * @package    Horde_Xml_Element
+ * @package    Xml_Element
  * @subpackage UnitTests
  */
 class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase

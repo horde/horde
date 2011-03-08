@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 
 /**
@@ -10,7 +10,7 @@
  * @TODO implement ArrayAccess as well?
  *
  * @category Horde
- * @package  Horde_Rdo
+ * @package  Rdo
  */
 class Horde_Rdo_List implements Iterator, Countable
 {

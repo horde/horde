@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/ConflictTestCase.php';
  * @author     Mike Naberezny <mike@maintainable.com>
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @category   Horde
- * @package    Horde_Argv
+ * @package    Argv
  * @subpackage UnitTests
  */
 

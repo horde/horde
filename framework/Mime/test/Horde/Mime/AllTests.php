@@ -5,7 +5,7 @@
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
- * @package    Horde_Mime
+ * @package    Mime
  * @subpackage UnitTests
  */
 
@@ -22,7 +22,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Mime
+ * @package    Mime
  * @subpackage UnitTests
  */
 class Horde_Mime_AllTests extends Horde_Test_AllTests

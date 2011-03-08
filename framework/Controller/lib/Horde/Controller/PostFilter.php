@@ -3,7 +3,7 @@
  * Interface for filters that are executed after the controller has generated the response
  *
  * @category Horde
- * @package  Horde_Controller
+ * @package  Controller
  * @author   James Pepin <james@bluestatedigital.com>
  * @author   Bob McKee <bob@bluestatedigital.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD

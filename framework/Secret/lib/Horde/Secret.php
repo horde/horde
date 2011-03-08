@@ -11,7 +11,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Secret
+ * @package  Secret
  */
 class Horde_Secret
 {

@@ -3,7 +3,7 @@
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
- * @package    Horde_Alarm
+ * @package    Alarm
  * @subpackage UnitTests
  */
 

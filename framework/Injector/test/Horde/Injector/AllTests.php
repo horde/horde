@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    Horde_Injector
+ * @package    Injector
  * @subpackage UnitTests
  */
 
@@ -17,7 +17,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Injector
+ * @package    Injector
  * @subpackage UnitTests
  */
 class Horde_Injector_AllTests extends Horde_Test_AllTests

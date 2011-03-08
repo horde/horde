@@ -11,14 +11,14 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Yaml
+ * @package  Yaml
  */
 
 /**
  * Parse YAML strings into PHP data structures
  *
  * @category Horde
- * @package  Horde_Yaml
+ * @package  Yaml
  */
 class Horde_Yaml_Loader
 {

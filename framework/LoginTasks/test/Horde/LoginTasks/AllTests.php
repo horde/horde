@@ -22,7 +22,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_LoginTasks
+ * @package    LoginTasks
  * @subpackage UnitTests
  */
 class Horde_LoginTasks_AllTests extends Horde_Test_AllTests

@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package  Horde_Autoloader
+ * @package  Autoloader
  */
 class Horde_Autoloader_ClassPathMapper_DefaultTest extends PHPUnit_Framework_TestCase
 {

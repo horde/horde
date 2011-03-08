@@ -3,7 +3,7 @@
  * URL generation utility for controllers
  *
  * @category Horde
- * @package  Horde_Controller
+ * @package  Controller
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Derek DeVries <derek@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>

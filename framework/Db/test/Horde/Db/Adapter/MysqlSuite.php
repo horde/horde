@@ -8,7 +8,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage UnitTests
  */
 
@@ -19,7 +19,7 @@
  * @license    http://opensource.org/licenses/bsd-license.php
  * @group      horde_db
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage UnitTests
  */
 class Horde_Db_Adapter_MysqlSuite extends PHPUnit_Framework_TestSuite

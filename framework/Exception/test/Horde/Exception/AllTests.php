@@ -24,7 +24,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Exception
+ * @package    Exception
  * @subpackage UnitTests
  */
 class Horde_Exception_AllTests extends Horde_Test_AllTests

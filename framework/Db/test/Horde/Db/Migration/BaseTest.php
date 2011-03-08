@@ -8,7 +8,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage UnitTests
  */
 
@@ -23,7 +23,7 @@ require_once dirname(dirname(__FILE__)) . '/fixtures/migrations_with_decimal/1_g
  * @license    http://opensource.org/licenses/bsd-license.php
  * @group      horde_db
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  * @subpackage UnitTests
  */
 class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase

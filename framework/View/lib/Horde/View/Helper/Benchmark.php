@@ -11,7 +11,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage Helper
  */
 
@@ -34,7 +34,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_View
+ * @package    View
  * @subpackage Helper
  */
 class Horde_View_Helper_Benchmark extends Horde_View_Helper_Base

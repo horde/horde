@@ -1,13 +1,13 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_VFS
+ * @package    VFS
  * @subpackage UnitTests
  */
 
 /**
  * @category   Horde
- * @package    Horde_VFS
+ * @package    VFS
  * @subpackage UnitTests
  */
 class VFS_SmbTest extends PHPUnit_Framework_TestCase

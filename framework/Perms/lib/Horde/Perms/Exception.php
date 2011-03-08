@@ -9,7 +9,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Perms
+ * @package  Perms
  */
 class Horde_Perms_Exception extends Horde_Exception_Prior
 {

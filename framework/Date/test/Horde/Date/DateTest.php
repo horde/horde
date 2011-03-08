@@ -1,7 +1,7 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Date
+ * @package    Date
  * @subpackage UnitTests
  */
 
@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Span.php';
 
 /**
  * @category   Horde
- * @package    Horde_Date
+ * @package    Date
  * @subpackage UnitTests
  */
 class Horde_Date_DateTest extends PHPUnit_Framework_TestCase

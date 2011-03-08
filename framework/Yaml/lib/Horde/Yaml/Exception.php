@@ -11,14 +11,14 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Yaml
+ * @package  Yaml
  */
 
 /**
  * Exception class for exceptions thrown by Horde_Yaml
  *
  * @category Horde
- * @package  Horde_Yaml
+ * @package  Yaml
  */
 class Horde_Yaml_Exception extends Horde_Exception_LastError
 {

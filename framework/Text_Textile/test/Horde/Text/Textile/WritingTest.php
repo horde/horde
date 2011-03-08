@@ -1,7 +1,7 @@
 <?php
 /**
  * @category   Horde
- * @package    Horde_Text_Textile
+ * @package    Text_Textile
  * @subpackage UnitTests
  */
 
@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/TestCase.php';
  * These tests correspond to "1. Writing in Textile" from http://hobix.com/textile/.
  *
  * @category   Horde
- * @package    Horde_Text_Textile
+ * @package    Text_Textile
  * @subpackage UnitTests
  */
 class Horde_Text_Textile_WritingTest extends Horde_Text_Textile_TestCase {
