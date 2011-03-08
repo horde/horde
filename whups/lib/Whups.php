@@ -506,7 +506,7 @@ class Whups {
         $criteria = array('user:' . $user);
         $mygroups = $GLOBALS['injector']
             ->getInstance('Horde_Group')
-            ->getGroups($GLOBALS['registry']->getAuth());
+            ->listGroups($GLOBALS['registry']->getAuth());
         foreach ($mygroups as $id => $group) {
             $criteria[] = 'group:' . $id;
         }

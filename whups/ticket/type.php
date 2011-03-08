@@ -30,7 +30,7 @@ class SetTypeStep1Form extends Horde_Form {
         /* Group restrictions. */
         $mygroups = $GLOBALS['injector']
             ->getInstance('Horde_Group')
-            ->getGroups($GLOBALS['registry']->getAuth());
+            ->listGroups($GLOBALS['registry']->getAuth());
         if ($mygroups) {
             foreach (array_keys($mygroups) as $gid) {
                 $grouplist[$gid] = $groups->getGroupName($gid, true);
