@@ -92,7 +92,7 @@ class Components_Runner_Release
 
         if (empty($options['nogit'])) {
             system('git commit -m "Released ' . $release . '." ' . $package_xml);
-            system('git tag -m "Released ' . $release . '." ' . $release);
+            system('git tag -f -m "Released ' . $release . '." ' . strtolower($release));
         }
 
         unlink($path);
