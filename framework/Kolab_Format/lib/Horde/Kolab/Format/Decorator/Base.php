@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_Decorator_Base
+abstract class Horde_Kolab_Format_Decorator_Base
 implements Horde_Kolab_Format
 {
     /**
@@ -54,33 +54,5 @@ implements Horde_Kolab_Format
     public function getHandler()
     {
         return $this->_handler;
-    }
-
-    /**
-     * Load an object based on the given XML stream.
-     *
-     * @param resource $xml The XML stream of the message.
-     *
-     * @return array The data array representing the object.
-     *
-     * @throws Horde_Kolab_Format_Exception
-     */
-    public function load($xml)
-    {
-        return $this->_handler->load($xml);
-    }
-
-    /**
-     * Convert the data to a XML stream.
-     *
-     * @param array $object The data array representing the object.
-     *
-     * @return resource The data as XML stream.
-     *
-     * @throws Horde_Kolab_Format_Exception
-     */
-    public function save($object)
-    {
-        return $this->_handler->save($object);
     }
 }
