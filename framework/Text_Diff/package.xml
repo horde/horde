@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-06</date>
- <time>23:39:26</time>
+ <date>2011-03-09</date>
+ <time>00:11:51</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0alpha2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
  <notes>
-* First alpha release for Horde 4.
+* Fix package layout.
  </notes>
  <contents>
   <dir baseinstalldir="/Text" name="/">
@@ -115,10 +115,25 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-06</date>
+   <date>2011-03-09</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-09</date>
+   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <notes>
+* Fix package layout.
    </notes>
   </release>
  </changelog>

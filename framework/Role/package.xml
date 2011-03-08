@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>00:15:33</time>
+ <date>2011-03-09</date>
+ <time>00:13:59</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0alpha2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First alpha release for Horde 4.
-* Set default value for horde_dir.
+* Fix package layout.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -77,6 +76,21 @@
    <notes>
 * First alpha release for Horde 4.
 * Set default value for horde_dir.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-09</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Fix package layout.
    </notes>
   </release>
  </changelog>
