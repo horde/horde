@@ -1516,7 +1516,7 @@ $_prefs['dynamic_view'] = array(
 
 // Login preferences (dimp)
 $_prefs['dimp_login_view'] = array(
-    'value' => 'portal',
+    'value' => 'inbox',
     'type' => 'enum',
     'enum' => array(
         'portal' => _("Portal"),
