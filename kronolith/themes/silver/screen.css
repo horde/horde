@@ -37,3 +37,114 @@ table.kronolithView td.button {
 .kronolithPrint span {
     background-image: url('graphics/print.png');
 }
+
+/*****************
+ * AJAX INTERFACE
+ *****************/
+
+/* Themed images. */
+#kronolithNotifications {
+    background-image: url("graphics/alerts/message.png");
+}
+#kronolithNotifications.horde-error {
+    background-image: url("graphics/alerts/error.png")
+}
+#kronolithNotifications.horde-success {
+    background-image: url("graphics/alerts/success.png")
+}
+#kronolithNotifications.horde-warning {
+    background-image: url("graphics/alerts/warning.png")
+}
+#kronolithNotifications.kronolithClose {
+    background-image: url("graphics/close.png")
+}
+#kronolithSearchButton {
+    background-image: url('graphics/search.png');
+}
+#kronolithMenu a.kronolithAdd {
+    background-image: url("graphics/plus.png");
+}
+span#kronolithQuickEvent {
+    background-image: url("graphics/new.png");
+}
+.kronolithDialogInfo {
+    background-image: url('graphics/alerts/message.png');
+}
+.kronolithDialogWarning {
+    background-image: url('graphics/alerts/warning.png');
+}
+.kronolithAttendeeNone {
+    background-image: url("graphics/attendee-none.png");
+}
+.kronolithAttendeeAccepted {
+    background-image: url("graphics/attendee-accepted.png");
+}
+.kronolithAttendeeDeclined {
+    background-image: url("graphics/attendee-declined.png");
+    text-decoration: line-through;
+}
+.kronolithAttendeeTentative {
+    background-image: url("graphics/attendee-tentative.png");
+}
+#kronolithMinicalNext, .kronolithNext {
+    background-image: url("graphics/right.png");
+}
+#kronolithMinicalPrev, .kronolithPrev {
+    background-image: url("graphics/left.png");
+}
+.kronolithPrint span {
+    background-image: url('graphics/print.png');
+}
+.kronolithAddTask .kronolithAddTaskIcon {
+    background-image: url('graphics/new_task.png');
+}
+
+span#kronolithNewEvent, #kronolithApplications a {
+    background: url("graphics/menu.png") repeat-x;
+}
+#kronolithBar .kronolithDateChoice, #kronolithApplications a:hover {
+    background: url("graphics/menu-active.png") repeat-x;
+}
+#kronolithQuickEvent {
+    background-image: url("graphics/new.png"), url("graphics/menu-active.png");
+}
+#kronolithQuickEvent, #kronolithNav a {
+    background-repeat: no-repeat, repeat-x;
+    background-position: 5px center, left top;
+}
+#kronolithNavTasks {
+    background-image: url("graphics/tasks.png"), url("graphics/menu.png");
+}
+#kronolithNavTasks:hover, #kronolithNavTasks.on {
+    background-image: url("graphics/tasks.png"), url("graphics/menu-active.png");
+}
+#kronolithNavAgenda {
+    background-image: url("graphics/agenda.png"), url("graphics/menu.png");
+}
+#kronolithNavAgenda:hover, #kronolithNavAgenda.on {
+    background-image: url("graphics/agenda.png"), url("graphics/menu-active.png");
+}
+#kronolithNavDay {
+    background-image: url("graphics/dayview.png"), url("graphics/menu.png");
+}
+#kronolithNavDay:hover, #kronolithNavDay.on {
+    background-image: url("graphics/dayview.png"), url("graphics/menu-active.png");
+}
+#kronolithNavWeek {
+    background-image: url("graphics/weekview.png"), url("graphics/menu.png");
+}
+#kronolithNavWeek:hover, #kronolithNavWeek.on {
+    background-image: url("graphics/weekview.png"), url("graphics/menu-active.png");
+}
+#kronolithNavMonth {
+    background-image: url("graphics/monthview.png"), url("graphics/menu.png");
+}
+#kronolithNavMonth:hover, #kronolithNavMonth.on {
+    background-image: url("graphics/monthview.png"), url("graphics/menu-active.png");
+}
+#kronolithNavYear {
+    background-image: url("graphics/yearview.png"), url("graphics/menu.png");
+}
+#kronolithNavYear:hover, #kronolithNavYear.on {
+    background-image: url("graphics/yearview.png"), url("graphics/menu-active.png");
+}
