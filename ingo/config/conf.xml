@@ -43,8 +43,8 @@
 
  <configsection name="menu">
   <configheader>Menu settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be
-  linked in Ingo's menu">
+  <configmultienum name="apps" required="false" desc="Select any applications
+  that should be linked in Ingo's menu">
    <values>
     <configspecial application="horde" name="apps" />
    </values>
