@@ -98,8 +98,10 @@ class Horde_Kolab_Format_Xml_Note extends Horde_Kolab_Format_Xml
      */
     protected function _save(&$root, $object)
     {
-        $object['summary'] = $object['desc'];
-        unset($object['desc']);
+        if (isset($object['desc'])) {
+            $object['summary'] = $object['desc'];
+            unset($object['desc']);
+        }
 
         return $this->_saveArray($root, $object, $this->_fields_specific);
     }
