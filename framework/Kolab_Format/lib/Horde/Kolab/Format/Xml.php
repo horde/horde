@@ -119,13 +119,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     protected $_version = 1;
 
     /**
-     * The name of the resulting document.
-     *
-     * @var string
-     */
-    protected $_name = 'kolab.xml';
-
-    /**
      * The XML document this driver works with.
      *
      * @var DOMDocument
@@ -360,36 +353,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 'save'    => 'ProductId',
             ),
         );
-    }
-
-    /**
-     * Return the name of the resulting document.
-     *
-     * @return string The name that may be used as filename.
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
-    /**
-     * Return the mime type of the resulting document.
-     *
-     * @return string The mime type of the result.
-     */
-    public function getMimeType()
-    {
-        return 'application/x-vnd.kolab.' . $this->_root_name;
-    }
-
-    /**
-     * Return the disposition of the resulting document.
-     *
-     * @return string The disportion of this document.
-     */
-    public function getDisposition()
-    {
-        return 'attachment';
     }
 
     /**
