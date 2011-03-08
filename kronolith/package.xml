@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>14:10:11</time>
+ <date>2011-03-08</date>
+ <time>19:55:29</time>
  <version>
   <release>3.0.0alpha1</release>
   <api>3.0.0</api>
@@ -63,6 +63,7 @@
    </dir> <!-- /feed -->
    <dir name="js">
     <file name="calendar-panel.js" role="horde" />
+    <file name="dragdrop2.js" role="horde" />
     <file name="edit.js" role="horde" />
     <file name="embed.js" role="horde" />
     <file name="goto.js" role="horde" />
@@ -440,7 +441,6 @@
     <file name="15_kronolith_upgrade_sqlng.php" role="horde" />
     <file name="16_kronolith_upgrade_sqlhierarchical.php" role="horde" />
     <file name="17_kronolith_upgrade_sqlnghierarchical.php" role="horde" />
-    <file name="18_kronolith_upgrade_categoriestotags.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -684,6 +684,7 @@
        <file name="warning.png" role="horde" />
       </dir> <!-- /themes/silver/graphics/alerts -->
       <file name="addressbook_browse.png" role="horde" />
+      <file name="agenda.png" role="horde" />
       <file name="alarm-000.png" role="horde" />
       <file name="alarm-fff.png" role="horde" />
       <file name="alarm.png" role="horde" />
@@ -706,12 +707,16 @@
       <file name="favicon.ico" role="horde" />
       <file name="goto.png" role="horde" />
       <file name="kronolith.png" role="horde" />
+      <file name="left.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="menu-active.png" role="horde" />
+      <file name="menu.png" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="monthview.png" role="horde" />
       <file name="new.png" role="horde" />
       <file name="new_big.png" role="horde" />
       <file name="new_small.png" role="horde" />
+      <file name="new_task.png" role="horde" />
       <file name="picker.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="print.png" role="horde" />
@@ -719,13 +724,17 @@
       <file name="private-fff.png" role="horde" />
       <file name="recur-000.png" role="horde" />
       <file name="recur-fff.png" role="horde" />
+      <file name="right.png" role="horde" />
       <file name="search.png" role="horde" />
+      <file name="tasks.png" role="horde" />
       <file name="today.png" role="horde" />
       <file name="unknown-background.png" role="horde" />
       <file name="weekview.png" role="horde" />
       <file name="workweekview.png" role="horde" />
       <file name="yearview.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
+     <file name="ie7.css" role="horde" />
+     <file name="ie8.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="simplex">
@@ -884,6 +893,7 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="kronolith/feed/index.php" name="feed/index.php" />
    <install as="kronolith/js/calendar-panel.js" name="js/calendar-panel.js" />
+   <install as="kronolith/js/dragdrop2.js" name="js/dragdrop2.js" />
    <install as="kronolith/js/edit.js" name="js/edit.js" />
    <install as="kronolith/js/embed.js" name="js/embed.js" />
    <install as="kronolith/js/goto.js" name="js/goto.js" />
@@ -1075,7 +1085,6 @@
    <install as="kronolith/migration/15_kronolith_upgrade_sqlng.php" name="migration/15_kronolith_upgrade_sqlng.php" />
    <install as="kronolith/migration/16_kronolith_upgrade_sqlhierarchical.php" name="migration/16_kronolith_upgrade_sqlhierarchical.php" />
    <install as="kronolith/migration/17_kronolith_upgrade_sqlnghierarchical.php" name="migration/17_kronolith_upgrade_sqlnghierarchical.php" />
-   <install as="kronolith/migration/18_kronolith_upgrade_categoriestotags.php" name="migration/18_kronolith_upgrade_categoriestotags.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1233,8 +1242,11 @@
    <install as="kronolith/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
    <install as="kronolith/themes/fadetogreen/graphics/headerbox.png" name="themes/fadetogreen/graphics/headerbox.png" />
    <install as="kronolith/themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
+   <install as="kronolith/themes/silver/ie7.css" name="themes/silver/ie7.css" />
+   <install as="kronolith/themes/silver/ie8.css" name="themes/silver/ie8.css" />
    <install as="kronolith/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="kronolith/themes/silver/graphics/addressbook_browse.png" name="themes/silver/graphics/addressbook_browse.png" />
+   <install as="kronolith/themes/silver/graphics/agenda.png" name="themes/silver/graphics/agenda.png" />
    <install as="kronolith/themes/silver/graphics/alarm-000.png" name="themes/silver/graphics/alarm-000.png" />
    <install as="kronolith/themes/silver/graphics/alarm-fff.png" name="themes/silver/graphics/alarm-fff.png" />
    <install as="kronolith/themes/silver/graphics/alarm.png" name="themes/silver/graphics/alarm.png" />
@@ -1257,12 +1269,16 @@
    <install as="kronolith/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
    <install as="kronolith/themes/silver/graphics/goto.png" name="themes/silver/graphics/goto.png" />
    <install as="kronolith/themes/silver/graphics/kronolith.png" name="themes/silver/graphics/kronolith.png" />
+   <install as="kronolith/themes/silver/graphics/left.png" name="themes/silver/graphics/left.png" />
    <install as="kronolith/themes/silver/graphics/loading.gif" name="themes/silver/graphics/loading.gif" />
+   <install as="kronolith/themes/silver/graphics/menu-active.png" name="themes/silver/graphics/menu-active.png" />
+   <install as="kronolith/themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
    <install as="kronolith/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
    <install as="kronolith/themes/silver/graphics/monthview.png" name="themes/silver/graphics/monthview.png" />
    <install as="kronolith/themes/silver/graphics/new.png" name="themes/silver/graphics/new.png" />
    <install as="kronolith/themes/silver/graphics/new_big.png" name="themes/silver/graphics/new_big.png" />
    <install as="kronolith/themes/silver/graphics/new_small.png" name="themes/silver/graphics/new_small.png" />
+   <install as="kronolith/themes/silver/graphics/new_task.png" name="themes/silver/graphics/new_task.png" />
    <install as="kronolith/themes/silver/graphics/picker.png" name="themes/silver/graphics/picker.png" />
    <install as="kronolith/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
    <install as="kronolith/themes/silver/graphics/print.png" name="themes/silver/graphics/print.png" />
@@ -1270,7 +1286,9 @@
    <install as="kronolith/themes/silver/graphics/private-fff.png" name="themes/silver/graphics/private-fff.png" />
    <install as="kronolith/themes/silver/graphics/recur-000.png" name="themes/silver/graphics/recur-000.png" />
    <install as="kronolith/themes/silver/graphics/recur-fff.png" name="themes/silver/graphics/recur-fff.png" />
+   <install as="kronolith/themes/silver/graphics/right.png" name="themes/silver/graphics/right.png" />
    <install as="kronolith/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
+   <install as="kronolith/themes/silver/graphics/tasks.png" name="themes/silver/graphics/tasks.png" />
    <install as="kronolith/themes/silver/graphics/today.png" name="themes/silver/graphics/today.png" />
    <install as="kronolith/themes/silver/graphics/unknown-background.png" name="themes/silver/graphics/unknown-background.png" />
    <install as="kronolith/themes/silver/graphics/weekview.png" name="themes/silver/graphics/weekview.png" />
@@ -1358,13 +1376,13 @@
   <release>
    <version>
     <release>3.0.0alpha1</release>
-    <api>3.0</api>
+    <api>3.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-03-08</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * First alpha release for Horde 4.
