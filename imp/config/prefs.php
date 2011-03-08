@@ -1085,7 +1085,6 @@ $_prefs['tree_view'] = array(
 // poll all folders for new mail?
 $_prefs['nav_poll_all'] = array(
     'value' => 0,
-    'locked' => false,
     'type' => 'checkbox',
     'desc' => _("Poll all folders for new mail?")
 );
