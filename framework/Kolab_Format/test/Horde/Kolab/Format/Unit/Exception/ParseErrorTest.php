@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_Unit_Xml_ParserTest
+class Horde_Kolab_Format_Unit_Exception_ParseErrorTest
 extends PHPUnit_Framework_TestCase
 {
     public function testParseError()
