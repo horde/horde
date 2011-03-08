@@ -3,7 +3,7 @@
  <name>turba</name>
  <channel>pear.horde.org</channel>
  <summary>A web based address book</summary>
- <description>Turba is the Horde address book / contact management program. It provides a generic frontend to searching and managing LDAP, SQL, IMSP, and several other contact sources.</description>
+ <description>Turba is the Horde contact management application. Leveraging the Horde framework to provide seamless integration with IMP and other Horde applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP address books.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

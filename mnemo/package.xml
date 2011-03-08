@@ -3,7 +3,7 @@
  <name>mnemo</name>
  <channel>pear.horde.org</channel>
  <summary>A web based notes manager</summary>
- <description>Mnemo is the Horde notes and memos application.  It lets users keep free-text notes and other bits of information which doesn&apos;t fit as a contact, a todo item, an event, etc.</description>
+ <description>The Mnemo Note Manager is the Horde notes/memos application. It allows users to keep web-based notes and freeform text. Notes may be shared with other users via shared notepads. It requires the Horde Application Framework and an SQL database or Kolab server for backend storage.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

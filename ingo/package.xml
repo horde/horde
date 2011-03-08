@@ -3,7 +3,7 @@
  <name>ingo</name>
  <channel>pear.horde.org</channel>
  <summary>An email filter rules manager</summary>
- <description>Ingo is an email filter rules manager. It can generate Sieve, Maildrop, Procmail and IMAP scripts and upload them to or execute them on the server (using a timsieved or VFS FTP driver, or the PHP IMAP extension, respectively).</description>
+ <description>Ingo is an email-filter management application. It is fully internationalized, integrated with Horde and the IMP Webmail client, and supports both server-side (Sieve, procmail) and client-side (IMAP) message filtering.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

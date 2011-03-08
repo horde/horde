@@ -25,7 +25,6 @@ components that are targeted at the common problems and tasks involved in
 developing modern web applications. It is the basis for a large number of
 production-level web applications, notably the Horde Groupware suites. For more
 information on Horde or the Horde Groupware suites, visit http://www.horde.org.
-Notes
 
 IMPORTANT! This is a preview version that should not be used on production
 systems. This version is considered feature complete but there are likely to be
