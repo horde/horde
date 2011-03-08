@@ -457,11 +457,15 @@ class Components_Pear_Package
     /**
      * Generate a package package release.
      *
+     * @param boolean $manual Avoid touching the package.xml.
+     *
      * @return string The path to the release package.
      */
-    public function generateRelease()
+    public function generateRelease($manual = false)
     {
-        $pkg = $this->updatePackageFile();
+        if (!$manual) {
+            $pkg = $this->updatePackageFile();
+        }
 
         $pkg = $this->_getPackageFile();
         $pkg->setLogger($this->_output);

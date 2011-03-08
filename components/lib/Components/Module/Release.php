@@ -73,6 +73,14 @@ extends Components_Module_Base
                     'help'   => 'Avoid any git operations during the release.'
                 )
             ),
+            new Horde_Argv_Option(
+                '-m',
+                '--manual',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Avoid touching the package.xml during the release process.'
+                )
+            ),
         );
     }
 
