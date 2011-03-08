@@ -98,7 +98,8 @@ class Horde_SyncMl_Device_Synthesis extends Horde_SyncMl_Device
      */
     public function UTC2LocalDate($s)
     {
-        $t = Horde_Icalendar::_parseDateTime($s);
-        return date('Ymd', $t) . 'T000000';
+        $date = new Horde_Date($s);
+        $date->setTimezone(date_default_timezone_get());
+        return $date->format('Ymd') . 'T000000';
     }
 }

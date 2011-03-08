@@ -275,14 +275,8 @@ class Horde_SyncMl_Device
      */
     public function convertUTC2LocalTime($utc)
     {
-        $dateParts = explode('T', $utc[0]);
-        $date = Horde_Icalendar::_parseDate($dateParts[0]);
-        $time = Horde_Icalendar::_parseTime($dateParts[1]);
-
-        // We don't know the timezone so assume local timezone.
-        $ts = @gmmktime($time['hour'], $time['minute'], $time['second'],
-                        $date['month'], $date['mday'], $date['year']);
-
-        return date('Ymd\THis',$ts);
+        $date = new Horde_Date($utc);
+        $date->setTimezone(date_default_timezone_get());
+        return $date->format("Ymd\THis");
     }
 }
