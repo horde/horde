@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>01:47:48</time>
+ <date>2011-03-08</date>
+ <time>23:43:29</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -487,7 +487,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-03-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial Horde 4 package.
