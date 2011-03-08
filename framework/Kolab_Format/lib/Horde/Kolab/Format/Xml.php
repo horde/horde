@@ -383,7 +383,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 
         // uid is vital
         if (!isset($object['uid'])) {
-            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("UID not found in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception_MissingUid();
         }
 
         return $object;
@@ -474,8 +474,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 return null;
             } elseif ($params['value'] == self::VALUE_NOT_EMPTY) {
                 // May not be empty. Return an error
-                throw new Horde_Kolab_Format_Exception(sprintf(Horde_Kolab_Format_Translation::t("Data value for %s is empty in Kolab XML object!"),
-                                                  $name));
+                throw new Horde_Kolab_Format_Exception_MissingValue($name);
             } elseif ($params['value'] == self::VALUE_DEFAULT) {
                 // Return the default
                 return $params['default'];
@@ -614,8 +613,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 $value = $params['default'];
             } elseif ($params['value'] == self::VALUE_NOT_EMPTY) {
                 // May not be empty. Return an error
-                throw new Horde_Kolab_Format_Exception(sprintf(Horde_Kolab_Format_Translation::t("Data value for %s is empty in Kolab XML object!"),
-                                                  $name));
+                throw new Horde_Kolab_Format_Exception_MissingValue($name);
             } elseif ($params['value'] == self::VALUE_MAYBE_MISSING) {
                 /**
                  * 'MAYBE_MISSING' means we should not create an XML
