@@ -80,10 +80,6 @@ class Horde_Kolab_Format_Factory
                     $params
                 );
                 break;
-            case 'Xmlstream':
-                $instance = new $class(
-                );
-                break;
             default:
                 throw new Horde_Kolab_Format_Exception(
                     sprintf(
