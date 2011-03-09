@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Test the factory.
+ * Test the DOM based XML handler.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
