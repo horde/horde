@@ -40,6 +40,7 @@ a.header {
     border: 1px solid #000;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 .selected {
     background: #c6d3ff;
@@ -57,6 +58,7 @@ a.header {
     border: none;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    border-radius: 0;
 }
 #menu a:hover {
     border: 1px solid #aebaca;

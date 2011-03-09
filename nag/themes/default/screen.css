@@ -142,6 +142,7 @@ body.rightPanel ul {
     padding: 4px;
     -moz-border-radius-bottomleft: 10px;
     -webkit-border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 #pageControls #tasklistSearch {
     background-image: url("graphics/search.png");

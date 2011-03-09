@@ -9,6 +9,7 @@ div.nicetitle {
     opacity: .90;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 div.nicetitle pre {

@@ -69,6 +69,7 @@ a.smallheader {
     font-size: 100%;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 .button:hover {
     background-color: #1165ff;
@@ -142,6 +143,7 @@ a.currentTab:hover {
     padding: 2px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 
 /* Sidebar styles. */

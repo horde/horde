@@ -95,6 +95,7 @@ input:focus, textarea:focus {
     border-top: 1px solid #00b1b0;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 .button:hover {
     background-color: #2f5c97;
@@ -226,6 +227,7 @@ a.fixed {
 .box {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
     border: 1px dashed #00b1b0;
     background-color: #cae8e8;
 }

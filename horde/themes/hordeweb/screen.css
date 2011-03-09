@@ -28,6 +28,7 @@ a:hover {
     color: #cfc;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+    border-radius: 8px;
 }
 #menu a {
     color: #cfc;
@@ -49,6 +50,8 @@ a:hover {
     -moz-border-radius-bottomleft: 8px;
     -webkit-border-bottom-right-radius: 8px;
     -webkit-border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 #menuBottom a {
     color: #cfc;
@@ -67,6 +70,8 @@ a:hover {
     -moz-border-radius-bottomright: 8px;
     -webkit-border-bottom-left-radius: 8px;
     -webkit-border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 #pageControls a {
     color: #cfc;
@@ -76,6 +81,7 @@ a:hover {
     background-color: #cfc;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+    border-radius: 8px;
 }
 #sidebarPanel a, #sidebarPanel span {
     color: #111;
@@ -100,6 +106,8 @@ a:hover {
     -moz-border-radius-topleft: 8px;
     -webkit-border-top-right-radius: 8px;
     -webkit-border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
 }
 .tabset li.activeTab a {
     background-color: #063;
@@ -120,6 +128,8 @@ a:hover {
     -moz-border-radius-topleft: 8px;
     -webkit-border-top-right-radius: 8px;
     -webkit-border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
 }
 .prefsOverview dd {
     color: #111;
@@ -131,6 +141,8 @@ a:hover {
     -moz-border-radius-bottomleft: 8px;
     -webkit-border-bottom-right-radius: 8px;
     -webkit-border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 .item {
@@ -177,4 +189,5 @@ a:hover {
     border: none;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+    border-radius: 8px;
 }

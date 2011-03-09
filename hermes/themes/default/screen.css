@@ -114,6 +114,7 @@ body.hermesAjax {
     font-weight: bold;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 #hermesApplications:hover a {
     -moz-border-radius: 0;
@@ -367,6 +368,8 @@ div.hermesTimeSliceOptions {
 }
 .rounded {
   -moz-border-radius: 7px 7px 7px 7px;
+  -webkit-border-radius: 7px 7px 7px 7px;
+  border-radius: 7px 7px 7px 7px;
   border: 1px solid #DBDBDB;
   font-size: 11px;
   line-height: 1.2;

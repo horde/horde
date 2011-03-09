@@ -3,6 +3,7 @@
     padding-right: 5px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+    border-radius: 8px;
 }
 
 .pagebody {
@@ -22,4 +23,5 @@
     border: none;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+    border-radius: 8px;
 }

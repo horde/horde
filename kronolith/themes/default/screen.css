@@ -438,6 +438,7 @@ body.kronolithAjax {
     font-weight: bold;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 #kronolithApplications:hover a {
     -moz-border-radius: 0;

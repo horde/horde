@@ -74,18 +74,23 @@ br.spacer {
 .roundedBox {
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
+    border-radius: 15px;
 }
 .roundedTop {
     -moz-border-radius-topright: 15px;
     -moz-border-radius-topleft: 15px;
     -webkit-border-top-right-radius: 15px;
     -webkit-border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 .roundedBottom {
     -moz-border-radius-bottomright: 15px;
     -moz-border-radius-bottomleft: 15px;
     -webkit-border-bottom-right-radius: 15px;
     -webkit-border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottomleft-radius: 15px;
 }
 .header {
     font-family: Verdana,Helvetica,sans-serif;
@@ -351,6 +356,7 @@ pre, code, .fixed {
     z-index: 1001;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 div.nicetitle {
     position: absolute;
@@ -401,6 +407,7 @@ div.nicetitle pre {
     padding: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 #menu h1 {
     font-family: Verdana,Helvetica,sans-serif;
@@ -428,6 +435,7 @@ div.nicetitle pre {
 #sidebarPanel {
     -moz-border-radius-bottomright: 15px;
     -webkit-border-bottom-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     padding-top: 5px;
     padding-bottom: 10px;
     background: #eee;
@@ -481,8 +489,10 @@ div.nicetitle pre {
     border-bottom-color: #e9e9e9;
     -moz-border-radius-topleft: 10px;
     -moz-border-radius-topright: 10px;
-    -moz-border-top-left-radius: 10px;
-    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .tabset li a:hover {
     text-decoration: none;

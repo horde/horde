@@ -79,6 +79,8 @@ option {
     -moz-border-radius-bottomleft: 15px;
     -webkit-border-bottom-right-radius: 0;
     -webkit-border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 15px;
 }
 
 /* Tab styles. */

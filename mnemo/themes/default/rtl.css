@@ -50,6 +50,8 @@ body #sbarHide {
     -moz-border-radius-bottomright: 10px;
     -webkit-border-bottom-left-radius: 0;
     -webkit-border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 10px;
 }
 #pageControls #notepadSearch {
     background-position: 98% center;

@@ -15,6 +15,7 @@ table.headerbar {
     padding-right: 5px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+    border-radius: 8px;
 }
 table.headerbar tr {
     background: transparent;
@@ -41,4 +42,6 @@ h3.checkout {
     -moz-border-radius-topleft: 8px;
     -webkit-border-top-right-radius: 8px;
     -webkit-border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
 }

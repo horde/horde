@@ -147,6 +147,7 @@ a.button {
     background: url("graphics/menu-active.png") repeat-x;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    border-radius: 0;
 }
 #menuBottom {
     position: relative;
@@ -158,6 +159,7 @@ a.button {
     padding-left: 6px;
     -moz-border-radius-bottomleft: 10px;
     -webkit-border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 /* Sidebar styles. */

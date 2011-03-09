@@ -85,6 +85,7 @@ a.header {
     border-top: 1px solid #C4C4B8;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 .selected {
     background: #C6D3ff;
@@ -116,6 +117,7 @@ a.header {
     padding: 2px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 
 /* Sidebar styles. */
@@ -138,6 +140,7 @@ body.sidebar {
     text-decoration: none;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 #expandButton {
     margin-right: 1px;

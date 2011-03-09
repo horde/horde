@@ -67,6 +67,7 @@ input:focus, textarea:focus {
     border-right-color: #000;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 .button:hover, .button:focus, a.button:hover, a.button:focus {
     background: #339;
@@ -110,6 +111,7 @@ input:focus, textarea:focus {
     border-bottom: 1px solid #ccc;
     -moz-border-radius-bottomleft: 10px;
     -webkit-border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 /* Sidebar styles. */

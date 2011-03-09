@@ -226,6 +226,7 @@ div.msgActions, #fmanager div.folderActions {
     margin: 2px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
 .searchElement em {
     font-style: normal;
@@ -440,6 +441,7 @@ table.searchesmanagement .vfolderenabled {
     padding: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
 .prefsPgpHeader, .prefsSmimeHeader {
     margin-bottom: 5px;
@@ -560,6 +562,7 @@ span.loadingImg {
     border: 1px #e0e0e0 solid;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
     background: #fff url("graphics/loading.gif") no-repeat center;
     padding: 3px;
     width: 16px;
@@ -584,6 +587,7 @@ td.addressTr span.loadingImg {
     padding: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
 .mimeStatusIcon {
     width: 22px;
@@ -599,6 +603,7 @@ div.mimeStatusMessage, div.mimePartInfo {
     padding: 5px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
     /* For FF2 */
     display: table-cell;
     display: inline-block;
@@ -628,6 +633,7 @@ div.mimeStatusMessage, div.mimePartInfo {
     padding: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
 .mimePartWrapValid {
     border-color: #cfc;

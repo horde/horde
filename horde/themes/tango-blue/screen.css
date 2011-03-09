@@ -180,6 +180,7 @@ body.sidebar #menu {
 #sidebarPanel {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    border-radius: 0;
     background-color: #c9daed;
 }
 #sidebarPanel span.toggle, #sidebarPanel a {
@@ -224,11 +225,13 @@ td.notice {
     border: 1px solid #000;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    border-radius: 0;
 }
 p.notice {
     background-color: #ffc;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    border-radius: 0;
     border: 0;
     border-bottom: 1px solid #000;
     margin: 0;

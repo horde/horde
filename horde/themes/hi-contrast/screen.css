@@ -50,6 +50,7 @@ a.widget:hover {
     border: 1px solid #fff;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 #menu a:hover {
     border: 1px solid #66a;

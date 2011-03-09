@@ -113,6 +113,7 @@ span.device:hover
     background-image: url('graphics/digit-bg.png');
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
     cursor: pointer;
 }
 
@@ -130,6 +131,7 @@ span.device:hover
     background-color: #999;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
 
 .digitLabel {

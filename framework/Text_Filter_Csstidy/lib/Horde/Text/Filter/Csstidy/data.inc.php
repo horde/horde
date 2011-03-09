@@ -290,7 +290,19 @@ $GLOBALS['csstidy']['shorthands'] = array(
     'padding' => array(
         'padding-top', 'padding-right', 'padding-bottom', 'padding-left'
     ),
-    '-moz-border-radius' => 0
+    '-moz-border-radius' => array(
+        '-moz-border-radius-topright', '-moz-border-radius-bottomright',
+        '-moz-border-radius-bottomleft', '-moz-border-radius-topleft'
+    ),
+    '-webkit-border-radius' => array(
+        '-webkit-border-top-right-radius', '-webkit-border-bottom-right-radius',
+        '-webkit-border-bottom-left-radius', '-webkit-border-top-left-radius'
+    ),
+    // CSS3
+    'border-radius' => array(
+        'border-top-right-radius', 'border-bottom-right-radius',
+        'border-bottom-left-radius', 'border-top-left-radius'
+    ),
 );
 
 /**

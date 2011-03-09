@@ -129,6 +129,7 @@ a.smallheader:hover {
     border-top: 1px solid #c4c4b8;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 .button:hover {
     background: #cdf;
