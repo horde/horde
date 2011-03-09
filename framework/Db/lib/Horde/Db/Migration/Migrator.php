@@ -265,12 +265,13 @@ class Horde_Db_Migration_Migrator
      */
     protected function _initializeSchemaInformation()
     {
-        try {
-            $schemaTable = $this->_connection->createTable($this->_schemaTableName, array('primaryKey' => false));
-            $schemaTable->column('version', 'integer');
-            $schemaTable->end();
-            $this->_connection->insert('INSERT INTO ' . $this->_schemaTableName . ' (version) VALUES (0)');
-        } catch (Exception $e) {}
+        if (in_array($this->_schemaTableName, $this->_connection->tables())) {
+            return;
+        }
+        $schemaTable = $this->_connection->createTable($this->_schemaTableName, array('primaryKey' => false));
+        $schemaTable->column('version', 'integer');
+        $schemaTable->end();
+        $this->_connection->insert('INSERT INTO ' . $this->_schemaTableName . ' (version) VALUES (0)');
     }
 
     /**
