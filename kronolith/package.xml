@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-*
+* Add migration for converting existing event categories to tags.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
