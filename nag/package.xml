@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* Fix saving tasks via PUT method.
 * Fix deleting task lists.
 * Fix hiding the External prefs group (Bug #9643).
  </notes>
