@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* Horde_Text_Filter#filter() now throws an exception on error (Bug #9640).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

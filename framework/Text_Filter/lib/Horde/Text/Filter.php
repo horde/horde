@@ -51,6 +51,7 @@ class Horde_Text_Filter
      * @param mixed $params   The list of params to use with each filter.
      *
      * @return string  The transformed text.
+     * @throws Horde_Text_Filter_Exception
      */
     static public function filter($text, $filters = array(), $params = array())
     {
@@ -62,11 +63,7 @@ class Horde_Text_Filter
         $params = array_values($params);
 
         foreach (array_values($filters) as $num => $filter) {
-            try {
-                $filterOb = self::factory($filter, isset($params[$num]) ? $params[$num] : array());
-            } catch (Horde_Text_Filter_Exception $e) {
-                return $e->getMessage();
-            }
+            $filterOb = self::factory($filter, isset($params[$num]) ? $params[$num] : array());
             $patterns = $filterOb->getPatterns();
 
             /* Pre-processing. */
