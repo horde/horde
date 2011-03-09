@@ -29,6 +29,7 @@ The package has a driver based output generation and currently generates HTML an
  </stability>
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
  <notes>
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

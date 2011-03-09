@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

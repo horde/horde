@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

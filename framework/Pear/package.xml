@@ -28,6 +28,7 @@
  </stability>
  <license uri="REPLACE">REPLACE</license>
  <notes>
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

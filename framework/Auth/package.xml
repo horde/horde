@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

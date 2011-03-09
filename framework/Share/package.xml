@@ -23,6 +23,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

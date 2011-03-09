@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

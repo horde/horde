@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

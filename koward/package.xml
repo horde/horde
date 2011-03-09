@@ -37,6 +37,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+*
  </notes>
  <contents>
   <dir name="/">
