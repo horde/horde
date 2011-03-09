@@ -29,8 +29,8 @@ if (!empty($title)) {
 <?php
 
 Horde::outputMetaTags();
-
-if (!$GLOBALS['browser']->isMobile()) {
+$appOb = $GLOBALS['registry']->getApiInstance($GLOBALS['registry']->getApp(), 'application');
+if (!$GLOBALS['browser']->isMobile() || empty($appOb->mobileView)) {
     Horde::includeFavicon();
     Horde::includeStylesheetFiles();
     Horde::includeScriptFiles();
