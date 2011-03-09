@@ -9,7 +9,7 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 
 /**
@@ -26,7 +26,7 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Note extends Horde_Kolab_Format_Xml
 {
