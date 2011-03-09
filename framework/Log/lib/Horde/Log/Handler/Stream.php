@@ -77,7 +77,7 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
                 throw new Horde_Log_Exception(__CLASS__ . ': Resource is not a stream');
             }
 
-            if ($mode != 'a+') {
+            if ($mode && $mode != 'a+') {
                 throw new Horde_Log_Exception(__CLASS__ . ': Mode cannot be changed on existing streams');
             }
 
