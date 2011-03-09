@@ -30,16 +30,15 @@ Reading, writing and listing of files are all supported, and there are both obje
  <date>2011-03-08</date>
  <time>23:52:30</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -374,14 +373,14 @@ Reading, writing and listing of files are all supported, and there are both obje
    <package>
     <name>Log</name>
     <channel>pear.php.net</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>

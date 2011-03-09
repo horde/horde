@@ -13,16 +13,15 @@
  <date>2011-03-07</date>
  <time>00:24:21</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -20,16 +20,15 @@
  <date>2011-03-09</date>
  <time>00:11:51</time>
  <version>
-  <release>1.0.0alpha2</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
  <notes>
-* Fix package layout.
  </notes>
  <contents>
   <dir baseinstalldir="/Text" name="/">
@@ -108,7 +107,7 @@
  <changelog>
   <release>
    <version>
-    <release>1.0.0alpha1</release>
+    <release>1.0.0beta1</release>
     <api>1.0.0</api>
    </version>
    <stability>

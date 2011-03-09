@@ -20,19 +20,15 @@
  <date>2011-03-08</date>
  <time>23:43:07</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First alpha release for Horde 4.
-* Add ability to define callback to run when class is loaded.
-* Bug #7856: Allow underscores in pathname.
-* Rename to Horde_Autoloader.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

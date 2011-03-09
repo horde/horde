@@ -29,12 +29,11 @@
   <api>1.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* Initial release
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

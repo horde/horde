@@ -25,29 +25,15 @@
  <date>2011-03-08</date>
  <time>23:51:27</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First alpha release for Horde 4.
-* Html2text filter will use horde/Text_Filter, if available, to wrap text.
-* Add callback parameter to the Html2text filter.
-* XSS filter now uses PHP DOM parser to process incoming text.
-* Remove Horde/Core dependency.
-* Add Horde_Text_Filter_Exception::.
-* Html2text converter now uses XML parser to generate output.
-* Add ability to define filters to use with preg_replace_callback().
-* Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
-* Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
-* Add support for Google Closure Compiler in javascript minfiy filter.
-* Fix dimming signatures when mixed with quoted text (Bug #4299).
-* Added javscript minify filter.
-* Add support for using the tidy extension when filtering HTML data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -376,14 +362,14 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -392,21 +378,21 @@
    <package>
     <name>Horde_Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Text_Flowed</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>

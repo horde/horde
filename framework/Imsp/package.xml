@@ -14,16 +14,15 @@
  <date>2011-03-09</date>
  <time>00:16:01</time>
  <version>
-  <release>1.0.0alpha2</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fix package layout.
  </notes>
  <contents>
   <dir baseinstalldir="/Net" name="/">
@@ -316,7 +315,7 @@
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>

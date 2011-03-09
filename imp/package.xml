@@ -25,16 +25,15 @@
  <date>2011-03-09</date>
  <time>00:36:36</time>
  <version>
-  <release>5.0.0alpha1</release>
+  <release>5.0.0beta1</release>
   <api>5.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -20,28 +20,15 @@
  <date>2011-03-08</date>
  <time>23:52:22</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First alpha release for Horde 4.
-* Added Horde_String::rpos().
-* Renamed Horde_Array::array_merge_recursive_overwrite() to Horde_Array::replaceRecursive().
-* Added Horde_String::common().
-* Added Horde_Domhtml::.
-* Removed Horde_Util::assertDriverConfig().
-* Removed Horde_Util::bufferOutput().
-* Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
-* Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
-* Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
-* Added Horde_String::convertToUtf8().
-* Added Horde_Util::abbreviate().
-* Removed Horde_Array::combine() and Horde_Util::hmac().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -110,7 +97,7 @@
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -122,7 +109,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>

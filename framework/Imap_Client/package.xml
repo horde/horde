@@ -13,26 +13,15 @@
  <date>2011-03-08</date>
  <time>23:46:32</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Add PHPUnit test framework.
-* Added constants for RFC-defined flags.
-* Supported finalized SPECIAL-USE capability (RFC 6154).
-* Add Horde_Imap_Client_Data_AclNegative object.
-* Add Horde_Imap_Client_Base#allAclRights().
-* Add Horde_Imap_Client_Data_Acl and Horde_Imap_Client_Data_AclRights objects.
-* Horde_Imap_Client_Base#getNamespaces() now returns integer constants for the &apos;type&apos; parameter.
-* Add Horde_Imap_Client_Data_Fetch data object.
-* Add Horde_Imap_Client_Ids data object.
-* Add Horde_Imap_Client_Fetch_Query data object.
-* Add Horde_Imap_Client_Data_Envelope data object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -105,14 +94,14 @@
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -128,21 +117,21 @@
    <package>
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Secret</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>

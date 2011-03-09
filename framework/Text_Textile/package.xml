@@ -13,16 +13,15 @@
  <date>2011-03-06</date>
  <time>23:29:41</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* Initial Horde 4 package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
