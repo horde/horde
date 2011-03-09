@@ -170,7 +170,7 @@ class Horde_Db_Migration_Migrator
                 continue;
             }
 
-            $this->_logger->info('Migrating to ' . get_class($migration) . ' (' . $migration->version . ')');
+            $this->_logger->info('Migrating ' . ($this->_direction == 'up' ? 'to ' : 'from ') . get_class($migration) . ' (' . $migration->version . ')');
             $migration->migrate($this->_direction);
             $this->_setSchemaVersion($migration->version);
         }
