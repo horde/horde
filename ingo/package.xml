@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-*
+* Fix creating new rules with PostgreSQL (Bug #9638).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

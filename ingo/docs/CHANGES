@@ -2,7 +2,7 @@
 v2.0-BETA1
 ----------
 
-
+[jan] Fix creating new rules with PostgreSQL (Bug #9638).
 
 
 -----------

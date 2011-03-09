@@ -133,11 +133,11 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
             $rule = array_merge($this->getDefaultRule(), $rule);
         }
 
-        $query = sprintf('INSERT INTO %s (rule_id, rule_owner, rule_name, rule_action, rule_value, rule_flags, rule_conditions, rule_combine, rule_stop, rule_active, rule_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        $query = sprintf('INSERT INTO %s (rule_owner, rule_name, rule_action, rule_value, rule_flags, rule_conditions, rule_combine, rule_stop, rule_active, rule_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                          $this->_params['table_rules']);
 
         $order = key(array_reverse($this->_filters, true)) + 1;
-        $values = array_merge(array($id, Ingo::getUser()),
+        $values = array_merge(array(Ingo::getUser()),
                               $this->_ruleToBackend($rule),
                               array($order));
         try {
