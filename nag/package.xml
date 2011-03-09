@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-*
+* Fix hiding the External prefs group (Bug #9643).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
