@@ -14,6 +14,11 @@ require_once dirname(__FILE__) . '/Base.php';
  */
 class Horde_Group_MockTest extends Horde_Group_Test_Base
 {
+    public function testListAllWithNoGroupsCreated()
+    {
+        $this->assertEquals(array(), self::$group->listAll());
+    }
+
     public function testCreate()
     {
         $this->_create();

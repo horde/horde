@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* Fix error in Mock driver when listing groups (Bug #9642).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

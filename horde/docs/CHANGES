@@ -2,7 +2,7 @@
 v4.0-BETA1
 ----------
 
-
+[jan] Fix error when not using a Group backend. (Bug #9642).
 
 
 -----------

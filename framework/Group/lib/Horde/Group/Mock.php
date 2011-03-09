@@ -19,7 +19,7 @@ class Horde_Group_Mock extends Horde_Group_Base
      *
      * @var array
      */
-    protected $_groups;
+    protected $_groups = array();
 
     /**
      * Creates a new group.
