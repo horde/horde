@@ -83,8 +83,8 @@ if (!empty($args[1])) {
 
 // Run
 $db = $injector->getInstance('Horde_Db_Adapter');
-$logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
 if (!empty($options['debug'])) {
+    $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
     $db->setLogger($logger);
 }
 
@@ -101,6 +101,10 @@ case 'migrate':
     $cli->message('Migrating DB to schema version ' . $targetVersion . '.');
     break;
 }
+
+$logger = new Horde_Log_Logger(
+    new Horde_Log_Handler_Stream(
+        STDOUT, null, new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)));
 
 foreach ($apps as $app) {
     $migrator = $migration->getMigrator($app, $logger);

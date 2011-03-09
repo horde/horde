@@ -70,11 +70,17 @@ try {
 } catch (Exception $e) {
     die($e->getMessage() . "\n");
 }
-$logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
 if (!empty($args[3]) && strpos($args[3], 'debug') !== false) {
+    $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
     $db->setLogger($logger);
 }
-$migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $module . '_schema_info'));
+$logger = new Horde_Log_Logger(
+    new Horde_Log_Handler_Stream(
+        STDOUT, null, new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)));
+$migrator = new Horde_Db_Migration_Migrator(
+    $db, $logger,
+    array('migrationsPath' => $dir,
+          'schemaTableName' => $module . '_schema_info'));
 
 echo 'Current schema version: ' . $migrator->getCurrentVersion() . "\n";
 
