@@ -37,11 +37,38 @@ extends PHPUnit_Framework_TestCase
 {
     public function testSave()
     {
-        $factory = new Horde_Kolab_Format_Factory();
-        $note = $factory->create('Xml', 'Raw');
         $this->assertContains(
             '<uid>test</uid>',
-            $note->save(array('uid' => 'test'))
+            $this->_getEnvelope()->save(
+                array('uid' => 'test', 'type' => 'test')
+            )
         );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception
+     */
+    public function testMissingType()
+    {
+        $this->assertContains(
+            '<uid>test</uid>',
+            $this->_getEnvelope()->save(array('uid' => 'test'))
+        );
+    }
+
+    public function testType()
+    {
+        $this->assertContains(
+            '<test version="1.0">',
+            $this->_getEnvelope()->save(
+                array('uid' => 'test', 'type' => 'test')
+            )
+        );
+    }
+
+    private function _getEnvelope()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        return $factory->create('Xml', 'Envelope');
     }
 }

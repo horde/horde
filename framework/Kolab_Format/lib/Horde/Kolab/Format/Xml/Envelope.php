@@ -28,4 +28,21 @@
  */
 class Horde_Kolab_Format_Xml_Envelope extends Horde_Kolab_Format_Xml
 {
+    /**
+     * Convert the data to a XML stream.
+     *
+     * @param array $object The data array representing the object.
+     *
+     * @return resource The data as XML stream.
+     *
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
+     */
+    public function save($object)
+    {
+        if (!isset($object['type'])) {
+            throw new Horde_Kolab_Format_Exception('The "type" value is missing!');
+        }
+        $this->_root_name = $object['type'];
+        return parent::save($object);
+    }
 }
