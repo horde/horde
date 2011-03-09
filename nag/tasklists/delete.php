@@ -28,7 +28,7 @@ if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     Horde::url('tasklists/', true)->redirect();
 }
 
-$form = new Nag_DeleteTaskListForm($vars, $tasklist);
+$form = new Nag_Form_DeleteTaskList($vars, $tasklist);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {
