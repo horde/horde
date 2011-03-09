@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Kolab_Format</name>
  <channel>pear.horde.org</channel>
  <extends>Kolab_Format</extends>
@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:57:16</time>
+ <date>2011-03-09</date>
+ <time>17:31:45</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -81,6 +81,7 @@
         <file name="Annotation.php" role="php" />
         <file name="Contact.php" role="php" />
         <file name="Distributionlist.php" role="php" />
+        <file name="Envelope.php" role="php" />
         <file name="Event.php" role="php" />
         <file name="Hprefs.php" role="php" />
         <file name="Note.php" role="php" />
@@ -120,7 +121,6 @@
         </dir> <!-- /test/Horde/Kolab/Format/Integration/fixtures -->
         <file name="ContactTest.php" role="test" />
         <file name="EventTest.php" role="test" />
-        <file name="MimeAttrTest.php" role="test" />
         <file name="PreferencesTest.php" role="test" />
         <file name="RecurrenceTest.php" role="test" />
         <file name="TaskTest.php" role="test" />
@@ -140,6 +140,7 @@
          <file name="ParseErrorTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Format/Unit/Exception -->
         <dir name="Xml">
+         <file name="EnvelopeTest.php" role="test" />
          <file name="ParserTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Format/Unit/Xml -->
         <file name="FactoryTest.php" role="test" />
@@ -220,102 +221,12 @@
    <install as="Horde/Kolab/Format/Xml/Annotation.php" name="lib/Horde/Kolab/Format/Xml/Annotation.php" />
    <install as="Horde/Kolab/Format/Xml/Contact.php" name="lib/Horde/Kolab/Format/Xml/Contact.php" />
    <install as="Horde/Kolab/Format/Xml/Distributionlist.php" name="lib/Horde/Kolab/Format/Xml/Distributionlist.php" />
+   <install as="Horde/Kolab/Format/Xml/Envelope.php" name="lib/Horde/Kolab/Format/Xml/Envelope.php" />
    <install as="Horde/Kolab/Format/Xml/Event.php" name="lib/Horde/Kolab/Format/Xml/Event.php" />
    <install as="Horde/Kolab/Format/Xml/Hprefs.php" name="lib/Horde/Kolab/Format/Xml/Hprefs.php" />
    <install as="Horde/Kolab/Format/Xml/Note.php" name="lib/Horde/Kolab/Format/Xml/Note.php" />
    <install as="Horde/Kolab/Format/Xml/Parser.php" name="lib/Horde/Kolab/Format/Xml/Parser.php" />
    <install as="Horde/Kolab/Format/Xml/Task.php" name="lib/Horde/Kolab/Format/Xml/Task.php" />
-<<<<<<< HEAD
-   <install as="Horde/Kolab/Format/Xmlstream/Raw.php" name="lib/Horde/Kolab/Format/Xmlstream/Raw.php" />
-=======
-   <install as="locale/Horde_Kolab_Format.pot" name="locale/Horde_Kolab_Format.pot" />
-   <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/ar/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/bg/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/bg/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/bg/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/bg/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/bs/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/bs/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/bs/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/bs/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/ca/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/ca/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/ca/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/ca/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/cs/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/cs/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/cs/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/cs/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/da/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/da/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/da/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/da/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/de/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/de/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/de/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/de/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/el/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/el/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/el/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/el/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/en/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/en/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/es/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/es/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/es/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/es/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/et/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/et/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/et/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/et/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/eu/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/eu/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/eu/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/eu/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/fa/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/fa/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/fa/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/fa/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/fi/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/fi/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/fi/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/fi/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/fr/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/fr/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/fr/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/fr/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/gl/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/gl/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/gl/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/gl/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/he/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/he/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/he/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/he/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/hr/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/hr/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/hr/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/hr/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/hu/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/hu/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/hu/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/hu/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/id/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/id/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/id/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/id/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/is/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/is/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/is/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/is/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/it/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/it/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/it/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/it/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/ja/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/ja/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/ja/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/ja/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/km/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/km/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/km/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/km/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/ko/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/ko/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/ko/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/ko/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/lt/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/lt/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/lt/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/lt/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/lv/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/lv/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/lv/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/lv/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/mk/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/mk/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/mk/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/mk/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/nb/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/nb/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/nb/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/nb/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/nl/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/nl/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/nl/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/nl/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/nn/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/nn/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/nn/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/nn/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/pl/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/pl/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/pl/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/pl/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/pt/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/pt/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/pt/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/pt/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/ro/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/ro/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/ro/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/ro/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/ru/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/ru/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/ru/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/ru/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/sk/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/sk/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/sk/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/sk/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/sl/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/sl/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/sl/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/sl/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/sv/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/sv/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/sv/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/sv/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/tr/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/tr/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/tr/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/tr/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/uk/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/uk/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/uk/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/uk/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Format.po" />
-   <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Format.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Format.mo" />
-   <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Format.po" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Format.po" />
->>>>>>> 7bf06cf... Start a stream based XML handler.
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
@@ -323,7 +234,6 @@
    <install as="Horde/Kolab/Format/fixtures/task.xml" name="test/Horde/Kolab/Format/fixtures/task.xml" />
    <install as="Horde/Kolab/Format/Integration/ContactTest.php" name="test/Horde/Kolab/Format/Integration/ContactTest.php" />
    <install as="Horde/Kolab/Format/Integration/EventTest.php" name="test/Horde/Kolab/Format/Integration/EventTest.php" />
-   <install as="Horde/Kolab/Format/Integration/MimeAttrTest.php" name="test/Horde/Kolab/Format/Integration/MimeAttrTest.php" />
    <install as="Horde/Kolab/Format/Integration/PreferencesTest.php" name="test/Horde/Kolab/Format/Integration/PreferencesTest.php" />
    <install as="Horde/Kolab/Format/Integration/RecurrenceTest.php" name="test/Horde/Kolab/Format/Integration/RecurrenceTest.php" />
    <install as="Horde/Kolab/Format/Integration/TaskTest.php" name="test/Horde/Kolab/Format/Integration/TaskTest.php" />
@@ -346,6 +256,7 @@
    <install as="Horde/Kolab/Format/Unit/Exception/MissingUidTest.php" name="test/Horde/Kolab/Format/Unit/Exception/MissingUidTest.php" />
    <install as="Horde/Kolab/Format/Unit/Exception/MissingValueTest.php" name="test/Horde/Kolab/Format/Unit/Exception/MissingValueTest.php" />
    <install as="Horde/Kolab/Format/Unit/Exception/ParseErrorTest.php" name="test/Horde/Kolab/Format/Unit/Exception/ParseErrorTest.php" />
+   <install as="Horde/Kolab/Format/Unit/Xml/EnvelopeTest.php" name="test/Horde/Kolab/Format/Unit/Xml/EnvelopeTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/ParserTest.php" name="test/Horde/Kolab/Format/Unit/Xml/ParserTest.php" />
    <install as="COPYING" name="COPYING" />
    <install as="TODO" name="TODO" />
@@ -361,7 +272,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-03-09</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
