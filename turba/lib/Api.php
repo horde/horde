@@ -687,6 +687,7 @@ class Turba_Api extends Horde_Registry_Api
 
                     return $ids;
                 }
+                break;
 
             case 'activesync':
                 $content = $driver->fromASContact($content);
