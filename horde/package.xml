@@ -29,7 +29,6 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * Fix viewing applications with no mobile view from mobile devices.
-* Fix error when not using a Group backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
