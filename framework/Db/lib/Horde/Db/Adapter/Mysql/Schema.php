@@ -179,11 +179,11 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * List of tables for the db
+     * Lists all tables of the current database.
      *
-     * @param   string  $name
+     * @return array  List of table names.
      */
-    public function tables($name=null)
+    public function tables()
     {
         return $this->selectValues('SHOW TABLES');
     }

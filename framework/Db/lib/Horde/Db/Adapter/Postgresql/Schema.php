@@ -199,16 +199,18 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Returns the list of all tables in the schema search path or a specified schema.
+     * Lists all tables in the schema search path.
+     *
+     * @return array  List of table names.
      */
-    public function tables($name = null)
+    public function tables()
     {
         $schemas = array();
         foreach (explode(',', $this->getSchemaSearchPath()) as $p) {
             $schemas[] = $this->quote($p);
         }
 
-        return $this->selectValues('SELECT tablename FROM pg_tables WHERE schemaname IN (' . implode(',', $schemas) . ')', $name);
+        return $this->selectValues('SELECT tablename FROM pg_tables WHERE schemaname IN (' . implode(',', $schemas) . ')');
     }
 
     /**

@@ -129,11 +129,11 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * List of tables for the db
+     * Lists all tables of the current database.
      *
-     * @param   string  $name
+     * @return array  List of table names.
      */
-    public function tables($name = null)
+    public function tables()
     {
         return $this->selectValues("SELECT name FROM sqlite_master WHERE type = 'table' UNION ALL SELECT name FROM sqlite_temp_master WHERE type = 'table' AND name != 'sqlite_sequence' ORDER BY name");
     }

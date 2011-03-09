@@ -297,10 +297,9 @@ abstract class Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * @param   string  $name
      * @return  array
      */
-    abstract public function tables($name = null);
+    abstract public function tables();
 
     /**
      * Get a Horde_Db_Adapter_Base_Table object for the table.
