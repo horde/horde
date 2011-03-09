@@ -437,7 +437,7 @@ class Nag_Api extends Horde_Registry_Api
         // Store all currently existings UIDs. Use this info to delete UIDs not
         // present in $content after processing.
         $ids = array();
-        $uids_remove = array_flip($this->listTaskUids($tasklist));
+        $uids_remove = array_flip($this->listUids($tasklist));
 
         $storage = Nag_Driver::singleton($tasklist);
 
