@@ -68,11 +68,11 @@ abstract class Turba_Form_ContactBase extends Horde_Form
                     if (!empty($actions[$field])) {
                         $actionfields = array();
                         foreach ($actions[$field]['fields'] as $f) {
-                            $actionfields[] = 'object[' . $f . ']';
+                            $actionfields[] = $this->_getId('object[' . $f . ']');
                         }
                         $a = Horde_Form_Action::factory('updatefield',
                                                         array('format' => $actions[$field]['format'],
-                                                              'target' => 'object[' . $actions[$field]['target'] . ']',
+                                                              'target' => $this->_getId('object[' . $actions[$field]['target'] . ']'),
                                                               'fields' => $actionfields));
                         $v->setAction($a);
                     }
@@ -85,4 +85,15 @@ abstract class Turba_Form_ContactBase extends Horde_Form
         }
     }
 
+    /**
+     * Converts a field name into an element ID as used in Horde_Form.
+     *
+     * @param string $id  A form field name.
+     *
+     * @return string  The ID for the form field.
+     */
+    protected function _getId($id)
+    {
+        return preg_replace('/[^A-Za-z0-9-_:.]+/', '_', $id);
+    }
 }

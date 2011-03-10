@@ -40,7 +40,7 @@ class Horde_Prefs_CategoryManager
         $fgcolors = self::fgColors();
 
         $id_html = htmlspecialchars($id);
-        $html = '<select id="' . $id_html . '" name="' . $id_html . '">';
+        $html = '<select id="' . preg_replace('/[^A-Za-z0-9-_:.]+/', '_', $id_html) . '" name="' . $id_html . '">';
 
         if (!in_array($current, $categories) && !empty($current)) {
             $curr_html = htmlspecialchars($current);

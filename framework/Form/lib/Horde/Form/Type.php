@@ -989,7 +989,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
         /* If this was done through the upload button override the submitted
          * value of the form. */
-        if ($vars->get('_do_' . $var->getVarName())) {
+        if ($vars->get('do_' . $var->getVarName())) {
             $var->form->setSubmitted(false);
             if ($this->_uploaded instanceof Horde_Browser_Exception) {
                 $this->_img = array('hash' => $this->getRandomId(),

@@ -26,8 +26,8 @@ function Horde_Form_Sorter(instanceName, varName, header)
         this._header = header;
         this.minLength = 1;
     }
-    this.sorterList = document.getElementById(this._varName + '[list]');
-    this.sorterArray = document.getElementById(this._varName + '[array]');
+    this.sorterList = document.getElementById(this._varName + '_list');
+    this.sorterArray = document.getElementById(this._varName + '_array');
 
     this.deselectHeader = function()
     {
