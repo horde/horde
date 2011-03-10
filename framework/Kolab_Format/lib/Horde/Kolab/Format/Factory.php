@@ -77,6 +77,7 @@ class Horde_Kolab_Format_Factory
                     new Horde_Kolab_Format_Xml_Parser(
                         new DOMDocument('1.0', 'UTF-8')
                     ),
+                    $this,
                     $params
                 );
                 break;

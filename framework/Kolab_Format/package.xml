@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>17:31:45</time>
+ <date>2011-03-10</date>
+ <time>11:44:33</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -127,6 +127,9 @@
         <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/Integration -->
        <dir name="Stub">
+        <file name="Contactdummy.php" role="test" />
+        <file name="Dummy.php" role="test" />
+        <file name="Hprefsdummy.php" role="test" />
         <file name="Log.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/Stub -->
        <dir name="Unit">
@@ -248,6 +251,9 @@
    <install as="Horde/Kolab/Format/Integration/fixtures/preferences_write_old.xml" name="test/Horde/Kolab/Format/Integration/fixtures/preferences_write_old.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/recur.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" />
+   <install as="Horde/Kolab/Format/Stub/Contactdummy.php" name="test/Horde/Kolab/Format/Stub/Contactdummy.php" />
+   <install as="Horde/Kolab/Format/Stub/Dummy.php" name="test/Horde/Kolab/Format/Stub/Dummy.php" />
+   <install as="Horde/Kolab/Format/Stub/Hprefsdummy.php" name="test/Horde/Kolab/Format/Stub/Hprefsdummy.php" />
    <install as="Horde/Kolab/Format/Stub/Log.php" name="test/Horde/Kolab/Format/Stub/Log.php" />
    <install as="Horde/Kolab/Format/Unit/FactoryTest.php" name="test/Horde/Kolab/Format/Unit/FactoryTest.php" />
    <install as="Horde/Kolab/Format/Unit/XmlTest.php" name="test/Horde/Kolab/Format/Unit/XmlTest.php" />
@@ -272,7 +278,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-09</date>
+   <date>2011-03-10</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.

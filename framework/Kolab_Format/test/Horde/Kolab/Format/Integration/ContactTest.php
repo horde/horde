@@ -42,11 +42,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSingleEmail()
     {
-        $contact = new Horde_Kolab_Format_Xml_Contact_Dummy(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $contact = $this->_getContactDummy();
         $object  = array('uid' => '1',
                          'full-name' => 'User Name',
                          'email' => 'user@example.org');
@@ -63,11 +59,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testPGP()
     {
-        $contact = new Horde_Kolab_Format_Xml_Contact_Dummy(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $contact = $this->_getContactDummy();
         $object  = array('uid' => '1',
                          'full-name' => 'User Name',
                          'pgp-publickey' => 'PGP Test Key',
@@ -85,11 +77,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testCategories()
     {
-        $contact = new Horde_Kolab_Format_Xml_Contact(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $contact = $this->_getContactDummy();
         $xml     = file_get_contents(dirname(__FILE__)
                                      . '/fixtures/contact_category.xml');
         $object  = $contact->load($xml);
@@ -101,11 +89,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testUtf8()
     {
-        $contact = new Horde_Kolab_Format_Xml_Contact(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $contact = $this->_getContactDummy();
         $xml = file_get_contents(dirname(__FILE__) . '/fixtures/contact-kyr.xml');
 
         $object = $contact->load($xml);
@@ -135,66 +119,9 @@ extends PHPUnit_Framework_TestCase
     /*     } */
     /* } */
 
-
-}
-
-/**
- * A modification to the original contact handler. This prevents unpredictable
- * date entries.
- *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- *
- * @category Kolab
- * @package  Kolab_Format
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
- */
-class Horde_Kolab_Format_Xml_Contact_Dummy extends Horde_Kolab_Format_Xml_Contact
-{
-    /**
-     * Save the object creation date.
-     *
-     * @param DOMNode $parent_node The parent node to attach the child
-     *                             to.
-     * @param string  $name        The name of the node.
-     * @param mixed   $value       The value to store.
-     * @param boolean $missing     Has the value been missing?
-     *
-     * @return DOMNode The new child node.
-     */
-    function _saveCreationDate($parent_node, $name, $value, $missing)
+    private function _getContactDummy()
     {
-        // Only create the creation date if it has not been set before
-        if ($missing) {
-            $value = 0;
-        }
-        return $this->_saveDefault($parent_node,
-                                   $name,
-                                   $value,
-                                   array('type' => self::TYPE_DATETIME));
-    }
-
-    /**
-     * Save the object modification date.
-     *
-     * @param DOMNode $parent_node The parent node to attach
-     *                             the child to.
-     * @param string  $name        The name of the node.
-     * @param mixed   $value       The value to store.
-     * @param boolean $missing     Has the value been missing?
-     *
-     * @return DOMNode The new child node.
-     */
-    function _saveModificationDate($parent_node, $name, $value, $missing)
-    {
-        // Always store now as modification date
-        return $this->_saveDefault($parent_node,
-                                   $name,
-                                   0,
-                                   array('type' => self::TYPE_DATETIME));
+        $factory = new Horde_Kolab_Format_Factory();
+        return $factory->create('Xml', 'ContactDummy');
     }
 }

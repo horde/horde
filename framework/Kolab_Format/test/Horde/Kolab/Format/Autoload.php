@@ -27,3 +27,6 @@ require_once dirname(__FILE__) . '/TestCase.php';
 
 /** Load stub definitions */
 require_once dirname(__FILE__) . '/Stub/Log.php';
+require_once dirname(__FILE__) . '/Stub/Dummy.php';
+require_once dirname(__FILE__) . '/Stub/Contactdummy.php';
+require_once dirname(__FILE__) . '/Stub/Hprefsdummy.php';

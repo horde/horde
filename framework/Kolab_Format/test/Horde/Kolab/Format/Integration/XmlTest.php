@@ -42,11 +42,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $xml = new Horde_Kolab_Format_XML(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $xml = $this->_getPlain();
         $xml->_prepareSave();
         $base = $xml->_xmldoc->saveXML();
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\"/>\n",
@@ -61,11 +57,7 @@ extends PHPUnit_Framework_TestCase
     public function testReadable()
     {
         $this->markTestIncomplete('Roundtrip makes sense, but how to handle empty document?');
-        $xml = new Horde_Kolab_Format_XML(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $xml = $this->_getPlain();
         $xml->_prepareSave();
         $base = $xml->_xmldoc->saveXML();
         $xml->load($base);
@@ -80,11 +72,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testAdd()
     {
-        $xml  = new Horde_Kolab_Format_XML(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $xml = $this->_getPlain();
         $root = $xml->_prepareSave();
         $base = $xml->_xmldoc->saveXML();
 
@@ -136,11 +124,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testNodeOps()
     {
-        $dxml  = new Horde_Kolab_Format_Xml_Dummy(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $dxml = $this->_getDummy();
         $droot = $dxml->_prepareSave();
 
         // Test calculated nodes
@@ -157,11 +141,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty2>empty2: , missing</empty2>\n  <present1>present1: present1</present1>\n</kolab>\n",
                             $dxml->_xmldoc->saveXML());
 
-        $xml  = new Horde_Kolab_Format_Xml(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $xml  = $this->_getPlain();
         $root = $xml->_prepareSave();
         $xml->_updateNode($root,
                           array(),
@@ -257,11 +237,7 @@ extends PHPUnit_Framework_TestCase
     public function testReleod()
     {
         // Save an object and reload it
-        $xml    = new Horde_Kolab_Format_Xml(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $xml = $this->_getPlain();
         $result = $xml->save(array('uid'=>'test',
                                    'body' => 'body',
                                    'dummy' => 'hello',
@@ -285,11 +261,7 @@ extends PHPUnit_Framework_TestCase
     public function testComplex()
     {
         // Continue with complex values
-        $xml  = new Horde_Kolab_Format_Xml(
-            new Horde_Kolab_Format_Xml_Parser(
-                new DOMDocument('1.0', 'UTF-8')
-            )
-        );
+        $xml = $this->_getPlain();
         $root = $xml->_prepareSave();
 
         // Test saving a composite value
@@ -327,47 +299,21 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('', $data[0]['smtp-address']);
         $this->assertEquals('test@example.com', $data[1]['smtp-address']);
     }
-}
 
-/**
- * A dummy XML type
- *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- *
- * @category Kolab
- * @package  Kolab_Format
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
- */
-class Horde_Kolab_Format_Xml_Dummy extends Horde_Kolab_Format_Xml
-{
-    /**
-     * Save the object creation date.
-     *
-     * @param DOMNode $node    The parent node to attach the child
-     *                         to.
-     * @param string  $name    The name of the node.
-     * @param mixed   $value   The value to store.
-     * @param boolean $missing Has the value been missing?
-     *
-     * @return DOMNode The new child node.
-     */
-    function _saveValue($node, $name, $value, $missing)
+    private function _getDummy()
     {
-        $result  ='';
-        $result .= $name . ': ';
-        $result .= $value;
-        if ($missing) {
-            $result .= ', missing';
-        }
+        $factory = new Horde_Kolab_Format_Factory();
+        return $factory->create('Xml', 'Dummy');
+    }
 
-        return $this->_saveDefault($node, 
-                                   $name, 
-                                   $result, 
-                                   array('type' => self::TYPE_STRING));
+    private function _getPlain()
+    {
+        return new Horde_Kolab_Format_Xml(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            ),
+            new Horde_Kolab_Format_Factory()
+        );
     }
 }
+

@@ -112,9 +112,16 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     /**
      * The parser dealing with the input.
      *
-     * @var Horde_Kolab_Format_Parser
+     * @var Horde_Kolab_Format_Xml_Parser
      */
     protected $_parser;
+
+    /**
+     * The factory for additional objects.
+     *
+     * @var Horde_Kolab_Format_Factory
+     */
+    protected $_factory;
 
     /**
      * Requested version of the data array to return
@@ -288,13 +295,18 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     /**
      * Constructor
      *
-     * @param array $params Any additional options
+     * @param Horde_Kolab_Format_Xml_Parser $parser  The XML parser.
+     * @param Horde_Kolab_Format_Factory    $factory The factory for helper
+     *                                               objects.
+     * @param array                         $params  Any additional options.
      */
     public function __construct(
         Horde_Kolab_Format_Xml_Parser $parser,
+        Horde_Kolab_Format_Factory $factory,
         $params = null
     ) {
         $this->_parser = $parser;
+        $this->_factory = $factory;
 
         if (is_array($params) && isset($params['version'])) {
             $this->_version = $params['version'];
