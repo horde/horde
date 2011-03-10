@@ -112,7 +112,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     /**
      * The parser dealing with the input.
      *
-     * @var int
+     * @var Horde_Kolab_Format_Parser
      */
     protected $_parser;
 
