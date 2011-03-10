@@ -274,12 +274,13 @@ try {
 
                     $this->$begin($form, $var, $vars);
                     echo $this->_varRenderer->render($form, $var, $vars, $isInput);
-                    $this->$end($form, $var, $vars);
 
                     /* Print any javascript if actions present. */
                     if ($var->hasAction()) {
                         $var->_action->printJavaScript();
                     }
+
+                    $this->$end($form, $var, $vars);
 
                     /* Keep first field. */
                     if ($active && empty($this->_firstField) && !$var->isReadonly() && !$var->isHidden()) {
