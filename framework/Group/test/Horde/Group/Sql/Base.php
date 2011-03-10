@@ -144,7 +144,6 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
     {
         if (self::$migrator) {
             self::$migrator->down();
-            self::$db->dropTable('horde_groups_test_schema');
         }
         self::$db = null;
         parent::tearDownAfterClass();

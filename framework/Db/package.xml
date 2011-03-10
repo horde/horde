@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* Drop schema table when migrating down to schema version 0.
 * Don't try to create schema tables if they exist, to avoid irritating log entries.
  </notes>
  <contents>

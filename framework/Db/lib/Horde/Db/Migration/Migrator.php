@@ -280,8 +280,12 @@ class Horde_Db_Migration_Migrator
     protected function _setSchemaVersion($version)
     {
         $version = $this->_isDown() ? $version - 1 : $version;
-        $sql = 'UPDATE ' . $this->_schemaTableName . ' SET version = ' . (int)$version;
-        $this->_connection->update($sql);
+        if ($version) {
+            $sql = 'UPDATE ' . $this->_schemaTableName . ' SET version = ' . (int)$version;
+            $this->_connection->update($sql);
+        } else {
+            $this->_connection->dropTable($this->_schemaTableName);
+        }
     }
 
     /**
