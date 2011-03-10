@@ -1052,6 +1052,7 @@ table.kronolithView td.kronolithFirstCol {
 }
 #kronolithViewMonthHead .kronolithFirstCol {
     border-color: transparent;
+    background-color: transparent;
 }
 .kronolithViewHead thead {
     height: 20px;
@@ -1251,7 +1252,6 @@ table.kronolithView td.kronolithFirstCol {
 }
 #kronolithViewAgenda div.kronolithEvent {
     position: static;
-    font-weight: bold;
 }
 #kronolithViewAgenda div.kronolithEvent .kronolithDate {
     font-weight: normal;
