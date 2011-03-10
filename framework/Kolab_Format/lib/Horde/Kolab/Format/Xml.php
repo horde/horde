@@ -876,10 +876,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     protected function _saveDefault($parent_node, $name, $value, $params,
                                     $append = false)
     {
-        if (!$append) {
-            $this->_removeNodes($parent_node, $name);
-        }
-
         switch ($params['type']) {
         case self::TYPE_DATE:
             $value = Horde_Kolab_Format_Date::encodeDate($value);
@@ -905,6 +901,10 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         case self::TYPE_XML:
             // create the node
             return $this->_createXmlNode($parent_node, $value);
+        }
+
+        if (!$append) {
+            $this->_removeNodes($parent_node, $name);
         }
 
         // create the node
