@@ -157,8 +157,9 @@ class IMP_Ui_Mailbox
     /**
      * Formats the date header.
      *
-     * @param Horde_Imap_Client_DateTime $date  The date object.
-     * @param integer $format                   Mask of formatting options:
+     * @param mixed $date      The date object. Either a DateTime object or a
+     *                         date string.
+     * @param integer $format  Mask of formatting options:
      *   - IMP_Mailbox_Ui::DATE_FORCE - Force use of date formatting, instead
      *                                  of time formatting, for all dates.
      *   - IMP_Mailbox_Ui::DATE_FULL - Use full representation of date,
@@ -166,8 +167,12 @@ class IMP_Ui_Mailbox
      *
      * @return string  The formatted date header.
      */
-    public function getDate(Horde_Imap_Client_DateTime $date, $format = 0)
+    public function getDate($date, $format = 0)
     {
+        if (!is_object($date)) {
+            $date = new Horde_Imap_Client_DateTime($date);
+        }
+
         if (!($format & self::DATE_FORCE) &&
             !isset($this->_cache['today_start'])) {
             $this->_cache['today_start'] = new DateTime('today');
