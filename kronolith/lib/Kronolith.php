@@ -1089,7 +1089,7 @@ class Kronolith
                 foreach ($categories as $name => $description) {
                     $GLOBALS['all_external_calendars'][$api . '/' . $name] = $api == 'tasks'
                         ? new Kronolith_Calendar_External_Tasks(array('api' => $api, 'name' => $description, 'share' => $tasklists[$name]))
-                        : new Kronolith_Calendar_External(array('api' => $api, 'name' => $description));
+                        : new Kronolith_Calendar_External(array('api' => $api, 'name' => $description, 'id' => $name));
                     $ext_cals[] = array(
                         'a' => $api,
                         'n' => $name,
