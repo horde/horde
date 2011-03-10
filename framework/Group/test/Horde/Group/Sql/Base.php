@@ -125,6 +125,10 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
     {
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
         //self::$db->setLogger($logger);
+        $logger = new Horde_Log_Logger(
+            new Horde_Log_Handler_Stream(
+                STDOUT, null,
+                new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)));
         // FIXME: get migration directory if not running from Git checkout.
         self::$migrator = new Horde_Db_Migration_Migrator(
             self::$db,
@@ -140,6 +144,7 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
     {
         if (self::$migrator) {
             self::$migrator->down();
+            self::$db->dropTable('horde_groups_test_schema');
         }
         self::$db = null;
         parent::tearDownAfterClass();
