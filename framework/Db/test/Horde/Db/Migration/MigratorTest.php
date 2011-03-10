@@ -165,6 +165,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {}
         $this->assertInstanceOf('Horde_Db_Exception', $e);
 
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, null, array('migrationsPath' => $dir));
         $migrator->up();
 
         $columns = $this->_columnNames('users');

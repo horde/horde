@@ -117,7 +117,9 @@ class Horde_Db_Migration_Migrator
      */
     public function getCurrentVersion()
     {
-        return $this->_connection->selectValue('SELECT version FROM ' . $this->_schemaTableName);
+        return in_array($this->_schemaTableName, $this->_connection->tables())
+            ? $this->_connection->selectValue('SELECT version FROM ' . $this->_schemaTableName)
+            : 0;
     }
 
     /**
