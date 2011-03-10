@@ -130,13 +130,21 @@ implements Horde_Kolab_Cli_Module
         case 'display':
             $folders = $world['storage']->getList()
                 ->getQuery()
-                ->listByType('ledger');
+                ->listByType('h-ledger');
             foreach ($folders as $folder) {
                 $cli->writeln($folder);
             }
             break;
             break;
         case 'import':
+            $ledger = new Horde_Kolab_Cli_Data_Ledger();
+            $ledger->importFile($arguments[3]);
+            $data = $world['storage']->getData($arguments[2], 'h-ledger');
+            $object = array('type' => 'h-ledger');
+            foreach ($ledger->asXml() as $entry) {
+                $object['xml'] = $entry;
+                $data->create($object);
+            }
             break;
         default:
             $cli->message(

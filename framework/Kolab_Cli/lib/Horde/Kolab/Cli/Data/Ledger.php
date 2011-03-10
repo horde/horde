@@ -57,7 +57,9 @@ implements Countable
     {
         $result = array();
         foreach ($this->_entries as $entry) {
-            $result[] = $entry->asXML();
+            $entry->addAttribute('xmlns:en', 'http://newartisans.com/xml/ledger-en', 'http://www.w3.org/2000/xmlns/');
+            $entry->addAttribute('xmlns:tr', 'http://newartisans.com/xml/ledger-tr', 'http://www.w3.org/2000/xmlns/');
+            $result[] = strtr($entry->asXML(), array('xmlns:xmlns="http://www.w3.org/2000/xmlns/" ' => ''));
         }
         return $result;
     }

@@ -53,7 +53,7 @@ extends Horde_Kolab_Cli_TestCase
     {
         $entries = $this->_import()->asXml();
         foreach ($entries as $entry) {
-            $this->assertContains('<entry>', $entry);
+            $this->assertContains('<entry xmlns:en="http://newartisans.com/xml/ledger-en" xmlns:tr="http://newartisans.com/xml/ledger-tr">', $entry);
         }
     }
 
