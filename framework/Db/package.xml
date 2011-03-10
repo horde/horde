@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-*
+* Don't try to create schema tables if they exist, to avoid irritating log entries.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
