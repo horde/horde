@@ -459,7 +459,7 @@ class Beatnik {
         // the status has changed due to a now-completed edit.
         if (count(Beatnik::needCommit())) {
             foreach (Beatnik::needCommit() as $domain) {
-                $GLOBLAS['notification']->push(sprintf(_("You have uncommitted changes in %s."), $domain));
+                $GLOBALS['notification']->push(sprintf(_("You have uncommitted changes in %s."), $domain));
             }
         }
     }
