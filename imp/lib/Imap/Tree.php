@@ -219,9 +219,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                     ($val['type'] == Horde_Imap_Client::NS_OTHER) ? self::OTHER_KEY : self::SHARED_KEY,
                     self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP | self::ELT_NOSHOW
                 );
-                $elt['l'] = ($val['type'] == Horde_Imap_Client::NS_OTHER)
-                    ? _("Other Users' Folders")
-                    : _("Shared Folders");
 
                 foreach ($this->_namespaces as $val2) {
                     if (($val2['type'] == $val['type']) &&
@@ -292,7 +289,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      * <pre>
      * 'a' - (integer) Attributes mask.
      * 'c' - (integer) Level count.
-     * 'l' - (string) Label.
      * 'p' - (string) Parent node.
      * 'v' - (string) Value.
      * @throws Horde_Exception
@@ -331,9 +327,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         $delimiter = is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'];
         $tmp = explode($delimiter, $name);
         $elt['c'] = count($tmp) - 1;
-
-        /* Get the mailbox label. */
-        $elt['l'] = IMP_Mailbox::get($name)->abbrev_label;
 
         if ($GLOBALS['session']->get('imp', 'protocol') != 'pop') {
             try {
@@ -455,12 +448,11 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                 if (!isset($this->_tree[$val])) {
                     if (!isset($this->_tree[self::VFOLDER_KEY])) {
                         $elt = $this->_makeElt(self::VFOLDER_KEY, self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP);
-                        $elt['l'] = _("Virtual Folders");
                         $this->_insertElt($elt);
                     }
 
                     $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED);
-                    $elt['l'] = $elt['v'] = Horde_String::substr($val, Horde_String::length(self::VFOLDER_KEY) + Horde_String::length($this->_delimiter));
+                    $elt['v'] = Horde_String::substr($val, Horde_String::length(self::VFOLDER_KEY) + Horde_String::length($this->_delimiter));
                     $this->_insertElt($elt);
                 }
 
@@ -543,7 +535,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      */
     protected function _insertElt($elt)
     {
-        if (!strlen($elt['l']) || isset($this->_tree[$elt['v']])) {
+        if (isset($this->_tree[$elt['v']])) {
             return;
         }
 
@@ -1261,9 +1253,9 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         foreach ($mbox as $val) {
             if ($this->isNonImapElt($this->_tree[$val])) {
-                $othersort[$val] = $this->_tree[$val]['l'];
+                $othersort[$val] = IMP_Mailbox::get($val)->label;
             } else {
-                $basesort[$val] = $this->_tree[$val]['l'];
+                $basesort[$val] = IMP_Mailbox::get($val)->label;
             }
         }
 
@@ -1374,22 +1366,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         foreach ($vfolders as $val) {
             if ($val->enabled) {
-                $key = strval($val);
-                $this->insert(self::VFOLDER_KEY . $this->_delimiter . $key);
-                $this->_tree[$key]['l'] = $val->label;
+                $this->insert(self::VFOLDER_KEY . $this->_delimiter . $val);
             }
-        }
-
-        /* Sort the Virtual Folder list in the object, if necessary. */
-        if (isset($this->_tree[self::VFOLDER_KEY]) &&
-            $this->_needSort($this->_tree[self::VFOLDER_KEY])) {
-            $vsort = array();
-            foreach ($this->_parent[self::VFOLDER_KEY] as $val) {
-                $vsort[$val] = $this->_tree[$val]['l'];
-            }
-            natcasesort($vsort);
-            $this->_parent[self::VFOLDER_KEY] = array_keys($vsort);
-            $this->_setNeedSort($this->_tree[self::VFOLDER_KEY], false);
         }
     }
 

@@ -679,6 +679,18 @@ class IMP_Mailbox implements Serializable
             return $this->_cache['display'];
         }
 
+        /* Handle special container mailboxes. */
+        switch ($this->_mbox) {
+        case IMP_Imap_Tree::OTHER_KEY:
+            return _("Other Users' Folders");
+
+        case IMP_Imap_Tree::SHARED_KEY:
+            return _("Shared Folders");
+
+        case IMP_Imap_Tree::VFOLDER_KEY:
+            return _("Virtual Folders");
+        }
+
         $ns_info = $this->namespace_info;
         $delimiter = is_null($ns_info)
             ? ''
