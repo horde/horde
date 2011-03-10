@@ -649,7 +649,7 @@ class Nag_Api extends Horde_Registry_Api
         if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::READ))) {
             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
-        $tasks = Nag::listTasks(null, null, null, $tasklist, 1);
+        $tasks = Nag::listTasks(null, null, null, array($tasklist), 1);
         $uids = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
