@@ -45,6 +45,7 @@ class Turba_Driver_Share extends Turba_Driver
         parent::__construct($name, $params);
         $this->_share = $this->_params['config']['params']['share'];
         $this->_driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($this->_params['config']);
+        $this->_driver->setContactOwner($this->_getContactOwner());
     }
 
     /**

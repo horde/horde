@@ -2575,6 +2575,16 @@ class Turba_Driver implements Countable
     }
 
     /**
+     * Override the contactOwner setting for this driver.
+     *
+     * @param string $owner  The contact owner.
+     */
+    public function setContactOwner($owner)
+    {
+        $this->_contact_owner = $owner;
+    }
+
+    /**
      * Return the owner to use when searching or creating contacts in
      * this address book.
      *

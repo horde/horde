@@ -2,6 +2,7 @@
 v3.0-BETA1
 ----------
 
+[mjr] Fix the listTimeObjects API for shared sources (Bug #9649).
 [jan] Fix importing contacts with SyncML (Simon Bühler, Bug #9641).
 
 
