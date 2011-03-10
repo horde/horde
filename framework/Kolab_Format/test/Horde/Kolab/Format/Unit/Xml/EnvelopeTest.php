@@ -66,6 +66,16 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testXml()
+    {
+        $this->assertContains(
+            '<testelement/>',
+            $this->_getEnvelope()->save(
+                array('uid' => 'test', 'type' => 'test', 'xml' => '<testelement/>')
+            )
+        );
+    }
+
     private function _getEnvelope()
     {
         $factory = new Horde_Kolab_Format_Factory();

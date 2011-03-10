@@ -29,6 +29,23 @@
 class Horde_Kolab_Format_Xml_Envelope extends Horde_Kolab_Format_Xml
 {
     /**
+     * Constructor
+     */
+    public function __construct($parser, $params = array())
+    {
+        /** Specific note fields, in kolab format specification order
+         */
+        $this->_fields_specific = array(
+            'xml' => array(
+                'type'    => self::TYPE_XML,
+                'value'   => self::VALUE_MAYBE_MISSING,
+            ),
+        );
+
+        parent::__construct($parser, $params);
+    }
+
+    /**
      * Convert the data to a XML stream.
      *
      * @param array $object The data array representing the object.

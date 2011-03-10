@@ -105,6 +105,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     const TYPE_MULTIPLE = 8;
 
     /**
+     * Defines a XML value as raw XML
+     */
+    const TYPE_XML = 9;
+
+    /**
      * The parser dealing with the input.
      *
      * @var int
@@ -687,6 +692,22 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     }
 
     /**
+     * Create a node with raw XML content.
+     *
+     * @param DOMNode $parent The parent of the new node.
+     * @param string  $xml    The XML content.
+     *
+     * @return DOMNode The new node.
+     */
+    protected function _createXmlNode($parent, $xml)
+    {
+        $node = $this->_xmldoc->createDocumentFragment();
+        $node->appendXML($xml);
+        $parent->appendChild($node);
+        return $node;
+    }
+
+    /**
      * Return the named node among a list of nodes.
      *
      * @param array  &$nodes The list of nodes.
@@ -881,6 +902,9 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
             }
 
             break;
+        case self::TYPE_XML:
+            // create the node
+            return $this->_createXmlNode($parent_node, $value);
         }
 
         // create the node
