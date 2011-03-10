@@ -62,11 +62,16 @@ class Horde_Kolab_Format_Factory
      */
     public function create($format = 'Xml', $type = '', array $params = array())
     {
+        switch ($type) {
+        case 'h-ledger':
+            $type_class = 'Envelope';
+            break;
+        default:
+            $type_class = ucfirst(strtolower(str_replace('-', '', $type)));
+            break;
+        }
         $parser = ucfirst(strtolower($format));
-        $class = basename(
-            'Horde_Kolab_Format_' . $parser . '_'
-            . ucfirst(strtolower(str_replace('-', '', $type)))
-        );
+        $class = basename('Horde_Kolab_Format_' . $parser . '_' . $type_class);
 
         $params = array_merge($this->_params, $params);
 
