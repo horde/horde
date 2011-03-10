@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<ledger version="2.6" xmlns:en="http://newartisans.com/xml/ledger-en" xmlns:tr="http://newartisans.com/xml/ledger-tr">
+  <entry>
+    <en:date>2011/01/24</en:date>
+    <en:code>0@20110124</en:code>
+    <en:payee>Test One</en:payee>
+    <en:transactions>
+      <transaction>
+        <tr:cleared/>
+        <tr:account>Expenses:One</tr:account>
+        <tr:amount>
+          <value type="amount">
+            <amount>
+              <commodity flags="PS">$</commodity>
+              <quantity>1.45</quantity>
+            </amount>
+          </value>
+        </tr:amount>
+      </transaction>
+      <transaction>
+        <tr:cleared/>
+        <tr:account>Activa:One</tr:account>
+        <tr:amount>
+          <value type="amount">
+            <amount>
+              <commodity flags="PS">$</commodity>
+              <quantity>-1.45</quantity>
+            </amount>
+          </value>
+        </tr:amount>
+      </transaction>
+    </en:transactions>
+  </entry>
+  <entry>
+    <en:date>2011/01/30</en:date>
+    <en:code>19@M211100124307882</en:code>
+    <en:payee>Test Two</en:payee>
+    <en:transactions>
+      <transaction>
+        <tr:cleared/>
+        <tr:account>Expenses:Two</tr:account>
+        <tr:amount>
+          <value type="amount">
+            <amount>
+              <commodity flags="PS">$</commodity>
+              <quantity>51.32</quantity>
+            </amount>
+          </value>
+        </tr:amount>
+      </transaction>
+      <transaction>
+        <tr:cleared/>
+        <tr:account>Activa:One</tr:account>
+        <tr:amount>
+          <value type="amount">
+            <amount>
+              <commodity flags="PS">$</commodity>
+              <quantity>-51.32</quantity>
+            </amount>
+          </value>
+        </tr:amount>
+      </transaction>
+    </en:transactions>
+  </entry>
+</ledger>

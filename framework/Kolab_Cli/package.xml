@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-10</date>
- <time>13:38:35</time>
+ <time>13:54:16</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -45,6 +45,9 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Cli">
+       <dir name="Data">
+        <file name="Ledger.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Cli/Data -->
        <dir name="Module">
         <file name="Base.php" role="php" />
         <file name="Data.php" role="php" />
@@ -64,8 +67,14 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Cli">
+       <dir name="fixtures">
+        <file name="ledger.xml" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Cli/fixtures -->
        <dir name="Unit">
         <dir name="Cli">
+         <dir name="Data">
+          <file name="LedgerTest.php" role="test" />
+         </dir> <!-- /test/Horde/Kolab/Cli/Unit/Cli/Data -->
          <dir name="Module">
           <file name="BaseTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Cli/Unit/Cli/Module -->
@@ -152,6 +161,7 @@
    <install as="Horde/Kolab/Cli.php" name="lib/Horde/Kolab/Cli.php" />
    <install as="Horde/Kolab/Cli/Module.php" name="lib/Horde/Kolab/Cli/Module.php" />
    <install as="Horde/Kolab/Cli/Translation.php" name="lib/Horde/Kolab/Cli/Translation.php" />
+   <install as="Horde/Kolab/Cli/Data/Ledger.php" name="lib/Horde/Kolab/Cli/Data/Ledger.php" />
    <install as="Horde/Kolab/Cli/Module/Base.php" name="lib/Horde/Kolab/Cli/Module/Base.php" />
    <install as="Horde/Kolab/Cli/Module/Data.php" name="lib/Horde/Kolab/Cli/Module/Data.php" />
    <install as="Horde/Kolab/Cli/Module/Folder.php" name="lib/Horde/Kolab/Cli/Module/Folder.php" />
@@ -162,9 +172,11 @@
    <install as="Horde/Kolab/Cli/Autoload.php" name="test/Horde/Kolab/Cli/Autoload.php" />
    <install as="Horde/Kolab/Cli/phpunit.xml" name="test/Horde/Kolab/Cli/phpunit.xml" />
    <install as="Horde/Kolab/Cli/TestCase.php" name="test/Horde/Kolab/Cli/TestCase.php" />
+   <install as="Horde/Kolab/Cli/fixtures/ledger.xml" name="test/Horde/Kolab/Cli/fixtures/ledger.xml" />
    <install as="Horde/Kolab/Cli/Unit/CliTest.php" name="test/Horde/Kolab/Cli/Unit/CliTest.php" />
    <install as="Horde/Kolab/Cli/Unit/Cli/ModuleTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/ModuleTest.php" />
    <install as="Horde/Kolab/Cli/Unit/Cli/OptionsTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/OptionsTest.php" />
+   <install as="Horde/Kolab/Cli/Unit/Cli/Data/LedgerTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/Data/LedgerTest.php" />
    <install as="Horde/Kolab/Cli/Unit/Cli/Module/BaseTest.php" name="test/Horde/Kolab/Cli/Unit/Cli/Module/BaseTest.php" />
    <install as="COPYING" name="COPYING" />
   </filelist>
