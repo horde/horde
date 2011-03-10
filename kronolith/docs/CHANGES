@@ -2,6 +2,7 @@
 v3.0-BETA1
 ----------
 
+[jan] Only load external events in IFRAME if configured.
 [jan] Fix retrieving event UIDs without date limit (Simon Bühler, Bug #9651).
 [jan] Fix saving display status of other applications' calendars (Bug #9636).
 [mjr] Add migration for converting existing event categories to tags.

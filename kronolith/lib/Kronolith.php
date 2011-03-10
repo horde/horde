@@ -140,6 +140,7 @@ class Kronolith
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
             'prefs_url' => (string)Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)->add('ajaxui', 1),
             'app_urls' => $app_urls,
+            'use_iframe' => !empty($GLOBALS['conf']['menu']['apps_iframe']),
             'name' => $registry->get('name'),
             'has_tasks' => (bool)$has_tasks,
             'is_ie6' => ($GLOBALS['browser']->isBrowser('msie') && ($GLOBALS['browser']->getMajor() < 7)),

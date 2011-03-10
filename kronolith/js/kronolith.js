@@ -247,7 +247,7 @@ KronolithCore = {
             case 'horde.success':
                 this.Growler.growl(
                     m.flags && m.flags.include('content.raw')
-                        ? m.message.replace(new RegExp('<a href="([^"]+)"'), '<a href="#" onclick="KronolithCore.iframeContent(\'$1\')"')
+                        ? m.message.replace(new RegExp('<a href="([^"]+)"'), '<a href="#" onclick="KronolithCore.loadPage(\'$1\')"')
                         : m.message.escapeHTML(),
                     {
                         className: m.type.replace('.', '-'),
@@ -589,9 +589,9 @@ KronolithCore = {
             this.closeView('iframe');
             var app = locParts.shift();
             if (data) {
-                this.iframeContent(data);
+                this.loadPage(data);
             } else if (Kronolith.conf.app_urls[app]) {
-                this.iframeContent(Kronolith.conf.app_urls[app]);
+                this.loadPage(Kronolith.conf.app_urls[app]);
             }
             this.updateMinical(this.date);
             this.view = 'iframe';
@@ -3861,7 +3861,21 @@ KronolithCore = {
     },
 
     /**
-     * Loads an external page into the iframe view.
+     * Loads an external page.
+     *
+     * @param string loc  The URL of the page to load.
+     */
+    loadPage: function(loc)
+    {
+        if (Kronolith.conf.use_iframe) {
+            this.iframeContent(loc);
+        } else {
+            window.location.assign(loc);
+        }
+    },
+
+    /**
+     * Loads a page into the iframe view.
      *
      * @param string loc  The URL of the page to load.
      */
@@ -3877,7 +3891,7 @@ KronolithCore = {
             view.appear({ duration: this.effectDur, queue: 'end' });
             iframe.stopObserving('load');
         }.bind(this));
-        iframe.src = loc;
+        iframe.src = this.addURLParam(loc, { ajaxui: 1 });
         this.view = 'iframe';
     },
 
@@ -5108,7 +5122,7 @@ KronolithCore = {
         var ev = r.response.event;
 
         if (!Object.isUndefined(ev.ln)) {
-            this.iframeContent(ev.ln);
+            this.loadPage(ev.ln);
             this.closeRedBox();
             return;
         }
