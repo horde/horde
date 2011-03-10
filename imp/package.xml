@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-*
+* Fix listing users through IMP API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
