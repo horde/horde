@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* Fix retrieving event UIDs without date limit (Simon Bühler, Bug #9651).
 * Fix saving display status of other applications' calendars (Bug #9636).
 * Add migration for converting existing event categories to tags.
  </notes>

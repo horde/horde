@@ -460,8 +460,8 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $events = Kronolith::getDriver(null, $calendar)
-            ->listEvents(new Horde_Date($startstamp),
-                         new Horde_Date($endstamp),
+            ->listEvents($startstamp ? new Horde_Date($startstamp) : null,
+                         $endstamp   ? new Horde_Date($endstamp)   : null,
                          false,  // recurrence
                          false,  // alarm
                          false,  // no json cache
