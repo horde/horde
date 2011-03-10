@@ -39,10 +39,11 @@ abstract class Turba_Form_ContactBase extends Horde_Form
         if (!count($tabs)) {
             $tabs = array('' => $fields);
         }
+        $i = 0;
         foreach ($tabs as $tab => $tab_fields) {
             if (!empty($tab)) {
                 if ($useTabs) {
-                    $this->setSection($tab, $tab);
+                    $this->setSection($i++, $tab);
                 } else {
                     $this->addVariable($tab, '', 'header', false);
                 }
