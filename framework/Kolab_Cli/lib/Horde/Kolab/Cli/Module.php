@@ -6,10 +6,10 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Cli_Modular
+ * @package  Kolab_Cli
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Cli_Modular
+ * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
 
 /**
@@ -22,10 +22,10 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Cli_Modular
+ * @package  Kolab_Cli
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Cli_Modular
+ * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
 interface Horde_Kolab_Cli_Module
 extends Horde_Cli_Modular_Module
