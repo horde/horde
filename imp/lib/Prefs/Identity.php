@@ -539,7 +539,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      * Returns an array with the sent-mail folder names from all the
      * identities.
      *
-     * @return array  The array with the folder names.
+     * @return array  The array with the sent-mail objects.
      */
     public function getAllSentmailFolders()
     {
@@ -551,7 +551,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             }
         }
 
-        return array_keys($list);
+        return IMP_Mailbox::get(array_keys($list));
     }
 
     /**

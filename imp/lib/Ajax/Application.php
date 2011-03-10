@@ -340,7 +340,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                     $val = array($val);
                 }
 
-                foreach ($val as $val2) {
+                foreach (array_map('strval', $val) as $val2) {
                     if (!isset($folder_list[$val2]) &&
                         ($tmp = $imptree[$val2])) {
                         $folder_list[$val2] = $tmp;
