@@ -56,7 +56,7 @@ class IMP_Factory_AuthImap extends Horde_Core_Factory_Injector
             $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
 
-        return Horde_Auth::factory('imap', $params);
+        return Horde_Auth::factory('Imap', $params);
     }
 
 }
