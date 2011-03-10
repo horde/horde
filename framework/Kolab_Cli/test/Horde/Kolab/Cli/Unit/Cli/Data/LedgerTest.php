@@ -33,9 +33,34 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 class Horde_Kolab_Cli_Unit_Cli_Data_LederTest
 extends Horde_Kolab_Cli_TestCase
 {
-    public function testImportFile()
+    public function testCountEmpty()
     {
         $ledger = new Horde_Kolab_Cli_Data_Ledger();
-        $ledger->import(dirname(__FILE__) . '/../../../fixtures/ledger.xml');
+        $this->assertEquals(0, count($ledger));
+    }
+
+    public function testCount()
+    {
+        $this->assertEquals(2, count($this->_import()));
+    }
+
+    public function testAsXmlCount()
+    {
+        $this->assertEquals(2, count($this->_import()->asXml()));
+    }
+
+    public function testAsXml()
+    {
+        $entries = $this->_import()->asXml();
+        foreach ($entries as $entry) {
+            $this->assertContains('<entry>', $entry);
+        }
+    }
+
+    private function _import()
+    {
+        $ledger = new Horde_Kolab_Cli_Data_Ledger();
+        $ledger->importFile(dirname(__FILE__) . '/../../../fixtures/ledger.xml');
+        return $ledger;
     }
 }
