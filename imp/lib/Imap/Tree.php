@@ -794,10 +794,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         $elt = $this->getElement($in);
 
         if ($elt && isset($this->_parent[$elt['v']])) {
-            if ($this->_showunsub) {
-                return true;
-            }
-
             foreach ($this->_parent[$elt['v']] as $val) {
                 if ($this->isSubscribed($this->_tree[$val]) ||
                     $this->hasChildren($this->_tree[$val])) {
