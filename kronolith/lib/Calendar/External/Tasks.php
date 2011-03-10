@@ -20,6 +20,22 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
     protected $_share;
 
     /**
+     * Constructor.
+     *
+     * @param array $params  A hash with any parameters that this calendar
+     *                       might need.
+     *                       Required parameters:
+     *                       - share: The share of this calendar.
+     */
+    public function __construct($params = array())
+    {
+        if (!isset($params['share'])) {
+            throw new BadMethodCallException('share parameter is missing');
+        }
+        Kronolith_Calendar::__construct($params);
+    }
+
+    /**
      * Returns a hash representing this calendar.
      *
      * @return array  A simple hash.

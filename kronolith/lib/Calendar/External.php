@@ -20,6 +20,13 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     protected $_api;
 
     /**
+     * The ID of this timeobject source.
+     *
+     * @var string
+     */
+    protected $_id;
+
+    /**
      * The name of this timeobject source.
      *
      * @var string
@@ -38,6 +45,9 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     {
         if (!isset($params['name'])) {
             throw new BadMethodCallException('name parameter is missing');
+        }
+        if (!isset($params['id'])) {
+            throw new BadMethodCallException('id parameter is missing');
         }
         if (!isset($params['api'])) {
             throw new BadMethodCallException('api parameter is missing');
@@ -63,7 +73,7 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     public function display()
     {
         return empty($GLOBALS['conf']['share']['hidden']) ||
-            in_array($this->_api . '/' . $this->_name, $GLOBALS['display_external_calendars']);
+            in_array($this->_api . '/' . $this->_id, $GLOBALS['display_external_calendars']);
     }
 
     /**
@@ -85,7 +95,7 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     {
         $hash = parent::toHash();
         $hash['api']  = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($this->api()));
-        $hash['show'] = in_array($this->_api . '/' . $this->_name, $GLOBALS['display_external_calendars']);
+        $hash['show'] = in_array($this->_api . '/' . $this->_id, $GLOBALS['display_external_calendars']);
         return $hash;
     }
 }
