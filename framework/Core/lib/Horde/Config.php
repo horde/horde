@@ -515,13 +515,18 @@ class Horde_Config
                 break;
 
             case 'configmultienum':
-                $values = $this->_getEnumValues($node);
-                list($default, $isDefault) = $this->__default($curctx, explode(',', $this->_getNodeOnlyText($node)));
+                $default = $this->_getNodeOnlyText($node);
+                if (strlen($default)) {
+                    $default = explode(',', $default);
+                } else {
+                    $default = array();
+                }
+                list($default, $isDefault) = $this->__default($curctx, $default);
 
                 $conf[$name] = array(
                     '_type' => 'multienum',
                     'required' => $required,
-                    'values' => $values,
+                    'values' => $this->_getEnumValues($node),
                     'desc' => $desc,
                     'default' => Horde_Array::valuesToKeys($default),
                     'is_default' => $isDefault
