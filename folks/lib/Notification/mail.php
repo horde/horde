@@ -52,14 +52,13 @@ class Folks_Notification_mail extends Folks_Notification {
             return true;
         }
 
-        $mail = new Horde_Mime_Mail(array('subject' => $subject,
-                                          'body' => $body,
-                                          'from' => $this->_params['from_addr'],
-                                          'charset' => 'UTF-8'));
-
-        $mail->addHeader('User-Agent', 'Folks ' . $GLOBALS['registry']->getVersion());
-        $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
-        $mail->addHeader('X-Remote-Browser', $_SERVER['HTTP_USER_AGENT']);
+        $mail = new Horde_Mime_Mail(array(
+            'body' => $body,
+            'Subject' => $subject,
+            'From' => $this->_params['from_addr'],
+            'User-Agent' => 'Folks ' . $GLOBALS['registry']->getVersion(),
+            'X-Originating-IP' => $_SERVER['REMOTE_ADDR'],
+            'X-Remote-Browser' => $_SERVER['HTTP_USER_AGENT']));
 
         foreach ($attachments as $file) {
             if (file_exists($file)) {
@@ -76,7 +75,7 @@ class Folks_Notification_mail extends Folks_Notification {
             if (empty($to)) {
                 continue;
             }
-            $mail->addHeader('To', $to, 'UTF-8', true);
+            $mail->addHeader('To', $to, true);
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
         }
 

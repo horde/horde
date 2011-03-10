@@ -107,13 +107,13 @@ MIME-Version: 1.0',
     public function testEncoding()
     {
         $mail = new Horde_Mime_Mail(array(
-            'Subject' => Horde_String::convertCharset('Schöner Betreff', 'UTF-8', 'iso-8859-1'),
-            'body' => Horde_String::convertCharset("Hübsche Umlaute \n und Leerzeichen.", 'UTF-8', 'iso-8859-1'),
-            'To' => Horde_String::convertCharset('Empfänger <recipient@example.com>', 'UTF-8', 'iso-8859-1'),
+            'Subject' => 'Schöner Betreff',
+            'body' => "Hübsche Umlaute \n und Leerzeichen.",
+            'To' => 'Empfänger <recipient@example.com>',
             'From' => 'sender@example.com',
+            'Cc' => 'Der schöne Peter <peter@example.com>',
             'charset' => 'iso-8859-1'
         ));
-        $mail->addHeader('Cc', Horde_String::convertCharset('Der schöne Peter <peter@example.com>', 'UTF-8', 'iso-8859-15'), 'iso-8859-15');
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
@@ -443,10 +443,11 @@ end
 
     public function testFlowedText()
     {
-        $mail = new Horde_Mime_Mail();
-        $mail->addHeader('Subject', 'My Subject');
-        $mail->addHeader('To', 'recipient@example.com');
-        $mail->setBody(file_get_contents(dirname(__FILE__) . '/fixtures/flowed_msg.txt'));
+        $mail = new Horde_Mime_Mail(array(
+            'charset' => 'ISO-8859-1',
+            'Subject' => 'My Subject',
+            'To' => 'recipient@example.com',
+            'body' => file_get_contents(dirname(__FILE__) . '/fixtures/flowed_msg.txt')));
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
@@ -457,7 +458,7 @@ To: recipient@example.com
 Message-ID: <%d.%s@mail.example.com>
 User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
-Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
             str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
         );

@@ -868,11 +868,11 @@ class Nag
             return;
         }
 
-        $mail = new Horde_Mime_Mail();
-        $mail->addHeader('User-Agent', 'Nag ' . $GLOBALS['registry']->getVersion());
-        $mail->addHeader('Precedence', 'bulk');
-        $mail->addHeader('Auto-Submitted', 'auto-generated');
-        $mail->addHeader('From', $from);
+        $mail = new Horde_Mime_Mail(array(
+            'User-Agent' => 'Nag ' . $GLOBALS['registry']->getVersion(),
+            'Precedence' => 'bulk',
+            'Auto-Submitted' => 'auto-generated',
+            'From' => $from));
 
         foreach ($addresses as $lang => $twentyFour) {
             $GLOBALS['registry']->setLanguageEnvironment($lang);
@@ -996,7 +996,7 @@ class Nag
                 break;
             }
 
-            $mail->addHeader('Subject', $subject . ' ' . $task->name, 'UTF-8');
+            $mail->addHeader('Subject', $subject . ' ' . $task->name);
 
             foreach ($twentyFour as $tf => $dateFormat) {
                 foreach ($dateFormat as $df => $df_recipients) {
@@ -1008,7 +1008,7 @@ class Nag
                         $message .= "\n\n" . _("Task description:") . "\n\n" . $task->desc;
                     }
 
-                    $mail->setBody($message, 'UTF-8');
+                    $mail->setBody($message);
                     $mail->clearRecipients();
                     $mail->addRecipients($df_recipients);
 

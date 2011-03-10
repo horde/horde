@@ -3,6 +3,9 @@
  * The Horde_Mime_Mail:: class wraps around the various MIME library classes
  * to provide a simple interface for creating and sending MIME messages.
  *
+ * All content has to be passed UTF-8 encoded. The charset parameters is used
+ * for the generated message only.
+ *
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -77,7 +80,7 @@ class Horde_Mime_Mail
      *
      * @var string
      */
-    protected $_charset = 'ISO-8859-1';
+    protected $_charset = 'UTF-8';
 
     /**
      * The Mail driver parameters.
@@ -116,7 +119,7 @@ class Horde_Mime_Mail
             unset($params['body']);
         }
 
-        $this->addHeaders($params, $this->_charset);
+        $this->addHeaders($params);
     }
 
     /**
@@ -124,14 +127,13 @@ class Horde_Mime_Mail
      *
      * @param array $header    Hash with header names as keys and header
      *                         contents as values.
-     * @param string $charset  The header value's charset.
      *
      * @throws Horde_Mime_Exception
      */
-    public function addHeaders($headers = array(), $charset = 'iso-8859-1')
+    public function addHeaders($headers = array())
     {
         foreach ($headers as $header => $value) {
-            $this->addHeader($header, $value, $charset);
+            $this->addHeader($header, $value);
         }
     }
 
@@ -149,8 +151,7 @@ class Horde_Mime_Mail
      *
      * @throws Horde_Mime_Exception
      */
-    public function addHeader($header, $value, $charset = 'iso-8859-1',
-                              $overwrite = null)
+    public function addHeader($header, $value, $overwrite = null)
     {
         $lc_header = Horde_String::lower($header);
 
@@ -164,9 +165,9 @@ class Horde_Mime_Mail
         }
 
         if ($lc_header === 'bcc') {
-            $this->_bcc = $charset ? Horde_Mime::encodeAddress($value, $charset) : $value;
+            $this->_bcc = $value;
         } else {
-            $this->_headers->addHeader($header, $value, array('charset' => $charset));
+            $this->_headers->addHeader($header, $value);
         }
     }
 
@@ -194,8 +195,12 @@ class Horde_Mime_Mail
      *                                 column. Don't use wrapping if sending
      *                                 flowed messages.
      */
-    public function setBody($body, $charset = 'iso-8859-1', $wrap = false)
+    public function setBody($body, $charset = null, $wrap = false)
     {
+        if (!$charset) {
+            $charset = $this->_charset;
+        }
+        $body = Horde_String::convertCharset($body, 'UTF-8', $charset);
         if ($wrap) {
             $body = Horde_String::wrap($body, $wrap === true ? 76 : $wrap);
         }
@@ -215,9 +220,11 @@ class Horde_Mime_Mail
      *                              generated automatically. If false, a
      *                              text/html message is generated.
      */
-    public function setHtmlBody($body, $charset = 'iso-8859-1',
-                                $alternative = true)
+    public function setHtmlBody($body, $charset = null, $alternative = true)
     {
+        if (!$charset) {
+            $charset = $this->_charset;
+        }
         $this->_htmlBody = new Horde_Mime_Part();
         $this->_htmlBody->setType('text/html');
         $this->_htmlBody->setCharset($charset);
@@ -456,6 +463,7 @@ class Horde_Mime_Mail
                 $basepart = $body;
             }
         }
+        $basepart->setHeaderCharset($this->_charset);
 
         /* Build recipients. */
         $recipients = $this->_recipients;
@@ -464,14 +472,11 @@ class Horde_Mime_Mail
             if (is_null($value)) {
                 continue;
             }
-            $params = $this->_headers->getValue($header, Horde_Mime_Headers::VALUE_PARAMS);
-            if (!empty($params['charset'])) {
-                $value = Horde_Mime::encodeAddress($value, $params['charset']);
-            }
+            $value = Horde_Mime::encodeAddress($value, $this->_charset);
             $recipients = array_merge($recipients, $this->_buildRecipients($value));
         }
         if ($this->_bcc) {
-            $recipients = array_merge($recipients, $this->_buildRecipients($this->_bcc));
+            $recipients = array_merge($recipients, $this->_buildRecipients(Horde_Mime::encodeAddress($this->_bcc, $this->_charset)));
         }
 
         /* Send message. */

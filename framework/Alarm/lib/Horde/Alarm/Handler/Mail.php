@@ -83,16 +83,14 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
             'Subject' => $alarm['title'],
             'To' => $email,
             'From' => $email,
-            'charset' => 'UTF-8'
-        ));
-        $mail->addHeader('Auto-Submitted', 'auto-generated');
-        $mail->addHeader('X-Horde-Alarm', $alarm['title'], 'UTF-8');
+            'Auto-Submitted' => 'auto-generated',
+            'X-Horde-Alarm' => $alarm['title']));
         if (isset($alarm['params']['mail']['mimepart'])) {
             $mail->setBasePart($alarm['params']['mail']['mimepart']);
         } elseif (empty($alarm['params']['mail']['body'])) {
-            $mail->setBody($alarm['text'], 'UTF-8');
+            $mail->setBody($alarm['text']);
         } else {
-            $mail->setBody($alarm['params']['mail']['body'], 'UTF-8');
+            $mail->setBody($alarm['params']['mail']['body']);
         }
 
         $mail->send($this->_mail);

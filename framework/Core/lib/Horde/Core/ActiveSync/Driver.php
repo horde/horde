@@ -11,7 +11,7 @@
  * Descr     :   Horde backend
  * Created   :   09.03.2009
  *
- * � Holger de Carne holger@carne.de
+ * (c) Holger de Carne holger@carne.de
  * This file is distributed under GPL v2.
  * Consult LICENSE file for details
  *

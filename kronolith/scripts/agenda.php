@@ -151,13 +151,12 @@ function send_agendas()
         $view->user = $user;
         $view->events = $eventlist;
 
-        $mime_mail = new Horde_Mime_Mail(
-            array('subject' => sprintf(_("Your daily agenda for %s"), $runtime->strftime($view->dateFormat)),
-                  'to' => $email,
-                  'from' => $GLOBALS['conf']['reminder']['from_addr'],
-                  'charset' => 'UTF-8'));
-        $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
-        $mime_mail->addHeader('Auto-Submitted', 'auto-generated');
+        $mime_mail = new Horde_Mime_Mail(array(
+            'Subject' => sprintf(_("Your daily agenda for %s"), $runtime->strftime($view->dateFormat)),
+            'To' => $email,
+            'From' => $GLOBALS['conf']['reminder']['from_addr'],
+            'User-Agent' => 'Kronolith ' . $GLOBALS['registry']->getVersion(),
+            'Auto-Submitted' => 'auto-generated'));
         try {
             $mime_mail->addRecipients($email);
         } catch (Horde_Mime_Exception $e) {}
@@ -166,7 +165,7 @@ function send_agendas()
 
         Horde::logMessage(sprintf('Sending daily agenda to %s', $email), 'DEBUG');
         try {
-            $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), false, false);
+            $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
         } catch (Horde_Mime_Exception $e) {
             die($e);
         }

@@ -67,13 +67,12 @@ if ($form->validate()) {
     }
 
     $mail = new Horde_Mime_Mail(array(
-        'subject' => sprintf(_("Message %s reported as abuse"),
-                             $message_id),
         'body' => $url . "\n\n" . $registry->getAuth() . "\n\n" . $_SERVER["REMOTE_ADDR"],
-        'to' => $emails,
-        'from' => $emails[0],
-        'charset' => 'UTF-8'));
-    $mail->addHeader('User-Agent', 'Agora ' . $registry->getVersion());
+        'Subject' => sprintf(_("Message %s reported as abuse"),
+                             $message_id),
+        'To' => $emails,
+        'From' => $emails[0],
+        'User-Agent' => 'Agora ' . $registry->getVersion()));
     $mail->send($injector->getInstance('Horde_Mail'));
 
     $notification->push($subject, 'horde.success');

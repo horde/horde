@@ -358,11 +358,11 @@ class Whups_Driver {
             $recipients = array($recipients);
         }
 
-        $mail = new Horde_Mime_Mail();
-        $mail->addHeader('X-Whups-Generated', 1);
-        $mail->addHeader('User-Agent', 'Whups ' . $registry->getVersion());
-        $mail->addHeader('Precedence', 'bulk');
-        $mail->addHeader('Auto-Submitted', $reminder ? 'auto-generated' : 'auto-replied');
+        $mail = new Horde_Mime_Mail(array(
+            'X-Whups-Generated' => 1,
+            'User-Agent' => 'Whups ' . $registry->getVersion(),
+            'Precedence' => 'bulk',
+            'Auto-Submitted' => $reminder ? 'auto-generated' : 'auto-replied'));
 
         $mail_always = null;
         if (!$reminder && !empty($conf['mail']['always_copy'])) {
@@ -391,14 +391,14 @@ class Whups_Driver {
         } elseif (!empty($conf['mail']['from_addr'])) {
             $mail->addHeader('From', $conf['mail']['from_addr']);
         } else {
-            $mail->addHeader('From', Whups::formatUser($from), 'UTF-8');
+            $mail->addHeader('From', Whups::formatUser($from));
         }
 
         $subject = (is_null($ticket_id)
                     ? ''
                     : '[' . $registry->get('name') . ' #' . $ticket_id . '] ')
             . $subject;
-        $mail->addHeader('Subject', $subject, 'UTF-8');
+        $mail->addHeader('Subject', $subject);
 
         /* Get our array of comments, sorted in the appropriate order. */
         if (!is_null($ticket_id)) {
@@ -474,7 +474,7 @@ class Whups_Driver {
                 array('@@comment@@', '@@full_name@@'),
                 array("\n\n" . $formattedComment, $full_name),
                 $message);
-            $mail->setBody($body, 'UTF-8');
+            $mail->setBody($body);
 
             $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());
             if ($ticket_id) {
@@ -488,7 +488,7 @@ class Whups_Driver {
             }
 
             $mail->clearRecipients();
-            $mail->addHeader('To', $to, 'UTF-8');
+            $mail->addHeader('To', $to);
 
             try {
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);

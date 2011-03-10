@@ -327,6 +327,7 @@ class Nag_Driver
         }
 
         /* Update alarm if necessary. */
+        xdebug_break();
         $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
         if (empty($alarm) || $completed) {
             $horde_alarm->delete($task->uid);

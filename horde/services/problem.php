@@ -104,11 +104,11 @@ case 'send_problem_report':
                 $email = Horde_Mime_Address::writeAddress($mailbox, $host, $name);
             }
 
-            $mail = new Horde_Mime_Mail(array('subject' => _("[Problem Report]") . ' ' . $subject,
-                                              'body' => $body,
-                                              'to' => $conf['problems']['email'],
-                                              'from' => $email,
-                                              'charset' => 'UTF-8'));
+            $mail = new Horde_Mime_Mail(array(
+                'body' => $body,
+                'Subject' => _("[Problem Report]") . ' ' . $subject,
+                'To' => $conf['problems']['email'],
+                'From' => $email));
             $mail->addHeader('Sender', 'horde-problem@' . $conf['problems']['maildomain']);
 
             /* Add attachment. */

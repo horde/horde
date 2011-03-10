@@ -174,15 +174,13 @@ class Wicked
             $from_addr = $default_from_addr;
         }
 
-        $mail = new Horde_Mime_Mail(array('body' => $message,
-                                          'to' =>
-                                          $conf['wicked']['notify_address'],
-                                          'from' => $from . '<' . $from_addr
-                                          . '>',
-                                          'charset' => 'UTF-8'));
-        $mail->addHeader('User-Agent', 'Wicked ' . $GLOBALS['registry']->getVersion());
-        $mail->addHeader('Precedence', 'bulk');
-        $mail->addHeader('Auto-Submitted', 'auto-replied');
+        $mail = new Horde_Mime_Mail(array(
+            'body' => $message,
+            'To' => $conf['wicked']['notify_address'],
+            'From' => $from . '<' . $from_addr . '>',
+            'User-Agent' => 'Wicked ' . $GLOBALS['registry']->getVersion(),
+            'Precedence' => 'bulk',
+            'Auto-Submitted' => 'auto-replied'));
         foreach (array_keys($headers) as $hkey) {
             $mail->addHeader($hkey, $headers[$hkey]);
         }

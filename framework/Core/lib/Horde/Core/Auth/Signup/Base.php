@@ -88,11 +88,10 @@ abstract class Horde_Core_Auth_Signup_Base
                 . Horde_Core_Translation::t("Deny the account:")
                 . "\n" . $link->copy()->add('a', 'deny');
             $mail = new Horde_Mime_Mail(array(
-                'subject' => sprintf(Horde_Core_Translation::t("Account signup request for \"%s\""), $signup->name),
                 'body' => $message,
-                'to' => $conf['signup']['email'],
-                'from' => $conf['signup']['email'],
-                'charset' => 'UTF-8'));
+                'Subject' => sprintf(Horde_Core_Translation::t("Account signup request for \"%s\""), $signup->name),
+                'To' => $conf['signup']['email'],
+                'From' => $conf['signup']['email']));
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
         }
     }

@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* Simplify charset handling in Horde_Mime_Mail.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

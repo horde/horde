@@ -1703,11 +1703,9 @@ class Kronolith
             $identity = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Identity')
                 ->create();
-            $mail = new Horde_Mime_Mail(
-                array('from' => $identity->getDefaultFromAddress(true),
-                      'charset' => 'UTF-8')
-                );
-            $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
+            $mail = new Horde_Mime_Mail(array(
+                'From' => $identity->getDefaultFromAddress(true),
+                'User-Agent' => 'Kronolith ' . $GLOBALS['registry']->getVersion()));
             $image = self::getImagePart('big_share.png');
             $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/share'));
             new Horde_View_Helper_Text($view);
@@ -1735,8 +1733,8 @@ class Kronolith
                         ->getInstance('Horde_Core_Factory_Identity')
                         ->create($new_owner)
                         ->getDefaultFromAddress(true);
-                    $mail->addHeader('Subject', _("Ownership assignment"), 'UTF-8');
-                    $mail->addHeader('To', $to, 'UTF-8');
+                    $mail->addHeader('Subject', _("Ownership assignment"));
+                    $mail->addHeader('To', $to);
                     $mail->setBasePart($multipart);
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                     $view->ownerChange = false;
@@ -1845,7 +1843,7 @@ class Kronolith
 
         $current = $perm->getUserPermissions();
         if ($GLOBALS['conf']['share']['notify']) {
-            $mail->addHeader('Subject', _("Access permissions"), 'UTF-8');
+            $mail->addHeader('Subject', _("Access permissions"));
         }
 
         $perm->removeUserPermission(null, null, false);
@@ -1891,7 +1889,7 @@ class Kronolith
                     ->getInstance('Horde_Core_Factory_Identity')
                     ->create($user)
                     ->getDefaultFromAddress(true);
-                $mail->addHeader('To', $to, 'UTF-8');
+                $mail->addHeader('To', $to);
                 $mail->setBasePart($multipart);
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             }
@@ -1941,7 +1939,7 @@ class Kronolith
                     ->getInstance('Horde_Group')
                     ->getData($group);
                 if (!empty($groupOb['email'])) {
-                    $mail->addHeader('To', $groupOb['name'] . ' <' . $groupOb['email'] . '>', 'UTF-8');
+                    $mail->addHeader('To', $groupOb['name'] . ' <' . $groupOb['email'] . '>');
                     $mail->setBasePart($multipart);
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
@@ -2302,11 +2300,11 @@ class Kronolith
             $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
             $multipart->addPart($ics);
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
-            $mail = new Horde_Mime_Mail(array('subject' => $view->subject,
-                                              'to' => $recipient,
-                                              'from' => $ident->getDefaultFromAddress(true),
-                                              'charset' => 'UTF-8'));
-            $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
+            $mail = new Horde_Mime_Mail(
+                array('Subject' => $view->subject,
+                      'To' => $recipient,
+                      'From' => $ident->getDefaultFromAddress(true),
+                      'User-Agent' => 'Kronolith ' . $GLOBALS['registry']->getVersion()));
             $mail->setBasePart($multipart);
 
             try {
@@ -2431,14 +2429,14 @@ class Kronolith
                                   $event->start->strftime($tf ? '%R' : '%I:%M%p'))
                         . "\n\n" . $event->description;
 
-                    $mime_mail = new Horde_Mime_Mail(array('subject' => $subject . ' ' . $event->title,
-                                                           'to' => implode(',', $df_recipients),
-                                                           'from' => $identity->getDefaultFromAddress(true),
-                                                           'charset' => 'UTF-8'));
-                    $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
-                    $mime_mail->setBody($message, 'UTF-8', true);
+                    $mime_mail = new Horde_Mime_Mail(array(
+                        'Subject' => $subject . ' ' . $event->title,
+                        'To' => implode(',', $df_recipients),
+                        'From' => $identity->getDefaultFromAddress(true),
+                        'User-Agent' => 'Kronolith ' . $GLOBALS['registry']->getVersion(),
+                        'body' => $message));
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
-                    $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), false, false);
+                    $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
             }
         }

@@ -660,9 +660,7 @@ class Horde_Release
         }
 
         // Building and sending message
-        $mail = new Horde_Mime_Mail();
-        $mail->setBody($body, 'UTF-8', false);
-        $mail->addHeaders($headers);
+        $mail = new Horde_Mime_Mail(array_merge($headers, array('body' => $body)));
         try {
             $class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
             $mail->send(new $class($this->_options['mailer']['params']));

@@ -71,12 +71,15 @@ case 'send':
     $alternative->addPart($related);
 
     /* Add them to the mail message */
-    $alt = new Horde_Mime_Mail(array('subject' => _("Ecard - ") . Horde_Util::getFormData('image_desc'), 'to' => $to, 'from' => $from, 'charset' => 'UTF-8'));
+    $alt = new Horde_Mime_Mail(array(
+        'Subject' => _("Ecard - ") . Horde_Util::getFormData('image_desc'),
+        'To' => $to,
+        'From' => $from));
     $alt->setBasePart($alternative);
 
     /* Send. */
     try {
-        $result = $alt->send($injector->getInstance('Horde_Mail'));
+        $alt->send($injector->getInstance('Horde_Mail'));
     } catch (Horde_Mime_Exception $e) {
         $notification->push(sprintf(_("There was an error sending your message: %s"), $e->getMessage()), 'horde.error');
     }

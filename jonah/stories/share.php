@@ -20,14 +20,14 @@
  */
 function _mail($story_part, $from, $recipients, $subject, $note)
 {
+    throw new Jonah_Exception('Needs refactoring.');
     global $conf;
 
     /* Create the MIME message. */
-    $mail = new Horde_Mime_Mail(array('subject' => $subject,
-                                      'to' => $recipients,
-                                      'from' => $from,
-                                      'charset' => 'UTF-8'));
-    $mail->addHeader('User-Agent', 'Jonah ' . $GLOBALS['registry']->getVersion());
+    $mail = new Horde_Mime_Mail(array('Subject' => $subject,
+                                      'To' => $recipients,
+                                      'From' => $from,
+                                      'User-Agent' => 'Jonah ' . $GLOBALS['registry']->getVersion()));
 
     /* If a note has been provided, add it to the message as a text part. */
     if (strlen($note) > 0) {

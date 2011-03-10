@@ -25,18 +25,14 @@ class Ansel_Report_mail extends Ansel_Report {
             }
         }
 
-        /*
-         * Needed for the Horde 4 mime library - use autoload everywhere we can
-         * when this is *really* refactored for horde 4
-         */
-        $mail = new Horde_Mime_Mail(array('subject' => $this->getTitle(),
-                                          'body' => $this->getMessage($message),
-                                          'to' => $to,
-                                          'from' => $this->getUserEmail()));
+        $mail = new Horde_Mime_Mail(array(
+            'body' => $this->getMessage($message),
+            'Subject' => $this->getTitle(),
+            'To' => $to,
+            //FIXME: This address should be configurable
+            'Sender' => 'horde-problem@' . $conf['report_content']['maildomain'],
+            'From' => $this->getUserEmail()));
 
-        //FIXME: This address should be configurable
-        $mail->addHeader('Sender',
-                         'horde-problem@' . $conf['report_content']['maildomain']);
         return $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
     }
 }
