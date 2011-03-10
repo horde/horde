@@ -19,6 +19,7 @@
  * class and provide a _load/_save function.
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -704,22 +705,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     }
 
     /**
-     * Create a node with raw XML content.
-     *
-     * @param DOMNode $parent The parent of the new node.
-     * @param string  $xml    The XML content.
-     *
-     * @return DOMNode The new node.
-     */
-    protected function _createXmlNode($parent, $xml)
-    {
-        $node = $this->_xmldoc->createDocumentFragment();
-        $node->appendXML($xml);
-        $parent->appendChild($node);
-        return $node;
-    }
-
-    /**
      * Return the named node among a list of nodes.
      *
      * @param array  &$nodes The list of nodes.
@@ -911,8 +896,8 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 
             break;
         case self::TYPE_XML:
-            // create the node
-            return $this->_createXmlNode($parent_node, $value);
+            $type = $this->_factory->createXmlType(self::TYPE_XML, $this->_xmldoc);
+            $type->save($parent_node, $value);
         }
 
         if (!$append) {

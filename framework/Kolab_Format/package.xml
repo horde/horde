@@ -24,7 +24,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-10</date>
- <time>11:44:33</time>
+ <time>13:13:29</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -78,6 +78,9 @@
         <file name="ParseError.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Exception -->
        <dir name="Xml">
+        <dir name="Type">
+         <file name="XmlAppend.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type -->
         <file name="Annotation.php" role="php" />
         <file name="Contact.php" role="php" />
         <file name="Distributionlist.php" role="php" />
@@ -230,6 +233,7 @@
    <install as="Horde/Kolab/Format/Xml/Note.php" name="lib/Horde/Kolab/Format/Xml/Note.php" />
    <install as="Horde/Kolab/Format/Xml/Parser.php" name="lib/Horde/Kolab/Format/Xml/Parser.php" />
    <install as="Horde/Kolab/Format/Xml/Task.php" name="lib/Horde/Kolab/Format/Xml/Task.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/XmlAppend.php" name="lib/Horde/Kolab/Format/Xml/Type/XmlAppend.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />

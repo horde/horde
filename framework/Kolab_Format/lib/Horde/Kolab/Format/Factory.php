@@ -119,4 +119,31 @@ class Horde_Kolab_Format_Factory
         }
         return $instance;
     }
+
+    /**
+     * Generates a XML type that deals with XML data modifications.
+     *
+     * @param string      $type   The value type.
+     * @param DOMDocument $xmldoc The XML document the type should operate on.
+     * @param array       $params Additional parameters. See each time for
+     *                            available options.
+     *
+     * @return Horde_Kolab_Format_Xml_Type The type.
+     *
+     * @throws Horde_Kolab_Format_Exception If the specified type does not
+     *                                      exist.
+     */
+    public function createXmlType($type, $xmldoc, array $params = array())
+    {
+        switch ($type) {
+        case Horde_Kolab_Format_Xml::TYPE_XML:
+            return new Horde_Kolab_Format_Xml_Type_XmlAppend(
+                $xmldoc
+            );
+        default:
+            throw new Horde_Kolab_Format_Exception(
+                sprintf('XML type %s not supported!')
+            );
+        }
+    }
 }
