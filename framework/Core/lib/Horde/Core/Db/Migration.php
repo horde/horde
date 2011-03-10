@@ -66,7 +66,7 @@ class Horde_Core_Db_Migration
         $pear = new PEAR_Config($pearconf);
         foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
             $app = Horde_String::lower(basename(dirname($dir)));;
-            if (!in_array($app, $apps)) {
+            if (!in_array($app, $this->apps)) {
                 $this->apps[] = $app;
                 $this->dirs[] = $dir;
             }
