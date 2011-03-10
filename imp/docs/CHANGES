@@ -2,6 +2,8 @@
 v5.0-BETA1
 ----------
 
+[mms] Fix display of non-IMAP mailbox elements in folder lists (Bug #9650).
+[mms] Fix print part display.
 [jan] Fix listing users through IMP API.
 
 
