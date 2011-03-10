@@ -22,6 +22,7 @@
  * @property string $display  Display version of mailbox. Special mailboxes
  *                            are replaced with localized strings and
  *                            namespace information is removed.
+ * @property boolean $drafts  Is this a Drafts mailbox?
  * @property boolean $editvfolder  Can this virtual folder be edited?
  * @property boolean $exists  Does this mailbox exist on the IMAP server?
  * @property boolean $fixed  Is this mailbox fixed (i.e. unchangable)?
@@ -73,6 +74,12 @@
  */
 class IMP_Mailbox implements Serializable
 {
+    /* Special mailbox identifiers. */
+    const SPECIAL_DRAFTS = 'drafts';
+    const SPECIAL_SENT = 'sent';
+    const SPECIAL_SPAM = 'spam';
+    const SPECIAL_TRASH = 'trash';
+
     /**
      * Cache.
      *
@@ -194,6 +201,14 @@ class IMP_Mailbox implements Serializable
                 ? $this->label
                 : $this->_getDisplay(true);
 
+        case 'drafts':
+            if (!empty($GLOBALS['conf']['user']['allow_resume_all'])) {
+                return true;
+            }
+
+            $special = $this->getSpecialMailboxes();
+            return ($this->_mbox == $special[self::SPECIAL_DRAFTS]);
+
         case 'editvfolder':
             return $injector->getInstance('IMP_Search')->isVFolder($this->_mbox, true);
 
@@ -312,22 +327,27 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
 
         case 'special':
-            $this->_initCache();
+            $special = $this->getSpecialMailboxes();
 
             switch ($this->_mbox) {
             case 'INBOX':
-            case self::$_specialCache['draft']:
-            case self::$_specialCache['spam']:
-            case self::$_specialCache['trash']:
+            case $special[self::SPECIAL_DRAFTS]:
+            case $special[self::SPECIAL_SPAM]:
+            case $special[self::SPECIAL_TRASH]:
                 return true;
             }
 
-            return in_array($this->_mbox, self::$_specialCache['sent']);
+            return in_array($this->_mbox, $special[self::SPECIAL_SENT]);
 
         case 'special_outgoing':
-            $this->_initCache();
-            return (($this->_mbox == self::$_specialCache['draft']) ||
-                    in_array($this->_mbox, self::$_specialCache['sent']));
+            $special = $this->getSpecialMailboxes();
+
+            return in_array($this->_mbox, array_merge(
+                array(
+                    $special[self::SPECIAL_DRAFTS]
+                ),
+                $special[self::SPECIAL_SENT]
+            ));
 
         case 'specialvfolder':
             return !$this->editvfolder;
@@ -587,6 +607,27 @@ class IMP_Mailbox implements Serializable
     }
 
     /**
+     * Return the list of special mailboxes.
+     *
+     * @return array  A list of folders, with the self::SPECIAL_* constants as
+     *                keys and values containing the IMP_Mailbox objects
+     *                (self::SPECIAL_SENT contains an array of objects).
+     */
+    static public function getSpecialMailboxes()
+    {
+        if (!self::$_specialCache) {
+            self::$_specialCache = array(
+                self::SPECIAL_DRAFTS => self::getPref('drafts_folder'),
+                self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailFolders(),
+                self::SPECIAL_SPAM => self::getPref('spam_folder'),
+                self::SPECIAL_TRASH => self::getPref('trash_folder')
+            );
+        }
+
+        return self::$_specialCache;
+    }
+
+    /**
      * Converts a mailbox name from a value stored in the preferences.
      *
      * @param string $mbox  The mailbox name as stored in a preference.
@@ -673,8 +714,6 @@ class IMP_Mailbox implements Serializable
      */
     protected function _getDisplay($notranslate = false)
     {
-        global $prefs;
-
         if (!$notranslate && isset($this->_cache['display'])) {
             return $this->_cache['display'];
         }
@@ -696,15 +735,6 @@ class IMP_Mailbox implements Serializable
             ? ''
             : $ns_info['delimiter'];
 
-        /* Substitute any translated prefix text. */
-        $sub_array = array(
-            'INBOX' => _("Inbox"),
-            $prefs->getValue('sent_mail_folder') => _("Sent"),
-            $prefs->getValue('drafts_folder') => _("Drafts"),
-            $prefs->getValue('trash_folder') => _("Trash"),
-            $prefs->getValue('spam_folder') => _("Spam")
-        );
-
         /* Strip namespace information. */
         if (!is_null($ns_info) &&
             !empty($ns_info['name']) &&
@@ -719,7 +749,34 @@ class IMP_Mailbox implements Serializable
             return $out;
         }
 
-        foreach ($sub_array as $key => $val) {
+        /* Substitute any translated prefix text. */
+        $sub = array(
+            'INBOX' => _("Inbox")
+        );
+
+        foreach ($this->getSpecialMailboxes() as $key => $val) {
+            switch ($key) {
+            case self::SPECIAL_DRAFTS:
+                $sub[strval($val)] = _("Drafts");
+                break;
+
+            case self::SPECIAL_SENT:
+                foreach ($val as $val2) {
+                    $sub[strval($val2)] = _("Sent");
+                }
+                break;
+
+            case self::SPECIAL_SPAM:
+                $sub[strval($val)] = _("Spam");
+                break;
+
+            case self::SPECIAL_TRASH:
+                $sub[strval($val)] = _("Trash");
+                break;
+            }
+        }
+
+        foreach ($sub as $key => $val) {
             if ((($key != 'INBOX') || ($this->_mbox == $out)) &&
                 stripos($out, $key) === 0) {
                 $len = strlen($key);
@@ -749,8 +806,6 @@ class IMP_Mailbox implements Serializable
      */
     protected function _getIcon()
     {
-        $this->_initCache();
-
         $info = new stdClass;
         $info->iconopen = null;
         $info->user_icon = false;
@@ -768,6 +823,8 @@ class IMP_Mailbox implements Serializable
                 $info->iconopen = Horde_Themes::img('folders/open.png');
             }
         } else {
+            $special = $this->getSpecialMailboxes();
+
             switch ($this->_mbox) {
             case 'INBOX':
                 $info->alt = _("Inbox");
@@ -775,27 +832,27 @@ class IMP_Mailbox implements Serializable
                 $info->icon = 'folders/inbox.png';
                 break;
 
-            case self::$_specialCache['draft']:
-                $info->alt = _("Draft folder");
+            case $special[self::SPECIAL_DRAFTS]:
+                $info->alt = _("Drafts");
                 $info->class = 'draftsImg';
                 $info->icon = 'folders/drafts.png';
                 break;
 
-            case self::$_specialCache['spam']:
-                $info->alt = _("Spam folder");
+            case $special[self::SPECIAL_SPAM]:
+                $info->alt = _("Spam");
                 $info->class = 'spamImg';
                 $info->icon = 'folders/spam.png';
                 break;
 
-            case self::$_specialCache['trash']:
-                $info->alt = _("Trash folder");
+            case $special[self::SPECIAL_TRASH]:
+                $info->alt = _("Trash");
                 $info->class = 'trashImg';
                 $info->icon = 'folders/trash.png';
                 break;
 
             default:
-                if (in_array($this->_mbox, self::$_specialCache['sent'])) {
-                    $info->alt = _("Sent mail folder");
+                if (in_array($this->_mbox, $special[self::SPECIAL_SENT])) {
+                    $info->alt = _("Sent");
                     $info->class = 'sentImg';
                     $info->icon = 'folders/sent.png';
                 } else {
@@ -848,16 +905,6 @@ class IMP_Mailbox implements Serializable
         }
 
         return $info;
-    }
-
-    /**
-     * Init frequently used data.
-     */
-    protected function _initCache()
-    {
-        if (!self::$_specialCache) {
-            self::$_specialCache = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getSpecialMailboxes();
-        }
     }
 
     /* Serializable methods. */

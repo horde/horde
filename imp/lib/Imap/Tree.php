@@ -1407,27 +1407,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Return the list of 'special' mailboxes.
-     *
-     * @return array  A list of folders, with keys of 'draft', 'sent', 'spam',
-     *                and 'trash' and values containing the IMP_Mailbox
-     *                objects ('sent' contains a list of mailbox objects).
-     */
-    public function getSpecialMailboxes()
-    {
-        global $prefs;
-
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-
-        return array(
-            'draft' => IMP_Mailbox::getPref('drafts_folder'),
-            'sent' => $identity->getAllSentmailFolders(),
-            'spam' => IMP_Mailbox::getPref('spam_folder'),
-            'trash' => IMP_Mailbox::getPref('trash_folder')
-        );
-    }
-
-    /**
      * Sort a level in the tree.
      *
      * @param string $id  The parent folder whose children need to be sorted.

@@ -335,7 +335,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * they are ALWAYS displayed and may appear outside of the folder
          * slice requested. */
         if ($initreload) {
-            foreach ($imptree->getSpecialMailboxes() as $val) {
+            foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
                 if (!is_array($val)) {
                     $val = array($val);
                 }
