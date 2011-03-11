@@ -47,7 +47,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
      * + Array
      *   Either:
      *     KEYS: Mailbox names
-     *     VALUES: UIDs
+     *     VALUES: UIDs -or- Horde_Imap_Client_Ids object
      *  -or-
      *     VALUES: IMAP sequence strings
      * + IMP_Compose object
@@ -72,12 +72,12 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         switch (func_num_args()) {
         case 1:
             if (is_array($data)) {
-                if (is_array(reset($data))) {
-                    foreach ($data as $key => $val) {
+                foreach ($data as $key => $val) {
+                    if (is_array($val)) {
                         $indices[$key] = array_keys(array_flip($val));
-                    }
-                } else {
-                    foreach ($data as $val) {
+                    } elseif ($val instanceof Horde_Imap_Client_Ids) {
+                        $this->add($key, $val);
+                    } else {
                         $this->add($val);
                     }
                 }
