@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:46:32</time>
+ <date>2011-03-11</date>
+ <time>14:58:57</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* Add basic UTF7-IMAP conversion unit test.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -78,6 +78,7 @@
        <file name="test_email.txt" role="test" />
        <file name="test_email2.txt" role="test" />
        <file name="UrlParseTest.php" role="test" />
+       <file name="Utf7ConvertTest.php" role="test" />
       </dir> <!-- /test/Horde/Imap/Client -->
      </dir> <!-- /test/Horde/Imap -->
     </dir> <!-- /test/Horde -->
@@ -176,6 +177,7 @@
    <install as="Horde/Imap/Client/test_email.txt" name="test/Horde/Imap/Client/test_email.txt" />
    <install as="Horde/Imap/Client/test_email2.txt" name="test/Horde/Imap/Client/test_email2.txt" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
+   <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -202,6 +204,21 @@
 * Add Horde_Imap_Client_Ids data object.
 * Add Horde_Imap_Client_Fetch_Query data object.
 * Add Horde_Imap_Client_Data_Envelope data object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Add basic UTF7-IMAP conversion unit test.
    </notes>
   </release>
  </changelog>
