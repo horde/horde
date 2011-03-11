@@ -106,9 +106,10 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                                     ? $item['params']['params']['_refresh_time']
                                     : $interval;
 
-                                $updateurl = Horde::getServiceLink('ajax', 'horde');
+                                $updateurl = Horde::getServiceLink('ajax', 'horde')->setRaw(true);
                                 $updateurl->pathInfo = 'blockAutoUpdate';
-                                $updateurl->add('blockid', get_class($block));
+                                $updateurl->add('app', $block->getApp())
+                                          ->add('blockid', get_class($block));
 
                                 Horde::addInlineScript(
                                     'setTimeout(function() {' .

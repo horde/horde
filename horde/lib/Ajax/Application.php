@@ -15,6 +15,18 @@
 class Horde_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
+     */
+    public function responseType()
+    {
+        switch ($this->_action) {
+        case 'blockAutoUpdate':
+            return 'html';
+        }
+
+        return parent::responseType();
+    }
+
+    /**
      * AJAX action: Update sidebar.
      *
      * @return object  See Horde_Tree_Javascript#renderNodeDefinitions().
@@ -29,12 +41,12 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function blockAutoUpdate()
     {
-        if (isset($this->_vars->blockid)) {
+        if (isset($this->_vars->app) && isset($this->_vars->blockid)) {
             try {
                 return $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
-                    ->getBlock($this->_vars->blockid)
+                    ->getBlock($this->_vars->app, $this->_vars->blockid)
                     ->getContent();
             } catch (Exception $e) {
                 return $e->getMessage();
