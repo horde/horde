@@ -575,18 +575,29 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Deletes messages from the current folder.
+     * Deletes messages from the specified folder.
      *
-     * @param integer $uids  IMAP message ids.
+     * @param string  $folder  The folder to delete messages from.
+     * @param integer $uids    IMAP message ids.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function deleteMessages($folder, $uids)
     {
-        if (!is_array($uids)) {
-            $uids = array($uids);
+        $this->getBackend()->delete(
+            $this->encodePath($folder), $uids
+        );
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed deleting messages from folder %s. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
         }
-        return $this->getBackend()->store($folder, array('add' => array('\\deleted'), 'ids' => $uids));
     }
 
     /**
@@ -606,14 +617,22 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     *
      * @return mixed  True or a PEAR error in case of an error.
      */
     public function expunge($folder)
     {
-        return $this->getBackend()->expunge($folder);
+        $this->getBackend()->expunge($this->encodePath($folder));
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed expunging folder %s. Error: %s"
+                    ),
+                    $folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
     }
 
     /**
