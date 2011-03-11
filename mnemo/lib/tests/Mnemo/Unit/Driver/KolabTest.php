@@ -57,4 +57,24 @@ class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
         $driver->retrieve();
         $this->assertEquals(1, count($driver->listMemos()));
     }
+
+    public function testDelete()
+    {
+        $driver = $this->getKolabDriver();
+        $driver->add('TEST','Some test note.');
+        $id = $driver->add('TEST','Some test note.');
+        $driver->delete($id);
+        $driver->retrieve();
+        $this->assertEquals(1, count($driver->listMemos()));
+    }
+
+    public function testDeleteAll()
+    {
+        $driver = $this->getKolabDriver();
+        $driver->add('TEST','Some test note.');
+        $driver->add('TEST','Some test note.');
+        $driver->deleteAll();
+        $driver->retrieve();
+        $this->assertEquals(0, count($driver->listMemos()));
+    }
 }

@@ -207,23 +207,23 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Delete the specified note from the current notepad
      *
-     * @param string $noteId      The note to delete.
+     * @param string $noteId The note to delete.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @return NULL
      */
     function delete($noteId)
     {
-        return $this->_wrapper->delete($noteId);
+        $this->_data->delete($noteId);
     }
 
     /**
      * Delete all notes from the current notepad
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @return NULL
      */
     function deleteAll()
     {
-        return $this->_wrapper->deleteAll();
+        $this->_data->deleteAll();
     }
 
     /**
