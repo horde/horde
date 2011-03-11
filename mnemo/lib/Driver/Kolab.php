@@ -213,7 +213,10 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     function delete($noteId)
     {
+        $note = $this->get($noteId);
         $this->_data->delete($noteId);
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
     }
 
     /**
@@ -289,10 +292,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     }
 }
 
-
-
-/* } */
-
 /* /\** */
 /*  * New Horde Mnemo driver for the Kolab IMAP server. */
 /*  * */
@@ -309,33 +308,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
 /*  *\/ */
 /* class Mnemo_Driver_kolab_wrapper_new extends Mnemo_Driver_kolab_wrapper { */
 
-/*     /\** */
-/*      * Shortcut to the imap connection */
-/*      * */
-/*      * @var Kolab_IMAP */
-/*      *\/ */
-/*     var $_store = null; */
-
-/*     /\** */
-/*      * Connect to the Kolab backend */
-/*      * */
-/*      * @return mixed True on success, a PEAR error otherwise */
-/*      *\/ */
-/*     function connect() */
-/*     { */
-/*         if ($this->_connected) { */
-/*             return true; */
-/*         } */
-
-/*         $result = parent::connect(1); */
-/*         if (is_a($result, 'PEAR_Error')) { */
-/*             return $result; */
-/*         } */
-
-/*         $this->_store = &$this->_kolab->_storage; */
-
-/*         return true; */
-/*     } */
 
 /*     /\** */
 /*      * Split the notepad name of the id. We use this to make ids */
@@ -463,38 +435,5 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
 
 /*         return $this->_store->move($noteId, $newNotepad); */
 /*     } */
-
-/*     /\** */
-/*      * Delete the specified note from the current notepad */
-/*      * */
-/*      * @param string $noteId      The note to delete. */
-/*      * */
-/*      * @return mixed  True on success, PEAR_Error on failure. */
-/*      *\/ */
-/*     function delete($noteId) */
-/*     { */
-/*         list($noteId, $notepad) = $this->_splitId($noteId); */
-
-/*         $result = $this->_store->delete($noteId); */
-/*         if (is_a($result, 'PEAR_Error')) { */
-/*             return $result; */
-/*         } */
-
-/*         $history = $GLOBALS['injector']->getInstance('Horde_History'); */
-/*         $history->log('mnemo:' . $this->_notepad . ':' . $this->_uniqueId($noteId), array('action' => 'delete'), true); */
-
-/*         return $result; */
-/*     } */
-
-/*     /\** */
-/*      * Delete all notes from the current notepad */
-/*      * */
-/*      * @return mixed  True on success, PEAR_Error on failure. */
-/*      *\/ */
-/*     function deleteAll() */
-/*     { */
-/*         return $this->_store->deleteAll(); */
-/*     } */
-
 
 /* } */

@@ -45,7 +45,7 @@ class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
     public function testGetByUid()
     {
         $driver = $this->getKolabDriver();
-        $id = $driver->add('TEST','Some test note.');
+        $id = $driver->add('TEST', 'Some test note.');
         $note = $driver->getByUID($id);
         $this->assertEquals('TEST', $note['desc']);
     }
@@ -53,7 +53,7 @@ class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
     public function testListMemos()
     {
         $driver = $this->getKolabDriver();
-        $id = $driver->add('TEST','Some test note.');
+        $id = $driver->add('TEST', 'Some test note.');
         $driver->retrieve();
         $this->assertEquals(1, count($driver->listMemos()));
     }
@@ -61,8 +61,8 @@ class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
     public function testDelete()
     {
         $driver = $this->getKolabDriver();
-        $driver->add('TEST','Some test note.');
-        $id = $driver->add('TEST','Some test note.');
+        $driver->add('TEST', 'Some test note.');
+        $id = $driver->add('TEST', 'Some test note.');
         $driver->delete($id);
         $driver->retrieve();
         $this->assertEquals(1, count($driver->listMemos()));
@@ -71,8 +71,8 @@ class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
     public function testDeleteAll()
     {
         $driver = $this->getKolabDriver();
-        $driver->add('TEST','Some test note.');
-        $driver->add('TEST','Some test note.');
+        $driver->add('TEST', 'Some test note.');
+        $driver->add('TEST', 'Some test note.');
         $driver->deleteAll();
         $driver->retrieve();
         $this->assertEquals(0, count($driver->listMemos()));
