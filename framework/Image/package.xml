@@ -23,8 +23,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-08</date>
- <time>23:46:20</time>
+ <date>2011-03-11</date>
+ <time>15:04:03</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -371,7 +371,7 @@
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Image.pot" role="data" />
    </dir> <!-- /locale -->
-   <dir name="tests">
+   <dir name="test">
     <file name="gd.php" role="test" />
     <file name="im.php" role="test" />
     <file name="img1.jpg" role="test" />
@@ -382,7 +382,7 @@
     <file name="svg.php" role="test" />
     <file name="swf.php" role="test" />
     <file name="two_page.tif.tiff" role="test" />
-   </dir> <!-- /tests -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -555,16 +555,16 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Image.po" name="locale/zh_CN/LC_MESSAGES/Horde_Image.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.po" name="locale/zh_TW/LC_MESSAGES/Horde_Image.po" />
-   <install as="gd.php" name="tests/gd.php" />
-   <install as="im.php" name="tests/im.php" />
-   <install as="img1.jpg" name="tests/img1.jpg" />
-   <install as="img2.jpg" name="tests/img2.jpg" />
-   <install as="img3.jpg" name="tests/img3.jpg" />
-   <install as="img4.jpg" name="tests/img4.jpg" />
-   <install as="runtest.php" name="tests/runtest.php" />
-   <install as="svg.php" name="tests/svg.php" />
-   <install as="swf.php" name="tests/swf.php" />
-   <install as="two_page.tif.tiff" name="tests/two_page.tif.tiff" />
+   <install as="gd.php" name="test/gd.php" />
+   <install as="im.php" name="test/im.php" />
+   <install as="img1.jpg" name="test/img1.jpg" />
+   <install as="img2.jpg" name="test/img2.jpg" />
+   <install as="img3.jpg" name="test/img3.jpg" />
+   <install as="img4.jpg" name="test/img4.jpg" />
+   <install as="runtest.php" name="test/runtest.php" />
+   <install as="svg.php" name="test/svg.php" />
+   <install as="swf.php" name="test/swf.php" />
+   <install as="two_page.tif.tiff" name="test/two_page.tif.tiff" />
   </filelist>
  </phprelease>
  <changelog>
@@ -596,6 +596,21 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>

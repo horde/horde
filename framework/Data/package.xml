@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-08</date>
- <time>23:44:21</time>
+ <date>2011-03-11</date>
+ <time>14:58:53</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -38,19 +38,19 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="docs">
+   <dir name="doc">
     <dir name="examples">
-     <file name="Eudora.txt" role="data" />
-     <file name="Gmail.csv" role="data" />
-     <file name="KMail.csv" role="data" />
-     <file name="Outlook.csv" role="data" />
-     <file name="Palm.csv" role="data" />
-     <file name="Thunderbird.csv" role="data" />
-     <file name="WAB-selectable.csv" role="data" />
-     <file name="WAB.csv" role="data" />
-     <file name="Yahoo.csv" role="data" />
-    </dir> <!-- /docs/examples -->
-   </dir> <!-- /docs -->
+     <file name="Eudora.txt" role="doc" />
+     <file name="Gmail.csv" role="doc" />
+     <file name="KMail.csv" role="doc" />
+     <file name="Outlook.csv" role="doc" />
+     <file name="Palm.csv" role="doc" />
+     <file name="Thunderbird.csv" role="doc" />
+     <file name="WAB-selectable.csv" role="doc" />
+     <file name="WAB.csv" role="doc" />
+     <file name="Yahoo.csv" role="doc" />
+    </dir> <!-- /doc/examples -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Data">
@@ -400,15 +400,15 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="docs/examples/Eudora.txt" name="docs/examples/Eudora.txt" />
-   <install as="docs/examples/Gmail.csv" name="docs/examples/Gmail.csv" />
-   <install as="docs/examples/KMail.csv" name="docs/examples/KMail.csv" />
-   <install as="docs/examples/Outlook.csv" name="docs/examples/Outlook.csv" />
-   <install as="docs/examples/Palm.csv" name="docs/examples/Palm.csv" />
-   <install as="docs/examples/Thunderbird.csv" name="docs/examples/Thunderbird.csv" />
-   <install as="docs/examples/WAB-selectable.csv" name="docs/examples/WAB-selectable.csv" />
-   <install as="docs/examples/WAB.csv" name="docs/examples/WAB.csv" />
-   <install as="docs/examples/Yahoo.csv" name="docs/examples/Yahoo.csv" />
+   <install as="examples/Eudora.txt" name="doc/examples/Eudora.txt" />
+   <install as="examples/Gmail.csv" name="doc/examples/Gmail.csv" />
+   <install as="examples/KMail.csv" name="doc/examples/KMail.csv" />
+   <install as="examples/Outlook.csv" name="doc/examples/Outlook.csv" />
+   <install as="examples/Palm.csv" name="doc/examples/Palm.csv" />
+   <install as="examples/Thunderbird.csv" name="doc/examples/Thunderbird.csv" />
+   <install as="examples/WAB-selectable.csv" name="doc/examples/WAB-selectable.csv" />
+   <install as="examples/WAB.csv" name="doc/examples/WAB.csv" />
+   <install as="examples/Yahoo.csv" name="doc/examples/Yahoo.csv" />
    <install as="Horde/Data.php" name="lib/Horde/Data.php" />
    <install as="Horde/Data/Base.php" name="lib/Horde/Data/Base.php" />
    <install as="Horde/Data/Csv.php" name="lib/Horde/Data/Csv.php" />
@@ -574,6 +574,21 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>

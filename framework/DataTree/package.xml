@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:44:29</time>
+ <date>2011-03-11</date>
+ <time>14:59:10</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -26,9 +26,9 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="docs">
-    <file name="find-datatree-attribute-orphans.sql" role="data" />
-   </dir> <!-- /docs -->
+   <dir name="doc">
+    <file name="find-datatree-attribute-orphans.sql" role="doc" />
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="DataTree">
@@ -86,7 +86,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="docs/find-datatree-attribute-orphans.sql" name="docs/find-datatree-attribute-orphans.sql" />
+   <install as="find-datatree-attribute-orphans.sql" name="doc/find-datatree-attribute-orphans.sql" />
    <install as="Horde/DataTree.php" name="lib/Horde/DataTree.php" />
    <install as="Horde/DataTreeObject.php" name="lib/Horde/DataTreeObject.php" />
    <install as="Horde/DataTree/Null.php" name="lib/Horde/DataTree/Null.php" />
@@ -153,6 +153,21 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>

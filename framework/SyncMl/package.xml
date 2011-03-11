@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>19:36:53</time>
+ <date>2011-03-11</date>
+ <time>14:59:19</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -33,12 +33,12 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="docs">
+   <dir name="doc">
     <file name="INSTALL.p900.txt" role="doc" />
     <file name="README.program_flow.txt" role="doc" />
     <file name="README.syncml_primer.txt" role="doc" />
     <file name="TODO" role="doc" />
-   </dir> <!-- /docs -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="SyncMl">
@@ -607,10 +607,10 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="INSTALL.p900.txt" name="docs/INSTALL.p900.txt" />
-   <install as="README.program_flow.txt" name="docs/README.program_flow.txt" />
-   <install as="README.syncml_primer.txt" name="docs/README.syncml_primer.txt" />
-   <install as="TODO" name="docs/TODO" />
+   <install as="INSTALL.p900.txt" name="doc/INSTALL.p900.txt" />
+   <install as="README.program_flow.txt" name="doc/README.program_flow.txt" />
+   <install as="README.syncml_primer.txt" name="doc/README.syncml_primer.txt" />
+   <install as="TODO" name="doc/TODO" />
    <install as="Horde/SyncMl.php" name="lib/Horde/SyncMl.php" />
    <install as="Horde/SyncMl/Backend.php" name="lib/Horde/SyncMl/Backend.php" />
    <install as="Horde/SyncMl/Command.php" name="lib/Horde/SyncMl/Command.php" />
@@ -1010,6 +1010,21 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>

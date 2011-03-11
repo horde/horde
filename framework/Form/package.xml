@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:45:39</time>
+ <date>2011-03-11</date>
+ <time>15:03:08</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -302,10 +302,10 @@
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Form.pot" role="data" />
    </dir> <!-- /locale -->
-   <dir name="tests">
-    <file name="Horde_Form_Type_address.phpt" role="data" />
-    <file name="Horde_Form_Type_email.phpt" role="data" />
-   </dir> <!-- /tests -->
+   <dir name="test">
+    <file name="Horde_Form_Type_address.phpt" role="test" />
+    <file name="Horde_Form_Type_email.phpt" role="test" />
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -445,8 +445,8 @@
    <install as="locale/uk/LC_MESSAGES/Horde_Form.po" name="locale/uk/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Form.po" name="locale/zh_CN/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Form.po" name="locale/zh_TW/LC_MESSAGES/Horde_Form.po" />
-   <install as="tests/Horde_Form_Type_address.phpt" name="tests/Horde_Form_Type_address.phpt" />
-   <install as="tests/Horde_Form_Type_email.phpt" name="tests/Horde_Form_Type_email.phpt" />
+   <install as="Horde_Form_Type_address.phpt" name="test/Horde_Form_Type_address.phpt" />
+   <install as="Horde_Form_Type_email.phpt" name="test/Horde_Form_Type_email.phpt" />
   </filelist>
  </phprelease>
  <changelog>
@@ -493,6 +493,21 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Generate valid id attributes for form elements.
    </notes>
   </release>
  </changelog>
