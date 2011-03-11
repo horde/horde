@@ -603,15 +603,33 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Moves a message to a new folder.
      *
-     * @param integer $uid        IMAP message id.
-     * @param string $new_folder  Target folder.
+     * @param integer $uid         IMAP message id.
+     * @param string  $old_folder  Source folder.
+     * @param string  $new_folder  Target folder.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
-    public function moveMessage($old_folder, $uid, $new_folder)
+    public function moveMessage($uid, $old_folder, $new_folder)
     {
-        $options = array('ids' => array($uid), 'move' => true);
-        return $this->getBackend()->copy($old_folder, $new_folder, $options);
+        $this->getBackend()->move(
+            $uid,
+            $this->encodePath($old_folder),
+            $this->encodePath($new_folder)
+        );
+        if ($this->getBackend()->errornum != 0) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed moving message %s from folder %s to folder %s. Error: %s"
+                    ),
+                    $uid,
+                    $old_folder,
+                    $new_folder,
+                    $this->getBackend()->error
+                )
+            );
+        }
+        $this->expunge($old_folder);
     }
 
     /**
