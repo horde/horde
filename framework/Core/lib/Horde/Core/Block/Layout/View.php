@@ -106,21 +106,23 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                                     ? $item['params']['params']['_refresh_time']
                                     : $interval;
 
-                                $updateurl = Horde::getServiceLink('ajax', 'horde')->setRaw(true);
-                                $updateurl->pathInfo = 'blockAutoUpdate';
-                                $updateurl->add('app', $block->getApp())
-                                          ->add('blockid', get_class($block));
+                                if (!empty($refresh_time)) {
+                                    $updateurl = Horde::getServiceLink('ajax', 'horde')->setRaw(true);
+                                    $updateurl->pathInfo = 'blockAutoUpdate';
+                                    $updateurl->add('app', $block->getApp())
+                                              ->add('blockid', get_class($block));
 
-                                Horde::addInlineScript(
-                                    'setTimeout(function() {' .
-                                      'new Ajax.PeriodicalUpdater(' .
-                                        '"' . $block_id . '",' .
-                                        '"' . strval($updateurl) . '",' .
-                                        '{ method: "get", evalScripts: true, frequency: ' . intval($refresh_time) . ' }' .
-                                      ');' .
-                                    '}, ' . intval($refresh_time * 1000) . ')',
-                                    'dom'
-                                );
+                                    Horde::addInlineScript(
+                                        'setTimeout(function() {' .
+                                          'new Ajax.PeriodicalUpdater(' .
+                                            '"' . $block_id . '",' .
+                                            '"' . strval($updateurl) . '",' .
+                                            '{ method: "get", evalScripts: true, frequency: ' . intval($refresh_time) . ' }' .
+                                          ');' .
+                                        '}, ' . intval($refresh_time * 1000) . ')',
+                                        'dom'
+                                    );
+                                }
                             }
                         } else {
                             $html .= '<td width="' . ($width * $colspan) . '%">&nbsp;</td>';
