@@ -132,8 +132,6 @@ class IMP_Prefs_Ui
             case 'purge_sentmail_keep':
             case 'purge_spam_interval':
             case 'purge_spam_keep':
-            case 'purge_trash_interval':
-            case 'purge_trash_keep':
             case 'rename_sentmail_monthly':
             case 'tree_view':
             case 'use_trash':
@@ -163,6 +161,8 @@ class IMP_Prefs_Ui
                 break;
 
             case 'empty_trash_menu':
+            case 'purge_trash_interval':
+            case 'purge_trash_keep':
             case 'trashselect':
                 if (($session->get('imp', 'protocol') == 'pop') ||
                     $prefs->isLocked('use_trash') ||
