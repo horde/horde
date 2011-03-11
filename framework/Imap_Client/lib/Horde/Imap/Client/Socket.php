@@ -62,6 +62,9 @@
  *   RFC 5738 - UTF8
  *
  *   draft-ietf-morg-inthread-01 - SEARCH=INTHREAD
+ *   draft-ietf-morg-multimailbox-search-07 - MULTISEARCH
+ *   draft-ietf-morg-fuzzy-search-03 - SEARCH=FUZZY
+ *   draft-krecicki-imap-move-01.txt - MOVE
  *
  * [See: http://www.iana.org/assignments/imap4-capabilities]
  * </pre>
