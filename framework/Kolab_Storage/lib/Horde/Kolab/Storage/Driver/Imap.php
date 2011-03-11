@@ -264,6 +264,18 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Opens the given folder.
+     *
+     * @param string $folder The folder to open
+     *
+     * @return NULL
+     */
+    public function select($folder, $mode = Horde_Imap_Client::OPEN_AUTO)
+    {
+        $this->getBackend()->openMailbox($folder, $mode);
+    }
+
+    /**
      * Returns the status of the current folder.
      *
      * @param string $folder Check the status of this folder.
@@ -366,11 +378,12 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Deletes messages from the current folder.
+     * Deletes messages from the specified folder.
      *
-     * @param integer $uids  IMAP message ids.
+     * @param string  $folder  The folder to delete messages from.
+     * @param integer $uids    IMAP message ids.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function deleteMessages($folder, $uids)
     {
@@ -397,25 +410,12 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
+     * @param string $folder The folder to expunge.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function expunge($folder)
     {
         return $this->getBackend()->expunge($folder);
-    }
-
-    /**
-     * Opens the given folder.
-     *
-     * @param string $folder The folder to open
-     *
-     * @return NULL
-     */
-    public function select($folder, $mode = Horde_Imap_Client::OPEN_AUTO)
-    {
-        $this->getBackend()->openMailbox($folder, $mode);
     }
 }
