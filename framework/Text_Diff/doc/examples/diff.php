@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * Text_Diff example script.
+ * Horde_Text_Diff example script.
  *
  * Take two files from the command line args and produce a unified
  * diff of them.
@@ -32,8 +32,8 @@ $lines1 = file($argv[1]);
 $lines2 = file($argv[2]);
 
 /* Create the Diff object. */
-$diff = new Text_Diff('auto', array($lines1, $lines2));
+$diff = new Horde_Text_Diff('auto', array($lines1, $lines2));
 
 /* Output the diff in unified format. */
-$renderer = new Text_Diff_Renderer_unified();
+$renderer = new Horde_Text_Diff_Renderer_unified();
 echo $renderer->render($diff);

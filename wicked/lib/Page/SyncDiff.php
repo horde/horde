@@ -50,27 +50,21 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
         $page = Wicked_Page::getPage($this->_pageName);
         $local = $page->getText();
 
-        $renderer = 'inline';
         $inverse = Horde_Util::getGet('inverse', 1);
 
-        include_once 'Text/Diff.php';
-        include_once 'Text/Diff/Renderer.php';
-        include_once 'Text/Diff/Renderer/' . $renderer . '.php';
-
         if ($inverse) {
-            $diff = new Text_Diff(explode("\n", $local),
-                                  explode("\n", $remote));
+            $diff = new Horde_Text_Diff(explode("\n", $local),
+                                        explode("\n", $remote));
             $name1 = _("Local");
             $name2 = _("Remote");
         } else {
-            $diff = new Text_Diff(explode("\n", $remote),
-                                  explode("\n", $local));
+            $diff = new Horde_Text_Diff(explode("\n", $remote),
+                                        explode("\n", $local));
             $name1 = _("Remote");
             $name2 = _("Local");
         }
 
-        $class = 'Text_Diff_Renderer_' . $renderer;
-        $renderer = new $class();
+        $renderer = new Horde_Text_Diff_Renderer_Inline();
 
         Horde::addScriptFile('tables.js', 'horde', true);
 

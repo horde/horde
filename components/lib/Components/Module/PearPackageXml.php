@@ -59,7 +59,7 @@ extends Components_Module_Base
                     'type'    => 'choice',
                     'choices' => array('update', 'diff', 'print'),
                     'default' => 'update',
-                    'help'    => 'An optional argument to "--updatexml" that allows choosing the action that should be performed. The default is "update" which will rewrite the package.xml. "diff" allows you to produce a diffed output of the changes that would be applied with "update" - the "Text_Diff" package needs to be installed for that. "print" will output the new package.xml to the screen rather than rewriting it.'
+                    'help'    => 'An optional argument to "--updatexml" that allows choosing the action that should be performed. The default is "update" which will rewrite the package.xml. "diff" allows you to produce a diffed output of the changes that would be applied with "update" - the "Horde_Text_Diff" package needs to be installed for that. "print" will output the new package.xml to the screen rather than rewriting it.'
                 )
             )
 

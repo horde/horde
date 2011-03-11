@@ -14,7 +14,7 @@ Horde_Registry::appInit('horde', array('admin' => true));
 
 /* Set up the diff renderer. */
 $render_type = Horde_Util::getFormData('render', 'inline');
-$class = 'Text_Diff_Renderer_' . $render_type;
+$class = 'Horde_Text_Diff_Renderer_' . Horde_String::ucfirst($render_type);
 $renderer = new $class();
 
 /**
@@ -30,8 +30,8 @@ function _getDiff($app)
     $current_config = @file_get_contents($path . '/conf.php');
 
     /* Calculate the differences. */
-    $diff = new Text_Diff(explode("\n", $current_config),
-                          explode("\n", $session->get('horde', 'config/' . $app)));
+    $diff = new Horde_Text_Diff(explode("\n", $current_config),
+                                explode("\n", $session->get('horde', 'config/' . $app)));
     $diff = $renderer->render($diff);
 
     return empty($diff)

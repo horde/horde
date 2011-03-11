@@ -375,15 +375,9 @@ class Wicked_Page_StandardPage extends Wicked_Page {
             $old_page = $this->getPage($this->pageName(), $version);
             $old_page_text = $old_page->getText();
         }
-
-        include_once 'Text/Diff.php';
-        include_once 'Text/Diff/Renderer.php';
-        include_once 'Text/Diff/Renderer/' . $renderer . '.php';
-
-        $diff = new Text_Diff(explode("\n", $old_page_text),
-                              explode("\n", $this->getText()));
-
-        $class = 'Text_Diff_Renderer_' . $renderer;
+        $diff = new Horde_Text_Diff(explode("\n", $old_page_text),
+                                    explode("\n", $this->getText()));
+        $class = 'Horde_Text_Diff_Renderer_' . Horde_String::ucfirst($renderer);
         $renderer = new $class();
         return $renderer->render($diff);
     }

@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:11:51</time>
+ <date>2011-03-11</date>
+ <time>19:19:25</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -29,61 +29,73 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
  <notes>
-*
+* Convert to PHP 5 and Horde 4 package layout.
  </notes>
  <contents>
-  <dir baseinstalldir="/Text" name="/">
-   <dir name="Diff">
-    <dir name="Engine">
-     <file name="native.php" role="php" />
-     <file name="shell.php" role="php" />
-     <file name="string.php" role="php" />
-     <file name="xdiff.php" role="php" />
-    </dir> <!-- /Diff/Engine -->
-    <dir name="Renderer">
-     <file name="context.php" role="php" />
-     <file name="inline.php" role="php" />
-     <file name="unified.php" role="php" />
-    </dir> <!-- /Diff/Renderer -->
-    <file name="Mapped.php" role="php" />
-    <file name="Renderer.php" role="php" />
-    <file name="ThreeWay.php" role="php" />
-   </dir> <!-- /Diff -->
-   <dir name="docs">
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
     <dir name="examples">
      <file name="1.txt" role="doc" />
      <file name="2.txt" role="doc" />
      <file name="diff.php" role="doc" />
-    </dir> <!-- /docs/examples -->
-   </dir> <!-- /docs -->
-   <dir name="tests">
-    <file name="1.txt" role="test" />
-    <file name="2.txt" role="test" />
-    <file name="3.txt" role="test" />
-    <file name="4.txt" role="test" />
-    <file name="5.txt" role="test" />
-    <file name="6.txt" role="test" />
-    <file name="context.patch" role="test" />
-    <file name="context.phpt" role="test" />
-    <file name="context2.phpt" role="test" />
-    <file name="diff.phpt" role="test" />
-    <file name="diff_shell.phpt" role="data" />
-    <file name="inline.phpt" role="test" />
-    <file name="inline2.phpt" role="test" />
-    <file name="pear_bug4879.phpt" role="test" />
-    <file name="pear_bug4982.phpt" role="data" />
-    <file name="pear_bug6251.phpt" role="test" />
-    <file name="pear_bug6428.phpt" role="test" />
-    <file name="pear_bug7839.phpt" role="test" />
-    <file name="pear_bug12740.phpt" role="test" />
-    <file name="string.phpt" role="test" />
-    <file name="unified.patch" role="test" />
-    <file name="unified.phpt" role="test" />
-    <file name="unified2.patch" role="test" />
-    <file name="unified2.phpt" role="test" />
-    <file name="xdiff.phpt" role="test" />
-   </dir> <!-- /tests -->
-   <file name="Diff.php" role="php" />
+    </dir> <!-- /doc/examples -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Diff">
+       <dir name="Engine">
+        <file name="Native.php" role="php" />
+        <file name="Shell.php" role="php" />
+        <file name="String.php" role="php" />
+        <file name="Xdiff.php" role="php" />
+       </dir> <!-- /lib/Horde/Text/Diff/Engine -->
+       <dir name="Op">
+        <file name="Add.php" role="php" />
+        <file name="Base.php" role="php" />
+        <file name="Change.php" role="php" />
+        <file name="Copy.php" role="php" />
+        <file name="Delete.php" role="php" />
+       </dir> <!-- /lib/Horde/Text/Diff/Op -->
+       <dir name="Renderer">
+        <file name="Context.php" role="php" />
+        <file name="Inline.php" role="php" />
+        <file name="Unified.php" role="php" />
+       </dir> <!-- /lib/Horde/Text/Diff/Renderer -->
+       <file name="Exception.php" role="php" />
+       <file name="Mapped.php" role="php" />
+       <file name="Renderer.php" role="php" />
+       <file name="ThreeWay.php" role="php" />
+      </dir> <!-- /lib/Horde/Text/Diff -->
+      <file name="Diff.php" role="php" />
+     </dir> <!-- /lib/Horde/Text -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Diff">
+       <dir name="fixtures">
+        <file name="1.txt" role="test" />
+        <file name="2.txt" role="test" />
+        <file name="3.txt" role="test" />
+        <file name="4.txt" role="test" />
+        <file name="5.txt" role="test" />
+        <file name="6.txt" role="test" />
+        <file name="7.txt" role="test" />
+        <file name="8.txt" role="test" />
+        <file name="context.patch" role="test" />
+        <file name="unified.patch" role="test" />
+        <file name="unified2.patch" role="test" />
+       </dir> <!-- /test/Horde/Text/Diff/fixtures -->
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
+       <file name="EngineTest.php" role="test" />
+       <file name="RendererTest.php" role="test" />
+      </dir> <!-- /test/Horde/Text/Diff -->
+     </dir> <!-- /test/Horde/Text -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -94,6 +106,10 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
    <package>
@@ -104,18 +120,55 @@
   </optional>
  </dependencies>
  <phprelease>
+  <filelist>
+   <install as="examples/1.txt" name="doc/examples/1.txt" />
+   <install as="examples/2.txt" name="doc/examples/2.txt" />
+   <install as="examples/diff.php" name="doc/examples/diff.php" />
+   <install as="Horde/Text/Diff.php" name="lib/Horde/Text/Diff.php" />
+   <install as="Horde/Text/Diff/Exception.php" name="lib/Horde/Text/Diff/Exception.php" />
+   <install as="Horde/Text/Diff/Mapped.php" name="lib/Horde/Text/Diff/Mapped.php" />
+   <install as="Horde/Text/Diff/Renderer.php" name="lib/Horde/Text/Diff/Renderer.php" />
+   <install as="Horde/Text/Diff/ThreeWay.php" name="lib/Horde/Text/Diff/ThreeWay.php" />
+   <install as="Horde/Text/Diff/Engine/Native.php" name="lib/Horde/Text/Diff/Engine/Native.php" />
+   <install as="Horde/Text/Diff/Engine/Shell.php" name="lib/Horde/Text/Diff/Engine/Shell.php" />
+   <install as="Horde/Text/Diff/Engine/String.php" name="lib/Horde/Text/Diff/Engine/String.php" />
+   <install as="Horde/Text/Diff/Engine/Xdiff.php" name="lib/Horde/Text/Diff/Engine/Xdiff.php" />
+   <install as="Horde/Text/Diff/Op/Add.php" name="lib/Horde/Text/Diff/Op/Add.php" />
+   <install as="Horde/Text/Diff/Op/Base.php" name="lib/Horde/Text/Diff/Op/Base.php" />
+   <install as="Horde/Text/Diff/Op/Change.php" name="lib/Horde/Text/Diff/Op/Change.php" />
+   <install as="Horde/Text/Diff/Op/Copy.php" name="lib/Horde/Text/Diff/Op/Copy.php" />
+   <install as="Horde/Text/Diff/Op/Delete.php" name="lib/Horde/Text/Diff/Op/Delete.php" />
+   <install as="Horde/Text/Diff/Renderer/Context.php" name="lib/Horde/Text/Diff/Renderer/Context.php" />
+   <install as="Horde/Text/Diff/Renderer/Inline.php" name="lib/Horde/Text/Diff/Renderer/Inline.php" />
+   <install as="Horde/Text/Diff/Renderer/Unified.php" name="lib/Horde/Text/Diff/Renderer/Unified.php" />
+   <install as="Horde/Text/Diff/AllTests.php" name="test/Horde/Text/Diff/AllTests.php" />
+   <install as="Horde/Text/Diff/Autoload.php" name="test/Horde/Text/Diff/Autoload.php" />
+   <install as="Horde/Text/Diff/EngineTest.php" name="test/Horde/Text/Diff/EngineTest.php" />
+   <install as="Horde/Text/Diff/RendererTest.php" name="test/Horde/Text/Diff/RendererTest.php" />
+   <install as="Horde/Text/Diff/fixtures/1.txt" name="test/Horde/Text/Diff/fixtures/1.txt" />
+   <install as="Horde/Text/Diff/fixtures/2.txt" name="test/Horde/Text/Diff/fixtures/2.txt" />
+   <install as="Horde/Text/Diff/fixtures/3.txt" name="test/Horde/Text/Diff/fixtures/3.txt" />
+   <install as="Horde/Text/Diff/fixtures/4.txt" name="test/Horde/Text/Diff/fixtures/4.txt" />
+   <install as="Horde/Text/Diff/fixtures/5.txt" name="test/Horde/Text/Diff/fixtures/5.txt" />
+   <install as="Horde/Text/Diff/fixtures/6.txt" name="test/Horde/Text/Diff/fixtures/6.txt" />
+   <install as="Horde/Text/Diff/fixtures/7.txt" name="test/Horde/Text/Diff/fixtures/7.txt" />
+   <install as="Horde/Text/Diff/fixtures/8.txt" name="test/Horde/Text/Diff/fixtures/8.txt" />
+   <install as="Horde/Text/Diff/fixtures/context.patch" name="test/Horde/Text/Diff/fixtures/context.patch" />
+   <install as="Horde/Text/Diff/fixtures/unified.patch" name="test/Horde/Text/Diff/fixtures/unified.patch" />
+   <install as="Horde/Text/Diff/fixtures/unified2.patch" name="test/Horde/Text/Diff/fixtures/unified2.patch" />
+  </filelist>
  </phprelease>
  <changelog>
   <release>
    <version>
-    <release>1.0.0beta1</release>
+    <release>1.0.0alpha1</release>
     <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-09</date>
+   <date>2011-03-08</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
@@ -134,6 +187,21 @@
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * Fix package layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-11</date>
+   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <notes>
+* Convert to PHP 5 and Horde 4 package layout.
    </notes>
   </release>
  </changelog>

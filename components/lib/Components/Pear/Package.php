@@ -371,14 +371,14 @@ class Components_Pear_Package
             print $this->_printUpdatedPackageFile();
             break;
         case 'diff':
-            if (!class_exists('Text_Diff')) {
-                throw new Components_Exception('The "Text_Diff" package is missing!');
+            if (!class_exists('Horde_Text_Diff')) {
+                throw new Components_Exception('The "Horde_Text_Diff" package is missing!');
             }
             $new = $this->_printUpdatedPackageFile();
             $old = file_get_contents($this->_package_xml_path);
-            $renderer = new Text_Diff_Renderer_unified();
+            $renderer = new Horde_Text_Diff_Renderer_Unified();
             print $renderer->render(
-                new Text_Diff(
+                new Horde_Text_Diff(
                     'auto', array(explode("\n", $old), explode("\n", $new))
                 )
             );
