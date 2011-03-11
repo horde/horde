@@ -23,6 +23,13 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     private $_kolab;
 
     /**
+     * The specific notepad.
+     *
+     * @var Horde_Kolab_Storage_Data
+     */
+    private $_data;
+
+    /**
      * Construct a new Kolab storage object.
      *
      * @param string $notepad  The name of the notepad to load/save notes from.
@@ -37,16 +44,10 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         }
         $this->_notepad = $notepad;
         $this->_kolab = $params['storage'];
-    }
-
-    /**
-     * Connect to the Kolab backend
-     *
-     * @return boolean  True on success, PEAR_Error on failure.
-     */
-    function initialize()
-    {
-        return $this->_wrapper->connect();
+        $this->_data = $this->_kolab->getData(
+            $GLOBALS['mnemo_shares']->getShare($this->_notepad)->get('folder'),
+            'note'
+        );
     }
 
     /**
@@ -80,17 +81,87 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Add a note to the backend storage.
      *
+     * @param string $desc        The first line of the note.
+     * @param string $body        The whole note body.
+     * @param string $category    The category of the note.
+     * @param string $uid         A Unique Identifier for the note.
+     * @param string $passphrase  The passphrase to encrypt the note with.
+     *
+     * @return string  The unique ID of the new note.
+     * @throws Mnemo_Exception
+     */
+    public function add($desc, $body, $category = '', $uid = null, $passphrase = null)
+    {
+        if (is_null($uid)) {
+            $uid = $this->_data->generateUid();
+        }
+
+        if ($passphrase) {
+            $body = $this->_encrypt($body, $passphrase);
+            Mnemo::storePassphrase($uid, $passphrase);
+        }
+
+        $this->_data->create(
+            array(
+                'uid' => $uid,
+                'desc' => $desc,
+                'body' => $body,
+                'categories' => $category,
+            )
+        );
+
+        // Log the creation of this item in the history log.
+        // @TODO: Inject the history driver
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        $history->log('mnemo:' . $this->_notepad . ':' . $uid, array('action' => 'add'), true);
+
+        return $noteId;
+    }
+
+    /**
+     * Add or modify a note.
+     *
      * @param string $desc        The description (long) of the note.
      * @param string $body        The description (long) of the note.
      * @param string $category    The category of the note.
+     * @param string $uid         The note to modify.
      * @param string $passphrase  The passphrase to encrypt the note with.
      *
      * @return mixed The id of the note if successful, a PEAR error
      * otherwise
      */
-    function add($desc, $body, $category = '', $passphrase = null)
+    function _setObject($desc, $body, $category = '', $uid = null, $passphrase = null)
     {
-        return $this->_wrapper->add($desc, $body, $category, $passphrase);
+        if (empty($uid)) {
+            $note_uid = strval(new Horde_Support_Uuid());
+            $old_uid = null;
+            $action = array('action' => 'add');
+        } else {
+            list($note_uid, $notepad) = $this->_splitId($uid);
+            $old_uid = $note_uid;
+            $action = array('action' => 'modify');
+        }
+
+        if ($passphrase) {
+            $body = $this->_encrypt($body, $passphrase);
+            Mnemo::storePassphrase($note_uid, $passphrase);
+        }
+
+        $result = $this->_store->save(array('uid' => $note_uid,
+                                            'desc' => $desc,
+                                            'body' => $body,
+                                            'categories' => $category,
+                                            ),
+                                      $old_uid);
+        if (is_a($result, 'PEAR_Error')) {
+            return $result;
+        }
+
+        /* Log the action in the history log. */
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        $history->log('mnemo:' . $this->_notepad . ':' . $this->_uniqueId($note_uid), $action, true);
+
+        return $this->_uniqueId($note_uid);
     }
 
     /**
@@ -420,20 +491,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
 /*     } */
 
 /*     /\** */
-/*      * Add a note to the backend storage. */
-/*      * */
-/*      * @param string $desc      The description (long) of the note. */
-/*      * @param string $body      The description (long) of the note. */
-/*      * @param string $category  The category of the note. */
-/*      * */
-/*      * @return integer  The numeric ID of the new note. */
-/*      *\/ */
-/*     function add($desc, $body, $category = '') */
-/*     { */
-/*         return $this->_setObject($desc, $body, $category); */
-/*     } */
-
-/*     /\** */
 /*      * Modify an existing note. */
 /*      * */
 /*      * @param integer $noteId   The note to modify. */
@@ -629,22 +686,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
 /*         $history->log('mnemo:' . $this->_notepad . ':' . $this->_uniqueId($note_uid), $action, true); */
 
 /*         return $this->_uniqueId($note_uid); */
-/*     } */
-
-/*     /\** */
-/*      * Add a note to the backend storage. */
-/*      * */
-/*      * @param string $desc        The description (long) of the note. */
-/*      * @param string $body        The description (long) of the note. */
-/*      * @param string $category    The category of the note. */
-/*      * @param string $passphrase  The passphrase to encrypt the note with. */
-/*      * */
-/*      * @return mixed The id of the note if successful, a PEAR error */
-/*      * otherwise */
-/*      *\/ */
-/*     function add($desc, $body, $category = '', $passphrase = null) */
-/*     { */
-/*         return $this->_setObject($desc, $body, $category, null, $passphrase); */
 /*     } */
 
 /*     /\** */
