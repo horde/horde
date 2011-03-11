@@ -403,18 +403,19 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Deletes messages from the current folder.
+     * Deletes messages from the specified folder.
      *
-     * @param integer $uids  IMAP message ids.
+     * @param string  $folder  The folder to delete messages from.
+     * @param integer $uids    IMAP message ids.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function deleteMessages($folder, $uids)
     {
-        if (!is_array($uids)) {
-            $uids = array($uids);
-        }
-        return $this->getBackend()->store($folder, array('add' => array('\\deleted'), 'ids' => $uids));
+        $this->select($folder);
+        return Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->deleteMessages($uids, true)
+        );
     }
 
     /**
@@ -434,14 +435,14 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     *
      * @return mixed  True or a PEAR error in case of an error.
      */
     public function expunge($folder)
     {
-        return $this->getBackend()->expunge($folder);
+        $this->select($folder);
+        return Horde_Kolab_Storage_Exception_Pear::catchError(
+            $this->getBackend()->expunge()
+        );
     }
 
     /**
