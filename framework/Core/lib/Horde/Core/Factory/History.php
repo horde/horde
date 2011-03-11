@@ -12,6 +12,9 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
             throw new Horde_Exception(Horde_Core_Translation::t("The History system is disabled."));
         }
 
-        return $injector->getInstance('Horde_History_Sql');
+        return new Horde_History_Sql(
+            $injector->getInstance('Horde_Registry')->getAuth(),
+            $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'history')
+        );
     }
 }

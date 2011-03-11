@@ -39,11 +39,11 @@ class Horde_History_Sql extends Horde_History
      * Constructor.
      *
      * @param Horde_Db_Adapter $db  The database connection.
-     *
-     * @throws Horde_History_Exception
+     * @param string $auth  The current user.
      */
-    public function __construct(Horde_Db_Adapter $db)
+    public function __construct($auth, Horde_Db_Adapter $db)
     {
+        parent::__construct($auth);
         $this->_db = $db;
     }
 

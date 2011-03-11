@@ -12,6 +12,11 @@
  */
 
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * A test suite for the Horde_History:: interface. DOX format is suggested for
  * the PHPUnit test report.
  *
@@ -86,10 +91,10 @@ EOL;
 
             $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
 
-            return new Horde_History_Sql($db, $logger);
+            return new Horde_History_Sql('test', $db, $logger);
 
         case 'Mock':
-            return new Horde_History_Mock();
+            return new Horde_History_Mock('test');
         }
     }
 
@@ -392,7 +397,7 @@ EOL;
     {
         $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
-        $history = new Horde_History_Sql($db, $logger);
+        $history = new Horde_History_Sql('test', $db, $logger);
 
         try {
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));

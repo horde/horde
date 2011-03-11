@@ -31,11 +31,28 @@
 abstract class Horde_History
 {
     /**
+     * The current user.
+     *
+     * @var string
+     */
+    protected $_auth;
+
+    /**
      * Our log handler.
      *
      * @var Horde_Log_Logger
      */
     protected $_logger;
+
+    /**
+     * Constructor.
+     *
+     * @param string $auth  The current user.
+     */
+    public function __construct($auth)
+    {
+        $this->_auth = $auth;
+    }
 
     /**
      * Set the log handler.
@@ -79,7 +96,7 @@ abstract class Horde_History
         $history = $this->getHistory($guid);
 
         if (!isset($attributes['who'])) {
-            $attributes['who'] = $GLOBALS['registry']->getAuth();
+            $attributes['who'] = $this->_auth;
         }
         if (!isset($attributes['ts'])) {
             $attributes['ts'] = time();
