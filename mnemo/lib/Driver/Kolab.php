@@ -80,6 +80,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     function getByUID($uid, $passphrase = null)
     {
+        //@todo: search across notepads
         return $this->get($uid, $passphrase);
     }
 
@@ -236,14 +237,13 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     {
         $this->_memos = array();
 
-        $note_list = $this->_store->getObjects();
+        $note_list = $this->_data->getObjects();
         if (empty($note_list)) {
             return;
         }
 
         foreach ($note_list as $note) {
-            $nuid = $this->_uniqueId($note['uid']);
-            $this->_memos[$nuid] = $this->_buildNote($note);
+            $this->_memos[$note['uid']] = $this->_buildNote($note);
         }
     }
 
