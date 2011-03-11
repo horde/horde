@@ -185,9 +185,13 @@ implements ArrayAccess
     public function getUids($folder)
     {
         $this->select($folder);
-        return array_keys(
-            array_filter($this->_selected['mails'], array($this, '_notDeleted'))
-        );
+        if (empty($this->_selected['mails'])) {
+            return array();
+        } else {
+            return array_keys(
+                array_filter($this->_selected['mails'], array($this, '_notDeleted'))
+            );
+        }
     }
 
     /**
@@ -299,6 +303,18 @@ implements ArrayAccess
         foreach ($uids as $uid) {
             $this->_selected['mails'][$uid]['flags'] |= self::FLAG_DELETED;
         }
+    }
+
+    public function moveMessage($uid, $old_folder, $new_folder)
+    {
+        $this->select($old_folder);
+        if (!isset($this->_selected['mails'][$uid])) {
+            throw new Horde_Kolab_Storage_Exception(sprintf("No IMAP message %s!", $uid));
+        }
+        $mail = $this->_selected['mails'][$uid];
+        $this->deleteMessages($old_folder, array($uid));
+        $this->appendMessage($new_folder, $mail['stream']);
+        $this->expunge($old_folder);
     }
 
     public function expunge($folder)

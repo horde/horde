@@ -10,6 +10,8 @@
 
  - Use IMAP Condstore
 
+ - Use IMAP CATENATE
+
  - Handle attachments / VFS
 
  - Do not hide the prefix of the shared namespace?

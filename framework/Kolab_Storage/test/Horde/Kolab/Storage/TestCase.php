@@ -478,6 +478,7 @@ extends PHPUnit_Framework_TestCase
                     ),
                     'user/test/Contacts' => array('t' => 'contact.default'),
                     'user/test/Notes' => array('t' => 'note.default'),
+                    'user/test/OtherNotes' => array('t' => 'note'),
                     'user/test/Tasks' => array('t' => 'task.default'),
                 )
             )

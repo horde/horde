@@ -325,4 +325,21 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testMoveObject()
+    {
+        $store = $this->getMessageStorage();
+        $data = $store->getData('INBOX/Notes');
+        $data->create(array('desc' => 'test', 'uid' => 'UID'));
+        $data->move('UID', 'INBOX/OtherNotes');
+        $other = $store->getData('INBOX/OtherNotes');
+        $this->assertEquals(
+            array(),
+            $data->getObjectIds()
+        );
+        $this->assertEquals(
+            array('UID'),
+            $other->getObjectIds()
+        );
+    }
+
 }

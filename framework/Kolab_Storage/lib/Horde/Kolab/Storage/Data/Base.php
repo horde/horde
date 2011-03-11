@@ -337,6 +337,29 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Move the specified message from the current folder into a new
+     * folder.
+     *
+     * @param string $object_id  ID of the message to be moved.
+     * @param string $new_folder Target folder.
+     *
+     * @return NULL
+     */
+    public function move($object_id, $new_folder)
+    {
+        if ($this->objectIdExists($object_id)) {
+            $uid = $this->getBackendId($object_id);
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('No such object %s!', $id)
+            );
+        }
+        $this->_driver->moveMessage(
+            $uid, $this->_folder->getPath(), $new_folder
+        );
+    }
+
+    /**
      * Delete the specified messages from this folder.
      *
      * @param array|string $object_ids Id(s) of the message to be deleted.
@@ -353,6 +376,10 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         foreach ($object_ids as $id) {
             if ($this->objectIdExists($id)) {
                 $uids[] = $this->getBackendId($id);
+            } else {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf('No such object %s!', $id)
+                );
             }
         }
 

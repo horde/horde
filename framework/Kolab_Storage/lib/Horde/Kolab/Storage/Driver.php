@@ -297,31 +297,32 @@ interface Horde_Kolab_Storage_Driver
     public function appendMessage($folder, $msg);
 
     /**
-     * Deletes messages from the current folder.
+     * Deletes messages from the specified folder.
      *
-     * @param integer $uids  IMAP message ids.
+     * @param string  $folder  The folder to delete messages from.
+     * @param integer $uids    IMAP message ids.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function deleteMessages($folder, $uids);
 
     /**
      * Moves a message to a new folder.
      *
-     * @param integer $uid        IMAP message id.
-     * @param string $new_folder  Target folder.
+     * @param integer $uid         IMAP message id.
+     * @param string  $old_folder  Source folder.
+     * @param string  $new_folder  Target folder.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
-    public function moveMessage($old_folder, $uid, $new_folder);
+    public function moveMessage($uid, $old_folder, $new_folder);
 
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                       in UTF7-IMAP or UTF-8.
+     * @param string $folder The folder to expunge.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function expunge($folder);
 }
