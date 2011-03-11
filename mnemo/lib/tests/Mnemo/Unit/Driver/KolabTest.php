@@ -41,4 +41,12 @@ class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
         $note = $driver->get($id);
         $this->assertEquals('TEST', $note['desc']);
     }
+
+    public function testGetByUid()
+    {
+        $driver = $this->getKolabDriver();
+        $id = $driver->add('TEST','Some test note.');
+        $note = $driver->getByUID($id);
+        $this->assertEquals('TEST', $note['desc']);
+    }
 }
