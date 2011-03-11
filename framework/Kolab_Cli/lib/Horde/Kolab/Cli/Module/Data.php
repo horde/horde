@@ -197,6 +197,13 @@ implements Horde_Kolab_Cli_Module
             }
             $data->create($object);
             break;
+        case 'delete':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $objects = $data->delete(explode(',', $arguments[4]));
+            break;
+        case 'deleteall':
+            $world['storage']->getData($folder_name, $arguments[3])->deleteAll();
+            break;
         case 'backendid':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             $cli->writeln((string) $data->getBackendId($arguments[4]));
