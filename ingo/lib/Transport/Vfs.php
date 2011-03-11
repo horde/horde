@@ -133,7 +133,7 @@ class Ingo_Transport_Vfs extends Ingo_Transport
         }
 
         try {
-            $this->_vfs = VFS::singleton($this->_params['vfstype'], $this->_params);
+            $this->_vfs = VFS::factory($this->_params['vfstype'], $this->_params);
         } catch (VFS_Exception $e) {
             $error = new Ingo_Exception($this->_vfs);
             unset($this->_vfs);
