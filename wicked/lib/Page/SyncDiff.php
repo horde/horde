@@ -53,13 +53,15 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
         $inverse = Horde_Util::getGet('inverse', 1);
 
         if ($inverse) {
-            $diff = new Horde_Text_Diff(explode("\n", $local),
-                                        explode("\n", $remote));
+            $diff = new Horde_Text_Diff('auto',
+                                        array(explode("\n", $local),
+                                              explode("\n", $remote)));
             $name1 = _("Local");
             $name2 = _("Remote");
         } else {
-            $diff = new Horde_Text_Diff(explode("\n", $remote),
-                                        explode("\n", $local));
+            $diff = new Horde_Text_Diff('auto',
+                                        array(explode("\n", $remote),
+                                              explode("\n", $local)));
             $name1 = _("Remote");
             $name2 = _("Local");
         }

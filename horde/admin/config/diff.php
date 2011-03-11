@@ -30,8 +30,9 @@ function _getDiff($app)
     $current_config = @file_get_contents($path . '/conf.php');
 
     /* Calculate the differences. */
-    $diff = new Horde_Text_Diff(explode("\n", $current_config),
-                                explode("\n", $session->get('horde', 'config/' . $app)));
+    $diff = new Horde_Text_Diff('auto',
+                                array(explode("\n", $current_config),
+                                      explode("\n", $session->get('horde', 'config/' . $app))));
     $diff = $renderer->render($diff);
 
     return empty($diff)
