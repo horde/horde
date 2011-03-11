@@ -672,18 +672,36 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Deletes messages from the current folder.
+     * Deletes messages from the specified folder.
      *
-     * @param integer $uids  IMAP message ids.
+     * @param string  $folder  The folder to delete messages from.
+     * @param integer $uids    IMAP message ids.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function deleteMessages($folder, $uids)
     {
-        if (!is_array($uids)) {
-            $uids = array($uids);
+        $this->select($folder);
+
+        foreach($uids as $uid) {
+            $result = @imap_delete(
+                $this->getBackend(), 
+                $uid, 
+                FT_UID
+            );
+            if (!$result) {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        Horde_Kolab_Storage_Translation::t(
+                            "Failed deleting message %s in folder %s. Error: %s"
+                        ),
+                        $uid,
+                        $folder,
+                        imap_last_error()
+                    )
+                );
+            }
         }
-        return $this->_imap->store($folder, array('add' => array('\\deleted'), 'ids' => $uids));
     }
 
     /**
@@ -710,7 +728,19 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function expunge($folder)
     {
-        return $this->_imap->expunge($folder);
+        $this->select($folder);
+        $result = @imap_expunge($this->getBackend());
+        if (!$result) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed expunging folder %s. Error: %s"
+                    ),
+                    $folder,
+                    imap_last_error()
+                )
+            );
+        }
     }
 
     /**
