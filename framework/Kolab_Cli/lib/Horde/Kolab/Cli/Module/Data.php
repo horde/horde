@@ -197,6 +197,10 @@ implements Horde_Kolab_Cli_Module
             }
             $data->create($object);
             break;
+        case 'move':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $objects = $data->move($arguments[4], $arguments[5]);
+            break;
         case 'delete':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             $objects = $data->delete(explode(',', $arguments[4]));
