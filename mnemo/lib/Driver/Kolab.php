@@ -115,7 +115,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $history->log('mnemo:' . $this->_notepad . ':' . $uid, array('action' => 'add'), true);
 
-        return $noteId;
+        return $uid;
     }
 
     /**

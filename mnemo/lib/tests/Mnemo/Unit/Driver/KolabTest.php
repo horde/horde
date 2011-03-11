@@ -34,8 +34,9 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  */
 class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
 {
-    public function testCreateKolab()
+    public function testAdd()
     {
         $driver = $this->getKolabDriver();
+        $driver->add('TEST','Some test note.');
     }
 }

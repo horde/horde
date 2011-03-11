@@ -37,7 +37,7 @@ extends PHPUnit_Framework_TestCase
 
     protected function getKolabDriver()
     {
-        $injector = $this->getInjector();
+        $GLOBALS['injector'] = $this->getInjector();
         $kolab_factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
@@ -55,8 +55,9 @@ extends PHPUnit_Framework_TestCase
             )
         );
         $storage = $kolab_factory->create();
-        $injector->setInstance('Horde_Kolab_Storage', $storage);
-        $factory = $injector->getInstance('Mnemo_Factory_Driver');
+        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $storage);
+        $GLOBALS['injector']->setInstance('Horde_History', new Horde_History_Mock('test@example.com'));
+        $factory = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver');
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
         $GLOBALS['mnemo_shares'] = new Horde_Share_Kolab(
             'mnemo', 'test@example.com', new Horde_Perms(), new Horde_Group_Mock()
