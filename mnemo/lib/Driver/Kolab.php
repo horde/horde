@@ -62,7 +62,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     function get($noteId, $passphrase = null)
     {
         if ($this->_data->objectIdExists($noteId)) {
-            $note = $this->_object->getObject($noteId);
+            $note = $this->_data->getObject($noteId);
             return $this->_buildNote($note, $passphrase);
         } else {
             throw new Horde_Exception_NotFound(_("Not Found"));
