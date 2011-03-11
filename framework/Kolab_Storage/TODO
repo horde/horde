@@ -31,3 +31,7 @@
  - Support multiple-formats when writing the objects.
 
  - Support a descriptive text of the groupware object in the primary MIME part.
+
+ - Verify if deleting a complete folder can fully adhere to the Kolab
+   spec without too much hassle (alternative: The consumer of the API
+   has to use the methods in correct order)

@@ -292,4 +292,26 @@ implements ArrayAccess
         );
         return $this->_selected['status']['uidnext']++;
     }
+
+    public function deleteMessages($folder, $uids)
+    {
+        $this->select($folder);
+        foreach ($uids as $uid) {
+            $this->_selected['mails'][$uid]['flags'] |= self::FLAG_DELETED;
+        }
+    }
+
+    public function expunge($folder)
+    {
+        $this->select($folder);
+        $delete = array();
+        foreach ($this->_selected['mails'] as $uid => $mail) {
+            if ($mail['flags'] & self::FLAG_DELETED) {
+                $delete[] = $uid;
+            }
+        }
+        foreach ($delete as $uid) {
+            unset($this->_selected['mails'][$uid]);
+        }
+    }
 }

@@ -291,4 +291,38 @@ extends Horde_Kolab_Storage_TestCase
             ->create(array('content' => $test), true)
         );
     }
+
+    public function testListAddedObjects()
+    {
+        $data = $this->getMessageStorage()->getData('INBOX/Notes');
+        $data->create(array('desc' => 'test', 'uid' => 'UID'));
+        $this->assertEquals(
+            array('UID'),
+            $data->getObjectIds()
+        );
+    }
+
+    public function testDeleteObject()
+    {
+        $data = $this->getMessageStorage()->getData('INBOX/Notes');
+        $data->create(array('desc' => 'test', 'uid' => 'UID'));
+        $data->delete('UID');
+        $this->assertEquals(
+            array(),
+            $data->getObjectIds()
+        );
+    }
+
+    public function testDeleteAll()
+    {
+        $data = $this->getMessageStorage()->getData('INBOX/Notes');
+        $data->create(array('desc' => 'test', 'uid' => 'UID1'));
+        $data->create(array('desc' => 'test', 'uid' => 'UID2'));
+        $data->deleteAll();
+        $this->assertEquals(
+            array(),
+            $data->getObjectIds()
+        );
+    }
+
 }

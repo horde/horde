@@ -337,6 +337,40 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Delete the specified messages from this folder.
+     *
+     * @param array|string $object_ids Id(s) of the message to be deleted.
+     *
+     * @return NULL
+     */
+    public function delete($object_ids)
+    {
+        if (!is_array($object_ids)) {
+            $object_ids = array($object_ids);
+        }
+
+        $uids = array();
+        foreach ($object_ids as $id) {
+            if ($this->objectIdExists($id)) {
+                $uids[] = $this->getBackendId($id);
+            }
+        }
+
+        $this->_driver->deleteMessages($this->_folder->getPath(), $uids);
+        $this->_driver->expunge($this->_folder->getPath());
+    }
+
+    /**
+     * Delete all messages from the current data set.
+     *
+     * @return NULL
+     */
+    public function deleteAll()
+    {
+        $this->delete($this->getObjectIds());
+    }
+
+    /**
      * Register a query to be updated if the underlying data changes.
      *
      * @param string                    $name  The query name.
