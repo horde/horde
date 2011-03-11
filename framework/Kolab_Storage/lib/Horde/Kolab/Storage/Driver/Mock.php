@@ -28,9 +28,6 @@
 class Horde_Kolab_Storage_Driver_Mock
 extends Horde_Kolab_Storage_Driver_Base
 {
-    /** Flag to indicated a deleted message*/
-    const FLAG_DELETED = 1;
-
     /**
      * The data of the folders.
      *
@@ -66,13 +63,6 @@ extends Horde_Kolab_Storage_Driver_Base
      * @var array
      */
     private $_groups = array();
-
-    /**
-     * The currently selected folder.
-     *
-     * @var string
-     */
-    private $_selected;
 
     /**
      * Constructor.
@@ -587,16 +577,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function select($folder)
     {
-        $folder = $this->_convertToInternal($folder);
-        if (!isset($this->_data[$folder])
-            || $this->_selected !== $this->_data[$folder]) {
-            if (!isset($this->_data[$folder])) {
-                throw new Horde_Kolab_Storage_Exception(
-                    sprintf('Folder %s does not exist!', $folder)
-                );
-            }
-            $this->_selected = $this->_data[$folder];
-        }
+        $this->_data->select($this->_convertToInternal($folder));
     }
 
     /**
@@ -608,8 +589,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function status($folder)
     {
-        $this->select($folder);
-        return $this->_selected['status'];
+        return $this->_data->status($this->_convertToInternal($folder));
     }
 
     /**
@@ -621,23 +601,7 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getUids($folder)
     {
-        $this->select($folder);
-        return array_keys(
-            array_filter($this->_selected['mails'], array($this, '_notDeleted'))
-        );
-    }
-
-    /**
-     * Indicates if a message is considered deleted.
-     *
-     * @param array $message The message information.
-     *
-     * @return boolean True if the message has not been marked as deleted.
-     */
-    public function _notDeleted($message)
-    {
-        return !isset($message['flags'])
-            || !($message['flags'] & self::FLAG_DELETED);
+        return $this->_data->getUids($this->_convertToInternal($folder));
     }
 
     /**
@@ -651,12 +615,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function fetchStructure($folder, $uids)
     {
-        $this->select($folder);
-        $result = array();
-        foreach ($uids as $uid) {
-            $result[$uid]['structure'] = $this->_selected['mails'][$uid]['structure'];
-        }
-        return $result;
+        return $this->_data->fetchStructure(
+            $this->_convertToInternal($folder),
+            $uids
+        );
     }
 
     /**
@@ -670,40 +632,28 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function fetchBodypart($folder, $uid, $id)
     {
-        $this->select($folder);
-        if (isset($this->_selected['mails'][$uid]['parts'][$id])) {
-            if (isset($this->_selected['mails'][$uid]['parts'][$id]['file'])) {
-                return fopen(
-                    $this->_selected['mails'][$uid]['parts'][$id]['file'],
-                    'r'
-                );
-            }
-        } else {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf(
-                    'No such part %s for message uid %s in folder %s!',
-                    $id,
-                    $uid,
-                    $folder
-                )
-            );
-        }
+        return $this->_data->fetchBodypart(
+            $this->_convertToInternal($folder),
+            $uid,
+            $id
+        );
     }
 
     /**
-     * Appends a message to the current folder.
+     * Appends a message to the given folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param string $msg     The message to append.
+     * @param string   $folder  The folder to append the message(s) to.
+     * @param resource $msg     The message to append.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return mixed True or the UID of the new message in case the backend
+     *               supports UIDPLUS.
      */
     public function appendMessage($folder, $msg)
     {
-        rewind($msg);
-        $this->select($folder);
-        //@todo: implement saving
+        return $this->_data->appendMessage(
+            $this->_convertToInternal($folder),
+            $msg
+        );
     }
 
     /**

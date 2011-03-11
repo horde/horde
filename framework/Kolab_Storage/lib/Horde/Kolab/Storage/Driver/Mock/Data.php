@@ -28,12 +28,22 @@
 class Horde_Kolab_Storage_Driver_Mock_Data
 implements ArrayAccess
 {
+    /** Flag to indicated a deleted message*/
+    const FLAG_DELETED = 1;
+
     /**
      * The data array.
      *
      * @var array
      */
     private $_data;
+
+    /**
+     * The currently selected folder.
+     *
+     * @var string
+     */
+    private $_selected;
 
     /**
      * Constructor.
@@ -152,5 +162,134 @@ implements ArrayAccess
     public function deleteAnnotation($folder, $annotation)
     {
         unset($this->_data[$folder]['annotations'][$annotation]);
+    }
+
+    public function select($folder)
+    {
+        if (!isset($this->_data[$folder])) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Folder %s does not exist!', $folder)
+            );
+        }
+        if ($this->_selected !== $this->_data[$folder]) {
+            $this->_selected = &$this->_data[$folder];
+        }
+    }
+
+    public function status($folder)
+    {
+        $this->select($folder);
+        return $this->_selected['status'];
+    }
+
+    public function getUids($folder)
+    {
+        $this->select($folder);
+        return array_keys(
+            array_filter($this->_selected['mails'], array($this, '_notDeleted'))
+        );
+    }
+
+    /**
+     * Indicates if a message is considered deleted.
+     *
+     * @param array $message The message information.
+     *
+     * @return boolean True if the message has not been marked as deleted.
+     */
+    public function _notDeleted($message)
+    {
+        return !isset($message['flags'])
+            || !($message['flags'] & self::FLAG_DELETED);
+    }
+
+    /**
+     * Retrieves the messages for the given message ids.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uids                The message UIDs.
+     *
+     * @return array An array of message structures parsed into Horde_Mime_Part
+     *               instances.
+     */
+    public function fetchStructure($folder, $uids)
+    {
+        $this->select($folder);
+        $result = array();
+        foreach ($uids as $uid) {
+            if (isset($this->_selected['mails'][$uid]['structure'])) {
+                $result[$uid]['structure'] = $this->_selected['mails'][$uid]['structure'];
+            } else if (isset($this->_selected['mails'][$uid]['stream'])) {
+                rewind($this->_selected['mails'][$uid]['stream']);
+                $result[$uid]['structure'] = Horde_Mime_Part::parseMessage(
+                    stream_get_contents($this->_selected['mails'][$uid]['stream'])
+                );
+            } else {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        'No message %s in folder %s!',
+                        $uid,
+                        $folder
+                    )
+                );
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Retrieves a bodypart for the given message ID and mime part ID.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid                 The message UID.
+     * @param array  $id                  The mime part ID.
+     *
+     * @return resource|string The body part, as a stream resource or string.
+     */
+    public function fetchBodypart($folder, $uid, $id)
+    {
+        $this->select($folder);
+        if (isset($this->_selected['mails'][$uid]['parts'][$id])) {
+            if (isset($this->_selected['mails'][$uid]['parts'][$id]['file'])) {
+                return fopen(
+                    $this->_selected['mails'][$uid]['parts'][$id]['file'],
+                    'r'
+                );
+            }
+        } else if (isset($this->_selected['mails'][$uid]['stream'])) {
+            rewind($this->_selected['mails'][$uid]['stream']);
+            return Horde_Mime_Part::parseMessage(
+                stream_get_contents($this->_selected['mails'][$uid]['stream'])
+            )->getPart($id)->getContents();
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'No such part %s for message uid %s in folder %s!',
+                    $id,
+                    $uid,
+                    $folder
+                )
+            );
+        }
+    }
+
+    /**
+     * Appends a message to the given folder.
+     *
+     * @param string   $folder  The folder to append the message(s) to.
+     * @param resource $msg     The message to append.
+     *
+     * @return mixed True or the UID of the new message in case the backend
+     *               supports UIDPLUS.
+     */
+    public function appendMessage($folder, $msg)
+    {
+        rewind($msg);
+        $this->select($folder);
+        $this->_selected['mails'][$this->_selected['status']['uidnext']] = array(
+            'flags' => 0,
+            'stream' => $msg,
+        );
+        return $this->_selected['status']['uidnext']++;
     }
 }

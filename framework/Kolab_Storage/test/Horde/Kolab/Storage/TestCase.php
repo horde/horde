@@ -451,7 +451,7 @@ extends PHPUnit_Framework_TestCase
                     'user/test/WithDeleted' => array(
                         'm' => array(
                             1 => array(
-                                'flags' => Horde_Kolab_Storage_Driver_Mock::FLAG_DELETED
+                                'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
                             ),
                             4 => array()
                         ),
@@ -466,7 +466,7 @@ extends PHPUnit_Framework_TestCase
                             1 => $this->getDefaultEventData(),
                             2 => $this->getDefaultEventData(),
                             3 => array(
-                                'flags' => Horde_Kolab_Storage_Driver_Mock::FLAG_DELETED
+                                'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
                             ),
                             4 => $this->getDefaultEventData(),
                         ),
