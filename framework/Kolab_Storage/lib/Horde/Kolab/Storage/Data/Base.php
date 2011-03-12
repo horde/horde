@@ -165,8 +165,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * Create a new object.
      *
      * @param array   $object The array that holds the object data.
-     * @param boolean $raw    True if the raw format should be returned rather
-     *                        than the parsed data.
+     * @param boolean $raw    True if the data to be stored has been provided in
+     *                        raw format.
      *
      * @return NULL
      *
