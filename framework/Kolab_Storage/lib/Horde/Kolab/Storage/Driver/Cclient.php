@@ -564,13 +564,6 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Fetches the objects for the specified UIDs.
-     *
-     * @param string $folder The folder to access.
-     *
-     * @return array The parsed objects.
-     */
-    /**
      * Retrieves the messages for the given message ids.
      *
      * @param string $folder The folder to fetch the messages from.
