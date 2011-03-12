@@ -123,13 +123,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
 
                 /* Driver has no support for storing locked status. */
                 $value = Horde_String::convertCharset($value, 'UTF-8', $charset);
-
-                switch ($this->_db->adapterName()) {
-                case 'PDO_PostgreSQL':
-                    // TODO: Should be done in DB driver
-                    $value = pg_escape_bytea($value);
-                    break;
-                }
+                $value = new Horde_Db_Value_Binary($value);
 
                 if (empty($check)) {
                     // Insert a new row.

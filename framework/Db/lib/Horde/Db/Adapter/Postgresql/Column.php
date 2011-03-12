@@ -160,33 +160,6 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
     }
 
     /**
-     * Used to convert from Strings to BLOBs (BYTEA).
-     *
-     * @return  string
-     */
-    public function stringToBinary($value)
-    {
-        /* MUST escape zero octet(0), single quote (39), and backslash (92).
-         * MAY escape non-printable octets, but they are required in some
-         * instances so it is best to escape all. */
-        return preg_replace_callback("/[^\\x20-\\x26\\x28-\\x5b\\x5d-\\x73]/", array($this, 'stringToBinaryCallback'), $value);
-    }
-
-    /**
-     * Callback function for stringToBinary().
-     */
-    public function stringToBinaryCallback($matches)
-    {
-        if ($matches[0] == "'") {
-            return '\\\'';
-        } elseif ($matches[0] == '\\') {
-            return '\\\\\\\\';
-        } else {
-            return sprintf('\\\\%03.o', ord($matches[0]));
-        }
-    }
-
-    /**
      * Used to convert from BLOBs (BYTEAs) to Strings.
      *
      * @return  string

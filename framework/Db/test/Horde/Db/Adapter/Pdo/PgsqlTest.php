@@ -300,8 +300,6 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
     public function testQuoteBinary()
     {
-        $this->markTestIncomplete('Bug #9153 needs to be fixed for this test to run.');
-
         // Test string is foo\0bar - should be 7 bytes long
         $original = base64_decode('Zm9vAGJhcg==');
 
@@ -309,8 +307,9 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
             $table->column('data', 'binary', array('null' => false));
         $table->end();
 
-        $this->_conn->insert('INSERT INTO binary_testings (data) VALUES (?)', array($original));
+        $this->_conn->insert('INSERT INTO binary_testings (data) VALUES (?)', array(new Horde_Db_Value_Binary($original)));
         $retrieved = $this->_conn->selectValue('SELECT data FROM binary_testings');
+        $retrieved = stream_get_contents($retrieved);
 
         $this->assertEquals($original, $retrieved);
     }

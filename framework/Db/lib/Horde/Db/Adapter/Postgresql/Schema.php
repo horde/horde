@@ -76,11 +76,8 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         if (is_string($value) &&
-            $column->getType() == 'binary' &&
-            method_exists($column, 'stringToBinary')) {
-            /*@TODO test blobs/bytea fields with postgres/pdo and figure out how
-              this should work */
-            return $this->quotedStringPrefix() . "'" . $column->stringToBinary($value) . "'";
+            $column->getType() == 'binary') {
+            return $this->quotedStringPrefix() . "'" . $this->quoteBinary($value) . "'";
         } elseif (is_string($value) && $column->getSqlType() == 'xml') {
             return "xml '" . $this->quoteString($value) . "'";
         } elseif (is_numeric($value) && $column->getSqlType() == 'money') {
@@ -98,6 +95,31 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         return parent::quote($value, $column);
+    }
+
+    /**
+     * @return  string
+     */
+    public function quoteBinary($value)
+    {
+        /* MUST escape zero octet(0), single quote (39), and backslash (92).
+         * MAY escape non-printable octets, but they are required in some
+         * instances so it is best to escape all. */
+        return "'" . preg_replace_callback("/[^\\x20-\\x26\\x28-\\x5b\\x5d-\\x73]/", array($this, 'quoteBinaryCallback'), $value) . "'";
+    }
+
+    /**
+     * Callback function for quoteBinary().
+     */
+    public function quoteBinaryCallback($matches)
+    {
+        if ($matches[0] == "'") {
+            return '\\\'';
+        } elseif ($matches[0] == '\\') {
+            return '\\\\\\\\';
+        } else {
+            return sprintf('\\\\%03.o', ord($matches[0]));
+        }
     }
 
 

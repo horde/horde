@@ -158,6 +158,10 @@ abstract class Horde_Db_Adapter_Base_Schema
             return $value->quotedId();
         }
 
+        if ($value instanceof Horde_Db_Value) {
+            return $value->quote($this->_adapter);
+        }
+
         $type = isset($column) ? $column->getType() : null;
 
         if (is_null($value)) {
@@ -247,6 +251,14 @@ abstract class Horde_Db_Adapter_Base_Schema
     public function quoteDate($value)
     {
         return $this->_adapter->quoteString((string)$value);
+    }
+
+    /**
+     * @return  string
+     */
+    public function quoteBinary($value)
+    {
+        return $this->quoteString($value);
     }
 
     /**

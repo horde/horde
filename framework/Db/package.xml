@@ -85,10 +85,14 @@
        <file name="Exception.php" role="php" />
        <file name="Migrator.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Migration -->
+      <dir name="Value">
+       <file name="Binary.php" role="php" />
+      </dir> <!-- /lib/Horde/Db/Value -->
       <file name="Adapter.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="SearchParser.php" role="php" />
       <file name="StatementParser.php" role="php" />
+      <file name="Value.php" role="php" />
      </dir> <!-- /lib/Horde/Db -->
      <file name="Db.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -216,6 +220,7 @@
    <install as="Horde/Db/Exception.php" name="lib/Horde/Db/Exception.php" />
    <install as="Horde/Db/SearchParser.php" name="lib/Horde/Db/SearchParser.php" />
    <install as="Horde/Db/StatementParser.php" name="lib/Horde/Db/StatementParser.php" />
+   <install as="Horde/Db/Value.php" name="lib/Horde/Db/Value.php" />
    <install as="Horde/Db/Adapter/Base.php" name="lib/Horde/Db/Adapter/Base.php" />
    <install as="Horde/Db/Adapter/Mysql.php" name="lib/Horde/Db/Adapter/Mysql.php" />
    <install as="Horde/Db/Adapter/Mysqli.php" name="lib/Horde/Db/Adapter/Mysqli.php" />
@@ -241,6 +246,7 @@
    <install as="Horde/Db/Migration/Base.php" name="lib/Horde/Db/Migration/Base.php" />
    <install as="Horde/Db/Migration/Exception.php" name="lib/Horde/Db/Migration/Exception.php" />
    <install as="Horde/Db/Migration/Migrator.php" name="lib/Horde/Db/Migration/Migrator.php" />
+   <install as="Horde/Db/Value/Binary.php" name="lib/Horde/Db/Value/Binary.php" />
    <install as="Horde/Db/AllTests.php" name="test/Horde/Db/AllTests.php" />
    <install as="Horde/Db/StatementParserTest.php" name="test/Horde/Db/StatementParserTest.php" />
    <install as="Horde/Db/Adapter/conf.php.dist" name="test/Horde/Db/Adapter/conf.php.dist" />

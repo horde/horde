@@ -43,11 +43,6 @@ class Horde_Db_Adapter_Sqlite_Column extends Horde_Db_Adapter_Base_Column
     # Type Juggling
     ##########################################################################*/
 
-    public function stringToBinary($value)
-    {
-        return str_replace(array("\0", '%'), array('%00', '%25'), $value);
-    }
-
     public function binaryToString($value)
     {
         return str_replace(array('%00', '%25'), array("\0", '%'), $value);

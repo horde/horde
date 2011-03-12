@@ -203,16 +203,6 @@ class Horde_Db_Adapter_Base_Column
     ##########################################################################*/
 
     /**
-     * Used to convert from Strings to BLOBs
-     *
-     * @return  string
-     */
-    public function stringToBinary($value)
-    {
-        return $value;
-    }
-
-    /**
      * Used to convert from BLOBs to Strings
      *
      * @return  string
