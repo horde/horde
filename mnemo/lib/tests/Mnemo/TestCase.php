@@ -57,7 +57,7 @@ extends PHPUnit_Framework_TestCase
         $storage = $kolab_factory->create();
         $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $storage);
         $GLOBALS['injector']->setInstance('Horde_History', new Horde_History_Mock('test@example.com'));
-        $factory = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver');
+        $this->factory = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver');
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
         $GLOBALS['mnemo_shares'] = new Horde_Share_Kolab(
             'mnemo', 'test@example.com', new Horde_Perms(), new Horde_Group_Mock()
@@ -69,6 +69,12 @@ extends PHPUnit_Framework_TestCase
             "Notepad of Tester"
         );
         $GLOBALS['mnemo_shares']->addShare($share);
-        return $factory->create($share->getName());
+        $this->other_share = $GLOBALS['mnemo_shares']->newShare(
+            'test@example.com',
+            strval(new Horde_Support_Randomid()),
+            "Other Notepad of Tester"
+        );
+        $GLOBALS['mnemo_shares']->addShare($this->other_share);
+        return $this->factory->create($share->getName());
     }
 }

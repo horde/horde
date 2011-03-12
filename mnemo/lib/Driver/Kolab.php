@@ -201,7 +201,10 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     function move($noteId, $newNotepad)
     {
-        return $this->_wrapper->move($noteId, $newNotepad);
+        return $this->_data->move(
+            $noteId,
+            $GLOBALS['mnemo_shares']->getShare($newNotepad)->get('folder')
+        );
     }
 
     /**
