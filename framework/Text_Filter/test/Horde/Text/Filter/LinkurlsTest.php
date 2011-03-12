@@ -38,6 +38,8 @@ class Horde_Text_Filter_LinkurlsTest extends PHPUnit_Framework_TestCase
             /* Matched correctly */
             array('http://foo.com/blah_blah', '<a href="http://foo.com/blah_blah">http://foo.com/blah_blah</a>'),
             array('http://foo.com/blah_blah/', '<a href="http://foo.com/blah_blah/">http://foo.com/blah_blah/</a>'),
+            array('https://foo.com/blah_blah/', '<a href="https://foo.com/blah_blah/">https://foo.com/blah_blah/</a>'),
+            array('://foo.com/blah_blah/', '<a href="://foo.com/blah_blah/">://foo.com/blah_blah/</a>'),
             array('(Something like http://foo.com/blah_blah)', '(Something like <a href="http://foo.com/blah_blah">http://foo.com/blah_blah</a>)'),
             array('http://foo.com/blah_blah_(wikipedia)', '<a href="http://foo.com/blah_blah_(wikipedia)">http://foo.com/blah_blah_(wikipedia)</a>'),
             array('http://foo.com/more_(than)_one_(parens)', '<a href="http://foo.com/more_(than)_one_(parens)">http://foo.com/more_(than)_one_(parens)</a>'),
