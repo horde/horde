@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-11</date>
- <time>19:19:25</time>
+ <date>2011-03-13</date>
+ <time>19:35:58</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -62,6 +62,13 @@
         <file name="Inline.php" role="php" />
         <file name="Unified.php" role="php" />
        </dir> <!-- /lib/Horde/Text/Diff/Renderer -->
+       <dir name="ThreeWay">
+        <dir name="Op">
+         <file name="Base.php" role="php" />
+         <file name="Copy.php" role="php" />
+        </dir> <!-- /lib/Horde/Text/Diff/ThreeWay/Op -->
+        <file name="BlockBuilder.php" role="php" />
+       </dir> <!-- /lib/Horde/Text/Diff/ThreeWay -->
        <file name="Exception.php" role="php" />
        <file name="Mapped.php" role="php" />
        <file name="Renderer.php" role="php" />
@@ -141,6 +148,9 @@
    <install as="Horde/Text/Diff/Renderer/Context.php" name="lib/Horde/Text/Diff/Renderer/Context.php" />
    <install as="Horde/Text/Diff/Renderer/Inline.php" name="lib/Horde/Text/Diff/Renderer/Inline.php" />
    <install as="Horde/Text/Diff/Renderer/Unified.php" name="lib/Horde/Text/Diff/Renderer/Unified.php" />
+   <install as="Horde/Text/Diff/ThreeWay/BlockBuilder.php" name="lib/Horde/Text/Diff/ThreeWay/BlockBuilder.php" />
+   <install as="Horde/Text/Diff/ThreeWay/Op/Base.php" name="lib/Horde/Text/Diff/ThreeWay/Op/Base.php" />
+   <install as="Horde/Text/Diff/ThreeWay/Op/Copy.php" name="lib/Horde/Text/Diff/ThreeWay/Op/Copy.php" />
    <install as="Horde/Text/Diff/AllTests.php" name="test/Horde/Text/Diff/AllTests.php" />
    <install as="Horde/Text/Diff/Autoload.php" name="test/Horde/Text/Diff/Autoload.php" />
    <install as="Horde/Text/Diff/EngineTest.php" name="test/Horde/Text/Diff/EngineTest.php" />
@@ -198,7 +208,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-11</date>
+   <date>2011-03-13</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * Convert to PHP 5 and Horde 4 package layout.
