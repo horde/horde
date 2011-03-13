@@ -531,6 +531,12 @@ class Horde_Registry
             throw new Horde_Exception('Missing registry.php configuration file');
         }
 
+        /* Set textdomain to Horde, so that we really only load translations
+         * from Horde. */
+        if ($this->getApp() != 'horde') {
+            textdomain('horde');
+        }
+
         require HORDE_BASE . '/config/registry.php';
         $files = glob(HORDE_BASE . '/config/registry.d/*.php');
         foreach ($files as $r) {
@@ -541,6 +547,11 @@ class Horde_Registry
         }
         if ($this->_vhost) {
             include $this->_vhost;
+        }
+
+        /* Reset textdomain. */
+        if ($this->getApp() != 'horde') {
+            textdomain($this->getApp());
         }
 
         if (!isset($this->applications['horde']['fileroot'])) {
