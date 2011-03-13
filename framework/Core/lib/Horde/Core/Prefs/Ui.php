@@ -658,8 +658,10 @@ class Horde_Core_Prefs_Ui
 
                 $t->set('prev', $prefs_url->copy()->add('group', $previous));
                 $t->set('prevlabel', htmlspecialchars($this->prefGroups[$previous]['label']));
+                $t->set('previcon', Horde::img('nav/left.png'));
                 $t->set('next', $prefs_url->copy()->add('group', $next));
                 $t->set('nextlabel', htmlspecialchars($this->prefGroups[$next]['label']));
+                $t->set('nexticon', Horde::img('nav/right.png'));
             }
 
             echo $t->fetch($h_templates . '/prefs/begin.html');

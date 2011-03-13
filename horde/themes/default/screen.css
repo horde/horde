@@ -679,9 +679,6 @@ body.login-form {
     list-style: none;
     display: inline;
 }
-#services_prefs #app {
-    font-weight: bold;
-}
 .prefsOverview div {
     float: left;
 }
@@ -722,6 +719,7 @@ img.prefsLinkImg {
 span.prefsAdvanced {
     padding: 3px 10px 0 0;
     font-size: 80%;
+    font-weight: normal;
 }
 
 div.prefsErrorDiv {
