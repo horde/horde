@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
@@ -8,9 +7,8 @@
  *
  * @package Mnemo
  */
-
-@define('MNEMO_BASE', dirname(dirname(__FILE__)));
-require_once MNEMO_BASE . '/lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('mnemo');
 
 /* Check if a passphrase has been sent. */
 $passphrase = Horde_Util::getFormData('memo_passphrase');
@@ -57,13 +55,13 @@ if (!$note || !isset($note['memo_id'])) {
 
 /* Let's assume that the note content can be converted to ISO-8859-1 if this
  * is the current language's charset, as long as we don't have UTF-8 support
- * in File_PDF. */
+ * in Horde_Pdf. */
 if ($GLOBALS['registry']->getLanguageCharset() == 'ISO-8859-1') {
-    $note = String::convertCharset($note, 'UTF-8', 'ISO-8859-1');
+    $note = Horde_String::convertCharset($note, 'UTF-8', 'ISO-8859-1');
 }
 
 /* Set up the PDF object. */
-$pdf = File_PDF::factory(array('format' => 'Letter', 'unit' => 'pt'));
+$pdf = new Horde_Pdf_Writer(array('format' => 'Letter', 'unit' => 'pt'));
 $pdf->setMargins(50, 50);
 
 /* Enable automatic page breaks. */

@@ -34,7 +34,7 @@ class Jonah_View_StoryPdf extends Jonah_View
         }
 
         // Set up the PDF object.
-        $pdf = File_PDF::factory(array('format' => 'Letter', 'unit' => 'pt'));
+        $pdf = new Horde_Pdf_Writer(array('format' => 'Letter', 'unit' => 'pt'));
         $pdf->setMargins(50, 50);
 
         // Enable automatic page breaks.
