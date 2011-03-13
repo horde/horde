@@ -229,7 +229,7 @@ class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase
         $filename = dirname(__FILE__) . "/fixtures/{$name}.pdf";
         $fixture = file_get_contents($filename);
 
-        $this->assertType('string', $fixture);
+        $this->assertInternalType('string', $fixture);
         return $fixture;
     }
 
