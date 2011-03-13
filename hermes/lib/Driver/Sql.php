@@ -296,8 +296,6 @@ class Hermes_Driver_Sql extends Hermes_Driver
      */
     private function _equalClause($lhs, $rhs, $quote = true)
     {
-        require_once 'Horde/SQL.php';
-
         if (!is_array($rhs)) {
             if ($quote) {
                 return sprintf(' %s = %s', $lhs, $this->_db->quote($rhs));

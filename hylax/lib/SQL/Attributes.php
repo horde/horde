@@ -241,8 +241,6 @@ class Hylax_SQL_Attributes {
      */
     function _buildAttributeQuery($glue, $criteria, $join = false)
     {
-        require_once 'Horde/SQL.php';
-
         /* Initialize the clause that we're building. */
         $clause = '';
 
