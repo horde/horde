@@ -427,12 +427,7 @@ class Horde_Translation_Script
             printf('Extracting from %s... ', $this->apps[$i]);
             chdir($this->dirs[$i]);
             $files = array();
-            if ($this->apps[$i] == 'horde') {
-                $files = array('config/nls.php');
-            }
-            $files = array_merge($files, $this->search_ext('(php|inc)'));
-            $files = array_filter($files, create_function('$file', 'return substr($file, 0, 9) != "." . DS . "config" . DS;'));
-            $files = array_merge($files, $this->search_ext('dist', 'config'));
+            $files = array_merge($files, $this->search_ext('((?<!\.local\.)php|inc)'));
             $file = 'locale' . DS . $this->apps[$i] . '.pot';
             /* Store the file list because it gets too long to be passed on the
              * command line. */
@@ -441,8 +436,8 @@ class Horde_Translation_Script
                 $this->climessage(sprintf('%s is not writable.', $file), 'cli.error');
                 $this->footer();
             }
-            /* We must use a .pot extension, otherwise msgcomm complains about an
-             * invalid charset being used in this file. */
+            /* We must use a .pot extension, otherwise msgcomm complains about
+             * an invalid charset being used in this file. */
             $tmp_file = $file . '.tmp.pot';
 
             if (file_exists($this->dirs[$i] . '/lib/Application.php')) {
