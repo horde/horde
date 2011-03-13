@@ -624,14 +624,14 @@ class Hermes_Driver_Sql extends Hermes_Driver
      * @TODO
      *
      * @param <type> $clientID
-     * @param <type> $enterdescription
-     * @param string $exportid
+     * @param <type> $enterDescription
+     * @param string $exportID
      * @return <type>
      */
-    public function updateClientSettings($clientID, $enterdescription = 1, $exportid = null)
+    public function updateClientSettings($clientID, $enterDescription = 1, $exportID = null)
     {
-        if (empty($exportid)) {
-            $exportid = null;
+        if (empty($exportID)) {
+            $exportID = null;
         }
 
         $sql = 'SELECT clientjob_id FROM hermes_clientjobs WHERE clientjob_id = ?';
@@ -641,7 +641,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
             $sql = 'INSERT INTO hermes_clientjobs (clientjob_id,' .
                    ' clientjob_enterdescription, clientjob_exportid)' .
                    ' VALUES (?, ?, ?)';
-            $values = array($clientID, (int)$enterdescription, $exportid);
+            $values = array($clientID, (int)$enterDescription, $exportID);
 
             try {
                 return $this->_db->insert($sql, $values);
@@ -652,7 +652,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
             $sql = 'UPDATE hermes_clientjobs SET' .
                    ' clientjob_exportid = ?, clientjob_enterdescription = ?' .
                    ' WHERE clientjob_id = ?';
-            $values = array($exportid, (int)$enterdescription, $clientID);
+            $values = array($exportID, (int)$enterDescription, $clientID);
 
             try {
                 return $this->_db->update($sql, $values);
@@ -677,5 +677,4 @@ class Hermes_Driver_Sql extends Hermes_Driver
                                   date('j') - $conf['time']['days_to_keep']));
         return $this->_db->delete($query, $values);
     }
-
 }

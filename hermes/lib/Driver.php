@@ -157,7 +157,7 @@ abstract class Hermes_Driver
     /**
      * @TODO
      */
-    abstract public function updateClientSettings($clientID, $description, $exportId);
+    abstract public function updateClientSettings($clientID, $enterDescription, $exportID);
 
     /**
      * @TODO
