@@ -48,15 +48,9 @@ class Trean_Application extends Horde_Registry_Application
         $GLOBALS['registry']->setTimeZone();
 
         // Create db and share instances.
-        $GLOBALS['trean_db'] = Trean::getDb();
-        if ($GLOBALS['trean_db'] instanceof PEAR_Error) {
-            throw new Horde_Exception($GLOBALS['trean_db']);
-        }
+        $GLOBALS['trean_db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('trean');
         $GLOBALS['trean_shares'] = new Trean_Bookmarks();
 
-        Trean::initialize();
-
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('grids-min.css');
         $rss = Horde::url('rss.php', true, -1);
         if (Horde_Util::getFormData('f')) {
             $rss->add('f', Horde_Util::getFormData('f'));
@@ -127,26 +121,5 @@ class Trean_Application extends Horde_Registry_Application
                 'url' => Horde::url('search.php')
             )
         );
-
-        $folders = Trean::listFolders();
-        if (!($folders instanceof PEAR_Error)) {
-            $browse = Horde::url('browse.php');
-
-            foreach ($folders as $folder) {
-                $parent_id = $folder->getParent();
-                $tree->addNode(
-                    $parent . $folder->getId(),
-                    $parent . $parent_id,
-                    $folder->get('name'),
-                    substr_count($folder->getName(), ':') + 1,
-                    false,
-                    array(
-                        'icon' => Horde_Themes::img('tree/folder.png'),
-                        'url' => $browse->copy()->add('f', $folder->getId())
-                    )
-                );
-            }
-        }
     }
-
 }

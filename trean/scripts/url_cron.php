@@ -12,38 +12,10 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-// Find the base file path of Horde.
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('trean', array('cli' => true));
 
-// Find the base file path of Trean.
-@define('TREAN_BASE', dirname(__FILE__) . '/..');
-
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/CLI.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_CLI::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_CLI::init();
-
-// Now load the Registry and setup conf, etc.
-$registry = &Registry::singleton();
-$registry->pushApp('trean', false);
-
-// Include needed libraries.
-require_once TREAN_BASE . '/lib/Trean.php';
-require_once TREAN_BASE . '/lib/Bookmarks.php';
-
-// Create Trean objects.
-$trean_db = Trean::getDb();
-$trean_shares = new Trean_Bookmarks();
-
-$ids = $trean_db->queryCol('SELECT bookmark_id FROM trean_bookmarks');
+$ids = $trean_db->selectValues('SELECT bookmark_id FROM trean_bookmarks');
 foreach ($ids as $bookmark_id) {
     $bookmark = $trean_shares->getBookmark($bookmark_id);
     $check = @_getHeaders($bookmark->url, 1);
@@ -126,7 +98,7 @@ function get_body($bookmark)
     // @TODO get headers
 
     get_favicon($bookmark, $body);
-
+}
 
 /**
  * Attempts to retrieve a favicon for the given bookmark.  If successful, the

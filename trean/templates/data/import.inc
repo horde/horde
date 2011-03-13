@@ -8,11 +8,6 @@
 
  <p><?php echo _("File to import:") ?> <input type="file" name="import_file" size="40" /></p>
 
- <p><?php echo _("Folder to import into:") ?>
- <select name="target">
-  <?php echo Trean::folderSelect() ?>
- </select></p>
-
  <input type="submit" value="<?php echo _("Import") ?>" class="button" />
 </div>
 </form>
