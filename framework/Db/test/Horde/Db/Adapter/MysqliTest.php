@@ -306,6 +306,24 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('1', $this->_conn->quote(true, $col));
     }
 
+    public function testQuoteBinary()
+    {
+        // Test string is foo\0bar - should be 7 bytes long
+        $original = base64_decode('Zm9vAGJhcg==');
+
+        $table = $this->_conn->createTable('binary_testings');
+            $table->column('data', 'binary', array('null' => false));
+        $table->end();
+
+        $this->_conn->insert('INSERT INTO binary_testings (data) VALUES (?)', array(new Horde_Db_Value_Binary($original)));
+        $retrieved = $this->_conn->selectValue('SELECT data FROM binary_testings');
+
+        $columns = $this->_conn->columns('binary_testings');
+        $retrieved = $columns['data']->binaryToString($retrieved);
+
+        $this->assertEquals($original, $retrieved);
+    }
+
 
     /*##########################################################################
     # Schema Statements

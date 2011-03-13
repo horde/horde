@@ -309,7 +309,9 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
         $this->_conn->insert('INSERT INTO binary_testings (data) VALUES (?)', array(new Horde_Db_Value_Binary($original)));
         $retrieved = $this->_conn->selectValue('SELECT data FROM binary_testings');
-        $retrieved = stream_get_contents($retrieved);
+
+        $columns = $this->_conn->columns('binary_testings');
+        $retrieved = $columns['data']->binaryToString($retrieved);
 
         $this->assertEquals($original, $retrieved);
     }

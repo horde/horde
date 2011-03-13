@@ -62,26 +62,15 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
 
         try {
             $result = $this->_db->selectAll($query, $values);
+            $columns = $this->_db->columns($this->_params['table']);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Prefs_Exception($e);
         }
 
         foreach ($result as $row) {
             $name = trim($row['pref_name']);
-
-            switch ($this->_db->adapterName()) {
-            case 'PDO_PostgreSQL':
-                // TODO: Should be done in DB driver
-                if (is_resource($row['pref_value'])) {
-                    $val = stream_get_contents($row['pref_value']);
-                    fclose($row['pref_value']);
-                    $row['pref_value'] = $val;
-                }
-                $row['pref_value'] = pg_unescape_bytea($row['pref_value']);
-                break;
-            }
-
-            $scope_ob->set($name, Horde_String::convertCharset($row['pref_value'], $charset, 'UTF-8'));
+            $value = $columns['pref_value']->binaryToString($row['pref_value']);
+            $scope_ob->set($name, Horde_String::convertCharset($value, $charset, 'UTF-8'));
         }
 
         return $scope_ob;
