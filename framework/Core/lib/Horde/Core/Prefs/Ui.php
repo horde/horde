@@ -201,6 +201,27 @@ class Horde_Core_Prefs_Ui
     }
 
     /**
+     * Returns whether advanced preferences exist in the current application.
+     *
+     * @return boolean  True if at least one of the preferences is an advanced
+     *                  preference.
+     */
+    public function hasAdvancedPrefs()
+    {
+        foreach ($this->_getPrefGroups() as $group) {
+            if (empty($group['members'])) {
+                continue;
+            }
+            foreach ($group['members'] as $pref) {
+                if (!empty($this->prefs[$pref]['advanced'])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Handle a preferences form submission if there is one, updating
      * any preferences which have been changed.
      */
@@ -629,6 +650,7 @@ class Horde_Core_Prefs_Ui
         $t->set('apps', $tmp);
         $t->set('header', htmlspecialchars(($this->app == 'horde') ? Horde_Core_Translation::t("Global Preferences") : sprintf(Horde_Core_Translation::t("Preferences for %s"), $registry->get('name', $this->app))));
 
+        $t->set('has_advanced', $this->hasAdvancedPrefs());
         if ($GLOBALS['session']->get('horde', 'prefs_advanced')) {
             $t->set('basic', $this->selfUrl()->add('show_basic', 1));
         } else {

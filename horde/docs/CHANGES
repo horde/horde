@@ -2,6 +2,7 @@
 v4.0-BETA1
 ----------
 
+[jan] Only show advanced preferences link if there are some.
 [mms] Fix updates for refreshing Blocks (Bug #9655).
 [mjr] Fix viewing applications with no mobile view from mobile devices.
 [jan] Fix error when not using a Group backend. (Bug #9642).

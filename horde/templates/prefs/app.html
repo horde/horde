@@ -16,6 +16,7 @@
    </select>
    <input class="button" type="submit" id="appsubmit" value="<gettext>Go</gettext>" />
   </span>
+<if:has_advanced>
   <span class="rightFloat prefsAdvanced">
 <if:advanced>
    <a href="<tag:advanced />"><gettext>Show Advanced Preferences</gettext></a>
@@ -23,6 +24,7 @@
    <a href="<tag:basic />"><gettext>Hide Advanced Preferences</gettext></a>
 </else:advanced></if:advanced>
   </span>
+</if:has_advanced>
   <span>
    <tag:header />
   </span>

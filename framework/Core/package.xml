@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* Only show advanced preferences link if there are some.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
