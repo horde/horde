@@ -157,7 +157,8 @@ class Horde_Core_Prefs_Ui
             $group = $this->group;
         }
 
-        return (empty($this->prefGroups[$group]['members']) || in_array($this->group, $this->suppressGroups))
+        return (empty($this->prefGroups[$group]['members']) ||
+                in_array($group, $this->suppressGroups))
             ? array()
             : $this->_getChangeablePrefs($this->prefGroups[$group]['members']);
     }
