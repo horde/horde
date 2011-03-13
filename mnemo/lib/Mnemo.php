@@ -368,7 +368,8 @@ class Mnemo
     public static function getPassphrase($id)
     {
         if ($passphrase = $GLOBALS['session']->get('mnemo', 'passphrase/' . $id)) {
-            return Horde_Secret::read(Horde_Secret::getKey('mnemo'), $passphrase);
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            return $secret->read($secret->getKey('mnemo'), $passphrase);
         }
     }
 
@@ -383,7 +384,8 @@ class Mnemo
      */
     public static function storePassphrase($id, $passphrase)
     {
-        $GLOBALS['session']->set('mnemo', 'passphrase/' . $id, Horde_Secret::write(Horde_Secret::getKey('mnemo'), $passphrase));
+        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+        $GLOBALS['session']->set('mnemo', 'passphrase/' . $id, $secret->write($secret->getKey('mnemo'), $passphrase));
     }
 
     /**
