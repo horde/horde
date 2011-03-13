@@ -4,7 +4,13 @@
  <channel>pear.horde.org</channel>
  <extends>File_PDF</extends>
  <summary>Horde PDF library</summary>
- <description>Horde PDF package</description>
+ <description>This package provides PDF generation using only PHP, without requiring any external libraries.</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -27,7 +33,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 *
  </notes>
@@ -128,7 +134,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
