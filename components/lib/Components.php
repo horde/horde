@@ -236,7 +236,14 @@ class Components
             return;
         }
 
-        throw new Components_Exception(self::ERROR_NO_COMPONENT);
+        $cwd = getcwd();
+        try {
+            self::_requireDirectory($cwd);
+            self::_requirePackageXml($cwd);
+        } catch (Components_Exception $e) {
+            throw new Components_Exception(self::ERROR_NO_COMPONENT);
+        }
+        $config->setComponentDirectory($cwd);
     }
 
     /**

@@ -77,17 +77,16 @@ extends Components_TestCase
 
     public function testWithinComponent()
     {
-        $this->markTestIncomplete();
         $oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../fixture/simple');
+        chdir(dirname(__FILE__) . '/../fixture/framework/Install');
         $_SERVER['argv'] = array(
             'horde-components',
             '--list-deps',
         );
-        $output = $this->_callStrictComponents();
+        $output = $this->_callUnstrictComponents();
         chdir($oldcwd);
         $this->assertContains(
-            Components::ERROR_NO_ACTION,
+            '|_Dependency',
             $output
         );
     }
