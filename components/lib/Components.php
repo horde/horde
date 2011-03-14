@@ -81,7 +81,7 @@ class Components
     static private function _prepareModular(
         Components_Dependencies $dependencies, array $parameters = array()
     ) {
-        return new Horde_Cli_Modular(
+        $modular = new Horde_Cli_Modular(
             array(
                 'parser' => array(
                     'class' => empty($parameters['parser']['class']) ? 'Horde_Argv_Parser' : $parameters['parser']['class'],
@@ -109,6 +109,8 @@ This is a list of available actions (use "help ACTION" to get additional informa
                 )
             )
         );
+        $dependencies->setModules($modular);
+        return $modular;
     }
 
     /**

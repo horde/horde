@@ -56,6 +56,28 @@ implements Components_Dependencies
     }
 
     /**
+     * Set the list of modules.
+     *
+     * @param Horde_Cli_Modular $modules The list of modules.
+     *
+     * @return NULL
+     */
+    public function setModules(Horde_Cli_Modular $modules)
+    {
+        $this->setInstance('Horde_Cli_Modular', $modules);
+    }
+
+    /**
+     * Return the list of modules.
+     *
+     * @retunr Horde_Cli_Modular The list of modules.
+     */
+    public function getModules()
+    {
+        return $this->getInstance('Horde_Cli_Modular');
+    }
+
+    /**
      * Returns the continuous integration setup handler.
      *
      * @return Components_Runner_CiSetup The CI setup handler.
