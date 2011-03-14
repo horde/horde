@@ -53,7 +53,8 @@ implements Components_Config
         $this->_options = array(
             'include' => 'ALL',
             'exclude' => 'channel:pecl.php.net,PEAR_CompatInfo',
-            'force' => true
+            'force' => true,
+            'symlink' => true,
         );
         $this->_arguments = array();
     }

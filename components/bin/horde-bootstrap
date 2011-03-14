@@ -41,8 +41,6 @@ $environment = realpath($path) . '/pear.conf';
 $dependencies = new Components_Dependencies_Bootstrap();
 $factory = $dependencies->getInstance('Components_Pear_Factory');
 
-$dependencies->getInstance('Components_Config')->setOption('symlink', true);
-
 $tree = $factory->createTreeHelper(
     $environment,
     realpath(dirname($path)),
