@@ -45,7 +45,7 @@ Action "testrelease"
     public function handle(Components_Config $config)
     {
         $arguments = $config->getArguments();
-        if ($arguments[1] == 'release') {
+        if (isset($arguments[1]) && $arguments[1] == 'release') {
             $config->setOption('releaseserver', '');
             $config->setOption('releasedir', '');
             $this->_dependencies->getRunnerRelease()->run();
