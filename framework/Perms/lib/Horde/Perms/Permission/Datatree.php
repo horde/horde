@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Perms
  */
-class Horde_Perms_Permission_DataTreeObject extends Horde_DataTreeObject
+class Horde_Perms_Permission_Datatree extends Horde_DataTreeObject
 {
     /**
      * Cache object.

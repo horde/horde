@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Perms
  */
-class Horde_Perms_Sql extends Horde_Perms
+class Horde_Perms_Sql extends Horde_Perms_Base
 {
     /**
      * Configuration parameters.
@@ -75,7 +75,7 @@ class Horde_Perms_Sql extends Horde_Perms
      *
      * @param string $name  The permission's name.
      *
-     * @return Horde_Perms_Permission_SqlObject  A new permissions object.
+     * @return Horde_Perms_Permission_Sql  A new permissions object.
      */
     public function newPermission($name)
     {
@@ -95,7 +95,7 @@ class Horde_Perms_Sql extends Horde_Perms
             } catch (Horde_Perms_Exception $e) {}
         }
 
-        $ob = new Horde_Perms_Permission_SqlObject($name, $this->_cacheVersion, $type, $params);
+        $ob = new Horde_Perms_Permission_Sql($name, $this->_cacheVersion, $type, $params);
         $ob->setObs($this->_cache, $this->_db);
 
         return $ob;
@@ -107,7 +107,7 @@ class Horde_Perms_Sql extends Horde_Perms
      *
      * @param string $name  The name of the permission to retrieve.
      *
-     * @return Horde_Perms_Permission_SqlObject  TODO
+     * @return Horde_Perms_Permission_Sql  TODO
      * @throw Horde_Perms_Exception
      */
     public function getPermission($name)
@@ -131,7 +131,7 @@ class Horde_Perms_Sql extends Horde_Perms
                 throw new Horde_Perms_Exception('Does not exist');
             }
 
-            $object = new Horde_Perms_Permission_SqlObject($name, $this->_cacheVersion);
+            $object = new Horde_Perms_Permission_Sql($name, $this->_cacheVersion);
             $object->setId($result['perm_id']);
             $object->setData(unserialize($result['perm_data']));
 
@@ -153,7 +153,7 @@ class Horde_Perms_Sql extends Horde_Perms
      *
      * @param integer $id  The unique ID of the permission to retrieve.
      *
-     * @return Horde_Perms_Permission_SqlObject  TODO
+     * @return Horde_Perms_Permission_Sql  TODO
      * @throws Horde_Perms_Exception
      */
     public function getPermissionById($id)
@@ -174,7 +174,7 @@ class Horde_Perms_Sql extends Horde_Perms
                 throw new Horde_Perms_Exception('Does not exist');
             }
 
-            $object = new Horde_Perms_Permission_SqlObject($result['perm_name'], $this->_cacheVersion);
+            $object = new Horde_Perms_Permission_Sql($result['perm_name'], $this->_cacheVersion);
             $object->setId($id);
             $object->setData(unserialize($result['perm_data']));
             $object->setObs($this->_cache, $this->_db);
@@ -188,12 +188,12 @@ class Horde_Perms_Sql extends Horde_Perms
      * be created with newPermission(), and have any initial users added to
      * it, before this function is called.
      *
-     * @param Horde_Perms_Permission_SqlObject $perm  The perm object.
+     * @param Horde_Perms_Permission_Sql $perm  The perm object.
      *
      * @return integer  Permission ID in the database.
      * @throws Horde_Perms_Exception
      */
-    public function addPermission(Horde_Perms_Permission_SqlObject $perm)
+    public function addPermission(Horde_Perms_Permission $perm)
     {
         $name = $perm->getName();
         if (empty($name)) {
@@ -239,7 +239,7 @@ class Horde_Perms_Sql extends Horde_Perms
     /**
      * Removes a permission from the permissions system permanently.
      *
-     * @param Horde_Perms_Permission_SqlObject $perm  The permission to
+     * @param Horde_Perms_Permission_Sql $perm  The permission to
      *                                                remove.
      * @param boolean $force                          Force to remove every
      *                                                child.
@@ -247,7 +247,7 @@ class Horde_Perms_Sql extends Horde_Perms
      * @return boolean  True if permission was deleted.
      * @throws Horde_Perms_Exception
      */
-    public function removePermission(Horde_Perms_Permission_SqlObject $perm,
+    public function removePermission(Horde_Perms_Permission $perm,
                                      $force = false)
     {
         $name = $perm->getName();
@@ -280,7 +280,7 @@ class Horde_Perms_Sql extends Horde_Perms
     /**
      * Returns the unique identifier of this permission.
      *
-     * @param Horde_Perms_Permission_SqlObject $perm  The permission object to
+     * @param Horde_Perms_Permission_Sql $perm  The permission object to
      *                                                get the ID of.
      *
      * @return integer  The unique id.
