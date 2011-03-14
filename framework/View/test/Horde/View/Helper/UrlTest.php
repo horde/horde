@@ -59,6 +59,7 @@ class Horde_View_Helper_UrlTest extends Horde_Test_Case
 
     public function testLinkToUnless()
     {
+        $this->markTestIncomplete('Needs a a real routes mapper.');
         $this->assertEquals('Showing',
                             $this->view->linkToUnless(true, 'Showing', array('action' => 'show', 'controller' => 'weblog')));
         $this->assertEquals("<a href=\"/weblog/list\">Listing</a>", // @todo http://www.example.com
@@ -69,6 +70,7 @@ class Horde_View_Helper_UrlTest extends Horde_Test_Case
 
     public function testLinkToIf()
     {
+        $this->markTestIncomplete('Needs a a real routes mapper.');
         $this->assertEquals('Showing',
                             $this->view->linkToIf(false, 'Showing', array('action' => 'show', 'controller' => 'weblog')));
         $this->assertEquals("<a href=\"/weblog/list\">Listing</a>", // @todo http://www.example.com
@@ -136,6 +138,6 @@ class Horde_View_Helper_UrlTest_MockController extends Horde_Controller_Base
 
     public function getUrlWriter()
     {
-        return new Horde_Controller_UrlWriter();
+        return new Horde_Controller_UrlWriter(new Horde_Routes_Utils(new Horde_Routes_Mapper()));
     }
 }
