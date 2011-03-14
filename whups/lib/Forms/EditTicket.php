@@ -110,7 +110,7 @@ class EditTicketForm extends Horde_Form {
                         $f_groups = array();
                         if ($mygroups) {
                             foreach (array_keys($mygroups) as $id) {
-                                $f_groups['group:' . $id] = $groups->getGroupName($id);
+                                $f_groups['group:' . $id] = $groups->getName($id);
                             }
                         }
 
@@ -176,7 +176,7 @@ class EditTicketForm extends Horde_Form {
                         ->listGroups($GLOBALS['registry']->getAuth());
                     if ($mygroups) {
                         foreach (array_keys($mygroups) as $gid) {
-                            $grouplist[$gid] = $groups->getGroupName($gid, true);
+                            $grouplist[$gid] = $groups->getName($gid, true);
                         }
                         asort($grouplist);
                         $grouplist = array(0 => _("This comment is visible to everyone")) + $grouplist;
