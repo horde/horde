@@ -99,7 +99,8 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         $arguments = $config->getArguments();
-        if (!empty($options['updatexml']) || $arguments[0] == 'update') {
+        if (!empty($options['updatexml'])
+            || (isset($arguments[0]) && $arguments[0] == 'update')) {
             $this->_dependencies->getRunnerPearPackageXml()->run();
             return true;
         }
