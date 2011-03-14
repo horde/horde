@@ -9,7 +9,7 @@
  */
 
 /**
- * View helper for displaying Horde block objects
+ * View helper for displaying Horde block objects.
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
@@ -26,50 +26,45 @@ class Horde_View_Helper_Block extends Horde_View_Helper_Base
     protected $_blockCache = array();
 
     /**
-     * Return the title of the specified block.
+     * Returns the title of the specified block.
      *
      * @param string $block  The name of the block to get the title for.
-     * @param mixed $arg1    (optional) The first argument to the Block
-     *                       constructor.
+     * @param mixed $arg1    The first argument to the Block constructor.
      *
      * @return string  The requested Block's title.
-     *
-     * @throws Horde_View_Exception, InvalidArgumentException
+     * @throws Horde_View_Exception
+     * @throws InvalidArgumentException
      */
     public function blockTitle()
     {
         list($block, $params) = $this->_args(func_get_args());
-
         return $this->_block($block, $params)->getTitle();
     }
 
     /**
-     * Return the content of the specified block.
+     * Returns the content of the specified block.
      *
      * @param string $block  The name of the block to get the content for.
-     * @param mixed $arg1    (optional) The first argument to the Block
-     *                       constructor.
+     * @param mixed $arg1    The first argument to the Block constructor.
      *
      * @return string  The requested Block's content.
-     *
-     * @throws Horde_View_Exception, InvalidArgumentException
+     * @throws Horde_View_Exception
+     * @throws InvalidArgumentException
      */
     public function blockContent()
     {
         list($block, $params) = $this->_args(func_get_args());
-
         return $this->_block($block, $params)->getContent();
     }
 
     /**
-     * Instantiate and cache Block objects
+     * Instantiates and caches Block objects.
      *
      * @param string $block  The name of the block to fetch.
-     * @param array $params  (option) Any arguments to the Block constructor.
+     * @param array $params  Any arguments to the Block constructor.
      *
-     * @return Horde_Core_Block  The requested Block object
-     *
-     * @throws Horde_View_Exception, InvalidArgumentException
+     * @return Horde_Core_Block  The requested Block object.
+     * @throws Horde_View_Exception
      */
     protected function _block($block, $params)
     {
@@ -77,7 +72,10 @@ class Horde_View_Helper_Block extends Horde_View_Helper_Base
 
         if (!isset($this->_blockCache[$hash])) {
             try {
-                $this->_blockCache[$hash] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($block, $params);
+                $this->_blockCache[$hash] = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_BlockCollection')
+                    ->create()
+                    ->getBlock($block, $params);
             } catch (Exception $e) {
                 throw new Horde_View_Exception($e);
             }
@@ -87,7 +85,7 @@ class Horde_View_Helper_Block extends Horde_View_Helper_Base
     }
 
     /**
-     * Parse any argument style for the Block-fetching functions
+     * Parses any argument style for the Block-fetching functions.
      *
      * @param array $args
      */
@@ -110,5 +108,4 @@ class Horde_View_Helper_Block extends Horde_View_Helper_Base
 
         return array($app, $block, $args);
     }
-
 }
