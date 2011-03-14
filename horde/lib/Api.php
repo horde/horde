@@ -234,7 +234,7 @@ class Horde_Api extends Horde_Registry_Api
         /* Remove user from all groups */
         $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         try {
-            $allGroups = $groups->getGroups($user);
+            $allGroups = $groups->listGroups($user);
             foreach (array_keys($allGroups) as $id) {
                 $groups->removeUser($id, $user);
             }
