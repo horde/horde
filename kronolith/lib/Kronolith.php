@@ -1151,7 +1151,7 @@ class Kronolith
                 try {
                     $group_list = $GLOBALS['injector']
                         ->getInstance('Horde_Group')
-                        ->getGroups($GLOBALS['registry']->getAuth());
+                        ->listGroups($GLOBALS['registry']->getAuth());
                     if (count($group_list)) {
                         $perm = $share->getPermission();
                         // Add the default perm, not added otherwise
