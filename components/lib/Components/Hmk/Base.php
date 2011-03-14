@@ -82,4 +82,15 @@ implements Components_Module
     {
         return array();
     }
+
+    /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array();
+    }
+
 }

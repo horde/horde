@@ -79,6 +79,16 @@ implements Components_Module
     }
 
     /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array();
+    }
+
+    /**
      * Validate that there is a package.xml file in the provided directory.
      *
      * @param string $directory The package directory.

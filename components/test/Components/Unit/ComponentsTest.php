@@ -47,22 +47,6 @@ extends Components_TestCase
         );
     }
 
-    public function testWithinComponent()
-    {
-        $this->markTestIncomplete();
-        $oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../fixture/simple');
-        $_SERVER['argv'] = array(
-            'horde-components',
-        );
-        $output = $this->_callStrictComponents();
-        chdir($oldcwd);
-        $this->assertContains(
-            Components::ERROR_NO_ACTION,
-            $output
-        );
-    }
-
     public function testWithPackageXml()
     {
         $_SERVER['argv'] = array(
@@ -71,5 +55,40 @@ extends Components_TestCase
             dirname(__FILE__) . '/../fixture/framework/Install/package.xml'
         );
         $output = $this->_callUnstrictComponents();
+        $this->assertContains(
+            '|_Dependency',
+            $output
+        );
+    }
+
+    public function testWithPackageXmlDirectory()
+    {
+        $_SERVER['argv'] = array(
+            'horde-components',
+            '--list-deps',
+            dirname(__FILE__) . '/../fixture/framework/Install'
+        );
+        $output = $this->_callUnstrictComponents();
+        $this->assertContains(
+            '|_Dependency',
+            $output
+        );
+    }
+
+    public function testWithinComponent()
+    {
+        $this->markTestIncomplete();
+        $oldcwd = getcwd();
+        chdir(dirname(__FILE__) . '/../fixture/simple');
+        $_SERVER['argv'] = array(
+            'horde-components',
+            '--list-deps',
+        );
+        $output = $this->_callStrictComponents();
+        chdir($oldcwd);
+        $this->assertContains(
+            Components::ERROR_NO_ACTION,
+            $output
+        );
     }
 }

@@ -28,6 +28,13 @@
 interface Components_Module extends Horde_Cli_Modular_Module
 {
     /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions();
+
+    /**
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *

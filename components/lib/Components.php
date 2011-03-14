@@ -34,6 +34,8 @@ class Components
 
     const ERROR_NO_ACTION = 'You did not specify an action!';
 
+    const ERROR_NO_ACTION_OR_COMPONENT = '"%s" specifies neither an action nor a component directory!';
+
     /**
      * The main entry point for the application.
      *
@@ -51,12 +53,16 @@ class Components
         $parser = $modular->createParser();
         $config = self::_prepareConfig($parser);
         $dependencies->initConfig($config);
+
         try {
-            self::_validateArguments($config);
+            self::_identifyComponent(
+                $config, self::_getActionArguments($modular)
+            );
         } catch (Components_Exception $e) {
-            $parser->parserError(self::ERROR_NO_COMPONENT);
+            $parser->parserError($e->getMessage());
             return;
         }
+
         try {
             foreach ($modular->getModules() as $module) {
                 $modular->getProvider()->getModule($module)->handle($config);
@@ -186,14 +192,51 @@ class Components
         return $config;
     }
 
-    static private function _validateArguments(Components_Config $config)
+    /**
+     * Provide a list of available action arguments.
+     *
+     * @param Components_Config $config The active configuration.
+     *
+     * @return NULL
+     */
+    static private function _getActionArguments(Horde_Cli_Modular $modular)
     {
-        $arguments = $config->getArguments();
-        if (!isset($arguments[0])) {
-            throw new Components_Exception('Please specify the path of the PEAR package!');
+        $actions = array();
+        foreach ($modular->getModules() as $module) {
+            $actions = array_merge(
+                $actions,
+                $modular->getProvider()->getModule($module)->getActions()
+            );
         }
-        self::_requireDirectory($arguments[0]);
-        $config->setComponentDirectory($arguments[0], true);
+        return $actions;
+    }
+
+    /**
+     * Identify the selected component based on the command arguments.
+     *
+     * @param Components_Config $config  The active configuration.
+     * @param array             $actions The list of available actions.
+     *
+     * @return NULL
+     */
+    static private function _identifyComponent(
+        Components_Config $config,
+        $actions
+    ) {
+        $arguments = $config->getArguments();
+
+        if (isset($arguments[0]) && self::_isPackageXml($arguments[0])) {
+            $config->setComponentDirectory(dirname($arguments[0]), true);
+            return;
+        }
+
+        if (isset($arguments[0]) && !in_array($arguments[0], $actions)) {
+            self::_requireDirectory($arguments[0]);
+            $config->setComponentDirectory($arguments[0], true);
+            return;
+        }
+
+        throw new Components_Exception(self::ERROR_NO_COMPONENT);
     }
 
     /**
@@ -205,12 +248,10 @@ class Components
      */
     static private function _requireDirectory($path)
     {
-        if (empty($path)) {
-            throw new Components_Exception('Please specify the path of the PEAR package!');
-        }
-
-        if (!is_dir($path)) {
-            throw new Components_Exception(sprintf('%s specifies no directory!', $path));
+        if (empty($path) || !is_dir($path)) {
+            throw new Components_Exception(
+                sprintf(self::ERROR_NO_ACTION_OR_COMPONENT, $path)
+            );
         }
     }
 
