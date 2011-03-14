@@ -78,43 +78,6 @@ class Components
         }
     }
 
-    /**
-     * The main entry point for the hmk script.
-     *
-     * @param array $parameters A list of named configuration parameters. See main().
-     */
-    static public function hmk(array $parameters = array())
-    {
-        $dependencies = self::_prepareDependencies($parameters);
-        $modular = self::_prepareModularHmk($dependencies, $parameters);
-        $parser = $modular->createParser();
-        $config = self::_prepareHmkConfig($parser);
-        $dependencies->initConfig($config);
-
-        $cwd = getcwd();
-        try {
-            self::_requireDirectory($cwd);
-            self::_requirePackageXml($cwd);
-        } catch (Components_Exception $e) {
-            $dependencies->getOutput()->fail(
-                sprintf(
-                    'You are not in a component directory: %s',
-                    $e->getMessage()
-                )
-            );
-            return;
-        }
-        $config->unshiftArgument($cwd);
-        try {
-            foreach ($modular->getModules() as $module) {
-                $modular->getProvider()->getModule($module)->handle($config);
-            }
-        } catch (Components_Exception $e) {
-            $dependencies->getOutput()->fail($e);
-            return;
-        }
-    }
-
     static private function _prepareModular(
         Components_Dependencies $dependencies, array $parameters = array()
     ) {
@@ -131,27 +94,6 @@ class Components
                 ),
                 'provider' => array(
                     'prefix' => 'Components_Module_',
-                    'dependencies' => $dependencies
-                )
-            )
-        );
-    }
-
-    static private function _prepareModularHmk(
-        Components_Dependencies $dependencies, array $parameters = array()
-    ) {
-        return new Horde_Cli_Modular(
-            array(
-                'parser' => array(
-                    'class' => empty($parameters['parser']['class']) ? 'Horde_Argv_Parser' : $parameters['parser']['class'],
-                    'usage' => 'ACTION [options]'
-                ),
-                'modules' => array(
-                    'directory' => dirname(__FILE__) . '/Components/Hmk',
-                    'exclude' => 'Base'
-                ),
-                'provider' => array(
-                    'prefix' => 'Components_Hmk_',
                     'dependencies' => $dependencies
                 )
             )
@@ -180,17 +122,6 @@ class Components
         $config = new Components_Configs();
         $config->addConfigurationType(
             new Components_Config_Cli(
-                $parser
-            )
-        );
-        return $config;
-    }
-
-    static private function _prepareHmkConfig(Horde_Argv_Parser $parser)
-    {
-        $config = new Components_Configs();
-        $config->addConfigurationType(
-            new Components_Config_Hmk(
                 $parser
             )
         );
