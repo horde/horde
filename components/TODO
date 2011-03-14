@@ -2,6 +2,19 @@
  Components TODO List
 ======================
 
+ - Add a release helper module.
+   - Validate that the release does not exist before releasing.
+   - Update sentinel in CHANGES and version number in Application.php before
+     and after the release.
+   - Update package.xml to bump version and empty notes after the release.
+   - Send release announcements if releasing applications.
+   - Update bugs.horde.org.
+   - Notify freshmeat.
+   - Error handling.
+
+ - Add a commit module that automatically adds a changelog entry in
+   the notes section of the package.xml
+
  - The bootstrapping script (or one of the installed tools) must be
    able to update the bootstrapped environment.
 
@@ -21,16 +34,6 @@
    - Tests
    - phpDocumentor
    - Code style
-
- - Add a release helper module.
-   - Validate that the release does not exist before releasing.
-   - Update sentinel in CHANGES and version number in Application.php before
-     and after the release.
-   - Update package.xml to bump version and empty notes after the release.
-   - Send release announcements if releasing applications.
-   - Update bugs.horde.org.
-   - Notify freshmeat.
-   - Error handling.
 
  - Support a configuration file.
 
@@ -75,9 +78,6 @@
  - WWW frontend
 
  - Fix dependency listing with the --optional=yes/no flag
-
- - Add a commit module that automatically adds a changelog entry in
-   the notes section of the package.xml
 
  - Allow absolute/relative paths as arguments
 
