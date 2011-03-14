@@ -378,9 +378,6 @@ Reading, writing and listing of files are all supported, and there are both obje
    </package>
   </required>
   <optional>
-   <extension>
-    <name>ftp</name>
-   </extension>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
@@ -393,6 +390,9 @@ Reading, writing and listing of files are all supported, and there are both obje
     <channel>pecl.php.net</channel>
     <min>0.10</min>
    </package>
+   <extension>
+    <name>ftp</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
