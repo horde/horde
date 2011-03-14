@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Fix clearing expanded state for javascript trees (Bug #9659).
 * Only show advanced preferences link if there are some.
  </notes>
  <contents>

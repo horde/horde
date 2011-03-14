@@ -93,7 +93,11 @@ class Horde_Core_Factory_Tree extends Horde_Core_Factory_Base
      */
     public function setSession($instance, $id, $val)
     {
-        $GLOBALS['session']->set('horde', 'tree-' . $instance . '/' . $id, $val);
+        if ($val) {
+            $GLOBALS['session']->set('horde', 'tree-' . $instance . '/' . $id, $val);
+        } else {
+            $GLOBALS['session']->remove('horde', 'tree-' . $instance . '/' . $id);
+        }
     }
 
 }
