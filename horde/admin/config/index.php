@@ -122,15 +122,12 @@ if (file_exists(HORDE_BASE . '/lib/bundle.php')) {
 }
 
 foreach ($a as $app) {
-    /* Skip app if no conf.xml file. */
     $path = $registry->get('fileroot', $app) . '/config';
-    if (!file_exists($path . '/conf.xml')) {
+    if (!is_dir($path)) {
         continue;
     }
 
     $i++;
-    $path = $registry->get('fileroot', $app) . '/config';
-
     $conf_link = $conf_url
         ->add('app', $app)
         ->link(array('title' => sprintf(_("Configure %s"), $app)));
@@ -138,7 +135,11 @@ foreach ($a as $app) {
         ->add(array('app' => $app, 'action' => 'schema'))
         ->link(array('title' => sprintf(_("Update %s schema"), $app)));
     $apps[$i]['sort'] = $registry->get('name', $app) . ' (' . $app . ')';
-    $apps[$i]['name'] = $conf_link . $apps[$i]['sort'] . '</a>';
+    if (file_exists($path . '/conf.xml')) {
+        $apps[$i]['name'] = $conf_link . $apps[$i]['sort'] . '</a>';
+    } else {
+        $apps[$i]['name'] = $apps[$i]['sort'];
+    }
     $apps[$i]['icon'] = Horde::img($registry->get('icon', $app), $registry->get('name', $app), '', '');
     $apps[$i]['version'] = '';
     if ($version = $registry->getVersion($app, true)) {
@@ -157,34 +158,36 @@ foreach ($a as $app) {
         }
     }
 
-    if (!file_exists($path . '/conf.php')) {
-        /* No conf.php exists. */
-        $apps[$i]['conf'] = $conf_link . $error . '</a>';
-        $apps[$i]['status'] = _("Missing configuration.");
-    } else {
-        /* A conf.php exists, get the xml version. */
-        if (($xml_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.xml'))) === false) {
-            $apps[$i]['conf'] = $conf_link . $warning . '</a>';
-            $apps[$i]['status'] = _("No version found in original configuration. Regenerate configuration.");
-            continue;
-        }
-        /* Get the generated php version. */
-        if (($php_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.php'))) === false) {
-            /* No version found in generated php, suggest regenerating just in
-             * case. */
-            $apps[$i]['conf'] = $conf_link . $warning . '</a>';
-            $apps[$i]['status'] = _("No version found in your configuration. Regenerate configuration.");
-            continue;
-        }
-
-        if ($xml_ver != $php_ver) {
-            /* Versions are not the same, configuration is out of date. */
+    if (file_exists($path . '/conf.xml')) {
+        if (!file_exists($path . '/conf.php')) {
+            /* No conf.php exists. */
             $apps[$i]['conf'] = $conf_link . $error . '</a>';
-            $apps[$i]['status'] = _("Configuration is out of date.");
+            $apps[$i]['status'] = _("Missing configuration.");
         } else {
-            /* Configuration is ok. */
-            $apps[$i]['conf'] = $conf_link . $success . '</a>';
-            $apps[$i]['status'] = _("Application is ready.");
+            /* A conf.php exists, get the xml version. */
+            if (($xml_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.xml'))) === false) {
+                $apps[$i]['conf'] = $conf_link . $warning . '</a>';
+                $apps[$i]['status'] = _("No version found in original configuration. Regenerate configuration.");
+                continue;
+            }
+            /* Get the generated php version. */
+            if (($php_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.php'))) === false) {
+                /* No version found in generated php, suggest regenerating just in
+                 * case. */
+                $apps[$i]['conf'] = $conf_link . $warning . '</a>';
+                $apps[$i]['status'] = _("No version found in your configuration. Regenerate configuration.");
+                continue;
+            }
+
+            if ($xml_ver != $php_ver) {
+                /* Versions are not the same, configuration is out of date. */
+                $apps[$i]['conf'] = $conf_link . $error . '</a>';
+                $apps[$i]['status'] = _("Configuration is out of date.");
+            } else {
+                /* Configuration is ok. */
+                $apps[$i]['conf'] = $conf_link . $success . '</a>';
+                $apps[$i]['status'] = _("Application is ready.");
+            }
         }
     }
 
@@ -223,7 +226,7 @@ foreach ($migration->apps as $app) {
     }
     $i++;
 
-    $conf_link = $self_url
+    $db_link = $self_url
         ->add(array('app' => $app, 'action' => 'schema'))
         ->link(array('title' => sprintf(_("Update %s schema"), $app)));
 
@@ -244,8 +247,8 @@ foreach ($migration->apps as $app) {
 
     if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
         /* Schema is out of date. */
-        $apps[$i]['db'] = $conf_link . $error . '</a>';
-        $apps[$i]['dbstatus'] = $conf_link . _("DB schema is out of date.") . '</a>';
+        $apps[$i]['db'] = $db_link . $error . '</a>';
+        $apps[$i]['dbstatus'] = $db_link . _("DB schema is out of date.") . '</a>';
         $schema_outdated = true;
     } else {
         /* Schema is ok. */
