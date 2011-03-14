@@ -141,6 +141,11 @@ implements Horde_Kolab_Cli_Module
                 (string) $world['storage']->getData($folder_name)->getStamp()
             );
             break;
+        case 'complete':
+            $data = $world['storage']->getData($folder_name);
+            $complete = $data->fetchComplete($arguments[3]);
+            $cli->writeln($complete[1]->toString(array('headers' => $complete[0])));
+            break;
         case 'part':
             $data = $world['storage']->getData($folder_name);
             $part = $data->fetchPart($arguments[3], $arguments[4]);

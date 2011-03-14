@@ -343,6 +343,32 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        $this->select($folder);
+        return array(
+            Horde_Mime_Headers::parseHeaders(
+                Horde_Kolab_Storage_Exception_Pear::catchError(
+                    $this->getBackend()->getRawHeaders($uid, '', true)
+                )
+            ),
+            Horde_Mime_Part::parseMessage(
+                Horde_Kolab_Storage_Exception_Pear::catchError(
+                    $this->getBackend()->getBody($uid, true)
+                )
+            )
+        );
+    }
+
+    /**
      * Retrieves the messages for the given message ids.
      *
      * @param string $folder The folder to fetch the messages from.

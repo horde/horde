@@ -238,4 +238,26 @@ implements Horde_Kolab_Storage_Data_Format
         return $kolab;
     }
 
+    /**
+     * Modify a Kolab groupware object.
+     *
+     * @param Horde_Kolab_Storage_Driver_Modifiable $modifiable The modifiable object.
+     * @param array                                 $object     The updated object.
+     * @param array                                 $options    Additional options.
+     *
+     * @return NULL
+     */
+    public function modify(
+        Horde_Kolab_Storage_Data_Modifiable $modifiable,
+        $object,
+        array $options
+    ) {
+        $mime_id = $this->matchMimeId(
+            $options['type'], $modifiable->getStructure()->contentTypeMap()
+        );
+        $modifiable->setPart(
+            $mime_id, $this->createKolabPart($object, $options)
+        ); 
+        $modifiable->store();
+    }
 }

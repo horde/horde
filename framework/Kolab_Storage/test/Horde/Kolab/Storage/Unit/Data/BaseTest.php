@@ -342,4 +342,35 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testModifyWithoutUid()
+    {
+        $store = $this->getMessageStorage();
+        $data = $store->getData('INBOX/Notes');
+        $data->create(array('desc' => 'test', 'uid' => 'UID'));
+        $data->modify(array('desc' => 'test'));
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testModifyWithIncorrectUid()
+    {
+        $store = $this->getMessageStorage();
+        $data = $store->getData('INBOX/Notes');
+        $data->create(array('desc' => 'test', 'uid' => 'UID'));
+        $data->modify(array('desc' => 'test', 'uid' => 'NOSUCHUID'));
+    }
+
+    public function testModify()
+    {
+        $store = $this->getMessageStorage();
+        $data = $store->getData('INBOX/Notes');
+        $data->create(array('desc' => 'test', 'uid' => 'UID'));
+        $data->modify(array('desc' => 'modified', 'uid' => 'UID'));
+        $object = $data->getObject('UID');
+        $this->assertEquals('modified', $object['desc']);
+    }
 }

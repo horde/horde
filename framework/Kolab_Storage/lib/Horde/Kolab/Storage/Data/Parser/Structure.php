@@ -111,6 +111,9 @@ implements  Horde_Kolab_Storage_Data_Parser
             }
             //@todo: deal with exceptions
             $objects[$obid] = $this->getFormat()->parse($folder, $obid, $structure['structure'], $options);
+            if ($this->_driver->hasCatenateSupport()) {
+                $objects[$obid]['__structure'] = $structure['structure'];
+            }
             $this->_fetchAttachments($objects[$obid], $folder, $obid, $options);
         }
         return $objects;
@@ -182,14 +185,40 @@ implements  Horde_Kolab_Storage_Data_Parser
      *              format.
      * </pre>
      *
-     * @return NULL
+     * @return string The ID of the new object or true in case the backend does
+     *                not support this return value.
      */
     public function create($folder, $object, $options = array())
     {
-        $this->_driver->appendMessage(
+        return $this->_driver->appendMessage(
             $folder,
             $this->createObject($object, $options)
         );
+    }
+
+    /**
+     * Modify an existing object in the specified folder.
+     *
+     * @param string $folder  The folder to use.
+     * @param array  $object  The object.
+     * @param string $obid    The object ID in the backend.
+     * @param array  $options Additional options for storing.
+     * <pre>
+     *  'type'    - Required argument specifying the object type that should be
+     *              stored.
+     *  'version' - Optional argument specifying the version of the object
+     *              format.
+     * </pre>
+     *
+     * @return string The ID of the modified object or true in case the backend
+     *                does not support this return value.
+     */
+    public function modify($folder, $object, $obid, $options = array())
+    {
+        $modifiable = $this->_driver->getModifiable($folder, $obid, $object);
+        $new_uid = $this->_format->modify($modifiable, $object, $options);
+        $this->_driver->deleteMessages($folder, array($obid));
+        return $new_uid;
     }
 
     /**

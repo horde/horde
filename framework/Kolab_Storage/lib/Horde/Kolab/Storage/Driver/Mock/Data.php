@@ -207,6 +207,27 @@ implements ArrayAccess
             || !($message['flags'] & self::FLAG_DELETED);
     }
 
+    public function fetchComplete($folder, $uid)
+    {
+        $this->select($folder);
+        if (isset($this->_selected['mails'][$uid]['stream'])) {
+            rewind($this->_selected['mails'][$uid]['stream']);
+            $msg = stream_get_contents($this->_selected['mails'][$uid]['stream']);
+            return array(
+                Horde_Mime_Headers::parseHeaders($msg),
+                Horde_Mime_Part::parseMessage($msg)
+            );
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'No message %s in folder %s!',
+                    $uid,
+                    $folder
+                )
+            );
+        }
+    }
+
     /**
      * Retrieves the messages for the given message ids.
      *

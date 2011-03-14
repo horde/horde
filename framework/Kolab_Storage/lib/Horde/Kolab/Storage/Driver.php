@@ -92,6 +92,13 @@ interface Horde_Kolab_Storage_Driver
      */
     public function getParameters();
 
+    /**
+     * Checks if the backend supports CATENATE.
+     *
+     * @return boolean True if the backend supports CATENATE.
+     */
+    public function hasCatenateSupport();
+
 
     /** List functionality */
 

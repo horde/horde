@@ -309,6 +309,33 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->headerText();
+        $query->bodyText();
+
+        $ret = $this->getBackend()->fetch(
+            $folder,
+            $query,
+            array('ids' => new Horde_Imap_Client_Ids($uid))
+        );
+
+        return array(
+            $ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE),
+            Horde_Mime_Part::parseMessage($ret[$uid]->getBodyText())
+        );
+    }
+
+    /**
      * Retrieves the messages for the given message ids.
      *
      * @param string $folder The folder to fetch the messages from.

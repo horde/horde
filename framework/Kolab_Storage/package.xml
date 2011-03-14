@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Kolab_Storage</name>
  <channel>pear.horde.org</channel>
  <extends>Kolab_Storage</extends>
@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:47:24</time>
+ <date>2011-03-14</date>
+ <time>08:49:33</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -78,6 +78,7 @@
         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Parser -->
         <file name="Base.php" role="php" />
         <file name="Format.php" role="php" />
+        <file name="Modifiable.php" role="php" />
         <file name="Old.php" role="php" />
         <file name="Parser.php" role="php" />
         <file name="Query.php" role="php" />
@@ -533,7 +534,6 @@
        <file name="AttachmentTest.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="conf.php.dist" role="test" />
-       <file name="DataTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="Scenario.php" role="test" />
        <file name="TestCase.php" role="test" />
@@ -645,6 +645,7 @@
    <install as="Horde/Kolab/Storage/Cache/List.php" name="lib/Horde/Kolab/Storage/Cache/List.php" />
    <install as="Horde/Kolab/Storage/Data/Base.php" name="lib/Horde/Kolab/Storage/Data/Base.php" />
    <install as="Horde/Kolab/Storage/Data/Format.php" name="lib/Horde/Kolab/Storage/Data/Format.php" />
+   <install as="Horde/Kolab/Storage/Data/Modifiable.php" name="lib/Horde/Kolab/Storage/Data/Modifiable.php" />
    <install as="Horde/Kolab/Storage/Data/Old.php" name="lib/Horde/Kolab/Storage/Data/Old.php" />
    <install as="Horde/Kolab/Storage/Data/Parser.php" name="lib/Horde/Kolab/Storage/Data/Parser.php" />
    <install as="Horde/Kolab/Storage/Data/Query.php" name="lib/Horde/Kolab/Storage/Data/Query.php" />
@@ -786,7 +787,6 @@
    <install as="Horde/Kolab/Storage/AttachmentTest.php" name="test/Horde/Kolab/Storage/AttachmentTest.php" />
    <install as="Horde/Kolab/Storage/Autoload.php" name="test/Horde/Kolab/Storage/Autoload.php" />
    <install as="Horde/Kolab/Storage/conf.php.dist" name="test/Horde/Kolab/Storage/conf.php.dist" />
-   <install as="Horde/Kolab/Storage/DataTest.php" name="test/Horde/Kolab/Storage/DataTest.php" />
    <install as="Horde/Kolab/Storage/phpunit.xml" name="test/Horde/Kolab/Storage/phpunit.xml" />
    <install as="Horde/Kolab/Storage/Scenario.php" name="test/Horde/Kolab/Storage/Scenario.php" />
    <install as="Horde/Kolab/Storage/TestCase.php" name="test/Horde/Kolab/Storage/TestCase.php" />
@@ -922,6 +922,21 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>

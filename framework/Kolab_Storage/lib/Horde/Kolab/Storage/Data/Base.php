@@ -191,12 +191,78 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Modify an existing object.
+     *
+     * @param array   $object The array that holds the updated object data.
+     * @param boolean $raw    True if the data to be stored has been provided in
+     *                        raw format.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case an error occured while
+     *                                       saving the data.
+     */
+    public function modify($object, $raw = false)
+    {
+        if (!isset($object['uid'])) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The provided object data contains no ID value!'
+            );
+        }
+        try {
+            $obid = $this->getBackendId($object['uid']);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        'The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else since you retrieved the object from the backend. Original error: %s'
+                    ),
+                    $object['uid'],
+                    0,
+                    $e
+                )
+            );
+        }
+        $this->_driver->getParser()
+            ->modify(
+                $this->_folder->getPath(),
+                $object,
+                $obid,
+                array(
+                    'type' => $this->getType(),
+                    'version' => $this->_version,
+                    'raw' => $raw
+                )
+            );
+    }
+
+    /**
+     * Retrieves the complete message for the given UID.
+     *
+     * @param string $uid The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($uid)
+    {
+        if (!method_exists($this->_driver, 'fetchComplete')) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The backend does not support the "fetchComplete" method!'
+            );
+        }
+        return $this->_driver->fetchComplete(
+            $this->_folder->getPath(), $uid
+        );
+    }
+
+    /**
      * Retrieves the body part for the given UID and mime part ID.
      *
      * @param string $uid The message UID.
      * @param string $id  The mime part ID.
      *
-     * @return @TODO
+     * @return resource The message part as stream resource.
      */
     public function fetchPart($uid, $id)
     {

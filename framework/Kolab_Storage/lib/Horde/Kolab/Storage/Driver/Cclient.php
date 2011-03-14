@@ -564,6 +564,41 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        $this->select($folder);
+
+        $headers = @imap_fetchheader($this->getBackend(), $uid, FT_UID | FT_PREFETCHTEXT);
+        $body = @imap_body($this->getBackend(), $uid, FT_UID);
+        if ($headers && $body) {
+            return array(
+                Horde_Mime_Headers::parseHeaders($headers),
+                Horde_Mime_Part::parseMessage($body)
+            );
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        "Failed fetching message %s in folder %s%s. Error: %s"
+                    ),
+                    $this->_getBaseMbox(),
+                    $uid,
+                    $folder,
+                    imap_last_error()
+                )
+            );
+        }
+    }
+
+    /**
      * Retrieves the messages for the given message ids.
      *
      * @param string $folder The folder to fetch the messages from.

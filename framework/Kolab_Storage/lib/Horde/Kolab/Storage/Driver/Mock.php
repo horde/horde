@@ -622,6 +622,23 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        return $this->_data->fetchComplete(
+            $this->_convertToInternal($folder),
+            $uid
+        );
+    }
+
+    /**
      * Retrieves a bodypart for the given message ID and mime part ID.
      *
      * @param string $folder The folder to fetch the messages from.
