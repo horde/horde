@@ -193,16 +193,7 @@ ss
 ttt
 EOT;
 
-        $patch = <<<END_OF_PATCH
-@@ -1,5 +1,5 @@
-
--Original Text
-+Modified Text
-
-
-
-
-END_OF_PATCH;
+        $patch = "@@ -1,5 +1,5 @@\n \n-Original Text\n+Modified Text\n \n \n \n";
 
         $test = array(explode("\n", $oldtext), explode("\n", $newtext));
         $diff = new Horde_Text_Diff('Native', $test);
