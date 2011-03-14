@@ -61,6 +61,7 @@ implements Components_Dependencies
                 break;
             case 'Components_Config':
                 require_once dirname(__FILE__) . '/../Config.php';
+                require_once dirname(__FILE__) . '/../Config/Base.php';
                 require_once dirname(__FILE__) . '/../Config/Bootstrap.php';
                 $this->_instances[$interface] = new Components_Config_Bootstrap();
                 break;
