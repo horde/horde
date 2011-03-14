@@ -65,6 +65,7 @@
     <dir name="Components">
      <dir name="Config">
       <file name="Application.php" role="php" />
+      <file name="Base.php" role="php" />
       <file name="Bootstrap.php" role="php" />
       <file name="Cli.php" role="php" />
       <file name="Hmk.php" role="php" />
@@ -364,6 +365,7 @@
    <install as="Components/Module.php" name="lib/Components/Module.php" />
    <install as="Components/Output.php" name="lib/Components/Output.php" />
    <install as="Components/Config/Application.php" name="lib/Components/Config/Application.php" />
+   <install as="Components/Config/Base.php" name="lib/Components/Config/Base.php" />
    <install as="Components/Config/Bootstrap.php" name="lib/Components/Config/Bootstrap.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
    <install as="Components/Config/Hmk.php" name="lib/Components/Config/Hmk.php" />

@@ -29,6 +29,11 @@
  */
 class Components
 {
+
+    const ERROR_NO_COMPONENT = 'You are neither in a component directory nor specified it as the first argument!';
+
+    const ERROR_NO_ACTION = 'You did not specify an action!';
+
     /**
      * The main entry point for the application.
      *
@@ -49,7 +54,7 @@ class Components
         try {
             self::_validateArguments($config);
         } catch (Components_Exception $e) {
-            $parser->parserError($e->getMessage());
+            $parser->parserError(self::ERROR_NO_COMPONENT);
             return;
         }
         try {
@@ -106,7 +111,8 @@ class Components
             array(
                 'parser' => array(
                     'class' => empty($parameters['parser']['class']) ? 'Horde_Argv_Parser' : $parameters['parser']['class'],
-                    'usage' => '[options] PACKAGE_PATH'
+                    'usage' => '[options] [PACKAGE_PATH] [ACTION] [ARGUMENTS]
+'
                 ),
                 'modules' => array(
                     'directory' => dirname(__FILE__) . '/Components/Module',
@@ -187,6 +193,7 @@ class Components
             throw new Components_Exception('Please specify the path of the PEAR package!');
         }
         self::_requireDirectory($arguments[0]);
+        $config->setComponentDirectory($arguments[0], true);
     }
 
     /**
@@ -219,5 +226,21 @@ class Components
         if (!file_exists($path . '/package.xml')) {
             throw new Components_Exception(sprintf('%s contains no package.xml file!', $path));
         }
+    }
+
+    /**
+     * Checks if the file name is a package.xml file.
+     *
+     * @param string $path The path.
+     *
+     * @return boolean True if the provided file name points to a package.xml
+     *                 file.
+     */
+    static private function _isPackageXml($path)
+    {
+        if (basename($path) == 'package.xml' && file_exists($path)) {
+            return true;
+        }
+        return false;
     }
 }

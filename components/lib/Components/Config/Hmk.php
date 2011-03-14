@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Config_Hmk
-implements Components_Config
+extends Components_Config_Base
 {
     /**
      * The command line argument parser.
@@ -36,20 +36,6 @@ implements Components_Config
      * @var Horde_Argv_Parser
      */
     private $_parser;
-
-    /**
-     * The options parsed from the command line.
-     *
-     * @var array
-     */
-    private $_options;
-
-    /**
-     * Any additional arguments parsed from the command line.
-     *
-     * @var array
-     */
-    private $_arguments;
 
     /**
      * Constructor.
@@ -102,62 +88,5 @@ implements Components_Config
         );
 
         list($this->_options, $this->_arguments) = $this->_parser->parseArgs();
-    }
-
-    /**
-     * Set an additional option value.
-     *
-     * @param string $key   The option to set.
-     * @param string $value The value of the option.
-     *
-     * @return NULL
-     */
-    public function setOption($key, $value)
-    {
-        $this->_options[$key] = $value;
-    }
-
-    /**
-     * Return the options parsed from the command line.
-     *
-     * @return Horde_Argv_Values The option values.
-     */
-    public function getOptions()
-    {
-        return $this->_options;
-    }
-
-    /**
-     * Unshift an element to the argument list.
-     *
-     * @param string $element The element to unshift.
-     *
-     * @return NULL
-     */
-    public function unshiftArgument($element)
-    {
-        array_unshift($this->_arguments, $element);
-    }
-
-    /**
-     * Return the arguments parsed from the command line.
-     *
-     * @return array An array of arguments.
-     */
-    public function getArguments()
-    {
-        return $this->_arguments;
-    }
-
-    /**
-     * Return the first argument - the package directory - provided by the
-     * configuration handlers.
-     *
-     * @return string The package directory.
-     */
-    public function getPackageDirectory()
-    {
-        $arguments = $this->getArguments();
-        return $arguments[0];
     }
 }

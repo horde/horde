@@ -66,7 +66,7 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         if (!empty($options['snapshot'])) {
-            $this->requirePackageXml($config->getPackageDirectory());
+            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerSnapshot()->run();
         }
     }

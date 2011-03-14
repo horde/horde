@@ -28,22 +28,8 @@
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Config_Bootstrap
-implements Components_Config
+extends Components_Config_Base
 {
-    /**
-     * The options parsed from the command line.
-     *
-     * @var array
-     */
-    private $_options;
-
-    /**
-     * Any additional arguments parsed from the command line.
-     *
-     * @var array
-     */
-    private $_arguments;
-
     /**
      * Constructor.
      *
@@ -57,61 +43,5 @@ implements Components_Config
             'symlink' => true,
         );
         $this->_arguments = array();
-    }
-
-    /**
-     * Set an additional option value.
-     *
-     * @param string $key   The option to set.
-     * @param string $value The value of the option.
-     *
-     * @return NULL
-     */
-    public function setOption($key, $value)
-    {
-        $this->_options[$key] = $value;
-    }
-
-    /**
-     * Return the options parsed from the command line.
-     *
-     * @return array The option values.
-     */
-    public function getOptions()
-    {
-        return $this->_options;
-    }
-
-    /**
-     * Unshift an element to the argument list.
-     *
-     * @param string $element The element to unshift.
-     *
-     * @return NULL
-     */
-    public function unshiftArgument($element)
-    {
-        array_unshift($this->_arguments, $element);
-    }
-
-    /**
-     * Return the arguments parsed from the command line.
-     *
-     * @return array An array of arguments.
-     */
-    public function getArguments()
-    {
-        return $this->_arguments;
-    }
-
-    /**
-     * Return the first argument - the package directory - provided by the
-     * configuration handlers.
-     *
-     * @return string The package directory.
-     */
-    public function getPackageDirectory()
-    {
-        return '';
     }
 }

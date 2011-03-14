@@ -63,7 +63,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the updatexml option and the path', '')
-            ->then('the call will fail with', 'Please specify the path of the PEAR package!');
+            ->then('the call will fail with', 'You are neither in a component directory nor specified it as the first argument!');
     }
 
     /**
@@ -86,7 +86,7 @@ extends Components_StoryTestCase
                 'calling the package with the updatexml option and the path',
                 dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/DOESNOTEXIST'
             )
-            ->then('the call will fail with', 'specifies no directory');
+            ->then('the call will fail with', 'You are neither in a component directory nor specified it as the first argument!');
     }
 
     /**

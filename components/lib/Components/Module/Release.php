@@ -88,7 +88,7 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         if (!empty($options['release'])) {
-            $this->requirePackageXml($config->getPackageDirectory());
+            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerRelease()->run();
         }
     }

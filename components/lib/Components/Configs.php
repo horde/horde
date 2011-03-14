@@ -1,7 +1,7 @@
 <?php
 /**
  * Components_Configs:: class represents configuration for the
- * Horde element tool.
+ * Horde component tool.
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
 
 /**
  * Components_Configs:: class represents configuration for the
- * Horde element tool.
+ * Horde component tool.
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
@@ -28,22 +28,8 @@
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Configs
-implements Components_Config
+extends Components_Config_Base
 {
-    /**
-     * Additional options.
-     *
-     * @var array
-     */
-    private $_options = array();
-
-    /**
-     * Additional arguments.
-     *
-     * @var array
-     */
-    private $_arguments = array();
-
     /**
      * The different configuration handlers.
      *
@@ -85,19 +71,6 @@ implements Components_Config
     }
 
     /**
-     * Set an additional option value.
-     *
-     * @param string $key   The option to set.
-     * @param string $value The value of the option.
-     *
-     * @return NULL
-     */
-    public function setOption($key, $value)
-    {
-        $this->_options[$key] = $value;
-    }
-
-    /**
      * Return the options provided by the configuration handlers.
      *
      * @return array An array of options.
@@ -119,18 +92,6 @@ implements Components_Config
     }
 
     /**
-     * Unshift an element to the argument list.
-     *
-     * @param string $element The element to unshift.
-     *
-     * @return NULL
-     */
-    public function unshiftArgument($element)
-    {
-        array_unshift($this->_arguments, $element);
-    }
-
-    /**
      * Return the arguments provided by the configuration handlers.
      *
      * @return array An array of arguments.
@@ -145,17 +106,5 @@ implements Components_Config
             }
         }
         return $arguments;
-    }
-
-    /**
-     * Return the first argument - the package directory - provided by the
-     * configuration handlers.
-     *
-     * @return string The package directory.
-     */
-    public function getPackageDirectory()
-    {
-        $arguments = $this->getArguments();
-        return $arguments[0];
     }
 }
