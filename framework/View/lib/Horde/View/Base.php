@@ -194,8 +194,6 @@ abstract class Horde_View_Base
      * corresponding array value.
      *
      * @param array $array The array of key/value pairs to assign.
-     *
-     * @see __set()
      */
     public function assign($array)
     {
