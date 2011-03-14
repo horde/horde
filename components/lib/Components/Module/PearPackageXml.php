@@ -67,6 +67,27 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage description for this module.
+     *
+     * @return string The description.
+     */
+    public function getUsage()
+    {
+        return '  update - Update the package.xml manifest.
+';
+    }
+
+    /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array('update');
+    }
+
+    /**
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *
@@ -77,7 +98,8 @@ extends Components_Module_Base
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
-        if (!empty($options['updatexml'])) {
+        $arguments = $config->getArguments();
+        if (!empty($options['updatexml']) || $arguments[0] == 'update') {
             $this->_dependencies->getRunnerPearPackageXml()->run();
             return true;
         }

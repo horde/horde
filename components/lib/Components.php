@@ -85,7 +85,18 @@ class Components
             array(
                 'parser' => array(
                     'class' => empty($parameters['parser']['class']) ? 'Horde_Argv_Parser' : $parameters['parser']['class'],
-                    'usage' => '[options] [PACKAGE_PATH] [ACTION] [ARGUMENTS]
+                    'usage' => '[options] [COMPONENT_PATH] [ACTION] [ARGUMENTS]
+
+COMPONENT_PATH
+
+Specifies the path to the component you want to work with. This argument is optional in case your current working directory is the base directory of a component and contains a package.xml file.
+
+ACTION
+
+Selects the action to perform. Most actions can also be selected with an option switch.
+
+This is a list of available actions (use "help ACTION" to get additional information on the specified ACTION):
+
 '
                 ),
                 'modules' => array(

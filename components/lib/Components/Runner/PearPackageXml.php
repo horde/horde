@@ -79,7 +79,7 @@ class Components_Runner_PearPackageXml
             );
         }
 
-        if (!empty($options['updatexml'])) {
+        if (!empty($options['updatexml']) || $arguments[0] == 'update') {
             $package->updatePackageFile($options['action']);
         }
 
