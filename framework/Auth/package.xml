@@ -153,11 +153,16 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>pam</name>
+    <channel>pecl.php.net</channel>
+   </package>
+   <package>
+    <name>sasl</name>
+    <channel>pecl.php.net</channel>
+   </package>
    <extension>
     <name>pam_auth</name>
-   </extension>
-   <extension>
-    <name>sasl</name>
    </extension>
   </optional>
  </dependencies>
