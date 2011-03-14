@@ -23,9 +23,6 @@
    - Allow to specify the target location of the environment (default
      horde/lib)
 
- - Allow the component script to be context-sensitive and provide easy
-   commands when whithin a component directory
-
  - Allow channel dependency detection with external/local package
    dependencies.
 
