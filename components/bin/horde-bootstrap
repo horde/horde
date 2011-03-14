@@ -36,10 +36,12 @@ $path = dirname(__FILE__) . '/../../lib';
 if (!file_exists($path)) {
     mkdir($path, 0777, true);
 }
-$environment = realpath($path) . '/pearrc';
+$environment = realpath($path) . '/pear.conf';
 
 $dependencies = new Components_Dependencies_Bootstrap();
 $factory = $dependencies->getInstance('Components_Pear_Factory');
+
+$dependencies->getInstance('Components_Config')->setOption('symlink', true);
 
 $tree = $factory->createTreeHelper(
     $environment,
@@ -55,3 +57,12 @@ $tree->installTreeInEnvironment(
     $dependencies->getInstance('Components_Output'),
     $dependencies->getInstance('Components_Config')->getOptions()
 );
+
+$php_ini = 'include_path = ".:' . realpath($path) . '/pear/php"';
+file_put_contents(realpath($path) . '/php.ini', $php_ini);
+
+$env = '#!/bin/sh
+
+env PHPRC="' . realpath($path) . '" PATH="' . realpath($path) . '/pear:$PATH" PHP_PEAR_SYSCONF_DIR="' . realpath($path) . '" $SHELL';
+file_put_contents(realpath($path) . '/devenv', $env);
+chmod(realpath($path) . '/devenv', 0755);
