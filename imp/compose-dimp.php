@@ -230,7 +230,8 @@ $t->set('title', $title);
 
 $compose_result = IMP_Views_Compose::showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
-    'redirect' => ($vars->type == 'redirect')
+    'redirect' => ($vars->type == 'redirect'),
+    'show_editor' => $show_editor
 ));
 
 $t->set('compose_html', $compose_result['html']);

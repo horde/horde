@@ -20,8 +20,9 @@ class IMP_Views_Compose
      * @param array $args  Configuration parameters:
      * <pre>
      * 'composeCache' - (string) The cache ID of the IMP_Compose object.
-     * 'redirect' - (string) Display the redirect interface?
      * 'qreply' - (boolean) Is this a quickreply view?
+     * 'redirect' - (string) Display the redirect interface?
+     * 'show_editor' - (boolean) Show the HTML editor?
      * </pre>
      *
      * @return array  Array with the following keys:
@@ -33,7 +34,7 @@ class IMP_Views_Compose
      */
     static public function showCompose($args)
     {
-        global $conf, $injector, $prefs, $registry;
+        global $conf, $injector, $prefs, $registry, $session;
 
         $result = array(
             'html' => '',
@@ -74,8 +75,8 @@ class IMP_Views_Compose
                 $result['js'][] = 'DIMP.conf_compose.qreply = 1';
             }
 
-            if ($GLOBALS['session']->get('imp', 'rteavail')) {
-                $t->set('compose_html', $prefs->getValue('compose_html'));
+            if ($session->get('imp', 'rteavail')) {
+                $t->set('compose_html', !empty($args['show_editor']));
                 $t->set('rte', true);
 
                 IMP_Ui_Editor::init(!$t->get('compose_html'));
@@ -142,7 +143,7 @@ class IMP_Views_Compose
                 $t->set('encrypt', IMP::ENCRYPT_NONE);
             }
 
-            $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
+            $stationery = $injector->getInstance('IMP_Compose_Stationery');
             $t->set('stationery', count($stationery));
 
             $select_list = array();
