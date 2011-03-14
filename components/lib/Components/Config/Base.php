@@ -131,7 +131,7 @@ implements Components_Config
     public function getComponentDirectory()
     {
         if ($this->_component === null) {
-            throw new Component_Exception(
+            throw new Components_Exception(
                 'The selected component has not been identified yet!'
             );
         }
