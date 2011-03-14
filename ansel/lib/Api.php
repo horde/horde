@@ -405,7 +405,7 @@ class Ansel_Api extends Horde_Registry_Api
     public function removeImage($gallery_id, $image_id, $params = array())
     {
         /* Check global Ansel permissions */
-        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel')) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel', $GLOBALS['registry']->getAuth())) {
             throw new Horde_Exception_PermissionDenied(_("Access denied deleting galleries."));
         }
 
@@ -485,7 +485,7 @@ class Ansel_Api extends Horde_Registry_Api
     public function removeGallery($gallery_id, $params = array())
     {
         /* Check global Ansel permissions */
-        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel')) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel', $GLOBALS['registry']->getAuth())) {
             throw new Horde_Exception_PermissionDenied(_("Access denied deleting galleries."));
         }
 

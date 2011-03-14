@@ -78,9 +78,9 @@ class Wicked_Page
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         if ($pageId !== false && $perms->exists($permName)) {
-            return $perms->getPermissions($permName);
+            return $perms->getPermissions($permName, $GLOBALS['registry']->getAuth());
         } elseif ($perms->exists('wicked:pages')) {
-            return $perms->getPermissions('wicked:pages');
+            return $perms->getPermissions('wicked:pages', $GLOBALS['registry']->getAuth());
         } else {
             if (!$GLOBALS['registry']->getAuth()) {
                 return Horde_Perms::SHOW | Horde_Perms::READ;
@@ -122,7 +122,7 @@ class Wicked_Page
             $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
             if ($perms->exists($permName)) {
-                return $perms->getPermissions($permName) & Horde_Perms::EDIT;
+                return $perms->hasPermissions($permName, $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
             } else {
                 return $GLOBALS['registry']->getAuth();
             }

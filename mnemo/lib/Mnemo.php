@@ -345,7 +345,7 @@ class Mnemo
             return true;
         }
 
-        $allowed = $perms->getPermissions('mnemo:' . $permission);
+        $allowed = $perms->getPermissions('mnemo:' . $permission, $GLOBALS['registry']->getAuth());
         if (is_array($allowed)) {
             switch ($permission) {
             case 'max_notes':

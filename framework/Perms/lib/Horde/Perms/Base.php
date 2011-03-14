@@ -123,7 +123,7 @@ abstract class Horde_Perms_Base
      *
      * @return string  The object's short name.
      */
-    static public function getShortName($name)
+    public function getShortName($name)
     {
         /* If there are several components to the name, explode and
          * get the last one, otherwise just return the name. */
@@ -274,14 +274,13 @@ abstract class Horde_Perms_Base
      * @param mixed $permission  The full permission name of the object to
      *                           check the permissions of, or the
      *                           Horde_Permissions object.
-     * @param string $user       The user to check for. Defaults to the current
-     *                           user.
+     * @param string $user       The user to check for.
      * @param string $creator    The user who created the event.
      *
      * @return mixed  A bitmask of permissions the user has, false if there
      *                are none.
      */
-    public function getPermissions($permission, $user = null, $creator = null)
+    public function getPermissions($permission, $user, $creator = null)
     {
         if (is_string($permission)) {
             try {
@@ -292,10 +291,6 @@ abstract class Horde_Perms_Base
                 }
                 return false;
             }
-        }
-
-        if (is_null($user)) {
-            $user = $GLOBALS['registry']->getAuth();
         }
 
         // If this is a guest user, only check guest permissions.
@@ -406,7 +401,7 @@ abstract class Horde_Perms_Base
             : $GLOBALS['registry']->getApp();
 
         if ($this->exists($app . ':' . $permission)) {
-            $perms = $this->getPermissions($app . ':' . $permission);
+            $perms = $this->getPermissions($app . ':' . $permission, $GLOBALS['registry']->getAuth());
             if ($perms === false) {
                 return false;
             }

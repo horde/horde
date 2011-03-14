@@ -103,7 +103,7 @@ class IMP_Folder
             Horde::permissionDeniedError(
                 'imp',
                 'max_folders',
-                sprintf(_("You are not allowed to create more than %d folders."), $perms->getPermissions('max_folders'))
+                sprintf(_("You are not allowed to create more than %d folders."), $perms->getPermissions('max_folders', $GLOBALS['registry']->getAuth()))
             );
             return false;
         }

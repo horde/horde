@@ -359,7 +359,7 @@ class Turba
             return true;
         }
 
-        $allowed = $perms->getPermissions('turba:sources:' . $key);
+        $allowed = $perms->getPermissions('turba:sources:' . $key, $GLOBALS['registry']->getAuth());
         if (is_array($allowed)) {
             switch ($permission) {
             case 'max_contacts':
