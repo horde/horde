@@ -244,8 +244,8 @@ foreach ($migration->apps as $app) {
 
     if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
         /* Schema is out of date. */
-        $apps[$i]['db'] = $db_link . $error . '</a>';
-        $apps[$i]['dbstatus'] = $db_link . _("DB schema is out of date.") . '</a>';
+        $apps[$i]['db'] = $conf_link . $error . '</a>';
+        $apps[$i]['dbstatus'] = $conf_link . _("DB schema is out of date.") . '</a>';
         $schema_outdated = true;
     } else {
         /* Schema is ok. */
