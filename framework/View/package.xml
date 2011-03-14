@@ -146,7 +146,7 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Utils</name>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
