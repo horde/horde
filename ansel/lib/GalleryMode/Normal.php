@@ -210,7 +210,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         /* Delete original image from VFS. */
         try {
             $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile($image->getVFSPath('full'), $image->getVFSName('full'));
-        } catch (VFS_Exception $e) {}
+        } catch (Horde_Vfs_Exception $e) {}
 
         /* Delete from storage */
         $GLOBALS['injector']->getInstance('Ansel_Storage')->removeImage($image->id);

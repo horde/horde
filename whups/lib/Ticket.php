@@ -433,7 +433,7 @@ class Whups_Ticket {
 
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
 
@@ -463,7 +463,7 @@ class Whups_Ticket {
         try {
             $vfs->write($dir, $attachment_name, $attachment_file, true);
             return true;
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
     }
@@ -483,7 +483,7 @@ class Whups_Ticket {
 
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
 
@@ -497,7 +497,7 @@ class Whups_Ticket {
         try {
             $vfs->deleteFile($dir, $attachment_name);
             return true;
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
     }

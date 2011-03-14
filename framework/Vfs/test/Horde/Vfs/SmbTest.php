@@ -10,18 +10,14 @@
  * @package    VFS
  * @subpackage UnitTests
  */
-class VFS_SmbTest extends PHPUnit_Framework_TestCase
+class Horde_Vfs_SmbTest extends PHPUnit_Framework_TestCase
 {
     public function testParseListing()
     {
-        if (!class_exists('Log')) {
-            $this->markTestSkipped('The PEAR-Log package is not installed!');
-        }
-
-        $vfs = new VFS_smb();
+        $vfs = new Horde_Vfs_Smb();
 
         $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba1.txt'), null, true, false);
-        $this->assertType('array', $listing);
+        $this->assertInternalType('array', $listing);
         $this->assertEquals(7, count($listing));
         $this->assertEquals(
             array (
@@ -99,7 +95,7 @@ class VFS_SmbTest extends PHPUnit_Framework_TestCase
             $listing);
 
         $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba2.txt'), null, true, false);
-        $this->assertType('array', $listing);
+        $this->assertInternalType('array', $listing);
         $this->assertEquals(26, count($listing));
         $this->assertEquals(
             array (

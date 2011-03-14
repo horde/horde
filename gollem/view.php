@@ -37,7 +37,7 @@ try {
     } else {
         $data = $gollem_vfs->read($vars->dir, $vars->file);
     }
-} catch (VFS_Exception $e) {
+} catch (Horde_Vfs_Exception $e) {
     Horde::logMessage($e, 'NOTICE');
     throw $e;
 }

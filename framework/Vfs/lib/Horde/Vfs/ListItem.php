@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jon Wood <jon@jellybob.co.uk>
- * @package VFS
+ * @package Vfs
  */
-class VFS_ListItem
+class Horde_Vfs_ListItem
 {
     /**
      * VFS path.
@@ -93,7 +93,7 @@ class VFS_ListItem
      * Constructor
      *
      * Requires the path to the file, and it's array of properties,
-     * returned from a standard VFS::listFolder() call.
+     * returned from a standard Horde_Vfs::listFolder() call.
      *
      * @param string $path      The path to the file.
      * @param array $fileArray  An array of file properties.

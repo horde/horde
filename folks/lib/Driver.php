@@ -88,7 +88,7 @@ class Folks_Driver {
         // Store big image
         try {
             $vfs->writeData($vfspath . '/big/', $vfs_name, $img->raw(), true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return PEAR::raiseError($result->getMessage());
         }
 
@@ -116,7 +116,7 @@ class Folks_Driver {
         try {
             $vfs->deleteFile($vfspath . '/big/', $vfs_name);
             $vfs->deleteFile($vfspath . '/small/', $vfs_name);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return $e->getMessage();
         }
 

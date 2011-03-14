@@ -49,9 +49,9 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package VFS
+ * @package Vfs
  */
-class VFS_musql extends VFS_sql
+class Horde_Vfs_Musql extends Horde_Vfs_Sql
 {
     /* Permission for read access. */
     const FLAG_READ = 1;
@@ -90,7 +90,7 @@ class VFS_musql extends VFS_sql
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
@@ -102,7 +102,7 @@ class VFS_musql extends VFS_sql
             $path_name = array_pop($paths);
             if (!$this->isFolder(implode('/', $paths), $path_name)) {
                 if (!$autocreate) {
-                    throw new VFS_Exception(sprintf('Folder "%s" does not exist'), $path);
+                    throw new Horde_Vfs_Exception(sprintf('Folder "%s" does not exist'), $path);
                 } else {
                     $this->autocreatePath($path);
                 }
@@ -118,10 +118,10 @@ class VFS_musql extends VFS_sql
                 $results = $this->_db->getAll($sql, array($previous, $thispath));
                 if ($results instanceof PEAR_Error) {
                     $this->_logger->err($results);
-                    throw new VFS_Exception($results->getMessage());
+                    throw new Horde_Vfs_Exception($results->getMessage());
                 }
                 if (!is_array($results) || count($results) < 1) {
-                    throw new VFS_Exception('Unable to create VFS file.');
+                    throw new Horde_Vfs_Exception('Unable to create VFS file.');
                 }
 
                 $allowed = false;
@@ -134,7 +134,7 @@ class VFS_musql extends VFS_sql
                 }
 
                 if (!$allowed) {
-                    throw new VFS_Exception('Access denied creating VFS file.');
+                    throw new Horde_Vfs_Exception('Access denied creating VFS file.');
                 }
 
                 $previous = $thispath;
@@ -150,7 +150,7 @@ class VFS_musql extends VFS_sql
      * @param string $path  The path to store the file in.
      * @param string $name  The filename to use.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFile($path, $name)
     {
@@ -164,10 +164,10 @@ class VFS_musql extends VFS_sql
 
         if ($fileList instanceof PEAR_Error) {
             $this->_logger->err($fileList);
-            throw new VFS_Exception($fileList->getMessage());
+            throw new Horde_Vfs_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
-            throw new VFS_Exception('Unable to delete VFS file.');
+            throw new Horde_Vfs_Exception('Unable to delete VFS file.');
         }
 
         /* There may be one or more files with the same name but the user may
@@ -183,17 +183,17 @@ class VFS_musql extends VFS_sql
 
                 if ($result instanceof PEAR_Error) {
                     $this->_logger->err($result);
-                    throw new VFS_Exception($result->getMessage());
+                    throw new Horde_Vfs_Exception($result->getMessage());
                 }
                 if ($this->_db->affectedRows() == 0) {
-                    throw new VFS_Exception('Unable to delete VFS file.');
+                    throw new Horde_Vfs_Exception('Unable to delete VFS file.');
                 }
                 return $result;
             }
         }
 
         // FIXME: 'Access Denied deleting file %s/%s'
-        throw new VFS_Exception('Unable to delete VFS file.');
+        throw new Horde_Vfs_Exception('Unable to delete VFS file.');
     }
 
     /**
@@ -204,7 +204,7 @@ class VFS_musql extends VFS_sql
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function rename($oldpath, $oldname, $newpath, $newname)
     {
@@ -218,10 +218,10 @@ class VFS_musql extends VFS_sql
 
         if ($fileList instanceof PEAR_Error) {
             $this->_logger->err($fileList);
-            throw new VFS_Exception($fileList);
+            throw new Horde_Vfs_Exception($fileList);
         }
         if (!is_array($fileList) || count($fileList) < 1) {
-            throw new VFS_Exception('Unable to rename VFS file.');
+            throw new Horde_Vfs_Exception('Unable to rename VFS file.');
         }
 
         if (strpos($newpath, '/') === false) {
@@ -249,13 +249,13 @@ class VFS_musql extends VFS_sql
                     array($newpath, $newname, time(), $file[0]));
                 if ($result instanceof PEAR_Error) {
                     $this->_logger->err($result);
-                    throw new VFS_Exception($result->getMessage());
+                    throw new Horde_Vfs_Exception($result->getMessage());
                 }
                 return $result;
             }
         }
 
-        throw new VFS_Exception(sprintf('Unable to rename VFS file %s/%s.', $oldpath, $oldname));
+        throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS file %s/%s.', $oldpath, $oldname));
     }
 
     /**
@@ -264,7 +264,7 @@ class VFS_musql extends VFS_sql
      * @param string $path  Holds the path of directory to create folder.
      * @param string $name  Holds the name of the new folder.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function createFolder($path, $name)
     {
@@ -283,10 +283,10 @@ class VFS_musql extends VFS_sql
                 $results = $this->_db->getAll($sql, array($previous, $thispath));
                 if ($results instanceof PEAR_Error) {
                     $this->_logger->err($results);
-                    throw new VFS_Exception($results->getMessage());
+                    throw new Horde_Vfs_Exception($results->getMessage());
                 }
                 if (!is_array($results) || count($results) < 1) {
-                    throw new VFS_Exception('Unable to create VFS directory.');
+                    throw new Horde_Vfs_Exception('Unable to create VFS directory.');
                 }
 
                 $allowed = false;
@@ -299,7 +299,7 @@ class VFS_musql extends VFS_sql
                 }
 
                 if (!$allowed) {
-                    throw new VFS_Exception('Access denied creating VFS directory.');
+                    throw new Horde_Vfs_Exception('Access denied creating VFS directory.');
                 }
 
                 $previous = $thispath;
@@ -317,7 +317,7 @@ class VFS_musql extends VFS_sql
             array($id, VFS_FOLDER, $path, $name, time(), $this->_params['user'], 0));
         if ($result instanceof PEAR_Error) {
             $this->_logger->err($result);
-            throw new VFS_Exception($result->getMessage());
+            throw new Horde_Vfs_Exception($result->getMessage());
         }
 
         return $result;
@@ -330,7 +330,7 @@ class VFS_musql extends VFS_sql
      * @param string $name        The foldername to use.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFolder($path, $name, $recursive = false)
     {
@@ -341,7 +341,7 @@ class VFS_musql extends VFS_sql
         } else {
             $list = $this->listFolder($path . '/' . $name);
             if (count($list)) {
-                throw new VFS_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
+                throw new Horde_Vfs_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
             }
         }
 
@@ -353,10 +353,10 @@ class VFS_musql extends VFS_sql
 
         if ($fileList instanceof PEAR_Error) {
             $this->_logger->err($fileList);
-            throw new VFS_Exception($fileList->getMessage());
+            throw new Horde_Vfs_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
-            throw new VFS_Exception('Unable to delete VFS directory.');
+            throw new Horde_Vfs_Exception('Unable to delete VFS directory.');
         }
 
         /* There may be one or more folders with the same name but as the user
@@ -372,10 +372,10 @@ class VFS_musql extends VFS_sql
 
                 if ($result instanceof PEAR_Error) {
                     $this->_logger->err($result);
-                    throw new VFS_Exception($result->getMessage());
+                    throw new Horde_Vfs_Exception($result->getMessage());
                 }
                 if ($this->_db->affectedRows() == 0) {
-                    throw new VFS_Exception('Unable to delete VFS directory.');
+                    throw new Horde_Vfs_Exception('Unable to delete VFS directory.');
                 }
 
                 return $result;
@@ -383,7 +383,7 @@ class VFS_musql extends VFS_sql
         }
 
         // FIXME: 'Access Denied deleting folder %s/%s'
-        throw new VFS_Exception('Unable to delete VFS directory.');
+        throw new Horde_Vfs_Exception('Unable to delete VFS directory.');
     }
 
     /**
@@ -395,7 +395,7 @@ class VFS_musql extends VFS_sql
      * @param boolean $dironly   Show only directories?
      *
      * @return array  File list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
@@ -412,7 +412,7 @@ class VFS_musql extends VFS_sql
             array($path, $this->_params['user'], self::FLAG_READ));
         if ($fileList instanceof PEAR_Error) {
             $this->_logger->err($fileList);
-            throw new VFS_Exception($fileList->getMessage());
+            throw new Horde_Vfs_Exception($fileList->getMessage());
         }
 
         $files = array();
@@ -430,7 +430,7 @@ class VFS_musql extends VFS_sql
                 if (count($name) == 1) {
                     $file['type'] = '**none';
                 } else {
-                    $file['type'] = self::strtolower($name[count($name) - 1]);
+                    $file['type'] = Horde_String::lower($name[count($name) - 1]);
                 }
 
                 $file['size'] = $line[5];
@@ -473,7 +473,7 @@ class VFS_musql extends VFS_sql
      * @param string $path  Holds the path of directory of the Item.
      * @param string $name  Holds the name of the Item.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function changePermissions($path, $name, $permission)
     {
@@ -492,10 +492,10 @@ class VFS_musql extends VFS_sql
 
         if ($fileList instanceof PEAR_Error) {
             $this->_logger->err($fileList);
-            throw new VFS_Exception($fileList->getMessage());
+            throw new Horde_Vfs_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
-            throw new VFS_Exception('Unable to rename VFS file.');
+            throw new Horde_Vfs_Exception('Unable to rename VFS file.');
         }
 
         /* There may be one or more files with the same name but the user may
@@ -510,13 +510,13 @@ class VFS_musql extends VFS_sql
                 $this->_logger->debug($sql);
                 $result = $this->_db->query($sql, array($perm, $file[0]));
                 if ($result instanceof PEAR_Error) {
-                    throw new VFS_Exception($result->getMessage());
+                    throw new Horde_Vfs_Exception($result->getMessage());
                 }
                 return $result;
             }
         }
 
-        throw new VFS_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
+        throw new Horde_Vfs_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
     }
 
 }

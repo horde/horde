@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package VFS
+ * @package Vfs
  */
-class VFS_Browser
+class Horde_Vfs_Browser
 {
     /**
      * The VFS instance that we are browsing.
@@ -55,7 +55,7 @@ class VFS_Browser
      * @param boolean $dotfiles  TODO
      * @param boolean $dironly   TODO
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function getUI($path, $dotfiles = false, $dironly = false)
     {

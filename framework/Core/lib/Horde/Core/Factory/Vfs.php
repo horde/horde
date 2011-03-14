@@ -41,7 +41,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
     {
         if (empty($this->_instances[$scope])) {
             $params = $this->getConfig($scope);
-            $this->_instances[$scope] = VFS::factory($params['type'], $params['params']);
+            $this->_instances[$scope] = Horde_Vfs::factory($params['type'], $params['params']);
             $this->_instances[$scope]->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
         }
 
@@ -61,7 +61,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
     {
         global $conf;
 
-        if (($name !== 'horde') && !isset($conf[$name]['type'])) {
+        if ($name !== 'horde' && !isset($conf[$name]['type'])) {
             throw new Horde_Exception(Horde_Core_Translation::t("You must configure a VFS backend."));
         }
 
@@ -69,15 +69,15 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             ? $conf['vfs']
             : $conf[$name];
 
-        switch ($vfs['type']) {
-        case 'sql':
+        switch (Horde_String::ucfirst($vfs['type'])) {
+        case 'Sql':
             $db_pear = $this->_injector->getInstance('Horde_Core_Factory_DbPear');
             $vfs['params'] = $db_pear->getConfig('vfs');
             $vfs['params']['db'] = $db_pear->create('read', 'horde', 'vfs');
             $vfs['params']['writedb'] = $db_pear->create('rw', 'horde', 'vfs');
             break;
 
-        case 'sql_file':
+        case 'SqlFile':
             $db_pear = $this->_injector->getInstance('Horde_Core_Factory_DbPear');
             $vfs['params'] = $db_pear->getConfig('vfs');
             $vfs['params']['db'] = $db_pear->create('rw', 'horde', 'vfs');
@@ -86,5 +86,4 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
 
         return $vfs;
     }
-
 }

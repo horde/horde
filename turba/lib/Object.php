@@ -333,7 +333,7 @@ class Turba_Object
         }
         try {
             $this->_vfs->write($dir, $file, $info['tmp_name'], true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Turba_Exception($e);
         }
     }
@@ -349,7 +349,7 @@ class Turba_Object
         $this->_vfsInit();
         try {
             $this->_vfs->deleteFile(Turba::VFS_PATH . '/' . $this->getValue('__uid'), $file);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Turba_Exception($e);
         }
     }
@@ -365,7 +365,7 @@ class Turba_Object
         if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
             try {
                 $this->_vfs->deleteFolder(Turba::VFS_PATH, $this->getValue('__uid'), true);
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 throw new Turba_Exception($e);
             }
         }

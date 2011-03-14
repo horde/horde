@@ -51,7 +51,7 @@ abstract class Wicked_Driver {
         if (!$this->_vfs) {
             try {
                 $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 throw new Wicked_Exception($e);
             }
         }
@@ -244,7 +244,7 @@ abstract class Wicked_Driver {
         $path = WICKED_VFS_ATTACH_PATH . '/' . $file['page_id'];
         try {
             $vfs->writeData($path, $file['attachment_name'] . ';' . $result, $data, true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Wicked_Exception($e);
         }
     }
@@ -277,7 +277,7 @@ abstract class Wicked_Driver {
                 }
                 try {
                     $vfs->deleteFile($path, $attachment . ';' . $fileversion);
-                } catch (VFS_Exception $e) {
+                } catch (Horde_Vfs_Exception $e) {
                     throw new Wicked_Exception($e);
                 }
             }
@@ -300,7 +300,7 @@ abstract class Wicked_Driver {
 
         try {
             $vfs->deleteFolder(WICKED_VFS_ATTACH_PATH, $pageId, true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Wicked_Exception($e);
         }
     }
@@ -340,7 +340,7 @@ abstract class Wicked_Driver {
 
         try {
             return $vfs->read($path, $filename . ';' . $version);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Wicked_Exception($e);
         }
     }

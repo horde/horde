@@ -49,7 +49,7 @@ class Hylax_Storage {
         $file = $fax_id . $type;
         try {
             $this->_vfs->writeData($path, $file, $data, true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage('Could not save fax file to VFS: ' . $e->getMessage(), 'ERR');
             throw $e;
         }
@@ -105,7 +105,7 @@ class Hylax_Storage {
         $file = $fax_id . '.ps';
         try {
             return $this->_vfs->read($path, $file);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage(sprintf("%s '%s/%s'.", $e->getMessage(), $path, $file), 'ERR');
             throw $e;
         }

@@ -41,7 +41,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  VFS
  */
-class VFS_sql extends VFS
+class Horde_Vfs_Sql extends Horde_Vfs_Base
 {
     /* File value for vfs_type column. */
     const FILE = 1;
@@ -79,7 +79,7 @@ class VFS_sql extends VFS
      * @param string $name  The filename to retrieve.
      *
      * @return integer  The file size.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function size($path, $name)
     {
@@ -96,7 +96,7 @@ class VFS_sql extends VFS
         $size = $this->_db->getOne($sql, $values);
 
         if (is_null($size)) {
-            throw new VFS_Exception(sprintf('Unable to check file size of "%s/%s".', $path, $name));
+            throw new Horde_Vfs_Exception(sprintf('Unable to check file size of "%s/%s".', $path, $name));
         }
 
         return $size;
@@ -109,7 +109,7 @@ class VFS_sql extends VFS
      * @param string $name  The filename.
      *
      * @return integer  The size of the folder in bytes.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function getFolderSize($path = null, $name = null)
     {
@@ -138,7 +138,7 @@ class VFS_sql extends VFS
      * @param string $name  The filename to retrieve.
      *
      * @return string  The file data.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function read($path, $name)
     {
@@ -167,7 +167,7 @@ class VFS_sql extends VFS
      *                            is retrieved.
      *
      * @return string  The file data.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function readByteRange($path, $name, &$offset, $length = -1,
                                   &$remaining)
@@ -205,7 +205,7 @@ class VFS_sql extends VFS
      *                             be stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function write($path, $name, $tmpFile, $autocreate = false)
     {
@@ -225,7 +225,7 @@ class VFS_sql extends VFS
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
@@ -244,7 +244,7 @@ class VFS_sql extends VFS
 
         if ($id instanceof PEAR_Error) {
             $this->_logger->err($id);
-            throw new VFS_Exception($id->getMessage());
+            throw new Horde_Vfs_Exception($id->getMessage());
         }
 
         if (!is_null($id)) {
@@ -258,7 +258,7 @@ class VFS_sql extends VFS
             $parent = implode('/', $dirs);
             if (!$this->isFolder($parent, $path_name)) {
                 if (!$autocreate) {
-                    throw new VFS_Exception(sprintf('Folder "%s" does not exist', $path));
+                    throw new Horde_Vfs_Exception(sprintf('Folder "%s" does not exist', $path));
                 }
 
                 $this->autocreatePath($path);
@@ -267,7 +267,7 @@ class VFS_sql extends VFS
             $id = $this->_write_db->nextId($this->_params['table']);
             if ($id instanceof PEAR_Error) {
                 $this->_logger->err($id);
-                throw new VFS_Exception($id->getMessage());
+                throw new Horde_Vfs_Exception($id->getMessage());
             }
 
             return $this->_insertBlob($this->_params['table'], 'vfs_data', $data, array(
@@ -287,7 +287,7 @@ class VFS_sql extends VFS
      * @param string $path  The path to store the file in.
      * @param string $name  The filename to use.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFile($path, $name)
     {
@@ -304,7 +304,7 @@ class VFS_sql extends VFS
         $result = $this->_write_db->query($sql, $values);
 
         if ($this->_db->affectedRows() == 0) {
-            throw new VFS_Exception('Unable to delete VFS file.');
+            throw new Horde_Vfs_Exception('Unable to delete VFS file.');
         }
 
         return $result;
@@ -318,7 +318,7 @@ class VFS_sql extends VFS
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function rename($oldpath, $oldname, $newpath, $newname)
     {
@@ -347,13 +347,13 @@ class VFS_sql extends VFS
         $result = $this->_write_db->query($sql, $values);
 
         if ($this->_write_db->affectedRows() == 0) {
-            throw new VFS_Exception('Unable to rename VFS file.');
+            throw new Horde_Vfs_Exception('Unable to rename VFS file.');
         }
 
         $rename = $this->_recursiveRename($oldpath, $oldname, $newpath, $newname);
         if ($rename instanceof PEAR_Error) {
             $this->_logger->err($rename);
-            throw new VFS_Exception(sprintf('Unable to rename VFS directory: %s.', $rename->getMessage()));
+            throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS directory: %s.', $rename->getMessage()));
         }
 
         return $result;
@@ -365,7 +365,7 @@ class VFS_sql extends VFS
      * @param string $path  Holds the path of directory to create folder.
      * @param string $name  Holds the name of the new folder.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function createFolder($path, $name)
     {
@@ -374,7 +374,7 @@ class VFS_sql extends VFS
         $id = $this->_write_db->nextId($this->_params['table']);
         if ($id instanceof PEAR_Error) {
             $this->_logger->err($id);
-            throw new VFS_Exception($id->getMessage());
+            throw new Horde_Vfs_Exception($id->getMessage());
         }
 
         $sql = 'INSERT INTO ' . $this->_params['table'] .
@@ -393,7 +393,7 @@ class VFS_sql extends VFS
      * @param string $name        The folder name to use.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFolder($path, $name, $recursive = false)
     {
@@ -406,7 +406,7 @@ class VFS_sql extends VFS
         if (!$recursive) {
             $folderList = $this->listFolder($folderPath, null, true);
             if (!empty($folderList)) {
-                throw new VFS_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
+                throw new Horde_Vfs_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
             }
         }
 
@@ -419,7 +419,7 @@ class VFS_sql extends VFS
         $deleteContents = $this->_write_db->query($sql);
         if ($deleteContents instanceof PEAR_Error) {
             $this->_logger->err($deleteContents);
-            throw new VFS_Exception(sprintf('Unable to delete VFS recursively: %s.', $deleteContents->getMessage()));
+            throw new Horde_Vfs_Exception(sprintf('Unable to delete VFS recursively: %s.', $deleteContents->getMessage()));
         }
 
         /* Now delete everything inside the folder. */
@@ -430,7 +430,7 @@ class VFS_sql extends VFS
         $delete = $this->_write_db->query($sql);
         if ($delete instanceof PEAR_Error) {
             $this->_logger->err($delete);
-            throw new VFS_Exception(sprintf('Unable to delete VFS directory: %s.', $delete->getMessage()));
+            throw new Horde_Vfs_Exception(sprintf('Unable to delete VFS directory: %s.', $delete->getMessage()));
         }
 
         /* All ok now delete the actual folder */
@@ -442,7 +442,7 @@ class VFS_sql extends VFS
         $delete = $this->_write_db->query($sql, $values);
         if ($delete instanceof PEAR_Error) {
             $this->_logger->err($delete);
-            throw new VFS_Exception(sprintf('Unable to delete VFS directory: %s.', $delete->getMessage()));
+            throw new Horde_Vfs_Exception(sprintf('Unable to delete VFS directory: %s.', $delete->getMessage()));
         }
     }
 
@@ -456,7 +456,7 @@ class VFS_sql extends VFS
      * @param boolean $dironly   Show directories only?
      *
      * @return array  File list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
@@ -480,7 +480,7 @@ class VFS_sql extends VFS
         $this->_logger->debug($sql);
         $fileList = $this->_db->getAll($sql);
         if ($fileList instanceof PEAR_Error) {
-            throw new VFS_Exception($fileList->getMessage());
+            throw new Horde_Vfs_Exception($fileList->getMessage());
         }
 
         $files = array();
@@ -498,7 +498,7 @@ class VFS_sql extends VFS
                 if (count($name) == 1) {
                     $file['type'] = '**none';
                 } else {
-                    $file['type'] = self::strtolower($name[count($name) - 1]);
+                    $file['type'] = Horde_String::lower($name[count($name) - 1]);
                 }
 
                 $file['size'] = $line[2];
@@ -539,7 +539,7 @@ class VFS_sql extends VFS
      * @param boolean $dotfolders  Include dotfolders?
      *
      * @return array  Folder list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function listFolders($path = '', $filter = array(),
                                 $dotfolders = true)
@@ -556,7 +556,7 @@ class VFS_sql extends VFS
 
         $folderList = $this->_db->getAll($sql, $values);
         if ($folderList instanceof PEAR_Error) {
-            throw new VFS_Exception($folderList->getMessage());
+            throw new Horde_Vfs_Exception($folderList->getMessage());
         }
 
         $folders = array();
@@ -577,7 +577,7 @@ class VFS_sql extends VFS
             $folder['abbrev'] .= $line[0];
             $folder['label'] .= $line[0];
 
-            $strlen = VFS::strlen($folder['label']);
+            $strlen = Horde_String::length($folder['label']);
             if ($strlen > 26) {
                 $folder['abbrev'] = substr($folder['label'], 0, ($count * 4));
                 $length = (29 - ($count * 4)) / 2;
@@ -609,7 +609,7 @@ class VFS_sql extends VFS
      * @param integer $secs  The minimum amount of time (in seconds) required
      *                       before a file is removed.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function gc($path, $secs = 345600)
     {
@@ -635,7 +635,7 @@ class VFS_sql extends VFS
      * @param string $path  The path of the folder to rename.
      * @param string $name  The foldername to use.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _recursiveRename($oldpath, $oldname, $newpath, $newname)
     {
@@ -688,7 +688,7 @@ class VFS_sql extends VFS
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _connect()
     {
@@ -697,7 +697,7 @@ class VFS_sql extends VFS
         }
 
         if (!isset($this->_params['db'])) {
-            throw new VFS_Exception('Required "db" not specified in VFS configuration.');
+            throw new Horde_Vfs_Exception('Required "db" not specified in VFS configuration.');
         }
 
         $this->_params = array_merge(array(
@@ -720,12 +720,12 @@ class VFS_sql extends VFS
      * @param array $criteria  TODO
      *
      * @return mixed  TODO
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _readBlob($table, $field, $criteria)
     {
         if (!count($criteria)) {
-            throw new VFS_Exception('You must specify the fetch criteria');
+            throw new Horde_Vfs_Exception('You must specify the fetch criteria');
         }
 
         $where = '';
@@ -750,11 +750,11 @@ class VFS_sql extends VFS
             if (OCIFetchInto($statement, $lob)) {
                 $result = $lob[0]->load();
                 if (is_null($result)) {
-                    throw new VFS_Exception('Unable to load SQL data.');
+                    throw new Horde_Vfs_Exception('Unable to load SQL data.');
                 }
             } else {
                 OCIFreeStatement($statement);
-                throw new VFS_Exception('Unable to load SQL data.');
+                throw new Horde_Vfs_Exception('Unable to load SQL data.');
             }
             OCIFreeStatement($statement);
             break;
@@ -773,7 +773,7 @@ class VFS_sql extends VFS
             $result = $this->_db->getOne($sql);
 
             if (is_null($result)) {
-                throw new VFS_Exception('Unable to load SQL data.');
+                throw new Horde_Vfs_Exception('Unable to load SQL data.');
             } else {
                 switch ($this->_db->dbsyntax) {
                 case 'pgsql':
@@ -795,7 +795,7 @@ class VFS_sql extends VFS
      * @param string $attributes  TODO
      *
      * @return mixed  TODO
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _insertBlob($table, $field, $data, $attributes)
     {
@@ -827,7 +827,7 @@ class VFS_sql extends VFS
             if ($result) {
                 return true;
             }
-            throw new VFS_Exception('Unknown Error');
+            throw new Horde_Vfs_Exception('Unknown Error');
 
         default:
             foreach ($attributes as $key => $value) {
@@ -868,7 +868,7 @@ class VFS_sql extends VFS
      * @param array $alsoupdate  TODO
      *
      * @return mixed  TODO
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _updateBlob($table, $field, $data, $where, $alsoupdate)
     {
@@ -899,7 +899,7 @@ class VFS_sql extends VFS
             if ($result) {
                 return true;
             }
-            throw new VFS_Exception('Unknown Error');
+            throw new Horde_Vfs_Exception('Unknown Error');
 
         default:
             $updatestring = '';
@@ -981,7 +981,7 @@ class VFS_sql extends VFS
     }
 
     /**
-     * VFS_sql override of isFolder() to check for root folder.
+     * Horde_Vfs_Sql override of isFolder() to check for root folder.
      *
      * @param string $path  Path to possible folder
      * @param string $name  Name of possible folder

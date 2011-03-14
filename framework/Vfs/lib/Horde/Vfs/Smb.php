@@ -31,9 +31,9 @@
  *
  * @author  Paul Gareau <paul@xhawk.net>
  * @author  Patrice Levesque <wayne@ptaff.ca>
- * @package VFS
+ * @package Vfs
  */
-class VFS_smb extends VFS
+class Horde_Vfs_Smb extends Horde_Vfs_Base
 {
     /**
      * List of additional credentials required for this VFS backend.
@@ -45,14 +45,14 @@ class VFS_smb extends VFS
     /**
      * Authenticates a user on the SMB server and share.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _connect()
     {
         try {
             $this->_command('', array('quit'));
-        } catch (VFS_Exception $e) {
-            throw new VFS_Exception('Authentication to the SMB server failed.');
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Horde_Vfs_Exception('Authentication to the SMB server failed.');
         }
     }
 
@@ -90,7 +90,7 @@ class VFS_smb extends VFS
         // Create a temporary file and register it for deletion at the
         // end of this request.
         if (!($localFile = tempnam(null, 'vfs'))) {
-            throw new VFS_Exception('Unable to create temporary file.');
+            throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
         register_shutdown_function(create_function('', '@unlink(\'' . addslashes($localFile) . '\');'));
 
@@ -98,7 +98,7 @@ class VFS_smb extends VFS
         $cmd = array('get \"' . $name . '\" ' . $localFile);
         $this->_command($path, $cmd);
         if (!file_exists($localFile)) {
-            throw new VFS_Exception(sprintf('Unable to open VFS file "%s".', $this->_getPath($path, $name)));
+            throw new Horde_Vfs_Exception(sprintf('Unable to open VFS file "%s".', $this->_getPath($path, $name)));
         }
 
         return $localFile;
@@ -126,7 +126,7 @@ class VFS_smb extends VFS
      *                             stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function write($path, $name, $tmpFile, $autocreate = false)
     {
@@ -151,7 +151,7 @@ class VFS_smb extends VFS
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
@@ -160,7 +160,7 @@ class VFS_smb extends VFS
         try {
             $this->write($path, $name, $tmpFile, $autocreate);
             unlink($tmpFile);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             unlink($tmpFile);
             throw $e;
         }
@@ -172,7 +172,7 @@ class VFS_smb extends VFS
      * @param string $path  The path to delete the file from.
      * @param string $name  The filename to use.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFile($path, $name)
     {
@@ -202,7 +202,7 @@ class VFS_smb extends VFS
         try {
             $this->_command($this->_getPath($path, $name), array('quit'));
             return true;
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return false;
         }
     }
@@ -214,7 +214,7 @@ class VFS_smb extends VFS
      * @param string $name        The name of the folder to delete.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFolder($path, $name, $recursive = false)
     {
@@ -225,13 +225,13 @@ class VFS_smb extends VFS
         }
 
         if (!$this->isFolder($path, $name)) {
-            throw new VFS_Exception(sprintf('"%s" is not a directory.', $path . '/' . $name));
+            throw new Horde_Vfs_Exception(sprintf('"%s" is not a directory.', $path . '/' . $name));
         }
 
         $file_list = $this->listFolder($this->_getPath($path, $name));
 
         if ($file_list && !$recursive) {
-            throw new VFS_Exception(sprintf('Unable to delete "%s", the directory is not empty.', $this->_getPath($path, $name)));
+            throw new Horde_Vfs_Exception(sprintf('Unable to delete "%s", the directory is not empty.', $this->_getPath($path, $name)));
         }
 
         foreach ($file_list as $file) {
@@ -248,8 +248,8 @@ class VFS_smb extends VFS
 
         try {
             $this->_command($path, $cmd);
-        } catch (VFS_Exception $e) {
-            throw new VFS_Exception(sprintf('Unable to delete VFS folder "%s".', $this->_getPath($path, $name)));
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Horde_Vfs_Exception(sprintf('Unable to delete VFS folder "%s".', $this->_getPath($path, $name)));
         }
     }
 
@@ -261,7 +261,7 @@ class VFS_smb extends VFS
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function rename($oldpath, $oldname, $newpath, $newname)
     {
@@ -273,7 +273,7 @@ class VFS_smb extends VFS
         $newname = str_replace('"', "'", trim($newname, '/'));
 
         if (empty($oldname)) {
-            throw new VFS_Exception('Unable to rename VFS file to same name.');
+            throw new Horde_Vfs_Exception('Unable to rename VFS file to same name.');
         }
 
         /* If the path was not empty (i.e. the path is not the root path),
@@ -291,8 +291,8 @@ class VFS_smb extends VFS
 
         try {
             $this->_command('', $cmd);
-        } catch (VFS_Exception $e) {
-            throw new VFS_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($path, $name)));
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($path, $name)));
         }
     }
 
@@ -302,7 +302,7 @@ class VFS_smb extends VFS
      * @param string $path  The path of directory to create folder.
      * @param string $name  The name of the new folder.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function createFolder($path, $name)
     {
@@ -320,8 +320,8 @@ class VFS_smb extends VFS
 
         try {
             $this->_command($dir, $cmd);
-        } catch (VFS_Exception $e) {
-            throw new VFS_Exception(sprintf('Unable to create VFS folder "%s".', $this->_getPath($path, $name)));
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Horde_Vfs_Exception(sprintf('Unable to create VFS folder "%s".', $this->_getPath($path, $name)));
         }
     }
 
@@ -334,12 +334,13 @@ class VFS_smb extends VFS
      * @param boolean $dotfiles  Show dotfiles? This is irrelevant with
      *                           smbclient.
      * @param boolean $dironly   Show directories only?
+     * @param boolean $recursive  Return all directory levels recursively?
      *
      * @return array  File list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function listFolder($path = '', $filter = null, $dotfiles = true,
-                               $dironly = false)
+                               $dironly = false, $recursive = false)
     {
         list($path) = $this->_escapeShellCommand($path);
         return $this->parseListing($this->_command($path, array('ls')), $filter, $dotfiles, $dironly);
@@ -376,7 +377,7 @@ class VFS_smb extends VFS
                 $my_type = '**dir';
                 $my_size = -1;
             } else {
-                $my_type = self::strtolower($ext_name[count($ext_name) - 1]);
+                $my_type = Horde_String::lower($ext_name[count($ext_name) - 1]);
             }
             $my_date = strtotime($match[4]);
             $filedata = array('owner' => '',
@@ -411,7 +412,7 @@ class VFS_smb extends VFS
      * @param boolean $dotfolders  Include dotfolders? Irrelevant for SMB.
      *
      * @return array  Folder list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
@@ -444,13 +445,13 @@ class VFS_smb extends VFS
      * @param string $dest         The destination of the file.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function copy($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new VFS_Exception('Cannot copy file(s) - source and destination are the same.');
+            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
         }
 
         if ($autocreate) {
@@ -459,7 +460,7 @@ class VFS_smb extends VFS
 
         foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                throw new VFS_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
+                throw new Horde_Vfs_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
@@ -468,8 +469,8 @@ class VFS_smb extends VFS
         } else {
             try {
                 $this->write($dest, $name, $this->readFile($path, $name));
-            } catch (VFS_Exception $e) {
-                throw new VFS_Exception(sprintf('Copy failed: %s', $this->_getPath($dest, $name)));
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Horde_Vfs_Exception(sprintf('Copy failed: %s', $this->_getPath($dest, $name)));
             }
         }
     }
@@ -482,13 +483,13 @@ class VFS_smb extends VFS
      * @param string $dest         The destination of the file.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function move($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new VFS_Exception('Cannot copy file(s) - destination is within source.');
+            throw new Horde_Vfs_Exception('Cannot copy file(s) - destination is within source.');
         }
 
         if ($autocreate) {
@@ -497,14 +498,14 @@ class VFS_smb extends VFS
 
         foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                throw new VFS_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
+                throw new Horde_Vfs_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
         try {
             $this->rename($path, $name, $dest, $name);
-        } catch (VFS_Exception $e) {
-            throw new VFS_Exception(sprintf('Failed to move to "%s".', $this->_getPath($dest, $name)));
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Horde_Vfs_Exception(sprintf('Failed to move to "%s".', $this->_getPath($dest, $name)));
         }
     }
 
@@ -532,7 +533,7 @@ class VFS_smb extends VFS
      * @param string $cmd  Command to be executed.
      *
      * @return array  Array on success.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _execute($cmd)
     {
@@ -562,7 +563,7 @@ class VFS_smb extends VFS
                 $err = $out ? $out[count($out) - 1] : $ret;
             }
 
-            throw new VFS_Exception($err);
+            throw new Horde_Vfs_Exception($err);
         }
 
         // Check for errors even on success.
@@ -570,16 +571,16 @@ class VFS_smb extends VFS
         foreach ($out as $line) {
             if (strpos($line, 'NT_STATUS_NO_SUCH_FILE') !== false ||
                 strpos($line, 'NT_STATUS_OBJECT_NAME_NOT_FOUND') !== false) {
-                $err = Horde_VFS_Translation::t("No such file");
+                $err = Horde_Vfs_Translation::t("No such file");
                 break;
             } elseif (strpos($line, 'NT_STATUS_ACCESS_DENIED') !== false) {
-                $err = Horde_VFS_Translation::t("Permission Denied");
+                $err = Horde_Vfs_Translation::t("Permission Denied");
                 break;
             }
         }
 
         if ($err) {
-            throw new VFS_Exception($err);
+            throw new Horde_Vfs_Exception($err);
         }
 
         return $out;
@@ -593,7 +594,7 @@ class VFS_smb extends VFS
      * @param array $cmd   Commands to be executed.
      *
      * @return array  Array on success.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _command($path, $cmd)
     {

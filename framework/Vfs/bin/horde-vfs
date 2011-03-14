@@ -1,11 +1,11 @@
-#!@php_bin@
+#!/usr/bin/env php
 <?php
 /**
  * This is a command line interface for the VFS package.
  *
  * `vfs.php help' shows some usage instructions.
  *
- * @package VFS
+ * @package Vfs
  */
 
 /** PEAR */
@@ -91,7 +91,7 @@ function ls($url, $argv, $filter)
         $list = $vfs->listFolder($params['path'],
                                  count($filter) ? $filter[0] : null,
                                  in_array('a', $argv));
-    } catch (VFS_Exception $e) {
+    } catch (Horde_Vfs_Exception $e) {
         usage($e);
     }
     if (in_array('a', $argv)) {
@@ -149,7 +149,7 @@ function cp($source, $target, $argv, $filter)
     unset($target_params['path']);
 
     if ($source_params == $target_params) {
-        // TODO: Shortcut with VFS::copy()
+        // TODO: Shortcut with Horde_Vfs::copy()
     }
 
     $source_vfs = vfs($source_params);
@@ -211,7 +211,7 @@ function _cp(&$source_vfs, &$target_vfs, $source_path, $target_path, $argv,
 
     try {
         $data = &$source_vfs->read($source_parent_path, $source_object);
-    } catch (VFS_Exception $e) {
+    } catch (Horde_Vfs_Exception $e) {
         usage($e);
     }
 
@@ -223,7 +223,7 @@ function _cp(&$source_vfs, &$target_vfs, $source_path, $target_path, $argv,
 
         try {
             $target_vfs->writeData($target_path, $source_object, $data, true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             usage($e);
         }
     } elseif ($target_vfs->isFolder(dirname($target_parent_path),
@@ -234,11 +234,11 @@ function _cp(&$source_vfs, &$target_vfs, $source_path, $target_path, $argv,
 
         try {
             $target_vfs->writeData($target_parent_path, $target_object, $data, true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             usage($e);
         }
     } else {
-        usage(new VFS_Exception('"' . $target_parent_path . '" does not exist or is not a folder.'));
+        usage(new Horde_Vfs_Exception('"' . $target_parent_path . '" does not exist or is not a folder.'));
     }
 }
 
@@ -249,7 +249,7 @@ function _cp(&$source_vfs, &$target_vfs, $source_path, $target_path, $argv,
  */
 function usage($error = null)
 {
-    if ($error instanceof VFS_Exception) {
+    if ($error instanceof Horde_Vfs_Exception) {
         echo $error->getMessage() . "\n";
     } else {
         switch ($error) {
@@ -294,7 +294,7 @@ USAGE;
  */
 function vfs($params)
 {
-    return VFS::factory($params['driver'], $params);
+    return Horde_Vfs::factory($params['driver'], $params);
 }
 
 /**

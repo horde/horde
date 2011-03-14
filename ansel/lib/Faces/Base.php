@@ -390,7 +390,7 @@ class Ansel_Faces_Base
         $img = Ansel::getImageObject();
         try {
             $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($vfspath, $vfsname);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Horde_Exception_Prior($e);
         }
         $img->loadString($data);
@@ -629,7 +629,7 @@ class Ansel_Faces_Base
                 $face_id . $ext,
                 $image->getHordeImage()->raw(),
                 true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Horde_Exception_Prior($e);
         }
 

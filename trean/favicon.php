@@ -30,7 +30,7 @@ $vfs_params = Horde::getVFSConfig('favicons');
 if (is_a($vfs_params, 'PEAR_Error')) {
     exit;
 }
-$vfs = &VFS::singleton($vfs_params['type'], $vfs_params['params']);
+$vfs = Horde_Vfs::factory($vfs_params['type'], $vfs_params['params']);
 
 if (!$vfs->exists('.horde/trean/favicons/', $favicon)) {
     exit;

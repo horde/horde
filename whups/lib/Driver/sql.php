@@ -501,14 +501,14 @@ class Whups_Driver_sql extends Whups_Driver {
         if (!empty($GLOBALS['conf']['vfs']['type'])) {
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 return PEAR::raiseError($e->getMessage());
             }
 
             if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $id)) {
                 try {
                     $vfs->deleteFolder(WHUPS_VFS_ATTACH_PATH, $id, true);
-                } catch (VFS_Exception $e) {
+                } catch (Horde_Vfs_Exception $e) {
                     return PEAR::raiseError($e->getMessage());
                 }
             }
@@ -1225,7 +1225,7 @@ class Whups_Driver_sql extends Whups_Driver {
                 if ($vfs->exists($dir, $attachment['log_value'])) {
                     try {
                         $result = $vfs->deleteFile($dir, $attachment['log_value']);
-                    } catch (VFS_Exception $e) {
+                    } catch (Horde_Vfs_Exception $e) {
                         return PEAR::raiseError($e->getMessage());
                     }
                 } else {

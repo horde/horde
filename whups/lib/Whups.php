@@ -793,14 +793,14 @@ class Whups {
 
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return PEAR::raiseError($vfs->getMessage());
         }
 
         if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $ticket)) {
             try {
                 $files = $vfs->listFolder(WHUPS_VFS_ATTACH_PATH . '/' . $ticket);
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 $files = array();
             }
             if (is_null($name)) {

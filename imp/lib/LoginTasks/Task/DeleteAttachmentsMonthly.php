@@ -36,7 +36,7 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
 
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return false;
         }
         $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . $GLOBALS['registry']->getAuth();
@@ -44,7 +44,7 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
         /* Make sure cleaning is done recursively. */
         try {
             $files = $vfs->listFolder($path, null, true, false, true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return false;
         }
 
@@ -55,7 +55,7 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
                 try {
                     $vfs->deleteFolder($path, $dir['name'], true);
                     $retval = true;
-                } catch (VFS_Exception $e) {}
+                } catch (Horde_Vfs_Exception $e) {}
             }
         }
 

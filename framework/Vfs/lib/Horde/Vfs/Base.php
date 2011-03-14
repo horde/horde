@@ -8,16 +8,10 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package VFS
+ * @package Vfs
  */
-class VFS
+abstract class Horde_Vfs_Base
 {
-    /* Quota constants. */
-    const QUOTA_METRIC_BYTE = 1;
-    const QUOTA_METRIC_KB = 2;
-    const QUOTA_METRIC_MB = 3;
-    const QUOTA_METRIC_GB = 4;
-
     /**
      * Hash containing connection parameters.
      *
@@ -70,30 +64,6 @@ class VFS
     protected $_vfsSize = null;
 
     /**
-     * Attempts to return a concrete instance based on $driver.
-     *
-     * @param mixed $driver  The type of concrete subclass to return. This
-     *                       is based on the storage driver ($driver). The
-     *                       code is dynamically included.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return VFS  The newly created concrete VFS instance.
-     * @throws VFS_Exception
-     */
-    static public function factory($driver, $params = array())
-    {
-        $driver = basename($driver);
-        $class = __CLASS__ . '_' . $driver;
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new VFS_Exception('Class definition of ' . $class . ' not found.');
-    }
-
-    /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
@@ -112,7 +82,7 @@ class VFS
      * Checks the credentials that we have by calling _connect(), to see if
      * there is a valid login.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function checkCredentials()
     {
@@ -132,7 +102,7 @@ class VFS
     /**
      * TODO
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _connect()
     {
@@ -172,11 +142,11 @@ class VFS
      * @param string $name  The filename to retrieve.
      *
      * @return integer  The file size.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function size($path, $name)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -186,7 +156,7 @@ class VFS
      * @param string $name  The name of the folder.
      *
      * @return integer  The size of the folder, in bytes.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function getFolderSize($path = null, $name = null)
     {
@@ -212,11 +182,11 @@ class VFS
      * @param string $name  The filename to retrieve.
      *
      * @return string  The file data.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function read($path, $name)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -230,14 +200,14 @@ class VFS
      * @param string $name  The filename to retrieve.
      *
      * @return string  A local filename.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function readFile($path, $name)
     {
         // Create a temporary file and register it for deletion at the
         // end of this request.
         if (!($localFile = tempnam(null, 'vfs'))) {
-            throw new VFS_Exception('Unable to create temporary file.');
+            throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
         register_shutdown_function(create_function('', 'unlink(\'' . addslashes($localFile) . '\');'));
 
@@ -247,7 +217,7 @@ class VFS
             $stream = $this->readStream($path, $name);
 
             if (!($localStream = fopen($localFile, 'w'))) {
-                throw new VFS_Exception('Unable to open temporary file.');
+                throw new Horde_Vfs_Exception('Unable to open temporary file.');
             }
             stream_copy_to_stream($stream, $localStream);
             fclose($localStream);
@@ -281,12 +251,12 @@ class VFS
      *                            is retrieved.
      *
      * @return string  The file data.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function readByteRange($path, $name, &$offset, $length = -1,
                                   &$remaining)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -300,11 +270,11 @@ class VFS
      *                             be stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function write($path, $name, $tmpFile, $autocreate = false)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -317,11 +287,11 @@ class VFS
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -332,7 +302,7 @@ class VFS
      * @param string $dest         The destination file name.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function move($path, $name, $dest, $autocreate = false)
     {
@@ -348,13 +318,13 @@ class VFS
      * @param string $dest         The name of the destination directory.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function copy($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new VFS_Exception('Cannot copy file(s) - source and destination are the same.');
+            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
         }
 
         if ($autocreate) {
@@ -375,7 +345,7 @@ class VFS
      * @param string $name  The name of the original file.
      * @param string $dest  The name of the destination directory.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _copyRecursive($path, $name, $dest)
     {
@@ -403,11 +373,11 @@ class VFS
      * @param string $path  The path to delete the file from.
      * @param string $name  The filename to delete.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFile($path, $name)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -420,11 +390,11 @@ class VFS
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function rename($oldpath, $oldname, $newpath, $newname)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -440,7 +410,7 @@ class VFS
         try {
             $list = $this->listFolder($path);
             return isset($list[$name]);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return false;
         }
     }
@@ -453,11 +423,11 @@ class VFS
      * @param string $path  The parent folder.
      * @param string $name  The name of the new folder.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function createFolder($path, $name)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -466,7 +436,7 @@ class VFS
      *
      * @param string $path  The VFS path to autocreate.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function autocreatePath($path)
     {
@@ -501,7 +471,7 @@ class VFS
         try {
             $folderList = $this->listFolder($path, null, true, true);
             return isset($folderList[$name]);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return false;
         }
     }
@@ -515,11 +485,11 @@ class VFS
      * @param string $name        The name of the folder to delete.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFolder($path, $name, $recursive = false)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -528,7 +498,7 @@ class VFS
      *
      * @param string $path  The path of the folder to empty.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function emptyFolder($path)
     {
@@ -553,7 +523,7 @@ class VFS
      * @param boolean $recursive  Return all directory levels recursively?
      *
      * @return array  File list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function listFolder($path, $filter = null, $dotfiles = true,
                                $dironly = false, $recursive = false)
@@ -583,12 +553,12 @@ class VFS
      * @param boolean $dironly   Show only directories?
      *
      * @return array  File list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -650,11 +620,11 @@ class VFS
      * @param string $name        The name of the item.
      * @param string $permission  The permission to set.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function changePermissions($path, $name, $permission)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -668,11 +638,11 @@ class VFS
      * @param boolean $dotfolders  Include dotfolders?
      *
      * @return array  Folder list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
-        throw new VFS_Exception('Not supported.');
+        throw new Horde_Vfs_Exception('Not supported.');
     }
 
     /**
@@ -752,12 +722,12 @@ class VFS
      * 'limit' = Maximum quota allowed
      * 'usage' = Currently used portion of quota (in bytes)
      * </pre>
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function getQuota()
     {
         if (empty($this->_params['vfs_quotalimit'])) {
-            throw new VFS_Exception('No quota set.');
+            throw new Horde_Vfs_Exception('No quota set.');
         }
 
         return array(
@@ -774,7 +744,7 @@ class VFS
      *                       filename containing the data to be written.
      * @param string $data   Either the data or the filename to the data.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _checkQuotaWrite($mode, $data)
     {
@@ -785,7 +755,7 @@ class VFS
         if ($mode == 'file') {
             $filesize = filesize($data);
             if ($filesize === false) {
-                throw new VFS_Exception('Unable to read VFS file (filesize() failed).');
+                throw new Horde_Vfs_Exception('Unable to read VFS file (filesize() failed).');
             }
         } else {
             $filesize = strlen($data);
@@ -793,7 +763,7 @@ class VFS
 
         $vfssize = $this->getVFSSize();
         if (($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
-            throw new VFS_Exception('Unable to write VFS file, quota will be exceeded.');
+            throw new Horde_Vfs_Exception('Unable to write VFS file, quota will be exceeded.');
         } elseif ($this->_vfsSize !== 0) {
             $this->_vfsSize += $filesize;
         }
@@ -805,7 +775,7 @@ class VFS
      * @param string $path  The path the file is located in.
      * @param string $name  The filename.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _checkQuotaDelete($path, $name)
     {
@@ -835,46 +805,4 @@ class VFS
 
         return $name;
     }
-
-    /**
-     * Converts a string to all lowercase characters ignoring the current
-     * locale.
-     *
-     * @param string $string  The string to be lowercased
-     *
-     * @return string  The string with lowercase characters
-     */
-    public function strtolower($string)
-    {
-        $language = setlocale(LC_CTYPE, 0);
-        setlocale(LC_CTYPE, 'C');
-        $string = strtolower($string);
-        setlocale(LC_CTYPE, $language);
-        return $string;
-    }
-
-    /**
-     * Returns the character (not byte) length of a string.
-     *
-     * @param string $string   The string to return the length of.
-     * @param string $charset  The charset to use when calculating the
-     *                         string's length.
-     *
-     * @return string  The string's length.
-     */
-    public function strlen($string, $charset = null)
-    {
-        if (extension_loaded('mbstring')) {
-            if (is_null($charset)) {
-                $charset = 'ISO-8859-1';
-            }
-            $result = @mb_strlen($string, $charset);
-            if (!empty($result)) {
-                return $result;
-            }
-        }
-        return strlen($string);
-    }
-
-
 }

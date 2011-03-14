@@ -2070,7 +2070,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 } else {
                     $vfs->writeData(self::VFS_ATTACH_PATH, $cacheID, $data, true);
                 }
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 throw new IMP_Compose_Exception($e);
             }
 
@@ -2136,7 +2136,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
                 $atc['part']->setContents($vfs->read(self::VFS_ATTACH_PATH, $atc['filename']));
-            } catch (VFS_Exception $e) {}
+            } catch (Horde_Vfs_Exception $e) {}
             break;
         }
 
@@ -2374,7 +2374,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         try {
             $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
 
@@ -2402,7 +2402,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     $data = file_get_contents($att['filename']);
                     $vfs->writeData($fullpath, escapeshellcmd($att['part']->getName()), $data, true);
                 }
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return IMP_Compose_Exception($e);
             }
@@ -2689,7 +2689,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', $vars->user), $body, true);
 
             $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
-        } catch (VFS_Exception $e) {}
+        } catch (Horde_Vfs_Exception $e) {}
     }
 
     /**
@@ -2705,7 +2705,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return;
         }
 
@@ -2713,7 +2713,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             try {
                 $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
                 $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 return;
             }
 
@@ -2873,7 +2873,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
                 $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
-            } catch (VFS_Exception $e) {}
+            } catch (Horde_Vfs_Exception $e) {}
             break;
         }
 

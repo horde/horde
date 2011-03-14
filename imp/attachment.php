@@ -35,7 +35,7 @@ if (!$vars->mail_user || !$vars->$time_stamp || !$vars->file_name) {
 // Initialize the VFS.
 try {
     $vfsroot = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
-} catch (VFS_Exception $e) {
+} catch (Horde_Vfs_Exception $e) {
     throw new IMP_Exception(sprintf(_("Could not create the VFS backend: %s"), $e->getMessage()));
 }
 
@@ -59,7 +59,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 printf(_("Attachment %s deleted."), $file_name);
                 exit;
             }
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($read_id, 'ERR');
         }
     } else {
@@ -106,7 +106,7 @@ if ($conf['compose']['link_attachments_notify']) {
 
                 $msg->send($mail_address, $msg_headers);
             }
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
     }
@@ -115,7 +115,7 @@ if ($conf['compose']['link_attachments_notify']) {
 // Find the file's mime-type.
 try {
     $file_data = $vfsroot->read($full_path, $file_name);
-} catch (VFS_Exception $e) {
+} catch (Horde_Vfs_Exception $e) {
     Horde::logMessage($file_data, 'ERR');
     throw new IMP_Exception(_("The specified file cannot be read."));
 }

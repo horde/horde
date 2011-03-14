@@ -27,7 +27,7 @@
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class VFS_KolabTest extends PHPUnit_Framework_TestCase
+class Horde_Vfs_KolabTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -44,7 +44,7 @@ class VFS_KolabTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($world['auth']->authenticate('wrobel@example.org',
                                                         array('password' => 'none')));
 
-        $this->_vfs = VFS::factory('kolab');
+        $this->_vfs = Horde_Vfs::factory('kolab');
     }
 
     /**

@@ -1292,7 +1292,7 @@
  <configtab name="vfs" desc="Virtual File Storage">
   <configsection name="vfs">
    <configheader>Virtual File Storage Settings</configheader>
-   <configvfs baseconfig="true" switchname="type" default="sql"/>
+   <configvfs baseconfig="true" switchname="type" default="Sql"/>
   </configsection>
  </configtab>
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package VFS
+ * @package Vfs
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -9,12 +9,12 @@
  */
 
 /**
- * Horde_VFS_Translation is the translation wrapper class for Horde_VFS.
+ * Horde_Vfs_Translation is the translation wrapper class for Horde_Vfs.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package VFS
+ * @package Vfs
  */
-class Horde_VFS_Translation extends Horde_Translation
+class Horde_Vfs_Translation extends Horde_Translation
 {
     /**
      * Returns the translation of a message.
@@ -26,7 +26,7 @@ class Horde_VFS_Translation extends Horde_Translation
      */
     static public function t($message)
     {
-        self::$_domain = 'Horde_VFS';
+        self::$_domain = 'Horde_Vfs';
         self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_VFS/locale';
         return parent::t($message);
     }
@@ -43,8 +43,8 @@ class Horde_VFS_Translation extends Horde_Translation
      */
     static public function ngettext($singular, $plural, $number)
     {
-        self::$_domain = 'Horde_VFS';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_VFS/locale';
+        self::$_domain = 'Horde_Vfs';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Vfs/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }

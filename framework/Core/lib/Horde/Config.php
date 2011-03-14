@@ -1164,7 +1164,7 @@ class Horde_Config
                     'desc' => 'None',
                     'fields' => array()
                 ),
-                'file' => array(
+                'File' => array(
                     'desc' => 'Files on the local system',
                     'fields' => array(
                         'params' => array(
@@ -1176,7 +1176,7 @@ class Horde_Config
                         )
                     )
                 ),
-                'sql' => array(
+                'Sql' => array(
                     'desc' => 'SQL database',
                     'fields' => array(
                         'params' => array(
@@ -1184,7 +1184,7 @@ class Horde_Config
                         )
                     )
                 ),
-                'ssh2' => array(
+                'Ssh2' => array(
                     'desc' => 'SSH2 (SFTP)',
                     'fields' => array(
                         'params' => array(

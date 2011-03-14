@@ -17,9 +17,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch
- * @package VFS
+ * @package Vfs
  */
-class VFS_file extends VFS
+class Horde_Vfs_File extends Horde_Vfs_Base
 {
     /**
      * List of permissions and if they can be changed in this VFS backend.
@@ -67,12 +67,12 @@ class VFS_file extends VFS
      * @param string $name  The filename to retrieve.
      *
      * @return integer  The file size.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function size($path, $name)
     {
         if (($size = @filesize($this->_getNativePath($path, $name))) === false) {
-            throw new VFS_Exception(sprintf('Unable to check file size of "%s/%s".'), $path, $name);
+            throw new Horde_Vfs_Exception(sprintf('Unable to check file size of "%s/%s".'), $path, $name);
         }
 
         return $size;
@@ -85,12 +85,12 @@ class VFS_file extends VFS
      * @param string $name  The filename to retrieve.
      *
      * @return string  The file data.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function read($path, $name)
     {
         if (($data = @file_get_contents($this->_getNativePath($path, $name))) === false) {
-            throw new VFS_Exception('Unable to open VFS file.');
+            throw new Horde_Vfs_Exception('Unable to open VFS file.');
         }
 
         return $data;
@@ -120,14 +120,14 @@ class VFS_file extends VFS
      * @param string $name  The filename to retrieve.
      *
      * @return resource  The stream.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function readStream($path, $name)
     {
         $mode = OS_WINDOWS ? 'rb' : 'r';
         $stream = @fopen($this->_getNativePath($path, $name), $mode);
         if (!is_resource($stream)) {
-            throw new VFS_Exception('Unable to open VFS file.');
+            throw new Horde_Vfs_Exception('Unable to open VFS file.');
         }
 
         return $stream;
@@ -151,13 +151,13 @@ class VFS_file extends VFS
      *                            is retrieved.
      *
      * @return string  The file data.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function readByteRange($path, $name, &$offset, $length = -1,
                                   &$remaining)
     {
         if ($offset < 0) {
-            throw new VFS_Exception(sprintf('Wrong offset %d while reading a VFS file.', $offset));
+            throw new Horde_Vfs_Exception(sprintf('Wrong offset %d while reading a VFS file.', $offset));
         }
 
         // Calculate how many bytes MUST be read, so the remainging
@@ -173,7 +173,7 @@ class VFS_file extends VFS
 
         $fp = @fopen($file, 'rb');
         if (!$fp) {
-            throw new VFS_Exception('Unable to open VFS file.');
+            throw new Horde_Vfs_Exception('Unable to open VFS file.');
         }
         fseek($fp, $offset);
         $data = fread($fp, $length);
@@ -195,7 +195,7 @@ class VFS_file extends VFS
      *                             stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function write($path, $name, $tmpFile, $autocreate = true)
     {
@@ -203,7 +203,7 @@ class VFS_file extends VFS
             if ($autocreate) {
                 $this->autocreatePath($path);
             } else {
-                throw new VFS_Exception('VFS directory does not exist.');
+                throw new Horde_Vfs_Exception('VFS directory does not exist.');
             }
         }
 
@@ -214,7 +214,7 @@ class VFS_file extends VFS
         // location. We leave it to the caller to clean up the
         // temporary file, so we don't use rename().
         if (!@copy($tmpFile, $this->_getNativePath($path, $name))) {
-            throw new VFS_Exception('Unable to write VFS file (copy() failed).');
+            throw new Horde_Vfs_Exception('Unable to write VFS file (copy() failed).');
         }
     }
 
@@ -226,13 +226,13 @@ class VFS_file extends VFS
      * @param string $dest         The destination of the file.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function move($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getNativePath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new VFS_Exception('Cannot move file(s) - destination is within source.');
+            throw new Horde_Vfs_Exception('Cannot move file(s) - destination is within source.');
         }
 
         if ($autocreate) {
@@ -241,12 +241,12 @@ class VFS_file extends VFS
 
         foreach ($this->listFolder($dest, false) as $file) {
             if ($file['name'] == $name) {
-                throw new VFS_Exception('Unable to move VFS file.');
+                throw new Horde_Vfs_Exception('Unable to move VFS file.');
             }
         }
 
         if (!@rename($orig, $this->_getNativePath($dest, $name))) {
-            throw new VFS_Exception('Unable to move VFS file.');
+            throw new Horde_Vfs_Exception('Unable to move VFS file.');
         }
     }
 
@@ -258,13 +258,13 @@ class VFS_file extends VFS
      * @param string $dest         The destination of the file.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function copy($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getNativePath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new VFS_Exception('Cannot copy file(s) - source and destination are the same.');
+            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
         }
 
         if ($autocreate) {
@@ -273,14 +273,14 @@ class VFS_file extends VFS
 
         foreach ($this->listFolder($dest, false) as $file) {
             if ($file['name'] == $name) {
-                throw new VFS_Exception('Unable to copy VFS file.');
+                throw new Horde_Vfs_Exception('Unable to copy VFS file.');
             }
         }
 
         $this->_checkQuotaWrite('file', $orig);
 
         if (!@copy($orig, $this->_getNativePath($dest, $name))) {
-            throw new VFS_Exception('Unable to copy VFS file.');
+            throw new Horde_Vfs_Exception('Unable to copy VFS file.');
         }
     }
 
@@ -292,7 +292,7 @@ class VFS_file extends VFS
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function writeData($path, $name, $data, $autocreate = true)
     {
@@ -300,7 +300,7 @@ class VFS_file extends VFS
             if ($autocreate) {
                 $this->autocreatePath($path);
             } else {
-                throw new VFS_Exception('VFS directory does not exist.');
+                throw new Horde_Vfs_Exception('VFS directory does not exist.');
             }
         }
 
@@ -310,14 +310,14 @@ class VFS_file extends VFS
             if (@touch($this->_getNativePath($path, $name))) {
                 return;
             }
-            throw new VFS_Exception('Unable to create empty VFS file.');
+            throw new Horde_Vfs_Exception('Unable to create empty VFS file.');
         }
 
         $this->_checkQuotaWrite('string', $data);
 
         // Otherwise we go ahead and try to write out the file.
         if (!@file_put_contents($this->_getNativePath($path, $name), $data)) {
-            throw new VFS_Exception('Unable to write VFS file data.');
+            throw new Horde_Vfs_Exception('Unable to write VFS file data.');
         }
     }
 
@@ -327,14 +327,14 @@ class VFS_file extends VFS
      * @param string $path  The path to store the file in.
      * @param string $name  The filename to use.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFile($path, $name)
     {
         $this->_checkQuotaDelete($path, $name);
 
         if (!@unlink($this->_getNativePath($path, $name))) {
-            throw new VFS_Exception('Unable to delete VFS file.');
+            throw new Horde_Vfs_Exception('Unable to delete VFS file.');
         }
     }
 
@@ -345,7 +345,7 @@ class VFS_file extends VFS
      * @param string $name        The foldername to use.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFolder($path, $name, $recursive = false)
     {
@@ -354,12 +354,12 @@ class VFS_file extends VFS
         } else {
             $list = $this->listFolder($path . '/' . $name);
             if (count($list)) {
-                throw new VFS_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
+                throw new Horde_Vfs_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
             }
         }
 
         if (!@rmdir($this->_getNativePath($path, $name))) {
-            throw new VFS_Exception('Unable to delete VFS directory.');
+            throw new Horde_Vfs_Exception('Unable to delete VFS directory.');
         }
     }
 
@@ -369,12 +369,12 @@ class VFS_file extends VFS
      * @param string $path  The path to create the folder in.
      * @param string $name  The foldername to use.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function createFolder($path, $name)
     {
         if (!@mkdir($this->_getNativePath($path, $name))) {
-            throw new VFS_Exception('Unable to create VFS directory.');
+            throw new Horde_Vfs_Exception('Unable to create VFS directory.');
         }
     }
 
@@ -398,12 +398,12 @@ class VFS_file extends VFS
      * @param string $name         The name of the item.
      * @param integer $permission  The octal value of the new permission.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function changePermissions($path, $name, $permission)
     {
         if (!@chmod($this->_getNativePath($path, $name), $permission)) {
-            throw new VFS_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
+            throw new Horde_Vfs_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
         }
     }
 
@@ -416,7 +416,7 @@ class VFS_file extends VFS
      * @param boolean $dironly   Show only directories?
      *
      * @return array  File list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
@@ -425,11 +425,11 @@ class VFS_file extends VFS
         $path = $this->_getNativePath(isset($path) ? $path : '');
 
         if (!@is_dir($path)) {
-            throw new VFS_Exception('Not a directory');
+            throw new Horde_Vfs_Exception('Not a directory');
         }
 
         if (!@chdir($path)) {
-            throw new VFS_Exception('Unable to access VFS directory.');
+            throw new Horde_Vfs_Exception('Unable to access VFS directory.');
         }
 
         $d = dir($path);
@@ -488,7 +488,7 @@ class VFS_file extends VFS
                     } elseif (is_file($file['link'])) {
                         $ext = explode('.', $file['link']);
                         if (!(count($ext) == 1 || ($ext[0] === '' && count($ext) == 2))) {
-                            $file['linktype'] = self::strtolower($ext[count($ext) - 1]);
+                            $file['linktype'] = Horde_String::lower($ext[count($ext) - 1]);
                         }
                     }
                 } else {
@@ -501,7 +501,7 @@ class VFS_file extends VFS
                 if (count($ext) == 1 || (substr($file['name'], 0, 1) === '.' && count($ext) == 2)) {
                     $file['type'] = '**none';
                 } else {
-                    $file['type'] = self::strtolower($ext[count($ext) - 1]);
+                    $file['type'] = Horde_String::lower($ext[count($ext) - 1]);
                 }
             } else {
                 $file['type'] = '**none';
@@ -546,7 +546,7 @@ class VFS_file extends VFS
      * @param boolean $dotfolders  Include dotfolders?
      *
      * @return array  Folder list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     function listFolders($path = '', $filter = null, $dotfolders = true)
     {
@@ -617,7 +617,7 @@ class VFS_file extends VFS
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function rename($oldpath, $oldname, $newpath, $newname)
     {
@@ -627,7 +627,7 @@ class VFS_file extends VFS
 
         if (!@rename($this->_getNativePath($oldpath, $oldname),
                      $this->_getNativePath($newpath, $newname))) {
-            throw new VFS_Exception(sprintf('Unable to rename VFS file %s/%s.', $oldpath, $oldname));
+            throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS file %s/%s.', $oldpath, $oldname));
         }
     }
 
@@ -686,14 +686,14 @@ class VFS_file extends VFS
      * Stub to check if we have a valid connection. Makes sure that
      * the vfsroot is readable.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _connect()
     {
         if (!(@is_dir($this->_params['vfsroot']) &&
               is_readable($this->_params['vfsroot'])) ||
             !@mkdir($this->_params['vfsroot'])) {
-            throw new VFS_Exception('Unable to read the vfsroot directory.');
+            throw new Horde_Vfs_Exception('Unable to read the vfsroot directory.');
         }
     }
 

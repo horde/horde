@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jon Wood <jon@jellybob.co.uk>
- * @package VFS
+ * @package Vfs
  */
-class VFS_Object
+class Horde_Vfs_Object
 {
     /**
      * The actual vfs object that does the work.
@@ -53,7 +53,7 @@ class VFS_Object
     /**
      * Check the credentials that we have to see if there is a valid login.
      *
-     * @throws VFS_Exception;
+     * @throws Horde_Vfs_Exception;
      */
     public function checkCredentials()
     {
@@ -77,7 +77,7 @@ class VFS_Object
      * @param string $path  The pathname to the file.
      *
      * @return string  The file data.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function read($path)
     {
@@ -92,7 +92,7 @@ class VFS_Object
      *                             stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function write($path, $tmpFile, $autocreate = false)
     {
@@ -106,7 +106,7 @@ class VFS_Object
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function writeData($path, $data, $autocreate = false)
     {
@@ -119,7 +119,7 @@ class VFS_Object
      * @param string $path  The path to store the file in.
      * @param string $name  The filename to use.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFile($path)
     {
@@ -134,7 +134,7 @@ class VFS_Object
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function rename($oldpath, $newpath)
     {
@@ -146,7 +146,7 @@ class VFS_Object
      *
      * @param string $path  The path to the folder.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function createFolder($path)
     {
@@ -158,7 +158,7 @@ class VFS_Object
      *
      * @param string $path The path of the folder to delete.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function deleteFolder($path)
     {
@@ -166,7 +166,7 @@ class VFS_Object
     }
 
     /**
-     * Returns a VFS_ListItem object if the folder can
+     * Returns a Horde_Vfs_ListItem object if the folder can
      * be read, or a PEAR_Error if it can't be. Returns false once
      * the folder has been completely read.
      *
@@ -174,7 +174,7 @@ class VFS_Object
      *
      * @return mixed  File list (array) on success or false if the folder is
      *                completely read.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function listFolder($path)
     {
@@ -184,12 +184,12 @@ class VFS_Object
                 $this->_folderList = $folderList;
                 $this->_currentPath = $path;
             } else {
-                throw new VFS_Exception('Could not read ' . $path . '.');
+                throw new Horde_Vfs_Exception('Could not read ' . $path . '.');
             }
         }
 
         return ($file = array_shift($this->_folderList))
-            ? new VFS_ListItem($path, $file)
+            ? new Horde_Vfs_ListItem($path, $file)
             : false;
     }
 
@@ -199,7 +199,7 @@ class VFS_Object
      * @param string $path        Holds the path of directory of the Item.
      * @param string $permission  TODO
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function changePermissions($path, $permission)
     {

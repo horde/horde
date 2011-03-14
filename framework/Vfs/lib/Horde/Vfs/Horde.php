@@ -15,9 +15,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package VFS
+ * @package Vfs
  */
-class VFS_horde extends VFS
+class Horde_Vfs_Horde extends Horde_Vfs_Base
 {
     /**
      * Reference to a Horde Registry instance.
@@ -30,14 +30,14 @@ class VFS_horde extends VFS
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function __construct($params = array())
     {
         parent::__construct($params);
 
         if (!isset($this->_params['horde_base'])) {
-            throw new VFS_Exception('Required "horde_base" not specified in VFS configuration.');
+            throw new Horde_Vfs_Exception('Required "horde_base" not specified in VFS configuration.');
         }
 
         require_once $this->_params['horde_base'] . '/lib/Application.php';
@@ -90,7 +90,7 @@ class VFS_horde extends VFS
      * @param boolean $dironly   Show only directories?
      *
      * @return array  File list.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
@@ -100,7 +100,7 @@ class VFS_horde extends VFS
             try {
                 $apps = $this->_registry->listApps(null, false, Horde_Perms::READ);
             } catch (Horde_Exception $e) {
-                throw new VFS_Exception($e->getMessage());
+                throw new Horde_Vfs_Exception($e->getMessage());
             }
 
             foreach ($apps as $app) {
@@ -126,12 +126,12 @@ class VFS_horde extends VFS
         try {
             $items = $this->_registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'modified')));
         } catch (Horde_Exception $e) {
-            throw new VFS_Exception($e->getMessage());
+            throw new Horde_Vfs_Exception($e->getMessage());
         }
 
         if (!is_array(reset($items))) {
             /* We return an object's content. */
-            throw new VFS_Exception('Unknown error');
+            throw new Horde_Vfs_Exception('Unknown error');
         }
 
         foreach ($items as $sub_path => $i) {

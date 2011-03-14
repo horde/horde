@@ -52,14 +52,14 @@ class Ingo_Transport_Vfs extends Ingo_Transport
             } else {
                 $this->_vfs->writeData($this->_params['vfs_path'], $this->_params['filename'], $script, true);
             }
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Ingo_Exception($e);
         }
 
         if (isset($this->_params['file_perms']) && !empty($script)) {
             try {
                 $this->_vfs->changePermissions($this->_params['vfs_path'], $this->_params['filename'], $this->_params['file_perms']);
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 throw new Ingo_Exception($e);
             }
         }
@@ -76,14 +76,14 @@ class Ingo_Transport_Vfs extends Ingo_Transport
                 } else {
                     $this->_vfs->writeData($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $backend['params']['forward_string'], true);
                 }
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 throw new Ingo_Exception($e);
             }
 
             if (isset($this->_params['file_perms']) && !empty($script)) {
                 try {
                     $this->_vfs->changePermissions($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $this->_params['file_perms']);
-                } catch (VFS_Exception $e) {
+                } catch (Horde_Vfs_Exception $e) {
                     throw new Ingo_Exception($e);
                 }
             }
@@ -133,8 +133,8 @@ class Ingo_Transport_Vfs extends Ingo_Transport
         }
 
         try {
-            $this->_vfs = VFS::factory($this->_params['vfstype'], $this->_params);
-        } catch (VFS_Exception $e) {
+            $this->_vfs = Horde_Vfs::factory($this->_params['vfstype'], $this->_params);
+        } catch (Horde_Vfs_Exception $e) {
             $error = new Ingo_Exception($this->_vfs);
             unset($this->_vfs);
             throw $error;

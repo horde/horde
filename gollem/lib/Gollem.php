@@ -206,7 +206,7 @@ class Gollem
      * @param string $dir  The directory name.
      *
      * @return array  The sorted list of files.
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static public function listFolder($dir)
     {
@@ -324,7 +324,7 @@ class Gollem
      * @param string $name  The folder to create.
      *
      * @throws Gollem_Exception
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static public function createFolder($dir, $name)
     {
@@ -355,7 +355,7 @@ class Gollem
      * @param string $newDir  New directory name.
      * @param string $old     New file name.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static public function renameItem($oldDir, $old, $newDir, $new)
     {
@@ -369,7 +369,7 @@ class Gollem
      * @param string $name  The folder name to delete.
      *
      * @throws Gollem_Exception
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static public function deleteFolder($dir, $name)
     {
@@ -389,7 +389,7 @@ class Gollem
      * @param string $name  The filename to delete.
      *
      * @throws Gollem_Exception
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static public function deleteFile($dir, $name)
     {
@@ -407,7 +407,7 @@ class Gollem
      * @param string $permission  The permission mode to set.
      *
      * @throws Gollem_Exception
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static public function changePermissions($dir, $name, $permission)
     {
@@ -424,7 +424,7 @@ class Gollem
      * @param string $name      The filename to create.
      * @param string $filename  The local file containing the file data.
      *
-     * @thows VFS_Exception
+     * @thows Horde_Vfs_Exception
      */
     static public function writeFile($dir, $name, $filename)
     {
@@ -443,7 +443,7 @@ class Gollem
      * @param string $backend_t The backend to move the file to.
      * @param string $newdir    The directory to move the file to.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static public function moveFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
@@ -460,7 +460,7 @@ class Gollem
      * @param string $backend_t The backend to copy the file to.
      * @param string $newdir    The directory to copy the file to.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static public function copyFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
@@ -471,7 +471,7 @@ class Gollem
     /**
      * Private function that copies/moves files.
      *
-     * @throws VFS_Exception
+     * @throws Horde_Vfs_Exception
      */
     static protected function _copyFile($mode, $backend_f, $dir, $name,
                                         $backend_t, $newdir)
@@ -753,7 +753,7 @@ class Gollem
         }
 
         // Create VFS object
-        $ob = VFS::singleton($be_config['driver'], $params);
+        $ob = Horde_Vfs::factory($be_config['driver'], $params);
 
         // Enable logging within VFS
         $ob->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));

@@ -314,7 +314,7 @@ class Ansel_Image Implements Iterator
         /* Read in the requested view. */
         try {
             $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($vfspath, $this->getVFSName($view));
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
         }
@@ -394,7 +394,7 @@ class Ansel_Image Implements Iterator
         }
         try {
             $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($this->getVFSPath('full'), $this->getVFSName('full'));
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
         }
@@ -462,7 +462,7 @@ class Ansel_Image Implements Iterator
         try {
             $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData(
                 $this->getVFSPath('full'), $this->getVFSName('full'),  $this->_data['full'], true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
         }
 
@@ -490,7 +490,7 @@ class Ansel_Image Implements Iterator
         try {
             $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData(
                 $this->getVFSPath($view), $this->getVFSName($view), $data, true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
         }
     }
@@ -633,7 +633,7 @@ class Ansel_Image Implements Iterator
         try {
             $imageFile = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile(
                 $this->getVFSPath('full'), $this->getVFSName('full'));
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
         }
         $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
@@ -757,7 +757,7 @@ class Ansel_Image Implements Iterator
             try {
                 $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
                     $this->getVFSPath('screen'), $this->getVFSName('screen'));
-            } catch (VFS_Exception $e   ) {
+            } catch (Horde_Vfs_Exception $e   ) {
             }
         }
 
@@ -766,7 +766,7 @@ class Ansel_Image Implements Iterator
             try {
                 $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
                     $this->getVFSPath('mini'), $this->getVFSName('mini'));
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
             }
         }
         if ($view == 'all' || $view == 'thumb') {
@@ -776,7 +776,7 @@ class Ansel_Image Implements Iterator
                     $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
                         ->create('images')
                         ->deleteFile($this->getVFSPathFromHash($hash), $this->getVFSName('thumb'));
-                } catch (VFS_Exception $e) {
+                } catch (Horde_Vfs_Exception $e) {
                 }
             }
         }
@@ -844,7 +844,7 @@ class Ansel_Image Implements Iterator
             try {
                 $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read(
                     $this->getVFSPath('full'), $this->getVFSName('full'));
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 throw new Ansel_Exception($e);
             }
             echo $data;

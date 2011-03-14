@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:52:30</time>
+ <date>2011-03-14</date>
+ <time>16:51:52</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -39,327 +39,317 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* Convert to PHP 5 and Horde 4 package layout.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="data">
-    <dir name="VFS">
-     <file name="muvfs.sql" role="data" />
-     <file name="vfs.mssql.sql" role="data" />
-     <file name="vfs.oci8.sql" role="data" />
-     <file name="vfs.pgsql.sql" role="data" />
-     <file name="vfs.sql" role="data" />
-    </dir> <!-- /data/VFS -->
-   </dir> <!-- /data -->
+   <dir name="bin">
+    <file name="horde-vfs" role="script" />
+   </dir> <!-- /bin -->
    <dir name="lib">
-    <dir name="VFS">
-     <file name="Browser.php" role="php" />
-     <file name="Exception.php" role="php" />
-     <file name="file.php" role="php" />
-     <file name="ftp.php" role="php" />
-     <file name="GC.php" role="php" />
-     <file name="horde.php" role="php" />
-     <file name="kolab.php" role="php" />
-     <file name="ListItem.php" role="php" />
-     <file name="musql.php" role="php" />
-     <file name="Object.php" role="php" />
-     <file name="smb.php" role="php" />
-     <file name="sql.php" role="php" />
-     <file name="sql_file.php" role="php" />
-     <file name="ssh2.php" role="php" />
-     <file name="Translation.php" role="php">
-      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
-     </file>
-    </dir> <!-- /lib/VFS -->
-    <file name="VFS.php" role="php" />
+    <dir name="Horde">
+     <dir name="Vfs">
+      <file name="Base.php" role="php" />
+      <file name="Browser.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="File.php" role="php" />
+      <file name="Ftp.php" role="php" />
+      <file name="Gc.php" role="php" />
+      <file name="Horde.php" role="php" />
+      <file name="Kolab.php" role="php" />
+      <file name="ListItem.php" role="php" />
+      <file name="Musql.php" role="php" />
+      <file name="Object.php" role="php" />
+      <file name="Smb.php" role="php" />
+      <file name="Sql.php" role="php" />
+      <file name="SqlFile.php" role="php" />
+      <file name="Ssh2.php" role="php" />
+      <file name="Translation.php" role="php" />
+     </dir> <!-- /lib/Horde/Vfs -->
+     <file name="Vfs.php" role="php" />
+    </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ar">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/ar/LC_MESSAGES -->
     </dir> <!-- /locale/ar -->
     <dir name="bg">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/bg/LC_MESSAGES -->
     </dir> <!-- /locale/bg -->
     <dir name="bs">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/bs/LC_MESSAGES -->
     </dir> <!-- /locale/bs -->
     <dir name="ca">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/ca/LC_MESSAGES -->
     </dir> <!-- /locale/ca -->
     <dir name="cs">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/cs/LC_MESSAGES -->
     </dir> <!-- /locale/cs -->
     <dir name="da">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/da/LC_MESSAGES -->
     </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
     <dir name="el">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
     <dir name="en">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/en/LC_MESSAGES -->
     </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
     </dir> <!-- /locale/es -->
     <dir name="et">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
     <dir name="fa">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/fa/LC_MESSAGES -->
     </dir> <!-- /locale/fa -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
     <dir name="fr">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
     <dir name="gl">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/gl/LC_MESSAGES -->
     </dir> <!-- /locale/gl -->
     <dir name="he">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/he/LC_MESSAGES -->
     </dir> <!-- /locale/he -->
     <dir name="hr">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/hr/LC_MESSAGES -->
     </dir> <!-- /locale/hr -->
     <dir name="hu">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/hu/LC_MESSAGES -->
     </dir> <!-- /locale/hu -->
     <dir name="id">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/id/LC_MESSAGES -->
     </dir> <!-- /locale/id -->
     <dir name="is">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/is/LC_MESSAGES -->
     </dir> <!-- /locale/is -->
     <dir name="it">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/it/LC_MESSAGES -->
     </dir> <!-- /locale/it -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
     <dir name="km">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/km/LC_MESSAGES -->
     </dir> <!-- /locale/km -->
     <dir name="ko">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/ko/LC_MESSAGES -->
     </dir> <!-- /locale/ko -->
     <dir name="lt">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
     </dir> <!-- /locale/lv -->
     <dir name="mk">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/mk/LC_MESSAGES -->
     </dir> <!-- /locale/mk -->
     <dir name="nb">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/nb/LC_MESSAGES -->
     </dir> <!-- /locale/nb -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/nl/LC_MESSAGES -->
     </dir> <!-- /locale/nl -->
     <dir name="nn">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/nn/LC_MESSAGES -->
     </dir> <!-- /locale/nn -->
     <dir name="pl">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/pl/LC_MESSAGES -->
     </dir> <!-- /locale/pl -->
     <dir name="pt">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/pt/LC_MESSAGES -->
     </dir> <!-- /locale/pt -->
     <dir name="pt_BR">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
     </dir> <!-- /locale/pt_BR -->
     <dir name="ro">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/ro/LC_MESSAGES -->
     </dir> <!-- /locale/ro -->
     <dir name="ru">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/ru/LC_MESSAGES -->
     </dir> <!-- /locale/ru -->
     <dir name="sk">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/sk/LC_MESSAGES -->
     </dir> <!-- /locale/sk -->
     <dir name="sl">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/sl/LC_MESSAGES -->
     </dir> <!-- /locale/sl -->
     <dir name="sv">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/sv/LC_MESSAGES -->
     </dir> <!-- /locale/sv -->
     <dir name="tr">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/tr/LC_MESSAGES -->
     </dir> <!-- /locale/tr -->
     <dir name="uk">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/uk/LC_MESSAGES -->
     </dir> <!-- /locale/uk -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
     </dir> <!-- /locale/zh_CN -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
-      <file name="Horde_VFS.mo" role="data" />
-      <file name="Horde_VFS.po" role="data" />
+      <file name="Horde_Vfs.mo" role="data" />
+      <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
-    <file name="Horde_VFS.pot" role="data" />
+    <file name="Horde_Vfs.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="migration">
     <dir name="Horde">
-     <dir name="VFS">
+     <dir name="Vfs">
       <file name="1_horde_vfs_base_tables.php" role="data" />
       <file name="2_horde_vfs_upgrade_autoincrement.php" role="data" />
-     </dir> <!-- /migration/Horde/VFS -->
+     </dir> <!-- /migration/Horde/Vfs -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
-   <dir name="scripts">
-    <dir name="VFS">
-     <file name="vfs.php" role="script">
-      <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
-     </file>
-    </dir> <!-- /scripts/VFS -->
-   </dir> <!-- /scripts -->
    <dir name="test">
-    <dir name="VFS">
-     <dir name="fixtures">
-      <file name="samba1.txt" role="test" />
-      <file name="samba2.txt" role="test" />
-     </dir> <!-- /test/VFS/fixtures -->
-     <file name="AllTests.php" role="test" />
-     <file name="KolabTest.php" role="test" />
-     <file name="SmbTest.php" role="test" />
-    </dir> <!-- /test/VFS -->
+    <dir name="Horde">
+     <dir name="Vfs">
+      <dir name="fixtures">
+       <file name="samba1.txt" role="test" />
+       <file name="samba2.txt" role="test" />
+      </dir> <!-- /test/Horde/Vfs/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="KolabTest.php" role="test" />
+      <file name="SmbTest.php" role="test" />
+     </dir> <!-- /test/Horde/Vfs -->
+    </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
@@ -372,139 +362,144 @@ Reading, writing and listing of files are all supported, and there are both obje
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Log</name>
-    <channel>pear.php.net</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="VFS/muvfs.sql" name="data/VFS/muvfs.sql" />
-   <install as="VFS/vfs.mssql.sql" name="data/VFS/vfs.mssql.sql" />
-   <install as="VFS/vfs.oci8.sql" name="data/VFS/vfs.oci8.sql" />
-   <install as="VFS/vfs.pgsql.sql" name="data/VFS/vfs.pgsql.sql" />
-   <install as="VFS/vfs.sql" name="data/VFS/vfs.sql" />
-   <install as="VFS.php" name="lib/VFS.php" />
-   <install as="VFS/Browser.php" name="lib/VFS/Browser.php" />
-   <install as="VFS/Exception.php" name="lib/VFS/Exception.php" />
-   <install as="VFS/file.php" name="lib/VFS/file.php" />
-   <install as="VFS/ftp.php" name="lib/VFS/ftp.php" />
-   <install as="VFS/GC.php" name="lib/VFS/GC.php" />
-   <install as="VFS/horde.php" name="lib/VFS/horde.php" />
-   <install as="VFS/kolab.php" name="lib/VFS/kolab.php" />
-   <install as="VFS/ListItem.php" name="lib/VFS/ListItem.php" />
-   <install as="VFS/musql.php" name="lib/VFS/musql.php" />
-   <install as="VFS/Object.php" name="lib/VFS/Object.php" />
-   <install as="VFS/smb.php" name="lib/VFS/smb.php" />
-   <install as="VFS/sql.php" name="lib/VFS/sql.php" />
-   <install as="VFS/sql_file.php" name="lib/VFS/sql_file.php" />
-   <install as="VFS/ssh2.php" name="lib/VFS/ssh2.php" />
-   <install as="VFS/Translation.php" name="lib/VFS/Translation.php" />
-   <install as="locale/Horde_VFS.pot" name="locale/Horde_VFS.pot" />
-   <install as="locale/ar/LC_MESSAGES/Horde_VFS.mo" name="locale/ar/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/ar/LC_MESSAGES/Horde_VFS.po" name="locale/ar/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/bg/LC_MESSAGES/Horde_VFS.mo" name="locale/bg/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/bg/LC_MESSAGES/Horde_VFS.po" name="locale/bg/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/bs/LC_MESSAGES/Horde_VFS.mo" name="locale/bs/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/bs/LC_MESSAGES/Horde_VFS.po" name="locale/bs/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/ca/LC_MESSAGES/Horde_VFS.mo" name="locale/ca/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/ca/LC_MESSAGES/Horde_VFS.po" name="locale/ca/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/cs/LC_MESSAGES/Horde_VFS.mo" name="locale/cs/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/cs/LC_MESSAGES/Horde_VFS.po" name="locale/cs/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/da/LC_MESSAGES/Horde_VFS.mo" name="locale/da/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/da/LC_MESSAGES/Horde_VFS.po" name="locale/da/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/de/LC_MESSAGES/Horde_VFS.mo" name="locale/de/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/de/LC_MESSAGES/Horde_VFS.po" name="locale/de/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/el/LC_MESSAGES/Horde_VFS.mo" name="locale/el/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/el/LC_MESSAGES/Horde_VFS.po" name="locale/el/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_VFS.mo" name="locale/en/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_VFS.po" name="locale/en/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/es/LC_MESSAGES/Horde_VFS.mo" name="locale/es/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/es/LC_MESSAGES/Horde_VFS.po" name="locale/es/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/et/LC_MESSAGES/Horde_VFS.mo" name="locale/et/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/et/LC_MESSAGES/Horde_VFS.po" name="locale/et/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/eu/LC_MESSAGES/Horde_VFS.mo" name="locale/eu/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/eu/LC_MESSAGES/Horde_VFS.po" name="locale/eu/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/fa/LC_MESSAGES/Horde_VFS.mo" name="locale/fa/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/fa/LC_MESSAGES/Horde_VFS.po" name="locale/fa/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/fi/LC_MESSAGES/Horde_VFS.mo" name="locale/fi/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/fi/LC_MESSAGES/Horde_VFS.po" name="locale/fi/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/fr/LC_MESSAGES/Horde_VFS.mo" name="locale/fr/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/fr/LC_MESSAGES/Horde_VFS.po" name="locale/fr/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/gl/LC_MESSAGES/Horde_VFS.mo" name="locale/gl/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/gl/LC_MESSAGES/Horde_VFS.po" name="locale/gl/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/he/LC_MESSAGES/Horde_VFS.mo" name="locale/he/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/he/LC_MESSAGES/Horde_VFS.po" name="locale/he/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/hr/LC_MESSAGES/Horde_VFS.mo" name="locale/hr/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/hr/LC_MESSAGES/Horde_VFS.po" name="locale/hr/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/hu/LC_MESSAGES/Horde_VFS.mo" name="locale/hu/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/hu/LC_MESSAGES/Horde_VFS.po" name="locale/hu/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/id/LC_MESSAGES/Horde_VFS.mo" name="locale/id/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/id/LC_MESSAGES/Horde_VFS.po" name="locale/id/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/is/LC_MESSAGES/Horde_VFS.mo" name="locale/is/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/is/LC_MESSAGES/Horde_VFS.po" name="locale/is/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/it/LC_MESSAGES/Horde_VFS.mo" name="locale/it/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/it/LC_MESSAGES/Horde_VFS.po" name="locale/it/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/ja/LC_MESSAGES/Horde_VFS.mo" name="locale/ja/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/ja/LC_MESSAGES/Horde_VFS.po" name="locale/ja/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/km/LC_MESSAGES/Horde_VFS.mo" name="locale/km/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/km/LC_MESSAGES/Horde_VFS.po" name="locale/km/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/ko/LC_MESSAGES/Horde_VFS.mo" name="locale/ko/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/ko/LC_MESSAGES/Horde_VFS.po" name="locale/ko/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/lt/LC_MESSAGES/Horde_VFS.mo" name="locale/lt/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/lt/LC_MESSAGES/Horde_VFS.po" name="locale/lt/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/lv/LC_MESSAGES/Horde_VFS.mo" name="locale/lv/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/lv/LC_MESSAGES/Horde_VFS.po" name="locale/lv/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/mk/LC_MESSAGES/Horde_VFS.mo" name="locale/mk/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/mk/LC_MESSAGES/Horde_VFS.po" name="locale/mk/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/nb/LC_MESSAGES/Horde_VFS.mo" name="locale/nb/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/nb/LC_MESSAGES/Horde_VFS.po" name="locale/nb/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/nl/LC_MESSAGES/Horde_VFS.mo" name="locale/nl/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/nl/LC_MESSAGES/Horde_VFS.po" name="locale/nl/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/nn/LC_MESSAGES/Horde_VFS.mo" name="locale/nn/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/nn/LC_MESSAGES/Horde_VFS.po" name="locale/nn/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/pl/LC_MESSAGES/Horde_VFS.mo" name="locale/pl/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/pl/LC_MESSAGES/Horde_VFS.po" name="locale/pl/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/pt/LC_MESSAGES/Horde_VFS.mo" name="locale/pt/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/pt/LC_MESSAGES/Horde_VFS.po" name="locale/pt/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/pt_BR/LC_MESSAGES/Horde_VFS.mo" name="locale/pt_BR/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/pt_BR/LC_MESSAGES/Horde_VFS.po" name="locale/pt_BR/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/ro/LC_MESSAGES/Horde_VFS.mo" name="locale/ro/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/ro/LC_MESSAGES/Horde_VFS.po" name="locale/ro/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/ru/LC_MESSAGES/Horde_VFS.mo" name="locale/ru/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/ru/LC_MESSAGES/Horde_VFS.po" name="locale/ru/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/sk/LC_MESSAGES/Horde_VFS.mo" name="locale/sk/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/sk/LC_MESSAGES/Horde_VFS.po" name="locale/sk/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/sl/LC_MESSAGES/Horde_VFS.mo" name="locale/sl/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/sl/LC_MESSAGES/Horde_VFS.po" name="locale/sl/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/sv/LC_MESSAGES/Horde_VFS.mo" name="locale/sv/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/sv/LC_MESSAGES/Horde_VFS.po" name="locale/sv/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/tr/LC_MESSAGES/Horde_VFS.mo" name="locale/tr/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/tr/LC_MESSAGES/Horde_VFS.po" name="locale/tr/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/uk/LC_MESSAGES/Horde_VFS.mo" name="locale/uk/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/uk/LC_MESSAGES/Horde_VFS.po" name="locale/uk/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/zh_CN/LC_MESSAGES/Horde_VFS.mo" name="locale/zh_CN/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/zh_CN/LC_MESSAGES/Horde_VFS.po" name="locale/zh_CN/LC_MESSAGES/Horde_VFS.po" />
-   <install as="locale/zh_TW/LC_MESSAGES/Horde_VFS.mo" name="locale/zh_TW/LC_MESSAGES/Horde_VFS.mo" />
-   <install as="locale/zh_TW/LC_MESSAGES/Horde_VFS.po" name="locale/zh_TW/LC_MESSAGES/Horde_VFS.po" />
-   <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/VFS/1_horde_vfs_base_tables.php" />
-   <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/VFS/2_horde_vfs_upgrade_autoincrement.php" />
-   <install as="vfs" name="scripts/VFS/vfs.php" />
-   <install as="VFS/AllTests.php" name="test/VFS/AllTests.php" />
-   <install as="VFS/KolabTest.php" name="test/VFS/KolabTest.php" />
-   <install as="VFS/SmbTest.php" name="test/VFS/SmbTest.php" />
-   <install as="VFS/fixtures/samba1.txt" name="test/VFS/fixtures/samba1.txt" />
-   <install as="VFS/fixtures/samba2.txt" name="test/VFS/fixtures/samba2.txt" />
+   <install as="horde-vfs" name="bin/horde-vfs" />
+   <install as="Horde/Vfs.php" name="lib/Horde/Vfs.php" />
+   <install as="Horde/Vfs/Base.php" name="lib/Horde/Vfs/Base.php" />
+   <install as="Horde/Vfs/Browser.php" name="lib/Horde/Vfs/Browser.php" />
+   <install as="Horde/Vfs/Exception.php" name="lib/Horde/Vfs/Exception.php" />
+   <install as="Horde/Vfs/File.php" name="lib/Horde/Vfs/File.php" />
+   <install as="Horde/Vfs/Ftp.php" name="lib/Horde/Vfs/Ftp.php" />
+   <install as="Horde/Vfs/Gc.php" name="lib/Horde/Vfs/Gc.php" />
+   <install as="Horde/Vfs/Horde.php" name="lib/Horde/Vfs/Horde.php" />
+   <install as="Horde/Vfs/Kolab.php" name="lib/Horde/Vfs/Kolab.php" />
+   <install as="Horde/Vfs/ListItem.php" name="lib/Horde/Vfs/ListItem.php" />
+   <install as="Horde/Vfs/Musql.php" name="lib/Horde/Vfs/Musql.php" />
+   <install as="Horde/Vfs/Object.php" name="lib/Horde/Vfs/Object.php" />
+   <install as="Horde/Vfs/Smb.php" name="lib/Horde/Vfs/Smb.php" />
+   <install as="Horde/Vfs/Sql.php" name="lib/Horde/Vfs/Sql.php" />
+   <install as="Horde/Vfs/SqlFile.php" name="lib/Horde/Vfs/SqlFile.php" />
+   <install as="Horde/Vfs/Ssh2.php" name="lib/Horde/Vfs/Ssh2.php" />
+   <install as="Horde/Vfs/Translation.php" name="lib/Horde/Vfs/Translation.php" />
+   <install as="locale/Horde_Vfs.pot" name="locale/Horde_Vfs.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Vfs.mo" name="locale/ar/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Vfs.po" name="locale/ar/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Vfs.mo" name="locale/bg/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Vfs.po" name="locale/bg/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Vfs.mo" name="locale/bs/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Vfs.po" name="locale/bs/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Vfs.mo" name="locale/ca/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Vfs.po" name="locale/ca/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Vfs.mo" name="locale/cs/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Vfs.po" name="locale/cs/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_Vfs.mo" name="locale/da/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Vfs.po" name="locale/da/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_Vfs.mo" name="locale/de/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Vfs.po" name="locale/de/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_Vfs.mo" name="locale/el/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_Vfs.po" name="locale/el/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_Vfs.mo" name="locale/en/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_Vfs.po" name="locale/en/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Vfs.mo" name="locale/es/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Vfs.po" name="locale/es/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_Vfs.mo" name="locale/et/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_Vfs.po" name="locale/et/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Vfs.mo" name="locale/eu/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Vfs.po" name="locale/eu/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Vfs.mo" name="locale/fa/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Vfs.po" name="locale/fa/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Vfs.mo" name="locale/fi/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Vfs.po" name="locale/fi/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Vfs.mo" name="locale/fr/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Vfs.po" name="locale/fr/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Vfs.mo" name="locale/gl/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Vfs.po" name="locale/gl/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_Vfs.mo" name="locale/he/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_Vfs.po" name="locale/he/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Vfs.mo" name="locale/hr/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Vfs.po" name="locale/hr/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Vfs.mo" name="locale/hu/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Vfs.po" name="locale/hu/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_Vfs.mo" name="locale/id/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_Vfs.po" name="locale/id/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_Vfs.mo" name="locale/is/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_Vfs.po" name="locale/is/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_Vfs.mo" name="locale/it/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_Vfs.po" name="locale/it/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Vfs.mo" name="locale/ja/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Vfs.po" name="locale/ja/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_Vfs.mo" name="locale/km/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_Vfs.po" name="locale/km/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Vfs.mo" name="locale/ko/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Vfs.po" name="locale/ko/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Vfs.mo" name="locale/lt/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Vfs.po" name="locale/lt/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Vfs.mo" name="locale/lv/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Vfs.po" name="locale/lv/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Vfs.mo" name="locale/mk/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Vfs.po" name="locale/mk/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Vfs.mo" name="locale/nb/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Vfs.po" name="locale/nb/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Vfs.mo" name="locale/nl/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Vfs.po" name="locale/nl/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Vfs.mo" name="locale/nn/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Vfs.po" name="locale/nn/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Vfs.mo" name="locale/pl/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Vfs.po" name="locale/pl/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Vfs.mo" name="locale/pt/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Vfs.po" name="locale/pt/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Vfs.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Vfs.po" name="locale/pt_BR/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Vfs.mo" name="locale/ro/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Vfs.po" name="locale/ro/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Vfs.mo" name="locale/ru/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Vfs.po" name="locale/ru/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Vfs.mo" name="locale/sk/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Vfs.po" name="locale/sk/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Vfs.mo" name="locale/sl/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Vfs.po" name="locale/sl/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Vfs.mo" name="locale/sv/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Vfs.po" name="locale/sv/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Vfs.mo" name="locale/tr/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Vfs.po" name="locale/tr/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Vfs.mo" name="locale/uk/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Vfs.po" name="locale/uk/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Vfs.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Vfs.po" name="locale/zh_CN/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Vfs.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Vfs.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Vfs.po" name="locale/zh_TW/LC_MESSAGES/Horde_Vfs.po" />
+   <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/Vfs/1_horde_vfs_base_tables.php" />
+   <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
+   <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
+   <install as="Horde/Vfs/KolabTest.php" name="test/Horde/Vfs/KolabTest.php" />
+   <install as="Horde/Vfs/SmbTest.php" name="test/Horde/Vfs/SmbTest.php" />
+   <install as="Horde/Vfs/fixtures/samba1.txt" name="test/Horde/Vfs/fixtures/samba1.txt" />
+   <install as="Horde/Vfs/fixtures/samba2.txt" name="test/Horde/Vfs/fixtures/samba2.txt" />
   </filelist>
  </phprelease>
  <changelog>
@@ -695,6 +690,21 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Convert to PHP 5 and Horde 4 package layout.
    </notes>
   </release>
  </changelog>

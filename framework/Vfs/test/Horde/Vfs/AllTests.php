@@ -1,6 +1,6 @@
 <?php
 /**
- * All tests for the VFS:: package.
+ * All tests for the Horde_Vfs:: package.
  *
  * PHP version 5
  *
@@ -16,7 +16,7 @@
  * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'VFS_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Horde_Vfs_AllTests::main');
 }
 
 /**
@@ -28,12 +28,12 @@ require_once 'Horde/Test/AllTests.php';
  * @package    Feed
  * @subpackage UnitTests
  */
-class VFS_AllTests extends Horde_Test_AllTests
+class Horde_Vfs_AllTests extends Horde_Test_AllTests
 {
 }
 
-VFS_AllTests::init('VFS', __FILE__);
+Horde_Vfs_AllTests::init('Horde_Vfs', __FILE__);
 
-if (PHPUnit_MAIN_METHOD == 'VFS_AllTests::main') {
-    VFS_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Horde_Vfs_AllTests::main') {
+    Horde_Vfs_AllTests::main();
 }

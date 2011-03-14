@@ -22,8 +22,8 @@ function _uploadFTP($params)
 
     $params['hostspec'] = 'localhost';
     try {
-        $vfs = VFS::factory('ftp', $params);
-    } catch (VFS_Exception $e) {
+        $vfs = Horde_Vfs::factory('ftp', $params);
+    } catch (Horde_Vfs_Exception $e) {
         $notification->push(sprintf(_("Could not connect to server \"%s\" using FTP: %s"), $params['hostspec'], $e->getMessage()), 'horde.error');
         return false;
     }
@@ -37,7 +37,7 @@ function _uploadFTP($params)
             try {
                 $vfs->rename($path, 'conf.php', $path, '/conf.bak.php');
                 $notification->push(_("Successfully saved backup configuration."), 'horde.success');
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 $notification->push(sprintf(_("Could not save a backup configuation: %s"), $e->getMessage()), 'horde.error');
             }
         }
@@ -46,7 +46,7 @@ function _uploadFTP($params)
             $vfs->writeData($path, 'conf.php', $config);
             $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($path . '/conf.php')), 'horde.success');
             $GLOBALS['session']->remove('horde', 'config/' . $app);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             $no_errors = false;
             $notification->push(sprintf(_("Could not write configuration for \"%s\": %s"), $app, $e->getMessage()), 'horde.error');
         }

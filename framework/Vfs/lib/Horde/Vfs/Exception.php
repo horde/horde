@@ -8,8 +8,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package VFS
+ * @package Vfs
  */
-class VFS_Exception extends Horde_Exception_Prior
+class Horde_Vfs_Exception extends Horde_Exception_Prior
 {
 }

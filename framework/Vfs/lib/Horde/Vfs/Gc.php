@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package VFS
+ * @package Vfs
  */
-class VFS_GC
+class Horde_Vfs_Gc
 {
     /**
      * Garbage collect files in the VFS storage system.
@@ -40,7 +40,7 @@ class VFS_GC
                     $vfs->deleteFile($path, $val['name']);
                 }
             }
-        } catch (VFS_Exception $e) {}
+        } catch (Horde_Vfs_Exception $e) {}
     }
 
 }
