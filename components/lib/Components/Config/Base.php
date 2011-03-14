@@ -117,7 +117,7 @@ implements Components_Config
      */
     public function setComponentDirectory($path, $shift = false)
     {
-        $this->_component = $path;
+        $this->_component = realpath($path);
         if ($shift) {
             $this->shiftArgument();
         }
@@ -136,5 +136,15 @@ implements Components_Config
             );
         }
         return $this->_component;
+    }
+
+    /**
+     * Return the path to the package.xml of the selected component directory.
+     *
+     * @return string The path to the package.xml.
+     */
+    public function getComponentPackageXml()
+    {
+        return $this->getComponentDirectory() . '/package.xml';
     }
 }

@@ -72,7 +72,7 @@ class Components_Runner_Release
         $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
 
-        $package_xml = $arguments[0] . '/package.xml';
+        $package_xml = $this->_config->getComponentPackageXml();
         if (!isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForDefaultLocation(
                 $package_xml

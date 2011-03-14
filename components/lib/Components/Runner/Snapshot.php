@@ -74,12 +74,11 @@ class Components_Runner_Snapshot
 
         if (!isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForDefaultLocation(
-                $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
+                $this->_config->getComponentPackageXml()
             );
         } else {
             $package = $this->_factory->createPackageForInstallLocation(
-                $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml',
-                $options['pearrc']
+                $this->_config->getComponentPackageXml(), $options['pearrc']
             );
         }
 

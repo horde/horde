@@ -63,18 +63,19 @@ class Components_Runner_PearPackageXml
         $arguments = $this->_config->getArguments();
         $options = $this->_config->getOptions();
 
-        if (!file_exists($arguments[0] . '/package.xml')) {
-            $this->_factory->createPackageFile($arguments[0]);
+        if (!file_exists($this->_config->getComponentPackageXml())) {
+            $this->_factory->createPackageFile(
+                $this->_config->getComponentDirectory()
+            );
         }
 
         if (isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForInstallLocation(
-                $arguments[0] . '/package.xml',
-                $options['pearrc']
+                $this->_config->getComponentPackageXml(), $options['pearrc']
             );
         } else {
             $package = $this->_factory->createPackageForDefaultLocation(
-                $arguments[0] . '/package.xml'
+                $this->_config->getComponentPackageXml()
             );
         }
 

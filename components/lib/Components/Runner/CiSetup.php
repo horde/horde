@@ -86,10 +86,10 @@ class Components_Runner_CiSetup
             );
         }
 
-        if (basename(dirname($arguments[0])) == 'framework') {
-            $origin = 'framework' . DIRECTORY_SEPARATOR . basename($arguments[0]);
+        if (basename(dirname($this->_config->getComponentDirectory())) == 'framework') {
+            $origin = 'framework/' . basename($this->_config->getComponentDirectory());
         } else {
-            $origin = basename($arguments[0]);
+            $origin = basename($this->_config->getComponentDirectory());
         }
 
         $config_template = new Components_Helper_Templates_Single(
@@ -104,7 +104,7 @@ class Components_Runner_CiSetup
                 'sourcejob' => 'horde',
                 'toolsdir' => $options['toolsdir'],
                 'description' => $this->_factory->createPackageForInstallLocation(
-                    $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml',
+                    $this->_config->getComponentPackageXml(),
                     $options['pearrc']
                 )->getDescription()
             )

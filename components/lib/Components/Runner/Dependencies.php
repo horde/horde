@@ -74,7 +74,7 @@ class Components_Runner_Dependencies
         $this->_factory
             ->createSimpleTreeHelper($this->_config->getComponentDirectory())
             ->listDependencyTree(
-                $this->_config->getComponentDirectory() . '/package.xml',
+                $this->_config->getComponentPackageXml(),
                 $this->_output
             );
     }
