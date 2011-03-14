@@ -30,7 +30,7 @@ class AddCommentForm extends Horde_Form {
                 ->listAll();
             if ($mygroups) {
                 foreach (array_keys($mygroups) as $gid) {
-                    $grouplist[$gid] = $groups->getGroupName($gid, true);
+                    $grouplist[$gid] = $groups->getName($gid, true);
                 }
                 asort($grouplist);
                 $grouplist = array_merge(array(0 => _("This comment is visible to everyone")), $grouplist);

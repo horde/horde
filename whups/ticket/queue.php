@@ -38,7 +38,7 @@ class SetQueueStep1Form extends Horde_Form {
                 ->listGroups($GLOBALS['registry']->getAuth());
             if ($mygroups) {
                 foreach (array_keys($mygroups) as $gid) {
-                    $grouplist[$gid] = $groups->getGroupName($gid, true);
+                    $grouplist[$gid] = $groups->getName($gid, true);
                 }
                 asort($grouplist);
                 $grouplist = array_merge(array(0 => _("Any Group")),
