@@ -89,6 +89,18 @@ implements Components_Module
     }
 
     /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action)
+    {
+        return '';
+    }
+
+    /**
      * Validate that there is a package.xml file in the provided directory.
      *
      * @param string $directory The package directory.

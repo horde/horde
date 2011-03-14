@@ -35,6 +35,15 @@ interface Components_Module extends Horde_Cli_Modular_Module
     public function getActions();
 
     /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action);
+
+    /**
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *

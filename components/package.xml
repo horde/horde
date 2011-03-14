@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Components</name>
  <channel>pear.horde.org</channel>
  <summary>A package for dealing with Horde components</summary>
@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-14</date>
- <time>10:55:43</time>
+ <time>23:17:08</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -39,9 +39,6 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="hmk" role="script">
-     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
-    </file>
     <file name="horde-bootstrap" role="script" />
     <file name="horde-components" role="script">
      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
@@ -68,7 +65,6 @@
       <file name="Base.php" role="php" />
       <file name="Bootstrap.php" role="php" />
       <file name="Cli.php" role="php" />
-      <file name="Hmk.php" role="php" />
      </dir> <!-- /lib/Components/Config -->
      <dir name="Dependencies">
       <file name="Bootstrap.php" role="php" />
@@ -89,16 +85,13 @@
       <file name="Templates.php" role="php" />
       <file name="Tree.php" role="php" />
      </dir> <!-- /lib/Components/Helper -->
-     <dir name="Hmk">
-      <file name="Base.php" role="php" />
-      <file name="Release.php" role="php" />
-     </dir> <!-- /lib/Components/Hmk -->
      <dir name="Module">
       <file name="Base.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Document.php" role="php" />
+      <file name="Help.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
       <file name="Release.php" role="php" />
@@ -277,6 +270,7 @@
        </dir> <!-- /test/Components/Unit/Components/Pear -->
        <file name="ConfigsTest.php" role="test" />
       </dir> <!-- /test/Components/Unit/Components -->
+      <file name="ComponentsTest.php" role="test" />
      </dir> <!-- /test/Components/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -347,7 +341,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="hmk" name="bin/hmk" />
    <install as="horde-bootstrap" name="bin/horde-bootstrap" />
    <install as="horde-components" name="bin/horde-components" />
    <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
@@ -368,7 +361,6 @@
    <install as="Components/Config/Base.php" name="lib/Components/Config/Base.php" />
    <install as="Components/Config/Bootstrap.php" name="lib/Components/Config/Bootstrap.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
-   <install as="Components/Config/Hmk.php" name="lib/Components/Config/Hmk.php" />
    <install as="Components/Dependencies/Bootstrap.php" name="lib/Components/Dependencies/Bootstrap.php" />
    <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
    <install as="Components/Exception/Pear.php" name="lib/Components/Exception/Pear.php" />
@@ -380,13 +372,12 @@
    <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
    <install as="Components/Helper/Templates/Directory.php" name="lib/Components/Helper/Templates/Directory.php" />
    <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
-   <install as="Components/Hmk/Base.php" name="lib/Components/Hmk/Base.php" />
-   <install as="Components/Hmk/Release.php" name="lib/Components/Hmk/Release.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
    <install as="Components/Module/Document.php" name="lib/Components/Module/Document.php" />
+   <install as="Components/Module/Help.php" name="lib/Components/Module/Help.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
    <install as="Components/Module/Release.php" name="lib/Components/Module/Release.php" />
@@ -463,6 +454,7 @@
    <install as="Components/Integration/Components/Module/PearPackageXmlTest.php" name="test/Components/Integration/Components/Module/PearPackageXmlTest.php" />
    <install as="Components/Integration/Components/Module/ReleaseTest.php" name="test/Components/Integration/Components/Module/ReleaseTest.php" />
    <install as="Components/Integration/Components/Module/SnapshotTest.php" name="test/Components/Integration/Components/Module/SnapshotTest.php" />
+   <install as="Components/Unit/ComponentsTest.php" name="test/Components/Unit/ComponentsTest.php" />
    <install as="Components/Unit/Components/ConfigsTest.php" name="test/Components/Unit/Components/ConfigsTest.php" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />

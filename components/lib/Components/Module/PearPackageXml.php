@@ -88,6 +88,21 @@ extends Components_Module_Base
     }
 
     /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action)
+    {
+        return 'Action "update"
+
+This will automatically update the package.xml of the specified component to include any new files that were added/removed since the package.xml was modified last time.
+';
+    }
+
+    /**
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *

@@ -140,6 +140,13 @@ class Components_Output
         $this->pear($text);
     }
 
+    public function help($text)
+    {
+        $this->_cli->message(
+            $text, $this->_getType('cli.message')
+        );
+    }
+
     public function pear($text)
     {
         if (!$this->_verbose) {
