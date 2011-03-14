@@ -37,3 +37,9 @@
  - Verify if deleting a complete folder can fully adhere to the Kolab
    spec without too much hassle (alternative: The consumer of the API
    has to use the methods in correct order)
+
+ - Support servers without annotation support
+
+ - Do not overwrite the previous XML part (should only be modified)
+
+ - Split the "Driver" part into a separate package.
