@@ -414,7 +414,9 @@ class Turba_Object
 
         // Let's see if we can view this one, too.
         if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
-            $url = Horde::url('view.php')->add('actionID', 'view_file');
+            $url = Horde::url('view.php')
+                ->add($url_params)
+                ->add('actionID', 'view_file');
             $link = Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
         } else {
             $link = $file['name'];
