@@ -24,17 +24,17 @@ interface Horde_View_Interface
     /**
      * Accesses a helper object from within a template.
      *
-     * @param string $name The helper name.
-     * @param array $args The parameters for the helper.
+     * @param string $method  The helper method.
+     * @param array $args     The parameters for the helper.
      *
-     * @return string The result of the helper output.
+     * @return string  The result of the helper method.
      */
     public function __call($name, $args);
 
     /**
      * Adds to the stack of template paths in LIFO order.
      *
-     * @param string|array The directory (-ies) to add.
+     * @param string|array  The directory (-ies) to add.
      */
     public function addTemplatePath($path);
 
@@ -43,48 +43,49 @@ interface Horde_View_Interface
      *
      * To clear all paths, use Horde_View::setTemplatePath(null).
      *
-     * @param string|array The directory (-ies) to set as the path.
+     * @param string|array  The directory (-ies) to set as the path.
      */
     public function setTemplatePath($path);
 
     /**
      * Adds to the stack of helpers in LIFO order.
      *
-     * @param Horde_View_Helper The helper instance to add.
+     * @param Horde_View_Helper|string $helper  The helper instance to add.
+     *
+     * @return Horde_View_Helper  Returns the helper object that was added.
      */
     public function addHelper($helper);
 
     /**
      * Assigns multiple variables to the view.
      *
-     * The array keys are used as names, each assigned their
-     * corresponding array value.
+     * The array keys are used as names, each assigned their corresponding
+     * array value.
      *
-     * @param array $array The array of key/value pairs to assign.
+     * @param array $array  The array of key/value pairs to assign.
      */
     public function assign($array);
 
     /**
      * Processes a template and returns the output.
      *
-     * @param string $name The template name to process.
+     * @param string $name  The template to process.
      *
-     * @return string The template output.
+     * @return string  The template output.
      */
     public function render($name);
 
     /**
-     * Set encoding
+     * Sets the output encoding.
      *
-     * @param string $encoding
+     * @param string $encoding  A character set name.
      */
     public function setEncoding($encoding);
 
     /**
-     * Return current encoding
+     * Returns the current output encoding.
      *
-     * @return string
+     * @return string  The current character set.
      */
     public function getEncoding();
-
 }
