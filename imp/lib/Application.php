@@ -359,42 +359,6 @@ class IMP_Application extends Horde_Registry_Application
         $js_code = array(
             'ImpLogin.server_key_error' => _("Please choose a mail server.")
         );
-        if (!empty($GLOBALS['conf']['user']['select_view'])) {
-            if (!($view_cookie = Horde_Util::getFormData('imp_select_view'))) {
-                $view_cookie = isset($_COOKIE['default_imp_view'])
-                    ? $_COOKIE['default_imp_view']
-                    : ($GLOBALS['browser']->isMobile()
-                       ? ($GLOBALS['browser']->getBrowser() == 'webkit'
-                          ? 'mimp'
-                          : 'mobile')
-                       : 'imp');
-            }
-
-            $js_code['ImpLogin.pre_sel'] = $view_cookie;
-
-            $params['imp_select_view'] = array(
-                'label' => _("Mode"),
-                'type' => 'select',
-                'value' => array(
-                    'imp' => array(
-                        'name' => _("Traditional"),
-                        'selected' => $view_cookie == 'imp'
-                    ),
-                    'dimp' => array(
-                        'hidden' => true,
-                        'name' => _("Dynamic")
-                    ),
-                    'mobile' => array(
-                        'hidden' => true,
-                        'name' => _("Mobile (Smartphone)")
-                    ),
-                    'mimp' => array(
-                        'name' => _("Mobile"),
-                        'selected' => $view_cookie == 'mimp'
-                    )
-                )
-            );
-        }
 
         return array(
             'js_code' => $js_code,

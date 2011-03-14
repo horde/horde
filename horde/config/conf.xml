@@ -1677,6 +1677,23 @@
    <configboolean name="verify_from_addr" desc="If users are adding new From:
    addresses to their identities, should we send them a confirmation message
    to verify that the email address is really theirs?">false</configboolean>
+   <configswitch name="select_view" desc="Allow user to select the application
+   view mode on login?">false
+    <case name="true" desc="Yes"/>
+    <case name="false" desc="No">
+     <configenum name="force_view" desc="Force an application view to be used
+     for all users?">
+      <values>
+       <value desc="None (use user's browser and 'dynamic_view'
+       preference)"></value>
+       <value desc="Traditional">traditional</value>
+       <value desc="Dynamic">dynamic</value>
+       <value desc="Mobile">mobile</value>
+       <value desc="Smartphone">smartmobile</value>
+      </values>
+     </configenum>
+    </case>
+   </configswitch>
   </configsection>
  </configtab>
 
@@ -1937,7 +1954,7 @@
      <configsection name="securitypolicies">
      <configheader>Security Policies</configheader>
       <configswitch name="provisioning" quote="false" desc="How should device
-      provisioning be handled? Set to DISABLE to ignore provisioning. Set to 
+      provisioning be handled? Set to DISABLE to ignore provisioning. Set to
       ALLOW to force devices that CAN be provisioned to use provisioning, but
       allow older devices with no support for provisioning to still be used. Set
       to FORCE to only allow devices that are provisioned to connect to your

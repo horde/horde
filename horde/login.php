@@ -134,7 +134,8 @@ if ($logout_reason) {
           Horde_Util::getPost('login_button')) {
     /* Get the login params from the login screen. */
     $auth_params = array(
-        'password' => Horde_Util::getPost('horde_pass')
+        'password' => Horde_Util::getPost('horde_pass'),
+        'mode' => Horde_Util::getPost('horde_select_view')
     );
 
     try {
@@ -147,7 +148,6 @@ if ($logout_reason) {
     if ($vars->ie_version) {
         $browser->setIEVersion($vars->ie_version);
     }
-
     if ($auth->authenticate(Horde_Util::getPost('horde_user'), $auth_params)) {
         $entry = sprintf('Login success for %s [%s] to %s.', $registry->getAuth(), $_SERVER['REMOTE_ADDR'], ($vars->app && $is_auth) ? $vars->app : 'horde');
         Horde::logMessage($entry, 'NOTICE');
@@ -202,6 +202,44 @@ $js_code = array(
 $js_files = array(
     array('login.js', 'horde')
 );
+
+if (!empty($GLOBALS['conf']['user']['select_view'])) {
+    if (!($view_cookie = Horde_Util::getFormData('horde_select_view'))) {
+        $view_cookie = isset($_COOKIE['default_horde_view'])
+            ? $_COOKIE['default_horde_view']
+            : ($GLOBALS['browser']->isMobile()
+               ? ($GLOBALS['browser']->getBrowser() == 'webkit'
+                  ? 'mobile'
+                  : 'smartmobile')
+               : 'traditional');
+    }
+
+    $js_code['HordeLogin.pre_sel'] = $view_cookie;
+    $loginparams['horde_select_view'] = array(
+        'label' => _("Mode"),
+        'type' => 'select',
+        'value' => array(
+            'traditional' => array(
+                'name' => _("Traditional"),
+                'selected' => $view_cookie == 'traditional'
+            ),
+            'dynamic' => array(
+                'name' => _("Dynamic"),
+                'hidden' => true,
+            ),
+            'smartmobile' => array(
+                'name' => _("Mobile (Smartphone)"),
+                'hidden' => true,
+            ),
+            'mobile' => array(
+                'name' => _("Mobile"),
+                'selected' => $view_cookie == 'mobile'
+            )
+        )
+    );
+}
+
+
 
 try {
     $result = $auth->getLoginParams();

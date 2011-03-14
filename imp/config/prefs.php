@@ -1496,10 +1496,7 @@ $_prefs['preview_show_tooltip'] = array(
     'desc' => _("Show previews in tooltips?")
 );
 
-
-
 // *** Dynamic View (DIMP) Preferences ***
-
 $prefGroups['dimp'] = array(
     'column' => _("Other"),
     'label' => _("Dynamic View"),
@@ -1509,9 +1506,14 @@ $prefGroups['dimp'] = array(
 
 // Show dynamic view?
 $_prefs['dynamic_view'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Show the dynamic view by default, if the browser supports it?")
+    'value' => 'default',
+    'type' => 'enum',
+    'desc' => _("When should the dynamic view be used?"),
+    'enum' => array(
+        'default' => _("Show dynamic view if supported and traditional view not selected at login."),
+        'never' => _("Never. Force the use of traditional view."),
+        'always' => _("Always. Force the use of dynamic view.")
+    )
 );
 
 // Login preferences (dimp)

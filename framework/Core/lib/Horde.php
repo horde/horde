@@ -501,7 +501,7 @@ HTML;
             }
             break;
         case 'portal':
-            if ($GLOBALS['browser']->isMobile()) {
+            if ($GLOBALS['session']->get('horde', 'mode') == 'smartmobile' && self::ajaxAvailable()) {
                 return self::url('services/portal/mobile.php', false, $opts);
             } else {
                 return self::url('services/portal/', false, $opts);

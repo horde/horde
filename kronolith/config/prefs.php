@@ -67,11 +67,16 @@ $prefGroups['addressbooks'] = array(
     'members' => array('display_contact', 'sourceselect'),
 );
 
-// show dynamic view?
+// Show dynamic view?
 $_prefs['dynamic_view'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Show the dynamic view by default, if the browser supports it?")
+    'value' => 'default',
+    'type' => 'enum',
+    'desc' => _("When should the dynamic view be used?"),
+    'enum' => array(
+        'default' => _("Show dynamic view if supported and traditional view not selected at login."),
+        'never' => _("Never. Force the use of traditional view."),
+        'always' => _("Always. Force the use of dynamic view.")
+    )
 );
 
 // confirm deletion of events which don't recur?

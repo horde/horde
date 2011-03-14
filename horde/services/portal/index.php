@@ -11,6 +11,11 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
+// Make sure we don't need the mobile view.
+if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+    Horde::getServiceLink('portal')->redirect();
+    exit;
+}
 // Get refresh interval.
 if (($r_time = $prefs->getValue('summary_refresh_time'))
     && !$browser->hasFeature('xmlhttpreq')) {

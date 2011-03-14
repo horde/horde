@@ -58,10 +58,10 @@ if ($main_page) {
         // Search for a user-specified initial application.
         // Force mobile agents to the mobile portal, at least until we have
         // a default mobile app pref.
-        if ($browser->isMobile()) {
+        if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
             Horde::getServiceLink('portal')->redirect();
         }
-        
+
         $initial_app = $prefs->getValue('initial_application');
         if (!empty($initial_app) &&
             ($initial_app != 'horde') &&

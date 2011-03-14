@@ -2980,8 +2980,12 @@ class Kronolith
      */
     public static function showAjaxView()
     {
-        return $GLOBALS['prefs']->getValue('dynamic_view') &&
-            Horde::ajaxAvailable();
+        global $conf, $prefs, $session;
+
+        return ($prefs->getValue('dynamic_view') == 'always' ||
+                 ((empty($conf['user']['select_view']) && $prefs->getValue('dynamic_view') == 'default')
+                 || (!empty($conf['user']['select_view']) && $session->get('horde', 'mode') == 'dynamic' && $prefs->getValue('dynamic_view') != 'never'))) &&
+               Horde::ajaxAvailable();
     }
 
     /**

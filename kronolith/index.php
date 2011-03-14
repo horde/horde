@@ -8,8 +8,10 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
+
 /* Load mobile? */
-if ($browser->isMobile()) {
+if ($session->get('horde', 'mode') == 'smartmobile' ||
+    $session->get('horde', 'mode') == 'mobile') {
     include KRONOLITH_BASE . '/mobile.php';
     exit;
 }

@@ -20,14 +20,12 @@
  * protocol - (string) Either 'imap' or 'pop'.
  * rteavail - (boolean) Is the HTML editor available?
  * search - (IMP_Search) The IMP_Search object.
- * select_view - (string) TODO
  * server_key - (string) Server used to login.
  * smime - (array) Settings related to the S/MIME viewer.
  * smtp - (array) SMTP options ('host' and 'port')
  * showunsub - (boolean) Show unsusubscribed mailboxes on the folders
  *             screen.
  * tasklistavail - (boolean) Is listing of tasklists available?
- * view - (string) The imp view mode (dimp, imp, or mimp)
  * </pre>
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
@@ -335,7 +333,6 @@ class IMP_Auth
                 break;
             }
         }
-
         return $url
             ? Horde::url($page, true)
             : IMP_BASE . '/' . $page;
@@ -430,37 +427,27 @@ class IMP_Auth
             $session->set('imp', 'notepadavail', true);
         }
 
-        /* Is the HTML editor available? */
-        $imp_ui = new IMP_Ui_Compose();
-        $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
-
-        /* Determine view. */
-        $setcookie = false;
-        if (empty($conf['user']['force_view'])) {
-            if (empty($conf['user']['select_view']) ||
-                !$session->get('imp', 'select_view')) {
-                // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
-                if ($browser->isMobile()) {
-                    if ($browser->getBrowser() == 'webkit') {
-                        $view = 'mobile';
-                    } else {
-                        $view = 'mimp';
-                    }
-                } else {
-                    $view = $prefs->getValue('dynamic_view') ? 'dimp' : 'imp';
-                }
-            } else {
-                $setcookie = true;
-                $view = $session->get('imp', 'select_view');
+        /* Determine View */
+        $mode = $session->get('horde', 'mode');
+        if (!IMP::showAjaxView() && $mode == 'dynamic') {
+            if ($prefs->getValue('dynamic_view') == 'always') {
+                $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
             }
+            $session->set('imp', 'view', 'imp');
         } else {
-            $view = $conf['user']['force_view'];
-        }
-
-        self::setViewMode($view);
-
-        if ($setcookie) {
-            setcookie('default_imp_view', $session->get('imp', 'view'), time() + 30 * 86400, $conf['cookie']['path'], $conf['cookie']['domain']);
+            /* Map to IMP view */
+            switch($session->get('horde', 'mode')) {
+            case 'dynamic':
+            case 'traditional':
+                $impview = IMP::showAjaxView() ? 'dimp' : 'imp';
+                break;
+            case 'smartmobile':
+                $impview = Horde::ajaxAvailable() ? 'mobile' : 'mimp';
+                break;
+            case 'mobile':
+                $impview = 'mimp';
+            }
+            $session->set('imp', 'view', $impview);
         }
 
         /* Indicate that notifications should use AJAX mode. */
@@ -474,6 +461,10 @@ class IMP_Auth
                 )
             );
         }
+
+        /* Is the HTML editor available? */
+        $imp_ui = new IMP_Ui_Compose();
+        $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
 
         self::_logMessage(true, $imp_imap);
     }

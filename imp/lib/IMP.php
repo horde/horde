@@ -63,13 +63,30 @@ class IMP
     /**
      * Returns the current view mode for IMP.
      *
-     * @return string  Either 'dimp', 'imp', or 'mimp'.
+     * @return string  Either 'traditional', 'dynamic', or 'mobile' or
+     *                 'smartmobile'.
      */
     static public function getViewMode()
     {
         return ($view = $GLOBALS['session']->get('imp', 'view'))
             ? $view
             : 'imp';
+    }
+
+    /**
+     * Determines if we should display the ajax view based on a combination of
+     * user prefs and browser capabilities.
+     *
+     * @return boolean  A boolean indicating if we should show the ajax view.
+     */
+    static public function showAjaxView()
+    {
+        global $conf, $prefs, $session;
+
+        return ($prefs->getValue('dynamic_view') == 'always' ||
+                 ((empty($conf['user']['select_view']) && $prefs->getValue('dynamic_view') == 'default')
+                 || (!empty($conf['user']['select_view']) && $session->get('horde', 'mode') == 'dynamic' && $prefs->getValue('dynamic_view') != 'never'))) &&
+               Horde::ajaxAvailable();
     }
 
     /**

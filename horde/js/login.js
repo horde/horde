@@ -61,6 +61,16 @@ var HordeLogin = {
         } else if ($('horde_pass') && !$F('horde_pass')) {
             $('horde_pass').focus();
         }
+
+        /* Activate dynamic view. */
+        var s = $('horde_select_view');
+        if (s) {
+            s.down('option[value=dynamic]').show();
+            s.down('option[value=smartmobile]').show();
+            if (this.pre_sel) {
+                s.selectedIndex = s.down('option[value=' + this.pre_sel + ']').index;
+            }
+        }
     },
 
     _changeHandler: function(e)
