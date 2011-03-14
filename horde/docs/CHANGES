@@ -2,6 +2,7 @@
 v4.0-BETA1
 ----------
 
+[mjr] Improved control over which application view to load.
 [jan] Find translateable strings in configuration files.
 [jan] Only show advanced preferences link if there are some.
 [mms] Fix updates for refreshing Blocks (Bug #9655).
