@@ -15,13 +15,13 @@
  - Add a commit module that automatically adds a changelog entry in
    the notes section of the package.xml
 
- - The bootstrapping script (or one of the installed tools) must be
-   able to update the bootstrapped environment.
-
- - The bootstrapping script (or one of the installed tools) should
-   support different installation targets.
-
- - The bootstrapping script should support a network-less installation.
+ - Bootstrapping script
+   - must be able to update the bootstrapped environment (probably
+     sufficient if installing from released packages)
+   - Support for different installation targets.
+   - Support a network-less installation.
+   - Allow to specify the target location of the environment (default
+     horde/lib)
 
  - Allow the component script to be context-sensitive and provide easy
    commands when whithin a component directory
