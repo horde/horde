@@ -73,7 +73,9 @@ extends Components_Module_Base
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *
-     * @return NULL
+     * @param Components_Config $config The configuration.
+     *
+     * @return boolean True if the module performed some action.
      */
     public function handle(Components_Config $config)
     {
@@ -81,6 +83,7 @@ extends Components_Module_Base
         if (!empty($options['distribute'])) {
             $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerDistribute()->run();
+            return true;
         }
     }
 }

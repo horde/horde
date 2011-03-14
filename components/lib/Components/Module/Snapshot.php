@@ -62,12 +62,21 @@ extends Components_Module_Base
         );
     }
 
+    /**
+     * Determine if this module should act. Run all required actions if it has
+     * been instructed to do so.
+     *
+     * @param Components_Config $config The configuration.
+     *
+     * @return boolean True if the module performed some action.
+     */
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
         if (!empty($options['snapshot'])) {
             $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerSnapshot()->run();
+            return true;
         }
     }
 }

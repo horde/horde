@@ -90,4 +90,19 @@ extends Components_TestCase
             $output
         );
     }
+
+    public function testWithinComponentNoAction()
+    {
+        $oldcwd = getcwd();
+        chdir(dirname(__FILE__) . '/../fixture/framework/Install');
+        $_SERVER['argv'] = array(
+            'horde-components',
+        );
+        $output = $this->_callUnstrictComponents();
+        chdir($oldcwd);
+        $this->assertContains(
+            Components::ERROR_NO_ACTION,
+            $output
+        );
+    }
 }

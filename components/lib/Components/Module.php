@@ -38,7 +38,9 @@ interface Components_Module extends Horde_Cli_Modular_Module
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *
-     * @return NULL
+     * @param Components_Config $config The configuration.
+     *
+     * @return boolean True if the module performed some action.
      */
     public function handle(Components_Config $config);
 }

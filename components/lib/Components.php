@@ -64,12 +64,17 @@ class Components
         }
 
         try {
+            $ran = false;
             foreach ($modular->getModules() as $module) {
-                $modular->getProvider()->getModule($module)->handle($config);
+                $ran |= $modular->getProvider()->getModule($module)->handle($config);
             }
         } catch (Components_Exception $e) {
             $dependencies->getOutput()->fail($e);
             return;
+        }
+
+        if (!$ran) {
+            $parser->parserError(self::ERROR_NO_ACTION);
         }
     }
 
