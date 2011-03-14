@@ -436,7 +436,7 @@ class IMP_Auth
             $session->set('imp', 'view', 'imp');
         } else {
             /* Map to IMP view */
-            switch($session->get('horde', 'mode')) {
+            switch($mode) {
             case 'dynamic':
             case 'traditional':
                 $impview = IMP::showAjaxView() ? 'dimp' : 'imp';
