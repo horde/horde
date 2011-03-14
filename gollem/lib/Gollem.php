@@ -755,9 +755,6 @@ class Gollem
         // Create VFS object
         $ob = Horde_Vfs::factory($be_config['driver'], $params);
 
-        // Enable logging within VFS
-        $ob->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
-
         if (!isset($be_config['quota_val']) &&
             !empty($be_config['quota'])) {
             $quota_metric = array(
