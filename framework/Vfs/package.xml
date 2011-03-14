@@ -39,6 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Convert SQL drivers to use Horde_Db.
 * Convert to PHP 5 and Horde 4 package layout.
  </notes>
  <contents>
@@ -377,12 +378,20 @@ Reading, writing and listing of files are all supported, and there are both obje
    </package>
   </required>
   <optional>
+   <extension>
+    <name>ftp</name>
+   </extension>
    <package>
-    <name>Horde_Log</name>
+    <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>ssh2</name>
+    <channel>pecl.php.net</channel>
+    <min>0.10</min>
    </package>
   </optional>
  </dependencies>

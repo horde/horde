@@ -51,12 +51,6 @@ abstract class Horde_Vfs_Base
     );
 
     /**
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $_logger = null;
-
-    /**
      * The current size, in bytes, of the VFS item.
      *
      * @var integer
@@ -87,16 +81,6 @@ abstract class Horde_Vfs_Base
     public function checkCredentials()
     {
         $this->_connect();
-    }
-
-    /**
-     * Setter for the log object.
-     *
-     * @param Horde_Log_Logger $logger
-     */
-    public function setLogger(Horde_Log_Logger $logger)
-    {
-        $this->_logger = $logger;
     }
 
     /**

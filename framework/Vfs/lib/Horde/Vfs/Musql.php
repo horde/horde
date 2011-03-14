@@ -1,24 +1,13 @@
 <?php
 /**
- * Multi User VFS implementation for PHP's PEAR database
- * abstraction layer.
+ * Multi User VFS implementation for Horde's database abstraction layer.
  *
- * Required values for $params:<pre>
- *      'phptype'       The database type (ie. 'pgsql', 'mysql', etc.).</pre>
+ * Required values for $params:
+ * - db: A Horde_Db_Adapter object.
  *
- * Optional values:<pre>
- *      'table'         The name of the vfs table in 'database'. Defaults to
- *                      'horde_muvfs'.</pre>
- *
- * Required by some database implementations:<pre>
- *      'hostspec'      The hostname of the database server.
- *      'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *      'database'      The name of the database.
- *      'username'      The username with which to connect to the database.
- *      'password'      The password associated with 'username'.
- *      'options'       Additional options to pass to the database.
- *      'tty'           The TTY on which to connect to the database.
- *      'port'          The port on which to connect to the database.</pre>
+ * Optional values:
+ * - table: (string) The name of the vfs table in 'database'. Defaults to
+ *          'horde_muvfs'.
  *
  * Known Issues:
  * Delete is not recusive, so files and folders that used to be in a folder
@@ -26,21 +15,8 @@
  * is recreated.
  * Rename has the same issue, so files are lost if a folder is renamed.
  *
- * The table structure for the VFS can be found in
- * data/muvfs.sql.
- *
- * Database specific notes:
- *
- * MSSQL:
- * - The vfs_data field must be of type IMAGE.
- * - You need the following php.ini settings:
- * <code>
- *    ; Valid range 0 - 2147483647. Default = 4096.
- *    mssql.textlimit = 0 ; zero to pass through
- *
- *    ; Valid range 0 - 2147483647. Default = 4096.
- *    mssql.textsize = 0 ; zero to pass through
- * </code>
+ * The table structure for the VFS can be created with the horde-db-migrate
+ * script from the Horde_Db package.
  *
  * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
@@ -94,8 +70,6 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
-        $this->_connect();
-
         /* Make sure we have write access to this and all parent paths. */
         if ($path != '') {
             $paths = explode('/', $path);
@@ -114,11 +88,10 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                 $sql = sprintf('SELECT vfs_owner, vfs_perms FROM %s
                                 WHERE vfs_path = ? AND vfs_name= ?',
                                $this->_params['table']);
-                $this->_logger->debug($sql);
-                $results = $this->_db->getAll($sql, array($previous, $thispath));
-                if ($results instanceof PEAR_Error) {
-                    $this->_logger->err($results);
-                    throw new Horde_Vfs_Exception($results->getMessage());
+                try {
+                    $results = $this->_db->selectAll($sql, array($previous, $thispath));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Vfs_Exception($e);
                 }
                 if (!is_array($results) || count($results) < 1) {
                     throw new Horde_Vfs_Exception('Unable to create VFS file.');
@@ -126,8 +99,8 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
 
                 $allowed = false;
                 foreach ($results as $result) {
-                    if ($result[0] == $this->_params['user'] ||
-                        $result[1] & self::FLAG_WRITE) {
+                    if ($result['vfs_owner'] == $this->_params['user'] ||
+                        $result['vfs_perm'] & self::FLAG_WRITE) {
                         $allowed = true;
                         break;
                     }
@@ -154,17 +127,13 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
      */
     public function deleteFile($path, $name)
     {
-        $this->_connect();
-
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ? AND vfs_type = ?',
                        $this->_params['table']);
-        $this->_logger->debug($sql);
-        $fileList = $this->_db->getAll($sql, array($path, $name, self::FILE));
-
-        if ($fileList instanceof PEAR_Error) {
-            $this->_logger->err($fileList);
-            throw new Horde_Vfs_Exception($fileList->getMessage());
+        try {
+            $fileList = $this->_db->selectAll($sql, array($path, $name, self::FILE));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Vfs_Exception($e);
         }
         if (!is_array($fileList) || count($fileList) < 1) {
             throw new Horde_Vfs_Exception('Unable to delete VFS file.');
@@ -174,18 +143,16 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
          * not have read access to them, so doesn't see them. So we have to
          * delete the one they have access to. */
         foreach ($fileList as $file) {
-            if ($file[1] == $this->_params['user'] ||
-                $file[2] & self::FLAG_WRITE) {
+            if ($file['vfs_owner'] == $this->_params['user'] ||
+                $file['vfs_perms'] & self::FLAG_WRITE) {
                 $sql = sprintf('DELETE FROM %s WHERE vfs_id = ?',
                                $this->_params['table']);
-                $this->_logger->debug($sql);
-                $result = $this->_db->query($sql, array($file[0]));
-
-                if ($result instanceof PEAR_Error) {
-                    $this->_logger->err($result);
-                    throw new Horde_Vfs_Exception($result->getMessage());
+                try {
+                    $result = $this->_db->delete($sql, array($file['vfs_id']));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Vfs_Exception($e);
                 }
-                if ($this->_db->affectedRows() == 0) {
+                if ($result == 0) {
                     throw new Horde_Vfs_Exception('Unable to delete VFS file.');
                 }
                 return $result;
@@ -208,17 +175,14 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
      */
     public function rename($oldpath, $oldname, $newpath, $newname)
     {
-        $this->_connect();
-
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ?',
                        $this->_params['table']);
-        $this->_logger->debug($sql);
-        $fileList = $this->_db->getAll($sql, array($oldpath, $oldname));
+        try {
+            $fileList = $this->_db->selectAll($sql, array($oldpath, $oldname));
 
-        if ($fileList instanceof PEAR_Error) {
-            $this->_logger->err($fileList);
-            throw new Horde_Vfs_Exception($fileList);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Vfs_Exception($e);
         }
         if (!is_array($fileList) || count($fileList) < 1) {
             throw new Horde_Vfs_Exception('Unable to rename VFS file.');
@@ -238,20 +202,18 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
          * not have read access to them, so doesn't see them. So we have to
          * rename the one they have access to. */
         foreach ($fileList as $file) {
-            if ($file[1] == $this->_params['user'] ||
-                $file[2] & self::FLAG_WRITE) {
+            if ($file['vfs_owner'] == $this->_params['user'] ||
+                $file['vfs_perms'] & self::FLAG_WRITE) {
                 $sql = sprintf('UPDATE %s SET vfs_path = ?, vfs_name = ?, vfs_modified = ?
                                 WHERE vfs_id = ?',
                                $this->_params['table']);
-                $this->_logger->debug($sql);
-                $result = $this->_db->query(
-                    $sql,
-                    array($newpath, $newname, time(), $file[0]));
-                if ($result instanceof PEAR_Error) {
-                    $this->_logger->err($result);
-                    throw new Horde_Vfs_Exception($result->getMessage());
+                try {
+                    $this->_db->update(
+                        $sql,
+                        array($newpath, $newname, time(), $file['vfs_id']));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Vfs_Exception($e);
                 }
-                return $result;
             }
         }
 
@@ -268,8 +230,6 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
      */
     public function createFolder($path, $name)
     {
-        $this->_connect();
-
         /* Make sure we have write access to this and all parent paths. */
         if (strlen($path)) {
             $paths = explode('/', $path);
@@ -279,11 +239,10 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                 $sql = sprintf('SELECT vfs_owner, vfs_perms FROM %s
                                 WHERE vfs_path = ? AND vfs_name= ?',
                                $this->_params['table']);
-                $this->_logger->debug($sql);
-                $results = $this->_db->getAll($sql, array($previous, $thispath));
-                if ($results instanceof PEAR_Error) {
-                    $this->_logger->err($results);
-                    throw new Horde_Vfs_Exception($results->getMessage());
+                try {
+                    $results = $this->_db->selectAll($sql, array($previous, $thispath));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Vfs_Exception($e);
                 }
                 if (!is_array($results) || count($results) < 1) {
                     throw new Horde_Vfs_Exception('Unable to create VFS directory.');
@@ -291,8 +250,8 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
 
                 $allowed = false;
                 foreach ($results as $result) {
-                    if ($result[0] == $this->_params['user'] ||
-                        $result[1] & self::FLAG_WRITE) {
+                    if ($result['vfs_owner'] == $this->_params['user'] ||
+                        $result['vfs_perms'] & self::FLAG_WRITE) {
                         $allowed = true;
                         break;
                     }
@@ -306,21 +265,17 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
             }
         }
 
-        $id = $this->_db->nextId($this->_params['table']);
         $sql = sprintf('INSERT INTO %s
-                        (vfs_id, vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner, vfs_perms)
-                        VALUES (?, ?, ?, ?, ?, ?, ?)',
+                        (vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner, vfs_perms)
+                        VALUES (?, ?, ?, ?, ?, ?)',
                        $this->_params['table']);
-        $this->_logger->debug($sql);
-        $result = $this->_db->query(
-            $sql,
-            array($id, VFS_FOLDER, $path, $name, time(), $this->_params['user'], 0));
-        if ($result instanceof PEAR_Error) {
-            $this->_logger->err($result);
-            throw new Horde_Vfs_Exception($result->getMessage());
+        try {
+            $this->_db->insert(
+                $sql,
+                array(self::FOLDER, $path, $name, time(), $this->_params['user'], 0));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Vfs_Exception($e);
         }
-
-        return $result;
     }
 
     /**
@@ -334,8 +289,6 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
      */
     public function deleteFolder($path, $name, $recursive = false)
     {
-        $this->_connect();
-
         if ($recursive) {
             $this->emptyFolder($path . '/' . $name);
         } else {
@@ -348,12 +301,10 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ? AND vfs_type = ?',
                        $this->_params['table']);
-        $this->_logger->debug($sql);
-        $fileList = $this->_db->getAll($sql, array($path, $name, VFS_FOLDER));
-
-        if ($fileList instanceof PEAR_Error) {
-            $this->_logger->err($fileList);
-            throw new Horde_Vfs_Exception($fileList->getMessage());
+        try {
+            $fileList = $this->_db->selectAll($sql, array($path, $name, self::FOLDER));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Vfs_Exception($e);
         }
         if (!is_array($fileList) || count($fileList) < 1) {
             throw new Horde_Vfs_Exception('Unable to delete VFS directory.');
@@ -363,18 +314,16 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
          * may not have read access to them, they don't see them. So we have
          * to delete the one they have access to */
         foreach ($fileList as $file) {
-            if ($file[1] == $this->_params['user'] ||
-                $file[2] & self::FLAG_WRITE) {
+            if ($file['vfs_owner'] == $this->_params['user'] ||
+                $file['vfs_perms'] & self::FLAG_WRITE) {
                 $sql = sprintf('DELETE FROM %s WHERE vfs_id = ?',
                                $this->_params['table']);
-                $this->_logger->debug($sql);
-                $result = $this->_db->query($sql, array($file[0]));
-
-                if ($result instanceof PEAR_Error) {
-                    $this->_logger->err($result);
-                    throw new Horde_Vfs_Exception($result->getMessage());
+                try {
+                    $result = $this->_db->delete($sql, array($file['vfs_id']));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Vfs_Exception($e);
                 }
-                if ($this->_db->affectedRows() == 0) {
+                if ($result == 0) {
                     throw new Horde_Vfs_Exception('Unable to delete VFS directory.');
                 }
 
@@ -400,32 +349,29 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
     {
-        $this->_connect();
-
         $length_op = $this->_getFileSizeOp();
-        $sql = sprintf('SELECT vfs_name, vfs_type, vfs_modified, vfs_owner, vfs_perms, %s(vfs_data) FROM %s
+        $sql = sprintf('SELECT vfs_name, vfs_type, vfs_modified, vfs_owner, vfs_perms, %s(vfs_data) length FROM %s
                         WHERE vfs_path = ? AND (vfs_owner = ? OR vfs_perms \&\& ?)',
                        $length_op, $this->_params['table']);
-        $this->_logger->debug($sql);
-        $fileList = $this->_db->getAll(
-            $sql,
-            array($path, $this->_params['user'], self::FLAG_READ));
-        if ($fileList instanceof PEAR_Error) {
-            $this->_logger->err($fileList);
-            throw new Horde_Vfs_Exception($fileList->getMessage());
+        try {
+            $fileList = $this->_db->selectAll(
+                $sql,
+                array($path, $this->_params['user'], self::FLAG_READ));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Vfs_Exception($e);
         }
 
         $files = array();
         foreach ($fileList as $line) {
             // Filter out dotfiles if they aren't wanted.
-            if (!$dotfiles && substr($line[0], 0, 1) == '.') {
+            if (!$dotfiles && substr($line['vfs_name'], 0, 1) == '.') {
                 continue;
             }
 
-            $file['name'] = stripslashes($line[0]);
+            $file['name'] = stripslashes($line['vfs_name']);
 
-            if ($line[1] == self::FILE) {
-                $name = explode('.', $line[0]);
+            if ($line['vfs_type'] == self::FILE) {
+                $name = explode('.', $line['vfs_name']);
 
                 if (count($name) == 1) {
                     $file['type'] = '**none';
@@ -433,20 +379,20 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                     $file['type'] = Horde_String::lower($name[count($name) - 1]);
                 }
 
-                $file['size'] = $line[5];
-            } elseif ($line[1] == self::FOLDER) {
+                $file['size'] = $line['length'];
+            } elseif ($line['vfs_type'] == self::FOLDER) {
                 $file['type'] = '**dir';
                 $file['size'] = -1;
             }
 
-            $file['date'] = $line[2];
-            $file['owner'] = $line[3];
+            $file['date'] = $line['vfs_modified'];
+            $file['owner'] = $line['vfs_owner'];
 
-            $line[4] = intval($line[4]);
-            $file['perms']  = ($line[1] == self::FOLDER) ? 'd' : '-';
+            $line['vfs_perms'] = intval($line['vfs_perms']);
+            $file['perms']  = ($line['vfs_type'] == self::FOLDER) ? 'd' : '-';
             $file['perms'] .= 'rw-';
-            $file['perms'] .= ($line[4] & self::FLAG_READ) ? 'r' : '-';
-            $file['perms'] .= ($line[4] & self::FLAG_WRITE) ? 'w' : '-';
+            $file['perms'] .= ($line['vfs_perms'] & self::FLAG_READ) ? 'r' : '-';
+            $file['perms'] .= ($line['vfs_perms'] & self::FLAG_WRITE) ? 'w' : '-';
             $file['perms'] .= '-';
             $file['group'] = '';
 
@@ -477,8 +423,6 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
      */
     public function changePermissions($path, $name, $permission)
     {
-        $this->_connect();
-
         $val = intval(substr($permission, -1));
         $perm = 0;
         $perm |= ($val & 4) ? self::FLAG_READ : 0;
@@ -487,12 +431,10 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ?',
                        $this->_params['table']);
-        $this->_logger->debug($sql);
-        $fileList = $this->_db->getAll($sql, array($path, $name));
-
-        if ($fileList instanceof PEAR_Error) {
-            $this->_logger->err($fileList);
-            throw new Horde_Vfs_Exception($fileList->getMessage());
+        try {
+            $fileList = $this->_db->selectAll($sql, array($path, $name));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Vfs_Exception($e);
         }
         if (!is_array($fileList) || count($fileList) < 1) {
             throw new Horde_Vfs_Exception('Unable to rename VFS file.');
@@ -502,17 +444,16 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
          * not have read access to them, so doesn't see them. So we have to
          * chmod the one they have access to. */
         foreach ($fileList as $file) {
-            if ($file[1] == $this->_params['user'] ||
-                $file[2] & self::FLAG_WRITE) {
+            if ($file['vfs_owner'] == $this->_params['user'] ||
+                $file['vfs_perms'] & self::FLAG_WRITE) {
                 $sql = sprintf('UPDATE %s SET vfs_perms = ?
                                 WHERE vfs_id = ?',
                                $this->_params['table']);
-                $this->_logger->debug($sql);
-                $result = $this->_db->query($sql, array($perm, $file[0]));
-                if ($result instanceof PEAR_Error) {
-                    throw new Horde_Vfs_Exception($result->getMessage());
+                try {
+                    $result = $this->_db->update($sql, array($perm, $file['vfs_id']));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Vfs_Exception($e);
                 }
-                return $result;
             }
         }
 

@@ -42,7 +42,6 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
         if (empty($this->_instances[$scope])) {
             $params = $this->getConfig($scope);
             $this->_instances[$scope] = Horde_Vfs::factory($params['type'], $params['params']);
-            $this->_instances[$scope]->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
         }
 
         return $this->_instances[$scope];
@@ -69,18 +68,17 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             ? $conf['vfs']
             : $conf[$name];
 
-        switch (Horde_String::ucfirst($vfs['type'])) {
-        case 'Sql':
-            $db_pear = $this->_injector->getInstance('Horde_Core_Factory_DbPear');
-            $vfs['params'] = $db_pear->getConfig('vfs');
-            $vfs['params']['db'] = $db_pear->create('read', 'horde', 'vfs');
-            $vfs['params']['writedb'] = $db_pear->create('rw', 'horde', 'vfs');
-            break;
-
-        case 'SqlFile':
-            $db_pear = $this->_injector->getInstance('Horde_Core_Factory_DbPear');
-            $vfs['params'] = $db_pear->getConfig('vfs');
-            $vfs['params']['db'] = $db_pear->create('rw', 'horde', 'vfs');
+        switch (Horde_String::lower($vfs['type'])) {
+        case 'sql':
+        case 'sqlfile':
+        case 'musql':
+            if ($name == 'horde' || $conf[$name]['type'] == 'horde') {
+                $vfs['params']['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+            } else {
+                $vfs['params']['db'] = $this->_injector
+                    ->getInstance('Horde_Core_Factory_Db')
+                    ->create('horde', 'vfs');
+            }
             break;
         }
 

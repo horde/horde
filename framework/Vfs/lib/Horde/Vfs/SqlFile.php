@@ -34,6 +34,16 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
     protected $_db = false;
 
     /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing connection parameters.
+     */
+    public function __construct($params = array())
+    {
+        throw new Horde_Vfs_Exception('The SqlFile VFS driver needs to be refactored to a real composite driver.');
+    }
+
+    /**
      * Store a file in the VFS, with the data copied from a temporary
      * file.
      *
