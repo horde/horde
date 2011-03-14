@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Fix updating schema for individual libraries.
 * Improved control over which application view to load.
 * Fix viewing applications with no mobile view from mobile devices.
  </notes>
