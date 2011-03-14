@@ -413,7 +413,6 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
     {
-        xdebug_break();
         $path = $this->_convertPath($path);
 
         try {
