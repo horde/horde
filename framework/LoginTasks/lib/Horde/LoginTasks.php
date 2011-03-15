@@ -98,7 +98,7 @@ class Horde_LoginTasks
         /* Get last task run date(s). Array keys are app names, values are
          * last run timestamps. Special key '_once' contains list of
          * ONCE tasks previously run. */
-        $lasttask_pref = $this->_backend->getLastRun();
+        $lasttask = $this->_backend->getLastRun();
 
         /* Create time objects for today's date and last task run date. */
         $cur_date = getdate();
@@ -114,9 +114,11 @@ class Horde_LoginTasks
             $addtask = false;
 
             if ($ob->interval == self::FIRST_LOGIN) {
-                $addtask = empty($lasttask_pref[$app]);
+                $addtask = empty($lasttask[$app]);
             } else {
-                $lastrun = getdate(empty($lasttask_pref[$app]) ? time() : $lasttask_pref[$app]);
+                $lastrun = getdate(empty($lasttask[$app])
+                    ? time()
+                    : $lasttask[$app]);
 
                 switch ($ob->interval) {
                 case self::YEARLY:
@@ -147,11 +149,11 @@ class Horde_LoginTasks
                     break;
 
                 case self::ONCE:
-                    if (empty($lasttask_pref['_once']) ||
-                        !in_array($classname, $lasttask_pref['_once'])) {
+                    if (empty($lasttask['_once']) ||
+                        !in_array($classname, $lasttask['_once'])) {
                         $addtask = true;
-                        $lasttask_pref['_once'][] = $classname;
-                        $this->_backend->setLastRun($lasttask_pref);
+                        $lasttask['_once'][] = $classname;
+                        $this->_backend->setLastRun($lasttask);
                     }
                     break;
                 }
