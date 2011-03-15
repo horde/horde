@@ -9,16 +9,22 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+/* Determine View */
+$mode = $session->get('horde', 'mode');
+
 /* Load mobile? */
-if ($session->get('horde', 'mode') == 'smartmobile' ||
-    $session->get('horde', 'mode') == 'mobile') {
+if ($mode == 'smartmobile' || $mode == 'mobile') {
     include KRONOLITH_BASE . '/mobile.php';
     exit;
 }
-/* Load traditional interface? */
+
+/* Traditional? */
 if (!Kronolith::showAjaxView()) {
-    if ($prefs->getValue('dynamic_view')) {
-        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+    if ($mode == 'dynamic') {
+        if ($prefs->getValue('dynamic_view') == 'always') {
+            $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+        }
+        $session->set('horde', 'mode', 'traditional');
     }
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
     exit;
