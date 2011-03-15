@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-14</date>
- <time>23:17:08</time>
+ <date>2011-03-15</date>
+ <time>18:32:00</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -334,6 +334,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Horde_Release</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Horde_Text_Diff</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -487,7 +491,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-14</date>
+   <date>2011-03-15</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 *

@@ -95,16 +95,16 @@ class Components_Runner_Release
                 unlink($path);
             }
 
-            $release = strtr(basename($path), array('.tgz' => ''));
-
-            if ($this->_doTask('commit')) {
-                system('git commit -m "Released ' . $release . '." ' . $package_xml);
-            }
-            if ($this->_doTask('tag')) {
-                system('git tag -f -m "Released ' . $release . '." ' . strtolower($release));
-            }
         }
 
+        $release = $package->getName() . '-' . $package->getVersion();
+
+        if ($this->_doTask('commit')) {
+            system('git commit -m "Released ' . $release . '." ' . $package_xml);
+        }
+        if ($this->_doTask('tag')) {
+            system('git tag -f -m "Released ' . $release . '." ' . strtolower($release));
+        }
     }
 
     /**

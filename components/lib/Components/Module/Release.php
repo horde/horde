@@ -117,8 +117,9 @@ The available tasks are:
  - timestamp   : Update the package with a current timestamp
  - package     : Prepare a *.tgz package.
    - upload    : Upload the package to pear.horde.org
-   - commit    : Commit the updated timestamp with an automated message.
-   - tag       : Add a git release tag.
+ - sentinel    : Update the sentinel in docs/CHANGES (if the file exists).
+ - commit      : Commit any changes with an automated message.
+ - tag         : Add a git release tag.
 
 The indentation indicates task that depend on a parent task. Activating them
 without activating the parent has no effect.
