@@ -212,10 +212,6 @@ foreach ($a as $app) {
             $apps[$i]['db'] = $success;
             $apps[$i]['dbstatus'] = _("DB schema is ready.");
         }
-    } else {
-        /* No schema required. */
-        $apps[$i]['db'] = $success;
-        $apps[$i]['dbstatus'] = _("DB schema is not used.");
     }
 }
 
