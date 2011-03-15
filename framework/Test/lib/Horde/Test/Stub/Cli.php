@@ -1,6 +1,5 @@
 <?php
-class Horde_Test_Stub_Cli
-extends Horde_Cli
+class Horde_Test_Stub_Cli extends Horde_Cli
 {
     /**
      * Displays a fatal error message.
@@ -21,7 +20,7 @@ extends Horde_Cli
         }
         $this->writeln($this->red('===================='));
         $this->writeln();
-        $this->writeln($this->red(_("Fatal Error:")));
+        $this->writeln($this->red('Fatal Error:'));
         $this->writeln($this->red($error));
         $this->writeln();
         $this->writeln((string)$backtrace);
