@@ -75,6 +75,14 @@ extends Components_TestCase
         );
     }
 
+    public function testFourOhOneGit()
+    {
+        $this->assertEquals(
+            '4.0.1-git',
+            Components_Helper_Version::pearToHorde('4.0.1-git')
+        );
+    }
+
     public function testFourOneOh()
     {
         $this->assertEquals(

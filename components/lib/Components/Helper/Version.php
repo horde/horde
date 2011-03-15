@@ -38,7 +38,11 @@ class Components_Helper_Version
     {
         preg_match('/([.\d]+)(.*)/', $version, $matches);
         if (!empty($matches[2])) {
-            $post = '-' . strtoupper($matches[2]);
+            if ($matches[2] == '-git') {
+                $post = $matches[2];
+            } else {
+                $post = '-' . strtoupper($matches[2]);
+            }
         } else {
             $post = '';
         }
