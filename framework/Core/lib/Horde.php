@@ -454,8 +454,8 @@ HTML;
 
         switch ($type) {
         case 'ajax':
-            return self::url('services/ajax.php/' . $app . '/', false, $opts)
-                ->remove('ajaxui');
+            $opts['noajax'] = true;
+            return self::url('services/ajax.php/' . $app . '/', false, $opts);
 
         case 'cache':
             $opts['append_session'] = -1;
@@ -466,23 +466,24 @@ HTML;
                 ->add('module', $app);
 
         case 'emailconfirm':
+            $opts['noajax'] = true;
             return self::url('services/confirm.php', false, $opts);
 
         case 'go':
-            return self::url('services/go.php', false, $opts)
-                ->remove('ajaxui');
+            $opts['noajax'] = true;
+            return self::url('services/go.php', false, $opts);
 
         case 'help':
             return self::url('services/help/', false, $opts)
                 ->add('module', $app);
 
         case 'imple':
-            return self::url('services/imple.php', false, $opts)
-                ->remove('ajaxui');
+            $opts['noajax'] = true;
+            return self::url('services/imple.php', false, $opts);
 
         case 'login':
-            return self::url('login.php', false, $opts)
-                ->remove('ajaxui');
+            $opts['noajax'] = true;
+            return self::url('login.php', false, $opts);
 
         case 'logintasks':
             return self::url('services/logintasks.php', false, $opts)
@@ -906,6 +907,8 @@ HTML;
      * 'force_ssl' - (boolean) Ignore $conf['use_ssl'] and force creation of a
      *               SSL URL?
      *               DEFAULT: false
+     * 'noajax' - (boolean) Don't add AJAX UI parameter?
+     *            DEFAULT: false
      * </pre>
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
@@ -986,7 +989,8 @@ HTML;
             $ob->add(session_name(), session_id());
         }
 
-        if (($append_session >= 0) &&
+        if (empty($opts['noajax']) &&
+            ($append_session >= 0) &&
             Horde_Util::getFormData('ajaxui')) {
             $ob->add('ajaxui', 1);
         }
