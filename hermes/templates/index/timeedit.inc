@@ -12,7 +12,7 @@
               <?php echo Hermes::getClientSelect();?>
             </label><span class="hermesSeparator">|</span>
             <label for="hermesTimeFormCostobject">
-              <?php echo _("Costobject")?>
+              <?php echo _("Cost Object")?>
               <select type="text" id="hermesTimeFormCostobject" name="costobject"></select>
             </label><span class="hermesSeparator">|</span> <label for="HermesTimeFormStartDate">
               <?php echo _("Date") ?>*
@@ -75,7 +75,7 @@
            <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded bold"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded bold">x</a></div>
          </div>
          <div id="hermesTimeListInternal"></div>
-         <div id="hermesTimeListEmpty" style="display:none;"><?php echo _("No TimeSlices")?></div>
+         <div id="hermesTimeListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
         </div>
         <div class="hermesTimeListControls">
             <a id="hermesTimeListSubmit" class="button"><?php echo _("Submit Time") ?></a>

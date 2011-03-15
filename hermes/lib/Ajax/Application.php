@@ -127,7 +127,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
         }
-        $GLOBALS['notification']->push(_("Your time was successfully sumbmitted."), 'horde.success');
+        $GLOBALS['notification']->push(_("Your time was successfully submitted."), 'horde.success');
         return true;
     }
 

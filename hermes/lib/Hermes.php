@@ -51,7 +51,7 @@ class Hermes
     {
         $clients = self::listClients();
         $select = '<select name="client" id="hermesTimeFormClient">';
-        $select .= '<option value="">' . _("---Select Client---") . '</option>';
+        $select .= '<option value="">' . _("--- Select A Client ---") . '</option>';
         foreach ($clients as $id => $client) {
             $select .= '<option value="' . $id . '">' . $client . '</option>';
         }
