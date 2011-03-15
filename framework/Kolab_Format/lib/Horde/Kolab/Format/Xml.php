@@ -707,12 +707,12 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     /**
      * Return the named node among a list of nodes.
      *
-     * @param array  &$nodes The list of nodes.
-     * @param string $name   The name of the node to return.
+     * @param DOMNodeList $nodes The list of nodes.
+     * @param string      $name  The name of the node to return.
      *
      * @return mixed The named DOMNode or false if no node was found.
      */
-    protected function _findNode(&$nodes, $name)
+    protected function _findNode($nodes, $name)
     {
         foreach ($nodes as $node) {
             if ($node->nodeType == XML_ELEMENT_NODE && $node->tagName == $name) {
