@@ -52,7 +52,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @see Horde_Share_Base::__construct()
      */
-    public function __construct($app, $user, Horde_Perms $perms,
+    public function __construct($app, $user, Horde_Perms_Base $perms,
                                 Horde_Group_Base $groups)
     {
         parent::__construct($app, $user, $perms, $groups);

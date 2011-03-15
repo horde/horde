@@ -131,11 +131,11 @@ abstract class Horde_Share_Base
      * @param string $app               The application that the shares belong
      *                                  to.
      * @param string $user              The current user.
-     * @param Horde_Perms $perms        The permissions object.
+     * @param Horde_Perms_Base $perms   The permissions object.
      * @param Horde_Group_Base $groups  The Horde_Group driver.
      *
      */
-    public function __construct($app, $user, Horde_Perms $perms,
+    public function __construct($app, $user, Horde_Perms_Base $perms,
                                 Horde_Group_Base $groups)
     {
         $this->_app = $app;
