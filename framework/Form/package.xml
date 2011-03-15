@@ -373,7 +373,7 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Date_Calc</name>
+    <name>Date</name>
     <channel>pear.php.net</channel>
    </package>
   </required>
