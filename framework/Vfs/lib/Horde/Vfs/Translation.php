@@ -27,7 +27,7 @@ class Horde_Vfs_Translation extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Vfs';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_VFS/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Vfs/locale';
         return parent::t($message);
     }
 
