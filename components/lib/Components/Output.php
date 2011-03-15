@@ -142,9 +142,7 @@ class Components_Output
 
     public function help($text)
     {
-        $this->_cli->message(
-            $text, $this->_getType('cli.message')
-        );
+        $this->_cli->writeln($text);
     }
 
     public function pear($text)
