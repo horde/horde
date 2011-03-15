@@ -23,7 +23,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * Fix client-side sorting using envelope data.
-* Workaround PHP < 5.2.6 (broken stream handling) (Bug #9644).
+* Workaround PHP &lt; 5.2.6 (broken stream handling) (Bug #9644).
 * Add basic UTF7-IMAP conversion unit test.
  </notes>
  <contents>

@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Workaround PHP < 5.2.6 (broken stream handling) (Bug #9644).
+* Workaround PHP &lt; 5.2.6 (broken stream handling) (Bug #9644).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
