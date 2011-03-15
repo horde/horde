@@ -53,12 +53,8 @@ class Horde_Pear_Package_Xml
      */
     public function getName()
     {
-        foreach ($this->_xml->documentElement->childNodes as $node) {
-            if ($node->nodeType == XML_ELEMENT_NODE
-                && $node->tagName == 'name') {
-                return $node->textContent;
-            }
-
+        if ($node = $this->_findNode($this->_xml->documentElement->childNodes, 'name')) {
+            return $node->textContent;
         }
         throw new Horde_Pear_Exception('"name" element is missing!');
     }
@@ -89,5 +85,23 @@ class Horde_Pear_Package_Xml
     public function __toString()
     {
         return $this->_xml->asXML();
+    }
+
+    /**
+     * Return the named node among a list of nodes.
+     *
+     * @param DOMNodeList $nodes The list of nodes.
+     * @param string      $name  The name of the node to return.
+     *
+     * @return mixed The named DOMNode or false if no node was found.
+     */
+    private function _findNode($nodes, $name)
+    {
+        foreach ($nodes as $node) {
+            if ($node->nodeType == XML_ELEMENT_NODE && $node->tagName == $name) {
+                return $node;
+            }
+        }
+        return false;
     }
 }
