@@ -53,8 +53,6 @@ class Horde_Pear_Package_Xml
     {
         rewind($xml);
         $this->_xml = new DOMDocument('1.0', 'UTF-8');
-        $this->_xml->preserveWhiteSpace = true;
-        $this->_xml->formatOutput = false;
         $this->_xml->loadXML(stream_get_contents($xml));
         $this->_xpath = new DOMXpath($this->_xml);
         $this->_xpath->registerNamespace('p', self::XMLNAMESPACE);
@@ -100,6 +98,7 @@ class Horde_Pear_Package_Xml
             '<package \2 \1',
             $result
         );
+        $result = preg_replace("#'#", '&apos;', $result);
         return preg_replace('#"/>#', '" />', $result);
     }
 
