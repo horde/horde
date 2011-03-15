@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Disposition Notification"
 msgstr "Empfangsbestätigung"
 
-#: lib/Horde/Mime/Mail.php:439
+#: lib/Horde/Mime/Mail.php:446
 msgid "HTML Version of Message"
 msgstr "HTML-Version der Nachricht"
 
-#: lib/Horde/Mime/Mail.php:383
+#: lib/Horde/Mime/Mail.php:390
 #, php-format
 msgid "Invalid character in e-mail address: %s."
 msgstr "Ungültiges Zeichen in der E-Mail-Adresse: %s."
@@ -58,7 +58,7 @@ msgstr "Listen-Anmeldung"
 msgid "List-Unsubscribe"
 msgstr "Listen-Abmeldung"
 
-#: lib/Horde/Mime/Mail.php:437
+#: lib/Horde/Mime/Mail.php:444
 msgid "Plaintext Version of Message"
 msgstr "Textversion der Nachricht"
 

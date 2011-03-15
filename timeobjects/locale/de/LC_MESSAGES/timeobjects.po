@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timeobjects H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2009-11-19 01:33+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -127,11 +127,6 @@ msgstr "Der gewünschte Dienst konnte nicht gefunden werden."
 #: lib/Driver/Weatherdotcom.php:148
 msgid "Server data wrong or not available."
 msgstr "Serverdaten ungültig oder nicht verfügbar."
-
-#: lib/Driver.php:42
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr "Der %s-Treiber konnte nicht geladen werden."
 
 #: lib/Driver/Weatherdotcom.php:146
 msgid "Unknown location provided."

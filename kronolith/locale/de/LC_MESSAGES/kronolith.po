@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-13 18:15+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2011-02-02 18:05+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -1296,7 +1296,7 @@ msgstr "Gruppen"
 msgid "Guest Permissions"
 msgstr "Gastrechte"
 
-#: index.php:29
+#: index.php:35
 msgid "Help"
 msgstr "Hilfe"
 
@@ -1691,7 +1691,7 @@ msgstr "Keine Informationen"
 msgid "No Notifications"
 msgstr "Keine Benachrichtigungen"
 
-#: index.php:70 index.php:72
+#: index.php:76 index.php:78
 msgid "No Sound"
 msgstr "Kein Ton"
 
@@ -3529,7 +3529,7 @@ msgstr ""
 "Sie haben ein unbekanntes Zeitformat \"%s\" benutzt. Bitte versuchen Sie "
 "etwas wie \"%s\"."
 
-#: index.php:19
+#: index.php:24
 msgid ""
 "Your browser is too old to display the dynamic mode. Using traditional mode "
 "instead."

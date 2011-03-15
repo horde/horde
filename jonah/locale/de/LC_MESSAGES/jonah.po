@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Block/news_popular.php:65 lib/Block/news_popular.php:68
+#: lib/Block/NewsPopular.php:70 lib/Block/NewsPopular.php:73
 msgid " - Most read stories"
 msgstr " - Am häufigsten gelesene Beiträge"
 
-#: lib/Block/delivery.php:39
+#: lib/Block/Delivery.php:38
 #, php-format
 msgid "\"%s\" stories in HTML"
 msgstr "\"%s\"-Beiträge als HTML"
@@ -67,7 +67,7 @@ msgstr "Neuen Beitrag hinzufügen"
 msgid "Add story"
 msgstr "Beitrag hinzufügen"
 
-#: lib/Application.php:59
+#: lib/Application.php:54
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -112,7 +112,7 @@ msgstr "Kanal-ID \"%s\" nicht gefunden."
 msgid "Channel refreshed."
 msgstr "Kanal aktualisiert."
 
-#: lib/Application.php:65
+#: lib/Application.php:60
 msgid "Channels"
 msgstr "Sender"
 
@@ -124,7 +124,7 @@ msgstr "Suche beenden"
 msgid "Comments"
 msgstr "Kommentare"
 
-#: config/templates.php.dist:42
+#: config/templates.php:44
 msgid "Compact"
 msgstr "Kompakt"
 
@@ -137,12 +137,12 @@ msgstr "Zusammengefasster Feed"
 msgid "Could not open %s: %s"
 msgstr "%s konnte nicht gelesen werden: %s"
 
-#: lib/Block/latest.php:41
+#: lib/Block/Latest.php:47
 msgid "Count reads of the latest story when this block is displayed"
 msgstr ""
 "Den neuesten Beitrag als gelesen markieren, wenn der Block angezeigt wird?"
 
-#: lib/Block/story.php:42
+#: lib/Block/Story.php:49
 msgid "Count reads of this story when this block is displayed"
 msgstr "Diesen Beitrag als gelesen markieren, wenn der Block angezeigt wird?"
 
@@ -201,7 +201,7 @@ msgstr "Beitrag bearbeiten"
 msgid "Enter keywords to tag this story, separated by commas"
 msgstr "Kommagetrennte Stichwörter für diesen Beitrag"
 
-#: lib/Block/latest.php:79 lib/Block/story.php:79 lib/View/Base.php:35
+#: lib/Block/Latest.php:85 lib/Block/Story.php:87 lib/View/Base.php:35
 #: lib/View/StoryView.php:77 stories/share.php:72 stories/view.php:21
 #, php-format
 msgid "Error fetching story: %s"
@@ -211,17 +211,16 @@ msgstr "Fehler beim Herunterladen des Beitrags: %s"
 msgid "Extra information for this feed type"
 msgstr "Zusätzliche Informationen für diesen Feedtyp"
 
-#: lib/Block/news.php:3 lib/Block/news.php:26 lib/Block/news_popular.php:27
-#: lib/Block/story.php:35
+#: lib/Block/News.php:20 lib/Block/News.php:28 lib/Block/NewsPopular.php:30
+#: lib/Block/Story.php:40
 msgid "Feed"
 msgstr "Feed"
 
-#: lib/Block/delivery.php:3 lib/Block/delivery.php:23
-#: lib/View/ChannelList.php:64
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:64
 msgid "Feeds"
 msgstr "Feeds"
 
-#: lib/Block/news.php:49
+#: lib/Block/News.php:51
 msgid "First Story"
 msgstr "Erster Beitrag"
 
@@ -260,7 +259,7 @@ msgstr "Einfügen"
 msgid "Include full story content in syndicated feeds?"
 msgstr "Den vollständigen Beitragstext in den veröffentlichten Feed verwenden?"
 
-#: config/templates.php.dist:31
+#: config/templates.php:33
 msgid "Internal"
 msgstr "Intern"
 
@@ -281,7 +280,7 @@ msgstr "Ungültiger Kanal."
 msgid "Last Update"
 msgstr "Letzte Aktualisierung"
 
-#: lib/Block/latest.php:3 lib/Block/latest.php:53
+#: lib/Block/Latest.php:25
 msgid "Latest News"
 msgstr "Neueste Beiträge"
 
@@ -293,11 +292,11 @@ msgstr "Lokaler Feed"
 msgid "Manage Feeds"
 msgstr "Feeds verwalten"
 
-#: lib/Block/news.php:44 lib/Block/news_popular.php:46
+#: lib/Block/News.php:46 lib/Block/NewsPopular.php:49
 msgid "Maximum Stories"
 msgstr "Maximale Beiträge"
 
-#: config/templates.php.dist:20
+#: config/templates.php:22
 msgid "Media"
 msgstr "Multimedia"
 
@@ -309,7 +308,7 @@ msgstr "Nachricht"
 msgid "Missing channel id."
 msgstr "Kanal-ID fehlt."
 
-#: lib/Block/news_popular.php:3
+#: lib/Block/NewsPopular.php:22
 msgid "Most Popular Stories"
 msgstr "Populärste Beiträge"
 
@@ -317,15 +316,15 @@ msgstr "Populärste Beiträge"
 msgid "Name"
 msgstr "Name"
 
-#: lib/Application.php:101 lib/Form/Feed.php:24
+#: lib/Application.php:93 lib/Form/Feed.php:24
 msgid "New Feed"
 msgstr "Neuer Feed"
 
-#: lib/Application.php:62
+#: lib/Application.php:57
 msgid "News"
 msgstr "Nachrichten"
 
-#: lib/Block/latest.php:26
+#: lib/Block/Latest.php:32
 msgid "News Source"
 msgstr "Nachrichtenquelle"
 
@@ -341,7 +340,7 @@ msgstr "Keine Beiträge verfügbar."
 msgid "No channel requested."
 msgstr "Kein Kanal angefragt."
 
-#: lib/Block/latest.php:73
+#: lib/Block/Latest.php:79
 msgid "No channel specified."
 msgstr "Kein Kanal angegeben."
 
@@ -349,11 +348,11 @@ msgstr "Kein Kanal angegeben."
 msgid "No channels are available."
 msgstr "Keine Kanäle sind verfügbar."
 
-#: lib/Block/news.php:79 lib/Block/news_popular.php:77
+#: lib/Block/News.php:85 lib/Block/NewsPopular.php:84
 msgid "No feed specified."
 msgstr "Kein Feed angegeben."
 
-#: lib/Block/delivery.php:58
+#: lib/Block/Delivery.php:57
 msgid "No feeds are available."
 msgstr "Keine Feeds verfügbar."
 
@@ -365,11 +364,11 @@ msgstr "Keine Treffer"
 msgid "No stories are currently available."
 msgstr "Zur Zeit sind keine Beiträge verfügbar."
 
-#: lib/Block/story.php:73
+#: lib/Block/Story.php:81
 msgid "No story is selected."
 msgstr "Kein Beitrag ausgewählt."
 
-#: lib/Factory/Driver.php:65
+#: lib/Factory/Driver.php:48
 #, php-format
 msgid "No such backend \"%s\" found"
 msgstr "Ein Backend namens \"%s\" konnte nicht gefunden werden"
@@ -378,7 +377,7 @@ msgstr "Ein Backend namens \"%s\" konnte nicht gefunden werden"
 msgid "No tag requested."
 msgstr "Kein Tag angefragt."
 
-#: feed.php:39
+#: feed.php:38
 msgid "No valid feed name or ID requested."
 msgstr "Ungültiger Feedname oder Feed-ID angefordert."
 
@@ -414,7 +413,7 @@ msgstr "Textversion des Beitrags"
 msgid "Publish Now?"
 msgstr "Jetzt veröffentlichen?"
 
-#: lib/Block/delivery.php:49
+#: lib/Block/Delivery.php:48
 #, php-format
 msgid "RSS Feed of \"%s\""
 msgstr "RSS-Feed für \"%s\""
@@ -435,7 +434,7 @@ msgstr ""
 msgid "Really delete this News Story?"
 msgstr "Diesen Nachrichtenbeitrag wirklich löschen?"
 
-#: lib/Block/cloud.php:26
+#: lib/Block/Cloud.php:29
 msgid "Results URL"
 msgstr "Ergebnis-URL"
 
@@ -484,7 +483,7 @@ msgstr ""
 "Kurznamen ermöglichen den direkten Zugriff auf diesen Feed über: %s.<br /"
 ">Kurznamen dürfen Buchstaben, Zahlen und Unterstriche enthalten."
 
-#: config/templates.php.dist:9
+#: config/templates.php:11
 msgid "Standard"
 msgstr "Standard"
 
@@ -493,7 +492,7 @@ msgstr "Standard"
 msgid "Stories tagged with %s in %s"
 msgstr "Mit %s getaggte Beiträge in %s"
 
-#: lib/Block/story.php:3 lib/Block/story.php:39 lib/Block/story.php:54
+#: lib/Block/Story.php:24 lib/Block/Story.php:45
 #: templates/stories/index.html.php:15
 msgid "Story"
 msgstr "Beitrag"
@@ -541,7 +540,7 @@ msgstr "Beitrags-ID \"%s\" nicht gefunden."
 msgid "Subject"
 msgstr "Betreff"
 
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:35
+#: lib/Block/Cloud.php:20
 msgid "Tag Cloud"
 msgstr "Tagwolke"
 
@@ -558,7 +557,7 @@ msgstr "Tags"
 msgid "Tags:"
 msgstr "Tags:"
 
-#: lib/Block/story.php:91
+#: lib/Block/Story.php:99
 msgid "Tags: "
 msgstr "Tags: "
 
@@ -620,7 +619,7 @@ msgstr "An"
 msgid "Type"
 msgstr "Typ"
 
-#: config/templates.php.dist:53
+#: config/templates.php:55
 msgid "Ultracompact"
 msgstr "Sehr kompakt"
 
@@ -629,7 +628,7 @@ msgstr "Sehr kompakt"
 msgid "Unable to send story: %s"
 msgstr "Der Beitrag konnte nicht versendet werden: %s"
 
-#: lib/Block/news.php:36 lib/Block/news_popular.php:39
+#: lib/Block/News.php:38 lib/Block/NewsPopular.php:42
 msgid "View"
 msgstr "Anzeigen"
 
@@ -640,11 +639,11 @@ msgstr "Anzeigen"
 msgid "You are not authorised for this action."
 msgstr "Sie sind zu dieser Aktion nicht autorisiert."
 
-#: lib/Application.php:93
+#: lib/Application.php:85
 msgid "_Feeds"
 msgstr "_Feeds"
 
-#: lib/Application.php:114
+#: lib/Application.php:106
 msgid "_New Story"
 msgstr "_Neuer Beitrag"
 

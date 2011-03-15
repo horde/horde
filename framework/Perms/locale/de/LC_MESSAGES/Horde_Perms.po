@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Perms\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,22 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Perms.php:176
-msgid "All Permissions"
-msgstr "Alle Rechte"
-
-#: lib/Horde/Perms.php:516
+#: lib/Horde/Perms.php:69
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/Horde/Perms.php:515
+#: lib/Horde/Perms.php:68
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: lib/Horde/Perms.php:514
+#: lib/Horde/Perms.php:67
 msgid "Read"
 msgstr "Lesen"
 
-#: lib/Horde/Perms.php:513
+#: lib/Horde/Perms.php:66
 msgid "Show"
 msgstr "Zeigen"
