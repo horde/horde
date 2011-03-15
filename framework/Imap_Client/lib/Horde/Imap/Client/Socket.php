@@ -1646,12 +1646,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } else {
                 $return_sort = true;
 
-                $server_sort =
-                    $this->queryCapability('SORT') &&
+                if ($server_sort = $this->queryCapability('SORT')) {
                     /* Make sure server supports DISPLAYFROM & DISPLAYTO. */
-                    !((in_array(Horde_Imap_Client::SORT_DISPLAYFROM, $options['sort']) ||
-                       in_array(Horde_Imap_Client::SORT_DISPLAYTO, $options['sort'])) &&
-                      (!is_array($server_sort) || !in_array('DISPLAY', $server_sort)));
+                    $server_sort =
+                        !array_intersect($options['sort'], array(Horde_Imap_Client::SORT_DISPLAYFROM, Horde_Imap_Client::SORT_DISPLAYTO)) ||
+                        (is_array($server_sort) &&
+                         in_array('DISPLAY', $server_sort));
+                }
 
                 /* If doing a sequence sort, need to do this on the client
                  * side. */
