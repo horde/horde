@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-15</date>
- <time>20:55:39</time>
+ <date>2011-03-16</date>
+ <time>00:17:09</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -41,6 +41,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Release">
+      <file name="MailingList.php" role="php" />
       <file name="Sentinel.php" role="php" />
       <file name="Whups.php" role="php" />
      </dir> <!-- /lib/Horde/Release -->
@@ -130,6 +131,7 @@
  <phprelease>
   <filelist>
    <install as="Horde/Release.php" name="lib/Horde/Release.php" />
+   <install as="Horde/Release/MailingList.php" name="lib/Horde/Release/MailingList.php" />
    <install as="Horde/Release/Sentinel.php" name="lib/Horde/Release/Sentinel.php" />
    <install as="Horde/Release/Whups.php" name="lib/Horde/Release/Whups.php" />
    <install as="Horde/Release/AllTests.php" name="test/Horde/Release/AllTests.php" />
@@ -166,7 +168,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-15</date>
+   <date>2011-03-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 *

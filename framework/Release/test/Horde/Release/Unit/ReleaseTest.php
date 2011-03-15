@@ -67,6 +67,160 @@ v1.0.1-cvs
         );
     }
 
+    public function testSetMailingList()
+    {
+        $r = $this->_getAnnounceHelper();
+        $r->notes['list'] = 'newlist@lists.horde.org';
+
+        $this->assertContains(
+            'newlist@lists.horde.org',
+            $this->_announce($r)
+        );
+    }
+
+    public function testHordeMailingList()
+    {
+        $r = $this->_getAnnounceHelper(array('module' => 'horde-something'));
+        $this->assertContains(
+            'horde@lists.horde.org',
+            $this->_announce($r)
+        );
+    }
+
+    public function testNoI18NForFinal()
+    {
+        $r = $this->_getAnnounceHelper();
+        $this->assertNotContains(
+            'i18n@lists.horde.org',
+            $this->_announce($r)
+        );
+    }
+
+    public function testI18NForPreRelease()
+    {
+        $r = $this->_getAnnounceHelper(array('version' => '1.0-RC1'));
+        $this->assertContains(
+            'i18n@lists.horde.org',
+            $this->_announce($r)
+        );
+    }
+
+    public function testSubject()
+    {
+        $r = $this->_getAnnounceHelper();
+        $this->assertContains(
+            'Horde 1.0',
+            $this->_announce($r)
+        );
+    }
+
+    public function testSubjectForFinal()
+    {
+        $r = $this->_getAnnounceHelper();
+        $this->assertContains(
+            '(final)',
+            $this->_announce($r)
+        );
+    }
+
+    public function testSubjectForPreRelease()
+    {
+        $r = $this->_getAnnounceHelper(array('version' => '1.0-RC1'));
+        $this->assertNotContains(
+            '(final)',
+            $this->_announce($r)
+        );
+    }
+
+    public function testSubjectForBranch()
+    {
+        $r = $this->_getAnnounceHelper(array('version' => 'H4-1.0-RC1'));
+        $this->assertContains(
+            'Horde H4 (1.0-RC1)',
+            $this->_announce($r)
+        );
+    }
+
+    public function testSubjectForFinalBranch()
+    {
+        $r = $this->_getAnnounceHelper(array('version' => 'H4-1.0'));
+        $this->assertContains(
+            'Horde H4 (1.0) (final)',
+            $this->_announce($r)
+        );
+    }
+
+    public function testSecuritySubject()
+    {
+        $r = $this->_getAnnounceHelper();
+        $r->notes['fm']['focus'] = Horde_Release::FOCUS_MAJORSECURITY;
+        $this->assertContains(
+            '[SECURITY]',
+            $this->_announce($r)
+        );
+    }
+
+    public function testSender()
+    {
+        $r = $this->_getAnnounceHelper();
+        $this->assertContains(
+            'test@example.com',
+            $this->_announce($r)
+        );
+    }
+
+    public function testChangelog()
+    {
+        $r = $this->_getAnnounceHelper();
+        $this->assertContains(
+            '(from version 0.9)',
+            $this->_announce($r)
+        );
+    }
+
+    public function testChangeUrl()
+    {
+        $r = $this->_getAnnounceHelper();
+        $this->assertContains(
+            'http://cvs.horde.org/diff.php',
+            $this->_announce($r)
+        );
+    }
+
+    public function testMailingList()
+    {
+        $r = $this->_getReleaseHelper(
+            $this->_getOptions(
+                array(
+                    'oldversion' => '0.9',
+                    'version' => '1.0',
+                    'noannounce' => true,
+                    'ml' => array(
+                        'from' => 'test@example.com'
+                    )
+                )
+            )
+        );
+
+        $r->notes['name'] = 'Horde';
+        $r->notes['fm']['focus'] = 5;
+        $r->notes['fm']['changes'] = 'FM-CHANGES';
+        $r->notes['fm']['project'] = 'horde';
+        $r->notes['fm']['branch'] = 'Horde 3';
+        $r->notes['ml']['changes'] = 'ML-CHANGES';
+
+        $r->setVersionStrings();
+        ob_start();
+        $r->announce();
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertEquals(
+            '',
+            $output
+        );
+    }
+
     private function _getOptions($options)
     {
         return array_merge(
@@ -79,6 +233,44 @@ v1.0.1-cvs
             ),
             $options
         );
+    }
+
+    private function _announce($r)
+    {
+        $r->setVersionStrings();
+        ob_start();
+        $r->announce();
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
+    }
+
+
+    private function _getAnnounceHelper($options = array())
+    {
+        $r = $this->_getReleaseHelper(
+            array_merge(
+                $this->_getOptions(
+                    array(
+                        'oldversion' => '0.9',
+                        'version' => '1.0',
+                        'noannounce' => true,
+                        'ml' => array(
+                            'from' => 'test@example.com'
+                        )
+                    )
+                ),
+                $options
+            )
+        );
+
+        $r->notes['name'] = 'Horde';
+        $r->notes['fm']['focus'] = 5;
+        $r->notes['fm']['changes'] = 'FM-CHANGES';
+        $r->notes['fm']['project'] = 'horde';
+        $r->notes['fm']['branch'] = 'Horde 3';
+        $r->notes['ml']['changes'] = 'ML-CHANGES';
+        return $r;
     }
 
     private function _getReleaseHelper($options)

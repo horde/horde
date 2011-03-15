@@ -571,6 +571,17 @@ class Horde_Release
             }
         }
 
+        $mailer = new Horde_Release_MailingList(
+            $module,
+            $this->notes['name'],
+            $this->_hordeVersionString,
+            $this->_options['ml']['from'],
+            isset($this->notes['list']) ? $this->notes['list'] : null,
+            $this->_ticketVersion,
+            $this->_oldSourceVersionString,
+            $version['tag_list']
+        );
+
         $ml = (!empty($this->notes['list'])) ? $this->notes['list'] : $module;
         if (substr($ml, 0, 6) == 'horde-') {
             $ml = 'horde';
@@ -598,6 +609,7 @@ class Horde_Release
         $headers = array('From' => $this->_options['ml']['from'],
                          'To' => $to,
                          'Subject' => $subject);
+        $headers = $mailer->getHeaders();
 
         // Building message text
         $body = $this->notes['ml']['changes'];
