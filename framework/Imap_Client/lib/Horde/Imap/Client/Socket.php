@@ -3558,7 +3558,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _getLine()
     {
-        $ob = array('line' => '', 'response' => '', 'tag' => '', 'token' => '');
+        $ob = array(
+            'line' => '',
+            'response' => '',
+            'tag' => '',
+            'token' => ''
+        );
 
         $read = explode(' ', $this->_readData(), 3);
 
