@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:40:56</time>
+ <date>2011-03-15</date>
+ <time>22:26:05</time>
  <version>
   <release>3.0.0beta1</release>
   <api>3.0.0</api>
@@ -71,6 +71,9 @@
     <dir name="tests">
      <dir name="Mnemo">
       <dir name="Unit">
+       <dir name="Driver">
+        <file name="KolabTest.php" role="horde" />
+       </dir> <!-- /lib/tests/Mnemo/Unit/Driver -->
        <dir name="Factory">
         <file name="DriverTest.php" role="horde" />
        </dir> <!-- /lib/tests/Mnemo/Unit/Factory -->
@@ -451,6 +454,7 @@
    <install as="mnemo/lib/tests/Mnemo/Autoload.php" name="lib/tests/Mnemo/Autoload.php" />
    <install as="tests/Mnemo/phpunit.xml" name="lib/tests/Mnemo/phpunit.xml" />
    <install as="mnemo/lib/tests/Mnemo/TestCase.php" name="lib/tests/Mnemo/TestCase.php" />
+   <install as="mnemo/lib/tests/Mnemo/Unit/Driver/KolabTest.php" name="lib/tests/Mnemo/Unit/Driver/KolabTest.php" />
    <install as="mnemo/lib/tests/Mnemo/Unit/Factory/DriverTest.php" name="lib/tests/Mnemo/Unit/Factory/DriverTest.php" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
@@ -608,6 +612,22 @@
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <notes>
+* Fix PDF generation.
+* Fix encrypting and decrypting of notes.
    </notes>
   </release>
  </changelog>

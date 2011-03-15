@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-15</date>
- <time>18:53:41</time>
+ <time>22:26:00</time>
  <version>
   <release>4.0.0beta1</release>
   <api>4.0.0</api>
@@ -380,7 +380,7 @@
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="GarbageCollection.php" role="horde" />
-      <file name="UpgradeFromHorde3.php" role="horde" />
+      <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
      <dir name="Task">
       <file name="AdminCheck.php" role="horde" />
@@ -2448,7 +2448,7 @@
    <install as="lib/Block/Weatherdotcom.php" name="lib/Block/Weatherdotcom.php" />
    <install as="lib/Block/WeatherdotcomStrings.php" name="lib/Block/WeatherdotcomStrings.php" />
    <install as="lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
-   <install as="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" name="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" />
+   <install as="lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="lib/LoginTasks/Task/AdminCheck.php" name="lib/LoginTasks/Task/AdminCheck.php" />
    <install as="lib/LoginTasks/Task/LastLogin.php" name="lib/LoginTasks/Task/LastLogin.php" />
    <install as="lib/LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />

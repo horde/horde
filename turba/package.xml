@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:38:03</time>
+ <date>2011-03-15</date>
+ <time>22:30:25</time>
  <version>
   <release>3.0.0beta1</release>
   <api>3.0.0</api>
@@ -29,6 +29,7 @@
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
 * Fix the listTimeObjects API for shared sources (Bug #9649).
+* Fix importing contacts with SyncML (Simon Bühler, Bug #9641).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -114,9 +115,7 @@
     </dir> <!-- /lib/Form -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
-      <file name="UpgradeFromTurba2.php" role="horde" />
-      <file name="UpgradeLists.php" role="horde" />
-      <file name="UpgradePrefs.php" role="horde" />
+      <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Object">
@@ -664,9 +663,7 @@
    <install as="turba/lib/Form/EditAddressBook.php" name="lib/Form/EditAddressBook.php" />
    <install as="turba/lib/Form/EditContact.php" name="lib/Form/EditContact.php" />
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
-   <install as="turba/lib/LoginTasks/SystemTask/UpgradeFromTurba2.php" name="lib/LoginTasks/SystemTask/UpgradeFromTurba2.php" />
-   <install as="turba/lib/LoginTasks/SystemTask/UpgradeLists.php" name="lib/LoginTasks/SystemTask/UpgradeLists.php" />
-   <install as="turba/lib/LoginTasks/SystemTask/UpgradePrefs.php" name="lib/LoginTasks/SystemTask/UpgradePrefs.php" />
+   <install as="turba/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
    <install as="turba/lib/tests/ApiTest.php" name="lib/tests/ApiTest.php" />
    <install as="tests/az.png" name="lib/tests/az.png" />
@@ -893,6 +890,22 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Fix the listTimeObjects API for shared sources (Bug #9649).
+* Fix importing contacts with SyncML (Simon Bühler, Bug #9641).
    </notes>
   </release>
  </changelog>

@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:36:36</time>
+ <date>2011-03-15</date>
+ <time>22:28:22</time>
  <version>
   <release>5.0.0beta1</release>
   <api>5.0.0</api>
@@ -34,6 +34,9 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* Fix purging deleted messages in dynamic view (Bug #9627).
+* Fix display of non-IMAP mailbox elements in folder lists (Bug #9650).
+* Fix print part display.
 * Fix listing users through IMP API.
  </notes>
  <contents>
@@ -154,8 +157,8 @@
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="GarbageCollection.php" role="horde" />
-      <file name="UpgradeFromImp4.php" role="horde" />
-      <file name="UpgradeFromImp4Auth.php" role="horde" />
+      <file name="Upgrade.php" role="horde" />
+      <file name="UpgradeAuth.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
      <dir name="Task">
       <file name="DeleteAttachmentsMonthly.php" role="horde" />
@@ -1255,8 +1258,8 @@
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
-   <install as="imp/lib/LoginTasks/SystemTask/UpgradeFromImp4.php" name="lib/LoginTasks/SystemTask/UpgradeFromImp4.php" />
-   <install as="imp/lib/LoginTasks/SystemTask/UpgradeFromImp4Auth.php" name="lib/LoginTasks/SystemTask/UpgradeFromImp4Auth.php" />
+   <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="imp/lib/LoginTasks/SystemTask/UpgradeAuth.php" name="lib/LoginTasks/SystemTask/UpgradeAuth.php" />
    <install as="imp/lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" name="lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" />
    <install as="imp/lib/LoginTasks/Task/DeleteSentmailMonthly.php" name="lib/LoginTasks/Task/DeleteSentmailMonthly.php" />
    <install as="imp/lib/LoginTasks/Task/FilterOnLogin.php" name="lib/LoginTasks/Task/FilterOnLogin.php" />
@@ -1817,6 +1820,24 @@
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta1</release>
+    <api>5.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Fix purging deleted messages in dynamic view (Bug #9627).
+* Fix display of non-IMAP mailbox elements in folder lists (Bug #9650).
+* Fix print part display.
+* Fix listing users through IMP API.
    </notes>
   </release>
  </changelog>

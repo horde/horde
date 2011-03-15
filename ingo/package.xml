@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:37:29</time>
+ <date>2011-03-15</date>
+ <time>22:26:03</time>
  <version>
   <release>2.0.0beta1</release>
   <api>2.0.0</api>
@@ -64,7 +64,7 @@
     </dir> <!-- /lib/Block -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
-      <file name="UpgradeFromIngo1.php" role="horde" />
+      <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Script">
@@ -515,7 +515,7 @@
    <install as="ingo/lib/Test.php" name="lib/Test.php" />
    <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
-   <install as="ingo/lib/LoginTasks/SystemTask/UpgradeFromIngo1.php" name="lib/LoginTasks/SystemTask/UpgradeFromIngo1.php" />
+   <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
    <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
@@ -732,6 +732,21 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Fix creating new rules with PostgreSQL (Bug #9638).
    </notes>
   </release>
  </changelog>

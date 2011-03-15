@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:41:23</time>
+ <date>2011-03-15</date>
+ <time>22:31:20</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -86,6 +86,7 @@
     <dir name="Users">
      <file name="Manager.php" role="horde" />
     </dir> <!-- /lib/Users -->
+    <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
@@ -133,6 +134,7 @@
    <install as="untag" name="bin/untag.php" />
    <install as="content/config/routes.php" name="config/routes.php" />
    <install as="doc/TODO.txt" name="doc/TODO.txt" />
+   <install as="content/lib/Application.php" name="lib/Application.php" />
    <install as="content/lib/Exception.php" name="lib/Exception.php" />
    <install as="content/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="content/lib/Index/Index.php" name="lib/Index/Index.php" />
@@ -169,6 +171,21 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

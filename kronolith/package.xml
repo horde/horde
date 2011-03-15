@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:38:36</time>
+ <date>2011-03-15</date>
+ <time>22:26:04</time>
  <version>
   <release>3.0.0beta1</release>
   <api>3.0.0</api>
@@ -30,7 +30,7 @@
  <notes>
 * Only load external events in IFRAME if configured.
 * Fix retrieving event UIDs without date limit (Simon Bühler, Bug #9651).
-* Fix saving display status of other applications' calendars (Bug #9636).
+* Fix saving display status of other applications&apos; calendars (Bug #9636).
 * Add migration for converting existing event categories to tags.
  </notes>
  <contents>
@@ -151,7 +151,7 @@
     </dir> <!-- /lib/Geo -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
-      <file name="UpgradeFromKronolith2.php" role="horde" />
+      <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
      <dir name="Task">
       <file name="PurgeEvents.php" role="horde" />
@@ -444,6 +444,7 @@
     <file name="15_kronolith_upgrade_sqlng.php" role="horde" />
     <file name="16_kronolith_upgrade_sqlhierarchical.php" role="horde" />
     <file name="17_kronolith_upgrade_sqlnghierarchical.php" role="horde" />
+    <file name="18_kronolith_upgrade_categoriestotags.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -966,7 +967,7 @@
    <install as="kronolith/lib/Geo/Base.php" name="lib/Geo/Base.php" />
    <install as="kronolith/lib/Geo/Mysql.php" name="lib/Geo/Mysql.php" />
    <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
-   <install as="kronolith/lib/LoginTasks/SystemTask/UpgradeFromKronolith2.php" name="lib/LoginTasks/SystemTask/UpgradeFromKronolith2.php" />
+   <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
    <install as="kronolith/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
    <install as="kronolith/lib/Resource/Base.php" name="lib/Resource/Base.php" />
@@ -1088,6 +1089,7 @@
    <install as="kronolith/migration/15_kronolith_upgrade_sqlng.php" name="migration/15_kronolith_upgrade_sqlng.php" />
    <install as="kronolith/migration/16_kronolith_upgrade_sqlhierarchical.php" name="migration/16_kronolith_upgrade_sqlhierarchical.php" />
    <install as="kronolith/migration/17_kronolith_upgrade_sqlnghierarchical.php" name="migration/17_kronolith_upgrade_sqlnghierarchical.php" />
+   <install as="kronolith/migration/18_kronolith_upgrade_categoriestotags.php" name="migration/18_kronolith_upgrade_categoriestotags.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1389,6 +1391,24 @@
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Only load external events in IFRAME if configured.
+* Fix retrieving event UIDs without date limit (Simon Bühler, Bug #9651).
+* Fix saving display status of other applications&apos; calendars (Bug #9636).
+* Add migration for converting existing event categories to tags.
    </notes>
   </release>
  </changelog>
