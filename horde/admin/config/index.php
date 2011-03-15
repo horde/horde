@@ -162,12 +162,12 @@ foreach ($a as $app) {
         if (!file_exists($path . '/conf.php')) {
             /* No conf.php exists. */
             $apps[$i]['conf'] = $conf_link . $error . '</a>';
-            $apps[$i]['status'] = _("Missing configuration.");
+            $apps[$i]['status'] = $conf_link . _("Missing configuration.") . '</a>';
         } else {
             /* A conf.php exists, get the xml version. */
             if (($xml_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.xml'))) === false) {
                 $apps[$i]['conf'] = $conf_link . $warning . '</a>';
-                $apps[$i]['status'] = _("No version found in original configuration. Regenerate configuration.");
+                $apps[$i]['status'] = $conf_link . _("No version found in original configuration. Regenerate configuration.") . '</a>';
                 continue;
             }
             /* Get the generated php version. */
@@ -175,14 +175,14 @@ foreach ($a as $app) {
                 /* No version found in generated php, suggest regenerating just in
                  * case. */
                 $apps[$i]['conf'] = $conf_link . $warning . '</a>';
-                $apps[$i]['status'] = _("No version found in your configuration. Regenerate configuration.");
+                $apps[$i]['status'] = $conf_link . _("No version found in your configuration. Regenerate configuration.") . '</a>';
                 continue;
             }
 
             if ($xml_ver != $php_ver) {
                 /* Versions are not the same, configuration is out of date. */
                 $apps[$i]['conf'] = $conf_link . $error . '</a>';
-                $apps[$i]['status'] = _("Configuration is out of date.");
+                $apps[$i]['status'] = $conf_link . _("Configuration is out of date.") . '</a>';
             } else {
                 /* Configuration is ok. */
                 $apps[$i]['conf'] = $conf_link . $success . '</a>';
