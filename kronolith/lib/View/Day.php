@@ -85,8 +85,8 @@ class Kronolith_View_Day extends Kronolith_Day
         $started = false;
         $first_row = true;
         $addLinks = Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
-            ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents());
+            ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents());
         $showLocation = Kronolith::viewShowLocation();
         $showTime = Kronolith::viewShowTime();
 

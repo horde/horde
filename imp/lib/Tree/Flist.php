@@ -86,8 +86,8 @@ class IMP_Tree_Flist extends Horde_Tree_Select
 
         /* New folder entry. */
         if ($this->getOption('new_folder') &&
-            ($injector->getInstance('Horde_Perms')->hasAppPermission('create_folders') &&
-             $injector->getInstance('Horde_Perms')->hasAppPermission('max_folders'))) {
+            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') &&
+             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'))) {
             $t->set('new_mbox', true);
         }
 

@@ -356,13 +356,14 @@ case 'editqueuestep2form':
             $notification->push(_("The queue has been modified."),
                                 'horde.success');
             $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+            $corePerms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
             if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':update')) {
-                $p = $perms->newPermission('whups:queues:'
+                $p = $corePerms->newPermission('whups:queues:'
                                             . $vars->get('queue') . ':update');
                 $perms->addPermission($p);
             }
             if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':assign')) {
-                $p = $perms->newPermission('whups:queues:'
+                $p = $corePerms->newPermission('whups:queues:'
                                             . $vars->get('queue') . ':assign');
                 $perms->addPermission($p);
             }

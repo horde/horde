@@ -412,7 +412,7 @@ class Trean_Bookmarks
         }
 
         /* Give the owner full access */
-        $perm = $GLOBALS['injector']->getInstance('Horde_Perms')->newPermission($folder->getName());
+        $perm = $GLOBALS['injector']->getInstance('Horde_Core_Perms')->newPermission($folder->getName());
         $perm->addUserPermission($folder->get('owner'), Horde_Perms::SHOW, false);
         $perm->addUserPermission($folder->get('owner'), Horde_Perms::READ, false);
         $perm->addUserPermission($folder->get('owner'), Horde_Perms::EDIT, false);

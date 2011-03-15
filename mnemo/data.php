@@ -32,12 +32,12 @@ $templates = array(
     Horde_Data::IMPORT_CSV => array($registry->get('templates', 'horde') . '/data/csvinfo.inc'),
     Horde_Data::IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
 );
-if ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
-    $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
+if ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') !== true &&
+    $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
     Horde::permissionDeniedError(
         'mnemo',
         'max_notes',
-        sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes'))
+        sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes'))
     );
     $templates[Horde_Data::IMPORT_FILE] = array(MNEMO_TEMPLATES . '/data/export.inc');
 } else {
@@ -117,14 +117,14 @@ if (is_array($next_step)) {
 
     /* Create a Mnemo storage instance. */
     $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($session->get('horde', 'import_data/target'));
-    $max_memos = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes');
+    $max_memos = $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes');
     $num_memos = Mnemo::countMemos();
     foreach ($next_step as $row) {
         if ($max_memos !== true && $num_memos >= $max_memos) {
             Horde::permissionDeniedError(
                 'mnemo',
                 'max_notes',
-                sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes'))
+                sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes'))
             );
             break;
         }

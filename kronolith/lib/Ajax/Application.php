@@ -102,7 +102,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             unset($this->_vars->event);
         }
         if (!$this->_vars->event) {
-            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+            $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
             if ($perms->hasAppPermission('max_events') !== true &&
                 $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
                 Horde::permissionDeniedError(

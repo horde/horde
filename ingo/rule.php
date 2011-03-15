@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Check rule permissions. */
-$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
 if (!$perms->hasAppPermission('allow_rules')) {
     Horde::permissionDeniedError(
         'ingo',

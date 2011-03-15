@@ -40,7 +40,7 @@ $templates = array(
     Horde_Data::IMPORT_DATETIME => array($registry->get('templates', 'horde') . '/data/datemap.inc')
 );
 
-$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
 if ($perms->hasAppPermission('max_events') !== true &&
     $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
     Horde::permissionDeniedError(

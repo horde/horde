@@ -30,8 +30,8 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
 
 <table class="striped" cellspacing="0">
 <?php if ($event->recurs() &&
-          ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
-           $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())): ?>
+          ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
+           $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())): ?>
 <!-- recurrence editing -->
 <tr>
  <td></td>

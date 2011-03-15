@@ -61,32 +61,17 @@ class Horde_Perms_Datatree extends Horde_Perms_Base
     /**
      * Returns a new permissions object.
      *
-     * @param string $name  The permission's name.
+     * @param string $name   The permission's name.
+     * @param string $type   The permission type.
+     * @param array $params  The permission parameters.
      *
      * @return Horde_DataTreeObject_Permissions  A new permissions object.
      */
-    public function newPermission($name)
+    public function newPermission($name, $type = 'matrix', $params = null)
     {
-        $type = 'matrix';
-        $params = null;
-
-        if ($pos = strpos($name, ':')) {
-            try {
-                $info = $this->getApplicationPermissions(substr($name, 0, $pos));
-                if (isset($info['type']) && isset($info['type'][$name])) {
-                    $type = $info['type'][$name];
-                }
-
-                if (isset($info['params']) && isset($info['params'][$name])) {
-                    $params = $info['params'][$name];
-                }
-            } catch (Horde_Perms_Exception $e) {}
-        }
-
         $perm = new Horde_Perms_Permission_Datatree($name, $this->_cacheVersion, $type, $params);
         $perm->setCacheOb($this->_cache);
         $perm->setDataTree($this->_datatree);
-
         return $perm;
     }
 
@@ -245,5 +230,4 @@ class Horde_Perms_Datatree extends Horde_Perms_Base
     {
         return $this->_datatree->get(DATATREE_FORMAT_FLAT, Horde_Perms::ROOT, true);
     }
-
 }

@@ -1207,7 +1207,9 @@ class Agora_Messages {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $forum_id;
         if (!$perms->exists($perm_name)) {
-            $forum_perm = $perms->newPermission($perm_name);
+            $forum_perm = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Perms')
+                ->newPermission($perm_name);
             $perms->addPermission($forum_perm);
         } else {
             $forum_perm = $perms->getPermission($perm_name);
@@ -1266,7 +1268,9 @@ class Agora_Messages {
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $forum_id;
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists($perm_name)) {
-            $forum_perm = $perms->newPermission($perm_name);
+            $forum_perm = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Perms')
+                ->newPermission($perm_name);
             $perms->addPermission($forum_perm);
         } else {
             $forum_perm = $perms->getPermission($perm_name);

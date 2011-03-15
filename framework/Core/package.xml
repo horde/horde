@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-08</date>
- <time>23:44:00</time>
+ <date>2011-03-15</date>
+ <time>01:58:36</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Added Horde_Core_Perms class.
 * Fix clearing expanded state for javascript trees (Bug #9659).
 * Only show advanced preferences link if there are some.
  </notes>
@@ -152,6 +153,7 @@
        <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
+       <file name="PermsCore.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Request.php" role="php" />
        <file name="Secret.php" role="php" />
@@ -243,6 +245,7 @@
       </dir> <!-- /lib/Horde/Core/Ui -->
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
+      <file name="Perms.php" role="php" />
       <file name="Sidebar.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -888,6 +891,7 @@
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
+   <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
@@ -957,6 +961,7 @@
    <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
    <install as="Horde/Core/Factory/Notification.php" name="lib/Horde/Core/Factory/Notification.php" />
    <install as="Horde/Core/Factory/Perms.php" name="lib/Horde/Core/Factory/Perms.php" />
+   <install as="Horde/Core/Factory/PermsCore.php" name="lib/Horde/Core/Factory/PermsCore.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
    <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
    <install as="Horde/Core/Factory/Secret.php" name="lib/Horde/Core/Factory/Secret.php" />
@@ -1137,6 +1142,23 @@
 * Renamed Help:: as Horde_Help::.
 * Removed Text::/Horde_Text::.
 * Converted Horde to Horde 4 coding conventions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Added Horde_Core_Perms class.
+* Fix clearing expanded state for javascript trees (Bug #9659).
+* Only show advanced preferences link if there are some.
    </notes>
   </release>
  </changelog>

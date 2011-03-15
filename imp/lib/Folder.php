@@ -91,7 +91,7 @@ class IMP_Folder
         global $conf, $injector, $notification;
 
         /* Check permissions. */
-        $perms = $injector->getInstance('Horde_Perms');
+        $perms = $injector->getInstance('Horde_Core_Perms');
         if (!$perms->hasAppPermission('create_folders')) {
             Horde::permissionDeniedError(
                 'imp',
@@ -103,7 +103,7 @@ class IMP_Folder
             Horde::permissionDeniedError(
                 'imp',
                 'max_folders',
-                sprintf(_("You are not allowed to create more than %d folders."), $perms->getPermissions('max_folders', $GLOBALS['registry']->getAuth()))
+                sprintf(_("You are not allowed to create more than %d folders."), $injector->getInstance('Horde_Perms')->getPermissions('max_folders', $GLOBALS['registry']->getAuth()))
             );
             return false;
         }

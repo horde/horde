@@ -67,12 +67,12 @@ $cManager = new Horde_Prefs_CategoryManager();
 switch ($actionID) {
 case 'add_memo':
     /* Check permissions. */
-    if ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
-        $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
+    if ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') !== true &&
+        $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
         Horde::permissionDeniedError(
             'mnemo',
             'max_notes',
-            sprintf(_("You are not allowed to create more than %d notes."), $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes'))
+            sprintf(_("You are not allowed to create more than %d notes."), $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes'))
         );
         Horde::url('list.php', true)->redirect();
     }
@@ -198,8 +198,8 @@ case 'save_memo':
             }
         } else {
             /* Check permissions. */
-            if ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
-                $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
+            if ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') !== true &&
+                $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
                 Horde::url('list.php', true)->redirect();
             }
             /* Creating a new note. */

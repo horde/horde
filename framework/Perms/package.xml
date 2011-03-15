@@ -29,7 +29,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* Remove Horde-specific functionality.
+* Restructure class layout.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

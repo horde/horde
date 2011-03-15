@@ -39,7 +39,9 @@ if ($perms->exists($backendTag)) {
     $permission = $perms->getPermission($backendTag);
     $perm_id = $perms->getPermissionId($permission);
 } else {
-    $permission = $perms->newPermission($backendTag);
+    $permission = $GLOBALS['injector']
+        ->getInstance('Horde_Perms')
+        ->newPermission($backendTag);
     try {
         $perms->addPermission($permission, $app);
     } catch (Horde_Perms_Exception $e) {

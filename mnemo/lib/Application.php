@@ -69,8 +69,8 @@ class Mnemo_Application extends Horde_Registry_Application
         $menu->add(Horde::url('list.php'), _("_List Notes"), 'mnemo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         if (Mnemo::getDefaultNotepad(Horde_Perms::EDIT) &&
-            ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') === true ||
-             $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') > Mnemo::countMemos())) {
+            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') === true ||
+             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') > Mnemo::countMemos())) {
             $menu->add(Horde::url(Horde_Util::addParameter('memo.php', 'actionID', 'add_memo')), _("_New Note"), 'add.png', null, null, null, Horde_Util::getFormData('memo') ? '__noselection' : null);
         }
 

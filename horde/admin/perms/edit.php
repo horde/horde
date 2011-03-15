@@ -15,6 +15,7 @@ Horde_Registry::appInit('horde', array('admin' => true));
 /* Set up the form variables. */
 $vars = Horde_Variables::getDefaultVariables();
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$corePerms = $injector->getInstance('Horde_Core_Perms');
 $perm_id = $vars->get('perm_id');
 $category = $vars->get('category');
 
@@ -34,7 +35,7 @@ if ($category !== null) {
             }
 
             $parent = $vars->get('parent');
-            $permission = $perms->newPermission($category);
+            $permission = $corePerms->newPermission($category);
             try {
                 $result = $perms->addPermission($permission, $parent);
                 $form = 'edit.inc';
@@ -93,7 +94,7 @@ if ($redirect) {
     Horde::url('admin/perms/index.php', true)->redirect();
 }
 
-$ui = new Horde_Core_Perms_Ui($perms);
+$ui = new Horde_Core_Perms_Ui($perms, $corePerms);
 $ui->setVars($vars);
 $ui->setupEditForm($permission);
 
@@ -101,7 +102,7 @@ if ($ui->validateEditForm($info)) {
     /* Update and save the permissions. */
     $permission->updatePermissions($info);
     $permission->save();
-    $notification->push(sprintf(_("Updated \"%s\"."), $perms->getTitle($permission->getName())), 'horde.success');
+    $notification->push(sprintf(_("Updated \"%s\"."), $corePerms->getTitle($permission->getName())), 'horde.success');
     Horde::url('admin/perms/edit.php', true)
         ->add('perm_id', $permission->getId())
         ->redirect();

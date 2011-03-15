@@ -212,7 +212,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
                 !$this->rowExists($row) ||
                 !$this->colExists($col)) {
                 // Check permissions.
-                $max_blocks = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_blocks');
+                $max_blocks = $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_blocks');
                 if (($max_blocks !== true) &&
                     ($max_blocks <= count($this))) {
                     Horde::permissionDeniedError(

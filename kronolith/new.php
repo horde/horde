@@ -20,7 +20,7 @@ $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
       ->add(array('month' => Horde_Util::getFormData('month'),
                   'year' => Horde_Util::getFormData('year')));
 
-$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
 if ($perms->hasAppPermission('max_events') !== true &&
     $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
     Horde::permissionDeniedError(

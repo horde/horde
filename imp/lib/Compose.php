@@ -810,11 +810,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 : 1;
         }
 
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
-        if (!$perms->hasAppPermission('max_timelimit', array('opts' => array('value' => $recipients)))) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_timelimit', array('opts' => array('value' => $recipients)))) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $perms->getPermissions('imp:max_timelimit', $GLOBALS['registry']->getAuth()), $GLOBALS['conf']['sentmail']['params']['limit_period']));
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_timelimit', $GLOBALS['registry']->getAuth()), $GLOBALS['conf']['sentmail']['params']['limit_period']));
         }
 
         /* Pass to hook to allow alteration of message details. */
@@ -1020,11 +1018,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $recipients += count(explode(',', $recipient));
             }
 
-            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
-            if (!$perms->hasAppPermission('max_recipients', array('opts' => array('value' => $recipients)))) {
+            if (!$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => $recipients)))) {
                 Horde::permissionDeniedError('imp', 'max_recipients');
-                throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $perms->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
+                throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
             }
         }
 
