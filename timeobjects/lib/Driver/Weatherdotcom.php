@@ -20,34 +20,38 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
 
     public function __construct($params)
     {
-        global $registry;
+        global $registry, $prefs;
 
         $country = substr($GLOBALS['language'], -2);
         if (empty($params['location'])) {
-            // Try to get a good location string from Turba's "own" contact
-            if ($registry->hasInterface('contacts')) {
-                $contact = $GLOBALS['registry']->contacts->ownContact();
-                if (!is_a($contact, 'PEAR_Error')) {
-                    if (!empty($contact['homeCountry'])) {
-                        $country = $contact['homeCountry'];
-                    } elseif (!empty($contact['workCountry'])) {
-                        $country = $contact['workCountry'];
-                    }
-                    if (!empty($contact['homeCity'])) {
-                        $params['location'] = $contact['homeCity']
-                            . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
-                            . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
-                    } else {
-                        $params['location'] = $contact['workCity']
-                            . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
-                            . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');
-                    }
+            // First use the location pref, then turba's "own" contact, followed
+            // by perhaps a general IP location?
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+            if ($location = $identity->getValue('location')) {
+                $params['location'] = $location;
+            } elseif ($registry->hasInterface('contacts')) {
+                try {
+                    $contact = $GLOBALS['registry']->contacts->ownContact();
+                } catch (Exception $e) {
+                    throw new TimeObjects_Exception($e);
+                }
+                if (!empty($contact['homeCountry'])) {
+                    $country = $contact['homeCountry'];
+                } elseif (!empty($contact['workCountry'])) {
+                    $country = $contact['workCountry'];
+                }
+                if (!empty($contact['homeCity'])) {
+                    $params['location'] = $contact['homeCity']
+                        . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
+                        . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
+                } else {
+                    $params['location'] = $contact['workCity']
+                        . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
+                        . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');
                 }
             }
-            // TODO: Try some other way, maybe a hook or a new preference in
-            //       Horde to set your current location, maybe with a google
-            //       map?
         }
+
         if ($country != 'US') {
             $params['units'] = 'metric';
         }
