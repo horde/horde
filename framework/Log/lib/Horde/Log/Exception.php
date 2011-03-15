@@ -20,4 +20,6 @@
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @package  Log
  */
-class Horde_Log_Exception extends Exception {}
+class Horde_Log_Exception extends Horde_Exception_Prior
+{
+}
