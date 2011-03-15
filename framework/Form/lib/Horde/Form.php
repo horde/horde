@@ -252,7 +252,7 @@ class Horde_Form {
                   $var->getTypeName() == 'image') {
             $this->_enctype = 'multipart/form-data';
         }
-        if (is_null($this->_currentSection)) {
+        if (empty($this->_currentSection) && $this->_currentSection !== 0) {
             $this->_currentSection = '__base';
         }
 
