@@ -1678,7 +1678,7 @@
    addresses to their identities, should we send them a confirmation message
    to verify that the email address is really theirs?">false</configboolean>
    <configswitch name="select_view" desc="Allow user to select the application
-   view mode on login?">false
+   view mode on login?">true
     <case name="true" desc="Yes"/>
     <case name="false" desc="No">
      <configenum name="force_view" desc="Force an application view to be used
