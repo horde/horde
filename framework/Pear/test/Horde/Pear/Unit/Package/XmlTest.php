@@ -35,7 +35,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Pear_Unit_Package_XmlTest
 extends Horde_Pear_TestCase
 {
-    public function testLoad()
+    public function testGetName()
     {
         $xml = new Horde_Pear_Package_Xml(
             fopen(dirname(__FILE__) . '/../../fixture/simple/package.xml', 'r')

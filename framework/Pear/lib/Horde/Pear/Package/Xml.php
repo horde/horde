@@ -42,7 +42,8 @@ class Horde_Pear_Package_Xml
     public function __construct($xml)
     {
         rewind($xml);
-        $this->_xml = new SimpleXMLElement(stream_get_contents($xml));
+        $this->_xml = new DOMDocument('1.0', 'UTF-8');
+        $this->_xml->loadXML(stream_get_contents($xml));
     }
 
     /**
@@ -52,7 +53,14 @@ class Horde_Pear_Package_Xml
      */
     public function getName()
     {
-        return (string) $this->_xml->name;
+        foreach ($this->_xml->documentElement->childNodes as $node) {
+            if ($node->nodeType == XML_ELEMENT_NODE
+                && $node->tagName == 'name') {
+                return $node->textContent;
+            }
+
+        }
+        throw new Horde_Pear_Exception('"name" element is missing!');
     }
 
     /**
