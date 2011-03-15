@@ -336,6 +336,7 @@ $this->applications = array(
     ),
 
     'timeobjects' => array(
-        'status' => 'hidden'
+        'status' => 'hidden',
+        'provides' => 'timeobjects'
     )
 );

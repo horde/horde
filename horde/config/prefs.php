@@ -229,7 +229,7 @@ $prefGroups['identities'] = array(
     'column' => _("Your Information"),
     'label' => _("Personal Information"),
     'desc' => _("Change your personal information."),
-    'members' => array('id', 'fullname', 'from_addr'),
+    'members' => array('id', 'fullname', 'from_addr', 'location'),
     'type' => 'identities'
 );
 
@@ -258,6 +258,13 @@ $_prefs['from_addr'] = array(
     'value' => '',
     'type' => 'text',
     'desc' =>  _("The default e-mail address to use with this identity:")
+);
+
+// user location.
+$_prefs['location'] = array(
+    'value' => '',
+    'type' => 'text',
+    'desc' => _("Default location to use for location-aware features.")
 );
 
 // default identity
