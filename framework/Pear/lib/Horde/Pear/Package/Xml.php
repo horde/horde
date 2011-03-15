@@ -67,10 +67,7 @@ class Horde_Pear_Package_Xml
      */
     public function getName()
     {
-        if ($node = $this->findNode('/p:package/p:name')) {
-            return $node->textContent;
-        }
-        throw new Horde_Pear_Exception('"name" element is missing!');
+        return $this->getNodeText('/p:package/p:name');
     }
 
     /**
@@ -82,17 +79,15 @@ class Horde_Pear_Package_Xml
     {
         $this->replaceTextNode('/p:package/p:date', date('Y-m-d'));
         $this->replaceTextNode('/p:package/p:time', date('H:i:s'));
-        if ($node = $this->findNode('/p:package/p:version/p:release')) {
-            $version = $node->textContent;
-            foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
-                if ($node = $this->findNodeRelativeTo('./p:version/p:release', $release)) {
-                    if ($node->textContent == $version) {
-                        if ($node = $this->findNodeRelativeTo('./p:date', $release)) {
-                            $new_node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'date');
-                            $text = $this->_xml->createTextNode(date('Y-m-d'));
-                            $new_node->appendChild($text);
-                            $release->replaceChild($new_node, $node);
-                        }
+        $version = $this->getNodeText('/p:package/p:version/p:release');
+        foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
+            if ($node = $this->findNodeRelativeTo('./p:version/p:release', $release)) {
+                if ($node->textContent == $version) {
+                    if ($node = $this->findNodeRelativeTo('./p:date', $release)) {
+                        $new_node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'date');
+                        $text = $this->_xml->createTextNode(date('Y-m-d'));
+                        $new_node->appendChild($text);
+                        $release->replaceChild($new_node, $node);
                     }
                 }
             }
@@ -158,6 +153,24 @@ class Horde_Pear_Package_Xml
     public function findNodes($query)
     {
         return $this->_xpath->query($query);
+    }
+
+    /**
+     * Return the content of a single named node matching the given XPath query.
+     *
+     * @param string $path The node path.
+     *
+     * @return string|false The node content as string or empty if no node was
+     *                      found.
+     */
+    public function getNodeText($path)
+    {
+        if ($node = $this->findNode($path)) {
+            return $node->textContent;
+        }
+        throw new Horde_Pear_Exception(
+            sprintf('"%s" element is missing!', $path)
+        );
     }
 
     /**
