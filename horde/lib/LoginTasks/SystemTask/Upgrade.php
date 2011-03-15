@@ -1,6 +1,6 @@
 <?php
 /**
- * Login system task for automated upgrade tasks from Horde 3.
+ * Login system task for automated upgrade tasks.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -12,23 +12,25 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Horde
  */
-class Horde_LoginTasks_SystemTask_UpgradeFromHorde3 extends Horde_LoginTasks_SystemTask
+class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask_Upgrade
 {
     /**
-     * The interval at which to run the task.
-     *
-     * @var integer
      */
-    public $interval = Horde_LoginTasks::ONCE;
+    protected $_versions = array(
+        '4.0'
+    );
 
     /**
-     * Perform all functions for this task.
      */
-    public function execute()
+    protected function _upgrade($version)
     {
-        $this->_clearCache();
-        $this->_upgradePortal();
-        $this->_upgradePrefs();
+        switch ($version) {
+        case '4.0':
+            $this->_clearCache();
+            $this->_upgradePortal();
+            $this->_upgradePrefs();
+            break;
+        }
     }
 
     /**

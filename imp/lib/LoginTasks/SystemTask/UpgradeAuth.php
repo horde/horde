@@ -1,7 +1,7 @@
 <?php
 /**
  * Login system task for automated upgrade tasks.
- * These tasks DO require IMP authentication.
+ * These tasks REQUIRE IMP authentication.
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
@@ -13,25 +13,31 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_LoginTasks_SystemTask_UpgradeFromImp4Auth extends Horde_LoginTasks_SystemTask
+class IMP_LoginTasks_SystemTask_UpgradeAuth extends Horde_Core_LoginTasks_SystemTask_Upgrade
 {
     /**
      */
-    public $interval = Horde_LoginTasks::ONCE;
+    protected $_app = 'imp';
 
     /**
      */
-    public function execute()
-    {
-        $this->_upgradeExpireImapCache();
-    }
+    protected $_auth = true;
 
     /**
      */
-    public function skip()
+    protected $_versions = array(
+        '5.0'
+    );
+
+    /**
+     */
+    protected function _upgrade($version)
     {
-        /* Skip task until we are authenticated. */
-        return !$GLOBALS['registry']->isAuthenticated(array('app' => 'imp'));
+        switch ($version) {
+        case '5.0':
+            $this->_upgradeExpireImapCache();
+            break;
+        }
     }
 
     /**

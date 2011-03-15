@@ -4,27 +4,36 @@
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Kronolith
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsdl.php BSDL
+ * @package  Whups
  */
-class Kronolith_LoginTasks_SystemTask_UpgradeFromKronolith2 extends Horde_LoginTasks_SystemTask
+class Whups_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask_Upgrade
 {
     /**
-     * The interval at which to run the task.
-     *
-     * @var integer
      */
-    public $interval = Horde_LoginTasks::ONCE;
+    protected $_app = 'whups';
 
     /**
-     * Perform all functions for this task.
      */
-    public function execute()
+    protected $_versions = array(
+        '2.0'
+    );
+
+    /**
+     */
+    protected function _upgrade($version)
     {
-        $this->_upgradeAbookPrefs();
+        switch ($version) {
+        case '2.0':
+            $this->_upgradeAbookPrefs();
+            $this->_upgradeLayout();
+            break;
+        }
     }
 
     /**
@@ -58,6 +67,15 @@ class Kronolith_LoginTasks_SystemTask_UpgradeFromKronolith2 extends Horde_LoginT
                 $prefs->setValue('search_fields', $fields);
             }
         }
+    }
+
+    /**
+     * Upgrade mybugs_layout preference.
+     */
+    protected function _upgradeLayout()
+    {
+        $bu = new Horde_Core_Block_Upgrade();
+        $bu->upgrade('mybugs_layout');
     }
 
 }

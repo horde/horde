@@ -23,7 +23,7 @@
   <active>yes</active>
  </developer>
  <date>2011-03-15</date>
- <time>01:58:36</time>
+ <time>14:49:10</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Added LoginTasks upgrade framework.
 * Added Horde_Core_Perms class.
 * Fix clearing expanded state for javascript trees (Bug #9659).
 * Only show advanced preferences link if there are some.
@@ -179,6 +180,9 @@
        <dir name="Backend">
         <file name="Horde.php" role="php" />
        </dir> <!-- /lib/Horde/Core/LoginTasks/Backend -->
+       <dir name="SystemTask">
+        <file name="Upgrade.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/LoginTasks/SystemTask -->
       </dir> <!-- /lib/Horde/Core/LoginTasks -->
       <dir name="Mime">
        <dir name="Viewer">
@@ -979,6 +983,7 @@
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
+   <install as="Horde/Core/LoginTasks/SystemTask/Upgrade.php" name="lib/Horde/Core/LoginTasks/SystemTask/Upgrade.php" />
    <install as="Horde/Core/Mime/Viewer/Syntaxhighlighter.php" name="lib/Horde/Core/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="Horde/Core/Mime/Viewer/Vcard.php" name="lib/Horde/Core/Mime/Viewer/Vcard.php" />
    <install as="Horde/Core/Notification/Hordelog.php" name="lib/Horde/Core/Notification/Hordelog.php" />
@@ -1156,6 +1161,7 @@
    <date>2011-03-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Added LoginTasks upgrade framework.
 * Added Horde_Core_Perms class.
 * Fix clearing expanded state for javascript trees (Bug #9659).
 * Only show advanced preferences link if there are some.

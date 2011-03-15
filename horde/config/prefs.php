@@ -709,3 +709,9 @@ $_prefs['last_logintasks'] = array(
     // value = serialize(array())
     'value' => 'a:0:{}'
 );
+
+// Track login upgrade tasks.
+$_prefs['upgrade_tasks'] = array(
+    // value = serialize(array())
+    'value' => 'a:0:{}'
+);

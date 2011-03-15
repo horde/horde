@@ -74,7 +74,11 @@ if (!class_exists($class)) {
 $ob = new $class();
 if (($ob instanceof Horde_LoginTasks_SystemTask) && $ob->skip()) {
     $cli->message('System task was skipped.', 'cli.warning');
-} else {
-    $ob->execute();
+} else{
+    if ($ob instanceof Horde_Core_LoginTasks_SystemTask_Upgrade) {
+        $ob->forceUpgrade();
+    } else {
+        $ob->execute();
+    }
     $cli->message('Completed task.', 'cli.success');
 }

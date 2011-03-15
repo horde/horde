@@ -12,33 +12,39 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemTask
+class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask_Upgrade
 {
     /**
-     * The interval at which to run the task.
-     *
-     * @var integer
      */
-    public $interval = Horde_LoginTasks::ONCE;
+    protected $_app = 'imp';
 
     /**
-     * Perform all functions for this task.
      */
-    public function execute()
+    protected $_versions = array(
+        '5.0'
+    );
+
+    /**
+     */
+    protected function _upgrade($version)
     {
-        $this->_upgradeAbookPrefs();
-        $this->_upgradeComposePrefs();
-        $this->_upgradeDeleteAttachmentsMonthlyPrefs();
-        $this->_upgradeDeleteSentmailMonthlyPrefs();
-        $this->_upgradeForwardPrefs();
-        $this->_upgradeLoginTasksPrefs();
-        $this->_upgradeMsgDisplayPrefs();
-        $this->_upgradePurgeSentmailPrefs();
-        $this->_upgradePurgeSpamPrefs();
-        $this->_upgradePurgeTrashPrefs();
-        $this->_upgradeSortPrefs();
-        $this->_upgradeStationery();
-        $this->_upgradeVirtualFolders();
+        switch ($version) {
+        case '5.0':
+            $this->_upgradeAbookPrefs();
+            $this->_upgradeComposePrefs();
+            $this->_upgradeDeleteAttachmentsMonthlyPrefs();
+            $this->_upgradeDeleteSentmailMonthlyPrefs();
+            $this->_upgradeForwardPrefs();
+            $this->_upgradeLoginTasksPrefs();
+            $this->_upgradeMsgDisplayPrefs();
+            $this->_upgradePurgeSentmailPrefs();
+            $this->_upgradePurgeSpamPrefs();
+            $this->_upgradePurgeTrashPrefs();
+            $this->_upgradeSortPrefs();
+            $this->_upgradeStationery();
+            $this->_upgradeVirtualFolders();
+            break;
+        }
     }
 
     /**
