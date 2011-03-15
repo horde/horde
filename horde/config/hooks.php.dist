@@ -268,26 +268,6 @@ class Horde_Hooks
 //            return empty($user)
 //                ? $username
 //                : $user;
-//
-//
-//        case 'theme':
-//            // Example theme init.
-//            if ($username != 'foo') {
-//                return 'mozilla';
-//            }
-//
-//            switch ($GLOBALS['registry']->getApp()) {
-//            case 'imp':
-//                return 'brown';
-//
-//            case 'kronolith':
-//                return 'green';
-//
-//            case 'turba':
-//                return 'orange';
-//            }
-//
-//            return '';
 //        }
 //    }
 
