@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 /* Load mobile? */
-if ($browser->isMobile()) {
+if ($mode == 'smartmobile' || $mode == 'mobile') {
     include ANSEL_BASE . '/mobile.php';
     exit;
 }
