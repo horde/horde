@@ -1085,7 +1085,6 @@ ul.sound-list {
 
 /* Toggle quote styles. */
 .toggleQuoteHide, .toggleQuoteShow {
-    font-size: 80%;
     cursor: pointer;
     background: #ddd;
 }
