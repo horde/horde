@@ -80,18 +80,8 @@ class Horde_Pear_Package_Xml
      */
     public function releaseNow()
     {
-        if ($node = $this->findNode('/p:package/p:date')) {
-            $new_node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'date');
-            $text = $this->_xml->createTextNode(date('Y-m-d'));
-            $new_node->appendChild($text);
-            $this->_xml->documentElement->replaceChild($new_node, $node);
-        }
-        if ($node = $this->findNode('/p:package/p:time')) {
-            $new_node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'date');
-            $text = $this->_xml->createTextNode(date('H:i:s'));
-            $new_node->appendChild($text);
-            $this->_xml->documentElement->replaceChild($new_node, $node);
-        }
+        $this->replaceTextNode('/p:package/p:date', date('Y-m-d'));
+        $this->replaceTextNode('/p:package/p:time', date('H:i:s'));
         if ($node = $this->findNode('/p:package/p:version/p:release')) {
             $version = $node->textContent;
             foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
@@ -168,5 +158,25 @@ class Horde_Pear_Package_Xml
     public function findNodes($query)
     {
         return $this->_xpath->query($query);
+    }
+
+    /**
+     * Replace a specific text node
+     *
+     * @param string $path  The XPath query pointing to the node.
+     * @param string $value The new text value.
+     *
+     * @return DOMNodeList The list of DOMNodes.
+     */
+    public function replaceTextNode($path, $value)
+    {
+        if ($node = $this->findNode($path)) {
+            $new_node = $this->_xml->createElementNS(
+                self::XMLNAMESPACE, $node->tagName
+            );
+            $text = $this->_xml->createTextNode($value);
+            $new_node->appendChild($text);
+            $this->_xml->documentElement->replaceChild($new_node, $node);
+        }
     }
 }
