@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:48:39</time>
+ <date>2011-03-15</date>
+ <time>19:21:01</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -335,6 +335,10 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Net_DNS</name>
+    <channel>pear.php.net</channel>
+   </package>
    <extension>
     <name>geoip</name>
    </extension>
@@ -484,6 +488,21 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * First alpha release for Horde 4.
 * Eliminate dependency on horde/Browser and horde/Core.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:44:56</time>
+ <date>2011-03-15</date>
+ <time>19:20:52</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -30,7 +30,7 @@
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
 * Drop schema table when migrating down to schema version 0.
-* Don't try to create schema tables if they exist, to avoid irritating log entries.
+* Don&apos;t try to create schema tables if they exist, to avoid irritating log entries.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -179,6 +179,20 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
@@ -208,6 +222,15 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>mysql</name>
+   </extension>
+   <extension>
+    <name>mysqli</name>
+   </extension>
+   <extension>
+    <name>PDO</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
@@ -320,6 +343,22 @@
    <notes>
 * First alpha release for Horde 4.
 * Add support for adding autoincrement to a column.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Drop schema table when migrating down to schema version 0.
+* Don&apos;t try to create schema tables if they exist, to avoid irritating log entries.
    </notes>
   </release>
  </changelog>

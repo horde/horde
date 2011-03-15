@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-11</date>
- <time>14:58:53</time>
+ <date>2011-03-15</date>
+ <time>19:20:50</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -397,6 +397,15 @@
     <exclude>2.0.0</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -585,10 +594,10 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-11</date>
+   <date>2011-03-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

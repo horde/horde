@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:48:21</time>
+ <date>2011-03-15</date>
+ <time>19:21:00</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -371,7 +371,7 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Util</name>
+    <name>Horde_Text_Flowed</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
@@ -384,11 +384,21 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </required>
   <optional>
    <package>
-    <name>idn</name>
-    <channel>pecl.php.net</channel>
+    <name>Horde_Nls</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
@@ -396,6 +406,14 @@
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Net_DNS2</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>idn</name>
+    <channel>pecl.php.net</channel>
    </package>
   </optional>
  </dependencies>
@@ -543,6 +561,21 @@
 * Use Gnumeric to display MS Excel documents.
 * Use AbiWord to display MS Word documents (Request #8011).
 * Add support for decoding IDN (RFC 3490) names (Request #5836).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Simplify charset handling in Horde_Mime_Mail.
    </notes>
   </release>
  </changelog>

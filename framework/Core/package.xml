@@ -23,7 +23,7 @@
   <active>yes</active>
  </developer>
  <date>2011-03-15</date>
- <time>14:49:10</time>
+ <time>19:20:49</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -614,11 +614,42 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>DB</name>
-    <channel>pear.php.net</channel>
+    <name>Horde_Compress</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Controller</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Data</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
@@ -737,6 +768,34 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Template</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Token</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Template</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Translation</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
@@ -750,15 +809,19 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-  </required>
-  <optional>
    <package>
-    <name>Horde_Browser</name>
+    <name>Horde_View</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </required>
+  <optional>
    <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
@@ -802,6 +865,20 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Image</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Imap_Client</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Kolab_Server</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
@@ -823,6 +900,20 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Ldap</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
@@ -830,7 +921,28 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Oauth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Routes</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Service_Twitter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_SpellChecker</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
@@ -858,10 +970,34 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Net_DNS2</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Text_CAPTCHA</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Text_Figlet</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <recommended>1.5.2</recommended>
    </package>
+   <extension>
+    <name>dom</name>
+   </extension>
+   <extension>
+    <name>hash</name>
+   </extension>
+   <extension>
+    <name>SimpleXML</name>
+   </extension>
+   <extension>
+    <name>sockets</name>
+   </extension>
   </optional>
  </dependencies>
  <usesrole>

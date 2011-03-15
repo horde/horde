@@ -23,8 +23,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-11</date>
- <time>15:04:03</time>
+ <date>2011-03-15</date>
+ <time>19:20:55</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -394,6 +394,20 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
@@ -413,6 +427,15 @@
     <name>XML_SVG</name>
     <channel>pear.php.net</channel>
    </package>
+   <extension>
+    <name>gd</name>
+   </extension>
+   <extension>
+    <name>json</name>
+   </extension>
+   <extension>
+    <name>zlib</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
@@ -607,10 +630,10 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-11</date>
+   <date>2011-03-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

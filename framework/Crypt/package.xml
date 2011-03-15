@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:44:12</time>
+ <date>2011-03-15</date>
+ <time>19:20:50</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -369,7 +369,18 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>hash</name>
+   </extension>
+   <extension>
+    <name>openssl</name>
+   </extension>
   </required>
+  <optional>
+   <extension>
+    <name>bcmath</name>
+   </extension>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -530,6 +541,21 @@ Initial release as a PEAR package
 * First alpha release for Horde 4.
 * Add Horde_Crypt_Exception.
 * Better error handling for gnupg and openssl command line binaries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

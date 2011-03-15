@@ -2,9 +2,12 @@
 v4.0-BETA1
 ----------
 
+[mms] Fix client-side IMAP sorting using envelope data.
+[mms] Workaround PHP < 5.2.6 (broken stream handling) (Bug #9644).
 [mjr] Fix updating schema for individual libraries.
 [mjr] Improved control over which application view to load.
 [jan] Find translateable strings in configuration files.
+[mms] Fix clearing expanded state for javascript trees (Bug #9659).
 [jan] Only show advanced preferences link if there are some.
 [mms] Fix updates for refreshing Blocks (Bug #9655).
 [mjr] Fix viewing applications with no mobile view from mobile devices.

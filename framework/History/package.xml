@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:45:56</time>
+ <date>2011-03-15</date>
+ <time>19:20:54</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -47,7 +47,9 @@
     <dir name="Horde">
      <dir name="History">
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="InterfaceTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/History -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -75,13 +77,6 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-   <package>
-    <name>Horde_Injector</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
   </required>
  </dependencies>
  <phprelease>
@@ -94,7 +89,9 @@
    <install as="migration/1_horde_history_base_tables.php" name="migration/Horde_History/1_horde_history_base_tables.php" />
    <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde_History/2_horde_history_upgrade_autoincrement.php" />
    <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
+   <install as="Horde/History/Autoload.php" name="test/Horde/History/Autoload.php" />
    <install as="Horde/History/InterfaceTest.php" name="test/Horde/History/InterfaceTest.php" />
+   <install as="Horde/History/phpunit.xml" name="test/Horde/History/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -142,6 +139,21 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

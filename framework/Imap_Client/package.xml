@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-11</date>
- <time>14:58:57</time>
+ <date>2011-03-15</date>
+ <time>19:20:56</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -96,6 +96,13 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
@@ -114,10 +121,6 @@
    </extension>
   </required>
   <optional>
-   <package>
-    <name>Auth_SASL</name>
-    <channel>pear.php.net</channel>
-   </package>
    <package>
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
@@ -139,8 +142,15 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Auth_SASL</name>
+    <channel>pear.php.net</channel>
+   </package>
    <extension>
     <name>imap</name>
+   </extension>
+   <extension>
+    <name>json</name>
    </extension>
    <extension>
     <name>mbstring</name>
@@ -217,9 +227,11 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-11</date>
+   <date>2011-03-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Fix client-side sorting using envelope data.
+* Workaround PHP &lt; 5.2.6 (broken stream handling) (Bug #9644).
 * Add basic UTF7-IMAP conversion unit test.
    </notes>
   </release>

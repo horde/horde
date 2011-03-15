@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:43:00</time>
+ <date>2011-03-15</date>
+ <time>19:20:47</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -116,6 +116,9 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>hash</name>
+   </extension>
   </required>
   <optional>
    <package>
@@ -133,7 +136,7 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Kolab_Server</name>
+    <name>Horde_Kolab_Session</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
@@ -154,6 +157,10 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>HTTP_Request</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>pam</name>
     <channel>pecl.php.net</channel>
    </package>
@@ -161,6 +168,9 @@
     <name>sasl</name>
     <channel>pecl.php.net</channel>
    </package>
+   <extension>
+    <name>ftp</name>
+   </extension>
    <extension>
     <name>pam_auth</name>
    </extension>
@@ -283,6 +293,21 @@
 * Removed Krb5 driver.
 * Moved signup code to horde/Core.
 * Split Horde_Auth into Horde_Auth and Horde_Auth_Base components.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

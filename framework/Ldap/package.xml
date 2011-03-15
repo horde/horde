@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:47:34</time>
+ <date>2011-03-15</date>
+ <time>19:20:58</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -98,6 +98,9 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>ldap</name>
+   </extension>
   </required>
  </dependencies>
  <phprelease>
@@ -149,6 +152,21 @@
 * Converted to PHP5 strict standards.
 * Converted to use exceptions.
 * Included functions from the previous Horde_LDAP for backwards compatibility.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

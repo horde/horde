@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-11</date>
- <time>14:59:19</time>
+ <date>2011-03-15</date>
+ <time>16:24:50</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -341,7 +341,7 @@
       <file name="Horde_SyncML.po" role="data" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
-    <file name="Horde_SyncML.pot" role="data" />
+    <file name="Horde_SyncMl.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="migration">
     <dir name="Horde">
@@ -583,7 +583,35 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Icalendar</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
@@ -603,7 +631,31 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>MDB2</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -642,7 +694,7 @@
    <install as="Horde/SyncMl/Device/Sync4j.php" name="lib/Horde/SyncMl/Device/Sync4j.php" />
    <install as="Horde/SyncMl/Device/Sync4JMozilla.php" name="lib/Horde/SyncMl/Device/Sync4JMozilla.php" />
    <install as="Horde/SyncMl/Device/Synthesis.php" name="lib/Horde/SyncMl/Device/Synthesis.php" />
-   <install as="locale/Horde_SyncML.pot" name="locale/Horde_SyncML.pot" />
+   <install as="locale/Horde_SyncMl.pot" name="locale/Horde_SyncMl.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_SyncML.mo" name="locale/ar/LC_MESSAGES/Horde_SyncML.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_SyncML.po" name="locale/ar/LC_MESSAGES/Horde_SyncML.po" />
    <install as="locale/bg/LC_MESSAGES/Horde_SyncML.mo" name="locale/bg/LC_MESSAGES/Horde_SyncML.mo" />
@@ -999,21 +1051,6 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
   </release>
   <release>
    <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2011-03-07</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>
-* First alpha release for Horde 4.
-   </notes>
-  </release>
-  <release>
-   <version>
     <release>1.0.0beta1</release>
     <api>1.0.0</api>
    </version>
@@ -1021,10 +1058,10 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-11</date>
+   <date>2011-03-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:49:53</time>
+ <date>2011-03-15</date>
+ <time>18:41:10</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -106,7 +106,10 @@
     <exclude>2.0.0</exclude>
    </package>
    <extension>
-    <name>bzip2</name>
+    <name>bz2</name>
+   </extension>
+   <extension>
+    <name>json</name>
    </extension>
    <extension>
     <name>lzf</name>
@@ -177,6 +180,21 @@ Converted to package.xml 2.0 for pear.horde.org
 * First alpha release for Horde 4.
 * Throw exceptions rather than returning PEAR_Errors.
 * Add support for limited error handling for json encoding errors (requires PHP 5.3+).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

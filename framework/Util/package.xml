@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:52:22</time>
+ <date>2011-03-15</date>
+ <time>18:00:57</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -114,6 +114,12 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>ctype</name>
+   </extension>
+   <extension>
+    <name>filter</name>
+   </extension>
    <extension>
     <name>iconv</name>
    </extension>
@@ -257,6 +263,21 @@ Converted to package.xml 2.0 for pear.horde.org
 * Added Horde_String::convertToUtf8().
 * Added Horde_Util::abbreviate().
 * Removed Horde_Array::combine() and Horde_Util::hmac().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>

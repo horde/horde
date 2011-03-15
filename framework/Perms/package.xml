@@ -18,7 +18,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-15</date>
- <time>00:31:07</time>
+ <time>19:06:34</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -365,6 +365,20 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
@@ -621,7 +635,8 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-03-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* Remove Horde-specific functionality.
+* Restructure class layout.
    </notes>
   </release>
  </changelog>

@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:45:48</time>
+ <date>2011-03-15</date>
+ <time>19:20:54</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -222,6 +222,21 @@ Initial release as a PEAR package
    <notes>
 * First alpha release for Horde 4.
 * Throw exceptions, not PEAR_Errors.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Fix error in Mock driver when listing groups (Bug #9642).
    </notes>
   </release>
  </changelog>

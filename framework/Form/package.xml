@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-11</date>
- <time>15:03:08</time>
+ <date>2011-03-15</date>
+ <time>19:20:54</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -331,6 +331,27 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Nls</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
@@ -351,7 +372,17 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Date_Calc</name>
+    <channel>pear.php.net</channel>
+   </package>
   </required>
+  <optional>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -504,7 +535,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-11</date>
+   <date>2011-03-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Generate valid id attributes for form elements.

@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-13</date>
- <time>19:35:58</time>
+ <date>2011-03-15</date>
+ <time>18:11:24</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -114,8 +114,18 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </required>
   <optional>
@@ -208,7 +218,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-13</date>
+   <date>2011-03-15</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * Convert to PHP 5 and Horde 4 package layout.
