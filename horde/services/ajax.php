@@ -38,7 +38,7 @@ try {
         /* Handle session timeouts when they come from an AJAX request. */
         if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
             $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, Horde_Variables::getDefaultVariables());
-            $notification->push(str_replace('&amp;', '&', $registry->getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'horde.ajaxtimeout', array('content.raw'));
+            $notification->push($ajax->getSessionLogoutUrl(), 'horde.ajaxtimeout', array('content.raw'));
             Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notify), $ajax->responseType());
             exit;
         }

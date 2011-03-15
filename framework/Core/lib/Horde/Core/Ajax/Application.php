@@ -129,6 +129,23 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX actions performed through the endpoint are normally not a good
+     * URL to return to.  Thus, by default after a session timeout, return
+     * to the base of the application instead.
+     *
+     * @return Horde_Url  The logout Horde_Url object.
+     */
+    public function getSessionLogoutUrl()
+    {
+        return $GLOBALS['registry']->getLogoutUrl(array(
+            'reason' => Horde_Auth::REASON_SESSION
+        ))->add('url', Horde::url('', false, array(
+            'app' => $this->_app,
+            'append_session' => -1
+        )));
+    }
+
+    /**
      * Returns a hash of group IDs and group names that the user has access
      * to.
      *
