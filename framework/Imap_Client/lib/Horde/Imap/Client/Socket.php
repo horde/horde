@@ -1871,6 +1871,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SORT_CC:
+            case Horde_Imap_Client::SORT_DISPLAYFROM:
+            case Horde_Imap_Client::SORT_DISPLAYTO:
             case Horde_Imap_Client::SORT_FROM:
             case Horde_Imap_Client::SORT_SUBJECT:
             case Horde_Imap_Client::SORT_TO:
@@ -1904,7 +1906,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $slices = array();
 
             foreach ($slices_list as $slice_start => $slice) {
-                $display_sort = false;
                 $sorted = array();
 
                 if ($reverse) {
@@ -1929,15 +1930,32 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 case Horde_Imap_Client::SORT_DISPLAYFROM:
                 case Horde_Imap_Client::SORT_DISPLAYTO:
-                    $display_sort = true;
-                    // Fallthrough
+                    $field = ($val == Horde_Imap_Client::SORT_DISPLAYFROM)
+                        ? 'from'
+                        : 'to';
+
+                    foreach ($slice as $num) {
+                        $env = $fetch_res[$num]->getEnvelope();
+
+                        if (empty($env->$field)) {
+                            $sorted[$num] = null;
+                        } else {
+                            $addr_ob = reset($env->$field);
+                            $sorted[$num] = empty($addr_ob['personal'])
+                                ? $addr_ob['mailbox']
+                                : $addr_ob['personal'];
+                        }
+                    }
+
+                    asort($sorted, SORT_LOCALE_STRING);
+                    break;
 
                 case Horde_Imap_Client::SORT_CC:
                 case Horde_Imap_Client::SORT_FROM:
                 case Horde_Imap_Client::SORT_TO:
                     if ($val == Horde_Imap_Client::SORT_CC) {
                         $field = 'cc';
-                    } elseif (in_array($val, array(Horde_Imap_Client::SORT_DISPLAYFROM, Horde_Imap_Client::SORT_FROM))) {
+                    } elseif ($val == Horde_Imap_Client::SORT_FROM) {
                         $field = 'from';
                     } else {
                         $field = 'to';
@@ -1945,14 +1963,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     foreach ($slice as $num) {
                         $env = $fetch_res[$num]->getEnvelope();
-                        if (empty($env->$field)) {
-                            $sorted[$num] = null;
-                        } else {
-                            $tmp = ($display_sort && !empty($env->$field[0]['personal']))
-                                ? 'personal'
-                                : 'mailbox';
-                            $sorted[$num] = $env->$field[0][$tmp];
-                        }
+                        $sorted[$num] = empty($env->$field)
+                            ? null
+                            : $env->$field[0]['personal'];
                     }
                     asort($sorted, SORT_LOCALE_STRING);
                     break;
