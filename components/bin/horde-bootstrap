@@ -20,6 +20,7 @@ require_once $framework . '/Exception/lib/Horde/Exception.php';
 require_once $framework . '/Exception/lib/Horde/Exception/Pear.php';
 
 $base = dirname(__FILE__) .'/../lib';
+require_once $base . '/Components/Exception.php';
 require_once $base . '/Components/Exception/Pear.php';
 require_once $base . '/Components/Dependencies.php';
 require_once $base . '/Components/Dependencies/Bootstrap.php';
