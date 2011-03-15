@@ -17,9 +17,6 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {
     public function up()
     {
-        $t = $this->_connection->table('kronolith_events');
-        $cols = $t->getColumns();
-
         // Can't use Kronolith's tagger since we can't init kronolith.
         $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
@@ -31,38 +28,34 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         $tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('kronolith');
 
-        if (in_array('event_category', array_keys($cols))) {
-            $sql = 'SELECT event_uid, event_category, event_creator_id, calendar_id FROM kronolith_events';
-            $this->announce('Migrating event categories.');
-            $rows = $this->_connection->selectAll($sql);
-            foreach ($rows as $row) {
+        $sql = 'SELECT event_uid, event_category, event_creator_id, calendar_id FROM kronolith_events';
+        $this->announce('Migrating event categories.');
+        $rows = $this->_connection->selectAll($sql);
+        foreach ($rows as $row) {
 
+            $tagger ->tag(
+                $row['event_creator_id'],
+                array('object' => $row['event_uid'], 'type' => $type_ids['event']),
+                Horde_String::convertCharset($row['event_category'], $this->_connection->getOption('charset'), 'UTF-8')
+            );
+
+            // Do we need to tag the event again, but as the share owner?
+            try {
+                $cal = $shares->getShare($row['calendar_id']);
+            } catch (Exception $e) {
+                $this->announce('Unable to find Share: ' . $row['calendar_id'] . ' Skipping.');
+            }
+
+            if ($cal->get('owner') != $row['event_creator_id']) {
                 $tagger ->tag(
-                    $row['event_creator_id'],
+                    $cal->get('owner'),
                     array('object' => $row['event_uid'], 'type' => $type_ids['event']),
                     Horde_String::convertCharset($row['event_category'], $this->_connection->getOption('charset'), 'UTF-8')
                 );
-
-                // Do we need to tag the event again, but as the share owner?
-                try {
-                    $cal = $shares->getShare($row['calendar_id']);
-                } catch (Exception $e) {
-                    $this->announce('Unable to find Share: ' . $row['calendar_id'] . ' Skipping.');
-                }
-
-                if ($cal->get('owner') != $row['event_creator_id']) {
-                    $tagger ->tag(
-                        $cal->get('owner'),
-                        array('object' => $row['event_uid'], 'type' => $type_ids['event']),
-                        Horde_String::convertCharset($row['event_category'], $this->_connection->getOption('charset'), 'UTF-8')
-                    );
-                }
             }
-            $this->announce('Event categories successfully migrated.');
-            $this->removeColumn('kronolith_events', 'event_category');
-        } else {
-            $this->announce('Event categories ALREADY migrated or unsupported driver.');
         }
+        $this->announce('Event categories successfully migrated.');
+        $this->removeColumn('kronolith_events', 'event_category');
     }
 
     public function down()
@@ -70,10 +63,6 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         // This is a one-way data migration. No way to know which tags were
         // from categories. Just put back the column.
         $t = $this->_connection->table('kronolith_events');
-        $cols = $t->getColumns();
-        if (!in_array('event_category', array_keys($cols))) {
-            $this->addColumn('kronolith_events', 'event_category', 'string', array('limit' => 80));
-        }
+        $this->addColumn('kronolith_events', 'event_category', 'string', array('limit' => 80));
     }
-
 }
