@@ -88,9 +88,12 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
     {
         $this->_open($id);
 
-        return $this->_fp
-            ? strval(stream_get_contents($this->_fp, -1, 0))
-            : '';
+        if (!$this->_fp) {
+            return '';
+        }
+
+        rewind($this->_fp);
+        return strval(stream_get_contents($this->_fp));
     }
 
     /**

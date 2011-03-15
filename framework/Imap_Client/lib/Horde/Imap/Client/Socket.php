@@ -2790,7 +2790,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         foreach ($env_data as $key => $val) {
             if (isset($data[$key])) {
                 if (is_resource($data[$key])) {
-                    $ret->$val = stream_get_contents($data[$key], -1, 0);
+                    rewind($data[$key]);
+                    $ret->$val = stream_get_contents($data[$key]);
                 } elseif (strcasecmp($data[$key], 'NIL') !== 0) {
                     $ret->$val = $data[$key];
                 }

@@ -465,9 +465,12 @@ class Horde_Imap_Client_Data_Fetch
             return $tmp;
         }
 
-        return is_resource($data)
-            ? stream_get_contents($data, -1, 0)
-            : strval($data);
+        if (is_resource($data)) {
+            rewind($data);
+            return stream_get_contents($data);
+        }
+
+        return strval($data);
     }
 
     /**
