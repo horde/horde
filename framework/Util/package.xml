@@ -207,11 +207,11 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>0.1.0</release>
     <api>0.1.0</api>
    </version>
-   <date>2008-09-25</date>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
+   <date>2008-09-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added magic PHP5 methods to the Variables class.

@@ -354,10 +354,10 @@
    </package>
    <extension>
     <name>json</name>
-   </package>
+   </extension>
    <extension>
     <name>SimpleXML</name>
-   </package>
+   </extension>
   </required>
  </dependencies>
  <phprelease>

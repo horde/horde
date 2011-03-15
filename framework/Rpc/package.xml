@@ -432,7 +432,7 @@
    <extension>
     <name>xmlrpc</name>
    </extension>
-  <optional>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>

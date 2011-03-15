@@ -374,7 +374,6 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>0.0.2</min>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
@@ -382,7 +381,6 @@
    <package>
     <name>Horde_Kolab_Server</name>
     <channel>pear.horde.org</channel>
-    <min>0.2.0</min>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
@@ -391,7 +389,6 @@
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
-    <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
   </required>
