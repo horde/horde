@@ -250,7 +250,7 @@ class Horde_Date
             // "new DateTime() once we require 5.3.
             $parsed = date_create($date);
             if (!$parsed) {
-                throw new Horde_Date_Exception(sprintf(_("Failed to parse time string (%s)"), $date));
+                throw new Horde_Date_Exception(sprintf(Horde_Date_Translation::t("Failed to parse time string (%s)"), $date));
             }
             $parsed->setTimezone(new DateTimeZone(date_default_timezone_get()));
             $this->_year  = (int)$parsed->format('Y');

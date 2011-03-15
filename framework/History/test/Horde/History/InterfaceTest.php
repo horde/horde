@@ -65,7 +65,7 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
      *
      * @param string $environment The selected environment.
      *
-     * @return Horde_Injector The environment.
+     * @return Horde_History The environment.
      */
     public function initializeEnvironment($environment)
     {

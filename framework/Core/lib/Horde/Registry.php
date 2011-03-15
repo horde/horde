@@ -2211,7 +2211,7 @@ class Horde_Registry
         }
 
         if (count($errApps)) {
-            throw new Horde_Auth_Exception(sprintf(_("The following applications encountered errors removing user data: %s"), implode(', ', $errApps)));
+            throw new Horde_Auth_Exception(sprintf(Horde_Core_Translation::t("The following applications encountered errors removing user data: %s"), implode(', ', $errApps)));
         }
     }
 

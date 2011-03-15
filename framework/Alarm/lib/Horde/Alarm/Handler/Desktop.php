@@ -84,6 +84,6 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      */
     public function getDescription()
     {
-        return _("Desktop notification (with certain browsers)");
+        return Horde_Alarm_Translation::t("Desktop notification (with certain browsers)");
     }
 }

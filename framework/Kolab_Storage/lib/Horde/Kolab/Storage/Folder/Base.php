@@ -350,7 +350,7 @@ implements Horde_Kolab_Storage_Folder
                 /** The folder needs to be renamed */
                 $result = $this->_driver->exists($this->_new_path);
                 if ($result) {
-                    throw new Horde_Kolab_Storage_Exception(sprintf(_("Unable to rename %s to %s: destination folder already exists"),
+                    throw new Horde_Kolab_Storage_Exception(sprintf(Horde_Kolab_Storage_Translation::t("Unable to rename %s to %s: destination folder already exists"),
                                                                     $name, $new_name));
                 }
 
@@ -667,7 +667,7 @@ implements Horde_Kolab_Storage_Folder
         if ($id != null) {
             /** Update an existing kolab object */
             if (!in_array($id, $this->_driver->getUids($this->_path))) {
-                return PEAR::raiseError(sprintf(_("The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else while you were editing it. Your edits have been lost."),
+                return PEAR::raiseError(sprintf(Horde_Kolab_Storage_Translation::t("The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else while you were editing it. Your edits have been lost."),
                                                 $id));
             }
 
@@ -828,13 +828,13 @@ implements Horde_Kolab_Storage_Folder
     {
         $raw_headers = $this->_driver->getMessageHeader($this->_path, $id);
         if (is_a($raw_headers, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Failed retrieving the message with ID %s. Original error: %s."),
+            return PEAR::raiseError(sprintf(Horde_Kolab_Storage_Translation::t("Failed retrieving the message with ID %s. Original error: %s."),
                                             $id, $raw_headers->getMessage()));
         }
 
         $body = $this->_driver->getMessageBody($this->_path, $id);
         if (is_a($body, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Failed retrieving the message with ID %s. Original error: %s."),
+            return PEAR::raiseError(sprintf(Horde_Kolab_Storage_Translation::t("Failed retrieving the message with ID %s. Original error: %s."),
                                             $id, $body->getMessage()));
         }
 

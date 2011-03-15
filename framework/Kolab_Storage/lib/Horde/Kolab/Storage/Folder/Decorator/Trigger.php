@@ -225,7 +225,7 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
 
         $result = $this->triggerUrl($url);
         if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Failed triggering folder %s. Error was: %s"),
+            return PEAR::raiseError(sprintf(Horde_Kolab_Storage_Translation::t("Failed triggering folder %s. Error was: %s"),
                                             $this->name, $result->getMessage()));
         }
         return $result;
@@ -258,7 +258,7 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
         $http->setBasicAuth($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuthCredential('password'));
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
-            return PEAR::raiseError(sprintf(_("Unable to trigger URL %s. Response: %s"),
+            return PEAR::raiseError(sprintf(Horde_Kolab_Storage_Translation::t("Unable to trigger URL %s. Response: %s"),
                                             $url, $http->getResponseCode()));
         }
         return true;
