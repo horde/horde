@@ -75,7 +75,7 @@ class Horde_Pear_Package_Xml
      *
      * @return NULL
      */
-    public function releaseNow()
+    public function timestamp()
     {
         $this->replaceTextNode('/p:package/p:date', date('Y-m-d'));
         $this->replaceTextNode('/p:package/p:time', date('H:i:s'));

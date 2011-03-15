@@ -43,12 +43,12 @@ extends Horde_Pear_TestCase
         $this->assertEquals('Fixture', $xml->getName());
     }
 
-    public function testReleaseNow()
+    public function testTimestamp()
     {
         $xml = new Horde_Pear_Package_Xml(
             fopen(dirname(__FILE__) . '/../../fixture/simple/package.xml', 'r')
         );
-        $xml->releaseNow();
+        $xml->timestamp();
         $this->assertContains('<date>' . date('Y-m-d') . '</date>', (string) $xml);
     }
 
@@ -57,7 +57,7 @@ extends Horde_Pear_TestCase
         $xml = new Horde_Pear_Package_Xml(
             fopen(dirname(__FILE__) . '/../../fixture/simple/package.xml', 'r')
         );
-        $xml->releaseNow();
+        $xml->timestamp();
         $this->assertEquals(date('Y-m-d'), $xml->findNode('/p:package/p:changelog/p:release/p:date')->textContent);
     }
 
