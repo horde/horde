@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>timeobjects</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde timeobjects application</summary>
+ <description>The timeobjects application doesn&apos;t have an interface but provides streams of events to any applications that can consume them, notably the Horde calendar application. It contains drivers for facebook events and weather forecasts and can easily be extended by custom drivers.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-03-15</date>
+ <time>23:02:50</time>
+ <version>
+  <release>1.0.0beta1</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="">TODO</license>
+ <notes>
+* First beta release for Horde 4.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="FacebookEvents.php" role="php" />
+     <file name="Weatherdotcom.php" role="php" />
+    </dir> <!-- /lib/Driver -->
+    <file name="Api.php" role="php" />
+    <file name="Application.php" role="php" />
+    <file name="Driver.php" role="php" />
+    <file name="Exception.php" role="php" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="data" />
+      <file name="timeobjects.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <file name="timeobjects.pot" role="data" />
+   </dir> <!-- /locale -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Api.php" name="lib/Api.php" />
+   <install as="Application.php" name="lib/Application.php" />
+   <install as="Driver.php" name="lib/Driver.php" />
+   <install as="Exception.php" name="lib/Exception.php" />
+   <install as="Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
+   <install as="Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
+   <install as="locale/timeobjects.pot" name="locale/timeobjects.pot" />
+   <install as="locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
+   <install as="locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-15</date>
+   <license uri="">TODO</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
+</package>
