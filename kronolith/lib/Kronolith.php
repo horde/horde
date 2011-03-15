@@ -3021,7 +3021,7 @@ class Kronolith
      * @return Kronolith_Resource|Horde_Share_Object
      * @throws Kronolith_Exception
      */
-    static public function getInternalCalendar($target)
+    public static function getInternalCalendar($target)
     {
         if (Kronolith_Resource::isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
@@ -3037,7 +3037,7 @@ class Kronolith
      *
      * @return array  An array with two keys: 'fields' and 'sources'.
      */
-    static public function getAddressbookSearchParams()
+    public static function getAddressbookSearchParams()
     {
         $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
         if (empty($src)) {
@@ -3064,7 +3064,7 @@ class Kronolith
      *
      * @return boolean  True if the API can be accessed.
      */
-    static public function hasApiPermission($api, $perm = Horde_Perms::READ)
+    public static function hasApiPermission($api, $perm = Horde_Perms::READ)
     {
         $app = $GLOBALS['registry']->hasInterface($api);
         return ($app && $GLOBALS['registry']->hasPermission($app, $perm));
