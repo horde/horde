@@ -339,11 +339,8 @@ class Horde_Release
         print "Updating CHANGES file for $module\n";
 
         $filename_only = 'CHANGES';
-        $updater = new Horde_Release_Sentinel(
-            $this->_directoryName . '/docs/' . $filename_only,
-            $this->_newSourceVersionStringPlain
-        );
-        $updater->update();
+        $updater = new Horde_Release_Sentinel($this->_directoryName);
+        $updater->updateChanges($this->_newSourceVersionStringPlain);
 
         if (!$this->_options['nocommit']) {
             system("cd {$this->_directoryName}/docs/; cvs commit -f -m \"Tarball script: building new $module release - {$this->_newSourceVersionString}\" $filename_only > /dev/null 2>&1");

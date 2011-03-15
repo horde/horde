@@ -31,58 +31,127 @@
  */
 class Horde_Release_Sentinel
 {
-    /**
-     * Path to the CHANGES file.
-     *
-     * @var string
-     */
-    private $_path;
+    /** Path to the CHANGES file. */
+    const CHANGES = '/docs/CHANGES';
+
+    /** Path to the Application.php file. */
+    const APPLICATION = '/lib/Application.php';
 
     /**
-     * Temporary update location.
+     * Base component path.
      *
      * @var string
      */
-    private $_new_path;
-
-    /**
-     * Version string that should be added.
-     *
-     * @var string
-     */
-    private $_new_version;
+    private $_component;
 
     /**
      * Constructor.
      *
-     * @param string $path        Path to the CHANGES file.
-     * @param string $new_version Version string that should be added.
+     * @param string $component Base component path.
      */
-    public function __construct($path, $new_version)
+    public function __construct($component)
     {
-        $this->_path = $path;
-        $this->_new_path = $this->_path . '.new';
-        $this->_new_version = $new_version;
+        $this->_component = $component;
     }
 
     /**
-     * Update the CHANGES file.
+     * Update the CHANGES file in case it exists.
+     *
+     * @param string $version Version string that should be added.
      *
      * @return NULL
      */
-    public function update()
+    public function updateChanges($version)
     {
-        $version = 'v' . $this->_new_version;
-        $oldfp = fopen($this->_path, 'r');
-        $newfp = fopen($this->_new_path, 'w');
-        fwrite($newfp, str_repeat('-', strlen($version)) . "\n$version\n" .
-               str_repeat('-', strlen($version)) . "\n\n\n\n\n");
-        while ($line = fgets($oldfp)) {
-            fwrite($newfp, $line);
-        }
-        fclose($oldfp);
-        fclose($newfp);
+        $changes = $this->_component . self::CHANGES;
+        if (file_exists($changes)) {
+            $tmp = Horde_Util::getTempFile();
 
-        system("mv -f $this->_new_path $this->_path");
+            $oldfp = fopen($changes, 'r');
+            $newfp = fopen($tmp, 'w');
+            $version = 'v' . $version;
+            fwrite(
+                $newfp,
+                str_repeat('-', strlen($version)) . "\n$version\n" .
+                str_repeat('-', strlen($version)) . "\n\n\n\n\n"
+            );
+            while ($line = fgets($oldfp)) {
+                fwrite($newfp, $line);
+            }
+            fclose($oldfp);
+            fclose($newfp);
+
+            system("mv -f $tmp $changes");
+        }
+
+    }
+
+    /**
+     * Replace the current sentinel in the CHANGES file in case it exists.
+     *
+     * @param string $new_version Version string that should be added.
+     *
+     * @return NULL
+     */
+    public function replaceChanges($version)
+    {
+        $changes = $this->_component . self::CHANGES;
+        if (file_exists($changes)) {
+            $tmp = Horde_Util::getTempFile();
+
+            $oldfp = fopen($changes, 'r');
+            $newfp = fopen($tmp, 'w');
+            $version = 'v' . $version;
+            $counter = 0;
+            while ($line = fgets($oldfp)) {
+                if ($counter < 2) {
+                    $counter++;
+                } else if ($counter == 2) {
+                    fwrite(
+                        $newfp,
+                        str_repeat('-', strlen($version)) . "\n$version\n" .
+                        str_repeat('-', strlen($version)) . "\n"
+                    );
+                    $counter++;
+                } else {
+                    fwrite($newfp, $line);
+                }
+            }
+            fclose($oldfp);
+            fclose($newfp);
+
+            system("mv -f $tmp $changes");
+        }
+
+    }
+
+    /**
+     * Update the Application.php file in case it exists.
+     *
+     * @param string $new_version Version string that should be added.
+     *
+     * @return NULL
+     */
+    public function updateApplication($version)
+    {
+        $application = $this->_component . self::APPLICATION;
+        if (file_exists($application)) {
+            $tmp = Horde_Util::getTempFile();
+
+            $oldfp = fopen($application, 'r');
+            $newfp = fopen($tmp, 'w');
+            while ($line = fgets($oldfp)) {
+                $line = preg_replace(
+                    '/public \$version = \'[^\']*\';/',
+                    'public \$version = \'' . $version . '\';',
+                    $line
+                );
+                fwrite($newfp, $line);
+            }
+            fclose($oldfp);
+            fclose($newfp);
+
+            system("mv -f $tmp $application");
+        }
     }
 }
