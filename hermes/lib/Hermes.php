@@ -19,7 +19,7 @@ class Hermes
      * @staticvar array $clients
      * @return array  A hash of client_id => client_name
      */
-    static public function listClients($name = '')
+    public static function listClients($name = '')
     {
         static $clients;
 
@@ -47,7 +47,7 @@ class Hermes
         return $clients[$name];
     }
 
-    static public function getClientSelect()
+    public static function getClientSelect()
     {
         $clients = self::listClients();
         $select = '<select name="client" id="hermesTimeFormClient">';
@@ -63,7 +63,7 @@ class Hermes
      * @TODO: Build these via ajax once we have UI support for editing jobtypes
      * @return <type>
      */
-    static public function getJobTypeSelect()
+    public static function getJobTypeSelect()
     {
         $types = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes(array('enabled' => true));
         $select = '<select name="type" id="hermesTimeFormJobtype">';
@@ -77,7 +77,7 @@ class Hermes
     /**
      * Build Hermes' list of menu items.
      */
-    static public function getMenu($returnType = 'object')
+    public static function getMenu($returnType = 'object')
     {
         global $registry, $conf, $print_link;
 
@@ -122,7 +122,7 @@ class Hermes
      * @param <type> $id
      * @return <type>
      */
-    static public function canEditTimeslice($id)
+    public static function canEditTimeslice($id)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
@@ -152,7 +152,7 @@ class Hermes
      *
      * @return array an array suitable for Horde_Data::
      */
-    static public function makeExportHours($hours)
+    public static function makeExportHours($hours)
     {
         if (is_null($hours)) {
             return null;
@@ -195,7 +195,7 @@ class Hermes
      *
      * @return array A two-element array of the type and the type's parameters.
      */
-    static public function getEmployeesType($enumtype = 'multienum')
+    public static function getEmployeesType($enumtype = 'multienum')
     {
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if (!$auth->hasCapability('list')) {
@@ -221,7 +221,7 @@ class Hermes
         return array($enumtype, array($employees));
     }
 
-    static public function getCostObjectByID($id)
+    public static function getCostObjectByID($id)
     {
         static $cost_objects;
 
@@ -247,7 +247,7 @@ class Hermes
 
     /**
      */
-    static public function getCostObjectType($clientID = null)
+    public static function getCostObjectType($clientID = null)
     {
         global $registry;
 
@@ -326,7 +326,7 @@ class Hermes
         return $elts;
     }
 
-    static public function tabs()
+    public static function tabs()
     {
         /* Build search mode tabs. */
         $sUrl = Horde::selfUrl();
