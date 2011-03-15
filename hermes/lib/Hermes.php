@@ -244,7 +244,7 @@ class Hermes
 
         throw new Horde_Exception_NotFound();
     }
-    
+
     /**
      */
     static public function getCostObjectType($clientID = null)
@@ -442,6 +442,19 @@ class Hermes
         return Horde::addInlineJsVars(array(
             'var Hermes' => $code
         ), array('ret_vars' => true));
+    }
+
+    /**
+     * Returns whether to display the ajax view.
+     *
+     * return boolean  True if the ajax view should be displayed.
+     */
+    public static function showAjaxView()
+    {
+        global $prefs, $session;
+
+        $mode = $session->get('horde', 'mode');
+        return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
     }
 
 }
