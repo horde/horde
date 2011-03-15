@@ -63,8 +63,7 @@ class Horde_Release_Sentinel
      */
     public function updateChanges($version)
     {
-        $changes = $this->_component . self::CHANGES;
-        if (file_exists($changes)) {
+        if ($changes = $this->changesFileExists()) {
             $tmp = Horde_Util::getTempFile();
 
             $oldfp = fopen($changes, 'r');
@@ -95,8 +94,7 @@ class Horde_Release_Sentinel
      */
     public function replaceChanges($version)
     {
-        $changes = $this->_component . self::CHANGES;
-        if (file_exists($changes)) {
+        if ($changes = $this->changesFileExists()) {
             $tmp = Horde_Util::getTempFile();
 
             $oldfp = fopen($changes, 'r');
@@ -134,8 +132,7 @@ class Horde_Release_Sentinel
      */
     public function updateApplication($version)
     {
-        $application = $this->_component . self::APPLICATION;
-        if (file_exists($application)) {
+        if ($application = $this->applicationFileExists()) {
             $tmp = Horde_Util::getTempFile();
 
             $oldfp = fopen($application, 'r');
@@ -153,5 +150,35 @@ class Horde_Release_Sentinel
 
             system("mv -f $tmp $application");
         }
+    }
+
+    /**
+     * Indicates if there is a CHANGES file for this component.
+     *
+     * @return string|boolean The path to the CHANGES file if it exists, false
+     *                        otherwise.
+     */
+    public function changesFileExists()
+    {
+        $changes = $this->_component . self::CHANGES;
+        if (file_exists($changes)) {
+            return $changes;
+        }
+        return false;
+    }
+
+    /**
+     * Indicates if there is a Application.php file for this component.
+     *
+     * @return string|boolean The path to the Application.php file if it exists,
+     *                        false otherwise.
+     */
+    public function applicationFileExists()
+    {
+        $application = $this->_component . self::APPLICATION;
+        if (file_exists($application)) {
+            return $application;
+        }
+        return false;
     }
 }
