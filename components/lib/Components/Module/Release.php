@@ -65,23 +65,69 @@ extends Components_Module_Base
                     'help'   => 'PEAR server target directory on the remote machine.'
                 )
             ),
-            new Horde_Argv_Option(
-                '-G',
-                '--nogit',
-                array(
-                    'action' => 'store_true',
-                    'help'   => 'Avoid any git operations during the release.'
-                )
-            ),
-            new Horde_Argv_Option(
-                '-m',
-                '--manual',
-                array(
-                    'action' => 'store_true',
-                    'help'   => 'Avoid touching the package.xml during the release process.'
-                )
-            ),
         );
+    }
+
+    /**
+     * Get the usage description for this module.
+     *
+     * @return string The description.
+     */
+    public function getUsage()
+    {
+        return '  release - Releases a component via pear.horde.org.
+';
+    }
+
+    /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array('release');
+    }
+
+    /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action)
+    {
+        return 'Action "release"
+
+Releases the component. This handles a number of automated steps usually
+required when releasing a package to pear.horde.org. In the most simple
+situation it will be sufficient to move to the directory of the component
+you with to release and run
+
+ horde-components release
+
+This should perform all required actions. Sometimes it might be necessary
+to avoid some of the steps that are part of the release process. This can
+be done by adding additional arguments after the "release" keyword. Each
+argument indicates that the corresponding task should be run.
+
+The available tasks are:
+
+ - timestamp   : Update the package with a current timestamp
+ - package     : Prepare a *.tgz package.
+   - upload    : Upload the package to pear.horde.org
+   - commit    : Commit the updated timestamp with an automated message.
+   - tag       : Add a git release tag.
+
+The indentation indicates task that depend on a parent task. Activating them
+without activating the parent has no effect.
+
+The following example would generate the package and add the release tag to
+git without any other release task being performed:
+
+ horde-components release package tag
+';
     }
 
     /**
@@ -95,7 +141,9 @@ extends Components_Module_Base
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
-        if (!empty($options['release'])) {
+        $arguments = $config->getArguments();
+        if (!empty($options['release'])
+            || (isset($arguments[0]) && $arguments[0] == 'release')) {
             $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerRelease()->run();
             return true;

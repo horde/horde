@@ -455,18 +455,28 @@ class Components_Pear_Package
     }
 
     /**
-     * Generate a package package release.
+     * Timestamp the package.xml file with the current time.
      *
-     * @param boolean $manual Avoid touching the package.xml.
+     * @return NULL
+     */
+    public function timestamp()
+    {
+        $package = $this->_getPackageXml();
+        $package->timestamp();
+        file_put_contents($this->_package_xml_path, (string) $package);
+        $this->_output->ok(
+            'Marked package.xml ' . $this->_package_xml_path
+            . ' with current timestamp.'
+        );
+    }
+
+    /**
+     * Generate a package package release.
      *
      * @return string The path to the release package.
      */
-    public function generateRelease($manual = false)
+    public function generateRelease()
     {
-        if (!$manual) {
-            $pkg = $this->updatePackageFile();
-        }
-
         $pkg = $this->_getPackageFile();
         $pkg->setLogger($this->_output);
         $errors = array();

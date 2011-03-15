@@ -70,7 +70,6 @@ class Components_Runner_Release
     public function run()
     {
         $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
 
         $package_xml = $this->_config->getComponentPackageXml();
         if (!isset($options['pearrc'])) {
@@ -84,17 +83,44 @@ class Components_Runner_Release
             );
         }
 
-        $path = $package->generateRelease(!empty($options['manual']));
-        print system('scp ' . $path . ' ' . $options['releaseserver'] . ':~/');
-        print system('ssh '. $options['releaseserver'] . ' "pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
-
-        $release = strtr(basename($path), array('.tgz' => ''));
-
-        if (empty($options['nogit'])) {
-            system('git commit -m "Released ' . $release . '." ' . $package_xml);
-            system('git tag -f -m "Released ' . $release . '." ' . strtolower($release));
+        if ($this->_doTask('timestamp')) {
+            $package->timestamp();
         }
 
-        unlink($path);
+        if ($this->_doTask('package')) {
+            $path = $package->generateRelease();
+            if ($this->_doTask('upload')) {
+                print system('scp ' . $path . ' ' . $options['releaseserver'] . ':~/');
+                print system('ssh '. $options['releaseserver'] . ' "pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
+                unlink($path);
+            }
+
+            $release = strtr(basename($path), array('.tgz' => ''));
+
+            if ($this->_doTask('commit')) {
+                system('git commit -m "Released ' . $release . '." ' . $package_xml);
+            }
+            if ($this->_doTask('tag')) {
+                system('git tag -f -m "Released ' . $release . '." ' . strtolower($release));
+            }
+        }
+
+    }
+
+    /**
+     * Did the user activate the given task?
+     *
+     * @param string $task The task name.
+     *
+     * @return boolean True if the task is active.
+     */
+    private function _doTask($task)
+    {
+        $arguments = $this->_config->getArguments();
+        if ((count($arguments) == 1 && $arguments[0] == 'release')
+            || in_array($task, $arguments)) {
+            return true;
+        }
+        return false;
     }
 }
