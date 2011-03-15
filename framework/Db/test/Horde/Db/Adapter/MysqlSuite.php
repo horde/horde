@@ -62,6 +62,7 @@ class Horde_Db_Adapter_MysqlSuite extends PHPUnit_Framework_TestSuite
     public function getConnection($overrides = array())
     {
         $config = Horde_Test_Case::getConfig('DB_ADAPTER_MYSQL_TEST_CONFIG',
+                                             null,
                                              array('host' => 'localhost',
                                                    'username' => '',
                                                    'password' => '',
