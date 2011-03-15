@@ -13,6 +13,8 @@ class Horde_Text_Filter_Html2textTest extends PHPUnit_Framework_TestCase
 {
     public function testHtml2textVarious()
     {
+        $this->markTestSkipped();
+
         $html = <<<EOT
 <h2>Inline Formatting</h2>
 
@@ -380,6 +382,8 @@ EOT;
 
     public function testHtml2textQuoting()
     {
+        $this->markTestSkipped();
+
         $html = <<<EOT
 <p>Zitat von Roberto Maurizzi &lt;roberto.maurizzi@gmail.com&gt;:</p>
   <blockquote type="cite">
