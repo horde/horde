@@ -3,9 +3,12 @@
  * TimeObjects driver for exposing a user's Facebook Events via the
  * listTimeObjects API.
  *
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package TimeObjects
  */
-class TimeObjects_Driver_FacebookEvents
+class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver
 {
     private $_fb_session;
 
@@ -32,13 +35,13 @@ class TimeObjects_Driver_FacebookEvents
      *
      * @return array of listTimeObjects arrays.
      */
-    public function listTimeObjects($start = null, $time = null)
+    public function listTimeObjects(Horde_Date $start = null, Horde_Date $time = null)
     {
         try {
             $fb = $this->_getFacebook();
             $events = $fb->events->get();
         } catch (Horde_Service_Facebook_Exception $e) {
-            throw new TimeObjects($e->getMessage());
+            throw new TimeObjects_Exception($e->getMessage());
         }
         $objects = array();
         foreach ($events as $event) {

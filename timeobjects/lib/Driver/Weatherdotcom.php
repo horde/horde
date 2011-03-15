@@ -3,10 +3,6 @@
  * TimeObjects driver for exposing weather.com data via the listTimeObjects
  * API.
  *
- * @TODO: Inject any config items needed (proxy, partner ids etc...) instead
- *        of globaling the $conf array.
- *
- *        Use Horde_Controller, Routes etc... for endpoints?
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
@@ -18,7 +14,7 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
     protected $_params = array('units' => 'standard',
                                'days' => 5);
 
-    public function __construct($params)
+    public function __construct(array $params)
     {
         global $registry, $prefs;
 
@@ -75,12 +71,12 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
 
     /**
      *
-     * @param mixed $start  The start time of the period
-     * @param mixed $end   The end time of the period
+     * @param Horde_Date $start  The start time of the period
+     * @param Horde_Date $end   The end time of the period
      *
      * @return array of listTimeObjects arrays.
      */
-    public function listTimeObjects($start = null, $end = null)
+    public function listTimeObjects(Horde_Date $start = null, Horde_Date $end = null)
     {
         global $conf, $prefs;
 
