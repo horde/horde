@@ -38,6 +38,13 @@ extends Components_Config_Base
     private $_configs;
 
     /**
+     * Have the arguments been collected?
+     *
+     * @var boolean
+     */
+    private $_collected = false;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -98,13 +105,17 @@ extends Components_Config_Base
      */
     public function getArguments()
     {
-        $arguments = $this->_arguments;
-        foreach ($this->_configs as $config) {
-            $config_arguments = $config->getArguments();
-            if (!empty($config_arguments)) {
-                $arguments = array_merge($arguments, $config_arguments);
+        if (!$this->_collected) {
+            foreach ($this->_configs as $config) {
+                $config_arguments = $config->getArguments();
+                if (!empty($config_arguments)) {
+                    $this->_arguments = array_merge(
+                        $this->_arguments, $config_arguments
+                    );
+                }
             }
+            $this->_collected = true;
         }
-        return $arguments;
+        return $this->_arguments;
     }
 }
