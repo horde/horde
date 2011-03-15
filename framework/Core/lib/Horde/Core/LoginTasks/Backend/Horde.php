@@ -40,16 +40,6 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
     }
 
     /**
-     * Is the current session authenticated?
-     *
-     * @return boolean True if the user is authenticated, false otherwise.
-     */
-    public function isAuthenticated()
-    {
-        return ($GLOBALS['registry']->getAuth() !== false);
-    }
-
-    /**
      * Retrieve a cached tasklist if it exists.
      *
      * @return Horde_LoginTasks_Tasklist|boolean  The cached task list or
