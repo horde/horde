@@ -15,8 +15,10 @@
  */
 class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {
-    public function up()
+    public function __construct(Horde_Db_Adapter $connection, $version = null)
     {
+        parent::__construct($connection, $version);
+
         // Can't use Kronolith's tagger since we can't init kronolith.
         $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
@@ -24,33 +26,35 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         }
         $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
         $types = $type_mgr->ensureTypes(array('calendar', 'event'));
-        $type_ids = array('calendar' => (int)$types[0], 'event' => (int)$types[1]);
-        $tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
-        $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('kronolith');
+        $this->_type_ids = array('calendar' => (int)$types[0], 'event' => (int)$types[1]);
+        $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
+        $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('kronolith');
+    }
 
+    public function up()
+    {
         $sql = 'SELECT event_uid, event_category, event_creator_id, calendar_id FROM kronolith_events';
-        $this->announce('Migrating event categories.');
-        $rows = $this->_connection->selectAll($sql);
+        $this->announce('Migrating event categories to tags.');
+        $rows = $this->select($sql);
         foreach ($rows as $row) {
-
-            $tagger ->tag(
+            $this->_tagger->tag(
                 $row['event_creator_id'],
-                array('object' => $row['event_uid'], 'type' => $type_ids['event']),
-                Horde_String::convertCharset($row['event_category'], $this->_connection->getOption('charset'), 'UTF-8')
+                array('object' => $row['event_uid'], 'type' => $this->_type_ids['event']),
+                Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
             );
 
             // Do we need to tag the event again, but as the share owner?
             try {
-                $cal = $shares->getShare($row['calendar_id']);
+                $cal = $this->_shares->getShare($row['calendar_id']);
             } catch (Exception $e) {
                 $this->announce('Unable to find Share: ' . $row['calendar_id'] . ' Skipping.');
             }
 
             if ($cal->get('owner') != $row['event_creator_id']) {
-                $tagger ->tag(
+                $this->_tagger->tag(
                     $cal->get('owner'),
-                    array('object' => $row['event_uid'], 'type' => $type_ids['event']),
-                    Horde_String::convertCharset($row['event_category'], $this->_connection->getOption('charset'), 'UTF-8')
+                    array('object' => $row['event_uid'], 'type' => $this->_type_ids['event']),
+                    Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
                 );
             }
         }
@@ -60,9 +64,17 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 
     public function down()
     {
-        // This is a one-way data migration. No way to know which tags were
-        // from categories. Just put back the column.
-        $t = $this->_connection->table('kronolith_events');
         $this->addColumn('kronolith_events', 'event_category', 'string', array('limit' => 80));
+        $this->announce('Migrating event tags to categories.');
+        $sql = 'UPDATE kronolith_events SET event_category = ? WHERE event_uid = ?';
+        $rows = $this->select('SELECT event_uid, event_category, event_creator_id, calendar_id FROM kronolith_events');
+        foreach ($rows as $row) {
+            $tags = $this->_tagger->getTagsByObjects($row['event_uid'], $this->_type_ids['event']);
+            if (!count($tags) || !count($tags[$row['event_uid']])) {
+                continue;
+            }
+            $this->update($sql, array(reset($tags[$row['event_uid']]), $row['event_uid']));
+       }
+        $this->announce('Event tags successfully migrated.');
     }
 }
