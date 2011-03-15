@@ -165,7 +165,7 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
         migrate_sql(self::$db);
 
         $group = new Horde_Group_Test();
-        self::$share = new Horde_Share_Sql('test', 'john', new Horde_Perms(), $group);
+        self::$share = new Horde_Share_Sql('test', 'john', new Horde_Perms_Sql(array('db' => self::$db)), $group);
         self::$share->setStorage(self::$db);
 
         // FIXME
