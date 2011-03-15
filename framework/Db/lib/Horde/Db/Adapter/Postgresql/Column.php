@@ -169,10 +169,10 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
         if (is_resource($value)) {
             $string = stream_get_contents($value);
             fclose($value);
-            return $string;
-        } else {
-            return preg_replace_callback("/[\\\'|\\\\\\\\|\\\\\d{3}]/", array($this, 'binaryToStringCallback'), $value);
+            $value = $string;
         }
+
+        return preg_replace_callback("/(?:\\\'|\\\\\\\\|\\\\\d{3})/", array($this, 'binaryToStringCallback'), $value);
     }
 
     /**
@@ -184,9 +184,9 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
             return "'";
         } elseif ($matches[0] == '\\\\\\\\') {
             return '\\';
-        } else {
-            return chr(octdec(substr($matches[0], -3)));
         }
+
+        return chr(octdec(substr($matches[0], -3)));
     }
 
 
