@@ -219,6 +219,10 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
         'label' => _("Mode"),
         'type' => 'select',
         'value' => array(
+            'auto' => array(
+                'name' => _("Automatic"),
+                'selected' => $view_cookie == 'auto',
+            ),
             'traditional' => array(
                 'name' => _("Traditional"),
                 'selected' => $view_cookie == 'traditional'

@@ -2980,12 +2980,10 @@ class Kronolith
      */
     public static function showAjaxView()
     {
-        global $conf, $prefs, $session;
+        global $prefs, $session;
 
-        return ($prefs->getValue('dynamic_view') == 'always' ||
-                 ((empty($conf['user']['select_view']) && $prefs->getValue('dynamic_view') == 'default')
-                 || (!empty($conf['user']['select_view']) && $session->get('horde', 'mode') == 'dynamic' && $prefs->getValue('dynamic_view') != 'never'))) &&
-               Horde::ajaxAvailable();
+        $mode = $session->get('horde', 'mode');
+        return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
     }
 
     /**

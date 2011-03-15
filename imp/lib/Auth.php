@@ -429,14 +429,15 @@ class IMP_Auth
 
         /* Determine View */
         $mode = $session->get('horde', 'mode');
-        if (!IMP::showAjaxView() && $mode == 'dynamic') {
-            if ($prefs->getValue('dynamic_view') == 'always') {
+        if (!IMP::showAjaxView() && !$mode == 'smartmobile') {
+            if ($mode == 'dynamic' || ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
                 $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
             }
             $session->set('imp', 'view', 'imp');
         } else {
             /* Map to IMP view */
             switch($mode) {
+            case 'auto':
             case 'dynamic':
             case 'traditional':
                 $impview = IMP::showAjaxView() ? 'dimp' : 'imp';

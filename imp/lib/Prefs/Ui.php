@@ -498,7 +498,7 @@ class IMP_Prefs_Ui
                 $session->set(
                     'imp',
                     'view',
-                    ($prefs->getValue('dynamic_view') == 'always' || ($prefs->getValue('dynamic_view') != 'never' && $session->get('horde', 'mode') != 'traditional'))
+                    ($prefs->getValue('dynamic_view') && $session->get('horde', 'mode') != 'traditional')
                         ? 'dimp'
                         : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp')
                 );

@@ -20,10 +20,8 @@ if ($mode == 'smartmobile' || $mode == 'mobile') {
 
 /* Traditional? */
 if (!Kronolith::showAjaxView()) {
-    if ($mode == 'dynamic') {
-        if ($prefs->getValue('dynamic_view') == 'always') {
-            $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-        }
+    if ($mode == 'dynamic' || ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
+        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
         $session->set('horde', 'mode', 'traditional');
     }
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
