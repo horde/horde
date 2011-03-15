@@ -65,6 +65,13 @@ extends Components_Module_Base
                     'help'   => 'PEAR server target directory on the remote machine.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--next',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The version number planned for the next release of the component.'
+                )
+            ),
         );
     }
 

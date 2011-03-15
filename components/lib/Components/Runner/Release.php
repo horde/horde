@@ -99,6 +99,18 @@ class Components_Runner_Release
 
         $release = $package->getName() . '-' . $package->getVersion();
 
+        if ($this->_doTask('sentinel')
+            && file_exists(dirname($package_xml) . '/docs/CHANGES')) {
+            if (!class_exists('Horde_Release')) {
+                throw new Components_Exception('The release package is missing!');
+            }
+            $sentinel = new Horde_Release_Sentinel(
+                dirname($package_xml) . '/docs/CHANGES',
+                $options['next']
+            );
+            $sentinel->update();
+        }
+
         if ($this->_doTask('commit')) {
             system('git commit -m "Released ' . $release . '." ' . $package_xml);
         }
