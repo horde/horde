@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Skeleton H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,30 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Block/example.php:15 lib/Block/example.php:26
+#: lib/Block/Example.php:23 lib/Block/Example.php:33
 msgid "Color"
 msgstr ""
 
-#: lib/Block/example.php:3
+#: lib/Block/Example.php:13
 msgid "Example Block"
 msgstr ""
 
-#: lib/Application.php:61 list.php:16
+#: lib/Application.php:53 list.php:16
 msgid "List"
 msgstr ""
 
-#: config/prefs.php.dist:10
+#: config/prefs.php:12
 msgid "Sample Pref"
 msgstr ""
 
-#: config/prefs.php.dist:9
+#: config/prefs.php:11
 msgid "Sample Prefs"
 msgstr ""
 
-#: config/prefs.php.dist:11
+#: config/prefs.php:13
 msgid "Set your sample preference."
 msgstr ""
 
-#: config/prefs.php.dist:19
+#: config/prefs.php:21
 msgid "This is your sample preference."
 msgstr ""

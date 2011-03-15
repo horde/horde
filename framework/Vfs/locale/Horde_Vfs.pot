@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the Horde_VFS package.
+# This file is distributed under the same license as the Horde_Vfs package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_VFS \n"
+"Project-Id-Version: Horde_Vfs \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/VFS/smb.php:573
+#: lib/Horde/Vfs/Smb.php:574
 msgid "No such file"
 msgstr ""
 
-#: lib/VFS/smb.php:576
+#: lib/Horde/Vfs/Smb.php:577
 msgid "Permission Denied"
 msgstr ""
 
-#: lib/VFS/sql_file.php:264
+#: lib/Horde/Vfs/SqlFile.php:265
 msgid "Unable to rename VFS file."
 msgstr ""

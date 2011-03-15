@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,16 +23,16 @@ msgid "Error deleting from path %s; must be [app]/[path]"
 msgstr ""
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
-#: lib/Horde/Rpc/Soap.php:206 lib/Horde/Rpc/Soap.php:214
+#: lib/Horde/Rpc/Soap.php:185 lib/Horde/Rpc/Soap.php:193
 #, php-format
 msgid "Method \"%s\" is not defined"
 msgstr ""
 
-#: lib/Horde/Rpc/Phpgw.php:160
+#: lib/Horde/Rpc/Phpgw.php:134
 msgid "No valid XML data returned:"
 msgstr ""
 
-#: lib/Horde/Rpc/Phpgw.php:158
+#: lib/Horde/Rpc/Phpgw.php:132
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr ""
 

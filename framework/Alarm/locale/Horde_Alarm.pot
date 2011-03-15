@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Desktop notification (with certain browsers)"
 msgstr ""
 
-#: lib/Horde/Alarm/Handler/Mail.php:123
+#: lib/Horde/Alarm/Handler/Mail.php:121
 msgid "Email"
 msgstr ""
 
-#: lib/Horde/Alarm/Handler/Mail.php:143
+#: lib/Horde/Alarm/Handler/Mail.php:141
 msgid "Email address (optional)"
 msgstr ""
 

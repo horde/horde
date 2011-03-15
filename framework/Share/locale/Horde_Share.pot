@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Share \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Share/Object/Kolab.php:94
-msgid "Calendar"
-msgstr ""
-
-#: lib/Horde/Share/Object/Kolab.php:90
-msgid "Contacts"
-msgstr ""
-
-#: lib/Horde/Share/Object/Kolab.php:98
-msgid "Filters"
-msgstr ""
-
-#: lib/Horde/Share/Object/Kolab.php:92
-msgid "Notes"
-msgstr ""
-
-#: lib/Horde/Share/Object/Kolab.php:100
-msgid "Preferences"
-msgstr ""
-
-#: lib/Horde/Share/Object/Kolab.php:96
-msgid "Tasks"
-msgstr ""
-
-#: lib/Horde/Share/Kolab.php:61
+#: lib/Horde/Share/Kolab.php:82
 #, php-format
 msgid "The Horde/Kolab integration engine does not support \"%s\""
 msgstr ""

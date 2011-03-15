@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,17 +63,17 @@ msgstr ""
 msgid "%d minutes"
 msgstr ""
 
-#: lib/Nag.php:586
+#: lib/Nag.php:585
 #, php-format
 msgid "%s at %s"
 msgstr ""
 
-#: lib/Application.php:326 lib/Block/summary.php:125 lib/Nag.php:769
+#: lib/Application.php:290 lib/Block/Summary.php:147 lib/Nag.php:771
 #, php-format
 msgid "%s is due in %s"
 msgstr ""
 
-#: lib/Application.php:327 lib/Block/summary.php:122 lib/Nag.php:767
+#: lib/Application.php:291 lib/Block/Summary.php:144 lib/Nag.php:769
 #, php-format
 msgid "%s is due now."
 msgstr ""
@@ -88,11 +88,11 @@ msgstr ""
 msgid "%s successfully imported"
 msgstr ""
 
-#: lib/Form/Task.php:70 lib/Nag.php:537
+#: lib/Form/Task.php:70 lib/Nag.php:536
 msgid "(highest)"
 msgstr ""
 
-#: lib/Form/Task.php:74 lib/Nag.php:537
+#: lib/Form/Task.php:74 lib/Nag.php:536
 msgid "(lowest)"
 msgstr ""
 
@@ -149,15 +149,15 @@ msgstr[1] ""
 msgid "Alarm"
 msgstr ""
 
-#: templates/data/export.inc:34 config/prefs.php.dist:188
+#: config/prefs.php:190 templates/data/export.inc:34
 msgid "All tasks"
 msgstr ""
 
-#: lib/Block/summary.php:77
+#: lib/Block/Summary.php:93
 msgid "Always show completed and future tasks?"
 msgstr ""
 
-#: lib/Block/summary.php:73
+#: lib/Block/Summary.php:88
 msgid "Always show overdue tasks?"
 msgstr ""
 
@@ -165,17 +165,17 @@ msgstr ""
 msgid "An alarm must be set to specify a notification method"
 msgstr ""
 
-#: config/prefs.php.dist:113
+#: config/prefs.php:115
 msgid "Ascending"
 msgstr ""
 
-#: data.php:56 lib/Form/Task.php:101 templates/list/task_headers.inc:64
-#: templates/view/task.inc:12 config/prefs.php.dist:57
-#: config/prefs.php.dist:84 config/prefs.php.dist:102
+#: config/prefs.php:59 config/prefs.php:86 config/prefs.php:104 data.php:56
+#: lib/Form/Task.php:101 templates/list/task_headers.inc:64
+#: templates/view/task.inc:12
 msgid "Assignee"
 msgstr ""
 
-#: lib/Block/summary.php:45
+#: lib/Block/Summary.php:53
 msgid "Block title"
 msgstr ""
 
@@ -196,9 +196,8 @@ msgstr ""
 msgid "Cat_egory"
 msgstr ""
 
-#: data.php:55 lib/Form/Task.php:93 lib/Form/Task.php:97
-#: templates/view/task.inc:8 config/prefs.php.dist:61 config/prefs.php.dist:79
-#: config/prefs.php.dist:97
+#: config/prefs.php:63 config/prefs.php:81 config/prefs.php:99 data.php:55
+#: lib/Form/Task.php:93 lib/Form/Task.php:97 templates/view/task.inc:8
 msgid "Category"
 msgstr ""
 
@@ -206,87 +205,87 @@ msgstr ""
 msgid "Change Permissions"
 msgstr ""
 
-#: config/prefs.php.dist:11
+#: config/prefs.php:13
 msgid "Change your task sorting and display preferences."
 msgstr ""
 
-#: lib/Nag.php:965
+#: lib/Nag.php:966
 #, php-format
 msgid "Changed alarm from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:944
+#: lib/Nag.php:945
 #, php-format
 msgid "Changed assignee from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:929
+#: lib/Nag.php:930
 #, php-format
 msgid "Changed category from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:980
+#: lib/Nag.php:981
 #, php-format
 msgid "Changed completion from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:985
+#: lib/Nag.php:986
 msgid "Changed description"
 msgstr ""
 
-#: lib/Nag.php:953
+#: lib/Nag.php:954
 #, php-format
 msgid "Changed due date from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:975
+#: lib/Nag.php:976
 #, php-format
 msgid "Changed estimate from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:907
+#: lib/Nag.php:908
 #, php-format
 msgid "Changed name from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:921
+#: lib/Nag.php:922
 #, php-format
 msgid "Changed parent task from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:970
+#: lib/Nag.php:971
 #, php-format
 msgid "Changed priority from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:959
+#: lib/Nag.php:960
 #, php-format
 msgid "Changed start date from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:913
+#: lib/Nag.php:914
 #, php-format
 msgid "Changed task list from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:904
+#: lib/Nag.php:905
 msgid "Changes made for this task:"
 msgstr ""
 
-#: lib/Application.php:212
+#: lib/Application.php:194
 msgid "Choose how you want to receive reminders for tasks with alarms:"
 msgstr ""
 
-#: config/prefs.php.dist:157
+#: config/prefs.php:159
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
 
-#: config/prefs.php.dist:39
+#: config/prefs.php:41
 msgid "Choose if you want to be notified of task changes and task alarms."
 msgstr ""
 
-#: config/prefs.php.dist:32
+#: config/prefs.php:34
 msgid "Choose your default task list."
 msgstr ""
 
@@ -310,7 +309,7 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: lib/Block/summary.php:196 mobile.php:114
+#: lib/Block/Summary.php:218 mobile.php:114
 #: templates/list/task_summaries.inc:10
 #, php-format
 msgid "Complete \"%s\""
@@ -320,11 +319,11 @@ msgstr ""
 msgid "Complete Task"
 msgstr ""
 
-#: config/prefs.php.dist:190
+#: config/prefs.php:192
 msgid "Complete tasks"
 msgstr ""
 
-#: lib/Block/summary.php:194 lib/Nag.php:601 mobile.php:129
+#: lib/Block/Summary.php:216 lib/Nag.php:600 mobile.php:129
 msgid "Completed"
 msgstr ""
 
@@ -345,9 +344,8 @@ msgstr ""
 msgid "Completed tasks"
 msgstr ""
 
-#: lib/Form/Task.php:115 templates/list/task_headers.inc:31
-#: templates/view/task.inc:42 config/prefs.php.dist:82
-#: config/prefs.php.dist:100
+#: config/prefs.php:84 config/prefs.php:102 lib/Form/Task.php:115
+#: templates/list/task_headers.inc:31 templates/view/task.inc:42
 msgid "Completed?"
 msgstr ""
 
@@ -392,15 +390,15 @@ msgstr ""
 msgid "Day"
 msgstr ""
 
-#: lib/Nag.php:633 lib/Ui/VarRenderer/Nag.php:193
+#: lib/Nag.php:632 lib/Ui/VarRenderer/Nag.php:193
 msgid "Day(s)"
 msgstr ""
 
-#: config/prefs.php.dist:31
+#: config/prefs.php:33
 msgid "Default Task List"
 msgstr ""
 
-#: config/prefs.php.dist:25
+#: config/prefs.php:27
 msgid "Defaults for new tasks"
 msgstr ""
 
@@ -418,11 +416,11 @@ msgstr ""
 msgid "Delete %s"
 msgstr ""
 
-#: config/prefs.php.dist:17
+#: config/prefs.php:19
 msgid "Delete Confirmation"
 msgstr ""
 
-#: config/prefs.php.dist:18
+#: config/prefs.php:20
 msgid "Delete button behaviour"
 msgstr ""
 
@@ -439,7 +437,7 @@ msgstr ""
 msgid "Deleting entire tasklists is not supported."
 msgstr ""
 
-#: config/prefs.php.dist:114
+#: config/prefs.php:116
 msgid "Descending"
 msgstr ""
 
@@ -451,7 +449,7 @@ msgstr ""
 msgid "Description:"
 msgstr ""
 
-#: config/prefs.php.dist:10
+#: config/prefs.php:12
 msgid "Display Preferences"
 msgstr ""
 
@@ -459,11 +457,11 @@ msgstr ""
 msgid "Display URL"
 msgstr ""
 
-#: config/prefs.php.dist:123
+#: config/prefs.php:125
 msgid "Do you want to confirm deleting entries?"
 msgstr ""
 
-#: config/prefs.php.dist:164
+#: config/prefs.php:166
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the task?"
 msgstr ""
@@ -472,7 +470,7 @@ msgstr ""
 msgid "Due By"
 msgstr ""
 
-#: config/prefs.php.dist:58 config/prefs.php.dist:80 config/prefs.php.dist:98
+#: config/prefs.php:60 config/prefs.php:82 config/prefs.php:100
 msgid "Due Date"
 msgstr ""
 
@@ -484,7 +482,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: lib/Block/summary.php:187 templates/list/task_summaries.inc:37
+#: lib/Block/Summary.php:209 templates/list/task_summaries.inc:37
 #, php-format
 msgid "Edit \"%s\""
 msgstr ""
@@ -519,9 +517,9 @@ msgstr ""
 msgid "Error deleting task: %s"
 msgstr ""
 
-#: data.php:62 lib/Form/Task.php:114 templates/list/task_headers.inc:60
-#: templates/view/task.inc:38 config/prefs.php.dist:60
-#: config/prefs.php.dist:83 config/prefs.php.dist:101
+#: config/prefs.php:62 config/prefs.php:85 config/prefs.php:103 data.php:62
+#: lib/Form/Task.php:114 templates/list/task_headers.inc:60
+#: templates/view/task.inc:38
 msgid "Estimated Time"
 msgstr ""
 
@@ -533,15 +531,15 @@ msgstr ""
 msgid "Export Tasks"
 msgstr ""
 
-#: config/prefs.php.dist:45
+#: config/prefs.php:47
 msgid "External Data"
 msgstr ""
 
-#: templates/data/export.inc:36 config/prefs.php.dist:191
+#: config/prefs.php:193 templates/data/export.inc:36
 msgid "Future tasks"
 msgstr ""
 
-#: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
+#: config/prefs.php:11 config/prefs.php:18 config/prefs.php:25
 msgid "General Preferences"
 msgstr ""
 
@@ -549,7 +547,7 @@ msgstr ""
 msgid "Hour"
 msgstr ""
 
-#: lib/Nag.php:636 lib/Ui/VarRenderer/Nag.php:192
+#: lib/Nag.php:635 lib/Ui/VarRenderer/Nag.php:192
 msgid "Hour(s)"
 msgstr ""
 
@@ -574,7 +572,7 @@ msgstr ""
 msgid "Incomplete sub tasks, complete them first"
 msgstr ""
 
-#: templates/data/export.inc:35 config/prefs.php.dist:189
+#: config/prefs.php:191 templates/data/export.inc:35
 msgid "Incomplete tasks"
 msgstr ""
 
@@ -619,7 +617,7 @@ msgstr ""
 msgid "Mark as incomplete"
 msgstr ""
 
-#: lib/Application.php:77
+#: lib/Application.php:66
 msgid "Maximum Number of Tasks"
 msgstr ""
 
@@ -627,7 +625,7 @@ msgstr ""
 msgid "Minute"
 msgstr ""
 
-#: lib/Nag.php:639 lib/Ui/VarRenderer/Nag.php:192
+#: lib/Nag.php:638 lib/Ui/VarRenderer/Nag.php:192
 msgid "Minute(s)"
 msgstr ""
 
@@ -668,7 +666,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/Application.php:380 task.php:82 task.php:119
+#: lib/Application.php:344 task.php:82 task.php:119
 msgid "New Task"
 msgstr ""
 
@@ -676,7 +674,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: config/prefs.php.dist:152
+#: config/prefs.php:154
 msgid "No"
 msgstr ""
 
@@ -696,7 +694,7 @@ msgstr ""
 msgid "No parent task"
 msgstr ""
 
-#: lib/Nag.php:787
+#: lib/Nag.php:789
 msgid "No task lists are available to guests."
 msgstr ""
 
@@ -708,15 +706,15 @@ msgstr ""
 msgid "No tasks match"
 msgstr ""
 
-#: lib/Block/summary.php:252
+#: lib/Block/Summary.php:274
 msgid "No tasks to display"
 msgstr ""
 
-#: lib/Form/Task.php:102 lib/Nag.php:643 lib/Ui/VarRenderer/Nag.php:208
+#: lib/Form/Task.php:102 lib/Nag.php:642 lib/Ui/VarRenderer/Nag.php:208
 msgid "None"
 msgstr ""
 
-#: lib/Nag.php:602
+#: lib/Nag.php:601
 msgid "Not Completed"
 msgstr ""
 
@@ -736,19 +734,19 @@ msgstr ""
 msgid "Notification"
 msgstr ""
 
-#: config/prefs.php.dist:38
+#: config/prefs.php:40
 msgid "Notifications"
 msgstr ""
 
-#: config/prefs.php.dist:154
+#: config/prefs.php:156
 msgid "On all shown task lists"
 msgstr ""
 
-#: config/prefs.php.dist:155
+#: config/prefs.php:157
 msgid "On all task lists I have read access to"
 msgstr ""
 
-#: config/prefs.php.dist:153
+#: config/prefs.php:155
 msgid "On my task lists only"
 msgstr ""
 
@@ -772,8 +770,8 @@ msgstr ""
 msgid "Portal"
 msgstr ""
 
-#: data.php:60 lib/Form/Task.php:111 templates/view/task.inc:34
-#: config/prefs.php.dist:56 config/prefs.php.dist:77 config/prefs.php.dist:95
+#: config/prefs.php:58 config/prefs.php:79 config/prefs.php:97 data.php:60
+#: lib/Form/Task.php:111 templates/view/task.inc:34
 msgid "Priority"
 msgstr ""
 
@@ -814,7 +812,7 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: lib/Application.php:412 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:376 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:31
 msgid "Search"
 msgstr ""
@@ -840,7 +838,7 @@ msgstr ""
 msgid "Search: Results for \"%s\""
 msgstr ""
 
-#: config/prefs.php.dist:63
+#: config/prefs.php:65
 msgid "Select the columns that should be shown in the list view:"
 msgstr ""
 
@@ -868,47 +866,47 @@ msgstr ""
 msgid "Shared Task Lists:"
 msgstr ""
 
-#: lib/Block/summary.php:53
+#: lib/Block/Summary.php:63
 msgid "Show action buttons?"
 msgstr ""
 
-#: config/prefs.php.dist:193
+#: config/prefs.php:195
 msgid "Show complete, incomplete, or all tasks in the task list?"
 msgstr ""
 
-#: config/prefs.php.dist:180
+#: config/prefs.php:182
 msgid "Show data from any of these other applications in your task list?"
 msgstr ""
 
-#: config/prefs.php.dist:46
+#: config/prefs.php:48
 msgid "Show data from other applications or sources."
 msgstr ""
 
-#: lib/Block/summary.php:57
+#: lib/Block/Summary.php:68
 msgid "Show due dates?"
 msgstr ""
 
-#: lib/Block/summary.php:49
+#: lib/Block/Summary.php:58
 msgid "Show priorities?"
 msgstr ""
 
-#: lib/Block/summary.php:65
+#: lib/Block/Summary.php:78
 msgid "Show task alarms?"
 msgstr ""
 
-#: lib/Block/summary.php:69
+#: lib/Block/Summary.php:83
 msgid "Show task category?"
 msgstr ""
 
-#: lib/Block/summary.php:61
+#: lib/Block/Summary.php:73
 msgid "Show tasklist name?"
 msgstr ""
 
-#: lib/Block/summary.php:86
+#: lib/Block/Summary.php:104
 msgid "Show tasks from these categories"
 msgstr ""
 
-#: lib/Block/summary.php:81
+#: lib/Block/Summary.php:98
 msgid "Show tasks from these tasklists"
 msgstr ""
 
@@ -948,11 +946,11 @@ msgstr ""
 msgid "Sort by estimated time"
 msgstr ""
 
-#: config/prefs.php.dist:116
+#: config/prefs.php:118
 msgid "Sort direction:"
 msgstr ""
 
-#: config/prefs.php.dist:87
+#: config/prefs.php:89
 msgid "Sort tasks by:"
 msgstr ""
 
@@ -960,8 +958,8 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
-#: templates/view/task.inc:22 config/prefs.php.dist:59
-#: config/prefs.php.dist:81 config/prefs.php.dist:99
+#: config/prefs.php:61 config/prefs.php:83 config/prefs.php:101
+#: templates/view/task.inc:22
 msgid "Start Date"
 msgstr ""
 
@@ -995,12 +993,12 @@ msgstr ""
 msgid "Task Alarm?"
 msgstr ""
 
-#: config/prefs.php.dist:24
+#: config/prefs.php:26
 msgid "Task Defaults"
 msgstr ""
 
+#: config/prefs.php:57 config/prefs.php:87 config/prefs.php:105
 #: lib/Form/Task.php:84 templates/tasklist_list.php:17
-#: config/prefs.php.dist:55 config/prefs.php.dist:85 config/prefs.php.dist:103
 msgid "Task List"
 msgstr ""
 
@@ -1020,7 +1018,7 @@ msgstr ""
 msgid "Task List Name"
 msgstr ""
 
-#: config/prefs.php.dist:30 config/prefs.php.dist:37 config/prefs.php.dist:44
+#: config/prefs.php:32 config/prefs.php:39 config/prefs.php:46
 msgid "Task List and Share Preferences"
 msgstr ""
 
@@ -1037,7 +1035,7 @@ msgstr ""
 msgid "Task Lists"
 msgstr ""
 
-#: config/prefs.php.dist:78 config/prefs.php.dist:96
+#: config/prefs.php:80 config/prefs.php:98
 msgid "Task Name"
 msgstr ""
 
@@ -1057,24 +1055,24 @@ msgstr ""
 msgid "Task UID not found"
 msgstr ""
 
-#: lib/Nag.php:886
+#: lib/Nag.php:887
 msgid "Task added:"
 msgstr ""
 
-#: lib/Nag.php:990
+#: lib/Nag.php:991
 msgid "Task deleted:"
 msgstr ""
 
-#: lib/Nag.php:1007
+#: lib/Nag.php:1008
 msgid "Task description:"
 msgstr ""
 
-#: lib/Nag.php:732
+#: lib/Nag.php:733
 #, php-format
 msgid "Task list of %s"
 msgstr ""
 
-#: lib/Nag.php:897
+#: lib/Nag.php:898
 msgid "Task modified:"
 msgstr ""
 
@@ -1094,7 +1092,7 @@ msgstr ""
 msgid "Tasks"
 msgstr ""
 
-#: lib/Block/summary.php:3
+#: lib/Block/Summary.php:12
 msgid "Tasks Summary"
 msgstr ""
 
@@ -1117,27 +1115,27 @@ msgstr ""
 msgid "The Tasks backend is not currently available: %s"
 msgstr ""
 
-#: lib/Application.php:147
+#: lib/Application.php:135
 msgid "The current hour"
 msgstr ""
 
-#: lib/Nag.php:890
+#: lib/Nag.php:891
 #, php-format
 msgid ""
 "The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
 msgstr ""
 
-#: lib/Nag.php:891
+#: lib/Nag.php:892
 #, php-format
 msgid "The task \"%s\" has been added to task list \"%s\"."
 msgstr ""
 
-#: lib/Nag.php:994
+#: lib/Nag.php:995
 #, php-format
 msgid "The task \"%s\" has been deleted from task list \"%s\"."
 msgstr ""
 
-#: lib/Nag.php:900
+#: lib/Nag.php:901
 #, php-format
 msgid "The task \"%s\" has been edited on task list \"%s\"."
 msgstr ""
@@ -1162,7 +1160,7 @@ msgstr ""
 msgid "The task list \"%s\" has been saved."
 msgstr ""
 
-#: config/prefs.php.dist:105
+#: config/prefs.php:107
 msgid "Then:"
 msgstr ""
 
@@ -1194,7 +1192,7 @@ msgstr ""
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Application.php:279 lib/Application.php:291
+#: lib/Application.php:250 lib/Application.php:262
 #, php-format
 msgid "There was an error removing tasks for %s. Details have been logged."
 msgstr ""
@@ -1215,11 +1213,11 @@ msgstr ""
 msgid "To subscribe to this task list from another program, use this URL:"
 msgstr ""
 
-#: lib/Nag.php:949
+#: lib/Nag.php:950
 msgid "Turned privacy off"
 msgstr ""
 
-#: lib/Nag.php:949
+#: lib/Nag.php:950
 msgid "Turned privacy on"
 msgstr ""
 
@@ -1233,13 +1231,13 @@ msgstr ""
 msgid "Unable to load the definition of %s."
 msgstr ""
 
-#: lib/Nag.php:496
+#: lib/Nag.php:495
 #, php-format
 msgid "Unable to save task list \"%s\": %s"
 msgstr ""
 
-#: lib/Block/summary.php:31 lib/Block/summary.php:245 lib/Form/Task.php:98
-#: lib/Nag.php:1304 lib/Nag.php:1305 lib/Nag.php:1319 lib/Nag.php:1320
+#: lib/Block/Summary.php:38 lib/Block/Summary.php:267 lib/Form/Task.php:98
+#: lib/Nag.php:1305 lib/Nag.php:1306 lib/Nag.php:1320 lib/Nag.php:1321
 #: templates/list/task_summaries.inc:77 templates/view/task.inc:9
 msgid "Unfiled"
 msgstr ""
@@ -1266,21 +1264,21 @@ msgstr ""
 msgid "We would like to remind you of this due task."
 msgstr ""
 
-#: lib/Nag.php:630 lib/Ui/VarRenderer/Nag.php:193
+#: lib/Nag.php:629 lib/Ui/VarRenderer/Nag.php:193
 msgid "Week(s)"
 msgstr ""
 
-#: config/prefs.php.dist:144
+#: config/prefs.php:146
 msgid "What do you want to be the default due time for tasks?"
 msgstr ""
 
-#: config/prefs.php.dist:137
+#: config/prefs.php:139
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
 msgstr ""
 
-#: config/prefs.php.dist:130
+#: config/prefs.php:132
 msgid "When creating a new task, should it default to having a due date?"
 msgstr ""
 
@@ -1292,7 +1290,7 @@ msgstr ""
 msgid "Year"
 msgstr ""
 
-#: lib/Nag.php:485 tasklists/edit.php:26
+#: lib/Nag.php:484 tasklists/edit.php:26
 msgid "You are not allowed to change this task list."
 msgstr ""
 
@@ -1301,7 +1299,7 @@ msgstr ""
 msgid "You are not allowed to create more than %d tasks."
 msgstr ""
 
-#: lib/Nag.php:512 tasklists/delete.php:27
+#: lib/Nag.php:511 tasklists/delete.php:27
 msgid "You are not allowed to delete this task list."
 msgstr ""
 
@@ -1317,20 +1315,20 @@ msgid ""
 "the task list%s and change your preferences."
 msgstr ""
 
-#: lib/Nag.php:887
+#: lib/Nag.php:888
 msgid "You requested to be notified when tasks are added to your task lists."
 msgstr ""
 
-#: lib/Nag.php:992
+#: lib/Nag.php:993
 msgid ""
 "You requested to be notified when tasks are deleted from your task lists."
 msgstr ""
 
-#: lib/Nag.php:898
+#: lib/Nag.php:899
 msgid "You requested to be notified when tasks are edited on your task lists."
 msgstr ""
 
-#: config/prefs.php.dist:206
+#: config/prefs.php:208
 msgid "Your default task list:"
 msgstr ""
 
@@ -1338,7 +1336,7 @@ msgstr ""
 msgid "[Manage Task Lists]"
 msgstr ""
 
-#: lib/Block/summary.php:119 lib/Block/summary.php:228
+#: lib/Block/Summary.php:141 lib/Block/Summary.php:250
 #: templates/list/task_summaries.inc:47
 msgid "[none]"
 msgstr ""
@@ -1383,23 +1381,23 @@ msgstr ""
 msgid "_Future tasks"
 msgstr ""
 
-#: lib/Application.php:109
+#: lib/Application.php:95
 msgid "_Import/Export"
 msgstr ""
 
-#: lib/Application.php:92
+#: lib/Application.php:78
 msgid "_List Tasks"
 msgstr ""
 
-#: lib/Application.php:97
+#: lib/Application.php:83
 msgid "_New Task"
 msgstr ""
 
-#: lib/Application.php:100
+#: lib/Application.php:86
 msgid "_Quick Add"
 msgstr ""
 
-#: lib/Application.php:105
+#: lib/Application.php:91
 msgid "_Search"
 msgstr ""
 
@@ -1411,7 +1409,7 @@ msgstr ""
 msgid "_Task List"
 msgstr ""
 
-#: lib/Application.php:152
+#: lib/Application.php:140
 msgid "am"
 msgstr ""
 
@@ -1424,7 +1422,7 @@ msgstr ""
 msgid "by me"
 msgstr ""
 
-#: lib/Nag.php:981 lib/Nag.php:982
+#: lib/Nag.php:982 lib/Nag.php:983
 msgid "completed"
 msgstr ""
 
@@ -1432,20 +1430,20 @@ msgstr ""
 msgid "iCalendar (vTodo)"
 msgstr ""
 
-#: lib/Application.php:399
+#: lib/Application.php:363
 #, php-format
 msgid "in %s"
 msgstr ""
 
-#: lib/Nag.php:954 lib/Nag.php:955
+#: lib/Nag.php:955 lib/Nag.php:956
 msgid "no due date"
 msgstr ""
 
-#: lib/Nag.php:922 lib/Nag.php:923
+#: lib/Nag.php:923 lib/Nag.php:924
 msgid "no parent"
 msgstr ""
 
-#: lib/Nag.php:960 lib/Nag.php:961
+#: lib/Nag.php:961 lib/Nag.php:962
 msgid "no start date"
 msgstr ""
 
@@ -1453,11 +1451,11 @@ msgstr ""
 msgid "no time"
 msgstr ""
 
-#: lib/Nag.php:981 lib/Nag.php:982
+#: lib/Nag.php:982 lib/Nag.php:983
 msgid "not completed"
 msgstr ""
 
-#: lib/Application.php:152
+#: lib/Application.php:140
 msgid "pm"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Block/news_popular.php:65 lib/Block/news_popular.php:68
+#: lib/Block/NewsPopular.php:70 lib/Block/NewsPopular.php:73
 msgid " - Most read stories"
 msgstr ""
 
-#: lib/Block/delivery.php:39
+#: lib/Block/Delivery.php:38
 #, php-format
 msgid "\"%s\" stories in HTML"
 msgstr ""
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Add story"
 msgstr ""
 
-#: lib/Application.php:59
+#: lib/Application.php:54
 msgid "Administrator"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Channel refreshed."
 msgstr ""
 
-#: lib/Application.php:65
+#: lib/Application.php:60
 msgid "Channels"
 msgstr ""
 
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: config/templates.php.dist:42
+#: config/templates.php:44
 msgid "Compact"
 msgstr ""
 
@@ -133,11 +133,11 @@ msgstr ""
 msgid "Could not open %s: %s"
 msgstr ""
 
-#: lib/Block/latest.php:41
+#: lib/Block/Latest.php:47
 msgid "Count reads of the latest story when this block is displayed"
 msgstr ""
 
-#: lib/Block/story.php:42
+#: lib/Block/Story.php:49
 msgid "Count reads of this story when this block is displayed"
 msgstr ""
 
@@ -196,7 +196,7 @@ msgstr ""
 msgid "Enter keywords to tag this story, separated by commas"
 msgstr ""
 
-#: lib/Block/latest.php:79 lib/Block/story.php:79 lib/View/Base.php:35
+#: lib/Block/Latest.php:85 lib/Block/Story.php:87 lib/View/Base.php:35
 #: lib/View/StoryView.php:77 stories/share.php:72 stories/view.php:21
 #, php-format
 msgid "Error fetching story: %s"
@@ -206,17 +206,16 @@ msgstr ""
 msgid "Extra information for this feed type"
 msgstr ""
 
-#: lib/Block/news.php:3 lib/Block/news.php:26 lib/Block/news_popular.php:27
-#: lib/Block/story.php:35
+#: lib/Block/News.php:20 lib/Block/News.php:28 lib/Block/NewsPopular.php:30
+#: lib/Block/Story.php:40
 msgid "Feed"
 msgstr ""
 
-#: lib/Block/delivery.php:3 lib/Block/delivery.php:23
-#: lib/View/ChannelList.php:64
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:64
 msgid "Feeds"
 msgstr ""
 
-#: lib/Block/news.php:49
+#: lib/Block/News.php:51
 msgid "First Story"
 msgstr ""
 
@@ -252,7 +251,7 @@ msgstr ""
 msgid "Include full story content in syndicated feeds?"
 msgstr ""
 
-#: config/templates.php.dist:31
+#: config/templates.php:33
 msgid "Internal"
 msgstr ""
 
@@ -273,7 +272,7 @@ msgstr ""
 msgid "Last Update"
 msgstr ""
 
-#: lib/Block/latest.php:3 lib/Block/latest.php:53
+#: lib/Block/Latest.php:25
 msgid "Latest News"
 msgstr ""
 
@@ -285,11 +284,11 @@ msgstr ""
 msgid "Manage Feeds"
 msgstr ""
 
-#: lib/Block/news.php:44 lib/Block/news_popular.php:46
+#: lib/Block/News.php:46 lib/Block/NewsPopular.php:49
 msgid "Maximum Stories"
 msgstr ""
 
-#: config/templates.php.dist:20
+#: config/templates.php:22
 msgid "Media"
 msgstr ""
 
@@ -301,7 +300,7 @@ msgstr ""
 msgid "Missing channel id."
 msgstr ""
 
-#: lib/Block/news_popular.php:3
+#: lib/Block/NewsPopular.php:22
 msgid "Most Popular Stories"
 msgstr ""
 
@@ -309,15 +308,15 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/Application.php:101 lib/Form/Feed.php:24
+#: lib/Application.php:93 lib/Form/Feed.php:24
 msgid "New Feed"
 msgstr ""
 
-#: lib/Application.php:62
+#: lib/Application.php:57
 msgid "News"
 msgstr ""
 
-#: lib/Block/latest.php:26
+#: lib/Block/Latest.php:32
 msgid "News Source"
 msgstr ""
 
@@ -333,7 +332,7 @@ msgstr ""
 msgid "No channel requested."
 msgstr ""
 
-#: lib/Block/latest.php:73
+#: lib/Block/Latest.php:79
 msgid "No channel specified."
 msgstr ""
 
@@ -341,11 +340,11 @@ msgstr ""
 msgid "No channels are available."
 msgstr ""
 
-#: lib/Block/news.php:79 lib/Block/news_popular.php:77
+#: lib/Block/News.php:85 lib/Block/NewsPopular.php:84
 msgid "No feed specified."
 msgstr ""
 
-#: lib/Block/delivery.php:58
+#: lib/Block/Delivery.php:57
 msgid "No feeds are available."
 msgstr ""
 
@@ -357,11 +356,11 @@ msgstr ""
 msgid "No stories are currently available."
 msgstr ""
 
-#: lib/Block/story.php:73
+#: lib/Block/Story.php:81
 msgid "No story is selected."
 msgstr ""
 
-#: lib/Factory/Driver.php:65
+#: lib/Factory/Driver.php:48
 #, php-format
 msgid "No such backend \"%s\" found"
 msgstr ""
@@ -370,7 +369,7 @@ msgstr ""
 msgid "No tag requested."
 msgstr ""
 
-#: feed.php:39
+#: feed.php:38
 msgid "No valid feed name or ID requested."
 msgstr ""
 
@@ -406,7 +405,7 @@ msgstr ""
 msgid "Publish Now?"
 msgstr ""
 
-#: lib/Block/delivery.php:49
+#: lib/Block/Delivery.php:48
 #, php-format
 msgid "RSS Feed of \"%s\""
 msgstr ""
@@ -425,7 +424,7 @@ msgstr ""
 msgid "Really delete this News Story?"
 msgstr ""
 
-#: lib/Block/cloud.php:26
+#: lib/Block/Cloud.php:29
 msgid "Results URL"
 msgstr ""
 
@@ -472,7 +471,7 @@ msgid ""
 "Slug names may contain only letters, numbers or the _ (underscore) character."
 msgstr ""
 
-#: config/templates.php.dist:9
+#: config/templates.php:11
 msgid "Standard"
 msgstr ""
 
@@ -481,7 +480,7 @@ msgstr ""
 msgid "Stories tagged with %s in %s"
 msgstr ""
 
-#: lib/Block/story.php:3 lib/Block/story.php:39 lib/Block/story.php:54
+#: lib/Block/Story.php:24 lib/Block/Story.php:45
 #: templates/stories/index.html.php:15
 msgid "Story"
 msgstr ""
@@ -527,7 +526,7 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:35
+#: lib/Block/Cloud.php:20
 msgid "Tag Cloud"
 msgstr ""
 
@@ -544,7 +543,7 @@ msgstr ""
 msgid "Tags:"
 msgstr ""
 
-#: lib/Block/story.php:91
+#: lib/Block/Story.php:99
 msgid "Tags: "
 msgstr ""
 
@@ -606,7 +605,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: config/templates.php.dist:53
+#: config/templates.php:55
 msgid "Ultracompact"
 msgstr ""
 
@@ -615,7 +614,7 @@ msgstr ""
 msgid "Unable to send story: %s"
 msgstr ""
 
-#: lib/Block/news.php:36 lib/Block/news_popular.php:39
+#: lib/Block/News.php:38 lib/Block/NewsPopular.php:42
 msgid "View"
 msgstr ""
 
@@ -626,11 +625,11 @@ msgstr ""
 msgid "You are not authorised for this action."
 msgstr ""
 
-#: lib/Application.php:93
+#: lib/Application.php:85
 msgid "_Feeds"
 msgstr ""
 
-#: lib/Application.php:114
+#: lib/Application.php:106
 msgid "_New Story"
 msgstr ""
 

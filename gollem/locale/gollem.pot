@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,11 +78,11 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: config/prefs.php.dist:64
+#: config/prefs.php:66
 msgid "Ascending"
 msgstr ""
 
-#: config/prefs.php.dist:94
+#: config/prefs.php:96
 msgid "Ask"
 msgstr ""
 
@@ -90,11 +90,11 @@ msgstr ""
 msgid "Attributes"
 msgstr ""
 
-#: lib/Application.php:79
+#: lib/Application.php:71
 msgid "Backends"
 msgstr ""
 
-#: lib/Application.php:149
+#: lib/Application.php:132
 msgid "Backends that will not be displayed:"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Change Server"
 msgstr ""
 
-#: lib/Application.php:175
+#: lib/Application.php:155
 msgid "Check Quota"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Chmod done: "
 msgstr ""
 
-#: lib/Application.php:145
+#: lib/Application.php:128
 msgid "Choose which backends to display, and in what order:"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "Create Folder"
 msgstr ""
 
-#: permissions.php:51
+#: permissions.php:53
 #, php-format
 msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
@@ -193,11 +193,11 @@ msgstr ""
 msgid "Cut"
 msgstr ""
 
-#: config/prefs.php.dist:56
+#: config/prefs.php:58
 msgid "Default sorting criteria:"
 msgstr ""
 
-#: config/prefs.php.dist:67
+#: config/prefs.php:69
 msgid "Default sorting direction:"
 msgstr ""
 
@@ -205,11 +205,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: config/prefs.php.dist:96
+#: config/prefs.php:98
 msgid "Delete folders recursively?"
 msgstr ""
 
-#: config/prefs.php.dist:65
+#: config/prefs.php:67
 msgid "Descending"
 msgstr ""
 
@@ -247,31 +247,31 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: config/prefs.php.dist:83
+#: config/prefs.php:85
 msgid "File Actions"
 msgstr ""
 
-#: config/prefs.php.dist:12
+#: config/prefs.php:14
 msgid "File Display"
 msgstr ""
 
-#: config/prefs.php.dist:53
+#: config/prefs.php:55
 msgid "File Modification Time"
 msgstr ""
 
-#: config/prefs.php.dist:52
+#: config/prefs.php:54
 msgid "File Name"
 msgstr ""
 
-#: config/prefs.php.dist:54
+#: config/prefs.php:56
 msgid "File Size"
 msgstr ""
 
-#: config/prefs.php.dist:51
+#: config/prefs.php:53
 msgid "File Type"
 msgstr ""
 
-#: config/prefs.php.dist:84
+#: config/prefs.php:86
 msgid "File action settings."
 msgstr ""
 
@@ -279,7 +279,7 @@ msgstr ""
 msgid "File deleted: "
 msgstr ""
 
-#: config/prefs.php.dist:13
+#: config/prefs.php:15
 msgid "File display preferences."
 msgstr ""
 
@@ -339,7 +339,7 @@ msgstr ""
 msgid "Item cut to clipboard: %s"
 msgstr ""
 
-#: config/prefs.php.dist:74
+#: config/prefs.php:76
 msgid "Items per page"
 msgstr ""
 
@@ -347,7 +347,7 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: config/prefs.php.dist:31
+#: config/prefs.php:33
 msgid "List folders first?"
 msgstr ""
 
@@ -367,7 +367,7 @@ msgstr ""
 msgid "New folder created: "
 msgstr ""
 
-#: config/prefs.php.dist:92
+#: config/prefs.php:94
 msgid "No"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgstr ""
 msgid "Select All/None"
 msgstr ""
 
-#: lib/Application.php:147
+#: lib/Application.php:130
 msgid "Select a backend:"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "Server"
 msgstr ""
 
-#: config/prefs.php.dist:24
+#: config/prefs.php:26
 msgid "Show dotfiles?"
 msgstr ""
 
@@ -493,7 +493,7 @@ msgstr ""
 msgid "There are no files in this folder."
 msgstr ""
 
-#: lib/Application.php:146
+#: lib/Application.php:129
 msgid "These backends will display in this order:"
 msgstr ""
 
@@ -517,7 +517,7 @@ msgstr ""
 msgid "Unable to create Gollem session"
 msgstr ""
 
-#: permissions.php:46
+#: permissions.php:48
 #, php-format
 msgid "Unable to create backend permission: %s"
 msgstr ""
@@ -541,7 +541,7 @@ msgstr ""
 msgid "Upload File(s)"
 msgstr ""
 
-#: config/prefs.php.dist:11 config/prefs.php.dist:82
+#: config/prefs.php:13 config/prefs.php:84
 msgid "User Interface"
 msgstr ""
 
@@ -553,7 +553,7 @@ msgstr ""
 msgid "Write"
 msgstr ""
 
-#: config/prefs.php.dist:93
+#: config/prefs.php:95
 msgid "Yes"
 msgstr ""
 
@@ -565,11 +565,11 @@ msgstr ""
 msgid "_Change Server"
 msgstr ""
 
-#: lib/Application.php:163
+#: lib/Application.php:143
 msgid "_My Home"
 msgstr ""
 
-#: lib/Application.php:166
+#: lib/Application.php:146
 msgid "_Permissions"
 msgstr ""
 

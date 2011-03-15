@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Beatnik H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: scripts/export_config.php:132
+#: scripts/export_config.php:140
 msgid "-h, --help                   Show this help"
 msgstr ""
 
-#: scripts/export_config.php:134
+#: scripts/export_config.php:142
 msgid "-p, --password[=password]    Horde login password"
 msgstr ""
 
-#: scripts/export_config.php:136
+#: scripts/export_config.php:144
 msgid "-r, --rpc[=http://example.com/horde/rpc.php]    Remote url"
 msgstr ""
 
-#: scripts/export_config.php:135
+#: scripts/export_config.php:143
 msgid "-t, --type[=type]    Export format"
 msgstr ""
 
-#: scripts/export_config.php:133
+#: scripts/export_config.php:141
 msgid "-u, --username[=username]    Horde login username"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "DNS Service Record Weight"
 msgstr ""
 
-#: config/prefs.php.dist:39
+#: config/prefs.php:43
 msgid "Default Time-To-Live for new records."
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: config/prefs.php.dist:8
+#: config/prefs.php:12
 msgid "Display Preferences"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Domain Name"
 msgstr ""
 
-#: lib/Application.php:90
+#: lib/Application.php:87
 msgid "Domains"
 msgstr ""
 
@@ -180,10 +180,6 @@ msgid ""
 "Error getting domain list.  Details have been logged for the administrator."
 msgstr ""
 
-#: config/autogenerate.php.dist:32
-msgid "Example Template"
-msgstr ""
-
 #: lib/Beatnik.php:34
 msgid "Expert Mode"
 msgstr ""
@@ -200,7 +196,7 @@ msgstr ""
 msgid "Expiration"
 msgstr ""
 
-#: scripts/export_config.php:110
+#: scripts/export_config.php:118
 msgid "Have noting to do."
 msgstr ""
 
@@ -234,7 +230,7 @@ msgstr ""
 msgid "Hostname of Mail eXchanger"
 msgstr ""
 
-#: config/prefs.php.dist:32
+#: config/prefs.php:36
 msgid "How many domain to display per page."
 msgstr ""
 
@@ -271,12 +267,12 @@ msgstr ""
 msgid "List Domains"
 msgstr ""
 
-#: scripts/export_config.php:102
+#: scripts/export_config.php:110
 #, php-format
 msgid "Logged in successfully as \"%s\"."
 msgstr ""
 
-#: scripts/export_config.php:98
+#: scripts/export_config.php:106
 msgid "Login is incorrect."
 msgstr ""
 
@@ -288,7 +284,7 @@ msgstr ""
 msgid "MX Preference (lower is more preferred)"
 msgstr ""
 
-#: scripts/export_config.php:130
+#: scripts/export_config.php:138
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
@@ -318,7 +314,7 @@ msgstr ""
 msgid "Preference"
 msgstr ""
 
-#: config/prefs.php.dist:7 config/prefs.php.dist:14
+#: config/prefs.php:11 config/prefs.php:18
 msgid "Preferences"
 msgstr ""
 
@@ -330,7 +326,7 @@ msgstr ""
 msgid "Primary nameserver for this zone"
 msgstr ""
 
-#: config/prefs.php.dist:15
+#: config/prefs.php:19
 msgid "Record Defaults"
 msgstr ""
 
@@ -391,11 +387,11 @@ msgstr ""
 msgid "Serial"
 msgstr ""
 
-#: config/prefs.php.dist:9
+#: config/prefs.php:13
 msgid "Set default display parameters."
 msgstr ""
 
-#: config/prefs.php.dist:16
+#: config/prefs.php:20
 msgid "Set default record parameters."
 msgstr ""
 
@@ -500,7 +496,7 @@ msgstr ""
 msgid "Unsupported recursive delete."
 msgstr ""
 
-#: scripts/export_config.php:128
+#: scripts/export_config.php:136
 #, php-format
 msgid "Usage: %s [OPTIONS]..."
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/Page/StandardPage.php:282
+#: lib/Page/StandardPage.php:283
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -450,7 +450,7 @@ msgstr ""
 msgid "Least Popular"
 msgstr ""
 
-#: lib/Page/SyncDiff.php:63 lib/Page/SyncDiff.php:69
+#: lib/Page/SyncDiff.php:59 lib/Page/SyncDiff.php:66
 #: templates/sync/diff.inc:32 templates/sync/diff.inc:68
 msgid "Local"
 msgstr ""
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Most Popular"
 msgstr ""
 
-#: lib/Block/page.php:35
+#: lib/Block/Page.php:46
 msgid "Name of wiki page to display"
 msgstr ""
 
@@ -620,7 +620,7 @@ msgstr ""
 msgid "Page failed to unlock: %s"
 msgstr ""
 
-#: lib/Driver/Sql.php:499 lib/Page/AddPage.php:48 lib/Page/NewPage.php:65
+#: lib/Driver/Sql.php:497 lib/Page/AddPage.php:48 lib/Page/NewPage.php:65
 msgid "Page name must not be empty"
 msgstr ""
 
@@ -628,7 +628,7 @@ msgstr ""
 msgid "Page unlocked"
 msgstr ""
 
-#: lib/Application.php:66
+#: lib/Application.php:58
 msgid "Pages"
 msgstr ""
 
@@ -690,7 +690,7 @@ msgstr ""
 msgid "Reload Page"
 msgstr ""
 
-#: lib/Page/SyncDiff.php:64 lib/Page/SyncDiff.php:68
+#: lib/Page/SyncDiff.php:60 lib/Page/SyncDiff.php:65
 #: templates/sync/diff.inc:40 templates/sync/diff.inc:76
 msgid "Remote"
 msgstr ""
@@ -709,7 +709,7 @@ msgstr ""
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr ""
 
-#: lib/Driver/Sql.php:566
+#: lib/Driver/Sql.php:564
 #, php-format
 msgid "Renamed page from %s"
 msgstr ""
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Reverted to version %s of \"%s\"."
 msgstr ""
 
-#: lib/Driver/Sql.php:503
+#: lib/Driver/Sql.php:501
 msgid "Robots are not allowed to create pages"
 msgstr ""
 
@@ -827,7 +827,7 @@ msgstr ""
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr ""
 
-#: lib/Page/SyncDiff.php:104
+#: lib/Page/SyncDiff.php:100
 msgid "Sync Diff"
 msgstr ""
 
@@ -855,7 +855,7 @@ msgstr ""
 msgid "Table of Contents"
 msgstr ""
 
-#: lib/Page/StandardPage.php:250
+#: lib/Page/StandardPage.php:251
 msgid "The page is already locked."
 msgstr ""
 
@@ -965,7 +965,7 @@ msgstr ""
 msgid "Wiki Templates"
 msgstr ""
 
-#: lib/Block/page.php:3
+#: lib/Block/Page.php:20
 msgid "Wiki page"
 msgstr ""
 
@@ -1051,7 +1051,7 @@ msgstr ""
 msgid "_Usage"
 msgstr ""
 
-#: lib/Page/StandardPage.php:276
+#: lib/Page/StandardPage.php:277
 msgid "a guest"
 msgstr ""
 

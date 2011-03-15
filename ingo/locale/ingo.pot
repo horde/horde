@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,7 +58,7 @@ msgstr ""
 msgid "All of the following"
 msgstr ""
 
-#: lib/Application.php:105
+#: lib/Application.php:96
 msgid "Allow Rules"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Are you sure you want to delete this rule?"
 msgstr ""
 
-#: config/prefs.php.dist:24
+#: config/prefs.php:26
 msgid "Automatically activate the script after each change?"
 msgstr ""
 
@@ -86,7 +86,7 @@ msgstr ""
 msgid "Basic Settings"
 msgstr ""
 
-#: config/fields.php.dist:49
+#: config/fields.php:51
 msgid "Bcc"
 msgstr ""
 
@@ -99,12 +99,12 @@ msgstr ""
 msgid "Bind failed: (%s) %s"
 msgstr ""
 
-#: filters.php:179 lib/Block/overview.php:88 lib/Block/overview.php:91
+#: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
 #: templates/blacklist/blacklist.inc:7
 msgid "Blacklist"
 msgstr ""
 
-#: blacklist.php:102
+#: blacklist.php:100
 msgid "Blacklist Edit"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Blacklisted Addresses"
 msgstr ""
 
-#: config/fields.php.dist:102
+#: config/fields.php:104
 msgid "Body"
 msgstr ""
 
@@ -125,11 +125,11 @@ msgstr ""
 msgid "Case Sensitive"
 msgstr ""
 
-#: config/fields.php.dist:45
+#: config/fields.php:47
 msgid "Cc"
 msgstr ""
 
-#: blacklist.php:71 forward.php:49 rule.php:136 spam.php:99 vacation.php:71
+#: blacklist.php:69 forward.php:49 rule.php:136 spam.php:99 vacation.php:71
 #: whitelist.php:34
 msgid "Changes saved."
 msgstr ""
@@ -147,12 +147,12 @@ msgstr ""
 msgid "Copy %s"
 msgstr ""
 
-#: lib/Storage/Filters.php:194 lib/Storage/Filters/Sql.php:243
+#: lib/Storage/Filters.php:194 lib/Storage/Filters/Sql.php:222
 #, php-format
 msgid "Copy of %s"
 msgstr ""
 
-#: lib/Ingo.php:130
+#: lib/Ingo.php:133
 msgid "Create new folder"
 msgstr ""
 
@@ -197,7 +197,7 @@ msgstr ""
 msgid "Deliver to folder..."
 msgstr ""
 
-#: config/fields.php.dist:85
+#: config/fields.php:87
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr ""
 
@@ -244,9 +244,9 @@ msgstr ""
 msgid "Doesn't match (with placeholders)"
 msgstr ""
 
-#: lib/Block/overview.php:56 lib/Block/overview.php:65
-#: lib/Block/overview.php:80 lib/Block/overview.php:90
-#: lib/Block/overview.php:100 templates/filters/header.inc:11
+#: lib/Block/Overview.php:52 lib/Block/Overview.php:61
+#: lib/Block/Overview.php:76 lib/Block/Overview.php:86
+#: lib/Block/Overview.php:96 templates/filters/header.inc:11
 msgid "Edit"
 msgstr ""
 
@@ -282,7 +282,7 @@ msgstr ""
 msgid "Error retrieving current script: (%d) %s"
 msgstr ""
 
-#: blacklist.php:69
+#: blacklist.php:67
 msgid "Error saving changes."
 msgstr ""
 
@@ -299,15 +299,15 @@ msgstr ""
 msgid "Expected 1 object, got %d."
 msgstr ""
 
-#: lib/Transport/Sivtest.php:180
+#: lib/Transport/Sivtest.php:181
 msgid "Failed to read from socket: "
 msgstr ""
 
-#: lib/Transport/Sivtest.php:175
+#: lib/Transport/Sivtest.php:176
 msgid "Failed to write to socket: "
 msgstr ""
 
-#: lib/Transport/Sivtest.php:170
+#: lib/Transport/Sivtest.php:171
 msgid "Failed to write to socket: (connection lost!)"
 msgstr ""
 
@@ -343,7 +343,7 @@ msgstr ""
 msgid "Filter Script Display"
 msgstr ""
 
-#: lib/Application.php:123
+#: lib/Application.php:111
 msgid "Filter _Rules"
 msgstr ""
 
@@ -402,8 +402,8 @@ msgstr ""
 msgid "For an incoming message that matches:"
 msgstr ""
 
-#: filters.php:197 forward.php:86 lib/Block/overview.php:64
-#: lib/Block/overview.php:66
+#: filters.php:197 forward.php:86 lib/Block/Overview.php:60
+#: lib/Block/Overview.php:62
 msgid "Forward"
 msgstr ""
 
@@ -424,11 +424,11 @@ msgstr ""
 msgid "Forwards Edit"
 msgstr ""
 
-#: config/fields.php.dist:41
+#: config/fields.php:43
 msgid "From"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Notify.php:39 lib/Script/Sieve/Sieve.php:643
+#: lib/Script/Sieve/Action/Notify.php:39
 msgid "From:"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgstr ""
 msgid "Individual rules are not supported in the current filtering driver."
 msgstr ""
 
-#: lib/Script/Sieve/Action/Fileinto.php:48 lib/Script/Sieve/Sieve.php:243
+#: lib/Script/Sieve/Action/Fileinto.php:48
 msgid "Inexistant mailbox specified for message delivery."
 msgstr ""
 
@@ -477,7 +477,7 @@ msgstr ""
 msgid "Less than or equal to"
 msgstr ""
 
-#: config/fields.php.dist:61
+#: config/fields.php:63
 msgid "List-ID"
 msgstr ""
 
@@ -497,7 +497,7 @@ msgstr ""
 msgid "Matches (with placeholders)"
 msgstr ""
 
-#: lib/Application.php:109
+#: lib/Application.php:100
 msgid "Maximum Number of Rules"
 msgstr ""
 
@@ -521,19 +521,19 @@ msgid ""
 "be treated as spam."
 msgstr ""
 
-#: lib/Script/Sieve/Action/Notify.php:53 lib/Script/Sieve/Sieve.php:657
+#: lib/Script/Sieve/Action/Notify.php:53
 msgid "Missing address to notify"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Redirect.php:42 lib/Script/Sieve/Sieve.php:46
+#: lib/Script/Sieve/Action/Redirect.php:42
 msgid "Missing address to redirect message to"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Reject.php:44 lib/Script/Sieve/Sieve.php:91
+#: lib/Script/Sieve/Action/Reject.php:44
 msgid "Missing reason for reject"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Vacation.php:137 lib/Script/Sieve/Sieve.php:392
+#: lib/Script/Sieve/Action/Vacation.php:137
 msgid "Missing reason in vacation."
 msgstr ""
 
@@ -558,16 +558,16 @@ msgstr ""
 msgid "New Rule"
 msgstr ""
 
-#: lib/Ingo.php:311
+#: lib/Ingo.php:317
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr ""
 
-#: lib/Ingo.php:303
+#: lib/Ingo.php:309
 msgid "No backend configured for this host"
 msgstr ""
 
-#: lib/Ingo.php:279
+#: lib/Ingo.php:282
 msgid "No backends configured in backends.php"
 msgstr ""
 
@@ -605,27 +605,27 @@ msgstr ""
 msgid "Only flag the message"
 msgstr ""
 
-#: config/prefs.php.dist:11
+#: config/prefs.php:13
 msgid "Other Preferences"
 msgstr ""
 
-#: lib/Block/overview.php:3
+#: lib/Block/Overview.php:18
 msgid "Overview"
 msgstr ""
 
-#: config/fields.php.dist:93
+#: config/fields.php:95
 msgid "Participant (From, To, etc.)"
 msgstr ""
 
-#: lib/Storage/Sql.php:334
+#: lib/Storage/Sql.php:322
 msgid "Permission Denied"
 msgstr ""
 
-#: lib/Ingo.php:466
+#: lib/Ingo.php:472
 msgid "Please enter the name of the new folder:"
 msgstr ""
 
-#: config/prefs.php.dist:13
+#: config/prefs.php:15
 msgid "Preferences about script updating."
 msgstr ""
 
@@ -633,7 +633,7 @@ msgstr ""
 msgid "Reason:"
 msgstr ""
 
-#: config/fields.php.dist:65
+#: config/fields.php:67
 msgid "Received"
 msgstr ""
 
@@ -654,11 +654,11 @@ msgid ""
 "Removing user data is not supported with the current filter storage backend."
 msgstr ""
 
-#: config/fields.php.dist:53
+#: config/fields.php:55
 msgid "Resent-From"
 msgstr ""
 
-#: config/fields.php.dist:57
+#: config/fields.php:59
 msgid "Resent-To"
 msgstr ""
 
@@ -708,7 +708,7 @@ msgstr ""
 msgid "Rule Name:"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Notify.php:41 lib/Script/Sieve/Sieve.php:645
+#: lib/Script/Sieve/Action/Notify.php:41
 msgid "Rule:"
 msgstr ""
 
@@ -717,7 +717,7 @@ msgstr ""
 msgid "STARTTLS failed: (%s) %s"
 msgstr ""
 
-#: lib/Application.php:141
+#: lib/Application.php:129
 msgid "S_pam"
 msgstr ""
 
@@ -745,19 +745,19 @@ msgstr ""
 msgid "Script"
 msgstr ""
 
-#: config/prefs.php.dist:12
+#: config/prefs.php:14
 msgid "Script Updating"
 msgstr ""
 
-#: lib/Ingo.php:259
+#: lib/Ingo.php:262
 msgid "Script not updated."
 msgstr ""
 
-#: lib/Ingo.php:230
+#: lib/Ingo.php:233
 msgid "Script successfully activated."
 msgstr ""
 
-#: lib/Ingo.php:229
+#: lib/Ingo.php:232
 msgid "Script successfully deactivated."
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Select target folder"
 msgstr ""
 
-#: lib/Ingo.php:127
+#: lib/Ingo.php:129
 msgid "Select target folder:"
 msgstr ""
 
@@ -785,7 +785,7 @@ msgstr ""
 msgid "Self-Defined Header"
 msgstr ""
 
-#: config/fields.php.dist:37
+#: config/fields.php:39
 msgid "Sender"
 msgstr ""
 
@@ -805,15 +805,15 @@ msgstr ""
 msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
 
-#: config/fields.php.dist:97
+#: config/fields.php:99
 msgid "Size"
 msgstr ""
 
-#: config/fields.php.dist:89
+#: config/fields.php:91
 msgid "Source (From, Reply-to, etc.)"
 msgstr ""
 
-#: filters.php:203 lib/Block/overview.php:98 lib/Block/overview.php:101
+#: filters.php:203 lib/Block/Overview.php:94 lib/Block/Overview.php:97
 #: lib/Script/Maildrop.php:297 lib/Script/Sieve.php:442
 msgid "Spam Filter"
 msgstr ""
@@ -834,7 +834,7 @@ msgstr ""
 msgid "Stop checking if this rule matches?"
 msgstr ""
 
-#: config/fields.php.dist:33
+#: config/fields.php:35
 msgid "Subject"
 msgstr ""
 
@@ -842,33 +842,33 @@ msgstr ""
 msgid "Subject of vacation message:"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Notify.php:40 lib/Script/Sieve/Sieve.php:644
+#: lib/Script/Sieve/Action/Notify.php:40
 msgid "Subject:"
 msgstr ""
 
-#: lib/Api.php:39
+#: lib/Api.php:41
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
 msgstr ""
 
-#: lib/Api.php:60
+#: lib/Api.php:62
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr ""
 
-#: lib/Ingo.php:220
+#: lib/Ingo.php:223
 msgid "The driver said: "
 msgstr ""
 
-#: lib/Ingo.php:219
+#: lib/Ingo.php:222
 msgid "There was an error activating the script."
 msgstr ""
 
-#: lib/Ingo.php:218
+#: lib/Ingo.php:221
 msgid "There was an error deactivating the script."
 msgstr ""
 
-#: config/fields.php.dist:29
+#: config/fields.php:31
 msgid "To"
 msgstr ""
 
@@ -885,7 +885,7 @@ msgstr ""
 msgid "User header"
 msgstr ""
 
-#: filters.php:191 lib/Block/overview.php:54 lib/Block/overview.php:57
+#: filters.php:191 lib/Block/Overview.php:50 lib/Block/Overview.php:53
 #: lib/Script/Maildrop.php:272 lib/Script/Procmail.php:278
 #: lib/Script/Sieve.php:416 vacation.php:135
 msgid "Vacation"
@@ -907,7 +907,7 @@ msgstr ""
 msgid "Wh_itelist addresses:"
 msgstr ""
 
-#: filters.php:185 lib/Block/overview.php:78 lib/Block/overview.php:81
+#: filters.php:185 lib/Block/Overview.php:74 lib/Block/Overview.php:77
 #: templates/whitelist/whitelist.inc:5
 msgid "Whitelist"
 msgstr ""
@@ -925,19 +925,19 @@ msgstr ""
 msgid "Whitelisted Addresses"
 msgstr ""
 
-#: config/fields.php.dist:81
+#: config/fields.php:83
 msgid "X-Priority"
 msgstr ""
 
-#: config/fields.php.dist:69
+#: config/fields.php:71
 msgid "X-Spam-Level"
 msgstr ""
 
-#: config/fields.php.dist:73
+#: config/fields.php:75
 msgid "X-Spam-Score"
 msgstr ""
 
-#: config/fields.php.dist:77
+#: config/fields.php:79
 msgid "X-Spam-Status"
 msgstr ""
 
@@ -963,7 +963,7 @@ msgstr ""
 msgid "You do not have permission to edit filter rules."
 msgstr ""
 
-#: lib/Script/Sieve/Action/Notify.php:38 lib/Script/Sieve/Sieve.php:642
+#: lib/Script/Sieve/Action/Notify.php:38
 msgid "You have received a new message"
 msgstr ""
 
@@ -975,7 +975,7 @@ msgstr ""
 msgid "[No Subject]"
 msgstr ""
 
-#: lib/Application.php:125
+#: lib/Application.php:113
 msgid "_Blacklist"
 msgstr ""
 
@@ -987,7 +987,7 @@ msgstr ""
 msgid "_Enter each address on a new line:"
 msgstr ""
 
-#: lib/Application.php:137
+#: lib/Application.php:125
 msgid "_Forward"
 msgstr ""
 
@@ -995,23 +995,23 @@ msgstr ""
 msgid "_Move message to folder:"
 msgstr ""
 
-#: lib/Application.php:151
+#: lib/Application.php:139
 msgid "_Permissions"
 msgstr ""
 
-#: lib/Application.php:147
+#: lib/Application.php:135
 msgid "_Script"
 msgstr ""
 
-#: lib/Application.php:133
+#: lib/Application.php:121
 msgid "_Vacation"
 msgstr ""
 
-#: lib/Application.php:124
+#: lib/Application.php:112
 msgid "_Whitelist"
 msgstr ""
 
-#: lib/Block/overview.php:45
+#: lib/Block/Overview.php:41
 msgid "active"
 msgstr ""
 
@@ -1023,7 +1023,7 @@ msgstr ""
 msgid "disabled - click to enable"
 msgstr ""
 
-#: lib/Block/overview.php:43
+#: lib/Block/Overview.php:39
 msgid "inactive"
 msgstr ""
 
