@@ -609,9 +609,10 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
                 $a = array(
                     'Body' => $components[0]->getAttribute('BODY'),
                     'Categories' => $components[0]->getAttribute('CATEGORIES'));
-                $sum = $components[0]->getAttribute('SUMMARY');
-                if (!is_a($sum, 'PEAR_Error')) {
+                try {
+                    $sum = $components[0]->getAttribute('SUMMARY');
                     $a['Subject'] = $sum;
+                } catch (Horde_Icalendar_Exception $e) {
                 }
             }
         }
@@ -1096,10 +1097,15 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
             } else {
                 // Parse VALARM components.
                 foreach ($content->getComponents() as $component) {
-                    if ($component->getType() != 'vAlarm' ||
-                        is_a($trigger = $component->getAttribute('TRIGGER'), 'PEAR_Error') ||
-                        is_array($trigger) ||
-                        empty($trigger)) {
+                    if ($component->getType() != 'vAlarm') {
+                        continue;
+                    }
+                    try {
+                        $trigger = $component->getAttribute('TRIGGER');
+                    } catch (Horde_Icalendar_Exception $e) {
+                        continue;
+                    }
+                    if (is_array($trigger) || empty($trigger)) {
                         continue;
                     }
                     $hash['ReminderSet'] = 1;
@@ -1210,10 +1216,15 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
         if ($due && !isset($hash['ReminderSet'])) {
             // Parse VALARM components.
             foreach ($content->getComponents() as $component) {
-                if ($component->getType() != 'vAlarm' ||
-                    is_a($trigger = $component->getAttribute('TRIGGER'), 'PEAR_Error') ||
-                    is_array($trigger) ||
-                    empty($trigger)) {
+                if ($component->getType() != 'vAlarm') {
+                    continue;
+                }
+                try {
+                    $trigger = $component->getAttribute('TRIGGER');
+                } catch (Horde_Icalendar_Exception $e) {
+                    continue;
+                }
+                if (is_array($trigger) || empty($trigger)) {
                     continue;
                 }
                 $hash['ReminderSet'] = 1;
