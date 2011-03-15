@@ -335,25 +335,16 @@ class Horde_Release
     public function updateSentinel()
     {
         $module = $this->_options['module'];
-        $all_caps_module = strtoupper($module);
+
         print "Updating CHANGES file for $module\n";
-        $version = 'v' . $this->_newSourceVersionStringPlain;
 
-        // construct the filenames
         $filename_only = 'CHANGES';
-        $filename = $this->_directoryName . '/docs/' . $filename_only;
-        $newfilename = $filename . '.new';
-        $oldfp = fopen($filename, 'r');
-        $newfp = fopen($newfilename, 'w');
-        fwrite($newfp, str_repeat('-', strlen($version)) . "\n$version\n" .
-               str_repeat('-', strlen($version)) . "\n\n\n\n\n");
-        while ($line = fgets($oldfp)) {
-            fwrite($newfp, $line);
-        }
-        fclose($oldfp);
-        fclose($newfp);
+        $updater = new Horde_Release_Sentinel(
+            $this->_directoryName . '/docs/' . $filename_only,
+            $this->_newSourceVersionStringPlain
+        );
+        $updater->update();
 
-        system("mv -f $newfilename $filename");
         if (!$this->_options['nocommit']) {
             system("cd {$this->_directoryName}/docs/; cvs commit -f -m \"Tarball script: building new $module release - {$this->_newSourceVersionString}\" $filename_only > /dev/null 2>&1");
         }
