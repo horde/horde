@@ -27,12 +27,22 @@
  */
 class Horde_Pear_Package_Xml
 {
+    /** The package.xml namespace */
+    const XMLNAMESPACE = 'http://pear.php.net/dtd/package-2.0';
+
     /**
      * The parsed XML.
      *
-     * @var SimpleXMLElement
+     * @var DOMDocument
      */
     private $_xml;
+
+    /**
+     * The XPath query handler.
+     *
+     * @var DOMXpath
+     */
+    private $_xpath;
 
     /**
      * Constructor.
@@ -43,7 +53,11 @@ class Horde_Pear_Package_Xml
     {
         rewind($xml);
         $this->_xml = new DOMDocument('1.0', 'UTF-8');
+        $this->_xml->preserveWhiteSpace = true;
+        $this->_xml->formatOutput = false;
         $this->_xml->loadXML(stream_get_contents($xml));
+        $this->_xpath = new DOMXpath($this->_xml);
+        $this->_xpath->registerNamespace('p', self::XMLNAMESPACE);
     }
 
     /**
@@ -53,7 +67,7 @@ class Horde_Pear_Package_Xml
      */
     public function getName()
     {
-        if ($node = $this->_findNode($this->_xml->documentElement->childNodes, 'name')) {
+        if ($node = $this->findNode('/p:package/p:name')) {
             return $node->textContent;
         }
         throw new Horde_Pear_Exception('"name" element is missing!');
@@ -66,13 +80,31 @@ class Horde_Pear_Package_Xml
      */
     public function releaseNow()
     {
-        $this->_xml->date = date('Y-m-d');
-        $this->_xml->time = date('H:i:s');
-        $version = (string) $this->_xml->version->release;
-        foreach($this->_xml->changelog as $release) {
-            $relver = (string) $release->release->version->release;
-            if ($relver == $version) {
-                $release->release->date = date('Y-m-d');
+        if ($node = $this->findNode('/p:package/p:date')) {
+            $new_node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'date');
+            $text = $this->_xml->createTextNode(date('Y-m-d'));
+            $new_node->appendChild($text);
+            $this->_xml->documentElement->replaceChild($new_node, $node);
+        }
+        if ($node = $this->findNode('/p:package/p:time')) {
+            $new_node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'date');
+            $text = $this->_xml->createTextNode(date('H:i:s'));
+            $new_node->appendChild($text);
+            $this->_xml->documentElement->replaceChild($new_node, $node);
+        }
+        if ($node = $this->findNode('/p:package/p:version/p:release')) {
+            $version = $node->textContent;
+            foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
+                if ($node = $this->findNodeRelativeTo('./p:version/p:release', $release)) {
+                    if ($node->textContent == $version) {
+                        if ($node = $this->findNodeRelativeTo('./p:date', $release)) {
+                            $new_node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'date');
+                            $text = $this->_xml->createTextNode(date('Y-m-d'));
+                            $new_node->appendChild($text);
+                            $release->replaceChild($new_node, $node);
+                        }
+                    }
+                }
             }
         }
     }
@@ -84,24 +116,57 @@ class Horde_Pear_Package_Xml
      */
     public function __toString()
     {
-        return $this->_xml->asXML();
+        $result = $this->_xml->saveXML();
+        $result = preg_replace(
+            '#<package (.*) (packagerversion="[.0-9]*" version="2.0")#',
+            '<package \2 \1',
+            $result
+        );
+        return preg_replace('#"/>#', '" />', $result);
     }
 
     /**
-     * Return the named node among a list of nodes.
+     * Return a single named node matching the given XPath query.
      *
-     * @param DOMNodeList $nodes The list of nodes.
-     * @param string      $name  The name of the node to return.
+     * @param string $query The query.
      *
-     * @return mixed The named DOMNode or false if no node was found.
+     * @return DOMNode|false The named DOMNode or empty if no node was found.
      */
-    private function _findNode($nodes, $name)
+    public function findNode($query)
     {
-        foreach ($nodes as $node) {
-            if ($node->nodeType == XML_ELEMENT_NODE && $node->tagName == $name) {
-                return $node;
-            }
+        $result = $this->_xpath->query($query);
+        if ($result->length) {
+            return $result->item(0);
         }
         return false;
+    }
+
+    /**
+     * Return a single named node below the given context matching the given
+     * XPath query.
+     *
+     * @param string $query The query.
+     *
+     * @return DOMNode|false The named DOMNode or empty if no node was found.
+     */
+    public function findNodeRelativeTo($query, DOMNode $context)
+    {
+        $result = $this->_xpath->query($query, $context);
+        if ($result->length) {
+            return $result->item(0);
+        }
+        return false;
+    }
+
+    /**
+     * Return all nodes matching the given XPath query.
+     *
+     * @param string $query The query.
+     *
+     * @return DOMNodeList The list of DOMNodes.
+     */
+    public function findNodes($query)
+    {
+        return $this->_xpath->query($query);
     }
 }
