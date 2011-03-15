@@ -81,15 +81,8 @@ class Horde_Pear_Package_Xml
         $this->replaceTextNode('/p:package/p:time', date('H:i:s'));
         $version = $this->getNodeText('/p:package/p:version/p:release');
         foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
-            if ($node = $this->findNodeRelativeTo('./p:version/p:release', $release)) {
-                if ($node->textContent == $version) {
-                    if ($node = $this->findNodeRelativeTo('./p:date', $release)) {
-                        $new_node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'date');
-                        $text = $this->_xml->createTextNode(date('Y-m-d'));
-                        $new_node->appendChild($text);
-                        $release->replaceChild($new_node, $node);
-                    }
-                }
+            if ($this->getNodeTextRelativeTo('./p:version/p:release', $release) == $version) {
+                $this->replaceTextNodeRelativeTo('./p:date', $release, date('Y-m-d'));
             }
         }
     }
@@ -119,24 +112,32 @@ class Horde_Pear_Package_Xml
      */
     public function findNode($query)
     {
-        $result = $this->_xpath->query($query);
-        if ($result->length) {
-            return $result->item(0);
-        }
-        return false;
+        return $this->_findSingleNode($this->_xpath->query($query));
     }
 
     /**
      * Return a single named node below the given context matching the given
      * XPath query.
      *
-     * @param string $query The query.
+     * @param string  $query   The query.
+     * @param DOMNode $context Search below this node.
      *
      * @return DOMNode|false The named DOMNode or empty if no node was found.
      */
     public function findNodeRelativeTo($query, DOMNode $context)
     {
-        $result = $this->_xpath->query($query, $context);
+        return $this->_findSingleNode($this->_xpath->query($query, $context));
+    }
+
+    /**
+     * Return a single node for the result set.
+     *
+     * @param DOMNodeList $result The query result.
+     *
+     * @return DOMNode|false The DOMNode or empty if no node was found.
+     */
+    private function _findSingleNode($result)
+    {
         if ($result->length) {
             return $result->item(0);
         }
@@ -174,6 +175,26 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the content of a single named node below the given context
+     * and matching the given XPath query.
+     *
+     * @param string  $path    The node path.
+     * @param DOMNode $context Search below this node.
+     *
+     * @return string|false The node content as string or empty if no node was
+     *                      found.
+     */
+    public function getNodeTextRelativeTo($path, DOMNode $context)
+    {
+        if ($node = $this->findNodeRelativeTo($path, $context)) {
+            return $node->textContent;
+        }
+        throw new Horde_Pear_Exception(
+            sprintf('"%s" element is missing!', $path)
+        );
+    }
+
+    /**
      * Replace a specific text node
      *
      * @param string $path  The XPath query pointing to the node.
@@ -184,12 +205,45 @@ class Horde_Pear_Package_Xml
     public function replaceTextNode($path, $value)
     {
         if ($node = $this->findNode($path)) {
-            $new_node = $this->_xml->createElementNS(
-                self::XMLNAMESPACE, $node->tagName
+            $this->_xml->documentElement->replaceChild(
+                $this->_replacementNode($node, $value), $node
             );
-            $text = $this->_xml->createTextNode($value);
-            $new_node->appendChild($text);
-            $this->_xml->documentElement->replaceChild($new_node, $node);
         }
+    }
+
+    /**
+     * Replace a specific text node
+     *
+     * @param string  $path    The XPath query pointing to the node.
+     * @param DOMNode $context Search below this node.
+     * @param string  $value   The new text value.
+     *
+     * @return DOMNodeList The list of DOMNodes.
+     */
+    public function replaceTextNodeRelativeTo($path, DOMNode $context, $value)
+    {
+        if ($node = $this->findNodeRelativeTo($path, $context)) {
+            $context->replaceChild(
+                $this->_replacementNode($node, $value), $node
+            );
+        }
+    }
+
+    /**
+     * Generate a replacement node.
+     *
+     * @param DOMNode $old_node The old DOMNode to be replaced.
+     * @param string  $value    The new text value.
+     *
+     * @return DOMNode The new DOMNode.
+     */
+    private function _replacementNode($old_node, $value)
+    {
+        $new_node = $this->_xml->createElementNS(
+            self::XMLNAMESPACE, $old_node->tagName
+        );
+        $text = $this->_xml->createTextNode($value);
+        $new_node->appendChild($text);
+        return $new_node;
     }
 }
