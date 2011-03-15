@@ -122,7 +122,7 @@ class Wicked_Page
             $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
             if ($perms->exists($permName)) {
-                return $perms->hasPermissions($permName, $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+                return $perms->hasPermission($permName, $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
             } else {
                 return $GLOBALS['registry']->getAuth();
             }
