@@ -64,7 +64,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
      */
     public function __construct($user, array $params = array())
     {
-        throw new Horde_Prefs_Exception('This driver needs to be refactored to use Horde_Ldap.')
+        throw new Horde_Prefs_Exception('This driver needs to be refactored to use Horde_Ldap.');
         /* If a valid server port has not been specified, set the default. */
         if (!isset($params['port']) || !is_integer($params['port'])) {
             $params['port'] = 389;
