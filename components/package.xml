@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-15</date>
- <time>18:32:00</time>
+ <time>21:38:23</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -84,6 +84,7 @@
       <file name="Template.php" role="php" />
       <file name="Templates.php" role="php" />
       <file name="Tree.php" role="php" />
+      <file name="Version.php" role="php" />
      </dir> <!-- /lib/Components/Helper -->
      <dir name="Module">
       <file name="Base.php" role="php" />
@@ -260,6 +261,7 @@
       <dir name="Components">
        <dir name="Helper">
         <file name="TemplatesTest.php" role="test" />
+        <file name="VersionTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Helper -->
        <dir name="Pear">
         <dir name="Package">
@@ -374,6 +376,7 @@
    <install as="Components/Helper/Template.php" name="lib/Components/Helper/Template.php" />
    <install as="Components/Helper/Templates.php" name="lib/Components/Helper/Templates.php" />
    <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
+   <install as="Components/Helper/Version.php" name="lib/Components/Helper/Version.php" />
    <install as="Components/Helper/Templates/Directory.php" name="lib/Components/Helper/Templates/Directory.php" />
    <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
@@ -461,6 +464,7 @@
    <install as="Components/Unit/ComponentsTest.php" name="test/Components/Unit/ComponentsTest.php" />
    <install as="Components/Unit/Components/ConfigsTest.php" name="test/Components/Unit/Components/ConfigsTest.php" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
+   <install as="Components/Unit/Components/Helper/VersionTest.php" name="test/Components/Unit/Components/Helper/VersionTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
    <install as="COPYING" name="COPYING" />
    <install as="TODO" name="TODO" />
