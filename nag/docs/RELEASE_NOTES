@@ -12,11 +12,11 @@
  * 8 - Minor security fixes
  * 9 - Major security fixes
  */
-$this->notes['fm']['focus'] = 5;
+$this->notes['fm']['focus'] = 6;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Nag Task
+The Horde Team is pleased to announce the first beta release of the Nag Task
 List Manager version H4 (3.0).
 
 Nag is a web-based application built upon the Horde Application Framework which
@@ -38,18 +38,15 @@ To install Nag, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install Nag with the following command:
 
-  pear install horde/nag-alpha
+  pear install horde/nag-beta
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Nag version H4 (2.3) are:
+The major changes compared to the Nag version H4 (3.0-ALPHA1) are:
 
-    * Updated for Horde 4
-    * New Ajax frontend (through Kronolith)
-    * System task lists
-    * Task list coloring
-    * Quick task adding
+    * Fixed deleting of task lists
+    * Fixed saving tasks through WebDAV
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

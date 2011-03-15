@@ -12,11 +12,11 @@
  * 8 - Minor security fixes
  * 9 - Major security fixes
  */
-$this->notes['fm']['focus'] = 5;
+$this->notes['fm']['focus'] = 7;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Turba
+The Horde Team is pleased to announce the first beta release of the Turba
 Contact Manager version H4 (3.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
@@ -38,15 +38,15 @@ To install Turba, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install Turba with the following command:
 
-  pear install horde/turba-alpha
+  pear install horde/turba-beta
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Turba version H3 (2.3) are:
+The major changes compared to the Turba version H4 (3.0-ALPHA1) are:
 
-    * Updated for Horde 4
-    * Duplicates searching and merging
+    * Fixed exporting birthdays to calendars
+    * Fixed importing contacts through SyncML
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

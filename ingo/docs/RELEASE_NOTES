@@ -12,11 +12,11 @@
  * 8 - Minor security fixes
  * 9 - Major security fixes
  */
-$this->notes['fm']['focus'] = 5;
+$this->notes['fm']['focus'] = 7;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Ingo Email
+The Horde Team is pleased to announce the first beta release of the Ingo Email
 Filter Rules Manager version H4 (2.0).
 
 Ingo is an email-filter management application. It is fully internationalized,
@@ -37,15 +37,14 @@ To install Ingo, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install Ingo with the following command:
 
-  pear install horde/ingo-alpha
+  pear install horde/ingo-beta
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Ingo version H3 (1.2) are:
+The major changes compared to the Ingo version H4 (2.0-ALPHA1) are:
 
-    * Updated for Horde 4
-    * Using IMP API for IMAP filtering
+    * Fixed creating new rules with PostgreSQL
 ML;
 
 /* Freshmeat release notes. */

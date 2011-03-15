@@ -12,11 +12,11 @@
  * 8 - Minor security fixes
  * 9 - Major security fixes
  */
-$this->notes['fm']['focus'] = 5;
+$this->notes['fm']['focus'] = 4;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Kronolith
+The Horde Team is pleased to announce the first beta release of the Kronolith
 Calendar Application version H4 (3.0).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
@@ -40,24 +40,15 @@ To install Kronolith, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install Kronolith with the following command:
 
-  pear install horde/kronolith-alpha
+  pear install horde/kronolith-beta
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Kronolith version H3 (2.3) are:
+The major changes compared to the Kronolith version H4 (3.0-ALPHA1) are:
 
-    * Updated for Horde 4
-    * New AJAX frontend with integrated tasks support
-    * New mobile frontend
-    * Resource scheduling
-    * System calendars
-    * Calendar coloring
-    * Calendar and event tagging
-    * Cross-timezone support
-    * CalDAV client support
-    * Improved recurring event exceptions
-    * Improved notification and invitation messages
+    * Added converting of old event categories to tags
+    * Small bug fixes
 ML;
 
 /* Freshmeat release notes. */

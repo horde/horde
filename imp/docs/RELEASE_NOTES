@@ -12,11 +12,11 @@
  * 8 - Minor security fixes
  * 9 - Major security fixes
  */
-$this->notes['fm']['focus'] = 5;
+$this->notes['fm']['focus'] = 6;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Internet
+The Horde Team is pleased to announce the first beta release of the Internet
 Mail Program (IMP) version H4 (5.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
@@ -39,26 +39,14 @@ To install IMP, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install IMP with the following command:
 
-  pear install horde/imp-alpha
+  pear install horde/imp-beta
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the IMP version H3 (4.3) are:
+The major changes compared to the IMP version H4 (5.0-ALPHA1) are:
 
-    * Updated for Horde 4
-    * New mobile frontend
-    * Much improved AJAX frontend including a vertical pane layout
-    * New IMAP library written from scratch with broad RFC support and huge
-      performance improvements
-    * More powerful search and filter functionality
-    * Smart-reply feature
-    * Localized special folders
-    * Better display of HTML messages
-    * HTML signatures
-    * Draft auto-saving
-    * Support for custom IMAP flags
-    * Reduced memory usage
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
