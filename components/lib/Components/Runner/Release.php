@@ -85,6 +85,30 @@ class Components_Runner_Release
 
         if ($this->_doTask('timestamp')) {
             $package->timestamp();
+            if ($this->_doTask('commit')) {
+                system('git add ' . $package_xml);
+            }
+        }
+
+        if ($this->_doTask('sentinel')) {
+            if (!class_exists('Horde_Release')) {
+                throw new Components_Exception('The release package is missing!');
+            }
+            $sentinel = new Horde_Release_Sentinel(dirname($package_xml));
+            $sentinel->replaceChanges(
+                Components_Helper_Version::pearToHorde($package->getVersion())
+            );
+            $sentinel->updateApplication(
+                Components_Helper_Version::pearToHorde($package->getVersion())
+            );
+            if ($this->_doTask('commit')) {
+                if ($changes = $sentinel->changesFileExists()) {
+                    system('git add ' . $changes);
+                }
+                if ($application = $sentinel->applicationFileExists()) {
+                    system('git add ' . $application);
+                }
+            }
         }
 
         if ($this->_doTask('package')) {
@@ -99,23 +123,35 @@ class Components_Runner_Release
 
         $release = $package->getName() . '-' . $package->getVersion();
 
-        if ($this->_doTask('sentinel')
-            && file_exists(dirname($package_xml) . '/docs/CHANGES')) {
-            if (!class_exists('Horde_Release')) {
-                throw new Components_Exception('The release package is missing!');
-            }
-            $sentinel = new Horde_Release_Sentinel(
-                dirname($package_xml) . '/docs/CHANGES',
-                $options['next']
-            );
-            $sentinel->update();
+        if ($this->_doTask('commit')) {
+            system('git commit -m "Released ' . $release . '."');
         }
 
-        if ($this->_doTask('commit')) {
-            system('git commit -m "Released ' . $release . '." ' . $package_xml);
-        }
-        if ($this->_doTask('tag')) {
-            system('git tag -f -m "Released ' . $release . '." ' . strtolower($release));
+        if ($options['next']) {
+            if ($this->_doTask('sentinel')) {
+                if (!class_exists('Horde_Release')) {
+                    throw new Components_Exception('The release package is missing!');
+                }
+                $sentinel = new Horde_Release_Sentinel(dirname($package_xml));
+                $sentinel->updateChanges(
+                    Components_Helper_Version::pearToHorde($options['next'])
+                );
+                $sentinel->updateApplication(
+                    Components_Helper_Version::pearToHorde($options['next'])
+                );
+                if ($this->_doTask('commit')) {
+                    if ($changes = $sentinel->changesFileExists()) {
+                        system('git add ' . $changes);
+                    }
+                    if ($application = $sentinel->applicationFileExists()) {
+                        system('git add ' . $application);
+                    }
+                }
+            }
+
+            if ($this->_doTask('commit')) {
+                system('git commit -m "Development mode for ' . $package->getName() . '-' . $options['next'] . '."');
+            }
         }
     }
 

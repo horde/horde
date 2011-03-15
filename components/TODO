@@ -3,8 +3,6 @@
 ======================
 
  - Add a release helper module.
-   - Update sentinel in CHANGES and version number in Application.php before
-     and after the release.
    - Send release announcements if releasing applications.
    - Update bugs.horde.org.
    - Notify freshmeat.
