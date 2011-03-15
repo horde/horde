@@ -82,6 +82,8 @@ class Horde_SyncMl_XmlOutput
      * Required data is retrieved from state.
      *
      * @param string $respURI  The url of the server endpoint.
+     *
+     * @throws Horde_Xml_Wbxml_Exception
      */
     public function outputHeader($respURI)
     {

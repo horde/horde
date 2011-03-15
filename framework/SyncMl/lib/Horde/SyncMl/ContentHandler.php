@@ -150,7 +150,8 @@ class Horde_SyncMl_ContentHandler
             $this->_xmlWriter->init(new Horde_Xml_Wbxml_Encoder());
 
             /* Here we go: fire off events: */
-            $r = $this->_wbxmlparser->decode($request);
+            /* @todo catch exceptions */
+            $this->_wbxmlparser->decode($request);
         }
 
         $id = @session_id();

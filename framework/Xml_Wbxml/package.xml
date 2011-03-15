@@ -63,6 +63,7 @@
        <file name="Dtd.php" role="php" />
        <file name="DtdManager.php" role="php" />
        <file name="Encoder.php" role="php" />
+       <file name="Exception.php" role="php" />
        <file name="HashTable.php" role="php" />
        <file name="LifoQueue.php" role="php" />
       </dir> <!-- /lib/Horde/Xml/Wbxml -->
@@ -118,6 +119,7 @@
    <install as="Horde/Xml/Wbxml/Dtd.php" name="lib/Horde/Xml/Wbxml/Dtd.php" />
    <install as="Horde/Xml/Wbxml/DtdManager.php" name="lib/Horde/Xml/Wbxml/DtdManager.php" />
    <install as="Horde/Xml/Wbxml/Encoder.php" name="lib/Horde/Xml/Wbxml/Encoder.php" />
+   <install as="Horde/Xml/Wbxml/Exception.php" name="lib/Horde/Xml/Wbxml/Exception.php" />
    <install as="Horde/Xml/Wbxml/HashTable.php" name="lib/Horde/Xml/Wbxml/HashTable.php" />
    <install as="Horde/Xml/Wbxml/LifoQueue.php" name="lib/Horde/Xml/Wbxml/LifoQueue.php" />
    <install as="Horde/Xml/Wbxml/Dtd/SyncMl.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMl.php" />

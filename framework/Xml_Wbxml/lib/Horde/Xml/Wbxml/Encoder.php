@@ -61,6 +61,8 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
      * Contenthandler and one should use it as a ContentHandler and
      * produce the XML-structure with startElement(), endElement(),
      * and characters().
+     *
+     * @throws Horde_Xml_Wbxml_Exception
      */
     public function encode($xml)
     {
@@ -74,9 +76,10 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         xml_set_external_entity_ref_handler($this->_parser, '');
 
         if (!xml_parse($this->_parser, $xml)) {
-            return $this->raiseError(sprintf('XML error: %s at line %d',
-                                             xml_error_string(xml_get_error_code($this->_parser)),
-                                             xml_get_current_line_number($this->_parser)));
+            throw new Horde_Xml_Wbxml_Exception(
+                sprintf('XML error: %s at line %d',
+                        xml_error_string(xml_get_error_code($this->_parser)),
+                        xml_get_current_line_number($this->_parser)));
         }
 
         xml_parser_free($this->_parser);
@@ -86,6 +89,8 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
 
     /**
      * This will write the correct headers.
+     *
+     * @throws Horde_Xml_Wbxml_Exception
      */
     public function writeHeader($uri)
     {
@@ -143,12 +148,15 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         }
     }
 
+    /**
+     * @throws Horde_Xml_Wbxml_Exception
+     */
     public function writeCharset($charset)
     {
         $cs = Horde_Xml_Wbxml::getCharsetInt($charset);
 
         if ($cs == 0) {
-            return $this->raiseError('Unsupported Charset: ' . $charset);
+            throw new Horde_Xml_Wbxml_Exception('Unsupported Charset: ' . $charset);
         } else {
             Horde_Xml_Wbxml::intToMBUInt32($this->_output, $cs);
         }
@@ -209,6 +217,9 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         return array($uri, $name);
     }
 
+    /**
+     * @throws Horde_Xml_Wbxml_Exception
+     */
     public function startElement($uri, $name, $attributes = array())
     {
         if ($this->_subParser == null) {
@@ -269,6 +280,9 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         $this->characters($chars);
     }
 
+    /**
+     * @throws Horde_Xml_Wbxml_Exception
+     */
     public function writeTag($name, $attrs, $hasContent, $cs)
     {
         if ($attrs != null && !count($attrs)) {
@@ -279,7 +293,7 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         if ($t == -1) {
             $i = $this->_stringTable->get($name);
             if ($i == null) {
-                return $this->raiseError($name . ' is not found in String Table or DTD');
+                throw new Horde_Xml_Wbxml_Exception($name . ' is not found in String Table or DTD');
             } else {
                 if ($attrs == null && !$hasContent) {
                     $this->_output .= chr(Horde_Xml_Wbxml::GLOBAL_TOKEN_LITERAL);
@@ -319,13 +333,16 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         $this->_output .= chr(Horde_Xml_Wbxml::GLOBAL_TOKEN_END);
     }
 
+    /**
+     * @throws Horde_Xml_Wbxml_Exception
+     */
     public function writeAttribute($name, $value, $cs)
     {
         $a = $this->_dtd->toAttribute($name);
         if ($a == -1) {
             $i = $this->_stringTable->get($name);
             if ($i == null) {
-                return $this->raiseError($name . ' is not found in String Table or DTD');
+                throw new Horde_Xml_Wbxml_Exception($name . ' is not found in String Table or DTD');
             } else {
                 $this->_output .= chr(Horde_Xml_Wbxml::GLOBAL_TOKEN_LITERAL);
                 Horde_Xml_Wbxml::intToMBUInt32($this->_output, $i);

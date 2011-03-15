@@ -101,15 +101,12 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
      * @param string $wbxml  The WBXML document to decode.
      *
      * @return string  The decoded XML document.
+     * @throws Horde_Xml_Wbxml_Exception
      */
     public function decodeToString($wbxml)
     {
         $this->_ch = new Horde_Xml_Wbxml_ContentHandler();
-
-        $r = $this->decode($wbxml);
-        if (is_a($r, 'PEAR_Error')) {
-            return $r;
-        }
+        $this->decode($wbxml);
         return $this->_ch->getOutput();
     }
 
@@ -121,7 +118,7 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
      *
      * @param string $wbxml  The WBXML document to decode.
      *
-     * @return mixed  True on success or PEAR_Error.
+     * @throws Horde_Xml_Wbxml_Exception
      */
     public function decode($wbxml)
     {
@@ -130,7 +127,7 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
         $this->_strpos = 0;
 
         if (empty($this->_ch)) {
-            return $this->raiseError('No Contenthandler defined.');
+            throw new Horde_Xml_Wbxml_Exception('No Contenthandler defined.');
         }
 
         // Get Version Number from Section 5.4
@@ -169,9 +166,8 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
         $this->_tagDTD = $this->_dtdManager->getInstance($this->_dpi);
 
         if (!$this->_tagDTD) {
-            return $this->raiseError('No DTD found for '
-                             . $this->_dpi . '/'
-                             . $dpiStruct['dpiNumber']);
+            throw new Horde_Xml_Wbxml_Exception(
+                'No DTD found for ' . $this->_dpi . '/' . $dpiStruct['dpiNumber']);
         }
 
         $this->_attributeDTD = $this->_tagDTD;
@@ -180,9 +176,8 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
             $this->_decode($wbxml);
         }
         if (!empty($this->_error)) {
-            return $this->_error;
+            throw $this->_error;
         }
-        return true;
     }
 
     public function getVersionNumber($input)
@@ -242,11 +237,10 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
     public function getStringTableEntry($index)
     {
         if ($index >= strlen($this->_stringTable)) {
-            $this->_error =
-                $this->raiseError('Invalid offset ' . $index
-                                  . ' value encountered around position '
-                                  . $this->_strpos
-                                  . '. Broken wbxml?');
+            $this->_error = new Horde_Xml_Wbxml_Exception(
+                'Invalid offset ' . $index
+                . ' value encountered around position ' . $this->_strpos
+                . '. Broken wbxml?');
             return '';
         }
 
@@ -372,13 +366,9 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
                 if ($size > 0 && $this->_isData && ord($b) <= 10) {
                     $decoder = new Horde_Xml_Wbxml_Decoder(true);
                     $decoder->setContentHandler($this->_ch);
-                    $s = $decoder->decode($b);
+                    $decoder->decode($b);
             //                /* // @todo: FIXME currently we can't decode Nokia
                     // DevInf data. So ignore error for the time beeing.
-                    if (is_a($s, 'PEAR_Error')) {
-                        $this->_error = $s;
-                        return;
-                    }
                     // */
                     // $this->_ch->characters($s);
                 } else {
