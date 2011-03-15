@@ -174,6 +174,10 @@ This is a list of available actions (use "help ACTION" to get additional informa
     ) {
         $arguments = $config->getArguments();
 
+        if (isset($arguments[0]) && $arguments[0] == 'help') {
+            return;
+        }
+
         if (isset($arguments[0]) && self::_isPackageXml($arguments[0])) {
             $config->setComponentDirectory(dirname($arguments[0]), true);
             return;
