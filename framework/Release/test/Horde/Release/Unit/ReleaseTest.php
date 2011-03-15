@@ -189,35 +189,10 @@ v1.0.1-cvs
 
     public function testMailingList()
     {
-        $r = $this->_getReleaseHelper(
-            $this->_getOptions(
-                array(
-                    'oldversion' => '0.9',
-                    'version' => '1.0',
-                    'noannounce' => true,
-                    'ml' => array(
-                        'from' => 'test@example.com'
-                    )
-                )
-            )
-        );
-
-        $r->notes['name'] = 'Horde';
-        $r->notes['fm']['focus'] = 5;
-        $r->notes['fm']['changes'] = 'FM-CHANGES';
-        $r->notes['fm']['project'] = 'horde';
-        $r->notes['fm']['branch'] = 'Horde 3';
-        $r->notes['ml']['changes'] = 'ML-CHANGES';
-
-        $r->setVersionStrings();
-        ob_start();
-        $r->announce();
-        $output = ob_get_contents();
-        ob_end_clean();
-
-        $this->assertEquals(
-            '',
-            $output
+        $r = $this->_getAnnounceHelper();
+        $this->assertContains(
+            'ML-CHANGES',
+            $this->_announce($r)
         );
     }
 

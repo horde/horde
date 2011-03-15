@@ -88,6 +88,13 @@ class Horde_Release_MailingList
     private $_tag_list;
 
     /**
+     * The message body.
+     *
+     * @param string
+     */
+    private $_body;
+
+    /**
      * Constructor.
      *
      * @param string $component   The component name.
@@ -112,6 +119,7 @@ class Horde_Release_MailingList
         $this->_version = $version;
         $this->_old_version = $old_version;
         $this->_tag_list = $tag_list;
+        $this->_body = '';
     }
 
     /**
@@ -151,6 +159,45 @@ class Horde_Release_MailingList
         );
     }
 
+    /**
+     * Append text to the message body.
+     *
+     * @param string $text The text to be appended.
+     *
+     * @return NULL
+     */
+    public function append($text)
+    {
+        $this->_body .= $text;
+    }
+
+    /**
+     * Return the complete message body.
+     *
+     * @return string The message body.
+     */
+    public function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
+     * Return the Horde_Mime_Mail message.
+     *
+     * @return Horde_Mime_Mail The message.
+     */
+    public function getMail()
+    {
+        return new Horde_Mime_Mail(
+            array_merge($this->getHeaders(), array('body' => $this->getBody()))
+        );
+    }
+
+    /**
+     * Check if this is a final release.
+     *
+     * @return boolean True if this is no prerelease version.
+     */
     private function _isLatest()
     {
         if (preg_match('/([.\d]+)\-(.*)/', $this->_version, $matches)

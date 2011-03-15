@@ -582,63 +582,46 @@ class Horde_Release
             $version['tag_list']
         );
 
-        $ml = (!empty($this->notes['list'])) ? $this->notes['list'] : $module;
-        if (substr($ml, 0, 6) == 'horde-') {
-            $ml = 'horde';
-        }
-
-        $to = "announce@lists.horde.org, vendor@lists.horde.org, $ml@lists.horde.org";
-        if (!$this->_latest) {
-            $to .= ', i18n@lists.horde.org';
-        }
-
-        if (!empty($this->_options['noannounce'])) {
-            print "NOT announcing release on $to\n";
-        } else {
-            print "Announcing release to $to\n";
-        }
-
-        // Building headers
-        $subject = $this->notes['name'] . ' ' . $this->_sourceVersionString;
-        if ($this->_latest) {
-            $subject .= ' (final)';
-        }
-        if (in_array(self::FOCUS_MAJORSECURITY, $version['tag_list'])) {
-            $subject = '[SECURITY] ' . $subject;
-        }
-        $headers = array('From' => $this->_options['ml']['from'],
-                         'To' => $to,
-                         'Subject' => $subject);
         $headers = $mailer->getHeaders();
 
+        if (!empty($this->_options['noannounce'])) {
+            print "NOT announcing release on " . $headers['To'] . "\n";
+        } else {
+            print "Announcing release to " . $headers['To'] . "\n";
+        }
+
         // Building message text
-        $body = $this->notes['ml']['changes'];
+        $mailer->append($this->notes['ml']['changes']);
         if ($this->_oldVersion) {
-            $body .= "\n\n" .
+            $mailer->append("\n\n" .
                 sprintf('The full list of changes (from version %s) can be viewed here:', $this->_oldSourceVersionString) .
                 "\n\n" .
-                $url_changelog;
+                $url_changelog
+            );
         }
-        $body .= "\n\n" .
+        $mailer->append("\n\n" .
             sprintf('The %s %s distribution is available from the following locations:', $this->notes['name'], $this->_sourceVersionString) .
             "\n\n" .
             sprintf('    ftp://ftp.horde.org/pub/%s/%s', $module, $this->_tarballName) . "\n" .
-            sprintf('    http://ftp.horde.org/pub/%s/%s', $module, $this->_tarballName);
+            sprintf('    http://ftp.horde.org/pub/%s/%s', $module, $this->_tarballName)
+        );
         if ($this->_makeDiff) {
-            $body .= "\n\n" .
+            $mailer->append("\n\n" .
                 sprintf('Patches against version %s are available at:', $this->_oldSourceVersionString) .
                 "\n\n" .
                 sprintf('    ftp://ftp.horde.org/pub/%s/patches/%s.gz', $module, $this->_patchName) . "\n" .
-                sprintf('    http://ftp.horde.org/pub/%s/patches/%s.gz', $module, $this->_patchName);
+                sprintf('    http://ftp.horde.org/pub/%s/patches/%s.gz', $module, $this->_patchName)
+            );
 
             if (!empty($this->_binaryDiffs)) {
-                $body .= "\n\n" .
+                $mailer->append("\n\n" .
                     'NOTE: Patches do not contain differences between files containing binary data.' . "\n" .
                     'These files will need to be updated via the distribution files:' . "\n\n    " .
-                    implode("\n    ", $this->_binaryDiffs);
+                    implode("\n    ", $this->_binaryDiffs)
+                );
             }
         }
-        $body .= "\n\n" .
+        $mailer->append("\n\n" .
             'Or, for quicker access, download from your nearest mirror:' .
             "\n\n" .
             '    http://www.horde.org/mirrors.php' .
@@ -650,20 +633,20 @@ class Horde_Release
             "\n\n" .
             'Have fun!' .
             "\n\n" .
-            'The Horde Team.';
+            'The Horde Team.'
+        );
 
         if (!empty($this->_options['noannounce'])) {
             print "Message headers:\n";
             print_r($headers);
-            print "Message body:\n$body\n";
+            print "Message body:\n" . $mailer->getBody() . "\n";
             return;
         }
 
         // Building and sending message
-        $mail = new Horde_Mime_Mail(array_merge($headers, array('body' => $body)));
         try {
             $class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
-            $mail->send(new $class($this->_options['mailer']['params']));
+            $mailer->getMail()->send(new $class($this->_options['mailer']['params']));
         } catch (Horde_Mime_Exception $e) {
             print $e->getMessage() . "\n";
         }
