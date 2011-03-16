@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-15</date>
- <time>21:38:23</time>
+ <date>2011-03-16</date>
+ <time>09:09:20</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -119,6 +119,13 @@
       <file name="InstallLocation.php" role="php" />
       <file name="Package.php" role="php" />
      </dir> <!-- /lib/Components/Pear -->
+     <dir name="Release">
+      <dir name="Task">
+       <file name="Base.php" role="php" />
+       <file name="Timestamp.php" role="php" />
+      </dir> <!-- /lib/Components/Release/Task -->
+      <file name="Tasks.php" role="php" />
+     </dir> <!-- /lib/Components/Release -->
      <dir name="Runner">
       <file name="CiPrebuild.php" role="php" />
       <file name="CiSetup.php" role="php" />
@@ -270,6 +277,11 @@
          </dir> <!-- /test/Components/Unit/Components/Pear/Package/Filelist -->
         </dir> <!-- /test/Components/Unit/Components/Pear/Package -->
        </dir> <!-- /test/Components/Unit/Components/Pear -->
+       <dir name="Release">
+        <dir name="Task">
+         <file name="TimestampTest.php" role="test" />
+        </dir> <!-- /test/Components/Unit/Components/Release/Task -->
+       </dir> <!-- /test/Components/Unit/Components/Release -->
        <file name="ConfigsTest.php" role="test" />
       </dir> <!-- /test/Components/Unit/Components -->
       <file name="ComponentsTest.php" role="test" />
@@ -402,6 +414,9 @@
    <install as="Components/Pear/Package/Contents/List.php" name="lib/Components/Pear/Package/Contents/List.php" />
    <install as="Components/Pear/Package/Filelist/Default.php" name="lib/Components/Pear/Package/Filelist/Default.php" />
    <install as="Components/Pear/Package/Filelist/Factory.php" name="lib/Components/Pear/Package/Filelist/Factory.php" />
+   <install as="Components/Release/Tasks.php" name="lib/Components/Release/Tasks.php" />
+   <install as="Components/Release/Task/Base.php" name="lib/Components/Release/Task/Base.php" />
+   <install as="Components/Release/Task/Timestamp.php" name="lib/Components/Release/Task/Timestamp.php" />
    <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
    <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
@@ -466,6 +481,7 @@
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Helper/VersionTest.php" name="test/Components/Unit/Components/Helper/VersionTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
+   <install as="Components/Unit/Components/Release/Task/TimestampTest.php" name="test/Components/Unit/Components/Release/Task/TimestampTest.php" />
    <install as="COPYING" name="COPYING" />
    <install as="TODO" name="TODO" />
   </filelist>
@@ -495,7 +511,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-15</date>
+   <date>2011-03-16</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 *

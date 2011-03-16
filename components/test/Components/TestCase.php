@@ -30,6 +30,12 @@
 class Components_TestCase
 extends PHPUnit_Framework_TestCase
 {
+    protected function getReleaseTask($name, $package)
+    {
+        $this->dependencies = new Components_Dependencies_Injector();
+        return $this->dependencies->getReleaseTasks()->getTask($name, $package);
+    }
+
     protected function getTemporaryDirectory()
     {
         return Horde_Util::createTempDir();
