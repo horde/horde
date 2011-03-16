@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>timeobjects</name>
  <channel>pear.horde.org</channel>
  <summary>Horde timeobjects application</summary>
@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-15</date>
- <time>23:02:50</time>
+ <time>23:28:40</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -40,9 +40,13 @@
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Driver">
+     <file name="Base.php" role="php" />
      <file name="FacebookEvents.php" role="php" />
      <file name="Weatherdotcom.php" role="php" />
     </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="php" />
+    </dir> <!-- /lib/Factory -->
     <file name="Api.php" role="php" />
     <file name="Application.php" role="php" />
     <file name="Driver.php" role="php" />
@@ -75,8 +79,10 @@
    <install as="Application.php" name="lib/Application.php" />
    <install as="Driver.php" name="lib/Driver.php" />
    <install as="Exception.php" name="lib/Exception.php" />
+   <install as="Driver/Base.php" name="lib/Driver/Base.php" />
    <install as="Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
    <install as="Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
+   <install as="Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="locale/timeobjects.pot" name="locale/timeobjects.pot" />
    <install as="locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
    <install as="locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
@@ -93,7 +99,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-15</date>
-   <license uri="">TODO</license>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First beta release for Horde 4.
    </notes>

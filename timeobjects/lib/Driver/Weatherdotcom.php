@@ -10,7 +10,7 @@
  * @category Horde
  * @package TimeObjects
  */
-class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
+class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver_Base
 {
     protected $_params = array('units' => 'standard',
                                'days' => 5);

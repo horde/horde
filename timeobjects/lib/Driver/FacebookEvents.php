@@ -10,7 +10,7 @@
  * @category Horde
  * @package TimeObjects
  */
-class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver
+class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
 {
     private $_fb_session;
 
