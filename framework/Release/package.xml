@@ -23,7 +23,7 @@
   <active>yes</active>
  </developer>
  <date>2011-03-16</date>
- <time>00:17:09</time>
+ <time>22:27:16</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -41,6 +41,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Release">
+      <file name="Freshmeat.php" role="php" />
       <file name="MailingList.php" role="php" />
       <file name="Sentinel.php" role="php" />
       <file name="Whups.php" role="php" />
@@ -131,6 +132,7 @@
  <phprelease>
   <filelist>
    <install as="Horde/Release.php" name="lib/Horde/Release.php" />
+   <install as="Horde/Release/Freshmeat.php" name="lib/Horde/Release/Freshmeat.php" />
    <install as="Horde/Release/MailingList.php" name="lib/Horde/Release/MailingList.php" />
    <install as="Horde/Release/Sentinel.php" name="lib/Horde/Release/Sentinel.php" />
    <install as="Horde/Release/Whups.php" name="lib/Horde/Release/Whups.php" />
