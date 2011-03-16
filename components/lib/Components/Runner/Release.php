@@ -106,12 +106,16 @@ class Components_Runner_Release
 
         $sequence = array();
 
+        $pre_commit = false;
+
         if ($this->_doTask('timestamp')) {
             $sequence[] = 'Timestamp';
+            $pre_commit = true;
         }
 
         if ($this->_doTask('sentinel')) {
             $sequence[] = 'CurrentSentinel';
+            $pre_commit = true;
         }
 
         if ($this->_doTask('package')) {
@@ -121,8 +125,21 @@ class Components_Runner_Release
             }
         }
 
-        if ($this->_doTask('commit')) {
+        if ($this->_doTask('commit') && $pre_commit) {
             $sequence[] = 'CommitPreRelease';
+        }
+
+        if ($options['next']) {
+
+            $post_commit = false;
+
+            if ($this->_doTask('sentinel')) {
+                $sequence[] = 'NextSentinel';
+                $post_commit = true;
+            }
+            if ($this->_doTask('commit') && $post_commit) {
+                $sequence[] = 'CommitPostRelease';
+            }
         }
 
         if (!empty($sequence)) {
@@ -161,35 +178,6 @@ class Components_Runner_Release
             }
         }
 
-        if ($options['next']) {
-            if ($this->_doTask('sentinel')) {
-                if (!class_exists('Horde_Release')) {
-                    throw new Components_Exception('The release package is missing!');
-                }
-                $sentinel = new Horde_Release_Sentinel(dirname($package_xml));
-                $sentinel->updateChanges(
-                    Components_Helper_Version::pearToHorde($options['next'])
-                );
-                $sentinel->updateApplication(
-                    Components_Helper_Version::pearToHordeWithBranch(
-                        $options['next'],
-                        $this->notes['branch']
-                    )
-                );
-                if ($this->_doTask('commit')) {
-                    if ($changes = $sentinel->changesFileExists()) {
-                        system('git add ' . $changes);
-                    }
-                    if ($application = $sentinel->applicationFileExists()) {
-                        system('git add ' . $application);
-                    }
-                }
-            }
-
-            if ($this->_doTask('commit')) {
-                system('git commit -m "Development mode for ' . $package->getName() . '-' . $options['next'] . '."');
-            }
-        }
     }
 
     /**
