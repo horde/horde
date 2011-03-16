@@ -141,6 +141,10 @@ class Components_Runner_Release
             $sequence[] = 'Bugs';
         }
 
+        if ($this->_doTask('freshmeat')) {
+            $sequence[] = 'Freshmeat';
+        }
+
         if ($options['next']) {
 
             $post_commit = false;

@@ -93,6 +93,13 @@ extends Components_Module_Base
                     'help'   => 'The password for accessing bugs.horde.org.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--fm_token',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The token for accessing freshmeat.net.'
+                )
+            ),
         );
     }
 
@@ -150,6 +157,7 @@ The available tasks are:
  - tag         : Add a git release tag.
  - announce    : Announce the release on the mailing lists.
  - bugs        : Add the new release on bugs.horde.org
+ - freshmeat   : Add the new release on freshmeat.net
 
 The indentation indicates task that depend on a parent task. Activating them
 without activating the parent has no effect.
