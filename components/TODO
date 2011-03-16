@@ -3,10 +3,10 @@
 ======================
 
  - Add a release helper module.
-   - Send release announcements if releasing applications.
    - Update bugs.horde.org.
    - Notify freshmeat.
    - Update package.xml to bump version and empty notes after the release.
+   - Allow to configure the mail transport for sending announcements.
    - Validate that the release does not exist before releasing.
    - Error handling.
 

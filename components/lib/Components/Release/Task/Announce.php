@@ -79,6 +79,7 @@ extends Components_Release_Task_Base
 
         if (!$this->getTasks()->pretend()) {
             try {
+                //@todo: Make configurable again
                 $class = 'Horde_Mail_Transport_Sendmail';
                 $mailer->getMail()->send(new $class(array()));
             } catch (Exception $e) {
