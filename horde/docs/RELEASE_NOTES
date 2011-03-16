@@ -16,8 +16,8 @@ $this->notes['fm']['focus'] = 7;
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-After more than two years of development, the Horde Team is pleased to announce
-the first beta release of the Horde Application Framework version 4.0.
+The Horde Team is pleased to announce the first beta release of the Horde
+Application Framework version 4.0.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
