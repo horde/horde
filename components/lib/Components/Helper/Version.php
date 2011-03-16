@@ -56,6 +56,37 @@ class Components_Helper_Version
     }
 
     /**
+     * Convert the PEAR package version number to a descriptive tag used on
+     * bugs.horde.org.
+     *
+     * @param string $version The PEAR package version.
+     *
+     * @return string The description for bugs.horde.org.
+     */
+    static public function pearToTicketDescription($version)
+    {
+        preg_match('/([.\d]+)(.*)/', $version, $matches);
+        if (!empty($matches[2]) && !preg_match('/^pl\d/', $matches[2])) {
+            if (preg_match('/^rc(\d+)/', $matches[2], $postmatch)) {
+                $post = ' Release Candidate ' . $postmatch[1];
+            } else if (preg_match('/^alpha(\d+)/', $matches[2], $postmatch)) {
+                $post = ' Alpha';
+            } else if (preg_match('/^beta(\d+)/', $matches[2], $postmatch)) {
+                $post = ' Beta';
+            }
+        } else {
+            $post = ' Final';
+        }
+        $vcomp = explode('.', $matches[1]);
+        if ($vcomp[2] === '0') {
+            $main = $vcomp[0] . '.' . $vcomp[1];
+        } else {
+            $main = $matches[1];
+        }
+        return $main . $post;
+    }
+
+    /**
      * Convert the PEAR package version number to Horde style and take the
      * branch name into account.
      *
