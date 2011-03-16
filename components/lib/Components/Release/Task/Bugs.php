@@ -119,7 +119,7 @@ extends Components_Release_Task_Base
 
         if (!$this->getTasks()->pretend()) {
             $this->_getBugs($options)->addNewVersion(
-                $this->getNotes()->getName(),
+                $this->getPackage()->getName(),
                 $ticket_version,
                 $ticket_description
             );
@@ -129,7 +129,7 @@ extends Components_Release_Task_Base
                     'Would add new version "%s: %s" to queue "%s".',
                     $ticket_version,
                     $ticket_description,
-                    $this->getNotes()->getName()
+                    $this->getPackage()->getName()
                 )
             );
         }
