@@ -78,8 +78,12 @@ extends Components_Release_Task_Base
         $mailer->append($this->getNotes()->getAnnouncement());
 
         if (!$this->getTasks()->pretend()) {
-            //$class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
-            //$mailer->getMail()->send(new $class($this->_options['mailer']['params']));
+            try {
+                $class = 'Horde_Mail_Transport_Sendmail';
+                $mailer->getMail()->send(new $class(array()));
+            } catch (Exception $e) {
+                $this->getOutput()->warn((string)$e);
+            }
         } else {
             $info = 'ANNOUNCEMENT
 
