@@ -69,7 +69,7 @@ implements Components_Dependencies
                 require_once dirname(__FILE__) . '/../Output.php';
                 $this->_instances[$interface] = new Components_Output(
                     $this->getInstance('Horde_Cli'),
-                    $this->getInstance('Components_Config')
+                    $this->getInstance('Components_Config')->getOptions()
                 );
                 break;
             case 'Horde_Cli':
