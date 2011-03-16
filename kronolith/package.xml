@@ -846,14 +846,14 @@
     <exclude>5.0.0</exclude>
    </package>
    <package>
-    <name>Date</name>
-    <channel>pear.php.net</channel>
+    <name>Horde_Data</name>
+    <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Data</name>
+    <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
@@ -866,7 +866,30 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Image</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Date</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </required>
+  <optional>
+   <package>
+    <name>timeobjects</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <usesrole>
   <role>horde</role>
