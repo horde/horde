@@ -111,6 +111,13 @@ interface Components_Dependencies
     public function getRunnerPearPackageXml();
 
     /**
+     * Returns the release tasks handler.
+     *
+     * @return Components_Release_Tasks The release tasks handler.
+     */
+    public function getReleaseTasks();
+
+    /**
      * Returns the output handler.
      *
      * @return Components_Output The output handler.

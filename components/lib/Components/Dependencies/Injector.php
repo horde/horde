@@ -168,6 +168,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the release tasks handler.
+     *
+     * @return Components_Release_Tasks The release tasks handler.
+     */
+    public function getReleaseTasks()
+    {
+        return $this->getInstance('Components_Release_Tasks');
+    }
+
+    /**
      * Returns the output handler.
      *
      * @return Components_Output The output handler.
