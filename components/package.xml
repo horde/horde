@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-16</date>
- <time>10:23:35</time>
+ <time>15:12:25</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -123,8 +123,10 @@
       <dir name="Task">
        <file name="Base.php" role="php" />
        <file name="CommitPreRelease.php" role="php" />
+       <file name="CurrentSentinel.php" role="php" />
        <file name="Timestamp.php" role="php" />
       </dir> <!-- /lib/Components/Release/Task -->
+      <file name="Notes.php" role="php" />
       <file name="Tasks.php" role="php" />
      </dir> <!-- /lib/Components/Release -->
      <dir name="Runner">
@@ -283,6 +285,7 @@
        </dir> <!-- /test/Components/Unit/Components/Pear -->
        <dir name="Release">
         <dir name="Task">
+         <file name="CurrentSentinelTest.php" role="test" />
          <file name="TimestampTest.php" role="test" />
         </dir> <!-- /test/Components/Unit/Components/Release/Task -->
        </dir> <!-- /test/Components/Unit/Components/Release -->
@@ -418,9 +421,11 @@
    <install as="Components/Pear/Package/Contents/List.php" name="lib/Components/Pear/Package/Contents/List.php" />
    <install as="Components/Pear/Package/Filelist/Default.php" name="lib/Components/Pear/Package/Filelist/Default.php" />
    <install as="Components/Pear/Package/Filelist/Factory.php" name="lib/Components/Pear/Package/Filelist/Factory.php" />
+   <install as="Components/Release/Notes.php" name="lib/Components/Release/Notes.php" />
    <install as="Components/Release/Tasks.php" name="lib/Components/Release/Tasks.php" />
    <install as="Components/Release/Task/Base.php" name="lib/Components/Release/Task/Base.php" />
    <install as="Components/Release/Task/CommitPreRelease.php" name="lib/Components/Release/Task/CommitPreRelease.php" />
+   <install as="Components/Release/Task/CurrentSentinel.php" name="lib/Components/Release/Task/CurrentSentinel.php" />
    <install as="Components/Release/Task/Timestamp.php" name="lib/Components/Release/Task/Timestamp.php" />
    <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
@@ -487,6 +492,7 @@
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Helper/VersionTest.php" name="test/Components/Unit/Components/Helper/VersionTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
+   <install as="Components/Unit/Components/Release/Task/CurrentSentinelTest.php" name="test/Components/Unit/Components/Release/Task/CurrentSentinelTest.php" />
    <install as="Components/Unit/Components/Release/Task/TimestampTest.php" name="test/Components/Unit/Components/Release/Task/TimestampTest.php" />
    <install as="COPYING" name="COPYING" />
    <install as="TODO" name="TODO" />

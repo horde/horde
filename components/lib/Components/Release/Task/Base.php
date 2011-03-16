@@ -35,6 +35,13 @@ class Components_Release_Task_Base
     private $_tasks;
 
     /**
+     * The release notes handler.
+     *
+     * @var Components_Release_Notes
+     */
+    private $_notes;
+
+    /**
      * The task output.
      *
      * @var Components_Output
@@ -52,12 +59,16 @@ class Components_Release_Task_Base
      * Constructor.
      *
      * @param Components_Release_Tasks $tasks The task handler.
+     * @param Components_Release_Notes $notes The release notes.
+     * @param Components_Output $output Accepts output.
      */
     public function __construct(
         Components_Release_Tasks $tasks,
+        Components_Release_Notes $notes,
         Components_Output $output
     ) {
         $this->_tasks = $tasks;
+        $this->_notes = $notes;
         $this->_output = $output;
     }
 
@@ -71,6 +82,7 @@ class Components_Release_Task_Base
     public function setPackage(Components_Pear_Package $package)
     {
         $this->_package = $package;
+        $this->_notes->setPackage($package);
     }
 
     /**
@@ -91,6 +103,16 @@ class Components_Release_Task_Base
     protected function getTasks()
     {
         return $this->_tasks;
+    }
+
+    /**
+     * Get the release notes.
+     *
+     * @return Components_Release_Notes The release notes.
+     */
+    protected function getNotes()
+    {
+        return $this->_notes;
     }
 
     /**
