@@ -57,4 +57,4 @@ FM;
 
 $this->notes['name'] = 'Kronolith';
 $this->notes['fm']['project'] = 'kronolith';
-$this->notes['fm']['branch'] = 'Horde 3';
+$this->notes['fm']['branch'] = 'Horde 4';
