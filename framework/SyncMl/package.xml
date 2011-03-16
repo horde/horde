@@ -30,6 +30,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * First release candidate for Horde 4.
+* Fix calendar synchronization with certain Nokia phones (Bug #9646).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
