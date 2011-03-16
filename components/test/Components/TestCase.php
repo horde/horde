@@ -32,8 +32,18 @@ extends PHPUnit_Framework_TestCase
 {
     protected function getReleaseTask($name, $package)
     {
-        $this->dependencies = new Components_Dependencies_Injector();
-        return $this->dependencies->getReleaseTasks()->getTask($name, $package);
+        $dependencies = new Components_Dependencies_Injector();
+        $this->output = new Components_Stub_Output();
+        $dependencies->setInstance('Components_Output', $this->output);
+        return $dependencies->getReleaseTasks()->getTask($name, $package);
+    }
+
+    protected function getReleaseTasks()
+    {
+        $dependencies = new Components_Dependencies_Injector();
+        $this->output = new Components_Stub_Output();
+        $dependencies->setInstance('Components_Output', $this->output);
+        return $dependencies->getReleaseTasks();
     }
 
     protected function getTemporaryDirectory()

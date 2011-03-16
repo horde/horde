@@ -35,16 +35,14 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
 class Components_Unit_Components_Release_Task_TimestampTest
 extends Components_TestCase
 {
+    public function setUp()
+    {
+        $this->_fixture = dirname(__FILE__) . '/../../../../fixture/simple/package.xml';
+    }
+
     public function testValidateSucceeds()
     {
-        $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
-        $package->expects($this->once())
-            ->method('getPackageXml')
-            ->will(
-                $this->returnValue(
-                    dirname(__FILE__) . '/../../../../fixture/simple/package.xml'
-                )
-            );
+        $package = $this->_getValidPackage();
         $task = $this->getReleaseTask('timestamp', $package);
         $this->assertEquals(array(), $task->validate());
     }
@@ -58,9 +56,40 @@ extends Components_TestCase
 
     public function testRunTaskWithoutCommit()
     {
+        $tasks = $this->getReleaseTasks();
+        $package = $this->_getValidPackage();
+        $package->expects($this->once())
+            ->method('timestamp');
+        $tasks->run(array('timestamp'), $package);
     }
 
     public function testPretend()
     {
+        $tasks = $this->getReleaseTasks();
+        $package = $this->_getValidPackage();
+        $package->expects($this->any())
+            ->method('getName')
+            ->will($this->returnValue('NAME'));
+        $package->expects($this->any())
+            ->method('getVersion')
+            ->will($this->returnValue('1.0.0'));
+        $tasks->run(array('Timestamp', 'CommitPreRelease'), $package, array('pretend' => true));
+        $this->assertEquals(
+            array(
+                sprintf('Would timestamp %s now.', $this->_fixture),
+                sprintf('Would run "git add %s" now.', $this->_fixture),
+                'Would run "git commit -m "Released NAME-1.0.0"" now.'
+            ),
+            $this->output->getOutput()
+        );
+    }
+
+    private function _getValidPackage()
+    {
+        $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
+        $package->expects($this->any())
+            ->method('getPackageXml')
+            ->will($this->returnValue($this->_fixture));
+        return $package;
     }
 }

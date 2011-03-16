@@ -51,4 +51,30 @@ extends Components_Release_Task_Base
         }
         return array();
     }
+
+    /**
+     * Run the task.
+     *
+     * @return NULL
+     */
+    public function run()
+    {
+        if (!$this->getTasks()->pretend()) {
+            $this->getPackage()->timestamp();
+        } else {
+            $this->getOutput()->info(
+                sprintf(
+                    'Would timestamp %s now.',
+                    $this->getPackage()->getPackageXml()
+                )
+            );
+        }
+
+        if ($this->getTasks()->isTaskActive('CommitPreRelease')) {
+            $this->systemInDirectory(
+                'git add ' . $this->getPackage()->getPackageXml(),
+                dirname($this->getPackage()->getPackageXml())
+            );
+        }
+    }
 }

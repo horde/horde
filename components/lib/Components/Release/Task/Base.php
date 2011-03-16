@@ -35,6 +35,13 @@ class Components_Release_Task_Base
     private $_tasks;
 
     /**
+     * The task output.
+     *
+     * @var Components_Output
+     */
+    private $_output;
+
+    /**
      * The package that should be released
      *
      * @var Components_Pear_Package
@@ -47,9 +54,11 @@ class Components_Release_Task_Base
      * @param Components_Release_Tasks $tasks The task handler.
      */
     public function __construct(
-        Components_Release_Tasks $tasks
+        Components_Release_Tasks $tasks,
+        Components_Output $output
     ) {
         $this->_tasks = $tasks;
+        $this->_output = $output;
     }
 
     /**
@@ -85,6 +94,16 @@ class Components_Release_Task_Base
     }
 
     /**
+     * Get the output handler.
+     *
+     * @return Components_Output The output handler.
+     */
+    protected function getOutput()
+    {
+        return $this->_output;
+    }
+
+    /**
      * Validate the preconditions required for this release task.
      *
      * @return array An empty array if all preconditions are met and a list of
@@ -93,5 +112,39 @@ class Components_Release_Task_Base
     public function validate()
     {
         return array();
+    }
+
+    /**
+     * Run a system call.
+     *
+     * @param string $call       The system call to execute.
+     *
+     * @return string The command output.
+     */
+    protected function system($call)
+    {
+        if (!$this->getTasks()->pretend()) {
+            //@todo Error handling
+            return system($call);
+        } else {
+            $this->getOutput()->info(sprintf('Would run "%s" now.', $call));
+        }
+    }
+
+    /**
+     * Run a system call.
+     *
+     * @param string $call       The system call to execute.
+     * @param string $target_dir Run the command in the provided target path.
+     *
+     * @return string The command output.
+     */
+    protected function systemInDirectory($call, $target_dir)
+    {
+        $old_dir = getcwd();
+        chdir($target_dir);
+        $result = $this->system($call);
+        chdir($old_dir);
+        return $result;
     }
 }
