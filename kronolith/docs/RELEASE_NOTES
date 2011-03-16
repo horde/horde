@@ -49,6 +49,14 @@ The major changes compared to the Kronolith version H4 (3.0-ALPHA1) are:
 
     * Added converting of old event categories to tags
     * Small bug fixes
+
+The full list of changes (from version H4 (3.0-ALPHA1)) can be viewed here:
+
+https://github.com/horde/horde/blob/81898e25d09e26d07e1f44cd0313d4faf2d43a3e/kronolith/docs/CHANGES
+
+Have fun!
+
+The Horde Team.
 ML;
 
 /* Freshmeat release notes. */

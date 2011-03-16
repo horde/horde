@@ -45,6 +45,14 @@ application and install the database schema from the configuration interface.
 The major changes compared to the Ingo version H4 (2.0-ALPHA1) are:
 
     * Fixed creating new rules with PostgreSQL
+
+The full list of changes (from version H4 (2.0-ALPHA1)) can be viewed here:
+
+https://github.com/horde/horde/blob/d8332264c0dcf55ffd522b99d5874ea2962754e2/ingo/docs/CHANGES
+
+Have fun!
+
+The Horde Team.
 ML;
 
 /* Freshmeat release notes. */

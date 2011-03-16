@@ -47,6 +47,14 @@ The major changes compared to the Nag version H4 (3.0-ALPHA1) are:
 
     * Fixed deleting of task lists
     * Fixed saving tasks through WebDAV
+
+The full list of changes (from version H4 (3.0-ALPHA1)) can be viewed here:
+
+https://github.com/horde/horde/blob/a080a7b9c7cdba1018e674bde57bd08926254465/nag/docs/CHANGES
+
+Have fun!
+
+The Horde Team.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

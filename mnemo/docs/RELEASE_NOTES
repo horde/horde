@@ -47,6 +47,14 @@ The major changes compared to the Mnemo version H4 (3.0-ALPHA1) are:
 
     * Fixed PDF generation.
     * Fixed encrypting and decrypting of notes.
+
+The full list of changes (from version H4 (3.0-ALPHA1)) can be viewed here:
+
+https://github.com/horde/horde/blob/5b1192434381aa6787594649dae07d812b0e6e74/mnemo/docs/CHANGES
+
+Have fun!
+
+The Horde Team.
 ML;
 
 /* Freshmeat release notes. */

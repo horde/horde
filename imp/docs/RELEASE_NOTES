@@ -47,6 +47,14 @@ application and install the database schema from the configuration interface.
 The major changes compared to the IMP version H4 (5.0-ALPHA1) are:
 
     * Small bugfixes.
+
+The full list of changes (from version H4 (5.0-ALPHA1)) can be viewed here:
+
+https://github.com/horde/horde/blob/e7dbf2817de9abd761ec23526592f670a640359e/imp/docs/CHANGES
+
+Have fun!
+
+The Horde Team.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

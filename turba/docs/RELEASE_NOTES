@@ -47,6 +47,14 @@ The major changes compared to the Turba version H4 (3.0-ALPHA1) are:
 
     * Fixed exporting birthdays to calendars
     * Fixed importing contacts through SyncML
+
+The full list of changes (from version H4 (3.0-ALPHA1)) can be viewed here:
+
+https://github.com/horde/horde/blob/a0179cc102151799ec5ba7ac0abb5cab5bda825f/turba/docs/CHANGES
+
+Have fun!
+
+The Horde Team.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

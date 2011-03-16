@@ -88,6 +88,14 @@ The major changes compared to the Horde version 4.0-ALPHA1 are:
 
 Please see our issue tracker for a list of open bugs on this release:
 http://bugs.horde.org/query/showstoppers4
+
+The full list of changes (from version 4.0-ALPHA1) can be viewed here:
+
+https://github.com/horde/horde/blob/6c7deabf63dd512f0d4e77e843ae3c3bab068638/horde/docs/CHANGES
+
+Have fun!
+
+The Horde Team.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
