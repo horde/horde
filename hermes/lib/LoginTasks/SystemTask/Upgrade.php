@@ -26,18 +26,22 @@ class Hermes_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemT
 
     /**
      */
-    protected function _execute($version)
+    protected function _upgrade($version)
     {
         switch ($version) {
         case '2.0':
-            /* Upgrade to the new preferences storage format. */
-            $upgrade_prefs = array(
-                'running_timers'
-            );
-
-            $GLOBALS['injector']->getInstance('Horde_Core_Prefs_Storage_Upgrade')->upgradeSerialized($GLOBALS['prefs'], $upgrade_prefs);
-            break;
+            $this->_upgradeTimersStorage();
         }
+    }
+
+    protected function _upgradeTimersStorage()
+    {
+        /* Upgrade to the new preferences storage format. */
+        $upgrade_prefs = array(
+            'running_timers'
+        );
+
+        $GLOBALS['injector']->getInstance('Horde_Core_Prefs_Storage_Upgrade')->upgradeSerialized($GLOBALS['prefs'], $upgrade_prefs);
     }
 
 }
