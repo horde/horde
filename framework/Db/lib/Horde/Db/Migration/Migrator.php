@@ -127,11 +127,17 @@ class Horde_Db_Migration_Migrator
      */
     public function getTargetVersion()
     {
-        $direction = $this->_direction;
-        $this->_direction = 'up';
-        $migration = array_pop($this->_getMigrationClasses());
-        $this->_direction = $direction;
-        return $migration->version;
+        $migrations = array();
+        foreach ($this->_getMigrationFiles() as $migrationFile) {
+            list($version, $name) = $this->_getMigrationVersionAndName($migrationFile);
+            $this->_assertUniqueMigrationVersion($migrations, $version);
+            $migrations[$version] = $name;
+        }
+
+        // Sort by version.
+        uksort($migrations, 'strnatcmp');
+
+        return key(array_reverse($migrations, true));
     }
 
     /**
