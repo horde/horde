@@ -41,6 +41,9 @@ implements Components_Dependencies
         $this->bindFactory(
             'Horde_Cli', 'Components_Dependencies', 'createCli'
         );
+        $this->bindFactory(
+            'Components_Output', 'Components_Dependencies', 'createOutput'
+        );
     }
 
     /**
@@ -195,5 +198,18 @@ implements Components_Dependencies
     public function createCli()
     {
         return Horde_Cli::init();
+    }
+
+    /**
+     * Create the Components_Output handler.
+     *
+     * @return Components_Output The output handler.
+     */
+    public function createOutput($injector)
+    {
+        return new Components_Output(
+            $injector->getInstance('Horde_Cli'),
+            $injector->getInstance('Components_Config')->getOptions()
+        );
     }
 }

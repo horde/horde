@@ -58,15 +58,12 @@ class Components_Output
     /**
      * Constructor.
      *
-     * @param Horde_Cli         $cli    The CLI handler.
-     * @param Components_Config $config The configuration for the current job.
+     * @param Horde_Cli $cli     The CLI handler.
+     * @param array     $options The configuration for the current job.
      */
-    public function __construct(
-        Horde_Cli $cli,
-        Components_Config $config
-    ) {
+    public function __construct($cli, $options)
+    {
         $this->_cli = $cli;
-        $options = $config->getOptions();
         $this->_verbose = !empty($options['verbose']);
         $this->_quiet = !empty($options['quiet']);
         $this->_nocolor = !empty($options['nocolor']);
@@ -127,6 +124,17 @@ class Components_Output
         $this->_cli->message(
             $text,
             $this->_getType('cli.warning')
+        );
+    }
+
+    public function info($text)
+    {
+        if ($this->_quiet) {
+            return;
+        }
+        $this->_cli->message(
+            $text,
+            $this->_getType('cli.message')
         );
     }
 
