@@ -84,7 +84,7 @@ extends Components_Release_Task_Base
     protected function _updateInfo($action, $file, $version)
     {
         $this->getOutput()->info(
-            sprintf('Would %s %s with %s now.', $action, $file, $version)
+            sprintf('Would %s %s with "%s" now.', $action, $file, $version)
         );
     }
 }
