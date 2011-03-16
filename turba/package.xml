@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-15</date>
- <time>22:30:25</time>
+ <date>2011-03-16</date>
+ <time>19:29:03</time>
  <version>
   <release>3.0.0beta1</release>
   <api>3.0.0</api>
@@ -901,7 +901,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-15</date>
+   <date>2011-03-16</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * Fix the listTimeObjects API for shared sources (Bug #9649).
