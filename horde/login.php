@@ -207,11 +207,7 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
     if (!($view_cookie = Horde_Util::getFormData('horde_select_view'))) {
         $view_cookie = isset($_COOKIE['default_horde_view'])
             ? $_COOKIE['default_horde_view']
-            : ($GLOBALS['browser']->isMobile()
-               ? ($GLOBALS['browser']->getBrowser() == 'webkit'
-                  ? 'mobile'
-                  : 'smartmobile')
-               : 'traditional');
+            : 'auto';
     }
 
     $js_code['HordeLogin.pre_sel'] = $view_cookie;
