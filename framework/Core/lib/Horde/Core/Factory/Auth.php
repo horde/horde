@@ -111,9 +111,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 break;
 
             case 'http_remote':
-                if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-                    $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
-                }
+                $params['client'] = $this->_injector->getInstance('Horde_Core_Factory_HttpClient')->create();
                 break;
 
             case 'imap':

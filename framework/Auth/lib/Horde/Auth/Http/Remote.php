@@ -20,7 +20,7 @@ class Horde_Auth_Http_Remote extends Horde_Auth_Base
      *
      * @param array $params  Configuration parameters:
      * <pre>
-     * 'proxy' - (array) TODO
+     * 'client' - (Horde_Http_Client) [REQUIRED] TODO
      * 'url' - (string) [REQUIRED] TODO
      * </pre>
      *
@@ -28,13 +28,9 @@ class Horde_Auth_Http_Remote extends Horde_Auth_Base
      */
     public function __construct(array $params = array())
     {
-        if (!isset($params['url'])) {
+        if (!isset($params['url']) || !isset($params['client'])) {
             throw new InvalidArgumentException();
         }
-
-        $params = array_merge(array(
-            'proxy' => array()
-        ), $params);
 
         parent::__construct($params);
     }
@@ -49,18 +45,11 @@ class Horde_Auth_Http_Remote extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        $options = array_merge(array(
-            'allowRedirects' => true,
-            'method' => 'GET',
-            'timeout' => 5
-        ), $this->_params['proxy']);
-
-        $request = new HTTP_Request($this->_params['url'], $options);
-        $request->setBasicAuth($userId, $credentials['password']);
-
-        $request->sendRequest();
-
-        if ($request->getResponseCode() != 200) {
+        $this->_params['client']->request->username = $userId;
+        $this->_params['client']->request->password = $credentials;
+        $this->_params['client']->request->authenticationScheme = Horde_Http::AUTH_BASIC;
+        $response = $this->__params['client']->get($this->_params['url']);
+        if ($response->code != 200) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }
