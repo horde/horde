@@ -72,6 +72,13 @@ extends Components_Module_Base
                     'help'   => 'The version number planned for the next release of the component.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--from',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The sender address for mailing list announcements.'
+                )
+            ),
         );
     }
 

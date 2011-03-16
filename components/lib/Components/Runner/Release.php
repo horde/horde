@@ -49,6 +49,15 @@ class Components_Runner_Release
     private $_output;
 
     /**
+     * Populated when the RELEASE_NOTES file is included.
+     * Should probably be refactored to use a setter for each
+     * property the RELEASE_NOTES file sets...
+     *
+     * @var array
+     */
+    public $notes = array();
+
+    /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current
@@ -83,6 +92,8 @@ class Components_Runner_Release
             );
         }
 
+        $this->_loadNotes(dirname($package_xml) . '/docs');
+
         if ($this->_doTask('timestamp')) {
             $package->timestamp();
             if ($this->_doTask('commit')) {
@@ -99,7 +110,10 @@ class Components_Runner_Release
                 Components_Helper_Version::pearToHorde($package->getVersion())
             );
             $sentinel->updateApplication(
-                Components_Helper_Version::pearToHorde($package->getVersion())
+                Components_Helper_Version::pearToHordeWithBranch(
+                    $package->getVersion(),
+                    $this->notes['branch']
+                )
             );
             if ($this->_doTask('commit')) {
                 if ($changes = $sentinel->changesFileExists()) {
@@ -127,6 +141,33 @@ class Components_Runner_Release
             system('git commit -m "Released ' . $release . '."');
         }
 
+        if ($this->_doTask('announce')) {
+            if (!class_exists('Horde_Release')) {
+                throw new Components_Exception('The release package is missing!');
+            }
+            $mailer = new Horde_Release_MailingList(
+                $package->getName(),
+                isset($this->notes['name']) ? $this->notes['name'] : $package->name(),
+                $this->notes['branch'],
+                $options['from'],
+                isset($this->notes['list']) ? $this->notes['list'] : null,
+                Components_Helper_Version::pearToHorde($package->getVersion()),
+                $this->notes['tag_list']
+            );
+            if (isset($this->notes['ml']['changes'])) {
+                $mailer->append($this->notes['ml']['changes']);
+            }
+
+            if ($this->_doTask('send')) {
+                $class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
+                $mailer->getMail()->send(new $class($this->_options['mailer']['params']));
+            } else {
+                print "Message headers:\n";
+                print_r($mailer->getHeaders());
+                print "Message body:\n" . $mailer->getBody() . "\n";
+            }
+        }
+
         if ($options['next']) {
             if ($this->_doTask('sentinel')) {
                 if (!class_exists('Horde_Release')) {
@@ -137,7 +178,10 @@ class Components_Runner_Release
                     Components_Helper_Version::pearToHorde($options['next'])
                 );
                 $sentinel->updateApplication(
-                    Components_Helper_Version::pearToHorde($options['next'])
+                    Components_Helper_Version::pearToHordeWithBranch(
+                        $options['next'],
+                        $this->notes['branch']
+                    )
                 );
                 if ($this->_doTask('commit')) {
                     if ($changes = $sentinel->changesFileExists()) {
@@ -170,5 +214,36 @@ class Components_Runner_Release
             return true;
         }
         return false;
+    }
+
+    private function _loadNotes($directory)
+    {
+        if (file_exists("$directory/RELEASE_NOTES")) {
+            include "$directory/RELEASE_NOTES";
+            if (strlen($this->notes['fm']['changes']) > 600) {
+                print "WARNING: freshmeat release notes are longer than 600 characters!\n";
+            }
+        }
+        if (isset($this->notes['fm']['focus'])) {
+            if (is_array($this->notes['fm']['focus'])) {
+                $this->notes['tag_list'] = $this->notes['fm']['focus'];
+            } else {
+                $this->notes['tag_list'] = array($this->notes['fm']['focus']);
+            }
+        } else {
+            $this->notes['tag_list'] = array();
+        }
+        if (!empty($this->notes['fm']['branch'])) {
+            if ($this->notes['name'] == 'Horde') {
+                $this->notes['branch'] = '';
+            } else {
+                $this->notes['branch'] = strtr(
+                    $this->notes['fm']['branch'],
+                    array('Horde ' => 'H')
+                );
+            }
+        } else {
+            $this->notes['branch'] = '';
+        }
     }
 }

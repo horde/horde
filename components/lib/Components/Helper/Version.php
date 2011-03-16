@@ -54,4 +54,22 @@ class Components_Helper_Version
         }
         return $main . $post;
     }
+
+    /**
+     * Convert the PEAR package version number to Horde style and take the
+     * branch name into account.
+     *
+     * @param string $version The PEAR package version.
+     * @param string $branch  The Horde branch name.
+     *
+     * @return string The Horde style version.
+     */
+    static public function pearToHordeWithBranch($version, $branch)
+    {
+        if (empty($branch)) {
+            return self::pearToHorde($version);
+        } else {
+            return $branch . ' (' . self::pearToHorde($version) . ')';
+        }
+    }
 }
