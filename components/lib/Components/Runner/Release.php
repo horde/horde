@@ -117,7 +117,7 @@ class Components_Runner_Release
         if ($this->_doTask('package')) {
             $sequence[] = 'Package';
             if ($this->_doTask('upload')) {
-                $option['upload'] = true;
+                $options['upload'] = true;
             }
         }
 

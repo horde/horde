@@ -1,7 +1,7 @@
 <?php
 /**
- * Components_Release_Task_CurrentSentinel:: updates the CHANGES and the
- * Application.php files with the current package version.
+ * Components_Release_Task_NextSentinel:: updates the CHANGES and the
+ * Application.php files with the next package version.
  *
  * PHP version 5
  *
@@ -27,9 +27,26 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Release_Task_CurrentSentinel
+class Components_Release_Task_NextSentinel
 extends Components_Release_Task_Sentinel
 {
+    /**
+     * Validate the preconditions required for this release task.
+     *
+     * @param array $options Additional options.
+     *
+     * @return array An empty array if all preconditions are met and a list of
+     *               error messages otherwise.
+     */
+    public function validate($options)
+    {
+        $errors = parent::validate($options);
+        if (empty($options['next'])) {
+            $errors[] = 'The "next" option has no value! What should the next version number be?';
+        }
+        return $errors;
+    }
+
     /**
      * Run the task.
      *
@@ -43,22 +60,22 @@ extends Components_Release_Task_Sentinel
             $this->getPackage()->getComponentDirectory()
         );
         $changes_version = Components_Helper_Version::pearToHorde(
-            $this->getPackage()->getVersion()
+            $options['next']
         );
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
-            $this->getPackage()->getVersion(), $this->getNotes()->getBranch()
+            $options['next'], $this->getNotes()->getBranch()
         );
         if (!$this->getTasks()->pretend()) {
-            $sentinel->replaceChanges($changes_version);
+            $sentinel->updateChanges($changes_version);
             $sentinel->updateApplication($application_version);
         } else {
             if ($changes = $sentinel->changesFileExists()) {
-                $this->_updateInfo('replace', $changes, $changes_version);
+                $this->_updateInfo('extend', $changes, $changes_version);
             }
             if ($application = $sentinel->applicationFileExists()) {
                 $this->_updateInfo('replace', $application, $application_version);
             }
         }
-        $this->_commit($sentinel, 'CommitPreRelease');
+        $this->_commit($sentinel, 'CommitPostRelease');
     }
 }

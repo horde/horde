@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the current sentinel release task.
+ * Test the next sentinel release task.
  *
  * PHP version 5
  *
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../../../../Autoload.php';
 
 /**
- * Test the current sentinel release task.
+ * Test the next sentinel release task.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Components
  */
-class Components_Unit_Components_Release_Task_CurrentSentinelTest
+class Components_Unit_Components_Release_Task_NextSentinelTest
 extends Components_TestCase
 {
     public function testRunTaskWithoutCommit()
@@ -43,20 +43,24 @@ extends Components_TestCase
         $package->expects($this->any())
             ->method('getComponentDirectory')
             ->will($this->returnValue($tmp_dir));
-        $package->expects($this->any())
-            ->method('getVersion')
-            ->will($this->returnValue('4.0.1rc1'));
-        $tasks->run(array('CurrentSentinel'), $package);
+        $tasks->run(array('NextSentinel'), $package, array('next' => '5.0.0-git'));
         $this->assertEquals(
-            '----------
-v4.0.1-RC1
-----------
+            '--------
+v5.0-git
+--------
+
+
+
+
+---
+OLD
+---
 TEST',
             file_get_contents($tmp_dir . '/docs/CHANGES')
         );
         $this->assertEquals(
             'class Application {
-public $version = \'4.0.1-RC1\';
+public $version = \'5.0-git\';
 }
 ',
             file_get_contents($tmp_dir . '/lib/Application.php')
@@ -77,14 +81,14 @@ public $version = \'4.0.1-RC1\';
         $package->expects($this->any())
             ->method('getVersion')
             ->will($this->returnValue('4.0.1rc1'));
-        $tasks->run(array('CurrentSentinel', 'CommitPreRelease'), $package, array('pretend' => true));
+        $tasks->run(array('NextSentinel', 'CommitPostRelease'), $package, array('next' => '5.0.0-git', 'pretend' => true));
         $this->assertEquals(
             array(
-                sprintf('Would replace %s/docs/CHANGES with 4.0.1-RC1 now.', $tmp_dir),
-                sprintf('Would replace %s/lib/Application.php with 4.0.1-RC1 now.', $tmp_dir),
+                sprintf('Would extend %s/docs/CHANGES with 5.0-git now.', $tmp_dir),
+                sprintf('Would replace %s/lib/Application.php with 5.0-git now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
-                'Would run "git commit -m "Released Horde-4.0.1rc1"" now.'
+                'Would run "git commit -m "Development mode for Horde-5.0.0-git"" now.'
             ),
             $this->output->getOutput()
         );
