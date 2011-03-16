@@ -55,9 +55,6 @@ extends Components_Release_Task_Base
         if (!class_exists('Horde_Release_Whups')) {
             $errors[] = 'The Horde_Release package is missing (specifically the class Horde_Release_Whups)!';
         }
-        if (!class_exists('Horde_Release_Whups')) {
-            $errors[] = 'The Horde_Release package is missing (specifically the class Horde_Release_Whups)!';
-        }
         try {
             $this->_qid = $this->_getBugs($options)
                 ->getQueueId($this->getPackage()->getName());
