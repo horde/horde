@@ -149,6 +149,16 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the base directory of the component.
+     *
+     * @return string
+     */
+    public function getComponentDirectory()
+    {
+        return dirname($this->getPackageXml());
+    }
+
+    /**
      * Define the package to work on.
      *
      * @param string $package_tgz_path Path to the *.tgz file.
