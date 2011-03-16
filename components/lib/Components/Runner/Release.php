@@ -49,6 +49,13 @@ class Components_Runner_Release
     private $_output;
 
     /**
+     * The release tasks handler.
+     *
+     * @param Component_Release_Tasks
+     */
+    private $_release;
+
+    /**
      * Populated when the RELEASE_NOTES file is included.
      * Should probably be refactored to use a setter for each
      * property the RELEASE_NOTES file sets...
@@ -65,15 +72,18 @@ class Components_Runner_Release
      * @param Components_Pear_Factory $factory The factory for PEAR
      *                                         dependencies.
      * @param Component_Output        $output  The output handler.
+     * @param Component_Release_Tasks $release The tasks handler.
      */
     public function __construct(
         Components_Config $config,
         Components_Pear_Factory $factory,
-        Components_Output $output
+        Components_Output $output,
+        Components_Release_Tasks $release
     ) {
         $this->_config = $config;
         $this->_factory = $factory;
         $this->_output = $output;
+        $this->_release = $release;
     }
 
     public function run()
@@ -94,35 +104,24 @@ class Components_Runner_Release
 
         $this->_loadNotes(dirname($package_xml) . '/docs');
 
+        $sequence = array();
+
         if ($this->_doTask('timestamp')) {
-            $package->timestamp();
-            if ($this->_doTask('commit')) {
-                system('git add ' . $package_xml);
-            }
+            $sequence[] = 'Timestamp';
         }
 
         if ($this->_doTask('sentinel')) {
-            if (!class_exists('Horde_Release')) {
-                throw new Components_Exception('The release package is missing!');
-            }
-            $sentinel = new Horde_Release_Sentinel(dirname($package_xml));
-            $sentinel->replaceChanges(
-                Components_Helper_Version::pearToHorde($package->getVersion())
-            );
-            $sentinel->updateApplication(
-                Components_Helper_Version::pearToHordeWithBranch(
-                    $package->getVersion(),
-                    $this->notes['branch']
-                )
-            );
-            if ($this->_doTask('commit')) {
-                if ($changes = $sentinel->changesFileExists()) {
-                    system('git add ' . $changes);
-                }
-                if ($application = $sentinel->applicationFileExists()) {
-                    system('git add ' . $application);
-                }
-            }
+            $sequence[] = 'CurrentSentinel';
+        }
+
+        if ($this->_doTask('commit')) {
+            $sequence[] = 'CommitPreRelease';
+        }
+
+        if (!empty($sequence)) {
+            $this->_release->run($sequence, $package, $options);
+        } else {
+            $this->_output->warn('Huh?! No tasks selected... All done!');
         }
 
         if ($this->_doTask('package')) {
