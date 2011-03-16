@@ -103,14 +103,6 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '-P',
-                '--pretend',
-                array(
-                    'action' => 'store_true',
-                    'help'   => 'Just indicate what would be installed.',
-                )
-            ),
-            new Horde_Argv_Option(
                 '-s',
                 '--symlink',
                 array(

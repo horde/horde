@@ -68,6 +68,16 @@ extends Components_Config_Base
         );
         $parser->addOption(
             new Horde_Argv_Option(
+                '-P',
+                '--pretend',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Just pretend and indicate what would be done rather than performing the action (This option is not yet supported by all modules - "install" and "release" so far).',
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
                 '-N',
                 '--nocolor',
                 array(
