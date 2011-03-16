@@ -11,8 +11,8 @@ owns or has access to.</description>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-15</date>
- <time>18:27:46</time>
+ <date>2011-03-16</date>
+ <time>18:18:02</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -648,7 +648,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-15</date>
+   <date>2011-03-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First beta release for Horde 4.
