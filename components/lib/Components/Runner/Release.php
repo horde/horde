@@ -114,6 +114,13 @@ class Components_Runner_Release
             $sequence[] = 'CurrentSentinel';
         }
 
+        if ($this->_doTask('package')) {
+            $sequence[] = 'Package';
+            if ($this->_doTask('upload')) {
+                $option['upload'] = true;
+            }
+        }
+
         if ($this->_doTask('commit')) {
             $sequence[] = 'CommitPreRelease';
         }
@@ -124,15 +131,6 @@ class Components_Runner_Release
             $this->_output->warn('Huh?! No tasks selected... All done!');
         }
 
-        if ($this->_doTask('package')) {
-            $path = $package->generateRelease();
-            if ($this->_doTask('upload')) {
-                print system('scp ' . $path . ' ' . $options['releaseserver'] . ':~/');
-                print system('ssh '. $options['releaseserver'] . ' "pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
-                unlink($path);
-            }
-
-        }
 
         $release = $package->getName() . '-' . $package->getVersion();
 
