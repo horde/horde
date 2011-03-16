@@ -1,17 +1,16 @@
 <?php
 /**
- * Release focus. A Horde_Release::FOCUS_* constant or an array of them
- *
- *   self::FOCUS_INITIAL = 'Initial announcement';
- *   self::FOCUS_MINORFEATURE = 'minor feature enhancement';
- *   self::FOCUS_MAJORFEATURE = 'major feature enhancement';
- *   self::FOCUS_MINORBUG = 'minor bugfixes';
- *   self::FOCUS_MAJORBUG = 'major bugfixes';
- *   self::FOCUS_MINORSECURITY = 'minor security fixes';
- *   self::FOCUS_MAJORSECURITY = 'major security fixes';
- *   self::FOCUS_DOCS = 'documentation improvements';
+ * Release focus. Possible values (multiple possible with arrays):
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(self::FOCUS_MINORFEATURE, self::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
