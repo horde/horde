@@ -128,12 +128,25 @@ class Components_Release_Task_Base
     /**
      * Validate the preconditions required for this release task.
      *
+     * @param array $options Additional options.
+     *
      * @return array An empty array if all preconditions are met and a list of
      *               error messages otherwise.
      */
-    public function validate()
+    public function validate($options)
     {
         return array();
+    }
+
+    /**
+     * Run the task.
+     *
+     * @param array $options Additional options.
+     *
+     * @return NULL
+     */
+    public function run($options)
+    {
     }
 
     /**

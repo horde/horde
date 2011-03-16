@@ -33,9 +33,11 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
+     * @param array $options Additional options.
+     *
      * @return NULL
      */
-    public function run()
+    public function run($options)
     {
         $this->systemInDirectory(
             'git commit -m "Released ' . $this->getPackage()->getName()

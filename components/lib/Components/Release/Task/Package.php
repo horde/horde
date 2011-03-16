@@ -1,7 +1,6 @@
 <?php
 /**
- * Components_Release_Task_Timestamp:: timestamps the package right before the
- * release.
+ * Components_Release_Task_Package:: prepares and uploads a release package.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * Components_Release_Task_Timestamp:: timestamps the package right before the
- * release.
+ * Components_Release_Task_Package:: prepares and uploads a release package.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -27,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Release_Task_Timestamp
+class Components_Release_Task_Package
 extends Components_Release_Task_Base
 {
     /**
@@ -40,18 +38,14 @@ extends Components_Release_Task_Base
      */
     public function validate($options)
     {
-        try {
-            if (!file_exists($this->getPackage()->getPackageXml())) {
-                return array(
-                    sprintf(
-                        '%s is missing but required!',
-                        $this->getPackage()->getPackageXml())
-                );
-            }
-        } catch (Components_Exception $e) {
-            return array($e->getMessage());
+        $errors = array();
+        if (empty($options['releaseserver'])) {
+            $errors[] = 'The "releaseserver" option has no value. Where should the release be uploaded?';
         }
-        return array();
+        if (empty($options['releasedir'])) {
+            $errors[] = 'The "releasedir" option has no value. Where is the remote pirum install located?';
+        }
+        return $errors;
     }
 
     /**
@@ -64,21 +58,23 @@ extends Components_Release_Task_Base
     public function run($options)
     {
         if (!$this->getTasks()->pretend()) {
-            $this->getPackage()->timestamp();
+            $path = $this->getPackage()->generateRelease();
         } else {
+            $path = '[PATH TO RESULTING]/[PACKAGE.TGZ - PRETEND MODE]';
             $this->getOutput()->info(
                 sprintf(
-                    'Would timestamp %s now.',
-                    $this->getPackage()->getPackageXml()
+                    'Would package %s now.',
+                    $this->getPackage()->getName()
                 )
             );
         }
 
-        if ($this->getTasks()->isTaskActive('CommitPreRelease')) {
-            $this->systemInDirectory(
-                'git add ' . $this->getPackage()->getPackageXml(),
-                dirname($this->getPackage()->getPackageXml())
-            );
+        if (!empty($options['upload'])) {
+            $this->system('scp ' . $path . ' ' . $options['releaseserver'] . ':~/');
+            $this->system('ssh '. $options['releaseserver'] . ' "pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
+            if (!$this->getTasks()->pretend()) {
+                unlink($path);
+            }
         }
     }
 }

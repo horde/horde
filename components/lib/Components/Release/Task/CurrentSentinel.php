@@ -33,10 +33,12 @@ extends Components_Release_Task_Base
     /**
      * Validate the preconditions required for this release task.
      *
+     * @param array $options Additional options.
+     *
      * @return array An empty array if all preconditions are met and a list of
      *               error messages otherwise.
      */
-    public function validate()
+    public function validate($options)
     {
         if (!class_exists('Horde_Release')) {
             return array('The Horde_Release package is missing!');
@@ -47,9 +49,11 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
+     * @param array $options Additional options.
+     *
      * @return NULL
      */
-    public function run()
+    public function run($options)
     {
         $sentinel = new Horde_Release_Sentinel(
             dirname($this->getPackage()->getPackageXml())

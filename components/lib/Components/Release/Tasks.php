@@ -101,7 +101,7 @@ class Components_Release_Tasks
         }
         $errors = array();
         foreach ($task_sequence as $task) {
-            $errors = array_merge($errors, $task->validate());
+            $errors = array_merge($errors, $task->validate($options));
         }
         if (!empty($errors)) {
             throw new Components_Exception(
@@ -109,7 +109,7 @@ class Components_Release_Tasks
             );
         }
         foreach ($task_sequence as $task) {
-            $task->run();
+            $task->run($options);
         }
     }
 
