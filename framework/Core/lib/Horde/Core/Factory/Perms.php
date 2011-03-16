@@ -30,7 +30,7 @@ class Horde_Core_Factory_Perms extends Horde_Core_Factory_Injector
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         $class = is_null($driver)
-            ? 'Horde_Perms'
+            ? 'Horde_Perms_Null'
             : 'Horde_Perms' . '_' . ucfirst(basename($driver));
 
         if (class_exists($class)) {

@@ -41,7 +41,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
             ->method('getPermissionId')
             ->will($this->returnValue('test'));
         $this->groups = $this->getMock('Horde_Group_Base', array(), array(), '', false, false);
-        $this->perms = new Horde_Perms_Sql(array('db' => true));
+        $this->perms = new Horde_Perms_Null();
     }
 
     public function testConstruct()

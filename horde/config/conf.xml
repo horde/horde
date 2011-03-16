@@ -926,9 +926,10 @@
    <configheader>Permissions Settings</configheader>
    <configswitch name="driver" desc="What backend should we use for Horde
    Permissions?">Sql
-     <case name="Sql" desc="SQL">
-      <configsql switchname="driverconfig" />
-     </case>
+    <case name="Null" desc="Disable Permissions"/>
+    <case name="Sql" desc="SQL">
+     <configsql switchname="driverconfig" />
+    </case>
    </configswitch>
   </configsection>
  </configtab>
