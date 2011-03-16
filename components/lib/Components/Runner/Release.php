@@ -129,6 +129,10 @@ class Components_Runner_Release
             $sequence[] = 'CommitPreRelease';
         }
 
+        if ($this->_doTask('tag')) {
+            $sequence[] = 'TagRelease';
+        }
+
         if ($this->_doTask('announce')) {
             $sequence[] = 'Announce';
         }
