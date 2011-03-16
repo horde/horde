@@ -131,7 +131,7 @@ The available tasks are:
  - timestamp   : Update the package with a current timestamp
  - package     : Prepare a *.tgz package.
    - upload    : Upload the package to pear.horde.org
- - sentinel    : Update the sentinel in docs/CHANGES (if the file exists).
+ - sentinel    : Update the sentinels in docs/CHANGES and lib/Application.php.
  - commit      : Commit any changes with an automated message.
  - tag         : Add a git release tag.
 
