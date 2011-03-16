@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-15</date>
- <time>18:31:04</time>
+ <date>2011-03-16</date>
+ <time>18:17:54</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -214,7 +214,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-15</date>
+   <date>2011-03-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Workaround PHP &lt; 5.2.6 (broken stream handling) (Bug #9644).
