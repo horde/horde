@@ -578,7 +578,6 @@ class Horde_Release
             $this->_options['ml']['from'],
             isset($this->notes['list']) ? $this->notes['list'] : null,
             $this->_ticketVersion,
-            $this->_oldSourceVersionString,
             $version['tag_list']
         );
 

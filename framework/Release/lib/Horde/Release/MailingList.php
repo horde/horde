@@ -74,13 +74,6 @@ class Horde_Release_MailingList
     private $_version;
 
     /**
-     * The version released previously.
-     *
-     * @param string
-     */
-    private $_old_version;
-
-    /**
      * The list of focus tags.
      *
      * @param array
@@ -105,11 +98,10 @@ class Horde_Release_MailingList
      * @param string $list        The mailing list the announcement should be
      *                            sent to.
      * @param string $version     The version to be released.
-     * @param string $old_version The version released before this one.
      * @param array  $tag_list    Release focus.
      */
     public function __construct(
-        $component, $name, $branch, $from, $list, $version, $old_version, $tag_list
+        $component, $name, $branch, $from, $list, $version, $tag_list
     ) {
         $this->_component = $component;
         $this->_name = $name;
@@ -117,7 +109,6 @@ class Horde_Release_MailingList
         $this->_from = $from;
         $this->_list = $list;
         $this->_version = $version;
-        $this->_old_version = $old_version;
         $this->_tag_list = $tag_list;
         $this->_body = '';
     }
