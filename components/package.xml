@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-16</date>
- <time>16:40:13</time>
+ <time>17:08:21</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -121,6 +121,7 @@
      </dir> <!-- /lib/Components/Pear -->
      <dir name="Release">
       <dir name="Task">
+       <file name="Announce.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="CommitPostRelease.php" role="php" />
        <file name="CommitPreRelease.php" role="php" />
@@ -429,6 +430,7 @@
    <install as="Components/Pear/Package/Filelist/Factory.php" name="lib/Components/Pear/Package/Filelist/Factory.php" />
    <install as="Components/Release/Notes.php" name="lib/Components/Release/Notes.php" />
    <install as="Components/Release/Tasks.php" name="lib/Components/Release/Tasks.php" />
+   <install as="Components/Release/Task/Announce.php" name="lib/Components/Release/Task/Announce.php" />
    <install as="Components/Release/Task/Base.php" name="lib/Components/Release/Task/Base.php" />
    <install as="Components/Release/Task/CommitPostRelease.php" name="lib/Components/Release/Task/CommitPostRelease.php" />
    <install as="Components/Release/Task/CommitPreRelease.php" name="lib/Components/Release/Task/CommitPreRelease.php" />

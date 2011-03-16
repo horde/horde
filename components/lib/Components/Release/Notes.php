@@ -97,4 +97,72 @@ class Components_Release_Notes
             return '';
         }
     }
+
+    /**
+     * Returns the release name.
+     *
+     * @return string The release name.
+     */
+    public function getName()
+    {
+        if (isset($this->notes['name'])) {
+            return $this->notes['name'];
+        } else {
+            return $this->_package->getName();
+        }
+    }
+
+    /**
+     * Returns the specific mailing list that the release announcement for this
+     * package should be sent to.
+     *
+     * @return string|null The mailing list.
+     */
+    public function getList()
+    {
+        if (isset($this->notes['list'])) {
+            return $this->notes['list'];
+        }
+    }
+
+    /**
+     * Return the list of release foci.
+     *
+     * @return array The main topics of the release.
+     */
+    public function getFocusList()
+    {
+        if (isset($this->notes['fm']['focus'])) {
+            if (is_array($this->notes['fm']['focus'])) {
+                return $this->notes['fm']['focus'];
+            } else {
+                return array($this->notes['fm']['focus']);
+            }
+        } else {
+            return array();
+        }
+    }
+
+    /**
+     * Return the announcement text.
+     *
+     * @return string The text.
+     */
+    public function getAnnouncement()
+    {
+        if (isset($this->notes['ml']['changes'])) {
+            return $this->notes['ml']['changes'];
+        }
+        return '';
+    }
+
+    /**
+     * Does the current component come with release notes?
+     *
+     * @return boolean True if release notes are available.
+     */
+    public function hasNotes()
+    {
+        return empty($this->notes);
+    }
 }

@@ -129,6 +129,10 @@ class Components_Runner_Release
             $sequence[] = 'CommitPreRelease';
         }
 
+        if ($this->_doTask('announce')) {
+            $sequence[] = 'Announce';
+        }
+
         if ($options['next']) {
 
             $post_commit = false;
@@ -147,37 +151,6 @@ class Components_Runner_Release
         } else {
             $this->_output->warn('Huh?! No tasks selected... All done!');
         }
-
-
-        $release = $package->getName() . '-' . $package->getVersion();
-
-        if ($this->_doTask('announce')) {
-            if (!class_exists('Horde_Release')) {
-                throw new Components_Exception('The release package is missing!');
-            }
-            $mailer = new Horde_Release_MailingList(
-                $package->getName(),
-                isset($this->notes['name']) ? $this->notes['name'] : $package->name(),
-                $this->notes['branch'],
-                $options['from'],
-                isset($this->notes['list']) ? $this->notes['list'] : null,
-                Components_Helper_Version::pearToHorde($package->getVersion()),
-                $this->notes['tag_list']
-            );
-            if (isset($this->notes['ml']['changes'])) {
-                $mailer->append($this->notes['ml']['changes']);
-            }
-
-            if ($this->_doTask('send')) {
-                $class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
-                $mailer->getMail()->send(new $class($this->_options['mailer']['params']));
-            } else {
-                print "Message headers:\n";
-                print_r($mailer->getHeaders());
-                print "Message body:\n" . $mailer->getBody() . "\n";
-            }
-        }
-
     }
 
     /**

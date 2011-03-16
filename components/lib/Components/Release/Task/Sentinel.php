@@ -40,8 +40,8 @@ extends Components_Release_Task_Base
      */
     public function validate($options)
     {
-        if (!class_exists('Horde_Release')) {
-            return array('The Horde_Release package is missing!');
+        if (!class_exists('Horde_Release_Sentinel')) {
+            return array('The Horde_Release package is missing (specifically the class Horde_Release_Sentinel)!');
         }
         return array();
     }
