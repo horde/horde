@@ -136,10 +136,6 @@ class Components_Runner_Release
 
         $release = $package->getName() . '-' . $package->getVersion();
 
-        if ($this->_doTask('commit')) {
-            system('git commit -m "Released ' . $release . '."');
-        }
-
         if ($this->_doTask('announce')) {
             if (!class_exists('Horde_Release')) {
                 throw new Components_Exception('The release package is missing!');
