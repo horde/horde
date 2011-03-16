@@ -1298,6 +1298,7 @@
    <date>2011-03-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Catch fatal errors about missing tables during initial configuration.
 * Added LoginTasks upgrade framework.
 * Added Horde_Core_Perms class.
 * Fix clearing expanded state for javascript trees (Bug #9659).
