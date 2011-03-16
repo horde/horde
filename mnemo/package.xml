@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-15</date>
- <time>22:26:05</time>
+ <date>2011-03-16</date>
+ <time>19:32:38</time>
  <version>
   <release>3.0.0beta1</release>
   <api>3.0.0</api>
@@ -623,7 +623,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-15</date>
+   <date>2011-03-16</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * Fix PDF generation.
