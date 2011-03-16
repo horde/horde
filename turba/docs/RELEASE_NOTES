@@ -57,6 +57,8 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Fixed exporting birthdays to calendars.
+Fixed importing contacts through SyncML.
 FM;
 
 $this->notes['name'] = 'Turba';

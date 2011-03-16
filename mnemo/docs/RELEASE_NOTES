@@ -57,6 +57,8 @@ ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
+Fixed PDF generation.
+Fixed encrypting and decrypting of notes.
 FM;
 
 $this->notes['name'] = 'Mnemo';

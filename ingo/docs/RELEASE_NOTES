@@ -55,6 +55,7 @@ ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
+Fixed creating new rules with PostgreSQL.
 FM;
 
 $this->notes['name'] = 'Ingo';

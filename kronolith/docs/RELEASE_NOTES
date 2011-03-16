@@ -59,6 +59,8 @@ ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
+Added converting of old event categories to tags.
+Small bug fixes.
 FM;
 
 $this->notes['name'] = 'Kronolith';
