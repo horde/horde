@@ -99,6 +99,29 @@ class Components_Release_Notes
     }
 
     /**
+     * Returns the link to the change log.
+     *
+     * @return string|null The link to the change log.
+     */
+    public function getChangelog()
+    {
+        $dir = $this->_package->getComponentDirectory();
+        if (basename(dirname($dir)) == 'framework') {
+            $root = '/framework/' . basename($dir);
+        } else {
+            $root = '/' . basename($dir);
+        }
+        if (file_exists($dir . '/docs/CHANGES')) {
+            $old_dir = getcwd();
+            chdir($dir);
+            $blob = trim(system('git log --format="%H" HEAD^..HEAD'));
+            chdir($old_dir);
+            return 'https://github.com/horde/horde/blob/' . $blob . $root . '/docs/CHANGES';
+        }
+        return '';
+    }
+
+    /**
      * Returns the release name.
      *
      * @return string The release name.
@@ -157,6 +180,32 @@ class Components_Release_Notes
     }
 
     /**
+     * Return the freshmeat project name.
+     *
+     * @return string The project name.
+     */
+    public function getFmProject()
+    {
+        if (isset($this->notes['fm']['project'])) {
+            return $this->notes['fm']['project'];
+        }
+        return '';
+    }
+
+    /**
+     * Return the freshmeat change log.
+     *
+     * @return string The change log.
+     */
+    public function getFmChanges()
+    {
+        if (isset($this->notes['fm']['changes'])) {
+            return $this->notes['fm']['changes'];
+        }
+        return '';
+    }
+
+    /**
      * Does the current component come with release notes?
      *
      * @return boolean True if release notes are available.
@@ -164,5 +213,15 @@ class Components_Release_Notes
     public function hasNotes()
     {
         return !empty($this->notes);
+    }
+
+    /**
+     * Does the current component come with freshmeat information?
+     *
+     * @return boolean True if freshmeat information is available.
+     */
+    public function hasFreshmeat()
+    {
+        return !empty($this->notes['fm']);
     }
 }
