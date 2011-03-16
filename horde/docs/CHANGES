@@ -2,6 +2,7 @@
 v4.0-BETA1
 ----------
 
+[jan] Catch fatal errors about missing tables during initial configuration.
 [mms] Fix client-side IMAP sorting using envelope data.
 [mms] Workaround PHP < 5.2.6 (broken stream handling) (Bug #9644).
 [mjr] Fix updating schema for individual libraries.

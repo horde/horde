@@ -34,8 +34,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Added LoginTasks upgrade framework.
-* Added Horde_Core_Perms class.
+* Catch fatal errors about missing tables during initial configuration.
+* Add LoginTasks upgrade framework.
+* Add Horde_Core_Perms class.
 * Fix clearing expanded state for javascript trees (Bug #9659).
 * Only show advanced preferences link if there are some.
  </notes>
