@@ -1787,9 +1787,14 @@ class Horde_Registry
         }
 
         /* Try transparent authentication. */
-        return empty($options['notransparent'])
-            ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create($app)->transparent()
-            : false;
+        try {
+            return empty($options['notransparent'])
+                ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create($app)->transparent()
+                : false;
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e);
+            return false;
+        }
     }
 
     /**
