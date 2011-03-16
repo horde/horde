@@ -82,8 +82,9 @@ extends Components_Release_Task_Base
             return;
         }
 
-        $version = Components_Helper_Version::pearToHorde(
-            $this->getPackage()->getVersion()
+        $version = Components_Helper_Version::pearToHordeWithBranch(
+            $this->getPackage()->getVersion(),
+            $this->getNotes()->getBranch()
         );
 
         $publish_data = array(
