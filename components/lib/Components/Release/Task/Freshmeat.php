@@ -112,7 +112,12 @@ Release data
 
 ';
             foreach ($publish_data as $key => $value) {
-                $info .= $key . ': ' . $value . "\n";
+                if (is_array($value)) {
+                    $string_value = join(',', $value);
+                } else {
+                    $string_value = (string) $value;
+                }
+                $info .= $key . ': ' . $string_value . "\n";
             }
             $info .= '
 Links
@@ -120,7 +125,7 @@ Links
 
 ';
             foreach ($link_data as $key => $value) {
-                $info .= $key . ': ' . $value . "\n";
+                $info .= $key . ': ' . $value['label'] . ' => ' . $value['location'] . "\n";
             }
 
             $this->getOutput()->info($info);
