@@ -1,12 +1,20 @@
 <?php
 /**
- * @TODO
+ * Base TimeObjects_Driver.
+ *
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package TimeObjects
  */
 abstract class TimeObjects_Driver
 {
     protected $_params = array();
 
     /**
+     * Constructor
      *
      * @param array $params  The parameter array.
      */
@@ -16,6 +24,8 @@ abstract class TimeObjects_Driver
     }
 
     /**
+     * Get a list of TimeObjects.
+     *
      * @param $start
      * @param $end
      *
@@ -34,7 +44,8 @@ abstract class TimeObjects_Driver
      *
      * @param $name
      * @param $params
-     * @return unknown_type
+     *
+     * @return TimeObjects_Driver
      */
     public function factory($name, array $params = array())
     {

@@ -1,6 +1,11 @@
 <?php
 /**
  * API methods for exposing various bits of data via the listTimeObjects API
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package TimeObjects
  */
 class Timeobjects_Api extends Horde_Registry_Api
 {

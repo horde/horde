@@ -3,10 +3,11 @@
  * TimeObjects driver for exposing weather.com data via the listTimeObjects
  * API.
  *
- *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
  * @package TimeObjects
  */
 class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
