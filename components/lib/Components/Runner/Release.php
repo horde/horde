@@ -137,6 +137,10 @@ class Components_Runner_Release
             $sequence[] = 'Announce';
         }
 
+        if ($this->_doTask('bugs')) {
+            $sequence[] = 'Bugs';
+        }
+
         if ($options['next']) {
 
             $post_commit = false;

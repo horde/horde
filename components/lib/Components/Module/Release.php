@@ -79,6 +79,20 @@ extends Components_Module_Base
                     'help'   => 'The sender address for mailing list announcements.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--horde_user',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The username for accessing bugs.horde.org.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--horde_pass',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The password for accessing bugs.horde.org.'
+                )
+            ),
         );
     }
 
@@ -135,6 +149,7 @@ The available tasks are:
    - upload    : Upload the package to pear.horde.org
  - tag         : Add a git release tag.
  - announce    : Announce the release on the mailing lists.
+ - bugs        : Add the new release on bugs.horde.org
 
 The indentation indicates task that depend on a parent task. Activating them
 without activating the parent has no effect.
