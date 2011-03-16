@@ -46,4 +46,4 @@ FM;
 
 $this->notes['name'] = 'Skeleton';
 $this->notes['fm']['project'] = 'skeleton';
-$this->notes['fm']['branch'] = 'Default';
+$this->notes['fm']['branch'] = 'Horde 4';
