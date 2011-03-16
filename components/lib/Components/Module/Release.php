@@ -129,11 +129,12 @@ argument indicates that the corresponding task should be run.
 The available tasks are:
 
  - timestamp   : Update the package with a current timestamp
- - package     : Prepare a *.tgz package.
-   - upload    : Upload the package to pear.horde.org
  - sentinel    : Update the sentinels in docs/CHANGES and lib/Application.php.
  - commit      : Commit any changes with an automated message.
+ - package     : Prepare a *.tgz package.
+   - upload    : Upload the package to pear.horde.org
  - tag         : Add a git release tag.
+ - announce    : Announce the release on the mailing lists.
 
 The indentation indicates task that depend on a parent task. Activating them
 without activating the parent has no effect.

@@ -72,7 +72,7 @@ extends Components_Release_Task_Base
             $this->getNotes()->getBranch(),
             $options['from'],
             $this->getNotes()->getList(),
-            Components_Helper_Version::pearToHorde($package->getVersion()),
+            Components_Helper_Version::pearToHorde($this->getPackage()->getVersion()),
             $this->getNotes()->getFocusList()
         );
         $mailer->append($this->getNotes()->getAnnouncement());
@@ -81,12 +81,23 @@ extends Components_Release_Task_Base
             //$class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
             //$mailer->getMail()->send(new $class($this->_options['mailer']['params']));
         } else {
-            $this->getOutput()->info('Message headers');
+            $info = 'ANNOUNCEMENT
+
+Message headers
+---------------
+
+';
             foreach ($mailer->getHeaders() as $key => $value) {
-                $this->getOutput()->info($key . ': ' . $value);
+                $info .= $key . ': ' . $value . "\n";
             }
-            $this->getOutput()->info('Message body');
-            $this->getOutput()->info($mailer->getBody());
+            $info .= '
+Message body
+------------
+
+';
+            $info .= $mailer->getBody();
+
+            $this->getOutput()->info($info);
         }
     }
 }
