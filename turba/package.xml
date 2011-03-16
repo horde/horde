@@ -19,7 +19,7 @@
  <date>2011-03-16</date>
  <time>19:29:03</time>
  <version>
-  <release>3.0.0beta1</release>
+  <release>3.0.0RC1</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* Fix the listTimeObjects API for shared sources (Bug #9649).
-* Fix importing contacts with SyncML (Simon Bühler, Bug #9641).
+* First release candidate for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -564,7 +563,7 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0beta1</min>
+    <min>4.0.0RC1</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
@@ -573,21 +572,21 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0RC1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Imsp</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0RC1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0RC1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>

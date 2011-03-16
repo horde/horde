@@ -25,7 +25,7 @@
  <date>2011-03-16</date>
  <time>19:27:28</time>
  <version>
-  <release>2.0.0beta1</release>
+  <release>2.0.0RC1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* Fix creating new rules with PostgreSQL (Bug #9638).
+* First release candidate for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -479,7 +479,7 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0beta1</min>
+    <min>4.0.0RC1</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
