@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-16</date>
- <time>17:08:21</time>
+ <time>17:29:14</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -129,6 +129,7 @@
        <file name="NextSentinel.php" role="php" />
        <file name="Package.php" role="php" />
        <file name="Sentinel.php" role="php" />
+       <file name="TagRelease.php" role="php" />
        <file name="Timestamp.php" role="php" />
       </dir> <!-- /lib/Components/Release/Task -->
       <file name="Notes.php" role="php" />
@@ -438,6 +439,7 @@
    <install as="Components/Release/Task/NextSentinel.php" name="lib/Components/Release/Task/NextSentinel.php" />
    <install as="Components/Release/Task/Package.php" name="lib/Components/Release/Task/Package.php" />
    <install as="Components/Release/Task/Sentinel.php" name="lib/Components/Release/Task/Sentinel.php" />
+   <install as="Components/Release/Task/TagRelease.php" name="lib/Components/Release/Task/TagRelease.php" />
    <install as="Components/Release/Task/Timestamp.php" name="lib/Components/Release/Task/Timestamp.php" />
    <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
