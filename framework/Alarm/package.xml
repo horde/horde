@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-15</date>
- <time>19:20:46</time>
+ <date>2011-03-16</date>
+ <time>18:09:39</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -543,7 +543,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-15</date>
+   <date>2011-03-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First beta release for Horde 4.
