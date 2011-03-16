@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-16</date>
- <time>17:29:14</time>
+ <time>22:44:13</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -123,9 +123,11 @@
       <dir name="Task">
        <file name="Announce.php" role="php" />
        <file name="Base.php" role="php" />
+       <file name="Bugs.php" role="php" />
        <file name="CommitPostRelease.php" role="php" />
        <file name="CommitPreRelease.php" role="php" />
        <file name="CurrentSentinel.php" role="php" />
+       <file name="Freshmeat.php" role="php" />
        <file name="NextSentinel.php" role="php" />
        <file name="Package.php" role="php" />
        <file name="Sentinel.php" role="php" />
@@ -280,6 +282,7 @@
       <dir name="Components">
        <dir name="Helper">
         <file name="TemplatesTest.php" role="test" />
+        <file name="VersionDescriptionTest.php" role="test" />
         <file name="VersionTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Helper -->
        <dir name="Pear">
@@ -433,9 +436,11 @@
    <install as="Components/Release/Tasks.php" name="lib/Components/Release/Tasks.php" />
    <install as="Components/Release/Task/Announce.php" name="lib/Components/Release/Task/Announce.php" />
    <install as="Components/Release/Task/Base.php" name="lib/Components/Release/Task/Base.php" />
+   <install as="Components/Release/Task/Bugs.php" name="lib/Components/Release/Task/Bugs.php" />
    <install as="Components/Release/Task/CommitPostRelease.php" name="lib/Components/Release/Task/CommitPostRelease.php" />
    <install as="Components/Release/Task/CommitPreRelease.php" name="lib/Components/Release/Task/CommitPreRelease.php" />
    <install as="Components/Release/Task/CurrentSentinel.php" name="lib/Components/Release/Task/CurrentSentinel.php" />
+   <install as="Components/Release/Task/Freshmeat.php" name="lib/Components/Release/Task/Freshmeat.php" />
    <install as="Components/Release/Task/NextSentinel.php" name="lib/Components/Release/Task/NextSentinel.php" />
    <install as="Components/Release/Task/Package.php" name="lib/Components/Release/Task/Package.php" />
    <install as="Components/Release/Task/Sentinel.php" name="lib/Components/Release/Task/Sentinel.php" />
@@ -504,6 +509,7 @@
    <install as="Components/Unit/ComponentsTest.php" name="test/Components/Unit/ComponentsTest.php" />
    <install as="Components/Unit/Components/ConfigsTest.php" name="test/Components/Unit/Components/ConfigsTest.php" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
+   <install as="Components/Unit/Components/Helper/VersionDescriptionTest.php" name="test/Components/Unit/Components/Helper/VersionDescriptionTest.php" />
    <install as="Components/Unit/Components/Helper/VersionTest.php" name="test/Components/Unit/Components/Helper/VersionTest.php" />
    <install as="Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" name="test/Components/Unit/Components/Pear/Package/Filelist/DefaultTest.php" />
    <install as="Components/Unit/Components/Release/Task/CurrentSentinelTest.php" name="test/Components/Unit/Components/Release/Task/CurrentSentinelTest.php" />
