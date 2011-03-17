@@ -805,7 +805,9 @@ class Horde_Registry
         return (!isset($this->applications[$app]) ||
                 ($this->applications[$app]['status'] == 'inactive') ||
                 (($this->applications[$app]['status'] == 'admin') &&
-                 !$this->isAdmin()));
+                 !$this->isAdmin()) ||
+                (($this->applications[$app]['status'] == 'noadmin') &&
+                 $this->isAdmin()));
     }
 
     /**
