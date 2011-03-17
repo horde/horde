@@ -38,8 +38,8 @@ class Horde_History_Sql extends Horde_History
     /**
      * Constructor.
      *
-     * @param Horde_Db_Adapter $db  The database connection.
      * @param string $auth  The current user.
+     * @param Horde_Db_Adapter $db  The database connection.
      */
     public function __construct($auth, Horde_Db_Adapter $db)
     {
