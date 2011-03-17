@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-17</date>
- <time>21:39:39</time>
+ <time>23:23:46</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -28,9 +28,22 @@
   <dir baseinstalldir="/" name="/">
    <dir name="config">
     <dir name="conf.d">
-     <file name="10-kolab_conf_base.php" role="horde" />
-    </dir> <!-- //config/conf.d -->
-   </dir> <!-- //config -->
+     <file name="10-kolab.php" role="horde" />
+    </dir> <!-- /config/conf.d -->
+    <dir name="registry.d">
+     <file name="10-kolab.php" role="horde" />
+    </dir> <!-- /config/registry.d -->
+   </dir> <!-- /config -->
+   <dir name="imp">
+    <dir name="config">
+     <dir name="backends.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /imp/config/backends.d -->
+     <dir name="conf.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /imp/config/conf.d -->
+    </dir> <!-- /imp/config -->
+   </dir> <!-- /imp -->
    <file name="COPYING" role="horde" />
   </dir> <!-- / -->
  </contents>
@@ -49,6 +62,13 @@
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
+   <package>
+    <name>imp</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0RC1</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
   </required>
  </dependencies>
  <usesrole>
@@ -58,7 +78,10 @@
  </usesrole>
  <phprelease>
   <filelist>
-   <install as="config/conf.d/10-kolab_conf_base.php" name="config/conf.d/10-kolab_conf_base.php" />
+   <install as="config/conf.d/10-kolab.php" name="config/conf.d/10-kolab.php" />
+   <install as="config/registry.d/10-kolab.php" name="config/registry.d/10-kolab.php" />
+   <install as="imp/config/backends.d/10-kolab.php" name="imp/config/backends.d/10-kolab.php" />
+   <install as="imp/config/conf.d/10-kolab.php" name="imp/config/conf.d/10-kolab.php" />
    <install as="COPYING" name="COPYING" />
   </filelist>
  </phprelease>

@@ -67,6 +67,10 @@ framework/bin/*.conf
 !/horde/admin/config/
 !/kolab/config/conf.d
 !/kolab/config/conf.d/10-kolab.php
+!/kolab/config/registry.d
+!/kolab/config/registry.d/10-kolab.php
+!/kolab/imp/config/conf.d/*
+!/kolab/imp/config/backends.d/*
 
 # Application specific excludes
 ApertureToAnselExportPlugin/build/
