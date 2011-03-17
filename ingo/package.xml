@@ -35,6 +35,7 @@
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
 * First release candidate for Horde 4.
+* Fix moving rules with the SQL driver (Bug #9672).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
