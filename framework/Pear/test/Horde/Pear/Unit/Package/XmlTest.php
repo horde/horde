@@ -55,6 +55,34 @@ extends Horde_Pear_TestCase
         $this->assertEquals(date('Y-m-d'), $xml->findNode('/p:package/p:changelog/p:release/p:date')->textContent);
     }
 
+    public function testAddNotePrimary()
+    {
+        $xml = $this->_getFixture();
+        $xml->addNote('TEST');
+        $this->assertEquals(
+            '
+* TEST
+* Fixed bug #1
+* Initial release
+ ',
+            $xml->findNode('/p:package/p:notes')->textContent
+        );
+    }
+
+    public function testAddNoteChangelog()
+    {
+        $xml = $this->_getFixture();
+        $xml->addNote('TEST');
+        $this->assertEquals(
+            '
+* TEST
+* Fixed bug #1
+* Initial release
+   ',
+            $xml->findNode('/p:package/p:changelog/p:release/p:notes')->textContent
+        );
+    }
+
     public function testEquality()
     {
         $orig = file_get_contents(dirname(__FILE__) . '/../../fixture/simple/package.xml');
