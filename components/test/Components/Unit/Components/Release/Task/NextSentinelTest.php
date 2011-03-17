@@ -84,8 +84,8 @@ public $version = \'5.0-git\';
         $tasks->run(array('NextSentinel', 'CommitPostRelease'), $package, array('next' => '5.0.0-git', 'pretend' => true));
         $this->assertEquals(
             array(
-                sprintf('Would extend %s/docs/CHANGES with 5.0-git now.', $tmp_dir),
-                sprintf('Would replace %s/lib/Application.php with 5.0-git now.', $tmp_dir),
+                sprintf('Would extend %s/docs/CHANGES with "5.0-git" now.', $tmp_dir),
+                sprintf('Would replace %s/lib/Application.php with "5.0-git" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
                 'Would run "git commit -m "Development mode for Horde-5.0.0-git"" now.'

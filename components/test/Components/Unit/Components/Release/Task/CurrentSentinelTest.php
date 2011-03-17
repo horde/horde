@@ -80,8 +80,8 @@ public $version = \'4.0.1-RC1\';
         $tasks->run(array('CurrentSentinel', 'CommitPreRelease'), $package, array('pretend' => true));
         $this->assertEquals(
             array(
-                sprintf('Would replace %s/docs/CHANGES with 4.0.1-RC1 now.', $tmp_dir),
-                sprintf('Would replace %s/lib/Application.php with 4.0.1-RC1 now.', $tmp_dir),
+                sprintf('Would replace %s/docs/CHANGES with "4.0.1-RC1" now.', $tmp_dir),
+                sprintf('Would replace %s/lib/Application.php with "4.0.1-RC1" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
                 'Would run "git commit -m "Released Horde-4.0.1rc1"" now.'
