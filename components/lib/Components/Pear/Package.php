@@ -465,6 +465,23 @@ class Components_Pear_Package
     }
 
     /**
+     * Add a new note to the package.xml
+     *
+     * @param string $note The note text.
+     *
+     * @return NULL
+     */
+    public function addNote($note)
+    {
+        $package = $this->_getPackageXml();
+        $package->addNote($note);
+        file_put_contents($this->_package_xml_path, (string) $package);
+        $this->_output->ok(
+            'Added new note to ' . $this->_package_xml_path . '.'
+        );
+    }
+
+    /**
      * Timestamp the package.xml file with the current time.
      *
      * @return NULL
