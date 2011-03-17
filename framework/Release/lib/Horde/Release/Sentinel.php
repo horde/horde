@@ -88,7 +88,7 @@ class Horde_Release_Sentinel
     /**
      * Replace the current sentinel in the CHANGES file in case it exists.
      *
-     * @param string $new_version Version string that should be added.
+     * @param string $version Version string that should be added.
      *
      * @return NULL
      */
