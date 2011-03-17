@@ -159,7 +159,6 @@ extends Horde_Pear_TestCase
 
     public function testSyncLicenseUrl()
     {
-        $this->markTestIncomplete('I\'m unable to figure out how to access the "uri" attribute here.');
         $xml = $this->_getSyncedFixture();
         $this->assertEquals(
             'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html', 

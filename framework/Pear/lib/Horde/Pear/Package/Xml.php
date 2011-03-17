@@ -107,7 +107,7 @@ class Horde_Pear_Package_Xml
     public function syncCurrentVersion()
     {
         $date = $this->getNodeText('/p:package/p:date');
-        $license = $this->getNodeText('/p:package/p:license');
+        $license = $this->getLicense();
         $notes = $this->getNodeText('/p:package/p:notes');
         $api = $this->getNodeText('/p:package/p:version/p:api');
         $stability_api = $this->getNodeText('/p:package/p:stability/p:api');
@@ -122,7 +122,10 @@ class Horde_Pear_Package_Xml
             './p:notes', $release, $notes . '  '
         );
         $this->replaceTextNodeRelativeTo(
-            './p:license', $release, $license
+            './p:license',
+            $release,
+            $license['name'],
+            array('uri' => $license['uri'])
         );
         $version_node = $this->findNodeRelativeTo(
             './p:version', $release
@@ -427,18 +430,25 @@ class Horde_Pear_Package_Xml
     /**
      * Replace a specific text node
      *
-     * @param string  $path    The XPath query pointing to the node.
-     * @param DOMNode $context Search below this node.
-     * @param string  $value   The new text value.
+     * @param string  $path      The XPath query pointing to the node.
+     * @param DOMNode $context   Search below this node.
+     * @param string  $value     The new text value.
+     * @param array   $attribues Attributes to add to the node.
      *
      * @return DOMNodeList The list of DOMNodes.
      */
-    public function replaceTextNodeRelativeTo($path, DOMNode $context, $value)
-    {
+    public function replaceTextNodeRelativeTo(
+        $path,
+        DOMNode $context,
+        $value,
+        $attributes = array()
+    ) {
         if ($node = $this->findNodeRelativeTo($path, $context)) {
-            $context->replaceChild(
-                $this->_replacementNode($node, $value), $node
-            );
+            $new_node = $this->_replacementNode($node, $value);
+            foreach ($attributes as $name => $value) {
+                $new_node->setAttribute($name, $value);
+            }
+            $context->replaceChild($new_node, $node);
         }
     }
 
