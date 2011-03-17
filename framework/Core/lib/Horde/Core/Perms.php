@@ -72,7 +72,6 @@ class Horde_Core_Perms
                 $apps[$app] = $this->_registry->get('name', $app) . ' (' . $app . ')';
             }
             asort($apps);
-
             return $apps;
         }
 
@@ -228,7 +227,9 @@ class Horde_Core_Perms
                     $ptr = &$perms['tree'][$app];
 
                     foreach (explode(':', $key) as $kval) {
-                        $ptr[$kval] = false;
+                        if (!isset($ptr[$kval])) {
+                            $ptr[$kval] = false;
+                        }
                         $ptr = &$ptr[$kval];
                     }
                     if (isset($val['title'])) {
