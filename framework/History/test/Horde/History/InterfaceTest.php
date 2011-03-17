@@ -89,9 +89,7 @@ EOL;
             $db->execute('CREATE INDEX history_ts_idx ON horde_histories (history_ts)');
             $db->execute('CREATE INDEX history_uid_idx ON horde_histories (object_uid)');
 
-            $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
-
-            return new Horde_History_Sql('test', $db, $logger);
+            return new Horde_History_Sql('test', $db);
 
         case 'Mock':
             return new Horde_History_Mock('test');
@@ -396,8 +394,7 @@ EOL;
     public function testHordehistorysqlConvertsDbExceptionsToHordeHistoryExceptions()
     {
         $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
-        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
-        $history = new Horde_History_Sql('test', $db, $logger);
+        $history = new Horde_History_Sql('test', $db);
 
         try {
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
