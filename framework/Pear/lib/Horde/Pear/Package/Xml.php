@@ -192,7 +192,10 @@ class Horde_Pear_Package_Xml
                 '/p:package/p:stability/p:release'
             );
         }
-        $this->replaceTextNode('/p:package/p:version', $version);
+        $version_node = $this->findNode('/p:package/p:version');
+        $this->replaceTextNodeRelativeTo(
+            './p:release', $version_node, $version
+        );
         $this->replaceTextNode('/p:package/p:notes', $notes);
         $this->replaceTextNode('/p:package/p:date', date('Y-m-d'));
         $this->replaceTextNode('/p:package/p:time', date('H:i:s'));

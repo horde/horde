@@ -89,7 +89,7 @@ extends Horde_Pear_TestCase
         $xml->addNextVersion('1.0.0', 'TEST');
         $this->assertEquals(
             '1.0.0',
-            $xml->findNode('/p:package/p:version')->textContent
+            $xml->findNode('/p:package/p:version/p:release')->textContent
         );
     }
 
