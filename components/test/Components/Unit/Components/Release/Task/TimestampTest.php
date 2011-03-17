@@ -44,14 +44,14 @@ extends Components_TestCase
     {
         $package = $this->_getValidPackage();
         $task = $this->getReleaseTask('timestamp', $package);
-        $this->assertEquals(array(), $task->validate());
+        $this->assertEquals(array(), $task->validate(array()));
     }
 
     public function testValidateFails()
     {
         $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
         $task = $this->getReleaseTask('timestamp', $package);
-        $this->assertFalse($task->validate() === array());
+        $this->assertFalse($task->validate(array()) === array());
     }
 
     public function testRunTaskWithoutCommit()
@@ -59,7 +59,7 @@ extends Components_TestCase
         $tasks = $this->getReleaseTasks();
         $package = $this->_getValidPackage();
         $package->expects($this->once())
-            ->method('timestamp');
+            ->method('timestampAndSync');
         $tasks->run(array('timestamp'), $package);
     }
 
@@ -76,7 +76,7 @@ extends Components_TestCase
         $tasks->run(array('Timestamp', 'CommitPreRelease'), $package, array('pretend' => true));
         $this->assertEquals(
             array(
-                sprintf('Would timestamp %s now.', $this->_fixture),
+                sprintf('Would timestamp %s now and synchronize its change log.', $this->_fixture),
                 sprintf('Would run "git add %s" now.', $this->_fixture),
                 'Would run "git commit -m "Released NAME-1.0.0"" now.'
             ),

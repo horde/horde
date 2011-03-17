@@ -64,11 +64,11 @@ extends Components_Release_Task_Base
     public function run($options)
     {
         if (!$this->getTasks()->pretend()) {
-            $this->getPackage()->timestamp();
+            $this->getPackage()->timestampAndSync();
         } else {
             $this->getOutput()->info(
                 sprintf(
-                    'Would timestamp %s now.',
+                    'Would timestamp %s now and synchronize its change log.',
                     $this->getPackage()->getPackageXml()
                 )
             );

@@ -469,14 +469,15 @@ class Components_Pear_Package
      *
      * @return NULL
      */
-    public function timestamp()
+    public function timestampAndSync()
     {
         $package = $this->_getPackageXml();
         $package->timestamp();
+        $package->syncCurrentVersion();
         file_put_contents($this->_package_xml_path, (string) $package);
         $this->_output->ok(
             'Marked package.xml ' . $this->_package_xml_path
-            . ' with current timestamp.'
+            . ' with current timestamp and synchronized the change log.'
         );
     }
 
