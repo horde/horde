@@ -125,17 +125,20 @@ class Components_Runner_Change
         if ($options['commit']) {
             $this->systemInDirectory(
                 'git add ' . $package->getPackageXml(),
-                $package->getComponentDirectory()
+                $package->getComponentDirectory(),
+                $options
             );
             if ($changes) {
                 $this->systemInDirectory(
                     'git add ' . $changes,
-                    $package->getComponentDirectory()
+                    $package->getComponentDirectory(),
+                    $options
                 );
             }
             $this->systemInDirectory(
-                'git commit -m "' . $options['change'] . '"',
-                $package->getComponentDirectory()
+                'git commit -m "' . $options['changed'] . '"',
+                $package->getComponentDirectory(),
+                $options
             );
         }
     }
