@@ -81,8 +81,56 @@ class Horde_Pear_Package_Xml
         foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
             if ($this->getNodeTextRelativeTo('./p:version/p:release', $release) == $version) {
                 $this->replaceTextNodeRelativeTo('./p:date', $release, date('Y-m-d'));
+                return;
             }
         }
+        throw new Horde_Pear_Exception('No release in the changelog matches the current version!');
+    }
+
+    /**
+     * Synchronizest
+     *
+     * @return NULL
+     */
+    public function syncCurrentVersion()
+    {
+        $date = $this->getNodeText('/p:package/p:date');
+        $license = $this->getNodeText('/p:package/p:license');
+        $notes = $this->getNodeText('/p:package/p:notes');
+        $api = $this->getNodeText('/p:package/p:version/p:api');
+        $stability_api = $this->getNodeText('/p:package/p:stability/p:api');
+        $stability_release = $this->getNodeText(
+            '/p:package/p:stability/p:release'
+        );
+        $version = $this->getNodeText('/p:package/p:version/p:release');
+        foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
+            if ($this->getNodeTextRelativeTo('./p:version/p:release', $release) == $version) {
+                $this->replaceTextNodeRelativeTo('./p:date', $release, $date);
+                $this->replaceTextNodeRelativeTo(
+                    './p:notes', $release, $notes . '  '
+                );
+                $this->replaceTextNodeRelativeTo(
+                    './p:license', $release, $license
+                );
+                $version_node = $this->findNodeRelativeTo(
+                    './p:version', $release
+                );
+                $this->replaceTextNodeRelativeTo(
+                    './p:api', $version_node, $api
+                );
+                $stability_node = $this->findNodeRelativeTo(
+                    './p:stability', $release
+                );
+                $this->replaceTextNodeRelativeTo(
+                    './p:api', $stability_node, $stability_api
+                );
+                $this->replaceTextNodeRelativeTo(
+                    './p:release', $stability_node, $stability_release
+                );
+                return;
+            }
+        }
+        throw new Horde_Pear_Exception('No release in the changelog matches the current version!');
     }
 
     /**
