@@ -2,7 +2,7 @@
 v5.0-RC1
 --------
 
-
+[mms] Fix flag display in message list in traditional view (Bug #9673).
 
 
 ----------

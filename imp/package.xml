@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* Fix flag display in message list in traditional view (Bug #9673).
 * First release candidate for Horde 4.
  </notes>
  <contents>

@@ -784,7 +784,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
     ));
 
-    $subject_flags = array();
+    $css_class = $subject_flags = array();
     foreach ($flag_parse as $val) {
         if ($val instanceof IMP_Flag_User) {
             $subject_flags[] = $val;
@@ -792,10 +792,11 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             if (!$val->bgdefault) {
                 $msg['bg'] = $val->bgcolor;
             }
-            $msg['class'] = $val->css;
+            $css_class[] = $val->css;
             $msg['status'] .= $val->div;
         }
     }
+    $msg['class'] = implode(' ', $css_class);
 
     /* Show message preview? */
     if ($show_preview && isset($ob['preview'])) {
