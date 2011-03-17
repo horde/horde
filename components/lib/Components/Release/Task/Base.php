@@ -176,10 +176,14 @@ class Components_Release_Task_Base
      */
     protected function systemInDirectory($call, $target_dir)
     {
-        $old_dir = getcwd();
-        chdir($target_dir);
+        if (!$this->getTasks()->pretend()) {
+            $old_dir = getcwd();
+            chdir($target_dir);
+        }
         $result = $this->system($call);
-        chdir($old_dir);
+        if (!$this->getTasks()->pretend()) {
+            chdir($old_dir);
+        }
         return $result;
     }
 }
