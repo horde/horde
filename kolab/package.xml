@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>kolab</name>
+ <channel>pear.horde.org</channel>
+ <summary>A meta-package providing configuration for running Horde with the Kolab server.</summary>
+ <description>This package pulls in all Horde applications that can work with a Kolab backend. It provides the minimal set of required configuration settings so that the system will work out of the box with the Kolab server backend.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>wrobel@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-03-17</date>
+ <time>21:39:39</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <dir name="conf.d">
+     <file name="10-kolab_conf_base.php" role="horde" />
+    </dir> <!-- //config/conf.d -->
+   </dir> <!-- //config -->
+   <file name="COPYING" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0RC1</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="config/conf.d/10-kolab_conf_base.php" name="config/conf.d/10-kolab_conf_base.php" />
+   <install as="COPYING" name="COPYING" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-17</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
