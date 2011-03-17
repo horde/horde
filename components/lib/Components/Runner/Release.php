@@ -143,15 +143,12 @@ class Components_Runner_Release
             $sequence[] = 'Freshmeat';
         }
 
-        if ($options['next']) {
-
-            $post_commit = false;
-
+        if ($this->_doTask('next')) {
+            $sequence[] = 'NextVersion';
             if ($this->_doTask('sentinel')) {
                 $sequence[] = 'NextSentinel';
-                $post_commit = true;
             }
-            if ($this->_doTask('commit') && $post_commit) {
+            if ($this->_doTask('commit')) {
                 $sequence[] = 'CommitPostRelease';
             }
         }

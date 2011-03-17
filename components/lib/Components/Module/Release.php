@@ -66,10 +66,31 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '--next',
+                '--next_version',
                 array(
                     'action' => 'store',
                     'help'   => 'The version number planned for the next release of the component.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--next_note',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Initial change lof note for the next version of the component.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--next_apistate',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The next API stability [default: no change].'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--next_relstate',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The next release stability [default: no change].'
                 )
             ),
             new Horde_Argv_Option(
@@ -149,7 +170,7 @@ argument indicates that the corresponding task should be run.
 
 The available tasks are:
 
- - timestamp   : Update the package with a current timestamp
+ - timestamp   : Timestamp the package.xml and sync the change log.
  - sentinel    : Update the sentinels in docs/CHANGES and lib/Application.php.
  - commit      : Commit any changes with an automated message.
  - package     : Prepare a *.tgz package.
@@ -158,6 +179,8 @@ The available tasks are:
  - announce    : Announce the release on the mailing lists.
  - bugs        : Add the new release on bugs.horde.org
  - freshmeat   : Add the new release on freshmeat.net
+ - next        : Update package.xml with the next version.
+                 Sentinels will be updated as well if "sentinel" is active.
 
 The indentation indicates task that depend on a parent task. Activating them
 without activating the parent has no effect.
