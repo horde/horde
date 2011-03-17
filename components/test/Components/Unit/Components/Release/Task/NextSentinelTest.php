@@ -43,7 +43,7 @@ extends Components_TestCase
         $package->expects($this->any())
             ->method('getComponentDirectory')
             ->will($this->returnValue($tmp_dir));
-        $tasks->run(array('NextSentinel'), $package, array('next' => '5.0.0-git'));
+        $tasks->run(array('NextSentinel'), $package, array('next_version' => '5.0.0-git'));
         $this->assertEquals(
             '--------
 v5.0-git
@@ -81,7 +81,7 @@ public $version = \'5.0-git\';
         $package->expects($this->any())
             ->method('getVersion')
             ->will($this->returnValue('4.0.1rc1'));
-        $tasks->run(array('NextSentinel', 'CommitPostRelease'), $package, array('next' => '5.0.0-git', 'pretend' => true));
+        $tasks->run(array('NextSentinel', 'CommitPostRelease'), $package, array('next_version' => '5.0.0-git', 'pretend' => true));
         $this->assertEquals(
             array(
                 sprintf('Would extend %s/docs/CHANGES with "5.0-git" now.', $tmp_dir),

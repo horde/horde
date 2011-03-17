@@ -41,8 +41,8 @@ extends Components_Release_Task_Sentinel
     public function validate($options)
     {
         $errors = parent::validate($options);
-        if (empty($options['next'])) {
-            $errors[] = 'The "next" option has no value! What should the next version number be?';
+        if (empty($options['next_version'])) {
+            $errors[] = 'The "next_version" option has no value! What should the next version number be?';
         }
         return $errors;
     }
@@ -60,10 +60,10 @@ extends Components_Release_Task_Sentinel
             $this->getPackage()->getComponentDirectory()
         );
         $changes_version = Components_Helper_Version::pearToHorde(
-            $options['next']
+            $options['next_version']
         );
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
-            $options['next'], $this->getNotes()->getBranch()
+            $options['next_version'], $this->getNotes()->getBranch()
         );
         if (!$this->getTasks()->pretend()) {
             $sentinel->updateChanges($changes_version);

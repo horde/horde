@@ -40,7 +40,7 @@ extends Components_Release_Task_Base
      */
     public function validate($options)
     {
-        if (empty($options['next'])) {
+        if (empty($options['next_version'])) {
             return array('The "next" option has no value! What should the next version number be?');
         }
         return array();
@@ -57,7 +57,7 @@ extends Components_Release_Task_Base
     {
         $this->systemInDirectory(
             'git commit -m "Development mode for ' . $this->getPackage()->getName()
-            . '-' . $options['next'] . '"',
+            . '-' . $options['next_version'] . '"',
             $this->getPackage()->getComponentDirectory()
         );
     }
