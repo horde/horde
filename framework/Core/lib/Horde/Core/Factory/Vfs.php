@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Vfs:: factory.
+ * A Horde_Injector based Horde_Vfs factory.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -9,7 +9,7 @@
  */
 
 /**
- * A Horde_Injector:: based Horde_Vfs:: factory.
+ * A Horde_Injector based Horde_Vfs factory.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -31,16 +31,21 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
     private $_instances = array();
 
     /**
-     * Obtain the Vfs instance.
+     * Returns the VFS instance.
      *
      * @param string $scope  The vfs scope to return.
+     * @param array $params  Configuration parameters. If specified this
+     *                       configuration is used instead of the configuration
+     *                       from conf.php.
      *
-     * @return VFS  The VFS object
+     * @return Horde_Vfs  The VFS object.
      */
-    public function create($scope = 'horde')
+    public function create($scope = 'horde', $params = null)
     {
         if (empty($this->_instances[$scope])) {
-            $params = $this->getConfig($scope);
+            if (!$params) {
+                $params = $this->getConfig($scope);
+            }
             $this->_instances[$scope] = Horde_Vfs::factory($params['type'], $params['params']);
         }
 

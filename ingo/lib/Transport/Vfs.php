@@ -133,12 +133,12 @@ class Ingo_Transport_Vfs extends Ingo_Transport
         }
 
         try {
-            $this->_vfs = Horde_Vfs::factory($this->_params['vfstype'], $this->_params);
-        } catch (Horde_Vfs_Exception $e) {
-            $error = new Ingo_Exception($this->_vfs);
-            unset($this->_vfs);
-            throw $error;
+            $this->_vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create('ingo', array('type'   => $this->_params['vfstype'],
+                                       'params' => $this->_params));
+        } catch (Horde_Exception $e) {
+            throw new Ingo_Exception($e);
         }
     }
-
 }
