@@ -83,6 +83,28 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testNewVersionVersion()
+    {
+        $xml = $this->_getFixture();
+        $xml->addNextVersion('1.0.0', 'TEST');
+        $this->assertEquals(
+            '1.0.0',
+            $xml->findNode('/p:package/p:version')->textContent
+        );
+    }
+
+    public function testGetLicense()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            array(
+                'name' => 'LGPLv2.1',
+                'uri' => 'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html'
+            ),
+            $xml->getLicense()
+        );
+    }
+
     public function testEquality()
     {
         $orig = file_get_contents(dirname(__FILE__) . '/../../fixture/simple/package.xml');
@@ -138,11 +160,13 @@ extends Horde_Pear_TestCase
     public function testSyncLicenseUrl()
     {
         $this->markTestIncomplete('I\'m unable to figure out how to access the "uri" attribute here.');
-        $this->_assertAttributeContent(
-            $this->_getSyncedFixture(),
-            '/p:package/p:changelog/p:release/p:license',
-            'url',
-            'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html'
+        $xml = $this->_getSyncedFixture();
+        $this->assertEquals(
+            'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html', 
+            $xml->findNode('/p:package/p:changelog/p:release')
+            ->getElementsByTagNameNS(Horde_Pear_Package_Xml::XMLNAMESPACE, 'license')
+            ->item(0)
+            ->getAttribute('uri')
         );
     }
 
@@ -163,15 +187,6 @@ extends Horde_Pear_TestCase
         $this->assertEquals(
             $content, 
             $xml->findNode($xpath)->textContent
-        );
-    }
-
-    private function _assertAttributeContent($xml, $xpath, $attribute, $content)
-    {
-        $this->assertEquals(
-            $content, 
-            $xml->findNode($xpath)
-            ->getAttributeNS(Horde_Pear_Package_Xml::XMLNAMESPACE, 'uri')
         );
     }
 

@@ -69,6 +69,21 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the license information.
+     *
+     * @return array The license information as array with the license name
+     *               having the key "name" and the license URI having the key
+     *               "uri".
+     */
+    public function getLicense()
+    {
+        return array(
+            'name' => $this->getNodeText('/p:package/p:license'),
+            'uri' => $this->findNode('/p:package')->getElementsByTagNameNS(self::XMLNAMESPACE, 'license')->item(0)->getAttribute('uri')
+        );
+    }
+
+    /**
      * Mark the package as being release and set the timestamps to now.
      *
      * @return NULL
@@ -150,13 +165,106 @@ class Horde_Pear_Package_Xml
     /**
      * Add the next version to the package.xml
      *
-     * @param string $version      The new version number.
-     * @param string $initial_note The text for the initial note.
+     * @param string $version           The new version number.
+     * @param string $initial_note      The text for the initial note.
+     * @param string $stability_api     The API stability for the next release.
+     * @param string $stability_release The stability for the next release.
      *
      * @return NULL
      */
-    public function addNextVersion($version, $initial_note)
+    public function addNextVersion(
+        $version,
+        $initial_note,
+        $stability_api = null,
+        $stability_release = null
+    ) {
+        $notes = "\n* " . $initial_note . "\n ";
+        $license = $this->getLicense();
+        $api = $this->getNodeText('/p:package/p:version/p:api');
+        if ($stability_api === null) {
+            $stability_api = $this->getNodeText('/p:package/p:stability/p:api');
+        }
+        if ($stability_release === null) {
+            $stability_release = $this->getNodeText(
+                '/p:package/p:stability/p:release'
+            );
+        }
+        $this->replaceTextNode('/p:package/p:version', $version);
+        $this->replaceTextNode('/p:package/p:notes', $notes);
+        $this->replaceTextNode('/p:package/p:date', date('Y-m-d'));
+        $this->replaceTextNode('/p:package/p:time', date('H:i:s'));
+
+        $changelog = $this->findNode('/p:package/p:changelog');
+        $this->_insertWhiteSpace($changelog, ' ');
+
+        $release = $this->_xml->createElementNS(self::XMLNAMESPACE, 'release');
+        $this->_appendVersion($release, $version, $api, "\n   ");
+        $this->_appendStability($release, $stability_release, $stability_api, "\n   ");
+        $this->_appendChild($release, 'date', date('Y-m-d'), "\n   ");
+        $this->_appendLicense($release, $license, "\n   ");
+        $this->_appendChild($release, 'notes', $notes . '  ', "\n   ");
+        $this->_insertWhiteSpace($release, "\n  ");
+        $changelog->appendChild($release);
+        $this->_insertWhiteSpace($changelog, "\n ");
+    }
+
+    /**
+     * Append version information.
+     *
+     * @param DOMNode $parent  The parent DOMNode.
+     * @param string  $version The version.
+     * @param string  $api     The api version.
+     * @param string  $ws      Additional white space that should be inserted.
+     *
+     * @return NULL
+     */
+    private function _appendVersion($parent, $version, $api, $ws = '')
     {
+        $this->_insertWhiteSpace($parent, $ws);
+        $node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'version');
+        $this->_appendChild($node, 'release', $version, "\n    ");
+        $this->_appendChild($node, 'api', $api, "\n    ");
+        $parent->appendChild($node);
+    }
+
+    /**
+     * Append stability information.
+     *
+     * @param DOMNode $parent  The parent DOMNode.
+     * @param string  $release The release stability.
+     * @param string  $api     The api stability.
+     * @param string  $ws      Additional white space that should be inserted.
+     *
+     * @return NULL
+     */
+    private function _appendStability($parent, $release, $api, $ws = null)
+    {
+        $this->_insertWhiteSpace($parent, $ws);
+        $node = $this->_xml->createElementNS(self::XMLNAMESPACE, 'stability');
+        $this->_appendChild($node, 'release', $release, "\n    ");
+        $this->_appendChild($node, 'api', $api, "\n    ");
+        $parent->appendChild($node);
+    }
+
+    /**
+     * Append license information.
+     *
+     * @param DOMNode $parent  The parent DOMNode.
+     * @param array   $license The license information.
+     * @param string  $ws      Additional white space that should be inserted.
+     *
+     * @return NULL
+     */
+    private function _appendLicense($parent, $license, $ws = null)
+    {
+        $this->_insertWhiteSpace($parent, $ws);
+        $new_node = $this->_xml->createElementNS(
+            self::XMLNAMESPACE, 'license'
+        );
+        $text = $this->_xml->createTextNode($license['name']);
+        $new_node->appendChild($text);
+        $new_node->setAttribute('uri', $license['uri']);
+        $parent->appendChild($new_node);
     }
 
     /**
@@ -350,5 +458,40 @@ class Horde_Pear_Package_Xml
         $text = $this->_xml->createTextNode($value);
         $new_node->appendChild($text);
         return $new_node;
+    }
+
+    /**
+     * Append a new child.
+     *
+     * @param DOMNode $parent The parent DOMNode.
+     * @param string  $name   The tag name of the new node.
+     * @param string  $value  The text content of the new node.
+     * @param string  $ws     Additional white space that should be inserted.
+     *
+     * @return NULL
+     */
+    private function _appendChild($parent, $name, $value, $ws = '')
+    {
+        $this->_insertWhiteSpace($parent, $ws);
+        $new_node = $this->_xml->createElementNS(
+            self::XMLNAMESPACE, $name
+        );
+        $text = $this->_xml->createTextNode($value);
+        $new_node->appendChild($text);
+        $parent->appendChild($new_node);
+    }
+
+    /**
+     * Insert some white space.
+     *
+     * @param DOMNode $parent The parent DOMNode.
+     * @param string  $ws     Additional white space that should be inserted.
+     *
+     * @return NULL
+     */
+    private function _insertWhiteSpace($parent, $ws)
+    {
+        $ws_node = $this->_xml->createTextNode($ws);
+        $parent->appendChild($ws_node);
     }
 }
