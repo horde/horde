@@ -97,7 +97,7 @@ class Horde_Core_Prefs_Ui_Widgets
             $t->set('downimg', Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")));
         }
 
-        return $t->fetch(HORDE_TEMPLATES . '/prefs/source.html');
+        return $t->fetch($GLOBALS['registry']->get('templates', 'horde') . '/prefs/source.html');
     }
 
     /**
@@ -232,7 +232,7 @@ class Horde_Core_Prefs_Ui_Widgets
             ));
         }
 
-        return $out . $t->fetch(HORDE_TEMPLATES . '/prefs/addressbooks.html');
+        return $out . $t->fetch($GLOBALS['registry']->get('templates', 'horde') . '/prefs/addressbooks.html');
     }
 
     /**
@@ -274,11 +274,10 @@ class Horde_Core_Prefs_Ui_Widgets
      * Create code needed for alarm selection.
      *
      * @param array $data  Data items:
-     * <pre>
-     * 'helplink' - (string) [OPTIONAL] Help link.
-     * 'label' - (string) Label.
-     * 'pref' - (string) Preference name.
-     * </pre>
+     * - 'helplink': (string) [OPTIONAL] Help link.
+     * - 'label': (string) Label.
+     * - 'pref': (string) Preference name.
+     * - 'value': (array) [OPTIONAL] Preference value.
      *
      * @return string  HTML UI code.
      */
@@ -290,7 +289,9 @@ class Horde_Core_Prefs_Ui_Widgets
             'HordeAlarmPrefs.pref' => $pref
         ));
 
-        $alarm_pref = unserialize($GLOBALS['prefs']->getValue($pref));
+        $alarm_pref = isset($data['value'])
+            ? $data['value']
+            : unserialize($GLOBALS['prefs']->getValue($pref));
         $selected = array_keys($alarm_pref);
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -364,7 +365,7 @@ class Horde_Core_Prefs_Ui_Widgets
         $t->set('param_list', $param_list);
         $t->set('select_list', $select_list);
 
-        return $t->fetch(HORDE_TEMPLATES . '/prefs/alarm.html');
+        return $t->fetch($GLOBALS['registry']->get('templates', 'horde') . '/prefs/alarm.html');
     }
 
     /**

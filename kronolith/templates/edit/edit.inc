@@ -204,19 +204,12 @@ if ($event->alarm) {
   <label for="yesoverwrite"> <?php echo _("Use custom notification method") ?></label>
   <div id="notification_options" style="display:<?php echo !empty($event->methods) ? 'block' : 'none' ?>">
    <?php
-   // TODO: clean this hack up with H4
-   global $registry, $prefs;
-   $pref = 'event_alarms';
-   $_prefs = array($pref => array('desc' => ''));
-   $helplink = '';
-   $original_value = $prefs->getValue($pref);
+   Horde_Core_Prefs_Ui_Widgets::alarmInit();
+   $params = array('pref' => 'event_alarms', 'label' => '');
    if (!empty($event->methods)) {
-       $prefs->setValue($pref, serialize($event->methods));
+       $params['value'] = $event->methods;
    }
-   include $GLOBALS['registry']->get('templates', 'horde') . '/prefs/alarm.inc';
-   if (!empty($event->methods)) {
-       $prefs->setValue($pref, $original_value);
-   }
+   echo Horde_Core_Prefs_Ui_Widgets::alarm($params);
    ?>
   </div>
  </td>
