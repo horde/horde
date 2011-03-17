@@ -56,15 +56,6 @@ class Components_Runner_Release
     private $_release;
 
     /**
-     * Populated when the RELEASE_NOTES file is included.
-     * Should probably be refactored to use a setter for each
-     * property the RELEASE_NOTES file sets...
-     *
-     * @var array
-     */
-    public $notes = array();
-
-    /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current
