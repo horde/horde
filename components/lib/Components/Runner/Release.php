@@ -102,8 +102,6 @@ class Components_Runner_Release
             );
         }
 
-        $this->_loadNotes(dirname($package_xml) . '/docs');
-
         $sequence = array();
 
         $pre_commit = false;
@@ -180,36 +178,5 @@ class Components_Runner_Release
             return true;
         }
         return false;
-    }
-
-    private function _loadNotes($directory)
-    {
-        if (file_exists("$directory/RELEASE_NOTES")) {
-            include "$directory/RELEASE_NOTES";
-            if (strlen($this->notes['fm']['changes']) > 600) {
-                print "WARNING: freshmeat release notes are longer than 600 characters!\n";
-            }
-        }
-        if (isset($this->notes['fm']['focus'])) {
-            if (is_array($this->notes['fm']['focus'])) {
-                $this->notes['tag_list'] = $this->notes['fm']['focus'];
-            } else {
-                $this->notes['tag_list'] = array($this->notes['fm']['focus']);
-            }
-        } else {
-            $this->notes['tag_list'] = array();
-        }
-        if (!empty($this->notes['fm']['branch'])) {
-            if ($this->notes['name'] == 'Horde') {
-                $this->notes['branch'] = '';
-            } else {
-                $this->notes['branch'] = strtr(
-                    $this->notes['fm']['branch'],
-                    array('Horde ' => 'H')
-                );
-            }
-        } else {
-            $this->notes['branch'] = '';
-        }
     }
 }
