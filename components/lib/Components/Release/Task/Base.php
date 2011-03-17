@@ -152,7 +152,7 @@ class Components_Release_Task_Base
     /**
      * Run a system call.
      *
-     * @param string $call       The system call to execute.
+     * @param string $call The system call to execute.
      *
      * @return string The command output.
      */
