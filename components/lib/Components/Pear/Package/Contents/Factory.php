@@ -66,6 +66,7 @@ class Components_Pear_Package_Contents_Factory
         case 'horde/':
         case 'imp/':
         case 'ingo/':
+        case 'kolab/':
         case 'kronolith/':
         case 'mnemo/':
         case 'nag/':
