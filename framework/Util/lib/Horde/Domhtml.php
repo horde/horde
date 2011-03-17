@@ -117,9 +117,12 @@ class Horde_Domhtml
     {
         $text = Horde_String::convertCharset($this->dom->saveHTML(), $this->dom->encoding || $this->_origCharset, $this->_origCharset);
 
-        return $this->_xmlencoding
-            ? substr($text, strlen($this->_xmlencoding))
-            : $text;
+        if (!$this->_xmlencoding ||
+            (($pos = strpos($text, $this->_xmlencoding)) === false)) {
+            return $text;
+        }
+
+        return substr_replace($text, '', $pos, strlen($this->_xmlencoding));
     }
 
     /**
