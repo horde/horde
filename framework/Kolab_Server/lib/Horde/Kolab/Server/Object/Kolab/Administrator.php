@@ -35,8 +35,8 @@ class Horde_Kolab_Server_Object_Kolab_Administrator extends Horde_Kolab_Server_O
      *
      * @var string
      */
-    public $required_group = array(self::ATTRIBUTE_CN => 'admin',
-                                   Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false);
+    /* public $required_group = array(self::ATTRIBUTE_CN => 'admin', */
+    /*                                Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false); */
 
     /**
      * Returns the server url of the given type for this user.
