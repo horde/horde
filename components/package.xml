@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>22:44:13</time>
+ <date>2011-03-17</date>
+ <time>16:04:16</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -88,6 +88,7 @@
      </dir> <!-- /lib/Components/Helper -->
      <dir name="Module">
       <file name="Base.php" role="php" />
+      <file name="Change.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
@@ -129,6 +130,7 @@
        <file name="CurrentSentinel.php" role="php" />
        <file name="Freshmeat.php" role="php" />
        <file name="NextSentinel.php" role="php" />
+       <file name="NextVersion.php" role="php" />
        <file name="Package.php" role="php" />
        <file name="Sentinel.php" role="php" />
        <file name="TagRelease.php" role="php" />
@@ -138,6 +140,7 @@
       <file name="Tasks.php" role="php" />
      </dir> <!-- /lib/Components/Release -->
      <dir name="Runner">
+      <file name="Change.php" role="php" />
       <file name="CiPrebuild.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
@@ -410,6 +413,7 @@
    <install as="Components/Helper/Templates/Directory.php" name="lib/Components/Helper/Templates/Directory.php" />
    <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
+   <install as="Components/Module/Change.php" name="lib/Components/Module/Change.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
@@ -442,10 +446,12 @@
    <install as="Components/Release/Task/CurrentSentinel.php" name="lib/Components/Release/Task/CurrentSentinel.php" />
    <install as="Components/Release/Task/Freshmeat.php" name="lib/Components/Release/Task/Freshmeat.php" />
    <install as="Components/Release/Task/NextSentinel.php" name="lib/Components/Release/Task/NextSentinel.php" />
+   <install as="Components/Release/Task/NextVersion.php" name="lib/Components/Release/Task/NextVersion.php" />
    <install as="Components/Release/Task/Package.php" name="lib/Components/Release/Task/Package.php" />
    <install as="Components/Release/Task/Sentinel.php" name="lib/Components/Release/Task/Sentinel.php" />
    <install as="Components/Release/Task/TagRelease.php" name="lib/Components/Release/Task/TagRelease.php" />
    <install as="Components/Release/Task/Timestamp.php" name="lib/Components/Release/Task/Timestamp.php" />
+   <install as="Components/Runner/Change.php" name="lib/Components/Runner/Change.php" />
    <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
    <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
@@ -545,10 +551,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-16</date>
+   <date>2011-03-17</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
-*
+* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>

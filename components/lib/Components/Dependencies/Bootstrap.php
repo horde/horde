@@ -182,6 +182,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the change log handler for a package.
+     *
+     * @return Components_Runner_Change The change log handler.
+     */
+    public function getRunnerChange()
+    {
+        return $this->getInstance('Components_Runner_Change');
+    }
+
+    /**
      * Returns the snapshot packaging handler for a package.
      *
      * @return Components_Runner_Snapshot The snapshot handler.

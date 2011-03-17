@@ -76,6 +76,13 @@ interface Components_Dependencies
     public function getRunnerRelease();
 
     /**
+     * Returns the change log handler for a package.
+     *
+     * @return Components_Runner_Change The change log handler.
+     */
+    public function getRunnerChange();
+
+    /**
      * Returns the snapshot packaging handler for a package.
      *
      * @return Components_Runner_Snapshot The snapshot handler.
