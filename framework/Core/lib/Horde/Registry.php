@@ -786,7 +786,7 @@ class Horde_Registry
         // Default to all installed (but possibly not configured) applications.
         if (is_null($filter)) {
             $filter = array(
-                'active', 'admin', 'hidden', 'inactive', 'notoolbar'
+                'active', 'admin', 'noadmin', 'hidden', 'inactive', 'notoolbar'
             );
         }
 
