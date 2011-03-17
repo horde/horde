@@ -35,6 +35,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * First release candidate for Horde 4.
+* Don't show sub-permissions for adding that exist already.
 * Fix listing more than one sub-permission (Bug #9671).
  </notes>
  <contents>

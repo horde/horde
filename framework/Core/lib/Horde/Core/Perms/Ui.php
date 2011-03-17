@@ -207,6 +207,13 @@ class Horde_Core_Perms_Ui
                 $this->_form->addVariable(Horde_Core_Translation::t("Permissions"), 'child', 'enum', true, true, null, array($child_perms));
             } else {
                 /* Choice array available, so set up enum field. */
+                $prefix = $permission->getName() . ':';
+                $length = strlen($prefix);
+                foreach ($this->_perms->getTree() as $name) {
+                    if (strpos($name, $prefix) === 0) {
+                        unset($child_perms[substr($name, $length)]);
+                    }
+                }
                 $this->_form->addVariable(Horde_Core_Translation::t("Permissions"), 'child', 'enum', true, false, null, array($child_perms));
             }
         }
