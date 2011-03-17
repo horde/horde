@@ -34,4 +34,4 @@ var HordeAlarmPrefs = {
 
 };
 
-document.observe('dom:load', HordeAlarmPrefs.onDomLoad.bind(HordeAlarmPrefs));
+document.observe('dom:loaded', HordeAlarmPrefs.onDomLoad.bind(HordeAlarmPrefs));
