@@ -180,7 +180,7 @@ The available tasks are:
  - bugs        : Add the new release on bugs.horde.org
  - freshmeat   : Add the new release on freshmeat.net
  - next        : Update package.xml with the next version.
-                 Sentinels will be updated as well if "sentinel" is active.
+ - nextsentinel: Update the sentinels for the next version as well.
 
 The indentation indicates task that depend on a parent task. Activating them
 without activating the parent has no effect.

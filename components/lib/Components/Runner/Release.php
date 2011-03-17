@@ -145,7 +145,7 @@ class Components_Runner_Release
 
         if ($this->_doTask('next')) {
             $sequence[] = 'NextVersion';
-            if ($this->_doTask('sentinel')) {
+            if ($this->_doTask('nextsentinel')) {
                 $sequence[] = 'NextSentinel';
             }
             if ($this->_doTask('commit')) {

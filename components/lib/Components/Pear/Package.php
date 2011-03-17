@@ -482,6 +482,33 @@ class Components_Pear_Package
     }
 
     /**
+     * Add the next version to the package.xml.
+     *
+     * @param string $version           The new version number.
+     * @param string $initial_note      The text for the initial note.
+     * @param string $stability_api     The API stability for the next release.
+     * @param string $stability_release The stability for the next release.
+     *
+     * @return NULL
+     */
+    public function nextVersion(
+        $version,
+        $initial_note,
+        $stability_api = null,
+        $stability_release = null
+    ) {
+        $package = $this->_getPackageXml();
+        $package->addNextVersion(
+            $version, $initial_note, $stability_api, $stability_release
+        );
+        file_put_contents($this->_package_xml_path, (string) $package);
+        $this->_output->ok(
+            'Added next version "' . $version . '" to package.xml '
+            . $this->_package_xml_path . '.'
+        );
+    }
+
+    /**
      * Generate a package package release.
      *
      * @return string The path to the release package.
