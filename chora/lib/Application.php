@@ -104,7 +104,7 @@ class Chora_Application extends Horde_Registry_Application
                 $acts['rt'] = $last_sourceroot;
             } else {
                 foreach ($sourceroots as $key => $val) {
-                    if (isset($val['default'])) {
+                    if (!isset($acts['rt']) || isset($val['default'])) {
                         $acts['rt'] = $key;
                         break;
                     }
