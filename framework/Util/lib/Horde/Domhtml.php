@@ -25,25 +25,18 @@ class Horde_Domhtml
     public $dom;
 
     /**
-     * Charset/encoding used in object.
-     *
-     * @var string
-     */
-    public $encoding;
-
-    /**
-     * Was charset forced by adding <?xml> tag?
-     *
-     * @var string
-     */
-    protected $_forced;
-
-    /**
      * Original charset of data.
      *
      * @var string
      */
     protected $_origCharset;
+
+    /**
+     * Encoding tag added to beginning of output.
+     *
+     * @var string
+     */
+    protected $_xmlencoding = '';
 
     /**
      * Constructor.
@@ -64,23 +57,29 @@ class Horde_Domhtml
             $text = '<html></html>';
         }
 
-        $this->_forced = null;
-        $this->_origCharset = $charset;
-
         $old_error = libxml_use_internal_errors(true);
         $doc = new DOMDocument();
-        $doc->loadHTML($text);
-        $this->encoding = $doc->encoding;
 
-        if (!is_null($charset)) {
-            if (!$doc->encoding) {
-                $this->_forced = '<?xml encoding="UTF-8">';
-                $doc->loadHTML($this->_forced . Horde_String::convertCharset($text, $charset, 'UTF-8'));
-                $this->encoding = 'UTF-8';
-            } elseif ($doc->encoding != $charset) {
-                /* If libxml can't auto-detect encoding, convert to what it
-                 * *thinks* the encoding should be. */
+        if (is_null($charset)) {
+            /* If no charset given, charset is whatever libxml tells us the
+             * encoding should be defaulting to 'iso-8859-1'. */
+            $doc->loadHTML($text);
+            $this->_origCharset = $doc->encoding
+                ? $doc->encoding
+                : 'iso-8859-1';
+        } else {
+            $this->_origCharset = Horde_String::lower($charset);
+            if ($this->_origCharset != 'iso-8859-1') {
+                $this->_xmlencoding = '<?xml encoding="' . $this->_origCharset . '">';
+            }
+            $doc->loadHTML($this->_xmlencoding . $text);
+
+            if ($doc->encoding &&
+                (Horde_String::lower($doc->encoding) != $this->_origCharset)) {
+                /* Convert charset to what the HTML document says it SHOULD
+                 * be. */
                 $doc->loadHTML(Horde_String::convertCharset($text, $charset, $doc->encoding));
+                $this->_xmlencoding = '';
             }
         }
 
@@ -116,11 +115,30 @@ class Horde_Domhtml
      */
     public function returnHtml()
     {
-        $ret = Horde_String::convertCharset($this->dom->saveHTML(), $this->encoding, $this->_origCharset);
+        $text = Horde_String::convertCharset($this->dom->saveHTML(), $this->dom->encoding || $this->_origCharset, $this->_origCharset);
 
-        return $this->_forced
-            ? str_replace($this->_forced, '', $ret)
-            : $ret;
+        return $this->_xmlencoding
+            ? substr($text, strlen($this->_xmlencoding))
+            : $text;
+    }
+
+    /**
+     * Returns the body text in the original charset.
+     *
+     * @return string  HTML text.
+     */
+    public function returnBody()
+    {
+        $body = $this->dom->getElementsByTagName('body')->item(0);
+        $text = '';
+
+        if ($body && $body->hasChildNodes()) {
+            foreach ($body->childNodes as $child) {
+                $text .= $this->dom->saveXML($child);
+            }
+        }
+
+        return Horde_String::convertCharset($text, 'UTF-8', $this->_origCharset);
     }
 
 }

@@ -117,20 +117,9 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
             return $dom;
         }
 
-        if ($this->_params['return_document']) {
-            return $dom->returnHtml();
-        }
-
-        $body = $dom->dom->getElementsByTagName('body')->item(0);
-        $text = '';
-
-        if ($body && $body->hasChildNodes()) {
-            foreach ($body->childNodes as $child) {
-                $text .= $dom->dom->saveXML($child);
-            }
-        }
-
-        return Horde_String::convertCharset($text, $dom->encoding, $this->_params['charset']);
+        return $this->_params['return_document']
+            ? $dom->returnHtml()
+            : $dom->returnBody();
     }
 
     /**

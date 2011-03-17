@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>18:20:29</time>
+ <date>2011-03-17</date>
+ <time>12:37:29</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -29,6 +29,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Tweak loading HTML documents (encodings) in Horde_Domhtml.
+* Added Horde_Domhtml#returnBody().
+* Added Domhtml unit tests.
 * First release candidate for Horde 4.
  </notes>
  <contents>
@@ -79,6 +82,7 @@
       <file name="ArrayTest.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="CsvTest.php" role="test" />
+      <file name="DomhtmlTest.php" role="test" />
       <file name="StringTest.php" role="test" />
       <file name="UtilTest.php" role="test" />
       <file name="VariablesTest.php" role="test" />
@@ -143,6 +147,7 @@
    <install as="Horde/Util/ArrayTest.php" name="test/Horde/Util/ArrayTest.php" />
    <install as="Horde/Util/Autoload.php" name="test/Horde/Util/Autoload.php" />
    <install as="Horde/Util/CsvTest.php" name="test/Horde/Util/CsvTest.php" />
+   <install as="Horde/Util/DomhtmlTest.php" name="test/Horde/Util/DomhtmlTest.php" />
    <install as="Horde/Util/StringTest.php" name="test/Horde/Util/StringTest.php" />
    <install as="Horde/Util/UtilTest.php" name="test/Horde/Util/UtilTest.php" />
    <install as="Horde/Util/VariablesTest.php" name="test/Horde/Util/VariablesTest.php" />
@@ -278,6 +283,24 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Tweak loading HTML documents (encodings) in Horde_Domhtml.
+* Added Horde_Domhtml#returnBody().
+* Added Domhtml unit tests.
+* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>
