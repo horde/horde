@@ -10,8 +10,8 @@
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-17</date>
- <time>23:23:46</time>
+ <date>2011-03-18</date>
+ <time>06:44:16</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -44,6 +44,13 @@
      </dir> <!-- /imp/config/conf.d -->
     </dir> <!-- /imp/config -->
    </dir> <!-- /imp -->
+   <dir name="mnemo">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /mnemo/config/conf.d -->
+    </dir> <!-- /mnemo/config -->
+   </dir> <!-- /mnemo -->
    <file name="COPYING" role="horde" />
   </dir> <!-- / -->
  </contents>
@@ -131,6 +138,7 @@
    <install as="config/registry.d/10-kolab.php" name="config/registry.d/10-kolab.php" />
    <install as="imp/config/backends.d/10-kolab.php" name="imp/config/backends.d/10-kolab.php" />
    <install as="imp/config/conf.d/10-kolab.php" name="imp/config/conf.d/10-kolab.php" />
+   <install as="mnemo/config/conf.d/10-kolab.php" name="mnemo/config/conf.d/10-kolab.php" />
    <install as="COPYING" name="COPYING" />
   </filelist>
  </phprelease>
@@ -144,7 +152,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-17</date>
+   <date>2011-03-18</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
    <notes>
 * Initial release.

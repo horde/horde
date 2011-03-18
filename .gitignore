@@ -71,6 +71,7 @@ framework/bin/*.conf
 !/kolab/config/registry.d/10-kolab.php
 !/kolab/imp/config/conf.d/*
 !/kolab/imp/config/backends.d/*
+!/kolab/mnemo/config/conf.d/*
 
 # Application specific excludes
 ApertureToAnselExportPlugin/build/
