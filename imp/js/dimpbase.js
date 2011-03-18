@@ -2833,7 +2833,7 @@ var DimpBase = {
     deleteFolder: function(folder)
     {
         if (this.folder == folder) {
-            this.go();
+            this.go('mbox', 'INBOX');
         }
         this.deleteFolderElt(this.getFolderId(folder), true);
     },
