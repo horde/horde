@@ -30,7 +30,7 @@
  * status: (string) One of the following:
  *             active: Activate application.
  *             admin: Activate application, but only for admins.
- *             noadmin: Activate application, but not for admins.
+ *             noadmin: Disable application for authenticated admins.
  *             heading: Header label for application groups.
  *             hidden: Enable application, but hide.
  *             inactive: Disable application

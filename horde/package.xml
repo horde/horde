@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Allow disabling applications for administrators.
 * First release candidate for Horde 4.
  </notes>
  <contents>

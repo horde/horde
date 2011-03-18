@@ -807,6 +807,7 @@ class Horde_Registry
                 (($this->applications[$app]['status'] == 'admin') &&
                  !$this->isAdmin()) ||
                 (($this->applications[$app]['status'] == 'noadmin') &&
+                 $this->_args['authentication'] != 'none' &&
                  $this->isAdmin()));
     }
 

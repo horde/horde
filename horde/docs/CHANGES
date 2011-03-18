@@ -2,6 +2,7 @@
 v4.0-RC1
 --------
 
+[gwr] Allow disabling applications for administrators.
 [jan] Don't show sub-permissions for adding that exist already.
 [jan] Fix listing more than one sub-permission (Bug #9671).
 [jan] Fix calendar synchronization with certain Nokia phones (Bug #9646).
