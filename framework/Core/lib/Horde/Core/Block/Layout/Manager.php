@@ -245,9 +245,8 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
 
             if ($new || $changed) {
                 // Change app or type.
-                $info = array();
-                $info['app'] = $newapp;
-                $info['block'] = $newtype;
+                $info = array('app'   => $newapp,
+                              'block' => $newtype);
                 $params = $this->_collection->getParams($newapp, $newtype);
                 foreach ($params as $newparam) {
                     $info['params'][$newparam] = $this->_collection->getDefaultValue($newapp, $newtype, $newparam);
@@ -307,7 +306,12 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
     {
         if (!isset($this->_blocks[$row][$col])) {
             $field = $this->_layout[$row][$col];
-            $this->_blocks[$row][$col] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($field['app'], $field['params']['type2'], $field['params']['params']);
+            $this->_blocks[$row][$col] = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_BlockCollection')
+                ->create()
+                ->getBlock($field['app'],
+                           $field['params']['type2'],
+                           $field['params']['params']);
         }
 
         return $this->_blocks[$row][$col];
