@@ -38,6 +38,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
         $indices = $ids['INBOX'];
 
         $html = '<table cellspacing="0" width="100%">';
+        $text = _("Go to your Inbox...");
         if (empty($indices)) {
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
@@ -66,20 +67,22 @@ class IMP_Block_Newmail extends Horde_Core_Block
                 $from = $imp_ui->getFrom($envelope, array('specialchars' => $charset));
                 $subject = $imp_ui->getSubject($envelope->subject, true);
 
-                $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg\', \'{5}INBOX' . $uid . '\');return false;"><td>' .
+                $html .= '<tr style="cursor:pointer" class="text"><td>' .
+                    IMP::generateIMPUrl('mailbox.php', 'INBOX', $uid)->link() .
                     '<strong>' . $from['from'] . '</strong><br />' .
-                    $subject . '</td>' .
+                    $subject . '</a></td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
             }
 
             $more_msgs = count($indices) - $shown;
-            $text = ($more_msgs > 0)
-                ? sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs)
-                : _("Go to your Inbox...");
-            $html .= '<tr><td colspan="2" style="cursor:pointer" align="right" onclick="DimpBase.go();return false;">' . $text . '</td></tr>';
+            if ($more_msgs > 0) {
+                $text = sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs);
+            }
         }
 
-        return $html . '</table>';
+        return $html .
+               '<tr><td colspan="2" style="cursor:pointer" align="right">' . IMP::generateIMPUrl('mailbox.php', 'INBOX')->link() . $text . '</a></td></tr>' .
+               '</table>';
     }
 
 }

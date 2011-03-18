@@ -8,22 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-$code = $filters = $flags = $portal_urls = array();
+$code = $filters = $flags = array();
 
 $compose_page = in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-dimp.php'));
-
-/* Add portal links - base page only. */
-if (!$compose_page) {
-    $dimp_block_list = Horde::loadConfiguration('portal.php', 'dimp_block_list', 'imp');
-    foreach ($dimp_block_list as $block) {
-        if ($block['ob'] instanceof Horde_Core_Block) {
-            $app = $block['ob']->getApp();
-            if (empty($portal_urls[$app])) {
-                $portal_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true));
-            }
-        }
-    }
-}
 
 /* Generate filter array. */
 $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
@@ -89,7 +76,6 @@ $code['conf'] = array_filter(array(
     'pop3' => intval($GLOBALS['session']->get('imp', 'protocol') == 'pop'),
     'popup_height' => 610,
     'popup_width' => 820,
-    'portal_urls' => $portal_urls,
     'preview_pref' => $GLOBALS['prefs']->getValue('dimp_show_preview'),
     'qsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH,
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
@@ -162,7 +148,6 @@ $code['text'] = array(
     'ok' => _("Ok"),
     'onlogout' => _("Logging Out..."),
     'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
-    'portal' => ("Portal"),
     'prefs' => _("User Options"),
     'rename_prompt' => _("Rename folder to:"),
     'search' => _("Search"),

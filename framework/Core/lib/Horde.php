@@ -512,6 +512,7 @@ HTML;
                 return $url;
             }
             break;
+
         case 'portal':
             if ($GLOBALS['session']->get('horde', 'mode') == 'smartmobile' && self::ajaxAvailable()) {
                 return self::url('services/portal/mobile.php', false, $opts);
@@ -519,6 +520,7 @@ HTML;
                 return self::url('services/portal/', false, $opts);
             }
             break;
+
         case 'problem':
             return self::url('services/problem.php', false, $opts)
                 ->add('return_url', urlencode(self::selfUrl(true, true, true)));

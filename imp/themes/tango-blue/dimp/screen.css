@@ -11,10 +11,6 @@
     color: black;
 }
 
-#dimpmain_portal {
-    background-color: #c9daed;
-}
-
 #ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }

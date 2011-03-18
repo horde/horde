@@ -56,8 +56,71 @@ class IMP_Block_Summary extends Horde_Core_Block
      */
     protected function _content()
     {
-        $imp_ui = new IMP_Ui_Block();
-        list($html_out, $newmsgs) = $imp_ui->folderSummary($GLOBALS['session']->get('imp', 'view'));
+        global $injector, $notification, $prefs, $session;
+
+        /* Filter on INBOX display, if requested. */
+        if ($prefs->getValue('filter_on_display')) {
+            $injector->getInstance('IMP_Filter')->filter('INBOX');
+        }
+
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+        /* Get list of mailboxes to poll. */
+        $poll = $injector->getInstance('IMP_Imap_Tree')->getPollList(true);
+        $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
+
+        $anyUnseen = false;
+        $html_out = $onclick = '';
+        $newmsgs = array();
+
+        foreach ($poll as $mbox) {
+            $mbox_str = strval($mbox);
+
+            if (isset($status[$mbox_str]) &&
+                (($mbox_str == 'INBOX') ||
+                 ($session->get('imp', 'protocol') != 'pop')) &&
+                (empty($this->_params['show_unread']) ||
+                 !empty($status[$mbox_str]['unseen']))) {
+                 $mbox_status = $status[$mbox_str];
+
+                if (!empty($mbox_status['recent'])) {
+                    $newmsgs[$mbox_str] = $mbox_status['recent'];
+                }
+
+                $html_out .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
+
+                if (!empty($mbox_status['unseen'])) {
+                    $html_out .= '<strong>';
+                    $anyUnseen = true;
+                }
+
+                $html_out .= IMP::generateIMPUrl('mailbox.php', $mbox_str)->link() . $mbox->display . '</a>';
+
+                if (!empty($mbox_status['unseen'])) {
+                    $html_out .= '</strong>';
+                }
+                $html_out .= '</td><td>' .
+                    (!empty($mbox_status['unseen']) ? '<strong>' . $mbox_status['unseen'] . '</strong>' : '0') .
+                    (!empty($this->_params['show_total']) ? '</td><td>(' . $mbox_status['messages'] . ')' : '') .
+                    '</td></tr>';
+            }
+        }
+
+        if (!empty($newmsgs)) {
+            /* Open the mailbox R/W to ensure the 'recent' flags are cleared
+             * from the current mailbox. */
+            foreach ($newmsgs as $mbox => $nm) {
+                $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+            }
+        } elseif (!empty($this->_params['show_unread'])) {
+            if (count($folders) == 0) {
+                $html_out = _("No folders are being checked for new mail.");
+            } elseif (!$anyUnseen) {
+                $html_out = '<em>' . _("No folders with unseen messages") . '</em>';
+            } elseif ($prefs->getValue('nav_popup')) {
+                $html_out = '<em>' . _("No folders with new messages") . '</em>';
+            }
+        }
 
         $html = '<table cellspacing="0" width="100%">';
 
@@ -71,7 +134,7 @@ class IMP_Block_Summary extends Horde_Core_Block
 
         /* Check to see if user wants new mail notification, but only
          * if the user is logged into IMP. */
-        if ($GLOBALS['prefs']->getValue('nav_popup')) {
+        if ($prefs->getValue('nav_popup')) {
             /* Always include these scripts so they'll be there if there's
              * new mail in later dynamic updates. */
             Horde::addScriptFile('effects.js', 'horde');
@@ -79,11 +142,11 @@ class IMP_Block_Summary extends Horde_Core_Block
         }
 
         if (!empty($newmsgs) &&
-            ($GLOBALS['prefs']->getValue('nav_audio') ||
-             $GLOBALS['prefs']->getValue('nav_popup'))) {
+            ($prefs->getValue('nav_audio') ||
+             $prefs->getValue('nav_popup'))) {
             Horde::startBuffer();
             IMP::newmailAlerts($newmsgs);
-            $GLOBALS['notification']->notify(array('listeners' => 'audio'));
+            $notification->notify(array('listeners' => 'audio'));
             $html .= Horde::endBuffer();
         }
 

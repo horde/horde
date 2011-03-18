@@ -466,9 +466,21 @@ class IMP
     static public function generateIMPUrl($page, $mailbox, $uid = null,
                                           $tmailbox = null, $encode = true)
     {
-        $url = ($page instanceof Horde_Url)
-            ? clone $page
-            : Horde::url($page);
+        if ($page instanceof Horde_Url) {
+            $url = clone $page;
+        } else {
+            switch (self::getViewMode()) {
+            case 'dimp':
+                $anchor = is_null($uid)
+                    ? ('mbox:' . $mailbox)
+                    : ('msg:' . strval(new IMP_Indices($mailbox, $uid)));
+                return Horde::url('index.php')->setAnchor($anchor);
+
+            default:
+                $url = Horde::url($page);
+                break;
+            }
+        }
 
         return $url->add(self::getIMPMboxParameters($mailbox, $uid, $tmailbox))->setRaw(!$encode);
     }

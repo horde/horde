@@ -209,7 +209,7 @@ var DimpBase = {
             if (this.folder != data || !$('dimpmain_folder').visible()) {
                 this.highlightSidebar(this.getFolderId(data));
                 if (!$('dimpmain_folder').visible()) {
-                    $('dimpmain_portal').hide();
+                    $('dimpmain_iframe').hide();
                     $('dimpmain_folder').show();
                 }
             }
@@ -219,7 +219,7 @@ var DimpBase = {
         }
 
         $('dimpmain_folder').hide();
-        $('dimpmain_portal').update(DIMP.text.loading).show();
+        $('dimpmain_iframe').update(DIMP.text.loading).show();
 
         switch (type) {
         case 'app':
@@ -231,8 +231,6 @@ var DimpBase = {
             this.setHash('app', data.app);
             if (data.data) {
                 this.iframeContent(data.app, data.data);
-            } else if (DIMP.conf.portal_urls[data.app]) {
-                this.iframeContent(data.app, DIMP.conf.portal_urls[data.app]);
             }
             break;
 
@@ -251,13 +249,6 @@ var DimpBase = {
             this.highlightSidebar();
             this.setTitle(DIMP.text.search);
             this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, data));
-            break;
-
-        case 'portal':
-            this.highlightSidebar('appportal');
-            this.setHash(type);
-            this.setTitle(DIMP.text.portal);
-            DimpCore.doAction('showPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
 
         case 'prefs':
@@ -338,7 +329,7 @@ var DimpBase = {
 
     iframeContent: function(name, loc)
     {
-        var container = $('dimpmain_portal'), iframe;
+        var container = $('dimpmain_iframe'), iframe;
         if (!container) {
             DimpCore.showNotifications([ { type: 'horde.error', message: 'Bad portal!' } ]);
             return;
@@ -1710,7 +1701,7 @@ var DimpBase = {
                 head.insert(link);
             });
         }
-        $('dimpmain_portal').update(r.response.portal);
+        $('dimpmain_iframe').update(r.response.portal);
     },
 
     /* Search functions. */
@@ -2188,7 +2179,6 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'appportal':
             case 'appprefs':
                 this.go(id.substring(3));
                 e.stop();
@@ -2282,14 +2272,6 @@ var DimpBase = {
                 if (e.element().hasClassName('applicationtab')) {
                     // Prefix is 'apptab_'
                     this.go('menu', e.element().identify().substring(7));
-                    e.stop();
-                    return;
-                }
-                break;
-
-            case 'dimpmain_portal':
-                if (e.element().match('H1.header a')) {
-                    this.go('app', { app: e.element().readAttribute('app') });
                     e.stop();
                     return;
                 }

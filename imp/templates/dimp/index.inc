@@ -61,7 +61,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php if (empty($GLOBALS['conf']['menu']['apps_iframe'])): $ak = Horde::getAccessKey(_("_Portal"), true); ?>
     <li class="servicelink"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>>
      <span class="iconImgSidebar hordeIcon"></span>
-     <a href="<?php echo Horde::url('services/portal/', false, array('app' => 'horde')) ?>"><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
+     <a href="<?php echo Horde::getServiceLink('portal')->add('ajaxui', 1) ?>"><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
     </li>
 <?php else: ?>
     <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
@@ -101,7 +101,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   </div>
 
   <div id="dimpmain">
-   <div id="dimpmain_portal"><?php echo _("Loading...") ?></div>
+   <div id="dimpmain_iframe"><?php echo _("Loading...") ?></div>
    <div id="dimpmain_folder" style="display:none">
     <div id="dimpmain_folder_top">
      <div id="tabbar">

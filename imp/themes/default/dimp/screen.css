@@ -67,11 +67,6 @@ div#quota {
 }
 /* end header */
 
-/* Portal styles. */
-#dimpmain_portal h1.header a {
-    cursor: pointer;
-}
-
 /* SpellChecker styles. */
 #spellcheck {
     color: #000;
