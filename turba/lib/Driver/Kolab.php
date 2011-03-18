@@ -1,7 +1,4 @@
 <?php
-/** Kolab support class. */
-require_once 'Horde/Kolab.php';
-
 /**
  * Horde Turba driver for the Kolab IMAP Server.
  *

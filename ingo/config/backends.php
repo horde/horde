@@ -319,7 +319,7 @@ if ($GLOBALS['conf']['kolab']['enabled']) {
         'transport' => 'timsieved',
         'hordeauth' => 'full',
         'params' => array(
-            'hostspec' => Kolab::getServer('imap'),
+            'hostspec' => 'localhost', //@todo: Kolab::getServer('imap'),
             'logintype' => 'PLAIN',
             'usetls' => false,
             'port' => $GLOBALS['conf']['kolab']['imap']['sieveport'],

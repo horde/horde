@@ -837,12 +837,12 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
 
     /* Only use LDAP if we have that extension in PHP */
     if (function_exists('ldap_connect')) {
-        require_once 'Horde/Kolab.php';
 
-        if (!is_callable('Kolab', 'getServer')) {
+        if (false && !is_callable('Kolab', 'getServer')) {
             $_kolab_server = $GLOBALS['conf']['kolab']['ldap']['server'];
         } else {
-            $_kolab_server = Kolab::getServer('ldap');
+            //@todo: switch to session handler.
+            //$_kolab_server = Kolab::getServer('ldap');
         }
 
         /* A global address book for a Kolab Server. This is typically a
