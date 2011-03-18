@@ -161,7 +161,7 @@ class Turba
      *
      * @return string  The default address book name.
      */
-    static public function getDefaultAddressBook()
+    static public function getDefaultAddressbook()
     {
         $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
         if (!empty($lines)) {

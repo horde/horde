@@ -1103,7 +1103,7 @@ class Turba_Api extends Horde_Registry_Api
 
         // ...and ensure the default source is used as a default.
         if (!count($sources)) {
-            $sources = array(Turba::getDefaultAddressBook());
+            $sources = array(Turba::getDefaultAddressbook());
         }
 
         // Read the columns to display from the preferences.
@@ -1347,7 +1347,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         if (!count($sources)) {
-            $sources = array(Turba::getDefaultAddressBook());
+            $sources = array(Turba::getDefaultAddressbook());
         }
 
         $results = array();

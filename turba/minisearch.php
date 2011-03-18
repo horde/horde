@@ -17,7 +17,7 @@ $search = Horde_Util::getFormData('search');
 $results = array();
 
 // Make sure we have a source.
-$source = Horde_Util::getFormData('source', Turba::getDefaultAddressBook());
+$source = Horde_Util::getFormData('source', Turba::getDefaultAddressbook());
 
 // Do the search if we have one.
 if (!is_null($search)) {
