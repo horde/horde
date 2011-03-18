@@ -1,6 +1,7 @@
 <?php
 /**
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Horde
  */
 class Horde_Block_Cloud extends Horde_Core_Block
 {

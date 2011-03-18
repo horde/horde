@@ -11,7 +11,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package  Perms
+ * @package  Core
  */
 class Horde_Core_Perms
 {

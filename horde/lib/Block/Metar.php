@@ -2,6 +2,8 @@
 /**
  * An applet for the portal screen to display METAR weather data for a
  * specified location (currently airports).
+ *
+ * @package Horde
  */
 class Horde_Block_Metar extends Horde_Core_Block
 {

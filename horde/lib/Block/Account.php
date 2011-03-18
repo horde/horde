@@ -7,6 +7,7 @@
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
  * @author  Jan Schneider <jan@horde.org>
+ * @package Horde
  */
 class Horde_Block_Account extends Horde_Core_Block
 {
@@ -131,6 +132,7 @@ class Horde_Block_Account extends Horde_Core_Block
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @package Horde
  */
 class Accounts_Driver {
 
@@ -239,6 +241,7 @@ class Accounts_Driver {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @package Horde
  */
 class Accounts_Driver_localhost extends Accounts_Driver {
 
@@ -405,6 +408,7 @@ class Accounts_Driver_localhost extends Accounts_Driver {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @package Horde
  */
 class Accounts_Driver_ldap extends Accounts_Driver {
 
@@ -726,6 +730,7 @@ class Accounts_Driver_ldap extends Accounts_Driver {
  * internal accounts.
  *
  * @author mzizka@hotmail.com
+ * @package Horde
  */
 class Accounts_Driver_kolab extends Accounts_Driver_ldap {
 
@@ -752,6 +757,7 @@ class Accounts_Driver_kolab extends Accounts_Driver_ldap {
  * Implements the Accounts API using finger to fetch information.
  *
  * @author  Peter Paul Elfferich <pp@lazyfox.org>
+ * @package Horde
  */
 class Accounts_Driver_finger extends Accounts_Driver {
 

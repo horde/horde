@@ -6,7 +6,8 @@
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Horde
  */
 class Horde_Block_FbStream extends Horde_Core_Block
 {

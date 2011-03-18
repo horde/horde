@@ -12,7 +12,7 @@
  * @author  Jon Parise <jon@horde.org>
  * @author  Brent J. Nordquist <bjn@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Test
+ * @package Test
  */
 
 /* If gettext is not loaded, define a dummy _() function so that

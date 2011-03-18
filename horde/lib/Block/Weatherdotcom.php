@@ -2,6 +2,8 @@
 /**
  * An applet for the portal screen to display weather and forecast data from
  * weather.com for a specified location.
+ *
+ * @package Horde
  */
 class Horde_Block_Weatherdotcom extends Horde_Core_Block
 {

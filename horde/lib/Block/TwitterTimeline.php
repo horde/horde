@@ -13,8 +13,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Ben Klang <ben@alkaloid.net>
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Ben Klang <ben@alkaloid.net>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Horde
  */
 class Horde_Block_TwitterTimeline extends Horde_Core_Block
 {
