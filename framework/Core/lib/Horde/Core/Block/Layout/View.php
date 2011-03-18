@@ -76,6 +76,7 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                 }
 
                 if (is_array($item)) {
+                    $block_id = 'block_' . $row_num . '_' . $col_num;
                     $this->_applications[$item['app']] = $item['app'];
                     $rowspan = $colspan = 1;
                     try {
@@ -92,7 +93,6 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                         }
 
                         if ($block instanceof Horde_Core_Block) {
-                            $block_id = 'block_' . $row_num . '_' . $col_num;
                             $content = $block->getContent();
                             $header = $block->getTitle();
 
