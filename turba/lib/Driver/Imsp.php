@@ -695,7 +695,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @return TODO
      */
-    protected function checkDefaultShare($share, $srcConfig)
+    public function checkDefaultShare($share, $srcConfig)
     {
         $params = @unserialize($share->get('params'));
         if (!isset($params['default'])) {
