@@ -36,7 +36,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         if (($session = $this->getOption('session')) &&
             isset($_COOKIE[$this->_instance . '_expanded'])) {
             /* Get current session expanded values. */
-            $curr = call_user_func($session['get'], $this->_instance, '');
+            $curr = call_user_func($session['get'], $this->_instance, '', Horde_Session::TYPE_ARRAY);
 
             /* Remove "exp" prefix from cookie value. */
             $exp = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
