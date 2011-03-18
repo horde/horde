@@ -310,23 +310,3 @@ $backends['ldapsieve'] = array(
     'script' => 'sieve',
     'scriptparams' => array()
 );
-
-/* Kolab Example (using Sieve) */
-if ($GLOBALS['conf']['kolab']['enabled']) {
-    $backends['kolab'] = array(
-        // Disabled by default
-        'disabled' => true,
-        'transport' => 'timsieved',
-        'hordeauth' => 'full',
-        'params' => array(
-            'hostspec' => 'localhost', //@todo: Kolab::getServer('imap'),
-            'logintype' => 'PLAIN',
-            'usetls' => false,
-            'port' => $GLOBALS['conf']['kolab']['imap']['sieveport'],
-            'scriptname' => 'kmail-vacation.siv'
-        ),
-        'script' => 'sieve',
-        'scriptparams' => array(),
-        'shares' => false
-    );
-}
