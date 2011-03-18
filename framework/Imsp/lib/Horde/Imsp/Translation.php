@@ -9,7 +9,7 @@
  */
 
 /**
- * Horde_Horde_Imsp_Translation is the translation wrapper class for Horde_Horde_Imsp.
+ * Horde_Imsp_Translation is the translation wrapper class for Horde_Imsp.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Imsp

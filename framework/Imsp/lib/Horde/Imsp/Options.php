@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Net/IMSP/Auth.php';
-
 /**
  * Horde_Imsp_Options Class - provides an interface to IMSP server-based
  * options storage.
@@ -21,52 +18,33 @@ require_once 'Net/IMSP/Auth.php';
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Options {
-
+class Horde_Imsp_Options
+{
     /**
      * Horde_Imsp object.
      *
      * @var Horde_Imsp
      */
-    var $_imsp;
+    protected $_imsp;
 
     /**
      * Parameter list.
      *
      * @var array
      */
-    var $_params;
+    protected $_params;
 
     /**
      * Constructor function.
      *
      * @param array $params  Hash containing IMSP parameters.
      */
-    function Horde_Imsp_Options($params)
+    public function __construct(array $params)
     {
         $this->_params = $params;
-    }
-
-    /**
-     * Initialization function to be called after object is returned.
-     * This allows errors to occur and not break the script.
-     *
-     * @return mixed  True on success PEAR_Error on failure.
-     */
-    function init()
-    {
-        if (!isset($this->_imsp)) {
-            $auth = &Horde_Imsp_Auth::singleton($this->_params['auth_method']);
-            $this->_imsp = $auth->authenticate($this->_params);
-        }
-
-        if (is_a($this->_imsp, 'PEAR_Error')) {
-            return $this->_imsp;
-        }
-
-        $this->_imsp->writeToLog('Horde_Imsp_Options initialized.', __FILE__,
-                                 __LINE__, PEAR_LOG_DEBUG);
-        return true;
+        $auth = Horde_Imsp_Auth_Factory::create($this->_params['auth_method']);
+        $this->_imsp = $auth->authenticate($this->_params);
+        $this->_imsp->_logger->debug('Horde_Imsp_Options initialized.');
     }
 
     /**
@@ -75,25 +53,17 @@ class Horde_Imsp_Options {
      * @param  string $optionName Name of option to retrieve. Accepts '*'
      *                            as wild card.
      *
-     * @return mixed  Associative array containing option=>value pairs or
-     *                PEAR_Error.
+     * @return array  Associative array containing option=>value pairs.
+     * @throws Horde_Imsp_Exception
      */
-    function get($optionName)
+    public function get($optionName)
     {
         $options = array();
-        $result = $this->_imsp->imspSend("GET $optionName", true, true);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
+        $this->_imsp->imspSend("GET $optionName", true, true);
         $server_response = $this->_imsp->imspReceive();
-        if (is_a($server_response, 'PEAR_Error')) {
-            return $server_response;
-        }
-
         while (preg_match("/^\* OPTION/", $server_response)) {
             /* First, check for a {}. */
-            if (preg_match(IMSP_OCTET_COUNT, $server_response, $tempArray)) {
+            if (preg_match(Horde_Imsp::OCTET_COUNT, $server_response, $tempArray)) {
                 $temp = explode(' ', $server_response);
                 $options[$temp[2]] = $this->_imsp->receiveStringLiteral($tempArray[2]);
                 $this->_imsp->imspReceive();
@@ -130,17 +100,13 @@ class Horde_Imsp_Options {
                 }
             }
             $server_response = $this->_imsp->imspReceive();
-            if (is_a($server_response, 'PEAR_Error')) {
-                return $server_response;
-            }
         }
 
         if ($server_response != 'OK') {
-            return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                           __FILE__, __LINE__);
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
 
-        $this->_imsp->writeToLog('GET command OK.', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $this->_imsp->_logger->debug('GET command OK.');
         return $options;
     }
 
@@ -150,63 +116,29 @@ class Horde_Imsp_Options {
      * @param string $optionName  Name of option to set.
      * @param string $optionValue Value to assign.
      *
-     * @return mixed True or PEAR_Error.
+     * @throws Horde_Imsp_Exception
      */
-    function set($optionName, $optionValue)
+    public function set($optionName, $optionValue)
     {
         /* Send the beginning of the command. */
-        $result = $this->_imsp->imspSend("SET $optionName ", true, false);
+        $this->_imsp->imspSend("SET $optionName ", true, false);
 
         /* Send $optionValue as a literal {}? */
-        if (preg_match(IMSP_MUST_USE_LITERAL, $optionValue)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $optionValue)) {
             $biValue = sprintf("{%d}", strlen($optionValue));
-            $result = $this->_imsp->imspSend($biValue, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
+            $result = $this->_imsp->imspSend($biValue, false, true, true);
         }
 
         /* Now send the rest of the command. */
         $result = $this->_imsp->imspSend($optionValue, false, true);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
         $server_response = $this->_imsp->imspReceive();
-
-        if (is_a($server_response, 'PEAR_Error')) {
-            return $server_response;
-        } elseif ($server_response != 'OK') {
-            return $this->_imsp->imspError('The option could not be set on the IMSP server.', __FILE__, __LINE__);
+        if ($server_response != 'OK') {
+            throw new Horde_Imsp_Exception('The option could not be set on the IMSP server.');
         }
-
-        $this->_imsp->writeToLog('SET command OK.', __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        return true;
+        $this->_imsp->_logger->debug('SET command OK.');
     }
 
-    /**
-     * Sets the log information in the Horde_Imsp object.
-     *
-     * @param array $params  The log parameters.
-     *
-     * @return mixed  True on success PEAR_Error on failure.
-     */
-    function setLogger($params)
-    {
-        if (isset($this->_imsp)) {
-            return $this->_imsp->setLogger($params);
-        } else {
-            return $this->_imsp->imspError('The IMSP log could not be initialized.');
-        }
-    }
-
-    function logout()
+    public function logout()
     {
         $this->_imsp->logout();
     }

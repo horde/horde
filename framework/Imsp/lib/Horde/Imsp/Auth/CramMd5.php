@@ -16,41 +16,26 @@
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Auth_cram_md5 extends Horde_Imsp_Auth {
-
+class Horde_Imsp_Auth_CramMd5 extends Horde_Imsp_Auth
+{
     /**
-     * Private authentication function.  Provides actual
-     * authentication code.
+     * Private authentication function.  Provides actual authentication code.
      *
-     * @access private
      * @param  mixed $params Hash of IMSP parameters.
      *
-     * @return mixed Horde_Imsp object connected to server if successful,
-     *               PEAR_Error on failure.
+     * @return Horde_Imsp  Horde_Imsp object connected to server.
+     * @throws Horde_Exception_PermissionDenied
      */
-    function &_authenticate($params)
+    protected function _authenticate(array $params)
     {
+        // @TODO: Inject this from Horde_Core_Factory_...
         $imsp = &Horde_Imsp::singleton('none', $params);
-        $result = $imsp->init();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
         $userId = $params['username'];
         $credentials = $params['password'];
-        $result = $imsp->imspSend('AUTHENTICATE CRAM-MD5');
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $imsp->imspSend('AUTHENTICATE CRAM-MD5');
 
-        /* Get response and decode it. Note that we remove the 1st 2
-         * characters from the response to get rid of the '+'
-         * continuation character and the space that is sent as part
-         * of the CRAM-MD5 response (at least on cyrus-imspd). */
+        /* Get response and decode it. */
         $server_response = $imsp->imspReceive();
-        if (is_a($server_response, 'PEAR_Error')) {
-            return $server_response;
-        }
         $server_response = base64_decode(trim(substr($server_response, 2)));
 
         /* Build and base64 encode the response to the challange. */
@@ -58,21 +43,15 @@ class Horde_Imsp_Auth_cram_md5 extends Horde_Imsp_Auth {
         $command_string = base64_encode($response_to_send);
 
         /* Send the response. */
-        $result = $imsp->imspSend($command_string, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        $imsp->imspSend($command_string, false);
+        $result = $imsp->imspReceive();
+
+        if ($result != 'OK') {
+            $imsp->_logger->err('Login to IMSP host failed.');
+            throw new Horde_Exception_PermissionDenied();
         }
 
-        $result = $imsp->imspReceive();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-        if ($result != 'OK') {
-            $result = $imsp->imspError('Login to IMSP host failed.', __FILE__, __LINE__);
-            return $result;
-        } else {
-            return $imsp;
-        }
+        return $imsp;
     }
 
     /**
@@ -84,7 +63,7 @@ class Horde_Imsp_Auth_cram_md5 extends Horde_Imsp_Auth {
      *
      * @return string  The MD5 HMAC.
      */
-    function _hmac($key, $data)
+    protected function _hmac($key, $data)
     {
         if (function_exists('hash_hmac')) {
             return hash_hmac('md5', $data, $key);
@@ -109,7 +88,7 @@ class Horde_Imsp_Auth_cram_md5 extends Horde_Imsp_Auth {
      * Force a logout command to the imsp stream.
      *
      */
-    function logout()
+    public function logout()
     {
         $this->_imsp->logout();
     }
@@ -119,7 +98,7 @@ class Horde_Imsp_Auth_cram_md5 extends Horde_Imsp_Auth {
      *
      * @return string the type of this IMSP_Auth driver
      */
-     function getDriverType()
+     public function getDriverType()
      {
          return 'cram_md5';
      }

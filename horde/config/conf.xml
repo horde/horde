@@ -1755,9 +1755,9 @@
      <configstring name="port" desc="Server port:">406</configstring>
      <configswitch name="auth_method" desc="The authentication method to
      use">plaintext
-      <case name="plaintext" desc="Plaintext" />
-      <case name="cram_md5" desc="CRAM-MD5" />
-      <case name="imtest" desc="Cyrus imtest">
+      <case name="Plaintext" desc="Plaintext" />
+      <case name="CramMd5" desc="CRAM-MD5" />
+      <case name="Imtest" desc="Cyrus imtest">
        <configstring name="socket" desc="Path to the directory that will hold
        the socket. (The socket will be named 'imsp_username.sck').">
        /tmp/</configstring>

@@ -1,9 +1,4 @@
 <?php
-// Constant Definitions
-define('IMSP_OCTET_COUNT', "/({)([0-9]{1,})(\}$)/");
-define('IMSP_MUST_USE_LITERAL', "/[\x80-\xFF\\r\\n\"\\\\]/");
-define('IMSP_MUST_USE_QUOTE', "/[\W]/i");
-
 /**
  * The Horde_Imsp class provides a common interface to an IMSP server .
  *
@@ -21,26 +16,23 @@ define('IMSP_MUST_USE_QUOTE', "/[\W]/i");
  */
 class Horde_Imsp
 {
+    const OCTET_COUNT = '/({)([0-9]{1,})(\}$)/';
+    const MUST_USE_LITERAL = '/[\x80-\xFF\\r\\n\"\\\\]/';
+    const MUST_QUOTE = '/[\W]/i';
+
     /**
      * String containing name/IP address of IMSP host.
      *
      * @var string
      */
-    var $imsp_server                = 'localhost';
+    public $imsp_server = 'localhost';
 
     /**
      * String containing port for IMSP server.
      *
      * @var string
      */
-    var $imsp_port                  = '406';
-
-    /**
-     * Boolean to set if we should write to a log, if one is set up.
-     *
-     * @var boolean
-     */
-    var $logEnabled                 = true;
+    public $imsp_port = '406';
 
     /**
      * String buffer containing the last raw NO or BAD response from the
@@ -48,97 +40,74 @@ class Horde_Imsp
      *
      * @var string
      */
-    var $lastRawError              = '';
+    public $lastRawError;
 
-    // Private Declarations
-    var $_commandPrefix             = 'A';
-    var $_commandCount              = 1;
-    var $_tag                       = '';
-    var $_stream                    = null;
-    var $_lastCommandTag            = 'undefined';
-    var $_logger                    = null;
-    var $_logSet                    = null;
-    var $_logLevel                  = PEAR_LOG_INFO;
-    var $_logBuffer                  = array();
+    protected $_commandPrefix = 'A';
+    protected $_commandCount = 1;
+    protected $_tag;
+    protected $_stream;
+    protected $_lastCommandTag = 'undefined';
+
+    /**
+     *
+     * @var Horde_Log_Logger
+     */
+    public $_logger;
 
     /**
      * Constructor function.
      *
      * @param array $params Hash containing server parameters.
      */
-    function __construct($params)
+    public function __construct(array $params)
     {
-        if (is_array($params) && !empty($params['server'])) {
+        if (!empty($params['server'])) {
             $this->imsp_server = $params['server'];
         }
-        if (is_array($params) && !empty($params['port'])) {
+        if (!empty($params['port'])) {
             $this->imsp_port = $params['port'];
         }
-    }
-
-    /**
-     * Initialization function to be called after object is returned.  This
-     * allows errors to occur and not break the script.
-     *
-     * @return mixed  True on success PEAR_Error on connection failure.
-     */
-    function init()
-    {
-        $result = $this->imspOpen();
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        if (!empty($params['logger'])) {
+            $this->_logger = $params['logger'];
+        } else {
+            $this->_logger = new Horde_Support_Stub();
         }
-        $this->writeToLog('Initializing Horde_Imsp object.', __FILE__, __LINE__,
-                          PEAR_LOG_INFO);
-        return true;
+
+        $this->_imspOpen();
+        $this->_logger->debug('Initializing Horde_Imsp object.');
     }
 
     /**
      * Logs out of the server and closes the IMSP stream
      */
-    function logout()
+    public function logout()
     {
-        $this->writeToLog('Closing IMSP Connection.', __FILE__, __LINE__,
-                          PEAR_LOG_INFO);
+        $this->_logger->debug('Closing IMSP Connection.');
         $command_string = 'LOGOUT';
-        $result = $this->imspSend($command_string);
-        if (is_a($result, 'PEAR_Error')) {
-            fclose($this->_stream);
-            return $result;
-        } else {
-            fclose($this->_stream);
-            return true;
-        }
+        $this->imspSend($command_string);
+        fclose($this->_stream);
     }
 
     /**
      * Returns the raw capability response from the server.
      *
      * @return string  The raw capability response.
+     * @throws Horde_Imsp_Exception
      */
-    function capability()
+    public function capability()
     {
         $command_string = 'CAPABILITY';
-        $result = $this->imspSend($command_string);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        } else {
-            $server_response = $this->imspReceive();
-            if (preg_match("/^\* CAPABILITY/", $server_response)) {
-                $capability = preg_replace("/^\* CAPABILITY/",
-                                           '', $server_response);
-
-                $server_response = $this->imspReceive(); //OK
-
-                if (!$server_response == 'OK') {
-                    return $this->imspError('Did not receive the expected response from the server.',
-                                            __FILE__, __LINE__);
-                } else {
-                    $this->writeToLog('CAPABILITY completed OK', __FILE__,
-                                      __LINE__, PEAR_LOG_INFO);
-                    return $capability;
-                }
+        $this->imspSend($command_string);
+        $server_response = $this->imspReceive();
+        if (preg_match("/^\* CAPABILITY/", $server_response)) {
+            $capability = preg_replace("/^\* CAPABILITY/", '', $server_response);
+            $server_response = $this->imspReceive(); //OK
+            if (!$server_response == 'OK') {
+                $this->_logger->err('Did not receive the expected response from the server.');
+                throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
+            } else {
+                $this->_logger->debug('CAPABILITY completed OK');
+                return $capability;
             }
         }
     }
@@ -146,96 +115,97 @@ class Horde_Imsp
     /**
      * Attempts to open an IMSP socket with the server.
      *
-     * @return mixed  True on success PEAR_Error on failure.
+     * @throws Horde_Imsp_Exception
      */
-    function imspOpen()
+    protected function _imspOpen()
     {
         $fp = @fsockopen($this->imsp_server, $this->imsp_port);
         if (!$fp) {
-            return $this->imspError('Connection to IMSP host failed.', __FILE__,
-                                    __LINE__);
+            $this->_logger->err('Connection to IMSP host failed.');
+            throw new Horde_Imsp_Exception('Connection to IMSP host failed.');
         }
         $this->_stream = $fp;
         $server_response = $this->imspReceive();
         if (!preg_match("/^\* OK/", $server_response)) {
             fclose($fp);
-            return $this->imspError('Did not receive the expected response from the server.', __FILE__, __LINE__);
+            $this->_logger->err('Did not receive the expected response from the server.');
         }
-        return true;
     }
 
     /**
      * Attempts to send a command to the server.
      *
-     * @param string  $commandText Text to send to the server.
-     * @param boolean $includeTag  Determines if command tag is prepended.
-     * @param boolean  $sendCRLF   Determines if CRLF is appended.
-     * @return mixed   True on success PEAR_Error on failure.
+     * @param string  $commandText   Text to send to the server.
+     * @param boolean $includeTag    Determines if command tag is prepended.
+     * @param boolean  $sendCRLF     Determines if CRLF is appended.
+     * @param boolean $continuation  Expect a command continuation response.
+     *
+     * @throws Horde_Imsp_Exception
      */
-    function imspSend($commandText, $includeTag=true, $sendCRLF=true)
+    public function imspSend($commandText, $includeTag = true, $sendCRLF = true, $continuation = false)
     {
         $command_text = '';
 
         if (!$this->_stream) {
-            return $this->imspError('Connection to IMSP host failed.', __FILE__, __LINE__);
+            throw new Horde_Imsp_Exception('No IMSP connection in place');
         }
 
         if ($includeTag) {
             $this->_tag = $this->_getNextCommandTag();
             $command_text = "$this->_tag ";
         }
-
         $command_text .= $commandText;
 
         if ($sendCRLF) {
             $command_text .= "\r\n";
         }
 
-        $this->writeToLog('To: ' . $command_text, __FILE__,
-                          __LINE__, PEAR_LOG_DEBUG);
+        $this->_logger->debug('C: ' . $command_text);
 
         if (!fputs($this->_stream, $command_text)) {
-            return $this->imspError('Connection to IMSP host failed.', __FILE__, __LINE__);
-        } else {
-            return true;
+            $this->_logger->err('Connection to IMSP host failed.');
+            fclose($this->_stream);
+            throw new Horde_Imsp_Exception('Connection to IMSP host failed');
+        }
+
+        if ($continuation && !preg_match("/^\+/", $this->imspReceive())) {
+            $this->_logger->err('Did not receive expected command continuation response from IMSP server.');
+            throw new Horde_Imsp_Exception('Did not receive expected command continuation response from IMSP server.');
         }
     }
 
     /**
      * Receives a single CRLF terminated server response string
      *
-     * @return mixed 'NO', 'BAD', 'OK', raw response or PEAR_Error.
+     * @return mixed 'NO', 'BAD', 'OK', raw response.
+     * @throws Horde_Imsp_Exception
      */
-    function imspReceive()
+    public function imspReceive()
     {
         if (!$this->_stream) {
-            return $this->imspError('Connection to IMSP host failed.', __FILE__, __LINE__);
+            throw new Horde_Imsp_Exception('No IMSP connection in place.');
         }
         $result = fgets($this->_stream, 512);
         if (!$result) {
-            return $this->imspError('Did not receive the expected response from the server.',
-                                    __FILE__, __LINE__);
+            $this->_logger->err('Did not receive the expected response from the server.');
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
         $meta = stream_get_meta_data($this->_stream);
         if ($meta['timed_out']) {
-            return $this->imspError('Connection to IMSP host failed.' . ': Connection timed out!',
-                                    __FILE__, __LINE__);
+            $this->_logger->err('Connection timed out.');
+            throw new Horde_Imsp_Exception(Horde_Imsp_Translation::t('Connection timed out!'));
         }
 
         $server_response = trim($result);
-        $this->writeToLog('From: ' . $server_response, __FILE__,
-                          __LINE__, PEAR_LOG_DEBUG);
+        $this->_logger->debug('S: ' . $server_response);
 
         /* Parse out the response:
          * First make sure that this is not for a previous command.
          * If it is, it means we did not read all the server responses from
          * the last command...read them now, but throw an error. */
-        while (preg_match("/^" . $this->_lastCommandTag
-                          ."/", $server_response)) {
-            $server_response =
-                trim(fgets($this->_stream, 512));
-            $this->imspError('Did not receive the expected response from the server.' . ": $server_response",
-                             __FILE__, __LINE__);
+        while (preg_match("/^" . $this->_lastCommandTag . "/", $server_response)) {
+            $server_response = trim(fgets($this->_stream, 512));
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server: ' . $server_response);
         }
 
         $currentTag = $this->_tag;
@@ -245,7 +215,7 @@ class Horde_Imsp
         }
 
         if (preg_match("/^" . $currentTag . " BAD/", $server_response)) {
-            $this->imspError('The IMSP server did not understand your request.', __FILE__, __LINE__);
+            $this->_logger->err('The IMSP server did not understand your request.');
             $this->lastRawError = $server_response;
             return 'BAD';
         }
@@ -264,25 +234,25 @@ class Horde_Imsp
      * Retrieves CRLF terminated response from server and splits it into
      * an array delimited by a <space>.
      *
-     * @return array result from explode().
+     * @return array The exploded string
      */
-    function getServerResponseChunks()
+    public function getServerResponseChunks()
     {
-        $server_response =
-            trim(fgets($this->_stream, 512));
+        $server_response = trim(fgets($this->_stream, 512));
         $chunks = explode(' ', $server_response);
+
         return $chunks;
     }
 
-    /*
-     * Receives fixed number of bytes from IMSP socket. Used when
-     * server returns a string literal.
+    /**
+     * Receives fixed number of bytes from IMSP socket. Used when server returns
+     * a string literal.
      *
      * @param integer $length  Number of bytes to read from socket.
      *
      * @return string  Text of string literal.
      */
-    function receiveStringLiteral($length)
+    public function receiveStringLiteral($length)
     {
         $literal = '';
         do {
@@ -290,7 +260,7 @@ class Horde_Imsp
             $length -= strlen($temp);
             $literal .= $temp;
         } while ($length > 0 && strlen($temp));
-        $this->writeToLog('From{}: ' . $literal, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $this->_logger->debug('From{}: ' . $literal);
 
         return $literal;
     }
@@ -298,10 +268,9 @@ class Horde_Imsp
     /**
      * Increments the IMSP command tag token.
      *
-     * @access private
      * @return string Next command tag.
      */
-    function _getNextCommandTag()
+    protected function _getNextCommandTag()
     {
         $this->_lastCommandTag = $this->_tag ? $this->_tag : 'undefined';
         return $this->_commandPrefix . sprintf('%04d', $this->_commandCount++);
@@ -311,109 +280,16 @@ class Horde_Imsp
      * Determines if a string needs to be quoted before sending to the server.
      *
      * @param string $string  String to be tested.
-     * @return string Original string quoted if needed.
+     *
+     * @return string Original string, quoted if needed.
      */
     function quoteSpacedString($string)
     {
         if (strpos($string, ' ') !== false ||
-            preg_match(IMSP_MUST_USE_QUOTE, $string)) {
+            preg_match(Horde_Imsp::MUST_QUOTE, $string)) {
             return '"' . $string . '"';
         } else {
             return $string;
-        }
-    }
-
-    /**
-     * Raises an IMSP error.  Basically, only writes
-     * error out to the horde logfile and returns PEAR_Error
-     *
-     * @param string $err    Either PEAR_Error object or text to write to log.
-     * @param string $file   File name where error occured.
-     * @param integer $line  Line number where error occured.
-     */
-    function imspError($err = '', $file=__FILE__, $line=__LINE__)
-    {
-        if (is_a($err, 'PEAR_Error')) {
-            $log_text = $err->getMessage();
-        } else {
-            $log_text = $err;
-        }
-
-        $this->writeToLog($log_text, $file, $line, PEAR_LOG_ERR);
-        if (is_a($err, 'PEAR_Error')) {
-            return $err;
-        } else {
-            return PEAR::raiseError($err);
-        }
-    }
-
-    /**
-     * Writes a message to the IMSP logfile.
-     *
-     * @param string $message  Text to write.
-     */
-    function writeToLog($message, $file = __FILE__,
-                        $line = __LINE__, $priority = PEAR_LOG_INFO)
-    {
-        if (($this->logEnabled) && ($this->_logSet)) {
-            if ($priority > $this->_logLevel) {
-                return;
-            }
-
-            $logMessage = '[imsp] ' . $message . ' [on line ' . $line . ' of "' . $file . '"]';
-            $this->_logger->log($logMessage, $priority);
-        } elseif ((!$this->_logSet) && ($this->logEnabled)) {
-            $this->_logBuffer[] = array('message'  => $message,
-                                        'priority' => $priority,
-                                        'file'     => $file,
-                                        'line'     => $line
-                                        );
-        }
-    }
-
-    /**
-     * Creates a new Log object based on $params
-     *
-     * @param  array  $params Log object parameters.
-     * @return mixed  True on success or PEAR_Error on failure.
-     */
-    function setLogger($params)
-    {
-        if (!empty($params['enabled'])) {
-            $this->_logLevel = $params['priority'];
-            $logger = &Log::singleton($params['type'], $params['name'],
-                                      $params['ident'], $params['params']);
-
-            if (is_a($logger, 'PEAR_Error')) {
-                $this->logEnabled = false;
-                $this->_logSet = false;
-                return $logger;
-            } else {
-                $this->_logSet = true;
-                $this->_logger = &$logger;
-                $this->logEnabled = true;
-                $this->_writeLogBuffer();
-                return true;
-            }
-        } else {
-            $this->logEnabled = false;
-        }
-    }
-
-    /**
-     * Writes out contents of $_logBuffer to log file.  Allows messages
-     * to be logged during initialization of object before Log object is
-     * instantiated.
-     *
-     * @access private
-     */
-    function _writeLogBuffer()
-    {
-        for ($i = 0; $i < count($this->_logBuffer); $i++) {
-            $this->writeToLog($this->_logBuffer[$i]['message'],
-                              $this->_logBuffer[$i]['file'],
-                              $this->_logBuffer[$i]['line'],
-                              $this->_logBuffer[$i]['priority']);
         }
     }
 
@@ -427,20 +303,18 @@ class Horde_Imsp
      * @return mixed  The requested Horde_Imsp object.
      * @throws Horde_Exception
      */
-    function factory($driver, $params)
+    public function factory($driver, $params)
     {
         $driver = basename($driver);
         if (empty($driver) || $driver == 'none') {
             return new Horde_Imsp($params);
         }
-
-        include_once dirname(__FILE__) . '/IMSP/' . $driver . '.php';
         $class = 'Horde_Imsp_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
         }
 
-         throw new Horde_Exception(sprintf(Horde_Horde_Imsp_Translation::t("Unable to load the definition of %s."), $class));
+         throw new Horde_Exception(sprintf(Horde_Imsp_Translation::t("Unable to load the definition of %s."), $class));
     }
 
     /**
@@ -449,11 +323,12 @@ class Horde_Imsp
      * doesn't exist.
      * Must be called as $imsp = &Horde_Imsp::singleton($driver, $params);
      *
+     * @TODO: Move to injector factory
      * @param  string $driver Type of Horde_Imsp object to return.
      * @param  mixed  $params Any parameters needed by the Horde_Imsp object.
      * @return mixed  Reference to the Horde_Imsp object or PEAR_Error on failure.
      */
-    function &singleton($driver, $params)
+    public function &singleton($driver, $params)
     {
         static $instances = array();
 

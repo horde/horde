@@ -21,8 +21,8 @@
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Auth_imtest extends Horde_Imsp_Auth {
-
+class Horde_Imsp_Auth_Imtest extends Horde_Imsp_Auth
+{
     /**
      * Private authentication function.  Provides actual
      * authentication code.
@@ -33,9 +33,9 @@ class Horde_Imsp_Auth_imtest extends Horde_Imsp_Auth {
      * @return mixed  Horde_Imsp object connected to server if successful,
      *                PEAR_Error on failure.
      */
-    function &_authenticate($params)
+    protected function _authenticate(array $params)
     {
-        $imsp = &Horde_Imsp::singleton('none', $params);
+        $imsp = Horde_Imsp::singleton('none', $params);
         $command = '';
         $error_return = '';
 
@@ -75,7 +75,7 @@ class Horde_Imsp_Auth_imtest extends Horde_Imsp_Auth {
         }
         //Failure?
         if (!empty($error_return)) {
-            return $imsp->imspError('Connection to IMSP host failed.' . ': ' . $error_return, __FILE__, __LINE__);
+            throw new Horde_Imsp_Exception('Connection to IMSP host failed.');
         }
         //Success
         $imsp->_stream = $fp;
@@ -86,7 +86,7 @@ class Horde_Imsp_Auth_imtest extends Horde_Imsp_Auth {
      * Force a logout command to the imsp stream.
      *
      */
-    function logout()
+    public function logout()
     {
         $this->_imsp->logout();
     }
@@ -96,8 +96,9 @@ class Horde_Imsp_Auth_imtest extends Horde_Imsp_Auth {
      *
      * @return string  The type of this IMSP_Auth driver.
      */
-    function getDriverType()
+    public function getDriverType()
     {
         return 'imtest';
     }
+
 }

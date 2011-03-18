@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-18</date>
- <time>11:27:00</time>
+ <time>13:04:13</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -31,12 +31,14 @@
     <dir name="Horde">
      <dir name="Imsp">
       <dir name="Auth">
-       <file name="cram_md5.php" role="php" />
+       <file name="CramMd5.php" role="php" />
+       <file name="Factory.php" role="php" />
        <file name="imtest.php" role="php" />
        <file name="plaintext.php" role="php" />
       </dir> <!-- /lib/Horde/Imsp/Auth -->
       <file name="Auth.php" role="php" />
       <file name="Book.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Options.php" role="php" />
       <file name="Translation.php" role="php" />
       <file name="Utils.php" role="php" />
@@ -329,10 +331,12 @@
    <install as="Horde/Imsp.php" name="lib/Horde/Imsp.php" />
    <install as="Horde/Imsp/Auth.php" name="lib/Horde/Imsp/Auth.php" />
    <install as="Horde/Imsp/Book.php" name="lib/Horde/Imsp/Book.php" />
+   <install as="Horde/Imsp/Exception.php" name="lib/Horde/Imsp/Exception.php" />
    <install as="Horde/Imsp/Options.php" name="lib/Horde/Imsp/Options.php" />
    <install as="Horde/Imsp/Translation.php" name="lib/Horde/Imsp/Translation.php" />
    <install as="Horde/Imsp/Utils.php" name="lib/Horde/Imsp/Utils.php" />
-   <install as="Horde/Imsp/Auth/cram_md5.php" name="lib/Horde/Imsp/Auth/cram_md5.php" />
+   <install as="Horde/Imsp/Auth/CramMd5.php" name="lib/Horde/Imsp/Auth/CramMd5.php" />
+   <install as="Horde/Imsp/Auth/Factory.php" name="lib/Horde/Imsp/Auth/Factory.php" />
    <install as="Horde/Imsp/Auth/imtest.php" name="lib/Horde/Imsp/Auth/imtest.php" />
    <install as="Horde/Imsp/Auth/plaintext.php" name="lib/Horde/Imsp/Auth/plaintext.php" />
    <install as="locale/Horde_Imsp.pot" name="locale/Horde_Imsp.pot" />

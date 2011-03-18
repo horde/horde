@@ -1,5 +1,4 @@
 <?php
-require_once 'Net/IMSP.php';
 /**
  * Horde_Imsp_Utils::
  *
@@ -11,8 +10,8 @@ require_once 'Net/IMSP.php';
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Utils {
-
+class Horde_Imsp_Utils
+{
     /**
      * Utility function to retrieve the names of all the address books
      * that the user has access to, along with the acl for those
@@ -25,20 +24,12 @@ class Horde_Imsp_Utils {
      *
      * @return array  Information about all the address books or PEAR_Error.
      */
-    function getAllBooks($serverInfo)
+    static public function getAllBooks(array $serverInfo)
     {
         $foundDefault = false;
         $results = array();
-        $imsp = &Horde_Imsp::singleton('Book', $serverInfo['params']);
-        $result = $imsp->init();
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $imsp = Horde_Imsp::singleton('Book', $serverInfo['params']);
         $books = $imsp->getAddressBookList();
-        if (is_a($books, 'PEAR_Error')) {
-            return $books;
-        }
         $bCount = count($books);
         for ($i = 0; $i < $bCount; $i++) {
             $newBook = $serverInfo;
@@ -58,12 +49,9 @@ class Horde_Imsp_Utils {
 
         /* If there is no default address book (named username) then we should create one. */
         if (!$foundDefault) {
-            $result = $imsp->createAddressBook($serverInfo['params']['username']);
-            if (is_a($result, 'PEAR_Error')) {
-                return PEAR::raiseError('Login to IMSP host failed.' .
-                                        ': Default address book is missing and could not be created.');
-            }
+            $imsp->createAddressBook($serverInfo['params']['username']);
         }
+
         return $results;
     }
 
@@ -77,7 +65,7 @@ class Horde_Imsp_Utils {
      *
      * @return mixed  True on success or PEAR_Error on failure.
      */
-    function deleteBook($source)
+    static public function deleteBook(array $source)
     {
         if (is_array($source)) {
             // Not using shares
@@ -88,16 +76,9 @@ class Horde_Imsp_Utils {
             $params = $GLOBALS['cfgSources']['imsp:' . $source]['params'];
             $bookName = $source;
         }
-        $imsp = &Horde_Imsp::singleton('Book', $params);
-        $result = $imsp->init();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $imsp = Horde_Imsp::singleton('Book', $params);
+        $imsp->deleteAddressBook($bookName);
 
-        $result = $imsp->deleteAddressBook($bookName);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
         return true;
     }
 
@@ -111,13 +92,9 @@ class Horde_Imsp_Utils {
      *
      * @return mixed  true on success or PEAR_Error on failure.
      */
-    function createBook($source, $newName)
+    static public function createBook(array $source, $newName)
     {
-        $imsp = &Horde_Imsp::singleton('Book', $source['params']);
-        $result = $imsp->init();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $imsp = Horde_Imsp::singleton('Book', $source['params']);
 
         // We now check if the username is already prepended to
         // the address book name or not.
@@ -126,10 +103,7 @@ class Horde_Imsp_Utils {
         } else {
             $name = $source['params']['username'] . '.' . $newName;
         }
-        $result = $imsp->createAddressBook($name);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $imsp->createAddressBook($name);
         return true;
     }
 
@@ -142,29 +116,20 @@ class Horde_Imsp_Utils {
      *
      * @return mixed  Array describing any shares added or removed  | PEAR_Error.
      */
-    function synchShares($share_obj, $serverInfo)
+    public function synchShares($share_obj, array $serverInfo)
     {
         $found_shares = array();
         $return = array('added' => array(), 'removed' => array());
         $params = array();
 
-        $imsp = &Horde_Imsp::singleton('Book', $serverInfo['params']);
-        $result = $imsp->init();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $imsp = Horde_Imsp::singleton('Book', $serverInfo['params']);
         $abooks = $imsp->getAddressBookList();
-        if (is_a($abooks, 'PEAR_Error')) {
-            return $abooks;
-        }
 
         // Do we have a default address book? If not, create one.
         if (array_search($serverInfo['params']['username'], $abooks) === false) {
-            $result = $imsp->createAddressbook($serverInfo['params']['username']);
-            if (!is_a($result, 'PEAR_Error')) {
-                // Make sure we add it to our list of books.
-                $abooks[] = $serverInfo['params']['username'];
-            }
+            $imsp->createAddressbook($serverInfo['params']['username']);
+            // Make sure we add it to our list of books.
+            $abooks[] = $serverInfo['params']['username'];
         }
 
         $shares = $share_obj->listShares($GLOBALS['registry']->getAuth());
@@ -192,7 +157,7 @@ class Horde_Imsp_Utils {
                 } else {
                     $shareparams['default'] = false;
                 }
-                if (Horde_Imsp_Utils::_isOwner($abook_uid,
+                if (self::_isOwner($abook_uid,
                                              $serverInfo['params']['username'],
                                              $params['acl'])) {
                     $params['owner'] = $GLOBALS['registry']->getAuth();
@@ -202,10 +167,7 @@ class Horde_Imsp_Utils {
                     //       address book name to a Horde user...how to do that
                     //       without assuming usernames are equal?
                 }
-                $result = Horde_Imsp_Utils::_createShare($share_obj, $params, $shareparams);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
+                self::_createShare($share_obj, $params, $shareparams);
                 $return['added'][] = $params['uid'];
             } else {
                 // Share already exists, just update the acl.
@@ -222,10 +184,7 @@ class Horde_Imsp_Utils {
                 $sourceType = $temp['source'];
                 if ($sourceType == 'imsp' &&
                     array_search($temp['name'], $found_shares) === false) {
-                        $result = $share_obj->removeShare($share);
-                        if (is_a($result, 'PEAR_Error')) {
-                            return $result;
-                        }
+                        $share_obj->removeShare($share);
                         $return['removed'][] = $share->getName();
                 }
             }
@@ -243,7 +202,7 @@ class Horde_Imsp_Utils {
      *
      * @return mixed  True | PEAR_Error
      */
-    function _createShare($share_obj, $params, $shareparams)
+    static protected function _createShare($share_obj, array $params, array $shareparams)
     {
         $share = $share_obj->newShare($GLOBALS['registry']->getAuth(), $params['uid'], $params['name']);
         if (is_a($share, 'PEAR_Error')) {
@@ -260,11 +219,11 @@ class Horde_Imsp_Utils {
      * Assumes ownership if username is beginning address book name or
      * if user has admin rights ('a') in acl.
      *
-     * @param array $params  Parameters to check for ownership.
+     * @param string $bookName  The address book name to check
      *
      * @return boolean  True if $user is owner, otherwise false.
      */
-    function _isOwner($bookName, $username, $acl)
+    static protected function _isOwner($bookName, $username, $acl)
     {
         if (strpos($bookName, $username) === 0) {
             return true;
@@ -280,7 +239,7 @@ class Horde_Imsp_Utils {
      * @param Datatree_Object_Share $share  The share to assign perms to
      * @param string $acl                   The IMSP acl string.
      */
-    function _setPerms(&$share, $acl)
+    static protected function _setPerms(&$share, $acl)
     {
          $hPerms = 0;
          if (strpos($acl, 'w') !== false) {
@@ -305,7 +264,7 @@ class Horde_Imsp_Utils {
      *
      * @return string   An IMSP acl string
      */
-    function permsToACL($perms)
+    static public function permsToACL($perms)
     {
         $acl = '';
 
@@ -333,10 +292,11 @@ class Horde_Imsp_Utils {
      *
      * @return mixed  True | Pear_Error
      */
-    function setACL($params, $book, $name, $acl)
+    static public function setACL($params, $book, $name, $acl)
     {
         $imsp = &Horde_Imsp::singleton('Book', $params);
         $imsp->init();
         return $imsp->setACL($book, $name, $acl);
     }
+
 }

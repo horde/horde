@@ -1,12 +1,4 @@
 <?php
-
-require_once 'Net/IMSP/Auth.php';
-
-/**
- * String of supported ACL rights.
- */
-define('IMSP_ACL_RIGHTS', 'lrwcda');
-
 /**
  * Horde_Imsp_Book Class - provides api for dealing with IMSP
  * address books.
@@ -26,84 +18,59 @@ define('IMSP_ACL_RIGHTS', 'lrwcda');
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Book {
+class Horde_Imsp_Book
+{
+    const ACL_RIGHTS = 'lrwcda';
 
     /**
      * Sort order.
      *
      * @var string
      */
-    var $sort = 'ascend';
+    public $sort = 'ascend';
 
     /**
      * Horde_Imsp object.
      *
      * @var Horde_Imsp
      */
-    var $_imsp;
+    protected $_imsp;
 
     /**
      * Parameter list.
      *
      * @var array
      */
-    var $_params;
+    protected $_params;
 
     /**
      * Constructor function.
      *
      * @param array $params Hash containing IMSP parameters.
      */
-    function Horde_Imsp_Book($params)
+    public function __construct(array $params)
     {
         $this->_params = $params;
-    }
-
-    /**
-     * Initialization function to be called after object is returned.
-     * This allows errors to occur and not break the script.
-     *
-     * @return mixed  True on success PEAR_Error on failure.
-     */
-    function init()
-    {
-        if (!isset($this->_imsp)) {
-            $auth = &Horde_Imsp_Auth::singleton($this->_params['auth_method']);
-            $this->_imsp = $auth->authenticate($this->_params);
-        }
-
-        if (is_a($this->_imsp, 'PEAR_Error')) {
-            return $this->_imsp;
-        }
-        $this->_imsp->writeToLog('Horde_Imsp_Book initialized.', __FILE__,
-                                  __LINE__, PEAR_LOG_DEBUG);
-        return true;
+        $auth = Horde_Imsp_Auth_Factory::create($this->_params['auth_method']);
+        $this->_imsp = $auth->authenticate($this->_params);
     }
 
     /**
      * Returns an array containing the names of all the address books
      * available to the logged in user.
      *
-     * @return mixed Array of address book names or PEAR_Error.
+     * @return mixed Array of address book names
      */
-    function getAddressBookList()
+    public function getAddressBookList()
     {
         $command_string = 'ADDRESSBOOK *';
 
-        $result = $this->_imsp->imspSend($command_string);
-        if (is_a($result,'PEAR_Error')) {
-           return $this->_imsp->imspError('Connection to IMSP host failed.',
-                                          __FILE__, __LINE__);
-        }
+        $this->_imsp->imspSend($command_string);
 
         /* Iterate through the response and populate an array of
          * address book names. */
         $server_response = $this->_imsp->imspReceive();
-        if (is_a($server_response, 'PEAR_Error')) {
-            return $server_response;
-        }
         $abooks = array();
-
         while (preg_match("/^\* ADDRESSBOOK/", $server_response)) {
             /* If this is an ADDRESSBOOK response, then this will explode as so:
              * [0] and [1] can be discarded
@@ -113,7 +80,7 @@ class Horde_Imsp_Book {
              */
 
             /* First, check for a {} */
-            if (preg_match(IMSP_OCTET_COUNT, $server_response, $tempArray)) {
+            if (preg_match(Horde_Imsp::OCTET_COUNT, $server_response, $tempArray)) {
                 $abooks[] = $this->_imsp->receiveStringLiteral($tempArray[2]);
                 /* Get the CRLF at end of ADDRESSBOOK response
                  * that the {} does not include. */
@@ -140,12 +107,11 @@ class Horde_Imsp_Book {
         }
 
         if ($server_response != 'OK') {
-            return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                           __FILE__, __LINE__);
+            $this->_imsp->_logger->err('Did not receive expected response frm server.');
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
+        $this->_imsp->_logger->debug('ADDRESSBOOK command OK.');
 
-        $this->_imsp->writeToLog('ADDRESSBOOK command OK.', __FILE__, __LINE__,
-                                  PEAR_LOG_INFO);
         return $abooks;
     }
 
@@ -154,12 +120,13 @@ class Horde_Imsp_Book {
      * critera in the address book named $abook.
      *
      * @param string $abook  Address book name to search.
-     * @param array $search  Search criteria in the form of
-     *                      'fieldName' => 'searchTerm' (may include * wild card).
+     * @param mixed $search  Search criteria either a string (name) or an array
+     *                       in the form of 'fieldName' => 'searchTerm'.
      *
-     * @return mixed Array of names of the entries that match or PEAR_Error.
+     * @return array Array of names of the entries that match.
+     * @throws Horde_Imsp_Exception
      */
-    function search($abook, $search)
+    public function search($abook, $search)
     {
         //If no field => value pairs, assume we are searching name.
         $criteria = array();
@@ -169,73 +136,30 @@ class Horde_Imsp_Book {
             $criteria = $search;
         }
 
-        $result = $this->_imsp->imspSend('SEARCHADDRESS ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_imsp->imspSend('SEARCHADDRESS ', true, false);
 
         // Do we need to send the abook name as {} ?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-
-            $result = $this->_imsp->imspSend($biBook, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            $result = $this->_imsp->imspReceive();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-            if (!preg_match("/^\+/", $result)) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__,__LINE__);
-            }
+            $this->_imsp->imspSend($biBook, false, true, true);
         }
 
         //Start parsing the search array.
-        $result = $this->_imsp->imspSend("$abook", false, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
+        $this->_imsp->imspSend("$abook", false, false);
         $count = count($criteria);
         $current = 1;
         foreach ($criteria as $search_field => $search) {
-            $result = $this->_imsp->imspSend(" $search_field ", false, false);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
+            $this->_imsp->imspSend(" $search_field ", false, false);
             // How about the search term as a {}.
-            if (preg_match(IMSP_MUST_USE_LITERAL, $search)) {
+            if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $search)) {
                 $biSearch = sprintf("{%d}", strlen($search));
-
-                $result = $this->_imsp->imspSend($biSearch, false, true);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
-                $result = $this->_imsp->imspReceive();
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
-                if (!preg_match("/^\+/", $result)) {
-                    return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                                   __FILE__, __LINE__);
-                }
-
-                $result = $this->_imsp->imspSend($search, false, $current == $count);
+                $this->_imsp->imspSend($biSearch, false, true, true);
+                $this->_imsp->imspSend($search, false, $current == $count);
                 $current++;
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
             } else {
                 // Only send the CrLf if this is the last field/search atom.
-                $result = $this->_imsp->imspSend('"' . $search . '"', false, $current == $count);
+                $this->_imsp->imspSend('"' . $search . '"', false, $current == $count);
                 $current++;
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
             }
         }
 
@@ -244,8 +168,7 @@ class Horde_Imsp_Book {
         $abookNames = Array();
 
         while (preg_match("/^\* SEARCHADDRESS/", $server_response)) {
-            $chopped_response =
-                preg_replace("/^\* SEARCHADDRESS/", '', $server_response);
+            $chopped_response = preg_replace("/^\* SEARCHADDRESS/", '', $server_response);
 
             // Remove any lingering white space in front only.
             $chopped_response = ltrim($chopped_response);
@@ -270,12 +193,11 @@ class Horde_Imsp_Book {
         // Should check for OK or BAD here just to be certain.
         switch ($server_response) {
         case 'BAD':
-            return $this->_imsp->imspError('The IMSP server did not understand your request.' .  ": $command_text",
-                                           __FILE__, __LINE__);
-
+            $this->_imsp->_logger->err('The IMSP server did not understand your request:' . $command_text);
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request: ' . $command_text);
         case 'NO':
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.' . ": " . $this->_imsp->lastRawError,
-                                           __FILE__, __LINE__);
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request: ' . $this->_imsp->lastRawError);
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request: ' . $this->_imsp->lastRawError);
         }
 
         /* This allows for no results */
@@ -283,8 +205,7 @@ class Horde_Imsp_Book {
             return $abookNames;
         }
 
-        $this->_imsp->writeToLog('SEARCHADDRESS command OK', __FILE__, __LINE__,
-                                 PEAR_LOG_INFO);
+        $this->_imsp->_logger->debug('SEARCHADDRESS command OK');
 
         // Determine the sort direction and perform the sort.
         switch ($this->sort) {
@@ -307,67 +228,33 @@ class Horde_Imsp_Book {
      * @param string $abook       Name of the address book to search.
      * @param string $entryName  'name' attribute of the entry to retrieve
      *
-     * @return mixed Array containing entry or PEAR_Error on failure / no match.
+     * @return array  Array containing entry.
+     * @throws Horde_Imsp_Exception
+     * @throws Horde_Exception_NotFound
      */
-    function getEntry($abook, $entryName)
+    public function getEntry($abook, $entryName)
     {
-        $result = $this->_imsp->imspSend('FETCHADDRESS ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        $this->_imsp->imspSend('FETCHADDRESS ', true, false);
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-
-            $result = $this->_imsp->imspSend($biBook, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
+            $this->_imsp->imspSend($biBook, false, true, true);
         }
-
-        $result = $this->_imsp->imspSend("$abook ", false, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        if (preg_match(IMSP_MUST_USE_LITERAL, $entryName)) {
+        $this->_imsp->imspSend("$abook ", false, false);
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $entryName)) {
             $biName = sprintf("{%d}", strlen($entryName));
-
-            $result = $this->_imsp->imspSend($biName, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
-            $result = $this->_imsp->imspSend($entryName, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_imsp->imspSend($biName, false, true, true);
+            $this->_imsp->imspSend($entryName, false, true);
         } else {
-            $result = $this->_imsp->imspSend("\"$entryName\"", false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_imsp->imspSend("\"$entryName\"", false, true);
         }
 
         $server_response = $this->_imsp->imspReceive();
-
         switch ($server_response) {
         case 'BAD':
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__, __LINE__);
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request');
         case 'NO':
-            return $this->_imsp->imspError('No entry in this address book matches your query.', __FILE__, __LINE__);
+            throw new Horde_Exception_NotFound('No entry in this address book matches your query.');
         }
 
         // Get the data in an associative array.
@@ -375,14 +262,12 @@ class Horde_Imsp_Book {
 
         //Get the next server response -- this *should* be the OK response.
         $server_response = $this->_imsp->imspReceive();
-
         if ($server_response != 'OK') {
             // Unexpected response throw error but still continue on.
-            $this->_imsp->imspError('Did not receive the expected response from the server.',__FILE__, __LINE__);
+            $this->_imsp->_logger->err('Did not receive the expected response from the server.');
         }
+        $this->_imsp->_logger->debug('FETCHADDRESS completed OK');
 
-        $this->_imsp->writeToLog('FETCHADDRESS completed OK', __FILE__, __LINE__,
-                                  PEAR_LOG_INFO);
         return $entry;
     }
 
@@ -391,61 +276,36 @@ class Horde_Imsp_Book {
      *
      * @param string $abookName FULLY QUALIFIED name such 'jdoe.clients' etc...
      *
-     * @return mixed True on success / PEAR_Error on failure.
+     * @throws Horde_Imsp_Exception
      */
-    function createAddressBook($abookName)
+    public function createAddressBook($abookName)
     {
         $command_text = 'CREATEADDRESSBOOK ';
 
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abookName)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abookName)) {
             $biBook = sprintf("{%d}", strlen($abookName));
-
-            $result = $this->_imsp->imspSend($command_text . $biBook, true, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            } else {
-                $result = $this->_imsp->imspSend($abookName, false, true);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
-            }
+            $this->_imsp->imspSend($command_text . $biBook, true, true, true);
+            $this->_imsp->imspSend($abookName, false, true);
         } else {
-            $result = $this->_imsp->imspSend($command_text . $abookName,
-                                             true, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_imsp->imspSend($command_text . $abookName, true, true);
         }
 
         $server_response = $this->_imsp->imspReceive();
-        if (is_a($server_response, 'PEAR_Error')) {
-            return $server_response;
-        }
-
         switch ($server_response) {
         case 'OK':
-            $this->_imsp->writeToLog('CREATEADDRESSBOOK completed OK', __FILE__,
-                                     __LINE__, PEAR_LOG_INFO);
-            return true;
-
+            $this->_imsp->_logger->debug('CREATEADDRESSBOOK completed OK');
+            break;
         case 'NO':
             // Could not create abook.
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
-
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__, __LINE__);
-
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         default:
             // Something unexpected.
-            return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                           __FILE__, __LINE__);
+            $this->_imsp->_logger->err('Did not receive the expected response from the server.');
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
     }
 
@@ -454,61 +314,36 @@ class Horde_Imsp_Book {
      *
      * @param string $abookName Name of address book to delete.
      *
-     * @return mixed true on success / PEAR_Error on failure
+     * @throws Horde_Imsp_Exception
      */
-    function deleteAddressBook($abookName)
+    public function deleteAddressBook($abookName)
     {
         $command_text = 'DELETEADDRESSBOOK ';
 
         // Check need for {}.
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abookName)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abookName)) {
             $biBook = sprintf("{%d}", strlen($abookName));
-
-            $result = $this->_imsp->imspSend($command_text . $biBook, true, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            } else {
-                $result = $this->_imsp->imspSend($abookName, false, true);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
-            }
-
+            $this->_imsp->imspSend($command_text . $biBook, true, true, true);
+            $this->_imsp->imspSend($abookName, false, true);
         } else {
-            $result = $this->_imsp->imspSend($command_text . $abookName, true, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_imsp->imspSend($command_text . $abookName, true, true);
         }
-
         $server_response = $this->_imsp->imspReceive();
-        if (is_a($server_response, 'PEAR_Error')) {
-            return $server_response;
-        }
-
         switch ($server_response) {
         case 'OK':
-            $this->_imsp->writeToLog('DELETEADDRESSBOOK completed OK', __FILE__,
-                                     __LINE__, PEAR_LOG_INFO);
-            return true;
-
+            $this->_imsp->_logger->debug('DELETEADDRESSBOOK completed OK');
+            break;
         case 'NO':
-            // Could not DELETE abook.
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
-
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__, __LINE__);
-
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         default:
             // Something unexpected.
-            return $this->_imsp->imspError('Did not receive the expected response from the server.', __FILE__,
-                                           __LINE__);
+            $this->_imsp->_logger->err('Did not receive the expected response from the server.');
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
     }
 
@@ -518,68 +353,42 @@ class Horde_Imsp_Book {
      * @param string $abookOldName Old name.
      * @param string $abookNewName New address book name.
      *
-     * @return mixed True / PEAR_Error
+     * @throws Horde_Imsp_Exception
      */
-    function renameAddressBook($abookOldName, $abookNewName)
+    public function renameAddressBook($abookOldName, $abookNewName)
     {
-        $result = $this->_imsp->imspSend('RENAMEADDRESSBOOK ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abookOldName)) {
+        $this->_imsp->imspSend('RENAMEADDRESSBOOK ', true, false);
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abookOldName)) {
             $biOldName = sprintf("{%d}", strlen($abookOldName));
-
-            $result = $this->_imsp->imspSend($biOldName, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
+            $this->_imsp->imspSend($biOldName, false, true);
             $this->_imsp->imspReceive();
         }
 
-        $result = $this->_imsp->imspSend("$abookOldName ", false, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abookNewName)) {
+        $this->_imsp->imspSend("$abookOldName ", false, false);
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abookNewName)) {
             $biNewName = sprintf("{%d}", strlen($abookNewName));
-
-            $result = $this->_imsp->imspSend($biNewName, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-               return $result;
-            }
-
+            $this->_imsp->imspSend($biNewName, false, true);
             $this->_imsp->imspReceive();
         }
-
-        // CRLF since last part.
-        $result = $this->_imsp->imspSend($abookNewName, false, true);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_imsp->imspSend($abookNewName, false, true);
 
         // Get server response.
         $server_response = $this->_imsp->imspReceive();
-
         switch ($server_response) {
         case 'NO':
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
-
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            // Syntax problem.
-            return $this->_imsp->imspError('The IMSP server did not understand your request.');
-
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         case 'OK':
-            $this->_imsp->writeToLog("Address book $abookOldName successfully
-                                      changed to $abookNewName", __FILE__,
-                                      __LINE__, PEAR_LOG_INFO);
-            return true;
-
+            $this->_imsp->_logger->debug("Address book $abookOldName successfully changed to $abookNewName");
+            break;
         default:
-            return $this->_imsp->imspError('Did not receive the expected response from the server.', __FILE__,
-                                           __LINE__);
+            // Something unexpected.
+            $this->_imsp->_logger->err('Did not receive the expected response from the server.');
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
     }
 
@@ -591,46 +400,29 @@ class Horde_Imsp_Book {
      *                          there MUST be a field 'name' containing the
      *                          entry name.
      *
-     * @return mixed True on success / PEAR_Error on failure.
+     * @throws Horde_Imsp_Exception
      */
-    function addEntry($abook, $entryInfo)
+    public function addEntry($abook, array $entryInfo)
     {
         $command_text = '';
 
-        if (getType($entryInfo) != 'array') {
-            return $this->_imsp->imspError(IMSP_BAD_ARGUMENT, __FILE__, __LINE__);
-        }
-
         // Lock the entry if it already exists.
-        $result = $this->lockEntry($abook, $entryInfo['name']);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $this->_imsp->imspSend('STOREADDRESS ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->lockEntry($abook, $entryInfo['name']);
+        $this->_imsp->imspSend('STOREADDRESS ', true, false);
 
         // Take care of the name.
         $entryName = $entryInfo['name'];
 
         // {} for book name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-
-            $result = $this->_imsp->imspSend($biBook, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
+            $this->_imsp->imspSend($biBook, false, true);
             $this->_imsp->imspReceive();
         }
-
         $this->_imsp->imspSend("$abook ", false, false);
 
         // Do we need {} for entry name as well?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $entryName)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $entryName)) {
             $biname = sprintf("{%d}", strlen($entryName));
             $this->_imsp->imspSend($biname, false, true);
             $this->_imsp->imspReceive();
@@ -649,26 +441,18 @@ class Horde_Imsp_Book {
                 $value = preg_replace("/\t/", "\n\r", $value);
 
                 // Check to see if we need {}
-                if (preg_match(IMSP_MUST_USE_LITERAL, $value)) {
+                if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $value)) {
                     $command_text .= $key . sprintf(" {%d}", strlen($value));
-
                     $this->_imsp->imspSend($command_text, false, true);
                     $server_response = $this->_imsp->imspReceive();
-                    $command_text = ''; //Clear the command_text buffer
-
-                    if (!preg_match("/^\+/",
-                                    $server_response)) {
-                        return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                                       __FILE__, __LINE__);
+                    $command_text = '';
+                    if (!preg_match("/^\+/",  $server_response)) {
+                        $this->_imsp->_logger->err('Did not receive the expected response from the server.');
+                        throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
                     }
-
-                    // Send the string of octets and be sure NOT to
-                    // end with CRLF.
                     $this->_imsp->imspSend($value, false, false);
-
                 } else {
-                    // If we are here, then we do not need to send a
-                    // {}.
+                    // If we are here, then we do not need to send a literal.
                     $value = "\"" . $value . "\"";
                     $command_text .= $key . ' ' . $value . ' ';
                 }
@@ -681,41 +465,32 @@ class Horde_Imsp_Book {
 
         switch ($server_response) {
         case 'NO':
-            //Sorry...cannot do it.
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
-
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            //Sorry...did not understand you
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__,
-                                           __LINE__);
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         }
 
         if ($server_response != 'OK') {
             // Cyrus-IMSP server sends a FETCHADDRESS Response here.
             // Do others?     This was not in the RFC.
-            $dummy_array =
-                $this->_parseFetchAddressResponse($server_response);
-
+            $dummy_array = $this->_parseFetchAddressResponse($server_response);
             $server_response = $this->_imsp->imspReceive();
-
             switch ($server_response) {
             case 'NO':
-                return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
+                // Could not create abook.
+                $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+                throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
             case 'BAD':
-                return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__,
-                                               __LINE__);
+                $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+                throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
             case 'OK':
-                $this->_imsp->writeToLog('STOREADDRESS Completed successfully.',
-                                         __FILE__, __LINE__, PEAR_LOG_INFO);
+                $this->_imsp->_logger->debug('STOREADDRESS Completed successfully.');
 
                 //we were successful...so release the lock on the entry
-                if (!$this->unlockEntry($abook, $entryInfo['name'])) {
-                    //could not release lock
-                    return $this->_imsp->imspError('That address book entry is locked or read only for the current user.', __FILE__,
-                                                   __LINE__);
-                }
-
-                return true;
+                $this->unlockEntry($abook, $entryInfo['name']);
             }
         }
     }
@@ -726,64 +501,38 @@ class Horde_Imsp_Book {
      * @param string $abook     Name of address book containing entry.
      * @param string $bookEntry Name of entry to delete.
      *
-     * @return mixed True on success / PEAR_Error on failure.
+     * @throws Horde_Imsp_Exception
      */
-    function deleteEntry($abook, $bookEntry)
+    public function deleteEntry($abook, $bookEntry)
     {
         // Start the command.
-        $result = $this->_imsp->imspSend('DELETEADDRESS ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
+        $this->_imsp->imspSend('DELETEADDRESS ', true, false);
         // Need {} for book name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-
-            $this->_imsp->imspSend($biBook, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biBook, false, true, true);
         }
-
         $this->_imsp->imspSend("$abook ", false, false);
 
         //How bout for the entry name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $bookEntry)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $bookEntry)) {
             $biEntry = sprintf("{%d}", strlen($bookEntry));
-
-            $this->_imsp->imspSend($biEntry, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biEntry, false, true, true);
         } else {
             $bookEntry = $this->_imsp->quoteSpacedString($bookEntry);
         }
-
         $this->_imsp->imspSend($bookEntry, false, true);
         $server_response = $this->_imsp->imspReceive();
-
         switch ($server_response) {
         case 'NO':
-            //Sorry..cannot do it
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            //Do not know what your talking about
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__,
-                                           __LINE__);
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         case 'OK':
-            $this->_imsp->writeToLog('DELETE Completed successfully.', __FILE__,
-                                     __LINE__, PEAR_LOG_INFO);
-            return true;
+            $this->_imsp->_logger->debug('DELETE Completed successfully.');
         }
     }
 
@@ -793,75 +542,48 @@ class Horde_Imsp_Book {
      * @param string $abook     Address book name
      * @param string $bookEntry Name of entry to lock
      *
-     * @return mixed true or array on success and PEAR_Error on failure
-     *               (server depending)
+     * @return mixed true or array on success (depends on server in use).
      */
-    function lockEntry($abook, $bookEntry)
+    public function lockEntry($abook, $bookEntry)
     {
-        $result = $this->_imsp->imspSend('LOCK ADDRESSBOOK ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_imsp->imspSend('LOCK ADDRESSBOOK ', true, false);
 
         // Do we need a string literal?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-
-            $this->_imsp->imspSend($biBook, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
+            $this->_imsp->imspSend($biBook, false, true, true);
         }
-
         $this->_imsp->imspSend("$abook ", false, false);
-
         // What about the entry name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $bookEntry)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $bookEntry)) {
             $biEntry = sprintf("{%d}", strlen($bookEntry));
-
-            $this->_imsp->imspSend($biEntry, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biEntry, false, true, true);
             $this->_imsp->imspSend($bookEntry, false, true);
-
         } else {
             $bookEntry = $this->_imsp->quoteSpacedString($bookEntry);
             $this->_imsp->imspSend("$bookEntry", false, true);
         }
 
         $server_response = $this->_imsp->imspReceive();
-
         do {
-
             switch ($server_response) {
-
             case 'NO':
-                return $this->_imsp->imspError('That address book entry is locked or read only for the current user.',
-                                               __FILE__, __LINE__);
+                // Could not create abook.
+                $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+                throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
             case 'BAD':
-                return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__,
-                                               __LINE__);
+                $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+                throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
             }
 
             //Check to see if this is a FETCHADDRESS resonse
             $dummy = $this->_parseFetchAddressResponse($server_response);
-
             if ($dummy) {
                 $server_response = $this->_imsp->imspReceive();
             }
-
         } while ($server_response != 'OK');
 
-        $this->_imsp->writeToLog("LOCK ADDRESSBOOK on $abook $bookEntry OK",
-                                 __FILE__, __LINE__, PEAR_LOG_INFO);
+        $this->_imsp->_logger->debug("LOCK ADDRESSBOOK on $abook $bookEntry OK");
 
         // Return either true or the FETCHADDRESS response if it exists.
         if (!$dummy) {
@@ -877,63 +599,39 @@ class Horde_Imsp_Book {
      * @param string $abook     Name of address book containing locked entry.
      * @param string $bookEntry Name of entry to unlock.
      *
-     * @return mixed True on success, PEAR_Error on failure.
+     * @throws Horde_Imsp_Exception
      */
-    function unlockEntry($abook, $bookEntry)
+    public function unlockEntry($abook, $bookEntry)
     {
         // Start sending command.
-        $result = $this->_imsp->imspSend('UNLOCK ADDRESSBOOK ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_imsp->imspSend('UNLOCK ADDRESSBOOK ', true, false);
 
         // {} for book name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-
-            $this->_imsp->imspSend($biBook, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biBook, false, true, true);
         }
-
         $this->_imsp->imspSend("$abook ", false, false);
-
         //How bout for entry name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $bookEntry)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $bookEntry)) {
             $biEntry=sprintf("{%d}", strlen($bookEntry));
-            $this->_imsp->imspSend($biEntry, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biEntry, false, true, true);
             $this->_imsp->imspSend($bookEntry, false, true);
-
         } else {
             $bookEntry = $this->_imsp->quoteSpacedString($bookEntry);
             $this->_imsp->imspSend("$bookEntry", false, true);
         }
-
         $response = $this->_imsp->imspReceive();
-
         switch ($response) {
         case 'NO':
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
-
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__, __LINE__);
-
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         case 'OK':
-            $this->_imsp->writeToLog("UNLOCK ADDRESSBOOK on $abook $bookEntry OK",
-                                     __FILE__, __LINE__, PEAR_LOG_INFO);
-            return true;
+            $this->_imsp->_logger->debug("UNLOCK ADDRESSBOOK on $abook $bookEntry OK");
         }
     }
 
@@ -963,72 +661,48 @@ class Horde_Imsp_Book {
      *
      * @return mixed True on success / PEAR_Error on failure.
      */
-    function setACL($abook, $ident, $acl)
+    public function setACL($abook, $ident, $acl)
     {
         // Verify that $acl looks good.
-        if (preg_match("/[^" . IMSP_ACL_RIGHTS . "]/", $acl)) {
-            //error...acl list contained unrecoginzed options
-            return $this->_imsp->imspError(IMSP_BAD_ARGUMENT, __FILE__, __LINE__);
+        if (preg_match("/[^" . self::ACL_RIGHTS . "]/", $acl)) {
+            $this->_imsp->_logger('Bad Argument');
+            throw new InvalidArgumentException();
         }
 
         // Begin sending command.
-        $result = $this->_imsp->imspSend('SETACL ADDRESSBOOK ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
+        $this->_imsp->imspSend('SETACL ADDRESSBOOK ', true, false);
         // {} for book name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biBook, false, true, true);
         }
-
         $this->_imsp->imspSend("$abook ", false, false);
 
         // {} for ident?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $ident)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $ident)) {
             $biIdent = sprintf("{%d}", strlen($ident));
-            $this->_imsp->imspSend($biIdent, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biIdent, false, true, true);
         }
-
         $this->_imsp->imspSend("$ident ", false, false);
 
         // Now finish up with the actual ACL.
         $this->_imsp->imspSend($acl, false, true);
         $response = $this->_imsp->imspReceive();
-
         switch ($response) {
         case 'NO':
-            // Could not set ACL.
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.',__FILE__, __LINE__);
-
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            // Bad syntax.
-            return $this->_imsp->imspError('The IMSP server did not understand your request.',__FILE__, __LINE__);
-
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         case 'OK':
-            $this->_imsp->writeToLog("ACL set for $ident on $abook",
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            return true;
-
+            $this->_imsp->_logger->debug("ACL set for $ident on $abook");
+            break;
         default:
             // Do not know why we would make it down here.
-            return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                           __FILE__, __LINE__);
+            $this->_imsp->_logger->err('Did not receive the expected response from the server.');
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
     }
 
@@ -1040,38 +714,27 @@ class Horde_Imsp_Book {
      * @return mixed array containing acl for every user with access to
      *                     address book or PEAR_Error on failure.
      */
-    function getACL($abook)
+    public function getACL($abook)
     {
-        $result = $this->_imsp->imspSend('GETACL ADDRESSBOOK ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_imsp->imspSend('GETACL ADDRESSBOOK ', true, false);
 
         // {} for book name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biName = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biName, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
+            $this->_imsp->imspSend($biName, false, true, true);
         }
-
         $this->_imsp->imspSend($abook, false, true);
 
         // Get results.
         $response = $this->_imsp->imspReceive();
-
         switch ($response) {
         case 'NO':
-            // Could not complete?
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
-
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            // Do not know what you said!
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__, __LINE__);
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         }
 
         // If we are here, we need to receive the * ACL Responses.
@@ -1081,9 +744,8 @@ class Horde_Imsp_Book {
              * [4] and [5] will be user/group name and permissions */
 
             //the book name might be a literal
-            if (preg_match(IMSP_OCTET_COUNT, $response, $tempArray)) {
+            if (preg_match(Horde_Imsp::OCTET_COUNT, $response, $tempArray)) {
                 $data = $this->_imsp->receiveStringLiteral($tempArray[2]);
-                //Get the rest
                 $response = $this->_imsp->imspReceive();
             }
 
@@ -1119,14 +781,11 @@ class Horde_Imsp_Book {
         // Hopefully we can receive an OK response here
         if ($response != 'OK') {
             // Some weird problem
-            return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                           __FILE__, __LINE__);
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
+        $this->_imsp->_logger->debug("GETACL on $abook completed.");
 
-        $this->_imsp->writeToLog("GETACL on $abook completed.", __FILE__,
-                                 __LINE__, PEAR_LOG_INFO);
         return $results;
-
     }
 
     /**
@@ -1135,41 +794,23 @@ class Horde_Imsp_Book {
      * @param string $abook Name of the address book.
      * @param string $ident Name of entry to remove acl for.
      *
-     * @return mixed true on success, PEAR_Error on failure.
+     * @throws Horde_Imsp_Exception
      */
     function deleteACL($abook, $ident)
     {
-        $result = $this->_imsp->imspSend('DELETEACL ADDRESSBOOK ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_imsp->imspSend('DELETEACL ADDRESSBOOK ', true, false);
 
         // Do we need literal for address book name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biBook, false, true, true);
         }
-
         $this->_imsp->imspSend("$abook ", false, false);
 
         // Literal for ident name?
-        if (preg_match(IMSP_MUST_USE_LITERAL, $ident)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $ident)) {
             $biIdent = sprintf("{%d}", strlen($ident));
-            $this->_imsp->imspSend($biIdent, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biIdent, false, true, true);
             $this->_imsp->imspSend($ident, false, true);
         } else {
             $this->_imsp->imspSend("\"$ident\"", false, true);
@@ -1177,22 +818,18 @@ class Horde_Imsp_Book {
 
         // Get results.
         $server_response = $this->_imsp->imspReceive();
-
         switch ($server_response) {
         case 'NO':
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
-
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__, __LINE__);
-
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         case 'OK':
-            $this->_imsp->writeToLog("DELETED ACL for $ident on $abook",
-                                      __FILE__, __LINE__, PEAR_LOG_INFO);
-            return true;
-
+            $this->_imsp->_logger->debug("DELETED ACL for $ident on $abook");
         default:
-            return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                           __FILE__, __LINE__);
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
     }
 
@@ -1201,48 +838,35 @@ class Horde_Imsp_Book {
      *
      * @param string $abook Name of address book to retrieve acl.
      *
-     * @return mixed acl of current user or PEAR_Error on failure.
+     * @return mixed acl of current user.
      */
-    function myRights($abook)
+    public function myRights($abook)
     {
         $data = '';
-        $result = $this->_imsp->imspSend('MYRIGHTS ADDRESSBOOK ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        if (preg_match(IMSP_MUST_USE_LITERAL, $abook)) {
+        $this->_imsp->imspSend('MYRIGHTS ADDRESSBOOK ', true, false);
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true);
-
-            if (!preg_match("/^\+/",
-                            $this->_imsp->imspReceive())) {
-                return $this->_imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                               __FILE__, __LINE__);
-            }
-
+            $this->_imsp->imspSend($biBook, false, true, true);
         }
-
         $this->_imsp->imspSend($abook, false, true);
         $server_response = $this->_imsp->imspReceive();
-
         switch ($server_response) {
         case 'NO':
-            return $this->_imsp->imspError('IMSP server is unable to perform your request.', __FILE__, __LINE__);
-
+            // Could not create abook.
+            $this->_imsp->_logger->err('IMSP server is unable to perform your request.');
+            throw new Horde_Imsp_Exception('IMSP server is unable to perform your request.');
         case 'BAD':
-            return $this->_imsp->imspError('The IMSP server did not understand your request.', __FILE__, __LINE__);
+            $this->_imsp->_logger->err('The IMSP server did not understand your request.');
+            throw new Horde_Imsp_Exception('The IMSP server did not understand your request.');
         }
 
         if (!preg_match("/^\* MYRIGHTS ADDRESSBOOK/", $server_response)) {
-            return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                           __FILE__, __LINE__);
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
 
         // {} for the abook name?
-        if (preg_match(IMSP_OCTET_COUNT, $server_response, $tempArray)) {
+        if (preg_match(Horde_Imsp::OCTET_COUNT, $server_response, $tempArray)) {
             $data = $this->_imsp->receiveStringLiteral($tempArray[2]);
-            // Get the rest.
             $server_response = $this->_imsp->imspReceive();
         }
 
@@ -1272,50 +896,26 @@ class Horde_Imsp_Book {
         $server_response = $this->_imsp->imspReceive();
 
         if ($server_response != 'OK') {
-            return $this->_imsp->imspError('Did not receive the expected response from the server.',
-                                           __FILE__, __LINE__);
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         } else {
-            $this->_imsp->writeToLog("MYRIGHTS on $abook completed.",
-                                      __FILE__, __LINE__, PEAR_LOG_INFO);
+            $this->_imsp->_logger->debug("MYRIGHTS on $abook completed.");
             return $acl;
         }
     }
 
     /**
-     * Sets the log information in the Horde_Imsp object.
+     * Parses a IMSP fetchaddress response text string into key-value pairs
      *
-     * @param  array  Log parameters.
-     *
-     * @return mixed  True on success PEAR_Error on failure.
-     */
-    function setLogger($params)
-    {
-        if (isset($this->_imsp)) {
-            return $this->_imsp->setLogger($params);
-        } else {
-            return PEAR::raiseError(Horde_Horde_Imsp_Translation::t("The IMSP log could not be initialized."));
-        }
-    }
-
-    /**
-     * Parses a IMSP fetchaddress response text string into
-     * key-value pairs
-     *
-     * @access private
      * @param  string  $server_response The raw fetchaddress response.
      *
      * @return array   Address book entry information as key=>value pairs.
      */
-    function _parseFetchAddressResponse($server_response)
+    protected function _parseFetchAddressResponse($server_response)
     {
         $abook = '';
-
         if (!preg_match("/^\* FETCHADDRESS /", $server_response)) {
-            $this->_imsp->writeToLog('[ERROR] Did not receive a FETCHADDRESS response from server.',
-                                     __FILE__, __LINE__, PEAR_LOG_ERR);
-
-            $this->_imsp->exitCode = 'Did not receive the expected response from the server.';
-            return false;
+            $this->_imsp->_logger->err('Did not receive a FETCHADDRESS response from server.');
+            throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
         }
 
         /* NOTES
@@ -1344,8 +944,7 @@ class Horde_Imsp_Book {
             $chopped_response = trim($this->_imsp->imspReceive());
         } else {
             // Take off the stuff from the beginning of the response
-            $chopped_response = trim(preg_replace("/^\* FETCHADDRESS /",
-                                                  '', $server_response));
+            $chopped_response = trim(preg_replace("/^\* FETCHADDRESS /", '', $server_response));
         }
 
         $parts = explode(' ', $chopped_response);
@@ -1410,7 +1009,7 @@ class Horde_Imsp_Book {
         for ($i = $nextKey; $i < $numOfParts; $i += 2) {
             $key = $parts[$i];
             /* Check for {} */
-            if (@preg_match(IMSP_OCTET_COUNT, $parts[$i+1], $tempArray)) {
+            if (@preg_match(Horde_Imsp::OCTET_COUNT, $parts[$i+1], $tempArray)) {
                 $server_data = $this->_imsp->receiveStringLiteral($tempArray[2]);
                 $entry[$key] = $server_data;
 
@@ -1436,8 +1035,7 @@ class Horde_Imsp_Book {
                         $nextElement = $parts[$i+2];
 
                         // Was this element the last one?
-                        $lastChar = substr($nextElement,
-                                           strlen($nextElement) - 1, 1);
+                        $lastChar = substr($nextElement, strlen($nextElement) - 1, 1);
                         $entry[$key] .= ' ' . $nextElement;
 
                         // NOW, we can check the lastChar.
@@ -1448,8 +1046,7 @@ class Horde_Imsp_Book {
                             // Check to see if the next element is the
                             // last one. If so, the do loop will terminate.
                             $done = false;
-                            $lastChar = substr($parts[$i+3],
-                                               strlen($parts[$i+3]) - 1,1);
+                            $lastChar = substr($parts[$i+3], strlen($parts[$i+3]) - 1,1);
                             $i++;
                         }
                     } while ($lastChar != '"');
@@ -1464,31 +1061,26 @@ class Horde_Imsp_Book {
 
                     // Remove the quotes sent back to us from the server.
                     if (substr($entry[$key], 0, 1) == '"') {
-                        $entry[$key] = substr($entry[$key], 1,
-                                              strlen($entry[$key]) - 2);
+                        $entry[$key] = substr($entry[$key], 1, strlen($entry[$key]) - 2);
                     }
 
-                    if (substr($entry[$key],
-                               strlen($entry[$key]) - 1, 1) == '"') {
-
-                        $entry[$key] = substr($entry[$key], 0,
-                                              strlen($entry[$key]) - 2);
+                    if (substr($entry[$key], strlen($entry[$key]) - 1, 1) == '"') {
+                        $entry[$key] = substr($entry[$key], 0, strlen($entry[$key]) - 2);
                     }
                 } elseif ((@substr($parts[$i + 1], 0, 1) == '"') &&
                           (substr($parts[$i + 1], -1, 1) == '"')) {
                     // Remove the quotes sent back to us from the server.
                     if (substr($entry[$key], 0, 1) == '"') {
-                        $entry[$key] = substr($entry[$key], 1,
-                                              strlen($entry[$key]) - 2);
+                        $entry[$key] = substr($entry[$key], 1, strlen($entry[$key]) - 2);
                     }
 
                     if (substr($entry[$key], -1, 1) == '"') {
-                        $entry[$key] = substr($entry[$key], 0,
-                                              strlen($entry[$key]) - 2);
+                        $entry[$key] = substr($entry[$key], 0, strlen($entry[$key]) - 2);
                     }
                 }
             }
         }
+
         return $entry;
     }
 

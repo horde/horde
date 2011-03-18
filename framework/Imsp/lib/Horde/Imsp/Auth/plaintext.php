@@ -16,8 +16,8 @@
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Auth_plaintext extends Horde_Imsp_Auth {
-
+class Horde_Imsp_Auth_Plaintext extends Horde_Imsp_Auth
+{
     /**
      * Private authentication function.  Provides actual
      * authentication code.
@@ -28,81 +28,31 @@ class Horde_Imsp_Auth_plaintext extends Horde_Imsp_Auth {
      * @return mixed  Horde_Imsp object connected to server if successful,
      *                PEAR_Error on failure.
      */
-    function &_authenticate($params)
+    protected function _authenticate(array $params)
     {
         $imsp = &Horde_Imsp::singleton('none', $params);
-        $result = $imsp->init();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
          $userId = $params['username'];
          $credentials = $params['password'];
 
         /* Start the command. */
-        $result = $imsp->imspSend('LOGIN ', true, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $imsp->imspSend('LOGIN ', true, false);
 
         /* Username as a {}? */
-        if (preg_match(IMSP_MUST_USE_LITERAL, $userId)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $userId)) {
             $biUser = sprintf('{%d}', strlen($userId));
-            $result = $imsp->imspSend($biUser, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            if (!preg_match("/^\+/",
-                            $imsp->imspReceive())) {
-
-                $result = $imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                        __FILE__, __LINE__);
-                return $result;
-           }
+            $result = $imsp->imspSend($biUser, false, true, true);
         }
-
-        $result = $imsp->imspSend($userId . ' ', false, false);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        /* Don't want to log the password! */
-        $logValue = $imsp->logEnabled;
-        $imsp->logEnabled = false;
+        $imsp->imspSend($userId . ' ', false, false);
 
         /* Pass as {}? */
-        if (preg_match(IMSP_MUST_USE_LITERAL, $credentials)) {
+        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $credentials)) {
             $biPass = sprintf('{%d}', strlen($credentials));
-            $result = $imsp->imspSend($biPass, false, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            if (!preg_match("/^\+/",
-                            $imsp->imspReceive())) {
-                $result = $imsp->imspError('Did not receive expected command continuation response from IMSP server.',
-                                        __FILE__, __LINE__);
-                return $result;
-            }
+            $imsp->imspSend($biPass, false, true, true);
         }
-
-        $result = $imsp->imspSend($credentials, false, true);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        /* Restore the logging boolean. */
-        $imsp->logEnabled = $logValue;
-
+        $imsp->imspSend($credentials, false, true);
         $server_response = $imsp->imspReceive();
-        if (is_a($server_response, 'PEAR_Error')) {
-            return $server_response;
-        }
-
         if ($server_response != 'OK') {
-            $result = $imsp->imspError('Login to IMSP host failed.', __FILE__, __LINE__);
-            return $result;
+            throw new Horde_Exception_PermissionDenied();
         }
 
         return $imsp;
@@ -112,7 +62,7 @@ class Horde_Imsp_Auth_plaintext extends Horde_Imsp_Auth {
      * Force a logout command to the imsp stream.
      *
      */
-    function logout()
+    public function logout()
     {
         $this->_imsp->logout();
     }
@@ -122,7 +72,7 @@ class Horde_Imsp_Auth_plaintext extends Horde_Imsp_Auth {
      *
      * @return string the type of this IMSP_Auth driver
      */
-     function getDriverType()
+     public function getDriverType()
      {
          return 'plaintext';
      }
