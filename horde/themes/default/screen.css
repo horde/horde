@@ -1364,6 +1364,12 @@ div.GrowlerNoticeExit:hover {
     vertical-align: top;
 }
 
+/* Form ghosting. */
+.formGhost {
+    color: #a0a0a0 !important;
+    font-style: italic;
+}
+
 /* Social Media Related CSS */
 .hordeSmStreamstory {
     margin-bottom: 7px;
