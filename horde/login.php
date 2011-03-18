@@ -368,7 +368,6 @@ if ($browser->isMobile()) {
 }
 
 if (!empty($js_files)) {
-    Horde::addScriptFile('prototype.js', 'horde');
     foreach ($js_files as $val) {
         Horde::addScriptFile($val[0], $val[1]);
     }

@@ -26,7 +26,6 @@ class Turba_Block_Minisearch extends Horde_Core_Block
     protected function _content()
     {
         if ($GLOBALS['browser']->hasFeature('iframes')) {
-            Horde::addScriptFile('prototype.js', 'horde');
             Horde::startBuffer();
             include TURBA_TEMPLATES . '/block/minisearch.inc';
             return Horde::endBuffer();

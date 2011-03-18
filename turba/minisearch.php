@@ -47,7 +47,6 @@ if (!is_null($search)) {
     } catch (Turba_Exception $e) {}
 }
 
-Horde::addScriptFile('prototype.js', 'horde');
 $bodyClass = 'summary';
 require $registry->get('templates', 'horde') . '/common-header.inc';
 

@@ -20,9 +20,7 @@ if (!$GLOBALS['registry']->getAuth()) {
 
 // Get refresh interval.
 if ($r_time = $prefs->getValue('summary_refresh_time')) {
-    if ($browser->hasFeature('xmlhttpreq')) {
-        Horde::addScriptFile('prototype.js', 'horde', true);
-    } else {
+    if (!$browser->hasFeature('xmlhttpreq')) {
         Horde::metaRefresh($r_time, Horde::url('mybugs.php'));
     }
 }

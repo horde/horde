@@ -1897,12 +1897,10 @@ HTML;
             if (!$raw) {
                 switch ($key) {
                 case 'dom':
-                    self::addScriptFile('prototype.js', 'horde');
                     $val = 'document.observe("dom:loaded", function() {' . $val . '});';
                     break;
 
                 case 'load':
-                    self::addScriptFile('prototype.js', 'horde');
                     $val = 'Event.observe(window, "load", function() {' . $val . '});';
                     break;
                 }

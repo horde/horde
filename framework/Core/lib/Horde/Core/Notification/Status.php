@@ -58,7 +58,6 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
 
             if (!empty($alarm['user']) &&
                 $GLOBALS['browser']->hasFeature('xmlhttpreq')) {
-                Horde::addScriptFile('prototype.js', 'horde');
                 try {
                     $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/snooze.php', true);
                 } catch (Horde_Exception $e) {

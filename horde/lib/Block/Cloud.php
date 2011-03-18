@@ -18,8 +18,6 @@ class Horde_Block_Cloud extends Horde_Core_Block
      */
     protected function _content()
     {
-        Horde::addScriptFile('prototype.js', 'horde');
-
         $cloud = new Horde_Core_Ui_TagCloud();
         foreach ($this->_getTags() as $tag) {
             $cloud->addElement($tag['tag_name'], '#', $tag['total'],

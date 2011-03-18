@@ -38,10 +38,6 @@ class Horde_Core_Text_Filter_Highlightquotes extends Horde_Text_Filter_Highlight
         ), $params);
 
         parent::__construct($params);
-
-        if (!$this->_params['noJS'] && $this->_params['outputJS']) {
-            Horde::addScriptFile('prototype.js', 'horde');
-        }
     }
 
     /**
