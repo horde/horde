@@ -85,7 +85,7 @@ default:
 
 /* Create share backend. */
 $class = 'Horde_Share_' . implode('_', array_map(array('Horde_String', 'ucwords'), explode('_', $options['backend'])));
-$shares = new $class('test', false, new Horde_Perms(), new Horde_Group_Mock());
+$shares = new $class('test', false, new Horde_Perms_Null(), new Horde_Group_Mock());
 $shares->setStorage($storage);
 if ($options['backend'] == 'sqlng') {
     $shares->setTable('test_shares');

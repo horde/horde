@@ -60,7 +60,7 @@ extends PHPUnit_Framework_TestCase
         $this->factory = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver');
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
         $GLOBALS['mnemo_shares'] = new Horde_Share_Kolab(
-            'mnemo', 'test@example.com', new Horde_Perms(), new Horde_Group_Mock()
+            'mnemo', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()
         );
         $GLOBALS['mnemo_shares']->setStorage($storage);
         $share = $GLOBALS['mnemo_shares']->newShare(
