@@ -8,14 +8,14 @@ $cmd = basename($argv[0]);
 $description = <<<EOD
 This script creates a large numbers of shares with varying permission in the specified share backend and then runs some benchmarks on common share actions.
 
-Example: $cmd -b sql_hierarchical -c pdo_pgsql
+Example: $cmd -b sqlng -c pdo_pgsql
 EOD;
 
 $argv = new Horde_Argv_Parser(array('description' => $description));
 $argv->addOption(
     '-b', '--backend',
     array('type' => 'choice',
-          'choices' => array('sql', 'sql_hierarchical', 'sqlng', 'kolab', 'datatree'),
+          'choices' => array('sql', 'sqlng', 'kolab', 'datatree'),
           'help' => 'The backend to test. Must be configured in the conf.php configuration file.'));
 $argv->addOption(
     '-c', '--configuration',
@@ -72,7 +72,6 @@ $config = isset($conf['share']['sql'][$options['configuration']])
 switch ($options['backend']) {
 case 'sql':
 case 'sqlng':
-case 'sql_hierarchical':
     $class = 'Horde_Db_Adapter_' . implode('_', array_map(array('Horde_String', 'ucwords'), explode('_', $options['configuration'])));
     $storage = new $class($config);
     require_once dirname(__FILE__) . '/migration/' . $options['backend'] . '.php';
