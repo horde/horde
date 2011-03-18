@@ -72,7 +72,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      * @param array $params  Hash containing additional configuration
      *                       parameters.
      */
-    public function __construct($params)
+    public function __construct($name = '', $params)
     {
         parent::__construct($name, $params);
 

@@ -22,7 +22,7 @@ class Turba_Driver_Group extends Turba_Driver
      *                       Basically, just passes the group id.
      *
      */
-    public function __construct($params)
+    public function __construct($name = '', $params)
     {
          $this->_gid = $params['gid'];
     }
