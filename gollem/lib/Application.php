@@ -51,6 +51,7 @@ class Gollem_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        return;
         // Load the backend list.
         Gollem::loadBackendList();
 
