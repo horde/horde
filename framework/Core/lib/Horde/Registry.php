@@ -1574,18 +1574,20 @@ class Horde_Registry
                 throw $e;
             }
 
-            try {
-                $di = new DirectoryIterator($fileroot . '/lib/' . $fileprefix);
+            if (is_dir($fileroot . '/lib/' . $fileprefix)) {
+                try {
+                    $di = new DirectoryIterator($fileroot . '/lib/' . $fileprefix);
 
-                foreach ($di as $val) {
-                    if (!$val->isDir() && !$di->isDot()) {
-                        $class = $app . '_' . $prefix . '_' . basename($val, '.php');
-                        if (class_exists($class)) {
-                            $classes[] = $class;
+                    foreach ($di as $val) {
+                        if (!$val->isDir() && !$di->isDot()) {
+                            $class = $app . '_' . $prefix . '_' . basename($val, '.php');
+                            if (class_exists($class)) {
+                                $classes[] = $class;
+                            }
                         }
                     }
-                }
-            } catch (UnexpectedValueException $e) {}
+                } catch (UnexpectedValueException $e) {}
+            }
 
             if ($pushed) {
                 $this->popApp();
