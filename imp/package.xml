@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>18:56:57</time>
+ <date>2011-03-18</date>
+ <time>11:31:30</time>
  <version>
   <release>5.0.0RC1</release>
   <api>5.0.0</api>
@@ -50,7 +50,6 @@
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
     <file name="mime_drivers.php" role="horde" />
-    <file name="portal.php" role="horde" />
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
@@ -94,7 +93,6 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
-     <file name="Foldersummary.php" role="horde" />
      <file name="Newmail.php" role="horde" />
      <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
@@ -291,7 +289,6 @@
      <file name="Flist.php" role="horde" />
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
-     <file name="Block.php" role="horde" />
      <file name="Compose.php" role="horde" />
      <file name="Editor.php" role="horde" />
      <file name="Headers.php" role="horde" />
@@ -637,9 +634,6 @@
      <dir name="message">
       <file name="message.html" role="horde" />
      </dir> <!-- /templates/dimp/message -->
-     <dir name="portal">
-      <file name="portal.html" role="horde" />
-     </dir> <!-- /templates/dimp/portal -->
      <file name="index.inc" role="horde" />
      <file name="javascript_defs.php" role="horde" />
     </dir> <!-- /templates/dimp -->
@@ -1158,7 +1152,6 @@
    <install as="imp/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="imp/config/menu.php.dist" name="config/menu.php.dist" />
    <install as="imp/config/mime_drivers.php" name="config/mime_drivers.php" />
-   <install as="imp/config/portal.php" name="config/portal.php" />
    <install as="imp/config/prefs.php" name="config/prefs.php" />
    <install as="imp/docs/CHANGES" name="docs/CHANGES" />
    <install as="imp/docs/CREDITS" name="docs/CREDITS" />
@@ -1212,7 +1205,6 @@
    <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
-   <install as="imp/lib/Block/Foldersummary.php" name="lib/Block/Foldersummary.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
@@ -1337,7 +1329,6 @@
    <install as="imp/lib/tests/Imp/Unit/Mime/Viewer/HtmlTest.php" name="lib/tests/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="imp/lib/tests/Imp/Unit/Mime/Viewer/ItipTest.php" name="lib/tests/Imp/Unit/Mime/Viewer/ItipTest.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
-   <install as="imp/lib/Ui/Block.php" name="lib/Ui/Block.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
@@ -1473,7 +1464,6 @@
    <install as="imp/templates/dimp/compose/compose-base.html" name="templates/dimp/compose/compose-base.html" />
    <install as="imp/templates/dimp/compose/compose.html" name="templates/dimp/compose/compose.html" />
    <install as="imp/templates/dimp/message/message.html" name="templates/dimp/message/message.html" />
-   <install as="imp/templates/dimp/portal/portal.html" name="templates/dimp/portal/portal.html" />
    <install as="imp/templates/imp/javascript_defs.php" name="templates/imp/javascript_defs.php" />
    <install as="imp/templates/imp/compose/compose.html" name="templates/imp/compose/compose.html" />
    <install as="imp/templates/imp/compose/redirect.html" name="templates/imp/compose/redirect.html" />
@@ -1836,6 +1826,22 @@
 * Fix display of non-IMAP mailbox elements in folder lists (Bug #9650).
 * Fix print part display.
 * Fix listing users through IMP API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0RC1</release>
+    <api>5.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-18</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Fix flag display in message list in traditional view (Bug #9673).
+* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>
