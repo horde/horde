@@ -226,7 +226,7 @@ class Horde_Service_Facebook
      */
     public static function getFacebookUrl($subdomain = 'www')
     {
-        return 'http://' . $subdomain . '.facebook.com';
+        return 'https://' . $subdomain . '.facebook.com';
     }
 
     /**
