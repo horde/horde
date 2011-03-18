@@ -56,6 +56,10 @@ class Horde_Script_Files
      */
     public function add($file, $app = null, $full = false)
     {
+        if ($file == 'prototype.js') {
+            $this->prototype = true;
+            return;
+        }
         if ($full && !$this->_full) {
             $this->_full = true;
         }
