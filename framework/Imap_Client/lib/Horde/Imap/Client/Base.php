@@ -1290,7 +1290,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $ret = array();
             foreach ($mailboxes as $val) {
                 try {
-                    $ret[$val] = $this->status($val, $flags);
+                    $ret[(string)$val] = $this->status($val, $flags);
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
         }
