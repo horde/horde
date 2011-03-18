@@ -143,6 +143,16 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Checks if the backend supports CATENATE.
+     *
+     * @return boolean True if the backend supports CATENATE.
+     */
+    public function hasCatenateSupport()
+    {
+        return $this->_driver->hasCatenateSupport();
+    }
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.
