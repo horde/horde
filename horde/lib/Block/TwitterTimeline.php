@@ -67,7 +67,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
     {
         return array(
             'height' => array(
-                 'name' => _("Height of map (width automatically adjusts to block)"),
+                 'name' => _("Height of stream content (width automatically adjusts to block)"),
                  'type' => 'int',
                  'default' => 350
              ),

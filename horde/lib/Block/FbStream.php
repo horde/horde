@@ -78,7 +78,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
                 'default' => true
             ),
             'height' => array(
-                 'name' => _("Height of map (width automatically adjusts to block)"),
+                 'name' => _("Height of stream content (width automatically adjusts to block)"),
                  'type' => 'int',
                  'default' => 250
             ),
