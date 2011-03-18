@@ -826,7 +826,7 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
                 }
             }
         } else {
-            $notification->push($result);
+            $GLOBALS['notification']->push($result);
         }
      }
 }
