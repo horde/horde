@@ -171,6 +171,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function create($folder)
     {
+        $this->_driver->create($folder);
     }
 
     /**
@@ -182,6 +183,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function delete($folder)
     {
+        $this->_driver->delete($folder);
     }
 
     /**
@@ -194,6 +196,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function rename($old, $new)
     {
+        return $this->_driver->listFolders();
     }
 
     /**
@@ -203,7 +206,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function hasAclSupport()
     {
-        return true;
+        return $this->_driver->hasAclSupport();
     }
 
     /**
@@ -215,6 +218,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function getAcl($folder)
     {
+        return $this->_driver->getAcl($folder);
     }
     
     /**
@@ -226,6 +230,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function getMyAcl($folder)
     {
+        return $this->_driver->getMyAcl($folder);
     }
 
     /**
@@ -239,6 +244,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function setAcl($folder, $user, $acl)
     {
+        $this->_driver->setAcl($folder, $user, $acl);
     }
 
     /**
@@ -251,6 +257,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function deleteAcl($folder, $user)
     {
+        $this->_driver->deleteAcl($folder, $user);
     }
 
     /**
@@ -276,19 +283,21 @@ implements Horde_Kolab_Storage_Driver
      */
     public function getAnnotation($entry, $folder)
     {
+        return $this->_driver->getAnnotation($entry, $folder);
     }
 
     /**
      * Sets the annotation on a folder.
      *
-     * @param string $mailbox    The name of the folder.
+     * @param string $folder     The name of the folder.
      * @param string $annotation The annotation to set.
      * @param array  $value      The values to set
      *
      * @return NULL
      */
-    public function setAnnotation($mailbox, $annotation, $value)
+    public function setAnnotation($folder, $annotation, $value)
     {
+        $this->_driver->setAnnotation($folder, $annotation, $value);
     }
 
     /**
@@ -380,50 +389,55 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
-     * Appends a message to the current folder.
+     * Appends a message to the given folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
-     * @param string $msg     The message to append.
+     * @param string   $folder  The folder to append the message(s) to.
+     * @param resource $msg     The message to append.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return mixed True or the UID of the new message in case the backend
+     *               supports UIDPLUS.
      */
-    public function appendMessage($mailbox, $msg)
+    public function appendMessage($folder, $msg)
     {
+        return $this->_driver->appendMessage($folder, $msg);
     }
 
     /**
-     * Deletes messages from the current folder.
+     * Deletes messages from the specified folder.
      *
-     * @param integer $uids  IMAP message ids.
+     * @param string  $folder  The folder to delete messages from.
+     * @param integer $uids    IMAP message ids.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
-    public function deleteMessages($mailbox, $uids)
+    public function deleteMessages($folder, $uids)
     {
+        $this->_driver->deleteMessages($folder, $uids);
     }
 
     /**
      * Moves a message to a new folder.
      *
-     * @param integer $uid        IMAP message id.
-     * @param string $new_folder  Target folder.
+     * @param integer $uid         IMAP message id.
+     * @param string  $old_folder  Source folder.
+     * @param string  $new_folder  Target folder.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
-    public function moveMessage($old_folder, $uid, $new_folder)
+    public function moveMessage($uid, $old_folder, $new_folder)
     {
+        $this->_driver->moveMessage($uid, $old_folder, $new_folder);
     }
 
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $mailbox The mailbox to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
+     * @param string $folder The folder to expunge.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
-    public function expunge($mailbox)
+    public function expunge($folder)
     {
+        $this->_driver->expunge($folder);
     }
 }
