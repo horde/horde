@@ -84,9 +84,9 @@ class Horde_Core_Factory_Tree extends Horde_Core_Factory_Base
 
     /**
      */
-    public function getSession($instance, $id)
+    public function getSession($instance, $id, $mask = 0)
     {
-        return $GLOBALS['session']->get('horde', 'tree-' . $instance . '/' . $id);
+        return $GLOBALS['session']->get('horde', 'tree-' . $instance . '/' . $id, $mask);
     }
 
     /**
