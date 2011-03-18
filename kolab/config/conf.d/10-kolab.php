@@ -3,7 +3,9 @@
 $conf['auth']['driver'] = 'kolab';
 $conf['auth']['admins'] = array('manager');
 
-$conf['group']['driver'] = 'kolab';
+//@todo: Fix Kolab driver
+//$conf['group']['driver'] = 'kolab';
+$conf['group']['driver'] = 'mock';
 
 $conf['perms']['driverconfig'] = 'horde';
 $conf['perms']['driver'] = 'Null';
