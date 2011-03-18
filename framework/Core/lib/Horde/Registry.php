@@ -687,6 +687,8 @@ class Horde_Registry
         $status = array('active', 'notoolbar', 'hidden');
         if ($this->isAdmin()) {
             $status[] = 'admin';
+        } else {
+            $status[] = 'noadmin';
         }
 
         $this->_apis = array();
@@ -763,6 +765,11 @@ class Horde_Registry
     {
         if (is_null($filter)) {
             $filter = array('notoolbar', 'active');
+        }
+        if (!$this->isAdmin() &&
+            in_array('active', $filter) &&
+            !in_array('noadmin', $filter)) {
+            $filter[] = 'noadmin';
         }
 
         $apps = array();
@@ -2209,7 +2216,7 @@ class Horde_Registry
     {
         $errApps = array();
 
-        foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
+        foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin')) as $app) {
             try {
                 $this->callByPackage($app, 'removeUserData', array($userId));
             } catch (Exception $e) {

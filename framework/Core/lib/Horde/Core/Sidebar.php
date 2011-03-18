@@ -26,15 +26,16 @@ class Horde_Core_Sidebar
         $isAdmin = $registry->isAdmin();
         $menu = $parents = array();
 
-        foreach ($registry->listApps(array('active', 'admin', 'heading', 'notoolbar', 'sidebar'), true, null) as $app => $params) {
+        foreach ($registry->listApps(array('active', 'admin', 'noadmin', 'heading', 'notoolbar', 'sidebar'), true, null) as $app => $params) {
             /* Check if the current user has permisson to see this
              * application, and if the application is active. Headings are
              * visible to everyone (but get filtered out later if they
              * have no children). Administrators always see all
              * applications except those marked 'inactive'. */
-            if ($isAdmin ||
+            if (($isAdmin &&
+                 $params['status'] != 'noadmin') ||
                 ($params['status'] == 'heading') ||
-                (in_array($params['status'], array('active', 'sidebar')) &&
+                (in_array($params['status'], array('active', 'noadmin', 'sidebar')) &&
                  $registry->hasPermission($app, Horde_Perms::SHOW))) {
                 $menu[$app] = $params;
 
