@@ -15,18 +15,11 @@
 class Nag_Driver_Kolab extends Nag_Driver
 {
     /**
-     * Our Kolab server connection.
+     * The Kolab_Storage backend.
      *
-     * @var Kolab
+     * @var Horde_Kolab_Storage
      */
     protected $_kolab = null;
-
-    /**
-     * The wrapper to decide between the Kolab implementation
-     *
-     * @var Nag_Driver_Kolab_Wrapper
-     */
-    protected $_wrapper = null;
 
     /**
      * Constructs a new Kolab storage object.
@@ -36,20 +29,8 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     public function __construct($tasklist, $params = array())
     {
-        if (empty($tasklist)) {
-            $tasklist = $GLOBALS['registry']->getAuth();
-        }
-
         $this->_tasklist = $tasklist;
-
-        $this->_kolab = new Kolab();
-        if (empty($this->_kolab->version)) {
-            $wrapper = 'Nag_Driver_kolab_Wrapper_Old';
-        } else {
-            $wrapper = 'Nag_Driver_Kolab_Wrapper_New';
-        }
-
-        $this->_wrapper = new $wrapper($this->_tasklist, $this->_kolab);
+        $this->_kolab = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
     }
 
     /**
