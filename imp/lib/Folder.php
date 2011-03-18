@@ -3,8 +3,6 @@
  * The IMP_Folder:: class provides a set of methods for dealing with folders,
  * accounting for subscription, errors, etc.
  *
- * @todo Don't use notification.
- *
  * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -112,7 +110,7 @@ class IMP_Folder
 
         /* Make sure we are not trying to create a duplicate folder */
         if ($folder->exists) {
-            $notification->push(sprintf(_("The folder \"%s\" already exists"), $folder->display), 'horde.warning');
+            $notification->push(sprintf(_("The folder \"%s\" already exists."), $folder->display), 'horde.warning');
             return false;
         }
 
@@ -215,14 +213,14 @@ class IMP_Folder
         $subscribed = array();
 
         if (!is_array($folders)) {
-            $notification->push(_("No folders were specified"), 'horde.warning');
+            $notification->push(_("No folders were specified."), 'horde.warning');
             return false;
         }
 
         foreach (IMP_Mailbox::get($folders) as $folder) {
             try {
                 $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->subscribeMailbox($folder, true);
-                $notification->push(sprintf(_("You were successfully subscribed to \"%s\""), $folder->display), 'horde.success');
+                $notification->push(sprintf(_("You were successfully subscribed to \"%s\"."), $folder->display), 'horde.success');
                 $subscribed[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
@@ -252,7 +250,7 @@ class IMP_Folder
         $unsubscribed = array();
 
         if (!is_array($folders)) {
-            $notification->push(_("No folders were specified"), 'horde.message');
+            $notification->push(_("No folders were specified."), 'horde.message');
             return false;
         }
 
@@ -262,7 +260,7 @@ class IMP_Folder
             } else {
                 try {
                     $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->subscribeMailbox($folder, false);
-                    $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\""), $folder->display), 'horde.success');
+                    $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\"."), $folder->display), 'horde.success');
                     $unsubscribed[] = $folder;
                 } catch (Horde_Imap_Client_Exception $e) {
                     $notification->push(sprintf(_("You were not unsubscribed from \"%s\". Here is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
