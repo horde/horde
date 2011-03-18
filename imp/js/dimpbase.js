@@ -10,8 +10,8 @@
 var DimpBase = {
     // Vars used and defaulting to null/false:
     //   cfolderaction, expandfolder, folder, folderswitch, pollPE, pp,
-    //   preview_replace, resize, rownum, search, splitbar, template, uid,
-    //   viewport
+    //   preview_replace, qsearch_ghost, resize, rownum, search, splitbar,
+    //   template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
     cacheids: {},
@@ -970,9 +970,7 @@ var DimpBase = {
         case 'ctx_qsearchby_subject':
             DIMP.conf.qsearchfield = id.substring(14);
             this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
-            if (!$('qsearch').hasClassName('qsearchActive')) {
-                this._setQsearchText(true);
-            }
+            this._setQsearchText();
             break;
 
         case 'ctx_mboxsort_none':
@@ -1722,14 +1720,6 @@ var DimpBase = {
         return id && id.startsWith(DIMP.conf.searchprefix) && (!qsearch || this.search);
     },
 
-    _quicksearchOnBlur: function()
-    {
-        $('qsearch').removeClassName('qsearchFocus');
-        if (!$F('qsearch_input')) {
-            this._setQsearchText(true);
-        }
-    },
-
     quicksearchRun: function()
     {
         var q = $F('qsearch_input');
@@ -1761,10 +1751,6 @@ var DimpBase = {
             return;
         }
 
-        if (!qs.hasClassName('qsearchFocus')) {
-            this._setQsearchText(true);
-        }
-
         if (this.isSearch()) {
             this.resetSelected();
             $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
@@ -1776,11 +1762,13 @@ var DimpBase = {
         }
     },
 
-    // d = (boolean) Deactivate quicksearch input?
-    _setQsearchText: function(d)
+    /* Set quicksearch text. */
+    _setQsearchText: function()
     {
-        $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')' : '');
-        [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
+        $('qsearch_input').writeAttribute('title', DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')');
+        if (this.qsearch_ghost) {
+            this.qsearch_ghost.refresh();
+        }
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -2346,21 +2334,6 @@ var DimpBase = {
         }
 
         parentfunc(e);
-    },
-
-    mousedownHandler: function(e)
-    {
-        var elt;
-
-        if (e.findElement('#qsearch') &&
-            (e.element().readAttribute('id') != 'qsearch_icon')) {
-            elt = $('qsearch');
-            elt.addClassName('qsearchFocus');
-            if (!elt.hasClassName('qsearchActive')) {
-                this._setQsearchText(false);
-            }
-            $('qsearch_input').focus();
-        }
     },
 
     mouseoverHandler: function(e)
@@ -3190,7 +3163,9 @@ var DimpBase = {
         /* Init quicksearch. These needs to occur before loading the message
          * list since it may be disabled if we are in a search mailbox. */
         if ($('qsearch')) {
-            $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
+            this._setQsearchText();
+            this.qsearch_ghost = new FormGhost('qsearch_input');
+
             DimpCore.addContextMenu({
                 id: 'qsearch_icon',
                 left: true,
@@ -3237,8 +3212,6 @@ var DimpBase = {
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */
         this._listFolders({ initial: 1, mboxes: this.folder });
-
-        this._setQsearchText(true);
 
         /* Add popdown menus. Check for disabled compose at the same time. */
         DimpCore.addPopdown('button_other', 'otheractions', true);
@@ -3400,7 +3373,6 @@ DimpCore.onDoActionComplete = function(r) {
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(DimpBase));
-document.observe('mousedown', DimpBase.mousedownHandler.bindAsEventListener(DimpBase));
 
 /* ContextSensitive handlers. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.bind(DimpBase));

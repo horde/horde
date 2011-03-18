@@ -795,7 +795,7 @@ a.address:hover img {
 
 /* Search-related styles */
 #qsearch {
-    background-color: #f3f3f3;
+    background-color: #fff;
     border: 1px solid #999;
     cursor: default;
     float: right;
@@ -810,22 +810,17 @@ a.address:hover img {
     display: inline;
 }
 #qsearch_icon {
-    background: #f3f3f3 url("../graphics/search.png") center no-repeat;
+    background: url("../graphics/search.png") center no-repeat;
     cursor: pointer;
     margin-right: 0;
     padding-top: 2px;
 }
 #qsearch_input {
+    background-color: #fff;
     border: none;
-    color: #a0a0a0;
+    color: #000;
     padding: 0 2px 0 0;
     width: 150px;
-}
-.qsearchFocus, .qsearchFocus #qsearch_icon, .qsearchFocus #qsearch_input {
-    background-color: #fff !important;
-}
-.qsearchFocus #qsearch_input {
-    color: #000 !important;
 }
 .qsearchMatch {
     font-weight: bold;
