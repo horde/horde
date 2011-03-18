@@ -17,11 +17,11 @@
 class Turba_Driver_Kolab extends Turba_Driver
 {
     /**
-     * Our Kolab server connection.
+     * The Kolab_Storage backend.
      *
-     * @var Kolab
+     * @var Horde_Kolab_Storage
      */
-    protected $_kolab = null;
+    protected $_kolab;
 
     /**
      * The wrapper to decide between the Kolab implementation
@@ -40,13 +40,13 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     public function __construct($name = '', $params = array())
     {
-        parent::__construct($name, $params);
-        $this->_kolab = new Kolab();
-        $wrapper = empty($this->_kolab->version)
-            ? 'Turba_Driver_Kolab_Wrapper_old'
-            : 'Turba_Driver_Kolab_Wrapper_new';
+        if (empty($params['storage'])) {
+            throw new InvalidArgumentException('Missing required storage handler.');
+        }
+        $this->_kolab = $params['storage'];
+        unset($params['storage']);
 
-        $this->_wrapper = new $wrapper($this->_name, $this->_kolab);
+        parent::__construct($name, $params);
     }
 
     /**

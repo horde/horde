@@ -78,6 +78,9 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
                     throw new Turba_Exception($e);
                 }
                 break;
+            case 'Turba_Driver_Kolab':
+                $srcConfig['params']['storage'] = $this->_injector->getInstance('Horde_Kolab_Storage');
+                break;
             }
 
             $driver = new $class($srcName, $srcConfig['params']);
