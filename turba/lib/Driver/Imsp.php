@@ -85,7 +85,6 @@ class Turba_Driver_Imsp extends Turba_Driver
         global $conf;
 
         $this->_bookName = $this->getContactOwner();
-        var_dump($this->params);
 
         $this->_imsp = Horde_Imsp::singleton('Book', $this->params);
         $result = $this->_imsp->init();
