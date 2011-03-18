@@ -5,8 +5,8 @@ $cfgSources = array();
 /* Only use LDAP if we have that extension in PHP */
 if (function_exists('ldap_connect')) {
 
-    if (false && !is_callable('Kolab', 'getServer')) {
-        $_kolab_server = $GLOBALS['conf']['kolab']['ldap']['server'];
+    if (true || !is_callable('Kolab', 'getServer')) {
+        $_kolab_server = $GLOBALS['conf']['kolab']['ldap']['hostname'];
     } else {
         //@todo: switch to session handler.
         //$_kolab_server = Kolab::getServer('ldap');
