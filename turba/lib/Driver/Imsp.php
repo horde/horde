@@ -17,7 +17,7 @@ class Turba_Driver_Imsp extends Turba_Driver
     /**
      * Handle for the IMSP connection.
      *
-     * @var Net_IMSP
+     * @var Horde_Imsp
      */
     protected $_imsp;
 
@@ -85,7 +85,9 @@ class Turba_Driver_Imsp extends Turba_Driver
         global $conf;
 
         $this->_bookName = $this->getContactOwner();
-        $this->_imsp = Net_IMSP::singleton('Book', $this->params);
+        var_dump($this->params);
+
+        $this->_imsp = Horde_Imsp::singleton('Book', $this->params);
         $result = $this->_imsp->init();
         if ($result instanceof PEAR_Error) {
             $this->_authenticated = false;
@@ -649,7 +651,7 @@ class Turba_Driver_Imsp extends Turba_Driver
         }
 
         $result = Turba::createShare($share_id, $params);
-        $imsp_result = Net_IMSP_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
+        $imsp_result = Horde_Imsp_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
 
         if ($imsp_result instanceof PEAR_Error) {
             throw new Turba_Exception($imsp_result);

@@ -803,7 +803,7 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
      * will override any entries gathered dynamically below.
      */
      if (empty($cfgSources['imsp']['use_shares'])) {
-        $result = Net_IMSP_Utils::getAllBooks($cfgSources['imsp']);
+        $result = Horde_Imsp_Utils::getAllBooks($cfgSources['imsp']);
 
         if (!$result instanceof PEAR_Error) {
             $resultCount = count($result);
