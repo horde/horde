@@ -2822,7 +2822,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $tmp_addr = array();
                     foreach ($addr_structure as $add_key => $add_val) {
                         if (strcasecmp($a_val[$add_key], 'NIL') !== 0) {
-                            $tmp_addr[$add_val] = $a_val[$add_key];
+                            if (is_resource($a_val[$add_key])) {
+                                rewind($a_val[$add_key]);
+                                $tmp_addr[$add_val] = stream_get_contents($a_val[$add_key]);
+                            } else {
+                                $tmp_addr[$add_val] = $a_val[$add_key];
+                            }
                         }
                     }
                     $tmp[] = $tmp_addr;
