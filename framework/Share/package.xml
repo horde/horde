@@ -23,6 +23,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] URL encode share ids in the Kolab driver.
 * First release candidate for Horde 4.
  </notes>
  <contents>
@@ -410,6 +411,13 @@ owns or has access to.</description>
    </package>
    <package>
     <name>Horde_Translation</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0RC1</min>
     <max>2.0.0</max>

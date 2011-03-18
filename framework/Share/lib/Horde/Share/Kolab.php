@@ -157,7 +157,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function constructId($owner, $name)
     {
-        return base64_encode(serialize(array($owner, $name)));
+        return Horde_Url::uriB64Encode(serialize(array($owner, $name)));
     }
 
     /**
@@ -201,17 +201,17 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     private function _idDeconstruct($id)
     {
-        if (!$id = base64_decode($id)) {
+        if (!$decoded_id = Horde_Url::uriB64Decode($id)) {
             $msg = sprintf('Share id %s is invalid.', $id);
             $this->_logger->err($msg);
             throw new Horde_Exception_NotFound($msg);
         }
-        if (!$id = @unserialize($id)) {
-            $msg = sprintf('Share id %s is invalid.', $id);
+        if (!$sid = @unserialize($decoded_id)) {
+            $msg = sprintf('Share id %s is invalid.', $decoded_id);
             $this->_logger->err($msg);
             throw new Horde_Exception_NotFound($msg);
         }
-        return $id;
+        return $sid;
     }
 
 
