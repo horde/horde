@@ -21,8 +21,11 @@ class Horde_Imap_Client_Utils
 {
     /**
      * Create an IMAP message sequence string from a list of indices.
+     *
+     * <pre>
      * Index Format: range_start:range_end,uid,uid2,...
      * Mailbox Format: {mbox_length}[mailbox]range_start:range_end,uid,uid2,...
+     * </pre>
      *
      * @param mixed $in       An array of indices (or a single index). See
      *                        'mailbox' below.
@@ -99,6 +102,8 @@ class Horde_Imap_Client_Utils
     /**
      * Parse an IMAP message sequence string into a list of indices.
      * See Horde_Imap_Client_Utils::toSequenceString() for allowed formats.
+     *
+     * @see self::toSequenceString()
      *
      * @param string $str  The IMAP message sequence string.
      *
@@ -255,10 +260,12 @@ class Horde_Imap_Client_Utils
      * Parse a POP3 (RFC 2384) or IMAP (RFC 5092/5593) URL.
      *
      * Absolute IMAP URLs takes one of the following forms:
+     * <pre>
      * imap://<iserver>[/]
      * imap://<iserver>/<enc-mailbox>[<uidvalidity>][?<enc-search>]
      * imap://<iserver>/<enc-mailbox>[<uidvalidity>]<iuid>
      *  [<isection>][<ipartial>][<iurlauth>]
+     * </pre>
      *
      * POP URLs take one of the following forms:
      * pop://<user>;auth=<auth>@<host>:<port>
