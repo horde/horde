@@ -371,6 +371,17 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCreatorPermission()
+    {
+        $share = $this->_getPrefilledDriver();
+        $object = $share->newShare('john', 'IGNORED', 'Test');
+        $share->addShare($object);
+        $this->assertTrue(
+            $share->getShareById($this->_getId('john', 'Test'))
+            ->hasPermission('john', Horde_Perms::SHOW)
+        );
+    }
+
     public function testNewShareName()
     {
         $share = $this->_getCompleteDriver();

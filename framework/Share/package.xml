@@ -23,6 +23,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Fix checking creators permission for Kolab shares.
 * [gwr] URL encode share ids in the Kolab driver.
 * First release candidate for Horde 4.
  </notes>

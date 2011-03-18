@@ -334,6 +334,9 @@ a random string.
      */
     public function hasPermission($userid, $permission, $creator = null)
     {
+        if (empty($creator)) {
+            $creator = $this->getOwner();
+        }
         return $this->getShareOb()->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
 
