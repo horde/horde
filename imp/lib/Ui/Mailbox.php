@@ -54,10 +54,10 @@ class IMP_Ui_Mailbox
      *
      * @return array  An array of information:
      * <pre>
-     * 'error' - (boolean)
-     * 'from' - (string)
-     * 'fullfrom' - (string)
-     * 'to' - (boolean)
+     * 'error' - (boolean) True on error.
+     * 'from' - (string) The personal part of the From address.
+     * 'fullfrom' - (string) The full From address.
+     * 'to' - (boolean) True if this is who the message was sent to.
      * </pre>
      */
     public function getFrom($ob, $options = array())
