@@ -195,4 +195,13 @@ abstract class Horde_Imsp_Client_Base
      */
     abstract public function receiveStringLiteral($length);
 
+    /**
+     * Attempts to login to IMSP server.
+     *
+     * @param boolean $login   Should we remain logged in after auth?
+     *
+     * @return boolean
+     */
+    public function authenticate($login = true);
+
 }

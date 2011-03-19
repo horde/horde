@@ -27,6 +27,11 @@ abstract class Horde_Imsp_Auth
      */
     protected $_imsp;
 
+    /**
+     * Constructor
+     *
+     * @param array $params
+     */
     public function __construct(array $params = array())
     {
         $this->_params = $params;
