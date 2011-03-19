@@ -72,9 +72,9 @@ class Horde_Core_Factory_Imsp extends Horde_Core_Factory_Base
      * Factory method
      *
      * @param string $driver  The driver type, leave empty for client connection
-     * @param array $params   The driver parameters.
+     * @param array $params   The driver parameters, leave empty to use default.
      *
-     * @return Horde_Imsp  The Horde_Imsp object.
+     * @return mixed The Horde_Imsp object or Horde_Imsp_Client object.
      * @throws Horde_Exception
      */
     protected function _factory($driver = null, array $params = array())
@@ -90,7 +90,6 @@ class Horde_Core_Factory_Imsp extends Horde_Core_Factory_Base
 
         $params['authObj'] = $this->_injector->getInstance('Horde_Core_Factory_ImspAuth')->create($params['auth_method'], $params);
         // @TODO: Separate class for the imtest client?
-
         unset($params['auth_method']);
         try {
             $socket = new Horde_Imsp_Client_Socket($params);

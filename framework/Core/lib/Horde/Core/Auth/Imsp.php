@@ -1,9 +1,7 @@
 <?php
 /**
- * The Horde_Auth_Imsp class provides basic authentication against an IMSP
+ * The Horde_Corde_Auth_Imsp class provides basic authentication against an IMSP
  * server.
- * This will be most benificial if already using an IMSP based preference
- * system or IMSP based addressbook system
  *
  * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
@@ -17,13 +15,11 @@
  */
 class Horde_Core_Auth_Imsp extends Horde_Auth_Base
 {
-
     /**
      *
      * @var Horde_Imsp_Client_Base
      */
     protected $_imsp;
-
 
     /**
      * Private authentication function.
@@ -35,6 +31,8 @@ class Horde_Core_Auth_Imsp extends Horde_Auth_Base
      */
     protected function _authenticate($userID, $credentials)
     {
+        // Need to create the Imsp socket here since it requires a user/password
+        // to create, and we don't have one until this method.
         $this->_params['username'] = $userID;
         $this->_params['password'] = $credentials['password'];
         $this->_imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create(null, $this->_params);
