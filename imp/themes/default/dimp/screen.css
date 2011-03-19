@@ -186,8 +186,10 @@ div.msgSize {
 /* Message ViewPort */
 span.vpEmpty, span.vpError {
     display: block;
-    padding: 2px 0 0 2px;
-    font-weight: bold;
+    padding: 15px 80px 10px 35px;
+    background: transparent url("../graphics/ico_message_off.png") no-repeat scroll 10px 15px;
+    color: #a0a0a0;
+    line-height: 18px;
 }
 
 /* Rows */
