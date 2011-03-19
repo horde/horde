@@ -379,10 +379,12 @@ class Text_Wiki {
     *
     * @access public
     *
-    * @param array $rules The set of rules to load for this object.  Defaults
-    *   to null, which will load the default ruleset for this parser.
+    * @param array $rules The set of rules to load for this object. Defaults to null
+    *                     which will load the default ruleset for this parser.
+    *
+    * @return $this
+    * @see    self::__construct()
     */
-
     function Text_Wiki($rules = null)
     {
         if (is_array($rules)) {
@@ -401,6 +403,19 @@ class Text_Wiki {
             $this->fixPath(dirname(__FILE__)) . 'Wiki/Render/'
         );
 
+    }
+
+    /**
+     * A fix for PHP5.
+     *
+     * @param mixed $rules null or an array.
+     *
+     * @return $this
+     * @uses   self::Text_Wiki()
+     */
+    function __construct($rules = null)
+    {
+        $this->Text_Wiki($rules);
     }
 
     /**
