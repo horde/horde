@@ -2,14 +2,16 @@
 @include dirname(__FILE__) . '/config.php';
 
 require_once 'PHPUnit/Extensions/PhptTestSuite.php';
+
 require_once 'Text_Wiki_Tests.php';
 require_once 'Text_Wiki_Render_Tests.php';
 require_once 'Text_Wiki_Render_Tiki_Tests.php';
 //require_once 'Text_Wiki_Parse_Tiki_Tests.php';
 require_once 'Text_Wiki_Parse_Mediawiki_Tests.php';
 require_once 'Text_Wiki_Generic_Transform_Tests.php';
+require_once 'Text_Wiki_BugTests.php';
 
-class Framework_AllTests
+class Text_Wiki_AllTests
 {
     public static function suite()
     {
@@ -27,6 +29,12 @@ class Framework_AllTests
         $suite->addTestSuite('Text_Wiki_Render_Tiki_AllTests');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_AllTests');
         $suite->addTestSuite('Text_Wiki_Generic_Transform_Tests');
+
+        /**
+         * @desc This suite currently 'fails' when run through here.
+         *       Standalone works.
+         */
+        $suite->addTestSuite('Text_Wiki_BugTests');
 
         return $suite;
     }
