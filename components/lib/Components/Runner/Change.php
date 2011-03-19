@@ -122,7 +122,7 @@ class Components_Runner_Change
             }
         }
 
-        if ($options['commit']) {
+        if (!empty($options['commit'])) {
             $this->systemInDirectory(
                 'git add ' . $package->getPackageXml(),
                 $package->getComponentDirectory(),
