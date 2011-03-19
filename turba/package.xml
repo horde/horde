@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>turba</name>
  <channel>pear.horde.org</channel>
  <summary>A web based address book</summary>
@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>19:29:03</time>
+ <date>2011-03-19</date>
+ <time>14:24:12</time>
  <version>
   <release>3.0.0RC1</release>
   <api>3.0.0</api>
@@ -905,6 +905,21 @@
    <notes>
 * Fix the listTimeObjects API for shared sources (Bug #9649).
 * Fix importing contacts with SyncML (Simon Bühler, Bug #9641).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-19</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Auth</name>
  <channel>pear.horde.org</channel>
  <extends>Auth</extends>
@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>18:09:47</time>
+ <date>2011-03-19</date>
+ <time>14:24:04</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -49,7 +49,6 @@
       <file name="Ftp.php" role="php" />
       <file name="Http.php" role="php" />
       <file name="Imap.php" role="php" />
-      <file name="Imsp.php" role="php" />
       <file name="Ipbasic.php" role="php" />
       <file name="Kolab.php" role="php" />
       <file name="Ldap.php" role="php" />
@@ -192,7 +191,6 @@
    <install as="Horde/Auth/Ftp.php" name="lib/Horde/Auth/Ftp.php" />
    <install as="Horde/Auth/Http.php" name="lib/Horde/Auth/Http.php" />
    <install as="Horde/Auth/Imap.php" name="lib/Horde/Auth/Imap.php" />
-   <install as="Horde/Auth/Imsp.php" name="lib/Horde/Auth/Imsp.php" />
    <install as="Horde/Auth/Ipbasic.php" name="lib/Horde/Auth/Ipbasic.php" />
    <install as="Horde/Auth/Kolab.php" name="lib/Horde/Auth/Kolab.php" />
    <install as="Horde/Auth/Ldap.php" name="lib/Horde/Auth/Ldap.php" />
@@ -272,9 +270,9 @@
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
 * Add signup drivers to package.xml (Bug #7345).
-* Fix the "overwriting realm info from application auth drivers" (Bug #6749)
+* Fix the &quot;overwriting realm info from application auth drivers&quot; (Bug #6749)
 * Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
-* Added "add user" capability to the Kolab driver.
+* Added &quot;add user&quot; capability to the Kolab driver.
 * Adapted the Kolab auth driver to the changes in Kolab_Server.
    </notes>
   </release>
@@ -311,6 +309,21 @@
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
 * First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-19</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>
