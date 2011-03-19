@@ -94,11 +94,16 @@ class Horde_Core_Factory_ImspAuth
     {
         $driver = basename($driver);
         $class = 'Horde_Imsp_Auth_' . $driver;
+        // Verify user/pass
+        if (empty($params['username'])) {
+            $params['username'] = $GLOBALS['registry']->getAuth('bare');
+            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
+        }
         if (class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Exception(sprintf('Unable to load the definition of %s.'), $class);
+        throw new Horde_Exception(sprintf('Unable to load the definition of %s.', $class));
     }
 
 }
