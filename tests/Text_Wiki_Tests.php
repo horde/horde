@@ -6,7 +6,6 @@ require_once 'Text/Wiki.php';
 
 class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
 {
-    
     protected function setUp()
     {
         $this->obj = Text_Wiki::factory();
