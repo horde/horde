@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mjr] Fix IMSP driver
 * First release candidate for Horde 4.
  </notes>
  <contents>

@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [mjr] Fix/refactor IMSP driver.
 * First release candidate for Horde 4.
  </notes>
  <contents>
@@ -919,6 +920,7 @@
    <date>2011-03-19</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [mjr] Fix/refactor IMSP driver.
 * First release candidate for Horde 4.
    </notes>
   </release>

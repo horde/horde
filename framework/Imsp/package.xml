@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mjr] Refactor for Horde 4
 * First release candidate for Horde 4.
  </notes>
  <contents>
@@ -580,6 +581,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-03-19</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mjr] Refactor for Horde 4
 * First release candidate for Horde 4.
    </notes>
   </release>
