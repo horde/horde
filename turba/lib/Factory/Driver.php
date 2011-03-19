@@ -73,7 +73,7 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
                 try {
                     $srcConfig['params']['db'] = empty($srcConfig['params']['sql'])
                         ? $this->_injector->getInstance('Horde_Db_Adapter')
-                        : $this->_injector->getInstance('Horde_Core_Factory_Db')->create('turba', $this->_params['sql']);
+                        : $this->_injector->getInstance('Horde_Core_Factory_Db')->create('turba', $srcConfig['params']['sql']);
                 } catch (Horde_Db_Exception $e) {
                     throw new Turba_Exception($e);
                 }
