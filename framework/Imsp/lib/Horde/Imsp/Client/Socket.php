@@ -50,7 +50,6 @@ class Horde_Imsp_Client_Socket extends Horde_Imsp_Client_Base
     /**
      * Attempts to login to IMSP server.
      *
-     * @param array $params    Parameters for Horde_Imsp
      * @param boolean $login   Should we remain logged in after auth?
      *
      * @return boolean
