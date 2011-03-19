@@ -18,7 +18,7 @@ $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
 // Quota information
 $show_quota = $session->get('imp', 'imap_quota')
-    ? '<span class="used">' . Horde::img('quotauncover.gif') . '</span>'
+    ? '<span class="used">' . Horde::img('quotauncover.gif', '', array('width' => 99)) . '</span>'
     : '';
 
 function _simpleButton($id, $text, $image, $nodisplay = false)
@@ -55,6 +55,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <?php echo _simpleButton('applyfilterlink', _("Apply Filters"), 'filtersIcon') ?>
 <?php endif; ?>
    </ul>
+<?php if ($show_quota): ?>
+   <div id="quota">
+    <div id="quota-text"></div>
+    <?php echo $show_quota ?>
+   </div>
+<?php endif; ?>
    <div class="sepfull"></div>
    <ul id="serviceActions">
 <?php if (($registry->get('status', 'horde') != 'hidden') && ($registry->get('status', 'horde') != 'notoolbar')): ?>
@@ -104,27 +110,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <div id="dimpmain_iframe"><?php echo _("Loading...") ?></div>
    <div id="dimpmain_folder" style="display:none">
     <div id="dimpmain_folder_top">
-     <div id="tabbar">
-<?php if (!empty($render_tabs)): ?>
-      <div class="tabset">
-       <ul>
-        <li>
-         <a id="hometab"><img src="<?php echo $registry->get('icon', 'horde') ?>" alt="<?php echo _("Portal") ?>" /><?php echo _("Portal") ?></a>
-        </li>
-        <?php echo $render_tabs ?>
-<?php if ($show_quota): ?>
-        <li id="quota">
-         <?php echo $show_quota ?>
-        </li>
-<?php endif; ?>
-       </ul>
-      </div>
-<?php elseif ($show_quota): ?>
-      <div id="quota">
-        <?php echo $show_quota ?>
-      </div>
-<?php endif; ?>
-     </div>
      <div class="header mboxheader">
       <div>
        <span class="rightFloat" id="msgHeader"></span>

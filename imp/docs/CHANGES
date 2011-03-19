@@ -2,6 +2,7 @@
 v5.0-RC1
 --------
 
+[jan] Remove application tabs from AJAX interface (Bug #9679).
 [mms] Move all portal rendering code to Horde.
 [mms] Fix flag display in message list in traditional view (Bug #9673).
 

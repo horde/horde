@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* Remove application tabs from AJAX interface (Bug #9679).
+* Move all portal rendering code to Horde.
 * Fix flag display in message list in traditional view (Bug #9673).
 * First release candidate for Horde 4.
  </notes>
@@ -1840,6 +1842,7 @@
    <date>2011-03-18</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* Remove application tabs from DIMP and move quota bar to sidebar.
 * Fix flag display in message list in traditional view (Bug #9673).
 * First release candidate for Horde 4.
    </notes>

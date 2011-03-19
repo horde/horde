@@ -1673,7 +1673,7 @@ var DimpBase = {
     _displayQuota: function(r)
     {
         var q = $('quota').cleanWhitespace();
-        q.setText(r.m);
+        $('quota-text').setText(r.m);
         q.down('SPAN.used IMG').writeAttribute('width', 99 - r.p);
     },
 

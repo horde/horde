@@ -35,13 +35,13 @@ input {
 
 /* ini header */
 #quota {
-    float: right;
     font-weight: normal;
     padding-bottom: 3px;
 }
 div#quota {
-    margin: 3px;
+    margin-top: 3px;
     border-top-width: 0;
+    height: 14px;
 }
 #quota .used {
     float: left;
@@ -60,6 +60,11 @@ div#quota {
 }
 .tabset li#quota {
     border-top: 0;
+}
+#quota-text {
+    position: absolute;
+    margin-left: 2px;
+    font-size: 95%;
 }
 
 #logo {
