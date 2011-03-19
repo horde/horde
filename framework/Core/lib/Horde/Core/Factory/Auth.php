@@ -74,6 +74,8 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 $driver = 'Horde_Core_Auth_Msad';
             } elseif (strcasecmp($driver, 'shibboleth') === 0) {
                 $driver = 'Horde_Core_Auth_Shibboleth';
+            } elseif (strcasecmp($driver, 'imsp') === 0) {
+                $driver = 'Horde_Core_Auth_Imsp';
             } else {
                 $driver = Horde_String::ucfirst(Horde_String::lower(basename($driver)));
             }
@@ -116,6 +118,10 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
 
             case 'imap':
                 $params['charset'] = 'UTF-8';
+                break;
+
+            case 'horde_core_auth_imsp':
+                $params['imsp'] = $this->_injector->getInstance('Horde_Core_Factory_Imsp')->create();
                 break;
 
             case 'kolab':

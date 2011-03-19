@@ -73,7 +73,7 @@ class Horde_Core_Factory_ImspAuth
                 }
             }
         }
-        $signature = serialize(array($driver));
+        $signature = serialize(array($driver, $params));
         if (!isset(self::$_instances[$signature])) {
             self::$_instances[$signature] = self::_factory($driver, $params);
         }

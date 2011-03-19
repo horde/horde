@@ -10,13 +10,21 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
  * @package  Auth
  */
-class Horde_Auth_Imsp extends Horde_Auth_Base
+class Horde_Core_Auth_Imsp extends Horde_Auth_Base
 {
+
+    /**
+     *
+     * @var Horde_Imsp_Client_Base
+     */
+    protected $_imsp;
+
+
     /**
      * Private authentication function.
      *
@@ -29,14 +37,8 @@ class Horde_Auth_Imsp extends Horde_Auth_Base
     {
         $this->_params['username'] = $userID;
         $this->_params['password'] = $credentials['password'];
-
-        $imsp = Net_IMSP_Auth::singleton($this->_params['auth_method']);
-        if ($imsp instanceof PEAR_Error) {
-            throw new Horde_Auth_Exception($imsp->getMessage());
-        }
-
-        $result = $imsp->authenticate($this->_params, false);
-        if ($result instanceof PEAR_Error) {
+        $this->_imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create(null, $this->_params);
+        if (!$result = $this->_imsp->authenticate(false)) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }

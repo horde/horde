@@ -60,9 +60,6 @@ class Horde_Imsp_Client_Socket extends Horde_Imsp_Client_Base
         if (!$this->_authObj->authenticate($this, $login)) {
             return false;
         }
-        if (!$login) {
-            $this->logout();
-        }
 
         return true;
     }
@@ -131,7 +128,6 @@ class Horde_Imsp_Client_Socket extends Horde_Imsp_Client_Base
         }
 
         $this->_logger->debug('C: ' . $command_text);
-
         if (!fputs($this->_stream, $command_text)) {
             $this->_logger->err('Connection to IMSP host failed.');
             fclose($this->_stream);

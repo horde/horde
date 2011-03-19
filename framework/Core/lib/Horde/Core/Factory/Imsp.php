@@ -58,7 +58,7 @@ class Horde_Core_Factory_Imsp extends Horde_Core_Factory_Base
      *
      * @return Horde_Imsp  The Horde_Imsp object
      */
-    public function create($driver = 'Book', array $params = array())
+    public function create($driver = null, array $params = array())
     {
         $signature = serialize(array($driver, $params));
         if (!isset($this->_instances[$signature])) {
@@ -71,30 +71,40 @@ class Horde_Core_Factory_Imsp extends Horde_Core_Factory_Base
     /**
      * Factory method
      *
-     * @param string $driver  The driver type.
+     * @param string $driver  The driver type, leave empty for client connection
      * @param array $params   The driver parameters.
      *
      * @return Horde_Imsp  The Horde_Imsp object.
      * @throws Horde_Exception
      */
-    protected function _factory($driver, array $params)
+    protected function _factory($driver = null, array $params = array())
     {
         $driver = basename($driver);
-        // Default to configured auth_method.
-        if (empty($params['auth_method'])) {
+
+        // Use global config if none passed in.
+        if (empty($params)) {
+            $params = $GLOBALS['conf']['imsp'];
+        } elseif (empty($params['auth_method'])) {
             $params['auth_method'] = $GLOBALS['conf']['imsp']['auth_method'];
         }
+
         $params['authObj'] = $this->_injector->getInstance('Horde_Core_Factory_ImspAuth')->create($params['auth_method'], $params);
         // @TODO: Separate class for the imtest client?
+
         unset($params['auth_method']);
         try {
             $socket = new Horde_Imsp_Client_Socket($params);
         } catch (Horde_Imsp_Exception $e) {
             throw new Horde_Exception($e);
         }
+        // Return the client itself if no requested driver.
+        if (empty($driver)) {
+            return $socket;
+        }
         if (!$socket->authenticate($params)) {
             throw new Horde_Exception_PermissionDenied();
         }
+
         $class = 'Horde_Imsp_' . $driver;
         if (class_exists($class)) {
             $obj = new $class($socket, $params);

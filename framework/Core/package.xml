@@ -23,7 +23,7 @@
   <active>yes</active>
  </developer>
  <date>2011-03-19</date>
- <time>11:10:11</time>
+ <time>13:46:44</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -85,6 +85,7 @@
         <file name="SqlObject.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Auth/Signup -->
        <file name="Application.php" role="php" />
+       <file name="Imsp.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="Msad.php" role="php" />
        <file name="Shibboleth.php" role="php" />
@@ -1046,6 +1047,7 @@
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
+   <install as="Horde/Core/Auth/Imsp.php" name="lib/Horde/Core/Auth/Imsp.php" />
    <install as="Horde/Core/Auth/Ldap.php" name="lib/Horde/Core/Auth/Ldap.php" />
    <install as="Horde/Core/Auth/Msad.php" name="lib/Horde/Core/Auth/Msad.php" />
    <install as="Horde/Core/Auth/Shibboleth.php" name="lib/Horde/Core/Auth/Shibboleth.php" />
