@@ -1,0 +1,521 @@
+[[toc]]
+
++ Configuring Turba to use the same fields as Outlook 2003
+
+This document is intended to help Horde administrators create a more Outlook-like experience for their users by giving them the address book fields they are accustomed to.  An export of an Outlook 2003 address book contains a number of fields not included in the Outlook UI.  This document only covers the fields available in the Outlook UI.
+
+++ Modifying attributes.php
+
+//turba/config/attributes.php// is the file that defines which fields are available to turba, and what type of data they can hold.  Make the following changes and additions to the default //attributes.php//.  (**Note:** the //addresslink// type is only available in the CVS version of Horde/Turba.  If you want to use this howto for the current stable Horde/Turba, use //address// instead.  It's not as pretty, but it will do the job)
+
+Modify the //name// field to look like:
+<code>
+$attributes['name'] = array(
+    'label' => '',
+    'type' => 'html',
+    'required' => true
+);
+</code>
+
+Modify the //lastname// field to look like:
+<code>
+$attributes['lastname'] = array(
+    'label' => _("Last Name"),
+    'type' => 'text',
+    'required' => false
+);
+</code>
+
+Modify the //homeAddress// field to look like:
+<code>
+ $attributes['homeAddress'] = array(
+    'label' => '',
+    'type' => 'addresslink',
+    'required' => false,
+);
+</code>
+
+Modify the //workAddress// field to look like:
+<code>
+$attributes['workAddress'] = array(
+    'label' => '',
+    'type' => 'addresslink',
+    'required' => false,
+);
+</code>
+
+Modify the //cellPhone// field to look like:
+<code>
+$attributes['cellPhone'] = array(
+    'label' => _("Mobile Phone"),
+    'type' => 'text',
+    'required' => false
+);
+</code>
+
+And, add the following to the end of the file:
+<code>
+$attributes['homeStreet2'] = array(
+    'label' => _("Home Street 2"),
+    'type' => 'text',
+    'required' => false,
+);
+$attributes['homeStreet3'] = array(
+    'label' => _("Home Street 3"),
+    'type' => 'text',
+    'required' => false,
+);
+$attributes['workStreet2'] = array(
+    'label' => _("Work Street 2"),
+    'type' => 'text',
+    'required' => false,
+);
+$attributes['workStreet3'] = array(
+    'label' => _("Work Street 3"),
+    'type' => 'text',
+    'required' => false,
+);
+$attributes['employeeType'] = array(
+    'label' => _("Employee Type"),
+    'type' => 'text',
+    'required' => false
+);
+require_once 'Horde/Prefs/CategoryManager.php';
+$cManager = &new Prefs_CategoryManager();
+$categories = array_merge(array(_("Unfiled")), $cManager->get());
+$attributes['category'] = array(
+    'label' => _("Category"),
+    'type' => 'enum',
+    'params' => array($categories),
+    'required' => false
+);
+
+$attributes['jobtitle'] = array(
+    'label' => _("Job Title"),
+    'type' => 'text',
+    'required' => false,
+    );
+
+$attributes['profession'] = array(
+    'label' => _("Profession"),
+    'type' => 'text',
+    'required' => false,
+    );
+
+$attributes['manager'] = array(
+    'label' => _("Manager's Name"),
+    'type' => 'text',
+    'required' => false,
+    );
+
+$attributes['assistant'] = array(
+    'label' => _("Assistant's Name"),
+    'type' => 'text',
+    'required' => false,
+    );
+
+$attributes['suffix'] = array(
+    'label' => _("Suffix"),
+    'type' => 'text',
+    'required' => false,
+    );
+
+$attributes['spouse'] = array(
+    'label' => _("Spouse's Name"),
+    'type' => 'text',
+    'required' => false,
+    );
+
+$attributes['anniversary'] = array(
+    'label' => _("Anniversary"),
+    'type' => 'monthdayyear',
+    'params' => array(1900, null, true, 1),
+    'required' => false,
+);
+
+$attributes['pager'] = array(
+    'label' => _("Pager"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['callbackPhone'] = array(
+    'label' => _("Callback Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['email2'] = array(
+    'label' => _("Email") . ' 2',
+    'type' => 'email',
+    'required' => false,
+    'params' => array('', 40, 255)
+);
+
+$attributes['email3'] = array(
+    'label' => _("Email") . ' 3',
+    'type' => 'email',
+    'required' => false,
+    'params' => array('', 40, 255)
+);
+
+$attributes['assistantPhone'] = array(
+    'label' => _("Assistant's Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['workPhone2'] = array(
+    'label' => _("Work Phone") . ' 2',
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['Phone'] = array(
+    'label' => _("Home Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['workFax'] = array(
+    'label' => _("Work Fax"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['callback'] = array(
+    'label' => _("Callback"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['carPhone'] = array(
+    'label' => _("Car Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['companyPhone'] = array(
+    'label' => _("Company Main Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['homePhone2'] = array(
+    'label' => _("Home Phone") . ' 2',
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['homeFax'] = array(
+    'label' => _("Home Fax") . ' 2',
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['isdn'] = array(
+    'label' => _("ISDN"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['otherPhone'] = array(
+    'label' => _("Other Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['otherFax'] = array(
+    'label' => _("Other Fax"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['primaryPhone'] = array(
+    'label' => _("Primary Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['radio'] = array(
+    'label' => _("Radio Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['telex'] = array(
+    'label' => _("Telex"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['tty/tdd'] = array(
+    'label' => _("TTY/TDD Phone"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('', 40, 25)
+);
+
+$attributes['otherAddress'] = array(
+    'label' => '',
+    'type' => 'addresslink',
+    'required' => false,
+);
+$attributes['otherStreet'] = array(
+    'label' => _("Other Street Address"),
+    'type' => 'text',
+    'required' => false,
+);
+$attributes['otherStreet2'] = array(
+    'label' => _("Other Street 2"),
+    'type' => 'text',
+    'required' => false,
+);
+$attributes['otherStreet3'] = array(
+    'label' => _("Other Street 3"),
+    'type' => 'text',
+    'required' => false,
+);
+$attributes['otherCity'] = array(
+    'label' => _("Other City"),
+    'type' => 'text',
+    'required' => false
+);
+$attributes['otherProvince'] = array(
+    'label' => _("Other State/Province"),
+    'type' => 'text',
+    'required' => false
+);
+$attributes['otherPostalCode'] = array(
+    'label' => _("Other Postal Code"),
+    'type' => 'text',
+    'required' => false
+);
+$attributes['otherCountry'] = array(
+    'label' => _("Other Country"),
+    'type' => 'text',
+    'required' => false
+);
+
+$attributes['middlename'] = array(
+    'label' => _("Middle Name"),
+    'type' => 'text',
+    'required' => false
+);
+</code>
+
+++ Modifying sources.php
+
+//turba/config/sources.php// is the file that tells Turba which sources to use, and gives it all of the parameters for that source, such as what fields from //attributes.php// are used.
+
+Use the following for your sql source's //'map'// parameter:
+<code>
+    'map' => array(
+        '__key' => 'object_id',
+        '__owner' => 'owner_id',
+        '__type' => 'object_type',
+        '__members' => 'object_members',
+        '__uid' => 'object_uid',
+
+        'name' => array('fields' => array('firstname', 'lastname'),
+                        'format' => '%s %s'),
+        'title' => 'object_title',
+        'firstname' => 'object_firstname',
+        'middlename' => 'object_middlename',
+        'lastname' => 'object_lastname',
+        'suffix' => 'object_suffix',
+        'company' => 'object_company',
+        'department' => 'object_department',
+        'jobtitle' => 'object_jobtitle',
+        'workStreet' => 'object_workstreet',
+        'workStreet2' => 'object_workstreet2',
+        'workStreet3' => 'object_workstreet3',
+        'workCity' => 'object_workcity',
+        'workProvince' => 'object_workprovince',
+        'workPostalCode' => 'object_workpostalcode',
+        'workCountry' => 'object_workcountry',
+        'workAddress' => array('fields' => array('workStreet', 'workStreet2', 'workStreet3', 'workCity', 'workProvince',
+                                                 'workPostalCode'),
+                               'format' => "%s\n%s\n%s\n%s, %s %s"),
+        'homeStreet' => 'object_homestreet',
+        'homeStreet2' => 'object_homestreet2',
+        'homeStreet3' => 'object_homestreet3',
+        'homeCity' => 'object_homecity',
+        'homeProvince' => 'object_homeprovince',
+        'homePostalCode' => 'object_homepostalcode',
+        'homeCountry' => 'object_homecountry',
+        'homeAddress' => array('fields' => array('homeStreet', 'homeStreet2', 'homeStreet3', 'homeCity', 'homeProvince',
+                                                 'homePostalCode'),
+                               'format' => "%s\n%s\n%s\n%s, %s %s"),
+        'otherStreet' => 'object_otherstreet',
+        'otherStreet2' => 'object_otherstreet2',
+        'otherStreet3' => 'object_otherstreet3',
+        'otherCity' => 'object_othercity',
+        'otherProvince' => 'object_otherprovince',
+        'otherPostalCode' => 'object_otherpostalcode',
+        'otherCountry' => 'object_othercountry',
+        'otherAddress' => array('fields' => array('otherStreet', 'otherStreet2', 'otherStreet3', 'otherCity', 'otherProvince',
+                                                  'otherPostalCode'),
+                               'format' => "%s\n%s\n%s\n%s, %s %s"),
+        'assistantPhone' => 'object_assistantphone',
+        'workFax' => 'object_workfax',
+        'workPhone' => 'object_workphone',
+        'workPhone2' => 'object_workphone2',
+        'callback' => 'object_callback',
+        'carPhone' => 'object_carphone',
+        'companyPhone' => 'object_companyphone',
+        'homeFax' => 'object_homefax',
+        'homePhone' => 'object_homephone',
+        'homePhone2' => 'object_homephone2',
+        'isdn' => 'object_isdn',
+        'cellPhone' => 'object_cellphone',
+        'otherFax' => 'object_otherfax',
+        'otherPhone' => 'object_otherphone',
+        'pager' => 'object_pager',
+        'primaryPhone' => 'object_primaryphone',
+        'radio' => 'object_radio',
+        'tty/tdd' => 'object_ttytdd',
+        'telex' => 'object_telex',
+        'anniversary' => 'object_anniversary',
+        'assistant' => 'object_assistant',
+        'birthday' => 'object_birthday',
+        'category' => 'object_category',
+        'email' => 'object_email',
+        'email2' => 'object_email2',
+        'email3' => 'object_email3',
+        'freebusyUrl' => 'object_freebusyurl',
+        'manager' => 'object_manager',
+        'notes' => 'object_notes',
+        'office' => 'object_office',
+        'profession' => 'object_profession',
+        'spouse' => 'object_spouse',
+        'website' => 'object_website',
+        'alias' => 'object_alias',
+        'nickname' => 'object_nickname',
+        'pgpPublicKey' => 'object_pgppublickey',
+        'smimePublicKey' => 'object_smimepublickey',
+    ),
+</code>
+
+And, use the following for your sql source's //'tabs'// parameter.  This is not included in the default //sources.php//, so you will have to add it.
+<code>
+    'tabs' => array(
+        'General' => array('name', 'firstname', 'middlename', 'lastname', 'jobtitle', 'company', 'email', 'email2',
+                           'email3', 'alias', 'website', 'category'),
+        'Phone Numbers' => array('primaryPhone', 'homePhone', 'homePhone2', 'homeFax', 'workPhone', 'workPhone2',
+                                 'workFax', 'cellPhone', 'pager', 'assistantPhone', 'callback', 'carPhone',
+                                 'companyPhone', 'isdn', 'otherPhone', 'otherFax', 'radio', 'telex', 'tty/tdd'),
+        'Home Address' => array('homeStreet', 'homeStreet2', 'homeStreet3', 'homeCity', 'homeProvince', 'homePostalCode',
+                                'homeCountry', 'homeAddress'),
+        'Work Address' => array('workStreet', 'workStreet2', 'workStreet3', 'workCity', 'workProvince', 'workPostalCode',
+                                'workCountry', 'workAddress'),
+        'Other Address' => array('otherStreet', 'otherStreet2', 'otherStreet3', 'otherCity', 'otherProvince', 'otherPostalCode',
+                                 'otherCountry', 'otherAddress'),
+        'Details' => array('department', 'office', 'profession', 'manager', 'assistant', 'nickname', 'title',
+                           'suffix', 'spouse', 'birthday', 'anniversary', 'freebusyUrl', 'notes'),
+        'Certificates' => array('pgpPublicKey', 'smimePublicKey'),
+    ),
+</code>
+
+++ Preparing the database
+
+The following SQL script will create a turba database table to hold all of the new fields.
+<code type="SQL">
+CREATE TABLE turba_objects (
+    object_id VARCHAR(32) NOT NULL,
+    owner_id VARCHAR(255) NOT NULL,
+    object_type VARCHAR(255) DEFAULT 'Object' NOT NULL,
+    object_uid VARCHAR(255),
+    object_members BLOB,
+    object_lastname VARCHAR(255),
+    object_alias VARCHAR(32),
+    object_email VARCHAR(255),
+    object_homestreet VARCHAR(255),
+    object_homestreet3 VARCHAR(255),
+    object_workstreet VARCHAR(255),
+    object_workstreet3 VARCHAR(255),
+    object_homephone VARCHAR(25),
+    object_workphone VARCHAR(25),
+    object_cellphone VARCHAR(25),
+    object_workfax VARCHAR(25),
+    object_title VARCHAR(255),
+    object_company VARCHAR(255),
+    object_notes TEXT,
+    object_pgppublickey TEXT,
+    object_smimepublickey TEXT,
+    object_freebusyurl VARCHAR(255),
+    object_firstname VARCHAR(255),
+    object_homecity VARCHAR(255),
+    object_homeprovince VARCHAR(255),
+    object_homepostalcode VARCHAR(255),
+    object_homecountry VARCHAR(255),
+    object_homestreet2 VARCHAR(255),
+    object_workstreet2 VARCHAR(255),
+    object_workcity VARCHAR(255),
+    object_workprovince VARCHAR(255),
+    object_workpostalcode VARCHAR(255),
+    object_workcountry VARCHAR(255),
+    object_website VARCHAR(255),
+    object_birthday VARCHAR(255),
+    object_nickname VARCHAR(255),
+    object_office VARCHAR(255),
+    object_jobtitle VARCHAR(255),
+    object_profession VARCHAR(255),
+    object_manager VARCHAR(255),
+    object_assistant VARCHAR(255),
+    object_suffix VARCHAR(255),
+    object_spouse VARCHAR(255),
+    object_anniversary VARCHAR(255),
+    object_email2 VARCHAR(255),
+    object_email3 VARCHAR(255),
+    object_category VARCHAR(255),
+    object_assistantphone VARCHAR(25),
+    object_workphone2 VARCHAR(25),
+    object_callback VARCHAR(255),
+    object_carphone VARCHAR(25),
+    object_companyphone VARCHAR(25),
+    object_homephone2 VARCHAR(25),
+    object_homefax VARCHAR(25),
+    object_isdn VARCHAR(255),
+    object_otherphone VARCHAR(25),
+    object_otherfax VARCHAR(25),
+    object_pager VARCHAR(25),
+    object_primaryphone VARCHAR(25),
+    object_radio VARCHAR(255),
+    object_telex VARCHAR(255),
+    object_ttytdd VARCHAR(255),
+    object_otherstreet VARCHAR(255),
+    object_otherstreet2 VARCHAR(255),
+    object_otherstreet3 VARCHAR(255),
+    object_othercity VARCHAR(255),
+    object_otherprovince VARCHAR(255),
+    object_otherpostalcode VARCHAR(255),
+    object_othercountry VARCHAR(255),
+    object_middlename VARCHAR(255),
+    object_department VARCHAR(255),
+--
+    PRIMARY KEY(object_id)
+);
+
+CREATE INDEX turba_owner_idx ON turba_objects (owner_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON turba_objects TO horde;
+</code>
+
