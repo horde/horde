@@ -146,8 +146,6 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
                     $level = count($stack);
                 } else {
 
-                    $numSpaces = $level;
-
                     // reset level as sometimes people use too many spaces
                     $level = count($stack) + 1;
 
@@ -197,6 +195,8 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
                 // reset the item count for the popped indent level
                 unset($itemcount[$tmp + 1]);
             }
+
+            $numSpaces = $level;
 
             // add to the item count for this list (taking into account
             // which level we are at).
