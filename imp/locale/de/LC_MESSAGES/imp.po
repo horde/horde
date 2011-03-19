@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP 4.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-15 14:02+0100\n"
+"PO-Revision-Date: 2011-03-19 14:54+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -2025,7 +2025,7 @@ msgstr "Marker:"
 
 #: lib/Flag/Imap/Flagged.php:37
 msgid "Flagged for Followup"
-msgstr "Zur Wiedervorlage Markiert"
+msgstr "Markiert"
 
 #: mailbox.php:595 message.php:543
 msgid "Fo_rward"
@@ -2241,7 +2241,7 @@ msgstr "Vorschau ausblenden"
 
 #: folders.php:393 templates/dimp/index.inc:332
 msgid "Hide Unsubscribed"
-msgstr "_Ausgeblendete Ordner verstecken"
+msgstr "Ausgeblendete Ordner verstecken"
 
 #: compose.php:805 message.php:325 templates/dimp/javascript_defs.php:208
 msgid "High"
@@ -5098,7 +5098,7 @@ msgstr ""
 
 #: templates/dimp/javascript_defs.php:151
 msgid "This is the notification log"
-msgstr "Hier werden alte Benachrichtigungen angezeigt"
+msgstr "Hier werden alte Meldungen angezeigt"
 
 #: templates/imp/javascript_defs.php:52
 msgid "This may take some time. Are you sure you want to continue?"
