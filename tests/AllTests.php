@@ -1,6 +1,4 @@
 <?php
-
-require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/Extensions/PhptTestSuite.php';
 require_once 'Text_Wiki_Tests.php';
 require_once 'Text_Wiki_Render_Tests.php';

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'Text/Wiki/Tiki.php';
 require_once 'Text/Wiki/Render/Tiki.php';
 require_once 'Text/Wiki/Render/Tiki/Anchor.php';

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'Text/Wiki.php';
 
 // class to test the Text_Wiki::transform() with different wiki markups

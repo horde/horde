@@ -1,7 +1,7 @@
 <?php
 
 require_once 'PEAR.php';
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'Text/Wiki.php';
 
 class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
