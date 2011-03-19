@@ -76,7 +76,7 @@ extends Components_Module_Base
                 '--next_note',
                 array(
                     'action' => 'store',
-                    'help'   => 'Initial change lof note for the next version of the component.'
+                    'help'   => 'Initial change log note for the next version of the component.'
                 )
             ),
             new Horde_Argv_Option(
