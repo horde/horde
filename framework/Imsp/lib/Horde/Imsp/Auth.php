@@ -18,33 +18,39 @@
  */
 abstract class Horde_Imsp_Auth
 {
+    protected $_params = array();
+
     /**
      * Class variable to hold the resulting Horde_Imsp object
      *
-     * @var Horde_Imsp
+     * @var Horde_Imsp_Client_Base
      */
     protected $_imsp;
+
+    public function __construct(array $params = array())
+    {
+        $this->_params = $params;
+    }
 
     /**
      * Attempts to login to IMSP server.
      *
-     * @param array $params    Parameters for Horde_Imsp
-     * @param boolean $login   Should we remain logged in after auth?
+     * @param Horde_Imsp_Client_Base $client  The Imsp client connection.
+     * @param boolean $login                  Remain logged in after auth?
      *
-     * @return mixed           Returns a Horde_Imsp object connected to
-     *                         the IMSP server if login is true and
-     *                         successful.  Returns boolean true if
-     *                         successful and login is false.
+     * @return boolean
      */
-    public function authenticate(array $params, $login = true)
+    public function authenticate(Horde_Imsp_Client_Base $client, $login = true)
     {
-        $this->_imsp = $this->_authenticate($params);
+        $this->_imsp = $client;
+        if(!$this->_authenticate($this->_params)) {
+            return false;
+        }
         if (!$login) {
             $this->_imsp->logout();
-            return true;
         }
 
-        return $this->_imsp;
+        return true;
     }
 
     /**
@@ -52,8 +58,7 @@ abstract class Horde_Imsp_Auth
      *
      * @param  array   $params      Parameters for Horde_Imsp_Auth driver.
      *
-     * @return mixed                Returns Horde_Imsp object connected to server
-     *                              if successful, PEAR_Error on failure.
+     * @return boolean
      */
     abstract protected function _authenticate(array $params);
 

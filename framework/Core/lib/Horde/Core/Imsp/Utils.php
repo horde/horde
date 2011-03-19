@@ -10,7 +10,7 @@
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Utils
+class Horde_Core_Imsp_Utils
 {
     /**
      * Utility function to retrieve the names of all the address books
@@ -28,7 +28,7 @@ class Horde_Imsp_Utils
     {
         $foundDefault = false;
         $results = array();
-        $imsp = Horde_Imsp::singleton('Book', $serverInfo['params']);
+        $imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create('Book', $serverInfo['params']);
         $books = $imsp->getAddressBookList();
         $bCount = count($books);
         for ($i = 0; $i < $bCount; $i++) {
@@ -56,33 +56,6 @@ class Horde_Imsp_Utils
     }
 
     /**
-     * Utility function to make it easier for client applications to delete
-     * address books without having to create imsp drivers.  The $source array
-     * is a horde/turba style $cfgSources entry for the address book being
-     * deleted.
-     *
-     * @param array $source  Information about the address book being deleted.
-     *
-     * @return mixed  True on success or PEAR_Error on failure.
-     */
-    static public function deleteBook(array $source)
-    {
-        if (is_array($source)) {
-            // Not using shares
-            $params = $source['params'];
-            $bookName = $source['title'];
-        } else {
-            // Using shares.
-            $params = $GLOBALS['cfgSources']['imsp:' . $source]['params'];
-            $bookName = $source;
-        }
-        $imsp = Horde_Imsp::singleton('Book', $params);
-        $imsp->deleteAddressBook($bookName);
-
-        return true;
-    }
-
-    /**
      * Utility function to help clients create new address books without having
      * to create an imsp driver instance first.
      *
@@ -94,7 +67,7 @@ class Horde_Imsp_Utils
      */
     static public function createBook(array $source, $newName)
     {
-        $imsp = Horde_Imsp::singleton('Book', $source['params']);
+        $imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create('Book', $source['params']);
 
         // We now check if the username is already prepended to
         // the address book name or not.
@@ -122,7 +95,7 @@ class Horde_Imsp_Utils
         $return = array('added' => array(), 'removed' => array());
         $params = array();
 
-        $imsp = Horde_Imsp::singleton('Book', $serverInfo['params']);
+        $imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create('Book', $serverInfo['params']);
         $abooks = $imsp->getAddressBookList();
 
         // Do we have a default address book? If not, create one.
@@ -209,7 +182,7 @@ class Horde_Imsp_Utils
             return $share;
         }
         $share->set('params', serialize($shareparams));
-        Horde_Imsp_Utils::_setPerms($share, $params['acl']);
+        self::_setPerms($share, $params['acl']);
         $share->save();
         return true;
     }
@@ -294,8 +267,7 @@ class Horde_Imsp_Utils
      */
     static public function setACL($params, $book, $name, $acl)
     {
-        $imsp = &Horde_Imsp::singleton('Book', $params);
-        $imsp->init();
+        $imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create('Book', $params);
         return $imsp->setACL($book, $name, $acl);
     }
 

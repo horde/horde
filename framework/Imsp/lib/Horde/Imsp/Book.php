@@ -20,6 +20,10 @@
  */
 class Horde_Imsp_Book
 {
+    /**
+     * Supported ACLs
+     *
+     */
     const ACL_RIGHTS = 'lrwcda';
 
     /**
@@ -30,9 +34,9 @@ class Horde_Imsp_Book
     public $sort = 'ascend';
 
     /**
-     * Horde_Imsp object.
+     * Horde_Imsp_Client object.
      *
-     * @var Horde_Imsp
+     * @var Horde_Imsp_Client_Base
      */
     protected $_imsp;
 
@@ -48,11 +52,10 @@ class Horde_Imsp_Book
      *
      * @param array $params Hash containing IMSP parameters.
      */
-    public function __construct(array $params)
+    public function __construct(Horde_Imsp_Client_Base $client, array $params)
     {
         $this->_params = $params;
-        $auth = Horde_Imsp_Auth_Factory::create($this->_params['auth_method']);
-        $this->_imsp = $auth->authenticate($this->_params);
+        $this->_imsp = $client;
     }
 
     /**
@@ -65,11 +68,11 @@ class Horde_Imsp_Book
     {
         $command_string = 'ADDRESSBOOK *';
 
-        $this->_imsp->imspSend($command_string);
+        $this->_imsp->send($command_string);
 
         /* Iterate through the response and populate an array of
          * address book names. */
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         $abooks = array();
         while (preg_match("/^\* ADDRESSBOOK/", $server_response)) {
             /* If this is an ADDRESSBOOK response, then this will explode as so:
@@ -80,7 +83,7 @@ class Horde_Imsp_Book
              */
 
             /* First, check for a {} */
-            if (preg_match(Horde_Imsp::OCTET_COUNT, $server_response, $tempArray)) {
+            if (preg_match(Horde_Imsp_Client_Socket::OCTET_COUNT, $server_response, $tempArray)) {
                 $abooks[] = $this->_imsp->receiveStringLiteral($tempArray[2]);
                 /* Get the CRLF at end of ADDRESSBOOK response
                  * that the {} does not include. */
@@ -103,7 +106,7 @@ class Horde_Imsp_Book
                 }
                 $abooks[] = $name;
             }
-            $server_response = $this->_imsp->imspReceive();
+            $server_response = $this->_imsp->receive();
         }
 
         if ($server_response != 'OK') {
@@ -136,35 +139,35 @@ class Horde_Imsp_Book
             $criteria = $search;
         }
 
-        $this->_imsp->imspSend('SEARCHADDRESS ', true, false);
+        $this->_imsp->send('SEARCHADDRESS ', true, false);
 
         // Do we need to send the abook name as {} ?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true, true);
+            $this->_imsp->send($biBook, false, true, true);
         }
 
         //Start parsing the search array.
-        $this->_imsp->imspSend("$abook", false, false);
+        $this->_imsp->send("$abook", false, false);
         $count = count($criteria);
         $current = 1;
         foreach ($criteria as $search_field => $search) {
-            $this->_imsp->imspSend(" $search_field ", false, false);
+            $this->_imsp->send(" $search_field ", false, false);
             // How about the search term as a {}.
-            if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $search)) {
+            if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $search)) {
                 $biSearch = sprintf("{%d}", strlen($search));
-                $this->_imsp->imspSend($biSearch, false, true, true);
-                $this->_imsp->imspSend($search, false, $current == $count);
+                $this->_imsp->send($biSearch, false, true, true);
+                $this->_imsp->send($search, false, $current == $count);
                 $current++;
             } else {
                 // Only send the CrLf if this is the last field/search atom.
-                $this->_imsp->imspSend('"' . $search . '"', false, $current == $count);
+                $this->_imsp->send('"' . $search . '"', false, $current == $count);
                 $current++;
             }
         }
 
         // Get the response.
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         $abookNames = Array();
 
         while (preg_match("/^\* SEARCHADDRESS/", $server_response)) {
@@ -187,7 +190,7 @@ class Horde_Imsp_Book
             $abookNames[] = $temp;
 
             // Get the next response line from the server.
-            $server_response = $this->_imsp->imspReceive();
+            $server_response = $this->_imsp->receive();
         }
 
         // Should check for OK or BAD here just to be certain.
@@ -234,21 +237,21 @@ class Horde_Imsp_Book
      */
     public function getEntry($abook, $entryName)
     {
-        $this->_imsp->imspSend('FETCHADDRESS ', true, false);
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        $this->_imsp->send('FETCHADDRESS ', true, false);
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true, true);
+            $this->_imsp->send($biBook, false, true, true);
         }
-        $this->_imsp->imspSend("$abook ", false, false);
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $entryName)) {
+        $this->_imsp->send("$abook ", false, false);
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $entryName)) {
             $biName = sprintf("{%d}", strlen($entryName));
-            $this->_imsp->imspSend($biName, false, true, true);
-            $this->_imsp->imspSend($entryName, false, true);
+            $this->_imsp->send($biName, false, true, true);
+            $this->_imsp->send($entryName, false, true);
         } else {
-            $this->_imsp->imspSend("\"$entryName\"", false, true);
+            $this->_imsp->send("\"$entryName\"", false, true);
         }
 
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         switch ($server_response) {
         case 'BAD':
             $this->_imsp->_logger->err('The IMSP server did not understand your request.');
@@ -261,7 +264,7 @@ class Horde_Imsp_Book
         $entry = $this->_parseFetchAddressResponse($server_response);
 
         //Get the next server response -- this *should* be the OK response.
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         if ($server_response != 'OK') {
             // Unexpected response throw error but still continue on.
             $this->_imsp->_logger->err('Did not receive the expected response from the server.');
@@ -282,15 +285,15 @@ class Horde_Imsp_Book
     {
         $command_text = 'CREATEADDRESSBOOK ';
 
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abookName)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abookName)) {
             $biBook = sprintf("{%d}", strlen($abookName));
-            $this->_imsp->imspSend($command_text . $biBook, true, true, true);
-            $this->_imsp->imspSend($abookName, false, true);
+            $this->_imsp->send($command_text . $biBook, true, true, true);
+            $this->_imsp->send($abookName, false, true);
         } else {
-            $this->_imsp->imspSend($command_text . $abookName, true, true);
+            $this->_imsp->send($command_text . $abookName, true, true);
         }
 
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         switch ($server_response) {
         case 'OK':
             $this->_imsp->_logger->debug('CREATEADDRESSBOOK completed OK');
@@ -321,14 +324,14 @@ class Horde_Imsp_Book
         $command_text = 'DELETEADDRESSBOOK ';
 
         // Check need for {}.
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abookName)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abookName)) {
             $biBook = sprintf("{%d}", strlen($abookName));
-            $this->_imsp->imspSend($command_text . $biBook, true, true, true);
-            $this->_imsp->imspSend($abookName, false, true);
+            $this->_imsp->send($command_text . $biBook, true, true, true);
+            $this->_imsp->send($abookName, false, true);
         } else {
-            $this->_imsp->imspSend($command_text . $abookName, true, true);
+            $this->_imsp->send($command_text . $abookName, true, true);
         }
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         switch ($server_response) {
         case 'OK':
             $this->_imsp->_logger->debug('DELETEADDRESSBOOK completed OK');
@@ -357,23 +360,23 @@ class Horde_Imsp_Book
      */
     public function renameAddressBook($abookOldName, $abookNewName)
     {
-        $this->_imsp->imspSend('RENAMEADDRESSBOOK ', true, false);
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abookOldName)) {
+        $this->_imsp->send('RENAMEADDRESSBOOK ', true, false);
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abookOldName)) {
             $biOldName = sprintf("{%d}", strlen($abookOldName));
-            $this->_imsp->imspSend($biOldName, false, true);
-            $this->_imsp->imspReceive();
+            $this->_imsp->send($biOldName, false, true);
+            $this->_imsp->receive();
         }
 
-        $this->_imsp->imspSend("$abookOldName ", false, false);
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abookNewName)) {
+        $this->_imsp->send("$abookOldName ", false, false);
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abookNewName)) {
             $biNewName = sprintf("{%d}", strlen($abookNewName));
-            $this->_imsp->imspSend($biNewName, false, true);
-            $this->_imsp->imspReceive();
+            $this->_imsp->send($biNewName, false, true);
+            $this->_imsp->receive();
         }
-        $this->_imsp->imspSend($abookNewName, false, true);
+        $this->_imsp->send($abookNewName, false, true);
 
         // Get server response.
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         switch ($server_response) {
         case 'NO':
             // Could not create abook.
@@ -408,27 +411,27 @@ class Horde_Imsp_Book
 
         // Lock the entry if it already exists.
         $this->lockEntry($abook, $entryInfo['name']);
-        $this->_imsp->imspSend('STOREADDRESS ', true, false);
+        $this->_imsp->send('STOREADDRESS ', true, false);
 
         // Take care of the name.
         $entryName = $entryInfo['name'];
 
         // {} for book name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true);
-            $this->_imsp->imspReceive();
+            $this->_imsp->send($biBook, false, true);
+            $this->_imsp->receive();
         }
-        $this->_imsp->imspSend("$abook ", false, false);
+        $this->_imsp->send("$abook ", false, false);
 
         // Do we need {} for entry name as well?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $entryName)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $entryName)) {
             $biname = sprintf("{%d}", strlen($entryName));
-            $this->_imsp->imspSend($biname, false, true);
-            $this->_imsp->imspReceive();
-            $this->_imsp->imspSend($entryName, false, false);
+            $this->_imsp->send($biname, false, true);
+            $this->_imsp->receive();
+            $this->_imsp->send($entryName, false, false);
         } else {
-            $this->_imsp->imspSend("\"$entryName\" ", false, false);
+            $this->_imsp->send("\"$entryName\" ", false, false);
         }
 
         while (list($key, $value) = each($entryInfo)) {
@@ -441,16 +444,16 @@ class Horde_Imsp_Book
                 $value = preg_replace("/\t/", "\n\r", $value);
 
                 // Check to see if we need {}
-                if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $value)) {
+                if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $value)) {
                     $command_text .= $key . sprintf(" {%d}", strlen($value));
-                    $this->_imsp->imspSend($command_text, false, true);
-                    $server_response = $this->_imsp->imspReceive();
+                    $this->_imsp->send($command_text, false, true);
+                    $server_response = $this->_imsp->receive();
                     $command_text = '';
                     if (!preg_match("/^\+/",  $server_response)) {
                         $this->_imsp->_logger->err('Did not receive the expected response from the server.');
                         throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
                     }
-                    $this->_imsp->imspSend($value, false, false);
+                    $this->_imsp->send($value, false, false);
                 } else {
                     // If we are here, then we do not need to send a literal.
                     $value = "\"" . $value . "\"";
@@ -460,8 +463,8 @@ class Horde_Imsp_Book
         }
 
         // Send anything that is left of the command.
-        $this->_imsp->imspSend($command_text, false, true);
-        $server_response = $this->_imsp->imspReceive();
+        $this->_imsp->send($command_text, false, true);
+        $server_response = $this->_imsp->receive();
 
         switch ($server_response) {
         case 'NO':
@@ -477,7 +480,7 @@ class Horde_Imsp_Book
             // Cyrus-IMSP server sends a FETCHADDRESS Response here.
             // Do others?     This was not in the RFC.
             $dummy_array = $this->_parseFetchAddressResponse($server_response);
-            $server_response = $this->_imsp->imspReceive();
+            $server_response = $this->_imsp->receive();
             switch ($server_response) {
             case 'NO':
                 // Could not create abook.
@@ -506,23 +509,23 @@ class Horde_Imsp_Book
     public function deleteEntry($abook, $bookEntry)
     {
         // Start the command.
-        $this->_imsp->imspSend('DELETEADDRESS ', true, false);
+        $this->_imsp->send('DELETEADDRESS ', true, false);
         // Need {} for book name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true, true);
+            $this->_imsp->send($biBook, false, true, true);
         }
-        $this->_imsp->imspSend("$abook ", false, false);
+        $this->_imsp->send("$abook ", false, false);
 
         //How bout for the entry name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $bookEntry)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $bookEntry)) {
             $biEntry = sprintf("{%d}", strlen($bookEntry));
-            $this->_imsp->imspSend($biEntry, false, true, true);
+            $this->_imsp->send($biEntry, false, true, true);
         } else {
             $bookEntry = $this->_imsp->quoteSpacedString($bookEntry);
         }
-        $this->_imsp->imspSend($bookEntry, false, true);
-        $server_response = $this->_imsp->imspReceive();
+        $this->_imsp->send($bookEntry, false, true);
+        $server_response = $this->_imsp->receive();
         switch ($server_response) {
         case 'NO':
             // Could not create abook.
@@ -546,25 +549,25 @@ class Horde_Imsp_Book
      */
     public function lockEntry($abook, $bookEntry)
     {
-        $this->_imsp->imspSend('LOCK ADDRESSBOOK ', true, false);
+        $this->_imsp->send('LOCK ADDRESSBOOK ', true, false);
 
         // Do we need a string literal?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true, true);
+            $this->_imsp->send($biBook, false, true, true);
         }
-        $this->_imsp->imspSend("$abook ", false, false);
+        $this->_imsp->send("$abook ", false, false);
         // What about the entry name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $bookEntry)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $bookEntry)) {
             $biEntry = sprintf("{%d}", strlen($bookEntry));
-            $this->_imsp->imspSend($biEntry, false, true, true);
-            $this->_imsp->imspSend($bookEntry, false, true);
+            $this->_imsp->send($biEntry, false, true, true);
+            $this->_imsp->send($bookEntry, false, true);
         } else {
             $bookEntry = $this->_imsp->quoteSpacedString($bookEntry);
-            $this->_imsp->imspSend("$bookEntry", false, true);
+            $this->_imsp->send("$bookEntry", false, true);
         }
 
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         do {
             switch ($server_response) {
             case 'NO':
@@ -579,7 +582,7 @@ class Horde_Imsp_Book
             //Check to see if this is a FETCHADDRESS resonse
             $dummy = $this->_parseFetchAddressResponse($server_response);
             if ($dummy) {
-                $server_response = $this->_imsp->imspReceive();
+                $server_response = $this->_imsp->receive();
             }
         } while ($server_response != 'OK');
 
@@ -604,24 +607,24 @@ class Horde_Imsp_Book
     public function unlockEntry($abook, $bookEntry)
     {
         // Start sending command.
-        $this->_imsp->imspSend('UNLOCK ADDRESSBOOK ', true, false);
+        $this->_imsp->send('UNLOCK ADDRESSBOOK ', true, false);
 
         // {} for book name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true, true);
+            $this->_imsp->send($biBook, false, true, true);
         }
-        $this->_imsp->imspSend("$abook ", false, false);
+        $this->_imsp->send("$abook ", false, false);
         //How bout for entry name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $bookEntry)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $bookEntry)) {
             $biEntry=sprintf("{%d}", strlen($bookEntry));
-            $this->_imsp->imspSend($biEntry, false, true, true);
-            $this->_imsp->imspSend($bookEntry, false, true);
+            $this->_imsp->send($biEntry, false, true, true);
+            $this->_imsp->send($bookEntry, false, true);
         } else {
             $bookEntry = $this->_imsp->quoteSpacedString($bookEntry);
-            $this->_imsp->imspSend("$bookEntry", false, true);
+            $this->_imsp->send("$bookEntry", false, true);
         }
-        $response = $this->_imsp->imspReceive();
+        $response = $this->_imsp->receive();
         switch ($response) {
         case 'NO':
             // Could not create abook.
@@ -670,24 +673,24 @@ class Horde_Imsp_Book
         }
 
         // Begin sending command.
-        $this->_imsp->imspSend('SETACL ADDRESSBOOK ', true, false);
+        $this->_imsp->send('SETACL ADDRESSBOOK ', true, false);
         // {} for book name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true, true);
+            $this->_imsp->send($biBook, false, true, true);
         }
-        $this->_imsp->imspSend("$abook ", false, false);
+        $this->_imsp->send("$abook ", false, false);
 
         // {} for ident?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $ident)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $ident)) {
             $biIdent = sprintf("{%d}", strlen($ident));
-            $this->_imsp->imspSend($biIdent, false, true, true);
+            $this->_imsp->send($biIdent, false, true, true);
         }
-        $this->_imsp->imspSend("$ident ", false, false);
+        $this->_imsp->send("$ident ", false, false);
 
         // Now finish up with the actual ACL.
-        $this->_imsp->imspSend($acl, false, true);
-        $response = $this->_imsp->imspReceive();
+        $this->_imsp->send($acl, false, true);
+        $response = $this->_imsp->receive();
         switch ($response) {
         case 'NO':
             // Could not create abook.
@@ -716,17 +719,17 @@ class Horde_Imsp_Book
      */
     public function getACL($abook)
     {
-        $this->_imsp->imspSend('GETACL ADDRESSBOOK ', true, false);
+        $this->_imsp->send('GETACL ADDRESSBOOK ', true, false);
 
         // {} for book name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biName = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biName, false, true, true);
+            $this->_imsp->send($biName, false, true, true);
         }
-        $this->_imsp->imspSend($abook, false, true);
+        $this->_imsp->send($abook, false, true);
 
         // Get results.
-        $response = $this->_imsp->imspReceive();
+        $response = $this->_imsp->receive();
         switch ($response) {
         case 'NO':
             // Could not create abook.
@@ -744,9 +747,9 @@ class Horde_Imsp_Book
              * [4] and [5] will be user/group name and permissions */
 
             //the book name might be a literal
-            if (preg_match(Horde_Imsp::OCTET_COUNT, $response, $tempArray)) {
+            if (preg_match(Horde_Imsp_Client_Base::OCTET_COUNT, $response, $tempArray)) {
                 $data = $this->_imsp->receiveStringLiteral($tempArray[2]);
-                $response = $this->_imsp->imspReceive();
+                $response = $this->_imsp->receive();
             }
 
             $parts = explode(' ', $response);
@@ -774,7 +777,7 @@ class Horde_Imsp_Book
                 $results[$parts[$i]] = $parts[$i+1];
             }
 
-            $response = $this->_imsp->imspReceive();
+            $response = $this->_imsp->receive();
 
         } while (preg_match("/^\* ACL ADDRESSBOOK/", $response));
 
@@ -798,26 +801,26 @@ class Horde_Imsp_Book
      */
     function deleteACL($abook, $ident)
     {
-        $this->_imsp->imspSend('DELETEACL ADDRESSBOOK ', true, false);
+        $this->_imsp->send('DELETEACL ADDRESSBOOK ', true, false);
 
         // Do we need literal for address book name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true, true);
+            $this->_imsp->send($biBook, false, true, true);
         }
-        $this->_imsp->imspSend("$abook ", false, false);
+        $this->_imsp->send("$abook ", false, false);
 
         // Literal for ident name?
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $ident)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $ident)) {
             $biIdent = sprintf("{%d}", strlen($ident));
-            $this->_imsp->imspSend($biIdent, false, true, true);
-            $this->_imsp->imspSend($ident, false, true);
+            $this->_imsp->send($biIdent, false, true, true);
+            $this->_imsp->send($ident, false, true);
         } else {
-            $this->_imsp->imspSend("\"$ident\"", false, true);
+            $this->_imsp->send("\"$ident\"", false, true);
         }
 
         // Get results.
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         switch ($server_response) {
         case 'NO':
             // Could not create abook.
@@ -843,13 +846,13 @@ class Horde_Imsp_Book
     public function myRights($abook)
     {
         $data = '';
-        $this->_imsp->imspSend('MYRIGHTS ADDRESSBOOK ', true, false);
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $abook)) {
+        $this->_imsp->send('MYRIGHTS ADDRESSBOOK ', true, false);
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $abook)) {
             $biBook = sprintf("{%d}", strlen($abook));
-            $this->_imsp->imspSend($biBook, false, true, true);
+            $this->_imsp->send($biBook, false, true, true);
         }
-        $this->_imsp->imspSend($abook, false, true);
-        $server_response = $this->_imsp->imspReceive();
+        $this->_imsp->send($abook, false, true);
+        $server_response = $this->_imsp->receive();
         switch ($server_response) {
         case 'NO':
             // Could not create abook.
@@ -865,9 +868,9 @@ class Horde_Imsp_Book
         }
 
         // {} for the abook name?
-        if (preg_match(Horde_Imsp::OCTET_COUNT, $server_response, $tempArray)) {
+        if (preg_match(Horde_Imsp_Client_Base::OCTET_COUNT, $server_response, $tempArray)) {
             $data = $this->_imsp->receiveStringLiteral($tempArray[2]);
-            $server_response = $this->_imsp->imspReceive();
+            $server_response = $this->_imsp->receive();
         }
 
         $parts = explode(' ', $server_response);
@@ -893,7 +896,7 @@ class Horde_Imsp_Book
         }
 
         $acl = $parts[$firstACLIdx];
-        $server_response = $this->_imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
 
         if ($server_response != 'OK') {
             throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
@@ -941,7 +944,7 @@ class Horde_Imsp_Book
         if (preg_match("/(^\* FETCHADDRESS )({)([0-9]{1,})(\}$)/",
                        $server_response, $tempArray)) {
             $abook = $this->_imsp->receiveStringLiteral($tempArray[3]);
-            $chopped_response = trim($this->_imsp->imspReceive());
+            $chopped_response = trim($this->_imsp->receive());
         } else {
             // Take off the stuff from the beginning of the response
             $chopped_response = trim(preg_replace("/^\* FETCHADDRESS /", '', $server_response));
@@ -991,7 +994,7 @@ class Horde_Imsp_Book
         // Check for {}
         } elseif (preg_match('/\{(\d+)\}/', $name, $matches)) {
             $name = $this->_imsp->receiveStringLiteral($matches[1]);
-            $response=$this->_imsp->imspReceive();
+            $response=$this->_imsp->receive();
             $parts = explode(' ', $response);
             $numOfParts = count($parts);
             $nextKey = 0;
@@ -1009,7 +1012,7 @@ class Horde_Imsp_Book
         for ($i = $nextKey; $i < $numOfParts; $i += 2) {
             $key = $parts[$i];
             /* Check for {} */
-            if (@preg_match(Horde_Imsp::OCTET_COUNT, $parts[$i+1], $tempArray)) {
+            if (@preg_match(Horde_Imsp_Client_Base::OCTET_COUNT, $parts[$i+1], $tempArray)) {
                 $server_data = $this->_imsp->receiveStringLiteral($tempArray[2]);
                 $entry[$key] = $server_data;
 

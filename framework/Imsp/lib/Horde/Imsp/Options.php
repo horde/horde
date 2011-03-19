@@ -59,14 +59,14 @@ class Horde_Imsp_Options
     public function get($optionName)
     {
         $options = array();
-        $this->_imsp->imspSend("GET $optionName", true, true);
-        $server_response = $this->_imsp->imspReceive();
+        $this->_imsp->send("GET $optionName", true, true);
+        $server_response = $this->_imsp->receive();
         while (preg_match("/^\* OPTION/", $server_response)) {
             /* First, check for a {}. */
             if (preg_match(Horde_Imsp::OCTET_COUNT, $server_response, $tempArray)) {
                 $temp = explode(' ', $server_response);
                 $options[$temp[2]] = $this->_imsp->receiveStringLiteral($tempArray[2]);
-                $this->_imsp->imspReceive();
+                $this->_imsp->receive();
             } else {
                 $temp = explode(' ', $server_response);
                 $options[$temp[2]] = trim($temp[3]);
@@ -99,7 +99,7 @@ class Horde_Imsp_Options
                     }
                 }
             }
-            $server_response = $this->_imsp->imspReceive();
+            $server_response = $this->_imsp->receive();
         }
 
         if ($server_response != 'OK') {
@@ -121,17 +121,17 @@ class Horde_Imsp_Options
     public function set($optionName, $optionValue)
     {
         /* Send the beginning of the command. */
-        $this->_imsp->imspSend("SET $optionName ", true, false);
+        $this->_imsp->send("SET $optionName ", true, false);
 
         /* Send $optionValue as a literal {}? */
         if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $optionValue)) {
             $biValue = sprintf("{%d}", strlen($optionValue));
-            $result = $this->_imsp->imspSend($biValue, false, true, true);
+            $result = $this->_imsp->send($biValue, false, true, true);
         }
 
         /* Now send the rest of the command. */
-        $result = $this->_imsp->imspSend($optionValue, false, true);
-        $server_response = $this->_imsp->imspReceive();
+        $result = $this->_imsp->send($optionValue, false, true);
+        $server_response = $this->_imsp->receive();
         if ($server_response != 'OK') {
             throw new Horde_Imsp_Exception('The option could not be set on the IMSP server.');
         }

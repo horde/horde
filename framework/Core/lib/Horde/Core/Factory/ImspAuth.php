@@ -1,0 +1,104 @@
+<?php
+/**
+ * A Horde_Injector:: based Horde_Imsp_Auth:: factory.
+ *
+ * PHP version 5
+ *
+ * @category Horde
+ * @package  Core
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Core
+ */
+
+/**
+ * A Horde_Injector:: based Horde_Imsp_Auth:: factory.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Horde
+ * @package  Core
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Core
+ */
+class Horde_Core_Factory_ImspAuth
+{
+    /**
+     * Instance cache
+     *
+     * @var array
+     */
+    static protected $_instances = array();
+
+    /**
+     *
+     * @var Horde_Injector
+     */
+    protected $_injector;
+
+    /**
+     * Constructor
+     *
+     * @param Horde_Injector $injector
+     */
+    public function __construct(Horde_Injector $injector)
+    {
+        $this->_injector = $injector;
+    }
+
+    /**
+     * Attempts to return a concrete Horde_Imsp_Auth instance based on $driver.
+     * Will only create a new object if one with the same parameters already
+     * does not exist.
+     *
+     * @param string $driver  Type of IMSP_Auth subclass to return.
+     * @param array $params   The driver parameters.
+     *
+     * @return Horde_Imsp_Auth
+     */
+    static public function create($driver, array $params = array())
+    {
+        //@TODO: Fix this.
+        /* Check for any imtest driver instances and kill them.
+           Otherwise, the socket will hang between requests from
+           seperate drivers (an Auth request and an Options request).*/
+        if (is_array(self::$_instances)) {
+            foreach (self::$_instances as $obj) {
+                if ($obj->getDriverType() == 'imtest') {
+                    $obj->logout();
+                }
+            }
+        }
+        $signature = serialize(array($driver));
+        if (!isset(self::$_instances[$signature])) {
+            self::$_instances[$signature] = self::_factory($driver, $params);
+        }
+
+        return self::$_instances[$signature];
+    }
+
+    /**
+     * Attempts to return a concrete Horde_Imsp_Auth instance based on $driver
+     * Must be called as &Horde_Imsp_Auth::factory()
+     *
+     * @param  string $driver Type of Horde_Imsp_Auth subclass to return.
+     *
+     * @return mixed  The created Horde_Imsp_Auth subclass.
+     * @throws Horde_Exception
+     */
+    static protected function _factory($driver, array $params)
+    {
+        $driver = basename($driver);
+        $class = 'Horde_Imsp_Auth_' . $driver;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new Horde_Exception(sprintf('Unable to load the definition of %s.'), $class);
+    }
+
+}

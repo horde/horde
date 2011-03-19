@@ -15,7 +15,7 @@
 class Turba_Driver_Imsp extends Turba_Driver
 {
     /**
-     * Handle for the IMSP connection.
+     * Horde_Imsp object
      *
      * @var Horde_Imsp
      */
@@ -85,8 +85,10 @@ class Turba_Driver_Imsp extends Turba_Driver
         $this->_bookName = $this->getContactOwner();
 
         try {
-            $this->_imsp = Horde_Imsp::singleton('Book', $this->params);
-        } catch (Horde_Imsp_Exception $e) {
+            $this->_imsp = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Imsp')
+                ->create('Book', $this->params);
+        } catch (Horde_Exception $e) {
             $this->_authenticated = false;
             throw new Turba_Exception($e);
         }
@@ -642,7 +644,7 @@ class Turba_Driver_Imsp extends Turba_Driver
 
         $result = Turba::createShare($share_id, $params);
         try {
-            $imsp_result = Horde_Imsp_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
+            $imsp_result = Horde_Core_Imsp_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
         } catch (Horde_Imsp_Exception $e) {
             throw new Turba_Exception($e);
         }

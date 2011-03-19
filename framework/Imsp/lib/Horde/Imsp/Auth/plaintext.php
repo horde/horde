@@ -30,32 +30,31 @@ class Horde_Imsp_Auth_Plaintext extends Horde_Imsp_Auth
      */
     protected function _authenticate(array $params)
     {
-        $imsp = &Horde_Imsp::singleton('none', $params);
          $userId = $params['username'];
          $credentials = $params['password'];
 
         /* Start the command. */
-        $imsp->imspSend('LOGIN ', true, false);
+        $this->_imsp->send('LOGIN ', true, false);
 
         /* Username as a {}? */
         if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $userId)) {
             $biUser = sprintf('{%d}', strlen($userId));
-            $result = $imsp->imspSend($biUser, false, true, true);
+            $result = $this->_imsp->send($biUser, false, true, true);
         }
-        $imsp->imspSend($userId . ' ', false, false);
+        $this->_imsp->send($userId . ' ', false, false);
 
         /* Pass as {}? */
         if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $credentials)) {
             $biPass = sprintf('{%d}', strlen($credentials));
-            $imsp->imspSend($biPass, false, true, true);
+            $this->_imsp->send($biPass, false, true, true);
         }
-        $imsp->imspSend($credentials, false, true);
-        $server_response = $imsp->imspReceive();
+        $this->_imsp->send($credentials, false, true);
+        $server_response = $this->_imsp->receive();
         if ($server_response != 'OK') {
-            throw new Horde_Exception_PermissionDenied();
+            return false;
         }
 
-        return $imsp;
+        return true;
     }
 
     /**

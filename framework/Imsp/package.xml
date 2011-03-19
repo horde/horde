@@ -11,8 +11,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-18</date>
- <time>13:04:13</time>
+ <date>2011-03-19</date>
+ <time>11:10:03</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -36,8 +36,14 @@
        <file name="imtest.php" role="php" />
        <file name="plaintext.php" role="php" />
       </dir> <!-- /lib/Horde/Imsp/Auth -->
+      <dir name="Client">
+       <file name="Base.php" role="php" />
+       <file name="Mock.php" role="php" />
+       <file name="Socket.php" role="php" />
+      </dir> <!-- /lib/Horde/Imsp/Client -->
       <file name="Auth.php" role="php" />
       <file name="Book.php" role="php" />
+      <file name="Client.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Options.php" role="php" />
       <file name="Translation.php" role="php" />
@@ -331,6 +337,7 @@
    <install as="Horde/Imsp.php" name="lib/Horde/Imsp.php" />
    <install as="Horde/Imsp/Auth.php" name="lib/Horde/Imsp/Auth.php" />
    <install as="Horde/Imsp/Book.php" name="lib/Horde/Imsp/Book.php" />
+   <install as="Horde/Imsp/Client.php" name="lib/Horde/Imsp/Client.php" />
    <install as="Horde/Imsp/Exception.php" name="lib/Horde/Imsp/Exception.php" />
    <install as="Horde/Imsp/Options.php" name="lib/Horde/Imsp/Options.php" />
    <install as="Horde/Imsp/Translation.php" name="lib/Horde/Imsp/Translation.php" />
@@ -339,6 +346,9 @@
    <install as="Horde/Imsp/Auth/Factory.php" name="lib/Horde/Imsp/Auth/Factory.php" />
    <install as="Horde/Imsp/Auth/imtest.php" name="lib/Horde/Imsp/Auth/imtest.php" />
    <install as="Horde/Imsp/Auth/plaintext.php" name="lib/Horde/Imsp/Auth/plaintext.php" />
+   <install as="Horde/Imsp/Client/Base.php" name="lib/Horde/Imsp/Client/Base.php" />
+   <install as="Horde/Imsp/Client/Mock.php" name="lib/Horde/Imsp/Client/Mock.php" />
+   <install as="Horde/Imsp/Client/Socket.php" name="lib/Horde/Imsp/Client/Socket.php" />
    <install as="locale/Horde_Imsp.pot" name="locale/Horde_Imsp.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Imsp.mo" name="locale/ar/LC_MESSAGES/Horde_Imsp.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Imsp.po" name="locale/ar/LC_MESSAGES/Horde_Imsp.po" />
@@ -575,7 +585,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-18</date>
+   <date>2011-03-19</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First release candidate for Horde 4.

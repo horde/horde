@@ -1,10 +1,6 @@
 <?php
 /**
- * The Horde_Imsp class provides a common interface to an IMSP server .
- *
- * Required parameters:<pre>
- *   'server'  Hostname of IMSP server.
- *   'port'    Port of IMSP server.</pre>
+ * The Horde_Imsp_Client base class.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -14,67 +10,61 @@
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp
+class Horde_Imsp_Client_Socket extends Horde_Imsp_Client_Base
 {
-    const OCTET_COUNT = '/({)([0-9]{1,})(\}$)/';
-    const MUST_USE_LITERAL = '/[\x80-\xFF\\r\\n\"\\\\]/';
-    const MUST_QUOTE = '/[\W]/i';
-
     /**
-     * String containing name/IP address of IMSP host.
+     * Stream handle
      *
-     * @var string
+     * @var resource
      */
-    public $imsp_server = 'localhost';
-
-    /**
-     * String containing port for IMSP server.
-     *
-     * @var string
-     */
-    public $imsp_port = '406';
-
-    /**
-     * String buffer containing the last raw NO or BAD response from the
-     * server.
-     *
-     * @var string
-     */
-    public $lastRawError;
-
-    protected $_commandPrefix = 'A';
-    protected $_commandCount = 1;
-    protected $_tag;
     protected $_stream;
-    protected $_lastCommandTag = 'undefined';
 
     /**
      *
-     * @var Horde_Log_Logger
+     * @var Horde_Imsp_Auth_Base
      */
-    public $_logger;
+    protected $_authObj;
 
     /**
      * Constructor function.
+     * Required parameters:
+     *<pre>
+     *  authObj  <Horde_Imsp_Auth>  The object to handle the authentication
+     *</pre>
      *
+     * Optional parameters:
+     *<pre>
+     *  server   <string>           The IMSP host
+     *  port     <string>           The port the IMSP server listens on
+     *  logger  <Horde_Log_Logger>  The logger.
+     *</pre>
      * @param array $params Hash containing server parameters.
      */
     public function __construct(array $params)
     {
-        if (!empty($params['server'])) {
-            $this->imsp_server = $params['server'];
-        }
-        if (!empty($params['port'])) {
-            $this->imsp_port = $params['port'];
-        }
-        if (!empty($params['logger'])) {
-            $this->_logger = $params['logger'];
-        } else {
-            $this->_logger = new Horde_Support_Stub();
-        }
-
+        parent::__construct($params);
         $this->_imspOpen();
         $this->_logger->debug('Initializing Horde_Imsp object.');
+    }
+
+    /**
+     * Attempts to login to IMSP server.
+     *
+     * @param array $params    Parameters for Horde_Imsp
+     * @param boolean $login   Should we remain logged in after auth?
+     *
+     * @return boolean
+     */
+    public function authenticate($login = true)
+    {
+        if (!$this->_authObj->authenticate($this, $login)) {
+            return false;
+        }
+        if (!$login) {
+            $this->logout();
+        }
+
+        return true;
     }
 
     /**
@@ -84,7 +74,7 @@ class Horde_Imsp
     {
         $this->_logger->debug('Closing IMSP Connection.');
         $command_string = 'LOGOUT';
-        $this->imspSend($command_string);
+        $this->send($command_string);
         fclose($this->_stream);
     }
 
@@ -97,11 +87,11 @@ class Horde_Imsp
     public function capability()
     {
         $command_string = 'CAPABILITY';
-        $this->imspSend($command_string);
-        $server_response = $this->imspReceive();
+        $this->send($command_string);
+        $server_response = $this->receive();
         if (preg_match("/^\* CAPABILITY/", $server_response)) {
             $capability = preg_replace("/^\* CAPABILITY/", '', $server_response);
-            $server_response = $this->imspReceive(); //OK
+            $server_response = $this->receive(); //OK
             if (!$server_response == 'OK') {
                 $this->_logger->err('Did not receive the expected response from the server.');
                 throw new Horde_Imsp_Exception('Did not receive the expected response from the server.');
@@ -109,26 +99,6 @@ class Horde_Imsp
                 $this->_logger->debug('CAPABILITY completed OK');
                 return $capability;
             }
-        }
-    }
-
-    /**
-     * Attempts to open an IMSP socket with the server.
-     *
-     * @throws Horde_Imsp_Exception
-     */
-    protected function _imspOpen()
-    {
-        $fp = @fsockopen($this->imsp_server, $this->imsp_port);
-        if (!$fp) {
-            $this->_logger->err('Connection to IMSP host failed.');
-            throw new Horde_Imsp_Exception('Connection to IMSP host failed.');
-        }
-        $this->_stream = $fp;
-        $server_response = $this->imspReceive();
-        if (!preg_match("/^\* OK/", $server_response)) {
-            fclose($fp);
-            $this->_logger->err('Did not receive the expected response from the server.');
         }
     }
 
@@ -142,7 +112,7 @@ class Horde_Imsp
      *
      * @throws Horde_Imsp_Exception
      */
-    public function imspSend($commandText, $includeTag = true, $sendCRLF = true, $continuation = false)
+    public function send($commandText, $includeTag = true, $sendCRLF = true, $continuation = false)
     {
         $command_text = '';
 
@@ -168,7 +138,7 @@ class Horde_Imsp
             throw new Horde_Imsp_Exception('Connection to IMSP host failed');
         }
 
-        if ($continuation && !preg_match("/^\+/", $this->imspReceive())) {
+        if ($continuation && !preg_match("/^\+/", $this->receive())) {
             $this->_logger->err('Did not receive expected command continuation response from IMSP server.');
             throw new Horde_Imsp_Exception('Did not receive expected command continuation response from IMSP server.');
         }
@@ -180,7 +150,7 @@ class Horde_Imsp
      * @return mixed 'NO', 'BAD', 'OK', raw response.
      * @throws Horde_Imsp_Exception
      */
-    public function imspReceive()
+    public function receive()
     {
         if (!$this->_stream) {
             throw new Horde_Imsp_Exception('No IMSP connection in place.');
@@ -266,78 +236,23 @@ class Horde_Imsp
     }
 
     /**
-     * Increments the IMSP command tag token.
+     * Attempts to open an IMSP socket with the server.
      *
-     * @return string Next command tag.
+     * @throws Horde_Imsp_Exception
      */
-    protected function _getNextCommandTag()
+    protected function _imspOpen()
     {
-        $this->_lastCommandTag = $this->_tag ? $this->_tag : 'undefined';
-        return $this->_commandPrefix . sprintf('%04d', $this->_commandCount++);
-    }
-
-    /**
-     * Determines if a string needs to be quoted before sending to the server.
-     *
-     * @param string $string  String to be tested.
-     *
-     * @return string Original string, quoted if needed.
-     */
-    function quoteSpacedString($string)
-    {
-        if (strpos($string, ' ') !== false ||
-            preg_match(Horde_Imsp::MUST_QUOTE, $string)) {
-            return '"' . $string . '"';
-        } else {
-            return $string;
+        $fp = @fsockopen($this->host, $this->port);
+        if (!$fp) {
+            $this->_logger->err('Connection to IMSP host failed.');
+            throw new Horde_Imsp_Exception('Connection to IMSP host failed.');
         }
-    }
-
-    /**
-     * Attempts to create a Horde_Imsp object based on $driver.
-     * Must be called as $imsp = &Horde_Imsp::factory($driver, $params);
-     *
-     * @param  string $driver Type of Horde_Imsp object to return.
-     * @param  mixed  $params  Any parameters needed by the Horde_Imsp object.
-     *
-     * @return mixed  The requested Horde_Imsp object.
-     * @throws Horde_Exception
-     */
-    public function factory($driver, $params)
-    {
-        $driver = basename($driver);
-        if (empty($driver) || $driver == 'none') {
-            return new Horde_Imsp($params);
+        $this->_stream = $fp;
+        $server_response = $this->receive();
+        if (!preg_match("/^\* OK/", $server_response)) {
+            fclose($fp);
+            $this->_logger->err('Did not receive the expected response from the server.');
         }
-        $class = 'Horde_Imsp_' . $driver;
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-         throw new Horde_Exception(sprintf(Horde_Imsp_Translation::t("Unable to load the definition of %s."), $class));
-    }
-
-    /**
-     * Attempts to return a Horde_Imsp object based on $driver.  Only
-     * creates a new object if one with the same parameters already
-     * doesn't exist.
-     * Must be called as $imsp = &Horde_Imsp::singleton($driver, $params);
-     *
-     * @TODO: Move to injector factory
-     * @param  string $driver Type of Horde_Imsp object to return.
-     * @param  mixed  $params Any parameters needed by the Horde_Imsp object.
-     * @return mixed  Reference to the Horde_Imsp object or PEAR_Error on failure.
-     */
-    public function &singleton($driver, $params)
-    {
-        static $instances = array();
-
-        $signature = serialize(array($driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = self::factory($driver, $params);
-        }
-
-        return $instances[$signature];
     }
 
 }

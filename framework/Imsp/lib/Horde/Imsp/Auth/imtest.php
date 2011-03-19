@@ -35,10 +35,8 @@ class Horde_Imsp_Auth_Imtest extends Horde_Imsp_Auth
      */
     protected function _authenticate(array $params)
     {
-        $imsp = Horde_Imsp::singleton('none', $params);
         $command = '';
         $error_return = '';
-
         if (strtolower($params['auth_mechanism']) == 'gssapi' &&
             isset($_SERVER['KRB5CCNAME'])) {
                 $command .= 'KRB5CCNAME=' . $_SERVER['KRB5CCNAME'];
@@ -78,8 +76,10 @@ class Horde_Imsp_Auth_Imtest extends Horde_Imsp_Auth
             throw new Horde_Imsp_Exception('Connection to IMSP host failed.');
         }
         //Success
-        $imsp->_stream = $fp;
-        return $imsp;
+        // @TODO:
+        $this->_imsp->_stream = $fp;
+
+        return true;
     }
 
     /**

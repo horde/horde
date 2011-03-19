@@ -23,19 +23,16 @@ class Horde_Imsp_Auth_CramMd5 extends Horde_Imsp_Auth
      *
      * @param  mixed $params Hash of IMSP parameters.
      *
-     * @return Horde_Imsp  Horde_Imsp object connected to server.
-     * @throws Horde_Exception_PermissionDenied
+     * @return boolean
      */
     protected function _authenticate(array $params)
     {
-        // @TODO: Inject this from Horde_Core_Factory_...
-        $imsp = &Horde_Imsp::singleton('none', $params);
         $userId = $params['username'];
         $credentials = $params['password'];
-        $imsp->imspSend('AUTHENTICATE CRAM-MD5');
+        $this->_imsp->send('AUTHENTICATE CRAM-MD5');
 
         /* Get response and decode it. */
-        $server_response = $imsp->imspReceive();
+        $server_response = $this->_imsp->receive();
         $server_response = base64_decode(trim(substr($server_response, 2)));
 
         /* Build and base64 encode the response to the challange. */
@@ -43,15 +40,15 @@ class Horde_Imsp_Auth_CramMd5 extends Horde_Imsp_Auth
         $command_string = base64_encode($response_to_send);
 
         /* Send the response. */
-        $imsp->imspSend($command_string, false);
-        $result = $imsp->imspReceive();
+        $this->_imsp->send($command_string, false);
+        $result = $this->_imsp->receive();
 
         if ($result != 'OK') {
-            $imsp->_logger->err('Login to IMSP host failed.');
-            throw new Horde_Exception_PermissionDenied();
+            $this->_imsp->_logger->err('Login to IMSP host failed.');
+            return false;
         }
 
-        return $imsp;
+        return true;
     }
 
     /**
