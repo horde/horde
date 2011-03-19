@@ -146,25 +146,14 @@ class Turba_Driver_Sql extends Turba_Driver
     protected function _parseRead($blobFields, $result)
     {
         $results = array();
+        $columns = $this->_db->columns($this->_params['table']);
 
         foreach ($result as $row) {
             $entry = array();
 
             foreach ($row as $field => $val) {
                 if (isset($blobFields[$field])) {
-                    switch ($this->_db->adapterName()) {
-                    case 'PDO_PostgreSQL':
-                        if (is_resource($val)) {
-                            $tmp = stream_get_contents($val);
-                            fclose($val);
-                            $val = $tmp;
-                        }
-                        // Fall-through
-
-                    default:
-                        $entry[$field] = $val;
-                        break;
-                    }
+                    $entry[$field] = $columns[$field]->binaryToString($val);
                 } else {
                     $entry[$field] = $this->_convertFromDriver($val);
                 }
@@ -402,15 +391,7 @@ class Turba_Driver_Sql extends Turba_Driver
             $fields[] = $field;
 
             if (!empty($value) && isset($blob_fields[$field])) {
-                switch ($this->_db->adapterName()) {
-                case 'PDO_PostgreSQL':
-                    $values[] = bin2hex($value);
-                    break;
-
-                default:
-                    $values[] = $value;
-                    break;
-                }
+                $values[] = new Horde_Db_Value_Binary($value);
             } else {
                 $values[] = $this->_convertToDriver($value);
             }
