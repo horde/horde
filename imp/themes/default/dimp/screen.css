@@ -184,7 +184,7 @@ div.msgSize {
 }
 
 /* Message ViewPort */
-span.vpEmpty, span.vpError {
+span.vpEmpty {
     display: block;
     padding: 15px 80px 10px 35px;
     background: transparent url("../graphics/ico_message_off.png") no-repeat scroll 10px 15px;
