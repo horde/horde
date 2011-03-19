@@ -11,6 +11,9 @@ div.composebody {
 .headerbox #quota {
     border-top-width: 0;
 }
+.headerbox #quota .control {
+    border-bottom-width: 1px;
+}
 
 #newmail {
     border-width: 1px;
