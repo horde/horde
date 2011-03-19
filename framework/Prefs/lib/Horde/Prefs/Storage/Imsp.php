@@ -14,28 +14,29 @@
 class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage_Base
 {
     /**
-     * Boolean indicating whether or not we're connected to the IMSP server.
-     *
-     * @var boolean
-     */
-    protected $_connected = false;
-
-    /**
      * Handle for the IMSP server connection.
      *
-     * @var Net_IMSP
+     * @var Horde_Imsp_Options
      */
     protected $_imsp;
+
+    public function __construct($user, array $params = array())
+    {
+        if (empty($params['imsp'])) {
+            throw new InvalidArguementException('Missing required imsp parameter.');
+        }
+        $this->_imsp = $params['imsp'];
+        parent::__construct($user, $params);
+    }
 
     /**
      */
     public function get($scope_ob)
     {
-        $this->_connect();
-
-        $prefs = $this->_imsp->get($scope_ob->scope . '.*');
-        if ($prefs instanceof PEAR_Error) {
-            throw new Horde_Prefs_Exception($prefs);
+        try {
+            $prefs = $this->_imsp->get($scope_ob->scope . '.*');
+        } catch (Horde_Imsp_Exception $e) {
+            throw new Horde_Prefs_Exception($e);
         }
 
         foreach ($prefs as $name => $val) {
@@ -52,14 +53,13 @@ class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage_Base
      */
     public function store($scope_ob)
     {
-        $this->_connect();
-
         /* Driver has no support for storing locked status. */
         foreach ($scope_ob->getDirty() as $name) {
             $value = $scope_ob->get($name);
-            $result = $this->_imsp->set($scope_ob->scope . '.' . $name, $value ? $value : '-');
-            if ($result instanceof PEAR_Error) {
-                throw new Horde_Prefs_Exception($result);
+            try {
+                $this->_imsp->set($scope_ob->scope . '.' . $name, $value ? $value : '-');
+            } catch (Horde_Imsp_Exception $e) {
+                throw new Horde_Prefs_Exception($e);
             }
         }
     }
@@ -72,34 +72,5 @@ class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage_Base
     }
 
     /* Helper functions. */
-
-    /**
-     * Attempts to set up a connection to the IMSP server.
-     *
-     * @throws Horde_Prefs_Exception
-     */
-    protected function _connect()
-    {
-        if ($this->_connected) {
-            return;
-        }
-
-        $this->_params['username'] = preg_match('/(^.*)@/', $this->getUser(), $matches)
-            ? $matches[1]
-            : $this->getUser();
-        $this->_params['password'] = $this->_opts['password'];
-
-        if (isset($this->_params['socket'])) {
-            $this->_params['socket'] = $this->_params['socket'] . 'imsp_' . $this->_params['username'] . '.sck';
-        }
-
-        $this->_imsp = Net_IMSP::factory('Options', $this->_params);
-        $result = $this->_imsp->init();
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Prefs_Exception($result);
-        }
-
-        $this->_connected = true;
-    }
 
 }

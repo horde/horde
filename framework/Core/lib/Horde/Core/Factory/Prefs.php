@@ -104,6 +104,12 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                     $params['db'] = $this->_injector
                         ->getInstance('Horde_Db_Adapter');
                     break;
+                case 'Horde_Prefs_Storage_Imsp':
+                    $imspParams = $GLOBALS['conf']['imsp'];
+                    $imspParams['username'] = $GLOBALS['registry']->getAuth('bare');
+                    $imspParams['password'] = $GLOBALS['registry']->getAuthCredential('password');
+                    $params['imsp'] = $this->_injector
+                        ->getInstance('Horde_Core_Factory_Imsp')->create('Options', $imspParams);
                 }
             } catch (Horde_Exception $e) {
                 $this->_notifyError($e);
