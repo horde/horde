@@ -80,10 +80,18 @@ class Horde_Core_Factory_Imsp extends Horde_Core_Factory_Base
     protected function _factory($driver, array $params)
     {
         $driver = basename($driver);
+        // Default to configured auth_method.
+        if (empty($params['auth_method'])) {
+            $params['auth_method'] = $GLOBALS['conf']['imsp']['auth_method'];
+        }
         $params['authObj'] = $this->_injector->getInstance('Horde_Core_Factory_ImspAuth')->create($params['auth_method'], $params);
         // @TODO: Separate class for the imtest client?
         unset($params['auth_method']);
-        $socket = new Horde_Imsp_Client_Socket($params);
+        try {
+            $socket = new Horde_Imsp_Client_Socket($params);
+        } catch (Horde_Imsp_Exception $e) {
+            throw new Horde_Exception($e);
+        }
         if (!$socket->authenticate($params)) {
             throw new Horde_Exception_PermissionDenied();
         }
