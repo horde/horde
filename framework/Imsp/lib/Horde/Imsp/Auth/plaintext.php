@@ -13,25 +13,21 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Auth_Plaintext extends Horde_Imsp_Auth
+class Horde_Imsp_Auth_Plaintext extends Horde_Imsp_Auth_Base
 {
     /**
      * Private authentication function.  Provides actual
      * authentication code.
      *
-     * @access private
-     * @param  mixed  $params Hash of IMSP parameters.
-     *
-     * @return mixed  Horde_Imsp object connected to server if successful,
-     *                PEAR_Error on failure.
+     * @return boolean
      */
-    protected function _authenticate(array $params)
+    protected function _authenticate()
     {
-         $userId = $params['username'];
-         $credentials = $params['password'];
+         $userId = $this->_params['username'];
+         $credentials = $this->_params['password'];
 
         /* Start the command. */
         $this->_imsp->send('LOGIN ', true, false);

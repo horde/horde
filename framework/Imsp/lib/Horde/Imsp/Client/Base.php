@@ -202,6 +202,6 @@ abstract class Horde_Imsp_Client_Base
      *
      * @return boolean
      */
-    public function authenticate($login = true);
+    abstract public function authenticate($login = true);
 
 }

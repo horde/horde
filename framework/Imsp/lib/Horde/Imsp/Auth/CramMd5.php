@@ -16,19 +16,17 @@
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Auth_CramMd5 extends Horde_Imsp_Auth
+class Horde_Imsp_Auth_CramMd5 extends Horde_Imsp_Auth_Base
 {
     /**
      * Private authentication function.  Provides actual authentication code.
      *
-     * @param  mixed $params Hash of IMSP parameters.
-     *
      * @return boolean
      */
-    protected function _authenticate(array $params)
+    protected function _authenticate()
     {
-        $userId = $params['username'];
-        $credentials = $params['password'];
+        $userId = $this->_params['username'];
+        $credentials = $this->_params['password'];
         $this->_imsp->send('AUTHENTICATE CRAM-MD5');
 
         /* Get response and decode it. */
