@@ -47,7 +47,6 @@ class Mnemo_Factory_Driver
     public function create($name = '')
     {
         if (!isset($this->_instances[$name])) {
-
             $driver = $GLOBALS['conf']['storage']['driver'];
             $params = Horde::getDriverConfig('storage', $driver);
             $class = 'Mnemo_Driver_' . ucfirst(basename($driver));
@@ -60,8 +59,10 @@ class Mnemo_Factory_Driver
                 $params = array(
                     'db' => $this->_injector->getInstance('Horde_Db_Adapter'),
                     'table' => 'mnemo_memos',
+                    'charset' => $params['charset'],
                 );
                 break;
+
             case 'Mnemo_Driver_Kolab':
                 $params = array(
                     'storage' => $this->_injector->getInstance('Horde_Kolab_Storage')
@@ -73,5 +74,4 @@ class Mnemo_Factory_Driver
 
         return $this->_instances[$name];
     }
-
 }

@@ -35,7 +35,6 @@ abstract class Mnemo_Driver
      */
     protected $_pgp;
 
-
     /**
      * Lists memos based on the given criteria. All memos will be
      * returned by default.
