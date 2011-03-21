@@ -26,11 +26,11 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-First release candidate for Horde 4.
-[cjh] Fix storing of binary fields.
-[mjr] Fix/refactor IMSP driver.
+* First release candidate for Horde 4.
+* [cjh] Fix storing of binary fields.
+* [mjr] Fix/refactor IMSP driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -888,7 +888,7 @@ First release candidate for Horde 4.
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -903,7 +903,7 @@ First release candidate for Horde 4.
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * Fix the listTimeObjects API for shared sources (Bug #9649).
 * Fix importing contacts with SyncML (Simon Bühler, Bug #9641).
@@ -919,7 +919,7 @@ First release candidate for Horde 4.
     <api>beta</api>
    </stability>
    <date>2011-03-19</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [mjr] Fix/refactor IMSP driver.
 * First release candidate for Horde 4.
