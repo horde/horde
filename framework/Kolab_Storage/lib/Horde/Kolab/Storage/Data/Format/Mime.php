@@ -132,6 +132,9 @@ implements Horde_Kolab_Storage_Data_Format
         case 'note':
             return array_search('application/x-vnd.kolab.note', $types);
             break;
+        case 'task':
+            return array_search('application/x-vnd.kolab.task', $types);
+            break;
         case 'h-ledger':
             return array_search('application/x-vnd.kolab.h-ledger', $types);
             break;
@@ -150,6 +153,9 @@ implements Horde_Kolab_Storage_Data_Format
             break;
         case 'note':
             return 'application/x-vnd.kolab.note';
+            break;
+        case 'task':
+            return 'application/x-vnd.kolab.task';
             break;
         case 'h-ledger':
             return 'application/x-vnd.kolab.h-ledger';
