@@ -38,7 +38,8 @@
 * [jan] Remove application tabs from AJAX interface (Bug #9679).
 * [mms] Move all portal rendering code to Horde.
 * [mms] Fix flag display in message list in traditional view (Bug #9673).
-* [mms]Add ability to import/download mailboxes in dynamic view.
+* [mms] Add ability to import/download mailboxes in dynamic view.
+* [mms] Fix thread sort by newest messages first (Bug #9685).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

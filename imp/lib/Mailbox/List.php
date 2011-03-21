@@ -270,7 +270,10 @@ class IMP_Mailbox_List implements Countable, Serializable
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $this->_threadob = null;
                 $threadob = $this->getThreadOb();
-                $this->_sorted = $threadob->messageList((bool)$sortpref['dir']);
+                $this->_sorted = $threadob->messageList();
+                if ($sortpref['dir']) {
+                    $this->_sorted = array_reverse($this->_sorted);
+                }
             } else {
                 if (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
                     $this->_mailbox->hideDeletedMsgs()) {

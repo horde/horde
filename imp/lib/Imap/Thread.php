@@ -59,7 +59,7 @@ class IMP_Imap_Thread
             return $tree;
         }
 
-        $indices = array_intersect($t->messageList($sortdir), $indices);
+        $indices = array_intersect($t->messageList(), $indices);
 
         /* If starting in the middle of a thread, the threadLevel tree needs
          * to be built from the base of the current thread. */
@@ -104,7 +104,9 @@ class IMP_Imap_Thread
             $tree[$val] = $line . $join_img;
         }
 
-        return $tree;
+        return $sortdir
+            ? array_reverse($tree, true)
+            : $tree;
     }
 
     /**

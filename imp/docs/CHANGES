@@ -2,6 +2,7 @@
 v5.0-RC1
 --------
 
+[mms] Fix thread sort by newest messages first (Bug #9685).
 [mms] Add import/download mailbox ability to dynamic view.
 [jan] Remove application tabs from AJAX interface (Bug #9679).
 [mms] Move all portal rendering code to Horde.
