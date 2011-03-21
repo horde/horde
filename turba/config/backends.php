@@ -628,7 +628,7 @@ $cfgSources['facebook'] = array(
     'params' => array(
         'limit' => 10
     ),
-   'map' => array(
+    'map' => array(
         '__key' => 'uid',
         'name' => 'name',
         'lastname' => 'last_name',
@@ -639,7 +639,7 @@ $cfgSources['facebook'] = array(
         'homeProvince' => 'current_location.state',
         'homePostalCode' => 'current_location.zip',
         'homeCountry' => 'current_location.country',
-   ),
+    ),
     'search' => array(
         'name',
         'email',
