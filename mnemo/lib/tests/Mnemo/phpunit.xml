@@ -2,7 +2,7 @@
 <phpunit>
   <filter>
     <whitelist>
-      <directory suffix=".php">../../Mime</directory>
+      <directory suffix=".php">../..</directory>
     </whitelist>
   </filter>
 </phpunit>
