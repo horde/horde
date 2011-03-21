@@ -48,14 +48,17 @@ class Horde_Kolab_Storage_Data_Modifiable
 
     public function setPart($mime_id, $new_part)
     {
-        $this->_object[1]->getPart(0)->setContents('');
+        $part = $this->_object[1]->getPart(0);
+        if (!empty($part)) {
+            $part->setContents('');
+        }
         $this->_object[1]->alterPart($mime_id, $new_part);
         $this->_object[1]->buildMimeIds();
     }
 
     public function store()
     {
-        return $this->_driver->appendMessage(
+        $result = $this->_driver->appendMessage(
             $this->_folder,
             $this->_object[1]->toString(
                 array(
@@ -65,5 +68,11 @@ class Horde_Kolab_Storage_Data_Modifiable
                 )
             )
         );
+        if (is_object($result) || $result === false || $result === null) {
+            throw new Horde_Kolab_Storage_Exception(
+                'Unexpected return value when modifying an object!'
+            );
+        }
+        return $result;
     }
 }
