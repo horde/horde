@@ -91,11 +91,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
             }
         }
 
-        $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
-        $facebook->auth->setUser($this->_fb_session['uid'],
-                                        $this->_fb_session['sid'],
-                                        0);
-       return $facebook;
-
+       return $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
     }
+
 }

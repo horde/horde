@@ -81,6 +81,9 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
             case 'Turba_Driver_Kolab':
                 $srcConfig['params']['storage'] = $this->_injector->getInstance('Horde_Kolab_Storage');
                 break;
+            case 'Turba_Driver_Facebook':
+                $srcConfig['params']['storage'] = $this->_injector->getInstance('Horde_Service_Facebook');
+                break;
             }
 
             $driver = new $class($srcName, $srcConfig['params']);

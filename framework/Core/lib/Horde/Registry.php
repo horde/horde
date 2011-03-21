@@ -322,6 +322,7 @@ class Horde_Registry
             'Horde_Perms' => 'Horde_Core_Factory_Perms',
             'Horde_Routes_Mapper' => 'Horde_Core_Factory_Mapper',
             'Horde_Secret' => 'Horde_Core_Factory_Secret',
+            'Horde_Service_Facebook' => 'Horde_Core_Factory_Facebook',
             'Horde_Service_Twitter' => 'Horde_Core_Factory_Twitter',
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',

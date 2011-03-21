@@ -22,14 +22,13 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
      *
      * @param Horde_Service_Facebook $facebook
      * @param string                 $method
-     * @param Horde_Http_Client      $http_client
      * @param string                 $file
      * @param array                  $params
      */
-    public function __construct($facebook, $method, $http_client, $file,
-                                $params = array())
+    public function __construct(Horde_Service_Facebook $facebook, $method,
+                                $file, array $params = array())
     {
-        parent::__construct($facebook, $method, $http_client, $params);
+        parent::__construct($facebook, $method, $params);
         $this->_filename = $file;
     }
 

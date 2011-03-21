@@ -31,15 +31,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
             $this->enabled = false;
             return;
         }
-
-        /* Authenticate the client */
-        $this->_fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
-        if (!empty($this->_fbp['sid'])) {
-            $this->_facebook->auth->setUser($this->_fbp['uid'], $this->_fbp['sid'], 0);
-        }
-
         parent::__construct($app, $params);
-
         $this->_name = _("My Facebook Stream");
     }
 
@@ -103,16 +95,15 @@ class Horde_Block_FbStream extends Horde_Core_Block
         $endpoint = Horde::url('services/facebook.php', true);
         $html = '';
 
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
-
         /* Init facebook driver, exit early if no prefs exist */
         $facebook = $this->_facebook;
-        $fbp = $this->_fbp;
-        if (empty($fbp['sid'])) {
+        if (!($facebook->auth->getSessionKey())) {
             return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
         }
+        $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
 
         /* Add the client javascript / initialize it */
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
         Horde::addScriptFile('facebookclient.js');
         $script = <<<EOT
             var Horde = window.Horde || {};
@@ -148,6 +139,7 @@ EOT;
 
             return $html;
         }
+
         $status = array_pop($status);
         if (empty($status['status']['message'])) {
             $status['status']['message'] = _("What's on your mind?");

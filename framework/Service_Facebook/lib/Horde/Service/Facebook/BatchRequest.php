@@ -30,15 +30,13 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
     const BATCH_MODE_SERIAL_ONLY = 2;
 
     /**
+     * Constructor
+     *
      * @param Horde_Service_Facebook $facebook
-     * @param Horde_Http_Client      $http_client
-     * @param array                  $params
      */
-    public function __construct($facebook, $http_client, $params = array())
+    public function __construct(Horde_Service_Facebook $facebook)
     {
-        $this->_http = $http_client;
-        $this->_facebook = $facebook;
-
+        parent::__construct($facebook);
         if (!empty($params['batch_mode'])) {
             $this->_batchMode = $params['batch_mode'];
         } else {
@@ -49,14 +47,15 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
     /**
      * Add a method call to the queue
      *
-     * @param  $method
-     * @param  $params
-     * @return unknown_type  Returns a reference to the results that will be
+     * @param string $method  The API method to call.
+     * @param  array $params  The API method parameters.
+     *
+     * @return mixed  Returns a reference to the results that will be
      *                       produced when the batch is run. This reference
      *                       should be saved until after the batch is run and
      *                       the results can be examined.
      */
-    public function &add($method, $params)
+    public function &add($method, array $params)
     {
         $result = null;
         $batch_item = array('m' => $method, 'p' => $params, 'r' => &$result);
@@ -74,9 +73,9 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
         $item_count = count($this->_queue);
         $method_feed = array();
         foreach ($this->_queue as $batch_item) {
-            $method = $batch_item['m'];
             $params = $batch_item['p'];
-            $this->_finalizeParams($method, $params);
+            $params['method'] = $batch_item['m'];
+            $this->_finalizeParams($params);
             $method_feed[] = $this->_createPostString($params);
         }
         $method_feed_json = json_encode($method_feed);

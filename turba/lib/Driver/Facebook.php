@@ -28,6 +28,19 @@ class Turba_Driver_Facebook extends Turba_Driver
     private $_facebook;
 
     /**
+     * Constructor
+     *
+     * @param string $name
+     * @param array $params
+     */
+    public function __construct($name = '', array $params = array())
+    {
+        parent::__construct($name, $params);
+        $this->_facebook = $params['storage'];
+        unset($params['storage']);
+    }
+
+    /**
      * Checks if the current user has the requested permissions on this
      * source.
      *
@@ -48,7 +61,7 @@ class Turba_Driver_Facebook extends Turba_Driver
      }
 
     /**
-     * Searches the favourites list with the given criteria and returns a
+     * Searches with the given criteria and returns a
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
      *
@@ -123,12 +136,10 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _getEntry(array $keys, array $fields)
     {
-        $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         $fields = implode(', ', $fields);
         $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN (' . implode(', ', $keys) . ')';
-
         try {
-            return $facebook->fql->run($fql);
+            return $this->_facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Turba_Exception($e);
@@ -140,17 +151,15 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _getAddressBook(array $fields = array())
     {
-        $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         $fields = implode(', ', $fields);
-        // For now, just try a fql query with name and email.
-        $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN ('
-            . 'SELECT uid2 FROM friend WHERE uid1=' . $facebook->auth->getUser() . ')';
-
         try {
-            $results = $facebook->fql->run($fql);
+            $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN ('
+                . 'SELECT uid2 FROM friend WHERE uid1=' . $this->_facebook->auth->getLoggedInUser() . ')';
+            $results = $this->_facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            return array();
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+            throw new Turba_Exception($e);
         }
 
         $addressbook = array();

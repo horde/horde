@@ -28,7 +28,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
+ *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
@@ -54,13 +54,6 @@ class Horde_Service_Facebook
      * @var boolean
      */
     public $useSslResources = false;
-
-    /**
-     * The application's API Key
-     *
-     * @var string
-     */
-    protected $_apiKey;
 
     /**
      * The API Secret Key
@@ -90,30 +83,11 @@ class Horde_Service_Facebook
     protected $_http;
 
     /**
-     *
-     * @var Horde_Controller_Request_Http
-     */
-    protected $_request;
-
-    /**
-     *
-     * @var array
-     */
-    protected $_context;
-
-    /**
      * Return format
      *
      * @var Horde_Service_Facebook::DATA_FORMAT_* constant
      */
     public $dataFormat = self::DATA_FORMAT_ARRAY;
-
-    /**
-     * Data format used internally if DATA_FORMAT_OBJECT is specified.
-     * ('json' or 'xml'). Needed to overcome some current bugs in Facebook's
-     * JSON implementation.
-     */
-    protected $_internalFormat = self::DATA_FORMAT_JSON;
 
     /**
      * Cache for the various objects we lazy load in __get()
@@ -124,7 +98,8 @@ class Horde_Service_Facebook
 
 
     const API_VALIDATION_ERROR = 1;
-    const REST_SERVER_ADDR = 'http://api.facebook.com/restserver.php';
+    const REST_SERVER_ADDR = 'https://api.facebook.com/method/';
+    const GRAPH_SERVER_ADDR = 'https://graph.facebook.com';
 
     /**
      * Data format returned to client code.
@@ -136,35 +111,22 @@ class Horde_Service_Facebook
     /**
      * Const'r
      *
-     * @param string $api_key  Developer API key.
+     * @param string $appId    Application ID.
      * @param string $secret   Developer API secret.
      * @param array $context   Array of context information containing:
      *  <pre>
      *      http_client - required
-     *      http_response - required
      *      logger
-     *      no_resolve - set to true to prevent attempting to obtain a session
-     *                   from an auth_token. Useful if client code wants to
-     *                   handle this.
+     *      use_ssl
      * </pre>
      */
-    public function __construct($api_key, $secret, $context)
+    public function __construct($appId, $secret, $context)
     {
         // We require a http client object.
         if (empty($context['http_client'])) {
             throw new InvalidArgumentException('A http client object is required');
         } else {
             $this->_http = $context['http_client'];
-        }
-
-        // Required Horde_Controller_Request object, but we can also get it
-        // if we have a Horde_Controller object.
-        if (empty($context['http_request']) && empty($context['controller'])) {
-            throw new InvalidArgumentException('A http request object is required');
-        } elseif (!empty($context['http_request'])) {
-            $this->_request = $context['http_request'];
-        } else {
-            $this->_request = $context['controller']->request;
         }
 
         // Optional Horde_Log_Logger
@@ -174,15 +136,12 @@ class Horde_Service_Facebook
 
         $this->_logDebug('Initializing Horde_Service_Facebook');
 
-        $this->_apiKey = $api_key;
+        $this->_appId = $appId;
         $this->secret = $secret;
 
         if (!empty($context['use_ssl'])) {
             $this->useSslResources = true;
         }
-
-        // Save the rest
-        $this->_context = $context;
     }
 
     /**
@@ -190,37 +149,40 @@ class Horde_Service_Facebook
      *
      * @param string $value  The lowercase representation of the subclass.
      *
+     * @return mixed
      * @throws Horde_Service_Facebook_Exception
-     * @return Horde_Service_Facebook_* object.
      */
     public function __get($value)
     {
         // First, see if it's an allowed protected value.
         switch ($value) {
         case 'internalFormat':
-            return $this->_internalFormat;
-        case 'apiKey':
-            return $this->_apiKey;
+            return self::DATA_FORMAT_JSON;
+        case 'appId':
+            return $this->_appId;
         case 'secret':
             return $this->_secret;
+        case 'http':
+            return $this->_http;
         }
 
         // If not, assume it's a method/action class...
         $class = 'Horde_Service_Facebook_' . ucfirst($value);
-        if (!empty($this->_objCache[$class])) {
-            return $this->_objCache[$class];
-        }
-
         if (!class_exists($class)) {
             throw new Horde_Service_Facebook_Exception(sprintf("%s class not found", $class));
         }
 
-        $this->_objCache[$class] = new $class($this, $this->_request);
+        if (empty($this->_objCache[$class])) {
+            $this->_objCache[$class] = new $class($this);
+        }
+
         return $this->_objCache[$class];
     }
 
     /**
      * Helper function to get the appropriate facebook url
+     *
+     * @param string $subdomain  The subdomain to use (www).
      *
      * @return string
      */
@@ -240,7 +202,7 @@ class Horde_Service_Facebook
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
-        $this->_batchRequest = new Horde_Service_Facebook_BatchRequest($this, $this->_http);
+        $this->_batchRequest = new Horde_Service_Facebook_BatchRequest($this);
     }
 
     /**
@@ -259,23 +221,6 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Setter for the internal data format. Returns the previously used
-     * format to make it easier for methods that need a certain format to
-     * reset the old format when done.
-     *
-     * @param Horde_Service_Facebook::DATA_FORMAT_* constant $format
-     *
-     * @return Horde_Service_Facebook::DATA_FORMAT_* constant
-     */
-    public function setInternalFormat($format)
-    {
-        $old = $this->_internalFormat;
-        $this->_internalFormat = $format;
-
-        return $old;
-    }
-
-    /**
      * Calls the specified normal POST method with the specified parameters.
      *
      * @param string $method  Name of the Facebook method to invoke
@@ -285,10 +230,10 @@ class Horde_Service_Facebook
      *                'delayed returns' when in a batch context.
      *     See: http://wiki.developers.facebook.com/index.php/Using_batching_API
      */
-    public function &callMethod($method, $params = array())
+    public function &callMethod($method, array $params = array())
     {
         if ($this->_batchRequest === null) {
-            $request = new Horde_Service_Facebook_Request($this, $method, $this->_http, $params);
+            $request = new Horde_Service_Facebook_Request($this, $method, $params);
             $results = &$request->run();
         } else {
             $results = &$this->_batchRequest->add($method, $params);
@@ -319,7 +264,7 @@ class Horde_Service_Facebook
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
-        $request = new Horde_Service_Facebook_UploadRequest($this, $method, $this->_http, $file, $params);
+        $request = new Horde_Service_Facebook_UploadRequest($this, $method, $file, $params);
         $result = $request->run();
         $result = json_decode($result, true);
         if (is_array($result) && isset($result['error_code'])) {

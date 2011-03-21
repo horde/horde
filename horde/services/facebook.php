@@ -1,6 +1,6 @@
 <?php
 /**
- * Callback page for Facebook integration, that doubles as a Prefs page as well.
+ * Endpoint for Facebook integration.
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
@@ -19,33 +19,33 @@ try {
     Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
-/* See why we are here. */
-if ($token = Horde_Util::getFormData('auth_token')) {
-    /* Is this an authentication sequence? */
-    // Assume we are here for a successful authentication if we have a
-    // auth_token. It *must* be allowed to be in GET since that's how FB
-    // sends it. This is the *only* time we will be able to capture these values.
+/* See why we are here. A $code indicates the user has *just* authenticated the
+ * application and we now need to obtain the auth_token.*/
+if ($code = Horde_Util::getFormData('code')) {
     try {
-        $haveSession = $facebook->auth->validateSession(true, true);
+        $sessionKey = $facebook->auth->getSessionKey($code, Horde::url('services/facebook.php', true));
     } catch (Horde_Service_Facebook_Exception $e) {
-        $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
+        $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.error');
     }
-    if ($haveSession) {
+    if ($sessionKey) {
         // Remember in user prefs
-        $sid =  $facebook->auth->getSessionKey();
-        $uid = $facebook->auth->getUser();
+        $sid =  $sessionKey;
+        $uid = $facebook->auth->getLoggedInUser();
         $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => $sid)));
-        $notification->push(_("Succesfully connected your Facebook account."), 'horde.success');
+        $notification->push(_("Succesfully connected your Facebook account or updated permissions."), 'horde.success');
         Horde::url('services/prefs.php', true)->add(array('group' => 'facebook', 'app' => 'horde'))->redirect();
     }
-} else {
-
-    /* We are here for an Action request */
-    $action = Horde_Util::getPost('actionID');
+} elseif ($error = Horde_Util::getFormData('error')) {
+    if (Horde_Util::getFormData('error_reason') == 'user_denied') {
+        $notification->push(_("You have denied the requested permissions."), 'horde.warning');
+    } else {
+        $notification->push(_("There was an error with the requested permissions"), 'horde.error');
+    }
+    Horde::url('services/prefs.php')->add(array('group' => 'facebook', 'app' => 'horde'))->redirect();
+    exit;
+} elseif ($action = Horde_Util::getPost('actionID')) {
     switch ($action) {
     case 'getStream':
-        $fbp = unserialize($prefs->getValue('facebook'));
-        $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
         try {
             $count = Horde_Util::getPost('count');
             $filter = Horde_Util::getPost('filter');
@@ -130,12 +130,6 @@ if ($token = Horde_Util::getFormData('auth_token')) {
         echo Horde_Serialize::serialize($result, Horde_Serialize::JSON);
         exit;
     case 'updateStatus':
-        // Set the user's status
-        $fbp = unserialize($prefs->getValue('facebook'));
-        if (!$fbp) {
-            // Something wrong
-        }
-        $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
         // This is an AJAX action, so just echo the result and return.
         $status = Horde_Util::getPost('statusText');
         if ($facebook->users->setStatus($status)) {
@@ -143,15 +137,8 @@ if ($token = Horde_Util::getFormData('auth_token')) {
         } else {
             echo _("Status unable to be set.");
         }
-
         exit;
     case 'addLike':
-        // Add a "like"
-        $fbp = unserialize($prefs->getValue('facebook'));
-        if (!$fbp) {
-            //??
-        }
-        $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
         $id = Horde_Util::getPost('post_id');
         if ($facebook->streams->addLike($id)) {
             $fql = 'SELECT post_id, likes FROM stream WHERE post_id="' . $id . '"';
@@ -175,49 +162,6 @@ if ($token = Horde_Util::getFormData('auth_token')) {
             echo _("Unable to set like.");
         }
         exit;
-    }
-}
-
-// No $uid here means we don't have any stored session information. We purposely
-// don't rely on anything in cookies at this point since there's no way of
-// knowing for sure that any valid Facebook cookie would be for the user we
-// want to attach to this Horde account.
-if (empty($uid)) {
-    $fbp = unserialize($prefs->getValue('facebook'));
-    $uid = !empty($fbp['uid']) ? $fbp['uid'] : 0;
-    $sid = !empty($fbp['sid']) ? $fbp['sid'] : 0;
-}
-
-// OK, we have a uid either from prefs or a new authorize app request.
-// Let's go the extra mile and make 100% sure the user has authorized the
-// Horde application. (This might fail, for instance, if the user had auth'd it
-// in the past (so we have a uid), but decided to revoke the auth.
-if (!empty($uid)) {
-    try {
-        $have_app = $facebook->users->isAppUser($uid);
-    } catch (Horde_Service_Facebook_Exception $e) {
-        $error = $e->getMessage();
-    }
-}
-
-// At this point, we know if we have a user that has authorized the application,
-// Check to be sure that if we have a session_key, that it is still good.
-if (!empty($have_app) && !empty($sid)) {
-    $facebook->auth->setUser($uid, $sid, 0);
-    try {
-        // Get the userid associated with this session. Will throw an exception
-        // if the session is invalid (which we catch below).
-        $session_uid = $facebook->auth->getLoggedInUser();
-        if ($uid != $session_uid) {
-            // This should never happen.
-            $haveSession = false;
-        } else {
-            $haveSession = true;
-        }
-    } catch (Horde_Service_Facebook_Exception $e) {
-        // Something wrong with the session.
-        $haveSession = false;
-        $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => 0)));
     }
 }
 
