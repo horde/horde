@@ -29,6 +29,7 @@ class Horde_Prefs_Ui
         }
 
         if (empty($conf['facebook']['enabled']) ||
+            empty($conf['facebook']['id']) ||
             empty($conf['facebook']['key']) ||
             empty($conf['facebook']['secret'])) {
             $ui->suppressGroups[] = 'facebook';
