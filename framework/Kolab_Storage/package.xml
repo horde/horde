@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Throw an exception on a duplicate UID within one folder.
 * First release candidate for Horde 4.
  </notes>
  <contents>
@@ -951,6 +952,7 @@
    <date>2011-03-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Throw an exception on a duplicate UID within one folder.
 * First release candidate for Horde 4.
    </notes>
   </release>
